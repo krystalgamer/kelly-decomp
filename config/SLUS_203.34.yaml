@@ -1,0 +1,74 @@
+name: Kelly Slater's Pro Surfer (NTSC-U)
+sha1: f38eaf55ee47eec1bd8ec25b0e2390d9bf2d4832
+
+options:
+  basename: SLUS_203.34
+  target_path: SLUS_203.34.rom
+  elf_path: build/SLUS_203.34.elf
+  base_path: ..
+  platform: ps2
+  compiler: EEGCC
+
+  asm_path: asm
+  src_path: src
+  build_path: build
+
+  gp_value: 0x00519EF0
+  ld_gp_expression: cod_SDATA_START + 0x7FF0
+
+  ld_script_path: SLUS_203.34.ld
+  ld_dependencies: true
+  ld_wildcard_sections: true
+  ld_bss_contains_common: true
+
+  create_asm_dependencies: true
+  make_full_disasm_for_code: true
+  find_file_boundaries: false
+  named_regs_for_c_funcs: false
+  subalign: null
+
+  symbol_addrs_path:
+    - config/SLUS_203.34.symbol_addrs.txt
+  undefined_funcs_auto_path: build/undefined_funcs_auto.txt
+  undefined_syms_auto_path: build/undefined_syms_auto.txt
+
+  string_encoding: ASCII
+  data_string_encoding: ASCII
+  rodata_string_guesser_level: 2
+  data_string_guesser_level: 2
+
+  section_order:
+    - .text
+    - .data
+    - .rodata
+    - .gcc_except_table
+    - .sdata
+    - .sbss
+    - .bss
+
+  auto_link_sections:
+    - .data
+    - .rodata
+    - .gcc_except_table
+    - .sdata
+    - .sbss
+    - .bss
+
+segments:
+  - name: cod
+    type: code
+    start: 0x000000
+    vram: 0x00100000
+    bss_size: 0x270650
+    subalign: null
+    subsegments:
+      - [0x000000, asm, cod/000000]
+      - [0x2E1690, textbin, cod/2E1690]
+      - [0x2E5580, data, cod/2E5580]
+      - [0x3B7118, data, cod/3B7118]
+      - [0x3B7180, rodata, cod/3B7180]
+      - [0x411E00, gcc_except_table, cod/411E00]
+      - [0x411F00, sdata, cod/411F00]
+      - { type: sbss, vram: 0x00511F80, name: cod/00511F80 }
+      - { type: bss, vram: 0x00512280, name: cod/00512280 }
+  - [0x411F04]

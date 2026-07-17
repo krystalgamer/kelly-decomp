@@ -1,0 +1,2 @@
+ninja_syntax==1.7.2
+splat64==0.41.0

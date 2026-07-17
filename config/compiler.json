@@ -1,0 +1,24 @@
+{
+  "common_flags": [
+    "-O2",
+    "-G0",
+    "-mvu0-use-vf0-vf31",
+    "-fno-common",
+    "-fno-strict-aliasing"
+  ],
+  "cxx_flags": [
+    "-fno-exceptions",
+    "-fno-rtti"
+  ],
+  "defines": [
+    "BUILD_FINAL",
+    "SN_TARGET_PS2",
+    "__PS2_EE__",
+    "ARCH_ENGINE",
+    "PROJECT_PS2",
+    "PS2"
+  ],
+  "include_paths": [
+    "include"
+  ]
+}

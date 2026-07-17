@@ -485,6 +485,7 @@ def format_symbol_file(symbols: list[SymbolInfo]) -> str:
         Elf32SymbolTableType.OBJECT.value: 1,
         Elf32SymbolTableType.NOTYPE.value: 2,
     }
+    address_counts = Counter(symbol.address for symbol in symbols)
     for symbol in sorted(
         symbols,
         key=lambda item: (
@@ -498,6 +499,15 @@ def format_symbol_file(symbols: list[SymbolInfo]) -> str:
             attributes.append("type:func")
         if symbol.size:
             attributes.append(f"size:0x{symbol.size:X}")
+        if address_counts[symbol.address] > 1:
+            attributes.append("allow_duplicated:true")
+        if len(symbol.emitted_name) > 200:
+            prefix = (
+                "func"
+                if symbol.symbol_type == Elf32SymbolTableType.FUNC.value
+                else "sym"
+            )
+            attributes.append(f"filename:{prefix}_{symbol.address:08X}")
         comment = f" // {' '.join(attributes)}" if attributes else ""
         lines.append(
             f"{symbol.emitted_name} = 0x{symbol.address:08X};{comment}"
