@@ -1,0 +1,31 @@
+# Local reference/input trees
+kelly-slaters-pro-surfer/
+env/
+tools/toolchain/
+
+# User-provided target files
+SLUS_203.34
+SLUS_203.34.rom
+
+# Generated Splat/build output
+.ninja_deps
+.ninja_log
+.splache
+__pycache__/
+asm/
+assets/
+build/
+expected/
+build.ninja
+compile_commands.json
+permuter_settings.toml
+SLUS_203.34.d
+SLUS_203.34.ld
+linker_script_extra.ld
+symbol_addrs.txt
+undefined_funcs_auto.txt
+undefined_syms_auto.txt
+
+# Function-matching scratch space
+tmp/*
+!tmp/.gitignore
