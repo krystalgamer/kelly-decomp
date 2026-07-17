@@ -1,0 +1,20 @@
+{
+  "classification_counts": {
+    "eligible": 7905,
+    "excluded_handwritten": 68,
+    "excluded_sdk_runtime": 1082,
+    "excluded_third_party": 21,
+    "excluded_unmapped": 2
+  },
+  "elf": "SLUS_203.34",
+  "elf_function_count": 9078,
+  "elf_sha1": "59b44bf075d88538623082d14275cc4fd4e999cf",
+  "entrypoint": "0x00100008",
+  "mapping_counts": {
+    "exact": 9076,
+    "unmapped": 2
+  },
+  "mdebug_file_count": 1624,
+  "mdebug_magic": "0x7009",
+  "mdebug_procedure_count": 11897
+}
