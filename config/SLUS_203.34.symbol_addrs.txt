@@ -414,7 +414,7 @@ get_value__Ct8key_anim3Z10quaternionZt10linear_key1Z10quaternionZt12linear_track
 frame_advance__t8key_anim3Z10quaternionZt10linear_key1Z10quaternionZt12linear_track1Z10quaternionRC14anim_control_tP10quaternion = 0x001217A8; // type:func size:0x1C4
 get_value__Ct8key_anim3Z10quaternionZt10linear_key1Z10quaternionZt12linear_track1Z10quaternionfP10quaternion = 0x00121970; // type:func size:0xFC
 frame_advance__t4anim1ZP6entityRC14anim_control_tPP6entity = 0x00121A70; // type:func defined:true size:0x8
-get_value__Ct4anim1ZP6entityRC14anim_control_tPP6entity = 0x00121A78; // type:func size:0x8
+get_value__Ct4anim1ZP6entityRC14anim_control_tPP6entity = 0x00121A78; // type:func defined:true size:0x8
 get_value__Ct4anim1ZP6entityfPP6entity = 0x00121A80; // type:func size:0x8
 get_value__Ct4anim1Z10signal_keyRC14anim_control_tP10signal_key = 0x00121A88; // type:func size:0x8
 get_value__Ct4anim1Z10signal_keyfP10signal_key = 0x00121A90; // type:func size:0x8
