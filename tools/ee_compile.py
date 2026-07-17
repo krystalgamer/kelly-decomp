@@ -71,6 +71,17 @@ def main() -> int:
     )
 
     subprocess.run(command, cwd=ROOT, check=True, env=environment)
+    if not args.assembly:
+        subprocess.run(
+            [
+                "mips-linux-gnu-strip",
+                str(args.output),
+                "-N",
+                "dummy-symbol-name",
+            ],
+            cwd=ROOT,
+            check=True,
+        )
     return 0
 
 

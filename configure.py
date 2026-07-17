@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parent
 CONFIG_PATH = ROOT / "config" / "SLUS_203.34.yaml"
 LINKER_SCRIPT = ROOT / "SLUS_203.34.ld"
 BUILD_DIR = ROOT / "build"
+GENERATED_CONFIG_PATH = BUILD_DIR / "SLUS_203.34.generated.yaml"
 BUILD_ELF = BUILD_DIR / "SLUS_203.34.elf"
 BUILD_ROM = BUILD_DIR / "SLUS_203.34.rom"
 BUILD_MAP = BUILD_DIR / "SLUS_203.34.map"
@@ -54,8 +55,9 @@ def patch_linker_script() -> None:
 
 
 def generate_ninja() -> None:
+    run_checked("./env/bin/python", "tools/generate_splat_config.py")
     split.main(
-        [CONFIG_PATH],
+        [GENERATED_CONFIG_PATH],
         modes="all",
         verbose=False,
     )
