@@ -1,0 +1,27 @@
+# Cross-function learnings
+
+## Toolchain
+
+- The supplied Windows EE GCC, assembler, and linker run under Wine.
+- GCC finds its bundled `2.9-ee-991111` programs relative to
+  `tools/toolchain/bin/ee-gcc.exe`.
+- Old GCC C++ mangling matches the ELF names directly.
+- `-O2 -G0 -mvu0-use-vf0-vf31` with exceptions and RTTI disabled produces
+  the target instruction shape for the first trivial virtual methods.
+
+## ELF/debug information
+
+- `.mdebug` retains original unity-unit, included source, header, and
+  procedure records.
+- ELF `STT_FUNC` entries are the actual function queue. Extra `.mdebug`
+  procedures can represent inlined ranges and must not be treated as
+  standalone functions.
+- The target BSS extends through `0x00782554`; the initial quickstart
+  `bss_size` stopped `0xB0` bytes early.
+
+## Build layout
+
+- Generated data/rodata assembly files already include target padding to the
+  next subsegment.
+- GNU ld must use `SUBALIGN(1)` and must not add final section alignment, or
+  relocations and the ROM size drift.

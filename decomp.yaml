@@ -1,0 +1,14 @@
+name: Kelly Slater's Pro Surfer
+platform: ps2
+versions:
+  - name: us
+    fullname: NTSC-U
+    sha1: f38eaf55ee47eec1bd8ec25b0e2390d9bf2d4832
+    paths:
+      target: SLUS_203.34.rom
+      build_dir: build
+      map: build/SLUS_203.34.map
+      compiled_target: build/SLUS_203.34.rom
+      elf: build/SLUS_203.34.elf
+      asm: asm
+      nonmatchings: asm/nonmatchings
