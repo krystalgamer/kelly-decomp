@@ -78,8 +78,8 @@ def parse_function(
 ) -> tuple[str, str | None, list[str], list[str]]:
     if row["size_bytes"] != "8":
         raise RuntimeError(f"Next function is not 8 bytes: {row['raw_name']}")
-    if not row["reference_file"].startswith("KS/SRC/"):
-        raise RuntimeError(f"Next function is not project code: {row['raw_name']}")
+    if row["classification"] != "eligible":
+        raise RuntimeError(f"Next function is not eligible: {row['raw_name']}")
 
     raw_name = row["raw_name"]
     global_match = re.fullmatch(r"(.+)__F(.*)", raw_name)
