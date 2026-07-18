@@ -37,7 +37,7 @@ def next_pending(rows: list[dict[str, str]]) -> dict[str, str]:
     raise RuntimeError("No pending functions remain")
 
 
-def process_entry(entry: dict[str, str], dry_run: bool) -> None:
+def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
     rows = queue_rows()
     by_address = {row["address"].lower(): row for row in rows}
     address = entry["address"].lower()
@@ -49,7 +49,7 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> None:
             f"skip {row['address']} {row['raw_name']} ({row['status']})",
             flush=True,
         )
-        return
+        return False
 
     pending = next_pending(rows)
     if pending["address"].lower() != address:
@@ -60,7 +60,7 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> None:
         )
     print(f"{row['address']} {row['raw_name']}", flush=True)
     if dry_run:
-        return
+        return True
     if run("git", "status", "--porcelain").strip():
         raise RuntimeError("Working tree is not clean")
 
@@ -131,6 +131,7 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> None:
     )
     commit = run("git", "rev-parse", "--short", "HEAD").strip()
     print(f"committed {commit}", flush=True)
+    return True
 
 
 def main() -> int:
@@ -142,15 +143,26 @@ def main() -> int:
         type=Path,
         help="JSON array of reviewed candidates, normally under tmp/.",
     )
+    parser.add_argument(
+        "--count",
+        type=int,
+        help="Stop after this many pending manifest entries.",
+    )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
+    if args.count is not None and args.count < 1:
+        raise RuntimeError("--count must be positive")
 
     entries = json.loads(args.manifest.read_text(encoding="utf-8"))
     if not isinstance(entries, list):
         raise RuntimeError("Manifest root must be a JSON array")
+    processed = 0
     for entry in entries:
-        process_entry(entry, args.dry_run)
+        if process_entry(entry, args.dry_run):
+            processed += 1
         if args.dry_run:
+            break
+        if args.count is not None and processed >= args.count:
             break
     return 0
 
