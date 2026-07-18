@@ -380,7 +380,7 @@ address,size_bytes,size_hex,symbol_name,raw_name,binding,source_file,reference_f
 0x002B7B88,8,0x8,is_a_beam__C4beam,is_a_beam__C4beam,global,C:/KS/SRC/beam.h,KS/SRC/beam.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,matched,1,100,SELF,notes/functions/002B7B88_is_a_beam__C4beam.md
 0x002B84D0,8,0x8,get_id__C11beam_effect,get_id__C11beam_effect,global,C:/KS/SRC/beam.h,KS/SRC/beam.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,matched,1,100,SELF,notes/functions/002B84D0_get_id__C11beam_effect.md
 0x002B84D8,8,0x8,set_id__11beam_effectUs,set_id__11beam_effectUs,global,C:/KS/SRC/beam.h,KS/SRC/beam.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,matched,1,100,SELF,notes/functions/002B84D8_set_id__11beam_effectUs.md
-0x002B85A0,8,0x8,is_an_item__C4item,is_an_item__C4item,global,item.h,KS/SRC/item.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,pending,0,,,notes/functions/002B85A0_is_an_item__C4item.md
+0x002B85A0,8,0x8,is_an_item__C4item,is_an_item__C4item,global,item.h,KS/SRC/item.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,matched,1,100,SELF,notes/functions/002B85A0_is_an_item__C4item.md
 0x002B85A8,8,0x8,get_count__C4item,get_count__C4item,global,item.h,KS/SRC/item.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,pending,0,,,notes/functions/002B85A8_get_count__C4item.md
 0x002B85D0,8,0x8,set_count__4itemi,set_count__4itemi,global,item.h,KS/SRC/item.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,pending,0,,,notes/functions/002B85D0_set_count__4itemi.md
 0x002B8608,8,0x8,get_number__C4item,get_number__C4item,global,item.h,KS/SRC/item.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,pending,0,,,notes/functions/002B8608_get_number__C4item.md
