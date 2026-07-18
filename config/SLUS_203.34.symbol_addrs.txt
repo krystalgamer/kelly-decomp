@@ -3788,7 +3788,7 @@ _M_insert_dispatch__H1Zt14_List_iterator3ZQ214ScoringManager6SeriesZRCQ214Scorin
 __as__t4list2ZQ214ScoringManager6SeriesZt12my_allocator1ZQ214ScoringManager6SeriesRCt4list2ZQ214ScoringManager6SeriesZt12my_allocator1ZQ214ScoringManager6Series = 0x00265360; // type:func size:0xF4
 __as__t4list2ZQ214ScoringManager5TrickZt12my_allocator1ZQ214ScoringManager5TrickRCt4list2ZQ214ScoringManager5TrickZt12my_allocator1ZQ214ScoringManager5Trick = 0x00265458; // type:func size:0xF4
 Resize__t5Table1Z8cbVectori = 0x00265550; // type:func defined:true size:0x8
-Resize__t5Table1Zii = 0x00265558; // type:func size:0x8
+Resize__t5Table1Zii = 0x00265558; // type:func defined:true size:0x8
 __vc__t5Table1Zii = 0x00265560; // type:func size:0xC
 __vc__t5Table1Z8cbVectori = 0x00265570; // type:func size:0xC
 Append__t5Table1Z8cbVectorRC8cbVector = 0x00265580; // type:func size:0x20
