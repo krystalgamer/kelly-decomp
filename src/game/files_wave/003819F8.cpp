@@ -1,0 +1,2 @@
+void KSNGL_ReInit() {
+}
