@@ -1,0 +1,2 @@
+void MENU_DrawEnd() {
+}
