@@ -9,6 +9,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from source_layout import install_function_source
+
 
 ROOT = Path(__file__).resolve().parents[1]
 QUEUE_PATH = ROOT / "notes" / "function_queue.csv"
@@ -206,21 +208,14 @@ def process_one(dry_run: bool) -> None:
         encoding="utf-8",
     )
 
-    source_path = (
-        ROOT
-        / "src"
-        / row["object_id"]
-        / f"{int(row['address'], 0):08X}.cpp"
-    )
-    source_path.parent.mkdir(parents=True, exist_ok=True)
-    source_path.write_text(
+    source_path = install_function_source(
+        row,
         source_text(
             function_name,
             class_name,
             parameters,
             forward_declarations,
         ),
-        encoding="utf-8",
     )
 
     run(str(ROOT / "env" / "bin" / "python"), "tools/elf_inventory.py")

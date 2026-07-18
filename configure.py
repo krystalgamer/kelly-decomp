@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import json
 import os
 import shutil
 import subprocess
@@ -18,6 +19,7 @@ GENERATED_CONFIG_PATH = BUILD_DIR / "SLUS_203.34.generated.yaml"
 BUILD_ELF = BUILD_DIR / "SLUS_203.34.elf"
 BUILD_ROM = BUILD_DIR / "SLUS_203.34.rom"
 BUILD_MAP = BUILD_DIR / "SLUS_203.34.map"
+SOURCE_MANIFEST = BUILD_DIR / "source_functions.json"
 
 
 def run_checked(*args: str) -> None:
@@ -56,6 +58,7 @@ def patch_linker_script() -> None:
 
 def generate_ninja() -> None:
     run_checked("./env/bin/python", "tools/generate_splat_config.py")
+    source_manifest = json.loads(SOURCE_MANIFEST.read_text(encoding="utf-8"))
     split.main(
         [GENERATED_CONFIG_PATH],
         modes="all",
@@ -140,7 +143,21 @@ def generate_ninja() -> None:
             else:
                 rule = "as"
 
-            ninja.build(object_path, rule, source_paths)
+            implicit: list[str] = []
+            if rule in ("cc", "cxx"):
+                for source_path in source_paths:
+                    address = Path(source_path).stem.upper()
+                    source = source_manifest.get(address)
+                    if source is not None:
+                        implicit.append(source["source"])
+                implicit.append("tools/ee_compile.py")
+
+            ninja.build(
+                object_path,
+                rule,
+                source_paths,
+                implicit=implicit or None,
+            )
             built_objects.append(object_path)
             seen_objects.add(object_path)
 

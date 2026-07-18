@@ -13,6 +13,8 @@ from collections import Counter, defaultdict
 from pathlib import Path, PurePosixPath
 from typing import Iterable, Optional
 
+from source_layout import discover_function_sources
+
 import spimdisasm
 from spimdisasm.elf32 import (
     Elf32File,
@@ -476,17 +478,7 @@ def collect_symbols(elf: Elf32File) -> list[SymbolInfo]:
 
 
 def source_function_addresses() -> set[int]:
-    source_root = ROOT / "src"
-    if not source_root.exists():
-        return set()
-
-    addresses: set[int] = set()
-    for path in source_root.rglob("*"):
-        if not path.is_file() or path.suffix.lower() not in (".c", ".cc", ".cpp", ".cxx"):
-            continue
-        if re.fullmatch(r"[0-9A-Fa-f]{8}", path.stem):
-            addresses.add(int(path.stem, 16))
-    return addresses
+    return set(discover_function_sources())
 
 
 def format_symbol_file(

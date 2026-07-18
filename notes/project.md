@@ -26,6 +26,10 @@ The main game was compiled as these unity translation units:
 
 NGL, NSL, and NVL were linked as separate engine libraries.
 
+Reconstructed source mirrors the recovered reference paths under `src/`.
+Address-selected blocks are compiled through generated one-function shims, so
+grouping source by original file does not change target object placement.
+
 The all-assembly reconstruction builds with native modern MIPS binutils.
 Input-section subalignment is forced to one byte because Splat's generated
 assembly already contains the target's inter-section padding.

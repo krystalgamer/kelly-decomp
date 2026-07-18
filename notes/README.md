@@ -32,5 +32,10 @@ No function may exceed five distinct candidates.
 6. Commit the source plus note, or the failed-function note alone.
 7. Continue immediately with the next queue row.
 
+Committed source mirrors the original reference tree below `src/`. Multiple
+matched functions from one original file live together in guarded blocks.
+Generated selector shims under `build/src_functions/` compile one block at a
+time, preserving the function-level linker layout and atomic workflow.
+
 The queue uses `SELF` in the `commit` column because a commit cannot contain
 its own hash. The containing commit is found with `git log -- <notes_file>`.

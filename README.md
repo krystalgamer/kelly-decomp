@@ -52,6 +52,11 @@ unmatched function receives a notes-only commit after the fifth attempt.
 All attempt artifacts belong under `tmp/`. Durable state belongs under
 `notes/`.
 
+Matched code is stored under `src/` using the original reference paths, such
+as `src/KS/SRC/ks/FEPanel.cpp`. Each function is guarded by an address selector;
+`configure.py` generates one-function shims under `build/src_functions/` so
+the matching build retains isolated function objects.
+
 ## Released source
 
 `kelly-slaters-pro-surfer/` is reference-only. Build scripts do not include
