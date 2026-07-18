@@ -4956,7 +4956,7 @@ find_intersection_with_camera_collision_entity__FRC8vector3dfT0PQ2t5graph4Z7stri
 in_world__FRC8vector3dfT0PQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeR8vector3db = 0x002E2368; // type:func size:0xA8
 frame_advance__17gravity_generatorf = 0x002E2410; // type:func size:0x1E8
 frame_advance__8launcherf = 0x002E25F8; // type:func size:0x12C
-frame_advance__5jointf = 0x002E2730; // type:func size:0x8
+frame_advance__5jointf = 0x002E2730; // type:func defined:true size:0x8
 frame_advance__12linear_jointf = 0x002E2740; // type:func size:0x9F8
 __21motion_control_system = 0x002E3138; // type:func size:0x20
 _$_21motion_control_system = 0x002E3158; // type:func size:0x30
