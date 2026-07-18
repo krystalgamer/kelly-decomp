@@ -38,21 +38,23 @@ def next_pending() -> dict[str, str]:
     raise RuntimeError("No pending functions remain")
 
 
-def parse_method(row: dict[str, str]) -> tuple[str, str]:
+def parse_method(row: dict[str, str]) -> tuple[str, str, str]:
     if row["size_bytes"] != "8":
         raise RuntimeError(f"Next function is not 8 bytes: {row['raw_name']}")
     if not row["reference_file"].startswith("KS/SRC/ks/"):
         raise RuntimeError(f"Next function is not front-end code: {row['raw_name']}")
 
     raw_name = row["raw_name"]
-    match = re.fullmatch(r"(.+)__(\d+)([A-Za-z_][A-Za-z0-9_]*)i", raw_name)
+    match = re.fullmatch(r"(.+)__(\d+)([A-Za-z_][A-Za-z0-9_]*)", raw_name)
     if match is None:
-        raise RuntimeError(f"Unsupported one-int method mangling: {raw_name}")
-    method, length_text, class_name = match.groups()
-    if int(length_text) != len(class_name):
+        raise RuntimeError(f"Unsupported empty method mangling: {raw_name}")
+    method, length_text, encoded_tail = match.groups()
+    class_length = int(length_text)
+    class_name = encoded_tail[:class_length]
+    suffix = encoded_tail[class_length:]
+    if len(class_name) != class_length or suffix not in ("", "i"):
         raise RuntimeError(f"Class length mismatch in symbol: {raw_name}")
-    if not method.startswith("On") and method != "Select":
-        raise RuntimeError(f"Unsupported empty hook name: {raw_name}")
+    parameter = "int" if suffix == "i" else ""
 
     address = int(row["address"], 0)
     offset = address - TEXT_VRAM
@@ -62,16 +64,17 @@ def parse_method(row: dict[str, str]) -> tuple[str, str]:
     )
     if (first, second) != (JR_RA, NOP):
         raise RuntimeError(f"Target method is not a no-op: {raw_name}")
-    return method, class_name
+    return method, class_name, parameter
 
 
-def source_text(method: str, class_name: str) -> str:
+def source_text(method: str, class_name: str, parameter: str) -> str:
+    declaration = "int controller" if parameter == "int" else ""
     return (
         f"class {class_name} {{\n"
         "public:\n"
-        f"    void {method}(int controller);\n"
+        f"    void {method}({declaration});\n"
         "};\n\n"
-        f"void {class_name}::{method}(int controller) {{\n"
+        f"void {class_name}::{method}({declaration}) {{\n"
         "}\n"
     )
 
@@ -81,8 +84,9 @@ def process_one(dry_run: bool) -> None:
         raise RuntimeError("Working tree is not clean")
 
     row = next_pending()
-    method, class_name = parse_method(row)
-    print(f"{row['address']} {class_name}::{method}(int)")
+    method, class_name, parameter = parse_method(row)
+    display_parameter = parameter
+    print(f"{row['address']} {class_name}::{method}({display_parameter})")
     if dry_run:
         return
 
@@ -99,7 +103,10 @@ def process_one(dry_run: bool) -> None:
         / Path(row["notes_file"]).stem
     )
     candidate = scratch / "candidate.cpp"
-    candidate.write_text(source_text(method, class_name), encoding="utf-8")
+    candidate.write_text(
+        source_text(method, class_name, parameter),
+        encoding="utf-8",
+    )
     run(
         str(ROOT / "env" / "bin" / "python"),
         "tools/function_test.py",
@@ -126,7 +133,10 @@ def process_one(dry_run: bool) -> None:
         / f"{int(row['address'], 0):08X}.cpp"
     )
     source_path.parent.mkdir(parents=True, exist_ok=True)
-    source_path.write_text(source_text(method, class_name), encoding="utf-8")
+    source_path.write_text(
+        source_text(method, class_name, parameter),
+        encoding="utf-8",
+    )
 
     run(str(ROOT / "env" / "bin" / "python"), "tools/elf_inventory.py")
     run(str(ROOT / "env" / "bin" / "python"), "configure.py")
@@ -141,7 +151,7 @@ def process_one(dry_run: bool) -> None:
         "--summary",
         (
             f"The target and released configuration reduce "
-            f"{class_name}::{method}(int) to an empty hook. "
+            f"{class_name}::{method}({display_parameter}) to an empty hook. "
             "The first candidate matched exactly and preserved the "
             "byte-identical integrated ROM."
         ),
@@ -172,7 +182,7 @@ def process_one(dry_run: bool) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Match one or more empty one-int front-end methods."
+        description="Match one or more empty zero-argument or one-int methods."
     )
     parser.add_argument("--count", type=int, default=1)
     parser.add_argument("--dry-run", action="store_true")
