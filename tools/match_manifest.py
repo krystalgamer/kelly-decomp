@@ -45,7 +45,10 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> None:
         raise RuntimeError(f"Manifest address is not in the queue: {address}")
     row = by_address[address]
     if row["status"] != "pending":
-        print(f"skip {row['address']} {row['raw_name']} ({row['status']})")
+        print(
+            f"skip {row['address']} {row['raw_name']} ({row['status']})",
+            flush=True,
+        )
         return
 
     pending = next_pending(rows)
@@ -55,7 +58,7 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> None:
             f"but the next pending function is "
             f"{pending['address']} {pending['raw_name']}"
         )
-    print(f"{row['address']} {row['raw_name']}")
+    print(f"{row['address']} {row['raw_name']}", flush=True)
     if dry_run:
         return
     if run("git", "status", "--porcelain").strip():
@@ -127,7 +130,7 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> None:
         "Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>",
     )
     commit = run("git", "rev-parse", "--short", "HEAD").strip()
-    print(f"committed {commit}")
+    print(f"committed {commit}", flush=True)
 
 
 def main() -> int:
