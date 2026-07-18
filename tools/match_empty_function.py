@@ -73,24 +73,34 @@ def decode_parameters(suffix: str) -> tuple[list[str], list[str]]:
     return declarations, forward_declarations
 
 
-def parse_method(
+def parse_function(
     row: dict[str, str],
-) -> tuple[str, str, list[str], list[str]]:
+) -> tuple[str, str | None, list[str], list[str]]:
     if row["size_bytes"] != "8":
         raise RuntimeError(f"Next function is not 8 bytes: {row['raw_name']}")
-    if not row["reference_file"].startswith("KS/SRC/ks/"):
-        raise RuntimeError(f"Next function is not front-end code: {row['raw_name']}")
+    if not row["reference_file"].startswith("KS/SRC/"):
+        raise RuntimeError(f"Next function is not project code: {row['raw_name']}")
 
     raw_name = row["raw_name"]
-    match = re.fullmatch(r"(.+)__(\d+)([A-Za-z_][A-Za-z0-9_]*)", raw_name)
-    if match is None:
-        raise RuntimeError(f"Unsupported empty method mangling: {raw_name}")
-    method, length_text, encoded_tail = match.groups()
-    class_length = int(length_text)
-    class_name = encoded_tail[:class_length]
-    suffix = encoded_tail[class_length:]
-    if len(class_name) != class_length:
-        raise RuntimeError(f"Class length mismatch in symbol: {raw_name}")
+    global_match = re.fullmatch(r"(.+)__F(.*)", raw_name)
+    if global_match is not None:
+        function_name, suffix = global_match.groups()
+        class_name = None
+        if suffix == "v":
+            suffix = ""
+    else:
+        method_match = re.fullmatch(
+            r"(.+)__(\d+)([A-Za-z_][A-Za-z0-9_]*)",
+            raw_name,
+        )
+        if method_match is None:
+            raise RuntimeError(f"Unsupported empty function mangling: {raw_name}")
+        function_name, length_text, encoded_tail = method_match.groups()
+        class_length = int(length_text)
+        class_name = encoded_tail[:class_length]
+        suffix = encoded_tail[class_length:]
+        if len(class_name) != class_length:
+            raise RuntimeError(f"Class length mismatch in symbol: {raw_name}")
     parameters, forward_declarations = decode_parameters(suffix)
 
     address = int(row["address"], 0)
@@ -100,13 +110,13 @@ def parse_method(
         TARGET_ROM.read_bytes()[offset : offset + 8],
     )
     if (first, second) != (JR_RA, NOP):
-        raise RuntimeError(f"Target method is not a no-op: {raw_name}")
-    return method, class_name, parameters, forward_declarations
+        raise RuntimeError(f"Target function is not a no-op: {raw_name}")
+    return function_name, class_name, parameters, forward_declarations
 
 
 def source_text(
-    method: str,
-    class_name: str,
+    function_name: str,
+    class_name: str | None,
     parameters: list[str],
     forward_declarations: list[str],
 ) -> str:
@@ -116,12 +126,18 @@ def source_text(
     )
     if prefix:
         prefix += "\n"
+    if class_name is None:
+        return (
+            prefix
+            + f"void {function_name}({declaration}) {{\n"
+            + "}\n"
+        )
     return prefix + (
         f"class {class_name} {{\n"
         "public:\n"
-        f"    void {method}({declaration});\n"
+        f"    void {function_name}({declaration});\n"
         "};\n\n"
-        f"void {class_name}::{method}({declaration}) {{\n"
+        f"void {class_name}::{function_name}({declaration}) {{\n"
         "}\n"
     )
 
@@ -131,12 +147,19 @@ def process_one(dry_run: bool) -> None:
         raise RuntimeError("Working tree is not clean")
 
     row = next_pending()
-    method, class_name, parameters, forward_declarations = parse_method(row)
+    function_name, class_name, parameters, forward_declarations = (
+        parse_function(row)
+    )
     display_parameters = ", ".join(
         parameter.rsplit(" ", 1)[0] for parameter in parameters
     )
+    display_name = (
+        function_name
+        if class_name is None
+        else f"{class_name}::{function_name}"
+    )
     print(
-        f"{row['address']} {class_name}::{method}({display_parameters})",
+        f"{row['address']} {display_name}({display_parameters})",
         flush=True,
     )
     if dry_run:
@@ -156,7 +179,12 @@ def process_one(dry_run: bool) -> None:
     )
     candidate = scratch / "candidate.cpp"
     candidate.write_text(
-        source_text(method, class_name, parameters, forward_declarations),
+        source_text(
+            function_name,
+            class_name,
+            parameters,
+            forward_declarations,
+        ),
         encoding="utf-8",
     )
     run(
@@ -186,7 +214,12 @@ def process_one(dry_run: bool) -> None:
     )
     source_path.parent.mkdir(parents=True, exist_ok=True)
     source_path.write_text(
-        source_text(method, class_name, parameters, forward_declarations),
+        source_text(
+            function_name,
+            class_name,
+            parameters,
+            forward_declarations,
+        ),
         encoding="utf-8",
     )
 
@@ -203,7 +236,7 @@ def process_one(dry_run: bool) -> None:
         "--summary",
         (
             f"The target and released configuration reduce "
-            f"{class_name}::{method}({display_parameters}) to an empty hook. "
+            f"{display_name}({display_parameters}) to an empty hook. "
             "The first candidate matched exactly and preserved the "
             "byte-identical integrated ROM."
         ),
@@ -224,7 +257,11 @@ def process_one(dry_run: bool) -> None:
         "git",
         "commit",
         "-m",
-        f"decomp: match {class_name} {method}",
+        (
+            f"decomp: match {function_name}"
+            if class_name is None
+            else f"decomp: match {class_name} {function_name}"
+        ),
         "-m",
         "Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>",
     )
@@ -234,7 +271,7 @@ def process_one(dry_run: bool) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Match empty methods with supported primitive signatures."
+        description="Match empty functions with supported primitive signatures."
     )
     parser.add_argument("--count", type=int, default=1)
     parser.add_argument("--dry-run", action="store_true")
