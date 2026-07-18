@@ -753,7 +753,7 @@ address,size_bytes,size_hex,symbol_name,raw_name,binding,source_file,reference_f
 0x0028D618,16,0x10,add__15trigger_managerP7trigger,add__15trigger_managerP7trigger,global,C:/KS/SRC/trigger.cpp,KS/SRC/trigger.cpp,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,matched,1,100,SELF,notes/functions/0028D618_add__15trigger_managerP7trigger.md
 0x0028EB18,16,0x10,get_abs_position__C14entity_trigger,get_abs_position__C14entity_trigger,global,C:/KS/SRC/trigger.cpp,KS/SRC/trigger.cpp,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,matched,1,100,SELF,notes/functions/0028EB18_get_abs_position__C14entity_trigger.md
 0x002B85B0,16,0x10,inc_count__4item,inc_count__4item,global,item.h,KS/SRC/item.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,matched,1,100,SELF,notes/functions/002B85B0_inc_count__4item.md
-0x002B85C0,16,0x10,dec_count__4item,dec_count__4item,global,item.h,KS/SRC/item.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,pending,0,,,notes/functions/002B85C0_dec_count__4item.md
+0x002B85C0,16,0x10,dec_count__4item,dec_count__4item,global,item.h,KS/SRC/item.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,matched,1,100,SELF,notes/functions/002B85C0_dec_count__4item.md
 0x002B8610,16,0x10,is_ammo__C4item,is_ammo__C4item,global,item.h,KS/SRC/item.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,pending,0,,,notes/functions/002B8610_is_ammo__C4item.md
 0x002B8620,16,0x10,is_health__C4item,is_health__C4item,global,item.h,KS/SRC/item.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,pending,0,,,notes/functions/002B8620_is_health__C4item.md
 0x002B8630,16,0x10,is_armor__C4item,is_armor__C4item,global,item.h,KS/SRC/item.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,pending,0,,,notes/functions/002B8630_is_armor__C4item.md
