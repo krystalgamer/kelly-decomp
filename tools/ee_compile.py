@@ -3,6 +3,7 @@
 import argparse
 import json
 import os
+import struct
 import subprocess
 from pathlib import Path
 
@@ -11,6 +12,52 @@ ROOT = Path(__file__).resolve().parents[1]
 COMPILER = ROOT / "tools" / "toolchain" / "bin" / "ee-gcc.exe"
 CONFIG_PATH = ROOT / "config" / "compiler.json"
 WINE_PREFIX = ROOT / "tmp" / "wine"
+
+
+def patch_ee_stack_saves(path: Path) -> None:
+    data = bytearray(path.read_bytes())
+    if data[:4] != b"\x7fELF" or data[4] != 1 or data[5] != 1:
+        raise RuntimeError(f"Expected a little-endian ELF32 object: {path}")
+
+    section_offset = struct.unpack_from("<I", data, 32)[0]
+    section_size = struct.unpack_from("<H", data, 46)[0]
+    section_count = struct.unpack_from("<H", data, 48)[0]
+    string_index = struct.unpack_from("<H", data, 50)[0]
+
+    def section(index: int) -> tuple[int, int, int]:
+        offset = section_offset + index * section_size
+        name, file_offset, size = struct.unpack_from("<I12xII", data, offset)
+        return name, file_offset, size
+
+    _, string_offset, _ = section(string_index)
+    text_offset = None
+    text_size = None
+    for index in range(section_count):
+        name_offset, file_offset, size = section(index)
+        end = data.index(0, string_offset + name_offset)
+        name = data[string_offset + name_offset : end]
+        if name == b".text":
+            text_offset = file_offset
+            text_size = size
+            break
+    if text_offset is None or text_size is None:
+        raise RuntimeError(f"Object has no .text section: {path}")
+
+    for offset in range(text_offset, text_offset + text_size, 4):
+        word = struct.unpack_from("<I", data, offset)[0]
+        opcode = word >> 26
+        base = (word >> 21) & 0x1F
+        if base != 29:
+            continue
+        if opcode == 0x3F:
+            word = (word & 0x03FFFFFF) | (0x1F << 26)
+        elif opcode == 0x37:
+            word = (word & 0x03FFFFFF) | (0x1E << 26)
+        else:
+            continue
+        struct.pack_into("<I", data, offset, word)
+
+    path.write_bytes(data)
 
 
 def wine_path(path: Path, environment: dict[str, str]) -> str:
@@ -82,6 +129,7 @@ def main() -> int:
             cwd=ROOT,
             check=True,
         )
+        patch_ee_stack_saves(args.output)
     return 0
 
 

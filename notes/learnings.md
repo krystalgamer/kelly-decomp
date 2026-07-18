@@ -8,6 +8,10 @@
 - Old GCC C++ mangling matches the ELF names directly.
 - `-O2 -G0 -mvu0-use-vf0-vf31` with exceptions and RTTI disabled produces
   the target instruction shape for the first trivial virtual methods.
+- Eligible game/engine objects use EE `sq`/`lq` for stack GPR saves, while
+  this compiler emits `sd`/`ld`; the compiler wrapper patches only stack-based
+  object instructions after compilation. Excluded runtime objects retain
+  their original `sd`/`ld` assembly.
 
 ## ELF/debug information
 
