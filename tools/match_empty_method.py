@@ -38,7 +38,44 @@ def next_pending() -> dict[str, str]:
     raise RuntimeError("No pending functions remain")
 
 
-def parse_method(row: dict[str, str]) -> tuple[str, str, str]:
+def decode_parameters(suffix: str) -> tuple[list[str], list[str]]:
+    declarations: list[str] = []
+    forward_declarations: list[str] = []
+    primitive_types = {
+        "b": "bool",
+        "f": "float",
+        "i": "int",
+    }
+    index = 0
+    while index < len(suffix):
+        code = suffix[index]
+        if code in primitive_types:
+            parameter_type = primitive_types[code]
+            index += 1
+        elif code == "P":
+            index += 1
+            length_match = re.match(r"\d+", suffix[index:])
+            if length_match is None:
+                raise RuntimeError(f"Unsupported pointer parameter: {suffix}")
+            length_text = length_match.group()
+            index += len(length_text)
+            name_length = int(length_text)
+            type_name = suffix[index : index + name_length]
+            if len(type_name) != name_length:
+                raise RuntimeError(f"Truncated pointer parameter: {suffix}")
+            index += name_length
+            parameter_type = f"{type_name}*"
+            if type_name not in forward_declarations:
+                forward_declarations.append(type_name)
+        else:
+            raise RuntimeError(f"Unsupported parameter encoding: {suffix[index:]}")
+        declarations.append(f"{parameter_type} arg{len(declarations)}")
+    return declarations, forward_declarations
+
+
+def parse_method(
+    row: dict[str, str],
+) -> tuple[str, str, list[str], list[str]]:
     if row["size_bytes"] != "8":
         raise RuntimeError(f"Next function is not 8 bytes: {row['raw_name']}")
     if not row["reference_file"].startswith("KS/SRC/ks/"):
@@ -52,9 +89,9 @@ def parse_method(row: dict[str, str]) -> tuple[str, str, str]:
     class_length = int(length_text)
     class_name = encoded_tail[:class_length]
     suffix = encoded_tail[class_length:]
-    if len(class_name) != class_length or suffix not in ("", "i"):
+    if len(class_name) != class_length:
         raise RuntimeError(f"Class length mismatch in symbol: {raw_name}")
-    parameter = "int" if suffix == "i" else ""
+    parameters, forward_declarations = decode_parameters(suffix)
 
     address = int(row["address"], 0)
     offset = address - TEXT_VRAM
@@ -64,12 +101,22 @@ def parse_method(row: dict[str, str]) -> tuple[str, str, str]:
     )
     if (first, second) != (JR_RA, NOP):
         raise RuntimeError(f"Target method is not a no-op: {raw_name}")
-    return method, class_name, parameter
+    return method, class_name, parameters, forward_declarations
 
 
-def source_text(method: str, class_name: str, parameter: str) -> str:
-    declaration = "int controller" if parameter == "int" else ""
-    return (
+def source_text(
+    method: str,
+    class_name: str,
+    parameters: list[str],
+    forward_declarations: list[str],
+) -> str:
+    declaration = ", ".join(parameters)
+    prefix = "".join(
+        f"class {type_name};\n" for type_name in forward_declarations
+    )
+    if prefix:
+        prefix += "\n"
+    return prefix + (
         f"class {class_name} {{\n"
         "public:\n"
         f"    void {method}({declaration});\n"
@@ -84,9 +131,14 @@ def process_one(dry_run: bool) -> None:
         raise RuntimeError("Working tree is not clean")
 
     row = next_pending()
-    method, class_name, parameter = parse_method(row)
-    display_parameter = parameter
-    print(f"{row['address']} {class_name}::{method}({display_parameter})")
+    method, class_name, parameters, forward_declarations = parse_method(row)
+    display_parameters = ", ".join(
+        parameter.rsplit(" ", 1)[0] for parameter in parameters
+    )
+    print(
+        f"{row['address']} {class_name}::{method}({display_parameters})",
+        flush=True,
+    )
     if dry_run:
         return
 
@@ -104,7 +156,7 @@ def process_one(dry_run: bool) -> None:
     )
     candidate = scratch / "candidate.cpp"
     candidate.write_text(
-        source_text(method, class_name, parameter),
+        source_text(method, class_name, parameters, forward_declarations),
         encoding="utf-8",
     )
     run(
@@ -119,10 +171,10 @@ def process_one(dry_run: bool) -> None:
     if attempts[-1]["status"] != "matched":
         raise RuntimeError(f"Generated hook did not match: {row['raw_name']}")
 
-    (scratch / "attempt-1" / "notes.md").write_text(
-        "The target and released configuration reduce this one-int front-end "
-        "hook to an empty method. The guarded candidate matched on the first "
-        "attempt.\n",
+    attempt_number = attempts[-1]["attempt"]
+    (scratch / f"attempt-{attempt_number}" / "notes.md").write_text(
+        "The target and released configuration reduce this front-end hook to "
+        "an empty method. The guarded candidate matched on the first attempt.\n",
         encoding="utf-8",
     )
 
@@ -134,7 +186,7 @@ def process_one(dry_run: bool) -> None:
     )
     source_path.parent.mkdir(parents=True, exist_ok=True)
     source_path.write_text(
-        source_text(method, class_name, parameter),
+        source_text(method, class_name, parameters, forward_declarations),
         encoding="utf-8",
     )
 
@@ -151,7 +203,7 @@ def process_one(dry_run: bool) -> None:
         "--summary",
         (
             f"The target and released configuration reduce "
-            f"{class_name}::{method}({display_parameter}) to an empty hook. "
+            f"{class_name}::{method}({display_parameters}) to an empty hook. "
             "The first candidate matched exactly and preserved the "
             "byte-identical integrated ROM."
         ),
@@ -177,12 +229,12 @@ def process_one(dry_run: bool) -> None:
         "Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>",
     )
     commit = run("git", "rev-parse", "--short", "HEAD").strip()
-    print(f"committed {commit}")
+    print(f"committed {commit}", flush=True)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Match one or more empty zero-argument or one-int methods."
+        description="Match empty methods with supported primitive signatures."
     )
     parser.add_argument("--count", type=int, default=1)
     parser.add_argument("--dry-run", action="store_true")
