@@ -1,0 +1,22 @@
+# GetLevelDuration__C14TimeAttackModei
+
+- Address: `0x002862B0`
+- Size: `0x14` (20 bytes)
+- Object: `game/files_misc1`
+- Debug source: `ks/mode_timeattack.cpp`
+- Reference source: `KS/SRC/ks/mode_timeattack.cpp`
+- Result: **matched**
+
+## Attempts
+
+| # | Status | Byte score | Instruction score | Candidate |
+| ---: | --- | ---: | ---: | --- |
+| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+
+### Attempt 1 notes
+
+The released accessor indexes 24-byte player records and returns time at record offset `0x4`.
+
+## Outcome
+
+The released `TimeAttackMode::GetLevelDuration` indexed load matched exactly on the first attempt.
