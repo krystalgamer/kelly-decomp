@@ -50,3 +50,20 @@ bool IGOWidget::GetDisplay() const {
     return display;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00164608)
+// 0x00164608 __9IGOWidget
+__asm__(".equ _vt$9IGOWidget, 0x004DB668");
+
+class IGOWidget {
+    bool display;
+
+public:
+    IGOWidget();
+    virtual ~IGOWidget();
+};
+
+IGOWidget::IGOWidget() {
+    display = true;
+}
+#endif
