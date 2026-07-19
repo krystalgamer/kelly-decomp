@@ -6467,7 +6467,7 @@ __cl__32slf_str_list_iterator_is_equal_tR8vm_stackQ320script_library_class8funct
 _$_33slf_str_list_iterator_not_equal_t = 0x003350B0; // type:func defined:true size:0x1C
 __tf33slf_str_list_iterator_not_equal_t = 0x003350D0; // type:func size:0x50
 __cl__33slf_str_list_iterator_not_equal_tR8vm_stackQ320script_library_class8function7entry_t = 0x00335120; // type:func size:0x16C
-_$_31slf_str_list_iterator_get_str_t = 0x00335290; // type:func size:0x1C
+_$_31slf_str_list_iterator_get_str_t = 0x00335290; // type:func defined:true size:0x1C
 __tf31slf_str_list_iterator_get_str_t = 0x003352B0; // type:func size:0x50
 __cl__31slf_str_list_iterator_get_str_tR8vm_stackQ320script_library_class8function7entry_t = 0x00335300; // type:func size:0x154
 _GLOBAL_$I$script_string_none = 0x00335458; // type:func size:0x20
