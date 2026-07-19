@@ -83,3 +83,10 @@ struct GlobalSurferData { bool boardsUnlocked[10]; char tail[0x50]; };
 class GlobalDataClass { char padding[0xcc]; GlobalSurferData globalSurfers[1]; public: void unlockSurferBoard(int surfer, int board); };
 void GlobalDataClass::unlockSurferBoard(int surfer, int board) { globalSurfers[surfer].boardsUnlocked[board] = true; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002EFF10)
+// 0x002EFF10 unlockSurferTrick__15GlobalDataClassii
+struct GlobalSurferData { bool boardsUnlocked[10]; bool tricksUnlocked[10]; char tail[0x28]; };
+class GlobalDataClass { char padding[0xcc]; GlobalSurferData globalSurfers[1]; public: void unlockSurferTrick(int surfer, int trick); };
+void GlobalDataClass::unlockSurferTrick(int surfer, int trick) { globalSurfers[surfer].tricksUnlocked[trick] = true; }
+#endif
