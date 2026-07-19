@@ -35,3 +35,9 @@ class SoundScriptManager { public: int playEvent(EventType type, entity *source,
 __asm__(".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380");
 int SoundScriptManager::startEvent(EventType type, entity *source, float fade) { int result = playEvent(type, source, fade); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031BB98)
+// 0x0031BB98 clear__19ScheduledSoundEvent
+class ScheduledSoundEvent { float time; int event; unsigned int snd; void *myEntity; public: void clear(); };
+void ScheduledSoundEvent::clear() { snd = 0; myEntity = 0; time = -1.0f; event = 105; }
+#endif
