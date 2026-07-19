@@ -120,3 +120,11 @@ extern "C" void ScriptDtor_00326190(void *self) __asm__("_$_22slf_beam_set_uv_an
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00326190(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00326240)
+// 0x00326240 _$_30slf_beam_set_tiles_per_meter_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_00326240(void *self) __asm__("_$_30slf_beam_set_tiles_per_meter_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_00326240(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
