@@ -33,3 +33,12 @@ class path_graph { public: path_graph_node *get_node(const vector3d &point) cons
 __asm__(".equ get_node__C10path_graphRC8vector3d, 0x0034AF58");
 bool path_graph::node_in_graph(const vector3d &point) const { return get_node(point) != 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034AB98)
+// 0x0034AB98 edge_in_graph__C10path_graphPC15path_graph_nodeT1
+class path_graph_node;
+class path_graph_edge;
+class path_graph { public: path_graph_edge *get_edge(const path_graph_node *first, const path_graph_node *second) const; bool edge_in_graph(const path_graph_node *first, const path_graph_node *second) const; };
+__asm__(".equ get_edge__C10path_graphPC15path_graph_nodeT1, 0x0034AFF0");
+bool path_graph::edge_in_graph(const path_graph_node *first, const path_graph_node *second) const { return get_edge(first, second) != 0; }
+#endif
