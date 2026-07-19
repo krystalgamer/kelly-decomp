@@ -31,3 +31,11 @@ class CameraWidget { char padding[0x78]; float fade; public: float GetFade() con
 class IGOFrontEnd { char padding[0x5a8]; CameraWidget *cameraWidget; public: float GetCameraReticleFade() const; };
 float IGOFrontEnd::GetCameraReticleFade() const { if (!cameraWidget) return 0.0f; return cameraWidget->GetFade(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017DF78)
+// 0x0017DF78 GetProceedButtonState__11IGOFrontEnd
+int getButtonState(int command);
+__asm__(".equ getButtonState__Fi, 0x00159150");
+class IGOFrontEnd { public: bool GetProceedButtonState(); };
+bool IGOFrontEnd::GetProceedButtonState() { return getButtonState(6); }
+#endif
