@@ -59,3 +59,12 @@ __asm__(".equ frontendmanager, 0x003E7728");
 __asm__(".equ DrawFE__9FEManager, 0x00198BC0");
 void FEDraw() { frontendmanager.DrawFE(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00199180)
+// 0x00199180 FERelease__Fv
+class FEManager { public: void ReleaseFE(); };
+extern FEManager frontendmanager;
+__asm__(".equ frontendmanager, 0x003E7728");
+__asm__(".equ ReleaseFE__9FEManager, 0x00198F10");
+void FERelease() { frontendmanager.ReleaseFE(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
