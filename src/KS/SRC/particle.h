@@ -32,3 +32,11 @@ extern "C" void GlobalInit() __asm__("_GLOBAL_$I$TRAIL_StaticInit__Fv");
 __asm__(".equ __static_initialization_and_destruction_0, 0x00382368");
 void GlobalInit() { StaticInit(1, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003853A8)
+// 0x003853A8 _GLOBAL_$D$TRAIL_StaticInit__Fv
+extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
+extern "C" void GlobalDestroy() __asm__("_GLOBAL_$D$TRAIL_StaticInit__Fv");
+__asm__(".equ __static_initialization_and_destruction_0, 0x00382368");
+void GlobalDestroy() { StaticInit(0, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
