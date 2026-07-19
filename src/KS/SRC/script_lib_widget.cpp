@@ -499,3 +499,11 @@ extern "C" void ScriptDtor_0032EDA0(void *self) __asm__("_$_22slf_hide_all_widge
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_0032EDA0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032C4A0)
+// 0x0032C4A0 __cl__22slf_timer_widget_run_tR8vm_stackQ320script_library_class8function7entry_t
+struct vm_stack_layout { char padding[8]; char *top; };
+struct timer_widget_layout { char padding[0x190]; bool running; };
+extern "C" bool TimerRunOp(void *self, vm_stack_layout *stack, int entry) __asm__("__cl__22slf_timer_widget_run_tR8vm_stackQ320script_library_class8function7entry_t");
+bool TimerRunOp(void *self, vm_stack_layout *stack, int entry) { stack->top -= 4; timer_widget_layout *timer = *(timer_widget_layout **)stack->top; timer->running = true; return true; }
+#endif
