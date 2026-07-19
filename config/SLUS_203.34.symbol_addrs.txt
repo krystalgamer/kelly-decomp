@@ -5783,7 +5783,7 @@ __cl__25slf_apply_radius_damage_tR8vm_stackQ320script_library_class8function7ent
 _$_15slf_los_check_t = 0x003213A8; // type:func defined:true size:0x1C
 __tf15slf_los_check_t = 0x003213C8; // type:func size:0x50
 __cl__15slf_los_check_tR8vm_stackQ320script_library_class8function7entry_t = 0x00321418; // type:func size:0x1A8
-_$_16slf_str_append_t = 0x003215C0; // type:func size:0x1C
+_$_16slf_str_append_t = 0x003215C0; // type:func defined:true size:0x1C
 __tf16slf_str_append_t = 0x003215E0; // type:func size:0x50
 __cl__16slf_str_append_tR8vm_stackQ320script_library_class8function7entry_t = 0x00321630; // type:func size:0x214
 _$_21slf_to_str_vector3d_t = 0x00321848; // type:func size:0x1C
