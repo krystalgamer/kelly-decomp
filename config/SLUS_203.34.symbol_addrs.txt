@@ -6141,7 +6141,7 @@ __cl__22slf_widget_scale_to2_tR8vm_stackQ320script_library_class8function7entry_
 _$_20slf_widget_fade_to_t = 0x0032BE08; // type:func defined:true size:0x1C
 __tf20slf_widget_fade_to_t = 0x0032BE28; // type:func size:0x50
 __cl__20slf_widget_fade_to_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032BE78; // type:func size:0x40
-_$_21slf_widget_fade_to2_t = 0x0032BEB8; // type:func size:0x1C
+_$_21slf_widget_fade_to2_t = 0x0032BEB8; // type:func defined:true size:0x1C
 __tf21slf_widget_fade_to2_t = 0x0032BED8; // type:func size:0x50
 __cl__21slf_widget_fade_to2_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032BF28; // type:func size:0x48
 _$_25slf_create_timer_widget_t = 0x0032BF70; // type:func size:0x1C
