@@ -49,3 +49,10 @@ extern int water_flags;
 __asm__(".equ water_flags, 0x00484618");
 bool WATER_GetDrawSeam() { return (water_flags >> 3) & 1; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00372940)
+// 0x00372940 WATER_GetDrawWave__Fv
+bool WAVE_GetDraw();
+__asm__(".equ WAVE_GetDraw__Fv, 0x0037DC20");
+bool WATER_GetDrawWave() { bool result = WAVE_GetDraw(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
