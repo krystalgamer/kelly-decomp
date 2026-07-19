@@ -336,3 +336,11 @@ extern "C" void ScriptDtor_0031F4C0(void *self) __asm__("_$_19slf_get_elevation_
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_0031F4C0(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031F6A0)
+// 0x0031F6A0 _$_22slf_add_debug_sphere_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_0031F6A0(void *self) __asm__("_$_22slf_add_debug_sphere_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_0031F6A0(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+#endif
