@@ -307,3 +307,11 @@ extern "C" void ScriptDtor_0032D4E8(void *self) __asm__("_$_30slf_bitmap_widget_
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_0032D4E8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032D588)
+// 0x0032D588 _$_29slf_bitmap_widget_flip_vert_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_0032D588(void *self) __asm__("_$_29slf_bitmap_widget_flip_vert_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_0032D588(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
