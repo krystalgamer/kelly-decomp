@@ -129,3 +129,15 @@ unsigned char ReadChar(unsigned char* buffer, int& index) {
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00151768)
+// 0x00151768 GetQuad__11PanelObject
+class PanelQuad;
+struct PanelBatch { char padding[0x48]; PanelQuad* pq; };
+class PanelObject { char padding[0x84]; unsigned short size; unsigned short nbatches; PanelBatch* batches; public: PanelQuad* GetQuad(); };
+PanelQuad* PanelObject::GetQuad() {
+    if (size == 0)
+        return 0;
+    return batches[0].pq;
+}
+#endif
