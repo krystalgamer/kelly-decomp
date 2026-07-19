@@ -6392,7 +6392,7 @@ __cl__24slf_create_entity_list_tR8vm_stackQ320script_library_class8function7entr
 _$_25slf_destroy_entity_list_t = 0x00332628; // type:func defined:true size:0x1C
 __tf25slf_destroy_entity_list_t = 0x00332648; // type:func size:0x50
 __cl__25slf_destroy_entity_list_tR8vm_stackQ320script_library_class8function7entry_t = 0x00332698; // type:func size:0x2C
-_$_22slf_entity_list_size_t = 0x003326C8; // type:func size:0x1C
+_$_22slf_entity_list_size_t = 0x003326C8; // type:func defined:true size:0x1C
 __tf22slf_entity_list_size_t = 0x003326E8; // type:func size:0x50
 __cl__22slf_entity_list_size_tR8vm_stackQ320script_library_class8function7entry_t = 0x00332738; // type:func size:0x198
 _$_21slf_entity_list_add_t = 0x003328D0; // type:func size:0x1C
