@@ -5996,7 +5996,7 @@ __cl__20slf_item_set_count_tR8vm_stackQ320script_library_class8function7entry_t 
 _$_20slf_item_get_count_t = 0x00327668; // type:func defined:true size:0x1C
 __tf20slf_item_get_count_t = 0x00327688; // type:func size:0x50
 __cl__20slf_item_get_count_tR8vm_stackQ320script_library_class8function7entry_t = 0x003276D8; // type:func size:0x174
-_$_17slf_create_item_t = 0x00327850; // type:func size:0x1C
+_$_17slf_create_item_t = 0x00327850; // type:func defined:true size:0x1C
 __tf17slf_create_item_t = 0x00327870; // type:func size:0x50
 __cl__17slf_create_item_tR8vm_stackQ320script_library_class8function7entry_t = 0x003278C0; // type:func size:0x3D8
 _$_13slf_to_item_t = 0x00327C98; // type:func size:0x1C
