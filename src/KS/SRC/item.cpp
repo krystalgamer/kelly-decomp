@@ -33,3 +33,11 @@ class item { public: void spawn_item_script(); void initialize(); };
 __asm__(".equ spawn_item_script__4item, 0x0028A520");
 void item::initialize() { spawn_item_script(); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0028B1C8)
+// 0x0028B1C8 render_passes_needed__C11visual_item
+class entity { public: unsigned int render_passes_needed() const; };
+__asm__(".equ render_passes_needed__C6entity, 0x00133640");
+class visual_item : public entity { public: unsigned int render_passes_needed() const; };
+unsigned int visual_item::render_passes_needed() const { unsigned int result = entity::render_passes_needed(); __asm__ volatile(""); return result; }
+#endif
