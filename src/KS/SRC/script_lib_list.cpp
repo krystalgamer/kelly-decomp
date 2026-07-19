@@ -456,3 +456,11 @@ extern "C" void GlobalInit() __asm__("_GLOBAL_$I$script_string_none");
 __asm__(".equ __static_initialization_and_destruction_0, 0x0031D1B8");
 void GlobalInit() { StaticInit(1, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00335478)
+// 0x00335478 _GLOBAL_$D$script_string_none
+extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
+extern "C" void GlobalDestroy() __asm__("_GLOBAL_$D$script_string_none");
+__asm__(".equ __static_initialization_and_destruction_0, 0x0031D1B8");
+void GlobalDestroy() { StaticInit(0, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
