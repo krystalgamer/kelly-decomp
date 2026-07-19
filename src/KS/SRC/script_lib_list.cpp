@@ -64,3 +64,11 @@ extern "C" void ScriptDtor_0032FEE0(void *self) __asm__("_$_24slf_vector3d_list_
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_0032FEE0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003300B0)
+// 0x003300B0 _$_29slf_vector3d_list_get_index_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_003300B0(void *self) __asm__("_$_29slf_vector3d_list_get_index_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_003300B0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
