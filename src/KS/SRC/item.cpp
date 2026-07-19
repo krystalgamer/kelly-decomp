@@ -26,3 +26,10 @@ bool item::is_picked_up() {
     return picked_up;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0028A108)
+// 0x0028A108 initialize__4item
+class item { public: void spawn_item_script(); void initialize(); };
+__asm__(".equ spawn_item_script__4item, 0x0028A520");
+void item::initialize() { spawn_item_script(); __asm__ volatile(""); }
+#endif
