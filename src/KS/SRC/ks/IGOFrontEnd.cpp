@@ -39,3 +39,11 @@ __asm__(".equ getButtonState__Fi, 0x00159150");
 class IGOFrontEnd { public: bool GetProceedButtonState(); };
 bool IGOFrontEnd::GetProceedButtonState() { return getButtonState(6); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017DF98)
+// 0x0017DF98 GetProceedButtonState__11IGOFrontEndi
+int getButtonState(int command, int controller);
+__asm__(".equ getButtonState__Fii, 0x00159270");
+class IGOFrontEnd { public: bool GetProceedButtonState(int controller); };
+bool IGOFrontEnd::GetProceedButtonState(int controller) { return getButtonState(6, controller); }
+#endif
