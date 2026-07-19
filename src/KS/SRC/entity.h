@@ -1151,3 +1151,10 @@ struct movement_info { bool frame_delta_valid; bool last_frame_delta_valid; };
 class entity { char padding[0x150]; movement_info* mi; public: bool is_last_frame_delta_valid() const; };
 bool entity::is_last_frame_delta_valid() const { return mi && mi->last_frame_delta_valid; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00145258)
+// 0x00145258 set_render_scale__6entityRC8vector3d
+struct vector3d { float x; float y; float z; vector3d &operator=(const vector3d &other) { x = other.x; y = other.y; z = other.z; return *this; } };
+class entity { char padding[0x1dc]; vector3d render_scale; public: void set_render_scale(const vector3d &value); };
+void entity::set_render_scale(const vector3d &value) { render_scale = value; }
+#endif
