@@ -6413,7 +6413,7 @@ __cl__22slf_entity_list_rend_tR8vm_stackQ320script_library_class8function7entry_
 _$_27slf_entity_list_get_index_t = 0x003330D0; // type:func defined:true size:0x1C
 __tf27slf_entity_list_get_index_t = 0x003330F0; // type:func size:0x50
 __cl__27slf_entity_list_get_index_tR8vm_stackQ320script_library_class8function7entry_t = 0x00333140; // type:func size:0x1F8
-_$_30slf_entity_list_iterator_inc_t = 0x00333338; // type:func size:0x1C
+_$_30slf_entity_list_iterator_inc_t = 0x00333338; // type:func defined:true size:0x1C
 __tf30slf_entity_list_iterator_inc_t = 0x00333358; // type:func size:0x50
 __cl__30slf_entity_list_iterator_inc_tR8vm_stackQ320script_library_class8function7entry_t = 0x003333A8; // type:func size:0x15C
 _$_30slf_entity_list_iterator_dec_t = 0x00333508; // type:func size:0x1C
