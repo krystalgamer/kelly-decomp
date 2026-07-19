@@ -6407,7 +6407,7 @@ __cl__21slf_entity_list_end_tR8vm_stackQ320script_library_class8function7entry_t
 _$_24slf_entity_list_rbegin_t = 0x00332D30; // type:func defined:true size:0x1C
 __tf24slf_entity_list_rbegin_t = 0x00332D50; // type:func size:0x50
 __cl__24slf_entity_list_rbegin_tR8vm_stackQ320script_library_class8function7entry_t = 0x00332DA0; // type:func size:0x15C
-_$_22slf_entity_list_rend_t = 0x00332F00; // type:func size:0x1C
+_$_22slf_entity_list_rend_t = 0x00332F00; // type:func defined:true size:0x1C
 __tf22slf_entity_list_rend_t = 0x00332F20; // type:func size:0x50
 __cl__22slf_entity_list_rend_tR8vm_stackQ320script_library_class8function7entry_t = 0x00332F70; // type:func size:0x15C
 _$_27slf_entity_list_get_index_t = 0x003330D0; // type:func size:0x1C
