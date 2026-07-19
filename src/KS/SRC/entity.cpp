@@ -245,3 +245,13 @@ __asm__(".equ error__FPCce, 0x001DFBD8");
 class entity { public: void disgorge_items(entity *target); };
 void entity::disgorge_items(entity *target) { error(disgorge_error); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00139D90)
+// 0x00139D90 set_mesh_texture__6entityP10nglTexture
+struct nglTexture;
+struct nglMaterial { char padding[4]; nglTexture *Map; };
+struct nglMeshSection { nglMaterial *Material; };
+struct nglMesh { char padding[0x58]; nglMeshSection *Sections; };
+class entity { char padding[0x134]; nglMesh *my_mesh; public: void set_mesh_texture(nglTexture *texture); };
+void entity::set_mesh_texture(nglTexture *texture) { if (my_mesh) my_mesh->Sections[0].Material->Map = texture; }
+#endif
