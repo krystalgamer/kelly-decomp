@@ -228,3 +228,9 @@ __asm__(".equ get_age__C10frame_info, 0x00338660");
 class entity { char padding[0x1CC]; frame_info frame_time_info; public: float get_age() const; };
 float entity::get_age() const { float result = frame_time_info.get_age(); __asm__ volatile(""); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001372F8)
+// 0x001372F8 reset__16destroyable_info
+class destroyable_info { unsigned short flags; float destroy_lifetime; public: void reset(); };
+void destroyable_info::reset() { flags &= 0xF008; destroy_lifetime = 1.0f; }
+#endif
