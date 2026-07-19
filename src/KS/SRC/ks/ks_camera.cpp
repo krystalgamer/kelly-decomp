@@ -129,3 +129,9 @@ void photo_camera::init() { first_time = true; jump_time_elapsed = 0; }
 // 0x00229B88 interpolate_float__Ffff
 float interpolate_float(float first_float, float second_float, float difference) { return (first_float * (1.0f - difference)) + (second_float * difference); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00226B38)
+// 0x00226B38 reset__13replay_camera
+class replay_camera { char padding0[0x2d0]; int rc; int rcr; char padding1[0x1c]; float regionChangeTime; int regionChangeFrame; char padding2[0x13c]; float holdCamTimer; public: void reset(); };
+void replay_camera::reset() { rc = 13; rcr = 6; regionChangeTime = 0.0f; regionChangeFrame = 0; holdCamTimer = 0.0f; }
+#endif
