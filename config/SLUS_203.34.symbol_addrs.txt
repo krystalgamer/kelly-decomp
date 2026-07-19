@@ -6228,7 +6228,7 @@ __cl__27slf_create_bitmap6_widget_tR8vm_stackQ320script_library_class8function7e
 _$_29slf_create_fluid_bar_widget_t = 0x0032DD90; // type:func defined:true size:0x1C
 __tf29slf_create_fluid_bar_widget_t = 0x0032DDB0; // type:func size:0x50
 __cl__29slf_create_fluid_bar_widget_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032DE00; // type:func size:0x2E4
-_$_32slf_fluid_bar_widget_set_color_t = 0x0032E0E8; // type:func size:0x1C
+_$_32slf_fluid_bar_widget_set_color_t = 0x0032E0E8; // type:func defined:true size:0x1C
 __tf32slf_fluid_bar_widget_set_color_t = 0x0032E108; // type:func size:0x50
 __cl__32slf_fluid_bar_widget_set_color_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032E158; // type:func size:0x48
 _$_29slf_fluid_bar_widget_resize_t = 0x0032E1A0; // type:func size:0x1C
