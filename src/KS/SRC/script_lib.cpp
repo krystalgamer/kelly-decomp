@@ -616,3 +616,11 @@ extern "C" void ScriptDtor_00322BD0(void *self) __asm__("_$_20slf_play_sound_vol
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00322BD0(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00322C70)
+// 0x00322C70 _$_30slf_get_global_time_dilation_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_00322C70(void *self) __asm__("_$_30slf_get_global_time_dilation_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_00322C70(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
