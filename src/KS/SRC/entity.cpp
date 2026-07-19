@@ -220,3 +220,11 @@ void entity::_set_region_forced_status() {
     center_region = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00133618)
+// 0x00133618 get_age__C6entity
+class frame_info { public: float get_age() const; };
+__asm__(".equ get_age__C10frame_info, 0x00338660");
+class entity { char padding[0x1CC]; frame_info frame_time_info; public: float get_age() const; };
+float entity::get_age() const { float result = frame_time_info.get_age(); __asm__ volatile(""); return result; }
+#endif
