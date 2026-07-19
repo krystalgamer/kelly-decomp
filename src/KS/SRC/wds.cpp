@@ -46,3 +46,13 @@ ett_manager* world_dynamics_system::get_ett_manager() {
     return ett_mgr;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002A8DA8)
+// 0x002A8DA8 apply_radius_damage__21world_dynamics_systemG8vector3dfii
+extern const char radius_damage_error[];
+void error(const char *format, ...);
+__asm__(".equ radius_damage_error, 0x004F8EB0");
+__asm__(".equ error__FPCce, 0x001DFBD8");
+extern "C" void RadiusDamageStub() __asm__("apply_radius_damage__21world_dynamics_systemG8vector3dfii");
+void RadiusDamageStub() { error(radius_damage_error); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
