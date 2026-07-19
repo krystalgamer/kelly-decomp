@@ -12,3 +12,10 @@ void os_alloc_init() {
 void os_alloc_shutdown() {
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DF9F0)
+// 0x001DF9F0 os_free__FPv
+void arch_free(void *pointer);
+__asm__(".equ arch_free__FPv, 0x002AC768");
+void os_free(void *pointer) { arch_free(pointer); __asm__ volatile(""); }
+#endif
