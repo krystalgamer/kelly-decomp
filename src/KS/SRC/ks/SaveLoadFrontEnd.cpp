@@ -93,3 +93,11 @@ struct FEMenuEntry { int entry_num; };
 class NamesMenu { char padding0[0x4c]; FEMenuEntry *highlighted; char padding1[0x108]; FEMenuEntry *secondary_cursor; public: int ActiveFile(); };
 int NamesMenu::ActiveFile() { if (!highlighted) return -1; else return secondary_cursor->entry_num; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001A2B30)
+// 0x001A2B30 OnUnactivate__12KeyboardMenuP6FEMenu
+class FEMenu;
+class KeyboardMenu { public: void TurnPQ(bool value); void OnUnactivate(FEMenu *menu); };
+__asm__(".equ TurnPQ__12KeyboardMenub, 0x001A1C10");
+void KeyboardMenu::OnUnactivate(FEMenu *menu) { TurnPQ(false); __asm__ volatile(""); }
+#endif
