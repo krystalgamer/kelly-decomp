@@ -690,3 +690,11 @@ PanelGeomKind PanelMovie::Kind() const {
 class PanelQuad { char padding[4]; int fade; float fade_alpha; float fade_timer; public: void GetFade(int &f, float &alpha, float &timer); };
 void PanelQuad::GetFade(int &f, float &alpha, float &timer) { f = fade; alpha = fade_alpha, timer = fade_timer; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA050)
+// 0x001DA050 _$_16PanelSkaterModel
+extern "C" void PanelGeomDtor(void *self) __asm__("_$_9PanelGeom");
+extern "C" void PanelSkaterModelDtor(void *self) __asm__("_$_16PanelSkaterModel");
+__asm__(".equ _$_9PanelGeom, 0x0014FAC8");
+void PanelSkaterModelDtor(void *self) { PanelGeomDtor(self); __asm__ volatile(""); }
+#endif
