@@ -48,3 +48,11 @@ extern "C" void HeatEndMenuClassDtor(void *self) __asm__("_$_16HeatEndMenuClass"
 __asm__(".equ _$_6FEMenu, 0x00156580");
 void HeatEndMenuClassDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DD310)
+// 0x001DD310 _$_16CompEndMenuClass
+extern "C" void FEMenuDtor(void *self) __asm__("_$_6FEMenu");
+extern "C" void CompEndMenuClassDtor(void *self) __asm__("_$_16CompEndMenuClass");
+__asm__(".equ _$_6FEMenu, 0x00156580");
+void CompEndMenuClassDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
+#endif
