@@ -171,3 +171,11 @@ class script_library_class { public: class function { public: enum entry_t { FIR
 class slf_timer_widget_freeze_t : public script_library_class::function { public: struct parms_t { timer_widget *me; }; bool operator()(vm_stack &stack, entry_t entry); };
 bool slf_timer_widget_freeze_t::operator()(vm_stack &stack, entry_t entry) { SLF_PARMS; parms->me->freeze(); SLF_DONE; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032C430)
+// 0x0032C430 _$_22slf_timer_widget_run_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_0032C430(void *self) __asm__("_$_22slf_timer_widget_run_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_0032C430(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
