@@ -35,3 +35,11 @@ bool ReplayRewButton(MenuEntry* entry, int buttonid) {
     return true;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00235B90)
+// 0x00235B90 OnClose__10KSMainMenub
+class Menu { public: void OnClose(bool toparent); };
+__asm__(".equ OnClose__4Menub, 0x0023EB70");
+class KSMainMenu : public Menu { public: void OnClose(bool toparent); };
+void KSMainMenu::OnClose(bool toparent) { Menu::OnClose(toparent); __asm__ volatile(""); }
+#endif
