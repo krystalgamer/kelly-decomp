@@ -52,3 +52,13 @@ int mem_raw_largest_avail(int heap);
 __asm__(".equ mem_raw_largest_avail__Fi, 0x002ACBB0");
 int mem_get_largest_avail(int heap) { int result = mem_raw_largest_avail(heap); KELLY_DECOMP_COMPILER_BARRIER(); return result - 128; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002ACCA0)
+// 0x002ACCA0 mem_set_current_heap__Fi
+struct mem_heap { char data[108]; };
+extern mem_heap heaps[];
+extern mem_heap *currentheap;
+__asm__(".equ heaps, 0x00570528");
+__asm__(".equ currentheap, 0x004322CC");
+void mem_set_current_heap(int heap) { currentheap = &heaps[heap]; }
+#endif
