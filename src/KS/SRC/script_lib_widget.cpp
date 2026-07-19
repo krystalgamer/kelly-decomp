@@ -136,3 +136,11 @@ extern "C" void ScriptDtor_0032BF70(void *self) __asm__("_$_25slf_create_timer_w
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_0032BF70(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032C138)
+// 0x0032C138 _$_32slf_timer_widget_get_time_left_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_0032C138(void *self) __asm__("_$_32slf_timer_widget_get_time_left_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_0032C138(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
