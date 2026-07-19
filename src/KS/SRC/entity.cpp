@@ -194,3 +194,10 @@ const po& entity::get_last_po() {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00131DE0)
+// 0x00131DE0 force_current_region__6entity
+class entity { public: void _set_region_forced_status(); void force_current_region(); };
+__asm__(".equ _set_region_forced_status__6entity, 0x00131E00");
+void entity::force_current_region() { _set_region_forced_status(); __asm__ volatile(""); }
+#endif
