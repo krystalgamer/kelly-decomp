@@ -56,3 +56,11 @@ struct light_properties { char padding[0x28]; float cutoff_range; };
 class light_source { char padding[0x200]; light_properties* properties; public: float get_cutoff_range() const; };
 float light_source::get_cutoff_range() const { return properties->cutoff_range; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FF9D0)
+// 0x002FF9D0 set_near_range__12light_sourcef
+class light_properties { public: void set_near_range(float range); };
+__asm__(".equ set_near_range__16light_propertiesf, 0x002CC968");
+class light_source { char padding[0x200]; light_properties *properties; public: void set_near_range(float range); };
+void light_source::set_near_range(float range) { properties->set_near_range(range); __asm__ volatile(""); }
+#endif
