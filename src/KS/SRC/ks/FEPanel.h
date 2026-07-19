@@ -684,3 +684,9 @@ PanelGeomKind PanelMovie::Kind() const {
     return PanelGeomMovie;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D9BC0)
+// 0x001D9BC0 GetFade__9PanelQuadRiRfT2
+class PanelQuad { char padding[4]; int fade; float fade_alpha; float fade_timer; public: void GetFade(int &f, float &alpha, float &timer); };
+void PanelQuad::GetFade(int &f, float &alpha, float &timer) { f = fade; alpha = fade_alpha, timer = fade_timer; }
+#endif
