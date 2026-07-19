@@ -6201,7 +6201,7 @@ __cl__33slf_text_block_widget_set_color_tR8vm_stackQ320script_library_class8func
 _$_26slf_create_bitmap_widget_t = 0x0032D1F0; // type:func defined:true size:0x1C
 __tf26slf_create_bitmap_widget_t = 0x0032D210; // type:func size:0x50
 __cl__26slf_create_bitmap_widget_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032D260; // type:func size:0x1CC
-_$_29slf_bitmap_widget_set_color_t = 0x0032D430; // type:func size:0x1C
+_$_29slf_bitmap_widget_set_color_t = 0x0032D430; // type:func defined:true size:0x1C
 __tf29slf_bitmap_widget_set_color_t = 0x0032D450; // type:func size:0x50
 __cl__29slf_bitmap_widget_set_color_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032D4A0; // type:func size:0x48
 _$_30slf_bitmap_widget_flip_horiz_t = 0x0032D4E8; // type:func size:0x1C
