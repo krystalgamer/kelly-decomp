@@ -6234,7 +6234,7 @@ __cl__32slf_fluid_bar_widget_set_color_tR8vm_stackQ320script_library_class8funct
 _$_29slf_fluid_bar_widget_resize_t = 0x0032E1A0; // type:func defined:true size:0x1C
 __tf29slf_fluid_bar_widget_resize_t = 0x0032E1C0; // type:func size:0x50
 __cl__29slf_fluid_bar_widget_resize_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032E210; // type:func size:0x34
-_$_35slf_fluid_bar_widget_set_full_val_t = 0x0032E248; // type:func size:0x1C
+_$_35slf_fluid_bar_widget_set_full_val_t = 0x0032E248; // type:func defined:true size:0x1C
 __tf35slf_fluid_bar_widget_set_full_val_t = 0x0032E268; // type:func size:0x50
 __cl__35slf_fluid_bar_widget_set_full_val_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032E2B8; // type:func size:0x68
 _$_30slf_fluid_bar_widget_set_val_t = 0x0032E320; // type:func size:0x1C
