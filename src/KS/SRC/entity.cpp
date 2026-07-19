@@ -234,3 +234,14 @@ float entity::get_age() const { float result = frame_time_info.get_age(); KELLY_
 class destroyable_info { unsigned short flags; float destroy_lifetime; public: void reset(); };
 void destroyable_info::reset() { flags &= 0xF008; destroy_lifetime = 1.0f; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00137C78)
+// 0x00137C78 disgorge_items__6entityP6entity
+class entity;
+extern const char disgorge_error[];
+void error(const char *format, ...);
+__asm__(".equ disgorge_error, 0x004CD020");
+__asm__(".equ error__FPCce, 0x001DFBD8");
+class entity { public: void disgorge_items(entity *target); };
+void entity::disgorge_items(entity *target) { error(disgorge_error); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
