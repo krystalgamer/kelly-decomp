@@ -111,3 +111,10 @@ void WAVE_StageAdvance();
 __asm__(".equ WAVE_StageAdvance__Fv, 0x00377B00");
 void WAVE_OnFlybyStart() { WAVE_StageAdvance(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00374D20)
+// 0x00374D20 WAVE_RegionIsFoamy__F14WaveRegionEnum
+enum WaveRegionEnum { WAVE_REGIONCEILING = 1, WAVE_REGIONTUBE = 9 };
+__asm__(".globl WAVE_RegionIsFoamy__F14WaveRegionEnum");
+static bool WAVE_RegionIsFoamy(WaveRegionEnum region) { if (region != WAVE_REGIONTUBE) return region == WAVE_REGIONCEILING; return true; }
+#endif
