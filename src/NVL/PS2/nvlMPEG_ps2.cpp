@@ -125,3 +125,12 @@ void viBufBeginPut(ViBuf *buffer, unsigned char **ptr0, int *len0, unsigned char
 __asm__(".equ viBufBeginPut__FP5ViBufPPUcPiT1T2, 0x0038A0D8");
 void videoDecBeginPut(VideoDec *decoder, unsigned char **ptr0, int *len0, unsigned char **ptr1, int *len1) { viBufBeginPut(&decoder->vibuf, ptr0, len0, ptr1, len1); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00388BC8)
+// 0x00388BC8 videoDecEndPut__FP8VideoDeci
+struct ViBuf { char data[1]; };
+struct VideoDec { char padding[0x48]; ViBuf vibuf; };
+void viBufEndPut(ViBuf *buffer, int size);
+__asm__(".equ viBufEndPut__FP5ViBufi, 0x0038A1D0");
+void videoDecEndPut(VideoDec *decoder, int size) { viBufEndPut(&decoder->vibuf, size); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
