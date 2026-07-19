@@ -80,3 +80,11 @@ __asm__(".equ signaller_signal_name, 0x00500D28");
 class signaller { public: const char* get_signal_name(unsigned short index) const; };
 const char* signaller::get_signal_name(unsigned short index) const { return signaller_signal_name; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0035FB08)
+// 0x0035FB08 _$_12gated_signal
+extern "C" void SignalDtor(void *self) __asm__("_$_6signal");
+extern "C" void GatedSignalDtor(void *self) __asm__("_$_12gated_signal");
+__asm__(".equ _$_6signal, 0x0034C048");
+void GatedSignalDtor(void *self) { SignalDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
