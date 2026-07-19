@@ -71,3 +71,9 @@ BalanceMeter::BalanceMeter() { player_num = -1; }
 class kellyslater_controller { char padding0[0x16b8]; bool bSpecialTrick; char padding1[0x238]; int completedTrick; int newTrick; int currentTrick; char padding2[0x10]; bool trick_queued; public: void ClearTricks(); };
 void kellyslater_controller::ClearTricks() { int value = -1; __asm__ volatile("" : : "r"(value)); bSpecialTrick = false; __asm__ volatile("" : : : "memory"); newTrick = value; __asm__ volatile("" : : : "memory"); trick_queued = false; __asm__ volatile("" : : : "memory"); currentTrick = value; __asm__ volatile("" : : : "memory"); completedTrick = value; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00223958)
+// 0x00223958 SetTubeTrick__22kellyslater_controlleriii
+class kellyslater_controller { char padding0[0x1a6c]; int tube_trick; int tube_anim; char padding1[0x10]; int tube_board_anim; int last_tube_trick; char padding2[0xc]; float current_trick_time; char padding3[0x38]; bool left_stick_pressed; public: void SetTubeTrick(int trick, int anim, int board_anim); };
+void kellyslater_controller::SetTubeTrick(int trick, int anim, int board_anim) { tube_trick = trick; tube_anim = anim; tube_board_anim = board_anim; last_tube_trick = -1; left_stick_pressed = false; KELLY_DECOMP_COMPILER_BARRIER(); current_trick_time = 0.0f; }
+#endif
