@@ -41,3 +41,12 @@ __asm__(".equ render_passes_needed__C6entity, 0x00133640");
 class visual_item : public entity { public: unsigned int render_passes_needed() const; };
 unsigned int visual_item::render_passes_needed() const { unsigned int result = entity::render_passes_needed(); __asm__ volatile(""); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0028B1E8)
+// 0x0028B1E8 render__11visual_itemP6camerafUif
+class camera;
+class entity { public: void render(camera *camera_link, float detail, unsigned int flavor, float translucency); };
+__asm__(".equ render__6entityP6camerafUif, 0x001324E0");
+class visual_item : public entity { public: void render(camera *camera_link, float detail, unsigned int flavor, float translucency); };
+void visual_item::render(camera *camera_link, float detail, unsigned int flavor, float translucency) { entity::render(camera_link, detail, flavor, translucency); __asm__ volatile(""); }
+#endif
