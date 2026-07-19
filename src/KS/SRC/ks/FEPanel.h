@@ -730,3 +730,11 @@ extern "C" void PanelMovieDtor(void *self) __asm__("_$_10PanelMovie");
 __asm__(".equ _$_9PanelGeom, 0x0014FAC8");
 void PanelMovieDtor(void *self) { PanelGeomDtor(self); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA268)
+// 0x001DA268 Load__10PanelMoviePUcRi
+class PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
+__asm__(".equ Load__9PanelGeomPUcRi, 0x0014FB68");
+class PanelMovie : public PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
+bool PanelMovie::Load(unsigned char *buffer, int &index) { bool result = PanelGeom::Load(buffer, index); __asm__ volatile(""); return result; }
+#endif
