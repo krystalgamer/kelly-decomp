@@ -371,3 +371,11 @@ extern "C" void ScriptDtor_0032E0E8(void *self) __asm__("_$_32slf_fluid_bar_widg
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_0032E0E8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032E1A0)
+// 0x0032E1A0 _$_29slf_fluid_bar_widget_resize_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_0032E1A0(void *self) __asm__("_$_29slf_fluid_bar_widget_resize_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_0032E1A0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
