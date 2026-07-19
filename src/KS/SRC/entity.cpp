@@ -201,3 +201,22 @@ class entity { public: void _set_region_forced_status(); void force_current_regi
 __asm__(".equ _set_region_forced_status__6entity, 0x00131E00");
 void entity::force_current_region() { _set_region_forced_status(); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00131E00)
+// 0x00131E00 _set_region_forced_status__6entity
+class entity {
+    char padding_to_flags[0x78];
+    unsigned int flags;
+    char padding_to_sector[0xDC];
+    void* my_sector;
+    void* center_region;
+public:
+    void _set_region_forced_status();
+};
+
+void entity::_set_region_forced_status() {
+    flags |= 0x10000000u;
+    my_sector = 0;
+    center_region = 0;
+}
+#endif
