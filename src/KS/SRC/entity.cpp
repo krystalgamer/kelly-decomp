@@ -168,3 +168,29 @@ __asm__(
     ".globl entity_signal_callback_attack__FP9signallerPCc"
 );
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00130DD0)
+// 0x00130DD0 get_last_po__6entity
+class po {};
+class entity {
+    char padding_to_abs[0x50];
+    po* absolute_po;
+    char padding_to_last[0x118];
+    po* last_po;
+public:
+    const po& get_abs_po() const {
+        return *absolute_po;
+    }
+    const po& get_last_po();
+};
+
+const po& entity::get_last_po() {
+    if (!last_po) {
+        __asm__ volatile("");
+        return get_abs_po();
+    } else {
+        __asm__ volatile("");
+        return *last_po;
+    }
+}
+#endif
