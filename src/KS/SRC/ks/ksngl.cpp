@@ -13,3 +13,10 @@ void nglSetViewport(unsigned int x1, unsigned int y1, unsigned int x2, unsigned 
 __asm__(".equ nglSetViewport__FUiUiUiUi, 0x00398558");
 void ksnglSetViewport(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2) { nglSetViewport(x1, y1, x2, y2); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00381948)
+// 0x00381948 ksnglSetOrthoMatrix__Fffffff
+void nglSetOrthoMatrix(float cx, float cy, float nearz, float farz, float zmin, float zmax);
+__asm__(".equ nglSetOrthoMatrix__Fffffff, 0x00398FA8");
+void ksnglSetOrthoMatrix(float cx, float cy, float nearz, float farz, float zmin, float zmax) { nglSetOrthoMatrix(cx, cy, nearz, farz, zmin, zmax); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
