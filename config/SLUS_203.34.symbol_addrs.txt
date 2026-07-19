@@ -5765,7 +5765,7 @@ __cl__23slf_was_start_pressed_tR8vm_stackQ320script_library_class8function7entry
 _$_19slf_was_A_pressed_t = 0x00320A50; // type:func defined:true size:0x1C
 __tf19slf_was_A_pressed_t = 0x00320A70; // type:func size:0x50
 __cl__19slf_was_A_pressed_tR8vm_stackQ320script_library_class8function7entry_t = 0x00320AC0; // type:func size:0x188
-_$_19slf_was_B_pressed_t = 0x00320C48; // type:func size:0x1C
+_$_19slf_was_B_pressed_t = 0x00320C48; // type:func defined:true size:0x1C
 __tf19slf_was_B_pressed_t = 0x00320C68; // type:func size:0x50
 __cl__19slf_was_B_pressed_tR8vm_stackQ320script_library_class8function7entry_t = 0x00320CB8; // type:func size:0x188
 _$_25slf_get_control_trigger_t = 0x00320E40; // type:func size:0x1C
