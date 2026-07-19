@@ -38,3 +38,11 @@ public:
 void VOEngine::frameAdvance(float timeInc) {
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002566D8)
+// 0x002566D8 isPlaying__8RandomVO
+unsigned int nslGetSoundStatus(unsigned int sound);
+__asm__(".equ nslGetSoundStatus__FUi, 0x0038DBA0");
+class RandomVO { char padding[4]; unsigned int thisSound; public: bool isPlaying(); };
+bool RandomVO::isPlaying() { return nslGetSoundStatus(thisSound) != 0; }
+#endif
