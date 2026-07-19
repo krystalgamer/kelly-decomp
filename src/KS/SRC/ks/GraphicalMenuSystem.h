@@ -96,3 +96,11 @@ extern "C" void FEDebugMenuDtor(void *self) __asm__("_$_11FEDebugMenu");
 __asm__(".equ _$_6FEMenu, 0x00156580");
 void FEDebugMenuDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DE4E0)
+// 0x001DE4E0 ReloadPanel__9HelpbarFE
+class PanelFile { public: void Reload(); };
+__asm__(".equ Reload__9PanelFile, 0x00152838");
+class HelpbarFE { char padding[0x80]; PanelFile panel; public: void ReloadPanel(); };
+void HelpbarFE::ReloadPanel() { panel.Reload(); __asm__ volatile(""); }
+#endif
