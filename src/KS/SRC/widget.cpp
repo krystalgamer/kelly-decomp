@@ -24,3 +24,11 @@ float menu_widget::get_width() { return 100.0f; }
 class menu_widget { public: float get_height(); };
 float menu_widget::get_height() { return 100.0f; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003406E8)
+// 0x003406E8 frame_advance__11text_widgetf
+class widget { public: void frame_advance(float time); };
+__asm__(".equ frame_advance__6widgetf, 0x0033DF70");
+class text_widget : public widget { public: void frame_advance(float time); };
+void text_widget::frame_advance(float time) { widget::frame_advance(time); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
