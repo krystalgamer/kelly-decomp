@@ -84,3 +84,10 @@ struct CbVectorTableLayout { cbVector data[16]; int size; };
 extern "C" void AppendCbVector(void *raw, const cbVector &element) __asm__("Append__t5Table1Z8cbVectorRC8cbVector");
 void AppendCbVector(void *raw, const cbVector &element) { CbVectorTableLayout *table = (CbVectorTableLayout *)raw; register int index __asm__("$2") = table->size; register int offset __asm__("$6") = index << 2; ++index; offset += (int)table; register cbVector *slot __asm__("$6") = (cbVector *)offset; table->size = index; register int value __asm__("$3") = element.value; slot->value = value; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002655A0)
+// 0x002655A0 Append__t5Table1ZiRCi
+struct IntTableLayout { int data[16]; int size; };
+extern "C" void AppendInt(void *raw, const int &element) __asm__("Append__t5Table1ZiRCi");
+void AppendInt(void *raw, const int &element) { IntTableLayout *table = (IntTableLayout *)raw; table->data[table->size++] = element; }
+#endif
