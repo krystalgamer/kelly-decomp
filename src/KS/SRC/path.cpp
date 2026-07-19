@@ -24,3 +24,12 @@ class path_graph_node { public: vector3d point; };
 class path_graph_edge { path_graph_node *nodes[2]; public: void render(camera *camera_link, color32 color, float thickness); };
 void path_graph_edge::render(camera *camera_link, color32 color, float thickness) { render_beam(nodes[0]->point, nodes[1]->point, color, thickness); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034AB30)
+// 0x0034AB30 node_in_graph__C10path_graphRC8vector3d
+struct vector3d;
+class path_graph_node;
+class path_graph { public: path_graph_node *get_node(const vector3d &point) const; bool node_in_graph(const vector3d &point) const; };
+__asm__(".equ get_node__C10path_graphRC8vector3d, 0x0034AF58");
+bool path_graph::node_in_graph(const vector3d &point) const { return get_node(point) != 0; }
+#endif
