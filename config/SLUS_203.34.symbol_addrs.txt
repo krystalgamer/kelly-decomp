@@ -6022,7 +6022,7 @@ __cl__31slf_signaller_disable_signals_tR8vm_stackQ320script_library_class8functi
 _$_31slf_signaller_clear_callbacks_t = 0x00328468; // type:func defined:true size:0x1C
 __tf31slf_signaller_clear_callbacks_t = 0x00328488; // type:func size:0x50
 __cl__31slf_signaller_clear_callbacks_tR8vm_stackQ320script_library_class8function7entry_t = 0x003284D8; // type:func size:0x2C
-_$_30slf_signaller_clear_callback_t = 0x00328508; // type:func size:0x1C
+_$_30slf_signaller_clear_callback_t = 0x00328508; // type:func defined:true size:0x1C
 __tf30slf_signaller_clear_callback_t = 0x00328528; // type:func size:0x50
 __cl__30slf_signaller_clear_callback_tR8vm_stackQ320script_library_class8function7entry_t = 0x00328578; // type:func size:0x30
 _$_13slc_trigger_t = 0x003285A8; // type:func size:0x1C
