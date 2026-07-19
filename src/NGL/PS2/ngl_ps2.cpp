@@ -248,3 +248,11 @@ extern "C" void sceVu0ApplyMatrix(float *dst, float *matrix, float *source);
 __asm__(".equ sceVu0ApplyMatrix, 0x003BC320");
 void nglApplyMatrix(nglVector &dst, nglMatrix &matrix, nglVector &source) { sceVu0ApplyMatrix(dst, matrix, source); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00398558)
+// 0x00398558 nglSetViewport__FUiUiUiUi
+struct nglScene { char padding[0x410]; unsigned int ViewX1; unsigned int ViewY1; unsigned int ViewX2; unsigned int ViewY2; };
+extern nglScene *nglCurScene;
+__asm__(".equ nglCurScene, 0x004BBD04");
+void nglSetViewport(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2) { nglCurScene->ViewX1 = x1; nglCurScene->ViewY1 = y1; nglCurScene->ViewX2 = x2; nglCurScene->ViewY2 = y2; }
+#endif
