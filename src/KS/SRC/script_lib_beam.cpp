@@ -64,3 +64,11 @@ extern "C" void ScriptDtor_00325CA8(void *self) __asm__("_$_29slf_beam_set_detec
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00325CA8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00325D68)
+// 0x00325D68 _$_27slf_beam_set_collide_hero_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_00325D68(void *self) __asm__("_$_27slf_beam_set_collide_hero_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_00325D68(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
