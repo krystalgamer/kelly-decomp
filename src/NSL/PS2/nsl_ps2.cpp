@@ -25,3 +25,11 @@ extern nslState nsl;
 __asm__(".equ nsl, 0x0049B5F0");
 int nslGetSpeakerMode() { return nsl.speaker_mode; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00390DA8)
+// 0x00390DA8 _nslResetInternal__F18_nslClearBehaviour
+enum _nslClearBehaviour { NSL_CLEAR_DEFAULT };
+void _nslClearSystemData(_nslClearBehaviour behavior);
+__asm__(".equ _nslClearSystemData__F18_nslClearBehaviour, 0x00390DC8");
+void _nslResetInternal(_nslClearBehaviour behavior) { _nslClearSystemData(behavior); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
