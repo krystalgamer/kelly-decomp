@@ -24,3 +24,11 @@ public:
 void FEMenu::OnSelect(int controller) {
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00157B10)
+// 0x00157B10 Draw__8FrontEnd
+class PanelFile { public: void Draw(int layer); };
+__asm__(".equ Draw__9PanelFilei, 0x001530B8");
+class FrontEnd { char padding[0x80]; PanelFile panel; public: void Draw(); };
+void FrontEnd::Draw() { panel.Draw(0); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
