@@ -6192,7 +6192,7 @@ __cl__37slf_text_block_widget_set_max_lines_tR8vm_stackQ320script_library_class8
 _$_40slf_text_block_widget_set_line_spacing_t = 0x0032CED8; // type:func defined:true size:0x1C
 __tf40slf_text_block_widget_set_line_spacing_t = 0x0032CEF8; // type:func size:0x50
 __cl__40slf_text_block_widget_set_line_spacing_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032CF48; // type:func size:0x40
-_$_37slf_text_block_widget_set_max_width_t = 0x0032CF88; // type:func size:0x1C
+_$_37slf_text_block_widget_set_max_width_t = 0x0032CF88; // type:func defined:true size:0x1C
 __tf37slf_text_block_widget_set_max_width_t = 0x0032CFA8; // type:func size:0x50
 __cl__37slf_text_block_widget_set_max_width_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032CFF8; // type:func size:0x11C
 _$_33slf_text_block_widget_set_color_t = 0x0032D118; // type:func size:0x1C
