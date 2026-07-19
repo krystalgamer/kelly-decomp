@@ -5720,7 +5720,7 @@ __cl__22slf_add_debug_sphere_tR8vm_stackQ320script_library_class8function7entry_
 _$_25slf_clear_debug_spheres_t = 0x0031F728; // type:func defined:true size:0x1C
 __tf25slf_clear_debug_spheres_t = 0x0031F748; // type:func size:0x50
 __cl__25slf_clear_debug_spheres_tR8vm_stackQ320script_library_class8function7entry_t = 0x0031F798; // type:func defined:true size:0x14
-_$_18slf_get_time_inc_t = 0x0031F7B0; // type:func size:0x1C
+_$_18slf_get_time_inc_t = 0x0031F7B0; // type:func defined:true size:0x1C
 __tf18slf_get_time_inc_t = 0x0031F7D0; // type:func size:0x50
 __cl__18slf_get_time_inc_tR8vm_stackQ320script_library_class8function7entry_t = 0x0031F820; // type:func size:0x150
 _$_16slf_text_width_t = 0x0031F970; // type:func size:0x1C
