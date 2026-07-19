@@ -206,3 +206,11 @@ __asm__(".equ nglGetScreenHeight__Fv, 0x00395D98");
 class hw_rasta { public: int get_screen_height() const; };
 int hw_rasta::get_screen_height() const { int result = nglGetScreenHeight(); __asm__ volatile(""); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E2900)
+// 0x001E2900 flip__8hw_rasta
+void nglFlip();
+__asm__(".equ nglFlip__Fv, 0x003979E0");
+class hw_rasta { public: void flip(); };
+void hw_rasta::flip() { nglFlip(); __asm__ volatile(""); }
+#endif
