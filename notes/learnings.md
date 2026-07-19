@@ -32,3 +32,8 @@
   next subsegment.
 - GNU ld must use `SUBALIGN(1)` and must not add final section alignment, or
   relocations and the ROM size drift.
+- Re-running Splat for every matched function is unnecessary. Exact raw
+  `.incbin` gaps can preserve unmatched text, provided labels referenced by
+  fixed data and exception relocations are recreated from the ELF and
+  relocation tables. This keeps the full-ROM gate while making the build
+  incrementally relinkable.

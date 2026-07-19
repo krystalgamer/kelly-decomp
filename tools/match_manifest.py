@@ -92,7 +92,7 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
     source_path = install_function_source(row, source)
 
     run(str(PYTHON), "tools/elf_inventory.py")
-    run(str(PYTHON), "configure.py")
+    run(str(PYTHON), "tools/fast_configure.py")
     run("ninja")
     run(
         str(PYTHON),

@@ -219,7 +219,10 @@ def process_one(dry_run: bool) -> None:
     )
 
     run(str(ROOT / "env" / "bin" / "python"), "tools/elf_inventory.py")
-    run(str(ROOT / "env" / "bin" / "python"), "configure.py")
+    run(
+        str(ROOT / "env" / "bin" / "python"),
+        "tools/fast_configure.py",
+    )
     run("ninja")
     run(
         str(ROOT / "env" / "bin" / "python"),

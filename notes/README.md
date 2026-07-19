@@ -36,6 +36,10 @@ Committed source mirrors the original reference tree below `src/`. Multiple
 matched functions from one original file live together in guarded blocks.
 Generated selector shims under `build/src_functions/` compile one block at a
 time, preserving the function-level linker layout and atomic workflow.
+After the initial full Splat configure, function cycles use
+`tools/fast_configure.py`. It links matched source objects between raw target
+text gaps while reusing the fixed data/BSS objects, avoiding full
+re-disassembly without weakening the ROM checksum gate.
 
 The queue uses `SELF` in the `commit` column because a commit cannot contain
 its own hash. The containing commit is found with `git log -- <notes_file>`.

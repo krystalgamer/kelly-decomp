@@ -33,3 +33,9 @@ grouping source by original file does not change target object placement.
 The all-assembly reconstruction builds with native modern MIPS binutils.
 Input-section subalignment is forced to one byte because Splat's generated
 assembly already contains the target's inter-section padding.
+
+Continuous function integration uses a fast incremental configuration after
+one successful full Splat build. Unmatched text gaps are assembled from exact
+target ROM bytes with the ELF and relocation-required labels restored;
+matched selector objects and the original fixed data/BSS objects remain in
+link order. Every function cycle still links and checks the complete ROM.
