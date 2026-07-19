@@ -88,3 +88,11 @@ public:
 void GraphicalMenuSystem::Reload() {
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DE210)
+// 0x001DE210 _$_11FEDebugMenu
+extern "C" void FEMenuDtor(void *self) __asm__("_$_6FEMenu");
+extern "C" void FEDebugMenuDtor(void *self) __asm__("_$_11FEDebugMenu");
+__asm__(".equ _$_6FEMenu, 0x00156580");
+void FEDebugMenuDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
+#endif
