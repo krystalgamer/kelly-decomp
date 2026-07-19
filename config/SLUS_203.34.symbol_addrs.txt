@@ -6051,7 +6051,7 @@ __cl__30slf_trigger_set_use_any_char_tR8vm_stackQ320script_library_class8functio
 _$_24slf_vector3d_construct_t = 0x003290D8; // type:func defined:true size:0x1C
 __tf24slf_vector3d_construct_t = 0x003290F8; // type:func size:0x50
 __cl__24slf_vector3d_construct_tR8vm_stackQ320script_library_class8function7entry_t = 0x00329148; // type:func defined:true size:0x8
-_$_18slf_vector3d_add_t = 0x00329150; // type:func size:0x1C
+_$_18slf_vector3d_add_t = 0x00329150; // type:func defined:true size:0x1C
 __tf18slf_vector3d_add_t = 0x00329170; // type:func size:0x50
 __cl__18slf_vector3d_add_tR8vm_stackQ320script_library_class8function7entry_t = 0x003291C0; // type:func size:0x184
 _$_23slf_vector3d_subtract_t = 0x00329348; // type:func size:0x1C
