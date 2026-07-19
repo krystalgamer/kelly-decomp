@@ -38,3 +38,10 @@ void mem_dump_heap(int heapid) {
 void mem_summarize_heap(int heapid) {
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AC4D8)
+// 0x002AC4D8 mem_init_checkpoint__Fb
+int mem_set_checkpoint();
+__asm__(".equ mem_set_checkpoint__Fv, 0x002AC4F8");
+int mem_init_checkpoint(bool enabled) { int result = mem_set_checkpoint(); __asm__ volatile(""); return result; }
+#endif
