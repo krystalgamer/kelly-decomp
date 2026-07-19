@@ -776,3 +776,12 @@ extern "C" void ScriptDtor_003248B0(void *self) __asm__("_$_20slf_systime_second
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_003248B0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031E2E0)
+// 0x0031E2E0 __cl__20slf_suspend_all_ai_tR8vm_stackQ320script_library_class8function7entry_t
+class ai_interface { public: static void push_disable_all(bool value); };
+__asm__(".equ push_disable_all__12ai_interfaceb, 0x00105590");
+#define SLF_DONE return true
+extern "C" bool SuspendAllAIOp(void *self, void *stack, int entry) __asm__("__cl__20slf_suspend_all_ai_tR8vm_stackQ320script_library_class8function7entry_t");
+bool SuspendAllAIOp(void *self, void *stack, int entry) { ai_interface::push_disable_all(false); SLF_DONE; }
+#endif
