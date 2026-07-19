@@ -6042,7 +6042,7 @@ __cl__26slf_create_point_trigger_tR8vm_stackQ320script_library_class8function7en
 _$_24slf_create_box_trigger_t = 0x00328C88; // type:func defined:true size:0x1C
 __tf24slf_create_box_trigger_t = 0x00328CA8; // type:func size:0x50
 __cl__24slf_create_box_trigger_tR8vm_stackQ320script_library_class8function7entry_t = 0x00328CF8; // type:func size:0x160
-_$_27slf_create_entity_trigger_t = 0x00328E58; // type:func size:0x1C
+_$_27slf_create_entity_trigger_t = 0x00328E58; // type:func defined:true size:0x1C
 __tf27slf_create_entity_trigger_t = 0x00328E78; // type:func size:0x50
 __cl__27slf_create_entity_trigger_tR8vm_stackQ320script_library_class8function7entry_t = 0x00328EC8; // type:func size:0x164
 _$_30slf_trigger_set_use_any_char_t = 0x00329030; // type:func size:0x1C
