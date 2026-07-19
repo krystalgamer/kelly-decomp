@@ -142,3 +142,15 @@ void audioDecResume(AudioDec *decoder);
 __asm__(".equ audioDecResume__FP8AudioDec, 0x003896C0");
 void audioDecStart(AudioDec *decoder) { audioDecResume(decoder); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00388B88)
+// 0x00388B88 videoDecSetStream__FP8VideoDeciiPFP7sceMpegP13sceMpegCbDataPv_iPv
+struct sceMpeg { char data[1]; };
+struct sceMpegCbData;
+typedef int (*sceMpegCallback)(sceMpeg *, sceMpegCbData *, void *);
+struct VideoDec { sceMpeg mpeg; };
+extern "C" int sceMpegAddStrCallback(sceMpeg *mpeg, int type, int channel, sceMpegCallback callback, void *data);
+__asm__(".equ sceMpegAddStrCallback, 0x003BE530");
+__asm__(".globl videoDecSetStream__FP8VideoDeciiPFP7sceMpegP13sceMpegCbDataPv_iPv");
+static int videoDecSetStream(VideoDec *decoder, int type, int channel, sceMpegCallback callback, void *data) { sceMpegAddStrCallback(&decoder->mpeg, type, channel, callback, data); return 1; }
+#endif
