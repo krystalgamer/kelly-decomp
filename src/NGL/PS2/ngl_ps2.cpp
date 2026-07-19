@@ -271,3 +271,10 @@ struct nglQuadVertex { float X; float Y; float U; float V; unsigned int Color; }
 struct nglQuad { nglQuadVertex Verts[4]; };
 void nglSetQuadVPos(nglQuad *quad, int index, float x, float y) { quad->Verts[index].X = x; quad->Verts[index].Y = y; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003A6AB8)
+// 0x003A6AB8 nglSetQuadVUV__FP7nglQuadiff
+struct nglQuadVertex { float X; float Y; float U; float V; unsigned int Color; };
+struct nglQuad { nglQuadVertex Verts[4]; };
+void nglSetQuadVUV(nglQuad *quad, int index, float u, float v) { quad->Verts[index].U = u; quad->Verts[index].V = v; }
+#endif
