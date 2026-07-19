@@ -76,3 +76,11 @@ extern "C" void RectangleMarkerDtor(void *self) __asm__("_$_16rectangle_marker")
 __asm__(".equ _$_6entity, 0x001298C8");
 void RectangleMarkerDtor(void *self) { EntityDtor(self); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B9290)
+// 0x002B9290 _$_11cube_marker
+extern "C" void EntityDtor(void *self) __asm__("_$_6entity");
+extern "C" void CubeMarkerDtor(void *self) __asm__("_$_11cube_marker");
+__asm__(".equ _$_6entity, 0x001298C8");
+void CubeMarkerDtor(void *self) { EntityDtor(self); __asm__ volatile(""); }
+#endif
