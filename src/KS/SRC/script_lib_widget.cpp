@@ -56,3 +56,11 @@ class script_library_class { public: class function { public: enum entry_t { FIR
 class slf_clear_score_t { public: bool operator()(vm_stack&, script_library_class::function::entry_t); };
 bool slf_clear_score_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { return true; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032B8A8)
+// 0x0032B8A8 _$_17slf_widget_show_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_0032B8A8(void *self) __asm__("_$_17slf_widget_show_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_0032B8A8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
