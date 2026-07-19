@@ -16,3 +16,11 @@ extern "C" void TimeAttackPauseMenuClassDtor(void *self) __asm__("_$_24TimeAttac
 __asm__(".equ _$_6FEMenu, 0x00156580");
 void TimeAttackPauseMenuClassDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DD038)
+// 0x001DD038 _$_22TutorialPauseMenuClass
+extern "C" void FEMenuDtor(void *self) __asm__("_$_6FEMenu");
+extern "C" void TutorialPauseMenuClassDtor(void *self) __asm__("_$_22TutorialPauseMenuClass");
+__asm__(".equ _$_6FEMenu, 0x00156580");
+void TutorialPauseMenuClassDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
+#endif
