@@ -24,3 +24,11 @@ bool particle_generator::get_distance_fade_ok() const {
     return false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00385388)
+// 0x00385388 _GLOBAL_$I$TRAIL_StaticInit__Fv
+extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
+extern "C" void GlobalInit() __asm__("_GLOBAL_$I$TRAIL_StaticInit__Fv");
+__asm__(".equ __static_initialization_and_destruction_0, 0x00382368");
+void GlobalInit() { StaticInit(1, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
