@@ -714,3 +714,11 @@ extern "C" void PanelObjectModelDtor(void *self) __asm__("_$_16PanelObjectModel"
 __asm__(".equ _$_9PanelGeom, 0x0014FAC8");
 void PanelObjectModelDtor(void *self) { PanelGeomDtor(self); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA1A8)
+// 0x001DA1A8 Load__16PanelObjectModelPUcRi
+class PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
+__asm__(".equ Load__9PanelGeomPUcRi, 0x0014FB68");
+class PanelObjectModel : public PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
+bool PanelObjectModel::Load(unsigned char *buffer, int &index) { bool result = PanelGeom::Load(buffer, index); __asm__ volatile(""); return result; }
+#endif
