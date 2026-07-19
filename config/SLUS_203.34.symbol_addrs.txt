@@ -6162,7 +6162,7 @@ __cl__22slf_timer_widget_run_tR8vm_stackQ320script_library_class8function7entry_
 _$_32slf_timer_widget_inc_time_left_t = 0x0032C4C0; // type:func defined:true size:0x1C
 __tf32slf_timer_widget_inc_time_left_t = 0x0032C4E0; // type:func size:0x50
 __cl__32slf_timer_widget_inc_time_left_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032C530; // type:func size:0x30
-_$_34slf_timer_widget_set_digit_color_t = 0x0032C560; // type:func size:0x1C
+_$_34slf_timer_widget_set_digit_color_t = 0x0032C560; // type:func defined:true size:0x1C
 __tf34slf_timer_widget_set_digit_color_t = 0x0032C580; // type:func size:0x50
 __cl__34slf_timer_widget_set_digit_color_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032C5D0; // type:func size:0x54
 _$_31slf_timer_widget_set_bg_color_t = 0x0032C628; // type:func size:0x1C
