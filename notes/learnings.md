@@ -15,6 +15,11 @@
 - `entity::set_zbias` shows a target `mtc1`/`nop`/`cvt.s.w` hazard sequence.
   Explicit conversion asm can reproduce it, but EE GCC then reschedules the
   paired bool/float stores; this function was deferred after five candidates.
+- Generated derived destructors can differ only by the scheduler placing the
+  RA stack save after vtable address setup. The compiler wrapper recognizes
+  the exact semantics-independent prologue pattern and moves that save ahead
+  of the `this` copy/address low half, matching the released compiler without
+  changing calls, stores, or relocations.
 
 ## ELF/debug information
 

@@ -41,3 +41,8 @@ matched selector objects and the original fixed data/BSS objects remain in
 link order. Every function cycle still links and checks the complete ROM.
 The normal `configure.py` command dispatches to this path after bootstrap;
 `configure.py --full` remains the deterministic Splat fallback.
+
+The EE object fixup layer also normalizes a generated-destructor scheduling
+pattern where the supplied compiler delays the RA save until after vtable
+address setup. The correction is guarded by the complete seven-instruction
+prologue/call/store signature.
