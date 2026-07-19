@@ -112,3 +112,11 @@ class script_library_class { public: class function { public: enum entry_t { FIR
 class slf_freeze_universe_t { public: bool operator()(vm_stack&, script_library_class::function::entry_t); };
 bool slf_freeze_universe_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.stack_ptr -= 4; return true; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031DB20)
+// 0x0031DB20 _$_26slf_allow_suspend_thread_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_0031DB20(void *self) __asm__("_$_26slf_allow_suspend_thread_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_0031DB20(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+#endif
