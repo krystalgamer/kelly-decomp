@@ -72,3 +72,11 @@ extern "C" void SoundMenuClassDtor(void *self) __asm__("_$_14SoundMenuClass");
 __asm__(".equ _$_6FEMenu, 0x00156580");
 void SoundMenuClassDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DD5C8)
+// 0x001DD5C8 _$_14TrickMenuClass
+extern "C" void FEMenuDtor(void *self) __asm__("_$_6FEMenu");
+extern "C" void TrickMenuClassDtor(void *self) __asm__("_$_14TrickMenuClass");
+__asm__(".equ _$_6FEMenu, 0x00156580");
+void TrickMenuClassDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
+#endif
