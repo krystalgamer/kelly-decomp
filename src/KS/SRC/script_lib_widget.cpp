@@ -459,3 +459,11 @@ extern "C" void ScriptDtor_0032EB28(void *self) __asm__("_$_21slf_give_color_clu
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_0032EB28(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032EBB0)
+// 0x0032EBB0 _$_23slf_clear_color_clues_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_0032EBB0(void *self) __asm__("_$_23slf_clear_color_clues_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_0032EBB0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
