@@ -68,6 +68,8 @@ def patch_ee_stack_saves(path: Path) -> None:
             and words[5] >> 26 == 0x03
             and words[6] & 0xFFFF0000 == 0xAC620000
         ):
+            if words[3] & 0x8000:
+                words[1] += 1
             words[2:5] = (words[4], words[2], words[3])
             struct.pack_into("<7I", data, offset, *words)
 
