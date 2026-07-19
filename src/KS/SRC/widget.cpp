@@ -32,3 +32,11 @@ __asm__(".equ frame_advance__6widgetf, 0x0033DF70");
 class text_widget : public widget { public: void frame_advance(float time); };
 void text_widget::frame_advance(float time) { widget::frame_advance(time); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003407F0)
+// 0x003407F0 flush__11text_widget
+class widget { public: void flush(); };
+__asm__(".equ flush__6widget, 0x0033E518");
+class text_widget : public widget { public: void flush(); };
+void text_widget::flush() { widget::flush(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
