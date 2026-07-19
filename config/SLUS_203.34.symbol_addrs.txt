@@ -6341,7 +6341,7 @@ __cl__37slf_vector3d_list_iterator_is_equal_tR8vm_stackQ320script_library_class8
 _$_38slf_vector3d_list_iterator_not_equal_t = 0x003308C0; // type:func defined:true size:0x1C
 __tf38slf_vector3d_list_iterator_not_equal_t = 0x003308E0; // type:func size:0x50
 __cl__38slf_vector3d_list_iterator_not_equal_tR8vm_stackQ320script_library_class8function7entry_t = 0x00330930; // type:func size:0x16C
-_$_41slf_vector3d_list_iterator_get_vector3d_t = 0x00330AA0; // type:func size:0x1C
+_$_41slf_vector3d_list_iterator_get_vector3d_t = 0x00330AA0; // type:func defined:true size:0x1C
 __tf41slf_vector3d_list_iterator_get_vector3d_t = 0x00330AC0; // type:func size:0x50
 __cl__41slf_vector3d_list_iterator_get_vector3d_tR8vm_stackQ320script_library_class8function7entry_t = 0x00330B10; // type:func size:0x16C
 _$_21slf_create_num_list_t = 0x00330C80; // type:func size:0x1C
