@@ -20,3 +20,11 @@ __asm__(".equ GetPointer__9PanelFilePCc, 0x00152F88");
 class OptionsMenu { char padding[0x100]; PanelFile panel; public: PanelQuad *GetPointer(const char *name); };
 PanelQuad *OptionsMenu::GetPointer(const char *name) { PanelQuad *result = panel.GetPointer(name); __asm__ volatile(""); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DC690)
+// 0x001DC690 _$_15MultiplayerMenu
+extern "C" void FEMenuDtor(void *self) __asm__("_$_6FEMenu");
+extern "C" void MultiplayerMenuDtor(void *self) __asm__("_$_15MultiplayerMenu");
+__asm__(".equ _$_6FEMenu, 0x00156580");
+void MultiplayerMenuDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
+#endif
