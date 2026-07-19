@@ -5735,7 +5735,7 @@ __cl__22slf_get_cur_time_inc_tR8vm_stackQ320script_library_class8function7entry_
 _$_15slf_TARGET_PC_t = 0x0031FF88; // type:func defined:true size:0x1C
 __tf15slf_TARGET_PC_t = 0x0031FFA8; // type:func size:0x50
 __cl__15slf_TARGET_PC_tR8vm_stackQ320script_library_class8function7entry_t = 0x0031FFF8; // type:func size:0x144
-_$_18slf_letterbox_on_t = 0x00320140; // type:func size:0x1C
+_$_18slf_letterbox_on_t = 0x00320140; // type:func defined:true size:0x1C
 __tf18slf_letterbox_on_t = 0x00320160; // type:func size:0x50
 __cl__18slf_letterbox_on_tR8vm_stackQ320script_library_class8function7entry_t = 0x003201B0; // type:func defined:true size:0x8
 _$_19slf_letterbox_off_t = 0x003201B8; // type:func size:0x1C
