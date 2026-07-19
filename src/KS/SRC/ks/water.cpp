@@ -56,3 +56,10 @@ bool WAVE_GetDraw();
 __asm__(".equ WAVE_GetDraw__Fv, 0x0037DC20");
 bool WATER_GetDrawWave() { bool result = WAVE_GetDraw(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00372960)
+// 0x00372960 WATER_SetDrawWave__Fb
+void WAVE_SetDraw(bool enabled);
+__asm__(".equ WAVE_SetDraw__Fb, 0x0037DC30");
+void WATER_SetDrawWave(bool enabled) { WAVE_SetDraw(enabled); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
