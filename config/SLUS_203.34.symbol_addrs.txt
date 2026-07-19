@@ -5963,7 +5963,7 @@ __cl__27slf_beam_add_color_effect_tR8vm_stackQ320script_library_class8function7e
 _$_27slf_beam_add_width_effect_t = 0x003265E0; // type:func defined:true size:0x1C
 __tf27slf_beam_add_width_effect_t = 0x00326600; // type:func size:0x50
 __cl__27slf_beam_add_width_effect_tR8vm_stackQ320script_library_class8function7entry_t = 0x00326650; // type:func size:0x194
-_$_27slf_beam_add_alpha_effect_t = 0x003267E8; // type:func size:0x1C
+_$_27slf_beam_add_alpha_effect_t = 0x003267E8; // type:func defined:true size:0x1C
 __tf27slf_beam_add_alpha_effect_t = 0x00326808; // type:func size:0x50
 __cl__27slf_beam_add_alpha_effect_tR8vm_stackQ320script_library_class8function7entry_t = 0x00326858; // type:func size:0x1A8
 _$_22slf_beam_kill_effect_t = 0x00326A00; // type:func size:0x1C
