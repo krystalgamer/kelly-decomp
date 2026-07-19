@@ -40,6 +40,8 @@ After the initial full Splat configure, function cycles use
 `tools/fast_configure.py`. It links matched source objects between raw target
 text gaps while reusing the fixed data/BSS objects, avoiding full
 re-disassembly without weakening the ROM checksum gate.
+`configure.py` selects this incremental path when bootstrap outputs exist;
+use `configure.py --full` (or `--clean`) to force Splat regeneration.
 
 The queue uses `SELF` in the `commit` column because a commit cannot contain
 its own hash. The containing commit is found with `git log -- <notes_file>`.

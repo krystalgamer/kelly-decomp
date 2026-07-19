@@ -39,3 +39,5 @@ one successful full Splat build. Unmatched text gaps are assembled from exact
 target ROM bytes with the ELF and relocation-required labels restored;
 matched selector objects and the original fixed data/BSS objects remain in
 link order. Every function cycle still links and checks the complete ROM.
+The normal `configure.py` command dispatches to this path after bootstrap;
+`configure.py --full` remains the deterministic Splat fallback.

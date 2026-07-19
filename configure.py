@@ -196,9 +196,21 @@ def main() -> int:
         action="store_true",
         help="Remove generated Splat and build output first.",
     )
+    parser.add_argument(
+        "--full",
+        action="store_true",
+        help="Force full Splat regeneration instead of the incremental path.",
+    )
     args = parser.parse_args()
 
     os.chdir(ROOT)
+    fast_prerequisites = (
+        LINKER_SCRIPT.exists()
+        and (BUILD_DIR / "asm/data/cod/2E5580.data.s.o").exists()
+    )
+    if not args.clean and not args.full and fast_prerequisites:
+        run_checked("./env/bin/python", "tools/fast_configure.py")
+        return 0
     if args.clean:
         clean()
 
