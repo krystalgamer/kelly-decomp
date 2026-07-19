@@ -64,3 +64,11 @@ extern "C" void ScriptObjectClassDtor(void *self) __asm__("_$_19slc_script_objec
 __asm__(".equ _$_20script_library_class, 0x0034EE68");
 void ScriptObjectClassDtor(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0035F828)
+// 0x0035F828 _$_9slc_num_t
+extern "C" void ScriptClassDtor(void *self) __asm__("_$_20script_library_class");
+extern "C" void ScriptNumClassDtor(void *self) __asm__("_$_9slc_num_t");
+__asm__(".equ _$_20script_library_class, 0x0034EE68");
+void ScriptNumClassDtor(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
