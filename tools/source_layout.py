@@ -112,5 +112,7 @@ def write_selector_shim(source: FunctionSource) -> Path:
     if source.merged:
         lines.append(f"#define {selector_macro(source.address)} 1")
     lines.append(f'#include "{include_path}"')
-    shim.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    content = "\n".join(lines) + "\n"
+    if not shim.exists() or shim.read_text(encoding="utf-8") != content:
+        shim.write_text(content, encoding="utf-8")
     return shim

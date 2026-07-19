@@ -2,7 +2,6 @@
 
 import csv
 import json
-import shutil
 from pathlib import Path
 
 import yaml
@@ -33,8 +32,9 @@ def queue_by_address() -> dict[int, dict[str, str]]:
 def source_functions(
     queue: dict[int, dict[str, str]],
 ) -> list[tuple[int, int, str, str]]:
-    shutil.rmtree(GENERATED_SOURCE_ROOT, ignore_errors=True)
+    GENERATED_SOURCE_ROOT.mkdir(parents=True, exist_ok=True)
     sources = discover_function_sources()
+    expected_shims: set[Path] = set()
     functions: list[tuple[int, int, str, str]] = []
     manifest: dict[str, dict[str, str]] = {}
     for address, source in sorted(sources.items()):
@@ -50,6 +50,7 @@ def source_functions(
             raise RuntimeError(f"Source is outside target text: {source.path}")
 
         shim = write_selector_shim(source)
+        expected_shims.add(shim)
         segment_type = "c" if shim.suffix.lower() == ".c" else "cpp"
         segment_name = shim.stem
         functions.append((offset, size, segment_type, segment_name))
@@ -57,6 +58,10 @@ def source_functions(
             "source": source.path.relative_to(ROOT).as_posix(),
             "shim": shim.relative_to(ROOT).as_posix(),
         }
+
+    for path in GENERATED_SOURCE_ROOT.iterdir():
+        if path.is_file() and path not in expected_shims:
+            path.unlink()
 
     functions.sort()
     for current, following in zip(functions, functions[1:]):
