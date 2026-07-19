@@ -154,3 +154,10 @@ __asm__(".equ sceMpegAddStrCallback, 0x003BE530");
 __asm__(".globl videoDecSetStream__FP8VideoDeciiPFP7sceMpegP13sceMpegCbDataPv_iPv");
 static int videoDecSetStream(VideoDec *decoder, int type, int channel, sceMpegCallback callback, void *data) { sceMpegAddStrCallback(&decoder->mpeg, type, channel, callback, data); return 1; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00389188)
+// 0x00389188 voBufDecCount__FP5VoBuf
+struct VoBuf { char padding[0xc]; volatile int count; };
+__asm__(".globl voBufDecCount__FP5VoBuf");
+static void voBufDecCount(VoBuf *buffer) { if (buffer->count > 0) buffer->count--; }
+#endif
