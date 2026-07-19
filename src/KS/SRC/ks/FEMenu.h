@@ -485,3 +485,11 @@ __asm__(".equ Add__6FEMenuP11FEMenuEntry, 0x001566B8");
 class FEGraphicalMenu : public FEMenu { public: void Add(FEMenuEntry *entry); };
 void FEGraphicalMenu::Add(FEMenuEntry *entry) { FEMenu::Add(entry); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DB470)
+// 0x001DB470 _$_15FETextMultiMenu
+extern "C" void FEMenuDtor(void *self) __asm__("_$_6FEMenu");
+extern "C" void FETextMultiMenuDtor(void *self) __asm__("_$_15FETextMultiMenu");
+__asm__(".equ _$_6FEMenu, 0x00156580");
+void FETextMultiMenuDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
+#endif
