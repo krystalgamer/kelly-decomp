@@ -76,3 +76,10 @@ struct GlobalSurferData { char padding[0x70]; int handicap; char tail[4]; };
 class GlobalDataClass { char padding[0xcc]; GlobalSurferData globalSurfers[1]; public: void setMaxHandicap(int surfer, int handicap); };
 void GlobalDataClass::setMaxHandicap(int surfer, int handicap) { globalSurfers[surfer].handicap = handicap > 6 ? 6 : handicap; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002EFE18)
+// 0x002EFE18 unlockSurferBoard__15GlobalDataClassii
+struct GlobalSurferData { bool boardsUnlocked[10]; char tail[0x50]; };
+class GlobalDataClass { char padding[0xcc]; GlobalSurferData globalSurfers[1]; public: void unlockSurferBoard(int surfer, int board); };
+void GlobalDataClass::unlockSurferBoard(int surfer, int board) { globalSurfers[surfer].boardsUnlocked[board] = true; }
+#endif
