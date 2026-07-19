@@ -21,3 +21,10 @@ class vector3d { public: float x; float y; float z; vector3d(float ix, float iy,
 class marky_camera { public: vector3d camera_get_target(); };
 vector3d marky_camera::camera_get_target() { return vector3d(0.0f, 0.0f, 0.0f); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002C61E0)
+// 0x002C61E0 camera_set_target__12marky_cameraRC8vector3d
+struct vector3d { float x; float y; float z; vector3d &operator=(const vector3d &other) { x = other.x; y = other.y; z = other.z; return *this; } };
+class marky_camera { char padding[0x2d0]; vector3d target; public: void camera_set_target(const vector3d &position); };
+void marky_camera::camera_set_target(const vector3d &position) { target = position; }
+#endif
