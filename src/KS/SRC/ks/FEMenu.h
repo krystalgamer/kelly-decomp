@@ -460,3 +460,11 @@ class FEMenu;
 class FEMenuSystem { char padding[0x74]; FEMenu** menus; char padding_to_active[0x4]; int active; public: FEMenu* GetActiveMenu(); };
 FEMenu* FEMenuSystem::GetActiveMenu() { return menus[active]; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA830)
+// 0x001DA830 GetWidth__11FEMenuEntry
+class MultiLineString { public: float getWidth(); };
+__asm__(".equ getWidth__15MultiLineString, 0x00148C08");
+class FEMenuEntry { char padding[0x24]; MultiLineString *text; public: float GetWidth(); };
+float FEMenuEntry::GetWidth() { float result = text->getWidth(); __asm__ volatile(""); return result; }
+#endif
