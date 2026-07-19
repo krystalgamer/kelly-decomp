@@ -5669,7 +5669,7 @@ __cl__22slf_unsuspend_all_ai_tR8vm_stackQ320script_library_class8function7entry_
 _$_18slf_enable_pause_t = 0x0031E390; // type:func defined:true size:0x1C
 __tf18slf_enable_pause_t = 0x0031E3B0; // type:func size:0x50
 __cl__18slf_enable_pause_tR8vm_stackQ320script_library_class8function7entry_t = 0x0031E400; // type:func size:0x7C
-_$_22slf_enable_interface_t = 0x0031E480; // type:func size:0x1C
+_$_22slf_enable_interface_t = 0x0031E480; // type:func defined:true size:0x1C
 __tf22slf_enable_interface_t = 0x0031E4A0; // type:func size:0x50
 __cl__22slf_enable_interface_tR8vm_stackQ320script_library_class8function7entry_t = 0x0031E4F0; // type:func size:0x7C
 _$_28slf_wait_animate_fog_color_t = 0x0031E570; // type:func size:0x1C
