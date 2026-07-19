@@ -368,3 +368,11 @@ extern "C" void ScriptDtor_003340C0(void *self) __asm__("_$_18slf_str_list_add_t
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_003340C0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00334198)
+// 0x00334198 _$_20slf_str_list_begin_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_00334198(void *self) __asm__("_$_20slf_str_list_begin_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_00334198(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
