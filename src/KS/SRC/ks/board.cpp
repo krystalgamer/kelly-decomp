@@ -35,3 +35,9 @@ void SurfBoardObjectClass::ResetTimers() {
 class SurfBoardObjectClass { char padding[0xaa0]; float float_speed; public: void IncrementFloatSpeed(); };
 void SurfBoardObjectClass::IncrementFloatSpeed() { float value = float_speed; __asm__ volatile("" : : "f"(value)); float increment = 1.5f; __asm__ volatile("nop"); float_speed = value + increment; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001F99D0)
+// 0x001F99D0 GetLeanPercentage__20SurfBoardObjectClass
+class SurfBoardObjectClass { char padding0[0xd8]; float maxLeanAngle; char padding1[0x8f4]; float curLeanAngle; public: float GetLeanPercentage(); };
+float SurfBoardObjectClass::GetLeanPercentage() { return curLeanAngle / (maxLeanAngle * 0.017453292f); }
+#endif
