@@ -1137,3 +1137,10 @@ destroyable_info *entity::get_destroy_info() const {
     return destroy_info;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00145168)
+// 0x00145168 is_frame_delta_valid__C6entity
+struct movement_info { bool frame_delta_valid; bool last_frame_delta_valid; };
+class entity { char padding[0x150]; movement_info* mi; public: bool is_frame_delta_valid() const; };
+bool entity::is_frame_delta_valid() const { return mi && mi->frame_delta_valid; }
+#endif
