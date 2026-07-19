@@ -239,3 +239,12 @@ extern "C" void sceVu0MulMatrix(float *dst, const float *lhs, const float *rhs);
 __asm__(".equ sceVu0MulMatrix, 0x003BC350");
 void nglMulMatrix(nglMatrix &dst, const nglMatrix &lhs, const nglMatrix &rhs) { sceVu0MulMatrix(dst, lhs, rhs); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00395F48)
+// 0x00395F48 nglApplyMatrix__FR9nglVectorR9nglMatrixT0
+class nglVector { float data[4]; public: operator float *() { return data; } };
+class nglMatrix { float data[16]; public: operator float *() { return data; } };
+extern "C" void sceVu0ApplyMatrix(float *dst, float *matrix, float *source);
+__asm__(".equ sceVu0ApplyMatrix, 0x003BC320");
+void nglApplyMatrix(nglVector &dst, nglMatrix &matrix, nglVector &source) { sceVu0ApplyMatrix(dst, matrix, source); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
