@@ -22,3 +22,11 @@ __asm__(".equ going_into_service__7ai_goal, 0x00106618");
 class surfer_ai_goal : public ai_goal { public: void going_into_service(); };
 void surfer_ai_goal::going_into_service() { ai_goal::going_into_service(); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0020BD58)
+// 0x0020BD58 going_out_of_service__14surfer_ai_goal
+class ai_goal { public: void going_out_of_service(); };
+__asm__(".equ going_out_of_service__7ai_goal, 0x001069C8");
+class surfer_ai_goal : public ai_goal { public: void going_out_of_service(); };
+void surfer_ai_goal::going_out_of_service() { ai_goal::going_out_of_service(); __asm__ volatile(""); }
+#endif
