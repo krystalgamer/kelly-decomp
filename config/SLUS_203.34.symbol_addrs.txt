@@ -6063,7 +6063,7 @@ __cl__25slf_vector3d_mul_scalar_tR8vm_stackQ320script_library_class8function7ent
 _$_25slf_vector3d_div_scalar_t = 0x00329728; // type:func defined:true size:0x1C
 __tf25slf_vector3d_div_scalar_t = 0x00329748; // type:func size:0x50
 __cl__25slf_vector3d_div_scalar_tR8vm_stackQ320script_library_class8function7entry_t = 0x00329798; // type:func size:0x184
-_$_20slf_vector3d_equal_t = 0x00329920; // type:func size:0x1C
+_$_20slf_vector3d_equal_t = 0x00329920; // type:func defined:true size:0x1C
 __tf20slf_vector3d_equal_t = 0x00329940; // type:func size:0x50
 __cl__20slf_vector3d_equal_tR8vm_stackQ320script_library_class8function7entry_t = 0x00329990; // type:func size:0x1C8
 _$_24slf_vector3d_not_equal_t = 0x00329B58; // type:func size:0x1C
