@@ -61,15 +61,8 @@ def patch_ee_stack_saves(path: Path) -> None:
 
 
 def wine_path(path: Path, environment: dict[str, str]) -> str:
-    result = subprocess.run(
-        ["winepath", "-w", str(path.resolve())],
-        check=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True,
-        env=environment,
-    )
-    return result.stdout.strip()
+    del environment
+    return "Z:" + str(path.resolve()).replace("/", "\\")
 
 
 def main() -> int:
