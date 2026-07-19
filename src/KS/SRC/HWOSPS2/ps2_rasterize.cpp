@@ -198,3 +198,11 @@ __asm__(".equ nglGetScreenWidth__Fv, 0x00395D88");
 class hw_rasta { public: int get_screen_width() const; };
 int hw_rasta::get_screen_width() const { int result = nglGetScreenWidth(); __asm__ volatile(""); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E28B0)
+// 0x001E28B0 get_screen_height__C8hw_rasta
+int nglGetScreenHeight();
+__asm__(".equ nglGetScreenHeight__Fv, 0x00395D98");
+class hw_rasta { public: int get_screen_height() const; };
+int hw_rasta::get_screen_height() const { int result = nglGetScreenHeight(); __asm__ volatile(""); return result; }
+#endif
