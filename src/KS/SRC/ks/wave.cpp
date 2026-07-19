@@ -104,3 +104,10 @@ void WAVEMENU_StaticInit();
 __asm__(".equ WAVEMENU_StaticInit__Fv, 0x00372B20");
 void WAVE_StaticInit() { WAVEMENU_StaticInit(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00374460)
+// 0x00374460 WAVE_OnFlybyStart__Fv
+void WAVE_StageAdvance();
+__asm__(".equ WAVE_StageAdvance__Fv, 0x00377B00");
+void WAVE_OnFlybyStart() { WAVE_StageAdvance(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
