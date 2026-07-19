@@ -785,3 +785,12 @@ __asm__(".equ push_disable_all__12ai_interfaceb, 0x00105590");
 extern "C" bool SuspendAllAIOp(void *self, void *stack, int entry) __asm__("__cl__20slf_suspend_all_ai_tR8vm_stackQ320script_library_class8function7entry_t");
 bool SuspendAllAIOp(void *self, void *stack, int entry) { ai_interface::push_disable_all(false); SLF_DONE; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031E370)
+// 0x0031E370 __cl__22slf_unsuspend_all_ai_tR8vm_stackQ320script_library_class8function7entry_t
+class ai_interface { public: static void pop_disable_all(bool value); };
+__asm__(".equ pop_disable_all__12ai_interfaceb, 0x00105608");
+#define SLF_DONE return true
+extern "C" bool UnsuspendAllAIOp(void *self, void *stack, int entry) __asm__("__cl__22slf_unsuspend_all_ai_tR8vm_stackQ320script_library_class8function7entry_t");
+bool UnsuspendAllAIOp(void *self, void *stack, int entry) { ai_interface::pop_disable_all(false); SLF_DONE; }
+#endif
