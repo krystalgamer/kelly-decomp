@@ -20,3 +20,9 @@ bool DemoModeManager::inDemoMode() {
 class DemoModeManager { char padding0[0x34]; bool wasInTitle; char padding1[0x50]; bool wasInDemo; public: bool ReturnFromDemoToTitle(); };
 bool DemoModeManager::ReturnFromDemoToTitle() { return wasInDemo && wasInTitle; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001FA9A0)
+// 0x001FA9A0 ReturnFromDemoToMain__15DemoModeManager
+class DemoModeManager { char padding0[0x34]; bool wasInTitle; char padding1[0x50]; bool wasInDemo; public: bool ReturnFromDemoToMain(); };
+bool DemoModeManager::ReturnFromDemoToMain() { return wasInDemo && !wasInTitle; }
+#endif
