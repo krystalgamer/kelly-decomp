@@ -97,3 +97,10 @@ extern float wave_height_fudge[];
 __asm__(".equ wave_height_fudge, 0x0058ECE8");
 float WAVE_GetHeightFudgeFactor(int index) { return wave_height_fudge[index]; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003732C0)
+// 0x003732C0 WAVE_StaticInit__Fv
+void WAVEMENU_StaticInit();
+__asm__(".equ WAVEMENU_StaticInit__Fv, 0x00372B20");
+void WAVE_StaticInit() { WAVEMENU_StaticInit(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
