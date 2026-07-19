@@ -254,3 +254,11 @@ __asm__(".equ show__6widget, 0x0033DDD0");
 class text_widget : public widget { public: void show(); };
 void text_widget::show() { widget::show(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00360858)
+// 0x00360858 hide__11text_widget
+class widget { public: void hide(); };
+__asm__(".equ hide__6widget, 0x0033DEA0");
+class text_widget : public widget { public: void hide(); };
+void text_widget::hide() { widget::hide(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
