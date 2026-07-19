@@ -88,3 +88,11 @@ extern "C" void ReplayMenuClassDtor(void *self) __asm__("_$_15ReplayMenuClass");
 __asm__(".equ _$_6FEMenu, 0x00156580");
 void ReplayMenuClassDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DD968)
+// 0x001DD968 _$_23LostControllerMenuClass
+extern "C" void FEMenuDtor(void *self) __asm__("_$_6FEMenu");
+extern "C" void LostControllerMenuClassDtor(void *self) __asm__("_$_23LostControllerMenuClass");
+__asm__(".equ _$_6FEMenu, 0x00156580");
+void LostControllerMenuClassDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
+#endif
