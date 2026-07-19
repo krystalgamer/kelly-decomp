@@ -48,3 +48,12 @@ unsigned int cg_none::get_type() const {
     return 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002DC2B8)
+// 0x002DC2B8 xform__7cg_noneRC2po
+class po;
+class collision_geometry { public: void xform(const po &value); };
+__asm__(".equ xform__18collision_geometryRC2po, 0x002D89C0");
+class cg_none : public collision_geometry { public: void xform(const po &value); };
+void cg_none::xform(const po &value) { collision_geometry::xform(value); __asm__ volatile(""); }
+#endif
