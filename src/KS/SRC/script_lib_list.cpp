@@ -216,3 +216,11 @@ extern "C" void ScriptDtor_003320C8(void *self) __asm__("_$_33slf_num_list_itera
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_003320C8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003322A8)
+// 0x003322A8 _$_31slf_num_list_iterator_get_num_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_003322A8(void *self) __asm__("_$_31slf_num_list_iterator_get_num_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_003322A8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
