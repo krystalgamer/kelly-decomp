@@ -32,3 +32,12 @@ extern PauseMenuSystem* frontend_pause_system;
 __asm__(".equ frontend_pause_system, 0x003E772C");
 bool IGOIsPaused() { return frontend_pause_system->draw; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001990F0)
+// 0x001990F0 FEInit__Fv
+class FEManager { public: void InitFE(); };
+extern FEManager frontendmanager;
+__asm__(".equ frontendmanager, 0x003E7728");
+__asm__(".equ InitFE__9FEManager, 0x00198938");
+void FEInit() { frontendmanager.InitFE(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
