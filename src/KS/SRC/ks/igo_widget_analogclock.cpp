@@ -30,3 +30,11 @@ void AnalogClockWidget::HideElapsedTime() {
     elapsedInterval = 0.0f;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00165138)
+// 0x00165138 SetDisplay__17AnalogClockWidgetb
+class IGOWidget { public: void SetDisplay(bool value); };
+__asm__(".equ SetDisplay__9IGOWidgetb, 0x00164658");
+class AnalogClockWidget : public IGOWidget { public: void SetDisplay(bool value); };
+void AnalogClockWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); __asm__ volatile(""); }
+#endif
