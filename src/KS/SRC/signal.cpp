@@ -22,3 +22,10 @@ class signal { public: void raise(); void raise_input(signal *input, signaller *
 __asm__(".equ raise__6signal, 0x0034C428");
 void signal::raise_input(signal *input, signaller *source) { raise(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034CC70)
+// 0x0034CC70 __9signaller
+class signaller { unsigned int flags; void *signals; public: signaller(); virtual ~signaller(); };
+__asm__(".equ _vt$9signaller, 0x005050B0");
+signaller::signaller() : flags(0), signals(0) {}
+#endif
