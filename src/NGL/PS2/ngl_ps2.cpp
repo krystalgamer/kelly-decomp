@@ -256,3 +256,11 @@ extern nglScene *nglCurScene;
 __asm__(".equ nglCurScene, 0x004BBD04");
 void nglSetViewport(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2) { nglCurScene->ViewX1 = x1; nglCurScene->ViewY1 = y1; nglCurScene->ViewX2 = x2; nglCurScene->ViewY2 = y2; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00398638)
+// 0x00398638 nglSetFogRange__Fffff
+struct nglScene { char padding[0x44c]; float FogNear; float FogFar; float FogMin; float FogMax; };
+extern nglScene *nglCurScene;
+__asm__(".equ nglCurScene, 0x004BBD04");
+void nglSetFogRange(float near_value, float far_value, float minimum, float maximum) { nglCurScene->FogNear = near_value; nglCurScene->FogFar = far_value; nglCurScene->FogMin = minimum; nglCurScene->FogMax = maximum; }
+#endif
