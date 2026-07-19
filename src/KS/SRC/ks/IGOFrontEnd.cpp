@@ -24,3 +24,10 @@ class PhotoWidget { char padding[0x18]; int shown; public: bool IsShown() const 
 class IGOFrontEnd { char padding[0x5ac]; PhotoWidget *photoWidget; public: bool IsPhotoShown() const; };
 bool IGOFrontEnd::IsPhotoShown() const { return photoWidget && photoWidget->IsShown(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017CE68)
+// 0x0017CE68 GetCameraReticleFade__C11IGOFrontEnd
+class CameraWidget { char padding[0x78]; float fade; public: float GetFade() const { return fade; } };
+class IGOFrontEnd { char padding[0x5a8]; CameraWidget *cameraWidget; public: float GetCameraReticleFade() const; };
+float IGOFrontEnd::GetCameraReticleFade() const { if (!cameraWidget) return 0.0f; return cameraWidget->GetFade(); }
+#endif
