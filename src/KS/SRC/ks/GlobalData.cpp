@@ -62,3 +62,10 @@ struct GlobalLocation { char padding[0x8]; bool board_unlocked; };
 class GlobalDataClass { GlobalLocation locations[32]; public: void unlockLocationBoard(int index); };
 void GlobalDataClass::unlockLocationBoard(int index) { locations[index].board_unlocked = true; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002EFDF8)
+// 0x002EFDF8 isSurferBoardUnlocked__C15GlobalDataClassii
+struct GlobalSurferData { bool boardsUnlocked[30]; };
+class GlobalDataClass { char padding[0xcc]; GlobalSurferData globalSurfers[1]; public: bool isSurferBoardUnlocked(int surfer, int board) const; };
+bool GlobalDataClass::isSurferBoardUnlocked(int surfer, int board) const { return globalSurfers[surfer].boardsUnlocked[board]; }
+#endif
