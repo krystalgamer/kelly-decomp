@@ -70,7 +70,7 @@ def generate_ninja() -> None:
     with (ROOT / "build.ninja").open("w", encoding="utf-8") as ninja_file:
         ninja = ninja_syntax.Writer(ninja_file, width=120)
         ninja.variable("ninja_required_version", "1.10")
-        ninja.pool("wine", 4)
+        ninja.pool("wine", 2)
 
         ninja.rule(
             "as",
