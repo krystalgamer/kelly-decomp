@@ -6132,7 +6132,7 @@ __cl__21slf_widget_move_to2_tR8vm_stackQ320script_library_class8function7entry_t
 _$_22slf_widget_set_layer_t = 0x0032BBC0; // type:func defined:true size:0x1C
 __tf22slf_widget_set_layer_t = 0x0032BBE0; // type:func size:0x50
 __cl__22slf_widget_set_layer_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032BC30; // type:func size:0x60
-_$_21slf_widget_scale_to_t = 0x0032BC90; // type:func size:0x1C
+_$_21slf_widget_scale_to_t = 0x0032BC90; // type:func defined:true size:0x1C
 __tf21slf_widget_scale_to_t = 0x0032BCB0; // type:func size:0x50
 __cl__21slf_widget_scale_to_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032BD00; // type:func size:0x44
 _$_22slf_widget_scale_to2_t = 0x0032BD48; // type:func size:0x1C
