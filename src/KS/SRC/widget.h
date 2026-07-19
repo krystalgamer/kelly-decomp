@@ -262,3 +262,11 @@ __asm__(".equ hide__6widget, 0x0033DEA0");
 class text_widget : public widget { public: void hide(); };
 void text_widget::hide() { widget::hide(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00121D08)
+// 0x00121D08 _GLOBAL_$I$anim_track_flavors
+extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
+extern "C" void GlobalInit() __asm__("_GLOBAL_$I$anim_track_flavors");
+__asm__(".equ __static_initialization_and_destruction_0, 0x001202D8");
+void GlobalInit() { StaticInit(1, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
