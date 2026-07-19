@@ -24,3 +24,11 @@ extern "C" void TutorialPauseMenuClassDtor(void *self) __asm__("_$_22TutorialPau
 __asm__(".equ _$_6FEMenu, 0x00156580");
 void TutorialPauseMenuClassDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DD0D0)
+// 0x001DD0D0 _$_15EndRunMenuClass
+extern "C" void FEMenuDtor(void *self) __asm__("_$_6FEMenu");
+extern "C" void EndRunMenuClassDtor(void *self) __asm__("_$_15EndRunMenuClass");
+__asm__(".equ _$_6FEMenu, 0x00156580");
+void EndRunMenuClassDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
+#endif
