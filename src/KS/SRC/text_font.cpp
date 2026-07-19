@@ -14,3 +14,11 @@ class Font { public: void clear_glyph_info(); void unload(); };
 __asm__(".equ clear_glyph_info__4Font, 0x0033A0A8");
 void Font::unload() { clear_glyph_info(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033C6C8)
+// 0x0033C6C8 open__12typeface_defRC7stringx
+class stringx { public: stringx &operator=(const stringx &other); };
+__asm__(".equ __as__7stringxRC7stringx, 0x0034E0B8");
+class typeface_def { char padding[0x1418]; stringx m_name; public: void open(const stringx &name); };
+void typeface_def::open(const stringx &name) { m_name = name; KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
