@@ -90,3 +90,12 @@ struct GlobalSurferData { bool boardsUnlocked[10]; bool tricksUnlocked[10]; char
 class GlobalDataClass { char padding[0xcc]; GlobalSurferData globalSurfers[1]; public: void unlockSurferTrick(int surfer, int trick); };
 void GlobalDataClass::unlockSurferTrick(int surfer, int trick) { globalSurfers[surfer].tricksUnlocked[trick] = true; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002F0000)
+// 0x002F0000 unlockCheat__15GlobalDataClassi
+struct CheatData { bool locked; int padding; void setLockedState(bool value) { locked = value; } };
+extern CheatData g_session_cheats[];
+__asm__(".equ g_session_cheats, 0x0043BD48");
+class GlobalDataClass { char padding[0x5db0]; CheatData globalCheats[1]; public: void unlockCheat(int cheat); };
+void GlobalDataClass::unlockCheat(int cheat) { globalCheats[cheat].setLockedState(false); g_session_cheats[cheat].setLockedState(false); }
+#endif
