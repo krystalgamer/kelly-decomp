@@ -134,3 +134,11 @@ void viBufEndPut(ViBuf *buffer, int size);
 __asm__(".equ viBufEndPut__FP5ViBufi, 0x0038A1D0");
 void videoDecEndPut(VideoDec *decoder, int size) { viBufEndPut(&decoder->vibuf, size); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00389730)
+// 0x00389730 audioDecStart__FP8AudioDec
+struct AudioDec;
+void audioDecResume(AudioDec *decoder);
+__asm__(".equ audioDecResume__FP8AudioDec, 0x003896C0");
+void audioDecStart(AudioDec *decoder) { audioDecResume(decoder); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
