@@ -158,3 +158,9 @@ void beam_effect_width::apply_target_vals(beam *value) { value->set_thickness(ta
 class beam_effect_width { char padding[4]; float start; float target; float delta; public: void reverse(); };
 void beam_effect_width::reverse() { float temporary = start; start = target; target = temporary; delta = -delta; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B7FC8)
+// 0x002B7FC8 reverse__17beam_effect_alpha
+class beam_effect_alpha { char padding[4]; unsigned char start; unsigned char target; char padding2[2]; float delta; public: void reverse(); };
+void beam_effect_alpha::reverse() { unsigned char temporary = start; start = target; target = temporary; delta = -delta; }
+#endif
