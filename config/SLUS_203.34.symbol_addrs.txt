@@ -5942,7 +5942,7 @@ __cl__31slf_beam_set_collide_beamable_tR8vm_stackQ320script_library_class8functi
 _$_27slf_beam_set_no_collision_t = 0x00325FA8; // type:func defined:true size:0x1C
 __tf27slf_beam_set_no_collision_t = 0x00325FC8; // type:func size:0x50
 __cl__27slf_beam_set_no_collision_tR8vm_stackQ320script_library_class8function7entry_t = 0x00326018; // type:func size:0x24
-_$_23slf_beam_set_additive_t = 0x00326040; // type:func size:0x1C
+_$_23slf_beam_set_additive_t = 0x00326040; // type:func defined:true size:0x1C
 __tf23slf_beam_set_additive_t = 0x00326060; // type:func size:0x50
 __cl__23slf_beam_set_additive_tR8vm_stackQ320script_library_class8function7entry_t = 0x003260B0; // type:func size:0x38
 _$_29slf_beam_set_point_to_point_t = 0x003260E8; // type:func size:0x1C
