@@ -190,3 +190,11 @@ void vert_buf_xformed::unlock() {
     locked = false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E2890)
+// 0x001E2890 get_screen_width__C8hw_rasta
+int nglGetScreenWidth();
+__asm__(".equ nglGetScreenWidth__Fv, 0x00395D88");
+class hw_rasta { public: int get_screen_width() const; };
+int hw_rasta::get_screen_width() const { int result = nglGetScreenWidth(); __asm__ volatile(""); return result; }
+#endif
