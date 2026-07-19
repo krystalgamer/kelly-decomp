@@ -136,3 +136,11 @@ beam_effect_type* beam_effect_type::make_instance() {
     return 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B7CF0)
+// 0x002B7CF0 apply_start_vals__17beam_effect_widthP4beam
+class beam { public: void set_thickness(float width); };
+__asm__(".equ set_thickness__4beamf, 0x00271790");
+class beam_effect_width { char padding[4]; float start; float target; float delta; public: void apply_start_vals(beam *value); };
+void beam_effect_width::apply_start_vals(beam *value) { value->set_thickness(start); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
