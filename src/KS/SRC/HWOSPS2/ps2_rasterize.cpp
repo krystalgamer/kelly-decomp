@@ -214,3 +214,10 @@ __asm__(".equ nglFlip__Fv, 0x003979E0");
 class hw_rasta { public: void flip(); };
 void hw_rasta::flip() { nglFlip(); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E2A38)
+// 0x001E2A38 __8vert_buf
+class ref { int count; public: ref() : count(0) {} };
+class vert_buf : public ref { void *verts; int max_size; bool locked; bool optimized; public: vert_buf(); };
+vert_buf::vert_buf() { verts = 0; max_size = 0; locked = false; optimized = false; }
+#endif
