@@ -5870,7 +5870,7 @@ __cl__25slf_systime_day_of_week_tR8vm_stackQ320script_library_class8function7ent
 _$_18slf_systime_year_t = 0x00324340; // type:func defined:true size:0x1C
 __tf18slf_systime_year_t = 0x00324360; // type:func size:0x50
 __cl__18slf_systime_year_tR8vm_stackQ320script_library_class8function7entry_t = 0x003243B0; // type:func size:0x15C
-_$_18slf_systime_hour_t = 0x00324510; // type:func size:0x1C
+_$_18slf_systime_hour_t = 0x00324510; // type:func defined:true size:0x1C
 __tf18slf_systime_hour_t = 0x00324530; // type:func size:0x50
 __cl__18slf_systime_hour_tR8vm_stackQ320script_library_class8function7entry_t = 0x00324580; // type:func size:0x15C
 _$_20slf_systime_minute_t = 0x003246E0; // type:func size:0x1C
