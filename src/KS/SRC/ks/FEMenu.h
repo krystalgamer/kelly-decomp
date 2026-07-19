@@ -476,3 +476,12 @@ __asm__(".equ Load__9PanelFileb, 0x00152510");
 class FrontEnd { char padding[0x80]; PanelFile panel; public: void LoadPanel(bool floating); };
 void FrontEnd::LoadPanel(bool floating) { panel.Load(floating); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DB140)
+// 0x001DB140 Add__15FEGraphicalMenuP11FEMenuEntry
+class FEMenuEntry;
+class FEMenu { public: void Add(FEMenuEntry *entry); };
+__asm__(".equ Add__6FEMenuP11FEMenuEntry, 0x001566B8");
+class FEGraphicalMenu : public FEMenu { public: void Add(FEMenuEntry *entry); };
+void FEGraphicalMenu::Add(FEMenuEntry *entry) { FEMenu::Add(entry); __asm__ volatile(""); }
+#endif
