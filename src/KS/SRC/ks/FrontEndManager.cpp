@@ -41,3 +41,12 @@ __asm__(".equ frontendmanager, 0x003E7728");
 __asm__(".equ InitFE__9FEManager, 0x00198938");
 void FEInit() { frontendmanager.InitFE(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00199110)
+// 0x00199110 FEUpdate__Ff
+class FEManager { public: void UpdateFE(float time); };
+extern FEManager frontendmanager;
+__asm__(".equ frontendmanager, 0x003E7728");
+__asm__(".equ UpdateFE__9FEManagerf, 0x00198E18");
+void FEUpdate(float time) { frontendmanager.UpdateFE(time); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
