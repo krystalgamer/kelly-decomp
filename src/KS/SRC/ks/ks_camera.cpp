@@ -124,3 +124,8 @@ void buoy_camera::init() { first_time = true; jump_time_elapsed = 0; }
 class photo_camera { char padding_to_first[0x2D0]; bool first_time; char padding_to_jump[0x30]; float jump_time_elapsed; public: void init(); };
 void photo_camera::init() { first_time = true; jump_time_elapsed = 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00229B88)
+// 0x00229B88 interpolate_float__Ffff
+float interpolate_float(float first_float, float second_float, float difference) { return (first_float * (1.0f - difference)) + (second_float * difference); }
+#endif
