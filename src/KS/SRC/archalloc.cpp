@@ -45,3 +45,10 @@ int mem_set_checkpoint();
 __asm__(".equ mem_set_checkpoint__Fv, 0x002AC4F8");
 int mem_init_checkpoint(bool enabled) { int result = mem_set_checkpoint(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002ACBF0)
+// 0x002ACBF0 mem_get_largest_avail__Fi
+int mem_raw_largest_avail(int heap);
+__asm__(".equ mem_raw_largest_avail__Fi, 0x002ACBB0");
+int mem_get_largest_avail(int heap) { int result = mem_raw_largest_avail(heap); KELLY_DECOMP_COMPILER_BARRIER(); return result - 128; }
+#endif
