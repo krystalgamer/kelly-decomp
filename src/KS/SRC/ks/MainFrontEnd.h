@@ -28,3 +28,11 @@ extern "C" void MultiplayerMenuDtor(void *self) __asm__("_$_15MultiplayerMenu");
 __asm__(".equ _$_6FEMenu, 0x00156580");
 void MultiplayerMenuDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DC978)
+// 0x001DC978 _$_12FreesurfMenu
+extern "C" void FEMenuDtor(void *self) __asm__("_$_6FEMenu");
+extern "C" void FreesurfMenuDtor(void *self) __asm__("_$_12FreesurfMenu");
+__asm__(".equ _$_6FEMenu, 0x00156580");
+void FreesurfMenuDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
+#endif
