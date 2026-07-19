@@ -5678,7 +5678,7 @@ __cl__28slf_wait_animate_fog_color_tR8vm_stackQ320script_library_class8function7
 _$_31slf_wait_animate_fog_distance_t = 0x0031E800; // type:func defined:true size:0x1C
 __tf31slf_wait_animate_fog_distance_t = 0x0031E820; // type:func size:0x50
 __cl__31slf_wait_animate_fog_distance_tR8vm_stackQ320script_library_class8function7entry_t = 0x0031E870; // type:func size:0x110
-_$_32slf_wait_animate_fog_distances_t = 0x0031E980; // type:func size:0x1C
+_$_32slf_wait_animate_fog_distances_t = 0x0031E980; // type:func defined:true size:0x1C
 __tf32slf_wait_animate_fog_distances_t = 0x0031E9A0; // type:func size:0x50
 __cl__32slf_wait_animate_fog_distances_tR8vm_stackQ320script_library_class8function7entry_t = 0x0031E9F0; // type:func size:0x130
 _$_16slf_wait_frame_t = 0x0031EB20; // type:func size:0x1C
