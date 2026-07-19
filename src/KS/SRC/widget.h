@@ -230,3 +230,11 @@ float fluid_bar::get_height() {
     return height;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003606C0)
+// 0x003606C0 scale_to__13bitmap_widgetffff
+class widget { public: void scale_to(float wait, float duration, float horizontal, float vertical); };
+__asm__(".equ scale_to__6widgetffff, 0x0033ED48");
+class bitmap_widget : public widget { public: void scale_to(float wait, float duration, float horizontal, float vertical); };
+void bitmap_widget::scale_to(float wait, float duration, float horizontal, float vertical) { widget::scale_to(wait, duration, horizontal, vertical); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
