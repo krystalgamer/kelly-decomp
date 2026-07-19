@@ -60,3 +60,11 @@ bool cube_marker::is_a_cube_marker() const {
     return true;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B9150)
+// 0x002B9150 _$_6marker
+extern "C" void EntityDtor(void *self) __asm__("_$_6entity");
+extern "C" void MarkerDtor(void *self) __asm__("_$_6marker");
+__asm__(".equ _$_6entity, 0x001298C8");
+void MarkerDtor(void *self) { EntityDtor(self); __asm__ volatile(""); }
+#endif
