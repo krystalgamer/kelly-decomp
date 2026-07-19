@@ -278,3 +278,10 @@ struct nglQuadVertex { float X; float Y; float U; float V; unsigned int Color; }
 struct nglQuad { nglQuadVertex Verts[4]; };
 void nglSetQuadVUV(nglQuad *quad, int index, float u, float v) { quad->Verts[index].U = u; quad->Verts[index].V = v; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003AAAB8)
+// 0x003AAAB8 nglHostClose__FUi
+extern "C" int sceClose(int file);
+__asm__(".equ sceClose, 0x003DEC00");
+void nglHostClose(unsigned int file) { sceClose(file); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
