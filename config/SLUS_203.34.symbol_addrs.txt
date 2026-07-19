@@ -5933,7 +5933,7 @@ __cl__29slf_beam_set_detect_stealth_tR8vm_stackQ320script_library_class8function
 _$_27slf_beam_set_collide_hero_t = 0x00325D68; // type:func defined:true size:0x1C
 __tf27slf_beam_set_collide_hero_t = 0x00325D88; // type:func size:0x50
 __cl__27slf_beam_set_collide_hero_tR8vm_stackQ320script_library_class8function7entry_t = 0x00325DD8; // type:func size:0x50
-_$_28slf_beam_set_collide_world_t = 0x00325E28; // type:func size:0x1C
+_$_28slf_beam_set_collide_world_t = 0x00325E28; // type:func defined:true size:0x1C
 __tf28slf_beam_set_collide_world_t = 0x00325E48; // type:func size:0x50
 __cl__28slf_beam_set_collide_world_tR8vm_stackQ320script_library_class8function7entry_t = 0x00325E98; // type:func size:0x50
 _$_31slf_beam_set_collide_beamable_t = 0x00325EE8; // type:func size:0x1C
