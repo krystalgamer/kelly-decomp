@@ -131,3 +131,11 @@ class surfing_object { public: bool floating_ai(vector3d &position, vector3d &no
 __asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
 bool surfing_object::kelp_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); __asm__ volatile(""); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00207418)
+// 0x00207418 fatbastard_ai__14surfing_objectR8vector3dT1f
+class vector3d;
+class surfing_object { public: bool floating_ai(vector3d &position, vector3d &normal, float time); bool fatbastard_ai(vector3d &position, vector3d &normal, float time); };
+__asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
+bool surfing_object::fatbastard_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); __asm__ volatile(""); return result; }
+#endif
