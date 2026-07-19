@@ -6368,7 +6368,7 @@ __cl__21slf_num_list_rbegin_tR8vm_stackQ320script_library_class8function7entry_t
 _$_19slf_num_list_rend_t = 0x00331710; // type:func defined:true size:0x1C
 __tf19slf_num_list_rend_t = 0x00331730; // type:func size:0x50
 __cl__19slf_num_list_rend_tR8vm_stackQ320script_library_class8function7entry_t = 0x00331780; // type:func size:0x15C
-_$_24slf_num_list_get_index_t = 0x003318E0; // type:func size:0x1C
+_$_24slf_num_list_get_index_t = 0x003318E0; // type:func defined:true size:0x1C
 __tf24slf_num_list_get_index_t = 0x00331900; // type:func size:0x50
 __cl__24slf_num_list_get_index_tR8vm_stackQ320script_library_class8function7entry_t = 0x00331950; // type:func size:0x1F8
 _$_27slf_num_list_iterator_inc_t = 0x00331B48; // type:func size:0x1C
