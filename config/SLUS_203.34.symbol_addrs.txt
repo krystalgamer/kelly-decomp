@@ -5861,7 +5861,7 @@ __cl__22slf_get_fog_distance_tR8vm_stackQ320script_library_class8function7entry_
 _$_19slf_systime_month_t = 0x00323DD0; // type:func defined:true size:0x1C
 __tf19slf_systime_month_t = 0x00323DF0; // type:func size:0x50
 __cl__19slf_systime_month_tR8vm_stackQ320script_library_class8function7entry_t = 0x00323E40; // type:func size:0x15C
-_$_17slf_systime_day_t = 0x00323FA0; // type:func size:0x1C
+_$_17slf_systime_day_t = 0x00323FA0; // type:func defined:true size:0x1C
 __tf17slf_systime_day_t = 0x00323FC0; // type:func size:0x50
 __cl__17slf_systime_day_tR8vm_stackQ320script_library_class8function7entry_t = 0x00324010; // type:func size:0x15C
 _$_25slf_systime_day_of_week_t = 0x00324170; // type:func size:0x1C
