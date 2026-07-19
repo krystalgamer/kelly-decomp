@@ -219,3 +219,9 @@ class surfing_object { public: bool floating_ai(vector3d &position, vector3d &no
 __asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
 bool surfing_object::mantaray_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001FB300)
+// 0x001FB300 update__11beach_eventf
+class beach_event { char padding[0x3c]; bool (*my_func)(float time, void **data); void *my_func_data; public: bool update(float time); };
+bool beach_event::update(float time) { return my_func(time, &my_func_data); }
+#endif
