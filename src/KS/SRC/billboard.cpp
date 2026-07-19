@@ -35,3 +35,11 @@ float vr_billboard::compute_xz_radius_rel_center(const po& transform) { return w
 class vr_billboard { public: float time_value_to_frame(float time); };
 float vr_billboard::time_value_to_frame(float time) { return time * 30.0f; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002C1000)
+// 0x002C1000 get_anim_length__C12vr_billboard
+class mat_fac { public: int get_anim_length() const; };
+__asm__(".equ get_anim_length__C7mat_fac, 0x002BD170");
+class vr_billboard { char padding[0x18]; mat_fac my_material; public: int get_anim_length() const; };
+int vr_billboard::get_anim_length() const { int result = my_material.get_anim_length(); __asm__ volatile(""); return result; }
+#endif
