@@ -167,3 +167,11 @@ void MenuEntryFloatEdit::SetValue(float value) {
 class MenuEntryFloatEdit { char padding[0xC]; float* value; public: float GetValue(); };
 float MenuEntryFloatEdit::GetValue() { return value ? *value : 0.0f; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002706D0)
+// 0x002706D0 Enable__14MenuEntryTitle
+class MenuEntry { public: void Disable(); };
+__asm__(".equ Disable__9MenuEntry, 0x0023EE50");
+class MenuEntryTitle : public MenuEntry { public: void Enable(); };
+void MenuEntryTitle::Enable() { MenuEntry::Disable(); __asm__ volatile(""); }
+#endif
