@@ -12,6 +12,9 @@
   this compiler emits `sd`/`ld`; the compiler wrapper patches only stack-based
   object instructions after compilation. Excluded runtime objects retain
   their original `sd`/`ld` assembly.
+- `entity::set_zbias` shows a target `mtc1`/`nop`/`cvt.s.w` hazard sequence.
+  Explicit conversion asm can reproduce it, but EE GCC then reschedules the
+  paired bool/float stores; this function was deferred after five candidates.
 
 ## ELF/debug information
 
