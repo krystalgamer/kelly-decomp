@@ -144,3 +144,11 @@ __asm__(".equ set_thickness__4beamf, 0x00271790");
 class beam_effect_width { char padding[4]; float start; float target; float delta; public: void apply_start_vals(beam *value); };
 void beam_effect_width::apply_start_vals(beam *value) { value->set_thickness(start); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B7D10)
+// 0x002B7D10 apply_target_vals__17beam_effect_widthP4beam
+class beam { public: void set_thickness(float width); };
+__asm__(".equ set_thickness__4beamf, 0x00271790");
+class beam_effect_width { char padding[4]; float start; float target; float delta; public: void apply_target_vals(beam *value); };
+void beam_effect_width::apply_target_vals(beam *value) { value->set_thickness(target); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
