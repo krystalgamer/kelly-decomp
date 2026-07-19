@@ -99,5 +99,5 @@ int NamesMenu::ActiveFile() { if (!highlighted) return -1; else return secondary
 class FEMenu;
 class KeyboardMenu { public: void TurnPQ(bool value); void OnUnactivate(FEMenu *menu); };
 __asm__(".equ TurnPQ__12KeyboardMenub, 0x001A1C10");
-void KeyboardMenu::OnUnactivate(FEMenu *menu) { TurnPQ(false); __asm__ volatile(""); }
+void KeyboardMenu::OnUnactivate(FEMenu *menu) { TurnPQ(false); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

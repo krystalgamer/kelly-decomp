@@ -6,5 +6,5 @@
 class IGOWidget { public: void Update(float time); };
 __asm__(".equ Update__9IGOWidgetf, 0x00164660");
 class SplitScoreWidget : public IGOWidget { public: void Update(float time); };
-void SplitScoreWidget::Update(float time) { IGOWidget::Update(time); __asm__ volatile(""); }
+void SplitScoreWidget::Update(float time) { IGOWidget::Update(time); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

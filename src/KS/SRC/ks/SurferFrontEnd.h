@@ -51,5 +51,5 @@ class PanelQuad;
 class PanelFile { public: PanelQuad *GetPointer(const char *name); };
 __asm__(".equ GetPointer__9PanelFilePCc, 0x00152F88");
 class SurferBioFrontEnd { char padding[0x100]; PanelFile panel; public: PanelQuad *GetPointer(const char *name); };
-PanelQuad *SurferBioFrontEnd::GetPointer(const char *name) { PanelQuad *result = panel.GetPointer(name); __asm__ volatile(""); return result; }
+PanelQuad *SurferBioFrontEnd::GetPointer(const char *name) { PanelQuad *result = panel.GetPointer(name); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif

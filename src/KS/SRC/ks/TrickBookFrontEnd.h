@@ -6,5 +6,5 @@
 class FEMenu { public: void OnCross(int command); };
 __asm__(".equ OnCross__6FEMenui, 0x00157860");
 class TrickBookFrontEnd : public FEMenu { public: void OnCross(int command); };
-void TrickBookFrontEnd::OnCross(int command) { FEMenu::OnCross(command); __asm__ volatile(""); }
+void TrickBookFrontEnd::OnCross(int command) { FEMenu::OnCross(command); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

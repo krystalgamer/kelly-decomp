@@ -41,5 +41,5 @@ float vr_billboard::time_value_to_frame(float time) { return time * 30.0f; }
 class mat_fac { public: int get_anim_length() const; };
 __asm__(".equ get_anim_length__C7mat_fac, 0x002BD170");
 class vr_billboard { char padding[0x18]; mat_fac my_material; public: int get_anim_length() const; };
-int vr_billboard::get_anim_length() const { int result = my_material.get_anim_length(); __asm__ volatile(""); return result; }
+int vr_billboard::get_anim_length() const { int result = my_material.get_anim_length(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif

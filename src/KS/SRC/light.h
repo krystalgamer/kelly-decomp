@@ -62,7 +62,7 @@ float light_source::get_cutoff_range() const { return properties->cutoff_range; 
 class light_properties { public: void set_near_range(float range); };
 __asm__(".equ set_near_range__16light_propertiesf, 0x002CC968");
 class light_source { char padding[0x200]; light_properties *properties; public: void set_near_range(float range); };
-void light_source::set_near_range(float range) { properties->set_near_range(range); __asm__ volatile(""); }
+void light_source::set_near_range(float range) { properties->set_near_range(range); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002FFA20)
@@ -70,5 +70,5 @@ void light_source::set_near_range(float range) { properties->set_near_range(rang
 class light_properties { public: void set_cutoff_range(float range); };
 __asm__(".equ set_cutoff_range__16light_propertiesf, 0x002CC9C0");
 class light_source { char padding[0x200]; light_properties *properties; public: void set_cutoff_range(float range); };
-void light_source::set_cutoff_range(float range) { properties->set_cutoff_range(range); __asm__ volatile(""); }
+void light_source::set_cutoff_range(float range) { properties->set_cutoff_range(range); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

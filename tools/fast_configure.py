@@ -411,10 +411,7 @@ def generate_ninja(
                 object_path.relative_to(ROOT).as_posix(),
                 rule,
                 shim.relative_to(ROOT).as_posix(),
-                implicit=[
-                    source.path.relative_to(ROOT).as_posix(),
-                    "tools/ee_compile.py",
-                ],
+                implicit=["tools/ee_compile.py"],
             )
             source_objects.append(object_path)
 

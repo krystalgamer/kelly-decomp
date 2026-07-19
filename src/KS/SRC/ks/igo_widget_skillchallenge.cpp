@@ -18,5 +18,5 @@ void SkillChallengeWidget::Show(bool fadeIn) { if (fadeIn) fadeDir = 1; }
 class IGOWidget { public: void SetDisplay(bool value); };
 __asm__(".equ SetDisplay__9IGOWidgetb, 0x00164658");
 class SkillChallengeWidget : public IGOWidget { public: void SetDisplay(bool value); };
-void SkillChallengeWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); __asm__ volatile(""); }
+void SkillChallengeWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

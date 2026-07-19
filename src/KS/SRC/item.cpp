@@ -31,7 +31,7 @@ bool item::is_picked_up() {
 // 0x0028A108 initialize__4item
 class item { public: void spawn_item_script(); void initialize(); };
 __asm__(".equ spawn_item_script__4item, 0x0028A520");
-void item::initialize() { spawn_item_script(); __asm__ volatile(""); }
+void item::initialize() { spawn_item_script(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0028B1C8)
@@ -39,7 +39,7 @@ void item::initialize() { spawn_item_script(); __asm__ volatile(""); }
 class entity { public: unsigned int render_passes_needed() const; };
 __asm__(".equ render_passes_needed__C6entity, 0x00133640");
 class visual_item : public entity { public: unsigned int render_passes_needed() const; };
-unsigned int visual_item::render_passes_needed() const { unsigned int result = entity::render_passes_needed(); __asm__ volatile(""); return result; }
+unsigned int visual_item::render_passes_needed() const { unsigned int result = entity::render_passes_needed(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0028B1E8)
@@ -48,5 +48,5 @@ class camera;
 class entity { public: void render(camera *camera_link, float detail, unsigned int flavor, float translucency); };
 __asm__(".equ render__6entityP6camerafUif, 0x001324E0");
 class visual_item : public entity { public: void render(camera *camera_link, float detail, unsigned int flavor, float translucency); };
-void visual_item::render(camera *camera_link, float detail, unsigned int flavor, float translucency) { entity::render(camera_link, detail, flavor, translucency); __asm__ volatile(""); }
+void visual_item::render(camera *camera_link, float detail, unsigned int flavor, float translucency) { entity::render(camera_link, detail, flavor, translucency); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

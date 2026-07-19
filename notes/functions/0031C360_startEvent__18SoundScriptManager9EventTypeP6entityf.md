@@ -22,3 +22,10 @@ Declaring `EventType` as nested produced the wrong qualified mangling. The globa
 ## Outcome
 
 `SoundScriptManager::startEvent` matched exactly after recovering the global `EventType` ABI.
+
+## Matching-only annotation
+
+`KELLY_DECOMP_COMPILER_BARRIER()` is not recovered original source and emits
+no instruction. The source-faithful wrapper was otherwise eligible for EE GCC
+sibling-call or scheduling changes; the annotation preserves the target's
+normal call/return ordering.

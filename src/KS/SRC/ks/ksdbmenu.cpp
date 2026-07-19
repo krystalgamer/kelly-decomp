@@ -41,5 +41,5 @@ bool ReplayRewButton(MenuEntry* entry, int buttonid) {
 class Menu { public: void OnClose(bool toparent); };
 __asm__(".equ OnClose__4Menub, 0x0023EB70");
 class KSMainMenu : public Menu { public: void OnClose(bool toparent); };
-void KSMainMenu::OnClose(bool toparent) { Menu::OnClose(toparent); __asm__ volatile(""); }
+void KSMainMenu::OnClose(bool toparent) { Menu::OnClose(toparent); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

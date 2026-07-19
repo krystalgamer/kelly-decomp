@@ -118,7 +118,7 @@ bool slf_freeze_universe_t::operator()(vm_stack& stack, script_library_class::fu
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031DB20(void *self) __asm__("_$_26slf_allow_suspend_thread_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031DB20(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031DB20(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DBE0)
@@ -126,7 +126,7 @@ void ScriptDtor_0031DB20(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031DBE0(void *self) __asm__("_$_25slf_set_camera_priority_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031DBE0(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031DBE0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DC80)
@@ -134,7 +134,7 @@ void ScriptDtor_0031DBE0(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031DC80(void *self) __asm__("_$_22slf_enable_marky_cam_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031DC80(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031DC80(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DD50)
@@ -142,7 +142,7 @@ void ScriptDtor_0031DC80(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031DD50(void *self) __asm__("_$_23slf_disable_marky_cam_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031DD50(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031DD50(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DE20)
@@ -150,7 +150,7 @@ void ScriptDtor_0031DD50(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031DE20(void *self) __asm__("_$_17slf_freeze_hero_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031DE20(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031DE20(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DEE8)
@@ -158,7 +158,7 @@ void ScriptDtor_0031DE20(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031DEE8(void *self) __asm__("_$_14slf_set_zoom_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031DEE8(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031DEE8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DF98)
@@ -166,7 +166,7 @@ void ScriptDtor_0031DEE8(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031DF98(void *self) __asm__("_$_21slf_localize_thread_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031DF98(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031DF98(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E060)
@@ -174,7 +174,7 @@ void ScriptDtor_0031DF98(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031E060(void *self) __asm__("_$_34slf_localize_thread_to_character_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031E060(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031E060(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0E8)
@@ -182,7 +182,7 @@ void ScriptDtor_0031E060(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031E0E8(void *self) __asm__("_$_28slf_localize_thread_region_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031E0E8(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031E0E8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E1D0)
@@ -190,7 +190,7 @@ void ScriptDtor_0031E0E8(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031E1D0(void *self) __asm__("_$_22slf_globalize_thread_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031E1D0(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031E1D0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E270)
@@ -198,7 +198,7 @@ void ScriptDtor_0031E1D0(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031E270(void *self) __asm__("_$_20slf_suspend_all_ai_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031E270(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031E270(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E300)
@@ -206,7 +206,7 @@ void ScriptDtor_0031E270(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031E300(void *self) __asm__("_$_22slf_unsuspend_all_ai_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031E300(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031E300(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E390)
@@ -214,7 +214,7 @@ void ScriptDtor_0031E300(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031E390(void *self) __asm__("_$_18slf_enable_pause_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031E390(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031E390(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E480)
@@ -222,7 +222,7 @@ void ScriptDtor_0031E390(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031E480(void *self) __asm__("_$_22slf_enable_interface_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031E480(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031E480(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E570)
@@ -230,7 +230,7 @@ void ScriptDtor_0031E480(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031E570(void *self) __asm__("_$_28slf_wait_animate_fog_color_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031E570(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031E570(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E800)
@@ -238,7 +238,7 @@ void ScriptDtor_0031E570(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031E800(void *self) __asm__("_$_31slf_wait_animate_fog_distance_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031E800(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031E800(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E980)
@@ -246,7 +246,7 @@ void ScriptDtor_0031E800(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031E980(void *self) __asm__("_$_32slf_wait_animate_fog_distances_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031E980(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031E980(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031EB20)
@@ -254,7 +254,7 @@ void ScriptDtor_0031E980(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031EB20(void *self) __asm__("_$_16slf_wait_frame_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031EB20(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031EB20(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031EB98)
@@ -262,7 +262,7 @@ void ScriptDtor_0031EB20(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031EB98(void *self) __asm__("_$_11slf_delay_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031EB98(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031EB98(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031EC60)
@@ -270,7 +270,7 @@ void ScriptDtor_0031EB98(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031EC60(void *self) __asm__("_$_15slf_abs_delay_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031EC60(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031EC60(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031ED70)
@@ -278,7 +278,7 @@ void ScriptDtor_0031EC60(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031ED70(void *self) __asm__("_$_19slf_dilated_delay_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031ED70(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031ED70(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031EE48)
@@ -286,7 +286,7 @@ void ScriptDtor_0031ED70(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031EE48(void *self) __asm__("_$_14slf_vo_delay_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031EE48(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031EE48(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031EF18)
@@ -294,7 +294,7 @@ void ScriptDtor_0031EE48(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031EF18(void *self) __asm__("_$_17slf_area_damage_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031EF18(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031EF18(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031EFD8)
@@ -302,7 +302,7 @@ void ScriptDtor_0031EF18(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031EFD8(void *self) __asm__("_$_19slf_post_message2_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031EFD8(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031EFD8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F060)
@@ -310,7 +310,7 @@ void ScriptDtor_0031EFD8(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031F060(void *self) __asm__("_$_18slf_post_message_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031F060(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031F060(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F0E8)
@@ -318,7 +318,7 @@ void ScriptDtor_0031F060(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031F0E8(void *self) __asm__("_$_12slf_strcmp_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031F0E8(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031F0E8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F2C8)
@@ -326,7 +326,7 @@ void ScriptDtor_0031F0E8(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031F2C8(void *self) __asm__("_$_12slf_random_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031F2C8(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031F2C8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F4C0)
@@ -334,7 +334,7 @@ void ScriptDtor_0031F2C8(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031F4C0(void *self) __asm__("_$_19slf_get_elevation_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031F4C0(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031F4C0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F6A0)
@@ -342,7 +342,7 @@ void ScriptDtor_0031F4C0(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031F6A0(void *self) __asm__("_$_22slf_add_debug_sphere_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031F6A0(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031F6A0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F728)
@@ -350,7 +350,7 @@ void ScriptDtor_0031F6A0(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031F728(void *self) __asm__("_$_25slf_clear_debug_spheres_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031F728(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031F728(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F7B0)
@@ -358,7 +358,7 @@ void ScriptDtor_0031F728(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031F7B0(void *self) __asm__("_$_18slf_get_time_inc_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031F7B0(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031F7B0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F970)
@@ -366,7 +366,7 @@ void ScriptDtor_0031F7B0(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031F970(void *self) __asm__("_$_16slf_text_width_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031F970(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031F970(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031FB70)
@@ -374,7 +374,7 @@ void ScriptDtor_0031F970(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031FB70(void *self) __asm__("_$_27slf_is_action_button_down_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031FB70(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031FB70(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031FDC8)
@@ -382,7 +382,7 @@ void ScriptDtor_0031FB70(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031FDC8(void *self) __asm__("_$_22slf_get_cur_time_inc_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031FDC8(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031FDC8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031FF88)
@@ -390,7 +390,7 @@ void ScriptDtor_0031FDC8(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_0031FF88(void *self) __asm__("_$_15slf_TARGET_PC_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_0031FF88(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_0031FF88(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00320140)
@@ -398,7 +398,7 @@ void ScriptDtor_0031FF88(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00320140(void *self) __asm__("_$_18slf_letterbox_on_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00320140(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_00320140(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003201B8)
@@ -406,7 +406,7 @@ void ScriptDtor_00320140(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_003201B8(void *self) __asm__("_$_19slf_letterbox_off_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_003201B8(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_003201B8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00320230)
@@ -414,7 +414,7 @@ void ScriptDtor_003201B8(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00320230(void *self) __asm__("_$_20slf_letterbox_cout_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00320230(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_00320230(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003202B8)
@@ -422,7 +422,7 @@ void ScriptDtor_00320230(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_003202B8(void *self) __asm__("_$_14slf_fade_out_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_003202B8(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_003202B8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00320330)
@@ -430,7 +430,7 @@ void ScriptDtor_003202B8(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00320330(void *self) __asm__("_$_13slf_fade_in_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00320330(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_00320330(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003203A8)
@@ -438,7 +438,7 @@ void ScriptDtor_00320330(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_003203A8(void *self) __asm__("_$_23slf_set_region_active_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_003203A8(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_003203A8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003205F0)
@@ -446,7 +446,7 @@ void ScriptDtor_003203A8(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_003205F0(void *self) __asm__("_$_25slf_set_fog_table_gamma_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_003205F0(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_003205F0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00320698)
@@ -454,7 +454,7 @@ void ScriptDtor_003205F0(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00320698(void *self) __asm__("_$_22slf_get_detail_level_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00320698(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_00320698(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00320858)
@@ -462,7 +462,7 @@ void ScriptDtor_00320698(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00320858(void *self) __asm__("_$_23slf_was_start_pressed_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00320858(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_00320858(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00320A50)
@@ -470,7 +470,7 @@ void ScriptDtor_00320858(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00320A50(void *self) __asm__("_$_19slf_was_A_pressed_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00320A50(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_00320A50(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00320C48)
@@ -478,7 +478,7 @@ void ScriptDtor_00320A50(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00320C48(void *self) __asm__("_$_19slf_was_B_pressed_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00320C48(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_00320C48(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00320E40)
@@ -486,7 +486,7 @@ void ScriptDtor_00320C48(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00320E40(void *self) __asm__("_$_25slf_get_control_trigger_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00320E40(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_00320E40(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00321020)
@@ -494,7 +494,7 @@ void ScriptDtor_00320E40(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00321020(void *self) __asm__("_$_23slf_get_control_state_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00321020(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_00321020(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00321200)
@@ -502,7 +502,7 @@ void ScriptDtor_00321020(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00321200(void *self) __asm__("_$_19slf_wait_keypress_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00321200(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_00321200(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003212C8)
@@ -510,7 +510,7 @@ void ScriptDtor_00321200(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_003212C8(void *self) __asm__("_$_25slf_apply_radius_damage_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_003212C8(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_003212C8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003213A8)
@@ -518,7 +518,7 @@ void ScriptDtor_003212C8(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_003213A8(void *self) __asm__("_$_15slf_los_check_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_003213A8(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_003213A8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003215C0)
@@ -526,7 +526,7 @@ void ScriptDtor_003213A8(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_003215C0(void *self) __asm__("_$_16slf_str_append_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_003215C0(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_003215C0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00321848)
@@ -534,7 +534,7 @@ void ScriptDtor_003215C0(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00321848(void *self) __asm__("_$_21slf_to_str_vector3d_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00321848(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_00321848(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00321AC0)
@@ -542,5 +542,5 @@ void ScriptDtor_00321848(void *self) { ScriptFunctionDtor(self); __asm__ volatil
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00321AC0(void *self) __asm__("_$_16slf_to_str_num_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00321AC0(void *self) { ScriptFunctionDtor(self); __asm__ volatile(""); }
+void ScriptDtor_00321AC0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

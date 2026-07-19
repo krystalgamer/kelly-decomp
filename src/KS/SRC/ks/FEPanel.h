@@ -696,7 +696,7 @@ void PanelQuad::GetFade(int &f, float &alpha, float &timer) { f = fade; alpha = 
 extern "C" void PanelGeomDtor(void *self) __asm__("_$_9PanelGeom");
 extern "C" void PanelSkaterModelDtor(void *self) __asm__("_$_16PanelSkaterModel");
 __asm__(".equ _$_9PanelGeom, 0x0014FAC8");
-void PanelSkaterModelDtor(void *self) { PanelGeomDtor(self); __asm__ volatile(""); }
+void PanelSkaterModelDtor(void *self) { PanelGeomDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA0E8)
@@ -704,7 +704,7 @@ void PanelSkaterModelDtor(void *self) { PanelGeomDtor(self); __asm__ volatile(""
 class PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
 __asm__(".equ Load__9PanelGeomPUcRi, 0x0014FB68");
 class PanelSkaterModel : public PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
-bool PanelSkaterModel::Load(unsigned char *buffer, int &index) { bool result = PanelGeom::Load(buffer, index); __asm__ volatile(""); return result; }
+bool PanelSkaterModel::Load(unsigned char *buffer, int &index) { bool result = PanelGeom::Load(buffer, index); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA110)
@@ -712,7 +712,7 @@ bool PanelSkaterModel::Load(unsigned char *buffer, int &index) { bool result = P
 extern "C" void PanelGeomDtor(void *self) __asm__("_$_9PanelGeom");
 extern "C" void PanelObjectModelDtor(void *self) __asm__("_$_16PanelObjectModel");
 __asm__(".equ _$_9PanelGeom, 0x0014FAC8");
-void PanelObjectModelDtor(void *self) { PanelGeomDtor(self); __asm__ volatile(""); }
+void PanelObjectModelDtor(void *self) { PanelGeomDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA1A8)
@@ -720,7 +720,7 @@ void PanelObjectModelDtor(void *self) { PanelGeomDtor(self); __asm__ volatile(""
 class PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
 __asm__(".equ Load__9PanelGeomPUcRi, 0x0014FB68");
 class PanelObjectModel : public PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
-bool PanelObjectModel::Load(unsigned char *buffer, int &index) { bool result = PanelGeom::Load(buffer, index); __asm__ volatile(""); return result; }
+bool PanelObjectModel::Load(unsigned char *buffer, int &index) { bool result = PanelGeom::Load(buffer, index); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA1D0)
@@ -728,7 +728,7 @@ bool PanelObjectModel::Load(unsigned char *buffer, int &index) { bool result = P
 extern "C" void PanelGeomDtor(void *self) __asm__("_$_9PanelGeom");
 extern "C" void PanelMovieDtor(void *self) __asm__("_$_10PanelMovie");
 __asm__(".equ _$_9PanelGeom, 0x0014FAC8");
-void PanelMovieDtor(void *self) { PanelGeomDtor(self); __asm__ volatile(""); }
+void PanelMovieDtor(void *self) { PanelGeomDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA268)
@@ -736,5 +736,5 @@ void PanelMovieDtor(void *self) { PanelGeomDtor(self); __asm__ volatile(""); }
 class PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
 __asm__(".equ Load__9PanelGeomPUcRi, 0x0014FB68");
 class PanelMovie : public PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
-bool PanelMovie::Load(unsigned char *buffer, int &index) { bool result = PanelGeom::Load(buffer, index); __asm__ volatile(""); return result; }
+bool PanelMovie::Load(unsigned char *buffer, int &index) { bool result = PanelGeom::Load(buffer, index); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif

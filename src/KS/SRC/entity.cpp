@@ -5,7 +5,7 @@
 // 0x00127870 __nw__Q26entity13movement_infoUiUiPCci
 class entity { public: class movement_info { public: static void* operator new(unsigned int size); static void* operator new(unsigned int size, unsigned int alignment, const char* file, int line); }; };
 __asm__(".equ __nw__Q26entity13movement_infoUi, 0x001277E8");
-void* entity::movement_info::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = entity::movement_info::operator new(size); __asm__ volatile(""); return result; }
+void* entity::movement_info::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = entity::movement_info::operator new(size); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0012F728)
@@ -186,10 +186,10 @@ public:
 
 const po& entity::get_last_po() {
     if (!last_po) {
-        __asm__ volatile("");
+        KELLY_DECOMP_COMPILER_BARRIER();
         return get_abs_po();
     } else {
-        __asm__ volatile("");
+        KELLY_DECOMP_COMPILER_BARRIER();
         return *last_po;
     }
 }
@@ -199,7 +199,7 @@ const po& entity::get_last_po() {
 // 0x00131DE0 force_current_region__6entity
 class entity { public: void _set_region_forced_status(); void force_current_region(); };
 __asm__(".equ _set_region_forced_status__6entity, 0x00131E00");
-void entity::force_current_region() { _set_region_forced_status(); __asm__ volatile(""); }
+void entity::force_current_region() { _set_region_forced_status(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00131E00)
@@ -226,7 +226,7 @@ void entity::_set_region_forced_status() {
 class frame_info { public: float get_age() const; };
 __asm__(".equ get_age__C10frame_info, 0x00338660");
 class entity { char padding[0x1CC]; frame_info frame_time_info; public: float get_age() const; };
-float entity::get_age() const { float result = frame_time_info.get_age(); __asm__ volatile(""); return result; }
+float entity::get_age() const { float result = frame_time_info.get_age(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001372F8)

@@ -13,5 +13,5 @@ struct ksConfigData { int value; };
 void initKSConfigStruct(ksConfigData *config);
 __asm__(".equ initKSConfigStruct__FP12ksConfigData, 0x001A2B50");
 class StoredConfigData { char padding[4]; ksConfigData cData; public: void init(); };
-void StoredConfigData::init() { initKSConfigStruct(&cData); __asm__ volatile(""); }
+void StoredConfigData::init() { initKSConfigStruct(&cData); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

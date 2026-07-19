@@ -36,6 +36,8 @@ Committed source mirrors the original reference tree below `src/`. Multiple
 matched functions from one original file live together in guarded blocks.
 Generated selector shims under `build/src_functions/` compile one block at a
 time, preserving the function-level linker layout and atomic workflow.
+Matching-only compiler annotations are defined and governed by
+`notes/matching_annotations.md`; they are not treated as recovered source.
 After the initial full Splat configure, function cycles use
 `tools/fast_configure.py`. It links matched source objects between raw target
 text gaps while reusing the fixed data/BSS objects, avoiding full

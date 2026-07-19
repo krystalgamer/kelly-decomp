@@ -5,7 +5,7 @@
 // 0x001199B8 __nw__7po_animUiUiPCci
 class po_anim { public: static void* operator new(unsigned int size); static void* operator new(unsigned int size, unsigned int alignment, const char* file, int line); };
 __asm__(".equ __nw__7po_animUi, 0x00119930");
-void* po_anim::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = po_anim::operator new(size); __asm__ volatile(""); return result; }
+void* po_anim::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = po_anim::operator new(size); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00119BF8)

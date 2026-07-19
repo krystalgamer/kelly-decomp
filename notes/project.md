@@ -47,3 +47,7 @@ pattern where the supplied compiler delays the RA save until after vtable
 address setup. The correction is guarded by the complete seven-instruction
 prologue/call/store signature and also repairs the `%hi` carry for a negative
 absolute vtable low half.
+
+Generated selector shims carry a digest of their selected guarded block, so
+merged-file appends do not force every function from that original source file
+to recompile.

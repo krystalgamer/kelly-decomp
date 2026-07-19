@@ -18,5 +18,5 @@ bool sky::is_a_sky() const {
 extern "C" void EntityDtor(void *self) __asm__("_$_6entity");
 extern "C" void SkyDtor(void *self) __asm__("_$_3sky");
 __asm__(".equ _$_6entity, 0x001298C8");
-void SkyDtor(void *self) { EntityDtor(self); __asm__ volatile(""); }
+void SkyDtor(void *self) { EntityDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

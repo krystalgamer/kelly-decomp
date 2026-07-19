@@ -12,5 +12,5 @@ void BLUR_TurnOff() { blur_enabled = false; }
 // 0x00308010 BLUR_Init__Fv
 void BLUR_TurnOff();
 __asm__(".equ BLUR_TurnOff__Fv, 0x00308260");
-void BLUR_Init() { BLUR_TurnOff(); __asm__ volatile(""); }
+void BLUR_Init() { BLUR_TurnOff(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

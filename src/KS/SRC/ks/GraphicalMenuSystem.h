@@ -94,7 +94,7 @@ void GraphicalMenuSystem::Reload() {
 extern "C" void FEMenuDtor(void *self) __asm__("_$_6FEMenu");
 extern "C" void FEDebugMenuDtor(void *self) __asm__("_$_11FEDebugMenu");
 __asm__(".equ _$_6FEMenu, 0x00156580");
-void FEDebugMenuDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
+void FEDebugMenuDtor(void *self) { FEMenuDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DE4E0)
@@ -102,5 +102,5 @@ void FEDebugMenuDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
 class PanelFile { public: void Reload(); };
 __asm__(".equ Reload__9PanelFile, 0x00152838");
 class HelpbarFE { char padding[0x80]; PanelFile panel; public: void ReloadPanel(); };
-void HelpbarFE::ReloadPanel() { panel.Reload(); __asm__ volatile(""); }
+void HelpbarFE::ReloadPanel() { panel.Reload(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

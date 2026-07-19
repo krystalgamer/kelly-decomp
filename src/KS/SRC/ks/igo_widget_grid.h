@@ -6,5 +6,5 @@
 extern "C" void IGOWidgetDtor(void *self) __asm__("_$_9IGOWidget");
 extern "C" void GridWidgetDtor(void *self) __asm__("_$_10GridWidget");
 __asm__(".equ _$_9IGOWidget, 0x00164628");
-void GridWidgetDtor(void *self) { IGOWidgetDtor(self); __asm__ volatile(""); }
+void GridWidgetDtor(void *self) { IGOWidgetDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

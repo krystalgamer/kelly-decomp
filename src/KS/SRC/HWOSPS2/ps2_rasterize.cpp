@@ -196,7 +196,7 @@ void vert_buf_xformed::unlock() {
 int nglGetScreenWidth();
 __asm__(".equ nglGetScreenWidth__Fv, 0x00395D88");
 class hw_rasta { public: int get_screen_width() const; };
-int hw_rasta::get_screen_width() const { int result = nglGetScreenWidth(); __asm__ volatile(""); return result; }
+int hw_rasta::get_screen_width() const { int result = nglGetScreenWidth(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001E28B0)
@@ -204,7 +204,7 @@ int hw_rasta::get_screen_width() const { int result = nglGetScreenWidth(); __asm
 int nglGetScreenHeight();
 __asm__(".equ nglGetScreenHeight__Fv, 0x00395D98");
 class hw_rasta { public: int get_screen_height() const; };
-int hw_rasta::get_screen_height() const { int result = nglGetScreenHeight(); __asm__ volatile(""); return result; }
+int hw_rasta::get_screen_height() const { int result = nglGetScreenHeight(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001E2900)
@@ -212,7 +212,7 @@ int hw_rasta::get_screen_height() const { int result = nglGetScreenHeight(); __a
 void nglFlip();
 __asm__(".equ nglFlip__Fv, 0x003979E0");
 class hw_rasta { public: void flip(); };
-void hw_rasta::flip() { nglFlip(); __asm__ volatile(""); }
+void hw_rasta::flip() { nglFlip(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001E2A38)

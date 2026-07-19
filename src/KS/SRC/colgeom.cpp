@@ -55,5 +55,5 @@ class po;
 class collision_geometry { public: void xform(const po &value); };
 __asm__(".equ xform__18collision_geometryRC2po, 0x002D89C0");
 class cg_none : public collision_geometry { public: void xform(const po &value); };
-void cg_none::xform(const po &value) { collision_geometry::xform(value); __asm__ volatile(""); }
+void cg_none::xform(const po &value) { collision_geometry::xform(value); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

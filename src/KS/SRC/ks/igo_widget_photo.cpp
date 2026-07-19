@@ -6,5 +6,5 @@
 class IGOWidget { public: void SetDisplay(bool value); };
 __asm__(".equ SetDisplay__9IGOWidgetb, 0x00164658");
 class PhotoWidget : public IGOWidget { public: void SetDisplay(bool value); };
-void PhotoWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); __asm__ volatile(""); }
+void PhotoWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

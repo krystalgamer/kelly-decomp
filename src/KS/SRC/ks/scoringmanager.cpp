@@ -58,5 +58,5 @@ bool ScoringManager::Trick::IsInteresting() const {
 // 0x002490C0 GetSickness__CQ214ScoringManager5Chain
 class ScoringManager { public: class Chain { public: float GetRawSickness() const; float GetSickness() const; }; };
 __asm__(".equ GetRawSickness__CQ214ScoringManager5Chain, 0x00249200");
-float ScoringManager::Chain::GetSickness() const { float result = GetRawSickness(); __asm__ volatile(""); return result; }
+float ScoringManager::Chain::GetSickness() const { float result = GetRawSickness(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif

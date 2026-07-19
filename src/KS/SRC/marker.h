@@ -66,7 +66,7 @@ bool cube_marker::is_a_cube_marker() const {
 extern "C" void EntityDtor(void *self) __asm__("_$_6entity");
 extern "C" void MarkerDtor(void *self) __asm__("_$_6marker");
 __asm__(".equ _$_6entity, 0x001298C8");
-void MarkerDtor(void *self) { EntityDtor(self); __asm__ volatile(""); }
+void MarkerDtor(void *self) { EntityDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002B91E0)
@@ -74,7 +74,7 @@ void MarkerDtor(void *self) { EntityDtor(self); __asm__ volatile(""); }
 extern "C" void EntityDtor(void *self) __asm__("_$_6entity");
 extern "C" void RectangleMarkerDtor(void *self) __asm__("_$_16rectangle_marker");
 __asm__(".equ _$_6entity, 0x001298C8");
-void RectangleMarkerDtor(void *self) { EntityDtor(self); __asm__ volatile(""); }
+void RectangleMarkerDtor(void *self) { EntityDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002B9290)
@@ -82,5 +82,5 @@ void RectangleMarkerDtor(void *self) { EntityDtor(self); __asm__ volatile(""); }
 extern "C" void EntityDtor(void *self) __asm__("_$_6entity");
 extern "C" void CubeMarkerDtor(void *self) __asm__("_$_11cube_marker");
 __asm__(".equ _$_6entity, 0x001298C8");
-void CubeMarkerDtor(void *self) { EntityDtor(self); __asm__ volatile(""); }
+void CubeMarkerDtor(void *self) { EntityDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

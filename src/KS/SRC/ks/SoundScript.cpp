@@ -33,5 +33,5 @@ class entity;
 enum EventType { EVENT_DEFAULT };
 class SoundScriptManager { public: int playEvent(EventType type, entity *source, float fade); int startEvent(EventType type, entity *source, float fade); };
 __asm__(".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380");
-int SoundScriptManager::startEvent(EventType type, entity *source, float fade) { int result = playEvent(type, source, fade); __asm__ volatile(""); return result; }
+int SoundScriptManager::startEvent(EventType type, entity *source, float fade) { int result = playEvent(type, source, fade); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif

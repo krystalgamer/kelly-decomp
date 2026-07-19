@@ -20,3 +20,10 @@ A minimal layout places `curmenu` at 0x470; the symbol-preserving base helper ca
 ## Outcome
 
 The released `MenuSystem::Opening` state update and clear wrapper matched exactly on the first attempt.
+
+## Matching-only annotation
+
+`KELLY_DECOMP_COMPILER_BARRIER()` is not recovered original source and emits
+no instruction. The source-faithful wrapper was otherwise eligible for EE GCC
+sibling-call or scheduling changes; the annotation preserves the target's
+normal call/return ordering.

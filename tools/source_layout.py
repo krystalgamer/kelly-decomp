@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import hashlib
 import re
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
@@ -21,6 +22,9 @@ SOURCE_SUFFIXES = {
 MARKER_RE = re.compile(
     r"^#if defined\(KELLY_DECOMP_FUNCTION_([0-9A-F]{8})\)$",
     re.MULTILINE,
+)
+EMPTY_COMPILER_BARRIER_RE = re.compile(
+    r'__asm__\s+volatile\s*\(\s*""\s*\)'
 )
 
 
@@ -74,6 +78,10 @@ def discover_function_sources() -> dict[int, FunctionSource]:
 
 def function_block(row: dict[str, str], source: str) -> str:
     address = int(row["address"], 0)
+    source = EMPTY_COMPILER_BARRIER_RE.sub(
+        "KELLY_DECOMP_COMPILER_BARRIER()",
+        source,
+    )
     return (
         f"#if defined({selector_macro(address)})\n"
         f"// {row['address']} {row['raw_name']}\n"
@@ -111,6 +119,19 @@ def write_selector_shim(source: FunctionSource) -> Path:
     lines = []
     if source.merged:
         lines.append(f"#define {selector_macro(source.address)} 1")
+        text = source.path.read_text(encoding="utf-8")
+        marker = f"#if defined({selector_macro(source.address)})"
+        start = text.index(marker)
+        following = MARKER_RE.search(text, start + len(marker))
+        end = following.start() if following else len(text)
+        block = text[start:end].rstrip().encode()
+        lines.append(
+            f"// source-block-sha1: {hashlib.sha1(block).hexdigest()}"
+        )
+    else:
+        digest = hashlib.sha1(source.path.read_bytes()).hexdigest()
+        lines.append(f"// source-file-sha1: {digest}")
+    lines.append('#include "decomp_annotations.h"')
     lines.append(f'#include "{include_path}"')
     content = "\n".join(lines) + "\n"
     if not shim.exists() or shim.read_text(encoding="utf-8") != content:

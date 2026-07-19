@@ -22,5 +22,5 @@ class sector;
 class tree_t { public: sector *find_sector(const vector3d &position) const; };
 __asm__(".equ find_sector__C6tree_tRC8vector3d, 0x002E83D0");
 class terrain { char padding[0x34]; tree_t *tree; public: sector *find_sector(const vector3d &position) const; };
-sector *terrain::find_sector(const vector3d &position) const { sector *result = tree->find_sector(position); __asm__ volatile(""); return result; }
+sector *terrain::find_sector(const vector3d &position) const { sector *result = tree->find_sector(position); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif

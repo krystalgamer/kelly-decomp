@@ -20,3 +20,7 @@ A symbol-preserving wrapper reproduces the generated destructor's non-tail call 
 ## Outcome
 
 `_$_25slf_set_camera_priority_t` matched exactly as a generated script_library_class::function destructor wrapper.
+
+## Matching-only annotation
+
+`KELLY_DECOMP_COMPILER_BARRIER()` emits no target instruction. It keeps EE GCC from replacing the required normal call/return wrapper described above with a sibling or tail call.

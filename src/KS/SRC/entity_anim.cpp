@@ -5,14 +5,14 @@
 // 0x00113578 __nw__11entity_animUiUiPCci
 class entity_anim { public: static void* operator new(unsigned int size); static void* operator new(unsigned int size, unsigned int alignment, const char* file, int line); };
 __asm__(".equ __nw__11entity_animUi, 0x001134F0");
-void* entity_anim::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = entity_anim::operator new(size); __asm__ volatile(""); return result; }
+void* entity_anim::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = entity_anim::operator new(size); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001137C0)
 // 0x001137C0 __nw__16entity_anim_treeUiUiPCci
 class entity_anim_tree { public: static void* operator new(unsigned int size); static void* operator new(unsigned int size, unsigned int alignment, const char* file, int line); };
 __asm__(".equ __nw__16entity_anim_treeUi, 0x00113738");
-void* entity_anim_tree::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = entity_anim_tree::operator new(size); __asm__ volatile(""); return result; }
+void* entity_anim_tree::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = entity_anim_tree::operator new(size); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00114968)
@@ -53,7 +53,7 @@ const char* entity_track_tree::binary_extension() {
 // 0x00114E78 extension__17entity_track_tree
 class entity_track_tree { public: static const char* binary_extension(); static const char* extension(); };
 __asm__(".equ binary_extension__17entity_track_tree, 0x00114E60");
-const char* entity_track_tree::extension() { const char* result = binary_extension(); __asm__ volatile(""); return result; }
+const char* entity_track_tree::extension() { const char* result = binary_extension(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00115DB0)
@@ -61,7 +61,7 @@ const char* entity_track_tree::extension() { const char* result = binary_extensi
 void mem_free(void* pointer);
 __asm__(".equ mem_free__FPv, 0x002AC768");
 class ett_manager { public: void ett_free(void* pointer); };
-void ett_manager::ett_free(void* pointer) { mem_free(pointer); __asm__ volatile(""); }
+void ett_manager::ett_free(void* pointer) { mem_free(pointer); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001177D0)

@@ -6,7 +6,7 @@
 class IGOWidget { public: void SetDisplay(bool value); };
 __asm__(".equ SetDisplay__9IGOWidgetb, 0x00164658");
 class TimeAttackWidget : public IGOWidget { public: void SetDisplay(bool value); };
-void TimeAttackWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); __asm__ volatile(""); }
+void TimeAttackWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0016CE80)
@@ -14,5 +14,5 @@ void TimeAttackWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); __
 class IGOWidget { public: void Update(float time); };
 __asm__(".equ Update__9IGOWidgetf, 0x00164660");
 class TimeAttackWidget : public IGOWidget { public: void Update(float time); };
-void TimeAttackWidget::Update(float time) { IGOWidget::Update(time); __asm__ volatile(""); }
+void TimeAttackWidget::Update(float time) { IGOWidget::Update(time); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

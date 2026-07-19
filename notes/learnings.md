@@ -3,6 +3,11 @@
 ## Toolchain
 
 - The supplied Windows EE GCC, assembler, and linker run under Wine.
+- `KELLY_DECOMP_COMPILER_BARRIER()` is a documented matching-only annotation,
+  not claimed original source. It emits no instruction and is used only when
+  a function note demonstrates a required scheduling or sibling-call barrier.
+  The source installer normalizes raw empty volatile asm from tested candidates
+  to this macro before integration.
 - GCC finds its bundled `2.9-ee-991111` programs relative to
   `tools/toolchain/bin/ee-gcc.exe`.
 - Old GCC C++ mangling matches the ELF names directly.
@@ -44,3 +49,7 @@
   fixed data and exception relocations are recreated from the ELF and
   relocation tables. This keeps the full-ROM gate while making the build
   incrementally relinkable.
+- Selector shims embed a SHA-1 of only their guarded function block. Appending
+  another function to a merged source file therefore changes only the new
+  shim (and, at most, a previously trailing block), while edits to an existing
+  block still invalidate its own object.

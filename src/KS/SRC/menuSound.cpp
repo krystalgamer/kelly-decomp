@@ -7,5 +7,5 @@ class MenuSystem;
 class Menu { public: void OnOpen(Menu *previous, MenuSystem *system); };
 __asm__(".equ OnOpen__4MenuP4MenuP10MenuSystem, 0x0023EAE0");
 class MenuSound : public Menu { public: void OnOpen(Menu *previous, MenuSystem *system); };
-void MenuSound::OnOpen(Menu *previous, MenuSystem *system) { Menu::OnOpen(previous, system); __asm__ volatile(""); }
+void MenuSound::OnOpen(Menu *previous, MenuSystem *system) { Menu::OnOpen(previous, system); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

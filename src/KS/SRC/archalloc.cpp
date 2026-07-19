@@ -43,5 +43,5 @@ void mem_summarize_heap(int heapid) {
 // 0x002AC4D8 mem_init_checkpoint__Fb
 int mem_set_checkpoint();
 __asm__(".equ mem_set_checkpoint__Fv, 0x002AC4F8");
-int mem_init_checkpoint(bool enabled) { int result = mem_set_checkpoint(); __asm__ volatile(""); return result; }
+int mem_init_checkpoint(bool enabled) { int result = mem_set_checkpoint(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif

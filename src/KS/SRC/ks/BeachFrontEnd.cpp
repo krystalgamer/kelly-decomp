@@ -20,5 +20,5 @@ void BeachFrontEnd::OnLevelEnding() {
 class PanelFile { public: void ForceDoneSlide(bool value); };
 __asm__(".equ ForceDoneSlide__9PanelFileb, 0x00153118");
 class BeachFrontEnd { char padding[0x100]; PanelFile panel; public: void SkipSlide(bool value); };
-void BeachFrontEnd::SkipSlide(bool value) { panel.ForceDoneSlide(value); __asm__ volatile(""); }
+void BeachFrontEnd::SkipSlide(bool value) { panel.ForceDoneSlide(value); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

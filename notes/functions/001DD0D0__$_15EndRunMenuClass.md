@@ -20,3 +20,7 @@ A symbol-preserving wrapper reproduces the generated destructor's non-tail call 
 ## Outcome
 
 `EndRunMenuClass`'s generated destructor wrapper matched exactly on the first attempt.
+
+## Matching-only annotation
+
+`KELLY_DECOMP_COMPILER_BARRIER()` emits no target instruction. It keeps EE GCC from replacing the required normal call/return wrapper described above with a sibling or tail call.

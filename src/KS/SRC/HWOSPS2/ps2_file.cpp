@@ -5,5 +5,5 @@
 // 0x001E1058 host_fclose__FP7os_file
 class os_file { public: void close(); };
 __asm__(".equ close__7os_file, 0x001E03A0");
-void host_fclose(os_file *file) { file->close(); __asm__ volatile(""); }
+void host_fclose(os_file *file) { file->close(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

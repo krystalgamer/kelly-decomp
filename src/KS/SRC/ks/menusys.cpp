@@ -7,7 +7,7 @@ class Menu;
 extern "C" void MenuRenderClear(void *self) __asm__("Clear__10MenuRender");
 __asm__(".equ Clear__10MenuRender, 0x002408B0");
 class MenuSystem { char padding[0x470]; Menu *curmenu; public: void Opening(Menu *menu); };
-void MenuSystem::Opening(Menu *menu) { curmenu = menu; MenuRenderClear(this); __asm__ volatile(""); }
+void MenuSystem::Opening(Menu *menu) { curmenu = menu; MenuRenderClear(this); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00241130)

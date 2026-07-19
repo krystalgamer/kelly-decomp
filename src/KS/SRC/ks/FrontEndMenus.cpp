@@ -113,7 +113,7 @@ bool IsDebugMenuDisplayed() { return menus->active != 0; }
 class FEMenu { public: void OnStart(int command); };
 __asm__(".equ OnStart__6FEMenui, 0x001577B8");
 class PauseMenuClass : public FEMenu { public: void OnStart(int command); };
-void PauseMenuClass::OnStart(int command) { FEMenu::OnStart(command); __asm__ volatile(""); }
+void PauseMenuClass::OnStart(int command) { FEMenu::OnStart(command); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001A5FD8)
@@ -121,7 +121,7 @@ void PauseMenuClass::OnStart(int command) { FEMenu::OnStart(command); __asm__ vo
 class FEMenu { public: void OnStart(int command); };
 __asm__(".equ OnStart__6FEMenui, 0x001577B8");
 class TimeAttackPauseMenuClass : public FEMenu { public: void OnStart(int command); };
-void TimeAttackPauseMenuClass::OnStart(int command) { FEMenu::OnStart(command); __asm__ volatile(""); }
+void TimeAttackPauseMenuClass::OnStart(int command) { FEMenu::OnStart(command); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001A6780)
@@ -129,7 +129,7 @@ void TimeAttackPauseMenuClass::OnStart(int command) { FEMenu::OnStart(command); 
 class FEMenu { public: void OnStart(int command); };
 __asm__(".equ OnStart__6FEMenui, 0x001577B8");
 class TutorialPauseMenuClass : public FEMenu { public: void OnStart(int command); };
-void TutorialPauseMenuClass::OnStart(int command) { FEMenu::OnStart(command); __asm__ volatile(""); }
+void TutorialPauseMenuClass::OnStart(int command) { FEMenu::OnStart(command); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001A85E8)
@@ -137,7 +137,7 @@ void TutorialPauseMenuClass::OnStart(int command) { FEMenu::OnStart(command); __
 class FEMenu { public: void OnStart(int command); };
 __asm__(".equ OnStart__6FEMenui, 0x001577B8");
 class HeatMidMenuClass : public FEMenu { public: void OnStart(int command); };
-void HeatMidMenuClass::OnStart(int command) { FEMenu::OnStart(command); __asm__ volatile(""); }
+void HeatMidMenuClass::OnStart(int command) { FEMenu::OnStart(command); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001AB160)
@@ -145,5 +145,5 @@ void HeatMidMenuClass::OnStart(int command) { FEMenu::OnStart(command); __asm__ 
 class FEMenu { public: void Draw(); };
 __asm__(".equ Draw__6FEMenu, 0x00156C88");
 class CameraMenuClass : public FEMenu { public: void Draw(); };
-void CameraMenuClass::Draw() { FEMenu::Draw(); __asm__ volatile(""); }
+void CameraMenuClass::Draw() { FEMenu::Draw(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

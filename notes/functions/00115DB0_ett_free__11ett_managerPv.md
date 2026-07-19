@@ -21,3 +21,10 @@ The released nonstatic manager hook forwards its pointer argument to `mem_free`;
 ## Outcome
 
 The released `ett_manager::ett_free` wrapper matched on attempt two with the nonstatic method signature.
+
+## Matching-only annotation
+
+`KELLY_DECOMP_COMPILER_BARRIER()` is not recovered original source and emits
+no instruction. The source-faithful wrapper was otherwise eligible for EE GCC
+sibling-call or scheduling changes; the annotation preserves the target's
+normal call/return ordering.

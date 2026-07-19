@@ -466,7 +466,7 @@ FEMenu* FEMenuSystem::GetActiveMenu() { return menus[active]; }
 class MultiLineString { public: float getWidth(); };
 __asm__(".equ getWidth__15MultiLineString, 0x00148C08");
 class FEMenuEntry { char padding[0x24]; MultiLineString *text; public: float GetWidth(); };
-float FEMenuEntry::GetWidth() { float result = text->getWidth(); __asm__ volatile(""); return result; }
+float FEMenuEntry::GetWidth() { float result = text->getWidth(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DADB8)
@@ -474,7 +474,7 @@ float FEMenuEntry::GetWidth() { float result = text->getWidth(); __asm__ volatil
 class PanelFile { public: void Load(bool floating); };
 __asm__(".equ Load__9PanelFileb, 0x00152510");
 class FrontEnd { char padding[0x80]; PanelFile panel; public: void LoadPanel(bool floating); };
-void FrontEnd::LoadPanel(bool floating) { panel.Load(floating); __asm__ volatile(""); }
+void FrontEnd::LoadPanel(bool floating) { panel.Load(floating); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DB140)
@@ -483,7 +483,7 @@ class FEMenuEntry;
 class FEMenu { public: void Add(FEMenuEntry *entry); };
 __asm__(".equ Add__6FEMenuP11FEMenuEntry, 0x001566B8");
 class FEGraphicalMenu : public FEMenu { public: void Add(FEMenuEntry *entry); };
-void FEGraphicalMenu::Add(FEMenuEntry *entry) { FEMenu::Add(entry); __asm__ volatile(""); }
+void FEGraphicalMenu::Add(FEMenuEntry *entry) { FEMenu::Add(entry); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DB470)
@@ -491,5 +491,5 @@ void FEGraphicalMenu::Add(FEMenuEntry *entry) { FEMenu::Add(entry); __asm__ vola
 extern "C" void FEMenuDtor(void *self) __asm__("_$_6FEMenu");
 extern "C" void FETextMultiMenuDtor(void *self) __asm__("_$_15FETextMultiMenu");
 __asm__(".equ _$_6FEMenu, 0x00156580");
-void FETextMultiMenuDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
+void FETextMultiMenuDtor(void *self) { FEMenuDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

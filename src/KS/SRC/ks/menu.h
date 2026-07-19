@@ -173,7 +173,7 @@ float MenuEntryFloatEdit::GetValue() { return value ? *value : 0.0f; }
 class MenuEntry { public: void Disable(); };
 __asm__(".equ Disable__9MenuEntry, 0x0023EE50");
 class MenuEntryTitle : public MenuEntry { public: void Enable(); };
-void MenuEntryTitle::Enable() { MenuEntry::Disable(); __asm__ volatile(""); }
+void MenuEntryTitle::Enable() { MenuEntry::Disable(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002706F0)
@@ -181,5 +181,5 @@ void MenuEntryTitle::Enable() { MenuEntry::Disable(); __asm__ volatile(""); }
 class MenuEntry { public: void Disable(); };
 __asm__(".equ Disable__9MenuEntry, 0x0023EE50");
 class MenuEntryTitle : public MenuEntry { public: void Disable(); };
-void MenuEntryTitle::Disable() { MenuEntry::Disable(); __asm__ volatile(""); }
+void MenuEntryTitle::Disable() { MenuEntry::Disable(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

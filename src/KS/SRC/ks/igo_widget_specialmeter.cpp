@@ -13,5 +13,5 @@ void SpecialMeterWidget::SetFillage(float amount) { colorPQ->Mask(amount, true);
 class IGOWidget { public: void SetDisplay(bool value); };
 __asm__(".equ SetDisplay__9IGOWidgetb, 0x00164658");
 class SpecialMeterWidget : public IGOWidget { public: void SetDisplay(bool value); };
-void SpecialMeterWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); __asm__ volatile(""); }
+void SpecialMeterWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif

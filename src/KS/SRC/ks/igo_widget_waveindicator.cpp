@@ -12,5 +12,5 @@ void WaveIndicatorWidget::Hide(bool fadeOut) { if (fadeOut) fadeDir = -1; else s
 class IGOWidget { public: void SetDisplay(bool value); };
 __asm__(".equ SetDisplay__9IGOWidgetb, 0x00164658");
 class WaveIndicatorWidget : public IGOWidget { public: void SetDisplay(bool value); };
-void WaveIndicatorWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); __asm__ volatile(""); }
+void WaveIndicatorWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
