@@ -42,3 +42,11 @@ struct nglTexture { char padding[8]; unsigned short Width; unsigned short Height
 class mat_fac { char padding[4]; nglTexture *map; public: int get_original_width(int frame, map_e which) const; };
 int mat_fac::get_original_width(int frame, map_e which) const { if (!map) return 0; return map->Width; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002BD1B8)
+// 0x002BD1B8 get_original_height__C7mat_faci5map_e
+enum map_e { MAP_DEFAULT };
+struct nglTexture { char padding[8]; unsigned short Width; unsigned short Height; };
+class mat_fac { char padding[4]; nglTexture *map; public: int get_original_height(int frame, map_e which) const; };
+int mat_fac::get_original_height(int frame, map_e which) const { if (!map) return 0; return map->Height; }
+#endif
