@@ -29,3 +29,9 @@ void SurfBoardObjectClass::ResetTimers() {
     backwards_time = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001F9B18)
+// 0x001F9B18 IncrementFloatSpeed__20SurfBoardObjectClass
+class SurfBoardObjectClass { char padding[0xaa0]; float float_speed; public: void IncrementFloatSpeed(); };
+void SurfBoardObjectClass::IncrementFloatSpeed() { float value = float_speed; __asm__ volatile("" : : "f"(value)); float increment = 1.5f; __asm__ volatile("nop"); float_speed = value + increment; }
+#endif
