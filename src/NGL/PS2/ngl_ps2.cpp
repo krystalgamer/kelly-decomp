@@ -223,3 +223,11 @@ void nglSceneDumpStart() {
 void nglSceneDumpEnd() {
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00395F08)
+// 0x00395F08 nglIdentityMatrix__FR9nglMatrix
+class nglMatrix { float data[16]; public: operator float *() { return data; } };
+extern "C" void sceVu0UnitMatrix(float *matrix);
+__asm__(".equ sceVu0UnitMatrix, 0x003BC528");
+void nglIdentityMatrix(nglMatrix &matrix) { sceVu0UnitMatrix(matrix); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
