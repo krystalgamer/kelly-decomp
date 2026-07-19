@@ -285,3 +285,10 @@ extern "C" int sceClose(int file);
 __asm__(".equ sceClose, 0x003DEC00");
 void nglHostClose(unsigned int file) { sceClose(file); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00396D90)
+// 0x00396D90 nglVBlankInterrupt__Fi
+extern volatile int nglVBlankCount;
+__asm__(".equ nglVBlankCount, 0x004BBFBC");
+int nglVBlankInterrupt(int parameter) { nglVBlankCount++; __asm__ volatile("sync\n\tei"); return 0; }
+#endif
