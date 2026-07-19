@@ -107,3 +107,11 @@ extern MenuSystem* menus;
 __asm__(".equ menus, 0x00424EE8");
 bool IsDebugMenuDisplayed() { return menus->active != 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001A5880)
+// 0x001A5880 OnStart__14PauseMenuClassi
+class FEMenu { public: void OnStart(int command); };
+__asm__(".equ OnStart__6FEMenui, 0x001577B8");
+class PauseMenuClass : public FEMenu { public: void OnStart(int command); };
+void PauseMenuClass::OnStart(int command) { FEMenu::OnStart(command); __asm__ volatile(""); }
+#endif
