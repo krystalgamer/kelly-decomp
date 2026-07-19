@@ -43,3 +43,12 @@ __asm__(".equ OnClose__4Menub, 0x0023EB70");
 class KSMainMenu : public Menu { public: void OnClose(bool toparent); };
 void KSMainMenu::OnClose(bool toparent) { Menu::OnClose(toparent); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00235B70)
+// 0x00235B70 OnOpen__10KSMainMenuP4MenuP10MenuSystem
+class MenuSystem;
+class Menu { public: void OnOpen(Menu *previous, MenuSystem *system); };
+__asm__(".equ OnOpen__4MenuP4MenuP10MenuSystem, 0x0023EAE0");
+class KSMainMenu : public Menu { public: void OnOpen(Menu *previous, MenuSystem *system); };
+void KSMainMenu::OnOpen(Menu *previous, MenuSystem *system) { register char *globals __asm__("$2") = (char *)0x00420000; __asm__ volatile("" : "+r"(globals)); *(int *)(globals + 0x4ed8) = 0; Menu::OnOpen(previous, system); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
