@@ -6045,7 +6045,7 @@ __cl__24slf_create_box_trigger_tR8vm_stackQ320script_library_class8function7entr
 _$_27slf_create_entity_trigger_t = 0x00328E58; // type:func defined:true size:0x1C
 __tf27slf_create_entity_trigger_t = 0x00328E78; // type:func size:0x50
 __cl__27slf_create_entity_trigger_tR8vm_stackQ320script_library_class8function7entry_t = 0x00328EC8; // type:func size:0x164
-_$_30slf_trigger_set_use_any_char_t = 0x00329030; // type:func size:0x1C
+_$_30slf_trigger_set_use_any_char_t = 0x00329030; // type:func defined:true size:0x1C
 __tf30slf_trigger_set_use_any_char_t = 0x00329050; // type:func size:0x50
 __cl__30slf_trigger_set_use_any_char_tR8vm_stackQ320script_library_class8function7entry_t = 0x003290A0; // type:func size:0x38
 _$_24slf_vector3d_construct_t = 0x003290D8; // type:func size:0x1C
