@@ -80,3 +80,11 @@ extern "C" void ScriptDtor_00325E28(void *self) __asm__("_$_28slf_beam_set_colli
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00325E28(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00325EE8)
+// 0x00325EE8 _$_31slf_beam_set_collide_beamable_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_00325EE8(void *self) __asm__("_$_31slf_beam_set_collide_beamable_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_00325EE8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
