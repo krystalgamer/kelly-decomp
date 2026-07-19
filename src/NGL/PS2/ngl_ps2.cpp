@@ -264,3 +264,10 @@ extern nglScene *nglCurScene;
 __asm__(".equ nglCurScene, 0x004BBD04");
 void nglSetFogRange(float near_value, float far_value, float minimum, float maximum) { nglCurScene->FogNear = near_value; nglCurScene->FogFar = far_value; nglCurScene->FogMin = minimum; nglCurScene->FogMax = maximum; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003A6A98)
+// 0x003A6A98 nglSetQuadVPos__FP7nglQuadiff
+struct nglQuadVertex { float X; float Y; float U; float V; unsigned int Color; };
+struct nglQuad { nglQuadVertex Verts[4]; };
+void nglSetQuadVPos(nglQuad *quad, int index, float x, float y) { quad->Verts[index].X = x; quad->Verts[index].Y = y; }
+#endif
