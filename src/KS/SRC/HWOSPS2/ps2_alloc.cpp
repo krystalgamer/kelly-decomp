@@ -19,3 +19,10 @@ void arch_free(void *pointer);
 __asm__(".equ arch_free__FPv, 0x002AC768");
 void os_free(void *pointer) { arch_free(pointer); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DFA38)
+// 0x001DFA38 os_free32__FPv
+void arch_free(void *pointer);
+__asm__(".equ arch_free__FPv, 0x002AC768");
+void os_free32(void *pointer) { arch_free(pointer); __asm__ volatile(""); }
+#endif
