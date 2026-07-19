@@ -76,3 +76,11 @@ Type& Table<Type>::operator[](int index) {
 
 template cbVector& Table<cbVector>::operator[](int index);
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00265580)
+// 0x00265580 Append__t5Table1Z8cbVectorRC8cbVector
+struct cbVector { int value; };
+struct CbVectorTableLayout { cbVector data[16]; int size; };
+extern "C" void AppendCbVector(void *raw, const cbVector &element) __asm__("Append__t5Table1Z8cbVectorRC8cbVector");
+void AppendCbVector(void *raw, const cbVector &element) { CbVectorTableLayout *table = (CbVectorTableLayout *)raw; register int index __asm__("$2") = table->size; register int offset __asm__("$6") = index << 2; ++index; offset += (int)table; register cbVector *slot __asm__("$6") = (cbVector *)offset; table->size = index; register int value __asm__("$3") = element.value; slot->value = value; }
+#endif
