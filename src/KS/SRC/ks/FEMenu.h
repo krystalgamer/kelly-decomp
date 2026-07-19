@@ -468,3 +468,11 @@ __asm__(".equ getWidth__15MultiLineString, 0x00148C08");
 class FEMenuEntry { char padding[0x24]; MultiLineString *text; public: float GetWidth(); };
 float FEMenuEntry::GetWidth() { float result = text->getWidth(); __asm__ volatile(""); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DADB8)
+// 0x001DADB8 LoadPanel__8FrontEndb
+class PanelFile { public: void Load(bool floating); };
+__asm__(".equ Load__9PanelFileb, 0x00152510");
+class FrontEnd { char padding[0x80]; PanelFile panel; public: void LoadPanel(bool floating); };
+void FrontEnd::LoadPanel(bool floating) { panel.Load(floating); __asm__ volatile(""); }
+#endif
