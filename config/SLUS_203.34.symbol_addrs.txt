@@ -6174,7 +6174,7 @@ __cl__31slf_timer_widget_add_function_tR8vm_stackQ320script_library_class8functi
 _$_34slf_timer_widget_remove_function_t = 0x0032C798; // type:func defined:true size:0x1C
 __tf34slf_timer_widget_remove_function_t = 0x0032C7B8; // type:func size:0x50
 __cl__34slf_timer_widget_remove_function_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032C808; // type:func size:0x34
-_$_34slf_timer_widget_clear_functions_t = 0x0032C840; // type:func size:0x1C
+_$_34slf_timer_widget_clear_functions_t = 0x0032C840; // type:func defined:true size:0x1C
 __tf34slf_timer_widget_clear_functions_t = 0x0032C860; // type:func size:0x50
 __cl__34slf_timer_widget_clear_functions_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032C8B0; // type:func size:0x3C
 _$_30slf_create_text_block_widget_t = 0x0032C8F0; // type:func size:0x1C
