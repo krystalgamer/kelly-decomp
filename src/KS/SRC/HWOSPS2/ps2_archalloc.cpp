@@ -22,3 +22,11 @@ void mem_free(void *pointer);
 __asm__(".equ mem_free__FPv, 0x002AC900");
 void arch_free(void *pointer) { mem_free(pointer); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AC6B0)
+// 0x002AC6B0 __builtin_delete
+void mem_free(void *pointer);
+__asm__(".equ mem_free__FPv, 0x002AC900");
+extern "C" void builtin_delete(void *pointer) __asm__("__builtin_delete");
+void builtin_delete(void *pointer) { if (pointer) mem_free(pointer); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
