@@ -80,3 +80,11 @@ extern "C" void TrickMenuClassDtor(void *self) __asm__("_$_14TrickMenuClass");
 __asm__(".equ _$_6FEMenu, 0x00156580");
 void TrickMenuClassDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DD6D8)
+// 0x001DD6D8 _$_15ReplayMenuClass
+extern "C" void FEMenuDtor(void *self) __asm__("_$_6FEMenu");
+extern "C" void ReplayMenuClassDtor(void *self) __asm__("_$_15ReplayMenuClass");
+__asm__(".equ _$_6FEMenu, 0x00156580");
+void ReplayMenuClassDtor(void *self) { FEMenuDtor(self); __asm__ volatile(""); }
+#endif
