@@ -86,3 +86,10 @@ void KeyboardMenu::Init() {
     sl_parent = parent;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001A07B0)
+// 0x001A07B0 ActiveFile__9NamesMenu
+struct FEMenuEntry { int entry_num; };
+class NamesMenu { char padding0[0x4c]; FEMenuEntry *highlighted; char padding1[0x108]; FEMenuEntry *secondary_cursor; public: int ActiveFile(); };
+int NamesMenu::ActiveFile() { if (!highlighted) return -1; else return secondary_cursor->entry_num; }
+#endif
