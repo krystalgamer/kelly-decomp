@@ -86,3 +86,9 @@ int KSReplay::MainPOFrames() {
     return 4;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023CA38)
+// 0x0023CA38 SpeedSlow__8KSReplay
+class KSReplay { char padding[0x1c]; bool slomo; bool fastforward; bool prepareSlomo; bool prepareNormal; public: void SpeedSlow(); };
+void KSReplay::SpeedSlow() { if (fastforward) { fastforward = false; slomo = true; } else { prepareSlomo = true; } }
+#endif
