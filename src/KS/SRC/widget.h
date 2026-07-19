@@ -246,3 +246,11 @@ __asm__(".equ scale_to__6widgetffff, 0x0033ED48");
 class bitmap_widget : public widget { public: void scale_to(float wait, float duration, float scale); };
 void bitmap_widget::scale_to(float wait, float duration, float scale) { widget::scale_to(wait, duration, scale, scale); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00360838)
+// 0x00360838 show__11text_widget
+class widget { public: void show(); };
+__asm__(".equ show__6widget, 0x0033DDD0");
+class text_widget : public widget { public: void show(); };
+void text_widget::show() { widget::show(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
