@@ -5660,7 +5660,7 @@ __cl__28slf_localize_thread_region_tR8vm_stackQ320script_library_class8function7
 _$_22slf_globalize_thread_t = 0x0031E1D0; // type:func defined:true size:0x1C
 __tf22slf_globalize_thread_t = 0x0031E1F0; // type:func size:0x50
 __cl__22slf_globalize_thread_tR8vm_stackQ320script_library_class8function7entry_t = 0x0031E240; // type:func size:0x30
-_$_20slf_suspend_all_ai_t = 0x0031E270; // type:func size:0x1C
+_$_20slf_suspend_all_ai_t = 0x0031E270; // type:func defined:true size:0x1C
 __tf20slf_suspend_all_ai_t = 0x0031E290; // type:func size:0x50
 __cl__20slf_suspend_all_ai_tR8vm_stackQ320script_library_class8function7entry_t = 0x0031E2E0; // type:func size:0x20
 _$_22slf_unsuspend_all_ai_t = 0x0031E300; // type:func size:0x1C
