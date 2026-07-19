@@ -40,3 +40,11 @@ extern "C" void ScriptDtor_00324E38(void *self) __asm__("_$_24slf_anim_wait_fini
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00324E38(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00324F70)
+// 0x00324F70 _$_20slf_anim_kill_anim_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_00324F70(void *self) __asm__("_$_20slf_anim_kill_anim_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_00324F70(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
