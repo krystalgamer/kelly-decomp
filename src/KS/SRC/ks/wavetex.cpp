@@ -51,3 +51,10 @@ void WAVETEX_FillWaveMesh_stub() asm(
 void WAVETEX_FillWaveMesh_stub() {
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003818D8)
+// 0x003818D8 WAVETEX_StaticInit__Fv
+void WAVETEXMENU_StaticInit();
+__asm__(".equ WAVETEXMENU_StaticInit__Fv, 0x00381240");
+void WAVETEX_StaticInit() { WAVETEXMENU_StaticInit(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
