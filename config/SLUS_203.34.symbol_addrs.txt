@@ -5990,7 +5990,7 @@ __cl__26slf_create_entity_widget_tR8vm_stackQ320script_library_class8function7en
 _$_30slf_entity_widget_get_entity_t = 0x003273E8; // type:func defined:true size:0x1C
 __tf30slf_entity_widget_get_entity_t = 0x00327408; // type:func size:0x50
 __cl__30slf_entity_widget_get_entity_tR8vm_stackQ320script_library_class8function7entry_t = 0x00327458; // type:func size:0x158
-_$_20slf_item_set_count_t = 0x003275B0; // type:func size:0x1C
+_$_20slf_item_set_count_t = 0x003275B0; // type:func defined:true size:0x1C
 __tf20slf_item_set_count_t = 0x003275D0; // type:func size:0x50
 __cl__20slf_item_set_count_tR8vm_stackQ320script_library_class8function7entry_t = 0x00327620; // type:func size:0x48
 _$_20slf_item_get_count_t = 0x00327668; // type:func size:0x1C
