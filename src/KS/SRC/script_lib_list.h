@@ -24,3 +24,11 @@ extern "C" void ScriptDtor_0032F190(void *self) __asm__("_$_14slc_num_list_t");
 __asm__(".equ _$_20script_library_class, 0x0034EE68");
 void ScriptDtor_0032F190(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032F200)
+// 0x0032F200 _$_23slc_num_list_iterator_t
+extern "C" void ScriptClassDtor(void *self) __asm__("_$_20script_library_class");
+extern "C" void ScriptDtor_0032F200(void *self) __asm__("_$_23slc_num_list_iterator_t");
+__asm__(".equ _$_20script_library_class, 0x0034EE68");
+void ScriptDtor_0032F200(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
