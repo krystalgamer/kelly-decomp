@@ -5759,7 +5759,7 @@ __cl__25slf_set_fog_table_gamma_tR8vm_stackQ320script_library_class8function7ent
 _$_22slf_get_detail_level_t = 0x00320698; // type:func defined:true size:0x1C
 __tf22slf_get_detail_level_t = 0x003206B8; // type:func size:0x50
 __cl__22slf_get_detail_level_tR8vm_stackQ320script_library_class8function7entry_t = 0x00320708; // type:func size:0x14C
-_$_23slf_was_start_pressed_t = 0x00320858; // type:func size:0x1C
+_$_23slf_was_start_pressed_t = 0x00320858; // type:func defined:true size:0x1C
 __tf23slf_was_start_pressed_t = 0x00320878; // type:func size:0x50
 __cl__23slf_was_start_pressed_tR8vm_stackQ320script_library_class8function7entry_t = 0x003208C8; // type:func size:0x188
 _$_19slf_was_A_pressed_t = 0x00320A50; // type:func size:0x1C
