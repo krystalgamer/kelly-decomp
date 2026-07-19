@@ -745,3 +745,10 @@ struct vector3d { float x; float y; float z; vector3d(float px, float py, float 
 class FloatingText { char padding[0xb0]; float location_3d[3]; public: vector3d GetLocation3D(); };
 vector3d FloatingText::GetLocation3D() { return vector3d(location_3d[0], location_3d[1], location_3d[2]); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D9DF8)
+// 0x001D9DF8 GetLocation3D__10FloatingPQ
+struct vector3d { float x; float y; float z; vector3d(float px, float py, float pz) : x(px), y(py), z(pz) {} };
+class FloatingPQ { char padding[0x1a0]; float location_3d[3]; public: vector3d GetLocation3D(); };
+vector3d FloatingPQ::GetLocation3D() { return vector3d(location_3d[0], location_3d[1], location_3d[2]); }
+#endif
