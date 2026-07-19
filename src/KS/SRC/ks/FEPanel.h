@@ -738,3 +738,10 @@ __asm__(".equ Load__9PanelGeomPUcRi, 0x0014FB68");
 class PanelMovie : public PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
 bool PanelMovie::Load(unsigned char *buffer, int &index) { bool result = PanelGeom::Load(buffer, index); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D91D8)
+// 0x001D91D8 GetLocation3D__12FloatingText
+struct vector3d { float x; float y; float z; vector3d(float px, float py, float pz) : x(px), y(py), z(pz) {} };
+class FloatingText { char padding[0xb0]; float location_3d[3]; public: vector3d GetLocation3D(); };
+vector3d FloatingText::GetLocation3D() { return vector3d(location_3d[0], location_3d[1], location_3d[2]); }
+#endif
