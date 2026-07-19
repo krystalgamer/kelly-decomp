@@ -5969,7 +5969,7 @@ __cl__27slf_beam_add_alpha_effect_tR8vm_stackQ320script_library_class8function7e
 _$_22slf_beam_kill_effect_t = 0x00326A00; // type:func defined:true size:0x1C
 __tf22slf_beam_kill_effect_t = 0x00326A20; // type:func size:0x50
 __cl__22slf_beam_kill_effect_tR8vm_stackQ320script_library_class8function7entry_t = 0x00326A70; // type:func size:0x58
-_$_27slf_beam_kill_all_effects_t = 0x00326AC8; // type:func size:0x1C
+_$_27slf_beam_kill_all_effects_t = 0x00326AC8; // type:func defined:true size:0x1C
 __tf27slf_beam_kill_all_effects_t = 0x00326AE8; // type:func size:0x50
 __cl__27slf_beam_kill_all_effects_tR8vm_stackQ320script_library_class8function7entry_t = 0x00326B38; // type:func size:0x4C
 _$_17slf_create_beam_t = 0x00326B88; // type:func size:0x1C
