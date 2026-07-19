@@ -64,3 +64,11 @@ __asm__(".equ set_near_range__16light_propertiesf, 0x002CC968");
 class light_source { char padding[0x200]; light_properties *properties; public: void set_near_range(float range); };
 void light_source::set_near_range(float range) { properties->set_near_range(range); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FFA20)
+// 0x002FFA20 set_cutoff_range__12light_sourcef
+class light_properties { public: void set_cutoff_range(float range); };
+__asm__(".equ set_cutoff_range__16light_propertiesf, 0x002CC9C0");
+class light_source { char padding[0x200]; light_properties *properties; public: void set_cutoff_range(float range); };
+void light_source::set_cutoff_range(float range) { properties->set_cutoff_range(range); __asm__ volatile(""); }
+#endif
