@@ -139,3 +139,11 @@ __asm__(".equ OnStart__6FEMenui, 0x001577B8");
 class HeatMidMenuClass : public FEMenu { public: void OnStart(int command); };
 void HeatMidMenuClass::OnStart(int command) { FEMenu::OnStart(command); __asm__ volatile(""); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001AB160)
+// 0x001AB160 Draw__15CameraMenuClass
+class FEMenu { public: void Draw(); };
+__asm__(".equ Draw__6FEMenu, 0x00156C88");
+class CameraMenuClass : public FEMenu { public: void Draw(); };
+void CameraMenuClass::Draw() { FEMenu::Draw(); __asm__ volatile(""); }
+#endif
