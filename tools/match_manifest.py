@@ -7,7 +7,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-from source_layout import install_function_source
+from source_layout import (
+    install_function_source,
+    uses_matching_compiler_barrier,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -84,8 +87,16 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
             f"Manifest candidate did not match {row['raw_name']}: "
             f"{attempt['score']:.2f}%"
         )
+    attempt_note = entry["attempt_note"].rstrip()
+    if uses_matching_compiler_barrier(source):
+        attempt_note += (
+            "\n\n`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only "
+            "annotation that emits no target instruction. It prevents EE GCC "
+            "from applying the sibling/tail-call or scheduling transformation "
+            "described above."
+        )
     (scratch / f"attempt-{attempt['attempt']}" / "notes.md").write_text(
-        entry["attempt_note"].rstrip() + "\n",
+        attempt_note + "\n",
         encoding="utf-8",
     )
 

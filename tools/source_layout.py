@@ -39,6 +39,20 @@ def selector_macro(address: int) -> str:
     return f"KELLY_DECOMP_FUNCTION_{address:08X}"
 
 
+def uses_matching_compiler_barrier(source: str) -> bool:
+    return (
+        EMPTY_COMPILER_BARRIER_RE.search(source) is not None
+        or "KELLY_DECOMP_COMPILER_BARRIER()" in source
+    )
+
+
+def normalize_matching_annotations(source: str) -> str:
+    return EMPTY_COMPILER_BARRIER_RE.sub(
+        "KELLY_DECOMP_COMPILER_BARRIER()",
+        source,
+    )
+
+
 def merged_source_path(row: dict[str, str]) -> Path:
     reference = row["reference_file"].replace("\\", "/")
     relative = PurePosixPath(reference)
@@ -78,10 +92,7 @@ def discover_function_sources() -> dict[int, FunctionSource]:
 
 def function_block(row: dict[str, str], source: str) -> str:
     address = int(row["address"], 0)
-    source = EMPTY_COMPILER_BARRIER_RE.sub(
-        "KELLY_DECOMP_COMPILER_BARRIER()",
-        source,
-    )
+    source = normalize_matching_annotations(source)
     return (
         f"#if defined({selector_macro(address)})\n"
         f"// {row['address']} {row['raw_name']}\n"
