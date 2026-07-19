@@ -5624,7 +5624,7 @@ clear__t10_List_base2ZPt6vector2ZfZt12my_allocator1ZfZt12my_allocator1ZPt6vector
 clear__t10_List_base2ZPt6vector2ZP6entityZt12my_allocator1ZP6entityZt12my_allocator1ZPt6vector2ZP6entityZt12my_allocator1ZP6entity = 0x0031D128; // type:func size:0x48
 clear__t10_List_base2ZPt6vector2Z7stringxZt12my_allocator1Z7stringxZt12my_allocator1ZPt6vector2Z7stringxZt12my_allocator1Z7stringx = 0x0031D170; // type:func size:0x48
 __static_initialization_and_destruction_0_0031D1B8 = 0x0031D1B8; // type:func size:0x77C
-_$_12slc_entity_t = 0x0031D938; // type:func size:0x1C
+_$_12slc_entity_t = 0x0031D938; // type:func defined:true size:0x1C
 __tf12slc_entity_t = 0x0031D958; // type:func size:0x50
 __tf10script_mfg = 0x0031D9B0; // type:func size:0x50
 construct_signal_list__10script_mfg = 0x0031DA00; // type:func size:0xA0
