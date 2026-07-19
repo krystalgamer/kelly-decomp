@@ -448,3 +448,11 @@ extern "C" void ScriptDtor_00335290(void *self) __asm__("_$_31slf_str_list_itera
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00335290(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00335458)
+// 0x00335458 _GLOBAL_$I$script_string_none
+extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
+extern "C" void GlobalInit() __asm__("_GLOBAL_$I$script_string_none");
+__asm__(".equ __static_initialization_and_destruction_0, 0x0031D1B8");
+void GlobalInit() { StaticInit(1, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif

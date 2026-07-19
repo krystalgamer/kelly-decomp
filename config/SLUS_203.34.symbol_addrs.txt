@@ -6470,7 +6470,7 @@ __cl__33slf_str_list_iterator_not_equal_tR8vm_stackQ320script_library_class8func
 _$_31slf_str_list_iterator_get_str_t = 0x00335290; // type:func defined:true size:0x1C
 __tf31slf_str_list_iterator_get_str_t = 0x003352B0; // type:func size:0x50
 __cl__31slf_str_list_iterator_get_str_tR8vm_stackQ320script_library_class8function7entry_t = 0x00335300; // type:func size:0x154
-_GLOBAL_$I$script_string_none = 0x00335458; // type:func size:0x20
+_GLOBAL_$I$script_string_none = 0x00335458; // type:func defined:true size:0x20
 _GLOBAL_$D$script_string_none = 0x00335478; // type:func size:0x20
 __7pstringRC7stringx = 0x00335498; // type:func size:0x2C allow_duplicated:true
 __gnu_compiled_cplusplus_00335498 = 0x00335498; // allow_duplicated:true
