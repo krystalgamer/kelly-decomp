@@ -255,3 +255,11 @@ struct nglMesh { char padding[0x58]; nglMeshSection *Sections; };
 class entity { char padding[0x134]; nglMesh *my_mesh; public: void set_mesh_texture(nglTexture *texture); };
 void entity::set_mesh_texture(nglTexture *texture) { if (my_mesh) my_mesh->Sections[0].Material->Map = texture; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00146520)
+// 0x00146520 _GLOBAL_$I$g_time_dilation
+extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
+extern "C" void GlobalInit() __asm__("_GLOBAL_$I$g_time_dilation");
+__asm__(".equ __static_initialization_and_destruction_0, 0x00143C08");
+void GlobalInit() { StaticInit(1, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
