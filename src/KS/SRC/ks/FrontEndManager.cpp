@@ -86,3 +86,12 @@ __asm__(".equ frontendmanager, 0x003E7728");
 __asm__(".equ DrawIGO__9FEManager, 0x00198CC8");
 void IGODraw() { frontendmanager.DrawIGO(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00199220)
+// 0x00199220 IGORelease__Fv
+class FEManager { public: void ReleaseIGO(); };
+extern FEManager frontendmanager;
+__asm__(".equ frontendmanager, 0x003E7728");
+__asm__(".equ ReleaseIGO__9FEManager, 0x00199070");
+void IGORelease() { frontendmanager.ReleaseIGO(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
