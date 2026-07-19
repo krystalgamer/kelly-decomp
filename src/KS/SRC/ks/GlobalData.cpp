@@ -69,3 +69,10 @@ struct GlobalSurferData { bool boardsUnlocked[30]; };
 class GlobalDataClass { char padding[0xcc]; GlobalSurferData globalSurfers[1]; public: bool isSurferBoardUnlocked(int surfer, int board) const; };
 bool GlobalDataClass::isSurferBoardUnlocked(int surfer, int board) const { return globalSurfers[surfer].boardsUnlocked[board]; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002EFD58)
+// 0x002EFD58 setMaxHandicap__15GlobalDataClassii
+struct GlobalSurferData { char padding[0x70]; int handicap; char tail[4]; };
+class GlobalDataClass { char padding[0xcc]; GlobalSurferData globalSurfers[1]; public: void setMaxHandicap(int surfer, int handicap); };
+void GlobalDataClass::setMaxHandicap(int surfer, int handicap) { globalSurfers[surfer].handicap = handicap > 6 ? 6 : handicap; }
+#endif
