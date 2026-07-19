@@ -152,3 +152,9 @@ __asm__(".equ set_thickness__4beamf, 0x00271790");
 class beam_effect_width { char padding[4]; float start; float target; float delta; public: void apply_target_vals(beam *value); };
 void beam_effect_width::apply_target_vals(beam *value) { value->set_thickness(target); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B7D60)
+// 0x002B7D60 reverse__17beam_effect_width
+class beam_effect_width { char padding[4]; float start; float target; float delta; public: void reverse(); };
+void beam_effect_width::reverse() { float temporary = start; start = target; target = temporary; delta = -delta; }
+#endif
