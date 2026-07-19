@@ -1,0 +1,90 @@
+// Matching decompilation blocks selected by generated build shims.
+
+
+#if defined(KELLY_DECOMP_FUNCTION_001DE430)
+// 0x001DE430 Draw__18ControllerFrontEnd
+class ControllerFrontEnd {
+public:
+    void Draw();
+};
+
+void ControllerFrontEnd::Draw() {
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DE438)
+// 0x001DE438 OnLeft__18ControllerFrontEndi
+class ControllerFrontEnd {
+public:
+    void OnLeft(int arg0);
+};
+
+void ControllerFrontEnd::OnLeft(int arg0) {
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DE440)
+// 0x001DE440 OnRight__18ControllerFrontEndi
+class ControllerFrontEnd {
+public:
+    void OnRight(int arg0);
+};
+
+void ControllerFrontEnd::OnRight(int arg0) {
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DE448)
+// 0x001DE448 OnUp__18ControllerFrontEndi
+class ControllerFrontEnd {
+public:
+    void OnUp(int arg0);
+};
+
+void ControllerFrontEnd::OnUp(int arg0) {
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DE450)
+// 0x001DE450 OnDown__18ControllerFrontEndi
+class ControllerFrontEnd {
+public:
+    void OnDown(int arg0);
+};
+
+void ControllerFrontEnd::OnDown(int arg0) {
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DE458)
+// 0x001DE458 Select__18ControllerFrontEndi
+class ControllerFrontEnd {
+public:
+    void Select(int arg0);
+};
+
+void ControllerFrontEnd::Select(int arg0) {
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DE4D8)
+// 0x001DE4D8 Update__9HelpbarFEf
+class HelpbarFE {
+public:
+    void Update(float arg0);
+};
+
+void HelpbarFE::Update(float arg0) {
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DE5B0)
+// 0x001DE5B0 Reload__19GraphicalMenuSystem
+class GraphicalMenuSystem {
+public:
+    void Reload();
+};
+
+void GraphicalMenuSystem::Reload() {
+}
+#endif

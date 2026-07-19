@@ -1,2 +1,0 @@
-void WAVETEX_CloseWaveMesh() {
-}

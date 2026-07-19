@@ -1,0 +1,19 @@
+// Matching decompilation blocks selected by generated build shims.
+
+
+#if defined(KELLY_DECOMP_FUNCTION_0016EE38)
+// 0x0016EE38 clear__13IGOPrintQueue
+class IGOPrintQueue { char padding[0xC0]; int start; int end; unsigned char size; public: void clear(); };
+void IGOPrintQueue::clear() { start = end = size = 0; }
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017C1A8)
+// 0x0017C1A8 OnScoreChange__11IGOFrontEndi
+class IGOFrontEnd {
+public:
+    void OnScoreChange(int player_index);
+};
+
+void IGOFrontEnd::OnScoreChange(int player_index) {
+}
+#endif

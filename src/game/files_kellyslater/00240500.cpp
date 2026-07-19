@@ -1,2 +1,0 @@
-void MENU_DrawStart() {
-}

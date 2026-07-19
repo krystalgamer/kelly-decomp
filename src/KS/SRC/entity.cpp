@@ -1,0 +1,170 @@
+// Matching decompilation blocks selected by generated build shims.
+
+
+#if defined(KELLY_DECOMP_FUNCTION_00127870)
+// 0x00127870 __nw__Q26entity13movement_infoUiUiPCci
+class entity { public: class movement_info { public: static void* operator new(unsigned int size); static void* operator new(unsigned int size, unsigned int alignment, const char* file, int line); }; };
+__asm__(".equ __nw__Q26entity13movement_infoUi, 0x001277E8");
+void* entity::movement_info::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = entity::movement_info::operator new(size); __asm__ volatile(""); return result; }
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0012F728)
+// 0x0012F728 get_signal_name__C6entityUs
+extern const char entity_signal_name_literal[];
+__asm__(".equ entity_signal_name_literal, 0x004CA870");
+
+class entity {
+public:
+    const char* get_signal_name(unsigned short index) const;
+};
+
+const char* entity::get_signal_name(unsigned short index) const {
+    return entity_signal_name_literal;
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00132F58)
+// 0x00132F58 deactivate_motion_blur__6entity
+class entity { char padding[0x78]; int flags; public: void deactivate_motion_blur(); };
+void entity::deactivate_motion_blur() { flags &= -1025; }
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001334C0)
+// 0x001334C0 deactivate_motion_trail__6entity
+class entity { char padding[0x78]; int flags; public: void deactivate_motion_trail(); };
+void entity::deactivate_motion_trail() { flags &= -2049; }
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00133638)
+// 0x00133638 set_age__6entityf
+class frame_time_info_t {
+public:
+    float age;
+
+    void set_age(float new_age) {
+        age = new_age;
+    }
+};
+
+class entity {
+    char padding[0x1CC];
+    frame_time_info_t frame_time_info;
+
+public:
+    void set_age(float new_age);
+};
+
+void entity::set_age(float new_age) {
+    frame_time_info.set_age(new_age);
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00134B10)
+// 0x00134B10 detach_anim__6entity
+class entity_anim;
+
+class entity {
+    char padding[0x110];
+    entity_anim *current_anim;
+
+public:
+    void detach_anim();
+};
+
+void entity::detach_anim() {
+    current_anim = 0;
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00137988)
+// 0x00137988 apply_damage__6entityiRC8vector3dT2iP6entityi
+class vector3d;
+
+class entity {
+public:
+    void apply_damage(
+        int damage,
+        const vector3d &position,
+        const vector3d &normal,
+        int damage_type,
+        entity *attacker,
+        int damage_flags
+    );
+};
+
+void entity::apply_damage(
+    int damage,
+    const vector3d &position,
+    const vector3d &normal,
+    int damage_type,
+    entity *attacker,
+    int damage_flags
+) {
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00137D90)
+// 0x00137D90 allow_targeting__C6entity
+class entity {
+public:
+    bool allow_targeting() const;
+};
+
+bool entity::allow_targeting() const {
+    return true;
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00138B98)
+// 0x00138B98 is_alive__C6entity
+class entity {
+public:
+    bool is_alive() const;
+};
+
+bool entity::is_alive() const {
+    return true;
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00138BA0)
+// 0x00138BA0 is_dying__C6entity
+class entity {
+public:
+    bool is_dying() const;
+};
+
+bool entity::is_dying() const {
+    return false;
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00139268)
+// 0x00139268 entity_signal_callback_footstep__FP9signallerPCc
+class signaller;
+
+static void entity_signal_callback_footstep(
+    signaller *signal,
+    const char *data
+) {
+}
+
+__asm__(
+    ".globl entity_signal_callback_footstep__FP9signallerPCc"
+);
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00139270)
+// 0x00139270 entity_signal_callback_attack__FP9signallerPCc
+class signaller;
+
+static void entity_signal_callback_attack(
+    signaller *signal,
+    const char *data
+) {
+}
+
+__asm__(
+    ".globl entity_signal_callback_attack__FP9signallerPCc"
+);
+#endif

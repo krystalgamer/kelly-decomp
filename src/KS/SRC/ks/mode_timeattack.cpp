@@ -1,0 +1,36 @@
+// Matching decompilation blocks selected by generated build shims.
+
+
+#if defined(KELLY_DECOMP_FUNCTION_002860B8)
+// 0x002860B8 SetDifficulty__14TimeAttackModei
+class TimeAttackMode { char padding[0x38]; int scoreAttackStrength; int scoreDropSpeed; public: void SetDifficulty(int points); };
+void TimeAttackMode::SetDifficulty(int points) { scoreAttackStrength = points; scoreDropSpeed = scoreAttackStrength * 10; }
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00286298)
+// 0x00286298 GetScore__C14TimeAttackModei
+struct AttackPlayer { void* controller; float time; int previous_score; int score; bool attacking; char trailing[4]; };
+class TimeAttackMode { AttackPlayer players[2]; public: int GetScore(int index) const; };
+int TimeAttackMode::GetScore(int index) const { return players[index].score; }
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002862B0)
+// 0x002862B0 GetLevelDuration__C14TimeAttackModei
+struct AttackPlayer { void* controller; float time; int previous_score; int score; bool attacking; char trailing[4]; };
+class TimeAttackMode { AttackPlayer players[2]; public: float GetLevelDuration(int index) const; };
+float TimeAttackMode::GetLevelDuration(int index) const { return players[index].time; }
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002862C8)
+// 0x002862C8 GetRemainingTime__C14TimeAttackModei
+struct AttackPlayer { void* controller; float time; int previous_score; int score; bool attacking; char trailing[4]; };
+class TimeAttackMode { AttackPlayer players[2]; public: float GetRemainingTime(int index) const; };
+float TimeAttackMode::GetRemainingTime(int index) const { return players[index].time; }
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002862E0)
+// 0x002862E0 IsAttacking__C14TimeAttackModei
+struct AttackPlayer { void* controller; float time; int previous_score; int score; bool attacking; char trailing[4]; };
+class TimeAttackMode { AttackPlayer players[2]; public: bool IsAttacking(int index) const; };
+bool TimeAttackMode::IsAttacking(int index) const { return players[index].attacking; }
+#endif

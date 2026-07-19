@@ -1,0 +1,30 @@
+// Matching decompilation blocks selected by generated build shims.
+
+
+#if defined(KELLY_DECOMP_FUNCTION_00286748)
+// 0x00286748 GetScore__C15MeterAttackModei
+struct AttackPlayer { void* controller; float time; int previous_score; int score; bool attacking; char trailing[4]; };
+class MeterAttackMode { AttackPlayer players[2]; public: int GetScore(int index) const; };
+int MeterAttackMode::GetScore(int index) const { return players[index].score; }
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00286760)
+// 0x00286760 GetLevelDuration__C15MeterAttackModei
+struct AttackPlayer { void* controller; float time; int previous_score; int score; bool attacking; char trailing[4]; };
+class MeterAttackMode { AttackPlayer players[2]; public: float GetLevelDuration(int index) const; };
+float MeterAttackMode::GetLevelDuration(int index) const { return players[index].time; }
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00286778)
+// 0x00286778 GetRemainingTime__C15MeterAttackModei
+struct AttackPlayer { void* controller; float time; int previous_score; int score; bool attacking; char trailing[4]; };
+class MeterAttackMode { AttackPlayer players[2]; public: float GetRemainingTime(int index) const; };
+float MeterAttackMode::GetRemainingTime(int index) const { return players[index].time; }
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00286790)
+// 0x00286790 IsAttacking__C15MeterAttackModei
+struct AttackPlayer { void* controller; float time; int previous_score; int score; bool attacking; char trailing[4]; };
+class MeterAttackMode { AttackPlayer players[2]; public: bool IsAttacking(int index) const; };
+bool MeterAttackMode::IsAttacking(int index) const { return players[index].attacking; }
+#endif

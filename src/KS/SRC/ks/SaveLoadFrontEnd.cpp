@@ -1,0 +1,88 @@
+// Matching decompilation blocks selected by generated build shims.
+
+
+#if defined(KELLY_DECOMP_FUNCTION_0019B668)
+// 0x0019B668 getActiveCard__16SaveLoadFrontEnd
+class NamesMenu {
+    char padding[0x1FC];
+    int active_card;
+public:
+    int ActiveCard() {
+        return active_card;
+    }
+};
+
+class SaveLoadFrontEnd {
+    char padding[0x32F4];
+    NamesMenu* NameMenu;
+public:
+    int getActiveCard();
+};
+
+int SaveLoadFrontEnd::getActiveCard() {
+    return NameMenu->ActiveCard();
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0019BF38)
+// 0x0019BF38 DialogActive__16SaveLoadFrontEnd
+class FEMenu;
+class SaveLoadFrontEnd { char padding_to_active[0x60]; FEMenu* active; char padding_to_dialog[0x3298]; FEMenu* dialogMenu; public: bool DialogActive(); };
+bool SaveLoadFrontEnd::DialogActive() { return active == dialogMenu; }
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0019EDD8)
+// 0x0019EDD8 Init__9NamesMenu
+class NamesMenu {
+    char padding_to_parent[0x64];
+    void* parent;
+    char padding_to_sl_parent[0x108];
+    void* sl_parent;
+public:
+    void Init();
+};
+
+void NamesMenu::Init() {
+    sl_parent = parent;
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001A0808)
+// 0x001A0808 FindAdjusted__9NamesMenui
+class NamesMenu {
+public:
+    static int FindAdjusted(int active);
+};
+
+int NamesMenu::FindAdjusted(int active) {
+    return active;
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001A0810)
+// 0x001A0810 FindActive__9NamesMenui
+class NamesMenu {
+public:
+    static int FindActive(int adjusted);
+};
+
+int NamesMenu::FindActive(int adjusted) {
+    return adjusted;
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001A1CF8)
+// 0x001A1CF8 Init__12KeyboardMenu
+class KeyboardMenu {
+    char padding_to_parent[0x64];
+    void* parent;
+    char padding_to_sl_parent[0x1A4];
+    void* sl_parent;
+public:
+    void Init();
+};
+
+void KeyboardMenu::Init() {
+    sl_parent = parent;
+}
+#endif

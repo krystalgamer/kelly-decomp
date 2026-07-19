@@ -1,0 +1,49 @@
+// Matching decompilation blocks selected by generated build shims.
+
+
+#if defined(KELLY_DECOMP_FUNCTION_00105570)
+// 0x00105570 pop_disable__12ai_interface
+class ai_interface { char padding[0x30]; int disable_count; public: void pop_disable(); };
+void ai_interface::pop_disable() { --disable_count; if (disable_count < 0) disable_count = 0; }
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00105A18)
+// 0x00105A18 render__12ai_interfacec
+class ai_interface {
+public:
+    void render(char level);
+};
+
+void ai_interface::render(char level) {
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00105E00)
+// 0x00105E00 get_ifc_str__12ai_interfaceRC7pstringR7stringx
+class pstring;
+class stringx;
+
+class ai_interface {
+public:
+    bool get_ifc_str(const pstring &att, stringx &val);
+};
+
+bool ai_interface::get_ifc_str(const pstring &att, stringx &val) {
+    return false;
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00105E08)
+// 0x00105E08 set_ifc_str__12ai_interfaceRC7pstringRC7stringx
+class pstring;
+class stringx;
+
+class ai_interface {
+public:
+    bool set_ifc_str(const pstring &att, const stringx &val);
+};
+
+bool ai_interface::set_ifc_str(const pstring &att, const stringx &val) {
+    return false;
+}
+#endif
