@@ -5639,7 +5639,7 @@ __cl__25slf_set_camera_priority_tR8vm_stackQ320script_library_class8function7ent
 _$_22slf_enable_marky_cam_t = 0x0031DC80; // type:func defined:true size:0x1C
 __tf22slf_enable_marky_cam_t = 0x0031DCA0; // type:func size:0x50
 __cl__22slf_enable_marky_cam_tR8vm_stackQ320script_library_class8function7entry_t = 0x0031DCF0; // type:func size:0x5C
-_$_23slf_disable_marky_cam_t = 0x0031DD50; // type:func size:0x1C
+_$_23slf_disable_marky_cam_t = 0x0031DD50; // type:func defined:true size:0x1C
 __tf23slf_disable_marky_cam_t = 0x0031DD70; // type:func size:0x50
 __cl__23slf_disable_marky_cam_tR8vm_stackQ320script_library_class8function7entry_t = 0x0031DDC0; // type:func size:0x5C
 _$_17slf_freeze_hero_t = 0x0031DE20; // type:func size:0x1C
