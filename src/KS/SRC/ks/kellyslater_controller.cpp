@@ -65,3 +65,9 @@ void kellyslater_controller::StartDisappointment() { super_state = 8; state = 91
 class BalanceMeter { char padding[0x14]; int player_num; public: BalanceMeter(); };
 BalanceMeter::BalanceMeter() { player_num = -1; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0020D308)
+// 0x0020D308 ClearTricks__22kellyslater_controller
+class kellyslater_controller { char padding0[0x16b8]; bool bSpecialTrick; char padding1[0x238]; int completedTrick; int newTrick; int currentTrick; char padding2[0x10]; bool trick_queued; public: void ClearTricks(); };
+void kellyslater_controller::ClearTricks() { int value = -1; __asm__ volatile("" : : "r"(value)); bSpecialTrick = false; __asm__ volatile("" : : : "memory"); newTrick = value; __asm__ volatile("" : : : "memory"); trick_queued = false; __asm__ volatile("" : : : "memory"); currentTrick = value; __asm__ volatile("" : : : "memory"); completedTrick = value; }
+#endif
