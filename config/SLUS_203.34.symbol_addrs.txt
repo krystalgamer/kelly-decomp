@@ -5846,7 +5846,7 @@ __cl__23slf_set_game_info_str_tR8vm_stackQ320script_library_class8function7entry
 _$_23slf_get_game_info_str_t = 0x00323510; // type:func defined:true size:0x1C
 __tf23slf_get_game_info_str_t = 0x00323530; // type:func size:0x50
 __cl__23slf_get_game_info_str_tR8vm_stackQ320script_library_class8function7entry_t = 0x00323580; // type:func size:0x194
-_$_19slf_wait_fps_test_t = 0x00323718; // type:func size:0x1C
+_$_19slf_wait_fps_test_t = 0x00323718; // type:func defined:true size:0x1C
 __tf19slf_wait_fps_test_t = 0x00323738; // type:func size:0x50
 __cl__19slf_wait_fps_test_tR8vm_stackQ320script_library_class8function7entry_t = 0x00323788; // type:func size:0x1D0
 _$_21slf_freeze_universe_t = 0x00323958; // type:func size:0x1C
