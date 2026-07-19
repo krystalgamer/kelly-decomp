@@ -6072,7 +6072,7 @@ __cl__24slf_vector3d_not_equal_tR8vm_stackQ320script_library_class8function7entr
 _$_21slf_vector3d_length_t = 0x00329D98; // type:func defined:true size:0x1C
 __tf21slf_vector3d_length_t = 0x00329DB8; // type:func size:0x50
 __cl__21slf_vector3d_length_tR8vm_stackQ320script_library_class8function7entry_t = 0x00329E08; // type:func size:0x18C
-_$_22slf_vector3d_length2_t = 0x00329F98; // type:func size:0x1C
+_$_22slf_vector3d_length2_t = 0x00329F98; // type:func defined:true size:0x1C
 __tf22slf_vector3d_length2_t = 0x00329FB8; // type:func size:0x50
 __cl__22slf_vector3d_length2_tR8vm_stackQ320script_library_class8function7entry_t = 0x0032A008; // type:func size:0x170
 _$_22slf_vector3d_xy_norm_t = 0x0032A178; // type:func size:0x1C
