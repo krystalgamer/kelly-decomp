@@ -664,3 +664,11 @@ extern "C" void ScriptDtor_00323190(void *self) __asm__("_$_23slf_set_game_info_
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00323190(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00323258)
+// 0x00323258 _$_23slf_get_game_info_num_t
+extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
+extern "C" void ScriptDtor_00323258(void *self) __asm__("_$_23slf_get_game_info_num_t");
+__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
+void ScriptDtor_00323258(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
