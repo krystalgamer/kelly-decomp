@@ -6452,7 +6452,7 @@ __cl__21slf_str_list_rbegin_tR8vm_stackQ320script_library_class8function7entry_t
 _$_19slf_str_list_rend_t = 0x003346F8; // type:func defined:true size:0x1C
 __tf19slf_str_list_rend_t = 0x00334718; // type:func size:0x50
 __cl__19slf_str_list_rend_tR8vm_stackQ320script_library_class8function7entry_t = 0x00334768; // type:func size:0x15C
-_$_24slf_str_list_get_index_t = 0x003348C8; // type:func size:0x1C
+_$_24slf_str_list_get_index_t = 0x003348C8; // type:func defined:true size:0x1C
 __tf24slf_str_list_get_index_t = 0x003348E8; // type:func size:0x50
 __cl__24slf_str_list_get_index_tR8vm_stackQ320script_library_class8function7entry_t = 0x00334938; // type:func size:0x1F4
 _$_27slf_str_list_iterator_inc_t = 0x00334B30; // type:func size:0x1C
