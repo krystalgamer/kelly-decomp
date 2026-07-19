@@ -192,3 +192,11 @@ extern "C" void ScriptDtor_00326D60(void *self) __asm__("_$_13slf_to_beam_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00326D60(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003262B0)
+// 0x003262B0 __cl__30slf_beam_set_tiles_per_meter_tR8vm_stackQ320script_library_class8function7entry_t
+struct vm_stack_layout { char padding[8]; char *top; };
+struct beam_layout { char padding[0x2a4]; float tiles_per_meter; };
+extern "C" bool BeamTilesOp(void *self, vm_stack_layout *stack, int entry) __asm__("__cl__30slf_beam_set_tiles_per_meter_tR8vm_stackQ320script_library_class8function7entry_t");
+bool BeamTilesOp(void *self, vm_stack_layout *stack, int entry) { stack->top -= 8; beam_layout *beam = *(beam_layout **)stack->top; beam->tiles_per_meter = *(float *)(stack->top + 4); return true; }
+#endif
