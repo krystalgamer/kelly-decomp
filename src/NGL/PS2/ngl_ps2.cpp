@@ -333,3 +333,11 @@ __asm__(".equ nglCurScene, 0x004BBD04");
 struct nglTexture { char padding[0x10]; unsigned long long Flags; };
 void nglSetRenderTarget(nglTexture *texture, bool download) { nglCurScene->RenderTarget = texture; nglCurScene->Download = download; texture->Flags |= (1ULL << 36); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0039F8B0)
+// 0x0039F8B0 nglTim2GetImage__FP10nglTexturei
+struct TIM2_PICTUREHEADER { char padding[0x11]; unsigned char MipMapTextures; };
+struct nglGsImage { void *Data; char padding[12]; };
+struct nglTexture { char padding0[0x18]; TIM2_PICTUREHEADER *ph; char padding1[0x74]; nglGsImage GsImage[1]; };
+void *nglTim2GetImage(nglTexture *texture, int mipmap) { if (mipmap < texture->ph->MipMapTextures) return texture->GsImage[mipmap].Data; return 0; }
+#endif
