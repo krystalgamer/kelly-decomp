@@ -17,3 +17,27 @@ struct WidgetLayout { int field0; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_17ObjectAlertWidget");
 void DerivedDtor(void *self, int deleting) { ((WidgetLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0016A450)
+// 0x0016A450 SetDisplay__17ObjectAlertWidgetb
+class IGOWidget {
+protected:
+    bool display;
+
+public:
+    void SetDisplay(bool value);
+};
+
+__asm__(".equ SetDisplay__9IGOWidgetb, 0x00164658");
+
+class ObjectAlertWidget : public IGOWidget {
+public:
+    void SetDisplay(bool value);
+};
+
+void ObjectAlertWidget::SetDisplay(bool value)
+{
+    IGOWidget::SetDisplay(value);
+    display = value;
+}
+#endif
