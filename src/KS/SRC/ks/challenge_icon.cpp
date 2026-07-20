@@ -42,3 +42,10 @@ class IconChallenge { public: class Icon { public: void Despawn(); }; class Task
 __asm__(".equ Despawn__Q213IconChallenge4Icon, 0x00261C10");
 void IconChallenge::Task::Despawn() { if (icon) { icon->Despawn(); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00260C90)
+// 0x00260C90 Spawn__Q213IconChallenge11Arrangement
+class IconChallenge { public: class Sequence { char storage[0xa8]; public: void Spawn(); }; class Arrangement { int field0; int currentSequence; Sequence sequences[1]; public: void Spawn(); }; };
+__asm__(".equ Spawn__Q213IconChallenge8Sequence, 0x00260F08");
+void IconChallenge::Arrangement::Spawn() { sequences[currentSequence].Spawn(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
