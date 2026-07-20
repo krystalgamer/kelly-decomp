@@ -77,3 +77,25 @@ bool SpecialMeter::CanFaceLink() const {
     return threshold < timer;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00250FB8)
+// 0x00250FB8 Increase__12SpecialMeterf
+class SpecialMeter {
+    char padding[8];
+    float fillage;
+
+public:
+    void SetFillage(float value);
+    void Increase(float value);
+};
+
+__asm__(".equ SetFillage__12SpecialMeterf, 0x00251028");
+
+void SpecialMeter::Increase(float value)
+{
+    if (value > 0.0f) {
+        SetFillage(fillage + value);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
