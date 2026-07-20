@@ -194,3 +194,39 @@ wedge *UninitializedCopy(
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FBE88)
+// 0x002FBE88 __uninitialized_copy_aux__H2ZPQ2t7bp_tree2Z10partition3Z8vector3d6branchZPQ2t7bp_tree2Z10partition3Z8vector3d6branch_X01X01X11G12__false_type_X11
+inline void *operator new(unsigned int, void *place) {
+    return place;
+}
+
+struct branch {
+    int omitted;
+    int left;
+    int right;
+
+    branch(const branch &other)
+        : left(other.left), right(other.right) {}
+};
+
+extern "C" branch *UninitializedCopy(
+    branch *first,
+    branch *last,
+    branch *result
+) __asm__("__uninitialized_copy_aux__H2ZPQ2t7bp_tree2Z10partition3Z8vector3d6branchZPQ2t7bp_tree2Z10partition3Z8vector3d6branch_X01X01X11G12__false_type_X11");
+
+branch *UninitializedCopy(
+    branch *first,
+    branch *last,
+    branch *result
+) {
+    while (first != last) {
+        if (result)
+            new (result) branch(*first);
+        ++first;
+        ++result;
+    }
+    return result;
+}
+#endif
