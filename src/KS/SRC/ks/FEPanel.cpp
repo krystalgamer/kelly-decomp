@@ -400,3 +400,35 @@ void PanelGeom::Update(float time)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00150068)
+// 0x00150068 Slide__9PanelGeomf
+struct panel_geom_vtable {
+    char padding[0x50];
+    short adjustment;
+    short padding2;
+    void (*slide)(void *self, float offset);
+};
+
+struct panel_geom_child {
+    char padding[0x78];
+    panel_geom_vtable *vtable;
+};
+
+class PanelGeom {
+    char padding[0x6C];
+    panel_geom_child *children;
+
+public:
+    void Slide(float offset);
+};
+
+void PanelGeom::Slide(float offset)
+{
+    panel_geom_child *child = children;
+    if (child) {
+        panel_geom_vtable *table = child->vtable;
+        table->slide((char *)child + table->adjustment, offset);
+    }
+}
+#endif
