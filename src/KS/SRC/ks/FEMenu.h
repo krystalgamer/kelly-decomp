@@ -528,3 +528,10 @@ struct MenuVTable { char padding[0x198]; short adjustment; short padding2; void 
 class FETextMultiMenu { char padding[0x74]; MenuVTable *vtable; public: void OnRight(int command); };
 void FETextMultiMenu::OnRight(int command) { MenuVTable *table = vtable; table->call((char *)this + table->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DB738)
+// 0x001DB738 OnUp__11FEMultiMenui
+struct MenuVTable { char padding[0x1b0]; short adjustment; short padding2; void (*call)(void *self); };
+class FEMultiMenu { char padding[0x74]; MenuVTable *vtable; public: void OnUp(int command); };
+void FEMultiMenu::OnUp(int command) { MenuVTable *table = vtable; table->call((char *)this + table->adjustment); }
+#endif
