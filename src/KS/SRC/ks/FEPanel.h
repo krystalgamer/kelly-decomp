@@ -776,3 +776,10 @@ __asm__(".equ __7stringxRC7stringx, 0x0034D4D0");
 class TextString { int field0; stringx text; public: stringx getText(); };
 stringx TextString::getText() { return text; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D88B8)
+// 0x001D88B8 resetLineSpacing__15MultiLineString
+struct multiline_vtable { char padding[0xd8]; short adjustment; short padding2; void (*set_line_spacing)(void *self, int spacing); };
+class MultiLineString { char padding[0x4c]; multiline_vtable *vtable; public: void resetLineSpacing(); };
+void MultiLineString::resetLineSpacing() { multiline_vtable *table = vtable; table->set_line_spacing((char *)this + table->adjustment, -1); }
+#endif
