@@ -143,3 +143,33 @@ class game { public: void render_fe(); void render_mem_free_screen(); };
 __asm__(".equ render_mem_free_screen__4game, 0x00278FF0");
 void game::render_fe() { FEDraw(); render_mem_free_screen(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0027AA70)
+// 0x0027AA70 set_movie__4gameG7stringx
+class stringx {
+    char *chars;
+    void *my_buf;
+
+public:
+    ~stringx();
+    stringx &operator=(const stringx &other);
+};
+
+__asm__(".equ __as__7stringxRC7stringx, 0x0034E0B8");
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+
+extern "C" void StringAssign(stringx *self, const stringx &other)
+    __asm__("__as__7stringxRC7stringx");
+extern "C" void StringDtor(stringx *self, int deleting)
+    __asm__("_$_7stringx");
+
+extern "C" void SetMovie(void *self, stringx *name)
+    __asm__("set_movie__4gameG7stringx");
+
+void SetMovie(void *self, stringx *name)
+{
+    StringAssign((stringx *)((char *)self + 0x22C), *name);
+    StringDtor(name, 2);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
