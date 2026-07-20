@@ -134,3 +134,11 @@ __asm__(".equ WAVE_MeshID, 0x0058EA60");
 __asm__(".equ WAVETEX_FreeWaveMesh__FUi, 0x00380EA0");
 void WAVE_Cleanup() { WAVETEX_FreeWaveMesh(WAVE_MeshID); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00373780)
+// 0x00373780 __tcf_0
+extern "C" void StringDtor(void *self, int deleting) __asm__("_$_7stringx");
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+extern "C" void WaveCleanupThunk() __asm__("__tcf_0_00373780");
+void WaveCleanupThunk() { register char *object __asm__("$4") = (char *)0x00580000; register int deleting __asm__("$5") = 2; __asm__ volatile("" : "+r"(object), "+r"(deleting)); object -= 0x5108; StringDtor(object, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
