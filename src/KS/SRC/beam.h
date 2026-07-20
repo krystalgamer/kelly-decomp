@@ -183,3 +183,9 @@ bool beam_effect::is_delaying() const { return mode == 1 || mode == -1; }
 class beam_effect { char padding0[10]; signed char mode; public: bool is_active() const; };
 bool beam_effect::is_active() const { return mode == 2 || mode == -2; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B8490)
+// 0x002B8490 is_looping__C11beam_effect
+class beam_effect { char padding0[16]; float loop_delay; public: bool is_looping() const; };
+bool beam_effect::is_looping() const { float delay = loop_delay; float zero = 0.0f; __asm__ volatile("nop"); return zero <= delay; }
+#endif
