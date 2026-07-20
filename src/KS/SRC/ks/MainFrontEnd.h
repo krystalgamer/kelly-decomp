@@ -102,3 +102,36 @@ void HighlightSelector(void *self, int unused) {
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DC728)
+// 0x001DC728 OnCross__15MultiplayerMenui
+struct menu_vtable {
+    char padding[0x128];
+    short adjustment;
+    short padding2;
+    void (*select)(void *self, int entry);
+};
+
+struct menu_entry {
+    int entry_num;
+};
+
+struct menu_layout {
+    char padding0[0x4c];
+    menu_entry *highlighted;
+    char padding1[0x24];
+    menu_vtable *vtable;
+};
+
+extern "C" void HighlightSelector(void *self, int unused)
+    __asm__("OnCross__15MultiplayerMenui");
+
+void HighlightSelector(void *self, int unused) {
+    menu_layout *menu = (menu_layout *)self;
+    menu_vtable *table = menu->vtable;
+    table->select(
+        (char *)self + table->adjustment,
+        menu->highlighted->entry_num
+    );
+}
+#endif
