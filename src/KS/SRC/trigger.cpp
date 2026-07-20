@@ -100,3 +100,30 @@ void *PointTriggerCtor(void *self, const stringx &id)
     return self;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0028E7C0)
+// 0x0028E7C0 __14region_triggerRC7stringx
+class stringx;
+
+extern "C" void TriggerCtor(void *self, const stringx &id)
+    __asm__("__7triggerRC7stringx");
+__asm__(".equ __7triggerRC7stringx, 0x0028D838");
+
+extern const char region_trigger_vtable[];
+__asm__(".equ region_trigger_vtable, 0x004FB040");
+
+struct region_trigger_layout {
+    char padding[8];
+    const void *vtable;
+};
+
+extern "C" void *RegionTriggerCtor(void *self, const stringx &id)
+    __asm__("__14region_triggerRC7stringx");
+
+void *RegionTriggerCtor(void *self, const stringx &id)
+{
+    TriggerCtor(self, id);
+    ((region_trigger_layout *)self)->vtable = region_trigger_vtable;
+    return self;
+}
+#endif
