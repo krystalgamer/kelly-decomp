@@ -74,3 +74,18 @@ void serial_in(chunk_file &file, unsigned int *value) {
     *value = temporary;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00336960)
+// 0x00336960 serial_in__FR10chunk_filePb
+class chunk_file;
+
+void serial_in(chunk_file &file, int *value);
+__asm__(".equ serial_in__FR10chunk_filePi, 0x003368A0");
+
+void serial_in(chunk_file &file, bool *value)
+{
+    int serialized;
+    serial_in(file, &serialized);
+    *value = (bool)serialized;
+}
+#endif
