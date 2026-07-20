@@ -108,3 +108,22 @@ public:
 void beam::compute_sector(terrain& value, bool use_high_res_intersect) {
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00272DE8)
+// 0x00272DE8 set_active__11beam_effect
+class beam_effect {
+    char padding[0xa];
+    signed char mode;
+
+public:
+    void set_active();
+};
+
+void beam_effect::set_active() {
+    if (mode == 1) {
+        mode = 2;
+    } else if (mode == -1) {
+        mode = -2;
+    }
+}
+#endif
