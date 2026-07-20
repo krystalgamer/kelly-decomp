@@ -161,3 +161,10 @@ struct VoBuf { char padding[0xc]; volatile int count; };
 __asm__(".globl voBufDecCount__FP5VoBuf");
 static void voBufDecCount(VoBuf *buffer) { if (buffer->count > 0) buffer->count--; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00387818)
+// 0x00387818 defMain__FPv
+extern "C" void RotateThreadReadyQueue(int count);
+__asm__(".equ RotateThreadReadyQueue, 0x003DB5B0");
+void defMain(void *argument) { for (;;) { RotateThreadReadyQueue(1); __asm__ volatile("nop\n\tnop\n\tnop\n\tnop"); } }
+#endif
