@@ -132,3 +132,35 @@ value8 *UninitializedCopy(
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001107F0)
+// 0x001107F0 __uninitialized_copy_aux__H2ZPQ210partition37facerefZPQ210partition37faceref_X01X01X11G12__false_type_X11
+inline void *operator new(unsigned int, void *place) {
+    return place;
+}
+
+struct faceref {
+    char bytes[4];
+};
+
+extern "C" faceref *UninitializedCopy(
+    faceref *first,
+    faceref *last,
+    faceref *result
+) __asm__("__uninitialized_copy_aux__H2ZPQ210partition37facerefZPQ210partition37faceref_X01X01X11G12__false_type_X11");
+
+faceref *UninitializedCopy(
+    faceref *first,
+    faceref *last,
+    faceref *result
+) {
+    while (first != last) {
+        if (result) {
+            new (result) faceref(*first);
+        }
+        ++first;
+        ++result;
+    }
+    return result;
+}
+#endif
