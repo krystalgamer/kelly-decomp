@@ -191,3 +191,13 @@ typedef bool MenuEntryButtonFunction(MenuEntry *entry, int button);
 class MenuEntryFunction { char padding[0x0c]; MenuEntryButtonFunction *fn; public: void OnButtonPress(int button); };
 void MenuEntryFunction::OnButtonPress(int button) { if (fn) (*fn)((MenuEntry *)this, button); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002708E8)
+// 0x002708E8 OnMenuOpen__26MenuEntryFunctionFloatEditP4MenuP10MenuSystem
+class Menu; class MenuSystem;
+class MenuEntry { public: void OnMenuOpen(Menu *menu, MenuSystem *system); };
+__asm__(".equ OnMenuOpen__9MenuEntryP4MenuP10MenuSystem, 0x0023EF90");
+class MenuEntryFunctionFloatEdit : public MenuEntry { public: void OnMenuOpen(Menu *menu, MenuSystem *system); void FixValue(); };
+__asm__(".equ FixValue__26MenuEntryFunctionFloatEdit, 0x0023FF48");
+void MenuEntryFunctionFloatEdit::OnMenuOpen(Menu *menu, MenuSystem *system) { MenuEntry::OnMenuOpen(menu, system); FixValue(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
