@@ -36,3 +36,11 @@ void Setter(bool value) __asm__("MENUDRAW_SetAllEntities__Fb");
 __asm__(".equ MENUDRAW_SetAllEntities__Fb, 0x0030EDB0");
 bool MENUDRAW_AllEntitiesOff(MenuEntry *entry, int button) { if (button == 7) Setter(false); return true; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0030EE28)
+// 0x0030EE28 MENUDRAW_AllEntitiesOn__FP9MenuEntryi
+class MenuEntry;
+void Setter(bool value) __asm__("MENUDRAW_SetAllEntities__Fb");
+__asm__(".equ MENUDRAW_SetAllEntities__Fb, 0x0030EDB0");
+bool MENUDRAW_AllEntitiesOn(MenuEntry *entry, int button) { if (button == 7) Setter(true); return true; }
+#endif
