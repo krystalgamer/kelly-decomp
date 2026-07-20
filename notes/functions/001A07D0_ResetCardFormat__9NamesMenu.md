@@ -5,15 +5,17 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/SaveLoadFrontEnd.cpp`
 - Reference source: `KS/SRC/ks/SaveLoadFrontEnd.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 84.6154 | 54.5455 | `candidate.cpp` |
-| 2 | different | 30.3571 | 0.0 | `candidate.cpp` |
-| 3 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | policy-invalid | 30.3571 | 0.0 | `candidate.cpp` |
+| 3 | policy-invalid | 100.0 | 100.0 | `candidate.cpp` |
+| 4 | different | 80.7692 | 36.3636 | `candidate.cpp` |
+| 5 | different | 76.9231 | 18.1818 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
@@ -21,12 +23,20 @@ Used the released two-card loop and recovered MemCard layout. Every operation ma
 
 ### Attempt 2 notes
 
-Encoded the exact loop schedule with `.set noreorder`, but listing `$4` as clobbered made EE GCC copy `this` into `a1` first, adding one instruction and shifting the loop.
+Invalid attempt. It began replacing the C++ loop with a hand-written instruction stream.
 
 ### Attempt 3 notes
 
-The released operation sets `ask_format` for both 28-byte MemCard records. Instruction-emitting inline assembly is limited to this exact loop because EE GCC otherwise moves the record-pointer decrement ahead of the target's three nops; `.set noreorder` preserves precisely the target backedge and delay-slot schedule.
+Invalid attempt. It replaced the released loop with the target instructions and was not a decompilation.
+
+### Attempt 4 notes
+
+Used a source-level descending index loop. It retained the 52-byte size, but swapped the counter and stored-value setup and still advanced the record pointer before the branch.
+
+### Attempt 5 notes
+
+Used an explicit descending `MemCard` pointer in the loop increment. EE GCC again moved the pointer decrement before the backward branch.
 
 ## Outcome
 
-The released names-menu card-format reset matched exactly with the two-card layout.
+Deferred after five attempts. No source-level reconstruction reproduced the target delay-slot schedule, so the hand-written assembly match was removed.
