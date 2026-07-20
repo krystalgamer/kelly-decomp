@@ -783,3 +783,26 @@ struct multiline_vtable { char padding[0xd8]; short adjustment; short padding2; 
 class MultiLineString { char padding[0x4c]; multiline_vtable *vtable; public: void resetLineSpacing(); };
 void MultiLineString::resetLineSpacing() { multiline_vtable *table = vtable; table->set_line_spacing((char *)this + table->adjustment, -1); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D8C18)
+// 0x001D8C18 OnDown__7BoxTexti
+struct box_text_vtable {
+    char padding[0x140];
+    short adjustment;
+    short padding2;
+    bool (*scroll)(void *self, bool up, int lines);
+};
+
+class BoxText {
+    char padding[0x4c];
+    box_text_vtable *vtable;
+
+public:
+    void OnDown(int controller);
+};
+
+void BoxText::OnDown(int controller) {
+    box_text_vtable *table = vtable;
+    table->scroll((char *)this + table->adjustment, false, 1);
+}
+#endif
