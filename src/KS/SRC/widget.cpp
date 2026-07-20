@@ -49,3 +49,29 @@ class widget_iterator { widget_node *node; public: widget_iterator(widget_node *
 class widget { char padding[0x10]; widget_node *children; public: widget *get_first_child(); };
 widget *widget::get_first_child() { widget_node *sentinel = children; widget_node *first = sentinel->next; if (first != sentinel) { volatile widget_iterator iterator(first); return first->value; } return 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033EDE8)
+// 0x0033EDE8 rotate_to__6widgetf
+struct widget_vtable {
+    char padding[0x118];
+    short adjustment;
+    short padding2;
+    void (*update_rot)(void *self);
+};
+
+class widget {
+    char padding0[0x3c];
+    float angle;
+    char padding1[0x100];
+    widget_vtable *vtable;
+
+public:
+    void rotate_to(float value);
+};
+
+void widget::rotate_to(float value) {
+    angle = value;
+    widget_vtable *table = vtable;
+    table->update_rot((char *)this + table->adjustment);
+}
+#endif
