@@ -794,3 +794,58 @@ __asm__(".equ pop_disable_all__12ai_interfaceb, 0x00105608");
 extern "C" bool UnsuspendAllAIOp(void *self, void *stack, int entry) __asm__("__cl__22slf_unsuspend_all_ai_tR8vm_stackQ320script_library_class8function7entry_t");
 bool UnsuspendAllAIOp(void *self, void *stack, int entry) { ai_interface::pop_disable_all(false); SLF_DONE; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031DC50)
+// 0x0031DC50 __cl__25slf_set_camera_priority_tR8vm_stackQ320script_library_class8function7entry_t
+class vm_thread {
+public:
+    void set_camera_priority(float priority);
+};
+
+__asm__(".equ set_camera_priority__9vm_threadf, 0x00356640");
+
+class vm_stack {
+    char padding[8];
+    char *top;
+    vm_thread *thread;
+
+public:
+    void *pop(unsigned int size) {
+        top -= size;
+        return top;
+    }
+
+    vm_thread *get_thread() {
+        return thread;
+    }
+};
+
+class script_library_class {
+public:
+    class function {
+    public:
+        enum entry_t { FIRST_ENTRY };
+    };
+};
+
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+
+class slf_set_camera_priority_t : public script_library_class::function {
+public:
+    struct parms_t {
+        float priority;
+    };
+
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+
+bool slf_set_camera_priority_t::operator()(
+    vm_stack &stack,
+    entry_t entry
+) {
+    SLF_PARMS;
+    stack.get_thread()->set_camera_priority(parms->priority);
+    SLF_DONE;
+}
+#endif
