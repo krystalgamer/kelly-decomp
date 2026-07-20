@@ -681,3 +681,10 @@ struct menu_text { char padding[0x4c]; text_vtable *vtable; };
 class FEMenuEntry { char padding[0x24]; menu_text *text; public: void AddFont(int index, Font *font); };
 void FEMenuEntry::AddFont(int index, Font *font) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, index, font); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA9C0)
+// 0x001DA9C0 Load__6FEMenu
+struct frontend_vtable { char padding[0x38]; short adjustment; short padding2; void (*call)(void *, void *); };
+class FEMenu { char padding[0x74]; frontend_vtable *vtable; public: void Load(); };
+void FEMenu::Load() { frontend_vtable *table = vtable; table->call((char *)this + table->adjustment, 0); }
+#endif
