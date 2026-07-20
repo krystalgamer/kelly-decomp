@@ -91,3 +91,10 @@ void Career::Beach::Reset() {
 class Career { char padding[0x94]; bool boards[16]; public: bool IsBoardUnlocked(int index) const; };
 bool Career::IsBoardUnlocked(int index) const { return boards[index]; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0025B8F0)
+// 0x0025B8F0 __Q26Career8Location
+class Career { public: class Location { public: Location(); void Reset(); }; };
+__asm__(".equ Reset__Q26Career8Location, 0x0025B918");
+Career::Location::Location() { Reset(); }
+#endif
