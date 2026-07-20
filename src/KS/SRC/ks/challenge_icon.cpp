@@ -35,3 +35,10 @@ class IconChallenge { public: class Icon { public: void Spawn(); }; class Task {
 __asm__(".equ Spawn__Q213IconChallenge4Icon, 0x00261BB0");
 void IconChallenge::Task::Spawn() { if (icon) { icon->Spawn(); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002610E0)
+// 0x002610E0 Despawn__Q213IconChallenge4Task
+class IconChallenge { public: class Icon { public: void Despawn(); }; class Task { Icon *icon; public: void Despawn(); }; };
+__asm__(".equ Despawn__Q213IconChallenge4Icon, 0x00261C10");
+void IconChallenge::Task::Despawn() { if (icon) { icon->Despawn(); KELLY_DECOMP_COMPILER_BARRIER(); } }
+#endif
