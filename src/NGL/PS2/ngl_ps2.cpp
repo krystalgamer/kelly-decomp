@@ -311,3 +311,10 @@ struct nglQuadVertex { float X; float Y; float U; float V; unsigned int Color; }
 struct nglQuad { nglQuadVertex Verts[4]; };
 void nglSetQuadUV(nglQuad *quad, float u1, float v1, float u2, float v2) { quad->Verts[0].U = u1; quad->Verts[0].V = v1; quad->Verts[1].U = u2; quad->Verts[1].V = v1; quad->Verts[2].U = u1; quad->Verts[2].V = v2; quad->Verts[3].U = u2; quad->Verts[3].V = v2; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003A6A68)
+// 0x003A6A68 nglSetQuadRect__FP7nglQuadffff
+struct nglQuadVertex { float X; float Y; float U; float V; unsigned int Color; };
+struct nglQuad { nglQuadVertex Verts[4]; };
+void nglSetQuadRect(nglQuad *quad, float x1, float y1, float x2, float y2) { quad->Verts[0].X = x1; quad->Verts[0].Y = y1; quad->Verts[1].X = x2; quad->Verts[1].Y = y1; quad->Verts[2].X = x1; quad->Verts[2].Y = y2; quad->Verts[3].X = x2; quad->Verts[3].Y = y2; }
+#endif
