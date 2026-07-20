@@ -171,3 +171,13 @@ __asm__(".equ WAVE_ScheduleIndex, 0x004846D4");
 __asm__(".equ WAVE_ScheduleArray, 0x0058EA68");
 char WAVE_GetScoringType() { return WAVE_ScheduleArray[WAVE_ScheduleIndex].scoring_type; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0037CC50)
+// 0x0037CC50 WAVE_GlobalCurrent__FP8vector3d
+struct vector3d { float x; float y; float z; };
+extern float WAVE_ShiftSpeedX;
+extern float WAVE_ShiftSpeedZ;
+__asm__(".equ WAVE_ShiftSpeedX, 0x0058EA50");
+__asm__(".equ WAVE_ShiftSpeedZ, 0x0058EA54");
+void WAVE_GlobalCurrent(vector3d *current) { current->x = -WAVE_ShiftSpeedX; current->y = 0.0f; current->z = -WAVE_ShiftSpeedZ; }
+#endif
