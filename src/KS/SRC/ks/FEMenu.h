@@ -672,3 +672,12 @@ struct menu_text { char padding[0x4c]; text_vtable *vtable; };
 class FEMenuEntry { char padding[0x24]; menu_text *text; public: float GetScale(); };
 float FEMenuEntry::GetScale() { text_vtable *table = text->vtable; return table->call((char *)text + table->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA920)
+// 0x001DA920 AddFont__11FEMenuEntryiP4Font
+class Font;
+struct text_vtable { char padding[0x138]; short adjustment; short padding2; void (*call)(void *, int, Font *); };
+struct menu_text { char padding[0x4c]; text_vtable *vtable; };
+class FEMenuEntry { char padding[0x24]; menu_text *text; public: void AddFont(int index, Font *font); };
+void FEMenuEntry::AddFont(int index, Font *font) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, index, font); }
+#endif
