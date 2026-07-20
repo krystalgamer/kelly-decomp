@@ -12,3 +12,11 @@ void IconChallenge::Task::Reset() { icon = 0; completed = false; type = 13; watc
 class IconChallenge { public: class Icon; class Task { Icon* icon; bool completed; int type; bool watchChain; public: enum TYPE { TYPE_ZERO }; void Init(Icon* value, TYPE task_type); }; };
 void IconChallenge::Task::Init(Icon* value, TYPE task_type) { icon = value; type = task_type; completed = false; watchChain = false; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00261530)
+// 0x00261530 _$_Q213IconChallenge4Icon
+extern "C" void builtin_delete(void *pointer) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+extern "C" void ChallengeIconDtor(void *self, int deleting) __asm__("_$_Q213IconChallenge4Icon");
+void ChallengeIconDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
