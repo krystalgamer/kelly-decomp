@@ -22,3 +22,11 @@ __asm__(".equ nslGetSoundStatus__FUi, 0x0038DBA0");
 class Track { char padding[4]; unsigned int mySndId; public: bool IsPlaying(); };
 bool Track::IsPlaying() { return nslGetSoundStatus(mySndId) != 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002585C0)
+// 0x002585C0 _$_5Track
+extern "C" void builtin_delete(void *pointer) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+extern "C" void TrackDtor(void *self, int deleting) __asm__("_$_5Track");
+void TrackDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
