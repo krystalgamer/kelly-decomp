@@ -52,3 +52,11 @@ void Setter(bool value) __asm__("MENUDRAW_SetAllWater__Fb");
 __asm__(".equ MENUDRAW_SetAllWater__Fb, 0x0030EF58");
 bool MENUDRAW_AllWaterOff(MenuEntry *entry, int button) { if (button == 7) Setter(false); return true; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0030EFB8)
+// 0x0030EFB8 MENUDRAW_AllWaterOn__FP9MenuEntryi
+class MenuEntry;
+void Setter(bool value) __asm__("MENUDRAW_SetAllWater__Fb");
+__asm__(".equ MENUDRAW_SetAllWater__Fb, 0x0030EF58");
+bool MENUDRAW_AllWaterOn(MenuEntry *entry, int button) { if (button == 7) Setter(true); return true; }
+#endif
