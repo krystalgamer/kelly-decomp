@@ -32,3 +32,11 @@ __asm__(".equ Draw__9PanelFilei, 0x001530B8");
 class FrontEnd { char padding[0x80]; PanelFile panel; public: void Draw(); };
 void FrontEnd::Draw() { panel.Draw(0); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00156258)
+// 0x00156258 AddEntity__11FEMenuEntryP6entityG7color32T2
+struct color32 { unsigned int value; };
+struct entity { char padding[0x1d8]; color32 render_color; };
+class FEMenuEntry { char padding0[0x10]; void *text; char padding1[4]; entity *attached_entity; color32 highlight_color; color32 normal_color; public: void AddEntity(entity *value, color32 highlighted, color32 normal); };
+void FEMenuEntry::AddEntity(entity *value, color32 highlighted, color32 normal) { attached_entity = value; highlight_color = highlighted; normal_color = normal; if (text) value->render_color = highlighted; else value->render_color = normal; }
+#endif
