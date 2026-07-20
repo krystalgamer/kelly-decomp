@@ -86,3 +86,10 @@ struct camera_vtable_layout { char padding[0x628]; short adjustment; short paddi
 class auto_camera { char padding[8]; camera_vtable_layout *vtable; public: void init(); };
 void auto_camera::init() { camera_vtable_layout *table = vtable; table->reset((char *)this + table->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0026F1D8)
+// 0x0026F1D8 OnNewWave__11auto_camera
+struct camera_vtable_layout { char padding[0x628]; short adjustment; short padding2; void (*reset)(void *self); };
+class auto_camera { char padding[8]; camera_vtable_layout *vtable; public: void OnNewWave(); };
+void auto_camera::OnNewWave() { camera_vtable_layout *table = vtable; table->reset((char *)this + table->adjustment); }
+#endif
