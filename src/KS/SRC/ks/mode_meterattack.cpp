@@ -36,3 +36,11 @@ __asm__(".equ __builtin_delete, 0x002AC6B0");
 extern "C" void MeterAttackModeDtor(void *self, int deleting) __asm__("_$_15MeterAttackMode");
 void MeterAttackModeDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002866A8)
+// 0x002866A8 BeginAttacking__15MeterAttackModei
+struct attack_controller { char padding[0x10fc]; int state; };
+struct attack_player { attack_controller *controller; char padding[8]; int state; int attacking; char padding2[4]; };
+class MeterAttackMode { attack_player players[2]; public: void BeginAttacking(int player); };
+void MeterAttackMode::BeginAttacking(int player) { players[player].state = players[player].controller->state; players[player].attacking = 1; }
+#endif
