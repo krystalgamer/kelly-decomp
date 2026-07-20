@@ -60,3 +60,14 @@ class game_process_stack { public: game_process_node *sentinel; };
 class game { char padding[0x5c]; game_process_stack process_stack; public: void go_next_state(); };
 void game::go_next_state() { game_process_node *node = process_stack.sentinel->next; volatile game_process_iterator iterator(node); node->value.go_next_state(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00286B38)
+// 0x00286B38 reset_index__4game
+class game_process { public: void reset_index(); };
+__asm__(".equ reset_index__12game_process, 0x00286988");
+struct game_process_node { game_process_node *next; game_process_node *previous; game_process value; };
+class game_process_iterator { game_process_node *node; public: game_process_iterator(game_process_node *value) : node(value) {} };
+class game_process_stack { public: game_process_node *sentinel; };
+class game { char padding[0x5c]; game_process_stack process_stack; public: void reset_index(); };
+void game::reset_index() { game_process_node *node = process_stack.sentinel->next; volatile game_process_iterator iterator(node); node->value.reset_index(); }
+#endif
