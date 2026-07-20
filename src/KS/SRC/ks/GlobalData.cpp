@@ -99,3 +99,28 @@ __asm__(".equ g_session_cheats, 0x0043BD48");
 class GlobalDataClass { char padding[0x5db0]; CheatData globalCheats[1]; public: void unlockCheat(int cheat); };
 void GlobalDataClass::unlockCheat(int cheat) { globalCheats[cheat].setLockedState(false); g_session_cheats[cheat].setLockedState(false); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002EFDA8)
+// 0x002EFDA8 isSurferPersUnlocked__C15GlobalDataClassi
+struct SurferData {
+    bool personalityUnlocked;
+    char padding[0x74];
+};
+
+class GlobalDataClass {
+    char padding[0xF0];
+    SurferData globalSurfers[1];
+
+public:
+    bool isSurferPersUnlocked(int surfer) const;
+};
+
+extern bool all_personality_cheat;
+__asm__(".equ all_personality_cheat, 0x0043BDB4");
+
+bool GlobalDataClass::isSurferPersUnlocked(int surfer) const
+{
+    return globalSurfers[surfer].personalityUnlocked ||
+        all_personality_cheat;
+}
+#endif
