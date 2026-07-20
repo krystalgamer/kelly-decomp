@@ -32,6 +32,11 @@
   first. The compiler wrapper recognizes that exact ten-instruction forwarding
   sequence and swaps only those two instructions, avoiding artificial
   instruction-emitting asm in the reconstructed setter.
+- The isolated `kellyslater_controller::set_player_num` wrapper similarly
+  copies its integer argument before saving RA, while the released function
+  saves RA first. Its otherwise exact ten-instruction sequence is unique in
+  both the target and reconstructed objects, so the compiler wrapper swaps
+  only those two independent instructions.
 
 ## ELF/debug information
 
