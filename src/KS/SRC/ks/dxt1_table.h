@@ -91,3 +91,28 @@ struct IntTableLayout { int data[16]; int size; };
 extern "C" void AppendInt(void *raw, const int &element) __asm__("Append__t5Table1ZiRCi");
 void AppendInt(void *raw, const int &element) { IntTableLayout *table = (IntTableLayout *)raw; table->data[table->size++] = element; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00271058)
+// 0x00271058 _$_t5Table1Zi
+extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+
+extern const char target_vtable[];
+__asm__(".equ target_vtable, 0x004D5390");
+
+struct target_layout {
+    char padding[0x44];
+    const void *vtable;
+};
+
+extern "C" void TargetDtor(void *self, int deleting)
+    __asm__("_$_t5Table1Zi");
+
+void TargetDtor(void *self, int deleting) {
+    ((target_layout *)self)->vtable = target_vtable;
+    if (deleting & 1) {
+        BuiltinDelete(self);
+    }
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
