@@ -163,3 +163,13 @@ class SoundMenuClass { char padding[0x4c]; FEMenuEntryLayout *highlighted; publi
 __asm__(".equ Change__14SoundMenuClassib, 0x001AA430");
 void SoundMenuClass::OnRight(int command) { Change(highlighted->entry_num, true); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001A8978)
+// 0x001A8978 OnActivate__16HeatEndMenuClass
+class IGOFrontEnd { public: void ShowMenuBackground(bool visible); };
+__asm__(".equ ShowMenuBackground__11IGOFrontEndb, 0x0017CED0");
+struct FEManagerLayout { IGOFrontEnd *IGO; };
+struct PauseMenuSystemLayout { char padding[0x78]; FEManagerLayout *manager; };
+class HeatEndMenuClass { char padding[0x50]; PauseMenuSystemLayout *system; public: void OnActivate(); };
+void HeatEndMenuClass::OnActivate() { system->manager->IGO->ShowMenuBackground(true); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
