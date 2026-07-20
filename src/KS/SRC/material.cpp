@@ -66,3 +66,11 @@ int anim_texture::get_anim_length() const {
     return frame_end - frame_begin;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003397B8)
+// 0x003397B8 get_anim_length__C8materiali
+class anim_texture { char storage[0x30]; public: int get_anim_length() const; };
+__asm__(".equ get_anim_length__C12anim_texture, 0x00339CA8");
+class material { char padding[0x28]; anim_texture maps[1]; public: int get_anim_length(int map) const; };
+int material::get_anim_length(int map) const { int result = maps[map].get_anim_length(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
