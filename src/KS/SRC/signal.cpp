@@ -29,3 +29,11 @@ class signaller { unsigned int flags; void *signals; public: signaller(); virtua
 __asm__(".equ _vt$9signaller, 0x005050B0");
 signaller::signaller() : flags(0), signals(0) {}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034CC48)
+// 0x0034CC48 refresh__12gated_signal
+extern "C" void SignalRefresh(void *self) __asm__("refresh__6signal");
+__asm__(".equ refresh__6signal, 0x0034C530");
+class gated_signal { char padding[0x1e]; unsigned short flags; public: void refresh(); };
+void gated_signal::refresh() { SignalRefresh(this); flags = 0; }
+#endif
