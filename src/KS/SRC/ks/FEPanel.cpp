@@ -189,3 +189,11 @@ class FloatingText { public: char padding[0xb0]; float location_3d[4]; };
 extern "C" void SetLocationAlias(FloatingText *self, const vector3d *location) __asm__("SetLocation3D__12FloatingTextG8vector3d");
 void SetLocationAlias(FloatingText *self, const vector3d *location) { self->location_3d[0] = location->x; self->location_3d[1] = location->y; self->location_3d[2] = location->z; self->location_3d[3] = 1.0f; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014F730)
+// 0x0014F730 SetLocation3D__10FloatingPQG8vector3d
+struct vector3d { float x; float y; float z; };
+class FloatingPQ { public: char padding[0x1a0]; float location_3d[4]; };
+extern "C" void SetLocationAlias(FloatingPQ *self, const vector3d *location) __asm__("SetLocation3D__10FloatingPQG8vector3d");
+void SetLocationAlias(FloatingPQ *self, const vector3d *location) { self->location_3d[0] = location->x; self->location_3d[1] = location->y; self->location_3d[2] = location->z; self->location_3d[3] = 1.0f; }
+#endif
