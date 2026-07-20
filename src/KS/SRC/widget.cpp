@@ -189,3 +189,40 @@ rational_t widget::get_next_rhw_2d_val()
     return retval;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00340510)
+// 0x00340510 get_width__C11text_widget
+typedef float rational_t;
+
+class stringx {};
+
+class typeface_def {
+public:
+    int text_width(const stringx &s) const;
+};
+
+__asm__(".equ text_width__C12typeface_defRC7stringx, 0x0033CBC8");
+
+class text_widget {
+    char padding[0x144];
+    typeface_def *text_font;
+    stringx m_tout;
+
+public:
+    rational_t get_width() const;
+};
+
+rational_t text_widget::get_width() const
+{
+    int width = text_font->text_width(m_tout);
+    rational_t result;
+    __asm__ volatile(
+        "mtc1 %1,%0\n\t"
+        "nop\n\t"
+        "cvt.s.w %0,%0"
+        : "=f"(result)
+        : "r"(width)
+    );
+    return result;
+}
+#endif
