@@ -1201,3 +1201,9 @@ vector3d entity::get_detonate_position() const { return holder->position; }
 class entity { char padding[0x78]; unsigned int flags; public: void set_sticky(bool value); };
 void entity::set_sticky(bool value) { if (value) flags |= 0x40; else flags &= ~0x40; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00144CF8)
+// 0x00144CF8 set_stationary__6entityb
+class entity { char padding[0x78]; unsigned int flags; public: void set_stationary(bool value); };
+void entity::set_stationary(bool value) { if (!value) flags |= 0x04; else flags &= ~0x04; }
+#endif
