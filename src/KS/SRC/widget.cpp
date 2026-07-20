@@ -75,3 +75,27 @@ void widget::rotate_to(float value) {
     table->update_rot((char *)this + table->adjustment);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003419B0)
+// 0x003419B0 update_pos__11vrep_widget
+class widget {
+public:
+    void update_pos();
+};
+
+__asm__(".equ update_pos__6widget, 0x0033E650");
+
+class vrep_widget : public widget {
+public:
+    void update_pos();
+    void update_mat();
+};
+
+__asm__(".equ update_mat__11vrep_widget, 0x00341E60");
+
+void vrep_widget::update_pos() {
+    widget::update_pos();
+    update_mat();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
