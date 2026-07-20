@@ -30,3 +30,12 @@ __asm__(".equ __builtin_delete, 0x002AC6B0");
 extern "C" void TrackDtor(void *self, int deleting) __asm__("_$_5Track");
 void TrackDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00259628)
+// 0x00259628 shutdown__8MusicMan
+class MusicListing { public: void shutdown(); };
+__asm__(".equ shutdown__12MusicListing, 0x00258C40");
+class MusicMan { char padding[0x10]; MusicListing musicTrack; public: void shutdown(); void stop(); };
+__asm__(".equ stop__8MusicMan, 0x002595F0");
+void MusicMan::shutdown() { stop(); musicTrack.shutdown(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
