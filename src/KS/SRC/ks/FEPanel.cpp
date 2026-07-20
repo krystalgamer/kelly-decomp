@@ -336,3 +336,35 @@ void PreformatText::DrawLine(int line_num, float x, float y)
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014FC78)
+// 0x0014FC78 Reload__9PanelGeom
+struct panel_geom_vtable {
+    char padding[0x20];
+    short adjustment;
+    short padding2;
+    void (*reload)(void *self);
+};
+
+struct panel_geom_child {
+    char padding[0x78];
+    panel_geom_vtable *vtable;
+};
+
+class PanelGeom {
+    char padding[0x6C];
+    panel_geom_child *children;
+
+public:
+    void Reload();
+};
+
+void PanelGeom::Reload()
+{
+    panel_geom_child *child = children;
+    if (child) {
+        panel_geom_vtable *table = child->vtable;
+        table->reload((char *)child + table->adjustment);
+    }
+}
+#endif
