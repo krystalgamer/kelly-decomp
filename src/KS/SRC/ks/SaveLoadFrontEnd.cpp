@@ -108,3 +108,11 @@ class SaveLoadFrontEnd { public: void SetDState(int state, bool ready, bool fail
 __asm__(".equ SetDState__16SaveLoadFrontEndibb, 0x0019B760");
 void SaveLoadFrontEnd::ReadyToAccess(int ignored, int state) { SetDState(state, true, false); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0019BF50)
+// 0x0019BF50 SetOverwrite__16SaveLoadFrontEndPCc
+extern "C" char *strcpy(char *destination, const char *source);
+__asm__(".equ strcpy, 0x003D3FCC");
+class SaveLoadFrontEnd { char padding0[0x3230]; char desc[0xb0]; bool overwrite; public: void SetOverwrite(const char *filename); };
+void SaveLoadFrontEnd::SetOverwrite(const char *filename) { overwrite = filename == 0; if (!overwrite) strcpy(desc, filename); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
