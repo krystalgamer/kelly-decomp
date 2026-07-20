@@ -341,3 +341,19 @@ struct nglGsImage { void *Data; char padding[12]; };
 struct nglTexture { char padding0[0x18]; TIM2_PICTUREHEADER *ph; char padding1[0x74]; nglGsImage GsImage[1]; };
 void *nglTim2GetImage(nglTexture *texture, int mipmap) { if (mipmap < texture->ph->MipMapTextures) return texture->GsImage[mipmap].Data; return 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00397510)
+// 0x00397510 nglResetDisplay__Fv
+extern "C" int EnableIntc(int interrupt);
+__asm__(".equ EnableIntc, 0x003DBDC8");
+
+void _nglSetDisplay();
+__asm__(".equ _nglSetDisplay__Fv, 0x00396DB0");
+
+void nglResetDisplay() {
+    EnableIntc(5);
+    EnableIntc(2);
+    _nglSetDisplay();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
