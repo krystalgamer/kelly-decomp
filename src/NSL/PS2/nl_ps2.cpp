@@ -88,3 +88,18 @@ void nlAddVect3d(
     result[2] = first[2] + second[2];
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00391870)
+// 0x00391870 nlSubVect3d__FRA2_fRA2_CfT1
+typedef float nlVector3d[3];
+
+void nlSubVect3d(
+    nlVector3d &result,
+    const nlVector3d &first,
+    const nlVector3d &second
+) {
+    result[0] = first[0] - second[0];
+    result[1] = first[1] - second[1];
+    result[2] = first[2] - second[2];
+}
+#endif
