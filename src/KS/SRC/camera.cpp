@@ -28,3 +28,28 @@ struct vector3d { float x; float y; float z; vector3d &operator=(const vector3d 
 class marky_camera { char padding[0x2d0]; vector3d target; public: void camera_set_target(const vector3d &position); };
 void marky_camera::camera_set_target(const vector3d &position) { target = position; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002C61B0)
+// 0x002C61B0 sync__12marky_cameraR6camera
+class camera;
+
+extern "C" void GameCameraSync(void *self, camera &other)
+    __asm__("sync__11game_cameraR6camera");
+__asm__(".equ sync__11game_cameraR6camera, 0x002C41B0");
+
+class marky_camera {
+    char padding[0x78];
+    int flags;
+
+public:
+    void sync(camera &other);
+};
+
+void marky_camera::sync(camera &other) {
+    if ((flags >> 20) & 1) {
+        return;
+    }
+    GameCameraSync(this, other);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
