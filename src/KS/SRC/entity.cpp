@@ -375,3 +375,36 @@ void entity::kill_anim(int slot) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001379F0)
+// 0x001379F0 is_destroyable__C6entity
+struct destruction_info {
+    short flags;
+    char padding[0x2a];
+    int hit_points;
+
+    bool has_hit_points() const {
+        short value = flags;
+        __asm__ volatile("" : "+r"(value));
+        return value & 1;
+    }
+
+    int get_hit_points() const {
+        return hit_points;
+    }
+};
+
+class entity {
+    char padding[0x19c];
+    destruction_info *destroy_info;
+
+public:
+    bool is_destroyable() const;
+};
+
+bool entity::is_destroyable() const {
+    return destroy_info != 0
+        && (!destroy_info->has_hit_points()
+            || destroy_info->get_hit_points() > 0);
+}
+#endif
