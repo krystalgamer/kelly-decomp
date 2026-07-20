@@ -151,3 +151,13 @@ __asm__(".equ WAVETEX_UnloadTextureAnims__Fv, 0x0037F128");
 __asm__(".equ WATER_Cleanup__Fv, 0x0036E888");
 void WAVE_Unload() { WAVETEX_UnloadTextureAnims(); WATER_Cleanup(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0037D890)
+// 0x0037D890 WAVE_GetIndex__Fv
+struct WaveScheduleEntry { char scoring_type; char padding0[11]; int wave_index; char padding1[4]; };
+extern int WAVE_ScheduleIndex;
+extern WaveScheduleEntry WAVE_ScheduleArray[];
+__asm__(".equ WAVE_ScheduleIndex, 0x004846D4");
+__asm__(".equ WAVE_ScheduleArray, 0x0058EA68");
+int WAVE_GetIndex() { return WAVE_ScheduleArray[WAVE_ScheduleIndex].wave_index; }
+#endif
