@@ -69,3 +69,12 @@ struct SeriesContainer { char padding[4]; char *finish; };
 class ScoringManager { char padding[0x1b4]; SeriesContainer *series; public: bool HasGap(int gap) const; };
 bool ScoringManager::HasGap(int gap) const { bool result = ((Series *)(series->finish + 8))->HasGap(gap); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0024A538)
+// 0x0024A538 sceWrite__FiRC7stringx
+struct stringx_info { char padding[8]; int size; };
+class stringx { public: char *data; stringx_info *info; };
+extern "C" int sceWrite(int file, const void *data, int size);
+__asm__(".equ sceWrite, 0x003DF228");
+int sceWrite(int file, const stringx &text) { int result = sceWrite(file, text.data, text.info->size); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
