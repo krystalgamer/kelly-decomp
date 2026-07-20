@@ -47,3 +47,11 @@ float frame_info::get_age() const {
     return age;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00338678)
+// 0x00338678 __as__10frame_infoRC10frame_info
+extern float frame_info_ifl_frame_rate;
+__asm__(".equ frame_info_ifl_frame_rate, 0x0046B5A8");
+class frame_info { float age; int ifl_frame_boost; int ifl_frame_locked; public: void operator=(const frame_info &source); };
+void frame_info::operator=(const frame_info &source) { ifl_frame_locked = source.ifl_frame_locked; ifl_frame_boost = source.ifl_frame_boost; frame_info_ifl_frame_rate = frame_info_ifl_frame_rate; age = source.age; }
+#endif
