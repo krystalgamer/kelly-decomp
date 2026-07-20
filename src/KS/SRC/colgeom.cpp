@@ -57,3 +57,14 @@ __asm__(".equ xform__18collision_geometryRC2po, 0x002D89C0");
 class cg_none : public collision_geometry { public: void xform(const po &value); };
 void cg_none::xform(const po &value) { collision_geometry::xform(value); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002DC288)
+// 0x002DC288 _$_7cg_none
+extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_18collision_geometry");
+extern const char base_vtable[];
+__asm__(".equ _$_18collision_geometry, 0x002D8658");
+__asm__(".equ base_vtable, 0x004F3148");
+struct object_layout { char padding[0x8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_7cg_none");
+void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = base_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
