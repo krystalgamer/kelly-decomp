@@ -128,3 +128,11 @@ __asm__(".equ create_entity__12entity_makerP6entity, 0x0030AB70");
 class world_dynamics_system { public: sky *add_sky(sky *value); };
 sky *world_dynamics_system::add_sky(sky *value) { sky *result = (sky *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002A39F0)
+// 0x002A39F0 set_ks_controller__21world_dynamics_systemiP22kellyslater_controller
+class kellyslater_controller { public: void set_player_num(int player); };
+__asm__(".equ set_player_num__22kellyslater_controlleri, 0x0020F570");
+class world_dynamics_system { char padding[0xf8]; kellyslater_controller *ks_controller[2]; public: void set_ks_controller(int player, kellyslater_controller *controller); };
+void world_dynamics_system::set_ks_controller(int player, kellyslater_controller *controller) { world_dynamics_system *base = this; int offset = player * 4; KELLY_DECOMP_COMPILER_BARRIER(); base = (world_dynamics_system *)((char *)base + offset); base->ks_controller[0] = controller; controller->set_player_num(player); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
