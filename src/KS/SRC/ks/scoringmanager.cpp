@@ -60,3 +60,12 @@ class ScoringManager { public: class Chain { public: float GetRawSickness() cons
 __asm__(".equ GetRawSickness__CQ214ScoringManager5Chain, 0x00249200");
 float ScoringManager::Chain::GetSickness() const { float result = GetRawSickness(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00247F98)
+// 0x00247F98 HasGap__C14ScoringManageri
+class Series { public: bool HasGap(int gap) const; };
+__asm__(".equ HasGap__C6Seriesi, 0x00249AE0");
+struct SeriesContainer { char padding[4]; char *finish; };
+class ScoringManager { char padding[0x1b4]; SeriesContainer *series; public: bool HasGap(int gap) const; };
+bool ScoringManager::HasGap(int gap) const { bool result = ((Series *)(series->finish + 8))->HasGap(gap); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
