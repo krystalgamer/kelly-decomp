@@ -849,3 +849,59 @@ bool slf_set_camera_priority_t::operator()(
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031E240)
+// 0x0031E240 __cl__22slf_globalize_thread_tR8vm_stackQ320script_library_class8function7entry_t
+class vm_thread;
+
+class region {
+public:
+    void remove_local_thread(vm_thread *thread);
+};
+
+__asm__(".equ remove_local_thread__6regionP9vm_thread, 0x002E80E8");
+
+class vm_thread {
+public:
+    char padding[0x34];
+    region *local_region;
+};
+
+class vm_stack {
+    char padding[0xc];
+    vm_thread *thread;
+
+public:
+    vm_thread *get_thread() {
+        return thread;
+    }
+};
+
+class script_library_class {
+public:
+    class function {
+    public:
+        enum entry_t { FIRST_ENTRY };
+    };
+};
+
+#define SLF_DONE return true
+
+class slf_globalize_thread_t : public script_library_class::function {
+public:
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+
+bool slf_globalize_thread_t::operator()(
+    vm_stack &stack,
+    entry_t entry
+) {
+    vm_thread *thread = stack.get_thread();
+    region *local = thread->local_region;
+    if (local) {
+        local->remove_local_thread(thread);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+    SLF_DONE;
+}
+#endif
