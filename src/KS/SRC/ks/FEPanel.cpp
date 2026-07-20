@@ -263,3 +263,41 @@ void PanelQuad::SetPos(
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014F700)
+// 0x0014F700 SetBehavior__10FloatingPQb
+extern "C" void PanelQuadSetPos(
+    void *self,
+    float x1,
+    float y1,
+    float x2,
+    float y2
+) __asm__("SetPos__9PanelQuadffff");
+__asm__(".equ SetPos__9PanelQuadffff, 0x0014DA80");
+
+class FloatingPQ {
+    char padding[0x1d0];
+    float x1_const;
+    float x2_const;
+    float y1_const;
+    float y2_const;
+    bool non_floating_behavior;
+
+public:
+    void SetBehavior(bool enabled);
+};
+
+void FloatingPQ::SetBehavior(bool enabled) {
+    non_floating_behavior = enabled;
+    if (enabled) {
+        PanelQuadSetPos(
+            this,
+            x1_const,
+            y1_const,
+            x2_const,
+            y2_const
+        );
+    }
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
