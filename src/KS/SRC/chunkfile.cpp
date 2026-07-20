@@ -48,3 +48,16 @@ stringx chunk_flavor::to_stringx() const {
     return stringx(flavor);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00336900)
+// 0x00336900 serial_in__FR10chunk_filePUs
+class chunk_file;
+void serial_in(chunk_file &file, int *value);
+__asm__(".equ serial_in__FR10chunk_filePi, 0x003368A0");
+
+void serial_in(chunk_file &file, unsigned short *value) {
+    int temporary;
+    serial_in(file, &temporary);
+    *value = temporary;
+}
+#endif
