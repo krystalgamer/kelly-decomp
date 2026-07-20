@@ -189,3 +189,11 @@ bool beam_effect::is_active() const { return mode == 2 || mode == -2; }
 class beam_effect { char padding0[16]; float loop_delay; public: bool is_looping() const; };
 bool beam_effect::is_looping() const { float delay = loop_delay; float zero = 0.0f; __asm__ volatile("nop"); return zero <= delay; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B7D30)
+// 0x002B7D30 apply_delta_vals__17beam_effect_widthP4beamf
+class beam { public: char padding[0x200]; float thickness; void set_thickness(float value); };
+__asm__(".equ set_thickness__4beamf, 0x00271790");
+class beam_effect_width { char padding[0x0c]; float delta; public: void apply_delta_vals(beam *value, float time); };
+void beam_effect_width::apply_delta_vals(beam *value, float time) { value->set_thickness(value->thickness + delta * time); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
