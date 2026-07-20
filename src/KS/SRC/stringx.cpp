@@ -31,3 +31,19 @@ stringx &stringx::operator=(const char *text) {
     return *this;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034E170)
+// 0x0034E170 __apl__7stringxPCc
+class stringx {
+public:
+    stringx &operator+=(const char *text);
+    void append(const char *text, int length = -1);
+};
+
+__asm__(".equ append__7stringxPCci, 0x0034E3F0");
+
+stringx &stringx::operator+=(const char *text) {
+    append(text);
+    return *this;
+}
+#endif
