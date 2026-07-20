@@ -183,3 +183,11 @@ __asm__(".equ Disable__9MenuEntry, 0x0023EE50");
 class MenuEntryTitle : public MenuEntry { public: void Disable(); };
 void MenuEntryTitle::Disable() { MenuEntry::Disable(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002707E8)
+// 0x002707E8 OnButtonPress__17MenuEntryFunctioni
+class MenuEntry;
+typedef bool MenuEntryButtonFunction(MenuEntry *entry, int button);
+class MenuEntryFunction { char padding[0x0c]; MenuEntryButtonFunction *fn; public: void OnButtonPress(int button); };
+void MenuEntryFunction::OnButtonPress(int button) { if (fn) (*fn)((MenuEntry *)this, button); }
+#endif
