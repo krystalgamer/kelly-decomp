@@ -197,3 +197,27 @@ __asm__(".equ set_thickness__4beamf, 0x00271790");
 class beam_effect_width { char padding[0x0c]; float delta; public: void apply_delta_vals(beam *value, float time); };
 void beam_effect_width::apply_delta_vals(beam *value, float time) { value->set_thickness(value->thickness + delta * time); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B7CC0)
+// 0x002B7CC0 _$_17beam_effect_width
+extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+
+extern const char target_vtable[];
+__asm__(".equ target_vtable, 0x004FEA50");
+
+struct target_layout {
+    const void *vtable;
+};
+
+extern "C" void TargetDtor(void *self, int deleting)
+    __asm__("_$_17beam_effect_width");
+
+void TargetDtor(void *self, int deleting) {
+    ((target_layout *)self)->vtable = target_vtable;
+    if (deleting & 1) {
+        BuiltinDelete(self);
+    }
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
