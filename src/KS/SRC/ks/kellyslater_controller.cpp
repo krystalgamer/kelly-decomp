@@ -88,3 +88,11 @@ __asm__(".equ get_control_state__C9input_mgr11device_id_ti, 0x003441C8");
 class kellyslater_controller { char padding[0x1b10]; device_id_t joystick_num; public: float CtrlEvent(int control); };
 float kellyslater_controller::CtrlEvent(int control) { float result = input_manager->get_control_state(joystick_num, control); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0020F570)
+// 0x0020F570 set_player_num__22kellyslater_controlleri
+class SpecialMeter { char storage[0x2c]; public: void Initialize(int player); };
+__asm__(".equ Initialize__12SpecialMeteri, 0x00250CA0");
+class kellyslater_controller { char padding[0x1648]; SpecialMeter specialMeter; int my_player_num; public: void set_player_num(int player); };
+void kellyslater_controller::set_player_num(int player) { my_player_num = player; specialMeter.Initialize(player); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
