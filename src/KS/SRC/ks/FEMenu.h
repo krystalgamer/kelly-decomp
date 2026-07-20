@@ -688,3 +688,10 @@ struct frontend_vtable { char padding[0x38]; short adjustment; short padding2; v
 class FEMenu { char padding[0x74]; frontend_vtable *vtable; public: void Load(); };
 void FEMenu::Load() { frontend_vtable *table = vtable; table->call((char *)this + table->adjustment, 0); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DB0D0)
+// 0x001DB0D0 Load__15FEGraphicalMenu
+struct frontend_vtable { char padding[0x38]; short adjustment; short padding2; void (*call)(void *, void *); };
+class FEGraphicalMenu { char padding[0x74]; frontend_vtable *vtable; public: void Load(); };
+void FEGraphicalMenu::Load() { frontend_vtable *table = vtable; table->call((char *)this + table->adjustment, 0); }
+#endif
