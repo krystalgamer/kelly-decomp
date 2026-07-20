@@ -63,3 +63,7 @@
   another function to a merged source file therefore changes only the new
   shim (and, at most, a previously trailing block), while edits to an existing
   block still invalidate its own object.
+- Compiler-header template instantiations without a released reference path
+  are merged into their original `object_source` translation unit. This keeps
+  generated STL helpers with the game source object that instantiated them
+  instead of creating a synthetic SDK include tree.

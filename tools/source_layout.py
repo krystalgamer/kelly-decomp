@@ -54,7 +54,9 @@ def normalize_matching_annotations(source: str) -> str:
 
 
 def merged_source_path(row: dict[str, str]) -> Path:
-    reference = row["reference_file"].replace("\\", "/")
+    reference = (row["reference_file"] or row["object_source"]).replace("\\", "/")
+    if re.match(r"^[A-Za-z]:/", reference):
+        reference = reference[3:]
     relative = PurePosixPath(reference)
     if not reference or relative.is_absolute() or ".." in relative.parts:
         raise RuntimeError(
