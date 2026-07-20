@@ -116,3 +116,15 @@ __asm__(".equ create_entity__12entity_makerP6entity, 0x0030AB70");
 class world_dynamics_system { public: lensflare *add_lensflare(lensflare *value); };
 lensflare *world_dynamics_system::add_lensflare(lensflare *value) { lensflare *result = (lensflare *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002A7418)
+// 0x002A7418 add_sky__21world_dynamics_systemP3sky
+class entity {};
+class sky : public entity {};
+class entity_maker { public: entity *create_entity(entity *value); };
+extern entity_maker *g_entity_maker;
+__asm__(".equ g_entity_maker, 0x004318C8");
+__asm__(".equ create_entity__12entity_makerP6entity, 0x0030AB70");
+class world_dynamics_system { public: sky *add_sky(sky *value); };
+sky *world_dynamics_system::add_sky(sky *value) { sky *result = (sky *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
