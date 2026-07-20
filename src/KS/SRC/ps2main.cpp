@@ -19,3 +19,10 @@ void arch_free(void *pointer);
 __asm__(".equ arch_free__FPv, 0x002AC768");
 void KSMemFree(void *pointer) { arch_free(pointer); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E3168)
+// 0x001E3168 KSMemAllocate__FUiUiPCci
+void *arch_memalign(unsigned int alignment, unsigned int size, const char *file, int line);
+__asm__(".equ arch_memalign__FUiUiPCci, 0x002AC740");
+void *KSMemAllocate(unsigned int size, unsigned int alignment, const char *file, int line) { void *result = arch_memalign(alignment, size, file, line); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
