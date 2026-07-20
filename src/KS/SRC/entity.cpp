@@ -289,3 +289,12 @@ __asm__(".equ add__6regionP6entity, 0x002E72F0");
 class entity { public: void add_me_to_region(region *value); };
 void entity::add_me_to_region(region *value) { value->add(this); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0012FDF0)
+// 0x0012FDF0 remove_me_from_region__6entityP6region
+class entity;
+class region { public: void remove(entity *value); };
+__asm__(".equ remove__6regionP6entity, 0x002E7678");
+class entity { public: void remove_me_from_region(region *value); };
+void entity::remove_me_from_region(region *value) { value->remove(this); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
