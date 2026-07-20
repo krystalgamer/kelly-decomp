@@ -45,3 +45,12 @@ __asm__(".equ ps2_rdata, 0x005A39C0");
 class ps2_joypad_device { public: void set_stick(int stick, int x, int y); };
 void ps2_joypad_device::set_stick(int stick, int x, int y) { if (stick == 0) { ps2_rdata[6] = x; ps2_rdata[7] = y; } else { ps2_rdata[4] = x; ps2_rdata[5] = y; } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E1690)
+// 0x001E1690 is_vibrator_present__C17ps2_joypad_device
+struct developer_options { char padding[0x4c]; int no_rumble; };
+extern developer_options *developer_options_ptr;
+__asm__(".equ developer_options_ptr, 0x0046B180");
+class ps2_joypad_device { char padding[0x66]; signed char pad_type; public: bool is_vibrator_present() const; };
+bool ps2_joypad_device::is_vibrator_present() const { if (developer_options_ptr->no_rumble) return false; return pad_type == 0x79; }
+#endif
