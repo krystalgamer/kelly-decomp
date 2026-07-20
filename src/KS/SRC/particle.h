@@ -40,3 +40,10 @@ extern "C" void GlobalDestroy() __asm__("_GLOBAL_$D$TRAIL_StaticInit__Fv");
 __asm__(".equ __static_initialization_and_destruction_0, 0x00382368");
 void GlobalDestroy() { StaticInit(0, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003000E8)
+// 0x003000E8 is_active__C18particle_generator
+struct entity_vtable_layout { char padding[0x158]; short adjustment; short padding2; bool (*is_visible)(void *self); };
+class particle_generator { char padding[8]; entity_vtable_layout *vtable; public: bool is_active() const; };
+bool particle_generator::is_active() const { entity_vtable_layout *table = vtable; return table->is_visible((char *)this + table->adjustment); }
+#endif
