@@ -759,3 +759,12 @@ class FloatingPQ { public: char padding[0x1d0]; float x1_const; float x2_const; 
 extern "C" void GetPosAlias(FloatingPQ *self, float &x1, float &y1, float &x2, float &y2) __asm__("GetPos__10FloatingPQRfN31");
 void GetPosAlias(FloatingPQ *self, float &x1, float &y1, float &x2, float &y2) { x1 = self->x1_const; x2 = self->x2_const; y1 = self->y1_const; y2 = self->y2_const; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D9B28)
+// 0x001D9B28 SetZ__9PanelQuadf
+struct nglQuad;
+void nglSetQuadZ(nglQuad *quad, float z);
+__asm__(".equ nglSetQuadZ__FP7nglQuadf, 0x003A6A90");
+class PanelQuad { char padding0[0x1c]; nglQuad *quad_address; char padding1[0x15c]; float z; public: void SetZ(float value); };
+void PanelQuad::SetZ(float value) { z = value; nglSetQuadZ((nglQuad *)((char *)this + 0x1c), value); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
