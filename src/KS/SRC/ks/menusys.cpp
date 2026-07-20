@@ -16,3 +16,11 @@ class Menu { char padding[4]; int entries; public: int NumEntries() const { retu
 class MenuSystem { char padding[0x470]; Menu *curmenu; public: int TotalEntries(); };
 int MenuSystem::TotalEntries() { if (!curmenu) return 0; return curmenu->NumEntries(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00241098)
+// 0x00241098 ButtonPress__10MenuSystemi
+class Menu { public: void ButtonPress(int button); };
+__asm__(".equ ButtonPress__4Menui, 0x0023E9F0");
+class MenuSystem { char padding[0x470]; Menu *curmenu; public: void ButtonPress(int button); };
+void MenuSystem::ButtonPress(int button) { if (curmenu) { curmenu->ButtonPress(button); KELLY_DECOMP_COMPILER_BARRIER(); } }
+#endif
