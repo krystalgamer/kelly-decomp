@@ -47,3 +47,26 @@ stringx &stringx::operator+=(const char *text) {
     return *this;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034E7C0)
+// 0x0034E7C0 rfind__C7stringxc
+struct string_buf {
+    char padding[8];
+    int char_length;
+};
+
+class stringx {
+    char *chars;
+    string_buf *my_buf;
+
+public:
+    int rfind(char value) const;
+    int rfind(char value, int position) const;
+};
+
+__asm__(".equ rfind__C7stringxci, 0x0034E750");
+
+int stringx::rfind(char value) const {
+    return rfind(value, my_buf->char_length - 1);
+}
+#endif
