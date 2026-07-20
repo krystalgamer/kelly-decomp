@@ -40,3 +40,20 @@ void *KSMemAllocate(unsigned int size, unsigned int alignment, const char *file,
 __asm__(".equ KSMemAllocate__FUiUiPCci, 0x001E3168");
 void *KSMemAllocNSL(unsigned int size, unsigned int alignment) { register const char *file __asm__("$6") = (const char *)0x004D0000; __asm__ volatile("" : "+r"(file)); file -= 0x1080; void *result = KSMemAllocate(size, alignment, file, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E3340)
+// 0x001E3340 fptoui
+__asm__(".equ dptofp, 0x003CC8C8");
+
+inline int FTOI(float input) {
+    register float output;
+    __asm__ volatile("cvt.w.s %0, %1" : "=f"(output) : "f"(input));
+    return (int &)output;
+}
+
+extern "C" unsigned int fptoui(double value);
+
+unsigned int fptoui(double value) {
+    return FTOI(value);
+}
+#endif
