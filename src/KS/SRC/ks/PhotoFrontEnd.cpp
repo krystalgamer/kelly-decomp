@@ -174,3 +174,35 @@ void PhotoSelectMenu::OnStart(int controller) {
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001CDF90)
+// 0x001CDF90 Draw__13PhotoFrontEnd
+struct menu_vtable {
+    char padding[0x48];
+    short adjustment;
+    short padding2;
+    void (*draw)(void *self);
+};
+
+struct menu_layout {
+    char padding[0x74];
+    menu_vtable *vtable;
+};
+
+class PhotoFrontEnd {
+    char padding[0x60];
+    menu_layout *active;
+
+public:
+    void Draw();
+};
+
+void PhotoFrontEnd::Draw()
+{
+    menu_layout *menu = active;
+    if (menu) {
+        menu_vtable *table = menu->vtable;
+        table->draw((char *)menu + table->adjustment);
+    }
+}
+#endif
