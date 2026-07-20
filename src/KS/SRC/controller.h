@@ -229,3 +229,9 @@ bool entity_controller::is_in_running_mode() const {
     return true;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B8A80)
+// 0x002B8A80 is_moving__C17entity_controller
+class entity_controller { char padding[0x10]; int state; public: bool is_moving() const; };
+bool entity_controller::is_moving() const { return state == 1 || state == 2 || state == 14; }
+#endif
