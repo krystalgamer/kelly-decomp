@@ -27,3 +27,11 @@ public:
 void vr_pmesh::render_skin(unsigned int flavor, const instance_render_info* info, const po* bones, int count) {
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D3F98)
+// 0x002D3F98 serial_in__FR10chunk_fileP8vr_pmesh
+class chunk_file;
+class vr_pmesh { public: void internal_serial_in(chunk_file &file); };
+__asm__(".equ internal_serial_in__8vr_pmeshR10chunk_file, 0x002D3FC0");
+void serial_in(chunk_file &file, vr_pmesh *mesh) { mesh->internal_serial_in(file); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
