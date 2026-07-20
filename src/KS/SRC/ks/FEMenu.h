@@ -493,3 +493,10 @@ extern "C" void FETextMultiMenuDtor(void *self) __asm__("_$_15FETextMultiMenu");
 __asm__(".equ _$_6FEMenu, 0x00156580");
 void FETextMultiMenuDtor(void *self) { FEMenuDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DAA00)
+// 0x001DAA00 OnActivate__6FEMenui
+struct MenuVTable { char padding[0x70]; short adjustment; short padding2; void (*OnActivate)(void *self); };
+class FEMenu { char padding[0x74]; MenuVTable *vtable; public: void OnActivate(int submenu); };
+void FEMenu::OnActivate(int submenu) { MenuVTable *table = vtable; table->OnActivate((char *)this + table->adjustment); }
+#endif
