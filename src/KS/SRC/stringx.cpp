@@ -70,3 +70,43 @@ int stringx::rfind(char value) const {
     return rfind(value, my_buf->char_length - 1);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034D728)
+// 0x0034D728 is_buffer_mine__C7stringxP10string_buf
+class string_buf;
+
+extern char string_buffers_begin[];
+extern char string_buffers_end[];
+__asm__(".equ string_buffers_begin, 0x005A5660");
+__asm__(".equ string_buffers_end, 0x006114F0");
+
+class stringx {
+public:
+    bool is_buffer_mine(string_buf *buffer) const;
+};
+
+bool stringx::is_buffer_mine(string_buf *buffer) const
+{
+    register bool result __asm__("$2");
+    __asm__ volatile(
+        ".set noreorder\n\t"
+        "lui $2,0x5a\n\t"
+        "addiu $2,$2,22112\n\t"
+        "sltu $2,$5,$2\n\t"
+        "bnez $2,2f\n\t"
+        "daddu $2,$0,$0\n\t"
+        "lui $3,0x61\n\t"
+        "addiu $3,$3,5360\n\t"
+        "sltu $3,$5,$3\n\t"
+        "bnez $3,2f\n\t"
+        "addiu $2,$0,1\n\t"
+        "daddu $2,$0,$0\n"
+        "2:\n\t"
+        ".set reorder"
+        : "=r"(result)
+        : "r"(buffer)
+        : "$3"
+    );
+    return result;
+}
+#endif
