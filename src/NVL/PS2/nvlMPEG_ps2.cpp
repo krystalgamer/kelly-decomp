@@ -174,3 +174,15 @@ void defMain(void *argument) { for (;;) { RotateThreadReadyQueue(1); __asm__ vol
 struct ReadBuf { char padding[0x50004]; int count; };
 int readBufEndGet(ReadBuf *buffer, int size) { register int selected __asm__("$2") = buffer->count; register int remaining __asm__("$6") = selected; register int use_size __asm__("$3") = size < selected; if (use_size) selected = size; remaining -= selected; buffer->count = remaining; return selected; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00388F38)
+// 0x00388F38 mpegStopDMA__FP7sceMpegP13sceMpegCbDataPv
+struct ViBuf;
+struct sceMpeg;
+struct sceMpegCbData;
+extern ViBuf global_vi_buffer;
+void viBufStopDMA(ViBuf *buffer);
+__asm__(".equ global_vi_buffer, 0x00597020");
+__asm__(".equ viBufStopDMA__FP5ViBuf, 0x0038A430");
+int mpegStopDMA(sceMpeg *mpeg, sceMpegCbData *data, void *user) { viBufStopDMA(&global_vi_buffer); KELLY_DECOMP_COMPILER_BARRIER(); return 1; }
+#endif
