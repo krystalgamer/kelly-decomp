@@ -101,3 +101,33 @@ bool slf_signaller_clear_callbacks_t::operator()(
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00328578)
+// 0x00328578 __cl__30slf_signaller_clear_callback_tR8vm_stackQ320script_library_class8function7entry_t
+class stringx;
+class signaller {
+public:
+    void clear_script_callback(const stringx &name);
+};
+__asm__(".equ clear_script_callback__9signallerRC7stringx, 0x0034CE48");
+
+class vm_stack {
+    char padding[8];
+    char *top;
+public:
+    void *pop(unsigned int size) { top -= size; return top; }
+};
+class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+class slf_signaller_clear_callback_t : public script_library_class::function {
+public:
+    struct parms_t { signaller *me; stringx *name; };
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+bool slf_signaller_clear_callback_t::operator()(vm_stack &stack, entry_t entry) {
+    SLF_PARMS;
+    parms->me->clear_script_callback(*parms->name);
+    SLF_DONE;
+}
+#endif
