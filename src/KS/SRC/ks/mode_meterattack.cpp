@@ -28,3 +28,11 @@ struct AttackPlayer { void* controller; float time; int previous_score; int scor
 class MeterAttackMode { AttackPlayer players[2]; public: bool IsAttacking(int index) const; };
 bool MeterAttackMode::IsAttacking(int index) const { return players[index].attacking; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00286518)
+// 0x00286518 _$_15MeterAttackMode
+extern "C" void builtin_delete(void *pointer) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+extern "C" void MeterAttackModeDtor(void *self, int deleting) __asm__("_$_15MeterAttackMode");
+void MeterAttackModeDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
