@@ -407,3 +407,26 @@ void widget::scale_to(float wait, float duration, float scale) {
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003606E0)
+// 0x003606E0 scale_to__13bitmap_widgetf
+struct widget_vtable {
+    char padding[0x78];
+    short adjustment;
+    short padding2;
+    void (*scale_to)(void *self, float horizontal, float vertical);
+};
+
+class bitmap_widget {
+    char padding[0x140];
+    widget_vtable *vtable;
+
+public:
+    void scale_to(float scale);
+};
+
+void bitmap_widget::scale_to(float scale) {
+    widget_vtable *table = vtable;
+    table->scale_to((char *)this + table->adjustment, scale, scale);
+}
+#endif
