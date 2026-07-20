@@ -200,3 +200,45 @@ bool flyby_camera::is_finished() { return current_anim_time >= animation->totals
 class float_filter { float Pos[2]; float err[2]; public: void Init_Filter(float start); };
 void float_filter::Init_Filter(float start) { float *value = Pos; int index = 1; __asm__ volatile("nop"); loop: value[0] = start; --index; value[2] = 0.0f; KELLY_DECOMP_COMPILER_BARRIER(); KELLY_DECOMP_COMPILER_BARRIER(); if (index >= 0) { ++value; goto loop; } ++value; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0022E718)
+// 0x0022E718 __12beach_cameraRC9entity_idP6entityP22kellyslater_controller
+class entity_id;
+class entity;
+class kellyslater_controller;
+
+extern "C" void AutoCameraCtor(
+    void *self,
+    const entity_id &id,
+    entity *target,
+    kellyslater_controller *controller
+) __asm__("__11auto_cameraRC9entity_idP6entityP22kellyslater_controller");
+
+__asm__(".equ __11auto_cameraRC9entity_idP6entityP22kellyslater_controller, 0x0022C7A0");
+
+extern const char beach_camera_vtable[];
+__asm__(".equ beach_camera_vtable, 0x004E9BE8");
+
+struct beach_camera_layout {
+    char padding[8];
+    const void *vtable;
+};
+
+extern "C" void *BeachCameraCtor(
+    void *self,
+    const entity_id &id,
+    entity *target,
+    kellyslater_controller *controller
+) __asm__("__12beach_cameraRC9entity_idP6entityP22kellyslater_controller");
+
+void *BeachCameraCtor(
+    void *self,
+    const entity_id &id,
+    entity *target,
+    kellyslater_controller *controller
+) {
+    AutoCameraCtor(self, id, target, controller);
+    ((beach_camera_layout *)self)->vtable = beach_camera_vtable;
+    return self;
+}
+#endif
