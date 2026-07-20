@@ -50,3 +50,15 @@ public:
 void GraphicalMenuSystem::DrawMovie() {
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BD0B0)
+// 0x001BD0B0 OnUnactivate__18ControllerFrontEndP6FEMenu
+struct PauseMenuSystemLayout { char padding[0x70]; int controller; };
+struct ControllerWidgetLayout { char padding[0x15c]; int active; };
+struct FEManagerLayout { char padding[0x156a4]; ControllerWidgetLayout *controller_widget; };
+extern FEManagerLayout frontendmanager;
+__asm__(".equ frontendmanager, 0x003E7728");
+class FEMenu;
+class ControllerFrontEnd { char padding0[0x50]; PauseMenuSystemLayout *system; char padding1[0x128]; int selected_controller; public: void OnUnactivate(FEMenu *menu); };
+void ControllerFrontEnd::OnUnactivate(FEMenu *menu) { system->controller = selected_controller; frontendmanager.controller_widget->active = 0; }
+#endif
