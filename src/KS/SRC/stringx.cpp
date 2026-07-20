@@ -8,3 +8,10 @@ __asm__(".equ memset, 0x003D18D0");
 class string_buf { void *data; char padding[12]; unsigned int max_blocks; public: void clear(); };
 void string_buf::clear() { memset(data, 0, max_blocks * 8); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034E148)
+// 0x0034E148 __apl__7stringxRC7stringx
+class stringx { public: stringx &operator+=(const stringx &other); void append(const stringx &other); };
+__asm__(".equ append__7stringxRC7stringx, 0x0034E528");
+stringx &stringx::operator+=(const stringx &other) { append(other); return *this; }
+#endif
