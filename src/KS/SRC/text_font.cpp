@@ -22,3 +22,11 @@ __asm__(".equ __as__7stringxRC7stringx, 0x0034E0B8");
 class typeface_def { char padding[0x1418]; stringx m_name; public: void open(const stringx &name); };
 void typeface_def::open(const stringx &name) { m_name = name; KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033A0A8)
+// 0x0033A0A8 clear_glyph_info__4Font
+extern "C" void *memset(void *destination, int value, unsigned int size);
+__asm__(".equ memset, 0x003D18D0");
+class Font { char padding[8]; char glyphs[9216]; public: void clear_glyph_info(); };
+void Font::clear_glyph_info() { memset(glyphs, 0, 9216); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
