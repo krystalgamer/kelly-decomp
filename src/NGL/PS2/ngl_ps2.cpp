@@ -398,3 +398,16 @@ loop:
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003A8C68)
+// 0x003A8C68 nglVif1AddBatchSetup__FRPUiUii
+void nglVif1AddBatchSetup(
+    unsigned int *&packet,
+    unsigned int vertex_base,
+    int vertex_count
+) {
+    packet[0] = vertex_base | 0x70010000;
+    packet[1] = vertex_count | 0x8000;
+    packet += 2;
+}
+#endif
