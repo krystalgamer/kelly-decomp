@@ -66,3 +66,29 @@ __asm__(".equ onscreenerror__FPCce, 0x001DFAD8");
 __asm__(".equ error__FPCce, 0x001DFBD8");
 void KSCriticalError(const char *text) { onscreenerror(text); error(text); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E3300)
+// 0x001E3300 KSReleaseFile__FP10nglFileBuf
+struct nglFileBuf {
+    unsigned char *Buf;
+    unsigned int Size;
+    unsigned int UserData;
+};
+
+class world_dynamics_system {
+public:
+    static void wds_releasefile(unsigned char **buffer);
+};
+
+__asm__(".equ wds_releasefile__21world_dynamics_systemPPUc, 0x00294CF0");
+
+extern "C" void *memset(void *destination, int value, unsigned int size);
+__asm__(".equ memset, 0x003D18D0");
+
+void KSReleaseFile(nglFileBuf *file)
+{
+    world_dynamics_system::wds_releasefile(&file->Buf);
+    memset(file, 0, sizeof(nglFileBuf));
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
