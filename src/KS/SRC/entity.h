@@ -1195,3 +1195,9 @@ struct position_holder { char padding[0x30]; vector3d position; };
 class entity { char padding[0x50]; position_holder *holder; public: vector3d get_detonate_position() const; };
 vector3d entity::get_detonate_position() const { return holder->position; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00144CB0)
+// 0x00144CB0 set_sticky__6entityb
+class entity { char padding[0x78]; unsigned int flags; public: void set_sticky(bool value); };
+void entity::set_sticky(bool value) { if (value) flags |= 0x40; else flags &= ~0x40; }
+#endif
