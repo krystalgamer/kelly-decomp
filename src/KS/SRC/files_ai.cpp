@@ -99,3 +99,36 @@ entity_info *UninitializedCopy(
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0010FA20)
+// 0x0010FA20 __uninitialized_copy_aux__H2ZP16ai_polypath_nodeZP16ai_polypath_node_X01X01X11G12__false_type_X11
+inline void *operator new(unsigned int, void *place) {
+    return place;
+}
+
+struct value8 {
+    int first;
+    int second;
+};
+
+extern "C" value8 *UninitializedCopy(
+    value8 *first,
+    value8 *last,
+    value8 *result
+) __asm__("__uninitialized_copy_aux__H2ZP16ai_polypath_nodeZP16ai_polypath_node_X01X01X11G12__false_type_X11");
+
+value8 *UninitializedCopy(
+    value8 *first,
+    value8 *last,
+    value8 *result
+) {
+    while (first != last) {
+        if (result) {
+            new (result) value8(*first);
+        }
+        ++first;
+        ++result;
+    }
+    return result;
+}
+#endif
