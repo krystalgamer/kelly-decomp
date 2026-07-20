@@ -37,6 +37,10 @@
   saves RA first. Its otherwise exact ten-instruction sequence is unique in
   both the target and reconstructed objects, so the compiler wrapper swaps
   only those two independent instructions.
+- The isolated `pstring(stringx const&)` constructor saves `s0` before RA,
+  while the released function saves RA first. The otherwise exact 11-word
+  constructor sequence is unique, so the compiler wrapper swaps only those
+  independent stack saves and leaves the released source body unchanged.
 
 ## ELF/debug information
 
