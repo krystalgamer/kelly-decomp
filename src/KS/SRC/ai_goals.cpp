@@ -82,3 +82,10 @@ bool ai_goal::get_str(const pstring &att, stringx &val) {
     return false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001069C8)
+// 0x001069C8 going_out_of_service__7ai_goal
+struct ai_goal_vtable { char padding[0x18]; short adjustment; short padding2; void (*dump_actions)(void *self); };
+class ai_goal { char padding0[0x0c]; int in_service; char padding1[0x28]; ai_goal_vtable *vtable; public: void going_out_of_service(); };
+void ai_goal::going_out_of_service() { in_service = 0; ai_goal_vtable *table = vtable; table->dump_actions((char *)this + table->adjustment); }
+#endif
