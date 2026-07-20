@@ -25,3 +25,28 @@ __asm__(".equ joypad_usercam_controller_vtable, 0x004FB370");
 class joypad_usercam_controller { int active; int field_4; const void *vtable; dolly_and_strafe_mcs *move_cs; theta_and_psi_mcs *angle_mcs; public: joypad_usercam_controller(dolly_and_strafe_mcs *move, theta_and_psi_mcs *angle); };
 joypad_usercam_controller::joypad_usercam_controller(dolly_and_strafe_mcs *move, theta_and_psi_mcs *angle) { active = 1; vtable = joypad_usercam_controller_vtable; move_cs = move; angle_mcs = angle; field_4 = 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002755D8)
+// 0x002755D8 _$_17entity_controller
+extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+
+extern const char target_vtable[];
+__asm__(".equ target_vtable, 0x004FB450");
+
+struct target_layout {
+    char padding[0x8];
+    const void *vtable;
+};
+
+extern "C" void TargetDtor(void *self, int deleting)
+    __asm__("_$_17entity_controller");
+
+void TargetDtor(void *self, int deleting) {
+    ((target_layout *)self)->vtable = target_vtable;
+    if (deleting & 1) {
+        BuiltinDelete(self);
+    }
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
