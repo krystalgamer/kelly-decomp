@@ -15,3 +15,12 @@ __asm__(".equ frame_advance__6widgetf, 0x0033DF70");
 class script_widget_holder_t : public widget { char padding[0x144]; int running; public: void frame_advance(float time_inc); };
 void script_widget_holder_t::frame_advance(float time_inc) { if (running) { widget::frame_advance(time_inc); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002BB7E8)
+// 0x002BB7E8 update_scale__12timer_widget
+class widget { public: void update_scale(); };
+__asm__(".equ update_scale__6widget, 0x0033E710");
+class timer_widget : public widget { public: void update_scale(); void resize_timer(); };
+__asm__(".equ resize_timer__12timer_widget, 0x002BB818");
+void timer_widget::update_scale() { widget::update_scale(); resize_timer(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
