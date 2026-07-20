@@ -164,3 +164,10 @@ void beam_effect_width::reverse() { float temporary = start; start = target; tar
 class beam_effect_alpha { char padding[4]; unsigned char start; unsigned char target; char padding2[2]; float delta; public: void reverse(); };
 void beam_effect_alpha::reverse() { unsigned char temporary = start; start = target; target = temporary; delta = -delta; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B7BA0)
+// 0x002B7BA0 possibly_active__C4beam
+struct entity_vtable_layout { char padding[0x158]; short adjustment; short padding2; bool (*is_visible)(void *self); };
+class beam { char padding[8]; entity_vtable_layout *vtable; public: bool possibly_active() const; };
+bool beam::possibly_active() const { entity_vtable_layout *table = vtable; return table->is_visible((char *)this + table->adjustment); }
+#endif
