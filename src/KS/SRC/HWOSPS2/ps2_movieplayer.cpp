@@ -40,3 +40,28 @@ void TargetDtor(void *self, int deleting) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E6B30)
+// 0x001E6B30 shutdown__11movieplayer
+void nvlShutdown();
+void nvlStreamSystemShutdown(int system = 0);
+__asm__(".equ nvlShutdown__Fv, 0x0038ADA8");
+__asm__(".equ nvlStreamSystemShutdown__Fi, 0x00386520");
+
+class movieplayer {
+    char padding[4];
+    bool hiRes;
+
+public:
+    void shutdown();
+};
+
+void movieplayer::shutdown() {
+    if (hiRes) {
+        return;
+    }
+    nvlShutdown();
+    nvlStreamSystemShutdown();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
