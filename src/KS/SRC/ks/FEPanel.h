@@ -768,3 +768,11 @@ __asm__(".equ nglSetQuadZ__FP7nglQuadf, 0x003A6A90");
 class PanelQuad { char padding0[0x1c]; nglQuad *quad_address; char padding1[0x15c]; float z; public: void SetZ(float value); };
 void PanelQuad::SetZ(float value) { z = value; nglSetQuadZ((nglQuad *)((char *)this + 0x1c), value); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D86F8)
+// 0x001D86F8 getText__10TextString
+class stringx { int value; public: stringx(const stringx &other); };
+__asm__(".equ __7stringxRC7stringx, 0x0034D4D0");
+class TextString { int field0; stringx text; public: stringx getText(); };
+stringx TextString::getText() { return text; }
+#endif
