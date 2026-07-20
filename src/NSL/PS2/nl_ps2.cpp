@@ -46,3 +46,30 @@ float nlDotProduct3d(nlVector3d v0, nlVector3d v1)
     return v0[0] * v1[0] + v0[1] * v1[1] + v0[2] * v1[2];
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00391808)
+// 0x00391808 nlTransformVector__FPfPA3_fT0
+typedef float nlVector4d[4] __attribute__((aligned(16)));
+typedef float nlMatrix4x4[4][4] __attribute__((aligned(16)));
+
+void nlTransformVector(nlVector4d destination, nlMatrix4x4 matrix,
+                       nlVector4d input)
+{
+    __asm__ volatile(
+        "lqc2 vf4,0x0(%1)\n\t"
+        "lqc2 vf5,0x10(%1)\n\t"
+        "lqc2 vf6,0x20(%1)\n\t"
+        "lqc2 vf7,0x30(%1)\n\t"
+        "lqc2 vf8,0x0(%2)\n\t"
+        "vmulax.xyzw ACC,vf4,vf8\n\t"
+        "vmadday.xyzw ACC,vf5,vf8\n\t"
+        "vmaddaz.xyzw ACC,vf6,vf8\n\t"
+        "vmaddw.xyzw vf9,vf7,vf8\n\t"
+        "sqc2 vf9,0x0(%0)"
+        :
+        : "r"(destination), "r"(matrix), "r"(input)
+        : "memory"
+    );
+    __asm__ volatile("nop");
+}
+#endif
