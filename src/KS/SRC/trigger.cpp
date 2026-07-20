@@ -73,3 +73,30 @@ public:
 void entity_trigger::update_region() {
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0028DD50)
+// 0x0028DD50 __13point_triggerRC7stringx
+class stringx;
+
+extern "C" void TriggerCtor(void *self, const stringx &id)
+    __asm__("__7triggerRC7stringx");
+__asm__(".equ __7triggerRC7stringx, 0x0028D838");
+
+extern const char point_trigger_vtable[];
+__asm__(".equ point_trigger_vtable, 0x004FB0A0");
+
+struct point_trigger_layout {
+    char padding[8];
+    const void *vtable;
+};
+
+extern "C" void *PointTriggerCtor(void *self, const stringx &id)
+    __asm__("__13point_triggerRC7stringx");
+
+void *PointTriggerCtor(void *self, const stringx &id)
+{
+    TriggerCtor(self, id);
+    ((point_trigger_layout *)self)->vtable = point_trigger_vtable;
+    return self;
+}
+#endif
