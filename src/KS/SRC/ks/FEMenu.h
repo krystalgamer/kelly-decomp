@@ -664,3 +664,11 @@ struct menu_text { char padding[0x4c]; text_vtable *vtable; };
 class FEMenuEntry { char padding[0x24]; menu_text *text; public: int getLineNum(); };
 int FEMenuEntry::getLineNum() { text_vtable *table = text->vtable; return table->call((char *)text + table->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA8F0)
+// 0x001DA8F0 GetScale__11FEMenuEntry
+struct text_vtable { char padding[0xa8]; short adjustment; short padding2; float (*call)(void *); };
+struct menu_text { char padding[0x4c]; text_vtable *vtable; };
+class FEMenuEntry { char padding[0x24]; menu_text *text; public: float GetScale(); };
+float FEMenuEntry::GetScale() { text_vtable *table = text->vtable; return table->call((char *)text + table->adjustment); }
+#endif
