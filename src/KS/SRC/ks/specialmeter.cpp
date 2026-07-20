@@ -48,3 +48,14 @@ bool SpecialMeter::CanRegionLink() const {
 class SpecialMeter { char padding0[8]; float fillage; bool isEnabled; int trickRegion; bool isDoingTrick; float faceLinkTimer; int faceLink; float specialTime; char padding1[4]; int numPerfects; public: void Reset(); };
 void SpecialMeter::Reset() { numPerfects = 0; KELLY_DECOMP_COMPILER_BARRIER(); fillage = 0.0f; KELLY_DECOMP_COMPILER_BARRIER(); isEnabled = false; KELLY_DECOMP_COMPILER_BARRIER(); isDoingTrick = false; KELLY_DECOMP_COMPILER_BARRIER(); faceLinkTimer = 0.0f; KELLY_DECOMP_COMPILER_BARRIER(); specialTime = 0.0f; KELLY_DECOMP_COMPILER_BARRIER(); faceLink = 0; KELLY_DECOMP_COMPILER_BARRIER(); trickRegion = 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00250C78)
+// 0x00250C78 _$_12SpecialMeter
+extern "C" void EventRecipientDtor(void *self, int deleting) __asm__("_$_14EventRecipient");
+extern const char special_meter_vtable[];
+__asm__(".equ _$_14EventRecipient, 0x00349B98");
+__asm__(".equ special_meter_vtable, 0x004DD4C8");
+struct special_meter_layout { const void *vtable; };
+extern "C" void SpecialMeterDtor(void *self, int deleting) __asm__("_$_12SpecialMeter");
+void SpecialMeterDtor(void *self, int deleting) { ((special_meter_layout *)self)->vtable = special_meter_vtable; EventRecipientDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
