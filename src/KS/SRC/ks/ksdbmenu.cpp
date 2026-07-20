@@ -71,3 +71,13 @@ __asm__(".equ callback_object, 0x004253C0");
 __asm__(".equ writeLevels__13rumbleManager, 0x00242810");
 bool WriteRumbleButton(MenuEntry *entry, int button) { if (button == 7) CallbackMethod(callback_object); return true; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00236658)
+// 0x00236658 ReplayPlayButton__FP9MenuEntryi
+class MenuEntry;
+extern char callback_object[];
+void CallbackMethod(void *self) __asm__("Play__8KSReplay");
+__asm__(".equ callback_object, 0x004252A8");
+__asm__(".equ Play__8KSReplay, 0x0023C6A0");
+bool ReplayPlayButton(MenuEntry *entry, int button) { if (button == 7) CallbackMethod(callback_object); return true; }
+#endif
