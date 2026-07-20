@@ -79,3 +79,11 @@ class item : public entity { public: void preload(); void spawn_preload_script()
 __asm__(".equ spawn_preload_script__4item, 0x0028A410");
 void item::preload() { entity::preload(); spawn_preload_script(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0028AA58)
+// 0x0028AA58 apply_effects__4itemP6entity
+struct item_vtable { char padding[0x20]; short adjustment; short padding2; void (*apply)(void *self, int effect); };
+class entity;
+class item { char padding[8]; item_vtable *vtable; public: void apply_effects(entity *target); };
+void item::apply_effects(entity *target) { item_vtable *table = vtable; table->apply((char *)this + table->adjustment, 28); }
+#endif
