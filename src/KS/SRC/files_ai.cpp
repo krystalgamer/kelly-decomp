@@ -66,3 +66,36 @@ value8 *UninitializedFill(
     return first;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0010EBB8)
+// 0x0010EBB8 __uninitialized_copy_aux__H2ZPQ211render_data11entity_infoZPQ211render_data11entity_info_X01X01X11G12__false_type_X11
+inline void *operator new(unsigned int, void *place) {
+    return place;
+}
+
+struct entity_info {
+    int first;
+    int second;
+};
+
+extern "C" entity_info *UninitializedCopy(
+    entity_info *first,
+    entity_info *last,
+    entity_info *result
+) __asm__("__uninitialized_copy_aux__H2ZPQ211render_data11entity_infoZPQ211render_data11entity_info_X01X01X11G12__false_type_X11");
+
+entity_info *UninitializedCopy(
+    entity_info *first,
+    entity_info *last,
+    entity_info *result
+) {
+    while (first != last) {
+        if (result) {
+            new (result) entity_info(*first);
+        }
+        ++first;
+        ++result;
+    }
+    return result;
+}
+#endif
