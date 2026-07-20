@@ -118,3 +118,35 @@ int ScoringManager::GetNumTrickLandings() const
     return total;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00249CC8)
+// 0x00249CC8 __Q214ScoringManager5Trick
+class ScoringManager {
+public:
+    class Trick {
+        int type;
+        int index;
+        int flags;
+        float time;
+        int numSpins;
+        float mouthDist;
+        float lipDist;
+        int repetitions;
+
+    public:
+        Trick();
+    };
+};
+
+ScoringManager::Trick::Trick()
+{
+    type = 0;
+    index = -1;
+    flags = 0;
+    time = 0.0f;
+    numSpins = 0;
+    mouthDist = 0.5f;
+    lipDist = 0.5f;
+    repetitions = 0;
+}
+#endif
