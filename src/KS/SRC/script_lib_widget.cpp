@@ -507,3 +507,53 @@ struct timer_widget_layout { char padding[0x190]; bool running; };
 extern "C" bool TimerRunOp(void *self, vm_stack_layout *stack, int entry) __asm__("__cl__22slf_timer_widget_run_tR8vm_stackQ320script_library_class8function7entry_t");
 bool TimerRunOp(void *self, vm_stack_layout *stack, int entry) { stack->top -= 4; timer_widget_layout *timer = *(timer_widget_layout **)stack->top; timer->running = true; return true; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032D558)
+// 0x0032D558 __cl__30slf_bitmap_widget_flip_horiz_tR8vm_stackQ320script_library_class8function7entry_t
+class bitmap_widget {
+public:
+    void flip_horiz();
+};
+
+__asm__(".equ flip_horiz__13bitmap_widget, 0x0033FC50");
+
+class vm_stack {
+    char padding[8];
+    char *top;
+
+public:
+    void *pop(unsigned int size) {
+        top -= size;
+        return top;
+    }
+};
+
+class script_library_class {
+public:
+    class function {
+    public:
+        enum entry_t { FIRST_ENTRY };
+    };
+};
+
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+
+class slf_bitmap_widget_flip_horiz_t : public script_library_class::function {
+public:
+    struct parms_t {
+        bitmap_widget *me;
+    };
+
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+
+bool slf_bitmap_widget_flip_horiz_t::operator()(
+    vm_stack &stack,
+    entry_t entry
+) {
+    SLF_PARMS;
+    parms->me->flip_horiz();
+    SLF_DONE;
+}
+#endif
