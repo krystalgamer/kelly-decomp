@@ -30,3 +30,33 @@ float entity_widget::get_width() {
     return table->get_radius((char *)ent + table->adjustment);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FF008)
+// 0x002FF008 get_height__13entity_widget
+struct entity_vtable {
+    char padding[0xd8];
+    short adjustment;
+    short padding2;
+    float (*get_radius)(void *self);
+};
+
+class entity {
+    char padding[8];
+
+public:
+    entity_vtable *vtable;
+};
+
+class entity_widget {
+    char padding[0x144];
+    entity *ent;
+
+public:
+    float get_height();
+};
+
+float entity_widget::get_height() {
+    entity_vtable *table = ent->vtable;
+    return table->get_radius((char *)ent + table->adjustment);
+}
+#endif
