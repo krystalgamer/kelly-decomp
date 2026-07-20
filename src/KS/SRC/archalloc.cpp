@@ -71,3 +71,12 @@ __asm__(".equ mem_set_checkpoint__Fv, 0x002AC4F8");
 __asm__(".equ mem_leak_checkpoint, 0x004322D8");
 void mem_leak_prep() { int checkpoint = mem_set_checkpoint(); KELLY_DECOMP_COMPILER_BARRIER(); mem_leak_checkpoint = checkpoint; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002ACCC8)
+// 0x002ACCC8 mem_push_current_heap__Fi
+extern int heapstackptr;
+void mem_set_current_heap(int heap);
+__asm__(".equ heapstackptr, 0x00432300");
+__asm__(".equ mem_set_current_heap__Fi, 0x002ACCA0");
+void mem_push_current_heap(int heap) { ++heapstackptr; mem_set_current_heap(heap); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
