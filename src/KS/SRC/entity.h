@@ -1227,3 +1227,22 @@ struct visrep { char padding[0x10]; visrep_vtable *vtable; };
 class entity { char padding[0x128]; visrep *my_visrep; public: float get_visrep_ending_time() const; };
 float entity::get_visrep_ending_time() const { visrep_vtable *table = my_visrep->vtable; return table->get_ending_time((char *)my_visrep + table->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00144C48)
+// 0x00144C48 set_time_limited__6entityb
+class entity {
+    char padding[0x198];
+    unsigned int ext_flags;
+
+public:
+    void set_time_limited(bool enabled);
+};
+
+void entity::set_time_limited(bool enabled) {
+    if (enabled) {
+        ext_flags |= 0x10000;
+    } else {
+        ext_flags &= ~0x10000;
+    }
+}
+#endif
