@@ -106,3 +106,10 @@ __asm__(".equ global_ZEROVEC, 0x005887F0");
 class cg_none { public: void get_closest_point_along_dir(vector3d *target, const vector3d &direction) const; };
 void cg_none::get_closest_point_along_dir(vector3d *target, const vector3d &direction) const { *target = global_ZEROVEC; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FF300)
+// 0x002FF300 get_core_radius__C18collision_geometry
+struct collision_vtable_layout { char padding[0x38]; short adjustment; short padding2; float (*get_radius)(void *self); };
+class collision_geometry { char padding[8]; collision_vtable_layout *vtable; public: float get_core_radius() const; };
+float collision_geometry::get_core_radius() const { collision_vtable_layout *table = vtable; return table->get_radius((char *)this + table->adjustment); }
+#endif
