@@ -123,3 +123,31 @@ void vrep_widget::update_scale() {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033ED18)
+// 0x0033ED18 scale_to__6widgetff
+struct widget_vtable {
+    char padding[0x110];
+    short adjustment;
+    short padding2;
+    void (*update_scale)(void *self);
+};
+
+class widget {
+    char padding0[0x118];
+    float horizontal_scale;
+    float vertical_scale;
+    char padding1[0x20];
+    widget_vtable *vtable;
+
+public:
+    void scale_to(float horizontal, float vertical);
+};
+
+void widget::scale_to(float horizontal, float vertical) {
+    horizontal_scale = horizontal;
+    vertical_scale = vertical;
+    widget_vtable *table = vtable;
+    table->update_scale((char *)this + table->adjustment);
+}
+#endif
