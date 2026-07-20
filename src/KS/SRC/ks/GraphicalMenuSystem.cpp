@@ -134,3 +134,41 @@ void TitleFrontEnd::OnRight(int controller)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BCD90)
+// 0x001BCD90 SetSystem__13TitleFrontEndP12FEMenuSystem
+class FEMenuSystem;
+
+struct menu_vtable {
+    char padding[0x1D0];
+    short adjustment;
+    short padding2;
+    void (*set_system)(void *self, FEMenuSystem *system);
+};
+
+struct mc_frontend_layout {
+    char padding[0x74];
+    menu_vtable *vtable;
+};
+
+class TitleFrontEnd {
+    char padding0[0x50];
+    FEMenuSystem *system;
+    char padding1[0x12C];
+    mc_frontend_layout *mc;
+
+public:
+    void SetSystem(FEMenuSystem *new_system);
+};
+
+void TitleFrontEnd::SetSystem(FEMenuSystem *new_system)
+{
+    system = new_system;
+    mc_frontend_layout *frontend = mc;
+    menu_vtable *table = frontend->vtable;
+    table->set_system(
+        (char *)frontend + table->adjustment,
+        new_system
+    );
+}
+#endif
