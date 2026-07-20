@@ -457,3 +457,38 @@ nglTexture *nglGetTexture(const nglFixedString &fileName)
     return (nglTexture *)instance->Value;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003A15B8)
+// 0x003A15B8 nglGetFirstMeshInFile__FRC14nglFixedString
+class nglFixedString;
+class nglMesh;
+
+struct nglMeshFile {
+    char padding[0x130];
+    nglMesh *FirstMesh;
+};
+
+class nglInstanceBank {
+public:
+    struct Instance {
+        char padding[0x20];
+        void *Value;
+    };
+
+    Instance *Search(const nglFixedString &name);
+};
+
+__asm__(".equ Search__15nglInstanceBankRC14nglFixedString, 0x003AC608");
+
+extern nglInstanceBank nglMeshFileBank;
+__asm__(".equ nglMeshFileBank, 0x004BBFE0");
+
+nglMesh *nglGetFirstMeshInFile(const nglFixedString &fileName)
+{
+    nglInstanceBank::Instance *instance =
+        nglMeshFileBank.Search(fileName);
+    if (instance)
+        return ((nglMeshFile *)instance->Value)->FirstMesh;
+    return 0;
+}
+#endif
