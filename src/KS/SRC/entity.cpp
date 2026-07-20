@@ -298,3 +298,11 @@ __asm__(".equ remove__6regionP6entity, 0x002E7678");
 class entity { public: void remove_me_from_region(region *value); };
 void entity::remove_me_from_region(region *value) { value->remove(this); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00135770)
+// 0x00135770 __tcf_0
+extern "C" void EntityDtor(void *self, int deleting) __asm__("_$_6entity");
+__asm__(".equ _$_6entity, 0x001298C8");
+extern "C" void EntityCleanupThunk() __asm__("__tcf_0_00135770");
+void EntityCleanupThunk() { register char *object __asm__("$4") = (char *)0x00510000; register int deleting __asm__("$5") = 2; __asm__ volatile("" : "+r"(object), "+r"(deleting)); object += 0x30a0; EntityDtor(object, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
