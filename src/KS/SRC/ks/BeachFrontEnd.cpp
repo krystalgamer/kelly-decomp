@@ -32,3 +32,9 @@ struct PauseMenuSystem { char padding[0x98]; bool prepare_to_end; };
 class BeachFrontEnd { char padding[0x50]; PauseMenuSystem *system; public: void ReturnToFE(); };
 void BeachFrontEnd::ReturnToFE() { frontendmanager.return_to_fe = true; system->prepare_to_end = true; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00190850)
+// 0x00190850 OnButtonRelease__13BeachFrontEndii
+class BeachFrontEnd { char padding0[0x924]; int in_bio_mode; char padding1[0x59c]; int bio_up_pressed; int bio_down_pressed; public: void OnButtonRelease(int controller, int button); };
+void BeachFrontEnd::OnButtonRelease(int controller, int button) { if (in_bio_mode) { if (button == 2) bio_up_pressed = 0; else if (button == 3) bio_down_pressed = 0; } }
+#endif
