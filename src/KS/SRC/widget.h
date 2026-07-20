@@ -349,3 +349,26 @@ struct widget_layout { char padding[0x140]; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_13layout_widget");
 void DerivedDtor(void *self, int deleting) { ((widget_layout *)self)->vtable = widget_vtable; WidgetDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00360368)
+// 0x00360368 scale_to__6widgetf
+struct widget_vtable {
+    char padding[0x78];
+    short adjustment;
+    short padding2;
+    void (*scale_to)(void *self, float horizontal, float vertical);
+};
+
+class widget {
+    char padding[0x140];
+    widget_vtable *vtable;
+
+public:
+    void scale_to(float scale);
+};
+
+void widget::scale_to(float scale) {
+    widget_vtable *table = vtable;
+    table->scale_to((char *)this + table->adjustment, scale, scale);
+}
+#endif
