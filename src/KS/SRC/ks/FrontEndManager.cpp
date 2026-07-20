@@ -105,3 +105,35 @@ extern FEManagerLayout frontendmanager;
 __asm__(".equ frontendmanager, 0x003E7728");
 void IGOStandUp() { frontendmanager.IGO->OnSurferStandUp(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001988C8)
+// 0x001988C8 OnLevelLoaded__9FEManager
+struct frontend_vtable {
+    char padding[0x1E0];
+    short adjustment;
+    short padding2;
+    void (*on_level_loaded)(void *self);
+};
+
+struct beach_frontend_layout {
+    char padding[0x74];
+    frontend_vtable *vtable;
+};
+
+class FEManager {
+    char padding[0x156A0];
+    beach_frontend_layout *map;
+
+public:
+    void OnLevelLoaded();
+};
+
+void FEManager::OnLevelLoaded()
+{
+    beach_frontend_layout *frontend = map;
+    frontend_vtable *table = frontend->vtable;
+    table->on_level_loaded(
+        (char *)frontend + table->adjustment
+    );
+}
+#endif
