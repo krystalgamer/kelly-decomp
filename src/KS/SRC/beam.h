@@ -171,3 +171,9 @@ struct entity_vtable_layout { char padding[0x158]; short adjustment; short paddi
 class beam { char padding[8]; entity_vtable_layout *vtable; public: bool possibly_active() const; };
 bool beam::possibly_active() const { entity_vtable_layout *table = vtable; return table->is_visible((char *)this + table->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B8440)
+// 0x002B8440 is_delaying__C11beam_effect
+class beam_effect { char padding0[10]; signed char mode; public: bool is_delaying() const; };
+bool beam_effect::is_delaying() const { return mode == 1 || mode == -1; }
+#endif
