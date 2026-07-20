@@ -1219,3 +1219,11 @@ void entity::set_walkable(bool value) { if (value) flags |= 0x08; else flags &= 
 class entity { char padding[0x78]; unsigned int flags; public: void set_repulsion(bool value); };
 void entity::set_repulsion(bool value) { if (value) flags |= 0x1000; else flags &= ~0x1000; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00144F28)
+// 0x00144F28 get_visrep_ending_time__C6entity
+struct visrep_vtable { char padding[0x38]; short adjustment; short padding2; float (*get_ending_time)(void *self); };
+struct visrep { char padding[0x10]; visrep_vtable *vtable; };
+class entity { char padding[0x128]; visrep *my_visrep; public: float get_visrep_ending_time() const; };
+float entity::get_visrep_ending_time() const { visrep_vtable *table = my_visrep->vtable; return table->get_ending_time((char *)my_visrep + table->adjustment); }
+#endif
