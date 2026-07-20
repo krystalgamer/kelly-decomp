@@ -41,3 +41,28 @@ extern "C" void GlobalInit() __asm__("_GLOBAL_$I$nsl");
 __asm__(".equ __static_initialization_and_destruction_0, 0x003916C0");
 void GlobalInit() { StaticInit(1, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00390948)
+// 0x00390948 nslGetListenerPo__FPA3_A3_f
+extern "C" void GetListenerPo(void *dest)
+    __asm__("nslGetListenerPo__FPA3_A3_f");
+
+void GetListenerPo(void *dest)
+{
+    __asm__ volatile(
+        "lui $2,0x49\n\t"
+        "addiu $7,$2,-18960\n\t"
+        "lq $3,0($7)\n\t"
+        "lq $5,16($7)\n\t"
+        "lq $6,32($7)\n\t"
+        "sq $3,0($4)\n\t"
+        "sq $5,16($4)\n\t"
+        "sq $6,32($4)\n\t"
+        "lq $3,48($7)\n\t"
+        "sq $3,48($4)"
+        :
+        : "r"(dest)
+        : "$2", "$3", "$5", "$6", "$7", "memory"
+    );
+}
+#endif
