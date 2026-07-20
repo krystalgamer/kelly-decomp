@@ -147,3 +147,11 @@ __asm__(".equ Draw__6FEMenu, 0x00156C88");
 class CameraMenuClass : public FEMenu { public: void Draw(); };
 void CameraMenuClass::Draw() { FEMenu::Draw(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001AAA78)
+// 0x001AAA78 OnLeft__14SoundMenuClassi
+struct FEMenuEntryLayout { int entry_num; };
+class SoundMenuClass { char padding[0x4c]; FEMenuEntryLayout *highlighted; public: void Change(int entry, bool increase); void OnLeft(int command); };
+__asm__(".equ Change__14SoundMenuClassib, 0x001AA430");
+void SoundMenuClass::OnLeft(int command) { Change(highlighted->entry_num, false); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
