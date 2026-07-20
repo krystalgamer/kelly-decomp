@@ -61,3 +61,16 @@ void serial_in(chunk_file &file, unsigned short *value) {
     *value = temporary;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00336930)
+// 0x00336930 serial_in__FR10chunk_filePUi
+class chunk_file;
+void serial_in(chunk_file &file, int *value);
+__asm__(".equ serial_in__FR10chunk_filePi, 0x003368A0");
+
+void serial_in(chunk_file &file, unsigned int *value) {
+    int temporary;
+    serial_in(file, &temporary);
+    *value = temporary;
+}
+#endif
