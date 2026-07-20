@@ -15,3 +15,10 @@ __asm__(".equ __builtin_delete, 0x002AC6B0");
 extern "C" void PlayerInfoDtor(void *self, int deleting) __asm__("_$_11player_info");
 void PlayerInfoDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002597B0)
+// 0x002597B0 AddAccomplishment__11player_infoP6entity
+class entity;
+class player_info { entity *accomplishments[20]; int numAccomplishments; public: void AddAccomplishment(entity *ent); };
+void player_info::AddAccomplishment(entity *ent) { if (numAccomplishments < 20) accomplishments[numAccomplishments++] = ent; }
+#endif
