@@ -105,3 +105,33 @@ __asm__(".equ g_game_ptr, 0x0046AC64");
 class kellyslater_controller { char padding[0x1674]; int my_player_num; public: bool IsAIPlayer(); };
 bool kellyslater_controller::IsAIPlayer() { return g_game_ptr->num_ai_players && my_player_num == 1; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00225240)
+// 0x00225240 End__12BalanceMeter
+class IGOFrontEnd;
+
+extern "C" void TurnBalanceMeterOn(
+    IGOFrontEnd *self,
+    int player,
+    bool vertical,
+    bool enabled
+) __asm__("TurnBalanceMeterOn__11IGOFrontEndibT2");
+__asm__(".equ TurnBalanceMeterOn__11IGOFrontEndibT2, 0x0017CB68");
+
+extern IGOFrontEnd *global_igo;
+__asm__(".equ global_igo, 0x003E7728");
+
+class BalanceMeter {
+    char padding[0x10];
+    bool vert_meter;
+    int player_num;
+
+public:
+    void End();
+};
+
+void BalanceMeter::End() {
+    TurnBalanceMeterOn(global_igo, player_num, vert_meter, false);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
