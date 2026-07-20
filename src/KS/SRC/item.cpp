@@ -70,3 +70,12 @@ struct visual_item_layout { char padding[8]; const void *vtable; };
 extern "C" void VisualItemDtor(void *self, int deleting) __asm__("_$_11visual_item");
 void VisualItemDtor(void *self, int deleting) { ((visual_item_layout *)self)->vtable = visual_item_vtable; EntityDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0028A648)
+// 0x0028A648 preload__4item
+class entity { public: void preload(); };
+__asm__(".equ preload__6entity, 0x00139180");
+class item : public entity { public: void preload(); void spawn_preload_script(); };
+__asm__(".equ spawn_preload_script__4item, 0x0028A410");
+void item::preload() { entity::preload(); spawn_preload_script(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
