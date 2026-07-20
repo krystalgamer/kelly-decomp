@@ -26,3 +26,37 @@ __asm__(".equ __as__7stringxRC7stringx, 0x0034E0B8");
 class region { char padding[0x124]; stringx region_ambient_sound_name; public: void set_region_ambient_sound(stringx &name); };
 void region::set_region_ambient_sound(stringx &name) { region_ambient_sound_name = name; KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002E80E8)
+// 0x002E80E8 remove_local_thread__6regionP9vm_thread
+class vm_thread {
+public:
+    void set_suspended(bool suspended);
+};
+
+__asm__(".equ set_suspended__9vm_threadb, 0x00354658");
+
+extern "C" void RemoveThreadFromList(
+    void *list,
+    vm_thread *const &thread
+) __asm__("remove__t4list2ZP9vm_threadZt12my_allocator1ZP9vm_threadRCP9vm_thread");
+__asm__(".equ remove__t4list2ZP9vm_threadZt12my_allocator1ZP9vm_threadRCP9vm_thread, 0x002FB960");
+
+class region {
+    char padding[0x24];
+    char local_thread_list[1];
+
+public:
+    void remove_local_thread(vm_thread *thread);
+};
+
+void region::remove_local_thread(vm_thread *thread) {
+    vm_thread *volatile value = thread;
+    RemoveThreadFromList(
+        local_thread_list,
+        (vm_thread *const &)value
+    );
+    ((vm_thread *)value)->set_suspended(false);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
