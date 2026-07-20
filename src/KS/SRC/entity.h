@@ -1180,3 +1180,10 @@ struct EntityVisibleVTable { char padding[0x158]; short adjustment; short paddin
 class entity { char padding[8]; EntityVisibleVTable *vtable; public: bool is_still_visible() const; };
 bool entity::is_still_visible() const { return vtable->call((char *)this + vtable->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001450F0)
+// 0x001450F0 terrain_radius__C6entity
+struct EntityRadiusVTable { char padding[0x260]; short adjustment; short padding2; float (*call)(void *self); };
+class entity { char padding[8]; EntityRadiusVTable *vtable; public: float terrain_radius() const; };
+float entity::terrain_radius() const { return vtable->call((char *)this + vtable->adjustment); }
+#endif
