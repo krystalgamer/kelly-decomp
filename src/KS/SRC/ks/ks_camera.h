@@ -115,3 +115,10 @@ struct camera_layout { char padding[8]; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_15big_wave_camera");
 void DerivedDtor(void *self, int deleting) { ((camera_layout *)self)->vtable = camera_vtable; CameraDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0026F340)
+// 0x0026F340 init__15big_wave_camera
+struct camera_vtable_layout { char padding[0x628]; short adjustment; short padding2; void (*reset)(void *self); };
+class big_wave_camera { char padding[8]; camera_vtable_layout *vtable; public: void init(); };
+void big_wave_camera::init() { camera_vtable_layout *table = vtable; table->reset((char *)this + table->adjustment); }
+#endif
