@@ -448,3 +448,27 @@ void entity::optimize()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00134590)
+// 0x00134590 make_animateable__6entityb
+class entity_anim_tree;
+
+extern "C" void *memset(void *destination, int value, unsigned int size);
+__asm__(".equ memset, 0x003D18D0");
+
+class entity {
+    char padding[0xE8];
+    entity_anim_tree *anim_trees[10];
+
+public:
+    void make_animateable(bool on);
+};
+
+void entity::make_animateable(bool on)
+{
+    if (on && anim_trees == 0) {
+        memset(anim_trees, 0, sizeof(anim_trees));
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
