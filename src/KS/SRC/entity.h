@@ -1213,3 +1213,9 @@ void entity::set_stationary(bool value) { if (!value) flags |= 0x04; else flags 
 class entity { char padding[0x78]; unsigned int flags; public: void set_walkable(bool value); };
 void entity::set_walkable(bool value) { if (value) flags |= 0x08; else flags &= ~0x08; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00144D78)
+// 0x00144D78 set_repulsion__6entityb
+class entity { char padding[0x78]; unsigned int flags; public: void set_repulsion(bool value); };
+void entity::set_repulsion(bool value) { if (value) flags |= 0x1000; else flags &= ~0x1000; }
+#endif
