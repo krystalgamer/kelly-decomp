@@ -33,3 +33,35 @@ sector *UninitializedFill(
     return first;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FD088)
+// 0x002FD088 __uninitialized_copy_aux__H2ZP6sectorZP6sector_X01X01X11G12__false_type_X11
+inline void *operator new(unsigned int, void *place) {
+    return place;
+}
+
+struct sector {
+    int value;
+};
+
+extern "C" sector *UninitializedCopy(
+    sector *first,
+    sector *last,
+    sector *result
+) __asm__("__uninitialized_copy_aux__H2ZP6sectorZP6sector_X01X01X11G12__false_type_X11");
+
+sector *UninitializedCopy(
+    sector *first,
+    sector *last,
+    sector *result
+) {
+    while (first != last) {
+        if (result) {
+            new (result) sector(*first);
+        }
+        ++first;
+        ++result;
+    }
+    return result;
+}
+#endif
