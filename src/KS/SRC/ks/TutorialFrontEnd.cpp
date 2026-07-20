@@ -107,3 +107,35 @@ void TutorialFrontEnd::OnUp(int controller)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D0F10)
+// 0x001D0F10 OnDown__16TutorialFrontEndi
+struct menu_vtable {
+    char padding[0xA0];
+    short adjustment;
+    short padding2;
+    void (*onDown)(void *self, int controller);
+};
+
+struct menu_layout {
+    char padding[0x74];
+    menu_vtable *vtable;
+};
+
+class TutorialFrontEnd {
+    char padding[0x60];
+    menu_layout *active;
+
+public:
+    void OnDown(int controller);
+};
+
+void TutorialFrontEnd::OnDown(int controller)
+{
+    menu_layout *menu = active;
+    if (menu) {
+        menu_vtable *table = menu->vtable;
+        table->onDown((char *)menu + table->adjustment, controller);
+    }
+}
+#endif
