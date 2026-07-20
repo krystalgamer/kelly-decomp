@@ -82,3 +82,37 @@ void MultiplayerMenu::OnTriangle(int controller)
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00185580)
+// 0x00185580 OnTriangle__12FreesurfMenui
+struct menu_vtable {
+    char padding[0x110];
+    short adjustment;
+    short padding2;
+    void (*make_active)(void *self, void *menu, bool notify);
+};
+
+struct main_frontend_layout {
+    char padding[0x74];
+    menu_vtable *vtable;
+};
+
+class FreesurfMenu {
+    char padding[0x64];
+    main_frontend_layout *parent;
+
+public:
+    void OnTriangle(int controller);
+};
+
+void FreesurfMenu::OnTriangle(int controller)
+{
+    main_frontend_layout *frontend = parent;
+    menu_vtable *table = frontend->vtable;
+    table->make_active(
+        (char *)frontend + table->adjustment,
+        0,
+        true
+    );
+}
+#endif
