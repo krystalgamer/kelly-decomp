@@ -49,3 +49,30 @@ class IconChallenge { public: class Sequence { char storage[0xa8]; public: void 
 __asm__(".equ Spawn__Q213IconChallenge8Sequence, 0x00260F08");
 void IconChallenge::Arrangement::Spawn() { sequences[currentSequence].Spawn(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00260D58)
+// 0x00260D58 GetCurrentSequence__CQ213IconChallenge11Arrangement
+class IconChallenge {
+public:
+    struct Sequence {
+        char data[0xA8];
+    };
+
+    class Arrangement {
+        int numSequences;
+        int currSequenceIdx;
+        Sequence sequences[1];
+
+    public:
+        const Sequence *GetCurrentSequence() const;
+    };
+};
+
+const IconChallenge::Sequence *
+IconChallenge::Arrangement::GetCurrentSequence() const
+{
+    if (currSequenceIdx >= 0 && currSequenceIdx < numSequences)
+        return &sequences[currSequenceIdx];
+    return 0;
+}
+#endif
