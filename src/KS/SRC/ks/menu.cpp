@@ -21,3 +21,38 @@ struct EntryVTable { char padding[0x40]; short adjustment; short padding2; void 
 class MenuEntry { int field0; EntryVTable *vtable; public: void OnMenuClose(); };
 void MenuEntry::OnMenuClose() { EntryVTable *table = vtable; table->deactivate((char *)this + table->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023E218)
+// 0x0023E218 __4MenuP4Menu
+class MenuEntry;
+class MenuSystem;
+
+extern const char menu_vtable[];
+__asm__(".equ menu_vtable, 0x004D5D48");
+
+class Menu {
+    Menu *parent;
+    int entries;
+    MenuEntry **entry;
+    int activeentry;
+    bool isopen;
+    Menu *closeto;
+    MenuSystem *control;
+    const void *vtable;
+
+public:
+    Menu(Menu *parent_menu);
+};
+
+Menu::Menu(Menu *parent_menu)
+    : vtable(menu_vtable)
+{
+    parent = parent_menu;
+    activeentry = -1;
+    entries = 0;
+    entry = 0;
+    isopen = false;
+    closeto = 0;
+    control = 0;
+}
+#endif
