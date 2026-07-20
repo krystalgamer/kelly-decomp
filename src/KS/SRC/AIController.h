@@ -114,3 +114,30 @@ stringx AISurferController::get_name() const
     return stringx(ai_controller_name);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00112D68)
+// 0x00112D68 get_name__C18AISurferControlleri
+class stringx {
+    char *chars;
+    void *my_buf;
+
+public:
+    stringx(const char *text, int length = -1);
+    ~stringx();
+};
+
+__asm__(".equ __7stringxPCci, 0x0034D438");
+
+extern const char ai_controller_axis_name[];
+__asm__(".equ ai_controller_axis_name, 0x004B78F8");
+
+class AISurferController {
+public:
+    stringx get_name(int axis) const;
+};
+
+stringx AISurferController::get_name(int axis) const
+{
+    return stringx(ai_controller_axis_name);
+}
+#endif
