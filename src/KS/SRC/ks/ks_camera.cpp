@@ -143,3 +143,14 @@ __asm__(".equ WAVE_EndWave__Fb, 0x00377B38");
 class duckdive_camera { char padding[0x2d0]; bool do_reset; public: void SetReset(); };
 void duckdive_camera::SetReset() { do_reset = true; WAVE_EndWave(true); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00228D38)
+// 0x00228D38 _$_19old_shoulder_camera
+extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char camera_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ camera_vtable, 0x004F3AD0");
+struct CameraLayout { char padding[8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_19old_shoulder_camera");
+void DerivedDtor(void *self, int deleting) { ((CameraLayout *)self)->vtable = camera_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
