@@ -165,3 +165,11 @@ __asm__(".equ adjustCoords__H1Zf_RX01T0_v, 0x001D6B60");
 class TextString { char padding[0xc]; float x; float y; public: void changePos(float px, float py); };
 void TextString::changePos(float px, float py) { x = px; y = py; AdjustCoords(x, y); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014A788)
+// 0x0014A788 SetLocation3D__7BoxTextG8vector3d
+struct vector3d { float x; float y; float z; };
+class BoxText { public: char padding[0x90]; float location_3d[4]; };
+extern "C" void SetLocationAlias(BoxText *self, const vector3d *location) __asm__("SetLocation3D__7BoxTextG8vector3d");
+void SetLocationAlias(BoxText *self, const vector3d *location) { self->location_3d[0] = location->x; self->location_3d[1] = location->y; self->location_3d[2] = location->z; self->location_3d[3] = 1.0f; }
+#endif
