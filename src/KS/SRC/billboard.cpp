@@ -43,3 +43,14 @@ __asm__(".equ get_anim_length__C7mat_fac, 0x002BD170");
 class vr_billboard { char padding[0x18]; mat_fac my_material; public: int get_anim_length() const; };
 int vr_billboard::get_anim_length() const { int result = my_material.get_anim_length(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002BD210)
+// 0x002BD210 flush__12vr_billboard
+class aggregate_vert_buf_list { public: void flush(); };
+__asm__(".equ flush__23aggregate_vert_buf_list, 0x003382E8");
+struct geometry_manager_layout { char padding[0x194]; aggregate_vert_buf_list buffers; };
+extern geometry_manager_layout *g_geometry_manager;
+__asm__(".equ g_geometry_manager, 0x00431A8C");
+class vr_billboard { public: void flush(); };
+void vr_billboard::flush() { g_geometry_manager->buffers.flush(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
