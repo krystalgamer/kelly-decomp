@@ -99,3 +99,9 @@ __asm__(".equ arch_malloc__FUiPCci, 0x002AC6F0");
 class entity_track_tree { public: static void *operator new(unsigned int size); };
 void *entity_track_tree::operator new(unsigned int size) { const char *file = (const char *)0x004C0000; __asm__ volatile("" : "+r"(file)); file -= 0x6d98; void *result = arch_malloc(size, file, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00114128)
+// 0x00114128 __17entity_track_node
+class entity_track_node { int field0; int field4; char padding[0x18]; int field20; int field24; int field28; int field2c; public: entity_track_node(); };
+entity_track_node::entity_track_node() { field0 = -1; field4 = 1; field20 = 0; field24 = 0; field28 = 0; field2c = 0; }
+#endif
