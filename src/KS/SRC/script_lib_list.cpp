@@ -464,3 +464,50 @@ extern "C" void GlobalDestroy() __asm__("_GLOBAL_$D$script_string_none");
 __asm__(".equ __static_initialization_and_destruction_0, 0x0031D1B8");
 void GlobalDestroy() { StaticInit(0, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032F658)
+// 0x0032F658 __cl__27slf_destroy_vector3d_list_tR8vm_stackQ320script_library_class8function7entry_t
+extern "C" void DestroyVector3dList(void *list)
+    __asm__("destroy_script_vector3d_list__FPt6vector2Z8vector3dZt12my_allocator1Z8vector3d");
+__asm__(".equ destroy_script_vector3d_list__FPt6vector2Z8vector3dZt12my_allocator1Z8vector3d, 0x0031A450");
+
+class vm_stack {
+    char padding[8];
+    char *top;
+
+public:
+    void *pop(unsigned int size) {
+        top -= size;
+        return top;
+    }
+};
+
+class script_library_class {
+public:
+    class function {
+    public:
+        enum entry_t { FIRST_ENTRY };
+    };
+};
+
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+
+class slf_destroy_vector3d_list_t : public script_library_class::function {
+public:
+    struct parms_t {
+        void *the_vector3d_list;
+    };
+
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+
+bool slf_destroy_vector3d_list_t::operator()(
+    vm_stack &stack,
+    entry_t entry
+) {
+    SLF_PARMS;
+    DestroyVector3dList(parms->the_vector3d_list);
+    SLF_DONE;
+}
+#endif
