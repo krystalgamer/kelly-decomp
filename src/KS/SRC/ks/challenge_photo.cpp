@@ -136,3 +136,34 @@ void PhotoChallenge::Photo::Show(int label) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00262710)
+// 0x00262710 Init__Q214PhotoChallenge5Photoii
+class nglTexture;
+
+nglTexture *nglCreateTexture(
+    unsigned int format,
+    unsigned int width,
+    unsigned int height
+);
+__asm__(".equ nglCreateTexture__FUiUiUi, 0x0039CB38");
+
+class PhotoChallenge {
+public:
+    class Photo {
+        nglTexture *texture;
+        int score;
+        bool isOfSpecialTrick;
+
+    public:
+        void Init(int width, int height);
+    };
+};
+
+void PhotoChallenge::Photo::Init(int width, int height)
+{
+    texture = nglCreateTexture(1, width, height);
+    score = 0;
+    isOfSpecialTrick = false;
+}
+#endif
