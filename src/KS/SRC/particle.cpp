@@ -37,3 +37,10 @@ public:
 void particle_generator::destroy_particles() {
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D2D48)
+// 0x002D2D48 get_visual_center__C18particle_generator
+struct vector3d { float x; float y; float z; vector3d(const vector3d &other) { x = other.x; y = other.y; z = other.z; } };
+class particle_generator { char padding[0x29c]; vector3d abs_visual_center; public: vector3d get_visual_center() const; };
+vector3d particle_generator::get_visual_center() const { return abs_visual_center; }
+#endif
