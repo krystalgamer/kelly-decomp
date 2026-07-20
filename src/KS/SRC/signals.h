@@ -88,3 +88,28 @@ extern "C" void GatedSignalDtor(void *self) __asm__("_$_12gated_signal");
 __asm__(".equ _$_6signal, 0x0034C048");
 void GatedSignalDtor(void *self) { SignalDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0035F978)
+// 0x0035F978 _$_15signal_callback
+extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+
+extern const char signal_callback_vtable[];
+__asm__(".equ signal_callback_vtable, 0x005051A8");
+
+struct signal_callback_layout {
+    char padding[0x10];
+    const void *vtable;
+};
+
+extern "C" void SignalCallbackDtor(void *self, int deleting)
+    __asm__("_$_15signal_callback");
+
+void SignalCallbackDtor(void *self, int deleting) {
+    ((signal_callback_layout *)self)->vtable = signal_callback_vtable;
+    if (deleting & 1) {
+        BuiltinDelete(self);
+    }
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
