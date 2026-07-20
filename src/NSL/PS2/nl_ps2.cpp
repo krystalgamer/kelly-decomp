@@ -73,3 +73,18 @@ void nlTransformVector(nlVector4d destination, nlMatrix4x4 matrix,
     __asm__ volatile("nop");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00391838)
+// 0x00391838 nlAddVect3d__FRA2_fRA2_CfT1
+typedef float nlVector3d[3];
+
+void nlAddVect3d(
+    nlVector3d &result,
+    const nlVector3d &first,
+    const nlVector3d &second
+) {
+    result[0] = first[0] + second[0];
+    result[1] = first[1] + second[1];
+    result[2] = first[2] + second[2];
+}
+#endif
