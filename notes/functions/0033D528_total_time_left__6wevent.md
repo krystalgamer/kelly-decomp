@@ -5,7 +5,7 @@
 - Object: `game/files_vsim`
 - Debug source: `C:/KS/SRC/widget.cpp`
 - Reference source: `KS/SRC/widget.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -13,8 +13,9 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 61.5385 | 46.1538 | `candidate.cpp` |
 | 2 | different | 61.5385 | 46.1538 | `candidate.cpp` |
-| 3 | different | 51.5625 | 37.5 | `candidate.cpp` |
-| 4 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | policy-invalid | 51.5625 | 37.5 | `candidate.cpp` |
+| 4 | policy-invalid | 100.0 | 100.0 | `candidate.cpp` |
+| 5 | different | 51.9231 | 38.4615 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
@@ -26,12 +27,16 @@ Restored the released explicit else branch. The compiler emitted the same 48-byt
 
 ### Attempt 3 notes
 
-Materialized the expiration comparison and inserted the target nop before branching. EE GCC converted the floating condition to an integer boolean sequence and grew the function to 64 bytes.
+Invalid attempt. It added an instruction-emitting `nop` that was absent from the released source.
 
 ### Attempt 4 notes
 
-The released operation returns zero after expiration and otherwise total-minus-elapsed. Instruction-emitting inline assembly is limited to this exact floating compare/control-flow sequence because EE GCC otherwise removes the target hazard nop and inverts the two return paths; `.set noreorder` preserves precisely the target instructions.
+Invalid attempt. It replaced the released C++ condition and returns with the target instructions.
+
+### Attempt 5 notes
+
+Used a source-level forward branch to an explicit expired label. EE GCC still omitted the target floating-compare hazard nop and emitted 48 bytes.
 
 ## Outcome
 
-The released widget-event total-time-left getter matched exactly.
+Deferred after five attempts. No source-level reconstruction reproduced the target floating-compare hazard and branch layout, so the hand-written assembly match was removed.
