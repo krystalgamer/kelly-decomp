@@ -24,3 +24,11 @@ __asm__(".equ ButtonPress__4Menui, 0x0023E9F0");
 class MenuSystem { char padding[0x470]; Menu *curmenu; public: void ButtonPress(int button); };
 void MenuSystem::ButtonPress(int button) { if (curmenu) { curmenu->ButtonPress(button); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002410C0)
+// 0x002410C0 ButtonRelease__10MenuSystemi
+class Menu { public: void ButtonRelease(int button); };
+__asm__(".equ ButtonRelease__4Menui, 0x0023EA30");
+class MenuSystem { char padding[0x470]; Menu *curmenu; public: void ButtonRelease(int button); };
+void MenuSystem::ButtonRelease(int button) { if (curmenu) { curmenu->ButtonRelease(button); KELLY_DECOMP_COMPILER_BARRIER(); } }
+#endif
