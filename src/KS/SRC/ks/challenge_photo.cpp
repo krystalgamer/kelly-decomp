@@ -103,3 +103,36 @@ void PhotoChallenge::Cameraman::Reset() {
     state = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00262758)
+// 0x00262758 Show__Q214PhotoChallenge5Photoi
+class IGOFrontEnd;
+struct nglTexture;
+
+extern "C" void ShowPhoto(
+    IGOFrontEnd *self,
+    nglTexture *texture,
+    int *score,
+    int label
+) __asm__("ShowPhoto__11IGOFrontEndP10nglTexturePii");
+__asm__(".equ ShowPhoto__11IGOFrontEndP10nglTexturePii, 0x0017CE88");
+
+extern IGOFrontEnd *global_igo;
+__asm__(".equ global_igo, 0x003E7728");
+
+class PhotoChallenge {
+public:
+    class Photo {
+        nglTexture *texture;
+        int score;
+
+    public:
+        void Show(int label);
+    };
+};
+
+void PhotoChallenge::Photo::Show(int label) {
+    ShowPhoto(global_igo, texture, &score, label);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
