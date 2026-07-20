@@ -207,3 +207,10 @@ void CameraMenuDtor(void *self, int deleting) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B05B0)
+// 0x001B05B0 OnActivate__15ReplayMenuClass
+struct ReplayVTable { char padding[0x170]; short adjustment; short padding2; void (*ReplayStart)(void *self); };
+class ReplayMenuClass { char padding[0x74]; ReplayVTable *vtable; public: void OnActivate(); };
+void ReplayMenuClass::OnActivate() { ReplayVTable *table = vtable; table->ReplayStart((char *)this + table->adjustment); }
+#endif
