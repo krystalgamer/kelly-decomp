@@ -161,3 +161,13 @@ __asm__(".equ WAVE_ScheduleIndex, 0x004846D4");
 __asm__(".equ WAVE_ScheduleArray, 0x0058EA68");
 int WAVE_GetIndex() { return WAVE_ScheduleArray[WAVE_ScheduleIndex].wave_index; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0037D8F8)
+// 0x0037D8F8 WAVE_GetScoringType__Fv
+struct WaveScheduleEntry { char scoring_type; char padding[19]; };
+extern int WAVE_ScheduleIndex;
+extern WaveScheduleEntry WAVE_ScheduleArray[];
+__asm__(".equ WAVE_ScheduleIndex, 0x004846D4");
+__asm__(".equ WAVE_ScheduleArray, 0x0058EA68");
+char WAVE_GetScoringType() { return WAVE_ScheduleArray[WAVE_ScheduleIndex].scoring_type; }
+#endif
