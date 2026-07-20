@@ -95,3 +95,25 @@ void mem_pop_current_heap() {
     currentheap = heapstack[heapstackptr];
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002ACC10)
+// 0x002ACC10 mem_check_heap__Fv
+class Heap {
+    char data[0x6C];
+
+public:
+    void CheckConsistency() const;
+};
+
+__asm__(".equ CheckConsistency__C4Heap, 0x002AB830");
+
+extern Heap heaps[];
+__asm__(".equ heaps, 0x00570528");
+
+void mem_check_heap()
+{
+    heaps[0].CheckConsistency();
+    heaps[1].CheckConsistency();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
