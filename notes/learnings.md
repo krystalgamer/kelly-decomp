@@ -41,6 +41,12 @@
   while the released function saves RA first. The otherwise exact 11-word
   constructor sequence is unique, so the compiler wrapper swaps only those
   independent stack saves and leaves the released source body unchanged.
+- `aggregate_vert_buf::unlock` has the same isolated `s0`-before-RA save
+  drift; its exact 11-word sequence is corrected by swapping only those two
+  independent stack saves.
+- `stash::free_stored` materializes the substash base before adjusting the
+  stack in isolation, while the released wrapper adjusts the stack first. Its
+  unique 11-word sequence swaps only those independent instructions.
 
 ## ELF/debug information
 
