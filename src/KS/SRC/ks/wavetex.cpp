@@ -58,3 +58,10 @@ void WAVETEXMENU_StaticInit();
 __asm__(".equ WAVETEXMENU_StaticInit__Fv, 0x00381240");
 void WAVETEX_StaticInit() { WAVETEXMENU_StaticInit(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0037F2F8)
+// 0x0037F2F8 WAVETEX_SetShadowScale__Ff
+extern float WAVETEX_ShadowScale;
+__asm__(".equ WAVETEX_ShadowScale, 0x00484ED4");
+void WAVETEX_SetShadowScale(float scale) { WAVETEX_ShadowScale = scale * 15.0f * 0.5f; }
+#endif
