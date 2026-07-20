@@ -92,3 +92,14 @@ __asm__(".equ ZEROVEC, 0x005887F0");
 class game_camera { public: vector3d GetStartPosition(); };
 vector3d game_camera::GetStartPosition() { return ZEROVEC; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FEE90)
+// 0x002FEE90 _$_12marky_camera
+extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char base_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ base_vtable, 0x004F3AD0");
+struct object_layout { char padding[0x8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_12marky_camera");
+void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = base_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
