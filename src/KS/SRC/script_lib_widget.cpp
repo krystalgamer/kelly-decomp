@@ -557,3 +557,53 @@ bool slf_bitmap_widget_flip_horiz_t::operator()(
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032D5F8)
+// 0x0032D5F8 __cl__29slf_bitmap_widget_flip_vert_tR8vm_stackQ320script_library_class8function7entry_t
+class bitmap_widget {
+public:
+    void flip_vert();
+};
+
+__asm__(".equ flip_vert__13bitmap_widget, 0x0033FCB0");
+
+class vm_stack {
+    char padding[8];
+    char *top;
+
+public:
+    void *pop(unsigned int size) {
+        top -= size;
+        return top;
+    }
+};
+
+class script_library_class {
+public:
+    class function {
+    public:
+        enum entry_t { FIRST_ENTRY };
+    };
+};
+
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+
+class slf_bitmap_widget_flip_vert_t : public script_library_class::function {
+public:
+    struct parms_t {
+        bitmap_widget *me;
+    };
+
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+
+bool slf_bitmap_widget_flip_vert_t::operator()(
+    vm_stack &stack,
+    entry_t entry
+) {
+    SLF_PARMS;
+    parms->me->flip_vert();
+    SLF_DONE;
+}
+#endif
