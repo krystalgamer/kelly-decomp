@@ -16,3 +16,27 @@ __asm__(".equ movieplayer_vtable, 0x004DF760");
 class movieplayer { const void *vtable; char padding0[0x23c]; void *movieSource; void *movie; void *texture; void *movieBuf; char padding1[0x64]; int movieStarted; int isPlaying; public: movieplayer(); };
 movieplayer::movieplayer() { movieStarted = 0; isPlaying = 0; movie = 0; texture = 0; movieBuf = 0; movieSource = 0; vtable = movieplayer_vtable; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E6890)
+// 0x001E6890 _$_11movieplayer
+extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+
+extern const char target_vtable[];
+__asm__(".equ target_vtable, 0x004CE7A8");
+
+struct target_layout {
+    const void *vtable;
+};
+
+extern "C" void TargetDtor(void *self, int deleting)
+    __asm__("_$_11movieplayer");
+
+void TargetDtor(void *self, int deleting) {
+    ((target_layout *)self)->vtable = target_vtable;
+    if (deleting & 1) {
+        BuiltinDelete(self);
+    }
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
