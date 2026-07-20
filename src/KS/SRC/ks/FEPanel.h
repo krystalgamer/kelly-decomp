@@ -752,3 +752,10 @@ struct vector3d { float x; float y; float z; vector3d(float px, float py, float 
 class FloatingPQ { char padding[0x1a0]; float location_3d[3]; public: vector3d GetLocation3D(); };
 vector3d FloatingPQ::GetLocation3D() { return vector3d(location_3d[0], location_3d[1], location_3d[2]); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D9DD0)
+// 0x001D9DD0 GetPos__10FloatingPQRfN31
+class FloatingPQ { public: char padding[0x1d0]; float x1_const; float x2_const; float y1_const; float y2_const; };
+extern "C" void GetPosAlias(FloatingPQ *self, float &x1, float &y1, float &x2, float &y2) __asm__("GetPos__10FloatingPQRfN31");
+void GetPosAlias(FloatingPQ *self, float &x1, float &y1, float &x2, float &y2) { x1 = self->x1_const; x2 = self->x2_const; y1 = self->y1_const; y2 = self->y2_const; }
+#endif
