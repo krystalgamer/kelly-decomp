@@ -70,3 +70,42 @@ void vm_thread::set_suspended(bool value)
         set_flag(SUSPENDED, value);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003561C8)
+// 0x003561C8 pop_PC__9vm_thread
+struct pc_vector {
+    const unsigned short **begin_pointer;
+    const unsigned short **end_pointer;
+
+    bool empty() const {
+        return begin_pointer == end_pointer;
+    }
+
+    const unsigned short *back() const {
+        return end_pointer[-1];
+    }
+
+    void pop_back() {
+        --end_pointer;
+    }
+};
+
+class vm_thread {
+    char padding[0x1C];
+    const unsigned short *PC;
+    pc_vector PC_stack;
+
+public:
+    void pop_PC();
+};
+
+void vm_thread::pop_PC()
+{
+    if (!PC_stack.empty()) {
+        PC = PC_stack.back();
+        PC_stack.pop_back();
+    } else {
+        PC = 0;
+    }
+}
+#endif
