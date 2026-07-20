@@ -83,3 +83,12 @@ struct object_layout { char padding[0x8]; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_11game_camera");
 void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = base_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FEDA8)
+// 0x002FEDA8 GetStartPosition__11game_camera
+struct vector3d { float x; float y; float z; vector3d(const vector3d &other) { x = other.x; y = other.y; z = other.z; } };
+extern const vector3d ZEROVEC;
+__asm__(".equ ZEROVEC, 0x005887F0");
+class game_camera { public: vector3d GetStartPosition(); };
+vector3d game_camera::GetStartPosition() { return ZEROVEC; }
+#endif
