@@ -13,3 +13,10 @@ struct CreditsVTable { char padding[0xc0]; short adjustment; short padding2; voi
 class CreditsFrontEnd { char padding[0x74]; CreditsVTable *vtable; public: void OnCross(int command); };
 void CreditsFrontEnd::OnCross(int command) { CreditsVTable *table = vtable; table->OnTriangle((char *)this + table->adjustment, command); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BB7D8)
+// 0x001BB7D8 OnStart__15CreditsFrontEndi
+struct CreditsVTable { char padding[0xc0]; short adjustment; short padding2; void (*OnTriangle)(void *self, int command); };
+class CreditsFrontEnd { char padding[0x74]; CreditsVTable *vtable; public: void OnStart(int command); };
+void CreditsFrontEnd::OnStart(int command) { CreditsVTable *table = vtable; table->OnTriangle((char *)this + table->adjustment, command); }
+#endif
