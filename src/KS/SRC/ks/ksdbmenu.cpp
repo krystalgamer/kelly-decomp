@@ -61,3 +61,13 @@ __asm__(".equ rumbleMan, 0x004253C0");
 class MenuEntry;
 bool ToggleShowRumble(MenuEntry *entry, int button) { if (button == 7) rumbleMan.draw_state = !rumbleMan.draw_state; return true; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00236600)
+// 0x00236600 WriteRumbleButton__FP9MenuEntryi
+class MenuEntry;
+extern char callback_object[];
+void CallbackMethod(void *self) __asm__("writeLevels__13rumbleManager");
+__asm__(".equ callback_object, 0x004253C0");
+__asm__(".equ writeLevels__13rumbleManager, 0x00242810");
+bool WriteRumbleButton(MenuEntry *entry, int button) { if (button == 7) CallbackMethod(callback_object); return true; }
+#endif
