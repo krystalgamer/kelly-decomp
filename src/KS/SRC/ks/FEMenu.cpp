@@ -56,3 +56,35 @@ class PanelAnimManager;
 class FEGraphicalMenuEntry { char padding[0x64]; PanelQuad *pq; PanelQuad *pq_high; PanelAnimFile *highlight_paf; PanelAnimManager *pam; public: void Load(PanelQuad *normal, PanelAnimFile *animation, PanelAnimManager *manager, PanelQuad *highlighted); };
 void FEGraphicalMenuEntry::Load(PanelQuad *normal, PanelAnimFile *animation, PanelAnimManager *manager, PanelQuad *highlighted) { pq = normal; pq->AddedToMenu(); pq_high = highlighted; if (pq_high) pq_high->AddedToMenu(); highlight_paf = animation; pam = manager; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001577B8)
+// 0x001577B8 OnStart__6FEMenui
+struct menu_vtable {
+    char padding[0x90];
+    short adjustment;
+    short padding2;
+    void (*on_start)(void *self, int controller);
+};
+
+struct menu_layout {
+    char padding[0x74];
+    menu_vtable *vtable;
+};
+
+class FEMenu {
+    char padding[0x60];
+    menu_layout *active;
+
+public:
+    void OnStart(int controller);
+};
+
+void FEMenu::OnStart(int controller)
+{
+    menu_layout *menu = active;
+    if (menu) {
+        menu_vtable *table = menu->vtable;
+        table->on_start((char *)menu + table->adjustment, controller);
+    }
+}
+#endif
