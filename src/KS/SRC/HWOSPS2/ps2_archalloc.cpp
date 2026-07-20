@@ -30,3 +30,10 @@ __asm__(".equ mem_free__FPv, 0x002AC900");
 extern "C" void builtin_delete(void *pointer) __asm__("__builtin_delete");
 void builtin_delete(void *pointer) { if (pointer) mem_free(pointer); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AC578)
+// 0x002AC578 __nw__FUiUiPCci
+void *mem_malloc(unsigned int size, const char *file, int line, int flags);
+__asm__(".equ mem_malloc__FUiPCcii, 0x002AC788");
+void *operator new(unsigned int size, unsigned int alignment, const char *file, int line) { void *result = mem_malloc(size, file, line, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
