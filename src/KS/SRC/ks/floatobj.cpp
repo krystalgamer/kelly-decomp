@@ -242,3 +242,14 @@ struct WaterObjectLayout { char padding[0x38]; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_15floating_object");
 void DerivedDtor(void *self, int deleting) { ((WaterObjectLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001FE958)
+// 0x001FE958 _$_13static_object
+extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_12water_object");
+extern const char derived_vtable[];
+__asm__(".equ _$_12water_object, 0x001FC5E0");
+__asm__(".equ derived_vtable, 0x004D5EC0");
+struct WaterObjectLayout { char padding[0x38]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_13static_object");
+void DerivedDtor(void *self, int deleting) { ((WaterObjectLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
