@@ -5,15 +5,17 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/scoringmanager.cpp`
 - Reference source: `KS/SRC/ks/scoringmanager.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 88.4615 | 53.8462 | `candidate.cpp` |
-| 2 | different | 51.7857 | 41.6667 | `candidate.cpp` |
-| 3 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | policy-invalid | 51.7857 | 41.6667 | `candidate.cpp` |
+| 3 | policy-invalid | 100.0 | 100.0 | `candidate.cpp` |
+| 4 | different | 63.4615 | 30.7692 | `candidate.cpp` |
+| 5 | different | 88.4615 | 53.8462 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
@@ -21,12 +23,20 @@ Used the released 95-entry sum loop. All operations matched, but EE GCC performe
 
 ### Attempt 2 notes
 
-Used an explicit pointer loop with two target nops before the addition. The compiler moved the loop-counter decrement after the sum and retained a nop branch delay, growing the function to 56 bytes.
+Invalid attempt. It added instruction-emitting inline assembly that was absent from the released source.
 
 ### Attempt 3 notes
 
-The released operation sums all 95 LevelTrick landing counts starting at offset 0x14. Instruction-emitting inline assembly is limited to this exact loop because EE GCC otherwise will not retain the target two nops and addition in the backedge delay slot; `.set noreorder` preserves precisely that schedule.
+Invalid attempt. It replaced the released C++ loop with the target instructions and was not a decompilation.
+
+### Attempt 4 notes
+
+Used an explicit pointer and post-decrement do-while loop. It retained the target size but required an extra copy of the old counter value and changed the register allocation.
+
+### Attempt 5 notes
+
+Moved the accumulated addition into a source-level comma-expression loop condition. EE GCC still scheduled the addition before the branch instead of in its delay slot.
 
 ## Outcome
 
-The released trick-landing count getter matched exactly.
+Deferred after five attempts. No source-level form reproduced the target load-latency and branch-delay schedule, so the hand-written assembly match was removed.

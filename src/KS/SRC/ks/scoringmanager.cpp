@@ -79,46 +79,6 @@ __asm__(".equ sceWrite, 0x003DF228");
 int sceWrite(int file, const stringx &text) { int result = sceWrite(file, text.data, text.info->size); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00248720)
-// 0x00248720 GetNumTrickLandings__C14ScoringManager
-struct LevelTrick {
-    int numLandings;
-};
-
-class ScoringManager {
-    char padding[0x14];
-    LevelTrick levelTricks[95];
-
-public:
-    int GetNumTrickLandings() const;
-};
-
-int ScoringManager::GetNumTrickLandings() const
-{
-    register int total __asm__("$5");
-    __asm__ volatile(
-        ".set noreorder\n\t"
-        "addiu $4,%1,20\n\t"
-        "daddu $5,$0,$0\n\t"
-        "addiu $3,$0,94\n\t"
-        "nop\n"
-        "1:\n\t"
-        "lw $2,0($4)\n\t"
-        "addiu $3,$3,-1\n\t"
-        "addiu $4,$4,4\n\t"
-        "nop\n\t"
-        "nop\n\t"
-        "bgez $3,1b\n\t"
-        "addu $5,$5,$2\n\t"
-        ".set reorder"
-        : "=r"(total)
-        : "r"(this)
-        : "$2", "$3", "memory"
-    );
-    return total;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00249CC8)
 // 0x00249CC8 __Q214ScoringManager5Trick
 class ScoringManager {
