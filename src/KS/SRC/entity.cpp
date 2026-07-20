@@ -280,3 +280,12 @@ __asm__(".equ g_game_ptr, 0x0046AC64");
 class entity { char padding[0x1f0]; int which_hero; public: int get_hero_id(); };
 int entity::get_hero_id() { if (which_hero == -1) return g_game_ptr->active_player; return which_hero; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0012FDC8)
+// 0x0012FDC8 add_me_to_region__6entityP6region
+class entity;
+class region { public: void add(entity *value); };
+__asm__(".equ add__6regionP6entity, 0x002E72F0");
+class entity { public: void add_me_to_region(region *value); };
+void entity::add_me_to_region(region *value) { value->add(this); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
