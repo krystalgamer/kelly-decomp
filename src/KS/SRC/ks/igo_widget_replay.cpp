@@ -14,3 +14,9 @@ void ReplayWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); KELLY_
 class ReplayWidget { int padding[3]; int vcrButtonHL; public: void HighlightLeft(); };
 void ReplayWidget::HighlightLeft() { vcrButtonHL--; if (vcrButtonHL < 0) vcrButtonHL = 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0016BD70)
+// 0x0016BD70 HighlightRight__12ReplayWidget
+class ReplayWidget { int padding[3]; int vcrButtonHL; public: void HighlightRight(); };
+void ReplayWidget::HighlightRight() { vcrButtonHL++; if (vcrButtonHL > 4) vcrButtonHL = 4; }
+#endif
