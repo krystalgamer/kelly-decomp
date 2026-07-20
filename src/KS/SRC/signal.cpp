@@ -89,3 +89,26 @@ void CodeCallbackDtor(void *self, int deleting) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034BEE8)
+// 0x0034BEE8 spawn__13code_callbackP9signaller
+class signaller;
+
+class code_callback {
+    char *parms;
+    bool disabled;
+    bool one_shot;
+    unsigned int id;
+    const void *vtable;
+    void (*func)(signaller *, const char *);
+
+public:
+    void spawn(signaller *sgrptr);
+};
+
+void code_callback::spawn(signaller *sgrptr)
+{
+    if (!disabled)
+        func(sgrptr, parms);
+}
+#endif
