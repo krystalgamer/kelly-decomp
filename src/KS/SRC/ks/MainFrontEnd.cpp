@@ -16,3 +16,35 @@ class MultiplayerMenu : public FEMenu { public: void Update(float dt); void Upda
 __asm__(".equ UpdateDisable__15MultiplayerMenu, 0x00183DC8");
 void MultiplayerMenu::Update(float dt) { FEMenu::Update(dt); UpdateDisable(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017F7A8)
+// 0x0017F7A8 UpdateInScene__12MainFrontEnd
+struct menu_vtable {
+    char padding[0x58];
+    short adjustment;
+    short padding2;
+    void (*update_in_scene)(void *self);
+};
+
+struct menu_layout {
+    char padding[0x74];
+    menu_vtable *vtable;
+};
+
+class MainFrontEnd {
+    char padding[0x60];
+    menu_layout *active;
+
+public:
+    void UpdateInScene();
+};
+
+void MainFrontEnd::UpdateInScene()
+{
+    menu_layout *menu = active;
+    if (menu) {
+        menu_vtable *table = menu->vtable;
+        table->update_in_scene((char *)menu + table->adjustment);
+    }
+}
+#endif
