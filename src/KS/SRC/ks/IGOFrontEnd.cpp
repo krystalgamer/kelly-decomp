@@ -80,3 +80,35 @@ __asm__(".equ Show__11PhotoWidgetP10nglTexturePii, 0x0016AE98");
 class IGOFrontEnd { char padding[0x5ac]; PhotoWidget *photoWidget; public: void ShowPhoto(nglTexture *texture, int *score, int photo); };
 void IGOFrontEnd::ShowPhoto(nglTexture *texture, int *score, int photo) { if (photoWidget) { photoWidget->Show(texture, score, photo); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017CED0)
+// 0x0017CED0 ShowMenuBackground__11IGOFrontEndb
+struct widget_vtable {
+    char padding[0x38];
+    short adjustment;
+    short padding2;
+    void (*show)(void *self, bool enabled);
+};
+
+struct simple_widget_layout {
+    char padding[4];
+    widget_vtable *vtable;
+};
+
+class IGOFrontEnd {
+    char padding[0x584];
+    simple_widget_layout *menuBGWidget;
+
+public:
+    void ShowMenuBackground(bool enabled);
+};
+
+void IGOFrontEnd::ShowMenuBackground(bool enabled)
+{
+    simple_widget_layout *widget = menuBGWidget;
+    if (widget) {
+        widget_vtable *table = widget->vtable;
+        table->show((char *)widget + table->adjustment, enabled);
+    }
+}
+#endif
