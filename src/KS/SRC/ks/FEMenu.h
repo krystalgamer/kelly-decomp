@@ -572,3 +572,12 @@ struct menu_text { char padding[0x4c]; text_vtable *vtable; };
 class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetZ(int z); };
 void FEMenuEntry::SetZ(int z) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, z); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA630)
+// 0x001DA630 SetHJustify__11FEMenuEntryQ24Font9HORIZJUST
+class Font { public: enum HORIZJUST { HORIZJUST_LEFT }; };
+struct text_vtable { char padding[0x20]; short adjustment; short padding2; void (*call)(void *, Font::HORIZJUST); };
+struct menu_text { char padding[0x4c]; text_vtable *vtable; };
+class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetHJustify(Font::HORIZJUST value); };
+void FEMenuEntry::SetHJustify(Font::HORIZJUST value) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, value); }
+#endif
