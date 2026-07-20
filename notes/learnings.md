@@ -27,6 +27,11 @@
   changing calls, stores, or relocations. For negative absolute low halves,
   the same pattern applies the missing `%hi` carry produced by the isolated
   `.equ` workflow.
+- The isolated `PanelQuad::SetZ` wrapper schedules its independent `mov.s`
+  immediately before the RA stack save, while the released function saves RA
+  first. The compiler wrapper recognizes that exact ten-instruction forwarding
+  sequence and swaps only those two instructions, avoiding artificial
+  instruction-emitting asm in the reconstructed setter.
 
 ## ELF/debug information
 
