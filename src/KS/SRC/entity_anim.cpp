@@ -111,3 +111,12 @@ entity_track_node::entity_track_node() { field0 = -1; field4 = 1; field20 = 0; f
 class entity_anim_tree { char padding0[0x44]; float blend_a; char padding1[0x2c]; float blend_b; public: void set_blend(float first, float second); };
 void entity_anim_tree::set_blend(float first, float second) { float sum = first + second; float one = 1.0f; __asm__ volatile("nop"); float reciprocal = one / sum; blend_a = first * reciprocal; blend_b = second * reciprocal; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00118598)
+// 0x00118598 is_root__C16entity_anim_treeP6entity
+class entity;
+struct entity_anim { char padding[8]; entity *ent; };
+struct anim_vector { entity_anim **begin; entity_anim **end; };
+class entity_anim_tree { char padding[0x68]; anim_vector *anims; public: bool is_root(entity *value) const; };
+bool entity_anim_tree::is_root(entity *value) const { return anims->begin != anims->end && (*anims->begin)->ent == value; }
+#endif
