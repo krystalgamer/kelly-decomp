@@ -50,3 +50,28 @@ struct nglTexture { char padding[8]; unsigned short Width; unsigned short Height
 class mat_fac { char padding[4]; nglTexture *map; public: int get_original_height(int frame, map_e which) const; };
 int mat_fac::get_original_height(int frame, map_e which) const { if (!map) return 0; return map->Height; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002BD1D8)
+// 0x002BD1D8 set_blend_mode__7mat_facUii
+struct nglMaterial {
+    unsigned int Flags;
+    char padding[0x34];
+    unsigned int MapBlendMode;
+};
+
+class mat_fac {
+    nglMaterial material;
+
+public:
+    void set_blend_mode(unsigned int mode, int map);
+};
+
+void mat_fac::set_blend_mode(unsigned int mode, int map)
+{
+    material.MapBlendMode = mode;
+    if (mode == 0 || mode == 1)
+        material.Flags &= ~1u;
+    else
+        material.Flags |= 1u;
+}
+#endif
