@@ -50,3 +50,12 @@ __asm__(".equ render__6entityP6camerafUif, 0x001324E0");
 class visual_item : public entity { public: void render(camera *camera_link, float detail, unsigned int flavor, float translucency); };
 void visual_item::render(camera *camera_link, float detail, unsigned int flavor, float translucency) { entity::render(camera_link, detail, flavor, translucency); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0028A1B8)
+// 0x0028A1B8 render__4itemP6camerafUif
+class camera;
+class entity { public: void render(camera *camera_link, float detail, unsigned int flavor, float translucency); };
+__asm__(".equ render__6entityP6camerafUif, 0x001324E0");
+class item : public entity { char padding[0x214]; int count; public: void render(camera *camera_link, float detail, unsigned int flavor, float translucency); };
+void item::render(camera *camera_link, float detail, unsigned int flavor, float translucency) { if (count > 0) { entity::render(camera_link, detail, flavor, translucency); KELLY_DECOMP_COMPILER_BARRIER(); } }
+#endif
