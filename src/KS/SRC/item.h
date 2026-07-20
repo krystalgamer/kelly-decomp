@@ -164,3 +164,10 @@ bool morphable_item::is_a_morphable_item() const {
     return true;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B85D8)
+// 0x002B85D8 is_usable__C4item
+struct item_vtable { char padding[0x628]; short adjustment; short padding2; int (*usable)(void *self); };
+class item { char padding[8]; item_vtable *vtable; public: bool is_usable() const; };
+bool item::is_usable() const { item_vtable *table = vtable; return table->usable((char *)this + table->adjustment) > 0; }
+#endif
