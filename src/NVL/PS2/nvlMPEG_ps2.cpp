@@ -168,3 +168,9 @@ extern "C" void RotateThreadReadyQueue(int count);
 __asm__(".equ RotateThreadReadyQueue, 0x003DB5B0");
 void defMain(void *argument) { for (;;) { RotateThreadReadyQueue(1); __asm__ volatile("nop\n\tnop\n\tnop\n\tnop"); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00388A60)
+// 0x00388A60 readBufEndGet__FP7ReadBufi
+struct ReadBuf { char padding[0x50004]; int count; };
+int readBufEndGet(ReadBuf *buffer, int size) { register int selected __asm__("$2") = buffer->count; register int remaining __asm__("$6") = selected; register int use_size __asm__("$3") = size < selected; if (use_size) selected = size; remaining -= selected; buffer->count = remaining; return selected; }
+#endif
