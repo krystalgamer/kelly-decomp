@@ -221,3 +221,11 @@ class ref { int count; public: ref() : count(0) {} };
 class vert_buf : public ref { void *verts; int max_size; bool locked; bool optimized; public: vert_buf(); };
 vert_buf::vert_buf() { verts = 0; max_size = 0; locked = false; optimized = false; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E2A10)
+// 0x001E2A10 _$_14vertex_context
+extern "C" void builtin_delete(void *pointer) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+extern "C" void VertexContextDtor(void *self, int deleting) __asm__("_$_14vertex_context");
+void VertexContextDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
