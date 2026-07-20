@@ -99,3 +99,27 @@ void vrep_widget::update_pos() {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003419E0)
+// 0x003419E0 update_scale__11vrep_widget
+class widget {
+public:
+    void update_scale();
+};
+
+__asm__(".equ update_scale__6widget, 0x0033E710");
+
+class vrep_widget : public widget {
+public:
+    void update_scale();
+    void update_mat();
+};
+
+__asm__(".equ update_mat__11vrep_widget, 0x00341E60");
+
+void vrep_widget::update_scale() {
+    widget::update_scale();
+    update_mat();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
