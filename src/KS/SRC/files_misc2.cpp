@@ -98,3 +98,35 @@ value8 *UninitializedFill(
     return first;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002F9BB0)
+// 0x002F9BB0 __uninitialized_fill_n_aux__H3ZP5wedgeZUiZ5wedge_X01X11RCX21G12__false_type_X01
+inline void *operator new(unsigned int, void *place) {
+    return place;
+}
+
+struct __attribute__((packed)) wedge {
+    int value;
+};
+
+extern "C" wedge *UninitializedFill(
+    wedge *first,
+    unsigned int count,
+    const wedge &value
+) __asm__("__uninitialized_fill_n_aux__H3ZP5wedgeZUiZ5wedge_X01X11RCX21G12__false_type_X01");
+
+wedge *UninitializedFill(
+    wedge *first,
+    unsigned int count,
+    const wedge &value
+) {
+    while (count) {
+        if (first) {
+            new (first) wedge(value);
+        }
+        --count;
+        ++first;
+    }
+    return first;
+}
+#endif
