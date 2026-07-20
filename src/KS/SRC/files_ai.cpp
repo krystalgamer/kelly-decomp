@@ -197,3 +197,39 @@ void Fill(
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00111390)
+// 0x00111390 __uninitialized_fill_n_aux__H3ZP8vector3dZUiZ8vector3d_X01X11RCX21G12__false_type_X01
+inline void *operator new(unsigned int, void *place) {
+    return place;
+}
+
+struct vector3d {
+    float x;
+    float y;
+    float z;
+
+    vector3d(const vector3d &other)
+        : x(other.x), y(other.y), z(other.z) {}
+};
+
+extern "C" vector3d *UninitializedFill(
+    vector3d *first,
+    unsigned int count,
+    const vector3d &value
+) __asm__("__uninitialized_fill_n_aux__H3ZP8vector3dZUiZ8vector3d_X01X11RCX21G12__false_type_X01");
+
+vector3d *UninitializedFill(
+    vector3d *first,
+    unsigned int count,
+    const vector3d &value
+) {
+    while (count) {
+        if (first)
+            new (first) vector3d(value);
+        --count;
+        ++first;
+    }
+    return first;
+}
+#endif
