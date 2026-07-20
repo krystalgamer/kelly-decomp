@@ -32,3 +32,11 @@ extern "C" void ScriptDtor_00328508(void *self) __asm__("_$_30slf_signaller_clea
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00328508(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00328440)
+// 0x00328440 __cl__31slf_signaller_disable_signals_tR8vm_stackQ320script_library_class8function7entry_t
+struct vm_stack_layout { char padding[8]; char *top; };
+struct signaller_layout { unsigned int flags; };
+extern "C" bool DisableSignalsOp(void *self, vm_stack_layout *stack, int entry) __asm__("__cl__31slf_signaller_disable_signals_tR8vm_stackQ320script_library_class8function7entry_t");
+bool DisableSignalsOp(void *self, vm_stack_layout *stack, int entry) { stack->top -= 4; signaller_layout *signaller = *(signaller_layout **)stack->top; signaller->flags |= 1; return true; }
+#endif
