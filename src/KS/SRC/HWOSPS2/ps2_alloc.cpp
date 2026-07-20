@@ -26,3 +26,10 @@ void arch_free(void *pointer);
 __asm__(".equ arch_free__FPv, 0x002AC768");
 void os_free32(void *pointer) { arch_free(pointer); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DF9C8)
+// 0x001DF9C8 os_malloc__Fi
+void *arch_malloc(unsigned int size, const char *file, int line);
+__asm__(".equ arch_malloc__FUiPCci, 0x002AC6F0");
+void *os_malloc(int size) { const char *file = (const char *)0x004D0000; __asm__ volatile("" : "+r"(file)); file -= 0x1da0; void *result = arch_malloc(size, file, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
