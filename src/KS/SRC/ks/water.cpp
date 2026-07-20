@@ -63,3 +63,10 @@ void WAVE_SetDraw(bool enabled);
 __asm__(".equ WAVE_SetDraw__Fb, 0x0037DC30");
 void WATER_SetDrawWave(bool enabled) { WAVE_SetDraw(enabled); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00372888)
+// 0x00372888 WATER_SetDrawFar__Fb
+extern unsigned long long WaterDebugFlags;
+__asm__(".equ WaterDebugFlags, 0x00484618");
+void WATER_SetDrawFar(bool enabled) { WaterDebugFlags = (WaterDebugFlags & ~(1ULL << 6)) | ((unsigned long long)(enabled & 1) << 6); }
+#endif
