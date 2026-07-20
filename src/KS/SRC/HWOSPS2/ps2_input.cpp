@@ -54,3 +54,30 @@ __asm__(".equ developer_options_ptr, 0x0046B180");
 class ps2_joypad_device { char padding[0x66]; signed char pad_type; public: bool is_vibrator_present() const; };
 bool ps2_joypad_device::is_vibrator_present() const { if (developer_options_ptr->no_rumble) return false; return pad_type == 0x79; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E2258)
+// 0x001E2258 set_button_a__17ps2_joypad_deviceii
+struct joypad_vtable {
+    char padding[0x88];
+    short adjustment;
+    short padding2;
+    void (*set_button_d)(void *self, int button, bool state);
+};
+
+class ps2_joypad_device {
+    char padding[4];
+    joypad_vtable *vtable;
+
+public:
+    void set_button_a(int button, int state);
+};
+
+void ps2_joypad_device::set_button_a(int button, int state) {
+    joypad_vtable *table = vtable;
+    table->set_button_d(
+        (char *)this + table->adjustment,
+        button,
+        state > 127
+    );
+}
+#endif
