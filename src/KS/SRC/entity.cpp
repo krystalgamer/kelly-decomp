@@ -313,3 +313,10 @@ class entity_id { public: entity_id(const char *name); void set_entity_id(const 
 __asm__(".equ set_entity_id__9entity_idPCc, 0x00128A08");
 entity_id::entity_id(const char *name) { set_entity_id(name); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0012FB18)
+// 0x0012FB18 get_angular_velocity__C6entityP8vector3d
+struct vector3d { float x; float y; float z; vector3d(float px, float py, float pz) : x(px), y(py), z(pz) {} vector3d &operator=(const vector3d &other) { z = other.z; KELLY_DECOMP_COMPILER_BARRIER(); x = other.x; KELLY_DECOMP_COMPILER_BARRIER(); y = other.y; return *this; } };
+class entity { public: void get_angular_velocity(vector3d *target) const; };
+void entity::get_angular_velocity(vector3d *target) const { *target = vector3d(0.0f, 0.0f, 0.0f); }
+#endif
