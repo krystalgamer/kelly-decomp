@@ -28,3 +28,10 @@ class IconChallenge { public: class Task { void *icon; int completed; public: vo
 __asm__(".equ CheckForCompletion__Q213IconChallenge4TaskP22kellyslater_controller, 0x00261108");
 void IconChallenge::Task::Update(kellyslater_controller *controller, float dt) { if (!completed) { CheckForCompletion(controller); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002610B8)
+// 0x002610B8 Spawn__Q213IconChallenge4Task
+class IconChallenge { public: class Icon { public: void Spawn(); }; class Task { Icon *icon; public: void Spawn(); }; };
+__asm__(".equ Spawn__Q213IconChallenge4Icon, 0x00261BB0");
+void IconChallenge::Task::Spawn() { if (icon) { icon->Spawn(); KELLY_DECOMP_COMPILER_BARRIER(); } }
+#endif
