@@ -954,3 +954,52 @@ bool slf_play_sound_vol_t::operator()(
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00322EA0)
+// 0x00322EA0 __cl__30slf_set_global_time_dilation_tR8vm_stackQ320script_library_class8function7entry_t
+class vm_stack {
+    char padding[8];
+    unsigned char *top;
+
+public:
+    void *pop(int size) {
+        top -= size;
+        return top;
+    }
+};
+
+extern float g_time_dilation;
+__asm__(".equ g_time_dilation, 0x003E5850");
+
+class script_library_class {
+public:
+    class function {
+    public:
+        enum entry_t { FIRST_ENTRY };
+    };
+};
+
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+
+class slf_set_global_time_dilation_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        float dilation;
+    };
+
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+
+bool slf_set_global_time_dilation_t::operator()(
+    vm_stack &stack,
+    entry_t entry
+) {
+    SLF_PARMS;
+    g_time_dilation = parms->dilation;
+    if (g_time_dilation < 0.0f)
+        g_time_dilation = 0.0f;
+    SLF_DONE;
+}
+#endif
