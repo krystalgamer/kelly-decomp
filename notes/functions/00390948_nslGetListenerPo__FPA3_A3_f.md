@@ -5,7 +5,7 @@
 - Object: `nsl/nsl_ps2`
 - Debug source: `C:/NSL/PS2/nsl_ps2.cpp`
 - Reference source: `NSL/PS2/nsl_ps2.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -15,7 +15,7 @@
 | 2 | different | 19.7368 | 0.0 | `candidate.cpp` |
 | 3 | different | 19.7368 | 0.0 | `candidate.cpp` |
 | 4 | different | 19.7368 | 0.0 | `candidate.cpp` |
-| 5 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 5 | policy-invalid | 100.0 | 100.0 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
@@ -35,8 +35,8 @@ Recast the matrix as four aligned TI-mode quadwords behind an ABI-named wrapper.
 
 ### Attempt 5 notes
 
-The released operation is a 64-byte memcpy from `nsl.listenerPo` to the destination. Instruction-emitting inline assembly is limited to that exact copy because the isolated EE GCC consistently expands the aligned memcpy into eight 64-bit transfers rather than the target's four 128-bit transfers; these ten instructions reproduce only the target address setup and LQ/SQ copy sequence.
+Invalid attempt. It replaced the released `memcpy` with the target's hand-written LQ/SQ instruction sequence.
 
 ## Outcome
 
-The released NSL listener-matrix memcpy matched exactly with the target's 128-bit copy expansion.
+Deferred after five attempts. The available EE GCC does not reproduce the target's four 128-bit transfers from source-level `memcpy`, so no assembly replacement is integrated.
