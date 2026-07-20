@@ -226,3 +226,40 @@ rational_t text_widget::get_width() const
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00340540)
+// 0x00340540 get_height__C11text_widget
+typedef float rational_t;
+
+class stringx {};
+
+class typeface_def {
+public:
+    int text_height(const stringx &s) const;
+};
+
+__asm__(".equ text_height__C12typeface_defRC7stringx, 0x0033CD88");
+
+class text_widget {
+    char padding[0x144];
+    typeface_def *text_font;
+    stringx m_tout;
+
+public:
+    rational_t get_height() const;
+};
+
+rational_t text_widget::get_height() const
+{
+    int height = text_font->text_height(m_tout);
+    rational_t result;
+    __asm__ volatile(
+        "mtc1 %1,%0\n\t"
+        "nop\n\t"
+        "cvt.s.w %0,%0"
+        : "=f"(result)
+        : "r"(height)
+    );
+    return result;
+}
+#endif
