@@ -127,39 +127,3 @@ __asm__(".equ ks_fx_reset__Fv, 0x0036C4D8");
 __asm__(".equ ks_fx_init_wave__Fv, 0x00368160");
 void ks_fx_OnNewWave() { ks_fx_reset(); ks_fx_init_wave(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0036B0E8)
-// 0x0036B0E8 ks_fx_end_wipeout_splash__Fi
-struct wipeout_splash {
-    bool valid;
-    float start_time;
-    int hero_index;
-};
-
-extern wipeout_splash wipeout_splashes[2];
-__asm__(".equ wipeout_splashes, 0x00485A18");
-
-void ks_fx_end_wipeout_splash(int index)
-{
-    __asm__ volatile(
-        ".set noreorder\n\t"
-        "lui $2,0x48\n\t"
-        "addiu $3,$2,23064\n\t"
-        "addiu $5,$3,24\n\t"
-        "lw $2,8($3)\n"
-        "1:\n\t"
-        "beql $2,$4,2f\n\t"
-        "sw $0,0($3)\n"
-        "2:\n\t"
-        "addiu $3,$3,12\n\t"
-        "slt $2,$3,$5\n\t"
-        "nop\n\t"
-        "bnezl $2,1b\n\t"
-        "lw $2,8($3)\n\t"
-        ".set reorder"
-        :
-        : "r"(index)
-        : "$2", "$3", "$5", "memory"
-    );
-}
-#endif
