@@ -81,3 +81,30 @@ void ps2_joypad_device::set_button_a(int button, int state) {
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E1468)
+// 0x001E1468 get_name__C17ps2_joypad_device
+class stringx {
+    char *chars;
+    void *my_buf;
+
+public:
+    stringx(const char *text, int length = -1);
+    ~stringx();
+};
+
+__asm__(".equ __7stringxPCci, 0x0034D438");
+
+extern const char joypad_name[];
+__asm__(".equ joypad_name, 0x004DE760");
+
+class ps2_joypad_device {
+public:
+    stringx get_name() const;
+};
+
+stringx ps2_joypad_device::get_name() const
+{
+    return stringx(joypad_name);
+}
+#endif
