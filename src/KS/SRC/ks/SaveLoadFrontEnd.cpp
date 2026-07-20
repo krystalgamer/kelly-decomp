@@ -116,3 +116,11 @@ __asm__(".equ strcpy, 0x003D3FCC");
 class SaveLoadFrontEnd { char padding0[0x3230]; char desc[0xb0]; bool overwrite; public: void SetOverwrite(const char *filename); };
 void SaveLoadFrontEnd::SetOverwrite(const char *filename) { overwrite = filename == 0; if (!overwrite) strcpy(desc, filename); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0019F0B8)
+// 0x0019F0B8 DrawHeader__9NamesMenu
+struct menu_entry_vtable { char padding[0x38]; short adjustment; short padding2; void (*draw)(void *self); };
+struct menu_entry { char padding[0x60]; menu_entry_vtable *vtable; };
+class NamesMenu { char padding[0x4c]; menu_entry *highlighted; public: void DrawHeader(); };
+void NamesMenu::DrawHeader() { menu_entry_vtable *table = highlighted->vtable; table->draw((char *)highlighted + table->adjustment); }
+#endif
