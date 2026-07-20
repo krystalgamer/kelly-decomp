@@ -110,3 +110,10 @@ __asm__(".equ TIMER_TotalSec, 0x0046B27C");
 class KSReplayFrame { float wave_shiftx; float levelTime; float totalTime; public: void Save(); };
 void KSReplayFrame::Save() { wave_shiftx = WAVE_ShiftX; levelTime = TIMER_LevelSec; totalTime = TIMER_TotalSec; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023C978)
+// 0x0023C978 Restart__8KSReplay
+class KSReplay { char padding[0xd4]; int firstFrame; public: void Restart(); void Play(); };
+__asm__(".equ Play__8KSReplay, 0x0023C6A0");
+void KSReplay::Restart() { Play(); firstFrame = 1; }
+#endif
