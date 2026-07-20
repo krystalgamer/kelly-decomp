@@ -357,3 +357,44 @@ void nglResetDisplay() {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0039A0B8)
+// 0x0039A0B8 nglOpenRenderList__FPt4pair2ZP11nglListNodeZUiP11nglListNodeUi
+struct nglListNode {
+    nglListNode *Next;
+    char padding[8];
+    unsigned int Hash;
+};
+
+struct node_pair {
+    nglListNode *first;
+    unsigned int second;
+};
+
+extern "C" void OpenRenderList(
+    node_pair *table,
+    nglListNode *list,
+    unsigned int size
+) __asm__("nglOpenRenderList__FPt4pair2ZP11nglListNodeZUiP11nglListNodeUi");
+
+void OpenRenderList(
+    node_pair *table,
+    nglListNode *list,
+    unsigned int size
+) {
+    node_pair *entry = table;
+    if (!list) {
+        return;
+    }
+
+loop:
+    entry->first = list;
+    entry->second = list->Hash;
+    list = list->Next;
+    __asm__ volatile("nop");
+    if (list) {
+        ++entry;
+        goto loop;
+    }
+}
+#endif
