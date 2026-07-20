@@ -806,3 +806,26 @@ void BoxText::OnDown(int controller) {
     table->scroll((char *)this + table->adjustment, false, 1);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D8C48)
+// 0x001D8C48 OnUp__7BoxTexti
+struct box_text_vtable {
+    char padding[0x140];
+    short adjustment;
+    short padding2;
+    bool (*scroll)(void *self, bool up, int lines);
+};
+
+class BoxText {
+    char padding[0x4c];
+    box_text_vtable *vtable;
+
+public:
+    void OnUp(int controller);
+};
+
+void BoxText::OnUp(int controller) {
+    box_text_vtable *table = vtable;
+    table->scroll((char *)this + table->adjustment, true, 1);
+}
+#endif
