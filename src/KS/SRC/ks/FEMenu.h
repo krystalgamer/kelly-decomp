@@ -599,3 +599,11 @@ struct FEMenuEntry { char padding[0x24]; menu_text *text; };
 extern "C" void SetFadeAlias(FEMenuEntry *entry, bool start, bool fade_in, float time) __asm__("SetFade__11FEMenuEntrybT1f");
 void SetFadeAlias(FEMenuEntry *entry, bool start, bool fade_in, float time) { text_vtable *table = entry->text->vtable; table->call((char *)entry->text + table->adjustment, start, fade_in, time); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA6C0)
+// 0x001DA6C0 SetLineSpacing__11FEMenuEntryi
+struct text_vtable { char padding[0xd8]; short adjustment; short padding2; void (*call)(void *, int); };
+struct menu_text { char padding[0x4c]; text_vtable *vtable; };
+class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetLineSpacing(int spacing); };
+void FEMenuEntry::SetLineSpacing(int spacing) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, spacing); }
+#endif
