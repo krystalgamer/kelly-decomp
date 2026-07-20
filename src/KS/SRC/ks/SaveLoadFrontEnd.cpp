@@ -101,3 +101,10 @@ class KeyboardMenu { public: void TurnPQ(bool value); void OnUnactivate(FEMenu *
 __asm__(".equ TurnPQ__12KeyboardMenub, 0x001A1C10");
 void KeyboardMenu::OnUnactivate(FEMenu *menu) { TurnPQ(false); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0019B738)
+// 0x0019B738 ReadyToAccess__16SaveLoadFrontEndii
+class SaveLoadFrontEnd { public: void SetDState(int state, bool ready, bool failed); void ReadyToAccess(int ignored, int state); };
+__asm__(".equ SetDState__16SaveLoadFrontEndibb, 0x0019B760");
+void SaveLoadFrontEnd::ReadyToAccess(int ignored, int state) { SetDState(state, true, false); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
