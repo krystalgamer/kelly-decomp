@@ -301,3 +301,38 @@ void FloatingPQ::SetBehavior(bool enabled) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014C5D0)
+// 0x0014C5D0 DrawLine__13PreformatTextiff
+struct stringx {
+    void *chars;
+    void *buffer;
+};
+
+struct text_vtable {
+    char padding[0x118];
+    short adjustment;
+    short padding2;
+    void (*render)(void *self, stringx *text, float x, float y);
+};
+
+class PreformatText {
+    char padding[0x4C];
+    text_vtable *vtable;
+    stringx *file_head;
+
+public:
+    void DrawLine(int line_num, float x, float y);
+};
+
+void PreformatText::DrawLine(int line_num, float x, float y)
+{
+    text_vtable *table = vtable;
+    table->render(
+        (char *)this + table->adjustment,
+        &file_head[line_num],
+        x,
+        y
+    );
+}
+#endif
