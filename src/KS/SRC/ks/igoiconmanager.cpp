@@ -38,3 +38,11 @@ __asm__(".equ __builtin_delete, 0x002AC6B0");
 extern "C" void IconResourceDtor(void *self, int deleting) __asm__("_$_Q214IGOIconManager12IconResource");
 void IconResourceDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00163C90)
+// 0x00163C90 _$_Q214IGOIconManager4Icon
+extern "C" void builtin_delete(void *pointer) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+extern "C" void IconDtor(void *self, int deleting) __asm__("_$_Q214IGOIconManager4Icon");
+void IconDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
