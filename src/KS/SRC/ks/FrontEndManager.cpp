@@ -137,3 +137,35 @@ void FEManager::OnLevelLoaded()
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00198900)
+// 0x00198900 OnLevelEnding__9FEManager
+struct frontend_vtable {
+    char padding[0x1E8];
+    short adjustment;
+    short padding2;
+    void (*on_level_ending)(void *self);
+};
+
+struct beach_frontend_layout {
+    char padding[0x74];
+    frontend_vtable *vtable;
+};
+
+class FEManager {
+    char padding[0x156A0];
+    beach_frontend_layout *map;
+
+public:
+    void OnLevelEnding();
+};
+
+void FEManager::OnLevelEnding()
+{
+    beach_frontend_layout *frontend = map;
+    frontend_vtable *table = frontend->vtable;
+    table->on_level_ending(
+        (char *)frontend + table->adjustment
+    );
+}
+#endif
