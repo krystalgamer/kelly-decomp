@@ -427,3 +427,33 @@ void nglDestroyMesh(nglMesh *mesh) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0039C750)
+// 0x0039C750 nglGetTexture__FRC14nglFixedString
+class nglFixedString {};
+class nglTexture;
+
+class nglInstanceBank {
+public:
+    struct Instance {
+        char padding[0x20];
+        void *Value;
+    };
+
+    Instance *Search(const nglFixedString &name);
+};
+
+__asm__(".equ Search__15nglInstanceBankRC14nglFixedString, 0x003AC608");
+
+extern nglInstanceBank nglTextureBank;
+__asm__(".equ nglTextureBank, 0x004BBFF8");
+
+nglTexture *nglGetTexture(const nglFixedString &fileName)
+{
+    nglInstanceBank::Instance *instance =
+        nglTextureBank.Search(fileName);
+    if (!instance)
+        return 0;
+    return (nglTexture *)instance->Value;
+}
+#endif
