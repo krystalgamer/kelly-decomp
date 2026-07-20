@@ -296,3 +296,65 @@ bool slf_beam_set_material_t::operator()(vm_stack &stack, entry_t entry) {
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00326158)
+// 0x00326158 __cl__29slf_beam_set_point_to_point_tR8vm_stackQ320script_library_class8function7entry_t
+struct vector3d {
+    float x;
+    float y;
+    float z;
+};
+
+class beam {
+public:
+    void set_point_to_point(
+        const vector3d &start,
+        const vector3d &end
+    );
+};
+
+__asm__(".equ set_point_to_point__4beamRC8vector3dT1, 0x002717B0");
+
+class vm_stack {
+    char padding[8];
+    unsigned char *top;
+
+public:
+    void *pop(int size) {
+        top -= size;
+        return top;
+    }
+};
+
+class script_library_class {
+public:
+    class function {
+    public:
+        enum entry_t { FIRST_ENTRY };
+    };
+};
+
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+
+class slf_beam_set_point_to_point_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        beam *me;
+        vector3d start;
+        vector3d end;
+    };
+
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+
+bool slf_beam_set_point_to_point_t::operator()(
+    vm_stack &stack,
+    entry_t entry
+) {
+    SLF_PARMS;
+    parms->me->set_point_to_point(parms->start, parms->end);
+    SLF_DONE;
+}
+#endif
