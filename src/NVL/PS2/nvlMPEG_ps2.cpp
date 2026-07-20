@@ -241,3 +241,23 @@ int mpegNodata(
     return 1;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003889A0)
+// 0x003889A0 readBufBeginPut__FP7ReadBufPPUc
+struct ReadBuf {
+    unsigned char data[0x50000];
+    int put;
+    int count;
+    int size;
+};
+
+static int readBufBeginPut(ReadBuf *buffer, unsigned char **pointer)
+{
+    int size = buffer->size - buffer->count;
+    if (size)
+        *pointer = buffer->data + buffer->put;
+    return size;
+}
+
+__asm__(".globl readBufBeginPut__FP7ReadBufPPUc");
+#endif
