@@ -21,3 +21,30 @@ __asm__(".equ strcmp, 0x003D3E88");
 class chunk_flavor { char text[1]; public: bool operator==(const chunk_flavor &other) const; };
 bool chunk_flavor::operator==(const chunk_flavor &other) const { return strcmp(text, other.text) == 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00336B30)
+// 0x00336B30 to_stringx__C12chunk_flavor
+class stringx {
+    int value;
+
+public:
+    stringx(const char *text, int length = -1);
+
+    stringx(const stringx &other) {
+        value = other.value;
+    }
+};
+
+__asm__(".equ __7stringxPCci, 0x0034D438");
+
+class chunk_flavor {
+    char flavor[1];
+
+public:
+    stringx to_stringx() const;
+};
+
+stringx chunk_flavor::to_stringx() const {
+    return stringx(flavor);
+}
+#endif
