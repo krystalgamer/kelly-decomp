@@ -177,3 +177,9 @@ bool beam::possibly_active() const { entity_vtable_layout *table = vtable; retur
 class beam_effect { char padding0[10]; signed char mode; public: bool is_delaying() const; };
 bool beam_effect::is_delaying() const { return mode == 1 || mode == -1; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B8468)
+// 0x002B8468 is_active__C11beam_effect
+class beam_effect { char padding0[10]; signed char mode; public: bool is_active() const; };
+bool beam_effect::is_active() const { return mode == 2 || mode == -2; }
+#endif
