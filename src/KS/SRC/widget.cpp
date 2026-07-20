@@ -151,3 +151,41 @@ void widget::scale_to(float horizontal, float vertical) {
     table->update_scale((char *)this + table->adjustment);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033F298)
+// 0x0033F298 get_next_rhw_2d_val__6widget
+typedef float rational_t;
+
+class widget {
+public:
+    enum rhw_layer_e {
+        RHW0,
+        RHW1,
+        RHW2,
+        RHW3,
+        RHW4,
+        RHW5,
+        RHW6,
+        RHW7,
+        RHW8,
+        RHW9,
+        RHW_OVER_PFE1,
+        RHW_OVER_PFE2,
+        NUM_RHW_LAYERS
+    };
+
+    static rhw_layer_e rhw_2d_layer;
+    static rational_t rhw_2d_val[NUM_RHW_LAYERS];
+    static rational_t get_next_rhw_2d_val();
+};
+
+__asm__(".equ _6widget$rhw_2d_layer, 0x0046B730");
+__asm__(".equ _6widget$rhw_2d_val, 0x005A3EB0");
+
+rational_t widget::get_next_rhw_2d_val()
+{
+    rational_t retval = rhw_2d_val[rhw_2d_layer];
+    rhw_2d_val[rhw_2d_layer] += 1.0f;
+    return retval;
+}
+#endif
