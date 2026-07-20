@@ -204,3 +204,14 @@ int mpegRestartDMA(sceMpeg *mpeg, sceMpegCbData *data, void *user) { viBufRestar
 struct QWORD { unsigned long long value; };
 void scTag2(QWORD *tag, void *address, unsigned int qwc, unsigned int id) { tag->value = ((unsigned long long)(unsigned int)address << 32) | ((unsigned long long)qwc << 28) | (unsigned int)id; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00388EE0)
+// 0x00388EE0 mpegError__FP7sceMpegP18sceMpegCbDataErrorPv
+struct sceMpeg;
+struct sceMpegCbDataError { int field0; const char *errMessage; };
+int nvlPrintf(const char *format, ...);
+extern const char mpeg_error_format[];
+__asm__(".equ nvlPrintf__FPCce, 0x0038AD50");
+__asm__(".equ mpeg_error_format, 0x0051B718");
+int mpegError(sceMpeg *mpeg, sceMpegCbDataError *error, void *data) { nvlPrintf(mpeg_error_format, error->errMessage); return 1; }
+#endif
