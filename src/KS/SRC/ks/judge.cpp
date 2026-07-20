@@ -8,3 +8,10 @@ __asm__(".equ __builtin_delete, 0x002AC6B0");
 extern "C" void JudgingSystemDtor(void *self, int deleting) __asm__("_$_13JudgingSystem");
 void JudgingSystemDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00259848)
+// 0x00259848 __13JudgingSystem
+class JudgingSystem { public: JudgingSystem(); void OnCompetitionReset(); };
+__asm__(".equ OnCompetitionReset__13JudgingSystem, 0x00259898");
+JudgingSystem::JudgingSystem() { OnCompetitionReset(); }
+#endif
