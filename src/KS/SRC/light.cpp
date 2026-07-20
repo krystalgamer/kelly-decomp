@@ -27,3 +27,12 @@ __asm__(".equ add__6regionP12light_source, 0x002E7C40");
 class light_source { public: void add_me_to_region(region *value); };
 void light_source::add_me_to_region(region *value) { value->add(this); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002CDD58)
+// 0x002CDD58 remove_me_from_region__12light_sourceP6region
+class light_source;
+class region { public: void remove(light_source *value); };
+__asm__(".equ remove__6regionP12light_source, 0x002E7D20");
+class light_source { public: void remove_me_from_region(region *value); };
+void light_source::remove_me_from_region(region *value) { value->remove(this); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
