@@ -51,3 +51,10 @@ struct entity_vtable_layout { char padding[0x260]; short adjustment; short paddi
 class particle_generator { char padding[8]; entity_vtable_layout *vtable; public: float get_visual_xz_radius_rel_center() const; };
 float particle_generator::get_visual_xz_radius_rel_center() const { entity_vtable_layout *table = vtable; return table->get_visual_radius((char *)this + table->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D2DF0)
+// 0x002D2DF0 set_created_entity_default_active_status__18particle_generator
+struct entity_vtable { char padding[0xf8]; short adjustment; short padding2; void (*set_active)(void *self, bool value); };
+class particle_generator { char padding[8]; entity_vtable *vtable; public: void set_created_entity_default_active_status(); };
+void particle_generator::set_created_entity_default_active_status() { entity_vtable *table = vtable; table->set_active((char *)this + table->adjustment, false); }
+#endif
