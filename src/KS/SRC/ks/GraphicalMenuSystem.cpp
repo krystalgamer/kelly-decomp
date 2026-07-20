@@ -70,3 +70,35 @@ struct legal_widget { char padding[0x4c]; legal_widget_vtable *vtable; };
 class LegalFrontEnd { char padding[0x150]; legal_widget *legal; public: void Draw(); };
 void LegalFrontEnd::Draw() { legal_widget_vtable *table = legal->vtable; table->draw((char *)legal + table->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BC9B0)
+// 0x001BC9B0 OnLeft__13TitleFrontEndi
+struct menu_vtable {
+    char padding[0xA8];
+    short adjustment;
+    short padding2;
+    void (*on_left)(void *self, int controller);
+};
+
+struct menu_layout {
+    char padding[0x74];
+    menu_vtable *vtable;
+};
+
+class TitleFrontEnd {
+    char padding[0x60];
+    menu_layout *active;
+
+public:
+    void OnLeft(int controller);
+};
+
+void TitleFrontEnd::OnLeft(int controller)
+{
+    menu_layout *menu = active;
+    if (menu) {
+        menu_vtable *table = menu->vtable;
+        table->on_left((char *)menu + table->adjustment, controller);
+    }
+}
+#endif
