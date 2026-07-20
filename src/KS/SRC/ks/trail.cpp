@@ -13,3 +13,12 @@ class trail { public: void destroy(); };
 __asm__(".equ destroy__5trail, 0x00361DA0");
 void ks_fx_trail_destroy(trail *dead) { dead->destroy(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00364450)
+// 0x00364450 create_chophop_splash__5trailR8vector3d
+struct vector3d;
+void ks_fx_add_splash(unsigned int type, const vector3d &position, float scale);
+__asm__(".equ ks_fx_add_splash__FUiRC8vector3df, 0x0036C3D0");
+class trail { public: void create_chophop_splash(vector3d &position); };
+void trail::create_chophop_splash(vector3d &position) { ks_fx_add_splash(13, position, 1.0f); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
