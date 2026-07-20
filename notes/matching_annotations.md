@@ -28,3 +28,20 @@ The macro is defined in `include/decomp_annotations.h` and injected into each
 generated selector shim. Candidate files may retain the raw empty-asm spelling
 while they are being tested, but `install_function_source()` normalizes that
 spelling to this macro before adding a matched block to committed source.
+
+## Instruction-emitting inline assembly
+
+Instruction-emitting inline assembly is not a substitute for decompilation.
+If released C or C++ does not match within five attempts, defer the function
+instead of transcribing the target instructions.
+
+Integration enforces this policy:
+
+- `.set noreorder` is forbidden in every reconstructed function block.
+- New non-empty inline-assembly templates are rejected by
+  `install_function_source()`.
+- Existing exceptions are an explicit address allowlist in
+  `tools/source_layout.py`; each is either inline assembly present in the
+  released source or a previously reviewed, narrowly scoped annotation.
+- Adding an exception requires a code review and a source-authentic rationale.
+- A whole function body may never be replaced with hand-written assembly.

@@ -26,6 +26,37 @@ MARKER_RE = re.compile(
 EMPTY_COMPILER_BARRIER_RE = re.compile(
     r'__asm__\s+volatile\s*\(\s*""\s*\)'
 )
+INLINE_ASM_TEMPLATE_RE = re.compile(
+    r"(?:__asm__|asm)\s+(?:volatile|__volatile__)\s*"
+    r'\(\s*((?:"(?:\\.|[^"\\])*"\s*)+)',
+    re.DOTALL,
+)
+STRING_LITERAL_RE = re.compile(r'"((?:\\.|[^"\\])*)"', re.DOTALL)
+
+# Any new instruction-emitting inline assembly requires an explicit source
+# review and a code change here. Full-function assembly replacements are never
+# permitted; these entries cover released inline assembly or previously
+# reviewed, narrowly scoped scheduling/conversion annotations.
+REVIEWED_INSTRUCTION_ASM = {
+    0x001185C8: "documented floating-point scheduling nop",
+    0x0014C918: "documented integer-to-float conversion sequence",
+    0x001556D8: "documented list-traversal scheduling nop",
+    0x001E3340: "released FTOI conversion inline assembly",
+    0x001EAD68: "documented list-traversal scheduling nop",
+    0x001F9B18: "documented floating-point scheduling nop",
+    0x00229F68: "documented filter-loop scheduling nop",
+    0x002510F8: "documented floating-point comparison nop",
+    0x002B8490: "documented floating-point comparison nop",
+    0x002FBB48: "documented generated-loop scheduling nop",
+    0x00340510: "documented integer-to-float conversion sequence",
+    0x00340540: "documented integer-to-float conversion sequence",
+    0x00387818: "documented thread-loop scheduling nops",
+    0x00391718: "released VU unit-matrix inline assembly",
+    0x00391808: "released inlined VU matrix-apply sequence",
+    0x00396D90: "released ExitHandler instruction expansion",
+    0x00397540: "released nglFTOI conversion sequence",
+    0x0039A0B8: "documented list-traversal scheduling nop",
+}
 
 
 @dataclass(frozen=True)
@@ -44,6 +75,31 @@ def uses_matching_compiler_barrier(source: str) -> bool:
         EMPTY_COMPILER_BARRIER_RE.search(source) is not None
         or "KELLY_DECOMP_COMPILER_BARRIER()" in source
     )
+
+
+def uses_instruction_emitting_inline_asm(source: str) -> bool:
+    for match in INLINE_ASM_TEMPLATE_RE.finditer(source):
+        template = "".join(STRING_LITERAL_RE.findall(match.group(1)))
+        if template:
+            return True
+    return False
+
+
+def validate_instruction_asm(address: int, source: str) -> None:
+    if ".set noreorder" in source:
+        raise RuntimeError(
+            f"0x{address:08X} uses forbidden `.set noreorder` inline "
+            "assembly; defer the function instead of replacing its body"
+        )
+    if (
+        uses_instruction_emitting_inline_asm(source)
+        and address not in REVIEWED_INSTRUCTION_ASM
+    ):
+        raise RuntimeError(
+            f"0x{address:08X} uses unreviewed instruction-emitting inline "
+            "assembly; source-level candidates must be deferred when they "
+            "do not match"
+        )
 
 
 def normalize_matching_annotations(source: str) -> str:
@@ -80,20 +136,29 @@ def discover_function_sources() -> dict[int, FunctionSource]:
             address = int(path.stem, 16)
             if address in sources:
                 raise RuntimeError(f"Duplicate source for 0x{address:08X}")
+            validate_instruction_asm(address, path.read_text(encoding="utf-8"))
             sources[address] = FunctionSource(address, path, False)
             continue
 
         text = path.read_text(encoding="utf-8")
-        for match in MARKER_RE.finditer(text):
+        matches = list(MARKER_RE.finditer(text))
+        for index, match in enumerate(matches):
             address = int(match.group(1), 16)
             if address in sources:
                 raise RuntimeError(f"Duplicate source for 0x{address:08X}")
+            end = (
+                matches[index + 1].start()
+                if index + 1 < len(matches)
+                else len(text)
+            )
+            validate_instruction_asm(address, text[match.start():end])
             sources[address] = FunctionSource(address, path, True)
     return sources
 
 
 def function_block(row: dict[str, str], source: str) -> str:
     address = int(row["address"], 0)
+    validate_instruction_asm(address, source)
     source = normalize_matching_annotations(source)
     return (
         f"#if defined({selector_macro(address)})\n"
