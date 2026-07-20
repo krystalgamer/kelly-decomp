@@ -33,3 +33,11 @@ enum game_state_e { GAME_STATE_NONE };
 class game_process { const char *name; const game_state_e *flow; int index; int num_states; float timer; bool allow_override; public: game_process(const char *name, const game_state_e *flow, int count); };
 game_process::game_process(const char *new_name, const game_state_e *new_flow, int count) : name(new_name), flow(new_flow), num_states(count) { index = 0; timer = 0.0f; allow_override = false; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00286950)
+// 0x00286950 _$_12game_process
+extern "C" void builtin_delete(void *pointer) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+extern "C" void GameProcessDtor(void *self, int deleting) __asm__("_$_12game_process");
+void GameProcessDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
