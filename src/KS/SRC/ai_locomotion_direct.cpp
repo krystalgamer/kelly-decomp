@@ -24,3 +24,14 @@ void ai_locomotion_direct::handle_chunk(chunk_file& file, stringx& label) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00109530)
+// 0x00109530 _$_20ai_locomotion_direct
+extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_13ai_locomotion");
+extern const char derived_vtable[];
+__asm__(".equ _$_13ai_locomotion, 0x00106E28");
+__asm__(".equ derived_vtable, 0x004B82B8");
+struct LocomotionLayout { char padding[0x144]; const void *vtable; };
+extern "C" void DirectDtor(void *self, int deleting) __asm__("_$_20ai_locomotion_direct");
+void DirectDtor(void *self, int deleting) { ((LocomotionLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
