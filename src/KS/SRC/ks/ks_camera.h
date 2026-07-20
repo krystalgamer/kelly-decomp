@@ -24,3 +24,14 @@ int beach_camera::GetCameraType() {
     return 1;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0026EE08)
+// 0x0026EE08 _$_12debug_camera
+extern "C" void CameraDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char camera_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ camera_vtable, 0x004F3AD0");
+struct camera_layout { char padding[8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_12debug_camera");
+void DerivedDtor(void *self, int deleting) { ((camera_layout *)self)->vtable = camera_vtable; CameraDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
