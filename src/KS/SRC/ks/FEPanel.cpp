@@ -181,3 +181,11 @@ float PreformatText::getPercentage() { register int actual __asm__("$2") = actua
 	nop
 	cvt.s.w $f0,$f0" : "=f"(denominator) : "r"(total_lines)); return numerator / denominator; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014CA20)
+// 0x0014CA20 SetLocation3D__12FloatingTextG8vector3d
+struct vector3d { float x; float y; float z; };
+class FloatingText { public: char padding[0xb0]; float location_3d[4]; };
+extern "C" void SetLocationAlias(FloatingText *self, const vector3d *location) __asm__("SetLocation3D__12FloatingTextG8vector3d");
+void SetLocationAlias(FloatingText *self, const vector3d *location) { self->location_3d[0] = location->x; self->location_3d[1] = location->y; self->location_3d[2] = location->z; self->location_3d[3] = 1.0f; }
+#endif
