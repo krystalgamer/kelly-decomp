@@ -1246,3 +1246,22 @@ void entity::set_time_limited(bool enabled) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00144E28)
+// 0x00144E28 set_in_use__6entityb
+class entity {
+    char padding[0x78];
+    unsigned int flags;
+
+public:
+    void set_in_use(bool enabled);
+};
+
+void entity::set_in_use(bool enabled) {
+    if (enabled) {
+        flags |= 0x10000;
+    } else {
+        flags &= ~0x10000;
+    }
+}
+#endif
