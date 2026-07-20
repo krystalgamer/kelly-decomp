@@ -63,3 +63,11 @@ __asm__(".equ Show__12CameraWidgetf, 0x00169FC8");
 class IGOFrontEnd { char padding[0x5a8]; CameraWidget *cameraWidget; public: void ShowCameraReticle(float time); };
 void IGOFrontEnd::ShowCameraReticle(float time) { if (cameraWidget) { cameraWidget->Show(time); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017CE40)
+// 0x0017CE40 HideCameraReticle__11IGOFrontEnd
+class CameraWidget { public: void Hide(); };
+__asm__(".equ Hide__12CameraWidget, 0x00169FF0");
+class IGOFrontEnd { char padding[0x5a8]; CameraWidget *cameraWidget; public: void HideCameraReticle(); };
+void IGOFrontEnd::HideCameraReticle() { if (cameraWidget) { cameraWidget->Hide(); KELLY_DECOMP_COMPILER_BARRIER(); } }
+#endif
