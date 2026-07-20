@@ -95,3 +95,13 @@ __asm__(".equ frontendmanager, 0x003E7728");
 __asm__(".equ ReleaseIGO__9FEManager, 0x00199070");
 void IGORelease() { frontendmanager.ReleaseIGO(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001991E0)
+// 0x001991E0 IGOStandUp__Fv
+class IGOFrontEnd { public: void OnSurferStandUp(); };
+__asm__(".equ OnSurferStandUp__11IGOFrontEnd, 0x0017CB40");
+struct FEManagerLayout { IGOFrontEnd *IGO; };
+extern FEManagerLayout frontendmanager;
+__asm__(".equ frontendmanager, 0x003E7728");
+void IGOStandUp() { frontendmanager.IGO->OnSurferStandUp(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
