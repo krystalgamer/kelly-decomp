@@ -96,3 +96,10 @@ extern "C" void LostControllerMenuClassDtor(void *self) __asm__("_$_23LostContro
 __asm__(".equ _$_6FEMenu, 0x00156580");
 void LostControllerMenuClassDtor(void *self) { FEMenuDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DD770)
+// 0x001DD770 Select__15ReplayMenuClassi
+struct MenuVTable { char padding[0x170]; short adjustment; short padding2; void (*call)(void *self); };
+class ReplayMenuClass { char padding[0x74]; MenuVTable *vtable; public: void Select(int entry); };
+void ReplayMenuClass::Select(int entry) { MenuVTable *table = vtable; table->call((char *)this + table->adjustment); }
+#endif
