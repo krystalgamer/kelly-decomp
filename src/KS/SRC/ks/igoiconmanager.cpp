@@ -46,3 +46,12 @@ __asm__(".equ __builtin_delete, 0x002AC6B0");
 extern "C" void IconDtor(void *self, int deleting) __asm__("_$_Q214IGOIconManager4Icon");
 void IconDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00163D38)
+// 0x00163D38 Draw__Q214IGOIconManager4Icon
+struct nglQuad;
+void nglListAddQuad(nglQuad *quad);
+__asm__(".equ nglListAddQuad__FP7nglQuad, 0x003A67F0");
+class IGOIconManager { public: class Icon { nglQuad *quad_address; char padding[0x74]; bool show; public: void Draw(); }; };
+void IGOIconManager::Icon::Draw() { if (show) { nglListAddQuad((nglQuad *)this); KELLY_DECOMP_COMPILER_BARRIER(); } }
+#endif
