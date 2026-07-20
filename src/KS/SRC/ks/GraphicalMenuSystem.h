@@ -104,3 +104,10 @@ __asm__(".equ Reload__9PanelFile, 0x00152838");
 class HelpbarFE { char padding[0x80]; PanelFile panel; public: void ReloadPanel(); };
 void HelpbarFE::ReloadPanel() { panel.Reload(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DE2E0)
+// 0x001DE2E0 OnStart__13LegalFrontEndi
+struct frontend_vtable { char padding[0x128]; short adjustment; short padding2; void (*call)(void *, void *); };
+class LegalFrontEnd { char padding[0x74]; frontend_vtable *vtable; public: void OnStart(int controller); };
+void LegalFrontEnd::OnStart(int controller) { frontend_vtable *table = vtable; table->call((char *)this + table->adjustment, 0); }
+#endif
