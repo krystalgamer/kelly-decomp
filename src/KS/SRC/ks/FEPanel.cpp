@@ -205,3 +205,8 @@ struct panel_material { char padding[0x194]; panel_material_vtable *vtable; };
 class PanelBatch { char padding[0x48]; panel_material *material; public: void Update(float dt); };
 void PanelBatch::Update(float dt) { panel_material_vtable *table = material->vtable; table->update((char *)material + table->adjustment, dt); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00153450)
+// 0x00153450 ReadShort__FPUcRi
+short ReadShort(unsigned char *buffer, int &index) { short result; result = buffer[index] | (buffer[index + 1] << 8); index += 2; return result; }
+#endif
