@@ -65,3 +65,12 @@ extern float WAVETEX_ShadowScale;
 __asm__(".equ WAVETEX_ShadowScale, 0x00484ED4");
 void WAVETEX_SetShadowScale(float scale) { WAVETEX_ShadowScale = scale * 15.0f * 0.5f; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0037F100)
+// 0x0037F100 WAVETEX_CheckClearShadows__Fv
+extern int newshadowbuf;
+void WAVETEX_ClearShadows();
+__asm__(".equ newshadowbuf, 0x00484EC4");
+__asm__(".equ WAVETEX_ClearShadows__Fv, 0x0037F930");
+void WAVETEX_CheckClearShadows() { if (newshadowbuf) { newshadowbuf = 0; WAVETEX_ClearShadows(); KELLY_DECOMP_COMPILER_BARRIER(); } }
+#endif
