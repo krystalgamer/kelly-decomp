@@ -80,3 +80,10 @@ public:
 void Heap::SetBlockSentry(MemBlockInfo* block) {
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AB748)
+// 0x002AB748 IsThisMine__C4HeapPC12MemBlockInfo
+struct MemBlockInfo { char padding0[0x14]; unsigned short signature; unsigned char heap_id; };
+class Heap { char padding[0x30]; int heap_id; public: bool IsThisMine(const MemBlockInfo *block) const; };
+bool Heap::IsThisMine(const MemBlockInfo *block) const { return block->heap_id == heap_id && block->signature == 0x7e07; }
+#endif
