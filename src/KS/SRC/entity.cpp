@@ -271,3 +271,12 @@ extern "C" void GlobalDestroy() __asm__("_GLOBAL_$D$g_time_dilation");
 __asm__(".equ __static_initialization_and_destruction_0, 0x00143C08");
 void GlobalDestroy() { StaticInit(0, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0012A1C8)
+// 0x0012A1C8 get_hero_id__6entity
+class game { public: char padding[0xbc]; int active_player; };
+extern game *g_game_ptr;
+__asm__(".equ g_game_ptr, 0x0046AC64");
+class entity { char padding[0x1f0]; int which_hero; public: int get_hero_id(); };
+int entity::get_hero_id() { if (which_hero == -1) return g_game_ptr->active_player; return which_hero; }
+#endif
