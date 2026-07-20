@@ -590,3 +590,12 @@ struct menu_text { char padding[0x4c]; text_vtable *vtable; };
 class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetVJustify(Font::VERTJUST value); };
 void FEMenuEntry::SetVJustify(Font::VERTJUST value) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, value); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA690)
+// 0x001DA690 SetFade__11FEMenuEntrybT1f
+struct text_vtable { char padding[0x78]; short adjustment; short padding2; void (*call)(void *, bool, bool, float); };
+struct menu_text { char padding[0x4c]; text_vtable *vtable; };
+struct FEMenuEntry { char padding[0x24]; menu_text *text; };
+extern "C" void SetFadeAlias(FEMenuEntry *entry, bool start, bool fade_in, float time) __asm__("SetFade__11FEMenuEntrybT1f");
+void SetFadeAlias(FEMenuEntry *entry, bool start, bool fade_in, float time) { text_vtable *table = entry->text->vtable; table->call((char *)entry->text + table->adjustment, start, fade_in, time); }
+#endif
