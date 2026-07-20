@@ -320,3 +320,13 @@ struct vector3d { float x; float y; float z; vector3d(float px, float py, float 
 class entity { public: void get_angular_velocity(vector3d *target) const; };
 void entity::get_angular_velocity(vector3d *target) const { *target = vector3d(0.0f, 0.0f, 0.0f); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00137D98)
+// 0x00137D98 test_combat_target__C6entityRC8vector3dT1P8vector3dT3fb
+struct vector3d;
+class entity;
+bool collide_segment_entity(const vector3d &start, const vector3d &end, const entity *target, vector3d *impact_position, vector3d *impact_normal, float radius, bool rear_cull);
+__asm__(".equ collide_segment_entity__FRC8vector3dT0PC6entityP8vector3dT3fb, 0x002DC680");
+class entity { public: bool test_combat_target(const vector3d &start, const vector3d &end, vector3d *impact_position, vector3d *impact_normal, float radius, bool rear_cull) const; };
+bool entity::test_combat_target(const vector3d &start, const vector3d &end, vector3d *impact_position, vector3d *impact_normal, float radius, bool rear_cull) const { bool result = collide_segment_entity(start, end, this, impact_position, impact_normal, radius, rear_cull); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
