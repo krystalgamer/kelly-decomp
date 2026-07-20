@@ -607,3 +607,12 @@ struct menu_text { char padding[0x4c]; text_vtable *vtable; };
 class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetLineSpacing(int spacing); };
 void FEMenuEntry::SetLineSpacing(int spacing) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, spacing); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA6F0)
+// 0x001DA6F0 SetFont__11FEMenuEntryP4Font
+class Font;
+struct text_vtable { char padding[0x30]; short adjustment; short padding2; void (*call)(void *, Font *); };
+struct menu_text { char padding[0x4c]; text_vtable *vtable; };
+class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetFont(Font *font); };
+void FEMenuEntry::SetFont(Font *font) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, font); }
+#endif
