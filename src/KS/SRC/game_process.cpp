@@ -41,3 +41,11 @@ __asm__(".equ __builtin_delete, 0x002AC6B0");
 extern "C" void GameProcessDtor(void *self, int deleting) __asm__("_$_12game_process");
 void GameProcessDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00286AE8)
+// 0x00286AE8 get_cur_state__C4game
+struct game_process_layout { const char *name; const int *flow; int index; };
+struct process_stack_layout { void *front_node; };
+class game { char padding[0x5c]; process_stack_layout *process_stack; public: int get_cur_state() const; };
+int game::get_cur_state() const { game_process_layout *process = (game_process_layout *)((char *)process_stack->front_node + 8); return process->flow[process->index]; }
+#endif
