@@ -22,3 +22,12 @@ __asm__(".equ ks_fx_add_splash__FUiRC8vector3df, 0x0036C3D0");
 class trail { public: void create_chophop_splash(vector3d &position); };
 void trail::create_chophop_splash(vector3d &position) { ks_fx_add_splash(13, position, 1.0f); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003643E8)
+// 0x003643E8 create_big_landing_splash__5trail
+extern float extra_splash_power_amount;
+__asm__(".equ extra_splash_power_amount, 0x0047ED84");
+struct spray_layout { char padding[0xca8]; float extra_splash_power[2]; };
+class trail { char padding[0xcd78]; spray_layout *my_spray; public: void create_big_landing_splash(); };
+void trail::create_big_landing_splash() { if (my_spray) my_spray->extra_splash_power[0] = my_spray->extra_splash_power[1] = extra_splash_power_amount; }
+#endif
