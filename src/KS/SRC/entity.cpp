@@ -306,3 +306,10 @@ __asm__(".equ _$_6entity, 0x001298C8");
 extern "C" void EntityCleanupThunk() __asm__("__tcf_0_00135770");
 void EntityCleanupThunk() { register char *object __asm__("$4") = (char *)0x00510000; register int deleting __asm__("$5") = 2; __asm__ volatile("" : "+r"(object), "+r"(deleting)); object += 0x30a0; EntityDtor(object, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001289E0)
+// 0x001289E0 __9entity_idPCc
+class entity_id { public: entity_id(const char *name); void set_entity_id(const char *name); };
+__asm__(".equ set_entity_id__9entity_idPCc, 0x00128A08");
+entity_id::entity_id(const char *name) { set_entity_id(name); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
