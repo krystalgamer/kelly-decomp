@@ -42,3 +42,11 @@ __asm__(".equ __builtin_delete, 0x002AC6B0");
 extern "C" void TimeAttackModeDtor(void *self, int deleting) __asm__("_$_14TimeAttackMode");
 void TimeAttackModeDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002861F8)
+// 0x002861F8 BeginAttacking__14TimeAttackModei
+struct attack_controller { char padding[0x10fc]; int state; };
+struct attack_player { attack_controller *controller; char padding[8]; int state; int attacking; char padding2[4]; };
+class TimeAttackMode { attack_player players[2]; public: void BeginAttacking(int player); };
+void TimeAttackMode::BeginAttacking(int player) { players[player].state = players[player].controller->state; players[player].attacking = 1; }
+#endif
