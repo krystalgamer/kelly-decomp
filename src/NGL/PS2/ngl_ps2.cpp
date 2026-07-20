@@ -411,3 +411,19 @@ void nglVif1AddBatchSetup(
     packet += 2;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003A9B80)
+// 0x003A9B80 nglDestroyMesh__FP7nglMesh
+struct nglMesh;
+
+void nglVif1SafeWait();
+void nglMemFree(void *memory);
+__asm__(".equ nglVif1SafeWait__Fv, 0x00397728");
+__asm__(".equ nglMemFree__FPv, 0x00395D50");
+
+void nglDestroyMesh(nglMesh *mesh) {
+    nglVif1SafeWait();
+    nglMemFree(mesh);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
