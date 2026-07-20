@@ -299,3 +299,8 @@ extern "C" int DisableIntc(int interrupt);
 __asm__(".equ DisableIntc, 0x003DBD60");
 void nglExit() { DisableIntc(5); DisableIntc(2); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00397540)
+// 0x00397540 nglSetFrameLock__Ff
+void nglSetFrameLock(float frames_per_second) { register float value __asm__("$f0") = 60.0f; register char *globals __asm__("$3") = (char *)0x004B0000; __asm__ volatile("" : "+f"(value), "+r"(globals)); value /= frames_per_second; register int divisor __asm__("$4"); __asm__ volatile(".word 0x46000024\n\tmfc1 $4,$f0" : "+f"(value), "=r"(divisor)); register int stored __asm__("$2") = divisor; __asm__ volatile("" : "+r"(stored)); *(int *)(globals - 0xba0) = stored; }
+#endif
