@@ -124,3 +124,24 @@ struct menu_entry { char padding[0x60]; menu_entry_vtable *vtable; };
 class NamesMenu { char padding[0x4c]; menu_entry *highlighted; public: void DrawHeader(); };
 void NamesMenu::DrawHeader() { menu_entry_vtable *table = highlighted->vtable; table->draw((char *)highlighted + table->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0019BF00)
+// 0x0019BF00 CancelDialog__16SaveLoadFrontEnd
+class SaveLoadFrontEnd {
+public:
+    bool DialogActive();
+    void DialogNoPressed();
+    void CancelDialog();
+};
+
+__asm__(".equ DialogActive__16SaveLoadFrontEnd, 0x0019BF38");
+__asm__(".equ DialogNoPressed__16SaveLoadFrontEnd, 0x0019BE10");
+
+void SaveLoadFrontEnd::CancelDialog()
+{
+    if (!DialogActive())
+        return;
+    DialogNoPressed();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
