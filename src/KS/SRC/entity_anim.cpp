@@ -120,3 +120,26 @@ struct anim_vector { entity_anim **begin; entity_anim **end; };
 class entity_anim_tree { char padding[0x68]; anim_vector *anims; public: bool is_root(entity *value) const; };
 bool entity_anim_tree::is_root(entity *value) const { return anims->begin != anims->end && (*anims->begin)->ent == value; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00117640)
+// 0x00117640 detach__16entity_anim_tree
+struct anim_tree_vtable {
+    char padding[0x18];
+    short adjustment;
+    short padding2;
+    void (*set_flag)(void *self, int flag, bool enabled);
+};
+
+class entity_anim_tree {
+    char padding[4];
+    anim_tree_vtable *vtable;
+
+public:
+    void detach();
+};
+
+void entity_anim_tree::detach() {
+    anim_tree_vtable *table = vtable;
+    table->set_flag((char *)this + table->adjustment, 16, false);
+}
+#endif
