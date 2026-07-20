@@ -301,3 +301,46 @@ float wevent::total_time_left()
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00340810)
+// 0x00340810 set_rhw__11text_widgetf
+class widget {
+    char padding[0x158];
+
+public:
+    enum rhw_layer_e {
+        RHW0,
+        RHW1,
+        RHW2,
+        RHW3,
+        RHW4,
+        RHW5,
+        RHW6,
+        RHW7,
+        RHW8,
+        RHW9,
+        RHW_OVER_PFE1,
+        RHW_OVER_PFE2,
+        NUM_RHW_LAYERS
+    };
+
+    static rhw_layer_e rhw_2d_layer;
+    static float rhw_2d_val[NUM_RHW_LAYERS];
+};
+
+__asm__(".equ _6widget$rhw_2d_layer, 0x0046B730");
+__asm__(".equ _6widget$rhw_2d_val, 0x005A3EB0");
+
+class text_widget : public widget {
+    float rhw;
+
+public:
+    void set_rhw(float value);
+};
+
+void text_widget::set_rhw(float value)
+{
+    rhw = value;
+    widget::rhw_2d_val[rhw_2d_layer] -= 1.0f;
+}
+#endif
