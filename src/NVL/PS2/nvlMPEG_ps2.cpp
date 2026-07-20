@@ -215,3 +215,29 @@ __asm__(".equ nvlPrintf__FPCce, 0x0038AD50");
 __asm__(".equ mpeg_error_format, 0x0051B718");
 int mpegError(sceMpeg *mpeg, sceMpegCbDataError *error, void *data) { nvlPrintf(mpeg_error_format, error->errMessage); return 1; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00388F08)
+// 0x00388F08 mpegNodata__FP7sceMpegP13sceMpegCbDataPv
+struct sceMpeg;
+struct sceMpegCbData;
+struct ViBuf;
+
+extern "C" void RotateThreadReadyQueue(int priority);
+__asm__(".equ RotateThreadReadyQueue, 0x003DB5B0");
+
+void viBufAddDMA(ViBuf *buffer);
+__asm__(".equ viBufAddDMA__FP5ViBuf, 0x0038A228");
+
+extern ViBuf videoDec_vibuf;
+__asm__(".equ videoDec_vibuf, 0x00597020");
+
+int mpegNodata(
+    sceMpeg *mpeg,
+    sceMpegCbData *callback_data,
+    void *user_data
+) {
+    RotateThreadReadyQueue(1);
+    viBufAddDMA(&videoDec_vibuf);
+    return 1;
+}
+#endif
