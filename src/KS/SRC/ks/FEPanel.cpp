@@ -141,3 +141,11 @@ PanelQuad* PanelObject::GetQuad() {
     return batches[0].pq;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00148458)
+// 0x00148458 changeX__10TextStringf
+extern "C" void AdjustCoords(float &x, float &y) __asm__("adjustCoords__H1Zf_RX01T0_v");
+__asm__(".equ adjustCoords__H1Zf_RX01T0_v, 0x001D6B60");
+class TextString { char padding[0xc]; float x; float y; public: void changeX(float position); };
+void TextString::changeX(float position) { float other; x = position; AdjustCoords(x, other); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
