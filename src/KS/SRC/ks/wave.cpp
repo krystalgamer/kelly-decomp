@@ -256,3 +256,22 @@ KSWaterState::KSWaterState()
     PerturbStage = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00377B00)
+// 0x00377B00 WAVE_StageAdvance__Fv
+extern int WAVE_Stage;
+extern float WAVE_StageProgress;
+__asm__(".equ WAVE_Stage, 0x00585AD0");
+__asm__(".equ WAVE_StageProgress, 0x00585AD8");
+
+static void WAVE_StageAdvance()
+{
+    int stage = WAVE_Stage + 1;
+    *(volatile int *)&WAVE_Stage = stage;
+    int wrapped = stage % 3;
+    *(volatile float *)&WAVE_StageProgress = 0.0f;
+    WAVE_Stage = wrapped;
+}
+
+__asm__(".globl WAVE_StageAdvance__Fv");
+#endif
