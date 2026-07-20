@@ -214,3 +214,12 @@ struct ReplayVTable { char padding[0x170]; short adjustment; short padding2; voi
 class ReplayMenuClass { char padding[0x74]; ReplayVTable *vtable; public: void OnActivate(); };
 void ReplayMenuClass::OnActivate() { ReplayVTable *table = vtable; table->ReplayStart((char *)this + table->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B0A78)
+// 0x001B0A78 OnTriangle__15ReplayMenuClassi
+class FEMenu { public: void OnTriangle(int controller); };
+__asm__(".equ OnTriangle__6FEMenui, 0x001577F0");
+struct replay_system { char padding[0x94]; int replaying; };
+class ReplayMenuClass : public FEMenu { char padding[0x74]; replay_system *system; public: void OnTriangle(int controller); };
+void ReplayMenuClass::OnTriangle(int controller) { if (!system->replaying) { FEMenu::OnTriangle(controller); KELLY_DECOMP_COMPILER_BARRIER(); } }
+#endif
