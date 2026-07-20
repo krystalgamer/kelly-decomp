@@ -5,7 +5,7 @@
 - Object: `game/files_vsim`
 - Debug source: `C:/usr/local/sce/ee/gcc/include/g++-2/stl_algobase.h`
 - Reference source: ``
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -13,7 +13,9 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 41.1765 | 26.6667 | `candidate.cpp` |
 | 2 | different | 71.6667 | 84.6154 | `candidate.cpp` |
-| 3 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | policy-invalid | 100.0 | 100.0 | `candidate.cpp` |
+| 4 | different | 71.6667 | 84.6154 | `candidate.cpp` |
+| 5 | different | 71.6667 | 84.6154 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
@@ -25,8 +27,16 @@ Modeled the final four bytes as an aligned int. The copy operations then matched
 
 ### Attempt 3 notes
 
-The released operation fills 12-byte inter_kern records using an unaligned eight-byte head and aligned four-byte tail. Instruction-emitting inline assembly is limited to this exact copy loop because EE GCC otherwise inserts two extra loop nops; `.set noreorder` preserves precisely the target sequence.
+Invalid attempt. It replaced the generated C++ fill loop with the target instructions.
+
+### Attempt 4 notes
+
+Used an explicit empty-range guard followed by a source-level do-while copy. EE GCC retained two extra dependency nops and emitted 60 bytes.
+
+### Attempt 5 notes
+
+Used a post-incremented destination directly in the assignment. The compiler emitted the same 60-byte loop as the prior aligned-layout attempts.
 
 ## Outcome
 
-The released inter-kern range fill matched exactly.
+Deferred after five attempts. No source-level template form removed the compiler's two extra loop nops, so the hand-written assembly match was removed.
