@@ -112,3 +112,10 @@ class Career { public: class Beach { public: Beach(); void Reset(); }; };
 __asm__(".equ Reset__Q26Career5Beach, 0x0025C4A0");
 Career::Beach::Beach() { Reset(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0025B928)
+// 0x0025B928 CheckShowMovie__Q26Career8Location
+class Career { public: class Location { char padding[8]; int movie_shown; public: bool CheckShowMovie(); void SetMovieShown(); }; };
+__asm__(".equ SetMovieShown__Q26Career8Location, 0x0025AF30");
+bool Career::Location::CheckShowMovie() { if (movie_shown) return false; SetMovieShown(); return true; }
+#endif
