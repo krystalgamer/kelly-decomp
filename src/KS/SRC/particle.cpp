@@ -44,3 +44,10 @@ struct vector3d { float x; float y; float z; vector3d(const vector3d &other) { x
 class particle_generator { char padding[0x29c]; vector3d abs_visual_center; public: vector3d get_visual_center() const; };
 vector3d particle_generator::get_visual_center() const { return abs_visual_center; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D2DC8)
+// 0x002D2DC8 get_visual_xz_radius_rel_center__C18particle_generator
+struct entity_vtable_layout { char padding[0x260]; short adjustment; short padding2; float (*get_visual_radius)(void *self); };
+class particle_generator { char padding[8]; entity_vtable_layout *vtable; public: float get_visual_xz_radius_rel_center() const; };
+float particle_generator::get_visual_xz_radius_rel_center() const { entity_vtable_layout *table = vtable; return table->get_visual_radius((char *)this + table->adjustment); }
+#endif
