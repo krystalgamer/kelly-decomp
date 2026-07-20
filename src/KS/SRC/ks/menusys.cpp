@@ -58,47 +58,6 @@ class MenuRender { unsigned short x0; unsigned short y0; unsigned short x1; unsi
 void MenuRender::Clear() { MENU_ClearRect(x0, y0, x1, y1); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00240A20)
-// 0x00240A20 CloseMenu__10MenuRender
-extern "C" char *strcpy(char *destination, const char *source);
-
-extern const volatile char empty_string[];
-__asm__(".equ empty_string, 0x004DFC30");
-
-class MenuRender {
-    char limit_and_inuse[0x10];
-    char text[16][64];
-    unsigned int state[16];
-    int active;
-
-public:
-    void CloseMenu();
-};
-
-void MenuRender::CloseMenu()
-{
-    __asm__ volatile(
-        ".set noreorder\n\t"
-        "lui $7,0x4d\n\t"
-        "addiu $5,$4,1040\n\t"
-        "addiu $3,$4,16\n\t"
-        "addiu $6,$0,15\n"
-        "1:\n\t"
-        "lbu $2,-976($7)\n\t"
-        "addiu $6,$6,-1\n\t"
-        "sb $2,0($3)\n\t"
-        "sw $0,0($5)\n\t"
-        "addiu $3,$3,64\n\t"
-        "bgez $6,1b\n\t"
-        "addiu $5,$5,4\n\t"
-        ".set reorder"
-        :
-        : "r"(this)
-        : "$2", "$3", "$5", "$6", "$7", "memory"
-    );
-    active = 0;
-}
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00241060)
 // 0x00241060 CloseAllMenus__10MenuSystem

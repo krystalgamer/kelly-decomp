@@ -5,7 +5,7 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/menusys.cpp`
 - Reference source: `KS/SRC/ks/menusys.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -14,7 +14,8 @@
 | 1 | different | 5.1724 | 0.0 | `candidate.cpp` |
 | 2 | different | 26.6667 | 0.0 | `candidate.cpp` |
 | 3 | different | 66.0714 | 64.2857 | `candidate.cpp` |
-| 4 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 4 | policy-invalid | 100.0 | 100.0 | `candidate.cpp` |
+| 5 | different | 46.4286 | 14.2857 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
@@ -30,8 +31,12 @@ Marked the empty byte volatile to retain the target per-iteration load. All loop
 
 ### Attempt 4 notes
 
-The released operation clears the first byte and state of all 16 menu lines, then clears `active`. Instruction-emitting inline assembly is limited to that exact loop because EE GCC otherwise moves the state-pointer increment out of the target branch delay slot; `.set noreorder` preserves precisely the target schedule.
+Invalid attempt. It replaced the released C++ loop with the target instructions and was not a decompilation.
+
+### Attempt 5 notes
+
+Used explicit text and state pointers with all updates expressed in the C++ loop increment. EE GCC emitted 56 bytes and still did not reproduce the target backedge delay slot.
 
 ## Outcome
 
-The released menu-renderer close reset matched exactly.
+Deferred after five attempts. The source-level versions preserve the released behavior but do not reproduce the target schedule; the hand-written assembly match was removed.
