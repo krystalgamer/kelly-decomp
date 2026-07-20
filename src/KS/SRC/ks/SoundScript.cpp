@@ -115,3 +115,41 @@ void EventMapType::clear()
     numSrcs = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031C628)
+// 0x0031C628 createMapping__18SoundScriptManager9EventTypeUi
+enum EventType {
+    SS_NONE
+};
+
+class EventMapType {
+public:
+    EventType type;
+
+private:
+    char padding[0x7C];
+
+public:
+    bool addSoundMapping(unsigned int source);
+};
+
+__asm__(".equ addSoundMapping__12EventMapTypeUi, 0x0031BDF8");
+
+class SoundScriptManager {
+    char padding[4];
+    EventMapType eventMap[1];
+
+public:
+    bool createMapping(EventType type, unsigned int source);
+};
+
+bool SoundScriptManager::createMapping(
+    EventType type,
+    unsigned int source
+) {
+    eventMap[type].type = type;
+    bool result = eventMap[type].addSoundMapping(source);
+    KELLY_DECOMP_COMPILER_BARRIER();
+    return result;
+}
+#endif
