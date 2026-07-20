@@ -45,3 +45,35 @@ void entity_anim_tree::set_flag(anim_flags_t flag) {
     entity_anim::set_flag(flag);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00120950)
+// 0x00120950 set_time__11entity_animf
+struct po_anim_vtable {
+    char padding[0x20];
+    short adjustment;
+    short padding2;
+    void (*set_time)(void *self, float time);
+};
+
+struct po_anim_layout {
+    char padding[4];
+    po_anim_vtable *vtable;
+};
+
+class entity_anim {
+    char padding[0x0C];
+    po_anim_layout *po_anim_ptr;
+
+public:
+    void set_time(float time);
+};
+
+void entity_anim::set_time(float time)
+{
+    po_anim_layout *animation = po_anim_ptr;
+    if (animation) {
+        po_anim_vtable *table = animation->vtable;
+        table->set_time((char *)animation + table->adjustment, time);
+    }
+}
+#endif
