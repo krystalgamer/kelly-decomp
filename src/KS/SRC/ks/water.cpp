@@ -77,3 +77,10 @@ extern unsigned long long WaterDebugFlags;
 __asm__(".equ WaterDebugFlags, 0x00484618");
 void WATER_SetDrawHorizon(bool enabled) { WaterDebugFlags = (WaterDebugFlags & ~(1ULL << 9)) | ((unsigned long long)(enabled & 1) << 9); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00372918)
+// 0x00372918 WATER_SetDrawSeam__Fb
+extern unsigned long long WaterDebugFlags;
+__asm__(".equ WaterDebugFlags, 0x00484618");
+void WATER_SetDrawSeam(bool enabled) { WaterDebugFlags = (WaterDebugFlags & ~(1ULL << 3)) | ((unsigned long long)(enabled & 1) << 3); }
+#endif
