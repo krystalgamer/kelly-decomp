@@ -54,3 +54,11 @@ __asm__(".equ g_geometry_manager, 0x00431A8C");
 class vr_billboard { public: void flush(); };
 void vr_billboard::flush() { g_geometry_manager->buffers.flush(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002C1050)
+// 0x002C1050 render_passes_needed__C12vr_billboard
+class mat_fac { public: bool is_translucent() const; };
+__asm__(".equ is_translucent__C7mat_fac, 0x002BD178");
+class vr_billboard { char padding[0x18]; mat_fac material; public: int render_passes_needed() const; };
+int vr_billboard::render_passes_needed() const { return material.is_translucent() ? 2 : 1; }
+#endif
