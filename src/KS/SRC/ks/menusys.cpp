@@ -41,3 +41,11 @@ class Menu;
 class MenuSystem { char padding[0x470]; Menu *curmenu; public: void Closing(Menu *menu); };
 void MenuSystem::Closing(Menu *menu) { MenuRenderClear(this); curmenu = 0; KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00241150)
+// 0x00241150 GetElementState__10MenuSystemi
+class Menu { public: unsigned int GetElementFlags(int index); };
+__asm__(".equ GetElementFlags__4Menui, 0x0023E688");
+class MenuSystem { char padding[0x470]; Menu *curmenu; public: unsigned int GetElementState(int index); };
+unsigned int MenuSystem::GetElementState(int index) { if (!curmenu) return 0; unsigned int result = curmenu->GetElementFlags(index); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
