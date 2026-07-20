@@ -77,3 +77,14 @@ void kellyslater_controller::ClearTricks() { int value = -1; __asm__ volatile(""
 class kellyslater_controller { char padding0[0x1a6c]; int tube_trick; int tube_anim; char padding1[0x10]; int tube_board_anim; int last_tube_trick; char padding2[0xc]; float current_trick_time; char padding3[0x38]; bool left_stick_pressed; public: void SetTubeTrick(int trick, int anim, int board_anim); };
 void kellyslater_controller::SetTubeTrick(int trick, int anim, int board_anim) { tube_trick = trick; tube_anim = anim; tube_board_anim = board_anim; last_tube_trick = -1; left_stick_pressed = false; KELLY_DECOMP_COMPILER_BARRIER(); current_trick_time = 0.0f; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0020CFA0)
+// 0x0020CFA0 CtrlEvent__22kellyslater_controlleri
+enum device_id_t { DEVICE_NONE };
+class input_mgr { public: float get_control_state(device_id_t device, int control) const; };
+extern input_mgr *input_manager;
+__asm__(".equ input_manager, 0x0046B7B0");
+__asm__(".equ get_control_state__C9input_mgr11device_id_ti, 0x003441C8");
+class kellyslater_controller { char padding[0x1b10]; device_id_t joystick_num; public: float CtrlEvent(int control); };
+float kellyslater_controller::CtrlEvent(int control) { float result = input_manager->get_control_state(joystick_num, control); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
