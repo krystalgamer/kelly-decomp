@@ -318,3 +318,9 @@ struct nglQuadVertex { float X; float Y; float U; float V; unsigned int Color; }
 struct nglQuad { nglQuadVertex Verts[4]; };
 void nglSetQuadRect(nglQuad *quad, float x1, float y1, float x2, float y2) { quad->Verts[0].X = x1; quad->Verts[0].Y = y1; quad->Verts[1].X = x2; quad->Verts[1].Y = y1; quad->Verts[2].X = x1; quad->Verts[2].Y = y2; quad->Verts[3].X = x2; quad->Verts[3].Y = y2; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003AA9B0)
+// 0x003AA9B0 nglSetMeshFlags__FUi
+struct nglMesh { unsigned int flags; };
+void nglSetMeshFlags(unsigned int flags) { register char *globals __asm__("$3") = (char *)0x004B0000; register unsigned int required __asm__("$6") = 0x400000; __asm__ volatile("" : "+r"(globals), "+r"(required)); register nglMesh *mesh __asm__("$5") = *(nglMesh **)(globals - 0x4850); unsigned int preserved = mesh->flags & 0x1000; preserved |= required; mesh->flags = flags | preserved; }
+#endif
