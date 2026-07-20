@@ -135,3 +135,11 @@ float interpolate_float(float first_float, float second_float, float difference)
 class replay_camera { char padding0[0x2d0]; int rc; int rcr; char padding1[0x1c]; float regionChangeTime; int regionChangeFrame; char padding2[0x13c]; float holdCamTimer; public: void reset(); };
 void replay_camera::reset() { rc = 13; rcr = 6; regionChangeTime = 0.0f; regionChangeFrame = 0; holdCamTimer = 0.0f; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002351B0)
+// 0x002351B0 SetReset__15duckdive_camera
+void WAVE_EndWave(bool advance);
+__asm__(".equ WAVE_EndWave__Fb, 0x00377B38");
+class duckdive_camera { char padding[0x2d0]; bool do_reset; public: void SetReset(); };
+void duckdive_camera::SetReset() { do_reset = true; WAVE_EndWave(true); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
