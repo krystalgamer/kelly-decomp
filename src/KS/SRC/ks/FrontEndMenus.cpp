@@ -223,3 +223,11 @@ struct replay_system { char padding[0x94]; int replaying; };
 class ReplayMenuClass : public FEMenu { char padding[0x74]; replay_system *system; public: void OnTriangle(int controller); };
 void ReplayMenuClass::OnTriangle(int controller) { if (!system->replaying) { FEMenu::OnTriangle(controller); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B2D18)
+// 0x001B2D18 Init__23LostControllerMenuClass
+class FEMenu { public: void Init(); };
+__asm__(".equ Init__6FEMenu, 0x00156AE0");
+class LostControllerMenuClass : public FEMenu { char padding[0x38]; int flags; public: void Init(); };
+void LostControllerMenuClass::Init() { flags &= ~0x80; FEMenu::Init(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
