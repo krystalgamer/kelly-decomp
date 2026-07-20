@@ -87,3 +87,30 @@ struct AISurferLayout { int device_id; const void *vtable; };
 extern "C" void AISurferDtor(void *self, int deleting) __asm__("_$_18AISurferController");
 void AISurferDtor(void *self, int deleting) { ((AISurferLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00112D30)
+// 0x00112D30 get_name__C18AISurferController
+class stringx {
+    char *chars;
+    void *my_buf;
+
+public:
+    stringx(const char *text, int length = -1);
+    ~stringx();
+};
+
+__asm__(".equ __7stringxPCci, 0x0034D438");
+
+extern const char ai_controller_name[];
+__asm__(".equ ai_controller_name, 0x004B78E8");
+
+class AISurferController {
+public:
+    stringx get_name() const;
+};
+
+stringx AISurferController::get_name() const
+{
+    return stringx(ai_controller_name);
+}
+#endif
