@@ -194,3 +194,9 @@ struct camera_animation { char padding[4]; float totalseconds; };
 class flyby_camera { char padding0[0x2d0]; camera_animation *animation; char padding1[4]; float current_anim_time; public: bool is_finished(); };
 bool flyby_camera::is_finished() { return current_anim_time >= animation->totalseconds; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00229F68)
+// 0x00229F68 Init_Filter__12float_filterf
+class float_filter { float Pos[2]; float err[2]; public: void Init_Filter(float start); };
+void float_filter::Init_Filter(float start) { float *value = Pos; int index = 1; __asm__ volatile("nop"); loop: value[0] = start; --index; value[2] = 0.0f; KELLY_DECOMP_COMPILER_BARRIER(); KELLY_DECOMP_COMPILER_BARRIER(); if (index >= 0) { ++value; goto loop; } ++value; }
+#endif
