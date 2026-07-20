@@ -33,3 +33,10 @@ void *KSMemAllocate(unsigned int size, unsigned int alignment, const char *file,
 __asm__(".equ KSMemAllocate__FUiUiPCci, 0x001E3168");
 void *KSMemAlloc(unsigned int size, unsigned int alignment) { register const char *file __asm__("$6") = (const char *)0x004D0000; __asm__ volatile("" : "+r"(file)); file -= 0x10e0; void *result = KSMemAllocate(size, alignment, file, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E3228)
+// 0x001E3228 KSMemAllocNSL__FUiUi
+void *KSMemAllocate(unsigned int size, unsigned int alignment, const char *file, int line);
+__asm__(".equ KSMemAllocate__FUiUiPCci, 0x001E3168");
+void *KSMemAllocNSL(unsigned int size, unsigned int alignment) { register const char *file __asm__("$6") = (const char *)0x004D0000; __asm__ volatile("" : "+r"(file)); file -= 0x1080; void *result = KSMemAllocate(size, alignment, file, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
