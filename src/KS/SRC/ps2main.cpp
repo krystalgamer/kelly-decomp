@@ -57,3 +57,12 @@ unsigned int fptoui(double value) {
     return FTOI(value);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E3100)
+// 0x001E3100 KSCriticalError__FPCc
+void onscreenerror(const char *format, ...);
+void error(const char *format, ...);
+__asm__(".equ onscreenerror__FPCce, 0x001DFAD8");
+__asm__(".equ error__FPCce, 0x001DFBD8");
+void KSCriticalError(const char *text) { onscreenerror(text); error(text); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
