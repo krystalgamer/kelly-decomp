@@ -144,3 +144,14 @@ struct camera_layout { char padding[8]; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_19follow_close_camera");
 void DerivedDtor(void *self, int deleting) { ((camera_layout *)self)->vtable = camera_vtable; CameraDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0026F5A0)
+// 0x0026F5A0 _$_11buoy_camera
+extern "C" void CameraDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char camera_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ camera_vtable, 0x004F3AD0");
+struct camera_layout { char padding[8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_11buoy_camera");
+void DerivedDtor(void *self, int deleting) { ((camera_layout *)self)->vtable = camera_vtable; CameraDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
