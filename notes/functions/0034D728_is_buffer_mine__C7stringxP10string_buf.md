@@ -5,7 +5,7 @@
 - Object: `game/files_vsim`
 - Debug source: `C:/KS/SRC/stringx.cpp`
 - Reference source: `KS/SRC/stringx.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -14,7 +14,8 @@
 | 1 | different | 53.8462 | 23.0769 | `candidate.cpp` |
 | 2 | different | 46.1538 | 7.6923 | `candidate.cpp` |
 | 3 | different | 30.7692 | 23.0769 | `candidate.cpp` |
-| 4 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 4 | policy-invalid | 100.0 | 100.0 | `candidate.cpp` |
+| 5 | different | 53.8462 | 23.0769 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
@@ -30,8 +31,12 @@ Expressed the range as two ordered early-return guards. EE GCC again reduced the
 
 ### Attempt 4 notes
 
-The released operation checks whether a buffer lies in the static string-buffer range. Instruction-emitting inline assembly is limited to the exact two-stage bounds control flow because EE GCC otherwise collapses it to 40 bytes; `.set noreorder` preserves precisely the target branches and delay-slot result assignments.
+Invalid attempt. It replaced the released C++ bounds checks with the target instructions.
+
+### Attempt 5 notes
+
+Used an explicit local result with staged lower- and upper-bound assignments. EE GCC still collapsed the function to the same 40-byte optimized range test.
 
 ## Outcome
 
-The released string buffer ownership check matched exactly.
+Deferred after five attempts. No source-level reconstruction preserved the target staged boolean assignments, so the hand-written assembly match was removed.
