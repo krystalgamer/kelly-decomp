@@ -102,3 +102,35 @@ void TitleFrontEnd::OnLeft(int controller)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BC9E8)
+// 0x001BC9E8 OnRight__13TitleFrontEndi
+struct menu_vtable {
+    char padding[0xB0];
+    short adjustment;
+    short padding2;
+    void (*on_right)(void *self, int controller);
+};
+
+struct menu_layout {
+    char padding[0x74];
+    menu_vtable *vtable;
+};
+
+class TitleFrontEnd {
+    char padding[0x60];
+    menu_layout *active;
+
+public:
+    void OnRight(int controller);
+};
+
+void TitleFrontEnd::OnRight(int controller)
+{
+    menu_layout *menu = active;
+    if (menu) {
+        menu_vtable *table = menu->vtable;
+        table->on_right((char *)menu + table->adjustment, controller);
+    }
+}
+#endif
