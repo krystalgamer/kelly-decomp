@@ -238,3 +238,35 @@ void PhotoFrontEnd::OnLeft(int controller)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001CE128)
+// 0x001CE128 OnRight__13PhotoFrontEndi
+struct menu_vtable {
+    char padding[0xB0];
+    short adjustment;
+    short padding2;
+    void (*onRight)(void *self, int controller);
+};
+
+struct menu_layout {
+    char padding[0x74];
+    menu_vtable *vtable;
+};
+
+class PhotoFrontEnd {
+    char padding[0x60];
+    menu_layout *active;
+
+public:
+    void OnRight(int controller);
+};
+
+void PhotoFrontEnd::OnRight(int controller)
+{
+    menu_layout *menu = active;
+    if (menu) {
+        menu_vtable *table = menu->vtable;
+        table->onRight((char *)menu + table->adjustment, controller);
+    }
+}
+#endif
