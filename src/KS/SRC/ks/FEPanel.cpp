@@ -210,3 +210,56 @@ void PanelBatch::Update(float dt) { panel_material_vtable *table = material->vta
 // 0x00153450 ReadShort__FPUcRi
 short ReadShort(unsigned char *buffer, int &index) { short result; result = buffer[index] | (buffer[index + 1] << 8); index += 2; return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014DAF8)
+// 0x0014DAF8 SetPos__9PanelQuadffffffff
+struct panel_quad_vtable {
+    char padding[0x70];
+    short adjustment;
+    short padding2;
+    void (*set_pos)(
+        void *self,
+        float x1,
+        float y1,
+        float x2,
+        float y2
+    );
+};
+
+class PanelQuad {
+    char padding[0x194];
+    panel_quad_vtable *vtable;
+
+public:
+    void SetPos(
+        float xa,
+        float ya,
+        float xb,
+        float yb,
+        float xc,
+        float yc,
+        float xd,
+        float yd
+    );
+};
+
+void PanelQuad::SetPos(
+    float xa,
+    float ya,
+    float xb,
+    float yb,
+    float xc,
+    float yc,
+    float xd,
+    float yd
+) {
+    panel_quad_vtable *table = vtable;
+    table->set_pos(
+        (char *)this + table->adjustment,
+        xa,
+        ya,
+        xc,
+        yc
+    );
+}
+#endif
