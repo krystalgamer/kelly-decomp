@@ -98,3 +98,15 @@ void KSReplay::SpeedSlow() { if (fastforward) { fastforward = false; slomo = tru
 class KSReplay { char padding[0x1c]; bool slomo; bool fastforward; bool prepareSlomo; bool prepareNormal; public: void SpeedNormal(); };
 void KSReplay::SpeedNormal() { if (fastforward) { slomo = false; KELLY_DECOMP_COMPILER_BARRIER(); fastforward = false; } else { prepareNormal = true; } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023AC70)
+// 0x0023AC70 Save__13KSReplayFrame
+extern float WAVE_ShiftX;
+extern float TIMER_LevelSec;
+extern float TIMER_TotalSec;
+__asm__(".equ WAVE_ShiftX, 0x004852DC");
+__asm__(".equ TIMER_LevelSec, 0x0046B284");
+__asm__(".equ TIMER_TotalSec, 0x0046B27C");
+class KSReplayFrame { float wave_shiftx; float levelTime; float totalTime; public: void Save(); };
+void KSReplayFrame::Save() { wave_shiftx = WAVE_ShiftX; levelTime = TIMER_LevelSec; totalTime = TIMER_TotalSec; }
+#endif
