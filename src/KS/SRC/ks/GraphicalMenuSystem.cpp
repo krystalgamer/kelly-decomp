@@ -62,3 +62,11 @@ class FEMenu;
 class ControllerFrontEnd { char padding0[0x50]; PauseMenuSystemLayout *system; char padding1[0x128]; int selected_controller; public: void OnUnactivate(FEMenu *menu); };
 void ControllerFrontEnd::OnUnactivate(FEMenu *menu) { system->controller = selected_controller; frontendmanager.controller_widget->active = 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BC258)
+// 0x001BC258 Draw__13LegalFrontEnd
+struct legal_widget_vtable { char padding[0x18]; short adjustment; short padding2; void (*draw)(void *self); };
+struct legal_widget { char padding[0x4c]; legal_widget_vtable *vtable; };
+class LegalFrontEnd { char padding[0x150]; legal_widget *legal; public: void Draw(); };
+void LegalFrontEnd::Draw() { legal_widget_vtable *table = legal->vtable; table->draw((char *)legal + table->adjustment); }
+#endif
