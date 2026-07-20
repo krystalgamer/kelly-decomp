@@ -164,3 +164,36 @@ faceref *UninitializedCopy(
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00111358)
+// 0x00111358 fill__H2ZP8vector3dZ8vector3d_X01X01RCX11_v
+struct vector3d {
+    float x;
+    float y;
+    float z;
+
+    vector3d &operator=(const vector3d &other) {
+        x = other.x;
+        y = other.y;
+        z = other.z;
+        return *this;
+    }
+};
+
+extern "C" void Fill(
+    vector3d *first,
+    vector3d *last,
+    const vector3d &value
+) __asm__("fill__H2ZP8vector3dZ8vector3d_X01X01RCX11_v");
+
+void Fill(
+    vector3d *first,
+    vector3d *last,
+    const vector3d &value
+) {
+    while (first != last) {
+        *first = value;
+        ++first;
+    }
+}
+#endif
