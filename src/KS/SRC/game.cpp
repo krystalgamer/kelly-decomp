@@ -125,3 +125,12 @@ void game::set_num_ai_players(int count) {
 class game { char padding[0x290]; int current_loading_state; char padding_to_progress[0x4]; float loading_progress; float last_loading_progress; public: void LoadingStateReset(); };
 void game::LoadingStateReset() { current_loading_state = 0; loading_progress = 0; last_loading_progress = 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0027A808)
+// 0x0027A808 set_level__4gamei
+struct CareerData { int beach; char padding[0xd8]; };
+extern CareerData CareerDataArray[];
+__asm__(".equ CareerDataArray, 0x0042ECA0");
+class game { char padding[0x224]; int levelid; int beachid; public: void set_level(int level); };
+void game::set_level(int level) { levelid = level; beachid = CareerDataArray[levelid].beach; }
+#endif
