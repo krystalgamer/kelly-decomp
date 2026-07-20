@@ -344,3 +344,34 @@ void text_widget::set_rhw(float value)
     widget::rhw_2d_val[rhw_2d_layer] -= 1.0f;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00341978)
+// 0x00341978 set_rotation__11vrep_widgetfff
+struct widget_vtable {
+    char padding[0x118];
+    short adjustment;
+    short padding2;
+    void (*update_rot)(void *self);
+};
+
+class vrep_widget {
+    char padding0[0x140];
+    widget_vtable *vtable;
+    char padding1[0x14];
+    float ax;
+    float ay;
+    float az;
+
+public:
+    void set_rotation(float x, float y, float z);
+};
+
+void vrep_widget::set_rotation(float x, float y, float z)
+{
+    ax = x;
+    ay = y;
+    az = z;
+    widget_vtable *table = vtable;
+    table->update_rot((char *)this + table->adjustment);
+}
+#endif
