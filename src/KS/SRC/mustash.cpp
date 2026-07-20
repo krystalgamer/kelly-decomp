@@ -48,3 +48,26 @@ void stash::free_stored(int stashid) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00345BC0)
+// 0x00345BC0 WaitForStashLoad__5stash
+extern int LoadNewStashSema;
+__asm__(".equ LoadNewStashSema, 0x0046ABCC");
+
+extern "C" int WaitSema(int semaphore);
+extern "C" int SignalSema(int semaphore);
+__asm__(".equ WaitSema, 0x003DB6A0");
+__asm__(".equ SignalSema, 0x003DB680");
+
+class stash {
+public:
+    static void WaitForStashLoad();
+};
+
+void stash::WaitForStashLoad()
+{
+    WaitSema(LoadNewStashSema);
+    SignalSema(LoadNewStashSema);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
