@@ -68,3 +68,15 @@ __asm__(".equ create_entity__12entity_makerP6entity, 0x0030AB70");
 class world_dynamics_system { public: marker *add_marker(marker *value); };
 marker *world_dynamics_system::add_marker(marker *value) { marker *result = (marker *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002A3430)
+// 0x002A3430 add_beam__21world_dynamics_systemP4beam
+class entity {};
+class beam : public entity {};
+class entity_maker { public: entity *create_entity(entity *value); };
+extern entity_maker *g_entity_maker;
+__asm__(".equ g_entity_maker, 0x004318C8");
+__asm__(".equ create_entity__12entity_makerP6entity, 0x0030AB70");
+class world_dynamics_system { public: beam *add_beam(beam *value); };
+beam *world_dynamics_system::add_beam(beam *value) { beam *result = (beam *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
