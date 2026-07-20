@@ -1173,3 +1173,10 @@ __asm__(".equ global_ZEROVEC, 0x00513840");
 class entity { public: void get_effective_collision_velocity(vector3d *target, const vector3d &location) const; };
 void entity::get_effective_collision_velocity(vector3d *target, const vector3d &location) const { *target = global_ZEROVEC; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00144DB8)
+// 0x00144DB8 is_still_visible__C6entity
+struct EntityVisibleVTable { char padding[0x158]; short adjustment; short padding2; bool (*call)(void *self); };
+class entity { char padding[8]; EntityVisibleVTable *vtable; public: bool is_still_visible() const; };
+bool entity::is_still_visible() const { return vtable->call((char *)this + vtable->adjustment); }
+#endif
