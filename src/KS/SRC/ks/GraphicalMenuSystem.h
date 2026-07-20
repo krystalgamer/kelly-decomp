@@ -111,3 +111,10 @@ struct frontend_vtable { char padding[0x128]; short adjustment; short padding2; 
 class LegalFrontEnd { char padding[0x74]; frontend_vtable *vtable; public: void OnStart(int controller); };
 void LegalFrontEnd::OnStart(int controller) { frontend_vtable *table = vtable; table->call((char *)this + table->adjustment, 0); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DE310)
+// 0x001DE310 OnCross__13LegalFrontEndi
+struct frontend_vtable { char padding[0x128]; short adjustment; short padding2; void (*call)(void *, void *); };
+class LegalFrontEnd { char padding[0x74]; frontend_vtable *vtable; public: void OnCross(int controller); };
+void LegalFrontEnd::OnCross(int controller) { frontend_vtable *table = vtable; table->call((char *)this + table->adjustment, 0); }
+#endif

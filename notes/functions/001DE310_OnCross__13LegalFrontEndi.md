@@ -1,0 +1,22 @@
+# OnCross__13LegalFrontEndi
+
+- Address: `0x001DE310`
+- Size: `0x2C` (44 bytes)
+- Object: `game/files_frontend`
+- Debug source: `C:/KS/SRC/ks/GraphicalMenuSystem.h`
+- Reference source: `KS/SRC/ks/GraphicalMenuSystem.h`
+- Result: **matched**
+
+## Attempts
+
+| # | Status | Byte score | Instruction score | Candidate |
+| ---: | --- | ---: | ---: | --- |
+| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+
+### Attempt 1 notes
+
+A minimal frontend vtable layout preserves the virtual legal cross adjustment/function slots and null forwarded argument.
+
+## Outcome
+
+The released `LegalFrontEnd::OnCross` wrapper matched exactly.
