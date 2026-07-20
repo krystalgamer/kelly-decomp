@@ -30,3 +30,14 @@ __asm__(".equ going_out_of_service__7ai_goal, 0x001069C8");
 class surfer_ai_goal : public ai_goal { public: void going_out_of_service(); };
 void surfer_ai_goal::going_out_of_service() { ai_goal::going_out_of_service(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0020BC98)
+// 0x0020BC98 _$_14surfer_ai_goal
+extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_7ai_goal");
+extern const char derived_vtable[];
+__asm__(".equ _$_7ai_goal, 0x00106498");
+__asm__(".equ derived_vtable, 0x004D53C0");
+struct AIGoalLayout { char padding[0x38]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_14surfer_ai_goal");
+void DerivedDtor(void *self, int deleting) { ((AIGoalLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
