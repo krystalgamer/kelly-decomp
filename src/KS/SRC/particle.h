@@ -55,3 +55,10 @@ struct particle_source_layout { char padding[0x30]; vector3d position; };
 class particle_generator { char padding0[0x50]; particle_source_layout *source; char padding1[0x264]; vector3d last_position; public: void frame_done(); };
 void particle_generator::frame_done() { last_position = source->position; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00300170)
+// 0x00300170 possibly_active__C18particle_generator
+struct entity_vtable_layout { char padding[0x168]; short adjustment; short padding2; bool (*is_still_visible)(void *self); };
+class particle_generator { char padding[8]; entity_vtable_layout *vtable; public: bool possibly_active() const; };
+bool particle_generator::possibly_active() const { entity_vtable_layout *table = vtable; return table->is_still_visible((char *)this + table->adjustment); }
+#endif
