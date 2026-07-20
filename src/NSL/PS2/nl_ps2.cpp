@@ -36,3 +36,13 @@ void nslSceVu0UnitMatrix(matrix4x4 matrix) {
     __asm__ volatile("nop");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00391770)
+// 0x00391770 nlDotProduct3d__FPfT0
+typedef float nlVector3d[3];
+
+float nlDotProduct3d(nlVector3d v0, nlVector3d v1)
+{
+    return v0[0] * v1[0] + v0[1] * v1[1] + v0[2] * v1[2];
+}
+#endif
