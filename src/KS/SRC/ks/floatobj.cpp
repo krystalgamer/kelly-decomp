@@ -231,3 +231,14 @@ bool beach_event::update(float time) { return my_func(time, &my_func_data); }
 class beach_event { char padding0[0xc]; int times_spawned; bool spawned; char padding1[0x10]; void *my_func_data; char padding2[4]; int spawn_count; public: void spawn(); };
 void beach_event::spawn() { if (times_spawned == spawn_count) return; my_func_data = 0; spawned = true; times_spawned++; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001FD850)
+// 0x001FD850 _$_15floating_object
+extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_12water_object");
+extern const char derived_vtable[];
+__asm__(".equ _$_12water_object, 0x001FC5E0");
+__asm__(".equ derived_vtable, 0x004D6060");
+struct WaterObjectLayout { char padding[0x38]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_15floating_object");
+void DerivedDtor(void *self, int deleting) { ((WaterObjectLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
