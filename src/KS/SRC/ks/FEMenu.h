@@ -556,3 +556,11 @@ struct MenuVTable { char padding[0x1c8]; short adjustment; short padding2; void 
 class FEMultiMenu { char padding[0x74]; MenuVTable *vtable; public: void OnRight(int command); };
 void FEMultiMenu::OnRight(int command) { MenuVTable *table = vtable; table->call((char *)this + table->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA520)
+// 0x001DA520 SetPos__11FEMenuEntryff
+struct text_vtable { char padding[0x58]; short adjustment; short padding2; void (*call)(void *, float, float); };
+struct menu_text { char padding[0x4c]; text_vtable *vtable; };
+class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetPos(float x, float y); };
+void FEMenuEntry::SetPos(float x, float y) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, x, y); }
+#endif
