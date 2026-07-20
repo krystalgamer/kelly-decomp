@@ -116,3 +116,48 @@ void vr_billboard::render_instance(
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002C10F8)
+// 0x002C10F8 render_instance__12vr_billboardUiP20instance_render_infoPs
+struct instance_render_info;
+
+struct billboard_vtable {
+    char padding[0xa8];
+    short adjustment;
+    short padding2;
+    void (*render_batch)(
+        void *self,
+        unsigned int flavor,
+        instance_render_info *info,
+        int enabled,
+        short *lookup
+    );
+};
+
+class vr_billboard {
+    char padding[0x10];
+    billboard_vtable *vtable;
+
+public:
+    void render_instance(
+        unsigned int flavor,
+        instance_render_info *info,
+        short *lookup
+    );
+};
+
+void vr_billboard::render_instance(
+    unsigned int flavor,
+    instance_render_info *info,
+    short *lookup
+) {
+    billboard_vtable *table = vtable;
+    table->render_batch(
+        (char *)this + table->adjustment,
+        flavor,
+        info,
+        1,
+        lookup
+    );
+}
+#endif
