@@ -40,3 +40,12 @@ __asm__(".equ flush__6widget, 0x0033E518");
 class text_widget : public widget { public: void flush(); };
 void text_widget::flush() { widget::flush(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033EAD8)
+// 0x0033EAD8 get_first_child__6widget
+class widget;
+struct widget_node { widget_node *next; widget_node *previous; widget *value; };
+class widget_iterator { widget_node *node; public: widget_iterator(widget_node *value) : node(value) {} };
+class widget { char padding[0x10]; widget_node *children; public: widget *get_first_child(); };
+widget *widget::get_first_child() { widget_node *sentinel = children; widget_node *first = sentinel->next; if (first != sentinel) { volatile widget_iterator iterator(first); return first->value; } return 0; }
+#endif
