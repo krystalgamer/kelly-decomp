@@ -47,3 +47,11 @@ __asm__(".equ getButtonState__Fii, 0x00159270");
 class IGOFrontEnd { public: bool GetProceedButtonState(int controller); };
 bool IGOFrontEnd::GetProceedButtonState(int controller) { return getButtonState(6, controller); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017CB40)
+// 0x0017CB40 OnSurferStandUp__11IGOFrontEnd
+class WaveIndicatorWidget { public: void Hide(bool immediate); };
+__asm__(".equ Hide__19WaveIndicatorWidgetb, 0x00168180");
+class IGOFrontEnd { char padding[0x5a0]; WaveIndicatorWidget *waveIndicatorWidget; public: void OnSurferStandUp(); };
+void IGOFrontEnd::OnSurferStandUp() { if (waveIndicatorWidget) { waveIndicatorWidget->Hide(true); KELLY_DECOMP_COMPILER_BARRIER(); } }
+#endif
