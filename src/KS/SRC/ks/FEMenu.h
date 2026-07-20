@@ -581,3 +581,12 @@ struct menu_text { char padding[0x4c]; text_vtable *vtable; };
 class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetHJustify(Font::HORIZJUST value); };
 void FEMenuEntry::SetHJustify(Font::HORIZJUST value) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, value); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA660)
+// 0x001DA660 SetVJustify__11FEMenuEntryQ24Font8VERTJUST
+class Font { public: enum VERTJUST { VERTJUST_TOP }; };
+struct text_vtable { char padding[0x28]; short adjustment; short padding2; void (*call)(void *, Font::VERTJUST); };
+struct menu_text { char padding[0x4c]; text_vtable *vtable; };
+class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetVJustify(Font::VERTJUST value); };
+void FEMenuEntry::SetVJustify(Font::VERTJUST value) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, value); }
+#endif
