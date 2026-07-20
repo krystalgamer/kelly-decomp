@@ -640,3 +640,11 @@ struct menu_text { char padding[0x4c]; text_vtable *vtable; };
 class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetScale(float value); };
 void FEMenuEntry::SetScale(float value) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, value); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA850)
+// 0x001DA850 GetX__11FEMenuEntry
+struct text_vtable { char padding[0x88]; short adjustment; short padding2; float (*call)(void *); };
+struct menu_text { char padding[0x4c]; text_vtable *vtable; };
+class FEMenuEntry { char padding[0x24]; menu_text *text; public: float GetX(); };
+float FEMenuEntry::GetX() { text_vtable *table = text->vtable; return table->call((char *)text + table->adjustment); }
+#endif
