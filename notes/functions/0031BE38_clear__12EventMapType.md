@@ -5,7 +5,7 @@
 - Object: `game/files_script`
 - Debug source: `ks/SoundScript.cpp`
 - Reference source: `KS/SRC/ks/SoundScript.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -13,7 +13,9 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 32.1429 | 14.2857 | `candidate.cpp` |
 | 2 | different | 61.5385 | 53.8462 | `candidate.cpp` |
-| 3 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | policy-invalid | 100.0 | 100.0 | `candidate.cpp` |
+| 4 | different | 32.1429 | 14.2857 | `candidate.cpp` |
+| 5 | different | 61.5385 | 53.8462 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
@@ -25,8 +27,16 @@ Used an explicit source pointer. This produced 52 bytes but scheduled index init
 
 ### Attempt 3 notes
 
-The released operation clears all active source IDs and resets numSrcs. Instruction-emitting inline assembly is limited to the exact dynamic loop because EE GCC otherwise changes both the initial branch delay slot and the pointer-increment backedge delay slot; `.set noreorder` preserves the target schedule.
+Invalid attempt. It replaced the released C++ loop with the target instruction stream and therefore was not a decompilation.
+
+### Attempt 4 notes
+
+Retested the released source with the original `EventType` and unsigned `nslSourceId` member types. EE GCC still recomputed each indexed address and emitted 56 bytes.
+
+### Attempt 5 notes
+
+Used a source-level pointer-induction loop without compiler controls. It emitted 52 bytes, but EE GCC scheduled initialization and pointer advancement differently from the target.
 
 ## Outcome
 
-The released sound event-map clear matched exactly.
+Deferred after five attempts. The simple source-level implementations preserve the released behavior but do not reproduce the target schedule; no inline assembly is integrated.
