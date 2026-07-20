@@ -14,3 +14,10 @@ struct MenuVTable { char padding[0x28]; short adjustment; short padding2; void (
 class Menu { char padding[0x1c]; MenuVTable *vtable; public: void ButtonRelease(int button); };
 void Menu::ButtonRelease(int button) { MenuVTable *table = vtable; table->release((char *)this + table->adjustment, button); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023EFD8)
+// 0x0023EFD8 OnMenuClose__9MenuEntry
+struct EntryVTable { char padding[0x40]; short adjustment; short padding2; void (*deactivate)(void *self); };
+class MenuEntry { int field0; EntryVTable *vtable; public: void OnMenuClose(); };
+void MenuEntry::OnMenuClose() { EntryVTable *table = vtable; table->deactivate((char *)this + table->adjustment); }
+#endif
