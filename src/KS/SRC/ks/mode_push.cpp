@@ -29,3 +29,11 @@ struct PushPlayer { float share; char padding[0x4]; recti viewport; char trailin
 class PushMode { PushPlayer players[2]; public: const recti& GetPlayerViewport(int index) const; };
 const recti& PushMode::GetPlayerViewport(int index) const { return players[index].viewport; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002858E8)
+// 0x002858E8 _$_8PushMode
+extern "C" void builtin_delete(void *pointer) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+extern "C" void PushModeDtor(void *self, int deleting) __asm__("_$_8PushMode");
+void PushModeDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
