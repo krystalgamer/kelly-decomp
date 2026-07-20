@@ -71,3 +71,12 @@ __asm__(".equ Hide__12CameraWidget, 0x00169FF0");
 class IGOFrontEnd { char padding[0x5a8]; CameraWidget *cameraWidget; public: void HideCameraReticle(); };
 void IGOFrontEnd::HideCameraReticle() { if (cameraWidget) { cameraWidget->Hide(); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017CE88)
+// 0x0017CE88 ShowPhoto__11IGOFrontEndP10nglTexturePii
+struct nglTexture;
+class PhotoWidget { public: void Show(nglTexture *texture, int *score, int photo); };
+__asm__(".equ Show__11PhotoWidgetP10nglTexturePii, 0x0016AE98");
+class IGOFrontEnd { char padding[0x5ac]; PhotoWidget *photoWidget; public: void ShowPhoto(nglTexture *texture, int *score, int photo); };
+void IGOFrontEnd::ShowPhoto(nglTexture *texture, int *score, int photo) { if (photoWidget) { photoWidget->Show(texture, score, photo); KELLY_DECOMP_COMPILER_BARRIER(); } }
+#endif
