@@ -119,3 +119,9 @@ class Career { public: class Location { char padding[8]; int movie_shown; public
 __asm__(".equ SetMovieShown__Q26Career8Location, 0x0025AF30");
 bool Career::Location::CheckShowMovie() { if (movie_shown) return false; SetMovieShown(); return true; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0025C378)
+// 0x0025C378 ResetGoals__Q26Career5Level
+class Career { public: class Level { char padding[0x10]; int goals[5]; public: void ResetGoals(); }; };
+void Career::Level::ResetGoals() { int index = 4; int *goal = &goals[4]; loop: *goal = 0; --index; KELLY_DECOMP_COMPILER_BARRIER(); KELLY_DECOMP_COMPILER_BARRIER(); if (index >= 0) { --goal; goto loop; } --goal; }
+#endif
