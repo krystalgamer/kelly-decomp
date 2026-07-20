@@ -88,3 +88,27 @@ bool generic_interface::set_ifc_str(const pstring &att, const stringx &val) {
     return false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00112C08)
+// 0x00112C08 _$_17generic_interface
+extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+
+extern const char generic_interface_vtable[];
+__asm__(".equ generic_interface_vtable, 0x004C85B8");
+
+struct generic_interface_layout {
+    const void *vtable;
+};
+
+extern "C" void GenericInterfaceDtor(void *self, int deleting)
+    __asm__("_$_17generic_interface");
+
+void GenericInterfaceDtor(void *self, int deleting) {
+    ((generic_interface_layout *)self)->vtable = generic_interface_vtable;
+    if (deleting & 1) {
+        BuiltinDelete(self);
+    }
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
