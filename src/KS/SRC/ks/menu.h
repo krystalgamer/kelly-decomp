@@ -201,3 +201,13 @@ class MenuEntryFunctionFloatEdit : public MenuEntry { public: void OnMenuOpen(Me
 __asm__(".equ FixValue__26MenuEntryFunctionFloatEdit, 0x0023FF48");
 void MenuEntryFunctionFloatEdit::OnMenuOpen(Menu *menu, MenuSystem *system) { MenuEntry::OnMenuOpen(menu, system); FixValue(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00270B50)
+// 0x00270B50 OnMenuOpen__16MenuEntryIntEditP4MenuP10MenuSystem
+class Menu; class MenuSystem;
+class MenuEntry { public: void OnMenuOpen(Menu *menu, MenuSystem *system); };
+__asm__(".equ OnMenuOpen__9MenuEntryP4MenuP10MenuSystem, 0x0023EF90");
+class MenuEntryIntEdit : public MenuEntry { public: void OnMenuOpen(Menu *menu, MenuSystem *system); void FixValue(); };
+__asm__(".equ FixValue__16MenuEntryIntEdit, 0x0023F4D8");
+void MenuEntryIntEdit::OnMenuOpen(Menu *menu, MenuSystem *system) { MenuEntry::OnMenuOpen(menu, system); FixValue(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
