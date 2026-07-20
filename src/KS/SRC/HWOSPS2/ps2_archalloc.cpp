@@ -44,3 +44,12 @@ void *mem_malloc(unsigned int size, const char *description, int line, int flags
 __asm__(".equ mem_malloc__FUiPCcii, 0x002AC788");
 void *operator new(unsigned int size) { const char *description = (const char *)0x004F0000; __asm__ volatile("" : "+r"(description)); description -= 0x6b68; void *result = mem_malloc(size, description, 0, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AC6F0)
+// 0x002AC6F0 arch_malloc__FUiPCci
+void *mem_malloc(unsigned int size, const char *description, int line, int flags);
+extern const char arch_malloc_description[];
+__asm__(".equ mem_malloc__FUiPCcii, 0x002AC788");
+__asm__(".equ arch_malloc_description, 0x004F94B8");
+void *arch_malloc(unsigned int size, const char *description, int line) { void *result = mem_malloc(size, description ? description : arch_malloc_description, line, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
