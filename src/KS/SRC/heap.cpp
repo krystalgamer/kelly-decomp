@@ -87,3 +87,10 @@ struct MemBlockInfo { char padding0[0x14]; unsigned short signature; unsigned ch
 class Heap { char padding[0x30]; int heap_id; public: bool IsThisMine(const MemBlockInfo *block) const; };
 bool Heap::IsThisMine(const MemBlockInfo *block) const { return block->heap_id == heap_id && block->signature == 0x7e07; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AB7F8)
+// 0x002AB7F8 CheckStackCollision__C4Heap
+class Heap { char padding0[0x1c]; int stack_collision; char padding1[0x14]; void *low; void *high; public: void CheckStackCollision() const; void CheckLoHi(void *low, void *high) const; };
+__asm__(".equ CheckLoHi__C4HeapPvT1, 0x002AB670");
+void Heap::CheckStackCollision() const { if (stack_collision) { CheckLoHi(low, high); KELLY_DECOMP_COMPILER_BARRIER(); } }
+#endif
