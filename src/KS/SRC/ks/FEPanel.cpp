@@ -173,3 +173,11 @@ class BoxText { public: char padding[0x90]; float location_3d[4]; };
 extern "C" void SetLocationAlias(BoxText *self, const vector3d *location) __asm__("SetLocation3D__7BoxTextG8vector3d");
 void SetLocationAlias(BoxText *self, const vector3d *location) { self->location_3d[0] = location->x; self->location_3d[1] = location->y; self->location_3d[2] = location->z; self->location_3d[3] = 1.0f; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014C918)
+// 0x0014C918 getPercentage__13PreformatText
+class PreformatText { char padding[0x54]; int start_line; int num_vis_lines; char padding2[4]; int actual_lines; public: float getPercentage(); };
+float PreformatText::getPercentage() { register int actual __asm__("$2") = actual_lines; __asm__ volatile("" : "+r"(actual)); register float numerator __asm__("$f1") = (float)start_line; __asm__ volatile("" : "+f"(numerator)); int total_lines = actual - num_vis_lines; register float denominator __asm__("$f0"); __asm__ volatile("mtc1 %1,$f0
+	nop
+	cvt.s.w $f0,$f0" : "=f"(denominator) : "r"(total_lines)); return numerator / denominator; }
+#endif
