@@ -71,3 +71,30 @@ void stash::WaitForStashLoad()
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00347CE0)
+// 0x00347CE0 open__5stashPCc
+class pstring {
+    char data[0x20];
+
+public:
+    void pack_string(const char *text);
+};
+
+__asm__(".equ pack_string__7pstringPCc, 0x003354D0");
+
+class stash {
+public:
+    bool open(const char *name);
+    bool open(const pstring &name);
+};
+
+__asm__(".equ open__5stashRC7pstring, 0x00347D18");
+
+bool stash::open(const char *name)
+{
+    pstring packed;
+    packed.pack_string(name);
+    return open(packed);
+}
+#endif
