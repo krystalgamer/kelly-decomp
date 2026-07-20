@@ -1158,3 +1158,9 @@ struct vector3d { float x; float y; float z; vector3d &operator=(const vector3d 
 class entity { char padding[0x1dc]; vector3d render_scale; public: void set_render_scale(const vector3d &value); };
 void entity::set_render_scale(const vector3d &value) { render_scale = value; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00144AC0)
+// 0x00144AC0 set_ext_flag_recursive__6entityUib
+class entity { char padding[0x198]; unsigned int ext_flags; public: void set_ext_flag_recursive(unsigned int flag, bool enabled); };
+void entity::set_ext_flag_recursive(unsigned int flag, bool enabled) { if (enabled) ext_flags |= flag; else ext_flags &= ~flag; }
+#endif
