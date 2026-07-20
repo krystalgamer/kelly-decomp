@@ -49,3 +49,14 @@ struct process_stack_layout { void *front_node; };
 class game { char padding[0x5c]; process_stack_layout *process_stack; public: int get_cur_state() const; };
 int game::get_cur_state() const { game_process_layout *process = (game_process_layout *)((char *)process_stack->front_node + 8); return process->flow[process->index]; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00286B10)
+// 0x00286B10 go_next_state__4game
+class game_process { public: void go_next_state(); };
+__asm__(".equ go_next_state__12game_process, 0x00286978");
+struct game_process_node { game_process_node *next; game_process_node *previous; game_process value; };
+class game_process_iterator { game_process_node *node; public: game_process_iterator(game_process_node *value) : node(value) {} };
+class game_process_stack { public: game_process_node *sentinel; };
+class game { char padding[0x5c]; game_process_stack process_stack; public: void go_next_state(); };
+void game::go_next_state() { game_process_node *node = process_stack.sentinel->next; volatile game_process_iterator iterator(node); node->value.go_next_state(); }
+#endif
