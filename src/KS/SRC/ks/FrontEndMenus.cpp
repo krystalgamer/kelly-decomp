@@ -173,3 +173,13 @@ struct PauseMenuSystemLayout { char padding[0x78]; FEManagerLayout *manager; };
 class HeatEndMenuClass { char padding[0x50]; PauseMenuSystemLayout *system; public: void OnActivate(); };
 void HeatEndMenuClass::OnActivate() { system->manager->IGO->ShowMenuBackground(true); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001A8FF8)
+// 0x001A8FF8 OnActivate__16CompEndMenuClass
+class IGOFrontEnd { public: void ShowMenuBackground(bool visible); };
+__asm__(".equ ShowMenuBackground__11IGOFrontEndb, 0x0017CED0");
+struct FEManagerLayout { IGOFrontEnd *IGO; };
+struct PauseMenuSystemLayout { char padding[0x78]; FEManagerLayout *manager; };
+class CompEndMenuClass { char padding[0x78]; PauseMenuSystemLayout *system; public: void OnActivate(); };
+void CompEndMenuClass::OnActivate() { system->manager->IGO->ShowMenuBackground(true); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
