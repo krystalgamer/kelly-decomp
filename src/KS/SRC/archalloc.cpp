@@ -80,3 +80,18 @@ __asm__(".equ heapstackptr, 0x00432300");
 __asm__(".equ mem_set_current_heap__Fi, 0x002ACCA0");
 void mem_push_current_heap(int heap) { ++heapstackptr; mem_set_current_heap(heap); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002ACCF0)
+// 0x002ACCF0 mem_pop_current_heap__Fv
+extern int heapstackptr;
+extern int heapstack[];
+extern int currentheap;
+__asm__(".equ heapstackptr, 0x00432300");
+__asm__(".equ heapstack, 0x00432688");
+__asm__(".equ currentheap, 0x004322CC");
+
+void mem_pop_current_heap() {
+    --heapstackptr;
+    currentheap = heapstack[heapstackptr];
+}
+#endif
