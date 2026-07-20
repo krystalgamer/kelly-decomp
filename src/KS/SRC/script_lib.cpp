@@ -1003,3 +1003,58 @@ bool slf_set_global_time_dilation_t::operator()(
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003230A0)
+// 0x003230A0 __cl__16slf_load_level_tR8vm_stackQ320script_library_class8function7entry_t
+class stringx;
+
+class vm_stack {
+    char padding[8];
+    unsigned char *top;
+
+public:
+    void *pop(int size) {
+        top -= size;
+        return top;
+    }
+};
+
+class game {
+public:
+    void load_new_level(const stringx &name);
+};
+
+__asm__(".equ load_new_level__4gameRC7stringx, 0x0027D978");
+
+extern game *g_game_ptr;
+__asm__(".equ g_game_ptr, 0x0046AC64");
+
+class script_library_class {
+public:
+    class function {
+    public:
+        enum entry_t { FIRST_ENTRY };
+    };
+};
+
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+
+class slf_load_level_t : public script_library_class::function {
+public:
+    struct parms_t {
+        stringx *level_name;
+    };
+
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+
+bool slf_load_level_t::operator()(
+    vm_stack &stack,
+    entry_t entry
+) {
+    SLF_PARMS;
+    g_game_ptr->load_new_level(*parms->level_name);
+    SLF_DONE;
+}
+#endif
