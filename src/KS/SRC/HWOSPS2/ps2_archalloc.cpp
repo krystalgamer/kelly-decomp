@@ -60,3 +60,12 @@ void *mem_malloc(unsigned int size, const char *description, int line, int flags
 __asm__(".equ mem_malloc__FUiPCcii, 0x002AC788");
 void *arch_mallochigh(unsigned int size) { const char *description = (const char *)0x004F0000; __asm__ volatile("" : "+r"(description)); description -= 0x6b48; void *result = mem_malloc(size, description, 0, 1); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AC740)
+// 0x002AC740 arch_memalign__FUiUiPCci
+void *mem_memalign(unsigned int boundary, unsigned int size, const char *description, int line, int flags);
+extern const char arch_memalign_description[];
+__asm__(".equ mem_memalign__FUiUiPCcii, 0x002AC848");
+__asm__(".equ arch_memalign_description, 0x004F94D8");
+void *arch_memalign(unsigned int boundary, unsigned int size, const char *description, int line) { void *result = mem_memalign(boundary, size, description ? description : arch_memalign_description, line, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
