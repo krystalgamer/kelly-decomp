@@ -261,3 +261,31 @@ static int readBufBeginPut(ReadBuf *buffer, unsigned char **pointer)
 
 __asm__(".globl readBufBeginPut__FP7ReadBufPPUc");
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00388BF0)
+// 0x00388BF0 videoDecDelete__FP8VideoDec
+struct sceMpeg {
+    char data[0x48];
+};
+
+struct ViBuf;
+
+struct VideoDec {
+    sceMpeg mpeg;
+    ViBuf *vibuf_marker;
+};
+
+int viBufDelete(ViBuf *buffer);
+extern "C" int sceMpegDelete(sceMpeg *mpeg);
+__asm__(".equ viBufDelete__FP5ViBuf, 0x0038A870");
+__asm__(".equ sceMpegDelete, 0x003BF040");
+
+static int videoDecDelete(VideoDec *decoder)
+{
+    viBufDelete((ViBuf *)((char *)decoder + 0x48));
+    sceMpegDelete(&decoder->mpeg);
+    return 1;
+}
+
+__asm__(".globl videoDecDelete__FP8VideoDec");
+#endif
