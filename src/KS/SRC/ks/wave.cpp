@@ -125,3 +125,12 @@ void WAVE_ScheduleSync();
 __asm__(".equ WAVE_ScheduleSync__Fv, 0x003779B0");
 void WAVE_ResetSchedule() { register char *wave_globals __asm__("$2") = (char *)0x00480000; __asm__ volatile("" : "+r"(wave_globals)); *(int *)(wave_globals + 0x46d4) = 0; WAVE_ScheduleSync(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00373758)
+// 0x00373758 WAVE_Cleanup__Fv
+extern unsigned int WAVE_MeshID;
+void WAVETEX_FreeWaveMesh(unsigned int id);
+__asm__(".equ WAVE_MeshID, 0x0058EA60");
+__asm__(".equ WAVETEX_FreeWaveMesh__FUi, 0x00380EA0");
+void WAVE_Cleanup() { WAVETEX_FreeWaveMesh(WAVE_MeshID); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
