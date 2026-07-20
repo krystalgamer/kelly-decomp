@@ -125,3 +125,10 @@ struct frontend_vtable { char padding[0x128]; short adjustment; short padding2; 
 class TitleFrontEnd { char padding[0x74]; frontend_vtable *vtable; public: void OnStart(int controller); };
 void TitleFrontEnd::OnStart(int controller) { frontend_vtable *table = vtable; table->call((char *)this + table->adjustment, 0); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DE370)
+// 0x001DE370 OnCross__13TitleFrontEndi
+struct frontend_vtable { char padding[0x128]; short adjustment; short padding2; void (*call)(void *, void *); };
+class TitleFrontEnd { char padding[0x74]; frontend_vtable *vtable; public: void OnCross(int controller); };
+void TitleFrontEnd::OnCross(int controller) { frontend_vtable *table = vtable; table->call((char *)this + table->adjustment, 0); }
+#endif
