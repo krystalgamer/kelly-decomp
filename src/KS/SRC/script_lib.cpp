@@ -905,3 +905,52 @@ bool slf_globalize_thread_t::operator()(
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00322C40)
+// 0x00322C40 __cl__20slf_play_sound_vol_tR8vm_stackQ320script_library_class8function7entry_t
+void warning(const char *format, ...);
+__asm__(".equ warning__FPCce, 0x001DFB58");
+
+extern char warning_text[];
+__asm__(".equ warning_text, 0x00509660");
+
+class vm_stack {
+    char padding[8];
+    char *top;
+
+public:
+    void *pop(unsigned int size) {
+        top -= size;
+        return top;
+    }
+};
+
+class script_library_class {
+public:
+    class function {
+    public:
+        enum entry_t { FIRST_ENTRY };
+    };
+};
+
+#define SLF_PARMS_UNUSED stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+
+class slf_play_sound_vol_t : public script_library_class::function {
+public:
+    struct parms_t {
+        char storage[8];
+    };
+
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+
+bool slf_play_sound_vol_t::operator()(
+    vm_stack &stack,
+    entry_t entry
+) {
+    SLF_PARMS_UNUSED;
+    warning(warning_text);
+    SLF_DONE;
+}
+#endif
