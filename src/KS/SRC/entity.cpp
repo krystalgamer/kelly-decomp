@@ -337,3 +337,10 @@ class entity { char padding[0x158]; void *my_sector; void *center_region; public
 __asm__(".equ remove_from_regions__6entity, 0x0012FE18");
 void entity::remove_from_terrain() { remove_from_regions(); center_region = 0; KELLY_DECOMP_COMPILER_BARRIER(); my_sector = 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00139AF8)
+// 0x00139AF8 has_mesh__6entity
+struct entity_vtable { char padding[0x278]; short adjustment; short padding2; void *(*get_mesh)(void *self); };
+class entity { char padding[8]; entity_vtable *vtable; public: bool has_mesh(); };
+bool entity::has_mesh() { entity_vtable *table = vtable; return table->get_mesh((char *)this + table->adjustment) != 0; }
+#endif
