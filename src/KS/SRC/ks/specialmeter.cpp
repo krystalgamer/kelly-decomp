@@ -99,3 +99,25 @@ void SpecialMeter::Increase(float value)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00250FF0)
+// 0x00250FF0 Decrease__12SpecialMeterf
+class SpecialMeter {
+    char padding[8];
+    float fillage;
+
+public:
+    void SetFillage(float value);
+    void Decrease(float value);
+};
+
+__asm__(".equ SetFillage__12SpecialMeterf, 0x00251028");
+
+void SpecialMeter::Decrease(float value)
+{
+    if (value > 0.0f) {
+        SetFillage(fillage - value);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
