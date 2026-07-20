@@ -88,3 +88,35 @@ void FEMenu::OnStart(int controller)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001581B0)
+// 0x001581B0 Select__15FEGraphicalMenui
+struct menu_vtable {
+    char padding[0x128];
+    short adjustment;
+    short padding2;
+    void (*select)(void *self, int entry);
+};
+
+struct menu_layout {
+    char padding[0x74];
+    menu_vtable *vtable;
+};
+
+class FEGraphicalMenu {
+    char padding[0x60];
+    menu_layout *active;
+
+public:
+    void Select(int entry);
+};
+
+void FEGraphicalMenu::Select(int entry)
+{
+    menu_layout *menu = active;
+    if (menu) {
+        menu_vtable *table = menu->vtable;
+        table->select((char *)menu + table->adjustment, entry);
+    }
+}
+#endif
