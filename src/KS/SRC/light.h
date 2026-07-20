@@ -108,3 +108,39 @@ void light_source::set_color(const color &value) {
     properties->diffuse_color = value;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FF990)
+// 0x002FF990 set_additive_color__12light_sourceRC5color
+struct color {
+    float r;
+    float g;
+    float b;
+    float a;
+
+    color &operator=(const color &value) {
+        r = value.r;
+        g = value.g;
+        b = value.b;
+        a = value.a;
+        return *this;
+    }
+};
+
+struct light_properties {
+    int flavor;
+    color diffuse_color;
+    color additive_color;
+};
+
+class light_source {
+    char padding[0x200];
+    light_properties *properties;
+
+public:
+    void set_additive_color(const color &value);
+};
+
+void light_source::set_additive_color(const color &value) {
+    properties->additive_color = value;
+}
+#endif
