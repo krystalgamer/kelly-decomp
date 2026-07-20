@@ -105,3 +105,9 @@ void *entity_track_tree::operator new(unsigned int size) { const char *file = (c
 class entity_track_node { int field0; int field4; char padding[0x18]; int field20; int field24; int field28; int field2c; public: entity_track_node(); };
 entity_track_node::entity_track_node() { field0 = -1; field4 = 1; field20 = 0; field24 = 0; field28 = 0; field2c = 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001185C8)
+// 0x001185C8 set_blend__16entity_anim_treeff
+class entity_anim_tree { char padding0[0x44]; float blend_a; char padding1[0x2c]; float blend_b; public: void set_blend(float first, float second); };
+void entity_anim_tree::set_blend(float first, float second) { float sum = first + second; float one = 1.0f; __asm__ volatile("nop"); float reciprocal = one / sum; blend_a = first * reciprocal; blend_b = second * reciprocal; }
+#endif
