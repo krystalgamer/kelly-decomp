@@ -40,3 +40,14 @@ struct signaller_layout { unsigned int flags; };
 extern "C" bool DisableSignalsOp(void *self, vm_stack_layout *stack, int entry) __asm__("__cl__31slf_signaller_disable_signals_tR8vm_stackQ320script_library_class8function7entry_t");
 bool DisableSignalsOp(void *self, vm_stack_layout *stack, int entry) { stack->top -= 4; signaller_layout *signaller = *(signaller_layout **)stack->top; signaller->flags |= 1; return true; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003283A8)
+// 0x003283A8 __cl__30slf_signaller_enable_signals_tR8vm_stackQ320script_library_class8function7entry_t
+class signaller { int flags; public: void enable() { flags &= ~1; } };
+class vm_stack { char padding[8]; char *top; public: void *pop(unsigned int size) { top -= size; return top; } };
+class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+class slf_signaller_enable_signals_t : public script_library_class::function { public: struct parms_t { signaller *me; }; bool operator()(vm_stack &stack, entry_t entry); };
+bool slf_signaller_enable_signals_t::operator()(vm_stack &stack, entry_t entry) { SLF_PARMS; parms->me->enable(); SLF_DONE; }
+#endif
