@@ -37,3 +37,30 @@ __asm__(".equ refresh__6signal, 0x0034C530");
 class gated_signal { char padding[0x1e]; unsigned short flags; public: void refresh(); };
 void gated_signal::refresh() { SignalRefresh(this); flags = 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034CC18)
+// 0x0034CC18 match__C12gated_signalQ212gated_signal6type_tPC6signal
+class signal;
+
+class gated_signal {
+public:
+    enum type_t {
+        AND,
+        OR
+    };
+
+private:
+    char padding[0x1c];
+    unsigned short type;
+    unsigned short flags;
+    signal *input_a;
+    signal *input_b;
+
+public:
+    bool match(type_t value, const signal *input) const;
+};
+
+bool gated_signal::match(type_t value, const signal *input) const {
+    return value == type && (input == input_b || input == input_a);
+}
+#endif
