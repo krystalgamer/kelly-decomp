@@ -39,3 +39,35 @@ void CheatFrontEnd::Select() {
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D22C8)
+// 0x001D22C8 Select__13CheatCodeMenu
+struct menu_vtable {
+    char padding[0x128];
+    short adjustment;
+    short padding2;
+    void (*select)(void *self, int entry);
+};
+
+struct menu_entry {
+    int entry_num;
+};
+
+class CheatCodeMenu {
+    char padding0[0x4c];
+    menu_entry *highlighted;
+    char padding1[0x24];
+    menu_vtable *vtable;
+
+public:
+    void Select();
+};
+
+void CheatCodeMenu::Select() {
+    menu_vtable *table = vtable;
+    table->select(
+        (char *)this + table->adjustment,
+        highlighted->entry_num
+    );
+}
+#endif
