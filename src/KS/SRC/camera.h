@@ -72,3 +72,14 @@ void marky_camera::camera_set_collide_with_world(bool value) {
     do_collide_with_world = value;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FED78)
+// 0x002FED78 _$_11game_camera
+extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char base_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ base_vtable, 0x004F3AD0");
+struct object_layout { char padding[0x8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_11game_camera");
+void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = base_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
