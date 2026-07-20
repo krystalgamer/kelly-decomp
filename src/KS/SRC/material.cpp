@@ -74,3 +74,25 @@ __asm__(".equ get_anim_length__C12anim_texture, 0x00339CA8");
 class material { char padding[0x28]; anim_texture maps[1]; public: int get_anim_length(int map) const; };
 int material::get_anim_length(int map) const { int result = maps[map].get_anim_length(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00339BF0)
+// 0x00339BF0 get_texture__C12anim_texturei
+class hw_texture;
+
+class anim_texture {
+    char padding[8];
+    hw_texture **begin;
+    hw_texture **end;
+
+public:
+    hw_texture *get_texture(int frame) const;
+};
+
+hw_texture *anim_texture::get_texture(int frame) const {
+    hw_texture **texture = begin;
+    unsigned int count = end - texture;
+    frame = (unsigned int)frame % count;
+    texture += frame;
+    return *texture;
+}
+#endif
