@@ -62,3 +62,10 @@ struct entity_vtable_layout { char padding[0x168]; short adjustment; short paddi
 class particle_generator { char padding[8]; entity_vtable_layout *vtable; public: bool possibly_active() const; };
 bool particle_generator::possibly_active() const { entity_vtable_layout *table = vtable; return table->is_still_visible((char *)this + table->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00300198)
+// 0x00300198 possibly_aging__C18particle_generator
+struct entity_vtable_layout { char padding[0x168]; short adjustment; short padding2; bool (*is_still_visible)(void *self); };
+class particle_generator { char padding[8]; entity_vtable_layout *vtable; public: bool possibly_aging() const; };
+bool particle_generator::possibly_aging() const { entity_vtable_layout *table = vtable; return table->is_still_visible((char *)this + table->adjustment); }
+#endif
