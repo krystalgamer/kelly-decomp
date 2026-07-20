@@ -183,3 +183,27 @@ struct PauseMenuSystemLayout { char padding[0x78]; FEManagerLayout *manager; };
 class CompEndMenuClass { char padding[0x78]; PauseMenuSystemLayout *system; public: void OnActivate(); };
 void CompEndMenuClass::OnActivate() { system->manager->IGO->ShowMenuBackground(true); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001AABE8)
+// 0x001AABE8 _$_15CameraMenuClass
+extern "C" void BaseDtor(void *self, int deleting)
+    __asm__("_$_6FEMenu");
+extern const char derived_vtable[];
+
+__asm__(".equ _$_6FEMenu, 0x00156580");
+__asm__(".equ derived_vtable, 0x004C7F30");
+
+struct CameraMenuLayout {
+    char padding[0x74];
+    const void *vtable;
+};
+
+extern "C" void CameraMenuDtor(void *self, int deleting)
+    __asm__("_$_15CameraMenuClass");
+
+void CameraMenuDtor(void *self, int deleting) {
+    ((CameraMenuLayout *)self)->vtable = derived_vtable;
+    BaseDtor(self, deleting);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
