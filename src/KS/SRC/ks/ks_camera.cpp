@@ -187,3 +187,10 @@ struct CameraLayout { char padding[8]; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_14wipeout_camera");
 void DerivedDtor(void *self, int deleting) { ((CameraLayout *)self)->vtable = camera_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00231D00)
+// 0x00231D00 is_finished__12flyby_camera
+struct camera_animation { char padding[4]; float totalseconds; };
+class flyby_camera { char padding0[0x2d0]; camera_animation *animation; char padding1[4]; float current_anim_time; public: bool is_finished(); };
+bool flyby_camera::is_finished() { return current_anim_time >= animation->totalseconds; }
+#endif
