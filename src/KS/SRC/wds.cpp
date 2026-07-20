@@ -104,3 +104,15 @@ __asm__(".equ create_entity__12entity_makerP6entity, 0x0030AB70");
 class world_dynamics_system { public: particle_generator *add_particle_generator(particle_generator *value); };
 particle_generator *world_dynamics_system::add_particle_generator(particle_generator *value) { particle_generator *result = (particle_generator *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002A34B0)
+// 0x002A34B0 add_lensflare__21world_dynamics_systemP9lensflare
+class entity {};
+class lensflare : public entity {};
+class entity_maker { public: entity *create_entity(entity *value); };
+extern entity_maker *g_entity_maker;
+__asm__(".equ g_entity_maker, 0x004318C8");
+__asm__(".equ create_entity__12entity_makerP6entity, 0x0030AB70");
+class world_dynamics_system { public: lensflare *add_lensflare(lensflare *value); };
+lensflare *world_dynamics_system::add_lensflare(lensflare *value) { lensflare *result = (lensflare *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
