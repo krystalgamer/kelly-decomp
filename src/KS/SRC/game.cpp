@@ -134,3 +134,12 @@ __asm__(".equ CareerDataArray, 0x0042ECA0");
 class game { char padding[0x224]; int levelid; int beachid; public: void set_level(int level); };
 void game::set_level(int level) { levelid = level; beachid = CareerDataArray[levelid].beach; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002791D8)
+// 0x002791D8 render_fe__4game
+void FEDraw();
+__asm__(".equ FEDraw__Fv, 0x00199130");
+class game { public: void render_fe(); void render_mem_free_screen(); };
+__asm__(".equ render_mem_free_screen__4game, 0x00278FF0");
+void game::render_fe() { FEDraw(); render_mem_free_screen(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
