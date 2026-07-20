@@ -65,3 +65,36 @@ sector *UninitializedCopy(
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002F43F8)
+// 0x002F43F8 __uninitialized_fill_n_aux__H3ZPQ218scan_light_context9light_recZUiZQ218scan_light_context9light_rec_X01X11RCX21G12__false_type_X01
+inline void *operator new(unsigned int, void *place) {
+    return place;
+}
+
+struct value8 {
+    int first;
+    int second;
+};
+
+extern "C" value8 *UninitializedFill(
+    value8 *first,
+    unsigned int count,
+    const value8 &value
+) __asm__("__uninitialized_fill_n_aux__H3ZPQ218scan_light_context9light_recZUiZQ218scan_light_context9light_rec_X01X11RCX21G12__false_type_X01");
+
+value8 *UninitializedFill(
+    value8 *first,
+    unsigned int count,
+    const value8 &value
+) {
+    while (count) {
+        if (first) {
+            new (first) value8(value);
+        }
+        --count;
+        ++first;
+    }
+    return first;
+}
+#endif
