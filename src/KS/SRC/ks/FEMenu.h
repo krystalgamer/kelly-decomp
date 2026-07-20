@@ -695,3 +695,35 @@ struct frontend_vtable { char padding[0x38]; short adjustment; short padding2; v
 class FEGraphicalMenu { char padding[0x74]; frontend_vtable *vtable; public: void Load(); };
 void FEGraphicalMenu::Load() { frontend_vtable *table = vtable; table->call((char *)this + table->adjustment, 0); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA7C0)
+// 0x001DA7C0 UpdateInScene__11FEMenuEntry
+struct text_vtable {
+    char padding[0xe8];
+    short adjustment;
+    short padding2;
+    void (*update_in_scene)(void *self, bool ignore_scale);
+};
+
+class TextString {
+public:
+    char padding[0x4c];
+    text_vtable *vtable;
+};
+
+class FEMenuEntry {
+    char padding[0x24];
+    TextString *text;
+
+public:
+    void UpdateInScene();
+};
+
+void FEMenuEntry::UpdateInScene() {
+    text_vtable *table = text->vtable;
+    table->update_in_scene(
+        (char *)text + table->adjustment,
+        false
+    );
+}
+#endif
