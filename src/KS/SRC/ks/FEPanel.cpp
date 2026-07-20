@@ -197,3 +197,11 @@ class FloatingPQ { public: char padding[0x1a0]; float location_3d[4]; };
 extern "C" void SetLocationAlias(FloatingPQ *self, const vector3d *location) __asm__("SetLocation3D__10FloatingPQG8vector3d");
 void SetLocationAlias(FloatingPQ *self, const vector3d *location) { self->location_3d[0] = location->x; self->location_3d[1] = location->y; self->location_3d[2] = location->z; self->location_3d[3] = 1.0f; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001512C8)
+// 0x001512C8 Update__10PanelBatchf
+struct panel_material_vtable { char padding[0x38]; short adjustment; short padding2; void (*update)(void *self, float dt); };
+struct panel_material { char padding[0x194]; panel_material_vtable *vtable; };
+class PanelBatch { char padding[0x48]; panel_material *material; public: void Update(float dt); };
+void PanelBatch::Update(float dt) { panel_material_vtable *table = material->vtable; table->update((char *)material + table->adjustment, dt); }
+#endif
