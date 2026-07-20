@@ -22,3 +22,10 @@ class entity;
 class player_info { entity *accomplishments[20]; int numAccomplishments; public: void AddAccomplishment(entity *ent); };
 void player_info::AddAccomplishment(entity *ent) { if (numAccomplishments < 20) accomplishments[numAccomplishments++] = ent; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00259810)
+// 0x00259810 ClearAccomplishments__11player_info
+class entity;
+class player_info { entity *accomplishments[20]; int numAccomplishments; public: void ClearAccomplishments(); };
+void player_info::ClearAccomplishments() { int index = 19; entity **entry = &accomplishments[19]; loop: *entry = 0; --index; KELLY_DECOMP_COMPILER_BARRIER(); KELLY_DECOMP_COMPILER_BARRIER(); if (index >= 0) { --entry; goto loop; } --entry; numAccomplishments = 0; }
+#endif
