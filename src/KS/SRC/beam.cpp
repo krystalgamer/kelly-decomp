@@ -127,3 +127,22 @@ void beam_effect::set_active() {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00272E18)
+// 0x00272E18 set_delaying__11beam_effect
+class beam_effect {
+    char padding[0xa];
+    signed char mode;
+
+public:
+    void set_delaying();
+};
+
+void beam_effect::set_delaying() {
+    if (mode == 2) {
+        mode = 1;
+    } else if (mode == -2) {
+        mode = -1;
+    }
+}
+#endif
