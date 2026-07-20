@@ -344,3 +344,34 @@ struct entity_vtable { char padding[0x278]; short adjustment; short padding2; vo
 class entity { char padding[8]; entity_vtable *vtable; public: bool has_mesh(); };
 bool entity::has_mesh() { entity_vtable *table = vtable; return table->get_mesh((char *)this + table->adjustment) != 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00134918)
+// 0x00134918 kill_anim__6entityi
+class entity_anim_tree;
+
+class world_dynamics_system {
+public:
+    void kill_anim(entity_anim_tree *animation);
+};
+
+__asm__(".equ kill_anim__21world_dynamics_systemP16entity_anim_tree, 0x002A3710");
+
+extern world_dynamics_system *g_world_ptr;
+__asm__(".equ g_world_ptr, 0x00431A8C");
+
+class entity {
+public:
+    entity_anim_tree *get_anim_tree(int slot) const;
+    void kill_anim(int slot);
+};
+
+__asm__(".equ get_anim_tree__C6entityi, 0x001348D8");
+
+void entity::kill_anim(int slot) {
+    entity_anim_tree *animation = get_anim_tree(slot);
+    if (animation) {
+        g_world_ptr->kill_anim(animation);
+    }
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
