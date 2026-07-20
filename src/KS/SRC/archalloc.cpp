@@ -62,3 +62,12 @@ __asm__(".equ heaps, 0x00570528");
 __asm__(".equ currentheap, 0x004322CC");
 void mem_set_current_heap(int heap) { currentheap = &heaps[heap]; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AC508)
+// 0x002AC508 mem_leak_prep__Fv
+int mem_set_checkpoint();
+extern int mem_leak_checkpoint;
+__asm__(".equ mem_set_checkpoint__Fv, 0x002AC4F8");
+__asm__(".equ mem_leak_checkpoint, 0x004322D8");
+void mem_leak_prep() { int checkpoint = mem_set_checkpoint(); KELLY_DECOMP_COMPILER_BARRIER(); mem_leak_checkpoint = checkpoint; }
+#endif
