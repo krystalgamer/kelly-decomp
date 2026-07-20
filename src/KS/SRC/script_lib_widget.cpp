@@ -647,3 +647,24 @@ bool slf_timer_widget_inc_time_left_t::operator()(vm_stack &stack, entry_t entry
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032CC68)
+// 0x0032CC68 __cl__32slf_text_block_widget_set_text_tR8vm_stackQ320script_library_class8function7entry_t
+class stringx;
+class text_block_widget { public: void set_text(const stringx &text); };
+__asm__(".equ set_text__17text_block_widgetRC7stringx, 0x00340D50");
+class vm_stack { char padding[8]; char *top; public: void *pop(unsigned int size) { top -= size; return top; } };
+class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+class slf_text_block_widget_set_text_t : public script_library_class::function {
+public:
+    struct parms_t { text_block_widget *me; stringx *text; };
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+bool slf_text_block_widget_set_text_t::operator()(vm_stack &stack, entry_t entry) {
+    SLF_PARMS;
+    parms->me->set_text(*parms->text);
+    SLF_DONE;
+}
+#endif
