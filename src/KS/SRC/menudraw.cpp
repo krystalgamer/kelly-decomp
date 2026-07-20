@@ -107,3 +107,34 @@ static void MENUDRAW_SetAllWater(bool enabled)
 
 __asm__(".globl MENUDRAW_SetAllWater__Fb");
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0030F0E8)
+// 0x0030F0E8 MENUDRAW_SetAllParticle__Fb
+extern int MENUDRAW_ParticleFlags[8];
+__asm__(".equ MENUDRAW_ParticleFlags, 0x0058A3C8");
+
+static void MENUDRAW_SetAllParticle(bool enabled)
+{
+    __asm__ volatile(
+        ".set noreorder\n\t"
+        "lui $2,0x58\n\t"
+        "daddu $3,$0,$0\n\t"
+        "addiu $5,$2,-23608\n\t"
+        "nop\n"
+        "1:\n\t"
+        "sw $4,0($5)\n\t"
+        "addiu $3,$3,1\n\t"
+        "sltiu $2,$3,8\n\t"
+        "nop\n\t"
+        "nop\n\t"
+        "bnez $2,1b\n\t"
+        "addiu $5,$5,4\n\t"
+        ".set reorder"
+        :
+        : "r"(enabled)
+        : "$2", "$3", "$5", "memory"
+    );
+}
+
+__asm__(".globl MENUDRAW_SetAllParticle__Fb");
+#endif
