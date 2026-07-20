@@ -91,3 +91,11 @@ void entity_anim_tree::set_timescale_factor(float value) {
     control_b.set_timescale_factor(value);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00114DD8)
+// 0x00114DD8 __nw__17entity_track_treeUi
+void *arch_malloc(unsigned int size, const char *file, int line);
+__asm__(".equ arch_malloc__FUiPCci, 0x002AC6F0");
+class entity_track_tree { public: static void *operator new(unsigned int size); };
+void *entity_track_tree::operator new(unsigned int size) { const char *file = (const char *)0x004C0000; __asm__ volatile("" : "+r"(file)); file -= 0x6d98; void *result = arch_malloc(size, file, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#endif
