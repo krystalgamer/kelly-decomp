@@ -78,3 +78,59 @@ bool slf_scene_anim_kill_anim_t::operator()(
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00328128)
+// 0x00328128 __cl__21slf_load_scene_anim_tR8vm_stackQ320script_library_class8function7entry_t
+class stringx;
+
+class vm_stack {
+    char padding[8];
+    unsigned char *top;
+
+public:
+    void *pop(int size) {
+        top -= size;
+        return top;
+    }
+};
+
+class world_dynamics_system {
+public:
+    void load_scene_anim(const stringx &name);
+};
+
+__asm__(".equ load_scene_anim__21world_dynamics_systemRC7stringx, 0x002A3118");
+
+extern world_dynamics_system *g_world_ptr;
+__asm__(".equ g_world_ptr, 0x00431A8C");
+
+class script_library_class {
+public:
+    class function {
+    public:
+        enum entry_t { FIRST_ENTRY };
+    };
+};
+
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+
+class slf_load_scene_anim_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        stringx *name;
+    };
+
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+
+bool slf_load_scene_anim_t::operator()(
+    vm_stack &stack,
+    entry_t entry
+) {
+    SLF_PARMS;
+    g_world_ptr->load_scene_anim(*parms->name);
+    SLF_DONE;
+}
+#endif
