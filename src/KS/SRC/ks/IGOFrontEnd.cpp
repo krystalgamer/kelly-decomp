@@ -55,3 +55,11 @@ __asm__(".equ Hide__19WaveIndicatorWidgetb, 0x00168180");
 class IGOFrontEnd { char padding[0x5a0]; WaveIndicatorWidget *waveIndicatorWidget; public: void OnSurferStandUp(); };
 void IGOFrontEnd::OnSurferStandUp() { if (waveIndicatorWidget) { waveIndicatorWidget->Hide(true); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017CE18)
+// 0x0017CE18 ShowCameraReticle__11IGOFrontEndf
+class CameraWidget { public: void Show(float time); };
+__asm__(".equ Show__12CameraWidgetf, 0x00169FC8");
+class IGOFrontEnd { char padding[0x5a8]; CameraWidget *cameraWidget; public: void ShowCameraReticle(float time); };
+void IGOFrontEnd::ShowCameraReticle(float time) { if (cameraWidget) { cameraWidget->Show(time); KELLY_DECOMP_COMPILER_BARRIER(); } }
+#endif
