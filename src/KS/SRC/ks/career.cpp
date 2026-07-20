@@ -105,3 +105,10 @@ class Career { public: class Level { public: Level(); void Reset(); }; };
 __asm__(".equ Reset__Q26Career5Level, 0x0025C340");
 Career::Level::Level() { Reset(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0025C478)
+// 0x0025C478 __Q26Career5Beach
+class Career { public: class Beach { public: Beach(); void Reset(); }; };
+__asm__(".equ Reset__Q26Career5Beach, 0x0025C4A0");
+Career::Beach::Beach() { Reset(); }
+#endif
