@@ -316,3 +316,14 @@ struct widget_layout { char padding[0x140]; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_17background_widget");
 void DerivedDtor(void *self, int deleting) { ((widget_layout *)self)->vtable = widget_vtable; WidgetDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00360B40)
+// 0x00360B40 _$_10box_widget
+extern "C" void WidgetDtor(void *self, int deleting) __asm__("_$_6widget");
+extern const char widget_vtable[];
+__asm__(".equ _$_6widget, 0x0033DC68");
+__asm__(".equ widget_vtable, 0x00504410");
+struct widget_layout { char padding[0x140]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_10box_widget");
+void DerivedDtor(void *self, int deleting) { ((widget_layout *)self)->vtable = widget_vtable; WidgetDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
