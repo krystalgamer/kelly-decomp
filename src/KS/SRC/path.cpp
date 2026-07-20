@@ -42,3 +42,9 @@ class path_graph { public: path_graph_edge *get_edge(const path_graph_node *firs
 __asm__(".equ get_edge__C10path_graphPC15path_graph_nodeT1, 0x0034AFF0");
 bool path_graph::edge_in_graph(const path_graph_node *first, const path_graph_node *second) const { return get_edge(first, second) != 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034A058)
+// 0x0034A058 clear__15path_graph_edge
+class path_graph_edge { void *nodes[2]; unsigned short flags; unsigned short padding; float distance; float weight_modifier; float additional_weight_modifier; float bias; public: void clear(); };
+void path_graph_edge::clear() { nodes[0] = nodes[1] = 0; flags = 0; distance = 0.0f; weight_modifier = 1.0f; additional_weight_modifier = 0.0f; bias = 0.0f; }
+#endif
