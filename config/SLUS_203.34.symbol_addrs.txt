@@ -5159,7 +5159,7 @@ __as__t6vector2Z4faceZt23__malloc_alloc_template1i0RCt6vector2Z4faceZt23__malloc
 __uninitialized_fill_n_aux__H3ZP5cfaceZUiZ5cface_X01X11RCX21G12__false_type_X01 = 0x002FA2A8; // type:func size:0x64
 __uninitialized_copy_aux__H2ZPC5cfaceZP5cface_X01X01X11G12__false_type_X11 = 0x002FA310; // type:func size:0x64
 __as__t6vector2Z5cfaceZt23__malloc_alloc_template1i0RCt6vector2Z5cfaceZt23__malloc_alloc_template1i0 = 0x002FA378; // type:func size:0x3D8
-__uninitialized_copy_aux__H2ZPC5wedgeZP5wedge_X01X01X11G12__false_type_X11 = 0x002FA750; // type:func size:0x34
+__uninitialized_copy_aux__H2ZPC5wedgeZP5wedge_X01X01X11G12__false_type_X11 = 0x002FA750; // type:func defined:true size:0x34
 __as__t6vector2ZiZt23__malloc_alloc_template1i0RCt6vector2ZiZt23__malloc_alloc_template1i0 = 0x002FA7A8; // type:func size:0x184
 fill_n__H3ZPiZUiZi_X01X11RCX21_X01 = 0x002FA938; // type:func size:0x2C
 clear__t10_List_base2ZP9vm_threadZt12my_allocator1ZP9vm_thread = 0x002FA970; // type:func size:0x48

@@ -163,3 +163,34 @@ value8 *UninitializedCopy(
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FA750)
+// 0x002FA750 __uninitialized_copy_aux__H2ZPC5wedgeZP5wedge_X01X01X11G12__false_type_X11
+inline void *operator new(unsigned int, void *place) {
+    return place;
+}
+
+struct wedge {
+    char bytes[4];
+};
+
+extern "C" wedge *UninitializedCopy(
+    const wedge *first,
+    const wedge *last,
+    wedge *result
+) __asm__("__uninitialized_copy_aux__H2ZPC5wedgeZP5wedge_X01X01X11G12__false_type_X11");
+
+wedge *UninitializedCopy(
+    const wedge *first,
+    const wedge *last,
+    wedge *result
+) {
+    while (first != last) {
+        if (result)
+            new (result) wedge(*first);
+        ++first;
+        ++result;
+    }
+    return result;
+}
+#endif
