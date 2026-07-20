@@ -120,3 +120,10 @@ class vector3d { public: float x; float y; float z; vector3d(float px, float py,
 class collision_geometry { public: void get_min_extent(vector3d *value) const; };
 void collision_geometry::get_min_extent(vector3d *value) const { *value = vector3d(0.0f, 0.0f, 0.0f); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FF360)
+// 0x002FF360 get_max_extent__C18collision_geometryP8vector3d
+class vector3d { public: float x; float y; float z; vector3d(float px, float py, float pz) : x(px), y(py), z(pz) {} vector3d &operator=(const vector3d &other) { z = other.z; KELLY_DECOMP_COMPILER_BARRIER(); x = other.x; KELLY_DECOMP_COMPILER_BARRIER(); y = other.y; return *this; } };
+class collision_geometry { public: void get_max_extent(vector3d *value) const; };
+void collision_geometry::get_max_extent(vector3d *value) const { *value = vector3d(0.0f, 0.0f, 0.0f); }
+#endif
