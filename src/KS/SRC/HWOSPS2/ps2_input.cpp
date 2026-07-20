@@ -37,3 +37,11 @@ int ps2_joypad_device::get_axis_id(int axis) const {
     return axis;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E2288)
+// 0x001E2288 set_stick__17ps2_joypad_deviceiii
+extern unsigned char ps2_rdata[];
+__asm__(".equ ps2_rdata, 0x005A39C0");
+class ps2_joypad_device { public: void set_stick(int stick, int x, int y); };
+void ps2_joypad_device::set_stick(int stick, int x, int y) { if (stick == 0) { ps2_rdata[6] = x; ps2_rdata[7] = y; } else { ps2_rdata[4] = x; ps2_rdata[5] = y; } }
+#endif
