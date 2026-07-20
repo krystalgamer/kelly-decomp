@@ -217,3 +217,42 @@ void WaveScratchBaseDtor(void *self, int deleting) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003732F0)
+// 0x003732F0 __12KSWaterState
+class KSWaterState {
+    float StageStart[3];
+    float StageDuration[3];
+    float ScaleU;
+    float ScaleV;
+    float ShiftU;
+    float ShiftV;
+    float ShiftX;
+    float ShiftZ;
+    float ShiftSpeedU;
+    float ShiftSpeedV;
+    int Stage;
+    int PerturbStage;
+    float ScheduleTimeStart;
+    float ScheduleTimeEnd;
+    float TotalSec;
+
+public:
+    KSWaterState();
+};
+
+KSWaterState::KSWaterState()
+{
+    TotalSec = 0.0f;
+    ScaleU = 0.0f;
+    ScaleV = 0.0f;
+    ShiftU = 0.0f;
+    ShiftV = 0.0f;
+    ShiftX = 0.0f;
+    ShiftZ = 0.0f;
+    ShiftSpeedU = 0.0f;
+    ShiftSpeedV = 0.0f;
+    Stage = 0;
+    PerturbStage = 0;
+}
+#endif
