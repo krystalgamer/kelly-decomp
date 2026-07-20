@@ -91,3 +91,13 @@ __asm__(".equ callback_object, 0x004252A8");
 __asm__(".equ SpeedSlow__8KSReplay, 0x0023CA38");
 bool ReplaySlowButton(MenuEntry *entry, int button) { if (button == 7) CallbackMethod(callback_object); return true; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002367C0)
+// 0x002367C0 ReplayRestartButton__FP9MenuEntryi
+class MenuEntry;
+extern char callback_object[];
+void CallbackMethod(void *self) __asm__("Restart__8KSReplay");
+__asm__(".equ callback_object, 0x004252A8");
+__asm__(".equ Restart__8KSReplay, 0x0023C978");
+bool ReplayRestartButton(MenuEntry *entry, int button) { if (button == 7) CallbackMethod(callback_object); return true; }
+#endif
