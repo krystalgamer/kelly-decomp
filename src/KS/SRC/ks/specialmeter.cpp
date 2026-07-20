@@ -59,3 +59,21 @@ struct special_meter_layout { const void *vtable; };
 extern "C" void SpecialMeterDtor(void *self, int deleting) __asm__("_$_12SpecialMeter");
 void SpecialMeterDtor(void *self, int deleting) { ((special_meter_layout *)self)->vtable = special_meter_vtable; EventRecipientDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002510F8)
+// 0x002510F8 CanFaceLink__C12SpecialMeter
+class SpecialMeter {
+    char padding[0x20];
+    float faceLinkTimer;
+
+public:
+    bool CanFaceLink() const;
+};
+
+bool SpecialMeter::CanFaceLink() const {
+    float timer = faceLinkTimer;
+    float threshold = 0.01f;
+    __asm__ volatile("nop");
+    return threshold < timer;
+}
+#endif
