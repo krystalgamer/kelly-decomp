@@ -225,3 +225,9 @@ bool surfing_object::mantaray_ai(vector3d &position, vector3d &normal, float tim
 class beach_event { char padding[0x3c]; bool (*my_func)(float time, void **data); void *my_func_data; public: bool update(float time); };
 bool beach_event::update(float time) { return my_func(time, &my_func_data); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001FB298)
+// 0x001FB298 spawn__11beach_event
+class beach_event { char padding0[0xc]; int times_spawned; bool spawned; char padding1[0x10]; void *my_func_data; char padding2[4]; int spawn_count; public: void spawn(); };
+void beach_event::spawn() { if (times_spawned == spawn_count) return; my_func_data = 0; spawned = true; times_spawned++; }
+#endif
