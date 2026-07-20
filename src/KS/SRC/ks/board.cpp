@@ -41,3 +41,12 @@ void SurfBoardObjectClass::IncrementFloatSpeed() { float value = float_speed; __
 class SurfBoardObjectClass { char padding0[0xd8]; float maxLeanAngle; char padding1[0x8f4]; float curLeanAngle; public: float GetLeanPercentage(); };
 float SurfBoardObjectClass::GetLeanPercentage() { return curLeanAngle / (maxLeanAngle * 0.017453292f); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001F1EE0)
+// 0x001F1EE0 SetWipeoutDone__20SurfBoardObjectClass
+void ks_fx_end_wipeout_splash(int player);
+__asm__(".equ ks_fx_end_wipeout_splash__Fi, 0x0036B0E8");
+struct controller_layout { char padding[0x1674]; int player; };
+class SurfBoardObjectClass { char padding0[0x9c4]; bool wipeout_active; char padding1[0x14]; controller_layout *controller; char padding2[0x7c]; bool wipeout_done; public: void SetWipeoutDone(); };
+void SurfBoardObjectClass::SetWipeoutDone() { wipeout_done = false; wipeout_active = false; ks_fx_end_wipeout_splash(controller->player); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
