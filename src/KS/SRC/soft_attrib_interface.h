@@ -8,3 +8,34 @@ __asm__(".equ pack_string__7pstringPCc, 0x003354D0");
 class soft_attrib_interface { public: const pstring get_soft_attrib_str(pstring &name) const; };
 const pstring soft_attrib_interface::get_soft_attrib_str(pstring &name) const { return pstring(0); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00313A78)
+// 0x00313A78 get_soft_attrib_str__C31character_soft_attrib_interfaceR7pstring
+class pstring {
+    int value;
+
+public:
+    pstring(const char *text) {
+        pack_string(text);
+    }
+
+    pstring(const pstring &other) {
+        value = other.value;
+    }
+
+    void pack_string(const char *text);
+};
+
+__asm__(".equ pack_string__7pstringPCc, 0x003354D0");
+
+class character_soft_attrib_interface {
+public:
+    const pstring get_soft_attrib_str(pstring &name) const;
+};
+
+const pstring character_soft_attrib_interface::get_soft_attrib_str(
+    pstring &name
+) const {
+    return pstring(0);
+}
+#endif
