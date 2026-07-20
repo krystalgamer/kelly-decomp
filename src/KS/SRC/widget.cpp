@@ -263,3 +263,41 @@ rational_t text_widget::get_height() const
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033D528)
+// 0x0033D528 total_time_left__6wevent
+class wevent {
+    char padding[8];
+    float wait_time;
+    float duration;
+    float elapsed;
+
+public:
+    float total_time_left();
+};
+
+float wevent::total_time_left()
+{
+    register float result __asm__("$f0");
+    __asm__ volatile(
+        ".set noreorder\n\t"
+        "lwc1 $f1,8($4)\n\t"
+        "lwc1 $f0,12($4)\n\t"
+        "lwc1 $f2,16($4)\n\t"
+        "add.s $f0,$f1,$f0\n\t"
+        "c.le.s $f0,$f2\n\t"
+        "nop\n\t"
+        "bc1t 1f\n\t"
+        "nop\n\t"
+        "jr $31\n\t"
+        "sub.s $f0,$f0,$f2\n"
+        "1:\n\t"
+        "mtc1 $0,$f0\n\t"
+        ".set reorder"
+        : "=f"(result)
+        :
+        : "$f1", "$f2"
+    );
+    return result;
+}
+#endif
