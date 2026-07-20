@@ -496,3 +496,22 @@ void TargetDtor(void *self, int deleting) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00270B80)
+// 0x00270B80 SetValue__16MenuEntryIntEditi
+class MenuEntryIntEdit {
+    char padding[0x0C];
+    int *tint;
+    int lo;
+    int hi;
+
+public:
+    void SetValue(int value);
+};
+
+void MenuEntryIntEdit::SetValue(int value)
+{
+    if (tint && value >= lo && value <= hi)
+        *tint = value;
+}
+#endif
