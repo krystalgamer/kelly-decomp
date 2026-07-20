@@ -96,3 +96,12 @@ __asm__(".equ Initialize__12SpecialMeteri, 0x00250CA0");
 class kellyslater_controller { char padding[0x1648]; SpecialMeter specialMeter; int my_player_num; public: void set_player_num(int player); };
 void kellyslater_controller::set_player_num(int player) { my_player_num = player; specialMeter.Initialize(player); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00224D78)
+// 0x00224D78 IsAIPlayer__22kellyslater_controller
+struct game { char padding[0xb4]; int num_ai_players; };
+extern game *g_game_ptr;
+__asm__(".equ g_game_ptr, 0x0046AC64");
+class kellyslater_controller { char padding[0x1674]; int my_player_num; public: bool IsAIPlayer(); };
+bool kellyslater_controller::IsAIPlayer() { return g_game_ptr->num_ai_players && my_player_num == 1; }
+#endif
