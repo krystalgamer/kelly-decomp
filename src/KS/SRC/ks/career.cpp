@@ -125,3 +125,31 @@ bool Career::Location::CheckShowMovie() { if (movie_shown) return false; SetMovi
 class Career { public: class Level { char padding[0x10]; int goals[5]; public: void ResetGoals(); }; };
 void Career::Level::ResetGoals() { int index = 4; int *goal = &goals[4]; loop: *goal = 0; --index; KELLY_DECOMP_COMPILER_BARRIER(); KELLY_DECOMP_COMPILER_BARRIER(); if (index >= 0) { --goal; goto loop; } --goal; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0025AB80)
+// 0x0025AB80 GetInitials__6Career
+class stringx {
+    int value;
+
+public:
+    stringx(const char *text, int length = -1);
+
+    stringx(const stringx &other) {
+        value = other.value;
+    }
+};
+
+__asm__(".equ __7stringxPCci, 0x0034D438");
+
+class Career {
+    char padding[0x1c];
+    char myInitials[4];
+
+public:
+    stringx GetInitials();
+};
+
+stringx Career::GetInitials() {
+    return stringx(myInitials);
+}
+#endif
