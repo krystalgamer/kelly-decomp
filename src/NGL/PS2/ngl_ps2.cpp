@@ -304,3 +304,10 @@ void nglExit() { DisableIntc(5); DisableIntc(2); KELLY_DECOMP_COMPILER_BARRIER()
 // 0x00397540 nglSetFrameLock__Ff
 void nglSetFrameLock(float frames_per_second) { register float value __asm__("$f0") = 60.0f; register char *globals __asm__("$3") = (char *)0x004B0000; __asm__ volatile("" : "+f"(value), "+r"(globals)); value /= frames_per_second; register int divisor __asm__("$4"); __asm__ volatile(".word 0x46000024\n\tmfc1 $4,$f0" : "+f"(value), "=r"(divisor)); register int stored __asm__("$2") = divisor; __asm__ volatile("" : "+r"(stored)); *(int *)(globals - 0xba0) = stored; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003A69C0)
+// 0x003A69C0 nglSetQuadUV__FP7nglQuadffff
+struct nglQuadVertex { float X; float Y; float U; float V; unsigned int Color; };
+struct nglQuad { nglQuadVertex Verts[4]; };
+void nglSetQuadUV(nglQuad *quad, float u1, float v1, float u2, float v2) { quad->Verts[0].U = u1; quad->Verts[0].V = v1; quad->Verts[1].U = u2; quad->Verts[1].V = v1; quad->Verts[2].U = u1; quad->Verts[2].V = v2; quad->Verts[3].U = u2; quad->Verts[3].V = v2; }
+#endif
