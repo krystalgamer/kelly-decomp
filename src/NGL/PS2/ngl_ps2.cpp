@@ -324,3 +324,12 @@ void nglSetQuadRect(nglQuad *quad, float x1, float y1, float x2, float y2) { qua
 struct nglMesh { unsigned int flags; };
 void nglSetMeshFlags(unsigned int flags) { register char *globals __asm__("$3") = (char *)0x004B0000; register unsigned int required __asm__("$6") = 0x400000; __asm__ volatile("" : "+r"(globals), "+r"(required)); register nglMesh *mesh __asm__("$5") = *(nglMesh **)(globals - 0x4850); unsigned int preserved = mesh->flags & 0x1000; preserved |= required; mesh->flags = flags | preserved; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00398528)
+// 0x00398528 nglSetRenderTarget__FP10nglTextureb
+struct nglScene { char padding[0x10]; void *RenderTarget; int Download; };
+extern nglScene *nglCurScene;
+__asm__(".equ nglCurScene, 0x004BBD04");
+struct nglTexture { char padding[0x10]; unsigned long long Flags; };
+void nglSetRenderTarget(nglTexture *texture, bool download) { nglCurScene->RenderTarget = texture; nglCurScene->Download = download; texture->Flags |= (1ULL << 36); }
+#endif
