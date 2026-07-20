@@ -20,3 +20,9 @@ void ReplayWidget::HighlightLeft() { vcrButtonHL--; if (vcrButtonHL < 0) vcrButt
 class ReplayWidget { int padding[3]; int vcrButtonHL; public: void HighlightRight(); };
 void ReplayWidget::HighlightRight() { vcrButtonHL++; if (vcrButtonHL > 4) vcrButtonHL = 4; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0016BD00)
+// 0x0016BD00 Select__12ReplayWidgeti
+class ReplayWidget { char padding[8]; int vcrButton; public: void Select(int button); };
+void ReplayWidget::Select(int button) { vcrButton = button; if (vcrButton < 0) vcrButton = 0; if (vcrButton > 4) vcrButton = 4; }
+#endif
