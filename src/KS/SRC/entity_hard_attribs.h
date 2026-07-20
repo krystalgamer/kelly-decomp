@@ -1,0 +1,27 @@
+// Matching decompilation blocks selected by generated build shims.
+
+
+#if defined(KELLY_DECOMP_FUNCTION_00145338)
+// 0x00145338 _$_20max_turn_rate_attrib
+extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+
+extern const char attribute_vtable[];
+__asm__(".equ attribute_vtable, 0x004CDFE0");
+
+struct attribute_layout {
+    char padding[4];
+    const void *vtable;
+};
+
+extern "C" void AttributeDtor(void *self, int deleting)
+    __asm__("_$_20max_turn_rate_attrib");
+
+void AttributeDtor(void *self, int deleting) {
+    ((attribute_layout *)self)->vtable = attribute_vtable;
+    if (deleting & 1) {
+        BuiltinDelete(self);
+    }
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
