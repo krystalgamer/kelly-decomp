@@ -49,3 +49,11 @@ __asm__(".equ GetElementFlags__4Menui, 0x0023E688");
 class MenuSystem { char padding[0x470]; Menu *curmenu; public: unsigned int GetElementState(int index); };
 unsigned int MenuSystem::GetElementState(int index) { if (!curmenu) return 0; unsigned int result = curmenu->GetElementFlags(index); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002408B0)
+// 0x002408B0 Clear__10MenuRender
+void MENU_ClearRect(int x0, int y0, int x1, int y1);
+__asm__(".equ MENU_ClearRect__Fiiii, 0x00240488");
+class MenuRender { unsigned short x0; unsigned short y0; unsigned short x1; unsigned short y1; public: void Clear(); };
+void MenuRender::Clear() { MENU_ClearRect(x0, y0, x1, y1); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
