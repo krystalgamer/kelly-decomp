@@ -1187,3 +1187,11 @@ struct EntityRadiusVTable { char padding[0x260]; short adjustment; short padding
 class entity { char padding[8]; EntityRadiusVTable *vtable; public: float terrain_radius() const; };
 float entity::terrain_radius() const { return vtable->call((char *)this + vtable->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00145228)
+// 0x00145228 get_detonate_position__C6entity
+struct vector3d { float x; float y; float z; vector3d(const vector3d &other) { x = other.x; y = other.y; z = other.z; } };
+struct position_holder { char padding[0x30]; vector3d position; };
+class entity { char padding[0x50]; position_holder *holder; public: vector3d get_detonate_position() const; };
+vector3d entity::get_detonate_position() const { return holder->position; }
+#endif
