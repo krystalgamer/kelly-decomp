@@ -408,3 +408,43 @@ bool entity::is_destroyable() const {
             || destroy_info->get_hit_points() > 0);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0012B5C0)
+// 0x0012B5C0 optimize__6entity
+enum visual_rep_type {
+    VISREP_PMESH = 0
+};
+
+class visual_rep {
+    visual_rep_type type;
+
+public:
+    visual_rep_type get_type() const { return type; }
+};
+
+class vr_pmesh : public visual_rep {
+public:
+    void shrink_memory_footprint();
+};
+
+__asm__(".equ shrink_memory_footprint__8vr_pmesh, 0x002D6528");
+
+class entity {
+    char padding[0x128];
+    visual_rep *my_visrep;
+
+public:
+    void optimize();
+};
+
+void entity::optimize()
+{
+    if (my_visrep) {
+        if (my_visrep->get_type() == VISREP_PMESH) {
+            vr_pmesh *mesh = static_cast<vr_pmesh *>(my_visrep);
+            mesh->shrink_memory_footprint();
+            KELLY_DECOMP_COMPILER_BARRIER();
+        }
+    }
+}
+#endif
