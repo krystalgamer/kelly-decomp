@@ -668,3 +668,66 @@ bool slf_text_block_widget_set_text_t::operator()(vm_stack &stack, entry_t entry
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032C760)
+// 0x0032C760 __cl__31slf_timer_widget_add_function_tR8vm_stackQ320script_library_class8function7entry_t
+class stringx;
+
+class timer_widget;
+
+__asm__(".equ add_script_function__12timer_widgetRC7stringxf, 0x002BC148");
+
+extern "C" void AddScriptFunction(
+    timer_widget *widget,
+    const stringx &function,
+    float time
+) __asm__("add_script_function__12timer_widgetRC7stringxf");
+
+class vm_stack {
+    char padding[8];
+    unsigned char *top;
+
+public:
+    void *pop(int size) {
+        top -= size;
+        return top;
+    }
+};
+
+class script_library_class {
+public:
+    class function {
+    public:
+        enum entry_t { FIRST_ENTRY };
+    };
+};
+
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+
+class slf_timer_widget_add_function_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        timer_widget *me;
+        stringx *function;
+        float time;
+    };
+
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+
+bool slf_timer_widget_add_function_t::operator()(
+    vm_stack &stack,
+    entry_t entry
+) {
+    SLF_PARMS;
+    register float time __asm__("$f12") = parms->time;
+    KELLY_DECOMP_COMPILER_BARRIER();
+    register stringx *function __asm__("$5") = parms->function;
+    KELLY_DECOMP_COMPILER_BARRIER();
+    register timer_widget *widget __asm__("$4") = parms->me;
+    AddScriptFunction(widget, *function, time);
+    SLF_DONE;
+}
+#endif
