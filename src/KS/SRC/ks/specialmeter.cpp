@@ -42,3 +42,9 @@ bool SpecialMeter::CanRegionLink() const {
     return isEnabled;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00250CA8)
+// 0x00250CA8 Reset__12SpecialMeter
+class SpecialMeter { char padding0[8]; float fillage; bool isEnabled; int trickRegion; bool isDoingTrick; float faceLinkTimer; int faceLink; float specialTime; char padding1[4]; int numPerfects; public: void Reset(); };
+void SpecialMeter::Reset() { numPerfects = 0; KELLY_DECOMP_COMPILER_BARRIER(); fillage = 0.0f; KELLY_DECOMP_COMPILER_BARRIER(); isEnabled = false; KELLY_DECOMP_COMPILER_BARRIER(); isDoingTrick = false; KELLY_DECOMP_COMPILER_BARRIER(); faceLinkTimer = 0.0f; KELLY_DECOMP_COMPILER_BARRIER(); specialTime = 0.0f; KELLY_DECOMP_COMPILER_BARRIER(); faceLink = 0; KELLY_DECOMP_COMPILER_BARRIER(); trickRegion = 0; }
+#endif
