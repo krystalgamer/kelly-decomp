@@ -528,7 +528,7 @@ add_region__6entityPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node 
 add_me_to_region__6entityP6region = 0x0012FDC8; // type:func defined:true size:0x24
 remove_me_from_region__6entityP6region = 0x0012FDF0; // type:func defined:true size:0x24
 remove_from_regions__6entity = 0x0012FE18; // type:func size:0x130
-remove_from_terrain__6entity = 0x0012FF48; // type:func size:0x2C
+remove_from_terrain__6entity = 0x0012FF48; // type:func defined:true size:0x2C
 _update_regions__6entity = 0x0012FF78; // type:func size:0x704
 _intersect__6entityPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeb = 0x00130680; // type:func size:0x2E4
 force_region__6entityPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node = 0x00130968; // type:func size:0x58

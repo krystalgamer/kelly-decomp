@@ -330,3 +330,10 @@ __asm__(".equ collide_segment_entity__FRC8vector3dT0PC6entityP8vector3dT3fb, 0x0
 class entity { public: bool test_combat_target(const vector3d &start, const vector3d &end, vector3d *impact_position, vector3d *impact_normal, float radius, bool rear_cull) const; };
 bool entity::test_combat_target(const vector3d &start, const vector3d &end, vector3d *impact_position, vector3d *impact_normal, float radius, bool rear_cull) const { bool result = collide_segment_entity(start, end, this, impact_position, impact_normal, radius, rear_cull); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0012FF48)
+// 0x0012FF48 remove_from_terrain__6entity
+class entity { char padding[0x158]; void *my_sector; void *center_region; public: void remove_from_terrain(); void remove_from_regions(); };
+__asm__(".equ remove_from_regions__6entity, 0x0012FE18");
+void entity::remove_from_terrain() { remove_from_regions(); center_region = 0; KELLY_DECOMP_COMPILER_BARRIER(); my_sector = 0; }
+#endif
