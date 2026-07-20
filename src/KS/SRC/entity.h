@@ -1164,3 +1164,12 @@ void entity::set_render_scale(const vector3d &value) { render_scale = value; }
 class entity { char padding[0x198]; unsigned int ext_flags; public: void set_ext_flag_recursive(unsigned int flag, bool enabled); };
 void entity::set_ext_flag_recursive(unsigned int flag, bool enabled) { if (enabled) ext_flags |= flag; else ext_flags &= ~flag; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00144EC0)
+// 0x00144EC0 get_effective_collision_velocity__C6entityP8vector3dRC8vector3d
+struct vector3d { float x; float y; float z; vector3d &operator=(const vector3d &other) { x = other.x; y = other.y; z = other.z; return *this; } };
+extern const vector3d global_ZEROVEC;
+__asm__(".equ global_ZEROVEC, 0x00513840");
+class entity { public: void get_effective_collision_velocity(vector3d *target, const vector3d &location) const; };
+void entity::get_effective_collision_velocity(vector3d *target, const vector3d &location) const { *target = global_ZEROVEC; }
+#endif
