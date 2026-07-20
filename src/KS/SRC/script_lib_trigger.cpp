@@ -56,3 +56,15 @@ extern "C" void ScriptDtor_00329030(void *self) __asm__("_$_30slf_trigger_set_us
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00329030(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00316B50)
+// 0x00316B50 find_instance__C13slc_trigger_tRC7stringx
+class stringx;
+class trigger;
+class trigger_manager { public: trigger *find_instance(const stringx &name); };
+extern trigger_manager *g_trigger_manager;
+__asm__(".equ g_trigger_manager, 0x00431A88");
+__asm__(".equ find_instance__15trigger_managerRC7stringx, 0x0028D7B0");
+class slc_trigger_t { public: unsigned int find_instance(const stringx &name) const; };
+unsigned int slc_trigger_t::find_instance(const stringx &name) const { trigger *result = g_trigger_manager->find_instance(name); KELLY_DECOMP_COMPILER_BARRIER(); return (unsigned int)result; }
+#endif
