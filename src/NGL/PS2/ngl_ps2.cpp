@@ -492,3 +492,26 @@ nglMesh *nglGetFirstMeshInFile(const nglFixedString &fileName)
     return 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003A57D8)
+// 0x003A57D8 nglGetMeshSectionFunction__FUiUi
+typedef void (*nglCustomNodeFn)(unsigned int *&, void *);
+
+extern "C" void RenderSimple(unsigned int *&packet, void *data)
+    __asm__("nglVif1RenderSimpleBakedMeshSection__FRPUiPv");
+extern "C" void RenderFull(unsigned int *&packet, void *data)
+    __asm__("nglVif1RenderBakedMeshSection__FRPUiPv");
+__asm__(".equ nglVif1RenderSimpleBakedMeshSection__FRPUiPv, 0x003A43D0");
+__asm__(".equ nglVif1RenderBakedMeshSection__FRPUiPv, 0x003A35F0");
+
+nglCustomNodeFn nglGetMeshSectionFunction(
+    unsigned int materialFlags,
+    unsigned int paramFlags
+) {
+    if (!(materialFlags & 0x102000E4) &&
+        !(paramFlags & 0x258F))
+        return RenderSimple;
+    else
+        return RenderFull;
+}
+#endif
