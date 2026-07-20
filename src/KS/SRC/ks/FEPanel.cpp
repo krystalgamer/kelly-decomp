@@ -368,3 +368,35 @@ void PanelGeom::Reload()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00150030)
+// 0x00150030 Update__9PanelGeomf
+struct panel_geom_vtable {
+    char padding[0x48];
+    short adjustment;
+    short padding2;
+    void (*update)(void *self, float time);
+};
+
+struct panel_geom_child {
+    char padding[0x78];
+    panel_geom_vtable *vtable;
+};
+
+class PanelGeom {
+    char padding[0x6C];
+    panel_geom_child *children;
+
+public:
+    void Update(float time);
+};
+
+void PanelGeom::Update(float time)
+{
+    panel_geom_child *child = children;
+    if (child) {
+        panel_geom_vtable *table = child->vtable;
+        table->update((char *)child + table->adjustment, time);
+    }
+}
+#endif
