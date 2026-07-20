@@ -153,3 +153,29 @@ stringx Career::GetInitials() {
     return stringx(myInitials);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0025AF98)
+// 0x0025AF98 PhotoExistsForLevel__6Careeri
+class CompressedPhoto {
+    char padding[0x2004];
+    void *data;
+
+public:
+    bool IsValid() const {
+        return data != 0;
+    }
+};
+
+class Career {
+public:
+    CompressedPhoto *GetPhotoForLevel(int level);
+    bool PhotoExistsForLevel(int level);
+};
+
+__asm__(".equ GetPhotoForLevel__6Careeri, 0x0025AF40");
+
+bool Career::PhotoExistsForLevel(int level) {
+    CompressedPhoto *photo = GetPhotoForLevel(level);
+    return photo != 0 && photo->IsValid();
+}
+#endif
