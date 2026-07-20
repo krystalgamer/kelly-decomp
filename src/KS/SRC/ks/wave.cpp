@@ -181,3 +181,15 @@ __asm__(".equ WAVE_ShiftSpeedX, 0x0058EA50");
 __asm__(".equ WAVE_ShiftSpeedZ, 0x0058EA54");
 void WAVE_GlobalCurrent(vector3d *current) { current->x = -WAVE_ShiftSpeedX; current->y = 0.0f; current->z = -WAVE_ShiftSpeedZ; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0037D8C8)
+// 0x0037D8C8 WAVE_GetNextScheduleIndex__Fv
+extern unsigned int WAVE_ScheduleIndex;
+extern unsigned int WAVE_ScheduleLength;
+__asm__(".equ WAVE_ScheduleIndex, 0x004846D4");
+__asm__(".equ WAVE_ScheduleLength, 0x004846D0");
+
+int WAVE_GetNextScheduleIndex() {
+    return (WAVE_ScheduleIndex + 1) % WAVE_ScheduleLength;
+}
+#endif
