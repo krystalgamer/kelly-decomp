@@ -59,3 +59,14 @@ __asm__(".equ render__6entityP6camerafUif, 0x001324E0");
 class item : public entity { char padding[0x214]; int count; public: void render(camera *camera_link, float detail, unsigned int flavor, float translucency); };
 void item::render(camera *camera_link, float detail, unsigned int flavor, float translucency) { if (count > 0) { entity::render(camera_link, detail, flavor, translucency); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0028AEC0)
+// 0x0028AEC0 _$_11visual_item
+extern "C" void EntityDtor(void *self, int deleting) __asm__("_$_6entity");
+extern const char visual_item_vtable[];
+__asm__(".equ _$_6entity, 0x001298C8");
+__asm__(".equ visual_item_vtable, 0x004EBB78");
+struct visual_item_layout { char padding[8]; const void *vtable; };
+extern "C" void VisualItemDtor(void *self, int deleting) __asm__("_$_11visual_item");
+void VisualItemDtor(void *self, int deleting) { ((visual_item_layout *)self)->vtable = visual_item_vtable; EntityDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
