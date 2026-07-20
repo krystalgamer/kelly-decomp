@@ -78,3 +78,40 @@ invalid:
     return 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031BE38)
+// 0x0031BE38 clear__12EventMapType
+class EventMapType {
+    int type;
+    int numSrcs;
+    int srcs[30];
+
+public:
+    void clear();
+};
+
+void EventMapType::clear()
+{
+    __asm__ volatile(
+        ".set noreorder\n\t"
+        "lw $2,4($4)\n\t"
+        "blez $2,2f\n\t"
+        "daddu $5,$0,$0\n\t"
+        "addiu $3,$4,8\n"
+        "1:\n\t"
+        "sw $0,0($3)\n\t"
+        "addiu $5,$5,1\n\t"
+        "lw $2,4($4)\n\t"
+        "slt $2,$5,$2\n\t"
+        "nop\n\t"
+        "bnez $2,1b\n\t"
+        "addiu $3,$3,4\n"
+        "2:\n\t"
+        ".set reorder"
+        :
+        : "r"(this)
+        : "$2", "$3", "$5", "memory"
+    );
+    numSrcs = 0;
+}
+#endif
