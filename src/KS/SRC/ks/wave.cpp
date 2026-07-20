@@ -142,3 +142,12 @@ __asm__(".equ _$_7stringx, 0x0034D6E0");
 extern "C" void WaveCleanupThunk() __asm__("__tcf_0_00373780");
 void WaveCleanupThunk() { register char *object __asm__("$4") = (char *)0x00580000; register int deleting __asm__("$5") = 2; __asm__ volatile("" : "+r"(object), "+r"(deleting)); object -= 0x5108; StringDtor(object, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00374480)
+// 0x00374480 WAVE_Unload__Fv
+void WAVETEX_UnloadTextureAnims();
+void WATER_Cleanup();
+__asm__(".equ WAVETEX_UnloadTextureAnims__Fv, 0x0037F128");
+__asm__(".equ WATER_Cleanup__Fv, 0x0036E888");
+void WAVE_Unload() { WAVETEX_UnloadTextureAnims(); WATER_Cleanup(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
