@@ -35,3 +35,37 @@ struct LocomotionLayout { char padding[0x144]; const void *vtable; };
 extern "C" void DirectDtor(void *self, int deleting) __asm__("_$_20ai_locomotion_direct");
 void DirectDtor(void *self, int deleting) { ((LocomotionLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00109CC8)
+// 0x00109CC8 going_out_of_service__20ai_locomotion_direct
+class entity {
+};
+
+extern "C" void KillAnim(entity *self, int slot)
+    __asm__("kill_anim__6entityi");
+
+class ai_locomotion {
+public:
+    entity *get_my_entity() const;
+    void going_out_of_service();
+};
+
+__asm__(".equ get_my_entity__C13ai_locomotion, 0x00106EA0");
+__asm__(".equ going_out_of_service__13ai_locomotion, 0x00109278");
+__asm__(".equ kill_anim__6entityi, 0x00134918");
+
+class ai_locomotion_direct : public ai_locomotion {
+public:
+    void going_out_of_service();
+};
+
+void ai_locomotion_direct::going_out_of_service()
+{
+    register entity *target __asm__("$4") = get_my_entity();
+    KELLY_DECOMP_COMPILER_BARRIER();
+    register int slot __asm__("$5") = 1;
+    KillAnim(target, slot);
+    ai_locomotion::going_out_of_service();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
