@@ -72,3 +72,39 @@ __asm__(".equ set_cutoff_range__16light_propertiesf, 0x002CC9C0");
 class light_source { char padding[0x200]; light_properties *properties; public: void set_cutoff_range(float range); };
 void light_source::set_cutoff_range(float range) { properties->set_cutoff_range(range); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FF950)
+// 0x002FF950 set_color__12light_sourceRC5color
+struct color {
+    float r;
+    float g;
+    float b;
+    float a;
+
+    color &operator=(const color &value) {
+        r = value.r;
+        g = value.g;
+        b = value.b;
+        a = value.a;
+        return *this;
+    }
+};
+
+struct light_properties {
+    int flavor;
+    color diffuse_color;
+    color additive_color;
+};
+
+class light_source {
+    char padding[0x200];
+    light_properties *properties;
+
+public:
+    void set_color(const color &value);
+};
+
+void light_source::set_color(const color &value) {
+    properties->diffuse_color = value;
+}
+#endif
