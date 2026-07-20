@@ -198,3 +198,9 @@ __asm__(".equ global_vi_buffer, 0x00597020");
 __asm__(".equ viBufRestartDMA__FP5ViBuf, 0x0038A540");
 int mpegRestartDMA(sceMpeg *mpeg, sceMpegCbData *data, void *user) { viBufRestartDMA(&global_vi_buffer); KELLY_DECOMP_COMPILER_BARRIER(); return 1; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00389ED8)
+// 0x00389ED8 scTag2__FP5QWORDPvUiUi
+struct QWORD { unsigned long long value; };
+void scTag2(QWORD *tag, void *address, unsigned int qwc, unsigned int id) { tag->value = ((unsigned long long)(unsigned int)address << 32) | ((unsigned long long)qwc << 28) | (unsigned int)id; }
+#endif
