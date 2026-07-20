@@ -62,3 +62,57 @@ __asm__(".equ is_translucent__C7mat_fac, 0x002BD178");
 class vr_billboard { char padding[0x18]; mat_fac material; public: int render_passes_needed() const; };
 int vr_billboard::render_passes_needed() const { return material.is_translucent() ? 2 : 1; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002C10C8)
+// 0x002C10C8 render_instance__12vr_billboardP7nglMeshPiUiP20instance_render_infoPs
+struct nglMesh;
+struct instance_render_info;
+
+struct billboard_vtable {
+    char padding[0xa0];
+    short adjustment;
+    short padding2;
+    void (*render_batch)(
+        void *self,
+        nglMesh *mesh,
+        int *num_quads,
+        unsigned int flavor,
+        instance_render_info *info,
+        int enabled,
+        short *lookup
+    );
+};
+
+class vr_billboard {
+    char padding[0x10];
+    billboard_vtable *vtable;
+
+public:
+    void render_instance(
+        nglMesh *mesh,
+        int *num_quads,
+        unsigned int flavor,
+        instance_render_info *info,
+        short *lookup
+    );
+};
+
+void vr_billboard::render_instance(
+    nglMesh *mesh,
+    int *num_quads,
+    unsigned int flavor,
+    instance_render_info *info,
+    short *lookup
+) {
+    billboard_vtable *table = vtable;
+    table->render_batch(
+        (char *)this + table->adjustment,
+        mesh,
+        num_quads,
+        flavor,
+        info,
+        1,
+        lookup
+    );
+}
+#endif
