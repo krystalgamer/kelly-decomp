@@ -186,3 +186,15 @@ __asm__(".equ global_vi_buffer, 0x00597020");
 __asm__(".equ viBufStopDMA__FP5ViBuf, 0x0038A430");
 int mpegStopDMA(sceMpeg *mpeg, sceMpegCbData *data, void *user) { viBufStopDMA(&global_vi_buffer); KELLY_DECOMP_COMPILER_BARRIER(); return 1; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00388F60)
+// 0x00388F60 mpegRestartDMA__FP7sceMpegP13sceMpegCbDataPv
+struct ViBuf;
+struct sceMpeg;
+struct sceMpegCbData;
+extern ViBuf global_vi_buffer;
+void viBufRestartDMA(ViBuf *buffer);
+__asm__(".equ global_vi_buffer, 0x00597020");
+__asm__(".equ viBufRestartDMA__FP5ViBuf, 0x0038A540");
+int mpegRestartDMA(sceMpeg *mpeg, sceMpegCbData *data, void *user) { viBufRestartDMA(&global_vi_buffer); KELLY_DECOMP_COMPILER_BARRIER(); return 1; }
+#endif
