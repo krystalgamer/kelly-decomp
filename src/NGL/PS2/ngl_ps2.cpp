@@ -292,3 +292,10 @@ extern volatile int nglVBlankCount;
 __asm__(".equ nglVBlankCount, 0x004BBFBC");
 int nglVBlankInterrupt(int parameter) { nglVBlankCount++; __asm__ volatile("sync\n\tei"); return 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003974E8)
+// 0x003974E8 nglExit__Fv
+extern "C" int DisableIntc(int interrupt);
+__asm__(".equ DisableIntc, 0x003DBD60");
+void nglExit() { DisableIntc(5); DisableIntc(2); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
