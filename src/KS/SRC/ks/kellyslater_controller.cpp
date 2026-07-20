@@ -135,3 +135,24 @@ void BalanceMeter::End() {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002138B8)
+// 0x002138B8 TurnDegree__22kellyslater_controller
+class kellyslater_controller {
+    char padding[0x16A8];
+    float stick;
+    float degree;
+
+public:
+    float GetStick(int control);
+    void TurnDegree();
+};
+
+__asm__(".equ GetStick__22kellyslater_controlleri, 0x0020D010");
+
+void kellyslater_controller::TurnDegree()
+{
+    stick = GetStick(203);
+    degree = __builtin_fabsf(1.0f * stick);
+}
+#endif
