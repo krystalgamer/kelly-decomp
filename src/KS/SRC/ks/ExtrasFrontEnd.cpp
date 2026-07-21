@@ -20,3 +20,37 @@ struct CreditsVTable { char padding[0xc0]; short adjustment; short padding2; voi
 class CreditsFrontEnd { char padding[0x74]; CreditsVTable *vtable; public: void OnStart(int command); };
 void CreditsFrontEnd::OnStart(int command) { CreditsVTable *table = vtable; table->OnTriangle((char *)this + table->adjustment, command); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BB778)
+// 0x001BB778 OnTriangle__15CreditsFrontEndi
+struct menu_system_vtable {
+    char padding[0x20];
+    short adjustment;
+    short padding2;
+    void (*make_active)(void *self, int menu, int submenu, bool notify);
+};
+
+struct graphical_menu_system {
+    char padding[0x8c];
+    menu_system_vtable *vtable;
+};
+
+class CreditsFrontEnd {
+    char padding[0x164];
+    graphical_menu_system *sys;
+
+public:
+    void OnTriangle(int controller);
+};
+
+void CreditsFrontEnd::OnTriangle(int controller)
+{
+    menu_system_vtable *table = sys->vtable;
+    table->make_active(
+        (char *)sys + table->adjustment,
+        1,
+        1,
+        true
+    );
+}
+#endif
