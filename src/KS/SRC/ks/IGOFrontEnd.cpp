@@ -112,3 +112,42 @@ void IGOFrontEnd::ShowMenuBackground(bool enabled)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017CF08)
+// 0x0017CF08 IsMenuBGShown__C11IGOFrontEnd
+class IGOWidget {
+    bool display;
+
+public:
+    virtual ~IGOWidget();
+    virtual void SetDisplay(bool);
+    virtual void Update(float);
+    virtual void Draw();
+    virtual bool GetDisplay() const;
+};
+
+class SimpleWidget : public IGOWidget {
+    int numPQs;
+    void **pqs;
+
+public:
+    virtual ~SimpleWidget();
+    virtual void Init(void *, const void *);
+    virtual void Draw();
+    virtual void Show(bool);
+    virtual bool IsShown() const;
+};
+
+class IGOFrontEnd {
+    char padding[0x584];
+    SimpleWidget *menuBGWidget;
+
+public:
+    bool IsMenuBGShown() const;
+};
+
+bool IGOFrontEnd::IsMenuBGShown(void) const
+{
+    return menuBGWidget && menuBGWidget->IsShown();
+}
+#endif
