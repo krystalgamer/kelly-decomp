@@ -14,3 +14,37 @@ __asm__(".equ SetDisplay__9IGOWidgetb, 0x00164658");
 class WaveIndicatorWidget : public IGOWidget { public: void SetDisplay(bool value); };
 void WaveIndicatorWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00168098)
+// 0x00168098 ShowSurge__19WaveIndicatorWidgetb
+class WaveIndicatorWidget {
+    char padding[0x88];
+    float waveIdx;
+    float tongueIdx;
+    float hiliteTime;
+    float fade;
+    int fadeDir;
+    int state;
+
+public:
+    void ShowSurge(bool fadeIn);
+};
+
+void WaveIndicatorWidget::ShowSurge(const bool fadeIn)
+{
+    if (fadeIn)
+    {
+        fade = 0.0f;
+        fadeDir = 1;
+    }
+    else
+    {
+        fade = 1.0f;
+        fadeDir = 0;
+    }
+
+    waveIdx = 0;
+    tongueIdx = 0;
+    state = 2;
+}
+#endif
