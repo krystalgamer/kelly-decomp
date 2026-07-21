@@ -70,3 +70,11 @@ void TargetDtor(void *self, int deleting) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002EED28)
+// 0x002EED28 __31SoundMenuEntryFunctionFloatEditPcPfPFP9MenuEntryi_bUifff
+#pragma interface
+__asm__(".equ _vt$31SoundMenuEntryFunctionFloatEdit, 0x004F1398");
+__asm__(".equ __26MenuEntryFunctionFloatEditPcPfPFP9MenuEntryi_bfff, 0x0023FC10");
+class MenuEntry{public:int data;virtual~MenuEntry();};typedef bool(*pMenuEntryButtonFunction)(MenuEntry*,int);typedef unsigned int nslSourceId;class MenuEntryFunctionFloatEdit:public MenuEntry{public:char p[52];MenuEntryFunctionFloatEdit(char*,float*,pMenuEntryButtonFunction,float,float,float);};class SoundMenuEntryFunctionFloatEdit:public MenuEntryFunctionFloatEdit{public:nslSourceId src;SoundMenuEntryFunctionFloatEdit(char*,float*,pMenuEntryButtonFunction,nslSourceId,float,float,float);};SoundMenuEntryFunctionFloatEdit::SoundMenuEntryFunctionFloatEdit(char*text,float*t,pMenuEntryButtonFunction func,nslSourceId source,float l,float h,float s):MenuEntryFunctionFloatEdit(text,t,func,l,h,s){src=source;}
+#endif
