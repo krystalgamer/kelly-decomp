@@ -589,3 +589,24 @@ void destroyable_info::preload()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00139278)
+// 0x00139278 entity_signal_callback_raiser__FP9signallerPCc
+class signaller;
+
+struct entity_layout {
+    char padding[0xD4];
+    unsigned int signals_raised[2];
+};
+
+void entity_signal_callback_raiser(
+    signaller *signal,
+    const char *signal_id
+) {
+    unsigned short id =
+        (unsigned short)(unsigned int)signal_id;
+    entity_layout *entity = (entity_layout *)signal;
+    entity->signals_raised[(id < 32 ? 1 : 0)] |=
+        (0x80000000u >> (id < 32 ? id : (id - 32)));
+}
+#endif
