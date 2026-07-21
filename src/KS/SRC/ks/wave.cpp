@@ -275,3 +275,19 @@ static void WAVE_StageAdvance()
 
 __asm__(".globl WAVE_StageAdvance__Fv");
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0037DC40)
+// 0x0037DC40 WAVE_GetHeight__Fv
+struct WaveScheduleEntry { char padding0[8]; int type; char padding1[8]; };
+struct WaveScheduleType { char padding[12]; float height; };
+extern int WAVE_ScheduleIndex;
+extern WaveScheduleEntry WAVE_ScheduleArray[];
+extern WaveScheduleType WAVE_ScheduleType[];
+__asm__(".equ WAVE_ScheduleIndex, 0x004846D4");
+__asm__(".equ WAVE_ScheduleArray, 0x0058EA68");
+__asm__(".equ WAVE_ScheduleType, 0x0058B990");
+float WAVE_GetHeight()
+{
+    return WAVE_ScheduleType[WAVE_ScheduleArray[WAVE_ScheduleIndex].type].height;
+}
+#endif
