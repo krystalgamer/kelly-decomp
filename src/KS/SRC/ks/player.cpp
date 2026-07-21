@@ -29,3 +29,25 @@ class entity;
 class player_info { entity *accomplishments[20]; int numAccomplishments; public: void ClearAccomplishments(); };
 void player_info::ClearAccomplishments() { int index = 19; entity **entry = &accomplishments[19]; loop: *entry = 0; --index; KELLY_DECOMP_COMPILER_BARRIER(); KELLY_DECOMP_COMPILER_BARRIER(); if (index >= 0) { --entry; goto loop; } --entry; numAccomplishments = 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002597D8)
+// 0x002597D8 HasAccomplishment__C11player_infoPC6entity
+class entity;
+
+class player_info {
+    entity *accomplishments[20];
+    int numAccomplishments;
+
+public:
+    bool HasAccomplishment(const entity *value) const;
+};
+
+bool player_info::HasAccomplishment(const entity *value) const
+{
+    for (int i = 0; i < numAccomplishments; i++) {
+        if (accomplishments[i] == value)
+            return true;
+    }
+    return false;
+}
+#endif
