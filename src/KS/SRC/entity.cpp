@@ -797,3 +797,20 @@ void entity::destroy_render_ifc()
     my_render_interface = 0;
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_00127548)
+// 0x00127548 destroy_skeleton_ifc__6entity
+class skeleton_interface { public: virtual ~skeleton_interface(); };
+class entity {
+    char padding[0xc4];
+    skeleton_interface* my_skeleton_interface;
+public:
+    void destroy_skeleton_ifc();
+};
+void entity::destroy_skeleton_ifc()
+{
+    delete my_skeleton_interface;
+    my_skeleton_interface = 0;
+}
+#endif
