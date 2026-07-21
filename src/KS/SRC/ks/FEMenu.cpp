@@ -120,3 +120,44 @@ void FEGraphicalMenu::Select(int entry)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001569B0)
+// 0x001569B0 Select__6FEMenu
+struct menu_system_vtable {
+    char padding[0x40];
+    short adjustment;
+    short padding2;
+    void (*select)(void *self, int menu, int entry);
+};
+
+struct menu_system_layout {
+    char padding[0x8C];
+    menu_system_vtable *vtable;
+};
+
+struct menu_entry_layout {
+    int entry_num;
+};
+
+class FEMenu {
+    char padding0[0x14];
+    int menu_num;
+    char padding1[0x34];
+    menu_entry_layout *highlighted;
+    menu_system_layout *system;
+
+public:
+    void Select();
+};
+
+void FEMenu::Select()
+{
+    menu_system_layout *menu_system = system;
+    menu_system_vtable *table = menu_system->vtable;
+    table->select(
+        (char *)menu_system + table->adjustment,
+        menu_num,
+        highlighted->entry_num
+    );
+}
+#endif
