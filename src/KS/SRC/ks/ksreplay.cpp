@@ -117,3 +117,43 @@ class KSReplay { char padding[0xd4]; int firstFrame; public: void Restart(); voi
 __asm__(".equ Play__8KSReplay, 0x0023C6A0");
 void KSReplay::Restart() { Play(); firstFrame = 1; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00239EB0)
+// 0x00239EB0 __10KSEntityPO
+struct vector3d {
+    float x;
+    float y;
+    float z;
+
+    vector3d() {
+    }
+};
+
+struct quaternion {
+    float a;
+    float b;
+    float c;
+    float d;
+
+    quaternion() {
+        a = 1.0f;
+        b = c = d = 0.0f;
+    }
+};
+
+class KSEntityPO {
+    vector3d KSPos;
+    vector3d KSBPos;
+    quaternion KSRot;
+    quaternion KSBRot;
+    vector3d BoardCurrent;
+    vector3d BoardMomentum;
+
+public:
+    KSEntityPO();
+};
+
+KSEntityPO::KSEntityPO()
+{
+}
+#endif
