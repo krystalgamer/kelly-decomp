@@ -93,3 +93,20 @@ bool MENUDRAW_AllOff(MenuEntry *, int buttonid)
     return true;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0030F3C0)
+// 0x0030F3C0 MENUDRAW_AllOn__FP9MenuEntryi
+class MenuEntry;
+extern void MENUDRAW_SetAll(bool); extern void MENUDRAW_SetAllEntities(bool); extern void MENUDRAW_SetAllParticle(bool); extern void MENUDRAW_SetAllWater(bool);
+asm(".equ MENUDRAW_SetAll__Fb, 0x0030F348"); asm(".equ MENUDRAW_SetAllEntities__Fb, 0x0030EDB0"); asm(".equ MENUDRAW_SetAllParticle__Fb, 0x0030F0E8"); asm(".equ MENUDRAW_SetAllWater__Fb, 0x0030EF58");
+bool MENUDRAW_AllOn(MenuEntry *, int buttonid)
+{
+    if (buttonid == 7) {
+        MENUDRAW_SetAll(true);
+        MENUDRAW_SetAllEntities(true);
+        MENUDRAW_SetAllParticle(true);
+        MENUDRAW_SetAllWater(true);
+    }
+    return true;
+}
+#endif
