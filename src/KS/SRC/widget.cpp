@@ -337,3 +337,27 @@ void vrep_widget::set_rotation(float x, float y, float z)
     table->update_rot((char *)this + table->adjustment);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00341788)
+// 0x00341788 show__11vrep_widget
+extern "C" void WidgetShow(void *self) __asm__("show__6widget");
+__asm__(".equ show__6widget, 0x0033DDD0");
+struct vrep_widget_vtable {
+    char padding[0x118];
+    short adjustment;
+    short padding2;
+    void (*update_rot)(void *self);
+};
+class vrep_widget {
+    char padding[0x140];
+    vrep_widget_vtable *vtable;
+public:
+    void show();
+};
+void vrep_widget::show()
+{
+    WidgetShow(this);
+    vrep_widget_vtable *table = vtable;
+    table->update_rot((char *)this + table->adjustment);
+}
+#endif
