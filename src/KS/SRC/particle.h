@@ -69,3 +69,26 @@ struct entity_vtable_layout { char padding[0x168]; short adjustment; short paddi
 class particle_generator { char padding[8]; entity_vtable_layout *vtable; public: bool possibly_aging() const; };
 bool particle_generator::possibly_aging() const { entity_vtable_layout *table = vtable; return table->is_still_visible((char *)this + table->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00300110)
+// 0x00300110 get_last_position__C18particle_generator
+struct vector3d {
+    float x, y, z;
+    vector3d(const vector3d& other) : x(other.x), y(other.y), z(other.z) {}
+};
+struct particle_source_layout { char padding[0x30]; vector3d position; };
+class particle_generator {
+    char padding0[0x50];
+    particle_source_layout* source;
+    char padding1[0x264];
+    vector3d last_position;
+    bool last_position_valid;
+public:
+    const vector3d& get_abs_position() const { return source->position; }
+    vector3d get_last_position() const;
+};
+vector3d particle_generator::get_last_position() const
+{
+    return last_position_valid ? last_position : get_abs_position();
+}
+#endif
