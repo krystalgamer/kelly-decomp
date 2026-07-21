@@ -156,3 +156,32 @@ void kellyslater_controller::TurnDegree()
     degree = __builtin_fabsf(1.0f * stick);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0021E408)
+// 0x0021E408 SetTrickRegion__22kellyslater_controller11TRICKREGION
+enum TRICKREGION { TREGION_FACE };
+enum EVENT { EVT_TRICK_REGION_CHANGE = 3 };
+class EventManager { public: void DispatchEvent(EVENT event, int player, int param = 0); };
+extern EventManager g_eventManager;
+asm(".equ g_eventManager, 0x0046DA20");
+asm(".equ DispatchEvent__12EventManager5EVENTii, 0x00349AB0");
+class kellyslater_controller {
+    char padding_to_region[0xFC];
+    TRICKREGION trickRegion;
+    TRICKREGION prevTrickRegion;
+    char padding_to_player[0x1570];
+    int my_player_num;
+public:
+    void SetTrickRegion(const TRICKREGION r);
+};
+void kellyslater_controller::SetTrickRegion(const TRICKREGION r)
+{
+    prevTrickRegion = trickRegion;
+    trickRegion = r;
+    if (prevTrickRegion != trickRegion)
+    {
+        g_eventManager.DispatchEvent(EVT_TRICK_REGION_CHANGE, my_player_num);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
