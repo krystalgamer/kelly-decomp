@@ -412,3 +412,29 @@ void widget::set_color(float r, float g, float b)
     call->function((char *)this + call->adjustment, value);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00342DD0)
+// 0x00342DD0 resize__9fluid_barff
+class bitmap_widget { public: void resize(float width, float height); };
+__asm__(".equ resize__13bitmap_widgetff, 0x0033FBE0");
+class fluid_bar {
+    char padding0[0x154];
+    bitmap_widget *bar_map;
+    char padding1[8];
+    float w;
+    float h;
+    char padding2[0x2C];
+    bool update;
+public:
+    void resize(float width, float height);
+};
+void fluid_bar::resize(float width, float height)
+{
+    w = width;
+    h = height;
+    if (bar_map) {
+        bar_map->resize(w, h);
+        update = true;
+    }
+}
+#endif
