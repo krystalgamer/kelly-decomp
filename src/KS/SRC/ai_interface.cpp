@@ -71,3 +71,31 @@ void ai_interface::set_current_path_graph(path_graph *g)
         locomotion->set_current_path_graph(g);
 }
 #endif
+// Matching decompilation blocks selected by generated build shims.
+
+#if defined(KELLY_DECOMP_FUNCTION_00105528)
+// 0x00105528 push_disable__12ai_interface
+__asm__(".equ goto_position__12ai_interfaceRC8vector3dfbbb, 0x00105688");
+struct vector3d { float x; float y; float z; };
+struct po { char padding[48]; vector3d position; };
+struct entity {
+    char padding[80];
+    po* my_po;
+    const vector3d& get_abs_position() const { return my_po->position; }
+};
+class ai_interface {
+    char padding0[4];
+    entity* my_entity;
+    char padding1[40];
+    int disable_count;
+public:
+    void goto_position(const vector3d&, float, bool, bool, bool);
+    void push_disable();
+};
+void ai_interface::push_disable()
+{
+    ++disable_count;
+    goto_position(my_entity->get_abs_position(), 25.0f, true, false, true);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
