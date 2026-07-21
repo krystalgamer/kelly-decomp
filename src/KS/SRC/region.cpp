@@ -60,3 +60,18 @@ void region::remove_local_thread(vm_thread *thread) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002E7C00)
+// 0x002E7C00 remove_cam_coll_ent__6regionP6entity
+class entity;
+extern entity **find_entity_pointer(entity **, entity **, entity *const &, int) __asm__("find__H2ZPP6entityZP6entity_X01X01RCX11G26random_access_iterator_tag_X01");
+asm(".equ find__H2ZPP6entityZP6entity_X01X01RCX11G26random_access_iterator_tag_X01, 0x002B3010");
+class region { char padding[0x88]; entity **cam_begin; entity **cam_end; public: void remove_cam_coll_ent(entity *); };
+void region::remove_cam_coll_ent(entity *e)
+{
+    entity **end = cam_end;
+    entity **found = find_entity_pointer(cam_begin, end, e, 0);
+    if (found != end)
+        *found = 0;
+}
+#endif
