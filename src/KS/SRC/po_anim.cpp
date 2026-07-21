@@ -33,3 +33,33 @@ __asm__(".equ __nw__t11linear_anim1ZfUi, 0x00119FF0");
 template <class Type> void* linear_anim<Type>::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = linear_anim<Type>::operator new(size); __asm__(""); return result; }
 template void* linear_anim<float>::operator new(unsigned int, unsigned int, const char*, int);
 #endif
+// Matching decompilation blocks selected by generated build shims.
+
+#if defined(KELLY_DECOMP_FUNCTION_0011C128)
+// 0x0011C128 get_unadjusted_value__C7po_animRC14anim_control_tP8vector3d
+struct anim_control_t {};
+struct vector3d { float x; float y; float z; };
+struct track_flags { unsigned short flags; unsigned short padding; };
+class po_track : public track_flags {
+public:
+    virtual void reserved0();
+    virtual void reserved1();
+    virtual void reserved2();
+    virtual void reserved3();
+    virtual void reserved4();
+    virtual void get_value(const anim_control_t&, vector3d*) const;
+    virtual void get_value(float, vector3d*) const;
+};
+class po_anim {
+    char padding[8];
+    po_track* P;
+public:
+    bool has_P() const { return P && (P->flags & 0x1000) != 0; }
+    void get_unadjusted_value(const anim_control_t&, vector3d*) const;
+};
+void po_anim::get_unadjusted_value(const anim_control_t& control, vector3d* destination) const
+{
+    if (has_P())
+        P->get_value(control, destination);
+}
+#endif
