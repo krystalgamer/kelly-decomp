@@ -262,6 +262,25 @@ static int readBufBeginPut(ReadBuf *buffer, unsigned char **pointer)
 __asm__(".globl readBufBeginPut__FP7ReadBufPPUc");
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_003889D0)
+// 0x003889D0 readBufEndPut__FP7ReadBufi
+struct ReadBuf {
+    unsigned char data[0x50000];
+    int put;
+    int count;
+    int size;
+};
+inline int min(int a, int b) { if (b < a) a = b; return a; }
+static int readBufEndPut(ReadBuf* buffer, int size)
+{
+    int size_ok = min(buffer->size - buffer->count, size);
+    buffer->put = (buffer->put + size_ok) % buffer->size;
+    buffer->count += size_ok;
+    return size_ok;
+}
+__asm__(".globl readBufEndPut__FP7ReadBufi");
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00388BF0)
 // 0x00388BF0 videoDecDelete__FP8VideoDec
 struct sceMpeg {
