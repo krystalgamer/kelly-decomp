@@ -157,3 +157,15 @@ KSEntityPO::KSEntityPO()
 {
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023C038)
+// 0x0023C038 SetEndWave__8KSReplay
+typedef unsigned int uint32;
+struct ReplayEntityState { uint32 first; uint32 flags; uint32 third; };
+class KSReplay { char padding[0x54]; unsigned int numFrames; char padding2[0x0c]; ReplayEntityState *mainEntityState; char padding3[0x0c]; unsigned int maxFrames; public: void SetEndWave(); };
+void KSReplay::SetEndWave()
+{
+    if (mainEntityState && numFrames < maxFrames)
+        mainEntityState[numFrames].flags |= 0x80000000u;
+}
+#endif
