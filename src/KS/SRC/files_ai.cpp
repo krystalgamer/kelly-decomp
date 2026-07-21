@@ -233,3 +233,26 @@ vector3d *UninitializedFill(
     return first;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00111010)
+// 0x00111010 __uninitialized_copy_aux__H2ZPC8vector3dZP8vector3d_X01X01X11G12__false_type_X11
+inline void *operator new(unsigned int, void *place) { return place; }
+struct vector3d {
+    float x, y, z;
+    vector3d(const vector3d &other) : x(other.x), y(other.y), z(other.z) {}
+};
+extern "C" vector3d *UninitializedCopy(
+    const vector3d *first, const vector3d *last, vector3d *result
+) __asm__("__uninitialized_copy_aux__H2ZPC8vector3dZP8vector3d_X01X01X11G12__false_type_X11");
+vector3d *UninitializedCopy(
+    const vector3d *first, const vector3d *last, vector3d *result
+) {
+    while (first != last) {
+        if (result)
+            new (result) vector3d(*first);
+        ++first;
+        ++result;
+    }
+    return result;
+}
+#endif
