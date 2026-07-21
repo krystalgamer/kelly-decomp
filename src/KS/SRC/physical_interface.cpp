@@ -39,3 +39,26 @@ bool physical_interface::using_velocity() const {
     );
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_00125B18)
+// 0x00125B18 destroy_guidance_sys__18physical_interface
+class physical_interface;
+class guidance_system {
+    physical_interface* owner;
+    int flags;
+public:
+    virtual ~guidance_system();
+};
+class physical_interface {
+    char padding[0x90];
+    guidance_system* guide_sys;
+public:
+    void destroy_guidance_sys();
+};
+void physical_interface::destroy_guidance_sys()
+{
+    delete guide_sys;
+    guide_sys = 0;
+}
+#endif
