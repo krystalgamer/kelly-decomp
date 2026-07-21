@@ -113,3 +113,20 @@ void SignalCallbackDtor(void *self, int deleting) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0035F938)
+// 0x0035F938 __tf15signal_callback
+extern "C" void __rtti_user(void **type, const char *name);
+extern "C" void *rtti_0035F938_type[] __asm__("__ti15signal_callback");
+extern "C" char rtti_0035F938_name[] __asm__("rtti_0035F938_type_name");
+__asm__(".equ __ti15signal_callback, 0x005121D0");
+__asm__(".equ rtti_0035F938_type_name, 0x00505690");
+__asm__(".equ __rtti_user, 0x003CE2F8");
+extern "C" void **rtti_0035F938() __asm__("__tf15signal_callback");
+void **rtti_0035F938()
+{
+    if (!rtti_0035F938_type[0])
+        __rtti_user(rtti_0035F938_type, rtti_0035F938_name);
+    return rtti_0035F938_type;
+}
+#endif
