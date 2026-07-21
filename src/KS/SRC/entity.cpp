@@ -628,3 +628,21 @@ void entity::set_mesh(nglMesh *mesh)
     my_mesh = mesh;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0012A428)
+// 0x0012A428 set_lores_mesh__6entityP7nglMesh
+struct nglMesh;
+void FixupEntityMesh(nglMesh *mesh, int lit = 0);
+asm(".equ FixupEntityMesh__FP7nglMeshi, 0x0012A1F0");
+class entity {
+    char padding[0x130];
+    nglMesh *lores_mesh;
+public:
+    void set_lores_mesh(nglMesh *mesh);
+};
+void entity::set_lores_mesh(nglMesh *mesh)
+{
+    FixupEntityMesh(mesh);
+    lores_mesh = mesh;
+}
+#endif
