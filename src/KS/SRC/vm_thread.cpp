@@ -109,3 +109,28 @@ void vm_thread::pop_PC()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00354688)
+// 0x00354688 set_suspendable__9vm_threadb
+class vm_thread {
+    char padding[8];
+    int flags;
+public:
+    void set_suspended(bool value);
+    void set_suspendable(bool value);
+};
+__asm__(".equ set_suspended__9vm_threadb, 0x00354658");
+void vm_thread::set_suspendable(bool value)
+{
+    int result;
+    if (value)
+        result = flags | 2;
+    else
+        result = flags & -3;
+    flags = result;
+    if (!value) {
+        set_suspended(false);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
