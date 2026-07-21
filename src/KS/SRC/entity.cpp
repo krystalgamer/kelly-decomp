@@ -552,3 +552,40 @@ int entity::get_random_ifl_frame_boost() const
     return random_ifl_frame_boost_table[0xFF & (id * 3)];
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001375B0)
+// 0x001375B0 preload__16destroyable_info
+#include "decomp_annotations.h"
+
+class stringx;
+
+class entity {
+public:
+    static void exec_preload_function(const stringx &script);
+};
+
+__asm__(".equ exec_preload_function__6entityRC7stringx, 0x00137880");
+
+class destroyable_info {
+    short flags;
+    char padding[0x1E];
+    stringx *preload_script_storage;
+
+public:
+    void preload();
+};
+
+void destroyable_info::preload()
+{
+    short current_flags = flags;
+    if (!(current_flags & 0x200)) {
+        unsigned short updated_flags =
+            (unsigned short)flags | 0x200;
+        flags = (short)updated_flags;
+        entity::exec_preload_function(
+            *(stringx *)((char *)this + 0x20)
+        );
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
