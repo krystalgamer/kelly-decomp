@@ -264,6 +264,23 @@ void* nglMemAlloc(u_int Size, u_int Align)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00399520)
+// 0x00399520 nglVif1RenderSceneNode__FRPUiPv
+typedef unsigned int u_int;
+struct nglScene { nglScene *Parent; };
+extern void nglVif1RenderScene(u_int *&Packet, nglScene *Scene);
+extern void nglVif1SetupScene(u_int *&Packet, nglScene *Scene, bool ClearEnable);
+__asm__(".equ nglVif1RenderScene__FRPUiP8nglScene, 0x0039A4E0");
+__asm__(".equ nglVif1SetupScene__FRPUiP8nglSceneb, 0x0039A128");
+void nglVif1RenderSceneNode(u_int *&Packet, void *Param)
+{
+    nglScene *Scene = (nglScene *)Param;
+    nglVif1RenderScene(Packet, Scene);
+    nglVif1SetupScene(Packet, Scene->Parent, false);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00395F48)
 // 0x00395F48 nglApplyMatrix__FR9nglVectorR9nglMatrixT0
 class nglVector { float data[4]; public: operator float *() { return data; } };
