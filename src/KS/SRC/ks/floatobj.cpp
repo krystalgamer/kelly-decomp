@@ -253,3 +253,34 @@ struct WaterObjectLayout { char padding[0x38]; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_13static_object");
 void DerivedDtor(void *self, int deleting) { ((WaterObjectLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001FD948)
+// 0x001FD948 spawn__15floating_object
+asm(".equ spawn__12water_object, 0x001FD1B8");
+class water_object { public: void spawn(); };
+class floating_object : public water_object {
+    char padding_to_times[8];
+    int times_spawned;
+    char padding_to_spawn_count[0x1C];
+    int spawn_count;
+    char padding_to_dy[0x2A0];
+    float desired_dy;
+    float current_dy;
+    char padding_to_angle[8];
+    float desired_angle;
+    float current_angle;
+public:
+    void spawn();
+};
+void floating_object::spawn()
+{
+    if (times_spawned == spawn_count)
+        return;
+    desired_dy = 0;
+    current_dy = 0;
+    desired_angle = 0;
+    current_angle = 0;
+    water_object::spawn();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
