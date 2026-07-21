@@ -72,3 +72,20 @@ extern "C" void ScriptNumClassDtor(void *self) __asm__("_$_9slc_num_t");
 __asm__(".equ _$_20script_library_class, 0x0034EE68");
 void ScriptNumClassDtor(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0035F640)
+// 0x0035F640 __tfQ220script_library_class8function
+extern "C" void __rtti_user(void **type, const char *name);
+extern "C" void *function_type[] __asm__("__tiQ220script_library_class8function");
+extern "C" char function_name[] __asm__("__tnQ220script_library_class8function");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+__asm__(".equ __tnQ220script_library_class8function, 0x00505608");
+__asm__(".equ __rtti_user, 0x003CE2F8");
+extern "C" void **function_rtti() __asm__("__tfQ220script_library_class8function");
+void **function_rtti()
+{
+    if (!function_type[0])
+        __rtti_user(function_type, function_name);
+    return function_type;
+}
+#endif
