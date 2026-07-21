@@ -352,3 +352,32 @@ wipeout_camera_2::wipeout_camera_2(const entity_id &id, entity *target)
     wave_hint_valid = false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00230830)
+// 0x00230830 __14wipeout_cameraRC9entity_idP6entity
+class entity_id;
+class entity;
+class camera;
+asm(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
+asm(".equ _vt$14wipeout_camera, 0x004E8910");
+class game_camera {
+    char padding[8];
+public:
+    game_camera(const entity_id &id, entity *target);
+    virtual ~game_camera();
+};
+class wipeout_camera : public game_camera {
+    char padding_to_previous[0x334];
+    camera *previous_camera;
+    entity *collision_object;
+public:
+    wipeout_camera(const entity_id &id, entity *target);
+    virtual ~wipeout_camera();
+};
+wipeout_camera::wipeout_camera(const entity_id &id, entity *target)
+    : game_camera(id, target)
+{
+    collision_object = 0;
+    previous_camera = 0;
+}
+#endif
