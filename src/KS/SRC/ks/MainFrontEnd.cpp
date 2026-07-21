@@ -143,3 +143,27 @@ void MultiSubMenu::Draw()
     difficulty->Draw();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00184D00)
+// 0x00184D00 Draw__19MultiControllerMenu
+asm(".equ Draw__6FEMenu, 0x00156C88");
+class FEMenu { public: void Draw(); };
+class TextString {
+    char padding[0x4C];
+public:
+    virtual ~TextString();
+    virtual void Update(float time_inc);
+    virtual void Draw();
+};
+class MultiControllerMenu : public FEMenu {
+    char padding[0x80];
+    TextString *title;
+public:
+    void Draw();
+};
+void MultiControllerMenu::Draw()
+{
+    FEMenu::Draw();
+    title->Draw();
+}
+#endif
