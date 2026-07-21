@@ -71,3 +71,23 @@ void CheatCodeMenu::Select() {
     );
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_001D15B8)
+// 0x001D15B8 Draw__13CheatFrontEnd
+class ActiveMenu { char padding[0x74]; public:
+    virtual void d0();
+    virtual void d1();
+    virtual void d2();
+    virtual void d3();
+    virtual void d4();
+    virtual void d5();
+    virtual void d6();
+    virtual void d7();
+    virtual void Draw();
+};
+class CheatFrontEnd { char padding[0x60]; ActiveMenu* active; public: void Draw(); };
+extern void base_call(CheatFrontEnd*) __asm__("Draw__15FEGraphicalMenu");
+__asm__(".equ Draw__15FEGraphicalMenu, 0x001580D8");
+void CheatFrontEnd::Draw() { if(active) { active->Draw(); KELLY_DECOMP_COMPILER_BARRIER(); } else { base_call(this); KELLY_DECOMP_COMPILER_BARRIER(); } }
+#endif
