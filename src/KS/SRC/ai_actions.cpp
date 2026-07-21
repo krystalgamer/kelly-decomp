@@ -48,3 +48,31 @@ __asm__(".equ get_my_entity__C7ai_goal, 0x00106608");
 class ai_action { ai_goal* owner; public: entity* get_my_entity() const; };
 entity* ai_action::get_my_entity() const { return owner->get_my_entity(); }
 #endif
+// Matching decompilation blocks selected by generated build shims.
+
+#if defined(KELLY_DECOMP_FUNCTION_001061E8)
+// 0x001061E8 going_out_of_service__14anim_ai_action
+__asm__(".equ get_my_entity__C9ai_action, 0x00105E78");
+__asm__(".equ kill_anim__6entityi, 0x00134918");
+__asm__(".equ going_out_of_service__9ai_action, 0x00105E40");
+class entity { public: void kill_anim(int); };
+class ai_action {
+public:
+    entity* get_my_entity() const;
+    void going_out_of_service();
+};
+class anim_ai_action : public ai_action {
+    char padding[32 - sizeof(ai_action)];
+    int anim_slot;
+    bool looping;
+public:
+    void going_out_of_service();
+};
+void anim_ai_action::going_out_of_service()
+{
+    if (looping)
+        get_my_entity()->kill_anim(anim_slot);
+    ai_action::going_out_of_service();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
