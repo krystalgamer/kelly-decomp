@@ -1,6 +1,23 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
+#if defined(KELLY_DECOMP_FUNCTION_00240340)
+// 0x00240340 I2XColor__FRC9MenuColor
+typedef unsigned char MENU_UINT8;
+
+struct MenuColor {
+    MENU_UINT8 r, g, b, a;
+};
+
+static unsigned int I2XColor(const MenuColor& color) {
+    unsigned int result = ((128 * color.a) / 255) << 0;
+    result += color.b << 8;
+    result += color.g << 16;
+    result += color.r << 24;
+    return result;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00240388)
 // 0x00240388 MENU_TermMenus__Fv
 void MENU_TermMenus() {
