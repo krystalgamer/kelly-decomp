@@ -472,3 +472,20 @@ void **rtti_003602B8()
     return rtti_003602B8_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003617C8)
+// 0x003617C8 __tf6wevent
+extern "C" void __rtti_user(void **type, const char *name);
+extern "C" void *wevent_type[] __asm__("__ti6wevent");
+extern "C" char wevent_name[];
+__asm__(".equ __ti6wevent, 0x00512200");
+__asm__(".equ wevent_name, 0x005070A8");
+__asm__(".equ __rtti_user, 0x003CE2F8");
+extern "C" void **wevent_rtti() __asm__("__tf6wevent");
+void **wevent_rtti()
+{
+    if (!wevent_type[0])
+        __rtti_user(wevent_type, wevent_name);
+    return wevent_type;
+}
+#endif
