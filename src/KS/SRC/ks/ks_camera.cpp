@@ -194,6 +194,43 @@ void follow_close_camera::init()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00234648)
+// 0x00234648 __15duckdive_cameraRC9entity_idP6entityP22kellyslater_controller
+class entity_id;
+class entity;
+class kellyslater_controller;
+
+__asm__(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
+__asm__(".equ _vt$15duckdive_camera, 0x004D69A8");
+
+class game_camera {
+    char padding[8];
+public:
+    game_camera(const entity_id &id, entity *target);
+    virtual ~game_camera();
+};
+
+struct duckdive_camera_layout {
+    char padding_to_vtable[8];
+    const void *vtable;
+    char padding_to_controller[0x208];
+    kellyslater_controller *ksctrl;
+};
+
+class duckdive_camera : public game_camera {
+public:
+    duckdive_camera(const entity_id &id, entity *target, kellyslater_controller *controller);
+    virtual ~duckdive_camera();
+};
+
+duckdive_camera::duckdive_camera(const entity_id &id, entity *target, kellyslater_controller *controller)
+    : game_camera(id, target)
+{
+    ((duckdive_camera_layout *)this)->ksctrl = controller;
+    ((duckdive_camera_layout *)this)->vtable = _vt$15duckdive_camera;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00233BB0)
 // 0x00233BB0 init__11buoy_camera
 class buoy_camera { char padding_to_first[0x2D0]; bool first_time; char padding_to_jump[0x30]; float jump_time_elapsed; public: void init(); };
