@@ -370,3 +370,33 @@ void PauseMenuSystem::Select(int menu_index, int entry_index)
     menus[menu_index]->Select(entry_index);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B4AF8)
+// 0x001B4AF8 Restart__15PauseMenuSystem
+struct system_vtable {
+    char padding[0x58];
+    short adjustment;
+    short unused;
+    void (*end_draw)(void *self, bool pause);
+};
+class PauseMenuSystem {
+    char padding[0x8C];
+    system_vtable *vtable;
+public:
+    void endDraw(bool pause = true) {
+        system_vtable *table = vtable;
+        table->end_draw((char *)this + table->adjustment, pause);
+    }
+    void Restart();
+};
+class game { public: void retry_mode(bool reload); };
+extern game *g_game_ptr;
+asm(".equ g_game_ptr, 0x0046AC64");
+asm(".equ retry_mode__4gameb, 0x00283910");
+void PauseMenuSystem::Restart()
+{
+    endDraw();
+    g_game_ptr->retry_mode(false);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
