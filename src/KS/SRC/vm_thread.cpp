@@ -134,3 +134,23 @@ void vm_thread::set_suspendable(bool value)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00356230)
+// 0x00356230 remove_from_local_character__9vm_thread
+extern "C" void debug_print(const char *format, ...) __asm__("debug_print__FPCce");
+extern int once_flag;
+extern const char stub_format[];
+extern const char stub_name[];
+__asm__(".equ debug_print__FPCce, 0x00120790");
+__asm__(".equ once_flag, 0x0046DC58");
+__asm__(".equ stub_format, 0x00503DD8");
+__asm__(".equ stub_name, 0x00503E08");
+class vm_thread { public: void remove_from_local_character(); };
+void vm_thread::remove_from_local_character()
+{
+    if (once_flag) {
+        debug_print(stub_format, stub_name);
+        once_flag = 0;
+    }
+}
+#endif
