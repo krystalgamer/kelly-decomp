@@ -92,3 +92,12 @@ int surfing_object::get_type() const {
     return my_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0026F8C0)
+// 0x0026F8C0 __tf12beach_object
+extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
+extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
+asm(".equ typeinfo, 0x005120D0"); asm(".equ type_name, 0x004E4F50");
+extern "C" void *GetTypeInfo() __asm__("__tf12beach_object");
+void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
+#endif
