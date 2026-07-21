@@ -905,3 +905,32 @@ bool slf_fluid_bar_widget_resize_t::operator()(
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032E598)
+// 0x0032E598 __cl__36slf_fluid_bar_widget_set_fill_rate_tR8vm_stackQ320script_library_class8function7entry_t
+class fluid_bar {
+    char padding0[0x174];
+    float fill_rate;
+    char padding1[0x14];
+    float old_fill_rate;
+    char padding2[4];
+    bool update;
+public:
+    void set_fill_rate(float value) { fill_rate = value; if (fill_rate != old_fill_rate) update = true; }
+};
+class vm_stack { char padding[8]; char *top; public: void *pop(unsigned int size) { top -= size; return top; } };
+class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+class slf_fluid_bar_widget_set_fill_rate_t : public script_library_class::function {
+public:
+    struct parms_t { fluid_bar *me; float v; };
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+bool slf_fluid_bar_widget_set_fill_rate_t::operator()(vm_stack &stack, entry_t entry)
+{
+    SLF_PARMS;
+    parms->me->set_fill_rate(parms->v);
+    SLF_DONE;
+}
+#endif
