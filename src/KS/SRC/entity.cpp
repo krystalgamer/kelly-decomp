@@ -472,3 +472,27 @@ void entity::make_animateable(bool on)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00132370)
+// 0x00132370 delete_visrep__6entity
+class visual_rep;
+
+void unload_visual_rep(visual_rep *representation);
+__asm__(".equ unload_visual_rep__FP10visual_rep, 0x002D74C0");
+
+class entity {
+    char padding[0x128];
+    visual_rep *my_visrep;
+
+public:
+    void delete_visrep();
+};
+
+void entity::delete_visrep()
+{
+    if (my_visrep) {
+        unload_visual_rep(my_visrep);
+        my_visrep = 0;
+    }
+}
+#endif
