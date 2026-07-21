@@ -476,3 +476,24 @@ float ReadFloat(unsigned char *buffer, int &index)
     return ret;
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_00148BC0)
+// 0x00148BC0 setLineSpacing__15MultiLineStringi
+struct Glyph { char padding[16]; int cell_height; };
+class Font { public: Glyph* getGlyph(char); };
+class MultiLineString {
+    Font* font;
+    char padding[0x4c];
+    int vSpacing;
+public: void setLineSpacing(const int new_spacing);
+};
+__asm__(".equ getGlyph__4Fontc, 0x0033BD68");
+void MultiLineString::setLineSpacing(const int new_spacing)
+{
+    if(new_spacing == -1)
+        vSpacing = font->getGlyph('A')->cell_height;
+    else
+        vSpacing = new_spacing;
+}
+#endif
