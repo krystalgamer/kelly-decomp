@@ -48,3 +48,37 @@ void WaveIndicatorWidget::ShowSurge(const bool fadeIn)
     state = 2;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001680D0)
+// 0x001680D0 ShowTongue__19WaveIndicatorWidgetb
+class WaveIndicatorWidget {
+    char padding[0x88];
+    float waveIdx;
+    float tongueIdx;
+    float hiliteTime;
+    float fade;
+    int fadeDir;
+    int state;
+
+public:
+    void ShowTongue(bool fadeIn);
+};
+
+void WaveIndicatorWidget::ShowTongue(const bool fadeIn)
+{
+    if (fadeIn)
+    {
+        fade = 0.0f;
+        fadeDir = 1;
+    }
+    else
+    {
+        fade = 1.0f;
+        fadeDir = 0;
+    }
+
+    waveIdx = 0;
+    tongueIdx = 0;
+    state = 3;
+}
+#endif
