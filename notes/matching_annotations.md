@@ -45,3 +45,14 @@ Integration enforces this policy:
   released source or a previously reviewed, narrowly scoped annotation.
 - Adding an exception requires a code review and a source-authentic rationale.
 - A whole function body may never be replaced with hand-written assembly.
+
+## Shared candidate declarations
+
+Matched functions should reuse reconstructed declarations from their original
+headers or translation units instead of embedding duplicate mini-types in each
+selector block.
+
+Manifest entries may provide `candidate_prefix` for test-only includes, such
+as a shared reconstructed header. `match_manifest.py` prepends that context
+when compiling the isolated candidate but installs only the entry's `source`
+body into the merged translation unit.

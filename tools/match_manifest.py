@@ -2,6 +2,7 @@
 
 import argparse
 import csv
+import hashlib
 import json
 import subprocess
 import sys
@@ -75,13 +76,22 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
     source = entry["source"]
     if not source.endswith("\n"):
         source += "\n"
-    candidate.write_text(source, encoding="utf-8")
+    candidate_prefix = entry.get("candidate_prefix", "")
+    if candidate_prefix and not candidate_prefix.endswith("\n"):
+        candidate_prefix += "\n"
+    candidate_source = candidate_prefix + source
+    candidate.write_text(candidate_source, encoding="utf-8")
     run(str(PYTHON), "tools/function_test.py", "test", row["address"])
 
     attempts = json.loads(
         (scratch / "attempts.json").read_text(encoding="utf-8")
     )
-    attempt = attempts[-1]
+    candidate_sha1 = hashlib.sha1(candidate_source.encode()).hexdigest()
+    attempt = next(
+        attempt
+        for attempt in attempts
+        if attempt["candidate_sha1"] == candidate_sha1
+    )
     if attempt["status"] != "matched":
         raise RuntimeError(
             f"Manifest candidate did not match {row['raw_name']}: "
