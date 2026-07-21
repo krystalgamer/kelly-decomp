@@ -25,3 +25,11 @@ __asm__(".equ strcpy, 0x003D3FCC");
 class os_file { public: static void set_pre_root_dir(const stringx &directory); };
 void os_file::set_pre_root_dir(const stringx &directory) { register const char *source __asm__("$5") = directory.data; register char *destination __asm__("$4") = (char *)0x005A0000; __asm__ volatile("" : "+r"(source), "+r"(destination)); destination += 0x3088; strcpy(destination, source); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DFC58)
+// 0x001DFC58 __7os_file
+__asm__(".equ __7stringx, 0x0034D3E0");
+class stringx { public: stringx(); int data[2]; };
+class os_file { public: os_file(); stringx name; int flags; bool opened; bool eof; bool from_cd; char data[0x24]; int curr_fp; };
+os_file::os_file() { flags = 0; opened = false; eof = true; from_cd = false; curr_fp = -1; }
+#endif
