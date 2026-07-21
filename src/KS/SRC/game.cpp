@@ -173,3 +173,22 @@ void SetMovie(void *self, stringx *name)
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002778F0)
+// 0x002778F0 __9game_info
+class stringx { char storage[8]; public: stringx(); };
+class game_info {
+    int difficulty;
+    stringx hero_name_0;
+    stringx hero_name_1;
+public:
+    game_info();
+    void reset();
+};
+asm(".equ __7stringx, 0x0034D3E0");
+asm(".equ reset__9game_info, 0x00277D58");
+game_info::game_info()
+{
+    reset();
+}
+#endif
