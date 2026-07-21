@@ -334,3 +334,39 @@ void PhotoFrontEnd::OnDown(int controller)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001CF208)
+// 0x001CF208 setHigh__15PhotoSelectMenuP11FEMenuEntryb
+struct FEMenuEntry {
+    int entry_num;
+};
+
+extern "C" void BaseSetHigh(
+    void *self,
+    FEMenuEntry *menu,
+    bool animate
+) __asm__("setHigh__6FEMenuP11FEMenuEntryb");
+
+__asm__(
+    ".equ setHigh__6FEMenuP11FEMenuEntryb, 0x00156638"
+);
+
+class PhotoSelectMenu {
+    char padding0[0x4c];
+    FEMenuEntry *highlighted;
+    char padding1[0x448];
+    int highlightedIdx;
+
+public:
+    void setHigh(FEMenuEntry *menu, bool animate);
+};
+
+void PhotoSelectMenu::setHigh(FEMenuEntry *menu, bool animate)
+{
+    BaseSetHigh(this, menu, animate);
+    if (highlighted)
+        highlightedIdx = highlighted->entry_num;
+    else
+        highlightedIdx = -1;
+}
+#endif
