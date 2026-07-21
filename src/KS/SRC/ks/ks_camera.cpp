@@ -322,3 +322,33 @@ void fps_camera::init()
         camera_set_roll(0.0f);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0022FD78)
+// 0x0022FD78 __16wipeout_camera_2RC9entity_idP6entity
+class entity_id;
+class entity;
+class camera;
+asm(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
+asm(".equ _vt$16wipeout_camera_2, 0x004E8F58");
+class game_camera {
+    char padding[8];
+public:
+    game_camera(const entity_id &id, entity *target);
+    virtual ~game_camera();
+};
+class wipeout_camera_2 : public game_camera {
+    char padding_to_previous[0x308];
+    camera *previous_camera;
+    char padding_to_hint[0x234];
+    int wave_hint_valid;
+public:
+    wipeout_camera_2(const entity_id &id, entity *target);
+    virtual ~wipeout_camera_2();
+};
+wipeout_camera_2::wipeout_camera_2(const entity_id &id, entity *target)
+    : game_camera(id, target)
+{
+    previous_camera = 0;
+    wave_hint_valid = false;
+}
+#endif
