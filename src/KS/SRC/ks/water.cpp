@@ -84,3 +84,23 @@ extern unsigned long long WaterDebugFlags;
 __asm__(".equ WaterDebugFlags, 0x00484618");
 void WATER_SetDrawSeam(bool enabled) { WaterDebugFlags = (WaterDebugFlags & ~(1ULL << 3)) | ((unsigned long long)(enabled & 1) << 3); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0036E888)
+// 0x0036E888 WATER_Cleanup__Fv
+extern void WAVE_Cleanup();
+extern void WAVETEX_FreeWaveMesh(unsigned id);
+extern unsigned SeamWaterMeshID, FarWaterMeshID, HorizonWaterMeshID;
+__asm__(".equ WAVE_Cleanup__Fv, 0x00373758");
+__asm__(".equ WAVETEX_FreeWaveMesh__FUi, 0x00380EA0");
+__asm__(".equ SeamWaterMeshID, 0x0058EA34");
+__asm__(".equ FarWaterMeshID, 0x0058EA38");
+__asm__(".equ HorizonWaterMeshID, 0x0058EA3C");
+void WATER_Cleanup()
+{
+    WAVE_Cleanup();
+    WAVETEX_FreeWaveMesh(SeamWaterMeshID);
+    WAVETEX_FreeWaveMesh(FarWaterMeshID);
+    WAVETEX_FreeWaveMesh(HorizonWaterMeshID);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
