@@ -1,5 +1,21 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001A5838) || \
+    defined(KELLY_DECOMP_FUNCTION_001A5F90) || \
+    defined(KELLY_DECOMP_FUNCTION_001A85A0) || \
+    defined(KELLY_DECOMP_FUNCTION_001B4398) || \
+    defined(KELLY_DECOMP_FUNCTION_001B4A58)
+#include "KS/SRC/ks/FrontEndMenus_shared.h"
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001A5838)
+// 0x001A5838 OnButtonRelease__14PauseMenuClassii
+void PauseMenuClass::OnButtonRelease(int controller, int button)
+{
+    if (button == FEMENUCMD_CROSS && highlighted->entry_num == Continue)
+        sys->endDraw();
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001AA2E8)
 // 0x001AA2E8 Select__14SoundMenuClassi
