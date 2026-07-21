@@ -117,3 +117,26 @@ void mem_check_heap()
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002ACF80)
+// 0x002ACF80 mem_return_largest_available_block__FPUi
+unsigned int mem_tested_largest_avail();
+extern "C" void *malloc(unsigned int size);
+__asm__(
+    ".equ mem_tested_largest_avail__Fv, 0x002ACF08"
+);
+__asm__(".equ malloc, 0x003D0BA0");
+
+static void *mem_return_largest_available_block(unsigned int *size)
+{
+    *size = mem_tested_largest_avail();
+    void *result = malloc(*size);
+    if (result == 0)
+        *size = 0;
+    return result;
+}
+
+__asm__(
+    ".globl mem_return_largest_available_block__FPUi"
+);
+#endif
