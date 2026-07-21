@@ -74,3 +74,16 @@ __asm__(".equ newshadowbuf, 0x00484EC4");
 __asm__(".equ WAVETEX_ClearShadows__Fv, 0x0037F930");
 void WAVETEX_CheckClearShadows() { if (newshadowbuf) { newshadowbuf = 0; WAVETEX_ClearShadows(); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00380C38)
+// 0x00380C38 WAVETEX_SetMatZSorted__Fbi
+struct nglMaterial { unsigned int Flags; char padding[260]; };
+extern nglMaterial WaveTexLMat[][5] __asm__("WaveTexLMat");
+extern int wavetex_currentmat __asm__("wavetex_currentmat");
+asm(".equ WaveTexLMat, 0x0058DE98");
+asm(".equ wavetex_currentmat, 0x00595CC8");
+void WAVETEX_SetMatZSorted(bool onOff, int matid)
+{
+    WaveTexLMat[wavetex_currentmat][matid].Flags |= 0x00080000;
+}
+#endif
