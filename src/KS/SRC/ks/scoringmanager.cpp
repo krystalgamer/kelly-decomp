@@ -110,3 +110,90 @@ ScoringManager::Trick::Trick()
     repetitions = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00249B28)
+// 0x00249B28 GetTrickCount__CQ214ScoringManager6Seriesi
+template<class T>
+class list
+{
+    struct node
+    {
+        node * next;
+        node * prev;
+        T data;
+    };
+
+public:
+    class const_iterator
+    {
+        node * current;
+
+    public:
+        const_iterator() { }
+        const_iterator(node * n) : current(n) { }
+        const T & operator*(void) const { return current->data; }
+        const_iterator & operator++(void)
+        {
+            current = current->next;
+            return *this;
+        }
+        bool operator!=(const const_iterator & right) const
+        {
+            return current != right.current;
+        }
+    };
+
+private:
+    node * sentinel;
+
+public:
+    const_iterator begin(void) const
+    {
+        return const_iterator(sentinel->next);
+    }
+    const_iterator end(void) const
+    {
+        return const_iterator(sentinel);
+    }
+};
+
+class ScoringManager
+{
+public:
+    struct LevelTrick;
+
+    class Trick
+    {
+    public:
+        enum TYPE { TYPE_TRICK, TYPE_GAP };
+
+        TYPE type;
+        int index;
+    };
+    typedef list<Trick> TrickList;
+
+    class Series
+    {
+    private:
+        LevelTrick * levelTricks;
+
+    public:
+        TrickList tricks;
+        int GetTrickCount(const int trickIdx) const;
+    };
+};
+
+int ScoringManager::Series::GetTrickCount(const int trickIdx) const
+{
+    TrickList::const_iterator it;
+    int count = 0;
+
+    for (it = tricks.begin(); it != tricks.end(); ++it)
+    {
+        if ((*it).type == Trick::TYPE_TRICK && (*it).index == trickIdx)
+            count++;
+    }
+
+    return count;
+}
+#endif
