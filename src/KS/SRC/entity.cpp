@@ -780,3 +780,20 @@ void entity::destroy_physical_ifc()
     my_physical_interface = 0;
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_001274A0)
+// 0x001274A0 destroy_render_ifc__6entity
+class render_interface { public: virtual ~render_interface(); };
+class entity {
+    char padding[0xc0];
+    render_interface* my_render_interface;
+public:
+    void destroy_render_ifc();
+};
+void entity::destroy_render_ifc()
+{
+    delete my_render_interface;
+    my_render_interface = 0;
+}
+#endif
