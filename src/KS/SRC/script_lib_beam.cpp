@@ -383,3 +383,25 @@ bool slf_beam_set_additive_t::operator()(vm_stack &stack, entry_t entry)
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00326200)
+// 0x00326200 __cl__22slf_beam_set_uv_anim_tR8vm_stackQ320script_library_class8function7entry_t
+class vector2d { public: float x, y; vector2d(float a, float b) : x(a), y(b) {} vector2d& operator=(const vector2d& value) { x = value.x; y = value.y; return *this; } };
+class beam { char padding[0x28c]; vector2d uv_anim; public: void set_uv_anim(const vector2d& value) { uv_anim = value; } };
+class vm_stack { char padding[8]; char *top; public: void *pop(unsigned int size) { top -= size; return top; } };
+class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+class slf_beam_set_uv_anim_t : public script_library_class::function {
+public:
+    struct parms_t { beam *me; float u; float v; };
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+bool slf_beam_set_uv_anim_t::operator()(vm_stack &stack, entry_t entry)
+{
+    SLF_PARMS;
+    vector2d uv(parms->u, parms->v);
+    parms->me->set_uv_anim(uv);
+    SLF_DONE;
+}
+#endif
