@@ -47,3 +47,27 @@ bool ai_interface::set_ifc_str(const pstring &att, const stringx &val) {
     return false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001058A0)
+// 0x001058A0 set_current_path_graph__12ai_interfaceP10path_graph
+asm(".equ clear_path__13ai_locomotion, 0x00107FD8");
+class path_graph;
+class ai_locomotion {
+    char padding[0x64];
+    path_graph *current_path_graph;
+public:
+    void clear_path();
+    void set_current_path_graph(path_graph *g) { clear_path(); current_path_graph = g; }
+};
+class ai_interface {
+    char padding[0x14];
+    ai_locomotion *locomotion;
+public:
+    void set_current_path_graph(path_graph *g);
+};
+void ai_interface::set_current_path_graph(path_graph *g)
+{
+    if (locomotion)
+        locomotion->set_current_path_graph(g);
+}
+#endif
