@@ -535,3 +535,16 @@ void nglMemFree(void *pointer)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00395DA8)
+// 0x00395DA8 nglSetMeshPath__FPCc
+extern char nglMeshPath[256];
+__asm__(".equ nglMeshPath, 0x004BF058");
+extern "C" char *strncpy(char *destination, const char *source, unsigned int count);
+__asm__(".equ strncpy, 0x003D4508");
+void nglSetMeshPath(const char *path)
+{
+    strncpy(nglMeshPath, path, sizeof(nglMeshPath));
+    nglMeshPath[sizeof(nglMeshPath) - 1] = 0;
+}
+#endif
