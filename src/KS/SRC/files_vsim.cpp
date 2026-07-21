@@ -35,3 +35,20 @@ texture_refptr *UninitializedCopy(const texture_refptr *first, const texture_ref
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00357358)
+// 0x00357358 __uninitialized_copy_aux__H2ZPt6refptr1Z10hw_textureZPt6refptr1Z10hw_texture_X01X01X11G12__false_type_X11
+inline void *operator new(unsigned int, void *place) { return place; }
+struct hw_texture { int ref_count; };
+class texture_refptr { hw_texture *value; public: texture_refptr(const texture_refptr &other) : value(other.value) { if (value) ++value->ref_count; } };
+extern "C" texture_refptr *UninitializedCopy(texture_refptr *first, texture_refptr *last, texture_refptr *result) __asm__("__uninitialized_copy_aux__H2ZPt6refptr1Z10hw_textureZPt6refptr1Z10hw_texture_X01X01X11G12__false_type_X11");
+texture_refptr *UninitializedCopy(texture_refptr *first, texture_refptr *last, texture_refptr *result)
+{
+    while (first != last) {
+        if (result) new (result) texture_refptr(*first);
+        ++first;
+        ++result;
+    }
+    return result;
+}
+#endif
