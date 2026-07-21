@@ -230,3 +230,12 @@ asm(".equ typeinfo, 0x00511FC0"); asm(".equ type_name, 0x004CA4F8");
 extern "C" void *GetTypeInfo() __asm__("__tft4anim1Z2po");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00121AD8)
+// 0x00121AD8 __tft4anim1Z10signal_key
+extern "C" void __rtti_user(void *info, const char *name); asm(".equ __rtti_user, 0x003CE2F8");
+extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
+asm(".equ typeinfo, 0x00511FC8"); asm(".equ type_name, 0x004CA508");
+extern "C" void *GetTypeInfo() __asm__("__tft4anim1Z10signal_key");
+void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
+#endif
