@@ -695,3 +695,20 @@ entity_anim_tree *entity::get_anim_tree(int slot) const
         return 0;
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_00126F20)
+// 0x00126F20 destroy_ai_ifc__6entity
+class ai_interface { public: virtual ~ai_interface(); };
+class entity {
+    char padding[0xac];
+    ai_interface* my_ai_interface;
+public:
+    void destroy_ai_ifc();
+};
+void entity::destroy_ai_ifc()
+{
+    delete my_ai_interface;
+    my_ai_interface = 0;
+}
+#endif
