@@ -281,6 +281,26 @@ void nglVif1RenderSceneNode(u_int *&Packet, void *Param)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_003A6110)
+// 0x003A6110 nglVif1StartQuads__FRPUi
+typedef unsigned int u_int;
+typedef unsigned long long u_long;
+extern u_long *nglDmaTagPtr;
+extern void nglVif1FlushSPAD(u_int *&Packet, bool Force);
+__asm__(".equ nglDmaTagPtr, 0x004BB7E8");
+__asm__(".equ nglVif1FlushSPAD__FRPUib, 0x003996B8");
+inline void nglDmaStartTag(u_int *&Packet)
+{
+    nglDmaTagPtr = (u_long *)Packet;
+    Packet += 4;
+}
+void nglVif1StartQuads(u_int *&Packet)
+{
+    nglVif1FlushSPAD(Packet, true);
+    nglDmaStartTag(Packet);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00395F48)
 // 0x00395F48 nglApplyMatrix__FR9nglVectorR9nglMatrixT0
 class nglVector { float data[4]; public: operator float *() { return data; } };
