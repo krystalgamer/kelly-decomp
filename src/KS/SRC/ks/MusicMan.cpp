@@ -39,3 +39,33 @@ class MusicMan { char padding[0x10]; MusicListing musicTrack; public: void shutd
 __asm__(".equ stop__8MusicMan, 0x002595F0");
 void MusicMan::shutdown() { stop(); musicTrack.shutdown(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00258A60)
+// 0x00258A60 stop__12MusicListing
+class Track {
+    char data[72];
+
+public:
+    void Stop();
+};
+
+__asm__(".equ Stop__5Track, 0x00258660");
+
+class MusicListing {
+    int totalSources;
+    int current;
+    Track sources[50];
+    unsigned int currentSoundId;
+    bool successfulLastPlay;
+    int order[50];
+
+public:
+    void stop();
+};
+
+void MusicListing::stop()
+{
+    sources[order[current]].Stop();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
