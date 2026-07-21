@@ -69,3 +69,19 @@ texture_refptr *UninitializedFill(texture_refptr *first, unsigned int count, con
     return first;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00357E18)
+// 0x00357E18 __uninitialized_copy_aux__H2ZPQ212typeface_def10inter_kernZPQ212typeface_def10inter_kern_X01X01X11G12__false_type_X11
+inline void *operator new(unsigned int, void *place) { return place; }
+struct inter_kern { int first; int second; int third; };
+extern "C" inter_kern *UninitializedCopy(inter_kern *first, inter_kern *last, inter_kern *result) __asm__("__uninitialized_copy_aux__H2ZPQ212typeface_def10inter_kernZPQ212typeface_def10inter_kern_X01X01X11G12__false_type_X11");
+inter_kern *UninitializedCopy(inter_kern *first, inter_kern *last, inter_kern *result)
+{
+    while (first != last) {
+        if (result) new (result) inter_kern(*first);
+        ++first;
+        ++result;
+    }
+    return result;
+}
+#endif
