@@ -921,3 +921,12 @@ asm(".equ typeinfo, 0x00512050"); asm(".equ type_name, 0x004DD8A0");
 extern "C" void *GetTypeInfo() __asm__("__tf10PanelBatch");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA008)
+// 0x001DA008 __tf9PanelFile
+extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
+extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
+asm(".equ typeinfo, 0x00512058"); asm(".equ type_name, 0x004DD8D0");
+extern "C" void *GetTypeInfo() __asm__("__tf9PanelFile");
+void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
+#endif
