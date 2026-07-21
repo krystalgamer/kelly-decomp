@@ -69,3 +69,30 @@ void ai_locomotion_direct::going_out_of_service()
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001094F0)
+// 0x001094F0 __20ai_locomotion_directP12ai_interface
+class ai_interface;
+asm(".equ __13ai_locomotionP12ai_interface, 0x00106C90");
+asm(".equ _vt$20ai_locomotion_direct, 0x004C82B8");
+class ai_locomotion {
+    char padding_to_type[0xD0];
+protected:
+    int type;
+private:
+    char padding_to_vtable[0x70];
+public:
+    ai_locomotion(ai_interface *owner);
+    virtual ~ai_locomotion();
+};
+class ai_locomotion_direct : public ai_locomotion {
+public:
+    ai_locomotion_direct(ai_interface *owner);
+    virtual ~ai_locomotion_direct();
+};
+ai_locomotion_direct::ai_locomotion_direct(ai_interface *owner)
+    : ai_locomotion(owner)
+{
+    type = 1;
+}
+#endif
