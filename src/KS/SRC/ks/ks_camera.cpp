@@ -295,3 +295,30 @@ shoulder_camera::shoulder_camera(const entity_id &id, entity *target)
     init();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0022C258)
+// 0x0022C258 init__10fps_camera
+struct camera_vtable {
+    char padding[0x78];
+    short adjustment;
+    short unused;
+    void (*set_roll)(void *self, float angle);
+};
+class fps_camera {
+    char padding_to_vtable[8];
+    camera_vtable *vtable;
+    char padding_to_controller[0x208];
+    void *ksctrl;
+public:
+    void camera_set_roll(float angle) {
+        camera_vtable *table = vtable;
+        table->set_roll((char *)this + table->adjustment, angle);
+    }
+    void init();
+};
+void fps_camera::init()
+{
+    if (ksctrl)
+        camera_set_roll(0.0f);
+}
+#endif
