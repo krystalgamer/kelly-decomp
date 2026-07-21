@@ -159,3 +159,22 @@ bool ExitLevel(MenuEntry *entry, int buttonid)
     return true;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00236A50)
+// 0x00236A50 KSDBMENU_KillMainMenu__Fv
+class Menu { public: void ClearMenu(); };
+extern Menu *menu_main;
+extern Menu *menu_inner_cam;
+extern Menu *menu_inner_camtool;
+asm(".equ menu_main, 0x004252A4");
+asm(".equ menu_inner_cam, 0x00424F70");
+asm(".equ menu_inner_camtool, 0x00434978");
+asm(".equ ClearMenu__4Menu, 0x0023E538");
+void KSDBMENU_KillMainMenu()
+{
+    menu_main->ClearMenu();
+    menu_inner_cam->ClearMenu();
+    menu_inner_camtool->ClearMenu();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
