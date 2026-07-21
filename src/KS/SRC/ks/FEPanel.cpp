@@ -23,6 +23,20 @@ void TextString::setHJustify(Font::HORIZJUST justify) {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00151368)
+// 0x00151368 eq_to_tolerance__10PanelBatchfff
+class PanelBatch {
+public:
+    bool eq_to_tolerance(float, float, float);
+};
+bool PanelBatch::eq_to_tolerance(float a, float b, float tolerance)
+{
+    if (a >= b)
+        return (a - b) < tolerance;
+    return (b - a) < tolerance;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00148278)
 // 0x00148278 setVJustify__10TextStringQ24Font8VERTJUST
 class Font {
