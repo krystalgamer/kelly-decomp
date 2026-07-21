@@ -27,3 +27,30 @@ stringx GenericGameSaver::getOverwriteString(int port, int slot)
     return stringx(overwrite_text);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E5C98)
+// 0x001E5C98 releaseIconData__16GenericGameSaver
+struct nglFileBuf {
+    unsigned char *Buf;
+    unsigned int Size;
+    unsigned int UserData;
+};
+
+void KSReleaseFile(nglFileBuf *file);
+__asm__(".equ KSReleaseFile__FP10nglFileBuf, 0x001E3300");
+
+class GenericGameSaver {
+    char padding[0x2a40];
+    nglFileBuf icon;
+
+public:
+    void releaseIconData();
+};
+
+void GenericGameSaver::releaseIconData()
+{
+    if (icon.Buf)
+        KSReleaseFile(&icon);
+    icon.Buf = 0;
+}
+#endif
