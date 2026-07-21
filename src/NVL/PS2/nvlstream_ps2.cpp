@@ -51,3 +51,21 @@ void nvlDestroyMsgQueue(nvlMsgQueue* q)
   KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003873A0)
+// 0x003873A0 nvlDestroyMutex__FPi
+__asm__(".equ __assert, 0x003CF6B0");
+__asm__(".equ DeleteSema, 0x003DB670");
+__asm__(".equ _nvl_file, 0x0051AD40");
+__asm__(".equ _nvl_expr, 0x0051B5A8");
+extern "C" void __assert(const char*, int, const char*);
+extern "C" int DeleteSema(int);
+extern char _nvl_file, _nvl_expr;
+void nvlDestroyMutex(int* mtx)
+{
+  if (!mtx)
+    __assert(&_nvl_file, 1516, &_nvl_expr);
+  int res = DeleteSema(*mtx);
+  KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
