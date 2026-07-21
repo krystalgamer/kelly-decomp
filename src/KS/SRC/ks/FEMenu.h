@@ -833,3 +833,21 @@ void FEGraphicalMenu::Update(float time_inc)
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DB390)
+// 0x001DB390 GetPointer__15FEGraphicalMenuPCc
+class PanelFile { public: void *GetPointer(const char *); };
+typedef void *(*get_pointer_handler)(void *, const char *);
+struct get_pointer_slot { short adjustment; unsigned short padding; get_pointer_handler function; };
+struct menu_vtable { char padding[0x198]; get_pointer_slot get_pointer; };
+struct ParentMenu { char padding[0x74]; menu_vtable *vtable; };
+class FEGraphicalMenu { char padding[0x64]; ParentMenu *parent; char padding2[0x98]; PanelFile panel; public: void *GetPointer(const char *); };
+asm(".equ GetPointer__9PanelFilePCc, 0x00152F88");
+void *FEGraphicalMenu::GetPointer(const char *name)
+{
+    if (!parent)
+        return panel.GetPointer(name);
+    get_pointer_slot &slot = parent->vtable->get_pointer;
+    return slot.function((char *)parent + slot.adjustment, name);
+}
+#endif
