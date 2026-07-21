@@ -32,3 +32,22 @@ void nvlWaitForVB()
   KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003853C8)
+// 0x003853C8 nvlDestroyMsgQueue__FP11nvlMsgQueue
+__asm__(".equ __assert, 0x003CF6B0");
+__asm__(".equ DeleteSema, 0x003DB670");
+__asm__(".equ _nvl_file, 0x0051AD40");
+__asm__(".equ _nvl_expr, 0x0051AD88");
+extern "C" void __assert(const char*, int, const char*);
+extern "C" int DeleteSema(int);
+extern char _nvl_file, _nvl_expr;
+struct nvlMsgQueue { int sema; void* array; };
+void nvlDestroyMsgQueue(nvlMsgQueue* q)
+{
+  if (!q)
+    __assert(&_nvl_file, 146, &_nvl_expr);
+  int res = DeleteSema(q->sema);
+  KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
