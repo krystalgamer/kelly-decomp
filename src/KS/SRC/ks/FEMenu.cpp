@@ -175,3 +175,33 @@ void FrontEnd::Update(float time)
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+// Matching decompilation blocks selected by generated build shims.
+
+#if defined(KELLY_DECOMP_FUNCTION_00158090)
+// 0x00158090 Init__15FEGraphicalMenu
+struct FEMenuEntry {};
+struct FEGraphicalMenuVTable {
+    char padding[24];
+    short adjustment;
+    short reserved;
+    void (*setHigh)(void*, FEMenuEntry*, bool);
+};
+class FEGraphicalMenu {
+    char padding0[24];
+    int init;
+    char padding1[36];
+    FEMenuEntry* entries;
+    char padding2[48];
+    FEGraphicalMenuVTable* vtable;
+public:
+    void Init();
+};
+void FEGraphicalMenu::Init()
+{
+    if (entries) {
+        void* self = (char*)this + vtable->adjustment;
+        vtable->setHigh(self, entries, true);
+    }
+    init = true;
+}
+#endif
