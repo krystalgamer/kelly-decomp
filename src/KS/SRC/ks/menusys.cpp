@@ -90,3 +90,34 @@ void MenuSystem::CloseAllMenus()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00241178)
+// 0x00241178 GetElementText__10MenuSystemiPci
+extern const char empty_string[];
+__asm__(".equ empty_string, 0x004DFC30");
+
+class Menu {
+public:
+    void GetElementText(int index, char *text, int length);
+};
+
+__asm__(".equ GetElementText__4MenuiPci, 0x0023E6C8");
+
+class MenuSystem {
+    char padding[0x470];
+    Menu *curmenu;
+
+public:
+    void GetElementText(int index, char *text, int length);
+};
+
+void MenuSystem::GetElementText(int index, char *text, int length)
+{
+    if (curmenu) {
+        curmenu->GetElementText(index, text, length);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    } else {
+        text[0] = empty_string[0];
+    }
+}
+#endif
