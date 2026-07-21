@@ -496,3 +496,37 @@ void entity::delete_visrep()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00133E28)
+// 0x00133E28 unload_anim__C6entityRC7stringx
+#include "decomp_annotations.h"
+
+class stringx;
+
+class ett_manager {
+public:
+    void unload(const stringx &filename);
+};
+
+class world_dynamics_system {
+public:
+    ett_manager *get_ett_manager();
+};
+
+__asm__(".equ get_ett_manager__21world_dynamics_system, 0x002A3770");
+__asm__(".equ unload__11ett_managerRC7stringx, 0x001152A8");
+
+extern world_dynamics_system *g_world_ptr;
+__asm__(".equ g_world_ptr, 0x00431A8C");
+
+class entity {
+public:
+    void unload_anim(const stringx &filename) const;
+};
+
+void entity::unload_anim(const stringx &filename) const
+{
+    g_world_ptr->get_ett_manager()->unload(filename);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
