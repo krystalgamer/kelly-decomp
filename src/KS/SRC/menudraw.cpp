@@ -76,3 +76,20 @@ void Setter(bool value) __asm__("MENUDRAW_SetAllParticle__Fb");
 __asm__(".equ MENUDRAW_SetAllParticle__Fb, 0x0030F0E8");
 bool MENUDRAW_AllParticleOn(MenuEntry *entry, int button) { if (button == 7) Setter(true); return true; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0030F380)
+// 0x0030F380 MENUDRAW_AllOff__FP9MenuEntryi
+class MenuEntry;
+extern void MENUDRAW_SetAll(bool); extern void MENUDRAW_SetAllEntities(bool); extern void MENUDRAW_SetAllParticle(bool); extern void MENUDRAW_SetAllWater(bool);
+asm(".equ MENUDRAW_SetAll__Fb, 0x0030F348"); asm(".equ MENUDRAW_SetAllEntities__Fb, 0x0030EDB0"); asm(".equ MENUDRAW_SetAllParticle__Fb, 0x0030F0E8"); asm(".equ MENUDRAW_SetAllWater__Fb, 0x0030EF58");
+bool MENUDRAW_AllOff(MenuEntry *, int buttonid)
+{
+    if (buttonid == 7) {
+        MENUDRAW_SetAll(false);
+        MENUDRAW_SetAllEntities(false);
+        MENUDRAW_SetAllParticle(false);
+        MENUDRAW_SetAllWater(false);
+    }
+    return true;
+}
+#endif
