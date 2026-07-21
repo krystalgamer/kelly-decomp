@@ -253,3 +253,27 @@ void vert_buf::deconstruct()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E2C30)
+// 0x001E2C30 deconstruct__16vert_buf_xformed
+struct hw_rasta_vert_xformed {
+};
+
+__asm__(".equ __builtin_vec_delete, 0x002AC6D0");
+
+class vert_buf_xformed {
+    char padding[4];
+    hw_rasta_vert_xformed *verts;
+
+public:
+    void deconstruct();
+};
+
+void vert_buf_xformed::deconstruct()
+{
+    if (verts) {
+        delete[] verts;
+        verts = 0;
+    }
+}
+#endif
