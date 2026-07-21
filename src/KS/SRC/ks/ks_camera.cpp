@@ -156,6 +156,44 @@ class follow_camera { char padding_to_first[0x2D0]; bool first_time; char paddin
 void follow_camera::init() { first_time = true; jump_time_elapsed = 0; }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00232A68)
+// 0x00232A68 init__19follow_close_camera
+struct follow_close_camera_vtable {
+    char padding[0x78];
+    short adjustment;
+    short unused;
+    void (*frame_advance)(void *self, float time_step);
+};
+
+class follow_close_camera {
+    char padding_to_vtable[8];
+    follow_close_camera_vtable *vtable;
+    char padding_to_controller[0x208];
+    void *ksctrl;
+    char padding_to_first[0xB8];
+    bool first_time;
+    char padding_to_jump[0x30];
+    float jump_time_elapsed;
+public:
+    void frame_advance(float time_step) {
+        follow_close_camera_vtable *table = vtable;
+        table->frame_advance(
+            (char *)this + table->adjustment,
+            time_step
+        );
+    }
+    void init();
+};
+
+void follow_close_camera::init()
+{
+    first_time = true;
+    jump_time_elapsed = 0;
+    if (ksctrl)
+        frame_advance(0.0f);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00233BB0)
 // 0x00233BB0 init__11buoy_camera
 class buoy_camera { char padding_to_first[0x2D0]; bool first_time; char padding_to_jump[0x30]; float jump_time_elapsed; public: void init(); };
