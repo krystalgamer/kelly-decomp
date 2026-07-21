@@ -790,3 +790,12 @@ void FEMenuSystem::Draw()
     menus[active]->Draw();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA438)
+// 0x001DA438 __tf11FEMenuEntry
+extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
+extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
+asm(".equ typeinfo, 0x00512078"); asm(".equ type_name, 0x004DD970");
+extern "C" void *GetTypeInfo() __asm__("__tf11FEMenuEntry");
+void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
+#endif
