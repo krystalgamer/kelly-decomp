@@ -193,3 +193,53 @@ void OptionsMenu::OnRight(int controller)
     else { ChangeVolume(true); KELLY_DECOMP_COMPILER_BARRIER(); }
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_0017FE50)
+// 0x0017FE50 OnTriangle__12MainFrontEndi
+class ActiveMenu {
+    char padding[0x74];
+public:
+    virtual void d0();
+    virtual void d1();
+    virtual void d2();
+    virtual void d3();
+    virtual void d4();
+    virtual void d5();
+    virtual void d6();
+    virtual void d7();
+    virtual void d8();
+    virtual void d9();
+    virtual void d10();
+    virtual void d11();
+    virtual void d12();
+    virtual void d13();
+    virtual void d14();
+    virtual void d15();
+    virtual void d16();
+    virtual void d17();
+    virtual void d18();
+    virtual void d19();
+    virtual void d20();
+    virtual void d21();
+    virtual void d22();
+    virtual void OnTriangle(int);
+};
+class MainFrontEnd {
+    char padding[0x60];
+    ActiveMenu* active;
+public: void OnTriangle(int c);
+};
+__asm__(".equ OnTriangle__6FEMenui, 0x001577F0");
+extern void base_call(MainFrontEnd*, int) __asm__("OnTriangle__6FEMenui");
+void MainFrontEnd::OnTriangle(int c)
+{
+    if(active) {
+        active->OnTriangle(c);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    } else {
+        base_call(this, c);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
