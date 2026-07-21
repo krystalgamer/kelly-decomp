@@ -310,3 +310,12 @@ void TargetDtor(void *self, int deleting) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B87F0)
+// 0x002B87F0 __tf10controller
+extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
+extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
+asm(".equ typeinfo, 0x00512128"); asm(".equ type_name, 0x004FE4C0");
+extern "C" void *GetTypeInfo() __asm__("__tf10controller");
+void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
+#endif
