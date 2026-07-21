@@ -27,3 +27,21 @@ class entity { char padding[0x118]; entity_pool *pool; friend class entity_maker
 class entity_maker { public: void release_entity(entity *value); };
 void entity_maker::release_entity(entity *value) { if (value->pool) { value->pool->release(value); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00308270)
+// 0x00308270 __12entity_maker
+class entity_pool_set { char storage[16]; public: entity_pool_set(); };
+class entity_maker {
+    void *owning_widget;
+    entity_pool_set entity_cache;
+public:
+    entity_maker();
+    virtual ~entity_maker();
+};
+asm(".equ __15entity_pool_set, 0x0030B758");
+asm(".equ _vt$12entity_maker, 0x004F7F68");
+entity_maker::entity_maker()
+{
+    owning_widget = 0;
+}
+#endif
