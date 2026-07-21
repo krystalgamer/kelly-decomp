@@ -12,3 +12,23 @@ int nvlStreamReqSize(nvlStream* stream) { return stream->bufsize >> 2; }
 struct nvlStream { char padding0[0x40]; int flags; char padding1[8]; int loop_skip; int rewind_required; };
 void nvlStreamSetLoopSkip(nvlStream *stream, int loop_skip, int rewind_required) { if (loop_skip >= 0) stream->flags |= 4; stream->rewind_required = rewind_required; KELLY_DECOMP_COMPILER_BARRIER(); stream->loop_skip = loop_skip; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00385650)
+// 0x00385650 nvlWaitForVB__Fv
+struct nvl_system_data { char padding[0x78]; int vblankSema; };
+extern nvl_system_data nvlStreamSystemData __asm__("nvlStreamSystemData");
+asm(".equ nvlStreamSystemData, 0x00595E80");
+extern "C" int SignalSema(int sema);
+extern "C" int PollSema(int sema);
+extern "C" int WaitSema(int sema);
+asm(".equ SignalSema, 0x003DB680");
+asm(".equ PollSema, 0x003DB6B0");
+asm(".equ WaitSema, 0x003DB6A0");
+void nvlWaitForVB()
+{
+  SignalSema(nvlStreamSystemData.vblankSema);
+  PollSema(nvlStreamSystemData.vblankSema);
+  WaitSema(nvlStreamSystemData.vblankSema);
+  KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
