@@ -94,3 +94,23 @@ void path_graph_node::sort_edges_weight()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034B078)
+// 0x0034B078 get_node_id__C10path_graphP15path_graph_node
+class path_graph_node;
+template <class T> class vector { T *start; T *finish; T *end_storage; public: typedef T *const_iterator; const_iterator begin() const { return start; } const_iterator end() const { return finish; } };
+class path_graph { char id[8]; vector<path_graph_node *> nodes; public: int get_node_id(path_graph_node *node) const; };
+int path_graph::get_node_id(path_graph_node *node) const
+{
+  vector<path_graph_node *>::const_iterator i = nodes.begin();
+  int id = 0;
+  while(i != nodes.end())
+  {
+    if(*i == node)
+      return(id);
+    ++id;
+    ++i;
+  }
+  return(-1);
+}
+#endif
