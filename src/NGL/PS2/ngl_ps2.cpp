@@ -561,3 +561,17 @@ void nglSetTexturePath(const char *path)
     nglTexturePath[sizeof(nglTexturePath) - 1] = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0039B298)
+// 0x0039B298 nglDistanceToPlane__FRC9nglVectorT0
+class nglVector {
+    float values[4];
+public:
+    float operator[](int index) const { return values[index]; }
+};
+float nglDistanceToPlane(const nglVector &plane, const nglVector &point)
+{
+    float distance = plane[0] * point[0] + plane[1] * point[1] + plane[2] * point[2] + plane[3];
+    return distance;
+}
+#endif
