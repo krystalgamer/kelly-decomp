@@ -169,3 +169,61 @@ void FEManager::OnLevelEnding()
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00198ED8)
+// 0x00198ED8 UpdateIGOScene__9FEManager
+class FEMenu;
+class FEManager;
+
+class FEMenuSystem {
+    char data[0x8c];
+
+public:
+    virtual ~FEMenuSystem();
+    virtual void InitAll();
+    virtual void Add(FEMenu *);
+    virtual void MakeActive(int, int);
+    virtual void Update(float);
+    virtual void UpdateButtonDown();
+    virtual void Draw();
+    virtual void Select(int, int) = 0;
+    virtual void Exit();
+    virtual void startDraw(int, bool);
+    virtual void endDraw(bool);
+    virtual FEMenu *GetActiveMenu();
+
+protected:
+    virtual void cons(int, FEManager *, void *);
+    virtual void OnButtonPress(int, int);
+};
+
+class PauseMenuSystem : public FEMenuSystem {
+public:
+    bool draw;
+
+    virtual ~PauseMenuSystem();
+    virtual void InitAll();
+    virtual void Load();
+    virtual void startDraw(int, bool);
+    virtual void endDraw(bool);
+    virtual void Update(float);
+    virtual void UpdateInScene();
+    virtual void Draw();
+    virtual void OnButtonPress(int, int);
+    virtual void MakeActive(int, int);
+    virtual void Select(int, int);
+};
+
+class FEManager {
+    void *IGO;
+    PauseMenuSystem *pms;
+
+public:
+    void UpdateIGOScene();
+};
+
+void FEManager::UpdateIGOScene()
+{
+    if(pms->draw) pms->UpdateInScene();
+}
+#endif
