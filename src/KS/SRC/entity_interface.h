@@ -112,3 +112,20 @@ void GenericInterfaceDtor(void *self, int deleting) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00112BC8)
+// 0x00112BC8 __tf17generic_interface
+extern "C" void __rtti_user(void *info, const char *name);
+asm(".equ __rtti_user, 0x003CE2F8");
+extern unsigned int generic_interface_typeinfo[] __asm__("generic_interface_typeinfo");
+extern const char generic_interface_name[] __asm__("generic_interface_name");
+asm(".equ generic_interface_typeinfo, 0x00511F90");
+asm(".equ generic_interface_name, 0x004C87C8");
+extern "C" void *GetTypeInfo() __asm__("__tf17generic_interface");
+void *GetTypeInfo()
+{
+    if (generic_interface_typeinfo[0] == 0)
+        __rtti_user(generic_interface_typeinfo, generic_interface_name);
+    return generic_interface_typeinfo;
+}
+#endif
