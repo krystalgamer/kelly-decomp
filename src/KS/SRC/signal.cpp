@@ -112,3 +112,9 @@ void code_callback::spawn(signaller *sgrptr)
         func(sgrptr, parms);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034BE70)
+// 0x0034BE70 __13code_callbackPFP9signallerPCc_vPCc
+#pragma interface
+__asm__(".equ _15signal_callback$id_counter, 0x0046DB14"); __asm__(".equ _vt$15signal_callback, 0x005051A8"); __asm__(".equ _vt$13code_callback, 0x00505148");class signaller;class signal_callback{public:char*parms;bool disabled;bool one_shot;unsigned id;static unsigned id_counter;signal_callback(){disabled=one_shot=false;id=id_counter++;}virtual~signal_callback();virtual void spawn(signaller*)=0;};class code_callback:public signal_callback{public:void(*func)(signaller*,const char*);code_callback(void(*)(signaller*,const char*),const char*);};code_callback::code_callback(void(*fn)(signaller*,const char*),const char*cptr):signal_callback(){func=fn;parms=(char*)cptr;}
+#endif
