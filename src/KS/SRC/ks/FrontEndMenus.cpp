@@ -132,6 +132,15 @@ class PauseMenuClass : public FEMenu { public: void OnStart(int command); };
 void PauseMenuClass::OnStart(int command) { FEMenu::OnStart(command); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001A5F90)
+// 0x001A5F90 OnButtonRelease__24TimeAttackPauseMenuClassii
+void TimeAttackPauseMenuClass::OnButtonRelease(int c, int b)
+{
+    if (b == FEMENUCMD_CROSS && highlighted->entry_num == Continue)
+        sys->endDraw();
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001A5FD8)
 // 0x001A5FD8 OnStart__24TimeAttackPauseMenuClassi
 class FEMenu { public: void OnStart(int command); };
