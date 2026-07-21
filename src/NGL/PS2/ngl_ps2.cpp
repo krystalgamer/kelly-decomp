@@ -548,3 +548,16 @@ void nglSetMeshPath(const char *path)
     nglMeshPath[sizeof(nglMeshPath) - 1] = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00395DE0)
+// 0x00395DE0 nglSetTexturePath__FPCc
+extern char nglTexturePath[256];
+__asm__(".equ nglTexturePath, 0x004BF158");
+extern "C" char *strncpy(char *destination, const char *source, unsigned int count);
+__asm__(".equ strncpy, 0x003D4508");
+void nglSetTexturePath(const char *path)
+{
+    strncpy(nglTexturePath, path, sizeof(nglTexturePath));
+    nglTexturePath[sizeof(nglTexturePath) - 1] = 0;
+}
+#endif
