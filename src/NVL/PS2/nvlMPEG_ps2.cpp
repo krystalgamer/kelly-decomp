@@ -103,6 +103,19 @@ static int voBufIsFull(VoBuf* buffer) { return buffer->count == buffer->size; }
 __asm__(".globl voBufIsFull__FP5VoBuf");
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_003890C8)
+// 0x003890C8 voBufGetData__FP5VoBuf
+struct VoData { unsigned char v[0x195000]; };
+struct VoBuf { VoData* data; void* tag; volatile int write; volatile int count; int size; };
+int voBufIsFull(VoBuf*);
+__asm__(".equ voBufIsFull__FP5VoBuf, 0x00389038");
+static VoData* voBufGetData(VoBuf* buffer)
+{
+    return voBufIsFull(buffer) ? (VoData*)0 : buffer->data + buffer->write;
+}
+__asm__(".globl voBufGetData__FP5VoBuf");
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00389110)
 // 0x00389110 voBufIsEmpty__FP5VoBuf
 struct VoBuf { char padding[0xC]; int count; };
