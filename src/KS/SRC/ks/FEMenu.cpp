@@ -161,3 +161,17 @@ void FEMenu::Select()
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00157B30)
+// 0x00157B30 Update__8FrontEndf
+class PanelAnimManager { public: void UpdateAnims(float time); };
+class PanelFile { public: void Update(float time); };
+asm(".equ Update__9PanelFilef, 0x001531B8"); asm(".equ UpdateAnims__16PanelAnimManagerf, 0x00155710");
+class FrontEnd { PanelAnimManager pam; char padding[0x7f]; PanelFile panel; public: void Update(float time); };
+void FrontEnd::Update(float time)
+{
+    panel.Update(time);
+    pam.UpdateAnims(time);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
