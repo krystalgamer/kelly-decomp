@@ -595,3 +595,20 @@ void nglAddTextureRef(nglTexture *texture)
         instance->RefCount++;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00397C90)
+// 0x00397C90 nglListAlloc__FUiUi
+typedef unsigned int u_int;
+extern unsigned char *nglListWorkPos __asm__("nglListWorkPos");
+asm(".equ nglListWorkPos, 0x004BB7D0");
+void *nglListAlloc(u_int Bytes, u_int Alignment)
+{
+    register u_int Shifted = 1 << Alignment;
+    register u_int WorkPos = (u_int)nglListWorkPos;
+    if (WorkPos & (Shifted - 1))
+        WorkPos = ((WorkPos >> Alignment) + 1) * Shifted;
+    void *Ret = (void *)WorkPos;
+    nglListWorkPos = (unsigned char *)(WorkPos + Bytes);
+    return Ret;
+}
+#endif
