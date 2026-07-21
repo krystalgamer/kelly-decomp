@@ -8,6 +8,35 @@ __asm__(".equ __nw__7po_animUi, 0x00119930");
 void* po_anim::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = po_anim::operator new(size); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0011C170)
+// 0x0011C170 get_unadjusted_value__C7po_animfP8vector3d
+struct anim_control_t {};
+struct vector3d { float x; float y; float z; };
+struct track_flags { unsigned short flags; unsigned short padding; };
+class po_track : public track_flags {
+public:
+    virtual void reserved0();
+    virtual void reserved1();
+    virtual void reserved2();
+    virtual void reserved3();
+    virtual void reserved4();
+    virtual void get_value(const anim_control_t&, vector3d*) const;
+    virtual void get_value(float, vector3d*) const;
+};
+class po_anim {
+    char padding[8];
+    po_track* P;
+public:
+    bool has_P() const { return P && (P->flags & 0x1000) != 0; }
+    void get_unadjusted_value(float, vector3d*) const;
+};
+void po_anim::get_unadjusted_value(float time, vector3d* destination) const
+{
+    if (has_P())
+        P->get_value(time, destination);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00119BF8)
 // 0x00119BF8 __nw__t11linear_anim1Z10quaternionUiUiPCci
 class quaternion;
