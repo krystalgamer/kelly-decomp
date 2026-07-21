@@ -712,3 +712,20 @@ void entity::destroy_ai_ifc()
     my_ai_interface = 0;
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_00126FB0)
+// 0x00126FB0 destroy_animation_ifc__6entity
+class animation_interface { public: virtual ~animation_interface(); };
+class entity {
+    char padding[0xb0];
+    animation_interface* my_animation_interface;
+public:
+    void destroy_animation_ifc();
+};
+void entity::destroy_animation_ifc()
+{
+    delete my_animation_interface;
+    my_animation_interface = 0;
+}
+#endif
