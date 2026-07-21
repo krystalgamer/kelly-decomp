@@ -112,3 +112,9 @@ bool slf_anim_kill_anim_t::operator()(
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00324B60)
+// 0x00324B60 __cl__16slf_anim_pause_tR8vm_stackQ320script_library_class8function7entry_t
+class script_library_class{public:class function{public:enum entry_t{FIRST_ENTRY};};}; typedef script_library_class::function::entry_t entry_t;
+struct vm_stack{char p[8];char*top;}; class entity_anim{public:int pad;virtual void set_flag(int);}; class slf_anim_pause_t{public:struct parms_t{entity_anim*me;};bool operator()(vm_stack&,entry_t);};bool slf_anim_pause_t::operator()(vm_stack&stack,entry_t){stack.top-=sizeof(parms_t);parms_t*parms=(parms_t*)stack.top;parms->me->set_flag(0x40);return true;}
+#endif
