@@ -55,3 +55,27 @@ __asm__(".equ nglListAddQuad__FP7nglQuad, 0x003A67F0");
 class IGOIconManager { public: class Icon { nglQuad *quad_address; char padding[0x74]; bool show; public: void Draw(); }; };
 void IGOIconManager::Icon::Draw() { if (show) { nglListAddQuad((nglQuad *)this); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00160650)
+// 0x00160650 FirstTimeGettingThisMany__14IGOIconManagerib
+class IGOIconManager {
+    char padding0[0xb5c];
+    int iconCounter;
+    char padding1[0x1698 - 0xb60];
+    bool done_before;
+
+public:
+    bool FirstTimeGettingThisMany(int goal, bool ignore_previous);
+};
+
+bool IGOIconManager::FirstTimeGettingThisMany(int goal, bool ignore_previous)
+{
+    if ((!done_before || ignore_previous) && iconCounter >= goal)
+    {
+        done_before = true;
+        return true;
+    }
+
+    return false;
+}
+#endif
