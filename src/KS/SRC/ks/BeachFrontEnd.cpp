@@ -38,3 +38,20 @@ void BeachFrontEnd::ReturnToFE() { frontendmanager.return_to_fe = true; system->
 class BeachFrontEnd { char padding0[0x924]; int in_bio_mode; char padding1[0x59c]; int bio_up_pressed; int bio_down_pressed; public: void OnButtonRelease(int controller, int button); };
 void BeachFrontEnd::OnButtonRelease(int controller, int button) { if (in_bio_mode) { if (button == 2) bio_up_pressed = 0; else if (button == 3) bio_down_pressed = 0; } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00194120)
+// 0x00194120 Realistic__13BeachFrontEndb
+struct developer_options { char padding[0x194]; bool e3_build; char padding2[4]; bool realistic_fe; };
+extern developer_options *developer_options_instance __asm__("developer_options_instance");
+asm(".equ developer_options_instance, 0x0046B180");
+class BeachFrontEnd { public: bool Realistic(bool press_build_only); };
+bool BeachFrontEnd::Realistic(bool press_build_only)
+{
+    bool result;
+    if (press_build_only)
+        result = developer_options_instance->e3_build;
+    else
+        result = developer_options_instance->e3_build || developer_options_instance->realistic_fe;
+    return result;
+}
+#endif
