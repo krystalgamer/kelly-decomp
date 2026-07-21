@@ -16,3 +16,12 @@ PanelAnimKind PanelAnimInstance::Kind() const {
     return AnimInstance;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA298)
+// 0x001DA298 __tf9PanelAnim
+extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
+extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
+asm(".equ typeinfo, 0x00512060"); asm(".equ type_name, 0x004DD920");
+extern "C" void *GetTypeInfo() __asm__("__tf9PanelAnim");
+void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
+#endif
