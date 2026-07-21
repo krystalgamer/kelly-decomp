@@ -135,3 +135,29 @@ stringx ps2_joypad_device::get_name(int axis) const
     return stringx(joypad_name);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E1BB8)
+// 0x001E1BB8 record_demo_stop__17ps2_joypad_device
+asm(".equ close__7os_file, 0x001E03A0");
+class os_file {
+    char padding[0x0C];
+    int opened;
+public:
+    bool is_open() const { return opened != 0; }
+    void close();
+};
+class ps2_joypad_device {
+    char padding_to_recording[0x78];
+    int recording_demo;
+    char padding_to_log[0x10];
+    os_file demo_log;
+public:
+    void record_demo_stop();
+};
+void ps2_joypad_device::record_demo_stop()
+{
+    if (demo_log.is_open())
+        demo_log.close();
+    recording_demo = false;
+}
+#endif
