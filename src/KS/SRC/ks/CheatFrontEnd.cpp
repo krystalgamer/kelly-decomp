@@ -91,3 +91,9 @@ extern void base_call(CheatFrontEnd*) __asm__("Draw__15FEGraphicalMenu");
 __asm__(".equ Draw__15FEGraphicalMenu, 0x001580D8");
 void CheatFrontEnd::Draw() { if(active) { active->Draw(); KELLY_DECOMP_COMPILER_BARRIER(); } else { base_call(this); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_001D22F8)
+// 0x001D22F8 OnActivate__13CheatCodeMenu
+class FEMenuEntry {}; class CheatBase { char padding[0x74]; public: virtual void d0(); virtual void d1(); virtual void setHigh(FEMenuEntry*, bool=true); }; class CheatCodeMenu : public CheatBase { char padding2[0x160-0x78]; FEMenuEntry* cheats[1]; public: void ReOrderEntries(int); void OnActivate(); }; __asm__(".equ ReOrderEntries__13CheatCodeMenui, 0x001D2518"); void CheatCodeMenu::OnActivate() { ReOrderEntries(0); setHigh(cheats[0]); }
+#endif
