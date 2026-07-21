@@ -763,3 +763,20 @@ void entity::destroy_owner_ifc()
     my_owner_interface = 0;
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_00127458)
+// 0x00127458 destroy_physical_ifc__6entity
+class physical_interface { public: virtual ~physical_interface(); };
+class entity {
+    char padding[0xbc];
+    physical_interface* my_physical_interface;
+public:
+    void destroy_physical_ifc();
+};
+void entity::destroy_physical_ifc()
+{
+    delete my_physical_interface;
+    my_physical_interface = 0;
+}
+#endif
