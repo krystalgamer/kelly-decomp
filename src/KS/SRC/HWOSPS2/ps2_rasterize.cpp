@@ -229,3 +229,27 @@ __asm__(".equ __builtin_delete, 0x002AC6B0");
 extern "C" void VertexContextDtor(void *self, int deleting) __asm__("_$_14vertex_context");
 void VertexContextDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E2AA0)
+// 0x001E2AA0 deconstruct__8vert_buf
+struct hw_rasta_vert {
+};
+
+__asm__(".equ __builtin_vec_delete, 0x002AC6D0");
+
+class vert_buf {
+    char padding[4];
+    hw_rasta_vert *verts;
+
+public:
+    void deconstruct();
+};
+
+void vert_buf::deconstruct()
+{
+    if (verts) {
+        delete[] verts;
+        verts = 0;
+    }
+}
+#endif
