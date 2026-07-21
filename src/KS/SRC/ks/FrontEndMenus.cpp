@@ -157,6 +157,15 @@ class TutorialPauseMenuClass : public FEMenu { public: void OnStart(int command)
 void TutorialPauseMenuClass::OnStart(int command) { FEMenu::OnStart(command); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001A85A0)
+// 0x001A85A0 OnButtonRelease__16HeatMidMenuClassii
+void HeatMidMenuClass::OnButtonRelease(int c, int b)
+{
+    if (b == FEMENUCMD_CROSS && highlighted->entry_num == Continue)
+        sys->endDraw();
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001A85E8)
 // 0x001A85E8 OnStart__16HeatMidMenuClassi
 class FEMenu { public: void OnStart(int command); };
