@@ -831,3 +831,20 @@ void entity::destroy_slave_ifc()
     my_slave_interface = 0;
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_001275E0)
+// 0x001275E0 destroy_soft_attrib_ifc__6entity
+class soft_attrib_interface { public: virtual ~soft_attrib_interface(); };
+class entity {
+    char padding[0xcc];
+    soft_attrib_interface* my_soft_attrib_interface;
+public:
+    void destroy_soft_attrib_ifc();
+};
+void entity::destroy_soft_attrib_ifc()
+{
+    delete my_soft_attrib_interface;
+    my_soft_attrib_interface = 0;
+}
+#endif
