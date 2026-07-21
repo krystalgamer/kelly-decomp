@@ -575,3 +575,23 @@ float nglDistanceToPlane(const nglVector &plane, const nglVector &point)
     return distance;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0039C710)
+// 0x0039C710 nglAddTextureRef__FP10nglTexture
+class nglFixedString {};
+struct nglTexture { char padding[0x40]; nglFixedString FileName; };
+class nglInstanceBank {
+public:
+    struct Instance { char padding[0x24]; int RefCount; };
+    Instance *Search(const nglFixedString &name);
+};
+extern nglInstanceBank nglTextureBank;
+__asm__(".equ nglTextureBank, 0x004BBFF8");
+__asm__(".equ Search__15nglInstanceBankRC14nglFixedString, 0x003AC608");
+void nglAddTextureRef(nglTexture *texture)
+{
+    nglInstanceBank::Instance *instance;
+    if ((instance = nglTextureBank.Search(texture->FileName)))
+        instance->RefCount++;
+}
+#endif
