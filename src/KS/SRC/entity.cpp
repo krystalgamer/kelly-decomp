@@ -678,3 +678,20 @@ region_node *entity::get_primary_region() const
     return center_region;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001348D8)
+// 0x001348D8 get_anim_tree__C6entityi
+class entity_anim_tree { unsigned short flags; public: unsigned short is_attached() const { return flags & 0x10; } };
+class entity { char padding[0xe8]; entity_anim_tree *anim_trees[4]; public: entity_anim_tree *get_anim_tree(int slot) const; };
+entity_anim_tree *entity::get_anim_tree(int slot) const
+{
+    if (anim_trees) {
+        entity_anim_tree *a = anim_trees[slot];
+        if (a && a->is_attached())
+            return a;
+        else
+            return 0;
+    } else
+        return 0;
+}
+#endif
