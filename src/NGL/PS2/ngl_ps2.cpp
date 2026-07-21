@@ -8,6 +8,23 @@ __asm__(".equ nglDisplayWidth, 0x004BB820");
 int nglGetScreenWidth() { return nglDisplayWidth; }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_003A6BB0)
+// 0x003A6BB0 nglScaleQuad__FP7nglQuadffff
+typedef unsigned int u_int;
+struct nglQuadVertex { float X; float Y; float U; float V; u_int Color; };
+struct nglQuad { nglQuadVertex Verts[4]; };
+void nglScaleQuad(nglQuad* Quad, float cx, float cy, float sx, float sy)
+{
+    for (int i = 0; i < 4; i++) {
+        nglQuadVertex* Vert = &Quad->Verts[i];
+        float x = Vert->X - cx;
+        float y = Vert->Y - cy;
+        Vert->X = x * sx + cx;
+        Vert->Y = y * sy + cy;
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00395D98)
 // 0x00395D98 nglGetScreenHeight__Fv
 extern int nglDisplayHeight;
