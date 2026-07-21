@@ -51,3 +51,20 @@ void **rtti_00360ED8()
     return rtti_00360ED8_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00360F30)
+// 0x00360F30 __tf10path_graph
+extern "C" void __rtti_user(void **type, const char *name);
+extern "C" void *path_graph_type[] __asm__("__ti10path_graph");
+extern "C" char path_graph_name[];
+__asm__(".equ __ti10path_graph, 0x005121F8");
+__asm__(".equ path_graph_name, 0x00505890");
+__asm__(".equ __rtti_user, 0x003CE2F8");
+extern "C" void **path_graph_rtti() __asm__("__tf10path_graph");
+void **path_graph_rtti()
+{
+    if (!path_graph_type[0])
+        __rtti_user(path_graph_type, path_graph_name);
+    return path_graph_type;
+}
+#endif
