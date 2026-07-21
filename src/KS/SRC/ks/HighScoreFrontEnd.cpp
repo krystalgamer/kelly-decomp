@@ -40,3 +40,19 @@ void HighScoreFrontEnd::OnDown(int controller)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001CB310)
+// 0x001CB310 OnStart__17HighScoreFrontEndi
+typedef void (*score_handler)(void *, int);
+struct score_slot { short adjustment; unsigned short padding; score_handler function; };
+struct score_vtable { char padding[0x90]; score_slot start; };
+struct ScoreMenu { char padding[0x74]; score_vtable *vtable; };
+class HighScoreFrontEnd { char padding[0x60]; ScoreMenu *active; char padding2[0x228]; int in_game; public: void OnStart(int); };
+void HighScoreFrontEnd::OnStart(int controller)
+{
+    if (in_game && active) {
+        score_slot &slot = active->vtable->start;
+        slot.function((char *)active + slot.adjustment, controller);
+    }
+}
+#endif
