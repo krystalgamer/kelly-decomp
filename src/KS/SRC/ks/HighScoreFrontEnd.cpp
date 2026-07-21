@@ -56,3 +56,19 @@ void HighScoreFrontEnd::OnStart(int controller)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001CCCC0)
+// 0x001CCCC0 Update__13NameEntryMenuf
+#include "decomp_annotations.h"
+class FrontEnd { public: void Update(float); };
+class FEMenu { char padding[0x80]; public: void Update(float); };
+class NameEntryMenu : public FEMenu { FrontEnd frontend; public: void Update(float); };
+asm(".equ Update__8FrontEndf, 0x00157B30");
+asm(".equ Update__6FEMenuf, 0x00156DC8");
+void NameEntryMenu::Update(float time_inc)
+{
+    frontend.Update(time_inc);
+    FEMenu::Update(time_inc);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
