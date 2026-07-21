@@ -817,3 +817,19 @@ asm(".equ typeinfo, 0x00512088"); asm(".equ type_name, 0x004DD988");
 extern "C" void *GetTypeInfo() __asm__("__tf8FrontEnd");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DB100)
+// 0x001DB100 Update__15FEGraphicalMenuf
+#include "decomp_annotations.h"
+class FrontEnd { public: void Update(float); };
+class FEMenu { char padding[0x80]; public: void Update(float); };
+class FEGraphicalMenu : public FEMenu { FrontEnd frontend; public: void Update(float); };
+asm(".equ Update__8FrontEndf, 0x00157B30");
+asm(".equ Update__6FEMenuf, 0x00156DC8");
+void FEGraphicalMenu::Update(float time_inc)
+{
+    frontend.Update(time_inc);
+    FEMenu::Update(time_inc);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
