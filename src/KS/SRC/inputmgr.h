@@ -68,3 +68,20 @@ public:
 void input_device::clear_state() {
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0035FED0)
+// 0x0035FED0 __tf12input_device
+extern "C" void __rtti_user(void **type, const char *name);
+extern "C" void *rtti_0035FED0_type[] __asm__("__ti12input_device");
+extern "C" char rtti_0035FED0_name[] __asm__("rtti_0035FED0_type_name");
+__asm__(".equ __ti12input_device, 0x00511FB0");
+__asm__(".equ rtti_0035FED0_type_name, 0x00505728");
+__asm__(".equ __rtti_user, 0x003CE2F8");
+extern "C" void **rtti_0035FED0() __asm__("__tf12input_device");
+void **rtti_0035FED0()
+{
+    if (!rtti_0035FED0_type[0])
+        __rtti_user(rtti_0035FED0_type, rtti_0035FED0_name);
+    return rtti_0035FED0_type;
+}
+#endif
