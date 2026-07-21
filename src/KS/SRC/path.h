@@ -34,3 +34,20 @@ void **rtti_00360E68()
     return rtti_00360E68_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00360ED8)
+// 0x00360ED8 __tf4path
+extern "C" void __rtti_user(void **type, const char *name);
+extern "C" void *rtti_00360ED8_type[] __asm__("__ti4path");
+extern "C" char rtti_00360ED8_name[] __asm__("rtti_00360ED8_type_name");
+__asm__(".equ __ti4path, 0x005121F0");
+__asm__(".equ rtti_00360ED8_type_name, 0x00505888");
+__asm__(".equ __rtti_user, 0x003CE2F8");
+extern "C" void **rtti_00360ED8() __asm__("__tf4path");
+void **rtti_00360ED8()
+{
+    if (!rtti_00360ED8_type[0])
+        __rtti_user(rtti_00360ED8_type, rtti_00360ED8_name);
+    return rtti_00360ED8_type;
+}
+#endif
