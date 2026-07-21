@@ -282,3 +282,29 @@ void TipMenuClass::Draw()
     tip->Draw();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B2990)
+// 0x001B2990 Draw__20QuitConfirmMenuClass
+asm(".equ Draw__6FEMenu, 0x00156C88");
+class FEMenu { public: void Draw(); };
+class PauseMenuSystem;
+class BoxText {
+    char padding[0x4C];
+public:
+    virtual ~BoxText();
+    virtual void Update(float time_inc);
+    virtual void Draw();
+};
+class QuitConfirmMenuClass : public FEMenu {
+    char padding[0x74];
+    PauseMenuSystem *sys;
+    BoxText *question;
+public:
+    void Draw();
+};
+void QuitConfirmMenuClass::Draw()
+{
+    FEMenu::Draw();
+    question->Draw();
+}
+#endif
