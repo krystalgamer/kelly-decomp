@@ -133,6 +133,40 @@ bool MemoryScreen(MenuEntry *entry, int button)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_002368B8)
+// 0x002368B8 MemoryDump__FP9MenuEntryi
+class MenuEntry;
+
+struct MenuSystemVTable {
+    char padding[0x18];
+    short adjustment;
+    short padding2;
+    void (*close_menu)(void *self);
+};
+
+class MenuSystem {
+public:
+    char padding[0x458];
+    MenuSystemVTable *vtable;
+};
+
+extern MenuSystem *menus;
+__asm__(".equ menus, 0x00424EE8");
+
+void mem_dump_heap(int heapid);
+__asm__(".equ mem_dump_heap__Fi, 0x002ACC50");
+
+bool MemoryDump(MenuEntry *entry, int button)
+{
+    if (button == 7) {
+        mem_dump_heap(0);
+        MenuSystemVTable *table = menus->vtable;
+        table->close_menu((char *)menus + table->adjustment);
+    }
+    return true;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00236980)
 // 0x00236980 ExitLevel__FP9MenuEntryi
 class MenuEntry;
