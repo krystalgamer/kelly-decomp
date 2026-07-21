@@ -19,6 +19,7 @@
     "PS2"
   ],
   "include_paths": [
-    "include"
+    "include",
+    "src"
   ]
 }

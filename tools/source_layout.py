@@ -32,6 +32,10 @@ INLINE_ASM_TEMPLATE_RE = re.compile(
     re.DOTALL,
 )
 STRING_LITERAL_RE = re.compile(r'"((?:\\.|[^"\\])*)"', re.DOTALL)
+LOCAL_INCLUDE_RE = re.compile(
+    r'^\s*#include\s+"([^"]+)"',
+    re.MULTILINE,
+)
 
 # Any new instruction-emitting inline assembly requires an explicit source
 # review and a code change here. Full-function assembly replacements are never
@@ -107,6 +111,51 @@ def normalize_matching_annotations(source: str) -> str:
         "KELLY_DECOMP_COMPILER_BARRIER()",
         source,
     )
+
+
+def resolve_local_include(path: Path, include: str) -> Path | None:
+    candidates = (
+        path.parent / include,
+        ROOT / "include" / include,
+        SOURCE_ROOT / include,
+    )
+    for candidate in candidates:
+        if candidate.is_file():
+            return candidate.resolve()
+    return None
+
+
+def hash_local_include(
+    path: Path,
+    digest: object,
+    seen: set[Path],
+) -> None:
+    path = path.resolve()
+    if path in seen:
+        return
+    seen.add(path)
+
+    text = path.read_text(encoding="utf-8")
+    digest.update(path.relative_to(ROOT).as_posix().encode())
+    digest.update(b"\0")
+    digest.update(text.encode())
+    digest.update(b"\0")
+    for include in LOCAL_INCLUDE_RE.findall(text):
+        dependency = resolve_local_include(path, include)
+        if dependency is not None:
+            hash_local_include(dependency, digest, seen)
+
+
+def shared_context_digest(path: Path, text: str) -> str:
+    marker = MARKER_RE.search(text)
+    preamble = text[: marker.start()] if marker is not None else text
+    digest = hashlib.sha1()
+    digest.update(preamble.encode())
+    for include in LOCAL_INCLUDE_RE.findall(preamble):
+        dependency = resolve_local_include(path, include)
+        if dependency is not None:
+            hash_local_include(dependency, digest, set())
+    return digest.hexdigest()
 
 
 def merged_source_path(row: dict[str, str]) -> Path:
@@ -205,6 +254,10 @@ def write_selector_shim(source: FunctionSource) -> Path:
         block = text[start:end].rstrip().encode()
         lines.append(
             f"// source-block-sha1: {hashlib.sha1(block).hexdigest()}"
+        )
+        lines.append(
+            f"// shared-context-sha1: "
+            f"{shared_context_digest(source.path, text)}"
         )
     else:
         digest = hashlib.sha1(source.path.read_bytes()).hexdigest()

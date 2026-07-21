@@ -1,20 +1,29 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#ifndef KELLY_DECOMP_STRINGX_H
+#define KELLY_DECOMP_STRINGX_H
 
-#if defined(KELLY_DECOMP_FUNCTION_00144388)
-// 0x00144388 length__C7stringx
-struct stringx_buffer {
-    char padding[0x8];
+struct string_buf {
+    unsigned long long *data;
+    int ref_count;
     int char_length;
+    int block_length;
+    int max_blocks;
 };
 
 class stringx {
-    char* chars;
-    stringx_buffer* my_buf;
+protected:
+    char *chars;
+    string_buf *my_buf;
+
 public:
     int length() const;
+    void lock();
+    void fork_data(int new_length = -1);
 };
 
+#if defined(KELLY_DECOMP_FUNCTION_00144388)
+// 0x00144388 length__C7stringx
 int stringx::length() const {
     return my_buf->char_length;
 }
@@ -22,20 +31,6 @@ int stringx::length() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D84D0)
 // 0x001D84D0 lock__7stringx
-struct string_buf {
-    char padding[4];
-    int ref_count;
-};
-
-class stringx {
-    char *chars;
-    string_buf *my_buf;
-
-public:
-    void lock();
-    void fork_data(int new_length = -1);
-};
-
 __asm__(".equ fork_data__7stringxi, 0x0034DF70");
 
 void stringx::lock() {
@@ -45,4 +40,6 @@ void stringx::lock() {
     fork_data();
     KELLY_DECOMP_COMPILER_BARRIER();
 }
+#endif
+
 #endif
