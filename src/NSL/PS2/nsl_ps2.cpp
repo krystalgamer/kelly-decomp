@@ -41,3 +41,25 @@ extern "C" void GlobalInit() __asm__("_GLOBAL_$I$nsl");
 __asm__(".equ __static_initialization_and_destruction_0, 0x003916C0");
 void GlobalInit() { StaticInit(1, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003916C0)
+// 0x003916C0 __static_initialization_and_destruction_0
+struct nslSystem {
+    char padding0[0x1584c];
+    int firstInit;
+    int initialized;
+    char padding1[0x2c];
+    bool on;
+};
+extern nslSystem nsl;
+__asm__(".equ nsl, 0x0049B5F0");
+extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
+void StaticInit(int initialize, int priority)
+{
+    if (priority == 65535 && initialize) {
+        nsl.firstInit = 1;
+        nsl.on = false;
+        nsl.initialized = 0;
+    }
+}
+#endif
