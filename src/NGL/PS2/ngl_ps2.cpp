@@ -673,3 +673,26 @@ void *nglListAlloc(u_int Bytes, u_int Alignment)
     return Ret;
 }
 #endif
+// Matching decompilation blocks selected by generated build shims.
+
+#if defined(KELLY_DECOMP_FUNCTION_003A1CA8)
+// 0x003A1CA8 nglGetMaterialIdx__FP7nglMeshUi
+typedef unsigned int u_int;
+struct nglMaterial { char padding[216]; u_int MaterialID; };
+struct nglMeshSection { nglMaterial* Material; char padding[60]; };
+struct nglMesh { char padding[84]; u_int NSections; nglMeshSection* Sections; };
+int nglGetMaterialIdx(nglMesh* Mesh, u_int MaterialID)
+{
+    u_int i = 0;
+    if (Mesh->NSections) {
+        nglMeshSection* section = Mesh->Sections;
+        do {
+            if (section->Material->MaterialID == MaterialID)
+                return i;
+            i++;
+            section++;
+        } while (i < Mesh->NSections);
+    }
+    return -1;
+}
+#endif
