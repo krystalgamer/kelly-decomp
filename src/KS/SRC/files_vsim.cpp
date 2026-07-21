@@ -52,3 +52,20 @@ texture_refptr *UninitializedCopy(texture_refptr *first, texture_refptr *last, t
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00357438)
+// 0x00357438 __uninitialized_fill_n_aux__H3ZPt6refptr1Z10hw_textureZUiZt6refptr1Z10hw_texture_X01X11RCX21G12__false_type_X01
+inline void *operator new(unsigned int, void *place) { return place; }
+struct hw_texture { int ref_count; };
+class texture_refptr { hw_texture *value; public: texture_refptr(const texture_refptr &other) : value(other.value) { if (value) ++value->ref_count; } };
+extern "C" texture_refptr *UninitializedFill(texture_refptr *first, unsigned int count, const texture_refptr &value) __asm__("__uninitialized_fill_n_aux__H3ZPt6refptr1Z10hw_textureZUiZt6refptr1Z10hw_texture_X01X11RCX21G12__false_type_X01");
+texture_refptr *UninitializedFill(texture_refptr *first, unsigned int count, const texture_refptr &value)
+{
+    while (count) {
+        if (first) new (first) texture_refptr(value);
+        --count;
+        ++first;
+    }
+    return first;
+}
+#endif
