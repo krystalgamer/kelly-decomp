@@ -1,11 +1,21 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#include "KS/SRC/ks/igo_widget_splitmeter.h"
+
+#if defined(KELLY_DECOMP_FUNCTION_0016BF98)
+// 0x0016BF98 Update__16SplitMeterWidgetf
+__asm__(".equ Update__9IGOWidgetf, 0x00164660");
+void SplitMeterWidget::Update(float time)
+{
+    IGOWidget::Update(time);
+    if (meter)
+        SetFillage(meter->GetFillage());
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0016BE20)
 // 0x0016BE20 SetDisplay__16SplitMeterWidgetb
-class IGOWidget { public: void SetDisplay(bool value); };
 __asm__(".equ SetDisplay__9IGOWidgetb, 0x00164658");
-class SplitMeterWidget : public IGOWidget { public: void SetDisplay(bool value); };
 void SplitMeterWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
