@@ -435,3 +435,30 @@ follow_close_camera::follow_close_camera(const entity_id &id, entity *target)
     init();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00233B70)
+// 0x00233B70 __11buoy_cameraRC9entity_idP6entity
+class entity_id;
+class entity;
+asm(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
+asm(".equ init__11buoy_camera, 0x00233BB0");
+asm(".equ _vt$11buoy_camera, 0x004D6FF0");
+class game_camera {
+    char padding[8];
+public:
+    game_camera(const entity_id &id, entity *target);
+    virtual ~game_camera();
+};
+class buoy_camera : public game_camera {
+public:
+    buoy_camera(const entity_id &id, entity *target);
+    virtual ~buoy_camera();
+    virtual void frame_advance(float time_step);
+    virtual void init();
+};
+buoy_camera::buoy_camera(const entity_id &id, entity *target)
+    : game_camera(id, target)
+{
+    init();
+}
+#endif
