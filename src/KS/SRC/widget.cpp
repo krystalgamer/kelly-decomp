@@ -361,3 +361,30 @@ void vrep_widget::show()
     table->update_rot((char *)this + table->adjustment);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033D898)
+// 0x0033D898 do_wevent__13rotate_weventf
+struct virtual_entry { short adjustment; short padding; void (*function)(void *, float); };
+class widget {
+    char padding0[0x3C];
+    float angle;
+    char padding1[0x100];
+    virtual_entry *table;
+    friend class rotate_wevent;
+};
+class rotate_wevent {
+    char padding0[4];
+    widget *owner;
+    char padding1[0x10];
+    float angle;
+public:
+    void do_wevent(float lerp);
+};
+void rotate_wevent::do_wevent(float lerp)
+{
+    float current = owner->angle;
+    virtual_entry *call = (virtual_entry *)((char *)owner->table + 0x98);
+    call->function((char *)owner + call->adjustment,
+                   current + (angle - current) * lerp);
+}
+#endif
