@@ -646,3 +646,35 @@ void entity::set_lores_mesh(nglMesh *mesh)
     lores_mesh = mesh;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00134DE0)
+// 0x00134DE0 get_primary_region__C6entity
+class region_node;
+struct region_tree_node {
+    char padding_to_left[8];
+    region_tree_node *left;
+    char padding_to_value[4];
+    region_node *value;
+};
+struct region_set {
+    region_tree_node *header;
+    unsigned int count;
+    bool empty() const { return count == 0; }
+    region_node *first() const { return header->left->value; }
+};
+class entity {
+    char padding_to_flags[0x78];
+    unsigned int flags;
+    char padding_to_regions[0xE0];
+    region_node *center_region;
+    region_set in_regions;
+public:
+    region_node *get_primary_region() const;
+};
+region_node *entity::get_primary_region() const
+{
+    if (flags & 0x10000000)
+        return in_regions.empty() ? 0 : in_regions.first();
+    return center_region;
+}
+#endif
