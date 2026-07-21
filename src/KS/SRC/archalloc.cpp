@@ -158,3 +158,19 @@ int mem_raw_largest_avail(int heapindex)
     return heaps[heapindex].GetLargestFree();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AC530)
+// 0x002AC530 mem_leak_test__Fb
+#include "decomp_annotations.h"
+extern int leak_checkpoint __asm__("leak_checkpoint");
+extern void mem_check_heap();
+extern void mem_check_leaks_since_checkpoint(int, unsigned int);
+asm(".equ leak_checkpoint, 0x004322D8"); asm(".equ mem_check_heap__Fv, 0x002ACC10"); asm(".equ mem_check_leaks_since_checkpoint__FiUi, 0x002AC570");
+void mem_leak_test(bool strict)
+{
+    mem_check_heap();
+    if (leak_checkpoint > 0)
+        mem_check_leaks_since_checkpoint(leak_checkpoint, strict ? 7u : 3u);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
