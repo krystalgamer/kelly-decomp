@@ -92,3 +92,25 @@ void KSReleaseFile(nglFileBuf *file)
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E3130)
+// 0x001E3130 KSDebugPrint__FPCc
+extern int nglUsingProView;
+__asm__(".equ nglUsingProView, 0x004BB794");
+
+extern "C" void snputs(const char *text);
+extern "C" int scePrintf(const char *text, ...);
+__asm__(".equ snputs, 0x003C5E40");
+__asm__(".equ scePrintf, 0x003DD0C8");
+
+void KSDebugPrint(const char *text)
+{
+    if (nglUsingProView) {
+        snputs(text);
+        KELLY_DECOMP_COMPILER_BARRIER();
+        return;
+    }
+    scePrintf(text);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
