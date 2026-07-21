@@ -67,3 +67,30 @@ void path_graph::add_edge(int node1, int node2, unsigned short flags, float modi
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00349F88)
+// 0x00349F88 sort_edges_weight__15path_graph_node
+class path_graph_edge;
+struct edge_vector { path_graph_edge **start; path_graph_edge **finish; path_graph_edge **end; };
+void sort_edges_by_weight(edge_vector& edges) __asm__("sort_edges_by_weight__FRt6vector2ZP15path_graph_edgeZt12my_allocator1ZP15path_graph_edge");
+asm(".equ sort_edges_by_weight__FRt6vector2ZP15path_graph_edgeZt12my_allocator1ZP15path_graph_edge, 0x00349D30");
+class path_graph_node {
+    char padding[0x10];
+    unsigned short flags;
+    char padding2[2];
+    edge_vector edges;
+public:
+    unsigned short is_weight_sorted() const { return flags & 2; }
+    void set_flag(unsigned short flag, bool value) { if (value) flags |= flag; else flags &= ~flag; }
+    void sort_edges_weight();
+};
+void path_graph_node::sort_edges_weight()
+{
+    if (!is_weight_sorted()) {
+        set_flag(4, false);
+        set_flag(2, true);
+        sort_edges_by_weight(edges);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
