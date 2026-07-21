@@ -147,3 +147,20 @@ void **rtti_0035FAB8()
     return rtti_0035FAB8_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0035FBA8)
+// 0x0035FBA8 __tf9signaller
+extern "C" void __rtti_user(void **type, const char *name);
+extern "C" void *rtti_0035FBA8_type[] __asm__("__ti9signaller");
+extern "C" char rtti_0035FBA8_name[] __asm__("rtti_0035FBA8_type_name");
+__asm__(".equ __ti9signaller, 0x00512028");
+__asm__(".equ rtti_0035FBA8_type_name, 0x005056E8");
+__asm__(".equ __rtti_user, 0x003CE2F8");
+extern "C" void **rtti_0035FBA8() __asm__("__tf9signaller");
+void **rtti_0035FBA8()
+{
+    if (!rtti_0035FBA8_type[0])
+        __rtti_user(rtti_0035FBA8_type, rtti_0035FBA8_name);
+    return rtti_0035FBA8_type;
+}
+#endif
