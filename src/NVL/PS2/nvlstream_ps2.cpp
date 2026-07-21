@@ -69,3 +69,21 @@ void nvlDestroyMutex(int* mtx)
   KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00387480)
+// 0x00387480 nvlUnlockMutex__FPi
+__asm__(".equ __assert, 0x003CF6B0");
+__asm__(".equ SignalSema, 0x003DB680");
+__asm__(".equ _nvl_file, 0x0051AD40");
+__asm__(".equ _nvl_expr, 0x0051B5A8");
+extern "C" void __assert(const char*, int, const char*);
+extern "C" int SignalSema(int);
+extern char _nvl_file, _nvl_expr;
+void nvlUnlockMutex(int* mtx)
+{
+  if (!mtx)
+    __assert(&_nvl_file, 1549, &_nvl_expr);
+  int res = SignalSema(*mtx);
+  KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
