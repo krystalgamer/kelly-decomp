@@ -27,3 +27,30 @@ struct WidgetLayout { int field0; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_14SplitterWidget");
 void DerivedDtor(void *self, int deleting) { ((WidgetLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00168C20)
+// 0x00168C20 __14SplitterWidget
+__asm__(".equ __9IGOWidget, 0x00164608");
+__asm__(".equ _vt$14SplitterWidget, 0x004DB4C0");
+
+class IGOWidget {
+    bool display;
+
+public:
+    IGOWidget();
+    virtual ~IGOWidget();
+};
+
+class SplitterWidget : public IGOWidget {
+    void *barPQ;
+
+public:
+    SplitterWidget();
+    virtual ~SplitterWidget();
+};
+
+SplitterWidget::SplitterWidget()
+{
+    barPQ = 0;
+}
+#endif
