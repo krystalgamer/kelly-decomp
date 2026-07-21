@@ -253,6 +253,20 @@ struct QWORD { unsigned long long value; };
 void scTag2(QWORD *tag, void *address, unsigned int qwc, unsigned int id) { tag->value = ((unsigned long long)(unsigned int)address << 32) | ((unsigned long long)qwc << 28) | (unsigned int)id; }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00389DB0)
+// 0x00389DB0 getFIFOindex__FP5ViBufPv
+typedef unsigned int u_int;
+struct ViBuf { void* data; void* tag; int n; };
+static inline void* DmaAddr(void* value) { return (void*)((u_int)value & 0x0fffffff); }
+static int getFIFOindex(ViBuf* buffer, void* address)
+{
+    if (address != DmaAddr((char*)buffer->tag + (buffer->n + 1) * 16))
+        return ((u_int)address - (u_int)buffer->data) / 2048;
+    return 0;
+}
+__asm__(".globl getFIFOindex__FP5ViBufPv");
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00388EE0)
 // 0x00388EE0 mpegError__FP7sceMpegP18sceMpegCbDataErrorPv
 struct sceMpeg;
