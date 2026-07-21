@@ -450,3 +450,26 @@ void QuitConfirmMenuClass::OnActivate()
     slot.function((char *)this + slot.adjustment, noEntry, false);
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_001AC7B8)
+// 0x001AC7B8 Update__18TrickTypeMenuClassf
+class ActiveMenu { char padding[0x74]; public:
+    virtual void d0();
+    virtual void d1();
+    virtual void d2();
+    virtual void d3();
+    virtual void d4();
+    virtual void d5();
+    virtual void d6();
+    virtual void d7();
+    virtual void d8();
+    virtual void d9();
+    virtual void d10();
+    virtual void Update(float);
+};
+class TrickTypeMenuClass { char padding[0x60]; ActiveMenu* active; public: void Update(float time_inc); };
+extern void base_call(TrickTypeMenuClass*, float) __asm__("Update__6FEMenuf");
+__asm__(".equ Update__6FEMenuf, 0x00156DC8");
+void TrickTypeMenuClass::Update(float time_inc) { if(active) { active->Update(time_inc); KELLY_DECOMP_COMPILER_BARRIER(); } else { base_call(this,time_inc); KELLY_DECOMP_COMPILER_BARRIER(); } }
+#endif
