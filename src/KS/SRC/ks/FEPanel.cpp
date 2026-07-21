@@ -432,3 +432,17 @@ void PanelGeom::Slide(float offset)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001533B8)
+// 0x001533B8 ReadLong__FPUcRi
+typedef unsigned int uint32;
+uint32 ReadLong(unsigned char *buffer, int &index)
+{
+    uint32 ret = buffer[index];
+    ret |= buffer[index + 1] << 8;
+    ret |= buffer[index + 2] << 16;
+    ret |= buffer[index + 3] << 24;
+    index += 4;
+    return ret;
+}
+#endif
