@@ -124,3 +124,26 @@ bool GlobalDataClass::isSurferPersUnlocked(int surfer) const
         all_personality_cheat;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002EFFC8)
+// 0x002EFFC8 isCheatUnlocked__C15GlobalDataClassi
+class Cheat {
+    bool locked;
+    bool on;
+public:
+    bool getLockedState() const { return locked; }
+};
+extern Cheat g_session_cheats[];
+__asm__(".equ g_session_cheats, 0x0043BD48");
+class GlobalDataClass {
+    char padding[0x5db0];
+    Cheat globalCheats[1];
+public:
+    bool isCheatUnlocked(int whichCheat) const;
+};
+bool GlobalDataClass::isCheatUnlocked(int whichCheat) const
+{
+    return !globalCheats[whichCheat].getLockedState() ||
+        !g_session_cheats[whichCheat].getLockedState();
+}
+#endif
