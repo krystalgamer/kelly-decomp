@@ -46,3 +46,27 @@ __asm__(".equ nslGetSoundStatus__FUi, 0x0038DBA0");
 class RandomVO { char padding[4]; unsigned int thisSound; public: bool isPlaying(); };
 bool RandomVO::isPlaying() { return nslGetSoundStatus(thisSound) != 0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00258520)
+// 0x00258520 stopVO__8VOEngine
+int nslGetSoundStatus(unsigned int sound);
+void nslStopSound(unsigned int sound);
+__asm__(".equ nslGetSoundStatus__FUi, 0x0038DBA0");
+__asm__(".equ nslStopSound__FUi, 0x0038D288");
+
+class VOEngine {
+    char padding[0x17c];
+    unsigned int currentSound;
+
+public:
+    void stopVO();
+};
+
+void VOEngine::stopVO()
+{
+    if (nslGetSoundStatus(currentSound) != 0) {
+        nslStopSound(currentSound);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
