@@ -240,6 +240,30 @@ __asm__(".equ sceVu0MulMatrix, 0x003BC350");
 void nglMulMatrix(nglMatrix &dst, const nglMatrix &lhs, const nglMatrix &rhs) { sceVu0MulMatrix(dst, lhs, rhs); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00395D10)
+// 0x00395D10 nglMemAlloc__FUiUi
+typedef unsigned int u_int;
+struct nglSystemCallbackStruct {
+    void *ReadFile;
+    void *ReleaseFile;
+    void *CriticalError;
+    void *DebugPrint;
+    void *(*MemAlloc)(u_int Size, u_int Align);
+    void *MemFree;
+};
+extern nglSystemCallbackStruct nglSystemCallbacks;
+extern "C" void *memalign(u_int Align, u_int Size);
+__asm__(".equ nglSystemCallbacks, 0x004BBF98");
+__asm__(".equ memalign, 0x003D09A0");
+void* nglMemAlloc(u_int Size, u_int Align)
+{
+    if (!nglSystemCallbacks.MemAlloc)
+        return memalign(Align, Size);
+    else
+        return nglSystemCallbacks.MemAlloc(Size, Align);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00395F48)
 // 0x00395F48 nglApplyMatrix__FR9nglVectorR9nglMatrixT0
 class nglVector { float data[4]; public: operator float *() { return data; } };
