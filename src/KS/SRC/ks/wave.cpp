@@ -189,6 +189,23 @@ void **scratch_rtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00385348)
+// 0x00385348 __tf20WaveBasePerturbClass
+extern "C" void __rtti_user(void **type, const char *name);
+extern "C" void *perturb_type[] __asm__("__ti20WaveBasePerturbClass");
+extern "C" char perturb_name[];
+__asm__(".equ __ti20WaveBasePerturbClass, 0x00512218");
+__asm__(".equ perturb_name, 0x0051AD20");
+__asm__(".equ __rtti_user, 0x003CE2F8");
+extern "C" void **perturb_rtti() __asm__("__tf20WaveBasePerturbClass");
+void **perturb_rtti()
+{
+    if (!perturb_type[0])
+        __rtti_user(perturb_type, perturb_name);
+    return perturb_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0037CC50)
 // 0x0037CC50 WAVE_GlobalCurrent__FP8vector3d
 struct vector3d { float x; float y; float z; };
