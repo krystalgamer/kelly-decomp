@@ -114,3 +114,17 @@ void KSDebugPrint(const char *text)
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E30C0)
+// 0x001E30C0 KSHeapError__FPCc
+void onscreenerror(const char *text, ...);
+void error(const char *text, ...);
+asm(".equ onscreenerror__FPCce, 0x001DFAD8");
+asm(".equ error__FPCce, 0x001DFBD8");
+void KSHeapError(const char *text)
+{
+    onscreenerror(text);
+    error(text);
+    for (;;) ;
+}
+#endif
