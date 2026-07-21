@@ -497,3 +497,28 @@ void MultiLineString::setLineSpacing(const int new_spacing)
         vSpacing = new_spacing;
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_00149470)
+// 0x00149470 Update__10RandomTextf
+typedef float time_value_t;
+class TextString { char padding[0x50]; public: void Update(time_value_t); };
+class StringList { public: void Update(time_value_t); };
+class RandomText : public TextString {
+    bool isRand;
+    char padding2[4];
+    StringList rand_string;
+public: void Update(time_value_t);
+};
+__asm__(".equ Update__10TextStringf, 0x001482F8");
+__asm__(".equ Update__10StringListf, 0x00147B98");
+void RandomText::Update(time_value_t time_inc)
+{
+    TextString::Update(time_inc);
+    if (isRand)
+    {
+        rand_string.Update(time_inc);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
