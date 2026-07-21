@@ -729,3 +729,20 @@ void entity::destroy_animation_ifc()
     my_animation_interface = 0;
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_00127378)
+// 0x00127378 destroy_hard_attrib_ifc__6entity
+class hard_attrib_interface { public: virtual ~hard_attrib_interface(); };
+class entity {
+    char padding[0xb4];
+    hard_attrib_interface* my_hard_attrib_interface;
+public:
+    void destroy_hard_attrib_ifc();
+};
+void entity::destroy_hard_attrib_ifc()
+{
+    delete my_hard_attrib_interface;
+    my_hard_attrib_interface = 0;
+}
+#endif
