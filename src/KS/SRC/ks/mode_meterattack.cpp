@@ -44,3 +44,33 @@ struct attack_player { attack_controller *controller; char padding[8]; int state
 class MeterAttackMode { attack_player players[2]; public: void BeginAttacking(int player); };
 void MeterAttackMode::BeginAttacking(int player) { players[player].state = players[player].controller->state; players[player].attacking = 1; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00286580)
+// 0x00286580 Reset__15MeterAttackMode
+class MeterAttackMode {
+public:
+    static float TIME_INITIAL;
+protected:
+    struct PLAYER { void *ks; float time; int prevScore; int score; bool attacking; int attackScore; };
+    PLAYER players[2];
+    int gameNum;
+    int setNum;
+public:
+    void Reset();
+};
+asm(".equ _15MeterAttackMode$TIME_INITIAL, 0x00431980");
+void MeterAttackMode::Reset()
+{
+    float initial = TIME_INITIAL;
+    char *player = (char *)&players[0].attackScore;
+    for (int i = 0; i < 2; i++, player += sizeof(PLAYER)) {
+        *(float *)(player - 16) = initial;
+        *(int *)(player - 12) = 0;
+        *(int *)(player - 8) = 0;
+        *(int *)(player - 4) = 0;
+        *(int *)player = 0;
+    }
+    gameNum = 0;
+    setNum = 0;
+}
+#endif
