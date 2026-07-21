@@ -610,3 +610,21 @@ void entity_signal_callback_raiser(
         (0x80000000u >> (id < 32 ? id : (id - 32)));
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0012A3E8)
+// 0x0012A3E8 set_mesh__6entityP7nglMesh
+struct nglMesh;
+void FixupEntityMesh(nglMesh *mesh, int lit = 0);
+asm(".equ FixupEntityMesh__FP7nglMeshi, 0x0012A1F0");
+class entity {
+    char padding[0x134];
+    nglMesh *my_mesh;
+public:
+    void set_mesh(nglMesh *mesh);
+};
+void entity::set_mesh(nglMesh *mesh)
+{
+    FixupEntityMesh(mesh);
+    my_mesh = mesh;
+}
+#endif
