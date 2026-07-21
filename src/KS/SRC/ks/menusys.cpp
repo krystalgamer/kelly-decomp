@@ -121,3 +121,23 @@ void MenuSystem::GetElementText(int index, char *text, int length)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00241020)
+// 0x00241020 CloseMenu__10MenuSystem
+class Menu { public: void Close(bool toparent = true); };
+class MenuRender { char padding[0x470]; public: void CloseMenu(); };
+class MenuSystem : public MenuRender {
+    Menu *curmenu;
+public:
+    void CloseMenu();
+};
+asm(".equ Close__4Menub, 0x0023E470");
+asm(".equ CloseMenu__10MenuRender, 0x00240A20");
+void MenuSystem::CloseMenu()
+{
+    if (curmenu)
+        curmenu->Close();
+    MenuRender::CloseMenu();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
