@@ -388,3 +388,27 @@ void rotate_wevent::do_wevent(float lerp)
                    current + (angle - current) * lerp);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033F038)
+// 0x0033F038 set_color__6widgetfff
+struct color {
+    float r, g, b, a;
+    color(float red, float green, float blue, float alpha)
+        : r(red), g(green), b(blue), a(alpha) {}
+};
+struct virtual_entry { short adjustment; short padding; void (*function)(void *, const color &); };
+class widget {
+    char padding0[0x64];
+    float alpha;
+    char padding1[0xD8];
+    virtual_entry *table;
+public:
+    void set_color(float r, float g, float b);
+};
+void widget::set_color(float r, float g, float b)
+{
+    color value(r, g, b, alpha);
+    virtual_entry *call = (virtual_entry *)((char *)table + 0xA8);
+    call->function((char *)this + call->adjustment, value);
+}
+#endif
