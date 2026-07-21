@@ -27,3 +27,17 @@ bool UnlockingManager::isLocationMovieUnlocked(int locationIdx) const
     return mega_cheat_on || globalCareerData.locations[locationIdx].movie_unlocked;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002F08C0)
+// 0x002F08C0 isBailsMovieUnlocked__C16UnlockingManager
+struct Cheat { int locked; int on; };
+extern Cheat session_cheats_from_mega[];
+asm(".equ session_cheats_from_mega, 0x0043BDF0");
+extern int bails_movie_unlocked;
+asm(".equ bails_movie_unlocked, 0x0044A818");
+class UnlockingManager { public: bool isBailsMovieUnlocked() const; };
+bool UnlockingManager::isBailsMovieUnlocked() const
+{
+    return session_cheats_from_mega[0].on || session_cheats_from_mega[-7].on || bails_movie_unlocked;
+}
+#endif
