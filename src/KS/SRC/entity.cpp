@@ -848,3 +848,20 @@ void entity::destroy_soft_attrib_ifc()
     my_soft_attrib_interface = 0;
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_00127688)
+// 0x00127688 destroy_time_ifc__6entity
+class time_interface { public: virtual ~time_interface(); };
+class entity {
+    char padding[0xd0];
+    time_interface* my_time_interface;
+public:
+    void destroy_time_ifc();
+};
+void entity::destroy_time_ifc()
+{
+    delete my_time_interface;
+    my_time_interface = 0;
+}
+#endif
