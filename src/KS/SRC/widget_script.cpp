@@ -24,3 +24,32 @@ class timer_widget : public widget { public: void update_scale(); void resize_ti
 __asm__(".equ resize_timer__12timer_widget, 0x002BB818");
 void timer_widget::update_scale() { widget::update_scale(); resize_timer(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002BBA38)
+// 0x002BBA38 show__12timer_widget
+extern "C" void WidgetShow(void *self)
+    __asm__("show__6widget");
+__asm__(".equ show__6widget, 0x0033DDD0");
+
+class timer_widget {
+    char padding0[0x14];
+    int flags;
+    char padding1[0x178];
+    bool running;
+    bool updated;
+
+public:
+    void show();
+};
+
+void timer_widget::show()
+{
+    if (flags & 1)
+        return;
+
+    running = true;
+    updated = false;
+    WidgetShow(this);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
