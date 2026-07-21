@@ -181,3 +181,15 @@ void OptionsMenu::OnLeft(int controller)
         { ChangeVolume(false); KELLY_DECOMP_COMPILER_BARRIER(); }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00182AF8)
+// 0x00182AF8 OnRight__11OptionsMenui
+struct FEMenuEntry { int entry_num; };
+class OptionsMenu { char padding[0x4c]; FEMenuEntry *highlighted; public: void ChangeSwitch(bool right); void ChangeVolume(bool right); void OnRight(int controller); };
+asm(".equ ChangeSwitch__11OptionsMenub, 0x00182ED0"); asm(".equ ChangeVolume__11OptionsMenub, 0x00183598");
+void OptionsMenu::OnRight(int controller)
+{
+    if (highlighted->entry_num < 6) { ChangeSwitch(true); KELLY_DECOMP_COMPILER_BARRIER(); }
+    else { ChangeVolume(true); KELLY_DECOMP_COMPILER_BARRIER(); }
+}
+#endif
