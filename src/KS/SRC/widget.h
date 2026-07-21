@@ -455,3 +455,20 @@ void menu_widget::add_child(widget *child)
     ++num_items;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003602B8)
+// 0x003602B8 __tf6widget
+extern "C" void __rtti_user(void **type, const char *name);
+extern "C" void *rtti_003602B8_type[] __asm__("__ti6widget");
+extern "C" char rtti_003602B8_name[] __asm__("rtti_003602B8_type_name");
+__asm__(".equ __ti6widget, 0x00512148");
+__asm__(".equ rtti_003602B8_type_name, 0x00505788");
+__asm__(".equ __rtti_user, 0x003CE2F8");
+extern "C" void **rtti_003602B8() __asm__("__tf6widget");
+void **rtti_003602B8()
+{
+    if (!rtti_003602B8_type[0])
+        __rtti_user(rtti_003602B8_type, rtti_003602B8_name);
+    return rtti_003602B8_type;
+}
+#endif
