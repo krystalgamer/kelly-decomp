@@ -302,3 +302,12 @@ asm(".equ typeinfo, 0x00512120"); asm(".equ type_name, 0x004FE478");
 extern "C" void *GetTypeInfo() __asm__("__tf11beam_effect");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B95A0)
+// 0x002B95A0 __tf16beam_effect_type
+extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
+extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
+asm(".equ typeinfo, 0x00512140"); asm(".equ type_name, 0x004FEAB8");
+extern "C" void *GetTypeInfo() __asm__("__tf16beam_effect_type");
+void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
+#endif
