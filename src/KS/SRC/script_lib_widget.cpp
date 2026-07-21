@@ -1019,3 +1019,28 @@ bool slf_timer_widget_clear_functions_t::operator()(vm_stack &stack, entry_t ent
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032BE78)
+// 0x0032BE78 __cl__20slf_widget_fade_to_tR8vm_stackQ320script_library_class8function7entry_t
+class vm_stack {
+    char padding[8];
+    unsigned char *top;
+public:
+    void *pop(int size) { top -= size; return top; }
+};
+class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
+struct virtual_entry { short adjustment; short padding; void (*function)(void *, float); };
+class widget { char padding[0x140]; virtual_entry *table; friend class slf_widget_fade_to_t; };
+class slf_widget_fade_to_t : public script_library_class::function {
+public:
+    struct parms_t { widget *me; float alpha; };
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+bool slf_widget_fade_to_t::operator()(vm_stack &stack, entry_t entry)
+{
+    parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t));
+    virtual_entry *call = (virtual_entry *)((char *)parms->me->table + 0xC8);
+    call->function((char *)parms->me + call->adjustment, parms->alpha);
+    return true;
+}
+#endif
