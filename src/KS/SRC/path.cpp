@@ -48,3 +48,22 @@ bool path_graph::edge_in_graph(const path_graph_node *first, const path_graph_no
 class path_graph_edge { void *nodes[2]; unsigned short flags; unsigned short padding; float distance; float weight_modifier; float additional_weight_modifier; float bias; public: void clear(); };
 void path_graph_edge::clear() { nodes[0] = nodes[1] = 0; flags = 0; distance = 0.0f; weight_modifier = 1.0f; additional_weight_modifier = 0.0f; bias = 0.0f; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034AD68)
+// 0x0034AD68 add_edge__10path_graphiiUsf
+class path_graph_node;
+template <class T> class vector {
+    T *start;
+    T *finish;
+    T *end_of_storage;
+public:
+    T &operator[](int index) { return start[index]; }
+};
+class path_graph { char padding[8]; vector<path_graph_node *> nodes; public: void add_edge(int,int,unsigned short,float); void add_edge(path_graph_node*,path_graph_node*,unsigned short,float); };
+__asm__(".equ add_edge__10path_graphP15path_graph_nodeT1Usf, 0x0034ADA0");
+void path_graph::add_edge(int node1, int node2, unsigned short flags, float modifier)
+{
+    add_edge(nodes[node1], nodes[node2], flags, modifier);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
