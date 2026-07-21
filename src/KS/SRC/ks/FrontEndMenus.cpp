@@ -376,6 +376,16 @@ void PauseMenuSystem::Load()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001B4398)
+// 0x001B4398 UpdateInScene__15PauseMenuSystem
+void PauseMenuSystem::UpdateInScene()
+{
+    if (!draw)
+        return;
+    menus[active]->UpdateInScene();
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001B45D0)
 // 0x001B45D0 Select__15PauseMenuSystemii
 struct menu_vtable {
