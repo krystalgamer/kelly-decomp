@@ -1,0 +1,19 @@
+// Matching decompilation blocks selected by generated build shims.
+
+
+#if defined(KELLY_DECOMP_FUNCTION_00360DF0)
+// 0x00360DF0 __tf15path_graph_node
+extern "C" void __rtti_user(void **type, const char *name);
+extern "C" void *rtti_00360DF0_type[] __asm__("__ti15path_graph_node");
+extern "C" char rtti_00360DF0_name[] __asm__("rtti_00360DF0_type_name");
+__asm__(".equ __ti15path_graph_node, 0x005121E0");
+__asm__(".equ rtti_00360DF0_type_name, 0x00505858");
+__asm__(".equ __rtti_user, 0x003CE2F8");
+extern "C" void **rtti_00360DF0() __asm__("__tf15path_graph_node");
+void **rtti_00360DF0()
+{
+    if (!rtti_00360DF0_type[0])
+        __rtti_user(rtti_00360DF0_type, rtti_00360DF0_name);
+    return rtti_00360DF0_type;
+}
+#endif
