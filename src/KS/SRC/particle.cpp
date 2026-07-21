@@ -58,3 +58,10 @@ struct entity_vtable { char padding[0xf8]; short adjustment; short padding2; voi
 class particle_generator { char padding[8]; entity_vtable *vtable; public: void set_created_entity_default_active_status(); };
 void particle_generator::set_created_entity_default_active_status() { entity_vtable *table = vtable; table->set_active((char *)this + table->adjustment, false); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D2D70)
+// 0x002D2D70 get_base_visual_radius__C18particle_generator
+typedef float rational_t;
+class particle_generator { public: char p0[0x220]; rational_t particle_life_span; char p1[12]; rational_t base_speed; rational_t speed_variation; char p2[0x20]; rational_t generation_radius; rational_t generation_height; rational_t get_base_visual_radius() const; };
+rational_t particle_generator::get_base_visual_radius() const { return(base_speed*(speed_variation+1)*particle_life_span+generation_radius+generation_height)*1.5f+1.0f; }
+#endif
