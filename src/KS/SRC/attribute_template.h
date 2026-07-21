@@ -209,3 +209,21 @@ asm(".equ typeinfo, 0x00512000"); asm(".equ type_name, 0x004CEC90");
 extern "C" void *GetTypeInfo() __asm__("__tft3map4Z9entity_idZP6entityZt4less1Z9entity_idZt23__malloc_alloc_template1i0");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003136C8)
+// 0x003136C8 __tft17bounded_attribute1Zi
+extern "C" void __rtti_user(void **type, const char *name);
+extern "C" void *bounded_attribute_type[] __asm__("__tit17bounded_attribute1Zi");
+extern "C" char bounded_attribute_name[] __asm__("__tnt17bounded_attribute1Zi");
+__asm__(".equ __tit17bounded_attribute1Zi, 0x005121A8");
+__asm__(".equ __tnt17bounded_attribute1Zi, 0x00508A28");
+__asm__(".equ __rtti_user, 0x003CE2F8");
+
+extern "C" void **bounded_attribute_rtti() __asm__("__tft17bounded_attribute1Zi");
+void **bounded_attribute_rtti()
+{
+    if (!bounded_attribute_type[0])
+        __rtti_user(bounded_attribute_type, bounded_attribute_name);
+    return bounded_attribute_type;
+}
+#endif
