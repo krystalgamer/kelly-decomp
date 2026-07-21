@@ -1044,3 +1044,28 @@ bool slf_widget_fade_to_t::operator()(vm_stack &stack, entry_t entry)
     return true;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032CD08)
+// 0x0032CD08 __cl__33slf_text_block_widget_set_scale_tR8vm_stackQ320script_library_class8function7entry_t
+class vm_stack {
+    char padding[8];
+    unsigned char *top;
+public:
+    void *pop(int size) { top -= size; return top; }
+};
+class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
+struct virtual_entry { short adjustment; short padding; void (*function)(void *, float); };
+class text_block_widget { char padding[0x140]; virtual_entry *table; friend class slf_text_block_widget_set_scale_t; };
+class slf_text_block_widget_set_scale_t : public script_library_class::function {
+public:
+    struct parms_t { text_block_widget *me; float val; };
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+bool slf_text_block_widget_set_scale_t::operator()(vm_stack &stack, entry_t entry)
+{
+    parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t));
+    virtual_entry *call = (virtual_entry *)((char *)parms->me->table + 0x128);
+    call->function((char *)parms->me + call->adjustment, parms->val);
+    return true;
+}
+#endif
