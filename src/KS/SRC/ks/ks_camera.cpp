@@ -268,3 +268,30 @@ look_back_camera::look_back_camera(const entity_id &id, entity *target)
     init();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0022A118)
+// 0x0022A118 __15shoulder_cameraRC9entity_idP6entity
+class entity_id;
+class entity;
+asm(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
+asm(".equ init__15shoulder_camera, 0x0022A180");
+asm(".equ _vt$15shoulder_camera, 0x004EB538");
+class game_camera {
+    char padding[8];
+public:
+    game_camera(const entity_id &id, entity *target);
+    virtual ~game_camera();
+};
+class shoulder_camera : public game_camera {
+public:
+    shoulder_camera(const entity_id &id, entity *target);
+    virtual ~shoulder_camera();
+    virtual void frame_advance(float time_step);
+    virtual void init();
+};
+shoulder_camera::shoulder_camera(const entity_id &id, entity *target)
+    : game_camera(id, target)
+{
+    init();
+}
+#endif
