@@ -584,3 +584,34 @@ void FloatingPQ::SetConstantScale(float s)
     SetScale(s);
 }
 #endif
+// Matching decompilation blocks selected by generated build shims.
+
+#if defined(KELLY_DECOMP_FUNCTION_001495F0)
+// 0x001495F0 Break__10RandomText
+__asm__(".equ Break__10StringList, 0x00147EE0");
+struct StringList { char padding[1]; void Break(); };
+struct RandomTextVTable {
+    char padding[304];
+    short adjustment;
+    short reserved;
+    void (*make_rand)(void*);
+};
+class RandomText {
+    char padding0[76];
+    RandomTextVTable* vtable;
+    int isRand;
+    char padding1[4];
+    StringList rand_string;
+public:
+    void Break();
+};
+void RandomText::Break()
+{
+    if (!isRand) {
+        void* self = (char*)this + vtable->adjustment;
+        vtable->make_rand(self);
+    }
+    rand_string.Break();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
