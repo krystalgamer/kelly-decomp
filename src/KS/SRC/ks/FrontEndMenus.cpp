@@ -308,3 +308,36 @@ void QuitConfirmMenuClass::Draw()
     question->Draw();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B3DE8)
+// 0x001B3DE8 Load__15PauseMenuSystem
+struct Panel {};
+struct goals_vtable {
+    char padding[0x168];
+    short adjustment;
+    short unused;
+    void (*load)(void *self, Panel *panel);
+};
+class GoalsMenuClass {
+    char padding[0x74];
+    goals_vtable *vtable;
+public:
+    void Load(Panel *panel) {
+        goals_vtable *table = vtable;
+        table->load((char *)this + table->adjustment, panel);
+    }
+};
+struct IGOFrontEnd { char padding[0x80]; Panel panel; };
+struct FEManager { IGOFrontEnd *IGO; };
+class PauseMenuSystem {
+    char padding[0x74];
+    GoalsMenuClass **menus;
+    FEManager *manager;
+public:
+    void Load();
+};
+void PauseMenuSystem::Load()
+{
+    menus[8]->Load(&manager->IGO->panel);
+}
+#endif
