@@ -962,3 +962,20 @@ bool slf_fluid_bar_widget_set_empty_rate_t::operator()(vm_stack &stack, entry_t 
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032B918)
+// 0x0032B918 __cl__17slf_widget_show_tR8vm_stackQ320script_library_class8function7entry_t
+struct widget_vtable { char padding[0x10]; short adjustment; short padding2; void (*show)(void *self); };
+class widget { char padding[0x140]; widget_vtable *vtable; public: void show() { widget_vtable *table = vtable; table->show((char *)this + table->adjustment); } };
+class vm_stack { char padding[8]; char *top; public: void *pop(unsigned int size) { top -= size; return top; } };
+class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+class slf_widget_show_t : public script_library_class::function { public: struct parms_t { widget *me; }; bool operator()(vm_stack &stack, entry_t entry); };
+bool slf_widget_show_t::operator()(vm_stack &stack, entry_t entry)
+{
+    SLF_PARMS;
+    parms->me->show();
+    SLF_DONE;
+}
+#endif
