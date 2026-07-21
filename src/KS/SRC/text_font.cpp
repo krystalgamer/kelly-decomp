@@ -30,3 +30,30 @@ __asm__(".equ memset, 0x003D18D0");
 class Font { char padding[8]; char glyphs[9216]; public: void clear_glyph_info(); };
 void Font::clear_glyph_info() { memset(glyphs, 0, 9216); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033BDB0)
+// 0x0033BDB0 getIndex__4Fontc
+class Font {
+    char prefix[8];
+    struct glyph_info {
+        unsigned char ascii;
+        unsigned int cell_x, cell_y;
+        unsigned int cell_width, cell_height;
+        unsigned int glyph_x, glyph_y;
+        unsigned int glyph_width, glyph_height;
+    };
+    glyph_info m_chars[256];
+    char padding[20];
+    int numGlyphs;
+public:
+    int getIndex(char c);
+};
+int Font::getIndex(char c)
+{
+    unsigned char c1 = (unsigned char)c;
+    for (int i = 0; i < numGlyphs; i++)
+        if (m_chars[i].ascii == c1)
+            return i;
+    return -1;
+}
+#endif

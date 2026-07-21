@@ -6567,7 +6567,7 @@ render__4FontRC7stringxG7color32bT3fffQ24Font9HORIZJUSTQ24Font8VERTJUSTT3ffPfT13
 CheckArtButtonCodes__4FontPCcRiT2 = 0x0033BBE8; // type:func size:0xBC
 FindArtButtonRotation__4Fonti = 0x0033BCA8; // type:func size:0xBC
 getGlyph__4Fontc = 0x0033BD68; // type:func size:0x48
-getIndex__4Fontc = 0x0033BDB0; // type:func size:0x40
+getIndex__4Fontc = 0x0033BDB0; // type:func defined:true size:0x40
 getWidth__4FontG7stringxfbf = 0x0033BDF8; // type:func size:0x30C
 _$_8font_mgr = 0x0033C120; // type:func size:0xBC
 get_char_info__C8font_defc = 0x0033C1E8; // type:func defined:true size:0x18
