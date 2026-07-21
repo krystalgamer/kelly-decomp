@@ -80,6 +80,49 @@ void fps_camera::sync(camera& other) {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0022C208)
+// 0x0022C208 __10fps_cameraRC9entity_idP6entityP22kellyslater_controller
+class entity_id;
+class entity;
+class camera;
+class kellyslater_controller;
+
+__asm__(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
+__asm__(".equ _vt$10fps_camera, 0x004EAEF0");
+
+class camera_layout {
+    char padding_to_vtable[8];
+public:
+    virtual ~camera_layout();
+};
+
+class game_camera : public camera_layout {
+    char padding_to_controller[0x208];
+    kellyslater_controller *ksctrl;
+public:
+    game_camera(const entity_id &id, entity *target);
+    virtual ~game_camera();
+    void set_ks_controller(kellyslater_controller *controller) {
+        ksctrl = controller;
+    }
+};
+
+class fps_camera : public game_camera {
+public:
+    fps_camera(const entity_id &id, entity *target, kellyslater_controller *controller);
+    virtual ~fps_camera();
+    virtual void sync(camera &other);
+    virtual void init();
+    virtual void frame_advance(float time);
+};
+
+fps_camera::fps_camera(const entity_id &id, entity *target, kellyslater_controller *controller)
+    : game_camera(id, target)
+{
+    set_ks_controller(controller);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0022C8D0)
 // 0x0022C8D0 sync__11auto_cameraR6camera
 class camera;
