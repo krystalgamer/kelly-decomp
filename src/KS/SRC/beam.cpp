@@ -146,3 +146,34 @@ void beam_effect::set_delaying() {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002727F8)
+// 0x002727F8 __11beam_effectP4beam
+class beam;
+class beam_effect_type;
+class beam_effect {
+    beam *my_beam;
+    beam_effect_type *effect;
+    unsigned short id;
+    char mode;
+    float timer;
+    float loop_delay;
+    float duration;
+    virtual void dump();
+public:
+    beam_effect(beam *the_beam);
+    virtual ~beam_effect();
+};
+asm(".equ _vt$11beam_effect, 0x004FCE88");
+beam_effect::beam_effect(beam *the_beam)
+{
+    my_beam = the_beam;
+    effect = 0;
+    mode = 0;
+    timer = 0.0f;
+    duration = 0.0f;
+    loop_delay = -1.0f;
+    effect = 0;
+    id = (unsigned short)-1;
+}
+#endif
