@@ -885,3 +885,21 @@ asm(".equ typeinfo, 0x00512040"); asm(".equ type_name, 0x004DD860");
 extern "C" void *GetTypeInfo() __asm__("__tf9PanelQuad");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D9B50)
+// 0x001D9B50 SetUV__9PanelQuadffff
+#include "decomp_annotations.h"
+struct nglQuad { char data[0x164]; };
+extern void nglSetQuadUV(nglQuad *, float, float, float, float);
+asm(".equ nglSetQuadUV__FP7nglQuadffff, 0x003A69C0");
+class PanelQuad { char padding[0x1c]; nglQuad quad; float u1, v1, u2, v2; public: void SetUV(float, float, float, float); };
+void PanelQuad::SetUV(float ua, float va, float ub, float vb)
+{
+    u1 = ua;
+    u2 = ub;
+    v1 = va;
+    v2 = vb;
+    nglSetQuadUV(&quad, u1, v1, u2, v2);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
