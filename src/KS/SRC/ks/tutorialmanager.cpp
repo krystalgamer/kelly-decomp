@@ -32,3 +32,22 @@ void IGOTutorialManager::StopCurrentVO()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0015A070)
+// 0x0015A070 SetCurrentTrick__18IGOTutorialManageri
+__asm__(".equ GTrickList, 0x00427CA8");
+
+void IGOTutorialManager::SetCurrentTrick(int trick_num)
+{
+    current_trick = trick_num;
+
+    if (GTrickList[current_trick].trick_type == TRICKTYPE_AERIAL) {
+        air_trick_in_chain = true;
+        face_trick_in_chain = false;
+    } else if (
+        GTrickList[current_trick].trick_type == TRICKTYPE_FACE
+    ) {
+        face_trick_in_chain = true;
+    }
+}
+#endif
