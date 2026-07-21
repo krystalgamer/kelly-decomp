@@ -242,3 +242,29 @@ void *BeachCameraCtor(
     return self;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00225E30)
+// 0x00225E30 __16look_back_cameraRC9entity_idP6entity
+class entity_id;
+class entity;
+asm(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
+asm(".equ init__16look_back_camera, 0x00225E70");
+asm(".equ _vt$16look_back_camera, 0x004EC818");
+class game_camera {
+    char padding[8];
+public:
+    game_camera(const entity_id &id, entity *target);
+    virtual ~game_camera();
+};
+class look_back_camera : public game_camera {
+public:
+    look_back_camera(const entity_id &id, entity *target);
+    virtual ~look_back_camera();
+    void init();
+};
+look_back_camera::look_back_camera(const entity_id &id, entity *target)
+    : game_camera(id, target)
+{
+    init();
+}
+#endif
