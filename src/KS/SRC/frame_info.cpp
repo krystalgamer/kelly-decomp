@@ -55,3 +55,25 @@ __asm__(".equ frame_info_ifl_frame_rate, 0x0046B5A8");
 class frame_info { float age; int ifl_frame_boost; int ifl_frame_locked; public: void operator=(const frame_info &source); };
 void frame_info::operator=(const frame_info &source) { ifl_frame_locked = source.ifl_frame_locked; ifl_frame_boost = source.ifl_frame_boost; frame_info_ifl_frame_rate = frame_info_ifl_frame_rate; age = source.age; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003386A0)
+// 0x003386A0 time_to_frame_locked__C10frame_infoi
+class frame_info {
+    float age;
+    int ifl_frame_boost;
+    int ifl_frame_locked;
+public:
+    int time_to_frame_locked(int period) const;
+    int time_to_frame(int period) const;
+};
+__asm__(".equ time_to_frame__C10frame_infoi, 0x003386D8");
+int frame_info::time_to_frame_locked(int period) const
+{
+    if (period == 1)
+        return 0;
+    else if (ifl_frame_locked >= 0)
+        return ifl_frame_locked;
+    else
+        return time_to_frame(period);
+}
+#endif
