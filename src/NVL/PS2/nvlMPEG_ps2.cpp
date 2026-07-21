@@ -289,3 +289,25 @@ static int videoDecDelete(VideoDec *decoder)
 
 __asm__(".globl videoDecDelete__FP8VideoDec");
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00389500)
+// 0x00389500 strFileRead__FP7StrFilePvi
+typedef unsigned int u_int;
+struct StrFile { int isOnCD; char padding[44]; int fd; };
+extern "C" int sceCdStRead(unsigned int sectors, unsigned int *buffer, unsigned int mode, unsigned int *error);
+extern "C" int sceRead(int fd, void *buffer, int size);
+asm(".equ sceCdStRead, 0x003BDEB0");
+asm(".equ sceRead, 0x003DEFB8");
+int strFileRead(StrFile *file, void *buff, int size)
+{
+    int count;
+    if (file->isOnCD) {
+        u_int err;
+        count = sceCdStRead(size >> 11, (u_int *)buff, 1, &err);
+        count <<= 11;
+    } else {
+        count = sceRead(file->fd, buff, size);
+    }
+    return count;
+}
+#endif
