@@ -814,3 +814,20 @@ void entity::destroy_skeleton_ifc()
     my_skeleton_interface = 0;
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_00127590)
+// 0x00127590 destroy_slave_ifc__6entity
+class slave_interface { public: virtual ~slave_interface(); };
+class entity {
+    char padding[0xc8];
+    slave_interface* my_slave_interface;
+public:
+    void destroy_slave_ifc();
+};
+void entity::destroy_slave_ifc()
+{
+    delete my_slave_interface;
+    my_slave_interface = 0;
+}
+#endif
