@@ -42,3 +42,10 @@ struct face { char padding[6]; short material_ref; unsigned short level_of_detai
 __asm__(".globl face_material_compare__FPCvT0");
 static int face_material_compare(const void *left_raw, const void *right_raw) { const face *left = (const face *)left_raw; const face *right = (const face *)right_raw; if (left->material_ref != right->material_ref) return left->material_ref - right->material_ref; return left->level_of_detail - right->level_of_detail; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D6F30)
+// 0x002D6F30 get_wedge_ref__C8vr_pmeshUii
+typedef unsigned int face_ref; typedef unsigned short wedge_ref; struct face { wedge_ref wedge[3]; char pad[6]; wedge_ref get_wedge_ref(int c) const{return wedge[c];} };
+class vr_pmesh { public: char p0[0x2c]; face *faces; char p1[0x18]; wedge_ref *wedge_index_list; wedge_ref get_wedge_ref(face_ref,int) const; };
+wedge_ref vr_pmesh::get_wedge_ref(face_ref fr,int corner) const { if(!faces) return wedge_index_list[fr*3+corner]; return faces[fr].get_wedge_ref(corner); }
+#endif
