@@ -143,3 +143,39 @@ void entity_anim_tree::detach() {
     table->set_flag((char *)this + table->adjustment, 16, false);
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_00114090)
+// 0x00114090 reset_start__11entity_animRC14anim_control_t
+struct anim_control_t {};
+struct po {};
+class po_anim {
+    unsigned short flags;
+public:
+    bool is_flagged(int f) const { return (flags & f); }
+    bool is_valid() const { return is_flagged(0x1000); }
+    void reset_start(const anim_control_t&, const po&);
+};
+class entity {
+    char padding[16];
+public:
+    const po& get_rel_po() const { return *(const po*)((const char*)this + 16); }
+};
+class entity_anim {
+    char padding[8];
+    entity* ent;
+    po_anim* po_anim_ptr;
+public:
+    bool has_po_anim() const { return po_anim_ptr != 0 && po_anim_ptr->is_valid(); }
+    void reset_start(const anim_control_t& ac);
+};
+__asm__(".equ reset_start__7po_animRC14anim_control_tRC2po, 0x0011BD80");
+void entity_anim::reset_start(const anim_control_t& ac)
+{
+    if (has_po_anim())
+    {
+        po_anim_ptr->reset_start(ac, ent->get_rel_po());
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
