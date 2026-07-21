@@ -49,3 +49,34 @@ void entity_widget::set_rotation(float x, float y, float z)
     table->update_rot((char *)this + table->adjustment);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B9B18)
+// 0x002B9B18 show__13entity_widget
+extern "C" void WidgetShow(void *self)
+    __asm__("show__6widget");
+__asm__(".equ show__6widget, 0x0033DDD0");
+
+struct entity_widget_vtable {
+    char padding[0x118];
+    short adjustment;
+    short padding2;
+    void (*update_rot)(void *self);
+};
+
+class entity_widget {
+    char padding[0x140];
+    entity_widget_vtable *vtable;
+
+public:
+    void show();
+};
+
+void entity_widget::show()
+{
+    WidgetShow(this);
+    entity_widget_vtable *table = vtable;
+    table->update_rot(
+        (char *)this + table->adjustment
+    );
+}
+#endif
