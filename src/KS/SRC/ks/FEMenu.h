@@ -759,3 +759,34 @@ void FEGraphicalMenu::Load(bool floating)
     load_panel(frontend + adjustment, floating);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DB930)
+// 0x001DB930 Draw__12FEMenuSystem
+struct menu_vtable {
+    char padding[0x48];
+    short adjustment;
+    short unused;
+    void (*draw)(void *self);
+};
+class FEMenu {
+    char padding[0x74];
+    menu_vtable *vtable;
+public:
+    void Draw() {
+        menu_vtable *table = vtable;
+        table->draw((char *)this + table->adjustment);
+    }
+};
+class FEMenuSystem {
+    char padding[0x74];
+    FEMenu **menus;
+    void *manager;
+    int active;
+public:
+    void Draw();
+};
+void FEMenuSystem::Draw()
+{
+    menus[active]->Draw();
+}
+#endif
