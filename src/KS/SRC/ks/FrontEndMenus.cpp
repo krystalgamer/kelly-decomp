@@ -258,3 +258,27 @@ bool hasPrevious(FEMenu *menu) {
     return false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B25E8)
+// 0x001B25E8 Draw__12TipMenuClass
+asm(".equ Draw__6FEMenu, 0x00156C88");
+class FEMenu { public: void Draw(); };
+class BoxText {
+    char padding[0x4C];
+public:
+    virtual ~BoxText();
+    virtual void Update(float time_inc);
+    virtual void Draw();
+};
+class TipMenuClass : public FEMenu {
+    char padding[0x74];
+public:
+    BoxText *tip;
+    void Draw();
+};
+void TipMenuClass::Draw()
+{
+    FEMenu::Draw();
+    tip->Draw();
+}
+#endif
