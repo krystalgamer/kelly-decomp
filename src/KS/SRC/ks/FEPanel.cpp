@@ -446,3 +446,17 @@ uint32 ReadLong(unsigned char *buffer, int &index)
     return ret;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001495B0)
+// 0x001495B0 makeRand__10RandomText
+class StringList { public: void MakeRand(); };
+asm(".equ MakeRand__10StringList, 0x00147CD0");
+class RandomText { char padding[0x3c]; bool checkTime; float time; char padding2[0xc]; bool isRand; char padding3[4]; StringList rand_string; public: void makeRand(); };
+void RandomText::makeRand()
+{
+    rand_string.MakeRand();
+    time = 2.0f;
+    checkTime = true;
+    isRand = true;
+}
+#endif
