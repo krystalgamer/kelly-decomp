@@ -218,3 +218,10 @@ beam_effect::beam_effect(beam *the_beam)
     id = (unsigned short)-1;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00272888)
+// 0x00272888 dump__11beam_effect
+class beam_effect_type { public: virtual ~beam_effect_type(); };
+class beam_effect { public: char pad[4]; beam_effect_type *effect; void dump(); };
+void beam_effect::dump() { if(effect != 0) { delete effect; effect = 0; } }
+#endif
