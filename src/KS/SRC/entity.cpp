@@ -530,3 +530,25 @@ void entity::unload_anim(const stringx &filename) const
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00134D48)
+// 0x00134D48 get_random_ifl_frame_boost__C6entity
+extern int g_iflrand_counter;
+extern int random_ifl_frame_boost_table[256];
+__asm__(".equ g_iflrand_counter, 0x003E5B70");
+__asm__(".equ random_ifl_frame_boost_table, 0x003E5C50");
+
+class entity {
+    char padding[0x80];
+    unsigned int id;
+
+public:
+    int get_random_ifl_frame_boost() const;
+};
+
+int entity::get_random_ifl_frame_boost() const
+{
+    ++g_iflrand_counter;
+    return random_ifl_frame_boost_table[0xFF & (id * 3)];
+}
+#endif
