@@ -43,3 +43,32 @@ const stringx *script_manager::add_string(const stringx &s)
     return &(*(strings.insert(s).first));
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003525B8)
+// 0x003525B8 find_object__C14script_managerRC7stringx
+class stringx { char data[8]; };
+class script_object;
+struct map_value { const stringx first; script_object *second; };
+struct map_node { char padding[16]; map_value value; };
+struct map_iterator {
+    map_node *node;
+    bool operator==(const map_iterator &other) const { return node == other.node; }
+    const map_value &operator*() const { return node->value; }
+};
+class name_sobj_map {
+    map_node *header;
+public:
+    map_iterator find(const stringx &name) const __asm__("find__Ct8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP13script_objectZt10_Select1st1Zt4pair2ZC7stringxZP13script_objectZt4less1Z7stringxZt12my_allocator1ZP13script_objectRC7stringx");
+    map_iterator end() const { map_iterator i = { header }; return i; }
+};
+asm(".equ find__Ct8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP13script_objectZt10_Select1st1Zt4pair2ZC7stringxZP13script_objectZt4less1Z7stringxZt12my_allocator1ZP13script_objectRC7stringx, 0x0035CE20");
+class script_manager { char padding[4]; name_sobj_map script_objects_by_name; public: script_object *find_object(const stringx &name) const; };
+script_object* script_manager::find_object(const stringx& name) const
+{
+  map_iterator i = script_objects_by_name.find(name);
+  if (i == script_objects_by_name.end())
+    return 0;
+  else { KELLY_DECOMP_COMPILER_BARRIER();
+    return (*i).second; }
+}
+#endif
