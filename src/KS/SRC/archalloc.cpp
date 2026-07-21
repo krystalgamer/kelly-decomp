@@ -140,3 +140,21 @@ __asm__(
     ".globl mem_return_largest_available_block__FPUi"
 );
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002ACBB0)
+// 0x002ACBB0 mem_raw_largest_avail__Fi
+class Heap {
+    char padding[104];
+    int largest_free;
+public:
+    void CheckHeapStats();
+    int GetLargestFree() { CheckHeapStats(); return largest_free; }
+};
+extern Heap heaps[];
+asm(".equ heaps, 0x00570528");
+asm(".equ CheckHeapStats__4Heap, 0x002AC0A8");
+int mem_raw_largest_avail(int heapindex)
+{
+    return heaps[heapindex].GetLargestFree();
+}
+#endif
