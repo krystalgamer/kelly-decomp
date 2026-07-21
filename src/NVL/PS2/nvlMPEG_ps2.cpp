@@ -156,6 +156,41 @@ __asm__(".equ audioDecResume__FP8AudioDec, 0x003896C0");
 void audioDecStart(AudioDec *decoder) { audioDecResume(decoder); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00389750)
+// 0x00389750 audioDecReset__FP8AudioDec
+struct AudioDec {
+    int state;
+    char hdr[40];
+    int hdrCount;
+    unsigned char* data;
+    int put;
+    int count;
+    int size;
+    int totalBytes;
+    int iopBuff;
+    int iopBuffSize;
+    int iopLastPos;
+    int iopPausePos;
+    int totalBytesSent;
+    int iopZero;
+};
+void audioDecPause(AudioDec*);
+__asm__(".equ audioDecPause__FP8AudioDec, 0x00389638");
+static void audioDecReset(AudioDec* decoder)
+{
+    audioDecPause(decoder);
+    decoder->state = 0;
+    decoder->hdrCount = 0;
+    decoder->put = 0;
+    decoder->count = 0;
+    decoder->totalBytes = 0;
+    decoder->totalBytesSent = 0;
+    decoder->iopLastPos = 0;
+    decoder->iopPausePos = 0;
+}
+__asm__(".globl audioDecReset__FP8AudioDec");
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00388B88)
 // 0x00388B88 videoDecSetStream__FP8VideoDeciiPFP7sceMpegP13sceMpegCbDataPv_iPv
 struct sceMpeg { char data[1]; };
