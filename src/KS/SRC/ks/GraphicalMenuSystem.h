@@ -165,3 +165,32 @@ void HighlightSelector(void *self, int unused) {
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DE5B8)
+// 0x001DE5B8 Select__19GraphicalMenuSystemii
+struct menu_vtable {
+    char padding[0x128];
+    short adjustment;
+    short unused;
+    void (*select)(void *self, int entry_index);
+};
+class FEMenu {
+    char padding[0x74];
+    menu_vtable *vtable;
+public:
+    void Select(int entry_index) {
+        menu_vtable *table = vtable;
+        table->select((char *)this + table->adjustment, entry_index);
+    }
+};
+class GraphicalMenuSystem {
+    char padding[0x74];
+    FEMenu **menus;
+public:
+    void Select(int menu_index, int entry_index);
+};
+void GraphicalMenuSystem::Select(int menu_index, int entry_index)
+{
+    menus[menu_index]->Select(entry_index);
+}
+#endif
