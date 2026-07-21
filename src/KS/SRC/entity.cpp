@@ -746,3 +746,20 @@ void entity::destroy_hard_attrib_ifc()
     my_hard_attrib_interface = 0;
 }
 #endif
+
+
+#if defined(KELLY_DECOMP_FUNCTION_001273C8)
+// 0x001273C8 destroy_owner_ifc__6entity
+class owner_interface { public: virtual ~owner_interface(); };
+class entity {
+    char padding[0xb8];
+    owner_interface* my_owner_interface;
+public:
+    void destroy_owner_ifc();
+};
+void entity::destroy_owner_ifc()
+{
+    delete my_owner_interface;
+    my_owner_interface = 0;
+}
+#endif
