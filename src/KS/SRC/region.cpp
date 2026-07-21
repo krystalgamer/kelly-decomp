@@ -75,3 +75,18 @@ void region::remove_cam_coll_ent(entity *e)
         *found = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002E7E68)
+// 0x002E7E68 remove__6regionP7trigger
+class trigger;
+extern trigger **find_trigger_pointer(trigger **, trigger **, trigger *const &, int) __asm__("find__H2ZPP7triggerZP7trigger_X01X01RCX11G26random_access_iterator_tag_X01");
+asm(".equ find__H2ZPP7triggerZP7trigger_X01X01RCX11G26random_access_iterator_tag_X01, 0x002FB5B0");
+class region { char padding[0xc4]; trigger **trigger_begin; trigger **trigger_end; public: void remove(trigger *); };
+void region::remove(trigger *value)
+{
+    trigger **end = trigger_end;
+    trigger **found = find_trigger_pointer(trigger_begin, end, value, 0);
+    if (found != end)
+        *found = 0;
+}
+#endif
