@@ -76,3 +76,28 @@ IconChallenge::Arrangement::GetCurrentSequence() const
     return 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00260A50)
+// 0x00260A50 OnEvent__13IconChallenge5EVENTii
+enum EVENT { EVT_SCORING_SERIES_END = 6 };
+class kellyslater_controller { char padding[0x1674]; int player_num; public: int get_player_num() const { return player_num; } };
+class IconChallenge {
+public:
+    class Arrangement { public: void OnEvent(EVENT event, kellyslater_controller *controller, int param); };
+private:
+    void *field0;
+    kellyslater_controller *ksctrl;
+    char padding[8];
+    Arrangement arrangement;
+public:
+    void OnEvent(EVENT event, int param1, int param2);
+};
+asm(".equ OnEvent__Q213IconChallenge11Arrangement5EVENTP22kellyslater_controlleri, 0x00260CC8");
+void IconChallenge::OnEvent(EVENT event, int param1, int param2)
+{
+    if (param1 != ksctrl->get_player_num())
+        return;
+    if (event == EVT_SCORING_SERIES_END)
+        arrangement.OnEvent(event, ksctrl, param2);
+}
+#endif
