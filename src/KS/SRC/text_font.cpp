@@ -57,3 +57,9 @@ int Font::getIndex(char c)
     return -1;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033D458)
+// 0x0033D458 typeface_close__FP12typeface_def
+__asm__(".equ typeface_list, 0x0058AA90"); __asm__(".equ remove__t4list2ZP12typeface_defZt12my_allocator1ZP12typeface_defRCP12typeface_def, 0x003584E0"); __asm__(".equ _$_12typeface_def, 0x0033C5D0");
+class typeface_def{public:char p[5152];int usercount;~typeface_def();};template<class T>class my_allocator{};template<class T,class A>class list{public:void remove(const T&);};extern list<typeface_def*,my_allocator<typeface_def*> > typeface_list;void typeface_close(typeface_def*tdefptr){if(!tdefptr->usercount){typeface_list.remove(tdefptr);delete tdefptr;}}
+#endif
