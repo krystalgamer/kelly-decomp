@@ -2424,7 +2424,7 @@ address,size_bytes,size_hex,symbol_name,raw_name,binding,source_file,reference_f
 0x00112F90,64,0x40,__tf7ai_goal,__tf7ai_goal,global,C:/KS/SRC/ai_goals.h,KS/SRC/ai_goals.h,game/files_ai,C:/KS/SRC/files_ai.cpp,eligible,matched,1,100,SELF,notes/functions/00112F90___tf7ai_goal.md
 0x00113030,64,0x40,__tf9ai_action,__tf9ai_action,global,C:/KS/SRC/ai_actions.h,KS/SRC/ai_actions.h,game/files_ai,C:/KS/SRC/files_ai.cpp,eligible,matched,1,100,SELF,notes/functions/00113030___tf9ai_action.md
 0x00120EF8,64,0x40,__tf10anim_maker,__tf10anim_maker,global,C:/KS/SRC/anim_maker.h,KS/SRC/anim_maker.h,game/files_anim,C:/KS/SRC/files_anim.cpp,eligible,matched,1,100,SELF,notes/functions/00120EF8___tf10anim_maker.md
-0x00121A98,64,0x40,__tft4anim1Z2po,__tft4anim1Z2po,global,C:/KS/SRC/anim.h,KS/SRC/anim.h,game/files_anim,C:/KS/SRC/files_anim.cpp,eligible,pending,0,,,notes/functions/00121A98___tft4anim1Z2po.md
+0x00121A98,64,0x40,__tft4anim1Z2po,__tft4anim1Z2po,global,C:/KS/SRC/anim.h,KS/SRC/anim.h,game/files_anim,C:/KS/SRC/files_anim.cpp,eligible,matched,1,100,SELF,notes/functions/00121A98___tft4anim1Z2po.md
 0x00121AD8,64,0x40,__tft4anim1Z10signal_key,__tft4anim1Z10signal_key,global,C:/KS/SRC/anim.h,KS/SRC/anim.h,game/files_anim,C:/KS/SRC/files_anim.cpp,eligible,pending,0,,,notes/functions/00121AD8___tft4anim1Z10signal_key.md
 0x00121B18,64,0x40,__tft4anim1ZP6entity,__tft4anim1ZP6entity,global,C:/KS/SRC/anim.h,KS/SRC/anim.h,game/files_anim,C:/KS/SRC/files_anim.cpp,eligible,pending,0,,,notes/functions/00121B18___tft4anim1ZP6entity.md
 0x00121C48,64,0x40,__tft4anim1Z8vector3d,__tft4anim1Z8vector3d,global,C:/KS/SRC/anim.h,KS/SRC/anim.h,game/files_anim,C:/KS/SRC/files_anim.cpp,eligible,pending,0,,,notes/functions/00121C48___tft4anim1Z8vector3d.md
