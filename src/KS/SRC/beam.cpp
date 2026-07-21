@@ -96,6 +96,47 @@ void beam::set_visible(bool visible) {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_002727B0)
+// 0x002727B0 get_signal_name__C4beamUs
+__asm__(".equ signal_names, 0x00431870");
+__asm__(".equ get_signal_name__C6entityUs, 0x0012F728");
+
+class entity
+{
+public:
+  enum
+  {
+    N_SIGNALS = 27
+  };
+
+  const char* get_signal_name( unsigned short idx ) const;
+};
+
+class beam : public entity
+{
+public:
+  enum signal_id_t
+  {
+    PARENT_SYNC_DUMMY = entity::N_SIGNALS - 1,
+    ENTER,
+    LEAVE,
+    N_SIGNALS
+  };
+
+  const char* get_signal_name( unsigned short idx ) const;
+};
+
+extern const char* signal_names[];
+
+const char* beam::get_signal_name( unsigned short idx ) const
+{
+  if ( idx > PARENT_SYNC_DUMMY )
+    return signal_names[idx-PARENT_SYNC_DUMMY-1];
+  else
+    return entity::get_signal_name( idx );
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00274768)
 // 0x00274768 compute_sector__4beamR7terrainb
 class terrain;
