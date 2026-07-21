@@ -56,3 +56,21 @@ Menu::Menu(Menu *parent_menu)
     control = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023E688)
+// 0x0023E688 GetElementFlags__4Menui
+class MenuEntry { public: unsigned int state; unsigned int GetState() { return state; } };
+class Menu {
+    void *vtable;
+    int entries;
+    MenuEntry **entry;
+public:
+    unsigned int GetElementFlags(int i);
+};
+unsigned int Menu::GetElementFlags(int i)
+{
+    if (i >= 0 && i < entries && entry[i])
+        return entry[i]->GetState();
+    return 0;
+}
+#endif
