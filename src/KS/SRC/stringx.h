@@ -17,6 +17,13 @@ protected:
     string_buf *my_buf;
 
 public:
+    stringx();
+    stringx(const stringx &);
+    stringx(const char *, int = -1);
+    explicit stringx(float);
+    explicit stringx(int);
+    explicit stringx(unsigned int);
+    ~stringx();
     int length() const;
     void lock();
     void fork_data(int new_length = -1);

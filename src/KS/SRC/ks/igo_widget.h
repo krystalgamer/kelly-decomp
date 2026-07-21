@@ -1,5 +1,22 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#ifndef KELLY_DECOMP_IGO_WIDGET_H
+#define KELLY_DECOMP_IGO_WIDGET_H
+
+class IGOWidget {
+protected:
+    bool display;
+
+public:
+    IGOWidget();
+    virtual ~IGOWidget();
+    virtual void SetDisplay(bool value = true);
+    virtual void Update(float time);
+    virtual void Draw();
+    virtual bool GetDisplay() const;
+};
+
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DB9A0)
 // 0x001DB9A0 __tf9IGOWidget
