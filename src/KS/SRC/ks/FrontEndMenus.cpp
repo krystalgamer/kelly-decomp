@@ -417,3 +417,20 @@ void PlaylistMenuClass::OnL1(int controller)
     active = false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B0358)
+// 0x001B0358 OnR1__17PlaylistMenuClassi
+#include "decomp_annotations.h"
+typedef void (*playlist_handler)(void *, int);
+struct playlist_slot { short adjustment; unsigned short padding; playlist_handler function; };
+struct playlist_vtable { char padding[0xa0]; playlist_slot down; };
+class PlaylistMenuClass { char padding[0x74]; playlist_vtable *vtable; char padding2[0x70]; public: int active; void OnR1(int); };
+void PlaylistMenuClass::OnR1(int controller)
+{
+    active = true;
+    KELLY_DECOMP_COMPILER_BARRIER();
+    playlist_slot &slot = vtable->down;
+    slot.function((char *)this + slot.adjustment, controller);
+    active = false;
+}
+#endif
