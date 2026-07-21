@@ -434,3 +434,19 @@ void PlaylistMenuClass::OnR1(int controller)
     active = false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B2950)
+// 0x001B2950 OnActivate__20QuitConfirmMenuClass
+typedef void (*menu_set_high_handler)(void *, void *, bool);
+struct menu_slot { short adjustment; unsigned short padding; menu_set_high_handler function; };
+struct menu_vtable { char padding[0x18]; menu_slot set_high; };
+class FEMenu { char padding[0x74]; protected: menu_vtable *vtable; public: void OnActivate(); };
+class QuitConfirmMenuClass : public FEMenu { void *system; void *question; void *yesEntry; void *noEntry; public: void OnActivate(); };
+asm(".equ OnActivate__6FEMenu, 0x00157728");
+void QuitConfirmMenuClass::OnActivate()
+{
+    FEMenu::OnActivate();
+    menu_slot &slot = vtable->set_high;
+    slot.function((char *)this + slot.adjustment, noEntry, false);
+}
+#endif
