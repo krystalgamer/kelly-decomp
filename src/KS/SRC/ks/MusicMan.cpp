@@ -69,3 +69,31 @@ void MusicListing::stop()
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002595F0)
+// 0x002595F0 stop__8MusicMan
+class MusicListing {
+public:
+    bool isPlaying();
+    void stop();
+};
+
+__asm__(".equ isPlaying__12MusicListing, 0x00258A00");
+__asm__(".equ stop__12MusicListing, 0x00258A60");
+
+class MusicMan {
+    char padding[0x10];
+    MusicListing musicTrack;
+
+public:
+    void stop();
+};
+
+void MusicMan::stop()
+{
+    if (musicTrack.isPlaying()) {
+        musicTrack.stop();
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
