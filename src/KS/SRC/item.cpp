@@ -115,3 +115,12 @@ void morphable_item::frame_advance(float time)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0028AE78)
+// 0x0028AE78 get_signal_name__C4itemUs
+__asm__(".equ get_signal_name__C6entityUs, 0x0012F728"); __asm__(".equ item_signal_names, 0x00431A70");
+extern const char *item_signal_names[];
+class entity { public: const char *get_signal_name(unsigned short) const; };
+class item : public entity { public: const char *get_signal_name(unsigned short) const; };
+const char *item::get_signal_name(unsigned short idx) const { if(idx > 26) return item_signal_names[idx-27]; return entity::get_signal_name(idx); }
+#endif
