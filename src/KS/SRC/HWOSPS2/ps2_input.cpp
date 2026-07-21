@@ -161,3 +161,22 @@ void ps2_joypad_device::record_demo_stop()
     recording_demo = false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E2218)
+// 0x001E2218 set_button_d__17ps2_joypad_deviceib
+extern unsigned char rdata[];
+asm(".equ rdata, 0x005A39C0");
+class ps2_joypad_device {
+public:
+    void set_button_d(int button_num, bool state);
+};
+void ps2_joypad_device::set_button_d(int button_num, bool state)
+{
+    int rdata_index = 2;
+    if (button_num > 7) {
+        rdata_index = 3;
+        button_num -= 8;
+    }
+    rdata[rdata_index] &= ~(1 << button_num);
+}
+#endif
