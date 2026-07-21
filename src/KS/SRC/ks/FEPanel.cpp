@@ -460,3 +460,19 @@ void RandomText::makeRand()
     isRand = true;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00153410)
+// 0x00153410 ReadFloat__FPUcRi
+typedef unsigned int uint32;
+float ReadFloat(unsigned char *buffer, int &index)
+{
+    float ret;
+    uint32 tmp = buffer[index];
+    tmp |= buffer[index + 1] << 8;
+    tmp |= buffer[index + 2] << 16;
+    tmp |= buffer[index + 3] << 24;
+    ret = *(float *)&tmp;
+    index += 4;
+    return ret;
+}
+#endif
