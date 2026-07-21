@@ -515,3 +515,23 @@ nglCustomNodeFn nglGetMeshSectionFunction(
         return RenderFull;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00395D50)
+// 0x00395D50 nglMemFree__FPv
+typedef void (*nglMemFreeCallback)(void *pointer);
+struct nglSystemCallbackStruct { char padding[0x14]; nglMemFreeCallback MemFree; };
+extern nglSystemCallbackStruct nglSystemCallbacks;
+__asm__(".equ nglSystemCallbacks, 0x004BBF98");
+extern "C" void free(void *pointer);
+__asm__(".equ free, 0x003D0BC8");
+void nglMemFree(void *pointer)
+{
+    if (nglSystemCallbacks.MemFree) {
+        nglSystemCallbacks.MemFree(pointer);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    } else {
+        free(pointer);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
