@@ -87,3 +87,31 @@ class entity;
 class item { char padding[8]; item_vtable *vtable; public: void apply_effects(entity *target); };
 void item::apply_effects(entity *target) { item_vtable *table = vtable; table->apply((char *)this + table->adjustment, 28); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0028BE88)
+// 0x0028BE88 frame_advance__14morphable_itemf
+class item {
+protected:
+    char padding[0x218];
+    int count;
+public:
+    void frame_advance(float time);
+};
+class morphable_item : public item {
+    char padding2[0x30];
+    int old_count;
+public:
+    void frame_advance(float time);
+    void set_range_visrep(int count);
+};
+asm(".equ frame_advance__4itemf, 0x0028A680");
+asm(".equ set_range_visrep__14morphable_itemi, 0x0028BEC8");
+void morphable_item::frame_advance(float time)
+{
+    item::frame_advance(time);
+    if (count != old_count) {
+        set_range_visrep(count);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
