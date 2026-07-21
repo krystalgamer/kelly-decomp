@@ -132,3 +132,30 @@ bool MemoryScreen(MenuEntry *entry, int button)
     return true;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00236980)
+// 0x00236980 ExitLevel__FP9MenuEntryi
+class MenuEntry;
+class MenuSystem { public: void CloseAllMenus(); };
+class game { public: void end_level(); };
+class app {
+    char padding[0x10];
+    game *the_game;
+public:
+    game *get_game() { return the_game; }
+};
+extern MenuSystem *menus;
+extern app *application;
+asm(".equ menus, 0x00424EE8");
+asm(".equ application, 0x0046AC18");
+asm(".equ CloseAllMenus__10MenuSystem, 0x00241060");
+asm(".equ end_level__4game, 0x00283598");
+bool ExitLevel(MenuEntry *entry, int buttonid)
+{
+    if (buttonid == 7) {
+        menus->CloseAllMenus();
+        application->get_game()->end_level();
+    }
+    return true;
+}
+#endif
