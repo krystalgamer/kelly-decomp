@@ -17,3 +17,20 @@ void **rtti_00360DF0()
     return rtti_00360DF0_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00360E68)
+// 0x00360E68 __tf15path_graph_edge
+extern "C" void __rtti_user(void **type, const char *name);
+extern "C" void *rtti_00360E68_type[] __asm__("__ti15path_graph_edge");
+extern "C" char rtti_00360E68_name[] __asm__("rtti_00360E68_type_name");
+__asm__(".equ __ti15path_graph_edge, 0x005121E8");
+__asm__(".equ rtti_00360E68_type_name, 0x00505870");
+__asm__(".equ __rtti_user, 0x003CE2F8");
+extern "C" void **rtti_00360E68() __asm__("__tf15path_graph_edge");
+void **rtti_00360E68()
+{
+    if (!rtti_00360E68_type[0])
+        __rtti_user(rtti_00360E68_type, rtti_00360E68_name);
+    return rtti_00360E68_type;
+}
+#endif

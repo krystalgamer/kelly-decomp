@@ -2546,7 +2546,7 @@ address,size_bytes,size_hex,symbol_name,raw_name,binding,source_file,reference_f
 0x0035FED0,64,0x40,__tf12input_device,__tf12input_device,global,inputmgr.h,KS/SRC/inputmgr.h,game/files_vsim,C:/KS/SRC/files_vsim.cpp,eligible,matched,1,100,SELF,notes/functions/0035FED0___tf12input_device.md
 0x003602B8,64,0x40,__tf6widget,__tf6widget,global,C:/KS/SRC/widget.h,KS/SRC/widget.h,game/files_vsim,C:/KS/SRC/files_vsim.cpp,eligible,matched,1,100,SELF,notes/functions/003602B8___tf6widget.md
 0x00360DF0,64,0x40,__tf15path_graph_node,__tf15path_graph_node,global,C:/KS/SRC/path.h,KS/SRC/path.h,game/files_vsim,C:/KS/SRC/files_vsim.cpp,eligible,matched,1,100,SELF,notes/functions/00360DF0___tf15path_graph_node.md
-0x00360E68,64,0x40,__tf15path_graph_edge,__tf15path_graph_edge,global,C:/KS/SRC/path.h,KS/SRC/path.h,game/files_vsim,C:/KS/SRC/files_vsim.cpp,eligible,pending,0,,,notes/functions/00360E68___tf15path_graph_edge.md
+0x00360E68,64,0x40,__tf15path_graph_edge,__tf15path_graph_edge,global,C:/KS/SRC/path.h,KS/SRC/path.h,game/files_vsim,C:/KS/SRC/files_vsim.cpp,eligible,matched,1,100,SELF,notes/functions/00360E68___tf15path_graph_edge.md
 0x00360ED8,64,0x40,__tf4path,__tf4path,global,C:/KS/SRC/path.h,KS/SRC/path.h,game/files_vsim,C:/KS/SRC/files_vsim.cpp,eligible,pending,0,,,notes/functions/00360ED8___tf4path.md
 0x00360F30,64,0x40,__tf10path_graph,__tf10path_graph,global,C:/KS/SRC/path.h,KS/SRC/path.h,game/files_vsim,C:/KS/SRC/files_vsim.cpp,eligible,pending,0,,,notes/functions/00360F30___tf10path_graph.md
 0x003617C8,64,0x40,__tf6wevent,__tf6wevent,global,C:/KS/SRC/widget.h,KS/SRC/widget.h,game/files_vsim,C:/KS/SRC/files_vsim.cpp,eligible,pending,0,,,notes/functions/003617C8___tf6wevent.md
