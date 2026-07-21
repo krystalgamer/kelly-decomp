@@ -68,3 +68,28 @@ __asm__(".equ find_instance__15trigger_managerRC7stringx, 0x0028D7B0");
 class slc_trigger_t { public: unsigned int find_instance(const stringx &name) const; };
 unsigned int slc_trigger_t::find_instance(const stringx &name) const { trigger *result = g_trigger_manager->find_instance(name); KELLY_DECOMP_COMPILER_BARRIER(); return (unsigned int)result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003290A0)
+// 0x003290A0 __cl__30slf_trigger_set_use_any_char_tR8vm_stackQ320script_library_class8function7entry_t
+class trigger {
+    char padding[0x34];
+    bool use_any_char;
+public:
+    void set_use_any_char(bool value) { use_any_char = value; }
+};
+class vm_stack { char padding[8]; char *top; public: void *pop(unsigned int size) { top -= size; return top; } };
+class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+class slf_trigger_set_use_any_char_t : public script_library_class::function {
+public:
+    struct parms_t { trigger *me; float u; };
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+bool slf_trigger_set_use_any_char_t::operator()(vm_stack &stack, entry_t entry)
+{
+    SLF_PARMS;
+    parms->me->set_use_any_char(parms->u != 0.0f);
+    SLF_DONE;
+}
+#endif
