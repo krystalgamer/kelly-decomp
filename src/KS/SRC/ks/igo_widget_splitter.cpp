@@ -1,5 +1,28 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00168D28)
+#include "KS/SRC/ks/igo_widget_shared.h"
+
+class SplitterWidget : public IGOWidget {
+    PanelQuad *barPQ;
+
+public:
+    virtual void Draw();
+};
+
+__asm__(".equ Draw__9IGOWidget, 0x00164668");
+
+// 0x00168D28 Draw__14SplitterWidget
+void SplitterWidget::Draw()
+{
+    IGOWidget::Draw();
+
+    if (!display)
+        return;
+
+    barPQ->Draw(0);
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00168C80)
 // 0x00168C80 SetDisplay__14SplitterWidgetb
