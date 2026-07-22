@@ -69,6 +69,29 @@ void **replay_rtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0026EF20)
+extern "C" void __rtti_si(void **type, const char *name, void **base);
+__asm__(".equ __rtti_si, 0x003CE2D8");
+extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
+extern "C" void *old_shoulder_type[] __asm__("__ti19old_shoulder_camera");
+extern "C" const char old_shoulder_name[] __asm__("old_shoulder_type_name");
+extern "C" void *game_camera_type[] __asm__("__ti11game_camera");
+__asm__(".equ __tf11game_camera, 0x002FECF0");
+__asm__(".equ __ti19old_shoulder_camera, 0x005A3AA0");
+__asm__(".equ old_shoulder_type_name, 0x004E4DE0");
+__asm__(".equ __ti11game_camera, 0x005A3D40");
+
+extern "C" void **old_shoulder_rtti() __asm__("__tf19old_shoulder_camera");
+void **old_shoulder_rtti()
+{
+    if (!old_shoulder_type[0]) {
+        game_camera_rtti();
+        __rtti_si(old_shoulder_type, old_shoulder_name, game_camera_type);
+    }
+    return old_shoulder_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00225340)
 // 0x00225340 sync__12debug_cameraR6camera
