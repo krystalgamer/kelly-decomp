@@ -192,3 +192,14 @@ game_info::game_info()
     reset();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00285570)
+#include "KS/SRC/game_shared.h"
+// 0x00285570 get_beach_location_name__4game
+__asm__(".equ get_first_beach__4game, 0x00285518");
+__asm__(".equ __7stringxPCci, 0x0034D438");
+stringx game::get_beach_location_name()
+{
+    return BeachDataArray[get_first_beach()].name;
+}
+#endif
