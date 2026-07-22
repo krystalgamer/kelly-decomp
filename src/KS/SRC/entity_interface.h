@@ -1,5 +1,30 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00113200)
+#include "KS/SRC/ai_rtti_shared.h"
+
+extern "C" void **generic_interface_rtti() __asm__("__tf17generic_interface");
+extern "C" void *generic_interface_type[] __asm__("__ti17generic_interface");
+extern "C" void *entity_interface_type[] __asm__("__ti16entity_interface");
+extern "C" const char entity_interface_name[];
+
+__asm__(".equ __tf17generic_interface, 0x00112BC8");
+__asm__(".equ __ti17generic_interface, 0x00511F90");
+__asm__(".equ __ti16entity_interface, 0x005A26A8");
+__asm__(".equ entity_interface_name, 0x004C8868");
+
+// 0x00113200 __tf16entity_interface
+extern "C" void **entity_interface_rtti() __asm__("__tf16entity_interface");
+void **entity_interface_rtti()
+{
+    if (!entity_interface_type[0]) {
+        generic_interface_rtti();
+        __rtti_si(entity_interface_type, entity_interface_name, generic_interface_type);
+    }
+    return entity_interface_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00112C38)
 // 0x00112C38 get_ifc_num__17generic_interfaceRC7pstringRf
