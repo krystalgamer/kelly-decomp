@@ -16,11 +16,31 @@ public:
 
 extern FEManager frontendmanager;
 
+struct MemCard {
+    int free;
+    bool exists;
+    bool changed;
+    bool available;
+    bool ask_format;
+    bool saved_games;
+    int status;
+};
+
 class NamesMenu : public FEMultiMenu {
+    char names_menu_data[0x1bc - sizeof(FEMultiMenu)];
+    MemCard cards[2];
+    stringx blank_name;
+    int active_card;
+    int adjusted_active_card;
+
 public:
     void OnUnactivate(FEMenu *menu);
     void RefreshDisplay();
     void TurnPQ(bool enabled);
+
+private:
+    void GetFileList(int active, int adjusted);
+    void UpdateMessage();
 };
 
 #endif

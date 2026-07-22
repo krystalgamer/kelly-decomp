@@ -156,3 +156,17 @@ void NamesMenu::OnUnactivate(FEMenu *menu) {
     highlighted->SetSpecialColor(frontendmanager.col_info_b, frontendmanager.col_info_b);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0019FF58)
+// 0x0019FF58 RefreshDisplay__9NamesMenu
+#include "KS/SRC/ks/SaveLoadFrontEnd_shared.h"
+#include "decomp_annotations.h"
+__asm__(".equ GetFileList__9NamesMenuii, 0x0019FFA8");
+__asm__(".equ UpdateMessage__9NamesMenu, 0x0019FDD0");
+void NamesMenu::RefreshDisplay() {
+    if (cards[adjusted_active_card].exists)
+        GetFileList(active_card, adjusted_active_card);
+    UpdateMessage();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
