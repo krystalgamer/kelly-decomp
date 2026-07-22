@@ -1,5 +1,15 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001140D8)
+#include "KS/SRC/entity_anim_shared.h"
+
+// 0x001140D8 set_po_anim__11entity_animP7po_anim
+void entity_anim::set_po_anim(po_anim *pp)
+{
+    delete po_anim_ptr;
+    po_anim_ptr = pp;
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00113578)
 // 0x00113578 __nw__11entity_animUiUiPCci

@@ -18,6 +18,8 @@ enum anim_flags_t {
     ANIM_FORCE_ABSOLUTE = 0x4000
 };
 
+class anim_control_t;
+
 template <class animatable_t>
 class anim {
 protected:
@@ -38,6 +40,11 @@ public:
         else
             clear_flag(flag);
     }
+
+    virtual void set_time(float time) {}
+    virtual void frame_advance(const anim_control_t &control, animatable_t *destination) {}
+    virtual void get_value(const anim_control_t &control, animatable_t *destination) const {}
+    virtual void get_value(float time, animatable_t *destination) const {}
 };
 
 #endif

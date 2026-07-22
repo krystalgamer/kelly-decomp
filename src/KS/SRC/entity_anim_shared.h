@@ -1,9 +1,18 @@
 #ifndef KELLY_DECOMP_ENTITY_ANIM_SHARED_H
 #define KELLY_DECOMP_ENTITY_ANIM_SHARED_H
 
+#include "KS/SRC/anim_shared.h"
+
 class PRS_track;
 class signal_track;
 class entity;
+class po;
+class signal_anim;
+
+class po_anim : public anim<po> {
+public:
+    virtual ~po_anim();
+};
 
 class entity_track_node {
     int id;
@@ -20,13 +29,11 @@ public:
     void add_child(entity_track_node *good_kid);
 };
 
-class entity_anim {
+class entity_anim : public anim<entity *> {
 protected:
-    unsigned short flags;
-    char anim_padding[6];
     entity *ent;
-    void *po_anim_ptr;
-    void *signal_anim_ptr;
+    po_anim *po_anim_ptr;
+    signal_anim *signal_anim_ptr;
     int priority;
 
 public:
@@ -41,6 +48,8 @@ public:
     void set_priority(int value) {
         priority = value;
     }
+
+    void set_po_anim(po_anim *animation);
 };
 
 struct pentity_anim_vector {
