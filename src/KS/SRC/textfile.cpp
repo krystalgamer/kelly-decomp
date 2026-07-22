@@ -1,5 +1,19 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00337890)
+#include "KS/SRC/textfile_shared.h"
+
+__asm__(".equ work, 0x0046DCE8");
+__asm__(".equ read__9text_filePci, 0x003378D8");
+__asm__(".equ __as__7stringxPCc, 0x0034E118");
+
+// 0x00337890 read__9text_fileP7stringx
+void text_file::read(stringx *s) {
+    read(work, sizeof(work) - 1);
+    *s = work;
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00338110)
 // 0x00338110 peek_char__9text_file
