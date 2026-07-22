@@ -12,6 +12,22 @@ void FEMenuEntry::Load() {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001DB258)
+// 0x001DB258 Mask__15FEGraphicalMenuP9PanelQuadf
+#include "KS/SRC/ks/FEPanel_shared.h"
+#define KELLY_DECOMP_BUILT_FEMENU_VTABLE_TAIL
+#define KELLY_DECOMP_FULL_FE_PANEL_HELPERS
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FE_PANEL_HELPERS
+#undef KELLY_DECOMP_BUILT_FEMENU_VTABLE_TAIL
+void FEGraphicalMenu::Mask(PanelQuad *quad, float amount) {
+    if (parent)
+        ((FEGraphicalMenu *)parent)->Mask(quad, amount);
+    else
+        FrontEnd::Mask(quad, amount);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001DB208)
 // 0x001DB208 ChangeFade__15FEGraphicalMenuP9PanelQuadbT2f
 #include "KS/SRC/ks/FEPanel_shared.h"
