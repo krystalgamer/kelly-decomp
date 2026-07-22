@@ -1,5 +1,27 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0025DC18)
+extern void RandomVOShutdown(void *) __asm__("shutdown__8RandomVO");
+__asm__(".equ shutdown__8RandomVO, 0x00256700");
+
+class SFXEngine {
+public:
+    void shutdown() __asm__("shutdown__9SFXEngine");
+};
+
+void SFXEngine::shutdown()
+{
+    char *self = (char *)this;
+    RandomVOShutdown(self + 636);
+    RandomVOShutdown(self + 1272);
+    RandomVOShutdown(self + 2552);
+    RandomVOShutdown(self + 3188);
+    RandomVOShutdown(self + 3824);
+    RandomVOShutdown(self);
+    __asm__ volatile("");
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0036C618)
 // 0x0036C618 ks_fx_destroy_all__Fv
