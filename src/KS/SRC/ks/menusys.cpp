@@ -1,5 +1,34 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00240FD0)
+struct Menu {};
+struct MenuSystem {};
+
+extern void MenuRenderOpenMenu(void *, Menu *)
+    __asm__("OpenMenu__10MenuRenderP4Menu");
+extern void MenuOpen(Menu *, Menu *, void *)
+    __asm__("Open__4MenuP4MenuP10MenuSystem");
+extern void MenuRenderRefresh(void *)
+    __asm__("Refresh__10MenuRender");
+extern void MenuInputInitButtonStates(void *)
+    __asm__("InitButtonStates__9MenuInput");
+__asm__(".equ OpenMenu__10MenuRenderP4Menu, 0x002409D0");
+__asm__(".equ Open__4MenuP4MenuP10MenuSystem, 0x0023E3D0");
+__asm__(".equ Refresh__10MenuRender, 0x00240A58");
+__asm__(".equ InitButtonStates__9MenuInput, 0x00240F88");
+
+extern "C" void MenuSystemOpenMenu(MenuSystem *, Menu *)
+    __asm__("OpenMenu__10MenuSystemP4Menu");
+void MenuSystemOpenMenu(MenuSystem *self, Menu *menu)
+{
+    MenuRenderOpenMenu(self, menu);
+    MenuOpen(menu, 0, self);
+    MenuRenderRefresh(self);
+    MenuInputInitButtonStates((char *)self + 1116);
+    __asm__ volatile("");
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00240F88)
 #include "KS/SRC/ks/menusys_shared.h"
 // 0x00240F88 InitButtonStates__9MenuInput
