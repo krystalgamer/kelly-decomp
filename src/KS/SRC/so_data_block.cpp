@@ -1,5 +1,19 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00352F88)
+#include "KS/SRC/so_data_block_shared.h"
+
+// 0x00352F88 _init__13so_data_blocki
+void so_data_block::_init(int size)
+{
+    blocksize = size;
+    if (size)
+        buffer = new (0, so_data_block_new_desc, 0) char[size];
+    else
+        buffer = 0;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00352E88)
 // 0x00352E88 __13so_data_blocki
