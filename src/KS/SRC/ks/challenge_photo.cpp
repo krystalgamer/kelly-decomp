@@ -1,5 +1,22 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_002626C8)
+#include "KS/SRC/ks/challenge_photo_shared.h"
+// 0x002626C8 _$_Q214PhotoChallenge5Photo
+extern "C" void builtin_delete(void* pointer) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+extern "C" void PhotoDtor(PhotoChallenge::Photo* self, int deleting)
+    __asm__("_$_Q214PhotoChallenge5Photo");
+
+void PhotoDtor(PhotoChallenge::Photo* self, int deleting)
+{
+    nglDestroyTexture(self->texture);
+    if (deleting & 1) {
+        builtin_delete(self);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00262518)
 // 0x00262518 OnEvent__14PhotoChallenge5EVENTii
