@@ -27,6 +27,19 @@ void MenuEntry::Show()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0023EE00)
+#include "KS/SRC/ks/menu_shared.h"
+// 0x0023EE00 Enable__9MenuEntry
+void MenuEntry::Enable()
+{
+    if (IsVisible() && !IsEnabled())
+    {
+        SetFlag(MENTRY_ENABLED, true);
+        OnEnable();
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0023EFD8)
 // 0x0023EFD8 OnMenuClose__9MenuEntry
 struct EntryVTable { char padding[0x40]; short adjustment; short padding2; void (*deactivate)(void *self); };
