@@ -15,6 +15,18 @@ void beam::release()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_002721F8)
+#include "KS/SRC/beam_shared.h"
+// 0x002721F8 render_passes_needed__C4beam
+render_flavor_t beam::render_passes_needed() const
+{
+    render_flavor_t passes = entity::render_passes_needed();
+    if (my_color.c.a < 255 || additive)
+        passes |= RENDER_TRANSLUCENT_PORTION;
+    return passes;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00271790)
 // 0x00271790 set_thickness__4beamf
 class beam {
