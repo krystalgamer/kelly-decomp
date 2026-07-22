@@ -1,0 +1,50 @@
+{
+  "address": "0x001DC378",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2d01060854072108492bd6099b28ae5880800656",
+      "error": "Candidate did not emit __tf23IGOLearnNewTrickManager; emitted functions: []",
+      "notes": "The immutable EventRecipient RTTI context was inspected. Initial self-contained candidate setup did not emit the requested RTTI symbol because the candidate source had not yet been populated.",
+      "score": 0.0,
+      "source": "// Target: 0x001DC378 __tf23IGOLearnNewTrickManager\n// Reference: KS/SRC/ks/igolearn_new_trickmanager.h\n// Replace this file with one self-contained candidate function.\n",
+      "status": "symbol_missing"
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a496a5d9f84a341f848002e08bb146bffe63a8ac",
+      "candidate_size": 80,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "__tf23IGOLearnNewTrickManager",
+      "instruction_score": 90.0,
+      "matching_bytes": 71,
+      "matching_instructions": 18,
+      "notes": "Implemented the immutable-style lazy RTTI body with EventRecipient base RTTI and __rtti_si. The candidate emitted the full 80-byte function but retained an unresolved relocation for the base RTTI call, producing 71/80 matching bytes.",
+      "score": 88.75,
+      "source": "// Target: 0x001DC378 __tf23IGOLearnNewTrickManager\n// Reference: KS/SRC/ks/igolearn_new_trickmanager.h\n\nextern \"C\" void __rtti_si(void **type, const char *name, void **base);\n__asm__(\".equ __rtti_si, 0x003CE2D8\");\n\nextern \"C\" void **event_recipient_rtti() __asm__(\"__tf14EventRecipient\");\nextern \"C\" void *igolearn_type[] __asm__(\"__ti23IGOLearnNewTrickManager\");\nextern \"C\" const char igolearn_name[] __asm__(\"igolearn_type_name\");\n__asm__(\".equ __ti23IGOLearnNewTrickManager, 0x005A2BB8\");\n__asm__(\".equ igolearn_type_name, 0x004DDBE0\");\n\nextern \"C\" void **igolearn_rtti() __asm__(\"__tf23IGOLearnNewTrickManager\");\nvoid **igolearn_rtti()\n{\n    if (!igolearn_type[0]) {\n        event_recipient_rtti();\n        __rtti_si(igolearn_type, igolearn_name, (void **)0x005120A8);\n    }\n    return igolearn_type;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cd3d4985b916a31a14222a4ce7e41337108b740e",
+      "candidate_size": 80,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "__tf23IGOLearnNewTrickManager",
+      "instruction_score": 100.0,
+      "matching_bytes": 77,
+      "matching_instructions": 20,
+      "notes": "Used absolute typeinfo and base-type symbols to reproduce the target instruction sequence. The candidate matched all instructions and 77/80 bytes; the remaining difference was the unresolved __tf14EventRecipient relocation. Exactly three Luna attempts were exhausted; no attempt 4 was run.",
+      "score": 96.25,
+      "source": "// Target: 0x001DC378 __tf23IGOLearnNewTrickManager\n// Reference: KS/SRC/ks/igolearn_new_trickmanager.h\n\nextern \"C\" void __rtti_si(void **type, const char *name, void **base);\n__asm__(\".equ __rtti_si, 0x003CE2D8\");\n\nextern \"C\" void **event_recipient_rtti() __asm__(\"__tf14EventRecipient\");\nextern \"C\" void *igolearn_type[] __asm__(\"__ti23IGOLearnNewTrickManager\");\nextern \"C\" const char igolearn_name[] __asm__(\"igolearn_type_name\");\nextern \"C\" void *event_recipient_type[] __asm__(\"__ti14EventRecipient\");\n__asm__(\".equ __ti23IGOLearnNewTrickManager, 0x005A2BB8\");\n__asm__(\".equ igolearn_type_name, 0x004DDBE0\");\n__asm__(\".equ __ti14EventRecipient, 0x005120A8\");\n\nextern \"C\" void **igolearn_rtti() __asm__(\"__tf23IGOLearnNewTrickManager\");\nvoid **igolearn_rtti()\n{\n    if (!igolearn_type[0]) {\n        event_recipient_rtti();\n        __rtti_si(igolearn_type, igolearn_name, event_recipient_type);\n    }\n    return igolearn_type;\n}\n",
+      "status": "different",
+      "target_size": 80
+    }
+  ],
+  "raw_name": "__tf23IGOLearnNewTrickManager"
+}
