@@ -1,5 +1,30 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00146490)
+#include "KS/SRC/entity_interface_shared.h"
+
+extern "C" void **bone_ifc_base_rtti() __asm__("__tf17generic_interface");
+extern "C" void *bone_ifc_base_type[] __asm__("__ti17generic_interface");
+extern "C" void *bone_ifc_type[] __asm__("__ti14bone_interface");
+extern "C" const char bone_ifc_name[];
+
+__asm__(".equ __tf17generic_interface, 0x00112BC8");
+__asm__(".equ __ti17generic_interface, 0x00511F90");
+__asm__(".equ __ti14bone_interface, 0x005A2908");
+__asm__(".equ bone_ifc_name, 0x004CECE0");
+
+// 0x00146490 __tf14bone_interface
+extern "C" void **bone_ifc_rtti() __asm__("__tf14bone_interface");
+void **bone_ifc_rtti()
+{
+    if (!bone_ifc_type[0]) {
+        bone_ifc_base_rtti();
+        __rtti_si(bone_ifc_type, bone_ifc_name, bone_ifc_base_type);
+    }
+    return bone_ifc_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00113200)
 #include "KS/SRC/ai_rtti_shared.h"
 
