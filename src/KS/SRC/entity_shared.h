@@ -38,6 +38,7 @@ public:
 
     time_value_t get_age() const;
     int get_max_polys() const;
+    bool is_hero() const;
     void set_flag(entity_flags flag, bool enabled) {
         if (enabled)
             flags |= flag;

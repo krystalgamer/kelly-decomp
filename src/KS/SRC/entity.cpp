@@ -1,5 +1,21 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00138C18)
+#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/game_shared.h"
+#include "KS/SRC/wds_shared.h"
+
+// 0x00138C18 is_hero__C6entity
+bool entity::is_hero() const
+{
+    for (int i = 0; i < g_game_ptr->get_num_players(); i++) {
+        if (this == g_world_ptr->get_hero_ptr(i))
+            return true;
+    }
+    return false;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00135FF8)
 #include "KS/SRC/mbi_shared.h"
 
