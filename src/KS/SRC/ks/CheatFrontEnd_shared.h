@@ -18,6 +18,7 @@ struct CheatFrontEndDispatchVTable {
     short adjustment;
     short padding2;
     void (*on_left)(void *self, int command);
+    void (*on_right)(void *self, int command);
 };
 
 class CheatFrontEnd : public FEMultiMenu {
