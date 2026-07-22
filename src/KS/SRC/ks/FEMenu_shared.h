@@ -290,6 +290,10 @@ public:
 #if defined(KELLY_DECOMP_FULL_FEMULTI_MENU)
     FEMenuEntry *secondary_cursor;
 #endif
+    virtual void OnUp(int);
+    virtual void OnDown(int);
+    virtual void OnLeft(int);
+    virtual void OnRight(int);
 };
 
 #endif
