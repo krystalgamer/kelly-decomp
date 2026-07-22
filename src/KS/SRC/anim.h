@@ -275,3 +275,10 @@ asm(".equ typeinfo, 0x00511FE8"); asm(".equ type_name, 0x004CA648");
 extern "C" void *GetTypeInfo() __asm__("__tft4anim1Zf");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00120AC0)
+// 0x00120AC0 set_flag__t4anim1ZP6entity12anim_flags_tb
+#include "KS/SRC/anim_shared.h"
+class entity;
+template void anim<entity *>::set_flag(anim_flags_t flag, bool enabled);
+#endif
