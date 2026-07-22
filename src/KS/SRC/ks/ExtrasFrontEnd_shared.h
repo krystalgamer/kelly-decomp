@@ -4,6 +4,8 @@
 #include "KS/SRC/ks/GraphicalMenuSystem_shared.h"
 #include "KS/SRC/ks/FrontEndManager_shared.h"
 
+#pragma interface
+
 class PreformatText;
 
 class CreditsFrontEnd : public FEMultiMenu {
