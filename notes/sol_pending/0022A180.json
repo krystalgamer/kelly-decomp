@@ -1,0 +1,57 @@
+{
+  "address": "0x0022A180",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cc7f9647145d6fc3347e52b38621f8fe8ec3f404",
+      "candidate_size": 76,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "init__15shoulder_camera",
+      "instruction_score": 5.0,
+      "matching_bytes": 16,
+      "matching_instructions": 1,
+      "notes": "Modeled the shoulder camera's two three-float vectors as struct assignments. The legacy compiler emitted 64-bit ldl/ldr copies and a 76-byte function instead of the target scalar lwc1/stores.",
+      "score": 20.0,
+      "source": "// Target: 0x0022A180 init__15shoulder_camera\n// Reference: KS/SRC/ks/ks_camera.cpp\n\nstruct vector3 {\n    float x, y, z;\n};\n\nextern vector3 shoulder_defaults;\n__asm__(\".equ shoulder_defaults, 0x00554478\");\n\nclass shoulder_camera {\n    char padding[720];\n    bool initialized;\n    vector3 position;\n    vector3 look_at;\npublic:\n    void init();\n};\n\nvoid shoulder_camera::init()\n{\n    initialized = false;\n    position = shoulder_defaults;\n    look_at = shoulder_defaults;\n    initialized = true;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5db48d0167aca8c1d12ae6b76cc4c6c35da03c32",
+      "candidate_size": 72,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "init__15shoulder_camera",
+      "instruction_score": 15.0,
+      "matching_bytes": 37,
+      "matching_instructions": 3,
+      "notes": "Changed both vector fields to explicit float arrays, reproducing scalar loads/stores and field offsets but not the target register scheduling or final flag placement; candidate remained 72 bytes.",
+      "score": 46.25,
+      "source": "// Target: 0x0022A180 init__15shoulder_camera\n// Reference: KS/SRC/ks/ks_camera.cpp\n\nstruct vector3 {\n    float x, y, z;\n};\n\nextern vector3 shoulder_defaults;\n__asm__(\".equ shoulder_defaults, 0x00554478\");\n\nclass shoulder_camera {\n    char padding[720];\n    bool initialized;\n    float position[3];\n    float look_at[3];\npublic:\n    void init();\n};\n\nvoid shoulder_camera::init()\n{\n    initialized = false;\n    position[0] = shoulder_defaults.x;\n    position[1] = shoulder_defaults.y;\n    position[2] = shoulder_defaults.z;\n    look_at[0] = shoulder_defaults.x;\n    look_at[1] = shoulder_defaults.y;\n    look_at[2] = shoulder_defaults.z;\n    initialized = true;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d4caa6ef4d0d6bdc9884f5b2463b7fb8bbc80caa",
+      "candidate_size": 72,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "init__15shoulder_camera",
+      "instruction_score": 15.0,
+      "matching_bytes": 37,
+      "matching_instructions": 3,
+      "notes": "Added the trailing ready flag at offset 748 per target layout. Scalar body remained 72 bytes and differed in scheduling from the immutable target. Exactly three Luna attempts exhausted; no attempt 4.",
+      "score": 46.25,
+      "source": "// Target: 0x0022A180 init__15shoulder_camera\n// Reference: KS/SRC/ks/ks_camera.cpp\n\nstruct vector3 {\n    float x, y, z;\n};\n\nextern vector3 shoulder_defaults;\n__asm__(\".equ shoulder_defaults, 0x00554478\");\n\nclass shoulder_camera {\n    char padding[720];\n    bool initialized;\n    float position[3];\n    float look_at[3];\n    bool ready;\npublic:\n    void init();\n};\n\nvoid shoulder_camera::init()\n{\n    initialized = false;\n    position[0] = shoulder_defaults.x;\n    position[1] = shoulder_defaults.y;\n    position[2] = shoulder_defaults.z;\n    look_at[0] = shoulder_defaults.x;\n    look_at[1] = shoulder_defaults.y;\n    look_at[2] = shoulder_defaults.z;\n    ready = true;\n}\n",
+      "status": "different",
+      "target_size": 80
+    }
+  ],
+  "raw_name": "init__15shoulder_camera"
+}
