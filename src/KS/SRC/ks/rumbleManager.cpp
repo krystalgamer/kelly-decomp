@@ -17,8 +17,8 @@ bool rumbleManager::isOn(int controller) { return on[controller]; }
 // 0x002427C8 writeText__FiPc
 extern "C" int sceWrite(int fd, const char *buffer, int count);
 extern "C" int strlen(const char *text);
-__asm__(".equ sceWrite, 0x003DF228");
-__asm__(".equ strlen, 0x003D40E0");
+__asm__(".globl sceWrite\n.equ sceWrite, 0x003DF228");
+__asm__(".globl strlen\n.equ strlen, 0x003D40E0");
 
 int writeText(const int fd, char *text) {
     int len = strlen(text);
