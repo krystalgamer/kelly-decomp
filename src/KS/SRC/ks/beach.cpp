@@ -1,5 +1,26 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001E99C8)
+extern "C" void cleanup(void *self) __asm__("cleanup__5beach");
+extern "C" void judging_system_dtor(void *self, int deleting)
+    __asm__("_$_13JudgingSystem");
+extern "C" void builtin_delete(void *pointer) __asm__("__builtin_delete");
+__asm__(".equ cleanup__5beach, 0x001E9A18");
+__asm__(".equ _$_13JudgingSystem, 0x00259870");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+
+extern "C" void beach_dtor(void *self, int deleting) __asm__("_$_5beach");
+void beach_dtor(void *self, int deleting)
+{
+    cleanup(self);
+    judging_system_dtor(self, 2);
+    if (deleting & 1) {
+        builtin_delete(self);
+        __asm__ volatile("");
+    }
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_001E9C10)
 // 0x001E9C10 add_object__5beachP12beach_object
