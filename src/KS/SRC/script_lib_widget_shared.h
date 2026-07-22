@@ -33,7 +33,10 @@ public:
     virtual void widget_slot_20();
     virtual void widget_slot_21();
     virtual void widget_slot_22();
-    virtual void widget_slot_23();
+    virtual void set_color(
+        rational_t red,
+        rational_t green,
+        rational_t blue);
     virtual void fade_to(rational_t alpha);
     virtual void fade_to(
         time_value_t wait,
@@ -45,6 +48,13 @@ class bitmap_widget : public widget {
 };
 
 class fluid_bar : public widget {
+};
+
+class vector3d {
+public:
+    rational_t x;
+    rational_t y;
+    rational_t z;
 };
 
 #endif
