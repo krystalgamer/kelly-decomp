@@ -279,3 +279,16 @@ vector3d *UninitializedCopy(
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00110468)
+// 0x00110468 __uninitialized_fill_n_aux__H3ZP5planeZUiZ5plane_X01X11RCX21G12__false_type_X01
+#include "KS/SRC/plane_shared.h"
+template<class ForwardIterator, class Size, class T>
+ForwardIterator __uninitialized_fill_n_aux(ForwardIterator first, Size n, const T &value, __false_type) {
+    ForwardIterator result = first;
+    for (; n > 0; --n, ++result)
+        construct(result, value);
+    return result;
+}
+template plane *__uninitialized_fill_n_aux(plane *, unsigned int, const plane &, __false_type);
+#endif

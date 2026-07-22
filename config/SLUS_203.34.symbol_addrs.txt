@@ -171,7 +171,7 @@ insert__t4list2ZQ27ai_path8waypointZt12my_allocator1ZQ27ai_path8waypointGt14_Lis
 resize__t4list2ZQ27ai_path8waypointZt12my_allocator1ZQ27ai_path8waypointUiRCQ27ai_path8waypoint = 0x00110328; // type:func size:0x98
 __uninitialized_copy_aux__H2ZP5planeZP5plane_X01X01X11G12__false_type_X11 = 0x001103C0; // type:func size:0x5C
 fill__H2ZP5planeZ5plane_X01X01RCX11_v = 0x00110420; // type:func size:0x44
-__uninitialized_fill_n_aux__H3ZP5planeZUiZ5plane_X01X11RCX21G12__false_type_X01 = 0x00110468; // type:func size:0x4C
+__uninitialized_fill_n_aux__H3ZP5planeZUiZ5plane_X01X11RCX21G12__false_type_X01 = 0x00110468; // type:func defined:true size:0x4C
 insert__t6vector2Z5planeZt12my_allocator1Z5planeP5planeUiRC5plane = 0x001104B8; // type:func size:0x338
 __uninitialized_copy_aux__H2ZPQ210partition37facerefZPQ210partition37faceref_X01X01X11G12__false_type_X11 = 0x001107F0; // type:func defined:true size:0x34
 _M_insert_aux__t6vector2ZQ210partition37facerefZt12my_allocator1ZQ210partition37facerefPQ210partition37facerefRCQ210partition37faceref = 0x00110828; // type:func size:0x25C
