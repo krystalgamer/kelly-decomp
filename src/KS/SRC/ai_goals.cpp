@@ -1,5 +1,22 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001068A8)
+#include "KS/SRC/ai_goals_shared.h"
+
+// 0x001068A8 running_action__7ai_goalUi
+bool ai_goal::running_action(unsigned int id)
+{
+    list<ai_action *>::iterator i = actions.begin();
+    while (i != actions.end()) {
+        if ((*i)->get_id() == id)
+            return true;
+
+        ++i;
+    }
+
+    return false;
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00106608)
 // 0x00106608 get_my_entity__C7ai_goal
