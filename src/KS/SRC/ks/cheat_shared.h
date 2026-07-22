@@ -35,7 +35,7 @@ class Cheat {
 
 public:
     inline bool isOn() const { return on; }
-    static int checkCodeUnlock(const stringx &code);
+    static int checkCodeUnlock(stringx code);
 };
 
 extern Cheat g_session_cheats[CHEAT_LAST];
