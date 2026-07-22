@@ -1,0 +1,49 @@
+{
+  "address": "0x00198E18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d021907f6058a3b15a98c29a5fd8d2a755e25aa3",
+      "notes": "Luna attempt 1: reviewed the immutable FrontEndManager.cpp source and tested a shared-header source-level candidate. It did not produce an exact match; see compiler and assembly artifacts.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FrontEndManager_shared.h\"\n#include \"KS/SRC/ks/FrontEndManager_shared.h\"\n\nvoid FEManager::UpdateFE(time_value_t time_inc)\n{\n    em->Update(time_inc);\n    gms->Update(time_inc);\n}\n",
+      "status": "compile_failed"
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ea5c6ba061d24698a50e8a50e617030a43b48bb2",
+      "candidate_size": 80,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "UpdateFE__9FEManagerf",
+      "instruction_score": 80.0,
+      "matching_bytes": 65,
+      "matching_instructions": 16,
+      "notes": "Luna attempt 2: reviewed the immutable FrontEndManager.cpp source and tested a shared-header source-level candidate. It did not produce an exact match; see compiler and assembly artifacts.",
+      "score": 81.25,
+      "source": "#include \"KS/SRC/ks/FrontEndManager_shared.h\"\n#include \"KS/SRC/ks/GraphicalMenuSystem_shared.h\"\n#include \"KS/SRC/ks/FrontEndManager_shared.h\"\n\nvoid FEManager::UpdateFE(time_value_t time_inc)\n{\n    em->Update(time_inc);\n    gms->Update(time_inc);\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "706558384b073d368e47ee07441a67055e6ae63e",
+      "candidate_size": 80,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "UpdateFE__9FEManagerf",
+      "instruction_score": 75.0,
+      "matching_bytes": 61,
+      "matching_instructions": 15,
+      "notes": "Luna attempt 3: compiler-barrier scheduling variant remained non-matching; target prologue saves ra before s0 while candidate does not.",
+      "score": 76.25,
+      "source": "#include \"KS/SRC/ks/FrontEndManager_shared.h\"\n#include \"decomp_annotations.h\"\n#include \"KS/SRC/ks/GraphicalMenuSystem_shared.h\"\n#include \"KS/SRC/ks/FrontEndManager_shared.h\"\n\nvoid FEManager::UpdateFE(time_value_t time_inc)\n{\n    KELLY_DECOMP_COMPILER_BARRIER();\n    em->Update(time_inc);\n    gms->Update(time_inc);\n}\n",
+      "status": "different",
+      "target_size": 80
+    }
+  ],
+  "raw_name": "UpdateFE__9FEManagerf"
+}
