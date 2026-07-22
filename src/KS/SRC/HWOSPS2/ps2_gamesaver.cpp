@@ -19,6 +19,20 @@ stringx GenericGameSaver::getCardString(int port, int slot)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001E6380)
+asm(".equ ksGlobalTextArray, 0x003E6050");
+asm(".equ sprintf, 0x003D38A8");
+asm(".equ __7stringxPCci, 0x0034D438");
+
+// 0x001E6380 getShortCardString__16GenericGameSaverii
+stringx GenericGameSaver::getShortCardString(int port, int slot)
+{
+    char errortxt[100];
+    sprintf(errortxt, ksGlobalTextArray[GT_MEMORY_SLOT_PS2].c_str(), port + 1);
+    return stringx(errortxt);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001E6780)
 // 0x001E6780 getOverwriteString__16GenericGameSaverii
 class stringx {
