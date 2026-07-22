@@ -1,5 +1,24 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0020D250) || \
+    defined(KELLY_DECOMP_FUNCTION_0021E478)
+#include "KS/SRC/ks/kellyslater_controller_shared.h"
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0020D250)
+asm(".equ AddTrick__14ScoringManageri, 0x00247558");
+
+// 0x0020D250 SetCompletedTrick__22kellyslater_controller
+void kellyslater_controller::SetCompletedTrick()
+{
+    if (completedTrick != currentTrick)
+    {
+        my_scoreManager.AddTrick(currentTrick);
+        trick_complete = true;
+        completedTrick = currentTrick;
+    }
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0020D2E8)
 // 0x0020D2E8 SetCurrentTrick__22kellyslater_controller
