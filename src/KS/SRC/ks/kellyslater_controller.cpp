@@ -67,6 +67,22 @@ void kellyslater_controller::StartGrind(const vector3d direction) {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0021E478)
+// 0x0021E478 GetCurrentTrick__22kellyslater_controller
+int kellyslater_controller::GetCurrentTrick()
+{
+    if (super_state == SUPER_STATE_IN_TUBE)
+    {
+        if (state == STATE_TUBE_RAILGRAB)
+            return TRICK_TUBE_RAIL_GRAB;
+        if (tube_trick != -1)
+            return tube_trick;
+        return last_tube_trick;
+    }
+    return currentTrick;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0021E448)
 // 0x0021E448 StartCelebration__22kellyslater_controller
 class kellyslater_controller { char padding[0x30]; int state; char padding_to_super[0x4]; int super_state; public: void StartCelebration(); };
