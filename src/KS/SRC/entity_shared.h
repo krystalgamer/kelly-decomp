@@ -18,7 +18,8 @@ enum entity_extended_flags {
 
 enum entity_flags {
     EFLAG_PHYSICS_COLLISIONS_ACTIVE = 0x00000002,
-    EFLAG_GRAPHICS = 0x00000100
+    EFLAG_GRAPHICS = 0x00000100,
+    EFLAG_REGION_FORCED = 0x10000000
 };
 
 class entity {
@@ -44,6 +45,8 @@ public:
             flags &= ~flag;
     }
     void region_update_poss_collide();
+    void remove_from_regions();
+    void unforce_regions();
     void set_collisions_active(bool active, bool update_region = true)
         __asm__("set_collisions_active__6entitybT1");
     void set_door(bool door);

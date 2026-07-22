@@ -1,5 +1,19 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00131E20)
+#include "KS/SRC/entity_shared.h"
+
+__asm__(".equ remove_from_regions__6entity, 0x0012FE18");
+
+// 0x00131E20 unforce_regions__6entity
+void entity::unforce_regions()
+{
+    if (flags & EFLAG_REGION_FORCED) {
+        remove_from_regions();
+        set_flag(EFLAG_REGION_FORCED, false);
+    }
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00127870)
 // 0x00127870 __nw__Q26entity13movement_infoUiUiPCci
