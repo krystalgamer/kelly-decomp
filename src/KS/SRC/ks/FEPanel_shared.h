@@ -14,8 +14,23 @@ public:
     };
 };
 
+#ifndef KELLY_DECOMP_COLOR32_DEFINED
+#define KELLY_DECOMP_COLOR32_DEFINED
 struct color32 {
     unsigned int value;
+};
+#endif
+
+class vector3d {
+public:
+    float x;
+    float y;
+    float z;
+
+    vector3d() {}
+    vector3d(const vector3d &value) : x(value.x), y(value.y), z(value.z) {}
+    vector3d(float x_value, float y_value, float z_value)
+        : x(x_value), y(y_value), z(z_value) {}
 };
 
 class TextString {
@@ -44,8 +59,44 @@ public:
     virtual ~TextString() {}
     virtual void Update(float time_inc);
     virtual void Draw();
+    virtual void setHJustify(Font::HORIZJUST hjust);
+    virtual void setVJustify(Font::VERTJUST vjust);
+    virtual void setFont(Font *value);
+    virtual void setButtonScale(float value);
+    virtual void numberSpacing(bool enabled);
     virtual void changeText(stringx value);
+    virtual void changeScale(float value);
+    virtual void changePos(float x, float y);
+    virtual void changeX(float x);
+    virtual void changeY(float y);
+    virtual void changeZ(int z);
+    virtual void ChangeFade(bool start, bool fade_in, float time = 2.0f);
+    virtual void SetFade(float alpha);
+    virtual float getX();
+    virtual float getY();
+    virtual int getZ();
+    virtual stringx getText();
+    virtual float GetScale() const;
+    virtual float GetButtonScale() const;
+    virtual bool GetNumberSpacing() const;
+    virtual Font *GetFont();
+    virtual Font::HORIZJUST GetHJustify() const;
+    virtual Font::VERTJUST GetVJustify() const;
+    virtual void setLineSpacing(int spacing);
+    virtual void resetLineSpacing();
+    virtual void UpdateInScene(bool ignore_scale = false);
+    virtual void SetLocation3D(vector3d location);
+    virtual vector3d GetLocation3D();
+    virtual void SetBehaviorNF(float x, float y);
+    virtual void SetBehavior(bool non_floating);
     static void MakeReplacements(stringx &value);
+};
+
+class MultiLineString : public TextString {
+protected:
+    int vSpacing;
+    int line_num;
+    Font *fonts[20];
 };
 
 class PanelQuad {

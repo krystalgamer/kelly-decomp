@@ -12,6 +12,18 @@ void FEMenuEntry::Load() {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001DA5E0)
+// 0x001DA5E0 SetLocation3D__11FEMenuEntryG8vector3d
+#include "KS/SRC/ks/FEPanel_shared.h"
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+__asm__(".equ SetLocation3D__10TextStringG8vector3d, 0x001D8770");
+void FEMenuEntry::SetLocation3D(vector3d location) {
+    text->SetLocation3D(location);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001DA4F8)
 // 0x001DA4F8 OnSelect__11FEMenuEntry
 class FEMenuEntry {

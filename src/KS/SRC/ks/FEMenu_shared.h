@@ -14,11 +14,15 @@ class FEMenuSystem;
 class PanelQuad;
 class entity;
 class MultiLineString;
+class vector3d;
 
+#ifndef KELLY_DECOMP_COLOR32_DEFINED
+#define KELLY_DECOMP_COLOR32_DEFINED
 class color32 {
 public:
     unsigned int value;
 };
+#endif
 
 class FEMenu;
 
@@ -71,6 +75,7 @@ public:
     virtual void SetNoFlash(bool disabled);
     virtual float GetHighlightIntensity();
     virtual void SetPos(float x, float y);
+    virtual void SetLocation3D(vector3d location);
 #endif
 };
 
