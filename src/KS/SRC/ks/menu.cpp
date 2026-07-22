@@ -47,6 +47,16 @@ class MenuEntry { int field0; EntryVTable *vtable; public: void OnMenuClose(); }
 void MenuEntry::OnMenuClose() { EntryVTable *table = vtable; table->deactivate((char *)this + table->adjustment); }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00240298)
+#include "KS/SRC/ks/menu_shared.h"
+// 0x00240298 SetValue__17MenuEntryEnumEditi
+void MenuEntryEnumEdit::SetValue(int value)
+{
+    if (value >= 0 && value <= hi)
+        MenuEntryIntEdit::SetValue(vals[value]);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0023E218)
 // 0x0023E218 __4MenuP4Menu
 class MenuEntry;

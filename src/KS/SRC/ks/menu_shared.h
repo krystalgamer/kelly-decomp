@@ -304,6 +304,17 @@ public:
     virtual int MenuText(char *text, int length);
 };
 
+class MenuEntryEnumEdit : public MenuEntryListEdit {
+    int *vals;
+
+public:
+    MenuEntryEnumEdit(char *text, int *target, int count, char **labels, int *values);
+    MenuEntryEnumEdit(char *text, int *target, int count, char **labels, int *values, char *format);
+    virtual ~MenuEntryEnumEdit() {}
+    virtual void SetValue(int value);
+    virtual int GetValue();
+};
+
 class MenuSystem {
     char menu_system_context[0x458];
 
