@@ -4,6 +4,7 @@
 #define KELLY_DECOMP_FULL_FEMENU_ENTRY
 #include "KS/SRC/ks/FEMenu_shared.h"
 #undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEPanel_shared.h"
 
 #pragma interface
 
