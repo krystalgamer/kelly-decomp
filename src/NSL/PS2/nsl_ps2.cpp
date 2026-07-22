@@ -1,5 +1,9 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_003915E0) || \
+    defined(KELLY_DECOMP_FUNCTION_00391628)
+#include "NSL/PS2/fifo_queue_shared.h"
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00390B30)
 // 0x00390B30 nslPreInitProviewModePS2__Fb
@@ -40,6 +44,21 @@ extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initi
 extern "C" void GlobalInit() __asm__("_GLOBAL_$I$nsl");
 __asm__(".equ __static_initialization_and_destruction_0, 0x003916C0");
 void GlobalInit() { StaticInit(1, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003915E0)
+// 0x003915E0 clear__t10fifo_queue1ZUi
+template <class T>
+void fifo_queue<T>::clear() {
+    int i;
+    start = 0;
+    end = -1;
+    count = 0;
+    for (i = 0; i < queue_max; ++i)
+        queue[i] = 0;
+}
+
+template void fifo_queue<unsigned int>::clear();
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003916C0)
