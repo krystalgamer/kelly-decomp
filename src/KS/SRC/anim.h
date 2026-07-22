@@ -27,6 +27,33 @@ void **key_quat_rtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00121BF8)
+#include "KS/SRC/linear_anim_shared.h"
+
+extern "C" void **key_float_base_rtti() __asm__("__tft4anim1Zf");
+extern "C" void *key_float_base_type[] __asm__("__tit4anim1Zf");
+extern "C" void *key_float_type[]
+    __asm__("__tit8key_anim3ZfZt10linear_key1ZfZt12linear_track1Zf");
+extern "C" const char key_float_name[];
+
+__asm__(".equ __tft4anim1Zf, 0x00121CC8");
+__asm__(".equ __tit4anim1Zf, 0x00511FE8");
+__asm__(".equ __tit8key_anim3ZfZt10linear_key1ZfZt12linear_track1Zf, 0x005A2748");
+__asm__(".equ key_float_name, 0x004CA5E0");
+
+// 0x00121BF8 key_anim<float> RTTI
+extern "C" void **key_float_rtti()
+    __asm__("__tft8key_anim3ZfZt10linear_key1ZfZt12linear_track1Zf");
+void **key_float_rtti()
+{
+    if (!key_float_type[0]) {
+        key_float_base_rtti();
+        __rtti_si(key_float_type, key_float_name, key_float_base_type);
+    }
+    return key_float_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00121BA8)
 #include "KS/SRC/linear_anim_shared.h"
 
