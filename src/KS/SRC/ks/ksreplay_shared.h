@@ -37,6 +37,8 @@ class KSReplay {
 
 public:
     void Tick(bool running, float time_inc);
+    void Pause(bool paused);
+    void SaveFile(const char *filename);
     void SetWipeoutSplash(int player);
     void SetEndWave();
 };

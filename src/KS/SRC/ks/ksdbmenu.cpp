@@ -9,6 +9,20 @@ __asm__(".equ profiler_enabled, 0x00431AFF");
 bool ProfButton(MenuEntry* entry, int button) { profiler_enabled = 1; return true; }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00236770)
+// 0x00236770 ReplayCancelButton__FP9MenuEntryi
+#include "KS/SRC/ks/ksdbmenu_shared.h"
+__asm__(".equ Pause__8KSReplayb, 0x0023C9E0");
+__asm__(".equ menus, 0x00424EE8");
+bool ReplayCancelButton(MenuEntry *entry, int button) {
+    if (button == MENUCMD_CROSS) {
+        ksreplay.Pause(false);
+        menus->CloseMenu();
+    }
+    return true;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00235EE0)
 // 0x00235EE0 UserCamButton__FP9MenuEntryi
 #include "KS/SRC/ks/ksdbmenu_shared.h"

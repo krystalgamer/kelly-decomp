@@ -2,6 +2,7 @@
 #define KELLY_DECOMP_KSDBMENU_SHARED_H
 
 #include "KS/SRC/ks/menu_shared.h"
+#include "KS/SRC/ks/ksreplay_shared.h"
 
 enum {
     MENUCMD_CROSS = 7,
