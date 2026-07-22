@@ -20,6 +20,8 @@ enum device_id_t {
     ANY_LOCAL_JOYSTICK,
 };
 
+#define JOYSTICK_DEVICE JOYSTICK1_DEVICE
+
 const rational_t AXIS_MAX = 1.0f;
 const rational_t AXIS_MID = 0.0f;
 const rational_t AXIS_MIN = -1.0f;
