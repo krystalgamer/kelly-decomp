@@ -121,6 +121,20 @@ __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_0031DB20(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031DB90)
+#include "KS/SRC/script_library_class_shared.h"
+// 0x0031DB90 slf_allow_suspend_thread_t::operator()
+__asm__(".equ set_suspendable__9vm_threadb, 0x00354688");
+bool slf_allow_suspend_thread_t::operator()(
+    vm_stack &stack,
+    script_library_class::function::entry_t entry)
+{
+    SLF_PARMS;
+    stack.get_thread()->set_suspendable(parms->t);
+    SLF_DONE;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0031DBE0)
 // 0x0031DBE0 _$_25slf_set_camera_priority_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");

@@ -3,7 +3,10 @@
 
 typedef float vm_num_t;
 
-class vm_thread;
+class vm_thread {
+public:
+    void set_suspendable(bool value);
+};
 
 class vm_stack {
 public:
@@ -17,6 +20,7 @@ private:
 public:
     char *get_SP() const { return SP; }
     void pop(int n) { SP -= n; }
+    vm_thread *get_thread() const { return my_thread; }
 };
 
 class script_library_class {
@@ -28,6 +32,15 @@ public:
             RECALL_ENTRY
         };
     };
+};
+
+class slf_allow_suspend_thread_t {
+public:
+    struct parms_t {
+        vm_num_t t;
+    };
+
+    bool operator()(vm_stack &stack, script_library_class::function::entry_t entry);
 };
 
 #define SLF_PARMS \
