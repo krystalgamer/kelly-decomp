@@ -296,3 +296,10 @@ template void anim<po>::set_flag(anim_flags_t flag, bool enabled);
 class signal_key;
 template void anim<signal_key>::set_flag(anim_flags_t flag, bool enabled);
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00120DB0)
+// 0x00120DB0 set_flag__t4anim1Z8vector3d12anim_flags_tb
+#include "KS/SRC/anim_shared.h"
+class vector3d;
+template void anim<vector3d>::set_flag(anim_flags_t flag, bool enabled);
+#endif
