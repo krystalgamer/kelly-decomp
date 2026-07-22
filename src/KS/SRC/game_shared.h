@@ -8,6 +8,7 @@ class game {
 public:
     bool was_start_pressed() const;
     bool was_A_pressed() const;
+    bool was_B_pressed() const;
 };
 
 #endif
