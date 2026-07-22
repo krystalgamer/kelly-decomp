@@ -74,6 +74,8 @@ public:
     void update_regions();
 };
 
+#if !defined(KELLY_DECOMP_FUNCTION_0028DD00)
 __asm__(".equ set_active__7triggerb, 0x0028DD00");
+#endif
 
 #endif
