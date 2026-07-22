@@ -1,0 +1,57 @@
+{
+  "address": "0x001D39F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d2816297d7e942bb86d58f73be234cb1e6f17bee",
+      "candidate_size": 68,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "ExitMenu__14EnterCheatMenuf",
+      "instruction_score": 20.0,
+      "matching_bytes": 30,
+      "matching_instructions": 4,
+      "notes": "Immutable body compiled with a const-reference checkCodeUnlock declaration; target requires a by-value stringx copy and a 48-byte frame, so this attempt scored 37.5%.",
+      "score": 37.5,
+      "source": "#include \"KS/SRC/ks/CheatFrontEnd_shared.h\"\nvoid EnterCheatMenu::ExitMenu(float delay) {\n    closing = true;\n    closing_timer = CHEAT_CODE_MESSAGE_DURATION + delay;\n    cheat_unlocked = Cheat::checkCodeUnlock(current_code);\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "af25808f4107d793aec54d3236220a5d1ca8588e",
+      "candidate_size": 80,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "ExitMenu__14EnterCheatMenuf",
+      "instruction_score": 75.0,
+      "matching_bytes": 55,
+      "matching_instructions": 15,
+      "notes": "Changed shared Cheat::checkCodeUnlock to take stringx by value, producing the target 48-byte frame and copy/check calls. The only mismatch was scheduling of the closing store versus the stringx constructor call.",
+      "score": 68.75,
+      "source": "#include \"KS/SRC/ks/CheatFrontEnd_shared.h\"\nvoid EnterCheatMenu::ExitMenu(float delay) {\n    closing = true;\n    closing_timer = CHEAT_CODE_MESSAGE_DURATION + delay;\n    cheat_unlocked = Cheat::checkCodeUnlock(current_code); // copy by value\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8b6a5f7b8c82e56c29a6b39b50d5403cd82edef5",
+      "candidate_size": 128,
+      "compared_bytes": 128,
+      "compared_instructions": 32,
+      "emitted_name": "ExitMenu__14EnterCheatMenuf",
+      "instruction_score": 3.125,
+      "matching_bytes": 11,
+      "matching_instructions": 1,
+      "notes": "Tried an explicit local stringx copy to force the target scheduling, but it introduced a second copy/destructor and expanded the frame, scoring 8.59%. No further Luna attempt is permitted.",
+      "score": 8.5938,
+      "source": "#include \"KS/SRC/ks/CheatFrontEnd_shared.h\"\nvoid EnterCheatMenu::ExitMenu(float delay) {\n    stringx code(current_code);\n    closing = true;\n    closing_timer = CHEAT_CODE_MESSAGE_DURATION + delay;\n    cheat_unlocked = Cheat::checkCodeUnlock(code);\n}\n",
+      "status": "different",
+      "target_size": 80
+    }
+  ],
+  "raw_name": "ExitMenu__14EnterCheatMenuf"
+}
