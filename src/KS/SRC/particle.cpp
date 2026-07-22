@@ -65,3 +65,18 @@ typedef float rational_t;
 class particle_generator { public: char p0[0x220]; rational_t particle_life_span; char p1[12]; rational_t base_speed; rational_t speed_variation; char p2[0x20]; rational_t generation_radius; rational_t generation_height; rational_t get_base_visual_radius() const; };
 rational_t particle_generator::get_base_visual_radius() const { return(base_speed*(speed_variation+1)*particle_life_span+generation_radius+generation_height)*1.5f+1.0f; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D0828)
+#include "KS/SRC/particle_shared.h"
+// 0x002D0828 acquire__18particle_generatorUi
+__asm__(".equ acquire__6entityUi, 0x0012A820");
+void particle_generator::acquire(unsigned int flags)
+{
+    flags |= EFLAG_MISC_NONSTATIC | EFLAG_GRAPHICS_VISIBLE;
+    entity::acquire(flags);
+    time_to_next_particle = 0.0f;
+    start_particle = end_particle = 0;
+    set_flag(EFLAG_GRAPHICS, true);
+    last_position_valid = false;
+}
+#endif
