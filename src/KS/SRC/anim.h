@@ -289,3 +289,10 @@ template void anim<entity *>::set_flag(anim_flags_t flag, bool enabled);
 class po;
 template void anim<po>::set_flag(anim_flags_t flag, bool enabled);
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00120C48)
+// 0x00120C48 set_flag__t4anim1Z10signal_key12anim_flags_tb
+#include "KS/SRC/anim_shared.h"
+class signal_key;
+template void anim<signal_key>::set_flag(anim_flags_t flag, bool enabled);
+#endif
