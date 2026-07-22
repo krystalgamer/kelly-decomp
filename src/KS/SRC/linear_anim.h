@@ -27,6 +27,33 @@ void **linear_quat_rtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00120D38)
+#include "KS/SRC/linear_anim_shared.h"
+
+extern "C" void **linear_float_base_rtti()
+    __asm__("__tft8key_anim3ZfZt10linear_key1ZfZt12linear_track1Zf");
+extern "C" void *linear_float_base_type[]
+    __asm__("__tit8key_anim3ZfZt10linear_key1ZfZt12linear_track1Zf");
+extern "C" void *linear_float_type[] __asm__("__tit11linear_anim1Zf");
+extern "C" const char linear_float_name[];
+
+__asm__(".equ __tft8key_anim3ZfZt10linear_key1ZfZt12linear_track1Zf, 0x00121BF8");
+__asm__(".equ __tit8key_anim3ZfZt10linear_key1ZfZt12linear_track1Zf, 0x005A2748");
+__asm__(".equ __tit11linear_anim1Zf, 0x005A2718");
+__asm__(".equ linear_float_name, 0x004CA4D0");
+
+// 0x00120D38 __tft11linear_anim1Zf
+extern "C" void **linear_float_rtti() __asm__("__tft11linear_anim1Zf");
+void **linear_float_rtti()
+{
+    if (!linear_float_type[0]) {
+        linear_float_base_rtti();
+        __rtti_si(linear_float_type, linear_float_name, linear_float_base_type);
+    }
+    return linear_float_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00120CE8)
 #include "KS/SRC/linear_anim_shared.h"
 
