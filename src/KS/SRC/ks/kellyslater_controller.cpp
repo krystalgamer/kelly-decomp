@@ -1,9 +1,12 @@
 // Matching decompilation blocks selected by generated build shims.
 
 #if defined(KELLY_DECOMP_FUNCTION_0020D250) || \
-    defined(KELLY_DECOMP_FUNCTION_0021E478)
+    defined(KELLY_DECOMP_FUNCTION_0021E478) || \
+    defined(KELLY_DECOMP_FUNCTION_0021F6E0)
 #include "KS/SRC/ks/kellyslater_controller_shared.h"
 #endif
+
+#include "decomp_annotations.h"
 
 #if defined(KELLY_DECOMP_FUNCTION_0020D250)
 asm(".equ AddTrick__14ScoringManageri, 0x00247558");
@@ -80,6 +83,22 @@ int kellyslater_controller::GetCurrentTrick()
         return last_tube_trick;
     }
     return currentTrick;
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0021F6E0)
+asm(".equ g_game_ptr, 0x0046AC64");
+asm(".equ SetPlayerCamera__22kellyslater_controllerP11game_camera, 0x002125B0");
+
+// 0x0021F6E0 end_secondary_cam__22kellyslater_controller
+void kellyslater_controller::end_secondary_cam()
+{
+    camera* secondary_cam = look_back_cam_ptr;
+    if (g_game_ptr->get_player_camera(my_player_num) == secondary_cam)
+    {
+        SetPlayerCamera(player_cam);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
 }
 #endif
 
