@@ -929,3 +929,21 @@ int entity::get_max_polys() const {
     return my_visrep->get_max_faces(get_age());
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00138E60)
+// 0x00138E60 set_collisions_active__6entitybT1
+#include "KS/SRC/entity_shared.h"
+#include "decomp_annotations.h"
+__asm__(".equ region_update_poss_collide__6entity, 0x00139090");
+void entity::set_collisions_active(bool a, bool update_reg) {
+    if (entity::are_collisions_active() != a) {
+        if (a)
+            flags |= EFLAG_PHYSICS_COLLISIONS_ACTIVE;
+        else
+            flags &= ~EFLAG_PHYSICS_COLLISIONS_ACTIVE;
+        if (update_reg)
+            region_update_poss_collide();
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif

@@ -16,15 +16,28 @@ enum entity_extended_flags {
     EFLAG_EXT_IS_DOOR = 0x00000040
 };
 
+enum entity_flags {
+    EFLAG_PHYSICS_COLLISIONS_ACTIVE = 0x00000002
+};
+
 class entity {
-    char entity_data[0x128];
+    char entity_data[0x78];
+    unsigned int flags;
+    char entity_data_after_flags[0xac];
     visual_rep *my_visrep;
     char entity_data_after_visrep[0x6c];
     unsigned int ext_flags;
 
 public:
+    bool are_collisions_active() const {
+        return flags & EFLAG_PHYSICS_COLLISIONS_ACTIVE;
+    }
+
     time_value_t get_age() const;
     int get_max_polys() const;
+    void region_update_poss_collide();
+    void set_collisions_active(bool active, bool update_region = true)
+        __asm__("set_collisions_active__6entitybT1");
     void set_door(bool door);
     void set_door_closed(bool closed);
 };
