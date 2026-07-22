@@ -70,3 +70,19 @@ void VOEngine::stopVO()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00258558)
+#include "KS/SRC/ks/VOEngine_shared.h"
+// 0x00258558 setCurrentLevel__8VOEnginei
+int nslGetSoundStatus(unsigned int sound);
+void nslStopSound(unsigned int sound);
+__asm__(".equ nslGetSoundStatus__FUi, 0x0038DBA0");
+__asm__(".equ nslStopSound__FUi, 0x0038D288");
+void VOEngine::setCurrentLevel(int level)
+{
+    if (nslGetSoundStatus(currentSound) != 0)
+        nslStopSound(currentSound);
+    myTimer = 0;
+    currentLevel = level;
+}
+#endif
