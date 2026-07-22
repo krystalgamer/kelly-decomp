@@ -10,6 +10,27 @@
 class entity;
 class vector3d;
 
+class color32 {
+public:
+    unsigned int value;
+};
+
+class generic_anim {
+public:
+    virtual ~generic_anim();
+    virtual void update(bool collide, bool jump, bool spray, float* alpha) = 0;
+    virtual void spawn() = 0;
+    virtual void switch_anims() = 0;
+
+protected:
+    stringx my_base_name;
+    int cur_state;
+    int cur_anim;
+    bool dummy;
+    bool left_down;
+    bool right_down;
+};
+
 class beach_object {
 public:
     beach_object(entity*, const stringx&);
@@ -34,6 +55,7 @@ public:
     bool never_despawn;
 
 protected:
+    void set_target_active(bool value) { *(bool*)((char*)this + 0x24) = value; }
     bool physical;
     entity* my_entity;
     int spawn_count;
@@ -70,6 +92,23 @@ public:
     virtual void spawn();
     virtual void despawn();
     virtual bool update(float);
+
+protected:
+    color32 ren_col;
+    float my_max_alpha;
+    char water_data[0x28C];
+};
+
+class surfing_object : public water_object {
+public:
+    surfing_object(entity*, const stringx&, const stringx&);
+    virtual ~surfing_object();
+    virtual void jumped_over(entity*);
+    virtual void sprayed(entity*);
+
+private:
+    int mySound;
+    generic_anim* my_anim_handler;
 };
 
 #endif

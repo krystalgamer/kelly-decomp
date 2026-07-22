@@ -2,7 +2,9 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_001FAFF0) || \
     defined(KELLY_DECOMP_FUNCTION_001FB3C8) || \
-    defined(KELLY_DECOMP_FUNCTION_001FC5E0)
+    defined(KELLY_DECOMP_FUNCTION_001FC5E0) || \
+    defined(KELLY_DECOMP_FUNCTION_00209FA8) || \
+    defined(KELLY_DECOMP_FUNCTION_00209FF0)
 #include "KS/SRC/ks/floatobj_shared.h"
 #endif
 
@@ -118,6 +120,16 @@ public:
 
 void floating_object::collide(entity* other, const vector3d& direction) {
     active = true;
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00209FA8)
+// 0x00209FA8 jumped_over__14surfing_objectP6entity
+void surfing_object::jumped_over(entity* ent)
+{
+    set_target_active(true);
+    if (my_anim_handler != 0)
+        my_anim_handler->update(false, true, false, &my_max_alpha);
 }
 #endif
 
