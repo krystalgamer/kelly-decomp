@@ -1,8 +1,19 @@
 // Matching decompilation blocks selected by generated build shims.
 
 #if defined(KELLY_DECOMP_FUNCTION_002D6F30) || \
-    defined(KELLY_DECOMP_FUNCTION_002D6F78)
+    defined(KELLY_DECOMP_FUNCTION_002D6F78) || \
+    defined(KELLY_DECOMP_FUNCTION_002D6FC0)
 #include "KS/SRC/pmesh_shared.h"
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D6FC0)
+// 0x002D6FC0 is_cosmetic__C8vr_pmeshUi
+bool vr_pmesh::is_cosmetic(face_ref faceid) const
+{
+    if (!faces)
+        return reduced_faces[faceid].is_cosmetic();
+    return faces[faceid].is_cosmetic();
+}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002D6F78)
