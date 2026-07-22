@@ -1,5 +1,21 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001EFC10)
+class SurfBoardObjectClass {
+    char padding[0xA84];
+    int turn_type;
+public:
+    bool DoingFaceTurn();
+};
+
+bool SurfBoardObjectClass::DoingFaceTurn()
+{
+    return turn_type == 7 || turn_type == 13 || turn_type == 9 ||
+        turn_type == 10 || turn_type == 11 || turn_type == 12 ||
+        turn_type == 8;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_001EE8D8)
 // 0x001EE8D8 Terminate__20SurfBoardObjectClass
