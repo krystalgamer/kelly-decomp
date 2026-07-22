@@ -282,3 +282,10 @@ void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return
 class entity;
 template void anim<entity *>::set_flag(anim_flags_t flag, bool enabled);
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00120BD0)
+// 0x00120BD0 set_flag__t4anim1Z2po12anim_flags_tb
+#include "KS/SRC/anim_shared.h"
+class po;
+template void anim<po>::set_flag(anim_flags_t flag, bool enabled);
+#endif
