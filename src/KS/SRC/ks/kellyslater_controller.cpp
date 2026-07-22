@@ -6,6 +6,19 @@
 #include "KS/SRC/ks/kellyslater_controller_shared.h"
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0020D298)
+// 0x0020D298 SetCompletedTrick__22kellyslater_controlleri
+#include "KS/SRC/ks/kellyslater_controller_shared.h"
+__asm__(".equ AddTrick__14ScoringManageri, 0x00247558");
+void kellyslater_controller::SetCompletedTrick(int trick) {
+    if (trick != currentTrick) {
+        my_scoreManager.AddTrick(trick);
+        trick_complete = true;
+        completedTrick = trick;
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0020D200)
 // 0x0020D200 SetNewTrick__22kellyslater_controlleri
 #include "KS/SRC/ks/kellyslater_controller_shared.h"
