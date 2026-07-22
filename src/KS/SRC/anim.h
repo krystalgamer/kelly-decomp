@@ -27,6 +27,33 @@ void **key_quat_rtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00121BA8)
+#include "KS/SRC/linear_anim_shared.h"
+
+extern "C" void **key_vec_base_rtti() __asm__("__tft4anim1Z8vector3d");
+extern "C" void *key_vec_base_type[] __asm__("__tit4anim1Z8vector3d");
+extern "C" void *key_vec_type[]
+    __asm__("__tit8key_anim3Z8vector3dZt10linear_key1Z8vector3dZt12linear_track1Z8vector3d");
+extern "C" const char key_vec_name[];
+
+__asm__(".equ __tft4anim1Z8vector3d, 0x00121C48");
+__asm__(".equ __tit4anim1Z8vector3d, 0x00511FE0");
+__asm__(".equ __tit8key_anim3Z8vector3dZt10linear_key1Z8vector3dZt12linear_track1Z8vector3d, 0x005A2738");
+__asm__(".equ key_vec_name, 0x004CA590");
+
+// 0x00121BA8 key_anim<vector3d> RTTI
+extern "C" void **key_vec_rtti()
+    __asm__("__tft8key_anim3Z8vector3dZt10linear_key1Z8vector3dZt12linear_track1Z8vector3d");
+void **key_vec_rtti()
+{
+    if (!key_vec_type[0]) {
+        key_vec_base_rtti();
+        __rtti_si(key_vec_type, key_vec_name, key_vec_base_type);
+    }
+    return key_vec_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00120A30)
 // 0x00120A30 set_flag__t4anim1ZP6entity12anim_flags_t
