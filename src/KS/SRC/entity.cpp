@@ -920,3 +920,12 @@ void entity::set_door(bool d) {
         ext_flags &= ~EFLAG_EXT_IS_DOOR;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00132CD0)
+// 0x00132CD0 get_max_polys__C6entity
+#include "KS/SRC/entity_shared.h"
+__asm__(".equ get_age__C6entity, 0x00133618");
+int entity::get_max_polys() const {
+    return my_visrep->get_max_faces(get_age());
+}
+#endif
