@@ -179,6 +179,9 @@ protected:
     // The shipped front-end vtable has one additional source-version slot.
     virtual void BuiltVersionReserved();
 #endif
+#if defined(KELLY_DECOMP_FEMENU_TAIL_PADDING)
+    char tail_layout_padding[8];
+#endif
 };
 
 class FEMenuSystem {

@@ -3,9 +3,7 @@
 
 #pragma interface
 
-#define KELLY_DECOMP_FEMENU_LAYOUT_PADDING
 #include "KS/SRC/ks/FEMenu_shared.h"
-#undef KELLY_DECOMP_FEMENU_LAYOUT_PADDING
 
 class IGOFrontEnd;
 class PauseMenuSystem;
