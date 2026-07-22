@@ -19,6 +19,13 @@ struct BeachData {
 
 extern BeachData BeachDataArray[];
 
+struct SurferData {
+    char fields_before_sort_order[648];
+    int sort_order;
+};
+
+extern SurferData SurferDataArray[];
+
 class game {
 public:
     bool is_paused() const;
@@ -34,5 +41,6 @@ public:
 
 __asm__(".equ frame_advance_game_overlays__4gamef, 0x00284568");
 __asm__(".equ BeachDataArray, 0x0043C198");
+__asm__(".equ SurferDataArray, 0x004254E0");
 
 #endif

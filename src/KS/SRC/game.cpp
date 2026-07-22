@@ -203,3 +203,23 @@ stringx game::get_beach_location_name()
     return BeachDataArray[get_first_beach()].name;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00285640)
+#include "KS/SRC/game_shared.h"
+// 0x00285640 get_first_surfer_index__4game
+int game::get_first_surfer_index()
+{
+    int surfer_index = -1;
+    int order = 1000;
+    for (int i = 0; i < 14; i++)
+    {
+        if (SurferDataArray[i].sort_order >= 0 &&
+            SurferDataArray[i].sort_order < order)
+        {
+            surfer_index = i;
+            order = SurferDataArray[i].sort_order;
+        }
+    }
+    return surfer_index;
+}
+#endif
