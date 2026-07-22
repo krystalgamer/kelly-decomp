@@ -1,5 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#include "KS/SRC/script_lib_anim_shared.h"
 
 #if defined(KELLY_DECOMP_FUNCTION_00324AF0)
 // 0x00324AF0 _$_16slf_anim_pause_t
@@ -59,39 +60,8 @@ void ScriptDtor_00325018(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_CO
 
 #if defined(KELLY_DECOMP_FUNCTION_00324FE0)
 // 0x00324FE0 __cl__20slf_anim_kill_anim_tR8vm_stackQ320script_library_class8function7entry_t
-class entity_anim_tree;
-
-class vm_stack {
-    char padding[8];
-    unsigned char *top;
-
-public:
-    void *pop(int size) {
-        top -= size;
-        return top;
-    }
-};
-
-class world_dynamics_system {
-public:
-    void kill_anim(entity_anim_tree *animation);
-};
-
 __asm__(".equ kill_anim__21world_dynamics_systemP16entity_anim_tree, 0x002A3710");
-
-extern world_dynamics_system *g_world_ptr;
 __asm__(".equ g_world_ptr, 0x00431A8C");
-
-class script_library_class {
-public:
-    class function {
-    public:
-        enum entry_t { FIRST_ENTRY };
-    };
-};
-
-#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
-#define SLF_DONE return true
 
 class slf_anim_kill_anim_t :
     public script_library_class::function {
@@ -115,6 +85,42 @@ bool slf_anim_kill_anim_t::operator()(
 
 #if defined(KELLY_DECOMP_FUNCTION_00324B60)
 // 0x00324B60 __cl__16slf_anim_pause_tR8vm_stackQ320script_library_class8function7entry_t
-class script_library_class{public:class function{public:enum entry_t{FIRST_ENTRY};};}; typedef script_library_class::function::entry_t entry_t;
-struct vm_stack{char p[8];char*top;}; class entity_anim{public:int pad;virtual void set_flag(int);}; class slf_anim_pause_t{public:struct parms_t{entity_anim*me;};bool operator()(vm_stack&,entry_t);};bool slf_anim_pause_t::operator()(vm_stack&stack,entry_t){stack.top-=sizeof(parms_t);parms_t*parms=(parms_t*)stack.top;parms->me->set_flag(0x40);return true;}
+class slf_anim_pause_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        entity_anim_tree *me;
+    };
+
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+
+bool slf_anim_pause_t::operator()(vm_stack &stack, entry_t entry) {
+    SLF_PARMS;
+    parms->me->set_flag(0x40);
+    SLF_DONE;
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00324C18)
+// 0x00324C18 __cl__24slf_anim_set_timescale_tR8vm_stackQ320script_library_class8function7entry_t
+__asm__(".equ set_timescale_factor__16entity_anim_treef, 0x001177D0");
+
+class slf_anim_set_timescale_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        entity_anim_tree *me;
+        vm_num_t speed;
+    };
+
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+
+bool slf_anim_set_timescale_t::operator()(vm_stack &stack, entry_t entry) {
+    SLF_PARMS;
+    parms->me->set_timescale_factor(
+        parms->speed >= 0.0f ? parms->speed : 0.0f);
+    SLF_DONE;
+}
 #endif
