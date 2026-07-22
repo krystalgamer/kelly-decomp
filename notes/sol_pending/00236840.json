@@ -1,0 +1,49 @@
+{
+  "address": "0x00236840",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "54b0db650a59547a22db00d110f486adc33ffd23",
+      "candidate_size": 80,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "ReplayLoadButton__FP9MenuEntryi",
+      "instruction_score": 90.0,
+      "matching_bytes": 74,
+      "matching_instructions": 18,
+      "notes": "Modeled the immutable replay load path, including action==7, KSReplay::LoadFile, replay object access, and the indirect member callback. The candidate matched 18/20 instructions but differed in call delay-slot scheduling.",
+      "score": 92.5,
+      "source": "// Target: 0x00236840 ReplayLoadButton__FP9MenuEntryi\n// Reference: KS/SRC/ks/ksdbmenu.cpp\n\nstruct KSReplay {};\nextern KSReplay replay;\nextern KSReplay *replay_manager;\nextern const char replay_file[];\nextern void LoadFile(KSReplay *, const char *)\n    __asm__(\"LoadFile__8KSReplayPc\");\n__asm__(\".equ replay, 0x004252A8\");\n__asm__(\".equ replay_manager, 0x00424EE8\");\n__asm__(\".equ replay_file, 0x004D21F0\");\n__asm__(\".equ LoadFile__8KSReplayPc, 0x0023B390\");\n\nextern \"C\" int ReplayLoadButton(void *, int)\n    __asm__(\"ReplayLoadButton__FP9MenuEntryi\");\nint ReplayLoadButton(void *, int action)\n{\n    if (action == 7) {\n        LoadFile(&replay, replay_file);\n        char *object = *(char **)((char *)replay_manager + 1112);\n        short offset = *(short *)(object + 24);\n        void (*method)(char *) = *(void (**)(char *))(object + 28);\n        method((char *)replay_manager + offset);\n    }\n    return 1;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a884ad4c544aec491e2db359e250231030f8ec4b",
+      "candidate_size": 80,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "ReplayLoadButton__FP9MenuEntryi",
+      "instruction_score": 90.0,
+      "matching_bytes": 71,
+      "matching_instructions": 18,
+      "notes": "Tried expressing LoadFile as a KSReplay member call to reproduce the immutable call order. The compiler emitted an extra local thunk and retained the differing call relocation/scheduling.",
+      "score": 88.75,
+      "source": "// Target: 0x00236840 ReplayLoadButton__FP9MenuEntryi\n// Reference: KS/SRC/ks/ksdbmenu.cpp\n\nstruct KSReplay {\n    void LoadFile(const char *);\n};\nextern KSReplay replay;\nextern KSReplay *replay_manager;\nextern const char replay_file[];\n__asm__(\".equ replay, 0x004252A8\");\n__asm__(\".equ replay_manager, 0x00424EE8\");\n__asm__(\".equ replay_file, 0x004D21F0\");\n__asm__(\".equ LoadFile__8KSReplayPc, 0x0023B390\");\nvoid KSReplay::LoadFile(const char *filename)\n{\n    extern void LoadFileImpl(KSReplay *, const char *)\n        __asm__(\"LoadFile__8KSReplayPc\");\n    LoadFileImpl(this, filename);\n}\n\nextern \"C\" int ReplayLoadButton(void *, int)\n    __asm__(\"ReplayLoadButton__FP9MenuEntryi\");\nint ReplayLoadButton(void *, int action)\n{\n    if (action == 7) {\n        replay.LoadFile(replay_file);\n        char *object = *(char **)((char *)replay_manager + 1112);\n        short offset = *(short *)(object + 24);\n        void (*method)(char *) = *(void (**)(char *))(object + 28);\n        method((char *)replay_manager + offset);\n    }\n    return 1;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5d490df147c90ac2d715a0b2d45f5a6753f42b5d",
+      "notes": "Retried with a local replay pointer to influence argument scheduling, but the candidate failed to compile due to a local variable name collision. Exactly three Luna attempts exhausted; no attempt 4.",
+      "score": 0.0,
+      "source": "// Target: 0x00236840 ReplayLoadButton__FP9MenuEntryi\n// Reference: KS/SRC/ks/ksdbmenu.cpp\n\nstruct KSReplay {};\nextern KSReplay replay;\nextern KSReplay *replay_manager;\nextern const char replay_file[];\n__asm__(\".equ replay, 0x004252A8\");\n__asm__(\".equ replay_manager, 0x00424EE8\");\n__asm__(\".equ replay_file, 0x004D21F0\");\nextern void LoadFile(KSReplay *, const char *)\n    __asm__(\"LoadFile__8KSReplayPc\");\n__asm__(\".equ LoadFile__8KSReplayPc, 0x0023B390\");\n\nextern \"C\" int ReplayLoadButton(void *, int)\n    __asm__(\"ReplayLoadButton__FP9MenuEntryi\");\nint ReplayLoadButton(void *, int action)\n{\n    if (action == 7) {\n        KSReplay *object = &replay;\n        LoadFile(object, replay_file);\n        char *object = *(char **)((char *)replay_manager + 1112);\n        short offset = *(short *)(object + 24);\n        void (*method)(char *) = *(void (**)(char *))(object + 28);\n        method((char *)replay_manager + offset);\n    }\n    return 1;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "ReplayLoadButton__FP9MenuEntryi"
+}
