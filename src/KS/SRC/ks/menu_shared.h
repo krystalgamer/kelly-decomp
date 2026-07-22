@@ -73,4 +73,16 @@ public:
     }
 };
 
+class MenuSystem {
+    char menu_system_context[0x458];
+
+public:
+    virtual ~MenuSystem();
+    virtual void OpenMenu(Menu *menu);
+    virtual void CloseMenu();
+    void CloseAllMenus();
+    virtual void ButtonPress(int button);
+    virtual void ButtonRelease(int button);
+};
+
 #endif

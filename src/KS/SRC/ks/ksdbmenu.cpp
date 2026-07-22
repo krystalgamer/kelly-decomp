@@ -9,6 +9,21 @@ __asm__(".equ profiler_enabled, 0x00431AFF");
 bool ProfButton(MenuEntry* entry, int button) { profiler_enabled = 1; return true; }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00235EE0)
+// 0x00235EE0 UserCamButton__FP9MenuEntryi
+#include "KS/SRC/ks/ksdbmenu_shared.h"
+__asm__(".equ g_game_ptr, 0x0046AC64");
+__asm__(".equ menus, 0x00424EE8");
+__asm__(".equ turn_user_cam_on__4gameb, 0x002833D0");
+bool UserCamButton(MenuEntry *entry, int button) {
+    if (button == MENUCMD_CROSS) {
+        g_game_ptr->turn_user_cam_on(true);
+        menus->CloseMenu();
+    }
+    return true;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00235E40)
 // 0x00235E40 particles_test__FP9MenuEntryi
 class MenuEntry;
