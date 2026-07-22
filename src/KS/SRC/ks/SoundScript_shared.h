@@ -6,8 +6,17 @@ enum EventType {
     SS_LAST = 105,
 };
 
+class entity;
+
 class singleton {
     void* singleton_link;
+};
+
+class nlVector3d {
+    float values[3];
+
+public:
+    float &operator[](int index) { return values[index]; }
 };
 
 class EventMapType {
@@ -47,6 +56,8 @@ public:
     static SoundScriptManager* instance;
 
     static SoundScriptManager* inst() { return instance; }
+    bool init();
+    void clearEvents();
     int playEvent(EventType type, entity* source = 0, float fade_in_time = 0.0f);
     void createAllMappings();
 };
