@@ -62,7 +62,9 @@ protected:
 
 public:
     FEMenu* next_sub;
+#if defined(KELLY_DECOMP_FEMENU_LAYOUT_PADDING)
     char layout_padding[8];
+#endif
     virtual ~FEMenu();
     virtual void setBack(FEMenu*, int = 1);
     virtual void setHigh(FEMenuEntry*, bool = true);
