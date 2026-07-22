@@ -13,6 +13,12 @@
 
 class GraphicalMenuSystem;
 
+class CheatFrontEnd : public FEMultiMenu {
+public:
+    void OnLeft(int command);
+    void OnRight(int command);
+};
+
 class CheatCodeMenu : public FEMultiMenu {
 private:
     FEMenuEntry *cheats[MAX_CHEATS_PER_SCREEN];
