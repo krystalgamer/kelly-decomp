@@ -263,7 +263,7 @@ class __attribute__((aligned(16))) FEGraphicalMenu : public FEMenu, public Front
 public:
     virtual void Init();
     virtual void Load(bool floating);
-    virtual void Load();
+    virtual void Load() { Load(false); }
     virtual void Draw();
     virtual void Select(int entry_num);
     virtual void Update(time_value_t time_inc);
