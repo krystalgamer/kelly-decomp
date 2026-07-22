@@ -574,3 +574,19 @@ void TutorialPauseMenuClass::OnButtonRelease(int c, int b)
         sys->endDraw();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001A7140)
+// 0x001A7140 Draw__21SaveCareerPromptClass
+#include "decomp_annotations.h"
+#include "KS/SRC/ks/FrontEndMenus_shared.h"
+__asm__(".equ Draw__6FEMenu, 0x00156C88");
+
+void SaveCareerPromptClass::Draw()
+{
+    if (myFrameTimer > 0)
+        myFrameTimer--;
+    message->Draw();
+    FEMenu::Draw();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
