@@ -195,7 +195,7 @@ public:
     virtual FEMenu* GetActiveMenu();
 };
 
-class PanelAnimManager {
+class __attribute__((aligned(16))) PanelAnimManager {
     char data[0x80];
 };
 
@@ -243,6 +243,9 @@ class FEMultiMenu : public FEGraphicalMenu {
 public:
     FEMenuEntry *first;
     FEMenuEntry *last;
+#if defined(KELLY_DECOMP_FULL_FEMULTI_MENU)
+    FEMenuEntry *secondary_cursor;
+#endif
 };
 
 #endif

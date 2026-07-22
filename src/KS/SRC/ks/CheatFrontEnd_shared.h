@@ -3,7 +3,9 @@
 
 #pragma interface
 
+#define KELLY_DECOMP_FULL_FEMULTI_MENU
 #include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMULTI_MENU
 #include "KS/SRC/ks/SoundScript_shared.h"
 
 #define MAX_CHEATS_PER_SCREEN 2
@@ -50,6 +52,8 @@ private:
     bool pq_indices_set;
     static const int phone_num_gap[NUM_PHONE_NUM_GAPS];
     bool closing;
+    // The built layout retains one word between the closing flag and timer.
+    int closing_layout_padding;
     float closing_timer;
     int cheat_unlocked;
 

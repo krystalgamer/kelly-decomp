@@ -111,3 +111,19 @@ void CheatCodeMenu::OnTriangle(int command) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D3868)
+// 0x001D3868 OnTriangle__14EnterCheatMenui
+#include "KS/SRC/ks/CheatFrontEnd_shared.h"
+__asm__(".equ _18SoundScriptManager$instance, 0x0046B4A0");
+__asm__(".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380");
+__asm__(".equ ExitMenu__14EnterCheatMenuf, 0x001D39F0");
+void EnterCheatMenu::OnTriangle(int command) {
+    if (!closing)
+        ExitMenu(0.0f);
+    else
+        closing_timer = 0.0f;
+    SoundScriptManager::inst()->playEvent(SS_FE_BACK);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
