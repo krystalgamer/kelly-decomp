@@ -1,5 +1,23 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001E60F0) || \
+    defined(KELLY_DECOMP_FUNCTION_001E6380)
+#include "KS/SRC/HWOSPS2/ps2_gamesaver_shared.h"
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E60F0)
+asm(".equ ksGlobalTextArray, 0x003E6050");
+asm(".equ sprintf, 0x003D38A8");
+asm(".equ __7stringxPCci, 0x0034D438");
+
+// 0x001E60F0 getCardString__16GenericGameSaverii
+stringx GenericGameSaver::getCardString(int port, int slot)
+{
+    char errortxt[100];
+    sprintf(errortxt, ksGlobalTextArray[GT_MEMORY_CARD_PS2].c_str(), port + 1);
+    return stringx(errortxt);
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001E6780)
 // 0x001E6780 getOverwriteString__16GenericGameSaverii
