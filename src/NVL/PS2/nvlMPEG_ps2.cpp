@@ -1,5 +1,25 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00388FD0)
+#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+
+// 0x00388FD0 voBufCreate__FP5VoBufP6VoDataP5VoTagi
+void voBufCreate(VoBuf *f, VoData *data, VoTag *tag, int size)
+{
+    int i;
+
+    f->data = data;
+    f->tag = tag;
+    f->size = size;
+    f->count = 0;
+    f->write = 0;
+
+    for (i = 0; i < size; i++) {
+        f->tag[i].status = 0;
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00389D68)
 #include "NVL/PS2/nvlMPEG_ps2_shared.h"
 

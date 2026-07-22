@@ -8,7 +8,22 @@ struct ReadBuf {
     int size;
 };
 
-struct VoBuf;
+struct VoData {
+    unsigned char v[0x195000];
+};
+
+struct VoTag {
+    int status;
+    unsigned char data[0x4CE3C];
+};
+
+struct VoBuf {
+    VoData *data;
+    VoTag *tag;
+    volatile int write;
+    volatile int count;
+    int size;
+};
 
 extern ReadBuf *readBuf;
 extern VoBuf voBuf;
