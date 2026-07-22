@@ -1,5 +1,30 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00112C90)
+#include "KS/SRC/ai_rtti_shared.h"
+
+extern "C" void **input_device_rtti() __asm__("__tf12input_device");
+extern "C" void *input_device_type[] __asm__("__ti12input_device");
+extern "C" void *aisurfer_type[] __asm__("__ti18AISurferController");
+extern "C" const char aisurfer_name[];
+
+__asm__(".equ __tf12input_device, 0x0035FED0");
+__asm__(".equ __ti12input_device, 0x00511FB0");
+__asm__(".equ __ti18AISurferController, 0x005A2668");
+__asm__(".equ aisurfer_name, 0x004C87E0");
+
+// 0x00112C90 __tf18AISurferController
+extern "C" void **aisurfer_rtti() __asm__("__tf18AISurferController");
+void **aisurfer_rtti()
+{
+    if (!aisurfer_type[0]) {
+        input_device_rtti();
+        __rtti_si(aisurfer_type, aisurfer_name, input_device_type);
+    }
+    return aisurfer_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00112D08)
 // 0x00112D08 vibrate__18AISurferControllerf
