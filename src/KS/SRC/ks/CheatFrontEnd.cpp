@@ -140,3 +140,16 @@ void CheatFrontEnd::OnLeft(int command) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D19E0)
+// 0x001D19E0 OnRight__13CheatFrontEndi
+#include "KS/SRC/ks/CheatFrontEnd_shared.h"
+void CheatFrontEnd::OnRight(int command) {
+    if (active)
+        active->OnRight(command);
+    else {
+        CheatFrontEndDispatchVTable *table = *(CheatFrontEndDispatchVTable **)((char *)this + 0x74);
+        table->on_right((char *)this + table->right_adjustment, command);
+    }
+}
+#endif
