@@ -20,6 +20,19 @@ class collision_capsule { char padding_to_rel[0x24]; float rel_radius; char padd
 void collision_capsule::apply_radius_scale(float scale) { abs_radius = rel_radius * scale; }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_002D7688)
+#include "KS/SRC/capsule_shared.h"
+// 0x002D7688 __17collision_capsuleP6entity
+__asm__(".equ __18collision_geometry, 0x002D8638");
+__asm__(".equ compute_dimensions__17collision_capsule, 0x002D7748");
+__asm__(".equ _vt$17collision_capsule, 0x004F30A0");
+collision_capsule::collision_capsule(entity *new_owner)
+{
+    owner = new_owner;
+    compute_dimensions();
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_002D7F48)
 // 0x002D7F48 render__C17collision_capsule
 class collision_capsule {
