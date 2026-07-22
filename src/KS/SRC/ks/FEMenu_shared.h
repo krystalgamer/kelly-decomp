@@ -152,6 +152,9 @@ public:
     virtual void MakeActive(FEMenu*, bool = true);
     virtual void SetHelpText(int);
     virtual void Select(int);
+#if defined(KELLY_DECOMP_SAVELOAD_VTABLE)
+    virtual void SaveLoadVersionReserved();
+#endif
 
 protected:
     virtual void cons(FEMenuSystem*, int, int, int = 8);
