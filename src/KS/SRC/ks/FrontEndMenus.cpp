@@ -5,6 +5,7 @@
     defined(KELLY_DECOMP_FUNCTION_001A85A0) || \
     defined(KELLY_DECOMP_FUNCTION_001B4398) || \
     defined(KELLY_DECOMP_FUNCTION_001B4A58)
+#include "decomp_annotations.h"
 #include "KS/SRC/ks/FrontEndMenus_shared.h"
 #endif
 
@@ -412,6 +413,22 @@ public:
 void PauseMenuSystem::Select(int menu_index, int entry_index)
 {
     menus[menu_index]->Select(entry_index);
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B4A58)
+// 0x001B4A58 RestartComp__15PauseMenuSystem
+asm(".equ g_game_ptr, 0x0046AC64");
+asm(".equ g_beach_ptr, 0x0043F710");
+asm(".equ retry_level__4gameb, 0x002839D0");
+asm(".equ OnCompetitionReset__13JudgingSystem, 0x00259898");
+
+void PauseMenuSystem::RestartComp()
+{
+    endDraw();
+    g_game_ptr->retry_level();
+    g_beach_ptr->judges.OnCompetitionReset();
+    KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
 
