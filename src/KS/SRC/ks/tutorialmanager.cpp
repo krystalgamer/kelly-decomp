@@ -2,6 +2,29 @@
 
 #include "tutorialmanager.h"
 
+#if defined(KELLY_DECOMP_FUNCTION_001DC3C8)
+extern "C" void __rtti_si(void **type, const char *name, void **base);
+__asm__(".equ __rtti_si, 0x003CE2D8");
+extern "C" void **event_recipient_rtti() __asm__("__tf14EventRecipient");
+extern "C" void *tutorial_type[] __asm__("__ti18IGOTutorialManager");
+extern "C" const char tutorial_name[] __asm__("tutorial_type_name");
+extern "C" void *event_recipient_type[] __asm__("__ti14EventRecipient");
+__asm__(".equ __tf14EventRecipient, 0x0035FE90");
+__asm__(".equ __ti18IGOTutorialManager, 0x005A2BC8");
+__asm__(".equ tutorial_type_name, 0x004DDC00");
+__asm__(".equ __ti14EventRecipient, 0x005120A8");
+
+extern "C" void **tutorial_rtti() __asm__("__tf18IGOTutorialManager");
+void **tutorial_rtti()
+{
+    if (!tutorial_type[0]) {
+        event_recipient_rtti();
+        __rtti_si(tutorial_type, tutorial_name, event_recipient_type);
+    }
+    return tutorial_type;
+}
+#endif
+
 unsigned int nslGetSoundStatus(unsigned int sound);
 void nslStopSound(unsigned int sound);
 __asm__(".equ nslGetSoundStatus__FUi, 0x0038DBA0");
