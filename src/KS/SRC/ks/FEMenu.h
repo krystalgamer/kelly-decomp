@@ -939,3 +939,16 @@ asm(".equ typeinfo, 0x00512090"); asm(".equ type_name, 0x004DDA08");
 extern "C" void *GetTypeInfo() __asm__("__tf12FEMenuSystem");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DAA30)
+// 0x001DAA30 OnUp__6FEMenui
+#include "KS/SRC/ks/FEMenu_shared.h"
+void FEMenu::OnUp(int command) {
+    if (active)
+        active->OnUp(command);
+    else {
+        FEMenuPreviousDispatchVTable *table = *(FEMenuPreviousDispatchVTable **)((char *)this + 0x74);
+        table->previous((char *)this + table->adjustment);
+    }
+}
+#endif
