@@ -1,5 +1,21 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00356178)
+#include "KS/SRC/vm_thread_shared.h"
+
+// 0x00356178 create_static_event_callback__9vm_threadRCQ29vm_thread10argument_tb
+void vm_thread::create_static_event_callback(
+    const argument_t &arg,
+    bool one_shot)
+{
+    dstack.pop(arg.sfr->get_parms_stacksize());
+    char *parms = dstack.get_SP();
+    vm_signal_t value = dstack.pop_signal();
+    value->add_callback(inst, arg.sfr, parms, one_shot);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00356640)
 // 0x00356640 set_camera_priority__9vm_threadf
