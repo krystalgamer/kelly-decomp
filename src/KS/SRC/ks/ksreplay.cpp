@@ -5,6 +5,26 @@
 #include "KS/SRC/ks/ksreplay_shared.h"
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0023ABC0)
+class KSEntityState {
+    char padding[4];
+    int anim_info;
+public:
+    void SetKSAnimInfo(float speed, bool mirrored, float unused);
+};
+
+void KSEntityState::SetKSAnimInfo(float speed, bool mirrored, float)
+{
+    int value = anim_info;
+    value &= -128;
+    value |= ((int)(speed * 100.0f)) & 0x7f;
+    value &= 0xff7fffff;
+    value |= (mirrored & 1) << 23;
+    value |= 0x200000;
+    anim_info = value;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0023CA88)
 // 0x0023CA88 Playspeed__8KSReplay
 #include "KS/SRC/ks/ksreplay_shared.h"
