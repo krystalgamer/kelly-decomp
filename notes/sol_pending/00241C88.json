@@ -1,0 +1,57 @@
+{
+  "address": "0x00241C88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7a7cdb6a03e0a629cbcf3cb3e07de14ec3240071",
+      "candidate_size": 72,
+      "compared_bytes": 80,
+      "compared_instructions": 17,
+      "emitted_name": "_$_13rumbleManager",
+      "instruction_score": 17.6471,
+      "matching_bytes": 28,
+      "matching_instructions": 3,
+      "notes": "Modeled the four rumble pad clears, paused/level reset, and deleting-destructor path. A C++ destructor emitted the correct loop shape but performed deleting-flag handling before the body and tail-called delete.",
+      "score": 35.0,
+      "source": "// Target: 0x00241C88 _$_13rumbleManager\n// Reference: KS/SRC/ks/rumbleManager.cpp\n\nextern void builtin_delete(void *) __asm__(\"__builtin_delete\");\n__asm__(\".equ __builtin_delete, 0x002AC6B0\");\n\nclass rumbleManager {\n    char padding[228];\n    int on[4];\n    int paused;\n    int rumbleLevel;\npublic:\n    ~rumbleManager();\n};\n\nrumbleManager::~rumbleManager()\n{\n    for (int i = 3; i >= 0; --i)\n        on[i] = 0;\n    paused = 0;\n    rumbleLevel = 0;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "de24e883b5d1a67d30d0d09a2d5d863921af32c2",
+      "candidate_size": 72,
+      "compared_bytes": 80,
+      "compared_instructions": 17,
+      "emitted_name": "_$_13rumbleManager",
+      "instruction_score": 17.6471,
+      "matching_bytes": 28,
+      "matching_instructions": 3,
+      "notes": "Used an explicit deleting-destructor ABI wrapper and pointer-based descending loop. The compiler still optimized away the target prologue and produced a 72-byte body with different register allocation.",
+      "score": 35.0,
+      "source": "// Target: 0x00241C88 _$_13rumbleManager\n// Reference: KS/SRC/ks/rumbleManager.cpp\n\nextern void builtin_delete(void *) __asm__(\"__builtin_delete\");\n__asm__(\".equ __builtin_delete, 0x002AC6B0\");\n\nextern \"C\" void rumbleManagerDtor(void *self, int deleting)\n    __asm__(\"_$_13rumbleManager\");\nvoid rumbleManagerDtor(void *self, int deleting)\n{\n    int *on = (int *)self + 57;\n    for (int i = 3; i >= 0; --i)\n        on[i] = 0;\n    *(int *)((char *)self + 244) = 0;\n    *(int *)((char *)self + 248) = 0;\n    if (deleting & 1)\n        builtin_delete(self);\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "40c12418e44a86696acd0978b782c74014850f26",
+      "candidate_size": 84,
+      "compared_bytes": 84,
+      "compared_instructions": 19,
+      "emitted_name": "_$_13rumbleManager",
+      "instruction_score": 10.5263,
+      "matching_bytes": 21,
+      "matching_instructions": 2,
+      "notes": "Added the project compiler barrier after __builtin_delete, restoring a normal call/epilogue but retaining the wrong initial flag handling and register allocation. Exactly three Luna attempts exhausted; no attempt 4.",
+      "score": 25.0,
+      "source": "// Target: 0x00241C88 _$_13rumbleManager\n// Reference: KS/SRC/ks/rumbleManager.cpp\n\nextern void builtin_delete(void *) __asm__(\"__builtin_delete\");\n__asm__(\".equ __builtin_delete, 0x002AC6B0\");\n\nextern \"C\" void rumbleManagerDtor(void *self, int deleting)\n    __asm__(\"_$_13rumbleManager\");\nvoid rumbleManagerDtor(void *self, int deleting)\n{\n    int *on = (int *)self + 57;\n    for (int i = 3; i >= 0; --i)\n        on[i] = 0;\n    *(int *)((char *)self + 244) = 0;\n    *(int *)((char *)self + 248) = 0;\n    if (deleting & 1) {\n        builtin_delete(self);\n        __asm__ volatile(\"\");\n    }\n}\n",
+      "status": "different",
+      "target_size": 80
+    }
+  ],
+  "raw_name": "_$_13rumbleManager"
+}
