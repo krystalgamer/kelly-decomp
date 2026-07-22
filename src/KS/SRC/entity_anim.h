@@ -1,5 +1,30 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00120868)
+#include "KS/SRC/entity_anim_shared.h"
+
+extern "C" void **entity_anim_base_rtti() __asm__("__tft4anim1ZP6entity");
+extern "C" void *entity_anim_base_type[] __asm__("__tit4anim1ZP6entity");
+extern "C" void *entity_anim_type[] __asm__("__ti11entity_anim");
+extern "C" const char entity_anim_name[];
+
+__asm__(".equ __tft4anim1ZP6entity, 0x00121B18");
+__asm__(".equ __tit4anim1ZP6entity, 0x00511FD0");
+__asm__(".equ __ti11entity_anim, 0x005A26D8");
+__asm__(".equ entity_anim_name, 0x004CA468");
+
+// 0x00120868 __tf11entity_anim
+extern "C" void **entity_anim_rtti() __asm__("__tf11entity_anim");
+void **entity_anim_rtti()
+{
+    if (!entity_anim_type[0]) {
+        entity_anim_base_rtti();
+        __rtti_si(entity_anim_type, entity_anim_name, entity_anim_base_type);
+    }
+    return entity_anim_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00120A40)
 // 0x00120A40 set_flag__16entity_anim_tree12anim_flags_t

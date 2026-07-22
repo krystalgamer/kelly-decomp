@@ -2,6 +2,7 @@
 #define KELLY_DECOMP_ENTITY_ANIM_SHARED_H
 
 #include "KS/SRC/anim_shared.h"
+#include "KS/SRC/rtti_shared.h"
 
 class PRS_track;
 class signal_track;
