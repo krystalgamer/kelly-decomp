@@ -1,5 +1,16 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00240F88)
+#include "KS/SRC/ks/menusys_shared.h"
+// 0x00240F88 InitButtonStates__9MenuInput
+void MenuInput::InitButtonStates()
+{
+    for (int i = 0; i < MAXMENUCMD; i++) {
+        int state = MENU_GetButtonState(i);
+        bstate[i] = state;
+    }
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002410E8)
 // 0x002410E8 Opening__10MenuSystemP4Menu
