@@ -170,3 +170,17 @@ void NamesMenu::RefreshDisplay() {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0019B1E0)
+// 0x0019B1E0 OnCross__16SaveLoadFrontEndi
+#include "KS/SRC/ks/SaveLoadFrontEnd_shared.h"
+
+void SaveLoadFrontEnd::OnCross(int c)
+/* shared dispatch candidate, corrected vtable context */
+{
+    if (active)
+        active->OnCross(c);
+    else
+        Select();
+}
+#endif
