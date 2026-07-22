@@ -534,3 +534,21 @@ extern void base_call(TrickTypeMenuClass*, float) __asm__("Update__6FEMenuf");
 __asm__(".equ Update__6FEMenuf, 0x00156DC8");
 void TrickTypeMenuClass::Update(float time_inc) { if(active) { active->Update(time_inc); KELLY_DECOMP_COMPILER_BARRIER(); } else { base_call(this,time_inc); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B0A28)
+// 0x001B0A28 OnStart__15ReplayMenuClassi
+#include "KS/SRC/ks/FrontEndMenus_shared.h"
+#include "decomp_annotations.h"
+extern "C" void FEMenuOnStart(FEMenu *menu, int controller) __asm__("OnStart__6FEMenui");
+__asm__(".equ OnStart__6FEMenui, 0x001577B8");
+extern "C" void ReplayOnStart(ReplayMenuClassLayout *self, int controller) __asm__("OnStart__15ReplayMenuClassi");
+void ReplayOnStart(ReplayMenuClassLayout *self, int controller) {
+    if (self->sys->replay_mode) {
+        ReplayMenuVTableLayout *table = self->vtable;
+        table->replay_end((char *)self + table->replay_end_adjustment);
+    } else {
+        FEMenuOnStart((FEMenu *)self, controller);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif

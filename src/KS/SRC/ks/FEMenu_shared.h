@@ -142,6 +142,26 @@ public:
     virtual void MakeActive(FEMenu*, bool = true);
     virtual void SetHelpText(int);
     virtual void Select(int);
+
+protected:
+    virtual void cons(FEMenuSystem*, int, int, int = 8);
+    virtual void cons(FEMenuSystem*, int, int, color32, color32, int = 8);
+    virtual void cons(
+        FEMenuSystem*,
+        int,
+        int,
+        color32,
+        color32,
+        color32,
+        float = 1.0f,
+        float = 1.2f,
+        int = 8,
+        int = 0
+    );
+    virtual void Next();
+    virtual void Previous();
+    virtual void Select();
+    virtual void AddSubmenu(FEMenu*);
 };
 
 class FEMenuSystem {

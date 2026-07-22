@@ -63,6 +63,39 @@ public:
     void RestartComp();
 };
 
+class ReplayMenuClass : public FEMenu {
+public:
+    enum ReplayType {
+        ReplayPlay,
+        ReplaySlow,
+        ReplayFF
+    };
+
+    PauseMenuSystem *sys;
+
+private:
+    virtual void ReplayStart();
+    virtual void ReplayEnd();
+    virtual void ReplayChange(ReplayType option);
+    int replayEvent;
+
+public:
+    virtual void OnStart(int controller);
+};
+
+struct ReplayMenuVTableLayout {
+    char entries_before_replay_end[0x178];
+    short replay_end_adjustment;
+    short replay_end_padding;
+    void (*replay_end)(void *self);
+};
+
+struct ReplayMenuClassLayout {
+    char menu_data[0x74];
+    ReplayMenuVTableLayout *vtable;
+    PauseMenuSystem *sys;
+};
+
 class game {
 public:
     void retry_level(bool reload = false);
