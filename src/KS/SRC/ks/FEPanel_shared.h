@@ -36,4 +36,27 @@ public:
     static void MakeReplacements(stringx &value);
 };
 
+class PanelQuad {
+    char panel_quad_data[0x1a0];
+
+public:
+    void SetPos(float x1, float y1, float x2, float y2);
+};
+
+class FloatingPQ : public PanelQuad {
+    float location_3d[4];
+    float location_2d[4];
+    float scale;
+    int h_just;
+    float width_f;
+    float height_f;
+    float x1_const;
+    float x2_const;
+    float y1_const;
+    float y2_const;
+
+public:
+    void SetPos(float x1, float y1, float x2, float y2);
+};
+
 #endif
