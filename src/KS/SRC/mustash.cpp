@@ -1,5 +1,18 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00347118)
+#include "KS/SRC/mustash_shared.h"
+
+__asm__(".equ arch_memalign__FUiUiPCci, 0x002AC740");
+__asm__(".equ acquire_stash_bufferspace_desc, 0x00502808");
+
+// 0x00347118 acquire_stash_bufferspace__10multistashi
+void multistash::acquire_stash_bufferspace(int size) {
+    big_ass_buffer = (unsigned char *)arch_memalign(
+        128, size, acquire_stash_bufferspace_desc, 0);
+    big_ass_buffer_max = size;
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003480D0)
 // 0x003480D0 get_name__C5stash
