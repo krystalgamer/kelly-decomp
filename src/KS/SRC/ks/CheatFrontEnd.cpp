@@ -127,3 +127,16 @@ void EnterCheatMenu::OnTriangle(int command) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D1990)
+// 0x001D1990 OnLeft__13CheatFrontEndi
+#include "KS/SRC/ks/CheatFrontEnd_shared.h"
+void CheatFrontEnd::OnLeft(int command) {
+    if (active)
+        active->OnLeft(command);
+    else {
+        CheatFrontEndDispatchVTable *table = *(CheatFrontEndDispatchVTable **)((char *)this + 0x74);
+        table->on_left((char *)this + table->adjustment, command);
+    }
+}
+#endif

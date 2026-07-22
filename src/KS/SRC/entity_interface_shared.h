@@ -16,6 +16,7 @@ protected:
     entity *my_entity;
 
 public:
+    entity_interface() : my_entity(0) {}
     explicit inline entity_interface(entity *value) : my_entity(value) {}
     virtual ~entity_interface();
 };

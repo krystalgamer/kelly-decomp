@@ -155,6 +155,7 @@ public:
     virtual PanelGeom *FindObject(const char *search_name);
     virtual PanelQuad *FindQuad(const stringx &search_name);
     virtual void SetFilename(stringx path);
+    bool Load(bool floating = false);
 };
 
 class PanelQuad {

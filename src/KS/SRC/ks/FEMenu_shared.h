@@ -214,6 +214,7 @@ class __attribute__((aligned(16))) PanelAnimManager {
     char data[0x80];
 };
 
+#if !defined(KELLY_DECOMP_FE_PANEL_SHARED_H)
 class PanelFile {
     char data[0x30];
 
@@ -221,6 +222,7 @@ public:
     void Load(bool floating);
     void SetFilename(stringx filename);
 };
+#endif
 
 class FrontEnd {
 public:

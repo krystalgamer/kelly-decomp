@@ -3,6 +3,7 @@
 
 #include "KS/SRC/commands_shared.h"
 #include "KS/SRC/inputmgr_shared.h"
+#include "KS/SRC/stringx.h"
 
 struct BeachData {
     char name[32];
