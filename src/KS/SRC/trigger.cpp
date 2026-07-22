@@ -23,6 +23,16 @@ class trigger_manager { char padding[0x10]; trigger* head; public: void add(trig
 void trigger_manager::add(trigger* value) { value->next = head; head = value; }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0028D760)
+#include "KS/SRC/trigger_shared.h"
+// 0x0028D760 update_regions__15trigger_manager
+void trigger_manager::update_regions()
+{
+    for (trigger *current = list; current; current = current->next)
+        current->update_region();
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0028DEE0)
 // 0x0028DEE0 get_abs_position__C13point_trigger
 class vector3d {
