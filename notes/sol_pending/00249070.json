@@ -1,0 +1,42 @@
+{
+  "address": "0x00249070",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1c2bbe2dbfd4322fd9da3ee76e4bac3f29168c41",
+      "notes": "Initial immutable score-conversion candidate failed compilation because legacy C++ rejected out-of-class declarations used only to attach absolute helper symbols.",
+      "score": 0.0,
+      "source": "// Target: 0x00249070 GetScore__CQ214ScoringManager5Chain\n// Reference: KS/SRC/ks/scoringmanager.cpp\n\nclass Chain {\npublic:\n    int GetRawScore() const;\n    float GetMultiplier() const;\n    int GetScore() const;\n};\n\n__asm__(\".equ GetRawScore__CQ214ScoringManager5Chain, 0x00249180\");\n__asm__(\".equ GetMultiplier__CQ214ScoringManager5Chain, 0x00249390\");\nint Chain::GetRawScore() const;\nfloat Chain::GetMultiplier() const;\n\nint Chain::GetScore() const\n{\n    return (int)((float)GetRawScore() * GetMultiplier());\n}\n",
+      "status": "compile_failed"
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7c618a0d64005121c4bd0cf2620c000519e0cc8c",
+      "error": "Candidate did not emit GetScore__CQ214ScoringManager5Chain; emitted functions: ['GetScore__C5Chain']",
+      "notes": "Moved absolute helper symbol aliases into the class declarations. The candidate then emitted the wrong mangled GetScore symbol, so no target comparison was possible.",
+      "score": 0.0,
+      "source": "// Target: 0x00249070 GetScore__CQ214ScoringManager5Chain\n// Reference: KS/SRC/ks/scoringmanager.cpp\n\nclass Chain {\npublic:\n    int GetRawScore() const __asm__(\"GetRawScore__CQ214ScoringManager5Chain\");\n    float GetMultiplier() const __asm__(\"GetMultiplier__CQ214ScoringManager5Chain\");\n    int GetScore() const;\n};\n\n__asm__(\".equ GetRawScore__CQ214ScoringManager5Chain, 0x00249180\");\n__asm__(\".equ GetMultiplier__CQ214ScoringManager5Chain, 0x00249390\");\n\nint Chain::GetScore() const\n{\n    return (int)((float)GetRawScore() * GetMultiplier());\n}\n",
+      "status": "symbol_missing"
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6fec9449f5635c769021fa919e4f6a9b5198550c",
+      "candidate_size": 76,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "GetScore__CQ214ScoringManager5Chain",
+      "instruction_score": 40.0,
+      "matching_bytes": 41,
+      "matching_instructions": 8,
+      "notes": "Forced the exact target symbol and reproduced the score conversion and helper calls. The candidate differed in prologue save scheduling and was 4 bytes short. Exactly three Luna attempts exhausted; no attempt 4.",
+      "score": 51.25,
+      "source": "// Target: 0x00249070 GetScore__CQ214ScoringManager5Chain\n// Reference: KS/SRC/ks/scoringmanager.cpp\n\nclass Chain {\npublic:\n    int GetRawScore() const __asm__(\"GetRawScore__CQ214ScoringManager5Chain\");\n    float GetMultiplier() const __asm__(\"GetMultiplier__CQ214ScoringManager5Chain\");\n    int GetScore() const __asm__(\"GetScore__CQ214ScoringManager5Chain\");\n};\n\n__asm__(\".equ GetRawScore__CQ214ScoringManager5Chain, 0x00249180\");\n__asm__(\".equ GetMultiplier__CQ214ScoringManager5Chain, 0x00249390\");\n\nint Chain::GetScore() const\n{\n    return (int)((float)GetRawScore() * GetMultiplier());\n}\n",
+      "status": "different",
+      "target_size": 80
+    }
+  ],
+  "raw_name": "GetScore__CQ214ScoringManager5Chain"
+}
