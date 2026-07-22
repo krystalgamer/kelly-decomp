@@ -1,5 +1,28 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001E96D0)
+extern "C" void __rtti_si(void **type, const char *name, void **base);
+__asm__(".equ __rtti_si, 0x003CE2D8");
+extern "C" void **input_device_rtti() __asm__("__tf12input_device");
+extern "C" void *joypad_type[] __asm__("__ti17ps2_joypad_device");
+extern "C" const char joypad_name[] __asm__("joypad_type_name");
+extern "C" void *input_device_type[] __asm__("__ti12input_device");
+__asm__(".equ __tf12input_device, 0x0035FED0");
+__asm__(".equ __ti17ps2_joypad_device, 0x005A3A00");
+__asm__(".equ joypad_type_name, 0x004DF9C0");
+__asm__(".equ __ti12input_device, 0x00511FB0");
+
+extern "C" void **joypad_rtti() __asm__("__tf17ps2_joypad_device");
+void **joypad_rtti()
+{
+    if (!joypad_type[0]) {
+        input_device_rtti();
+        __rtti_si(joypad_type, joypad_name, input_device_type);
+    }
+    return joypad_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001E25D0)
 #include "KS/SRC/HWOSPS2/ps2_input_shared.h"
 asm(".equ _17ps2_joypad_device$rdata, 0x005A39C0");
