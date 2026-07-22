@@ -271,7 +271,8 @@ public:
     virtual void Add(FEMenuEntry*);
     virtual void TurnOn(PanelQuad* quad, bool enabled);
     virtual void ToggleOn(PanelQuad* quad);
-    virtual void ChangeFade(PanelQuad* quad, bool start, bool fade_in, float time);
+    virtual void ChangeFade(PanelQuad* quad, bool start, bool fade_in, float time)
+        __asm__("ChangeFade__15FEGraphicalMenuP9PanelQuadbT2f");
     virtual void Mask(PanelQuad* quad, float amount);
     virtual void LoadPanel(bool floating = false);
 };

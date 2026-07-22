@@ -12,6 +12,30 @@ void FEMenuEntry::Load() {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001DB208)
+// 0x001DB208 ChangeFade__15FEGraphicalMenuP9PanelQuadbT2f
+#include "KS/SRC/ks/FEPanel_shared.h"
+#define KELLY_DECOMP_BUILT_FEMENU_VTABLE_TAIL
+#define KELLY_DECOMP_FULL_FE_PANEL_HELPERS
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FE_PANEL_HELPERS
+#undef KELLY_DECOMP_BUILT_FEMENU_VTABLE_TAIL
+__asm__(".equ ChangeFade__9PanelQuadbT1f, 0x0014D078");
+void FEGraphicalMenu::ChangeFade(
+    PanelQuad *quad,
+    bool start,
+    bool fade_in,
+    float time
+) {
+    if (parent)
+        ((FEGraphicalMenu *)parent)->ChangeFade(quad, start, fade_in, time);
+    else if (quad) {
+        quad->ChangeFade(start, fade_in, time);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001DB1B8)
 // 0x001DB1B8 ToggleOn__15FEGraphicalMenuP9PanelQuad
 #include "KS/SRC/ks/FEPanel_shared.h"

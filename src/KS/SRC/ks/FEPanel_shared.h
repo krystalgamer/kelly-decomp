@@ -124,7 +124,8 @@ public:
     );
     virtual void TurnOn(bool enabled) { drawOn = enabled; }
     void ToggleOn() { drawOn = !drawOn; }
-    void ChangeFade(bool start, bool fade_in, float time = 2.0f);
+    void ChangeFade(bool start, bool fade_in, float time = 2.0f)
+        __asm__("ChangeFade__9PanelQuadbT1f");
     void Mask(float amount, int type = 1) { mask = amount; maskType = type; }
     void SetPos(float x1, float y1, float x2, float y2);
 };
