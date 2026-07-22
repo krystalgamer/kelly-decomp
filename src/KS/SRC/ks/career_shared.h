@@ -4,10 +4,15 @@
 void* operator new(unsigned int size, unsigned int alignment, const char* file, int line);
 
 class Career {
-    char data[0x10A48];
+    char data_to_new_goal_passed[0x6C];
+    bool new_goal_passed[5];
+    bool goal_passed[5];
+    char remaining_data[0x109B4];
 
 public:
     Career();
+    bool WasNewGoalPassed(int goalIdx = -1);
+    bool WasAnyGoalPassed(int goalIdx = -1);
 };
 
 extern Career* g_career;
