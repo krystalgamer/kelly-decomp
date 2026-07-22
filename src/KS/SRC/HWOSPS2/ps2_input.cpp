@@ -1,5 +1,19 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001E25D0)
+#include "KS/SRC/HWOSPS2/ps2_input_shared.h"
+asm(".equ _17ps2_joypad_device$rdata, 0x005A39C0");
+asm(".equ memset, 0x003D18D0");
+
+// 0x001E25D0 clear_state__17ps2_joypad_device
+void ps2_joypad_device::clear_state()
+{
+    memset(rdata, 0xFF, RDATA_SIZE);
+    rdata[1] = PS2_JOYPAD_DUALSHOCK2;
+    rdata[6] = 127;
+    rdata[7] = 127;
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001E14D8)
 // 0x001E14D8 get_id__C17ps2_joypad_device
