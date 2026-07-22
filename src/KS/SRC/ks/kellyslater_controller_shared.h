@@ -1,6 +1,8 @@
 #ifndef KELLY_DECOMP_KELLYSLATER_CONTROLLER_SHARED_H
 #define KELLY_DECOMP_KELLYSLATER_CONTROLLER_SHARED_H
 
+#include "KS/SRC/ks/trickdata.h"
+
 enum {
     SUPER_STATE_IN_TUBE = 7,
     STATE_TUBE_RAILGRAB = 78,
@@ -46,7 +48,11 @@ class kellyslater_controller {
     int newTrick;
     int airIKtrick;
     bool trick_complete;
-    char data_to_tube_trick[0x164];
+    bool manual;
+    bool current_trick_type;
+    bool trick_queued;
+    bool bDoingTrick;
+    char data_to_tube_trick[0x154];
     int tube_trick;
     char data_to_last_tube_trick[0x18];
     int last_tube_trick;
@@ -57,9 +63,13 @@ class kellyslater_controller {
 
 public:
     void SetCompletedTrick();
+    void SetCompletedTrick(int trick);
+    void SetNewTrick(int trick);
     int GetCurrentTrick();
     void SetPlayerCamera(game_camera*);
     void end_secondary_cam();
 };
+
+extern const int ManualFlag;
 
 #endif

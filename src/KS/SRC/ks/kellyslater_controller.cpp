@@ -6,6 +6,20 @@
 #include "KS/SRC/ks/kellyslater_controller_shared.h"
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0020D200)
+// 0x0020D200 SetNewTrick__22kellyslater_controlleri
+#include "KS/SRC/ks/kellyslater_controller_shared.h"
+__asm__(".equ GTrickList, 0x00427CA8");
+__asm__(".equ ManualFlag, 0x004D31EC");
+void kellyslater_controller::SetNewTrick(int trick) {
+    if (trick != currentTrick) {
+        newTrick = trick;
+        trick_queued = true;
+        manual = GTrickList[trick].flags & ManualFlag;
+    }
+}
+#endif
+
 #include "decomp_annotations.h"
 
 #if defined(KELLY_DECOMP_FUNCTION_0020D250)
