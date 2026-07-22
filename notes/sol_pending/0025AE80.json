@@ -1,0 +1,57 @@
+{
+  "address": "0x0025AE80",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "88b5b17d5f52e78daec5187ca3369c0cf89b4e98",
+      "candidate_size": 88,
+      "compared_bytes": 88,
+      "compared_instructions": 22,
+      "emitted_name": "StartNewRun__6Career",
+      "instruction_score": 9.0909,
+      "matching_bytes": 31,
+      "matching_instructions": 2,
+      "notes": "Implemented StartNewRun clearing the three five-entry per-run arrays and setting three unlock markers to -1. Initial direct offsets reproduced behavior but differed in pointer formation and marker addressing.",
+      "score": 35.2273,
+      "source": "// Target: 0x0025AE80 StartNewRun__6Career\n// Reference: KS/SRC/ks/career.cpp\n\nclass Career {\npublic:\n    void StartNewRun() __asm__(\"StartNewRun__6Career\");\n};\n\nvoid Career::StartNewRun()\n{\n    int *completed = (int *)((char *)this + 108);\n    int *goals = (int *)((char *)this + 128);\n    int *run_goals = (int *)((char *)this + 0x10194);\n    for (int i = 0; i < 5; ++i) {\n        completed[i] = 0;\n        goals[i] = 0;\n        run_goals[i] = 0;\n    }\n    int *unlock = (int *)((char *)this + 0x10318);\n    unlock[2] = -1;\n    unlock[1] = -1;\n    unlock[3] = -1;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "fe5b15fc32b87d5aa953824c49b09d742a29fe05",
+      "candidate_size": 84,
+      "compared_bytes": 84,
+      "compared_instructions": 21,
+      "emitted_name": "StartNewRun__6Career",
+      "instruction_score": 52.381,
+      "matching_bytes": 48,
+      "matching_instructions": 11,
+      "notes": "Rebased the first array as goals[-5] and unlock markers from a 0x10000 base, reproducing the target loop pointer setup and offsets. Loop increment delay-slot and marker store ordering remained different.",
+      "score": 57.1429,
+      "source": "// Target: 0x0025AE80 StartNewRun__6Career\n// Reference: KS/SRC/ks/career.cpp\n\nclass Career {\npublic:\n    void StartNewRun() __asm__(\"StartNewRun__6Career\");\n};\n\nvoid Career::StartNewRun()\n{\n    int *goals = (int *)((char *)this + 128);\n    int *run_goals = (int *)((char *)this + 0x10194);\n    for (int i = 0; i < 5; ++i) {\n        goals[i - 5] = 0;\n        goals[i] = 0;\n        run_goals[i] = 0;\n    }\n    int *unlock = (int *)((char *)this + 0x10000);\n    unlock[98] = -1;\n    unlock[97] = -1;\n    unlock[99] = -1;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "60ec96ca9452b0998a7295f4ae5b70ad99fac0b6",
+      "candidate_size": 84,
+      "compared_bytes": 84,
+      "compared_instructions": 21,
+      "emitted_name": "StartNewRun__6Career",
+      "instruction_score": 14.2857,
+      "matching_bytes": 33,
+      "matching_instructions": 3,
+      "notes": "Tried a decrementing while-loop and reordered marker assignments. The compiler produced a different loop shape and still did not match the immutable target. Exactly three Luna attempts exhausted; no attempt 4.",
+      "score": 39.2857,
+      "source": "// Target: 0x0025AE80 StartNewRun__6Career\n// Reference: KS/SRC/ks/career.cpp\n\nclass Career {\npublic:\n    void StartNewRun() __asm__(\"StartNewRun__6Career\");\n};\n\nvoid Career::StartNewRun()\n{\n    int *goals = (int *)((char *)this + 128);\n    int *run_goals = (int *)((char *)this + 0x10194);\n    int i = 5;\n    while (--i >= 0) {\n        goals[i - 5] = 0;\n        goals[i] = 0;\n        run_goals[i] = 0;\n    }\n    int *unlock = (int *)((char *)this + 0x10000);\n    unlock[97] = -1;\n    unlock[98] = -1;\n    unlock[99] = -1;\n}\n",
+      "status": "different",
+      "target_size": 80
+    }
+  ],
+  "raw_name": "StartNewRun__6Career"
+}
