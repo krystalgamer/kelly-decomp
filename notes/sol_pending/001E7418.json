@@ -1,0 +1,57 @@
+{
+  "address": "0x001E7418",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "faabaafddd78c2f36f782004a8fad6bed11b50fa",
+      "candidate_size": 140,
+      "compared_bytes": 140,
+      "compared_instructions": 35,
+      "emitted_name": "WAVERENDER_SetWaveHighlightParams__FffffG9nglVectorfff",
+      "instruction_score": 0.0,
+      "matching_bytes": 15,
+      "matching_instructions": 0,
+      "notes": "Initial candidate modeled nglVector as a by-value struct. Immutable source packet indicates an nglVector parameter, but this ABI model produced a 140-byte function with stack copies instead of the target lq/sq vector transfer.",
+      "score": 10.7143,
+      "source": "// Target: 0x001E7418 WAVERENDER_SetWaveHighlightParams__FffffG9nglVectorfff\n// Reference: KS/SRC/HWOSPS2/ps2_waverender.cpp\n\nstruct nglVector {\n    float x, y, z, w;\n};\n\nextern float wave_highlight_0;\nextern float wave_highlight_1;\nextern float wave_highlight_2;\nextern float wave_highlight_3;\nextern float wave_highlight_4;\nextern float wave_highlight_5;\nextern float wave_highlight_6;\nextern nglVector wave_highlight_position;\n__asm__(\".equ wave_highlight_0, 0x0042E684\");\n__asm__(\".equ wave_highlight_1, 0x0042E688\");\n__asm__(\".equ wave_highlight_2, 0x0042E68C\");\n__asm__(\".equ wave_highlight_3, 0x0042E690\");\n__asm__(\".equ wave_highlight_4, 0x0042E694\");\n__asm__(\".equ wave_highlight_5, 0x0042E698\");\n__asm__(\".equ wave_highlight_6, 0x0042E69C\");\n__asm__(\".equ wave_highlight_position, 0x005141A0\");\n\nextern \"C\" void WAVERENDER_SetWaveHighlightParams(\n    float a, float b, float c, float d, nglVector position,\n    float e, float f, float g\n) __asm__(\"WAVERENDER_SetWaveHighlightParams__FffffG9nglVectorfff\");\n\nvoid WAVERENDER_SetWaveHighlightParams(\n    float a, float b, float c, float d, nglVector position,\n    float e, float f, float g\n)\n{\n    wave_highlight_0 = a;\n    wave_highlight_1 = b;\n    wave_highlight_2 = c;\n    wave_highlight_3 = d;\n    wave_highlight_4 = e;\n    wave_highlight_5 = f;\n    wave_highlight_6 = g;\n    wave_highlight_position = position;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3111e49174b65c5b155fd9314721454fef961dbe",
+      "candidate_size": 104,
+      "compared_bytes": 104,
+      "compared_instructions": 26,
+      "emitted_name": "WAVERENDER_SetWaveHighlightParams__FffffG9nglVectorfff",
+      "instruction_score": 61.5385,
+      "matching_bytes": 70,
+      "matching_instructions": 16,
+      "notes": "Changed nglVector to a const reference and reproduced all scalar global stores and ordering. The compiler emitted the expected no-prologue function but used ldl/ldr/sdl/sdr for the vector copy, yielding 104 bytes rather than the target lq/sq sequence.",
+      "score": 67.3077,
+      "source": "// Target: 0x001E7418 WAVERENDER_SetWaveHighlightParams__FffffG9nglVectorfff\n// Reference: KS/SRC/HWOSPS2/ps2_waverender.cpp\n\nstruct nglVector {\n    float x, y, z, w;\n};\n\nextern float wave_highlight_0;\nextern float wave_highlight_1;\nextern float wave_highlight_2;\nextern float wave_highlight_3;\nextern float wave_highlight_4;\nextern float wave_highlight_5;\nextern float wave_highlight_6;\nextern nglVector wave_highlight_position;\n__asm__(\".equ wave_highlight_0, 0x0042E684\");\n__asm__(\".equ wave_highlight_1, 0x0042E688\");\n__asm__(\".equ wave_highlight_2, 0x0042E68C\");\n__asm__(\".equ wave_highlight_3, 0x0042E690\");\n__asm__(\".equ wave_highlight_4, 0x0042E694\");\n__asm__(\".equ wave_highlight_5, 0x0042E698\");\n__asm__(\".equ wave_highlight_6, 0x0042E69C\");\n__asm__(\".equ wave_highlight_position, 0x005141A0\");\n\nextern \"C\" void WAVERENDER_SetWaveHighlightParams(\n    float a, float b, float c, float d, const nglVector &position,\n    float e, float f, float g\n) __asm__(\"WAVERENDER_SetWaveHighlightParams__FffffG9nglVectorfff\");\n\nvoid WAVERENDER_SetWaveHighlightParams(\n    float a, float b, float c, float d, const nglVector &position,\n    float e, float f, float g\n)\n{\n    wave_highlight_0 = a;\n    wave_highlight_1 = b;\n    wave_highlight_2 = c;\n    wave_highlight_3 = d;\n    wave_highlight_4 = e;\n    wave_highlight_5 = f;\n    wave_highlight_6 = g;\n    wave_highlight_position = position;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "674de1aceb2c46e441b48b29f21ff383b1868fd6",
+      "candidate_size": 72,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "WAVERENDER_SetWaveHighlightParams__FffffG9nglVectorfff",
+      "instruction_score": 75.0,
+      "matching_bytes": 61,
+      "matching_instructions": 15,
+      "notes": "Tried a 16-byte vector-type nglVector while preserving the immutable scalar body. The compiler generated a shorter 72-byte function and still did not emit the target lq/sq instructions. Exactly three Luna attempts were exhausted; no attempt 4 was run.",
+      "score": 76.25,
+      "source": "// Target: 0x001E7418 WAVERENDER_SetWaveHighlightParams__FffffG9nglVectorfff\n// Reference: KS/SRC/HWOSPS2/ps2_waverender.cpp\n\ntypedef float nglVector __attribute__((vector_size(16)));\n\nextern float wave_highlight_0;\nextern float wave_highlight_1;\nextern float wave_highlight_2;\nextern float wave_highlight_3;\nextern float wave_highlight_4;\nextern float wave_highlight_5;\nextern float wave_highlight_6;\nextern nglVector wave_highlight_position;\n__asm__(\".equ wave_highlight_0, 0x0042E684\");\n__asm__(\".equ wave_highlight_1, 0x0042E688\");\n__asm__(\".equ wave_highlight_2, 0x0042E68C\");\n__asm__(\".equ wave_highlight_3, 0x0042E690\");\n__asm__(\".equ wave_highlight_4, 0x0042E694\");\n__asm__(\".equ wave_highlight_5, 0x0042E698\");\n__asm__(\".equ wave_highlight_6, 0x0042E69C\");\n__asm__(\".equ wave_highlight_position, 0x005141A0\");\n\nextern \"C\" void WAVERENDER_SetWaveHighlightParams(\n    float a, float b, float c, float d, const nglVector &position,\n    float e, float f, float g\n) __asm__(\"WAVERENDER_SetWaveHighlightParams__FffffG9nglVectorfff\");\n\nvoid WAVERENDER_SetWaveHighlightParams(\n    float a, float b, float c, float d, const nglVector &position,\n    float e, float f, float g\n)\n{\n    wave_highlight_0 = a;\n    wave_highlight_1 = b;\n    wave_highlight_2 = c;\n    wave_highlight_3 = d;\n    wave_highlight_4 = e;\n    wave_highlight_5 = f;\n    wave_highlight_6 = g;\n    wave_highlight_position = position;\n}\n",
+      "status": "different",
+      "target_size": 80
+    }
+  ],
+  "raw_name": "WAVERENDER_SetWaveHighlightParams__FffffG9nglVectorfff"
+}
