@@ -28,6 +28,11 @@ struct SplineCoeffs {
     float d[count];
 };
 
+struct WaveProfileCoeffs {
+    SplineCoeffs<16> y;
+    SplineCoeffs<16> z;
+};
+
 struct WaveProfileMetaCoeffs {
     SplineCoeffs<16> y[16];
     SplineCoeffs<16> z[16];
