@@ -1,5 +1,9 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0033BD68) || \
+    defined(KELLY_DECOMP_FUNCTION_0033BDB0)
+#include "KS/SRC/text_font_shared.h"
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0033C1E8)
 // 0x0033C1E8 get_char_info__C8font_defc
@@ -33,21 +37,6 @@ void Font::clear_glyph_info() { memset(glyphs, 0, 9216); KELLY_DECOMP_COMPILER_B
 
 #if defined(KELLY_DECOMP_FUNCTION_0033BDB0)
 // 0x0033BDB0 getIndex__4Fontc
-class Font {
-    char prefix[8];
-    struct glyph_info {
-        unsigned char ascii;
-        unsigned int cell_x, cell_y;
-        unsigned int cell_width, cell_height;
-        unsigned int glyph_x, glyph_y;
-        unsigned int glyph_width, glyph_height;
-    };
-    glyph_info m_chars[256];
-    char padding[20];
-    int numGlyphs;
-public:
-    int getIndex(char c);
-};
 int Font::getIndex(char c)
 {
     unsigned char c1 = (unsigned char)c;
@@ -55,6 +44,19 @@ int Font::getIndex(char c)
         if (m_chars[i].ascii == c1)
             return i;
     return -1;
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033BD68)
+// 0x0033BD68 getGlyph__4Fontc
+__asm__(".equ getIndex__4Fontc, 0x0033BDB0");
+
+Font::glyph_info *Font::getGlyph(char c) {
+    int which = getIndex(c);
+    glyph_info *result = 0;
+    if (which >= 0)
+        result = &m_chars[which];
+    return result;
 }
 #endif
 
