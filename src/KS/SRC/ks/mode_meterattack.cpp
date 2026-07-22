@@ -74,3 +74,25 @@ void MeterAttackMode::Reset()
     setNum = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002864C8)
+#include "KS/SRC/ks/mode_meterattack_shared.h"
+// 0x002864C8 __15MeterAttackMode
+MeterAttackMode::MeterAttackMode()
+{
+    float initial_time = TIME_INITIAL;
+    Player *player = players;
+    do
+    {
+        player->controller = 0;
+        player->time = initial_time;
+        player->previous_score = 0;
+        player->score = 0;
+        player->attacking = false;
+        player->attack_score = 0;
+        ++player;
+    } while ((int)player < (int)(players + 2));
+    game_number = 0;
+    set_number = 0;
+}
+#endif
