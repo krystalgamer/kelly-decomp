@@ -1,5 +1,18 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00389D68)
+#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+
+__asm__(".equ sceSdRemote, 0x0038BAE0");
+
+// 0x00389D68 changeInputVolume__FUi
+static void changeInputVolume(unsigned int val) {
+    sceSdRemote(1, 0x8010, 0x0F80, val);
+    sceSdRemote(1, 0x8010, 0x1080, val);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+__asm__(".globl changeInputVolume__FUi");
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00388338)
 // 0x00388338 nvlMPEGSetMemoryAllocCallback__FPFii_Pv

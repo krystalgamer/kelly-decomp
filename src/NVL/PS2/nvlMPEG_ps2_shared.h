@@ -15,5 +15,6 @@ extern VoBuf voBuf;
 extern volatile int isFrameEnd;
 
 void voBufDecCount(VoBuf *buffer);
+extern "C" int sceSdRemote(int command, int function, ...);
 
 #endif
