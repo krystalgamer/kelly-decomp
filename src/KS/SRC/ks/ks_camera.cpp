@@ -14,6 +14,22 @@ void debug_camera::sync(camera& other) {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0022F510)
+// 0x0022F510 __15big_wave_cameraRC9entity_idP6entityP22kellyslater_controller
+#include "KS/SRC/ks/ks_camera_shared.h"
+__asm__(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
+__asm__(".equ _vt$15big_wave_camera, 0x004E95A0");
+__asm__(".equ Reset__15big_wave_camera, 0x0022F560");
+big_wave_camera::big_wave_camera(
+    const entity_id &id,
+    entity *target,
+    kellyslater_controller *controller
+) : game_camera(id, target) {
+    set_ks_controller(controller);
+    Reset();
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00225E70)
 // 0x00225E70 init__16look_back_camera
 class look_back_camera {
