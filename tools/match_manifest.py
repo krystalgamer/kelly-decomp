@@ -36,11 +36,14 @@ def queue_rows() -> list[dict[str, str]]:
         return list(csv.DictReader(queue_file))
 
 
-def next_pending(rows: list[dict[str, str]]) -> dict[str, str]:
+def next_status(
+    rows: list[dict[str, str]],
+    status: str,
+) -> dict[str, str]:
     for row in rows:
-        if row["status"] == "pending":
+        if row["status"] == status:
             return row
-    raise RuntimeError("No pending functions remain")
+    raise RuntimeError(f"No {status} functions remain")
 
 
 def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
@@ -50,18 +53,25 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
     if address not in by_address:
         raise RuntimeError(f"Manifest address is not in the queue: {address}")
     row = by_address[address]
-    if row["status"] != "pending":
+    expected_status = entry.get("queue_status", "pending")
+    if row["status"] != expected_status:
         print(
             f"skip {row['address']} {row['raw_name']} ({row['status']})",
             flush=True,
         )
         return False
+    if expected_status == "sol_pending" and any(
+        queued["status"] == "pending" for queued in rows
+    ):
+        raise RuntimeError(
+            "Sol second-pass work cannot start while pending functions remain"
+        )
 
-    pending = next_pending(rows)
+    pending = next_status(rows, expected_status)
     if pending["address"].lower() != address:
         raise RuntimeError(
             f"Manifest expects {row['address']} {row['raw_name']}, "
-            f"but the next pending function is "
+            f"but the next {expected_status} function is "
             f"{pending['address']} {pending['raw_name']}"
         )
     print(f"{row['address']} {row['raw_name']}", flush=True)
@@ -128,14 +138,21 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
     run(str(PYTHON), "tools/decomp.py", "check")
 
     note_path = ROOT / row["notes_file"]
-    run(
-        "git",
-        "add",
+    staged_paths = [
         "config/SLUS_203.34.symbol_addrs.txt",
         "notes/function_queue.csv",
         str(note_path.relative_to(ROOT)),
         str(source_path.relative_to(ROOT)),
-    )
+    ]
+    if expected_status == "sol_pending":
+        handoff_path = (
+            ROOT
+            / "notes"
+            / "sol_pending"
+            / f"{int(row['address'], 0):08X}.json"
+        )
+        staged_paths.append(str(handoff_path.relative_to(ROOT)))
+    run("git", "add", *staged_paths)
     run("git", "diff", "--cached", "--check")
     run(
         "git",

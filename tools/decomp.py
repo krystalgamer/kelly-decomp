@@ -2,6 +2,7 @@
 
 import argparse
 import csv
+import hashlib
 import json
 import subprocess
 import sys
@@ -11,8 +12,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 QUEUE_PATH = ROOT / "notes" / "function_queue.csv"
 SCRATCH_ROOT = ROOT / "tmp" / "functions"
+SOL_PENDING_ROOT = ROOT / "notes" / "sol_pending"
 MAX_ATTEMPTS = 5
 FINAL_STATUSES = {"matched", "deferred"}
+INTERIM_STATUSES = {"sol_pending"}
+TRACKED_STATUSES = FINAL_STATUSES | INTERIM_STATUSES
 EXCLUDED_STATUSES = {
     "excluded_handwritten",
     "excluded_sdk_runtime",
@@ -68,11 +72,19 @@ def scratch_directory(row: dict[str, str]) -> Path:
     return SCRATCH_ROOT / Path(row["notes_file"]).stem
 
 
-def next_pending(rows: list[dict[str, str]]) -> dict[str, str]:
+def sol_pending_path(row: dict[str, str]) -> Path:
+    address = int(row["address"], 0)
+    return SOL_PENDING_ROOT / f"{address:08X}.json"
+
+
+def next_status(
+    rows: list[dict[str, str]],
+    status: str,
+) -> dict[str, str]:
     for row in rows:
-        if row["status"] == "pending":
+        if row["status"] == status:
             return row
-    raise SystemExit("No pending eligible functions remain")
+    raise SystemExit(f"No {status} eligible functions remain")
 
 
 def print_next(row: dict[str, str], as_json: bool) -> None:
@@ -94,6 +106,13 @@ def read_attempts(row: dict[str, str]) -> list[dict[str, object]]:
 
 
 def attempt_notes(row: dict[str, str], attempt_number: int) -> str:
+    handoff_path = sol_pending_path(row)
+    if handoff_path.exists():
+        handoff = json.loads(handoff_path.read_text(encoding="utf-8"))
+        for attempt in handoff["attempts"]:
+            if int(attempt["attempt"]) == attempt_number:
+                return str(attempt.get("notes", "")).strip()
+
     path = (
         scratch_directory(row)
         / f"attempt-{attempt_number}"
@@ -102,6 +121,109 @@ def attempt_notes(row: dict[str, str], attempt_number: int) -> str:
     if not path.exists():
         return ""
     return path.read_text(encoding="utf-8").strip()
+
+
+def write_sol_pending_handoff(
+    row: dict[str, str],
+    attempts: list[dict[str, object]],
+) -> None:
+    scratch = scratch_directory(row)
+    records = []
+    for attempt in attempts:
+        attempt_number = int(attempt["attempt"])
+        attempt_directory = scratch / f"attempt-{attempt_number}"
+        candidate_path = attempt_directory / str(attempt["candidate_file"])
+        records.append(
+            {
+                **attempt,
+                "source": candidate_path.read_text(encoding="utf-8"),
+                "notes": attempt_notes(row, attempt_number),
+            }
+        )
+
+    path = sol_pending_path(row)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(
+            {
+                "address": row["address"],
+                "raw_name": row["raw_name"],
+                "attempts": records,
+            },
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+
+def validate_sol_pending_handoff(
+    row: dict[str, str],
+) -> dict[str, object]:
+    path = sol_pending_path(row)
+    if not path.exists():
+        raise SystemExit(
+            f"Sol-pending handoff is missing: {row['symbol_name']}"
+        )
+    handoff = json.loads(path.read_text(encoding="utf-8"))
+    attempts = handoff.get("attempts", [])
+    if (
+        handoff.get("address") != row["address"]
+        or len(attempts) != 3
+        or [int(attempt.get("attempt", 0)) for attempt in attempts]
+        != [1, 2, 3]
+        or any(attempt.get("status") == "matched" for attempt in attempts)
+        or any(not attempt.get("candidate_sha1") for attempt in attempts)
+        or any(not str(attempt.get("source", "")).strip() for attempt in attempts)
+        or any(not str(attempt.get("notes", "")).strip() for attempt in attempts)
+        or any(
+            hashlib.sha1(str(attempt["source"]).encode()).hexdigest()
+            != attempt["candidate_sha1"]
+            for attempt in attempts
+        )
+    ):
+        raise SystemExit(
+            f"Sol-pending handoff is invalid: {row['symbol_name']}"
+        )
+    return handoff
+
+
+def validate_sol_pending_prefix(
+    row: dict[str, str],
+    attempts: list[dict[str, object]],
+) -> None:
+    handoff = validate_sol_pending_handoff(row)
+    expected = [
+        {
+            key: value
+            for key, value in attempt.items()
+            if key not in ("source", "notes")
+        }
+        for attempt in handoff["attempts"]
+    ]
+    actual = attempts[: len(expected)]
+    if actual != expected:
+        raise SystemExit(
+            f"Sol attempts do not preserve the Luna prefix: "
+            f"{row['symbol_name']}"
+        )
+    scratch = scratch_directory(row)
+    for record in handoff["attempts"]:
+        candidate_path = (
+            scratch
+            / f"attempt-{record['attempt']}"
+            / str(record["candidate_file"])
+        )
+        if (
+            not candidate_path.exists()
+            or hashlib.sha1(candidate_path.read_bytes()).hexdigest()
+            != record["candidate_sha1"]
+        ):
+            raise SystemExit(
+                f"Sol scratch source does not preserve the Luna prefix: "
+                f"{row['symbol_name']}"
+            )
 
 
 def render_note(
@@ -165,9 +287,20 @@ def finalize(
     status: str,
     summary: str,
 ) -> None:
-    if row["status"] != "pending":
+    current_status = row["status"]
+    if current_status not in ("pending", "sol_pending"):
         raise SystemExit(
             f"{row['symbol_name']} is already {row['status']}"
+        )
+    if status == "sol_pending" and current_status != "pending":
+        raise SystemExit(
+            f"{row['symbol_name']} cannot return to sol_pending"
+        )
+    if current_status == "sol_pending" and any(
+        queued["status"] == "pending" for queued in rows
+    ):
+        raise SystemExit(
+            "Sol second-pass work cannot start while pending functions remain"
         )
 
     attempts = read_attempts(row)
@@ -175,6 +308,17 @@ def finalize(
         raise SystemExit("At least one attempt is required")
     if len(attempts) > MAX_ATTEMPTS:
         raise SystemExit("Attempt history exceeds the five-attempt limit")
+    if current_status == "pending":
+        if len(attempts) > 3:
+            raise SystemExit(
+                "A pending function cannot consume Sol attempts 4-5"
+            )
+        if status == "deferred":
+            raise SystemExit(
+                "A pending function must enter sol_pending before deferral"
+            )
+    else:
+        validate_sol_pending_prefix(row, attempts)
 
     matched_attempts = [
         attempt for attempt in attempts if attempt["status"] == "matched"
@@ -182,17 +326,34 @@ def finalize(
     if status == "matched":
         if not matched_attempts:
             raise SystemExit("Cannot finalize matched without a 100% attempt")
+        if current_status == "sol_pending" and len(attempts) < 4:
+            raise SystemExit(
+                "A Sol match must preserve the three-attempt Luna prefix"
+            )
         run_checked(
             "sha1sum",
             "-c",
             "config/SLUS_203.34.rom.sha1",
         )
-    elif len(attempts) != MAX_ATTEMPTS:
-        raise SystemExit(
-            "A deferred function must record exactly five attempts"
-        )
+    elif status == "sol_pending":
+        if len(attempts) != 3:
+            raise SystemExit(
+                "A sol_pending function must record exactly three attempts"
+            )
+        if matched_attempts:
+            raise SystemExit("Cannot queue a matched function for Sol")
+    else:
+        if matched_attempts:
+            raise SystemExit("Cannot defer a matched function")
+        if len(attempts) != MAX_ATTEMPTS:
+            raise SystemExit(
+                "A deferred function must record exactly five attempts"
+            )
 
     run_checked("./env/bin/python", "tools/check_reference.py")
+    remove_handoff = current_status == "sol_pending"
+    if status == "sol_pending":
+        write_sol_pending_handoff(row, attempts)
 
     best_score = max(float(attempt.get("score", 0)) for attempt in attempts)
     row["status"] = status
@@ -206,6 +367,8 @@ def finalize(
         render_note(row, attempts, status, summary),
         encoding="utf-8",
     )
+    if remove_handoff:
+        sol_pending_path(row).unlink(missing_ok=True)
     write_queue(fieldnames, rows)
     print(note_path.relative_to(ROOT))
 
@@ -248,12 +411,19 @@ def check_queue(rows: list[dict[str, str]]) -> None:
                     f"Exclusion mismatch: {row['symbol_name']}"
                 )
             continue
-        if status not in FINAL_STATUSES:
+        if status not in TRACKED_STATUSES:
             raise SystemExit(f"Unknown status {status}: {row['symbol_name']}")
         if not 1 <= attempts <= MAX_ATTEMPTS:
             raise SystemExit(
                 f"Invalid attempt count for {row['symbol_name']}: {attempts}"
             )
+        if status == "sol_pending" and attempts != 3:
+            raise SystemExit(
+                f"Sol-pending function lacks three attempts: "
+                f"{row['symbol_name']}"
+            )
+        if status == "sol_pending":
+            validate_sol_pending_handoff(row)
         if status == "deferred" and attempts != MAX_ATTEMPTS:
             raise SystemExit(
                 f"Deferred function lacks five attempts: {row['symbol_name']}"
@@ -278,12 +448,17 @@ def main() -> int:
 
     next_parser = subparsers.add_parser("next")
     next_parser.add_argument("--json", action="store_true")
+    next_parser.add_argument(
+        "--status",
+        choices=("pending", "sol_pending"),
+        default="pending",
+    )
 
     finalize_parser = subparsers.add_parser("finalize")
     finalize_parser.add_argument("function")
     finalize_parser.add_argument(
         "--status",
-        choices=("matched", "deferred"),
+        choices=("matched", "deferred", "sol_pending"),
         required=True,
     )
     finalize_parser.add_argument("--summary", required=True)
@@ -293,7 +468,14 @@ def main() -> int:
     args = parser.parse_args()
     fieldnames, rows = read_queue()
     if args.command == "next":
-        print_next(next_pending(rows), args.json)
+        if args.status == "sol_pending" and any(
+            row["status"] == "pending" for row in rows
+        ):
+            raise SystemExit(
+                "Sol second-pass work cannot start while pending "
+                "functions remain"
+            )
+        print_next(next_status(rows, args.status), args.json)
     elif args.command == "finalize":
         finalize(
             fieldnames,

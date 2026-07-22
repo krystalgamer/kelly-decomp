@@ -22,6 +22,7 @@ QUEUE_PATH = ROOT / "notes" / "function_queue.csv"
 TARGET_ELF = ROOT / "SLUS_203.34"
 TARGET_ROM = ROOT / "SLUS_203.34.rom"
 SCRATCH_ROOT = ROOT / "tmp" / "functions"
+SOL_PENDING_ROOT = ROOT / "notes" / "sol_pending"
 TEXT_VRAM = 0x00100000
 MAX_ATTEMPTS = 5
 INSTRUCTION_PATTERN = re.compile(
@@ -65,6 +66,117 @@ def resolve_function(query: str) -> dict[str, str]:
 def scratch_directory(row: dict[str, str]) -> Path:
     notes_name = Path(row["notes_file"]).stem
     return SCRATCH_ROOT / notes_name
+
+
+def attempt_limit(row: dict[str, str]) -> int:
+    return 3 if row["status"] == "pending" else MAX_ATTEMPTS
+
+
+def restore_sol_pending_attempts(
+    row: dict[str, str],
+    directory: Path,
+) -> bool:
+    if row["status"] != "sol_pending":
+        return False
+    address = int(row["address"], 0)
+    handoff_path = SOL_PENDING_ROOT / f"{address:08X}.json"
+    if not handoff_path.exists():
+        raise RuntimeError(
+            f"Missing durable Sol handoff for {row['address']}"
+        )
+
+    handoff = json.loads(handoff_path.read_text(encoding="utf-8"))
+    durable_attempts = []
+    for record in handoff["attempts"]:
+        source = str(record["source"])
+        if hashlib.sha1(source.encode()).hexdigest() != record["candidate_sha1"]:
+            raise RuntimeError(
+                f"Durable Luna source hash mismatch for {row['address']} "
+                f"attempt {record['attempt']}"
+            )
+        result = {
+            key: value
+            for key, value in record.items()
+            if key not in ("source", "notes")
+        }
+        durable_attempts.append(result)
+
+    attempts_path = directory / "attempts.json"
+    local_attempts = (
+        json.loads(attempts_path.read_text(encoding="utf-8"))
+        if attempts_path.exists()
+        else []
+    )
+    if local_attempts:
+        if len(local_attempts) < len(durable_attempts):
+            raise RuntimeError(
+                f"Local attempt history for {row['address']} is missing "
+                "the durable Luna prefix"
+            )
+        local_prefix = [
+            attempt["candidate_sha1"]
+            for attempt in local_attempts[: len(durable_attempts)]
+        ]
+        durable_prefix = [
+            attempt["candidate_sha1"]
+            for attempt in durable_attempts
+        ]
+        if local_prefix != durable_prefix:
+            raise RuntimeError(
+                f"Local attempt history for {row['address']} conflicts "
+                "with the durable Luna prefix"
+            )
+        extra_attempts = local_attempts[len(durable_attempts) :]
+        expected_numbers = list(
+            range(
+                len(durable_attempts) + 1,
+                len(durable_attempts) + len(extra_attempts) + 1,
+            )
+        )
+        actual_numbers = [
+            int(attempt["attempt"]) for attempt in extra_attempts
+        ]
+        if (
+            actual_numbers != expected_numbers
+            or len(durable_attempts) + len(extra_attempts) > MAX_ATTEMPTS
+        ):
+            raise RuntimeError(
+                f"Local Sol attempts for {row['address']} are not a "
+                "valid continuation of the durable Luna prefix"
+            )
+        restored_attempts = durable_attempts + extra_attempts
+    else:
+        restored_attempts = durable_attempts
+
+    for record in handoff["attempts"]:
+        attempt_number = int(record["attempt"])
+        attempt_directory = directory / f"attempt-{attempt_number}"
+        attempt_directory.mkdir(exist_ok=True)
+        candidate_name = str(record["candidate_file"])
+        candidate_path = attempt_directory / candidate_name
+        source = str(record["source"])
+        if candidate_path.exists():
+            if hashlib.sha1(candidate_path.read_bytes()).hexdigest() != record[
+                "candidate_sha1"
+            ]:
+                raise RuntimeError(
+                    f"Local Luna candidate conflicts with durable source "
+                    f"for {row['address']} attempt {attempt_number}"
+                )
+        else:
+            candidate_path.write_text(source, encoding="utf-8")
+        notes_path = attempt_directory / "notes.md"
+        if not notes_path.exists():
+            notes_path.write_text(
+                str(record.get("notes", "")).rstrip() + "\n",
+                encoding="utf-8",
+            )
+
+    attempts_path.write_text(
+        json.dumps(restored_attempts, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    return True
 
 
 def run_objdump(args: list[str]) -> str:
@@ -122,7 +234,9 @@ def prepare(row: dict[str, str]) -> Path:
     (directory / "target.s").write_text(target_assembly, encoding="utf-8")
 
     attempts_path = directory / "attempts.json"
-    if not attempts_path.exists():
+    if row["status"] == "sol_pending":
+        restore_sol_pending_attempts(row, directory)
+    elif not attempts_path.exists():
         attempts_path.write_text("[]\n", encoding="ascii")
 
     candidate_path = directory / "candidate.cpp"
@@ -296,9 +410,10 @@ def compile_attempt(
             )
             return attempt
 
-    if len(attempts) >= MAX_ATTEMPTS:
+    limit = attempt_limit(row)
+    if len(attempts) >= limit:
         raise SystemExit(
-            f"Attempt limit reached for {row['symbol_name']}: {MAX_ATTEMPTS}"
+            f"Attempt limit reached for {row['symbol_name']}: {limit}"
         )
 
     attempt_number = len(attempts) + 1
@@ -440,13 +555,14 @@ def show_status(row: dict[str, str]) -> None:
     attempts = json.loads(
         (directory / "attempts.json").read_text(encoding="utf-8")
     )
+    limit = attempt_limit(row)
     print(
         json.dumps(
             {
                 "function": row["symbol_name"],
                 "address": row["address"],
                 "attempts_used": len(attempts),
-                "attempts_remaining": MAX_ATTEMPTS - len(attempts),
+                "attempts_remaining": limit - len(attempts),
                 "results": attempts,
             },
             indent=2,
@@ -480,6 +596,17 @@ def main() -> int:
     if row["classification"] != "eligible":
         raise SystemExit(
             f"{row['symbol_name']} is not eligible: {row['classification']}"
+        )
+    if (
+        args.command in ("prepare", "test")
+        and row["status"] == "sol_pending"
+        and any(
+            queued["status"] == "pending"
+            for queued in load_queue()
+        )
+    ):
+        raise SystemExit(
+            "Sol second-pass work cannot start while pending functions remain"
         )
 
     if args.command == "prepare":
