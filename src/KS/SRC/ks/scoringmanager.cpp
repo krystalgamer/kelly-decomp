@@ -1,5 +1,19 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00249AE0)
+#include "KS/SRC/ks/scoringmanager_shared.h"
+// 0x00249AE0 HasGap__CQ214ScoringManager6Seriesi
+bool ScoringManager::Series::HasGap(int gapIdx) const
+{
+    for (TrickList::const_iterator i = tricks.begin(); i != tricks.end(); ++i) {
+        if (i->type == Trick::TYPE_GAP && i->index == gapIdx)
+            return true;
+    }
+
+    return false;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00246FD0)
 // 0x00246FD0 SetKsctrl__14ScoringManagerP22kellyslater_controller
