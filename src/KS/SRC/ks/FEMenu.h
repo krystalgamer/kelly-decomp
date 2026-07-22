@@ -12,6 +12,22 @@ void FEMenuEntry::Load() {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001DB1B8)
+// 0x001DB1B8 ToggleOn__15FEGraphicalMenuP9PanelQuad
+#include "KS/SRC/ks/FEPanel_shared.h"
+#define KELLY_DECOMP_BUILT_FEMENU_VTABLE_TAIL
+#define KELLY_DECOMP_FULL_FE_PANEL_HELPERS
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FE_PANEL_HELPERS
+#undef KELLY_DECOMP_BUILT_FEMENU_VTABLE_TAIL
+void FEGraphicalMenu::ToggleOn(PanelQuad *quad) {
+    if (parent)
+        ((FEGraphicalMenu *)parent)->ToggleOn(quad);
+    else
+        FrontEnd::ToggleOn(quad);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001DADE0)
 // 0x001DADE0 SetPanel__8FrontEndG7stringx
 #include "KS/SRC/ks/FEMenu_shared.h"

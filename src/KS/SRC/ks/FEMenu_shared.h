@@ -172,6 +172,10 @@ protected:
     virtual void Previous();
     virtual void Select();
     virtual void AddSubmenu(FEMenu*);
+#if defined(KELLY_DECOMP_BUILT_FEMENU_VTABLE_TAIL)
+    // The shipped front-end vtable has one additional source-version slot.
+    virtual void BuiltVersionReserved();
+#endif
 };
 
 class FEMenuSystem {
@@ -229,6 +233,29 @@ public:
     virtual void SetPanel(stringx);
 
 protected:
+#if defined(KELLY_DECOMP_FULL_FE_PANEL_HELPERS)
+    void TurnOn(PanelQuad* quad, bool enabled) {
+        if (quad)
+            quad->TurnOn(enabled);
+    }
+    void ToggleOn(PanelQuad* quad) {
+        if (quad)
+            quad->ToggleOn();
+    }
+    void ChangeFade(PanelQuad* quad, bool start, bool fade_in, float time) {
+        if (quad)
+            quad->ChangeFade(start, fade_in, time);
+    }
+    void Mask(PanelQuad* quad, float amount) {
+        if (quad)
+            quad->Mask(amount);
+    }
+#else
+    void TurnOn(PanelQuad* quad, bool enabled);
+    void ToggleOn(PanelQuad* quad);
+    void ChangeFade(PanelQuad* quad, bool start, bool fade_in, float time);
+    void Mask(PanelQuad* quad, float amount);
+#endif
     virtual void SetPQIndices();
 };
 
@@ -242,6 +269,10 @@ public:
     virtual void Update(time_value_t time_inc);
     virtual void OnActivate();
     virtual void Add(FEMenuEntry*);
+    virtual void TurnOn(PanelQuad* quad, bool enabled);
+    virtual void ToggleOn(PanelQuad* quad);
+    virtual void ChangeFade(PanelQuad* quad, bool start, bool fade_in, float time);
+    virtual void Mask(PanelQuad* quad, float amount);
     virtual void LoadPanel(bool floating = false);
 };
 
