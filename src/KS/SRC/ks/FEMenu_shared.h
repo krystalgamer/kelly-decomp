@@ -209,6 +209,7 @@ class PanelFile {
 
 public:
     void Load(bool floating);
+    void SetFilename(stringx filename);
 };
 
 class FrontEnd {

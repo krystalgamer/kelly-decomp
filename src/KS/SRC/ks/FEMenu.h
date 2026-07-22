@@ -12,6 +12,17 @@ void FEMenuEntry::Load() {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001DADE0)
+// 0x001DADE0 SetPanel__8FrontEndG7stringx
+#include "KS/SRC/ks/FEMenu_shared.h"
+__asm__(".equ __7stringxRC7stringx, 0x0034D4D0");
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+__asm__(".equ SetFilename__9PanelFileG7stringx, 0x00152360");
+void FrontEnd::SetPanel(stringx panel_path) {
+    panel.SetFilename(panel_path);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001DA5E0)
 // 0x001DA5E0 SetLocation3D__11FEMenuEntryG8vector3d
 #include "KS/SRC/ks/FEPanel_shared.h"
