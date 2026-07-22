@@ -1,5 +1,19 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_002D6F30) || \
+    defined(KELLY_DECOMP_FUNCTION_002D6F78)
+#include "KS/SRC/pmesh_shared.h"
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D6F78)
+// 0x002D6F78 get_surface_type__C8vr_pmeshUi
+unsigned char vr_pmesh::get_surface_type(face_ref faceid) const
+{
+    if (!faces)
+        return reduced_faces[faceid].get_surface_type();
+    return faces[faceid].get_surface_type();
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002D3338)
 // 0x002D3338 render_instance__8vr_pmeshUiP20instance_render_infoPs
@@ -45,7 +59,5 @@ static int face_material_compare(const void *left_raw, const void *right_raw) { 
 
 #if defined(KELLY_DECOMP_FUNCTION_002D6F30)
 // 0x002D6F30 get_wedge_ref__C8vr_pmeshUii
-typedef unsigned int face_ref; typedef unsigned short wedge_ref; struct face { wedge_ref wedge[3]; char pad[6]; wedge_ref get_wedge_ref(int c) const{return wedge[c];} };
-class vr_pmesh { public: char p0[0x2c]; face *faces; char p1[0x18]; wedge_ref *wedge_index_list; wedge_ref get_wedge_ref(face_ref,int) const; };
 wedge_ref vr_pmesh::get_wedge_ref(face_ref fr,int corner) const { if(!faces) return wedge_index_list[fr*3+corner]; return faces[fr].get_wedge_ref(corner); }
 #endif
