@@ -1,5 +1,17 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00287930)
+#include "KS/SRC/game_shared.h"
+#include "KS/SRC/ks/ksreplay_shared.h"
+// 0x00287930 advance_state_paused__4gamef
+void game::advance_state_paused(float time_inc)
+{
+    ksreplay.Tick(false, time_inc);
+    frame_advance_game_overlays(time_inc);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00286978)
 // 0x00286978 go_next_state__12game_process

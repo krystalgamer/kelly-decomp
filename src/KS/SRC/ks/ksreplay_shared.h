@@ -36,8 +36,14 @@ class KSReplay {
     unsigned int maxFrames;
 
 public:
+    void Tick(bool running, float time_inc);
     void SetWipeoutSplash(int player);
     void SetEndWave();
 };
+
+extern KSReplay ksreplay;
+
+__asm__(".equ ksreplay, 0x004252A8");
+__asm__(".equ Tick__8KSReplaybf, 0x0023BD08");
 
 #endif
