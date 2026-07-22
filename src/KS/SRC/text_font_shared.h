@@ -1,10 +1,22 @@
 #ifndef KELLY_DECOMP_TEXT_FONT_SHARED_H
 #define KELLY_DECOMP_TEXT_FONT_SHARED_H
 
-class Font {
-protected:
-    char font_state[8];
+class stringx {
+    char *characters;
+    void *buffer;
 
+public:
+    stringx();
+};
+
+class nglTexture;
+
+class Font {
+public:
+    bool unset;
+    int max_width;
+
+protected:
     struct glyph_info {
         unsigned char ascii;
         unsigned int cell_x;
@@ -18,12 +30,25 @@ protected:
     };
 
     glyph_info m_chars[256];
-    char glyph_state[20];
+    stringx m_texname;
+    unsigned int m_texwidth;
+    unsigned int m_texheight;
+    nglTexture *texture;
     int numGlyphs;
+    float m_ascent;
+    float m_descent;
+    float m_scale;
+    stringx filename;
+    int m_refcount;
 
 public:
+    Font();
+    void clear_glyph_info();
     glyph_info *getGlyph(char c);
     int getIndex(char c);
 };
+
+__asm__(".equ __7stringx, 0x0034D3E0");
+__asm__(".equ clear_glyph_info__4Font, 0x0033A0A8");
 
 #endif

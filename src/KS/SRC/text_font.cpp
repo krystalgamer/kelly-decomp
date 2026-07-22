@@ -1,8 +1,21 @@
 // Matching decompilation blocks selected by generated build shims.
 
 #if defined(KELLY_DECOMP_FUNCTION_0033BD68) || \
-    defined(KELLY_DECOMP_FUNCTION_0033BDB0)
+    defined(KELLY_DECOMP_FUNCTION_0033BDB0) || \
+    defined(KELLY_DECOMP_FUNCTION_00339FD8)
 #include "KS/SRC/text_font_shared.h"
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00339FD8)
+// 0x00339FD8 __4Font
+Font::Font()
+{
+    clear_glyph_info();
+    m_texwidth = 0;
+    m_texheight = 0;
+    m_refcount = 0;
+    max_width = 0;
+}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0033C1E8)
