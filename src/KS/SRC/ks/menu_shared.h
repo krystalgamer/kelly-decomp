@@ -6,6 +6,7 @@
 class Menu;
 class MenuEntry;
 class MenuSystem;
+class stringx;
 
 typedef bool MenuEntryButtonFunction(MenuEntry *entry, int button_id);
 typedef MenuEntryButtonFunction *MenuEntryButtonFunctionPtr;
@@ -290,6 +291,16 @@ public:
     MenuEntryListEdit(char *text, int *target, int count, char **labels);
     MenuEntryListEdit(char *text, int *target, int count, char **labels, char *format);
     virtual ~MenuEntryListEdit() {}
+    virtual int MenuText(char *text, int length);
+};
+
+class MenuEntryStringxListEdit : public MenuEntryIntEdit {
+    stringx *label;
+
+public:
+    MenuEntryStringxListEdit(char *text, int *target, int count, stringx *labels);
+    MenuEntryStringxListEdit(char *text, int *target, int count, stringx *labels, char *format);
+    virtual ~MenuEntryStringxListEdit() {}
     virtual int MenuText(char *text, int length);
 };
 
