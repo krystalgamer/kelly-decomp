@@ -26,6 +26,13 @@ public:
 
 class FEMenu;
 
+struct FEMenuPreviousDispatchVTable {
+    char padding[0x150];
+    short adjustment;
+    short padding2;
+    void (*previous)(void *self);
+};
+
 class FEMenuEntry {
 public:
     int entry_num;
