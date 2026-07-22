@@ -44,6 +44,18 @@ public:
     virtual void preload();
 };
 
+class entity_color32 {
+    unsigned char red;
+    unsigned char green;
+    unsigned char blue;
+    unsigned char alpha;
+
+public:
+    unsigned char get_alpha() const {
+        return alpha;
+    }
+};
+
 class entity {
     char entity_data[0x78];
     unsigned int flags;
@@ -52,7 +64,13 @@ class entity {
     char entity_data_after_visrep[0x6c];
     unsigned int ext_flags;
     destroyable_info *destroy_info;
-    char entity_trailing_data[0x60];
+    char entity_data_before_render_color[0x38];
+
+protected:
+    entity_color32 render_color;
+
+private:
+    char entity_trailing_data[0x20];
 
 public:
     bool are_collisions_active() const {

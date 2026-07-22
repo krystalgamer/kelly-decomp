@@ -14,6 +14,7 @@ public:
     mat_fac(const mat_fac &other);
     virtual ~mat_fac();
     mat_fac &operator=(const mat_fac &other);
+    bool is_translucent() const;
 
 private:
     nglMaterial material;

@@ -2,8 +2,12 @@
 #define KELLY_DECOMP_POLYTUBE_SHARED_H
 
 #include "KS/SRC/entity_shared.h"
+#include "KS/SRC/matfac_shared.h"
 
-class mat_fac;
+enum {
+    RENDER_OPAQUE_PORTION = 1,
+    RENDER_TRANSLUCENT_PORTION = 2
+};
 
 class b_spline {
     char spline_data[36];
@@ -20,6 +24,7 @@ class polytube : public entity {
 
 public:
     void init();
+    render_flavor_t render_passes_needed() const;
 };
 
 #endif
