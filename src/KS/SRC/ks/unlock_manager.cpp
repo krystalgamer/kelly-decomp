@@ -1,5 +1,16 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_002F0620)
+#include "KS/SRC/ks/cheat_shared.h"
+#include "KS/SRC/ks/GlobalData_shared.h"
+#include "KS/SRC/ks/unlock_manager_shared.h"
+// 0x002F0620 isSurferMovieUnlocked__C16UnlockingManageri
+bool UnlockingManager::isSurferMovieUnlocked(int surfer) const
+{
+    return g_session_cheats[CHEAT_MEGA_CHEAT].isOn() ||
+        globalCareerData.isSurferMovieUnlocked(surfer);
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002F0900)
 // 0x002F0900 isEspnMovieUnlocked__C16UnlockingManager

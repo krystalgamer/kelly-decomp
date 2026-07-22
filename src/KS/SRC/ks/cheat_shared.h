@@ -1,0 +1,41 @@
+#ifndef KELLY_DECOMP_CHEAT_SHARED_H
+#define KELLY_DECOMP_CHEAT_SHARED_H
+
+enum cheats_enum {
+    CHEAT_RAINBOW,
+    CHEAT_TRIPPY,
+    CHEAT_FREAK_BOY,
+    CHEAT_TONY_HAWK,
+    CHEAT_TIKI_GOD,
+    CHEAT_TRAVIS_PASTRANA,
+    CHEAT_FPS_CAM,
+    CHEAT_INCREASE_BALANCE,
+    CHEAT_SUPER_BALANCE,
+    CHEAT_INCREASE_JUMP,
+    CHEAT_SUPER_JUMP,
+    CHEAT_PERFECT_BALANCE,
+    CHEAT_CAREER_PERSONALITY_SUIT,
+    CHEAT_ALL_PERSONALITY_SUITS,
+    CHEAT_BAILS_MOVIE,
+    CHEAT_ESPN_MOVIE,
+    CHEAT_ALL_LEVELS,
+    CHEAT_ALL_BOARDS,
+    CHEAT_UNLOCK_ALL_SURFERS,
+    CHEAT_UNLOCK_ALL_SURFER_TRICKS,
+    CHEAT_UNLOCK_ALL_SKILL_POINTS,
+    CHEAT_MEGA_CHEAT,
+    CHEAT_LAST,
+};
+
+class Cheat {
+    bool locked;
+    bool on;
+
+public:
+    bool isOn() const { return on; }
+};
+
+extern Cheat g_session_cheats[CHEAT_LAST];
+__asm__(".equ g_session_cheats, 0x0043BD48");
+
+#endif
