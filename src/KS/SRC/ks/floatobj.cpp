@@ -133,6 +133,16 @@ void surfing_object::jumped_over(entity* ent)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00209FF0)
+// 0x00209FF0 sprayed__14surfing_objectP6entity
+void surfing_object::sprayed(entity* ent)
+{
+    set_target_active(true);
+    if (my_anim_handler != 0)
+        my_anim_handler->update(false, false, true, &my_max_alpha);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_002073D8)
 // 0x002073D8 icepatch_ai__14surfing_objectR8vector3dT1f
 class vector3d;
