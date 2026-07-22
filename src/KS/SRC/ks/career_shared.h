@@ -1,0 +1,21 @@
+#ifndef KELLY_DECOMP_CAREER_SHARED_H
+#define KELLY_DECOMP_CAREER_SHARED_H
+
+void* operator new(unsigned int size, unsigned int alignment, const char* file, int line);
+
+class Career {
+    char data[0x10A48];
+
+public:
+    Career();
+};
+
+extern Career* g_career;
+extern const char career_source_path[];
+
+__asm__(".equ __nw__FUiUiPCci, 0x002AC578");
+__asm__(".equ __6Career, 0x0025A350");
+__asm__(".equ g_career, 0x00427C9C");
+__asm__(".equ career_source_path, 0x004D4828");
+
+#endif
