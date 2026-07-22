@@ -1,5 +1,23 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0015AA88)
+#include "KS/SRC/ks/igolearn_new_trickmanager_shared.h"
+
+__asm__(".equ PopFront__23IGOLearnNewTrickManagerb, 0x0015B418");
+
+// 0x0015AA88 Reset__23IGOLearnNewTrickManager
+void IGOLearnNewTrickManager::Reset()
+{
+    addIconDelay = 6.0f;
+    addIconTimer = 4.0f;
+
+    if (icon_active)
+        PopFront();
+
+    iconCounter = 0;
+    prev_iconCounter = 0;
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0015B650)
 // 0x0015B650 __Q223IGOLearnNewTrickManager12IconResource
