@@ -51,3 +51,25 @@ void IGOTutorialManager::SetCurrentTrick(int trick_num)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001596D0)
+// 0x001596D0 SetTutorialSection__18IGOTutorialManageri
+#include "KS/SRC/ks/tutorialmanager.h"
+enum { LEVEL_INDOOR_1, LEVEL_INDOOR_2 };
+#define FIRST_SET_END 8
+#define SECOND_SET_END 30
+extern int Tutorial_Step_Num;
+__asm__(".equ Tutorial_Step_Num, 0x0043B550");
+void IGOTutorialManager::SetTutorialSection(int tutorial_level) {
+    if (tutorial_level == LEVEL_INDOOR_1) {
+        current_step = 0;
+        last_step = FIRST_SET_END;
+    } else if (tutorial_level == LEVEL_INDOOR_2) {
+        current_step = FIRST_SET_END;
+        last_step = SECOND_SET_END;
+    } else {
+        current_step = SECOND_SET_END;
+        last_step = Tutorial_Step_Num;
+    }
+}
+#endif
