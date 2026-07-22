@@ -4,7 +4,6 @@
 #define KELLY_DECOMP_FULL_FEMENU_ENTRY
 #include "KS/SRC/ks/FEMenu_shared.h"
 #undef KELLY_DECOMP_FULL_FEMENU_ENTRY
-#include "KS/SRC/ks/FEPanel_shared.h"
 
 #pragma interface
 
@@ -93,6 +92,13 @@ private:
 
 public:
     virtual void OnStart(int controller);
+};
+
+class TextString {
+public:
+    virtual ~TextString() {}
+    virtual void Update(float time_inc);
+    virtual void Draw();
 };
 
 class BoxText : public TextString {
