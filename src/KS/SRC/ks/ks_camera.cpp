@@ -23,6 +23,29 @@ void **debug_rtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0026EE30)
+extern "C" void __rtti_si(void **type, const char *name, void **base);
+__asm__(".equ __rtti_si, 0x003CE2D8");
+extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
+extern "C" void *look_back_type[] __asm__("__ti16look_back_camera");
+extern "C" const char look_back_name[] __asm__("look_back_type_name");
+extern "C" void *game_camera_type[] __asm__("__ti11game_camera");
+__asm__(".equ __tf11game_camera, 0x002FECF0");
+__asm__(".equ __ti16look_back_camera, 0x005A3A80");
+__asm__(".equ look_back_type_name, 0x004E4DB8");
+__asm__(".equ __ti11game_camera, 0x005A3D40");
+
+extern "C" void **look_back_rtti() __asm__("__tf16look_back_camera");
+void **look_back_rtti()
+{
+    if (!look_back_type[0]) {
+        game_camera_rtti();
+        __rtti_si(look_back_type, look_back_name, game_camera_type);
+    }
+    return look_back_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00225340)
 // 0x00225340 sync__12debug_cameraR6camera
