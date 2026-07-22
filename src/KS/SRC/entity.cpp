@@ -1,5 +1,19 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00139180)
+#include "KS/SRC/entity_shared.h"
+
+// 0x00139180 preload__6entity
+void entity::preload()
+{
+    if (!was_preloaded()) {
+        set_preloaded(true);
+        if (destroy_info != 0)
+            destroy_info->preload();
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00138C18)
 #include "KS/SRC/entity_shared.h"
 #include "KS/SRC/game_shared.h"
