@@ -38,16 +38,38 @@ public:
     }
 };
 
+class hw_rasta_vert {
+    char fields_before_clip_flags[12];
+
+public:
+    unsigned char clip_flags;
+    char remaining_fields[47];
+};
+
+class material_vector {
+    void **first;
+    void **last;
+    void **capacity_end;
+
+public:
+    bool empty() const { return first == last; }
+};
+
 class vr_pmesh {
-    char visual_rep_data[0x2C];
+    char visual_rep_data[0x18];
+    hw_rasta_vert *xverts;
+    char fields_before_num_wedges[0xC];
+    int num_wedges;
     face* faces;
     reduced_face* reduced_faces;
     int num_faces;
-    char materials[0xC];
+    material_vector materials;
     void* vert_refs_for_wedge_ref;
     wedge_ref* wedge_index_list;
 
 public:
+    int get_num_wedges() const { return num_wedges; }
+    void mark_self_lit_verts();
     wedge_ref get_wedge_ref(face_ref faceid, int corner) const;
     unsigned char get_surface_type(face_ref faceid) const;
     bool is_cosmetic(face_ref faceid) const;
