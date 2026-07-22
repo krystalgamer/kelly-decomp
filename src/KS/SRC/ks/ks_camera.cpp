@@ -14,6 +14,22 @@ void debug_camera::sync(camera& other) {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_002351D8)
+// 0x002351D8 __12photo_cameraRC9entity_idP6entityP22kellyslater_controller
+#include "KS/SRC/ks/ks_camera_shared.h"
+__asm__(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
+__asm__(".equ _vt$12photo_camera, 0x004D6360");
+__asm__(".equ init__12photo_camera, 0x00235228");
+photo_camera::photo_camera(
+    const entity_id &id,
+    entity *target,
+    kellyslater_controller *controller
+) : game_camera(id, target) {
+    set_ks_controller(controller);
+    init();
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0022F510)
 // 0x0022F510 __15big_wave_cameraRC9entity_idP6entityP22kellyslater_controller
 #include "KS/SRC/ks/ks_camera_shared.h"
