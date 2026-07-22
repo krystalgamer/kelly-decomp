@@ -2,6 +2,7 @@
 #define KELLY_DECOMP_SOUND_SCRIPT_SHARED_H
 
 enum EventType {
+    SS_FE_BACK = 27,
     SS_LAST = 105,
 };
 
@@ -43,6 +44,10 @@ class SoundScriptManager : public singleton {
     bool paused;
 
 public:
+    static SoundScriptManager* instance;
+
+    static SoundScriptManager* inst() { return instance; }
+    int playEvent(EventType type, entity* source = 0, float fade_in_time = 0.0f);
     void createAllMappings();
 };
 

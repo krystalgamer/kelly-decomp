@@ -97,3 +97,17 @@ void CheatFrontEnd::Draw() { if(active) { active->Draw(); KELLY_DECOMP_COMPILER_
 // 0x001D22F8 OnActivate__13CheatCodeMenu
 class FEMenuEntry {}; class CheatBase { char padding[0x74]; public: virtual void d0(); virtual void d1(); virtual void setHigh(FEMenuEntry*, bool=true); }; class CheatCodeMenu : public CheatBase { char padding2[0x160-0x78]; FEMenuEntry* cheats[1]; public: void ReOrderEntries(int); void OnActivate(); }; __asm__(".equ ReOrderEntries__13CheatCodeMenui, 0x001D2518"); void CheatCodeMenu::OnActivate() { ReOrderEntries(0); setHigh(cheats[0]); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D2A50)
+// 0x001D2A50 OnTriangle__13CheatCodeMenui
+#include "KS/SRC/ks/CheatFrontEnd_shared.h"
+// The old assembler requires the adjusted high-half representation for this
+// absolute singleton address because its signed low half is negative.
+__asm__(".equ _18SoundScriptManager$instance, 0x0046B4A0");
+__asm__(".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380");
+void CheatCodeMenu::OnTriangle(int command) {
+    parent->MakeActive(0);
+    SoundScriptManager::inst()->playEvent(SS_FE_BACK);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
