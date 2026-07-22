@@ -33,6 +33,14 @@ struct WaveProfileMetaCoeffs {
     SplineCoeffs<16> z[16];
 };
 
+template <int count>
+struct SplineData2D {
+    float y[count];
+    float z[count];
+};
+
+typedef SplineData2D<16> WaveProfile;
+
 class WaveScratchBase {
 public:
     WaveScratchBase() {}
