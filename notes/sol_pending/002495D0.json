@@ -1,0 +1,50 @@
+{
+  "address": "0x002495D0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ffdbb506d3dfe729d772e84129979eb7d15a894d",
+      "error": "Candidate did not emit __as__Q214ScoringManager5ChainRCQ214ScoringManager5Chain; emitted functions: ['__as__5ChainRC5Chain']",
+      "notes": "Initial Chain assignment modeled self-guard, series list assignment helper, multAdder copy, and return. The candidate emitted the ordinary mangled symbol rather than the authoritative target alias.",
+      "score": 0.0,
+      "source": "// Target: 0x002495D0 __as__Q214ScoringManager5ChainRCQ214ScoringManager5Chain\n// Reference: KS/SRC/ks/scoringmanager.cpp\n\nextern void *SeriesListAssign(void *, const void *)\n    __asm__(\"__as__t4list2ZQ214ScoringManager6SeriesZt12my_allocator1ZQ214ScoringManager6SeriesRCt4list2ZQ214ScoringManager6SeriesZt12my_allocator1ZQ214ScoringManager6Series\");\n__asm__(\".equ __as__t4list2ZQ214ScoringManager6SeriesZt12my_allocator1ZQ214ScoringManager6SeriesRCt4list2ZQ214ScoringManager6SeriesZt12my_allocator1ZQ214ScoringManager6Series, 0x00265360\");\n\nclass Chain {\n    void *levelTricks;\n    float multAdder;\n    char series[32];\npublic:\n    Chain &operator=(const Chain &other);\n};\n\nChain &Chain::operator=(const Chain &other)\n{\n    if (this != &other) {\n        levelTricks = SeriesListAssign(series, other.series);\n        multAdder = other.multAdder;\n    }\n    return *this;\n}\n",
+      "status": "symbol_missing"
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1e14c4a5180442683ee253c8513cee224255ee68",
+      "candidate_size": 76,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "__as__Q214ScoringManager5ChainRCQ214ScoringManager5Chain",
+      "instruction_score": 20.0,
+      "matching_bytes": 38,
+      "matching_instructions": 4,
+      "notes": "Forced the exact assignment symbol and reproduced the helper/list and float-copy operations, but register roles for destination/source were reversed relative to the immutable target.",
+      "score": 47.5,
+      "source": "// Target: 0x002495D0 __as__Q214ScoringManager5ChainRCQ214ScoringManager5Chain\n// Reference: KS/SRC/ks/scoringmanager.cpp\n\nextern void *SeriesListAssign(void *, const void *)\n    __asm__(\"__as__t4list2ZQ214ScoringManager6SeriesZt12my_allocator1ZQ214ScoringManager6SeriesRCt4list2ZQ214ScoringManager6SeriesZt12my_allocator1ZQ214ScoringManager6Series\");\n__asm__(\".equ __as__t4list2ZQ214ScoringManager6SeriesZt12my_allocator1ZQ214ScoringManager6SeriesRCt4list2ZQ214ScoringManager6SeriesZt12my_allocator1ZQ214ScoringManager6Series, 0x00265360\");\n\nclass Chain {\n    void *levelTricks;\n    float multAdder;\n    char series[32];\npublic:\n    Chain &operator=(const Chain &other)\n        __asm__(\"__as__Q214ScoringManager5ChainRCQ214ScoringManager5Chain\");\n};\n\nChain &Chain::operator=(const Chain &other)\n{\n    if (this != &other) {\n        levelTricks = SeriesListAssign(series, other.series);\n        multAdder = other.multAdder;\n    }\n    return *this;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "853a2900662a9fbbb9defe4bcee80efb97a1309c",
+      "candidate_size": 76,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "__as__Q214ScoringManager5ChainRCQ214ScoringManager5Chain",
+      "instruction_score": 20.0,
+      "matching_bytes": 39,
+      "matching_instructions": 4,
+      "notes": "Reversed the self-guard comparison to influence destination/source register allocation; the legacy compiler retained the opposite roles and still differed. Exactly three Luna attempts exhausted; no attempt 4.",
+      "score": 48.75,
+      "source": "// Target: 0x002495D0 __as__Q214ScoringManager5ChainRCQ214ScoringManager5Chain\n// Reference: KS/SRC/ks/scoringmanager.cpp\n\nextern void *SeriesListAssign(void *, const void *)\n    __asm__(\"__as__t4list2ZQ214ScoringManager6SeriesZt12my_allocator1ZQ214ScoringManager6SeriesRCt4list2ZQ214ScoringManager6SeriesZt12my_allocator1ZQ214ScoringManager6Series\");\n__asm__(\".equ __as__t4list2ZQ214ScoringManager6SeriesZt12my_allocator1ZQ214ScoringManager6SeriesRCt4list2ZQ214ScoringManager6SeriesZt12my_allocator1ZQ214ScoringManager6Series, 0x00265360\");\n\nclass Chain {\n    void *levelTricks;\n    float multAdder;\n    char series[32];\npublic:\n    Chain &operator=(const Chain &other)\n        __asm__(\"__as__Q214ScoringManager5ChainRCQ214ScoringManager5Chain\");\n};\n\nChain &Chain::operator=(const Chain &other)\n{\n    if (&other != this) {\n        levelTricks = SeriesListAssign(series, other.series);\n        multAdder = other.multAdder;\n    }\n    return *this;\n}\n",
+      "status": "different",
+      "target_size": 80
+    }
+  ],
+  "raw_name": "__as__Q214ScoringManager5ChainRCQ214ScoringManager5Chain"
+}
