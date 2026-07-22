@@ -1,8 +1,22 @@
 // Matching decompilation blocks selected by generated build shims.
 
 #if defined(KELLY_DECOMP_FUNCTION_003541A0) || \
-    defined(KELLY_DECOMP_FUNCTION_003541D8)
+    defined(KELLY_DECOMP_FUNCTION_003541D8) || \
+    defined(KELLY_DECOMP_FUNCTION_00354220)
 #include "KS/SRC/vm_symbol_shared.h"
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00354220)
+// 0x00354220 serial_in__FR10chunk_fileP9vm_symbol
+__asm__(".equ serial_in__FR10chunk_fileP7stringx, 0x003369F8");
+__asm__(".equ serial_in__FR10chunk_filePi, 0x003368A0");
+
+void serial_in(chunk_file &io, vm_symbol *s) {
+    serial_in(io, &s->type_name);
+    serial_in(io, &s->name);
+    serial_in(io, &s->offset);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003541A0)
