@@ -66,6 +66,11 @@ public:
     virtual void Update(time_value_t time_inc);
     virtual void TurnOn(bool enabled);
     virtual void SetSpecialColor(color32 normal, color32 highlighted);
+    virtual void SetSpecialScale(float normal, float highlighted);
+    virtual bool GetSpecialScale(float &normal, float &highlighted);
+    virtual void SetNoFlash(bool disabled);
+    virtual float GetHighlightIntensity();
+    virtual void SetPos(float x, float y);
 #endif
 };
 

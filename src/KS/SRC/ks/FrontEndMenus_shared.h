@@ -1,7 +1,9 @@
 #ifndef KELLY_DECOMP_FRONT_END_MENUS_SHARED_H
 #define KELLY_DECOMP_FRONT_END_MENUS_SHARED_H
 
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
 #include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
 
 #pragma interface
 
@@ -81,6 +83,18 @@ private:
 
 public:
     virtual void OnStart(int controller);
+};
+
+class BoxText;
+
+class TipMenuClass : public FEMenu {
+public:
+    BoxText *tip;
+    stringx *tip_list;
+    int tip_list_size;
+    PauseMenuSystem *sys;
+
+    virtual void Init();
 };
 
 struct ReplayMenuVTableLayout {

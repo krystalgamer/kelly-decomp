@@ -552,3 +552,13 @@ void ReplayOnStart(ReplayMenuClassLayout *self, int controller) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B1FA0)
+// 0x001B1FA0 Init__12TipMenuClass
+#include "KS/SRC/ks/FrontEndMenus_shared.h"
+__asm__(".equ Init__6FEMenu, 0x00156AE0");
+void TipMenuClass::Init() {
+    FEMenu::Init();
+    entries->SetPos(320, 280);
+}
+#endif
