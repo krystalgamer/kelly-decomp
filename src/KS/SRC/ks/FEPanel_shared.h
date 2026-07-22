@@ -100,6 +100,62 @@ protected:
 };
 
 class PanelAnim;
+class PanelQuad;
+
+class matrix4x4 {
+    float values[16];
+};
+
+typedef float time_value_t;
+typedef unsigned int uint32;
+
+enum PanelGeomKind {
+    PanelGeomObject
+};
+
+class PanelGeom {
+public:
+    stringx name;
+    stringx properties;
+    matrix4x4 matrix;
+    vector3d boundboxcenter;
+    vector3d boundboxsize;
+    uint32 nchildren;
+    PanelGeom *children;
+    PanelGeom *next;
+    PanelGeom *parent;
+
+    virtual ~PanelGeom();
+    virtual PanelGeomKind Kind() const = 0;
+    virtual bool Load(unsigned char *buffer, int &index);
+    virtual void Reload();
+    virtual PanelGeom *FindObject(const stringx &search_name);
+    virtual PanelQuad *GetQuad();
+    virtual void Init(PanelQuad **pquads, bool floating = false);
+    virtual void Init(PanelQuad **pquads, matrix4x4 matrix, bool floating = false);
+    virtual void Update(time_value_t time_inc);
+    virtual void Slide(float offset);
+};
+
+class PanelFile {
+    int slide_state;
+    float slide_offset;
+    float slide_timer;
+    float slide_max_time;
+    stringx filename;
+
+public:
+    PanelGeom *obs;
+    stringx path;
+    PanelFile *next;
+    PanelQuad *pquads;
+
+    virtual ~PanelFile();
+    virtual PanelGeom *FindObject(const stringx &search_name);
+    virtual PanelGeom *FindObject(const char *search_name);
+    virtual PanelQuad *FindQuad(const stringx &search_name);
+    virtual void SetFilename(stringx path);
+};
 
 class PanelQuad {
 protected:

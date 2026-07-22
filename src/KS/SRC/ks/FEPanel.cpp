@@ -1,5 +1,19 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001524C0)
+#include "KS/SRC/ks/FEPanel_shared.h"
+
+// 0x001524C0 FindQuad__9PanelFileRC7stringx
+PanelQuad *PanelFile::FindQuad(const stringx &search_name)
+{
+    PanelGeom *obj = FindObject(search_name);
+    if (obj) {
+        PanelQuad *quad = obj->GetQuad();
+        return quad;
+    }
+    return 0;
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00148270)
 // 0x00148270 setHJustify__10TextStringQ24Font9HORIZJUST
