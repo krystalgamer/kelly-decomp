@@ -1,5 +1,19 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00271748)
+#include "KS/SRC/beam_shared.h"
+// 0x00271748 release__4beam
+void beam::release()
+{
+    entity::release();
+    purge_effects();
+
+    if (my_material != 0) {
+        material_bank.delete_instance(my_material);
+        my_material = 0;
+    }
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00271790)
 // 0x00271790 set_thickness__4beamf
