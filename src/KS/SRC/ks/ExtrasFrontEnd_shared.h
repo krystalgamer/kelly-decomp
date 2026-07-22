@@ -17,7 +17,7 @@ class CreditsFrontEnd : public FEMultiMenu {
     int down_pressed;
 
 public:
-    virtual void OnActivate();
+    void OnActivate();
 };
 
 #endif
