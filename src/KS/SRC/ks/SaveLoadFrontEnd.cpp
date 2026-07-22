@@ -145,3 +145,14 @@ void SaveLoadFrontEnd::CancelDialog()
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0019FF08)
+// 0x0019FF08 OnUnactivate__9NamesMenuP6FEMenu
+#include "KS/SRC/ks/SaveLoadFrontEnd_shared.h"
+__asm__(".equ frontendmanager, 0x003F7728");
+__asm__(".equ TurnPQ__9NamesMenub, 0x0019EC78");
+void NamesMenu::OnUnactivate(FEMenu *menu) {
+    TurnPQ(false);
+    highlighted->SetSpecialColor(frontendmanager.col_info_b, frontendmanager.col_info_b);
+}
+#endif

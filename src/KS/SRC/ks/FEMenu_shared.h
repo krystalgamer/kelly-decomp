@@ -12,6 +12,8 @@ class Font;
 class FEManager;
 class FEMenuSystem;
 class PanelQuad;
+class entity;
+class MultiLineString;
 
 class color32 {
 public:
@@ -26,6 +28,45 @@ public:
     FEMenuEntry* next;
     FEMenuEntry* previous;
     FEMenu* menu;
+#if defined(KELLY_DECOMP_FULL_FEMENU_ENTRY)
+
+protected:
+    bool highlight;
+    bool disabled;
+    entity *ent;
+    color32 high_ent_color;
+    color32 norm_ent_color;
+    MultiLineString *text;
+
+private:
+    float highlight_intensity;
+    float highlight_timer;
+    int disabled_alpha;
+    color32 special_color;
+    color32 special_color_high;
+    bool has_special_color;
+    bool no_flash;
+    float special_scale;
+    float special_scale_high;
+    bool has_special_scale;
+
+public:
+    FEMenuEntry *up;
+    FEMenuEntry *down;
+    FEMenuEntry *left;
+    FEMenuEntry *right;
+
+    virtual ~FEMenuEntry();
+    virtual void Load();
+    virtual void OnSelect();
+    virtual void Highlight(bool highlighted = true, bool animate = true);
+    virtual void Disable(bool disabled = true);
+    virtual bool GetDisable();
+    virtual void Draw();
+    virtual void Update(time_value_t time_inc);
+    virtual void TurnOn(bool enabled);
+    virtual void SetSpecialColor(color32 normal, color32 highlighted);
+#endif
 };
 
 class FEMenu {
