@@ -77,3 +77,21 @@ int frame_info::time_to_frame_locked(int period) const
         return time_to_frame(period);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003386D8)
+// 0x003386D8 time_to_frame__C10frame_infoi
+#include "frame_info_shared.h"
+int frame_info::time_to_frame(int period) const
+{
+    if (period == 1)
+        return 0;
+    else
+    {
+        int index = (int)(age * ifl_frame_rate) + ifl_frame_boost;
+        if (period == 0)
+            return index;
+        else
+            return index % period;
+    }
+}
+#endif
