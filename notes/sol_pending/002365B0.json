@@ -1,0 +1,57 @@
+{
+  "address": "0x002365B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "fd76622d95397629a62ad46c66b608abd9a8099a",
+      "candidate_size": 84,
+      "compared_bytes": 84,
+      "compared_instructions": 21,
+      "emitted_name": "flyby_reset__FP9MenuEntryi",
+      "instruction_score": 19.0476,
+      "matching_bytes": 25,
+      "matching_instructions": 4,
+      "notes": "Initial candidate modeled flyby flags and StartFlyby(menu->controller) but unsigned masking generated a 84-byte function with an expanded mask and different scheduling.",
+      "score": 29.7619,
+      "source": "// Target: 0x002365B0 flyby_reset__FP9MenuEntryi\n// Reference: KS/SRC/ks/ksdbmenu.cpp\n\nstruct MenuEntry {\n    char padding[248];\n    int controller;\n};\n\nextern unsigned int flyby_flags;\nextern MenuEntry *flyby_menu;\nextern void StartFlyby(int controller)\n    __asm__(\"StartFlyby__22kellyslater_controller\");\n__asm__(\".equ flyby_flags, 0x00431898\");\n__asm__(\".equ flyby_menu, 0x00431A8C\");\n__asm__(\".equ StartFlyby__22kellyslater_controller, 0x00222E58\");\n\nextern \"C\" int flyby_reset(MenuEntry *, int)\n    __asm__(\"flyby_reset__FP9MenuEntryi\");\nint flyby_reset(MenuEntry *, int)\n{\n    flyby_flags &= ~0x10u;\n    StartFlyby(flyby_menu->controller);\n    flyby_flags |= 0x10u;\n    return 1;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0964c5b9790cbf8bc7a82632a263d21ed7921d62",
+      "candidate_size": 84,
+      "compared_bytes": 84,
+      "compared_instructions": 21,
+      "emitted_name": "flyby_reset__FP9MenuEntryi",
+      "instruction_score": 19.0476,
+      "matching_bytes": 25,
+      "matching_instructions": 4,
+      "notes": "Changed the immutable bitfield operation to signed `&= -17`; the legacy compiler still materialized a 32-bit mask and retained different global-load scheduling.",
+      "score": 29.7619,
+      "source": "// Target: 0x002365B0 flyby_reset__FP9MenuEntryi\n// Reference: KS/SRC/ks/ksdbmenu.cpp\n\nstruct MenuEntry {\n    char padding[248];\n    int controller;\n};\n\nextern unsigned int flyby_flags;\nextern MenuEntry *flyby_menu;\nextern void StartFlyby(int controller)\n    __asm__(\"StartFlyby__22kellyslater_controller\");\n__asm__(\".equ flyby_flags, 0x00431898\");\n__asm__(\".equ flyby_menu, 0x00431A8C\");\n__asm__(\".equ StartFlyby__22kellyslater_controller, 0x00222E58\");\n\nextern \"C\" int flyby_reset(MenuEntry *, int)\n    __asm__(\"flyby_reset__FP9MenuEntryi\");\nint flyby_reset(MenuEntry *, int)\n{\n    flyby_flags &= -17;\n    StartFlyby(flyby_menu->controller);\n    flyby_flags |= 0x10u;\n    return 1;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9fa858ca8b6f670a8496d1f5510b210c3a1933d7",
+      "candidate_size": 80,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "flyby_reset__FP9MenuEntryi",
+      "instruction_score": 65.0,
+      "matching_bytes": 55,
+      "matching_instructions": 13,
+      "notes": "Changed the flags declaration to signed int, yielding the target addiu -17 mask and an 80-byte body, but register allocation and load order differed from the immutable target. Exactly three Luna attempts exhausted; no attempt 4.",
+      "score": 68.75,
+      "source": "// Target: 0x002365B0 flyby_reset__FP9MenuEntryi\n// Reference: KS/SRC/ks/ksdbmenu.cpp\n\nstruct MenuEntry {\n    char padding[248];\n    int controller;\n};\n\nextern int flyby_flags;\nextern MenuEntry *flyby_menu;\nextern void StartFlyby(int controller)\n    __asm__(\"StartFlyby__22kellyslater_controller\");\n__asm__(\".equ flyby_flags, 0x00431898\");\n__asm__(\".equ flyby_menu, 0x00431A8C\");\n__asm__(\".equ StartFlyby__22kellyslater_controller, 0x00222E58\");\n\nextern \"C\" int flyby_reset(MenuEntry *, int)\n    __asm__(\"flyby_reset__FP9MenuEntryi\");\nint flyby_reset(MenuEntry *, int)\n{\n    flyby_flags &= -17;\n    StartFlyby(flyby_menu->controller);\n    flyby_flags |= 0x10u;\n    return 1;\n}\n",
+      "status": "different",
+      "target_size": 80
+    }
+  ],
+  "raw_name": "flyby_reset__FP9MenuEntryi"
+}
