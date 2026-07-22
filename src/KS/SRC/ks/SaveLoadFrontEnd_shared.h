@@ -45,6 +45,7 @@ private:
 
 class SaveLoadFrontEnd : public FEMultiMenu {
 public:
+    virtual void Select();
     virtual void OnCross(int controller);
 };
 
