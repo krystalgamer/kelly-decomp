@@ -18,6 +18,8 @@ struct CheatFrontEndDispatchVTable {
     short adjustment;
     short padding2;
     void (*on_left)(void *self, int command);
+    short right_adjustment;
+    short right_padding;
     void (*on_right)(void *self, int command);
 };
 
