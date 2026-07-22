@@ -1,0 +1,57 @@
+{
+  "address": "0x001B5B60",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "944d1f7d633fb5fd042c87a38a9a642a17006eda",
+      "candidate_size": 80,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "Load__13BoardFrontEnd",
+      "instruction_score": 85.0,
+      "matching_bytes": 75,
+      "matching_instructions": 17,
+      "notes": "Luna attempt 1: tested the immutable FEMultiMenu::Load followed by SetPQIndices source with shared Board layout context. The candidate remained non-exact; assembly artifacts record the mismatch.",
+      "score": 93.75,
+      "source": "#include \"KS/SRC/ks/BoardFrontEnd_shared.h\"\n#include \"KS/SRC/ks/BoardFrontEnd_shared.h\"\n\nvoid BoardFrontEnd::Load()\n{\n    FEMultiMenu::Load();\n    SetPQIndices();\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "10220d205c8df4e9d007ef055045a649a50e728f",
+      "candidate_size": 80,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "Load__13BoardFrontEnd",
+      "instruction_score": 90.0,
+      "matching_bytes": 76,
+      "matching_instructions": 18,
+      "notes": "Luna attempt 2: tested the immutable FEMultiMenu::Load followed by SetPQIndices source with shared Board layout context. The candidate remained non-exact; assembly artifacts record the mismatch.",
+      "score": 95.0,
+      "source": "#include \"KS/SRC/ks/BoardFrontEnd_shared.h\"\n#include \"KS/SRC/ks/BoardFrontEnd_shared.h\"\n\nvoid BoardFrontEnd::Load()\n/* board vtable context */\n{\n    FEMultiMenu::Load();\n    SetPQIndices();\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "230cb2b7d4d70c0b5f6dfe20719f82a6b01be069",
+      "candidate_size": 80,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "Load__13BoardFrontEnd",
+      "instruction_score": 90.0,
+      "matching_bytes": 76,
+      "matching_instructions": 18,
+      "notes": "Luna attempt 3: scheduling annotation did not reproduce the target prologue save order; target saves ra before s0 while candidate saves s0 before ra.",
+      "score": 95.0,
+      "source": "#include \"KS/SRC/ks/BoardFrontEnd_shared.h\"\n#include \"decomp_annotations.h\"\n#include \"KS/SRC/ks/BoardFrontEnd_shared.h\"\n\nvoid BoardFrontEnd::Load()\n/* board vtable context, scheduling variant */\n{\n    FEMultiMenu::Load();\n    SetPQIndices();\n    KELLY_DECOMP_COMPILER_BARRIER();\n}\n",
+      "status": "different",
+      "target_size": 80
+    }
+  ],
+  "raw_name": "Load__13BoardFrontEnd"
+}
