@@ -54,3 +54,19 @@ void CreditsFrontEnd::OnTriangle(int controller)
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BB800)
+// 0x001BB800 OnActivate__15CreditsFrontEnd
+#include "KS/SRC/ks/ExtrasFrontEnd_shared.h"
+__asm__(".equ OnActivate__15FEGraphicalMenu, 0x001581E8");
+
+void CreditsFrontEnd::OnActivate()
+/* inline helpbar layout */
+{
+    FEMultiMenu::OnActivate();
+    up_pressed = false;
+    down_pressed = false;
+    first_line_y = 320;
+    manager->helpbar->DisableHelpbar();
+}
+#endif
