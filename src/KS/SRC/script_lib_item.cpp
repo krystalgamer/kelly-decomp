@@ -1,5 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#include "KS/SRC/script_lib_item_shared.h"
 
 #if defined(KELLY_DECOMP_FUNCTION_003275B0)
 // 0x003275B0 _$_20slf_item_set_count_t
@@ -15,6 +16,26 @@ extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_cl
 extern "C" void ScriptDtor_00327668(void *self) __asm__("_$_20slf_item_get_count_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00327668(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00327620)
+// 0x00327620 __cl__20slf_item_set_count_tR8vm_stackQ320script_library_class8function7entry_t
+class slf_item_set_count_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        item *me;
+        vm_num_t count;
+    };
+
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+
+bool slf_item_set_count_t::operator()(vm_stack &stack, entry_t entry) {
+    SLF_PARMS;
+    parms->me->set_count(parms->count);
+    SLF_DONE;
+}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00327850)
