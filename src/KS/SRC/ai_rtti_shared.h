@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_AI_RTTI_SHARED_H
 #define KELLY_DECOMP_AI_RTTI_SHARED_H
 
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/entity_interface_shared.h"
 
 class input_device {
 public:
@@ -11,16 +11,6 @@ public:
 class AISurferController : public input_device {
 public:
     virtual ~AISurferController();
-};
-
-class generic_interface {
-public:
-    virtual ~generic_interface();
-};
-
-class entity_interface : public generic_interface {
-public:
-    virtual ~entity_interface();
 };
 
 class ai_interface : public entity_interface {
