@@ -13,6 +13,13 @@
 
 class GraphicalMenuSystem;
 
+struct CheatFrontEndDispatchVTable {
+    char padding[0x1c0];
+    short adjustment;
+    short padding2;
+    void (*on_left)(void *self, int command);
+};
+
 class CheatFrontEnd : public FEMultiMenu {
 public:
     void OnLeft(int command);
