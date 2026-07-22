@@ -9,6 +9,7 @@ enum nslSoundStatusEnum {
 };
 
 nslSoundStatusEnum nslGetSoundStatus(nslSoundId sound);
+void nslPauseSound(nslSoundId sound);
 void nslUnpauseSound(nslSoundId sound);
 
 class Track {
@@ -20,7 +21,12 @@ public:
     char songName[30];
     char artistName[30];
     Track();
+    ~Track();
+    void SetInfo(const char *name, const char *artist, nslSourceId source);
+    nslSoundId Play();
     bool IsPlaying();
+    void Stop();
+    void Pause();
     void Unpause();
 };
 
@@ -38,6 +44,7 @@ public:
 };
 
 __asm__(".equ nslGetSoundStatus__FUi, 0x0038DBA0");
+__asm__(".equ nslPauseSound__FUi, 0x0038D460");
 __asm__(".equ nslUnpauseSound__FUi, 0x0038D5A8");
 
 #endif

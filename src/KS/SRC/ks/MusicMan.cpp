@@ -26,6 +26,17 @@ void Track::Unpause()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_002586E8)
+#include "KS/SRC/ks/MusicMan_shared.h"
+// 0x002586E8 Pause__5Track
+void Track::Pause()
+{
+    if (!paused && nslGetSoundStatus(mySndId) != NSL_SOUNDSTATUS_INVALID)
+        nslPauseSound(mySndId);
+    paused = true;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_002585C0)
 // 0x002585C0 _$_5Track
 extern "C" void builtin_delete(void *pointer) __asm__("__builtin_delete");
