@@ -62,6 +62,7 @@ protected:
 
 public:
     FEMenu* next_sub;
+    char layout_padding[8];
     virtual ~FEMenu();
     virtual void setBack(FEMenu*, int = 1);
     virtual void setHigh(FEMenuEntry*, bool = true);
@@ -152,6 +153,9 @@ public:
     virtual void LoadPanel(bool floating = false) { panel.Load(floating); }
     virtual PanelFile* GetPanel();
     virtual void SetPanel(stringx);
+
+protected:
+    virtual void SetPQIndices();
 };
 
 class __attribute__((aligned(16))) FEGraphicalMenu : public FEMenu, public FrontEnd {
@@ -165,6 +169,12 @@ public:
     virtual void OnActivate();
     virtual void Add(FEMenuEntry*);
     virtual void LoadPanel(bool floating = false);
+};
+
+class FEMultiMenu : public FEGraphicalMenu {
+public:
+    FEMenuEntry *first;
+    FEMenuEntry *last;
 };
 
 #endif
