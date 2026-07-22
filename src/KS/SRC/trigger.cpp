@@ -33,6 +33,20 @@ void trigger_manager::update_regions()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0028DD00)
+#include "KS/SRC/trigger_shared.h"
+// 0x0028DD00 set_active__7triggerb
+void trigger::set_active(bool enabled)
+{
+    active = enabled;
+    if (!active && occupied)
+    {
+        raise_signal(LEAVE);
+        occupied = false;
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0028DEE0)
 // 0x0028DEE0 get_abs_position__C13point_trigger
 class vector3d {

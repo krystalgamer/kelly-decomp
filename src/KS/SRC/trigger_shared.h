@@ -40,6 +40,11 @@ class trigger : public signaller {
     friend class trigger_manager;
 
 public:
+    enum SignalId {
+        ENTER,
+        LEAVE,
+    };
+
     trigger(const stringx &id);
     virtual void read(chunk_file &file) {}
     virtual bool triggered(entity *) { return false; }
