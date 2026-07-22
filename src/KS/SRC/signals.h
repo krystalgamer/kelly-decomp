@@ -1,5 +1,23 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0035FC18)
+#include "KS/SRC/signals_shared.h"
+
+// 0x0035FC18 raise_signal__C9signallerUi
+void signaller::raise_signal(unsigned int index) const
+{
+    if (signals && !is_flagged(DISABLED))
+    {
+        signal_list &list = *signals;
+        if (list[index])
+        {
+            list[index]->raise();
+            KELLY_DECOMP_COMPILER_BARRIER();
+        }
+    }
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0035F9A8)
 // 0x0035F9A8 is_code_callback__15signal_callback
