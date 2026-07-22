@@ -1,0 +1,57 @@
+{
+  "address": "0x002589B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "413ffca55545ae0e08973c2e4cb56be3175a590e",
+      "candidate_size": 80,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "addSource__12MusicListingPCcT1Ui",
+      "instruction_score": 65.0,
+      "matching_bytes": 63,
+      "matching_instructions": 13,
+      "notes": "Implemented MusicListing::addSource with Track stride 72, SetInfo argument forwarding, and totalSources increment. Initial layout placed tracks at offset 4 instead of immutable offset 8.",
+      "score": 78.75,
+      "source": "// Target: 0x002589B0 addSource__12MusicListingPCcT1Ui\n// Reference: KS/SRC/ks/MusicMan.cpp\n\nclass Track {\npublic:\n    void SetInfo(const char *, const char *, unsigned int)\n        __asm__(\"SetInfo__5TrackPCcT1Ui\");\n};\n__asm__(\".equ SetInfo__5TrackPCcT1Ui, 0x00258690\");\n\nclass MusicListing {\n    int totalSources;\n    char tracks[72 * 64];\npublic:\n    void addSource(const char *, const char *, unsigned int)\n        __asm__(\"addSource__12MusicListingPCcT1Ui\");\n};\n\nvoid MusicListing::addSource(\n    const char *name, const char *artist, unsigned int s)\n{\n    Track *track = (Track *)(tracks + totalSources * 72);\n    track->SetInfo(artist, name, s);\n    ++totalSources;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "157174bbf3abfeb4c3046b11852f7608cad840ab",
+      "candidate_size": 80,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "addSource__12MusicListingPCcT1Ui",
+      "instruction_score": 70.0,
+      "matching_bytes": 64,
+      "matching_instructions": 14,
+      "notes": "Corrected the shared MusicListing layout with four bytes of padding, reproducing the target track offset and calls. Prologue save scheduling still differed from the immutable target.",
+      "score": 80.0,
+      "source": "// Target: 0x002589B0 addSource__12MusicListingPCcT1Ui\n// Reference: KS/SRC/ks/MusicMan.cpp\n\nclass Track {\npublic:\n    void SetInfo(const char *, const char *, unsigned int)\n        __asm__(\"SetInfo__5TrackPCcT1Ui\");\n};\n__asm__(\".equ SetInfo__5TrackPCcT1Ui, 0x00258690\");\n\nclass MusicListing {\n    int totalSources;\n    char padding[4];\n    char tracks[72 * 64];\npublic:\n    void addSource(const char *, const char *, unsigned int)\n        __asm__(\"addSource__12MusicListingPCcT1Ui\");\n};\n\nvoid MusicListing::addSource(\n    const char *name, const char *artist, unsigned int s)\n{\n    Track *track = (Track *)(tracks + totalSources * 72);\n    track->SetInfo(artist, name, s);\n    ++totalSources;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c252eb63856648cafdbee80a2c20b3e93320dda1",
+      "candidate_size": 80,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "addSource__12MusicListingPCcT1Ui",
+      "instruction_score": 55.0,
+      "matching_bytes": 53,
+      "matching_instructions": 11,
+      "notes": "Tried a compiler barrier to influence prologue scheduling; the candidate remained different. Exactly three Luna attempts exhausted; no attempt 4.",
+      "score": 66.25,
+      "source": "// Target: 0x002589B0 addSource__12MusicListingPCcT1Ui\n// Reference: KS/SRC/ks/MusicMan.cpp\n\nclass Track {\npublic:\n    void SetInfo(const char *, const char *, unsigned int)\n        __asm__(\"SetInfo__5TrackPCcT1Ui\");\n};\n__asm__(\".equ SetInfo__5TrackPCcT1Ui, 0x00258690\");\n\nclass MusicListing {\n    int totalSources;\n    char padding[4];\n    char tracks[72 * 64];\npublic:\n    void addSource(const char *, const char *, unsigned int)\n        __asm__(\"addSource__12MusicListingPCcT1Ui\");\n};\n\nvoid MusicListing::addSource(\n    const char *name, const char *artist, unsigned int s)\n{\n    __asm__ volatile(\"\");\n    Track *track = (Track *)(tracks + totalSources * 72);\n    track->SetInfo(artist, name, s);\n    ++totalSources;\n}\n",
+      "status": "different",
+      "target_size": 80
+    }
+  ],
+  "raw_name": "addSource__12MusicListingPCcT1Ui"
+}
