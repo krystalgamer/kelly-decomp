@@ -172,3 +172,14 @@ void TitleFrontEnd::SetSystem(FEMenuSystem *new_system)
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BE9E8)
+// 0x001BE9E8 DrawTop__19GraphicalMenuSystem
+#include "KS/SRC/ks/GraphicalMenuSystem_shared.h"
+void GraphicalMenuSystem::DrawTop() {
+    if (fedb_draw_overlays) {
+        if (active)
+            menus[active]->DrawTop();
+    }
+}
+#endif
