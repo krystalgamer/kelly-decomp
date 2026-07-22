@@ -14,6 +14,23 @@ void multistash::acquire_stash_bufferspace(int size) {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00347230)
+#include "KS/SRC/mustash_shared.h"
+
+// 0x00347230 add_temp__5stashR7os_filePUcUi
+unsigned int stash::add_temp(
+    os_file &the_file,
+    unsigned char *raw_data,
+    unsigned int data_size)
+{
+    the_file.write(raw_data, data_size);
+    multistash &current = substash[curstash];
+    unsigned int ret_val = current.temp_buf_end;
+    current.temp_buf_end += data_size;
+    return ret_val;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_003471E0)
 #include "KS/SRC/mustash_shared.h"
 
