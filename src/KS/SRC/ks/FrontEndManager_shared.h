@@ -10,8 +10,13 @@ public:
     void Update(time_value_t time_inc);
 };
 class HelpbarFE {
+    char helpbar_data[0x15c];
+    int disabled;
+
 public:
-    void DisableHelpbar();
+    void DisableHelpbar() {
+        disabled = true;
+    }
 };
 
 class PauseMenuSystem {
