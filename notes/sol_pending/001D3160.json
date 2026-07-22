@@ -1,0 +1,49 @@
+{
+  "address": "0x001D3160",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "22be01431bc4213e729221b989d20e5e76da700e",
+      "candidate_size": 80,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "Load__14EnterCheatMenu",
+      "instruction_score": 90.0,
+      "matching_bytes": 76,
+      "matching_instructions": 18,
+      "notes": "Candidate used the immutable `FEMultiMenu::Load(); SetPQIndices();` body and matched the full dual-vtable call sequence. It differed only in EE-GCC prologue save ordering (`s0` before `ra` instead of the target's `ra` before `s0`).",
+      "score": 95.0,
+      "source": "#include \"KS/SRC/ks/CheatFrontEnd_shared.h\"\nvoid EnterCheatMenu::Load() {\n    FEMultiMenu::Load();\n    SetPQIndices();\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f872898d12fb0264b261b9705ee6e2a54c57d11c",
+      "notes": "Tried a compiler barrier before the immutable calls to alter prologue scheduling. The standalone candidate omitted the generated annotation include and failed compilation; no target behavior was invented.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/CheatFrontEnd_shared.h\"\nvoid EnterCheatMenu::Load() {\n    KELLY_DECOMP_COMPILER_BARRIER();\n    FEMultiMenu::Load();\n    SetPQIndices();\n}\n",
+      "status": "compile_failed"
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "58915035d3e020449441d01a3e7950fb882c980a",
+      "candidate_size": 80,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "Load__14EnterCheatMenu",
+      "instruction_score": 75.0,
+      "matching_bytes": 62,
+      "matching_instructions": 15,
+      "notes": "Retried the barrier candidate with the annotation header. The barrier changed register/save scheduling substantially and scored 77.5%, so it did not match. The immutable body remains exact, but the prologue ordering is unresolved.",
+      "score": 77.5,
+      "source": "#include \"decomp_annotations.h\"\n#include \"KS/SRC/ks/CheatFrontEnd_shared.h\"\nvoid EnterCheatMenu::Load() {\n    KELLY_DECOMP_COMPILER_BARRIER();\n    FEMultiMenu::Load();\n    SetPQIndices();\n}\n",
+      "status": "different",
+      "target_size": 80
+    }
+  ],
+  "raw_name": "Load__14EnterCheatMenu"
+}
