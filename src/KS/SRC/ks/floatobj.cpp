@@ -1,5 +1,10 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001FAFF0) || \
+    defined(KELLY_DECOMP_FUNCTION_001FB3C8) || \
+    defined(KELLY_DECOMP_FUNCTION_001FC5E0)
+#include "KS/SRC/ks/floatobj_shared.h"
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001FB320)
 // 0x001FB320 collide__12beach_objectP6entityRC8vector3d
