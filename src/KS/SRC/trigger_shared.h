@@ -74,4 +74,6 @@ public:
     void update_regions();
 };
 
+__asm__(".equ set_active__7triggerb, 0x0028DD00");
+
 #endif

@@ -25,6 +25,17 @@ __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_003289D8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00328A48)
+// 0x00328A48 __cl__24slf_trigger_set_active_tR8vm_stackQ320script_library_class8function7entry_t
+#include "script_lib_trigger_shared.h"
+bool slf_trigger_set_active_t::operator()(vm_stack &stack, entry_t entry)
+{
+    SLF_PARMS;
+    parms->me->set_active(parms->torf != 0);
+    SLF_DONE;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00328A98)
 // 0x00328A98 _$_26slf_create_point_trigger_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
