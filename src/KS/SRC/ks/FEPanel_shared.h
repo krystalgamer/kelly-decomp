@@ -14,6 +14,10 @@ public:
     };
 };
 
+struct color32 {
+    unsigned int value;
+};
+
 class TextString {
 protected:
     Font *font;
@@ -32,6 +36,14 @@ protected:
     bool override_alpha;
 
 public:
+    bool checkTime;
+    float time;
+    bool no_color;
+    color32 color;
+
+    virtual ~TextString() {}
+    virtual void Update(float time_inc);
+    virtual void Draw();
     virtual void changeText(stringx value);
     static void MakeReplacements(stringx &value);
 };

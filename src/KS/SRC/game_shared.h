@@ -6,6 +6,7 @@
 
 class game {
 public:
+    bool is_paused() const;
     bool was_start_pressed() const;
     bool was_A_pressed() const;
     bool was_B_pressed() const;
