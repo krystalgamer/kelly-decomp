@@ -4,6 +4,7 @@
 #pragma interface
 
 class Menu;
+class MenuEntry;
 class MenuSystem;
 
 struct MenuColor {
@@ -17,6 +18,55 @@ enum MenuEntryFlags {
     MENTRY_VISIBLE = 1 << 0,
     MENTRY_ENABLED = 1 << 1,
     MENTRY_ACTIVE = 1 << 2,
+};
+
+class Menu {
+    Menu *parent;
+    int entries;
+    MenuEntry **entry;
+    int activeentry;
+    bool isopen;
+    Menu *closeto;
+    MenuSystem *control;
+
+    bool Resize(int size);
+
+public:
+    Menu(Menu *parent);
+    Menu(Menu *parent, int entries, MenuEntry **entry);
+    virtual ~Menu();
+    void ClearMenu();
+    void AddEntry(MenuEntry *entry);
+    void AddEntries(int entries, MenuEntry **entry);
+    void DelEntry(MenuEntry *entry);
+    bool IsOpen() { return isopen; }
+    void Open(Menu *close_to, MenuSystem *control);
+    void Close(bool to_parent = true);
+    virtual void CloseAll();
+
+protected:
+    void ActivateEntry(int entry);
+    void FindActivateEntry(int direction);
+    MenuEntry *GetEntry(int entry)
+    {
+        return entry >= 0 && entry < entries ? this->entry[entry] : 0;
+    }
+
+public:
+    void ButtonPress(int button_info);
+    void ButtonRelease(int button_info);
+    int NumEntries() { return entries; }
+    int GetActiveEntry() { return activeentry; }
+    unsigned int GetElementFlags(int entry);
+    void GetElementText(int entry, char *text, int length);
+    MenuColor GetElementColor(int entry);
+    virtual void OnTick(float delta_time);
+    virtual void OnButtonPress(int button_id);
+    virtual void OnButtonRelease(int button_id);
+
+protected:
+    virtual void OnOpen(Menu *close_to, MenuSystem *control);
+    virtual void OnClose(bool to_parent);
 };
 
 class MenuEntry {
