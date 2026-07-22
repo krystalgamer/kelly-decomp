@@ -1,0 +1,57 @@
+{
+  "address": "0x0025C428",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "93e80aec8272df44a8791872e9322c0ce6c941c5",
+      "candidate_size": 60,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "SetGoalDone__Q26Career5Leveli",
+      "instruction_score": 0.0,
+      "matching_bytes": 11,
+      "matching_instructions": 0,
+      "notes": "Implemented SetGoalDone with goal-array lookup, unsaved flag, set-to-one, and is_new clearing. Initial Level layout placed goals at offset 12 instead of immutable offset 16.",
+      "score": 13.75,
+      "source": "// Target: 0x0025C428 SetGoalDone__Q26Career5Leveli\n// Reference: KS/SRC/ks/career.cpp\n\nextern int career_unsaved;\n__asm__(\".equ career_unsaved, 0x003FCEB8\");\n\nclass Career {\npublic:\n    class Level {\n        int is_new;\n        char padding[8];\n        int goals[32];\n    public:\n        void SetGoalDone(int goal)\n            __asm__(\"SetGoalDone__Q26Career5Leveli\");\n    };\n};\n\nvoid Career::Level::SetGoalDone(int goal)\n{\n    if (!goals[goal]) {\n        career_unsaved = 1;\n    }\n    goals[goal] = 1;\n    if (is_new)\n        is_new = 0;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c9b55d6240d4340adf423b129b5a56029531ec9b",
+      "candidate_size": 60,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "SetGoalDone__Q26Career5Leveli",
+      "instruction_score": 0.0,
+      "matching_bytes": 11,
+      "matching_instructions": 0,
+      "notes": "Corrected goals to offset 16 and matched the goal-index arithmetic, but the direct global unsaved symbol was optimized differently from the immutable career-data address sequence.",
+      "score": 13.75,
+      "source": "// Target: 0x0025C428 SetGoalDone__Q26Career5Leveli\n// Reference: KS/SRC/ks/career.cpp\n\nextern int career_unsaved;\n__asm__(\".equ career_unsaved, 0x003FCEB8\");\n\nclass Career {\npublic:\n    class Level {\n        int is_new;\n        char padding[12];\n        int goals[32];\n    public:\n        void SetGoalDone(int goal)\n            __asm__(\"SetGoalDone__Q26Career5Leveli\");\n    };\n};\n\nvoid Career::Level::SetGoalDone(int goal)\n{\n    if (!goals[goal]) {\n        career_unsaved = 1;\n    }\n    goals[goal] = 1;\n    if (is_new)\n        is_new = 0;\n}\n",
+      "status": "different",
+      "target_size": 80
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d16164d6a0fef5aae04c452a64df27c4f09f1a4a",
+      "candidate_size": 60,
+      "compared_bytes": 80,
+      "compared_instructions": 20,
+      "emitted_name": "SetGoalDone__Q26Career5Leveli",
+      "instruction_score": 0.0,
+      "matching_bytes": 11,
+      "matching_instructions": 0,
+      "notes": "Modeled the career-data base and preserved a self pointer, but the legacy compiler still folded the global access and omitted the target register/address sequence. Exactly three Luna attempts exhausted; no attempt 4.",
+      "score": 13.75,
+      "source": "// Target: 0x0025C428 SetGoalDone__Q26Career5Leveli\n// Reference: KS/SRC/ks/career.cpp\n\nextern char career_data[];\n__asm__(\".equ career_data, 0x003E7728\");\n\nclass Career {\npublic:\n    class Level {\n        int is_new;\n        char padding[12];\n        int goals[32];\n    public:\n        void SetGoalDone(int goal)\n            __asm__(\"SetGoalDone__Q26Career5Leveli\");\n    };\n};\n\nvoid Career::Level::SetGoalDone(int goal)\n{\n    Level *self = this;\n    if (!self->goals[goal]) {\n        *(int *)(career_data + 0x10000 + 22160) = 1;\n    }\n    self->goals[goal] = 1;\n    if (self->is_new)\n        self->is_new = 0;\n}\n",
+      "status": "different",
+      "target_size": 80
+    }
+  ],
+  "raw_name": "SetGoalDone__Q26Career5Leveli"
+}
