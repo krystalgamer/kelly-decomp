@@ -1,5 +1,27 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00135FF8)
+#include "KS/SRC/mbi_shared.h"
+
+extern "C" void BuiltinVecDelete(void *memory) __asm__("__builtin_vec_delete");
+extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
+extern "C" void MotionBlurDtor(void *self, int deleting)
+    __asm__("_$_16motion_blur_info");
+
+// 0x00135FF8 _$_16motion_blur_info
+void MotionBlurDtor(void *self, int deleting)
+{
+    motion_blur_info *info = static_cast<motion_blur_info *>(self);
+    if (info->motion_trail_buffer)
+        BuiltinVecDelete(info->motion_trail_buffer);
+    if (deleting & 1) {
+        BuiltinDelete(info);
+        // Prevent the compiler from tail-calling the deleting operator.
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00131E20)
 #include "KS/SRC/entity_shared.h"
 
