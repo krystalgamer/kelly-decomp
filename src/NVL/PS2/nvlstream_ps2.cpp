@@ -1,5 +1,17 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_003864D0)
+#include "NVL/PS2/nvlstream_ps2_shared.h"
+
+// 0x003864D0 nvlStreamSetBitRate__FP9nvlStreami
+void nvlStreamSetBitRate(nvlStream *stream, int bitrate)
+{
+    if (!stream)
+        __assert(nvlstream_source_file, 786, nvlstream_assert_stream);
+    stream->bitrate = bitrate;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00387310)
 // 0x00387310 nvlStreamReqSize__FP9nvlStream
