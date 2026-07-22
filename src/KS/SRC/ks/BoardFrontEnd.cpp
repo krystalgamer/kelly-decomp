@@ -74,3 +74,18 @@ struct EntityManager { char padding[0x1c0]; int camera_state; bool CamIsMoving()
     virtual void d41();
     virtual void Select(); }; class BoardFrontEnd : public BoardBase { char padding1[0x13c-0x78]; FEManager* manager; public: void OnCross(int); }; void BoardFrontEnd::OnCross(int c) { if(manager->em->CamIsMoving()) return; Select(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B7408)
+// 0x001B7408 OnAnyButtonPress__13BoardFrontEndii
+#include "KS/SRC/ks/BoardFrontEnd_shared.h"
+enum { FEMENUCMD_TRIANGLE = 7 };
+__asm__(".equ JumpTo__15FEEntityManageri, 0x001C4C88");
+void BoardFrontEnd::OnAnyButtonPress(int c, int b) {
+    if (!manager->em->CamIsMoving())
+        return;
+    if (b == FEMENUCMD_TRIANGLE)
+        manager->em->JumpTo(FEEntityManager::CAM_POS_WALL_3_MAP);
+    else
+        manager->em->JumpTo(FEEntityManager::CAM_POS_WALL_3_CLOSET);
+}
+#endif
