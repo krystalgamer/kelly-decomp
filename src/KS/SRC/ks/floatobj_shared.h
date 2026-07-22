@@ -3,7 +3,9 @@
 
 #include "KS/SRC/stringx.h"
 
+#if !defined(KELLY_DECOMP_FLOATOBJ_EMIT_VTABLES)
 #pragma interface
+#endif
 
 class entity;
 class vector3d;
