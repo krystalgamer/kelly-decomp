@@ -5,6 +5,18 @@
 #include "KS/SRC/ks/ksreplay_shared.h"
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0023CA88)
+// 0x0023CA88 Playspeed__8KSReplay
+#include "KS/SRC/ks/ksreplay_shared.h"
+float KSReplay::Playspeed() {
+    if (slomo)
+        return 1.0f / slomospeed;
+    if (!fastforward)
+        return 1.0f;
+    return (float)ffspeed;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0023A998)
 // 0x0023A998 __13KSEntityState
 class KSEntityState {

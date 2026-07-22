@@ -28,7 +28,20 @@ class KSEntityState {
 };
 
 class KSReplay {
-    char data_to_num_frames[0x54];
+    int bch;
+    int sfr;
+    int brd;
+    uint32 seed;
+    int status;
+    float playtime;
+    float lastPlaytime;
+    bool slomo;
+    bool fastforward;
+    bool prepareSlomo;
+    bool prepareNormal;
+    int slomospeed;
+    int ffspeed;
+    char data_to_num_frames[0x54 - 0x34];
     unsigned int numFrames;
     char data_to_main_entity_state[0xC];
     KSEntityState* mainEntityState;
@@ -36,6 +49,7 @@ class KSReplay {
     unsigned int maxFrames;
 
 public:
+    float Playspeed();
     void Tick(bool running, float time_inc);
     void Pause(bool paused);
     void SaveFile(char *filename);
