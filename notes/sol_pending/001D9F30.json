@@ -1,0 +1,33 @@
+{
+  "address": "0x001D9F30",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "81964cc8cbedafcd172c6bd3dac8246cd1206cc8",
+      "notes": "Immutable FEPanel source has no usable PanelText declaration in the shared context. A destructor definition against an incomplete forward declaration failed compilation; no behavior was invented.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEPanel_shared.h\"\nclass PanelText;\nvoid PanelText::~PanelText() {}\n",
+      "status": "compile_failed"
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a65d1d9759cd41b7689d369ad3736f641af4b957",
+      "notes": "Retried the blocker with the same unavailable PanelText type and an explicit immutable-source note. Compilation failed because the destructor cannot be defined without a declaration.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEPanel_shared.h\"\n// Immutable FEPanel source exposes no PanelText destructor declaration.\nvoid PanelText::~PanelText() {}\n",
+      "status": "compile_failed"
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "144906c76ce7f3adb8a83fe960f0d867bc165d30",
+      "notes": "Inspected the immutable FEPanel header directly and attempted a destructor definition; the class declares no destructor, so compilation failed. Target-only member cleanup cannot be guessed.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEPanel.h\"\n// No destructor is declared for PanelText in the immutable class.\nPanelText::~PanelText() {}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_9PanelText"
+}
