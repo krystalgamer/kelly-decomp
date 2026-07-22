@@ -1,5 +1,32 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00121B58)
+#include "KS/SRC/linear_anim_shared.h"
+
+extern "C" void **key_quat_base_rtti() __asm__("__tft4anim1Z10quaternion");
+extern "C" void *key_quat_base_type[] __asm__("__tit4anim1Z10quaternion");
+extern "C" void *key_quat_type[]
+    __asm__("__tit8key_anim3Z10quaternionZt10linear_key1Z10quaternionZt12linear_track1Z10quaternion");
+extern "C" const char key_quat_name[];
+
+__asm__(".equ __tft4anim1Z10quaternion, 0x00121C88");
+__asm__(".equ __tit4anim1Z10quaternion, 0x00511FD8");
+__asm__(".equ __tit8key_anim3Z10quaternionZt10linear_key1Z10quaternionZt12linear_track1Z10quaternion, 0x005A2728");
+__asm__(".equ key_quat_name, 0x004CA538");
+
+// 0x00121B58 key_anim<quaternion> RTTI
+extern "C" void **key_quat_rtti()
+    __asm__("__tft8key_anim3Z10quaternionZt10linear_key1Z10quaternionZt12linear_track1Z10quaternion");
+void **key_quat_rtti()
+{
+    if (!key_quat_type[0]) {
+        key_quat_base_rtti();
+        __rtti_si(key_quat_type, key_quat_name, key_quat_base_type);
+    }
+    return key_quat_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00120A30)
 // 0x00120A30 set_flag__t4anim1ZP6entity12anim_flags_t
