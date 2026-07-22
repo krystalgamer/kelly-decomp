@@ -20,7 +20,44 @@ struct WaveBreakStruct {
 extern WavePerturbTypeEnum WAVE_PerturbType;
 extern WaveBreakStruct *WAVE_BreakNext;
 
+template <int count>
+struct SplineCoeffs {
+    float a[count];
+    float b[count];
+    float c[count];
+    float d[count];
+};
+
+struct WaveProfileMetaCoeffs {
+    SplineCoeffs<16> y[16];
+    SplineCoeffs<16> z[16];
+};
+
+class WaveScratchBase {
+public:
+    WaveScratchBase() {}
+    virtual ~WaveScratchBase() {}
+
+protected:
+    static unsigned int sp;
+};
+
+template <class T>
+class WaveScratch : public WaveScratchBase {
+public:
+    WaveScratch() : data(*(T *)sp) {}
+    virtual ~WaveScratch()
+    {
+        sp -= sizeof(data);
+    }
+
+private:
+    T &data;
+};
+
 __asm__(".equ WAVE_PerturbType, 0x00484940");
 __asm__(".equ WAVE_BreakNext, 0x00585C4C");
+__asm__(".equ _15WaveScratchBase$sp, 0x004846C8");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
 
 #endif
