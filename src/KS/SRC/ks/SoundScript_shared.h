@@ -16,7 +16,7 @@ class nlVector3d {
     float values[3];
 
 public:
-    float &operator[](int index) { return values[index]; }
+    inline float &operator[](int index) { return values[index]; }
 };
 
 class EventMapType {
@@ -55,7 +55,7 @@ class SoundScriptManager : public singleton {
 public:
     static SoundScriptManager* instance;
 
-    static SoundScriptManager* inst() { return instance; }
+    static inline SoundScriptManager* inst() { return instance; }
     bool init();
     void clearEvents();
     int playEvent(EventType type, entity* source = 0, float fade_in_time = 0.0f);

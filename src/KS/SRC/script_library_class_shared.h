@@ -18,9 +18,9 @@ private:
     vm_thread *my_thread;
 
 public:
-    char *get_SP() const { return SP; }
-    void pop(int n) { SP -= n; }
-    vm_thread *get_thread() const { return my_thread; }
+    inline char *get_SP() const { return SP; }
+    inline void pop(int n) { SP -= n; }
+    inline vm_thread *get_thread() const { return my_thread; }
 };
 
 class script_library_class {

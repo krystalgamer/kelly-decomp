@@ -25,8 +25,8 @@ class signaller {
 public:
     signaller();
     virtual ~signaller();
-    virtual bool is_an_entity() const { return false; }
-    virtual bool is_a_trigger() const { return false; }
+    virtual inline bool is_an_entity() const { return false; }
+    virtual inline bool is_a_trigger() const { return false; }
     virtual void raise_signal(unsigned int signal_id) const;
 
 private:
@@ -46,13 +46,13 @@ public:
     };
 
     trigger(const stringx &id);
-    virtual void read(chunk_file &file) {}
-    virtual bool triggered(entity *) { return false; }
+    virtual inline void read(chunk_file &file) {}
+    virtual inline bool triggered(entity *) { return false; }
     void update();
-    virtual void update_region() {}
-    virtual bool is_a_trigger() const { return true; }
+    virtual inline void update_region() {}
+    virtual inline bool is_a_trigger() const { return true; }
     virtual const vector3d &get_abs_position() const;
-    bool is_active() const { return active; }
+    inline bool is_active() const { return active; }
     void set_active(bool active);
 
 protected:

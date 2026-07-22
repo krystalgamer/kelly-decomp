@@ -7,7 +7,7 @@ class owner_interface : public entity_interface {
     entity *my_slave;
 
 public:
-    explicit owner_interface(entity *value) : entity_interface(value), my_slave(0) {}
+    explicit inline owner_interface(entity *value) : entity_interface(value), my_slave(0) {}
 };
 
 class slave_interface : public entity_interface {
@@ -15,7 +15,7 @@ class slave_interface : public entity_interface {
     entity *next_slave;
 
 public:
-    explicit slave_interface(entity *value)
+    explicit inline slave_interface(entity *value)
         : entity_interface(value), my_owner(0), next_slave(0) {}
 };
 

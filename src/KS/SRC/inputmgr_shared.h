@@ -31,7 +31,7 @@ extern input_mgr* input_manager;
 
 class input_mgr {
 public:
-    static input_mgr* inst() { return input_manager; }
+    static inline input_mgr* inst() { return input_manager; }
     rational_t get_control_state(device_id_t dev_id, control_id_t control) const;
 };
 

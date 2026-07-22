@@ -10,7 +10,7 @@ class link_interface : public bone_interface {
     bool link_manages_abs_po;
 
 public:
-    explicit link_interface(bone *value) : bone_interface(value) {}
+    explicit inline link_interface(bone *value) : bone_interface(value) {}
     ~link_interface();
 };
 

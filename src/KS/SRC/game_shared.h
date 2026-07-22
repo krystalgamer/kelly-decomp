@@ -32,7 +32,7 @@ public:
     int get_first_beach();
     stringx get_beach_location_name();
     int get_first_surfer_index();
-    int get_num_players() const {
+    inline int get_num_players() const {
         return num_players;
     }
 };

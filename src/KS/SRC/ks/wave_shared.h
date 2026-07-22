@@ -48,8 +48,8 @@ typedef SplineData2D<16> WaveProfile;
 
 class WaveScratchBase {
 public:
-    WaveScratchBase() {}
-    virtual ~WaveScratchBase() {}
+    inline WaveScratchBase() {}
+    virtual inline ~WaveScratchBase() {}
 
 protected:
     static unsigned int sp;
@@ -58,8 +58,8 @@ protected:
 template <class T>
 class WaveScratch : public WaveScratchBase {
 public:
-    WaveScratch() : data(*(T *)sp) {}
-    virtual ~WaveScratch()
+    inline WaveScratch() : data(*(T *)sp) {}
+    virtual inline ~WaveScratch()
     {
         sp -= sizeof(data);
     }

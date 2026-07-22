@@ -14,7 +14,7 @@ class vm_executable {
     int parms_stacksize;
 
 public:
-    int get_parms_stacksize() const { return parms_stacksize; }
+    inline int get_parms_stacksize() const { return parms_stacksize; }
 };
 
 class vm_stack {
@@ -24,9 +24,9 @@ class vm_stack {
     class vm_thread *my_thread;
 
 public:
-    void pop(int size) { SP -= size; }
-    char *get_SP() const { return SP; }
-    vm_signal_t pop_signal()
+    inline void pop(int size) { SP -= size; }
+    inline char *get_SP() const { return SP; }
+    inline vm_signal_t pop_signal()
     {
         pop(sizeof(vm_signal_t));
         return *(vm_signal_t *)SP;

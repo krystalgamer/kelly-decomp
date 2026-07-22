@@ -27,9 +27,9 @@ public:
     float y;
     float z;
 
-    vector3d() {}
-    vector3d(const vector3d &value) : x(value.x), y(value.y), z(value.z) {}
-    vector3d(float x_value, float y_value, float z_value)
+    inline vector3d() {}
+    inline vector3d(const vector3d &value) : x(value.x), y(value.y), z(value.z) {}
+    inline vector3d(float x_value, float y_value, float z_value)
         : x(x_value), y(y_value), z(z_value) {}
 };
 
@@ -56,7 +56,7 @@ public:
     bool no_color;
     color32 color;
 
-    virtual ~TextString() {}
+    virtual inline ~TextString() {}
     virtual void Update(float time_inc);
     virtual void Draw();
     virtual void setHJustify(Font::HORIZJUST hjust);
@@ -171,18 +171,18 @@ protected:
     char panel_quad_tail[0x19c - 0x84];
 
 public:
-    virtual ~PanelQuad() {}
+    virtual inline ~PanelQuad() {}
     virtual void Init(
         float x1, float y1, float x2, float y2,
         float r, float g, float b, float a,
         float u1, float v1, float u2, float v2,
         float z, char object_matrix[0x40]
     );
-    virtual void TurnOn(bool enabled) { drawOn = enabled; }
-    void ToggleOn() { drawOn = !drawOn; }
+    virtual inline void TurnOn(bool enabled) { drawOn = enabled; }
+    inline void ToggleOn() { drawOn = !drawOn; }
     void ChangeFade(bool start, bool fade_in, float time = 2.0f)
         __asm__("ChangeFade__9PanelQuadbT1f");
-    void Mask(float amount, int type = 1) { mask = amount; maskType = type; }
+    inline void Mask(float amount, int type = 1) { mask = amount; maskType = type; }
     void SetPos(float x1, float y1, float x2, float y2);
 };
 

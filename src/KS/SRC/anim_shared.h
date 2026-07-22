@@ -26,25 +26,25 @@ protected:
     unsigned short flags;
 
 public:
-    virtual void set_flag(anim_flags_t flag) {
+    virtual inline void set_flag(anim_flags_t flag) {
         flags |= flag;
     }
 
-    virtual void clear_flag(anim_flags_t flag) {
+    virtual inline void clear_flag(anim_flags_t flag) {
         flags &= ~flag;
     }
 
-    virtual void set_flag(anim_flags_t flag, bool enabled) {
+    virtual inline void set_flag(anim_flags_t flag, bool enabled) {
         if (enabled)
             set_flag(flag);
         else
             clear_flag(flag);
     }
 
-    virtual void set_time(float time) {}
-    virtual void frame_advance(const anim_control_t &control, animatable_t *destination) {}
-    virtual void get_value(const anim_control_t &control, animatable_t *destination) const {}
-    virtual void get_value(float time, animatable_t *destination) const {}
+    virtual inline void set_time(float time) {}
+    virtual inline void frame_advance(const anim_control_t &control, animatable_t *destination) {}
+    virtual inline void get_value(const anim_control_t &control, animatable_t *destination) const {}
+    virtual inline void get_value(float time, animatable_t *destination) const {}
 };
 
 template <class animatable_t, class key_t, class track_t>

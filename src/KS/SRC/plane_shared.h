@@ -7,7 +7,7 @@ public:
     float y;
     float z;
 
-    vector3d(const vector3d &other)
+    inline vector3d(const vector3d &other)
         : x(other.x), y(other.y), z(other.z) {}
 };
 

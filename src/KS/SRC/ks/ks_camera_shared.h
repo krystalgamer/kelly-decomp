@@ -21,7 +21,7 @@ class game_camera : public camera {
 public:
     game_camera(const entity_id &id, entity *target);
     virtual ~game_camera();
-    void set_ks_controller(kellyslater_controller *controller) {
+    inline void set_ks_controller(kellyslater_controller *controller) {
         ksctrl = controller;
     }
 };

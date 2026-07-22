@@ -8,7 +8,7 @@ class world_dynamics_system {
     entity *hero_ptr[2];
 
 public:
-    entity *get_hero_ptr(int index) {
+    inline entity *get_hero_ptr(int index) {
         return hero_ptr[index];
     }
 };

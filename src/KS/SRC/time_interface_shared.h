@@ -8,7 +8,7 @@ class time_interface : public entity_interface {
     int time_mode;
 
 public:
-    explicit time_interface(entity *value) : entity_interface(value) {}
+    explicit inline time_interface(entity *value) : entity_interface(value) {}
     virtual ~time_interface();
 };
 

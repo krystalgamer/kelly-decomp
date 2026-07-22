@@ -10,13 +10,13 @@ public:
     void setCurrentLevel(int level);
     void stopVO();
     void playVO();
-    void setCurrentSurfer(int index) { currentSurfer = index; }
-    void pause() {}
-    void unpause() {}
+    inline void setCurrentSurfer(int index) { currentSurfer = index; }
+    inline void pause() {}
+    inline void unpause() {}
     bool isPlaying();
-    nslSoundId getCurrentSound() { return currentSound; }
+    inline nslSoundId getCurrentSound() { return currentSound; }
     void frameAdvance(float time_increment);
-    void resetTimer() { myTimer = 0; }
+    inline void resetTimer() { myTimer = 0; }
 
 private:
     bool on;

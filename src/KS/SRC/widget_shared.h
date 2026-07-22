@@ -80,7 +80,7 @@ public:
     virtual void update_rot();
     virtual void update_col();
 
-    bool is_shown() const { return flags & 1; }
+    inline bool is_shown() const { return flags & 1; }
 };
 
 class menu_widget : public widget {

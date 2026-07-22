@@ -7,9 +7,9 @@ class os_file {
     static bool system_locked;
 
 public:
-    static bool is_system_locked() { return system_locked; }
-    static void system_unlock() { system_locked = false; }
-    static void system_lock() { system_locked = true; }
+    static inline bool is_system_locked() { return system_locked; }
+    static inline void system_unlock() { system_locked = false; }
+    static inline void system_lock() { system_locked = true; }
 };
 
 void SaveScoringSystem();

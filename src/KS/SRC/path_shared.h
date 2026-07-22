@@ -10,7 +10,7 @@ class vector {
     T *end_of_storage;
 
 public:
-    vector() : start(0), finish(0), end_of_storage(0) {}
+    inline vector() : start(0), finish(0), end_of_storage(0) {}
 };
 
 extern vector<path_graph_edge *> *patrol_edges_workspace;

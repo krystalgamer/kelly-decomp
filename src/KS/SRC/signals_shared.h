@@ -13,7 +13,7 @@ class signal_list {
     signal **end_of_storage;
 
 public:
-    signal *&operator[](unsigned int index) { return start[index]; }
+    inline signal *&operator[](unsigned int index) { return start[index]; }
 };
 
 class signaller {
@@ -28,9 +28,9 @@ protected:
 
 public:
     virtual ~signaller();
-    bool is_flagged(flags_t value) const { return flags & value; }
-    virtual bool is_an_entity() const { return false; }
-    virtual bool is_a_trigger() const { return false; }
+    inline bool is_flagged(flags_t value) const { return flags & value; }
+    virtual inline bool is_an_entity() const { return false; }
+    virtual inline bool is_a_trigger() const { return false; }
     virtual void raise_signal(unsigned int index) const;
 };
 

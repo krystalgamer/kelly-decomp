@@ -16,7 +16,7 @@ public:
     void acquire(unsigned int flags);
 
 protected:
-    void set_flag(unsigned int flag, bool enabled)
+    inline void set_flag(unsigned int flag, bool enabled)
     {
         if (enabled)
             flags |= flag;

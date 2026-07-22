@@ -32,7 +32,7 @@ class Cheat {
     bool on;
 
 public:
-    bool isOn() const { return on; }
+    inline bool isOn() const { return on; }
 };
 
 extern Cheat g_session_cheats[CHEAT_LAST];

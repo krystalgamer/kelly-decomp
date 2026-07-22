@@ -11,7 +11,7 @@ class ai_action {
     unsigned int id;
 
 public:
-    unsigned int get_id() const
+    inline unsigned int get_id() const
     {
         return id;
     }

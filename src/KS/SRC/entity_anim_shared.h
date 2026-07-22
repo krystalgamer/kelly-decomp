@@ -38,15 +38,15 @@ protected:
     int priority;
 
 public:
-    bool is_flagged(unsigned short value) const {
+    inline bool is_flagged(unsigned short value) const {
         return flags & value;
     }
 
-    bool is_valid() const {
+    inline bool is_valid() const {
         return is_flagged(0x1000);
     }
 
-    void set_priority(int value) {
+    inline void set_priority(int value) {
         priority = value;
     }
 
@@ -59,11 +59,11 @@ struct pentity_anim_vector {
     entity_anim **begin_value;
     entity_anim **end_value;
 
-    entity_anim **begin() {
+    inline entity_anim **begin() {
         return begin_value;
     }
 
-    entity_anim **end() {
+    inline entity_anim **end() {
         return end_value;
     }
 };

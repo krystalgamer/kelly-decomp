@@ -8,7 +8,7 @@ public:
     float x;
     float y;
 
-    vector2d &operator=(const vector2d &other) {
+    inline vector2d &operator=(const vector2d &other) {
         x = other.x;
         y = other.y;
         return *this;
@@ -27,7 +27,7 @@ public:
         region_node *reg;
         rectf screen_rect;
 
-        region_info(region_node *region = 0) : reg(region) {}
+        inline region_info(region_node *region = 0) : reg(region) {}
     };
 };
 

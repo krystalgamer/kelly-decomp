@@ -14,7 +14,7 @@ class HelpbarFE {
     int disabled;
 
 public:
-    void DisableHelpbar() {
+    inline void DisableHelpbar() {
         disabled = true;
     }
 };

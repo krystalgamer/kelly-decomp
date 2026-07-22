@@ -4,6 +4,8 @@
 #include "KS/SRC/stringx.h"
 #include "KS/SRC/visrep_shared.h"
 
+#pragma interface
+
 typedef short anim_id_t;
 
 class entity;
@@ -51,7 +53,7 @@ class entity_color32 {
     unsigned char alpha;
 
 public:
-    unsigned char get_alpha() const {
+    inline unsigned char get_alpha() const {
         return alpha;
     }
 };
@@ -73,24 +75,24 @@ private:
     char entity_trailing_data[0x20];
 
 public:
-    bool are_collisions_active() const {
+    inline bool are_collisions_active() const {
         return flags & EFLAG_PHYSICS_COLLISIONS_ACTIVE;
     }
 
     time_value_t get_age() const;
     int get_max_polys() const;
     bool is_hero() const;
-    bool was_preloaded() const {
+    inline bool was_preloaded() const {
         return ext_flags & 0x00080000;
     }
-    void set_preloaded(bool enabled) {
+    inline void set_preloaded(bool enabled) {
         if (enabled)
             ext_flags |= 0x00080000;
         else
             ext_flags &= ~0x00080000;
     }
     virtual void preload();
-    void set_flag(entity_flags flag, bool enabled) {
+    inline void set_flag(entity_flags flag, bool enabled) {
         if (enabled)
             flags |= flag;
         else

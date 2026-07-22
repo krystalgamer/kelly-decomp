@@ -28,7 +28,7 @@ class game {
     camera* player_camera[2];
 
 public:
-    camera* get_player_camera(int player) { return player_camera[player]; }
+    inline camera* get_player_camera(int player) { return player_camera[player]; }
 };
 
 extern game* g_game_ptr;

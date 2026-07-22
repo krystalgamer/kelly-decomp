@@ -16,7 +16,7 @@ class ImageDXTC {
 
 public:
     void Emit1ColorBlock(unsigned short* pDest, DXT1Color c);
-    unsigned short Make565(const DXT1Color& Col) const
+    inline unsigned short Make565(const DXT1Color& Col) const
     {
         return ((unsigned short)(Col.r >> 3) << 11) |
                ((unsigned short)(Col.g >> 2) << 5) |

@@ -6,7 +6,7 @@ class MenuEntityDraw {
     int entries;
 
 public:
-    int NumEntries() const { return entries; }
+    inline int NumEntries() const { return entries; }
 };
 
 extern MenuEntityDraw *MENUDRAW_MenuEntities;

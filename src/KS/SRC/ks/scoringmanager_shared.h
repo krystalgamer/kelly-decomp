@@ -16,22 +16,22 @@ public:
         node* current;
 
     public:
-        const_iterator(node* value) : current(value) {}
-        const T& operator*() const { return current->value; }
-        const T* operator->() const { return &current->value; }
-        const_iterator& operator++()
+        inline const_iterator(node* value) : current(value) {}
+        inline const T& operator*() const { return current->value; }
+        inline const T* operator->() const { return &current->value; }
+        inline const_iterator& operator++()
         {
             current = current->next;
             return *this;
         }
-        bool operator!=(const const_iterator& right) const
+        inline bool operator!=(const const_iterator& right) const
         {
             return current != right.current;
         }
     };
 
-    const_iterator begin() const { return const_iterator(sentinel->next); }
-    const_iterator end() const { return const_iterator(sentinel); }
+    inline const_iterator begin() const { return const_iterator(sentinel->next); }
+    inline const_iterator end() const { return const_iterator(sentinel); }
 };
 
 class ScoringManager {

@@ -16,7 +16,7 @@ protected:
     entity *my_entity;
 
 public:
-    explicit entity_interface(entity *value) : my_entity(value) {}
+    explicit inline entity_interface(entity *value) : my_entity(value) {}
     virtual ~entity_interface();
 };
 
@@ -25,7 +25,7 @@ protected:
     bone *my_bone;
 
 public:
-    explicit bone_interface(bone *value) : my_bone(value) {}
+    explicit inline bone_interface(bone *value) : my_bone(value) {}
     virtual ~bone_interface();
 };
 

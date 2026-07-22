@@ -20,7 +20,7 @@ class visual_rep {
     bool instanced;
 
 public:
-    virtual ~visual_rep() {}
+    virtual inline ~visual_rep() {}
     virtual void render_instance(render_flavor_t, instance_render_info *, short * = 0) = 0;
     virtual void render_batch(render_flavor_t, instance_render_info *, int);
     virtual void render_skin(render_flavor_t, const instance_render_info *, const po *, int);

@@ -23,7 +23,7 @@ public:
     };
 
     void JumpTo(int position);
-    bool CamIsMoving() {
+    inline bool CamIsMoving() {
         return !cam_stopped;
     }
 };

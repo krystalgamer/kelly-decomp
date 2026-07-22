@@ -5,7 +5,7 @@
 
 class hard_attrib_interface : public entity_interface {
 public:
-    explicit hard_attrib_interface(entity *value) : entity_interface(value) {}
+    explicit inline hard_attrib_interface(entity *value) : entity_interface(value) {}
     virtual ~hard_attrib_interface();
     virtual void copy(hard_attrib_interface *other);
 };

@@ -25,7 +25,7 @@ public:
     explicit stringx(unsigned int);
     ~stringx();
     stringx &operator=(const stringx &);
-    const char *c_str() const { return chars; }
+    inline const char *c_str() const { return chars; }
     int length() const;
     void lock();
     void fork_data(int new_length = -1);

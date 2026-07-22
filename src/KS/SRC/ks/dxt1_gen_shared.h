@@ -5,7 +5,7 @@ class cbVector {
     unsigned char pData[4];
 
 public:
-    unsigned char& operator[](int i) { return pData[i]; }
+    inline unsigned char& operator[](int i) { return pData[i]; }
 };
 
 class DXTCGen {

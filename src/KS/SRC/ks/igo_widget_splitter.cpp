@@ -3,6 +3,8 @@
 #if defined(KELLY_DECOMP_FUNCTION_00168D28)
 #include "KS/SRC/ks/igo_widget_shared.h"
 
+#pragma interface
+
 class SplitterWidget : public IGOWidget {
     PanelQuad *barPQ;
 

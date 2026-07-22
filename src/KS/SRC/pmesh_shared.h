@@ -17,9 +17,9 @@ public:
     unsigned short level_of_detail;
     unsigned short flags;
 
-    wedge_ref get_wedge_ref(int index) const { return wedge_refs[index]; }
-    bool is_cosmetic() const { return flags & TERFACE_COSMETIC; }
-    unsigned char get_surface_type() const
+    inline wedge_ref get_wedge_ref(int index) const { return wedge_refs[index]; }
+    inline bool is_cosmetic() const { return flags & TERFACE_COSMETIC; }
+    inline unsigned char get_surface_type() const
     {
         return (flags & TERFACE_SURFTYPE_MASK) >> 4;
     }
@@ -31,8 +31,8 @@ public:
     unsigned short level_of_detail;
     unsigned short flags;
 
-    bool is_cosmetic() const { return flags & TERFACE_COSMETIC; }
-    unsigned char get_surface_type() const
+    inline bool is_cosmetic() const { return flags & TERFACE_COSMETIC; }
+    inline unsigned char get_surface_type() const
     {
         return (flags & TERFACE_SURFTYPE_MASK) >> 4;
     }
@@ -52,7 +52,7 @@ class material_vector {
     void **capacity_end;
 
 public:
-    bool empty() const { return first == last; }
+    inline bool empty() const { return first == last; }
 };
 
 class vr_pmesh {
@@ -68,7 +68,7 @@ class vr_pmesh {
     wedge_ref* wedge_index_list;
 
 public:
-    int get_num_wedges() const { return num_wedges; }
+    inline int get_num_wedges() const { return num_wedges; }
     void mark_self_lit_verts();
     wedge_ref get_wedge_ref(face_ref faceid, int corner) const;
     unsigned char get_surface_type(face_ref faceid) const;
