@@ -7,9 +7,11 @@
 #include "KS/SRC/ks/FEMenu_shared.h"
 #undef KELLY_DECOMP_FULL_FEMULTI_MENU
 #include "KS/SRC/ks/SoundScript_shared.h"
+#include "KS/SRC/ks/cheat_shared.h"
 
 #define MAX_CHEATS_PER_SCREEN 2
 #define NUM_PHONE_NUM_GAPS 2
+#define CHEAT_CODE_MESSAGE_DURATION 1.0f
 
 class GraphicalMenuSystem;
 

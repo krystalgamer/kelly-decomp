@@ -1,6 +1,8 @@
 #ifndef KELLY_DECOMP_CHEAT_SHARED_H
 #define KELLY_DECOMP_CHEAT_SHARED_H
 
+#include "KS/SRC/stringx.h"
+
 enum cheats_enum {
     CHEAT_RAINBOW,
     CHEAT_TRIPPY,
@@ -33,6 +35,7 @@ class Cheat {
 
 public:
     inline bool isOn() const { return on; }
+    static int checkCodeUnlock(const stringx &code);
 };
 
 extern Cheat g_session_cheats[CHEAT_LAST];
