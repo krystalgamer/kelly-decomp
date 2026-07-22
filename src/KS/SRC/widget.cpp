@@ -1,5 +1,20 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0033F448)
+// 0x0033F448 show__11menu_widget
+#include "KS/SRC/widget_shared.h"
+__asm__(".equ show__6widget, 0x0033DDD0");
+void menu_widget::show()
+{
+    if (!is_shown())
+    {
+        init();
+        widget::show();
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0033F370)
 // 0x0033F370 get_width__16menu_item_widget
