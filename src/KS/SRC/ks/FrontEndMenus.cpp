@@ -562,3 +562,15 @@ void TipMenuClass::Init() {
     entries->SetPos(320, 280);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001A6730)
+// 0x001A6730 OnButtonRelease__22TutorialPauseMenuClassii
+#include "KS/SRC/ks/FrontEndMenus_shared.h"
+
+void TutorialPauseMenuClass::OnButtonRelease(int c, int b)
+/* shared text context, minimal vtable */
+{
+    if (b == FEMENUCMD_CROSS && highlighted->entry_num == Continue)
+        sys->endDraw();
+}
+#endif
