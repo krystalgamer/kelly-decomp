@@ -40,7 +40,11 @@ public:
 
 class BoardFrontEnd : public FEMultiMenu {
 public:
+    virtual void Load();
     virtual void OnAnyButtonPress(int controller, int button);
+
+private:
+    virtual void SetPQIndices();
 };
 
 #endif

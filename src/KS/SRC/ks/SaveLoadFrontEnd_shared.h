@@ -43,4 +43,9 @@ private:
     void UpdateMessage();
 };
 
+class SaveLoadFrontEnd : public FEMultiMenu {
+public:
+    virtual void OnCross(int controller);
+};
+
 #endif

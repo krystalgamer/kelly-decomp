@@ -40,6 +40,15 @@ public:
     virtual void OnButtonRelease(int controller, int button);
 };
 
+class TutorialPauseMenuClass : public FEMenu {
+public:
+    enum { NextTip, Continue };
+    PauseMenuSystem* sys;
+    FEMenuEntry* options;
+    FEMenuEntry* trickbook;
+    virtual void OnButtonRelease(int controller, int button);
+};
+
 class HeatMidMenuClass : public FEMenu {
 public:
     enum { Continue };
@@ -85,7 +94,23 @@ public:
     virtual void OnStart(int controller);
 };
 
-class BoxText;
+class BoxText : public TextString {
+public:
+    virtual void Draw();
+};
+
+class SaveCareerPromptClass : public FEMenu {
+public:
+    PauseMenuSystem *sys;
+    int myFrameTimer;
+    int myState;
+    int next_menu;
+    FEMenuEntry *yes;
+    FEMenuEntry *no;
+    BoxText *message;
+
+    virtual void Draw();
+};
 
 class TipMenuClass : public FEMenu {
 public:
