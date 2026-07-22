@@ -95,14 +95,15 @@ public:
 };
 
 class TextString {
+    char text_string_data[0x4c];
+
 public:
-    virtual ~TextString() {}
-    virtual void Update(float time_inc);
-    virtual void Draw();
 };
 
 class BoxText : public TextString {
 public:
+    virtual ~BoxText();
+    virtual void Update(float time_inc);
     virtual void Draw();
 };
 
