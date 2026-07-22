@@ -687,7 +687,7 @@ render_polytube__FRCt6vector2Z8vector3dZt12my_allocator1Z8vector3dfiRC7color32P7
 __8polytubeRC9entity_idUi = 0x0013A938; // type:func size:0x7C
 __8polytubeR10chunk_fileRC9entity_id15entity_flavor_tUi = 0x0013A9B8; // type:func size:0x74
 _$_8polytube = 0x0013AA30; // type:func size:0x1A8
-init__8polytube = 0x0013ABD8; // type:func size:0x4C
+init__8polytube = 0x0013ABD8; // type:func defined:true size:0x4C
 make_instance__C8polytubeRC9entity_idUi = 0x0013AC28; // type:func size:0x80
 copy_instance_data__8polytubeRC8polytube = 0x0013ACA8; // type:func size:0xB0
 render_passes_needed__C8polytube = 0x0013AD58; // type:func size:0x50

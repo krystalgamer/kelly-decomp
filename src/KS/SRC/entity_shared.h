@@ -17,7 +17,8 @@ enum entity_extended_flags {
 };
 
 enum entity_flags {
-    EFLAG_PHYSICS_COLLISIONS_ACTIVE = 0x00000002
+    EFLAG_PHYSICS_COLLISIONS_ACTIVE = 0x00000002,
+    EFLAG_GRAPHICS = 0x00000100
 };
 
 class entity {
@@ -27,6 +28,7 @@ class entity {
     visual_rep *my_visrep;
     char entity_data_after_visrep[0x6c];
     unsigned int ext_flags;
+    char entity_trailing_data[0x64];
 
 public:
     bool are_collisions_active() const {
@@ -35,6 +37,12 @@ public:
 
     time_value_t get_age() const;
     int get_max_polys() const;
+    void set_flag(entity_flags flag, bool enabled) {
+        if (enabled)
+            flags |= flag;
+        else
+            flags &= ~flag;
+    }
     void region_update_poss_collide();
     void set_collisions_active(bool active, bool update_region = true)
         __asm__("set_collisions_active__6entitybT1");
