@@ -905,3 +905,18 @@ int entity::num_mesh_bones()
     return get_mesh()->NBones;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001310F0)
+// 0x001310F0 set_door__6entityb
+#include "KS/SRC/entity_shared.h"
+#include "decomp_annotations.h"
+__asm__(".equ set_door_closed__6entityb, 0x00131140");
+void entity::set_door(bool d) {
+    if (d) {
+        ext_flags |= EFLAG_EXT_IS_DOOR;
+        set_door_closed(true);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    } else
+        ext_flags &= ~EFLAG_EXT_IS_DOOR;
+}
+#endif
