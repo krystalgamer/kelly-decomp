@@ -1,5 +1,46 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00399668)
+#include "NGL/PS2/ngl_ps2_shared.h"
+
+// 0x00399668 nglListEndScene__Fv
+void nglListEndScene()
+{
+    if (nglCurScene == &nglDefaultScene)
+        nglFatal(ngl_scene_stack_underflow);
+    nglCurScene = nglCurScene->Parent;
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003A7008)
+#include "NGL/PS2/ngl_ps2_shared.h"
+
+// 0x003A7008 nglReleaseFont__FP7nglFont
+void nglReleaseFont(nglFont *Font)
+{
+    if (nglFontBank.Delete(Font->Tex->FileName))
+        return;
+
+    nglMemFree(Font->GlyphInfo);
+    nglMemFree(Font);
+    Font = 0;
+}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003A8C18)
+#include "NGL/PS2/ngl_ps2_shared.h"
+
+// 0x003A8C18 nglVif1AddCommandListExec__FRPUiUiUi
+void nglVif1AddCommandListExec(u_int *&Packet, u_int VertBase, u_int Pass)
+{
+    Packet[0] = 0x10000000;
+    Packet[1] = 0x60010000;
+    Packet[2] = Pass;
+    Packet[3] = VertBase | 0x04000000;
+    Packet[4] = 0x17000000;
+    Packet += 5;
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00395D88)
 // 0x00395D88 nglGetScreenWidth__Fv
