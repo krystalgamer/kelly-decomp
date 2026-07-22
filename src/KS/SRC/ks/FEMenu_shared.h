@@ -152,6 +152,7 @@ public:
     virtual void MakeActive(FEMenu*, bool = true);
     virtual void SetHelpText(int);
     virtual void Select(int);
+    virtual void BuiltMenuReserved();
 
 protected:
     virtual void cons(FEMenuSystem*, int, int, int = 8);
