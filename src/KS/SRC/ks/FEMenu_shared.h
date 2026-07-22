@@ -33,6 +33,13 @@ struct FEMenuPreviousDispatchVTable {
     void (*previous)(void *self);
 };
 
+struct FEMenuNextDispatchVTable {
+    char padding[0x148];
+    short adjustment;
+    short padding2;
+    void (*next)(void *self);
+};
+
 class FEMenuEntry {
 public:
     int entry_num;

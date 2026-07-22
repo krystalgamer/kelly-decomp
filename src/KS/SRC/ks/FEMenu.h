@@ -12,6 +12,19 @@ void FEMenuEntry::Load() {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001DAA80)
+// 0x001DAA80 OnDown__6FEMenui
+#include "KS/SRC/ks/FEMenu_shared.h"
+void FEMenu::OnDown(int command) {
+    if (active)
+        active->OnDown(command);
+    else {
+        FEMenuNextDispatchVTable *table = *(FEMenuNextDispatchVTable **)((char *)this + 0x74);
+        table->next((char *)this + table->adjustment);
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001DB258)
 // 0x001DB258 Mask__15FEGraphicalMenuP9PanelQuadf
 #include "KS/SRC/ks/FEPanel_shared.h"
