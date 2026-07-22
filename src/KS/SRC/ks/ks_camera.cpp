@@ -1,5 +1,28 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0026EDB8)
+extern "C" void __rtti_si(void **type, const char *name, void **base);
+__asm__(".equ __rtti_si, 0x003CE2D8");
+extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
+extern "C" void *debug_type[] __asm__("__ti12debug_camera");
+extern "C" const char debug_name[] __asm__("debug_type_name");
+extern "C" void *game_camera_type[] __asm__("__ti11game_camera");
+__asm__(".equ __tf11game_camera, 0x002FECF0");
+__asm__(".equ __ti12debug_camera, 0x005A3A70");
+__asm__(".equ debug_type_name, 0x004E4DA8");
+__asm__(".equ __ti11game_camera, 0x005A3D40");
+
+extern "C" void **debug_rtti() __asm__("__tf12debug_camera");
+void **debug_rtti()
+{
+    if (!debug_type[0]) {
+        game_camera_rtti();
+        __rtti_si(debug_type, debug_name, game_camera_type);
+    }
+    return debug_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00225340)
 // 0x00225340 sync__12debug_cameraR6camera
