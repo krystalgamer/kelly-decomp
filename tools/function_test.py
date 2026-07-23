@@ -69,7 +69,8 @@ def scratch_directory(row: dict[str, str]) -> Path:
 
 
 def attempt_limit(row: dict[str, str]) -> int:
-    return 3 if row["status"] == "pending" else MAX_ATTEMPTS
+    del row
+    return MAX_ATTEMPTS
 
 
 def restore_sol_pending_attempts(

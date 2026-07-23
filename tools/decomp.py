@@ -308,16 +308,7 @@ def finalize(
         raise SystemExit("At least one attempt is required")
     if len(attempts) > MAX_ATTEMPTS:
         raise SystemExit("Attempt history exceeds the five-attempt limit")
-    if current_status == "pending":
-        if len(attempts) > 3:
-            raise SystemExit(
-                "A pending function cannot consume Sol attempts 4-5"
-            )
-        if status == "deferred":
-            raise SystemExit(
-                "A pending function must enter sol_pending before deferral"
-            )
-    else:
+    if current_status == "sol_pending":
         validate_sol_pending_prefix(row, attempts)
 
     matched_attempts = [
