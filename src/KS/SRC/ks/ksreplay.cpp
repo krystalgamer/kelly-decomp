@@ -240,3 +240,40 @@ void KSReplay::SetEndWave()
         mainEntityState[numFrames].EndWave = true;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023AC10)
+// 0x0023AC10 SetKSBAnimInfo__13KSEntityStatefbf
+typedef unsigned int uint32;
+
+class KSEntityState {
+    uint32 KSState : 7;
+    uint32 KSSuperState : 4;
+    uint32 KSAnim : 10;
+    uint32 KSBAnim : 8;
+
+    uint32 KSBlend : 7;
+    uint32 KSBBlend : 7;
+    uint32 KSCurTrick : 7;
+    uint32 KSAnimCall : 1;
+    uint32 KSBAnimCall : 1;
+    uint32 KSLoop : 1;
+    uint32 KSBLoop : 1;
+    uint32 KSWipedOut : 1;
+    uint32 KSInAir : 1;
+    uint32 KSInTube : 1;
+    uint32 KSDry : 1;
+    uint32 KSIKValid : 1;
+    uint32 KSWipeoutSplash : 1;
+    uint32 EndWave : 1;
+
+public:
+    void SetKSBAnimInfo(float blend, bool loop, float frame);
+};
+
+void KSEntityState::SetKSBAnimInfo(float blend, bool loop, float frame)
+{
+    KSBBlend = (char)(100.0f * blend);
+    KSBLoop = loop;
+    KSBAnimCall = true;
+}
+#endif
