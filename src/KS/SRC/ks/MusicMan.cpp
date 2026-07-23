@@ -182,3 +182,26 @@ unsigned int MusicMan::playNext() {
     return 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00258D60)
+// 0x00258D60 play__8MusicMan
+class MusicListing {
+public:
+    bool isPlaying();
+    unsigned int play();
+};
+__asm__(".equ isPlaying__12MusicListing, 0x00258A00");
+__asm__(".equ play__12MusicListing, 0x00258A98");
+class MusicMan {
+    char padding[0xc];
+    bool paused;
+    MusicListing musicTrack;
+public:
+    unsigned int play();
+};
+unsigned int MusicMan::play() {
+    if (!musicTrack.isPlaying() && !paused)
+        return musicTrack.play();
+    return 0;
+}
+#endif
