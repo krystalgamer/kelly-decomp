@@ -13,6 +13,32 @@ bool item::is_an_item() const {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_002B8708)
+#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/beam_shared.h"
+
+extern "C" void **visual_item_base_rtti() __asm__("__tf6entity");
+extern "C" void *visual_item_type[] __asm__("__ti11visual_item");
+extern "C" const char visual_item_name[];
+extern "C" void *visual_item_base_type[] __asm__("__ti6entity");
+
+__asm__(".equ __tf6entity, 0x001449C8");
+__asm__(".equ __ti11visual_item, 0x005A3DC0");
+__asm__(".equ visual_item_name, 0x004FE498");
+__asm__(".equ __ti6entity, 0x005A27C8");
+
+// 0x002B8708 __tf11visual_item
+extern "C" void **visual_item_rtti() __asm__("__tf11visual_item");
+void **visual_item_rtti()
+{
+    if (!visual_item_type[0]) {
+        visual_item_base_rtti();
+        __rtti_si(visual_item_type, visual_item_name, visual_item_base_type);
+    }
+    return visual_item_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_002B85A8)
 // 0x002B85A8 get_count__C4item
 class item {
