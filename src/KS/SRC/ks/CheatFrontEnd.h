@@ -39,3 +39,19 @@ __asm__(".equ base_type_001DDBD0, 0x004DDC48");
 extern "C" void **Rtti_001DDBD0() __asm__("__tf13CheatCodeMenu");
 void **Rtti_001DDBD0() { if (!type_001DDBD0[0]) { BaseRtti_001DDBD0(); __rtti_class(type_001DDBD0, name_001DDBD0, base_type_001DDBD0, 1); } return type_001DDBD0; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DDC28)
+// 0x001DDC28 __tf14EnterCheatMenu
+extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
+extern "C" void **BaseRtti_001DDC28() __asm__("__tf11FEMultiMenu");
+extern "C" void *type_001DDC28[] __asm__("__ti14EnterCheatMenu");
+extern const char name_001DDC28[];
+extern void *base_type_001DDC28[];
+__asm__(".equ __rtti_class, 0x003CE2B0");
+__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
+__asm__(".equ __ti14EnterCheatMenu, 0x005A2E68");
+__asm__(".equ name_001DDC28, 0x004DDFA8");
+__asm__(".equ base_type_001DDC28, 0x004DDC48");
+extern "C" void **Rtti_001DDC28() __asm__("__tf14EnterCheatMenu");
+void **Rtti_001DDC28() { if (!type_001DDC28[0]) { BaseRtti_001DDC28(); __rtti_class(type_001DDC28, name_001DDC28, base_type_001DDC28, 1); } return type_001DDC28; }
+#endif
