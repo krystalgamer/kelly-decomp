@@ -453,3 +453,48 @@ void fluid_bar::resize(float width, float height)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033F2C8)
+// 0x0033F2C8 get_pc_z__6widgetf
+typedef float rational_t;
+
+const rational_t PROJ_NEAR_PLANE_D = 0.2f;
+
+class widget {
+public:
+    enum rhw_layer_e {
+        RHW0,
+        RHW1,
+        RHW2,
+        RHW3,
+        RHW4,
+        RHW5,
+        RHW6,
+        RHW7,
+        RHW8,
+        RHW9,
+        NUM_RHW_LAYERS
+    };
+
+    static const rational_t rhw_layer_ranges[NUM_RHW_LAYERS][2];
+    static rational_t get_pc_z(rational_t rhw);
+};
+
+__asm__(".equ _6widget$rhw_layer_ranges, 0x00501E10");
+
+rational_t widget::get_pc_z(rational_t rhw)
+{
+    rational_t min_rhw = widget::rhw_layer_ranges[RHW0][0];
+    rational_t max_rhw = widget::rhw_layer_ranges[RHW9][1];
+
+    if (rhw > max_rhw)
+        rhw = max_rhw;
+
+    rational_t min_z = PROJ_NEAR_PLANE_D * 2;
+    rational_t z_range = 0.999f - min_z;
+
+    rational_t z =
+        0.999f - (((rhw - min_rhw) / (max_rhw - min_rhw)) * z_range);
+    return z;
+}
+#endif
