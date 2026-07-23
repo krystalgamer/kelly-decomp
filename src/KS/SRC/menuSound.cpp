@@ -100,3 +100,25 @@ void **SoundFloatEditRtti()
     return sound_float_edit_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00302960)
+// 0x00302960 __tf13MenuSoundDraw
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **MenuSoundDrawBaseRtti() __asm__("__tf4Menu");
+extern "C" void *menu_sound_draw_type[] __asm__("__ti13MenuSoundDraw");
+extern "C" const char menu_sound_draw_name[];
+extern "C" void *menu_sound_draw_base_type[] __asm__("__ti4Menu");
+__asm__(".equ __tf4Menu, 0x002703D0");
+__asm__(".equ __ti13MenuSoundDraw, 0x005A40F0");
+__asm__(".equ menu_sound_draw_name, 0x004F4DF0");
+__asm__(".equ __ti4Menu, 0x005120F8");
+extern "C" void **MenuSoundDrawRtti() __asm__("__tf13MenuSoundDraw");
+void **MenuSoundDrawRtti()
+{
+    if (!menu_sound_draw_type[0]) {
+        MenuSoundDrawBaseRtti();
+        __rtti_si(menu_sound_draw_type, menu_sound_draw_name, menu_sound_draw_base_type);
+    }
+    return menu_sound_draw_type;
+}
+#endif
