@@ -32,6 +32,28 @@ void **MoveEventRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_002FFDA0)
+// 0x002FFDA0 __tf11color_event
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **ColorEventBaseRtti() __asm__("__tf5event");
+extern "C" void *color_event_type[] __asm__("__ti11color_event");
+extern "C" const char color_event_name[];
+extern "C" void *color_event_base_type[] __asm__("__ti5event");
+__asm__(".equ __tf5event, 0x00302BD8");
+__asm__(".equ __ti11color_event, 0x005A4020");
+__asm__(".equ color_event_name, 0x004F4C90");
+__asm__(".equ __ti5event, 0x00512188");
+extern "C" void **ColorEventRtti() __asm__("__tf11color_event");
+void **ColorEventRtti()
+{
+    if (!color_event_type[0]) {
+        ColorEventBaseRtti();
+        __rtti_si(color_event_type, color_event_name, color_event_base_type);
+    }
+    return color_event_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00302BD8)
 // 0x00302BD8 __tf5event
 extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
