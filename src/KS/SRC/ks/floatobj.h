@@ -143,3 +143,36 @@ void GenericAnimDtor(void *self, int deleting)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0026FD98)
+// 0x0026FD98 _$_19generic_anim_animal
+extern "C" void StringDtor(void *self, int deleting)
+    __asm__("_$_7stringx");
+extern "C" void BuiltinDelete(void *memory)
+    __asm__("__builtin_delete");
+extern const char generic_anim_vtable[];
+
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ generic_anim_vtable, 0x004D6030");
+
+struct generic_anim_layout
+{
+    char string_and_fields[0x1c];
+    const void *vtable;
+};
+
+extern "C" void GenericAnimAnimalDtor(void *self, int deleting)
+    __asm__("_$_19generic_anim_animal");
+
+void GenericAnimAnimalDtor(void *self, int deleting)
+{
+    ((generic_anim_layout *)self)->vtable = generic_anim_vtable;
+    StringDtor(self, 2);
+    if (deleting & 1)
+    {
+        BuiltinDelete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
