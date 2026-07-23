@@ -1,6 +1,29 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
+#if defined(KELLY_DECOMP_FUNCTION_002FF8E0)
+// 0x002FF8E0 __tf12light_source
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **LightSourceBaseRtti() __asm__("__tf6entity");
+extern "C" void *light_source_type[] __asm__("__ti12light_source");
+extern "C" const char light_source_name[];
+extern "C" void *light_source_base_type[] __asm__("__ti6entity");
+__asm__(".equ __tf6entity, 0x001449C8");
+__asm__(".equ __ti12light_source, 0x005A3FD0");
+__asm__(".equ light_source_name, 0x004F4C40");
+__asm__(".equ __ti6entity, 0x005A27C8");
+extern "C" void **LightSourceRtti() __asm__("__tf12light_source");
+void **LightSourceRtti()
+{
+    if (!light_source_type[0]) {
+        LightSourceBaseRtti();
+        __rtti_si(light_source_type, light_source_name, light_source_base_type);
+    }
+    return light_source_type;
+}
+#endif
+
+
 #if defined(KELLY_DECOMP_FUNCTION_002FF930)
 // 0x002FF930 is_a_light_source__C12light_source
 class light_source {
