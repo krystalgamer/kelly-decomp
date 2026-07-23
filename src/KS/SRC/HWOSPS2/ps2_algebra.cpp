@@ -1,0 +1,19 @@
+// Matching decompilation blocks selected by generated build shims.
+
+
+#if defined(KELLY_DECOMP_FUNCTION_001DE758)
+// 0x001DE758 make_translate__9matrix4x4RC8vector3d
+struct vector3d { float x,y,z; };
+struct vector4d { float x,y,z,w; };
+class matrix4x4 {
+public:
+    vector4d x,y,z,w;
+    void make_translate(const vector3d &translation);
+};
+void matrix4x4::make_translate(const vector3d &t) {
+    x.x=1.0f; x.y=0.0f; x.z=0.0f; x.w=0.0f;
+    y.x=0.0f; y.y=1.0f; y.z=0.0f; y.w=0.0f;
+    z.x=0.0f; z.y=0.0f; z.z=1.0f; z.w=0.0f;
+    w.x=t.x; w.y=t.y; w.z=t.z; w.w=1.0f;
+}
+#endif
