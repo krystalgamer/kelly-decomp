@@ -2360,3 +2360,30 @@ void **LosCheckRtti()
     return los_check_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003215E0)
+// 0x003215E0 __tf16slf_str_append_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **StrAppendBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *str_append_type[]
+    __asm__("__ti16slf_str_append_t");
+extern "C" const char str_append_name[];
+extern "C" void *str_append_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti16slf_str_append_t, 0x005A45A0");
+__asm__(".equ str_append_name, 0x0050EE60");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **StrAppendRtti() __asm__("__tf16slf_str_append_t");
+
+void **StrAppendRtti()
+{
+    if (!str_append_type[0]) {
+        StrAppendBaseRtti();
+        __rtti_si(str_append_type, str_append_name, str_append_base_type);
+    }
+    return str_append_type;
+}
+#endif
