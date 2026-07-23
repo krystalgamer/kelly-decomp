@@ -151,3 +151,40 @@ bool IGOFrontEnd::IsMenuBGShown(void) const
     return menuBGWidget && menuBGWidget->IsShown();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0016ECF8)
+// 0x0016ECF8 pop__13IGOPrintQueue
+struct soundMessageObject {
+    char data[12];
+};
+
+class IGOPrintQueue {
+    soundMessageObject messages[16];
+    int start;
+    int end;
+    unsigned char size;
+
+public:
+    soundMessageObject *pop();
+};
+
+soundMessageObject *IGOPrintQueue::pop()
+{
+    if (size == 0)
+        return 0;
+
+    int return_idx = start;
+
+    size--;
+    if (size != 0)
+    {
+        start++;
+        if (start == 16)
+            start = 0;
+    }
+    else
+        start = end = 0;
+
+    return &messages[return_idx];
+}
+#endif
