@@ -382,6 +382,28 @@ void **WaitAnimateFogDistancesRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031EB40)
+// 0x0031EB40 __tf16slf_wait_frame_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **WaitFrameBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *wait_frame_type[] __asm__("__ti16slf_wait_frame_t");
+extern "C" const char wait_frame_name[];
+extern "C" void *wait_frame_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti16slf_wait_frame_t, 0x005A4380");
+__asm__(".equ wait_frame_name, 0x0050EAF8");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **WaitFrameRtti() __asm__("__tf16slf_wait_frame_t");
+void **WaitFrameRtti()
+{
+    if (!wait_frame_type[0]) {
+        WaitFrameBaseRtti();
+        __rtti_si(wait_frame_type, wait_frame_name, wait_frame_base_type);
+    }
+    return wait_frame_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
