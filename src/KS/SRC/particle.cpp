@@ -80,3 +80,46 @@ void particle_generator::acquire(unsigned int flags)
     last_position_valid = false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D0878)
+// 0x002D0878 po_changed__18particle_generator
+struct vector3d {
+    float x;
+    float y;
+    float z;
+
+    vector3d &operator=(const vector3d &other)
+    {
+        x = other.x;
+        y = other.y;
+        z = other.z;
+        return *this;
+    }
+};
+
+class po {
+public:
+    vector3d slow_xform(const vector3d &) const;
+};
+
+extern "C" void BonePoChanged(void *self) __asm__("po_changed__4bone");
+__asm__(".equ slow_xform__C2poRC8vector3d, 0x003482F8");
+__asm__(".equ po_changed__4bone, 0x00126DD8");
+
+class particle_generator {
+    char data_to_abs_po[0x50];
+    po *absolute_po;
+    char data_to_abs_visual_center[0x248];
+    vector3d abs_visual_center;
+    vector3d visual_center;
+
+public:
+    void po_changed();
+};
+
+void particle_generator::po_changed()
+{
+    BonePoChanged(this);
+    abs_visual_center = absolute_po->slow_xform(visual_center);
+}
+#endif
