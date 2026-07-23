@@ -2152,3 +2152,30 @@ void **Rtti_0032E1C0()
     return rtti_type_0032E1C0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032E268)
+// 0x0032E268 __tf35slf_fluid_bar_widget_set_full_val_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **RttiBase_0032E268()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *rtti_type_0032E268[]
+    __asm__("__ti35slf_fluid_bar_widget_set_full_val_t");
+extern "C" const char rtti_name_0032E268[];
+extern "C" void *rtti_base_type_0032E268[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti35slf_fluid_bar_widget_set_full_val_t, 0x005A4F50");
+__asm__(".equ rtti_name_0032E268, 0x00500078");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **Rtti_0032E268() __asm__("__tf35slf_fluid_bar_widget_set_full_val_t");
+
+void **Rtti_0032E268()
+{
+    if (!rtti_type_0032E268[0]) {
+        RttiBase_0032E268();
+        __rtti_si(rtti_type_0032E268, rtti_name_0032E268, rtti_base_type_0032E268);
+    }
+    return rtti_type_0032E268;
+}
+#endif
