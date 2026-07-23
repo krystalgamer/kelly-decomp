@@ -13,6 +13,40 @@ bool beam::is_a_beam() const {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_002B7DE0)
+#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/beam_shared.h"
+
+extern "C" void **beam_effect_alpha_base_rtti()
+    __asm__("__tf16beam_effect_type");
+extern "C" void *beam_effect_alpha_type[]
+    __asm__("__ti17beam_effect_alpha");
+extern "C" const char beam_effect_alpha_name[];
+extern "C" void *beam_effect_alpha_base_type[]
+    __asm__("__ti16beam_effect_type");
+
+__asm__(".equ __tf16beam_effect_type, 0x002B95A0");
+__asm__(".equ __ti17beam_effect_alpha, 0x005A3D80");
+__asm__(".equ beam_effect_alpha_name, 0x004FE448");
+__asm__(".equ __ti16beam_effect_type, 0x00512140");
+
+// 0x002B7DE0 __tf17beam_effect_alpha
+extern "C" void **beam_effect_alpha_rtti()
+    __asm__("__tf17beam_effect_alpha");
+void **beam_effect_alpha_rtti()
+{
+    if (!beam_effect_alpha_type[0]) {
+        beam_effect_alpha_base_rtti();
+        __rtti_si(
+            beam_effect_alpha_type,
+            beam_effect_alpha_name,
+            beam_effect_alpha_base_type
+        );
+    }
+    return beam_effect_alpha_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_002B7C70)
 #include "KS/SRC/rtti_shared.h"
 #include "KS/SRC/beam_shared.h"
