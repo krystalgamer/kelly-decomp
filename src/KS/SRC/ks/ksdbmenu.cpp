@@ -255,3 +255,45 @@ void KSDBMENU_KillMainMenu()
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00235D90)
+// 0x00235D90 FreezeButton__FP9MenuEntryi
+struct MenuEntry;
+
+class game {
+public:
+    void pause();
+};
+
+class app {
+    char padding[0x10];
+    game *the_game;
+
+public:
+    game *get_game() { return the_game; }
+};
+
+class MenuSystem {
+public:
+    void CloseAllMenus();
+};
+
+extern bool superduperpausehack;
+extern app *global_app;
+extern MenuSystem *menus;
+
+__asm__(".equ superduperpausehack, 0x00424ED8");
+__asm__(".equ global_app, 0x0046AC18");
+__asm__(".equ menus, 0x00424EE8");
+__asm__(".equ pause__4game, 0x0027D788");
+__asm__(".equ CloseAllMenus__10MenuSystem, 0x00241060");
+
+bool FreezeButton(MenuEntry *entry, int button)
+{
+    superduperpausehack = true;
+    global_app->get_game()->pause();
+    menus->CloseAllMenus();
+    global_app->get_game()->pause();
+    return true;
+}
+#endif
