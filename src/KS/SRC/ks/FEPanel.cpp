@@ -687,3 +687,62 @@ void ChangeFade(
         self->fade = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001494B8)
+// 0x001494B8 changeText__10RandomTextG7stringx
+class stringx
+{
+    char *characters;
+    void *buffer;
+
+public:
+    stringx();
+    stringx(const stringx &other);
+    ~stringx();
+    stringx &operator=(const stringx &other);
+};
+
+class TextString
+{
+protected:
+    char field0[4];
+    stringx text;
+
+public:
+    TextString() {}
+    void changeText(stringx value);
+};
+
+class RandomText : public TextString
+{
+    char padding[0x4c];
+    stringx random_data;
+
+public:
+    RandomText() {}
+    void changeText(stringx value);
+};
+
+__asm__(".equ __7stringxRC7stringx, 0x0034D4D0");
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+__asm__(".equ __as__7stringxRC7stringx, 0x0034E0B8");
+__asm__(".equ changeText__10TextStringG7stringx, 0x001483E0");
+
+extern "C" void StringCopy(
+    stringx *self, const stringx *other
+) __asm__("__7stringxRC7stringx");
+extern "C" void BaseChangeText(
+    TextString *self, stringx *value
+) __asm__("changeText__10TextStringG7stringx");
+
+void RandomText::changeText(stringx value)
+{
+    char temporary_storage[8];
+    stringx *temporary = (stringx *)temporary_storage;
+    StringCopy(temporary, &value);
+    register stringx *argument __asm__("$5") = temporary;
+    __asm__ __volatile__("" : "+r"(argument));
+    BaseChangeText(this, argument);
+    random_data = text;
+}
+#endif
