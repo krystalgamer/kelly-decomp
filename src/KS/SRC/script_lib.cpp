@@ -23,6 +23,32 @@ void **AllowSuspendRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031DC00)
+// 0x0031DC00 __tf25slf_set_camera_priority_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **SetCameraPriorityBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *set_camera_priority_type[] __asm__("__ti25slf_set_camera_priority_t");
+extern "C" const char set_camera_priority_name[];
+extern "C" void *set_camera_priority_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti25slf_set_camera_priority_t, 0x005A4280");
+__asm__(".equ set_camera_priority_name, 0x0050E908");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **SetCameraPriorityRtti() __asm__("__tf25slf_set_camera_priority_t");
+void **SetCameraPriorityRtti()
+{
+    if (!set_camera_priority_type[0]) {
+        SetCameraPriorityBaseRtti();
+        __rtti_si(
+            set_camera_priority_type,
+            set_camera_priority_name,
+            set_camera_priority_base_type
+        );
+    }
+    return set_camera_priority_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
