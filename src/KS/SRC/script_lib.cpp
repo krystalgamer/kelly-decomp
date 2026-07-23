@@ -1789,3 +1789,25 @@ void **ClearDebugSpheresRtti()
     return clear_debug_spheres_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031F7D0)
+// 0x0031F7D0 __tf18slf_get_time_inc_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **GetTimeIncBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *get_time_inc_type[] __asm__("__ti18slf_get_time_inc_t");
+extern "C" const char get_time_inc_name[];
+extern "C" void *get_time_inc_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti18slf_get_time_inc_t, 0x005A4450");
+__asm__(".equ get_time_inc_name, 0x0050EC28");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **GetTimeIncRtti() __asm__("__tf18slf_get_time_inc_t");
+void **GetTimeIncRtti()
+{
+    if (!get_time_inc_type[0]) {
+        GetTimeIncBaseRtti();
+        __rtti_si(get_time_inc_type, get_time_inc_name, get_time_inc_base_type);
+    }
+    return get_time_inc_type;
+}
+#endif
