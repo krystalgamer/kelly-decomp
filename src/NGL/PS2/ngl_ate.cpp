@@ -37,3 +37,52 @@ nglFixedString& ATETextureName(char* atefile, const nglFixedString& texname, int
     return baditem;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003ACBF0)
+// 0x003ACBF0 ATETextureHeader__FPcRC14nglFixedStringi
+struct nglFixedString {
+    char text[32];
+};
+
+struct ATEFileEntry {
+    nglFixedString name;
+    unsigned int hoff;
+    unsigned int ioff;
+    unsigned int poff;
+    unsigned int pad;
+};
+
+ATEFileEntry *ATENthTextureEntryHead(
+    char *atefile,
+    const nglFixedString &texture_name,
+    int index
+);
+extern "C" void __assert(const char *file, int line, const char *expression);
+extern const char ate_file[];
+extern const char ate_assert[];
+
+__asm__(".equ ATENthTextureEntryHead__FPcRC14nglFixedStringi, 0x003ACAD8");
+__asm__(".equ __assert, 0x003CF6B0");
+__asm__(".equ ate_file, 0x0051E780");
+__asm__(".equ ate_assert, 0x0051E798");
+
+char *ATETextureHeader(
+    char *atefile,
+    const nglFixedString &texture_name,
+    int index
+)
+{
+    ATEFileEntry *entry =
+        ATENthTextureEntryHead(atefile, texture_name, index);
+    unsigned int offset;
+    if (entry) {
+        offset = entry->hoff;
+        goto found;
+    }
+    __assert(ate_file, 106, ate_assert);
+    return 0;
+
+found:
+    return atefile + offset;
+}
+#endif
