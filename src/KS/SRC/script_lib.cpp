@@ -359,6 +359,29 @@ void **WaitAnimateFogDistanceRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031E9A0)
+// 0x0031E9A0 __tf32slf_wait_animate_fog_distances_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **WaitAnimateFogDistancesBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *wait_animate_fog_distances_type[] __asm__("__ti32slf_wait_animate_fog_distances_t");
+extern "C" const char wait_animate_fog_distances_name[];
+extern "C" void *wait_animate_fog_distances_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti32slf_wait_animate_fog_distances_t, 0x005A4370");
+__asm__(".equ wait_animate_fog_distances_name, 0x0050EAD0");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **WaitAnimateFogDistancesRtti() __asm__("__tf32slf_wait_animate_fog_distances_t");
+void **WaitAnimateFogDistancesRtti()
+{
+    if (!wait_animate_fog_distances_type[0]) {
+        WaitAnimateFogDistancesBaseRtti();
+        __rtti_si(wait_animate_fog_distances_type, wait_animate_fog_distances_name,
+                  wait_animate_fog_distances_base_type);
+    }
+    return wait_animate_fog_distances_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
