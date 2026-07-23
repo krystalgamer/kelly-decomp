@@ -13,6 +13,40 @@ bool beam::is_a_beam() const {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_002B8050)
+#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/beam_shared.h"
+
+extern "C" void **beam_effect_color_base_rtti()
+    __asm__("__tf16beam_effect_type");
+extern "C" void *beam_effect_color_type[]
+    __asm__("__ti17beam_effect_color");
+extern "C" const char beam_effect_color_name[];
+extern "C" void *beam_effect_color_base_type[]
+    __asm__("__ti16beam_effect_type");
+
+__asm__(".equ __tf16beam_effect_type, 0x002B95A0");
+__asm__(".equ __ti17beam_effect_color, 0x005A3D90");
+__asm__(".equ beam_effect_color_name, 0x004FE460");
+__asm__(".equ __ti16beam_effect_type, 0x00512140");
+
+// 0x002B8050 __tf17beam_effect_color
+extern "C" void **beam_effect_color_rtti()
+    __asm__("__tf17beam_effect_color");
+void **beam_effect_color_rtti()
+{
+    if (!beam_effect_color_type[0]) {
+        beam_effect_color_base_rtti();
+        __rtti_si(
+            beam_effect_color_type,
+            beam_effect_color_name,
+            beam_effect_color_base_type
+        );
+    }
+    return beam_effect_color_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_002B7DE0)
 #include "KS/SRC/rtti_shared.h"
 #include "KS/SRC/beam_shared.h"
