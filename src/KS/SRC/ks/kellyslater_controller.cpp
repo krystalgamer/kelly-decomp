@@ -1,5 +1,39 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0026F6C8)
+#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/ks/kellyslater_controller_shared.h"
+
+extern "C" void **kellyslater_controller_base_rtti()
+    __asm__("__tf17entity_controller");
+extern "C" void *kellyslater_controller_type[]
+    __asm__("__ti22kellyslater_controller");
+extern "C" const char kellyslater_controller_name[];
+extern "C" void *kellyslater_controller_base_type[]
+    __asm__("__ti17entity_controller");
+
+__asm__(".equ __tf17entity_controller, 0x002B89D0");
+__asm__(".equ __ti22kellyslater_controller, 0x005A3B90");
+__asm__(".equ kellyslater_controller_name, 0x004E4F10");
+__asm__(".equ __ti17entity_controller, 0x005A3D50");
+
+// 0x0026F6C8 __tf22kellyslater_controller
+extern "C" void **kellyslater_controller_rtti()
+    __asm__("__tf22kellyslater_controller");
+void **kellyslater_controller_rtti()
+{
+    if (!kellyslater_controller_type[0]) {
+        kellyslater_controller_base_rtti();
+        __rtti_si(
+            kellyslater_controller_type,
+            kellyslater_controller_name,
+            kellyslater_controller_base_type
+        );
+    }
+    return kellyslater_controller_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0020D250) || \
     defined(KELLY_DECOMP_FUNCTION_0021E478) || \
     defined(KELLY_DECOMP_FUNCTION_0021F6E0)
