@@ -509,3 +509,38 @@ void WAVE_PerturbNext()
     __asm__ __volatile__("" : : : "memory");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0037DC78)
+// 0x0037DC78 WAVE_GetNextHeight__Fv
+struct WaveScheduleEntry
+{
+    char padding0[8];
+    unsigned int type;
+    char padding1[8];
+};
+
+struct WaveScheduleTypeEntry
+{
+    char padding[12];
+    float height;
+};
+
+extern unsigned int WAVE_ScheduleIndex;
+extern unsigned int WAVE_ScheduleLength;
+extern WaveScheduleEntry WAVE_ScheduleArray[];
+extern WaveScheduleTypeEntry WAVE_ScheduleType[];
+
+__asm__(".equ WAVE_ScheduleIndex, 0x004846D4");
+__asm__(".equ WAVE_ScheduleLength, 0x004846D0");
+__asm__(".equ WAVE_ScheduleArray, 0x0058EA68");
+__asm__(".equ WAVE_ScheduleType, 0x0058B990");
+
+float WAVE_GetNextHeight()
+{
+    unsigned int index =
+        (WAVE_ScheduleIndex + 1) % WAVE_ScheduleLength;
+    return WAVE_ScheduleType[
+        WAVE_ScheduleArray[index].type
+    ].height;
+}
+#endif
