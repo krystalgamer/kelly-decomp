@@ -1865,3 +1865,35 @@ void **IsActionButtonDownRtti()
     return is_action_button_down_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031FDE8)
+// 0x0031FDE8 __tf22slf_get_cur_time_inc_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **GetCurTimeIncBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *get_cur_time_inc_type[]
+    __asm__("__ti22slf_get_cur_time_inc_t");
+extern "C" const char get_cur_time_inc_name[];
+extern "C" void *get_cur_time_inc_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti22slf_get_cur_time_inc_t, 0x005A4480");
+__asm__(".equ get_cur_time_inc_name, 0x0050EC78");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **GetCurTimeIncRtti()
+    __asm__("__tf22slf_get_cur_time_inc_t");
+
+void **GetCurTimeIncRtti()
+{
+    if (!get_cur_time_inc_type[0]) {
+        GetCurTimeIncBaseRtti();
+        __rtti_si(
+            get_cur_time_inc_type,
+            get_cur_time_inc_name,
+            get_cur_time_inc_base_type
+        );
+    }
+    return get_cur_time_inc_type;
+}
+#endif
