@@ -75,3 +75,25 @@ void TargetDtor(void *self, int deleting) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FF0B8)
+// 0x002FF0B8 __tf17gravity_generator
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **GravityGeneratorBaseRtti() __asm__("__tf15force_generator");
+extern "C" void *gravity_generator_type[] __asm__("__ti17gravity_generator");
+extern "C" const char gravity_generator_name[];
+extern "C" void *force_generator_type[] __asm__("__ti15force_generator");
+__asm__(".equ __tf15force_generator, 0x00302B88");
+__asm__(".equ __ti17gravity_generator, 0x005A3F20");
+__asm__(".equ gravity_generator_name, 0x004F4B40");
+__asm__(".equ __ti15force_generator, 0x005A4120");
+extern "C" void **GravityGeneratorRtti() __asm__("__tf17gravity_generator");
+void **GravityGeneratorRtti()
+{
+    if (!gravity_generator_type[0]) {
+        GravityGeneratorBaseRtti();
+        __rtti_si(gravity_generator_type, gravity_generator_name, force_generator_type);
+    }
+    return gravity_generator_type;
+}
+#endif
