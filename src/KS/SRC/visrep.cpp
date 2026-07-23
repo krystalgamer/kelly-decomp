@@ -180,3 +180,65 @@ visual_rep::visual_rep(visrep_t new_type, bool is_instanced)
     instanced = is_instanced;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D7388)
+// 0x002D7388 new_visrep_instance__FP10visual_rep
+enum visrep_t
+{
+    VISREP_PMESH,
+    VISREP_BILLBOARD
+};
+
+class visual_rep
+{
+    visrep_t type;
+
+public:
+    visrep_t get_type() const { return type; }
+};
+
+class vr_pmesh : public visual_rep {};
+class vr_billboard : public visual_rep {};
+
+struct pmesh_bank {};
+struct billboard_bank {};
+
+extern pmesh_bank vr_pmesh_bank;
+extern billboard_bank vr_billboard_bank;
+
+extern "C" vr_pmesh *new_pmesh(
+    pmesh_bank *bank, vr_pmesh *instance
+) __asm__("new_instance__t13instance_bank1Z8vr_pmeshP8vr_pmesh");
+extern "C" vr_billboard *new_billboard(
+    billboard_bank *bank, vr_billboard *instance
+) __asm__(
+    "new_instance__t13instance_bank1Z12vr_billboardP12vr_billboard"
+);
+
+__asm__(".equ vr_pmesh_bank, 0x00432908");
+__asm__(".equ vr_billboard_bank, 0x00432708");
+__asm__(
+    ".equ new_instance__t13instance_bank1Z8vr_pmeshP8vr_pmesh, "
+    "0x002AF2B0"
+);
+__asm__(
+    ".equ new_instance__t13instance_bank1Z12vr_billboardP12vr_billboard, "
+    "0x002F7EC0"
+);
+
+visual_rep *new_visrep_instance(visual_rep *vrep)
+{
+    switch (vrep->get_type())
+    {
+    case VISREP_PMESH:
+        return new_pmesh(&vr_pmesh_bank, (vr_pmesh *)vrep);
+    case VISREP_BILLBOARD:
+        return new_billboard(
+            &vr_billboard_bank, (vr_billboard *)vrep
+        );
+    default:
+        break;
+    }
+    return 0;
+}
+#endif
