@@ -124,3 +124,30 @@ bool slf_anim_set_timescale_t::operator()(vm_stack &stack, entry_t entry) {
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00324B10)
+// 0x00324B10 __tf16slf_anim_pause_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **RttiBase_00324B10()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *rtti_type_00324B10[]
+    __asm__("__ti16slf_anim_pause_t");
+extern "C" const char rtti_name_00324B10[];
+extern "C" void *rtti_base_type_00324B10[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti16slf_anim_pause_t, 0x005A47B0");
+__asm__(".equ rtti_name_00324B10, 0x0050F200");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **Rtti_00324B10() __asm__("__tf16slf_anim_pause_t");
+
+void **Rtti_00324B10()
+{
+    if (!rtti_type_00324B10[0]) {
+        RttiBase_00324B10();
+        __rtti_si(rtti_type_00324B10, rtti_name_00324B10, rtti_base_type_00324B10);
+    }
+    return rtti_type_00324B10;
+}
+#endif
