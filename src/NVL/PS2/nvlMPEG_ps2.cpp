@@ -405,3 +405,36 @@ int strFileRead(StrFile *file, void *buff, int size)
     return count;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003894B0)
+// 0x003894B0 strFileClose__FP7StrFile
+struct StrFile {
+    int isOnCD;
+    int size;
+    char fp[0x24];
+    unsigned char *iopBuf;
+    int fd;
+};
+
+extern "C" int sceCdStStop();
+extern "C" int sceSifFreeIopHeap(void *address);
+extern "C" int sceClose(int fd);
+
+__asm__(".equ sceCdStStop, 0x003BDE78");
+__asm__(".equ sceSifFreeIopHeap, 0x003DF6B8");
+__asm__(".equ sceClose, 0x003DEC00");
+
+static int strFileClose(StrFile *file)
+{
+    if (file->isOnCD)
+    {
+        sceCdStStop();
+        sceSifFreeIopHeap((void *)file->iopBuf);
+    }
+    else
+    {
+        sceClose(file->fd);
+    }
+    return 1;
+}
+#endif
