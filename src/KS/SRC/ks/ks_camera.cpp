@@ -86,6 +86,36 @@ void **wipeout_camera_2_rtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0026F3B8)
+#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/ks/ks_camera_shared.h"
+
+extern "C" void **wipeout_camera_base_rtti() __asm__("__tf11game_camera");
+extern "C" void *wipeout_camera_type[] __asm__("__ti14wipeout_camera");
+extern "C" const char wipeout_camera_name[];
+extern "C" void *wipeout_camera_base_type[] __asm__("__ti11game_camera");
+
+__asm__(".equ __tf11game_camera, 0x002FECF0");
+__asm__(".equ __ti14wipeout_camera, 0x005A3B20");
+__asm__(".equ wipeout_camera_name, 0x004E4E88");
+__asm__(".equ __ti11game_camera, 0x005A3D40");
+
+// 0x0026F3B8 __tf14wipeout_camera
+extern "C" void **wipeout_camera_rtti() __asm__("__tf14wipeout_camera");
+void **wipeout_camera_rtti()
+{
+    if (!wipeout_camera_type[0]) {
+        wipeout_camera_base_rtti();
+        __rtti_si(
+            wipeout_camera_type,
+            wipeout_camera_name,
+            wipeout_camera_base_type
+        );
+    }
+    return wipeout_camera_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0026EDB8)
 extern "C" void __rtti_si(void **type, const char *name, void **base);
 __asm__(".equ __rtti_si, 0x003CE2D8");
