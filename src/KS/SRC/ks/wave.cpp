@@ -325,3 +325,35 @@ float WAVE_GetHeight()
     return WAVE_ScheduleType[WAVE_ScheduleArray[WAVE_ScheduleIndex].type].height;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00384EC0)
+// 0x00384EC0 __tft20WavePerturbRushClass1i6
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **RttiBase_00384EC0()
+    __asm__("__tft20WavePushPerturbClass1i6");
+extern "C" void *rtti_type_00384EC0[]
+    __asm__("__tit20WavePerturbRushClass1i6");
+extern "C" const char rtti_name_00384EC0[];
+extern "C" void *rtti_base_type_00384EC0[]
+    __asm__("__tit20WavePushPerturbClass1i6");
+__asm__(".equ __tft20WavePushPerturbClass1i6, 0x003851E8");
+__asm__(".equ __tit20WavePerturbRushClass1i6, 0x00782328");
+__asm__(".equ rtti_name_00384EC0, 0x0051ABC8");
+__asm__(".equ __tit20WavePushPerturbClass1i6, 0x00782398");
+extern "C" void **Rtti_00384EC0()
+    __asm__("__tft20WavePerturbRushClass1i6");
+
+void **Rtti_00384EC0()
+{
+    if (!rtti_type_00384EC0[0]) {
+        RttiBase_00384EC0();
+        __rtti_si(
+            rtti_type_00384EC0,
+            rtti_name_00384EC0,
+            rtti_base_type_00384EC0
+        );
+    }
+    return rtti_type_00384EC0;
+}
+#endif
