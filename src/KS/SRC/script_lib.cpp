@@ -2252,3 +2252,30 @@ void **GetControlTriggerRtti()
     return get_control_trigger_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00321040)
+// 0x00321040 __tf23slf_get_control_state_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **GetControlStateBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *get_control_state_type[]
+    __asm__("__ti23slf_get_control_state_t");
+extern "C" const char get_control_state_name[];
+extern "C" void *get_control_state_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti23slf_get_control_state_t, 0x005A4560");
+__asm__(".equ get_control_state_name, 0x0050EDF0");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **GetControlStateRtti() __asm__("__tf23slf_get_control_state_t");
+
+void **GetControlStateRtti()
+{
+    if (!get_control_state_type[0]) {
+        GetControlStateBaseRtti();
+        __rtti_si(get_control_state_type, get_control_state_name, get_control_state_base_type);
+    }
+    return get_control_state_type;
+}
+#endif
