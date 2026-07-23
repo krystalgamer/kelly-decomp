@@ -123,3 +123,32 @@ void particle_generator::po_changed()
     abs_visual_center = absolute_po->slow_xform(visual_center);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D2C38)
+// 0x002D2C38 is_on__C18particle_generator
+extern "C" float fmodf(float, float);
+__asm__(".equ fmodf, 0x003C68C8");
+
+class entity {
+public:
+    float get_age() const;
+};
+
+__asm__(".equ get_age__C6entity, 0x00133618");
+
+class particle_generator : public entity {
+    char data[0x270 - sizeof(entity)];
+    float on_for;
+    float off_for;
+
+public:
+    bool is_on() const;
+};
+
+bool particle_generator::is_on() const
+{
+    float age = get_age();
+    float slice = fmodf(age, on_for + off_for);
+    return slice < on_for;
+}
+#endif
