@@ -123,3 +123,25 @@ void **LinearForceGeneratorRtti()
     return linear_force_generator_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00302B88)
+// 0x00302B88 __tf15force_generator
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **ForceGeneratorBaseRtti() __asm__("__tf13motion_object");
+extern "C" void *force_generator_rtti_type[] __asm__("__ti15force_generator");
+extern "C" const char force_generator_name[];
+extern "C" void *motion_object_type[] __asm__("__ti13motion_object");
+__asm__(".equ __tf13motion_object, 0x002FF038");
+__asm__(".equ __ti15force_generator, 0x005A4120");
+__asm__(".equ force_generator_name, 0x004F4E20");
+__asm__(".equ __ti13motion_object, 0x00512168");
+extern "C" void **ForceGeneratorRtti() __asm__("__tf15force_generator");
+void **ForceGeneratorRtti()
+{
+    if (!force_generator_rtti_type[0]) {
+        ForceGeneratorBaseRtti();
+        __rtti_si(force_generator_rtti_type, force_generator_name, motion_object_type);
+    }
+    return force_generator_rtti_type;
+}
+#endif
