@@ -1,6 +1,33 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
+#if defined(KELLY_DECOMP_FUNCTION_00300088)
+// 0x00300088 __tf18particle_generator
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **ParticleGeneratorBaseRtti() __asm__("__tf6entity");
+extern "C" void *particle_generator_type[] __asm__("__ti18particle_generator");
+extern "C" const char particle_generator_name[];
+extern "C" void *particle_generator_base_type[] __asm__("__ti6entity");
+__asm__(".equ __tf6entity, 0x001449C8");
+__asm__(".equ __ti18particle_generator, 0x005A4060");
+__asm__(".equ particle_generator_name, 0x004F4CE0");
+__asm__(".equ __ti6entity, 0x005A27C8");
+extern "C" void **ParticleGeneratorRtti() __asm__("__tf18particle_generator");
+void **ParticleGeneratorRtti()
+{
+    if (!particle_generator_type[0]) {
+        ParticleGeneratorBaseRtti();
+        __rtti_si(
+            particle_generator_type,
+            particle_generator_name,
+            particle_generator_base_type
+        );
+    }
+    return particle_generator_type;
+}
+#endif
+
+
 #if defined(KELLY_DECOMP_FUNCTION_003000D8)
 // 0x003000D8 is_a_particle_generator__C18particle_generator
 class particle_generator {
