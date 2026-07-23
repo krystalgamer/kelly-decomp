@@ -161,3 +161,36 @@ void vr_billboard::render_instance(
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002C07C0)
+// 0x002C07C0 __12vr_billboardR10chunk_fileb
+class chunk_file;
+extern "C" void VisualRepCtor(void *self, int type, bool instanced)
+    __asm__("__10visual_rep8visrep_tb");
+extern "C" void MaterialCtor(void *self) __asm__("__7mat_fac");
+extern "C" void InternalSerial(void *self, chunk_file &file)
+    __asm__("internal_serial_in__12vr_billboardR10chunk_file");
+extern const char billboard_vtable[];
+__asm__(".equ __10visual_rep8visrep_tb, 0x002D7008");
+__asm__(".equ __7mat_fac, 0x002BC8E8");
+__asm__(".equ internal_serial_in__12vr_billboardR10chunk_file, 0x002C08A8");
+__asm__(".equ billboard_vtable, 0x004F4750");
+struct billboard_layout {
+    char padding0[0x10]; const void *vtable;
+    char padding1[4]; char material[1];
+};
+extern "C" void *BillboardCtor(
+    void *self, chunk_file &file, bool instanced
+) __asm__("__12vr_billboardR10chunk_fileb");
+void *BillboardCtor(void *self, chunk_file &file, bool instanced) {
+    VisualRepCtor(self,1,instanced);
+    billboard_layout *billboard=(billboard_layout *)self;
+    void *material=(char *)self+0x18;
+    register const void *table __asm__("$3")=billboard_vtable;
+    __asm__ __volatile__("" : "+r"(table));
+    billboard->vtable=table;
+    MaterialCtor(material);
+    InternalSerial(self,file);
+    return self;
+}
+#endif
