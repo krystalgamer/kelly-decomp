@@ -997,3 +997,47 @@ void entity::set_collisions_active(bool a, bool update_reg) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001335C0)
+// 0x001335C0 invalidate_colgeom__6entity
+class collision_geometry {
+    char padding[4];
+    int valid;
+
+public:
+    void invalidate()
+    {
+        valid = 0;
+    }
+};
+
+class entity;
+
+struct entity_vtable {
+    char padding[0x1B8];
+    short get_colgeom_adjust;
+    short reserved;
+    collision_geometry *(*get_colgeom)(void *self);
+};
+
+class entity {
+    char padding[8];
+    entity_vtable *vtable;
+
+public:
+    collision_geometry *get_colgeom()
+    {
+        return vtable->get_colgeom(
+            (char *)this + vtable->get_colgeom_adjust
+        );
+    }
+
+    void invalidate_colgeom();
+};
+
+void entity::invalidate_colgeom()
+{
+    if (get_colgeom())
+        get_colgeom()->invalidate();
+}
+#endif
