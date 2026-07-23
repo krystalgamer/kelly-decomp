@@ -26,3 +26,26 @@ class KeyboardMenu { public: void go_to_previous_menu(); void OnTriangle(int com
 __asm__(".equ go_to_previous_menu__12KeyboardMenu, 0x001A2420");
 void KeyboardMenu::OnTriangle(int command) { go_to_previous_menu(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DCCE8)
+// 0x001DCCE8 __tf16SaveLoadFrontEnd
+extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
+extern "C" void **BaseRtti_001DCCE8() __asm__("__tf11FEMultiMenu");
+extern "C" void *type_001DCCE8[] __asm__("__ti16SaveLoadFrontEnd");
+extern const char name_001DCCE8[];
+extern void *base_type_001DCCE8[];
+__asm__(".equ __rtti_class, 0x003CE2B0");
+__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
+__asm__(".equ __ti16SaveLoadFrontEnd, 0x005A2CA8");
+__asm__(".equ name_001DCCE8, 0x004DDD28");
+__asm__(".equ base_type_001DCCE8, 0x004DDC48");
+extern "C" void **Rtti_001DCCE8() __asm__("__tf16SaveLoadFrontEnd");
+void **Rtti_001DCCE8()
+{
+    if (!type_001DCCE8[0]) {
+        BaseRtti_001DCCE8();
+        __rtti_class(type_001DCCE8, name_001DCCE8, base_type_001DCCE8, 1);
+    }
+    return type_001DCCE8;
+}
+#endif
