@@ -719,3 +719,40 @@ void **Rtti_00325D88()
     return rtti_type_00325D88;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00325DD8)
+// 0x00325DD8 __cl__27slf_beam_set_collide_hero_tR8vm_stackQ320script_library_class8function7entry_t
+class beam {
+    char padding[0x218];
+    unsigned int beam_flags;
+public:
+    enum flags_t { NO_CLIP_TO_HERO = 0x00000008 };
+    void set_beam_flag(flags_t flag) { beam_flags |= flag; }
+    void clear_beam_flag(flags_t flag) { beam_flags &= ~flag; }
+};
+class vm_stack {
+    char padding[8];
+    char *top;
+public:
+    void *pop(unsigned int size) { top -= size; return top; }
+};
+class script_library_class {
+public:
+    class function { public: enum entry_t { FIRST_ENTRY }; };
+};
+#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
+#define SLF_DONE return true
+class slf_beam_set_collide_hero_t : public script_library_class::function {
+public:
+    struct parms_t { beam *me; float torf; };
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+bool slf_beam_set_collide_hero_t::operator()(vm_stack &stack, entry_t entry) {
+    SLF_PARMS;
+    if (parms->torf != 0.0f)
+        parms->me->clear_beam_flag(beam::NO_CLIP_TO_HERO);
+    else
+        parms->me->set_beam_flag(beam::NO_CLIP_TO_HERO);
+    SLF_DONE;
+}
+#endif
