@@ -1,6 +1,35 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
+#if defined(KELLY_DECOMP_FUNCTION_00316D68)
+// 0x00316D68 read_value__14slc_vector3d_tR10chunk_filePc
+class chunk_file;
+struct vector3d {
+    float x;
+    float y;
+    float z;
+};
+
+extern void serial_in(chunk_file &, float *);
+__asm__(".equ serial_in__FR10chunk_filePf, 0x00336998");
+
+class slc_vector3d_t {
+public:
+    void read_value(chunk_file &fs, char *buf);
+};
+
+void slc_vector3d_t::read_value(chunk_file &fs, char *buf)
+{
+    vector3d *value = (vector3d *)buf;
+    serial_in(fs, &value->x);
+    serial_in(fs, &value->y);
+    serial_in(fs, &value->z);
+    // Preserve the released non-tail call after the inlined vector overload.
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
+
+
 #if defined(KELLY_DECOMP_FUNCTION_00329148)
 // 0x00329148 __cl__24slf_vector3d_construct_tR8vm_stackQ320script_library_class8function7entry_t
 class vm_stack;
