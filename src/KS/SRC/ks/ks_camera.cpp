@@ -138,6 +138,29 @@ void **fps_rtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0026F038)
+extern "C" void __rtti_si(void **type, const char *name, void **base);
+__asm__(".equ __rtti_si, 0x003CE2D8");
+extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
+extern "C" void *stationary_type[] __asm__("__ti17stationary_camera");
+extern "C" const char stationary_name[] __asm__("stationary_type_name");
+extern "C" void *game_camera_type[] __asm__("__ti11game_camera");
+__asm__(".equ __tf11game_camera, 0x002FECF0");
+__asm__(".equ __ti17stationary_camera, 0x005A3AD0");
+__asm__(".equ stationary_type_name, 0x004E4E20");
+__asm__(".equ __ti11game_camera, 0x005A3D40");
+
+extern "C" void **stationary_rtti() __asm__("__tf17stationary_camera");
+void **stationary_rtti()
+{
+    if (!stationary_type[0]) {
+        game_camera_rtti();
+        __rtti_si(stationary_type, stationary_name, game_camera_type);
+    }
+    return stationary_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00225340)
 // 0x00225340 sync__12debug_cameraR6camera
