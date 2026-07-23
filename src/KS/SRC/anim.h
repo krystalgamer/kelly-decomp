@@ -397,3 +397,46 @@ template void anim<quaternion>::set_flag(anim_flags_t flag, bool enabled);
 #include "KS/SRC/anim_shared.h"
 template void anim<float>::set_flag(anim_flags_t flag, bool enabled);
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00120F38)
+// 0x00120F38 set_time__t8key_anim3ZfZt10linear_key1ZfZt12linear_track1Zff
+struct linear_key_float
+{
+    float timestamp;
+    float value;
+};
+
+struct linear_track_float
+{
+    int num_keys;
+    linear_key_float *m_keys;
+};
+
+struct key_anim_float_layout
+{
+    char base[8];
+    linear_track_float *track;
+    linear_key_float *current_key;
+};
+
+extern "C" void SetTime(
+    key_anim_float_layout *self, float time
+) __asm__(
+    "set_time__t8key_anim3ZfZt10linear_key1Zf"
+    "Zt12linear_track1Zff"
+);
+
+void SetTime(key_anim_float_layout *self, float time)
+{
+    self->current_key = self->track->m_keys;
+    linear_key_float *next_key = self->current_key;
+    ++next_key;
+    while (next_key !=
+               self->track->m_keys + self->track->num_keys &&
+           time >= next_key->timestamp)
+    {
+        ++self->current_key;
+        ++next_key;
+    }
+}
+#endif
