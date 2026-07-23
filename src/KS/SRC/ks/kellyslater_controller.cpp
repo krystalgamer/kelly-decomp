@@ -300,3 +300,30 @@ void kellyslater_controller::SetTrickRegion(const TRICKREGION r)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0020BD78)
+// 0x0020BD78 __15spin_controller
+class spin_controller {
+    void *my_board_controller;
+    char padding[0x10];
+    float spin_time[4];
+    char spin_padding[8];
+    int num_spins;
+    char state_padding[0x10];
+    int activated;
+
+public:
+    spin_controller();
+};
+
+spin_controller::spin_controller()
+{
+    spin_time[0] = 0.4f;
+    spin_time[1] = 0.96f;
+    spin_time[2] = 1.44f;
+    spin_time[3] = 1.92f;
+    activated = false;
+    num_spins = 0;
+    my_board_controller = 0;
+}
+#endif
