@@ -803,3 +803,47 @@ void PanelQuad4::GetCenterPos(float &center_x, float &center_y)
     __asm__ __volatile__("" : : : "memory");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00152468)
+// 0x00152468 FindObject__9PanelFilePCc
+class stringx
+{
+    char *characters;
+    void *buffer;
+
+public:
+    stringx(const char *text, int length = -1);
+    ~stringx();
+};
+
+class PanelGeom;
+
+struct panel_file_vtable
+{
+    char padding[0x10];
+    short adjustment;
+    short reserved;
+    PanelGeom *(*find_object)(void *self, const stringx &name);
+};
+
+class PanelFile
+{
+    char padding[0x2c];
+    panel_file_vtable *vtable;
+
+public:
+    PanelGeom *FindObject(const char *name);
+};
+
+__asm__(".equ __7stringxPCci, 0x0034D438");
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+
+PanelGeom *PanelFile::FindObject(const char *name)
+{
+    stringx temporary(name);
+    panel_file_vtable *table = vtable;
+    return table->find_object(
+        (char *)this + table->adjustment, temporary
+    );
+}
+#endif
