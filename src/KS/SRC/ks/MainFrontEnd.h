@@ -234,3 +234,43 @@ void HighlightSelector(void *self, int unused) {
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DC4C8)
+// 0x001DC4C8 __tf12MainFrontEnd
+extern "C" void __rtti_class(
+    void **type,
+    const char *name,
+    void **base,
+    int public_base
+);
+extern "C" void **MainFrontEndBaseRtti()
+    __asm__("__tf11FEMultiMenu");
+extern "C" void *main_front_end_type[]
+    __asm__("__ti12MainFrontEnd");
+extern const char main_front_end_name[];
+extern void *fe_multi_menu_type[];
+
+__asm__(".equ __rtti_class, 0x003CE2B0");
+__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
+__asm__(".equ __ti12MainFrontEnd, 0x005A2BE8");
+__asm__(".equ main_front_end_name, 0x004DDC38");
+__asm__(".equ fe_multi_menu_type, 0x004DDC48");
+
+extern "C" void **MainFrontEndRtti()
+    __asm__("__tf12MainFrontEnd");
+
+void **MainFrontEndRtti()
+{
+    if (!main_front_end_type[0])
+    {
+        MainFrontEndBaseRtti();
+        __rtti_class(
+            main_front_end_type,
+            main_front_end_name,
+            fe_multi_menu_type,
+            1
+        );
+    }
+    return main_front_end_type;
+}
+#endif
