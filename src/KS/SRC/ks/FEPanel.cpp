@@ -775,3 +775,31 @@ void PanelQuad::GetCenterPos(float &center_x, float &center_y)
     __asm__ __volatile__("" : : : "memory");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014E9F8)
+// 0x0014E9F8 GetCenterPos__10PanelQuad4RfT1
+extern "C" void UnadjustCoords(float &x, float &y)
+    __asm__("unadjustCoords__H1Zf_RX01T0_v");
+__asm__(".equ unadjustCoords__H1Zf_RX01T0_v, 0x001D6BF0");
+
+class PanelQuad4
+{
+    char padding0[0xb8];
+    float width;
+    float height;
+    char padding1[0xe0];
+    float x[4];
+    float y[4];
+
+public:
+    void GetCenterPos(float &center_x, float &center_y);
+};
+
+void PanelQuad4::GetCenterPos(float &center_x, float &center_y)
+{
+    center_x = x[0] + width / 2.0f;
+    center_y = y[0] + height / 2.0f;
+    UnadjustCoords(center_x, center_y);
+    __asm__ __volatile__("" : : : "memory");
+}
+#endif
