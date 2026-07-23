@@ -781,3 +781,30 @@ void nglReleaseFile(nglFileBuf *file)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0039C820)
+// 0x0039C820 nglReleaseTexture__FP10nglTexture
+struct nglTexture {
+    char padding0[0x10];
+    unsigned long type_flags_chunk;
+    char padding1[0x28];
+    char file_name[1];
+};
+struct nglInstanceBank {};
+extern nglInstanceBank nglTextureBank;
+extern "C" bool DeleteTexture(
+    nglInstanceBank *bank, const void *name
+) __asm__("Delete__15nglInstanceBankRC14nglFixedString");
+void nglDestroyTexture(nglTexture *texture);
+__asm__(".equ nglTextureBank, 0x004BBFF8");
+__asm__(".equ Delete__15nglInstanceBankRC14nglFixedString, 0x003AC440");
+__asm__(".equ nglDestroyTexture__FP10nglTexture, 0x0039C878");
+void nglReleaseTexture(nglTexture *texture) {
+    if (texture->type_flags_chunk&(1UL<<35))
+        return;
+    if (DeleteTexture(&nglTextureBank,texture->file_name))
+        return;
+    nglDestroyTexture(texture);
+    __asm__ __volatile__("" : : : "memory");
+}
+#endif
