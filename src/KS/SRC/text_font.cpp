@@ -78,3 +78,20 @@ Font::glyph_info *Font::getGlyph(char c) {
 __asm__(".equ typeface_list, 0x0058AA90"); __asm__(".equ remove__t4list2ZP12typeface_defZt12my_allocator1ZP12typeface_defRCP12typeface_def, 0x003584E0"); __asm__(".equ _$_12typeface_def, 0x0033C5D0");
 class typeface_def{public:char p[5152];int usercount;~typeface_def();};template<class T>class my_allocator{};template<class T,class A>class list{public:void remove(const T&);};extern list<typeface_def*,my_allocator<typeface_def*> > typeface_list;void typeface_close(typeface_def*tdefptr){if(!tdefptr->usercount){typeface_list.remove(tdefptr);delete tdefptr;}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033A028)
+// 0x0033A028 _$_4Font
+extern "C" void StringDtor(void *self, int deleting) __asm__("_$_7stringx");
+extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+extern "C" void FontDtor(void *self, int deleting) __asm__("_$_4Font");
+void FontDtor(void *self, int deleting) {
+    StringDtor((char *)self+0x242c,2);
+    StringDtor((char *)self+0x2408,2);
+    if (deleting&1) {
+        BuiltinDelete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
