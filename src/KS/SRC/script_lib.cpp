@@ -49,6 +49,28 @@ void **SetCameraPriorityRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031DCA0)
+// 0x0031DCA0 __tf22slf_enable_marky_cam_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **EnableMarkyCamBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *enable_marky_cam_type[] __asm__("__ti22slf_enable_marky_cam_t");
+extern "C" const char enable_marky_cam_name[];
+extern "C" void *enable_marky_cam_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti22slf_enable_marky_cam_t, 0x005A4290");
+__asm__(".equ enable_marky_cam_name, 0x0050E928");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **EnableMarkyCamRtti() __asm__("__tf22slf_enable_marky_cam_t");
+void **EnableMarkyCamRtti()
+{
+    if (!enable_marky_cam_type[0]) {
+        EnableMarkyCamBaseRtti();
+        __rtti_si(enable_marky_cam_type, enable_marky_cam_name, enable_marky_cam_base_type);
+    }
+    return enable_marky_cam_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
