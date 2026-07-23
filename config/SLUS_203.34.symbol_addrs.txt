@@ -4523,7 +4523,7 @@ __uninitialized_copy_aux__H2ZPC11wedge_splitZP11wedge_split_X01X01X11G12__false_
 __as__t6vector2ZUiZt12my_allocator1ZUiRCt6vector2ZUiZt12my_allocator1ZUi = 0x002B6E80; // type:func size:0x204
 __as__t6vector2Z11wedge_splitZt12my_allocator1Z11wedge_splitRCt6vector2Z11wedge_splitZt12my_allocator1Z11wedge_split = 0x002B7088; // type:func size:0x354
 __static_initialization_and_destruction_0_002B73E0 = 0x002B73E0; // type:func size:0x750
-__tf4beam = 0x002B7B38; // type:func size:0x50
+__tf4beam = 0x002B7B38; // type:func defined:true size:0x50
 is_a_beam__C4beam = 0x002B7B88; // type:func defined:true size:0x8
 possibly_active__C4beam = 0x002B7BA0; // type:func defined:true size:0x28
 construct_signal_list__4beam = 0x002B7BD0; // type:func size:0xA0

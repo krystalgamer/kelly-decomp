@@ -311,3 +311,28 @@ asm(".equ typeinfo, 0x00512140"); asm(".equ type_name, 0x004FEAB8");
 extern "C" void *GetTypeInfo() __asm__("__tf16beam_effect_type");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
+#if defined(KELLY_DECOMP_FUNCTION_002B7B38)
+#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/beam_shared.h"
+
+extern "C" void **beam_base_rtti() __asm__("__tf6entity");
+extern "C" void *beam_type[] __asm__("__ti4beam");
+extern "C" const char beam_name[];
+extern "C" void *beam_base_type[] __asm__("__ti6entity");
+
+__asm__(".equ __tf6entity, 0x001449C8");
+__asm__(".equ __ti4beam, 0x005A3D60");
+__asm__(".equ beam_name, 0x004FE428");
+__asm__(".equ __ti6entity, 0x005A27C8");
+
+// 0x002B7B38 __tf4beam
+extern "C" void **beam_rtti() __asm__("__tf4beam");
+void **beam_rtti()
+{
+    if (!beam_type[0]) {
+        beam_base_rtti();
+        __rtti_si(beam_type, beam_name, beam_base_type);
+    }
+    return beam_type;
+}
+#endif
