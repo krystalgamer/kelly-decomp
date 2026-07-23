@@ -1188,3 +1188,16 @@ void ForceRegion(void *self, void *region)
     __asm__ __volatile__("" : : : "memory");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00127788)
+// 0x00127788 mem_cleanup__Q26entity13movement_info
+extern int allocated; extern void *data_a; extern void *data_b; extern void (*cleanup)();
+void arch_free(void *memory);
+__asm__(".equ allocated, 0x003E5A6C"); __asm__(".equ data_a, 0x003E5A74");
+__asm__(".equ data_b, 0x003E5A70"); __asm__(".equ cleanup, 0x003E5A7C");
+__asm__(".equ arch_free__FPv, 0x002AC768");
+class entity { public: struct movement_info { static void mem_cleanup(); }; };
+void entity::movement_info::mem_cleanup() {
+    if (allocated) { arch_free(data_a); arch_free(data_b); allocated=0; if (cleanup) cleanup(); }
+}
+#endif
