@@ -609,3 +609,40 @@ void VrepWidgetDtor(void *self, int deleting)
     __asm__ __volatile__("" : : : "memory");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033F318)
+// 0x0033F318 select__16menu_item_widgetb
+struct item_vtable {
+    char padding[0x130]; short adjustment; short reserved;
+    void (*deselect)(void *self, bool initial);
+};
+struct menu_item {
+    char padding[0x140]; item_vtable *vtable;
+    char padding2[0xc]; int selected;
+};
+struct menu_parent {
+    char padding[8]; int type;
+    char padding2[0x13c]; menu_item *selected_item;
+};
+struct menu_item_layout {
+    char padding0[0xc]; menu_parent *parent;
+    char padding1[0x140]; int selected;
+};
+class menu_item_widget {
+public:
+    void select(bool initial);
+};
+void menu_item_widget::select(bool initial) {
+    menu_item_layout *item=(menu_item_layout *)this;
+    item->selected=true;
+    menu_parent *parent=item->parent;
+    if (parent->type==5) {
+        menu_item *old=parent->selected_item;
+        parent->selected_item=(menu_item *)this;
+        if (old && old!=(menu_item *)this) {
+            item_vtable *table=old->vtable;
+            table->deselect((char *)old+table->adjustment,initial);
+        }
+    }
+}
+#endif
