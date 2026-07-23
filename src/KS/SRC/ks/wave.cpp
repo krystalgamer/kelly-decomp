@@ -381,3 +381,27 @@ void **Rtti_00384F98()
     return rtti_type_00384F98;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00385070)
+// 0x00385070 __tft22WavePerturbTongueClass1i6
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **RttiBase_00385070() __asm__("__tft23WaveProfilePerturbClass1i6");
+extern "C" void *rtti_type_00385070[] __asm__("__tit22WavePerturbTongueClass1i6");
+extern "C" const char rtti_name_00385070[];
+extern "C" void *rtti_base_type_00385070[] __asm__("__tit23WaveProfilePerturbClass1i6");
+__asm__(".equ __tft23WaveProfilePerturbClass1i6, 0x00385270");
+__asm__(".equ __tit22WavePerturbTongueClass1i6, 0x00782368");
+__asm__(".equ rtti_name_00385070, 0x0051AC48");
+__asm__(".equ __tit23WaveProfilePerturbClass1i6, 0x007823B8");
+extern "C" void **Rtti_00385070() __asm__("__tft22WavePerturbTongueClass1i6");
+
+void **Rtti_00385070()
+{
+    if (!rtti_type_00385070[0]) {
+        RttiBase_00385070();
+        __rtti_si(rtti_type_00385070, rtti_name_00385070, rtti_base_type_00385070);
+    }
+    return rtti_type_00385070;
+}
+#endif
