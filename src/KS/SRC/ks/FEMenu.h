@@ -1088,3 +1088,33 @@ void TurnOn(void *self, void *quad_pointer, bool on)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DB2A8)
+// 0x001DB2A8 SetLayer__15FEGraphicalMenuP9PanelQuadi
+struct graphical_vtable {
+    char padding[0x188]; short adjustment; short reserved;
+    void (*set_layer)(void *self, void *quad, int layer);
+};
+struct panel_vtable {
+    char padding[0x20]; short adjustment; short reserved;
+    void (*set_layer)(void *self, int layer);
+};
+struct panel_quad { char padding[0x194]; panel_vtable *vtable; };
+struct graphical_parent { char padding[0x74]; graphical_vtable *vtable; };
+struct graphical_menu_layout { char padding[0x64]; graphical_parent *parent; };
+
+extern "C" void SetLayer(void *self, void *quad, int layer)
+    __asm__("SetLayer__15FEGraphicalMenuP9PanelQuadi");
+
+void SetLayer(void *self, void *quad_pointer, int layer) {
+    graphical_menu_layout *menu = (graphical_menu_layout *)self;
+    panel_quad *quad = (panel_quad *)quad_pointer;
+    if (menu->parent) {
+        graphical_vtable *table = menu->parent->vtable;
+        table->set_layer((char *)menu->parent + table->adjustment, quad, layer);
+    } else if (quad) {
+        panel_vtable *table = quad->vtable;
+        table->set_layer((char *)quad + table->adjustment, layer);
+    }
+}
+#endif
