@@ -205,3 +205,48 @@ void FEGraphicalMenu::Init()
     init = true;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00156DC8)
+// 0x00156DC8 Update__6FEMenuf
+struct menu_entry_vtable {
+    char padding[0x40];
+    short update_adjust;
+    short reserved;
+    void (*update)(void *self, float time_inc);
+};
+
+class FEMenuEntry {
+    char padding[4];
+
+public:
+    FEMenuEntry *next;
+
+private:
+    char vtable_padding[0x58];
+    menu_entry_vtable *vtable;
+
+public:
+    void Update(float time_inc)
+    {
+        vtable->update((char *)this + vtable->update_adjust, time_inc);
+    }
+};
+
+class FEMenu {
+    char padding[0x40];
+    FEMenuEntry *entries;
+
+public:
+    void Update(float time_inc);
+};
+
+void FEMenu::Update(float time_inc)
+{
+    FEMenuEntry *entry = entries;
+    while (entry)
+    {
+        entry->Update(time_inc);
+        entry = entry->next;
+    }
+}
+#endif
