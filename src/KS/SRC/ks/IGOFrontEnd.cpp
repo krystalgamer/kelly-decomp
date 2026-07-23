@@ -188,3 +188,55 @@ soundMessageObject *IGOPrintQueue::pop()
     return &messages[return_idx];
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017CB68)
+// 0x0017CB68 TurnBalanceMeterOn__11IGOFrontEndibT2
+class game {
+    char padding[0xB4];
+    int num_ai_players;
+
+public:
+    int get_num_ai_players() const { return num_ai_players; }
+};
+
+extern game *g_game_ptr;
+__asm__(".equ g_game_ptr, 0x0046AC64");
+
+class HorizBalanceWidget {
+public:
+    void Show(bool enabled);
+};
+__asm__(".equ Show__18HorizBalanceWidgetb, 0x001685D8");
+
+struct igo_player {
+    char padding[0x14];
+    HorizBalanceWidget *horizBalanceWidget;
+    char tail[0x24];
+};
+
+struct igo_front_end_layout {
+    char padding[0x124];
+    igo_player *players;
+};
+
+extern "C" void TurnBalanceMeterOn(
+    igo_front_end_layout *self,
+    int playerIdx,
+    bool vertical,
+    bool enabled
+) __asm__("TurnBalanceMeterOn__11IGOFrontEndibT2");
+
+void TurnBalanceMeterOn(
+    igo_front_end_layout *self,
+    int playerIdx,
+    bool vertical,
+    bool enabled
+)
+{
+    if (playerIdx && g_game_ptr->get_num_ai_players())
+        return;
+
+    if (self->players[playerIdx].horizBalanceWidget)
+        self->players[playerIdx].horizBalanceWidget->Show(enabled);
+}
+#endif
