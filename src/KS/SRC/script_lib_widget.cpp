@@ -1099,3 +1099,30 @@ bool slf_text_block_widget_set_line_spacing_t::operator()(vm_stack &stack, entry
 // 0x0032BD00 __cl__21slf_widget_scale_to_tR8vm_stackQ320script_library_class8function7entry_t
 class script_library_class{public:class function{public:enum entry_t{FIRST_ENTRY};};};typedef script_library_class::function::entry_t entry_t;class widget{public:char p[320];virtual void d0();virtual void d1();virtual void d2();virtual void d3();virtual void d4();virtual void d5();virtual void d6();virtual void d7();virtual void d8();virtual void d9();virtual void d10();virtual void d11();virtual void d12();virtual void d13();virtual void scale_to(float,float);};struct vm_stack{char p[8];char*top;};class slf_widget_scale_to_t{public:struct parms_t{widget*me;float val;};bool operator()(vm_stack&,entry_t);};bool slf_widget_scale_to_t::operator()(vm_stack&stack,entry_t){stack.top-=sizeof(parms_t);parms_t*parms=(parms_t*)stack.top;parms->me->scale_to(parms->val,parms->val);return true;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032B8C8)
+// 0x0032B8C8 __tf17slf_widget_show_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **RttiBase_0032B8C8()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *rtti_type_0032B8C8[]
+    __asm__("__ti17slf_widget_show_t");
+extern "C" const char rtti_name_0032B8C8[];
+extern "C" void *rtti_base_type_0032B8C8[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti17slf_widget_show_t, 0x005A4CE0");
+__asm__(".equ rtti_name_0032B8C8, 0x0050FB30");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **Rtti_0032B8C8() __asm__("__tf17slf_widget_show_t");
+
+void **Rtti_0032B8C8()
+{
+    if (!rtti_type_0032B8C8[0]) {
+        RttiBase_0032B8C8();
+        __rtti_si(rtti_type_0032B8C8, rtti_name_0032B8C8, rtti_base_type_0032B8C8);
+    }
+    return rtti_type_0032B8C8;
+}
+#endif
