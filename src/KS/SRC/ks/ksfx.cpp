@@ -149,3 +149,54 @@ __asm__(".equ ks_fx_reset__Fv, 0x0036C4D8");
 __asm__(".equ ks_fx_init_wave__Fv, 0x00368160");
 void ks_fx_OnNewWave() { ks_fx_reset(); ks_fx_init_wave(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0036B1D8)
+// 0x0036B1D8 ks_fx_create_big_splash__FG8vector3d
+ #include "decomp_annotations.h"
+
+struct vector3d {
+    float x;
+    float y;
+    float z;
+
+    vector3d(const vector3d &other)
+    {
+        x = other.x;
+        y = other.y;
+        z = other.z;
+    }
+};
+
+void ks_fx_add_splash(
+    unsigned int fxindex,
+    const vector3d &position,
+    float power
+);
+
+__asm__(".equ ks_fx_add_splash__FUiRC8vector3df, 0x0036C3D0");
+
+class game {
+    char padding[0xB4];
+    int num_ai_players;
+    int num_players;
+
+public:
+    int get_num_players() const { return num_players; }
+    int get_num_ai_players() const { return num_ai_players; }
+};
+
+extern game *g_game_ptr;
+__asm__(".equ g_game_ptr, 0x0046AC64");
+
+void ks_fx_create_big_splash(vector3d position)
+{
+    bool skip = false;
+    if (g_game_ptr->get_num_players() >= 2)
+        skip = g_game_ptr->get_num_ai_players() == 0;
+
+    if (!skip) {
+        ks_fx_add_splash(7, position, 1.0f);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
