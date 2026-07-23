@@ -114,3 +114,38 @@ int path_graph::get_node_id(path_graph_node *node) const
   return(-1);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034A008)
+// 0x0034A008 _$_15path_graph_edge
+#include "decomp_annotations.h"
+
+extern "C" void ClearPathGraphEdge(void *self)
+    __asm__("clear__15path_graph_edge");
+extern "C" void BuiltinDelete(void *self)
+    __asm__("__builtin_delete");
+
+__asm__(".equ clear__15path_graph_edge, 0x0034A058");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+
+extern const char path_graph_edge_vtable[];
+__asm__(".equ path_graph_edge_vtable, 0x00504050");
+
+struct path_graph_edge_layout {
+    char padding[0x28];
+    const void *vtable;
+};
+
+extern "C" void PathGraphEdgeDtor(void *self, int deleting)
+    __asm__("_$_15path_graph_edge");
+
+void PathGraphEdgeDtor(void *self, int deleting)
+{
+    path_graph_edge_layout *edge = (path_graph_edge_layout *)self;
+    edge->vtable = path_graph_edge_vtable;
+    ClearPathGraphEdge(edge);
+    if (deleting & 1) {
+        BuiltinDelete(edge);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
