@@ -1146,3 +1146,45 @@ void ClearEntityMeshFlags(nglMesh *mesh, int flag)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00130968)
+// 0x00130968 force_region__6entityPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node
+struct entity_layout
+{
+    char padding[0x78];
+    unsigned int flags;
+};
+
+extern "C" void RemoveRegions(void *self)
+    __asm__("remove_from_regions__6entity");
+extern "C" void SetForced(void *self)
+    __asm__("_set_region_forced_status__6entity");
+extern "C" bool AddRegion(void *self, void *region)
+    __asm__(
+        "add_region__6entityPQ2t5graph4Z7stringxZP6region"
+        "ZP6portalZt4less1Z7stringx4node"
+    );
+
+__asm__(".equ remove_from_regions__6entity, 0x0012FE18");
+__asm__(".equ _set_region_forced_status__6entity, 0x00131E00");
+__asm__(
+    ".equ add_region__6entityPQ2t5graph4Z7stringxZP6region"
+    "ZP6portalZt4less1Z7stringx4node, 0x0012FD50"
+);
+
+extern "C" void ForceRegion(void *self, void *region)
+    __asm__(
+        "force_region__6entityPQ2t5graph4Z7stringxZP6region"
+        "ZP6portalZt4less1Z7stringx4node"
+    );
+
+void ForceRegion(void *self, void *region)
+{
+    entity_layout *entity = (entity_layout *)self;
+    if (!(entity->flags & 0x10000000))
+        RemoveRegions(self);
+    SetForced(self);
+    AddRegion(self, region);
+    __asm__ __volatile__("" : : : "memory");
+}
+#endif
