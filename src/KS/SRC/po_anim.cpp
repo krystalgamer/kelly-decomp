@@ -133,3 +133,16 @@ template <> void linear_anim<vector3d>::mem_cleanup() {
     if (allocated) { arch_free(data_a); arch_free(data_b); allocated=0; if (cleanup) cleanup(); }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00119F90)
+// 0x00119F90 mem_cleanup__t11linear_anim1Zf
+extern int allocated; extern void *data_a; extern void *data_b; extern void (*cleanup)();
+void arch_free(void *memory);
+__asm__(".equ allocated, 0x003E57DC"); __asm__(".equ data_a, 0x003E57E4");
+__asm__(".equ data_b, 0x003E57E0"); __asm__(".equ cleanup, 0x003E57EC");
+__asm__(".equ arch_free__FPv, 0x002AC768");
+template <class T> class linear_anim { public: static void mem_cleanup(); };
+template <> void linear_anim<float>::mem_cleanup() {
+    if (allocated) { arch_free(data_a); arch_free(data_b); allocated=0; if (cleanup) cleanup(); }
+}
+#endif
