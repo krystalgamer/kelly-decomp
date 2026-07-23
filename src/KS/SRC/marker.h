@@ -77,6 +77,28 @@ __asm__(".equ _$_6entity, 0x001298C8");
 void RectangleMarkerDtor(void *self) { EntityDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_002B9170)
+// 0x002B9170 __tf6marker
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **MarkerBaseRtti() __asm__("__tf6entity");
+extern "C" void *marker_type[] __asm__("__ti6marker");
+extern "C" const char marker_name[];
+extern "C" void *marker_base_type[] __asm__("__ti6entity");
+__asm__(".equ __tf6entity, 0x001449C8");
+__asm__(".equ __ti6marker, 0x005A3E60");
+__asm__(".equ marker_name, 0x004FE5B8");
+__asm__(".equ __ti6entity, 0x005A27C8");
+extern "C" void **MarkerRtti() __asm__("__tf6marker");
+void **MarkerRtti()
+{
+    if (!marker_type[0]) {
+        MarkerBaseRtti();
+        __rtti_si(marker_type, marker_name, marker_base_type);
+    }
+    return marker_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_002B9290)
 // 0x002B9290 _$_11cube_marker
 extern "C" void EntityDtor(void *self) __asm__("_$_6entity");
