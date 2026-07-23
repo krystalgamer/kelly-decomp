@@ -76,6 +76,28 @@ void **RotateEventRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_002FFE40)
+// 0x002FFE40 __tf11scale_event
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **ScaleEventBaseRtti() __asm__("__tf5event");
+extern "C" void *scale_event_type[] __asm__("__ti11scale_event");
+extern "C" const char scale_event_name[];
+extern "C" void *scale_event_base_type[] __asm__("__ti5event");
+__asm__(".equ __tf5event, 0x00302BD8");
+__asm__(".equ __ti11scale_event, 0x005A4040");
+__asm__(".equ scale_event_name, 0x004F4CB0");
+__asm__(".equ __ti5event, 0x00512188");
+extern "C" void **ScaleEventRtti() __asm__("__tf11scale_event");
+void **ScaleEventRtti()
+{
+    if (!scale_event_type[0]) {
+        ScaleEventBaseRtti();
+        __rtti_si(scale_event_type, scale_event_name, scale_event_base_type);
+    }
+    return scale_event_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00302BD8)
 // 0x00302BD8 __tf5event
 extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
