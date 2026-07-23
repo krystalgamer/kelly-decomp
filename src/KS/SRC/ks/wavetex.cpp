@@ -87,3 +87,29 @@ void WAVETEX_SetMatZSorted(bool onOff, int matid)
     WaveTexLMat[wavetex_currentmat][matid].Flags |= 0x00080000;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0037E5C8)
+// 0x0037E5C8 WAVETEX_CameraUnderwater__Fv
+int WAVETEX_GetPlayer();
+bool UNDERWATER_CameraUnderwater(int player);
+__asm__(".equ WAVETEX_GetPlayer__Fv, 0x0037E738");
+__asm__(".equ UNDERWATER_CameraUnderwater__Fi, 0x0036DA88");
+struct game_layout {
+    char padding[0xb4];
+    int mode_flag;
+    int player_count;
+    bool is_splitscreen() const {
+        return player_count>=2 && mode_flag==0;
+    }
+};
+extern game_layout *g_game_ptr;
+__asm__(".equ g_game_ptr, 0x0046AC64");
+bool WAVETEX_CameraUnderwater() {
+    int player=WAVETEX_GetPlayer();
+    if (g_game_ptr->is_splitscreen())
+        goto not_underwater;
+    return UNDERWATER_CameraUnderwater(player);
+not_underwater:
+    return false;
+}
+#endif
