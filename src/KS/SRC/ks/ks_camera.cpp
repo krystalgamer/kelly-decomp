@@ -26,6 +26,36 @@ void **auto_camera_rtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0026F2C8)
+#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/ks/ks_camera_shared.h"
+
+extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
+extern "C" void *big_wave_camera_type[] __asm__("__ti15big_wave_camera");
+extern "C" const char big_wave_camera_name[];
+extern "C" void *game_camera_type[] __asm__("__ti11game_camera");
+
+__asm__(".equ __tf11game_camera, 0x002FECF0");
+__asm__(".equ __ti15big_wave_camera, 0x005A3B00");
+__asm__(".equ big_wave_camera_name, 0x004E4E58");
+__asm__(".equ __ti11game_camera, 0x005A3D40");
+
+// 0x0026F2C8 __tf15big_wave_camera
+extern "C" void **big_wave_camera_rtti() __asm__("__tf15big_wave_camera");
+void **big_wave_camera_rtti()
+{
+    if (!big_wave_camera_type[0]) {
+        game_camera_rtti();
+        __rtti_si(
+            big_wave_camera_type,
+            big_wave_camera_name,
+            game_camera_type
+        );
+    }
+    return big_wave_camera_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0026EDB8)
 extern "C" void __rtti_si(void **type, const char *name, void **base);
 __asm__(".equ __rtti_si, 0x003CE2D8");
