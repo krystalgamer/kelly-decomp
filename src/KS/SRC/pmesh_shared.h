@@ -17,6 +17,16 @@ public:
     unsigned short level_of_detail;
     unsigned short flags;
 
+    face(const face &other)
+    {
+        wedge_refs[0] = other.wedge_refs[0];
+        wedge_refs[1] = other.wedge_refs[1];
+        wedge_refs[2] = other.wedge_refs[2];
+        my_material = other.my_material;
+        level_of_detail = other.level_of_detail;
+        flags = other.flags;
+    }
+
     inline wedge_ref get_wedge_ref(int index) const { return wedge_refs[index]; }
     inline bool is_cosmetic() const { return flags & TERFACE_COSMETIC; }
     inline unsigned char get_surface_type() const

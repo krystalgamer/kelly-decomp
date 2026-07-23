@@ -131,6 +131,35 @@ wedge *UninitializedFill(
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_002F9F80)
+// 0x002F9F80 __uninitialized_fill_n_aux__H3ZP4faceZUiZ4face_X01X11RCX21G12__false_type_X01
+#include "KS/SRC/pmesh_shared.h"
+inline void *operator new(unsigned int, void *place) {
+    return place;
+}
+
+extern "C" face *UninitializedFillFaces(
+    face *first,
+    unsigned int count,
+    const face &value
+) __asm__("__uninitialized_fill_n_aux__H3ZP4faceZUiZ4face_X01X11RCX21G12__false_type_X01");
+
+face *UninitializedFillFaces(
+    face *first,
+    unsigned int count,
+    const face &value
+) {
+    while (count != 0) {
+        if (first) {
+            new (first) face(value);
+        }
+        --count;
+        ++first;
+    }
+    return first;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_002F4390)
 // 0x002F4390 __uninitialized_copy_aux__H2ZPQ218scan_light_context9light_recZPQ218scan_light_context9light_rec_X01X01X11G12__false_type_X11
 inline void *operator new(unsigned int, void *place) {
