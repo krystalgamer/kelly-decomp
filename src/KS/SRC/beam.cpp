@@ -279,3 +279,46 @@ void BeamEffectDtor(void *self, int deleting)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00272E48)
+// 0x00272E48 kill__11beam_effectb
+class beam;
+
+class beam_effect_type
+{
+protected:
+    virtual ~beam_effect_type() {}
+    virtual void apply_start_vals(beam *target) {}
+    virtual void apply_target_vals(beam *target) {}
+    virtual void apply_delta_vals(beam *target, float time) {}
+    virtual void reverse() {}
+    virtual beam_effect_type *make_instance() { return 0; }
+    friend class beam_effect;
+};
+
+class beam_effect
+{
+    enum effect_mode
+    {
+        EFFECT_DEAD = 0
+    };
+
+    beam *my_beam;
+    beam_effect_type *effect;
+    unsigned short id;
+    char mode;
+    float timer;
+    float loop_delay;
+    float duration;
+
+public:
+    void kill(bool apply_target_vals);
+};
+
+void beam_effect::kill(bool apply_target_vals)
+{
+    if (apply_target_vals && my_beam && effect)
+        effect->apply_target_vals(my_beam);
+    mode = EFFECT_DEAD;
+}
+#endif
