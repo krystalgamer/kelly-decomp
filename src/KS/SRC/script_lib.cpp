@@ -3274,3 +3274,33 @@ done:
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031E008)
+// 0x0031E008 __cl__21slf_localize_thread_tR8vm_stackQ320script_library_class8function7entry_t
+#include "KS/SRC/script_library_class_shared.h"
+struct vector3d { float x,y,z; };
+struct region_node { char padding[4]; void *data; };
+struct sector { region_node *region; };
+struct terrain { sector *find_sector(const vector3d &position) const; };
+struct world_layout { char padding[0xec]; terrain *the_terrain; };
+extern world_layout *g_world_ptr;
+extern "C" void AddLocalThread(void *region, vm_thread *thread)
+    __asm__("add_local_thread__6regionP9vm_thread");
+__asm__(".equ g_world_ptr, 0x00431A8C");
+__asm__(".equ find_sector__C7terrainRC8vector3d, 0x002EC610");
+__asm__(".equ add_local_thread__6regionP9vm_thread, 0x002E8018");
+class slf_localize_thread_t {
+public:
+    struct parms_t { vector3d location; };
+    bool operator()(vm_stack &stack, script_library_class::function::entry_t entry);
+};
+bool slf_localize_thread_t::operator()(
+    vm_stack &stack, script_library_class::function::entry_t entry
+) {
+    SLF_PARMS;
+    sector *sec=g_world_ptr->the_terrain->find_sector(parms->location);
+    if (sec)
+        AddLocalThread(sec->region->data,stack.get_thread());
+    SLF_DONE;
+}
+#endif
