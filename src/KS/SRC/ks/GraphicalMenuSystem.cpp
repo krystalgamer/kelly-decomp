@@ -225,3 +225,32 @@ void LegalFrontEnd::Select(int entry)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BD0D8)
+// 0x001BD0D8 OnStart__18ControllerFrontEndi
+struct select_slot {
+    short adjustment; short reserved;
+    void (*function)(void *,int,int,int);
+};
+struct menu_system_layout {
+    char padding[0x8c];
+    char *vtable;
+};
+class ControllerFrontEnd {
+    char padding[0x50];
+    menu_system_layout *system;
+    char padding2[0x120];
+    int selected;
+    int controller_count;
+public:
+    void OnStart(int controller);
+};
+void ControllerFrontEnd::OnStart(int controller) {
+    if (selected==-1) return;
+    if (controller_count!=-1 && controller!=controller_count-1) return;
+    select_slot *slot=(select_slot *)(system->vtable+0x20);
+    slot->function(
+        (char *)system+slot->adjustment,selected,1,1
+    );
+}
+#endif
