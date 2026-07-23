@@ -110,3 +110,25 @@ bool MENUDRAW_AllOn(MenuEntry *, int buttonid)
     return true;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00313E20)
+// 0x00313E20 __tf14MenuEntityDraw
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **MenuEntityDrawBaseRtti() __asm__("__tf4Menu");
+extern "C" void *menu_entity_draw_type[] __asm__("__ti14MenuEntityDraw");
+extern "C" const char menu_entity_draw_name[];
+extern "C" void *menu_entity_draw_base_type[] __asm__("__ti4Menu");
+__asm__(".equ __tf4Menu, 0x002703D0");
+__asm__(".equ __ti14MenuEntityDraw, 0x005A41D0");
+__asm__(".equ menu_entity_draw_name, 0x00508AC0");
+__asm__(".equ __ti4Menu, 0x005120F8");
+extern "C" void **MenuEntityDrawRtti() __asm__("__tf14MenuEntityDraw");
+void **MenuEntityDrawRtti()
+{
+    if (!menu_entity_draw_type[0]) {
+        MenuEntityDrawBaseRtti();
+        __rtti_si(menu_entity_draw_type, menu_entity_draw_name, menu_entity_draw_base_type);
+    }
+    return menu_entity_draw_type;
+}
+#endif
