@@ -2333,3 +2333,30 @@ void **ApplyRadiusDamageRtti()
     return apply_radius_damage_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003213C8)
+// 0x003213C8 __tf15slf_los_check_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **LosCheckBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *los_check_type[]
+    __asm__("__ti15slf_los_check_t");
+extern "C" const char los_check_name[];
+extern "C" void *los_check_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti15slf_los_check_t, 0x005A4590");
+__asm__(".equ los_check_name, 0x0050EE48");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **LosCheckRtti() __asm__("__tf15slf_los_check_t");
+
+void **LosCheckRtti()
+{
+    if (!los_check_type[0]) {
+        LosCheckBaseRtti();
+        __rtti_si(los_check_type, los_check_name, los_check_base_type);
+    }
+    return los_check_type;
+}
+#endif
