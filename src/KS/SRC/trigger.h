@@ -71,3 +71,28 @@ const vector3d& trigger::get_abs_position() const {
     return trigger_zero_vector;
 }
 #endif
+#if defined(KELLY_DECOMP_FUNCTION_002B8CB8)
+#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/trigger_shared.h"
+
+extern "C" void **trigger_base_rtti() __asm__("__tf9signaller");
+extern "C" void *trigger_type[] __asm__("__ti7trigger");
+extern "C" const char trigger_name[];
+extern "C" void *trigger_base_type[] __asm__("__ti9signaller");
+
+__asm__(".equ __tf9signaller, 0x0035FBA8");
+__asm__(".equ __ti7trigger, 0x005A3E20");
+__asm__(".equ trigger_name, 0x004FE568");
+__asm__(".equ __ti9signaller, 0x00512028");
+
+// 0x002B8CB8 __tf7trigger
+extern "C" void **trigger_rtti() __asm__("__tf7trigger");
+void **trigger_rtti()
+{
+    if (!trigger_type[0]) {
+        trigger_base_rtti();
+        __rtti_si(trigger_type, trigger_name, trigger_base_type);
+    }
+    return trigger_type;
+}
+#endif
