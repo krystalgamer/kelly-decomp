@@ -146,3 +146,17 @@ void Menu::CloseAll()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023EF38)
+// 0x0023EF38 Deactivate__9MenuEntry
+#include "KS/SRC/ks/menu_shared.h"
+
+void MenuEntry::Deactivate()
+{
+    if (IsActive())
+    {
+        OnDeactivate();
+        SetFlag(MENTRY_ACTIVE, false);
+    }
+}
+#endif
