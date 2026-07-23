@@ -1034,3 +1034,20 @@ void TargetDtor(void *self, int deleting) {
     if (deleting & 1) { BuiltinDelete(self); __asm__ __volatile__("" : : : "memory"); }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D90D0)
+// 0x001D90D0 _$_12FloatingText
+extern "C" void StringDtor(void *self, int deleting) __asm__("_$_7stringx");
+extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
+extern const char text_string_vtable[];
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ text_string_vtable, 0x004DD500");
+struct text_layout { char field0[4]; char text[8]; char padding[0x40]; const void *vtable; };
+extern "C" void TargetDtor(void *self, int deleting) __asm__("_$_12FloatingText");
+void TargetDtor(void *self, int deleting) {
+    ((text_layout *)self)->vtable = text_string_vtable;
+    StringDtor((char *)self + 4, 2);
+    if (deleting & 1) { BuiltinDelete(self); __asm__ __volatile__("" : : : "memory"); }
+}
+#endif
