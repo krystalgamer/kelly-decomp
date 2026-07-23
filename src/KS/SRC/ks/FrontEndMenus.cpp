@@ -590,3 +590,28 @@ void SaveCareerPromptClass::Draw()
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B4610)
+// 0x001B4610 SetDisconnect__15PauseMenuSystemb
+class KSReplay { public: bool IsPlaying(); };
+extern KSReplay ksreplay;
+__asm__(".equ ksreplay, 0x004252A8");
+__asm__(".equ IsPlaying__8KSReplay, 0x0023BE08");
+class PauseMenuSystem {
+    char padding[0x94];
+    int replay_mode;
+    char padding2[0x20];
+    bool controller_disconnected;
+public:
+    bool SetDisconnect(bool disconnected);
+};
+bool PauseMenuSystem::SetDisconnect(bool disconnected) {
+    if (!disconnected) {
+        controller_disconnected=false;
+        return false;
+    }
+    if (!replay_mode && !ksreplay.IsPlaying())
+        controller_disconnected=true;
+    return controller_disconnected;
+}
+#endif
