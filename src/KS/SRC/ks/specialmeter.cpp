@@ -144,3 +144,44 @@ void SpecialMeter::Decrease(float value)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00250C20)
+// 0x00250C20 __12SpecialMeter
+extern "C" void EventRecipientCtor(void *self)
+    __asm__("__14EventRecipient");
+extern const char special_meter_vtable[];
+__asm__(".equ __14EventRecipient, 0x00349B58");
+__asm__(".equ special_meter_vtable, 0x004ED4C8");
+
+struct special_meter_layout {
+    const void *vtable;
+    int player_idx;
+    float fillage;
+    int is_enabled;
+    float special_time;
+    int trick_region;
+    int is_doing_trick;
+    int face_link;
+    float face_link_timer;
+    float current_special_time;
+    int num_perfects;
+};
+
+extern "C" void *SpecialMeterCtor(void *self)
+    __asm__("__12SpecialMeter");
+void *SpecialMeterCtor(void *self) {
+    EventRecipientCtor(self);
+    special_meter_layout *meter=(special_meter_layout *)self;
+    meter->vtable=special_meter_vtable;
+    meter->player_idx=0;
+    meter->fillage=0.0f;
+    meter->is_enabled=false;
+    meter->trick_region=0;
+    meter->is_doing_trick=false;
+    meter->face_link_timer=0.0f;
+    meter->face_link=0;
+    meter->special_time=0.0f;
+    meter->num_perfects=0;
+    return self;
+}
+#endif
