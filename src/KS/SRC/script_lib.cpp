@@ -578,6 +578,28 @@ void **PostMessage2Rtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031F080)
+// 0x0031F080 __tf18slf_post_message_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **PostMessageBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *post_message_type[] __asm__("__ti18slf_post_message_t");
+extern "C" const char post_message_name[];
+extern "C" void *post_message_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti18slf_post_message_t, 0x005A43F0");
+__asm__(".equ post_message_name, 0x0050EB98");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **PostMessageRtti() __asm__("__tf18slf_post_message_t");
+void **PostMessageRtti()
+{
+    if (!post_message_type[0]) {
+        PostMessageBaseRtti();
+        __rtti_si(post_message_type, post_message_name, post_message_base_type);
+    }
+    return post_message_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
