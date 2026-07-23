@@ -448,6 +448,28 @@ void **AbsDelayRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031ED90)
+// 0x0031ED90 __tf19slf_dilated_delay_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **DilatedDelayBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *dilated_delay_type[] __asm__("__ti19slf_dilated_delay_t");
+extern "C" const char dilated_delay_name[];
+extern "C" void *dilated_delay_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti19slf_dilated_delay_t, 0x005A43B0");
+__asm__(".equ dilated_delay_name, 0x0050EB38");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **DilatedDelayRtti() __asm__("__tf19slf_dilated_delay_t");
+void **DilatedDelayRtti()
+{
+    if (!dilated_delay_type[0]) {
+        DilatedDelayBaseRtti();
+        __rtti_si(dilated_delay_type, dilated_delay_name, dilated_delay_base_type);
+    }
+    return dilated_delay_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
