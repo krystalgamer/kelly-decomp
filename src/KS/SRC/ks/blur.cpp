@@ -25,3 +25,24 @@ __asm__(".equ BLUR_Active, 0x0046ABF4");
 __asm__(".equ BLUR_StartTime, 0x00589EC0");
 void BLUR_TurnOn() { BLUR_Active = true; BLUR_StartTime = TIMER_TotalSec; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00307FC0)
+// 0x00307FC0 RoundUpToPowerOf2__FUi
+extern const unsigned int power_checks[5];
+__asm__(".equ power_checks, 0x004F5B20");
+
+unsigned int RoundUpToPowerOf2(unsigned int value)
+{
+    register unsigned int masked;
+
+    --value;
+    if ((masked = (power_checks[0] & value)) != 0) value = masked;
+    if ((masked = (power_checks[1] & value)) != 0) value = masked;
+    if ((masked = (power_checks[2] & value)) != 0) value = masked;
+    if ((masked = (power_checks[3] & value)) != 0) value = masked;
+    if ((masked = (power_checks[4] & value)) != 0) value = masked;
+    value <<= 1;
+
+    return value;
+}
+#endif
