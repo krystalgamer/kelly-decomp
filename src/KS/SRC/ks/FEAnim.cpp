@@ -39,3 +39,28 @@ PanelAnimEvent *PanelAnimManager::Find(PanelAnimFile &animation)
     return 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00155108)
+// 0x00155108 FindObject__9PanelAnimPc
+extern "C" int strcmp(const char *left, const char *right);
+__asm__(".equ strcmp, 0x003D3E88");
+
+class PanelAnim {
+    char *name;
+    char padding[0x68];
+    PanelAnim *next;
+
+public:
+    PanelAnim *FindObject(char *object_name);
+};
+
+PanelAnim *PanelAnim::FindObject(char *object_name)
+{
+    if (!strcmp(name, object_name))
+        return this;
+    else if (next != 0)
+        return next->FindObject(object_name);
+    else
+        return 0;
+}
+#endif
