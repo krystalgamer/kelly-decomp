@@ -213,3 +213,16 @@ void entity_anim::mem_cleanup() {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001136D8)
+// 0x001136D8 mem_cleanup__16entity_anim_tree
+extern int allocated; extern void *data_a; extern void *data_b; extern void (*cleanup)();
+void arch_free(void *memory);
+__asm__(".equ allocated, 0x003E5744"); __asm__(".equ data_a, 0x003E574C");
+__asm__(".equ data_b, 0x003E5748"); __asm__(".equ cleanup, 0x003E5754");
+__asm__(".equ arch_free__FPv, 0x002AC768");
+class entity_anim_tree { public: static void mem_cleanup(); };
+void entity_anim_tree::mem_cleanup() {
+    if (allocated) { arch_free(data_a); arch_free(data_b); allocated=0; if (cleanup) cleanup(); }
+}
+#endif
