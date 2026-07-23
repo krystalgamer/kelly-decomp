@@ -70,3 +70,29 @@ int stringx::rfind(char value) const {
     return rfind(value, my_buf->char_length - 1);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034D3E0)
+// 0x0034D3E0 __7stringx
+struct string_buf { char *data; };
+extern int stringx_initialized;
+extern const char empty_text[];
+extern "C" void StringInit() __asm__("init__7stringx");
+extern "C" string_buf *Acquire(const char *text, int length)
+    __asm__("acquire_buffer__7stringxPCci");
+__asm__(".equ stringx_initialized, 0x0046DB1C");
+__asm__(".equ empty_text, 0x00500D28");
+__asm__(".equ init__7stringx, 0x0034D850");
+__asm__(".equ acquire_buffer__7stringxPCci, 0x0034DA48");
+class stringx {
+    char *chars;
+    string_buf *my_buf;
+public:
+    stringx();
+};
+stringx::stringx() {
+    if (!stringx_initialized)
+        StringInit();
+    my_buf=Acquire(empty_text,-1);
+    chars=my_buf->data;
+}
+#endif
