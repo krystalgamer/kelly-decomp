@@ -292,6 +292,28 @@ void **EnablePauseRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031E4A0)
+// 0x0031E4A0 __tf22slf_enable_interface_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **EnableInterfaceBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *enable_interface_type[] __asm__("__ti22slf_enable_interface_t");
+extern "C" const char enable_interface_name[];
+extern "C" void *enable_interface_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti22slf_enable_interface_t, 0x005A4340");
+__asm__(".equ enable_interface_name, 0x0050EA68");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **EnableInterfaceRtti() __asm__("__tf22slf_enable_interface_t");
+void **EnableInterfaceRtti()
+{
+    if (!enable_interface_type[0]) {
+        EnableInterfaceBaseRtti();
+        __rtti_si(enable_interface_type, enable_interface_name, enable_interface_base_type);
+    }
+    return enable_interface_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
