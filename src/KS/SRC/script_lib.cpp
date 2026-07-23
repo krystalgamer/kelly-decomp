@@ -1767,3 +1767,25 @@ void **AddDebugSphereRtti()
     return add_debug_sphere_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031F748)
+// 0x0031F748 __tf25slf_clear_debug_spheres_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **ClearDebugSpheresBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *clear_debug_spheres_type[] __asm__("__ti25slf_clear_debug_spheres_t");
+extern "C" const char clear_debug_spheres_name[];
+extern "C" void *clear_debug_spheres_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti25slf_clear_debug_spheres_t, 0x005A4440");
+__asm__(".equ clear_debug_spheres_name, 0x0050EC08");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **ClearDebugSpheresRtti() __asm__("__tf25slf_clear_debug_spheres_t");
+void **ClearDebugSpheresRtti()
+{
+    if (!clear_debug_spheres_type[0]) {
+        ClearDebugSpheresBaseRtti();
+        __rtti_si(clear_debug_spheres_type, clear_debug_spheres_name, clear_debug_spheres_base_type);
+    }
+    return clear_debug_spheres_type;
+}
+#endif
