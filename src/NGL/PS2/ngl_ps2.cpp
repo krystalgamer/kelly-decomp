@@ -742,3 +742,42 @@ int nglGetMaterialIdx(nglMesh* Mesh, u_int MaterialID)
     return -1;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00395CB8)
+// 0x00395CB8 nglReleaseFile__FP10nglFileBuf
+struct nglFileBuf
+{
+    unsigned char *Buf;
+    unsigned int Size;
+    unsigned int UserData;
+};
+
+struct nglSystemCallbackStruct
+{
+    bool (*ReadFile)(
+        const char *name, nglFileBuf *file, unsigned int alignment
+    );
+    void (*ReleaseFile)(nglFileBuf *file);
+    char padding[0x10];
+};
+
+extern nglSystemCallbackStruct nglSystemCallbacks;
+void nglMemFree(void *pointer);
+extern "C" void *memset(void *memory, int value, unsigned int size);
+
+__asm__(".equ nglSystemCallbacks, 0x004BBF98");
+__asm__(".equ nglMemFree__FPv, 0x00395D50");
+__asm__(".equ memset, 0x003D18D0");
+
+void nglReleaseFile(nglFileBuf *file)
+{
+    if (nglSystemCallbacks.ReleaseFile)
+        nglSystemCallbacks.ReleaseFile(file);
+    else
+    {
+        nglMemFree(file->Buf);
+        memset(file, 0, sizeof(nglFileBuf));
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
