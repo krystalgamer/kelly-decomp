@@ -1233,3 +1233,17 @@ has_rep:
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00134D80)
+// 0x00134D80 init_random_ifl_frame_boost_table__Fv
+class Random { public: int NextRand(); };
+extern Random *g_random_ptr;
+extern int random_ifl_frame_boost_table[256];
+__asm__(".equ g_random_ptr, 0x00432360");
+__asm__(".equ random_ifl_frame_boost_table, 0x003E5C50");
+__asm__(".equ NextRand__6Random, 0x00112C68");
+void init_random_ifl_frame_boost_table() {
+    for (int i=0;i<64;++i)
+        random_ifl_frame_boost_table[i]=g_random_ptr->NextRand()&63;
+}
+#endif
