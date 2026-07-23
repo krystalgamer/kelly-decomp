@@ -3089,3 +3089,30 @@ void **Rtti_00323FC0()
     return rtti_type_00323FC0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00324190)
+// 0x00324190 __tf25slf_systime_day_of_week_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **RttiBase_00324190()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *rtti_type_00324190[]
+    __asm__("__ti25slf_systime_day_of_week_t");
+extern "C" const char rtti_name_00324190[];
+extern "C" void *rtti_base_type_00324190[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti25slf_systime_day_of_week_t, 0x005A4750");
+__asm__(".equ rtti_name_00324190, 0x0050F170");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **Rtti_00324190() __asm__("__tf25slf_systime_day_of_week_t");
+
+void **Rtti_00324190()
+{
+    if (!rtti_type_00324190[0]) {
+        RttiBase_00324190();
+        __rtti_si(rtti_type_00324190, rtti_name_00324190, rtti_base_type_00324190);
+    }
+    return rtti_type_00324190;
+}
+#endif
