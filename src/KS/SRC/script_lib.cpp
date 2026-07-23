@@ -2468,3 +2468,30 @@ void **ToStrIntRtti()
     return to_str_int_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00321F28)
+// 0x00321F28 __tf22slf_add_3d_debug_str_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **Add3dDebugStrBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *add_3d_debug_str_type[]
+    __asm__("__ti22slf_add_3d_debug_str_t");
+extern "C" const char add_3d_debug_str_name[];
+extern "C" void *add_3d_debug_str_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti22slf_add_3d_debug_str_t, 0x005A45E0");
+__asm__(".equ add_3d_debug_str_name, 0x0050EEC0");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **Add3dDebugStrRtti() __asm__("__tf22slf_add_3d_debug_str_t");
+
+void **Add3dDebugStrRtti()
+{
+    if (!add_3d_debug_str_type[0]) {
+        Add3dDebugStrBaseRtti();
+        __rtti_si(add_3d_debug_str_type, add_3d_debug_str_name, add_3d_debug_str_base_type);
+    }
+    return add_3d_debug_str_type;
+}
+#endif
