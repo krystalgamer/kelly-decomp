@@ -311,3 +311,20 @@ void floating_object::spawn()
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001FAAA8)
+// 0x001FAAA8 _$_12beach_object
+extern "C" void StringDtor(void *self, int deleting) __asm__("_$_7stringx");
+extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
+extern const char beach_object_vtable[];
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ beach_object_vtable, 0x004D6208");
+struct beach_layout { char padding0[0x30]; char path[8]; const void *vtable; };
+extern "C" void BeachObjectDtor(void *self, int deleting) __asm__("_$_12beach_object");
+void BeachObjectDtor(void *self, int deleting) {
+    ((beach_layout *)self)->vtable=beach_object_vtable;
+    StringDtor((char *)self+0x30,2);
+    if (deleting&1) { BuiltinDelete(self); __asm__ __volatile__("" : : : "memory"); }
+}
+#endif
