@@ -226,3 +226,26 @@ void entity_anim_tree::mem_cleanup() {
     if (allocated) { arch_free(data_a); arch_free(data_b); allocated=0; if (cleanup) cleanup(); }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00114208)
+// 0x00114208 compute_duration__C17entity_track_node
+struct duration_track {
+    float duration;
+    float get_duration() const { return duration; }
+};
+template <class T> inline const T &maximum(const T &a,const T &b) { return a<b?b:a; }
+class entity_track_node {
+    char padding[0x28];
+    duration_track *position_track;
+    duration_track *signal_track;
+public:
+    float compute_duration() const;
+};
+float entity_track_node::compute_duration() const {
+    float duration=0;
+    if (position_track) duration=position_track->get_duration();
+    if (signal_track)
+        duration=maximum(duration,signal_track->get_duration());
+    return duration;
+}
+#endif
