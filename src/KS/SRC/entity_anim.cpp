@@ -249,3 +249,29 @@ float entity_track_node::compute_duration() const {
     return duration;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00114E00)
+// 0x00114E00 __dl__17entity_track_treePv
+struct substash_layout {
+    char padding0[0x24c]; void *stored_buffer;
+    char padding1[0x74]; int stash_file_is_open;
+    char tail[0x50];
+};
+extern int current_stash;
+extern substash_layout substashes[];
+void arch_free(void *memory);
+__asm__(".equ current_stash, 0x0046D9C0");
+__asm__(".equ substashes, 0x0046B7B8");
+__asm__(".equ arch_free__FPv, 0x002AC768");
+extern "C" void DeleteTrackTree(void *memory)
+    __asm__("__dl__17entity_track_treePv");
+void DeleteTrackTree(void *memory) {
+    substash_layout &stash=substashes[current_stash];
+    bool using_stash=
+        stash.stash_file_is_open || stash.stored_buffer;
+    if (!using_stash) {
+        arch_free(memory);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
