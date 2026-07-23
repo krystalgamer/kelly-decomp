@@ -543,3 +543,30 @@ void **Rtti_003601C0()
     return rtti_type_003601C0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00360210)
+// 0x00360210 __tf13rotate_wevent
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **RttiBase_00360210()
+    __asm__("__tf6wevent");
+extern "C" void *rtti_type_00360210[]
+    __asm__("__ti13rotate_wevent");
+extern "C" const char rtti_name_00360210[];
+extern "C" void *rtti_base_type_00360210[]
+    __asm__("__ti6wevent");
+__asm__(".equ __tf6wevent, 0x003617C8");
+__asm__(".equ __ti13rotate_wevent, 0x00782218");
+__asm__(".equ rtti_name_00360210, 0x00505768");
+__asm__(".equ __ti6wevent, 0x00512200");
+extern "C" void **Rtti_00360210() __asm__("__tf13rotate_wevent");
+
+void **Rtti_00360210()
+{
+    if (!rtti_type_00360210[0]) {
+        RttiBase_00360210();
+        __rtti_si(rtti_type_00360210, rtti_name_00360210, rtti_base_type_00360210);
+    }
+    return rtti_type_00360210;
+}
+#endif
