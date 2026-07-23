@@ -5330,7 +5330,7 @@ recurse_intersection__t7bp_tree2Z10partition3Z8vector3dGQ2t7bp_tree2Z10partition
 __tf26ChangeCamMenuEntryFunction = 0x003027A0; // type:func defined:true size:0x50
 _$_26ChangeCamMenuEntryFunction = 0x003027F0; // type:func defined:true size:0x30
 OnButtonPress__26ChangeCamMenuEntryFunctioni = 0x00302820; // type:func defined:true size:0x1C
-__tf26DeleteCamMenuEntryFunction = 0x00302840; // type:func size:0x50
+__tf26DeleteCamMenuEntryFunction = 0x00302840; // type:func defined:true size:0x50
 _$_26DeleteCamMenuEntryFunction = 0x00302890; // type:func defined:true size:0x30
 OnButtonPress__26DeleteCamMenuEntryFunctioni = 0x003028C0; // type:func defined:true size:0x1C
 __tf31SoundMenuEntryFunctionFloatEdit = 0x003028E0; // type:func size:0x50

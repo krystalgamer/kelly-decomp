@@ -86,3 +86,25 @@ void **ChangeCamMenuRtti()
     return change_cam_menu_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00302840)
+// 0x00302840 __tf26DeleteCamMenuEntryFunction
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **DeleteCamMenuBaseRtti() __asm__("__tf14MenuEntryLabel");
+extern "C" void *delete_cam_menu_type[] __asm__("__ti26DeleteCamMenuEntryFunction");
+extern "C" const char delete_cam_menu_name[];
+extern "C" void *delete_cam_menu_base_type[] __asm__("__ti14MenuEntryLabel");
+__asm__(".equ __tf14MenuEntryLabel, 0x00270550");
+__asm__(".equ __ti26DeleteCamMenuEntryFunction, 0x005A40D0");
+__asm__(".equ delete_cam_menu_name, 0x004F4DA8");
+__asm__(".equ __ti14MenuEntryLabel, 0x005A3C80");
+extern "C" void **DeleteCamMenuRtti() __asm__("__tf26DeleteCamMenuEntryFunction");
+void **DeleteCamMenuRtti()
+{
+    if (!delete_cam_menu_type[0]) {
+        DeleteCamMenuBaseRtti();
+        __rtti_si(delete_cam_menu_type, delete_cam_menu_name, delete_cam_menu_base_type);
+    }
+    return delete_cam_menu_type;
+}
+#endif
