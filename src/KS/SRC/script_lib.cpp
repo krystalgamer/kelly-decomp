@@ -2063,3 +2063,30 @@ void **FadeInRtti()
     return fade_in_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003203C8)
+// 0x003203C8 __tf23slf_set_region_active_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **SetRegionActiveBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *set_region_active_type[]
+    __asm__("__ti23slf_set_region_active_t");
+extern "C" const char set_region_active_name[];
+extern "C" void *set_region_active_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti23slf_set_region_active_t, 0x005A44F0");
+__asm__(".equ set_region_active_name, 0x0050ED20");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **SetRegionActiveRtti() __asm__("__tf23slf_set_region_active_t");
+
+void **SetRegionActiveRtti()
+{
+    if (!set_region_active_type[0]) {
+        SetRegionActiveBaseRtti();
+        __rtti_si(set_region_active_type, set_region_active_name, set_region_active_base_type);
+    }
+    return set_region_active_type;
+}
+#endif
