@@ -68,3 +68,29 @@ void EntityMakerDtor(void *self, int deleting) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0030B170)
+// 0x0030B170 _$_11entity_pool
+extern "C" void ClearEntityList(void *list)
+    __asm__("clear__t10_List_base2ZP6entityZt12my_allocator1ZP6entity");
+extern "C" void BuiltinDelete(void *memory)
+    __asm__("__builtin_delete");
+extern void *entity_list_free_head[];
+__asm__(".equ clear__t10_List_base2ZP6entityZt12my_allocator1ZP6entity, 0x00143BC0");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ entity_list_free_head, 0x003E5628");
+struct pool_layout { void **sentinel; };
+extern "C" void EntityPoolDtor(void *self, int deleting)
+    __asm__("_$_11entity_pool");
+void EntityPoolDtor(void *self, int deleting) {
+    pool_layout *pool=(pool_layout *)self;
+    ClearEntityList(self);
+    void **node=pool->sentinel;
+    node[0]=entity_list_free_head[1];
+    entity_list_free_head[1]=node;
+    if (deleting&1) {
+        BuiltinDelete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
