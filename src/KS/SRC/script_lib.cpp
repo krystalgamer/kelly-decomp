@@ -622,6 +622,28 @@ void **StrcmpRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031F2E8)
+// 0x0031F2E8 __tf12slf_random_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **RandomBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *random_type[] __asm__("__ti12slf_random_t");
+extern "C" const char random_name[];
+extern "C" void *random_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti12slf_random_t, 0x005A4410");
+__asm__(".equ random_name, 0x0050EBC0");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **RandomRtti() __asm__("__tf12slf_random_t");
+void **RandomRtti()
+{
+    if (!random_type[0]) {
+        RandomBaseRtti();
+        __rtti_si(random_type, random_name, random_base_type);
+    }
+    return random_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
