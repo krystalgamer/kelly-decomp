@@ -1723,3 +1723,25 @@ class script_library_class{public:class function{public:enum entry_t{FIRST_ENTRY
 __asm__(".equ _$g_game_ptr, 0x0046AC64"); __asm__(".equ play_movie__4gamePCcbii, 0x00284630");
 class stringx{public:char*chars;const char*c_str()const{return chars;}}; class game{public:bool play_movie(const char*,bool,int=720,int=480);}; extern game *g_game_ptr asm("_$g_game_ptr"); struct vm_stack{char p[8];char*top;}; class slf_play_movie_t{public:struct parms_t{stringx*movie_name;float continue_level;};bool operator()(vm_stack&,entry_t);}; bool slf_play_movie_t::operator()(vm_stack&stack,entry_t){stack.top-=sizeof(parms_t);parms_t*parms=(parms_t*)stack.top;g_game_ptr->play_movie(parms->movie_name->c_str(),true);return true;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031F4E0)
+// 0x0031F4E0 __tf19slf_get_elevation_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **GetElevationBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *get_elevation_type[] __asm__("__ti19slf_get_elevation_t");
+extern "C" const char get_elevation_name[];
+extern "C" void *get_elevation_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti19slf_get_elevation_t, 0x005A4420");
+__asm__(".equ get_elevation_name, 0x0050EBD0");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **GetElevationRtti() __asm__("__tf19slf_get_elevation_t");
+void **GetElevationRtti()
+{
+    if (!get_elevation_type[0]) {
+        GetElevationBaseRtti();
+        __rtti_si(get_elevation_type, get_elevation_name, get_elevation_base_type);
+    }
+    return get_elevation_type;
+}
+#endif
