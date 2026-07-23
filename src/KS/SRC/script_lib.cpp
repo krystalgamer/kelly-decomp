@@ -2090,3 +2090,30 @@ void **SetRegionActiveRtti()
     return set_region_active_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00320610)
+// 0x00320610 __tf25slf_set_fog_table_gamma_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **SetFogTableGammaBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *set_fog_table_gamma_type[]
+    __asm__("__ti25slf_set_fog_table_gamma_t");
+extern "C" const char set_fog_table_gamma_name[];
+extern "C" void *set_fog_table_gamma_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti25slf_set_fog_table_gamma_t, 0x005A4500");
+__asm__(".equ set_fog_table_gamma_name, 0x0050ED40");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **SetFogTableGammaRtti() __asm__("__tf25slf_set_fog_table_gamma_t");
+
+void **SetFogTableGammaRtti()
+{
+    if (!set_fog_table_gamma_type[0]) {
+        SetFogTableGammaBaseRtti();
+        __rtti_si(set_fog_table_gamma_type, set_fog_table_gamma_name, set_fog_table_gamma_base_type);
+    }
+    return set_fog_table_gamma_type;
+}
+#endif
