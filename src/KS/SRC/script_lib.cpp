@@ -248,6 +248,28 @@ void **SuspendAllAiRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031E320)
+// 0x0031E320 __tf22slf_unsuspend_all_ai_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **UnsuspendAllAiBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *unsuspend_all_ai_type[] __asm__("__ti22slf_unsuspend_all_ai_t");
+extern "C" const char unsuspend_all_ai_name[];
+extern "C" void *unsuspend_all_ai_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti22slf_unsuspend_all_ai_t, 0x005A4320");
+__asm__(".equ unsuspend_all_ai_name, 0x0050EA30");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **UnsuspendAllAiRtti() __asm__("__tf22slf_unsuspend_all_ai_t");
+void **UnsuspendAllAiRtti()
+{
+    if (!unsuspend_all_ai_type[0]) {
+        UnsuspendAllAiBaseRtti();
+        __rtti_si(unsuspend_all_ai_type, unsuspend_all_ai_name, unsuspend_all_ai_base_type);
+    }
+    return unsuspend_all_ai_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
