@@ -1118,3 +1118,31 @@ void SetLayer(void *self, void *quad_pointer, int layer) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DB648)
+// 0x001DB648 cons__15FETextMultiMenuP12FEMenuSystemG7color32
+class FEMenuSystem;
+struct color32 {
+    union { struct { unsigned char b,g,r,a; } channels; unsigned int value; };
+    color32(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha) {
+        channels.b=blue; channels.g=green; channels.r=red; channels.a=alpha;
+    }
+    operator unsigned int() const { return value; }
+};
+struct text_menu_vtable {
+    char padding[0x178]; short adjustment; short reserved;
+    void (*cons)(void *self, FEMenuSystem *system,
+                 unsigned int normal, unsigned int high,
+                 float scale, float high_scale, int flags);
+};
+class FETextMultiMenu {
+    char padding[0x74]; text_menu_vtable *vtable;
+public:
+    void cons(FEMenuSystem *system, color32 high);
+};
+void FETextMultiMenu::cons(FEMenuSystem *system, color32 high) {
+    text_menu_vtable *table=vtable;
+    table->cons((char *)this+table->adjustment, system,
+                color32(0,0,0,0), high, 8.0f, 1.2f, 0);
+}
+#endif
