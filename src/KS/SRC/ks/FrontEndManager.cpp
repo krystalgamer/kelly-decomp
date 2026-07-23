@@ -227,3 +227,28 @@ void FEManager::UpdateIGOScene()
     if(pms->draw) pms->UpdateInScene();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00198CC8)
+// 0x00198CC8 DrawIGO__9FEManager
+extern int g_igo_enabled;
+__asm__(".equ g_igo_enabled, 0x003E7720");
+struct draw_slot {
+    short adjustment; short reserved; void (*function)(void *);
+};
+struct igo_layout { char padding[0xc0]; char *vtable; };
+struct pause_layout { char padding[0x8c]; char *vtable; };
+class FEManager {
+    igo_layout *IGO;
+    pause_layout *pms;
+public:
+    void DrawIGO();
+};
+void FEManager::DrawIGO() {
+    if (g_igo_enabled) {
+        draw_slot *igo_slot=(draw_slot *)(IGO->vtable+0x20);
+        igo_slot->function((char *)IGO+igo_slot->adjustment);
+        draw_slot *pause_slot=(draw_slot *)(pms->vtable+0x38);
+        pause_slot->function((char *)pms+pause_slot->adjustment);
+    }
+}
+#endif
