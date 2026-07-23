@@ -113,7 +113,7 @@ closest_cell__C11ai_polypathRC8vector3dPQ2t5graph4Z7stringxZP6regionZP6portalZt4
 find_path__11ai_polypathR7ai_pathP16ai_polypath_cellRC8vector3dT2T3 = 0x0010B3D0; // type:func size:0x4DC
 los_test__11ai_polypathP16ai_polypath_cellRC8vector3dT1T2 = 0x0010B8B0; // type:func size:0xD0
 link__11ai_polypath = 0x0010B980; // type:func size:0x110
-optimize__11ai_polypath = 0x0010BA90; // type:func size:0x5C
+optimize__11ai_polypath = 0x0010BA90; // type:func defined:true size:0x5C
 render__11ai_polypath = 0x0010BAF0; // type:func size:0x58
 __tcf_0_0010BB48 = 0x0010BB48; // type:func size:0xB8
 serial_in__FR10chunk_fileP11ai_polypath = 0x0010BC00; // type:func size:0x500
