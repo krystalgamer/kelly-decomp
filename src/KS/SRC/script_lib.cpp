@@ -204,6 +204,28 @@ void **LocalizeThreadRegionRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031E1F0)
+// 0x0031E1F0 __tf22slf_globalize_thread_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **GlobalizeThreadBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *globalize_thread_type[] __asm__("__ti22slf_globalize_thread_t");
+extern "C" const char globalize_thread_name[];
+extern "C" void *globalize_thread_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti22slf_globalize_thread_t, 0x005A4300");
+__asm__(".equ globalize_thread_name, 0x0050E9F8");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **GlobalizeThreadRtti() __asm__("__tf22slf_globalize_thread_t");
+void **GlobalizeThreadRtti()
+{
+    if (!globalize_thread_type[0]) {
+        GlobalizeThreadBaseRtti();
+        __rtti_si(globalize_thread_type, globalize_thread_name, globalize_thread_base_type);
+    }
+    return globalize_thread_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
