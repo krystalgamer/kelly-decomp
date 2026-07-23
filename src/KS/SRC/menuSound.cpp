@@ -78,3 +78,25 @@ __asm__(".equ _vt$31SoundMenuEntryFunctionFloatEdit, 0x004F1398");
 __asm__(".equ __26MenuEntryFunctionFloatEditPcPfPFP9MenuEntryi_bfff, 0x0023FC10");
 class MenuEntry{public:int data;virtual~MenuEntry();};typedef bool(*pMenuEntryButtonFunction)(MenuEntry*,int);typedef unsigned int nslSourceId;class MenuEntryFunctionFloatEdit:public MenuEntry{public:char p[52];MenuEntryFunctionFloatEdit(char*,float*,pMenuEntryButtonFunction,float,float,float);};class SoundMenuEntryFunctionFloatEdit:public MenuEntryFunctionFloatEdit{public:nslSourceId src;SoundMenuEntryFunctionFloatEdit(char*,float*,pMenuEntryButtonFunction,nslSourceId,float,float,float);};SoundMenuEntryFunctionFloatEdit::SoundMenuEntryFunctionFloatEdit(char*text,float*t,pMenuEntryButtonFunction func,nslSourceId source,float l,float h,float s):MenuEntryFunctionFloatEdit(text,t,func,l,h,s){src=source;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003028E0)
+// 0x003028E0 __tf31SoundMenuEntryFunctionFloatEdit
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **SoundFloatEditBaseRtti() __asm__("__tf26MenuEntryFunctionFloatEdit");
+extern "C" void *sound_float_edit_type[] __asm__("__ti31SoundMenuEntryFunctionFloatEdit");
+extern "C" const char sound_float_edit_name[];
+extern "C" void *sound_float_edit_base_type[] __asm__("__ti26MenuEntryFunctionFloatEdit");
+__asm__(".equ __tf26MenuEntryFunctionFloatEdit, 0x00270810");
+__asm__(".equ __ti31SoundMenuEntryFunctionFloatEdit, 0x005A40E0");
+__asm__(".equ sound_float_edit_name, 0x004F4DC8");
+__asm__(".equ __ti26MenuEntryFunctionFloatEdit, 0x005A3CB0");
+extern "C" void **SoundFloatEditRtti() __asm__("__tf31SoundMenuEntryFunctionFloatEdit");
+void **SoundFloatEditRtti()
+{
+    if (!sound_float_edit_type[0]) {
+        SoundFloatEditBaseRtti();
+        __rtti_si(sound_float_edit_type, sound_float_edit_name, sound_float_edit_base_type);
+    }
+    return sound_float_edit_type;
+}
+#endif
