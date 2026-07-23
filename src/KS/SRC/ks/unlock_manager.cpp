@@ -52,3 +52,30 @@ bool UnlockingManager::isBailsMovieUnlocked() const
     return session_cheats_from_mega[0].on || session_cheats_from_mega[-7].on || bails_movie_unlocked;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002F0668)
+// 0x002F0668 isLevelUnlocked__C16UnlockingManageri
+extern int cheat_anchor[];
+__asm__(".equ cheat_anchor, 0x0043BDF0");
+struct career_level {
+    char padding[0xc];
+    int unlocked;
+    char tail[0x14];
+    bool IsUnlocked() const { return unlocked; }
+};
+struct career_layout {
+    char padding[0x101a8];
+    career_level levels[32];
+};
+extern career_layout *g_career;
+__asm__(".equ g_career, 0x00427C9C");
+class UnlockingManager {
+public:
+    bool isLevelUnlocked(int level) const;
+};
+bool UnlockingManager::isLevelUnlocked(int level) const {
+    return cheat_anchor[1] ||
+           *(int *)((char *)cheat_anchor-0x24) ||
+           g_career->levels[level].IsUnlocked();
+}
+#endif
