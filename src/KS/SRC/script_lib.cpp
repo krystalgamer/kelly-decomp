@@ -2171,3 +2171,30 @@ void **WasStartPressedRtti()
     return was_start_pressed_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00320A70)
+// 0x00320A70 __tf19slf_was_A_pressed_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **WasAPressedBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *was_A_pressed_type[]
+    __asm__("__ti19slf_was_A_pressed_t");
+extern "C" const char was_A_pressed_name[];
+extern "C" void *was_A_pressed_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti19slf_was_A_pressed_t, 0x005A4530");
+__asm__(".equ was_A_pressed_name, 0x0050EDA0");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **WasAPressedRtti() __asm__("__tf19slf_was_A_pressed_t");
+
+void **WasAPressedRtti()
+{
+    if (!was_A_pressed_type[0]) {
+        WasAPressedBaseRtti();
+        __rtti_si(was_A_pressed_type, was_A_pressed_name, was_A_pressed_base_type);
+    }
+    return was_A_pressed_type;
+}
+#endif
