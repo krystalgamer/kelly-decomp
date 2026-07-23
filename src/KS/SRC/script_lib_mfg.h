@@ -30,3 +30,25 @@ void **ScriptMfgRtti()
     return script_mfg_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031DAC0)
+// 0x0031DAC0 __tf9slc_mfg_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **SlcMfgBaseRtti() __asm__("__tf20script_library_class");
+extern "C" void *slc_mfg_type[] __asm__("__ti9slc_mfg_t");
+extern "C" const char slc_mfg_name[];
+extern "C" void *slc_mfg_base_type[] __asm__("__ti20script_library_class");
+__asm__(".equ __tf20script_library_class, 0x0035F680");
+__asm__(".equ __ti9slc_mfg_t, 0x005A4260");
+__asm__(".equ slc_mfg_name, 0x0050E8D8");
+__asm__(".equ __ti20script_library_class, 0x005121B0");
+extern "C" void **SlcMfgRtti() __asm__("__tf9slc_mfg_t");
+void **SlcMfgRtti()
+{
+    if (!slc_mfg_type[0]) {
+        SlcMfgBaseRtti();
+        __rtti_si(slc_mfg_type, slc_mfg_name, slc_mfg_base_type);
+    }
+    return slc_mfg_type;
+}
+#endif
