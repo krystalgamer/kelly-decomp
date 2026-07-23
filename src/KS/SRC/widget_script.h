@@ -44,3 +44,25 @@ void **ClueWidgetRtti()
     return clue_widget_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FF7A8)
+// 0x002FF7A8 __tf12timer_widget
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **TimerWidgetBaseRtti() __asm__("__tf6widget");
+extern "C" void *timer_widget_type[] __asm__("__ti12timer_widget");
+extern "C" const char timer_widget_name[];
+extern "C" void *timer_widget_base_type[] __asm__("__ti6widget");
+__asm__(".equ __tf6widget, 0x003602B8");
+__asm__(".equ __ti12timer_widget, 0x005A3FA0");
+__asm__(".equ timer_widget_name, 0x004F4C00");
+__asm__(".equ __ti6widget, 0x00512148");
+extern "C" void **TimerWidgetRtti() __asm__("__tf12timer_widget");
+void **TimerWidgetRtti()
+{
+    if (!timer_widget_type[0]) {
+        TimerWidgetBaseRtti();
+        __rtti_si(timer_widget_type, timer_widget_name, timer_widget_base_type);
+    }
+    return timer_widget_type;
+}
+#endif
