@@ -7382,7 +7382,7 @@ WAVE_GetGrindPosition__FPC16WavePositionHintP16WavePositionHintRC8vector3dP8vect
 WAVE_GetBreakInfo__FP19WaveBreakInfoStruct = 0x0037D718; // type:func size:0xD0
 WAVE_GetMarker__F14WaveMarkerEnum = 0x0037D7E8; // type:func defined:true size:0x14
 WAVE_HintFromMarker__F14WaveMarkerEnumP16WavePositionHint = 0x0037D800; // type:func size:0x38
-WAVE_GetMarkerProfile__F14WaveMarkerEnum = 0x0037D838; // type:func size:0x58
+WAVE_GetMarkerProfile__F14WaveMarkerEnum = 0x0037D838; // type:func defined:true size:0x58
 WAVE_GetIndex__Fv = 0x0037D890; // type:func defined:true size:0x24
 WAVE_GetScheduleIndex__Fv = 0x0037D8B8; // type:func defined:true size:0xC
 WAVE_GetNextScheduleIndex__Fv = 0x0037D8C8; // type:func defined:true size:0x2C

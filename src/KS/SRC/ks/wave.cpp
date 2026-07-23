@@ -566,3 +566,26 @@ WavePartition *WAVE_AllocPartition(char *&memory, unsigned int count) {
     return partition;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0037D838)
+// 0x0037D838 WAVE_GetMarkerProfile__F14WaveMarkerEnum
+enum WaveMarkerEnum { WAVE_MARKER_ZERO };
+struct WaveMarkerData {
+    char padding[8];
+    float x;
+    char tail[0x14];
+};
+extern int WAVE_LeftBreaker;
+extern float WAVE_MeshMinX;
+extern float WAVE_MeshMaxX;
+extern WaveMarkerData WAVE_Marker[];
+__asm__(".equ WAVE_LeftBreaker, 0x004846C4");
+__asm__(".equ WAVE_MeshMinX, 0x00484620");
+__asm__(".equ WAVE_MeshMaxX, 0x00484624");
+__asm__(".equ WAVE_Marker, 0x0058BC68");
+float WAVE_GetMarkerProfile(WaveMarkerEnum marker) {
+    return WAVE_LeftBreaker
+        ? WAVE_MeshMinX+WAVE_MeshMaxX-WAVE_Marker[marker].x
+        : WAVE_Marker[marker].x;
+}
+#endif
