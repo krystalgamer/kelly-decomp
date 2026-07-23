@@ -4241,7 +4241,7 @@ _intersect__13point_triggerPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7strin
 _update_regions__13point_trigger = 0x0028E088; // type:func size:0x734
 __14region_triggerRC7stringx = 0x0028E7C0; // type:func defined:true size:0x34
 read__14region_triggerR10chunk_file = 0x0028E7F8; // type:func size:0xF8
-triggered__14region_triggerP6entity = 0x0028E8F0; // type:func size:0x58
+triggered__14region_triggerP6entity = 0x0028E8F0; // type:func defined:true size:0x58
 update_region__14region_trigger = 0x0028E948; // type:func defined:true size:0x8
 __14entity_triggerRC7stringx = 0x0028E950; // type:func defined:true size:0x40
 __14entity_triggerRC7stringxP6entityf = 0x0028E990; // type:func size:0x60
