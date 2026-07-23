@@ -7,6 +7,24 @@ void clear_zbuffer() {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_002854C8)
+#include "KS/SRC/game_shared.h"
+
+__asm__(".equ GetPlayerShare__C8PushModei, 0x00285B70");
+
+// 0x002854C8 get_player_share__C4gamei
+float game::get_player_share(int player) const
+{
+    if (!play_mode.push) {
+        float share = 0.5f;
+        if (!play_mode.headToHead)
+            share = 1.0f;
+        return share;
+    }
+    return play_mode.push->GetPlayerShare(player);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00277E20)
 // 0x00277E20 nslNoPrint__FPCc
 void nslNoPrint(const char* text) {
