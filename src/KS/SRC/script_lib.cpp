@@ -1811,3 +1811,25 @@ void **GetTimeIncRtti()
     return get_time_inc_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031F990)
+// 0x0031F990 __tf16slf_text_width_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **TextWidthBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *text_width_type[] __asm__("__ti16slf_text_width_t");
+extern "C" const char text_width_name[];
+extern "C" void *text_width_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti16slf_text_width_t, 0x005A4460");
+__asm__(".equ text_width_name, 0x0050EC40");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **TextWidthRtti() __asm__("__tf16slf_text_width_t");
+void **TextWidthRtti()
+{
+    if (!text_width_type[0]) {
+        TextWidthBaseRtti();
+        __rtti_si(text_width_type, text_width_name, text_width_base_type);
+    }
+    return text_width_type;
+}
+#endif
