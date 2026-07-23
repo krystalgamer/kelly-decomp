@@ -104,3 +104,30 @@ bool slf_trigger_set_use_any_char_t::operator()(vm_stack &stack, entry_t entry)
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00328640)
+// 0x00328640 __tf26slf_trigger_get_position_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **RttiBase_00328640()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *rtti_type_00328640[]
+    __asm__("__ti26slf_trigger_get_position_t");
+extern "C" const char rtti_name_00328640[];
+extern "C" void *rtti_base_type_00328640[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti26slf_trigger_get_position_t, 0x005A4AE0");
+__asm__(".equ rtti_name_00328640, 0x0050F7B8");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **Rtti_00328640() __asm__("__tf26slf_trigger_get_position_t");
+
+void **Rtti_00328640()
+{
+    if (!rtti_type_00328640[0]) {
+        RttiBase_00328640();
+        __rtti_si(rtti_type_00328640, rtti_name_00328640, rtti_base_type_00328640);
+    }
+    return rtti_type_00328640;
+}
+#endif
