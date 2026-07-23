@@ -96,3 +96,29 @@ stringx::stringx() {
     chars=my_buf->data;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034E300)
+// 0x0034E300 copy__7stringxR7stringx
+struct string_buf {
+    char *data;
+    int ref_count;
+};
+extern "C" void AddCache(string_buf *buffer)
+    __asm__("add_buf_to_cache__7stringxP10string_buf");
+__asm__(".equ release_buffer__7stringx, 0x0034D760");
+__asm__(".equ add_buf_to_cache__7stringxP10string_buf, 0x0034DEB8");
+class stringx {
+    char *chars;
+    string_buf *my_buf;
+public:
+    void release_buffer();
+    void copy(stringx &other);
+};
+void stringx::copy(stringx &other) {
+    release_buffer();
+    my_buf=other.my_buf;
+    ++my_buf->ref_count;
+    AddCache(my_buf);
+    chars=my_buf->data;
+}
+#endif
