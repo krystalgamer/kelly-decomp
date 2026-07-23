@@ -287,3 +287,46 @@ void IGOFrontEnd::SetBalanceMeter(
         players[playerIdx].horizBalanceWidget->SetArrow(value);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017CC18)
+// 0x0017CC18 SetTubeDepthMeter__11IGOFrontEndif
+class game {
+    char padding[0xB4];
+    int num_ai_players;
+
+public:
+    int get_num_ai_players() const { return num_ai_players; }
+};
+
+extern game *g_game_ptr;
+__asm__(".equ g_game_ptr, 0x0046AC64");
+
+class HorizBalanceWidget {
+public:
+    void SetFillage(float value);
+};
+__asm__(".equ SetFillage__18HorizBalanceWidgetf, 0x001688B8");
+
+struct igo_player {
+    char padding[0x14];
+    HorizBalanceWidget *horizBalanceWidget;
+    char tail[0x24];
+};
+
+class IGOFrontEnd {
+    char padding[0x124];
+    igo_player *players;
+
+public:
+    void SetTubeDepthMeter(int playerIdx, float value);
+};
+
+void IGOFrontEnd::SetTubeDepthMeter(int playerIdx, float value)
+{
+    if (playerIdx && g_game_ptr->get_num_ai_players())
+        return;
+
+    if (players[playerIdx].horizBalanceWidget)
+        players[playerIdx].horizBalanceWidget->SetFillage(value);
+}
+#endif
