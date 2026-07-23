@@ -438,3 +438,23 @@ static int strFileClose(StrFile *file)
     return 1;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0038A870)
+// 0x0038A870 viBufDelete__FP5ViBuf
+struct ViBuf { char padding[0x40]; int sema; };
+void setD4_CHCR(unsigned int value);
+extern "C" int DeleteSema(int semaphore);
+__asm__(".equ setD4_CHCR__FUi, 0x00389E68");
+__asm__(".equ DeleteSema, 0x003DB670");
+volatile unsigned int *const D4_QWC=(unsigned int *)0x1000b420;
+volatile unsigned int *const D4_MADR=(unsigned int *)0x1000b410;
+volatile unsigned int *const D4_TADR=(unsigned int *)0x1000b430;
+int viBufDelete(ViBuf *buffer) {
+    setD4_CHCR(5);
+    *D4_QWC=0;
+    *D4_MADR=0;
+    *D4_TADR=0;
+    DeleteSema(buffer->sema);
+    return 1;
+}
+#endif
