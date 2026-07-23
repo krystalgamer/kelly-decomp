@@ -1,5 +1,31 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0026F0F8)
+#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/ks/ks_camera_shared.h"
+
+extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
+extern "C" void *auto_camera_type[] __asm__("__ti11auto_camera");
+extern "C" const char auto_camera_name[];
+extern "C" void *game_camera_type[] __asm__("__ti11game_camera");
+
+__asm__(".equ __tf11game_camera, 0x002FECF0");
+__asm__(".equ __ti11auto_camera, 0x005A3AE0");
+__asm__(".equ auto_camera_name, 0x004E4E38");
+__asm__(".equ __ti11game_camera, 0x005A3D40");
+
+// 0x0026F0F8 __tf11auto_camera
+extern "C" void **auto_camera_rtti() __asm__("__tf11auto_camera");
+void **auto_camera_rtti()
+{
+    if (!auto_camera_type[0]) {
+        game_camera_rtti();
+        __rtti_si(auto_camera_type, auto_camera_name, game_camera_type);
+    }
+    return auto_camera_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0026EDB8)
 extern "C" void __rtti_si(void **type, const char *name, void **base);
 __asm__(".equ __rtti_si, 0x003CE2D8");
