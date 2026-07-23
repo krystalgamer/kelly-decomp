@@ -539,3 +539,40 @@ void scale_wevent::do_wevent(float lerp)
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033FBE0)
+// 0x0033FBE0 resize__13bitmap_widgetff
+struct widget_vtable
+{
+    char padding[0x78];
+    short adjustment;
+    short reserved;
+    void (*scale_to)(void *self, float horizontal, float vertical);
+};
+
+class bitmap_widget
+{
+    char padding0[0x14];
+    unsigned int flags;
+    char padding1[0x128];
+    widget_vtable *vtable;
+    float width;
+    float height;
+
+public:
+    bool is_open() const { return flags & 2; }
+    void resize(float new_width, float new_height);
+};
+
+void bitmap_widget::resize(float new_width, float new_height)
+{
+    if (!is_open())
+        return;
+    widget_vtable *table = vtable;
+    table->scale_to(
+        (char *)this + table->adjustment,
+        new_width / width,
+        new_height / height
+    );
+}
+#endif
