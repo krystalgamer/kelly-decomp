@@ -153,3 +153,33 @@ void CheatFrontEnd::OnRight(int command) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D3100)
+// 0x001D3100 Draw__14EnterCheatMenu
+struct draw_vtable {
+    char padding[0x18]; short adjustment; short reserved;
+    void (*draw)(void *);
+};
+struct text_layout { char padding[0x4c]; draw_vtable *vtable; };
+class EnterCheatMenu {
+    char padding[0x16c];
+    text_layout *code_display;
+    text_layout *cursor;
+    char padding2[0x30];
+    int closing;
+public:
+    void Draw();
+};
+void EnterCheatMenu::Draw() {
+    draw_vtable *code_table=code_display->vtable;
+    code_table->draw(
+        (char *)code_display+code_table->adjustment
+    );
+    if (!closing) {
+        draw_vtable *cursor_table=cursor->vtable;
+        cursor_table->draw(
+            (char *)cursor+cursor_table->adjustment
+        );
+    }
+}
+#endif
