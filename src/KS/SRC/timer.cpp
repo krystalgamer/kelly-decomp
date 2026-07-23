@@ -32,3 +32,28 @@ extern float timer_level_seconds;
 __asm__(".equ timer_level_seconds, 0x0046B284");
 void TIMER_SetLevelSec(float value) { timer_level_seconds = value; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003109B0)
+// 0x003109B0 TIMER_Init__Ff
+extern float TIMER_LevelDuration;
+extern bool TIMER_InfiniteDuration;
+void TIMER_Reset();
+__asm__(".equ TIMER_LevelDuration, 0x0046B288");
+__asm__(".equ TIMER_InfiniteDuration, 0x0046B28C");
+__asm__(".equ TIMER_Reset__Fv, 0x003108B0");
+
+void TIMER_Init(const float duration)
+{
+    TIMER_LevelDuration = duration;
+    if (TIMER_LevelDuration <= 0) {
+        TIMER_LevelDuration = 0;
+        TIMER_InfiniteDuration = true;
+    } else {
+        TIMER_InfiniteDuration = false;
+    }
+
+    TIMER_Reset();
+    // Prevent GCC 2.95 from tail-calling the released reset call.
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
