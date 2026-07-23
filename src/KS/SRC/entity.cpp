@@ -1041,3 +1041,42 @@ void entity::invalidate_colgeom()
         get_colgeom()->invalidate();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00138930)
+// 0x00138930 create_destroy_info__6entity
+class entity;
+class destroyable_info;
+
+extern "C" void *KellyNew(
+    unsigned int size,
+    unsigned int alignment,
+    const char *file,
+    int line
+) __asm__("__nw__FUiUiPCci");
+extern "C" destroyable_info *DestroyableInfoCtor(
+    void *memory,
+    entity *owner
+) __asm__("__16destroyable_infoP6entity");
+extern const char entity_source_file[];
+
+__asm__(".equ __nw__FUiUiPCci, 0x002AC578");
+__asm__(".equ __16destroyable_infoP6entity, 0x00136148");
+__asm__(".equ entity_source_file, 0x004CD0E8");
+
+class entity {
+    char padding[0x19C];
+    destroyable_info *destroy_info;
+
+public:
+    void create_destroy_info();
+};
+
+void entity::create_destroy_info()
+{
+    if (destroy_info == 0)
+    {
+        void *memory = KellyNew(56, 0, entity_source_file, 0);
+        destroy_info = DestroyableInfoCtor(memory, this);
+    }
+}
+#endif
