@@ -142,6 +142,32 @@ void **flyby_camera_rtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0026F460)
+#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/ks/ks_camera_shared.h"
+
+extern "C" void **follow_camera_base_rtti() __asm__("__tf11game_camera");
+extern "C" void *follow_camera_type[] __asm__("__ti13follow_camera");
+extern "C" const char follow_camera_name[];
+extern "C" void *follow_camera_base_type[] __asm__("__ti11game_camera");
+
+__asm__(".equ __tf11game_camera, 0x002FECF0");
+__asm__(".equ __ti13follow_camera, 0x005A3B40");
+__asm__(".equ follow_camera_name, 0x004E4EB0");
+__asm__(".equ __ti11game_camera, 0x005A3D40");
+
+// 0x0026F460 __tf13follow_camera
+extern "C" void **follow_camera_rtti() __asm__("__tf13follow_camera");
+void **follow_camera_rtti()
+{
+    if (!follow_camera_type[0]) {
+        follow_camera_base_rtti();
+        __rtti_si(follow_camera_type, follow_camera_name, follow_camera_base_type);
+    }
+    return follow_camera_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0026EDB8)
 extern "C" void __rtti_si(void **type, const char *name, void **base);
 __asm__(".equ __rtti_si, 0x003CE2D8");
