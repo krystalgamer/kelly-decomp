@@ -426,6 +426,28 @@ void **DelayRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031EC80)
+// 0x0031EC80 __tf15slf_abs_delay_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **AbsDelayBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *abs_delay_type[] __asm__("__ti15slf_abs_delay_t");
+extern "C" const char abs_delay_name[];
+extern "C" void *abs_delay_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti15slf_abs_delay_t, 0x005A43A0");
+__asm__(".equ abs_delay_name, 0x0050EB20");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **AbsDelayRtti() __asm__("__tf15slf_abs_delay_t");
+void **AbsDelayRtti()
+{
+    if (!abs_delay_type[0]) {
+        AbsDelayBaseRtti();
+        __rtti_si(abs_delay_type, abs_delay_name, abs_delay_base_type);
+    }
+    return abs_delay_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
