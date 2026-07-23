@@ -64,3 +64,31 @@ __asm__(".equ __builtin_delete, 0x002AC6B0");
 extern "C" void IconDtor(void *self, int deleting) __asm__("_$_Q223IGOLearnNewTrickManager4Icon");
 void IconDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0015B418)
+// 0x0015B418 PopFront__23IGOLearnNewTrickManagerb
+extern float max_trick_available_time;
+extern float fade_in_time;
+__asm__(".equ max_trick_available_time, 0x003E7600");
+__asm__(".equ fade_in_time, 0x003E7608");
+class IGOLearnNewTrickManager {
+    char padding[0x30];
+    int icon_active;
+    int iconCounter;
+    char padding2[8];
+    float addIconDelay;
+    char padding3[12];
+    float trick_available_time;
+public:
+    void PopFront(bool complete);
+};
+void IGOLearnNewTrickManager::PopFront(bool complete) {
+    if (!icon_active) return;
+    if (complete) {
+        iconCounter++;
+        trick_available_time=max_trick_available_time-2.0f*fade_in_time;
+    }
+    icon_active=false;
+    addIconDelay*=0.97f;
+}
+#endif
