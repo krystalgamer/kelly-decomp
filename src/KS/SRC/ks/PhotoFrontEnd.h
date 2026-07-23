@@ -36,3 +36,15 @@ __asm__(".equ __ti13PhotoSaveMenu, 0x005A2EB8"); __asm__(".equ name_001DDF70, 0x
 extern "C" void **Rtti_001DDF70() __asm__("__tf13PhotoSaveMenu");
 void **Rtti_001DDF70() { if (!type_001DDF70[0]) { BaseRtti_001DDF70(); __rtti_class(type_001DDF70, name_001DDF70, base_type_001DDF70, 1); } return type_001DDF70; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DDFC8)
+// 0x001DDFC8 __tf16PhotoDevelopMenu
+extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
+extern "C" void **BaseRtti_001DDFC8() __asm__("__tf11FEMultiMenu");
+extern "C" void *type_001DDFC8[] __asm__("__ti16PhotoDevelopMenu");
+extern const char name_001DDFC8[]; extern void *base_type_001DDFC8[];
+__asm__(".equ __rtti_class, 0x003CE2B0"); __asm__(".equ __tf11FEMultiMenu, 0x001D8138");
+__asm__(".equ __ti16PhotoDevelopMenu, 0x005A2EC8"); __asm__(".equ name_001DDFC8, 0x004DE028"); __asm__(".equ base_type_001DDFC8, 0x004DDC48");
+extern "C" void **Rtti_001DDFC8() __asm__("__tf16PhotoDevelopMenu");
+void **Rtti_001DDFC8() { if (!type_001DDFC8[0]) { BaseRtti_001DDFC8(); __rtti_class(type_001DDFC8, name_001DDFC8, base_type_001DDFC8, 1); } return type_001DDFC8; }
+#endif
