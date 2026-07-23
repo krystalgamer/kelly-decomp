@@ -1247,3 +1247,30 @@ void init_random_ifl_frame_boost_table() {
         random_ifl_frame_boost_table[i]=g_random_ptr->NextRand()&63;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00137990)
+// 0x00137990 apply_destruction_fx__6entity
+struct destroyable_info { void apply_destruction_fx(); };
+struct entity_vtable {
+    char padding[0xf8]; short adjustment; short reserved;
+    void (*set_active)(void *,bool);
+};
+class entity {
+    char padding0[8]; entity_vtable *vtable;
+    char padding1[0x190]; destroyable_info *destroy_info;
+public:
+    void disgorge_items(entity *target=0);
+    void apply_destruction_fx();
+};
+__asm__(".equ apply_destruction_fx__16destroyable_info, 0x00137318");
+__asm__(".equ disgorge_items__6entityP6entity, 0x00137C78");
+void entity::apply_destruction_fx() {
+    if (destroy_info) {
+        destroy_info->apply_destruction_fx();
+        disgorge_items();
+        __asm__ __volatile__("" : : : "memory");
+    } else {
+        vtable->set_active((char *)this+vtable->adjustment,false);
+    }
+}
+#endif
