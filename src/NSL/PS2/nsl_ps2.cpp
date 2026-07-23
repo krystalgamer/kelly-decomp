@@ -135,3 +135,27 @@ int _nslCheckAutoReleaseEmitters(nslEmitter *daEmmiter, void *userData)
     return 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00390C48)
+// 0x00390C48 nslSetSystemCallbacks__FP23nslSystemCallbackStruct
+struct nslSystemCallbackStruct {
+    void *ReadFile;
+    void *ReleaseFile;
+    void *CriticalError;
+    void *Error;
+    void *Warning;
+    void *DebugPrint;
+    void *MemAlloc;
+    void *MemFree;
+};
+
+extern nslSystemCallbackStruct nslSystemCallbacks;
+__asm__(".equ nslSystemCallbacks, 0x004A0F48");
+
+extern "C" void *memcpy(void *destination, const void *source, unsigned int size);
+
+void nslSetSystemCallbacks(nslSystemCallbackStruct *callbacks)
+{
+    memcpy(&nslSystemCallbacks, callbacks, sizeof(nslSystemCallbackStruct));
+}
+#endif
