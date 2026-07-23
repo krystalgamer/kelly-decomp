@@ -1274,3 +1274,35 @@ void entity::apply_destruction_fx() {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00137C98)
+// 0x00137C98 use_item__6entityP4item
+struct item_vtable {
+    char padding[0x660]; short adjustment; short reserved;
+    void (*apply_effects)(void *,void *);
+};
+struct item { char padding[8]; item_vtable *vtable; };
+struct entity_vtable {
+    char padding[0x20]; short adjustment; short reserved;
+    void (*raise_signal)(void *,int);
+};
+class entity {
+    char padding0[8]; entity_vtable *vtable;
+    char padding1[0x170]; item *last_item_used;
+public:
+    void use_item(item *value);
+};
+void entity::use_item(item *value) {
+    if (value) {
+        last_item_used=value;
+        item_vtable *item_table=value->vtable;
+        item_table->apply_effects(
+            (char *)value+item_table->adjustment,this
+        );
+        entity_vtable *entity_table=vtable;
+        entity_table->raise_signal(
+            (char *)this+entity_table->adjustment,4
+        );
+    }
+}
+#endif
