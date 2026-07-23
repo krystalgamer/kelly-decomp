@@ -470,6 +470,28 @@ void **DilatedDelayRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031EE68)
+// 0x0031EE68 __tf14slf_vo_delay_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **VoDelayBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *vo_delay_type[] __asm__("__ti14slf_vo_delay_t");
+extern "C" const char vo_delay_name[];
+extern "C" void *vo_delay_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti14slf_vo_delay_t, 0x005A43C0");
+__asm__(".equ vo_delay_name, 0x0050EB50");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **VoDelayRtti() __asm__("__tf14slf_vo_delay_t");
+void **VoDelayRtti()
+{
+    if (!vo_delay_type[0]) {
+        VoDelayBaseRtti();
+        __rtti_si(vo_delay_type, vo_delay_name, vo_delay_base_type);
+    }
+    return vo_delay_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
