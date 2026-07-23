@@ -159,3 +159,26 @@ nslSoundId Track::Play()
     return mySndId;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00258D08)
+// 0x00258D08 playNext__8MusicMan
+class MusicListing {
+public:
+    bool isPlaying();
+    unsigned int playNext();
+};
+__asm__(".equ isPlaying__12MusicListing, 0x00258A00");
+__asm__(".equ playNext__12MusicListing, 0x00258B00");
+class MusicMan {
+    char padding[0xc];
+    bool paused;
+    MusicListing musicTrack;
+public:
+    unsigned int playNext();
+};
+unsigned int MusicMan::playNext() {
+    if (!musicTrack.isPlaying() && !paused)
+        return musicTrack.playNext();
+    return 0;
+}
+#endif
