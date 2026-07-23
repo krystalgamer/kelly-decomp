@@ -1745,3 +1745,25 @@ void **GetElevationRtti()
     return get_elevation_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031F6C0)
+// 0x0031F6C0 __tf22slf_add_debug_sphere_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **AddDebugSphereBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *add_debug_sphere_type[] __asm__("__ti22slf_add_debug_sphere_t");
+extern "C" const char add_debug_sphere_name[];
+extern "C" void *add_debug_sphere_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti22slf_add_debug_sphere_t, 0x005A4430");
+__asm__(".equ add_debug_sphere_name, 0x0050EBE8");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **AddDebugSphereRtti() __asm__("__tf22slf_add_debug_sphere_t");
+void **AddDebugSphereRtti()
+{
+    if (!add_debug_sphere_type[0]) {
+        AddDebugSphereBaseRtti();
+        __rtti_si(add_debug_sphere_type, add_debug_sphere_name, add_debug_sphere_base_type);
+    }
+    return add_debug_sphere_type;
+}
+#endif
