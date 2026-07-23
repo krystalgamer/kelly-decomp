@@ -92,3 +92,16 @@ void po_anim::get_unadjusted_value(const anim_control_t& control, vector3d* dest
         P->get_value(control, destination);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001198D0)
+// 0x001198D0 mem_cleanup__7po_anim
+extern int allocated; extern void *data_a; extern void *data_b; extern void (*cleanup)();
+void arch_free(void *memory);
+__asm__(".equ allocated, 0x003E5794"); __asm__(".equ data_a, 0x003E579C");
+__asm__(".equ data_b, 0x003E5798"); __asm__(".equ cleanup, 0x003E57A4");
+__asm__(".equ arch_free__FPv, 0x002AC768");
+class po_anim { public: static void mem_cleanup(); };
+void po_anim::mem_cleanup() {
+    if (allocated) { arch_free(data_a); arch_free(data_b); allocated=0; if (cleanup) cleanup(); }
+}
+#endif
