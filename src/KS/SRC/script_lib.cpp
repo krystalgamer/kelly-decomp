@@ -1,6 +1,29 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
+#if defined(KELLY_DECOMP_FUNCTION_0031DB40)
+// 0x0031DB40 __tf26slf_allow_suspend_thread_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **AllowSuspendBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *allow_suspend_type[] __asm__("__ti26slf_allow_suspend_thread_t");
+extern "C" const char allow_suspend_name[];
+extern "C" void *script_function_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti26slf_allow_suspend_thread_t, 0x005A4270");
+__asm__(".equ allow_suspend_name, 0x0050E8E8");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **AllowSuspendRtti() __asm__("__tf26slf_allow_suspend_thread_t");
+void **AllowSuspendRtti()
+{
+    if (!allow_suspend_type[0]) {
+        AllowSuspendBaseRtti();
+        __rtti_si(allow_suspend_type, allow_suspend_name, script_function_type);
+    }
+    return allow_suspend_type;
+}
+#endif
+
+
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
 struct vm_stack { char padding[0x8]; char* stack_ptr; };
