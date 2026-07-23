@@ -159,6 +159,29 @@ void **LocalizeThreadRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031E080)
+// 0x0031E080 __tf34slf_localize_thread_to_character_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **LocalizeThreadToCharacterBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *localize_thread_to_character_type[] __asm__("__ti34slf_localize_thread_to_character_t");
+extern "C" const char localize_thread_to_character_name[];
+extern "C" void *localize_thread_to_character_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti34slf_localize_thread_to_character_t, 0x005A42E0");
+__asm__(".equ localize_thread_to_character_name, 0x0050E9B0");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **LocalizeThreadToCharacterRtti() __asm__("__tf34slf_localize_thread_to_character_t");
+void **LocalizeThreadToCharacterRtti()
+{
+    if (!localize_thread_to_character_type[0]) {
+        LocalizeThreadToCharacterBaseRtti();
+        __rtti_si(localize_thread_to_character_type, localize_thread_to_character_name,
+                  localize_thread_to_character_base_type);
+    }
+    return localize_thread_to_character_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
