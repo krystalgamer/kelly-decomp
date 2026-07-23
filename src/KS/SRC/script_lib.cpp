@@ -404,6 +404,28 @@ void **WaitFrameRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031EBB8)
+// 0x0031EBB8 __tf11slf_delay_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **DelayBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *delay_type[] __asm__("__ti11slf_delay_t");
+extern "C" const char delay_name[];
+extern "C" void *delay_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti11slf_delay_t, 0x005A4390");
+__asm__(".equ delay_name, 0x0050EB10");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **DelayRtti() __asm__("__tf11slf_delay_t");
+void **DelayRtti()
+{
+    if (!delay_type[0]) {
+        DelayBaseRtti();
+        __rtti_si(delay_type, delay_name, delay_base_type);
+    }
+    return delay_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
