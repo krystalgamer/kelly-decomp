@@ -440,3 +440,53 @@ void SetTime(key_anim_float_layout *self, float time)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00121280)
+// 0x00121280 set_time__t8key_anim3Z8vector3dZt10linear_key1Z8vector3dZt12linear_track1Z8vector3df
+struct vector3d
+{
+    float x;
+    float y;
+    float z;
+};
+
+struct linear_key_vector
+{
+    float timestamp;
+    vector3d value;
+};
+
+struct linear_track_vector
+{
+    int num_keys;
+    linear_key_vector *m_keys;
+};
+
+struct key_anim_vector_layout
+{
+    char base[8];
+    linear_track_vector *track;
+    linear_key_vector *current_key;
+};
+
+extern "C" void SetTime(
+    key_anim_vector_layout *self, float time
+) __asm__(
+    "set_time__t8key_anim3Z8vector3dZt10linear_key1Z8vector3d"
+    "Zt12linear_track1Z8vector3df"
+);
+
+void SetTime(key_anim_vector_layout *self, float time)
+{
+    self->current_key = self->track->m_keys;
+    linear_key_vector *next_key = self->current_key;
+    ++next_key;
+    while (next_key !=
+               self->track->m_keys + self->track->num_keys &&
+           time >= next_key->timestamp)
+    {
+        ++self->current_key;
+        ++next_key;
+    }
+}
+#endif
