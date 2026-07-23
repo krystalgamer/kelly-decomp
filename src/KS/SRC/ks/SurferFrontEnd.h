@@ -89,3 +89,26 @@ void SurferFrontEnd::OnButtonRelease(int controller, int button)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DCB30)
+// 0x001DCB30 __tf14SurferFrontEnd
+extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
+extern "C" void **BaseRtti_001DCB30() __asm__("__tf11FEMultiMenu");
+extern "C" void *type_001DCB30[] __asm__("__ti14SurferFrontEnd");
+extern const char name_001DCB30[];
+extern void *base_type_001DCB30[];
+__asm__(".equ __rtti_class, 0x003CE2B0");
+__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
+__asm__(".equ __ti14SurferFrontEnd, 0x005A2C78");
+__asm__(".equ name_001DCB30, 0x004DDCE8");
+__asm__(".equ base_type_001DCB30, 0x004DDC48");
+extern "C" void **Rtti_001DCB30() __asm__("__tf14SurferFrontEnd");
+void **Rtti_001DCB30()
+{
+    if (!type_001DCB30[0]) {
+        BaseRtti_001DCB30();
+        __rtti_class(type_001DCB30, name_001DCB30, base_type_001DCB30, 1);
+    }
+    return type_001DCB30;
+}
+#endif
