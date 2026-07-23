@@ -66,3 +66,29 @@ void **TimerWidgetRtti()
     return timer_widget_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FF800)
+// 0x002FF800 __tf22script_widget_holder_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **ScriptWidgetHolderBaseRtti() __asm__("__tf6widget");
+extern "C" void *script_widget_holder_type[] __asm__("__ti22script_widget_holder_t");
+extern "C" const char script_widget_holder_name[];
+extern "C" void *script_widget_holder_base_type[] __asm__("__ti6widget");
+__asm__(".equ __tf6widget, 0x003602B8");
+__asm__(".equ __ti22script_widget_holder_t, 0x005A3FB0");
+__asm__(".equ script_widget_holder_name, 0x004F4C10");
+__asm__(".equ __ti6widget, 0x00512148");
+extern "C" void **ScriptWidgetHolderRtti() __asm__("__tf22script_widget_holder_t");
+void **ScriptWidgetHolderRtti()
+{
+    if (!script_widget_holder_type[0]) {
+        ScriptWidgetHolderBaseRtti();
+        __rtti_si(
+            script_widget_holder_type,
+            script_widget_holder_name,
+            script_widget_holder_base_type
+        );
+    }
+    return script_widget_holder_type;
+}
+#endif
