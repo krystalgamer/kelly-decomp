@@ -1026,3 +1026,65 @@ void FEMenu::cons(
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DB160)
+// 0x001DB160 TurnOn__15FEGraphicalMenuP9PanelQuadb
+struct graphical_vtable
+{
+    char padding[0x168];
+    short adjustment;
+    short reserved;
+    void (*turn_on)(void *self, void *quad, bool on);
+};
+
+struct panel_vtable
+{
+    char padding[0x18];
+    short adjustment;
+    short reserved;
+    void (*turn_on)(void *self, bool on);
+};
+
+struct panel_quad
+{
+    char padding[0x194];
+    panel_vtable *vtable;
+};
+
+struct graphical_parent
+{
+    char padding[0x74];
+    graphical_vtable *vtable;
+};
+
+struct graphical_menu_layout
+{
+    char padding[0x64];
+    graphical_parent *parent;
+};
+
+extern "C" void TurnOn(
+    void *self, void *quad, bool on
+) __asm__("TurnOn__15FEGraphicalMenuP9PanelQuadb");
+
+void TurnOn(void *self, void *quad_pointer, bool on)
+{
+    graphical_menu_layout *menu =
+        (graphical_menu_layout *)self;
+    panel_quad *quad = (panel_quad *)quad_pointer;
+    if (menu->parent)
+    {
+        graphical_vtable *table = menu->parent->vtable;
+        table->turn_on(
+            (char *)menu->parent + table->adjustment, quad, on
+        );
+    }
+    else if (quad)
+    {
+        panel_vtable *table = quad->vtable;
+        table->turn_on(
+            (char *)quad + table->adjustment, on
+        );
+    }
+}
+#endif
