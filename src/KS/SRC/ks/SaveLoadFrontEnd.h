@@ -49,3 +49,26 @@ void **Rtti_001DCCE8()
     return type_001DCCE8;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DCD40)
+// 0x001DCD40 __tf9NamesMenu
+extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
+extern "C" void **BaseRtti_001DCD40() __asm__("__tf11FEMultiMenu");
+extern "C" void *type_001DCD40[] __asm__("__ti9NamesMenu");
+extern const char name_001DCD40[];
+extern void *base_type_001DCD40[];
+__asm__(".equ __rtti_class, 0x003CE2B0");
+__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
+__asm__(".equ __ti9NamesMenu, 0x005A2CB8");
+__asm__(".equ name_001DCD40, 0x004DDD40");
+__asm__(".equ base_type_001DCD40, 0x004DDC48");
+extern "C" void **Rtti_001DCD40() __asm__("__tf9NamesMenu");
+void **Rtti_001DCD40()
+{
+    if (!type_001DCD40[0]) {
+        BaseRtti_001DCD40();
+        __rtti_class(type_001DCD40, name_001DCD40, base_type_001DCD40, 1);
+    }
+    return type_001DCD40;
+}
+#endif
