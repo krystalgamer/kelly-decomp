@@ -2036,3 +2036,30 @@ void **FadeOutRtti()
     return fade_out_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00320350)
+// 0x00320350 __tf13slf_fade_in_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **FadeInBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *fade_in_type[]
+    __asm__("__ti13slf_fade_in_t");
+extern "C" const char fade_in_name[];
+extern "C" void *fade_in_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti13slf_fade_in_t, 0x005A44E0");
+__asm__(".equ fade_in_name, 0x0050ED10");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **FadeInRtti() __asm__("__tf13slf_fade_in_t");
+
+void **FadeInRtti()
+{
+    if (!fade_in_type[0]) {
+        FadeInBaseRtti();
+        __rtti_si(fade_in_type, fade_in_name, fade_in_base_type);
+    }
+    return fade_in_type;
+}
+#endif
