@@ -47,3 +47,39 @@ void SurferFrontEnd::AdjustHandicap(bool left)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00187A40)
+// 0x00187A40 getName__14SurferFrontEndi
+#include "KS/SRC/stringx.h"
+struct SurferData {
+    char padding[0x16c];
+    char name[0x120];
+};
+extern SurferData SurferDataArray[];
+__asm__(".equ SurferDataArray, 0x004254E0");
+extern "C" void construct_string(
+    stringx *result,const char *text,int length
+) __asm__("__7stringxPCci");
+extern "C" void copy_string(
+    stringx *result,const stringx *source
+) __asm__("__7stringxRC7stringx");
+extern "C" void destroy_string(
+    stringx *value,int flags
+) __asm__("_$_7stringx");
+extern "C" stringx *get_surfer_name(
+    stringx *result,int index
+) __asm__("getName__14SurferFrontEndi");
+__asm__(".equ __7stringxPCci, 0x0034D438");
+__asm__(".equ __7stringxRC7stringx, 0x0034D4D0");
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+stringx *get_surfer_name(stringx *result,int index) {
+    char storage[8] __attribute__((aligned(16)));
+    stringx *tmp=(stringx *)storage;
+    construct_string(tmp,SurferDataArray[index].name,-1);
+    register const stringx *source __asm__("$5")=tmp;
+    __asm__ __volatile__("" : "+r"(source));
+    copy_string(result,source);
+    destroy_string(tmp,2);
+    return result;
+}
+#endif
