@@ -180,3 +180,25 @@ void **MenuWaterDrawRtti()
     return menu_water_draw_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00314048)
+// 0x00314048 __tf8MenuDraw
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **MenuDrawBaseRtti() __asm__("__tf4Menu");
+extern "C" void *menu_draw_type[] __asm__("__ti8MenuDraw");
+extern "C" const char menu_draw_name[];
+extern "C" void *menu_draw_base_type[] __asm__("__ti4Menu");
+__asm__(".equ __tf4Menu, 0x002703D0");
+__asm__(".equ __ti8MenuDraw, 0x005A4200");
+__asm__(".equ menu_draw_name, 0x00508B00");
+__asm__(".equ __ti4Menu, 0x005120F8");
+extern "C" void **MenuDrawRtti() __asm__("__tf8MenuDraw");
+void **MenuDrawRtti()
+{
+    if (!menu_draw_type[0]) {
+        MenuDrawBaseRtti();
+        __rtti_si(menu_draw_type, menu_draw_name, menu_draw_base_type);
+    }
+    return menu_draw_type;
+}
+#endif
