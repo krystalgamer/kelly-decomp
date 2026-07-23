@@ -1833,3 +1833,35 @@ void **TextWidthRtti()
     return text_width_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031FB90)
+// 0x0031FB90 __tf27slf_is_action_button_down_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **IsActionButtonDownBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *is_action_button_down_type[]
+    __asm__("__ti27slf_is_action_button_down_t");
+extern "C" const char is_action_button_down_name[];
+extern "C" void *is_action_button_down_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti27slf_is_action_button_down_t, 0x005A4470");
+__asm__(".equ is_action_button_down_name, 0x0050EC58");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **IsActionButtonDownRtti()
+    __asm__("__tf27slf_is_action_button_down_t");
+
+void **IsActionButtonDownRtti()
+{
+    if (!is_action_button_down_type[0]) {
+        IsActionButtonDownBaseRtti();
+        __rtti_si(
+            is_action_button_down_type,
+            is_action_button_down_name,
+            is_action_button_down_base_type
+        );
+    }
+    return is_action_button_down_type;
+}
+#endif
