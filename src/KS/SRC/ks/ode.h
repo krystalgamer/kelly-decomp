@@ -54,3 +54,30 @@ asm(".equ typeinfo, 0x005120C0"); asm(".equ type_name, 0x004E4D30");
 extern "C" void *GetTypeInfo() __asm__("__tf14OdeSolverClass");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0026EAF0)
+// 0x0026EAF0 _$_15RungeKuttaClass
+extern "C" int Terminate(void *self)
+    __asm__("Terminate__15RungeKuttaClass");
+extern "C" void BuiltinDelete(void *memory)
+    __asm__("__builtin_delete");
+extern const char runge_vtable[];
+extern const char ode_vtable[];
+__asm__(".equ Terminate__15RungeKuttaClass, 0x002413E0");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ runge_vtable, 0x004ED528");
+__asm__(".equ ode_vtable, 0x004ED560");
+struct runge_layout { char padding[0xc]; const void *vtable; };
+extern "C" void RungeDtor(void *self, int deleting)
+    __asm__("_$_15RungeKuttaClass");
+void RungeDtor(void *self, int deleting) {
+    runge_layout *solver=(runge_layout *)self;
+    solver->vtable=runge_vtable;
+    Terminate(self);
+    solver->vtable=ode_vtable;
+    if (deleting&1) {
+        BuiltinDelete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
