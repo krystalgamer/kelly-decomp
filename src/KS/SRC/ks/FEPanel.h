@@ -930,3 +930,39 @@ asm(".equ typeinfo, 0x00512058"); asm(".equ type_name, 0x004DD8D0");
 extern "C" void *GetTypeInfo() __asm__("__tf9PanelFile");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D8668)
+// 0x001D8668 _$_10TextString
+extern "C" void StringDtor(void *self, int deleting)
+    __asm__("_$_7stringx");
+extern "C" void BuiltinDelete(void *memory)
+    __asm__("__builtin_delete");
+extern const char text_string_vtable[];
+
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ text_string_vtable, 0x004DD500");
+
+struct text_string_layout
+{
+    char field0[4];
+    char text[8];
+    char padding[0x40];
+    const void *vtable;
+};
+
+extern "C" void TextStringDtor(void *self, int deleting)
+    __asm__("_$_10TextString");
+
+void TextStringDtor(void *self, int deleting)
+{
+    text_string_layout *text = (text_string_layout *)self;
+    text->vtable = text_string_vtable;
+    StringDtor((char *)self + 4, 2);
+    if (deleting & 1)
+    {
+        BuiltinDelete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
