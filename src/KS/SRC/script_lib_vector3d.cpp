@@ -648,3 +648,30 @@ void **Rtti_0032AED8()
     return rtti_type_0032AED8;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032B140)
+// 0x0032B140 __tf16slf_distance3d_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **RttiBase_0032B140()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *rtti_type_0032B140[]
+    __asm__("__ti16slf_distance3d_t");
+extern "C" const char rtti_name_0032B140[];
+extern "C" void *rtti_base_type_0032B140[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti16slf_distance3d_t, 0x005A4C60");
+__asm__(".equ rtti_name_0032B140, 0x0050FA68");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **Rtti_0032B140() __asm__("__tf16slf_distance3d_t");
+
+void **Rtti_0032B140()
+{
+    if (!rtti_type_0032B140[0]) {
+        RttiBase_0032B140();
+        __rtti_si(rtti_type_0032B140, rtti_name_0032B140, rtti_base_type_0032B140);
+    }
+    return rtti_type_0032B140;
+}
+#endif
