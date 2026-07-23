@@ -277,3 +277,41 @@ void KSEntityState::SetKSBAnimInfo(float blend, bool loop, float frame)
     KSBAnimCall = true;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023C9E0)
+// 0x0023C9E0 Pause__8KSReplayb
+class KSReplay
+{
+    char padding[0x10];
+    int status;
+
+public:
+    void Pause(bool paused);
+};
+
+enum
+{
+    REPLAY_IGNORE = 0,
+    REPLAY_RECORD = 1,
+    REPLAY_PLAYBACK = 2,
+    REPLAY_PAUSED = 3
+};
+
+void KSReplay::Pause(bool paused)
+{
+    if (paused)
+    {
+        if (status == REPLAY_RECORD)
+            status = REPLAY_IGNORE;
+        else if (status == REPLAY_PLAYBACK)
+            status = REPLAY_PAUSED;
+    }
+    else
+    {
+        if (status == REPLAY_IGNORE)
+            status = REPLAY_RECORD;
+        else if (status == REPLAY_PAUSED)
+            status = REPLAY_PLAYBACK;
+    }
+}
+#endif
