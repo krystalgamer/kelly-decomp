@@ -397,6 +397,40 @@ void TargetDtor(void *self, int deleting) {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00270D60)
+#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/ks/menu_shared.h"
+
+extern "C" void **menu_entry_enum_base_rtti()
+    __asm__("__tf17MenuEntryListEdit");
+extern "C" void *menu_entry_enum_type[]
+    __asm__("__ti17MenuEntryEnumEdit");
+extern "C" const char menu_entry_enum_name[];
+extern "C" void *menu_entry_enum_base_type[]
+    __asm__("__ti17MenuEntryListEdit");
+
+__asm__(".equ __tf17MenuEntryListEdit, 0x0026E800");
+__asm__(".equ __ti17MenuEntryEnumEdit, 0x005A3D10");
+__asm__(".equ menu_entry_enum_name, 0x004E51A0");
+__asm__(".equ __ti17MenuEntryListEdit, 0x005A3CF0");
+
+// 0x00270D60 __tf17MenuEntryEnumEdit
+extern "C" void **menu_entry_enum_rtti()
+    __asm__("__tf17MenuEntryEnumEdit");
+void **menu_entry_enum_rtti()
+{
+    if (!menu_entry_enum_type[0]) {
+        menu_entry_enum_base_rtti();
+        __rtti_si(
+            menu_entry_enum_type,
+            menu_entry_enum_name,
+            menu_entry_enum_base_type
+        );
+    }
+    return menu_entry_enum_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00270C78)
 // 0x00270C78 _$_18MenuEntryFloatEdit
 extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
