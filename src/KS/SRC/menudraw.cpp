@@ -132,3 +132,29 @@ void **MenuEntityDrawRtti()
     return menu_entity_draw_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00313ED8)
+// 0x00313ED8 __tf16MenuParticleDraw
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **MenuParticleDrawBaseRtti() __asm__("__tf4Menu");
+extern "C" void *menu_particle_draw_type[] __asm__("__ti16MenuParticleDraw");
+extern "C" const char menu_particle_draw_name[];
+extern "C" void *menu_particle_draw_base_type[] __asm__("__ti4Menu");
+__asm__(".equ __tf4Menu, 0x002703D0");
+__asm__(".equ __ti16MenuParticleDraw, 0x005A41E0");
+__asm__(".equ menu_particle_draw_name, 0x00508AD8");
+__asm__(".equ __ti4Menu, 0x005120F8");
+extern "C" void **MenuParticleDrawRtti() __asm__("__tf16MenuParticleDraw");
+void **MenuParticleDrawRtti()
+{
+    if (!menu_particle_draw_type[0]) {
+        MenuParticleDrawBaseRtti();
+        __rtti_si(
+            menu_particle_draw_type,
+            menu_particle_draw_name,
+            menu_particle_draw_base_type
+        );
+    }
+    return menu_particle_draw_type;
+}
+#endif
