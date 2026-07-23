@@ -2441,3 +2441,30 @@ void **ToStrNumRtti()
     return to_str_num_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00321D00)
+// 0x00321D00 __tf16slf_to_str_int_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **ToStrIntBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *to_str_int_type[]
+    __asm__("__ti16slf_to_str_int_t");
+extern "C" const char to_str_int_name[];
+extern "C" void *to_str_int_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti16slf_to_str_int_t, 0x005A45D0");
+__asm__(".equ to_str_int_name, 0x0050EEA8");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **ToStrIntRtti() __asm__("__tf16slf_to_str_int_t");
+
+void **ToStrIntRtti()
+{
+    if (!to_str_int_type[0]) {
+        ToStrIntBaseRtti();
+        __rtti_si(to_str_int_type, to_str_int_name, to_str_int_base_type);
+    }
+    return to_str_int_type;
+}
+#endif
