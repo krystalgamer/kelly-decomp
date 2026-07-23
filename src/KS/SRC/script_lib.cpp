@@ -314,6 +314,28 @@ void **EnableInterfaceRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031E590)
+// 0x0031E590 __tf28slf_wait_animate_fog_color_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **WaitAnimateFogColorBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *wait_animate_fog_color_type[] __asm__("__ti28slf_wait_animate_fog_color_t");
+extern "C" const char wait_animate_fog_color_name[];
+extern "C" void *wait_animate_fog_color_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti28slf_wait_animate_fog_color_t, 0x005A4350");
+__asm__(".equ wait_animate_fog_color_name, 0x0050EA88");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **WaitAnimateFogColorRtti() __asm__("__tf28slf_wait_animate_fog_color_t");
+void **WaitAnimateFogColorRtti()
+{
+    if (!wait_animate_fog_color_type[0]) {
+        WaitAnimateFogColorBaseRtti();
+        __rtti_si(wait_animate_fog_color_type, wait_animate_fog_color_name, wait_animate_fog_color_base_type);
+    }
+    return wait_animate_fog_color_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
