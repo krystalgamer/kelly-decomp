@@ -184,3 +184,37 @@ void SaveLoadFrontEnd::OnCross(int c)
         Select();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001A0678)
+// 0x001A0678 AvailAndSavedGames__9NamesMenui
+struct MemCard
+{
+    int free;
+    int exists;
+    int changed;
+    int available;
+    int ask_format;
+    int saved_games;
+    int status;
+};
+
+class NamesMenu
+{
+    char padding[0x1bc];
+    MemCard cards[2];
+
+public:
+    static int FindAdjusted(int card);
+    bool AvailAndSavedGames(int card);
+};
+
+__asm__(".equ FindAdjusted__9NamesMenui, 0x001A0808");
+
+bool NamesMenu::AvailAndSavedGames(int card)
+{
+    int adjusted = FindAdjusted(card);
+    return cards[adjusted].exists &&
+           cards[adjusted].available &&
+           cards[adjusted].saved_games;
+}
+#endif
