@@ -243,3 +243,57 @@ void MainFrontEnd::OnTriangle(int c)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00184870)
+// 0x00184870 OnTriangle__12MultiSubMenui
+class entity;
+
+class SoundScriptManager
+{
+};
+
+extern SoundScriptManager *sound_manager;
+extern "C" void PlayEvent(
+    SoundScriptManager *manager, int event,
+    entity *source, float volume
+) __asm__(
+    "playEvent__18SoundScriptManager9EventTypeP6entityf"
+);
+__asm__(".equ sound_manager, 0x0046B4A0");
+__asm__(
+    ".equ playEvent__18SoundScriptManager9EventTypeP6entityf, "
+    "0x0031C380"
+);
+
+struct menu_vtable
+{
+    char padding[0x110];
+    short adjustment;
+    short reserved;
+    void (*make_active)(void *self, void *menu, bool play_sound);
+};
+
+struct menu_parent
+{
+    char padding[0x74];
+    menu_vtable *vtable;
+};
+
+class MultiSubMenu
+{
+    char padding[0x64];
+    menu_parent *parent;
+
+public:
+    void OnTriangle(int controller);
+};
+
+void MultiSubMenu::OnTriangle(int controller)
+{
+    PlayEvent(sound_manager, 27, 0, 0.0f);
+    menu_vtable *table = parent->vtable;
+    table->make_active(
+        (char *)parent + table->adjustment, 0, true
+    );
+}
+#endif
