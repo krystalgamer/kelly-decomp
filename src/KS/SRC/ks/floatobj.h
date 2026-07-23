@@ -110,3 +110,36 @@ asm(".equ typeinfo, 0x005120D8"); asm(".equ type_name, 0x004E4FB0");
 extern "C" void *GetTypeInfo() __asm__("__tf12generic_anim");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0026FB70)
+// 0x0026FB70 _$_12generic_anim
+extern "C" void StringDtor(void *self, int deleting)
+    __asm__("_$_7stringx");
+extern "C" void BuiltinDelete(void *memory)
+    __asm__("__builtin_delete");
+extern const char generic_anim_vtable[];
+
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ generic_anim_vtable, 0x004D6030");
+
+struct generic_anim_layout
+{
+    char string_and_fields[0x1c];
+    const void *vtable;
+};
+
+extern "C" void GenericAnimDtor(void *self, int deleting)
+    __asm__("_$_12generic_anim");
+
+void GenericAnimDtor(void *self, int deleting)
+{
+    ((generic_anim_layout *)self)->vtable = generic_anim_vtable;
+    StringDtor(self, 2);
+    if (deleting & 1)
+    {
+        BuiltinDelete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
