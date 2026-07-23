@@ -77,3 +77,19 @@ __asm__(".equ base_type_001DDCA8, 0x004DDC48");
 extern "C" void **Rtti_001DDCA8() __asm__("__tf14ExtrasFrontEnd");
 void **Rtti_001DDCA8() { if (!type_001DDCA8[0]) { BaseRtti_001DDCA8(); __rtti_class(type_001DDCA8, name_001DDCA8, base_type_001DDCA8, 1); } return type_001DDCA8; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DDD68)
+// 0x001DDD68 __tf15CreditsFrontEnd
+extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
+extern "C" void **BaseRtti_001DDD68() __asm__("__tf11FEMultiMenu");
+extern "C" void *type_001DDD68[] __asm__("__ti15CreditsFrontEnd");
+extern const char name_001DDD68[];
+extern void *base_type_001DDD68[];
+__asm__(".equ __rtti_class, 0x003CE2B0");
+__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
+__asm__(".equ __ti15CreditsFrontEnd, 0x005A2E88");
+__asm__(".equ name_001DDD68, 0x004DDFD8");
+__asm__(".equ base_type_001DDD68, 0x004DDC48");
+extern "C" void **Rtti_001DDD68() __asm__("__tf15CreditsFrontEnd");
+void **Rtti_001DDD68() { if (!type_001DDD68[0]) { BaseRtti_001DDD68(); __rtti_class(type_001DDD68, name_001DDD68, base_type_001DDD68, 1); } return type_001DDD68; }
+#endif
