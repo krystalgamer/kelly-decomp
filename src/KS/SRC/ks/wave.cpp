@@ -544,3 +544,25 @@ float WAVE_GetNextHeight()
     ].height;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00379A30)
+// 0x00379A30 WAVE_AllocPartition__FRPcUi
+struct WavePartition {
+    unsigned int count;
+    float *guide;
+    float *guide_step;
+    float *weight;
+};
+WavePartition *WAVE_AllocPartition(char *&memory, unsigned int count) {
+    WavePartition *partition=(WavePartition *)memory;
+    memory+=sizeof(*partition);
+    partition->count=count;
+    partition->guide=(float *)memory;
+    memory+=count*sizeof(*partition->guide);
+    partition->guide_step=(float *)memory;
+    memory+=(count-1)*sizeof(*partition->guide_step);
+    partition->weight=(float *)memory;
+    memory+=(count-1)*sizeof(*partition->weight);
+    return partition;
+}
+#endif
