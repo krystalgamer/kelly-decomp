@@ -2144,3 +2144,30 @@ void **GetDetailLevelRtti()
     return get_detail_level_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00320878)
+// 0x00320878 __tf23slf_was_start_pressed_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **WasStartPressedBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *was_start_pressed_type[]
+    __asm__("__ti23slf_was_start_pressed_t");
+extern "C" const char was_start_pressed_name[];
+extern "C" void *was_start_pressed_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti23slf_was_start_pressed_t, 0x005A4520");
+__asm__(".equ was_start_pressed_name, 0x0050ED80");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **WasStartPressedRtti() __asm__("__tf23slf_was_start_pressed_t");
+
+void **WasStartPressedRtti()
+{
+    if (!was_start_pressed_type[0]) {
+        WasStartPressedBaseRtti();
+        __rtti_si(was_start_pressed_type, was_start_pressed_name, was_start_pressed_base_type);
+    }
+    return was_start_pressed_type;
+}
+#endif
