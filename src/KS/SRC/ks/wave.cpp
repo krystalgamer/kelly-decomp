@@ -357,3 +357,27 @@ void **Rtti_00384EC0()
     return rtti_type_00384EC0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00384F98)
+// 0x00384F98 __tft21WavePerturbSurgeClass1i6
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **RttiBase_00384F98() __asm__("__tft21WavePulsePerturbClass1i6");
+extern "C" void *rtti_type_00384F98[] __asm__("__tit21WavePerturbSurgeClass1i6");
+extern "C" const char rtti_name_00384F98[];
+extern "C" void *rtti_base_type_00384F98[] __asm__("__tit21WavePulsePerturbClass1i6");
+__asm__(".equ __tft21WavePulsePerturbClass1i6, 0x00385198");
+__asm__(".equ __tit21WavePerturbSurgeClass1i6, 0x00782348");
+__asm__(".equ rtti_name_00384F98, 0x0051AC08");
+__asm__(".equ __tit21WavePulsePerturbClass1i6, 0x007823A8");
+extern "C" void **Rtti_00384F98() __asm__("__tft21WavePerturbSurgeClass1i6");
+
+void **Rtti_00384F98()
+{
+    if (!rtti_type_00384F98[0]) {
+        RttiBase_00384F98();
+        __rtti_si(rtti_type_00384F98, rtti_name_00384F98, rtti_base_type_00384F98);
+    }
+    return rtti_type_00384F98;
+}
+#endif
