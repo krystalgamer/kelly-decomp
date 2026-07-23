@@ -48,3 +48,89 @@ public:
 };
 partition3::partition3(const partition3& b) : _H(b), my_sector(b.my_sector) {}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002E8DD8)
+// 0x002E8DD8 find_intersection__7terrainRC8vector3dT1R8vector3dT3
+struct vector3d
+{
+    float x;
+    float y;
+    float z;
+};
+
+struct tree_iterator
+{
+    char empty_base[4];
+    void *node;
+
+    tree_iterator(void *value) : node(value) {}
+    tree_iterator(const tree_iterator &other) : node(other.node) {}
+};
+
+struct tree_branch
+{
+    tree_iterator parent;
+    int child;
+
+    tree_branch(const tree_iterator &value)
+        : parent(value), child(2)
+    {
+    }
+    tree_branch(const tree_branch &other)
+        : parent(other.parent), child(other.child)
+    {
+    }
+};
+
+struct tree_layout
+{
+    char padding[0x10];
+    void *root;
+
+    tree_iterator begin() { return tree_iterator(root); }
+};
+
+extern "C" bool recurse_intersection(
+    tree_layout *tree,
+    tree_branch branch,
+    const vector3d &p0,
+    const vector3d &p1,
+    const vector3d &my_normal,
+    vector3d &intersection,
+    vector3d &normal
+) __asm__(
+    "recurse_intersection__t7bp_tree2Z10partition3Z8vector3d"
+    "GQ2t7bp_tree2Z10partition3Z8vector3d6branchRC8vector3d"
+    "N22R8vector3dT5"
+);
+
+__asm__(
+    ".equ recurse_intersection__t7bp_tree2Z10partition3Z8vector3d"
+    "GQ2t7bp_tree2Z10partition3Z8vector3d6branchRC8vector3d"
+    "N22R8vector3dT5, 0x003008E8"
+);
+
+class terrain
+{
+    char padding[0x34];
+    tree_layout *tree;
+
+public:
+    bool find_intersection(
+        const vector3d &p0, const vector3d &p1,
+        vector3d &intersection, vector3d &normal
+    );
+};
+
+bool terrain::find_intersection(
+    const vector3d &p0, const vector3d &p1,
+    vector3d &intersection, vector3d &normal
+)
+{
+    vector3d my_normal;
+    return recurse_intersection(
+        tree, tree_branch(tree->begin()), p0, p1,
+        my_normal, intersection, normal
+    );
+}
+#endif
