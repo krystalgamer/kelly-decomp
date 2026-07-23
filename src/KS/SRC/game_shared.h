@@ -19,8 +19,40 @@ struct SurferData {
 
 extern SurferData SurferDataArray[];
 
+class nglTexture;
+class camera;
+class TimeAttackMode;
+class MeterAttackMode;
+class HeadToHeadMode;
+
+class PushMode {
+public:
+    float GetPlayerShare(int player) const;
+};
+
+struct PlayMode {
+    TimeAttackMode *timeAttack;
+    MeterAttackMode *meterAttack;
+    HeadToHeadMode *headToHead;
+    PushMode *push;
+};
+
+struct game_recti {
+    int x0;
+    int y0;
+    int x1;
+    int y1;
+};
+
 class game {
-    char data_before_num_players[0xB0];
+    char data_before_snapshot_state[0x68];
+    int snapshotState;
+    nglTexture *destSnapshot;
+    int renderState;
+    int game_mode;
+    PlayMode play_mode;
+    camera *player_cam[2];
+    game_recti player_viewports[2];
     int num_players;
 
 public:
@@ -33,6 +65,8 @@ public:
     int get_first_beach();
     stringx get_beach_location_name();
     int get_first_surfer_index();
+    void take_snapshot(nglTexture *destination);
+    float get_player_share(int player) const;
     inline int get_num_players() const {
         return num_players;
     }

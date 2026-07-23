@@ -223,3 +223,39 @@ int game::get_first_surfer_index()
     return surfer_index;
 }
 #endif
+#if defined(KELLY_DECOMP_FUNCTION_0027A490)
+#include "KS/SRC/game_shared.h"
+
+class entity;
+
+enum EventType {
+    SS_CAMERA_SNAPSHOT = 19
+};
+
+class SoundScriptManager {
+public:
+    int playEvent(
+        EventType type,
+        entity *source = 0,
+        float fade_in_time = 0.0f
+    );
+};
+
+extern SoundScriptManager *sound_script_manager;
+
+__asm__(".equ sound_script_manager, 0x0046B4A0");
+__asm__(
+    ".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380"
+);
+
+// 0x0027A490 take_snapshot__4gameP10nglTexture
+void game::take_snapshot(nglTexture *destination)
+{
+    destSnapshot = destination;
+
+    if (snapshotState == 0) {
+        sound_script_manager->playEvent(SS_CAMERA_SNAPSHOT);
+        snapshotState = 1;
+    }
+}
+#endif
