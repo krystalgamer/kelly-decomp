@@ -95,3 +95,32 @@ int frame_info::time_to_frame(int period) const
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00338728)
+// 0x00338728 compute_boost_for_play__10frame_infoi
+class frame_info
+{
+    float age;
+    int ifl_frame_boost;
+    int ifl_frame_locked;
+    static float ifl_frame_rate;
+
+public:
+    void compute_boost_for_play(int period);
+};
+
+__asm__(".equ _10frame_info$ifl_frame_rate, 0x0046B5A8");
+
+void frame_info::compute_boost_for_play(int period)
+{
+    if (ifl_frame_locked >= 0)
+    {
+        ifl_frame_boost =
+            ifl_frame_locked -
+            ((int)(age * ifl_frame_rate) % period);
+        if (ifl_frame_boost < 0)
+            ifl_frame_boost += period;
+        ifl_frame_locked = -1;
+    }
+}
+#endif
