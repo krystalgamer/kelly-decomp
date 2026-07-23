@@ -97,3 +97,29 @@ void **GravityGeneratorRtti()
     return gravity_generator_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FF138)
+// 0x002FF138 __tf22linear_force_generator
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **LinearForceGeneratorBaseRtti() __asm__("__tf15force_generator");
+extern "C" void *linear_force_generator_type[] __asm__("__ti22linear_force_generator");
+extern "C" const char linear_force_generator_name[];
+extern "C" void *linear_force_generator_base_type[] __asm__("__ti15force_generator");
+__asm__(".equ __tf15force_generator, 0x00302B88");
+__asm__(".equ __ti22linear_force_generator, 0x005A3F30");
+__asm__(".equ linear_force_generator_name, 0x004F4B58");
+__asm__(".equ __ti15force_generator, 0x005A4120");
+extern "C" void **LinearForceGeneratorRtti() __asm__("__tf22linear_force_generator");
+void **LinearForceGeneratorRtti()
+{
+    if (!linear_force_generator_type[0]) {
+        LinearForceGeneratorBaseRtti();
+        __rtti_si(
+            linear_force_generator_type,
+            linear_force_generator_name,
+            linear_force_generator_base_type
+        );
+    }
+    return linear_force_generator_type;
+}
+#endif
