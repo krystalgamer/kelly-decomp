@@ -313,3 +313,51 @@ void **Rtti_00325038()
     return rtti_type_00325038;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00324DE0)
+// 0x00324DE0 __cl__15slf_anim_play_tR8vm_stackQ320script_library_class8function7entry_t
+#include "KS/SRC/script_lib_anim_shared.h"
+
+struct anim_vtable
+{
+    char padding[0x10];
+    short adjustment;
+    short reserved;
+    void (*clear_flag)(void *self, int flag);
+};
+
+struct anim_play_tree_layout
+{
+    int field0;
+    anim_vtable *vtable;
+};
+
+extern "C" void Attach(void *animation)
+    __asm__("attach__16entity_anim_tree");
+__asm__(".equ attach__16entity_anim_tree, 0x00117538");
+
+class slf_anim_play_t
+{
+public:
+    struct parms_t { entity_anim_tree *me; };
+    bool operator()(
+        vm_stack &stack,
+        script_library_class::function::entry_t entry
+    );
+};
+
+bool slf_anim_play_t::operator()(
+    vm_stack &stack,
+    script_library_class::function::entry_t entry
+)
+{
+    SLF_PARMS;
+    anim_vtable *table =
+        ((anim_play_tree_layout *)parms->me)->vtable;
+    table->clear_flag(
+        (char *)parms->me + table->adjustment, 0x40
+    );
+    Attach(parms->me);
+    SLF_DONE;
+}
+#endif
