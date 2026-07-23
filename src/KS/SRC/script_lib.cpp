@@ -2225,3 +2225,30 @@ void **WasBPressedRtti()
     return was_B_pressed_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00320E60)
+// 0x00320E60 __tf25slf_get_control_trigger_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **GetControlTriggerBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *get_control_trigger_type[]
+    __asm__("__ti25slf_get_control_trigger_t");
+extern "C" const char get_control_trigger_name[];
+extern "C" void *get_control_trigger_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti25slf_get_control_trigger_t, 0x005A4550");
+__asm__(".equ get_control_trigger_name, 0x0050EDD0");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **GetControlTriggerRtti() __asm__("__tf25slf_get_control_trigger_t");
+
+void **GetControlTriggerRtti()
+{
+    if (!get_control_trigger_type[0]) {
+        GetControlTriggerBaseRtti();
+        __rtti_si(get_control_trigger_type, get_control_trigger_name, get_control_trigger_base_type);
+    }
+    return get_control_trigger_type;
+}
+#endif
