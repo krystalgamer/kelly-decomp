@@ -270,6 +270,28 @@ void **UnsuspendAllAiRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031E3B0)
+// 0x0031E3B0 __tf18slf_enable_pause_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **EnablePauseBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *enable_pause_type[] __asm__("__ti18slf_enable_pause_t");
+extern "C" const char enable_pause_name[];
+extern "C" void *enable_pause_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti18slf_enable_pause_t, 0x005A4330");
+__asm__(".equ enable_pause_name, 0x0050EA50");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **EnablePauseRtti() __asm__("__tf18slf_enable_pause_t");
+void **EnablePauseRtti()
+{
+    if (!enable_pause_type[0]) {
+        EnablePauseBaseRtti();
+        __rtti_si(enable_pause_type, enable_pause_name, enable_pause_base_type);
+    }
+    return enable_pause_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
