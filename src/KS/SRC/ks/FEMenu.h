@@ -965,3 +965,64 @@ void FEMenu::OnUp(int command) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DAB30)
+// 0x001DAB30 cons__6FEMenuP12FEMenuSystemiii
+class FEMenuSystem;
+
+struct color32
+{
+    union
+    {
+        struct { unsigned char b, g, r, a; } channels;
+        unsigned int value;
+    };
+    color32(
+        unsigned char red, unsigned char green,
+        unsigned char blue, unsigned char alpha
+    )
+    {
+        channels.b = blue;
+        channels.g = green;
+        channels.r = red;
+        channels.a = alpha;
+    }
+    operator unsigned int() const { return value; }
+};
+
+struct menu_vtable
+{
+    char padding[0x138];
+    short adjustment;
+    short reserved;
+    void (*cons)(
+        void *self, FEMenuSystem *system, int x, int y,
+        unsigned int normal, unsigned int high, int max_visible
+    );
+};
+
+class FEMenu
+{
+    char padding[0x74];
+    menu_vtable *vtable;
+
+public:
+    void cons(
+        FEMenuSystem *system, int x, int y, int max_visible
+    );
+};
+
+void FEMenu::cons(
+    FEMenuSystem *system, int x, int y, int max_visible
+)
+{
+    menu_vtable *table = vtable;
+    table->cons(
+        (char *)this + table->adjustment,
+        system, x, y,
+        color32(0, 0, 0, 0),
+        color32(0, 0, 0, 0),
+        max_visible
+    );
+}
+#endif
