@@ -88,6 +88,10 @@ def discover_sources(
             raise RuntimeError(f"Source has no queue function: {source.path}")
         if row["classification"] != "eligible":
             raise RuntimeError(f"Source is not eligible: {source.path}")
+        if row["status"] in {"deferred", "sol_pending"}:
+            raise RuntimeError(
+                f"Source belongs to a {row['status']} function: {source.path}"
+            )
 
         offset = address - 0x00100000
         size = int(row["size_bytes"])

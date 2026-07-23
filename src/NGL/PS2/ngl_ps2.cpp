@@ -1,17 +1,5 @@
 // Matching decompilation blocks selected by generated build shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_00399668)
-#include "NGL/PS2/ngl_ps2_shared.h"
-
-// 0x00399668 nglListEndScene__Fv
-void nglListEndScene()
-{
-    if (nglCurScene == &nglDefaultScene)
-        nglFatal(ngl_scene_stack_underflow);
-    nglCurScene = nglCurScene->Parent;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_003A7008)
 #include "NGL/PS2/ngl_ps2_shared.h"
 
