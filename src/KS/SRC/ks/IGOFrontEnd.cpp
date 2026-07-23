@@ -330,3 +330,30 @@ void IGOFrontEnd::SetTubeDepthMeter(int playerIdx, float value)
         players[playerIdx].horizBalanceWidget->SetFillage(value);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017CDB8)
+// 0x0017CDB8 TurnOnTubeIndicator__11IGOFrontEndib
+struct TextString { char padding[0x48]; unsigned int color; };
+struct player_info { char padding[0x34]; TextString *tubeTimer; char tail[4]; };
+struct game_layout { char padding[0xb4]; int num_ai_players; };
+extern game_layout *g_game_ptr;
+extern unsigned int COLOR_POINTS_MAIN;
+__asm__(".equ g_game_ptr, 0x0046AC64");
+__asm__(".equ COLOR_POINTS_MAIN, 0x003E76E8");
+class IGOFrontEnd {
+    char padding[0x124];
+    player_info *players;
+    char padding2[0x448];
+    unsigned int COLOR_STANDARD;
+public:
+    void TurnOnTubeIndicator(int player,bool on);
+};
+void IGOFrontEnd::TurnOnTubeIndicator(int player,bool on) {
+    if (player && g_game_ptr->num_ai_players) return;
+    TextString *timer=players[player].tubeTimer;
+    if (timer) {
+        if (on) timer->color=COLOR_POINTS_MAIN;
+        else timer->color=COLOR_STANDARD;
+    }
+}
+#endif
