@@ -171,3 +171,28 @@ struct item_vtable { char padding[0x628]; short adjustment; short padding2; int 
 class item { char padding[8]; item_vtable *vtable; public: bool is_usable() const; };
 bool item::is_usable() const { item_vtable *table = vtable; return table->usable((char *)this + table->adjustment) > 0; }
 #endif
+#if defined(KELLY_DECOMP_FUNCTION_002B8550)
+#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/script_lib_item_shared.h"
+
+extern "C" void **item_base_rtti() __asm__("__tf6entity");
+extern "C" void *item_type[] __asm__("__ti4item");
+extern "C" const char item_name[];
+extern "C" void *item_base_type[] __asm__("__ti6entity");
+
+__asm__(".equ __tf6entity, 0x001449C8");
+__asm__(".equ __ti4item, 0x005A3DB0");
+__asm__(".equ item_name, 0x004FE490");
+__asm__(".equ __ti6entity, 0x005A27C8");
+
+// 0x002B8550 __tf4item
+extern "C" void **item_rtti() __asm__("__tf4item");
+void **item_rtti()
+{
+    if (!item_type[0]) {
+        item_base_rtti();
+        __rtti_si(item_type, item_name, item_base_type);
+    }
+    return item_type;
+}
+#endif

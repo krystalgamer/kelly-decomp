@@ -2955,7 +2955,7 @@ address,size_bytes,size_hex,symbol_name,raw_name,binding,source_file,reference_f
 0x002B7DE0,80,0x50,__tf17beam_effect_alpha,__tf17beam_effect_alpha,global,C:/KS/SRC/beam.h,KS/SRC/beam.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,matched,1,100,SELF,notes/functions/002B7DE0___tf17beam_effect_alpha.md
 0x002B8050,80,0x50,__tf17beam_effect_color,__tf17beam_effect_color,global,C:/KS/SRC/beam.h,KS/SRC/beam.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,matched,1,100,SELF,notes/functions/002B8050___tf17beam_effect_color.md
 0x002B8500,80,0x50,__tf3mic,__tf3mic,global,C:/KS/SRC/mic.h,KS/SRC/mic.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,matched,1,100,SELF,notes/functions/002B8500___tf3mic.md
-0x002B8550,80,0x50,__tf4item,__tf4item,global,item.h,KS/SRC/item.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,pending,0,,,notes/functions/002B8550___tf4item.md
+0x002B8550,80,0x50,__tf4item,__tf4item,global,item.h,KS/SRC/item.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,matched,1,100,SELF,notes/functions/002B8550___tf4item.md
 0x002B8708,80,0x50,__tf11visual_item,__tf11visual_item,global,item.h,KS/SRC/item.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,pending,0,,,notes/functions/002B8708___tf11visual_item.md
 0x002B8BA0,80,0x50,__tf16interface_widget,__tf16interface_widget,global,C:/KS/SRC/interface.h,KS/SRC/interface.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,pending,0,,,notes/functions/002B8BA0___tf16interface_widget.md
 0x002B8CB8,80,0x50,__tf7trigger,__tf7trigger,global,C:/KS/SRC/trigger.h,KS/SRC/trigger.h,game/files_misc1,C:/KS/SRC/files_misc1.cpp,eligible,pending,0,,,notes/functions/002B8CB8___tf7trigger.md
