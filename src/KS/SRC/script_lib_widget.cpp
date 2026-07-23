@@ -2605,3 +2605,51 @@ bool slf_timer_widget_set_digit_color_t::operator()(
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032C698)
+// 0x0032C698 __cl__31slf_timer_widget_set_bg_color_tR8vm_stackQ320script_library_class8function7entry_t
+#include "KS/SRC/script_library_class_shared.h"
+
+struct color
+{
+    float r, g, b, a;
+    color(float red, float green, float blue, float alpha)
+        : r(red), g(green), b(blue), a(alpha) {}
+    color(const color &other)
+        : r(other.r), g(other.g), b(other.b), a(other.a) {}
+};
+
+class timer_widget
+{
+public:
+    void set_bg_color(color value);
+};
+
+__asm__(".equ set_bg_color__12timer_widgetG5color, 0x002BB790");
+
+class slf_timer_widget_set_bg_color_t
+{
+public:
+    struct parms_t
+    {
+        timer_widget *me;
+        vm_num_t r, g, b, a;
+    };
+    bool operator()(
+        vm_stack &stack,
+        script_library_class::function::entry_t entry
+    );
+};
+
+bool slf_timer_widget_set_bg_color_t::operator()(
+    vm_stack &stack,
+    script_library_class::function::entry_t entry
+)
+{
+    SLF_PARMS;
+    parms->me->set_bg_color(
+        color(parms->r, parms->g, parms->b, parms->a)
+    );
+    SLF_DONE;
+}
+#endif
