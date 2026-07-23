@@ -1201,3 +1201,35 @@ void entity::movement_info::mem_cleanup() {
     if (allocated) { arch_free(data_a); arch_free(data_b); allocated=0; if (cleanup) cleanup(); }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001317F0)
+// 0x001317F0 get_visual_radius__C6entity
+struct radius_slot {
+    short adjustment;
+    short reserved;
+    float (*get_radius)(void *,float);
+};
+struct visual_rep {
+    char padding[0x10];
+    char *vtable;
+};
+class entity {
+    char padding[0x128];
+    visual_rep *my_visrep;
+public:
+    float get_age() const;
+    float get_visual_radius() const;
+};
+__asm__(".equ get_age__C6entity, 0x00133618");
+float entity::get_visual_radius() const {
+    visual_rep *rep=my_visrep;
+    if (rep) goto has_rep;
+    __asm__ __volatile__("" : : : "memory");
+    return 0;
+has_rep:
+    radius_slot *slot=(radius_slot *)(rep->vtable+0x48);
+    return slot->get_radius(
+        (char *)rep+slot->adjustment,get_age()
+    );
+}
+#endif
