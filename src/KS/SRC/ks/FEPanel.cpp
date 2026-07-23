@@ -847,3 +847,30 @@ PanelGeom *PanelFile::FindObject(const char *name)
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001530B8)
+// 0x001530B8 Draw__9PanelFilei
+struct draw_slot {
+    short adjustment; short reserved;
+    void (*function)(void *,int,float);
+};
+struct PanelQuad {
+    char padding[0x190];
+    PanelQuad *next;
+    char *vtable;
+};
+class PanelFile {
+    char padding[0x28];
+    PanelQuad *pquads;
+public:
+    void Draw(int layer);
+};
+void PanelFile::Draw(int layer) {
+    PanelQuad *tmp=pquads;
+    while (tmp) {
+        draw_slot *slot=(draw_slot *)(tmp->vtable+0x40);
+        slot->function((char *)tmp+slot->adjustment,layer,-1.0f);
+        tmp=tmp->next;
+    }
+}
+#endif
