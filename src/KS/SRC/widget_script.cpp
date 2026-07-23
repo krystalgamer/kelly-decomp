@@ -53,3 +53,74 @@ void timer_widget::show()
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002BB790)
+// 0x002BB790 set_bg_color__12timer_widgetG5color
+typedef float time_value_t;
+typedef float rational_t;
+
+struct color
+{
+    float r;
+    float g;
+    float b;
+    float a;
+
+    color() {}
+    color(const color &other)
+        : r(other.r), g(other.g), b(other.b), a(other.a)
+    {
+    }
+};
+
+class widget
+{
+    char padding[0x140];
+
+public:
+    virtual ~widget();
+    virtual void show();
+    virtual void hide();
+    virtual void ignore_parent();
+    virtual void obey_parent();
+    virtual void ignore_parent_showing();
+    virtual void obey_parent_showing();
+    virtual void frame_advance(time_value_t time);
+    virtual void render();
+    virtual void message_handler(int message, int overflow,
+                                 rational_t first, rational_t second);
+    virtual void add_child(widget *child);
+    virtual void flush();
+    virtual void move_to(short x, short y);
+    virtual void move_to(time_value_t wait, time_value_t duration,
+                         short x, short y);
+    virtual void scale_to(rational_t horizontal, rational_t vertical);
+    virtual void scale_to(time_value_t wait, time_value_t duration,
+                          rational_t horizontal, rational_t vertical);
+    virtual void scale_to(rational_t scale);
+    virtual void scale_to(time_value_t wait, time_value_t duration,
+                          rational_t scale);
+    virtual void rotate_to(rational_t angle);
+    virtual void rotate_to(time_value_t wait, time_value_t duration,
+                           rational_t angle);
+    virtual void set_color(color value);
+};
+
+class bitmap_widget : public widget
+{
+};
+
+class timer_widget
+{
+    char padding[0x178];
+    bitmap_widget *bg;
+
+public:
+    void set_bg_color(color value);
+};
+
+void timer_widget::set_bg_color(color value)
+{
+    bg->set_color(value);
+}
+#endif
