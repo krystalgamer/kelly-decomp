@@ -224,6 +224,36 @@ void **buoy_camera_rtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0026F5C8)
+#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/ks/ks_camera_shared.h"
+
+extern "C" void **duckdive_camera_base_rtti() __asm__("__tf11game_camera");
+extern "C" void *duckdive_camera_type[] __asm__("__ti15duckdive_camera");
+extern "C" const char duckdive_camera_name[];
+extern "C" void *duckdive_camera_base_type[] __asm__("__ti11game_camera");
+
+__asm__(".equ __tf11game_camera, 0x002FECF0");
+__asm__(".equ __ti15duckdive_camera, 0x005A3B70");
+__asm__(".equ duckdive_camera_name, 0x004E4EE8");
+__asm__(".equ __ti11game_camera, 0x005A3D40");
+
+// 0x0026F5C8 __tf15duckdive_camera
+extern "C" void **duckdive_camera_rtti() __asm__("__tf15duckdive_camera");
+void **duckdive_camera_rtti()
+{
+    if (!duckdive_camera_type[0]) {
+        duckdive_camera_base_rtti();
+        __rtti_si(
+            duckdive_camera_type,
+            duckdive_camera_name,
+            duckdive_camera_base_type
+        );
+    }
+    return duckdive_camera_type;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0026EDB8)
 extern "C" void __rtti_si(void **type, const char *name, void **base);
 __asm__(".equ __rtti_si, 0x003CE2D8");
