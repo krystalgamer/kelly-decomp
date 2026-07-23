@@ -183,3 +183,45 @@ void GraphicalMenuSystem::DrawTop() {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BC438)
+// 0x001BC438 Select__13LegalFrontEndi
+struct menu_vtable
+{
+    char padding[0x20];
+    short adjustment;
+    short reserved;
+    void (*make_active)(
+        void *self, int menu, bool play_sound, bool set_previous
+    );
+};
+
+struct menu_system
+{
+    char padding[0x8c];
+    menu_vtable *vtable;
+};
+
+class LegalFrontEnd
+{
+    char padding0[0x50];
+    menu_system *system;
+    char padding1[0x100];
+    float timer;
+
+public:
+    void Select(int entry);
+};
+
+void LegalFrontEnd::Select(int entry)
+{
+    if (timer > 5.0f && system)
+    {
+        menu_vtable *table = system->vtable;
+        table->make_active(
+            (char *)system + table->adjustment,
+            12, true, true
+        );
+    }
+}
+#endif
