@@ -2017,3 +2017,30 @@ void **Rtti_0032D7D0()
     return rtti_type_0032D7D0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032D9A8)
+// 0x0032D9A8 __tf30slf_bitmap_widget_get_height_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **RttiBase_0032D9A8()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *rtti_type_0032D9A8[]
+    __asm__("__ti30slf_bitmap_widget_get_height_t");
+extern "C" const char rtti_name_0032D9A8[];
+extern "C" void *rtti_base_type_0032D9A8[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti30slf_bitmap_widget_get_height_t, 0x005A4F00");
+__asm__(".equ rtti_name_0032D9A8, 0x0050FFC8");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **Rtti_0032D9A8() __asm__("__tf30slf_bitmap_widget_get_height_t");
+
+void **Rtti_0032D9A8()
+{
+    if (!rtti_type_0032D9A8[0]) {
+        RttiBase_0032D9A8();
+        __rtti_si(rtti_type_0032D9A8, rtti_name_0032D9A8, rtti_base_type_0032D9A8);
+    }
+    return rtti_type_0032D9A8;
+}
+#endif
