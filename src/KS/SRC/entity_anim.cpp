@@ -189,3 +189,27 @@ void entity_anim::reset_start(const anim_control_t& ac)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00113490)
+// 0x00113490 mem_cleanup__11entity_anim
+extern int entity_anim_allocated;
+extern void *entity_anim_data_a;
+extern void *entity_anim_data_b;
+extern void (*entity_anim_cleanup)();
+void arch_free(void *memory);
+__asm__(".equ entity_anim_allocated, 0x003E572C");
+__asm__(".equ entity_anim_data_a, 0x003E5734");
+__asm__(".equ entity_anim_data_b, 0x003E5730");
+__asm__(".equ entity_anim_cleanup, 0x003E573C");
+__asm__(".equ arch_free__FPv, 0x002AC768");
+class entity_anim { public: static void mem_cleanup(); };
+void entity_anim::mem_cleanup() {
+    if (entity_anim_allocated) {
+        arch_free(entity_anim_data_a);
+        arch_free(entity_anim_data_b);
+        entity_anim_allocated=0;
+        if (entity_anim_cleanup)
+            entity_anim_cleanup();
+    }
+}
+#endif
