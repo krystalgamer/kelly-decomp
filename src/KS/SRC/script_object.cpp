@@ -72,3 +72,46 @@ script_object* script_manager::find_object(const stringx& name) const
     return (*i).second; }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00350F28)
+// 0x00350F28 find_func_by_address__C13script_objectPCUs
+struct vm_executable
+{
+    char padding[0x2c];
+    const unsigned short *start;
+    int size;
+};
+
+struct executable_vector
+{
+    vm_executable **begin_value;
+    vm_executable **end_value;
+    vm_executable **capacity;
+};
+
+class script_object
+{
+    char padding[0x20];
+    executable_vector funcs;
+
+public:
+    int find_func_by_address(const unsigned short *pc) const;
+};
+
+int script_object::find_func_by_address(
+    const unsigned short *pc
+) const
+{
+    int i = 0;
+    vm_executable **current = funcs.begin_value;
+    vm_executable **end = funcs.end_value;
+    for (; current != end; ++current, ++i)
+    {
+        vm_executable *executable = *current;
+        if (pc >= executable->start &&
+            pc < executable->start + executable->size)
+            return i;
+    }
+    return -1;
+}
+#endif
