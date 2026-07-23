@@ -1068,3 +1068,20 @@ void TargetDtor(void *self, int deleting) {
     if (deleting & 1) { BuiltinDelete(self); __asm__ __volatile__("" : : : "memory"); }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D9C10)
+// 0x001D9C10 _$_10PanelQuad4
+extern "C" void StringDtor(void *self, int deleting) __asm__("_$_7stringx");
+extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
+extern const char panel_quad_vtable[];
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ panel_quad_vtable, 0x004DC738");
+struct panel_layout { char padding0[0x170]; char name[8]; char padding1[0x1c]; const void *vtable; };
+extern "C" void TargetDtor(void *self, int deleting) __asm__("_$_10PanelQuad4");
+void TargetDtor(void *self, int deleting) {
+    ((panel_layout *)self)->vtable = panel_quad_vtable;
+    StringDtor((char *)self + 0x170, 2);
+    if (deleting & 1) { BuiltinDelete(self); __asm__ __volatile__("" : : : "memory"); }
+}
+#endif
