@@ -556,6 +556,28 @@ bool slf_area_damage_t::operator()(vm_stack &stack, entry_t entry)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031EFF8)
+// 0x0031EFF8 __tf19slf_post_message2_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **PostMessage2BaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *post_message2_type[] __asm__("__ti19slf_post_message2_t");
+extern "C" const char post_message2_name[];
+extern "C" void *post_message2_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti19slf_post_message2_t, 0x005A43E0");
+__asm__(".equ post_message2_name, 0x0050EB80");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **PostMessage2Rtti() __asm__("__tf19slf_post_message2_t");
+void **PostMessage2Rtti()
+{
+    if (!post_message2_type[0]) {
+        PostMessage2BaseRtti();
+        __rtti_si(post_message2_type, post_message2_name, post_message2_base_type);
+    }
+    return post_message2_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
