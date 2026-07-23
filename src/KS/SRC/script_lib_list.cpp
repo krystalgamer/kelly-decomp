@@ -1786,3 +1786,30 @@ void **Rtti_00333AB8()
     return rtti_type_00333AB8;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00333C80)
+// 0x00333C80 __tf21slf_create_str_list_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **RttiBase_00333C80()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *rtti_type_00333C80[]
+    __asm__("__ti21slf_create_str_list_t");
+extern "C" const char rtti_name_00333C80[];
+extern "C" void *rtti_base_type_00333C80[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti21slf_create_str_list_t, 0x005A5390");
+__asm__(".equ rtti_name_00333C80, 0x00500918");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **Rtti_00333C80() __asm__("__tf21slf_create_str_list_t");
+
+void **Rtti_00333C80()
+{
+    if (!rtti_type_00333C80[0]) {
+        RttiBase_00333C80();
+        __rtti_si(rtti_type_00333C80, rtti_name_00333C80, rtti_base_type_00333C80);
+    }
+    return rtti_type_00333C80;
+}
+#endif
