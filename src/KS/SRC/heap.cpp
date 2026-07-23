@@ -94,3 +94,23 @@ class Heap { char padding0[0x1c]; int stack_collision; char padding1[0x14]; void
 __asm__(".equ CheckLoHi__C4HeapPvT1, 0x002AB670");
 void Heap::CheckStackCollision() const { if (stack_collision) { CheckLoHi(low, high); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AB6F0)
+// 0x002AB6F0 DoYouContain__C4HeapPv
+class Heap {
+    char padding[0x18];
+    unsigned int heap_size;
+    void *heap_start;
+public:
+    unsigned int HeaderSize() const;
+    bool DoYouContain(void *pointer) const;
+};
+__asm__(".equ HeaderSize__C4Heap, 0x002AB370");
+bool Heap::DoYouContain(void *pointer) const {
+    unsigned int low=(unsigned int)heap_start;
+    unsigned int high=low+heap_size;
+    unsigned int check=(unsigned int)pointer;
+    check-=HeaderSize();
+    return check>=low && check<high;
+}
+#endif
