@@ -2009,3 +2009,30 @@ void **LetterboxCoutRtti()
     return letterbox_cout_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003202D8)
+// 0x003202D8 __tf14slf_fade_out_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **FadeOutBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *fade_out_type[]
+    __asm__("__ti14slf_fade_out_t");
+extern "C" const char fade_out_name[];
+extern "C" void *fade_out_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti14slf_fade_out_t, 0x005A44D0");
+__asm__(".equ fade_out_name, 0x0050ECF8");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **FadeOutRtti() __asm__("__tf14slf_fade_out_t");
+
+void **FadeOutRtti()
+{
+    if (!fade_out_type[0]) {
+        FadeOutBaseRtti();
+        __rtti_si(fade_out_type, fade_out_name, fade_out_base_type);
+    }
+    return fade_out_type;
+}
+#endif
