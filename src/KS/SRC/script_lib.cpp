@@ -492,6 +492,28 @@ void **VoDelayRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031EF38)
+// 0x0031EF38 __tf17slf_area_damage_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **AreaDamageBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *area_damage_type[] __asm__("__ti17slf_area_damage_t");
+extern "C" const char area_damage_name[];
+extern "C" void *area_damage_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti17slf_area_damage_t, 0x005A43D0");
+__asm__(".equ area_damage_name, 0x0050EB68");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **AreaDamageRtti() __asm__("__tf17slf_area_damage_t");
+void **AreaDamageRtti()
+{
+    if (!area_damage_type[0]) {
+        AreaDamageBaseRtti();
+        __rtti_si(area_damage_type, area_damage_name, area_damage_base_type);
+    }
+    return area_damage_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
