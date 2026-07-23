@@ -2306,3 +2306,30 @@ void **WaitKeypressRtti()
     return wait_keypress_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003212E8)
+// 0x003212E8 __tf25slf_apply_radius_damage_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **ApplyRadiusDamageBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *apply_radius_damage_type[]
+    __asm__("__ti25slf_apply_radius_damage_t");
+extern "C" const char apply_radius_damage_name[];
+extern "C" void *apply_radius_damage_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti25slf_apply_radius_damage_t, 0x005A4580");
+__asm__(".equ apply_radius_damage_name, 0x0050EE28");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **ApplyRadiusDamageRtti() __asm__("__tf25slf_apply_radius_damage_t");
+
+void **ApplyRadiusDamageRtti()
+{
+    if (!apply_radius_damage_type[0]) {
+        ApplyRadiusDamageBaseRtti();
+        __rtti_si(apply_radius_damage_type, apply_radius_damage_name, apply_radius_damage_base_type);
+    }
+    return apply_radius_damage_type;
+}
+#endif
