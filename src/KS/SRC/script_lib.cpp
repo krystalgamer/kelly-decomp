@@ -1923,3 +1923,30 @@ void **TargetPcRtti()
     return target_pc_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00320160)
+// 0x00320160 __tf18slf_letterbox_on_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **LetterboxOnBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *letterbox_on_type[]
+    __asm__("__ti18slf_letterbox_on_t");
+extern "C" const char letterbox_on_name[];
+extern "C" void *letterbox_on_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti18slf_letterbox_on_t, 0x005A44A0");
+__asm__(".equ letterbox_on_name, 0x0050ECB0");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **LetterboxOnRtti() __asm__("__tf18slf_letterbox_on_t");
+
+void **LetterboxOnRtti()
+{
+    if (!letterbox_on_type[0]) {
+        LetterboxOnBaseRtti();
+        __rtti_si(letterbox_on_type, letterbox_on_name, letterbox_on_base_type);
+    }
+    return letterbox_on_type;
+}
+#endif
