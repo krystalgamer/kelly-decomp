@@ -115,6 +115,28 @@ void **FreezeHeroRtti()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0031DF08)
+// 0x0031DF08 __tf14slf_set_zoom_t
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **SetZoomBaseRtti() __asm__("__tfQ220script_library_class8function");
+extern "C" void *set_zoom_type[] __asm__("__ti14slf_set_zoom_t");
+extern "C" const char set_zoom_name[];
+extern "C" void *set_zoom_base_type[] __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti14slf_set_zoom_t, 0x005A42C0");
+__asm__(".equ set_zoom_name, 0x0050E980");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **SetZoomRtti() __asm__("__tf14slf_set_zoom_t");
+void **SetZoomRtti()
+{
+    if (!set_zoom_type[0]) {
+        SetZoomBaseRtti();
+        __rtti_si(set_zoom_type, set_zoom_name, set_zoom_base_type);
+    }
+    return set_zoom_type;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
