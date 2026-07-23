@@ -2279,3 +2279,30 @@ void **GetControlStateRtti()
     return get_control_state_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00321220)
+// 0x00321220 __tf19slf_wait_keypress_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **WaitKeypressBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *wait_keypress_type[]
+    __asm__("__ti19slf_wait_keypress_t");
+extern "C" const char wait_keypress_name[];
+extern "C" void *wait_keypress_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti19slf_wait_keypress_t, 0x005A4570");
+__asm__(".equ wait_keypress_name, 0x0050EE10");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **WaitKeypressRtti() __asm__("__tf19slf_wait_keypress_t");
+
+void **WaitKeypressRtti()
+{
+    if (!wait_keypress_type[0]) {
+        WaitKeypressBaseRtti();
+        __rtti_si(wait_keypress_type, wait_keypress_name, wait_keypress_base_type);
+    }
+    return wait_keypress_type;
+}
+#endif
