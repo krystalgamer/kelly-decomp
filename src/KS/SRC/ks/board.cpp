@@ -66,3 +66,35 @@ struct controller_layout { char padding[0x1674]; int player; };
 class SurfBoardObjectClass { char padding0[0x9c4]; bool wipeout_active; char padding1[0x14]; controller_layout *controller; char padding2[0x7c]; bool wipeout_done; public: void SetWipeoutDone(); };
 void SurfBoardObjectClass::SetWipeoutDone() { wipeout_done = false; wipeout_active = false; ks_fx_end_wipeout_splash(controller->player); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001F99F0)
+// 0x001F99F0 CalculatePathPeakTime__20SurfBoardObjectClass
+struct rigid_body {
+    float mass;
+    char padding[0x70];
+    float lin_mom_y;
+};
+
+extern float air_gravity;
+__asm__(".equ air_gravity, 0x0042EBDC");
+
+class SurfBoardObjectClass {
+    char padding[4];
+    rigid_body *rb;
+
+public:
+    float CalculatePathPeakTime();
+};
+
+float SurfBoardObjectClass::CalculatePathPeakTime()
+{
+    float velocity = rb->lin_mom_y / rb->mass;
+    float gravity = -air_gravity * 0.72f / rb->mass;
+    if (gravity == 0.0f)
+        goto no_gravity;
+    return -velocity / gravity;
+
+no_gravity:
+    return 0.0f;
+}
+#endif
