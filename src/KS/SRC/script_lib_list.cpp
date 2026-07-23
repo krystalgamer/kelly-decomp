@@ -1003,3 +1003,30 @@ void **Rtti_003308E0()
     return rtti_type_003308E0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00330AC0)
+// 0x00330AC0 __tf41slf_vector3d_list_iterator_get_vector3d_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **RttiBase_00330AC0()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *rtti_type_00330AC0[]
+    __asm__("__ti41slf_vector3d_list_iterator_get_vector3d_t");
+extern "C" const char rtti_name_00330AC0[];
+extern "C" void *rtti_base_type_00330AC0[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti41slf_vector3d_list_iterator_get_vector3d_t, 0x005A51C0");
+__asm__(".equ rtti_name_00330AC0, 0x00500570");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **Rtti_00330AC0() __asm__("__tf41slf_vector3d_list_iterator_get_vector3d_t");
+
+void **Rtti_00330AC0()
+{
+    if (!rtti_type_00330AC0[0]) {
+        RttiBase_00330AC0();
+        __rtti_si(rtti_type_00330AC0, rtti_name_00330AC0, rtti_base_type_00330AC0);
+    }
+    return rtti_type_00330AC0;
+}
+#endif
