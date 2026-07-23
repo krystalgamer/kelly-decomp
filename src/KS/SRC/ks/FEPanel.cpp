@@ -746,3 +746,32 @@ void RandomText::changeText(stringx value)
     random_data = text;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014DE08)
+// 0x0014DE08 GetCenterPos__9PanelQuadRfT1
+extern "C" void UnadjustCoords(float &x, float &y)
+    __asm__("unadjustCoords__H1Zf_RX01T0_v");
+__asm__(".equ unadjustCoords__H1Zf_RX01T0_v, 0x001D6BF0");
+
+class PanelQuad
+{
+    char padding[0xa8];
+    float x1;
+    float y1;
+    float x2;
+    float y2;
+    float width;
+    float height;
+
+public:
+    void GetCenterPos(float &center_x, float &center_y);
+};
+
+void PanelQuad::GetCenterPos(float &center_x, float &center_y)
+{
+    center_x = x1 + width / 2.0f;
+    center_y = y1 + height / 2.0f;
+    UnadjustCoords(center_x, center_y);
+    __asm__ __volatile__("" : : : "memory");
+}
+#endif
