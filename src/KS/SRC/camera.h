@@ -103,3 +103,25 @@ struct object_layout { char padding[0x8]; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_12marky_camera");
 void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = base_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FEC90)
+// 0x002FEC90 __tf6camera
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **CameraBaseRtti() __asm__("__tf6entity");
+extern "C" void *camera_type[] __asm__("__ti6camera");
+extern "C" const char camera_name[];
+extern "C" void *camera_base_type[] __asm__("__ti6entity");
+__asm__(".equ __tf6entity, 0x001449C8");
+__asm__(".equ __ti6camera, 0x005A3EF0");
+__asm__(".equ camera_name, 0x004F4AF8");
+__asm__(".equ __ti6entity, 0x005A27C8");
+extern "C" void **CameraRtti() __asm__("__tf6camera");
+void **CameraRtti()
+{
+    if (!camera_type[0]) {
+        CameraBaseRtti();
+        __rtti_si(camera_type, camera_name, camera_base_type);
+    }
+    return camera_type;
+}
+#endif
