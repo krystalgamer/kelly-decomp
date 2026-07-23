@@ -118,3 +118,54 @@ void code_callback::spawn(signaller *sgrptr)
 #pragma interface
 __asm__(".equ _15signal_callback$id_counter, 0x0046DB14"); __asm__(".equ _vt$15signal_callback, 0x005051A8"); __asm__(".equ _vt$13code_callback, 0x00505148");class signaller;class signal_callback{public:char*parms;bool disabled;bool one_shot;unsigned id;static unsigned id_counter;signal_callback(){disabled=one_shot=false;id=id_counter++;}virtual~signal_callback();virtual void spawn(signaller*)=0;};class code_callback:public signal_callback{public:void(*func)(signaller*,const char*);code_callback(void(*)(signaller*,const char*),const char*);};code_callback::code_callback(void(*fn)(signaller*,const char*),const char*cptr):signal_callback(){func=fn;parms=(char*)cptr;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034BE08)
+// 0x0034BE08 spawn__15script_callbackP9signaller
+class signaller;
+struct vm_executable;
+struct script_callback;
+struct script_instance {};
+extern "C" void *AddThread(
+    script_instance *instance, const vm_executable *function,
+    const char *params
+) __asm__("add_thread__Q213script_object8instancePC13vm_executablePCc");
+extern "C" void *AddThreadCallback(
+    script_instance *instance, script_callback *callback,
+    const vm_executable *function, const char *params
+) __asm__("add_thread__Q213script_object8instanceP15script_callbackPC13vm_executablePCc");
+__asm__(".equ add_thread__Q213script_object8instancePC13vm_executablePCc, 0x00350568");
+__asm__(".equ add_thread__Q213script_object8instanceP15script_callbackPC13vm_executablePCc, 0x003506C8");
+struct callback_layout {
+    char *parameters;
+    int disabled;
+    int one_shot;
+    char padding[8];
+    script_instance *instance;
+    vm_executable *function;
+};
+class script_callback {
+public:
+    void spawn(signaller *source);
+};
+void script_callback::spawn(signaller *source) {
+    callback_layout *callback=(callback_layout *)this;
+    if (!callback->disabled) {
+        if (callback->one_shot)
+        {
+            AddThread(
+                callback->instance,callback->function,
+                callback->parameters
+            );
+            __asm__ __volatile__("" : : : "memory");
+        }
+        else
+        {
+            AddThreadCallback(
+                callback->instance,this,callback->function,
+                callback->parameters
+            );
+            __asm__ __volatile__("" : : : "memory");
+        }
+    }
+}
+#endif
