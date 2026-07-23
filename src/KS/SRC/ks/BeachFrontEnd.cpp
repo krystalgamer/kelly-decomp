@@ -55,3 +55,54 @@ bool BeachFrontEnd::Realistic(bool press_build_only)
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0018F4F0)
+// 0x0018F4F0 OnLevelLoaded__13BeachFrontEnd
+struct pause_menu_vtable {
+    char padding[0x50];
+    short start_draw_adjust;
+    short reserved;
+    void (*start_draw)(void *self, int menu, bool pause_game);
+};
+
+struct PauseMenuSystem {
+    char padding[0x8C];
+    pause_menu_vtable *vtable;
+
+    void startDraw(int menu, bool pause_game)
+    {
+        vtable->start_draw(
+            (char *)this + vtable->start_draw_adjust,
+            menu,
+            pause_game
+        );
+    }
+};
+
+struct frontend_manager_layout {
+    char padding[0x15688];
+    int map_loading_screen;
+};
+
+extern frontend_manager_layout frontendmanager;
+__asm__(".equ frontendmanager, 0x003E7728");
+
+class BeachFrontEnd {
+    char padding[0x50];
+    PauseMenuSystem *system;
+    char state_padding[0xEC4];
+    int sliding_in;
+    int ignore_controller;
+
+public:
+    void OnLevelLoaded();
+};
+
+void BeachFrontEnd::OnLevelLoaded()
+{
+    sliding_in = false;
+    ignore_controller = true;
+    system->startDraw(15, true);
+    frontendmanager.map_loading_screen = false;
+}
+#endif
