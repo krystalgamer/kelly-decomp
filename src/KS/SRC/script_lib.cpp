@@ -2819,3 +2819,30 @@ void **Rtti_003230F8()
     return rtti_type_003230F8;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003231B0)
+// 0x003231B0 __tf23slf_set_game_info_num_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **RttiBase_003231B0()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *rtti_type_003231B0[]
+    __asm__("__ti23slf_set_game_info_num_t");
+extern "C" const char rtti_name_003231B0[];
+extern "C" void *rtti_base_type_003231B0[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti23slf_set_game_info_num_t, 0x005A46B0");
+__asm__(".equ rtti_name_003231B0, 0x0050F058");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **Rtti_003231B0() __asm__("__tf23slf_set_game_info_num_t");
+
+void **Rtti_003231B0()
+{
+    if (!rtti_type_003231B0[0]) {
+        RttiBase_003231B0();
+        __rtti_si(rtti_type_003231B0, rtti_name_003231B0, rtti_base_type_003231B0);
+    }
+    return rtti_type_003231B0;
+}
+#endif
