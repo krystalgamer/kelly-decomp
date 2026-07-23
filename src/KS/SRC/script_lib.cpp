@@ -1982,3 +1982,30 @@ void **LetterboxOffRtti()
     return letterbox_off_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00320250)
+// 0x00320250 __tf20slf_letterbox_cout_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **LetterboxCoutBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *letterbox_cout_type[]
+    __asm__("__ti20slf_letterbox_cout_t");
+extern "C" const char letterbox_cout_name[];
+extern "C" void *letterbox_cout_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti20slf_letterbox_cout_t, 0x005A44C0");
+__asm__(".equ letterbox_cout_name, 0x0050ECE0");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **LetterboxCoutRtti() __asm__("__tf20slf_letterbox_cout_t");
+
+void **LetterboxCoutRtti()
+{
+    if (!letterbox_cout_type[0]) {
+        LetterboxCoutBaseRtti();
+        __rtti_si(letterbox_cout_type, letterbox_cout_name, letterbox_cout_base_type);
+    }
+    return letterbox_cout_type;
+}
+#endif
