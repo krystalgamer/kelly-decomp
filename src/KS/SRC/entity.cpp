@@ -1080,3 +1080,36 @@ void entity::create_destroy_info()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00139C48)
+// 0x00139C48 SetEntityMeshFlags__FP7nglMeshi
+typedef unsigned int u_int;
+
+struct nglMaterial {
+    u_int Flags;
+};
+
+struct nglMeshSection {
+    nglMaterial *Material;
+    char padding[0x3C];
+};
+
+struct nglMesh {
+    char padding[0x54];
+    u_int NSections;
+    nglMeshSection *Sections;
+};
+
+void SetEntityMeshFlags(nglMesh *mesh, int flag)
+{
+    if (mesh)
+    {
+        for (u_int i = 0; i < mesh->NSections; i++)
+        {
+            nglMeshSection *section = &mesh->Sections[i];
+            nglMaterial *material = section->Material;
+            material->Flags |= flag;
+        }
+    }
+}
+#endif
