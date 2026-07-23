@@ -2117,3 +2117,30 @@ void **SetFogTableGammaRtti()
     return set_fog_table_gamma_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003206B8)
+// 0x003206B8 __tf22slf_get_detail_level_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **GetDetailLevelBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *get_detail_level_type[]
+    __asm__("__ti22slf_get_detail_level_t");
+extern "C" const char get_detail_level_name[];
+extern "C" void *get_detail_level_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti22slf_get_detail_level_t, 0x005A4510");
+__asm__(".equ get_detail_level_name, 0x0050ED60");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **GetDetailLevelRtti() __asm__("__tf22slf_get_detail_level_t");
+
+void **GetDetailLevelRtti()
+{
+    if (!get_detail_level_type[0]) {
+        GetDetailLevelBaseRtti();
+        __rtti_si(get_detail_level_type, get_detail_level_name, get_detail_level_base_type);
+    }
+    return get_detail_level_type;
+}
+#endif
