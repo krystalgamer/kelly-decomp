@@ -577,3 +577,30 @@ void **Rtti_00325B38()
     return rtti_type_00325B38;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00325BD8)
+// 0x00325BD8 __tf20slf_beam_set_color_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **RttiBase_00325BD8()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *rtti_type_00325BD8[]
+    __asm__("__ti20slf_beam_set_color_t");
+extern "C" const char rtti_name_00325BD8[];
+extern "C" void *rtti_base_type_00325BD8[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti20slf_beam_set_color_t, 0x005A48A0");
+__asm__(".equ rtti_name_00325BD8, 0x0050F390");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **Rtti_00325BD8() __asm__("__tf20slf_beam_set_color_t");
+
+void **Rtti_00325BD8()
+{
+    if (!rtti_type_00325BD8[0]) {
+        RttiBase_00325BD8();
+        __rtti_si(rtti_type_00325BD8, rtti_name_00325BD8, rtti_base_type_00325BD8);
+    }
+    return rtti_type_00325BD8;
+}
+#endif
