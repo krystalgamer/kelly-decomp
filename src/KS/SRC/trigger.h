@@ -1,6 +1,29 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
+#if defined(KELLY_DECOMP_FUNCTION_00314300)
+// 0x00314300 __tf15trigger_manager
+#include "KS/SRC/rtti_shared.h"
+extern "C" void **TriggerManagerBaseRtti() __asm__("__tf9singleton");
+extern "C" void *trigger_manager_type[] __asm__("__ti15trigger_manager");
+extern "C" const char trigger_manager_name[];
+extern "C" void *trigger_manager_base_type[] __asm__("__ti9singleton");
+__asm__(".equ __tf9singleton, 0x00144398");
+__asm__(".equ __ti15trigger_manager, 0x005A4230");
+__asm__(".equ trigger_manager_name, 0x00508BD8");
+__asm__(".equ __ti9singleton, 0x00511FF8");
+extern "C" void **TriggerManagerRtti() __asm__("__tf15trigger_manager");
+void **TriggerManagerRtti()
+{
+    if (!trigger_manager_type[0]) {
+        TriggerManagerBaseRtti();
+        __rtti_si(trigger_manager_type, trigger_manager_name, trigger_manager_base_type);
+    }
+    return trigger_manager_type;
+}
+#endif
+
+
 #if defined(KELLY_DECOMP_FUNCTION_002B8D08)
 // 0x002B8D08 read__7triggerR10chunk_file
 class chunk_file;
