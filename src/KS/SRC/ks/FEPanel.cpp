@@ -643,3 +643,47 @@ void RandomText::Break()
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001484A8)
+// 0x001484A8 ChangeFade__10TextStringbT1f
+struct TextString
+{
+    char padding[0x24];
+    int fade;
+    float fade_alpha;
+    float fade_timer;
+
+};
+
+extern "C" void ChangeFade(
+    TextString *self, bool start, bool fade_in, float time
+) __asm__("ChangeFade__10TextStringbT1f");
+
+void ChangeFade(
+    TextString *self, bool start, bool fade_in, float time
+)
+{
+    if (start)
+    {
+        self->fade_timer = time;
+        if (fade_in)
+        {
+            if (self->fade != 1)
+            {
+                self->fade = 1;
+                self->fade_alpha = 0.0f;
+            }
+        }
+        else
+        {
+            if (self->fade != -1)
+            {
+                self->fade = -1;
+                self->fade_alpha = 1.0f;
+            }
+        }
+    }
+    else
+        self->fade = 0;
+}
+#endif
