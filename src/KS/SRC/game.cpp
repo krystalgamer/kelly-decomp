@@ -277,3 +277,30 @@ void game::take_snapshot(nglTexture *destination)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00285518)
+// 0x00285518 get_first_beach__4game
+struct BeachData {
+    char padding0[0x160];
+    int map_location;
+    char padding1[0xb0];
+};
+extern BeachData BeachDataArray[];
+extern void *g_game_ptr;
+__asm__(".equ BeachDataArray, 0x0043C198");
+__asm__(".equ g_game_ptr, 0x0046AC64");
+struct game_layout { char padding[0x228]; int beach_id; };
+class game {
+public:
+    int get_first_beach();
+};
+int game::get_first_beach() {
+    game_layout *current=(game_layout *)g_game_ptr;
+    int location=BeachDataArray[current->beach_id].map_location;
+    for (int i=0;i<25;i++) {
+        if (BeachDataArray[i].map_location==location)
+            return i;
+    }
+    return -1;
+}
+#endif
