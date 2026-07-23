@@ -477,3 +477,35 @@ void **Rtti_003852F8()
     return rtti_type_003852F8;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003772C8)
+// 0x003772C8 WAVE_PerturbNext__Fv
+struct WaveBreakStruct
+{
+    int type;
+    float time;
+    char padding[0x18];
+};
+
+extern WaveBreakStruct *WAVE_BreakNext;
+extern int WAVE_PerturbType;
+extern float WAVE_TotalSec;
+
+void WAVE_PerturbSkipBlanks();
+void WAVE_PerturbReset(float next_time);
+
+__asm__(".equ WAVE_BreakNext, 0x00585C4C");
+__asm__(".equ WAVE_PerturbType, 0x00484940");
+__asm__(".equ WAVE_TotalSec, 0x0048517C");
+__asm__(".equ WAVE_PerturbSkipBlanks__Fv, 0x00377320");
+__asm__(".equ WAVE_PerturbReset__Ff, 0x00377370");
+
+void WAVE_PerturbNext()
+{
+    ++WAVE_BreakNext;
+    WAVE_PerturbType = WAVE_BreakNext->type;
+    WAVE_PerturbSkipBlanks();
+    WAVE_PerturbReset(WAVE_BreakNext->time - WAVE_TotalSec);
+    __asm__ __volatile__("" : : : "memory");
+}
+#endif
