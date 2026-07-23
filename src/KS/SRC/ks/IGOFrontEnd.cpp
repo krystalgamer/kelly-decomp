@@ -240,3 +240,50 @@ void TurnBalanceMeterOn(
         self->players[playerIdx].horizBalanceWidget->Show(enabled);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017CBC0)
+// 0x0017CBC0 SetBalanceMeter__11IGOFrontEndibf
+class game {
+    char padding[0xB4];
+    int num_ai_players;
+
+public:
+    int get_num_ai_players() const { return num_ai_players; }
+};
+
+extern game *g_game_ptr;
+__asm__(".equ g_game_ptr, 0x0046AC64");
+
+class HorizBalanceWidget {
+public:
+    void SetArrow(float value);
+};
+__asm__(".equ SetArrow__18HorizBalanceWidgetf, 0x001686E0");
+
+struct igo_player {
+    char padding[0x14];
+    HorizBalanceWidget *horizBalanceWidget;
+    char tail[0x24];
+};
+
+class IGOFrontEnd {
+    char padding[0x124];
+    igo_player *players;
+
+public:
+    void SetBalanceMeter(int playerIdx, bool vertical, float value);
+};
+
+void IGOFrontEnd::SetBalanceMeter(
+    int playerIdx,
+    bool vertical,
+    float value
+)
+{
+    if (playerIdx && g_game_ptr->get_num_ai_players())
+        return;
+
+    if (players[playerIdx].horizBalanceWidget)
+        players[playerIdx].horizBalanceWidget->SetArrow(value);
+}
+#endif
