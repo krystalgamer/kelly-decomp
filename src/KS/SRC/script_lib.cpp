@@ -1897,3 +1897,29 @@ void **GetCurTimeIncRtti()
     return get_cur_time_inc_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031FFA8)
+// 0x0031FFA8 __tf15slf_TARGET_PC_t
+#include "KS/SRC/rtti_shared.h"
+
+extern "C" void **TargetPcBaseRtti()
+    __asm__("__tfQ220script_library_class8function");
+extern "C" void *target_pc_type[] __asm__("__ti15slf_TARGET_PC_t");
+extern "C" const char target_pc_name[];
+extern "C" void *target_pc_base_type[]
+    __asm__("__tiQ220script_library_class8function");
+__asm__(".equ __tfQ220script_library_class8function, 0x0035F640");
+__asm__(".equ __ti15slf_TARGET_PC_t, 0x005A4490");
+__asm__(".equ target_pc_name, 0x0050EC98");
+__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
+extern "C" void **TargetPcRtti() __asm__("__tf15slf_TARGET_PC_t");
+
+void **TargetPcRtti()
+{
+    if (!target_pc_type[0]) {
+        TargetPcBaseRtti();
+        __rtti_si(target_pc_type, target_pc_name, target_pc_base_type);
+    }
+    return target_pc_type;
+}
+#endif
