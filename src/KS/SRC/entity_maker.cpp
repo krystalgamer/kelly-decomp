@@ -45,3 +45,26 @@ entity_maker::entity_maker()
     owning_widget = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003082B0)
+// 0x003082B0 _$_12entity_maker
+extern "C" void PoolSetDtor(void *self, int deleting)
+    __asm__("_$_15entity_pool_set");
+extern "C" void BuiltinDelete(void *memory)
+    __asm__("__builtin_delete");
+extern const char entity_maker_vtable[];
+__asm__(".equ _$_15entity_pool_set, 0x0030B828");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ entity_maker_vtable, 0x004F7F68");
+struct maker_layout { char padding[0x14]; const void *vtable; };
+extern "C" void EntityMakerDtor(void *self, int deleting)
+    __asm__("_$_12entity_maker");
+void EntityMakerDtor(void *self, int deleting) {
+    ((maker_layout *)self)->vtable=entity_maker_vtable;
+    PoolSetDtor((char *)self+4,2);
+    if (deleting&1) {
+        BuiltinDelete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
