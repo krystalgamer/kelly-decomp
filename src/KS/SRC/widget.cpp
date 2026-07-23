@@ -498,3 +498,44 @@ rational_t widget::get_pc_z(rational_t rhw)
     return z;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033D8D8)
+// 0x0033D8D8 do_wevent__12scale_weventf
+struct widget_vtable
+{
+    char padding[0x78];
+    short adjustment;
+    short reserved;
+    void (*scale_to)(void *self, float horizontal, float vertical);
+};
+
+struct widget_layout
+{
+    char padding0[0x118];
+    float scale[2];
+    char padding1[0x20];
+    widget_vtable *vtable;
+};
+
+class scale_wevent
+{
+    int type;
+    widget_layout *owner;
+    char padding[0x10];
+    float sx;
+    float sy;
+
+public:
+    void do_wevent(float lerp);
+};
+
+void scale_wevent::do_wevent(float lerp)
+{
+    widget_vtable *table = owner->vtable;
+    table->scale_to(
+        (char *)owner + table->adjustment,
+        owner->scale[0] + (sx - owner->scale[0]) * lerp,
+        owner->scale[1] + (sy - owner->scale[1]) * lerp
+    );
+}
+#endif
