@@ -576,3 +576,36 @@ void bitmap_widget::resize(float new_width, float new_height)
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00341730)
+// 0x00341730 _$_11vrep_widget
+extern "C" void nglReleaseMeshFile(const void *name)
+    __asm__("nglReleaseMeshFile__FRC14nglFixedString");
+extern "C" void WidgetDtor(void *self, int deleting)
+    __asm__("_$_6widget");
+extern const char vrep_widget_vtable[];
+
+__asm__(".equ nglReleaseMeshFile__FRC14nglFixedString, 0x003A1968");
+__asm__(".equ _$_6widget, 0x0033DC68");
+__asm__(".equ vrep_widget_vtable, 0x00504678");
+
+struct vrep_widget_layout
+{
+    char padding[0x140];
+    const void *vtable;
+    void *mesh;
+};
+
+extern "C" void VrepWidgetDtor(void *self, int deleting)
+    __asm__("_$_11vrep_widget");
+
+void VrepWidgetDtor(void *self, int deleting)
+{
+    vrep_widget_layout *widget = (vrep_widget_layout *)self;
+    widget->vtable = vrep_widget_vtable;
+    if (widget->mesh)
+        nglReleaseMeshFile((char *)widget->mesh + 0x10);
+    WidgetDtor(self, deleting);
+    __asm__ __volatile__("" : : : "memory");
+}
+#endif
