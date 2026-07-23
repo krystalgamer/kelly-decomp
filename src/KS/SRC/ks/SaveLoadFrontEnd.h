@@ -95,3 +95,26 @@ void **Rtti_001DCD98()
     return type_001DCD98;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DCE18)
+// 0x001DCE18 __tf12KeyboardMenu
+extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
+extern "C" void **BaseRtti_001DCE18() __asm__("__tf11FEMultiMenu");
+extern "C" void *type_001DCE18[] __asm__("__ti12KeyboardMenu");
+extern const char name_001DCE18[];
+extern void *base_type_001DCE18[];
+__asm__(".equ __rtti_class, 0x003CE2B0");
+__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
+__asm__(".equ __ti12KeyboardMenu, 0x005A2CD8");
+__asm__(".equ name_001DCE18, 0x004DDD60");
+__asm__(".equ base_type_001DCE18, 0x004DDC48");
+extern "C" void **Rtti_001DCE18() __asm__("__tf12KeyboardMenu");
+void **Rtti_001DCE18()
+{
+    if (!type_001DCE18[0]) {
+        BaseRtti_001DCE18();
+        __rtti_class(type_001DCE18, name_001DCE18, base_type_001DCE18, 1);
+    }
+    return type_001DCE18;
+}
+#endif
