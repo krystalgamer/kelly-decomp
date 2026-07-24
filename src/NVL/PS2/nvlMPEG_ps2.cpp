@@ -468,3 +468,8 @@ extern "C" int sceSdRemote(int,int,int,unsigned) ;__asm__(".equ sceSdRemote,0x00
 // 0x003896C0 audioDecResume__FP8AudioDec
 extern "C" void change_input(unsigned) __asm__("changeInputVolume__FUi");extern "C" int remote(int,int,int,int,int,int,int) __asm__("sceSdRemote");__asm__(".equ changeInputVolume__FUi,0x00389D68");__asm__(".equ sceSdRemote,0x0038BAE0");struct AudioDec{int state;char p0[64];int iopBuff,iopBuffSize;char p1[4];int iopPausePos;};extern "C" void resume(AudioDec*ad) __asm__("audioDecResume__FP8AudioDec");void resume(AudioDec*ad){change_input(0x7fff);int rounded=(ad->iopBuffSize/1024)*1024;__asm__("" : "+r"(rounded));int start=ad->iopBuff+ad->iopPausePos;remote(1,0x80e0,0,19,ad->iopBuff,rounded,start);ad->state=2;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00389050)
+// 0x00389050 voBufIncCount__FP5VoBuf
+extern "C" void disable_intr()__asm__("DIntr");extern "C" void enable_intr()__asm__("EIntr");__asm__(".equ DIntr,0x003DFD70");__asm__(".equ EIntr,0x003DFDB8");enum{VOBUF_STATUS_FULL=2};struct VoTag{int status;char data[314940];};struct VoBuf{void*data;VoTag*tag;volatile int write;volatile int count;int size;};extern "C" void inc(VoBuf*f)__asm__("voBufIncCount__FP5VoBuf");void inc(VoBuf*f){disable_intr();f->tag[f->write].status=VOBUF_STATUS_FULL;f->count++;f->write=(f->write+1)%f->size;enable_intr();KELLY_DECOMP_COMPILER_BARRIER();}
+#endif
