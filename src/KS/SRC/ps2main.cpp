@@ -151,3 +151,8 @@ bool KSReadFile(const char *filename,nglFileBuf *file,unsigned int align) {
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E31B8)
+// 0x001E31B8 KSMemAllocNGL__FUiUi
+typedef unsigned int u_int;extern "C" void*allocate(u_int,u_int,const char*,int) __asm__("KSMemAllocate__FUiUiPCci");__asm__(".equ KSMemAllocate__FUiUiPCci,0x001E3168");extern const char mesh_name[],texture_name[],ngl_name[];__asm__(".equ mesh_name,0x004DEF30");__asm__(".equ texture_name,0x004DEF50");__asm__(".equ ngl_name,0x004DEF70");extern "C" void*alloc_ngl(u_int Size,u_int Align) __asm__("KSMemAllocNGL__FUiUi");void*alloc_ngl(u_int Size,u_int Align){Align=Align>16?Align:16;if(Size==96)return allocate(96,Align,mesh_name,0);if(Size!=304)return allocate(Size,Align,ngl_name,0);return allocate(304,Align,texture_name,0);}
+#endif
