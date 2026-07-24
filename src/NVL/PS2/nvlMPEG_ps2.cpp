@@ -458,3 +458,8 @@ int viBufDelete(ViBuf *buffer) {
     return 1;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00389D00)
+// 0x00389D00 changeMasterVolume__FUi
+extern "C" int sceSdRemote(int,int,int,unsigned) ;__asm__(".equ sceSdRemote,0x0038BAE0");extern "C" void change_volume(unsigned val) __asm__("changeMasterVolume__FUi");void change_volume(unsigned val){for(int i=0;i<2;i++){sceSdRemote(1,0x8010,i|0x980,val);sceSdRemote(1,0x8010,i|0xa80,val);}}
+#endif
