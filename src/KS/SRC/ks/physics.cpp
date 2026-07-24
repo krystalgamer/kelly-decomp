@@ -54,3 +54,8 @@ extern "C" int terminate(void*) __asm__("Terminate__15RungeKuttaClass");extern "
 // 0x00241AA8 DerivFunc__18PhysicsObjectClassP18PhysicsObjectClassfPfT3
 extern "C" void set_state(void*,float*) __asm__("SetState__18PhysicsObjectClassPf");__asm__(".equ SetState__18PhysicsObjectClassPf,0x00241A28");struct vector3d{float x,y,z;};struct physics{float mass,inverseMass;vector3d force,velo,pos;};extern "C" void deriv(physics*phyobj,float time,float*in,float*out) __asm__("DerivFunc__18PhysicsObjectClassP18PhysicsObjectClassfPfT3");void deriv(physics*phyobj,float time,float*in,float*out){set_state(phyobj,in);*(out++)=phyobj->velo.x;*(out++)=phyobj->velo.y;*(out++)=phyobj->velo.z;*(out++)=phyobj->force.x;*(out++)=phyobj->force.y;*(out++)=phyobj->force.z;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00241A28)
+// 0x00241A28 SetState__18PhysicsObjectClassPf
+struct vector3d{float x,y,z;vector3d&operator=(const vector3d&o){x=o.x;y=o.y;z=o.z;return*this;}};struct Physics{char pad0[4];float inverseMass;char pad1[12];vector3d velo;vector3d pos;char pad2[68];vector3d linMom;};extern "C" void set_state(Physics*self,float*s)__asm__("SetState__18PhysicsObjectClassPf");void set_state(Physics*self,float*s){self->pos.x=*s++;self->pos.y=*s++;self->pos.z=*s++;self->linMom.x=*s++;self->linMom.y=*s++;self->linMom.z=*s++;vector3d temp;temp.x=self->linMom.x*self->inverseMass;temp.y=self->linMom.y*self->inverseMass;temp.z=self->linMom.z*self->inverseMass;self->velo=temp;}
+#endif
