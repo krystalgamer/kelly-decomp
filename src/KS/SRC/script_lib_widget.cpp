@@ -2741,3 +2741,8 @@ bool slf_text_block_widget_set_color_t::operator()(vm_stack &stack, script_libra
     return true;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032E2B8)
+// 0x0032E2B8 __cl__35slf_fluid_bar_widget_set_full_val_tR8vm_stackQ320script_library_class8function7entry_t
+struct vm_stack{char padding[8];char*top;};struct fluid_bar{char padding[360];float full_val,to_val,cur_val;char p2[12];float old_full_val;char p3[16];int update;};struct parms{fluid_bar*me;float v;};extern "C" bool call_full(void*,vm_stack&stack,int entry) __asm__("__cl__35slf_fluid_bar_widget_set_full_val_tR8vm_stackQ320script_library_class8function7entry_t");bool call_full(void*,vm_stack&stack,int entry){stack.top-=sizeof(parms);parms*p=(parms*)stack.top;fluid_bar*w=p->me;float v=p->v;w->full_val=v;if(w->to_val>w->full_val)w->to_val=w->full_val;if(w->cur_val>w->full_val)w->cur_val=w->full_val;register float current __asm__("$f1");__asm__ __volatile__("" : "=f"(current));current=w->full_val;register float old __asm__("$f0")=w->old_full_val;if(current!=old)w->update=true;return true;}
+#endif
