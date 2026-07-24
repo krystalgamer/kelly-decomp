@@ -654,3 +654,22 @@ void activate_sound(sound_layout *self)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B05D8)
+// 0x001B05D8 Update__15ReplayMenuClassf
+struct replay_system { char padding[148]; int replay_mode; };
+struct replay_vtable { char padding[376]; short adjustment; short reserved; void (*end_replay)(void *); };
+struct replay_menu { char padding[116]; replay_vtable *vtable; replay_system *sys; };
+struct KSReplay { char padding[16]; int status; };
+extern KSReplay ksreplay; extern "C" bool replay_done(KSReplay *) __asm__("Done__8KSReplay");
+__asm__(".equ ksreplay,0x004252A8"); __asm__(".equ Done__8KSReplay,0x0023CAD8");
+extern "C" void update_replay(replay_menu *self,float dt) __asm__("Update__15ReplayMenuClassf");
+void update_replay(replay_menu *self,float dt)
+{
+    if(self->sys->replay_mode && replay_done(&ksreplay)) {
+        replay_vtable *table=self->vtable;
+        table->end_replay((char*)self+table->adjustment);
+        ksreplay.status=1;
+    }
+}
+#endif
