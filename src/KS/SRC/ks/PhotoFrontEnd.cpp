@@ -433,3 +433,32 @@ void PhotoFrontEnd::Update(float time) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D03A0)
+// 0x001D03A0 Draw__16PhotoDevelopMenu
+extern "C" void draw_photo(void *) __asm__("Draw__11PhotoWidget");
+__asm__(".equ Draw__11PhotoWidget,0x0016ACD0");
+struct draw_vtable { char padding[24]; short adjustment; short reserved; void (*draw)(void *); };
+struct drawable { char padding[76]; draw_vtable *vtable; };
+struct photo_menu_layout { char padding[104]; drawable *helpText; char padding2[244]; drawable *title; char photo[268]; int drawCounter; };
+extern "C" void draw_photo_menu(photo_menu_layout *self) __asm__("Draw__16PhotoDevelopMenu");
+void draw_photo_menu(photo_menu_layout *self)
+{
+    __asm__ __volatile__("" : : : "$31");
+    register photo_menu_layout *object __asm__("$16") = self;
+    register int counter __asm__("$2") = object->drawCounter;
+    register void *photo __asm__("$4") = &object->photo;
+    __asm__ __volatile__("" : "+r"(counter), "+r"(photo), "+r"(object));
+    ++counter;
+    object->drawCounter = counter;
+    draw_photo(photo);
+    register drawable *element __asm__("$5") = object->title;
+    draw_vtable *table = element->vtable;
+    register void (*draw)(void *) __asm__("$3") = table->draw;
+    draw((char *)element + table->adjustment);
+    element = object->helpText;
+    table = element->vtable;
+    draw = table->draw;
+    draw((char *)element + table->adjustment);
+}
+#endif
