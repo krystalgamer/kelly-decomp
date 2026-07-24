@@ -37,3 +37,8 @@ int bone::get_bone_idx() {
     return -1;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00144770)
+// 0x00144770 _$_4bone
+extern void*bone_vtable;__asm__(".equ bone_vtable,0x004CE650");extern "C" void destroy_link(void*) __asm__("destroy_link_ifc__4bone");extern "C" void object_delete(void*) __asm__("__builtin_delete");extern "C" void signaller_dtor(void*,int) __asm__("_$_9signaller");__asm__(".equ destroy_link_ifc__4bone,0x00126D90");__asm__(".equ __builtin_delete,0x002AC6B0");__asm__(".equ _$_9signaller,0x0034CC90");struct bone{char p0[8];void*vtable;char p1[72];void*handed_abs;char p2[12];int part_of_skeleton;void*link;};extern "C" void destroy(bone*self,int deleting) __asm__("_$_4bone");void destroy(bone*self,int deleting){self->vtable=&bone_vtable;if(self->link)destroy_link(self);if(self->handed_abs&&!self->part_of_skeleton)object_delete(self->handed_abs);self->handed_abs=0;signaller_dtor(self,deleting);int dead;__asm__("" : "=r"(dead));}
+#endif
