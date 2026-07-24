@@ -79,3 +79,8 @@ bool IGOIconManager::FirstTimeGettingThisMany(int goal, bool ignore_previous)
     return false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001611B0)
+// 0x001611B0 FinishChain__14IGOIconManagerb
+struct RandomText{void Break();};__asm__(".equ Break__10RandomText,0x001495F0");struct IGOIconManager{char pad0[2920];int completedIcons;int chainedIcons;char pad1[92];int prepareFailure;char pad2[8];int prepPop;int popTime;char pad3[16];int tsSize;char pad4[2680];RandomText*scoreText;char pad5[28];int extraGuard;void PopCompletedIcons(bool);void FinishChain(bool)__asm__("FinishChain__14IGOIconManagerb");};__asm__(".equ PopCompletedIcons__14IGOIconManagerb,0x001609B0");void IGOIconManager::FinishChain(bool success){if(prepareFailure)return;if(extraGuard)return;if(success){if(!prepPop&&completedIcons>0){chainedIcons=false;prepPop=true;popTime=0;}}else if(!prepPop){RandomText*text=scoreText;tsSize=0;text->Break();PopCompletedIcons(false);}}
+#endif
