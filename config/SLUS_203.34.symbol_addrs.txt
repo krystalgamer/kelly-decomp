@@ -4434,7 +4434,7 @@ find__Ct8_Rb_tree5ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZPQ2t13instance_bank1Z8vr
 new_instance__t13instance_bank1Z8vr_pmeshP8vr_pmesh = 0x002AF2B0; // type:func size:0x6C
 new_instance__t13instance_bank1Z8materialP8material = 0x002AF320; // type:func size:0x6C
 _M_insert_aux__t6vector2ZP11beam_effectZt12my_allocator1ZP11beam_effectPP11beam_effectRCP11beam_effect = 0x002AF390; // type:func size:0x204
-clear__t10_List_base2Z12game_processZt12my_allocator1Z12game_process = 0x002AF598; // type:func size:0x8C
+clear__t10_List_base2Z12game_processZt12my_allocator1Z12game_process = 0x002AF598; // type:func defined:true size:0x8C
 erase__t4list2Z12game_processZt12my_allocator1Z12game_processGt14_List_iterator3Z12game_processZR12game_processZP12game_processT1 = 0x002AF648; // type:func size:0xC0
 insert__t4list2Z12game_processZt12my_allocator1Z12game_processGt14_List_iterator3Z12game_processZR12game_processZP12game_processUiRC12game_process = 0x002AF708; // type:func size:0xE8
 resize__t4list2Z12game_processZt12my_allocator1Z12game_processUiRC12game_process = 0x002AF7F0; // type:func size:0x98
