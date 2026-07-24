@@ -58,3 +58,30 @@ void *SlcNumCtor(
     return self;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034F178)
+// 0x0034F178 _$_Q220script_library_class8function
+extern "C" void vector_delete(void *)
+    __asm__("__builtin_vec_delete");
+extern "C" void object_delete(void *)
+    __asm__("__builtin_delete");
+extern const char function_vtable[];
+__asm__(".equ __builtin_vec_delete, 0x002AC6D0");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ function_vtable, 0x005052B0");
+struct function_layout {
+    char *name;
+    const void *vtable;
+};
+extern "C" void destroy_function(
+    function_layout *self,int flags
+) __asm__("_$_Q220script_library_class8function");
+void destroy_function(function_layout *self,int flags) {
+    self->vtable=function_vtable;
+    if (self->name) vector_delete(self->name);
+    if (flags&1) {
+        object_delete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
