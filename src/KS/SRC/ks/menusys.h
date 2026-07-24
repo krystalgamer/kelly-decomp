@@ -71,3 +71,40 @@ asm(".equ typeinfo, 0x005120F0"); asm(".equ type_name, 0x004E5078");
 extern "C" void *GetTypeInfo() __asm__("__tf9MenuInput");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00270368)
+// 0x00270368 _$_10MenuSystem
+extern "C" void term_menus() __asm__("MENU_TermMenus__Fv");
+extern "C" void object_delete(void *) __asm__("__builtin_delete");
+extern const char menu_render_vtable[];
+extern const char menu_input_vtable[];
+__asm__(".equ MENU_TermMenus__Fv, 0x00240388");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ menu_render_vtable, 0x004D5E28");
+__asm__(".equ menu_input_vtable, 0x004D5E00");
+struct menu_system_layout {
+    char padding[0x458];
+    const void *render_vtable;
+    char padding2[0x10];
+    const void *input_vtable;
+};
+extern "C" void destroy_menu_system(
+    menu_system_layout *self,int flags
+) __asm__("_$_10MenuSystem");
+void destroy_menu_system(menu_system_layout *self,int flags) {
+    register menu_system_layout *object __asm__("$17")=self;
+    register int delete_flags __asm__("$16")=flags;
+    register const void *render __asm__("$6")=menu_render_vtable;
+    register const void *input __asm__("$4")=menu_input_vtable;
+    __asm__ __volatile__(
+        "" : "+r"(object), "+r"(delete_flags), "+r"(render), "+r"(input)
+    );
+    object->input_vtable=input;
+    object->render_vtable=render;
+    term_menus();
+    if (delete_flags&1) {
+        object_delete(object);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
