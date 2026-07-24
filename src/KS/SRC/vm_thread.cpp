@@ -170,3 +170,8 @@ void vm_thread::remove_from_local_character()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00355B28)
+// 0x00355B28 call_script_library_function__9vm_threadRCQ29vm_thread10argument_tPCUs
+struct vm_stack{char pad[8];char*sp;};struct FunctionVtable{char pad[16];short adjust;short z;bool(*call)(void*,vm_stack&,int);};struct function{char pad[4];FunctionVtable*vtable;};struct argument_t{function*lfr;};struct vm_thread{char pad0[12];vm_stack dstack;char pad1[4];const unsigned short*PC;char pad2[12];int entry;bool call_script_library_function(const argument_t&,const unsigned short*)__asm__("call_script_library_function__9vm_threadRCQ29vm_thread10argument_tPCUs");};bool vm_thread::call_script_library_function(const argument_t&arg,const unsigned short*oldPC){vm_stack*stack=&dstack;char*oldSP=stack->sp;FunctionVtable*v=arg.lfr->vtable;if(v->call((char*)arg.lfr+v->adjust,*stack,entry)){entry=0;return true;}PC=oldPC;stack->sp=oldSP;entry=1;return false;}
+#endif
