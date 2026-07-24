@@ -1527,3 +1527,8 @@ struct cg_vtable{char padding[8];short adjustment;short reserved;void(*destroy)(
 // 0x00138B28 set_control_active__6entityb
 struct controller_vtable{char p0[24];short off_adjust;short x0;void(*off)(void*);short on_adjust;short x1;void(*on)(void*);};struct controller{int active;char p0[4];controller_vtable*vtable;};struct entity_layout{char p0[392];controller*my_controller;};extern "C" void set_control(entity_layout*self,bool a) __asm__("set_control_active__6entityb");void set_control(entity_layout*self,bool a){controller*c=self->my_controller;if(c){if(c->active){if(!a){controller_vtable*t=c->vtable;t->off((char*)c+t->off_adjust);}}else if(a){controller_vtable*t=c->vtable;t->on((char*)c+t->on_adjust);}}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00138D90)
+// 0x00138D90 set_active__6entityb
+struct entity_vtable{char p0[1496];short control_adjust;short x0;void(*set_control)(void*,bool);};struct entity_layout{char p0[8];entity_vtable*vtable;char p1[108];unsigned flags;char p2[268];void*controller;};extern "C" void set_active(entity_layout*self,bool a) __asm__("set_active__6entityb");void set_active(entity_layout*self,bool a){bool old=((int)self->flags>>17)&1;if(old!=a){if(a)self->flags|=0x20000;else self->flags&=~0x20000;if(self->controller){entity_vtable*t=self->vtable;t->set_control((char*)self+t->control_adjust,a);}}}
+#endif
