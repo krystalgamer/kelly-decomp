@@ -34,3 +34,33 @@ asm(".equ typeinfo, 0x00511FA8"); asm(".equ type_name, 0x004C8828");
 extern "C" void *GetTypeInfo() __asm__("__tf9ai_action");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001130B0)
+// 0x001130B0 _$_14anim_ai_action
+extern "C" void destroy_string(void *,int)
+    __asm__("_$_7stringx");
+extern "C" void object_delete(void *)
+    __asm__("__builtin_delete");
+extern const char action_vtable[];
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ action_vtable, 0x004C8370");
+struct action_layout {
+    char padding[0xc];
+    const void *vtable;
+    char first_string[8];
+    char second_string[8];
+};
+extern "C" void destroy_action(
+    action_layout *self,int flags
+) __asm__("_$_14anim_ai_action");
+void destroy_action(action_layout *self,int flags) {
+    destroy_string(self->second_string,2);
+    destroy_string(self->first_string,2);
+    self->vtable=action_vtable;
+    if (flags&1) {
+        object_delete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
