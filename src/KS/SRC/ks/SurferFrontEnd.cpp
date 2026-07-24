@@ -140,3 +140,8 @@ void SurferFrontEnd::OnAnyButtonPress(int,int button) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00189A80)
+// 0x00189A80 checkHigh__14SurferFrontEndb
+struct surfer{char p0[76];void*highlighted;char p1[408];void*Bio,*Trick,*Personality,*Continue,*ScrapBook,*Handicap;};extern "C" void set_state(surfer*,int) __asm__("SetState__14SurferFrontEndi");__asm__(".equ SetState__14SurferFrontEndi,0x00188A38");extern "C" void check(surfer*self,bool set) __asm__("checkHigh__14SurferFrontEndb");void check(surfer*self,bool set){if(set)set_state(self,(self->highlighted==self->Bio)?1:(self->highlighted==self->Trick)?2:(self->highlighted==self->Personality)?3:(self->highlighted==self->ScrapBook)?4:(self->highlighted==self->Continue)?5:(self->highlighted==self->Handicap)?6:0 );int dead;__asm__("" : "=r"(dead));}
+#endif
