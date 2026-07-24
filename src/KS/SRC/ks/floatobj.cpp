@@ -347,3 +347,8 @@ extern "C" void get_floating(floating_layout*self,const floating_layout&obj) __a
 void get_floating(floating_layout*self,const floating_layout&obj)
 {self->desired_dy=obj.desired_dy;self->current_dy=obj.current_dy;self->max_dy=obj.max_dy;self->speed_dy=obj.speed_dy;self->desired_angle=obj.desired_angle;self->current_angle=obj.current_angle;self->max_angle=obj.max_angle;self->speed_angle=obj.speed_angle;self->water_interaction=obj.water_interaction;water_settings(self,&obj);int dead;__asm__("" : "=r"(dead));}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00200088)
+// 0x00200088 _$_14surfing_object
+extern void*surf_vtable;__asm__(".equ surf_vtable,0x004D5F30");extern "C" void despawn(void*) __asm__("despawn__14surfing_object");extern "C" void string_dtor(void*,int) __asm__("_$_7stringx");extern "C" void water_dtor(void*,int) __asm__("_$_12water_object");__asm__(".equ despawn__14surfing_object,0x002028F0");__asm__(".equ _$_7stringx,0x0034D6E0");__asm__(".equ _$_12water_object,0x001FC5E0");struct handler_vtable{char p0[8];short adjustment;short x0;void(*destroy)(void*,int);};struct handler{char p0[28];handler_vtable*vtable;};struct surfing{char p0[56];void*vtable;char p1[664];handler*anim_handler;char p2[64];char anim_name[8];};extern "C" void destroy_surf(surfing*self,int deleting) __asm__("_$_14surfing_object");void destroy_surf(surfing*self,int deleting){self->vtable=&surf_vtable;despawn(self);if(self->anim_handler){handler*h=self->anim_handler;handler_vtable*t=h->vtable;t->destroy((char*)h+t->adjustment,3);}string_dtor(self->anim_name,2);water_dtor(self,deleting);int dead;__asm__("" : "=r"(dead));}
+#endif
