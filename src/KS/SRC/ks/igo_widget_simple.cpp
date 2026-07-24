@@ -67,3 +67,8 @@ void SimpleWidgetDtor(void *self, int deleting)
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00164888)
+// 0x00164888 Show__12SimpleWidgetb
+struct QuadVtable{char pad[24];short adjust;short z;void(*turn_on)(void*,bool);};struct PanelQuad{char pad[404];QuadVtable*vtable;};struct SimpleWidget{char pad[8];int numPQs;PanelQuad**pqs;void Show(bool)__asm__("Show__12SimpleWidgetb");};void SimpleWidget::Show(bool on){for(int i=0;i<numPQs;i++){PanelQuad*q=pqs[i];QuadVtable*v=q->vtable;v->turn_on((char*)q+v->adjust,on);}}
+#endif
