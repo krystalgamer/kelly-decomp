@@ -886,3 +886,8 @@ struct texture{char p0[1];};extern texture backbuffer;extern int ScreenCount;ext
 // 0x003A6920 nglInitQuad__FP7nglQuad
 struct Vert{char pad0[8];float U,V;unsigned Color;};struct nglQuad{Vert Verts[4];char pad[4];unsigned MapFlags,BlendMode;char rest[8];};extern "C" void*memset(void*,int,unsigned);__asm__(".equ memset,0x003D18D0");extern "C" void init(nglQuad*q)__asm__("nglInitQuad__FP7nglQuad");void init(nglQuad*q){memset(q,0,sizeof(nglQuad));q->Verts[0].Color=0x80808080;q->Verts[1].Color=0x80808080;q->Verts[2].Color=0x80808080;q->Verts[3].Color=0x80808080;q->Verts[0].U=0.0f;q->Verts[1].U=1.0f;q->Verts[2].U=0.0f;q->Verts[3].U=1.0f;q->Verts[0].V=0.0f;q->Verts[1].V=0.0f;q->Verts[2].V=1.0f;q->Verts[3].V=1.0f;q->MapFlags=0x30002;q->BlendMode=2;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0039F660)
+// 0x0039F660 nglVif1IntCreateTextureBlock__Fv
+struct Entry{int Type;void*GifDMA;int NTextures;int DataSize;};extern int entry_count;extern Entry*entry_array;extern Entry*current_entry;extern unsigned gif_next;extern char gif_pkt[];extern "C" void pk_init(void*,void*)__asm__("sceGifPkInit");extern "C" void pk_reset(void*)__asm__("sceGifPkReset");__asm__(".equ entry_count,0x004BB780");__asm__(".equ entry_array,0x004BB784");__asm__(".equ current_entry,0x004BB790");__asm__(".equ gif_next,0x004BEF30");__asm__(".equ gif_pkt,0x004BEF40");__asm__(".equ sceGifPkInit,0x003BBFC8");__asm__(".equ sceGifPkReset,0x003BBFD8");extern "C" void create()__asm__("nglVif1IntCreateTextureBlock__Fv");void create(){Entry*entry=&entry_array[entry_count++];if(entry_count>=256)return;entry->Type=1;entry->DataSize=0;entry->NTextures=0;current_entry=entry;entry->GifDMA=(void*)gif_next;pk_init(gif_pkt,(void*)(0x30000000u|gif_next));pk_reset(gif_pkt);asm volatile("");}
+#endif
