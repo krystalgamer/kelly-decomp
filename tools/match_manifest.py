@@ -8,6 +8,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+from function_paths import notes_file as safe_notes_file
+from function_paths import scratch_directory as safe_scratch_directory
+
 from source_layout import (
     install_function_source,
     uses_matching_compiler_barrier,
@@ -81,7 +84,7 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
         raise RuntimeError("Working tree is not clean")
 
     run(str(PYTHON), "tools/function_test.py", "prepare", row["address"])
-    scratch = ROOT / "tmp" / "functions" / Path(row["notes_file"]).stem
+    scratch = safe_scratch_directory(ROOT / "tmp" / "functions", row)
     candidate = scratch / "candidate.cpp"
     source = entry["source"]
     if not source.endswith("\n"):
@@ -137,7 +140,7 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
     )
     run(str(PYTHON), "tools/decomp.py", "check")
 
-    note_path = ROOT / row["notes_file"]
+    note_path = ROOT / safe_notes_file(row)
     staged_paths = [
         "config/SLUS_203.34.symbol_addrs.txt",
         "notes/function_queue.csv",

@@ -8,6 +8,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+from function_paths import notes_file as safe_notes_file
+from function_paths import scratch_directory as safe_scratch_directory
+
 
 ROOT = Path(__file__).resolve().parents[1]
 QUEUE_PATH = ROOT / "notes" / "function_queue.csv"
@@ -69,7 +72,7 @@ def resolve(rows: list[dict[str, str]], query: str) -> dict[str, str]:
 
 
 def scratch_directory(row: dict[str, str]) -> Path:
-    return SCRATCH_ROOT / Path(row["notes_file"]).stem
+    return safe_scratch_directory(SCRATCH_ROOT, row)
 
 
 def sol_pending_path(row: dict[str, str]) -> Path:
@@ -352,6 +355,7 @@ def finalize(
     row["best_score"] = f"{best_score:.4f}".rstrip("0").rstrip(".")
     row["commit"] = "SELF"
 
+    row["notes_file"] = str(safe_notes_file(row))
     note_path = ROOT / row["notes_file"]
     note_path.parent.mkdir(parents=True, exist_ok=True)
     note_path.write_text(

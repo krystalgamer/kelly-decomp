@@ -11,6 +11,8 @@ import struct
 import subprocess
 import sys
 from pathlib import Path
+
+from function_paths import scratch_directory as safe_scratch_directory
 from typing import Optional
 
 import spimdisasm
@@ -64,8 +66,7 @@ def resolve_function(query: str) -> dict[str, str]:
 
 
 def scratch_directory(row: dict[str, str]) -> Path:
-    notes_name = Path(row["notes_file"]).stem
-    return SCRATCH_ROOT / notes_name
+    return safe_scratch_directory(SCRATCH_ROOT, row)
 
 
 def attempt_limit(row: dict[str, str]) -> int:
