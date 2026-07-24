@@ -74,3 +74,8 @@ void *arch_memalign(unsigned int boundary, unsigned int size, const char *descri
 // 0x002AC640 __builtin_vec_new
 extern const char alloc_file[];__asm__(".equ alloc_file,0x004F94A8");extern "C" void*mem_malloc(unsigned,const char*,int,int) __asm__("mem_malloc__FUiPCcii");extern "C" void mem_error(unsigned,bool,const char*,int) __asm__("mem_error__FUibPCci");__asm__(".equ mem_malloc__FUiPCcii,0x002AC788");__asm__(".equ mem_error__FUibPCci,0x002AC308");extern "C" void*vec_new(unsigned size) __asm__("__builtin_vec_new");void*vec_new(unsigned size){void*p=mem_malloc(size,alloc_file,0,0);if(!p)mem_error(size,true,alloc_file,0);return p;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AC5A0)
+// 0x002AC5A0 __vn__FUiUiPCci
+extern "C" void*mem_malloc(unsigned,const char*,int,int) __asm__("mem_malloc__FUiPCcii");extern "C" void mem_error(unsigned,bool,const char*,int) __asm__("mem_error__FUibPCci");__asm__(".equ mem_malloc__FUiPCcii,0x002AC788");__asm__(".equ mem_error__FUibPCci,0x002AC308");extern "C" void*alloc_array(unsigned size,unsigned,const char*desc,int line) __asm__("__vn__FUiUiPCci");void*alloc_array(unsigned size,unsigned,const char*desc,int line){void*alloc=mem_malloc(size,desc,line,0);if(!alloc)mem_error(size,true,desc,line);return alloc;}
+#endif
