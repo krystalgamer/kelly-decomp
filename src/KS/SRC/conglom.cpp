@@ -78,3 +78,8 @@ struct EntityVtable{char data[1];};struct entity{char pad0[8];EntityVtable*vtabl
 // 0x003061C0 ifl_lock__12conglomeratei
 struct EntityVtable{char data[1];};struct entity{char pad0[8];EntityVtable*vtable;char pad1[392];short bone_idx;};struct conglomerate{char pad[512];entity**begin;entity**end;};extern "C" void base_call(conglomerate*,int)__asm__("ifl_lock__6entityi");__asm__(".equ ifl_lock__6entityi,0x00130F70");struct CallVtable{char pad[1544];short adjust;short z;void(*call)(void*,int);};extern "C" void fn(conglomerate*self,int arg)__asm__("ifl_lock__12conglomeratei");void fn(conglomerate*self,int arg){base_call(self,arg);entity**it=self->begin;entity**last=self->end;for(;it!=last;++it){entity*e=*it;if(e->bone_idx<0){CallVtable*v=(CallVtable*)e->vtable;v->call((char*)e+v->adjust,arg);}}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00305C20)
+// 0x00305C20 is_still_visible__C12conglomerate
+struct EntityVtable{char pad0[344];short visible_adjust;short z0;bool(*visible)(void*);char pad1[8];short still_adjust;short z1;bool(*still_visible)(void*);};struct entity{char pad[8];EntityVtable*vtable;};struct conglomerate{char pad[8];EntityVtable*vtable;char pad1[500];entity**members_begin;entity**members_end;};extern "C" bool still_visible(const conglomerate*self)__asm__("is_still_visible__C12conglomerate");bool still_visible(const conglomerate*self){EntityVtable*t=self->vtable;if(t->visible((char*)self+t->visible_adjust))return true;entity**i=self->members_begin;entity**end=self->members_end;for(;i!=end;++i){entity*e=*i;EntityVtable*v=e->vtable;if(v->still_visible((char*)e+v->still_adjust))return true;}return false;}
+#endif
