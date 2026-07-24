@@ -5016,7 +5016,7 @@ get_elevation__7terrainRC8vector3dR8vector3dPQ2t5graph4Z7stringxZP6regionZP6port
 find_sector__C7terrainRC8vector3d = 0x002EC610; // type:func defined:true size:0x1C
 optimize__7terrain = 0x002EC630; // type:func size:0x1550
 load_locales__Fv = 0x002EDB80; // type:func defined:true size:0x8
-localize_text_safe__FG7stringx = 0x002EDB88; // type:func size:0x70
+localize_text_safe__FG7stringx = 0x002EDB88; // type:func defined:true size:0x70
 CAMERA_TOOL_StaticInit__Fv = 0x002EDBF8; // type:func size:0x190
 AddCamButton__FP9MenuEntryi = 0x002EDD90; // type:func defined:true size:0x8
 ChangePOButton__26ChangeCamMenuEntryFunctioni = 0x002EDD98; // type:func defined:true size:0x3C
