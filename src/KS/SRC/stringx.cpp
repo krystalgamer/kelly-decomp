@@ -148,3 +148,29 @@ void string_buf::null_terminate() const {
     chars[length]=0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034E0B8)
+// 0x0034E0B8 __as__7stringxRC7stringx
+struct string_buf {
+    void *data;
+    int ref_count;
+};
+class stringx {
+    char *chars;
+    string_buf *my_buf;
+public:
+    void release_buffer();
+    static void add_buf_to_cache(string_buf *buffer);
+    stringx &operator=(const stringx &copy);
+};
+__asm__(".equ release_buffer__7stringx, 0x0034D760");
+__asm__(".equ add_buf_to_cache__7stringxP10string_buf, 0x0034DEB8");
+stringx &stringx::operator=(const stringx &copy) {
+    release_buffer();
+    my_buf=copy.my_buf;
+    my_buf->ref_count++;
+    add_buf_to_cache(my_buf);
+    chars=(char *)my_buf->data;
+    return *this;
+}
+#endif
