@@ -132,3 +132,29 @@ void menu_action(name_entry_layout *self, int controller)
     table->move((char *)self + table->adjustment);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001CD878)
+// 0x001CD878 OnDown__13NameEntryMenui
+extern "C" void unpause(void *) __asm__("unpause__18SoundScriptManager");
+extern "C" void pause(void *) __asm__("pause__18SoundScriptManager");
+extern "C" void play_event(void *, int, void *, float) __asm__("playEvent__18SoundScriptManager9EventTypeP6entityf");
+__asm__(".equ unpause__18SoundScriptManager,0x0031BFA8");
+__asm__(".equ pause__18SoundScriptManager,0x0031BF98");
+__asm__(".equ playEvent__18SoundScriptManager9EventTypeP6entityf,0x0031C380");
+struct menu_vtable { char padding[440]; short adjustment; short reserved; void (*move)(void *); };
+struct name_entry_layout { char padding[116]; menu_vtable *vtable; };
+extern "C" void menu_action(name_entry_layout *self, int controller) __asm__("OnDown__13NameEntryMenui");
+void menu_action(name_entry_layout *self, int controller)
+{
+    register char *manager_base __asm__("$16") = (char *)0x00460000;
+    __asm__ __volatile__("" : "+r"(manager_base));
+    unpause(*(void **)(manager_base - 19296));
+    register float time __asm__("$f12") = 0.0f;
+    register int event __asm__("$5") = 25;
+    __asm__ __volatile__("" : "+f"(time), "+r"(event));
+    play_event(*(void **)(manager_base - 19296), event, 0, time);
+    pause(*(void **)(manager_base - 19296));
+    menu_vtable *table = self->vtable;
+    table->move((char *)self + table->adjustment);
+}
+#endif
