@@ -230,3 +230,8 @@ struct Menu;struct MenuSystem;extern "C" void close_menu(Menu*,bool) __asm__("Cl
 // 0x0023FB98 FixValue__18MenuEntryFloatEdit
 struct edit_vtable{char pad[168];short set_adjust;short set_pad;void(*set_value)(void*,float);short get_adjust;short get_pad;float(*get_value)(void*);};struct edit_layout{unsigned flags;edit_vtable*vtable;char pad[8];float lo;float hi;};extern "C" void fix_value(edit_layout*self) __asm__("FixValue__18MenuEntryFloatEdit");void fix_value(edit_layout*self){edit_vtable*t=self->vtable;float v=t->get_value((char*)self+t->get_adjust);char*slot=(char*)self->vtable+168;short adjust=*(short*)slot;void*receiver=(char*)self+adjust;float value=v<self->lo?self->lo:(v>self->hi?self->hi:v);void(*setter)(void*,float)=*(void(**)(void*,float))(slot+4);setter(receiver,value);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023FF48)
+// 0x0023FF48 FixValue__26MenuEntryFunctionFloatEdit
+struct edit_vtable{char pad[168];short set_adjust;short set_pad;void(*set_value)(void*,float);short get_adjust;short get_pad;float(*get_value)(void*);};struct edit_layout{unsigned flags;edit_vtable*vtable;char pad[8];float lo;float hi;};extern "C" void fix_value(edit_layout*self) __asm__("FixValue__26MenuEntryFunctionFloatEdit");void fix_value(edit_layout*self){edit_vtable*t=self->vtable;float v=t->get_value((char*)self+t->get_adjust);char*slot=(char*)self->vtable+168;short adjust=*(short*)slot;void*receiver=(char*)self+adjust;float value=v<self->lo?self->lo:(v>self->hi?self->hi:v);void(*setter)(void*,float)=*(void(**)(void*,float))(slot+4);setter(receiver,value);}
+#endif
