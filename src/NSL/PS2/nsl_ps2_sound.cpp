@@ -22,3 +22,8 @@ extern "C" void fatal(const char*,...)__asm__("nslFatal__FPCce");extern const ch
 // 0x0038D8D8 nslUnpauseAllSounds__Fv
 extern char nsl[];extern "C" void fatal(const char*,...)__asm__("nslFatal__FPCce");extern const char fatal_text[];__asm__(".equ nsl,0x0049B5F0");__asm__(".equ nslFatal__FPCce,0x00391420");__asm__(".equ fatal_text,0x0051BF80");extern "C" void unpause()__asm__("nslUnpauseAllSounds__Fv");void unpause(){char*base=nsl;if(!*(int*)(base+0x15880))return;if(*(int*)(base+0x15850)!=1)fatal(fatal_text);char*pause=base+0xC06C;for(int i=0;i<256;i++,pause+=88)if(*(int*)(pause-40))if(*(int*)pause>0)--*(int*)pause;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0038D3D0)
+// 0x0038D3D0 nslReleaseAllSounds__Fv
+struct nslSound{bool isReady;bool used;bool inRange;bool isReallyReady;bool isPlaying;bool isReallyPlaying;bool looping;bool isQueuing;short left,right,old_left,old_right;unsigned gasInstanceId;int pauseCount,dampenCount;unsigned myId,mySource,myEmitter;float rawVolume,positionalVolume,angle,pitch,minDist,maxDist;};struct nslSystem{char pad0[0xc040];nslSound soundSlots[256];char pad1[0x4010];int initialized;char pad2[44];bool on;};extern nslSystem nsl;extern "C" void nslStopSound(unsigned)__asm__("nslStopSound__FUi");extern "C" void nslFatal(const char*,...)__asm__("nslFatal__FPCce");extern const char init_error[];__asm__(".equ nsl,0x0049B5F0");__asm__(".equ nslStopSound__FUi,0x0038D288");__asm__(".equ nslFatal__FPCce,0x00391420");__asm__(".equ init_error,0x0051BF80");extern "C" void nslReleaseAllSounds()__asm__("nslReleaseAllSounds__Fv");void nslReleaseAllSounds(){if(!nsl.on)return;if(nsl.initialized!=1)nslFatal(init_error);for(int i=0;i<256;i++)if(nsl.soundSlots[i].used)nslStopSound(nsl.soundSlots[i].myId);}
+#endif
