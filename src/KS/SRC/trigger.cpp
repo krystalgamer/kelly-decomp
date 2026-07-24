@@ -295,3 +295,8 @@ bool trigger::add_region(region *value)
     return false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0028DD88)
+// 0x0028DD88 __13point_triggerRC7stringxRC8vector3df
+struct stringx;extern "C" void trigger_ctor(void*,const stringx&) __asm__("__7triggerRC7stringx");__asm__(".equ __7triggerRC7stringx,0x0028D838");extern const char point_vtable[];__asm__(".equ point_vtable,0x004FB0A0");struct vector3d{float x,y,z;vector3d(){}vector3d&operator=(const vector3d&o){x=o.x;y=o.y;z=o.z;return *this;}};class point_trigger{char p0[8];const void*vtable;char p1[44];vector3d position;float radius;public:point_trigger(const stringx&,const vector3d&,float);};point_trigger::point_trigger(const stringx&id,const vector3d&p,float r){trigger_ctor(this,id);vtable=point_vtable;position=p;radius=r;}
+#endif
