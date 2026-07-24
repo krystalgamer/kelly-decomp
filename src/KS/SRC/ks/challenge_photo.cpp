@@ -213,3 +213,32 @@ void PhotoChallenge::Cameraman::BeginTakingPicture(
     state=1;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00262788)
+// 0x00262788 CheckProperties__Q214PhotoChallenge5PhotoP22kellyslater_controller
+struct trick_data { char padding[0xc]; int flags; char tail[0x48]; };
+extern trick_data GTrickList[];
+__asm__(".equ GTrickList, 0x00427CA8");
+class kellyslater_controller { public: int GetCurrentTrick(); };
+__asm__(".equ GetCurrentTrick__22kellyslater_controller, 0x0021E478");
+class PhotoChallenge {
+public:
+    class Photo {
+        void *texture;
+        int score;
+        bool special;
+    public:
+        void CheckProperties(kellyslater_controller *subject);
+    };
+};
+void PhotoChallenge::Photo::CheckProperties(
+    kellyslater_controller *subject
+) {
+    special=false;
+    if (subject) {
+        int trick=subject->GetCurrentTrick();
+        if (trick>=0 && (GTrickList[trick].flags&0x80))
+            special=true;
+    }
+}
+#endif
