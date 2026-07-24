@@ -1567,3 +1567,8 @@ struct ai_interface;struct controller_vtable{char p0[24];short adjustment;short 
 // 0x00137BE0 find_like_item__C6entityP4item
 struct item;extern "C" bool same(const item*,const item&)__asm__("is_same_item__C4itemRC4item");__asm__(".equ is_same_item__C4itemRC4item,0x0028A128");struct item_vector{item**begin;item**end;item**capacity;};struct container_info{item_vector items;};struct entity{char pad[284];container_info*coninfo;};extern "C" item*find_like(const entity*self,item*target)__asm__("find_like_item__C6entityP4item");item*find_like(const entity*self,item*target){if(self->coninfo){item**it=self->coninfo->items.begin;item**last=self->coninfo->items.end;for(;it!=last;++it){item*lit=*it;if(lit&&same(lit,*target))return lit;}}return 0;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00138D10)
+// 0x00138D10 possibly_aging__C6entity
+struct vis_vtable{char pad[128];short anim_adjust;short anim_pad;int(*get_anim_length_fn)(void*);short uv_adjust;short uv_pad;bool(*is_uv_animated_fn)(void*);};struct visual_rep{char pad[16];vis_vtable*vtable;int get_anim_length(){vis_vtable*t=vtable;return t->get_anim_length_fn((char*)this+t->anim_adjust);}bool is_uv_animated(){vis_vtable*t=vtable;return t->is_uv_animated_fn((char*)this+t->uv_adjust);}};struct entity{char pad[296];visual_rep*my_visrep;};extern "C" bool possibly(const entity*self)__asm__("possibly_aging__C6entity");bool possibly(const entity*self){return self->my_visrep!=0&&((self->my_visrep->get_anim_length()>1)||(self->my_visrep->is_uv_animated()));}
+#endif
