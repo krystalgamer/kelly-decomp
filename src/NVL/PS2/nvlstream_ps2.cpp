@@ -99,3 +99,8 @@ void nvlUnlockMutex(int* mtx)
   KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00387330)
+// 0x00387330 nvlInitMutex__FPi
+struct SemaParam{int attr,initCount,maxCount;char rest[20];};extern "C" int CreateSema(SemaParam*);extern "C" void do_assert(const char*,int,const char*) __asm__("__assert");__asm__(".equ CreateSema,0x003DB660");__asm__(".equ __assert,0x003CF6B0");extern const char file_text[],mutex_text[],result_text[];__asm__(".equ file_text,0x0051AD40");__asm__(".equ mutex_text,0x0051B5A8");__asm__(".equ result_text,0x0051B5B0");extern "C" void init_mutex(int*mtx) __asm__("nvlInitMutex__FPi");void init_mutex(int*mtx){if(!mtx)do_assert(file_text,1507,mutex_text);SemaParam p;p.maxCount=1;p.initCount=1;*mtx=CreateSema(&p);if(*mtx<0)do_assert(file_text,1511,result_text);}
+#endif
