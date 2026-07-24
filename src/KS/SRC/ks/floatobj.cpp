@@ -338,3 +338,12 @@ extern "C" bool parse_floating(floating_layout*self,char**argp,int argc) __asm__
 bool parse_floating(floating_layout*self,char**argp,int argc)
 {bool result;if(water_parse(self,argp,argc)){read_float(self,argp,argc,water_text,&self->water_interaction);result=true;}else result=false;return result;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001FD8E0)
+// 0x001FD8E0 get_settings__15floating_objectRC15floating_object
+extern "C" void water_settings(void*,const void*) __asm__("get_settings__12water_objectRC12water_object"); __asm__(".equ get_settings__12water_objectRC12water_object,0x001FD5A8");
+struct floating_layout { char padding[720]; float desired_dy,current_dy,max_dy,speed_dy,desired_angle,current_angle,max_angle,speed_angle,water_interaction; };
+extern "C" void get_floating(floating_layout*self,const floating_layout&obj) __asm__("get_settings__15floating_objectRC15floating_object");
+void get_floating(floating_layout*self,const floating_layout&obj)
+{self->desired_dy=obj.desired_dy;self->current_dy=obj.current_dy;self->max_dy=obj.max_dy;self->speed_dy=obj.speed_dy;self->desired_angle=obj.desired_angle;self->current_angle=obj.current_angle;self->max_angle=obj.max_angle;self->speed_angle=obj.speed_angle;self->water_interaction=obj.water_interaction;water_settings(self,&obj);int dead;__asm__("" : "=r"(dead));}
+#endif
