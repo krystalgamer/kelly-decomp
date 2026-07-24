@@ -93,3 +93,18 @@ __asm__(".equ base_type_001DDD68, 0x004DDC48");
 extern "C" void **Rtti_001DDD68() __asm__("__tf15CreditsFrontEnd");
 void **Rtti_001DDD68() { if (!type_001DDD68[0]) { BaseRtti_001DDD68(); __rtti_class(type_001DDD68, name_001DDD68, base_type_001DDD68, 1); } return type_001DDD68; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DDD00)
+// 0x001DDD00 Update__14ExtrasFrontEndf
+struct active_vtable { char padding[96]; short adjustment; short reserved; void (*update)(void *,float); };
+struct active_menu { char padding[116]; active_vtable *vtable; };
+extern "C" void update_frontend(void*,float) __asm__("Update__8FrontEndf"); extern "C" void update_menu(void*,float) __asm__("Update__6FEMenuf");
+__asm__(".equ Update__8FrontEndf,0x00157B30"); __asm__(".equ Update__6FEMenuf,0x00156DC8");
+struct extras_layout { char padding[96]; active_menu *active; };
+extern "C" void update_extras(extras_layout *self,float dt) __asm__("Update__14ExtrasFrontEndf");
+void update_extras(extras_layout *self,float dt)
+{
+    if(self->active){active_vtable*t=self->active->vtable;t->update((char*)self->active+t->adjustment,dt);}
+    else {update_frontend((char*)self+128,dt);update_menu(self,dt);int dead;__asm__("" : "=r"(dead));}
+}
+#endif
