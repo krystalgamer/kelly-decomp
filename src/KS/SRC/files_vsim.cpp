@@ -138,3 +138,8 @@ struct __attribute__((aligned(4))) vertex_context{char data[44];};extern "C" ver
 // 0x00356F48 __uninitialized_copy_aux__H2ZPC14vertex_contextZP14vertex_context_X01X01X11G12__false_type_X11
 struct __attribute__((aligned(4))) vertex_context{char data[44];};extern "C" vertex_context*copy(const vertex_context*first,const vertex_context*last,vertex_context*result)__asm__("__uninitialized_copy_aux__H2ZPC14vertex_contextZP14vertex_context_X01X01X11G12__false_type_X11");vertex_context*copy(const vertex_context*first,const vertex_context*last,vertex_context*result){for(;first!=last;++first,++result)if(result)__builtin_memcpy(result,first,44);return result;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00357850)
+// 0x00357850 __uninitialized_copy_aux__H2ZP14vertex_contextZP14vertex_context_X01X01X11G12__false_type_X11
+struct __attribute__((aligned(4))) vertex_context{char data[44];};extern "C" vertex_context*copy(vertex_context*first,vertex_context*last,vertex_context*result)__asm__("__uninitialized_copy_aux__H2ZP14vertex_contextZP14vertex_context_X01X01X11G12__false_type_X11");vertex_context*copy(vertex_context*first,vertex_context*last,vertex_context*result){for(;first!=last;++first,++result)if(result)__builtin_memcpy(result,first,44);return result;}
+#endif
