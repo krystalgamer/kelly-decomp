@@ -7988,7 +7988,7 @@ __introsort_loop__H4ZPt4pair2ZP11nglListNodeZUiZt4pair2ZP11nglListNodeZUiZiZ15ng
 __unguarded_linear_insert__H3ZPt4pair2ZP11nglListNodeZUiZt4pair2ZP11nglListNodeZUiZ15nglTransCompare_X01X11X21_v = 0x003ABC00; // type:func defined:true size:0x70
 __insertion_sort__H2ZPt4pair2ZP11nglListNodeZUiZ15nglTransCompare_X01X01X11_v = 0x003ABC70; // type:func size:0x10C
 __unguarded_insertion_sort_aux__H3ZPt4pair2ZP11nglListNodeZUiZt4pair2ZP11nglListNodeZUiZ15nglTransCompare_X01X01PX11X21_v = 0x003ABD80; // type:func defined:true size:0x60
-__final_insertion_sort__H2ZPt4pair2ZP11nglListNodeZUiZ15nglTransCompare_X01X01X11_v = 0x003ABDE0; // type:func size:0x70
+__final_insertion_sort__H2ZPt4pair2ZP11nglListNodeZUiZ15nglTransCompare_X01X01X11_v = 0x003ABDE0; // type:func defined:true size:0x70
 __8nglScene = 0x003ABE50; // type:func size:0xAC
 __static_initialization_and_destruction_0_003ABF00 = 0x003ABF00; // type:func size:0x150
 nglPrintf__FPCce = 0x003AC050; // type:func size:0x38
