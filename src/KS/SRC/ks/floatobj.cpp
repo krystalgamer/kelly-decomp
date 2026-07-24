@@ -361,3 +361,13 @@ __asm__(".equ strcmp,0x003D3E88");
 extern "C" bool find_param(const beach_object*,char**,int,const char*) __asm__("find_param__C12beach_objectPPciPCc");
 bool find_param(const beach_object*,char**argp,int argc,const char*name){for(int i=0;i<argc;i++)if(!cstrcmp(argp[i],name))return true;return false;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001FB350)
+// 0x001FB350 __15beach_billboardP6entityRC7stringx
+#include "KS/SRC/stringx.h"
+class entity;struct vector3d{float x,y,z;vector3d&operator=(const vector3d&o){x=o.x;y=o.y;z=o.z;return *this;}};struct po{char data[72];};
+class beach_object{public:beach_object(entity*,const stringx&);virtual~beach_object();virtual void spawn()=0;virtual void despawn()=0;virtual bool update(float)=0;virtual bool parse_params(char**,int);virtual void get_settings(const beach_object&);virtual void collide(entity*,const vector3d&);virtual void jumped_over(entity*);virtual void sprayed(entity*);virtual bool is_surfing_object();beach_object*next;float spawn_time;int timer_type;int times_spawned;bool spawned;bool smashable;bool active;bool never_despawn;protected:bool physical;char layout_pad[4];entity*my_entity;int spawn_count;stringx my_path;};
+class beach_billboard:public beach_object{public:beach_billboard(entity*,const stringx&);virtual~beach_billboard();void spawn();void despawn();bool update(float);protected:vector3d my_velocity;po my_initial_po;bool rotate;float my_age;float my_life;};
+extern const vector3d zero_vec;__asm__(".equ zero_vec,0x00554478");__asm__(".equ __12beach_objectP6entityRC7stringx,0x001FAA10");__asm__(".equ _vt$15beach_billboard,0x004D6148");
+beach_billboard::beach_billboard(entity*ent,const stringx&path):beach_object(ent,path){my_entity=ent;my_velocity=zero_vec;rotate=true;my_life=0;physical=false;}
+#endif
