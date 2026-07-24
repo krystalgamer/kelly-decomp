@@ -6,7 +6,7 @@ import hashlib
 from pathlib import Path
 
 
-MAX_STEM_BYTES = 220
+MAX_STEM_BYTES = 120
 
 
 def safe_stem(row: dict[str, str]) -> str:
