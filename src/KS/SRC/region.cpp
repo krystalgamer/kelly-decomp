@@ -90,3 +90,8 @@ void region::remove(trigger *value)
         *found = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002E7D20)
+// 0x002E7D20 remove__6regionP12light_source
+struct properties{char p0[52];unsigned flags;};struct light_source{char p0[512];properties*props;};struct region{char p0[184];light_source**begin,**end;char p1[96];unsigned short terrain_count;};extern "C" light_source**find_light(light_source**,light_source**,light_source*const&,int) __asm__("find__H2ZPP12light_sourceZP12light_source_X01X01RCX11G26random_access_iterator_tag_X01");__asm__(".equ find__H2ZPP12light_sourceZP12light_source_X01X01RCX11G26random_access_iterator_tag_X01,0x002B4440");extern "C" void remove_light(region*self,light_source*e) __asm__("remove__6regionP12light_source");void remove_light(region*self,light_source*e){light_source**end=self->end;light_source**i=find_light(self->begin,end,e,0);if(i!=end){if(e->props->flags&1)--self->terrain_count;*i=0;}}
+#endif
