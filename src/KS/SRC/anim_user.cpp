@@ -46,3 +46,8 @@ quaternion *InterpolateQuaternionKey(
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00113320)
+// 0x00113320 interpolate__Ct10linear_key1Z8vector3dRCt10linear_key1Z8vector3df
+struct vector3d{float x,y,z;vector3d(){}vector3d(const vector3d&v){x=v.x;y=v.y;z=v.z;}vector3d(float X,float Y,float Z){x=X;y=Y;z=Z;}vector3d&operator=(const vector3d&v){x=v.x;y=v.y;z=v.z;return *this;}};inline vector3d operator*(const vector3d&v,float r){return vector3d(r*v.x,r*v.y,r*v.z);}inline vector3d operator+(const vector3d&a,const vector3d&b){return vector3d(a.x+b.x,a.y+b.y,a.z+b.z);}struct linear_key{float time;vector3d value;const vector3d&get_value()const{return value;}vector3d interpolate(const linear_key&b,float r)const __asm__("interpolate__Ct10linear_key1Z8vector3dRCt10linear_key1Z8vector3df");};vector3d linear_key::interpolate(const linear_key&b,float r)const{return get_value()*(1.0f-r)+b.get_value()*r;}
+#endif
