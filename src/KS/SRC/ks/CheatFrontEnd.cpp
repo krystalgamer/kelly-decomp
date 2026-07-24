@@ -183,3 +183,8 @@ void EnterCheatMenu::Draw() {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D2028)
+// 0x001D2028 Draw__13CheatCodeMenu
+struct text_vtable{char p0[24];short adjustment;short x0;void(*draw)(void*);};struct text{char p0[76];text_vtable*vtable;};struct cheat_layout{char p0[380];text*toggle_state[2];};extern "C" void draw_base(void*) __asm__("Draw__15FEGraphicalMenu");__asm__(".equ Draw__15FEGraphicalMenu,0x001580D8");extern "C" void draw_cheats(cheat_layout*self) __asm__("Draw__13CheatCodeMenu");void draw_cheats(cheat_layout*self){for(int i=0;i<2;i++){text*x=self->toggle_state[i];text_vtable*t=x->vtable;t->draw((char*)x+t->adjustment);}draw_base(self);int dead;__asm__("" : "=r"(dead));}
+#endif
