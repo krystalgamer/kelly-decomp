@@ -96,3 +96,16 @@ MeterAttackMode::MeterAttackMode()
     set_number = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002865C0)
+// 0x002865C0 Update__15MeterAttackModef
+class MeterAttackMode {
+public:
+    void Attack(int player,float time);
+    void Update(float time);
+};
+__asm__(".equ Attack__15MeterAttackModeif, 0x002867A8");
+void MeterAttackMode::Update(float time) {
+    for (int i=0;i<2;i++) Attack(i,time);
+}
+#endif
