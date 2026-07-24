@@ -62,3 +62,8 @@ void erase_char_tree(void *tree,tree_node *node) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00142E38)
+// 0x00142E38 lower_bound__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoZt10_Select1st1Zt4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoZQ219animation_interface9s_t_s_t_rZt12my_allocator1Zt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoRC7stringx
+struct stringx{char*chars;};struct node{char p0[4];node*right,*left,*other;stringx key;};struct iterator{node*p;};extern "C" int strcmp(const char*,const char*);__asm__(".equ strcmp,0x003D3E88");extern "C" iterator*lower(iterator*result,node**root,const stringx&key) __asm__("lower_bound__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoZt10_Select1st1Zt4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoZQ219animation_interface9s_t_s_t_rZt12my_allocator1Zt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoRC7stringx");iterator*lower(iterator*result,node**root,const stringx&key){node*y=*root;node*x=y->right;while(x){if(strcmp(x->key.chars,key.chars)>=0){y=x;x=y->left;}else x=x->other;}result->p=y;return result;}
+#endif
