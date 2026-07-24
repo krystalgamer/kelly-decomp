@@ -319,3 +319,8 @@ struct PanelAnimFile;struct PanelAnimManager;extern "C" void play(PanelAnimManag
 // 0x00156638 setHigh__6FEMenuP11FEMenuEntryb
 struct entry_vtable{char pad[32];short adjust;short reserved;void(*highlight)(void*,bool,bool);};struct FEMenuEntry{char pad[96];entry_vtable*vtable;};struct FEMenu{char pad[76];FEMenuEntry*highlighted;};extern "C" void set_high(FEMenu*self,FEMenuEntry*e,bool anim)__asm__("setHigh__6FEMenuP11FEMenuEntryb");void set_high(FEMenu*self,FEMenuEntry*e,bool anim){if(self->highlighted){FEMenuEntry*h=self->highlighted;entry_vtable*t=h->vtable;t->highlight((char*)h+t->adjust,false,true);}entry_vtable*t=e->vtable;t->highlight((char*)e+t->adjust,true,anim);self->highlighted=e;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00157860)
+// 0x00157860 OnCross__6FEMenui
+struct Entry;struct EntryVtable{char pad0[48];short disable_adjust;short z0;bool(*get_disable)(void*);char pad1[40];};struct ActiveVtable{char pad[184];short cross_adjust;short z;void(*on_cross)(void*,int);};struct MenuVtable{char pad[344];short select_adjust;short z;void(*select)(void*);};struct Entry{char pad[96];EntryVtable*vtable;};struct Active{char pad[116];ActiveVtable*vtable;};struct FEMenu{char pad0[76];Entry*highlighted;char pad1[16];Active*active;char pad2[16];MenuVtable*vtable;};extern "C" void on_cross(FEMenu*self,int c)__asm__("OnCross__6FEMenui");void on_cross(FEMenu*self,int c){if(self->active){Active*a=self->active;ActiveVtable*v=a->vtable;v->on_cross((char*)a+v->cross_adjust,c);}else if(self->highlighted!=0){Entry*e=self->highlighted;EntryVtable*v=e->vtable;if(!v->get_disable((char*)e+v->disable_adjust)){MenuVtable*mv=self->vtable;mv->select((char*)self+mv->select_adjust);}}}
+#endif
