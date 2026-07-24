@@ -329,3 +329,8 @@ struct Entry;struct EntryVtable{char pad0[48];short disable_adjust;short z0;bool
 // 0x001581E8 OnActivate__15FEGraphicalMenu
 struct Entry;struct EntryVtable{char pad[48];short disable_adjust;short z;bool(*get_disable)(void*);};struct Entry{char pad0[4];Entry*next;char pad1[88];EntryVtable*vtable;};struct MenuVtable{char pad[24];short set_adjust;short z;void(*set_high)(void*,Entry*,bool);};struct FEGraphicalMenu{char pad0[60];unsigned flags;Entry*entries;char pad1[28];void*active;char pad2[16];MenuVtable*vtable;};extern "C" void activate(FEGraphicalMenu*self)__asm__("OnActivate__15FEGraphicalMenu");void activate(FEGraphicalMenu*self){self->active=0;Entry*tmp=self->entries;if(!(self->flags&0x40))while(tmp){EntryVtable*v=tmp->vtable;if(!v->get_disable((char*)tmp+v->disable_adjust))break;tmp=tmp->next;}if(tmp){MenuVtable*v=self->vtable;v->set_high((char*)self+v->set_adjust,tmp,false);}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001587D0)
+// 0x001587D0 SetSecondaryCursor__11FEMultiMenuP11FEMenuEntryb
+struct EntryVtable{char pad[32];short highlight_adjust;short z;void(*highlight)(void*,bool,bool);};struct Entry{char pad[96];EntryVtable*vtable;};struct FEMultiMenu{char pad[344];Entry*secondary_cursor;};extern "C" void set_cursor(FEMultiMenu*self,Entry*e,bool anim)__asm__("SetSecondaryCursor__11FEMultiMenuP11FEMenuEntryb");void set_cursor(FEMultiMenu*self,Entry*e,bool anim){if(self->secondary_cursor){Entry*old=self->secondary_cursor;EntryVtable*v=old->vtable;v->highlight((char*)old+v->highlight_adjust,false,true);}if(e){EntryVtable*v=e->vtable;v->highlight((char*)e+v->highlight_adjust,true,anim);}self->secondary_cursor=e;}
+#endif
