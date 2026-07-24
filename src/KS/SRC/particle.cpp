@@ -152,3 +152,31 @@ bool particle_generator::is_on() const
     return slice < on_for;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D2C88)
+// 0x002D2C88 set_visible__18particle_generatorb
+extern "C" void entity_set_visible(void *,bool)
+    __asm__("set_visible__6entityb");
+extern "C" void update_active(void *)
+    __asm__("region_update_poss_active__6entity");
+__asm__(".equ set_visible__6entityb, 0x00138E00");
+__asm__(".equ region_update_poss_active__6entity, 0x00138EB0");
+class particle_generator {
+    char padding[0x78];
+    int flags;
+    char padding2[0x200];
+    float time_to_next_particle;
+public:
+    void set_visible(bool visible);
+};
+void particle_generator::set_visible(bool visible) {
+    register int current __asm__("$2")=(flags>>9)&1;
+    register bool changed __asm__("$17")=current!=visible;
+    if (visible) time_to_next_particle=0.0f;
+    entity_set_visible(this,visible);
+    if (changed) {
+        update_active(this);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
