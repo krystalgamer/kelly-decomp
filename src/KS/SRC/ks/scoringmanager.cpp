@@ -269,3 +269,30 @@ bool ScoringManager::Chain::IsInteresting() const {
     return false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00249A80)
+// 0x00249A80 IsInteresting__CQ214ScoringManager6Series
+struct trick_value {
+    bool IsInteresting() const
+        __asm__("IsInteresting__CQ214ScoringManager5Trick");
+};
+struct trick_node { trick_node *next; trick_node *previous; trick_value value; };
+class ScoringManager {
+public:
+    class Series {
+        char padding[4];
+        trick_node *sentinel;
+    public:
+        bool IsInteresting() const;
+    };
+};
+__asm__(".equ IsInteresting__CQ214ScoringManager5Trick, 0x0024A0E0");
+bool ScoringManager::Series::IsInteresting() const {
+    trick_node *it=sentinel->next;
+    while (it!=sentinel) {
+        if (it->value.IsInteresting()) return true;
+        it=it->next;
+    }
+    return false;
+}
+#endif
