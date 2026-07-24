@@ -180,3 +180,23 @@ void particle_generator::set_visible(bool visible) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D2CE8)
+// 0x002D2CE8 is_still_visible__C18particle_generator
+struct visible_vtable {
+    char padding[0x158]; short adjustment; short reserved;
+    bool (*is_visible)(void *);
+};
+class particle_generator {
+    char padding[8]; visible_vtable *vtable;
+    char padding2[0x208]; int start_particle; int end_particle;
+public:
+    bool is_still_visible() const;
+};
+bool particle_generator::is_still_visible() const {
+    visible_vtable *table=vtable;
+    return table->is_visible(
+        (char *)this+table->adjustment
+    ) || start_particle!=end_particle;
+}
+#endif
