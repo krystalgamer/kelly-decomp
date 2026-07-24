@@ -61,3 +61,40 @@ beach_object *beach::find_object(entity *target) const
     return 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E9968)
+// 0x001E9968 __5beach
+class JudgingSystem {
+    char data[696];
+public:
+    JudgingSystem();
+};
+struct vector3d {
+    float x,y,z;
+    vector3d &operator=(const vector3d &value) {
+        x=value.x; y=value.y; z=value.z; return *this;
+    }
+};
+extern const vector3d ZEROVEC;
+__asm__(".equ __13JudgingSystem, 0x00259848");
+__asm__(".equ ZEROVEC, 0x00554478");
+class beach {
+    JudgingSystem judges;
+    vector3d travel_distance;
+    void *my_objects;
+    int current_breakmap;
+    int num_breakmap;
+    void *smashedEntity;
+    void *challenge_icon;
+    void *challenge_photo;
+public:
+    beach();
+};
+beach::beach() {
+    my_objects=0;
+    travel_distance=ZEROVEC;
+    smashedEntity=0;
+    challenge_icon=0;
+    challenge_photo=0;
+}
+#endif
