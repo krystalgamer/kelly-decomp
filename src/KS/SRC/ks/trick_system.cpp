@@ -32,3 +32,8 @@ void TrickManager::FrameAdvance(float dt)
         LastFrameTrickQueued = -1;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002434B0)
+// 0x002434B0 ButtonRecord__12TrickManagerUcb
+struct ButtonEvent{unsigned char Button;char pad[3];bool Pressed;float Time;};struct TrickManager{ButtonEvent queue[32];char pad0[160];bool CurrentButtonState[20];float time;char pad1[8];int mEventQueuePos;char pad2[20];bool button_pressed_this_frame;void ButtonRecord(unsigned char,bool)__asm__("ButtonRecord__12TrickManagerUcb");};void TrickManager::ButtonRecord(unsigned char button,bool pressed){if(pressed)button_pressed_this_frame=true;if(CurrentButtonState[button]==pressed)return;CurrentButtonState[button]=pressed;queue[mEventQueuePos].Button=button;queue[mEventQueuePos].Pressed=pressed;queue[mEventQueuePos].Time=time;mEventQueuePos++;if(mEventQueuePos==32)mEventQueuePos=0;}
+#endif
