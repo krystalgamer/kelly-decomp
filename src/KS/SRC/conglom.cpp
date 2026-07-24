@@ -43,3 +43,8 @@ void conglomerate::compute_sector(terrain &ter, bool high_res)
 // 0x00305DC8 force_current_region__12conglomerate
 struct entity_vtable{char data[2000];};struct entity{char p0[8];entity_vtable*vtable;char p1[392];short bone_idx;};struct conglomerate{char p0[512];entity**begin;entity**end;};extern "C" void base_call(void*) __asm__("force_current_region__6entity");__asm__(".equ force_current_region__6entity,0x00131DE0");extern "C" void run(conglomerate*self) __asm__("force_current_region__12conglomerate");void run(conglomerate*self){base_call(self);entity**it=self->begin;entity**end=self->end;for(;it!=end;++it){entity*e=*it;if(e->bone_idx<0){entity_vtable*t=e->vtable;short adjustment=*(short*)((char*)t+1072);void(*fn)(void*)=*(void(**)(void*))((char*)t+1076);fn((char*)e+adjustment);}}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00305E38)
+// 0x00305E38 unforce_regions__12conglomerate
+struct entity_vtable{char data[2000];};struct entity{char p0[8];entity_vtable*vtable;char p1[392];short bone_idx;};struct conglomerate{char p0[512];entity**begin;entity**end;};extern "C" void base_call(void*) __asm__("unforce_regions__6entity");__asm__(".equ unforce_regions__6entity,0x00131E20");extern "C" void run(conglomerate*self) __asm__("unforce_regions__12conglomerate");void run(conglomerate*self){base_call(self);entity**it=self->begin;entity**end=self->end;for(;it!=end;++it){entity*e=*it;if(e->bone_idx<0){entity_vtable*t=e->vtable;short adjustment=*(short*)((char*)t+1080);void(*fn)(void*)=*(void(**)(void*))((char*)t+1084);fn((char*)e+adjustment);}}}
+#endif
