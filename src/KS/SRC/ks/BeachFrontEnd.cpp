@@ -111,3 +111,8 @@ void BeachFrontEnd::OnLevelLoaded()
 // 0x0018E710 UpdateInScene__13BeachFrontEnd
 struct em{char p0[16];int draw_enabled;char p1[428];int state,substate;char p2[60];int blocked;};struct manager{char p0[12];em*entity_manager;};struct beach{char p0[316];manager*manager_ptr;char p1[2180];int offset_set;char p2[1344];int in_frontend;};extern "C" void set_offset(beach*) __asm__("SetOffset__13BeachFrontEnd");__asm__(".equ SetOffset__13BeachFrontEnd,0x00194160");extern "C" void update_scene(beach*self) __asm__("UpdateInScene__13BeachFrontEnd");void update_scene(beach*self){if(self->in_frontend){em*e=self->manager_ptr->entity_manager;bool ok=e->state&&e->substate==3&&!e->blocked&&e->draw_enabled==1;if(ok&&!self->offset_set)set_offset(self);int dead;__asm__("" : "=r"(dead));}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001907C0)
+// 0x001907C0 OnAnyButtonPress__13BeachFrontEndii
+struct FEEntityManager{char pad[448];int cam_state;};struct Manager{char pad[12];FEEntityManager*em;};class BeachFrontEnd{public:char p0[256];int slide_state;char p1[56];Manager*manager;char p2[3528];int in_frontend;char p3[16];int guard_a;int guard_b;char p4[24];int in_bio_mode;void OnAnyButtonPress(int,int)__asm__("OnAnyButtonPress__13BeachFrontEndii");};extern "C" void jump(FEEntityManager*,int)__asm__("JumpTo__15FEEntityManageri");__asm__(".equ JumpTo__15FEEntityManageri,0x001C4C88");void BeachFrontEnd::OnAnyButtonPress(int c,int b){if((guard_a||guard_b||(unsigned)(slide_state-1)<2)&&!in_frontend)return;if(in_bio_mode)return;if(!in_frontend)return;FEEntityManager*em=manager->em;int moving=em->cam_state^1;asm volatile("" : "+r"(moving), "+r"(em));if(moving&&b!=7)jump(em,3);}
+#endif
