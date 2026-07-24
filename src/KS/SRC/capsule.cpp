@@ -54,3 +54,8 @@ struct object_layout { char padding[0x8]; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_17collision_capsule");
 void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = base_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D7E38)
+// 0x002D7E38 get_min_extent__C17collision_capsuleP8vector3d
+struct vector3d{float x,y,z;};struct collision_capsule{char pad[40];vector3d base;vector3d end;float radius;void extent(vector3d*v)const __asm__("get_min_extent__C17collision_capsuleP8vector3d");};void collision_capsule::extent(vector3d*v)const{if(base.x<end.x)v->x=base.x-radius;else v->x=end.x-radius;if(base.y<end.y)v->y=base.y-radius;else v->y=end.y-radius;if(base.z<end.z)v->z=base.z-radius;else v->z=end.z-radius;}
+#endif
