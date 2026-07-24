@@ -939,3 +939,35 @@ void PanelQuad::SetClip(const recti &bounds)
     __asm__ __volatile__("" : : : "memory");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00153050)
+// 0x00153050 Init__9PanelFileb
+class PanelQuad;
+struct panel_geom_vtable { char padding[56]; short adjustment; short reserved; void (*init)(void *, PanelQuad **, bool); };
+class PanelGeom {
+    char padding[112];
+public:
+    PanelGeom *next;
+    char padding2[4];
+    panel_geom_vtable *vtable;
+};
+class PanelFile {
+    char padding[24];
+    PanelGeom *obs;
+    char padding2[12];
+    PanelQuad *pquads;
+public:
+    void Init(bool floating);
+};
+void PanelFile::Init(bool floating)
+{
+    register PanelFile *self __asm__("$17") = this;
+    PanelGeom *tmp = self->obs;
+    while (tmp) {
+        __asm__("" : "+r"(self));
+        panel_geom_vtable *table = tmp->vtable;
+        table->init((char *)tmp + table->adjustment, &self->pquads, floating);
+        tmp = tmp->next;
+    }
+}
+#endif
