@@ -1,0 +1,7 @@
+// Matching decompilation blocks selected by generated build shims.
+
+
+#if defined(KELLY_DECOMP_FUNCTION_002AE560)
+// 0x002AE560 find_instance__t13instance_bank1Z8vr_pmeshRC7stringx
+struct stringx{char p0[8];};struct ref_t{stringx label;void*ptr;unsigned count;};struct node{char p0[16];ref_t*value;};struct bank{node*end;};extern "C" void copy(stringx*,const stringx*) __asm__("__7stringxRC7stringx");extern "C" node*find(const bank*,ref_t*const*) __asm__("find__Ct8_Rb_tree5ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZPQ2t13instance_bank1Z8vr_pmesh5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZQ2t13instance_bank1Z8vr_pmesh13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z8vr_pmesh5ref_t");extern "C" void destroy(stringx*,int) __asm__("_$_7stringx");__asm__(".equ __7stringxRC7stringx,0x0034D4D0");__asm__(".equ find__Ct8_Rb_tree5ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZPQ2t13instance_bank1Z8vr_pmesh5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZQ2t13instance_bank1Z8vr_pmesh13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z8vr_pmesh5ref_t,0x002AE3E0");__asm__(".equ _$_7stringx,0x0034D6E0");extern "C" extern "C" void*find_instance(bank*self,const stringx&label) __asm__("find_instance__t13instance_bank1Z8vr_pmeshRC7stringx");void*find_instance(bank*self,const stringx&label){ref_t temp;copy(&temp.label,&label);temp.ptr=0;temp.count=0;ref_t*key=&temp;node*i=find(self,&key);if(i!=self->end){void*result=i->value->ptr;destroy(&temp.label,2);return result;}destroy(&temp.label,2);return 0;}
+#endif
