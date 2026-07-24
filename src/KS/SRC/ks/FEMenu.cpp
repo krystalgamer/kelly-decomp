@@ -287,3 +287,15 @@ void FEMenu::Add(FEMenuEntry *entry) {
     num_entries++;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00157CD0)
+// 0x00157CD0 TurnOn__20FEGraphicalMenuEntryb
+struct panel_vtable { char padding[24]; short adjustment; short reserved; void (*turn_on)(void *, bool); };
+struct PanelQuad { char padding[404]; panel_vtable *vtable; };
+class FEGraphicalMenuEntry { char padding[100]; PanelQuad *pq; PanelQuad *pq_high; public: void TurnOn(bool on); };
+void FEGraphicalMenuEntry::TurnOn(bool on)
+{
+    if(pq) { panel_vtable *table=pq->vtable; table->turn_on((char *)pq+table->adjustment,on); }
+    if(pq_high) { panel_vtable *table=pq_high->vtable; table->turn_on((char *)pq_high+table->adjustment,on); }
+}
+#endif
