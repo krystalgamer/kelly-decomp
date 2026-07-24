@@ -1537,3 +1537,8 @@ struct entity_vtable{char p0[1496];short control_adjust;short x0;void(*set_contr
 // 0x00132068 has_entity_collision__C6entity
 struct cg_vtable{char p0[136];short adjustment;short x0;bool(*test)(void*);};struct cg{char p0[8];cg_vtable*vtable;};struct entity_vtable{char p0[264];short adjustment;short x0;bool(*active)(void*);};struct entity_layout{char p0[8];entity_vtable*vtable;char p1[316];cg*colgeom;};extern "C" bool pred(entity_layout*self) __asm__("has_entity_collision__C6entity");bool pred(entity_layout*self){register bool result __asm__("$17")=0;if(self->colgeom){entity_vtable*t=self->vtable;if(t->active((char*)self+t->adjustment)){cg*c=self->colgeom;cg_vtable*ct=c->vtable;int raw=ct->test((char*)c+ct->adjustment);result=raw!=0;}}return result;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001320D8)
+// 0x001320D8 has_camera_collision__C6entity
+struct cg_vtable{char p0[144];short adjustment;short x0;bool(*test)(void*);};struct cg{char p0[8];cg_vtable*vtable;};struct entity_vtable{char p0[264];short adjustment;short x0;bool(*active)(void*);};struct entity_layout{char p0[8];entity_vtable*vtable;char p1[316];cg*colgeom;};extern "C" bool pred(entity_layout*self) __asm__("has_camera_collision__C6entity");bool pred(entity_layout*self){register bool result __asm__("$17")=0;if(self->colgeom){entity_vtable*t=self->vtable;if(t->active((char*)self+t->adjustment)){cg*c=self->colgeom;cg_vtable*ct=c->vtable;int raw=ct->test((char*)c+ct->adjustment);result=raw!=0;}}return result;}
+#endif
