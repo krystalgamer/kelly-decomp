@@ -39,3 +39,8 @@ void matrix4x4::make_scale(const vector3d &s) {
 // 0x001DF280 det3__FPA2_Cf
 extern "C" float det3(const float m[3][3]) __asm__("det3__FPA2_Cf");float det3(const float m[3][3]){return m[0][0]*m[1][1]*m[2][2]+m[0][1]*m[1][2]*m[2][0]+m[0][2]*m[1][0]*m[2][1]-m[0][2]*m[1][1]*m[2][0]-m[0][0]*m[1][2]*m[2][1]-m[0][1]*m[1][0]*m[2][2];}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DF710)
+// 0x001DF710 det__C9matrix4x4
+struct matrix4x4{float m[16];};extern "C" float cofactor(const matrix4x4*,int,int) __asm__("cofactor__C9matrix4x4ii");__asm__(".equ cofactor__C9matrix4x4ii,0x001DF660");extern "C" float det(const matrix4x4*self) __asm__("det__C9matrix4x4");float det(const matrix4x4*self){float s=0.0f;for(int i=0;i<4;++i)s+=self->m[i]*cofactor(self,0,i);return s;}
+#endif
