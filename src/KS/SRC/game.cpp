@@ -314,3 +314,8 @@ struct stringx{char data[8];stringx(const char*,int=-1);};struct BeachData{char 
 // 0x00283468 set_player_camera__4gameiP6camera
 struct camera_vtable{char pad[744];short game_adj;short game_pad;bool(*is_game)(void*);char pad2[832];short init_adj;short init_pad;void(*init)(void*);};struct camera{char pad[8];camera_vtable*vtable;char pad2[516];int valid;};struct game{bool user_cam;char pad[132];camera*player_cam[4];};extern float PROJ_ZOOM;__asm__(".equ PROJ_ZOOM,0x0043286C");extern "C" void set_camera(game*self,int n,camera*cam)__asm__("set_player_camera__4gameiP6camera");void set_camera(game*self,int n,camera*cam){if(self->user_cam)return;self->player_cam[n]=cam;bool isgame;{register camera_vtable*t __asm__("$3")=cam->vtable;register bool(*fn)(void*) __asm__("$2")=t->is_game;isgame=fn((char*)cam+t->game_adj);}if(isgame){cam->valid=0;camera_vtable*t=cam->vtable;short adj=t->init_adj;register void(*fn)(void*) __asm__("$3")=t->init;fn((char*)cam+adj);}PROJ_ZOOM=0.8f;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00284B90)
+// 0x00284B90 SetUsingPersonalitySuit__4gameib
+struct stringx{char data[8];stringx&operator=(const char*);};struct SurferData{char name[32];char name_ps[32];char pad[588];};extern SurferData SurferDataArray[];__asm__(".equ SurferDataArray,0x0042564C");__asm__(".equ __as__7stringxPCc,0x0034E118");struct game{char pad0[576];stringx heroname[2];char pad1[8];int surferIdx[2];bool personality[2];void SetUsingPersonalitySuit(int,bool)__asm__("SetUsingPersonalitySuit__4gameib");};void game::SetUsingPersonalitySuit(int hero,bool val){personality[hero]=val;if(personality[hero]){heroname[hero]=SurferDataArray[surferIdx[hero]].name_ps;asm volatile("");}else{heroname[hero]=SurferDataArray[surferIdx[hero]].name;asm volatile("");}}
+#endif
