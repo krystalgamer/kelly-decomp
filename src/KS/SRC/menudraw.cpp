@@ -259,3 +259,8 @@ void d(M*s,int f){s->v=menu_vtable;close_menu(s,true);resize_menu(s,0);if(f&1){o
 // 0x0030EEE8 OnTick__13MenuWaterDrawf
 typedef void(*setter)(bool);extern setter water_set[];extern int water_flags[];__asm__(".equ water_set,0x0046B230");__asm__(".equ water_flags,0x0058A410");extern "C" void water_tick(void*,float) __asm__("OnTick__13MenuWaterDrawf");void water_tick(void*,float){for(unsigned i=0;i<4;i++)water_set[i](water_flags[i]);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0030F078)
+// 0x0030F078 OnTick__16MenuParticleDrawf
+typedef void(*setter)(bool);extern setter particle_set[];extern int particle_flags[];__asm__(".equ particle_set,0x0046B1E8");__asm__(".equ particle_flags,0x0058A3C8");extern "C" void particle_tick(void*,float) __asm__("OnTick__16MenuParticleDrawf");void particle_tick(void*,float){for(unsigned i=0;i<8;i++)particle_set[i](particle_flags[i]);}
+#endif
