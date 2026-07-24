@@ -1487,3 +1487,28 @@ void entity::ifl_lock(int index)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00133458)
+// 0x00133458 activate_motion_trail__6entityiG7color32iiRC8vector3d
+struct vector3d { float x,y,z; };
+struct trail_info { int start,end,count; int length; char padding[8]; vector3d head; char padding2[12]; unsigned int color; int min_alpha; int max_alpha; };
+struct entity_layout { char padding[120]; unsigned int flags; char padding2[208]; trail_info *trail; };
+extern "C" void activate_trail(entity_layout *self, int length, unsigned int color, int min_alpha, int max_alpha, const vector3d *tip) __asm__("activate_motion_trail__6entityiG7color32iiRC8vector3d");
+void activate_trail(entity_layout *self, int length, unsigned int color, int min_alpha, int max_alpha, const vector3d *tip)
+{
+    self->flags |= 0x800;
+    self->trail->length = length;
+    self->trail->color = color;
+    self->trail->min_alpha = min_alpha;
+    self->trail->max_alpha = max_alpha;
+    self->trail->start=0;
+    self->trail->end=0;
+    self->trail->count=0;
+    register trail_info *final_trail __asm__("$2")=self->trail;
+    __asm__ __volatile__("" : "+r"(final_trail));
+    register vector3d *head __asm__("$3")=&final_trail->head;
+    head->x=tip->x;
+    head->y=tip->y;
+    head->z=tip->z;
+}
+#endif
