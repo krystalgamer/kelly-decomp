@@ -128,3 +128,26 @@ void KSHeapError(const char *text)
     for (;;) ;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E32A0)
+// 0x001E32A0 KSReadFile__FPCcP10nglFileBufUi
+struct nglFileBuf { unsigned char *Buf; unsigned int Size; };
+extern int system_locked;
+extern "C" bool read_world_file(
+    const char *,unsigned char **,unsigned int *,unsigned int,int
+) __asm__("wds_readfile__21world_dynamics_systemPCcPPUcPUiii");
+__asm__(".equ system_locked, 0x0040E3A0");
+__asm__(".equ wds_readfile__21world_dynamics_systemPCcPPUcPUiii, 0x00294AC8");
+bool KSReadFile(const char *filename,nglFileBuf *file,unsigned int align) {
+    bool was_locked=false;
+    if (system_locked) {
+        system_locked=false;
+        was_locked=true;
+    }
+    bool result=read_world_file(
+        filename,&file->Buf,&file->Size,align,1
+    );
+    if (was_locked) system_locked=true;
+    return result;
+}
+#endif
