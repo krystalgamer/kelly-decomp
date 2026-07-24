@@ -617,3 +617,8 @@ void WAVE_GetCollisionBox(
 // 0x00376B78 WAVE_PerturbInit__Fv
 struct obj_vtable{char p0[8];short adjustment;short x0;void(*destroy)(void*);};struct object{char p0[432];obj_vtable*vtable;};extern object*wave_objs[];__asm__(".equ wave_objs,0x00484B58");extern "C" void pulse_init(void*) __asm__("Init__t21WavePulsePerturbClass1i6");extern "C" void partitions() __asm__("WAVE_PerturbInitPartitions__Fv");__asm__(".equ Init__t21WavePulsePerturbClass1i6,0x00381EE0");__asm__(".equ WAVE_PerturbInitPartitions__Fv,0x00376600");extern char pulse[];__asm__(".equ pulse,0x0058DBE0");extern "C" void wave_init() __asm__("WAVE_PerturbInit__Fv");void wave_init(){for(int i=0;i<6;i++){object*o=wave_objs[i];obj_vtable*t=o->vtable;t->destroy((char*)o+t->adjustment);}pulse_init(pulse);partitions();int dead;__asm__("" : "=r"(dead));}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00376BE8)
+// 0x00376BE8 WAVE_ClearBreakArray__Fv
+extern "C" void*memset(void*,int,unsigned);__asm__(".equ memset,0x003D18D0");extern char break_array[];extern int break_type_max;__asm__(".equ break_array,0x0058C3A8");__asm__(".equ break_type_max,0x00585C48");extern "C" void clear_breaks() __asm__("WAVE_ClearBreakArray__Fv");void clear_breaks(){register char*base __asm__("$2")=break_array;register int i __asm__("$18")=7;register int*numbreak __asm__("$17")=(int*)(base+8);register char*list __asm__("$16")=base+12;do{*numbreak=0;memset(list,0,256);list+=268;--i;numbreak=(int*)((char*)numbreak+268);}while(i>=0);break_type_max=0;}
+#endif
