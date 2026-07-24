@@ -1,0 +1,22 @@
+# __dl__7po_animPv
+
+- Address: `0x001199D8`
+- Size: `0x7C` (124 bytes)
+- Object: `game/files_anim`
+- Debug source: `C:/KS/SRC/po_anim.cpp`
+- Reference source: `KS/SRC/po_anim.cpp`
+- Result: **deferred**
+
+## Attempts
+
+| # | Status | Byte score | Instruction score | Candidate |
+| ---: | --- | ---: | ---: | --- |
+| 1 | different | 10.4839 | 0.0 | `candidate.cpp` |
+| 2 | different | 21.9697 | 3.0303 | `candidate.cpp` |
+| 3 | different | 90.3226 | 80.6452 | `candidate.cpp` |
+| 4 | different | 76.6129 | 58.0645 | `candidate.cpp` |
+| 5 | different | 90.3226 | 80.6452 | `candidate.cpp` |
+
+## Outcome
+
+Deferred po_anim pool operator delete after five source-level attempts; the released null guard, pool scan, occupancy clear, and failure print reproduced at 90%, but the target global register and add scheduling did not.
