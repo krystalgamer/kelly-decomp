@@ -59,3 +59,8 @@ nglInstanceBank::Instance* nglInstanceBank::NewNodeOfLevel(int l)
         return (Instance *)AllocFunc(n, 4);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003AC208)
+// 0x003AC208 RandomLevel__15nglInstanceBank
+extern "C" int rand();class nglInstanceBank{public:void*NIL,*Head;int RandomsLeft,RandomBits,Level;int RandomLevel()__asm__("RandomLevel__15nglInstanceBank");};__asm__(".equ rand,0x003D3418");int nglInstanceBank::RandomLevel(){int b,level=0;do{b=RandomBits&3;if(!b)level++;RandomBits>>=2;if(--RandomsLeft==0){RandomBits=rand();RandomsLeft=7;}}while(!b);return level>15?15:level;}
+#endif
