@@ -157,3 +157,8 @@ void serial_float(chunk_file &io,float *value) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003363A8)
+// 0x003363A8 close__10chunk_file
+typedef unsigned long uint64;struct pstring{uint64 pchunk[4];pstring(){for(unsigned i=0;i<4;++i)pchunk[i]=0;}};struct os_file{char data[64];os_file();void close();};struct text_file{char data[144];text_file();void close();};struct stash{void*index;bool opened;bool eof;unsigned fp;unsigned max_fp;char align[4];pstring fullname;stash(){opened=false;eof=false;index=0;fp=0;max_fp=0;}void close(){index=0;eof=false;opened=false;fp=0;max_fp=0;}};__asm__(".equ __7os_file,0x001DFC58");__asm__(".equ close__7os_file,0x001E03A0");__asm__(".equ __9text_file,0x00336D50");__asm__(".equ close__9text_file,0x00337170");class chunk_file{public:bool use_stash;int type;os_file binary;text_file text;stash the_stash;int my_stash;chunk_file()__asm__("close__10chunk_file");void close()__asm__("close__10chunk_file");};void chunk_file::close(){if(type==2){if(use_stash==true){use_stash=false;the_stash.close();}else binary.close();}else if(type==1){text.close();}type=0;}
+#endif
