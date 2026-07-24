@@ -61,3 +61,13 @@ void ai_locomotion::going_out_of_service() { repulsion_wait_timer = 0.0f; repuls
 // 0x00107F68 set_goto_path__13ai_locomotionfb
 extern "C" void clear_path(void*) __asm__("clear_path__13ai_locomotion");__asm__(".equ clear_path__13ai_locomotion,0x00107FD8");struct loco_vtable{char padding[16];short adjustment;short reserved;bool(*set_path)(void*,const void*,float,bool);};struct loco_layout{char p0[168];char target_pos[12];char p1[8];int use_path,path_tries;char p2[128];loco_vtable*vtable;};extern "C" void set_goto(loco_layout*self,float mod,bool force) __asm__("set_goto_path__13ai_locomotionfb");void set_goto(loco_layout*self,float mod,bool force){clear_path(self);loco_vtable*t=self->vtable;self->use_path=t->set_path((char*)self+t->adjustment,self->target_pos,mod,force);self->path_tries++;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00108418)
+// 0x00108418 stop_jockey__13ai_locomotion
+struct vector3d{float x,y,z;vector3d&operator=(const vector3d&o){x=o.x;y=o.y;z=o.z;return *this;}};
+struct po{char pad[48];vector3d position;};
+struct entity{char pad[80];po* my_abs_po;void kill_anim(int)__asm__("kill_anim__6entityi");const vector3d& get_abs_position()const{return my_abs_po->position;}};
+class ai_locomotion{public:char pad[236];float jockey_timer;float jockey_stuck_timer;vector3d last_jockey_pos;vector3d jockey_pos;vector3d jockey_dir;float jockey_speed;int jockey;int use_45_jockey;int jockey_anim_a;int jockey_anim_b;entity* get_my_entity()const __asm__("get_my_entity__C13ai_locomotion");void stop_jockey() __asm__("stop_jockey__13ai_locomotion");};
+extern "C" void kill_anim(entity*,int) __asm__("kill_anim__6entityi");__asm__(".equ get_my_entity__C13ai_locomotion,0x00106EA0");__asm__(".equ kill_anim__6entityi,0x00134918");
+void ai_locomotion::stop_jockey(){if(jockey){entity*e=get_my_entity();asm volatile("" : "+r"(e));e->kill_anim(4);jockey_anim_a=9;jockey_timer=-1.0f;jockey_anim_b=9;jockey=false;jockey_stuck_timer=0.0f;last_jockey_pos=get_my_entity()->get_abs_position();}}
+#endif
