@@ -174,3 +174,21 @@ stringx &stringx::operator=(const stringx &copy) {
     return *this;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034D4D0)
+// 0x0034D4D0 __7stringxRC7stringx
+struct string_buf { void *data; int ref_count; };
+extern int stringx_initialized;
+extern "C" void initialize_stringx() __asm__("init__7stringx");
+__asm__(".equ stringx_initialized,0x0046DB1C");
+__asm__(".equ init__7stringx,0x0034D850");
+class stringx { char *chars; string_buf *my_buf; public: stringx(const stringx &copy); };
+stringx::stringx(const stringx &copy)
+{
+    if (!stringx_initialized)
+        initialize_stringx();
+    my_buf = copy.my_buf;
+    ++my_buf->ref_count;
+    chars = (char *)my_buf->data;
+}
+#endif
