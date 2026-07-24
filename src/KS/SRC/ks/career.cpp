@@ -241,3 +241,8 @@ struct Level{int my_id,unlocked;char p0[4];int is_new;};struct career_data{int b
 // 0x0025AA70 IncreaseSpin__6Careeri
 struct GlobalDataClass{int getMaxHandicap(int);void setMaxHandicap(int,int);};extern GlobalDataClass globalCareerData;__asm__(".equ globalCareerData,0x004349B8");__asm__(".equ getMaxHandicap__15GlobalDataClassi,0x002EFCC8");__asm__(".equ setMaxHandicap__15GlobalDataClassii,0x002EFD58");struct Career{int spin,speed,jump,balance;char pad0[4];int my_id;char pad1[160];int totalStatPointsIncreased;void IncreaseSpin(int)__asm__("IncreaseSpin__6Careeri");};void Career::IncreaseSpin(int inc){spin+=inc;totalStatPointsIncreased+=inc;if(globalCareerData.getMaxHandicap(my_id)<totalStatPointsIncreased/4){globalCareerData.setMaxHandicap(my_id,totalStatPointsIncreased/4);asm volatile("");}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0025AAF8)
+// 0x0025AAF8 IncreaseSpeed__6Careeri
+struct GlobalDataClass{int getMaxHandicap(int);void setMaxHandicap(int,int);};extern GlobalDataClass globalCareerData;__asm__(".equ globalCareerData,0x004349B8");__asm__(".equ getMaxHandicap__15GlobalDataClassi,0x002EFCC8");__asm__(".equ setMaxHandicap__15GlobalDataClassii,0x002EFD58");struct Career{int spin,speed,jump,balance;char pad0[4];int my_id;char pad1[160];int totalStatPointsIncreased;void IncreaseSpeed(int)__asm__("IncreaseSpeed__6Careeri");};void Career::IncreaseSpeed(int inc){speed+=inc;totalStatPointsIncreased+=inc;if(globalCareerData.getMaxHandicap(my_id)<totalStatPointsIncreased/4){globalCareerData.setMaxHandicap(my_id,totalStatPointsIncreased/4);asm volatile("");}}
+#endif
