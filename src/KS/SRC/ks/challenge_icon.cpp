@@ -209,3 +209,8 @@ void IconChallenge::Icon::Despawn() {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002609D0)
+// 0x002609D0 Update__13IconChallengef
+struct Controller;struct Icon{char data[44];void Update(float)__asm__("Update__Q213IconChallenge4Iconf");};struct Arrangement{char data[1];void Update(Controller*,float)__asm__("Update__Q213IconChallenge11ArrangementP22kellyslater_controllerf");};struct IconChallenge{char pad[4];Controller*ksctrl;int numIcons;Icon*icons;Arrangement arrangement;void Update(float)__asm__("Update__13IconChallengef");};__asm__(".equ Update__Q213IconChallenge11ArrangementP22kellyslater_controllerf,0x00260BE8");__asm__(".equ Update__Q213IconChallenge4Iconf,0x00261558");void IconChallenge::Update(float dt){arrangement.Update(ksctrl,dt);for(int i=0;i<numIcons;i++)icons[i].Update(dt);}
+#endif
