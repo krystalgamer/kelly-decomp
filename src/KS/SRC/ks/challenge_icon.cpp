@@ -120,3 +120,22 @@ void IconChallenge::Sequence::Spawn() {
     for (int i=0;i<numTasks;i++) tasks[i].Spawn();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00260F68)
+// 0x00260F68 Despawn__Q213IconChallenge8Sequence
+class IconChallenge {
+public:
+    class Task { char data[16]; public: void Despawn(); };
+    class Sequence {
+        int numTasks;
+        Task tasks[10];
+        bool completed;
+    public:
+        void Despawn();
+    };
+};
+__asm__(".equ Despawn__Q213IconChallenge4Task, 0x002610E0");
+void IconChallenge::Sequence::Despawn() {
+    for (int i=0;i<numTasks;i++) tasks[i].Despawn();
+}
+#endif
