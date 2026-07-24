@@ -259,3 +259,22 @@ void destroy_music(music_layout *self,int flags) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00258A98)
+// 0x00258A98 play__12MusicListing
+struct Track { char padding[8]; unsigned int Play(); char rest[64]; };
+__asm__(".equ Play__5Track,0x002585E8");
+class MusicListing { int totalSources; int current; Track sources[50]; unsigned int currentSoundId; bool successfulLastPlay; int order[50]; public: unsigned int play(); };
+unsigned int MusicListing::play()
+{
+    if (totalSources <= 0) {
+        currentSoundId = 0;
+        return 0;
+    }
+    register unsigned int sound __asm__("$2") = sources[order[current]].Play();
+    __asm__ __volatile__("" : "+r"(sound));
+    currentSoundId = sound;
+    successfulLastPlay = sound;
+    return sound;
+}
+#endif
