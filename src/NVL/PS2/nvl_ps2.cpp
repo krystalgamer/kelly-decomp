@@ -120,3 +120,8 @@ int nvlMovieGetFrame(const nvlMovie *movie)
     return movie->currentFrame;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0038AE40)
+// 0x0038AE40 nvlStopAllMovies__Fv
+struct Source{int refs;};struct Movie{Source*src;};struct System{char pad[16];Movie*pMovies[4];};extern int initialized;extern System system_data;extern "C" void stop(Movie*)__asm__("nvlStopMovie__FP8nvlMovie");extern "C" void release(Source*)__asm__("nvlReleaseMovieSource__FP14nvlMovieSource");__asm__(".equ initialized,0x0049B010");__asm__(".equ system_data,0x00597108");__asm__(".equ nvlStopMovie__FP8nvlMovie,0x0038B890");__asm__(".equ nvlReleaseMovieSource__FP14nvlMovieSource,0x0038B128");extern "C" void stop_all()__asm__("nvlStopAllMovies__Fv");void stop_all(){if(initialized){for(int i=0;i<4;i++){if(system_data.pMovies[i]){Source*src=system_data.pMovies[i]->src;stop(system_data.pMovies[i]);if(src&&src->refs==0)release(src);}}}}
+#endif
