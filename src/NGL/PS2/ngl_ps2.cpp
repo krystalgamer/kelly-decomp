@@ -861,3 +861,8 @@ extern "C" void *nglGetMesh(const nglFixedString *name, bool warn)
     return 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00398668)
+// 0x00398668 nglGetProjectionParams__FPfN40
+struct scene{char p0[1136];float hfov,cx,cy,nearz,farz;};extern scene*nglCurScene;__asm__(".equ nglCurScene,0x004BBD04");extern "C" void get_params(float*h,float*x,float*y,float*n,float*f) __asm__("nglGetProjectionParams__FPfN40");void get_params(float*h,float*x,float*y,float*n,float*f){if(h)*h=nglCurScene->hfov;if(x)*x=nglCurScene->cx;if(y)*y=nglCurScene->cy;if(n)*n=nglCurScene->nearz;if(f)*f=nglCurScene->farz;}
+#endif
