@@ -205,3 +205,8 @@ float nslGetMasterVolume()
     return nsl.masterVolume;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00390978)
+// 0x00390978 nslSetListenerPosition__FRA2_Cf
+struct nsl_system{float listener[12];char p0[88144-48];int initialized;};extern nsl_system nsl;extern "C" void fatal(const char*,...) __asm__("nslFatal__FPCce");__asm__(".equ nsl,0x0049B5F0");__asm__(".equ nslFatal__FPCce,0x00391420");extern const char fatal_text[];__asm__(".equ fatal_text,0x0051C480");struct vec3{float x,y,z;};extern "C" void set_listener(const vec3&pos) __asm__("nslSetListenerPosition__FRA2_Cf");void set_listener(const vec3&pos){if(!nsl.initialized)return;if(nsl.initialized!=1)fatal(fatal_text);nsl.listener[3]=pos.x;nsl.listener[7]=pos.y;nsl.listener[11]=pos.z;}
+#endif
