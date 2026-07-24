@@ -314,3 +314,8 @@ struct back_entry{char p0[20];int menu_num;};struct menu_vtable{char p0[32];shor
 // 0x00157C60 OnHighlight__20FEGraphicalMenuEntryb
 struct PanelAnimFile;struct PanelAnimManager;extern "C" void play(PanelAnimManager*,PanelAnimFile*,int,int) __asm__("Play__16PanelAnimManagerP13PanelAnimFile8AnimTypei");__asm__(".equ Play__16PanelAnimManagerP13PanelAnimFile8AnimTypei,0x00155500");struct graph_entry{char p0[108];PanelAnimFile*highlight_paf;PanelAnimManager*pam;int already_playing;};extern "C" void on_highlight(graph_entry*self,bool anim) __asm__("OnHighlight__20FEGraphicalMenuEntryb");void on_highlight(graph_entry*self,bool anim){if(self->highlight_paf&&anim){register int type __asm__("$6")=0;if(self->already_playing){play(self->pam,self->highlight_paf,type,3);int dead;__asm__("" : "=r"(dead));}else{play(self->pam,self->highlight_paf,type,2);register int yes __asm__("$3")=1;self->already_playing=yes;}}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00156638)
+// 0x00156638 setHigh__6FEMenuP11FEMenuEntryb
+struct entry_vtable{char pad[32];short adjust;short reserved;void(*highlight)(void*,bool,bool);};struct FEMenuEntry{char pad[96];entry_vtable*vtable;};struct FEMenu{char pad[76];FEMenuEntry*highlighted;};extern "C" void set_high(FEMenu*self,FEMenuEntry*e,bool anim)__asm__("setHigh__6FEMenuP11FEMenuEntryb");void set_high(FEMenu*self,FEMenuEntry*e,bool anim){if(self->highlighted){FEMenuEntry*h=self->highlighted;entry_vtable*t=h->vtable;t->highlight((char*)h+t->adjust,false,true);}entry_vtable*t=e->vtable;t->highlight((char*)e+t->adjust,true,anim);self->highlighted=e;}
+#endif
