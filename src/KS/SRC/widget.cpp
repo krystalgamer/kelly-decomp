@@ -693,3 +693,8 @@ void text_widget::init(stringx &typeface)
     __asm__ __volatile__("" : : : "memory");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033EF10)
+// 0x0033EF10 set_color__6widgetP5color
+struct color{float r,g,b,a;inline color&operator=(const color&o){r=o.r;g=o.g;b=o.b;a=o.a;return *this;}};struct widget_vtable{char padding[288];short adjustment;short reserved;void(*update_col)(void*);};struct widget_layout{char padding[88];color col[4];char p2[168];widget_vtable*vtable;};extern "C" void set_colors(widget_layout*self,color*c) __asm__("set_color__6widgetP5color");void set_colors(widget_layout*self,color*c){for(int i=0;i<4;++i)self->col[i]=c[i];widget_vtable*t=self->vtable;t->update_col((char*)self+t->adjustment);}
+#endif
