@@ -275,3 +275,33 @@ void DeleteTrackTree(void *memory) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00113A50)
+// 0x00113A50 detach__11entity_anim
+struct anim_vtable { char padding[16]; short adjustment; short reserved; void (*clear_flag)(void *, unsigned short); };
+struct entity_vtable { char padding[0x518]; short adjustment; short reserved; void (*detach_anim)(void *); };
+class entity {
+    char padding[8];
+    entity_vtable *vtable;
+public:
+    void detach_anim() { entity_vtable *table = vtable; table->detach_anim((char *)this + table->adjustment); }
+};
+class entity_anim {
+    unsigned short flags;
+    unsigned short padding;
+    anim_vtable *vtable;
+    entity *ent;
+public:
+    bool is_attached() const { return (flags & 0x10) != 0; }
+    void clear_flag(unsigned short flag) { anim_vtable *table = vtable; table->clear_flag((char *)this + table->adjustment, flag); }
+    void detach();
+};
+void entity_anim::detach()
+{
+    if (flags & 0x10) {
+        clear_flag(0x10);
+        if (ent)
+            ent->detach_anim();
+    }
+}
+#endif
