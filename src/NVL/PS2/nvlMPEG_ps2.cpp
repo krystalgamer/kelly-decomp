@@ -473,3 +473,8 @@ extern "C" void change_input(unsigned) __asm__("changeInputVolume__FUi");extern 
 // 0x00389050 voBufIncCount__FP5VoBuf
 extern "C" void disable_intr()__asm__("DIntr");extern "C" void enable_intr()__asm__("EIntr");__asm__(".equ DIntr,0x003DFD70");__asm__(".equ EIntr,0x003DFDB8");enum{VOBUF_STATUS_FULL=2};struct VoTag{int status;char data[314940];};struct VoBuf{void*data;VoTag*tag;volatile int write;volatile int count;int size;};extern "C" void inc(VoBuf*f)__asm__("voBufIncCount__FP5VoBuf");void inc(VoBuf*f){disable_intr();f->tag[f->write].status=VOBUF_STATUS_FULL;f->count++;f->write=(f->write+1)%f->size;enable_intr();KELLY_DECOMP_COMPILER_BARRIER();}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00389848)
+// 0x00389848 audioDecEndPut__FP8AudioDeci
+struct AudioDec{int state;char pad0[40];int hdrCount;char pad1[4];int put,count,size,totalBytes;};extern "C" void endput(AudioDec*ad,int size)__asm__("audioDecEndPut__FP8AudioDeci");void endput(AudioDec*ad,int size){if(ad->state==0){int remain=40-ad->hdrCount;int hdr_add=remain<size?remain:size;ad->hdrCount+=hdr_add;if(ad->hdrCount>=40)ad->state=1;size-=hdr_add;}ad->put=(ad->put+size)%ad->size;ad->count+=size;ad->totalBytes+=size;}
+#endif
