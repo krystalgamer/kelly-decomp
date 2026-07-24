@@ -229,3 +229,33 @@ bool MusicListing::isPlaying() {
     return false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002587C0)
+// 0x002587C0 _$_8MusicMan
+extern "C" void destroy_listing(void *,int)
+    __asm__("_$_12MusicListing");
+extern "C" void object_delete(void *)
+    __asm__("__builtin_delete");
+extern const char music_vtable[];
+extern const char singleton_vtable[];
+__asm__(".equ _$_12MusicListing, 0x002588B8");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ music_vtable, 0x004D5E70");
+__asm__(".equ singleton_vtable, 0x004CE7A8");
+struct music_layout {
+    const void *vtable;
+    char padding[0xc];
+    char listing[1];
+};
+extern "C" void destroy_music(music_layout *self,int flags)
+    __asm__("_$_8MusicMan");
+void destroy_music(music_layout *self,int flags) {
+    self->vtable=music_vtable;
+    destroy_listing(self->listing,2);
+    self->vtable=singleton_vtable;
+    if (flags&1) {
+        object_delete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
