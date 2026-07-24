@@ -622,3 +622,8 @@ struct obj_vtable{char p0[8];short adjustment;short x0;void(*destroy)(void*);};s
 // 0x00376BE8 WAVE_ClearBreakArray__Fv
 extern "C" void*memset(void*,int,unsigned);__asm__(".equ memset,0x003D18D0");extern char break_array[];extern int break_type_max;__asm__(".equ break_array,0x0058C3A8");__asm__(".equ break_type_max,0x00585C48");extern "C" void clear_breaks() __asm__("WAVE_ClearBreakArray__Fv");void clear_breaks(){register char*base __asm__("$2")=break_array;register int i __asm__("$18")=7;register int*numbreak __asm__("$17")=(int*)(base+8);register char*list __asm__("$16")=base+12;do{*numbreak=0;memset(list,0,256);list+=268;--i;numbreak=(int*)((char*)numbreak+268);}while(i>=0);break_type_max=0;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00383FA0)
+// 0x00383FA0 WAVE_Sin__Ff
+extern const float sin_table[];__asm__(".equ sin_table,0x00519210");extern "C" float wave_sin(float a) __asm__("WAVE_Sin__Ff");float wave_sin(float a){int index=((int)(a/6.283185308f*1000.0f))%1000;return index>=0?sin_table[index]:-sin_table[-index];}
+#endif
