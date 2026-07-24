@@ -370,3 +370,8 @@ void kellyslater_controller::EndTube(){my_board_controller.state=0;set_state(74)
 // 0x002123E0 CalculateStats__22kellyslater_controller
 struct turn_data{float data[4];};struct Controller{char pad[260];turn_data carve,hardCarve,grab,hardGrab,slide,hardSlide;void CalcTurnStats(turn_data*,int)__asm__("CalcTurnStats__22kellyslater_controllerP9turn_datai");};__asm__(".equ CalcTurnStats__22kellyslater_controllerP9turn_datai,0x00211FC0");extern "C" void calculate(Controller*self)__asm__("CalculateStats__22kellyslater_controller");void calculate(Controller*self){self->CalcTurnStats(&self->carve,0);self->CalcTurnStats(&self->hardCarve,3);self->CalcTurnStats(&self->grab,1);self->CalcTurnStats(&self->hardGrab,4);self->CalcTurnStats(&self->slide,2);self->CalcTurnStats(&self->hardSlide,5);KELLY_DECOMP_COMPILER_BARRIER();}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00224CF0)
+// 0x00224CF0 SetConglomTexture__22kellyslater_controllerP6entityi
+struct entity;struct link_interface{char pad[12];entity*first_child;entity*next_sibling;};struct entity{char pad0[104];link_interface*link;char pad1[44];int texture_frame;};struct kellyslater_controller;extern "C" void recurse(kellyslater_controller*,entity*,int)__asm__("recurse_alias");__asm__(".equ recurse_alias,0x00224CF0");struct kellyslater_controller{void SetConglomTexture(entity*,int)__asm__("SetConglomTexture__22kellyslater_controllerP6entityi");};void kellyslater_controller::SetConglomTexture(entity*c,int b){if(!c)return;if(c->link){entity*c1=c->link->first_child;while(c1){recurse(this,c1,b);c1=c1->link->next_sibling;}c->texture_frame=b;}}
+#endif
