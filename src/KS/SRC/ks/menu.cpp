@@ -160,3 +160,32 @@ void MenuEntry::Deactivate()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023EED8)
+// 0x0023EED8 Activate__9MenuEntry
+struct entry_vtable {
+    char padding[0x90]; short adjustment; short reserved;
+    void (*on_activate)(void *);
+};
+class MenuEntry {
+    unsigned int flags;
+    entry_vtable *vtable;
+public:
+    bool GetFlag(unsigned int flag) { return (flags&flag)!=0; }
+    void SetFlag(unsigned int flag,bool enabled) {
+        if (enabled) flags|=flag; else flags&=~flag;
+    }
+    bool IsVisible() { return GetFlag(1); }
+    bool IsEnabled() { return IsVisible() && GetFlag(2); }
+    bool IsActive() { return GetFlag(4); }
+    void Activate();
+};
+void MenuEntry::Activate() {
+    if (IsEnabled() && !IsActive()) {
+        SetFlag(4,true);
+        vtable->on_activate(
+            (char *)this+vtable->adjustment
+        );
+    }
+}
+#endif
