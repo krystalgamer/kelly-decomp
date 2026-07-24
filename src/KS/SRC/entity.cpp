@@ -1397,3 +1397,31 @@ void entity::set_visible(bool visible) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00139B70)
+// 0x00139B70 set_max_lights__6entityUi
+struct light_manager { char padding[64]; unsigned int max_lights; };
+struct entity_vtable { char padding[0x4c0]; short adjustment; short reserved; light_manager *(*get_light_set)(void *); };
+class entity {
+    char padding0[8];
+    entity_vtable *vtable;
+    char padding1[384];
+    unsigned int max_lights;
+public:
+    light_manager *get_light_set() { entity_vtable *table = vtable; return table->get_light_set((char *)this + table->adjustment); }
+    void set_max_lights(unsigned int value);
+};
+void entity::set_max_lights(unsigned int value)
+{
+    volatile unsigned int values[2];
+    values[0] = value;
+    values[1] = 3;
+    const volatile unsigned int *selected = &values[1];
+    if (!(3U < value))
+        selected = &values[0];
+    max_lights = *selected;
+    light_manager *manager = get_light_set();
+    if (manager)
+        manager->max_lights = max_lights;
+}
+#endif
