@@ -218,3 +218,15 @@ bool NamesMenu::AvailAndSavedGames(int card)
            cards[adjusted].saved_games;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0019ED70)
+// 0x0019ED70 TurnPQLines__9NamesMenub
+struct panel_vtable { char padding[24]; short adjustment; short reserved; void (*turn_on)(void *,bool); };
+struct PanelQuad { char padding[404]; panel_vtable *vtable; };
+struct names_layout { char padding[540]; PanelQuad *lines[10]; };
+extern "C" void turn_lines(names_layout *self,bool on) __asm__("TurnPQLines__9NamesMenub");
+void turn_lines(names_layout *self,bool on)
+{
+    for(int i=0;i<10;++i){PanelQuad *p=self->lines[i];panel_vtable *t=p->vtable;t->turn_on((char*)p+t->adjustment,on);}
+}
+#endif
