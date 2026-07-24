@@ -169,3 +169,8 @@ void tutorial_event(tutorial_layout *self, int event, int param1, int param2)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0015A0C0)
+// 0x0015A0C0 play_sound__18IGOTutorialManagerPCc
+struct DevOptions{char pad[72];int no_audio;};extern DevOptions*g_options;extern "C" unsigned load(const char*)__asm__("nslLoadSource__FPCc");extern "C" unsigned add(unsigned)__asm__("nslAddSound__FUi");extern "C" void play(unsigned)__asm__("nslPlaySound__FUi");extern "C" void debug_print(const char*,...)__asm__("debug_print__FPCce");extern const char missing[];__asm__(".equ g_options,0x0046B180");__asm__(".equ nslLoadSource__FPCc,0x0038C130");__asm__(".equ nslAddSound__FUi,0x0038CAF8");__asm__(".equ nslPlaySound__FUi,0x0038CB20");__asm__(".equ debug_print__FPCce,0x00120790");__asm__(".equ missing,0x004CFB48");unsigned IGOTutorialManager::play_sound(const char*name){unsigned snd=0;if(!g_options->no_audio){unsigned s=load(name);if(s!=0){snd=add(s);if(snd!=0)play(snd);}else debug_print(missing,name);}return snd;}
+#endif
