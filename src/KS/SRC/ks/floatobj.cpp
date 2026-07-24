@@ -328,3 +328,13 @@ void BeachObjectDtor(void *self, int deleting) {
     if (deleting&1) { BuiltinDelete(self); __asm__ __volatile__("" : : : "memory"); }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001FD878)
+// 0x001FD878 parse_params__15floating_objectPPci
+extern "C" bool water_parse(void*,char**,int) __asm__("parse_params__12water_objectPPci"); extern "C" bool read_float(void*,char**,int,const char*,float*) __asm__("read_float_param__C12beach_objectPPciPCcPf"); extern const char water_text[];
+__asm__(".equ parse_params__12water_objectPPci,0x001FCD38"); __asm__(".equ read_float_param__C12beach_objectPPciPCcPf,0x001FAD50"); __asm__(".equ water_text,0x004D0CE8");
+struct floating_layout { char padding[752]; float water_interaction; };
+extern "C" bool parse_floating(floating_layout*self,char**argp,int argc) __asm__("parse_params__15floating_objectPPci");
+bool parse_floating(floating_layout*self,char**argp,int argc)
+{bool result;if(water_parse(self,argp,argc)){read_float(self,argp,argc,water_text,&self->water_interaction);result=true;}else result=false;return result;}
+#endif
