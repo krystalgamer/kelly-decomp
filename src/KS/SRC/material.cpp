@@ -101,3 +101,8 @@ hw_texture *anim_texture::get_texture(int frame) const {
 // 0x003394C0 set_defaults__8material
 __asm__(".equ __7stringx,0x0034D3E0");__asm__(".equ __as__7stringxRC7stringx,0x0034E0B8");__asm__(".equ _$_7stringx,0x0034D6E0");struct stringx{char data[8];stringx();~stringx();stringx&operator=(const stringx&);};struct material{char pad0[8];stringx texture_filename[4];char pad1[192];float u_anim;unsigned int mat_flags;char pad2[16];float v_anim;void set_defaults();};void material::set_defaults(){for(int i=0;i<4;i++)texture_filename[i]=stringx();mat_flags=0;KELLY_DECOMP_COMPILER_BARRIER();u_anim=0.0f;v_anim=0.0f;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00339800)
+// 0x00339800 process_vertex_contexts__8material
+struct string_buf{char pad[8];int char_length;};struct stringx{char*chars;string_buf*my_buf;int length()const{return my_buf->char_length;}};struct anim_texture{char data[48];void process_vertex_contexts(unsigned)__asm__("process_vertex_contexts__12anim_textureUi");};__asm__(".equ process_vertex_contexts__12anim_textureUi,0x00339CC0");struct material{stringx material_name;stringx texture_filename[4];anim_texture diffuse_map[4];char pad[24];unsigned mat_flags;void process_vertex_contexts()__asm__("process_vertex_contexts__8material");};void material::process_vertex_contexts(){diffuse_map[0].process_vertex_contexts(mat_flags);for(int i=1;i<4;++i){if(texture_filename[i].length())diffuse_map[i].process_vertex_contexts(mat_flags);}}
+#endif
