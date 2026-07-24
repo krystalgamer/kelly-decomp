@@ -44,3 +44,8 @@ void FEEntityManager::ToTrickBook() {
     __asm__ __volatile__("" : : : "memory");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001C94A0)
+// 0x001C94A0 FEDB_ToggleDraw__15FEEntityManageri
+struct entity_vtable{char pad[352];short adjust;short reserved;void(*set_visible_fn)(void*,bool);};struct entity{char pad[8];entity_vtable*vtable;void set_visible(bool v){entity_vtable*t=vtable;t->set_visible_fn((char*)this+t->adjust,v);}};struct Manager{entity*surfer_ent;char pad[400];entity*board;};extern "C" void print(const char*,...)__asm__("nglPrintf__FPCce");extern const char message[];__asm__(".equ nglPrintf__FPCce,0x003AC050");__asm__(".equ message,0x004C4058");extern "C" void toggle(Manager*self,int option)__asm__("FEDB_ToggleDraw__15FEEntityManageri");void toggle(Manager*self,int option){switch(option){case 0:self->surfer_ent->set_visible(option);break;case 1:self->board->set_visible(option);break;case 2:break;default:print(message);KELLY_DECOMP_COMPILER_BARRIER();break;}}
+#endif
