@@ -86,3 +86,8 @@ void VOEngine::setCurrentLevel(int level)
     currentLevel = level;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00256740)
+// 0x00256740 addSource__8RandomVOUi
+struct RandomVO{char pad0[8];int totalSources;char pad1[4];int numUnusedSources;int valid;char pad2[12];unsigned sources[50];char pad3[200];unsigned sourcesUnused[50];void init();bool addSource(unsigned)__asm__("addSource__8RandomVOUi");};__asm__(".equ init__8RandomVO,0x00256290");bool RandomVO::addSource(unsigned s){if(!valid)init();if(totalSources>=50)return false;sources[totalSources++]=s;sourcesUnused[numUnusedSources++]=s;return true;}
+#endif
