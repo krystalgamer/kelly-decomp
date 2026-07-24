@@ -233,3 +233,31 @@ typedef float rational_t; typedef int axis_id_t;
 class ps2_joypad_device { public: char data[0x5c]; unsigned char *curr_rdata; unsigned char *prev_rdata; char data2[8]; int disconnected; int was_disconnected; rational_t get_axis_state(axis_id_t axis, int control_axis) const; rational_t get_axis_state(axis_id_t axis, unsigned char *rdata) const; };
 rational_t ps2_joypad_device::get_axis_state(axis_id_t axis, int control_axis) const { if (axis != 22) return get_axis_state(axis, curr_rdata); rational_t result = 1.0f; if (disconnected != 1) result = 0.0f; return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E1628)
+// 0x001E1628 stop_vibration__17ps2_joypad_device
+extern "C" void *memset(void *, int, unsigned int);
+extern "C" int scePadSetActDirect(int, int, const unsigned char *);
+__asm__(".equ memset,0x003D18D0");
+__asm__(".equ scePadSetActDirect,0x003BBC68");
+struct developer_options { char padding[76]; int no_rumble; };
+extern developer_options *developer_options_instance;
+__asm__(".equ developer_options_instance,0x0046B180");
+class ps2_joypad_device {
+    char padding[100];
+    signed char port_id;
+    char padding2;
+    signed char pad_type;
+public:
+    void stop_vibration();
+};
+void ps2_joypad_device::stop_vibration()
+{
+    if (!developer_options_instance->no_rumble) {
+        if (pad_type != 121)
+            return;
+        unsigned char motors[6] = {0, 0, 0, 0, 0, 0};
+        scePadSetActDirect(port_id, 0, motors);
+    }
+}
+#endif
