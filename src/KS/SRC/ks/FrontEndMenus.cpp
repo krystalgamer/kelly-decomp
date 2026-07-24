@@ -673,3 +673,8 @@ void update_replay(replay_menu *self,float dt)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B1B98)
+// 0x001B1B98 OnUnactivate__14GoalsMenuClassP6FEMenu
+struct igo{char p0[296];int menu_bg;};struct manager{igo*IGO;};struct system_layout{char p0[120];manager*manager_ptr;};struct goals_layout{char p0[164];system_layout*sys;char p1[44];int wasMenuBGOn;};extern "C" void show_menu(igo*,bool) __asm__("ShowMenuBackground__11IGOFrontEndb");extern "C" void show_accomp(igo*,bool,int,int) __asm__("ShowAccompBackground__11IGOFrontEndbii");__asm__(".equ ShowMenuBackground__11IGOFrontEndb,0x0017CED0");__asm__(".equ ShowAccompBackground__11IGOFrontEndbii,0x0017CC88");extern "C" void unactivate(goals_layout*self,void*m) __asm__("OnUnactivate__14GoalsMenuClassP6FEMenu");void unactivate(goals_layout*self,void*m){if(m&&self->wasMenuBGOn){system_layout*s=self->sys;manager*man=s->manager_ptr;igo*i=man->IGO;if(!i->menu_bg)show_menu(i,true);}register system_layout*s __asm__("$3")=self->sys;register manager*man __asm__("$2")=s->manager_ptr;show_accomp(man->IGO,false,0,0);int dead;__asm__("" : "=r"(dead));}
+#endif
