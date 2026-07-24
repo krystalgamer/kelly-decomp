@@ -3391,3 +3391,29 @@ bool run_vo_delay(void *,vm_stack_layout *stack,int entry) {
     return false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031EDE0)
+// 0x0031EDE0 __cl__19slf_dilated_delay_tR8vm_stackQ320script_library_class8function7entry_t
+class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY, RECALL_ENTRY }; }; };
+struct vm_stack { char padding[8]; char *top; };
+struct game_time { char padding[296]; float dilation; };
+extern game_time *global_game;
+extern float script_time_increment;
+__asm__(".equ global_game,0x00431A8C");
+__asm__(".equ script_time_increment,0x003E5850");
+struct slf_dilated_delay_t { bool operator()(vm_stack &stack, script_library_class::function::entry_t entry); };
+bool slf_dilated_delay_t::operator()(vm_stack &stack, script_library_class::function::entry_t entry)
+{
+    float *sdata = (float *)stack.top;
+    stack.top -= 4;
+    float *parms = (float *)stack.top;
+    if (entry != script_library_class::function::FIRST_ENTRY) {
+        *sdata -= global_game->dilation * script_time_increment;
+        if (*sdata <= 0.0f)
+            return true;
+        return false;
+    }
+    *sdata = *parms;
+    return false;
+}
+#endif
