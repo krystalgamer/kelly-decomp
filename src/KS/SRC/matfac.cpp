@@ -75,3 +75,32 @@ void mat_fac::set_blend_mode(unsigned int mode, int map)
         material.Flags |= 1u;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002BC998)
+// 0x002BC998 _$_7mat_fac
+extern "C" void release_texture(void *)
+    __asm__("nglReleaseTexture__FP10nglTexture");
+extern "C" void object_delete(void *)
+    __asm__("__builtin_delete");
+extern const char mat_fac_vtable[];
+__asm__(".equ nglReleaseTexture__FP10nglTexture, 0x0039C820");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ mat_fac_vtable, 0x004F4808");
+struct mat_fac_layout {
+    char padding[4];
+    void *map;
+    char padding2[0x100];
+    const void *vtable;
+};
+extern "C" void destroy_mat_fac(
+    mat_fac_layout *self,int flags
+) __asm__("_$_7mat_fac");
+void destroy_mat_fac(mat_fac_layout *self,int flags) {
+    self->vtable=mat_fac_vtable;
+    if (self->map) release_texture(self->map);
+    if (flags&1) {
+        object_delete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
