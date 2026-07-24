@@ -1257,3 +1257,8 @@ bool slf_beam_kill_effect_t::operator()(
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00325C28)
+// 0x00325C28 __cl__20slf_beam_set_color_tR8vm_stackQ320script_library_class8function7entry_t
+struct vm_stack{int alloc;char*buffer;char*SP;};struct color32{unsigned char b,g,r,a;color32(unsigned char R,unsigned char G,unsigned char B,unsigned char A){r=R;g=G;b=B;a=A;}};struct beam{void set_beam_color(const color32&);};__asm__(".equ set_beam_color__4beamRC7color32,0x002717A0");struct slf{struct parms_t{beam*me;float r,g,b,a;};bool call(vm_stack&,int)__asm__("__cl__20slf_beam_set_color_tR8vm_stackQ320script_library_class8function7entry_t");};bool slf::call(vm_stack&stack,int entry){stack.SP-=sizeof(parms_t);parms_t*p=(parms_t*)stack.SP;p->me->set_beam_color(color32((unsigned char)p->r,(unsigned char)p->g,(unsigned char)p->b,(unsigned char)p->a));return true;}
+#endif
