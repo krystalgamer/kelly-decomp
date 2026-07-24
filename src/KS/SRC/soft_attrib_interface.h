@@ -64,3 +64,38 @@ const pstring character_soft_attrib_interface::get_soft_attrib_str(
     return pstring(0);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00146238)
+// 0x00146238 get_soft_attrib_num__C21soft_attrib_interfaceR7pstring
+struct pstring { unsigned long long data[4]; };
+extern const pstring soft_attribute_name;
+__asm__(".equ soft_attribute_name, 0x003E59F0");
+class soft_attrib_interface {
+    char padding[8];
+    int value;
+public:
+    float get_soft_attrib_num(pstring &name) const;
+};
+float soft_attrib_interface::get_soft_attrib_num(pstring &name) const {
+    unsigned int count=0;
+    const unsigned long long *left=name.data;
+    const unsigned long long *right=soft_attribute_name.data;
+    register int equal __asm__("$2");
+    do {
+        if (*left!=*right) {
+            equal=0;
+            goto compared;
+        }
+        ++count;
+        ++right;
+        ++left;
+    } while (count<4);
+    equal=1;
+compared:
+    __asm__ __volatile__("" : "+r"(equal));
+    if (equal) goto matched;
+    return 0.0f;
+matched:
+    return (float)value;
+}
+#endif
