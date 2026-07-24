@@ -24,3 +24,8 @@ void **skeleton_rtti()
     return skeleton_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00146070)
+// 0x00146070 _$_18skeleton_interface
+struct skeleton_interface{void*vptr;void*my_entity;void*abs_po;void*h_abs_po;int po_count;};extern char skel_vtable[],base_vtable[];extern "C" void vec_delete(void*)__asm__("__builtin_vec_delete");extern "C" void builtin_delete(void*)__asm__("__builtin_delete");__asm__(".equ skel_vtable,0x004CDCC8");__asm__(".equ base_vtable,0x004C85B8");__asm__(".equ __builtin_vec_delete,0x002AC6D0");__asm__(".equ __builtin_delete,0x002AC6B0");extern "C" void dtor(skeleton_interface*self,int deleting)__asm__("_$_18skeleton_interface");void dtor(skeleton_interface*self,int deleting){self->vptr=skel_vtable;if(self->abs_po){vec_delete(self->abs_po);self->abs_po=0;if(self->h_abs_po)vec_delete(self->h_abs_po);self->h_abs_po=0;self->po_count=0;}self->vptr=base_vtable;self->my_entity=0;if(deleting&1){builtin_delete(self);KELLY_DECOMP_COMPILER_BARRIER();}}
+#endif
