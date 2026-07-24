@@ -4697,7 +4697,7 @@ c_prep_billboards__FP12vr_billboardP20instance_render_infoT1UiPiRC9matrix4x4T5ff
 c_prep_axis_billboards__FP12vr_billboardP20instance_render_infoT1UiPiRC9matrix4x4T5ffUiUiRC8vector3db = 0x002BD920; // type:func size:0x1534
 c_prep_billboards__FP12vr_billboardP20instance_render_infoT1P7nglMeshPiRC9matrix4x4T5ffUibi = 0x002BEE58; // type:func size:0x3E4
 c_prep_axis_billboards__FP12vr_billboardP20instance_render_infoT1P7nglMeshPiRC9matrix4x4T5ffUiUiRC8vector3db = 0x002BF240; // type:func size:0x1520
-_$_12vr_billboard = 0x002C0760; // type:func size:0x60
+_$_12vr_billboard = 0x002C0760; // type:func defined:true size:0x60
 __12vr_billboardR10chunk_fileb = 0x002C07C0; // type:func defined:true size:0x58
 __12vr_billboardRC7stringxUi = 0x002C0818; // type:func size:0x8C
 internal_serial_in__12vr_billboardR10chunk_file = 0x002C08A8; // type:func size:0x758

@@ -194,3 +194,31 @@ void *BillboardCtor(void *self, chunk_file &file, bool instanced) {
     return self;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002C0760)
+// 0x002C0760 _$_12vr_billboard
+extern "C" void destroy_mat(void *,int) __asm__("_$_7mat_fac");
+extern "C" void object_delete(void *) __asm__("__builtin_delete");
+extern const char billboard_vtable[];
+extern const char visual_vtable[];
+__asm__(".equ _$_7mat_fac, 0x002BC998");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ billboard_vtable, 0x004F4750");
+__asm__(".equ visual_vtable, 0x004F4820");
+struct billboard_layout {
+    char padding[0x10]; const void *vtable;
+    char padding2[4]; char material[1];
+};
+extern "C" void destroy_billboard(
+    billboard_layout *self,int flags
+) __asm__("_$_12vr_billboard");
+void destroy_billboard(billboard_layout *self,int flags) {
+    self->vtable=billboard_vtable;
+    destroy_mat(self->material,2);
+    self->vtable=visual_vtable;
+    if (flags&1) {
+        object_delete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
