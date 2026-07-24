@@ -148,3 +148,8 @@ struct block;struct Heap{char p0[64];int statsuptodate;};extern "C" bool is_your
 // 0x002ABA30 FreeBlock__4HeapP12MemBlockInfo
 struct block{block*prev,*next,*prevoftype,*nextoftype;};struct Heap;extern "C" void move(Heap*,block*) __asm__("MoveUsedToFree__4HeapP12MemBlockInfo");extern "C" void merge(Heap*,block*) __asm__("MergeBlock__4HeapP12MemBlockInfo");__asm__(".equ MoveUsedToFree__4HeapP12MemBlockInfo,0x002ABFF0");__asm__(".equ MergeBlock__4HeapP12MemBlockInfo,0x002ABAA8");extern "C" void free_block(Heap*self,block*b) __asm__("FreeBlock__4HeapP12MemBlockInfo");void free_block(Heap*self,block*b){move(self,b);if(b->next&&b->nextoftype==b->next)merge(self,b);if(b->prev&&b->prevoftype==b->prev)merge(self,b->prev);int dead;__asm__("" : "=r"(dead));}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AB770)
+// 0x002AB770 IsThisYours__C4HeapPv
+struct MemBlockInfo;struct Heap{char pad[24];unsigned heapsize;void*heapstart;};extern "C" bool contain(const Heap*,void*)__asm__("DoYouContain__C4HeapPv");extern "C" bool mine(const Heap*,const MemBlockInfo*)__asm__("IsThisMine__C4HeapPC12MemBlockInfo");extern "C" unsigned header(const Heap*)__asm__("HeaderSize__C4Heap");__asm__(".equ DoYouContain__C4HeapPv,0x002AB6F0");__asm__(".equ IsThisMine__C4HeapPC12MemBlockInfo,0x002AB748");__asm__(".equ HeaderSize__C4Heap,0x002AB370");inline bool has_memory(const Heap*self){return self->heapsize>0&&self->heapstart!=0;}extern "C" bool is_yours(const Heap*self,void*ptr)__asm__("IsThisYours__C4HeapPv");bool is_yours(const Heap*self,void*ptr){return has_memory(self)&&contain(self,ptr)&&mine(self,(const MemBlockInfo*)((char*)ptr-header(self)));}
+#endif
