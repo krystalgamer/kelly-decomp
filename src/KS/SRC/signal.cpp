@@ -214,3 +214,8 @@ void signal::clear_links()
 // 0x0034CD68 clear_callbacks__9signaller
 struct signal;struct fastvec{unsigned count;signal**data;};struct signaller{char p0[4];fastvec*signals;};extern "C" void clear_cb(signal*) __asm__("clear_callbacks__6signal");extern "C" void clear_links(signal*) __asm__("clear_links__6signal");__asm__(".equ clear_callbacks__6signal,0x0034C750");__asm__(".equ clear_links__6signal,0x0034C278");extern "C" void clear_all(signaller*self) __asm__("clear_callbacks__9signaller");void clear_all(signaller*self){if(self->signals){signal**i=self->signals->data;signal**end=i+self->signals->count;for(;i!=end;++i){if(*i){clear_cb(*i);clear_links(*i);}}}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034CDD8)
+// 0x0034CDD8 clear_script_callbacks__9signaller
+struct signal;struct fastvec{unsigned count;signal**data;};struct signaller{char p0[4];fastvec*signals;};extern "C" void clear_cb(signal*) __asm__("clear_script_callbacks__6signal");extern "C" void clear_links(signal*) __asm__("clear_links__6signal");__asm__(".equ clear_script_callbacks__6signal,0x0034C7E0");__asm__(".equ clear_links__6signal,0x0034C278");extern "C" void clear_all(signaller*self) __asm__("clear_script_callbacks__9signaller");void clear_all(signaller*self){if(self->signals){signal**i=self->signals->data;signal**end=i+self->signals->count;for(;i!=end;++i){if(*i){clear_cb(*i);clear_links(*i);}}}}
+#endif
