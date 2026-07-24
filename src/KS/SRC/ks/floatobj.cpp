@@ -371,3 +371,8 @@ class beach_billboard:public beach_object{public:beach_billboard(entity*,const s
 extern const vector3d zero_vec;__asm__(".equ zero_vec,0x00554478");__asm__(".equ __12beach_objectP6entityRC7stringx,0x001FAA10");__asm__(".equ _vt$15beach_billboard,0x004D6148");
 beach_billboard::beach_billboard(entity*ent,const stringx&path):beach_object(ent,path){my_entity=ent;my_velocity=zero_vec;rotate=true;my_life=0;physical=false;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001FAB00)
+// 0x001FAB00 get_settings__12beach_objectRC12beach_object
+struct stringx{char data[8];stringx&operator=(const stringx&);};__asm__(".equ __as__7stringxRC7stringx,0x0034E0B8");struct beach_object{char pad0[4];float spawn_time;int timer_type;int times_spawned;int spawned;int smashable;int active;int never_despawn;int physical;char pad1[8];int spawn_count;stringx my_path;void get_settings(const beach_object&)__asm__("get_settings__12beach_objectRC12beach_object");};void beach_object::get_settings(const beach_object&o){__asm__ volatile ("" : : : "memory");my_path=o.my_path;spawn_time=o.spawn_time;timer_type=o.timer_type;spawned=o.spawned;spawn_count=o.spawn_count;times_spawned=o.times_spawned;smashable=o.smashable;active=o.active;physical=o.physical;never_despawn=o.never_despawn;}
+#endif
