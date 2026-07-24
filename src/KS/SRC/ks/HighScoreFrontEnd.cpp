@@ -210,3 +210,8 @@ void menu_action(name_entry_layout *self, int controller)
     table->move((char *)self + table->adjustment);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001CA588)
+// 0x001CA588 Load__17HighScoreFrontEnd
+struct base_vtable{char p0[56];short adjustment;short x0;void(*load)(void*,bool);};struct menu_vtable{char p0[64];short adjustment;short x0;void(*set)(void*);};struct menu{char p0[320];menu_vtable*vtable;};struct highscore{char p0[116];base_vtable*vtable;char p1[200];menu_vtable*inner_vtable;char p2[328];int in_game;char p3[208];menu*nem;};extern "C" void load(highscore*self) __asm__("Load__17HighScoreFrontEnd");void load(highscore*self){base_vtable*t=self->vtable;t->load((char*)self+t->adjustment,false);register menu_vtable*u __asm__("$2")=self->inner_vtable;register void*sub __asm__("$5")=(char*)self+128;register int adj __asm__("$4")=u->adjustment;register void(*fn)(void*) __asm__("$3")=u->set;fn((char*)sub+adj);if(self->in_game){register menu*m __asm__("$4")=self->nem;u=m->vtable;m=(menu*)((char*)m+128);register int a __asm__("$3")=u->adjustment;register void(*f)(void*) __asm__("$5")=u->set;f((char*)m+a);}}
+#endif
