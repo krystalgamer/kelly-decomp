@@ -400,3 +400,8 @@ void turn_tube_timer(igo_layout *self,int player,bool on)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00175508)
+// 0x00175508 OnModeReset__11IGOFrontEnd
+struct game{char pad[116];int mode;};extern game*g_game_ptr;struct PhotoWidget{void Reset();};struct CameraWidget{void Reset();};__asm__(".equ g_game_ptr,0x0046AC64");__asm__(".equ Reset__11PhotoWidget,0x0016AB70");__asm__(".equ Reset__12CameraWidget,0x00169EA0");struct IGOFrontEnd{char pad0[256];bool firstTimeAttackState;bool firstMeterAttackState;char pad1[32];int runState;char pad2[1148];CameraWidget*cameraWidget;PhotoWidget*photoWidget;void OnModeReset()__asm__("OnModeReset__11IGOFrontEnd");};void IGOFrontEnd::OnModeReset(){int mode=g_game_ptr->mode;if(mode==5){firstTimeAttackState=true;runState=11;}else if(mode==6){firstMeterAttackState=true;runState=12;}if(photoWidget)photoWidget->Reset();if(cameraWidget){cameraWidget->Reset();asm volatile("");}}
+#endif
