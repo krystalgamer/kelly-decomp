@@ -80,3 +80,33 @@ void entity_widget::show()
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B9BD8)
+// 0x002B9BD8 kill_anim__13entity_widgetP16entity_anim_tree
+struct entity_anim_tree { char padding[8]; void *entity; };
+extern "C" entity_anim_tree **find_anim(
+    entity_anim_tree **,entity_anim_tree **,entity_anim_tree *const &,int
+) __asm__("find__H2ZPP16entity_anim_treeZP16entity_anim_tree_X01X01RCX11G26random_access_iterator_tag_X01");
+extern "C" void clear_anim(void *,entity_anim_tree *)
+    __asm__("clear_anim__6entityP16entity_anim_tree");
+__asm__(".equ find__H2ZPP16entity_anim_treeZP16entity_anim_tree_X01X01RCX11G26random_access_iterator_tag_X01, 0x002B47A8");
+__asm__(".equ clear_anim__6entityP16entity_anim_tree, 0x001349E8");
+struct anim_vector { entity_anim_tree **start; entity_anim_tree **finish; };
+class entity_widget {
+    char padding[0x148]; anim_vector anims;
+public:
+    void kill_anim(entity_anim_tree *animation);
+};
+void entity_widget::kill_anim(entity_anim_tree *animation) {
+    entity_anim_tree *value=animation;
+    anim_vector *const vector=&anims;
+    entity_anim_tree **it=find_anim(
+        vector->start,vector->finish,value,0
+    );
+    if (it!=vector->finish) {
+        entity_anim_tree *found=*it;
+        clear_anim(found->entity,found);
+        *it=0;
+    }
+}
+#endif
