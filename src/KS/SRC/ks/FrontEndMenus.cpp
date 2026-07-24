@@ -638,3 +638,19 @@ void destroy_prompt(prompt_layout *self, int deleting)
     __asm__ __volatile__("" : : : "memory");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001AA280)
+// 0x001AA280 OnActivate__14SoundMenuClass
+struct PauseMenuSystem; extern "C" bool resumable(PauseMenuSystem *,void*) __asm__("IsResumable__C15PauseMenuSystemP6FEMenu"); __asm__(".equ IsResumable__C15PauseMenuSystemP6FEMenu,0x001B4B38");
+struct menu_vtable { char padding[280]; short adjustment; short reserved; void (*set_help)(void *,int); };
+struct sound_layout { char padding[116]; menu_vtable *vtable; PauseMenuSystem *sys; };
+extern "C" void activate_sound(sound_layout *self) __asm__("OnActivate__14SoundMenuClass");
+void activate_sound(sound_layout *self)
+{
+    if(resumable(self->sys,self)) {
+        menu_vtable *table=self->vtable; register void(*fn)(void*,int) __asm__("$3")=table->set_help; fn((char*)self+table->adjustment,355);
+    } else {
+        menu_vtable *table=self->vtable; register void(*fn)(void*,int) __asm__("$3")=table->set_help; fn((char*)self+table->adjustment,291);
+    }
+}
+#endif
