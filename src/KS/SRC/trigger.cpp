@@ -267,3 +267,31 @@ trigger_layout *construct_entity_trigger(
     return self;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0028DC98)
+// 0x0028DC98 add_region__7triggerP6region
+struct region;
+struct insert_result { void *iterator; int inserted; };
+extern "C" insert_result *insert_unique(insert_result *, void *, region *const *) __asm__("insert_unique__t8_Rb_tree5ZP6regionZP6regionZt9_Identity1ZP6regionZt4less1ZP6regionZt12my_allocator1ZP6regionRCP6region");
+extern "C" void region_add(region *, void *) __asm__("add__6regionP7trigger");
+__asm__(".equ insert_unique__t8_Rb_tree5ZP6regionZP6regionZt9_Identity1ZP6regionZt4less1ZP6regionZt12my_allocator1ZP6regionRCP6region,0x002B04E0");
+__asm__(".equ add__6regionP7trigger,0x002E7D98");
+class trigger { char padding[28]; char region_tree[1]; public: bool add_region(region *value); };
+bool trigger::add_region(region *value)
+{
+    if (value) {
+        insert_result result __attribute__((aligned(16)));
+        insert_result temporary __attribute__((aligned(16)));
+        insert_unique(&temporary, region_tree, &value);
+        register void *iterator __asm__("$2") = temporary.iterator;
+        register int inserted __asm__("$3") = temporary.inserted;
+        result.iterator = iterator;
+        result.inserted = inserted;
+        if (result.inserted) {
+            region_add(value, this);
+            return true;
+        }
+    }
+    return false;
+}
+#endif
