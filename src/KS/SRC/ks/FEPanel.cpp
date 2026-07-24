@@ -1022,3 +1022,8 @@ void change_fade(panel_layout *self, bool start, bool fade_in, float time)
     } else self->fade=0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014DA80)
+// 0x0014DA80 SetPos__9PanelQuadffff
+struct quad{char p0[140];};struct PanelQuad{char p0[28];quad q;float x1,y1,x2,y2,width,height;};extern "C" void adjust(float&,float&) __asm__("adjustCoords__H1Zf_RX01T0_v");extern "C" void set_rect(quad*,float,float,float,float) __asm__("nglSetQuadRect__FP7nglQuadffff");__asm__(".equ adjustCoords__H1Zf_RX01T0_v,0x001D6B60");__asm__(".equ nglSetQuadRect__FP7nglQuadffff,0x003A6A68");extern "C" void set_pos(PanelQuad*self,float xa,float ya,float xb,float yb) __asm__("SetPos__9PanelQuadffff");void set_pos(PanelQuad*self,float xa,float ya,float xb,float yb){self->x1=xa;self->y1=ya;self->x2=xb;self->y2=yb;adjust(self->x1,self->y1);adjust(self->x2,self->y2);self->width=self->x2-self->x1;self->height=self->y2-self->y1;set_rect(&self->q,self->x1,self->y1,self->x2,self->y2);int dead;__asm__("" : "=r"(dead));}
+#endif
