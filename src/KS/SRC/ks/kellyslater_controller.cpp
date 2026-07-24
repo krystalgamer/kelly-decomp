@@ -365,3 +365,8 @@ class kellyslater_controller{char base[20];public:BalanceMeter tube_meter;void*m
 extern bool ks_fx_spit_going_on();__asm__(".equ End__12BalanceMeter,0x00225240");__asm__(".equ ks_fx_spit_going_on__Fv,0x0036B600");
 void kellyslater_controller::EndTube(){my_board_controller.state=0;set_state(74);set_super_state(2);tube_meter.End();if(ks_fx_spit_going_on())my_board_controller.MoveForward(0.09f*2);bDoingTrick=false;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002123E0)
+// 0x002123E0 CalculateStats__22kellyslater_controller
+struct turn_data{float data[4];};struct Controller{char pad[260];turn_data carve,hardCarve,grab,hardGrab,slide,hardSlide;void CalcTurnStats(turn_data*,int)__asm__("CalcTurnStats__22kellyslater_controllerP9turn_datai");};__asm__(".equ CalcTurnStats__22kellyslater_controllerP9turn_datai,0x00211FC0");extern "C" void calculate(Controller*self)__asm__("CalculateStats__22kellyslater_controller");void calculate(Controller*self){self->CalcTurnStats(&self->carve,0);self->CalcTurnStats(&self->hardCarve,3);self->CalcTurnStats(&self->grab,1);self->CalcTurnStats(&self->hardGrab,4);self->CalcTurnStats(&self->slide,2);self->CalcTurnStats(&self->hardSlide,5);KELLY_DECOMP_COMPILER_BARRIER();}
+#endif
