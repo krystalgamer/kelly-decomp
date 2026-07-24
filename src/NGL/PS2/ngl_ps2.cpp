@@ -808,3 +808,31 @@ void nglReleaseTexture(nglTexture *texture) {
     __asm__ __volatile__("" : : : "memory");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0039BDB8)
+// 0x0039BDB8 nglVif1AddTextureStreamEnd__FRPUi
+typedef unsigned int u_int;
+enum { NGLINT_FINISH, NGLINT_LOADTEXTURE };
+struct nglVif1IntEntry { u_int Type; u_int *GifDMA; u_int DataSize; u_int NTextures; };
+extern u_int *nglLastIntAddr;
+extern int nglNVif1IntEntries;
+extern nglVif1IntEntry *nglVif1IntArray;
+void nglVif1IntCloseTextureBlock();
+__asm__(".equ nglLastIntAddr,0x004BC064");
+__asm__(".equ nglNVif1IntEntries,0x004BB780");
+__asm__(".equ nglVif1IntArray,0x004BB784");
+__asm__(".equ nglVif1IntCloseTextureBlock__Fv,0x0039F488");
+void nglVif1AddTextureStreamEnd(u_int *&Packet)
+{
+    nglVif1IntCloseTextureBlock();
+    if (nglLastIntAddr) {
+        nglVif1IntEntry *Entry;
+        Entry = &nglVif1IntArray[nglNVif1IntEntries++];
+        if (nglNVif1IntEntries >= 256)
+            return;
+        Entry->Type = NGLINT_LOADTEXTURE;
+        Entry->NTextures = 0;
+        Entry->DataSize = 0;
+    }
+}
+#endif
