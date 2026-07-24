@@ -59,3 +59,8 @@ void input_mgr::poll_devices() {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00344860)
+// 0x00344860 get_control_trigger__C9input_mgr11device_id_ti
+extern "C" float delta(void*,int,int) __asm__("get_control_delta__C9input_mgr11device_id_ti");extern "C" float state(void*,int,int) __asm__("get_control_state__C9input_mgr11device_id_ti");__asm__(".equ get_control_delta__C9input_mgr11device_id_ti,0x003444A0");__asm__(".equ get_control_state__C9input_mgr11device_id_ti,0x003441C8");extern "C" float trigger(void*self,int dev,int control) __asm__("get_control_trigger__C9input_mgr11device_id_ti");float trigger(void*self,int dev,int control){float d=delta(self,dev,control);if(d==state(self,dev,control))return d;__asm__ __volatile__("" : : : "memory");return 0.0f;}
+#endif
