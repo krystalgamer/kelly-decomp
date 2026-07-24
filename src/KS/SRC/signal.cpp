@@ -229,3 +229,8 @@ extern void*script_vtable;extern void*base_vtable;__asm__(".equ script_vtable,0x
 // 0x0034CB18 __12gated_signalQ212gated_signal6type_tP6signalT2
 struct signal;extern "C" void base_ctor(void*,void*) __asm__("__6signalP9signaller");__asm__(".equ __6signalP9signaller,0x0034BF18");extern void*gated_vtable;__asm__(".equ gated_vtable,0x005050F0");struct gated{int flavor;char p0[20];void*vtable;unsigned short type,flags;signal*input_a,*input_b;};extern "C" gated*construct(gated*self,int type,signal*a,signal*b) __asm__("__12gated_signalQ212gated_signal6type_tP6signalT2");gated*construct(gated*self,int type,signal*a,signal*b){base_ctor(self,0);register void**vtable __asm__("$3")=&gated_vtable;register int flavor __asm__("$4")=1;self->type=type;self->input_a=a;self->input_b=b;self->vtable=vtable;self->flavor=flavor;self->flags=0;return self;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034CE48)
+// 0x0034CE48 clear_script_callback__9signallerRC7stringx
+struct stringx;struct signal;struct fastvec{unsigned count;signal**data;};struct signaller{char p0[4];fastvec*signals;};extern "C" void clear_one(signal*,const stringx&) __asm__("clear_script_callback__6signalRC7stringx");__asm__(".equ clear_script_callback__6signalRC7stringx,0x0034C8C0");extern "C" void clear_all(signaller*self,const stringx&name) __asm__("clear_script_callback__9signallerRC7stringx");void clear_all(signaller*self,const stringx&name){if(self->signals){signal**i=self->signals->data;signal**end=i+self->signals->count;for(;i!=end;++i)if(*i)clear_one(*i,name);}}
+#endif
