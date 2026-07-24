@@ -352,3 +352,8 @@ void MultiControllerMenu::OnTriangle(int controller)
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00180F78)
+// 0x00180F78 OnTriangle__10CareerMenui
+struct SoundScriptManager;extern SoundScriptManager*sound_manager;extern "C" int play(SoundScriptManager*,int,void*,float) __asm__("playEvent__18SoundScriptManager9EventTypeP6entityf");extern "C" void end_warning(void*) __asm__("EndWarning__10CareerMenu");__asm__(".equ sound_manager,0x0046B4A0");__asm__(".equ playEvent__18SoundScriptManager9EventTypeP6entityf,0x0031C380");__asm__(".equ EndWarning__10CareerMenu,0x001810E8");struct system_vtable{char p0[32];short adjustment;short x0;void(*make_active)(void*,int,bool,bool);};struct system{char p0[140];system_vtable*vtable;};struct career{char p0[80];system*sys;char p1[64];int warning_up;};extern "C" void triangle(career*self,int) __asm__("OnTriangle__10CareerMenui");void triangle(career*self,int){if(self->warning_up)end_warning(self);else{play(sound_manager,27,0,0.0f);system*s=self->sys;system_vtable*t=s->vtable;t->make_active((char*)s+t->adjustment,0,true,true);}int dead;__asm__("" : "=r"(dead));}
+#endif
