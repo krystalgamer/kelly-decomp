@@ -341,3 +341,8 @@ struct node{node*next,*prev;};struct chain{char p0[8];node*series;};extern "C" i
 // 0x00249620 GetScale__CQ214ScoringManager5Chain
 extern "C" char wave_type() __asm__("WAVE_GetScoringType__Fv");extern float scale_wave[];__asm__(".equ WAVE_GetScoringType__Fv,0x0037D8F8");__asm__(".equ scale_wave,0x00427AD8");struct Chain;extern "C" float get_scale(const Chain*) __asm__("GetScale__CQ214ScoringManager5Chain");float get_scale(const Chain*){float waveScale=1.0f;switch(wave_type()){case 'A':waveScale=scale_wave[0];break;case 'B':waveScale=scale_wave[1];break;case 'C':waveScale=scale_wave[2];break;default:waveScale=scale_wave[1];}return waveScale;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00249C48)
+// 0x00249C48 GetScale__CQ214ScoringManager6Series
+extern float SCALE_SPINS[],SCALE_LANDINGS[],SCALE_SERIES_MODS[];__asm__(".equ SCALE_SPINS,0x00427A48");__asm__(".equ SCALE_LANDINGS,0x00427A90");__asm__(".equ SCALE_SERIES_MODS,0x00427AA0");struct Series{char pad[8];int numSpins;int landing;unsigned flags;float GetScale()const __asm__("GetScale__CQ214ScoringManager6Series");};float Series::GetScale()const{register const Series*me asm("$6")=this;register int spins asm("$5")=me->numSpins;register int maxspin asm("$4")=16;register unsigned fl asm("$7")=me->flags;float from=1.0f,to=1.0f;if(spins>=17)spins=maxspin;if(fl&1)from=SCALE_SERIES_MODS[0];if(fl&2)to=SCALE_SERIES_MODS[1];__asm__ volatile ("" : : "r" (fl));register float*spinptr asm("$3")=&SCALE_SPINS[spins];register int landing asm("$5")=me->landing;register float*landbase asm("$4")=SCALE_LANDINGS;float land=landbase[landing];return (*spinptr)*from*to*land;}
+#endif
