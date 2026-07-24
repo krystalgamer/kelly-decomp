@@ -1071,3 +1071,35 @@ void vector_filter::Init_Filter(const vector3d &start_vec)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002252E0)
+// 0x002252E0 __12debug_cameraRC9entity_idP6entity
+class entity_id;
+class entity;
+extern "C" void construct_game_camera(
+    void *,const entity_id *,entity *
+) __asm__("__11game_cameraRC9entity_idP6entity");
+extern const char debug_camera_vtable[];
+__asm__(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
+__asm__(".equ debug_camera_vtable, 0x004ECE60");
+struct camera_layout {
+    char padding[8]; const void *vtable;
+    char padding2[0x2c4];
+    float first;
+    float second;
+    float third;
+};
+extern "C" camera_layout *construct_debug_camera(
+    camera_layout *self,const entity_id *id,entity *target
+) __asm__("__12debug_cameraRC9entity_idP6entity");
+camera_layout *construct_debug_camera(
+    camera_layout *self,const entity_id *id,entity *target
+) {
+    construct_game_camera(self,id,target);
+    self->vtable=debug_camera_vtable;
+    self->first=0.7853982f;
+    self->second=-0.7853982f;
+    self->third=2.5f;
+    return self;
+}
+#endif
