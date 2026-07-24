@@ -103,3 +103,14 @@ void nlSubVect3d(
     result[2] = first[2] - second[2];
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003917A0)
+// 0x003917A0 nlCrossProduct3d__FPfN20
+extern "C" void nlCrossProduct3d(float *dst, float *lhs, float *rhs) __asm__("nlCrossProduct3d__FPfN20");
+extern "C" void nlCrossProduct3d(float *dst, float *lhs, float *rhs)
+{
+    dst[0] = lhs[1]*rhs[2] - lhs[2]*rhs[1];
+    dst[1] = lhs[2]*rhs[0] - lhs[0]*rhs[2];
+    dst[2] = lhs[0]*rhs[1] - lhs[1]*rhs[0];
+}
+#endif
