@@ -230,3 +230,8 @@ void turn_lines(names_layout *self,bool on)
     for(int i=0;i<10;++i){PanelQuad *p=self->lines[i];panel_vtable *t=p->vtable;t->turn_on((char*)p+t->adjustment,on);}
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0019FD40)
+// 0x0019FD40 SetActiveCard__9NamesMenu
+class NamesMenu{public:char pad0[356];bool save;char pad1[148];int active_card,adjusted_active_card;bool Available(int,bool)__asm__("Available__9NamesMenuib");bool AvailAndSavedGames(int)__asm__("AvailAndSavedGames__9NamesMenui");static int FindAdjusted(int)__asm__("FindAdjusted__9NamesMenui");void SetActiveCard()__asm__("SetActiveCard__9NamesMenu");};__asm__(".equ Available__9NamesMenuib,0x001A0610");__asm__(".equ AvailAndSavedGames__9NamesMenui,0x001A0678");__asm__(".equ FindAdjusted__9NamesMenui,0x001A0808");void NamesMenu::SetActiveCard(){active_card=0;adjusted_active_card=NamesMenu::FindAdjusted(active_card);for(int i=0;i<2;i++){if((save&&Available(i,true))||AvailAndSavedGames(i)){active_card=i;adjusted_active_card=NamesMenu::FindAdjusted(i);break;}}}
+#endif
