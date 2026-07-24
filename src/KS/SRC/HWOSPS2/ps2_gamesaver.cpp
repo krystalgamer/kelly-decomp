@@ -88,3 +88,8 @@ int GenericGameSaver::getIconData() {
     return icon.Size;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E4028)
+// 0x001E4028 calcSavedGameSize__16GenericGameSaver
+struct options{char p0[4];int stash_only;};extern options*developer_options;extern int saved_game_size;__asm__(".equ developer_options,0x0046B180");__asm__(".equ saved_game_size,0x0042E510");struct nglFileBuf{void*buf;unsigned Size;};extern const char icon_name[];__asm__(".equ icon_name,0x004DF1E0");extern "C" void read_file(const char*,nglFileBuf*,unsigned) __asm__("KSReadFile__FPCcP10nglFileBufUi");__asm__(".equ KSReadFile__FPCcP10nglFileBufUi,0x001E32A0");extern "C" void calc_size(void*) __asm__("calcSavedGameSize__16GenericGameSaver");void calc_size(void*){saved_game_size=101;if(developer_options->stash_only){nglFileBuf f;read_file(icon_name,&f,1);register unsigned size __asm__("$3")=f.Size;register int total __asm__("$2")=saved_game_size;total+=2*((size+1023)/1024);total+=1;saved_game_size=total;}}
+#endif
