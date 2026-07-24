@@ -304,3 +304,8 @@ void FEGraphicalMenuEntry::TurnOn(bool on)
 // 0x001576B8 HighlightDefault__6FEMenu
 struct entry_vtable{char p0[48];short adjustment;short x0;bool(*disabled)(void*);};struct entry{char p0[4];entry*next;char p1[88];entry_vtable*vtable;};struct menu_vtable{char p0[24];short adjustment;short x0;void(*set_high)(void*,entry*,bool);};struct menu{char p0[64];entry*entries;char p1[48];menu_vtable*vtable;};extern "C" void highlight_default(menu*self) __asm__("HighlightDefault__6FEMenu");void highlight_default(menu*self){entry*tmp=self->entries;while(tmp){entry_vtable*t=tmp->vtable;if(!t->disabled((char*)tmp+t->adjustment))break;tmp=tmp->next;}if(tmp){menu_vtable*t=self->vtable;t->set_high((char*)self+t->adjustment,tmp,false);}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001577F0)
+// 0x001577F0 OnTriangle__6FEMenui
+struct back_entry{char p0[20];int menu_num;};struct menu_vtable{char p0[32];short sys_adjust;short x0;void(*sys_make)(void*,int,int,bool);char p1[232];short parent_adjust;short x1;void(*parent_make)(void*,void*,bool);};struct system_layout{char p0[140];menu_vtable*vtable;};struct menu{char p0[80];system_layout*system;back_entry*back;int back_num;char p1[8];menu*parent;char p2[12];menu_vtable*vtable;};extern "C" void triangle(menu*self,int c) __asm__("OnTriangle__6FEMenui");void triangle(menu*self,int c){if(self->parent){menu*p=self->parent;menu_vtable*t=p->vtable;t->parent_make((char*)p+t->parent_adjust,0,true);}else if(self->back){system_layout*s=self->system;menu_vtable*t=s->vtable;t->sys_make((char*)s+t->sys_adjust,self->back->menu_num,self->back_num,true);}}
+#endif
