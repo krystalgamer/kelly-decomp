@@ -215,3 +215,8 @@ extern "C" int label_text(label_layout*self,char*text,int len) __asm__("MenuText
 int label_text(label_layout*self,char*text,int len)
 {if(len&&self->label){strncpy(text,self->label,len);text[len-1]=0;return strlen(text);}else {if(len>0)*text=0;return 0;}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023E470)
+// 0x0023E470 Close__4Menub
+struct menu_vtable{char p0[56];short adjustment;short x0;void(*on_close)(void*,bool);};struct menu_system;struct menu{char p0[16];int isopen;char p1[4];menu_system*control;menu_vtable*vtable;};extern "C" void closing(menu_system*,menu*) __asm__("Closing__10MenuSystemP4Menu");extern "C" void activate(menu*,int) __asm__("ActivateEntry__4Menui");__asm__(".equ Closing__10MenuSystemP4Menu,0x00241108");__asm__(".equ ActivateEntry__4Menui,0x0023E880");extern "C" void close_menu(menu*self,bool toparent) __asm__("Close__4Menub");void close_menu(menu*self,bool toparent){if(self->isopen){menu_system*c=self->control;self->isopen=false;closing(c,self);menu_vtable*t=self->vtable;t->on_close((char*)self+t->adjustment,toparent);if(toparent)activate(self,-1);int dead;__asm__("" : "=r"(dead));}}
+#endif
