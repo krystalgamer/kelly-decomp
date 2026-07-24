@@ -54,3 +54,28 @@ void trail::create_face_trick_splash(bool left)
         my_spray->extra_splash_power[1] = extra_splash_power_amount;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00361BA0)
+// 0x00361BA0 _$_5trail
+extern "C" void arch_free(void *) __asm__("arch_free__FPv");
+extern "C" void destroy_trail_body(void *) __asm__("destroy__5trail");
+extern "C" void object_delete(void *) __asm__("__builtin_delete");
+extern const char trail_vtable[];
+__asm__(".equ arch_free__FPv,0x002AC768");
+__asm__(".equ destroy__5trail,0x00361DA0");
+__asm__(".equ __builtin_delete,0x002AC6B0");
+__asm__(".equ trail_vtable,0x0051A7F0");
+struct trail_layout { char data[1]; };
+extern "C" void destroy_trail(trail_layout *self, int deleting) __asm__("_$_5trail");
+void destroy_trail(trail_layout *self, int deleting)
+{
+    char *far = (char *)self + 0x8000;
+    *(const void **)(far + 0x4d7c) = trail_vtable;
+    arch_free(*(void **)(far + 0x4d78));
+    destroy_trail_body(self);
+    if (deleting & 1) {
+        object_delete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
