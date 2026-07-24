@@ -123,3 +123,8 @@ iterator *tree_lower_bound(iterator *result, game_control_tree *tree, const int 
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0035B198)
+// 0x0035B198 _M_erase__t8_Rb_tree5ZP20script_library_classZP20script_library_classZt9_Identity1ZP20script_library_classZQ211slc_manager10class_lessZt12my_allocator1ZP20script_library_classPt13_Rb_tree_node1ZP20script_library_class
+struct node{void*next_free;char p0[4];node*left,*right;};struct allocator{char padding[8];node*free_list;};extern "C" void erase_again(void*,node*) __asm__("erase_again_abs");__asm__(".equ erase_again_abs,0x0035B198");extern "C" void erase_tree(void*self,node*x) __asm__("_M_erase__t8_Rb_tree5ZP20script_library_classZP20script_library_classZt9_Identity1ZP20script_library_classZQ211slc_manager10class_lessZt12my_allocator1ZP20script_library_classPt13_Rb_tree_node1ZP20script_library_class");void erase_tree(void*self,node*x){if(x){register char*high __asm__("$2")=(char*)0x003e0000;__asm__ __volatile__("" : "+r"(high));register allocator*alloc __asm__("$17")=(allocator*)(high+22056);do{erase_again(self,x->right);node*left=x->left;x->next_free=alloc->free_list;alloc->free_list=x;x=left;}while(x);}}
+#endif
