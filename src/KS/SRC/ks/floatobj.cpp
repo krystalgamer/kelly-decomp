@@ -352,3 +352,12 @@ void get_floating(floating_layout*self,const floating_layout&obj)
 // 0x00200088 _$_14surfing_object
 extern void*surf_vtable;__asm__(".equ surf_vtable,0x004D5F30");extern "C" void despawn(void*) __asm__("despawn__14surfing_object");extern "C" void string_dtor(void*,int) __asm__("_$_7stringx");extern "C" void water_dtor(void*,int) __asm__("_$_12water_object");__asm__(".equ despawn__14surfing_object,0x002028F0");__asm__(".equ _$_7stringx,0x0034D6E0");__asm__(".equ _$_12water_object,0x001FC5E0");struct handler_vtable{char p0[8];short adjustment;short x0;void(*destroy)(void*,int);};struct handler{char p0[28];handler_vtable*vtable;};struct surfing{char p0[56];void*vtable;char p1[664];handler*anim_handler;char p2[64];char anim_name[8];};extern "C" void destroy_surf(surfing*self,int deleting) __asm__("_$_14surfing_object");void destroy_surf(surfing*self,int deleting){self->vtable=&surf_vtable;despawn(self);if(self->anim_handler){handler*h=self->anim_handler;handler_vtable*t=h->vtable;t->destroy((char*)h+t->adjustment,3);}string_dtor(self->anim_name,2);water_dtor(self,deleting);int dead;__asm__("" : "=r"(dead));}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001FAC30)
+// 0x001FAC30 find_param__C12beach_objectPPciPCc
+#include "KS/SRC/ks/floatobj_shared.h"
+extern "C" int cstrcmp(const char*,const char*) __asm__("strcmp");
+__asm__(".equ strcmp,0x003D3E88");
+extern "C" bool find_param(const beach_object*,char**,int,const char*) __asm__("find_param__C12beach_objectPPciPCc");
+bool find_param(const beach_object*,char**argp,int argc,const char*name){for(int i=0;i<argc;i++)if(!cstrcmp(argp[i],name))return true;return false;}
+#endif
