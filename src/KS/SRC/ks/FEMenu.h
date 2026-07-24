@@ -1146,3 +1146,32 @@ void FETextMultiMenu::cons(FEMenuSystem *system, color32 high) {
                 color32(0,0,0,0), high, 8.0f, 1.2f, 0);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DA580)
+// 0x001DA580 SetText__11FEMenuEntryG7stringx
+#include "KS/SRC/stringx.h"
+struct change_vtable {
+    char padding[0x48]; short adjustment; short reserved;
+    void (*change)(void *,stringx *);
+};
+struct text_layout { char padding[0x4c]; change_vtable *vtable; };
+struct menu_entry_layout { char padding[0x24]; text_layout *text; };
+extern "C" void copy_string(stringx *,const stringx *)
+    __asm__("__7stringxRC7stringx");
+extern "C" void destroy_string(stringx *,int)
+    __asm__("_$_7stringx");
+extern "C" void set_menu_text(
+    menu_entry_layout *,stringx *
+) __asm__("SetText__11FEMenuEntryG7stringx");
+__asm__(".equ __7stringxRC7stringx, 0x0034D4D0");
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+void set_menu_text(menu_entry_layout *self,stringx *value) {
+    char storage[8] __attribute__((aligned(16)));
+    stringx *copy=(stringx *)storage;
+    copy_string(copy,value);
+    text_layout *text=self->text;
+    change_vtable *table=text->vtable;
+    table->change((char *)text+table->adjustment,copy);
+    destroy_string(value,2);
+}
+#endif
