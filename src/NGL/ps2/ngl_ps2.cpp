@@ -71,3 +71,8 @@ void insertion_sort_aux(node_pair *first, node_pair *last, node_pair *, nglTrans
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003AB440)
+// 0x003AB440 __final_insertion_sort__H2ZPt4pair2ZP11nglListNodeZUiZ16nglOpaqueCompare_X01X01X11_v
+struct pair8{void*first;unsigned second;};extern "C" void insertion(pair8*,pair8*,int) __asm__("__insertion_sort__H2ZPt4pair2ZP11nglListNodeZUiZ16nglOpaqueCompare_X01X01X11_v");extern "C" void unguarded(pair8*,pair8*,int,int) __asm__("__unguarded_insertion_sort_aux__H3ZPt4pair2ZP11nglListNodeZUiZt4pair2ZP11nglListNodeZUiZ16nglOpaqueCompare_X01X01PX11X21_v");__asm__(".equ __insertion_sort__H2ZPt4pair2ZP11nglListNodeZUiZ16nglOpaqueCompare_X01X01X11_v,0x003AB2F8");__asm__(".equ __unguarded_insertion_sort_aux__H3ZPt4pair2ZP11nglListNodeZUiZt4pair2ZP11nglListNodeZUiZ16nglOpaqueCompare_X01X01PX11X21_v,0x003AB3E0");extern "C" void final_sort(pair8*first,pair8*last,int) __asm__("__final_insertion_sort__H2ZPt4pair2ZP11nglListNodeZUiZ16nglOpaqueCompare_X01X01X11_v");void final_sort(pair8*first,pair8*last,int){if(last-first>16){pair8*middle=first+16;insertion(first,middle,0);unguarded(middle,last,0,0);}else insertion(first,last,0);int dead;__asm__("" : "=r"(dead));}
+#endif
