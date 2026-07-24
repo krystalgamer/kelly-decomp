@@ -1003,3 +1003,22 @@ void BurstText::Update(float dt)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014D078)
+// 0x0014D078 ChangeFade__9PanelQuadbT1f
+struct panel_layout { char padding[4]; int fade; float fade_alpha; float fade_timer; char padding2[112]; int drawOn; };
+extern "C" void change_fade(panel_layout *self, bool start, bool fade_in, float time) __asm__("ChangeFade__9PanelQuadbT1f");
+void change_fade(panel_layout *self, bool start, bool fade_in, float time)
+{
+    if(start) {
+        self->fade_timer=time;
+        if(fade_in) {
+            if(self->fade != 1 || self->drawOn == false) {
+                self->fade=1; self->fade_alpha=0.0f; self->drawOn=true;
+            }
+        } else if(self->fade != -1) {
+            self->fade=-1; self->fade_alpha=1.0f;
+        }
+    } else self->fade=0;
+}
+#endif
