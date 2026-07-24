@@ -114,3 +114,22 @@ bool Heap::DoYouContain(void *pointer) const {
     return check>=low && check<high;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AB4D0)
+// 0x002AB4D0 FreeHeapMemory__4Heap
+class Heap {
+    int fields[27];
+public:
+    void FreeHeapMemory();
+};
+void Heap::FreeHeapMemory() {
+    fields[26]=0; fields[7]=0; fields[6]=0;
+    fields[0]=0; fields[1]=0; fields[13]=0; fields[14]=0;
+    fields[2]=0; fields[4]=0; fields[3]=0; fields[5]=0;
+    fields[8]=0; fields[15]=0; fields[16]=0; fields[17]=0;
+    fields[18]=0; fields[19]=0; fields[20]=0; fields[21]=0;
+    fields[22]=0; fields[23]=0; fields[24]=0;
+    __asm__ __volatile__("" : : : "memory");
+    fields[25]=0;
+}
+#endif
