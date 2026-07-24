@@ -3368,3 +3368,26 @@ bool run_disable_marky(void *,vm_stack_layout *stack,int) {
     return true;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031EEB8)
+// 0x0031EEB8 __cl__14slf_vo_delay_tR8vm_stackQ320script_library_class8function7entry_t
+struct world_layout { char padding[0x128]; float script_time_inc; };
+struct vm_stack_layout { char padding[8]; char *top; };
+extern world_layout *g_world_ptr;
+__asm__(".equ g_world_ptr, 0x00431A8C");
+extern "C" bool run_vo_delay(
+    void *,vm_stack_layout *stack,int entry
+) __asm__("__cl__14slf_vo_delay_tR8vm_stackQ320script_library_class8function7entry_t");
+bool run_vo_delay(void *,vm_stack_layout *stack,int entry) {
+    float *data=(float *)stack->top;
+    stack->top-=16;
+    if (entry) {
+        data[0]+=g_world_ptr->script_time_inc;
+        if (data[0]>=data[1]) return true;
+        return false;
+    }
+    data[0]=0.0f;
+    data[1]=*(float *)((char *)data-16);
+    return false;
+}
+#endif
