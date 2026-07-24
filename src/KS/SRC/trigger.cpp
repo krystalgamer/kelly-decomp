@@ -213,3 +213,25 @@ done:
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0028DDF8)
+// 0x0028DDF8 read__13point_triggerR10chunk_file
+class chunk_file;
+extern "C" void serial_float(chunk_file &,float *)
+    __asm__("serial_in__FR10chunk_filePf");
+__asm__(".equ serial_in__FR10chunk_filePf, 0x00336998");
+class point_trigger {
+    char padding[0x38];
+    float position[3];
+    float radius;
+public:
+    void read(chunk_file &file);
+};
+void point_trigger::read(chunk_file &file) {
+    serial_float(file,&position[0]);
+    serial_float(file,&position[1]);
+    serial_float(file,&position[2]);
+    serial_float(file,&radius);
+    __asm__ __volatile__("" : : : "memory");
+}
+#endif
