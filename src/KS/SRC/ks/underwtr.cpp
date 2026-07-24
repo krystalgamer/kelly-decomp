@@ -23,3 +23,20 @@ void UNDERWATER_ScrollBottom()
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0036DA88)
+// 0x0036DA88 UNDERWATER_CameraUnderwater__Fi
+class KSReplay { public: bool IsPlaying(); };
+extern KSReplay ksreplay;
+extern bool Wave_cameraunderwater[];
+extern bool FEDone();
+__asm__(".equ ksreplay, 0x004252A8");
+__asm__(".equ IsPlaying__8KSReplay, 0x0023BE08");
+__asm__(".equ FEDone__Fv, 0x00199150");
+__asm__(".equ Wave_cameraunderwater, 0x0049A980");
+bool UNDERWATER_CameraUnderwater(int player) {
+    if (ksreplay.IsPlaying()) return Wave_cameraunderwater[player];
+    if (!FEDone()) return false;
+    return Wave_cameraunderwater[player];
+}
+#endif
