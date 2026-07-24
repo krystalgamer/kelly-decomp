@@ -215,3 +215,10 @@ void menu_action(name_entry_layout *self, int controller)
 // 0x001CA588 Load__17HighScoreFrontEnd
 struct base_vtable{char p0[56];short adjustment;short x0;void(*load)(void*,bool);};struct menu_vtable{char p0[64];short adjustment;short x0;void(*set)(void*);};struct menu{char p0[320];menu_vtable*vtable;};struct highscore{char p0[116];base_vtable*vtable;char p1[200];menu_vtable*inner_vtable;char p2[328];int in_game;char p3[208];menu*nem;};extern "C" void load(highscore*self) __asm__("Load__17HighScoreFrontEnd");void load(highscore*self){base_vtable*t=self->vtable;t->load((char*)self+t->adjustment,false);register menu_vtable*u __asm__("$2")=self->inner_vtable;register void*sub __asm__("$5")=(char*)self+128;register int adj __asm__("$4")=u->adjustment;register void(*fn)(void*) __asm__("$3")=u->set;fn((char*)sub+adj);if(self->in_game){register menu*m __asm__("$4")=self->nem;u=m->vtable;m=(menu*)((char*)m+128);register int a __asm__("$3")=u->adjustment;register void(*f)(void*) __asm__("$5")=u->set;f((char*)m+a);}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001CD130)
+// 0x001CD130 Draw__13NameEntryMenu
+struct TextVtable{char pad[24];short adjust;short z;void(*draw)(void*);};struct Text{char pad[76];TextVtable*vtable;};struct NameEntryMenu{char pad0[104];Text*helpText;char pad1[628];Text*high_score;Text*enter_name;Text*name;void Draw()__asm__("Draw__13NameEntryMenu");};extern "C" void base_draw(NameEntryMenu*)__asm__("Draw__15FEGraphicalMenu");__asm__(".equ Draw__15FEGraphicalMenu,0x001580D8");
+#define DRAW_TEXT(x) ((x)->vtable->draw((char*)(x)+(x)->vtable->adjust))
+void NameEntryMenu::Draw(){base_draw(this);DRAW_TEXT(high_score);DRAW_TEXT(enter_name);DRAW_TEXT(name);DRAW_TEXT(helpText);}
+#endif
