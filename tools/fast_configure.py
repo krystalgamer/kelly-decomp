@@ -40,6 +40,13 @@ REFERENCE_OBJECTS = [
     ROOT / "build/asm/data/cod/00512280.bss.s.o",
 ]
 
+# This function takes addresses of local case labels solely to retain the
+# symbols referenced by the original jump table. Its emitted data copy is
+# metadata, not part of the released image.
+NON_ROM_SOURCE_SECTIONS = {
+    "00380120.cpp.o": {"data"},
+}
+
 
 def write_if_changed(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -328,6 +335,8 @@ def generate_linker_script(
         section_lines = "".join(
             f"        {path}({selector});\n"
             for path in source_object_paths
+            if section
+            not in NON_ROM_SOURCE_SECTIONS.get(Path(path).name, set())
         )
         fast_linker = fast_linker.replace(
             "        " + marker,
