@@ -372,3 +372,8 @@ struct SoundScriptManager;extern SoundScriptManager*sound_manager;extern "C" int
 // 0x001802F8 MakeActive__12MainFrontEndP6FEMenub
 struct menu_vtable{char p0[424];short adjustment;short x0;void(*set_main)(void*,bool,bool);};struct FEMenu{char p0[116];menu_vtable*vtable;};struct mainfe{char p0[96];FEMenu*active;char p1[560];FEMenu*Options;};extern "C" void base_make(mainfe*,FEMenu*,bool) __asm__("MakeActive__6FEMenuP6FEMenub");__asm__(".equ MakeActive__6FEMenuP6FEMenub,0x00157600");extern "C" void make_active(mainfe*self,FEMenu*a,bool b) __asm__("MakeActive__12MainFrontEndP6FEMenub");void make_active(mainfe*self,FEMenu*a,bool b){if(!a&&self->active==self->Options){FEMenu*o=self->active;menu_vtable*t=o->vtable;t->set_main((char*)o+t->adjustment,false,false);}base_make(self,a,b);int dead;__asm__("" : "=r"(dead));}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00182078)
+// 0x00182078 OnTriangle__11OptionsMenui
+struct SoundScriptManager;extern SoundScriptManager*sound_manager;extern "C" void base_triangle(void*,int)__asm__("OnTriangle__6FEMenui");extern "C" int play_event(SoundScriptManager*,int,void*,float)__asm__("playEvent__18SoundScriptManager9EventTypeP6entityf");extern "C" void rumble(void*,bool,int)__asm__("RumbleOn__11OptionsMenubi");__asm__(".equ sound_manager,0x0046B4A0");__asm__(".equ OnTriangle__6FEMenui,0x001577F0");__asm__(".equ playEvent__18SoundScriptManager9EventTypeP6entityf,0x0031C380");__asm__(".equ RumbleOn__11OptionsMenubi,0x00182E20");extern "C" void triangle(void*self,int c)__asm__("OnTriangle__11OptionsMenui");void triangle(void*self,int c){base_triangle(self,c);play_event(sound_manager,27,0,0.0f);rumble(self,false,0);rumble(self,false,1);rumble(self,false,2);rumble(self,false,3);KELLY_DECOMP_COMPILER_BARRIER();}
+#endif
