@@ -219,3 +219,8 @@ struct Controller;struct Icon{char data[44];void Update(float)__asm__("Update__Q
 // 0x00260CC8 OnEvent__Q213IconChallenge11Arrangement5EVENTP22kellyslater_controlleri
 struct controller;struct Sequence{char data[168];void OnEvent(int,controller*,int)__asm__("OnEvent__Q213IconChallenge8Sequence5EVENTP22kellyslater_controlleri");};class Arrangement{public:int numSequences;int current;Sequence sequences[10];void OnEvent(int,controller*,int)__asm__("OnEvent__Q213IconChallenge11Arrangement5EVENTP22kellyslater_controlleri");};__asm__(".equ OnEvent__Q213IconChallenge8Sequence5EVENTP22kellyslater_controlleri,0x00260FC8");void Arrangement::OnEvent(int event,controller*ksctrl,int param2){for(int i=0;i<numSequences;i++)sequences[i].OnEvent(event,ksctrl,param2);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00260FC8)
+// 0x00260FC8 OnEvent__Q213IconChallenge8Sequence5EVENTP22kellyslater_controlleri
+struct controller;struct Task{char data[16];void OnEvent(int,controller*,int)__asm__("OnEvent__Q213IconChallenge4Task5EVENTP22kellyslater_controlleri");};class Sequence{public:int numTasks;Task tasks[10];void OnEvent(int,controller*,int)__asm__("OnEvent__Q213IconChallenge8Sequence5EVENTP22kellyslater_controlleri");};__asm__(".equ OnEvent__Q213IconChallenge4Task5EVENTP22kellyslater_controlleri,0x00261358");void Sequence::OnEvent(int event,controller*ksctrl,int param2){for(int i=0;i<numTasks;i++)tasks[i].OnEvent(event,ksctrl,param2);}
+#endif
