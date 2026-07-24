@@ -296,3 +296,38 @@ bool ScoringManager::Series::IsInteresting() const {
     return false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00249BE8)
+// 0x00249BE8 __as__Q214ScoringManager6SeriesRCQ214ScoringManager6Series
+struct trick_list { char data[4]; };
+extern "C" void assign_list(trick_list *,const trick_list *)
+    __asm__("__as__t4list2ZQ214ScoringManager5TrickZt12my_allocator1ZQ214ScoringManager5TrickRCt4list2ZQ214ScoringManager5TrickZt12my_allocator1ZQ214ScoringManager5Trick");
+__asm__(".equ __as__t4list2ZQ214ScoringManager5TrickZt12my_allocator1ZQ214ScoringManager5TrickRCt4list2ZQ214ScoringManager5TrickZt12my_allocator1ZQ214ScoringManager5Trick, 0x00265458");
+class ScoringManager {
+public:
+    class Series {
+        void *levelTricks;
+        trick_list tricks;
+        int numSpins;
+        int landing;
+        int flags;
+    public:
+        Series &operator=(const Series &right);
+    };
+};
+ScoringManager::Series &ScoringManager::Series::operator=(
+    const Series &right
+) {
+    if (this!=&right) {
+        levelTricks=right.levelTricks;
+        assign_list(&tricks,&right.tricks);
+        register int spins __asm__("$3")=right.numSpins;
+        numSpins=spins;
+        register int landing_value __asm__("$2")=right.landing;
+        landing=landing_value;
+        register int flag_value __asm__("$3")=right.flags;
+        flags=flag_value;
+    }
+    return *this;
+}
+#endif
