@@ -50,3 +50,43 @@ struct attack_player { attack_controller *controller; char padding[8]; int state
 class TimeAttackMode { attack_player players[2]; public: void BeginAttacking(int player); };
 void TimeAttackMode::BeginAttacking(int player) { players[player].state = players[player].controller->state; players[player].attacking = 1; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00285FF0)
+// 0x00285FF0 __14TimeAttackMode
+struct TimeAttackPlayer {
+    void *ks;
+    float time;
+    int prevScore;
+    int score;
+    bool attacking;
+    int attackScore;
+};
+extern float TIME_INITIAL;
+__asm__(".equ TIME_INITIAL, 0x00431974");
+class TimeAttackMode {
+    TimeAttackPlayer players[2];
+    int gameNum;
+    int setNum;
+    int scoreAttackStrength;
+    int scoreDropSpeed;
+public:
+    TimeAttackMode();
+};
+TimeAttackMode::TimeAttackMode() {
+    TimeAttackPlayer *player=players;
+    TimeAttackPlayer *end=players+2;
+    do {
+        player->ks=0;
+        player->time=TIME_INITIAL;
+        player->prevScore=0;
+        player->score=0;
+        player->attacking=false;
+        player->attackScore=0;
+        ++player;
+    } while ((int)player<(int)end);
+    gameNum=0;
+    setNum=0;
+    scoreAttackStrength=1000;
+    scoreDropSpeed=scoreAttackStrength*10;
+}
+#endif
