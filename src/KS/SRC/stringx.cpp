@@ -122,3 +122,29 @@ void stringx::copy(stringx &other) {
     chars=my_buf->data;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034D380)
+// 0x0034D380 null_terminate__C10string_buf
+extern const char length_error[];
+extern "C" void report_error(const char *,...)
+    __asm__("error__FPCce");
+__asm__(".equ length_error, 0x005032F8");
+__asm__(".equ error__FPCce, 0x001DFBD8");
+class string_buf {
+    unsigned long long *data;
+    int ref_count;
+    int char_length;
+    int block_length;
+    int max_blocks;
+public:
+    void null_terminate() const;
+};
+void string_buf::null_terminate() const {
+    char *chars=(char *)data;
+    int capacity=max_blocks*8-1;
+    if (char_length>capacity)
+        report_error(length_error,char_length,capacity);
+    register int length __asm__("$2")=char_length;
+    chars[length]=0;
+}
+#endif
