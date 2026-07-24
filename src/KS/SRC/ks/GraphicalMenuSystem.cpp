@@ -264,3 +264,8 @@ struct menu_vtable{char pad[296];short adjust;short reserved;void(*select)(void*
 // 0x001BE6F8 UpdateInScene__19GraphicalMenuSystem
 struct menu_vtable{char pad[88];short adjust;short reserved;void(*update_scene)(void*);};struct Menu{char pad[116];menu_vtable*vtable;void UpdateInScene(){menu_vtable*t=vtable;t->update_scene((char*)this+t->adjust);}};struct System{char pad[116];Menu**menus;char gap[4];int active;};extern "C" void update(System*self)__asm__("UpdateInScene__19GraphicalMenuSystem");void update(System*self){self->menus[self->active]->UpdateInScene();if(self->active!=5&&self->active!=13)self->menus[5]->UpdateInScene();}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BD898)
+// 0x001BD898 Draw__9HelpbarFE
+struct TextVtable{char pad[24];short adjust;short z;void(*draw)(void*);};struct Text{char pad[76];TextVtable*vtable;};struct HelpbarFE{char pad0[236];Text*help_text[7];int has_text[7];char pad1[56];int disabled;void Draw()__asm__("Draw__9HelpbarFE");};extern "C" void base_draw(HelpbarFE*)__asm__("Draw__8FrontEnd");__asm__(".equ Draw__8FrontEnd,0x00157B10");void HelpbarFE::Draw(){if(disabled)return;base_draw(this);for(int i=0;i<7;i++)if(has_text[i]){Text*t=help_text[i];TextVtable*v=t->vtable;v->draw((char*)t+v->adjust);}}
+#endif
