@@ -236,3 +236,8 @@ CompressedPhoto *Career::GetPhotoForLevel(int level)
 // 0x0025C3A8 Unlock__Q26Career5Level
 struct Level{int my_id,unlocked;char p0[4];int is_new;};struct career_data{int beach;char p0[216];};extern career_data CareerDataArray[];extern char*g_career;__asm__(".equ CareerDataArray,0x0042ECA0");__asm__(".equ g_career,0x00427C9C");extern "C" void unlock_beach(void*) __asm__("Unlock__Q26Career5Beach");__asm__(".equ Unlock__Q26Career5Beach,0x0025C4B0");extern "C" void unlock_level(Level*self) __asm__("Unlock__Q26Career5Level");void unlock_level(Level*self){if(!self->is_new){self->unlocked=true;__asm__ __volatile__("" : : : "memory");self->is_new=true;}int beach=CareerDataArray[self->my_id].beach;unlock_beach(g_career+0x10628+beach*12);int dead;__asm__("" : "=r"(dead));}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0025AA70)
+// 0x0025AA70 IncreaseSpin__6Careeri
+struct GlobalDataClass{int getMaxHandicap(int);void setMaxHandicap(int,int);};extern GlobalDataClass globalCareerData;__asm__(".equ globalCareerData,0x004349B8");__asm__(".equ getMaxHandicap__15GlobalDataClassi,0x002EFCC8");__asm__(".equ setMaxHandicap__15GlobalDataClassii,0x002EFD58");struct Career{int spin,speed,jump,balance;char pad0[4];int my_id;char pad1[160];int totalStatPointsIncreased;void IncreaseSpin(int)__asm__("IncreaseSpin__6Careeri");};void Career::IncreaseSpin(int inc){spin+=inc;totalStatPointsIncreased+=inc;if(globalCareerData.getMaxHandicap(my_id)<totalStatPointsIncreased/4){globalCareerData.setMaxHandicap(my_id,totalStatPointsIncreased/4);asm volatile("");}}
+#endif
