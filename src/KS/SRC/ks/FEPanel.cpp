@@ -1052,3 +1052,8 @@ struct StringList{char data[3016];void MakeRand();};__asm__(".equ MakeRand__10St
 // 0x00152360 SetFilename__9PanelFileG7stringx
 struct stringx{char data[8];};struct GeomVtable{char pad[8];short adjust;short z;void(*destroy)(void*,int);};struct PanelGeom{char pad[112];PanelGeom*next;char pad2[4];GeomVtable*vtable;};struct PanelFile{char pad[16];stringx filename;PanelGeom*obs;char pad2[12];void*pquads;};extern "C" void assign(stringx*,const stringx*)__asm__("__as__7stringxRC7stringx");extern "C" void string_dtor(stringx*,int)__asm__("_$_7stringx");__asm__(".equ __as__7stringxRC7stringx,0x0034E0B8");__asm__(".equ _$_7stringx,0x0034D6E0");extern "C" extern "C" void set_filename(PanelFile*,stringx*)__asm__("SetFilename__9PanelFileG7stringx");void set_filename(PanelFile*self,stringx*p){assign(&self->filename,p);PanelGeom*tmp=self->obs;PanelGeom*tmp2;while(tmp){tmp2=tmp->next;if(tmp){GeomVtable*v=tmp->vtable;v->destroy((char*)tmp+v->adjust,3);}tmp=tmp2;}self->obs=0;self->pquads=0;string_dtor(p,2);asm volatile("");}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00152A30)
+// 0x00152A30 ReadHeader__9PanelFilePUcRi
+extern "C" unsigned char ReadChar(unsigned char*,int&)__asm__("ReadChar__FPUcRi");__asm__(".equ ReadChar__FPUcRi,0x001533F8");extern "C" bool read_header(unsigned char*buffer,int&index)__asm__("ReadHeader__9PanelFilePUcRi");bool read_header(unsigned char*buffer,int&index){if(ReadChar(buffer,index)==80&&ReadChar(buffer,index)==110&&ReadChar(buffer,index)==108&&ReadChar(buffer,index)==0)return true;else return false;}
+#endif
