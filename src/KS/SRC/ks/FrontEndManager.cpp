@@ -277,3 +277,8 @@ void FEManager::ReleaseIGO()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00198E68)
+// 0x00198E68 UpdateIGO__9FEManagerf
+struct igo_vtable{char p0[24];short adjustment;short x0;void(*update)(void*,float);};struct igo{char p0[192];igo_vtable*vtable;};struct pms_vtable{char p0[40];short adjustment;short x0;void(*update)(void*,float);};struct pms{char p0[140];pms_vtable*vtable;};struct manager{igo*IGO;pms*pause;char p0[87712];int igo_enabled;};extern "C" void update_igo(manager*self,float dt) __asm__("UpdateIGO__9FEManagerf");void update_igo(manager*self,float dt){if(self->igo_enabled){igo*i=self->IGO;igo_vtable*t=i->vtable;t->update((char*)i+t->adjustment,dt);}pms*p=self->pause;pms_vtable*t=p->vtable;t->update((char*)p+t->adjustment,dt);}
+#endif
