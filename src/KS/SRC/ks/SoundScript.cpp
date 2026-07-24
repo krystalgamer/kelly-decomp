@@ -116,3 +116,31 @@ bool SoundScriptManager::createMapping(
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031BBD0)
+// 0x0031BBD0 clear__17CurrentSoundEvent
+extern "C" int sound_status(unsigned int)
+    __asm__("nslGetSoundStatus__FUi");
+extern "C" void stop_sound(unsigned int)
+    __asm__("nslStopSound__FUi");
+extern "C" void release_emitter(unsigned int)
+    __asm__("nslReleaseEmitter__FUi");
+__asm__(".equ nslGetSoundStatus__FUi, 0x0038DBA0");
+__asm__(".equ nslStopSound__FUi, 0x0038D288");
+__asm__(".equ nslReleaseEmitter__FUi, 0x0038F2C8");
+class CurrentSoundEvent {
+    int event;
+    unsigned int snd;
+    char padding[0x10];
+    unsigned int eId;
+public:
+    void clear();
+};
+void CurrentSoundEvent::clear() {
+    if (sound_status(snd)!=0) stop_sound(snd);
+    if (eId!=0) release_emitter(eId);
+    eId=0;
+    snd=0;
+    event=105;
+}
+#endif
