@@ -242,3 +242,11 @@ void PhotoChallenge::Photo::CheckProperties(
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00261C78)
+// 0x00261C78 __14PhotoChallenge
+extern "C" void challenge_ctor(void*) __asm__("__9Challenge"); __asm__(".equ __9Challenge,0x00260860"); extern const char photo_vtable[]; __asm__(".equ photo_vtable,0x004D5EA0");
+class PhotoChallenge { const void*vtable; void*ksctrl; int goal,requiredScore,state,recordChain; float specialPhotoTimer; int numCameramen; void*cameramen; int activeCameramanIdx,numTaken,numPhotos; void*photos; public:PhotoChallenge(); };
+PhotoChallenge::PhotoChallenge()
+{challenge_ctor(this);register int none __asm__("$2")=-1;register const void*table __asm__("$3")=photo_vtable;activeCameramanIdx=none;vtable=table;ksctrl=0;goal=0;requiredScore=0;state=0;recordChain=false;specialPhotoTimer=0.0f;numCameramen=0;cameramen=0;numTaken=0;numPhotos=0;photos=0;}
+#endif
