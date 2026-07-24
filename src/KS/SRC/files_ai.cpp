@@ -313,3 +313,24 @@ stringx *copy_strings(
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0010DC40)
+// 0x0010DC40 __uninitialized_fill_n_aux__H3ZP7stringxZUiZ7stringx_X01X11RCX21G12__false_type_X01
+struct stringx { char data[8]; };
+extern "C" void copy_construct(stringx *,const stringx *)
+    __asm__("__7stringxRC7stringx");
+__asm__(".equ __7stringxRC7stringx, 0x0034D4D0");
+extern "C" stringx *fill_strings(
+    stringx *result,unsigned int count,const stringx *value
+) __asm__("__uninitialized_fill_n_aux__H3ZP7stringxZUiZ7stringx_X01X11RCX21G12__false_type_X01");
+stringx *fill_strings(
+    stringx *result,unsigned int count,const stringx *value
+) {
+    while (count) {
+        if (result) copy_construct(result,value);
+        --count;
+        ++result;
+    }
+    return result;
+}
+#endif
