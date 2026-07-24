@@ -144,3 +144,8 @@ void CurrentSoundEvent::clear() {
     event=105;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031BEC0)
+// 0x0031BEC0 clearEvents__18SoundScriptManager
+extern "C" void clear_scheduled(void*) __asm__("clear__19ScheduledSoundEvent");extern "C" void clear_current(void*) __asm__("clear__17CurrentSoundEvent");__asm__(".equ clear__19ScheduledSoundEvent,0x0031BB98");__asm__(".equ clear__17CurrentSoundEvent,0x0031BBD0");struct manager_layout{char padding[13444];char scheduled[100][16];char current[100][28];int numEvents;};extern "C" void clear_events(manager_layout*self) __asm__("clearEvents__18SoundScriptManager");void clear_events(manager_layout*self){for(int i=0;i<100;i++){clear_scheduled(self->scheduled[i]);clear_current(self->current[i]);}self->numEvents=0;}
+#endif
