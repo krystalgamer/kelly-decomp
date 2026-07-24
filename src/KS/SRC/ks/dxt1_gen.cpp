@@ -33,3 +33,8 @@ void DXTCGen::BuildCodes3(int Channel, cbVector& v1, cbVector& v2)
         (unsigned char)(((int)v1[Channel] + (int)v2[Channel]) / 2);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00262E20)
+// 0x00262E20 BuildCodes3__7DXTCGenR8cbVectorT1
+struct cbVector{unsigned char pData[4];unsigned char&operator[](int i){return pData[i];}cbVector&operator=(const cbVector&v){*(int*)pData=*(const int*)v.pData;return *this;}};struct DXTCGen{char p0[148];cbVector*pVects;};extern "C" void build3(DXTCGen*self,cbVector&v1,cbVector&v2) __asm__("BuildCodes3__7DXTCGenR8cbVectorT1");void build3(DXTCGen*self,cbVector&v1,cbVector&v2){self->pVects[0]=v1;self->pVects[1][0]=v1[0];self->pVects[1][1]=(unsigned char)(((int)v1[1]+(int)v2[1])/2);self->pVects[1][2]=(unsigned char)(((int)v1[2]+(int)v2[2])/2);self->pVects[1][3]=(unsigned char)(((int)v1[3]+(int)v2[3])/2);self->pVects[2]=v2;}
+#endif
