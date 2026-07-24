@@ -1210,3 +1210,8 @@ void destroy_menu_system(menu_system_layout *self,int flags) {
 // 0x001DA480 _$_11FEMenuEntry
 extern "C" void object_delete(void*) __asm__("__builtin_delete");__asm__(".equ __builtin_delete,0x002AC6B0");extern const char entry_vtable[];__asm__(".equ entry_vtable,0x004DC018");struct text_vtable{char p0[8];short adjustment;short x0;void(*destroy)(void*,int);};struct text{char p0[76];text_vtable*vtable;};struct entry_layout{char p0[36];text*description;char p1[56];const void*vtable;};extern "C" void destroy_entry(entry_layout*self,int deleting) __asm__("_$_11FEMenuEntry");void destroy_entry(entry_layout*self,int deleting){self->vtable=entry_vtable;if(self->description){text*x=self->description;text_vtable*t=x->vtable;t->destroy((char*)x+t->adjustment,3);}if(deleting&1){object_delete(self);int dead;__asm__("" : "=r"(dead));}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DAE68)
+// 0x001DAE68 _$_20FEGraphicalMenuEntry
+extern "C" void object_delete(void*) __asm__("__builtin_delete");__asm__(".equ __builtin_delete,0x002AC6B0");extern const char entry_vtable[];__asm__(".equ entry_vtable,0x004DC018");struct text_vtable{char p0[8];short adjustment;short x0;void(*destroy)(void*,int);};struct text{char p0[76];text_vtable*vtable;};struct entry_layout{char p0[36];text*description;char p1[56];const void*vtable;};extern "C" void destroy_graphical(entry_layout*self,int deleting) __asm__("_$_20FEGraphicalMenuEntry");void destroy_graphical(entry_layout*self,int deleting){self->vtable=entry_vtable;if(self->description){text*x=self->description;text_vtable*t=x->vtable;t->destroy((char*)x+t->adjustment,3);}if(deleting&1){object_delete(self);int dead;__asm__("" : "=r"(dead));}}
+#endif
