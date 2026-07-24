@@ -405,3 +405,31 @@ void PhotoSaveMenu::Select(int entry) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001CDF30)
+// 0x001CDF30 Update__13PhotoFrontEndf
+struct active_vtable {
+    char padding[0x60]; short adjustment; short reserved;
+    void (*update)(void *,float);
+};
+struct active_menu { char padding[0x74]; active_vtable *vtable; };
+extern "C" void update_frontend(void *,float)
+    __asm__("Update__8FrontEndf");
+extern "C" void update_menu(void *,float)
+    __asm__("Update__6FEMenuf");
+__asm__(".equ Update__8FrontEndf, 0x00157B30");
+__asm__(".equ Update__6FEMenuf, 0x00156DC8");
+class PhotoFrontEnd {
+    char padding[0x60]; active_menu *active;
+public:
+    void Update(float time);
+};
+void PhotoFrontEnd::Update(float time) {
+    update_frontend((char *)this+0x80,time);
+    update_menu(this,time);
+    if (active) {
+        active_vtable *table=active->vtable;
+        table->update((char *)active+table->adjustment,time);
+    }
+}
+#endif
