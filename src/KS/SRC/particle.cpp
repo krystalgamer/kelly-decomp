@@ -200,3 +200,8 @@ bool particle_generator::is_still_visible() const {
     ) || start_particle!=end_particle;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D05F8)
+// 0x002D05F8 make_instance__C18particle_generatorRC9entity_idUi
+struct entity_id{char data[4];};struct particle_generator{};extern "C" void*allocate(unsigned,unsigned,const char*,int)__asm__("__nw__FUiUiPCci");extern "C" particle_generator*construct(particle_generator*,const entity_id&,unsigned)__asm__("__18particle_generatorRC9entity_idUi");extern "C" void copy(particle_generator*,const particle_generator&)__asm__("copy_instance_data__18particle_generatorRC18particle_generator");extern const char source_name[];__asm__(".equ __nw__FUiUiPCci,0x002AC578");__asm__(".equ __18particle_generatorRC9entity_idUi,0x002CF058");__asm__(".equ copy_instance_data__18particle_generatorRC18particle_generator,0x002D0678");__asm__(".equ source_name,0x004F0378");extern "C" void*make(const particle_generator*self,const entity_id&id,unsigned flags)__asm__("make_instance__C18particle_generatorRC9entity_idUi");void*make(const particle_generator*self,const entity_id&id,unsigned flags){flags|=0x08000200;particle_generator*newpg=construct((particle_generator*)allocate(720,0,source_name,0),id,flags);if(newpg)copy(newpg,*self);return newpg;}
+#endif
