@@ -1175,3 +1175,33 @@ void set_menu_text(menu_entry_layout *self,stringx *value) {
     destroy_string(value,2);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DB8D0)
+// 0x001DB8D0 _$_12FEMenuSystem
+extern "C" void vector_delete(void *)
+    __asm__("__builtin_vec_delete");
+extern "C" void object_delete(void *)
+    __asm__("__builtin_delete");
+extern const char menu_system_vtable[];
+__asm__(".equ __builtin_vec_delete, 0x002AC6D0");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ menu_system_vtable, 0x004DB6A0");
+struct menu_system_layout {
+    char padding[0x74];
+    void *menus;
+    char padding2[0x14];
+    const void *vtable;
+};
+extern "C" void destroy_menu_system(
+    menu_system_layout *self,int flags
+) __asm__("_$_12FEMenuSystem");
+void destroy_menu_system(menu_system_layout *self,int flags) {
+    self->vtable=menu_system_vtable;
+    if (self->menus)
+        vector_delete(self->menus);
+    if (flags&1) {
+        object_delete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
