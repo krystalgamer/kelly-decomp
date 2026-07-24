@@ -90,3 +90,16 @@ TimeAttackMode::TimeAttackMode() {
     scoreDropSpeed=scoreAttackStrength*10;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00286110)
+// 0x00286110 Update__14TimeAttackModef
+class TimeAttackMode {
+public:
+    void Attack(int player,float time);
+    void Update(float time);
+};
+__asm__(".equ Attack__14TimeAttackModeif, 0x002863A0");
+void TimeAttackMode::Update(float time) {
+    for (int i=0;i<2;i++) Attack(i,time);
+}
+#endif
