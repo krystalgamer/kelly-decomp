@@ -96,3 +96,8 @@ hw_texture *anim_texture::get_texture(int frame) const {
     return *texture;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003394C0)
+// 0x003394C0 set_defaults__8material
+__asm__(".equ __7stringx,0x0034D3E0");__asm__(".equ __as__7stringxRC7stringx,0x0034E0B8");__asm__(".equ _$_7stringx,0x0034D6E0");struct stringx{char data[8];stringx();~stringx();stringx&operator=(const stringx&);};struct material{char pad0[8];stringx texture_filename[4];char pad1[192];float u_anim;unsigned int mat_flags;char pad2[16];float v_anim;void set_defaults();};void material::set_defaults(){for(int i=0;i<4;i++)texture_filename[i]=stringx();mat_flags=0;KELLY_DECOMP_COMPILER_BARRIER();u_anim=0.0f;v_anim=0.0f;}
+#endif
