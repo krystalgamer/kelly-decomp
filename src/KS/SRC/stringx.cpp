@@ -192,3 +192,8 @@ stringx::stringx(const stringx &copy)
     chars = (char *)my_buf->data;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034DC20)
+// 0x0034DC20 find_large_buffer__7stringx
+struct string_buf{char p0[4];int ref;};extern string_buf*free_long_buffers[];extern unsigned free_long_buffers_end;extern "C" void error(const char*,...) __asm__("error__FPCce");__asm__(".equ free_long_buffers,0x00626CB0");__asm__(".equ free_long_buffers_end,0x005121C8");__asm__(".equ error__FPCce,0x001DFBD8");extern const char error_text[];__asm__(".equ error_text,0x00503348");extern "C" string_buf*find_buffer() __asm__("find_large_buffer__7stringx");string_buf*find_buffer(){string_buf*buf=0;do{unsigned end=free_long_buffers_end;if(!end)goto exhausted;end--;free_long_buffers_end=end;buf=free_long_buffers[end];}while(!buf||buf->ref>0);return buf;exhausted:error(error_text);return 0;}
+#endif
