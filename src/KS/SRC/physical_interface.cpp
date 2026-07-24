@@ -62,3 +62,29 @@ void physical_interface::destroy_guidance_sys()
     guide_sys = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00122C60)
+// 0x00122C60 _$_18physical_interface
+extern "C" void destroy_guidance(void *) __asm__("destroy_guidance_sys__18physical_interface");
+extern "C" void object_delete(void *) __asm__("__builtin_delete");
+extern const char physical_vtable[];
+extern const char generic_vtable[];
+__asm__(".equ destroy_guidance_sys__18physical_interface,0x00125B18");
+__asm__(".equ __builtin_delete,0x002AC6B0");
+__asm__(".equ physical_vtable,0x004CDD58");
+__asm__(".equ generic_vtable,0x004C85B8");
+struct physical_layout { const void *vtable; void *entity; char padding[136]; void *guidance; };
+extern "C" void destroy_physical(physical_layout *self, int deleting) __asm__("_$_18physical_interface");
+void destroy_physical(physical_layout *self, int deleting)
+{
+    self->vtable = physical_vtable;
+    if (self->guidance)
+        destroy_guidance(self);
+    self->entity = 0;
+    self->vtable = generic_vtable;
+    if (deleting & 1) {
+        object_delete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
