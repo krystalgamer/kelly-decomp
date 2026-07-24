@@ -3304,3 +3304,35 @@ bool slf_localize_thread_t::operator()(
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031DCF0)
+// 0x0031DCF0 __cl__22slf_enable_marky_cam_tR8vm_stackQ320script_library_class8function7entry_t
+struct thread_layout { char padding[0x38]; float camera_priority; };
+struct vm_stack_layout {
+    char padding[8]; char *top; thread_layout *thread;
+};
+struct app_layout { char padding[0x10]; void *game; };
+extern app_layout *volatile g_game_ptr;
+extern "C" void enable_marky(void *,bool,bool,float)
+    __asm__("enable_marky_cam__4gamebT1f");
+__asm__(".equ g_game_ptr, 0x0046AC18");
+__asm__(".equ enable_marky_cam__4gamebT1f, 0x0027D9C0");
+extern "C" bool run_enable_marky(
+    void *,vm_stack_layout *stack,int
+) __asm__("__cl__22slf_enable_marky_cam_tR8vm_stackQ320script_library_class8function7entry_t");
+bool run_enable_marky(void *,vm_stack_layout *stack,int) {
+    register bool sync_arg __asm__("$6")=true;
+    register char *old_top __asm__("$3")=stack->top;
+    register char *new_top __asm__("$2")=old_top-4;
+    stack->top=new_top;
+    float sync=*(volatile float *)(old_top-4);
+    register app_layout *app __asm__("$2")=g_game_ptr;
+    register void *game __asm__("$4")=app->game;
+    if (sync==0.0f) sync_arg=false;
+    enable_marky(
+        game,true,sync_arg,
+        stack->thread->camera_priority
+    );
+    return true;
+}
+#endif
