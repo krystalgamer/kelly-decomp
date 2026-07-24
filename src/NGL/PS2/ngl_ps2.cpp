@@ -876,3 +876,8 @@ extern int nglTVMode;extern "C" void wait_vif() __asm__("nglVif1SafeWait__Fv");e
 // 0x0039A048 nglVif1AddGiftagSetup__FRPUi
 typedef unsigned int u_int;extern "C" void setup(u_int*&packet) __asm__("nglVif1AddGiftagSetup__FRPUi");void setup(u_int*&packet){u_int*p=packet;p[0]=0x6c030092;p[1]=0x00008000;p[2]=0x30024000;p[3]=0x412;p[4]=0;p+=5;p[0]=0x00008000;p[1]=0x3002c000;p[2]=0x412;p[3]=0;p+=4;p[0]=0x00008000;p[1]=0x10000000;p[2]=0;p[3]=0;p+=4;packet=p;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003A0F98)
+// 0x003A0F98 nglScreenShot__FPCc
+struct texture{char p0[1];};extern texture backbuffer;extern int ScreenCount;extern char Buf[64];extern "C" void save(texture*,const char*) __asm__("nglSaveTexture__FP10nglTexturePCc");extern "C" int sprintf(char*,const char*,...);__asm__(".equ backbuffer,0x004BBE58");__asm__(".equ ScreenCount,0x004BC9B4");__asm__(".equ Buf,0x005AC058");__asm__(".equ nglSaveTexture__FP10nglTexturePCc,0x003A0E78");__asm__(".equ sprintf,0x003D38A8");extern const char format[];__asm__(".equ format,0x0051E010");extern "C" void screenshot(const char*name) __asm__("nglScreenShot__FPCc");void screenshot(const char*name){if(name)save(&backbuffer,name);else{sprintf(Buf,format,ScreenCount++);save(&backbuffer,Buf);}int dead;__asm__("" : "=r"(dead));}
+#endif
