@@ -871,3 +871,8 @@ struct scene{char p0[1136];float hfov,cx,cy,nearz,farz;};extern scene*nglCurScen
 // 0x00396DB0 _nglSetDisplay__Fv
 extern int nglTVMode;extern "C" void wait_vif() __asm__("nglVif1SafeWait__Fv");extern "C" int sync_v(int) __asm__("sceGsSyncV");extern "C" int reset_path() __asm__("sceGsResetPath");extern "C" int reset_graph(int,int,int,int) __asm__("sceGsResetGraph");extern "C" void clear_vram(unsigned char,unsigned char,unsigned char,unsigned char) __asm__("nglClearVRAM__FUcUcUcUc");extern "C" void flip() __asm__("nglFlip__Fv");__asm__(".equ nglTVMode,0x004BB81C");__asm__(".equ nglVif1SafeWait__Fv,0x00397728");__asm__(".equ sceGsSyncV,0x003BA3D0");__asm__(".equ sceGsResetPath,0x003B98C8");__asm__(".equ sceGsResetGraph,0x003B99F8");__asm__(".equ nglClearVRAM__FUcUcUcUc,0x00396138");__asm__(".equ nglFlip__Fv,0x003979E0");extern "C" void set_display() __asm__("_nglSetDisplay__Fv");void set_display(){wait_vif();sync_v(0);reset_path();reset_graph(0,1,nglTVMode==1?2:3,0);clear_vram(0,0,0,128);flip();int dead;__asm__("" : "=r"(dead));}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0039A048)
+// 0x0039A048 nglVif1AddGiftagSetup__FRPUi
+typedef unsigned int u_int;extern "C" void setup(u_int*&packet) __asm__("nglVif1AddGiftagSetup__FRPUi");void setup(u_int*&packet){u_int*p=packet;p[0]=0x6c030092;p[1]=0x00008000;p[2]=0x30024000;p[3]=0x412;p[4]=0;p+=5;p[0]=0x00008000;p[1]=0x3002c000;p[2]=0x412;p[3]=0;p+=4;p[0]=0x00008000;p[1]=0x10000000;p[2]=0;p[3]=0;p+=4;packet=p;}
+#endif
