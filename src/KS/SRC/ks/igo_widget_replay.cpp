@@ -32,3 +32,8 @@ void ReplayWidget::Select(int button) { vcrButton = button; if (vcrButton < 0) v
 class ReplayWidget { char padding[0xc]; int vcrButtonHL; public: void SelectHighlight(int button); };
 void ReplayWidget::SelectHighlight(int button) { vcrButtonHL = button; if (vcrButtonHL < 0) vcrButtonHL = 0; if (vcrButtonHL > 4) vcrButtonHL = 4; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0016B600)
+// 0x0016B600 _$_12ReplayWidget
+struct TextVtable{char pad[8];short adjust;short z;void(*destroy)(void*,int);};struct Text{char pad[76];TextVtable*vtable;};struct Widget{char pad[4];void*vptr;char rest[88];};extern char own_vtable[];extern "C" void base_dtor(void*,int)__asm__("_$_9IGOWidget");__asm__(".equ own_vtable,0x004DB380");__asm__(".equ _$_9IGOWidget,0x00164628");extern "C" void dtor(Widget*self,int deleting)__asm__("_$_12ReplayWidget");void dtor(Widget*self,int deleting){self->vptr=own_vtable;Text*a=*(Text**)((char*)self+88);if(a){TextVtable*v=a->vtable;v->destroy((char*)a+v->adjust,3);}Text*b=*(Text**)((char*)self+92);if(b){TextVtable*v=b->vtable;v->destroy((char*)b+v->adjust,3);}base_dtor(self,deleting);KELLY_DECOMP_COMPILER_BARRIER();}
+#endif
