@@ -971,3 +971,19 @@ void PanelFile::Init(bool floating)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00149120)
+// 0x00149120 Update__12BouncingTextf
+extern "C" void update_text(void *, float) __asm__("Update__10TextStringf");
+__asm__(".equ Update__10TextStringf,0x001482F8");
+class BouncingText { char padding[48]; float scale; char padding2[28]; float targetScale; float speed; public: void Update(float dt); };
+void BouncingText::Update(float dt)
+{
+    update_text(this,dt);
+    if (scale < targetScale) {
+        scale += speed*dt;
+        if (scale > targetScale)
+            scale=targetScale;
+    }
+}
+#endif
