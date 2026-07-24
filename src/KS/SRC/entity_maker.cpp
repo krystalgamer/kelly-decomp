@@ -94,3 +94,34 @@ void EntityPoolDtor(void *self, int deleting) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0030B040)
+// 0x0030B040 destroy_entity__12entity_makerP6entity
+struct entity_vtable {
+    char padding[8]; short adjustment; short reserved;
+    void (*destroy)(void *,int);
+};
+struct entity_layout {
+    char padding0[8]; entity_vtable *vtable;
+    char padding1[0x108]; void *owning_widget;
+};
+struct world_dynamics_system;
+extern world_dynamics_system *g_world_ptr;
+extern "C" void world_destroy(
+    world_dynamics_system *,entity_layout *
+) __asm__("destroy_entity__21world_dynamics_systemP6entity");
+__asm__(".equ g_world_ptr, 0x00431A8C");
+__asm__(".equ destroy_entity__21world_dynamics_systemP6entity, 0x002A4430");
+extern "C" void maker_destroy_entity(
+    void *,entity_layout *entity
+) __asm__("destroy_entity__12entity_makerP6entity");
+void maker_destroy_entity(void *,entity_layout *entity) {
+    if (g_world_ptr && !entity->owning_widget) {
+        world_destroy(g_world_ptr,entity);
+        __asm__ __volatile__("" : : : "memory");
+    } else if (entity) {
+        entity_vtable *table=entity->vtable;
+        table->destroy((char *)entity+table->adjustment,3);
+    }
+}
+#endif
