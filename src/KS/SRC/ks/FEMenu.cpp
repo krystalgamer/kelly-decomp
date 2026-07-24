@@ -299,3 +299,8 @@ void FEGraphicalMenuEntry::TurnOn(bool on)
     if(pq_high) { panel_vtable *table=pq_high->vtable; table->turn_on((char *)pq_high+table->adjustment,on); }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001576B8)
+// 0x001576B8 HighlightDefault__6FEMenu
+struct entry_vtable{char p0[48];short adjustment;short x0;bool(*disabled)(void*);};struct entry{char p0[4];entry*next;char p1[88];entry_vtable*vtable;};struct menu_vtable{char p0[24];short adjustment;short x0;void(*set_high)(void*,entry*,bool);};struct menu{char p0[64];entry*entries;char p1[48];menu_vtable*vtable;};extern "C" void highlight_default(menu*self) __asm__("HighlightDefault__6FEMenu");void highlight_default(menu*self){entry*tmp=self->entries;while(tmp){entry_vtable*t=tmp->vtable;if(!t->disabled((char*)tmp+t->adjustment))break;tmp=tmp->next;}if(tmp){menu_vtable*t=self->vtable;t->set_high((char*)self+t->adjustment,tmp,false);}}
+#endif
