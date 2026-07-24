@@ -331,3 +331,8 @@ ScoringManager::Series &ScoringManager::Series::operator=(
     return *this;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00249550)
+// 0x00249550 GetTrickCount__CQ214ScoringManager5Chaini
+struct node{node*next,*prev;};struct chain{char p0[8];node*series;};extern "C" int series_count(void*,int) __asm__("GetTrickCount__CQ214ScoringManager6Seriesi");__asm__(".equ GetTrickCount__CQ214ScoringManager6Seriesi,0x00249B28");extern "C" int count(const chain*self,int idx) __asm__("GetTrickCount__CQ214ScoringManager5Chaini");int count(const chain*self,int idx){int total=0;for(node*i=self->series->next;i!=self->series;i=i->next)total+=series_count((char*)i+8,idx);return total;}
+#endif
