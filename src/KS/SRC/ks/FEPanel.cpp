@@ -910,3 +910,32 @@ burst_text_layout *construct_burst_text(burst_text_layout *self)
     return self;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014DE60)
+// 0x0014DE60 SetClip__9PanelQuadRC5recti
+struct pointi { int x; int y; };
+struct recti { pointi tl; pointi br; };
+extern "C" void adjust_coords(int *, int *) __asm__("adjustCoords__H1Zi_RX01T0_v");
+__asm__(".equ adjustCoords__H1Zi_RX01T0_v,0x001D6C80");
+class PanelQuad {
+    char padding[276];
+    bool clip;
+    recti clipping;
+public:
+    void SetClip(const recti &bounds);
+};
+void PanelQuad::SetClip(const recti &bounds)
+{
+    clip = true;
+    if (&clipping != &bounds) {
+        clipping.tl.x = bounds.tl.x;
+        int *destination = &clipping.tl.x;
+        destination[1] = bounds.tl.y;
+        clipping.br.x = bounds.br.x;
+        clipping.br.y = bounds.br.y;
+    }
+    adjust_coords(&clipping.tl.x, &clipping.tl.y);
+    adjust_coords(&clipping.br.x, &clipping.br.y);
+    __asm__ __volatile__("" : : : "memory");
+}
+#endif
