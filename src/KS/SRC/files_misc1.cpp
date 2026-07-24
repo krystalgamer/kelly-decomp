@@ -53,3 +53,23 @@ wedge_split *fill_wedges(
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B6E20)
+// 0x002B6E20 __uninitialized_copy_aux__H2ZPC11wedge_splitZP11wedge_split_X01X01X11G12__false_type_X11
+struct wedge_split { char data[16]; };
+extern "C" void copy_wedge(wedge_split *,const wedge_split *)
+    __asm__("__11wedge_splitRC11wedge_split");
+__asm__(".equ __11wedge_splitRC11wedge_split, 0x002B6C80");
+extern "C" wedge_split *copy_wedges(
+    const wedge_split *first,const wedge_split *last,wedge_split *result
+) __asm__("__uninitialized_copy_aux__H2ZPC11wedge_splitZP11wedge_split_X01X01X11G12__false_type_X11");
+wedge_split *copy_wedges(
+    const wedge_split *first,const wedge_split *last,wedge_split *result
+) {
+    while (first!=last) {
+        if (result) copy_wedge(result,first);
+        ++first; ++result;
+    }
+    return result;
+}
+#endif
