@@ -33,3 +33,23 @@ value8 *UninitializedCopy(
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B6DC0)
+// 0x002B6DC0 __uninitialized_fill_n_aux__H3ZP11wedge_splitZUiZ11wedge_split_X01X11RCX21G12__false_type_X01
+struct wedge_split { char data[16]; };
+extern "C" void copy_wedge(wedge_split *,const wedge_split *)
+    __asm__("__11wedge_splitRC11wedge_split");
+__asm__(".equ __11wedge_splitRC11wedge_split, 0x002B6C80");
+extern "C" wedge_split *fill_wedges(
+    wedge_split *result,unsigned int count,const wedge_split *value
+) __asm__("__uninitialized_fill_n_aux__H3ZP11wedge_splitZUiZ11wedge_split_X01X11RCX21G12__false_type_X01");
+wedge_split *fill_wedges(
+    wedge_split *result,unsigned int count,const wedge_split *value
+) {
+    while (count) {
+        if (result) copy_wedge(result,value);
+        --count; ++result;
+    }
+    return result;
+}
+#endif

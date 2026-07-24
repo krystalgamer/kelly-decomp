@@ -4518,7 +4518,7 @@ _M_insert_aux__t6vector2ZQ221world_dynamics_system19entity_preload_pairZt12my_al
 find__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP10scene_animZt10_Select1st1Zt4pair2ZC7stringxZP10scene_animZt4less1Z7stringxZt12my_allocator1ZP10scene_animRC7stringx = 0x002B6900; // type:func size:0x168
 _M_insert_aux__t6vector2ZP9crawl_boxZt12my_allocator1ZP9crawl_boxPP9crawl_boxRCP9crawl_box = 0x002B6A68; // type:func size:0x204
 __11wedge_splitRC11wedge_split = 0x002B6C80; // type:func size:0x140
-__uninitialized_fill_n_aux__H3ZP11wedge_splitZUiZ11wedge_split_X01X11RCX21G12__false_type_X01 = 0x002B6DC0; // type:func size:0x60
+__uninitialized_fill_n_aux__H3ZP11wedge_splitZUiZ11wedge_split_X01X11RCX21G12__false_type_X01 = 0x002B6DC0; // type:func defined:true size:0x60
 __uninitialized_copy_aux__H2ZPC11wedge_splitZP11wedge_split_X01X01X11G12__false_type_X11 = 0x002B6E20; // type:func size:0x60
 __as__t6vector2ZUiZt12my_allocator1ZUiRCt6vector2ZUiZt12my_allocator1ZUi = 0x002B6E80; // type:func size:0x204
 __as__t6vector2Z11wedge_splitZt12my_allocator1Z11wedge_splitRCt6vector2Z11wedge_splitZt12my_allocator1Z11wedge_split = 0x002B7088; // type:func size:0x354
