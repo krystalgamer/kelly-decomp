@@ -24,3 +24,26 @@ void SplitClockWidget::SetDisplay(bool value)
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0016C608)
+// 0x0016C608 _$_16SplitClockWidget
+struct text_vtable { char padding[8]; short adjustment; short reserved; void (*destroy)(void *, int); };
+struct TextString { char padding[76]; text_vtable *vtable; };
+extern "C" void destroy_base(void *, int) __asm__("_$_9IGOWidget");
+extern const char derived_vtable[];
+__asm__(".equ _$_9IGOWidget,0x00164628");
+__asm__(".equ derived_vtable,0x004DB2A8");
+struct widget_layout { char padding[4]; const void *vtable; char padding2[4]; TextString *text; };
+extern "C" void destroy_widget(widget_layout *self, int deleting) __asm__("_$_16SplitClockWidget");
+void destroy_widget(widget_layout *self, int deleting)
+{
+    self->vtable = derived_vtable;
+    TextString *text = self->text;
+    if (text) {
+        text_vtable *table = text->vtable;
+        table->destroy((char *)text + table->adjustment, 3);
+    }
+    destroy_base(self, deleting);
+    __asm__ __volatile__("" : : : "memory");
+}
+#endif
