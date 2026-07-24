@@ -181,3 +181,8 @@ path_graph_layout *construct_path_graph(path_graph_layout *self)
 // 0x0034AFF0 get_edge__C10path_graphPC15path_graph_nodeT1
 struct node;struct edge{node*nodes[2];};struct graph{char p0[20];edge**begin,**end;};extern "C" edge*get_edge(const graph*self,const node*n1,const node*n2) __asm__("get_edge__C10path_graphPC15path_graph_nodeT1");edge*get_edge(const graph*self,const node*n1,const node*n2){if(n1&&n2){for(edge**i=self->begin;i!=self->end;++i){edge*e=*i;if(e&&((e->nodes[0]==n1&&e->nodes[1]==n2)||(e->nodes[0]==n2&&e->nodes[1]==n1)))return e;}}return 0;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00349C40)
+// 0x00349C40 path_graph_system_destruct__Fv
+struct vec{void**begin,**end,**cap;};extern vec*workspace;extern "C" void arch_free(void*)__asm__("arch_free__FPv");extern "C" void builtin_delete(void*)__asm__("__builtin_delete");extern void*free_lists[];__asm__(".equ workspace,0x0047ED30");__asm__(".equ arch_free__FPv,0x002AC768");__asm__(".equ __builtin_delete,0x002AC6B0");__asm__(".equ free_lists,0x003E5628");extern "C" void destruct()__asm__("path_graph_system_destruct__Fv");void destruct(){vec*v=workspace;if(v){void**cap=v->cap;void*begin=v->begin;unsigned count=cap-(void**)begin;if(count){unsigned bytes=count*4;if(bytes>=129)arch_free(begin);else{unsigned index=((bytes+7)>>3)-1;*(void**)begin=free_lists[index];free_lists[index]=begin;}}builtin_delete(v);asm volatile("");}}
+#endif
