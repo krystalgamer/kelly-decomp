@@ -225,3 +225,8 @@ struct menu_vtable{char p0[56];short adjustment;short x0;void(*on_close)(void*,b
 // 0x0023F1F8 OnButtonPress__7Submenui
 struct Menu;struct MenuSystem;extern "C" void close_menu(Menu*,bool) __asm__("Close__4Menub");extern "C" void open_menu(Menu*,Menu*,MenuSystem*) __asm__("Open__4MenuP4MenuP10MenuSystem");__asm__(".equ Close__4Menub,0x0023E470");__asm__(".equ Open__4MenuP4MenuP10MenuSystem,0x0023E3D0");struct submenu_layout{char p0[12];Menu*menuopen;Menu*parent;MenuSystem*system;};extern "C" void press(submenu_layout*self,int button) __asm__("OnButtonPress__7Submenui");void press(submenu_layout*self,int button){if(button==7&&self->parent&&self->menuopen){Menu*p=self->parent;MenuSystem*s=self->system;close_menu(p,false);open_menu(self->menuopen,p,s);int dead;__asm__("" : "=r"(dead));}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023FB98)
+// 0x0023FB98 FixValue__18MenuEntryFloatEdit
+struct edit_vtable{char pad[168];short set_adjust;short set_pad;void(*set_value)(void*,float);short get_adjust;short get_pad;float(*get_value)(void*);};struct edit_layout{unsigned flags;edit_vtable*vtable;char pad[8];float lo;float hi;};extern "C" void fix_value(edit_layout*self) __asm__("FixValue__18MenuEntryFloatEdit");void fix_value(edit_layout*self){edit_vtable*t=self->vtable;float v=t->get_value((char*)self+t->get_adjust);char*slot=(char*)self->vtable+168;short adjust=*(short*)slot;void*receiver=(char*)self+adjust;float value=v<self->lo?self->lo:(v>self->hi?self->hi:v);void(*setter)(void*,float)=*(void(**)(void*,float))(slot+4);setter(receiver,value);}
+#endif
