@@ -235,3 +235,35 @@ void point_trigger::read(chunk_file &file) {
     __asm__ __volatile__("" : : : "memory");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0028E990)
+// 0x0028E990 __14entity_triggerRC7stringxP6entityf
+class stringx;
+struct entity;
+extern "C" void construct_trigger(void *,const stringx *)
+    __asm__("__7triggerRC7stringx");
+extern const char entity_trigger_vtable[];
+extern float float_max;
+__asm__(".equ __7triggerRC7stringx, 0x0028D838");
+__asm__(".equ entity_trigger_vtable, 0x004FAFE0");
+__asm__(".equ float_max, 0x004E7984");
+struct trigger_layout {
+    char padding[8]; const void *vtable;
+    char padding2[0x2c]; entity *ent;
+    float radius;
+    float hash;
+};
+extern "C" trigger_layout *construct_entity_trigger(
+    trigger_layout *self,const stringx *id,entity *ent,float radius
+) __asm__("__14entity_triggerRC7stringxP6entityf");
+trigger_layout *construct_entity_trigger(
+    trigger_layout *self,const stringx *id,entity *ent,float radius
+) {
+    construct_trigger(self,id);
+    self->vtable=entity_trigger_vtable;
+    self->ent=ent;
+    self->radius=radius;
+    self->hash=float_max;
+    return self;
+}
+#endif
