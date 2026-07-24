@@ -13,6 +13,7 @@ from collections import Counter, defaultdict
 from pathlib import Path, PurePosixPath
 from typing import Iterable, Optional
 
+from function_paths import notes_file as safe_notes_file
 from source_layout import discover_function_sources
 
 import spimdisasm
@@ -52,7 +53,13 @@ UNITY_FILES = (
 
 IMPLEMENTATION_SUFFIXES = {".c", ".cc", ".cpp", ".cxx", ".s", ".dsm", ".i"}
 HANDWRITTEN_SUFFIXES = {".s", ".dsm"}
-MUTABLE_QUEUE_FIELDS = ("status", "attempts", "best_score", "commit")
+MUTABLE_QUEUE_FIELDS = (
+    "status",
+    "attempts",
+    "best_score",
+    "commit",
+    "notes_file",
+)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -601,6 +608,7 @@ def build_outputs() -> dict[Path, str]:
             "notes/functions/"
             f"{symbol.address:08X}_{symbol.emitted_name}.md"
         )
+        notes_file = str(safe_notes_file({"notes_file": notes_file}))
         row: dict[str, object] = {
             "address": address_text,
             "size_bytes": symbol.size,
