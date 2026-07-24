@@ -322,3 +322,11 @@ void beam_effect::kill(bool apply_target_vals)
     mode = EFFECT_DEAD;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00272608)
+// 0x00272608 kill_all_effects__4beamb
+struct effect_vtable { char padding[72]; short adjustment; short reserved; void(*kill)(void*,bool); }; struct beam_effect { char padding[24]; effect_vtable*vtable; }; struct beam_layout { char padding[524]; beam_effect**begin; beam_effect**end; };
+extern "C" void kill_all(beam_layout*self,bool apply) __asm__("kill_all_effects__4beamb");
+void kill_all(beam_layout*self,bool apply)
+{beam_effect**i=self->begin;beam_effect**end=self->end;for(;i!=end;++i){beam_effect*effect=*i;if(effect){effect_vtable*t=effect->vtable;t->kill((char*)effect+t->adjustment,apply);}}}
+#endif
