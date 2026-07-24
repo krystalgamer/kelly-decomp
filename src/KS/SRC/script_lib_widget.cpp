@@ -2722,3 +2722,22 @@ bool slf_widget_move_to_t::operator()(vm_stack &stack, script_library_class::fun
     return true;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032D188)
+// 0x0032D188 __cl__33slf_text_block_widget_set_color_tR8vm_stackQ320script_library_class8function7entry_t
+struct color { float r,g,b,a; color(float R,float G,float B,float A):r(R),g(G),b(B),a(A){} };
+struct color_vtable { char padding[168]; short adjustment; short reserved; void (*set_color)(void *, const color *); };
+struct text_block_widget { char padding[320]; color_vtable *vtable; };
+class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY, RECALL_ENTRY }; }; };
+struct vm_stack { char padding[8]; char *top; };
+struct slf_text_block_widget_set_color_t { bool operator()(vm_stack &stack, script_library_class::function::entry_t entry); };
+bool slf_text_block_widget_set_color_t::operator()(vm_stack &stack, script_library_class::function::entry_t entry)
+{
+    stack.top -= 20;
+    color value(*(float *)(stack.top+4), *(float *)(stack.top+8), *(float *)(stack.top+12), *(float *)(stack.top+16));
+    text_block_widget *object = *(text_block_widget **)stack.top;
+    color_vtable *table = object->vtable;
+    table->set_color((char *)object + table->adjustment, &value);
+    return true;
+}
+#endif
