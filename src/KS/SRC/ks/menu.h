@@ -567,3 +567,30 @@ asm(".equ typeinfo, 0x00512100"); asm(".equ type_name, 0x004E50B0");
 extern "C" void *GetTypeInfo() __asm__("__tf9MenuEntry");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00270410)
+// 0x00270410 _$_4Menu
+extern "C" void close_menu(void *,bool)
+    __asm__("Close__4Menub");
+extern "C" void resize_menu(void *,int)
+    __asm__("Resize__4Menui");
+extern "C" void object_delete(void *)
+    __asm__("__builtin_delete");
+extern const char menu_vtable[];
+__asm__(".equ Close__4Menub, 0x0023E470");
+__asm__(".equ Resize__4Menui, 0x0023E2B0");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ menu_vtable, 0x004D5D48");
+struct menu_layout { char padding[0x1c]; const void *vtable; };
+extern "C" void destroy_menu(menu_layout *self,int flags)
+    __asm__("_$_4Menu");
+void destroy_menu(menu_layout *self,int flags) {
+    self->vtable=menu_vtable;
+    close_menu(self,true);
+    resize_menu(self,0);
+    if (flags&1) {
+        object_delete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
