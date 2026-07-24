@@ -56,3 +56,8 @@ public:
 };
 void ai_locomotion::going_out_of_service() { repulsion_wait_timer = 0.0f; repulsion_wait = false; in_service = false; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00107F68)
+// 0x00107F68 set_goto_path__13ai_locomotionfb
+extern "C" void clear_path(void*) __asm__("clear_path__13ai_locomotion");__asm__(".equ clear_path__13ai_locomotion,0x00107FD8");struct loco_vtable{char padding[16];short adjustment;short reserved;bool(*set_path)(void*,const void*,float,bool);};struct loco_layout{char p0[168];char target_pos[12];char p1[8];int use_path,path_tries;char p2[128];loco_vtable*vtable;};extern "C" void set_goto(loco_layout*self,float mod,bool force) __asm__("set_goto_path__13ai_locomotionfb");void set_goto(loco_layout*self,float mod,bool force){clear_path(self);loco_vtable*t=self->vtable;self->use_path=t->set_path((char*)self+t->adjustment,self->target_pos,mod,force);self->path_tries++;}
+#endif
