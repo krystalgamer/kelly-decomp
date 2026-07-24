@@ -41,3 +41,34 @@ void ObjectAlertWidget::SetDisplay(bool value)
     display = value;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0016A660)
+// 0x0016A660 Draw__17ObjectAlertWidget
+extern "C" void draw_base(void *) __asm__("Draw__9IGOWidget");
+extern "C" bool is_photo_shown(void *) __asm__("IsPhotoShown__C11IGOFrontEnd");
+__asm__(".equ Draw__9IGOWidget,0x00164668");
+__asm__(".equ IsPhotoShown__C11IGOFrontEnd,0x0017CEB0");
+extern void *frontendmanager_igo;
+__asm__(".equ frontendmanager_igo,0x003E7728");
+struct panel_vtable { char padding[64]; short adjustment; short reserved; void (*draw)(void *, int, float); };
+struct PanelQuad { char padding[404]; panel_vtable *vtable; };
+struct object_alert_layout {
+    bool display;
+    char padding[4];
+    PanelQuad *objectRoot;
+};
+extern "C" void draw_object_alert(object_alert_layout *self)
+    __asm__("Draw__17ObjectAlertWidget");
+void draw_object_alert(object_alert_layout *self)
+{
+    draw_base(self);
+    if (!self->display)
+        return;
+    if (!is_photo_shown(frontendmanager_igo)) {
+        panel_vtable *table = self->objectRoot->vtable;
+        table->draw(
+            (char *)self->objectRoot + table->adjustment, 0, -1.0f
+        );
+    }
+}
+#endif
