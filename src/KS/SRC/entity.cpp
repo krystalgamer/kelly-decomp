@@ -1585,3 +1585,8 @@ class destroyable_info{public:short flags;short pad;float destroy_lifetime;strin
 __asm__(".equ __as__7stringxRC7stringx,0x0034E0B8");__asm__(".equ new_visrep_instance__FP10visual_rep,0x002D7388");
 void destroyable_info::copy_instance_data(destroyable_info*data){flags=data->flags;destroy_lifetime=data->destroy_lifetime;destroy_fx=data->destroy_fx;destroy_script=data->destroy_script;preload_script=data->preload_script;destroyed_visrep=data->destroyed_visrep;hit_points=data->hit_points;if(data->destroyed_mesh)destroyed_mesh=new_visrep_instance(data->destroyed_mesh);else destroyed_mesh=0;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00136230)
+// 0x00136230 _$_16destroyable_info
+struct stringx{char d[8];};struct visual_rep{};struct destroyable_info{char p0[8];stringx a,b,c,d;visual_rep*mesh;char p1[8];void*vtable;};extern "C" void unload(visual_rep*)__asm__("unload_visual_rep__FP10visual_rep");extern "C" void strd(void*,int)__asm__("_$_7stringx");extern "C" void del(void*)__asm__("__builtin_delete");extern void*vt;__asm__(".equ unload_visual_rep__FP10visual_rep,0x002D74C0");__asm__(".equ _$_7stringx,0x0034D6E0");__asm__(".equ __builtin_delete,0x002AC6B0");__asm__(".equ vt,0x004CE000");extern "C" void destroy(destroyable_info*,int)__asm__("_$_16destroyable_info");void destroy(destroyable_info*self,int flag){self->vtable=&vt;if(self->mesh){unload(self->mesh);self->mesh=0;}strd((char*)self+32,2);strd((char*)self+24,2);strd((char*)self+16,2);strd((char*)self+8,2);if(flag&1){del(self);asm volatile("");}}
+#endif
