@@ -339,3 +339,8 @@ struct EntryVtable{char pad[32];short highlight_adjust;short z;void(*highlight)(
 // 0x00157728 OnActivate__6FEMenu
 struct Entry;struct MenuVtable{char pad0[32];short vis_adj;short z0;void(*set_vis)(void*,Entry*);char pad1[8];short init_adj;short z1;void(*init)(void*);char pad2[48];short high_adj;short z2;void(*highlight_default)(void*);};struct FEMenu{char pad0[60];unsigned flags;char pad1[12];Entry*highlighted;char pad2[16];void*active;char pad3[16];MenuVtable*vtable;void OnActivate()__asm__("OnActivate__6FEMenu");};void FEMenu::OnActivate(){active=0;MenuVtable*v=vtable;register void(*call0)(void*) asm("$3")=v->highlight_default;call0((char*)this+v->high_adj);if(flags&1){v=vtable;register void(*call1)(void*,Entry*) asm("$3")=v->set_vis;call1((char*)this+v->vis_adj,highlighted);}else if(flags&0x400){v=vtable;register void(*call2)(void*) asm("$3")=v->init;call2((char*)this+v->init_adj);}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00158C20)
+// 0x00158C20 UpdateButtonDown__12FEMenuSystem
+extern "C" int getButtonState(int,int)__asm__("getButtonState__Fii");class FEMenuSystem{public:bool button_down[14][2];void UpdateButtonDown()__asm__("UpdateButtonDown__12FEMenuSystem");};__asm__(".equ getButtonState__Fii,0x00159270");void FEMenuSystem::UpdateButtonDown(){for(int i=0;i<14;i++)for(int j=0;j<2;j++)button_down[i][j]=getButtonState(i,j);}
+#endif
