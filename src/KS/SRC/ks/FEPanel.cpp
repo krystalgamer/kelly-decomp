@@ -1067,3 +1067,8 @@ class TrickBoxText:public RandomText{protected:int numLines,lineHeight,width,hei
 __asm__(".equ Break__10StringList,0x00147EE0");
 void TrickBoxText::Break(){if(!isRand)makeRand();for(int i=0;i<box_str_count;i++)box_strings[i].Break();}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001482F8)
+// 0x001482F8 Update__10TextStringf
+class TextString{public:char p[36];int fade;float fade_alpha,fade_timer;char p2[16];float time;void Update(float)__asm__("Update__10TextStringf");};void TextString::Update(float dt){if(fade==1){fade_alpha+=dt/fade_timer;if(fade_alpha>=1.0f){fade=0;fade_alpha=1.0f;}}else if(fade==-1){fade_alpha-=dt/fade_timer;if(fade_alpha<=0.0f){fade=0;fade_alpha=0.0f;}}time-=dt;if(time<0.0f)time=0.0f;}
+#endif
