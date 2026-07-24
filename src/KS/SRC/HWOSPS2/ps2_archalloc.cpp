@@ -69,3 +69,8 @@ __asm__(".equ mem_memalign__FUiUiPCcii, 0x002AC848");
 __asm__(".equ arch_memalign_description, 0x004F94D8");
 void *arch_memalign(unsigned int boundary, unsigned int size, const char *description, int line) { void *result = mem_memalign(boundary, size, description ? description : arch_memalign_description, line, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AC640)
+// 0x002AC640 __builtin_vec_new
+extern const char alloc_file[];__asm__(".equ alloc_file,0x004F94A8");extern "C" void*mem_malloc(unsigned,const char*,int,int) __asm__("mem_malloc__FUiPCcii");extern "C" void mem_error(unsigned,bool,const char*,int) __asm__("mem_error__FUibPCci");__asm__(".equ mem_malloc__FUiPCcii,0x002AC788");__asm__(".equ mem_error__FUibPCci,0x002AC308");extern "C" void*vec_new(unsigned size) __asm__("__builtin_vec_new");void*vec_new(unsigned size){void*p=mem_malloc(size,alloc_file,0,0);if(!p)mem_error(size,true,alloc_file,0);return p;}
+#endif
