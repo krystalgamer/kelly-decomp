@@ -1577,3 +1577,11 @@ struct vis_vtable{char pad[128];short anim_adjust;short anim_pad;int(*get_anim_l
 // 0x001277E8 __nw__Q26entity13movement_infoUi
 extern "C" void check()__asm__("check_alias");extern "C" void nglPrintf(const char*,...)__asm__("nglPrintf__FPCce");extern const char format_text[];extern const char class_text[];__asm__(".equ check_alias,0x001276D0");__asm__(".equ nglPrintf__FPCce,0x003AC050");__asm__(".equ format_text,0x004CB6B0");__asm__(".equ class_text,0x004CB6D8");extern "C" void*allocate(unsigned)__asm__("__nw__Q26entity13movement_infoUi");void*allocate(unsigned){check();register char*allocated_high asm("$7")=(char*)0x003e0000;register char*current_high asm("$8")=(char*)0x003e0000;register int one asm("$9")=1;register char*memory_high asm("$10")=(char*)0x003e0000;int i=0,offset=0;for(;i<16;i++,offset+=96){asm volatile("" : : : "memory");int*slots=*(int**)(allocated_high+0x5a70);if(!slots[i]){*(int*)(current_high+0x5a80)=i;slots[i]=one;char*memory=*(char**)(memory_high+0x5a74);return memory+offset;}}nglPrintf(format_text,class_text);return(void*)-1;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001360B8)
+// 0x001360B8 copy_instance_data__16destroyable_infoP16destroyable_info
+struct stringx{char data[8];stringx&operator=(const stringx&) __asm__("__as__7stringxRC7stringx");};struct visual_rep{};extern visual_rep*new_visrep_instance(visual_rep*) __asm__("new_visrep_instance__FP10visual_rep");
+class destroyable_info{public:short flags;short pad;float destroy_lifetime;stringx destroy_fx;stringx destroy_script;stringx destroyed_visrep;stringx preload_script;visual_rep*destroyed_mesh;int hit_points;void copy_instance_data(destroyable_info*) __asm__("copy_instance_data__16destroyable_infoP16destroyable_info");};
+__asm__(".equ __as__7stringxRC7stringx,0x0034E0B8");__asm__(".equ new_visrep_instance__FP10visual_rep,0x002D7388");
+void destroyable_info::copy_instance_data(destroyable_info*data){flags=data->flags;destroy_lifetime=data->destroy_lifetime;destroy_fx=data->destroy_fx;destroy_script=data->destroy_script;preload_script=data->preload_script;destroyed_visrep=data->destroyed_visrep;hit_points=data->hit_points;if(data->destroyed_mesh)destroyed_mesh=new_visrep_instance(data->destroyed_mesh);else destroyed_mesh=0;}
+#endif
