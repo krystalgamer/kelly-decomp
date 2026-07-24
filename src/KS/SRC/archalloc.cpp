@@ -195,3 +195,8 @@ __asm__(".equ heaps, 0x00570528"); __asm__(".equ CheckHeapStats__4Heap, 0x002AC0
 class Heap { public: char data[108]; void CheckHeapStats(); }; extern Heap heaps[];
 int mem_get_total_avail(int heapindex) { Heap *h=&heaps[heapindex]; h->CheckHeapStats(); return *(int*)((char*)h+0x54)+*(int*)((char*)h+0x60); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002ACF08)
+// 0x002ACF08 mem_tested_largest_avail__Fv
+extern "C" void*malloc(unsigned);extern "C" void free(void*);__asm__(".equ malloc,0x003D0BA0");__asm__(".equ free,0x003D0BC8");extern "C" unsigned largest() __asm__("mem_tested_largest_avail__Fv");unsigned largest(){unsigned avail=0;for(int i=30;i>=0;i--){void*p=malloc(avail+(1u<<i));if(p){avail+=(1u<<i);free(p);}}return avail;}
+#endif
