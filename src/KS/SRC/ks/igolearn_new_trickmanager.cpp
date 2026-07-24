@@ -92,3 +92,29 @@ void IGOLearnNewTrickManager::PopFront(bool complete) {
     addIconDelay*=0.97f;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0015B518)
+// 0x0015B518 OnEvent__23IGOLearnNewTrickManager5EVENTii
+struct game_layout { char padding[0xbc]; int active_player; };
+enum EVENT { EVT_SURFER_LAND=0, EVT_SURFER_WIPEOUT=1 };
+extern game_layout *g_game_ptr;
+__asm__(".equ g_game_ptr, 0x0046AC64");
+class IGOLearnNewTrickManager {
+    char padding[0x58];
+    bool got_one_currently;
+public:
+    void PopFront(bool complete);
+    void OnEvent(EVENT event,int player,int param2);
+};
+__asm__(".equ PopFront__23IGOLearnNewTrickManagerb, 0x0015B418");
+void IGOLearnNewTrickManager::OnEvent(EVENT event,int player,int) {
+    if (got_one_currently && player==g_game_ptr->active_player) {
+        if (event==EVT_SURFER_LAND) {
+            PopFront(true);
+            got_one_currently=false;
+        } else if (event==EVT_SURFER_WIPEOUT) {
+            got_one_currently=false;
+        }
+    }
+}
+#endif
