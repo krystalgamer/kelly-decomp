@@ -143,3 +143,8 @@ struct __attribute__((aligned(4))) vertex_context{char data[44];};extern "C" ver
 // 0x00357850 __uninitialized_copy_aux__H2ZP14vertex_contextZP14vertex_context_X01X01X11G12__false_type_X11
 struct __attribute__((aligned(4))) vertex_context{char data[44];};extern "C" vertex_context*copy(vertex_context*first,vertex_context*last,vertex_context*result)__asm__("__uninitialized_copy_aux__H2ZP14vertex_contextZP14vertex_context_X01X01X11G12__false_type_X11");vertex_context*copy(vertex_context*first,vertex_context*last,vertex_context*result){for(;first!=last;++first,++result)if(result)__builtin_memcpy(result,first,44);return result;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0035BEF0)
+// 0x0035BEF0 _M_erase__t8_Rb_tree5Z7stringxZ7stringxZt9_Identity1Z7stringxZt4less1Z7stringxZt12my_allocator1Z7stringxPt13_Rb_tree_node1Z7stringx
+struct stringx{char data[8];~stringx();};struct Node{Node*free_next;Node*parent;Node*left;Node*right;stringx value;};struct AllocatorState{char pad[8];Node*head;};extern AllocatorState allocator_state;__asm__(".equ allocator_state,0x003E5628");__asm__(".equ _$_7stringx,0x0034D6E0");struct Tree;extern "C" void recurse(Tree*,Node*)__asm__("recurse_alias");__asm__(".equ recurse_alias,0x0035BEF0");struct Tree{void erase(Node*x)__asm__("_M_erase__t8_Rb_tree5Z7stringxZ7stringxZt9_Identity1Z7stringxZt4less1Z7stringxZt12my_allocator1Z7stringxPt13_Rb_tree_node1Z7stringx");};void Tree::erase(Node*x){if(!x)return;AllocatorState*alloc=&allocator_state;while(x){recurse(this,x->right);Node*y=x->left;x->value.~stringx();x->free_next=alloc->head;alloc->head=x;x=y;}}
+#endif
