@@ -103,3 +103,26 @@ struct MenuVTable { char padding[0x170]; short adjustment; short padding2; void 
 class ReplayMenuClass { char padding[0x74]; MenuVTable *vtable; public: void Select(int entry); };
 void ReplayMenuClass::Select(int entry) { MenuVTable *table = vtable; table->call((char *)this + table->adjustment); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DD900)
+// 0x001DD900 _$_20QuitConfirmMenuClass
+struct text_vtable { char padding[8]; short adjustment; short reserved; void (*destroy)(void *, int); };
+struct BoxText { char padding[76]; text_vtable *vtable; };
+extern "C" void destroy_base(void *, int) __asm__("_$_6FEMenu");
+extern const char derived_vtable[];
+__asm__(".equ _$_6FEMenu,0x00156580");
+__asm__(".equ derived_vtable,0x004C74F0");
+struct menu_layout { char padding[116]; const void *vtable; char padding2[4]; BoxText *question; };
+extern "C" void destroy_menu(menu_layout *self, int deleting) __asm__("_$_20QuitConfirmMenuClass");
+void destroy_menu(menu_layout *self, int deleting)
+{
+    self->vtable = derived_vtable;
+    BoxText *question = self->question;
+    if (question) {
+        text_vtable *table = question->vtable;
+        table->destroy((char *)question + table->adjustment, 3);
+    }
+    destroy_base(self, deleting);
+    __asm__ __volatile__("" : : : "memory");
+}
+#endif
