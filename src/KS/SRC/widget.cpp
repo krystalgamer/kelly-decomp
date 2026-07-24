@@ -666,3 +666,30 @@ void set_widget_color(widget_layout *self, const color *value)
     table->update((char *)self + table->adjustment);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00340570)
+// 0x00340570 init__11text_widgetR7stringx
+struct stringx;
+struct typeface_def;
+extern "C" void unload_typeface(typeface_def *) __asm__("unload__12typeface_def");
+extern "C" void close_typeface(typeface_def *) __asm__("typeface_close__FP12typeface_def");
+extern "C" typeface_def *open_typeface(stringx *) __asm__("typeface_open__FRC7stringx");
+extern "C" void load_typeface(typeface_def *) __asm__("load__12typeface_def");
+__asm__(".equ unload__12typeface_def,0x0033CAF0");
+__asm__(".equ typeface_close__FP12typeface_def,0x0033D458");
+__asm__(".equ typeface_open__FRC7stringx,0x0033D298");
+__asm__(".equ load__12typeface_def,0x0033C6E8");
+class text_widget { char padding[8]; int type; char padding2[312]; typeface_def *text_font; public: void init(stringx &typeface); };
+void text_widget::init(stringx &typeface)
+{
+    if (text_font) {
+        unload_typeface(text_font);
+        close_typeface(text_font);
+        text_font = 0;
+    }
+    type = 1;
+    text_font = open_typeface(&typeface);
+    load_typeface(text_font);
+    __asm__ __volatile__("" : : : "memory");
+}
+#endif
