@@ -224,3 +224,8 @@ void set_size(crashnode_t *node) {
         node->size=node->magnitude*node->age/FXD.wave_inc;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0036C620)
+// 0x0036C620 trails_update__Fv
+struct trail{int valid;};extern float frame_sec;extern trail*g_trails[4];extern "C" void update(trail*,float) __asm__("update__5trailf");__asm__(".equ frame_sec,0x0046B280");__asm__(".equ g_trails,0x004861D0");__asm__(".equ update__5trailf,0x00362488");extern "C" void trails_update() __asm__("trails_update__Fv");void trails_update(){float dt=frame_sec;for(int i=0;i<4;i++){if(g_trails[i]->valid)update(g_trails[i],dt);}}
+#endif
