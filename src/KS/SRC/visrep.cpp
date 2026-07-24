@@ -242,3 +242,8 @@ visual_rep *new_visrep_instance(visual_rep *vrep)
     return 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002D7048)
+// 0x002D7048 render_batch__10visual_repUiP20instance_render_infoi
+struct instance_render_info{char data[144];};struct visual_vtable{char pad[16];short adjust;short reserved;void(*render_instance)(void*,unsigned int,const instance_render_info*,int);};struct visual_rep{char pad[16];visual_vtable*vtable;};extern "C" void render_batch(visual_rep*self,unsigned int flavor,instance_render_info*viri,int count)__asm__("render_batch__10visual_repUiP20instance_render_infoi");void render_batch(visual_rep*self,unsigned int flavor,instance_render_info*viri,int count){for(;--count>=0;++viri){visual_vtable*t=self->vtable;t->render_instance((char*)self+t->adjust,flavor,viri,0);}}
+#endif
