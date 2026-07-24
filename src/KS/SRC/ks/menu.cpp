@@ -206,3 +206,12 @@ extern "C" void release_button(menu_layout*self,int button) __asm__("OnButtonRel
 void release_button(menu_layout*self,int button)
 {switch(button){case 2:case 3:case 4:case 8:break;default:if(self->activeentry>=0&&self->entry[self->activeentry]){menu_entry*e=self->entry[self->activeentry];entry_vtable*t=e->vtable;t->release((char*)e+t->adjustment,button);}}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023F108)
+// 0x0023F108 MenuText__14MenuEntryLabelPci
+extern "C" char* strncpy(char*,const char*,unsigned); extern "C" unsigned strlen(const char*); __asm__(".equ strncpy,0x003D4508"); __asm__(".equ strlen,0x003D40E0");
+struct label_layout { unsigned flags; void*vtable; const char*label; };
+extern "C" int label_text(label_layout*self,char*text,int len) __asm__("MenuText__14MenuEntryLabelPci");
+int label_text(label_layout*self,char*text,int len)
+{if(len&&self->label){strncpy(text,self->label,len);text[len-1]=0;return strlen(text);}else {if(len>0)*text=0;return 0;}}
+#endif
