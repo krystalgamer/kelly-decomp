@@ -1425,3 +1425,44 @@ void entity::set_max_lights(unsigned int value)
         manager->max_lights = max_lights;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00139BD8)
+// 0x00139BD8 set_mesh_distance__6entityR9nglVectorff
+typedef unsigned int vec128_t __attribute__((mode(TI), aligned(16)));
+struct nglVector { vec128_t value; };
+struct nglMesh { char padding[48]; nglVector SphereCenter; float SphereRadius; };
+class entity {
+    char padding[300];
+    nglMesh *shadow_mesh;
+    nglMesh *lores_mesh;
+    nglMesh *my_mesh;
+public:
+    void set_mesh_distance(nglVector &center, float radius, float forcedist);
+};
+void entity::set_mesh_distance(nglVector &center, float radius, float forcedist)
+{
+    register nglMesh *mesh __asm__("$2") = my_mesh;
+    if (!mesh)
+        return;
+    mesh->SphereCenter = center;
+    {
+        register nglMesh *mesh __asm__("$2") = lores_mesh;
+        if (mesh) {
+            register vec128_t value __asm__("$3") = center.value;
+            mesh->SphereCenter.value = value;
+        }
+    }
+    {
+        register nglMesh *mesh __asm__("$2") = shadow_mesh;
+        if (mesh) {
+            register vec128_t value __asm__("$3") = center.value;
+            mesh->SphereCenter.value = value;
+        }
+    }
+    my_mesh->SphereRadius = radius;
+    if (lores_mesh)
+        lores_mesh->SphereRadius = radius;
+    if (shadow_mesh)
+        shadow_mesh->SphereRadius = radius;
+}
+#endif
