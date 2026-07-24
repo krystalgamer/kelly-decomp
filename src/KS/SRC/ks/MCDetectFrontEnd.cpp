@@ -67,3 +67,8 @@ void draw_mc_detect(mc_detect_layout *self)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001A4518)
+// 0x001A4518 configLoadCallback__16MCDetectFrontEndPvi
+struct Career{void init()__asm__("init__6Career");};struct GlobalData{void init()__asm__("init__15GlobalDataClass");};struct SaveInfo{int valid;};extern Career*g_career;extern GlobalData globalCareerData;extern SaveInfo currentGame;__asm__(".equ g_career,0x00427C9C");__asm__(".equ globalCareerData,0x004349B8");__asm__(".equ currentGame,0x0042EBB0");__asm__(".equ init__6Career,0x0025A4C0");__asm__(".equ init__15GlobalDataClass,0x002EFC10");struct MC{char pad[376];int percent;void goState(int)__asm__("goState__16MCDetectFrontEndi");};__asm__(".equ goState__16MCDetectFrontEndi,0x001A3930");extern "C" void callback(void*data,int percent)__asm__("configLoadCallback__16MCDetectFrontEndPvi");void callback(void*data,int percent){MC*self=(MC*)data;if(percent>=100){self->goState(10);currentGame.valid=0;}else if(percent<0){g_career->init();globalCareerData.init();self->goState(5);KELLY_DECOMP_COMPILER_BARRIER();}else self->percent=percent/2;}
+#endif
