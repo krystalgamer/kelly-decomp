@@ -174,3 +174,38 @@ void IconChallenge::Icon::Spawn() {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00261C10)
+// 0x00261C10 Despawn__Q213IconChallenge4Icon
+struct entity_vtable {
+    char padding[0xf8]; short active_adjustment; short reserved0;
+    void (*set_active)(void *,bool);
+    char padding2[0x60]; short visible_adjustment; short reserved1;
+    void (*set_visible)(void *,bool);
+};
+struct entity_layout {
+    char padding[8]; entity_vtable *vtable;
+    void set_visible(bool visible) {
+        entity_vtable *table=vtable;
+        table->set_visible((char *)this+table->visible_adjustment,visible);
+    }
+    void set_active(bool active) {
+        entity_vtable *table=vtable;
+        table->set_active((char *)this+table->active_adjustment,active);
+    }
+};
+class IconChallenge {
+public:
+    class Icon {
+        entity_layout *parentEnt;
+    public:
+        void Despawn();
+    };
+};
+void IconChallenge::Icon::Despawn() {
+    if (parentEnt) {
+        parentEnt->set_active(false);
+        parentEnt->set_visible(false);
+    }
+}
+#endif
