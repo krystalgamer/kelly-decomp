@@ -1466,3 +1466,24 @@ void entity::set_mesh_distance(nglVector &center, float radius, float forcedist)
         shadow_mesh->SphereRadius = radius;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00130F70)
+// 0x00130F70 ifl_lock__6entityi
+struct visrep_vtable { char padding[128]; short adjustment; short reserved; int (*get_anim_length)(void *); };
+struct visrep { char padding[16]; visrep_vtable *vtable; };
+extern "C" void set_locked(void *, int) __asm__("set_ifl_frame_locked__10frame_infoi");
+__asm__(".equ set_ifl_frame_locked__10frame_infoi,0x00338658");
+class entity { char padding[296]; visrep *visual; char padding2[160]; char frame_info[1]; public: void ifl_lock(int index); };
+void entity::ifl_lock(int index)
+{
+    if (visual) {
+        if (index >= 0) {
+            visrep_vtable *table=visual->vtable;
+            int length=table->get_anim_length((char *)visual+table->adjustment);
+            if (index < length)
+                set_locked(frame_info,index);
+                __asm__ __volatile__("" : : : "memory");
+        }
+    }
+}
+#endif
