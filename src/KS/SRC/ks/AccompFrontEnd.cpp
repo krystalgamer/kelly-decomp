@@ -38,3 +38,8 @@ void on_left(accomp_layout *self,int controller)
         __asm__ __volatile__("" : : : "cc");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D4FD0)
+// 0x001D4FD0 OnRight__14AccompFrontEndi
+struct SoundScriptManager;extern SoundScriptManager*sound_manager;extern "C" int play(SoundScriptManager*,int,void*,float) __asm__("playEvent__18SoundScriptManager9EventTypeP6entityf");extern "C" void switch_pages(void*,bool) __asm__("SwitchPages__14AccompFrontEndb");__asm__(".equ sound_manager,0x0046B4A0");__asm__(".equ playEvent__18SoundScriptManager9EventTypeP6entityf,0x0031C380");__asm__(".equ SwitchPages__14AccompFrontEndb,0x001D4F30");struct accomp{char p0[356];int num_pages,cur_page;};extern "C" void right(accomp*self,int) __asm__("OnRight__14AccompFrontEndi");void right(accomp*self,int){if(self->cur_page<self->num_pages-1){play(sound_manager,26,0,0.0f);switch_pages(self,true);}else play(sound_manager,28,0,0.0f);int dead;__asm__("" : "=r"(dead));}
+#endif
