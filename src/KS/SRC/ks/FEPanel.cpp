@@ -1037,3 +1037,8 @@ struct nglQuad{char data[140];};extern "C" void adjust(float&,float&)__asm__("ad
 // 0x001523E8 FindObject__9PanelFileRC7stringx
 struct stringx{void*data;char pad[4];};struct PanelGeom;struct PanelVtable{char pad[40];short adjust;short zero;PanelGeom*(*find)(void*,const stringx&);};struct PanelGeom{char pad0[112];PanelGeom*next;char pad1[4];PanelVtable*vtable;};struct PanelFile{char pad[24];PanelGeom*obs;PanelGeom*FindObject(const stringx&)__asm__("FindObject__9PanelFileRC7stringx");};extern "C" void debug_print(const char*,...)__asm__("debug_print__FPCce");extern const char fail_format[];__asm__(".equ debug_print__FPCce,0x00120790");__asm__(".equ fail_format,0x004CF868");PanelGeom*PanelFile::FindObject(const stringx&name){PanelGeom*temp=0;PanelGeom*tmp=obs;while(tmp){PanelVtable*v=tmp->vtable;temp=v->find((char*)tmp+v->adjust,name);tmp=tmp->next;}if(temp==0)debug_print(fail_format,name.data);return temp;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014A7B0)
+// 0x0014A7B0 Update__12TrickBoxTextf
+struct StringList{char data[3016];void Update(float)__asm__("Update__10StringListf");};extern "C" void base_update(void*,float)__asm__("Update__10RandomTextf");__asm__(".equ Update__10RandomTextf,0x00149470");__asm__(".equ Update__10StringListf,0x00147B98");struct TrickBoxText{char pad0[80];int isRand;char pad1[3040];StringList box_strings[10];int box_str_count;void Update(float)__asm__("Update__12TrickBoxTextf");};void TrickBoxText::Update(float dt){base_update(this,dt);if(isRand){for(int i=0;i<box_str_count;i++)box_strings[i].Update(dt);}}
+#endif
