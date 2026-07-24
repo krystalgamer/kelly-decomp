@@ -198,3 +198,11 @@ extern "C" void get_text(menu_layout*self,int i,char*text,int len) __asm__("GetE
 void get_text(menu_layout*self,int i,char*text,int len)
 {if(i>=0&&i<self->entries&&self->entry[i]){menu_entry*e=self->entry[i];register entry_vtable*t __asm__("$3")=e->vtable;register void(*fn)(void*,char*,int) __asm__("$2")=t->menu_text;fn((char*)e+t->adjustment,text,len);}else text[0]=empty_text[0];}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023ECC8)
+// 0x0023ECC8 OnButtonRelease__4Menui
+struct entry_vtable { char padding[104]; short adjustment; short reserved; void(*release)(void*,int); }; struct menu_entry { unsigned flags; entry_vtable*vtable; }; struct menu_layout { void*vtable; int entries; menu_entry**entry; int activeentry; };
+extern "C" void release_button(menu_layout*self,int button) __asm__("OnButtonRelease__4Menui");
+void release_button(menu_layout*self,int button)
+{switch(button){case 2:case 3:case 4:case 8:break;default:if(self->activeentry>=0&&self->entry[self->activeentry]){menu_entry*e=self->entry[self->activeentry];entry_vtable*t=e->vtable;t->release((char*)e+t->adjustment,button);}}}
+#endif
