@@ -220,3 +220,8 @@ int label_text(label_layout*self,char*text,int len)
 // 0x0023E470 Close__4Menub
 struct menu_vtable{char p0[56];short adjustment;short x0;void(*on_close)(void*,bool);};struct menu_system;struct menu{char p0[16];int isopen;char p1[4];menu_system*control;menu_vtable*vtable;};extern "C" void closing(menu_system*,menu*) __asm__("Closing__10MenuSystemP4Menu");extern "C" void activate(menu*,int) __asm__("ActivateEntry__4Menui");__asm__(".equ Closing__10MenuSystemP4Menu,0x00241108");__asm__(".equ ActivateEntry__4Menui,0x0023E880");extern "C" void close_menu(menu*self,bool toparent) __asm__("Close__4Menub");void close_menu(menu*self,bool toparent){if(self->isopen){menu_system*c=self->control;self->isopen=false;closing(c,self);menu_vtable*t=self->vtable;t->on_close((char*)self+t->adjustment,toparent);if(toparent)activate(self,-1);int dead;__asm__("" : "=r"(dead));}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023F1F8)
+// 0x0023F1F8 OnButtonPress__7Submenui
+struct Menu;struct MenuSystem;extern "C" void close_menu(Menu*,bool) __asm__("Close__4Menub");extern "C" void open_menu(Menu*,Menu*,MenuSystem*) __asm__("Open__4MenuP4MenuP10MenuSystem");__asm__(".equ Close__4Menub,0x0023E470");__asm__(".equ Open__4MenuP4MenuP10MenuSystem,0x0023E3D0");struct submenu_layout{char p0[12];Menu*menuopen;Menu*parent;MenuSystem*system;};extern "C" void press(submenu_layout*self,int button) __asm__("OnButtonPress__7Submenui");void press(submenu_layout*self,int button){if(button==7&&self->parent&&self->menuopen){Menu*p=self->parent;MenuSystem*s=self->system;close_menu(p,false);open_menu(self->menuopen,p,s);int dead;__asm__("" : "=r"(dead));}}
+#endif
