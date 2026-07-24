@@ -1306,3 +1306,38 @@ void entity::use_item(item *value) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00127628)
+// 0x00127628 create_time_ifc__6entity
+extern "C" void *object_new(
+    unsigned int,unsigned int,const char *,int
+) __asm__("__nw__FUiUiPCci");
+extern const char entity_file[];
+extern const char time_vtable[];
+__asm__(".equ __nw__FUiUiPCci, 0x002AC578");
+__asm__(".equ entity_file, 0x004CB640");
+__asm__(".equ time_vtable, 0x004CE718");
+struct time_layout {
+    const void *vtable;
+    void *owner;
+    float time_dilation;
+    int time_mode;
+};
+struct entity_layout {
+    char padding[0xd0];
+    time_layout *time_interface;
+};
+class entity { public: time_layout *create_time_ifc(); };
+time_layout *entity::create_time_ifc() {
+    entity_layout *self=(entity_layout *)this;
+    time_layout *time=(time_layout *)
+        object_new(16,0,entity_file,0);
+    register const void *table __asm__("$3")=time_vtable;
+    time->vtable=table;
+    time->time_dilation=1.0f;
+    self->time_interface=time;
+    time->owner=this;
+    time->time_mode=0;
+    return time;
+}
+#endif
