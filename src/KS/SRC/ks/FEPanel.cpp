@@ -987,3 +987,19 @@ void BouncingText::Update(float dt)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014BF68)
+// 0x0014BF68 Update__9BurstTextf
+extern "C" void update_text(void *, float) __asm__("Update__10TextStringf");
+__asm__(".equ Update__10TextStringf,0x001482F8");
+class BurstText { char padding[48]; float scale; char padding2[28]; float targetScale; float scaleRate; public: void Update(float dt); };
+void BurstText::Update(float dt)
+{
+    update_text(this,dt);
+    if (scale < targetScale) {
+        scale += dt/scaleRate;
+        if (scale >= targetScale)
+            scale=targetScale;
+    }
+}
+#endif
