@@ -202,3 +202,8 @@ struct string_buf{char p0[4];int ref;};extern string_buf*free_long_buffers[];ext
 // 0x0034E1A0 aggressively_cache_buffer__7stringx
 struct string_buf{char*data;int ref;int char_length;};extern "C" string_buf*find_cached(const char*,int)__asm__("find_cached_string__7stringxPCci");struct stringx{char*chars;string_buf*my_buf;void release_buffer();bool aggressively_cache_buffer()__asm__("aggressively_cache_buffer__7stringx");};__asm__(".equ find_cached_string__7stringxPCci,0x0034DD88");__asm__(".equ release_buffer__7stringx,0x0034D760");bool stringx::aggressively_cache_buffer(){string_buf*tmp=find_cached(chars,my_buf->char_length);if(tmp!=0&&tmp!=my_buf){release_buffer();my_buf=tmp;chars=my_buf->data;return true;}else if(tmp==my_buf){tmp->ref--;}return false;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034E270)
+// 0x0034E270 copy__7stringxPCci
+struct string_buf{char*data;};class stringx{public:char*chars;string_buf*my_buf;void release_buffer()__asm__("release_buffer__7stringx");static string_buf*acquire_buffer(const char*,int)__asm__("acquire_buffer__7stringxPCci");void copy(const char*,int)__asm__("copy__7stringxPCci");};extern "C" unsigned strlen(const char*);extern const char empty[];extern "C" void rec(stringx*,const char*,int)__asm__("copy_alias");__asm__(".equ release_buffer__7stringx,0x0034D760");__asm__(".equ acquire_buffer__7stringxPCci,0x0034DA48");__asm__(".equ strlen,0x003D40E0");__asm__(".equ empty,0x00500D28");__asm__(".equ copy_alias,0x0034E270");void stringx::copy(const char*str,int len){if(str==0){rec(this,empty,-1);asm volatile("");return;}if(len==-1)len=strlen(str);release_buffer();my_buf=acquire_buffer(str,len);chars=my_buf->data;}
+#endif
