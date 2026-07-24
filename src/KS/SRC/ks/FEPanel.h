@@ -1102,3 +1102,25 @@ void TargetDtor(void *self, int deleting) {
     if (deleting & 1) { BuiltinDelete(self); __asm__ __volatile__("" : : : "memory"); }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D8A98)
+// 0x001D8A98 _$_10RandomText
+extern "C" void destroy_string(void *, int) __asm__("_$_7stringx");
+extern "C" void object_delete(void *) __asm__("__builtin_delete");
+extern const char text_string_vtable[];
+__asm__(".equ _$_7stringx,0x0034D6E0");
+__asm__(".equ __builtin_delete,0x002AC6B0");
+__asm__(".equ text_string_vtable,0x004DD500");
+struct random_text_layout { char padding[4]; char text[8]; char padding2[64]; const void *vtable; char padding3[8]; char random_text[8]; };
+extern "C" void destroy_random_text(random_text_layout *self, int deleting) __asm__("_$_10RandomText");
+void destroy_random_text(random_text_layout *self, int deleting)
+{
+    destroy_string(&self->random_text, 2);
+    self->vtable = text_string_vtable;
+    destroy_string(&self->text, 2);
+    if (deleting & 1) {
+        object_delete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
