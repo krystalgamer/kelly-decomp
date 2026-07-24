@@ -292,3 +292,24 @@ ForwardIterator __uninitialized_fill_n_aux(ForwardIterator first, Size n, const 
 }
 template plane *__uninitialized_fill_n_aux(plane *, unsigned int, const plane &, __false_type);
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0010DB80)
+// 0x0010DB80 __uninitialized_copy_aux__H2ZP7stringxZP7stringx_X01X01X11G12__false_type_X11
+struct stringx { char data[8]; };
+extern "C" void copy_construct(stringx *,const stringx *)
+    __asm__("__7stringxRC7stringx");
+__asm__(".equ __7stringxRC7stringx, 0x0034D4D0");
+extern "C" stringx *copy_strings(
+    stringx *first,stringx *last,stringx *result
+) __asm__("__uninitialized_copy_aux__H2ZP7stringxZP7stringx_X01X01X11G12__false_type_X11");
+stringx *copy_strings(
+    stringx *first,stringx *last,stringx *result
+) {
+    while (first!=last) {
+        if (result) copy_construct(result,first);
+        ++first;
+        ++result;
+    }
+    return result;
+}
+#endif
