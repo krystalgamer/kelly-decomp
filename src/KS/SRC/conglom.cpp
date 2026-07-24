@@ -53,3 +53,8 @@ struct entity_vtable{char data[2000];};struct entity{char p0[8];entity_vtable*vt
 // 0x00306240 ifl_play__12conglomerate
 struct entity_vtable{char data[2000];};struct entity{char p0[8];entity_vtable*vtable;char p1[392];short bone_idx;};struct conglomerate{char p0[512];entity**begin;entity**end;};extern "C" void base_call(void*) __asm__("ifl_play__6entity");__asm__(".equ ifl_play__6entity,0x00131070");extern "C" void run(conglomerate*self) __asm__("ifl_play__12conglomerate");void run(conglomerate*self){base_call(self);entity**it=self->begin;entity**end=self->end;for(;it!=end;++it){entity*e=*it;if(e->bone_idx<0){entity_vtable*t=e->vtable;short adjustment=*(short*)((char*)t+1536);void(*fn)(void*)=*(void(**)(void*))((char*)t+1540);fn((char*)e+adjustment);}}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003062B0)
+// 0x003062B0 ifl_pause__12conglomerate
+struct entity_vtable{char data[2000];};struct entity{char p0[8];entity_vtable*vtable;char p1[392];short bone_idx;};struct conglomerate{char p0[512];entity**begin;entity**end;};extern "C" void base_call(void*) __asm__("ifl_pause__6entity");__asm__(".equ ifl_pause__6entity,0x00130FD8");extern "C" void run(conglomerate*self) __asm__("ifl_pause__12conglomerate");void run(conglomerate*self){base_call(self);entity**it=self->begin;entity**end=self->end;for(;it!=end;++it){entity*e=*it;if(e->bone_idx<0){entity_vtable*t=e->vtable;short adjustment=*(short*)((char*)t+1552);void(*fn)(void*)=*(void(**)(void*))((char*)t+1556);fn((char*)e+adjustment);}}}
+#endif
