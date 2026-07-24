@@ -139,3 +139,8 @@ void TutorialFrontEnd::OnDown(int controller)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D0B88)
+// 0x001D0B88 Draw__16TutorialFrontEnd
+struct menu_vtable{char p0[72];short adjustment;short x0;void(*draw)(void*);};struct menu{char p0[116];menu_vtable*vtable;};struct text_vtable{char p0[24];short adjustment;short x0;void(*draw)(void*);};struct text{char p0[76];text_vtable*vtable;};struct tutorial{char p0[96];menu*active;char p1[288];text*help,*pause;};extern "C" void draw_tutorial(tutorial*self) __asm__("Draw__16TutorialFrontEnd");void draw_tutorial(tutorial*self){if(self->active){register menu*m __asm__("$5")=self->active;menu_vtable*t=m->vtable;register void(*fn)(void*) __asm__("$3")=t->draw;fn((char*)m+t->adjustment);}register text*x __asm__("$5")=self->help;text_vtable*t=x->vtable;register void(*fn)(void*) __asm__("$3")=t->draw;fn((char*)x+t->adjustment);x=self->pause;t=x->vtable;fn=t->draw;fn((char*)x+t->adjustment);}
+#endif
