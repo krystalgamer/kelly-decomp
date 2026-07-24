@@ -1512,3 +1512,8 @@ void activate_trail(entity_layout *self, int length, unsigned int color, int min
     head->z=tip->z;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00130CB0)
+// 0x00130CB0 set_created_entity_default_active_status__6entity
+struct entity_vtable{char padding[248];short adjustment;short reserved;void(*set_active)(void*,bool);};struct entity_layout{char p0[8];entity_vtable*vtable;char p1[112];int flavor;};extern "C" void set_default(entity_layout*self) __asm__("set_created_entity_default_active_status__6entity");void set_default(entity_layout*self){switch(self->flavor){case 1:case 2:case 3:case 4:case 10:{entity_vtable*t=self->vtable;t->set_active((char*)self+t->adjustment,false);break;}default:{entity_vtable*t=self->vtable;t->set_active((char*)self+t->adjustment,true);break;}}}
+#endif
