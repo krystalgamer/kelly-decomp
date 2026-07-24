@@ -146,3 +146,8 @@ template <> void linear_anim<float>::mem_cleanup() {
     if (allocated) { arch_free(data_a); arch_free(data_b); allocated=0; if (cleanup) cleanup(); }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0011A1C0)
+// 0x0011A1C0 _$_7po_anim
+struct po_anim{char pad[4];void*vptr;void*P;void*R;void*S;};extern void*po_vtable[];extern "C" void delP(void*)__asm__("__dl__t11linear_anim1Z8vector3dPv");extern "C" void delR(void*)__asm__("__dl__t11linear_anim1Z10quaternionPv");extern "C" void delS(void*)__asm__("__dl__t11linear_anim1ZfPv");extern "C" void delSelf(void*)__asm__("__dl__7po_animPv");__asm__(".equ po_vtable,0x004CA210");__asm__(".equ __dl__t11linear_anim1Z8vector3dPv,0x00119E58");__asm__(".equ __dl__t11linear_anim1Z10quaternionPv,0x00119C18");__asm__(".equ __dl__t11linear_anim1ZfPv,0x0011A098");__asm__(".equ __dl__7po_animPv,0x001199D8");extern "C" void dtor(po_anim*self,int deleting)__asm__("_$_7po_anim");void dtor(po_anim*self,int deleting){self->vptr=po_vtable;if(self->P)delP(self->P);if(self->R)delR(self->R);if(self->S)delS(self->S);if(deleting&1){delSelf(self);KELLY_DECOMP_COMPILER_BARRIER();}}
+#endif
