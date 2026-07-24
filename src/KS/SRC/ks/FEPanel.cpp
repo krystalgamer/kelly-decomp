@@ -1057,3 +1057,13 @@ struct stringx{char data[8];};struct GeomVtable{char pad[8];short adjust;short z
 // 0x00152A30 ReadHeader__9PanelFilePUcRi
 extern "C" unsigned char ReadChar(unsigned char*,int&)__asm__("ReadChar__FPUcRi");__asm__(".equ ReadChar__FPUcRi,0x001533F8");extern "C" bool read_header(unsigned char*buffer,int&index)__asm__("ReadHeader__9PanelFilePUcRi");bool read_header(unsigned char*buffer,int&index){if(ReadChar(buffer,index)==80&&ReadChar(buffer,index)==110&&ReadChar(buffer,index)==108&&ReadChar(buffer,index)==0)return true;else return false;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014BE70)
+// 0x0014BE70 Break__12TrickBoxText
+struct stringx{char d[8];};struct vector3d{float x,y,z;};struct Font{};struct StringList{char data[3016];void Break() __asm__("Break__10StringList");};
+class TextString{protected:char fields[76];public:virtual ~TextString();virtual void Update(float);virtual void Draw();virtual void setHJustify(int);virtual void setVJustify(int);virtual void setFont(Font*);virtual void setButtonScale(float);virtual void numberSpacing(int);virtual void changeText(stringx);virtual void changeScale(float);virtual void changePos(float,float);virtual void changeX(float);virtual void changeY(float);virtual void changeZ(int);virtual void ChangeFade(int,int,float);virtual void SetFade(float);virtual float getX();virtual float getY();virtual int getZ();virtual stringx getText();virtual float GetScale()const;virtual float GetButtonScale()const;virtual int GetNumberSpacing()const;virtual Font*GetFont();virtual int GetHJustify()const;virtual int GetVJustify()const;virtual void setLineSpacing(int);virtual void resetLineSpacing();virtual void UpdateInScene(int);virtual void SetLocation3D(vector3d);virtual vector3d GetLocation3D();virtual void SetBehaviorNF(float,float);virtual void SetBehavior(int);protected:virtual void Render();virtual void Render(stringx*,float,float);virtual void Render(stringx*,float,float,float*,float*,int);virtual void cons(Font*,stringx,float,float,int,float,int,int,int,unsigned);};
+class RandomText:public TextString{protected:int isRand;int noFade;StringList rand_string;public:virtual void Update(float);virtual void Draw();virtual void changeText(stringx);virtual void makeRand();virtual void unmakeRand();};
+class TrickBoxText:public RandomText{protected:int numLines,lineHeight,width,height;int reverse;StringList box_strings[10];int box_str_count;public:void Break() __asm__("Break__12TrickBoxText");};
+__asm__(".equ Break__10StringList,0x00147EE0");
+void TrickBoxText::Break(){if(!isRand)makeRand();for(int i=0;i<box_str_count;i++)box_strings[i].Break();}
+#endif
