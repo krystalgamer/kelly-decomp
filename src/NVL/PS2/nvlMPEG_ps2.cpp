@@ -463,3 +463,8 @@ int viBufDelete(ViBuf *buffer) {
 // 0x00389D00 changeMasterVolume__FUi
 extern "C" int sceSdRemote(int,int,int,unsigned) ;__asm__(".equ sceSdRemote,0x0038BAE0");extern "C" void change_volume(unsigned val) __asm__("changeMasterVolume__FUi");void change_volume(unsigned val){for(int i=0;i<2;i++){sceSdRemote(1,0x8010,i|0x980,val);sceSdRemote(1,0x8010,i|0xa80,val);}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003896C0)
+// 0x003896C0 audioDecResume__FP8AudioDec
+extern "C" void change_input(unsigned) __asm__("changeInputVolume__FUi");extern "C" int remote(int,int,int,int,int,int,int) __asm__("sceSdRemote");__asm__(".equ changeInputVolume__FUi,0x00389D68");__asm__(".equ sceSdRemote,0x0038BAE0");struct AudioDec{int state;char p0[64];int iopBuff,iopBuffSize;char p1[4];int iopPausePos;};extern "C" void resume(AudioDec*ad) __asm__("audioDecResume__FP8AudioDec");void resume(AudioDec*ad){change_input(0x7fff);int rounded=(ad->iopBuffSize/1024)*1024;__asm__("" : "+r"(rounded));int start=ad->iopBuff+ad->iopPausePos;remote(1,0x80e0,0,19,ad->iopBuff,rounded,start);ad->state=2;}
+#endif
