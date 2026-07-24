@@ -181,3 +181,27 @@ void nslSetMasterVolume(float volume) {
     nsl.masterVolume=volume;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003906A0)
+// 0x003906A0 nslGetMasterVolume__Fv
+struct nslSystem {
+    char padding0[0x15850];
+    int initialized;
+    char padding1[0x54];
+    float masterVolume;
+};
+extern nslSystem nsl;
+extern const char initialized_error[];
+void nslFatal(const char *, ...);
+__asm__(".equ nsl,0x0049B5F0");
+__asm__(".equ initialized_error,0x0051C480");
+__asm__(".equ nslFatal__FPCce,0x00391420");
+float nslGetMasterVolume()
+{
+    if (!nsl.initialized)
+        return 1.0f;
+    if (!(nsl.initialized == 1))
+        nslFatal(initialized_error);
+    return nsl.masterVolume;
+}
+#endif
