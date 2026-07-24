@@ -32,6 +32,9 @@ INLINE_ASM_TEMPLATE_RE = re.compile(
     re.DOTALL,
 )
 STRING_LITERAL_RE = re.compile(r'"((?:\\.|[^"\\])*)"', re.DOTALL)
+SYMBOL_ONLY_ASM_LINE_RE = re.compile(
+    r"(?:\.globl\s+[A-Za-z0-9_.$]+|[A-Za-z0-9_.$]+:)$"
+)
 LOCAL_INCLUDE_RE = re.compile(
     r'^\s*#include\s+"([^"]+)"',
     re.MULTILINE,
@@ -84,7 +87,11 @@ def uses_matching_compiler_barrier(source: str) -> bool:
 def uses_instruction_emitting_inline_asm(source: str) -> bool:
     for match in INLINE_ASM_TEMPLATE_RE.finditer(source):
         template = "".join(STRING_LITERAL_RE.findall(match.group(1)))
-        if template:
+        lines = template.replace(r"\n", "\n").replace(r"\t", "\t").splitlines()
+        if any(
+            line and SYMBOL_ONLY_ASM_LINE_RE.fullmatch(line) is None
+            for line in (line.strip() for line in lines)
+        ):
             return True
     return False
 
