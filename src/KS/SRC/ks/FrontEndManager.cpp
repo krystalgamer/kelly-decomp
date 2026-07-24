@@ -252,3 +252,28 @@ void FEManager::DrawIGO() {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00199070)
+// 0x00199070 ReleaseIGO__9FEManager
+struct igo_vtable { char padding[8]; short adjustment; short reserved; void (*destroy)(void *, int); };
+struct IGOFrontEnd { char padding[192]; igo_vtable *vtable; };
+struct PauseMenuSystem { char padding[140]; igo_vtable *vtable; };
+class FEManager {
+    IGOFrontEnd *IGO;
+    PauseMenuSystem *pms;
+public:
+    void ReleaseIGO();
+};
+void FEManager::ReleaseIGO()
+{
+    if (IGO) {
+        igo_vtable *table = IGO->vtable;
+        table->destroy((char *)IGO + table->adjustment, 3);
+    }
+    IGO = 0;
+    if (pms) {
+        igo_vtable *table = pms->vtable;
+        table->destroy((char *)pms + table->adjustment, 3);
+    }
+}
+#endif
