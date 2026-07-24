@@ -87,3 +87,8 @@ void TextFileDtor(void *self, int deleting)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00338138)
+// 0x00338138 read_char__9text_file
+extern "C" void refill(void*) __asm__("refill_buf__9text_file");__asm__(".equ refill_buf__9text_file,0x00338078");struct text_layout{char padding[124];char*buf;int bufpos,bufamt;char p2[4];int pushbackdata;};extern "C" char read_char(text_layout*self) __asm__("read_char__9text_file");char read_char(text_layout*self){char ch;if(self->pushbackdata>=0){ch=self->pushbackdata;self->pushbackdata=-1;}else{ch=self->buf[self->bufpos];if(++self->bufpos>=self->bufamt)refill(self);}return ch;}
+#endif
