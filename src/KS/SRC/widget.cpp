@@ -646,3 +646,23 @@ void menu_item_widget::select(bool initial) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033EEA8)
+// 0x0033EEA8 set_color__6widgetG5color
+struct color { float r,g,b,a; };
+struct update_vtable { char padding[288]; short adjustment; short reserved; void (*update)(void *); };
+struct widget_layout { char padding[88]; color col[4]; char padding2[168]; update_vtable *vtable; };
+extern "C" void set_widget_color(widget_layout *self, const color *value) __asm__("set_color__6widgetG5color");
+void set_widget_color(widget_layout *self, const color *value)
+{
+    color *destination = self->col;
+    for (int i=0;i<4;++i,++destination) {
+        destination->r=value->r;
+        destination->g=value->g;
+        destination->b=value->b;
+        destination->a=value->a;
+    }
+    update_vtable *table=self->vtable;
+    table->update((char *)self + table->adjustment);
+}
+#endif
