@@ -254,3 +254,8 @@ void ControllerFrontEnd::OnStart(int controller) {
     );
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BC1D8)
+// 0x001BC1D8 Update__13LegalFrontEndf
+struct menu_vtable{char pad[296];short adjust;short reserved;void(*select)(void*,int);};struct Legal{char pad[116];menu_vtable*vtable;char pad2[220];float timer;};extern "C" void front_update(void*,float)__asm__("Update__8FrontEndf");extern "C" void menu_update(void*,float)__asm__("Update__6FEMenuf");__asm__(".equ Update__8FrontEndf,0x00157B30");__asm__(".equ Update__6FEMenuf,0x00156DC8");extern "C" void update(Legal*self,float dt)__asm__("Update__13LegalFrontEndf");void update(Legal*self,float dt){self->timer+=dt;if(self->timer>=10.0f){menu_vtable*t=self->vtable;t->select((char*)self+t->adjust,0);}front_update((char*)self+128,dt);menu_update(self,dt);KELLY_DECOMP_COMPILER_BARRIER();}
+#endif
