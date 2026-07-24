@@ -65,3 +65,8 @@ void movieplayer::shutdown() {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E6DE0)
+// 0x001E6DE0 start_frame__11movieplayerb
+extern "C" void list_init() __asm__("nglListInit__Fv");extern "C" void set_volume(float) __asm__("nvlMPEGSetVolume__Ff");__asm__(".equ nglListInit__Fv,0x00397DA8");__asm__(".equ nvlMPEGSetVolume__Ff,0x0038ACE8");extern float ps2MovieVolume;__asm__(".equ ps2MovieVolume,0x0042E678");struct movie_layout{char p0[4];int hiRes;char p1[684];int movieStarted;char p2[4];int volume_frames;};extern "C" void start_frame(movie_layout*self,bool listInit) __asm__("start_frame__11movieplayerb");void start_frame(movie_layout*self,bool listInit){if(!self->hiRes){if(self->movieStarted&&listInit){list_init();int dead;__asm__("" : "=r"(dead));}}else{self->volume_frames++;float volume;if(self->volume_frames>=6)volume=ps2MovieVolume;else volume=0.0f;set_volume(volume);int dead;__asm__("" : "=r"(dead));}}
+#endif
