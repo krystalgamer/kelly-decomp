@@ -1341,3 +1341,29 @@ time_layout *entity::create_time_ifc() {
     return time;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00134AB0)
+// 0x00134AB0 attach_anim__6entityP11entity_anim
+class entity_anim {
+    char padding[0x14];
+public:
+    int priority;
+    void detach();
+};
+__asm__(".equ detach__11entity_anim, 0x00113A50");
+class entity {
+    char padding[0x110];
+    entity_anim *current_anim;
+public:
+    bool attach_anim(entity_anim *animation);
+};
+bool entity::attach_anim(entity_anim *animation) {
+    if (!current_anim || animation->priority>=current_anim->priority) {
+        if (current_anim && animation!=current_anim)
+            current_anim->detach();
+        current_anim=animation;
+        return true;
+    }
+    return false;
+}
+#endif
