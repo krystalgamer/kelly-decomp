@@ -33,3 +33,8 @@ struct WidgetLayout { int field0; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_12CameraWidget");
 void DerivedDtor(void *self, int deleting) { ((WidgetLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00169FF0)
+// 0x00169FF0 Hide__12CameraWidget
+struct pq_vtable{char p0[24];short adjustment;short x0;void(*turn_on)(void*,bool);};struct pq{char p0[404];pq_vtable*vtable;};struct camera_widget{char p0[8];pq*reticle[28];float fade,showTimer,showTime;};extern "C" void hide(camera_widget*self) __asm__("Hide__12CameraWidget");void hide(camera_widget*self){for(int i=0;i<28;i++){pq*q=self->reticle[i];pq_vtable*t=q->vtable;t->turn_on((char*)q+t->adjustment,false);}self->showTimer=0;self->showTime=0;}
+#endif
