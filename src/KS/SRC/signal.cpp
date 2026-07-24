@@ -234,3 +234,8 @@ struct signal;extern "C" void base_ctor(void*,void*) __asm__("__6signalP9signall
 // 0x0034CE48 clear_script_callback__9signallerRC7stringx
 struct stringx;struct signal;struct fastvec{unsigned count;signal**data;};struct signaller{char p0[4];fastvec*signals;};extern "C" void clear_one(signal*,const stringx&) __asm__("clear_script_callback__6signalRC7stringx");__asm__(".equ clear_script_callback__6signalRC7stringx,0x0034C8C0");extern "C" void clear_all(signaller*self,const stringx&name) __asm__("clear_script_callback__9signallerRC7stringx");void clear_all(signaller*self,const stringx&name){if(self->signals){signal**i=self->signals->data;signal**end=i+self->signals->count;for(;i!=end;++i)if(*i)clear_one(*i,name);}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034CB90)
+// 0x0034CB90 raise_input__12gated_signalP6signal
+struct signal{};struct gated_signal{char pad[28];unsigned short type,flags;signal*input_a;signal*input_b;void raise_input(signal*)__asm__("raise_input__12gated_signalP6signal");};extern "C" void raise_signal(gated_signal*)__asm__("raise__6signal");extern "C" void refresh(gated_signal*)__asm__("set_needs_refresh__6signal");__asm__(".equ raise__6signal,0x0034C428");__asm__(".equ set_needs_refresh__6signal,0x0034C4D0");void gated_signal::raise_input(signal*input){if(input==input_a)flags|=1;else if(input==input_b)flags|=2;if(type==0){if((flags&3)==3)raise_signal(this);}else raise_signal(this);refresh(this);asm volatile("");}
+#endif
