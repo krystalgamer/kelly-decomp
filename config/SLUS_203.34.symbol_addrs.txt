@@ -5102,7 +5102,7 @@ __introsort_loop__H3ZP20instance_render_infoZ20instance_render_infoZi_X01X01PX11
 __unguarded_linear_insert__H2ZP20instance_render_infoZ20instance_render_info_X01X11_v = 0x002F2D38; // type:func size:0x29C
 __insertion_sort__H1ZP20instance_render_info_X01X01_v = 0x002F2FD8; // type:func size:0x56C
 __unguarded_insertion_sort_aux__H2ZP20instance_render_infoZ20instance_render_info_X01X01PX11_v = 0x002F3548; // type:func size:0x18C
-__final_insertion_sort__H1ZP20instance_render_info_X01X01_v = 0x002F36D8; // type:func size:0x70
+__final_insertion_sort__H1ZP20instance_render_info_X01X01_v = 0x002F36D8; // type:func defined:true size:0x70
 __uninitialized_copy_aux__H2ZP10debug_textZP10debug_text_X01X01X11G12__false_type_X11 = 0x002F3768; // type:func size:0xC4
 _M_insert_aux__t6vector2Z10debug_textZt12my_allocator1Z10debug_textP10debug_textRC10debug_text = 0x002F3830; // type:func size:0x3D8
 clear__t10_List_base2ZPQ215element_manager7contextZt12my_allocator1ZPQ215element_manager7context = 0x002F3C08; // type:func size:0x48
