@@ -103,3 +103,8 @@ void TimeAttackMode::Update(float time) {
     for (int i=0;i<2;i++) Attack(i,time);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00286228)
+// 0x00286228 FinishAttacking__14TimeAttackModei
+struct player{char p0[16];int attacking;char p1[4];};struct mode{player players[2];};extern "C" void attack(mode*,int,float) __asm__("Attack__14TimeAttackModeif");__asm__(".equ Attack__14TimeAttackModeif,0x002863A0");extern "C" void finish(mode*self,int idx) __asm__("FinishAttacking__14TimeAttackModei");void finish(mode*self,int idx){while(self->players[idx].attacking)attack(self,idx,1.0f);}
+#endif
