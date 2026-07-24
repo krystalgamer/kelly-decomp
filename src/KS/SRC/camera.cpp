@@ -53,3 +53,26 @@ void marky_camera::sync(camera &other) {
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002C38A8)
+// 0x002C38A8 _$_6camera
+struct mic_vtable { char padding[8]; short adjustment; short reserved; void (*destroy)(void *, int); };
+struct mic { char padding[8]; mic_vtable *vtable; };
+extern "C" void destroy_entity(void *, int) __asm__("_$_6entity");
+extern const char camera_vtable[];
+__asm__(".equ _$_6entity,0x001298C8");
+__asm__(".equ camera_vtable,0x004F4118");
+struct camera_layout { char padding[8]; const void *vtable; char padding2[500]; mic *microphone; };
+extern "C" void destroy_camera(camera_layout *self, int deleting) __asm__("_$_6camera");
+void destroy_camera(camera_layout *self, int deleting)
+{
+    self->vtable = camera_vtable;
+    mic *microphone = self->microphone;
+    if (microphone) {
+        mic_vtable *table = microphone->vtable;
+        table->destroy((char *)microphone + table->adjustment, 3);
+    }
+    destroy_entity(self, deleting);
+    __asm__ __volatile__("" : : : "memory");
+}
+#endif
