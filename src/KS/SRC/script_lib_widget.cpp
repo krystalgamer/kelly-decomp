@@ -2653,3 +2653,53 @@ bool slf_timer_widget_set_bg_color_t::operator()(
     SLF_DONE;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0032BC30)
+// 0x0032BC30 __cl__22slf_widget_set_layer_tR8vm_stackQ320script_library_class8function7entry_t
+struct widget_vtable {
+    char padding[0x100];
+    short adjustment;
+    short padding2;
+    void (*set_layer)(void *, int);
+};
+class widget {
+    char padding[0x140];
+    widget_vtable *vtable;
+public:
+    enum rhw_layer_e {
+        RHW0, RHW1, RHW2, RHW3, RHW4, RHW5,
+        RHW6, RHW7, RHW8, RHW9, RHW_OVER_PFE1,
+        RHW_OVER_PFE2, NUM_RHW_LAYERS
+    };
+    void set_layer(rhw_layer_e layer) {
+        widget_vtable *table = vtable;
+        table->set_layer((char *)this + table->adjustment, layer);
+    }
+};
+class vm_stack {
+    char padding[8];
+    char *top;
+public:
+    void *pop(unsigned int size) { top -= size; return top; }
+};
+class script_library_class {
+public:
+    class function { public: enum entry_t { FIRST_ENTRY, RECALL_ENTRY }; };
+};
+class slf_widget_set_layer_t : public script_library_class::function {
+public:
+    struct parms_t { widget *me; float layer; };
+    bool operator()(vm_stack &stack, entry_t entry);
+};
+bool slf_widget_set_layer_t::operator()(vm_stack &stack, entry_t entry)
+{
+    parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t));
+    int layer = (int)parms->layer;
+    if (layer < widget::RHW0)
+        layer = widget::RHW0;
+    if (layer >= widget::NUM_RHW_LAYERS)
+        layer = widget::NUM_RHW_LAYERS - 1;
+    parms->me->set_layer((widget::rhw_layer_e)layer);
+    return true;
+}
+#endif
