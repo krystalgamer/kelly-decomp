@@ -109,3 +109,8 @@ void MeterAttackMode::Update(float time) {
     for (int i=0;i<2;i++) Attack(i,time);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002866D8)
+// 0x002866D8 FinishAttacking__15MeterAttackModei
+struct player{char p0[16];int attacking;char p1[4];};struct mode{player players[2];};extern "C" void attack(mode*,int,float) __asm__("Attack__15MeterAttackModeif");__asm__(".equ Attack__15MeterAttackModeif,0x002867A8");extern "C" void finish(mode*self,int idx) __asm__("FinishAttacking__15MeterAttackModei");void finish(mode*self,int idx){while(self->players[idx].attacking)attack(self,idx,1.0f);}
+#endif
