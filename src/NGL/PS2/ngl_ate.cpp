@@ -184,3 +184,22 @@ found:
     return atefile + offset;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003AC940)
+// 0x003AC940 ATENameMatch__FRC14nglFixedStringT0
+extern "C" unsigned int strlen(const char *);
+extern "C" int strnicmp(const char *, const char *, unsigned int)
+    __asm__("strncasecmp");
+__asm__(".equ strlen,0x003D40E0");
+__asm__(".equ strncasecmp,0x003D4270");
+class nglFixedString {
+    char str[32];
+public:
+    const char *c_str() const { return str; }
+};
+bool ATENameMatch(const nglFixedString &find, const nglFixedString &entry)
+{
+    int l = strlen(find.c_str());
+    return ((l == 0) || (strnicmp(find.c_str(), entry.c_str(), l) == 0));
+}
+#endif
