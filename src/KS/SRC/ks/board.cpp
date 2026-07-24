@@ -98,3 +98,33 @@ no_gravity:
     return 0.0f;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001EDD40)
+// 0x001EDD40 _$_20SurfBoardObjectClass
+extern "C" void destroy_physics(void *,int)
+    __asm__("_$_18PhysicsObjectClass");
+extern "C" void object_delete(void *)
+    __asm__("__builtin_delete");
+extern const char surfboard_vtable[];
+__asm__(".equ _$_18PhysicsObjectClass, 0x002418A0");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+__asm__(".equ surfboard_vtable, 0x004ED4E8");
+struct surfboard_layout {
+    char padding[4];
+    void *rb;
+    char padding2[0xac0];
+    const void *vtable;
+};
+extern "C" void destroy_surfboard(
+    surfboard_layout *self,int flags
+) __asm__("_$_20SurfBoardObjectClass");
+void destroy_surfboard(surfboard_layout *self,int flags) {
+    self->vtable=surfboard_vtable;
+    if (self->rb)
+        destroy_physics(self->rb,3);
+    if (flags&1) {
+        object_delete(self);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
