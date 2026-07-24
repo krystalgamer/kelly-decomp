@@ -250,3 +250,40 @@ void FEMenu::Update(float time_inc)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001566B8)
+// 0x001566B8 Add__6FEMenuP11FEMenuEntry
+class FEMenu;
+struct FEMenuEntry {
+    int entry_num;
+    FEMenuEntry *next;
+    FEMenuEntry *previous;
+    FEMenu *menu;
+};
+class FEMenu {
+    char padding[8];
+    int num_entries;
+    char padding2[0x34];
+    FEMenuEntry *entries;
+public:
+    void Add(FEMenuEntry *entry);
+};
+void FEMenu::Add(FEMenuEntry *entry) {
+    if (entries) {
+        if (entries->previous) {
+            entries->previous->next=entry;
+            entry->previous=entries->previous;
+        } else {
+            entries->next=entry;
+            entry->previous=entries;
+        }
+        entries->previous=entry;
+    } else {
+        entries=entry;
+        entry->previous=0;
+    }
+    entry->next=0;
+    entry->entry_num=num_entries;
+    num_entries++;
+}
+#endif
