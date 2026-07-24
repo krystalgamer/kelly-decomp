@@ -597,3 +597,33 @@ void **Rtti_00360260()
     return rtti_type_00360260;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00360CC0)
+// 0x00360CC0 _$_9fluid_bar
+extern "C" void destroy_string(void *,int)
+    __asm__("_$_7stringx");
+extern "C" void destroy_widget(void *,int)
+    __asm__("_$_6widget");
+extern const char fluid_vtable[];
+extern const char widget_vtable[];
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+__asm__(".equ _$_6widget, 0x0033DC68");
+__asm__(".equ fluid_vtable, 0x005041B0");
+__asm__(".equ widget_vtable, 0x005042E0");
+struct fluid_layout {
+    char padding[0x140];
+    const void *vtable;
+    char padding2[0x14];
+    char name[8];
+};
+extern "C" void destroy_fluid(
+    fluid_layout *self,int flags
+) __asm__("_$_9fluid_bar");
+void destroy_fluid(fluid_layout *self,int flags) {
+    self->vtable=fluid_vtable;
+    destroy_string(self->name,2);
+    self->vtable=widget_vtable;
+    destroy_widget(self,flags);
+    __asm__ __volatile__("" : : : "memory");
+}
+#endif
