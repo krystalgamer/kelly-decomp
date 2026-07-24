@@ -1367,3 +1367,33 @@ bool entity::attach_anim(entity_anim *animation) {
     return false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00138E00)
+// 0x00138E00 set_visible__6entityb
+extern "C" void update_render(void *)
+    __asm__("region_update_poss_render__6entity");
+__asm__(".equ region_update_poss_render__6entity, 0x00138FA0");
+class entity {
+    char padding[0x78];
+    int flags;
+    char padding2[0x11c];
+    int ext_flags;
+public:
+    void set_visible(bool visible);
+};
+void entity::set_visible(bool visible) {
+    if (((flags>>9)&1)!=visible) {
+        if (visible) {
+            if (!(ext_flags&0x40000))
+                flags|=0x200;
+        } else {
+            register int mask __asm__("$2")=0xffff0000;
+            __asm__ __volatile__("" : "+r"(mask));
+            mask|=0xfdff;
+            flags&=mask;
+        }
+        update_render(this);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
