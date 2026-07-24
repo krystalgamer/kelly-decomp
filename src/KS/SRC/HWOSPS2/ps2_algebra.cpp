@@ -34,3 +34,8 @@ void matrix4x4::make_scale(const vector3d &s) {
     x.w=0.0f; y.w=0.0f; z.w=0.0f; w.w=1.0f;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001DF280)
+// 0x001DF280 det3__FPA2_Cf
+extern "C" float det3(const float m[3][3]) __asm__("det3__FPA2_Cf");float det3(const float m[3][3]){return m[0][0]*m[1][1]*m[2][2]+m[0][1]*m[1][2]*m[2][0]+m[0][2]*m[1][0]*m[2][1]-m[0][2]*m[1][1]*m[2][0]-m[0][0]*m[1][2]*m[2][1]-m[0][1]*m[1][0]*m[2][2];}
+#endif
