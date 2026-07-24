@@ -304,3 +304,8 @@ int game::get_first_beach() {
     return -1;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002855C0)
+// 0x002855C0 get_beach_board_name__4gamei
+struct stringx{char data[8];stringx(const char*,int=-1);};struct BeachData{char name[32];char pad0[320];int map_location;char pad1[176];};extern BeachData BeachDataArray[];extern const char empty_name[];__asm__(".equ BeachDataArray,0x0043C198");__asm__(".equ empty_name,0x004E5410");__asm__(".equ __7stringxPCci,0x0034D438");struct game{stringx get_beach_board_name(int);};stringx game::get_beach_board_name(int location){for(int i=0;i<25;i++){if(BeachDataArray[i].map_location==location)return BeachDataArray[i].name;}return stringx(empty_name);}
+#endif
