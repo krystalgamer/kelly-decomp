@@ -81,3 +81,11 @@ extern "C" void f(void*,N*) __asm__("_M_erase__t8_Rb_tree5ZPQ2t13instance_bank1Z
 extern "C" void r(void*,N*); __asm__(".equ r,0x001D7510");
 void f(void*t,N*n){while(n){r(t,n->r);N*l=n->l;arch_free(n);n=l;}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D7708)
+// 0x001D7708 _M_erase__t8_Rb_tree5ZPQ2t13instance_bank1Z8material5ref_tZPQ2t13instance_bank1Z8material5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8material5ref_tZQ2t13instance_bank1Z8material13less_by_labelZt23__malloc_alloc_template1i0Pt13_Rb_tree_node1ZPQ2t13instance_bank1Z8material5ref_t
+struct N{char p[8];N*l,*r;}; void arch_free(void*); __asm__(".equ arch_free__FPv,0x002AC768");
+extern "C" void f(void*,N*) __asm__("_M_erase__t8_Rb_tree5ZPQ2t13instance_bank1Z8material5ref_tZPQ2t13instance_bank1Z8material5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8material5ref_tZQ2t13instance_bank1Z8material13less_by_labelZt23__malloc_alloc_template1i0Pt13_Rb_tree_node1ZPQ2t13instance_bank1Z8material5ref_t");
+extern "C" void r(void*,N*); __asm__(".equ r,0x001D7708");
+void f(void*t,N*n){while(n){r(t,n->r);N*l=n->l;arch_free(n);n=l;}}
+#endif
