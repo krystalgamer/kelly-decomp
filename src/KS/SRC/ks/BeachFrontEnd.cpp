@@ -106,3 +106,8 @@ void BeachFrontEnd::OnLevelLoaded()
     frontendmanager.map_loading_screen = false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0018E710)
+// 0x0018E710 UpdateInScene__13BeachFrontEnd
+struct em{char p0[16];int draw_enabled;char p1[428];int state,substate;char p2[60];int blocked;};struct manager{char p0[12];em*entity_manager;};struct beach{char p0[316];manager*manager_ptr;char p1[2180];int offset_set;char p2[1344];int in_frontend;};extern "C" void set_offset(beach*) __asm__("SetOffset__13BeachFrontEnd");__asm__(".equ SetOffset__13BeachFrontEnd,0x00194160");extern "C" void update_scene(beach*self) __asm__("UpdateInScene__13BeachFrontEnd");void update_scene(beach*self){if(self->in_frontend){em*e=self->manager_ptr->entity_manager;bool ok=e->state&&e->substate==3&&!e->blocked&&e->draw_enabled==1;if(ok&&!self->offset_set)set_offset(self);int dead;__asm__("" : "=r"(dead));}}
+#endif
