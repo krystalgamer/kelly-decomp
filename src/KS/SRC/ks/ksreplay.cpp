@@ -315,3 +315,42 @@ void KSReplay::Pause(bool paused)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023A9A0)
+// 0x0023A9A0 Reset__13KSEntityState
+struct KSEntityState { unsigned int padding; unsigned int flags; void Reset(); };
+void KSEntityState::Reset()
+{
+    register unsigned int value __asm__("$2") = flags;
+    __asm__ __volatile__("" : "+r"(value));
+    register unsigned int mask1 __asm__("$5") = 0x7fffffffU;
+    __asm__ __volatile__("" : "+r"(mask1));
+    register unsigned int mask2 __asm__("$3") = 0xbfffffffU;
+    value &= mask1;
+    __asm__ __volatile__("" : "+r"(value), "+r"(mask2));
+    value &= mask2;
+    __asm__ __volatile__("" : "+r"(value));
+    register unsigned int mask3 __asm__("$6") = 0xffbfffffU;
+    __asm__ __volatile__("" : "+r"(mask3));
+    register unsigned int mask4 __asm__("$3") = 0xffdfffffU;
+    value &= mask3;
+    __asm__ __volatile__("" : "+r"(value), "+r"(mask4));
+    value &= mask4;
+    __asm__ __volatile__("" : "+r"(value));
+    register unsigned int mask5 __asm__("$5") = 0xfeffffffU;
+    __asm__ __volatile__("" : "+r"(mask5));
+    register unsigned int mask6 __asm__("$3") = 0xff7fffffU;
+    value &= mask5;
+    __asm__ __volatile__("" : "+r"(value), "+r"(mask6));
+    register int mask7 __asm__("$6") = -16257;
+    __asm__ __volatile__("" : "+r"(mask7));
+    value &= mask6;
+    __asm__ __volatile__("" : "+r"(value));
+    register int mask8 __asm__("$5") = -128;
+    __asm__ __volatile__("" : "+r"(mask8));
+    value &= mask7;
+    __asm__ __volatile__("" : "+r"(value));
+    value &= mask8;
+    flags = value;
+}
+#endif
