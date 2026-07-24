@@ -475,3 +475,8 @@ void end_run(photo_frontend *self)
     if(self->save){photo_menu*m=self->save;menu_vtable*t=m->vtable;t->set_high((char*)m+t->adjustment,m->entries,true);}
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001CE238)
+// 0x001CE238 GetSelectedPhotoIdx__C13PhotoFrontEnd
+struct game_layout{char p0[116];int game_mode;int get_game_mode()const{return game_mode;}};extern game_layout*g_game_ptr;__asm__(".equ g_game_ptr,0x0046AC64");struct photo_challenge{char p0[40];int numTaken;int GetNumTaken()const{return numTaken;}};struct challenges{char p0[728];photo_challenge*photo;};extern challenges*g_beach_ptr;__asm__(".equ g_beach_ptr,0x0043F710");struct entry{int entry_num;};struct menu{char p0[76];entry*highlighted;};struct photo_front{char p0[352];menu*selectMenu;char p1[4];menu*saveMenu;};extern "C" int selected_photo(const photo_front*self) __asm__("GetSelectedPhotoIdx__C13PhotoFrontEnd");int selected_photo(const photo_front*self){if(g_game_ptr->get_game_mode()==0&&g_beach_ptr->photo&&self->saveMenu->highlighted&&self->saveMenu->highlighted->entry_num==0){if(self->selectMenu->highlighted->entry_num<g_beach_ptr->photo->GetNumTaken())return self->selectMenu->highlighted->entry_num;else return -1;}else return -1;}
+#endif
