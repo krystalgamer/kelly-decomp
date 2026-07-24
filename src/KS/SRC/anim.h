@@ -490,3 +490,8 @@ void SetTime(key_anim_vector_layout *self, float time)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00121628)
+// 0x00121628 set_time__t8key_anim3Z10quaternionZt10linear_key1Z10quaternionZt12linear_track1Z10quaternionf
+struct Key{float time;char p[16];};struct Track{int num_keys;Key*m_keys;};class KeyAnim{public:char p[8];Track*track;Key*current_key;void set_time(float)__asm__("set_time__t8key_anim3Z10quaternionZt10linear_key1Z10quaternionZt12linear_track1Z10quaternionf");};void KeyAnim::set_time(float t){current_key=track->m_keys;Key*next_key=current_key;++next_key;while(next_key!=(track->m_keys+track->num_keys)&&t>=next_key->time){++current_key;++next_key;}}
+#endif
