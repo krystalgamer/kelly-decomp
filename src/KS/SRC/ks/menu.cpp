@@ -189,3 +189,12 @@ void MenuEntry::Activate() {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023E6C8)
+// 0x0023E6C8 GetElementText__4MenuiPci
+extern const char empty_text[]; __asm__(".equ empty_text,0x004DFC30");
+struct entry_vtable { char padding[160]; short adjustment; short reserved; void(*menu_text)(void*,char*,int); }; struct menu_entry { unsigned flags; entry_vtable*vtable; }; struct menu_layout { void*vtable; int entries; menu_entry**entry; };
+extern "C" void get_text(menu_layout*self,int i,char*text,int len) __asm__("GetElementText__4MenuiPci");
+void get_text(menu_layout*self,int i,char*text,int len)
+{if(i>=0&&i<self->entries&&self->entry[i]){menu_entry*e=self->entry[i];register entry_vtable*t __asm__("$3")=e->vtable;register void(*fn)(void*,char*,int) __asm__("$2")=t->menu_text;fn((char*)e+t->adjustment,text,len);}else text[0]=empty_text[0];}
+#endif
