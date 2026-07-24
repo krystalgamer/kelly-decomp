@@ -1047,3 +1047,8 @@ struct StringList{char data[3016];void Update(float)__asm__("Update__10StringLis
 // 0x0014BDE8 makeRand__12TrickBoxText
 struct StringList{char data[3016];void MakeRand();};__asm__(".equ MakeRand__10StringList,0x00147CD0");struct TrickBoxText{char pad0[60];bool checkTime;float time;char pad1[12];bool isRand;char pad2[3040];StringList box_strings[10];int box_str_count;void makeRand()__asm__("makeRand__12TrickBoxText");};void TrickBoxText::makeRand(){for(int i=0;i<box_str_count;i++)box_strings[i].MakeRand();time=2.0f;checkTime=true;isRand=true;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00152360)
+// 0x00152360 SetFilename__9PanelFileG7stringx
+struct stringx{char data[8];};struct GeomVtable{char pad[8];short adjust;short z;void(*destroy)(void*,int);};struct PanelGeom{char pad[112];PanelGeom*next;char pad2[4];GeomVtable*vtable;};struct PanelFile{char pad[16];stringx filename;PanelGeom*obs;char pad2[12];void*pquads;};extern "C" void assign(stringx*,const stringx*)__asm__("__as__7stringxRC7stringx");extern "C" void string_dtor(stringx*,int)__asm__("_$_7stringx");__asm__(".equ __as__7stringxRC7stringx,0x0034E0B8");__asm__(".equ _$_7stringx,0x0034D6E0");extern "C" extern "C" void set_filename(PanelFile*,stringx*)__asm__("SetFilename__9PanelFileG7stringx");void set_filename(PanelFile*self,stringx*p){assign(&self->filename,p);PanelGeom*tmp=self->obs;PanelGeom*tmp2;while(tmp){tmp2=tmp->next;if(tmp){GeomVtable*v=tmp->vtable;v->destroy((char*)tmp+v->adjust,3);}tmp=tmp2;}self->obs=0;self->pquads=0;string_dtor(p,2);asm volatile("");}
+#endif
