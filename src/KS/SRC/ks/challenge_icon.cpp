@@ -101,3 +101,22 @@ void IconChallenge::OnEvent(EVENT event, int param1, int param2)
         arrangement.OnEvent(event, ksctrl, param2);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00260F08)
+// 0x00260F08 Spawn__Q213IconChallenge8Sequence
+class IconChallenge {
+public:
+    class Task { char data[16]; public: void Spawn(); };
+    class Sequence {
+        int numTasks;
+        Task tasks[10];
+        bool completed;
+    public:
+        void Spawn();
+    };
+};
+__asm__(".equ Spawn__Q213IconChallenge4Task, 0x002610B8");
+void IconChallenge::Sequence::Spawn() {
+    for (int i=0;i<numTasks;i++) tasks[i].Spawn();
+}
+#endif
