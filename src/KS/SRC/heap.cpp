@@ -133,3 +133,8 @@ void Heap::FreeHeapMemory() {
     fields[25]=0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AB280)
+// 0x002AB280 CanHold__12MemBlockInfoUiUiUiUi
+typedef unsigned int MemSize;typedef unsigned int MemFlags;struct MemBlockInfo{char p0[16];MemSize size;};extern "C" bool can_hold(MemBlockInfo*self,MemSize msize,MemSize align,MemFlags flags,MemSize headersize) __asm__("CanHold__12MemBlockInfoUiUiUiUi");bool can_hold(MemBlockInfo*self,MemSize msize,MemSize align,MemFlags flags,MemSize headersize){if(self->size>msize+headersize){if(flags&1){unsigned char*bblock=(unsigned char*)self;unsigned char*rblock=bblock;rblock+=self->size-msize;unsigned char*dblock=(unsigned char*)((unsigned int)rblock&-align);dblock-=headersize;int diff=dblock-bblock;return diff>=0;}unsigned char*thisptr=(unsigned char*)self;thisptr+=headersize;unsigned char*thatptr=(unsigned char*)(((unsigned int)thisptr+(align-1))&-align);if(self->size-(thatptr-thisptr)>headersize+msize)return true;}return false;}
+#endif
