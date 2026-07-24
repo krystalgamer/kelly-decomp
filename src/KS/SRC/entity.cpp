@@ -1522,3 +1522,8 @@ struct entity_vtable{char padding[248];short adjustment;short reserved;void(*set
 // 0x00132300 delete_colgeom__6entity
 struct cg_vtable{char padding[8];short adjustment;short reserved;void(*destroy)(void*,int);};struct cg{char p0[8];cg_vtable*vtable;};struct entity_layout{char p0[120];unsigned flags;char p1[204];cg*colgeom;};extern "C" void bank_delete(void*,cg*) __asm__("delete_instance__t13instance_bank1Z7cg_meshP7cg_mesh");__asm__(".equ delete_instance__t13instance_bank1Z7cg_meshP7cg_mesh,0x0013F730");extern char cg_mesh_bank[];__asm__(".equ cg_mesh_bank,0x00434920");extern "C" void delete_colgeom(entity_layout*self) __asm__("delete_colgeom__6entity");void delete_colgeom(entity_layout*self){if(self->colgeom){if(self->flags&0x20000000)bank_delete(cg_mesh_bank,self->colgeom);else{cg*c=self->colgeom;cg_vtable*t=c->vtable;t->destroy((char*)c+t->adjustment,3);}self->colgeom=0;}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00138B28)
+// 0x00138B28 set_control_active__6entityb
+struct controller_vtable{char p0[24];short off_adjust;short x0;void(*off)(void*);short on_adjust;short x1;void(*on)(void*);};struct controller{int active;char p0[4];controller_vtable*vtable;};struct entity_layout{char p0[392];controller*my_controller;};extern "C" void set_control(entity_layout*self,bool a) __asm__("set_control_active__6entityb");void set_control(entity_layout*self,bool a){controller*c=self->my_controller;if(c){if(c->active){if(!a){controller_vtable*t=c->vtable;t->off((char*)c+t->off_adjust);}}else if(a){controller_vtable*t=c->vtable;t->on((char*)c+t->on_adjust);}}}
+#endif
