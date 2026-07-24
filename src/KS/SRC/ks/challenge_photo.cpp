@@ -184,3 +184,32 @@ void PhotoChallenge::Photo::Init(int width, int height)
     isOfSpecialTrick = false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002628B8)
+// 0x002628B8 BeginTakingPicture__Q214PhotoChallenge9CameramanP22kellyslater_controllerPQ214PhotoChallenge5Photo
+struct IGOFrontEnd { void ShowCameraReticle(float time); };
+class kellyslater_controller;
+extern IGOFrontEnd *frontend_igo;
+__asm__(".equ frontend_igo, 0x003E7728");
+__asm__(".equ ShowCameraReticle__11IGOFrontEndf, 0x0017CE18");
+class PhotoChallenge {
+public:
+    class Photo;
+    class Cameraman {
+        kellyslater_controller *targetKsctrl;
+        void *ent;
+        Photo *destPhoto;
+        int state;
+    public:
+        void BeginTakingPicture(kellyslater_controller *target,Photo *photo);
+    };
+};
+void PhotoChallenge::Cameraman::BeginTakingPicture(
+    kellyslater_controller *target,Photo *photo
+) {
+    frontend_igo->ShowCameraReticle(5.0f);
+    destPhoto=photo;
+    targetKsctrl=target;
+    state=1;
+}
+#endif
