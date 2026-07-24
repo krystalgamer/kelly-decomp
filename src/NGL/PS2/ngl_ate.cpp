@@ -203,3 +203,8 @@ bool ATENameMatch(const nglFixedString &find, const nglFixedString &entry)
     return ((l == 0) || (strnicmp(find.c_str(), entry.c_str(), l) == 0));
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003ACA48)
+// 0x003ACA48 ATETextureCount__FPcRC14nglFixedString
+struct nglFixedString{char d[32];};struct Header{char p[8];unsigned items;};struct Entry{char d[48];};extern "C" Entry*head(char*,int)__asm__("ATEEntryHead__FPci");extern "C" bool match(const nglFixedString&,const nglFixedString&)__asm__("ATENameMatch__FRC14nglFixedStringT0");__asm__(".equ ATEEntryHead__FPci,0x003ACA30");__asm__(".equ ATENameMatch__FRC14nglFixedStringT0,0x003AC940");extern "C" unsigned count(char*,const nglFixedString&)__asm__("ATETextureCount__FPcRC14nglFixedString");unsigned count(char*file,const nglFixedString&name){Header*h=(Header*)file;unsigned rv=0;if(h->items){for(unsigned i=0;i<h->items;i++){Entry*e=head(file,i);if(e&&match(name,*(nglFixedString*)e))rv++;}}return rv;}
+#endif
