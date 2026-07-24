@@ -176,3 +176,8 @@ path_graph_layout *construct_path_graph(path_graph_layout *self)
     return self;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034AFF0)
+// 0x0034AFF0 get_edge__C10path_graphPC15path_graph_nodeT1
+struct node;struct edge{node*nodes[2];};struct graph{char p0[20];edge**begin,**end;};extern "C" edge*get_edge(const graph*self,const node*n1,const node*n2) __asm__("get_edge__C10path_graphPC15path_graph_nodeT1");edge*get_edge(const graph*self,const node*n1,const node*n2){if(n1&&n2){for(edge**i=self->begin;i!=self->end;++i){edge*e=*i;if(e&&((e->nodes[0]==n1&&e->nodes[1]==n2)||(e->nodes[0]==n2&&e->nodes[1]==n1)))return e;}}return 0;}
+#endif
