@@ -627,3 +627,8 @@ extern "C" void*memset(void*,int,unsigned);__asm__(".equ memset,0x003D18D0");ext
 // 0x00383FA0 WAVE_Sin__Ff
 extern const float sin_table[];__asm__(".equ sin_table,0x00519210");extern "C" float wave_sin(float a) __asm__("WAVE_Sin__Ff");float wave_sin(float a){int index=((int)(a/6.283185308f*1000.0f))%1000;return index>=0?sin_table[index]:-sin_table[-index];}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00374930)
+// 0x00374930 WAVE_ListAdd__Fv
+struct nglRenderParams{unsigned Flags;char pad[28];float Scale[4];char tail[32];};struct WaveDebugType{char pad0[92];int DrawDarkMesh;char pad1[20];int DrawHighMesh;char pad2[36];int DrawWaveMesh;};extern float WAVE_LocalScale[3];extern char WAVE_LocalToWorld[];extern WaveDebugType WaveDebug;extern unsigned WaveMeshID;extern "C" void submit(unsigned,const char*,nglRenderParams&,bool,bool,bool,bool,bool)__asm__("WAVETEX_SubmitMesh__FUiRC9nglMatrixR15nglRenderParamsbN43");__asm__(".equ WAVE_LocalScale,0x00484690");__asm__(".equ WAVE_LocalToWorld,0x00484650");__asm__(".equ WaveDebug,0x004847F8");__asm__(".equ WaveMeshID,0x0058EA60");__asm__(".equ WAVETEX_SubmitMesh__FUiRC9nglMatrixR15nglRenderParamsbN43,0x00381188");extern "C" void add()__asm__("WAVE_ListAdd__Fv");void add(){nglRenderParams rp;rp.Flags=0;rp.Flags|=0x40;rp.Scale[0]=WAVE_LocalScale[0];rp.Scale[1]=WAVE_LocalScale[1];rp.Scale[2]=WAVE_LocalScale[2];if(WaveDebug.DrawWaveMesh)submit(WaveMeshID,WAVE_LocalToWorld,rp,WaveDebug.DrawWaveMesh,WaveDebug.DrawDarkMesh,WaveDebug.DrawHighMesh,WaveDebug.DrawHighMesh,true);}
+#endif
