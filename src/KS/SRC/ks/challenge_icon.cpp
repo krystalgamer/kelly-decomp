@@ -214,3 +214,8 @@ void IconChallenge::Icon::Despawn() {
 // 0x002609D0 Update__13IconChallengef
 struct Controller;struct Icon{char data[44];void Update(float)__asm__("Update__Q213IconChallenge4Iconf");};struct Arrangement{char data[1];void Update(Controller*,float)__asm__("Update__Q213IconChallenge11ArrangementP22kellyslater_controllerf");};struct IconChallenge{char pad[4];Controller*ksctrl;int numIcons;Icon*icons;Arrangement arrangement;void Update(float)__asm__("Update__13IconChallengef");};__asm__(".equ Update__Q213IconChallenge11ArrangementP22kellyslater_controllerf,0x00260BE8");__asm__(".equ Update__Q213IconChallenge4Iconf,0x00261558");void IconChallenge::Update(float dt){arrangement.Update(ksctrl,dt);for(int i=0;i<numIcons;i++)icons[i].Update(dt);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00260CC8)
+// 0x00260CC8 OnEvent__Q213IconChallenge11Arrangement5EVENTP22kellyslater_controlleri
+struct controller;struct Sequence{char data[168];void OnEvent(int,controller*,int)__asm__("OnEvent__Q213IconChallenge8Sequence5EVENTP22kellyslater_controlleri");};class Arrangement{public:int numSequences;int current;Sequence sequences[10];void OnEvent(int,controller*,int)__asm__("OnEvent__Q213IconChallenge11Arrangement5EVENTP22kellyslater_controlleri");};__asm__(".equ OnEvent__Q213IconChallenge8Sequence5EVENTP22kellyslater_controlleri,0x00260FC8");void Arrangement::OnEvent(int event,controller*ksctrl,int param2){for(int i=0;i<numSequences;i++)sequences[i].OnEvent(event,ksctrl,param2);}
+#endif
