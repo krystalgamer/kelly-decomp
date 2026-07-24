@@ -1562,3 +1562,8 @@ struct sound_vtable{char p0[64];short adjustment;short x0;void(*advance)(void*,f
 // 0x00138988 suspend__6entity
 struct ai_interface;struct controller_vtable{char p0[24];short adjustment;short x0;void(*deactivate)(void*);};struct controller{int active;char p0[4];controller_vtable*vtable;};struct entity{char p0[172];ai_interface*ai;char p1[208];int suspended,suspended_active;controller*control;};extern "C" void push_disable(ai_interface*) __asm__("push_disable__12ai_interface");__asm__(".equ push_disable__12ai_interface,0x00105528");extern "C" void suspend(entity*self) __asm__("suspend__6entity");void suspend(entity*self){if(!self->suspended){self->suspended=true;if(self->ai)push_disable(self->ai);register controller*c __asm__("$5")=self->control;if(c){self->suspended_active=c->active;if(c->active){controller_vtable*t=c->vtable;t->deactivate((char*)c+t->adjustment);}}}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00137BE0)
+// 0x00137BE0 find_like_item__C6entityP4item
+struct item;extern "C" bool same(const item*,const item&)__asm__("is_same_item__C4itemRC4item");__asm__(".equ is_same_item__C4itemRC4item,0x0028A128");struct item_vector{item**begin;item**end;item**capacity;};struct container_info{item_vector items;};struct entity{char pad[284];container_info*coninfo;};extern "C" item*find_like(const entity*self,item*target)__asm__("find_like_item__C6entityP4item");item*find_like(const entity*self,item*target){if(self->coninfo){item**it=self->coninfo->items.begin;item**last=self->coninfo->items.end;for(;it!=last;++it){item*lit=*it;if(lit&&same(lit,*target))return lit;}}return 0;}
+#endif
