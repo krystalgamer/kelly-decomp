@@ -144,3 +144,28 @@ void reset_tutorial(tutorial_layout *self)
     __asm__ __volatile__("" : : : "memory");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0015A2F8)
+// 0x0015A2F8 OnEvent__18IGOTutorialManager5EVENTii
+struct tutorial_step { char padding[84]; int kind; char padding2[12]; };
+extern int perfect_landing_flag; extern tutorial_step tutorial_steps[];
+__asm__(".equ perfect_landing_flag,0x004D06EC"); __asm__(".equ tutorial_steps,0x0043A5B0");
+struct tutorial_layout { char padding[40]; int current_step; char padding2[28]; int step_flag; int is_perfect; };
+extern "C" void tutorial_event(tutorial_layout *self, int event, int param1, int param2) __asm__("OnEvent__18IGOTutorialManager5EVENTii");
+void tutorial_event(tutorial_layout *self, int event, int param1, int param2)
+{
+    if (event == 0) {
+        if (param2 & perfect_landing_flag) {
+            self->is_perfect = true;
+            return;
+        }
+    }
+    if (event == 1) {
+        if (tutorial_steps[self->current_step].kind == 6) {
+            self->step_flag = event;
+            return;
+        }
+        self->step_flag = 0;
+    }
+}
+#endif
