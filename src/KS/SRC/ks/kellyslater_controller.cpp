@@ -355,3 +355,13 @@ bool kellyslater_controller::Z_Within_Tube()
 // 0x0021F670 start_secondary_cam__22kellyslater_controllerP6camera
 struct camera;struct controller_layout{char p0[48];int state;char p1[4];int super_state;char p2[6924];camera*look_back_cam_ptr;char p3[44];camera*photo_cam_ptr;};extern "C" void set_camera(controller_layout*,camera*) __asm__("SetPlayerCamera__22kellyslater_controllerP11game_camera");__asm__(".equ SetPlayerCamera__22kellyslater_controllerP11game_camera,0x002125B0");extern "C" void start_secondary(controller_layout*self,camera*cur) __asm__("start_secondary_cam__22kellyslater_controllerP6camera");void start_secondary(controller_layout*self,camera*cur){if(self->state==7||self->super_state==6||self->super_state==3||self->super_state==8||self->super_state==1||cur==self->photo_cam_ptr)return;camera*secondary=self->look_back_cam_ptr;if(cur!=secondary)set_camera(self,secondary);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002238E0)
+// 0x002238E0 EndTube__22kellyslater_controller
+class BalanceMeter{float current_balance,balance_acc,total_balance_time,time_to_full_acc;bool vert_meter;int player_num;public:void End();};
+struct ForceControl{float scalar;void SetForceScalar(float value){scalar=value;}};
+struct SurfBoardObjectClass{void*vtable;float props_forwardForce;char pad0[16];ForceControl forward;char pad1[2476];int state;void MoveForward(float degree=1.0f){forward.SetForceScalar(props_forwardForce*degree);}};
+class kellyslater_controller{char base[20];public:BalanceMeter tube_meter;void*my_trail;private:int state,last_state,super_state,last_super_state;char pad0[824];SurfBoardObjectClass my_board_controller;char pad1[3024];bool bDoingTrick;public:void set_state(int n){last_state=state;state=n;}void set_super_state(int n){last_super_state=super_state;super_state=n;}void EndTube();};
+extern bool ks_fx_spit_going_on();__asm__(".equ End__12BalanceMeter,0x00225240");__asm__(".equ ks_fx_spit_going_on__Fv,0x0036B600");
+void kellyslater_controller::EndTube(){my_board_controller.state=0;set_state(74);set_super_state(2);tube_meter.End();if(ks_fx_spit_going_on())my_board_controller.MoveForward(0.09f*2);bDoingTrick=false;}
+#endif
