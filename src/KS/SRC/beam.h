@@ -438,3 +438,8 @@ void **beam_rtti()
     return beam_type;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002B7F50)
+// 0x002B7F50 apply_delta_vals__17beam_effect_alphaP4beamf
+typedef unsigned char uint8;struct color32{union{struct{uint8 b,g,r,a;}c;unsigned int i;};color32(uint8 r,uint8 g,uint8 b,uint8 a=255){c.b=b;c.g=g;c.r=r;c.a=a;}uint8 get_red()const{return c.r;}uint8 get_green()const{return c.g;}uint8 get_blue()const{return c.b;}};struct beam{char pad[520];color32 my_color;color32 get_beam_color()const{return my_color;}void set_beam_color(const color32&);};struct beam_effect_alpha{void*vtable;uint8 start,target;char pad[2];float delta,curr;};__asm__(".equ set_beam_color__4beamRC7color32,0x002717A0");extern "C" void apply(beam_effect_alpha*self,beam*the_beam,float t)__asm__("apply_delta_vals__17beam_effect_alphaP4beamf");void apply(beam_effect_alpha*self,beam*the_beam,float t){color32 col=the_beam->get_beam_color();self->curr+=self->delta*t;the_beam->set_beam_color(color32(col.get_red(),col.get_green(),col.get_blue(),(uint8)(self->curr+0.5f)));}
+#endif
