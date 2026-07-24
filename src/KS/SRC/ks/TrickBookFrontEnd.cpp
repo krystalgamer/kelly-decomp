@@ -26,3 +26,11 @@ struct entry{int entry_num;};struct state{char p0[76];entry*highlighted;};struct
 // 0x001963A8 Init__17TrickBookFrontEnd
 struct EntryVtable{char pad[48];short disable_adjust;short z;bool(*disabled)(void*);};struct Entry{int entry_num;Entry*next;char pad[88];EntryVtable*vtable;};struct MenuVtable{char pad[24];short high_adjust;short z;void(*set_high)(void*,Entry*,bool);};struct SubMenu{char pad0[64];Entry*entries;char pad1[48];MenuVtable*vtable;};struct TrickBookFrontEnd{char pad0[64];Entry*entries;char pad1[312];SubMenu*State2[1];void Init()__asm__("Init__17TrickBookFrontEnd");};extern "C" void base_init(TrickBookFrontEnd*)__asm__("Init__15FEGraphicalMenu");__asm__(".equ Init__15FEGraphicalMenu,0x00158090");void TrickBookFrontEnd::Init(){base_init(this);Entry*tmp=entries;int i=0;while(tmp){EntryVtable*ev=tmp->vtable;if(!ev->disabled((char*)tmp+ev->disable_adjust)){SubMenu*m=State2[i];MenuVtable*v=m->vtable;v->set_high((char*)m+v->high_adjust,m->entries,true);}tmp=tmp->next;i++;}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00196A18)
+// 0x00196A18 Draw__17TrickBookFrontEnd
+struct QuadVtable{char pad0[24];short turn_adjust;short z0;void(*turn)(void*,bool);char pad1[32];short draw_adjust;short z1;void(*draw)(void*,int,float);};struct PanelQuad{char pad[404];QuadVtable*vtable;};struct TrickBookFrontEnd{char pad0[412];PanelQuad*bkg;char pad1[8];bool wait_for_camera;void Draw()__asm__("Draw__17TrickBookFrontEnd");};
+#define TURN_QUAD(q,on) ((q)->vtable->turn((char*)(q)+(q)->vtable->turn_adjust,on))
+#define DRAW_QUAD(q) ((q)->vtable->draw((char*)(q)+(q)->vtable->draw_adjust,0,-1.0f))
+void TrickBookFrontEnd::Draw(){if(wait_for_camera)return;TURN_QUAD(bkg,true);DRAW_QUAD(bkg);TURN_QUAD(bkg,false);}
+#endif
