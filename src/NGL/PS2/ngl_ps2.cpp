@@ -881,3 +881,8 @@ typedef unsigned int u_int;extern "C" void setup(u_int*&packet) __asm__("nglVif1
 // 0x003A0F98 nglScreenShot__FPCc
 struct texture{char p0[1];};extern texture backbuffer;extern int ScreenCount;extern char Buf[64];extern "C" void save(texture*,const char*) __asm__("nglSaveTexture__FP10nglTexturePCc");extern "C" int sprintf(char*,const char*,...);__asm__(".equ backbuffer,0x004BBE58");__asm__(".equ ScreenCount,0x004BC9B4");__asm__(".equ Buf,0x005AC058");__asm__(".equ nglSaveTexture__FP10nglTexturePCc,0x003A0E78");__asm__(".equ sprintf,0x003D38A8");extern const char format[];__asm__(".equ format,0x0051E010");extern "C" void screenshot(const char*name) __asm__("nglScreenShot__FPCc");void screenshot(const char*name){if(name)save(&backbuffer,name);else{sprintf(Buf,format,ScreenCount++);save(&backbuffer,Buf);}int dead;__asm__("" : "=r"(dead));}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003A6920)
+// 0x003A6920 nglInitQuad__FP7nglQuad
+struct Vert{char pad0[8];float U,V;unsigned Color;};struct nglQuad{Vert Verts[4];char pad[4];unsigned MapFlags,BlendMode;char rest[8];};extern "C" void*memset(void*,int,unsigned);__asm__(".equ memset,0x003D18D0");extern "C" void init(nglQuad*q)__asm__("nglInitQuad__FP7nglQuad");void init(nglQuad*q){memset(q,0,sizeof(nglQuad));q->Verts[0].Color=0x80808080;q->Verts[1].Color=0x80808080;q->Verts[2].Color=0x80808080;q->Verts[3].Color=0x80808080;q->Verts[0].U=0.0f;q->Verts[1].U=1.0f;q->Verts[2].U=0.0f;q->Verts[3].U=1.0f;q->Verts[0].V=0.0f;q->Verts[1].V=0.0f;q->Verts[2].V=1.0f;q->Verts[3].V=1.0f;q->MapFlags=0x30002;q->BlendMode=2;}
+#endif
