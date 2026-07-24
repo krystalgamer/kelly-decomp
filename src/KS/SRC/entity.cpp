@@ -1517,3 +1517,8 @@ void activate_trail(entity_layout *self, int length, unsigned int color, int min
 // 0x00130CB0 set_created_entity_default_active_status__6entity
 struct entity_vtable{char padding[248];short adjustment;short reserved;void(*set_active)(void*,bool);};struct entity_layout{char p0[8];entity_vtable*vtable;char p1[112];int flavor;};extern "C" void set_default(entity_layout*self) __asm__("set_created_entity_default_active_status__6entity");void set_default(entity_layout*self){switch(self->flavor){case 1:case 2:case 3:case 4:case 10:{entity_vtable*t=self->vtable;t->set_active((char*)self+t->adjustment,false);break;}default:{entity_vtable*t=self->vtable;t->set_active((char*)self+t->adjustment,true);break;}}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00132300)
+// 0x00132300 delete_colgeom__6entity
+struct cg_vtable{char padding[8];short adjustment;short reserved;void(*destroy)(void*,int);};struct cg{char p0[8];cg_vtable*vtable;};struct entity_layout{char p0[120];unsigned flags;char p1[204];cg*colgeom;};extern "C" void bank_delete(void*,cg*) __asm__("delete_instance__t13instance_bank1Z7cg_meshP7cg_mesh");__asm__(".equ delete_instance__t13instance_bank1Z7cg_meshP7cg_mesh,0x0013F730");extern char cg_mesh_bank[];__asm__(".equ cg_mesh_bank,0x00434920");extern "C" void delete_colgeom(entity_layout*self) __asm__("delete_colgeom__6entity");void delete_colgeom(entity_layout*self){if(self->colgeom){if(self->flags&0x20000000)bank_delete(cg_mesh_bank,self->colgeom);else{cg*c=self->colgeom;cg_vtable*t=c->vtable;t->destroy((char*)c+t->adjustment,3);}self->colgeom=0;}}
+#endif
