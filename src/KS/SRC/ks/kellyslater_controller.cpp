@@ -327,3 +327,26 @@ spin_controller::spin_controller()
     my_board_controller = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00223978)
+// 0x00223978 Z_Within_Tube__22kellyslater_controller
+struct vector3d {
+    float x, y, z;
+    vector3d(const vector3d &other) : x(other.x), y(other.y), z(other.z) {}
+};
+extern "C" vector3d *get_marker(int) __asm__("WAVE_GetMarker__F14WaveMarkerEnum");
+__asm__(".equ WAVE_GetMarker__F14WaveMarkerEnum,0x0037D7E8");
+struct absolute_po { char padding[56]; float z; };
+struct board { char padding[80]; absolute_po *absolute; };
+class kellyslater_controller {
+    char padding[3656];
+    board *my_board;
+public:
+    bool Z_Within_Tube();
+};
+bool kellyslater_controller::Z_Within_Tube()
+{
+    vector3d tube_wall_point = *get_marker(40);
+    return my_board->absolute->z >= tube_wall_point.z;
+}
+#endif
