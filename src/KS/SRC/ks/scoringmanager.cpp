@@ -336,3 +336,8 @@ ScoringManager::Series &ScoringManager::Series::operator=(
 // 0x00249550 GetTrickCount__CQ214ScoringManager5Chaini
 struct node{node*next,*prev;};struct chain{char p0[8];node*series;};extern "C" int series_count(void*,int) __asm__("GetTrickCount__CQ214ScoringManager6Seriesi");__asm__(".equ GetTrickCount__CQ214ScoringManager6Seriesi,0x00249B28");extern "C" int count(const chain*self,int idx) __asm__("GetTrickCount__CQ214ScoringManager5Chaini");int count(const chain*self,int idx){int total=0;for(node*i=self->series->next;i!=self->series;i=i->next)total+=series_count((char*)i+8,idx);return total;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00249620)
+// 0x00249620 GetScale__CQ214ScoringManager5Chain
+extern "C" char wave_type() __asm__("WAVE_GetScoringType__Fv");extern float scale_wave[];__asm__(".equ WAVE_GetScoringType__Fv,0x0037D8F8");__asm__(".equ scale_wave,0x00427AD8");struct Chain;extern "C" float get_scale(const Chain*) __asm__("GetScale__CQ214ScoringManager5Chain");float get_scale(const Chain*){float waveScale=1.0f;switch(wave_type()){case 'A':waveScale=scale_wave[0];break;case 'B':waveScale=scale_wave[1];break;case 'C':waveScale=scale_wave[2];break;default:waveScale=scale_wave[1];}return waveScale;}
+#endif
