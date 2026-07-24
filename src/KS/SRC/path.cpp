@@ -149,3 +149,30 @@ void PathGraphEdgeDtor(void *self, int deleting)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034A508)
+// 0x0034A508 __10path_graph
+extern "C" void construct_string(void *) __asm__("__7stringx");
+extern const char path_graph_vtable[];
+__asm__(".equ __7stringx,0x0034D3E0");
+__asm__(".equ path_graph_vtable,0x00504020");
+struct path_graph_layout { char id[8]; void *nodes[3]; void *edges[3]; int warnings[4]; const void *vtable; };
+extern "C" path_graph_layout *construct_path_graph(path_graph_layout *self) __asm__("__10path_graph");
+path_graph_layout *construct_path_graph(path_graph_layout *self)
+{
+    char scratch[32];
+    self->vtable = path_graph_vtable;
+    construct_string(self);
+    __asm__ __volatile__("" : "+m"(scratch));
+    self->nodes[0] = 0;
+    void *volatile *nodes = &self->nodes[0];
+    nodes[2] = 0;
+    void *volatile *edges = &self->edges[0];
+    nodes[1] = 0;
+    self->edges[0] = 0;
+    edges[2] = 0;
+    edges[1] = 0;
+    self->warnings[0]=0; self->warnings[1]=0; self->warnings[2]=0; self->warnings[3]=0;
+    return self;
+}
+#endif
