@@ -169,3 +169,43 @@ void script_callback::spawn(signaller *source) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034C278)
+// 0x0034C278 clear_links__6signal
+struct signal_node { signal_node *next; signal_node *previous; };
+extern "C" void clear_signal_list(void *)
+    __asm__("clear__t10_List_base2ZP6signalZt12my_allocator1ZP6signal");
+__asm__(".equ clear__t10_List_base2ZP6signalZt12my_allocator1ZP6signal,0x0035A1C0");
+struct signal_node_pool { int unused; signal_node *free; };
+extern signal_node_pool signal_list_pool;
+__asm__(".equ signal_list_pool,0x003E5628");
+extern "C" void object_delete(void *) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete,0x002AC6B0");
+struct signal_list {
+    signal_node *head;
+    __attribute__((always_inline)) ~signal_list() {
+        clear_signal_list(this);
+        signal_node *node = head;
+        node->next = signal_list_pool.free;
+        signal_list_pool.free = node;
+    }
+};
+class signal {
+    char data[12];
+    signal_list *outputs;
+public:
+    void clear_links();
+};
+void signal::clear_links()
+{
+    if (outputs != 0) {
+        signal_list *list = outputs;
+        clear_signal_list(list);
+        signal_node *node = list->head;
+        node->next = signal_list_pool.free;
+        signal_list_pool.free = node;
+        object_delete(list);
+        outputs = 0;
+    }
+}
+#endif
