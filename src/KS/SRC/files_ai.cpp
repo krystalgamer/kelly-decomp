@@ -334,3 +334,8 @@ stringx *fill_strings(
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0010E300)
+// 0x0010E300 _M_erase__t8_Rb_tree5ZPCQ220script_library_class8functionZPCQ220script_library_class8functionZt9_Identity1ZPCQ220script_library_class8functionZQ220script_library_class18function_cptr_lessZt12my_allocator1ZPCQ220script_library_class8functionPt13_Rb_tree_node1ZPCQ220script_library_class8function
+struct node{void*next_free;char p0[4];node*left,*right;};struct allocator{char padding[8];node*free_list;};extern "C" void erase_again(void*,node*) __asm__("erase_again_abs");__asm__(".equ erase_again_abs,0x0010E300");extern "C" void erase_tree(void*self,node*x) __asm__("_M_erase__t8_Rb_tree5ZPCQ220script_library_class8functionZPCQ220script_library_class8functionZt9_Identity1ZPCQ220script_library_class8functionZQ220script_library_class18function_cptr_lessZt12my_allocator1ZPCQ220script_library_class8functionPt13_Rb_tree_node1ZPCQ220script_library_class8function");void erase_tree(void*self,node*x){if(x){register char*high __asm__("$2")=(char*)0x003e0000;__asm__ __volatile__("" : "+r"(high));register allocator*alloc __asm__("$17")=(allocator*)(high+22056);do{erase_again(self,x->right);node*left=x->left;x->next_free=alloc->free_list;alloc->free_list=x;x=left;}while(x);}}
+#endif
