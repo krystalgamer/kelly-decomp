@@ -836,3 +836,28 @@ void nglVif1AddTextureStreamEnd(u_int *&Packet)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003A1550)
+// 0x003A1550 nglGetMesh__FRC14nglFixedStringb
+struct nglFixedString { char data[32]; };
+struct bank_instance { char padding[32]; void *value; };
+struct nglInstanceBank;
+extern "C" bank_instance *search_bank(nglInstanceBank *, const nglFixedString *) __asm__("Search__15nglInstanceBankRC14nglFixedString");
+extern "C" void warning(const char *, ...) __asm__("nglWarning__FPCce");
+extern nglInstanceBank mesh_bank;
+extern const char warning_text[];
+__asm__(".equ Search__15nglInstanceBankRC14nglFixedString,0x003AC608");
+__asm__(".equ nglWarning__FPCce,0x003AC088");
+__asm__(".equ mesh_bank,0x004BBFC8");
+__asm__(".equ warning_text,0x0051E020");
+extern "C" void *nglGetMesh(const nglFixedString *name, bool warn) __asm__("nglGetMesh__FRC14nglFixedStringb");
+extern "C" void *nglGetMesh(const nglFixedString *name, bool warn)
+{
+    bank_instance *instance = search_bank(&mesh_bank, name);
+    if (instance)
+        return instance->value;
+    if (warn)
+        warning(warning_text, name);
+    return 0;
+}
+#endif
