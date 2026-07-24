@@ -123,3 +123,37 @@ void serial_int(chunk_file &io,int *value) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00336998)
+// 0x00336998 serial_in__FR10chunk_filePf
+struct chunk_file {
+    int use_stash;
+    int type;
+    char binary[0x40];
+    char text[0x90];
+    char stash[1];
+};
+extern "C" void text_read(char *,float *)
+    __asm__("read__9text_filePf");
+extern "C" void stash_read(char *,void *,int)
+    __asm__("read__5stashPvi");
+extern "C" void file_read(char *,void *,int,bool)
+    __asm__("read__7os_filePvib");
+__asm__(".equ read__9text_filePf, 0x003372F8");
+__asm__(".equ read__5stashPvi, 0x00348010");
+__asm__(".equ read__7os_filePvib, 0x001E0450");
+extern "C" void serial_float(chunk_file &io,float *value)
+    __asm__("serial_in__FR10chunk_filePf");
+void serial_float(chunk_file &io,float *value) {
+    if (io.type==1) {
+        text_read(io.text,value);
+        __asm__ __volatile__("" : : : "memory");
+    } else if (io.use_stash) {
+        stash_read(io.stash,value,4);
+        __asm__ __volatile__("" : : : "memory");
+    } else {
+        file_read(io.binary,value,4,false);
+        __asm__ __volatile__("" : : : "memory");
+    }
+}
+#endif
