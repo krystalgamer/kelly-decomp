@@ -278,3 +278,8 @@ unsigned int MusicListing::play()
     return sound;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00258940)
+// 0x00258940 clearSources__12MusicListing
+typedef unsigned int nslSourceId;extern "C" void set_info(void*,const char*,const char*,nslSourceId) __asm__("SetInfo__5TrackPCcT1Ui");__asm__(".equ SetInfo__5TrackPCcT1Ui,0x00258690");extern const char empty_text[];__asm__(".equ empty_text,0x004DFC30");struct Track{char p0[72];};struct MusicListing{int totalSources,current;Track sources[50];};extern "C" void clear_sources(MusicListing*self) __asm__("clearSources__12MusicListing");void clear_sources(MusicListing*self){for(int i=0;i<50;i++)set_info(&self->sources[i],empty_text,empty_text,0);self->totalSources=0;}
+#endif
