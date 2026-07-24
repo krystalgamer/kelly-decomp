@@ -612,3 +612,8 @@ void WAVE_GetCollisionBox(
     maximum.z=WAVE_MeshMaxZ-margin_z;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00376B78)
+// 0x00376B78 WAVE_PerturbInit__Fv
+struct obj_vtable{char p0[8];short adjustment;short x0;void(*destroy)(void*);};struct object{char p0[432];obj_vtable*vtable;};extern object*wave_objs[];__asm__(".equ wave_objs,0x00484B58");extern "C" void pulse_init(void*) __asm__("Init__t21WavePulsePerturbClass1i6");extern "C" void partitions() __asm__("WAVE_PerturbInitPartitions__Fv");__asm__(".equ Init__t21WavePulsePerturbClass1i6,0x00381EE0");__asm__(".equ WAVE_PerturbInitPartitions__Fv,0x00376600");extern char pulse[];__asm__(".equ pulse,0x0058DBE0");extern "C" void wave_init() __asm__("WAVE_PerturbInit__Fv");void wave_init(){for(int i=0;i<6;i++){object*o=wave_objs[i];obj_vtable*t=o->vtable;t->destroy((char*)o+t->adjustment);}pulse_init(pulse);partitions();int dead;__asm__("" : "=r"(dead));}
+#endif
