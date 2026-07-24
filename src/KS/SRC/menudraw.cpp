@@ -254,3 +254,8 @@ struct M{char p[0x1c];const void*v;};
 extern "C" void d(M*s,int f) __asm__("_$_8MenuDraw");
 void d(M*s,int f){s->v=menu_vtable;close_menu(s,true);resize_menu(s,0);if(f&1){object_delete(s);__asm__ __volatile__("" : : : "memory");}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0030EEE8)
+// 0x0030EEE8 OnTick__13MenuWaterDrawf
+typedef void(*setter)(bool);extern setter water_set[];extern int water_flags[];__asm__(".equ water_set,0x0046B230");__asm__(".equ water_flags,0x0058A410");extern "C" void water_tick(void*,float) __asm__("OnTick__13MenuWaterDrawf");void water_tick(void*,float){for(unsigned i=0;i<4;i++)water_set[i](water_flags[i]);}
+#endif
