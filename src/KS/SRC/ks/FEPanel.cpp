@@ -1072,3 +1072,8 @@ void TrickBoxText::Break(){if(!isRand)makeRand();for(int i=0;i<box_str_count;i++
 // 0x001482F8 Update__10TextStringf
 class TextString{public:char p[36];int fade;float fade_alpha,fade_timer;char p2[16];float time;void Update(float)__asm__("Update__10TextStringf");};void TextString::Update(float dt){if(fade==1){fade_alpha+=dt/fade_timer;if(fade_alpha>=1.0f){fade=0;fade_alpha=1.0f;}}else if(fade==-1){fade_alpha-=dt/fade_timer;if(fade_alpha<=0.0f){fade=0;fade_alpha=0.0f;}}time-=dt;if(time<0.0f)time=0.0f;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00151CA0)
+// 0x00151CA0 Update__11PanelObjectf
+struct ChildVtable{char p[72];short adj;short z;void(*call)(void*,float);};struct Child{char p[108];Child*children;char p2[8];ChildVtable*vtable;};struct Batch{char d[100];void Update(float)__asm__("Update__10PanelBatchf");};class PanelObject{public:char p[108];Child*children;char p2[22];unsigned short nbatches;Batch*batches;void Update(float)__asm__("Update__11PanelObjectf");};__asm__(".equ Update__10PanelBatchf,0x001512C8");void PanelObject::Update(float dt){for(int i=0;i<nbatches;i++)batches[i].Update(dt);if(children){ChildVtable*v=children->vtable;v->call((char*)children+v->adj,dt);}}
+#endif
