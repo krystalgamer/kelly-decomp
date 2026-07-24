@@ -159,3 +159,25 @@ void nslSetSystemCallbacks(nslSystemCallbackStruct *callbacks)
     memcpy(&nslSystemCallbacks, callbacks, sizeof(nslSystemCallbackStruct));
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00390640)
+// 0x00390640 nslSetMasterVolume__Ff
+struct nsl_system {
+    char padding[0x15850];
+    int initialized;
+    char padding2[0x54];
+    float masterVolume;
+};
+extern nsl_system nsl;
+extern const char nsl_error[];
+extern "C" void nsl_fatal(const char *,...)
+    __asm__("nslFatal__FPCce");
+__asm__(".equ nsl, 0x0049B5F0");
+__asm__(".equ nsl_error, 0x0051C480");
+__asm__(".equ nslFatal__FPCce, 0x00391420");
+void nslSetMasterVolume(float volume) {
+    if (!nsl.initialized) return;
+    if (nsl.initialized!=1) nsl_fatal(nsl_error);
+    nsl.masterVolume=volume;
+}
+#endif
