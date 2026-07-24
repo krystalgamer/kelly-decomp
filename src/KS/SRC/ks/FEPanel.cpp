@@ -874,3 +874,39 @@ void PanelFile::Draw(int layer) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014BF00)
+// 0x0014BF00 __9BurstText
+extern "C" void construct_string(void *) __asm__("__7stringx");
+extern const char text_string_vtable[];
+extern const char burst_text_vtable[];
+__asm__(".equ __7stringx,0x0034D3E0");
+__asm__(".equ text_string_vtable,0x004DD500");
+__asm__(".equ burst_text_vtable,0x004DCC30");
+struct burst_text_layout {
+    void *font;
+    char text[8];
+    char padding0[36];
+    float scale;
+    float button_scale;
+    int override_alpha;
+    char padding1[12];
+    unsigned int color;
+    const void *vtable;
+    float target_scale;
+    float scale_rate;
+};
+extern "C" burst_text_layout *construct_burst_text(burst_text_layout *self) __asm__("__9BurstText");
+burst_text_layout *construct_burst_text(burst_text_layout *self)
+{
+    self->vtable = text_string_vtable;
+    construct_string(&self->text);
+    self->color = 0;
+    self->vtable = burst_text_vtable;
+    self->scale = 1.0f;
+    self->target_scale = 1.0f;
+    self->scale_rate = 1.0f;
+    self->override_alpha = true;
+    return self;
+}
+#endif
