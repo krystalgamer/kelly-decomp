@@ -70,3 +70,8 @@ void CreditsFrontEnd::OnActivate()
     manager->helpbar->DisableHelpbar();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BA6B8)
+// 0x001BA6B8 OnUp__14ExtrasFrontEndi
+struct SoundScriptManager;extern SoundScriptManager*sound_manager;extern "C" int play(SoundScriptManager*,int,void*,float) __asm__("playEvent__18SoundScriptManager9EventTypeP6entityf");extern "C" void update(void*) __asm__("UpdateState__14ExtrasFrontEnd");__asm__(".equ sound_manager,0x0046B4A0");__asm__(".equ playEvent__18SoundScriptManager9EventTypeP6entityf,0x0031C380");__asm__(".equ UpdateState__14ExtrasFrontEnd,0x001BAA70");struct active_vtable{char p0[152];short adjustment;short x0;void(*up)(void*,int);};struct menu{char p0[116];active_vtable*vtable;};struct main_vtable{char p0[432];short adjustment;short x0;void(*up)(void*);};struct extras{char p0[96];menu*active;char p1[16];main_vtable*vtable;};extern "C" void up(extras*self,int c) __asm__("OnUp__14ExtrasFrontEndi");void up(extras*self,int c){if(self->active){menu*m=self->active;active_vtable*t=m->vtable;t->up((char*)m+t->adjustment,c);}else{play(sound_manager,25,0,0.0f);main_vtable*t=self->vtable;t->up((char*)self+t->adjustment);update(self);}int dead;__asm__("" : "=r"(dead));}
+#endif
