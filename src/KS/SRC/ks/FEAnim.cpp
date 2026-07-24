@@ -64,3 +64,8 @@ PanelAnim *PanelAnim::FindObject(char *object_name)
         return 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00155370)
+// 0x00155370 ReadHeader__13PanelAnimFilePUcRi
+extern "C" unsigned char ReadChar(unsigned char*,int&)__asm__("ReadChar__FPUcRi");__asm__(".equ ReadChar__FPUcRi,0x001533F8");extern "C" bool read_header(unsigned char*buffer,int&index)__asm__("ReadHeader__13PanelAnimFilePUcRi");bool read_header(unsigned char*buffer,int&index){if(ReadChar(buffer,index)==65&&ReadChar(buffer,index)==110&&ReadChar(buffer,index)==109&&ReadChar(buffer,index)==0)return true;else return false;}
+#endif
