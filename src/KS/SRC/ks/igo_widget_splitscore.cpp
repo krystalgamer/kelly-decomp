@@ -74,3 +74,27 @@ void draw_widget(widget_layout *self)
     draw_text((char *)text+tt->adjustment);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0016C4A0)
+// 0x0016C4A0 SetScore__16SplitScoreWidgeti
+struct stringx { char data[8]; };
+extern "C" void string_from_int(stringx *, int) __asm__("__7stringxi");
+extern "C" void copy_string(stringx *, const stringx *) __asm__("__7stringxRC7stringx");
+extern "C" void destroy_string(stringx *, int) __asm__("_$_7stringx");
+__asm__(".equ __7stringxi,0x0034D5C0"); __asm__(".equ __7stringxRC7stringx,0x0034D4D0"); __asm__(".equ _$_7stringx,0x0034D6E0");
+struct text_vtable { char padding[72]; short adjustment; short reserved; void (*change)(void *, stringx *); };
+struct TextString { char padding[76]; text_vtable *vtable; };
+struct score_layout { char padding[16]; TextString *text; };
+extern "C" void set_score(score_layout *self,int score) __asm__("SetScore__16SplitScoreWidgeti");
+void set_score(score_layout *self,int score)
+{
+    __asm__ __volatile__("" : : : "$31");
+    stringx source;
+    string_from_int(&source,score);
+    stringx copy;
+    copy_string(&copy,&source);
+    text_vtable *table=self->text->vtable;
+    table->change((char *)self->text+table->adjustment,&copy);
+    destroy_string(&source,2);
+}
+#endif
