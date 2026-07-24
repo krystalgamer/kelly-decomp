@@ -124,3 +124,11 @@ class entity { public: const char *get_signal_name(unsigned short) const; };
 class item : public entity { public: const char *get_signal_name(unsigned short) const; };
 const char *item::get_signal_name(unsigned short idx) const { if(idx > 26) return item_signal_names[idx-27]; return entity::get_signal_name(idx); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0028B160)
+// 0x0028B160 get_light_set__11visual_item
+struct light_manager; struct entity_vtable { char p0[344]; short visible_adjust; short x0; bool(*is_visible)(void*); char p1[864]; short light_adjust; short x1; light_manager*(*get_light)(void*); }; struct entity_layout { char p0[8]; entity_vtable*vtable; }; struct visual_layout { char padding[512]; entity_layout*owner; };
+extern "C" light_manager* get_lights(visual_layout*self) __asm__("get_light_set__11visual_item");
+light_manager* get_lights(visual_layout*self)
+{if(self->owner){register entity_layout*e __asm__("$5")=self->owner;register entity_vtable*t __asm__("$3")=e->vtable;register bool(*visible)(void*) __asm__("$2")=t->is_visible;if(visible((char*)e+t->visible_adjust)){e=self->owner;t=e->vtable;register light_manager*(*light)(void*) __asm__("$2")=t->get_light;return light((char*)e+t->light_adjust);}}return 0;}
+#endif
