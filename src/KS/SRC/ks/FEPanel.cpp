@@ -1077,3 +1077,8 @@ class TextString{public:char p[36];int fade;float fade_alpha,fade_timer;char p2[
 // 0x00151CA0 Update__11PanelObjectf
 struct ChildVtable{char p[72];short adj;short z;void(*call)(void*,float);};struct Child{char p[108];Child*children;char p2[8];ChildVtable*vtable;};struct Batch{char d[100];void Update(float)__asm__("Update__10PanelBatchf");};class PanelObject{public:char p[108];Child*children;char p2[22];unsigned short nbatches;Batch*batches;void Update(float)__asm__("Update__11PanelObjectf");};__asm__(".equ Update__10PanelBatchf,0x001512C8");void PanelObject::Update(float dt){for(int i=0;i<nbatches;i++)batches[i].Update(dt);if(children){ChildVtable*v=children->vtable;v->call((char*)children+v->adj,dt);}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00151D30)
+// 0x00151D30 Slide__11PanelObjectf
+struct ChildVtable{char p[80];short adj;short z;void(*call)(void*,float);};struct Child{char p[108];Child*children;char p2[8];ChildVtable*vtable;};struct Batch{char d[100];void Slide(float)__asm__("Slide__10PanelBatchf");};class PanelObject{public:char p[108];Child*children;char p2[22];unsigned short nbatches;Batch*batches;void Slide(float)__asm__("Slide__11PanelObjectf");};__asm__(".equ Slide__10PanelBatchf,0x001512F8");void PanelObject::Slide(float dt){for(int i=0;i<nbatches;i++)batches[i].Slide(dt);if(children){ChildVtable*v=children->vtable;v->call((char*)children+v->adj,dt);}}
+#endif
