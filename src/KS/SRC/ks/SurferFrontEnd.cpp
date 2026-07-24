@@ -115,3 +115,28 @@ stringx *get_surfer_abbr(stringx *result,int index) {
     return result;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00189800)
+// 0x00189800 OnAnyButtonPress__14SurferFrontEndii
+struct entity_manager {
+    char padding[0x1c0]; int camera_moving;
+};
+struct manager_layout { char padding[0xc]; entity_manager *em; };
+extern "C" void jump_to(entity_manager *,int)
+    __asm__("JumpTo__15FEEntityManageri");
+__asm__(".equ JumpTo__15FEEntityManageri, 0x001C4C88");
+class SurferFrontEnd {
+    char padding[0x2c0]; manager_layout *manager;
+    char padding2[0x14]; int in_tb_or_bio;
+public:
+    void OnAnyButtonPress(int controller,int button);
+};
+void SurferFrontEnd::OnAnyButtonPress(int,int button) {
+    int moving=manager->em->camera_moving^1;
+    if (!moving) return;
+    if (button!=6 && button!=7) {
+        if (in_tb_or_bio) jump_to(manager->em,2);
+        else jump_to(manager->em,1);
+    }
+}
+#endif
