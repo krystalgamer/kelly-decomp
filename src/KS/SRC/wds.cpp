@@ -197,3 +197,12 @@ float world_dynamics_system::get_scene_anim_time(unsigned int handle)
     return -1.0f;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00295138)
+// 0x00295138 wds_exists__21world_dynamics_systemRC7stringxT1i
+struct stringx { unsigned data; }; extern "C" void string_ctor(stringx*) __asm__("__7stringx"); extern "C" void string_dtor(stringx*,int) __asm__("_$_7stringx"); extern "C" bool finder(const stringx&,const stringx&,stringx*) __asm__("file_finder_exists__FRC7stringxT0P7stringx");
+__asm__(".equ __7stringx,0x0034D3E0");__asm__(".equ _$_7stringx,0x0034D6E0");__asm__(".equ file_finder_exists__FRC7stringxT0P7stringx,0x00276EF0");
+extern "C" bool exists(const stringx&name,const stringx&ext,int flags) __asm__("wds_exists__21world_dynamics_systemRC7stringxT1i");
+bool exists(const stringx&name,const stringx&ext,int flags)
+{stringx fname;string_ctor(&fname);if(!finder(name,ext,&fname)){string_dtor(&fname,2);return false;}else{string_dtor(&fname,2);return true;}}
+#endif
