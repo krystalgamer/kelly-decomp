@@ -170,3 +170,30 @@ void world_dynamics_system::unload_scene() {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002A8F90)
+// 0x002A8F90 get_scene_anim_time__21world_dynamics_systemUi
+struct animation_tree { char padding[72]; float time; };
+struct entity;
+extern "C" animation_tree *get_anim_tree(entity *, int) __asm__("get_anim_tree__C6entityi");
+__asm__(".equ get_anim_tree__C6entityi,0x001348D8");
+struct scene_anim_entry { entity *ent; char padding[12]; unsigned int handle; char padding2[12]; };
+struct scene_anim_list { scene_anim_entry *start; scene_anim_entry *finish; };
+class world_dynamics_system { char padding[892]; scene_anim_list scene_anims; public: float get_scene_anim_time(unsigned int handle); };
+float world_dynamics_system::get_scene_anim_time(unsigned int handle)
+{
+    register scene_anim_list *list __asm__("$6") = &scene_anims;
+    __asm__ __volatile__("" : "+r"(list));
+    register scene_anim_entry *i __asm__("$3") = scene_anims.start;
+    register scene_anim_entry *end __asm__("$2") = list->finish;
+    __asm__ __volatile__("" : "+r"(i), "+r"(end), "+r"(list));
+    for (; i != end; ++i) {
+        if (i->handle == handle && i->ent != 0) {
+            animation_tree *tree = get_anim_tree(i->ent, 9);
+            return tree->time;
+        }
+        end = list->finish;
+    }
+    return -1.0f;
+}
+#endif
