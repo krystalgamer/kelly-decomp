@@ -79,3 +79,34 @@ void destroy_trail(trail_layout *self, int deleting)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003644F0)
+// 0x003644F0 spraypt_update__5trailP15spray_control_tUi
+#include "KS/SRC/ks/trail_shared.h"
+#include "KS/SRC/timer_shared.h"
+
+void trail::spraypt_update (spray_control_t *SprayControlPts, u_int max)
+{
+	register trail *self __asm__("$19") = this;
+	register u_int i __asm__("$17") = 0;
+	register u_int limit __asm__("$18") = max;
+	register spray_control_t *current __asm__("$16");
+
+	if (limit)
+	{
+		current = SprayControlPts;
+		do
+		{
+			current->age += (float)TIMER_GetFrameSec();
+
+			if((current->age > current->life) || !current->valid || !current->trail_node->valid)
+				current->valid = 0;
+			else
+				self->spraypt_pos(current);
+
+			i++;
+			current++;
+		} while (i < limit);
+	}
+}
+#endif
