@@ -35,7 +35,9 @@ public:
     PauseMenuSystem *pms;
     GraphicalMenuSystem *gms;
     FEEntityManager *em;
-    char manager_context[0x156a0 - 0x10];
+    char manager_context_before_loading[0x1567c - 0x10];
+    bool fe_done_loading;
+    char manager_context_after_loading[0x20];
     BeachFrontEnd *map;
     HelpbarFE *helpbar;
 
@@ -43,5 +45,7 @@ public:
 };
 
 extern FEManager frontendmanager;
+
+__asm__(".equ frontendmanager, 0x003E7728");
 
 #endif

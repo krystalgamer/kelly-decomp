@@ -165,6 +165,9 @@ public:
     virtual void SetAllScale(float);
     virtual void MakeActive(FEMenu*, bool = true);
     virtual void SetHelpText(int);
+#if defined(KELLY_DECOMP_BUILT_FEMENU_SELECT_PADDING)
+    virtual void BuiltSelectReserved0();
+#endif
     virtual void Select(int);
 #if defined(KELLY_DECOMP_SAVELOAD_VTABLE)
     virtual void SaveLoadVersionReserved();

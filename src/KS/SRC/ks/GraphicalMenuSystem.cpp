@@ -294,3 +294,26 @@ enum device_id_t{ANY_LOCAL_JOYSTICK=12};class input_mgr{public:float get_control
 // 0x001BC908 Update__13TitleFrontEndf
 struct active_vtable{char padding[96];short adjustment;short reserved;void(*update)(void*,float);};struct ActiveMenu{char padding[116];active_vtable*vtable;};struct sys_vtable{char padding[144];short adjustment;short reserved;void(*load_all)(void*);};struct MenuSystem{char padding[140];sys_vtable*vtable;};struct EntityManager{char padding[576];int state;};struct Manager{char padding[12];EntityManager*em;};class TitleFrontEnd{char padding0[80];MenuSystem*system;char padding1[12];ActiveMenu*active;char padding2[28];char frontend_base[188];Manager*manager;char padding3[60];int loading_draw_counter;public:void Update(float);};extern "C" void update_front(void*,float)__asm__("Update__8FrontEndf");extern "C" void update_menu(TitleFrontEnd*,float)__asm__("Update__6FEMenuf");asm(".equ Update__8FrontEndf,0x00157B30");asm(".equ Update__6FEMenuf,0x00156DC8");void TitleFrontEnd::Update(float dt){if(active){active_vtable*v=active->vtable;v->update((char*)active+v->adjustment,dt);}else{if(loading_draw_counter>4){manager->em->state=7;sys_vtable*v=system->vtable;v->load_all((char*)system+v->adjustment);loading_draw_counter=-1;}update_front((char*)this+128,dt);update_menu(this,dt);asm volatile("");}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BCCD8)
+// 0x001BCCD8 Select__13TitleFrontEndi
+#include "KS/SRC/ks/TitleFrontEnd_shared.h"
+
+// The shipped FEMenu vtable retains a source-version slot before Select.
+void TitleFrontEnd::Select(int n)
+{
+	if (active)
+	{
+		active->Select(active->highlighted ? active->highlighted->entry_num : 0);
+	}
+	else
+	{
+		if (frontendmanager.fe_done_loading)
+		{
+			SoundScriptManager::inst()->playSound(SS_FE_ONX);
+			nslFrameAdvance(0.01f);
+			MakeActive((FEMenu *)mc);
+		}
+	}
+}
+#endif
