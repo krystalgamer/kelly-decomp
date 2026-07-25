@@ -52,3 +52,8 @@ void FanMeterWidgetDtor(void *self, int deleting)
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001694F8)
+// 0x001694F8 Draw__14FanMeterWidget
+struct pq_vtable{char pad[64];short adjustment;short zero;void(*draw)(void*,float,bool);};struct PanelQuad{char pad[404];pq_vtable*vtable;};struct PanelQuad4{char pad[404];pq_vtable*vtable;};class FanMeterWidget;extern "C" void base_draw(FanMeterWidget*)__asm__("Draw__9IGOWidget");asm(".equ Draw__9IGOWidget,0x00164668");class FanMeterWidget{public:int display;void*vtable;int numSections;PanelQuad4**sectionPQs;PanelQuad*arrowPQ;void Draw();};inline void draw_quad(void*q,pq_vtable*v){v->draw((char*)q+v->adjustment,-1.0f,false);}void FanMeterWidget::Draw(){base_draw(this);if(!display)return;for(int i=0;i<numSections;i++)draw_quad(sectionPQs[i],sectionPQs[i]->vtable);draw_quad(arrowPQ,arrowPQ->vtable);}
+#endif
