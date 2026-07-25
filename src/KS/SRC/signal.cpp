@@ -259,3 +259,30 @@ class signal{char layout[24];public:signal*find_AND(const signal*)const;void lin
 // 0x0034D1B8 signal_OR__C14signal_managerP6signalT1
 class signal{char layout[24];public:signal*find_OR(const signal*)const;void link(signal*);};class gated_signal:public signal{char layout[16];public:enum type_t{AND,OR};gated_signal(type_t,signal*,signal*);};class signal_manager{public:signal*signal_OR(signal*,signal*)const;};extern const char source_file[];void*operator new(unsigned,unsigned,const char*,int);asm(".equ source_file,0x00503168");asm(".equ __nw__FUiUiPCci,0x002AC578");asm(".equ find_OR__C6signalPC6signal,0x0034C380");asm(".equ __12gated_signalQ212gated_signal6type_tP6signalT2,0x0034CB18");asm(".equ link__6signalP6signal,0x0034C0F8");signal*signal_manager::signal_OR(signal*a,signal*b)const{signal*sig=a->find_OR(b);if(!sig){sig=new(0,source_file,0)gated_signal(gated_signal::OR,a,b);a->link(sig);b->link(sig);}return sig;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034BCD8)
+// 0x0034BCD8 __15script_callbackPQ213script_object8instancePC13vm_executablePCc
+#include "KS/SRC/signal_callback_shared.h"
+
+#ifndef NULL
+#define NULL 0
+#endif
+
+extern const char script_callback_ctor_description[];
+__asm__(".equ script_callback_ctor_description, 0x00502FB8");
+
+script_callback::script_callback( script_object::instance* _inst, const vm_executable* _func, const char* _parms )
+  : signal_callback(),
+  inst( _inst ),
+  func( _func )
+{
+  int psize = func->get_parms_stacksize();
+  if ( psize )
+  {
+    parms = new(0, script_callback_ctor_description, 0) char[psize];
+    memcpy( parms, _parms, psize );
+  }
+  else
+    parms = NULL;
+}
+#endif
