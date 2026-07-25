@@ -896,3 +896,8 @@ struct Entry{int Type;void*GifDMA;int NTextures;int DataSize;};extern int entry_
 // 0x003A9BB0 nglEditMesh__FP7nglMesh
 struct Batch{char d[40];};struct Section{char p[44];Batch*BatchInfo;};struct Mesh{char p[88];Section*Sections;};extern Mesh*nglScratch;extern Section*nglScratchSection;extern Batch nglScratchBatch;extern int nglScratchBatchIdx,nglScratchVertIdx,nglScratchStripVertIdx;extern "C" void*memcpy(void*,const void*,unsigned);__asm__(".equ nglScratch,0x004BB7B0");__asm__(".equ nglScratchSection,0x004BB7B4");__asm__(".equ nglScratchBatch,0x004BCF00");__asm__(".equ nglScratchBatchIdx,0x004BB7B8");__asm__(".equ nglScratchVertIdx,0x004BB7BC");__asm__(".equ nglScratchStripVertIdx,0x004BB7C0");extern "C" void edit(Mesh*)__asm__("nglEditMesh__FP7nglMesh");void edit(Mesh*mesh){nglScratch=mesh;nglScratchSection=nglScratch->Sections;memcpy(&nglScratchBatch,nglScratch->Sections->BatchInfo,40);nglScratchBatchIdx=0;nglScratchVertIdx=0;nglScratchStripVertIdx=0;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003A0008)
+// 0x003A0008 nglBlockPSMT8toPSMCT32__FPUcT0
+extern int lut[];asm(".equ lut,0x004BC5B0");extern "C" int convert(unsigned char*,unsigned char*) __asm__("nglBlockPSMT8toPSMCT32__FPUcT0");int convert(unsigned char*p_input,unsigned char*p_output){unsigned i,j,k,i0,index0,index1;unsigned char*pIn=p_input;index1=0;for(k=0;k<4;k++){index0=(k%2)*64;for(i=0;i<16;i++){for(j=0;j<4;j++){i0=lut[index0++];p_output[index1++]=pIn[i0];}}pIn+=64;}return 0;}
+#endif
