@@ -82,7 +82,7 @@ protected:
     entity_color32 render_color;
 
 private:
-    char entity_trailing_data[0x20];
+    char entity_trailing_data[0x24];
 
 public:
     virtual bool get_ifc_num(const pstring &attribute, rational_t &value);

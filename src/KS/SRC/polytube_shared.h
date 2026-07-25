@@ -4,10 +4,7 @@
 #include "KS/SRC/entity_shared.h"
 #include "KS/SRC/matfac_shared.h"
 
-enum {
-    RENDER_OPAQUE_PORTION = 1,
-    RENDER_TRANSLUCENT_PORTION = 2
-};
+#pragma interface
 
 class b_spline {
     char spline_data[36];
