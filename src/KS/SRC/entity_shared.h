@@ -139,7 +139,9 @@ public:
     };
 
     virtual force_active_t get_forced_active() const;
-    virtual bool are_collisions_active() const;
+    virtual bool are_collisions_active() const {
+        return flags & EFLAG_PHYSICS_COLLISIONS_ACTIVE;
+    }
     virtual void set_collisions_active(
         bool active,
         bool update_region = true
