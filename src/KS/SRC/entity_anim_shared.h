@@ -4,10 +4,13 @@
 #include "KS/SRC/anim_shared.h"
 #include "KS/SRC/mbi_shared.h"
 #include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/stringx.h"
+#include "g++-2/stl_vector_shared.h"
 
 class PRS_track;
 class signal_track;
 class entity;
+class entity_track_tree;
 class po;
 class signal_anim;
 
@@ -41,6 +44,8 @@ protected:
     vector3d rel_pos;
 
 public:
+    virtual ~entity_anim();
+
     float floor_offset;
 
     inline bool is_flagged(unsigned short value) const {
@@ -67,26 +72,26 @@ public:
     static void mem_cleanup();
 };
 
-struct pentity_anim_vector {
-    typedef entity_anim **iterator;
-
-    entity_anim **begin_value;
-    entity_anim **end_value;
-
-    inline entity_anim **begin() {
-        return begin_value;
-    }
-
-    inline entity_anim **end() {
-        return end_value;
-    }
-};
+typedef vector<entity_anim *, my_allocator<entity_anim *> >
+    pentity_anim_vector;
 
 class entity_anim_tree : public entity_anim {
-    char tree_padding[80];
+    stringx name;
+    const entity_track_tree *track;
+    float blend_a;
+    anim_control_t control;
     pentity_anim_vector &anims;
+    float floor_offset;
+    const entity_track_tree *trackb;
+    float blend_b;
+    pentity_anim_vector anims_b;
+    anim_control_t control_b;
 
 public:
+    virtual ~entity_anim_tree();
+
+    void clear_anims();
+    void clear_anims_b();
     void set_priority(int value);
 };
 

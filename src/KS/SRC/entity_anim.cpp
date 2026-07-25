@@ -348,3 +348,32 @@ void entity_anim::check_mem_init(void)
 
 #undef malloc
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001172E0)
+// 0x001172E0 clear_anims__16entity_anim_tree
+#include "KS/SRC/entity_anim_shared.h"
+// Uses the released GCC 2 vector resize/erase structure from shared context.
+
+__asm__(".equ memmove, 0x003D17CC");
+__asm__(
+    ".equ insert__t6vector2ZP11entity_animZt12my_allocator1ZP11entity_anim"
+    "PP11entity_animUiRCP11entity_anim, 0x0011ED10"
+);
+
+void entity_anim_tree::clear_anims()
+{
+//	if ( anims )
+	{
+	  register entity_anim_tree* self asm("$18") = this;
+	  {
+	  register pentity_anim_vector::const_iterator i asm("$16") = self->anims.begin();
+	  register pentity_anim_vector::const_iterator i_end asm("$17") = self->anims.end();
+	  for ( ; i!=i_end; ++i )
+		{
+		  delete *i;
+		}
+	  }
+	  self->anims.resize(0); // reuse the memory (dc 04/25/02)
+	}
+}
+#endif

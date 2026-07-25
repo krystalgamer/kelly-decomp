@@ -18,7 +18,29 @@ enum anim_flags_t {
     ANIM_FORCE_ABSOLUTE = 0x4000
 };
 
-class anim_control_t;
+class anim_control_t {
+    float current_time;
+    float time_delta;
+    float duration;
+    float timescale_factor;
+    float cntrl_tween_duration;
+    float tween_timer;
+    unsigned int flags;
+    short loop_count;
+
+public:
+    inline float get_time() const {
+        return current_time;
+    }
+
+    inline float get_duration() const {
+        return duration;
+    }
+
+    inline float get_timescale_factor() const {
+        return timescale_factor;
+    }
+};
 
 template <class animatable_t>
 class anim {
