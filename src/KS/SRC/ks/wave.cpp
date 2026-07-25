@@ -637,3 +637,8 @@ struct nglRenderParams{unsigned Flags;char pad[28];float Scale[4];char tail[32];
 // 0x0037D3B0 WAVE_GetVHint__FPC16WavePositionHintT0fP16WaveVelocityHint
 struct Hint{float x,z;char p[8];unsigned zcell;};struct VHint{float vx,vz;};extern float ControlZ[];extern float Coeff[];__asm__(".equ ControlZ,0x00585A40");__asm__(".equ Coeff,0x00585D70");extern "C" void get(const Hint*,const Hint*,float,VHint*)__asm__("WAVE_GetVHint__FPC16WavePositionHintT0fP16WaveVelocityHint");void get(const Hint*from,const Hint*to,float seconds,VHint*out){unsigned i=from->zcell;float delta=from->z-ControlZ[i];float*ap=Coeff;float*bp=Coeff+16;float*cp=Coeff+32;float deriv=(3.0f*ap[i]*delta+2.0f*bp[i])*delta+cp[i];out->vx=(to->x-from->x)/seconds;out->vz=(to->z-from->z)*deriv/seconds;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00379420)
+// 0x00379420 WAVE_TransformPartition__FPC13WavePartitionP13WavePartitionff
+struct WavePartition{unsigned N;float*guide;float*guidestep;float*weight;};extern "C" void transform(const WavePartition*,WavePartition*,float,float) __asm__("WAVE_TransformPartition__FPC13WavePartitionP13WavePartitionff");void transform(const WavePartition*wpin,WavePartition*wpout,float scale,float offset){const float*guideinptr=wpin->guide;float*guideoutptr=wpout->guide;const float*guidestepinptr=wpin->guidestep;float*guidestepoutptr=wpout->guidestep;const float*weightinptr=wpin->weight;float*weightoutptr=wpout->weight;const unsigned&numguide=wpin->N;wpout->N=numguide;for(unsigned i=0;i<numguide-1;++i){*guideoutptr++=scale**guideinptr+++offset;*guidestepoutptr++=scale**guidestepinptr++;*weightoutptr++=*weightinptr++;}*guideoutptr++=scale**guideinptr+++offset;}
+#endif
