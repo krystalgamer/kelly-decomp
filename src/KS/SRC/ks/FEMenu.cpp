@@ -349,3 +349,8 @@ extern "C" int getButtonState(int,int)__asm__("getButtonState__Fii");class FEMen
 // 0x00157BC8 Draw__20FEGraphicalMenuEntry
 struct QuadVtable{char p[64];short adj;short z;void(*draw)(void*,int,float);};struct PanelQuad{char p[404];QuadVtable*vtable;};class Entry{public:char p0[16];bool highlight,disabled;char p1[76];PanelQuad*pq,*pq_high;void Draw()__asm__("Draw__20FEGraphicalMenuEntry");};void Entry::Draw(){if(highlight&&pq_high){QuadVtable*v=pq_high->vtable;v->draw((char*)pq_high+v->adj,-1,-1.0f);}else{if(!pq)return;if(disabled){QuadVtable*v=pq->vtable;v->draw((char*)pq+v->adj,-1,0.5f);}else{QuadVtable*v=pq->vtable;v->draw((char*)pq+v->adj,-1,-1.0f);}}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00157FF8)
+// 0x00157FF8 Previous__15FEGraphicalMenu
+struct EntryVtable{char p[48];short disable_adj;short z;bool(*disabled)(void*);};struct Entry{char p0[8];Entry*previous;char p1[84];EntryVtable*vtable;};struct MenuVtable{char p[24];short high_adj;short z;void(*setHigh)(void*,Entry*,bool);};class FEGraphicalMenu{char p0[60];unsigned flags;char p1[12];Entry*highlighted;char p2[36];MenuVtable*vtable;public:void Previous() __asm__("Previous__15FEGraphicalMenu");};void FEGraphicalMenu::Previous(){Entry*tmp=highlighted->previous;if(tmp){if(!(flags&0x40))while(tmp->vtable->disabled((char*)tmp+tmp->vtable->disable_adj)&&tmp!=highlighted)tmp=tmp->previous;MenuVtable*v=vtable;v->setHigh((char*)this+v->high_adj,tmp,true);}}
+#endif
