@@ -1,6 +1,41 @@
 #ifndef KELLY_DECOMP_MUSTASH_SHARED_H
 #define KELLY_DECOMP_MUSTASH_SHARED_H
 
+#include "KS/SRC/avltree_shared.h"
+#include "KS/SRC/pstring_shared.h"
+
+class stash_index_entry {
+    enum Flags {
+        IS_VALID = 0x1,
+        IS_STORED = 0x2,
+        WAS_USED = 0x4,
+        IN_ARAM = 0x8
+    };
+
+    pstring name;
+    unsigned int file_offset;
+    unsigned int entry_size;
+    unsigned char file_type;
+    unsigned char flags;
+    unsigned short padding1;
+    unsigned char *raw_data;
+    int raw_data_size;
+    unsigned int padding2;
+    unsigned int padding3;
+    unsigned int padding4;
+
+public:
+    inline bool was_used() {
+        return (flags & WAS_USED) == WAS_USED;
+    }
+
+    inline const char *get_name() {
+        return name;
+    }
+};
+
+typedef TreeNode<stash_index_entry> AvlNode;
+
 class multistash {
     friend class stash;
 

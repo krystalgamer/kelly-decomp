@@ -169,3 +169,39 @@ void multistash::close_stash()
     pre_opened = false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00345998)
+// 0x00345998 Print_Stash_Node__FR7os_filePt8TreeNode1Z17stash_index_entry
+#include "KS/SRC/mustash_shared.h"
+#include "decomp_annotations.h"
+
+extern "C" unsigned int strlen(const char *text);
+extern const char stash_newline[];
+
+__asm__(".equ unpack_string__C7pstring, 0x00335648");
+__asm__(".equ strlen, 0x003D40E0");
+__asm__(".equ stash_newline, 0x00502758");
+
+void Print_Stash_Node_recurse(os_file &, AvlNode *);
+__asm__(".equ Print_Stash_Node_recurse__FR7os_filePt8TreeNode1Z17stash_index_entry, 0x00345998");
+
+void Print_Stash_Node( os_file &output_file, AvlNode *curr)
+{
+	//  Check to see if this was used.  If not, then record it.
+	if (!curr->data()->was_used())
+	{
+		output_file.write((void *)curr->data()->get_name(), strlen((char *)curr->data()->get_name()));
+		output_file.write((void *)stash_newline,1);
+	}
+
+	//  Now check its children.
+	if (curr->left() != 0)
+		Print_Stash_Node_recurse(output_file, curr->left());
+
+	if (curr->right() != 0)
+	{
+		Print_Stash_Node_recurse(output_file, curr->right());
+		KELLY_DECOMP_COMPILER_BARRIER();
+	}
+}
+#endif
