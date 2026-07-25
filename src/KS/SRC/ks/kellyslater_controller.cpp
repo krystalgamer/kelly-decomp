@@ -375,3 +375,8 @@ struct turn_data{float data[4];};struct Controller{char pad[260];turn_data carve
 // 0x00224CF0 SetConglomTexture__22kellyslater_controllerP6entityi
 struct entity;struct link_interface{char pad[12];entity*first_child;entity*next_sibling;};struct entity{char pad0[104];link_interface*link;char pad1[44];int texture_frame;};struct kellyslater_controller;extern "C" void recurse(kellyslater_controller*,entity*,int)__asm__("recurse_alias");__asm__(".equ recurse_alias,0x00224CF0");struct kellyslater_controller{void SetConglomTexture(entity*,int)__asm__("SetConglomTexture__22kellyslater_controllerP6entityi");};void kellyslater_controller::SetConglomTexture(entity*c,int b){if(!c)return;if(c->link){entity*c1=c->link->first_child;while(c1){recurse(this,c1,b);c1=c1->link->next_sibling;}c->texture_frame=b;}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00211FC0)
+// 0x00211FC0 CalcTurnStats__22kellyslater_controllerP9turn_datai
+class turn_data{public:float TurnVel,BankAccel,BankVel,Bank;};class kellyslater_controller{char p[556];float turnRatings[7][4];float worstTurns[7][4];float bestTurns[7][4];public:void CalcTurnStats(turn_data*,int);};void kellyslater_controller::CalcTurnStats(turn_data*td,int heading){float worst,best,rating;worst=worstTurns[heading][3];best=bestTurns[heading][3];rating=turnRatings[heading][3];td->Bank=worst+(rating*(best-worst));worst=worstTurns[heading][2];best=bestTurns[heading][2];rating=turnRatings[heading][2];td->BankVel=worst+(rating*(best-worst));worst=worstTurns[heading][1];best=bestTurns[heading][1];rating=turnRatings[heading][1];td->BankAccel=worst+(rating*(best-worst));worst=worstTurns[heading][0];best=bestTurns[heading][0];rating=turnRatings[heading][0];td->TurnVel=worst+(rating*(best-worst));}
+#endif
