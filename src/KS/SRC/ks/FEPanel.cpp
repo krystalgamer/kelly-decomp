@@ -1082,3 +1082,8 @@ struct ChildVtable{char p[72];short adj;short z;void(*call)(void*,float);};struc
 // 0x00151D30 Slide__11PanelObjectf
 struct ChildVtable{char p[80];short adj;short z;void(*call)(void*,float);};struct Child{char p[108];Child*children;char p2[8];ChildVtable*vtable;};struct Batch{char d[100];void Slide(float)__asm__("Slide__10PanelBatchf");};class PanelObject{public:char p[108];Child*children;char p2[22];unsigned short nbatches;Batch*batches;void Slide(float)__asm__("Slide__11PanelObjectf");};__asm__(".equ Slide__10PanelBatchf,0x001512F8");void PanelObject::Slide(float dt){for(int i=0;i<nbatches;i++)batches[i].Slide(dt);if(children){ChildVtable*v=children->vtable;v->call((char*)children+v->adj,dt);}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00153318)
+// 0x00153318 StartSlide__9PanelFilebf
+struct VTable{char p0[72];short update_adj;short p1;void(*update)(void*,float);short slide_adj;short p2;void(*slide)(void*,float);};struct PanelGeom{char p[112];PanelGeom*next;char gap[4];VTable*vt;void Update(float t){VTable*v=vt;v->update((char*)this+v->update_adj,t);}void Slide(float x){VTable*v=vt;v->slide((char*)this+v->slide_adj,x);}};class PanelFile{int slide_state;float slide_offset;float slide_timer;float slide_max_time;char filename[8];public:PanelGeom*obs;void ForceDoneSlide(bool);void StartSlide(bool,float);bool IsSliding()const{return slide_state==1||slide_state==2;}};void PanelFile::StartSlide(bool in,float max_time){if(IsSliding())return;slide_max_time=max_time;slide_state=in?1:2;slide_timer=0.0f;slide_offset=in?640:0;PanelGeom*tmp=obs;while(tmp){tmp->Slide(slide_offset);tmp=tmp->next;}}
+#endif
