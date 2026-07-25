@@ -13,3 +13,9 @@ void TimeAttackWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); KE
 __asm__(".equ Update__9IGOWidgetf, 0x00164660");
 void TimeAttackWidget::Update(float time) { IGOWidget::Update(time); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0016CEA0)
+// 0x0016CEA0 Draw__16TimeAttackWidget
+#include "KS/SRC/ks/igo_widget_timeattack.h"
+extern "C" void base_draw(void*) __asm__("Draw__9IGOWidget");asm(".equ Draw__9IGOWidget,0x00164668");struct PanelVtable{char p[64];short draw_adj;short z;void(*draw)(void*,int,float);};struct PanelLayout{char p[404];PanelVtable*vtable;};struct TextVtable{char p[24];short draw_adj;short z;void(*draw)(void*);};struct TextLayout{char p[76];TextVtable*vtable;};struct TimeAttackLayout{int display;char p0[4];PanelLayout*bgPQ;char p1[8];TextLayout*timeText;char p2[8];TextLayout*attackText;char p3[4];TextLayout*scoreText;};void TimeAttackWidget::Draw(){TimeAttackLayout*self=(TimeAttackLayout*)this;base_draw(self);if(!self->display)return;PanelVtable*v=self->bgPQ->vtable;v->draw((char*)self->bgPQ+v->draw_adj,0,-1.0f);register TextVtable*t asm("$2")=self->timeText->vtable;register void(*fn)(void*) asm("$3")=t->draw;fn((char*)self->timeText+t->draw_adj);t=self->attackText->vtable;fn=t->draw;fn((char*)self->attackText+t->draw_adj);t=self->scoreText->vtable;fn=t->draw;fn((char*)self->scoreText+t->draw_adj);}
+#endif
