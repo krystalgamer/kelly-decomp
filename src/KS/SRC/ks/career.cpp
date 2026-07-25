@@ -256,3 +256,8 @@ struct GlobalDataClass{int getMaxHandicap(int);void setMaxHandicap(int,int);};ex
 // 0x0025AC70 IncreaseBalance__6Careeri
 struct GlobalDataClass{int getMaxHandicap(int);void setMaxHandicap(int,int);};extern GlobalDataClass globalCareerData;__asm__(".equ globalCareerData,0x004349B8");__asm__(".equ getMaxHandicap__15GlobalDataClassi,0x002EFCC8");__asm__(".equ setMaxHandicap__15GlobalDataClassii,0x002EFD58");struct Career{int spin,speed,jump,balance;char pad0[4];int my_id;char pad1[160];int totalStatPointsIncreased;void IncreaseBalance(int)__asm__("IncreaseBalance__6Careeri");};void Career::IncreaseBalance(int inc){balance+=inc;totalStatPointsIncreased+=inc;if(globalCareerData.getMaxHandicap(my_id)<totalStatPointsIncreased/4){globalCareerData.setMaxHandicap(my_id,totalStatPointsIncreased/4);asm volatile("");}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0025B9E8)
+// 0x0025B9E8 WasNewLevelUnlocked__6Career
+struct game_layout{char padding[548];int level_id;};struct career_data{char padding[188];int next_levels[2];char tail[24];};struct level_status{char padding[12];int unlocked;char tail[20];bool IsUnlocked()const{return unlocked;}};extern game_layout*g_game_ptr;extern career_data CareerDataArray[];asm(".equ g_game_ptr,0x0046AC64");asm(".equ CareerDataArray,0x0042ECA0");class Career{char padding[65960];level_status levels[1];public:int WasNewGoalPassed(int);int WasNewLevelUnlocked();};asm(".equ WasNewGoalPassed__6Careeri,0x0025B958");int Career::WasNewLevelUnlocked(){int i,num_new_levels=0;if(WasNewGoalPassed(0)){for(i=0;i<2;i++){int next=CareerDataArray[g_game_ptr->level_id].next_levels[i];if(next!=-1&&levels[next].IsUnlocked())num_new_levels++;}}return num_new_levels;}
+#endif
