@@ -354,3 +354,8 @@ struct QuadVtable{char p[64];short adj;short z;void(*draw)(void*,int,float);};st
 // 0x00157FF8 Previous__15FEGraphicalMenu
 struct EntryVtable{char p[48];short disable_adj;short z;bool(*disabled)(void*);};struct Entry{char p0[8];Entry*previous;char p1[84];EntryVtable*vtable;};struct MenuVtable{char p[24];short high_adj;short z;void(*setHigh)(void*,Entry*,bool);};class FEGraphicalMenu{char p0[60];unsigned flags;char p1[12];Entry*highlighted;char p2[36];MenuVtable*vtable;public:void Previous() __asm__("Previous__15FEGraphicalMenu");};void FEGraphicalMenu::Previous(){Entry*tmp=highlighted->previous;if(tmp){if(!(flags&0x40))while(tmp->vtable->disabled((char*)tmp+tmp->vtable->disable_adj)&&tmp!=highlighted)tmp=tmp->previous;MenuVtable*v=vtable;v->setHigh((char*)this+v->high_adj,tmp,true);}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00157F58)
+// 0x00157F58 Next__15FEGraphicalMenu
+struct EntryVTable{char p[48];short disable_adj;short g;bool(*disabled)(void*);};struct FEMenuEntry{int entry_num;FEMenuEntry*next;char p[88];EntryVTable*vt;bool GetDisable(){EntryVTable*v=vt;return v->disabled((char*)this+v->disable_adj);}};struct MenuVTable{char p[24];short high_adj;short g;void(*sethigh)(void*,FEMenuEntry*,bool);};class FEGraphicalMenu{char p0[60];int flags;FEMenuEntry*entries;char p1[8];FEMenuEntry*highlighted;char p2[36];MenuVTable*vt;public:void Next();};void FEGraphicalMenu::Next(){FEMenuEntry*tmp=highlighted->next;if(!tmp)tmp=entries;if(!(flags&0x40))while(tmp->GetDisable()&&tmp!=highlighted){tmp=tmp->next;if(!tmp)tmp=entries;}MenuVTable*v=vt;v->sethigh((char*)this+v->high_adj,tmp,true);}
+#endif
