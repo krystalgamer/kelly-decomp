@@ -391,3 +391,20 @@ struct AnimHandler{char p[16];bool dummy;};struct __attribute__((packed)) Member
 // 0x001FAB80 parse_params__12beach_objectPPci
 extern const char spawn_count_name[],never_despawn_name[],smashable_name[],time_name[];asm(".equ spawn_count_name,0x004D08F8");asm(".equ never_despawn_name,0x004D0908");asm(".equ smashable_name,0x004D0918");asm(".equ time_name,0x004D0928");class beach_object{void*vtable;float spawn_time;char pad0[12];int smashable;char pad1[4];int never_despawn;char pad2[12];int spawn_count;public:bool parse_params(char**,int);bool find_param(char**,int,const char*)const;bool read_int_param(char**,int,const char*,int*)const;bool read_float_param(char**,int,const char*,float*)const;};asm(".equ find_param__C12beach_objectPPciPCc,0x001FAC30");asm(".equ read_int_param__C12beach_objectPPciPCcPi,0x001FACA8");asm(".equ read_float_param__C12beach_objectPPciPCcPf,0x001FAD50");bool beach_object::parse_params(char**argp,int argc){read_int_param(argp,argc,spawn_count_name,&spawn_count);if(find_param(argp,argc,never_despawn_name))never_despawn=true;if(find_param(argp,argc,smashable_name))smashable=true;return read_float_param(argp,argc,time_name,&spawn_time);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0020A4B0)
+// 0x0020A4B0 __17generic_anim_miscPP6entityRC7stringxT2PPCci
+#include "KS/SRC/ks/floatobj_shared.h"
+
+// Preserve the released constructor prologue normalized by the EE compiler shim.
+generic_anim_misc::generic_anim_misc (
+    entity **entities,
+    const stringx& path,
+    const stringx& name,
+    const char **prefixes,
+    int count)
+	: generic_anim (path, name)
+{
+	construct (entities, path, name, prefixes, count);
+}
+#endif

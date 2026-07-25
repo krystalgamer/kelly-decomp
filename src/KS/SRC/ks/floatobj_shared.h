@@ -2,6 +2,7 @@
 #define KELLY_DECOMP_FLOATOBJ_SHARED_H
 
 #include "KS/SRC/stringx.h"
+#include "decomp_annotations.h"
 
 #if !defined(KELLY_DECOMP_FLOATOBJ_EMIT_VTABLES)
 #pragma interface
@@ -17,6 +18,14 @@ public:
 
 class generic_anim {
 public:
+    inline generic_anim() {}
+    inline generic_anim(const stringx &path, const stringx &name)
+    {
+        my_base_name = name;
+        dummy = false;
+        cur_state = cur_anim = 0;
+        left_down = right_down = false;
+    }
     virtual ~generic_anim();
     virtual void update(bool collide, bool jump, bool spray, float* alpha) = 0;
     virtual void spawn() = 0;
@@ -29,6 +38,33 @@ protected:
     bool dummy;
     bool left_down;
     bool right_down;
+};
+
+class generic_anim_misc : public generic_anim {
+    static const char *generic_anim_names[];
+    int generic_anims[5];
+    int generic_anim_state;
+    int items_count;
+    stringx *items_prefixes;
+    entity **my_entities;
+
+public:
+    generic_anim_misc(
+        entity **entities,
+        const stringx &path,
+        const stringx &name,
+        const char **prefixes,
+        int count);
+    virtual ~generic_anim_misc();
+    void construct(
+        entity **entities,
+        const stringx &path,
+        const stringx &name,
+        const char **prefixes,
+        int count);
+    void update(bool collide, bool jump, bool spray, float *alpha);
+    void spawn();
+    void switch_anims();
 };
 
 class beach_object {
@@ -110,5 +146,11 @@ private:
     int mySound;
     generic_anim* my_anim_handler;
 };
+
+__asm__(".equ __7stringx, 0x0034D3E0");
+__asm__(".equ __as__7stringxRC7stringx, 0x0034E0B8");
+__asm__(".equ _vt$12generic_anim, 0x004D6030");
+__asm__(".equ _vt$17generic_anim_misc, 0x004D6000");
+__asm__(".equ construct__17generic_anim_miscPP6entityRC7stringxT2PPCci, 0x0020A568");
 
 #endif
