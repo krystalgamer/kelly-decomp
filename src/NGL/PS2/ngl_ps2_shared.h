@@ -16,6 +16,29 @@ struct nglTexture {
     nglFixedString FileName;
 };
 
+enum {
+    NGLMAP_BILINEAR_FILTER = 0x00000002,
+    NGLMAP_CLAMP_U = 0x00000010,
+    NGLMAP_CLAMP_V = 0x00000020
+};
+
+struct nglQuadVertex {
+    float X;
+    float Y;
+    float U;
+    float V;
+    u_int Color;
+};
+
+struct nglQuad {
+    nglQuadVertex Verts[4];
+    float Z;
+    u_int MapFlags;
+    u_int BlendMode;
+    u_int BlendModeConstant;
+    nglTexture *Tex;
+};
+
 struct nglFont {
     nglTexture *Tex;
     void *GlyphInfo;
@@ -31,6 +54,8 @@ extern nglInstanceBank nglFontBank;
 
 void nglFatal(const char *format, ...);
 void nglMemFree(void *memory);
+void nglSetQuadMapFlags(nglQuad *quad, u_int flags);
+void nglSetQuadTex(nglQuad *quad, nglTexture *texture);
 
 extern const char ngl_scene_stack_underflow[];
 

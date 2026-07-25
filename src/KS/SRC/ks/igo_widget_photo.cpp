@@ -42,3 +42,29 @@ void destroy_widget(widget_layout *self, int deleting)
 // 0x0016AF50 Show__11PhotoWidgetP10nglTexturePiif
 struct nglTexture{};struct nglQuad{char data[200];};extern "C" void set_flags(nglQuad*,unsigned)__asm__("nglSetQuadMapFlags__FP7nglQuadUi");extern "C" void set_tex(nglQuad*,nglTexture*)__asm__("nglSetQuadTex__FP7nglQuadP10nglTexture");asm(".equ nglSetQuadMapFlags__FP7nglQuadUi,0x003A69A8");asm(".equ nglSetQuadTex__FP7nglQuadP10nglTexture,0x003A69A0");struct widget_vtable{char pad[48];short adjustment;short zero;void(*set_point_text)(void*);};class PhotoWidget{int display;widget_vtable*vtable;char pad0[16];nglTexture*photoTexture;nglQuad photoQuad;float darkFade;float fadeOutAlpha;float shownTimer;int timed;int photoNum;char pad1[4];int score;int*scorePtr;public:void Show(nglTexture*,int*,int,float);};inline void set_text(PhotoWidget*w,widget_vtable*v){v->set_point_text((char*)w+v->adjustment);}void PhotoWidget::Show(nglTexture*tex,int*sc,int num,float fade){photoTexture=tex;set_flags(&photoQuad,50);set_tex(&photoQuad,photoTexture);darkFade=fade;timed=false;fadeOutAlpha=1.0f;scorePtr=sc;if(scorePtr)score=*scorePtr;else score=0;photoNum=num;set_text(this,vtable);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0016AE98)
+// 0x0016AE98 Show__11PhotoWidgetP10nglTexturePii
+#include "KS/SRC/ks/igo_widget_photo_shared.h"
+
+__asm__(".equ nglSetQuadMapFlags__FP7nglQuadUi, 0x003A69A8");
+__asm__(".equ nglSetQuadTex__FP7nglQuadP10nglTexture, 0x003A69A0");
+
+void PhotoWidget::Show(nglTexture * tex, int * sc, const int num)
+{
+	photoTexture = tex;
+	nglSetQuadMapFlags(&photoQuad, NGLMAP_CLAMP_U | NGLMAP_CLAMP_V | NGLMAP_BILINEAR_FILTER);
+	nglSetQuadTex(&photoQuad, photoTexture);
+	darkFade = 1.0f;
+
+	timed = true;
+	shownTimer = 5.0f;
+	fadeOutAlpha = 1.0f;
+
+	scorePtr = sc;
+	if (scorePtr) score = *scorePtr;
+	else score = 0;
+	photoNum = num;
+	SetPointText();
+}
+#endif
