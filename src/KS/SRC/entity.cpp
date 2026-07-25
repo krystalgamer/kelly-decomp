@@ -1620,3 +1620,8 @@ extern const char*entity_signal_names[];extern "C" unsigned strlen(const char*);
 // 0x00131688 copy_flags__6entityRC6entity
 struct entity_layout;struct entity_vtable{char padding[320];short adjustment;short reserved;void(*set_walkable)(void*,bool);};struct entity_layout{char padding0[8];entity_vtable*vtable;char padding1[108];unsigned flags;char padding2[284];unsigned ext_flags;};extern "C" void copy_flags(entity_layout*,const entity_layout&)__asm__("copy_flags__6entityRC6entity");void copy_flags(entity_layout*self,const entity_layout&b){const unsigned COPY_MASK=0x20080300;const unsigned EXT_COPY_MASK=0xfff3f0ff;self->flags|=(b.flags&COPY_MASK);self->flags&=(b.flags|~COPY_MASK);self->ext_flags|=(b.ext_flags&EXT_COPY_MASK);self->ext_flags&=(b.ext_flags|~EXT_COPY_MASK);if(self->ext_flags&0x00100000){entity_vtable*v=self->vtable;v->set_walkable((char*)self+v->adjustment,true);}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00130D20)
+// 0x00130D20 set_last_po__6entityRC2po
+struct vector4d{float x,y,z,w;vector4d&operator=(const vector4d&o){x=o.x;y=o.y;z=o.z;w=o.w;return*this;}};struct po{vector4d m[4];po&operator=(const po&o){m[0]=o.m[0];m[1]=o.m[1];m[2]=o.m[2];m[3]=o.m[3];return*this;}};class entity{char padding[364];po*last_po;public:void set_last_po(const po&);};void entity::set_last_po(const po&the_po){if(last_po)*last_po=the_po;}
+#endif
