@@ -196,3 +196,33 @@ struct layout{char padding0[20];void**start;void**finish;void**end;void*vtable;}
 // 0x0034A108 _$_4path
 struct layout{void**start;void**finish;void**end;char padding[16];void*vtable;};extern char target_vtable;extern void*free_list[];extern "C" void clear_path(layout*)__asm__("clear__4path");extern "C" void arch_free(void*)__asm__("arch_free__FPv");extern "C" void builtin_delete(void*)__asm__("__builtin_delete");asm(".equ target_vtable,0x00504038");asm(".equ free_list,0x003E5628");asm(".equ clear__4path,0x0034A1B8");asm(".equ arch_free__FPv,0x002AC768");asm(".equ __builtin_delete,0x002AC6B0");extern "C" void dtor(layout*,int)__asm__("_$_4path");void dtor(layout*self,int deleting){self->vtable=&target_vtable;clear_path(self);void**p=self->start;unsigned n=self->end-p;if(n){unsigned bytes=n*4;if(bytes>128)arch_free(p);else{unsigned index=(bytes+7)/8-1;*p=free_list[index];free_list[index]=p;}}if(deleting&1){builtin_delete(self);asm volatile("");}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0034A450)
+// 0x0034A450 get_next_way_point__4pathRC8vector3dT1fP8vector3dPPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeb
+#include "KS/SRC/path_shared.h"
+
+bool path::get_next_way_point(
+    const vector3d &cur_pos,
+    const vector3d &last_pos,
+    float radius,
+    vector3d *vec,
+    region_node **dest_region,
+    bool force_xz)
+{
+    *dest_region = 0;
+    if (!nodes.empty() && waypoint < (int)nodes.size())
+    {
+        if (crossed_point(
+            nodes[waypoint]->pt,
+            cur_pos,
+            last_pos,
+            radius,
+            force_xz))
+            pop_way_point();
+
+        return get_cur_way_point(vec, dest_region);
+    }
+
+    return false;
+}
+#endif
