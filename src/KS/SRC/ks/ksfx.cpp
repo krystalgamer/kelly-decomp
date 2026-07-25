@@ -234,3 +234,29 @@ struct trail{int valid;};extern float frame_sec;extern trail*g_trails[4];extern 
 // 0x0036B228 ks_fx_create_paddle_splash__FG8vector3d
 struct vector3d{float x,y,z;};struct game{char pad[180];int field180;int mode;};extern game*g_game_ptr;extern int currentparticle;extern void*fx_tex[];struct Particle{char pad[192];void*Tex;char pad2[12];unsigned long long move;char tail[8];};extern Particle LooseParticles[];extern "C" void add_splash(unsigned,const vector3d&,float)__asm__("ks_fx_add_splash__FUiRC8vector3df");__asm__(".equ g_game_ptr,0x0046AC64");__asm__(".equ currentparticle,0x0047EE3C");__asm__(".equ fx_tex,0x00485AB4");__asm__(".equ LooseParticles,0x0048E840");__asm__(".equ ks_fx_add_splash__FUiRC8vector3df,0x0036C3D0");extern "C" void paddle(const vector3d&pos)__asm__("ks_fx_create_paddle_splash__FG8vector3d");void paddle(const vector3d&pos){bool skip=false;if(g_game_ptr->mode>=2)skip=(g_game_ptr->field180==0);if(skip)return;add_splash(8,pos,1.0f);Particle&p=LooseParticles[currentparticle];p.Tex=fx_tex[0];p.move|=1;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00366468)
+// 0x00366468 param_translate__FfffP8vector3d
+typedef float angle_t;
+const angle_t PI = 3.1415927f;
+#define DEG_TO_RAD(a)    ((a) * (PI / 180.0f))
+
+class vector3d
+{
+public:
+  typedef float T;
+  T x,y,z;
+};
+
+extern "C" float cosf(float);
+extern "C" float sinf(float);
+__asm__(".equ cosf, 0x003C6340");
+__asm__(".equ sinf, 0x003C6530");
+
+void param_translate(float h_angle, float v_angle, float mag, vector3d *output)
+{
+	output->x = mag * cosf(DEG_TO_RAD(180 + h_angle)) * sinf(DEG_TO_RAD(v_angle));	// fix trig (dc 08/16/01)
+	output->z = mag * sinf(DEG_TO_RAD(180 + h_angle)) * sinf(DEG_TO_RAD(v_angle));	// fix trig (dc 08/16/01)
+	output->y = mag * cosf(DEG_TO_RAD(v_angle));
+}
+#endif
