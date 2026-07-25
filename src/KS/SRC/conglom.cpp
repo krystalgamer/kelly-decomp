@@ -88,3 +88,8 @@ struct EntityVtable{char pad0[344];short visible_adjust;short z0;bool(*visible)(
 // 0x00307D40 frame_done_including_members__12conglomerate
 struct Vtable{char p0[776];short cong_adj;short z0;bool(*is_cong)(void*);char p1[200];short frame_adj;short z1;void(*frame)(void*);char p2[584];short rec_adj;short z2;void(*recursive)(void*);};struct entity{char p[8];Vtable*vtable;};class conglomerate{public:char p[512];entity**begin,**end;void frame_done_including_members()__asm__("frame_done_including_members__12conglomerate");};void conglomerate::frame_done_including_members(){entity**i=begin;entity**i_end=end;for(;i!=i_end;i++){entity*e=*i;{{register Vtable*v asm("$3")=e->vtable;short adj=v->cong_adj;bool(*fn)(void*)=v->is_cong;if(fn((char*)e+adj)){register Vtable*v2 asm("$2")=e->vtable;short a=v2->rec_adj;void(*f)(void*)=v2->recursive;f((char*)e+a);}else{register Vtable*v2 asm("$2")=e->vtable;short a=v2->frame_adj;void(*f)(void*)=v2->frame;f((char*)e+a);}}}}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00305CA8)
+// 0x00305CA8 terrain_radius__C12conglomerate
+struct EntityVTable{char p0[216];short radius_adj;short g0;float(*radius)(void*);char p1[384];short visual_adj;short g1;float(*visual)(void*);};class conglomerate{char p[8];EntityVTable*vt;public:float get_visual_radius()const{EntityVTable*v=vt;return v->visual((char*)this+v->visual_adj);}float get_radius()const{EntityVTable*v=vt;return v->radius((char*)this+v->radius_adj);}float terrain_radius()const;};float conglomerate::terrain_radius()const{float r=get_visual_radius();if(r<0.1f&&get_radius()>r)r=get_radius();return r;}
+#endif
