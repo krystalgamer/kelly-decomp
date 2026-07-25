@@ -99,6 +99,59 @@ protected:
     Font *fonts[20];
 };
 
+class StringList {
+public:
+    enum {
+        MAX_STRING_SIZE = 150
+    };
+
+    stringx data;
+    float x;
+    float y;
+    float fall_speed[MAX_STRING_SIZE];
+    float drift_speed[MAX_STRING_SIZE];
+    int drift_max[MAX_STRING_SIZE];
+    float delta_x[MAX_STRING_SIZE];
+    float delta_y[MAX_STRING_SIZE];
+};
+
+struct nglFileBuf {
+    unsigned char *Buf;
+    unsigned int Size;
+    unsigned int UserData;
+};
+
+typedef float nglVector[4] __attribute__((aligned(16)));
+
+class BoxText : public TextString {
+protected:
+    int width;
+    int height;
+    bool reverse;
+    int max_box_strings;
+    StringList *box_strings;
+    int box_str_count;
+    nglFileBuf fileBuf;
+    bool non_floating_behavior;
+    nglVector location_2d;
+    nglVector location_3d;
+    float real_scale;
+    float real_x;
+    float real_y;
+    float adjusted_x;
+    float adjusted_y;
+    bool scrollable;
+    int max_vis_lines;
+    int first_vis;
+
+public:
+    virtual ~BoxText();
+    virtual void Draw();
+    virtual void UpdateInScene(bool ignore_scale = false);
+    virtual void changeScale(float value);
+    virtual void changePos(float x, float y);
+};
+
 class PanelAnim;
 class PanelQuad;
 

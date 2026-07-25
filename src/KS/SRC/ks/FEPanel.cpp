@@ -1092,3 +1092,42 @@ struct VTable{char p0[72];short update_adj;short p1;void(*update)(void*,float);s
 // 0x0014CBA8 cons__9PanelQuadG7stringx
 struct stringx{char*p;void*buf;};extern "C" void assign_string(stringx*,const stringx&) __asm__("__as__7stringxRC7stringx");extern "C" void destroy_string(stringx*,int) __asm__("_$_7stringx");extern void nglInitQuad(void*) __asm__("nglInitQuad__FP7nglQuad");asm(".equ __as__7stringxRC7stringx,0x0034E0B8");asm(".equ _$_7stringx,0x0034D6E0");asm(".equ nglInitQuad__FP7nglQuad,0x003A6920");extern "C" void cons_fn(char*,stringx*) __asm__("cons__9PanelQuadG7stringx");void cons_fn(char*self,stringx*n){assign_string((stringx*)(self+368),*n);*(int*)(self+0)=0;*(int*)(self+376)=0;*(int*)(self+4)=0;*(int*)(self+148)=0;*(int*)(self+20)=0;*(int*)(self+400)=0;*(int*)(self+272)=0;*(int*)(self+132)=0;*(int*)(self+184)=0;*(int*)(self+188)=0;*(int*)(self+276)=0;*(int*)(self+280)=0;*(int*)(self+284)=0;*(int*)(self+128)=1;*(float*)(self+16)=1.0f;*(int*)(self+288)=639;*(int*)(self+292)=479;nglInitQuad(self+28);destroy_string(n,2);asm volatile("");}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00149898)
+// 0x00149898 changePos__7BoxTextff
+#include "KS/SRC/ks/FEPanel_shared.h"
+
+extern "C" void adjustCoords(float &x, float &y)
+    __asm__("adjustCoords__H1Zf_RX01T0_v");
+
+__asm__(".equ changePos__10TextStringff, 0x00148430");
+__asm__(".equ adjustCoords__H1Zf_RX01T0_v, 0x001D6B60");
+
+void BoxText::changePos(float posx, float posy)
+{
+	float dif_x, dif_y;
+/*
+	TextString::changePos(posx, posy);
+	adjustCoords(posx, posy);
+	dif_x = posx - adjusted_x;
+	dif_y = posy - adjusted_y;
+	real_x = posx;
+	real_y = posy;
+*/
+
+	TextString::changePos(posx, posy);
+	real_x = posx;
+	real_y = posy;
+	adjustCoords(posx, posy); // released coordinate conversion
+	dif_x = posx - adjusted_x;
+	dif_y = posy - adjusted_y;
+	adjusted_x = posx;
+	adjusted_y = posy;
+
+	for(int i = 0; i < box_str_count; i++)
+	{
+		box_strings[i].x += dif_x;
+		box_strings[i].y += dif_y;
+	}
+}
+#endif
