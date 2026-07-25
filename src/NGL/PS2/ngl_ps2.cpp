@@ -911,3 +911,20 @@ struct nglMesh{unsigned Flags;void*File;nglMesh*NextMesh;unsigned DataSize;};ext
 // 0x003A11B8 nglCalcMaterialHash__FP11nglMaterial
 typedef unsigned int u_int;struct nglTexture{char pad0[12];u_int Hash;char pad1[84];u_int GsSize;};struct nglMaterialInfo{u_int Hash;};struct nglMaterial{u_int Flags;nglTexture*Map;nglTexture*LightMap;nglTexture*DetailMap;nglTexture*EnvironmentMap;char pad[216];nglMaterialInfo*Info;};void nglCalcMaterialHash(nglMaterial*Material);void nglCalcMaterialHash(nglMaterial*Material){nglMaterialInfo*Info=Material->Info;if(!Info)return;u_int Size=0;if(Material->Map){Info->Hash=Material->Map->Hash;Size=Material->Map->GsSize;}if(Material->DetailMap&&Material->DetailMap->GsSize>Size){Info->Hash=Material->DetailMap->Hash;Size=Material->DetailMap->GsSize;}if(Material->EnvironmentMap&&Material->EnvironmentMap->GsSize>Size){Info->Hash=Material->EnvironmentMap->Hash;Size=Material->EnvironmentMap->GsSize;}if(Material->LightMap&&Material->LightMap->GsSize>Size){Info->Hash=Material->LightMap->Hash;Size=Material->LightMap->GsSize;}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003AA530)
+// 0x003AA530 nglMeshSetSphere__FR9nglVectorf
+#include "NGL/PS2/ngl_ps2_shared.h"
+
+void nglMeshSetSphere( nglVector& Center, float Radius )
+{
+  sceVu0CopyVector( nglScratch->SphereCenter, Center );
+  nglScratch->SphereRadius = Radius;
+
+  for ( u_int s = 0; s < nglScratch->NSections; ++s)
+  {
+   sceVu0CopyVector( nglScratch->Sections[s].SphereCenter, Center );
+   nglScratch->Sections[s].SphereRadius = Radius;
+  }
+}
+#endif
