@@ -2,6 +2,8 @@
 #define KELLY_DECOMP_LIGHT_SHARED_H
 
 #include "KS/SRC/color_shared.h"
+#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/sphere_shared.h"
 
 enum light_flavor_t {
     LIGHT_FLAVOR_POINT,
@@ -14,6 +16,7 @@ enum light_flavor_t {
 class light_properties {
 public:
     light_properties();
+    inline light_flavor_t get_flavor() const { return flavor; }
 
 protected:
     light_flavor_t flavor;
@@ -34,5 +37,18 @@ protected:
                 1.0f / (cutoff_range - near_range);
     }
 };
+
+class light_source : public entity {
+    light_properties *properties;
+
+public:
+    float get_dist(const sphere &bounds) const;
+    inline const light_properties &get_properties() const {
+        return *properties;
+    }
+};
+
+extern "C" float sqrtf(float value);
+__asm__(".equ sqrtf, 0x003C7058");
 
 #endif

@@ -83,3 +83,19 @@ light_properties::light_properties()
     flags = 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002CDE30)
+// 0x002CDE30 get_dist__C12light_sourceRC6sphere
+#include "KS/SRC/light_shared.h"
+
+float light_source::get_dist(const sphere& abound) const
+{
+    if ((get_properties().get_flavor() ^ LIGHT_FLAVOR_DIRECTIONAL) != 0)
+    {
+        float d2 = (abound.get_center() - get_abs_position()).length2();
+        if (d2 > abound.get_radius() * abound.get_radius())
+            return sqrtf(d2) - abound.get_radius();
+    }
+    return 0.0f;
+}
+#endif

@@ -1,6 +1,8 @@
 #ifndef KELLY_DECOMP_PO_SHARED_H
 #define KELLY_DECOMP_PO_SHARED_H
 
+#include "KS/SRC/vector3d_shared.h"
+
 class vector4d {
 public:
     float x;
@@ -19,6 +21,11 @@ public:
 
 class po {
     matrix4x4 m;
+
+public:
+    inline const vector3d &get_position() const {
+        return *(const vector3d *)&m.w;
+    }
 };
 
 #endif
