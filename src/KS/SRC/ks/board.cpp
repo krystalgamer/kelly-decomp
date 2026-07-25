@@ -128,3 +128,8 @@ void destroy_surfboard(surfboard_layout *self,int flags) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001F9B38)
+// 0x001F9B38 CollideWithLip__20SurfBoardObjectClass
+struct vector3d{float x,y,z;vector3d(){}vector3d(float a,float b,float c):x(a),y(b),z(c){}vector3d(const vector3d&v){x=v.x;y=v.y;z=v.z;}vector3d operator-(const vector3d&v)const{return vector3d(x-v.x,y-v.y,z-v.z);}};inline float dot(const vector3d&a,const vector3d&b){return a.x*b.x+a.y*b.y+a.z*b.z;}struct Pose{char p[48];vector3d position;};struct Board{char p[80];Pose*pose;};class SurfBoardObjectClass{char p0[248];bool float_jump;char p1[2264];Board*my_board;char p2[204];vector3d float_pos;public:bool CollideWithLip() __asm__("CollideWithLip__20SurfBoardObjectClass");};bool SurfBoardObjectClass::CollideWithLip(){vector3d vec1=my_board->pose->position-float_pos;if(float_jump)vec1.y=0.0f;return dot(vec1,vec1)<0.4f;}
+#endif
