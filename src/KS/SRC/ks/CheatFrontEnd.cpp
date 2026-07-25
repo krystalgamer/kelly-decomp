@@ -208,3 +208,8 @@ extern void*sound_manager;extern "C" void play(void*,int,void*,float)__asm__("pl
 // 0x001D3738 OnRight__14EnterCheatMenui
 struct entity;struct SoundScriptManager;extern SoundScriptManager*sound_manager;extern "C" void playEvent(SoundScriptManager*,int,entity*,float) __asm__("playEvent__18SoundScriptManager9EventTypeP6entityf");asm(".equ sound_manager,0x0046B4A0");asm(".equ playEvent__18SoundScriptManager9EventTypeP6entityf,0x0031C380");class EnterCheatMenu{char p0[372];int current_button;char p1[44];bool closing;public:void ChangeButton(int);void OnRight(int) __asm__("OnRight__14EnterCheatMenui");};asm(".equ ChangeButton__14EnterCheatMenui,0x001D38B8");void EnterCheatMenu::OnRight(int c){if(closing)return;playEvent(sound_manager,26,0,0.0f);if(current_button%3!=0)ChangeButton(current_button+1);else if(current_button!=0)ChangeButton(current_button-2);else ChangeButton(9);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D37D0)
+// 0x001D37D0 OnLeft__14EnterCheatMenui
+struct entity;struct SoundScriptManager;extern SoundScriptManager*sound_manager;extern "C" void playEvent(SoundScriptManager*,int,entity*,float) __asm__("playEvent__18SoundScriptManager9EventTypeP6entityf");asm(".equ sound_manager,0x0046B4A0");asm(".equ playEvent__18SoundScriptManager9EventTypeP6entityf,0x0031C380");class EnterCheatMenu{char p0[372];int current_button;char p1[44];bool closing;public:void ChangeButton(int);void OnLeft(int) __asm__("OnLeft__14EnterCheatMenui");};asm(".equ ChangeButton__14EnterCheatMenui,0x001D38B8");void EnterCheatMenu::OnLeft(int c){if(closing)return;playEvent(sound_manager,26,0,0.0f);if(current_button==0)ChangeButton(7);else if(current_button%3!=1)ChangeButton(current_button-1);else ChangeButton(current_button+2);}
+#endif
