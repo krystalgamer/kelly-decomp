@@ -1610,3 +1610,8 @@ struct EntityVtable{char p0[632];short mesh_adj;short z0;void*(*get_mesh)(void*)
 // 0x00138A00 unsuspend__6entity
 class ai_interface;extern "C" void pop_disable(ai_interface*) __asm__("pop_disable__12ai_interface");asm(".equ pop_disable__12ai_interface,0x00105570");struct ControllerVtable{char p[24];short kill_adj;short z0;void(*kill)(void*);short resurrect_adj;short z1;void(*resurrect)(void*);};struct controller{bool active;bool deactivate;ControllerVtable*vtable;void set_active(bool yorn){if(active){if(!yorn){ControllerVtable*v=vtable;v->kill((char*)this+v->kill_adj);}}else if(yorn){ControllerVtable*v=vtable;v->resurrect((char*)this+v->resurrect_adj);}}};class entity{char p0[172];ai_interface*ai;char p1[208];bool suspended;bool suspended_active_status;controller*my_controller;public:void unsuspend() __asm__("unsuspend__6entity");};void entity::unsuspend(){if(suspended){suspended=false;if(ai)pop_disable(ai);if(my_controller)my_controller->set_active(suspended_active_status);}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0012F0E0)
+// 0x0012F0E0 get_signal_id__6entityPCc
+extern const char*entity_signal_names[];extern "C" unsigned strlen(const char*);extern "C" int strcmp(const char*,const char*);asm(".equ entity_signal_names,0x003E5AF0");asm(".equ strlen,0x003D40E0");asm(".equ strcmp,0x003D3E88");class entity{public:static unsigned short get_signal_id(const char*);};unsigned short entity::get_signal_id(const char*name){unsigned idx;for(idx=0;idx<27;++idx){unsigned offset=strlen(entity_signal_names[idx])-strlen(name);if(offset>strlen(entity_signal_names[idx]))continue;if(!strcmp(name,&entity_signal_names[idx][offset]))return idx;}return 0xffff;}
+#endif
