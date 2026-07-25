@@ -65,7 +65,9 @@ public:
     BoxText *instruction_text;
 
     bool Finished();
-    bool AlmostFinished();
+    inline bool AlmostFinished() {
+        return current_step >= last_step - 1;
+    }
     void PlayCurrentVO(bool intro = false);
     void StopCurrentVO();
     int WaveIndicatorType();

@@ -54,6 +54,9 @@ class game {
     camera *player_cam[2];
     game_recti player_viewports[2];
     int num_players;
+    int num_ai_players;
+    int num_active_players;
+    int active_player;
 
 public:
     bool is_paused() const;
@@ -69,6 +72,12 @@ public:
     float get_player_share(int player) const;
     inline int get_num_players() const {
         return num_players;
+    }
+    inline int get_active_player() const {
+        return active_player;
+    }
+    inline camera *get_player_camera(int player) {
+        return player_cam[player];
     }
 };
 

@@ -1,9 +1,11 @@
 #ifndef KELLY_DECOMP_KELLYSLATER_CONTROLLER_SHARED_H
 #define KELLY_DECOMP_KELLYSLATER_CONTROLLER_SHARED_H
 
+#include "KS/SRC/game_shared.h"
 #include "KS/SRC/ks/trickdata.h"
 
 enum {
+    SUPER_STATE_FLYBY = 1,
     SUPER_STATE_IN_TUBE = 7,
     STATE_TUBE_RAILGRAB = 78,
     TRICK_TUBE_RAIL_GRAB = 20,
@@ -22,16 +24,6 @@ class SpecialMeter {
 
 class camera;
 class game_camera;
-
-class game {
-    char data[0x88];
-    camera* player_camera[2];
-
-public:
-    inline camera* get_player_camera(int player) { return player_camera[player]; }
-};
-
-extern game* g_game_ptr;
 
 class kellyslater_controller {
     char data_to_state[0x30];
@@ -66,6 +58,9 @@ public:
     void SetCompletedTrick(int trick);
     void SetNewTrick(int trick);
     int GetCurrentTrick();
+    inline int get_super_state() const {
+        return super_state;
+    }
     void SetPlayerCamera(game_camera*);
     void end_secondary_cam();
 };

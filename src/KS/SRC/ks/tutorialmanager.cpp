@@ -179,3 +179,21 @@ struct DevOptions{char pad[72];int no_audio;};extern DevOptions*g_options;extern
 // 0x001595E0 _$_18IGOTutorialManager
 struct TextVtable{char pad[8];short adjust;short z;void(*destroy)(void*,int);};struct BoxText{char pad[76];TextVtable*vtable;};extern "C" void string_dtor(void*,int)__asm__("_$_7stringx");extern "C" void base_dtor(void*,int)__asm__("_$_14EventRecipient");extern const char tutorial_vtable[];__asm__(".equ _$_7stringx,0x0034D6E0");__asm__(".equ _$_14EventRecipient,0x00349B98");__asm__(".equ tutorial_vtable,0x004DB0A0");struct Tutorial{const void*vtable;char pad0[84];char ins[8],help[8],button[8];BoxText*instruction;};extern "C" void destroy(Tutorial*self,int deleting)__asm__("_$_18IGOTutorialManager");void destroy(Tutorial*self,int deleting){self->vtable=tutorial_vtable;if(self->instruction){TextVtable*v=self->instruction->vtable;v->destroy((char*)self->instruction+v->adjust,3);}string_dtor(self->button,2);string_dtor(self->help,2);string_dtor(self->ins,2);base_dtor(self,deleting);asm volatile("");}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00159720)
+// 0x00159720 Draw__18IGOTutorialManager
+#include "KS/SRC/ks/FEPanel_shared.h"
+#include "KS/SRC/ks/kellyslater_controller_shared.h"
+#include "KS/SRC/wds_shared.h"
+#include "KS/SRC/ks/tutorialmanager.h"
+
+__asm__(".equ is_paused__C4game, 0x0027D968");
+
+void IGOTutorialManager::Draw(void)
+{
+	// Draw help message
+	if (!g_game_ptr->is_paused() && (show_advancement_text || show_hint_text) && !AlmostFinished() &&
+		(g_world_ptr->get_ks_controller(g_game_ptr->get_active_player()))->get_super_state() != SUPER_STATE_FLYBY)
+		instruction_text->Draw();
+}
+#endif
