@@ -478,3 +478,8 @@ extern "C" void disable_intr()__asm__("DIntr");extern "C" void enable_intr()__as
 // 0x00389848 audioDecEndPut__FP8AudioDeci
 struct AudioDec{int state;char pad0[40];int hdrCount;char pad1[4];int put,count,size,totalBytes;};extern "C" void endput(AudioDec*ad,int size)__asm__("audioDecEndPut__FP8AudioDeci");void endput(AudioDec*ad,int size){if(ad->state==0){int remain=40-ad->hdrCount;int hdr_add=remain<size?remain:size;ad->hdrCount+=hdr_add;if(ad->hdrCount>=40)ad->state=1;size-=hdr_add;}ad->put=(ad->put+size)%ad->size;ad->count+=size;ad->totalBytes+=size;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00389A90)
+// 0x00389A90 iopGetArea__FPiN30P8AudioDeci
+struct AudioDec{char padding[68];int iopBuff;int iopBuffSize;int iopLastPos;};extern "C" void iopGetArea(int*,int*,int*,int*,AudioDec*,int)__asm__("iopGetArea__FPiN30P8AudioDeci");void iopGetArea(int*pd0,int*d0,int*pd1,int*d1,AudioDec*ad,int pos){int len=(pos+ad->iopBuffSize-ad->iopLastPos-1024)%ad->iopBuffSize;len=(len/1024)*1024;if(ad->iopBuffSize-ad->iopLastPos>=len){*pd0=ad->iopBuff+ad->iopLastPos;*d0=len;*pd1=0;*d1=0;}else{*pd0=ad->iopBuff+ad->iopLastPos;*d0=ad->iopBuffSize-ad->iopLastPos;*pd1=ad->iopBuff;*d1=len-(ad->iopBuffSize-ad->iopLastPos);}}
+#endif
