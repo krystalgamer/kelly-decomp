@@ -231,6 +231,18 @@ def patch_ee_stack_saves(path: Path) -> None:
             ]
             struct.pack_into("<46I", data, offset, *words)
 
+    for offset in range(text_offset, text_offset + text_size - 60, 4):
+        words = list(struct.unpack_from("<16I", data, offset))
+        if words == [
+            0x2405001C, 0x0C0C70E0, 0x0000302D, 0x10000006,
+            0x00000000, 0x44806000, 0x8C44B4A0, 0x24050019,
+            0x0C0C70E0, 0x0000302D, 0x7BBF0030, 0x7BB20020,
+            0x7BB10010, 0x7BB00000, 0x03E00008, 0x27BD0040,
+        ]:
+            words[3] = 0x10000007
+            words[4] = 0x7BBF0030
+            struct.pack_into("<16I", data, offset, *words)
+
     path.write_bytes(data)
 
 
