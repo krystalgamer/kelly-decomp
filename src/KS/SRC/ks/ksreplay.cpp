@@ -359,3 +359,8 @@ void KSEntityState::Reset()
 // 0x0023BF50 SetCollisionInfo__8KSReplayP12beach_objectP6entityRC8vector3d
 class beach_object;class entity;struct vector3d{float x,y,z;vector3d&operator=(const vector3d&o){x=o.x;y=o.y;z=o.z;return *this;}};struct Collision{beach_object*obj;entity*ent;vector3d dir;float timeStamp;};class KSReplay{char p[200];Collision*collisions;int current_collision;int num_collisions;public:void SetCollisionInfo(beach_object*,entity*,const vector3d&);};extern float level_seconds;asm(".equ level_seconds,0x0046B284");void KSReplay::SetCollisionInfo(beach_object*obj,entity*ent,const vector3d&dir){if(collisions==0||(unsigned)num_collisions>=100)return;collisions[num_collisions].obj=obj;collisions[num_collisions].ent=ent;collisions[num_collisions].dir=dir;collisions[num_collisions].timeStamp=level_seconds;num_collisions++;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023B2E8)
+// 0x0023B2E8 Term__8KSReplay
+class KSReplay{char padding0[96];void*frame;void*mainEntityState;void*aiEntityState;void*mainEntityPO;void*aiEntityPO;int maxframes;char padding1[80];void*collisions;int num_collisions;int current_collision;public:void Term();};extern "C" void vec_delete(void*)__asm__("__builtin_vec_delete");asm(".equ __builtin_vec_delete,0x002AC6D0");void KSReplay::Term(){if(collisions)vec_delete(collisions);collisions=0;current_collision=0;num_collisions=0;if(frame)vec_delete(frame);frame=0;if(mainEntityState)vec_delete(mainEntityState);mainEntityState=0;if(mainEntityPO)vec_delete(mainEntityPO);mainEntityPO=0;if(aiEntityState)vec_delete(aiEntityState);aiEntityState=0;if(aiEntityPO)vec_delete(aiEntityPO);aiEntityPO=0;maxframes=0;}
+#endif
