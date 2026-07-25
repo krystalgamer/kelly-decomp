@@ -91,3 +91,8 @@ struct pair8{void*first;unsigned second;};extern "C" void insertion(pair8*,pair8
 // 0x003AAE40 __make_heap__H4ZPt4pair2ZP11nglListNodeZUiZ16nglOpaqueCompareZt4pair2ZP11nglListNodeZUiZi_X01X01X11PX21PX31_v
 struct nglListNode;struct Pair{nglListNode*first;unsigned second;};struct nglOpaqueCompare{};extern "C" void adjust(Pair*,int,int,const Pair&,nglOpaqueCompare) __asm__("adjust");asm(".equ adjust,0x003AAD60");extern "C" void make(Pair*,Pair*,nglOpaqueCompare,Pair*,int*) __asm__("__make_heap__H4ZPt4pair2ZP11nglListNodeZUiZ16nglOpaqueCompareZt4pair2ZP11nglListNodeZUiZi_X01X01X11PX21PX31_v");void make(Pair*first,Pair*last,nglOpaqueCompare comp,Pair*,int*){int len=last-first;if(len<2)return;int parent=(len-2)/2;while(1){Pair value=first[parent];adjust(first,parent,len,value,comp);if(parent==0)return;--parent;}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003AB680)
+// 0x003AB680 __make_heap__H4ZPt4pair2ZP11nglListNodeZUiZ15nglTransCompareZt4pair2ZP11nglListNodeZUiZi_X01X01X11PX21PX31_v
+struct nglListNode;struct Pair{nglListNode*first;unsigned second;};struct nglTransCompare{};extern "C" void adjust(Pair*,int,int,const Pair&,nglTransCompare) __asm__("adjust");asm(".equ adjust,0x003AB578");extern "C" void make(Pair*,Pair*,nglTransCompare,Pair*,int*) __asm__("__make_heap__H4ZPt4pair2ZP11nglListNodeZUiZ15nglTransCompareZt4pair2ZP11nglListNodeZUiZi_X01X01X11PX21PX31_v");void make(Pair*first,Pair*last,nglTransCompare comp,Pair*,int*){int len=last-first;if(len<2)return;int parent=(len-2)/2;while(1){Pair value=first[parent];adjust(first,parent,len,value,comp);if(parent==0)return;--parent;}}
+#endif
