@@ -8,9 +8,30 @@
 class GraphicalMenuSystem : public FEMenuSystem {
     char graphical_menu_data[0x120 - sizeof(FEMenuSystem)];
     bool fedb_draw_overlays;
+    bool soundStarted;
+    bool LoadedAll;
 
 public:
+    enum {
+        MainMenu,
+        ExtrasMenu,
+        CreditsMenu,
+        HighScoreMenu,
+        SurferMenu,
+        BeachMenu,
+        SaveLoadMenu,
+        TrickBookMenu,
+        BoardMenu,
+        AccompMenu,
+        LogbookMenu,
+        BuiltVersionMenu,
+        TitleMenu,
+        Legal,
+        OptionsMenu
+    };
+
     void DrawTop();
+    virtual void LoadAll();
 };
 
 #endif

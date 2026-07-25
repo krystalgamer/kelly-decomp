@@ -9,6 +9,7 @@ class GraphicalMenuSystem;
 class FEEntityManager {
 public:
     void Update(time_value_t time_inc);
+    void LoadAll();
 };
 class PauseMenuSystem {
 public:
@@ -38,5 +39,6 @@ public:
 extern FEManager frontendmanager;
 
 __asm__(".equ frontendmanager, 0x003E7728");
+__asm__(".equ LoadAll__15FEEntityManager, 0x001C56E0");
 
 #endif

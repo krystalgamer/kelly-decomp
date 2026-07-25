@@ -350,3 +350,23 @@ void HelpbarFE::SetPQIndices()
 	buttons[SQUARE] = GetPointer(helpbar_button_square);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BE630)
+// 0x001BE630 LoadAll__19GraphicalMenuSystem
+#include "KS/SRC/ks/FrontEndManager_shared.h"
+
+void GraphicalMenuSystem::LoadAll()
+{
+	if (!LoadedAll)
+	{
+		manager->em->LoadAll();
+
+		for(int i=0; i<OptionsMenu; i++)
+			if(i != Legal && i != TitleMenu && i != BeachMenu)
+				menus[i]->Load();
+
+		frontendmanager.fe_done_loading = true;
+		LoadedAll = true;
+	}
+}
+#endif
