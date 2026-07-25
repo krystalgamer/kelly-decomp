@@ -269,3 +269,8 @@ typedef void(*setter)(bool);extern setter particle_set[];extern int particle_fla
 // 0x0030EE50 OnOpen__13MenuWaterDrawP4MenuP10MenuSystem
 class MenuSystem;class Menu{public:void OnOpen(Menu*,MenuSystem*);};asm(".equ OnOpen__4MenuP4MenuP10MenuSystem,0x0023EAE0");extern int draw_flags[4];extern bool(*draw_get[4])();asm(".equ draw_flags,0x0058A410");asm(".equ draw_get,0x0046B220");class MenuWaterDraw:public Menu{public:void OnOpen(Menu*,MenuSystem*) __asm__("OnOpen__13MenuWaterDrawP4MenuP10MenuSystem");};void MenuWaterDraw::OnOpen(Menu*cto,MenuSystem*c){for(unsigned i=0;i<4;++i)draw_flags[i]=draw_get[i]();Menu::OnOpen(cto,c);asm("" : : : "memory");}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0030EFE0)
+// 0x0030EFE0 OnOpen__16MenuParticleDrawP4MenuP10MenuSystem
+class MenuSystem;class Menu{public:void OnOpen(Menu*,MenuSystem*);};asm(".equ OnOpen__4MenuP4MenuP10MenuSystem,0x0023EAE0");extern int draw_flags[8];extern bool(*draw_get[8])();asm(".equ draw_flags,0x0058A3C8");asm(".equ draw_get,0x0046B1C8");class MenuParticleDraw:public Menu{public:void OnOpen(Menu*,MenuSystem*) __asm__("OnOpen__16MenuParticleDrawP4MenuP10MenuSystem");};void MenuParticleDraw::OnOpen(Menu*cto,MenuSystem*c){for(unsigned i=0;i<8;++i)draw_flags[i]=draw_get[i]();Menu::OnOpen(cto,c);asm("" : : : "memory");}
+#endif
