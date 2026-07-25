@@ -344,3 +344,8 @@ struct Entry;struct MenuVtable{char pad0[32];short vis_adj;short z0;void(*set_vi
 // 0x00158C20 UpdateButtonDown__12FEMenuSystem
 extern "C" int getButtonState(int,int)__asm__("getButtonState__Fii");class FEMenuSystem{public:bool button_down[14][2];void UpdateButtonDown()__asm__("UpdateButtonDown__12FEMenuSystem");};__asm__(".equ getButtonState__Fii,0x00159270");void FEMenuSystem::UpdateButtonDown(){for(int i=0;i<14;i++)for(int j=0;j<2;j++)button_down[i][j]=getButtonState(i,j);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00157BC8)
+// 0x00157BC8 Draw__20FEGraphicalMenuEntry
+struct QuadVtable{char p[64];short adj;short z;void(*draw)(void*,int,float);};struct PanelQuad{char p[404];QuadVtable*vtable;};class Entry{public:char p0[16];bool highlight,disabled;char p1[76];PanelQuad*pq,*pq_high;void Draw()__asm__("Draw__20FEGraphicalMenuEntry");};void Entry::Draw(){if(highlight&&pq_high){QuadVtable*v=pq_high->vtable;v->draw((char*)pq_high+v->adj,-1,-1.0f);}else{if(!pq)return;if(disabled){QuadVtable*v=pq->vtable;v->draw((char*)pq+v->adj,-1,0.5f);}else{QuadVtable*v=pq->vtable;v->draw((char*)pq+v->adj,-1,-1.0f);}}}
+#endif
