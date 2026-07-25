@@ -69,3 +69,8 @@ struct entity;struct link_interface{char pad[12];entity*first_child;entity*next_
 // 0x001C4C88 JumpTo__15FEEntityManageri
 struct AnimTree{char padding[96];unsigned flags;};class FEEntityManager{char padding0[16];int camera_roll_stop;char padding1[424];int cam_pos_goal;char padding2[8];float stops[7];AnimTree*cam_anim_tree;int cam_reverse;public:void JumpTo(int);void CameraAnim(int,float);};asm(".equ CameraAnim__15FEEntityManagerif,0x001C4E28");void FEEntityManager::JumpTo(int pos){if(cam_pos_goal==pos&&cam_anim_tree&&(cam_anim_tree->flags&0x40))return;if(pos==1||pos==3||pos==2)camera_roll_stop=1;if(cam_reverse)CameraAnim(pos,stops[pos]+.1f);else CameraAnim(pos,stops[pos]-.1f);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001C9160)
+// 0x001C9160 SetConglomScale__15FEEntityManagerP6entityG8vector3d
+struct vector3d{float x,y,z;vector3d(const vector3d&v){x=v.x;y=v.y;z=v.z;}};struct entity_vtable{char pad[1560];short adjustment;short zero;void(*set_render_scale)(void*,const vector3d&);};struct link_interface;struct entity{char pad0[8];entity_vtable*vtable;char pad1[92];link_interface*link;};struct link_interface{char pad[12];entity*first_child;entity*next_sibling;};class FEEntityManager{public:void SetConglomScale(entity*,vector3d);};extern "C" void recurse(FEEntityManager*,entity*,vector3d)__asm__("recurse_SetConglomScale");asm(".equ recurse_SetConglomScale,0x001C9160");inline void set_scale(entity*e,const vector3d&s){entity_vtable*v=e->vtable;v->set_render_scale((char*)e+v->adjustment,s);}void FEEntityManager::SetConglomScale(entity*c,vector3d s){if(!c)return;if(c->link){link_interface*li=c->link;entity*c1=li->first_child;while(c1){recurse(this,c1,s);c1=c1->link->next_sibling;}set_scale(c,s);}}
+#endif
