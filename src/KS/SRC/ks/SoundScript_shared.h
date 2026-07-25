@@ -1,16 +1,16 @@
 #ifndef KELLY_DECOMP_SOUND_SCRIPT_SHARED_H
 #define KELLY_DECOMP_SOUND_SCRIPT_SHARED_H
 
+#include "KS/SRC/singleton_shared.h"
+
 enum EventType {
+    SS_FE_ONX = 24,
     SS_FE_BACK = 27,
+    SS_FE_ERROR = 28,
     SS_LAST = 105,
 };
 
 class entity;
-
-class singleton {
-    void* singleton_link;
-};
 
 class nlVector3d {
     float values[3];
@@ -63,5 +63,7 @@ public:
 };
 
 __asm__(".equ clear__12EventMapType, 0x0031BE38");
+__asm__(".equ _18SoundScriptManager$instance, 0x0046B4A0");
+__asm__(".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380");
 
 #endif

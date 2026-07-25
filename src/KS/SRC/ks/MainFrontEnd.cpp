@@ -432,3 +432,25 @@ struct Manager{char padding[0x1566c];int tmp_game_mode;};struct Sys{char padding
 // 0x00182E20 RumbleOn__11OptionsMenubi
 struct device_vtable{char pad[112];short adjustment;short zero;void(*vibrate)(void*,int,int,int,int);};struct input_device{char pad[4];device_vtable*vtable;};struct input_mgr{char pad[40];input_device*joy[8];};extern input_mgr*g_input_mgr;asm(".equ g_input_mgr,0x0046B7B0");class OptionsMenu{char pad[584];float rumbleTimer[4];public:void RumbleOn(bool,int);};inline void vibrate(input_device*d,int a,int b,int c,int e){device_vtable*v=d->vtable;v->vibrate((char*)d+v->adjustment,a,b,c,e);}void OptionsMenu::RumbleOn(bool on,int controller){input_mgr*inputmgr=g_input_mgr;input_device*joyjoy=inputmgr->joy[controller];if(on){rumbleTimer[controller]=0.0f;if(joyjoy)vibrate(joyjoy,0,255,1,0);}else if(joyjoy){vibrate(joyjoy,0,0,0,0);rumbleTimer[controller]=-1.0f;}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017FE98)
+// 0x0017FE98 OnCross__12MainFrontEndi
+#include "KS/SRC/ks/MainFrontEnd_shared.h"
+#include "decomp_annotations.h"
+
+void MainFrontEnd::OnCross(int c)
+{
+	input_mgr::inst()->SetDefaultController(c);
+	if(active)
+	{
+		active->OnCross(c);
+		return;
+	}
+	if (highlighted->GetDisable() == false)
+		SoundScriptManager::inst()->playEvent(SS_FE_ONX);
+	else
+		SoundScriptManager::inst()->playEvent(SS_FE_ERROR);
+	FEGraphicalMenu::OnCross(c);
+	KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
