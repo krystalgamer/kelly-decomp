@@ -264,3 +264,8 @@ typedef void(*setter)(bool);extern setter water_set[];extern int water_flags[];_
 // 0x0030F078 OnTick__16MenuParticleDrawf
 typedef void(*setter)(bool);extern setter particle_set[];extern int particle_flags[];__asm__(".equ particle_set,0x0046B1E8");__asm__(".equ particle_flags,0x0058A3C8");extern "C" void particle_tick(void*,float) __asm__("OnTick__16MenuParticleDrawf");void particle_tick(void*,float){for(unsigned i=0;i<8;i++)particle_set[i](particle_flags[i]);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0030EE50)
+// 0x0030EE50 OnOpen__13MenuWaterDrawP4MenuP10MenuSystem
+class MenuSystem;class Menu{public:void OnOpen(Menu*,MenuSystem*);};asm(".equ OnOpen__4MenuP4MenuP10MenuSystem,0x0023EAE0");extern int draw_flags[4];extern bool(*draw_get[4])();asm(".equ draw_flags,0x0058A410");asm(".equ draw_get,0x0046B220");class MenuWaterDraw:public Menu{public:void OnOpen(Menu*,MenuSystem*) __asm__("OnOpen__13MenuWaterDrawP4MenuP10MenuSystem");};void MenuWaterDraw::OnOpen(Menu*cto,MenuSystem*c){for(unsigned i=0;i<4;++i)draw_flags[i]=draw_get[i]();Menu::OnOpen(cto,c);asm("" : : : "memory");}
+#endif
