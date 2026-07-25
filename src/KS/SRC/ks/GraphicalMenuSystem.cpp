@@ -284,3 +284,8 @@ struct QuadVtable{char pad[64];short adjust;short z;void(*draw)(void*,int,float)
 // 0x001BD318 SetSlot__18ControllerFrontEnd11device_id_t
 struct stringx{char d[8];};struct TextVtable{char p[136];short adj;short z;void(*change)(void*,const stringx&);};struct TextString{char p[96];TextVtable*vtable;};extern const char*fmt_slot;extern const char*fmt_none;extern "C" int sprintf(char*,const char*,...);extern "C" void str_ctor(stringx*,const char*,int)__asm__("__7stringxPCci");class ControllerFrontEnd{public:char p[64];TextString*slotText;char p2[308];int slot;void SetSlot(int)__asm__("SetSlot__18ControllerFrontEnd11device_id_t");};__asm__(".equ fmt_slot,0x003E7198");__asm__(".equ fmt_none,0x003E7190");__asm__(".equ sprintf,0x003D38A8");__asm__(".equ __7stringxPCci,0x0034D438");void ControllerFrontEnd::SetSlot(int s){slot=s;char buf[80];if(~s)sprintf(buf,fmt_slot,s);else sprintf(buf,fmt_none);stringx text;str_ctor(&text,buf,-1);TextString*t=slotText;TextVtable*v=t->vtable;v->change((char*)t+v->adj,text);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BEB88)
+// 0x001BEB88 get_one_button_down__C19GraphicalMenuSystemRi
+enum device_id_t{ANY_LOCAL_JOYSTICK=12};class input_mgr{public:float get_control_state(device_id_t,int)const;};extern input_mgr*input_manager;asm(".equ input_manager,0x0046B7B0");asm(".equ get_control_state__C9input_mgr11device_id_ti,0x003441C8");class GraphicalMenuSystem{public:bool get_one_button_down(int&)const;};bool GraphicalMenuSystem::get_one_button_down(int&btn)const{input_mgr*inputmgr=input_manager;btn=-1;for(int i=184;i<=197;i++){if(inputmgr->get_control_state(ANY_LOCAL_JOYSTICK,i)!=0.0f){if(btn!=-1)return false;else btn=i;}}return true;}
+#endif
