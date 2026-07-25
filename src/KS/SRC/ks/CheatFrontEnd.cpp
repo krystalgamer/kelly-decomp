@@ -223,3 +223,29 @@ struct Entry;struct VTable{char p0[152];short active_adj;short g0;void(*active_u
 // 0x001D18F0 OnDown__13CheatFrontEndi
 struct Entry;struct VTable{char p0[160];short active_adj;short g0;void(*active_down)(void*,int);char p1[272];short self_adj;short g1;void(*self_down)(void*,int);};struct Layout{char p0[76];Entry*highlighted;char p1[16];Layout*active;char p2[16];VTable*vt;};class entity;enum EventType{UPDOWN=25,ERROR_EVENT=28};class SoundScriptManager{public:int playEvent(EventType,entity* = 0,float=0);};extern SoundScriptManager*sound_manager;asm(".equ sound_manager,0x0046B4A0");asm(".equ playEvent__18SoundScriptManager9EventTypeP6entityf,0x0031C380");class CheatFrontEnd{char raw[120];public:void OnDown(int);};void CheatFrontEnd::OnDown(int c){Layout*self=(Layout*)this;if(self->active){Layout*a=self->active;VTable*v=a->vt;v->active_down((char*)a+v->active_adj,c);asm volatile("");return;}Entry*old=self->highlighted;VTable*v=self->vt;v->self_down((char*)self+v->self_adj,c);if(self->highlighted!=old){sound_manager->playEvent(UPDOWN);asm volatile("");return;}sound_manager->playEvent(ERROR_EVENT);asm volatile("");}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D2340)
+// 0x001D2340 OnUp__13CheatCodeMenui
+#include "KS/SRC/ks/CheatFrontEnd_shared.h"
+#include "decomp_annotations.h"
+
+// Reuse the complete released FEGraphicalMenu and FEMultiMenu virtual order.
+// The shipped base also retains its source-version slot before Select.
+// Preserve the released shared-epilogue scheduling across the sound branches.
+void CheatCodeMenu::OnUp(int c)
+{
+	FEMenuEntry *old_highlighted = highlighted;
+	int old_next_up = next_up;
+
+	if(highlighted == cheats[0] && old_next_up != -1)
+		ReOrderEntries(old_next_up);
+	else
+		FEMultiMenu::OnUp(c);
+
+	if (highlighted == old_highlighted && old_next_up == -1)
+		SoundScriptManager::inst()->playEvent(SS_FE_ERROR);
+	else
+		SoundScriptManager::inst()->playEvent(SS_FE_UPDOWN);
+	KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif

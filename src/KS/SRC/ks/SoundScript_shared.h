@@ -5,6 +5,7 @@
 
 enum EventType {
     SS_FE_ONX = 24,
+    SS_FE_UPDOWN = 25,
     SS_FE_BACK = 27,
     SS_FE_ERROR = 28,
     SS_LAST = 105,

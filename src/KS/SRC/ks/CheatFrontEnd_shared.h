@@ -4,7 +4,9 @@
 #pragma interface
 
 #define KELLY_DECOMP_FULL_FEMULTI_MENU
+#define KELLY_DECOMP_BUILT_FEMENU_SELECT_PADDING
 #include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_BUILT_FEMENU_SELECT_PADDING
 #undef KELLY_DECOMP_FULL_FEMULTI_MENU
 #include "KS/SRC/ks/SoundScript_shared.h"
 #include "KS/SRC/ks/cheat_shared.h"
@@ -94,5 +96,7 @@ private:
     void SetPQIndices();
     void ExitMenu(float delay);
 };
+
+__asm__(".equ ReOrderEntries__13CheatCodeMenui, 0x001D2518");
 
 #endif

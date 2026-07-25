@@ -305,7 +305,18 @@ public:
     virtual void ChangeFade(PanelQuad* quad, bool start, bool fade_in, float time)
         __asm__("ChangeFade__15FEGraphicalMenuP9PanelQuadbT2f");
     virtual void Mask(PanelQuad* quad, float amount);
+    virtual void SetLayer(PanelQuad *quad, int layer);
     virtual void LoadPanel(bool floating = false);
+    virtual void ReloadPanel();
+    virtual PanelQuad *GetPointer(const char *name);
+    virtual void SetPanel(stringx path);
+
+protected:
+    virtual void cons(
+        FEMenuSystem *system,
+        FEManager *manager,
+        stringx path,
+        stringx panel_name);
 };
 
 class FEMultiMenu : public FEGraphicalMenu {
@@ -315,10 +326,24 @@ public:
 #if defined(KELLY_DECOMP_FULL_FEMULTI_MENU)
     FEMenuEntry *secondary_cursor;
 #endif
-    virtual void OnUp(int);
-    virtual void OnDown(int);
-    virtual void OnLeft(int);
-    virtual void OnRight(int);
+    virtual inline void OnUp(int) { Up(); }
+    virtual inline void OnDown(int) { Down(); }
+    virtual inline void OnLeft(int) { Left(); }
+    virtual inline void OnRight(int) { Right(); }
+    virtual void SetSecondaryCursor(
+        FEMenuEntry *entry,
+        bool animate = true);
+
+protected:
+    virtual void cons(
+        FEMenuSystem *system,
+        FEManager *manager,
+        stringx path,
+        stringx panel_name);
+    virtual void Up();
+    virtual void Down();
+    virtual void Left();
+    virtual void Right();
 };
 
 #endif
