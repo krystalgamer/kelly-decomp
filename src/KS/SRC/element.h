@@ -106,3 +106,8 @@ asm(".equ typeinfo, 0x00512188"); asm(".equ type_name, 0x004F4E38");
 extern "C" void *GetTypeInfo() __asm__("__tf5event");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FFEE8)
+// 0x002FFEE8 rotate_to__7elementfff
+struct element{};struct Event{int type;void*owner;float wait,duration;int field16;void*vtable;float angle;};extern "C" void*opnew(unsigned,unsigned,const char*,int)__asm__("__nw__FUiUiPCci");extern void*vtable;extern const char file[];extern "C" void add(element*,Event*)__asm__("add_event__7elementP5event");__asm__(".equ __nw__FUiUiPCci,0x002AC578");__asm__(".equ vtable,0x004F1E20");__asm__(".equ file,0x004FFAD8");__asm__(".equ add_event__7elementP5event,0x002CA780");extern "C" void rotate(element*,float,float,float)__asm__("rotate_to__7elementfff");void rotate(element*self,float wait,float duration,float angle){Event*e=(Event*)opnew(28,0,file,0);register int type asm("$3")=3;register void*vt asm("$6")=&vtable;register element*out asm("$4")=self;asm volatile("" : "+r"(out));e->wait=wait;register Event*arg asm("$5")=e;asm volatile("" : "+r"(arg));e->duration=duration;e->angle=angle;e->owner=self;e->type=type;e->vtable=vt;e->field16=0;add(out,arg);asm volatile("");}
+#endif
