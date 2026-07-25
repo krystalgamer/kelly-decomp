@@ -147,3 +147,8 @@ void entity_anim_tree::clear_flag(anim_flags_t flag)
     entity_anim::clear_flag(flag);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001208B8)
+// 0x001208B8 _$_11entity_anim
+struct AnimVtable{char p[64];short adj;short z;void(*destroy)(void*,int);};struct SubAnim{char p[4];AnimVtable*vtable;};struct entity_anim{char p0[4];void*vtable;char p1[4];SubAnim*po_anim_ptr;SubAnim*signal_anim_ptr;};extern void*vt;extern "C" void detach(entity_anim*)__asm__("detach__11entity_anim");extern "C" void del(entity_anim*)__asm__("__dl__11entity_animPv");__asm__(".equ vt,0x004CA170");__asm__(".equ detach__11entity_anim,0x00113A50");__asm__(".equ __dl__11entity_animPv,0x00113598");extern "C" void destroy(entity_anim*,int)__asm__("_$_11entity_anim");void destroy(entity_anim*self,int flag){self->vtable=&vt;if(self->po_anim_ptr){SubAnim*a=self->po_anim_ptr;AnimVtable*v=a->vtable;v->destroy((char*)a+v->adj,3);}if(self->signal_anim_ptr){SubAnim*a=self->signal_anim_ptr;AnimVtable*v=a->vtable;v->destroy((char*)a+v->adj,3);}detach(self);if(flag&1){del(self);asm volatile("");}}
+#endif
