@@ -901,3 +901,8 @@ struct Batch{char d[40];};struct Section{char p[44];Batch*BatchInfo;};struct Mes
 // 0x003A0008 nglBlockPSMT8toPSMCT32__FPUcT0
 extern int lut[];asm(".equ lut,0x004BC5B0");extern "C" int convert(unsigned char*,unsigned char*) __asm__("nglBlockPSMT8toPSMCT32__FPUcT0");int convert(unsigned char*p_input,unsigned char*p_output){unsigned i,j,k,i0,index0,index1;unsigned char*pIn=p_input;index1=0;for(k=0;k<4;k++){index0=(k%2)*64;for(i=0;i<16;i++){for(j=0;j<4;j++){i0=lut[index0++];p_output[index1++]=pIn[i0];}}pIn+=64;}return 0;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003A9AE0)
+// 0x003A9AE0 nglCloseMesh__Fv
+struct nglMesh{unsigned Flags;void*File;nglMesh*NextMesh;unsigned DataSize;};extern unsigned*nglScratchMeshPos;extern nglMesh*nglScratch;extern void*nglMemAlloc(unsigned,unsigned);extern "C" void*memcpy(void*,const void*,unsigned);extern void nglRebaseMesh(unsigned,unsigned,nglMesh*,bool);asm(".equ nglScratchMeshPos,0x004BB7A8");asm(".equ nglScratch,0x004BB7B0");asm(".equ nglMemAlloc__FUiUi,0x00395D10");asm(".equ memcpy,0x003D171C");asm(".equ nglRebaseMesh__FUiUiP7nglMeshb,0x003A1010");nglMesh*nglCloseMesh(){nglScratch->DataSize=(unsigned)nglScratchMeshPos-(unsigned)nglScratch;if(!(nglScratch->Flags&0x1000)){nglScratchMeshPos=(unsigned*)nglScratch;nglMesh*Mesh=(nglMesh*)nglMemAlloc(nglScratch->DataSize,128);memcpy(Mesh,nglScratch,nglScratch->DataSize);nglRebaseMesh((unsigned)Mesh,(unsigned)nglScratch,Mesh,true);return Mesh;}else{nglScratchMeshPos=(unsigned*)(((unsigned)nglScratchMeshPos+127)&~127);return nglScratch;}}
+#endif
