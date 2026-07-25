@@ -73,6 +73,9 @@ template <class animatable_t, class key_t, class track_t>
 class key_anim : public anim<animatable_t> {
     track_t *track;
     typename track_t::iterator current_key;
+
+public:
+    virtual void get_value(float time, animatable_t *destination) const;
 };
 
 #endif

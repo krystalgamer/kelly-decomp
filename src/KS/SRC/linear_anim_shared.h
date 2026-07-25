@@ -9,6 +9,32 @@ template <class animatable_t>
 class linear_key {
     float timestamp;
     animatable_t key_value;
+
+public:
+    const animatable_t &get_value() const
+    {
+        return key_value;
+    }
+
+    animatable_t interpolate(
+        const linear_key &other,
+        float ratio
+    ) const;
+
+    animatable_t get_value(float time, const linear_key &other) const
+    {
+        float length = other.get_time() - get_time();
+        float delta = time - get_time();
+        return interpolate(
+            other,
+            length > 0.0001f ? delta / length : 1.0f
+        );
+    }
+
+    float get_time() const
+    {
+        return timestamp;
+    }
 };
 
 template <class animatable_t>

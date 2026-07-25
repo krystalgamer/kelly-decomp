@@ -500,3 +500,48 @@ struct Key{float time;char p[16];};struct Track{int num_keys;Key*m_keys;};class 
 // 0x00120F90 get_value__Ct8key_anim3ZfZt10linear_key1ZfZt12linear_track1ZfRC14anim_control_tPf
 struct anim_control_t{float current_time;float time_delta;float duration;};struct linear_key_float{float timestamp;float key_value;};struct linear_track_float{int num_keys;linear_key_float*m_keys;};struct key_anim_float{char pad[8];linear_track_float*track;linear_key_float*current_key;};extern "C" float interpolate(const linear_key_float*,const linear_key_float&,float)__asm__("interpolate__Ct10linear_key1ZfRCt10linear_key1Zff");asm(".equ interpolate__Ct10linear_key1ZfRCt10linear_key1Zff,0x001132F8");extern "C" void get_value(const key_anim_float*self,const anim_control_t&ac,float*dest)__asm__("get_value__Ct8key_anim3ZfZt10linear_key1ZfZt12linear_track1ZfRC14anim_control_tPf");void get_value(const key_anim_float*self,const anim_control_t&ac,float*dest){linear_key_float*current=self->current_key;if(ac.current_time<current->timestamp||ac.current_time>ac.duration){*dest=current->key_value;}else{linear_key_float*next=current+1;if(next==self->track->m_keys+self->track->num_keys){*dest=current->key_value;}else{float len=next->timestamp-current->timestamp;float d=ac.current_time-current->timestamp;*dest=interpolate(current,*next,len>0.0001f?d/len:1.0f);}}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001211C8)
+// 0x001211C8 get_value__Ct8key_anim3ZfZt10linear_key1ZfZt12linear_track1ZffPf
+#include "KS/SRC/linear_anim_shared.h"
+
+#define assert(condition) ((void)0)
+
+__asm__(
+    ".equ interpolate__Ct10linear_key1ZfRCt10linear_key1Zff, "
+    "0x001132F8"
+);
+
+template <>
+void key_anim<float, linear_key<float>, linear_track<float> >::get_value(
+    float t,
+    float* dest
+) const
+{
+    assert( track!=NULL && dest!=NULL );
+    linear_track<float>::iterator i0 = track->m_keys;
+    linear_track<float>::iterator i1 = i0;
+    linear_track<float>::iterator i_end = (track->m_keys + track->num_keys);
+    ++i1;
+    while ( i1!=i_end && t>=(*i1).get_time() )
+    {
+      ++i0;
+      ++i1;
+    }
+    const linear_key<float>& k0 = *i0;
+    const linear_key<float>& k1 = *i1;
+    if ( t<k0.get_time() || i1==i_end )
+    {
+      // off the front or back of the track
+      *dest = k0.get_value();
+    }
+    else
+    {
+      // in the track;
+      // interpolate between current key and the next
+      *dest = k0.get_value( t, k1 );
+    }
+}
+
+#undef assert
+#endif
