@@ -6,6 +6,7 @@
 #define KELLY_DECOMP_FULL_FEMENU_ENTRY
 #define KELLY_DECOMP_SAVELOAD_VTABLE
 #include "KS/SRC/ks/FEMenu_shared.h"
+#include "KS/SRC/ks/igo_widget_shared.h"
 #undef KELLY_DECOMP_SAVELOAD_VTABLE
 #undef KELLY_DECOMP_FULL_FEMENU_ENTRY
 
@@ -49,6 +50,43 @@ class SaveLoadFrontEnd : public FEMultiMenu {
 public:
     virtual void Select();
     virtual void OnCross(int controller);
+};
+
+class BoxText;
+
+class DialogMenu : public FEMultiMenu {
+public:
+    enum {
+        DM_TYPE_MNG,
+        DM_TYPE_FMT,
+        DM_TYPE_YES,
+        DM_TYPE_OK,
+        DM_TYPE_PROGRESS,
+        DM_TYPE_EMPTY
+    };
+
+private:
+    enum {
+        DM_YES,
+        DM_NO,
+        DM_OK,
+        DM_FMT,
+        DM_CNL,
+        DM_MNG,
+        DM_CNL2,
+        DM_NUM
+    };
+
+    BoxText *message;
+    BoxText *prompt;
+    int type;
+    FEMenuEntry *entry[2];
+    PanelQuad *bar[4];
+    PanelQuad *box;
+    int draw_count;
+
+public:
+    void TurnPQ(bool enabled);
 };
 
 #endif
