@@ -35,6 +35,11 @@ protected:
     T *_M_start;
     T *_M_finish;
     T *_M_end_of_storage;
+
+    inline _Vector_base()
+      : _M_start(0), _M_finish(0), _M_end_of_storage(0)
+    {
+    }
 };
 
 template<class T, class Allocator = my_allocator<T> >
@@ -43,6 +48,8 @@ class vector : protected _Vector_base<T, Allocator> {
 public:
     typedef T *iterator;
     typedef const T *const_iterator;
+
+    inline vector() : _Vector_base<T, Allocator>() {}
 
     iterator begin()
     {
