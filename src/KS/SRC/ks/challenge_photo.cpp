@@ -250,3 +250,8 @@ class PhotoChallenge { const void*vtable; void*ksctrl; int goal,requiredScore,st
 PhotoChallenge::PhotoChallenge()
 {challenge_ctor(this);register int none __asm__("$2")=-1;register const void*table __asm__("$3")=photo_vtable;activeCameramanIdx=none;vtable=table;ksctrl=0;goal=0;requiredScore=0;state=0;recordChain=false;specialPhotoTimer=0.0f;numCameramen=0;cameramen=0;numTaken=0;numPhotos=0;photos=0;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002620A8)
+// 0x002620A8 Retry__14PhotoChallenge
+class PhotoChallenge{public:class Cameraman{char data[16];public:void Reset();};class Photo{char data[12];public:void Reset();};char pad0[16];int state;int recordChain;float specialPhotoTimer;int numCameramen;Cameraman*cameramen;int activeCameramanIdx;int numTaken;int numPhotos;Photo*photos;void Retry();};asm(".equ Reset__Q214PhotoChallenge9Cameraman,0x00262818");asm(".equ Reset__Q214PhotoChallenge5Photo,0x00262748");void PhotoChallenge::Retry(){int i=0;state=0;recordChain=false;specialPhotoTimer=0.0f;activeCameramanIdx=-1;for(i=0;i<numCameramen;i++)cameramen[i].Reset();numTaken=0;for(i=0;i<numPhotos;i++)photos[i].Reset();}
+#endif
