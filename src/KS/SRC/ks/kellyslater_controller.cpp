@@ -390,3 +390,8 @@ struct Game{char p[552];int beach_id;};struct BeachData{char p[208];int bdir;cha
 // 0x00211F18 SetTurnStat__22kellyslater_controlleriiffff
 class kellyslater_controller{char padding[556];float turnRatings[7][4];float worstTurns[7][4];float bestTurns[7][4];public:void SetTurnStat(int,int,float,float,float,float);};void kellyslater_controller::SetTurnStat(int table,int heading,float turnVel,float bankAccel,float bankVel,float bank){switch(table){case 0:turnRatings[heading][3]=bank;turnRatings[heading][2]=bankVel;turnRatings[heading][1]=bankAccel;turnRatings[heading][0]=turnVel;break;case 1:worstTurns[heading][3]=bank;worstTurns[heading][2]=bankVel;worstTurns[heading][1]=bankAccel;worstTurns[heading][0]=turnVel;break;case 2:bestTurns[heading][3]=bank;bestTurns[heading][2]=bankVel;bestTurns[heading][1]=bankAccel;bestTurns[heading][0]=turnVel;break;}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00211488)
+// 0x00211488 reset_state__22kellyslater_controller
+class kellyslater_controller;extern "C" void anim_call(kellyslater_controller*,int,float,bool,float,bool)__asm__("Anim__22kellyslater_controllerifbfT3");class kellyslater_controller{char pad0[12];void*owner;char pad1[32];int state;int last_state;int super_state;int last_super_state;char pad2[3424];int wiped_out;char pad3[168];int reset_anim;public:void reset_state();void BoardAnim(int,float,bool,float);};asm(".equ Anim__22kellyslater_controllerifbfT3,0x00212660");asm(".equ BoardAnim__22kellyslater_controllerifbf,0x002128B0");void kellyslater_controller::reset_state(){last_state=0;if(reset_anim&&owner){anim_call(this,0,0.0f,false,0.0f,false);BoardAnim(0,0.0f,false,0.0f);}if(state==4||state==5)return;last_super_state=0;super_state=4;if(wiped_out)state=4;else state=5;}
+#endif
