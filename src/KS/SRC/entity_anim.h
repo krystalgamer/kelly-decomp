@@ -152,3 +152,8 @@ void entity_anim_tree::clear_flag(anim_flags_t flag)
 // 0x001208B8 _$_11entity_anim
 struct AnimVtable{char p[64];short adj;short z;void(*destroy)(void*,int);};struct SubAnim{char p[4];AnimVtable*vtable;};struct entity_anim{char p0[4];void*vtable;char p1[4];SubAnim*po_anim_ptr;SubAnim*signal_anim_ptr;};extern void*vt;extern "C" void detach(entity_anim*)__asm__("detach__11entity_anim");extern "C" void del(entity_anim*)__asm__("__dl__11entity_animPv");__asm__(".equ vt,0x004CA170");__asm__(".equ detach__11entity_anim,0x00113A50");__asm__(".equ __dl__11entity_animPv,0x00113598");extern "C" void destroy(entity_anim*,int)__asm__("_$_11entity_anim");void destroy(entity_anim*self,int flag){self->vtable=&vt;if(self->po_anim_ptr){SubAnim*a=self->po_anim_ptr;AnimVtable*v=a->vtable;v->destroy((char*)a+v->adj,3);}if(self->signal_anim_ptr){SubAnim*a=self->signal_anim_ptr;AnimVtable*v=a->vtable;v->destroy((char*)a+v->adj,3);}detach(self);if(flag&1){del(self);asm volatile("");}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00120B10)
+// 0x00120B10 set_flag__16entity_anim_tree12anim_flags_tb
+struct BaseVtable{char p[8];short set_adj;short z0;void(*set)(void*,int);short clear_adj;short z1;void(*clear)(void*,int);};struct Control{char p[24];unsigned flags;char rest[32];void set_flag(int f,bool on){if(on)flags|=f;else flags&=~f;}};class entity_anim_tree{public:char p0[4];BaseVtable*vtable;char p1[64];Control control;Control control_b;void set_flag(int,bool)__asm__("set_flag__16entity_anim_tree12anim_flags_tb");};void entity_anim_tree::set_flag(int f,bool torf){control.set_flag(f,torf);control_b.set_flag(f,torf);if(torf){BaseVtable*v=vtable;v->set((char*)this+v->set_adj,f);}else{BaseVtable*v=vtable;v->clear((char*)this+v->clear_adj,f);}}
+#endif
