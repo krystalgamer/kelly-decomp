@@ -510,3 +510,49 @@ static void audioDecBeginPut( AudioDec* ad, u_char** ptr0, int* len0, u_char** p
 
 __asm__(".globl audioDecBeginPut__FP8AudioDecPPUcPiT1T2");
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00389540)
+// 0x00389540 audioDecCreate__FP8AudioDecPUcii
+#include "NVL/PS2/nvlMPEG_audio_shared.h"
+
+static int audioDecCreate(
+    AudioDec *ad,
+    u_char *buff,
+    int buffSize,
+    int iopBuffSize
+)
+{
+    ad->state = AU_STATE_INIT;
+    ad->hdrCount = 0;
+    ad->data = buff;
+    ad->put = 0;
+    ad->count = 0;
+    ad->size = buffSize;
+    ad->totalBytes = 0;
+    ad->totalBytesSent = 0;
+    ad->iopBuffSize = iopBuffSize;
+    ad->iopLastPos = 0;
+    ad->iopPausePos = 0;
+    ad->iopBuff = (int)sceSifAllocIopHeap(iopBuffSize);
+    if (ad->iopBuff != NULL)
+    {
+        ad->iopZero = (int)sceSifAllocIopHeap(ZERO_BUFF_SIZE);
+        if (ad->iopZero != NULL)
+        {
+            memset(_0_buf, 0, ZERO_BUFF_SIZE);
+            sendToIOP(
+                ad->iopZero,
+                (unsigned char *)_0_buf,
+                ZERO_BUFF_SIZE
+            );
+            changeMasterVolume(0x3fff);
+            return 1;
+        }
+    }
+
+    nvlPrintf(nvl_iop_alloc_error);
+    return 0;
+}
+
+__asm__(".globl audioDecCreate__FP8AudioDecPUcii");
+#endif
