@@ -53,6 +53,7 @@ public:
     void Tick(bool running, float time_inc);
     void Pause(bool paused);
     void SaveFile(char *filename);
+    bool IsPlaying();
     void SetWipeoutSplash(int player);
     void SetEndWave();
 };
