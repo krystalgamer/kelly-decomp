@@ -64,3 +64,8 @@ struct Link{char pad[104];void*ifc;};struct entity{char pad[104];Link*link_ifc;v
 // 0x001C9210 SetConglomForceHiRes__15FEEntityManagerP6entityb
 struct entity;struct link_interface{char pad[12];entity*first_child;entity*next_sibling;};struct entity{char pad0[104];link_interface*link;char pad1[212];int force_hi_res;};struct FEEntityManager;extern "C" void recurse(FEEntityManager*,entity*,bool)__asm__("recurse_alias");__asm__(".equ recurse_alias,0x001C9210");struct FEEntityManager{void SetConglomForceHiRes(entity*,bool)__asm__("SetConglomForceHiRes__15FEEntityManagerP6entityb");};void FEEntityManager::SetConglomForceHiRes(entity*c,bool f){if(!c)return;if(c->link){entity*c1=c->link->first_child;while(c1){recurse(this,c1,f);c1=c1->link->next_sibling;}c->force_hi_res=f;}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001C4C88)
+// 0x001C4C88 JumpTo__15FEEntityManageri
+struct AnimTree{char padding[96];unsigned flags;};class FEEntityManager{char padding0[16];int camera_roll_stop;char padding1[424];int cam_pos_goal;char padding2[8];float stops[7];AnimTree*cam_anim_tree;int cam_reverse;public:void JumpTo(int);void CameraAnim(int,float);};asm(".equ CameraAnim__15FEEntityManagerif,0x001C4E28");void FEEntityManager::JumpTo(int pos){if(cam_pos_goal==pos&&cam_anim_tree&&(cam_anim_tree->flags&0x40))return;if(pos==1||pos==3||pos==2)camera_roll_stop=1;if(cam_reverse)CameraAnim(pos,stops[pos]+.1f);else CameraAnim(pos,stops[pos]-.1f);}
+#endif
