@@ -156,3 +156,41 @@ struct po_anim{char pad[4];void*vptr;void*P;void*R;void*S;};extern void*po_vtabl
 // 0x00119930 __nw__7po_animUi
 extern "C" void check()__asm__("check_alias");extern "C" void nglPrintf(const char*,...)__asm__("nglPrintf__FPCce");extern const char format_text[];extern const char class_text[];__asm__(".equ check_alias,0x00119810");__asm__(".equ nglPrintf__FPCce,0x003AC050");__asm__(".equ format_text,0x004C9050");__asm__(".equ class_text,0x004C9928");extern "C" void*allocate(unsigned)__asm__("__nw__7po_animUi");void*allocate(unsigned){check();register char*allocated_high asm("$7")=(char*)0x003e0000;register char*current_high asm("$8")=(char*)0x003e0000;register int one asm("$9")=1;register char*memory_high asm("$10")=(char*)0x003e0000;int i=0,offset=0;for(;i<1000;i++,offset+=88){asm volatile("" : : : "memory");int*slots=*(int**)(allocated_high+22424);if(!slots[i]){*(int*)(current_high+22440)=i;slots[i]=one;char*memory=*(char**)(memory_high+22428);return memory+offset;}}nglPrintf(format_text,class_text);return(void*)-1;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00119A58)
+// 0x00119A58 check_mem_init__t11linear_anim1Z10quaternion
+#include "KS/SRC/linear_anim_shared.h"
+#include "KS/SRC/staticmem_shared.h"
+
+extern const char linear_quaternion_mem_description[];
+
+__asm__(".equ _t11linear_anim1Z10quaternion$meminit, 0x003E57AC");
+__asm__(".equ _t11linear_anim1Z10quaternion$allocated, 0x003E57B0");
+__asm__(".equ _t11linear_anim1Z10quaternion$membuffer, 0x003E57B4");
+__asm__(".equ _t11linear_anim1Z10quaternion$mem_init_func, 0x003E57B8");
+__asm__(".equ _t11linear_anim1Z10quaternion$mem_free_func, 0x003E57BC");
+__asm__(".equ _t11linear_anim1Z10quaternion$current_allocation, 0x003E57C0");
+__asm__(".equ linear_quaternion_mem_description, 0x004C9930");
+__asm__(".equ arch_malloc__FUiPCci, 0x002AC6F0");
+__asm__(".equ memset, 0x003D18D0");
+
+#define malloc(size) arch_malloc(size, linear_quaternion_mem_description, 0)
+
+void linear_anim<quaternion>::check_mem_init(void)
+{
+	if ( !meminit )
+	{
+		membuffer=malloc(1000*sizeof(linear_anim<quaternion>));
+		if ( membuffer==NULL ) return;
+		memset(membuffer,0,1000*sizeof(linear_anim<quaternion>));
+		allocated=(bool *) malloc(1000*sizeof(bool));
+		if ( allocated==NULL ) return;
+		memset(allocated,0,1000*sizeof(bool));
+		meminit=true;
+		if (mem_init_func)
+		{ void (*func) () = (void (*) ()) mem_init_func; (*func) (); }
+	}
+}
+
+#undef malloc
+#endif
