@@ -115,3 +115,31 @@ int script_object::find_func_by_address(
     return -1;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00350AF8)
+// 0x00350AF8 dump_threads__CQ213script_object8instanceP7os_file
+#include "KS/SRC/script_object_dump_shared.h"
+
+void script_object::instance::dump_threads(
+    host_system_file_handle outfile
+) const
+{
+    thread_list::const_iterator i = threads.begin();
+    thread_list::const_iterator i_end = threads.end();
+    for (; i != i_end; ++i)
+    {
+        vm_thread *t = *i;
+        if (!t->is_suspended())
+        {
+            host_fprintf(
+                outfile,
+                thread_dump_format,
+                name.c_str(),
+                t->get_executable()->get_name().c_str(),
+                t->prof_runtime,
+                t->prof_opcount
+            );
+        }
+    }
+}
+#endif
