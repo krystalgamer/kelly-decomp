@@ -25,3 +25,31 @@ nslSourceId nslGetSourceByIndex(int index)
     return 0;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0038C3A8)
+// 0x0038C3A8 _nslReleaseAllSources__Fv
+#include "NSL/PS2/nsl_ps2_shared.h"
+
+void _nslReleaseAllSources()
+{
+    if (!nsl.on)
+        return;
+
+    if (!(nsl.initialized == 1))
+        nslFatal(nsl_not_initialized);
+
+    nslReleaseAllSounds();
+    for (int i = 0; i < NSL_NUM_EMITTERS; i++)
+        _nslClearEmitterSlot(i, false, NSL_CLEAR_RESET);
+
+    for (int i = 0; i < NSL_NUM_SOURCES; i++)
+        nslPs2GasRpc(
+            GAS_RPC_REMOVE_SOURCE,
+            nsl_empty_string,
+            0,
+            0,
+            0,
+            0
+        );
+}
+#endif
