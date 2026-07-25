@@ -194,3 +194,41 @@ void linear_anim<quaternion>::check_mem_init(void)
 
 #undef malloc
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00119C98)
+// 0x00119C98 check_mem_init__t11linear_anim1Z8vector3d
+#include "KS/SRC/linear_anim_shared.h"
+#include "KS/SRC/staticmem_shared.h"
+
+extern const char linear_vector_mem_description[];
+
+__asm__(".equ _t11linear_anim1Z8vector3d$meminit, 0x003E57C4");
+__asm__(".equ _t11linear_anim1Z8vector3d$allocated, 0x003E57C8");
+__asm__(".equ _t11linear_anim1Z8vector3d$membuffer, 0x003E57CC");
+__asm__(".equ _t11linear_anim1Z8vector3d$mem_init_func, 0x003E57D0");
+__asm__(".equ _t11linear_anim1Z8vector3d$mem_free_func, 0x003E57D4");
+__asm__(".equ _t11linear_anim1Z8vector3d$current_allocation, 0x003E57D8");
+__asm__(".equ linear_vector_mem_description, 0x004C9990");
+__asm__(".equ arch_malloc__FUiPCci, 0x002AC6F0");
+__asm__(".equ memset, 0x003D18D0");
+
+#define malloc(size) arch_malloc(size, linear_vector_mem_description, 0)
+
+void linear_anim<vector3d>::check_mem_init(void)
+{
+	if ( !meminit )
+	{
+		membuffer=malloc(1000*sizeof(linear_anim<vector3d>));
+		if ( membuffer==NULL ) return;
+		memset(membuffer,0,1000*sizeof(linear_anim<vector3d>));
+		allocated=(bool *) malloc(1000*sizeof(bool));
+		if ( allocated==NULL ) return;
+		memset(allocated,0,1000*sizeof(bool));
+		meminit=true;
+		if (mem_init_func)
+		{ void (*func) () = (void (*) ()) mem_init_func; (*func) (); }
+	}
+}
+
+#undef malloc
+#endif
