@@ -137,9 +137,10 @@ __asm__(".globl voBufIsEmpty__FP5VoBuf");
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003898C8)
+#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+
 // 0x003898C8 audioDecIsPreset__FP8AudioDec
-struct AudioDec { char padding_to_limit[0x48]; int limit; char padding_to_value[0x8]; int value; };
-static int audioDecIsPreset(AudioDec* decoder) { return decoder->value >= decoder->limit; }
+static int audioDecIsPreset(AudioDec* decoder) { return decoder->totalBytesSent >= PRESET_VALUE(decoder->iopBuffSize); }
 __asm__(".globl audioDecIsPreset__FP8AudioDec");
 #endif
 
@@ -162,31 +163,18 @@ void videoDecEndPut(VideoDec *decoder, int size) { viBufEndPut(&decoder->vibuf, 
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00389730)
+#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+
 // 0x00389730 audioDecStart__FP8AudioDec
-struct AudioDec;
 void audioDecResume(AudioDec *decoder);
 __asm__(".equ audioDecResume__FP8AudioDec, 0x003896C0");
 void audioDecStart(AudioDec *decoder) { audioDecResume(decoder); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00389750)
+#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+
 // 0x00389750 audioDecReset__FP8AudioDec
-struct AudioDec {
-    int state;
-    char hdr[40];
-    int hdrCount;
-    unsigned char* data;
-    int put;
-    int count;
-    int size;
-    int totalBytes;
-    int iopBuff;
-    int iopBuffSize;
-    int iopLastPos;
-    int iopPausePos;
-    int totalBytesSent;
-    int iopZero;
-};
 void audioDecPause(AudioDec*);
 __asm__(".equ audioDecPause__FP8AudioDec, 0x00389638");
 static void audioDecReset(AudioDec* decoder)
@@ -466,7 +454,8 @@ extern "C" int sceSdRemote(int,int,int,unsigned) ;__asm__(".equ sceSdRemote,0x00
 
 #if defined(KELLY_DECOMP_FUNCTION_003896C0)
 // 0x003896C0 audioDecResume__FP8AudioDec
-extern "C" void change_input(unsigned) __asm__("changeInputVolume__FUi");extern "C" int remote(int,int,int,int,int,int,int) __asm__("sceSdRemote");__asm__(".equ changeInputVolume__FUi,0x00389D68");__asm__(".equ sceSdRemote,0x0038BAE0");struct AudioDec{int state;char p0[64];int iopBuff,iopBuffSize;char p1[4];int iopPausePos;};extern "C" void resume(AudioDec*ad) __asm__("audioDecResume__FP8AudioDec");void resume(AudioDec*ad){change_input(0x7fff);int rounded=(ad->iopBuffSize/1024)*1024;__asm__("" : "+r"(rounded));int start=ad->iopBuff+ad->iopPausePos;remote(1,0x80e0,0,19,ad->iopBuff,rounded,start);ad->state=2;}
+#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+extern "C" void change_input(unsigned) __asm__("changeInputVolume__FUi");extern "C" int remote(int,int,int,int,int,int,int) __asm__("sceSdRemote");__asm__(".equ changeInputVolume__FUi,0x00389D68");__asm__(".equ sceSdRemote,0x0038BAE0");extern "C" void resume(AudioDec*ad) __asm__("audioDecResume__FP8AudioDec");void resume(AudioDec*ad){change_input(0x7fff);int rounded=(ad->iopBuffSize/1024)*1024;__asm__("" : "+r"(rounded));int start=ad->iopBuff+ad->iopPausePos;remote(1,0x80e0,0,19,ad->iopBuff,rounded,start);ad->state=2;}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00389050)
@@ -476,10 +465,48 @@ extern "C" void disable_intr()__asm__("DIntr");extern "C" void enable_intr()__as
 
 #if defined(KELLY_DECOMP_FUNCTION_00389848)
 // 0x00389848 audioDecEndPut__FP8AudioDeci
-struct AudioDec{int state;char pad0[40];int hdrCount;char pad1[4];int put,count,size,totalBytes;};extern "C" void endput(AudioDec*ad,int size)__asm__("audioDecEndPut__FP8AudioDeci");void endput(AudioDec*ad,int size){if(ad->state==0){int remain=40-ad->hdrCount;int hdr_add=remain<size?remain:size;ad->hdrCount+=hdr_add;if(ad->hdrCount>=40)ad->state=1;size-=hdr_add;}ad->put=(ad->put+size)%ad->size;ad->count+=size;ad->totalBytes+=size;}
+#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+extern "C" void endput(AudioDec*ad,int size)__asm__("audioDecEndPut__FP8AudioDeci");void endput(AudioDec*ad,int size){if(ad->state==0){int remain=40-ad->hdrCount;int hdr_add=remain<size?remain:size;ad->hdrCount+=hdr_add;if(ad->hdrCount>=40)ad->state=1;size-=hdr_add;}ad->put=(ad->put+size)%ad->size;ad->count+=size;ad->totalBytes+=size;}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00389A90)
 // 0x00389A90 iopGetArea__FPiN30P8AudioDeci
-struct AudioDec{char padding[68];int iopBuff;int iopBuffSize;int iopLastPos;};extern "C" void iopGetArea(int*,int*,int*,int*,AudioDec*,int)__asm__("iopGetArea__FPiN30P8AudioDeci");void iopGetArea(int*pd0,int*d0,int*pd1,int*d1,AudioDec*ad,int pos){int len=(pos+ad->iopBuffSize-ad->iopLastPos-1024)%ad->iopBuffSize;len=(len/1024)*1024;if(ad->iopBuffSize-ad->iopLastPos>=len){*pd0=ad->iopBuff+ad->iopLastPos;*d0=len;*pd1=0;*d1=0;}else{*pd0=ad->iopBuff+ad->iopLastPos;*d0=ad->iopBuffSize-ad->iopLastPos;*pd1=ad->iopBuff;*d1=len-(ad->iopBuffSize-ad->iopLastPos);}}
+#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+extern "C" void iopGetArea(int*,int*,int*,int*,AudioDec*,int)__asm__("iopGetArea__FPiN30P8AudioDeci");void iopGetArea(int*pd0,int*d0,int*pd1,int*d1,AudioDec*ad,int pos){int len=(pos+ad->iopBuffSize-ad->iopLastPos-1024)%ad->iopBuffSize;len=(len/1024)*1024;if(ad->iopBuffSize-ad->iopLastPos>=len){*pd0=ad->iopBuff+ad->iopLastPos;*d0=len;*pd1=0;*d1=0;}else{*pd0=ad->iopBuff+ad->iopLastPos;*d0=ad->iopBuffSize-ad->iopLastPos;*pd1=ad->iopBuff;*d1=len-(ad->iopBuffSize-ad->iopLastPos);}}
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00389798)
+// 0x00389798 audioDecBeginPut__FP8AudioDecPPUcPiT1T2
+#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+
+static void audioDecBeginPut( AudioDec* ad, u_char** ptr0, int* len0, u_char** ptr1, int* len1 )
+{
+    int len;
+
+    if( ad->state == AU_STATE_INIT )
+    {
+        *ptr0 = (u_char*)&ad->sshd + ad->hdrCount;
+        *len0 = AU_HDR_SIZE - ad->hdrCount;
+        *ptr1 = (u_char*)ad->data;
+        *len1 = ad->size;
+        return;
+    }
+    len = ad->size - ad->count;
+    if( ad->size -  ad->put >= len )
+    {
+        *ptr0 = ad->data + ad->put;
+        *len0 = len;
+        *ptr1 = NULL;
+        *len1 = 0;
+    }
+    else
+    {
+        *ptr0 = ad->data + ad->put;
+        *len0 = ad->size - ad->put;
+        *ptr1 = ad->data;
+        *len1 = len - ( ad->size - ad->put );
+    }
+}
+
+__asm__(".globl audioDecBeginPut__FP8AudioDecPPUcPiT1T2");
 #endif
