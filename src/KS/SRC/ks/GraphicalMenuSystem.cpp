@@ -279,3 +279,8 @@ struct Dev{char pad[72];int no_audio;};extern Dev*g_options;extern float ps2Movi
 // 0x001BD138 DrawTop__18ControllerFrontEnd
 struct QuadVtable{char pad[64];short adjust;short z;void(*draw)(void*,int,float);};struct Quad{char pad[404];QuadVtable*vtable;};struct EntryVtable{char pad[56];short adjust;short z;void(*draw)(void*);};struct Entry{char pad[96];EntryVtable*vtable;};struct ControllerFrontEnd{char pad0[64];Entry*highlighted;char pad1[268];Quad*quads[9];void DrawTop()__asm__("DrawTop__18ControllerFrontEnd");};void ControllerFrontEnd::DrawTop(){for(int i=0;i<9;i++){Quad*q=quads[i];QuadVtable*v=q->vtable;v->draw((char*)q+v->adjust,0,-1.0f);}EntryVtable*v=highlighted->vtable;v->draw((char*)highlighted+v->adjust);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BD318)
+// 0x001BD318 SetSlot__18ControllerFrontEnd11device_id_t
+struct stringx{char d[8];};struct TextVtable{char p[136];short adj;short z;void(*change)(void*,const stringx&);};struct TextString{char p[96];TextVtable*vtable;};extern const char*fmt_slot;extern const char*fmt_none;extern "C" int sprintf(char*,const char*,...);extern "C" void str_ctor(stringx*,const char*,int)__asm__("__7stringxPCci");class ControllerFrontEnd{public:char p[64];TextString*slotText;char p2[308];int slot;void SetSlot(int)__asm__("SetSlot__18ControllerFrontEnd11device_id_t");};__asm__(".equ fmt_slot,0x003E7198");__asm__(".equ fmt_none,0x003E7190");__asm__(".equ sprintf,0x003D38A8");__asm__(".equ __7stringxPCci,0x0034D438");void ControllerFrontEnd::SetSlot(int s){slot=s;char buf[80];if(~s)sprintf(buf,fmt_slot,s);else sprintf(buf,fmt_none);stringx text;str_ctor(&text,buf,-1);TextString*t=slotText;TextVtable*v=t->vtable;v->change((char*)t+v->adj,text);}
+#endif
