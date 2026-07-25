@@ -427,3 +427,8 @@ struct Entry;struct VTable{char p0[160];short active_adj;short g0;void(*active_c
 // 0x001854D8 Select__12FreesurfMenui
 struct Manager{char padding[0x1566c];int tmp_game_mode;};struct Sys{char padding[120];Manager*manager;};struct menu_vtable{char padding[32];short adjustment;short reserved;void(*make_active)(void*,int,int,int);};struct MenuSystem{char padding[140];menu_vtable*vtable;};class FreesurfMenu{char padding0[80];MenuSystem*system;char padding1[48];Sys*sys;public:void Select(int);};void FreesurfMenu::Select(int entry_index){switch(entry_index){case 0:sys->manager->tmp_game_mode=1;break;case 1:sys->manager->tmp_game_mode=2;break;case 2:sys->manager->tmp_game_mode=3;break;default:break;}menu_vtable*v=system->vtable;v->make_active((char*)system+v->adjustment,4,1,1);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00182E20)
+// 0x00182E20 RumbleOn__11OptionsMenubi
+struct device_vtable{char pad[112];short adjustment;short zero;void(*vibrate)(void*,int,int,int,int);};struct input_device{char pad[4];device_vtable*vtable;};struct input_mgr{char pad[40];input_device*joy[8];};extern input_mgr*g_input_mgr;asm(".equ g_input_mgr,0x0046B7B0");class OptionsMenu{char pad[584];float rumbleTimer[4];public:void RumbleOn(bool,int);};inline void vibrate(input_device*d,int a,int b,int c,int e){device_vtable*v=d->vtable;v->vibrate((char*)d+v->adjustment,a,b,c,e);}void OptionsMenu::RumbleOn(bool on,int controller){input_mgr*inputmgr=g_input_mgr;input_device*joyjoy=inputmgr->joy[controller];if(on){rumbleTimer[controller]=0.0f;if(joyjoy)vibrate(joyjoy,0,255,1,0);}else if(joyjoy){vibrate(joyjoy,0,0,0,0);rumbleTimer[controller]=-1.0f;}}
+#endif
