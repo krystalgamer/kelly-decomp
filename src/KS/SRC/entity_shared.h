@@ -1,6 +1,7 @@
 #ifndef KELLY_DECOMP_ENTITY_SHARED_H
 #define KELLY_DECOMP_ENTITY_SHARED_H
 
+#include "KS/SRC/po_shared.h"
 #include "KS/SRC/stringx.h"
 #include "KS/SRC/visrep_shared.h"
 
@@ -75,6 +76,22 @@ private:
     char entity_trailing_data[0x20];
 
 public:
+    struct movement_info {
+        bool frame_delta_valid;
+        bool last_frame_delta_valid;
+        po frame_delta;
+        time_value_t frame_time;
+
+        static bool meminit;
+        static bool *allocated;
+        static void *membuffer;
+        static int current_allocation;
+        static void *mem_init_func;
+        static void *mem_free_func;
+        static void check_mem_init();
+        static void mem_cleanup();
+    };
+
     inline bool are_collisions_active() const {
         return flags & EFLAG_PHYSICS_COLLISIONS_ACTIVE;
     }
