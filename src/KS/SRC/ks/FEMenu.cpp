@@ -359,3 +359,8 @@ struct EntryVtable{char p[48];short disable_adj;short z;bool(*disabled)(void*);}
 // 0x00157F58 Next__15FEGraphicalMenu
 struct EntryVTable{char p[48];short disable_adj;short g;bool(*disabled)(void*);};struct FEMenuEntry{int entry_num;FEMenuEntry*next;char p[88];EntryVTable*vt;bool GetDisable(){EntryVTable*v=vt;return v->disabled((char*)this+v->disable_adj);}};struct MenuVTable{char p[24];short high_adj;short g;void(*sethigh)(void*,FEMenuEntry*,bool);};class FEGraphicalMenu{char p0[60];int flags;FEMenuEntry*entries;char p1[8];FEMenuEntry*highlighted;char p2[36];MenuVTable*vt;public:void Next();};void FEGraphicalMenu::Next(){FEMenuEntry*tmp=highlighted->next;if(!tmp)tmp=entries;if(!(flags&0x40))while(tmp->GetDisable()&&tmp!=highlighted){tmp=tmp->next;if(!tmp)tmp=entries;}MenuVTable*v=vt;v->sethigh((char*)this+v->high_adj,tmp,true);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001578E0)
+// 0x001578E0 SetAllScale__6FEMenuf
+struct entry_vtable{char padding0[88];short set_adjust;short reserved0;void(*set_scale)(void*,float,float);short get_adjust;short reserved1;bool(*get_scale)(void*,float&,float&);};struct FEMenuEntry{char padding0[4];FEMenuEntry*next;char padding1[88];entry_vtable*vtable;};struct FEMenu{char padding0[48];float scale;float scale_high;char padding1[8];FEMenuEntry*entries;void SetAllScale(float);};void FEMenu::SetAllScale(float s){float s1,sh1;FEMenuEntry*tmp=entries;while(tmp!=0){register entry_vtable*v asm("$3")=tmp->vtable;register float*out1 asm("$5")=&s1;register float*out2 asm("$6")=&sh1;asm volatile("" : "+r"(out1),"+r"(out2));if(v->get_scale((char*)tmp+v->get_adjust,*out1,*out2)){v=tmp->vtable;v->set_scale((char*)tmp+v->set_adjust,s*s1,s*sh1);}tmp=tmp->next;}scale=scale*s;scale_high=scale_high*s;}
+#endif
