@@ -1615,3 +1615,8 @@ class ai_interface;extern "C" void pop_disable(ai_interface*) __asm__("pop_disab
 // 0x0012F0E0 get_signal_id__6entityPCc
 extern const char*entity_signal_names[];extern "C" unsigned strlen(const char*);extern "C" int strcmp(const char*,const char*);asm(".equ entity_signal_names,0x003E5AF0");asm(".equ strlen,0x003D40E0");asm(".equ strcmp,0x003D3E88");class entity{public:static unsigned short get_signal_id(const char*);};unsigned short entity::get_signal_id(const char*name){unsigned idx;for(idx=0;idx<27;++idx){unsigned offset=strlen(entity_signal_names[idx])-strlen(name);if(offset>strlen(entity_signal_names[idx]))continue;if(!strcmp(name,&entity_signal_names[idx][offset]))return idx;}return 0xffff;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00131688)
+// 0x00131688 copy_flags__6entityRC6entity
+struct entity_layout;struct entity_vtable{char padding[320];short adjustment;short reserved;void(*set_walkable)(void*,bool);};struct entity_layout{char padding0[8];entity_vtable*vtable;char padding1[108];unsigned flags;char padding2[284];unsigned ext_flags;};extern "C" void copy_flags(entity_layout*,const entity_layout&)__asm__("copy_flags__6entityRC6entity");void copy_flags(entity_layout*self,const entity_layout&b){const unsigned COPY_MASK=0x20080300;const unsigned EXT_COPY_MASK=0xfff3f0ff;self->flags|=(b.flags&COPY_MASK);self->flags&=(b.flags|~COPY_MASK);self->ext_flags|=(b.ext_flags&EXT_COPY_MASK);self->ext_flags&=(b.ext_flags|~EXT_COPY_MASK);if(self->ext_flags&0x00100000){entity_vtable*v=self->vtable;v->set_walkable((char*)self+v->adjustment,true);}}
+#endif
