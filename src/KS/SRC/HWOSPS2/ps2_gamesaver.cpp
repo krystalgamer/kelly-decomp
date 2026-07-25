@@ -98,3 +98,8 @@ struct options{char p0[4];int stash_only;};extern options*developer_options;exte
 // 0x001E67B8 getFormattingString__16GenericGameSaverii
 struct stringx{char*chars;char pad[4];stringx();stringx(const char*,int=-1);~stringx();};struct GenericGameSaver{stringx getCardString(int,int);stringx getFormattingString(int,int)__asm__("getFormattingString__16GenericGameSaverii");};extern "C" char*strcpy(char*,const char*);extern "C" int sprintf(char*,const char*,...);extern stringx ksGlobalTextArray[];__asm__(".equ getCardString__16GenericGameSaverii,0x001E60F0");__asm__(".equ strcpy,0x003D3FCC");__asm__(".equ sprintf,0x003D38A8");__asm__(".equ ksGlobalTextArray,0x003E68B0");__asm__(".equ __7stringxPCci,0x0034D438");__asm__(".equ _$_7stringx,0x0034D6E0");stringx GenericGameSaver::getFormattingString(int port,int slot){char sentence[200];char mc[50];strcpy(mc,getCardString(port,slot).chars);sprintf(sentence,ksGlobalTextArray[0].chars,mc,mc);return stringx(sentence);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001E39C0)
+// 0x001E39C0 AsciiString2Sjis__FPUcPUs
+extern "C" int string_len(const char*) __asm__("strlen");extern "C" unsigned short Ascii2Sjis(unsigned char) __asm__("Ascii2Sjis__FUc");asm(".equ strlen,0x003D40E0");asm(".equ Ascii2Sjis__FUc,0x001E38B0");extern "C" void AsciiString2Sjis(unsigned char*,unsigned short*) __asm__("AsciiString2Sjis__FPUcPUs");void AsciiString2Sjis(unsigned char*input,unsigned short*output){int i=0;int len=string_len((char*)input);for(i=0;i<len;i++){unsigned short sjis=Ascii2Sjis(input[i]);unsigned char temp1=sjis;unsigned char temp2=sjis>>8;output[i]=temp2|(temp1<<8);}output[i]=0;}
+#endif
