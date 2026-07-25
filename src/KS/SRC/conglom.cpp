@@ -93,3 +93,8 @@ struct Vtable{char p0[776];short cong_adj;short z0;bool(*is_cong)(void*);char p1
 // 0x00305CA8 terrain_radius__C12conglomerate
 struct EntityVTable{char p0[216];short radius_adj;short g0;float(*radius)(void*);char p1[384];short visual_adj;short g1;float(*visual)(void*);};class conglomerate{char p[8];EntityVTable*vt;public:float get_visual_radius()const{EntityVTable*v=vt;return v->visual((char*)this+v->visual_adj);}float get_radius()const{EntityVTable*v=vt;return v->radius((char*)this+v->radius_adj);}float terrain_radius()const;};float conglomerate::terrain_radius()const{float r=get_visual_radius();if(r<0.1f&&get_radius()>r)r=get_radius();return r;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00307F20)
+// 0x00307F20 set_ext_flag_recursive__12conglomerateUib
+struct entity;struct EntityVTable{char p[184];short flag_adj;short gap;void(*setflag)(void*,unsigned,bool);};struct entity{char p0[8];EntityVTable*vt;void set_ext_flag_recursive(unsigned f,bool set){EntityVTable*v=vt;v->setflag((char*)this+v->flag_adj,f,set);}};class conglomerate{char p[408];unsigned ext_flags;char gap[100];entity**members_start;entity**members_finish;public:void set_ext_flag_recursive(unsigned,bool);};void conglomerate::set_ext_flag_recursive(register unsigned f,register bool set){if(set)ext_flags|=f;else ext_flags&=~f;entity**i=members_start;entity**i_end=members_finish;for(;i!=i_end;++i)(*i)->set_ext_flag_recursive(f,set);}
+#endif
