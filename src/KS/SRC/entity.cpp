@@ -1625,3 +1625,8 @@ struct entity_layout;struct entity_vtable{char padding[320];short adjustment;sho
 // 0x00130D20 set_last_po__6entityRC2po
 struct vector4d{float x,y,z,w;vector4d&operator=(const vector4d&o){x=o.x;y=o.y;z=o.z;w=o.w;return*this;}};struct po{vector4d m[4];po&operator=(const po&o){m[0]=o.m[0];m[1]=o.m[1];m[2]=o.m[2];m[3]=o.m[3];return*this;}};class entity{char padding[364];po*last_po;public:void set_last_po(const po&);};void entity::set_last_po(const po&the_po){if(last_po)*last_po=the_po;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00132EA8)
+// 0x00132EA8 activate_motion_blur__6entityiiif
+struct mbi_layout{int start,end,count;char padding[48];int min_alpha,max_alpha,num_images;float spread;};struct entity_vtable{char padding[368];short adjustment;short reserved;bool(*is_blurred)(void*);};class entity{char padding0[8];entity_vtable*vtable;char padding1[108];unsigned flags;char padding2[208];mbi_layout*mbi;public:void activate_motion_blur(int,int,int,float);};void entity::activate_motion_blur(int min_a,int max_a,int num,float spread){flags|=0x400;entity_vtable*v=vtable;if(v->is_blurred((char*)this+v->adjustment)){mbi->start=0;mbi->end=0;mbi->count=0;mbi->min_alpha=min_a;mbi->max_alpha=max_a;mbi->num_images=num;mbi->spread=spread;}}
+#endif
