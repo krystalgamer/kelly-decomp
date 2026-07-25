@@ -207,6 +207,7 @@ public:
     virtual PanelGeom *FindObject(const stringx &search_name);
     virtual PanelGeom *FindObject(const char *search_name);
     virtual PanelQuad *FindQuad(const stringx &search_name);
+    PanelQuad *GetPointer(const char *search_name);
     virtual void SetFilename(stringx path);
     bool Load(bool floating = false);
 };

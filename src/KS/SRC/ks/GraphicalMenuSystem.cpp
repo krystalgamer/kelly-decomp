@@ -317,3 +317,36 @@ void TitleFrontEnd::Select(int n)
 	}
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001BD7E0)
+// 0x001BD7E0 SetPQIndices__9HelpbarFE
+#include "KS/SRC/ks/HelpbarFE_shared.h"
+
+extern const char helpbar_arrow_horizontal[];
+extern const char helpbar_arrow_vertical[];
+extern const char helpbar_arrow_all[];
+extern const char helpbar_button_cross[];
+extern const char helpbar_button_triangle[];
+extern const char helpbar_button_circle[];
+extern const char helpbar_button_square[];
+
+__asm__(".equ helpbar_arrow_horizontal, 0x004C3AD0");
+__asm__(".equ helpbar_arrow_vertical, 0x004C3AE8");
+__asm__(".equ helpbar_arrow_all, 0x004C3B00");
+__asm__(".equ helpbar_button_cross, 0x004C3B10");
+__asm__(".equ helpbar_button_triangle, 0x004C3B20");
+__asm__(".equ helpbar_button_circle, 0x004C3B30");
+__asm__(".equ helpbar_button_square, 0x004C3B40");
+
+// Preserve the released cross-call scheduling normalized by the EE compiler shim.
+void HelpbarFE::SetPQIndices()
+{
+	buttons[ARROW_H] = GetPointer(helpbar_arrow_horizontal);
+	buttons[ARROW_V] = GetPointer(helpbar_arrow_vertical);
+	buttons[ARROW_BOTH] = GetPointer(helpbar_arrow_all);
+	buttons[CROSS] = GetPointer(helpbar_button_cross);
+	buttons[TRIANGLE] = GetPointer(helpbar_button_triangle);
+	buttons[CIRCLE] = GetPointer(helpbar_button_circle);
+	buttons[SQUARE] = GetPointer(helpbar_button_square);
+}
+#endif

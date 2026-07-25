@@ -2,6 +2,7 @@
 #define KELLY_DECOMP_FRONT_END_MANAGER_SHARED_H
 
 #include "KS/SRC/ks/GraphicalMenuSystem_shared.h"
+#include "KS/SRC/ks/HelpbarFE_shared.h"
 
 class IGOFrontEnd;
 class GraphicalMenuSystem;
@@ -9,16 +10,6 @@ class FEEntityManager {
 public:
     void Update(time_value_t time_inc);
 };
-class HelpbarFE {
-    char helpbar_data[0x15c];
-    int disabled;
-
-public:
-    inline void DisableHelpbar() {
-        disabled = true;
-    }
-};
-
 class PauseMenuSystem {
 public:
     void ActivateAndExit();

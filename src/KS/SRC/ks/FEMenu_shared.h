@@ -237,6 +237,7 @@ class PanelFile {
 
 public:
     void Load(bool floating);
+    PanelQuad *GetPointer(const char *search_name);
     void SetFilename(stringx filename);
 };
 #endif
@@ -256,6 +257,9 @@ public:
     virtual void LoadPanel(bool floating = false) { panel.Load(floating); }
     virtual PanelFile* GetPanel();
     virtual void SetPanel(stringx);
+    inline PanelQuad *GetPointer(const char *name) {
+        return panel.GetPointer(name);
+    }
 
 protected:
 #if defined(KELLY_DECOMP_FULL_FE_PANEL_HELPERS)
@@ -283,6 +287,8 @@ protected:
 #endif
     virtual void SetPQIndices();
 };
+
+__asm__(".equ GetPointer__9PanelFilePCc, 0x00152F88");
 
 class __attribute__((aligned(16))) FEGraphicalMenu : public FEMenu, public FrontEnd {
 public:
