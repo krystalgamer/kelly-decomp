@@ -79,3 +79,8 @@ bool UnlockingManager::isLevelUnlocked(int level) const {
            g_career->levels[level].IsUnlocked();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002F0758)
+// 0x002F0758 isSurferBoardUnlocked__C16UnlockingManagerii
+extern char cheat_base[];struct Frontend{char p[0x1566c];int tmp_mode;char p2[8];int fe_done;};extern Frontend frontendmanager;struct Game{char p[116];int mode;};extern Game*g_game_ptr;struct Career{bool IsBoardUnlocked(int)const __asm__("IsBoardUnlocked__C6Careeri");};extern Career*g_career;struct GlobalData{bool isSurferBoardUnlocked(int,int)const __asm__("isSurferBoardUnlocked__C15GlobalDataClassii");};extern GlobalData globalCareerData;class UnlockingManager{public:bool isSurferBoardUnlocked(int,int)const __asm__("isSurferBoardUnlocked__C16UnlockingManagerii");};__asm__(".equ cheat_base,0x0043BDF0");__asm__(".equ frontendmanager,0x003E7728");__asm__(".equ g_game_ptr,0x0046AC64");__asm__(".equ g_career,0x00427C9C");__asm__(".equ globalCareerData,0x004349B8");__asm__(".equ IsBoardUnlocked__C6Careeri,0x0025C5E8");__asm__(".equ isSurferBoardUnlocked__C15GlobalDataClassii,0x002EFDF8");bool UnlockingManager::isSurferBoardUnlocked(int surfer,int board)const{char*cb=cheat_base;if(*(int*)(cb+4)||*(int*)(cb-28))return true;if(board==0)return true;int mode=frontendmanager.fe_done?g_game_ptr->mode:frontendmanager.tmp_mode;if(mode!=0)return globalCareerData.isSurferBoardUnlocked(surfer,board);else return g_career->IsBoardUnlocked(board);}
+#endif
