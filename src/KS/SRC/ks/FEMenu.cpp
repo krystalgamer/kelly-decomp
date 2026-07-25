@@ -374,3 +374,23 @@ struct FEMenuSystem;struct FEMenuEntry;union color32{unsigned value;struct{unsig
 // 0x00156280 __6FEMenu
 struct stringx{char data[8];};extern "C" void construct_string(stringx*)__asm__("__7stringx");asm(".equ __7stringx,0x0034D3E0");extern void*femenu_vtable;asm(".equ femenu_vtable,0x004DBEA8");class FEMenu{public:int center_x,center_y,num_entries,dy,half,menu_num;int init;stringx font_filename;unsigned color,color_high,color_high_alt;float scale,scale_high;int max_vis_entries,flags;void*entries;void*first_vis_entry;void*last_vis_entry;void*highlighted;void*system;void*back;int back_num;void*submenus;void*active;void*parent;void*helpText;int helpFlags;void*next_sub;void*vtable;FEMenu();};FEMenu::FEMenu(){vtable=&femenu_vtable;construct_string(&font_filename);color=0;color_high=0;color_high_alt=0;center_x=0;center_y=0;num_entries=0;dy=0;half=0;menu_num=0;init=false;scale=1.0f;scale_high=1.0f;max_vis_entries=1;flags=0;entries=0;first_vis_entry=0;last_vis_entry=0;highlighted=0;system=0;back=0;back_num=0;submenus=0;active=0;parent=0;helpText=0;helpFlags=0;next_sub=0;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00157600)
+// 0x00157600 MakeActive__6FEMenuP6FEMenub
+#include "KS/SRC/ks/FEMenu_shared.h"
+
+void FEMenu::MakeActive(FEMenu* a, bool notify)
+{
+	if (notify)
+	{
+		if(active) active->OnUnactivate(a);
+		else OnUnactivate(a);
+	}
+	if (notify)
+	{
+		if(a) a->OnActivate();
+		else OnActivate();
+	}
+	active = a;
+}
+#endif
