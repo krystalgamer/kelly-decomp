@@ -647,3 +647,29 @@ struct WavePartition{unsigned N;float*guide;float*guidestep;float*weight;};exter
 // 0x00384B80 WorldToProfile__t21WavePulsePerturbClass1i6f
 struct pulse_vtable{char padding[24];short adjustment;short reserved;float(*world_to_pulse)(void*,float);};class WavePulsePerturbClass6{public:char padding[432];pulse_vtable*vtable;public:float WorldToProfile(float);};extern int WAVE_PerturbStage;extern float WAVE_PerturbProgress;asm(".equ WAVE_PerturbStage,0x00585C44");asm(".equ WAVE_PerturbProgress,0x00585C6C");inline float pulse(WavePulsePerturbClass6*self,float x){pulse_vtable*v=self->vtable;return v->world_to_pulse((char*)self+v->adjustment,x);}extern "C" float WorldToProfile(WavePulsePerturbClass6*self,float worldx)__asm__("WorldToProfile__t21WavePulsePerturbClass1i6f");float WorldToProfile(WavePulsePerturbClass6*self,float worldx){float profilex;switch(WAVE_PerturbStage){case 1:case 2:case 3:case 4:profilex=pulse(self,worldx);break;case 5:{float p=pulse(self,worldx);float q=1.0f-WAVE_PerturbProgress;profilex=worldx+(p-worldx)*(q*q);break;}default:profilex=worldx;break;}return profilex;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003744A8)
+// 0x003744A8 WAVE_Tick__Fv
+#include "KS/SRC/ks/wave_shared.h"
+#include "decomp_annotations.h"
+
+void WAVE_Tick(void)
+{
+	WAVE_TotalSec += WAVE_GetFrameSec();
+
+	WAVE_TexAnimFrame = WAVETEX_FrameFix(0, WAVE_TexAnimFrame + WAVE_TexAnimSpeed );
+	WAVE_ComputeGrid();
+	WAVE_ComputeShift();
+	WAVE_ComputeStage();
+	WAVE_ComputeVTwist();
+	WAVE_ComputeSlices();
+	WAVE_EmitterUpdate();
+	WAVE_SoundUpdate();
+	UNDERWATER_ScrollBottom();
+	if ( WaveDebug.AnimateFoam )
+		WAVE_ComputeFoamAlphas();
+
+	WAVE_GetBreakInfo(&WAVE_BreakInfo);
+	KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
