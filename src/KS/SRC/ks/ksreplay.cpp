@@ -354,3 +354,8 @@ void KSEntityState::Reset()
     flags = value;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023BF50)
+// 0x0023BF50 SetCollisionInfo__8KSReplayP12beach_objectP6entityRC8vector3d
+class beach_object;class entity;struct vector3d{float x,y,z;vector3d&operator=(const vector3d&o){x=o.x;y=o.y;z=o.z;return *this;}};struct Collision{beach_object*obj;entity*ent;vector3d dir;float timeStamp;};class KSReplay{char p[200];Collision*collisions;int current_collision;int num_collisions;public:void SetCollisionInfo(beach_object*,entity*,const vector3d&);};extern float level_seconds;asm(".equ level_seconds,0x0046B284");void KSReplay::SetCollisionInfo(beach_object*obj,entity*ent,const vector3d&dir){if(collisions==0||(unsigned)num_collisions>=100)return;collisions[num_collisions].obj=obj;collisions[num_collisions].ent=ent;collisions[num_collisions].dir=dir;collisions[num_collisions].timeStamp=level_seconds;num_collisions++;}
+#endif
