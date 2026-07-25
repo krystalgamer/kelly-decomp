@@ -32,6 +32,8 @@ public:
     virtual inline bool is_an_entity() const { return false; }
     virtual inline bool is_a_trigger() const { return false; }
     virtual void raise_signal(unsigned int index) const;
+    virtual signal_list *construct_signal_list();
+    virtual const char *get_signal_name(unsigned short index) const;
 };
 
 __asm__(".equ raise__6signal, 0x0034C428");

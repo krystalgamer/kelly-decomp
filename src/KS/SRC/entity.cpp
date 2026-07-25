@@ -1668,3 +1668,25 @@ void entity::movement_info::check_mem_init(void)
 
 #undef malloc
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00133640)
+// 0x00133640 render_passes_needed__C6entity
+#include "KS/SRC/entity_shared.h"
+// Exact released implementation with the inherited virtual declaration order.
+
+render_flavor_t entity::render_passes_needed() const
+{
+  if ( !my_visrep )
+    return 0;
+
+  render_flavor_t passes=my_visrep->render_passes_needed();
+  if ( my_visrep->get_type() == VISREP_PMESH )
+  {
+    if ( render_color.get_alpha() < 0xFF )
+      passes = RENDER_TRANSLUCENT_PORTION;
+    else if ( is_motion_blurred() || is_motion_trailed() )
+      passes |= RENDER_TRANSLUCENT_PORTION;
+  }
+  return passes;
+}
+#endif
