@@ -385,3 +385,8 @@ class turn_data{public:float TurnVel,BankAccel,BankVel,Bank;};class kellyslater_
 // 0x00224DA0 IsTubeHandInWater__22kellyslater_controller
 struct Game{char p[552];int beach_id;};struct BeachData{char p[208];int bdir;char tail[320];};extern Game*g_game_ptr;extern BeachData BeachDataArray[];asm(".equ g_game_ptr,0x0046AC64");asm(".equ BeachDataArray,0x0043C198");class kellyslater_controller{char p0[56];int super_state;char p1[424];int goofy;char p2[6276];int tube_trick;char p3[24];int last_tube_trick;public:int IsTubeHandInWater();};int kellyslater_controller::IsTubeHandInWater(){if(super_state!=7)return 0;int current_trick=last_tube_trick;if(last_tube_trick==-1)current_trick=tube_trick;if(current_trick==69){if(goofy)return 1;else return 2;}if(current_trick==71){if(BeachDataArray[g_game_ptr->beach_id].bdir)return 2;else return 1;}if(current_trick==70||current_trick==73)return 3;return 0;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00211F18)
+// 0x00211F18 SetTurnStat__22kellyslater_controlleriiffff
+class kellyslater_controller{char padding[556];float turnRatings[7][4];float worstTurns[7][4];float bestTurns[7][4];public:void SetTurnStat(int,int,float,float,float,float);};void kellyslater_controller::SetTurnStat(int table,int heading,float turnVel,float bankAccel,float bankVel,float bank){switch(table){case 0:turnRatings[heading][3]=bank;turnRatings[heading][2]=bankVel;turnRatings[heading][1]=bankAccel;turnRatings[heading][0]=turnVel;break;case 1:worstTurns[heading][3]=bank;worstTurns[heading][2]=bankVel;worstTurns[heading][1]=bankAccel;worstTurns[heading][0]=turnVel;break;case 2:bestTurns[heading][3]=bank;bestTurns[heading][2]=bankVel;bestTurns[heading][1]=bankAccel;bestTurns[heading][0]=turnVel;break;}}
+#endif
