@@ -305,3 +305,8 @@ void entity_anim::detach()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00118470)
+// 0x00118470 reset_root_position__16entity_anim_tree
+struct anim_control_t{char p[32];};struct entity_anim{unsigned short flags;void reset_start(const anim_control_t&);};struct Vec{entity_anim**start;entity_anim**finish;entity_anim**end;};class entity_anim_tree{char p0[72];anim_control_t control;Vec*anims;float floor_offset;void*trackb;float blend_b;Vec anims_b;anim_control_t control_b;public:void reset_root_position();};asm(".equ reset_start__11entity_animRC14anim_control_t,0x00114090");void entity_anim_tree::reset_root_position(){if(anims->start!=anims->finish){entity_anim*a=*anims->start;if((a->flags&0x1000)&&(a->flags&1)&&(a->flags&0x10)){a->reset_start(control);if(trackb&&anims_b.start!=anims_b.finish){entity_anim*b=*anims_b.start;if((b->flags&0x1000)&&(b->flags&1)){b->reset_start(control_b);asm volatile("");}}}}}
+#endif
