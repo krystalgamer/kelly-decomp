@@ -67,3 +67,19 @@ void destroy_light(light_layout *self,int flags) {
     __asm__ __volatile__("" : : : "memory");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002CC8B0)
+// 0x002CC8B0 __16light_properties
+#include "KS/SRC/light_shared.h"
+
+light_properties::light_properties()
+  : flavor(LIGHT_FLAVOR_POINT),
+    diffuse_color(1.0f, 1.0f, 1.0f, 1.0f),
+    near_range(1.0f),
+    cutoff_range(16)
+{
+    additive_color = color(0, 0, 0, 0);
+    recompute_range();
+    flags = 0;
+}
+#endif
