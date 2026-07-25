@@ -240,3 +240,8 @@ struct edit_vtable{char pad[168];short set_adjust;short set_pad;void(*set_value)
 // 0x0023EAE0 OnOpen__4MenuP4MenuP10MenuSystem
 struct EntryVtable{char p[80];short adj;short z;void(*open)(void*,void*,void*);};struct MenuEntry{char p[4];EntryVtable*vtable;};class Menu{public:char p0[4];int entries;MenuEntry**entry;char p1[8];Menu*closeto;int count()const{register int v asm("$2")=entries;return v;}void OnOpen(Menu*,void*)__asm__("OnOpen__4MenuP4MenuP10MenuSystem");};void Menu::OnOpen(Menu*cto,void*c){if(cto)closeto=cto;for(int i=0;i<count();i++)if(entry[i]){MenuEntry*e=entry[i];EntryVtable*v=e->vtable;v->open((char*)e+v->adj,this,c);}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023E3D0)
+// 0x0023E3D0 Open__4MenuP4MenuP10MenuSystem
+class Menu;class MenuSystem{public:void Opening(Menu*);};struct MenuVTable{char p[48];short open_adj;short gap;void(*onopen)(void*,Menu*,MenuSystem*);};class Menu{Menu*parent;int entries;void*entry;int activeentry;int isopen;Menu*closeto;MenuSystem*control;MenuVTable*vt;public:void FindActivateEntry(int);void Close(bool=true);void Open(Menu*,MenuSystem*);};asm(".equ Opening__10MenuSystemP4Menu,0x002410E8");asm(".equ FindActivateEntry__4Menui,0x0023E940");asm(".equ Close__4Menub,0x0023E470");void Menu::Open(Menu*cto,MenuSystem*c){if(!isopen){control=c;control->Opening(this);MenuVTable*v=vt;v->onopen((char*)this+v->open_adj,cto,c);isopen=true;if(activeentry<0)FindActivateEntry(1);if(activeentry<0){Close();asm volatile("");}}}
+#endif
