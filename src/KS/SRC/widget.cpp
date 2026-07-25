@@ -751,3 +751,32 @@ void widget::message_handler(
         } while (child != children.end());
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003428E8)
+// 0x003428E8 __10bar_widgetPCcP6widgetssQ26widget12widget_dir_e
+#include "KS/SRC/widget_shared.h"
+
+// Use the released bar-widget and base-widget declarations.
+bar_widget::bar_widget(
+    const char *widget_name,
+    widget *parent,
+    short x,
+    short y,
+    widget_dir_e direction)
+  : widget(widget_name, parent, x, y),
+    dir(direction),
+    val(-1.0f),
+    full_val(1.0f)
+{
+    x_fac = y_fac = 0;
+
+    if (dir == WDIR_Left)
+        x_fac = -1;
+    else if (dir == WDIR_Right)
+        x_fac = 1;
+    else if (dir == WDIR_Up)
+        y_fac = 1;
+    else if (dir == WDIR_Down)
+        y_fac = -1;
+}
+#endif

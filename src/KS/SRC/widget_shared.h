@@ -22,6 +22,19 @@ private:
     char widget_state_after_flags[0x128];
 
 public:
+    enum widget_dir_e {
+        WDIR_Left,
+        WDIR_Right,
+        WDIR_Up,
+        WDIR_Down
+    };
+
+    inline widget() {}
+    widget(
+        const char *widget_name,
+        widget *parent,
+        short x,
+        short y);
     virtual ~widget();
     virtual void show();
     virtual void hide();
@@ -89,6 +102,24 @@ public:
     inline bool is_shown() const { return flags & 1; }
 };
 
+class bar_widget : public widget {
+protected:
+    widget_dir_e dir;
+    signed char x_fac;
+    signed char y_fac;
+    rational_t val;
+    rational_t full_val;
+
+public:
+    bar_widget(
+        const char *widget_name,
+        widget *parent,
+        short x,
+        short y,
+        widget_dir_e direction);
+    virtual ~bar_widget();
+};
+
 class menu_widget : public widget {
 public:
     virtual void init();
@@ -108,6 +139,9 @@ enum wevent_type_e {
     WEVENT_Rotate,
     WEVENT_Scale
 };
+
+__asm__(".equ __6widgetPCcP6widgetss, 0x0033D990");
+__asm__(".equ _vt$10bar_widget, 0x005042E0");
 
 class wevent {
 public:
