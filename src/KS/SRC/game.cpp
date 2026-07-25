@@ -339,3 +339,8 @@ extern int g_screenshot;extern const char*g_screenshot_filename;extern "C" bool 
 // 0x002857B0 set_player_handicap__4gameii
 struct GameGlobal{char p[600];int surfer_idx[4];};extern GameGlobal*g_game_ptr;class GlobalDataClass{public:int getMaxHandicap(int);};extern GlobalDataClass globalCareerData;asm(".equ g_game_ptr,0x0046AC64");asm(".equ globalCareerData,0x004349B8");asm(".equ getMaxHandicap__15GlobalDataClassi,0x002EFCC8");class game{char p[72];int handicap[4];public:void set_player_handicap(int,int) __asm__("set_player_handicap__4gameii");};void game::set_player_handicap(int hero,int value){int max=globalCareerData.getMaxHandicap(g_game_ptr->surfer_idx[hero]);if(value>max)handicap[hero]=globalCareerData.getMaxHandicap(g_game_ptr->surfer_idx[hero]);else handicap[hero]=value;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0027D338)
+// 0x0027D338 get_one_button_down__FRi
+enum device_id_t{ANY_LOCAL_JOYSTICK=12};class input_mgr{public:float get_control_state(device_id_t,int)const;};extern input_mgr*input_manager;asm(".equ input_manager,0x0046B7B0");asm(".equ get_control_state__C9input_mgr11device_id_ti,0x003441C8");bool get_one_button_down(int&btn){input_mgr*inputmgr=input_manager;btn=-1;for(int i=184;i<=197;i++){if(inputmgr->get_control_state(ANY_LOCAL_JOYSTICK,i)!=0.0f){if(btn!=-1)return false;else btn=i;}}return true;}
+#endif
