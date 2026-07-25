@@ -310,3 +310,41 @@ void entity_anim::detach()
 // 0x00118470 reset_root_position__16entity_anim_tree
 struct anim_control_t{char p[32];};struct entity_anim{unsigned short flags;void reset_start(const anim_control_t&);};struct Vec{entity_anim**start;entity_anim**finish;entity_anim**end;};class entity_anim_tree{char p0[72];anim_control_t control;Vec*anims;float floor_offset;void*trackb;float blend_b;Vec anims_b;anim_control_t control_b;public:void reset_root_position();};asm(".equ reset_start__11entity_animRC14anim_control_t,0x00114090");void entity_anim_tree::reset_root_position(){if(anims->start!=anims->finish){entity_anim*a=*anims->start;if((a->flags&0x1000)&&(a->flags&1)&&(a->flags&0x10)){a->reset_start(control);if(trackb&&anims_b.start!=anims_b.finish){entity_anim*b=*anims_b.start;if((b->flags&0x1000)&&(b->flags&1)){b->reset_start(control_b);asm volatile("");}}}}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001133D8)
+// 0x001133D8 check_mem_init__11entity_anim
+#include "KS/SRC/entity_anim_shared.h"
+#include "KS/SRC/staticmem_shared.h"
+
+extern const char entity_anim_mem_description[];
+
+__asm__(".equ _11entity_anim$meminit, 0x003E572C");
+__asm__(".equ _11entity_anim$allocated, 0x003E5730");
+__asm__(".equ _11entity_anim$membuffer, 0x003E5734");
+__asm__(".equ _11entity_anim$mem_init_func, 0x003E5738");
+__asm__(".equ _11entity_anim$mem_free_func, 0x003E573C");
+__asm__(".equ _11entity_anim$current_allocation, 0x003E5740");
+__asm__(".equ entity_anim_mem_description, 0x004C9020");
+__asm__(".equ arch_malloc__FUiPCci, 0x002AC6F0");
+__asm__(".equ memset, 0x003D18D0");
+
+#define malloc(size) arch_malloc(size, entity_anim_mem_description, 0)
+
+void entity_anim::check_mem_init(void)
+{
+	if ( !meminit )
+	{
+		membuffer=malloc(1000*sizeof(entity_anim));
+		if ( membuffer==NULL ) return;
+		memset(membuffer,0,1000*sizeof(entity_anim));
+		allocated=(bool *) malloc(1000*sizeof(bool));
+		if ( allocated==NULL ) return;
+		memset(allocated,0,1000*sizeof(bool));
+		meminit=true;
+		if (mem_init_func)
+		{ void (*func) () = (void (*) ()) mem_init_func; (*func) (); }
+	}
+}
+
+#undef malloc
+#endif

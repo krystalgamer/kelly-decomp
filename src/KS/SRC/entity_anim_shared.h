@@ -2,6 +2,7 @@
 #define KELLY_DECOMP_ENTITY_ANIM_SHARED_H
 
 #include "KS/SRC/anim_shared.h"
+#include "KS/SRC/mbi_shared.h"
 #include "KS/SRC/rtti_shared.h"
 
 class PRS_track;
@@ -36,8 +37,12 @@ protected:
     po_anim *po_anim_ptr;
     signal_anim *signal_anim_ptr;
     int priority;
+    quaternion tween_quat;
+    vector3d rel_pos;
 
 public:
+    float floor_offset;
+
     inline bool is_flagged(unsigned short value) const {
         return flags & value;
     }
@@ -51,6 +56,15 @@ public:
     }
 
     void set_po_anim(po_anim *animation);
+
+    static bool meminit;
+    static bool *allocated;
+    static void *membuffer;
+    static int current_allocation;
+    static void *mem_init_func;
+    static void *mem_free_func;
+    static void check_mem_init();
+    static void mem_cleanup();
 };
 
 struct pentity_anim_vector {
