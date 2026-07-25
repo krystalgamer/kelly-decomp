@@ -1,13 +1,19 @@
 #ifndef KELLY_DECOMP_WIDGET_SHARED_H
 #define KELLY_DECOMP_WIDGET_SHARED_H
 
+#include "g++-2/stl_list_shared.h"
+
 typedef float rational_t;
 typedef float time_value_t;
 
 class color;
+class widget;
+
+typedef list<widget *> widget_list_t;
 
 class widget {
-    char widget_state_to_flags[0x14];
+    char widget_state_before_children[0x10];
+    widget_list_t children;
 
 protected:
     unsigned int flags;

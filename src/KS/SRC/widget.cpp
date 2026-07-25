@@ -728,3 +728,26 @@ struct widget{};struct Event{int type;void*owner;float wait,duration;int field16
 // 0x0033ED48 scale_to__6widgetffff
 struct widget{};struct Event{int type;void*owner;float wait,duration;int field16;void*vtable;float hs,vs;};extern "C" void*opnew(unsigned,unsigned,const char*,int)__asm__("__nw__FUiUiPCci");extern void*vtable;extern const char file[];extern "C" void add(widget*,Event*)__asm__("add_wevent__6widgetP6wevent");asm(".equ __nw__FUiUiPCci,0x002AC578");asm(".equ vtable,0x00504F50");asm(".equ file,0x00501EB0");asm(".equ add_wevent__6widgetP6wevent,0x0033E310");extern "C" void scale(widget*,float,float,float,float)__asm__("scale_to__6widgetffff");void scale(widget*self,float wait,float duration,float hs,float vs){Event*e=(Event*)opnew(32,0,file,0);register int type asm("$3")=4;register void*vt asm("$6")=&vtable;register widget*out asm("$4")=self;asm volatile("" : "+r"(out));e->wait=wait;register Event*arg asm("$5")=e;asm volatile("" : "+r"(arg));e->duration=duration;e->hs=hs;e->vs=vs;e->owner=self;e->type=type;e->vtable=vt;e->field16=0;add(out,arg);asm volatile("");}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033E1A8)
+// 0x0033E1A8 message_handler__6widgetUiUiff
+#include "KS/SRC/widget_shared.h"
+
+// Preserve the released GNU 2 list iterator copy ABI.
+// Normalize the shipped iterator stack-slot and loop scheduling in the EE shim.
+void widget::message_handler(
+    unsigned int message,
+    unsigned int overflow,
+    rational_t parm0,
+    rational_t parm1)
+{
+    widget_list_t::iterator child = children.begin();
+    if (child != children.end())
+        do {
+            if ((*child)->is_shown())
+                (*child)->message_handler(
+                    message, overflow, parm0, parm1);
+            ++child;
+        } while (child != children.end());
+}
+#endif

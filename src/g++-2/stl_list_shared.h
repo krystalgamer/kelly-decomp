@@ -41,15 +41,20 @@ struct _List_iterator_base {
     }
 };
 
-template<class T>
+template<class T, class Ref = T &, class Ptr = T *>
 class _List_iterator : public _List_iterator_base {
 public:
+    typedef _List_iterator<T, T &, T *> iterator;
     typedef _List_node<T> node_type;
 
     _List_iterator() {}
     explicit _List_iterator(node_type *node) : _List_iterator_base(node) {}
+    _List_iterator(const iterator &other)
+      : _List_iterator_base(other._M_node)
+    {
+    }
 
-    T &operator*() const
+    Ref operator*() const
     {
         return static_cast<node_type *>(_M_node)->_M_data;
     }
@@ -64,7 +69,8 @@ public:
 template<class T, class Allocator = my_allocator<T> >
 class list {
 public:
-    typedef _List_iterator<T> iterator;
+    typedef _List_iterator<T, T &, T *> iterator;
+    typedef _List_iterator<T, const T &, const T *> const_iterator;
     typedef _List_node<T> node_type;
 
     node_type *_M_node;
