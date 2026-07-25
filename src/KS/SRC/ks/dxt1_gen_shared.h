@@ -1,19 +1,15 @@
 #ifndef KELLY_DECOMP_DXT1_GEN_SHARED_H
 #define KELLY_DECOMP_DXT1_GEN_SHARED_H
 
-class cbVector {
-    unsigned char pData[4];
-
-public:
-    inline unsigned char& operator[](int i) { return pData[i]; }
-};
+#include "KS/SRC/ks/dxt1_codebook_shared.h"
 
 class DXTCGen {
-    char vects[0x94];
+    CodeBook Vects;
     cbVector* pVects;
 
 public:
     void BuildCodes3(int channel, cbVector& v1, cbVector& v2);
+    int ComputeError(CodeBook &pixels);
 };
 
 #endif

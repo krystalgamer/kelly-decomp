@@ -43,3 +43,25 @@ struct cbVector{unsigned char pData[4];unsigned char&operator[](int i){return pD
 // 0x00262FF0 BuildCodes4__7DXTCGeniR8cbVectorT2
 class cbVector{unsigned char pData[4];public:unsigned char&operator[](int i){return pData[i];}};class DXTCGen{char pad[148];cbVector*pVects;public:void BuildCodes4(int,cbVector&,cbVector&)__asm__("BuildCodes4__7DXTCGeniR8cbVectorT2");};void DXTCGen::BuildCodes4(int Channel,cbVector&v1,cbVector&v2){pVects[0][Channel]=v1[Channel];pVects[3][Channel]=v2[Channel];pVects[1][Channel]=(unsigned char)(((int)v1[Channel]*2+(int)v2[Channel])/3);pVects[2][Channel]=(unsigned char)(((int)v2[Channel]*2+(int)v1[Channel])/3);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00263078)
+// 0x00263078 ComputeError__7DXTCGenR8CodeBook
+#include "KS/SRC/ks/dxt1_gen_shared.h"
+
+__asm__(".equ __vc__t5Table1Z8cbVectori, 0x00265570");
+__asm__(".equ FindVectorSlow__8CodeBookRC8cbVector, 0x00262CB0");
+__asm__(".equ DiffMag__C8cbVectorRC8cbVector, 0x00262C60");
+
+int DXTCGen::ComputeError(CodeBook & Pixels)
+{
+int Error = 0, Index, i;
+int Count = Pixels.GetNumCodes();
+
+	for(i=0; i<Count; i++)
+	{
+		Index = Vects.FindVectorSlow(Pixels[i]);
+		Error += pVects[Index].DiffMag(Pixels[i]);
+	}
+	return Error;
+}
+#endif
