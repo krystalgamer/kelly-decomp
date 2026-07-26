@@ -29,6 +29,46 @@ void KeyboardMenu::Switch(FEMenuEntry *before, FEMenuEntry *after)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001A06D0)
+// 0x001A06D0 Format__9NamesMenu
+#include "KS/SRC/HWOSPS2/GenericGameSaver_shared.h"
+#include "KS/SRC/ks/SaveLoadFrontEnd_shared.h"
+
+enum {
+    NUM_MEMORY_SLOTS = 1
+};
+
+__asm__(".equ _16GenericGameSaver$instance, 0x0042E5B8");
+__asm__(".equ format__16GenericGameSaverii, 0x001E4508");
+__asm__(".equ StartError__16SaveLoadFrontEndi, 0x0019B230");
+__asm__(".equ SetDState__16SaveLoadFrontEndibT2, 0x0019B760");
+__asm__(".equ FindAdjusted__9NamesMenui, 0x001A0808");
+
+void NamesMenu::Format()
+{
+    int type, free, formatted;
+    if (GenericGameSaver::getInfo(
+            active_card, 0, &type, &free, &formatted)
+        != GSErrorUnformatted)
+    {
+        sl_parent->SetDState(SaveLoadFrontEnd::DSTATE_SAVE);
+        return;
+    }
+
+    int ret = GenericGameSaver::inst()->format(
+        active_card != -1 ? active_card / NUM_MEMORY_SLOTS : -1,
+        active_card != -1 ? active_card % NUM_MEMORY_SLOTS : 0);
+    cards[FindAdjusted(ActiveCard())].status = ret;
+    if (ret != GSOk)
+        sl_parent->StartError(SE_FORM_ERROR);
+    else
+    {
+        cards[FindAdjusted(ActiveCard())].available = true;
+        sl_parent->SetDState(sl_parent->post_format_state);
+    }
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0019B668)
 // 0x0019B668 getActiveCard__16SaveLoadFrontEnd

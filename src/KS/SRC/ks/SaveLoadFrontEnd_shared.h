@@ -19,6 +19,15 @@ public:
 
 extern FEManager frontendmanager;
 
+enum SaveErrors {
+    SE_NO_MEMORY_CARDS,
+    SE_UNFORMAT,
+    SE_NOT_ENOUGH_SPACE,
+    SE_SAVE_ERROR,
+    SE_LOAD_ERROR,
+    SE_FORM_ERROR
+};
+
 struct MemCard {
     int free;
     bool exists;
@@ -29,8 +38,12 @@ struct MemCard {
     int status;
 };
 
+class SaveLoadFrontEnd;
+
 class NamesMenu : public FEMultiMenu {
-    char names_menu_data[0x1bc - sizeof(FEMultiMenu)];
+    char names_menu_data0[0x170 - sizeof(FEMultiMenu)];
+    SaveLoadFrontEnd *sl_parent;
+    char names_menu_data1[0x1bc - 0x174];
     MemCard cards[2];
     stringx blank_name;
     int active_card;
@@ -40,6 +53,9 @@ public:
     void OnUnactivate(FEMenu *menu);
     void RefreshDisplay();
     void TurnPQ(bool enabled);
+    void Format();
+    int ActiveCard() { return active_card; }
+    static int FindAdjusted(int active);
 
 private:
     void GetFileList(int active, int adjusted);
@@ -47,9 +63,30 @@ private:
 };
 
 class SaveLoadFrontEnd : public FEMultiMenu {
+    char save_load_front_end_data[0x32b8 - sizeof(FEMultiMenu)];
+
 public:
+    enum disp_states {
+        DSTATE_LSD,
+        DSTATE_LOAD,
+        DSTATE_LOAD_PICK,
+        DSTATE_LOAD_GLOBAL,
+        DSTATE_LOADING_GLOBAL,
+        DSTATE_LOADING,
+        DSTATE_LOAD_DONE,
+        DSTATE_SAVE
+    };
+
+    int post_format_state;
+
     virtual void Select();
     virtual void OnCross(int controller);
+    void StartError(int id);
+    void SetDState(
+        int state,
+        bool activate = true,
+        bool end_error = false)
+        __asm__("SetDState__16SaveLoadFrontEndibT2");
 };
 
 class BoxText;

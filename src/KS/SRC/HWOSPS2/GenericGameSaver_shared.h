@@ -3,6 +3,9 @@
 
 class GenericGameSaver {
 public:
+    static GenericGameSaver *instance;
+    static inline GenericGameSaver *inst() { return instance; }
+
     int format(int port, int slot);
     static int getInfo(
         int port,
