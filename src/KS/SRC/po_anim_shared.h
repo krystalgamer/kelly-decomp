@@ -20,6 +20,10 @@ class po_anim : public anim<po> {
 
 public:
     virtual ~po_anim();
+    inline bool has_P() const { return P && P->is_valid(); }
+    inline bool has_R() const { return R && R->is_valid(); }
+    inline bool has_S() const { return S && S->is_valid(); }
+    void set_time(float time);
 
     static bool meminit;
     static bool *allocated;

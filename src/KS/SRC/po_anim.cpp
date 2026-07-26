@@ -1,5 +1,19 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0011A860)
+// 0x0011A860 set_time__7po_animf
+#include "KS/SRC/po_anim_shared.h"
+
+void po_anim::set_time(float time)
+{
+    if (has_P())
+        P->set_time(time);
+    if (has_R())
+        R->set_time(time);
+    if (has_S())
+        S->set_time(time);
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001199B8)
 // 0x001199B8 __nw__7po_animUiUiPCci

@@ -67,6 +67,14 @@ public:
     virtual inline void frame_advance(const anim_control_t &control, animatable_t *destination) {}
     virtual inline void get_value(const anim_control_t &control, animatable_t *destination) const {}
     virtual inline void get_value(float time, animatable_t *destination) const {}
+
+    inline bool is_flagged(anim_flags_t flag) const {
+        return flags & flag;
+    }
+
+    inline bool is_valid() const {
+        return is_flagged(ANIM_VALID);
+    }
 };
 
 template <class animatable_t, class key_t, class track_t>
