@@ -105,3 +105,55 @@ void* mem_malloc(
     return allocation;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AC900)
+// 0x002AC900 mem_free__FPv
+class Heap
+{
+    char data[108];
+
+public:
+    bool IsThisYours(void *allocation) const;
+    void Deallocate(void *allocation);
+};
+
+extern Heap heaps[6];
+extern int AllocMemorySema;
+
+void mem_check_heap_init();
+extern "C" int WaitSema(int semaphore);
+extern "C" int SignalSema(int semaphore);
+extern "C" void free(void *allocation);
+
+__asm__(".equ heaps, 0x00570528");
+__asm__(".equ AllocMemorySema, 0x0046ABD0");
+__asm__(".equ mem_check_heap_init__Fv, 0x002ACFB8");
+__asm__(".equ IsThisYours__C4HeapPv, 0x002AB770");
+__asm__(".equ Deallocate__4HeapPv, 0x002AB680");
+__asm__(".equ WaitSema, 0x003DB6A0");
+__asm__(".equ SignalSema, 0x003DB680");
+__asm__(".equ free, 0x003D0BC8");
+
+void mem_free(void *allocation)
+{
+    mem_check_heap_init();
+    if (allocation == 0)
+        return;
+
+    bool found = false;
+    for (int i = 5; i >= 0; --i)
+    {
+        if (heaps[i].IsThisYours(allocation))
+        {
+            found = true;
+            WaitSema(AllocMemorySema);
+            heaps[i].Deallocate(allocation);
+            SignalSema(AllocMemorySema);
+            break;
+        }
+    }
+
+    if (!found)
+        free(allocation);
+}
+#endif
