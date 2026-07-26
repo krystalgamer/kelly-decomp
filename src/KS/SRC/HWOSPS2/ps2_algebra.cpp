@@ -1,5 +1,16 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001DF8F0)
+// 0x001DF8F0 adjugate__9matrix4x4
+#include "KS/SRC/matrix4x4_shared.h"
+
+matrix4x4 matrix4x4::adjugate()
+{
+    matrix4x4 local;
+    local = Cof();
+    return local.transpose();
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DE758)
 // 0x001DE758 make_translate__9matrix4x4RC8vector3d
