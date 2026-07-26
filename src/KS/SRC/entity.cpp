@@ -1,5 +1,21 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00130B68)
+// 0x00130B68 invalidate_frame_delta__6entity
+#include "KS/SRC/entity_frame_delta_shared.h"
+
+void frame_delta_entity::invalidate_frame_delta()
+{
+    if (movement)
+    {
+        movement->last_frame_delta_valid =
+            movement->frame_delta_valid;
+        movement->frame_delta_valid = false;
+        movement->frame_delta = po_identity_matrix;
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001349E8)
 // 0x001349E8 clear_anim__6entityP16entity_anim_tree
 #include "KS/SRC/entity_anim_clear_shared.h"
