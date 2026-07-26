@@ -16,6 +16,8 @@
 #define CHEAT_CODE_MESSAGE_DURATION 1.0f
 
 class GraphicalMenuSystem;
+class CheatCodeMenu;
+class EnterCheatMenu;
 
 struct CheatFrontEndDispatchVTable {
     char padding[0x1c0];
@@ -28,7 +30,20 @@ struct CheatFrontEndDispatchVTable {
 };
 
 class CheatFrontEnd : public FEMultiMenu {
+    GraphicalMenuSystem *sys;
+    bool pq_indices_set;
+    PanelQuad *arrow_up[2];
+    PanelQuad *arrow_down[2];
+    PanelQuad *cellphone;
+    PanelQuad *numbers[10];
+    PanelQuad *numbers_hi[10];
+    CheatCodeMenu *code_menu;
+    EnterCheatMenu *enter_code;
+    FEMenuEntry *new_cheat_entry;
+    FEMenuEntry *toggle_cheats_entry;
+
 public:
+    virtual void Select(int entry_index);
     void OnLeft(int command);
     void OnRight(int command);
 };

@@ -1,5 +1,28 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001D1600)
+// 0x001D1600 Select__13CheatFrontEndi
+#include "KS/SRC/ks/CheatFrontEnd_shared.h"
+
+void CheatFrontEnd::Select(int entry_index)
+{
+    if (active)
+        active->Select(entry_index);
+    else
+    {
+        SoundScriptManager::inst()->playEvent(SS_FE_ONX);
+        switch (entry_index)
+        {
+        case 0:
+            MakeActive(enter_code);
+            break;
+        case 1:
+            MakeActive(code_menu);
+            break;
+        }
+    }
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001D3510)
 // 0x001D3510 Select__14EnterCheatMenu
