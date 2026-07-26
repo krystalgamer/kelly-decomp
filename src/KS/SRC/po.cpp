@@ -14,6 +14,20 @@ void po::set_translate(const vector3d &translation)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00348500)
+// 0x00348500 set_scale__2poRC8vector3d
+#include "KS/SRC/po_shared.h"
+
+void po::set_scale(const vector3d &scale)
+{
+    m = identity_matrix;
+
+    m.x.x = scale.x;
+    m.y.y = scale.y;
+    m.z.z = scale.z;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_003483A8)
 // 0x003483A8 non_affine_slow_xform__C2poRC8vector3d
