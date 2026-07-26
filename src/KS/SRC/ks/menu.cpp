@@ -270,3 +270,26 @@ void Menu::ActivateEntry(int index)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023F320)
+// 0x0023F320 OnButtonPress__16MenuEntryIntEditi
+#include "KS/SRC/ks/menu_shared.h"
+
+void MenuEntryIntEdit::OnButtonPress(int button_id)
+{
+    if (button_id == 5)
+        DecValue();
+    else if (button_id == 6)
+        IncValue();
+    else if (button_id == 12)
+        IncValueByTen();
+    else if (button_id == 11)
+        DecValueByTen();
+    else if (button_id == 14)
+        IncValueByFifty();
+    else if (button_id == 13)
+        DecValueByFifty();
+    else
+        MenuEntryLabel::OnButtonPress(button_id);
+}
+#endif
