@@ -1,5 +1,46 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00155E68)
+// 0x00155E68 Disable__11FEMenuEntryb
+#include "KS/SRC/ks/FEMenuEntry_disable_shared.h"
+
+void FEMenuEntry::Disable(bool value)
+{
+    disabled = value;
+    if (disabled)
+    {
+        if (has_special_color)
+            text->color = special_color;
+        else
+            text->color = menu->color;
+        reinterpret_cast<unsigned char *>(
+            &text->color)[3] = disabled_alpha;
+        text->no_color = false;
+    }
+    else
+    {
+        text->no_color =
+            !highlight && !(menu->flags & 4);
+        if (!text->no_color)
+        {
+            if (highlight)
+            {
+                if (has_special_color)
+                    text->color = special_color_high;
+                else
+                    text->color = menu->color_high;
+            }
+            else
+            {
+                if (has_special_color)
+                    text->color = special_color;
+                else
+                    text->color = menu->color;
+            }
+        }
+    }
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001561D8)
 // 0x001561D8 SetSpecialColor__11FEMenuEntryG7color32T1
