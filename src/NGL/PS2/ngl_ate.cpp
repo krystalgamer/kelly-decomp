@@ -1,5 +1,43 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_003ACAD8)
+// 0x003ACAD8 ATENthTextureEntryHead__FPcRC14nglFixedStringi
+#include "NGL/PS2/ngl_ate_lookup_shared.h"
+
+ATEFileEntry *ATENthTextureEntryHead(
+    char *file,
+    const atestring &texture_name,
+    int entry)
+{
+    ATEFileHeader *header =
+        reinterpret_cast<ATEFileHeader *>(file);
+    int found = 0;
+    if (header->items)
+    {
+        for (unsigned int index = 0;
+             index < header->items;
+             index++)
+        {
+            ATEFileEntry *candidate =
+                ATEEntryHead(file, index);
+            if (candidate &&
+                ATENameMatch(
+                    texture_name,
+                    candidate->name))
+            {
+                if (found == entry)
+                    return candidate;
+                found++;
+            }
+        }
+    }
+    ate_assert(
+        ate_source_file,
+        68,
+        ate_assert_condition);
+    return 0;
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003ACA30)
 // 0x003ACA30 ATEEntryHead__FPci
