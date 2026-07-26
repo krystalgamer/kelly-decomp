@@ -264,3 +264,101 @@ particle_generator* world_dynamics_system::add_particle_generator(
 	return new_pg;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0029C080)
+// 0x0029C080 add_light_source__21world_dynamics_systemRC7stringxbT2R9entity_id
+class stringx;
+class entity_id;
+
+struct light_vtable
+{
+    char entries_to_set_visible[0x160];
+    short set_visible_adjustment;
+    short set_visible_padding;
+    void (*set_visible)(void *self, bool visible);
+};
+
+class light_source
+{
+    char data_to_vtable[8];
+    light_vtable *vtable;
+    char data_to_flags[0x6C];
+    unsigned int flags;
+
+public:
+    inline void set_visible(bool visible)
+    {
+        light_vtable *table = vtable;
+        table->set_visible(
+            (char *)this + table->set_visible_adjustment,
+            visible
+        );
+    }
+
+    inline void set_nonstatic()
+    {
+        flags |= 0x08000000;
+    }
+};
+
+class world_dynamics_system
+{
+public:
+    light_source *add_light_source(
+        const stringx &filename,
+        bool invisible,
+        bool nonstatic,
+        entity_id &id
+    ) __asm__(
+        "add_light_source__21world_dynamics_systemRC7stringxbT2R9entity_id"
+    );
+    void add_light_source(light_source *light);
+};
+
+void *operator new(
+    unsigned int size,
+    unsigned int alignment,
+    const char *description,
+    int line
+);
+
+extern const char light_source_description[];
+extern "C" light_source *construct_light(
+    light_source *self,
+    const stringx &filename,
+    const entity_id &id,
+    unsigned int flavor
+) __asm__("__12light_sourceRC7stringxRC9entity_idUi");
+
+__asm__(".equ __nw__FUiUiPCci, 0x002AC578");
+__asm__(".equ light_source_description, 0x004F8768");
+__asm__(
+    ".equ __12light_sourceRC7stringxRC9entity_idUi, "
+    "0x002CD378"
+);
+__asm__(
+    ".equ add_light_source__21world_dynamics_systemP12light_source, "
+    "0x002A32F0"
+);
+
+light_source *world_dynamics_system::add_light_source(
+    const stringx &filename,
+    bool invisible,
+    bool nonstatic,
+    entity_id &id
+)
+{
+    light_source *light = (light_source *)operator new(
+        528,
+        0,
+        light_source_description,
+        0
+    );
+    light = construct_light(light, filename, id, 0);
+    if (nonstatic)
+        light->set_nonstatic();
+    light->set_visible(!invisible);
+    add_light_source(light);
+    return light;
+}
+#endif
