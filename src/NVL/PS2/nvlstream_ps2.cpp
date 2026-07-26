@@ -12,6 +12,105 @@ void nvlStreamSetBitRate(nvlStream *stream, int bitrate)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_003863E8)
+// 0x003863E8 nvlStreamSystemCallback__Fi
+#include "NVL/PS2/nvlstream_ps2_shared.h"
+
+enum {
+    SCECdFuncRead = 1,
+    SCECdFuncSeek = 4,
+    SCECdFuncStandby = 5,
+    SCECdFuncStop = 6,
+    SCECdFuncPause = 7,
+    SCECdFuncBreak = 8
+};
+
+extern const char callback_assert_expression[];
+extern void *callback_jump_table[];
+
+__asm__(".equ nvlCurrentIOStream, 0x0049AFF4");
+__asm__(".equ callback_assert_expression, 0x0051B228");
+__asm__(".equ callback_jump_table, 0x0051B250");
+
+#define assert(condition) \
+    ((condition) ? (void)0 : __assert( \
+        nvlstream_source_file, 765, callback_assert_expression))
+
+static void nvlStreamSystemCallback(int cause)
+{
+    nvlMsg msg = NVL_MSG_INVALID;
+    unsigned int index = (unsigned int)(cause - 1);
+    static void *const callback_labels[]
+        __attribute__((section(".nvl_callback_labels"))) = {
+            &&read_done,
+            &&invalid_cause,
+            &&invalid_cause,
+            &&seek_done,
+            &&standby_done,
+            &&stop_done,
+            &&pause_done,
+            &&break_done
+        };
+    (void)callback_labels;
+    if (index < 8)
+        goto *callback_jump_table[index];
+    goto invalid_cause;
+
+read_done:
+    msg = NVL_MSG_CDVD_READ;
+    goto dispatch;
+seek_done:
+    msg = NVL_MSG_CDVD_SEEK;
+    goto dispatch;
+standby_done:
+    msg = NVL_MSG_CDVD_STANDBY;
+    goto dispatch;
+stop_done:
+    msg = NVL_MSG_CDVD_STOP;
+    goto dispatch;
+pause_done:
+    msg = NVL_MSG_CDVD_PAUSE;
+    goto dispatch;
+break_done:
+    msg = NVL_MSG_CDVD_BREAK;
+    goto dispatch;
+invalid_cause:
+    assert(0 && "Crappy parameter.");
+
+dispatch:
+    if (nvlCurrentIOStream)
+    {
+        nvlSendMsg(
+            &nvlStreamSystemData.cdvdMsgQueue,
+            msg,
+            (nvlStream *)nvlCurrentIOStream);
+        nvlCurrentIOStream = 0;
+    }
+    else if (nvlStreamSystemData.prevCDVDCallback)
+    {
+        (*nvlStreamSystemData.prevCDVDCallback)(cause);
+    }
+}
+
+__asm__(
+    ".globl .L0038642C\n"
+    ".equ .L0038642C, nvlStreamSystemCallback__Fi + 0x44\n"
+    ".globl .L00386434\n"
+    ".equ .L00386434, nvlStreamSystemCallback__Fi + 0x4C\n"
+    ".globl .L0038643C\n"
+    ".equ .L0038643C, nvlStreamSystemCallback__Fi + 0x54\n"
+    ".globl .L00386444\n"
+    ".equ .L00386444, nvlStreamSystemCallback__Fi + 0x5C\n"
+    ".globl .L0038644C\n"
+    ".equ .L0038644C, nvlStreamSystemCallback__Fi + 0x64\n"
+    ".globl .L00386454\n"
+    ".equ .L00386454, nvlStreamSystemCallback__Fi + 0x6C\n"
+    ".globl .L0038645C\n"
+    ".equ .L0038645C, nvlStreamSystemCallback__Fi + 0x74");
+
+#undef assert
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00387310)
 // 0x00387310 nvlStreamReqSize__FP9nvlStream
