@@ -90,6 +90,15 @@ class entity_anim_tree : public entity_anim {
 public:
     virtual ~entity_anim_tree();
 
+    static bool meminit;
+    static bool *allocated;
+    static void *membuffer;
+    static int current_allocation;
+    static void *mem_init_func;
+    static void *mem_free_func;
+    static void check_mem_init();
+    static void mem_cleanup();
+
     void clear_anims();
     void clear_anims_b();
     void set_priority(int value);

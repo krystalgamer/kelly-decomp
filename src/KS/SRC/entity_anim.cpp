@@ -377,3 +377,46 @@ void entity_anim_tree::clear_anims()
 	}
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00113618)
+// 0x00113618 check_mem_init__16entity_anim_tree
+#include "KS/SRC/entity_anim_shared.h"
+#include "KS/SRC/staticmem_shared.h"
+
+extern const char entity_anim_tree_mem_description[];
+
+__asm__(".equ _16entity_anim_tree$meminit, 0x003E5744");
+__asm__(".equ _16entity_anim_tree$allocated, 0x003E5748");
+__asm__(".equ _16entity_anim_tree$membuffer, 0x003E574C");
+__asm__(".equ _16entity_anim_tree$mem_init_func, 0x003E5750");
+__asm__(".equ _16entity_anim_tree$mem_free_func, 0x003E5754");
+__asm__(".equ _16entity_anim_tree$current_allocation, 0x003E5758");
+__asm__(".equ entity_anim_tree_mem_description, 0x004C90A8");
+__asm__(".equ arch_malloc__FUiPCci, 0x002AC6F0");
+__asm__(".equ memset, 0x003D18D0");
+
+#define malloc(size) arch_malloc(size, entity_anim_tree_mem_description, 0)
+
+void entity_anim_tree::check_mem_init(void)
+{
+    if (!meminit)
+    {
+        membuffer = malloc(1000 * sizeof(entity_anim_tree));
+        if (membuffer == NULL)
+            return;
+        memset(membuffer, 0, 1000 * sizeof(entity_anim_tree));
+        allocated = (bool *)malloc(1000 * sizeof(bool));
+        if (allocated == NULL)
+            return;
+        memset(allocated, 0, 1000 * sizeof(bool));
+        meminit = true;
+        if (mem_init_func)
+        {
+            void (*func)() = (void (*)())mem_init_func;
+            (*func)();
+        }
+    }
+}
+
+#undef malloc
+#endif
