@@ -5,10 +5,31 @@
 
 class entity;
 class bone;
+class pstring;
+class stringx;
+class vector3d;
 
 class generic_interface {
 public:
     virtual ~generic_interface();
+    virtual bool get_ifc_num(
+        const pstring &attribute,
+        float &value);
+    virtual bool set_ifc_num(
+        const pstring &attribute,
+        float value);
+    virtual bool get_ifc_vec(
+        const pstring &attribute,
+        vector3d &value);
+    virtual bool set_ifc_vec(
+        const pstring &attribute,
+        const vector3d &value);
+    virtual bool get_ifc_str(
+        const pstring &attribute,
+        stringx &value);
+    virtual bool set_ifc_str(
+        const pstring &attribute,
+        const stringx &value);
 };
 
 class entity_interface : public generic_interface {

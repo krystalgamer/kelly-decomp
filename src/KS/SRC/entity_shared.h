@@ -2,8 +2,10 @@
 #define KELLY_DECOMP_ENTITY_SHARED_H
 
 #include "KS/SRC/bone_shared.h"
+#include "KS/SRC/entity_interfaces_shared.h"
 #include "KS/SRC/po_shared.h"
 #include "KS/SRC/stringx.h"
+#include "KS/SRC/time_interface_shared.h"
 #include "KS/SRC/visrep_shared.h"
 
 #pragma interface
@@ -24,6 +26,9 @@ class region_node;
 class sector;
 class terrain;
 class vector3d;
+class ai_interface;
+class hard_attrib_interface;
+class ownership_interface;
 
 class anim_id_manager {
 public:
@@ -115,7 +120,18 @@ public:
 class entity : public bone {
     stringx fileName;
     unsigned int flags;
-    char entity_data_after_flags[0xac];
+    char entity_data_before_interfaces[0x30];
+    ai_interface *my_ai_interface;
+    animation_interface *my_animation_interface;
+    hard_attrib_interface *my_hard_attrib_interface;
+    ownership_interface *my_ownership_interface;
+    physical_interface *my_physical_interface;
+    render_interface *my_render_interface;
+    skeleton_interface *my_skeleton_interface;
+    entity_interface *my_slave_interface;
+    soft_attrib_interface *my_soft_attrib_interface;
+    time_interface *my_time_interface;
+    char entity_data_after_interfaces[0x54];
     visual_rep *my_visrep;
     char entity_data_before_entity_sector[0x2c];
     sector *entity_sector;
@@ -366,6 +382,30 @@ public:
     void unforce_regions();
     void set_door(bool door);
     void set_door_closed(bool closed);
+    inline bool has_ai_ifc() const {
+        return my_ai_interface != 0;
+    }
+    inline entity_interface *ai_ifc() const {
+        return (entity_interface *)my_ai_interface;
+    }
+    inline bool has_physical_ifc() const {
+        return my_physical_interface != 0;
+    }
+    inline physical_interface *physical_ifc() const {
+        return my_physical_interface;
+    }
+    inline bool has_soft_attrib_ifc() const {
+        return my_soft_attrib_interface != 0;
+    }
+    inline soft_attrib_interface *soft_attrib_ifc() const {
+        return my_soft_attrib_interface;
+    }
+    inline bool has_time_ifc() const {
+        return my_time_interface != 0;
+    }
+    inline time_interface *time_ifc() const {
+        return my_time_interface;
+    }
     inline void set_needs_compute_sector(bool enabled) {
         if (enabled)
             ext_flags |= 0x20000000;

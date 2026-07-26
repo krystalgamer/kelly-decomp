@@ -123,6 +123,30 @@ void entity::preload()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001396B0)
+// 0x001396B0 set_ifc_num__6entityRC7pstringf
+#include "KS/SRC/entity_shared.h"
+
+#define IFC_DATA_SET_NUM(name) \
+    if (has_##name##_ifc() && \
+        name##_ifc()->set_ifc_num(attribute, value)) \
+        return true
+
+bool entity::set_ifc_num(
+    const pstring &attribute,
+    rational_t value)
+{
+    IFC_DATA_SET_NUM(ai);
+    IFC_DATA_SET_NUM(physical);
+    IFC_DATA_SET_NUM(soft_attrib);
+    IFC_DATA_SET_NUM(time);
+
+    return false;
+}
+
+#undef IFC_DATA_SET_NUM
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00135FF8)
 #include "KS/SRC/mbi_shared.h"
 
