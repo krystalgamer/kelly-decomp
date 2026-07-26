@@ -1,5 +1,35 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00125070)
+// 0x00125070 update_unused_velocity__18physical_interfacef
+#include "KS/SRC/entity_interfaces_shared.h"
+#include "KS/SRC/entity_shared.h"
+
+extern const vector3d ZEROVEC;
+__asm__(".equ ZEROVEC, 0x00513840");
+__asm__(".equ using_velocity__C18physical_interface, 0x00122CC8");
+
+void physical_interface::update_unused_velocity(float increment)
+{
+    if (!using_velocity())
+    {
+        if (
+            my_entity->get_movement_info()
+            && my_entity->get_movement_info()->frame_delta_valid
+        )
+        {
+            velocity =
+                my_entity->get_movement_info()->frame_delta.get_position()
+                / increment;
+        }
+        else
+        {
+            velocity = ZEROVEC;
+        }
+    }
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00125228)
 // 0x00125228 set_last_collision_normal__18physical_interfaceRC8vector3d

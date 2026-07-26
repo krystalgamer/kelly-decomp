@@ -201,6 +201,9 @@ public:
     inline const vector3d &get_abs_position() const {
         return get_abs_po().get_position();
     }
+    inline movement_info *get_movement_info() const {
+        return *(movement_info * const *)((const char *)this + 0x150);
+    }
     inline bool was_preloaded() const {
         return ext_flags & 0x00080000;
     }

@@ -2,14 +2,23 @@
 #define KELLY_DECOMP_ENTITY_INTERFACES_SHARED_H
 
 #include "KS/SRC/entity_interface_shared.h"
+#include "KS/SRC/vector3d_shared.h"
 
 class physical_interface : public entity_interface {
     unsigned int flags;
     float mass;
     float volume;
+    vector3d velocity;
+    vector3d angular_velocity;
+    vector3d acceleration_factor;
+    vector3d acceleration_correction_factor;
+    vector3d last_acceleration_correction_factor;
+    vector3d last_collision_normal;
 
 public:
     explicit inline physical_interface(entity *value) : entity_interface(value) {}
+    bool using_velocity() const;
+    void update_unused_velocity(float increment);
 };
 
 class render_interface : public entity_interface {
