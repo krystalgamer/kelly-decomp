@@ -154,6 +154,26 @@ struct WaveProfileCoeffs {
     SplineCoeffs<16> z;
 };
 
+enum WaveRegionEnum {
+    WAVE_REGION_DUMMY
+};
+
+struct WavePositionHint {
+    float x;
+    float z;
+    float xprofile;
+    unsigned int xcell;
+    unsigned int zcell;
+    unsigned int xgrid;
+    unsigned int zgrid;
+    WaveProfileCoeffs wpc;
+};
+
+struct WaveVelocityHint {
+    float vx;
+    float vz;
+};
+
 struct WaveProfileMetaCoeffs {
     SplineCoeffs<16> y[16];
     SplineCoeffs<16> z[16];

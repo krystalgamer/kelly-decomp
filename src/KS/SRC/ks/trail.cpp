@@ -172,3 +172,47 @@ void trail::spraypt_update (spray_control_t *SprayControlPts, u_int max)
 	}
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00361DB8)
+// 0x00361DB8 reset__5trail
+#include "KS/SRC/ks/trail_shared.h"
+
+void trail::reset()
+{
+    my_index = 0;
+    my_last_sample = 0;
+    my_lastmag1 = 0;
+    my_lastmag2 = 0;
+
+    u_int i = 0;
+    if (my_total_nodes)
+    {
+        trail_node_t *node = my_trail_data;
+        do
+        {
+            node->valid = false;
+            i++;
+        } while (i < my_total_nodes && (node++, true));
+    }
+
+    if (my_spray)
+    {
+        my_spray->last_apow = 0;
+        my_spray->last_bpow = 0;
+        my_spray->num_control_points_a = 0;
+        my_spray->num_control_points_b = 0;
+        my_spray->floater_interval = 0;
+        my_spray->airdrops_interval = 0;
+        my_spray->left_hand_interval = 0;
+        my_spray->right_hand_interval = 0;
+        my_spray->extra_splash_power[0] = 0;
+        my_spray->extra_splash_power[1] = 0;
+
+        for (int i = 0; i < MAX_SPRAY_PTS; i++)
+        {
+            my_spray->control_points_a[i].valid = false;
+            my_spray->control_points_b[i].valid = false;
+        }
+    }
+}
+#endif
