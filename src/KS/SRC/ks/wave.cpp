@@ -673,3 +673,65 @@ void WAVE_Tick(void)
 	KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00378938)
+// 0x00378938 WAVE_ComputeVTwist__Fv
+extern float WAVE_ScaleV;
+extern float WAVE_MeshMinZ;
+extern float WAVE_MeshMaxZ;
+extern float WAVE_EmitterZ;
+extern float WAVE_EmitterCrestZ;
+extern float WAVE_ShiftV;
+extern float WAVE_VTwistScale;
+extern float WAVE_MeshMinV;
+extern float WAVE_CrashV;
+extern float WAVE_CrestV;
+extern float WAVE_MeshMaxV;
+extern float WAVE_VTwistCrashV;
+extern float WAVE_VTwistCrestV;
+extern float WAVE_VTwistSlopeMinCrash;
+extern float WAVE_VTwistSlopeCrashCrest;
+extern float WAVE_VTwistSlopeCrestMax;
+
+__asm__(".equ WAVE_ScaleV, 0x004852D0");
+__asm__(".equ WAVE_MeshMinZ, 0x00484628");
+__asm__(".equ WAVE_MeshMaxZ, 0x0048462C");
+__asm__(".equ WAVE_EmitterZ, 0x00585AC0");
+__asm__(".equ WAVE_EmitterCrestZ, 0x00585AC4");
+__asm__(".equ WAVE_ShiftV, 0x0058EA44");
+__asm__(".equ WAVE_VTwistScale, 0x004847EC");
+__asm__(".equ WAVE_MeshMinV, 0x00585ADC");
+__asm__(".equ WAVE_CrashV, 0x00585AE0");
+__asm__(".equ WAVE_CrestV, 0x00585AE4");
+__asm__(".equ WAVE_MeshMaxV, 0x00585AE8");
+__asm__(".equ WAVE_VTwistCrashV, 0x00585AEC");
+__asm__(".equ WAVE_VTwistCrestV, 0x00585AF0");
+__asm__(".equ WAVE_VTwistSlopeMinCrash, 0x00585AF4");
+__asm__(".equ WAVE_VTwistSlopeCrashCrest, 0x00585AF8");
+__asm__(".equ WAVE_VTwistSlopeCrestMax, 0x00585AFC");
+
+void WAVE_ComputeVTwist()
+{
+    WAVE_MeshMinV = WAVE_ScaleV * WAVE_MeshMinZ + WAVE_ShiftV;
+    WAVE_CrashV = WAVE_ScaleV * WAVE_EmitterZ + WAVE_ShiftV;
+    WAVE_CrestV = WAVE_ScaleV * WAVE_EmitterCrestZ + WAVE_ShiftV;
+    WAVE_MeshMaxV = WAVE_ScaleV * WAVE_MeshMaxZ + WAVE_ShiftV;
+
+    WAVE_VTwistCrashV =
+        WAVE_CrashV +
+        WAVE_VTwistScale * (WAVE_CrestV - WAVE_CrashV);
+    WAVE_VTwistCrestV =
+        WAVE_CrestV -
+        WAVE_VTwistScale * (WAVE_CrestV - WAVE_CrashV);
+
+    WAVE_VTwistSlopeMinCrash =
+        (WAVE_VTwistCrashV - WAVE_MeshMinV) /
+        (WAVE_CrashV - WAVE_MeshMinV);
+    WAVE_VTwistSlopeCrashCrest =
+        (WAVE_VTwistCrestV - WAVE_VTwistCrashV) /
+        (WAVE_CrestV - WAVE_CrashV);
+    WAVE_VTwistSlopeCrestMax =
+        (WAVE_MeshMaxV - WAVE_VTwistCrestV) /
+        (WAVE_MeshMaxV - WAVE_CrestV);
+}
+#endif
