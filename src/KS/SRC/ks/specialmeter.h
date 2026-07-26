@@ -10,9 +10,11 @@ class SpecialMeter : public EventRecipient {
 private:
     int playerIdx;
     float fillage;
+    bool isEnabled;
 
 public:
     float GetFillage() const { return fillage; }
+    bool CanRegionLink() const;
 };
 
 #endif
