@@ -435,3 +435,35 @@ void FEMenu::MakeActive(FEMenu* a, bool notify)
 	active = a;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001580D8)
+// 0x001580D8 Draw__15FEGraphicalMenu
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+
+extern "C" void draw_panel(PanelFile *, int)
+    __asm__("Draw__9PanelFilei");
+__asm__(".equ Draw__9PanelFilei, 0x001530B8");
+
+void FEGraphicalMenu::Draw()
+{
+    if (!parent)
+        draw_panel(&panel, 0);
+    if (active != 0)
+        active->Draw();
+    else
+    {
+        FEMenuEntry *tmp = entries;
+        while (tmp != 0)
+        {
+            if (!(flags & 0x400 && tmp->GetDisable()))
+                tmp->Draw();
+            tmp = tmp->next;
+        }
+    }
+    if (!parent) {
+        draw_panel(&panel, 1);
+        __asm__ __volatile__("");
+    }
+}
+#endif
