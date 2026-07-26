@@ -50,6 +50,50 @@ public:
     virtual void Draw();
 };
 
+class MultiplayerMenu : public FEMenu {
+public:
+    enum {
+        MultiPushEntry,
+        MultiHeadToHeadEntry,
+        MultiTimeAttackEntry,
+        MultiEnd
+    };
+
+    GraphicalMenuSystem *sys;
+    FEMenuEntry *entry[MultiEnd];
+
+    MultiplayerMenu(FEMenuSystem *system, int x, int y);
+    virtual void OnActivate();
+    virtual void OnDown(int controller);
+    virtual void OnUp(int controller);
+    virtual void Update(time_value_t time_inc);
+    virtual void Select(int entry_index);
+    virtual void OnCross(int) { Select(highlighted->entry_num); }
+    virtual void OnTriangle(int controller);
+
+private:
+    void UpdateDisable();
+};
+
+class FreesurfMenu : public FEMenu {
+public:
+    enum {
+        FreeRegularEntry,
+        FreeHighScoreEntry,
+        FreeIconEntry,
+        FreeEnd
+    };
+
+    FEMenuEntry *entry[FreeEnd];
+    GraphicalMenuSystem *sys;
+
+    FreesurfMenu(FEMenuSystem *system, int x, int y);
+    virtual void OnActivate();
+    virtual void Select(int entry_index);
+    virtual void OnCross(int) { Select(highlighted->entry_num); }
+    virtual void OnTriangle(int controller);
+};
+
 class MainFrontEnd : public FEMultiMenu {
 public:
     enum {

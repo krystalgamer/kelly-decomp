@@ -474,3 +474,27 @@ void MainFrontEnd::OnCross(int c)
 	KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0017F6D0)
+// 0x0017F6D0 Update__12MainFrontEndf
+#include "KS/SRC/ks/MainFrontEnd_shared.h"
+
+__asm__(".equ Update__8FrontEndf, 0x00157B30");
+__asm__(".equ Update__6FEMenuf, 0x00156DC8");
+
+void MainFrontEnd::Update(time_value_t time_inc)
+{
+    if(active) active->Update(time_inc);
+    else
+    {
+        FrontEnd::Update(time_inc);
+        FEMenu::Update(time_inc);
+        switch(highlighted->entry_num)
+        {
+        case MainFreeEntry: Freesurf->Update(time_inc); break;
+        case MainCareerEntry: career_menu->Update(time_inc); break;
+        case MainMultiEntry: Multi->Update(time_inc); break;
+        }
+    }
+}
+#endif
