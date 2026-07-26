@@ -250,3 +250,23 @@ class Menu;class MenuSystem{public:void Opening(Menu*);};struct MenuVTable{char 
 // 0x0023EB70 OnClose__4Menub
 struct entry_vtable{char padding[88];short adjustment;short reserved;void(*on_close)(void*);};struct MenuEntry{char padding[4];entry_vtable*vtable;};struct MenuSystem;class Menu{int padding0;int entries;MenuEntry**entry;char padding1[8];Menu*closeto;MenuSystem*control;public:void OnClose(bool);};extern "C" void open_menu(Menu*,Menu*,MenuSystem*)__asm__("Open__4MenuP4MenuP10MenuSystem");asm(".equ Open__4MenuP4MenuP10MenuSystem,0x0023E3D0");void Menu::OnClose(bool toparent){int i=0;for(;;){register int count asm("$2")=entries;if(i>=count)break;MenuEntry*e=entry[i];if(e){entry_vtable*v=e->vtable;v->on_close((char*)e+v->adjustment);}++i;}if(toparent){Menu*o=closeto;closeto=0;if(o){open_menu(o,0,control);asm volatile("");}}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0023E880)
+// 0x0023E880 ActivateEntry__4Menui
+#include "KS/SRC/ks/menu_shared.h"
+
+void Menu::ActivateEntry(int index)
+{
+    if (activeentry >= 0 && entry[activeentry])
+    {
+        entry[activeentry]->Deactivate();
+        activeentry = -1;
+    }
+    if (index >= 0 && entry[index])
+    {
+        entry[index]->Activate();
+        if (entry[index]->IsActive())
+            activeentry = index;
+    }
+}
+#endif
