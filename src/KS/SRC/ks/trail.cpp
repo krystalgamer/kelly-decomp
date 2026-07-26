@@ -1,5 +1,27 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00361A40)
+// 0x00361A40 ks_fx_trail_draw__Fi
+#include "KS/SRC/ks/trail_shared.h"
+
+void ks_fx_trail_draw(const int heroIdx)
+{
+    for (int j = 0; j < MAX_TRAIL_GENERATORS; j++)
+    {
+        if (g_game_ptr->get_num_active_players() == 2)
+        {
+            if (heroIdx == 0 && j == 1)
+                continue;
+            if (heroIdx == 1 && j == 0)
+                continue;
+        }
+
+        if (g_trails[j]->is_valid())
+            g_trails[j]->draw();
+    }
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00361DA0)
 // 0x00361DA0 destroy__5trail
