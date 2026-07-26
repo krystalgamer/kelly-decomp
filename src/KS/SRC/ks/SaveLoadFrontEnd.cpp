@@ -1,5 +1,34 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001A27D8)
+// 0x001A27D8 Switch__12KeyboardMenuP11FEMenuEntryT1
+#include "KS/SRC/ks/KeyboardMenu_shared.h"
+
+void KeyboardMenu::Switch(FEMenuEntry *before, FEMenuEntry *after)
+{
+    if (before == after)
+        return;
+
+    if (before->entry_num == back_idx)
+    {
+        KeyOn(back_idx, false);
+        KeyOn(enter_idx, false);
+        KeyOn(cancel_idx, false);
+    }
+    else if (before->entry_num < back_idx)
+        KeyOn(before->entry_num, false);
+
+    if (after->entry_num == back_idx)
+    {
+        KeyOn(back_idx, true);
+        KeyOn(enter_idx, true);
+        KeyOn(cancel_idx, true);
+    }
+    else if (after->entry_num < back_idx)
+        KeyOn(after->entry_num, true);
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0019B668)
 // 0x0019B668 getActiveCard__16SaveLoadFrontEnd
