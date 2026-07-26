@@ -1,5 +1,32 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_003A6AE0)
+// 0x003A6AE0 nglRotateQuad__FP7nglQuadfff
+#include "NGL/PS2/ngl_quad_rotate_shared.h"
+
+void nglRotateQuad(
+    nglQuad *quad,
+    float center_x,
+    float center_y,
+    float theta)
+{
+    for (int index = 0; index < 4; index++)
+    {
+        nglQuadVertex *vertex = &quad->Verts[index];
+        float x = vertex->X - center_x;
+        float y = vertex->Y - center_y;
+        vertex->X =
+            x * cosf(theta) -
+            y * sinf(theta) +
+            center_x;
+        vertex->Y =
+            y * cosf(theta) +
+            x * sinf(theta) +
+            center_y;
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_003A7008)
 #include "NGL/PS2/ngl_ps2_shared.h"
 
