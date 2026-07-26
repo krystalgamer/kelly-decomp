@@ -1,5 +1,31 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0017CC88)
+// 0x0017CC88 ShowAccompBackground__11IGOFrontEndbii
+#include "KS/SRC/ks/IGOFrontEnd_shared.h"
+
+void IGOFrontEnd::ShowAccompBackground(
+    const bool background_enabled,
+    const int horizontal_flags,
+    const int vertical_flags)
+{
+    if (accompWidget)
+        accompWidget->Show(background_enabled);
+    if (gridWidget)
+    {
+        if (background_enabled)
+        {
+            gridWidget->ShowHLines(horizontal_flags);
+            gridWidget->ShowVLines(vertical_flags);
+        }
+        else
+        {
+            gridWidget->Hide();
+        }
+    }
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0016EE38)
 // 0x0016EE38 clear__13IGOPrintQueue
