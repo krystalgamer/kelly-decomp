@@ -194,10 +194,12 @@ public:
     time_value_t get_age() const;
     int get_max_polys() const;
     bool is_hero() const;
+    vector3d get_visual_center() const;
+    inline const po &get_abs_po() const {
+        return **(po * const *)((const char *)this + 0x50);
+    }
     inline const vector3d &get_abs_position() const {
-        const po *absolute =
-            *(po * const *)((const char *)this + 0x50);
-        return absolute->get_position();
+        return get_abs_po().get_position();
     }
     inline bool was_preloaded() const {
         return ext_flags & 0x00080000;

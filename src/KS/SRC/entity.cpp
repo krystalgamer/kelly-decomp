@@ -1690,3 +1690,20 @@ render_flavor_t entity::render_passes_needed() const
   return passes;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00131730)
+// 0x00131730 get_visual_center__C6entity
+#include "KS/SRC/entity_shared.h"
+
+__asm__(".equ get_age__C6entity, 0x00133618");
+__asm__(".equ slow_xform__C2poRC8vector3d, 0x003482F8");
+
+vector3d entity::get_visual_center() const
+{
+    if (!my_visrep)
+        return get_abs_position();
+
+    vector3d center = my_visrep->get_center(get_age());
+    return get_abs_po().fast_8byte_xform(center);
+}
+#endif

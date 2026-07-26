@@ -26,6 +26,9 @@ public:
     inline const vector3d &get_position() const {
         return *(const vector3d *)&m.w;
     }
+
+    vector3d fast_8byte_xform(const vector3d &value) const
+        __asm__("slow_xform__C2poRC8vector3d");
 };
 
 #endif
