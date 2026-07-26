@@ -109,7 +109,25 @@ public:
         }
     }
 
-    virtual void get_value(float time, animatable_t *destination) const;
+    virtual void get_value(float t, animatable_t *dest) const
+    {
+        typename track_t::iterator i0 = track->m_keys;
+        typename track_t::iterator i1 = i0;
+        typename track_t::iterator i_end =
+            track->m_keys + track->num_keys;
+        ++i1;
+        while (i1 != i_end && t >= (*i1).get_time())
+        {
+            ++i0;
+            ++i1;
+        }
+        const key_t &k0 = *i0;
+        const key_t &k1 = *i1;
+        if (t < k0.get_time() || i1 == i_end)
+            *dest = k0.get_value();
+        else
+            *dest = k0.get_value(t, k1);
+    }
 };
 
 #endif
