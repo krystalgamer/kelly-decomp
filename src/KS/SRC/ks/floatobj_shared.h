@@ -1,20 +1,26 @@
 #ifndef KELLY_DECOMP_FLOATOBJ_SHARED_H
 #define KELLY_DECOMP_FLOATOBJ_SHARED_H
 
+#include "KS/SRC/entity_shared.h"
 #include "KS/SRC/stringx.h"
+#include "KS/SRC/vector3d_shared.h"
 #include "decomp_annotations.h"
 
 #if !defined(KELLY_DECOMP_FLOATOBJ_EMIT_VTABLES)
 #pragma interface
 #endif
 
-class entity;
-class vector3d;
-
 class color32 {
 public:
     unsigned int value;
 };
+
+inline void entity::set_render_color(color32 color)
+{
+    *(unsigned int *)&render_color = color.value;
+}
+
+class trail;
 
 class generic_anim {
 public:
@@ -139,12 +145,40 @@ class surfing_object : public water_object {
 public:
     surfing_object(entity*, const stringx&, const stringx&);
     virtual ~surfing_object();
+    virtual void spawn();
+    virtual void despawn();
+    virtual bool update(float);
+    virtual void collide(entity*, const vector3d&);
     virtual void jumped_over(entity*);
     virtual void sprayed(entity*);
+    virtual bool is_surfing_object();
 
 private:
     int mySound;
     generic_anim* my_anim_handler;
+    bool (surfing_object::*ai_func)(vector3d &, vector3d &, float);
+    int my_type;
+    float timer;
+    float timer2;
+    float turn_amount;
+    float turn_rate;
+    float lean_amount;
+    float my_idle_delay;
+    float tilt_amount;
+    vector3d velocity;
+    trail *my_trail;
+    entity *my_board_entity;
+    entity *my_third_entity;
+    stringx my_base_name;
+    int my_state;
+    int my_previous_state;
+    stringx *my_name_anims;
+    int my_num_anims;
+    stringx *my_board_name_anims;
+    int my_board_num_anims;
+    vector3d offset;
+    float extra_turn;
+    float total_extra_turn;
 };
 
 __asm__(".equ __7stringx, 0x0034D3E0");

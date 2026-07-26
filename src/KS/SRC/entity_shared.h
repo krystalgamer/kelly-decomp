@@ -372,6 +372,7 @@ public:
     }
     virtual render_flavor_t render_passes_needed() const;
     virtual void preload();
+    inline void set_render_color(color32 color);
     inline void set_flag(entity_flags flag, bool enabled) {
         if (enabled)
             flags |= flag;

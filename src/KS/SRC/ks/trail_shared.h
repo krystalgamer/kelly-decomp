@@ -90,9 +90,11 @@ protected:
 };
 
 extern trail *g_trails[MAX_TRAIL_GENERATORS];
+void ks_fx_trail_destroy(trail *dead);
 
 __asm__(".equ spraypt_pos__5trailP15spray_control_t, 0x00364A20");
 __asm__(".equ draw__5trail, 0x00363438");
 __asm__(".equ g_trails, 0x004861D0");
+__asm__(".equ ks_fx_trail_destroy__FP5trail, 0x00361A20");
 
 #endif
