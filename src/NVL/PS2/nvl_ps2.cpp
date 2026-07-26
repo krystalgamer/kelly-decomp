@@ -130,3 +130,53 @@ struct Source{int refs;};struct Movie{Source*src;};struct System{char pad[16];Mo
 // 0x0038ADA8 nvlShutdown__Fv
 struct NvlSystemData{int fromIPUHandlerID;int toIPUHandlerID;int disableToIPU;int disableFromIPU;void*pMovies[4];int runFullAdvance,currentMovieIdx,advanceOK,ioPending,initInterrupts;};extern NvlSystemData nvlSystemData;extern int nvlSystemInitialized;extern "C" void nvlStopAllMovies() __asm__("nvlStopAllMovies__Fv");extern "C" int DisableDmac(int);extern "C" int EnableDmac(int);extern "C" int RemoveDmacHandler(int,int);asm(".equ nvlSystemData,0x00597108");asm(".equ nvlSystemInitialized,0x0049B010");asm(".equ nvlStopAllMovies__Fv,0x0038AE40");asm(".equ DisableDmac,0x003DBE30");asm(".equ EnableDmac,0x003DBE98");asm(".equ RemoveDmacHandler,0x003DB4A0");extern "C" void nvlShutdown() __asm__("nvlShutdown__Fv");void nvlShutdown(){if(nvlSystemInitialized){nvlStopAllMovies();DisableDmac(3);RemoveDmacHandler(3,nvlSystemData.fromIPUHandlerID);if(!nvlSystemData.disableFromIPU)EnableDmac(3);DisableDmac(4);RemoveDmacHandler(4,nvlSystemData.toIPUHandlerID);if(!nvlSystemData.disableToIPU)EnableDmac(4);nvlSystemInitialized=0;}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0038B128)
+// 0x0038B128 nvlReleaseMovieSource__FP14nvlMovieSource
+struct nvlMovieSource {
+    int refs;
+    char *filename;
+};
+
+extern int nvlSystemInitialized;
+extern void (*nvlFreeFunc)(void *);
+extern "C" void nvl_assert(const char *, int, const char *)
+    __asm__("__assert");
+extern "C" void free_memory(void *) __asm__("free");
+extern const char nvl_source_file[];
+extern const char initialized_message[];
+extern const char source_message[];
+extern const char refs_message[];
+
+__asm__(".equ nvlSystemInitialized, 0x0049B010");
+__asm__(".equ nvlFreeFunc, 0x00597140");
+__asm__(".equ __assert, 0x003CF6B0");
+__asm__(".equ free, 0x003D0BC8");
+__asm__(".equ nvl_source_file, 0x0051B818");
+__asm__(".equ initialized_message, 0x0051B938");
+__asm__(".equ source_message, 0x0051B968");
+__asm__(".equ refs_message, 0x0051B980");
+
+void nvlReleaseMovieSource(nvlMovieSource *source)
+{
+    if (!nvlSystemInitialized)
+        nvl_assert(nvl_source_file, 588, initialized_message);
+    if (!(source && source->filename))
+        nvl_assert(nvl_source_file, 589, source_message);
+    if (source->refs != 0)
+        nvl_assert(nvl_source_file, 590, refs_message);
+
+    if (nvlFreeFunc)
+    {
+        nvlFreeFunc(source->filename);
+        nvlFreeFunc(source);
+        __asm__ __volatile__("");
+    }
+    else
+    {
+        free_memory(source->filename);
+        free_memory(source);
+        __asm__ __volatile__("");
+    }
+}
+#endif
