@@ -1,5 +1,40 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0022C808)
+// 0x0022C808 Reset__11auto_camera
+#include "KS/SRC/ks/ks_camera_shared.h"
+
+void auto_camera::Reset()
+{
+    beach_camera_destination[0] =
+        beach_camera_magnitude_x;
+    beach_camera_destination[1] =
+        beach_camera_magnitude_y;
+    beach_camera_destination[2] =
+        -beach_camera_magnitude_z;
+
+    int beach = g_game_ptr->get_beach_id();
+    if (BeachDataArray[beach].left_breaker)
+    {
+        beach_camera_yaw =
+            -beach_camera_magnitude_yaw;
+        beach_camera_destination[0] =
+            -beach_camera_magnitude_x;
+    }
+    else
+    {
+        beach_camera_destination[0] =
+            beach_camera_magnitude_x;
+        beach_camera_yaw =
+            beach_camera_magnitude_yaw;
+    }
+
+    break_camera_state = 0;
+    initialize_filter = true;
+    frame_advance(0.0f);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0026F0F8)
 #include "KS/SRC/rtti_shared.h"
 #include "KS/SRC/ks/ks_camera_shared.h"
