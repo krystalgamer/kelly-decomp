@@ -1,5 +1,37 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00373328)
+// 0x00373328 Save__12KSWaterState
+#include "KS/SRC/ks/KSWaterState_shared.h"
+
+void KSWaterState::Save()
+{
+    float *destination = StageStart;
+    float *sourceStart = WAVE_StageStart;
+    float *sourceDuration = WAVE_StageDuration;
+    for (int count = WAVE_StageMax - 1; count >= 0; --count)
+    {
+        destination[0] = *sourceStart++;
+        destination[WAVE_StageMax] = *sourceDuration++;
+        ++destination;
+    }
+
+    TotalSec = WAVE_TotalSec;
+    ScaleU = WAVE_ScaleU;
+    ScaleV = WAVE_ScaleV;
+    ShiftU = WAVE_ShiftU;
+    ShiftV = WAVE_ShiftV;
+    ShiftX = WAVE_ShiftX;
+    ShiftZ = WAVE_ShiftZ;
+    ShiftSpeedU = WAVE_ShiftSpeedU;
+    ShiftSpeedV = WAVE_ShiftSpeedV;
+    Stage = WAVE_Stage;
+    PerturbStage = WAVE_PerturbStage;
+    ScheduleTimeStart = WAVE_ScheduleTimeStart;
+    ScheduleTimeEnd = WAVE_ScheduleTimeEnd;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_003732E0)
 // 0x003732E0 WAVE_ResetTimer__Fv
