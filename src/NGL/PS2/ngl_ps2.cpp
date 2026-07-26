@@ -939,6 +939,42 @@ struct nglMesh{unsigned Flags;void*File;nglMesh*NextMesh;unsigned DataSize;};ext
 typedef unsigned int u_int;struct nglTexture{char pad0[12];u_int Hash;char pad1[84];u_int GsSize;};struct nglMaterialInfo{u_int Hash;};struct nglMaterial{u_int Flags;nglTexture*Map;nglTexture*LightMap;nglTexture*DetailMap;nglTexture*EnvironmentMap;char pad[216];nglMaterialInfo*Info;};void nglCalcMaterialHash(nglMaterial*Material);void nglCalcMaterialHash(nglMaterial*Material){nglMaterialInfo*Info=Material->Info;if(!Info)return;u_int Size=0;if(Material->Map){Info->Hash=Material->Map->Hash;Size=Material->Map->GsSize;}if(Material->DetailMap&&Material->DetailMap->GsSize>Size){Info->Hash=Material->DetailMap->Hash;Size=Material->DetailMap->GsSize;}if(Material->EnvironmentMap&&Material->EnvironmentMap->GsSize>Size){Info->Hash=Material->EnvironmentMap->Hash;Size=Material->EnvironmentMap->GsSize;}if(Material->LightMap&&Material->LightMap->GsSize>Size){Info->Hash=Material->LightMap->Hash;Size=Material->LightMap->GsSize;}}
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0039B2D0)
+// 0x0039B2D0 nglIsSphereVisible__FP10nglFrustumRC9nglVectorf
+#include "NGL/PS2/ngl_ps2_shared.h"
+#include "decomp_annotations.h"
+
+bool nglIsSphereVisible(
+    nglFrustum *frustum,
+    const nglVector &center,
+    float radius)
+{
+    radius = -radius;
+
+    if (nglDistanceToPlane(
+            frustum->Planes[NGLFRUSTUM_LEFT], center) < radius)
+        return false;
+    if (nglDistanceToPlane(
+            frustum->Planes[NGLFRUSTUM_RIGHT], center) < radius)
+        return false;
+    if (nglDistanceToPlane(
+            frustum->Planes[NGLFRUSTUM_NEAR], center) < radius)
+        return false;
+    if (nglDistanceToPlane(
+            frustum->Planes[NGLFRUSTUM_TOP], center) < radius)
+        return false;
+    if (nglDistanceToPlane(
+            frustum->Planes[NGLFRUSTUM_BOTTOM], center) < radius)
+        return false;
+    if (nglDistanceToPlane(
+            frustum->Planes[NGLFRUSTUM_FAR], center) < radius)
+        return false;
+
+    KELLY_DECOMP_COMPILER_BARRIER();
+    return true;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_003AA530)
 // 0x003AA530 nglMeshSetSphere__FR9nglVectorf
 #include "NGL/PS2/ngl_ps2_shared.h"

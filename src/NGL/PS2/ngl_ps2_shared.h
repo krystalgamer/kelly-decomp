@@ -35,6 +35,21 @@ public:
     nglVector w;
 };
 
+enum {
+    NGLFRUSTUM_TOP,
+    NGLFRUSTUM_BOTTOM,
+    NGLFRUSTUM_LEFT,
+    NGLFRUSTUM_RIGHT,
+    NGLFRUSTUM_NEAR,
+    NGLFRUSTUM_FAR
+};
+
+typedef nglVector nglPlane;
+
+struct nglFrustum {
+    nglPlane Planes[6];
+};
+
 struct nglMaterial;
 struct nglMeshFile;
 struct nglMeshLODInfo;
@@ -121,6 +136,9 @@ void nglFatal(const char *format, ...);
 void nglMemFree(void *memory);
 void nglSetQuadMapFlags(nglQuad *quad, u_int flags);
 void nglSetQuadTex(nglQuad *quad, nglTexture *texture);
+float nglDistanceToPlane(
+    const nglVector &plane,
+    const nglVector &point);
 extern "C" void sceVu0CopyVector(float *destination, const float *source);
 
 extern const char ngl_scene_stack_underflow[];
@@ -133,6 +151,9 @@ __asm__(".equ nglFontBank, 0x004BC010");
 __asm__(".equ nglScratch, 0x004BB7B0");
 __asm__(".equ Delete__15nglInstanceBankRC14nglFixedString, 0x003AC440");
 __asm__(".equ nglMemFree__FPv, 0x00395D50");
+__asm__(
+    ".equ nglDistanceToPlane__FRC9nglVectorT0, "
+    "0x0039B298");
 __asm__(".equ sceVu0CopyVector, 0x003BC4F0");
 
 #endif
