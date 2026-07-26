@@ -334,3 +334,46 @@ void destroy_prs_track(PRS_track_layout *self, int deleting)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00119810)
+// 0x00119810 check_mem_init__7po_anim
+#include "KS/SRC/po_anim_shared.h"
+#include "KS/SRC/staticmem_shared.h"
+
+extern const char po_anim_mem_description[];
+
+__asm__(".equ _7po_anim$meminit, 0x003E5794");
+__asm__(".equ _7po_anim$allocated, 0x003E5798");
+__asm__(".equ _7po_anim$membuffer, 0x003E579C");
+__asm__(".equ _7po_anim$mem_init_func, 0x003E57A0");
+__asm__(".equ _7po_anim$mem_free_func, 0x003E57A4");
+__asm__(".equ _7po_anim$current_allocation, 0x003E57A8");
+__asm__(".equ po_anim_mem_description, 0x004C9900");
+__asm__(".equ arch_malloc__FUiPCci, 0x002AC6F0");
+__asm__(".equ memset, 0x003D18D0");
+
+#define malloc(size) arch_malloc(size, po_anim_mem_description, 0)
+
+void po_anim::check_mem_init(void)
+{
+    if (!meminit)
+    {
+        membuffer = malloc(1000 * sizeof(po_anim));
+        if (membuffer == NULL)
+            return;
+        memset(membuffer, 0, 1000 * sizeof(po_anim));
+        allocated = (bool *)malloc(1000 * sizeof(bool));
+        if (allocated == NULL)
+            return;
+        memset(allocated, 0, 1000 * sizeof(bool));
+        meminit = true;
+        if (mem_init_func)
+        {
+            void (*func)() = (void (*)())mem_init_func;
+            (*func)();
+        }
+    }
+}
+
+#undef malloc
+#endif
