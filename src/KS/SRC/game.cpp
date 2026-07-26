@@ -1,5 +1,33 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00283910)
+// 0x00283910 retry_mode__4gameb
+#include "KS/SRC/game_retry_shared.h"
+
+void game::retry_mode(const bool from_map)
+{
+    for (int player = 0; player < 2; player++)
+    {
+        if (the_world->get_ks_controller(player))
+            the_world
+                ->get_ks_controller(player)
+                ->get_my_scoreManager()
+                .Reset();
+    }
+
+    if (play_mode.timeAttack)
+        play_mode.timeAttack->Reset();
+    if (play_mode.meterAttack)
+        play_mode.meterAttack->Reset();
+    if (play_mode.headToHead)
+        play_mode.headToHead->Reset();
+
+    retry_level(from_map);
+    frontend_igo->OnModeReset();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_002778E8)
 // 0x002778E8 clear_zbuffer__Fv
