@@ -1,5 +1,32 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0034E638)
+// 0x0034E638 find__C7stringxPCc
+#include "KS/SRC/stringx.h"
+
+extern "C" unsigned int strlen(const char *text);
+__asm__(".equ strlen, 0x003D40E0");
+
+int stringx::find(const char *str) const
+{
+    int sl;
+    sl = strlen(str);
+    for (int i = 0; i <= my_buf->char_length - sl; i++)
+    {
+        int c;
+        for (c = 0; c < sl; c++)
+        {
+            if (chars[i + c] != str[c])
+                break;
+        }
+        if (c == sl)
+            return i;
+    }
+
+    return -1;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_0034D358)
 // 0x0034D358 clear__10string_buf
