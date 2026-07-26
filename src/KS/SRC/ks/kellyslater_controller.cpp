@@ -428,3 +428,31 @@ class kellyslater_controller;extern "C" void anim_call(kellyslater_controller*,i
 // 0x002125B0 SetPlayerCamera__22kellyslater_controllerP11game_camera
 struct camera_vtable{char padding[1584];short adjustment;short reserved;void(*init)(void*);};struct game_camera{char pad[8];camera_vtable*vtable;};struct camera{};struct game{void set_player_camera(int,camera*);};extern "C" void underwater_reset()__asm__("UNDERWATER_CameraReset__Fv");extern game*g_game_ptr;asm(".equ UNDERWATER_CameraReset__Fv,0x0036D6F8");asm(".equ set_player_camera__4gameiP6camera,0x00283468");asm(".equ g_game_ptr,0x0046AC64");class kellyslater_controller{char pad0[5748];int my_player_num;char pad1[1212];game_camera*player_cam;game_camera*beach_cam_ptr;char pad2[8];game_camera*ksdebug_cam_ptr;char pad3[8];game_camera*shoulder_cam_ptr;char pad4[16];game_camera*follow_cam_ptr;game_camera*follow_close_cam_ptr;char pad5[8];game_camera*fps_cam_ptr;public:void SetPlayerCamera(game_camera*);};inline void init_camera(game_camera*c){camera_vtable*v=c->vtable;v->init((char*)c+v->adjustment);}void kellyslater_controller::SetPlayerCamera(game_camera*cam){if(!cam)return;underwater_reset();if(cam==beach_cam_ptr||cam==follow_close_cam_ptr||cam==follow_cam_ptr||cam==shoulder_cam_ptr||cam==ksdebug_cam_ptr||cam==fps_cam_ptr){player_cam=cam;init_camera(player_cam);}g_game_ptr->set_player_camera(my_player_num,(camera*)cam);asm volatile("");}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0020C740)
+// 0x0020C740 debug_mode_play_anim__22kellyslater_controller
+#include "KS/SRC/ks/kellyslater_controller_shared.h"
+
+void kellyslater_controller::debug_mode_play_anim()
+{
+    if (anim_num != anim_num_last)
+    {
+        anim_num_last = anim_num;
+        Anim(anim_num, 0.3f, true);
+        if (anim_num >= 166 && anim_num <= 275)
+        {
+            int num = anim_num - 166;
+            BoardAnim(num, 0.3f, true);
+        }
+        else if (anim_num >= 1 && anim_num <= 5)
+        {
+            int num = 1;
+            BoardAnim(num, 0.3f, true);
+        }
+        else
+            BoardAnim(0, 0.3f, true);
+    }
+    int dead;
+    __asm__("" : "=r"(dead));
+}
+#endif

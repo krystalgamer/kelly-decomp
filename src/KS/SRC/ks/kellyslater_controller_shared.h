@@ -54,6 +54,20 @@ class kellyslater_controller {
     camera* look_back_cam_ptr;
 
 public:
+    void Anim(
+        int animation,
+        float blend_time,
+        bool loop = true,
+        float start_time = 0.0f,
+        bool reverse = false
+    ) __asm__("Anim__22kellyslater_controllerifbfT3");
+    void BoardAnim(
+        int animation,
+        float blend_time,
+        bool loop = true,
+        float start_time = 0.0f
+    );
+    void debug_mode_play_anim();
     void SetCompletedTrick();
     void SetCompletedTrick(int trick);
     void SetNewTrick(int trick);
@@ -66,5 +80,12 @@ public:
 };
 
 extern const int ManualFlag;
+extern int anim_num;
+extern int anim_num_last;
+
+__asm__(".equ anim_num, 0x00424B5C");
+__asm__(".equ anim_num_last, 0x00424B60");
+__asm__(".equ Anim__22kellyslater_controllerifbfT3, 0x00212660");
+__asm__(".equ BoardAnim__22kellyslater_controllerifbf, 0x002128B0");
 
 #endif
