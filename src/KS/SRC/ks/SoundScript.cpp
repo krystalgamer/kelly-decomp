@@ -149,3 +149,56 @@ void CurrentSoundEvent::clear() {
 // 0x0031BEC0 clearEvents__18SoundScriptManager
 extern "C" void clear_scheduled(void*) __asm__("clear__19ScheduledSoundEvent");extern "C" void clear_current(void*) __asm__("clear__17CurrentSoundEvent");__asm__(".equ clear__19ScheduledSoundEvent,0x0031BB98");__asm__(".equ clear__17CurrentSoundEvent,0x0031BBD0");struct manager_layout{char padding[13444];char scheduled[100][16];char current[100][28];int numEvents;};extern "C" void clear_events(manager_layout*self) __asm__("clearEvents__18SoundScriptManager");void clear_events(manager_layout*self){for(int i=0;i<100;i++){clear_scheduled(self->scheduled[i]);clear_current(self->current[i]);}self->numEvents=0;}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0031BD38)
+// 0x0031BD38 playEvent__12EventMapTypeP6entity
+class entity;
+
+class EventMapType
+{
+    int type;
+    int numSrcs;
+    unsigned int srcs[30];
+
+public:
+    unsigned int getSource();
+    unsigned int playEvent(entity *source);
+};
+
+extern int EventDampGuard[];
+
+unsigned int nslAddSound(unsigned int source);
+int nslGetSoundStatus(unsigned int sound);
+void nslDampenGuardSound(unsigned int sound);
+void nslPlaySound(unsigned int sound);
+
+__asm__(".equ getSource__12EventMapType, 0x0031BC78");
+__asm__(".equ EventDampGuard, 0x0043BFA0");
+__asm__(".equ nslAddSound__FUi, 0x0038CAF8");
+__asm__(".equ nslGetSoundStatus__FUi, 0x0038DBA0");
+__asm__(".equ nslDampenGuardSound__FUi, 0x0038D9D0");
+__asm__(".equ nslPlaySound__FUi, 0x0038CB20");
+
+unsigned int EventMapType::playEvent(entity *source_entity)
+{
+    unsigned int source = getSource();
+    if (source == 0)
+        return 0;
+
+    unsigned int sound = nslAddSound(source);
+    if (nslGetSoundStatus(sound) != 0)
+    {
+        if (
+            EventDampGuard[type] &&
+            nslGetSoundStatus(sound) != 0
+        )
+            nslDampenGuardSound(sound);
+
+        if (source_entity)
+            nslPlaySound(sound);
+        else
+            nslPlaySound(sound);
+    }
+    return sound;
+}
+#endif
