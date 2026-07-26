@@ -955,3 +955,80 @@ void nglMeshSetSphere( nglVector& Center, float Radius )
   }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00397CD0)
+// 0x00397CD0 nglListAddNode__FUiPFRPUiPv_vPvP11nglSortInfoPPUc
+typedef void (*nglCustomNodeFn)(unsigned int *&, void *);
+
+struct nglSortInfo {
+    unsigned int Type;
+    unsigned int Hash;
+};
+
+struct nglListNode {
+    nglListNode *Next;
+    unsigned int Type;
+    nglSortInfo SortInfo;
+    nglCustomNodeFn NodeFn;
+    void *NodeData;
+};
+
+struct nglScene {
+    char padding[1024];
+    nglListNode *OpaqueRenderList;
+    nglListNode *TransRenderList;
+    unsigned int OpaqueListCount;
+    unsigned int TransListCount;
+};
+
+extern nglScene *nglCurScene;
+extern "C" void *nglListAlloc(unsigned int bytes, unsigned int alignment)
+    __asm__("nglListAlloc__FUiUi");
+
+__asm__(".equ nglCurScene, 0x004BBD04");
+__asm__(".equ nglListAlloc__FUiUi, 0x00397C90");
+
+void nglListAddNode(
+    unsigned int type,
+    nglCustomNodeFn node_function,
+    void *data,
+    nglSortInfo *sort_info,
+    unsigned char **buffer
+)
+{
+    nglListNode *node;
+    if (buffer)
+    {
+        node = reinterpret_cast<nglListNode *>(*buffer);
+        *buffer += sizeof(nglListNode);
+    }
+    else
+    {
+        register unsigned int alignment __asm__("$5") = 4;
+        __asm__ __volatile__("" : "+r"(alignment));
+        node = static_cast<nglListNode *>(
+            nglListAlloc(sizeof(nglListNode), alignment)
+        );
+        if (!node)
+            return;
+    }
+
+    node->Type = type;
+    node->NodeFn = node_function;
+    node->NodeData = data;
+    node->SortInfo = *sort_info;
+
+    if (sort_info->Type == 0)
+    {
+        node->Next = nglCurScene->TransRenderList;
+        nglCurScene->TransRenderList = node;
+        nglCurScene->TransListCount++;
+    }
+    else
+    {
+        node->Next = nglCurScene->OpaqueRenderList;
+        nglCurScene->OpaqueRenderList = node;
+        nglCurScene->OpaqueListCount++;
+    }
+}
+#endif
