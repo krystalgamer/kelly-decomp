@@ -1,6 +1,8 @@
 #ifndef KELLY_DECOMP_MAIN_FRONT_END_SHARED_H
 #define KELLY_DECOMP_MAIN_FRONT_END_SHARED_H
 
+#pragma interface
+
 #define KELLY_DECOMP_FULL_FEMENU_ENTRY
 #define KELLY_DECOMP_FULL_FEMULTI_MENU
 #include "KS/SRC/ks/FEMenu_shared.h"
@@ -16,6 +18,37 @@ class FreesurfMenu;
 class CareerMenu;
 class MultiSubMenu;
 class GraphicalMenuSystem;
+
+class BoxText {
+    char state[76];
+
+public:
+    virtual ~BoxText();
+    virtual void Update(float time_inc);
+    virtual void Draw();
+};
+
+class CareerMenu : public FEMenu {
+public:
+    enum {
+        ContinueEntry,
+        NewEntry,
+        LoadEntry,
+        SaveEntry,
+        OKEntry,
+        CancelEntry,
+        NumEntries
+    };
+
+    FEMenuEntry *entry[NumEntries];
+    BoxText *warning;
+    bool warning_up;
+    GraphicalMenuSystem *system;
+    int warning_bottom;
+    int regular_bottom;
+
+    virtual void Draw();
+};
 
 class MainFrontEnd : public FEMultiMenu {
 public:
@@ -66,5 +99,8 @@ public:
 };
 
 __asm__(".equ OnCross__6FEMenui, 0x00157860");
+__asm__(
+    ".equ cons__6FEMenuP12FEMenuSystemiiG7color32T4T4ffii, "
+    "0x00156330");
 
 #endif

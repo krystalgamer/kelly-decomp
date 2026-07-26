@@ -1,5 +1,25 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00180EB0)
+// 0x00180EB0 Draw__10CareerMenu (warning-state rendering)
+#include "KS/SRC/ks/MainFrontEnd_shared.h"
+
+void CareerMenu::Draw()
+{
+    if (warning_up)
+    {
+        warning->Draw();
+        entry[SaveEntry]->Draw();
+        entry[OKEntry]->Draw();
+        entry[CancelEntry]->Draw();
+    }
+    else
+    {
+        for (int index = 0; index < SaveEntry; ++index)
+            entry[index]->Draw();
+    }
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001810E8)
 // 0x001810E8 EndWarning__10CareerMenu
