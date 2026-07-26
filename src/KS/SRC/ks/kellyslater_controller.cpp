@@ -1,5 +1,29 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00224E40)
+// 0x00224E40 IsDoingSomething__22kellyslater_controller
+#include "KS/SRC/ks/kellyslater_doing_shared.h"
+
+bool kellyslater_controller::IsDoingSomething()
+{
+    if ((g_game_ptr->get_game_mode() == GAME_MODE_PUSH) ||
+        (g_game_ptr->get_game_mode() == GAME_MODE_HEAD_TO_HEAD))
+    {
+        return my_board_controller.InAir() ||
+            super_state == SUPER_STATE_WIPEOUT ||
+            (super_state == SUPER_STATE_CPU_CONTROLLED && !did_celebration);
+    }
+    else
+    {
+        return my_board_controller.InAir() ||
+            get_special_meter()->CanRegionLink() ||
+            IsDoingSpecialTrick() ||
+            super_state == SUPER_STATE_WIPEOUT ||
+            (super_state == SUPER_STATE_CPU_CONTROLLED && !did_celebration);
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00213C68)
 // 0x00213C68 Lip_Distance__22kellyslater_controller
 #include "KS/SRC/ks/kellyslater_lip_shared.h"
