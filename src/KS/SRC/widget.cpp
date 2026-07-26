@@ -1,5 +1,37 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0033E7D0)
+// 0x0033E7D0 update_rot__6widget
+#include "KS/SRC/widget_rot_shared.h"
+
+void widget::update_rot()
+{
+    if (parent && !ignoring_parent())
+        base_angle = parent->get_abs_angle();
+
+    register float inherited_angle __asm__("$f1") =
+        base_angle;
+    register float local_angle __asm__("$f0") =
+        angle;
+    abs_angle = local_angle + inherited_angle;
+
+    float cosine;
+    float sine;
+    fast_sin_cos_approx(abs_angle, &sine, &cosine);
+
+    rotation[0][0] = cosine;
+    rotation[0][1] = -sine;
+    rotation[1][0] = sine;
+    rotation[1][1] = cosine;
+
+    list<widget *, my_allocator<widget *> >::iterator child;
+    for (child = children.begin();
+         child != children.end();
+         ++child)
+        (*child)->update_rot();
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0033E650)
 // 0x0033E650 update_pos__6widget
 #include "KS/SRC/widget_shared.h"
