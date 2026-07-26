@@ -171,6 +171,30 @@ bool entity::get_ifc_vec(
 #undef IFC_DATA_GET_VEC
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00139940)
+// 0x00139940 get_ifc_str__6entityRC7pstringR7stringx
+#include "KS/SRC/entity_shared.h"
+
+#define IFC_DATA_GET_STR(name) \
+    if (has_##name##_ifc() && \
+        name##_ifc()->get_ifc_str(attribute, value)) \
+        return true
+
+bool entity::get_ifc_str(
+    const pstring &attribute,
+    stringx &value)
+{
+    IFC_DATA_GET_STR(ai);
+    IFC_DATA_GET_STR(physical);
+    IFC_DATA_GET_STR(soft_attrib);
+    IFC_DATA_GET_STR(hard_attrib);
+
+    return false;
+}
+
+#undef IFC_DATA_GET_STR
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00135FF8)
 #include "KS/SRC/mbi_shared.h"
 
