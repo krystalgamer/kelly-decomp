@@ -21,6 +21,34 @@ void CareerMenu::Draw()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00183F08)
+// 0x00183F08 Select__15MultiplayerMenui
+#include "KS/SRC/ks/MainFrontEnd_select_shared.h"
+
+void MultiplayerMenu::Select(int entry_index)
+{
+    switch (entry_index)
+    {
+    case MultiPushEntry:
+        sys->manager->tmp_game_mode = GAME_MODE_PUSH;
+        break;
+    case MultiHeadToHeadEntry:
+        sys->manager->tmp_game_mode = GAME_MODE_HEAD_TO_HEAD;
+        break;
+    case MultiTimeAttackEntry:
+        sys->manager->tmp_game_mode = GAME_MODE_TIME_ATTACK;
+        break;
+    default:
+        break;
+    }
+
+    if (entry_index == MultiHeadToHeadEntry)
+        system->MakeActive(GraphicalMenuSystem::SurferMenu);
+    else
+        parent->MakeActive(((MainFrontEnd *)parent)->multi_sub);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001810E8)
 // 0x001810E8 EndWarning__10CareerMenu
 struct career_menu_vtable { char padding[0x70]; short adjustment; short padding2; void (*on_activate)(void *self); };
