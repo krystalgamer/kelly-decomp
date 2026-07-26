@@ -83,6 +83,32 @@ class key_anim : public anim<animatable_t> {
     typename track_t::iterator current_key;
 
 public:
+    virtual void get_value(
+        const anim_control_t &control,
+        animatable_t *destination
+    ) const
+    {
+        if (control.get_time() < current_key->get_time() ||
+            control.get_time() > control.get_duration())
+        {
+            *destination = current_key->get_value();
+        }
+        else
+        {
+            typename track_t::iterator next_key = current_key;
+            ++next_key;
+            if (next_key == track->m_keys + track->num_keys)
+            {
+                *destination = current_key->get_value();
+            }
+            else
+            {
+                *destination = current_key->get_value(
+                    control.get_time(), *next_key);
+            }
+        }
+    }
+
     virtual void get_value(float time, animatable_t *destination) const;
 };
 

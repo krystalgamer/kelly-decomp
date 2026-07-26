@@ -545,3 +545,20 @@ void key_anim<float, linear_key<float>, linear_track<float> >::get_value(
 
 #undef assert
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001212D8)
+// 0x001212D8 get_value__Ct8key_anim3Z8vector3dZt10linear_key1Z8vector3dZt12linear_track1Z8vector3dRC14anim_control_tP8vector3d
+#include "KS/SRC/linear_anim_shared.h"
+#include "KS/SRC/vector3d_shared.h"
+
+__asm__(
+    ".equ interpolate__Ct10linear_key1Z8vector3d"
+    "RCt10linear_key1Z8vector3df, 0x00113320"
+);
+
+template void key_anim<
+    vector3d,
+    linear_key<vector3d>,
+    linear_track<vector3d>
+>::get_value(const anim_control_t &, vector3d *) const;
+#endif

@@ -1,12 +1,10 @@
 #ifndef KELLY_DECOMP_MBI_SHARED_H
 #define KELLY_DECOMP_MBI_SHARED_H
 
+#include "KS/SRC/vector3d_shared.h"
+
 struct quaternion {
     float value[4];
-};
-
-struct vector3d {
-    float value[3];
 };
 
 struct qt {
