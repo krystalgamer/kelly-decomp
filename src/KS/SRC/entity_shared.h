@@ -3,6 +3,7 @@
 
 #include "KS/SRC/bone_shared.h"
 #include "KS/SRC/entity_interfaces_shared.h"
+#include "KS/SRC/hard_attrib_interface_shared.h"
 #include "KS/SRC/po_shared.h"
 #include "KS/SRC/stringx.h"
 #include "KS/SRC/time_interface_shared.h"
@@ -399,6 +400,12 @@ public:
     }
     inline soft_attrib_interface *soft_attrib_ifc() const {
         return my_soft_attrib_interface;
+    }
+    inline bool has_hard_attrib_ifc() const {
+        return my_hard_attrib_interface != 0;
+    }
+    inline hard_attrib_interface *hard_attrib_ifc() const {
+        return my_hard_attrib_interface;
     }
     inline bool has_time_ifc() const {
         return my_time_interface != 0;
