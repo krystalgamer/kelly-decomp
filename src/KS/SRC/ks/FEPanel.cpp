@@ -1221,3 +1221,69 @@ void BoxText::changePos(float posx, float posy)
 	}
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0014FDC8)
+// 0x0014FDC8 Init__9PanelGeomPP9PanelQuadb
+class PanelQuad;
+
+struct vector4d {
+    float x;
+    float y;
+    float z;
+    float w;
+
+    vector4d(const vector4d &other)
+        : x(other.x), y(other.y), z(other.z), w(other.w) {}
+};
+
+struct matrix4x4 {
+    vector4d x;
+    vector4d y;
+    vector4d z;
+    vector4d w;
+
+    matrix4x4(const matrix4x4 &other)
+        : x(other.x), y(other.y), z(other.z), w(other.w) {}
+};
+
+struct panel_vtable {
+    char padding[64];
+    short adjustment;
+    short reserved;
+    void (*init)(
+        void *,
+        PanelQuad **,
+        matrix4x4,
+        bool
+    );
+};
+
+struct PanelGeom {
+    char padding[16];
+    matrix4x4 matrix;
+    char padding2[28];
+    PanelGeom *children;
+    char padding3[8];
+    panel_vtable *vtable;
+
+    void Init(PanelQuad **quads, bool floating);
+};
+
+void PanelGeom::Init(PanelQuad **quads, bool floating)
+{
+    PanelGeom *self = this;
+    PanelGeom *child = self->children;
+    if (child)
+    {
+        child->vtable->init(
+            reinterpret_cast<char *>(child) +
+                child->vtable->adjustment,
+            quads,
+            self->matrix,
+            floating
+        );
+    }
+    int dead;
+    __asm__("" : "=r"(dead));
+}
+#endif
