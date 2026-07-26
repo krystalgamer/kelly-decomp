@@ -285,3 +285,85 @@ void ks_fx_start_wipeout_splash(int index)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0036C3D0)
+// 0x0036C3D0 ks_fx_add_splash__FUiRC8vector3df
+struct vector3d {
+    float x;
+    float y;
+    float z;
+
+};
+
+struct particle {
+    char padding0[192];
+    void *texture;
+    char padding1[12];
+    unsigned long long flags;
+};
+
+struct loose_particle {
+    particle part;
+    char tail[224 - sizeof(particle)];
+};
+
+extern int currentparticle;
+extern loose_particle LooseParticles[100];
+extern void *fx_tex[];
+
+extern "C" void prepare_part(
+    unsigned int index,
+    particle *part,
+    float power,
+    float scale,
+    const vector3d *position,
+    const vector3d *second_position,
+    float epsilon,
+    float zero
+) __asm__("prepare_part__FUiP17nglParticleSystemffG8vector3dT4ff");
+
+__asm__(".equ currentparticle, 0x0047EE3C");
+__asm__(".equ LooseParticles, 0x0048E840");
+__asm__(".equ fx_tex, 0x00485AA0");
+__asm__(
+    ".equ prepare_part__FUiP17nglParticleSystemffG8vector3dT4ff, "
+    "0x00369508"
+);
+
+void ks_fx_add_splash(
+    unsigned int index,
+    const vector3d &position,
+    float power
+)
+{
+    currentparticle++;
+    if (currentparticle >= 100)
+        currentparticle = 0;
+
+    vector3d first_position;
+    first_position.x = position.x;
+    first_position.y = position.y;
+    first_position.z = position.z;
+    vector3d second_position;
+    second_position.x = position.x;
+    second_position.y = position.y;
+    second_position.z = position.z;
+
+    prepare_part(
+        index,
+        &LooseParticles[currentparticle].part,
+        power,
+        1.0f,
+        &first_position,
+        &second_position,
+        0.0001f,
+        0.0f
+    );
+
+    loose_particle *current = &LooseParticles[currentparticle];
+    void *texture = fx_tex[2];
+    unsigned long long flags = current->part.flags;
+    current->part.texture = texture;
+    current->part.flags = flags & ~1ULL;
+}
+#endif
