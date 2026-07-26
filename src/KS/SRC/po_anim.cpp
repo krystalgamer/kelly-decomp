@@ -270,3 +270,67 @@ void linear_anim<float>::check_mem_init(void)
 
 #undef malloc
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00119750)
+// 0x00119750 _$_9PRS_track
+#include "decomp_annotations.h"
+
+struct track_layout
+{
+    int num_keys;
+    void *keys;
+};
+
+struct PRS_track_layout
+{
+    float duration;
+    unsigned int flags;
+    track_layout *P;
+    track_layout *R;
+    track_layout *S;
+};
+
+extern "C" void delete_keys(void *memory)
+    __asm__("__builtin_vec_delete");
+extern "C" void delete_track(void *memory)
+    __asm__("__builtin_delete");
+
+__asm__(".equ __builtin_vec_delete, 0x002AC6D0");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+
+extern "C" void destroy_prs_track(PRS_track_layout *self, int deleting)
+    __asm__("_$_9PRS_track");
+
+void destroy_prs_track(PRS_track_layout *self, int deleting)
+{
+    track_layout *track = self->P;
+    if (track)
+    {
+        if (track->keys)
+            delete_keys(track->keys);
+        delete_track(track);
+    }
+
+    track = self->R;
+    if (track)
+    {
+        if (track->keys)
+            delete_keys(track->keys);
+        delete_track(track);
+    }
+
+    track = self->S;
+    if (track)
+    {
+        if (track->keys)
+            delete_keys(track->keys);
+        delete_track(track);
+    }
+
+    if (deleting & 1)
+    {
+        delete_track(self);
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
