@@ -95,3 +95,80 @@ void FontDtor(void *self, int deleting) {
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033BBE8)
+// 0x0033BBE8 CheckArtButtonCodes__4FontPCcRiT2
+struct font_string_buffer
+{
+    void *data;
+    int ref_count;
+    int length;
+};
+
+class stringx
+{
+    char *characters;
+    font_string_buffer *buffer;
+
+public:
+    stringx(const stringx &other);
+    ~stringx();
+
+    inline const char *c_str() const
+    {
+        return characters;
+    }
+
+    inline int length() const
+    {
+        return buffer->length;
+    }
+};
+
+class Font
+{
+public:
+    bool CheckArtButtonCodes(
+        const char *text,
+        int &length,
+        int &button_index
+    );
+};
+
+extern stringx ksGlobalButtonArray[20];
+extern "C" int strncmp(
+    const char *left,
+    const char *right,
+    unsigned int length
+);
+
+__asm__(".equ ksGlobalButtonArray, 0x003E74A0");
+__asm__(".equ __7stringxRC7stringx, 0x0034D4D0");
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+__asm__(".equ strncmp, 0x003D4350");
+
+bool Font::CheckArtButtonCodes(
+    const char *text,
+    int &length,
+    int &button_index
+)
+{
+    for (int i = 0; i < 20; i++)
+    {
+        stringx temporary = ksGlobalButtonArray[i];
+        if (
+            strncmp(
+                text,
+                temporary.c_str(),
+                temporary.length()
+            ) == 0
+        )
+        {
+            length = temporary.length();
+            button_index = i;
+            return true;
+        }
+    }
+    return false;
+}
+#endif
