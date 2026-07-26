@@ -1,5 +1,41 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00148080)
+// 0x00148080 __as__10StringListRC10StringList
+#include "KS/SRC/ks/FEPanel_shared.h"
+
+__asm__(".equ __as__7stringxRC7stringx, 0x0034E0B8");
+
+StringList &StringList::operator=(
+    const StringList &other)
+{
+    if (this != &other)
+    {
+        data = other.data;
+        x = other.x;
+        y = other.y;
+
+        for (int index = 0;
+             index < MAX_STRING_SIZE;
+             index++)
+        {
+            fall_speed[index] =
+                other.fall_speed[index];
+            drift_speed[index] =
+                other.drift_speed[index];
+            drift_max[index] =
+                other.drift_max[index];
+            delta_x[index] =
+                other.delta_x[index];
+            delta_y[index] =
+                other.delta_y[index];
+        }
+    }
+
+    return *this;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0014CA48)
 // 0x0014CA48 UpdateInScene__12FloatingTextb
 #include "KS/SRC/ks/FEPanel_shared.h"

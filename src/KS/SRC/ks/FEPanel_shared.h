@@ -127,6 +127,8 @@ public:
     int drift_max[MAX_STRING_SIZE];
     float delta_x[MAX_STRING_SIZE];
     float delta_y[MAX_STRING_SIZE];
+
+    StringList &operator=(const StringList &other);
 };
 
 struct nglFileBuf {
