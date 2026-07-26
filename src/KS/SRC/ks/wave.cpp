@@ -680,6 +680,48 @@ struct WavePartition{unsigned N;float*guide;float*guidestep;float*weight;};exter
 struct pulse_vtable{char padding[24];short adjustment;short reserved;float(*world_to_pulse)(void*,float);};class WavePulsePerturbClass6{public:char padding[432];pulse_vtable*vtable;public:float WorldToProfile(float);};extern int WAVE_PerturbStage;extern float WAVE_PerturbProgress;asm(".equ WAVE_PerturbStage,0x00585C44");asm(".equ WAVE_PerturbProgress,0x00585C6C");inline float pulse(WavePulsePerturbClass6*self,float x){pulse_vtable*v=self->vtable;return v->world_to_pulse((char*)self+v->adjustment,x);}extern "C" float WorldToProfile(WavePulsePerturbClass6*self,float worldx)__asm__("WorldToProfile__t21WavePulsePerturbClass1i6f");float WorldToProfile(WavePulsePerturbClass6*self,float worldx){float profilex;switch(WAVE_PerturbStage){case 1:case 2:case 3:case 4:profilex=pulse(self,worldx);break;case 5:{float p=pulse(self,worldx);float q=1.0f-WAVE_PerturbProgress;profilex=worldx+(p-worldx)*(q*q);break;}default:profilex=worldx;break;}return profilex;}
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00384DE0)
+// 0x00384DE0 WorldToProfile__t20WavePushPerturbClass1i6f
+#include "KS/SRC/ks/wave_perturb_shared.h"
+
+__asm__(".equ WAVE_PerturbStage, 0x00585C44");
+__asm__(".equ WAVE_PerturbProgress, 0x00585C6C");
+
+template <int count>
+float WavePushPerturbClass<count>::WorldToProfile(float worldx)
+{
+    float profilex;
+
+    switch (WAVE_PerturbStage)
+    {
+    case WAVE_PerturbStageDo:
+        profilex =
+            worldx
+            + (WorldToPulse(worldx) - worldx)
+                * sqr(WAVE_PerturbProgress);
+        break;
+    case WAVE_PerturbStageHold:
+    case WAVE_PerturbStageCollapse:
+    case WAVE_PerturbStageWait:
+        profilex = WorldToPulse(worldx);
+        break;
+    case WAVE_PerturbStageUndo:
+        profilex =
+            worldx
+            + (WorldToPulse(worldx) - worldx)
+                * sqr(1 - WAVE_PerturbProgress);
+        break;
+    default:
+        profilex = worldx;
+        break;
+    }
+
+    return profilex;
+}
+
+template float WavePushPerturbClass<6>::WorldToProfile(float worldx);
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_003744A8)
 // 0x003744A8 WAVE_Tick__Fv
 #include "KS/SRC/ks/wave_shared.h"
