@@ -249,3 +249,33 @@ void CheatCodeMenu::OnUp(int c)
 	KELLY_DECOMP_COMPILER_BARRIER();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001D23F8)
+// 0x001D23F8 OnDown__13CheatCodeMenui
+#include "KS/SRC/ks/CheatFrontEnd_shared.h"
+#include "decomp_annotations.h"
+
+void CheatCodeMenu::OnDown(int controller)
+{
+    FEMenuEntry *old_highlighted = highlighted;
+    int old_next_down = next_down;
+
+    if (
+        old_highlighted == cheats[MAX_CHEATS_PER_SCREEN - 1] &&
+        old_next_down != -1
+    )
+        ReOrderEntries(menu_entry_cheat_index[0] + 1);
+    else
+        FEMultiMenu::OnDown(controller);
+
+    if (
+        highlighted == old_highlighted &&
+        old_next_down == -1
+    )
+        SoundScriptManager::inst()->playEvent(SS_FE_ERROR);
+    else
+        SoundScriptManager::inst()->playEvent(SS_FE_UPDOWN);
+
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
