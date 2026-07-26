@@ -49,6 +49,40 @@ void MultiplayerMenu::Select(int entry_index)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00183B70)
+// 0x00183B70 OnActivate__15MultiplayerMenu
+#include "KS/SRC/ks/MainFrontEnd_select_shared.h"
+
+__asm__(".equ UpdateDisable__15MultiplayerMenu, 0x00183DC8");
+__asm__(".equ OnActivate__6FEMenu, 0x00157728");
+
+void MultiplayerMenu::OnActivate()
+{
+    UpdateDisable();
+    FEMenu::OnActivate();
+    int active_entry = -1;
+
+    switch (system->manager->tmp_game_mode)
+    {
+    case GAME_MODE_TIME_ATTACK:
+        active_entry = MultiTimeAttackEntry;
+        break;
+    case GAME_MODE_HEAD_TO_HEAD:
+        active_entry = MultiHeadToHeadEntry;
+        break;
+    case GAME_MODE_PUSH:
+        active_entry = MultiPushEntry;
+        break;
+    default:
+        break;
+    }
+
+    if (active_entry != -1 &&
+        !entry[active_entry]->GetDisable())
+        setHigh(entry[active_entry]);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001853F8)
 // 0x001853F8 OnActivate__12FreesurfMenu
 #include "KS/SRC/ks/MainFrontEnd_select_shared.h"
