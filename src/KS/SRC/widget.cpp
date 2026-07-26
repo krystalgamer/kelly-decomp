@@ -1,5 +1,28 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0033E650)
+// 0x0033E650 update_pos__6widget
+#include "KS/SRC/widget_shared.h"
+
+void widget::update_pos()
+{
+    if (parent && !ignoring_parent())
+    {
+        base_x = parent->get_abs_x();
+        base_y = parent->get_abs_y();
+    }
+
+    abs_x = x + base_x;
+    abs_y = y + base_y;
+
+    widget_list_t::iterator child;
+    for (child = children.begin(); child != children.end(); ++child)
+    {
+        (*child)->update_pos();
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0033F448)
 // 0x0033F448 show__11menu_widget
 #include "KS/SRC/widget_shared.h"

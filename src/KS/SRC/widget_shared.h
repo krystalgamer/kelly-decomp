@@ -1,32 +1,73 @@
 #ifndef KELLY_DECOMP_WIDGET_SHARED_H
 #define KELLY_DECOMP_WIDGET_SHARED_H
 
+#include "KS/SRC/color_shared.h"
+#include "KS/SRC/stringx_shared.h"
 #include "g++-2/stl_list_shared.h"
 
 typedef float rational_t;
 typedef float time_value_t;
 
-class color;
 class widget;
+class wevent;
 
 typedef list<widget *> widget_list_t;
+typedef list<wevent *> wevent_list_t;
+
+class vector2d {
+public:
+    rational_t x;
+    rational_t y;
+};
+
+class rectf {
+public:
+    vector2d tl;
+    vector2d br;
+};
 
 class widget {
-    char widget_state_before_children[0x10];
-    widget_list_t children;
-
-protected:
-    unsigned int flags;
-
-private:
-    char widget_state_after_flags[0x128];
-
 public:
+    enum widget_type_e {
+        WTYPE_Bitmap,
+        WTYPE_Text,
+        WTYPE_TextBlock,
+        WTYPE_Vrep,
+        WTYPE_Entity,
+        WTYPE_Menu,
+        WTYPE_HelpLine,
+        WTYPE_HelpGroup,
+        WTYPE_PDAPage,
+        WTYPE_Other
+    };
+
     enum widget_dir_e {
         WDIR_Left,
         WDIR_Right,
         WDIR_Up,
         WDIR_Down
+    };
+
+    enum widget_state_e {
+        WSTATE_None,
+        WSTATE_Show,
+        WSTATE_Hide
+    };
+
+    enum rhw_layer_e {
+        RHW0,
+        RHW1,
+        RHW2,
+        RHW3,
+        RHW4,
+        RHW5,
+        RHW6,
+        RHW7,
+        RHW8,
+        RHW9,
+        RHW_OVER_PFE1,
+        RHW_OVER_PFE2,
+        NUM_RHW_LAYERS
     };
 
     inline widget() {}
@@ -93,13 +134,50 @@ public:
     virtual void transform(rational_t value[2], color &result, int index);
     virtual rational_t get_width();
     virtual rational_t get_height();
-    virtual void set_layer(int layer);
+    virtual void set_layer(rhw_layer_e layer);
     virtual void update_pos();
     virtual void update_scale();
     virtual void update_rot();
     virtual void update_col();
 
     inline bool is_shown() const { return flags & 1; }
+    inline bool ignoring_parent() const { return flags & 4; }
+    inline short get_abs_x() const { return abs_x; }
+    inline short get_abs_y() const { return abs_y; }
+    inline rational_t get_abs_scale(int index) const {
+        return abs_S[index];
+    }
+
+protected:
+    stringx widget_name;
+    widget_type_e type;
+    widget *parent;
+    widget_list_t children;
+    unsigned int flags;
+    wevent_list_t wevent_run_list;
+    bool linear_animation;
+    bool use_proj_matrix;
+    widget_state_e next_state;
+    time_value_t state_wait_time;
+    short x;
+    short y;
+    short abs_x;
+    short abs_y;
+    short base_x;
+    short base_y;
+    short orig_x;
+    short orig_y;
+    rational_t angle;
+    rational_t abs_angle;
+    rational_t base_angle;
+    rational_t R[2][2];
+    color col[4];
+    color abs_col[4];
+    color base_col[4];
+    rational_t S[2];
+    rational_t abs_S[2];
+    rational_t base_S[2];
+    rectf subrect;
 };
 
 class bar_widget : public widget {
