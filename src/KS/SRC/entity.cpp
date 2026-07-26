@@ -27,6 +27,22 @@ void entity::clear_anim(entity_anim_tree *animation)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00130EA8)
+// 0x00130EA8 create_light_set__6entity
+#include "KS/SRC/entity_light_shared.h"
+
+extern const char entity_light_source_file[];
+__asm__(".equ entity_light_source_file, 0x004CCA78");
+
+void entity::create_light_set()
+{
+    volatile char frame_padding[16];
+    if (!my_light_mgr)
+        my_light_mgr =
+            new (0, entity_light_source_file, 0) light_manager();
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00139180)
 #include "KS/SRC/entity_shared.h"
 
