@@ -49,6 +49,36 @@ void MultiplayerMenu::Select(int entry_index)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001853F8)
+// 0x001853F8 OnActivate__12FreesurfMenu
+#include "KS/SRC/ks/MainFrontEnd_select_shared.h"
+
+__asm__(".equ OnActivate__6FEMenu, 0x00157728");
+
+void FreesurfMenu::OnActivate()
+{
+    FEMenu::OnActivate();
+    int act = -1;
+
+    switch (system->manager->tmp_game_mode)
+    {
+    case GAME_MODE_FREESURF_INFINITE:
+        act = FreeRegularEntry;
+        break;
+    case GAME_MODE_FREESURF_HIGHSCORE:
+        act = FreeHighScoreEntry;
+        break;
+    case GAME_MODE_FREESURF_ICON:
+        act = FreeIconEntry;
+        break;
+    default:
+        break;
+    }
+    if (act != -1 && !entry[act]->GetDisable())
+        setHigh(entry[act]);
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001810E8)
 // 0x001810E8 EndWarning__10CareerMenu
 struct career_menu_vtable { char padding[0x70]; short adjustment; short padding2; void (*on_activate)(void *self); };
