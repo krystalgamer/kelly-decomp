@@ -216,7 +216,7 @@ public:
     virtual ~FEMenuSystem();
     virtual void InitAll();
     virtual void Add(FEMenu*);
-    virtual void MakeActive(int, int = 1);
+    virtual void MakeActive(int, int = 1, bool = true);
     virtual void Update(time_value_t);
     virtual void UpdateButtonDown();
     virtual void Draw();

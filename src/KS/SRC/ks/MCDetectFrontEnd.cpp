@@ -1,5 +1,30 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001A4E20)
+// 0x001A4E20 OnActivate__16MCDetectFrontEnd
+#include "KS/SRC/ks/MCDetectFrontEnd_shared.h"
+
+void MCDetectFrontEnd::OnActivate()
+{
+    setHigh(entries[MCRetry], true);
+    if (os_developer_options::inst()->is_flagged(
+            os_developer_options::FLAG_E3_BUILD))
+    {
+        onlyGoToMCScreenOnce = true;
+        system->MakeActive(GraphicalMenuSystem::MainMenu);
+        return;
+    }
+    if (onlyGoToMCScreenOnce)
+    {
+        system->MakeActive(GraphicalMenuSystem::MainMenu);
+        return;
+    }
+
+    onlyGoToMCScreenOnce = true;
+    tryToLoadMostRecent();
+    __asm__ volatile("");
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001A34F8)
 // 0x001A34F8 OnTriangle__16MCDetectFrontEndi
