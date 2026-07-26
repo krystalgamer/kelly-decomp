@@ -274,3 +274,19 @@ class MenuSystem;class Menu{public:void OnOpen(Menu*,MenuSystem*);};asm(".equ On
 // 0x0030EFE0 OnOpen__16MenuParticleDrawP4MenuP10MenuSystem
 class MenuSystem;class Menu{public:void OnOpen(Menu*,MenuSystem*);};asm(".equ OnOpen__4MenuP4MenuP10MenuSystem,0x0023EAE0");extern int draw_flags[8];extern bool(*draw_get[8])();asm(".equ draw_flags,0x0058A3C8");asm(".equ draw_get,0x0046B1C8");class MenuParticleDraw:public Menu{public:void OnOpen(Menu*,MenuSystem*) __asm__("OnOpen__16MenuParticleDrawP4MenuP10MenuSystem");};void MenuParticleDraw::OnOpen(Menu*cto,MenuSystem*c){for(unsigned i=0;i<8;++i)draw_flags[i]=draw_get[i]();Menu::OnOpen(cto,c);asm("" : : : "memory");}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0030F270)
+// 0x0030F270 OnTick__8MenuDrawf
+#include "KS/SRC/menudraw_shared.h"
+
+void MenuDraw::OnTick(float dtime)
+{
+    for (unsigned int i = 0; i < MENUDRAW_TypeMax; ++i)
+    {
+        MENUDRAW_Set[i](MENUDRAW_Flags[i]);
+    }
+    MENUDRAW_MenuEntities->OnTick(dtime);
+    MENUDRAW_MenuParticle->OnTick(dtime);
+    MENUDRAW_MenuWater->OnTick(dtime);
+}
+#endif
