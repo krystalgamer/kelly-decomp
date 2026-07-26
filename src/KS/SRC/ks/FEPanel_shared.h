@@ -1,6 +1,8 @@
 #ifndef KELLY_DECOMP_FE_PANEL_SHARED_H
 #define KELLY_DECOMP_FE_PANEL_SHARED_H
 
+#pragma interface
+
 #include "KS/SRC/stringx.h"
 
 class Font {
@@ -97,6 +99,18 @@ protected:
     int vSpacing;
     int line_num;
     Font *fonts[20];
+};
+
+class FloatingText : public MultiLineString {
+    float location_3d[4] __attribute__((aligned(16)));
+    float location_2d[4];
+    float real_scale;
+    float real_x;
+    float real_y;
+    bool non_floating_behavior;
+
+public:
+    virtual void UpdateInScene(bool ignore_scale = false);
 };
 
 class StringList {
@@ -237,6 +251,27 @@ public:
     virtual bool Load(unsigned char *buffer, int &index);
     virtual void Reload();
 };
+
+struct floating_geometry_manager {
+    char state[4];
+    char *transforms;
+};
+
+extern floating_geometry_manager *floating_geometry;
+extern "C" void project_floating_point(float *output, float *input)
+    __asm__("nglProjectPoint__FR9nglVectorT0");
+extern "C" void unadjust_floating_coords(float &x, float &y)
+    __asm__("unadjustCoords__H1Zf_RX01T0_v");
+extern "C" void apply_floating_matrix(
+    float *output,
+    float *matrix,
+    float *input)
+    __asm__("nglApplyMatrix__FR9nglVectorR9nglMatrixT0");
+
+__asm__(".equ floating_geometry, 0x00432868");
+__asm__(".equ nglProjectPoint__FR9nglVectorT0, 0x00399458");
+__asm__(".equ unadjustCoords__H1Zf_RX01T0_v, 0x001D6BF0");
+__asm__(".equ nglApplyMatrix__FR9nglVectorR9nglMatrixT0, 0x00395F48");
 
 class PanelFile {
     int slide_state;

@@ -1,5 +1,32 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0014CA48)
+// 0x0014CA48 UpdateInScene__12FloatingTextb
+#include "KS/SRC/ks/FEPanel_shared.h"
+
+void FloatingText::UpdateInScene(bool ignore_scale)
+{
+    project_floating_point(location_2d, location_3d);
+    unadjust_floating_coords(
+        location_2d[0], location_2d[1]);
+    changePos(location_2d[0], location_2d[1]);
+
+    if (!ignore_scale)
+    {
+        float temporary[4] __attribute__((aligned(16)));
+        apply_floating_matrix(
+            temporary,
+            reinterpret_cast<float *>(
+                floating_geometry->transforms + 64),
+            location_3d);
+        float distance = location_2d[2] = temporary[2];
+        if (distance == 0.0f)
+            distance = 1.0f;
+        scale = real_scale / distance;
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001516A8)
 // 0x001516A8 Reload__11PanelObject
 #include "KS/SRC/ks/FEPanel_shared.h"
