@@ -1707,3 +1707,32 @@ vector3d entity::get_visual_center() const
     return get_abs_po().fast_8byte_xform(center);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00139880)
+// 0x00139880 set_ifc_vec__6entityRC7pstringRC8vector3d
+#include "KS/SRC/entity_ifc_dispatch_shared.h"
+
+bool entity::set_ifc_vec(
+    const pstring &attribute,
+    const vector3d &value
+)
+{
+    if (
+        my_ai_interface &&
+        my_ai_interface->set_ifc_vec(attribute, value)
+    )
+        return true;
+    if (
+        my_physical_interface &&
+        my_physical_interface->set_ifc_vec(attribute, value)
+    )
+        return true;
+    if (
+        my_soft_attrib_interface &&
+        my_soft_attrib_interface->set_ifc_vec(attribute, value)
+    )
+        return true;
+
+    return false;
+}
+#endif
