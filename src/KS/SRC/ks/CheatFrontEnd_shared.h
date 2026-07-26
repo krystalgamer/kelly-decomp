@@ -3,13 +3,16 @@
 
 #pragma interface
 
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
 #define KELLY_DECOMP_FULL_FEMULTI_MENU
 #define KELLY_DECOMP_BUILT_FEMENU_SELECT_PADDING
 #include "KS/SRC/ks/FEMenu_shared.h"
 #undef KELLY_DECOMP_BUILT_FEMENU_SELECT_PADDING
 #undef KELLY_DECOMP_FULL_FEMULTI_MENU
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
 #include "KS/SRC/ks/SoundScript_shared.h"
 #include "KS/SRC/ks/cheat_shared.h"
+#include "KS/SRC/ks/GlobalData_shared.h"
 
 #define MAX_CHEATS_PER_SCREEN 2
 #define NUM_PHONE_NUM_GAPS 2
@@ -44,8 +47,10 @@ class CheatFrontEnd : public FEMultiMenu {
 
 public:
     virtual void Select(int entry_index);
+    virtual void OnActivate();
     void OnLeft(int command);
     void OnRight(int command);
+    void TurnOnPhone(bool enabled);
 };
 
 class CheatCodeMenu : public FEMultiMenu {
@@ -113,5 +118,10 @@ private:
 };
 
 __asm__(".equ ReOrderEntries__13CheatCodeMenui, 0x001D2518");
+__asm__(".equ TurnOnPhone__13CheatFrontEndb, 0x001D1BC8");
+__asm__(".equ OnActivate__15FEGraphicalMenu, 0x001581E8");
+
+extern bool toggle_cheats_entryAdded;
+__asm__(".equ toggle_cheats_entryAdded, 0x0040CE40");
 
 #endif

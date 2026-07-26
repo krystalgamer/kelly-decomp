@@ -1,5 +1,34 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001D1780)
+// 0x001D1780 OnActivate__13CheatFrontEnd
+#include "KS/SRC/ks/CheatFrontEnd_shared.h"
+
+void CheatFrontEnd::OnActivate()
+{
+    bool cheat_available = false;
+
+    TurnOnPhone(true);
+
+    for (int index = 0; index < CHEAT_LAST; index++)
+    {
+        if (globalCareerData.isCheatUnlocked(index))
+            cheat_available = true;
+    }
+
+    if (entries->next == 0 && cheat_available)
+    {
+        toggle_cheats_entryAdded = true;
+        Add(toggle_cheats_entry);
+        new_cheat_entry->down =
+            new_cheat_entry->up = toggle_cheats_entry;
+    }
+
+    FEMultiMenu::OnActivate();
+    __asm__ volatile("");
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001D1600)
 // 0x001D1600 Select__13CheatFrontEndi
 #include "KS/SRC/ks/CheatFrontEnd_shared.h"
