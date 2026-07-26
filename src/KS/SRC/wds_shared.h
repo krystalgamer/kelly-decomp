@@ -6,13 +6,18 @@ class entity_id;
 class kellyslater_controller;
 class particle_generator;
 class stringx;
+class terrain;
 
 class world_dynamics_system {
-    char data_before_heroes[0xF0];
+    char data_before_terrain[0xEC];
+    terrain *the_terrain;
     entity *hero_ptr[2];
     kellyslater_controller *ks_controller[2];
 
 public:
+    inline terrain &get_the_terrain() {
+        return *the_terrain;
+    }
     inline entity *get_hero_ptr(int index) {
         return hero_ptr[index];
     }

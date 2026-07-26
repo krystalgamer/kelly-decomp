@@ -43,6 +43,34 @@ void entity::clear_anim(entity_anim_tree *animation)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00134E20)
+// 0x00134E20 update_region__6entityb
+#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/wds_shared.h"
+
+__asm__(".equ get_primary_region__C6entity, 0x00134DE0");
+
+region_node *entity::update_region(bool parent_computed)
+{
+    set_needs_compute_sector(false);
+
+    if (flags & EFLAG_REGION_FORCED)
+    {
+        return in_regions.empty() ? 0 : *in_regions.begin();
+    }
+    if (has_parent())
+    {
+        region_node *parents_region;
+        parents_region = parent_computed
+            ? ((entity *)link_ifc()->get_parent())->get_primary_region()
+            : ((entity *)link_ifc()->get_parent())->update_region();
+        if (get_primary_region() != parents_region)
+            compute_sector(g_world_ptr->get_the_terrain());
+    }
+    return get_primary_region();
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00131560)
 // 0x00131560 set_alternative_materials__6entityRC7stringx
 #include "KS/SRC/entity_alt_material_shared.h"

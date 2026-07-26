@@ -12,6 +12,10 @@ class link_interface : public bone_interface {
 public:
     explicit inline link_interface(bone *value) : bone_interface(value) {}
     ~link_interface();
+
+    inline bone *get_parent() const {
+        return my_parent;
+    }
 };
 
 #endif

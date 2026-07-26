@@ -13,9 +13,16 @@ typedef short anim_id_t;
 class camera;
 class chunk_file;
 class color32;
+class collision_capsule;
+class collision_geometry;
 class entity;
 class entity_id;
+class nglMesh;
 class pstring;
+class region;
+class region_node;
+class sector;
+class terrain;
 class vector3d;
 
 class anim_id_manager {
@@ -68,12 +75,53 @@ public:
     }
 };
 
+struct region_tree_node {
+    int color;
+    region_tree_node *parent;
+    region_tree_node *left;
+    region_tree_node *right;
+    region_node *value;
+};
+
+class region_node_pset_iterator {
+    region_tree_node *node;
+
+public:
+    explicit region_node_pset_iterator(region_tree_node *value)
+        : node(value)
+    {
+    }
+
+    region_node *operator*() const {
+        return node->value;
+    }
+};
+
+class region_node_pset {
+    region_tree_node *header;
+    unsigned int node_count;
+
+public:
+    typedef region_node_pset_iterator iterator;
+
+    inline bool empty() const {
+        return node_count == 0;
+    }
+    inline iterator begin() const {
+        return iterator(header->left);
+    }
+};
+
 class entity : public bone {
-    char entity_data[0x6c];
+    stringx fileName;
     unsigned int flags;
     char entity_data_after_flags[0xac];
     visual_rep *my_visrep;
-    char entity_data_after_visrep[0x6c];
+    char entity_data_before_entity_sector[0x2c];
+    sector *entity_sector;
+    region_node *center_region;
+    region_node_pset in_regions;
+    char entity_data_after_regions[0x30];
     unsigned int ext_flags;
     destroyable_info *destroy_info;
     char entity_data_before_render_color[0x38];
@@ -174,6 +222,99 @@ public:
         const vector3d &tip
     );
     virtual void deactivate_motion_trail();
+    virtual bool get_externally_controlled() const;
+    virtual bool get_in_use() const;
+    virtual void set_in_use(bool in_use);
+    virtual collision_geometry *get_colgeom() const;
+    virtual void update_colgeom(po *root = 0);
+    virtual void invalidate_colgeom();
+    virtual collision_geometry *get_updated_colgeom(
+        po *root = 0,
+        rational_t radius_scale = 1.0f);
+    virtual collision_capsule *get_damage_capsule();
+    virtual collision_capsule *get_updated_damage_capsule();
+    virtual rational_t get_inter_capsule_radius_scale();
+    virtual void get_velocity(vector3d *velocity) const;
+    virtual void get_angular_velocity(vector3d *velocity) const;
+    virtual rational_t get_water_dist() const;
+    virtual rational_t get_underwater_pct() const;
+    virtual const vector3d &get_water_normal() const;
+    virtual time_value_t get_underwater_time() const;
+    virtual vector3d get_last_position() const;
+    virtual void get_effective_collision_velocity(
+        vector3d *velocity,
+        const vector3d &position) const;
+    virtual rational_t get_effective_collision_mass(
+        const vector3d &position,
+        const vector3d &direction) const;
+    virtual void get_closest_point_along_dir(
+        vector3d *result,
+        const vector3d &direction) const;
+    virtual bool is_picked_up();
+    virtual void phys_render(
+        time_value_t time = 0.0f,
+        bool translucent = false);
+    virtual time_value_t get_visrep_ending_time() const;
+    virtual vector3d get_visual_center() const;
+    virtual rational_t get_visual_radius() const;
+    virtual rational_t get_visual_xz_radius_rel_center() const;
+    virtual visual_rep *get_vrep() const;
+    virtual nglMesh *get_mesh() const;
+    virtual void set_mesh(nglMesh *mesh);
+    virtual nglMesh *get_lores_mesh() const;
+    virtual void set_lores_mesh(nglMesh *mesh);
+    virtual nglMesh *get_shadow_mesh() const;
+    virtual void set_fade_away(bool enabled);
+    virtual bool get_fade_away() const;
+    virtual const stringx &get_filename() const;
+    virtual const stringx &get_dirname() const;
+    virtual bool has_dirname() const;
+    virtual void set_min_detail(int detail);
+    virtual bool is_an_entity() const;
+    virtual bool is_a_beam() const;
+    virtual bool is_a_camera() const;
+    virtual bool is_a_station_camera() const;
+    virtual bool is_a_game_camera() const;
+    virtual bool is_a_marky_camera() const;
+    virtual bool is_a_mouselook_camera() const;
+    virtual bool is_a_sniper_camera() const;
+    virtual bool is_a_conglomerate() const;
+    virtual bool is_a_turret() const;
+    virtual bool is_a_ladder() const;
+    virtual bool is_a_light_source() const;
+    virtual bool is_a_limb_body() const;
+    virtual bool is_a_marker() const;
+    virtual bool is_a_rectangle_marker() const;
+    virtual bool is_a_cube_marker() const;
+    virtual bool is_a_crawl_marker() const;
+    virtual bool is_a_particle_generator() const;
+    virtual bool is_a_physical_entity() const;
+    virtual bool is_a_crate() const;
+    virtual bool is_an_item() const;
+    virtual bool is_a_visual_item() const;
+    virtual bool is_a_handheld_item() const;
+    virtual bool is_a_gun() const;
+    virtual bool is_a_thrown_item() const;
+    virtual bool is_a_melee_item() const;
+    virtual bool is_a_morphable_item() const;
+    virtual bool is_a_projectile() const;
+    virtual bool is_a_rigid_body() const;
+    virtual bool is_a_grenade() const;
+    virtual bool is_a_rocket() const;
+    virtual bool is_a_scanner() const;
+    virtual bool is_a_sky() const;
+    virtual void advance_age(time_value_t time);
+    virtual void frame_done();
+    virtual bool add_position_increment(vector3d &increment);
+    virtual const vector3d &terrain_position() const;
+    virtual rational_t terrain_radius() const;
+    virtual const po &get_colgeom_root_po() const;
+    virtual const entity *get_colgeom_root() const;
+    virtual void add_me_to_region(region *target);
+    virtual void remove_me_from_region(region *target);
+    virtual void compute_sector(
+        terrain &terrain_data,
+        bool high_resolution = false);
 
     struct movement_info {
         bool frame_delta_valid;
@@ -194,7 +335,6 @@ public:
     time_value_t get_age() const;
     int get_max_polys() const;
     bool is_hero() const;
-    vector3d get_visual_center() const;
     inline const po &get_abs_po() const {
         return **(po * const *)((const char *)this + 0x50);
     }
@@ -226,6 +366,15 @@ public:
     void unforce_regions();
     void set_door(bool door);
     void set_door_closed(bool closed);
+    inline void set_needs_compute_sector(bool enabled) {
+        if (enabled)
+            ext_flags |= 0x20000000;
+        else
+            ext_flags &= ~0x20000000;
+    }
+    region_node *get_primary_region() const
+        __asm__("get_primary_region__C6entity");
+    region_node *update_region(bool parent_computed = false);
 };
 
 #endif
