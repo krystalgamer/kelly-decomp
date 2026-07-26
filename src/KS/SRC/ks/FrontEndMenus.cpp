@@ -1,5 +1,31 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001B43E0)
+// 0x001B43E0 Draw__15PauseMenuSystem (active pause display)
+#include "KS/SRC/ks/PauseMenuSystem_shared.h"
+
+void PauseMenuSystem::Draw()
+{
+    if (draw)
+    {
+        FEMenu *menu = menus[active];
+        menu->Draw();
+
+        if (g_game_ptr->get_num_active_players() > 1 &&
+            pause_player != -1)
+        {
+            if (active != 9 &&
+                active != 15 &&
+                active != 16 &&
+                active != 17 &&
+                active != 19 &&
+                active != 3)
+                player->Draw();
+        }
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001A5838) || \
     defined(KELLY_DECOMP_FUNCTION_001A5F90) || \
     defined(KELLY_DECOMP_FUNCTION_001A85A0) || \
