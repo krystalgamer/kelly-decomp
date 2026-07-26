@@ -1,5 +1,44 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001E1558)
+// 0x001E1558 vibrate__17ps2_joypad_deviceiiii
+#include "KS/SRC/HWOSPS2/ps2_joypad_vibrate_shared.h"
+
+void ps2_joypad_device::vibrate(
+    int,
+    int vibrator_power,
+    int vibrator_frequency,
+    int)
+{
+    if (!os_developer_options::inst()->rumble_disabled())
+    {
+        if (vibrator_frequency == 0)
+        {
+            unsigned char motors[] = {
+                0,
+                static_cast<unsigned char>(vibrator_power),
+                0, 0, 0, 0
+            };
+            scePadSetActDirect(port_id, 0, motors);
+        }
+        else if (vibrator_frequency == 1)
+        {
+            unsigned char motors[] = {1, 0, 0, 0, 0, 0};
+            scePadSetActDirect(port_id, 0, motors);
+        }
+        else if (vibrator_frequency == 2)
+        {
+            unsigned char motors[] = {
+                1,
+                static_cast<unsigned char>(vibrator_power),
+                0, 0, 0, 0
+            };
+            scePadSetActDirect(port_id, 0, motors);
+        }
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001E96D0)
 extern "C" void __rtti_si(void **type, const char *name, void **base);
 __asm__(".equ __rtti_si, 0x003CE2D8");
