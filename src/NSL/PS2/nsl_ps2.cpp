@@ -1,5 +1,43 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00390B68)
+// 0x00390B68 nslSetSpeakerMode__F19_nslSpeakerModeEnum
+#include "NSL/PS2/nsl_ps2_shared.h"
+
+extern const char nsl_speaker_not_initialized[];
+extern const char nsl_speaker_empty[];
+__asm__(".equ nsl_speaker_not_initialized, 0x0051C480");
+__asm__(".equ nsl_speaker_empty, 0x0051C4D8");
+
+void nslSetSpeakerMode(nslSpeakerModeEnum newMode)
+{
+    if (!nsl.initialized)
+        return;
+    if (!(nsl.initialized == 1))
+        nslFatal(nsl_speaker_not_initialized);
+    if (newMode != nsl.speakerMode)
+    {
+        nsl.speakerMode = newMode;
+        if (nsl.speakerMode != NSL_SPEAKER_MONO)
+            nslPs2GasRpc(
+                GAS_RPC_SET_STEREO,
+                nsl_speaker_empty,
+                1,
+                0,
+                0,
+                0);
+        else
+            nslPs2GasRpc(
+                GAS_RPC_SET_STEREO,
+                nsl_speaker_empty,
+                0,
+                0,
+                0,
+                0);
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_003915E0) || \
     defined(KELLY_DECOMP_FUNCTION_00391628)
 #include "NSL/PS2/fifo_queue_shared.h"
