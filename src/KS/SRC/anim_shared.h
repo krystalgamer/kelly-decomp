@@ -40,6 +40,22 @@ public:
     inline float get_timescale_factor() const {
         return timescale_factor;
     }
+
+    inline bool is_flagged(anim_flags_t flag) const {
+        return flags & flag;
+    }
+
+    inline bool is_tween() const {
+        return is_flagged(ANIM_TWEEN);
+    }
+
+    inline float get_tween_timer() const {
+        return tween_timer;
+    }
+
+    inline float get_tween_duration() const {
+        return cntrl_tween_duration;
+    }
 };
 
 template <class animatable_t>

@@ -102,6 +102,12 @@ public:
     void clear_anims();
     void clear_anims_b();
     void set_priority(int value);
+
+    inline bool was_blended() const {
+        return !control.is_tween() ||
+               control.get_tween_timer() >=
+                   control.get_tween_duration();
+    }
 };
 
 #endif

@@ -13,6 +13,56 @@ class FEEntityManager { char padding[0x4]; bool mm_anims_loaded; public: void Lo
 void FEEntityManager::LoadSurferAnims(int surfer) { if (mm_anims_loaded) return; mm_anims_loaded = true; }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001C9B30)
+// 0x001C9B30 PerformIK__15FEEntityManager
+#include "KS/SRC/ks/FEEntityManager_IK_shared.h"
+#include "decomp_annotations.h"
+
+__asm__(".equ GTrickList, 0x00427CA8");
+__asm__(".equ PerformIK__9ik_object, 0x00244FE0");
+
+void FEEntityManager::PerformIK()
+{
+    bool IK_enabled = false;
+    if ((cur_state == STATE_TRICK) &&
+        (cam_stopped_at == CAM_POS_WALL_2_OUT))
+    {
+        my_ik_object->SetFloorObj(my_board_member);
+        if (trick_playing)
+        {
+            int trick_id = cur_trick;
+            int flags = GTrickList[trick_id].IK_flags;
+
+            if (flags & DoIkFlag)
+            {
+                if (flags & IkBlendFlag)
+                {
+                    if (surfer_tree->was_blended())
+                        IK_enabled = false;
+                    else
+                        IK_enabled = true;
+                }
+                else
+                    IK_enabled = true;
+            }
+            else
+                IK_enabled = false;
+
+            if (flags & BoardNodeFlag)
+                my_ik_object->SetFloorObj(my_parent_node);
+        }
+        else
+            IK_enabled = true;
+    }
+
+    if (IK_enabled)
+    {
+        my_ik_object->PerformIK();
+        KELLY_DECOMP_COMPILER_BARRIER();
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001C3D68)
 // 0x001C3D68 ToTrickBook__15FEEntityManager
 struct graphical_system {
