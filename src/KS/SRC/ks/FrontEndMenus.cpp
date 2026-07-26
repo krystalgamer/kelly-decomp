@@ -911,3 +911,29 @@ void activate_trick_menu(trick_menu_layout *self)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001AEC48)
+// 0x001AEC48 Select__17PlaylistMenuClassi
+#include "KS/SRC/ks/PlaylistMenu_shared.h"
+
+void PlaylistMenuClass::Select(int entry_index)
+{
+    if (numSongs == 0)
+        return;
+
+    if (!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))
+    {
+        SoundScriptManager::inst()->unpause();
+        MusicMan::inst()->stop();
+        MusicMan::inst()->setCurrent(pos + offset);
+        if (MusicMan::inst()->isDisabled(pos + offset))
+            MusicMan::inst()->disable(pos + offset, false);
+        __asm__ __volatile__("" : : : "memory");
+        MusicMan::inst()->play();
+        SoundScriptManager::inst()->playEvent(SS_FE_ONX);
+        SoundScriptManager::inst()->pause();
+        __asm__ __volatile__("" : : : "memory");
+    }
+    return;
+}
+#endif
