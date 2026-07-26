@@ -467,3 +467,21 @@ void FEGraphicalMenu::Draw()
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00158900)
+// 0x00158900 InitAll__12FEMenuSystem
+#include "KS/SRC/ks/FEMenu_shared.h"
+
+extern "C" int getButtonState(int, int)
+    __asm__("getButtonState__Fii");
+__asm__(".equ getButtonState__Fii, 0x00159270");
+
+void FEMenuSystem::InitAll()
+{
+    for (int i = 0; i < 14; i++)
+        for (int j = 0; j < 2; j++)
+            button_down[i][j] = getButtonState(i, j);
+    for (int i = 0; i < count; i++)
+        menus[i]->Init();
+}
+#endif
