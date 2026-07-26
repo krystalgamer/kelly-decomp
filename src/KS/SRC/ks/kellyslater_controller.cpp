@@ -1,5 +1,33 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00213C68)
+// 0x00213C68 Lip_Distance__22kellyslater_controller
+#include "KS/SRC/ks/kellyslater_lip_shared.h"
+
+template<class T>
+inline const T &maximum(const T &left, const T &right)
+{
+    return left < right ? right : left;
+}
+
+float kellyslater_controller::Lip_Distance()
+{
+    vector3d float_pos = my_board_controller.GetFloatPos();
+    vector3d max_pos = *WAVE_GetMarker(WAVE_MarkerLipMark6);
+    float total_depth = float_pos.z - max_pos.z;
+
+    if (g_game_ptr->get_beach_id() == 6)
+        total_depth *= mav_fudge;
+
+    float distance = maximum(
+        0.0f,
+        float_pos.z - my_board->get_abs_position().z);
+    distance = distance / total_depth;
+
+    return distance;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0026F6C8)
 #include "KS/SRC/rtti_shared.h"
 #include "KS/SRC/ks/kellyslater_controller_shared.h"

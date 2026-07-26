@@ -79,6 +79,9 @@ public:
     inline int get_active_player() const {
         return active_player;
     }
+    inline int get_beach_id() const {
+        return *(const int *)((const char *)this + 0x228);
+    }
     inline camera *get_player_camera(int player) {
         return player_cam[player];
     }
