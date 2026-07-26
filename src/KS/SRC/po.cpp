@@ -1,5 +1,19 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00348440)
+// 0x00348440 set_translate__2poRC8vector3d
+#include "KS/SRC/po_shared.h"
+
+void po::set_translate(const vector3d &translation)
+{
+    m = identity_matrix;
+
+    m.w.x = translation.x;
+    m.w.y = translation.y;
+    m.w.z = translation.z;
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_003483A8)
 // 0x003483A8 non_affine_slow_xform__C2poRC8vector3d

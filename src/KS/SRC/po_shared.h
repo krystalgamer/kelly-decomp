@@ -9,6 +9,20 @@ public:
     float y;
     float z;
     float w;
+
+    inline vector4d() {}
+    inline vector4d(const vector4d &other)
+      : x(other.x), y(other.y), z(other.z), w(other.w)
+    {
+    }
+    inline vector4d &operator=(const vector4d &other)
+    {
+        x = other.x;
+        y = other.y;
+        z = other.z;
+        w = other.w;
+        return *this;
+    }
 };
 
 class matrix4x4 {
@@ -29,6 +43,11 @@ public:
 
     vector3d fast_8byte_xform(const vector3d &value) const
         __asm__("slow_xform__C2poRC8vector3d");
+    void set_translate(const vector3d &translation);
+    void set_scale(const vector3d &scale);
 };
+
+extern const matrix4x4 identity_matrix;
+__asm__(".equ identity_matrix, 0x0058AA30");
 
 #endif
