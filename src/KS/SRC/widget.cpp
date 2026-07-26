@@ -23,6 +23,29 @@ void widget::update_pos()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0033E710)
+// 0x0033E710 update_scale__6widget
+#include "KS/SRC/widget_shared.h"
+
+void widget::update_scale()
+{
+    if (parent && !ignoring_parent())
+    {
+        base_S[0] = parent->get_abs_scale(0);
+        base_S[1] = parent->get_abs_scale(1);
+    }
+
+    abs_S[0] = S[0] * base_S[0];
+    abs_S[1] = S[1] * base_S[1];
+
+    widget_list_t::iterator child;
+    for (child = children.begin(); child != children.end(); ++child)
+    {
+        (*child)->update_scale();
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0033F448)
 // 0x0033F448 show__11menu_widget
 #include "KS/SRC/widget_shared.h"
