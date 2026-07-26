@@ -154,9 +154,10 @@ public:
 
 class PanelAnim;
 class PanelQuad;
+class nglTexture;
 
 class matrix4x4 {
-    float values[16];
+    float values[16] __attribute__((aligned(16)));
 };
 
 typedef float time_value_t;
@@ -188,6 +189,53 @@ public:
     virtual void Init(PanelQuad **pquads, matrix4x4 matrix, bool floating = false);
     virtual void Update(time_value_t time_inc);
     virtual void Slide(float offset);
+};
+
+struct PanelMaterial {
+    stringx name;
+    uint32 color;
+    float emissive;
+    float shininess;
+    float shinestr;
+    bool additive;
+    bool hasmap;
+    nglTexture *texture;
+    bool bilinearfilter;
+    bool wrapu;
+    bool wrapv;
+    stringx filename;
+};
+
+class PanelBatch {
+public:
+    uint32 material;
+    PanelMaterial mat;
+    uint32 verttype;
+    uint32 color;
+    unsigned short nwedges;
+    PanelQuad *pq;
+    vector3d *wedges;
+    color32 *colors;
+    void *tex;
+    unsigned short strip_count;
+    unsigned short index_count;
+    unsigned short *didxs;
+
+    virtual ~PanelBatch();
+    void Reload(PanelMaterial *materials);
+};
+
+class PanelObject : public PanelGeom {
+public:
+    PanelMaterial *materials;
+    unsigned short size;
+    unsigned short nbatches;
+    PanelBatch *batches;
+
+    virtual ~PanelObject();
+    virtual PanelGeomKind Kind() const;
+    virtual bool Load(unsigned char *buffer, int &index);
+    virtual void Reload();
 };
 
 class PanelFile {

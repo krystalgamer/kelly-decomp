@@ -1,5 +1,32 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001516A8)
+// 0x001516A8 Reload__11PanelObject
+#include "KS/SRC/ks/FEPanel_shared.h"
+
+extern nglTexture *nglLoadTextureA(const char *name);
+__asm__(".equ nglLoadTextureA__FPCc, 0x0039C1C8");
+__asm__(".equ Reload__10PanelBatchP13PanelMaterial, 0x001511C8");
+__asm__(".equ Reload__9PanelGeom, 0x0014FC78");
+
+void PanelObject::Reload()
+{
+    for (int i = 0; i < size; i++)
+    {
+        PanelMaterial &material = materials[i];
+        if (material.hasmap)
+            material.texture =
+                nglLoadTextureA(material.filename.data());
+        else
+            material.texture = 0;
+    }
+    for (int i = 0; i < nbatches; i++)
+        batches[i].Reload(materials);
+    PanelGeom::Reload();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001524C0)
 #include "KS/SRC/ks/FEPanel_shared.h"
 

@@ -26,6 +26,7 @@ public:
     ~stringx();
     stringx &operator=(const stringx &);
     inline const char *c_str() const { return chars; }
+    inline char *data() const { return chars; }
     int length() const;
     int find(const char *text) const;
     void lock();
