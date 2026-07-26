@@ -280,6 +280,83 @@ void BeamEffectDtor(void *self, int deleting)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_002711F0)
+// 0x002711F0 _$_4beam
+struct material;
+
+struct beam_layout
+{
+    char data_to_vtable[8];
+    const void *vtable;
+    char data_to_effects[0x200];
+    void **effects_begin;
+    void **effects_end;
+    void **effects_capacity;
+    char data_to_material[0x94];
+    material *my_material;
+};
+
+extern const char beam_vtable[];
+extern char material_bank[];
+extern void *beam_allocator_free_list[16];
+
+extern "C" void purge_beam_effects(beam_layout *self)
+    __asm__("purge_effects__4beam");
+extern "C" void delete_material_instance(
+    void *bank,
+    material *value
+) __asm__("delete_instance__t13instance_bank1Z8materialP8material");
+extern "C" void arch_free(void *memory)
+    __asm__("arch_free__FPv");
+extern "C" void destroy_entity(beam_layout *self, int deleting)
+    __asm__("_$_6entity");
+
+__asm__(".equ beam_vtable, 0x004FD008");
+__asm__(".equ material_bank, 0x0046B650");
+__asm__(".equ beam_allocator_free_list, 0x003E5628");
+__asm__(".equ purge_effects__4beam, 0x002712B0");
+__asm__(
+    ".equ delete_instance__t13instance_bank1Z8materialP8material, "
+    "0x002AD570"
+);
+__asm__(".equ arch_free__FPv, 0x002AC768");
+__asm__(".equ _$_6entity, 0x001298C8");
+
+extern "C" void destroy_beam(beam_layout *self, int deleting)
+    __asm__("_$_4beam");
+
+void destroy_beam(beam_layout *self, int deleting)
+{
+    self->vtable = beam_vtable;
+    purge_beam_effects(self);
+
+    if (self->my_material)
+    {
+        delete_material_instance(material_bank, self->my_material);
+        self->my_material = 0;
+    }
+
+    void **capacity = self->effects_capacity;
+    register void **storage __asm__("$5") = self->effects_begin;
+    unsigned int count = capacity - storage;
+    if (count)
+    {
+        unsigned int bytes = count * sizeof(void *);
+        if (bytes > 128)
+            arch_free(storage);
+        else
+        {
+            unsigned int index = (bytes + 7) / 8 - 1;
+            *storage = beam_allocator_free_list[index];
+            beam_allocator_free_list[index] = storage;
+        }
+    }
+
+    destroy_entity(self, deleting);
+    __asm__ volatile("" : : : "memory");
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00272E48)
 // 0x00272E48 kill__11beam_effectb
 class beam;
