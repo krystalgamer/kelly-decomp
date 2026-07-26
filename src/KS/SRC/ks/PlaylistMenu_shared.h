@@ -58,6 +58,9 @@ class MusicListing {
     bool sucessfulLastPlay;
 
 public:
+    inline int getCurrent() const {
+        return current;
+    }
     inline void disable(int song, bool disabled) {
         enabled[order[song]] = !disabled;
     }
@@ -89,6 +92,7 @@ public:
     }
     nslSoundId play();
     void stop();
+    void playNext();
     inline void disable(int which, bool disabled) {
         musicTrack.disable(which, disabled);
     }
@@ -156,6 +160,7 @@ private:
 
 public:
     void Select(int entry_index);
+    void OnSquare(int controller);
 };
 
 __asm__(".equ _20os_developer_options$instance, 0x0046B180");
@@ -163,6 +168,7 @@ __asm__(".equ _18SoundScriptManager$instance, 0x0046B4A0");
 __asm__(".equ _8MusicMan$instance, 0x00427B18");
 __asm__(".equ unpause__18SoundScriptManager, 0x0031BFA8");
 __asm__(".equ stop__8MusicMan, 0x002595F0");
+__asm__(".equ playNext__8MusicMan, 0x00258D08");
 __asm__(".equ play__8MusicMan, 0x00258D60");
 __asm__(
     ".equ playEvent__18SoundScriptManager9EventTypeP6entityf, "

@@ -88,6 +88,38 @@ void PlaylistMenuClass::OnCircle(int controller) {
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001B0228)
+// 0x001B0228 OnSquare__17PlaylistMenuClassi
+#include "KS/SRC/ks/PlaylistMenu_shared.h"
+#include "decomp_annotations.h"
+
+void PlaylistMenuClass::OnSquare(int controller)
+{
+    if (!os_developer_options::inst()->is_flagged(
+            os_developer_options::FLAG_NO_AUDIO))
+    {
+        SoundScriptManager::inst()->unpause();
+        SoundScriptManager::inst()->playEvent(SS_FE_ONX);
+        SoundScriptManager::inst()->pause();
+
+        if (!MusicMan::inst()->isDisabled(pos + offset))
+        {
+            MusicMan::inst()->disable(pos + offset, true);
+            if (MusicMan::inst()->musicTrack.getCurrent() == pos + offset)
+            {
+                MusicMan::inst()->stop();
+                MusicMan::inst()->playNext();
+                KELLY_DECOMP_COMPILER_BARRIER();
+            }
+        }
+        else
+        {
+            MusicMan::inst()->disable(pos + offset, false);
+        }
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001B0730)
 // 0x001B0730 OnL2__15ReplayMenuClassi
 class ReplayMenuClass {
