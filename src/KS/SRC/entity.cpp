@@ -1736,3 +1736,32 @@ bool entity::set_ifc_vec(
     return false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00139A28)
+// 0x00139A28 set_ifc_str__6entityRC7pstringRC7stringx
+#include "KS/SRC/entity_ifc_dispatch_shared.h"
+
+bool entity::set_ifc_str(
+    const pstring &attribute,
+    const stringx &value
+)
+{
+    if (
+        my_ai_interface &&
+        my_ai_interface->set_ifc_str(attribute, value)
+    )
+        return true;
+    if (
+        my_physical_interface &&
+        my_physical_interface->set_ifc_str(attribute, value)
+    )
+        return true;
+    if (
+        my_soft_attrib_interface &&
+        my_soft_attrib_interface->set_ifc_str(attribute, value)
+    )
+        return true;
+
+    return false;
+}
+#endif
