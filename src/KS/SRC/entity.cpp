@@ -1,5 +1,32 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001349E8)
+// 0x001349E8 clear_anim__6entityP16entity_anim_tree
+#include "KS/SRC/entity_anim_clear_shared.h"
+
+void entity::clear_anim(entity_anim_tree *animation)
+{
+    int slot;
+    for (slot = 0; slot < 10; ++slot)
+    {
+        entity_anim_tree *local = get_anim_tree(slot);
+        if (animation == local)
+        {
+            local->deconstruct();
+            local->detach();
+            int index;
+            for (index = 0; index < slot; index++)
+            {
+                entity_anim_tree *lower = get_anim_tree(index);
+                if (lower && lower->is_valid())
+                    lower->attach();
+            }
+            return;
+        }
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00139180)
 #include "KS/SRC/entity_shared.h"
 
