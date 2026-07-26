@@ -43,6 +43,28 @@ void entity::clear_anim(entity_anim_tree *animation)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00131560)
+// 0x00131560 set_alternative_materials__6entityRC7stringx
+#include "KS/SRC/entity_alt_material_shared.h"
+
+void alternative_material_entity::set_alternative_materials(
+    const stringx &name)
+{
+    if (name.size() == 0 ||
+        name == no_alternative_material)
+    {
+        set_alternative_materials(0);
+        __asm__ volatile("");
+    }
+    else
+    {
+        set_alternative_materials(
+            g_world_ptr->get_material_set(name));
+        __asm__ volatile("");
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00130EA8)
 // 0x00130EA8 create_light_set__6entity
 #include "KS/SRC/entity_light_shared.h"

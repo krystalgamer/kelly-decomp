@@ -9,6 +9,23 @@ struct string_buf {
     int char_length;
     int block_length;
     int max_blocks;
+
+    inline int compare(const char *text) const {
+        const char *value =
+            reinterpret_cast<const char *>(data);
+        int index;
+        for (index = 0; index < char_length; ++index) {
+            if (text[index] == 0)
+                return -1;
+            if (value[index] == text[index])
+                continue;
+            if (text[index] > value[index])
+                return 1;
+            if (text[index] < value[index])
+                return -1;
+        }
+        return text[index] == 0 ? 0 : 1;
+    }
 };
 
 class stringx {
@@ -31,6 +48,10 @@ public:
     int find(const char *text) const;
     void lock();
     void fork_data(int new_length = -1);
+    inline int size() const { return my_buf->char_length; }
+    inline bool operator==(const char *text) const {
+        return my_buf->compare(text) == 0;
+    }
 };
 
 #if defined(KELLY_DECOMP_FUNCTION_00144388)
