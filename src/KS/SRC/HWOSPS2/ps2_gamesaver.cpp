@@ -1,5 +1,54 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001E4508)
+// 0x001E4508 format__16GenericGameSaverii
+#include "KS/SRC/HWOSPS2/GenericGameSaver_shared.h"
+
+int GenericGameSaver::format(int port, int slot)
+{
+    int command;
+    int result;
+    int type;
+    int free_blocks;
+    int formatted;
+    int status = getInfo(
+        port,
+        slot,
+        &type,
+        &free_blocks,
+        &formatted);
+    result = -1;
+
+    if (status != GSErrorUnformatted)
+    {
+        int result_code = GSErrorOther;
+        if (status == GSOk)
+            result_code = GSOk;
+        return result_code;
+    }
+
+    status = sceMcFormat(port, slot);
+    if (status != 0)
+    {
+        status = sceMcFormat(port, slot);
+        if (status != 0)
+            return GSErrorOther;
+    }
+
+    status = sceMcSync(0, &command, &result);
+    if (status != 1)
+    {
+        status = sceMcSync(0, &command, &result);
+        if (status != 1)
+            return GSErrorOther;
+    }
+
+    if (result != 0)
+        return GSErrorOther;
+    return GSOk;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001E60F0) || \
     defined(KELLY_DECOMP_FUNCTION_001E6380)
 #include "KS/SRC/HWOSPS2/ps2_gamesaver_shared.h"
