@@ -1,5 +1,26 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001695A8)
+// 0x001695A8 Show__14FanMeterWidgetb
+#include "KS/SRC/ks/FanMeterWidget_shared.h"
+
+void FanMeterWidget::Show(bool shown)
+{
+    if (shown)
+    {
+        SetSize(size);
+        arrowPQ->TurnOn(true);
+    }
+    else
+    {
+        for (int index = 0;
+             index < numSections;
+             index++)
+            sectionPQs[index]->TurnOn(false);
+        arrowPQ->TurnOn(false);
+    }
+}
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00168E70)
 // 0x00168E70 SetDisplay__14FanMeterWidgetb
