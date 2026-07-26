@@ -823,3 +823,65 @@ struct FEMenu{char p[84];FEMenu*back;};class PauseMenuSystem{char p[116];FEMenu*
 // 0x001A7260 OnDown__21SaveCareerPromptClassi
 struct SoundScriptManager{};extern SoundScriptManager*sound_manager;extern "C" void unpause(SoundScriptManager*)__asm__("unpause__18SoundScriptManager");extern "C" void pause(SoundScriptManager*)__asm__("pause__18SoundScriptManager");extern "C" int play(SoundScriptManager*,int,void*,float)__asm__("playEvent__18SoundScriptManager9EventTypeP6entityf");asm(".equ sound_manager,0x0046B4A0");asm(".equ unpause__18SoundScriptManager,0x0031BFA8");asm(".equ pause__18SoundScriptManager,0x0031BF98");asm(".equ playEvent__18SoundScriptManager9EventTypeP6entityf,0x0031C380");struct Sys{char padding[176];int navigationEvent;};struct menu_vtable{char padding[336];};struct Active{char padding[116];menu_vtable*vtable;};class SaveCareerPromptClass{char padding0[96];Active*active;char padding1[16];menu_vtable*vtable;Sys*sys;char padding2[4];int myState;public:void OnDown(int);};inline void call_move(void*self,menu_vtable*v,int off,int c){short adj=*(short*)((char*)v+off);void(*fn)(void*,int)=*(void(**)(void*,int))((char*)v+off+4);fn((char*)self+adj,c);}void SaveCareerPromptClass::OnDown(int c){unpause(sound_manager);if(myState==7)sys->navigationEvent=play(sound_manager,25,0,0.0f);pause(sound_manager);if(active)call_move(active,active->vtable,160,c);else call_move(this,vtable,328,c);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001ACB30)
+// 0x001ACB30 OnActivate__14TrickMenuClass
+#include "KS/SRC/ks/trick_menu_activation_shared.h"
+
+extern "C" void activate_trick_menu(trick_menu_layout *self)
+    __asm__("OnActivate__14TrickMenuClass");
+
+void activate_trick_menu(trick_menu_layout *self)
+{
+    trick_menu_entry *old_high = self->highlighted;
+    trick_menu_entry *old_visible = self->first_visible;
+
+    trick_menu_vtable *vtable = self->vtable;
+    register void (*init_function)(void *) __asm__("$3") =
+        vtable->init;
+    init_function((char *)self + vtable->init_adjustment);
+
+    if (
+        old_high &&
+        !old_high->vtable->get_disable(
+            (char *)old_high +
+            old_high->vtable->get_disable_adjustment
+        )
+    )
+    {
+        vtable = self->vtable;
+        register void (*set_high_function)(
+            void *,
+            trick_menu_entry *,
+            bool
+        ) __asm__("$3") = vtable->set_high;
+        set_high_function(
+            (char *)self + vtable->set_high_adjustment,
+            old_high,
+            false
+        );
+    }
+    else
+    {
+        vtable = self->vtable;
+        register void (*highlight_function)(void *) __asm__("$3") =
+            vtable->highlight_default;
+        highlight_function(
+            (char *)self + vtable->highlight_default_adjustment
+        );
+    }
+
+    if (old_visible)
+    {
+        vtable = self->vtable;
+        register void (*set_vis_function)(
+            void *,
+            trick_menu_entry *
+        ) __asm__("$3") = vtable->set_vis;
+        set_vis_function(
+            (char *)self + vtable->set_vis_adjustment,
+            old_visible
+        );
+    }
+}
+#endif
