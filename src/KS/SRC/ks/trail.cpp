@@ -1,5 +1,45 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00361950)
+// 0x00361950 ks_fx_trail_create__FffbP22kellyslater_controller
+#include "KS/SRC/ks/trail_create_shared.h"
+
+trail *ks_fx_trail_create(
+    float sample_rate,
+    float life,
+    bool extra,
+    kellyslater_controller *owner)
+{
+    if (owner)
+    {
+        if (!trail_p1->is_valid())
+        {
+            trail_p1->initialize(sample_rate, life, extra, owner);
+            return trail_p1;
+        }
+        if (!trail_p2->is_valid())
+        {
+            trail_p2->initialize(sample_rate, life, extra, owner);
+            return trail_p2;
+        }
+        nglPrintf(no_player_trail_text);
+        return 0;
+    }
+    if (!trail_m1->is_valid())
+    {
+        trail_m1->initialize(sample_rate, life, extra, owner);
+        return trail_m1;
+    }
+    if (trail_m2->is_valid())
+    {
+        nglPrintf(no_object_trail_text);
+        return 0;
+    }
+    trail_m2->initialize(sample_rate, life, extra, owner);
+    return trail_m2;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00361A40)
 // 0x00361A40 ks_fx_trail_draw__Fi
 #include "KS/SRC/ks/trail_shared.h"
