@@ -1,0 +1,23 @@
+{
+  "address": "0x00137880",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9a16726392ac35865b238f362f8038b0bf66265c",
+      "candidate_size": 280,
+      "compared_bytes": 280,
+      "compared_instructions": 70,
+      "emitted_name": "exec_preload_function__6entityRC7stringx",
+      "instruction_score": 48.5714,
+      "matching_bytes": 127,
+      "matching_instructions": 34,
+      "notes": "Released entity::exec_preload_function definition tested once with the minimal required ABI declarations. Result: different (45.3571% byte score; 48.5714% instruction score).",
+      "score": 45.3571,
+      "source": "typedef unsigned long long big_int;\n\nclass stringx;\nclass string_buf\n{\n  friend class stringx;\n  friend stringx operator+( const stringx& lhs, const char* rhs );\n  big_int *data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n};\n\nclass stringx\n{\n  friend stringx operator+( const stringx& lhs, const char* rhs );\nprotected:\n  char *chars;\n  string_buf *my_buf;\npublic:\n  stringx();\n  stringx(const stringx &cp);\n  ~stringx();\n  inline int size() const { return my_buf->char_length; }\n  inline int length() const { return size(); }\n  void make_room(int size);\n  void append(const stringx& s);\n  void append(const char *s, int len = -1);\n  void to_lower();\n};\n\nextern \"C\" int strlen(const char *);\ninline stringx operator+( const stringx& lhs, const char* rhs )\n{\n  stringx foo;\n  int len = strlen(rhs);\n\n  foo.make_room(len + lhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs, len);\n\n  return foo;\n}\n\nclass vm_executable;\nclass vm_thread;\nclass script_object\n{\npublic:\n  class instance\n  {\n  public:\n    vm_thread* add_thread(const vm_executable* ex);\n    void run_single_thread(vm_thread* t, bool ignore_suspended);\n  };\n  const vm_executable& get_func(int i) const;\n  int find_func(const stringx& func_fullname) const;\n};\n\nclass world_dynamics_system\n{\npublic:\n  script_object* get_current_level_global_script_object() const;\n  script_object::instance* get_current_level_global_script_object_instance() const;\n};\nextern world_dynamics_system *g_world_ptr;\n\nclass entity\n{\npublic:\n  static void exec_preload_function(const stringx &preload_func);\n};\n\nvoid entity::exec_preload_function(const stringx &preload_func)\n{\n  if(preload_func.length() > 0)\n  {\n    // there might be a script function for preloading additional assets needed by item\n    stringx preload_func_name = preload_func + \"()\";\n    preload_func_name.to_lower();\n\n    script_object* gso = g_world_ptr->get_current_level_global_script_object();\n    int fidx = gso->find_func( preload_func_name );\n    if ( fidx >= 0 )\n    {\n      script_object::instance* gsoi = g_world_ptr->get_current_level_global_script_object_instance();\n      // spawn thread for function\n      vm_thread* newt = gsoi->add_thread( &gso->get_func(fidx) );\n      // run the NEW thread immediately\n      gsoi->run_single_thread( newt, false );\n    }\n  }\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "exec_preload_function__6entityRC7stringx"
+}
