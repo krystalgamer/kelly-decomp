@@ -1,0 +1,15 @@
+{
+  "address": "0x00148FE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c89d2ee9631bafcec60669df4182bdfd61e150da",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:420-441; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:43-168; tmp/functions/00148FE0___12BouncingTextP4FontG7stringxffifQ24Font9HORIZJUSTQ24Font8VERTJUSTG7color32/attempt-1/result.json; tmp/functions/00148FE0___12BouncingTextP4FontG7stringxffifQ24Font9HORIZJUSTQ24Font8VERTJUSTG7color32/attempt-1/compiler.stderr; tmp/source_first/00148FE0/notes.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "class Font\n{\npublic:\n    enum HORIZJUST { HORIZJUST_CENTER };\n    enum VERTJUST { VERTJUST_CENTER };\n};\n\nclass stringx\n{\n    char data[8];\n\npublic:\n    stringx(const stringx &);\n    ~stringx();\n};\n\nclass color32\n{\n    unsigned int value;\n};\n\nclass TextString\n{\nprotected:\n    Font *font;\n    stringx text;\n    float x;\n    float y;\n    int z;\n    Font::HORIZJUST hJustify;\n    Font::VERTJUST vJustify;\n    bool even_number_spacing;\n    int fade;\n    float fade_alpha;\n    float fade_timer;\n    float scale;\n    float button_scale;\n    bool override_alpha;\n\npublic:\n    TextString(Font *f, stringx t, float x1, float y1, int z1, float s,\n               const Font::HORIZJUST horizJust,\n               const Font::VERTJUST vertJust, color32 col)\n    {\n        cons(f, t, x1, y1, z1, s, horizJust, vertJust, false, col);\n    }\n    virtual ~TextString();\n    virtual void Update(float);\n\nprotected:\n    virtual void cons(Font *f, stringx t, float x1, float y1, int z1, float s,\n                      const Font::HORIZJUST horizJust,\n                      const Font::VERTJUST vertJust, bool no_col, color32 col);\n};\n\nclass BouncingText : public TextString\n{\nprotected:\n    float targetScale;\n    float speed;\n\npublic:\n    BouncingText(Font *f, stringx t, float x1, float y1, int z1, float s,\n                 const Font::HORIZJUST horizJust,\n                 const Font::VERTJUST vertJust, color32 col);\n    virtual void Update(float);\n};\n\nBouncingText::BouncingText(Font *f, stringx t, float x1, float y1, int z1,\n                           float s, const Font::HORIZJUST horizJust,\n                           const Font::VERTJUST vertJust, color32 col)\n    : TextString(f, t, x1, y1, z1, s, horizJust, vertJust, col)\n{\n    targetScale = scale;\n    speed = 1.0f;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__12BouncingTextP4FontG7stringxffifQ24Font9HORIZJUSTQ24Font8VERTJUSTG7color32"
+}
