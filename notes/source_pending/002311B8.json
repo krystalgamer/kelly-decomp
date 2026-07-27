@@ -1,0 +1,23 @@
+{
+  "address": "0x002311B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9666946b0c560c66539281b99a7dfb803c451ff8",
+      "candidate_size": 284,
+      "compared_bytes": 284,
+      "compared_instructions": 71,
+      "emitted_name": "rotate_cam__14wipeout_cameraP8vector3dG8vector3df",
+      "instruction_score": 85.9155,
+      "matching_bytes": 254,
+      "matching_instructions": 61,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/ks_camera.cpp:2545-2553; kelly-slaters-pro-surfer/KS/SRC/ks/ks_camera.h:333-356; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:292-383; tmp/functions/002311B8_rotate_cam__14wipeout_cameraP8vector3dG8vector3df/attempt-1/result.json. Result `different`, score 89.4366; no later attempt.",
+      "score": 89.4366,
+      "source": "// Target: 0x002311B8 rotate_cam__14wipeout_cameraP8vector3dG8vector3df\n// Released source: KS/SRC/ks/ks_camera.cpp:2545-2553\n\nextern \"C\" float cosf(float);\nextern \"C\" float sinf(float);\n\ntypedef float rational_t;\n\nclass vector3d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z;\n\n  inline vector3d() {}\n  inline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n  inline vector3d(T _x, T _y, T _z) { x = _x; y = _y; z = _z; }\n  inline vector3d& operator = (const vector3d& v)\n  { x = v.x; y = v.y; z = v.z; return *this; }\n};\n\ninline vector3d operator + (const vector3d& a, const vector3d& b)\n{ return vector3d(a.x + b.x, a.y + b.y, a.z + b.z); }\n\ninline vector3d operator - (const vector3d& a, const vector3d& b)\n{ return vector3d(a.x - b.x, a.y - b.y, a.z - b.z); }\n\ninline vector3d operator * (vector3d::T d, const vector3d& a)\n{ return vector3d(d * a.x, d * a.y, d * a.z); }\n\nclass wipeout_camera\n{\npublic:\n  void rotate_cam(vector3d *camera_pos, vector3d center_pos, float rotation_val);\n};\n\n//  Rotate the camera position around the center position by the rotation value.\nvoid wipeout_camera::rotate_cam(vector3d *camera_pos, vector3d center_pos, float rotation_val)\n{\n\tvector3d camera_dif = *camera_pos - center_pos;  //  The difference between the target and the camera.\n\tvector3d right_angle(0,0,0);\n\tright_angle.z = camera_dif.x;\n\tcamera_dif = (cosf(rotation_val) * camera_dif) + (sinf(rotation_val) * (right_angle));\n\t*camera_pos = center_pos + camera_dif;\n}\n",
+      "status": "different",
+      "target_size": 284
+    }
+  ],
+  "raw_name": "rotate_cam__14wipeout_cameraP8vector3dG8vector3df"
+}
