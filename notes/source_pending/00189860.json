@@ -1,0 +1,23 @@
+{
+  "address": "0x00189860",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8da69efb9329a5d10814952192e22e48d5cd6dc2",
+      "candidate_size": 224,
+      "compared_bytes": 272,
+      "compared_instructions": 68,
+      "emitted_name": "Up__14SurferFrontEnd",
+      "instruction_score": 4.4118,
+      "matching_bytes": 48,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.cpp:1052-1066; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:101-105. Result `different`, score 17.6471; no later attempt.",
+      "score": 17.6471,
+      "source": "struct FEMenuEntry;\nstruct entry_vtable { char pad[48]; short adjust; short reserved; bool (*GetDisable)(void *); };\nstruct FEMenuEntry { char pad0[80]; FEMenuEntry *up; char pad1[12]; entry_vtable *vtable; };\nstruct self_vtable { char pad[24]; short adjust; short reserved; void (*setHigh)(void *, FEMenuEntry *, bool); };\nstruct SurferData { char pad[396]; char name_ps[256]; };\nextern SurferData SurferDataArray[];\n__asm__(\".equ SurferDataArray,0x004254E0\");\nextern \"C\" int stricmp(const char *, const char *) __asm__(\"strcasecmp\");\nstruct os_developer_options { char pad[72]; int no_audio; static os_developer_options *inst() { return *(os_developer_options **)0x0045B180; } bool is_flagged(int) { return no_audio; } enum { FLAG_NO_AUDIO = 17 }; };\nstruct SoundScriptManager { static SoundScriptManager *inst() { return *(SoundScriptManager **)0x0045B4A0; } void playEvent(int, void * = 0, float = 0.0f) __asm__(\"playEvent__18SoundScriptManager9EventTypeP6entityf\"); };\nstruct SurferFrontEnd { char pad0[76]; FEMenuEntry *highlighted; char pad1[32]; self_vtable *vtable; char pad2[376]; FEMenuEntry *Personality; char pad3[240]; int current_surfer_index; void setHigh(FEMenuEntry *entry, bool anim) { self_vtable *t=vtable; t->setHigh((char *)this+t->adjust,entry,anim); } void Up(); };\n\nvoid SurferFrontEnd::Up()\n{\n\tFEMenuEntry* tmp = highlighted->up;\n\twhile(tmp && tmp->vtable->GetDisable((char *)tmp + tmp->vtable->adjust)) tmp = tmp->up;\n\n\tif(tmp)\n\t{\n\t\tsetHigh(tmp, false);\n\t\tif (!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n\t\t\tSoundScriptManager::inst()->playEvent(25);\n\t}\n\telse if (!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n\t\tSoundScriptManager::inst()->playEvent(28);\n}\n",
+      "status": "different",
+      "target_size": 272
+    }
+  ],
+  "raw_name": "Up__14SurferFrontEnd"
+}
