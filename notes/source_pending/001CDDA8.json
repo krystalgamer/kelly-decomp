@@ -1,0 +1,23 @@
+{
+  "address": "0x001CDDA8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a5ae16aed9306e740c58f2bbb8d7ea1cff0eb8a6",
+      "candidate_size": 160,
+      "compared_bytes": 264,
+      "compared_instructions": 66,
+      "emitted_name": "_$_13PhotoFrontEnd",
+      "instruction_score": 1.5152,
+      "matching_bytes": 23,
+      "matching_instructions": 1,
+      "notes": "# Attempt 1\n\n- Queue was clean `pending` with zero attempts and no pre-existing address scratch.\n- Used the released `PhotoFrontEnd::~PhotoFrontEnd` body verbatim with self-contained declarations preserving the released inheritance and three submenu members.\n- Verified the candidate was not the generated placeholder before testing.\n- Result: **different** \u2014 byte score 8.7121%, instruction score 1.5152%; candidate 160 bytes versus target 264 bytes. Exactly one test was run; no variants were attempted.",
+      "score": 8.7121,
+      "source": "// Released source: KS/SRC/ks/PhotoFrontEnd.cpp and PhotoFrontEnd.h.\nclass FEMultiMenu {\n    char layout[0x15c];\npublic:\n    virtual ~FEMultiMenu();\n};\n\nclass PhotoSelectMenu {\n    char layout[0x74];\npublic:\n    virtual ~PhotoSelectMenu();\n};\n\nclass PhotoSaveMenu {\n    char layout[0x74];\npublic:\n    virtual ~PhotoSaveMenu();\n};\n\nclass PhotoDevelopMenu {\n    char layout[0x74];\npublic:\n    virtual ~PhotoDevelopMenu();\n};\n\nclass PhotoFrontEnd : public FEMultiMenu {\n    PhotoSelectMenu *selectMenu;\n    PhotoSaveMenu *saveMenu;\n    PhotoDevelopMenu *develMenu;\npublic:\n    virtual ~PhotoFrontEnd();\n};\n\nPhotoFrontEnd::~PhotoFrontEnd()\n{\n    // Unlike menu entries, submenus have to be manually deleted.\n    delete selectMenu;\n    delete saveMenu;\n    delete develMenu;\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "_$_13PhotoFrontEnd"
+}
