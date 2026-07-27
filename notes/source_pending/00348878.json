@@ -1,0 +1,16 @@
+{
+  "address": "0x00348878",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "94df7dc865aa107d67b9c74c161919b97870ac2c",
+      "error": "Candidate did not emit set_rot__2poRC8vector3df; emitted functions: ['set_rot__2poRC8vector3d']",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/po.cpp:430-461; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:292-329,515-546,686-697; tmp/functions/00348878_set_rot__2poRC8vector3df/attempt-1/result.json; tmp/source_first/00348878/attempt-1.md. Result `symbol_missing`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "typedef float rational_t;\n\nextern \"C\" rational_t __fsqrt(rational_t);\nextern \"C\" rational_t __fabs(rational_t);\nvoid fast_sin_cos_approx(rational_t rads, rational_t* sinx, rational_t* cosx);\n\nconst rational_t SMALL_ANGLE = 0.00001f;\n\nclass vector3d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z;\n\n  inline vector3d() {}\n  inline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n  inline vector3d& operator *= ( T d )\n  { x *= d; y *= d; z *= d; return *this; }\n  inline T length() const\n  { return (T)__fsqrt(x*x + y*y + z*z); }\n};\n\nclass vector4d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z,w;\n};\n\nclass matrix4x4\n{\npublic:\n  typedef rational_t T;\n  typedef vector4d row;\n  row x __attribute__((aligned(16)));\n  row y;\n  row z;\n  row w;\n};\n\nclass po\n{\n  matrix4x4 m;\npublic:\n  void set_rot(const vector3d& rot_dir);\n};\n\nvoid po::set_rot( const vector3d& rot_dir )\n{\n  vector3d       v      = rot_dir;\n  rational_t     rads   = v.length();\n  rational_t     fCos, fSin;\n  fast_sin_cos_approx( rads, &fSin, &fCos );\n\n  if (__fabs(rads)>SMALL_ANGLE)\n    v *= 1/rads;\n\n  rational_t _1_minus_fCos = ( 1.0f - fCos );\n\n  m.x.x = ( v.x * v.x ) * _1_minus_fCos + fCos;\n  m.x.y = ( v.x * v.y ) * _1_minus_fCos - (v.z * fSin);\n  m.x.z = ( v.x * v.z ) * _1_minus_fCos + (v.y * fSin);\n\n  m.y.x = ( v.y * v.x ) * _1_minus_fCos + (v.z * fSin);\n  m.y.y = ( v.y * v.y ) * _1_minus_fCos + fCos ;\n  m.y.z = ( v.y * v.z ) * _1_minus_fCos - (v.x * fSin);\n\n  m.z.x = ( v.z * v.x ) * _1_minus_fCos - (v.y * fSin);\n  m.z.y = ( v.z * v.y ) * _1_minus_fCos + (v.x * fSin);\n  m.z.z = ( v.z * v.z ) * _1_minus_fCos + fCos;\n\n  m.x.w = m.y.w = m.z.w = 0.0f;\n  m.w.x = m.w.y = m.w.z = 0.0f;\n  m.w.w = 1.0f;\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "set_rot__2poRC8vector3df"
+}
