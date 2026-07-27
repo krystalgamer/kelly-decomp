@@ -1,0 +1,23 @@
+{
+  "address": "0x001C2C18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "556a9f7b6c6e1a72909cf6ff9a0b4371e5794cb8",
+      "candidate_size": 320,
+      "compared_bytes": 328,
+      "compared_instructions": 82,
+      "emitted_name": "Anim__15FEEntityManagerG7stringxfbf",
+      "instruction_score": 29.2683,
+      "matching_bytes": 124,
+      "matching_instructions": 24,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEEntityManager.cpp:797-816; kelly-slaters-pro-surfer/KS/SRC/ks/FEEntityManager.h:207-215; kelly-slaters-pro-surfer/KS/SRC/entity.h:1399-1403,1431-1433; kelly-slaters-pro-surfer/KS/SRC/entity_anim.h:398,443; tmp/functions/001C2C18_Anim__15FEEntityManagerG7stringxfbf/attempt-1/result.json; tmp/source_first/001C2C18/notes.md. Result `different`, score 37.8049; no later attempt.",
+      "score": 37.8049,
+      "source": "#include \"KS/SRC/stringx.h\"\n\nenum\n{\n  ANIM_PRIMARY = 0,\n  ANIM_LOOPING = 0x4,\n  ANIM_TWEEN = 0x800,\n  ANIM_NONCOSMETIC = 0x200\n};\n\nclass entity_anim_tree\n{\npublic:\n  void frame_advance(float);\n  void set_tween_duration(float);\n};\n\nclass entity\n{\npublic:\n  entity_anim_tree *get_anim_tree(int) const;\n  entity_anim_tree *play_anim(\n    int,\n    const stringx &,\n    float,\n    unsigned short,\n    short = -1\n  );\n};\n\nclass FEEntityManager\n{\n  entity *surfer_ent;\n  char padding[536];\n  entity_anim_tree *surfer_tree;\n\npublic:\n  void Anim(stringx anim, float blend_time, bool loop, float time);\n};\n\nvoid FEEntityManager::Anim(stringx anim, float blend_time, bool loop, float time)\n{\n\t//int index = (loading_surfer_ent?0:1);\n\tsurfer_tree = surfer_ent->get_anim_tree(ANIM_PRIMARY);\n\tbool no_tween;\n\t\n\tno_tween = !surfer_tree || (blend_time <= 0.01f);\n\t\n\tif(time > 0.0f)\n\t{\n\t\tsurfer_tree = surfer_ent->play_anim(ANIM_PRIMARY, anim, time, (loop ? ANIM_LOOPING : 0) | (no_tween ? 0 : ANIM_TWEEN) | ANIM_NONCOSMETIC);\n\t\tsurfer_tree->frame_advance(0.0f);\n\t}\n\telse\n\t{\n\t\tsurfer_ent->play_anim(ANIM_PRIMARY, anim, 0.0f, (loop ? ANIM_LOOPING : 0) | (no_tween ? 0 : ANIM_TWEEN) | ANIM_NONCOSMETIC);\n\t\tsurfer_tree = surfer_ent->get_anim_tree(ANIM_PRIMARY);\n\t\tif (!no_tween) surfer_tree->set_tween_duration(blend_time);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 328
+    }
+  ],
+  "raw_name": "Anim__15FEEntityManagerG7stringxfbf"
+}
