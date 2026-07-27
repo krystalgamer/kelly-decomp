@@ -1,0 +1,23 @@
+{
+  "address": "0x001CB9C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "42576b3b7788aabd4ec465e892c3c2b740d7844b",
+      "candidate_size": 260,
+      "compared_bytes": 264,
+      "compared_instructions": 66,
+      "emitted_name": "SetString__17HighScoreFrontEndG7stringx",
+      "instruction_score": 7.5758,
+      "matching_bytes": 62,
+      "matching_instructions": 5,
+      "notes": "Attempt 1 used the exact released SetString body with self-contained declarations reconstructed from HighScoreFrontEnd.h and the referenced inline accessors. The isolated test result was different with byte score 23.4848 and instruction score 7.5758.",
+      "score": 23.4848,
+      "source": "class stringx {\n    void *data;\n    void *reserved;\npublic:\n    stringx(const stringx &);\n    ~stringx();\n};\n\nstruct HighScoreData {\n    char padding[40];\n    int icons;\n};\n\nclass ScoreManager {\n    char padding[4348];\n    int score;\npublic:\n    int GetScore() { return score; }\n};\nclass KellySlaterController {\npublic:\n    ScoreManager &get_my_scoreManager() { return *(ScoreManager *)this; }\n};\nclass World {\n    char padding[248];\n    KellySlaterController *controllers[2];\npublic:\n    KellySlaterController *get_ks_controller(int player) { return controllers[player]; }\n};\nclass IGOIconManager {\n    char padding[2908];\n    int icons;\npublic:\n    int IconsCleared() { return icons; }\n};\nclass IGOFrontEnd {\n    char padding[1144];\n    IGOIconManager *icon_manager;\npublic:\n    IGOIconManager *GetIconManager() { return icon_manager; }\n};\nclass FEManager {\npublic:\n    IGOFrontEnd *IGO;\n    int AddHighScore(stringx name, int score, int icons, int character);\n};\nclass Game {\n    char padding0[116];\n    int game_mode;\n    char padding1[64];\n    int active_player;\n    char padding2[360];\n    int surfer_indices[2];\npublic:\n    int get_game_mode() { return game_mode; }\n    int get_active_player() { return active_player; }\n    int get_beach_id() { return *(int *)((char *)this + 552); }\n    int GetSurferIdx(int player) { return surfer_indices[player]; }\n};\nclass GlobalDataClass {\npublic:\n    HighScoreData getBeachHighScore(int beach, int rank, bool icons);\n};\nextern World *g_world_ptr;\nextern Game *g_game_ptr;\nextern GlobalDataClass globalCareerData;\nenum { GAME_MODE_FREESURF_ICON = 3 };\n\nclass HighScoreFrontEnd {\n    char padding[316];\n    FEManager *manager;\n    char padding2[628];\n    int first_line;\npublic:\n    enum { NUM_ROWS = 10 };\n    void SetString(stringx str);\n};\n\nvoid HighScoreFrontEnd::SetString(stringx str)\n{\n\tint score = g_world_ptr->get_ks_controller(g_game_ptr->get_active_player())->get_my_scoreManager().GetScore();\n\tint icons = -1;\n\tIGOIconManager* iim = manager->IGO->GetIconManager();\n\tif(iim && g_game_ptr->get_game_mode() == GAME_MODE_FREESURF_ICON)\n\t{\n\t\ticons = iim->IconsCleared();\n\t\tint lowest_high_i = globalCareerData.getBeachHighScore(g_game_ptr->get_beach_id(), NUM_ROWS-1, true).icons;\n\t\tif(icons <= lowest_high_i) icons = -1;\n\t}\n\tint character = g_game_ptr->GetSurferIdx(g_game_ptr->get_active_player());\n\tfirst_line = manager->AddHighScore(str, score, icons, character);\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "SetString__17HighScoreFrontEndG7stringx"
+}
