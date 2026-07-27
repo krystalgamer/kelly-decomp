@@ -1,0 +1,15 @@
+{
+  "address": "0x00116010",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1c5a301f007976c71f1a14dd6fa0ff848e5e00a2",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/entity_anim.cpp:1333-1336,1379-1386; kelly-slaters-pro-surfer/KS/SRC/entity_anim.h:308-316; config/SLUS_203.34.symbol_addrs.txt: entity_anim_tree_stl_dealloc__Fv and entity_anim_tree_anims; notes/function_queue.csv: target row for 0x00116010; tmp/functions/00116010_entity_anim_tree_stl_dealloc__Fv/attempt-1/result.json. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include <vector>\n\nclass entity_anim;\ntypedef std::vector<entity_anim*> pentity_anim_vector;\n\nextern pentity_anim_vector *entity_anim_tree_anims;\n__asm__(\".equ entity_anim_tree_anims, 0x003E5848\");\n\nconst int MAX_CONCURRENT_ANIM=1000;\n\nvoid entity_anim_tree_stl_dealloc ()\n{\n  for (int i = 0; i < MAX_CONCURRENT_ANIM; i++)\n    entity_anim_tree_anims[i].clear ();\n\n  delete [] entity_anim_tree_anims;\n  entity_anim_tree_anims = NULL;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "entity_anim_tree_stl_dealloc__Fv"
+}
