@@ -1,0 +1,15 @@
+{
+  "address": "0x00249270",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d9ff72d9d5aacf212f7dcbd4678bc30443b70eb6",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/scoringmanager.cpp:1021-1045; kelly-slaters-pro-surfer/KS/SRC/ks/scoringmanager.h:145-227; tmp/functions/00249270_GetPartialRawScores__CQ214ScoringManager5ChainRiN21/attempt-1/compiler.stderr:1; tmp/functions/00249270_GetPartialRawScores__CQ214ScoringManager5ChainRiN21/attempt-1/result.json; tmp/source_first/00249270/notes.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"kelly-slaters-pro-surfer/KS/SRC/ks/scoringmanager.h\"\n\n//\tGetPartialRawScores()\n// Retrieves the partial raw scores of face tricks, air tricks, and tube tricks. (multiplier not applied)\nvoid ScoringManager::Chain::GetPartialRawScores(int & facePoints, int & airPoints, int & tubePoints) const\n{\n\tSeriesList::const_iterator\tit;\n\tint\t\t\t\t\t\t\trawFaceScore = 0;\n\tint\t\t\t\t\t\t\trawAirScore = 0;\n\tint\t\t\t\t\t\t\trawTubeScore = 0;\n\n\tfacePoints = 0;\n\tairPoints = 0;\n\ttubePoints = 0;\n\n\tfor (it = series.begin(); it != series.end(); ++it)\n\t{\n\t\t(*it).GetPartialRawScores(rawFaceScore, rawAirScore, rawTubeScore);\n\t\tfacePoints += rawFaceScore;\n\t\tairPoints += rawAirScore;\n\t\ttubePoints += rawTubeScore;\n\t}\n\n\tfacePoints = int(float(facePoints)*GetScale());\n\tairPoints = int(float(airPoints)*GetScale());\n\ttubePoints = int(float(tubePoints)*GetScale());\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "GetPartialRawScores__CQ214ScoringManager5ChainRiN21"
+}
