@@ -1,0 +1,23 @@
+{
+  "address": "0x002863A0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9b04bf60229006697df34fd67401a7e73f833802",
+      "candidate_size": 296,
+      "compared_bytes": 296,
+      "compared_instructions": 74,
+      "emitted_name": "Attack__14TimeAttackModeif",
+      "instruction_score": 6.7568,
+      "matching_bytes": 81,
+      "matching_instructions": 5,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/mode_timeattack.cpp:228-277; kelly-slaters-pro-surfer/KS/SRC/ks/mode_timeattack.h:11-62; tmp/functions/002863A0_Attack__14TimeAttackModeif/attempt-1/result.json; tmp/source_first/002863A0/notes.md. Result `different`, score 27.3649; no later attempt.",
+      "score": 27.3649,
+      "source": "class kellyslater_controller;\n\nclass TimeAttackMode\n{\nprotected:\n\tstruct PLAYER\n\t{\n\t\tkellyslater_controller *\tks;\n\t\tfloat\t\t\t\t\t\ttime;\n\t\tint\t\t\t\t\t\t\tprevScore;\n\t\tint\t\t\t\t\t\t\tscore;\n\t\tbool\t\t\t\t\t\tattacking;\n\t\tint\t\t\t\t\t\t\tattackScore;\n\t};\n\n\tPLAYER\tplayers[2];\n\tint\t\tgameNum, setNum;\n\tint\t\tscoreAttackStrength;\n\tint\t\tscoreDropSpeed;\n\n\tvoid Attack(const int playerIdx, const float dt);\n};\n\nvoid TimeAttackMode::Attack(const int playerIdx, const float dt)\n{\n\tint\tj;\n\t\n\tif (players[playerIdx].attacking)\n\t{\n\t\tint\tdiff = int(float(scoreDropSpeed)*dt);\n\t\t\n\t\tif (diff > players[playerIdx].score)\n\t\t\tdiff = players[playerIdx].score;\t\n\t\tplayers[playerIdx].score -= diff;\n\t\tplayers[playerIdx].attackScore += diff;\n\t\t\n\t\twhile (players[playerIdx].attackScore >= scoreAttackStrength)\n\t\t{\n\t\t\tplayers[playerIdx].attackScore -= scoreAttackStrength;\n\n\t\t\tj = playerIdx == 0 ? 1 : 0;\n\t\t\tplayers[j].time -= 1.0f;\n\n\t\t\tif (players[j].time <= 0.0f)\n\t\t\t{\n\t\t\t\tplayers[playerIdx].attacking = false;\n\t\t\t\tif (players[playerIdx].attackScore > 0)\n\t\t\t\t\tplayers[playerIdx].score += players[playerIdx].attackScore;\n\t\t\t\tplayers[playerIdx].attackScore = 0;\n\t\t\t\tbreak;\n\t\t\t}\n\t\t}\n\n\t\tif (players[playerIdx].score == 0)\n\t\t{\n\t\t\tplayers[playerIdx].attacking = false;\n\t\t\tplayers[playerIdx].attackScore = 0;\n\t\t}\n\t}\n\n}\n",
+      "status": "different",
+      "target_size": 292
+    }
+  ],
+  "raw_name": "Attack__14TimeAttackModeif"
+}
