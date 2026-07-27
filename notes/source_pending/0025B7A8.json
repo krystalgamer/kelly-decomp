@@ -1,0 +1,23 @@
+{
+  "address": "0x0025B7A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b63a1108404c1a5f62f71a5f93bbd52bfbc0ed67",
+      "candidate_size": 340,
+      "compared_bytes": 340,
+      "compared_instructions": 85,
+      "emitted_name": "CheckUnlockNextLevels__6Careeri",
+      "instruction_score": 28.2353,
+      "matching_bytes": 175,
+      "matching_instructions": 24,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/career.cpp:530-563; kelly-slaters-pro-surfer/KS/SRC/ks/career.h:36-68,121-153,216-218; kelly-slaters-pro-surfer/KS/SRC/ks/careerdata.h:9-11,108-126; config/SLUS_203.34.symbol_addrs.txt: CheckUnlockNextLevels__6Careeri; tmp/functions/0025B7A8_CheckUnlockNextLevels__6Careeri/attempt-1/result.json; tmp/source_first/0025B7A8/attempt-1.md. Result `different`, score 51.4706; no later attempt.",
+      "score": 51.4706,
+      "source": "enum { MAX_GOALS_PER_LEVEL = 5, MAX_PREV_LEVELS = 4, MAX_NEXT_LEVELS = 2, LEVEL_LAST = 32 };\ntypedef struct CareerDataStruct {\n    int beach;\n    int goal_param[5];\n    int reward_param[5];\n    char beach_file[32];\n    char name[32];\n    int goal[5];\n    int goal_param_2[5];\n    int reward[5];\n    int prev_levels[4];\n    int next_levels[2];\n    float level_duration;\n    char stash_name[15];\n    int use_ai_surfer;\n    char challenge_name[32];\n} CareerData;\nextern CareerData CareerDataArray[];\n__asm__(\".equ CareerDataArray, 0x0042ECA0\");\n\nclass Career {\npublic:\n    class Level {\n        int my_id;\n        bool is_new;\n        bool advanced;\n        bool unlocked;\n        bool goals[MAX_GOALS_PER_LEVEL];\n    public:\n        void Unlock(void);\n        bool IsGoalDone(const int goalIdx) const;\n    };\nprivate:\n    char prefix[0x1019c];\npublic:\n    Level levels[LEVEL_LAST];\nprotected:\n    bool IsAdvanceGoalDone(const int levelIdx) const { return levels[levelIdx].IsGoalDone(0); }\n    void CheckUnlockNextLevels(const int levelIdx);\n};\n__asm__(\".equ Unlock__Q26Career5Level, 0x0025C3A8\");\n__asm__(\".equ IsGoalDone__CQ26Career5Leveli, 0x0025C418\");\n\nvoid Career::CheckUnlockNextLevels(const int levelIdx)\n{\n\tint i, j;\n\tint next_level, prev_level;\n\t//int level_index;\n\tbool level_open;\n\t\n\t// For every level that comes after this one, check to see if _that_ \n\t// level's prerequisites have been completed.  If so, unlock that level.\n\tfor(i = 0; i < MAX_NEXT_LEVELS; i++)\n\t{\n\t\tnext_level = CareerDataArray[levelIdx].next_levels[i];\n\t\tlevel_open = true;\n\t\tif(next_level != -1)\n\t\t{\n\t\t\t// Check whether all this level's previous entries have had their advance goal completed\n\t\t\tfor(j = 0; j < MAX_PREV_LEVELS; j++)\n\t\t\t{\n\t\t\t\tprev_level = CareerDataArray[next_level].prev_levels[j];\n\t\t\t\tif(prev_level != -1 && !IsAdvanceGoalDone(prev_level))\n\t\t\t\t\tlevel_open = false;\n\t\t\t}\n\t\t\t// If all the previous levels have been completed then unlock this level\n\t\t\tif(level_open)\n\t\t\t\tlevels[next_level].Unlock();\n\t\t}\n\t}\n}\n",
+      "status": "different",
+      "target_size": 328
+    }
+  ],
+  "raw_name": "CheckUnlockNextLevels__6Careeri"
+}
