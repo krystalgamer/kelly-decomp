@@ -1,0 +1,23 @@
+{
+  "address": "0x002CC778",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0719c63461b2261147e5255994c09717ba269bf3",
+      "candidate_size": 304,
+      "compared_bytes": 312,
+      "compared_instructions": 78,
+      "emitted_name": "set_cop__16geometry_managerffff",
+      "instruction_score": 16.6667,
+      "matching_bytes": 115,
+      "matching_instructions": 13,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/geomgr.cpp:373-392; kelly-slaters-pro-surfer/KS/SRC/geomgr.h:34-62,112-120,154-165; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:684-716; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_rasterize.h:464-465,498; kelly-slaters-pro-surfer/KS/SRC/singleton.h:8-25,34-52; tmp/functions/002CC778_set_cop__16geometry_managerffff/attempt-1/result.json; tmp/source_first/002CC778/attempt-1.md. Result `different`, score 36.8590; no later attempt.",
+      "score": 36.859,
+      "source": "typedef float rational_t;\n\nclass vector4d\n{\npublic:\n  rational_t x, y, z, w;\n  inline vector4d(rational_t _x, rational_t _y, rational_t _z, rational_t _w)\n    : x(_x), y(_y), z(_z), w(_w) {}\n};\n\nclass matrix4x4\n{\npublic:\n  typedef rational_t T;\n  typedef vector4d row;\n  row x __attribute__((aligned(16)));\n  row y;\n  row z;\n  row w;\n  inline matrix4x4(\n        T _00, T _01, T _02, T _03,\n        T _10, T _11, T _12, T _13,\n        T _20, T _21, T _22, T _23,\n        T _30, T _31, T _32, T _33 )\n    : x(_00, _01, _02, _03), y(_10, _11, _12, _13),\n      z(_20, _21, _22, _23), w(_30, _31, _32, _33) {}\n};\n\nclass hw_rasta\n{\n  static hw_rasta* instance;\npublic:\n  static inline hw_rasta* inst() { return instance; }\n  int get_screen_width() const;\n  int get_screen_height() const;\n  void set_cop(float x, float y, float min_z=0.0f, float max_z=1.0f);\n};\n\nclass geometry_manager\n{\n  char released_layout[0x74];\npublic:\n  enum xform_t\n  {\n    XFORM_LOCAL_TO_WORLD,\n    XFORM_WORLD_TO_VIEW,\n    XFORM_VIEW_TO_WORLD,\n    XFORM_VIEW_TO_PROJECTION,\n    XFORM_PROJECTION_TO_SCREEN\n  };\n  float cop_x, cop_y, cop_min_z, cop_max_z, cop_scale_z;\n  void set_xform(xform_t xform, const matrix4x4& matrix);\n  void set_cop(float x, float y, float min_z, float max_z);\n};\n\nvoid geometry_manager::set_cop(float x, float y, float min_z, float max_z)\n{\n  cop_x = x;\n  cop_y = y;\n  cop_min_z = min_z;\n  cop_max_z = max_z;\n  cop_scale_z = max_z-min_z;\n\n  int width  = hw_rasta::inst()->get_screen_width();\n  int height = hw_rasta::inst()->get_screen_height();\n  \n  matrix4x4 viewport( width*0.5f, 0,           0, 0,\n                      0,         -height*0.5f, 0, 0,\n                      0,          0,           1, 0,\n                      x,          y,           0, 1 );\n\n  set_xform(XFORM_PROJECTION_TO_SCREEN,viewport);\n\n  hw_rasta::inst()->set_cop(x,y,min_z,max_z);\n}\n",
+      "status": "different",
+      "target_size": 312
+    }
+  ],
+  "raw_name": "set_cop__16geometry_managerffff"
+}
