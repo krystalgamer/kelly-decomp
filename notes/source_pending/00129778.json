@@ -1,0 +1,23 @@
+{
+  "address": "0x00129778",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "64ee3d7346edabc1960bcf01c9528012df4ce778",
+      "candidate_size": 108,
+      "compared_bytes": 320,
+      "compared_instructions": 80,
+      "emitted_name": "__6entityRC9entity_id15entity_flavor_tUi",
+      "instruction_score": 1.25,
+      "matching_bytes": 32,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/entity.cpp:398-404; kelly-slaters-pro-surfer/KS/SRC/entity.h:171-203,424-532; kelly-slaters-pro-surfer/KS/SRC/bone.h:14-45; tmp/functions/00129778___6entityRC9entity_id15entity_flavor_tUi/attempt-1/result.json; tmp/source_first/00129778/attempt-1.md. Result `different`, score 10.0000; no later attempt.",
+      "score": 10.0,
+      "source": "class entity_id;\nclass po;\n\ntypedef short anim_id_t;\n\nenum entity_flavor_t\n{\n  ENTITY_ENTITY\n};\n\nextern const po po_identity_matrix;\n\nclass bone\n{\npublic:\n  bone();\n};\n\nclass entity : public bone\n{\nprivate:\n  void _construct( const entity_id& _id,\n                   entity_flavor_t _flavor,\n                   anim_id_t _anim_id,\n                   unsigned int _flags = 0,\n                   const po& _my_po = po_identity_matrix );\n\npublic:\n  entity( const entity_id& _id,\n          entity_flavor_t _flavor,\n          unsigned int _flags );\n};\n\nentity::entity( const entity_id& _id,\n                entity_flavor_t _flavor,\n                unsigned int _flags )\n  : bone()\n{\n  _construct( _id, _flavor, (anim_id_t)-1, _flags );\n}\n",
+      "status": "different",
+      "target_size": 320
+    }
+  ],
+  "raw_name": "__6entityRC9entity_id15entity_flavor_tUi"
+}
