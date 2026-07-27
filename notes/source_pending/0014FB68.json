@@ -1,0 +1,23 @@
+{
+  "address": "0x0014FB68",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "16ac9eb1e7c2d4f394811562d82d59d9f7917496",
+      "candidate_size": 268,
+      "compared_bytes": 268,
+      "compared_instructions": 67,
+      "emitted_name": "Load__9PanelGeomPUcRi",
+      "instruction_score": 97.0149,
+      "matching_bytes": 229,
+      "matching_instructions": 65,
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Copied the released `PanelGeom::Load` body exactly from `kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:2339-2357`.\n- Added only self-contained declarations needed by that body: the released `PanelGeom` data-member order, two-pointer `stringx`, aligned 4x4 matrix storage, three-float `vector3d`, and the called read/load declarations.\n- Ran `function_test` exactly once. Result: `different`, byte score 85.4478% (229/268), instruction score 97.0149% (65/67), candidate and target size 268 bytes.\n- No variants, disassembly comparison, or diff chasing were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:2339-2357` \u2014 exact released function body.\n- `kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:605-632` \u2014 `PanelGeom` declaration and member order.\n- `kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:788-795` \u2014 exact read helper declarations.\n- `kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-287` \u2014 `stringx` representation and special members.",
+      "score": 85.4478,
+      "source": "typedef unsigned int uint32;\n\nstruct string_buf;\nclass stringx\n{\n    char* chars;\n    string_buf* my_buf;\npublic:\n    stringx(const stringx&);\n    ~stringx();\n    stringx& operator=(const stringx&);\n};\n\nclass matrix4x4\n{\n    float values[16] __attribute__((aligned(16)));\n};\n\nclass vector3d\n{\npublic:\n    float x;\n    float y;\n    float z;\n};\n\nclass PanelGeom\n{\npublic:\n    stringx name;\n    stringx properties;\n    matrix4x4 matrix;\n    vector3d boundboxcenter;\n    vector3d boundboxsize;\n    uint32 nchildren;\n    PanelGeom* children;\n    PanelGeom* next;\n    PanelGeom* parent;\n\n    virtual ~PanelGeom();\n    virtual int Kind() const = 0;\n    virtual bool Load(unsigned char* buffer, int& index);\n    static PanelGeom* LoadGeom(unsigned char* buffer, int& index);\n};\n\nuint32 ReadLong(unsigned char* buffer, int& index);\nstringx ReadString(unsigned char* buffer, int& index);\nvoid ReadMatrix3x4(matrix4x4& m, unsigned char* buffer, int& index);\nvoid ReadVector3d(vector3d& v, unsigned char* buffer, int& index);\n\nbool PanelGeom::Load(unsigned char* buffer, int& index)\n{\n\tname = ReadString(buffer, index);\n\tstringx junkstringx = ReadString(buffer, index);\n\tReadMatrix3x4(matrix, buffer, index);\n\tReadVector3d(boundboxcenter, buffer, index);\n\tReadVector3d(boundboxsize, buffer, index);\n\tnchildren = ReadLong(buffer, index);\n\tfor(int i=nchildren; --i >=0; )\n\t{\n\t\tPanelGeom* geom = PanelGeom::LoadGeom(buffer, index);\n\t\tif(!geom) return false;\n\n\t\tgeom->parent = this;\n\t\tgeom->next = children;\n\t\tchildren = geom;\n\t}\n\treturn true;\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "Load__9PanelGeomPUcRi"
+}
