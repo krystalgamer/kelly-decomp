@@ -1,0 +1,23 @@
+{
+  "address": "0x00166B50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8cce417344c6d2653e8d1ca607a7f2bff9c82df7",
+      "candidate_size": 248,
+      "compared_bytes": 248,
+      "compared_instructions": 62,
+      "emitted_name": "Init__18SpecialMeterWidgetR9PanelFileP12SpecialMeter",
+      "instruction_score": 82.2581,
+      "matching_bytes": 210,
+      "matching_instructions": 51,
+      "notes": "Exact released `SpecialMeterWidget::Init` body with the authentic `PanelQuad` 0x194 vtable layout, widget hierarchy, panel lookup strings, and meter API. It emitted the exact 248-byte calls and stores; only prologue and cross-call scheduling differ, with pointer-result stores moved out of the following calls' delay slots.",
+      "score": 84.6774,
+      "source": "#include \"KS/SRC/stringx.h\"\n\nclass PanelAnim;\nclass PanelGeom;\nclass PanelQuad;\n\nclass matrix4x4 {\n    float values[16] __attribute__((aligned(16)));\n};\n\nstruct nglQuadVertex {\n    float X;\n    float Y;\n    float U;\n    float V;\n    unsigned int Color;\n};\n\nstruct nglTexture;\n\nstruct nglQuad {\n    nglQuadVertex Verts[4];\n    float Z;\n    unsigned int MapFlags;\n    unsigned int BlendMode;\n    unsigned int BlendModeConstant;\n    nglTexture *Tex;\n};\n\nstruct recti {\n    int x0;\n    int y0;\n    int x1;\n    int y1;\n};\n\nclass PanelFile {\n    int slide_state;\n    float slide_offset;\n    float slide_timer;\n    float slide_max_time;\n    stringx filename;\n\npublic:\n    PanelGeom *obs;\n    stringx path;\n    PanelFile *next;\n    PanelQuad *pquads;\n\n    virtual ~PanelFile();\n    virtual PanelGeom *FindObject(const stringx &search_name);\n    virtual PanelGeom *FindObject(const char *search_name);\n    virtual PanelQuad *FindQuad(const stringx &search_name);\n    PanelQuad *GetPointer(const char *search_name);\n};\n\nclass PanelQuad {\nprotected:\n    bool isAnim;\n    int fade;\n    float fade_alpha;\n    float fade_timer;\n    float mask;\n    int maskType;\n    PanelAnim *anim;\n    nglQuad quad;\n    bool drawOn;\n    int rotate;\n    float rotation;\n    float rotate_x;\n    float rotate_y;\n    int layer;\n    float r;\n    float g;\n    float b;\n    float a;\n    float x1;\n    float y1;\n    float x2;\n    float y2;\n    float width;\n    float height;\n    float width_a;\n    float height_a;\n    matrix4x4 matrix;\n    bool on_menu;\n    bool clip;\n    recti clipping;\n\npublic:\n    matrix4x4 Xform;\n    stringx name;\n    bool dont_draw;\n    float z;\n    float u1;\n    float v1;\n    float u2;\n    float v2;\n    PanelQuad *next;\n\n    virtual ~PanelQuad();\n    virtual void Init(\n        float x1, float y1, float x2, float y2,\n        float r, float g, float b, float a,\n        float u1, float v1, float u2, float v2,\n        float z, matrix4x4 object_matrix);\n    virtual void TurnOn(bool enabled);\n};\n\nclass IGOWidget {\nprotected:\n    bool display;\n\npublic:\n    virtual ~IGOWidget();\n    virtual void SetDisplay(bool enabled = true);\n    virtual void Update(float time_inc);\n    virtual void Draw();\n    virtual bool GetDisplay() const;\n};\n\nclass SpecialMeter {\npublic:\n    void SetFillage(float fillage);\n};\n\nclass SpecialMeterWidget : public IGOWidget {\nprivate:\n    SpecialMeter *meter;\n    PanelQuad *bgPQ;\n    PanelQuad *colorPQ;\n    PanelQuad *fgPQ;\n    int flashDir;\n    float flashAmt;\n\npublic:\n    virtual ~SpecialMeterWidget();\n    virtual void SetDisplay(bool display = true);\n    virtual void Init(PanelFile &panel, SpecialMeter *specialMeter);\n    virtual void Update(float time_inc);\n    virtual void Draw();\n    virtual void SetFillage(float amount);\n};\n\nextern const char special_meter_background[];\nextern const char special_meter_color[];\nextern const char special_meter_foreground[];\n\n__asm__(\".equ SetFillage__12SpecialMeterf, 0x00251028\");\n__asm__(\".equ GetPointer__9PanelFilePCc, 0x00152F88\");\n__asm__(\".equ special_meter_background, 0x004C0B28\");\n__asm__(\".equ special_meter_color, 0x004C0B40\");\n__asm__(\".equ special_meter_foreground, 0x004C0B58\");\n\nvoid SpecialMeterWidget::Init(PanelFile & panel, SpecialMeter * specialMeter)\n{\n\tmeter = specialMeter;\n\tmeter->SetFillage(0.0f);\n\n\tbgPQ = panel.GetPointer(special_meter_background);\n\tcolorPQ = panel.GetPointer(special_meter_color);\n\tfgPQ = panel.GetPointer(special_meter_foreground);\n\tbgPQ->TurnOn(true);\n\tcolorPQ->TurnOn(true);\n\tfgPQ->TurnOn(true);\n\n\tSetDisplay(true);\n\n\tflashDir = 1;\n\tflashAmt = 1.0f;\n}\n",
+      "status": "different",
+      "target_size": 248
+    }
+  ],
+  "raw_name": "Init__18SpecialMeterWidgetR9PanelFileP12SpecialMeter"
+}
