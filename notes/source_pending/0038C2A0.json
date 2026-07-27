@@ -1,0 +1,23 @@
+{
+  "address": "0x0038C2A0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4e160c1a82dc88da44f1160b9943b1a8a9fd93d7",
+      "candidate_size": 60,
+      "compared_bytes": 264,
+      "compared_instructions": 66,
+      "emitted_name": "nslGetSourceName__FUi",
+      "instruction_score": 0.0,
+      "matching_bytes": 13,
+      "matching_instructions": 0,
+      "notes": "# Attempt 1\n\nUsed the exact released `nslGetSourceName` body and the exact inlined source-ID validation logic. Added only self-contained type/layout, constants, symbol bindings, and macro declarations required to compile that body while preserving the released field offsets.",
+      "score": 4.9242,
+      "source": "typedef unsigned int nslSourceId;\ntypedef unsigned int nlUint32;\n\n#define NSL_INVALID_ID 0\n#define NSL_NUM_SOURCES 512\n#define NSL_SOURCE_SLOT_MASK 0x0000ffff\n#define NSL_SOURCE_ID_MASK 0xffff0000\n#define NSL_GET_SOURCE_SLOT_FROM_ID(x) (x & NSL_SOURCE_SLOT_MASK)\n\nstruct nslSource {\n  char padding0[8];\n  char fileName[48];\n  char padding1[4];\n  nslSourceId myId;\n  char padding2[12];\n  nlUint32 gasSourceId;\n  char padding3[16];\n};\nstruct nslSystem {\n  char padding[0x40];\n  nslSource sourceSlots[NSL_NUM_SOURCES];\n};\nextern nslSystem nsl;\n__asm__(\".equ nsl, 0x0049B5F0\");\nvoid nslFatal(const char *message, ...);\n__asm__(\".equ nslFatal__FPCce, 0x00391420\");\n\ninline void _nslCheckSourceIdValidity(nslSourceId checkId)\n{\n  nslSourceId checkSlot = (checkId & NSL_SOURCE_SLOT_MASK);\n  nslSourceId upCheckId = (checkId & NSL_SOURCE_ID_MASK);\n  nlUint32 gasId = nsl.sourceSlots[checkSlot].gasSourceId;\n\n  nlUint32 negativeOne = (nlUint32)-1;\n  if (!(checkId != NSL_INVALID_ID))\n    nslFatal(\"This source id is the INVALID id\");\n  if (!(gasId != negativeOne))\n    nslFatal(\"This source has a bad GAS id\");\n  if (!(checkSlot < NSL_NUM_SOURCES))\n    nslFatal(\"This source is above the max number of sources\");\n  if (!(checkId == nsl.sourceSlots[checkSlot].myId))\n    nslFatal(\"This ID passed does not match the id for the source slot\");\n  if (!(upCheckId > 0))\n    nslFatal(\"THE INSTANCE PART OF THE ID IS NOT > 0\");\n  if (checkSlot > NSL_NUM_SOURCES)\n    nslFatal(\"THE SLOT PART IS MORE THAN THE NUMBER OF TOTAL SLOTS\");\n}\n\n#define ASSERT_SOURCE_ID_VALID(checkId) _nslCheckSourceIdValidity(checkId)\n\nconst char *nslGetSourceName( nslSourceId whichSource )\n{\n  ASSERT_SOURCE_ID_VALID( whichSource );\n  return nsl.sourceSlots[NSL_GET_SOURCE_SLOT_FROM_ID(whichSource)].fileName;\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "nslGetSourceName__FUi"
+}
