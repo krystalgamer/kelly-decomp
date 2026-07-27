@@ -1,0 +1,23 @@
+{
+  "address": "0x0018AFA0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "19ba3275545c3d4e47f9e41f51534316bd942931",
+      "candidate_size": 264,
+      "compared_bytes": 264,
+      "compared_instructions": 66,
+      "emitted_name": "_$_7MapData",
+      "instruction_score": 15.1515,
+      "matching_bytes": 85,
+      "matching_instructions": 10,
+      "notes": "Exact released `MapData` destructor with the authentic 480-byte `PanelQuad4` layout and map/path fields. Array cleanup and virtual element destruction reproduce, but EE GCC hoisted the deleting flag differently and tail-called the final object delete with a duplicated epilogue, producing 264 bytes instead of 248.",
+      "score": 32.197,
+      "source": "#include \"KS/SRC/stringx.h\"\n\nclass PanelAnim;\n\nclass matrix4x4 {\n    float values[16] __attribute__((aligned(16)));\n};\n\nstruct nglQuadVertex {\n    float X;\n    float Y;\n    float U;\n    float V;\n    unsigned int Color;\n};\n\nstruct nglTexture;\n\nstruct nglQuad {\n    nglQuadVertex Verts[4];\n    float Z;\n    unsigned int MapFlags;\n    unsigned int BlendMode;\n    unsigned int BlendModeConstant;\n    nglTexture *Tex;\n};\n\nstruct recti {\n    int x0;\n    int y0;\n    int x1;\n    int y1;\n};\n\nclass PanelQuad {\nprotected:\n    bool isAnim;\n    int fade;\n    float fade_alpha;\n    float fade_timer;\n    float mask;\n    int maskType;\n    PanelAnim *anim;\n    nglQuad quad;\n    bool drawOn;\n    int rotate;\n    float rotation;\n    float rotate_x;\n    float rotate_y;\n    int layer;\n    float r;\n    float g;\n    float b;\n    float a;\n    float x1;\n    float y1;\n    float x2;\n    float y2;\n    float width;\n    float height;\n    float width_a;\n    float height_a;\n    matrix4x4 matrix;\n    bool on_menu;\n    bool clip;\n    recti clipping;\n\npublic:\n    matrix4x4 Xform;\n    stringx name;\n    bool dont_draw;\n    float z;\n    float u1;\n    float v1;\n    float u2;\n    float v2;\n    PanelQuad *next;\n\n    virtual ~PanelQuad();\n};\n\nclass PanelQuad4 : public PanelQuad {\n    float x[4];\n    float y[4];\n    float u[4];\n    float v[4];\n\npublic:\n    virtual ~PanelQuad4();\n};\n\nstruct myVector2d {\n    float x;\n    float y;\n};\n\nstruct PathData {\n    int beach1;\n    int beach2;\n    int num_points;\n    myVector2d points[70];\n};\n\nstruct vector2d {\n    float x;\n    float y;\n};\n\nclass MapData {\npublic:\n    struct MapBeach {\n        bool desc_at_right;\n        vector2d loc2d;\n    };\n\n    MapBeach *beaches;\n    int *west_east_order;\n\nprivate:\n    int num_paths;\n    PathData *paths;\n    int max_pqs;\n    PanelQuad4 *copy;\n    PanelQuad4 *array;\n    PathData *chosen_path;\n\npublic:\n    ~MapData();\n};\n\n__asm__(\".equ __builtin_vec_delete, 0x002AC6D0\");\n__asm__(\".equ __builtin_delete, 0x002AC6B0\");\n\nMapData::~MapData()\n{\n\tdelete[] array;\n\tdelete[] west_east_order;\n\tdelete[] beaches;\n\tdelete[] paths;\n\tdelete copy;\n}\n",
+      "status": "different",
+      "target_size": 248
+    }
+  ],
+  "raw_name": "_$_7MapData"
+}
