@@ -1,0 +1,23 @@
+{
+  "address": "0x0039DB48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8011ed4385a3b69af6e7f79f50826c604de3acb0",
+      "candidate_size": 244,
+      "compared_bytes": 244,
+      "compared_instructions": 61,
+      "emitted_name": "nglGifPkRefLoadImage__FP12sceGifPacketUsUcUsPUxUiUiUi",
+      "instruction_score": 96.7213,
+      "matching_bytes": 240,
+      "matching_instructions": 59,
+      "notes": "Exact released `nglGifPkRefLoadImage` body with the authentic PS2 DMA/GIF/GS macros and SDK integer types. It emitted the exact 244-byte packet construction; the sole difference is the two-instruction materialization chosen for the `SCE_GIF_SET_TAG(3, ..., 1)` 64-bit constant.",
+      "score": 98.3607,
+      "source": "typedef unsigned char u_char;\ntypedef unsigned short u_short;\ntypedef unsigned int u_int;\ntypedef unsigned long u_long;\ntypedef unsigned long long u_long128;\n\nstruct sceGifPacket {\n    u_int *pCurrent;\n};\n\n#define SCE_DMA_ID_CNT 1\n#define SCE_DMA_ID_REF 3\n#define SCE_GIF_IMAGE 2\n#define SCE_GS_BITBLTBUF 0x50\n#define SCE_GS_TRXREG 0x52\n#define SCE_GS_TRXDIR 0x53\n\n#define SCE_DMA_SET_TAG(qwc,pce,id,irq,addr,spr) \\\n    (((u_long)(qwc)) \\\n     | (((u_long)(pce)) << 26) \\\n     | (((u_long)(id)) << 28) \\\n     | (((u_long)(irq)) << 31) \\\n     | (((u_long)(u_int)(addr)) << 32) \\\n     | (((u_long)(spr)) << 63))\n\n#define SCE_GIF_SET_TAG(nloop,eop,pre,prim,flg,nreg) \\\n    (((u_long)(nloop)) \\\n     | (((u_long)(eop)) << 15) \\\n     | (((u_long)(pre)) << 46) \\\n     | (((u_long)(prim)) << 47) \\\n     | (((u_long)(flg)) << 58) \\\n     | (((u_long)(nreg)) << 60))\n\n#define SCE_GS_SET_BITBLTBUF(sbp,sbw,spsm,dbp,dbw,dpsm) \\\n    (((u_long)(sbp)) \\\n     | (((u_long)(sbw)) << 16) \\\n     | (((u_long)(spsm)) << 24) \\\n     | (((u_long)(dbp)) << 32) \\\n     | (((u_long)(dbw)) << 48) \\\n     | (((u_long)(dpsm)) << 56))\n\n#define SCE_GS_SET_TRXREG(rrw,rrh) \\\n    (((u_long)(rrw)) | (((u_long)(rrh)) << 32))\n\n#define SCE_GS_SET_TRXDIR(xdir) ((u_long)(xdir))\n\nvoid nglGifPkRefLoadImage( sceGifPacket *pPacket, u_short bp, u_char psm, u_short bw, u_long128 *image, u_int size, u_int w, u_int h )\n{\n  u_long* Packet = (u_long*)pPacket->pCurrent;\n\n  *(Packet++) = SCE_DMA_SET_TAG( 5, 0, SCE_DMA_ID_CNT, 0, 0, 0 );\n  *(Packet++) = 0;\n\n  *(Packet++) = SCE_GIF_SET_TAG( 3, 0, 0, 0, 0, 1 );\n  *(Packet++) = 0xE;\n\n  *(Packet++) = SCE_GS_SET_BITBLTBUF( 0, 0, 0, bp, bw, psm );\n  *(Packet++) = SCE_GS_BITBLTBUF;\n\n  *(Packet++) = SCE_GS_SET_TRXREG( w, h );\n  *(Packet++) = SCE_GS_TRXREG;\n\n  *(Packet++) = SCE_GS_SET_TRXDIR( 0 );\n  *(Packet++) = SCE_GS_TRXDIR;\n\n  *(Packet++) = SCE_GIF_SET_TAG( size, 0, 0, 0, SCE_GIF_IMAGE, 0 );\n  *(Packet++) = 0;\n\n  *(Packet++) = SCE_DMA_SET_TAG( size, 0, SCE_DMA_ID_REF, 0, image, 0 );\n  *(Packet++) = 0;\n\n  pPacket->pCurrent = (u_int*)Packet;\n}\n",
+      "status": "different",
+      "target_size": 244
+    }
+  ],
+  "raw_name": "nglGifPkRefLoadImage__FP12sceGifPacketUsUcUsPUxUiUiUi"
+}
