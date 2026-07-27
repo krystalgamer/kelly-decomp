@@ -1,0 +1,23 @@
+{
+  "address": "0x002405D0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ede4640ddfa85a2fa8494aaf4264642f41b009d5",
+      "candidate_size": 284,
+      "compared_bytes": 284,
+      "compared_instructions": 71,
+      "emitted_name": "MENU_GetButtonState__Fi",
+      "instruction_score": 91.5493,
+      "matching_bytes": 239,
+      "matching_instructions": 65,
+      "notes": "Used the exact released `MENU_GetButtonState` body with the released `MenuCommand` ordering, PSX control constants, and declarations for the two called menu input helpers. The isolated object has the target size but differs in branch/jump-table code generation; no source variants were tested.",
+      "score": 84.1549,
+      "source": "enum MenuCommand\n{\n\tMENUCMD_NONE,\n\tMENUCMD_SELECT,\n\tMENUCMD_START,\n\tMENUCMD_UP,\n\tMENUCMD_DOWN,\n\tMENUCMD_LEFT,\n\tMENUCMD_RIGHT,\n\tMENUCMD_CROSS,\n\tMENUCMD_TRIANGLE,\n\tMENUCMD_SQUARE,\n\tMENUCMD_CIRCLE,\n\tMENUCMD_L1,\n\tMENUCMD_R1,\n\tMENUCMD_L2,\n\tMENUCMD_R2,\n\tMAXMENUCMD\n};\n\nenum\n{\n\tPSX_X = 184,\n\tPSX_CIRCLE = 185,\n\tPSX_SQUARE = 186,\n\tPSX_TRIANGLE = 187,\n\tPSX_L1 = 188,\n\tPSX_L2 = 189,\n\tPSX_R1 = 191,\n\tPSX_R2 = 192,\n\tPSX_LR = 194,\n\tPSX_UD = 195,\n\tPSX_START = 196,\n\tPSX_SELECT = 197\n};\n\nint MENU_GetButtonPressed( int button );\nint MENU_GetAnalogState( int button );\n\nint MENU_GetButtonState( int buttoninfo )\n{\n\t#if 0\n\treturn 0;\n\t//assert(0);\n\t#else\n\tswitch ( buttoninfo )\n\t{\n\t\tcase MENUCMD_NONE    : return 0;\n\t\tcase MENUCMD_SELECT  : return MENU_GetButtonPressed(PSX_SELECT);\n\t\tcase MENUCMD_START   : return MENU_GetButtonPressed(PSX_START);\n\t\tcase MENUCMD_UP      : return (MENU_GetAnalogState(PSX_UD) == -1)?1:0;\n\t\tcase MENUCMD_DOWN    : return (MENU_GetAnalogState(PSX_UD) == 1)?1:0;\n\t\tcase MENUCMD_LEFT    : return (MENU_GetAnalogState(PSX_LR) == -1)?1:0;\n\t\tcase MENUCMD_RIGHT   : return (MENU_GetAnalogState(PSX_LR) == 1)?1:0;\n\t\tcase MENUCMD_CROSS   : return MENU_GetButtonPressed(PSX_X);\n\t\tcase MENUCMD_TRIANGLE: return MENU_GetButtonPressed(PSX_TRIANGLE);\n\t\tcase MENUCMD_SQUARE  : return MENU_GetButtonPressed(PSX_SQUARE);\n\t\tcase MENUCMD_CIRCLE  : return MENU_GetButtonPressed(PSX_CIRCLE);\n\t\tcase MENUCMD_L1      : return MENU_GetButtonPressed(PSX_L1);\n\t\tcase MENUCMD_R1      : return MENU_GetButtonPressed(PSX_R1);\n\t\t#ifdef TARGET_GC\n\t\tcase MENUCMD_L2      : return 0;\n\t\t#else\n\t\tcase MENUCMD_L2      : return MENU_GetButtonPressed(PSX_L2);\n\t\t#endif\n\t\tcase MENUCMD_R2      : return MENU_GetButtonPressed(PSX_R2);\n\t}\n\t#endif\n\treturn 0;\n}\n",
+      "status": "different",
+      "target_size": 284
+    }
+  ],
+  "raw_name": "MENU_GetButtonState__Fi"
+}
