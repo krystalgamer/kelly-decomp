@@ -1,0 +1,23 @@
+{
+  "address": "0x0039BCA0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "572533e5dd47201ae4148bca0ade307648d7ea3f",
+      "candidate_size": 276,
+      "compared_bytes": 280,
+      "compared_instructions": 70,
+      "emitted_name": "nglVif1AddTextureStreamSetup__FRPUi",
+      "instruction_score": 74.2857,
+      "matching_bytes": 227,
+      "matching_instructions": 52,
+      "notes": "Attempt 1 used exact released source cited at . Result `different`, score 81.0714; no later attempt.",
+      "score": 81.0714,
+      "source": "typedef unsigned int u_int;\n\nclass nglTexStreamPos\n{\npublic:\n  u_int addr, cycle;\n};\n\nstruct nglVif1IntEntry;\n\nextern int nglNVif1IntEntries;\nextern nglVif1IntEntry* nglVif1IntCurTexEntry;\nextern u_int nglDisplayWidth;\nextern u_int nglDisplayHeight;\nextern u_int nglLockBufferSize;\nextern nglTexStreamPos nglTexStreamPrevStartRef;\nextern nglTexStreamPos nglTexStreamCurStartRef;\nextern nglTexStreamPos nglTexStreamAlloc;\nextern u_int* nglLastIntAddr;\n\nvoid nglFatal( const char* Format, ... );\nvoid nglVif1IntCreateTextureBlock();\n\n__asm__(\".equ nglNVif1IntEntries,0x004BB780\");\n__asm__(\".equ nglVif1IntCurTexEntry,0x004BB790\");\n__asm__(\".equ nglDisplayWidth,0x004BB820\");\n__asm__(\".equ nglDisplayHeight,0x004BB824\");\n__asm__(\".equ nglLockBufferSize,0x004BBD0C\");\n__asm__(\".equ nglTexStreamPrevStartRef,0x004BBD10\");\n__asm__(\".equ nglTexStreamCurStartRef,0x004BBD18\");\n__asm__(\".equ nglTexStreamAlloc,0x004BBD20\");\n__asm__(\".equ nglLastIntAddr,0x004BC064\");\n__asm__(\".equ nglFatal__FPCce,0x003AC0C0\");\n__asm__(\".equ nglVif1IntCreateTextureBlock__Fv,0x0039F660\");\n\n#define NGL_FRAME_PIXELSIZE 4\n#define NGL_VRAM_FRAME_SIZE ( ( nglDisplayWidth * nglDisplayHeight * NGL_FRAME_PIXELSIZE ) / 256 )\n#define NGL_VRAM_LOCKED_START ( NGL_VRAM_FRAME_SIZE * 3 )\n#define NGL_VRAM_LOCKED_END ( NGL_VRAM_LOCKED_START + nglLockBufferSize )\n#define NGL_VRAM_STREAM_START NGL_VRAM_LOCKED_END\n#define SCE_VIF1_SET_NOP(irq) ((u_int)(irq) << 31)\n#define SCE_VIF1_SET_FLUSHA(irq) (((u_int)(irq) << 31) | 0x13000000)\n\nvoid nglVif1AddTextureStreamSetup( u_int*& Packet )\n{\n  nglNVif1IntEntries = 0;\n  nglVif1IntCurTexEntry = 0;\n\n  nglTexStreamAlloc.addr = NGL_VRAM_STREAM_START;\n  nglTexStreamAlloc.cycle += 2;\n  if (nglTexStreamAlloc.cycle >= 0xFFFF0000)\n    nglFatal( \"nglTexStreamAlloc.cycle got too close to wrapping (%d).\\n\", nglTexStreamAlloc.cycle );\n\n  nglTexStreamPrevStartRef = nglTexStreamAlloc;\n  nglTexStreamCurStartRef = nglTexStreamAlloc;\n\n  nglLastIntAddr = 0;\n  *(Packet++) = SCE_VIF1_SET_NOP( 1 );\n  *(Packet++) = SCE_VIF1_SET_FLUSHA( 0 );\n  nglLastIntAddr = Packet;\n  *(Packet++) = SCE_VIF1_SET_NOP( 1 );\n\n  nglVif1IntCreateTextureBlock();\n}\n",
+      "status": "different",
+      "target_size": 280
+    }
+  ],
+  "raw_name": "nglVif1AddTextureStreamSetup__FRPUi"
+}
