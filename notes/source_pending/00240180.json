@@ -1,0 +1,23 @@
+{
+  "address": "0x00240180",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "45b6f0a1c11e9cec0a3f151f8be7d570b3ec53b4",
+      "candidate_size": 268,
+      "compared_bytes": 268,
+      "compared_instructions": 67,
+      "emitted_name": "MenuText__24MenuEntryStringxListEditPci",
+      "instruction_score": 95.5224,
+      "matching_bytes": 241,
+      "matching_instructions": 64,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/menu.cpp:827-851; kelly-slaters-pro-surfer/KS/SRC/ks/menu.h:140-188,303-335,388-401; kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-241,374-378; notes/function_queue.csv:5758. Result `different`, score 89.9254; no later attempt.",
+      "score": 89.9254,
+      "source": "extern \"C\" int sprintf(char *, const char *, ...);\nextern \"C\" char *strncpy(char *, const char *, unsigned int);\nextern \"C\" unsigned int strlen(const char *);\n\nclass Menu;\nclass MenuSystem;\n\nstruct MenuColor\n{\n    unsigned char r, g, b, a;\n};\n\nclass stringx\n{\n    char *chars;\n    void *my_buf;\npublic:\n    const char *c_str() const { return chars; }\n};\n\nclass MenuEntry\n{\n    unsigned int flags;\npublic:\n    MenuEntry();\n    virtual ~MenuEntry();\n    virtual MenuColor GetColor(void);\n    virtual void Show(void);\n    virtual void Hide(void);\n    virtual void Enable(void);\n    virtual void Disable(void);\n    virtual void Activate(void);\n    virtual void Deactivate(void);\n    virtual void OnTick(float dtime);\n    virtual void OnMenuOpen(Menu *m, MenuSystem *c);\n    virtual void OnMenuClose(void);\n    virtual void OnButtonPress(int buttonid);\n    virtual void OnButtonRelease(int buttonid);\nprotected:\n    virtual void OnHide(void);\n    virtual void OnShow(void);\n    virtual void OnEnable(void);\n    virtual void OnDisable(void);\n    virtual void OnActivate(void);\n    virtual void OnDeactivate(void);\npublic:\n    virtual int MenuText(char *text, int len) { if (len>0) *text=0; return 0; }\n};\n\nclass MenuEntryLabel : public MenuEntry\n{\nprotected:\n    const char *label;\npublic:\n    MenuEntryLabel(const char *text);\n    virtual ~MenuEntryLabel();\n    virtual int MenuText(char *text, int len);\n};\n\nclass MenuEntryIntEdit : public MenuEntryLabel\n{\n    int *tint;\nprotected:\n    int lo, hi;\n    int delta;\n    char *format;\npublic:\n    MenuEntryIntEdit(const char *text, int *t, int l, int h);\n    virtual ~MenuEntryIntEdit();\n    virtual void OnMenuOpen(Menu *m, MenuSystem *c);\n    virtual int MenuText(char *text, int len);\n    virtual void OnButtonPress(int buttonid);\n    void FixValue(void);\n    virtual void DecValue(void);\n    virtual void IncValue(void);\n    virtual void DecValueByTen(void);\n    virtual void IncValueByTen(void);\n    virtual void DecValueByFifty(void);\n    virtual void IncValueByFifty(void);\n    virtual void SetValue(int n);\n    virtual int GetValue(void) { return tint ? *tint : 0; }\n};\n\nclass MenuEntryStringxListEdit : public MenuEntryIntEdit\n{\n    stringx *label;\npublic:\n    MenuEntryStringxListEdit(char *text, int *t, int n, stringx *l);\n    virtual ~MenuEntryStringxListEdit();\n    virtual int MenuText(char *text, int len);\n};\n\nint MenuEntryStringxListEdit::MenuText( char *text, int len )\n{\n\tif ( len && label )\n\t{\n\t\tint lused=MenuEntryLabel::MenuText(text,len);\n\t\tchar tval[256];\n/*\n\t\tchar *estr=label[GetValue()];\n*/\n\t\tif ( format )\n\t\t{\n\t\t\tsprintf(tval,format,label[GetValue()].c_str());\n\t\t}\n\t\telse\n\t\t{\n\t\t\tsprintf(tval,\" : %s\",label[GetValue()].c_str());\n\t\t}\n\n\t\tstrncpy(text+lused,tval,len-lused);\n\t\ttext[len-1]=0;\n\t\treturn strlen(text);\n\t}\n\telse\n\t\treturn MenuEntry::MenuText(text,len);\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "MenuText__24MenuEntryStringxListEditPci"
+}
