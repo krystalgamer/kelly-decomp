@@ -1,0 +1,15 @@
+{
+  "address": "0x00388A88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "832638d762fd4fbcab30cdd5ecf301430bd4b0b8",
+      "notes": "Exact released function body from NVL/PS2/nvlMPEG_ps2.cpp lines 842-853 was tested once. Compilation failed because the compile-only prefix declared released static callees without definitions; no second attempt was made.",
+      "score": 0.0,
+      "source": "typedef unsigned char u_char;\ntypedef unsigned long long u_long128 __attribute__((mode(TI)));\n#define NULL 0\n\nstruct sceMpeg {\n    unsigned char data[0x48];\n};\nstruct sceMpegCbData;\nstruct sceMpegCbDataError;\nstruct sceMpegCbDataTimeStamp;\ntypedef int (*sceMpegCallback)(sceMpeg*, sceMpegCbData*, void*);\n\nenum {\n    sceMpegCbError = 0,\n    sceMpegCbNodata = 1,\n    sceMpegCbStopDMA = 2,\n    sceMpegCbRestartDMA = 3,\n    sceMpegCbTimeStamp = 5\n};\n\ntypedef struct\n{\n    long            pts;\n    long            dts;\n    int             pos;\n    int             len;\n} TimeStamp;\n\ntypedef struct\n{\n    u_long128       *data;\n    u_long128       *tag;\n    int             n;\n    int             dmaStart;\n    int             dmaN;\n    int             readBytes;\n    int             buffSize;\n} ViBuf;\n\ntypedef struct\n{\n    sceMpeg         mpeg;\n    ViBuf           vibuf;\n    unsigned int    state;\n    int             sema;\n    int             hid_endimage;\n    int             hid_vblank;\n} VideoDec;\n\nextern int sceMpegCreate(sceMpeg*, u_char*, int);\nextern int sceMpegAddCallback(sceMpeg*, int, sceMpegCallback, void*);\nstatic int mpegError(sceMpeg*, sceMpegCbDataError*, void*);\nstatic int mpegNodata(sceMpeg*, sceMpegCbData*, void*);\nstatic int mpegStopDMA(sceMpeg*, sceMpegCbData*, void*);\nstatic int mpegRestartDMA(sceMpeg*, sceMpegCbData*, void*);\nstatic int mpegTS(sceMpeg*, sceMpegCbDataTimeStamp*, void*);\nstatic void videoDecReset(VideoDec*);\nstatic int viBufCreate(ViBuf*, u_long128*, u_long128*, int, TimeStamp*, int);\n\nstatic int videoDecCreate( VideoDec* vd, u_char* mpegWork, int mpegWorkSize, u_long128* data, u_long128* tag, int tagSize, TimeStamp* pts, int n_pts )\n{\n    sceMpegCreate( &vd->mpeg, mpegWork, mpegWorkSize );\n    sceMpegAddCallback( &vd->mpeg, sceMpegCbError, (sceMpegCallback)mpegError, NULL );\n    sceMpegAddCallback( &vd->mpeg, sceMpegCbNodata, mpegNodata, NULL );\n    sceMpegAddCallback( &vd->mpeg, sceMpegCbStopDMA, mpegStopDMA, NULL );\n    sceMpegAddCallback( &vd->mpeg, sceMpegCbRestartDMA, mpegRestartDMA, NULL );\n    sceMpegAddCallback( &vd->mpeg, sceMpegCbTimeStamp, (sceMpegCallback)mpegTS, NULL );\n    videoDecReset(vd);\n    viBufCreate(&vd->vibuf, data, tag, tagSize, pts, n_pts);\n    return 1;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "videoDecCreate__FP8VideoDecPUciPUxT3iP9TimeStampi"
+}
