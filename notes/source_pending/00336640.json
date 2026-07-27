@@ -1,0 +1,23 @@
+{
+  "address": "0x00336640",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f32306f820708787791bbc9b70c0026d799f1745",
+      "candidate_size": 272,
+      "compared_bytes": 272,
+      "compared_instructions": 68,
+      "emitted_name": "get_dir__10chunk_file",
+      "instruction_score": 88.2353,
+      "matching_bytes": 197,
+      "matching_instructions": 60,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/chunkfile.cpp:334-342; kelly-slaters-pro-surfer/KS/SRC/chunkfile.h:23-72; kelly-slaters-pro-surfer/KS/SRC/stringx.h:63-77,230-287,400-433,509-519; notes/function_queue.csv:5796; tmp/functions/00336640_get_dir__10chunk_file/attempt-1/result.json. Result `different`, score 72.4265; no later attempt.",
+      "score": 72.4265,
+      "source": "typedef unsigned int big_int;\n\nclass stringx;\n\nclass string_buf\n{\nprotected:\n  friend class stringx;\n  friend stringx operator+( const stringx& lhs, const stringx& rhs );\n  friend stringx operator+( const char* lhs, const stringx& rhs );\n  friend stringx operator+( const stringx& lhs, const char* rhs );\n\n  big_int *data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n};\n\nclass stringx\n{\n  friend class string_buf;\n\nprotected:\n  char *chars;\n  string_buf *my_buf;\n\npublic:\n  stringx();\n  stringx(const stringx &cp);\n  stringx(const char *str, int len = -1);\n  ~stringx();\n\n  void append(const char *str, int len = -1);\n  void append(const stringx &cp);\n  void make_room(int size);\n  stringx substr(int i = 0, int n = -1) const;\n  int rfind(char c) const;\n\n  friend stringx operator+( const stringx& lhs, const char* rhs );\n};\n\ninline stringx operator+( const stringx& lhs, const char* rhs )\n{\n  stringx foo;\n  int len = __builtin_strlen(rhs);\n\n  foo.make_room(len + lhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs, len);\n\n  return foo;\n}\n\nclass chunk_file\n{\npublic:\n  stringx get_name();\n  stringx get_dir();\n};\n\nstringx chunk_file::get_dir()\n{\n  stringx name=get_name();\n  int end = name.rfind('\\\\');\n  if (end < 0)\n    return stringx(\"\");\n  else\n    return name.substr(0,end)+\"\\\\\";\n}\n",
+      "status": "different",
+      "target_size": 272
+    }
+  ],
+  "raw_name": "get_dir__10chunk_file"
+}
