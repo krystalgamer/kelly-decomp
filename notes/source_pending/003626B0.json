@@ -1,0 +1,15 @@
+{
+  "address": "0x003626B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "79f8b900ad1f5a05c7badfc50430fcaf02a06d67",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/trail.cpp:452-470; kelly-slaters-pro-surfer/KS/SRC/ks/trail.h:99-111; kelly-slaters-pro-surfer/KS/SRC/ks/wave.h:138-158,248,295-316; kelly-slaters-pro-surfer/KS/SRC/ks/waveenum.h:21-26; kelly-slaters-pro-surfer/KS/SRC/ks/wavemarker.txt:61; src/KS/SRC/entity_shared.h:350-361; notes/function_queue.csv:5876. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/entity_shared.h\"\n\ntypedef unsigned int u_int;\n\nenum WaveMarkerEnum\n{\n  WAVE_MarkerInvalid = -1,\n  WAVE_MarkerHandDrag = 39\n};\n\nenum WaveRegionEnum\n{\n  WAVE_REGION_DUMMY\n};\n\ntemplate <int n> struct SplineCoeffs\n{\n  float a[n], b[n], c[n], d[n];\n};\n\ntypedef struct\n{\n  SplineCoeffs<16> y, z;\n} WaveProfileCoeffs;\n\nstruct WavePositionHint\n{\n  float x, z;\n  float xprofile;\n  u_int xcell, zcell;\n  u_int xgrid, zgrid;\n  WaveProfileCoeffs wpc;\n};\n\nextern float WAVE_ToleranceDefaultD, WAVE_ToleranceDefaultZ;\nstruct WaveTolerance\n{\n  float dthresh;\n  float zthresh;\n\n  WaveTolerance(void) {dthresh = WAVE_ToleranceDefaultD; zthresh = WAVE_ToleranceDefaultZ;}\n  WaveTolerance(float d, float z) {dthresh = d; zthresh = z;}\n};\n\nclass CollideCallStruct\n{\npublic:\n  CollideCallStruct (const vector3d& pos, vector3d *n, vector3d *c, WaveRegionEnum *r, WavePositionHint *h)\n    { position = pos; normal = n; current = c; region = r; hint = h;}\n\n  vector3d position;\n  vector3d *normal;\n  vector3d *current;\n  WaveRegionEnum *region;\n  WavePositionHint *hint;\n  WaveTolerance tolerance;\n};\n\nvoid WAVE_HintFromMarker(WaveMarkerEnum markernum, WavePositionHint *hint);\nbool WAVE_CheckCollision (CollideCallStruct & cs, bool hint_valid, bool y_valid, bool near_match, bool limitgiven = false, WaveMarkerEnum frontlimit = WAVE_MarkerInvalid, WaveMarkerEnum backlimit = WAVE_MarkerInvalid);\n\ninline float dot (const vector3d& v1, const vector3d& v2)\n{\n  return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z;\n}\n\nclass trail\n{\npublic:\n  bool hand_underwater (entity *hand, vector3d& pos) const;\n};\n\nbool trail::hand_underwater (entity *hand, vector3d& pos) const\n{\n  WavePositionHint hint;\n  WAVE_HintFromMarker(WAVE_MarkerHandDrag, &hint);\n\n  vector3d normal;\n  CollideCallStruct collide (hand->get_abs_position (), &normal, NULL, NULL, &hint);\n  WAVE_CheckCollision (collide, true, true, false);\n  pos = collide.position;\n\n  // calculate the distance from the hand to the surface of the water\n  vector3d dist = collide.position - hand->get_abs_position ();\n\n  if (dot (dist, normal) > 0)\n    return true;\n  else\n    return false;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "hand_underwater__C5trailP6entityR8vector3d"
+}
