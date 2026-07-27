@@ -1,0 +1,23 @@
+{
+  "address": "0x001E1298",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "badcab73230e6e6c829f20b1d1390c536e2dc4e1",
+      "candidate_size": 300,
+      "compared_bytes": 300,
+      "compared_instructions": 75,
+      "emitted_name": "__17ps2_joypad_deviceii",
+      "instruction_score": 93.3333,
+      "matching_bytes": 260,
+      "matching_instructions": 70,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_input.cpp:318-362; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_input.h:73-77; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_input.h:117-151. Result `different`, score 86.6667; no later attempt.",
+      "score": 86.6667,
+      "source": "typedef unsigned long long u_long128 __attribute__((mode(TI)));\n\nextern \"C\" void *memset(void *, int, unsigned int);\nextern \"C\" int scePadPortOpen(int, int, u_long128 *);\n\nclass input_device\n{\npublic:\n    input_device();\n    virtual ~input_device();\n    virtual void poll() = 0;\n\nprivate:\n    int device_id;\n};\n\nclass os_file\n{\npublic:\n    os_file();\n};\n\nclass demo_keyframe;\n\nextern u_long128 *dma_buf[8];\n\nclass ps2_joypad_device : public input_device\n{\npublic:\n    ps2_joypad_device(int which_port, int which_slot);\n    virtual ~ps2_joypad_device();\n    virtual void poll();\n\nprivate:\n    int pad_id;\n    int term_id;\n    int g_error_count;\n    int phase;\n    int state;\n    unsigned char rdata1[32];\n    unsigned char rdata2[32];\n    unsigned char *curr_rdata;\n    unsigned char *prev_rdata;\n    char port_id;\n    char slot_id;\n    char pad_type;\n    bool port_opened;\n    int disconnected;\n    int was_disconnected;\n    bool playing_demo;\n    bool recording_demo;\n    unsigned int keyframe_count;\n    unsigned int curr_keyframe;\n    demo_keyframe *demo_data;\n    unsigned int frames_since_change;\n    os_file demo_log;\n};\n\nps2_joypad_device::ps2_joypad_device(int which_port, int which_slot)\n{\n    port_id = which_port;\n    slot_id = which_slot;\n\n    curr_rdata = rdata1;\n    prev_rdata = rdata2;\n    memset(rdata1, 0, 32);\n    rdata1[2] = 0xff;\n    rdata1[3] = 0xff;\n    memset(rdata2, 0, 32);\n    rdata2[2] = 0xff;\n    rdata2[3] = 0xff;\n    pad_type = -1;\n\n    frames_since_change = 0;\n    keyframe_count = 0;\n    curr_keyframe = 0;\n    demo_data = 0;\n    playing_demo = false;\n    recording_demo = false;\n\n    int ret = scePadPortOpen(\n        port_id,\n        slot_id,\n        dma_buf[port_id + slot_id]);\n    if (ret == 0)\n        port_opened = false;\n    else\n        port_opened = true;\n\n    disconnected = 0;\n    was_disconnected = 0;\n    pad_id = 0;\n    term_id = 0;\n    g_error_count = 0;\n    phase = 0;\n    state = 0;\n\n    poll();\n}\n",
+      "status": "different",
+      "target_size": 300
+    }
+  ],
+  "raw_name": "__17ps2_joypad_deviceii"
+}
