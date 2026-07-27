@@ -206,3 +206,100 @@ bool WAVETEX_ProjectThisLight(light_source *lp)
 // 0x00380B28 WAVETEX_PrepareMaterials__Fv
 struct nglMaterial{char data[264];};extern int AllTranslucent,WAVETEX_alltrans,WAVETEX_transval,wavetex_currentmat;extern nglMaterial WaveTexLMat[][5];extern void WAVETEX_WriteMaterialParms();extern void WAVETEX_InitMaterial(nglMaterial&,int,int,int);asm(".equ AllTranslucent,0x00484DB0");asm(".equ WAVETEX_alltrans,0x00484E60");asm(".equ WAVETEX_transval,0x00484E5C");asm(".equ wavetex_currentmat,0x00595CC8");asm(".equ WaveTexLMat,0x0058DE98");asm(".equ WAVETEX_WriteMaterialParms__Fv,0x0037E620");asm(".equ WAVETEX_InitMaterial__FR11nglMaterialiii,0x003805B0");void WAVETEX_PrepareMaterials(){if(AllTranslucent)WAVETEX_transval=WAVETEX_alltrans;else WAVETEX_transval=128;WAVETEX_WriteMaterialParms();for(int i=0;i<5;i++)WAVETEX_InitMaterial(WaveTexLMat[wavetex_currentmat][i],0,5,i);}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00380180)
+// 0x00380180 WAVETEX_GetTexture__Fii
+typedef unsigned char u_char;
+typedef unsigned short u_short;
+typedef unsigned int u_int;
+
+enum
+{
+    NGLTEX_TGA,
+    NGLTEX_TIM2,
+    NGLTEX_IFL,
+    NGLTEX_ATE,
+};
+
+struct nglTexture
+{
+    u_int TexStreamPos[2];
+    u_short Width, Height;
+    u_int Hash;
+    u_char Type;
+    u_char TW, TH;
+    u_char padding0;
+    u_int Flags;
+    void *ph;
+    u_int Format;
+    u_int *Data;
+    u_int NFrames;
+    nglTexture **Frames;
+};
+
+enum
+{
+    WAVETEX_TEXLITE = 0,
+    WAVETEX_TEXDARK,
+    WAVETEX_TEXHIGH,
+    WAVETEX_TEXSPOT,
+    WAVETEX_TEXENVM,
+    WAVETEX_TEXFOAM,
+};
+
+extern float WAVE_TexAnimFrame;
+extern nglTexture *WaveTexAnimDark;
+extern nglTexture *WaveTexAnimHighlight;
+extern nglTexture *FoamTexture;
+nglTexture *WAVETEX_GetTextureAnim(int textype);
+
+__asm__(".equ WAVE_TexAnimFrame, 0x004846A0");
+__asm__(".equ WaveTexAnimDark, 0x00484E9C");
+__asm__(".equ WaveTexAnimHighlight, 0x00484EA0");
+__asm__(".equ FoamTexture, 0x00484EBC");
+__asm__(".equ WAVETEX_GetTextureAnim__Fi, 0x00380120");
+
+#define NULL 0
+#define assert(condition) ((void)0)
+
+nglTexture *WAVETEX_GetTexture(int textype, int frame)
+{
+    if (frame < 0)
+    {
+        frame = (int)WAVE_TexAnimFrame;
+    }
+
+    if (textype == WAVETEX_TEXHIGH || textype == WAVETEX_TEXSPOT)
+    {
+        if (WaveTexAnimDark && WaveTexAnimHighlight &&
+            WaveTexAnimDark->NFrames > WaveTexAnimHighlight->NFrames)
+        {
+            frame = frame / 2;
+        }
+    }
+
+    nglTexture *anim = WAVETEX_GetTextureAnim(textype);
+    if (anim == NULL && textype == WAVETEX_TEXFOAM)
+    {
+        return FoamTexture;
+    }
+
+    if (anim == NULL)
+    {
+        return NULL;
+    }
+
+    if (anim && frame < (int)anim->NFrames)
+        return anim->Frames[frame];
+    else if (anim && anim->Type == NGLTEX_IFL)
+    {
+        if (anim->NFrames)
+        {
+            assert(anim->Frames[frame % anim->NFrames]);
+            return anim->Frames[frame % anim->NFrames];
+        }
+    }
+
+    return NULL;
+}
+#endif
