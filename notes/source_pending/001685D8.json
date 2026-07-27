@@ -1,0 +1,16 @@
+{
+  "address": "0x001685D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "52d84dd834b380216b0b7838abec5d4c143855de",
+      "error": "Candidate did not emit Show__18HorizBalanceWidgetb; emitted functions: []",
+      "notes": "Attempt 1 was invalid: candidate.cpp remained the generated placeholder because candidate creation invoked unavailable `python` before the single required function_test call. function_test ran exactly once and reported symbol_missing with score 0.0. No retry or variant was made, and the existing attempt was not altered. Released body citation: kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_balance.cpp:122-134; declaration citation: kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_balance.h:9-38.",
+      "score": 0.0,
+      "source": "// Target: 0x001685D8 Show__18HorizBalanceWidgetb\n// Reference: KS/SRC/ks/igo_widget_balance.cpp\n// Replace this file with one self-contained candidate function.\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "Show__18HorizBalanceWidgetb"
+}
