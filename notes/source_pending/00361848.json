@@ -1,0 +1,23 @@
+{
+  "address": "0x00361848",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8e7b0cf232da5e9de7e4753e11178cd0e58a8b84",
+      "candidate_size": 264,
+      "compared_bytes": 264,
+      "compared_instructions": 66,
+      "emitted_name": "TRAIL_StaticInit__Fv",
+      "instruction_score": 59.0909,
+      "matching_bytes": 193,
+      "matching_instructions": 39,
+      "notes": "Exact released TRAIL_StaticInit definition from KS/SRC/ks/trail.cpp with only the trail layout, allocation/constructor declarations, and global symbol aliases needed for a self-contained candidate. The first and only test was different: 73.1061% byte score and 59.0909% instruction score.",
+      "score": 73.1061,
+      "source": "class trail\n{\n    char data[0xcd80];\npublic:\n    trail(bool spray);\n};\n\nvoid *operator new(unsigned int size, unsigned int flags, const char *description, int line);\n__asm__(\".equ __nw__FUiUiPCci, 0x002AC578\");\n__asm__(\".equ __5trailb, 0x00361B00\");\n\nextern trail *trail_p1;\nextern trail *trail_p2;\nextern trail *trail_m1;\nextern trail *trail_m2;\nextern trail *g_trails[4];\n__asm__(\".equ trail_p1, 0x0046ED54\");\n__asm__(\".equ trail_p2, 0x0046ED58\");\n__asm__(\".equ trail_m1, 0x0046ED5C\");\n__asm__(\".equ trail_m2, 0x0046ED60\");\n__asm__(\".equ g_trails, 0x004861D0\");\n\nvoid TRAIL_StaticInit(void)\n{\n    trail_p1 = new(0, \"KS/SRC/ks/trail.cpp\", 0) trail(true);\n    trail_p2 = new(0, \"KS/SRC/ks/trail.cpp\", 0) trail(true);\n    trail_m1 = new(0, \"KS/SRC/ks/trail.cpp\", 0) trail(false);\n    trail_m2 = new(0, \"KS/SRC/ks/trail.cpp\", 0) trail(false);\n    int index=0;\n    g_trails[index++]=trail_p1;\n    g_trails[index++]=trail_p2;\n    g_trails[index++]=trail_m1;\n    g_trails[index++]=trail_m2;\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "TRAIL_StaticInit__Fv"
+}
