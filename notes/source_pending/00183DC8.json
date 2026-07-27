@@ -1,0 +1,23 @@
+{
+  "address": "0x00183DC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "753b9b42ebcff225e603f720c57a865d9742b8c9",
+      "candidate_size": 336,
+      "compared_bytes": 336,
+      "compared_instructions": 84,
+      "emitted_name": "UpdateDisable__15MultiplayerMenu",
+      "instruction_score": 55.9524,
+      "matching_bytes": 226,
+      "matching_instructions": 47,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.cpp:1108-1139; kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.h:191-217; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:56-105,161-220; kelly-slaters-pro-surfer/KS/SRC/inputmgr.h:70-94,235-278,382-490,550-575; tmp/functions/00183DC8_UpdateDisable__15MultiplayerMenu/attempt-1/result.json; tmp/source_first/00183DC8/attempt-1.md. Result `different`, score 67.2619; no later attempt.",
+      "score": 67.2619,
+      "source": "#define KELLY_DECOMP_FULL_FEMENU_ENTRY\n#include \"KS/SRC/ks/FEMenu_shared.h\"\n\ntypedef int device_id_t;\ntypedef int axis_id_t;\ntypedef float rational_t;\n\nclass input_device {\npublic:\n    virtual device_id_t get_id() const = 0;\n    virtual int get_axis_count() const = 0;\n    virtual axis_id_t get_axis_id(int axis) const = 0;\n    virtual rational_t get_axis_state(axis_id_t axis, int control_axis) const = 0;\n    virtual rational_t get_axis_old_state(axis_id_t axis, int control_axis) const = 0;\n    virtual rational_t get_axis_delta(axis_id_t axis, int control_axis) const = 0;\n    virtual bool is_connected() const { return false; }\n};\n\nclass input_mgr {\n    char data_before_joysticks[36];\n    input_device *joystick_devices[9];\n\npublic:\n    static input_mgr *inst();\n    inline input_device *get_joystick_index(int index) const {\n        return joystick_devices[index];\n    }\n};\n\nextern input_mgr *input_manager;\ninline input_mgr *input_mgr::inst() { return input_manager; }\n\nclass GraphicalMenuSystem;\n\nclass MultiplayerMenu : public FEMenu {\npublic:\n    enum {\n        MultiPushEntry,\n        MultiHeadToHeadEntry,\n        MultiTimeAttackEntry,\n        MultiEnd\n    };\n\n    GraphicalMenuSystem *sys;\n    FEMenuEntry *entry[MultiEnd];\n\nprivate:\n    void UpdateDisable();\n};\n\n__asm__(\".equ input_manager, 0x0046B7B0\");\n\nvoid MultiplayerMenu::UpdateDisable()\n{\n    int num_controllers = 0;\n    \n    for( int j = 0; j < 8; j++ )\n    {\n        input_device* joy = input_mgr::inst()->get_joystick_index( j );\n        if( joy && joy->is_connected() )\n            num_controllers++;\n    }\n    \n    entry[MultiHeadToHeadEntry]->Disable( num_controllers < 2 );\n    entry[MultiPushEntry]->Disable( num_controllers < 2 );\n\n    if(highlighted->GetDisable())\n    {\n        FEMenuEntry* tmp = highlighted->next;\n        if(!tmp) tmp = entries;\n        while(tmp != highlighted)\n        {\n            if(!tmp->GetDisable())\n            {\n                setHigh(tmp);\n                break;\n            }\n            tmp = tmp->next;\n            if(!tmp) tmp = entries;\n        }\n    }\n}\n",
+      "status": "different",
+      "target_size": 320
+    }
+  ],
+  "raw_name": "UpdateDisable__15MultiplayerMenu"
+}
