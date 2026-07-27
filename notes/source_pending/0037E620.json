@@ -1,0 +1,23 @@
+{
+  "address": "0x0037E620",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3f2059c57622686f21676e09e6c26e49b9185f4d",
+      "candidate_size": 80,
+      "compared_bytes": 260,
+      "compared_instructions": 65,
+      "emitted_name": "WAVETEX_WriteMaterialParms__Fv",
+      "instruction_score": 0.0,
+      "matching_bytes": 12,
+      "matching_instructions": 0,
+      "notes": "Exact released body with minimal self-contained PS2 declarations; single test compiled without TARGET_PS2 body and differed.",
+      "score": 4.6154,
+      "source": "struct nglVector { float x, y, z, w; };\n\nextern nglVector WAVETEX_SunPos;\nextern nglVector WAVETEX_SunPosNorm;\nextern float WAVETEX_HighlightAlphaScale;\nextern float WAVETEX_HighlightAlphaOffset;\nextern float WAVETEX_CoreHighlightAlphaScale;\nextern float WAVETEX_CoreHighlightAlphaOffset;\nextern float WAVETEX_transcale;\nextern float WAVETEX_TransHighlightAlphaOffset;\nextern int WAVETEX_transmin;\nvoid WAVETEX_SetCameraPos();\nbool WAVETEX_CameraUnderwater();\nextern \"C\" void sceVu0Normalize(float *, float *);\nvoid WAVERENDER_SetWaveHighlightParams(float, float, float, float, nglVector, float, float, float);\n\nasm(\".equ WAVETEX_SunPos,0x00484E70\");\nasm(\".equ WAVETEX_SunPosNorm,0x00484E80\");\nasm(\".equ WAVETEX_HighlightAlphaScale,0x00484E38\");\nasm(\".equ WAVETEX_HighlightAlphaOffset,0x00484E3C\");\nasm(\".equ WAVETEX_CoreHighlightAlphaScale,0x00484E40\");\nasm(\".equ WAVETEX_CoreHighlightAlphaOffset,0x00484E44\");\nasm(\".equ WAVETEX_TransHighlightAlphaOffset,0x00484E4C\");\nasm(\".equ WAVETEX_transcale,0x00484E50\");\nasm(\".equ WAVETEX_transmin,0x00484E54\");\nasm(\".equ WAVETEX_SetCameraPos__Fv,0x0037E748\");\nasm(\".equ WAVETEX_CameraUnderwater__Fv,0x0037E5C8\");\nasm(\".equ sceVu0Normalize,0x003BC3C8\");\nasm(\".equ WAVERENDER_SetWaveHighlightParams__FffffG9nglVectorfff,0x001E7418\");\n\ninline void KSNGL_Normalize(float *n)\n{\n    sceVu0Normalize(n, n);\n}\n\nstatic void WAVETEX_WriteMaterialParms(void)\n{\n    //WAVETEX_SetCameraHeight( WAVE_camy );\n    WAVETEX_SetCameraPos( /*\nWAVETEX_campos[0],WAVETEX_campos[1],WAVETEX_campos[2]*/\n );\n    WAVETEX_SunPosNorm = WAVETEX_SunPos;\n    KSNGL_Normalize((float *)&WAVETEX_SunPosNorm);\n\n#ifdef TARGET_PS2\n    //WAVERENDER_SetWaveDarkParams( WAVETEX_DarkAlphaScale, WAVETEX_DarkAlphaOffset );\n    WAVERENDER_SetWaveHighlightParams( WAVETEX_HighlightAlphaScale, WAVETEX_HighlightAlphaOffset,\n       WAVETEX_CoreHighlightAlphaScale, WAVETEX_CoreHighlightAlphaOffset,\n       WAVETEX_SunPosNorm,\n       WAVETEX_transcale, WAVETEX_TransHighlightAlphaOffset,\n       WAVETEX_CameraUnderwater() ? 128 :WAVETEX_transmin // no translucency underwater (dc 06/28/02)\n    );\n#endif\n}\n",
+      "status": "different",
+      "target_size": 260
+    }
+  ],
+  "raw_name": "WAVETEX_WriteMaterialParms__Fv"
+}
