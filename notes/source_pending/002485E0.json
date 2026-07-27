@@ -1,0 +1,23 @@
+{
+  "address": "0x002485E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ad87e092865dc593d80853ad11de01caefc5d15c",
+      "candidate_size": 308,
+      "compared_bytes": 308,
+      "compared_instructions": 77,
+      "emitted_name": "UpdateLastSeries__14ScoringManagerQ214ScoringManager9ATTRIBUTEb",
+      "instruction_score": 68.8312,
+      "matching_bytes": 236,
+      "matching_instructions": 53,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/scoringmanager.cpp:688-729; kelly-slaters-pro-surfer/KS/SRC/ks/scoringmanager.h:65-89,180-252; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndManager.h:11-18,126; config/SLUS_203.34.symbol_addrs.txt: OnTrickChange, GetSickness, Increase, frontendmanager; tmp/functions/002485E0_UpdateLastSeries__14ScoringManagerQ214ScoringManager9ATTRIBUTEb/attempt-1/result.json. Result `different`, score 76.6234; no later attempt.",
+      "score": 76.6234,
+      "source": "#define assert(x) ((void)0)\n\ntemplate<class T>\nclass list\n{\n    struct node { node *next; node *previous; T value; };\n    node *sentinel;\npublic:\n    T &back() { return sentinel->previous->value; }\n};\n\nclass SpecialMeter\n{\npublic:\n    void Increase(float value);\n};\n\nclass IGOFrontEnd\n{\npublic:\n    void OnTrickChange(int playerIdx, bool seriesChange);\n};\n\nclass FEManager\n{\npublic:\n    IGOFrontEnd *IGO;\n};\n\nextern FEManager frontendmanager;\n\nclass ScoringManager\n{\npublic:\n    enum ATTRIBUTE\n    {\n        ATTR_DIST_LIP,\n        ATTR_DIST_MOUTH,\n        ATTR_TIME_TOTAL,\n        ATTR_TIME_DELTA,\n        ATTR_TO_FAKEY,\n        ATTR_FROM_FLOATER,\n        ATTR_HOP\n    };\n\n    enum { MOD_FROM_FLOATER, MOD_TO_FAKEY, MOD_HOP };\n\n    class Series\n    {\n        void *levelTricks;\n        void *tricks;\n        int numSpins;\n        int landing;\n    public:\n        int flags;\n    };\n\n    class Chain\n    {\n        void *levelTricks;\n        float multAdder;\n    public:\n        list<Series> series;\n        float GetSickness() const;\n    };\n\nprivate:\n    char padding0[0x0C];\n    int playerIdx;\n    SpecialMeter *specialMeter;\n    char padding1[0x198];\n    Chain chain;\n\npublic:\n    void UpdateLastSeries(const ATTRIBUTE attr, const bool b);\n};\n\n__asm__(\".equ frontendmanager, 0x003E7728\");\n__asm__(\".equ GetSickness__CQ214ScoringManager5Chain, 0x002490C0\");\n__asm__(\".equ Increase__12SpecialMeterf, 0x00250FB8\");\n__asm__(\".equ OnTrickChange__11IGOFrontEndib, 0x0017BD08\");\n\nvoid ScoringManager::UpdateLastSeries(const ScoringManager::ATTRIBUTE attr, const bool b)\n{\n\tSeries &\tseries = chain.series.back();\n\tfloat\t\toldSickness;\n\tint\t\t\tflag;\n\n\toldSickness = chain.GetSickness();\n\n\tswitch (attr)\n\t{\n\tcase ATTR_FROM_FLOATER :\n\t\tflag = 1 << MOD_FROM_FLOATER;\n\t\tif (b)\n\t\t\tseries.flags |= flag;\n\t\telse\n\t\t\tseries.flags &= ~flag;\n\t\tfrontendmanager.IGO->OnTrickChange(playerIdx, false);\n\t\tbreak;\n\n\tcase ATTR_TO_FAKEY :\n\t\tflag = 1 << MOD_TO_FAKEY;\n\t\tif (b)\n\t\t\tseries.flags |= flag;\n\t\telse\n\t\t\tseries.flags &= ~flag;\n\t\tfrontendmanager.IGO->OnTrickChange(playerIdx, false);\n\t\tbreak;\n\n\tcase ATTR_HOP :\n\t\tflag = 1 << MOD_HOP;\n\t\tif (b)\n\t\t\tseries.flags |= flag;\n\t\telse\n\t\t\tseries.flags &= ~flag;\n\t\tfrontendmanager.IGO->OnTrickChange(playerIdx, false);\n\t\tbreak;\n\n\tdefault : assert(0);\n\t}\n\n\tspecialMeter->Increase(chain.GetSickness() - oldSickness);\n}\n",
+      "status": "different",
+      "target_size": 308
+    }
+  ],
+  "raw_name": "UpdateLastSeries__14ScoringManagerQ214ScoringManager9ATTRIBUTEb"
+}
