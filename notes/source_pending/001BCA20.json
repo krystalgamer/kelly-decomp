@@ -1,0 +1,15 @@
+{
+  "address": "0x001BCA20",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "31f5172cef072264e83e1939c5107e88852ab664",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/GraphicalMenuSystem.cpp:233-253; kelly-slaters-pro-surfer/KS/SRC/ks/GraphicalMenuSystem.h:91-121; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:161-272,337-366; src/KS/SRC/ks/FEMenu_shared.h:1-365; tmp/functions/001BCA20_Draw__13TitleFrontEnd/attempt-1/result.json; tmp/functions/001BCA20_Draw__13TitleFrontEnd/attempt-1/compiler.stderr. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEMenu_shared.h\"\n\nclass PanelQuad {\npublic:\n    virtual ~PanelQuad();\n    virtual void Init(float, float, float, float, float, float, float, float,\n                      float, float, float, float, float, void *);\n    virtual void TurnOn(bool);\n    virtual void SetLayer(int);\n    virtual void Rotate(float);\n    virtual void Rotate(float, float, float);\n    virtual void Update(float);\n    virtual void Draw(int layer = 0, float alpha = -1.0f);\n};\n\nclass TextString {\npublic:\n    virtual ~TextString();\n    virtual void Update(float);\n    virtual void Draw();\n};\n\nclass MCDetectFrontEnd : public FEMultiMenu {\npublic:\n    bool drawMenu();\n};\n\nstruct FEManager {\n    char padding[0x1567c];\n    bool fe_done_loading;\n};\n\nextern FEManager frontendmanager;\n\nclass TitleFrontEnd : public FEGraphicalMenu {\n    PanelQuad *bkg, *box[9];\n    TextString *loading;\n    int loading_draw_counter;\n    MCDetectFrontEnd *mc;\n\npublic:\n    void Draw();\n};\n\n__asm__(\".equ frontendmanager, 0x003E7728\");\n__asm__(\".equ drawMenu__16MCDetectFrontEnd, 0x001A4260\");\n\nvoid TitleFrontEnd::Draw()\n{\n    bkg->Draw(0);\n    if (active)\n    {\n        if (active != mc || mc->drawMenu()) \n        {\n            for(int i=0; i<9; i++)\n                box[i]->Draw(0);\n        }\n        active->Draw();\n    }\n    else\n    {\n        if(loading_draw_counter >= 0)\n            loading_draw_counter++;\n        if(frontendmanager.fe_done_loading)\n            highlighted->Draw();\n        else loading->Draw();\n    }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Draw__13TitleFrontEnd"
+}
