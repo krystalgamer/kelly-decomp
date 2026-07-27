@@ -1,0 +1,15 @@
+{
+  "address": "0x00262530",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "187a272e8abfa1be7dfd45aa2dca272b565a85c3",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/challenge_photo.cpp:245-269; kelly-slaters-pro-surfer/KS/SRC/ks/challenge_photo.h:30-52; kelly-slaters-pro-surfer/KS/SRC/ks/challenge_photo.h:87-101. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "class PhotoChallenge\n{\n  char gap0[8];\n  int goal;\n  int requiredScore;\n  char gap10[4];\n  bool recordChain;\n  char gap15[27];\n\n  class Photo\n  {\n    void *texture;\n    int score;\n    bool isOfSpecialTrick;\n\n  public:\n    int *GetScore(void) { return &score; }\n    bool IsOfSpecialTrick(void) const { return isOfSpecialTrick; }\n  };\n\n  Photo *photos;\n\npublic:\n  bool CheckForCompletion(void);\n};\n\nenum\n{\n  GOAL_PHOTO_1 = 7,\n  GOAL_PHOTO_2,\n  GOAL_PHOTO_3\n};\n\nbool PhotoChallenge::CheckForCompletion(void)\n{\n  bool completed = false;\n\n  switch (goal)\n  {\n  case GOAL_PHOTO_1:\n    if (!recordChain &&\n        (*photos[0].GetScore() + *photos[1].GetScore() + *photos[2].GetScore() >= requiredScore))\n      completed = true;\n    break;\n\n  case GOAL_PHOTO_2:\n    if (!recordChain &&\n        (*photos[0].GetScore() >= requiredScore || *photos[1].GetScore() >= requiredScore || *photos[2].GetScore() >= requiredScore))\n      completed = true;\n    break;\n\n  case GOAL_PHOTO_3:\n    if (!recordChain &&\n        ((*photos[0].GetScore() >= requiredScore && photos[0].IsOfSpecialTrick()) ||\n         (*photos[1].GetScore() >= requiredScore && photos[1].IsOfSpecialTrick()) ||\n         (*photos[2].GetScore() >= requiredScore && photos[2].IsOfSpecialTrick())))\n      completed = true;\n    break;\n\n  default:\n    __builtin_trap();\n  }\n\n  return completed;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "CheckForCompletion__14PhotoChallenge"
+}
