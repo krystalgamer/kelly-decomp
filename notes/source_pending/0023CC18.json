@@ -1,0 +1,16 @@
+{
+  "address": "0x0023CC18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9bb2d82989b6fb8e399cfa9ac44497a41cd16d2f",
+      "error": "Candidate did not emit WaveInfo__8KSReplayR8vector3dRiRfN23i; emitted functions: ['WaveInfo__8KSReplayR8vector3dRiRfT3T3i']",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/ksreplay.h:100-175,223-229; kelly-slaters-pro-surfer/KS/SRC/ks/wave.h:65-110; kelly-slaters-pro-surfer/KS/SRC/ks/beachdata.h:59-67; tmp/functions/0023CC18_WaveInfo__8KSReplayR8vector3dRiRfN23i/attempt-1/result.json; tmp/source_first/0023CC18/attempt-1.md. Result `symbol_missing`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "struct vector3d\n{\n  float x, y, z;\n};\n\nstruct SoundLine\n{\n  vector3d start;\n  vector3d stop;\n};\n\nstruct WaveSoundEmitter\n{\n  SoundLine line;\n  SoundLine segment[3];\n  unsigned int numsegment;\n};\n\nenum SoundEmitterEnum\n{\n  WAVE_SE_FACE,\n  WAVE_SE_SPLASH,\n  WAVE_SE_TUBE\n};\n\nextern WaveSoundEmitter WAVE_SoundEmitter[];\n__asm__(\".equ WAVE_SoundEmitter, 0x00484BF8\");\n\nstruct BeachData\n{\n  char padding[0xd0];\n  bool bdir;\n  char tail[0x143];\n};\n\nextern BeachData BeachDataArray[];\n__asm__(\".equ BeachDataArray, 0x0042C198\");\n\nstruct game\n{\n  char padding[0x228];\n  int beach_id;\n};\n\nextern game *g_game_ptr;\n__asm__(\".equ g_game_ptr, 0x0046AC64\");\n\nclass KSReplay\n{\n  char padding[0x34];\n  unsigned int playframe;\n\npublic:\n  void MainEntityPos(vector3d &pos, int frame = -1);\n  void WaveInfo(vector3d &pos, int &numTubes, float &mainTubeDist,\n                float &secTubeDist, float &breakDist, int frame = -1);\n};\n\n__asm__(\".equ MainEntityPos__8KSReplayR8vector3di, 0x0023CB00\");\n\nvoid KSReplay::WaveInfo(vector3d &pos, int &numTubes, float &mainTubeDist,\n                        float &secTubeDist, float &breakDist, int frame)\n{\n  if (frame < 0)\n    frame = playframe;\n\n  bool left = BeachDataArray[g_game_ptr->beach_id].bdir;\n  MainEntityPos(pos, frame);\n\n  numTubes = WAVE_SoundEmitter[WAVE_SE_TUBE].numsegment;\n  if (numTubes == 1)\n  {\n    if (left)\n      mainTubeDist = WAVE_SoundEmitter[WAVE_SE_TUBE].segment[1].start.x - pos.x;\n    else\n      mainTubeDist = pos.x - WAVE_SoundEmitter[WAVE_SE_TUBE].segment[1].stop.x;\n  }\n  else\n  {\n    if (left)\n      mainTubeDist = WAVE_SoundEmitter[WAVE_SE_TUBE].segment[2].start.x - pos.x;\n    else\n      mainTubeDist = pos.x - WAVE_SoundEmitter[WAVE_SE_TUBE].segment[1].stop.x;\n\n    if (left)\n      secTubeDist = pos.x - WAVE_SoundEmitter[WAVE_SE_TUBE].segment[1].stop.x;\n    else\n      secTubeDist = WAVE_SoundEmitter[WAVE_SE_TUBE].segment[2].start.x - pos.x;\n\n    if (left)\n      breakDist = pos.x - WAVE_SoundEmitter[WAVE_SE_TUBE].segment[1].start.x;\n    else\n      breakDist = WAVE_SoundEmitter[WAVE_SE_TUBE].segment[2].stop.x - pos.x;\n  }\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "WaveInfo__8KSReplayR8vector3dRiRfN23i"
+}
