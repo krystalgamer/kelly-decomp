@@ -1,0 +1,23 @@
+{
+  "address": "0x00156C88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9d7323069123505288413baa266bcca324c9e16b",
+      "candidate_size": 352,
+      "compared_bytes": 352,
+      "compared_instructions": 88,
+      "emitted_name": "Draw__6FEMenu",
+      "instruction_score": 19.3182,
+      "matching_bytes": 136,
+      "matching_instructions": 17,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.cpp:511-546; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:52-138,160-272; tmp/functions/00156C88_Draw__6FEMenu/attempt-1/result.json. Result `different`, score 38.6364; no later attempt.",
+      "score": 38.6364,
+      "source": "enum {\n    FEMENU_SCROLLING = 0x001,\n    FEMENU_DONT_SHOW_DISABLED = 0x400\n};\n\nstruct entry_vtable {\n    char padding[0x30];\n    short disable_adjust;\n    short disable_reserved;\n    bool (*get_disable)(void *);\n    short draw_adjust;\n    short draw_reserved;\n    void (*draw)(void *);\n};\n\nclass FEMenuEntry {\npublic:\n    int entry_num;\n    FEMenuEntry *next;\n\nprivate:\n    char padding[0x58];\n    entry_vtable *vtable;\n\npublic:\n    bool GetDisable()\n    {\n        return vtable->get_disable((char *)this + vtable->disable_adjust);\n    }\n\n    void Draw()\n    {\n        vtable->draw((char *)this + vtable->draw_adjust);\n    }\n};\n\nstruct menu_vtable {\n    char padding[0x40];\n    short draw_adjust;\n    short draw_reserved;\n    void (*draw)(void *);\n};\n\nstruct menu_layout {\n    char padding[0x74];\n    menu_vtable *vtable;\n};\n\nclass TextString {\n    char padding[0x24];\n    menu_vtable *vtable;\n\npublic:\n    void Draw()\n    {\n        vtable->draw((char *)this + vtable->draw_adjust);\n    }\n};\n\nclass FEMenu {\n    char padding0[0x38];\n    int max_vis_entries;\n    int flags;\n    FEMenuEntry *entries;\n    FEMenuEntry *first_vis_entry;\n    char padding1[0x18];\n    menu_layout *active;\n    char padding2[4];\n    TextString *helpText;\n\npublic:\n    void Draw();\n};\n\nvoid FEMenu::Draw()\n{\n    if (active != 0) active->vtable->draw(\n        (char *)active + active->vtable->draw_adjust);\n    else\n    {\n        if (!(flags & FEMENU_SCROLLING))\n        {\n            FEMenuEntry *tmp = entries;\n            while (tmp != 0)\n            {\n                if (!(flags & FEMENU_DONT_SHOW_DISABLED && tmp->GetDisable()))\n                    tmp->Draw();\n                tmp = tmp->next;\n            }\n        }\n        else\n        {\n            FEMenuEntry *tmp = first_vis_entry;\n            int count = max_vis_entries;\n            while (count > 0)\n            {\n                count--;\n                if (!tmp) tmp = entries;\n                while (flags & FEMENU_DONT_SHOW_DISABLED && tmp->GetDisable())\n                {\n                    tmp = tmp->next;\n                    if (tmp == 0) tmp = entries;\n                }\n                tmp->Draw();\n                tmp = tmp->next;\n            }\n        }\n        helpText->Draw();\n    }\n}\n",
+      "status": "different",
+      "target_size": 320
+    }
+  ],
+  "raw_name": "Draw__6FEMenu"
+}
