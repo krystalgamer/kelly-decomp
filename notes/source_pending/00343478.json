@@ -1,0 +1,23 @@
+{
+  "address": "0x00343478",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "85832cbbf21050bfaf41e73b73e769b9b28d9d8b",
+      "candidate_size": 256,
+      "compared_bytes": 256,
+      "compared_instructions": 64,
+      "emitted_name": "update_position__13layout_widgetss",
+      "instruction_score": 79.6875,
+      "matching_bytes": 182,
+      "matching_instructions": 51,
+      "notes": "Attempt 1 tested the exact released `layout_widget::update_position(short, short)` definition from `kelly-slaters-pro-surfer/KS/SRC/widget.cpp:2931-2942` with the released widget, text-widget, and layout-widget declarations represented self-contained from `widget.h`. No body rewrite, tuning, or diff chasing was performed. Result: different, 71.0938% byte score and 79.6875% instruction score.",
+      "score": 71.0938,
+      "source": "typedef float rational_t;\ntypedef float time_value_t;\ntypedef unsigned int message_id_t;\n\nclass string_buf;\nclass stringx\n{\nprotected:\n  char *chars;\n  string_buf *my_buf;\npublic:\n  stringx(const char *str, int len = -1);\n  ~stringx();\n};\n\nclass widget\n{\nprotected:\n  char released_layout[320];\npublic:\n  virtual ~widget();\n  virtual void show();\n  virtual void hide();\n  virtual void ignore_parent();\n  virtual void obey_parent();\n  virtual void ignore_parent_showing();\n  virtual void obey_parent_showing();\n  virtual void frame_advance(time_value_t time_inc);\n  virtual void render();\n  virtual void message_handler(message_id_t message, message_id_t overflow = 0,\n                               rational_t parm0 = 0, rational_t parm1 = 0);\n  virtual void add_child(widget *child);\n  virtual void flush();\n  virtual void move_to(short _x, short _y);\n  virtual void move_to(time_value_t wt, time_value_t d, short _x, short _y);\n\n  short get_x() const { return *(const short *)(released_layout + 44); }\n  short get_y() const { return *(const short *)(released_layout + 46); }\n  short get_abs_x() const { return *(const short *)(released_layout + 48); }\n  short get_abs_y() const { return *(const short *)(released_layout + 50); }\n};\n\nclass text_widget : public widget\n{\npublic:\n  void set_string(stringx const &_prelocalized_text);\n};\n\nclass bitmap_widget;\n\nclass layout_widget : public widget\n{\npublic:\n  layout_widget(const char *_widget_name, widget *_parent, short _x, short _y);\n  virtual ~layout_widget() {}\n  virtual void frame_advance(time_value_t time_inc);\nprotected:\n  void update_text();\n  void update_position(short dx, short dy);\n  void update_rotation(short dax, short day, short daz);\n  bitmap_widget *bg;\n  text_widget *name, *pos, *abs_pos, *x_angle, *y_angle, *z_angle;\n  widget *cur_widget;\n};\n\nextern \"C\" int sprintf(char *str, const char *format, ...);\n\nvoid layout_widget::update_position( short dx, short dy )\n{\n  if ( cur_widget )\n  {\n    cur_widget->move_to( cur_widget->get_x() + dx, cur_widget->get_y() + dy );\n    char buf[50];\n    sprintf( buf, \"x %i, y %i\", cur_widget->get_x(), cur_widget->get_y() );\n    pos->set_string( stringx( buf ) );\n    sprintf( buf, \"abs x = %i, abs y = %i\", cur_widget->get_abs_x(), cur_widget->get_abs_y() );\n    abs_pos->set_string( stringx( buf ) );\n  }\n}\n",
+      "status": "different",
+      "target_size": 256
+    }
+  ],
+  "raw_name": "update_position__13layout_widgetss"
+}
