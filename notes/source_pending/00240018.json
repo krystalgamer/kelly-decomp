@@ -1,0 +1,23 @@
+{
+  "address": "0x00240018",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8a949075fa197f220175b1a61101f113d28830e6",
+      "candidate_size": 268,
+      "compared_bytes": 268,
+      "compared_instructions": 67,
+      "emitted_name": "MenuText__17MenuEntryListEditPci",
+      "instruction_score": 95.5224,
+      "matching_bytes": 241,
+      "matching_instructions": 64,
+      "notes": "# First-pass notes\n\n- Used the exact released body from `kelly-slaters-pro-surfer/KS/SRC/ks/menu.cpp:784-808`.\n- Added only self-contained declarations needed for class layout, virtual dispatch, and C string functions.\n- Candidate was verified non-placeholder before the recorded attempt.\n- Single recorded attempt compiled and emitted the target symbol, but differed at 89.9254% byte score (95.5224% instruction score).\n- No variants or diff chasing were performed.",
+      "score": 89.9254,
+      "source": "extern \"C\" int sprintf(char *, const char *, ...);\nextern \"C\" char *strncpy(char *, const char *, unsigned int);\nextern \"C\" unsigned int strlen(const char *);\nclass Menu; class MenuSystem;\nstruct MenuColor { unsigned char r, g, b, a; };\nclass MenuEntry {\n    unsigned int flags;\npublic:\n    MenuEntry(); virtual ~MenuEntry(); virtual MenuColor GetColor(void);\n    virtual void Show(void); virtual void Hide(void); virtual void Enable(void); virtual void Disable(void);\n    virtual void Activate(void); virtual void Deactivate(void); virtual void OnTick(float);\n    virtual void OnMenuOpen(Menu *, MenuSystem *); virtual void OnMenuClose(void);\n    virtual void OnButtonPress(int); virtual void OnButtonRelease(int);\nprotected:\n    virtual void OnHide(void); virtual void OnShow(void); virtual void OnEnable(void); virtual void OnDisable(void);\n    virtual void OnActivate(void); virtual void OnDeactivate(void);\npublic:\n    virtual int MenuText(char *text, int len) { if (len>0) *text=0; return 0; }\n};\nclass MenuEntryLabel : public MenuEntry {\nprotected: const char *label;\npublic: MenuEntryLabel(const char *); virtual ~MenuEntryLabel(); virtual int MenuText(char *, int);\n};\nclass MenuEntryIntEdit : public MenuEntryLabel {\n    int *tint;\nprotected: int lo, hi; int delta; char *format;\npublic:\n    MenuEntryIntEdit(const char *, int *, int, int); MenuEntryIntEdit(const char *, int *, int, int, char *);\n    virtual ~MenuEntryIntEdit(); virtual void OnMenuOpen(Menu *, MenuSystem *); virtual int MenuText(char *, int);\n    virtual void OnButtonPress(int); void FixValue(void); virtual void DecValue(void); virtual void IncValue(void);\n    virtual void DecValueByTen(void); virtual void IncValueByTen(void); virtual void DecValueByFifty(void);\n    virtual void IncValueByFifty(void); virtual void SetValue(int); virtual int GetValue(void);\n};\nclass MenuEntryListEdit : public MenuEntryIntEdit {\n    char **label;\npublic:\n    MenuEntryListEdit(char *, int *, int, char **); MenuEntryListEdit(char *, int *, int, char **, char *);\n    virtual ~MenuEntryListEdit(); virtual int MenuText(char *, int);\n};\nint MenuEntryListEdit::MenuText( char *text, int len )\n{\n\tif ( len && label )\n\t{\n\t\tint lused=MenuEntryLabel::MenuText(text,len);\n\t\tchar tval[256];\n/*\n\t\tchar *estr=label[GetValue()];\n*/\n\t\tif ( format )\n\t\t{\n\t\t\tsprintf(tval,format,label[GetValue()]);\n\t\t}\n\t\telse\n\t\t{\n\t\t\tsprintf(tval,\" : %s\",label[GetValue()]);\n\t\t}\n\n\t\tstrncpy(text+lused,tval,len-lused);\n\t\ttext[len-1]=0;\n\t\treturn strlen(text);\n\t}\n\telse\n\t\treturn MenuEntry::MenuText(text,len);\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "MenuText__17MenuEntryListEditPci"
+}
