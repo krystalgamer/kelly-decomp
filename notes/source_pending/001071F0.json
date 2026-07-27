@@ -1,0 +1,23 @@
+{
+  "address": "0x001071F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "eeb69f21353d038b38e1a56942c05cec99baa2ca",
+      "candidate_size": 300,
+      "compared_bytes": 308,
+      "compared_instructions": 77,
+      "emitted_name": "set_facing_point__13ai_locomotionRC8vector3df",
+      "instruction_score": 31.1688,
+      "matching_bytes": 158,
+      "matching_instructions": 24,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ai_locomotion.cpp:156-171; kelly-slaters-pro-surfer/KS/SRC/ai_locomotion.h:22-158; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:197-257,438-439; kelly-slaters-pro-surfer/KS/SRC/entity.h:719-722; tmp/functions/001071F0_set_facing_point__13ai_locomotionRC8vector3df/attempt-1/result.json. Result `different`, score 51.2987; no later attempt.",
+      "score": 51.2987,
+      "source": "extern \"C\" float sqrtf(float);\n\ntypedef float rational_t;\n\ninline rational_t fast_recip_sqrt(rational_t x)\n{\n  return 1.0F/(rational_t)sqrtf(x);\n}\n\n#define SMALL_DIST 0.0001f\n\nclass vector3d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z;\n\n  vector3d() {}\n  vector3d(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {}\n\n  inline vector3d& operator = ( const vector3d& v )\n  { x = v.x; y = v.y; z = v.z; return *this; }\n\n  inline vector3d& operator *= ( T d )\n  { x *= d; y *= d; z *= d; return *this; }\n\n  inline T length2() const\n  { return x*x + y*y + z*z; }\n\n  inline vector3d& normalize()\n  {\n    T l2 = length2();\n    if (l2>SMALL_DIST*SMALL_DIST)\n      *this *= fast_recip_sqrt(l2);\n    return *this;\n  }\n};\n\ninline vector3d operator - (const vector3d& a, const vector3d& b)\n{ return vector3d(a.x - b.x, a.y - b.y, a.z - b.z); }\n\nclass entity\n{\npublic:\n  const vector3d& get_abs_position() const;\n};\n\nclass ai_locomotion\n{\n  virtual void anchor();\n  char prefix[200];\n  bool in_service;\n  int type;\n  bool facing;\n  bool playing_face_anim;\n  vector3d face_dir;\n  rational_t turn_speed;\n\npublic:\n  entity *get_my_entity() const;\n  bool set_facing_point(const vector3d &pt, rational_t mod);\n};\n\nbool ai_locomotion::set_facing_point(const vector3d &pt, rational_t mod)\n{\n  if(!in_service)\n  {\n    facing = true;\n\n    face_dir = pt - get_my_entity()->get_abs_position();\n    face_dir.normalize();\n\n    turn_speed = mod;\n  }\n  else\n    facing = false;\n\n  return(facing);\n}\n",
+      "status": "different",
+      "target_size": 308
+    }
+  ],
+  "raw_name": "set_facing_point__13ai_locomotionRC8vector3df"
+}
