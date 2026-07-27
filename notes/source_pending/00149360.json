@@ -1,0 +1,23 @@
+{
+  "address": "0x00149360",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5c779e170aa045655f9afd7c74684862c09721f9",
+      "candidate_size": 236,
+      "compared_bytes": 268,
+      "compared_instructions": 67,
+      "emitted_name": "Draw__9FlashText",
+      "instruction_score": 2.9851,
+      "matching_bytes": 53,
+      "matching_instructions": 2,
+      "notes": "FIRST PASS A5, reduced scope. No prior attempts existed. Tested one self-contained candidate reproducing the released FlashText draw logic: when flashing, interpolate the two stored colors using `flash_alpha + 0.5f`, preserve the second color alpha, assign the base text color, then call `TextString::Draw()`. Included only the required `color32`, `TextString`, and `FlashText` declarations. The candidate compiled but differed (19.7761% bytes, 2.9851% instructions); no variants were attempted.",
+      "score": 19.7761,
+      "source": "class color32\n{\npublic:\n    unsigned char c[4];\n    color32() {}\n    color32(unsigned char r, unsigned char g, unsigned char b, unsigned char a)\n    {\n        c[0] = r;\n        c[1] = g;\n        c[2] = b;\n        c[3] = a;\n    }\n};\n\nclass TextString\n{\npublic:\n    char padding[0x48];\n    color32 color;\n    virtual void Draw();\n};\n\nclass FlashText : public TextString\n{\npublic:\n    bool flash;\n    char padding[3];\n    color32 color1;\n    color32 color2;\n    float flash_time;\n    float flash_alpha;\n\n    void Draw();\n};\n\nvoid FlashText::Draw()\n{\n    if (flash)\n    {\n        color = color32(\n            color1.c[0] + (color2.c[0] - color1.c[0]) * (flash_alpha + 0.5f),\n            color1.c[1] + (color2.c[1] - color1.c[1]) * (flash_alpha + 0.5f),\n            color1.c[2] + (color2.c[2] - color1.c[2]) * (flash_alpha + 0.5f),\n            color2.c[3]);\n    }\n    TextString::Draw();\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "Draw__9FlashText"
+}
