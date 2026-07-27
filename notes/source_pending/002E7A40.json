@@ -1,0 +1,23 @@
+{
+  "address": "0x002E7A40",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "11b76b5040e0fea47da0f748d0eb16f8fee500e5",
+      "candidate_size": 248,
+      "compared_bytes": 300,
+      "compared_instructions": 75,
+      "emitted_name": "update_poss_collide__6regionP6entity",
+      "instruction_score": 4.0,
+      "matching_bytes": 64,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/region.cpp:743-774; kelly-slaters-pro-surfer/KS/SRC/region.h:73-78; kelly-slaters-pro-surfer/KS/SRC/region.h:137-153; kelly-slaters-pro-surfer/KS/SRC/region.h:246-269; kelly-slaters-pro-surfer/KS/SRC/entity.h:848-851; kelly-slaters-pro-surfer/KS/SRC/entity.h:921-924; tmp/functions/002E7A40_update_poss_collide__6regionP6entity/attempt-1/result.json; tmp/source_first/002E7A40/attempt-1.md. Result `different`, score 21.3333; no later attempt.",
+      "score": 21.3333,
+      "source": "class collision_geometry;\n\nstruct virtual_entry\n{\n  short delta;\n  short reserved;\n  void *function;\n};\n\nclass entity\n{\n  char prefix[8];\n  virtual_entry *vtable;\n\npublic:\n  collision_geometry *get_colgeom() const\n  {\n    typedef collision_geometry *(*function_type)(const void *);\n    virtual_entry &entry = vtable[55];\n    return ((function_type)entry.function)((const char *)this + entry.delta);\n  }\n\n  bool are_collisions_active() const\n  {\n    typedef bool (*function_type)(const void *);\n    virtual_entry &entry = vtable[33];\n    return ((function_type)entry.function)((const char *)this + entry.delta);\n  }\n};\n\nextern entity **find_entity_pointer(entity **, entity **, entity *const &, int)\n  __asm__(\"find__H2ZPP6entityZP6entity_X01X01RCX11G26random_access_iterator_tag_X01\");\n\nclass entity_vector\n{\npublic:\n  entity **begin_pointer;\n  entity **end_pointer;\n  entity **capacity_pointer;\n\n  entity **begin() { return begin_pointer; }\n  entity **end() { return end_pointer; }\n  void push_back(entity *const &value);\n};\n\nextern void insert_entity_pointer(entity_vector *, entity **, entity *const &)\n  __asm__(\"_M_insert_aux__t6vector2ZP6entityZt12my_allocator1ZP6entityPP6entityRCP6entity\");\n\nvoid entity_vector::push_back(entity *const &value)\n{\n  if (end_pointer != capacity_pointer)\n  {\n    if (end_pointer)\n      *end_pointer = value;\n    ++end_pointer;\n  }\n  else\n    insert_entity_pointer(this, end_pointer, value);\n}\n\nclass region\n{\n  char prefix[0xac];\n  entity_vector possible_collide_ents;\n\npublic:\n  void update_poss_collide(entity *e);\n};\n\nvoid region::update_poss_collide(entity *e)\n{\n  if(e)\n  {\n    if(e->get_colgeom() && e->are_collisions_active())\n    {\n      entity **ei_begin = possible_collide_ents.begin();\n      entity **ei_end = possible_collide_ents.end();\n\n      entity **ei = find_entity_pointer(ei_begin, ei_end, e, 0);\n      if (ei == ei_end)\n      {\n        entity *null_entity = 0;\n        ei = find_entity_pointer(ei_begin, ei_end, null_entity, 0);\n        if (ei != ei_end)\n          *ei = e;\n        else\n          possible_collide_ents.push_back(e);\n      }\n    }\n    else\n    {\n      entity **ei_end = possible_collide_ents.end();\n      entity **ei = find_entity_pointer(possible_collide_ents.begin(), ei_end, e, 0);\n      if (ei != ei_end)\n        *ei = 0;\n    }\n  }\n}\n",
+      "status": "different",
+      "target_size": 300
+    }
+  ],
+  "raw_name": "update_poss_collide__6regionP6entity"
+}
