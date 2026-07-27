@@ -1,0 +1,23 @@
+{
+  "address": "0x001AAAC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0a86c3bc41583ee872ca48a8ef292a64e7981065",
+      "candidate_size": 284,
+      "compared_bytes": 284,
+      "compared_instructions": 69,
+      "emitted_name": "__15CameraMenuClassP12FEMenuSystemiiG7color32N24",
+      "instruction_score": 53.6232,
+      "matching_bytes": 273,
+      "matching_instructions": 37,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:1247-1263; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h:267-288; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:271-384; tmp/functions/001AAAC8___15CameraMenuClassP12FEMenuSystemiiG7color32N24/attempt-1/result.json; tmp/source_first/001AAAC8/notes.md. Result `different`, score 96.1268; no later attempt.",
+      "score": 96.1268,
+      "source": "typedef unsigned int color32;\n\nstruct FEMenu;\nstruct FEMenuSystem {\n    char padding[0x74];\n    FEMenu **menus;\n};\n\nstruct FEMenu {\n    char padding0[0x34];\n    float scale_high;\n    char padding1[0x4];\n    int flags;\n    char padding2[0x14];\n    FEMenu *back;\n    int back_num;\n    char padding3[0x18];\n    const void *vtable;\n};\n\nstruct CameraMenuClass {\n    FEMenu base;\n    FEMenuSystem *sys;\n    FEMenu *menu_item[3];\n    bool multiplayer;\n};\n\nextern \"C\" void FEMenuCtor(FEMenu *self) __asm__(\"__6FEMenu\");\nextern \"C\" void FEMenuCons(\n    FEMenu *self, FEMenuSystem *system, int x, int y,\n    color32 color, color32 color_high, color32 color_high_alt,\n    float scale, float scale_high, int max_visible, int flags)\n    __asm__(\"cons__6FEMenuP12FEMenuSystemiiG7color32N24ffii\");\nextern \"C\" void SetHelpText(FEMenu *self, int flags)\n    __asm__(\"SetHelpText__6FEMenui\");\nextern const char camera_menu_vtable[];\n\n__asm__(\".equ __6FEMenu, 0x00156280\");\n__asm__(\".equ cons__6FEMenuP12FEMenuSystemiiG7color32N24ffii, 0x00156330\");\n__asm__(\".equ SetHelpText__6FEMenui, 0x00156E20\");\n__asm__(\".equ camera_menu_vtable, 0x004C7F30\");\n\nextern \"C\" CameraMenuClass *CameraMenuCtor(\n    CameraMenuClass *self, FEMenuSystem *system, int x, int y,\n    color32 color, color32 color_high, color32 color_high_alt)\n    __asm__(\"__15CameraMenuClassP12FEMenuSystemiiG7color32N24\");\n\nCameraMenuClass *CameraMenuCtor(\n    CameraMenuClass *self, FEMenuSystem *system, int x, int y,\n    color32 color, color32 color_high, color32 color_high_alt)\n{\n    FEMenuCtor(&self->base);\n    self->base.vtable = camera_menu_vtable;\n    FEMenuCons(&self->base, system, x, y, color, color_high, color_high_alt,\n               1.0f, 1.2f, 8, 0);\n\n    self->sys = system;\n\n    for (int i = 0; i < 3; i++)\n        self->menu_item[i] = 0;\n\n    self->base.back = self->sys->menus[7];\n    self->base.back_num = 1;\n    self->base.scale_high = 1.0f;\n    SetHelpText(&self->base, 0x73);\n    self->base.flags |= 2;\n    return self;\n}\n",
+      "status": "different",
+      "target_size": 284
+    }
+  ],
+  "raw_name": "__15CameraMenuClassP12FEMenuSystemiiG7color32N24"
+}
