@@ -1,0 +1,23 @@
+{
+  "address": "0x0033F9B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f624bb9c505f9076b5c2f52240130b1aba757fce",
+      "candidate_size": 296,
+      "compared_bytes": 304,
+      "compared_instructions": 76,
+      "emitted_name": "scale_to__13bitmap_widgetff",
+      "instruction_score": 32.8947,
+      "matching_bytes": 156,
+      "matching_instructions": 25,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/widget.cpp:1256-1270; kelly-slaters-pro-surfer/KS/SRC/widget.h:202-405,481-527; notes/function_queue.csv (0x0033F9B0 row); tmp/functions/0033F9B0_scale_to__13bitmap_widgetff/attempt-1/result.json; tmp/source_first/0033F9B0/notes.md. Result `different`, score 51.3158; no later attempt.",
+      "score": 51.3158,
+      "source": "typedef float rational_t;\n\nclass widget\n{\npublic:\n  virtual ~widget();\n  void scale_to(rational_t hs, rational_t vs);\n  virtual void set_subrect(int x0, int y0, int x1, int y1);\n  virtual void set_origin(short x, short y);\nprotected:\n  char padding0[0x34];\n  short orig_x;\n  short orig_y;\n  char padding1[0xE4];\n  rational_t abs_S[2];\n  char padding2[0x18];\n};\n\nclass bitmap_widget: public widget\n{\npublic:\n  virtual ~bitmap_widget();\n  virtual void scale_to(rational_t hs, rational_t vs);\n  void set_tc();\n  bool is_open() { return (flags & 0x00000002); }\nprotected:\n  unsigned int flags;\n  rational_t w;\n  rational_t h;\n};\n\nvoid bitmap_widget::scale_to( rational_t hs, rational_t vs )\n{\n  if ( !is_open() ) return;\n  widget::scale_to( hs, vs );\n  set_tc();\n  set_subrect( 0.0f, 0.0f, w * abs_S[0], h * abs_S[1] );\n  if ( orig_x != 0.0f || orig_y != 0.0f )\n  {\n    set_origin( short( w * abs_S[0] / 2.0f + 0.5f ), short( h * abs_S[1] / 2.0f + 0.5f ) );\n  }\n}\n",
+      "status": "different",
+      "target_size": 304
+    }
+  ],
+  "raw_name": "scale_to__13bitmap_widgetff"
+}
