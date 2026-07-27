@@ -1,0 +1,23 @@
+{
+  "address": "0x002ABCC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "919690354e574e4b4482d23c6f5e9b9be7cc3204",
+      "candidate_size": 252,
+      "compared_bytes": 252,
+      "compared_instructions": 63,
+      "emitted_name": "SplitBlock__4HeapP12MemBlockInfoUi",
+      "instruction_score": 96.8254,
+      "matching_bytes": 246,
+      "matching_instructions": 61,
+      "notes": "# SplitBlock__4HeapP12MemBlockInfoUi \u2014 0x002ABCC8\n\n- Object: `game/files_misc1`\n- Released source: `kelly-slaters-pro-surfer/KS/SRC/heap.cpp:1204-1261`\n- Queue state at start: **pending**, with **0** pre-existing scratch attempts\n- Attempt 1: **different**, 97.619% bytes / 96.8254% instructions, 252 bytes\n\n## Attempt 1\n\nUsed the exact released `Heap::SplitBlock` body. The self-contained candidate\nadds only the authentic enabled `HEAP_OFTYPE_LINKS` layout, heap block flag\ntypes/constants, the `Heap` prefix through `heapid`, inline `GetHeapID()`, and\naddress bindings for `HeaderSize()` and `SetBlockSentry()`.\n\nNo second attempt or diff-driven source change was made.\n\n## Citations\n\n- Body: `kelly-slaters-pro-surfer/KS/SRC/heap.cpp:1204-1261`\n- Flags, block layout, assertions: `kelly-slaters-pro-surfer/KS/SRC/heap.cpp:26-80`\n- Heap types and enabled list macro: `kelly-slaters-pro-surfer/KS/SRC/heap.h:10-16`; `kelly-slaters-pro-surfer/KS/SRC/heaptype.h:29-34`\n- Heap layout and helpers: `kelly-slaters-pro-surfer/KS/SRC/heap.h:33-69,153-166`\n- Adjacent shared prior art: `src/KS/SRC/heap_shared.h:4-55`",
+      "score": 97.619,
+      "source": "typedef unsigned int size_t;\ntypedef unsigned char *PointerMath;\ntypedef size_t MemSize;\ntypedef unsigned int MemFlags;\n\n#define HEAP_OFTYPE_LINKS\n#define HEAPMAGICID 0x7E07\n#define heapassert(exp) ((void)0)\n\nenum MemoryBlockTypes\n{\n\tmbtFree      = 0x00000000,\n\tmbtUsed      = 0x00000001,\n};\n\nstruct MemFlagDWord\n{\n\tMemFlags magic  : 16;\n\tMemFlags heapid :  8;\n\tMemFlags flags  :  8;\n};\n\nclass MemBlockInfo\n{\n\tpublic:\n\tMemBlockInfo *prev;\n\tMemBlockInfo *next;\n\tMemBlockInfo *prevoftype;\n\tMemBlockInfo *nextoftype;\n\tMemSize size;\n\tMemFlagDWord flags;\n\tMemFlags blockid;\n};\n\nclass Heap\n{\n\tpublic:\n\tMemBlockInfo *fullhead;\n\tMemBlockInfo *fulltail;\n\tMemBlockInfo *usedhead;\n\tMemBlockInfo *usedtail;\n\tMemBlockInfo *freehead;\n\tMemBlockInfo *freetail;\n\tMemSize heapsize;\n\tvoid *heapstart;\n\tMemSize allocatedblocks;\n\tMemSize minalloc;\n\tMemSize minalign;\n\tMemSize lastalloc;\n\tMemFlags heapid;\n\n\tMemFlags GetHeapID( void ) const { return heapid; }\n\tMemBlockInfo *SplitBlock( MemBlockInfo *block, MemSize blocksize );\n\tMemSize HeaderSize( void ) const;\n\tvoid SetBlockSentry( MemBlockInfo *block );\n};\n\n__asm__(\".equ HeaderSize__C4Heap, 0x002AB370\");\n__asm__(\".equ SetBlockSentry__4HeapP12MemBlockInfo, 0x002AB678\");\n\nMemBlockInfo *Heap::SplitBlock( MemBlockInfo *block, MemSize blocksize )\n{\n\theapassert(blocksize > HeaderSize());\n\theapassert(block->size > blocksize+HeaderSize());\n\tPointerMath oblock=(PointerMath) block;\n\tPointerMath nblock=oblock+blocksize;\n\tMemBlockInfo *newblock=(MemBlockInfo * ) nblock;\n\tnewblock->size = block->size - blocksize;\n\tnewblock->flags.magic = HEAPMAGICID;\n\tnewblock->flags.heapid = GetHeapID();\n\tnewblock->flags.flags = block->flags.flags;\n\tnewblock->prev=block;\n\tnewblock->blockid=0;\n\t#ifdef HEAP_OFTYPE_LINKS\n\tnewblock->prevoftype=block;\n\t#endif\n\tnewblock->next=block->next;\n\t#ifdef HEAP_OFTYPE_LINKS\n\tnewblock->nextoftype=block->nextoftype;\n\t#endif\n\t#ifdef HEAP_DEBUG\n\t\tstrcpy(newblock->name,block->name);\n\t\tnewblock->lineno=block->lineno;\n\t#endif\n\tblock->next=newblock;\n\t#ifdef HEAP_OFTYPE_LINKS\n\tblock->nextoftype=newblock;\n\t#endif\n\tif ( newblock->next )\n\t{\n\t\tnewblock->next->prev=newblock;\n\t}\n\telse\n\t{\n\t\tfulltail=newblock;\n\t}\n\t#ifdef HEAP_OFTYPE_LINKS\n\tif ( newblock->nextoftype )\n\t{\n\t\tnewblock->nextoftype->prevoftype=newblock;\n\t}\n\telse\n\t{\n\t\tif ( newblock->flags.flags & mbtUsed )\n\t\t{\n\t\t\tusedtail=newblock;\n\t\t}\n\t\telse\n\t\t{\n\t\t\tfreetail=newblock;\n\t\t}\n\t}\n\t#endif\n\t//block->size-=blocksize;\n\tblock->size=blocksize-HeaderSize();\n\tblock->flags.magic = HEAPMAGICID;\n\tblock->flags.heapid = GetHeapID();\n\tSetBlockSentry(block);\n\tSetBlockSentry(newblock);\n\treturn block;\n}\n",
+      "status": "different",
+      "target_size": 252
+    }
+  ],
+  "raw_name": "SplitBlock__4HeapP12MemBlockInfoUi"
+}
