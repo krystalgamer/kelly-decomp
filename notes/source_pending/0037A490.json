@@ -1,0 +1,15 @@
+{
+  "address": "0x0037A490",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1ee60bb7b94f076fb1180f91528fdff5ed2a67fc",
+      "notes": "Released source copied verbatim with a compile-only declaration/address prefix. The sole test attempt failed to compile because the released static declaration of WAVE_WorldToProfile is treated as an undefined local function by the compiler; no second attempt was made.",
+      "score": 0.0,
+      "source": "typedef unsigned int u_int;\n\nextern float WAVE_MeshMinX;\nextern float WAVE_MeshMaxX;\nextern u_int WAVE_MeshStepX;\n#define WAVE_MESHSTEPMAXX 50\nextern float WAVE_MeshGridX[WAVE_MESHSTEPMAXX+1];\nextern float WAVE_SliceGridX[WAVE_MESHSTEPMAXX+1];\nextern bool WAVE_LeftBreaker;\nstatic float WAVE_WorldToProfile(float x);\n\n__asm__(\".equ WAVE_MeshMinX, 0x00484620\");\n__asm__(\".equ WAVE_MeshMaxX, 0x00484624\");\n__asm__(\".equ WAVE_MeshStepX, 0x00484630\");\n__asm__(\".equ WAVE_LeftBreaker, 0x004846C4\");\n__asm__(\".equ WAVE_MeshGridX, 0x00485180\");\n__asm__(\".equ WAVE_SliceGridX, 0x0048ADC0\");\n__asm__(\".equ WAVE_WorldToProfile__Ff, 0x00377F10\");\n\nstatic void WAVE_ComputeSlices(void)\n{\n#ifdef DEBUG\n\tif (WaveDebug.BreakTest)\n\t{\n\t\tint numused;\n\t\tfor (\n\t\t\tnumused = WAVE_PerturbTest.num;\n\t\t\tfabsf(WAVE_PerturbTest.profilex[numused-1] - WAVE_PerturbTest.profilex[numused-2]) < 0.00001;\n\t\t\t--numused\n\t\t) continue;\n\t\tassert(numused > 0);\n\t\tWAVE_PerturbTest.numused = numused;\n\n\t\tWAVE_PerturbTest.Init();\n\n\t\tfor (u_int i = 0; i <= WAVE_MeshStepX; ++i)\n\t\t{\n\t\t\tWAVE_SliceGridX[i] = WAVE_TestSlice(WAVE_MeshGridX[i]);\n\t\t}\n\t}\n\telse\n#endif\n\t{\n\t\t// Lock edges to zero\n\t\tWAVE_SliceGridX[0] = WAVE_LeftBreaker ? WAVE_MeshMaxX : WAVE_MeshMinX;\n\t\tfor (u_int i = 1; i < WAVE_MeshStepX; ++i)\n\t\t{\n\t\t\tWAVE_SliceGridX[i] = WAVE_WorldToProfile(WAVE_MeshGridX[i]);\n\t\t}\n\t\tWAVE_SliceGridX[WAVE_MeshStepX] = WAVE_LeftBreaker ? WAVE_MeshMinX : WAVE_MeshMaxX;\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WAVE_ComputeSlices__Fv"
+}
