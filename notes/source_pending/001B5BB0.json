@@ -1,0 +1,23 @@
+{
+  "address": "0x001B5BB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "baf02af57c5f3a8357d7bb615c950822a0c17971",
+      "candidate_size": 268,
+      "compared_bytes": 288,
+      "compared_instructions": 72,
+      "emitted_name": "Update__13BoardFrontEndf",
+      "instruction_score": 20.8333,
+      "matching_bytes": 94,
+      "matching_instructions": 15,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/BoardFrontEnd.cpp:86-94; kelly-slaters-pro-surfer/KS/SRC/ks/BoardFrontEnd.h:19-89; kelly-slaters-pro-surfer/KS/SRC/ks/FEEntityManager.h:179-185; tmp/functions/001B5BB0_Update__13BoardFrontEndf/attempt-1/result.json. Result `different`, score 32.6389; no later attempt.",
+      "score": 32.6389,
+      "source": "#include \"KS/SRC/ks/FEMenu_shared.h\"\n\nclass PanelQuad {\n    char data[0x194];\npublic:\n    virtual ~PanelQuad();\n    virtual void Init(float, float, float, float, float, float, float, float, float, float, float, float, float, char *);\n    virtual void TurnOn(bool);\n    virtual void SetLayer(int);\n    virtual void Rotate(float);\n    virtual void Rotate(float, float, float);\n    virtual void Update(time_value_t time_inc);\n};\n\nclass FEEntityManager {\n    char data0[0x1c0];\n    int cam_stopped;\n    int cam_stopped_at;\n    char data1[0x204 - 0x1c8];\n    int closet_state;\npublic:\n    bool OKtoDrawBoardSelect() { return cam_stopped && cam_stopped_at == 4 && closet_state == 0; }\n};\n\nclass FEManager {\npublic:\n    char data[12];\n    FEEntityManager *em;\n};\n\nclass BoardFrontEnd : public FEMultiMenu {\n    bool unlocked;\n    void *sys;\n    char data[0x250 - 0x148];\n    PanelQuad *red_gauges[4];\n    char data2[0x274 - 0x260];\n    bool wait_for_camera;\npublic:\n    void Update(time_value_t time_inc);\n};\n\nvoid BoardFrontEnd::Update(time_value_t time_inc)\n{\n    if(wait_for_camera && manager->em->OKtoDrawBoardSelect()) wait_for_camera = false;\n    else if(!wait_for_camera && !manager->em->OKtoDrawBoardSelect()) wait_for_camera = true;\n\n    for(int i=0; i<4; i++)\n        red_gauges[i]->Update(time_inc);\n    FEMultiMenu::Update(time_inc);\n}\n",
+      "status": "different",
+      "target_size": 288
+    }
+  ],
+  "raw_name": "Update__13BoardFrontEndf"
+}
