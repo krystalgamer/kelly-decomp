@@ -1,0 +1,23 @@
+{
+  "address": "0x00109288",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "53ac7f6d3cd71fb1e0253e4733c98dd46736c60f",
+      "candidate_size": 320,
+      "compared_bytes": 320,
+      "compared_instructions": 80,
+      "emitted_name": "set_num__13ai_locomotionRC7pstringf",
+      "instruction_score": 18.75,
+      "matching_bytes": 100,
+      "matching_instructions": 15,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ai_locomotion.cpp:1105-1111; kelly-slaters-pro-surfer/KS/SRC/ai_locomotion.h:22-158; kelly-slaters-pro-surfer/KS/SRC/entity_interface.h:59-60; kelly-slaters-pro-surfer/KS/SRC/pstring.h:45-65,139-149; tmp/functions/00109288_set_num__13ai_locomotionRC7pstringf/attempt-1/result.json. Result `different`, score 31.2500; no later attempt.",
+      "score": 31.25,
+      "source": "typedef unsigned long long uint64;\ntypedef float rational_t;\n\nclass pstring\n{\nprivate:\n  uint64 pchunk[4];\n  void pack_string(const char *the_string);\n\npublic:\n  pstring(const char *target_string)\n  {\n    pack_string(target_string);\n  }\n\n  bool operator == (const pstring &check_me) const\n  {\n    for (unsigned i = 0; i < 4; ++i)\n    {\n      if (pchunk[i] != check_me.pchunk[i])\n        return false;\n    }\n    return true;\n  }\n};\n\n#define IFC_INTERNAL_SET_MACRO(a,b) { static pstring pstring_set(a); if(att == pstring_set) { b = val; return(true); } }\n\nclass ai_locomotion\n{\n  char data_before_patrol_radius[112];\n  rational_t patrol_radius;\n  char data_before_jockey_speed[164];\n  rational_t jockey_speed;\n\npublic:\n  bool set_num(const pstring &att, rational_t val);\n};\n\nbool ai_locomotion::set_num(const pstring &att, rational_t val)\n{\n  IFC_INTERNAL_SET_MACRO(\"PATROL_RADIUS\", patrol_radius);\n  IFC_INTERNAL_SET_MACRO(\"JOCKEY_SPEED\", jockey_speed);\n\n  return(false);\n}\n",
+      "status": "different",
+      "target_size": 304
+    }
+  ],
+  "raw_name": "set_num__13ai_locomotionRC7pstringf"
+}
