@@ -1,0 +1,23 @@
+{
+  "address": "0x00390DC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a231cbf4c50eb4e9a5d6ff31622e629e77202ee3",
+      "candidate_size": 292,
+      "compared_bytes": 316,
+      "compared_instructions": 79,
+      "emitted_name": "_nslClearSystemData__F18_nslClearBehaviour",
+      "instruction_score": 2.5316,
+      "matching_bytes": 56,
+      "matching_instructions": 2,
+      "notes": "Attempt 1 used exact released source cited at . Result `different`, score 17.7215; no later attempt.",
+      "score": 17.7215,
+      "source": "typedef unsigned int nlUint32;\ntypedef unsigned int nslSoundId;\n\nenum _nslClearBehaviour\n{\n  NSL_CLEAR_INIT,\n  NSL_CLEAR_RESET,\n  NSL_CLEAR_FREE,\n};\n\ntemplate <class T>\nclass fifo_queue\n{\n  T *queue;\n  short queue_max;\n  short start;\n  short end;\n  short count;\n\npublic:\n  void init(short size);\n  void clear();\n  void free();\n};\n\nstruct nslSystem\n{\n  float listenerPo[4][4];\n  char slots[0x15800];\n  nlUint32 sourceSlotsUsedCount;\n  nlUint32 soundSlotsUsedCount;\n  nlUint32 emitterSlotsUsedCount;\n  int firstInit;\n  int initialized;\n  nlUint32 numBanks;\n  fifo_queue<nslSoundId> queuedSounds;\n};\n\nextern nslSystem nsl;\nextern void nlIdentityMatrix(float matrix[4][4]) __asm__(\"nlIdentityMatrix__FPA3_f\");\nextern void _nslClearSourceSlot(nlUint32 whichSlot, bool resetId);\nextern void _nslClearSoundSlot(nlUint32 whichSlot, bool resetId);\nextern void _nslClearEmitterSlot(nlUint32 whichSlot, bool resetId, _nslClearBehaviour clearStyle);\n\nvoid _nslClearSystemData(_nslClearBehaviour clearStyle)\n{\n  int i;\n\n  nlIdentityMatrix(nsl.listenerPo);\n  switch (clearStyle)\n  {\n    case NSL_CLEAR_INIT:\n      nsl.queuedSounds.init(64); break;\n    case NSL_CLEAR_RESET:\n      nsl.queuedSounds.clear(); break;\n    case NSL_CLEAR_FREE:\n      nsl.queuedSounds.free(); break;\n  }\n\n  nsl.queuedSounds.clear();\n\n  nsl.sourceSlotsUsedCount = 0;\n  nsl.soundSlotsUsedCount = 0;\n  nsl.emitterSlotsUsedCount = 0;\n\n  for (i = 0; i < 512; ++i)\n    _nslClearSourceSlot(i, true);\n  for (i = 0; i < 256; ++i)\n    _nslClearSoundSlot(i, true);\n  for (i = 0; i < 256; ++i)\n    _nslClearEmitterSlot(i, true, clearStyle);\n}\n",
+      "status": "different",
+      "target_size": 316
+    }
+  ],
+  "raw_name": "_nslClearSystemData__F18_nslClearBehaviour"
+}
