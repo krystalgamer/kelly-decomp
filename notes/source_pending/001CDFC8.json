@@ -1,0 +1,23 @@
+{
+  "address": "0x001CDFC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8117b7fe7b50a9b8e96ecc34c0d8b0edccdb3eab",
+      "candidate_size": 288,
+      "compared_bytes": 288,
+      "compared_instructions": 72,
+      "emitted_name": "OnActivate__13PhotoFrontEnd",
+      "instruction_score": 37.5,
+      "matching_bytes": 149,
+      "matching_instructions": 27,
+      "notes": "Attempt 1 used exact released source cited at . Result `different`, score 51.7361; no later attempt.",
+      "score": 51.7361,
+      "source": "struct PhotoChallenge {\n    char padding[40];\n    int numTaken;\n\n    int GetNumTaken() const { return numTaken; }\n};\n\nstruct Challenges {\n    char padding[728];\n    PhotoChallenge *photo;\n};\n\nstruct Beach {\n    char padding[728];\n    Challenges *challenges;\n\n    Challenges *get_challenges() { return challenges; }\n};\n\nclass Career {\npublic:\n    bool PhotoExistsForLevel(int level);\n};\n\nstruct Game {\n    char padding[548];\n    int level_id;\n\n    int get_level_id() const { return level_id; }\n};\n\nstruct FEMenu {\n    char padding[0x70];\n    FEMenu *next_sub;\n};\n\nstruct MenuVtable {\n    char padding[0x110];\n    short adjustment;\n    short reserved;\n    void (*make_active)(void *, FEMenu *, bool);\n};\n\nextern Beach *g_beach_ptr;\nextern Career *g_career;\nextern Game *g_game_ptr;\n\n__asm__(\".equ g_beach_ptr, 0x0043F710\");\n__asm__(\".equ g_career, 0x00427C9C\");\n__asm__(\".equ g_game_ptr, 0x0046AC64\");\n__asm__(\".equ PhotoExistsForLevel__6Careeri, 0x0025AF98\");\n\nclass PhotoFrontEnd {\n    char padding0[0x74];\n    MenuVtable *vtable;\n    char padding1[0xE8];\n    FEMenu *selectMenu;\n    FEMenu *saveMenu;\n    FEMenu *develMenu;\n\n    void MakeActive(FEMenu *menu, bool notify = true)\n    {\n        MenuVtable *table = vtable;\n        table->make_active((char *)this + table->adjustment, menu, notify);\n    }\n\npublic:\n    void OnActivate();\n};\n\nextern \"C\" void base_activate(PhotoFrontEnd *)\n    __asm__(\"OnActivate__15FEGraphicalMenu\");\n__asm__(\".equ OnActivate__15FEGraphicalMenu, 0x001581E8\");\n\nvoid PhotoFrontEnd::OnActivate(void)\n{\n    base_activate(this);\n\n    if (g_beach_ptr->get_challenges()->photo->GetNumTaken() == 1 &&\n        g_career->PhotoExistsForLevel(g_game_ptr->get_level_id()))\n    {\n        saveMenu->next_sub = develMenu;\n        MakeActive(saveMenu);\n    }\n    else if (g_beach_ptr->get_challenges()->photo->GetNumTaken() > 1)\n    {\n        if (g_career->PhotoExistsForLevel(g_game_ptr->get_level_id()))\n            selectMenu->next_sub = saveMenu;\n        else\n            selectMenu->next_sub = develMenu;\n\n        MakeActive(selectMenu);\n    }\n    else\n    {\n        MakeActive(develMenu);\n    }\n}\n",
+      "status": "different",
+      "target_size": 284
+    }
+  ],
+  "raw_name": "OnActivate__13PhotoFrontEnd"
+}
