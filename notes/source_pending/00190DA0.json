@@ -1,0 +1,23 @@
+{
+  "address": "0x00190DA0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "92a74e9922b2d34004872d3b6faa757dd4270fa2",
+      "candidate_size": 296,
+      "compared_bytes": 296,
+      "compared_instructions": 74,
+      "emitted_name": "OnRight__13BeachFrontEndi",
+      "instruction_score": 18.9189,
+      "matching_bytes": 103,
+      "matching_instructions": 14,
+      "notes": "# Attempt 1 notes\n\nUsed the exact released `BeachFrontEnd::OnRight(int)` body with minimal self-contained declarations and layout padding. Sole test result was `different`: 34.7973% byte score (103/296), 18.9189% instruction score (14/74), with matching 296-byte size. No variant or diff chasing was performed.",
+      "score": 34.7973,
+      "source": "class FEMenuEntry;\n\nclass FEMenu {\npublic:\n    virtual void unused0();\n    virtual void unused1();\n    virtual void unused2();\n    virtual void unused3();\n    virtual void unused4();\n    virtual void unused5();\n    virtual void unused6();\n    virtual void unused7();\n    virtual void unused8();\n    virtual void unused9();\n    virtual void unused10();\n    virtual void unused11();\n    virtual void unused12();\n    virtual void unused13();\n    virtual void unused14();\n    virtual void unused15();\n    virtual void unused16();\n    virtual void unused17();\n    virtual void unused18();\n    virtual void unused19();\n    virtual void unused20();\n    virtual void unused21();\n    virtual void unused22();\n    virtual void unused23();\n    virtual void unused24();\n    virtual void unused25();\n    virtual void SetSecondaryCursor(FEMenuEntry *, bool = true);\n};\n\nclass SoundScriptManager {\npublic:\n    enum EventType { SS_FE_LEFTRIGHT = 26 };\n    static SoundScriptManager *instance;\n    static SoundScriptManager *inst() { return instance; }\n    void unpause();\n    void playEvent(EventType, void * = 0, float = 0.0f);\n    void pause();\n};\n\nstruct PanelFile {\n    char padding[0x88];\n    int slide_state;\n    bool IsSliding() const { return slide_state == 1 || slide_state == 2; }\n};\n\nclass BeachFrontEndPadding {\nprotected:\n    char padding0[0x4c];\n    FEMenuEntry *highlighted;\n    char padding1[0x74 - 0x50];\n};\n\nclass BeachFrontEnd : public BeachFrontEndPadding, public FEMenu {\n    PanelFile panel;\n    char padding1[0x158 - 0x104];\n    FEMenuEntry *secondary_cursor;\n    char padding2[0x894 - 0x15c];\n    FEMenuEntry *fe_return;\n    char padding3[0x8fc - 0x898];\n    FEMenuEntry *yes_entry;\n    FEMenuEntry *no_entry;\n    char padding4[0x920 - 0x904];\n    int in_description_mode;\n    int in_bio_mode;\n    char padding5[0xf08 - 0x928];\n    int in_frontend;\n    char padding6[0xf1c - 0xf0c];\n    int ignore_controller;\n\npublic:\n    void OnRight(int);\n    void SwitchBeach(bool);\n    void UpdateBeach(bool);\n};\n\nvoid BeachFrontEnd::OnRight(int c)\n{\n\tif((ignore_controller || panel.IsSliding()) && !in_frontend) return;\n\tif(in_description_mode || in_bio_mode) return;\n\tif (!in_frontend)\n\t\tSoundScriptManager::inst()->unpause();\n\n\tSoundScriptManager::inst()->playEvent(SoundScriptManager::SS_FE_LEFTRIGHT);\n\tif (!in_frontend)\n\t\tSoundScriptManager::inst()->pause();\n\n\tif(!in_frontend && fe_return == highlighted)\n\t{\n\t\tif(secondary_cursor == yes_entry)\n\t\t\tSetSecondaryCursor(no_entry);\n\t\telse SetSecondaryCursor(yes_entry);\n\t\treturn;\n\t}\n\n\n\tSwitchBeach(true);\n\tUpdateBeach(true);\n}\n",
+      "status": "different",
+      "target_size": 296
+    }
+  ],
+  "raw_name": "OnRight__13BeachFrontEndi"
+}
