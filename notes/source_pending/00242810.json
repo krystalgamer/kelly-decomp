@@ -1,0 +1,23 @@
+{
+  "address": "0x00242810",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3a457c31af5e8ecc323530189ef8f937ba4c0534",
+      "candidate_size": 328,
+      "compared_bytes": 328,
+      "compared_instructions": 82,
+      "emitted_name": "writeLevels__13rumbleManager",
+      "instruction_score": 95.122,
+      "matching_bytes": 274,
+      "matching_instructions": 78,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/rumbleManager.cpp:336-365; kelly-slaters-pro-surfer/KS/SRC/ks/rumbleManager.h:28-81; tmp/functions/00242810_writeLevels__13rumbleManager/attempt-1/result.json; tmp/source_first/00242810/attempt-1.md. Result `different`, score 83.5366; no later attempt.",
+      "score": 83.5366,
+      "source": "int sceOpen(const char *, int);\nint sceClose(int);\nint sprintf(char *, const char *, ...);\nint writeText(const int, char *);\n\nenum {\n  SCE_WRONLY = 2,\n  SCE_CREAT = 0x200,\n  SCE_TRUNC = 0x400\n};\n\nclass rumbleManager\n{\npublic:\n  enum { RUMBLE_STATE_END = 12 };\n  static const char regionNames[RUMBLE_STATE_END][30];\n  char prefix[20];\n  float rumbleLevels[RUMBLE_STATE_END];\n  float rumbleVarPeriods[RUMBLE_STATE_END];\n  float rumbleVarAmplitudes[RUMBLE_STATE_END];\n  float rumbleFreqs[RUMBLE_STATE_END];\n  void writeLevels();\n};\n\nvoid rumbleManager::writeLevels()\n{\n  int fout = sceOpen(\"host0:rumbleLevels.txt\", SCE_WRONLY | SCE_TRUNC | SCE_CREAT);\n  if (fout < 0)\n    return;\n\n  writeText(fout, \"RumbleLevels\\n\");\n  writeText(fout, \"Location\\t\\tIntensity\\tAmplitudeVariance\\tPeriodVariance\\tRumbleFreq\\n\");\n  for (int i=0; i < RUMBLE_STATE_END; i++)\n  {\n    char textstr[200];\n    sprintf(textstr, \"%s\\t\\t%f\\t%f\\t%f\\t%f\\n\", regionNames[i], rumbleLevels[i], rumbleVarAmplitudes[i], rumbleVarPeriods[i], rumbleFreqs[i]);\n    writeText(fout, textstr);\n  }\n  sceClose(fout);\n}\n",
+      "status": "different",
+      "target_size": 328
+    }
+  ],
+  "raw_name": "writeLevels__13rumbleManager"
+}
