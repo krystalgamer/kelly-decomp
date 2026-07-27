@@ -1,0 +1,23 @@
+{
+  "address": "0x0028A520",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f695af7412b3e4c1a8474fa178c04ad2115b70c5",
+      "candidate_size": 296,
+      "compared_bytes": 296,
+      "compared_instructions": 74,
+      "emitted_name": "spawn_item_script__4item",
+      "instruction_score": 87.8378,
+      "matching_bytes": 265,
+      "matching_instructions": 65,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/item.cpp:729-751; kelly-slaters-pro-surfer/KS/SRC/stringx.h:509-519; kelly-slaters-pro-surfer/KS/SRC/item.h:108-143; kelly-slaters-pro-surfer/KS/SRC/script_object.h:30-57,135-137; kelly-slaters-pro-surfer/KS/SRC/wds.h:155-156; config/SLUS_203.34.symbol_addrs.txt:spawn_item_script__4item,g_world_ptr; tmp/functions/0028A520_spawn_item_script__4item/attempt-1/result.json. Result `different`, score 89.5270; no later attempt.",
+      "score": 89.527,
+      "source": "struct string_buf {\n    void *data;\n    int block_length;\n    int char_length;\n};\n\nclass stringx {\n    char *chars;\n    string_buf *my_buf;\npublic:\n    stringx();\n    stringx(const stringx &);\n    ~stringx();\n    void append(const char *, int = -1);\n    void append(const stringx &);\n    void make_room(int);\n    void to_lower();\n    friend stringx operator+(const stringx &, const char *);\n};\n\nextern \"C\" unsigned int strlen(const char *);\nasm(\".equ strlen, 0x003D40E0\");\nasm(\".equ __7stringx, 0x0034D3E0\");\nasm(\".equ __7stringxRC7stringx, 0x0034D4D0\");\nasm(\".equ _$_7stringx, 0x0034D6E0\");\nasm(\".equ make_room__7stringxi, 0x0034E220\");\nasm(\".equ append__7stringxRC7stringx, 0x0034E528\");\nasm(\".equ append__7stringxPCci, 0x0034E3F0\");\nasm(\".equ to_lower__7stringx, 0x0034E880\");\n\ninline stringx operator+(const stringx &lhs, const char *rhs)\n{\n    stringx foo;\n    int len = strlen(rhs);\n    foo.make_room(len + lhs.my_buf->char_length);\n    foo.append(lhs);\n    foo.append(rhs, len);\n    return foo;\n}\n\nclass vm_executable {};\nclass vm_thread {};\n\nclass script_object {\npublic:\n    class instance {\n    public:\n        vm_thread *add_thread(const vm_executable *, const char *);\n        void run_single_thread(vm_thread *, bool);\n    };\nprivate:\n    char padding[32];\n    vm_executable **funcs;\npublic:\n    const vm_executable &get_func(int i) const { return *funcs[i]; }\n    int find_func(const stringx &) const;\n};\n\nasm(\".equ find_func__C13script_objectRC7stringx, 0x00350E98\");\nasm(\".equ add_thread__Q213script_object8instancePC13vm_executablePCc, 0x00350568\");\nasm(\".equ run_single_thread__Q213script_object8instanceP9vm_threadb, 0x003509D0\");\n\nstruct world_dynamics_system {\n    char padding[300];\n    script_object *cur_global_so;\n    script_object::instance *cur_global_so_inst;\n    script_object *get_current_level_global_script_object() const { return cur_global_so; }\n    script_object::instance *get_current_level_global_script_object_instance() const { return cur_global_so_inst; }\n};\n\nextern world_dynamics_system *g_world_ptr;\nasm(\".equ g_world_ptr, 0x00431A8C\");\n\nclass item {\n    char padding[516];\n    int item_script_called;\n    char padding2[8];\n    stringx name;\npublic:\n    const stringx &get_name() const { return name; }\n    void spawn_item_script();\n};\n\nvoid item::spawn_item_script()\n{\n  if(!item_script_called)\n  {\n    item_script_called = true;\n\n    stringx fname = get_name() + \"_callbacks(item)\";\n    fname.to_lower();\n    script_object* gso = g_world_ptr->get_current_level_global_script_object();\n    int fidx = gso->find_func( fname );\n    if ( fidx >= 0 )\n    {\n      script_object::instance* gsoi = g_world_ptr->get_current_level_global_script_object_instance();\n      char parms[4];\n      *(unsigned int*)parms = (unsigned int)this;\n      vm_thread* newt = gsoi->add_thread( &gso->get_func(fidx), parms );\n      gsoi->run_single_thread( newt, false );\n    }\n  }\n}\n",
+      "status": "different",
+      "target_size": 296
+    }
+  ],
+  "raw_name": "spawn_item_script__4item"
+}
