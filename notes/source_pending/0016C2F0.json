@@ -1,0 +1,15 @@
+{
+  "address": "0x0016C2F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f2f5e6acd420a695b9a2c7122d7fbc0a2bd28eb4",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_splitscore.cpp:25-48; kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_splitscore.h:10-31; kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget.h:7-25; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h; tmp/functions/0016C2F0_Init__16SplitScoreWidgetR9PanelFileP4Fontb/attempt-1/result.json. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/igo_widget_shared.h\"\n#include \"KS/SRC/ks/FEPanel_shared.h\"\n\nclass SpecialMeter;\n\nclass SplitScoreWidget : public IGOWidget {\n    SpecialMeter *meter;\n    PanelQuad *bgPQ;\n    TextString *scoreText;\n\npublic:\n    virtual ~SplitScoreWidget();\n    virtual void SetDisplay(bool enabled = true);\n    virtual void Update(float time_inc);\n    virtual void Draw();\n    virtual bool GetDisplay() const;\n    virtual void Init(PanelFile &panel, Font *font, bool left);\n    virtual void SetScore(int score);\n};\n\n__asm__(\".equ GetPointer__9PanelFilePCc, 0x00152F88\");\n\nvoid SplitScoreWidget::Init(PanelFile & panel, Font * font, const bool left)\n{\n    scoreText->setFont(font);\n\n    if (left)\n    {\n        bgPQ = panel.GetPointer(\"left_counter\");\n        scoreText->changePos(213, 66);\n    }\n    else\n    {\n        bgPQ = panel.GetPointer(\"right_counter\");\n        scoreText->changePos(529, 66);\n    }\n    bgPQ->TurnOn(true);\n\n    SetScore(0);\n\n    SetDisplay(true);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Init__16SplitScoreWidgetR9PanelFileP4Fontb"
+}
