@@ -1,0 +1,23 @@
+{
+  "address": "0x002471A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2c11c415d8b1e9c1af94e67fc1a4abd7edbc1378",
+      "candidate_size": 284,
+      "compared_bytes": 296,
+      "compared_instructions": 74,
+      "emitted_name": "Update__14ScoringManagerf",
+      "instruction_score": 33.7838,
+      "matching_bytes": 138,
+      "matching_instructions": 25,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/scoringmanager.cpp:122-166; kelly-slaters-pro-surfer/KS/SRC/ks/scoringmanager.h:16-260; tmp/functions/002471A8_Update__14ScoringManagerf/attempt-1/result.json. Result `different`, score 46.6216; no later attempt.",
+      "score": 46.6216,
+      "source": "class SpecialMeter\n{\npublic:\n    bool CanFaceLink() const;\n    bool CanRegionLink() const;\n    void Decrease(float amount);\n};\n\nclass BoardController\n{\n    char padding[0x460];\n    int inAir;\n\npublic:\n    bool InAir() const { return inAir; }\n};\n\nclass kellyslater_controller\n{\n    char padding0[0xFC];\n    int trickRegion;\n    char padding1[0x15B8];\n    int doingTrick2;\n    char padding2[0x258];\n    int doingTrick1;\n    char padding3[0x1F8];\n    int joystick;\n\npublic:\n    int GetTrickRegion() const { return trickRegion; }\n    int get_joystick_num() const { return joystick; }\n    bool IsDoingTrick() const { return doingTrick1 || doingTrick2; }\n    BoardController &get_board_controller() { return *(BoardController *) this; }\n};\n\nclass input_mgr\n{\npublic:\n    static input_mgr *instance;\n    static input_mgr *inst() { return instance; }\n    float get_control_state(int device, int control) const;\n};\n\nclass ScoringManager\n{\npublic:\n    class Chain\n    {\n    public:\n        bool IsInteresting() const;\n    };\n\nprivate:\n    char base[8];\n    kellyslater_controller *ksctrl;\n    int playerIdx;\n    SpecialMeter *specialMeter;\n    char padding0[0x198];\n    Chain chain;\n    char padding1[0x1F];\n    int prevTrickRegion;\n    char padding2[8];\n    int specialTrick;\n\npublic:\n    void Update(float dt);\n    void FinishChain(bool successful);\n};\n\n__asm__(\".equ instance__9input_mgr, 0x0045B7B0\");\n__asm__(\".equ get_control_state__C9input_mgr11device_id_ti, 0x003441C8\");\n__asm__(\".equ CanFaceLink__C12SpecialMeter, 0x002510F8\");\n__asm__(\".equ CanRegionLink__C12SpecialMeter, 0x002510F0\");\n__asm__(\".equ Decrease__12SpecialMeterf, 0x00250FF0\");\n__asm__(\".equ IsInteresting__CQ214ScoringManager5Chain, 0x002494E8\");\n__asm__(\".equ FinishChain__14ScoringManagerb, 0x00248758\");\n\nvoid ScoringManager::Update(const float dt)\n{\n    bool finishChain = false;\n\n    if (specialTrick == 1 || specialTrick == 2)\n        specialTrick = 0;\n\n    if (ksctrl->GetTrickRegion() == 0)\n    {\n        if (!specialMeter->CanFaceLink() && !specialMeter->CanRegionLink() &&\n            chain.IsInteresting())\n            finishChain = true;\n    }\n\n    if (input_mgr::inst()->get_control_state(ksctrl->get_joystick_num(), 193) == 1.0f &&\n        !ksctrl->IsDoingTrick() && !ksctrl->get_board_controller().InAir() &&\n        specialMeter->CanRegionLink())\n    {\n        finishChain = true;\n        specialMeter->Decrease(1.0f);\n    }\n\n    if (finishChain)\n        FinishChain(true);\n\n    prevTrickRegion = ksctrl->GetTrickRegion();\n}\n",
+      "status": "different",
+      "target_size": 296
+    }
+  ],
+  "raw_name": "Update__14ScoringManagerf"
+}
