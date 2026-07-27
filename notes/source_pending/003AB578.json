@@ -1,0 +1,23 @@
+{
+  "address": "0x003AB578",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "25ff280ce8cb5b1145899c5daa97a9015fda61e4",
+      "candidate_size": 256,
+      "compared_bytes": 264,
+      "compared_instructions": 66,
+      "emitted_name": "__adjust_heap__H4ZPt4pair2ZP11nglListNodeZUiZiZt4pair2ZP11nglListNodeZUiZ15nglTransCompare_X01X11X11X21X31_v",
+      "instruction_score": 19.697,
+      "matching_bytes": 93,
+      "matching_instructions": 13,
+      "notes": "Tested exactly one self-contained candidate: the released libstdc++/SGI `stl_heap.h` `__adjust_heap` template definition, instantiated for `pair<nglListNode*, unsigned int>`, `int`, and the owner-source `nglTransCompare`. The candidate was different (35.2273% byte score, 19.697% instruction score; 256 candidate bytes versus 264 target bytes). No variants were attempted.",
+      "score": 35.2273,
+      "source": "struct nglListNode;\n\ntemplate <class T1, class T2>\nstruct pair {\n    T1 first;\n    T2 second;\n};\n\ntypedef pair<nglListNode *, unsigned int> node_pair;\n\nclass nglTransCompare {\npublic:\n    bool operator()(const node_pair& NodeA, const node_pair& NodeB) {\n        if ((float&)NodeA.second > (float&)NodeB.second) return true;\n        else if ((float&)NodeA.second < (float&)NodeB.second) return false;\n        else return (unsigned int)NodeA.first < (unsigned int)NodeB.first;\n    }\n};\n\nextern \"C\" void __push_heap(\n    node_pair *, int, int, node_pair, nglTransCompare)\n    __asm__(\"__push_heap__H4ZPt4pair2ZP11nglListNodeZUiZiZt4pair2ZP11nglListNodeZUiZ15nglTransCompare_X01X11X11X21X31_v\");\n__asm__(\".equ __push_heap__H4ZPt4pair2ZP11nglListNodeZUiZiZt4pair2ZP11nglListNodeZUiZ15nglTransCompare_X01X11X11X21X31_v, 0x003AB4B0\");\n\nextern \"C\" void __adjust_heap(\n    node_pair *, int, int, node_pair, nglTransCompare)\n    __asm__(\"__adjust_heap__H4ZPt4pair2ZP11nglListNodeZUiZiZt4pair2ZP11nglListNodeZUiZ15nglTransCompare_X01X11X11X21X31_v\");\n\nvoid __adjust_heap(node_pair* first, int holeIndex, int len,\n                   node_pair value, nglTransCompare comp) {\n    int topIndex = holeIndex;\n    int secondChild = 2 * holeIndex + 2;\n    while (secondChild < len) {\n        if (comp(*(first + secondChild), *(first + (secondChild - 1))))\n            secondChild--;\n        *(first + holeIndex) = *(first + secondChild);\n        holeIndex = secondChild;\n        secondChild = 2 * (secondChild + 1);\n    }\n    if (secondChild == len) {\n        *(first + holeIndex) = *(first + (secondChild - 1));\n        holeIndex = secondChild - 1;\n    }\n    __push_heap(first, holeIndex, topIndex, value, comp);\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "__adjust_heap__H4ZPt4pair2ZP11nglListNodeZUiZiZt4pair2ZP11nglListNodeZUiZ15nglTransCompare_X01X11X11X21X31_v"
+}
