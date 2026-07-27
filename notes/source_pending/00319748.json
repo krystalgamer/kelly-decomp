@@ -1,0 +1,23 @@
+{
+  "address": "0x00319748",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bf41afdc4af58c4aa077f05e1d4bf6d0452837fe",
+      "candidate_size": 280,
+      "compared_bytes": 280,
+      "compared_instructions": 70,
+      "emitted_name": "find_instance__C9slc_mfg_tRC7stringx",
+      "instruction_score": 15.7143,
+      "matching_bytes": 113,
+      "matching_instructions": 11,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/script_lib_mfg.cpp:31-38; kelly-slaters-pro-surfer/KS/SRC/script_lib_mfg.h:40-54; kelly-slaters-pro-surfer/KS/SRC/stringx.h:59-70,154-215,462-474; kelly-slaters-pro-surfer/KS/SRC/game.h:433-436; tmp/functions/00319748_find_instance__C9slc_mfg_tRC7stringx/attempt-1/result.json; tmp/source_first/00319748/notes.md. Result `different`, score 40.3571; no later attempt.",
+      "score": 40.3571,
+      "source": "typedef unsigned long long big_int;\nclass string_buf {\npublic:\n    big_int *data;\n    int ref_count;\n    int char_length;\n    int block_length;\n    int max_blocks;\n    inline int compare(const char *str) const {\n        int i;\n        const char *a = reinterpret_cast<const char *>(data);\n        for (i = 0; i < char_length; i++) {\n            if (str[i] == '\\0') return -1;\n            if (a[i] == str[i]) continue;\n            if (str[i] > a[i]) return 1;\n            if (str[i] < a[i]) return -1;\n        }\n        if (str[i] == '\\0') return 0;\n        return 1;\n    }\n    inline bool is_equal(const char *str) const { return (compare(str) == 0); }\n};\nclass stringx {\npublic:\n    char *chars;\n    string_buf *my_buf;\n};\ninline bool operator==(const stringx& lhs, const char *rhs) { return lhs.my_buf->is_equal(rhs); }\nstruct script_mfg {};\nstruct game { char padding[0x50]; script_mfg m_script_mfg; script_mfg *get_script_mfg() { return &m_script_mfg; } };\nextern game *g_game_ptr;\n__asm__(\".equ g_game_ptr, 0x0045AC64\");\nclass slc_mfg_t { public: unsigned find_instance(const stringx& n) const; };\nunsigned slc_mfg_t::find_instance(const stringx& n) const\n{\n  if (n==\"NULL\") return (unsigned)0;\n  if (n==\"MFG\") return (unsigned)g_game_ptr->get_script_mfg();\n\n  return (unsigned)0;\n}\n",
+      "status": "different",
+      "target_size": 280
+    }
+  ],
+  "raw_name": "find_instance__C9slc_mfg_tRC7stringx"
+}
