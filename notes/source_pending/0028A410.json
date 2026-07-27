@@ -1,0 +1,23 @@
+{
+  "address": "0x0028A410",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "da6cd387a52b435c4f9a331aa4bf1a002d2ebb56",
+      "candidate_size": 272,
+      "compared_bytes": 272,
+      "compared_instructions": 68,
+      "emitted_name": "spawn_preload_script__4item",
+      "instruction_score": 83.8235,
+      "matching_bytes": 237,
+      "matching_instructions": 57,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/item.cpp:704-726; kelly-slaters-pro-surfer/KS/SRC/item.h:96-97; kelly-slaters-pro-surfer/KS/SRC/item.h:152-163; kelly-slaters-pro-surfer/KS/SRC/stringx.h:254-287; kelly-slaters-pro-surfer/KS/SRC/stringx.h:486-519; kelly-slaters-pro-surfer/KS/SRC/script_object.h:30-69; kelly-slaters-pro-surfer/KS/SRC/script_object.h:107-110; kelly-slaters-pro-surfer/KS/SRC/wds.h:349-350; kelly-slaters-pro-surfer/KS/SRC/wds.h:475-478. Result `different`, score 87.1324; no later attempt.",
+      "score": 87.1324,
+      "source": "extern \"C\" unsigned int strlen(const char *);\nstruct string_buf { char padding[8]; int char_length; };\nclass stringx {\n    char *chars; string_buf *my_buf;\npublic:\n    stringx(); stringx(const stringx &); ~stringx();\n    void append(const char *, int = -1); void append(const stringx &);\n    void make_room(int); void to_lower();\n    friend stringx operator+(const stringx &, const char *);\n};\ninline stringx operator+(const stringx &lhs, const char *rhs) {\n    stringx foo; int len = strlen(rhs);\n    foo.make_room(len + lhs.my_buf->char_length);\n    foo.append(lhs); foo.append(rhs, len); return foo;\n}\nclass vm_executable; class vm_thread;\nclass script_object {\npublic:\n    class instance {\n    public:\n        vm_thread *add_thread(const vm_executable *);\n        void run_single_thread(vm_thread *, bool);\n    };\nprivate:\n    char padding[32]; vm_executable **funcs;\npublic:\n    const vm_executable &get_func(int i) const { return *funcs[i]; }\n    int find_func(const stringx &) const;\n};\nclass world_dynamics_system {\n    char padding[300];\n    script_object *cur_global_so;\n    script_object::instance *cur_global_so_inst;\npublic:\n    script_object *get_current_level_global_script_object() const { return cur_global_so; }\n    script_object::instance *get_current_level_global_script_object_instance() const { return cur_global_so_inst; }\n};\nextern world_dynamics_system *g_world_ptr;\nclass item {\n    char padding[512];\n    bool preload_script_called;\n    bool item_script_called;\n    bool linked;\n    int usage_type;\n    stringx name;\npublic:\n    const stringx &get_name() const { return name; }\n    void spawn_preload_script();\n};\n__asm__(\".equ g_world_ptr, 0x00431A8C\");\n__asm__(\".equ __7stringx, 0x0034D3E0\");\n__asm__(\".equ __7stringxRC7stringx, 0x0034D4D0\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\".equ make_room__7stringxi, 0x0034E220\");\n__asm__(\".equ append__7stringxRC7stringx, 0x0034E528\");\n__asm__(\".equ append__7stringxPCci, 0x0034E3F0\");\n__asm__(\".equ to_lower__7stringx, 0x0034E880\");\n__asm__(\".equ find_func__C13script_objectRC7stringx, 0x00350E98\");\n__asm__(\".equ add_thread__Q213script_object8instancePC13vm_executable, 0x00350478\");\n__asm__(\".equ run_single_thread__Q213script_object8instanceP9vm_threadb, 0x003509D0\");\n__asm__(\".equ strlen, 0x003D40E0\");\n\nvoid item::spawn_preload_script()\n{\n  if(!preload_script_called)\n  {\n    preload_script_called = true;\n\n    // there might be a script function for preloading additional assets needed by item\n    stringx preload_func_name = get_name() + \"_preload()\";\n    preload_func_name.to_lower();\n    script_object* gso = g_world_ptr->get_current_level_global_script_object();\n    int fidx = gso->find_func( preload_func_name );\n    if ( fidx >= 0 )\n    {\n      script_object::instance* gsoi = g_world_ptr->get_current_level_global_script_object_instance();\n      // spawn thread for function\n      vm_thread* newt = gsoi->add_thread( &gso->get_func(fidx) );\n      // run the NEW thread immediately\n      gsoi->run_single_thread( newt, false );\n    }\n  }\n}\n",
+      "status": "different",
+      "target_size": 272
+    }
+  ],
+  "raw_name": "spawn_preload_script__4item"
+}
