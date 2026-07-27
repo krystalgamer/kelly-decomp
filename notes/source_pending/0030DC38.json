@@ -1,0 +1,23 @@
+{
+  "address": "0x0030DC38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d94f39596e078d6feeebe583d2d68cc32788653b",
+      "candidate_size": 244,
+      "compared_bytes": 256,
+      "compared_instructions": 64,
+      "emitted_name": "write_level_cache__12file_managerR7os_file",
+      "instruction_score": 7.8125,
+      "matching_bytes": 49,
+      "matching_instructions": 5,
+      "notes": "Released-source first pass. The exact released function body compiled successfully but differed from target: 19.1406% byte score (49/256), 7.8125% instruction score (5/64). No variants or second attempt were made.",
+      "score": 19.1406,
+      "source": "typedef unsigned long long uint64;\n#define NULL 0\n#define MAX_DIRECTORY_LENGTH 64\n#define FILE_MANAGER_CACHE_EXTENSION \".ps2fmc\"\n\nclass string_buf;\nclass stringx\n{\n  friend class string_buf;\n  protected:\n    char *chars;\n    string_buf *my_buf;\n  public:\n    stringx();\n    stringx(const stringx &cp);\n    stringx(const char *str, int len = -1);\n    ~stringx();\n    stringx &operator+=(const stringx &cp);\n    stringx &operator+=(const char *str);\n};\n\n#define PSTRING_PCHUNK_NUMBER 4\nclass pstring\n{\n  private:\n    uint64 pchunk[PSTRING_PCHUNK_NUMBER];\n  public:\n    const char * c_str() const;\n};\n\nstruct sceCdlFILE\n{\n  unsigned int lsn;\n  unsigned int size;\n  char name[16];\n};\n\nclass os_file\n{\n  public:\n    enum mode_flags\n    {\n      FILE_READ   = 1,\n      FILE_WRITE  = 2,\n      FILE_MODIFY = 3,\n      FILE_APPEND = 4\n    };\n    os_file();\n    ~os_file();\n    void open(const stringx & _name, int _flags);\n    void close();\n    inline bool is_open() const { return opened; }\n  private:\n    stringx name;\n    int   flags;\n    bool  opened;\n    bool  eof;\n    bool  from_cd;\n    union\n    {\n      int host;\n      sceCdlFILE cd;\n    } io;\n    int curr_fp;\n};\n\ntemplate <class T> class AvlTree;\ntemplate <class T>\nclass TreeNode\n{\nprotected:\n  friend class AvlTree<T>;\n  TreeNode *l;\n  TreeNode *r;\n  TreeNode *p;\n  T *d;\n  char h;\npublic:\n  TreeNode *parent() { return (p); }\n  TreeNode *left() { return (l); }\n  TreeNode *right() { return (r); }\n  T *data() { return (d); }\n  char height() { return(h); }\n};\n\ntemplate <class T>\nclass AvlTree\n{\nprotected:\n  typedef TreeNode<T> TNode;\n  TNode *rootNode;\n  int s;\n  char disposeElements;\npublic:\n  TNode *root() { return (rootNode); }\n};\n\nclass singleton\n{\n  protected:\n    singleton() {}\n    virtual ~singleton() {}\n  private:\n    singleton(const singleton&);\n    singleton& operator=(const singleton&);\n};\n\nclass file_info_node;\nclass path_info_node;\nclass stash { char data[56]; };\nextern void error(const char *fmt, ...);\n\nclass file_manager : public singleton\n{\n  public:\n    AvlTree<file_info_node> file_cache;\n  private:\n    stash my_stash;\n    AvlTree<path_info_node> path_cache;\n    char root_dir[MAX_DIRECTORY_LENGTH];\n    char level_dir[MAX_DIRECTORY_LENGTH];\n    char host_prefix[8];\n    pstring level_context;\n    int first_search_stash;\n    int second_search_stash;\n    bool stash_auto_build;\n    bool file_system_locked;\n    bool write_level_cache(os_file &sfl);\n    void write_level_cache_tree(os_file &fp, os_file &sfl, TreeNode<file_info_node> *curr);\n};\n\nbool file_manager::write_level_cache(os_file &sfl)\n{\n  os_file fp;\n  bool ret_val = false;\n\n  stringx cache_filename(root_dir);\n  cache_filename += level_dir;\n  cache_filename += level_context.c_str();\n  cache_filename += FILE_MANAGER_CACHE_EXTENSION;\n  fp.open( cache_filename, os_file::FILE_WRITE );\n  if (fp.is_open() == false)\n    error(\"Could not write level files used cache\");\n  else\n  {\n    TreeNode<file_info_node> *root = file_cache.root();\n    write_level_cache_tree(fp, sfl, root);\n    fp.close();\n    ret_val = true;\n  }\n\n  return ret_val;\n}\n",
+      "status": "different",
+      "target_size": 256
+    }
+  ],
+  "raw_name": "write_level_cache__12file_managerR7os_file"
+}
