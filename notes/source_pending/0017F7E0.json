@@ -1,0 +1,23 @@
+{
+  "address": "0x0017F7E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8336c5fd17b1fa22888a5c02bc4b9a79f3b94141",
+      "candidate_size": 276,
+      "compared_bytes": 288,
+      "compared_instructions": 72,
+      "emitted_name": "Draw__12MainFrontEnd",
+      "instruction_score": 27.7778,
+      "matching_bytes": 119,
+      "matching_instructions": 20,
+      "notes": "# Attempt 1\n\n- FIRST PASS A1 for `0x0017F7E0 Draw__12MainFrontEnd` in `KS/SRC/ks/MainFrontEnd.cpp`.\n- Used the exact released `MainFrontEnd::Draw()` body from `kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.cpp:211-233` with minimal self-contained declarations based on `MainFrontEnd.h:26-78`, `FEMenu.h:55-143,161-272,405-431`, `FEEntityManager.h:175-183`, and `FrontEndManager.h:13-20`.\n- Result: **different** \u2014 119/288 compared bytes matched (41.3194%); 20/72 instructions matched (27.7778%); candidate size 276 versus target size 288.\n- Exactly one non-placeholder candidate was tested. Per first-pass policy, no variants, diff chasing, build, integration, finalization, queue edits, or source/prefix/shared proposal were made.",
+      "score": 41.3194,
+      "source": "struct MenuVTable {\n    char padding[0x48];\n    short adjustment;\n    short padding2;\n    void (*Draw)(void *);\n};\n\nstruct EntryVTable {\n    char padding[0x38];\n    short adjustment;\n    short padding2;\n    void (*Draw)(void *);\n};\n\nstruct FEMenu {\n    char padding0[0x60];\n    FEMenu *active;\n    char padding1[0x10];\n    MenuVTable *vtable;\n\n    void Draw()\n    {\n        vtable->Draw((char *)this + vtable->adjustment);\n    }\n};\n\nstruct FEMenuEntry {\n    int entry_num;\n    char padding[0x5c];\n    EntryVTable *vtable;\n\n    void Draw()\n    {\n        vtable->Draw((char *)this + vtable->adjustment);\n    }\n};\n\nstruct PanelFile {\n    char padding[0x60];\n    void Draw(int layer);\n};\n\nstruct FEEntityManager {\n    char padding0[0x1c0];\n    bool cam_stopped;\n    char padding1[3];\n    int cam_stopped_at;\n    char padding2[0xc8];\n    bool in_flyin;\n\n    bool InFlyin() { return in_flyin; }\n    bool OKtoDrawMain() { return cam_stopped && cam_stopped_at == 0; }\n};\n\nstruct FEManager {\n    char padding[0xc];\n    FEEntityManager *em;\n};\n\nstruct MainFrontEnd {\n    char padding0[0x4c];\n    FEMenuEntry *highlighted;\n    char padding1[0x10];\n    FEMenu *active;\n    char padding2[0x9c];\n    PanelFile panel;\n    FEManager *manager;\n    char padding3[0x130];\n    FEMenu *Options;\n    FEMenu *Multi;\n    FEMenu *Freesurf;\n    FEMenu *career_menu;\n    FEMenu *multi_sub;\n\n    void Draw();\n};\n\n__asm__(\".equ Draw__9PanelFilei, 0x001530B8\");\n\nvoid MainFrontEnd::Draw()\n{\n\tif(manager->em->InFlyin() || !manager->em->OKtoDrawMain()) return;\n\tif(active)\n\t{\n\t\tactive->Draw();\n\t\tif(active == multi_sub)\n\t\t\tpanel.Draw(0);\n\t}\n\telse\n\t{\n\t\tpanel.Draw(0);\n\t\t// draw only highlighted entry\n\t\thighlighted->Draw();\n\n\t\tif(highlighted->entry_num == 0)\n\t\t\tFreesurf->Draw();\n\t\telse if(highlighted->entry_num == 1)\n\t\t\tcareer_menu->Draw();\n\t\telse if(highlighted->entry_num == 2)\n\t\t\tMulti->Draw();\n\t}\n}\n",
+      "status": "different",
+      "target_size": 288
+    }
+  ],
+  "raw_name": "Draw__12MainFrontEnd"
+}
