@@ -1,0 +1,23 @@
+{
+  "address": "0x001CD1B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a8c967114ba32996982cbaddaa6ecf3d6cd2ec98",
+      "candidate_size": 468,
+      "compared_bytes": 468,
+      "compared_instructions": 117,
+      "emitted_name": "OnActivate__13NameEntryMenu",
+      "instruction_score": 1.7094,
+      "matching_bytes": 57,
+      "matching_instructions": 2,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/HighScoreFrontEnd.cpp:621-637; kelly-slaters-pro-surfer/KS/SRC/ks/HighScoreFrontEnd.h:77-116; tmp/functions/001CD1B8_OnActivate__13NameEntryMenu/attempt-1/result.json. Result `different`, score 12.1795; no later attempt.",
+      "score": 12.1795,
+      "source": "class stringx {\npublic:\n    void *data;\n    stringx(const char *, int = -1);\n    stringx(const stringx &);\n    ~stringx();\n    int length() const { return *(int *)((char *)data + 8); }\n};\n\nclass FEGraphicalMenu {\n    char padding[116];\npublic:\n    struct Vtable {\n        char padding[24];\n        short adjustment;\n        short reserved;\n        void (*set_high)(void *, void *, bool);\n    } *vtable;\n    void OnActivate();\n};\n\nclass FEMultiMenu : public FEGraphicalMenu {};\nclass FEMenuEntry;\n\nclass TextString {\npublic:\n    char padding[76];\n    struct Vtable {\n        char padding0[72];\n        short change_adjustment;\n        short change_reserved;\n        void (*change_text)(void *, stringx);\n        char padding1[80];\n        short get_adjustment;\n        short get_reserved;\n        void (*get_text)(stringx *, void *);\n    } *vtable;\n\n    void changeText(stringx text) {\n        vtable->change_text((char *)this + vtable->change_adjustment, text);\n    }\n    stringx getText() {\n        stringx result(\"\");\n        result.~stringx();\n        vtable->get_text(&result, (char *)this + vtable->get_adjustment);\n        return result;\n    }\n};\n\nclass game {\n    char padding[116];\npublic:\n    int get_game_mode() const { return *(int *)((char *)this + 116); }\n};\n\nclass Career {\npublic:\n    stringx GetInitials();\n};\n\nextern game *g_game_ptr;\nextern Career *g_career;\n__asm__(\".equ g_game_ptr,0x0045ac64\");\n__asm__(\".equ g_career,0x00427c9c\");\n__asm__(\".equ OnActivate__15FEGraphicalMenu,0x001581e8\");\n__asm__(\".equ GetInitials__6Career,0x0025ab80\");\n__asm__(\".equ __7stringxPCci,0x0034d438\");\n__asm__(\".equ _$_7stringx,0x0034d6e0\");\n\nclass NameEntryMenu : public FEMultiMenu {\n    char padding[624];\n    TextString *name;\n    int name_count;\n    bool name_entered;\n    char padding2[7];\n    FEMenuEntry *entry[41];\npublic:\n    void setHigh(FEMenuEntry *entry, bool anim = true) {\n        vtable->set_high((char *)this + vtable->adjustment, entry, anim);\n    }\n    void OnActivate();\n};\n\nvoid NameEntryMenu::OnActivate()\n{\n\tFEMultiMenu::OnActivate();\n\tif (g_game_ptr->get_game_mode() == 0)\n\t{\n\t\tname->changeText(g_career->GetInitials());\n\t\tif (name->getText().length() > 0)\n\t\t\tsetHigh(entry[39]);\n\t\telse \n\t\t\tsetHigh(entry[0]);\n\t}\n\telse\n\t\tname->changeText(\"\");\n\tname_count = name->getText().length();\n\tname_entered = false;\n\t\n}\n",
+      "status": "different",
+      "target_size": 308
+    }
+  ],
+  "raw_name": "OnActivate__13NameEntryMenu"
+}
