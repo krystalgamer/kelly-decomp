@@ -1,0 +1,23 @@
+{
+  "address": "0x0033AD18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4a53a12351a0e99da14728695b1a089a357b0f7f",
+      "candidate_size": 252,
+      "compared_bytes": 252,
+      "compared_instructions": 63,
+      "emitted_name": "getScale__4Fontc",
+      "instruction_score": 100.0,
+      "matching_bytes": 249,
+      "matching_instructions": 63,
+      "notes": "Attempt 1 used the exact released `Font::getScale` switch body with only the authentic `Font::getScale(const char)` declaration. It compiled to the exact target size and matched all 63 instructions, but differed in 3 relocation/immediate bytes: 98.8095% bytes (249/252), 100% instructions. No second candidate was attempted.",
+      "score": 98.8095,
+      "source": "class Font\n{\npublic:\n    float getScale(const char c);\n};\n\nfloat Font::getScale(const char c)\n{\n    float scale;\n    switch(c)\n    {\n    case '1': scale = 0.80f; break;\n    case '2': scale = 0.85f; break;\n    case '3': scale = 0.90f; break;\n    case '4': scale = 0.95f; break;\n    case '5': scale = 1.00f; break;\n    case '6': scale = 1.05f; break;\n    case '7': scale = 1.10f; break;\n    case '8': scale = 1.15f; break;\n    case '9': scale = 1.20f; break;\n    case 'c': scale = 1.20f; break;\n    case 'n': scale = 0.0f; break;\n    default: scale = 0.0f; break;\n    }\n    return scale;\n}\n",
+      "status": "different",
+      "target_size": 252
+    }
+  ],
+  "raw_name": "getScale__4Fontc"
+}
