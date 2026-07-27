@@ -1,0 +1,23 @@
+{
+  "address": "0x001513B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2e193a7d58cd66652a30a44cefb77f5f6a473352",
+      "candidate_size": 216,
+      "compared_bytes": 252,
+      "compared_instructions": 63,
+      "emitted_name": "_$_11PanelObject",
+      "instruction_score": 17.4603,
+      "matching_bytes": 69,
+      "matching_instructions": 11,
+      "notes": "# Attempt 1\n\n- Queue row was pending with zero attempts; no address scratch existed (0 files), and the tracked tree was clean.\n- Used the released `PanelObject::~PanelObject` body verbatim from `FEPanel.cpp:2742-2746` with the authentic class/layout/destructor declarations in `FEPanel.h:606-684`; reused the narrow shared prior art in `src/KS/SRC/ks/FEPanel_shared.h:193-256`.\n- Result: **different** \u2014 byte score 27.381%, instruction score 17.4603%. Exactly one candidate was tested; no second attempt or diff chasing was performed.",
+      "score": 27.381,
+      "source": "#include \"KS/SRC/ks/FEPanel_shared.h\"\n\nPanelObject::~PanelObject()\n{\n    delete[] batches;\n    delete[] materials;\n}\n",
+      "status": "different",
+      "target_size": 252
+    }
+  ],
+  "raw_name": "_$_11PanelObject"
+}
