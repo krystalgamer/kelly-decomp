@@ -1,0 +1,23 @@
+{
+  "address": "0x00100208",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "47a13dd9ce2375c3230714b00404fa041da129b4",
+      "candidate_size": 272,
+      "compared_bytes": 296,
+      "compared_instructions": 74,
+      "emitted_name": "__18AISurferController",
+      "instruction_score": 0.0,
+      "matching_bytes": 46,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 used exact released source cited at . Result `different`, score 15.5405; no later attempt.",
+      "score": 15.5405,
+      "source": "#include \"KS/SRC/vector3d_shared.h\"\n\nclass input_device {\nprotected:\n    int device_id;\npublic:\n    virtual ~input_device();\n};\n\nclass AISurferController : public input_device {\n    enum AI_SURFER_STATE {\n        STATE_STANDING,\n        STATE_CHASE,\n        STATE_DO_TRICK,\n        STATE_AVOID_SURFER,\n        STATE_BOUNCE_AROUND_WAVE,\n        STATE_LAST_STATE\n    };\n    enum AI_SURFER_SUBSTATE {\n        NO_SUBSTATE,\n        TRICK_APPROACH,\n        TRICK_LAUNCH,\n        TRICK_DOING_TRICK,\n        TRICK_LANDING,\n        TRICK_DONE,\n        STATE_LAST_SUBSTATE\n    };\n\n    vector3d target, toTube, right, velocity, dir;\n    vector3d paddleDirVec;\n    AI_SURFER_STATE myState;\n    AI_SURFER_SUBSTATE mySubstate;\n    float offdh, diffAngle, paddleAngle, toTargetDistance, lastToTargetDistance;\n    float relativeVelocityToTarget, lastRelativeVelocityToTarget, toTubeDist;\n    float last_toward_tube_velocity, this_toward_tube_velocity;\n    vector3d heading;\n    float acel, oldAcel;\n    void *ksctl;\n    bool hitRegionPocket;\n    float X, Y, XRight, YRight;\n    bool ButtonX, ButtonO, ButtonSq, ButtonTr;\n    bool ButtonL1, ButtonL2, ButtonL3, ButtonR1, ButtonR2, ButtonR3;\n    bool ButtonSelect, ButtonStart;\n    float oldX, oldY, oldXRight, oldYRight;\n    bool oldButtonX, oldButtonO, oldButtonSq, oldButtonTr;\n    bool oldButtonL1, oldButtonL2, oldButtonL3;\n    bool oldButtonR1, oldButtonR2, oldButtonR3;\n    bool oldButtonSelect, oldButtonStart;\n    int curTrick;\n\npublic:\n    AISurferController();\n};\n\nAISurferController::AISurferController()\n{\n  myState = STATE_STANDING;\n  mySubstate = NO_SUBSTATE;\n  curTrick = 0;\n  offdh = diffAngle = paddleAngle =0;\n  toTargetDistance = lastToTargetDistance = 999999;\n  toTubeDist = 0;\n  lastRelativeVelocityToTarget = relativeVelocityToTarget = 0;\n  heading = vector3d(-1,0,0);\n\n  X = Y = 0;\n  ButtonX = ButtonO = ButtonSq = ButtonTr = false;\n  ButtonL1 = ButtonL2 = ButtonL3 = false;\n  ButtonR1 = ButtonR2 = ButtonR3 = false;\n  ButtonStart = ButtonSelect = 0;\n\n  oldX = oldY = 0;\n  oldButtonX = oldButtonO = oldButtonSq = oldButtonTr = false;\n  oldButtonL1 = oldButtonL2 = oldButtonL3 = false;\n  oldButtonR1 = oldButtonR2 = oldButtonR3   = false;\n  oldButtonStart = oldButtonSelect = 0;\n\n  acel = oldAcel =0;\n  last_toward_tube_velocity = this_toward_tube_velocity = -99999;\n  ksctl = 0;\n}\n",
+      "status": "different",
+      "target_size": 296
+    }
+  ],
+  "raw_name": "__18AISurferController"
+}
