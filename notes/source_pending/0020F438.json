@@ -1,0 +1,23 @@
+{
+  "address": "0x0020F438",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "fe3185965e56176ab78dae3891b2c8547ab0fb4c",
+      "candidate_size": 216,
+      "compared_bytes": 308,
+      "compared_instructions": 77,
+      "emitted_name": "_$_22kellyslater_controller",
+      "instruction_score": 36.3636,
+      "matching_bytes": 134,
+      "matching_instructions": 28,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.cpp:877-894; kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.h:300-318,438-441,504; notes/function_queue.csv:0x0020F438; tmp/functions/0020F438__$_22kellyslater_controller/attempt-1/result.json. Result `different`, score 43.5065; no later attempt.",
+      "score": 43.5065,
+      "source": "class trail;\n\nclass game {\npublic:\n    void set_num_ai_players(int count);\n};\nextern game *g_game_ptr;\n\nclass entity {\npublic:\n    virtual ~entity();\n};\n\nclass ik_object {};\n\nclass entity_controller {\npublic:\n    virtual ~entity_controller();\n};\n\nclass SurfBoardObjectClass {\n    char data[0xd7c];\npublic:\n    ~SurfBoardObjectClass();\n};\n\nclass ScoringManager {\n    char data[0x550];\npublic:\n    ~ScoringManager();\n};\n\nclass SpecialMeter {\n    char data[0x2c];\npublic:\n    ~SpecialMeter();\n};\n\ntemplate<class T> class vector {\n    T *begin_;\n    T *end_;\n    T *capacity_;\npublic:\n    ~vector();\n};\n\nvoid ks_fx_trail_destroy(trail *dead);\n\nclass kellyslater_controller : public entity_controller {\n    char data_to_trail[0x24];\npublic:\n    trail *my_trail;\nprivate:\n    char data_to_state_stack[0x14];\n    vector<int> state_stack;\n    char data_to_board_controller[0x32c];\n    SurfBoardObjectClass my_board_controller;\n    entity *my_board;\n    entity *my_board_model;\n    entity *my_board_member;\n    entity *my_rotate_object;\n    char data_to_scoring_manager[0x29c];\n    ScoringManager my_scoreManager;\n    SpecialMeter specialMeter;\n    char data_to_ik_object[0x20];\n    ik_object *my_ik_object;\npublic:\n    bool IsAIPlayer();\n    virtual ~kellyslater_controller();\n};\n\n__asm__(\".equ g_game_ptr, 0x0045AC64\");\n__asm__(\".equ set_num_ai_players__4gamei, 0x00284E98\");\n__asm__(\".equ IsAIPlayer__22kellyslater_controller, 0x00224D78\");\n__asm__(\".equ ks_fx_trail_destroy__FP5trail, 0x00361A20\");\n__asm__(\".equ _$_12SpecialMeter, 0x00250C78\");\n__asm__(\".equ _$_14ScoringManager, 0x00246CA0\");\n__asm__(\".equ _$_20SurfBoardObjectClass, 0x001EDD40\");\n__asm__(\".equ _$_17entity_controller, 0x002755D8\");\n__asm__(\".equ __vt_22kellyslater_controller, 0x004D62A0\");\n\nkellyslater_controller::~kellyslater_controller()\n{\n  if (IsAIPlayer())\n    g_game_ptr->set_num_ai_players(0);\n\n  delete my_board;\n  delete my_rotate_object;\n  delete my_ik_object;\n\n  ks_fx_trail_destroy (my_trail);\n}\n",
+      "status": "different",
+      "target_size": 308
+    }
+  ],
+  "raw_name": "_$_22kellyslater_controller"
+}
