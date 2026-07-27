@@ -1,0 +1,23 @@
+{
+  "address": "0x001CF720",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2f46af1691c03381ad1165d2004200bde8f8eea0",
+      "candidate_size": 80,
+      "compared_bytes": 312,
+      "compared_instructions": 78,
+      "emitted_name": "_$_13PhotoSaveMenu",
+      "instruction_score": 1.2821,
+      "matching_bytes": 18,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/PhotoFrontEnd.cpp:508-514; kelly-slaters-pro-surfer/KS/SRC/ks/PhotoFrontEnd.h:80-105; tmp/functions/001CF720__$_13PhotoSaveMenu/attempt-1/result.json. Result `different`, score 5.7692; no later attempt.",
+      "score": 5.7692,
+      "source": "class FEMultiMenu {\n    char layout[0x158];\n\npublic:\n    virtual ~FEMultiMenu();\n};\n\nclass PanelQuad;\n\nclass PhotoWidget {\n    char layout[0x10c];\n};\n\nclass BoxText {\npublic:\n    ~BoxText();\n};\n\nclass PhotoSaveMenu : public FEMultiMenu {\n    PanelQuad *arrowPQs[2][2];\n    PanelQuad *highlightPQs[2];\n    PhotoWidget photoWidgets[2];\n    BoxText *title;\n    int leftArrowIdx;\n    int rightArrowIdx;\n    float arrowHiTimer;\n    int *prevMenuPhotoIdx;\n\npublic:\n    virtual ~PhotoSaveMenu();\n};\n\nPhotoSaveMenu::~PhotoSaveMenu()\n{\n    delete title;\n}\n",
+      "status": "different",
+      "target_size": 312
+    }
+  ],
+  "raw_name": "_$_13PhotoSaveMenu"
+}
