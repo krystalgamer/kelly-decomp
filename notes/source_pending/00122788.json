@@ -1,0 +1,15 @@
+{
+  "address": "0x00122788",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "92f3e038b4a7c2c0eeaf7b8d5d013ffa53c8b34a",
+      "notes": "# Attempt 1\n\nExtracted the released definition verbatim from `kelly-slaters-pro-surfer/KS/SRC/link_interface.cpp:104-124` and copied isolated declarations from released headers. The single permitted test failed to compile because candidate line 60 contains a stray literal `\\t` before `assert(my_bone);`. Per one-shot instructions, no correction or second candidate was attempted.",
+      "score": 0.0,
+      "source": "typedef unsigned int size_t;\n#define NULL 0\n#define assert(exp) ((void)0)\n#define NEW new(0,__PRETTY_FUNCTION__,0)\nvoid *operator new(size_t size, unsigned int flags, const char *descript, int line);\n\nclass po { char data[64]; };\nclass bone;\nclass bone_interface\n{\n  protected:\n    bone *my_bone;\n};\nclass link_interface : public bone_interface\n{\n  protected:\n    bone * my_parent;\n    bone * my_child;\n    bone * my_brother;\n    bool link_manages_abs_po;\n    friend class bone;\n  public:\n    void set_handed_axis_family(int axis);\n};\nclass bone\n{\n  char signaller_data[12];\n  protected:\n    po my_rel_po;\n    po *my_abs_po;\n    po *my_handed_abs_po;\n    int bone_id;\n    void *my_sector;\n    int flip_axis;\n    bool is_part_of_skeleton;\n    link_interface * my_link_interface;\n  public:\n    bool has_link_ifc() const { return (my_link_interface != NULL); }\n    link_interface * link_ifc() const\n    {\n      assert(my_link_interface);\n      return my_link_interface;\n    }\n    void set_handed_axis(int axis)\n    {\n        flip_axis = axis;\n        if (!is_part_of_skeleton && !my_handed_abs_po)\n        {\n            assert(my_handed_abs_po == NULL);\n            my_handed_abs_po = NEW po;\n        }\n\n        if (has_link_ifc())\n            link_ifc()->set_handed_axis_family(axis);\n    }\n};\n\nvoid link_interface::set_handed_axis_family(int axis)\n{\n\\tassert(my_bone);\n\n  // update my children\n  if (my_child != NULL)\n  {\n    assert (my_child->has_link_ifc());\n    my_child->set_handed_axis(axis);\n\n    // update my brothers (part of update children)\n    bone *it = my_child;\n    assert(it->has_link_ifc());\n    while(it->link_ifc()->my_brother != NULL)\n    {\n      it->link_ifc()->my_brother->set_handed_axis(axis);\n      it = it->link_ifc()->my_brother;\n      assert(!it || it->has_link_ifc());\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "set_handed_axis_family__14link_interfacei"
+}
