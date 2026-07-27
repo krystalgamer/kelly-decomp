@@ -1,0 +1,23 @@
+{
+  "address": "0x00285978",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c2f337876f9800611d9cf5fdf8331d2a824cda4d",
+      "candidate_size": 304,
+      "compared_bytes": 304,
+      "compared_instructions": 76,
+      "emitted_name": "Update__8PushModef",
+      "instruction_score": 38.1579,
+      "matching_bytes": 141,
+      "matching_instructions": 29,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/mode_push.cpp:61-96; kelly-slaters-pro-surfer/KS/SRC/ks/mode_push.h:11-53. Result `different`, score 46.3816; no later attempt.",
+      "score": 46.3816,
+      "source": "struct recti { int values[4]; };\nstruct kellyslater_controller;\n\nclass PushMode {\nprotected:\n    static const float TIME_PUSH_EFFECT;\n    static const int MAX_TIE_SHARES;\n    struct PLAYER {\n        float share;\n        int extraShare;\n        recti viewport;\n        kellyslater_controller *ks;\n        int prevScore;\n    };\n    PLAYER players[2];\n    float attackTimer;\n    int scoreRequired;\n    void CalcExtraShares(const int playerIdx);\n    bool Attack(const int playerIdx);\n    void CalcViewports(void);\npublic:\n    void Update(const float dt);\n};\n\n__asm__(\".equ CalcExtraShares__8PushModei, 0x00285CB0\");\n__asm__(\".equ Attack__8PushModei, 0x00285D68\");\n__asm__(\".equ CalcViewports__8PushMode, 0x00285EA0\");\n\nconst float PushMode::TIME_PUSH_EFFECT = 0.5f;\nconst int PushMode::MAX_TIE_SHARES = 4;\n\nvoid PushMode::Update(const float dt)\n{\n    int     i;\n    bool    recalcViewports = false;\n\n    for (i = 0; i < 2; i++)\n        CalcExtraShares(i);\n\n    while (players[0].extraShare > MAX_TIE_SHARES && players[1].extraShare > MAX_TIE_SHARES)\n    {\n        players[0].extraShare -= MAX_TIE_SHARES;\n        players[1].extraShare -= MAX_TIE_SHARES;\n    }\n\n    attackTimer -= dt;\n    if (attackTimer <= 0.0f)\n    {\n        attackTimer = TIME_PUSH_EFFECT;\n        for (i = 0; i < 2; i++)\n        {\n            if (Attack(i))\n                recalcViewports = true;\n        }\n    }\n\n    if (recalcViewports)\n        CalcViewports();\n}\n",
+      "status": "different",
+      "target_size": 276
+    }
+  ],
+  "raw_name": "Update__8PushModef"
+}
