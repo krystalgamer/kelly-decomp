@@ -1,0 +1,15 @@
+{
+  "address": "0x002D7288",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9a03eff12406664dab9823791eb5de7f43adc5b6",
+      "notes": "Attempt 1 used the exact released definition from `kelly-slaters-pro-surfer/KS/SRC/visrep.cpp:120-140` with the released include block at lines 9-16 as the compile-only prefix. The single required test returned `compile_failed` (score 0.0) because those released headers were not found on the function-test include paths; no further attempt was made.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n\n#include \"visrep.h\"\n\n#include \"pmesh.h\"\n#include \"billboard.h\"\n#include \"oserrmsg.h\"\n#include \"iri.h\"\n\n// for loading visual_reps at the beginning of the level:\nvisual_rep* load_new_visual_rep( const stringx& visrep_name, unsigned additional_flags )\n{\n  visual_rep * outval = NULL;\n  error_context::inst()->push_context(visrep_name);\n  visrep_t flavor = visual_rep_name_to_type( visrep_name );\n  if( flavor==VISREP_PMESH)\n  {\n    vr_pmesh* vr = vr_pmesh_bank.new_instance( visrep_name, additional_flags );\n    outval = vr;\n  }\n  else if( flavor==VISREP_BILLBOARD )\n  {\n    outval = vr_billboard_bank.new_instance( visrep_name, 0 );   // currently, additional flags is unused (9/27)\n  }\n  else\n  {\n    assert(0);\n  }\n  error_context::inst()->pop_context();\n  return outval;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "load_new_visual_rep__FRC7stringxUi"
+}
