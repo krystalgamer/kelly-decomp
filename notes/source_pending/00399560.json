@@ -1,0 +1,23 @@
+{
+  "address": "0x00399560",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "87cfae0c6702a30ada008172b9a334c93de32fe2",
+      "candidate_size": 240,
+      "compared_bytes": 264,
+      "compared_instructions": 66,
+      "emitted_name": "nglListBeginScene__FP11nglSortInfo",
+      "instruction_score": 0.0,
+      "matching_bytes": 35,
+      "matching_instructions": 0,
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Extracted `nglListBeginScene` verbatim from released `NGL/PS2/ngl_ps2.cpp`.\n- Added only declarations needed for the accessed `nglScene` fields, exact 1200-byte size, sort info, globals, allocator, node callback, and node insertion.\n- Tested exactly once.\n- Result: `different`; byte score 13.2576% (35/264), instruction score 0% (0/66), candidate size 240 versus target 264.\n- No variants or diff chasing performed.",
+      "score": 13.2576,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned char u_char;\n#define NULL 0\n\nstruct nglSortInfo\n{\n  u_int Type;\n  union {\n    float Dist;\n    u_int Hash;\n  };\n};\n\nstruct nglScene\n{\n  nglScene* Parent;\n  nglScene* NextSibling;\n  nglScene* FirstChild;\n  nglScene* LastChild;\n  u_char Data[1008];\n  void* OpaqueRenderList;\n  void* TransRenderList;\n  u_int OpaqueListCount, TransListCount;\n  u_char Tail[160];\n};\n\ntypedef void (*nglCustomNodeFn)( u_int*& Packet, void* Data );\n\nenum\n{\n  NGLNODE_SCENE = 5,\n};\n\nextern nglScene nglDefaultScene;\nextern nglScene* nglCurScene;\nvoid* nglListAlloc( u_int Bytes, u_int Alignment = 4 );\nvoid nglListAddNode( u_int Type, nglCustomNodeFn NodeFn, void* Data, nglSortInfo* SortInfo, u_char **Buf = 0 );\nvoid nglVif1RenderSceneNode( u_int*& Packet, void* Param );\nvoid* memcpy(void*, const void*, u_int);\n\n__asm__(\".equ nglDefaultScene, 0x004AB850\");\n__asm__(\".equ nglCurScene, 0x004ABD04\");\n__asm__(\".equ nglListAlloc__FUiUi, 0x00397C90\");\n__asm__(\".equ nglListAddNode__FUiPFRPUiPv_vPvP11nglSortInfoPPUc, 0x00397CD0\");\n__asm__(\".equ nglVif1RenderSceneNode__FRPUiPv, 0x00399520\");\n\n#define nglListNew( Type ) (Type*)nglListAlloc( sizeof(Type) )\n\nnglScene *nglListBeginScene(nglSortInfo *SortInfo)\n{\n  nglScene* Scene;\n  if ( !nglCurScene )\n\tScene = &nglDefaultScene;\n  else\n  {\n    // Add the new scene at the end of the current scene's child list.\n    Scene = nglListNew( nglScene );\n    if ( !Scene )\n      return (nglScene *)0;\n\tif (!SortInfo)\n\t{\n\t  if ( nglCurScene->LastChild )\n\t\tnglCurScene->LastChild->NextSibling = Scene;\n\t  else\n\t\tnglCurScene->FirstChild = Scene;\n\t  nglCurScene->LastChild = Scene;\n\t}\n\n    // Set up the scene based on nglDefaultScene (whose parameters can be set outside the render loop).\n    memcpy( Scene, &nglDefaultScene, sizeof(nglScene) );\n  }\n\n  // Initialize the new scene's hierarchy linkage.\n  Scene->Parent = nglCurScene;\n  Scene->NextSibling = NULL;\n  Scene->FirstChild = NULL;\n  Scene->LastChild = NULL;\n\n  // Initialize the new scene's bin structure.\n  Scene->OpaqueRenderList = NULL;\n  Scene->TransRenderList = NULL;\n  Scene->OpaqueListCount = 0;\n  Scene->TransListCount = 0;\n\n  if (SortInfo)\n    nglListAddNode( NGLNODE_SCENE, nglVif1RenderSceneNode, (void *)Scene, SortInfo );\n\n  nglCurScene = Scene;\n\n  return Scene;\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "nglListBeginScene__FP11nglSortInfo"
+}
