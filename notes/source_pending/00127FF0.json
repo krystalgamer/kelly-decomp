@@ -1,0 +1,15 @@
+{
+  "address": "0x00127FF0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bb65f3b0dcac2b4f5b3594ae1844a89861629bda",
+      "notes": "Exact released-source body was tested once with copied isolated declarations. The candidate failed to compile because the released toolchain could not resolve the standard `vector` and `map` headers; no second candidate was attempted.",
+      "score": 0.0,
+      "source": "#include <vector>\n#include <map>\n\nusing namespace std;\n\ntypedef unsigned long long big_int;\n\nclass stringx;\n\nclass string_buf\n{\nprotected:\n  friend class stringx;\n  friend inline bool operator<( const stringx& lhs, const stringx& rhs );\n\n  big_int *data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n\npublic:\n  int compare(const string_buf& b) const;\n};\n\nclass stringx\n{\n  friend class string_buf;\n\n  protected:\n    char *chars;\n    string_buf *my_buf;\n\n  public:\n    stringx(const stringx&);\n    ~stringx();\n    friend inline bool operator<( const stringx& lhs, const stringx& rhs );\n};\n\ninline bool operator<( const stringx& lhs, const stringx& rhs )\n{\n  return (lhs.my_buf->compare(*rhs.my_buf) == 1);\n}\n\nclass singleton\n{\n};\n\ntypedef short anim_id_t;\n\nclass anim_id_manager : public singleton\n{\n public:\n  typedef vector<stringx> label_list;\n  typedef map< stringx, anim_id_t > label_map_t;\n\n private:\n  label_list labels;\n  label_map_t label_map;\n  stringx NO_ID_label;\n\n public:\n  anim_id_t anim_id( const stringx& _label );\n};\n\nanim_id_t anim_id_manager::anim_id( const stringx& _label )\n{\n  label_map_t::iterator lm = label_map.find(_label);\n  if (lm==label_map.end())\n  {\n    labels.push_back( _label );\n    label_map.insert(label_map_t::value_type(_label,labels.size() - 1));\n    return labels.size() - 1;\n  }\n  else\n    return (*lm).second;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "anim_id__15anim_id_managerRC7stringx"
+}
