@@ -1,0 +1,23 @@
+{
+  "address": "0x001BB4A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0de500e53de1a4bc958c26d5d066d5e6661927f6",
+      "candidate_size": 304,
+      "compared_bytes": 304,
+      "compared_instructions": 76,
+      "emitted_name": "Load__15CreditsFrontEnd",
+      "instruction_score": 92.1053,
+      "matching_bytes": 276,
+      "matching_instructions": 70,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/ExtrasFrontEnd.cpp:721-735; kelly-slaters-pro-surfer/KS/SRC/ks/ExtrasFrontEnd.h:76-101; src/KS/SRC/ks/FEMenu_shared.h:267-344; src/KS/SRC/stringx.h:31-50; config/SLUS_203.34.symbol_addrs.txt:999,2051,6853-6882,10094; tmp/functions/001BB4A8_Load__15CreditsFrontEnd/attempt-1/result.json. Result `different`, score 90.7895; no later attempt.",
+      "score": 90.7895,
+      "source": "#define protected public\n#include \"KS/SRC/ks/FEMenu_shared.h\"\n#undef protected\n\nclass PreformatText {\npublic:\n    void readText(char *filename, int max_lines, int offset);\n};\n\nclass GraphicalMenuSystem;\n\nclass CreditsFrontEnd : public FEMultiMenu {\n    PreformatText *credits;\n    GraphicalMenuSystem *sys;\n    float first_line_y;\n    float x_all;\n    bool up_pressed;\n    bool down_pressed;\n\npublic:\n    virtual void Load();\n};\n\nextern int ksGlobalTextLanguage;\n\nenum language_t {\n    LANGUAGE_FRENCH = 2,\n    LANGUAGE_GERMAN = 3\n};\n\nextern \"C\" void stringx_append_cstr(stringx *, const char *)\n    __asm__(\"__apl__7stringxPCc\");\nextern \"C\" void stringx_make_room(stringx *, int)\n    __asm__(\"make_room__7stringxi\");\nextern \"C\" void stringx_append_string(stringx *, const stringx *)\n    __asm__(\"append__7stringxRC7stringx\");\n\ninline stringx &operator+=(stringx &value, const char *text)\n{\n    stringx_append_cstr(&value, text);\n    return value;\n}\n\ninline stringx operator+(const stringx &left, const stringx &right)\n{\n    stringx result;\n    stringx_make_room(&result, left.my_buf->char_length + right.my_buf->char_length);\n    stringx_append_string(&result, &left);\n    stringx_append_string(&result, &right);\n    return result;\n}\n\n__asm__(\".equ ksGlobalTextLanguage, 0x003FCE98\");\n__asm__(\".equ __7stringx, 0x0034D3E0\");\n__asm__(\".equ __7stringxPCci, 0x0034D438\");\n__asm__(\".equ __7stringxRC7stringx, 0x0034D4D0\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\".equ __apl__7stringxPCc, 0x0034E170\");\n__asm__(\".equ make_room__7stringxi, 0x0034E220\");\n__asm__(\".equ append__7stringxRC7stringx, 0x0034E528\");\n__asm__(\".equ readText__13PreformatTextPcii, 0x0014C608\");\n\nvoid CreditsFrontEnd::Load()\n{\n    FEMultiMenu::Load();\n\n    stringx file = \"credits\";\n    if (ksGlobalTextLanguage == LANGUAGE_FRENCH)\n        file += \"_fr\";\n    else if (ksGlobalTextLanguage == LANGUAGE_GERMAN)\n        file += \"_ge\";\n    file += \".txt\";\n\n    char *tmp = (char *)(path + file).data();\n\n    credits->readText(tmp, 300, 10);\n}\n",
+      "status": "different",
+      "target_size": 304
+    }
+  ],
+  "raw_name": "Load__15CreditsFrontEnd"
+}
