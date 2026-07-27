@@ -1,0 +1,23 @@
+{
+  "address": "0x001D5D08",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b68d25493306f955be52dfe32e5f2168ae2737a1",
+      "candidate_size": 312,
+      "compared_bytes": 312,
+      "compared_instructions": 78,
+      "emitted_name": "GetDate__15LogbookFrontEndi",
+      "instruction_score": 91.0256,
+      "matching_bytes": 255,
+      "matching_instructions": 71,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/LogbookFrontEnd.cpp:43-62; kelly-slaters-pro-surfer/KS/SRC/ks/LogbookFrontEnd.h:10-19,48-64; notes/function_queue.csv:5950; tmp/functions/001D5D08_GetDate__15LogbookFrontEndi/attempt-1/result.json. Result `different`, score 81.7308; no later attempt.",
+      "score": 81.7308,
+      "source": "class stringx {\npublic:\n    char *data;\n    int length;\n    stringx(const char *, int = -1);\n    stringx(const stringx &);\n    ~stringx();\n    stringx &operator=(const stringx &);\n};\n\nextern \"C\" int sprintf(char *, const char *, ...);\nextern stringx logbook_months[4] __asm__(\"logbook_months\");\n__asm__(\".equ logbook_months,0x003E6650\");\n\nclass LogbookFrontEnd {\npublic:\n    stringx GetDate(int);\n};\n\nstringx LogbookFrontEnd::GetDate(int note)\n{\n    stringx result = \"\";\n    int max_days[] = { 31, 30, 31, 31 };\n    int month = 0;\n    int day = 10;\n    for(int i = 0; i < 32; i++)\n    {\n        if(i == note)\n        {\n            char date[32];\n            sprintf(date, logbook_months[month].data, day+1);\n            result = stringx(date);\n            return result;\n        }\n\n        day += 3;\n        if(day >= max_days[month])\n        {\n            day = 0;\n            month++;\n        }\n    }\n    return result;\n}\n",
+      "status": "different",
+      "target_size": 312
+    }
+  ],
+  "raw_name": "GetDate__15LogbookFrontEndi"
+}
