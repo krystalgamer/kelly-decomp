@@ -1,0 +1,23 @@
+{
+  "address": "0x0023C830",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a385d72774747b3d6a7e7c84ca76d5301e1094e7",
+      "candidate_size": 296,
+      "compared_bytes": 324,
+      "compared_instructions": 81,
+      "emitted_name": "Resume__8KSReplay",
+      "instruction_score": 11.1111,
+      "matching_bytes": 69,
+      "matching_instructions": 9,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/ksreplay.cpp:942-980; kelly-slaters-pro-surfer/KS/SRC/ks/ksreplay.h:100-180; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndManager.h:13-122; kelly-slaters-pro-surfer/KS/SRC/ks/IGOFrontEnd.h:384-385; kelly-slaters-pro-surfer/KS/SRC/ks/MusicMan.h:8-100. Result `different`, score 21.2963; no later attempt.",
+      "score": 21.2963,
+      "source": "class IGOFrontEnd {\n  char pad[1492];\n  bool replay_mode;\npublic:\n  void ShowMenuBackground(bool);\n  void OnReplayStart() { ShowMenuBackground(false); replay_mode = true; }\n};\nstruct PauseMenuSystem { char pad[148]; bool replay_mode; };\nstruct FEManager { IGOFrontEnd *IGO; PauseMenuSystem *pms; };\nextern FEManager frontendmanager;\n\nclass camera {};\nstruct ReplayVtable {\n  char pad[1600];\n  short adjust;\n  short unused;\n  void (*reset_fn)(void *);\n};\nclass replay_camera {\n  char pad[8];\n  ReplayVtable *table;\npublic:\n  void reset() {\n    ReplayVtable *v = table;\n    v->reset_fn((char *)this + v->adjust);\n  }\n};\nclass world_dynamics_system {\n  char pad[344];\n  replay_camera *replay_cam_ptr;\npublic:\n  replay_camera *get_replay_cam_ptr() { return replay_cam_ptr; }\n};\nextern world_dynamics_system *g_world_ptr;\n\nclass game {\n  char pad[188];\n  int active_player;\npublic:\n  int get_active_player() { return active_player; }\n  void set_player_camera(int, camera *);\n};\nclass app {\n  char pad[16];\n  game *the_game;\npublic:\n  static app *instance;\n  static app *inst() { return instance; }\n  game *get_game() { return the_game; }\n};\n\nclass os_developer_options {\n  char pad[72];\n  int flags;\npublic:\n  enum { FLAG_NO_AUDIO = 1 };\n  static os_developer_options *instance;\n  static os_developer_options *inst() { return instance; }\n  bool is_flagged(int flag) const { return (flags & flag) != 0; }\n};\n\nclass DemoModeManager { public: bool inDemoMode(); };\nextern DemoModeManager dmm;\nvoid nslUnpauseAllSounds();\n\nclass Track {\n  int source;\n  int sound;\n  bool paused;\n  char songName[30];\n  char artistName[30];\npublic:\n  void Unpause();\n};\nclass MusicListing {\n  int totalSources;\n  int current;\n  Track sources[50];\n  int currentSoundId;\n  bool successfulLastPlay;\n  int order[50];\n  bool enabled[50];\npublic:\n  void unpause() { sources[order[current]].Unpause(); }\n};\nclass MusicMan {\n  float volume;\n  int inited;\n  bool paused;\npublic:\n  static MusicMan *instance;\n  static MusicMan *inst() { return instance; }\n  MusicListing musicTrack;\n  void unpause() { if (paused) { paused = false; musicTrack.unpause(); } }\n};\n\nclass KSReplay {\n  void *vptr;\npublic:\n  int bch, sfr, brd;\nprivate:\n  unsigned seed;\n  int status;\n  float playtime;\n  float lastPlaytime;\n  bool slomo;\n  bool fastforward;\n  bool prepareSlomo;\n  bool prepareNormal;\npublic:\n  bool Done();\n  void Play();\n  void Pause(bool);\n  void RestoreNextFrame(float);\n  void Resume();\n};\n\nvoid KSReplay::Resume()\n{\n  if(Done())\n  {\n    Play();\n    return;\n  }\n\n\tfrontendmanager.IGO->OnReplayStart();\n  frontendmanager.pms->replay_mode = true;\n\n\tPause(false);\n  slomo         = false;\n  fastforward   = false;\n  prepareSlomo      = false;\n  prepareNormal     = false;\n\n  g_world_ptr->get_replay_cam_ptr()->reset();\n\n  replay_camera *replayCam = g_world_ptr->get_replay_cam_ptr();\n  app::inst()->get_game()->set_player_camera(app::inst()->get_game()->get_active_player(), (camera*)replayCam);\n\n\tif (!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n\t{\n    if(dmm.inDemoMode())\n\t\t  nslUnpauseAllSounds();\n\t\tMusicMan::inst()->unpause();\n\t}\n\n  RestoreNextFrame(0.0f);\n}\n",
+      "status": "different",
+      "target_size": 324
+    }
+  ],
+  "raw_name": "Resume__8KSReplay"
+}
