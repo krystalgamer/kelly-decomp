@@ -1,0 +1,15 @@
+{
+  "address": "0x00129448",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "694b3c365f0444fcc3d68a2f925d85e0d09f638c",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/entity.cpp:383-387; kelly-slaters-pro-surfer/KS/SRC/entity.h:509-537; kelly-slaters-pro-surfer/KS/SRC/bone.h:14-45; tmp/functions/00129448___6entityRC9entity_idUi/attempt-1/result.json; tmp/functions/00129448___6entityRC9entity_idUi/attempt-1/compiler.stderr. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/entity.h\"\n\nentity::entity( const entity_id& _id, unsigned int _flags )\n  : bone()\n{\n  _construct( _id, ENTITY_ENTITY, NO_ID, _flags );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__6entityRC9entity_idUi"
+}
