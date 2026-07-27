@@ -1,0 +1,23 @@
+{
+  "address": "0x0023CB00",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "990962ad01a3740180447dd2bf17fbd3aa798d96",
+      "candidate_size": 236,
+      "compared_bytes": 280,
+      "compared_instructions": 70,
+      "emitted_name": "MainEntityPos__8KSReplayR8vector3di",
+      "instruction_score": 0.0,
+      "matching_bytes": 37,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 used exact released source cited at . Result `different`, score 13.2143; no later attempt.",
+      "score": 13.2143,
+      "source": "struct vector3d\n{\n  float x;\n  float y;\n  float z;\n};\n\nstruct KSEntityPO\n{\n  vector3d KSPos;\n  char padding[0x44];\n};\n\nclass KSReplay\n{\n  char padding0[0x34];\npublic:\n  unsigned int playframe;\nprivate:\n  char padding1[0x1c];\n  unsigned int numFrames;\n  char padding2[0x14];\n  KSEntityPO *mainEntityPO;\npublic:\n  void MainEntityPos(vector3d &pos, int frame = -1);\n};\n\nextern KSReplay ksreplay;\n__asm__(\".equ ksreplay, 0x004252A8\");\n\nconst unsigned int MAINENTITY_UPDATEFRAMES = 4;\n\nvoid KSReplay::MainEntityPos(vector3d &pos, int f)\n{\n  if(f == -1)\n    f = ksreplay.playframe;\n\n  if(f >= numFrames)\n    f = numFrames-1;\n\n  int poframe = f/MAINENTITY_UPDATEFRAMES;\n  int interpframe = f%MAINENTITY_UPDATEFRAMES;\n\n  if(interpframe == 0 || f == numFrames-1)\n    pos = mainEntityPO[poframe].KSPos;\n  else\n  {\n    float interp = (float)interpframe/(float)MAINENTITY_UPDATEFRAMES;\n    pos.x = (1.0f-interp)*mainEntityPO[poframe].KSPos.x + interp*mainEntityPO[poframe+1].KSPos.x;\n    pos.y = (1.0f-interp)*mainEntityPO[poframe].KSPos.y + interp*mainEntityPO[poframe+1].KSPos.y;\n    pos.z = (1.0f-interp)*mainEntityPO[poframe].KSPos.z + interp*mainEntityPO[poframe+1].KSPos.z;\n  }\n}\n",
+      "status": "different",
+      "target_size": 280
+    }
+  ],
+  "raw_name": "MainEntityPos__8KSReplayR8vector3di"
+}
