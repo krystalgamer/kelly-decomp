@@ -1,0 +1,23 @@
+{
+  "address": "0x0031A9F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "16b1379ff727b3ff41d06c81fd5ff12ba9f22ff5",
+      "candidate_size": 168,
+      "compared_bytes": 320,
+      "compared_instructions": 80,
+      "emitted_name": "destroy_script_str_list__FPt6vector2Z7stringxZt12my_allocator1Z7stringx",
+      "instruction_score": 0.0,
+      "matching_bytes": 36,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/script_lib_list.cpp:136-151; kelly-slaters-pro-surfer/KS/SRC/script_lib_list.cpp:14-18; kelly-slaters-pro-surfer/KS/SRC/script_lib_list.h:130-140. Result `different`, score 11.2500; no later attempt.",
+      "score": 11.25,
+      "source": "typedef unsigned int size_t;\ntypedef int ptrdiff_t;\n\ntemplate <class _Tp>\nclass my_allocator;\n\ntemplate <class _Tp, class _Alloc = my_allocator<_Tp> >\nclass vector {\npublic:\n  ~vector();\n};\n\ntemplate <class _Tp>\nstruct _List_node {\n  typedef void* _Void_pointer;\n  _Void_pointer _M_next;\n  _Void_pointer _M_prev;\n  _Tp _M_data;\n};\n\ntemplate<class _Tp, class _Ref, class _Ptr>\nstruct _List_iterator {\n  typedef _List_iterator<_Tp,_Tp&,_Tp*>             iterator;\n  typedef _List_iterator<_Tp,const _Tp&,const _Tp*> const_iterator;\n  typedef _List_iterator<_Tp,_Ref,_Ptr>             _Self;\n  typedef _Tp value_type;\n  typedef _Ptr pointer;\n  typedef _Ref reference;\n  typedef _List_node<_Tp> _Node;\n  typedef size_t size_type;\n  typedef ptrdiff_t difference_type;\n\n  _Node* _M_node;\n\n  _List_iterator(_Node* __x) : _M_node(__x) {}\n  _List_iterator() {}\n  _List_iterator(const iterator& __x) : _M_node(__x._M_node) {}\n\n  bool operator==(const _Self& __x) const { return _M_node == __x._M_node; }\n  bool operator!=(const _Self& __x) const { return _M_node != __x._M_node; }\n  reference operator*() const { return (*_M_node)._M_data; }\n  _Self& operator++() {\n    _M_node = (_Node*)(_M_node->_M_next);\n    return *this;\n  }\n};\n\ntemplate <class _Tp, class _Alloc>\nclass _List_base {\nprotected:\n  _List_node<_Tp>* _M_node;\n  void _M_put_node(_List_node<_Tp>* __p);\n};\n\ntemplate <class _Tp, class _Alloc = my_allocator<_Tp> >\nclass list : protected _List_base<_Tp, _Alloc> {\n  typedef _List_base<_Tp, _Alloc> _Base;\npublic:\n  typedef _List_node<_Tp> _Node;\n  typedef _List_iterator<_Tp,_Tp&,_Tp*> iterator;\n\n  iterator begin() { return (_Node*)(this->_M_node->_M_next); }\n  iterator end() { return this->_M_node; }\n\n  iterator erase(iterator __position) {\n    _Node* __next_node = (_Node*) (__position._M_node->_M_next);\n    _Node* __prev_node = (_Node*) (__position._M_node->_M_prev);\n    __prev_node->_M_next = __next_node;\n    __next_node->_M_prev = __prev_node;\n    __position._M_node->_M_data.~_Tp();\n    this->_M_put_node(__position._M_node);\n    return iterator(__next_node);\n  }\n};\n\nclass stringx;\ntypedef vector<stringx> str_list;\ntypedef str_list* vm_str_list_t;\n\nextern list<vm_str_list_t> script_stringx_lists;\n\nvoid destroy_script_str_list(vm_str_list_t lst)\n{\n  list<vm_str_list_t>::iterator i = script_stringx_lists.begin();\n  while(i != script_stringx_lists.end())\n  {\n    if((*i) == lst)\n    {\n      delete (*i);\n      i = script_stringx_lists.erase(i);\n\n      return;\n    }\n\n    ++i;\n  }\n}\n",
+      "status": "different",
+      "target_size": 320
+    }
+  ],
+  "raw_name": "destroy_script_str_list__FPt6vector2Z7stringxZt12my_allocator1Z7stringx"
+}
