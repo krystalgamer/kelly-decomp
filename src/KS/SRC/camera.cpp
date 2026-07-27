@@ -76,3 +76,20 @@ void destroy_camera(camera_layout *self, int deleting)
     __asm__ __volatile__("" : : : "memory");
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002C41B0)
+// 0x002C41B0 sync__11game_cameraR6camera
+#include "KS/SRC/game_camera_sync_shared.h"
+
+void game_camera::sync(camera &other)
+{
+    if (is_externally_controlled())
+        return;
+    camera::sync(other);
+    last_frame_valid = false;
+    temporary_lock = false;
+    ground_pitch_po = po_identity_matrix;
+    crawl_mode = false;
+    crawl_mode_firstperson = false;
+}
+#endif
