@@ -1,0 +1,23 @@
+{
+  "address": "0x00153570",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d3cd44c9afadeec283b10bf1c983937c17a6e370",
+      "candidate_size": 176,
+      "compared_bytes": 284,
+      "compared_instructions": 71,
+      "emitted_name": "ReadMatrix3x4__FR9matrix4x4PUcRi",
+      "instruction_score": 0.0,
+      "matching_bytes": 31,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:3229-3236; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:292-307,686-725,907-912; tmp/functions/00153570_ReadMatrix3x4__FR9matrix4x4PUcRi/attempt-1/result.json. Result `different`, score 10.9155; no later attempt.",
+      "score": 10.9155,
+      "source": "class vector3d\n{\npublic:\n    float x;\n    float y;\n    float z;\n};\n\nclass vector4d\n{\npublic:\n    float x;\n    float y;\n    float z;\n    float w;\n};\n\nclass matrix4x4\n{\npublic:\n    vector4d x __attribute__((aligned(16)));\n    vector4d y;\n    vector4d z;\n    vector4d w;\n\n    vector3d& xrow() { return *(vector3d*)&x; }\n    vector3d& yrow() { return *(vector3d*)&y; }\n    vector3d& zrow() { return *(vector3d*)&z; }\n    vector3d& wrow() { return *(vector3d*)&w; }\n};\n\nextern const matrix4x4 identity_matrix;\n\nvoid ReadVector3d(vector3d& v, unsigned char* buffer, int& index);\n\nvoid ReadMatrix3x4(matrix4x4& matrix, unsigned char* buffer, int& index)\n{\n\tmatrix = identity_matrix;\n\tReadVector3d(matrix.xrow(), buffer, index);\n\tReadVector3d(matrix.yrow(), buffer, index);\n\tReadVector3d(matrix.zrow(), buffer, index);\n\tReadVector3d(matrix.wrow(), buffer, index);\n}\n",
+      "status": "different",
+      "target_size": 284
+    }
+  ],
+  "raw_name": "ReadMatrix3x4__FR9matrix4x4PUcRi"
+}
