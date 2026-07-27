@@ -1,0 +1,23 @@
+{
+  "address": "0x001BB648",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8cf02e2d921b47d77d65911843c014ade8ab930b",
+      "candidate_size": 276,
+      "compared_bytes": 304,
+      "compared_instructions": 76,
+      "emitted_name": "Draw__15CreditsFrontEnd",
+      "instruction_score": 17.1053,
+      "matching_bytes": 81,
+      "matching_instructions": 13,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/ExtrasFrontEnd.cpp:760-792; kelly-slaters-pro-surfer/KS/SRC/ks/ExtrasFrontEnd.h:112-133; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:276-302; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:444-477; tmp/functions/001BB648_Draw__15CreditsFrontEnd/attempt-1/result.json; tmp/source_first/001BB648/attempt-1.md. Result `different`, score 26.6447; no later attempt.",
+      "score": 26.6447,
+      "source": "class FEGraphicalMenu {\n    char padding[0x160];\npublic:\n    void Draw();\n};\n\nclass FEMultiMenu : public FEGraphicalMenu {};\n\nstruct preformat_vtable {\n    char padding[0x130];\n    short adjustment;\n    short padding2;\n    void (*draw_line)(void *, int, float, float);\n};\n\nstruct PreformatText {\n    char padding[0x4c];\n    preformat_vtable *vtable;\n    char padding2[0x10];\n    int actual_lines;\n\n    void DrawLine(int line_num, float x1, float y1)\n    {\n        preformat_vtable *table = vtable;\n        table->draw_line((char *)this + table->adjustment, line_num, x1, y1);\n    }\n\n    int GetActualLines() { return actual_lines; }\n};\n\nstruct menu_system_vtable {\n    char padding[0x20];\n    short adjustment;\n    short padding2;\n    void (*make_active)(void *, int, int, bool);\n};\n\nstruct GraphicalMenuSystem {\n    char padding[0x8c];\n    menu_system_vtable *vtable;\n    enum { ExtrasMenu = 1 };\n\n    void MakeActive(int menu, int submenu = 1, bool notify = true)\n    {\n        menu_system_vtable *table = vtable;\n        table->make_active((char *)this + table->adjustment, menu, submenu, notify);\n    }\n};\n\nclass CreditsFrontEnd : public FEMultiMenu {\n    PreformatText* credits;\n    GraphicalMenuSystem* sys;\n    static const int num_lines = 300;\n    float first_line_y;\n    float x_all;\n    bool up_pressed;\n    bool down_pressed;\n\npublic:\n    void Draw();\n};\n\nvoid CreditsFrontEnd::Draw()\n{\n    FEMultiMenu::Draw();\n\n    for(int i=0; i<num_lines; i++)\n    {\n        float y = first_line_y+i*20;\n        if(y > -10 && y < 490) credits->DrawLine(i, x_all, y);\n    }\n\n    if(first_line_y+(credits->GetActualLines()-1)*20 < 0)\n    {\n        sys->MakeActive(GraphicalMenuSystem::ExtrasMenu);\n    }\n}\n",
+      "status": "different",
+      "target_size": 304
+    }
+  ],
+  "raw_name": "Draw__15CreditsFrontEnd"
+}
