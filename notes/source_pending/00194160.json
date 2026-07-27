@@ -1,0 +1,23 @@
+{
+  "address": "0x00194160",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ac31e41aa75eacea1d9784cc560f37ee5c4734ea",
+      "candidate_size": 316,
+      "compared_bytes": 316,
+      "compared_instructions": 79,
+      "emitted_name": "SetOffset__13BeachFrontEnd",
+      "instruction_score": 86.0759,
+      "matching_bytes": 289,
+      "matching_instructions": 68,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/BeachFrontEnd.cpp:2123-2151; kelly-slaters-pro-surfer/KS/SRC/ks/BeachFrontEnd.h:125-127,238; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:81-102; tmp/functions/00194160_SetOffset__13BeachFrontEnd/attempt-1/result.json; tmp/source_first/00194160/notes.md. Result `different`, score 91.4557; no later attempt.",
+      "score": 91.4557,
+      "source": "class nglVector {\npublic:\n    float x, y, z, w;\n\n    nglVector() {}\n    nglVector(float _x, float _y, float _z, float _w = 1.0f)\n        : x(_x), y(_y), z(_z), w(_w) {}\n\n    float &operator[](int i) { return (&x)[i]; }\n};\n\nstruct vector2d {\n    float x, y;\n};\n\nstruct BeachFrontEnd {\n    char pad0[0x9c4];\n    bool offset_set;\n    char pad1[3];\n    vector2d map_points_offset;\n    vector2d map_points_multiplier;\n    char pad2[0x534];\n    bool in_frontend;\n\n    void SetOffset();\n    void ReadjustBeachPoints();\n    void UpdateBeach(bool reset_challenge);\n};\n\nextern void nglProjectPoint(nglVector &, nglVector &)\n    __asm__(\"nglProjectPoint__FR9nglVectorT0\");\nextern void unadjustCoords(float &, float &)\n    __asm__(\"unadjustCoords__H1Zf_RX01T0_v\");\n\n__asm__(\".equ nglProjectPoint__FR9nglVectorT0, 0x00399458\");\n__asm__(\".equ unadjustCoords__H1Zf_RX01T0_v, 0x001D6BF0\");\n__asm__(\".equ ReadjustBeachPoints__13BeachFrontEnd, 0x001942A0\");\n__asm__(\".equ UpdateBeach__13BeachFrontEndb, 0x00191508\");\n\nvoid BeachFrontEnd::SetOffset()\n{\n    if(!in_frontend) return;\n\n    nglVector start_in(-2.079f, 2.080f, -1.676f);\n    nglVector end_in(-2.079f, 1.276f, -0.604f);\n    nglVector start_out, end_out;\n\n    nglProjectPoint(start_out, start_in);\n    nglProjectPoint(end_out, end_in);\n\n    unadjustCoords(start_out[0], start_out[1]);\n    unadjustCoords(end_out[0], end_out[1]);\n\n    map_points_offset.x = start_out[0];\n    map_points_offset.y = start_out[1];\n\n    map_points_multiplier.x = (end_out[0] - start_out[0])/640.0f;\n    map_points_multiplier.y = (end_out[1] - start_out[1])/480.0f;\n\n    offset_set = true;\n    ReadjustBeachPoints();\n    UpdateBeach(false);\n}\n",
+      "status": "different",
+      "target_size": 316
+    }
+  ],
+  "raw_name": "SetOffset__13BeachFrontEnd"
+}
