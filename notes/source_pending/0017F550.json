@@ -1,0 +1,23 @@
+{
+  "address": "0x0017F550",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ae87c0178d62c6b49239f925e98b42aa3a7eae70",
+      "candidate_size": 276,
+      "compared_bytes": 280,
+      "compared_instructions": 70,
+      "emitted_name": "ResizeCareerBox__12MainFrontEndi",
+      "instruction_score": 1.4286,
+      "matching_bytes": 47,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.cpp:172-181; kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.h:38-79; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:427-496; tmp/functions/0017F550_ResizeCareerBox__12MainFrontEndi/attempt-1/result.json. Result `different`, score 16.7857; no later attempt.",
+      "score": 16.7857,
+      "source": "class PanelQuad\n{\n  char data[0x190];\npublic:\n  virtual ~PanelQuad() {}\n  virtual void Init();\n  virtual void TurnOn(bool);\n  virtual void SetLayer(int);\n  virtual void Rotate(float);\n  virtual void Rotate(float, float, float);\n  virtual void Update(float);\n  virtual void Draw(int = 0, float = -1.0f);\n  virtual void SetColor(float, float, float, float);\n  virtual void SetColor(int);\n  virtual void SetZ(float);\n  virtual void SetUV(float, float, float, float);\n  virtual bool IsOn() const;\n  virtual void SetPos(float xa, float ya, float xb, float yb);\n  virtual void SetPos(float xa, float ya);\n  virtual void SetPos(float, float, float, float, float, float, float, float);\n  virtual void GetPos(float &xa, float &ya, float &xb, float &yb);\n};\n\nclass MainFrontEnd\n{\n  char prefix[0x19c];\n  enum { MainCareerEntry = 1, MainEnd = 5, num_boxes = 9 };\n  PanelQuad *boxes[MainEnd][num_boxes];\npublic:\n  void ResizeCareerBox(int h);\n};\n\nvoid MainFrontEnd::ResizeCareerBox(int h)\n{\n\tfloat xa, ya, xb, yb;\n\tfor(int i=3; i<num_boxes; i++)\n\t{\n\t\tboxes[MainCareerEntry][i]->GetPos(xa, ya, xb, yb);\n\t\tif(i < 6) boxes[MainCareerEntry][i]->SetPos(xa, ya, xb, h);\n\t\telse boxes[MainCareerEntry][i]->SetPos(xa, h, xb, h+(yb-ya));\n\t}\n}\n",
+      "status": "different",
+      "target_size": 280
+    }
+  ],
+  "raw_name": "ResizeCareerBox__12MainFrontEndi"
+}
