@@ -1,0 +1,23 @@
+{
+  "address": "0x001A5470",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e65a217dcc83389f10c2687751324d59bea180d2",
+      "candidate_size": 384,
+      "compared_bytes": 384,
+      "compared_instructions": 96,
+      "emitted_name": "OnActivate__14PauseMenuClass",
+      "instruction_score": 0.0,
+      "matching_bytes": 53,
+      "matching_instructions": 0,
+      "notes": "Exact released-source attempt from kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:112-131; src/KS/SRC/ks/FEMenu_shared.h:43-145; src/KS/SRC/ks/FrontEndMenus_shared.h:20-31,61-68. Result `different`, score 13.8021; no variant or later attempt was made.",
+      "score": 13.8021,
+      "source": "#define KELLY_DECOMP_FULL_FEMENU_ENTRY\n#include \"KS/SRC/ks/FEMenu_shared.h\"\n#undef KELLY_DECOMP_FULL_FEMENU_ENTRY\n\nenum game_mode_t\n{\n    GAME_MODE_CAREER,\n    GAME_MODE_FREESURF_INFINITE\n};\n\nclass game\n{\npublic:\n    game_mode_t get_game_mode() const;\n};\n\nextern game *g_game_ptr;\n\nclass PauseMenuSystem : public FEMenuSystem\n{\npublic:\n    bool draw;\n    bool replay_mode;\n    bool end_level;\n    int pause_controller;\n    int pause_player;\n};\n\nclass PauseMenuClass : public FEMenu\n{\npublic:\n    PauseMenuSystem *sys;\n    FEMenuEntry *goals;\n    FEMenuEntry *tip;\n    FEMenuEntry *options;\n    FEMenuEntry *trickbook;\n    FEMenuEntry *returnFE;\n    virtual void OnActivate();\n};\n\nvoid PauseMenuClass::OnActivate()\n{\n    FEMenuEntry * oldHigh;\n    \n    goals->Disable(g_game_ptr->get_game_mode() != GAME_MODE_CAREER);\n    tip->Disable(g_game_ptr->get_game_mode() != GAME_MODE_CAREER);\n    trickbook->Disable( sys->pause_player == -1 );\n    options->Disable( sys->pause_player == -1 );\n    returnFE->Disable(g_game_ptr->get_game_mode() != GAME_MODE_FREESURF_INFINITE);\n\n    // Reposition entries.\n    oldHigh = highlighted;\n    Init();\n    if (oldHigh && !oldHigh->GetDisable())\n        setHigh(oldHigh, false);\n    else\n        HighlightDefault();\n\n    //FEMenu::OnActivate();\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "OnActivate__14PauseMenuClass"
+}
