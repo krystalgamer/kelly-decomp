@@ -1,0 +1,23 @@
+{
+  "address": "0x00279F38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c03e7126e217db1b68e8a43be37614cc2753b6a2",
+      "candidate_size": 300,
+      "compared_bytes": 320,
+      "compared_instructions": 80,
+      "emitted_name": "render__4game",
+      "instruction_score": 18.75,
+      "matching_bytes": 91,
+      "matching_instructions": 15,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/game.cpp:1347-1370; kelly-slaters-pro-surfer/KS/SRC/game.h:153-159,182,233-234,371-388,401-402,409-448; kelly-slaters-pro-surfer/KS/SRC/game_process.h:4-17; notes/function_queue.csv:5984; tmp/functions/00279F38_render__4game/attempt-1/result.json. Result `different`, score 28.4375; no later attempt.",
+      "score": 28.4375,
+      "source": "extern int nglGetScreenWidth();\nextern int nglGetScreenHeight();\nextern void ksnglSetPerspectiveMatrix(float, float, float, float, float);\n\nenum game_state_e\n{\n  GSTATE_NONE,\n  GSTATE_PLAY_INTRO_MOVIES,\n  GSTATE_FRONT_END,\n  GSTATE_LOAD_LEVEL,\n  GSTATE_PLAY_MOVIE,\n  GSTATE_RUNNING,\n  GSTATE_PLAY_FE_MOVIE\n};\n\nclass game\n{\npublic:\n  enum RENDER_STATE\n  {\n    GAME_RENDER_LOADING_LEVEL,\n    GAME_RENDER_INITALIZE_FE,\n    GAME_RENDER_DRAW_FE,\n    GAME_RENDER_GAME_LEVEL\n  };\n\n  int get_cur_state() const;\n  RENDER_STATE get_render_state() { return renderState; };\n  float get_field_of_view() { return field_of_view; };\n  void render_map_screen();\n  void render_legal_screen();\n  void render_fe();\n  void render_level();\n  void render();\n\nprivate:\n  char prefix[0x44];\n  float field_of_view;\n  char middle[0x28];\n  RENDER_STATE renderState;\n};\n\n#define assert(x) ((void)0)\n\nvoid game::render()\n{\n\tksnglSetPerspectiveMatrix(get_field_of_view(), nglGetScreenWidth()/2, nglGetScreenHeight()/2, 0.2f, 1200.0f);\t // set a decent far and near plane\n\tif(get_cur_state() == GSTATE_PLAY_INTRO_MOVIES || get_cur_state() == GSTATE_PLAY_FE_MOVIE)\n\t{\n\t\treturn;\n\t}\n\n\tswitch (get_render_state())\n\t{\n\tcase GAME_RENDER_LOADING_LEVEL:\n\t\trender_map_screen(); break;\n\tcase GAME_RENDER_INITALIZE_FE:\n\t\trender_legal_screen(); break;\n\tcase GAME_RENDER_DRAW_FE:\n\t\trender_fe(); break;\n\tcase GAME_RENDER_GAME_LEVEL:\n\t\trender_level(); break;\n\tdefault:\n\t\tassert(\"Hitting render loop in bad state\");\n\t\tbreak;\n\t}\n\n}\n",
+      "status": "different",
+      "target_size": 320
+    }
+  ],
+  "raw_name": "render__4game"
+}
