@@ -42,6 +42,27 @@ void po::set_rotate_y(float radians)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00348790)
+// 0x00348790 set_rotate_z__2pof
+#include "KS/SRC/po_shared.h"
+
+void po::set_rotate_z(float radians)
+{
+    m = identity_matrix;
+    float sine;
+    float cosine;
+    fast_sin_cos_approx(
+        radians,
+        &sine,
+        &cosine);
+
+    m.x.x = cosine;
+    m.x.y = -sine;
+    m.y.x = sine;
+    m.y.y = cosine;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00348440)
 // 0x00348440 set_translate__2poRC8vector3d
 #include "KS/SRC/po_shared.h"
