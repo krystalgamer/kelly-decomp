@@ -1,0 +1,23 @@
+{
+  "address": "0x003AC780",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0b7951e9aa26574135e2699feed750162d1caa5a",
+      "candidate_size": 296,
+      "compared_bytes": 296,
+      "compared_instructions": 4,
+      "emitted_name": "_nglDmaWait__Fv",
+      "instruction_score": 100.0,
+      "matching_bytes": 273,
+      "matching_instructions": 4,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NGL/PS2/ngl_dma.cpp:103-124; config/SLUS_203.34.symbol_addrs.txt: _nglDmaWait__Fv; notes/function_queue.csv: 0x003AC780; tmp/functions/003AC780__nglDmaWait__Fv/attempt-1/result.json. Result `different`, score 92.2297; no later attempt.",
+      "score": 92.2297,
+      "source": "void _nglDmaWait()\n{\n\t__asm__ volatile (\"\n\t\t.set noreorder\n\t\tsync.l\n\t\tsync.p\n\t\tj dma_wait_loop\n\t\tnop\n\t\t.align 8\n\tdma_wait_loop:\n\t\tbc0t dma_wait_done\n\t\tnop\n\t\tbc0t dma_wait_done\n\t\tnop\n\t\tbc0t dma_wait_done\n\t\tnop\n\t\tbc0f dma_wait_loop\n\t\tnop                                              \n\tdma_wait_done:\n\t\t.set reorder\n\t\" );\n}\n",
+      "status": "different",
+      "target_size": 288
+    }
+  ],
+  "raw_name": "_nglDmaWait__Fv"
+}
