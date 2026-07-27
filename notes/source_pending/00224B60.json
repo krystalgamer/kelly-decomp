@@ -1,0 +1,23 @@
+{
+  "address": "0x00224B60",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "713035ce807cb9c7f22389ac5bb5e5dddaa95346",
+      "candidate_size": 264,
+      "compared_bytes": 272,
+      "compared_instructions": 68,
+      "emitted_name": "StandAnim__22kellyslater_controller",
+      "instruction_score": 66.1765,
+      "matching_bytes": 211,
+      "matching_instructions": 45,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.cpp:8740-8765; kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.h:490,628; kelly-slaters-pro-surfer/KS/SRC/ks/board.h:237-250; kelly-slaters-pro-surfer/KS/SRC/ks/beachdata.h:100,147-149; tmp/functions/00224B60_StandAnim__22kellyslater_controller/attempt-1/result.json. Result `different`, score 77.5735; no later attempt.",
+      "score": 77.5735,
+      "source": "enum WaveRegion\n{\n  WAVE_REGIONBACK = 0,\n  WAVE_REGIONFACE = 3,\n  WAVE_REGIONLIP = 5,\n  WAVE_REGIONTUBE = 9,\n  WAVE_REGIONCHIN = 11,\n  WAVE_REGIONLIP2 = 12\n};\n\nstruct BeachData\n{\n  char pad0[0xd0];\n  int bdir;\n  char pad1[0x80];\n  int is_small_wave;\n  char pad2[0xbc];\n};\n\nextern BeachData BeachDataArray[];\n\nclass game\n{\n  char pad[0x228];\n  int beach_id;\n\npublic:\n  int get_beach_id() const { return beach_id; }\n};\n\nextern game *g_game_ptr;\n\nclass board_controller\n{\n  char pad[0xa64];\n  int current_region;\n\npublic:\n  bool InLaunchRegion(void)\n  {\n    return ((current_region == WAVE_REGIONLIP)\n      || (current_region == WAVE_REGIONLIP2)\n      || (current_region == WAVE_REGIONCHIN)\n      || (current_region == WAVE_REGIONFACE)\n      || (current_region == WAVE_REGIONBACK));\n  }\n\n  bool InTubeRegion(void)\n  {\n    return current_region == WAVE_REGIONTUBE;\n  }\n};\n\nenum\n{\n  SURFER_ANIM_TRK_TUBE_GRAB_L_1 = 109,\n  SURFER_ANIM_TRK_TUBE_GRAB_R_1 = 116\n};\n\nclass kellyslater_controller\n{\n  char pad0[0x54];\n  int stand_anim_nums[6];\n  char pad1[0x174];\n  bool goofy;\n  char pad2[0x197];\n  board_controller my_board_controller;\n  char pad3[0xd08];\n  int stand_num;\n\npublic:\n  bool Z_Within_Tube(void);\n  int StandAnim(void);\n};\n\nint kellyslater_controller::StandAnim(void)\n{\n\tstand_num++;\n\tif (stand_num > 2)\n\t\tstand_num = 0;\n\n\tif (my_board_controller.InTubeRegion() && this->Z_Within_Tube())\n\t{\n\t\tif (BeachDataArray[g_game_ptr->get_beach_id()].is_small_wave)\n\t\t{\n\t\t\t//  Always grab the outside rail.\n\t\t\tbool left_wave = BeachDataArray[g_game_ptr->get_beach_id()].bdir;\n\t\t\tif ((left_wave && !goofy) || (!left_wave && goofy))  \n\t\t\t\treturn SURFER_ANIM_TRK_TUBE_GRAB_L_1;\n\t\t\telse\n\t\t\t\treturn SURFER_ANIM_TRK_TUBE_GRAB_R_1;\n\t\t}\n\n\t\treturn (stand_anim_nums[5]);\n\t}\n\telse if (my_board_controller.InLaunchRegion())\n\t\treturn (stand_anim_nums[stand_num + 3]);\n\n\treturn (stand_anim_nums[stand_num]);\n\n}\n",
+      "status": "different",
+      "target_size": 272
+    }
+  ],
+  "raw_name": "StandAnim__22kellyslater_controller"
+}
