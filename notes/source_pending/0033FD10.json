@@ -1,0 +1,23 @@
+{
+  "address": "0x0033FD10",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "75b86c22adc5e7dd83532b64e62a4aea33078e57",
+      "candidate_size": 328,
+      "compared_bytes": 328,
+      "compared_instructions": 82,
+      "emitted_name": "set_tc__13bitmap_widget",
+      "instruction_score": 4.878,
+      "matching_bytes": 45,
+      "matching_instructions": 4,
+      "notes": "# First-pass source test: 0x0033FD10\n\nTested the exact released `bitmap_widget::set_tc()` body from `KS/SRC/widget.cpp:1372-1380` with only the declarations needed to reproduce the released layouts and inline accessors (`widget.h:481-527`, `txtcoord.h:27-38`, and `rect.h`).\n\nThe single non-placeholder candidate compiled and differed: 13.7195% byte score, 4.878% instruction score, 328 emitted bytes versus 284 target bytes. No variants were attempted.",
+      "score": 13.7195,
+      "source": "typedef float rational_t;\nclass vector2d {\npublic:\n    rational_t x, y;\n    vector2d() {}\n    vector2d(rational_t a, rational_t b) : x(a), y(b) {}\n};\nclass texture_coord : public vector2d {\npublic:\n    texture_coord() {}\n    texture_coord(float u, float v) : vector2d(u, v) {}\n};\nclass rectf {\npublic:\n    vector2d tl, br;\n    rational_t get_left() const { return tl.x; }\n    rational_t get_top() const { return tl.y; }\n    rational_t get_right() const { return br.x; }\n    rational_t get_bottom() const { return br.y; }\n};\nclass mat_fac {\npublic:\n    virtual ~mat_fac();\nprivate:\n    char material[0x108];\n} __attribute__((aligned(8)));\nclass widget {\n    char padding0[0x14];\nprotected:\n    unsigned int flags;\n    char padding1[0x108];\n    vector2d abs_S;\n    rectf subrect;\n    void *vtable;\n};\nclass bitmap_widget : public widget {\npublic:\n    bool is_open() { return flags & 0x00000002; }\n    void set_tc();\nprotected:\n    rational_t w, h, hw, hh;\n    int nframes;\n    mat_fac mat;\n    int index;\n    bool playing;\n    rational_t frame_delay, frame_time, last_time;\n    texture_coord tc[4];\n};\n\nvoid bitmap_widget::set_tc()\n{\n  if ( !is_open() ) return;\n\n  tc[0] = texture_coord((subrect.get_left () + 0.5f) / ( w * abs_S.x ), (subrect.get_top   () + 0.5f) / ( h * abs_S.y) );\n  tc[1] = texture_coord((subrect.get_right() - 0.5f) / ( w * abs_S.x ), (subrect.get_top   () + 0.5f) / ( h * abs_S.y) );\n  tc[2] = texture_coord((subrect.get_left () + 0.5f) / ( w * abs_S.x ), (subrect.get_bottom() - 0.5f) / ( h * abs_S.y) );\n  tc[3] = texture_coord((subrect.get_right() - 0.5f) / ( w * abs_S.x ), (subrect.get_bottom() - 0.5f) / ( h * abs_S.y) );\n}\n",
+      "status": "different",
+      "target_size": 284
+    }
+  ],
+  "raw_name": "set_tc__13bitmap_widget"
+}
