@@ -1,0 +1,15 @@
+{
+  "address": "0x001A9150",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1e451d80f35aa9b89fbffd011f8f17ef69a00aa4",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:898-913; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h:264-288; tmp/functions/001A9150_Select__16CompEndMenuClassi/attempt-1/compiler.stderr:1-2; tmp/functions/001A9150_Select__16CompEndMenuClassi/attempt-1/result.json. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"../../../../../kelly-slaters-pro-surfer/KS/SRC/ks/global.h\"\n#include \"../../../../../kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h\"\n\nvoid CompEndMenuClass::Select(int entry_index)\n{\n\tSoundScriptManager::inst()->unpause();\n\tSoundScriptManager::inst()->playEvent(SS_FE_ONX);\n\tSoundScriptManager::inst()->pause();\n\tswitch(entry_index)\n\t{\n\tcase Restart:\t\tsys->RestartComp(); break;\n\tcase Goals:\t\t\tsys->MakeActive(PauseMenuSystem::GoalsMenu); break;\n\tcase Options:\t\tsys->MakeActive(PauseMenuSystem::OptionsMenu); break;\n\tcase Replay:\t\tsys->MakeActive(PauseMenuSystem::ReplayMenu); break;\n\tcase Quit:\t\t\tsys->EndLevel(); break;\n\tcase ReturnToFE:\tsys->MakeActive(PauseMenuSystem::QuitConfirmMenu); break;\n\tdefault: assert(0);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Select__16CompEndMenuClassi"
+}
