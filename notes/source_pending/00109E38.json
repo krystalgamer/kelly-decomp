@@ -1,0 +1,23 @@
+{
+  "address": "0x00109E38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2595034875b77be5b0185d56401445a7c09e26b3",
+      "candidate_size": 76,
+      "compared_bytes": 296,
+      "compared_instructions": 70,
+      "emitted_name": "_$_11ai_polypath",
+      "instruction_score": 4.2857,
+      "matching_bytes": 29,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ai_polypath.cpp:19-22; kelly-slaters-pro-surfer/KS/SRC/ai_polypath.h:17-23,45-59; src/KS/SRC/ai_polypath_cell_shared.h:131-160; tmp/functions/00109E38__$_11ai_polypath/attempt-1/result.json. Result `different`, score 9.7973; no later attempt.",
+      "score": 9.7973,
+      "source": "#include \"KS/SRC/ai_polypath_cell_shared.h\"\n\nclass ai_polypath\n{\npublic:\n    typedef vector<ai_polypath_cell *> CELL_ARRAY;\n\n    ~ai_polypath();\n\nprotected:\n    CELL_ARRAY cells;\n    int session_id;\n    ai_polypath_heap nav_heap;\n\n    void clear();\n};\n\n__asm__(\".equ clear__11ai_polypath, 0x00109F60\");\n\nai_polypath::~ai_polypath()\n{\n    clear();\n}\n",
+      "status": "different",
+      "target_size": 296
+    }
+  ],
+  "raw_name": "_$_11ai_polypath"
+}
