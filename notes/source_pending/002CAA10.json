@@ -1,0 +1,23 @@
+{
+  "address": "0x002CAA10",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5d5028d5991a067222fe9eeaf581eb28b1b6e799",
+      "candidate_size": 196,
+      "compared_bytes": 268,
+      "compared_instructions": 67,
+      "emitted_name": "event_flush__7element",
+      "instruction_score": 0.0,
+      "matching_bytes": 40,
+      "matching_instructions": 0,
+      "notes": "Read the exact released `element::event_flush` body and reconstructed only the event/element list layouts and required declarations. The self-contained first candidate compiled and was tested exactly once, but differed: 14.9254% byte score, 0/67 matching instructions, 196 candidate bytes versus 268 target bytes. Per first-pass policy, no variants or diff chasing were attempted.",
+      "score": 14.9254,
+      "source": "struct event;\nstruct element;\n\ntemplate <class T> struct list_node {\n    list_node *next;\n    list_node *prev;\n    T data;\n};\n\ntemplate <class T> struct list_iterator {\n    list_node<T> *node;\n    T &operator*() const { return node->data; }\n    list_iterator &operator++() { node = node->next; return *this; }\n    bool operator!=(const list_iterator &other) const { return node != other.node; }\n};\n\ntemplate <class T> struct list_layout {\n    list_node<T> *sentinel;\n    list_iterator<T> begin() { list_iterator<T> it = { sentinel->next }; return it; }\n    list_iterator<T> end() { list_iterator<T> it = { sentinel }; return it; }\n};\n\nstruct event {\n    int type;\n    element *owner;\n    float wait_time;\n    float duration;\n    float elapsed;\n    virtual void do_event(const float &) = 0;\n};\n\nstruct element {\n    void *vtable;\n    element *parent;\n    int type;\n    list_layout<element *> subelements;\n    char pad[0x84];\n    list_layout<event *> event_run_list;\n    void event_flush();\n};\n\nextern \"C\" list_iterator<event *> erase_events(\n    list_layout<event *> *, list_iterator<event *>, list_iterator<event *>)\n    __asm__(\"erase__t4list2ZP5eventZt12my_allocator1ZP5eventGt14_List_iterator3ZP5eventZRP5eventZPP5eventT1\");\nextern \"C\" void builtin_delete(void *) __asm__(\"__builtin_delete\");\n\nvoid element::event_flush()\n{\n    list_iterator<event *> it;\n    list_iterator<element *> iu;\n\n    for (it = event_run_list.begin(); it != event_run_list.end(); ++it)\n    {\n        (*it)->do_event(1.0f);\n        builtin_delete(*it);\n    }\n    erase_events(&event_run_list, event_run_list.begin(), event_run_list.end());\n\n    for (iu = subelements.begin(); iu != subelements.end(); ++iu)\n    {\n        (*iu)->event_flush();\n    }\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "event_flush__7element"
+}
