@@ -1,0 +1,16 @@
+{
+  "address": "0x002ABBC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "aabd61525280eaf9bcf7250e37563085943b116d",
+      "error": "Candidate did not emit ShiftBlock__4HeapP12MemBlockInfoi; emitted functions: []",
+      "notes": "Attempt 1 used the prepared candidate template because candidate generation failed before the mandated single test (the shell lacked `python`). Released source is `kelly-slaters-pro-surfer/KS/SRC/heap.cpp:1089-1201`. Result: symbol_missing, score 0.0; no further attempt was made.",
+      "score": 0.0,
+      "source": "// Target: 0x002ABBC8 ShiftBlock__4HeapP12MemBlockInfoi\n// Reference: KS/SRC/heap.cpp\n// Replace this file with one self-contained candidate function.\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "ShiftBlock__4HeapP12MemBlockInfoi"
+}
