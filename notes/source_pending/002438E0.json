@@ -1,0 +1,15 @@
+{
+  "address": "0x002438E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7abb9cc250f72beaee8900a669d29dbe35c23711",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/trick_system.cpp:307-345; kelly-slaters-pro-surfer/KS/SRC/ks/trick_system.h:12-24,55-95; kelly-slaters-pro-surfer/KS/SRC/ks/trickdata.h:316-335; kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.h:720-725,789-795; kelly-slaters-pro-surfer/KS/SRC/ks/board.h:163-166; tmp/functions/002438E0_QueueTrick__12TrickManagerP11SurferTrickUcf/attempt-1/result.json; tmp/source_first/002438E0/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/trick_system.h\"\n#include \"KS/SRC/ks/kellyslater_controller.h\"\n\n#define assert(x) ((void)0)\n\nconst int GrindFlag = 0x00002;\nconst int TubeFlag = 0x00004;\nconst int ManualFlag = 0x00010;\n\nvoid TrickManager::QueueTrick(SurferTrick *trick, uint8 Button, float EventTime)\n{\n  assert(ksctrl);\n  if (!trick || (mTricksQueued == MAX_TRICKS_QUEUED)\n\t  || ((trick->flags & ManualFlag) && (trick->trick_id == LastFrameTrickQueued)))\n  {\n    return;\n  }\n\n  trick_this_frame = true;\n  if (trick->flags & GrindFlag)\n  {\n\tksctrl->SetFloatTrick(trick->trick_id, trick->anim_id, trick->board_anim_id);\n\tmActionButtonEventTime = EventTime;\n\tmActionButton = Button;\n  }\n  else if (trick->flags & TubeFlag && ksctrl->get_board_controller().GetWaveRegion() == WAVE_REGIONTUBE &&\n            ksctrl->get_current_state() != STATE_TUBE_TRICK)\n  {\n\tksctrl->SetTubeTrick(trick->trick_id, trick->anim_id, trick->board_anim_id);\n\tmActionButtonEventTime = EventTime;\n\tmActionButton = Button;\n  }\n  else if (trick->flags)\n  {\n\tint Head = (mTrickQueueTail + mTricksQueued) % MAX_TRICKS_QUEUED;\n\tmTrickQueue[Head].trick = trick;\n\tmTrickQueue[Head].Time = time;\n\tmTrickQueue[Head].EventTime = EventTime;\n\tmTrickQueue[Head].Button = Button;\n\tmTricksQueued++;\n\tLastFrameTrickQueued = trick->trick_id;\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "QueueTrick__12TrickManagerP11SurferTrickUcf"
+}
