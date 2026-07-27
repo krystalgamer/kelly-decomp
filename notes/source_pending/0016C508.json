@@ -1,0 +1,23 @@
+{
+  "address": "0x0016C508",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "72cad3e26a5784065d5483d9b377f134d235412b",
+      "candidate_size": 256,
+      "compared_bytes": 256,
+      "compared_instructions": 64,
+      "emitted_name": "__16SplitClockWidget",
+      "instruction_score": 70.3125,
+      "matching_bytes": 192,
+      "matching_instructions": 45,
+      "notes": "# Attempt 1\n\n- Queue was clean `pending` with zero attempts; no pre-existing address scratch was present.\n- Used the released `SplitClockWidget::SplitClockWidget` body verbatim from `igo_widget_splitclock.cpp:7-17`.\n- Used only authentic widget/TextString, stringx, color32, allocation macro, vtable, and layout declarations, following the adjacent released `SplitScoreWidget` constructor prior art.\n- Result: **different** \u2014 byte score 75.0000%, instruction score 70.3125%; candidate and target are both 256 bytes. No second attempt was made.",
+      "score": 75.0,
+      "source": "#include \"KS/SRC/stringx.h\"\n\n#pragma interface\n\ntypedef unsigned char uint8;\ntypedef unsigned int uint32;\n\nclass color32 {\npublic:\n    union {\n        struct {\n            uint8 b;\n            uint8 g;\n            uint8 r;\n            uint8 a;\n        } c;\n        uint32 i;\n    };\n\n    color32(uint32 value = 0) : i(value) {}\n    color32(uint8 red, uint8 green, uint8 blue, uint8 alpha = 255)\n    {\n        c.b = blue;\n        c.g = green;\n        c.r = red;\n        c.a = alpha;\n    }\n};\n\nclass Font {\npublic:\n    enum HORIZJUST {\n        HORIZJUST_LEFT,\n        HORIZJUST_CENTER,\n        HORIZJUST_RIGHT\n    };\n    enum VERTJUST {\n        VERTJUST_TOP,\n        VERTJUST_CENTER,\n        VERTJUST_BOTTOM\n    };\n};\n\nclass TextString {\nprotected:\n    Font *font;\n    stringx text;\n    float x;\n    float y;\n    int z;\n    Font::HORIZJUST hJustify;\n    Font::VERTJUST vJustify;\n    bool even_number_spacing;\n    int fade;\n    float fade_alpha;\n    float fade_timer;\n    float scale;\n    float button_scale;\n    bool override_alpha;\n\npublic:\n    bool checkTime;\n    float time;\n    bool no_color;\n    color32 color;\n\n    TextString(\n        Font *font,\n        stringx text,\n        float x,\n        float y,\n        int z,\n        float scale,\n        Font::HORIZJUST horizontal,\n        Font::VERTJUST vertical,\n        color32 color)\n    {\n        cons(\n            font, text, x, y, z, scale,\n            horizontal, vertical, false, color);\n    }\n\n    virtual ~TextString() {}\n\nprotected:\n    virtual void cons(\n        Font *font,\n        stringx text,\n        float x,\n        float y,\n        int z,\n        float scale,\n        Font::HORIZJUST horizontal,\n        Font::VERTJUST vertical,\n        bool no_color,\n        color32 color = color32(0, 0, 0, 255));\n};\n\nclass IGOWidget {\nprotected:\n    bool display;\n\npublic:\n    IGOWidget();\n    virtual ~IGOWidget();\n    virtual void SetDisplay(bool enabled = true);\n    virtual void Update(float time);\n    virtual void Draw();\n    virtual bool GetDisplay() const;\n};\n\nclass PanelQuad;\n\nclass SplitClockWidget : public IGOWidget {\nprivate:\n    PanelQuad *bgPQ;\n    TextString *timeText;\n    float clockSec;\n    int clockMin;\n\npublic:\n    SplitClockWidget();\n    virtual ~SplitClockWidget();\n};\n\nvoid *operator new(\n    unsigned int size,\n    unsigned int alignment,\n    const char *description,\n    int line);\n\nextern const char allocation_name[];\n\n__asm__(\".equ __9IGOWidget, 0x00164608\");\n__asm__(\".equ __nw__FUiUiPCci, 0x002AC578\");\n__asm__(\".equ _vt$16SplitClockWidget, 0x004DB2A8\");\n__asm__(\".equ _vt$10TextString, 0x004DD500\");\n__asm__(\n    \".equ cons__10TextStringP4FontG7stringxffif\"\n    \"Q24Font9HORIZJUSTQ24Font8VERTJUSTbG7color32, 0x00148150\"\n);\n__asm__(\".equ __7stringx, 0x0034D3E0\");\n__asm__(\".equ __7stringxPCci, 0x0034D438\");\n__asm__(\".equ __7stringxRC7stringx, 0x0034D4D0\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\".equ allocation_name, 0x004C13C0\");\n\n#define NEW new(0, allocation_name, 0)\n\nSplitClockWidget::SplitClockWidget()\n{\n    bgPQ = 0;\n    timeText = NEW TextString(\n        0, 0, 320, 63, 0, 1.0f,\n        Font::HORIZJUST_CENTER,\n        Font::VERTJUST_CENTER,\n        color32(255, 255, 102, 255));\n    clockSec = 0.0f;\n    clockMin = 0;\n}\n",
+      "status": "different",
+      "target_size": 256
+    }
+  ],
+  "raw_name": "__16SplitClockWidget"
+}
