@@ -1,0 +1,15 @@
+{
+  "address": "0x00352358",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "42d226974b0dabae030f5e0805144a847957454f",
+      "notes": "Attempt 1 used exact released source cited at . Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include <list>\n#include <map>\n#include <set>\n\nclass stringx\n{\n    unsigned int data[2];\npublic:\n    bool operator<(const stringx &) const;\n};\nclass script_object;\ntypedef float time_value_t;\n\nclass script_manager\n{\npublic:\n    typedef std::list<script_object *> sobj_list;\n    typedef std::map<stringx, script_object *> name_sobj_map;\n    typedef std::set<stringx> string_set_t;\nprotected:\n    sobj_list script_objects;\n    name_sobj_map script_objects_by_name;\n    string_set_t string_set;\n    time_value_t time_inc;\npublic:\n    script_manager();\n};\n\nscript_manager::script_manager()\n: script_objects(),\n  script_objects_by_name()\n{\n  time_inc = 0.0f;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__14script_manager"
+}
