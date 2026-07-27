@@ -1,0 +1,23 @@
+{
+  "address": "0x0038A0D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a4d64251d537851a38a82fb692c7ece619e5e0c6",
+      "candidate_size": 240,
+      "compared_bytes": 244,
+      "compared_instructions": 61,
+      "emitted_name": "viBufBeginPut__FP5ViBufPPUcPiT1T2",
+      "instruction_score": 83.6066,
+      "matching_bytes": 216,
+      "matching_instructions": 51,
+      "notes": "Exact released `viBufBeginPut` body with the authentic `ViBuf`, DMA environment, buffer macros, and semaphore declarations. It matches the target through all buffer arithmetic and branches, but EE GCC tail-called `SignalSema`, producing 240 bytes instead of the target's normal call and 244-byte epilogue.",
+      "score": 88.5246,
+      "source": "typedef unsigned char u_char;\ntypedef unsigned int u_int;\ntypedef unsigned int u_long128 __attribute__((mode(TI)));\n\nstruct sceIpuDmaEnv {\n    u_int d4madr;\n    u_int d4tadr;\n    u_int d4qwc;\n    u_int d4chcr;\n    u_int d3madr;\n    u_int d3qwc;\n    u_int d3chcr;\n    u_int ipubp;\n    u_int ipuctrl;\n};\n\nstruct TimeStamp {\n    long pts;\n    long dts;\n    int pos;\n    int len;\n};\n\ntypedef struct {\n    u_long128 *data;\n    u_long128 *tag;\n    int n;\n    int dmaStart;\n    int dmaN;\n    int readBytes;\n    int buffSize;\n    sceIpuDmaEnv env;\n    int sema;\n    int isActive;\n    long totalBytes;\n    TimeStamp *ts;\n    int n_ts;\n    int count_ts;\n    int wt_ts;\n} ViBuf;\n\nextern \"C\" int WaitSema(int sema);\nextern \"C\" int SignalSema(int sema);\n\n__asm__(\".equ WaitSema, 0x003DB6A0\");\n__asm__(\".equ SignalSema, 0x003DB680\");\n\n#define NULL 0\n#define VIBUF_ELM_SIZE 2048\n#define REST 2\n#define FS(f) ((f->dmaStart+f->dmaN)*VIBUF_ELM_SIZE)\n#define FN(f) ((f->n-REST-f->dmaN)*VIBUF_ELM_SIZE)\n\nstatic void viBufBeginPut( ViBuf *f, u_char **ptr0, int *len0, u_char **ptr1, int *len1 )\n{\n    int es, en, fs, fn;\n\n    WaitSema( f->sema );\n    fs = FS( f );\n    fn = FN( f );\n    es = ( fs + f->readBytes ) % f->buffSize;\n    en = fn - f->readBytes;\n    if( f->buffSize - es >= en )\n    {\n        *ptr0 = (u_char*)f->data + es;\n        *len0 = en;\n        *ptr1 = NULL;\n        *len1 = 0;\n    }\n    else\n    {\n        *ptr0 = (u_char*)f->data + es;\n        *len0 = f->buffSize - es;\n        *ptr1 = (u_char*)f->data;\n        *len1 = en - (f->buffSize - es);\n    }\n    SignalSema(f->sema);\n}\n",
+      "status": "different",
+      "target_size": 244
+    }
+  ],
+  "raw_name": "viBufBeginPut__FP5ViBufPPUcPiT1T2"
+}
