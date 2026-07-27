@@ -1,0 +1,23 @@
+{
+  "address": "0x0028DF78",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5f83e88b0be1251d6372bc19983fc8cd12d7459d",
+      "candidate_size": 228,
+      "compared_bytes": 268,
+      "compared_instructions": 67,
+      "emitted_name": "_intersect__13point_triggerPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node",
+      "instruction_score": 2.9851,
+      "matching_bytes": 54,
+      "matching_instructions": 2,
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Copied the released `point_trigger::_intersect` body exactly from `kelly-slaters-pro-surfer/KS/SRC/trigger.cpp:280-302`.\n- Included only the declarations needed for `vector3d`, `sphere`, `region`, `portal`, the graph node/edge iterator, the region pointer vector, `trigger_manager`, and `point_trigger`.\n- Ran `function_test` exactly once. Result: `different`, byte score 20.1493% (54/268), instruction score 2.9851% (2/67), candidate size 228 versus target 268.\n- No variants, retries, diff chasing, build, finalization, integration, commit, push, or tool edits were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/trigger.cpp:280-302`\n- `kelly-slaters-pro-surfer/KS/SRC/trigger.h:101-124`\n- `tmp/functions/0028DF78__intersect__13point_triggerPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node/attempt-1/result.json`",
+      "score": 20.1493,
+      "source": "struct vector3d\n{\n  float x;\n  float y;\n  float z;\n};\n\nstruct sphere\n{\n  sphere(const vector3d& p, float r) : center(p), radius(r) {}\n  vector3d center;\n  float radius;\n};\n\nextern int visit_counter;\n\nstruct region\n{\n  char pad[284];\n  int visit_marker;\n  void visit() { visit_marker = visit_counter; }\n  bool already_visited() const { return visit_marker == visit_counter; }\n};\n\nstruct portal\n{\n  bool touches_sphere(const sphere&) const\n    __asm__(\"touches_sphere__C6portalRC6sphere\");\n};\n\nstruct graph_edge\n{\n  graph_edge* next;\n  graph_edge* prev;\n  portal* data;\n  struct region_node* dest;\n  portal* get_data() const { return data; }\n  region_node* get_dest() const { return dest; }\n};\n\nstruct edge_iterator\n{\n  graph_edge* edge;\n  edge_iterator(graph_edge* p) : edge(p) {}\n  graph_edge& operator*() const { return *edge; }\n  edge_iterator& operator++() { edge = edge->next; return *this; }\n  bool operator!=(const edge_iterator& rhs) const { return edge != rhs.edge; }\n};\n\nstruct region_node\n{\n  graph_edge* edges;\n  region* data;\n  region* get_data() const { return data; }\n  edge_iterator begin() { return edge_iterator(edges->next); }\n  edge_iterator end() { return edge_iterator(edges); }\n};\n\ntemplate<class T>\nstruct vector\n{\n  T* begin_;\n  T* end_;\n  T* capacity_;\n  void push_back(const T& value)\n    __asm__(\"_M_insert_aux__t6vector2ZP6regionZt12my_allocator1ZP6regionPP6regionRCP6region\");\n};\n\nstruct trigger_manager\n{\n  char pad[4];\n  vector<region*> new_regions;\n  static trigger_manager* inst();\n};\n\nextern trigger_manager* trigger_manager_instance;\ninline trigger_manager* trigger_manager::inst() { return trigger_manager_instance; }\n\nclass point_trigger\n{\npublic:\n  char pad[56];\n  vector3d position;\n  float radius;\n  void _intersect(region_node* r)\n    __asm__(\"_intersect__13point_triggerPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node\");\n};\n\n__asm__(\".equ visit_counter,0x00434948\");\n__asm__(\".equ trigger_manager_instance,0x00431A88\");\n__asm__(\".equ touches_sphere__C6portalRC6sphere,0x002E4ED8\");\n__asm__(\".equ _M_insert_aux__t6vector2ZP6regionZt12my_allocator1ZP6regionPP6regionRCP6region,0x002B0638\");\n\n// add trigger to given region and recurse into any adjacent intersected regions\nvoid point_trigger::_intersect( region_node* r )\n{\n  // add NEW region to temp list\n  region* rg = r->get_data();\n  rg->visit();\n  trigger_manager::inst()->new_regions.push_back( rg );\n  sphere trig_sphere(position,radius);\n  // check for intersection with portals leading from this region\n  edge_iterator ei = r->begin();\n  edge_iterator ei_end = r->end();\n  for ( ; ei!=ei_end; ++ei )\n  {\n    // don't bother with regions we've already visited\n    region_node* dest = (*ei).get_dest();\n    if ( !dest->get_data()->already_visited() )\n    {\n      portal* port = (*ei).get_data();\n      if ( port->touches_sphere(trig_sphere) )\n        _intersect( dest );\n    }\n  }\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "_intersect__13point_triggerPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node"
+}
