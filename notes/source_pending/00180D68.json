@@ -1,0 +1,23 @@
+{
+  "address": "0x00180D68",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "67714adcb0f472f96973841715ddbcfddba70609",
+      "candidate_size": 280,
+      "compared_bytes": 324,
+      "compared_instructions": 81,
+      "emitted_name": "OnActivate__10CareerMenu",
+      "instruction_score": 1.2346,
+      "matching_bytes": 42,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.cpp:567-585; kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.h:88-115; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:55-104,161-248; kelly-slaters-pro-surfer/KS/SRC/ks/GameSaver.h:20-40; tmp/functions/00180D68_OnActivate__10CareerMenu/attempt-1/result.json; tmp/source_first/00180D68/attempt-1.md. Result `different`, score 12.9630; no later attempt.",
+      "score": 12.963,
+      "source": "class FEMenuEntry\n{\n    char state[0x60];\n\npublic:\n    virtual void Load();\n    virtual void OnSelect();\n    virtual void Highlight(bool h = true, bool anim = true);\n    virtual void Disable(bool d = true);\n};\n\nclass FEMenu\n{\n    char state_before_parent[0x64];\n\nprotected:\n    FEMenu *parent;\n\nprivate:\n    char state_after_parent[0x0c];\n\npublic:\n    virtual void OnActivate();\n};\n\nclass MainFrontEnd\n{\npublic:\n    void ResizeCareerBox(int bottom);\n};\n\nstruct saveInfo\n{\n    int type;\n    char shortname[8];\n    char desc[68];\n    long timestamp;\n    int valid;\n};\n\nextern bool careerStarted;\nextern saveInfo currentGame;\n\nclass CareerMenu : public FEMenu\n{\npublic:\n    enum\n    {\n        ContinueEntry,\n        NewEntry,\n        LoadEntry,\n        SaveEntry,\n        OKEntry,\n        CancelEntry,\n        NumEntries\n    };\n\n    FEMenuEntry *entry[NumEntries];\n    void *warning;\n    bool warning_up;\n    char alignment[3];\n    void *sys;\n    int warning_bottom;\n    int regular_bottom;\n\n    virtual void OnActivate();\n};\n\n__asm__(\".equ OnActivate__6FEMenu, 0x00157728\");\n__asm__(\".equ ResizeCareerBox__12MainFrontEndi, 0x0017F550\");\n\nvoid CareerMenu::OnActivate()\n{\n\tentry[SaveEntry]->Disable(true);\n\tentry[OKEntry]->Disable(true);\n\tentry[CancelEntry]->Disable(true);\n\tentry[ContinueEntry]->Disable(false);\n\tentry[LoadEntry]->Disable(false);\n\tentry[NewEntry]->Disable(false);\n\n\t// disable Continue option if no career was loaded\n\tentry[ContinueEntry]->Disable(!(careerStarted || currentGame.valid == 0));\n\n\t// Disable if there are no saved games\n\t//entry[LoadEntry]->Disable(!((SaveLoadFrontEnd*) manager->gms->menus[GraphicalMenuSystem::SaveLoadMenu])->SavedGamesExist());\n\n\tFEMenu::OnActivate();\n\t//system->manager->em->ToMainScreen();\n\twarning_up = false;\n\t((MainFrontEnd*) parent)->ResizeCareerBox(regular_bottom);\n}\n",
+      "status": "different",
+      "target_size": 324
+    }
+  ],
+  "raw_name": "OnActivate__10CareerMenu"
+}
