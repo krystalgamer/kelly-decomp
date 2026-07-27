@@ -1,0 +1,15 @@
+{
+  "address": "0x0019E680",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "06734c2c3c1469ccf8886a47a7c516b308090fe5",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/SaveLoadFrontEnd.cpp:1469-1473; kelly-slaters-pro-surfer/KS/SRC/ks/SaveLoadFrontEnd.h:192-229; src/KS/SRC/ks/FEMenu_shared.h:1-230; src/KS/SRC/ks/FEPanel_shared.h:142-169. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#define KELLY_DECOMP_FULL_FEMENU_ENTRY\n#define KELLY_DECOMP_FULL_FEMULTI_MENU\n#define KELLY_DECOMP_SAVELOAD_VTABLE\n#include \"KS/SRC/ks/FEMenu_shared.h\"\n#undef KELLY_DECOMP_SAVELOAD_VTABLE\n#undef KELLY_DECOMP_FULL_FEMULTI_MENU\n#undef KELLY_DECOMP_FULL_FEMENU_ENTRY\n#include \"KS/SRC/ks/FEPanel_shared.h\"\n\nstruct vector2d { float x; float y; };\nstruct MemCard {\n    int free;\n    bool exists;\n    bool changed;\n    bool available;\n    bool ask_format;\n    bool saved_games;\n    int status;\n};\nclass SaveLoadFrontEnd;\nclass NamesMenu : public FEMultiMenu {\n    int type;\n    bool save;\n    vector2d card_center;\n    SaveLoadFrontEnd *sl_parent;\n    int check_cards_counter;\n    int arrow_num;\n    int arrow_counter;\n    bool empty[15];\n    MemCard cards[2];\n    stringx blank_name;\n    int active_card;\n    int adjusted_active_card;\n    bool cardSide;\n    PanelQuad *box;\n    PanelQuad *arrows[2][2];\n    PanelQuad *lines[10];\n    PanelQuad *top_line;\n    PanelQuad *side_line;\n    FEMenuEntry *entry[17];\n    BoxText *message;\n    BoxText *freeSpace;\n    bool draw_message;\npublic:\n    virtual ~NamesMenu();\n};\n\nNamesMenu::~NamesMenu()\n{\n    delete message;\n    delete freeSpace;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_9NamesMenu"
+}
