@@ -1,0 +1,23 @@
+{
+  "address": "0x0023E730",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "93cbcb164a04308535657d28d8c5fc397294a030",
+      "candidate_size": 340,
+      "compared_bytes": 340,
+      "compared_instructions": 85,
+      "emitted_name": "GetElementColor__4Menui",
+      "instruction_score": 47.0588,
+      "matching_bytes": 196,
+      "matching_instructions": 40,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/menu.cpp:196-202; kelly-slaters-pro-surfer/KS/SRC/ks/menu.h:70-120,138-162; kelly-slaters-pro-surfer/KS/SRC/ks/menusys.h:60-67; tmp/functions/0023E730_GetElementColor__4Menui/attempt-1/result.json; tmp/source_first/0023E730/attempt-1.md. Result `different`, score 57.6471; no later attempt.",
+      "score": 57.6471,
+      "source": "typedef unsigned char MENU_UINT8;\n\nstruct MenuColor\n{\n\tMENU_UINT8 r,g,b,a;\n};\n\nclass Menu;\nclass MenuSystem;\n\nclass MenuEntry\n{\n\tunsigned int flags;\n\n\tpublic:\n\tvirtual ~MenuEntry() { }\n\tvirtual MenuColor GetColor( void );\n};\n\ntypedef MenuEntry *pMenuEntry;\n\nclass Menu\n{\n\tMenu       *parent;\n\tint         entries;\n\tpMenuEntry *entry;\n\tint         activeentry;\n\tbool        isopen;\n\tMenu       *closeto;\n\tMenuSystem *control;\n\n\tpublic:\n\tvirtual ~Menu();\n\tMenuColor GetElementColor( int i );\n};\n\nextern MenuColor entrydisabled;\n\nMenuColor Menu::GetElementColor( int i )\n{\n\tif (i>=0 && i<entries && entry[i])\n\t\treturn entry[i]->GetColor();\n\telse\n\t\treturn entrydisabled;\n}\n",
+      "status": "different",
+      "target_size": 332
+    }
+  ],
+  "raw_name": "GetElementColor__4Menui"
+}
