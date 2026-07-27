@@ -1,0 +1,23 @@
+{
+  "address": "0x001BD920",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6ef3c57fee7378dcf8ad21717a6564515f7116fd",
+      "candidate_size": 292,
+      "compared_bytes": 292,
+      "compared_instructions": 73,
+      "emitted_name": "Reset__9HelpbarFE",
+      "instruction_score": 46.5753,
+      "matching_bytes": 165,
+      "matching_instructions": 34,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/GraphicalMenuSystem.cpp:351-361; kelly-slaters-pro-surfer/KS/SRC/ks/GraphicalMenuSystem.h:124-180; tmp/functions/001BD920_Reset__9HelpbarFE/attempt-1/result.json. Result `different`, score 56.5068; no later attempt.",
+      "score": 56.5068,
+      "source": "struct string_buf;\n\nclass stringx\n{\nprotected:\n    char *chars;\n    string_buf *my_buf;\n\npublic:\n    stringx(const stringx &cp);\n    stringx(const char *str, int len = -1);\n    ~stringx();\n};\n\nclass HelpbarFE\n{\nprivate:\n    enum {\n        ARROW_H,\n        ARROW_V,\n        ARROW_BOTH,\n        CROSS,\n        TRIANGLE,\n        CIRCLE,\n        SQUARE,\n        BTN_NUM\n    };\n\n    char padding[0xB0];\n    stringx default_text[BTN_NUM];\n    bool disabled;\n\n    void ChangeBtn(int index, bool add, stringx text);\n\npublic:\n    void Reset();\n};\n\n__asm__(\".equ __7stringxPCci, 0x0034D438\");\n__asm__(\".equ __7stringxRC7stringx, 0x0034D4D0\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\".equ ChangeBtn__9HelpbarFEibG7stringx, 0x001BDB10\");\n\nvoid HelpbarFE::Reset()\n{\n    ChangeBtn(CROSS, true, default_text[CROSS]);\n    ChangeBtn(TRIANGLE, true, default_text[TRIANGLE]);\n    ChangeBtn(CIRCLE, false, \"\");\n    ChangeBtn(SQUARE, false, \"\");\n    ChangeBtn(ARROW_BOTH, true, default_text[ARROW_BOTH]);\n    ChangeBtn(ARROW_H, false, \"\");\n    ChangeBtn(ARROW_V, false, \"\");\n    disabled = false;\n}\n",
+      "status": "different",
+      "target_size": 292
+    }
+  ],
+  "raw_name": "Reset__9HelpbarFE"
+}
