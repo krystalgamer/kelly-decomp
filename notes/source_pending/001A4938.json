@@ -1,0 +1,23 @@
+{
+  "address": "0x001A4938",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "54a4ca7e077cfca7f44aad329877b700e6f14a2c",
+      "candidate_size": 328,
+      "compared_bytes": 328,
+      "compared_instructions": 82,
+      "emitted_name": "validCards__16MCDetectFrontEnd",
+      "instruction_score": 45.122,
+      "matching_bytes": 205,
+      "matching_instructions": 37,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/MCDetectFrontEnd.cpp:23,447-489; kelly-slaters-pro-surfer/KS/SRC/ks/MCDetectFrontEnd.h:31-65; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_gamesaver.h:25-38,72-134,151-154; config/SLUS_203.34.symbol_addrs.txt:2868,10074-10075,10166,10173; tmp/functions/001A4938_validCards__16MCDetectFrontEnd/attempt-1/result.json; tmp/source_first/001A4938/attempt-1.md. Result `different`, score 62.5000; no later attempt.",
+      "score": 62.5,
+      "source": "#define NUM_MEMORY_PORTS 2\n#define NUM_MEMORY_SLOTS 1\n\n#define GSOk 0\n#define GSErrorUnformatted -1\n#define GSErrorNoMedia -5\n#define GSErrorNotEnoughSpace -7\n\nclass GenericGameSaver\n{\npublic:\n\tstatic GenericGameSaver *inst() { return instance; }\n\tint getFirstCard() { return 0; }\n\tstatic int getInfo(int port, int slot, int *type, int *free, int *formatted);\n\tint getSavedGameSize() { return saved_game_size; }\n\nprivate:\n\tstatic int saved_game_size;\n\tstatic GenericGameSaver *instance;\n};\n\nextern int notEnoughSpacePort, notEnoughSpaceSlot;\n\nclass MCDetectFrontEnd\n{\npublic:\n\tint validCards();\n};\n\n__asm__(\".equ _16GenericGameSaver$instance, 0x0041E5B8\");\n__asm__(\".equ _16GenericGameSaver$saved_game_size, 0x0041E510\");\n__asm__(\".equ getInfo__16GenericGameSaveriiPiN23, 0x001E3DC0\");\n__asm__(\".equ notEnoughSpacePort, 0x003FCDF8\");\n__asm__(\".equ notEnoughSpaceSlot, 0x003FCDFC\");\n\nint MCDetectFrontEnd::validCards()\n{\n\tint port, slot, retVal, numCards = 0;\n\tint type, free, formatted;\n\tint numTooLittleSpace=0, numUnformatted=0;\n\tfor(port = GenericGameSaver::inst()->getFirstCard(); port < NUM_MEMORY_PORTS; port++)\n\t\tfor(slot = 0; slot < NUM_MEMORY_SLOTS; slot++)\n\t\t{\n\t\t\tretVal = GenericGameSaver::inst()->getInfo(port,slot, &type, &free, &formatted);\n\t\t\tif (retVal == GSOk && (unsigned int)free > (unsigned int)GenericGameSaver::inst()->getSavedGameSize())\n\t\t\t{\n\t\t\t\tnumCards++;\n\t\t\t}\n\t\t\telse if (retVal == GSErrorUnformatted)\n\t\t\t{\n\t\t\t\tnumUnformatted++;\n\t\t\t}\n\t\t\telse if (retVal == GSOk && (unsigned int)free <= (unsigned int)GenericGameSaver::inst()->getSavedGameSize())\n\t\t\t{\n\t\t\t\tnumTooLittleSpace++;\n\t\t\t\tif (notEnoughSpacePort == -9999)\n\t\t\t\t{\n\t\t\t\t\tnotEnoughSpacePort = port;\n\t\t\t\t\tnotEnoughSpaceSlot = slot;\n\t\t\t\t}\n\t\t\t}\n\t\t\t// Otherwise we don't have a card\n\t\t}\n\n\tif (numCards)\n\t{\n\t\treturn numCards;\n\t}\n\telse if (numUnformatted)\n\t{\n\t\treturn 0;\n\t}\n\telse if (numTooLittleSpace)\n\t{\n\t\treturn GSErrorNotEnoughSpace;\n\t}\n\telse\n\t\treturn GSErrorNoMedia;\n\n}\n",
+      "status": "different",
+      "target_size": 324
+    }
+  ],
+  "raw_name": "validCards__16MCDetectFrontEnd"
+}
