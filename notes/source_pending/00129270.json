@@ -1,0 +1,23 @@
+{
+  "address": "0x00129270",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "360f793e344520d5d50be97cbe475f1923956593",
+      "candidate_size": 272,
+      "compared_bytes": 284,
+      "compared_instructions": 68,
+      "emitted_name": "get_val__C9entity_id",
+      "instruction_score": 7.3529,
+      "matching_bytes": 85,
+      "matching_instructions": 5,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/entity.cpp:330-346; kelly-slaters-pro-surfer/KS/SRC/entity.h:171-203,231-263; kelly-slaters-pro-surfer/KS/SRC/entityid.h:5-28; tmp/functions/00129270_get_val__C9entity_id/attempt-1/result.json. Result `different`, score 29.9296; no later attempt.",
+      "score": 29.9296,
+      "source": "#include \"KS/SRC/stringx.h\"\n#define assert(x) ((void)0)\n\nstruct charstarwrap { char *str; };\n\nstruct map_node\n{\n  int color;\n  map_node *parent;\n  map_node *left;\n  map_node *right;\n  charstarwrap first;\n  unsigned int second;\n};\n\nclass name_to_number_map\n{\npublic:\n  class iterator\n  {\n  public:\n    map_node *node;\n    iterator() {}\n    iterator(map_node *n) : node(n) {}\n    map_node& operator*() const { return *node; }\n    bool operator!=(const iterator& other) const { return node != other.node; }\n    iterator& operator++()\n    {\n      if (node->right != 0)\n      {\n        node = node->right;\n        while (node->left != 0)\n          node = node->left;\n      }\n      else\n      {\n        map_node *parent = node->parent;\n        while (node == parent->right)\n        {\n          node = parent;\n          parent = parent->parent;\n        }\n        if (node->right != parent)\n          node = parent;\n      }\n      return *this;\n    }\n  };\n\n  map_node *header;\n  iterator begin() { return iterator(header->left); }\n  iterator end() { return iterator(header); }\n};\n\nclass entity_manager\n{\n  char pad[16];\npublic:\n  name_to_number_map name_to_number;\n  static entity_manager *instance;\n  static entity_manager *inst() { return instance; }\n};\n__asm__(\".equ _14entity_manager$instance, 0x003E5A60\");\n\nclass entity_id\n{\npublic:\n  stringx get_val() const;\nprivate:\n  unsigned int val;\n};\n\nstringx entity_id::get_val() const\n{\n  name_to_number_map::iterator found;\n\n  name_to_number_map& name_to_number = entity_manager::inst()->name_to_number;\n  for( found = name_to_number.begin(); found != name_to_number.end(); ++found)\n  {\n    if( (*found).second == val )\n    {\n      return stringx((*found).first.str);\n    }\n  }\n  assert(false);\n  return stringx(\"garbage\");\n}\n",
+      "status": "different",
+      "target_size": 284
+    }
+  ],
+  "raw_name": "get_val__C9entity_id"
+}
