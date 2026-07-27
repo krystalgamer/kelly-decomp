@@ -1,0 +1,23 @@
+{
+  "address": "0x001B44A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "283df236b3e6e76985f7042c6944fe05679f7c89",
+      "candidate_size": 188,
+      "compared_bytes": 292,
+      "compared_instructions": 73,
+      "emitted_name": "MakeActive__15PauseMenuSystemii",
+      "instruction_score": 8.2192,
+      "matching_bytes": 67,
+      "matching_instructions": 6,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:3066-3072; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h:585-614; src/KS/SRC/ks/FEMenu_shared.h:130-219. Result `different`, score 22.9452; no later attempt.",
+      "score": 22.9452,
+      "source": "#include \"KS/SRC/ks/FEMenu_shared.h\"\n\nclass PauseMenuSystem : public FEMenuSystem\n{\npublic:\n    enum {\n        PauseMenu, TimeAttackPauseMenu, TutorialPauseMenu, EndRunMenu,\n        HeatMidMenu, HeatEndMenu, CompEndMenu, OptionsMenu, GoalsMenu,\n        LostControllerMenu, SoundMenu, CameraMenu, TrickTypeMenu,\n        PlaylistMenu, ReplayMenu, MapMenu, HighScoreMenu, PhotoMenu,\n        TutorialMenu, SaveLoadMenu, SaveConfirmMenu, TipMenu,\n        QuitConfirmMenu, NumMenus\n    };\n\n    virtual void MakeActive(int m, int sm);\n};\n\nvoid PauseMenuSystem::MakeActive(int m, int sm)\n{\n    if((m == OptionsMenu || m == ReplayMenu || m == TrickTypeMenu || m == GoalsMenu || m == TipMenu || m == QuitConfirmMenu) &&\n       (active == PauseMenu || active == TimeAttackPauseMenu || active == TutorialPauseMenu || active == EndRunMenu || active == HeatMidMenu || active == HeatEndMenu || active == CompEndMenu))\n        menus[m]->setBack(menus[active]);\n    FEMenuSystem::MakeActive(m, sm);\n}\n",
+      "status": "different",
+      "target_size": 292
+    }
+  ],
+  "raw_name": "MakeActive__15PauseMenuSystemii"
+}
