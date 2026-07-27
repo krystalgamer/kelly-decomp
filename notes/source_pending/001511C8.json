@@ -1,0 +1,23 @@
+{
+  "address": "0x001511C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "dae8b0cc93ca5badd33e9f95e440ee196d9ce51c",
+      "candidate_size": 264,
+      "compared_bytes": 264,
+      "compared_instructions": 66,
+      "emitted_name": "Reload__10PanelBatchP13PanelMaterial",
+      "instruction_score": 60.6061,
+      "matching_bytes": 172,
+      "matching_instructions": 40,
+      "notes": "# Attempt 1\n\n- Queue row was `pending` with zero attempts; no address scratch existed, and the tracked tree was clean.\n- Used the released `PanelBatch::Reload` body verbatim from `FEPanel.cpp:2694-2719` with the authentic `PanelMaterial`, `PanelQuad` inline helpers, and `PanelBatch` declarations from `FEPanel.h:410-485,626-674`; reused `stringx` and checked FEPanel shared prior art at `src/KS/SRC/ks/FEPanel_shared.h:210-242,300-324`.\n- Result: **different** \u2014 byte score 65.1515%, instruction score 60.6061%; candidate size 264 vs target 256. Exactly one candidate was tested; no attempt 2 or diff chasing was performed.",
+      "score": 65.1515,
+      "source": "#include \"KS/SRC/stringx.h\"\n\ntypedef unsigned int uint32;\ntypedef unsigned short uint16;\ntypedef unsigned int u_int;\n\nclass nglTexture;\nstruct nglQuad;\n\nextern void nglSetQuadTex(nglQuad *, nglTexture *);\nextern void nglSetQuadMapFlags(nglQuad *, u_int);\n\nenum\n{\n    NGLMAP_BILINEAR_FILTER = 0x00000002,\n    NGLMAP_CLAMP_U = 0x00000010,\n    NGLMAP_CLAMP_V = 0x00000020\n};\n\nstruct PanelMaterial\n{\n    stringx name;\n    uint32 color;\n    float emissive;\n    float shininess;\n    float shinestr;\n    bool additive;\n    bool hasmap;\n    nglTexture *texture;\n    bool bilinearfilter;\n    bool wrapu;\n    bool wrapv;\n    stringx filename;\n};\n\nclass PanelQuad\n{\n    char padding[0x1c];\n    nglQuad *quad_address;\n\npublic:\n    void setTexture(nglTexture *tex) { nglSetQuadTex((nglQuad *)((char *)this + 0x1c), tex); }\n    void setMaterialFlags(u_int mapflags) { nglSetQuadMapFlags((nglQuad *)((char *)this + 0x1c), mapflags); }\n};\n\nclass vector3d;\nclass color32;\nclass vector2d;\n\nclass PanelBatch\n{\npublic:\n    uint32 material;\n    PanelMaterial mat;\n    uint32 verttype;\n    uint32 color;\n    uint16 nwedges;\n    PanelQuad *pq;\n    vector3d *wedges;\n    color32 *colors;\n    vector2d *tex;\n    uint16 strip_count;\n    uint16 index_count;\n    uint16 *didxs;\n\n    virtual ~PanelBatch();\n    void Reload(PanelMaterial *mats);\n};\n\nvoid PanelBatch::Reload(PanelMaterial* mats)\n{\n\tmat = mats[material];\n\tu_int mapflags = 0;\n\tif(mat.hasmap) \n\t{\n\t\tpq->setTexture(mat.texture);\n\t}\n\n\tif (mat.bilinearfilter) \n\t{\n\t\tmapflags |= NGLMAP_BILINEAR_FILTER;\n\t}\n\n\tif (!mat.wrapu)\n\t{\n\t\tmapflags |= NGLMAP_CLAMP_U;\n\t}\n\t\t\n\tif (!mat.wrapv)\n\t{\n\t\tmapflags |= NGLMAP_CLAMP_V;\n\t}\n\tif( mapflags )\t\n\t  pq->setMaterialFlags(mapflags);\n}\n",
+      "status": "different",
+      "target_size": 256
+    }
+  ],
+  "raw_name": "Reload__10PanelBatchP13PanelMaterial"
+}
