@@ -1,0 +1,23 @@
+{
+  "address": "0x00159150",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c99da456fecfdced4ce1f67d0cd7b131a1e78469",
+      "candidate_size": 284,
+      "compared_bytes": 284,
+      "compared_instructions": 71,
+      "emitted_name": "getButtonState__Fi",
+      "instruction_score": 97.1831,
+      "matching_bytes": 279,
+      "matching_instructions": 69,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.cpp:1320-1363; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:31-48; kelly-slaters-pro-surfer/KS/SRC/commands.h; config/SLUS_203.34.symbol_addrs.txt:1184-1187; tmp/functions/00159150_getButtonState__Fi/attempt-1/result.json. Result `different`, score 98.2394; no later attempt.",
+      "score": 98.2394,
+      "source": "enum FEMENUCMD\n{\n    FEMENUCMD_SELECT,\n    FEMENUCMD_START,\n    FEMENUCMD_UP,\n    FEMENUCMD_DOWN,\n    FEMENUCMD_LEFT,\n    FEMENUCMD_RIGHT,\n    FEMENUCMD_CROSS,\n    FEMENUCMD_TRIANGLE,\n    FEMENUCMD_SQUARE,\n    FEMENUCMD_CIRCLE,\n    FEMENUCMD_L1,\n    FEMENUCMD_R1,\n    FEMENUCMD_L2,\n    FEMENUCMD_R2,\n    FEMENUCMD_END,\n};\n\nenum\n{\n    PSX_X = 184,\n    PSX_SQUARE = 185,\n    PSX_TRIANGLE = 186,\n    PSX_CIRCLE = 187,\n    PSX_L1 = 188,\n    PSX_L2 = 189,\n    PSX_R1 = 191,\n    PSX_R2 = 192,\n    PSX_UD = 194,\n    PSX_LR = 195,\n    PSX_START = 196,\n    PSX_SELECT = 197,\n};\n\nint getButtonPressed(int button);\nint getAnalogState(int button);\n\n__asm__(\".equ getButtonPressed__Fi, 0x00158F80\");\n__asm__(\".equ getAnalogState__Fi, 0x00159058\");\n\n#define BACK_OUT_BUTTON PSX_TRIANGLE\n#define NON_BACK_OUT_BUTTON_1 PSX_CIRCLE\n#define NON_BACK_OUT_BUTTON_2 PSX_SQUARE\n\nint getButtonState(int button)\n{\n\tswitch(button)\n\t{\n\tcase FEMENUCMD_SELECT  : return getButtonPressed(PSX_SELECT);\n\tcase FEMENUCMD_START   : return getButtonPressed(PSX_START);\n\tcase FEMENUCMD_UP      : return (getAnalogState(PSX_UD) == -1)?1:0;\n\tcase FEMENUCMD_DOWN    : return (getAnalogState(PSX_UD) == 1)?1:0;\n\tcase FEMENUCMD_LEFT    : return (getAnalogState(PSX_LR) == -1)?1:0;\n\tcase FEMENUCMD_RIGHT   : return (getAnalogState(PSX_LR) == 1)?1:0;\n\tcase FEMENUCMD_CROSS   : return getButtonPressed(PSX_X);\n\tcase FEMENUCMD_TRIANGLE: return getButtonPressed(BACK_OUT_BUTTON);\n\tcase FEMENUCMD_CIRCLE  : return getButtonPressed(NON_BACK_OUT_BUTTON_1);\n\tcase FEMENUCMD_SQUARE  : return getButtonPressed(NON_BACK_OUT_BUTTON_2);\n\tcase FEMENUCMD_L1      : return getButtonPressed(PSX_L1);\n\tcase FEMENUCMD_R1      : return getButtonPressed(PSX_R1);\n\tcase FEMENUCMD_L2      : return getButtonPressed(PSX_L2);\n\tcase FEMENUCMD_R2      : return getButtonPressed(PSX_R2);\n\tdefault: return 0;\n\t}\n}\n",
+      "status": "different",
+      "target_size": 284
+    }
+  ],
+  "raw_name": "getButtonState__Fi"
+}
