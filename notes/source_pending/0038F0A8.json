@@ -1,0 +1,23 @@
+{
+  "address": "0x0038F0A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bf20d694df25713e7239a469214cc0cf83f7a047",
+      "candidate_size": 260,
+      "compared_bytes": 260,
+      "compared_instructions": 65,
+      "emitted_name": "find__t10fifo_queue1ZUiRCUis",
+      "instruction_score": 47.6923,
+      "matching_bytes": 185,
+      "matching_instructions": 31,
+      "notes": "Exact released fifo_queue<T>::find definition with the minimal class declaration and explicit unsigned int instantiation; tested once.",
+      "score": 71.1538,
+      "source": "template<class T> \nclass fifo_queue\n{\nprivate: \n  T *queue;\n  short queue_max;\n  short start;\n  short end;\n  short count;\n\npublic:\n  T              pop();\n  short          find(const T& index_to_find, short remove_flag);\n};\n\ntemplate<class T>\nshort fifo_queue<T>::find(const T& index_to_find, short remove_flag)\n{\n  short curr = start;\n\n  if (count <= 0)\n    return 0;\n  if (queue[curr] == index_to_find)\n  {\n    if (remove_flag)\n    {\n      pop();\n    }\n    return 1;\n  }\n  while (curr != end)\n  {\n    ++curr;\n    if (curr >= queue_max)\n      curr = 0;\n    if (queue[curr] == index_to_find)\n    {\n      if (remove_flag)\n      {\n        queue[curr] = queue[end];\n        --count;\n        --end;\n        if (end < 0)\n          end = queue_max - 1;\n      }\n      return 1;\n    }\n  }\n  return 0;\n}\n\ntemplate short fifo_queue<unsigned int>::find(const unsigned int&, short);\n",
+      "status": "different",
+      "target_size": 260
+    }
+  ],
+  "raw_name": "find__t10fifo_queue1ZUiRCUis"
+}
