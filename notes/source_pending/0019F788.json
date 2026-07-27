@@ -1,0 +1,23 @@
+{
+  "address": "0x0019F788",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bb8d592d4138e43be253aa6dd60881ea4ea59de8",
+      "candidate_size": 320,
+      "compared_bytes": 320,
+      "compared_instructions": 80,
+      "emitted_name": "OnLeft__9NamesMenui",
+      "instruction_score": 30.0,
+      "matching_bytes": 111,
+      "matching_instructions": 24,
+      "notes": "Attempt 1 used exact released source cited at . Result `different`, score 34.6875; no later attempt.",
+      "score": 34.6875,
+      "source": "typedef short s16;\n\nclass FEMenuEntry {};\n\nstruct AdjustorVtable\n{\n    char pad[448];\n    s16 adjustment;\n    void (*call)(void*, int);\n};\n\nclass FEMultiMenu\n{\npublic:\n    char pad0[0x4c];\n    FEMenuEntry* highlighted;\n    char pad1[0x24];\n    AdjustorVtable* movement_vtable;\n\n    void OnLeft(int c)\n    {\n        void* adjusted = (char*)this + movement_vtable->adjustment;\n        movement_vtable->call(adjusted, c);\n    }\n};\n\nstruct PanelVtable\n{\n    char pad[24];\n    s16 adjustment;\n    void (*turn_on)(void*, bool);\n};\n\nclass PanelQuad\n{\npublic:\n    char pad[404];\n    PanelVtable* panel_vtable;\n\n    void TurnOn(bool on)\n    {\n        void* adjusted = (char*)this + panel_vtable->adjustment;\n        panel_vtable->turn_on(adjusted, on);\n    }\n};\n\nstruct MemCard\n{\n    int free;\n    bool exists;\n    bool changed;\n    bool available;\n    bool ask_format;\n    bool saved_games;\n    int status;\n};\n\nclass FEManager\n{\npublic:\n    char pad[0x15678];\n    bool fe_done;\n};\n\nextern FEManager frontendmanager;\nclass entity;\nenum EventType { SS_FE_LEFTRIGHT = 26 };\n\nclass SoundScriptManager\n{\npublic:\n    static SoundScriptManager* s_inst;\n    static SoundScriptManager* inst() { return s_inst; }\n    void pause();\n    void unpause();\n    int playEvent(EventType type, entity* e = 0, float fadeInTime = 0);\n};\n\nclass NamesMenu : public FEMultiMenu\n{\npublic:\n    char pad2[0x178 - sizeof(FEMultiMenu)];\n    int arrow_num;\n    int arrow_counter;\n    char pad3[0x1bc - 0x180];\n    MemCard cards[2];\n    char pad4[12];\n    int adjusted_active_card;\n    char pad5[8];\n    PanelQuad* arrows[2][2];\n\n    static const int arrow_timer = 3;\n    void OnCardSwitch();\n    void MakeSpaceFreeMessage(int free);\n    void OnLeft(int c);\n};\n\nvoid NamesMenu::OnLeft(int c)\n{\n\tFEMenuEntry* initial = highlighted;\n#ifdef TARGET_XBOX\n\tdo \n\t{\n#endif\n\tFEMenuEntry* before = highlighted;\n\tFEMultiMenu::OnLeft(c);\n\tif(before != highlighted)\n\t{\n\t\tOnCardSwitch();\n\t}\n#ifdef TARGET_XBOX\n\t} while (cards[adjusted_active_card].exists == false);\n#endif\n\tif(initial != highlighted)\n\t{\n\t\tif (frontendmanager.fe_done)\n\t\t\tSoundScriptManager::inst()->unpause();\n\t\tSoundScriptManager::inst()->playEvent(SS_FE_LEFTRIGHT);\n\t\tif (frontendmanager.fe_done)\n\t\t\t\tSoundScriptManager::inst()->pause();\n\t\tarrows[0][1]->TurnOn(true);\n\t\tarrows[0][0]->TurnOn(false);\n\t\tarrow_num = 0;\n\t\tarrow_counter = arrow_timer;\n\t\tcards[adjusted_active_card].changed = true;\n/*\t\tif (!cards[adjusted_active_card].available)\n\t\t\tcards[adjusted_active_card].ask_format = true;*/\n\t\tMakeSpaceFreeMessage(cards[adjusted_active_card].free);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 292
+    }
+  ],
+  "raw_name": "OnLeft__9NamesMenui"
+}
