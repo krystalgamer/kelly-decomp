@@ -809,3 +809,81 @@ void WAVE_ComputeVTwist()
         (WAVE_MeshMaxV - WAVE_CrestV);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003780F0)
+// 0x003780F0 WAVE_HeightPerturb__Ff
+typedef unsigned int u_int;
+
+struct WaveScheduleStruct
+{
+    char id;
+    char padding0[3];
+    float duration;
+    u_int type;
+    u_int wd_type;
+    u_int break_type;
+};
+
+struct WaveData
+{
+    char padding0[80];
+    float h_amp;
+    float h_freq;
+    char padding1[496];
+};
+
+enum WaveStageEnum
+{
+    WAVE_StageBuilding
+};
+
+extern WaveScheduleStruct WAVE_ScheduleArray[];
+extern u_int WAVE_ScheduleIndex;
+extern WaveData WaveDataArray[];
+extern float WAVE_ShiftX;
+extern float WAVE_MeshMinX;
+extern float WAVE_MeshMaxX;
+extern bool WAVE_LeftBreaker;
+extern WaveStageEnum WAVE_Stage;
+extern float WAVE_StageProgress;
+float WAVE_Sin(float x);
+
+__asm__(".equ WAVE_ScheduleArray, 0x0058EA68");
+__asm__(".equ WAVE_ScheduleIndex, 0x004846D4");
+__asm__(".equ WaveDataArray, 0x004861E0");
+__asm__(".equ WAVE_ShiftX, 0x004852DC");
+__asm__(".equ WAVE_MeshMinX, 0x00484620");
+__asm__(".equ WAVE_MeshMaxX, 0x00484624");
+__asm__(".equ WAVE_LeftBreaker, 0x004846C4");
+__asm__(".equ WAVE_Stage, 0x00585AD0");
+__asm__(".equ WAVE_StageProgress, 0x00585AD8");
+__asm__(".equ WAVE_Sin__Ff, 0x00383FA0");
+
+#define WAVEDATA_LOOKUP(a) (WaveDataArray[WAVE_ScheduleArray[WAVE_ScheduleIndex].wd_type].a)
+#define WAVE_HeightPerturbAmp WAVEDATA_LOOKUP(h_amp)
+#define WAVE_HeightPerturbFreq WAVEDATA_LOOKUP(h_freq)
+#define WAVE_MESHWIDTH (WAVE_MeshMaxX - WAVE_MeshMinX)
+
+static float WAVE_HeightPerturb(float x)
+{
+	float heightperturb = (1 + WAVE_HeightPerturbAmp * WAVE_Sin(WAVE_HeightPerturbFreq * (x + WAVE_ShiftX)));
+
+	// Keep the edge of the wave from stretching during build.
+	if (WAVE_Stage == WAVE_StageBuilding)
+	{
+		float a = (x - WAVE_MeshMinX) / WAVE_MESHWIDTH;	// from 0 to 1 over width of wave, in reverse time
+
+		if (!WAVE_LeftBreaker)
+		{
+			a = 1 - a;
+		}
+
+		if (a > WAVE_StageProgress)
+		{
+			heightperturb *= (1 - a) / (1 - WAVE_StageProgress);
+		}
+	}
+
+	return heightperturb;
+}
+#endif
