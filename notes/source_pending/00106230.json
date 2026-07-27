@@ -1,0 +1,23 @@
+{
+  "address": "0x00106230",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6961aa7cb89714b540368be06b5f04cb84622e92",
+      "candidate_size": 336,
+      "compared_bytes": 336,
+      "compared_instructions": 84,
+      "emitted_name": "going_into_service__14anim_ai_action",
+      "instruction_score": 51.1905,
+      "matching_bytes": 192,
+      "matching_instructions": 43,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ai_actions.cpp:17-18,32-46,92-121; kelly-slaters-pro-surfer/KS/SRC/ai_actions.h:12-85; kelly-slaters-pro-surfer/KS/SRC/ai_interface.h:420-424; kelly-slaters-pro-surfer/KS/SRC/collide.h:254-259; kelly-slaters-pro-surfer/KS/SRC/anim.h:21-31; tmp/functions/00106230_going_into_service__14anim_ai_action/attempt-1/result.json; tmp/source_first/00106230/attempt-1.md. Result `different`, score 57.1429; no later attempt.",
+      "score": 57.1429,
+      "source": "typedef float rational_t;\n\nclass stringx\n{\n  char *chars;\n  void *my_buf;\n};\n\nclass vector3d\n{\n  float x, y, z;\n};\n\nclass region_node;\nclass ai_goal;\n\nclass ai_interface\n{\npublic:\n  bool play_animation(const stringx &, int, unsigned short, int *, rational_t *,\n                      rational_t *, int *);\n};\n\nclass entity\n{\npublic:\n  const vector3d &get_abs_position() const;\n  region_node *get_primary_region() const;\n};\n\nbool in_world(const vector3d &, rational_t, const vector3d &, region_node *,\n              vector3d &, bool = false);\nextern const vector3d ZEROVEC;\n\nclass ai_action\n{\npublic:\n  virtual ~ai_action();\n  virtual bool frame_advance(float) = 0;\n  virtual void going_out_of_service();\n  virtual void going_into_service();\n\n  ai_interface *get_ai_interface() const;\n  entity *get_my_entity() const;\n\nprotected:\n  ai_goal *owner;\n  int flags;\n  unsigned int id;\n};\n\nclass anim_ai_action : public ai_action\n{\npublic:\n  virtual bool frame_advance(float);\n  virtual void going_out_of_service();\n  virtual void going_into_service();\n\nprotected:\n  stringx anim_to_find;\n  stringx sound_grp;\n  int anim_slot;\n  bool looping;\n  bool reverse;\n  bool non_cosmetic;\n  bool tween;\n  int anim_damage_value;\n  rational_t anim_recover;\n  rational_t anim_recover_var;\n  int anim_flags;\n  vector3d safe_pos;\n  bool safety_checks;\n};\n\nenum\n{\n  ANIM_RELATIVE_TO_START = 0x0001,\n  ANIM_REVERSE = 0x0002,\n  ANIM_LOOPING = 0x0004,\n  ANIM_AUTOKILL = 0x0008,\n  ANIM_NONCOSMETIC = 0x0200,\n  ANIM_TWEEN = 0x0800\n};\n\nvoid anim_ai_action::going_into_service()\n{\n  ai_action::going_into_service();\n\n  get_ai_interface()->play_animation(anim_to_find, anim_slot, (ANIM_RELATIVE_TO_START | ANIM_AUTOKILL | (tween ? ANIM_TWEEN : 0) | (non_cosmetic ? ANIM_NONCOSMETIC : 0) | (looping ? ANIM_LOOPING : 0) | (reverse ? ANIM_REVERSE : 0)), &anim_damage_value, &anim_recover, &anim_recover_var, &anim_flags);\n\n  if(safety_checks)\n  {\n    vector3d hit_loc;\n    if(get_my_entity()->get_primary_region() != 0 && in_world(get_my_entity()->get_abs_position(), 0.25f, ZEROVEC, get_my_entity()->get_primary_region(), hit_loc))\n    {\n      safety_checks = true;\n      safe_pos = get_my_entity()->get_abs_position();\n    }\n    else\n      safety_checks = false;\n  }\n}\n",
+      "status": "different",
+      "target_size": 332
+    }
+  ],
+  "raw_name": "going_into_service__14anim_ai_action"
+}
