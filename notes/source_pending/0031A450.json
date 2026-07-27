@@ -1,0 +1,15 @@
+{
+  "address": "0x0031A450",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d02ab9e94c4e9aa453a08f2548d272f56b5715b7",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/script_lib_list.cpp:64-79; kelly-slaters-pro-surfer/KS/SRC/script_lib_list.h:12-23; tmp/functions/0031A450_destroy_script_vector3d_list__FPt6vector2Z8vector3dZt12my_allocator1Z8vector3d/attempt-1/result.json. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"script_lib_list.h\"\n\nextern list<vm_vector3d_list_t> script_vector3d_lists;\n\nvoid destroy_script_vector3d_list(vm_vector3d_list_t lst)\n{\n  list<vm_vector3d_list_t>::iterator i = script_vector3d_lists.begin();\n  while(i != script_vector3d_lists.end())\n  {\n    if((*i) == lst)\n    {\n      delete (*i);\n      i = script_vector3d_lists.erase(i);\n\n      return;\n    }\n\n    ++i;\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "destroy_script_vector3d_list__FPt6vector2Z8vector3dZt12my_allocator1Z8vector3d"
+}
