@@ -1,0 +1,23 @@
+{
+  "address": "0x002CAB28",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2457e0bd2430530de60bdeee654f0c7890c1fec9",
+      "candidate_size": 288,
+      "compared_bytes": 288,
+      "compared_instructions": 72,
+      "emitted_name": "transform__7elementPfR5colori",
+      "instruction_score": 97.2222,
+      "matching_bytes": 286,
+      "matching_instructions": 70,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/element.cpp:470-496; kelly-slaters-pro-surfer/KS/SRC/element.h:162-224; kelly-slaters-pro-surfer/KS/SRC/color.h:153-169; tmp/functions/002CAB28_transform__7elementPfR5colori/attempt-1/result.json; tmp/source_first/002CAB28/notes.md. Result `different`, score 99.3056; no later attempt.",
+      "score": 99.3056,
+      "source": "#define assert(x) ((void)0)\n\nclass color\n{\npublic:\n  float r, g, b, a;\n};\n\nclass element\n{\nprotected:\n  element *parent;\n  char padding[28];\n  float R[2][2];\n  float T[2];\n  float S[2];\n  float S_Override[2];\n  float O[2];\n  float angle;\n  color mycolor[4];\n  char trailing[8];\npublic:\n  virtual void transform(float v[2], color &c, int index);\n};\n\nvoid element::transform(float v[2], color &c, int index)\n{\n  assert(index < 4);\n  float xt, yt;\n\n  // scale them\n  v[0] *= S[0] * S_Override[0];\n  v[1] *= S[1] * S_Override[1];\n  // rotate them\n  xt = v[0] * R[0][0] + v[1] * R[0][1];\n  yt = v[0] * R[1][0] + v[1] * R[1][1];\n  v[0] = xt;\n  v[1] = yt;\n  // translate them\n  v[0] += T[0];\n  v[1] += T[1];\n  if(parent)\n  {\n    parent->transform(v, c, index);\n  }\n  c.r *= mycolor[index].r;\n  c.g *= mycolor[index].g;\n  c.b *= mycolor[index].b;\n  c.a *= mycolor[index].a;\n}\n",
+      "status": "different",
+      "target_size": 288
+    }
+  ],
+  "raw_name": "transform__7elementPfR5colori"
+}
