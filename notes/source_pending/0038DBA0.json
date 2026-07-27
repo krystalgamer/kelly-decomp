@@ -1,0 +1,23 @@
+{
+  "address": "0x0038DBA0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6adbe3e0fb937b36191a003a58bf995810f69435",
+      "candidate_size": 260,
+      "compared_bytes": 260,
+      "compared_instructions": 65,
+      "emitted_name": "nslGetSoundStatus__FUi",
+      "instruction_score": 18.4615,
+      "matching_bytes": 82,
+      "matching_instructions": 12,
+      "notes": "# Attempt 1\n\n- Used the released `nslGetSoundStatus` body verbatim from `kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2_sound.cpp:665-709`.\n- Used only the released status enum/ID constants and the authentic PS2 sound/system field layout required by the body, narrowed with existing NSL shared prior art from `src/NSL/PS2/nsl_ps2_sound.cpp:27-33`.\n- Result: **different** \u2014 byte score 31.5385%, instruction score 18.4615%. No second attempt or diff chase was made.",
+      "score": 31.5385,
+      "source": "typedef unsigned int nslSoundId;\n\ntypedef enum _nslSoundStatusEnum\n{\n  NSL_SOUNDSTATUS_INVALID = 0,\n  NSL_SOUNDSTATUS_QUEUING,\n  NSL_SOUNDSTATUS_READY,\n  NSL_SOUNDSTATUS_PLAYING,\n  NSL_SOUNDSTATUS_PAUSED\n} nslSoundStatusEnum;\n\nstruct nslSound\n{\n  int isReady;\n  int used;\n  int inRange;\n  int isReallyReady;\n  int isPlaying;\n  int isReallyPlaying;\n  int looping;\n  int isQueuing;\n  short left;\n  short right;\n  short old_left;\n  short old_right;\n  unsigned int gasInstanceId;\n  int pauseCount;\n  int dampenCount;\n  unsigned int myId;\n  unsigned int mySource;\n  unsigned int myEmitter;\n  float rawVolume;\n  float positionalVolume;\n  float angle;\n  float pitch;\n  float minDist;\n  float maxDist;\n};\n\nstruct nslSystem\n{\n  char padding0[0xC040];\n  nslSound soundSlots[256];\n  char padding1[0x4010];\n  int initialized;\n  char padding2[44];\n  int on;\n};\n\nextern nslSystem nsl;\nextern const char nsl_not_initialized[];\nvoid nslFatal(const char *format, ...);\n\n__asm__(\".equ nsl, 0x0049B5F0\");\n__asm__(\".equ nsl_not_initialized, 0x0051BF80\");\n__asm__(\".equ nslFatal__FPCce, 0x00391420\");\n\n#define NSL_NUM_SOUNDS 256\n#define NSL_ID_MASK 0xFFFFFC00\n#define NSL_SLOT_MASK 0x000003FF\n#define NSL_GET_SLOT_FROM_ID(x) (x & NSL_SLOT_MASK)\n#define NSL_INVALID_ID 0\n\n#define ASSERT_NSL_INITIALIZED() \\\n  do { if (!(nsl.initialized == 1)) nslFatal(nsl_not_initialized); } while (0)\n\nnslSoundStatusEnum nslGetSoundStatus(nslSoundId whichSound)\n{\n  if (!nsl.on) return NSL_SOUNDSTATUS_INVALID;\n  ASSERT_NSL_INITIALIZED();\n\n  nslSoundId checkSlot = (whichSound & NSL_SLOT_MASK);\n  nslSoundId upCheckId = (whichSound & NSL_ID_MASK);\n\n  if (whichSound == NSL_INVALID_ID)\n    return NSL_SOUNDSTATUS_INVALID;\n  if (!(nsl.soundSlots[checkSlot].used))\n    return NSL_SOUNDSTATUS_INVALID;\n  if (!(checkSlot < NSL_NUM_SOUNDS))\n    return NSL_SOUNDSTATUS_INVALID;\n  if (!(whichSound == nsl.soundSlots[checkSlot].myId))\n    return NSL_SOUNDSTATUS_INVALID;\n  if (!(upCheckId > 0))\n    return NSL_SOUNDSTATUS_INVALID;\n\n  if (nsl.soundSlots[NSL_GET_SLOT_FROM_ID(whichSound)].pauseCount > 0)\n    return NSL_SOUNDSTATUS_PAUSED;\n\n  if (nsl.soundSlots[NSL_GET_SLOT_FROM_ID(whichSound)].used &&\n      nsl.soundSlots[NSL_GET_SLOT_FROM_ID(whichSound)].isPlaying &&\n      (nsl.soundSlots[NSL_GET_SLOT_FROM_ID(whichSound)].pauseCount < 1))\n    return NSL_SOUNDSTATUS_PLAYING;\n\n  if (nsl.soundSlots[NSL_GET_SLOT_FROM_ID(whichSound)].isReady)\n    return NSL_SOUNDSTATUS_READY;\n\n  if (nsl.soundSlots[NSL_GET_SLOT_FROM_ID(whichSound)].isQueuing)\n    return NSL_SOUNDSTATUS_QUEUING;\n\n  return NSL_SOUNDSTATUS_INVALID;\n}\n",
+      "status": "different",
+      "target_size": 252
+    }
+  ],
+  "raw_name": "nslGetSoundStatus__FUi"
+}
