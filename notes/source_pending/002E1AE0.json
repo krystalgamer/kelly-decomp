@@ -1,0 +1,23 @@
+{
+  "address": "0x002E1AE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cfb31cde1dcf9257c0d63c6a6169426137d06121",
+      "candidate_size": 332,
+      "compared_bytes": 332,
+      "compared_instructions": 83,
+      "emitted_name": "find_intersection__FRC8vector3dT0PQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeUiP8vector3dT4PPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodePP6entity",
+      "instruction_score": 25.3012,
+      "matching_bytes": 172,
+      "matching_instructions": 21,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/collide.cpp:2135-2175; kelly-slaters-pro-surfer/KS/SRC/collide.h:228-243; kelly-slaters-pro-surfer/KS/SRC/region.h:180-187; kelly-slaters-pro-surfer/KS/SRC/entity.h:1018-1027; config/SLUS_203.34.symbol_addrs.txt: _6entity$visit_key, _6region$visit_key, find_intersection_with_entities__FRC8vector3dT0PQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeUiP8vector3dT4PPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodePP6entity; tmp/functions/002E1AE0_find_intersection__FRC8vector3dT0PQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeUiP8v_3c0019c0f831/attempt-1/result.json; tmp/source_first/002E1AE0/attempt-1.md. Result `different`, score 51.8072; no later attempt.",
+      "score": 51.8072,
+      "source": "struct vector3d\n{\n  float x;\n  float y;\n  float z;\n};\n\nclass region_node;\n\nclass region\n{\npublic:\n  static unsigned int visit_key;\n  static void prepare_for_visiting() { ++visit_key; }\n};\n__asm__(\".equ _6region$visit_key, 0x00434948\");\n\nclass entity\n{\npublic:\n  static unsigned int visit_key;\n  static void prepare_for_visiting() { visit_key++; }\n};\n__asm__(\".equ _6entity$visit_key, 0x003E5AE8\");\n\nclass terrain\n{\npublic:\n  bool find_intersection(const vector3d&, const vector3d&, vector3d&, vector3d&);\n};\n__asm__(\".equ find_intersection__7terrainRC8vector3dT1R8vector3dT3, 0x002E8DD8\");\n\nstruct world_layout\n{\n  char padding[0xec];\n  terrain* terrain_ptr;\n};\nextern world_layout* world_ptr;\n__asm__(\".equ world_ptr, 0x00431A8C\");\n\nstatic bool find_intersection_with_entities(\n  const vector3d&, const vector3d&, region_node*, unsigned int,\n  vector3d*, vector3d*, region_node**, entity**)\n  __asm__(\"find_intersection_with_entities__FRC8vector3dT0PQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeUiP8vector3dT4PPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodePP6entity\");\n\nbool find_intersection(\n  const vector3d& p0, const vector3d& p1,\n  region_node* start_region,\n  unsigned int flags,\n  vector3d* hit_loc, vector3d* hit_normal,\n  region_node** hit_region, entity** hit_entity)\n  __asm__(\"find_intersection__FRC8vector3dT0PQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeUiP8vector3dT4PPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodePP6entity\");\n\nbool find_intersection(\n  const vector3d& p0, const vector3d& p1,\n  region_node* start_region,\n  unsigned int flags,\n  vector3d* hit_loc, vector3d* hit_normal,\n  region_node** hit_region, entity** hit_entity)\n{\n  bool hit = false;\n  if ( flags & 0x0001 )\n  {\n    hit = world_ptr->terrain_ptr->find_intersection( p0, p1, *hit_loc, *hit_normal );\n  }\n\n  if ( start_region && (flags&0x003e) )\n  {\n    vector3d tp1;\n    if ( hit )\n      tp1 = *hit_loc;\n    else\n      tp1 = p1;\n    region::prepare_for_visiting();\n    entity::prepare_for_visiting();\n    hit |= find_intersection_with_entities( p0, tp1,\n                                            start_region,\n                                            flags,\n                                            hit_loc, hit_normal,\n                                            hit_region, hit_entity );\n  }\n\n  return hit;\n}\n",
+      "status": "different",
+      "target_size": 328
+    }
+  ],
+  "raw_name": "find_intersection__FRC8vector3dT0PQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeUiP8vector3dT4PPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodePP6entity"
+}
