@@ -1,0 +1,23 @@
+{
+  "address": "0x00396A18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "549864a1621546051cdf0136d996f85761c6bd1f",
+      "candidate_size": 292,
+      "compared_bytes": 304,
+      "compared_instructions": 70,
+      "emitted_name": "nglInitWhiteTexture__Fv",
+      "instruction_score": 11.4286,
+      "matching_bytes": 130,
+      "matching_instructions": 8,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:937-952; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:493-543,584-597; kelly-slaters-pro-surfer/NGL/PS2/ngl_fixedstr.h:14-65,130; kelly-slaters-pro-surfer/NGL/PS2/ngl_instbank.h:6-32; tmp/functions/00396A18_nglInitWhiteTexture__Fv/attempt-1/result.json. Result `different`, score 42.7632; no later attempt.",
+      "score": 42.7632,
+      "source": "typedef unsigned char u_char;\ntypedef unsigned short u_short;\ntypedef unsigned int u_int;\ntypedef unsigned long u_long;\n\nextern \"C\" char* strncpy(char*, const char*, u_int);\nextern \"C\" char* strlwr(char*);\n\nclass nglFixedString\n{\npublic:\n  typedef u_long fint;\n  enum { FINT_SIZE = 8, STR_SIZE = 32, NUM_FINTS = STR_SIZE / FINT_SIZE };\n  typedef nglFixedString FS;\n\n  fint* value() { return reinterpret_cast<fint*>(str); }\n  const fint* value() const { return reinterpret_cast<const fint*>(str); }\n\n  nglFixedString(const char* s)\n  {\n    for (int i = 0; i < NUM_FINTS; ++i)\n      value()[i] = 0;\n    strncpy(str, s, STR_SIZE - 1);\n    strlwr(str);\n  }\n\n  const FS& operator=(const FS& rhs)\n  {\n    for (int i = 0; i < NUM_FINTS; ++i)\n      value()[i] = rhs.value()[i];\n    return *this;\n  }\n\n  char str[STR_SIZE];\n};\n\nstruct nglTexture\n{\n  u_int TexStreamPos[2];\n  u_short Width, Height;\n  u_int Hash;\n  u_char Type;\n  u_char TW, TH;\n  struct\n  {\n    u_int LoadedInPlace : 1;\n    u_int Locked : 1;\n    u_int VRAMOnly : 1;\n    u_int System : 1;\n    u_int RenderTarget : 1;\n  } Flags;\n  void* ph;\n  u_int Format;\n  u_int* Data;\n  u_int NFrames;\n  nglTexture** Frames;\n  u_int SrcDataSize;\n  u_int FileBuf[4];\n  nglFixedString FileName;\n};\n\nclass nglInstanceBank\n{\npublic:\n  void* Insert(const nglFixedString& Key, void* Value);\n};\n\nenum { NGLTF_32BIT = 0x1 };\n\nextern nglTexture* nglCreateTexture(u_int Format, u_int Width, u_int Height);\nextern nglTexture* nglWhiteTex;\nextern nglInstanceBank nglTextureBank;\n\n#define NGL_WHITE_TEXSIZE 32\n#define NGL_RGBA32_TEX(r, g, b, a) ((int)(r)) | (((int)(g)) << 8) | (((int)(b)) << 16) | (((int)((a) + 1) >> 1) << 24)\n\nvoid nglInitWhiteTexture()\n{\n  nglWhiteTex = nglCreateTexture(NGLTF_32BIT, NGL_WHITE_TEXSIZE, NGL_WHITE_TEXSIZE);\n  nglWhiteTex->FileName = nglFixedString(\"nglwhite\");\n  nglWhiteTex->Flags.System = 1;\n\n  u_int* Data = (u_int*)nglWhiteTex->Data;\n  for (int j = 0; j < NGL_WHITE_TEXSIZE; j++)\n    for (int i = 0; i < NGL_WHITE_TEXSIZE; i++)\n      Data[j * NGL_WHITE_TEXSIZE + i] = NGL_RGBA32_TEX(0xFF, 0xFF, 0xFF, 0xFF);\n\n  nglTextureBank.Insert(nglWhiteTex->FileName, nglWhiteTex);\n}\n",
+      "status": "different",
+      "target_size": 304
+    }
+  ],
+  "raw_name": "nglInitWhiteTexture__Fv"
+}
