@@ -1,0 +1,23 @@
+{
+  "address": "0x0028ACA0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e10774a4598829dfb24351fd14f8cc47cb9b3d55",
+      "candidate_size": 300,
+      "compared_bytes": 300,
+      "compared_instructions": 75,
+      "emitted_name": "register_signals__4item",
+      "instruction_score": 66.6667,
+      "matching_bytes": 205,
+      "matching_instructions": 50,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/item.cpp:849-855; kelly-slaters-pro-surfer/KS/SRC/item_signals.h:1-10; kelly-slaters-pro-surfer/KS/SRC/item.h:178-199; kelly-slaters-pro-surfer/KS/SRC/signals.h:317-345; kelly-slaters-pro-surfer/KS/SRC/singleton.h:8-17,29-50; kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-287; tmp/functions/0028ACA0_register_signals__4item/attempt-1/result.json. Result `different`, score 68.3333; no later attempt.",
+      "score": 68.3333,
+      "source": "class stringx\n{\n  char *chars;\n  void *my_buf;\n\npublic:\n  stringx(const char *str, int len = -1);\n  ~stringx();\n};\n\nclass signal_manager;\n\ntemplate<class T>\nclass singleton_ptr\n{\n  T *p;\n\npublic:\n  operator T *() const { return p; }\n};\n\nclass signal_manager\n{\n  static singleton_ptr<signal_manager> instance;\n\npublic:\n  static signal_manager *inst() { return instance; }\n  void insert(const stringx& name, unsigned short id);\n};\n\n__asm__(\".equ _14signal_manager$instance, 0x0045DB18\");\n__asm__(\".equ __7stringxPCci, 0x0034D438\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\".equ insert__14signal_managerRC7stringxUs, 0x0034D0B8\");\n\nclass item\n{\npublic:\n  enum signal_id_t\n  {\n    PARENT_SYNC_DUMMY = 26,\n    PICKUP,\n    USE,\n    SCHWING,\n    DETONATE,\n    ARMED,\n    N_SIGNALS\n  };\n\n  static void register_signals();\n};\n\nvoid item::register_signals()\n{\n  #define MAC(label,str)  signal_manager::inst()->insert( str, label );\n  MAC( PICKUP, \"item::PICKUP\" )\n  MAC( USE, \"item::USE\" )\n  MAC( SCHWING, \"item::SCHWING\" )\n  MAC( DETONATE, \"item::DETONATE\" )\n  MAC( ARMED, \"item::ARMED\" )\n  #undef MAC\n}\n",
+      "status": "different",
+      "target_size": 300
+    }
+  ],
+  "raw_name": "register_signals__4item"
+}
