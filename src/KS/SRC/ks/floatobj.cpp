@@ -446,3 +446,53 @@ generic_anim_misc::generic_anim_misc (
 	construct (entities, path, name, prefixes, count);
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00209560)
+// 0x00209560 turtle_ai__14surfing_objectR8vector3dT1f
+class vector3d
+{
+public:
+  float x, y, z;
+  vector3d(const vector3d& v) : x(v.x), y(v.y), z(v.z) {}
+  vector3d(float a, float b, float c) : x(a), y(b), z(c) {}
+  vector3d operator-(const vector3d& v) const { return vector3d(x-v.x, y-v.y, z-v.z); }
+  vector3d operator+(const vector3d& v) const { return vector3d(x+v.x, y+v.y, z+v.z); }
+  vector3d operator*(float f) const { return vector3d(x*f, y*f, z*f); }
+  vector3d& operator=(const vector3d& v) { x=v.x; y=v.y; z=v.z; return *this; }
+};
+extern const vector3d YVEC;
+__asm__(".equ YVEC, 0x00554458");
+class generic_anim_animal
+{
+  char padding[40];
+  int generic_anim_state;
+public:
+  bool is_diving() const { return generic_anim_state == 1; }
+};
+class surfing_object
+{
+  char padding[724];
+  void* my_anim_handler;
+public:
+  bool floating_ai(vector3d& position, vector3d& normal, float dt);
+  bool turtle_ai(vector3d& position, vector3d& normal, float dt);
+};
+__asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
+bool surfing_object::turtle_ai (vector3d& position, vector3d& normal, float dt)
+{
+	vector3d old (position);
+	bool ret;
+
+	ret = floating_ai (position, normal, dt);
+
+	position = old + ((position - old) * 0.5f);
+
+	if (my_anim_handler != 0)
+	{
+		if (((generic_anim_animal*) my_anim_handler)->is_diving ())
+			normal = YVEC;
+	}
+
+  return ret;
+}
+#endif
