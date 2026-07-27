@@ -1,0 +1,23 @@
+{
+  "address": "0x00117538",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "03f694cd782c5b3652ef9e572b4f57053d57e43d",
+      "candidate_size": 260,
+      "compared_bytes": 260,
+      "compared_instructions": 65,
+      "emitted_name": "attach__16entity_anim_tree",
+      "instruction_score": 90.7692,
+      "matching_bytes": 254,
+      "matching_instructions": 59,
+      "notes": "First-pass exact released body from KS/SRC/entity_anim.cpp lines 1938-1978, with isolated declarations copied/reduced from released anim.h and entity_anim.h. Single test scored 97.6923% (254/260 bytes; 59/65 instructions); status different. No variants or body rewrites attempted.",
+      "score": 97.6923,
+      "source": "typedef float time_value_t;\ntypedef int anim_flags_t;\nenum { ANIM_ATTACHED = 0x0010, ANIM_VALID = 0x1000 };\n#ifndef NULL\n#define NULL 0\n#endif\n\nclass anim_control_t\n{\nprivate:\n  time_value_t current_time;\n  char released_tail[28];\npublic:\n  inline time_value_t get_time() const { return current_time; }\n};\n\ntemplate <class animatable_t>\nclass anim\n{\nprotected:\n  unsigned short flags;\npublic:\n  virtual void set_flag(anim_flags_t f) { flags |= f; }\n  virtual void clear_flag(anim_flags_t f) { flags &= ~f; }\n  virtual void set_flag(anim_flags_t f, bool torf) { if (torf) set_flag(f); else clear_flag(f); }\n  inline bool is_flagged(anim_flags_t f) const { return (flags & f); }\n  inline bool is_valid() const { return is_flagged(ANIM_VALID); }\n  virtual void set_time(time_value_t t) {}\n  virtual void frame_advance(const anim_control_t&, animatable_t*) {}\n  virtual void get_value(const anim_control_t&, animatable_t*) const {}\n  virtual void get_value(time_value_t, animatable_t*) const {}\n};\n\nclass entity;\nclass entity_anim : public anim<entity*>\n{\n  char released_data[60];\npublic:\n  bool attach(const anim_control_t& ac);\n};\n\n__asm__(\".equ attach__11entity_animRC14anim_control_t, 0x00113860\");\n\ntemplate <class T>\nclass vector\n{\n  T* first;\n  T* last;\n  T* storage_end;\npublic:\n  typedef T* iterator;\n  iterator begin() { return first; }\n  iterator end() { return last; }\n};\n\ntypedef vector<entity_anim*> pentity_anim_vector;\n\nclass entity_anim_tree : public entity_anim\n{\n  anim_control_t control;\n  pentity_anim_vector& anims;\n  char released_gap[12];\n  pentity_anim_vector anims_b;\n  anim_control_t control_b;\npublic:\n  void attach();\n};\n\nvoid entity_anim_tree::attach()\n{\n  set_flag( ANIM_ATTACHED, true );\n  pentity_anim_vector::iterator i = anims.begin();\n  pentity_anim_vector::iterator i_end = anims.end();\n  pentity_anim_vector::iterator bi = anims_b.begin();\n  pentity_anim_vector::iterator bi_end = anims_b.end();\n//  bool tweener = control.is_tween();\n//  bool root = tweener;\n  for ( ; i!=i_end; ++i )\n  {\n    entity_anim* a = *i;\n    entity_anim* b = (bi != bi_end) ? *bi : NULL;\n    if(bi != bi_end)\n      ++bi;\n\n    if ( a->is_valid() )\n    {\n      // We do not tween the root. Causes problems...\n//      if(root && a->ent)\n//        control.set_flag(ANIM_TWEEN, false);\n\n      if ( a->attach(control) )\n      {\n        a->set_time( control.get_time() );  // make sure every node is updated to the current time\n        if(b)\n          b->set_time( control_b.get_time() );\n      }\n\n/*\n      if(root)\n      {\n        control.set_flag(ANIM_TWEEN, tweener);\n        root = false;\n      }\n*/\n    }\n  }\n}\n",
+      "status": "different",
+      "target_size": 260
+    }
+  ],
+  "raw_name": "attach__16entity_anim_tree"
+}
