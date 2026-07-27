@@ -118,3 +118,25 @@ void destroy_physical(physical_layout *self, int deleting)
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00125130)
+// 0x00125130 apply_force_increment__18physical_interfaceRC8vector3dQ218physical_interface10force_typeT1i
+#include "KS/SRC/physical_interface_shared.h"
+
+
+
+void physical_interface::apply_force_increment( const vector3d& f,
+                                             force_type ft,
+                                             const vector3d& loc, int mods )
+{
+  if(get_mass() != 0.0f){
+  vector3d a = f/get_mass();
+  acceleration_factor += a;
+
+  if (ft==CONTINUOUS)
+    set_acceleration_correction_factor(get_acceleration_correction_factor() + 0.5f*a);
+  }
+
+  effectively_standing = false;
+}
+#endif
