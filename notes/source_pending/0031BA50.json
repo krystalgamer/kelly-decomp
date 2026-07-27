@@ -1,0 +1,15 @@
+{
+  "address": "0x0031BA50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8a8f90a76b2832927cb7a4a3783b9fb122eba6ab",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/script_register.cpp:1-18; kelly-slaters-pro-surfer/KS/SRC/script_register.h:1-21; kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:90,133,207-240; tmp/functions/0031BA50_register_script_libs__Fv/attempt-1/result.json; tmp/functions/0031BA50_register_script_libs__Fv/attempt-1/compiler.stderr; tmp/source_first/0031BA50/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\r\n\r\n#include \"script_library_class.h\"\r\n\r\n#define MAC(a) extern void register_##a##_lib();\r\n#include \"script_register.h\"\r\n#undef MAC\r\n\r\nvoid register_script_libs()\r\n{\r\n  slc_global = NEW script_library_class(\"_global_slc\",0);\r\n  slc_num = NEW slc_num_t(\"num\",4);\r\n  slc_str = NEW slc_str_t(\"str\",4);\r\n\r\n#define MAC(a) register_##a##_lib();\r\n#include \"script_register.h\"\r\n#undef MAC\r\n}\r\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "register_script_libs__Fv"
+}
