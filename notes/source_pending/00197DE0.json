@@ -1,0 +1,15 @@
+{
+  "address": "0x00197DE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "266c3abec9c446e064552cab7f0bbaae8ec9fd59",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndManager.cpp:128-136; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndManager.h:9-114; kelly-slaters-pro-surfer/KS/SRC/ks/BeachFrontEnd.h:42-45,176-184; kelly-slaters-pro-surfer/KS/SRC/ks/GraphicalMenuSystem.h:124-152; tmp/functions/00197DE0_LoadMap__9FEManager/attempt-1/result.json; tmp/functions/00197DE0_LoadMap__9FEManager/attempt-1/compiler.stderr. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "class stringx {\n    char data[16];\npublic:\n    stringx(const char *, int = -1);\n};\n\nvoid *operator new(unsigned int, unsigned int, const char *, int);\n\nclass FEMenuSystem;\nclass FEManager;\n\nstruct beach_vtable {\n    char padding[0x40];\n    short adjustment;\n    short padding2;\n    void (*load)(void *);\n};\n\nclass BeachFrontEnd {\n    char padding[0x74];\n    beach_vtable *vtable;\n    char remainder[0xF40 - 0x78];\npublic:\n    BeachFrontEnd(FEMenuSystem *, FEManager *, stringx, stringx);\n    void Load()\n    {\n        beach_vtable *table = vtable;\n        table->load((char *)this + table->adjustment);\n    }\n};\n\nstruct helpbar_vtable {\n    char padding[0x28];\n    short adjustment;\n    short padding2;\n    void (*load_panel)(void *, bool);\n};\n\nclass HelpbarFE {\n    char padding[0xC0];\n    helpbar_vtable *vtable;\n    char remainder[0x160 - 0xC4];\npublic:\n    HelpbarFE(FEManager *, stringx, stringx);\n    void LoadPanel(bool floating = false)\n    {\n        helpbar_vtable *table = vtable;\n        table->load_panel((char *)this + table->adjustment, floating);\n    }\n};\n\nclass FEManager {\n    char padding[0x156A0];\n    BeachFrontEnd *map;\n    HelpbarFE *helpbar;\npublic:\n    void LoadMap();\n    void LoadFonts();\n    void LoadScores();\n};\n\n#define NEW new(0, __FILE__, __LINE__)\n\nvoid FEManager::LoadMap()\n{\n\tLoadFonts();\n\tmap = NEW BeachFrontEnd(NULL, this, \"interface\\\\map\\\\\", \"FE_map.PANEL\");\n\tmap->Load();\n\tLoadScores();\n\thelpbar = NEW HelpbarFE(this, \"levels\\\\frontend\\\\overlays\\\\\", \"helpbar.PANEL\");\n\thelpbar->LoadPanel();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "LoadMap__9FEManager"
+}
