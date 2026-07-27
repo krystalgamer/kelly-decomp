@@ -1,0 +1,23 @@
+{
+  "address": "0x00142CF8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "498dcbe2af800d7214f51ad4e4f238b7d4b833dd",
+      "candidate_size": 128,
+      "compared_bytes": 320,
+      "compared_instructions": 80,
+      "emitted_name": "_M_erase__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoZt10_Select1st1Zt4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoZQ219animation_interface9s_t_s_t_rZt12my_allocator1Zt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoPt13_Rb_tree_node1Zt4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_info",
+      "instruction_score": 2.5,
+      "matching_bytes": 37,
+      "matching_instructions": 2,
+      "notes": "# Attempt 1 \u2014 exact released/toolchain template\n\n- FIRST PASS wave 29 lane B2 for `0x00142CF8`.\n- Tested the canonical GCC 2 STL `_Rb_tree::_M_erase` algorithm exactly once: recursively erase the right subtree, retain the left subtree, destroy the stored `pair<const stringx, vector<animation_interface::anim_info> >`, return the node through `my_allocator`, then continue down the left subtree.\n- Minimal declarations preserve the released `stringx`, `anim_info`, vector, pair, tree-node, and allocator roles.\n- Result: **different** \u2014 37/320 bytes (11.5625%) and 2/80 instructions (2.5%); candidate size 128 versus target size 320.\n- No variants, diff chasing, build, finalization, integration, queue/tool edits, commit, or push were attempted.\n\n## Citations\n\n- Debug source: `C:/usr/local/sce/ee/gcc/include/g++-2/stl_tree.h`\n- Type ownership: `kelly-slaters-pro-surfer/KS/SRC/animation_interface.h:30-48`\n- Result: `attempt-1/result.json`",
+      "score": 11.5625,
+      "source": "struct stringx { char data[8]; ~stringx(); };\nstruct anim_info {\n    float percent;\n    stringx anim;\n    int damage;\n    float recover_time;\n    float recover_var;\n    int flags;\n    ~anim_info() {}\n};\n\ntemplate<class T> struct vector2 {\n    T* start;\n    T* finish;\n    T* end_of_storage;\n    ~vector2() {\n        for (T* p = start; p != finish; ++p)\n            p->~T();\n        if (start)\n            deallocate(start, end_of_storage - start);\n    }\n    static void deallocate(T*, unsigned int);\n};\n\nstruct pair_value { stringx first; vector2<anim_info> second; };\nstruct node {\n    node* free_next;\n    node* parent;\n    node* left;\n    node* right;\n    pair_value value;\n};\nstruct allocator_state { char pad[12]; node* head; };\nextern allocator_state allocator_state_instance;\nasm(\".equ allocator_state_instance,0x003E5628\");\nasm(\".equ _$_7stringx,0x0034D6E0\");\n\nstruct Tree;\nextern \"C\" void recurse(Tree*, node*) __asm__(\"recurse_alias\");\nasm(\".equ recurse_alias,0x00142CF8\");\n\nstruct Tree {\n    void erase(node*) __asm__(\"_M_erase__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoZt10_Select1st1Zt4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoZQ219animation_interface9s_t_s_t_rZt12my_allocator1Zt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoPt13_Rb_tree_node1Zt4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_info\");\n};\n\nvoid Tree::erase(node* x) {\n    while (x != 0) {\n        recurse(this, x->right);\n        node* y = x->left;\n        x->value.~pair_value();\n        x->free_next = allocator_state_instance.head;\n        allocator_state_instance.head = x;\n        x = y;\n    }\n}\n",
+      "status": "different",
+      "target_size": 320
+    }
+  ],
+  "raw_name": "_M_erase__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoZt10_Select1st1Zt4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoZQ219animation_interface9s_t_s_t_rZt12my_allocator1Zt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoPt13_Rb_tree_node1Zt4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_info"
+}
