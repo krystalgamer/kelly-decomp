@@ -563,6 +563,22 @@ template void key_anim<
 >::get_value(const anim_control_t &, vector3d *) const;
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001216B8)
+// 0x001216B8 get_value__Ct8key_anim3Z10quaternionZt10linear_key1Z10quaternionZt12linear_track1Z10quaternionRC14anim_control_tP10quaternion
+#include "KS/SRC/linear_anim_shared.h"
+
+__asm__(
+    ".equ interpolate__Ct10linear_key1Z10quaternion"
+    "RCt10linear_key1Z10quaternionf, 0x001133A8"
+);
+
+template void key_anim<
+    quaternion,
+    linear_key<quaternion>,
+    linear_track<quaternion>
+>::get_value(const anim_control_t &, quaternion *) const;
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00121540)
 // 0x00121540 get_value__Ct8key_anim3Z8vector3dZt10linear_key1Z8vector3dZt12linear_track1Z8vector3dfP8vector3d
 #include "KS/SRC/linear_anim_shared.h"
