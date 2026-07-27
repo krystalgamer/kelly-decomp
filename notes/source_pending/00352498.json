@@ -1,0 +1,23 @@
+{
+  "address": "0x00352498",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1261a4e65559f0ff38cdb9081039714954c14291",
+      "candidate_size": 76,
+      "compared_bytes": 256,
+      "compared_instructions": 64,
+      "emitted_name": "_$_14script_manager",
+      "instruction_score": 0.0,
+      "matching_bytes": 21,
+      "matching_instructions": 0,
+      "notes": "Released-source first pass: exact destructor body from KS/SRC/script_object.cpp:782-785, with only the required class declarations copied from script_object.h and an address binding for _destroy. The single test compiled but differed (8.2031% byte score, 0 instruction score); no rewrite or second attempt was made.",
+      "score": 8.2031,
+      "source": "class script_manager\n  {\n  public:\n    ~script_manager();\n\n  protected:\n    void _destroy();\n  };\n\n__asm__(\".equ _destroy__14script_manager, 0x00352B40\");\n\nscript_manager::~script_manager()\n{\n  _destroy();\n}\n",
+      "status": "different",
+      "target_size": 256
+    }
+  ],
+  "raw_name": "_$_14script_manager"
+}
