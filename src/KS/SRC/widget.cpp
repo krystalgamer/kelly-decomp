@@ -858,3 +858,109 @@ bar_widget::bar_widget(
         y_fac = -1;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_0033D7A0)
+// 0x0033D7A0 do_wevent__12color_weventf
+#pragma interface
+
+typedef float rational_t;
+typedef float time_value_t;
+typedef unsigned int message_id_t;
+
+class color
+{
+public:
+  rational_t r, g, b, a;
+
+  color() {}
+  color( const color& c ) : r(c.r), g(c.g), b(c.b), a(c.a) {}
+  color& operator=( const color& c )
+  {
+    r = c.r;
+    g = c.g;
+    b = c.b;
+    a = c.a;
+    return *this;
+  }
+};
+
+class widget
+{
+  char padding0[0x58];
+
+public:
+  color col[4];
+
+private:
+  char padding1[0xA8];
+
+public:
+  virtual ~widget();
+  virtual void show();
+  virtual void hide();
+  virtual void ignore_parent();
+  virtual void obey_parent();
+  virtual void ignore_parent_showing();
+  virtual void obey_parent_showing();
+  virtual void frame_advance( time_value_t time_inc );
+  virtual void render();
+  virtual void message_handler(
+    message_id_t message,
+    message_id_t overflow = 0,
+    rational_t parm0 = 0,
+    rational_t parm1 = 0
+  );
+  virtual void add_child( widget *child );
+  virtual void flush();
+  virtual void move_to( short x, short y );
+  virtual void move_to( time_value_t wt, time_value_t d, short x, short y );
+  virtual void scale_to( rational_t hs, rational_t vs );
+  virtual void scale_to(
+    time_value_t wt,
+    time_value_t d,
+    rational_t hs,
+    rational_t vs
+  );
+  virtual void scale_to( rational_t s );
+  virtual void scale_to( time_value_t wt, time_value_t d, rational_t s );
+  virtual void rotate_to( rational_t a );
+  virtual void rotate_to( time_value_t wt, time_value_t d, rational_t a );
+  virtual void set_color( color c );
+};
+
+class wevent
+{
+protected:
+  int type;
+  widget *owner;
+  time_value_t wait_time;
+  time_value_t duration;
+  time_value_t elapsed;
+
+public:
+  virtual void do_wevent( rational_t ) = 0;
+};
+
+class color_wevent: public wevent
+{
+public:
+  virtual void do_wevent( rational_t );
+
+protected:
+  color mycolor;
+};
+
+void color_wevent::do_wevent( rational_t lerp )
+{
+  // blend the color toward the destination color based on the elapsed time
+  for ( int i = 0; i < 4; ++i )
+  {
+    color newcol;
+    newcol.r = owner->col[i].r + (mycolor.r - owner->col[i].r) * lerp;
+    newcol.g = owner->col[i].g + (mycolor.g - owner->col[i].g) * lerp;
+    newcol.b = owner->col[i].b + (mycolor.b - owner->col[i].b) * lerp;
+    newcol.a = owner->col[i].a + (mycolor.a - owner->col[i].a) * lerp;
+    owner->set_color( newcol );
+  }
+}
+#endif
