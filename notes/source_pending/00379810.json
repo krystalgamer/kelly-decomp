@@ -1,0 +1,23 @@
+{
+  "address": "0x00379810",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e257f01e78ee398a02843a102501fd478eb824a5",
+      "candidate_size": 244,
+      "compared_bytes": 244,
+      "compared_instructions": 61,
+      "emitted_name": "WAVE_PrependDeadweight__FPC13WavePartitionP13WavePartitionf",
+      "instruction_score": 88.5246,
+      "matching_bytes": 220,
+      "matching_instructions": 54,
+      "notes": "Exact released `WAVE_PrependDeadweight` body with the canonical `WavePartition` type and authentic partition helpers. It emitted the exact 244-byte computation and call sequence; only the prologue ordering of `ra`, `s0`, and saved floating-point registers differs from the target.",
+      "score": 90.1639,
+      "source": "#include \"KS/SRC/ks/wave_perturb_shared.h\"\n\nvoid WAVE_CopyPartition(\n    const WavePartition *input,\n    WavePartition *output);\nvoid WAVE_RestrictPartition(\n    WavePartition *partition,\n    float minimum,\n    float maximum);\n\n__asm__(\n    \".equ WAVE_CopyPartition__FPC13WavePartitionP13WavePartition, \"\n    \"0x00379A88\");\n__asm__(\n    \".equ WAVE_RestrictPartition__FP13WavePartitionff, \"\n    \"0x003794B8\");\n\nstatic void WAVE_PrependDeadweight(const WavePartition *wpin, WavePartition *wpout, float weight)\n{\n\tfloat min = wpin->guide[0], max = wpin->guide[wpin->N - 1];\n\tfloat epsilon = 0.0001f * (max - min);\n\n\t++wpout->guide;\n\t++wpout->guidestep;\n\t++wpout->weight;\n\tWAVE_CopyPartition(wpin, wpout);\n\tWAVE_RestrictPartition(wpout, min + epsilon, max);\n\t--wpout->guide;\n\t--wpout->guidestep;\n\t--wpout->weight;\n\twpout->guide[0] = min;\n\twpout->guidestep[0] = (min + epsilon) - min;\n\twpout->weight[0] = weight;\n\t++wpout->N;\n}\n",
+      "status": "different",
+      "target_size": 244
+    }
+  ],
+  "raw_name": "WAVE_PrependDeadweight__FPC13WavePartitionP13WavePartitionf"
+}
