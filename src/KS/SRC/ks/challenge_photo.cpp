@@ -255,3 +255,28 @@ PhotoChallenge::PhotoChallenge()
 // 0x002620A8 Retry__14PhotoChallenge
 class PhotoChallenge{public:class Cameraman{char data[16];public:void Reset();};class Photo{char data[12];public:void Reset();};char pad0[16];int state;int recordChain;float specialPhotoTimer;int numCameramen;Cameraman*cameramen;int activeCameramanIdx;int numTaken;int numPhotos;Photo*photos;void Retry();};asm(".equ Reset__Q214PhotoChallenge9Cameraman,0x00262818");asm(".equ Reset__Q214PhotoChallenge5Photo,0x00262748");void PhotoChallenge::Retry(){int i=0;state=0;recordChain=false;specialPhotoTimer=0.0f;activeCameramanIdx=-1;for(i=0;i<numCameramen;i++)cameramen[i].Reset();numTaken=0;for(i=0;i<numPhotos;i++)photos[i].Reset();}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00262918)
+// 0x00262918 IsCloseToSurfer__CQ214PhotoChallenge9CameramanP22kellyslater_controller
+#include "KS/SRC/ks/challenge_photo_shared.h"
+
+#define TAKE_RANGE2 1225.0f
+
+bool PhotoChallenge::Cameraman::IsCloseToSurfer(
+    kellyslater_controller *ksctrl) const
+{
+    float dist2 = 0.0f;
+
+    if (ksctrl && ent && ent->is_active() && ent->is_visible())
+    {
+        dist2 = (
+            ent->get_abs_position() -
+            ksctrl->get_board_controller().my_board->get_abs_position()
+        ).length2();
+
+        if (dist2 <= TAKE_RANGE2)
+            return true;
+    }
+    return false;
+}
+#endif
