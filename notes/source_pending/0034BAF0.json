@@ -1,0 +1,15 @@
+{
+  "address": "0x0034BAF0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f99d51a5e79caeaf431197e25da7413dce796423",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/path.cpp:1190-1219; kelly-slaters-pro-surfer/KS/SRC/path.h:25-109,141-221,330-412; notes/function_queue.csv:0x0034BAF0; tmp/functions/0034BAF0_clear__10path_graph/attempt-1/result.json; tmp/functions/0034BAF0_clear__10path_graph/attempt-1/compiler.stderr; tmp/source_first/0034BAF0/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include <vector.h>\n\nclass string_buf;\nclass stringx\n{\nprotected:\n  char *chars;\n  string_buf *my_buf;\n};\n\nclass path_graph_edge\n{\npublic:\n  virtual ~path_graph_edge();\n};\n\nclass path_graph_node\n{\npublic:\n  virtual ~path_graph_node();\n};\n\nclass path_graph\n{\nprotected:\n  stringx id;\n  vector<path_graph_node*> nodes;\n  vector<path_graph_edge*> edges;\npublic:\n  void clear();\n};\n\nvoid path_graph::clear()\n{\n  vector<path_graph_edge *>::iterator i = edges.begin();\n  while(i != edges.end())\n  {\n    if(*i != NULL)\n    {\n      path_graph_edge *edge = *i;\n      i = edges.erase(i);\n\n      delete edge;\n    }\n    else\n      ++i;\n  }\n\n  vector<path_graph_node *>::iterator j = nodes.begin();\n  while(j != nodes.end())\n  {\n    if(*j != NULL)\n    {\n      path_graph_node *node = *j;\n      j = nodes.erase(j);\n\n      delete node;\n    }\n    else\n      ++j;\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "clear__10path_graph"
+}
