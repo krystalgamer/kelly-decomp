@@ -1,0 +1,23 @@
+{
+  "address": "0x0010D9B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a973b92deb4ea848606b152d394148489977dd30",
+      "candidate_size": 292,
+      "compared_bytes": 292,
+      "compared_instructions": 73,
+      "emitted_name": "_S_chunk_alloc__t27__my_default_alloc_template2b0i0UiRi",
+      "instruction_score": 100.0,
+      "matching_bytes": 263,
+      "matching_instructions": 73,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/custom_stl.h:143-176; kelly-slaters-pro-surfer/KS/SRC/custom_stl.h:266-331; tmp/functions/0010D9B8__S_chunk_alloc__t27__my_default_alloc_template2b0i0UiRi/attempt-1/result.json. Result `different`, score 90.0685; no later attempt.",
+      "score": 90.0685,
+      "source": "typedef unsigned int size_t;\n\nextern void *StlSmallAlloc(size_t);\n\ntemplate <bool threads, int inst>\nclass __my_default_alloc_template {\nprivate:\n    enum {_ALIGN = 8};\n    enum {_MAX_BYTES = 128};\n    enum {_NFREELISTS = _MAX_BYTES / _ALIGN};\n\n    static size_t _S_round_up(size_t __bytes)\n    {\n        return (((__bytes) + _ALIGN - 1) & ~(_ALIGN - 1));\n    }\n\n    union _Obj {\n        union _Obj *_M_free_list_link;\n        char _M_client_data[1];\n    };\n\n    static _Obj *_S_free_list[_NFREELISTS];\n\n    static size_t _S_freelist_index(size_t __bytes)\n    {\n        return (((__bytes) + _ALIGN - 1) / _ALIGN - 1);\n    }\n\n    static char *_S_chunk_alloc(size_t __size, int &__nobjs);\n    static char *_S_start_free;\n    static char *_S_end_free;\n    static size_t _S_heap_size;\n};\n\ntemplate <bool __threads, int __inst>\nchar *\n__my_default_alloc_template<__threads, __inst>::_S_chunk_alloc(\n    size_t __size, int &__nobjs)\n{\n    char *__result;\n    size_t __total_bytes = __size * __nobjs;\n    size_t __bytes_left = _S_end_free - _S_start_free;\n\n    if (__bytes_left >= __total_bytes) {\n        __result = _S_start_free;\n        _S_start_free += __total_bytes;\n        return(__result);\n    } else if (__bytes_left >= __size) {\n        __nobjs = (int)(__bytes_left / __size);\n        __total_bytes = __size * __nobjs;\n        __result = _S_start_free;\n        _S_start_free += __total_bytes;\n        return(__result);\n    } else {\n        size_t __bytes_to_get =\n            2 * __total_bytes + _S_round_up(_S_heap_size >> 4);\n        if (__bytes_left > 0) {\n            _Obj **__my_free_list =\n                _S_free_list + _S_freelist_index(__bytes_left);\n\n            ((_Obj *)_S_start_free)->_M_free_list_link = *__my_free_list;\n            *__my_free_list = (_Obj *)_S_start_free;\n        }\n        _S_start_free = (char *)StlSmallAlloc(__bytes_to_get);\n        _S_heap_size += __bytes_to_get;\n        _S_end_free = _S_start_free + __bytes_to_get;\n        return(_S_chunk_alloc(__size, __nobjs));\n    }\n}\n\ntemplate char *\n__my_default_alloc_template<false, 0>::_S_chunk_alloc(size_t, int &);\n",
+      "status": "different",
+      "target_size": 292
+    }
+  ],
+  "raw_name": "_S_chunk_alloc__t27__my_default_alloc_template2b0i0UiRi"
+}
