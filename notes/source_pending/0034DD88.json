@@ -1,0 +1,23 @@
+{
+  "address": "0x0034DD88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "753ff200a9a9c4591454a2c79eb2d7f1b24dc2e6",
+      "candidate_size": 312,
+      "compared_bytes": 312,
+      "compared_instructions": 78,
+      "emitted_name": "find_cached_string__7stringxPCci",
+      "instruction_score": 43.5897,
+      "matching_bytes": 199,
+      "matching_instructions": 34,
+      "notes": "FIRST PASS lane B4. Tested the exact released `stringx::find_cached_string` definition once with minimal self-contained declarations for `string_buf`, its inlined reference/equality helpers, and the static cache. The candidate compiled and emitted the requested symbol but differed: 199/312 compared bytes (63.7821%) and 34/78 instructions (43.5897%); candidate size 312 versus target size 300. Per first-pass policy, no variants, diff chasing, build, integration, finalization, queue edits, or source/prefix/shared proposal were attempted.",
+      "score": 63.7821,
+      "source": "typedef unsigned long long big_int;\nextern \"C\" unsigned int strlen(const char *);\n\n#define NULL 0\n#define STRINGX_CACHE_BUCKETS 16\n\nclass stringx;\n\nclass string_buf\n{\nprotected:\n    friend class stringx;\n    big_int *data;\n    int ref_count;\n    int char_length;\n    int block_length;\n    int max_blocks;\n\npublic:\n    inline void inc_ref()\n    {\n        ref_count++;\n    }\n\n    inline int get_ref()\n    {\n        return ref_count;\n    }\n\n    inline int compare(const char *str) const\n    {\n        int i;\n        const char *a = reinterpret_cast<const char *>(data);\n        for (i = 0; i < char_length; i++) {\n            if (str[i] == '\\0') return -1;\n            if (a[i] == str[i]) continue;\n            if (str[i] > a[i]) return 1;\n            if (str[i] < a[i]) return -1;\n        }\n        if (str[i] == '\\0') return 0;\n        return 1;\n    }\n\n    inline bool is_equal(const char *str) const\n    {\n        return (compare(str) == 0);\n    }\n};\n\nclass stringx\n{\nprotected:\n    static string_buf *buf_cache[256 * STRINGX_CACHE_BUCKETS];\n    static string_buf *find_cached_string(const char *str, int len = -1);\n};\n\nstring_buf *stringx::find_cached_string(const char *str, int len)\n{\n    if (str == NULL) {\n        return NULL;\n    }\n\n    if (len == -1)\n        len = strlen(str);\n\n    unsigned int start = ((unsigned char) str[0]) * STRINGX_CACHE_BUCKETS;\n\n    for (unsigned int i = start; i < start + STRINGX_CACHE_BUCKETS; i++) {\n        if (buf_cache[i] != NULL) {\n            if (buf_cache[i]->get_ref() > 0 && buf_cache[i]->is_equal(str) && buf_cache[i]->char_length == len) {\n                buf_cache[i]->inc_ref();\n                return buf_cache[i];\n            }\n        }\n    }\n\n    return NULL;\n}\n",
+      "status": "different",
+      "target_size": 300
+    }
+  ],
+  "raw_name": "find_cached_string__7stringxPCci"
+}
