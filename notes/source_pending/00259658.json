@@ -1,0 +1,23 @@
+{
+  "address": "0x00259658",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "27179612a21472524184a393106b65643f8f77d2",
+      "candidate_size": 304,
+      "compared_bytes": 304,
+      "compared_instructions": 76,
+      "emitted_name": "__16SurferAttributes",
+      "instruction_score": 1.3158,
+      "matching_bytes": 49,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used the released definition cited at kelly-slaters-pro-surfer/KS/SRC/ks/player.cpp:19-55; kelly-slaters-pro-surfer/KS/SRC/ks/player.h:9-16; kelly-slaters-pro-surfer/KS/SRC/ks/player.h:40-68; kelly-slaters-pro-surfer/KS/SRC/ks/surferdata.h:9-25. The single exact-source test returned `different` with score 16.1184. No variant or later attempt was made.",
+      "score": 16.1184,
+      "source": "enum {\n    SURFER_BRUCE_IRONS,\n    SURFER_DONAVON_FRANKENREITER,\n    SURFER_KALANI_ROBB,\n    SURFER_KELLY_SLATER,\n    SURFER_LISA_ANDERSEN,\n    SURFER_NATHAN_FLETCHER,\n    SURFER_ROB_MACHADO,\n    SURFER_TOM_CARROL,\n    SURFER_TOM_CURREN,\n    SURFER_MISC_SURFER,\n    SURFER_TRAVIS_PASTRANA,\n    SURFER_TIKI_GOD,\n    SURFER_TONY_HAWK,\n    SURFER_SURFREAK,\n    SURFER_LAST\n};\n\nenum\n{\n\tATTRIB_AIR,\n\tATTRIB_SPEED,\n\tATTRIB_ROTATE,\n\tATTRIB_BALANCE,\n\tNUM_ATTRIBS\n};\n\nenum\n{\n\tBOARD_1_ATTR,\n\tBOARD_2_ATTR,\n\tNUM_BOARDS_ATTRS\n};\n\nclass SurferAttributes\n{\npublic:\n\n\tSurferAttributes();\n\n\tint player_rotate;\n\tint player_speed;\n\tint player_balance;\n\tint player_air;\n\n\tint board_rotate;\n\tint board_speed;\n\tint board_balance;\n\tint board_air;\n\t\n\tint use_debug_values;\n\n\tint player_attribs[SURFER_LAST][NUM_ATTRIBS];\n\tint board_attribs[NUM_BOARDS_ATTRS][NUM_ATTRIBS];\n};\n\nSurferAttributes::SurferAttributes()\n{\n\tuse_debug_values = 0;\n\n\tplayer_rotate = 13;\n\tplayer_speed = 20;\n\tplayer_balance = 20;\n\tplayer_air = 13;\n\n\tboard_rotate = 7;\n\tboard_speed = 7;\n\tboard_balance = 7;\n\tboard_air = 7;\n\n\tint n, m;\n\tfor (n = 0; n < SURFER_LAST; n++)\n\t{\n\t\tfor (m = 0; m < NUM_ATTRIBS; m++)\n\t\t{\n\t\t\tplayer_attribs[n][ATTRIB_AIR] = player_air;\n\t\t\tplayer_attribs[n][ATTRIB_SPEED] = player_speed;\n\t\t\tplayer_attribs[n][ATTRIB_ROTATE] = player_rotate;\n\t\t\tplayer_attribs[n][ATTRIB_BALANCE] = player_balance;\n\t\t}\n\t}\n\n\tfor (n = 0; n < NUM_BOARDS_ATTRS; n++)\n\t{\n\t\tfor (m = 0; m < NUM_ATTRIBS; m++)\n\t\t{\n\t\t\tboard_attribs[n][ATTRIB_AIR] = board_air;\n\t\t\tboard_attribs[n][ATTRIB_SPEED] = board_speed;\n\t\t\tboard_attribs[n][ATTRIB_ROTATE] = board_rotate;\n\t\t\tboard_attribs[n][ATTRIB_BALANCE] = board_balance;\n\t\t}\n\t}\n}\n",
+      "status": "different",
+      "target_size": 256
+    }
+  ],
+  "raw_name": "__16SurferAttributes"
+}
