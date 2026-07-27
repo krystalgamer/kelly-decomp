@@ -1,0 +1,23 @@
+{
+  "address": "0x001CE7B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f23744feeacb0af8e9117169c2f23284c9bb959d",
+      "candidate_size": 160,
+      "compared_bytes": 312,
+      "compared_instructions": 78,
+      "emitted_name": "_$_15PhotoSelectMenu",
+      "instruction_score": 1.2821,
+      "matching_bytes": 25,
+      "matching_instructions": 1,
+      "notes": "# Released-source first pass A2 notes \u2014 _$_15PhotoSelectMenu\n\n- Used the exact released `PhotoSelectMenu::~PhotoSelectMenu` body (`delete title;`) with minimal declarations preserving the released `FEMultiMenu` base, member order, three `PhotoWidget` objects, and virtual destructors.\n- The candidate is non-placeholder and was tested exactly once with `env/bin/python tools/function_test.py test 0x001CE7B0 --candidate 'tmp/functions/001CE7B0__$_15PhotoSelectMenu/candidate.cpp'`.\n- Result: `different`; byte score 8.0128% (25/312), instruction score 1.2821% (1/78), candidate size 160 versus target 312.\n- No source, candidate-prefix, or shared proposal fields were emitted because those fields are matched-only.\n- No variants, diff chasing, build, finalize, integrate, tracked writes, tool edits, subagents, commit, or push.\n\nCitations: released `PhotoFrontEnd.cpp:233-238`, `PhotoFrontEnd.h:45-78`, `igo_widget_photo.h:20-67`, `FEMenu.h:498-527`, and attempt-1 `result.json`.",
+      "score": 8.0128,
+      "source": "class TextString {\n    char layout[0x4c];\npublic:\n    virtual ~TextString();\n};\n\nclass PhotoWidget {\n    char layout[0x104];\npublic:\n    ~PhotoWidget();\n};\n\nclass FEMultiMenu {\n    char layout[0x15c];\npublic:\n    virtual ~FEMultiMenu();\n};\n\nclass PanelQuad;\n\nclass PhotoSelectMenu : public FEMultiMenu {\n    PanelQuad *arrowPQs[2][2];\n    PanelQuad *highlightPQs[3];\n    PhotoWidget photoWidgets[3];\n    TextString *title;\n    int leftArrowIdx, rightArrowIdx;\n    float arrowHiTimer;\n    int highlightedIdx;\npublic:\n    virtual ~PhotoSelectMenu();\n};\n\nPhotoSelectMenu::~PhotoSelectMenu()\n{\n    delete title;\n}\n",
+      "status": "different",
+      "target_size": 312
+    }
+  ],
+  "raw_name": "_$_15PhotoSelectMenu"
+}
