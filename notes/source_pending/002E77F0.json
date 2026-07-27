@@ -1,0 +1,15 @@
+{
+  "address": "0x002E77F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "27c6865d02ab12f87c23c4e9f3984f6b95c88afd",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/region.cpp:673-704; kelly-slaters-pro-surfer/KS/SRC/region.h:86-94,139-159,250-258; kelly-slaters-pro-surfer/KS/SRC/entity.h:1745-1750; tmp/functions/002E77F0_update_poss_active__6regionP6entity/attempt-1/result.json; tmp/functions/002E77F0_update_poss_active__6regionP6entity/attempt-1/compiler.stderr; tmp/source_first/002E77F0/notes.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "template<class T> class vector\n{\n  T* first;\n  T* last;\n  T* limit;\npublic:\n  typedef T* iterator;\n  iterator begin() { return first; }\n  iterator end() { return last; }\n  void push_back(const T& value)\n  {\n    if (last != limit)\n    {\n      if (last)\n        *last = value;\n      ++last;\n    }\n    else\n      _M_insert_aux(last, value);\n  }\n  void _M_insert_aux(iterator, const T&);\n};\n\ntemplate<class Iterator, class T>\nIterator find(Iterator first, Iterator last, const T& value)\n{\n  while (first != last && !(*first == value))\n    ++first;\n  return first;\n}\n\nclass entity\n{\npublic:\n  virtual bool possibly_active() const;\n  virtual bool possibly_aging() const;\n};\n\nclass region\n{\n  char prefix[148];\npublic:\n  typedef vector<entity*> entity_list;\n  entity_list possible_active_ents;\n  void update_poss_active(entity* e);\n};\n\n#define START_PROF_TIMER(timer) ((void)0)\n#define STOP_PROF_TIMER(timer) ((void)0)\n\nvoid region::update_poss_active( entity* e )\n{\n  START_PROF_TIMER(proftimer_update_poss_active);\n  if(e)\n  {\n    if(e->possibly_active() || e->possibly_aging())\n    {\n      entity_list::iterator ei_begin = possible_active_ents.begin();\n      entity_list::iterator ei_end = possible_active_ents.end();\n\n      entity_list::iterator ei = find( ei_begin, ei_end, e );\n      if ( ei == ei_end )\n      {\n        ei = find( ei_begin, ei_end, (entity*)NULL );\n        if ( ei != ei_end )\n          *ei = e;\n        else\n        {\n          possible_active_ents.push_back( e );\n        }\n      }\n    }\n    else\n    {\n      entity_list::iterator ei_end = possible_active_ents.end();\n      entity_list::iterator ei = find( possible_active_ents.begin(), ei_end, e );\n      if ( ei != ei_end )\n        *ei = NULL;\n    }\n  }\n  STOP_PROF_TIMER(proftimer_update_poss_active);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "update_poss_active__6regionP6entity"
+}
