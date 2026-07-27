@@ -1,0 +1,23 @@
+{
+  "address": "0x0033FAE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9d518272f5a3b637bee9ee2f234dc0b3e6d85995",
+      "candidate_size": 240,
+      "compared_bytes": 252,
+      "compared_instructions": 63,
+      "emitted_name": "open__13bitmap_widgetPCc",
+      "instruction_score": 7.9365,
+      "matching_bytes": 53,
+      "matching_instructions": 5,
+      "notes": "# Attempt 1\n\n- Queue row was `pending` with zero attempts; neither address scratch path existed before preparation.\n- Used the released `bitmap_widget::open` body from `widget.cpp:1270-1312` with the authentic `stringx`, `mat_fac`, `map_e`, widget flag/layout, `rectf`, and PS2 `vector2d` declarations needed by that body.\n- Result: **different** \u2014 byte score 21.0317%, instruction score 7.9365%; candidate size 240 versus target 252 bytes.\n- Exactly one candidate was tested; no second attempt or diff chasing was performed.",
+      "score": 21.0317,
+      "source": "typedef float rational_t;\n\nclass stringx\n{\n    char *chars;\n    void *buffer;\n\npublic:\n    stringx(const char *text, int length = -1);\n    ~stringx();\n};\n\nenum map_e\n{\n    MAP_DIFFUSE\n};\n\nclass mat_fac\n{\npublic:\n    virtual ~mat_fac();\n    void load_material(const stringx &file);\n    int get_original_width(int frame, map_e map = MAP_DIFFUSE) const;\n    int get_original_height(int frame, map_e map = MAP_DIFFUSE) const;\n\nprivate:\n    char material[0x108];\n} __attribute__((aligned(8)));\n\nclass vector2d\n{\npublic:\n    rational_t x;\n    rational_t y;\n\n    vector2d() {}\n    vector2d(rational_t new_x, rational_t new_y) : x(new_x), y(new_y) {}\n};\n\nclass rectf\n{\npublic:\n    vector2d tl;\n    vector2d br;\n\n    rectf() {}\n    rectf(rational_t left, rational_t top, rational_t right, rational_t bottom)\n        : tl(left, top), br(right, bottom) {}\n};\n\nclass widget\n{\n    char padding0[0x14];\n\nprotected:\n    unsigned int flags;\n    char padding1[0x118];\n    rectf subrect;\n    void *vtable;\n\n    void set_flag(unsigned int flag, bool value)\n    {\n        if (value)\n            flags |= flag;\n        else\n            flags &= ~flag;\n    }\n};\n\nclass bitmap_widget : public widget\n{\npublic:\n    bool open(const char *name);\n    void set_tc();\n\nprotected:\n    rational_t w;\n    rational_t h;\n    rational_t hw;\n    rational_t hh;\n    int nframes;\n    mat_fac mat;\n    int index;\n    bool playing;\n    rational_t frame_delay;\n    rational_t frame_time;\n    rational_t last_time;\n};\n\n__asm__(\".equ __7stringxPCci, 0x0034D438\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\".equ load_material__7mat_facRC7stringx, 0x002BCA70\");\n__asm__(\".equ get_original_width__C7mat_faci5map_e, 0x002BD198\");\n__asm__(\".equ get_original_height__C7mat_faci5map_e, 0x002BD1B8\");\n__asm__(\".equ set_tc__13bitmap_widget, 0x0033FD10\");\n\nbool bitmap_widget::open(const char *name)\n{\n    mat.load_material(name);\n    w = mat.get_original_width(0, MAP_DIFFUSE);\n    h = mat.get_original_height(0, MAP_DIFFUSE);\n\n    set_flag(0x00000002, true);\n    hw = w * 0.5f;\n    hh = h * 0.5f;\n    subrect = rectf(0.0f, 0.0f, w, h);\n    set_tc();\n    last_time = 0;\n    return true;\n}\n",
+      "status": "different",
+      "target_size": 252
+    }
+  ],
+  "raw_name": "open__13bitmap_widgetPCc"
+}
