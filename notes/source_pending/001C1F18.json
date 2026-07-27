@@ -1,0 +1,23 @@
+{
+  "address": "0x001C1F18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8cc0ab8ac38ec7640136a7e39c50f96ec2493451",
+      "candidate_size": 320,
+      "compared_bytes": 320,
+      "compared_instructions": 80,
+      "emitted_name": "DrawBack__15FEEntityManager",
+      "instruction_score": 20.0,
+      "matching_bytes": 104,
+      "matching_instructions": 16,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEEntityManager.cpp:512-532; kelly-slaters-pro-surfer/KS/SRC/ks/FEEntityManager.h:17-190; tmp/functions/001C1F18_DrawBack__15FEEntityManager/attempt-1/result.json; tmp/source_first/001C1F18/attempt-1.md. Result `different`, score 32.5000; no later attempt.",
+      "score": 32.5,
+      "source": "class entity_base0\n{\npublic:\n  virtual void base0();\n  int base0_data;\n};\n\nclass entity_visible_interface\n{\npublic:\n  virtual void v00();\n  virtual void v01();\n  virtual void v02();\n  virtual void v03();\n  virtual void v04();\n  virtual void v05();\n  virtual void v06();\n  virtual void v07();\n  virtual void v08();\n  virtual void v09();\n  virtual void v10();\n  virtual void v11();\n  virtual void v12();\n  virtual void v13();\n  virtual void v14();\n  virtual void v15();\n  virtual void v16();\n  virtual void v17();\n  virtual void v18();\n  virtual void v19();\n  virtual void v20();\n  virtual void v21();\n  virtual void v22();\n  virtual void v23();\n  virtual void v24();\n  virtual void v25();\n  virtual void v26();\n  virtual void v27();\n  virtual void v28();\n  virtual void v29();\n  virtual void v30();\n  virtual void v31();\n  virtual void v32();\n  virtual void v33();\n  virtual void v34();\n  virtual void v35();\n  virtual void v36();\n  virtual void v37();\n  virtual void v38();\n  virtual void v39();\n  virtual void v40();\n  virtual void v41();\n  virtual void v42();\n  virtual void v43();\n  virtual void v44();\n  virtual void v45();\n  virtual void v46();\n  virtual void v47();\n  virtual void v48();\n  virtual void v49();\n  virtual void v50();\n  virtual void v51();\n  virtual void v52();\n  virtual void v53();\n  virtual void v54();\n  virtual void v55();\n  virtual void v56();\n  virtual void v57();\n  virtual void v58();\n  virtual void v59();\n  virtual void v60();\n  virtual void v61();\n  virtual void v62();\n  virtual void v63();\n  virtual void v64();\n  virtual void v65();\n  virtual void v66();\n  virtual void v67();\n  virtual void v68();\n  virtual void v69();\n  virtual void v70();\n  virtual void v71();\n  virtual void v72();\n  virtual void v73();\n  virtual void v74();\n  virtual void v75();\n  virtual void v76();\n  virtual void v77();\n  virtual void v78();\n  virtual void v79();\n  virtual void v80();\n  virtual void v81();\n  virtual void v82();\n  virtual void v83();\n  virtual void v84();\n  virtual void v85();\n  virtual void v86();\n  virtual void v87();\n  virtual void v88();\n  virtual void set_visible(bool a);\n};\n\nclass entity : public entity_base0, public entity_visible_interface {};\nclass camera;\nclass world_dynamics_system\n{\npublic:\n  void render(camera *camera_link, const int heroIdx);\n};\nextern world_dynamics_system *g_world_ptr;\n__asm__(\".equ g_world_ptr, 0x00431A8C\");\n__asm__(\".equ render__21world_dynamics_systemP6camerai, 0x0029EC68\");\n\nclass FEEntityManager\n{\npublic:\n  enum { STATE_TRICK = 3, STATE_OTHER = 7 };\n  enum { CAM_POS_WALL_2_OUT = 2 };\n\n  entity *surfer_ent;\n  char gap_004[0x190];\n  entity *board;\n  char gap_198[0x28];\n  bool cam_stopped;\n  char gap_1c1[3];\n  int cam_stopped_at;\n  char gap_1c8[0x50];\n  camera *active_camera;\n  char gap_21c[0x24];\n  int cur_state;\n  char gap_244[0x4c];\n  bool in_flyin;\n\n  bool OKtoDrawBio() { return cam_stopped && cam_stopped_at == CAM_POS_WALL_2_OUT; }\n  void DrawBack();\n};\n\nvoid FEEntityManager::DrawBack()\n{\n  if(cur_state != STATE_OTHER)\n  {\n    if(in_flyin || (cur_state == STATE_TRICK && OKtoDrawBio()))\n    {\n      surfer_ent->set_visible(false);\n      if (board)\n        board->set_visible(false);\n    }\n    g_world_ptr->render(active_camera, 0);\n    if(in_flyin || (cur_state == STATE_TRICK && OKtoDrawBio()))\n    {\n      surfer_ent->set_visible(true);\n      if (board)\n        board->set_visible(true);\n    }\n  }\n}\n",
+      "status": "different",
+      "target_size": 304
+    }
+  ],
+  "raw_name": "DrawBack__15FEEntityManager"
+}
