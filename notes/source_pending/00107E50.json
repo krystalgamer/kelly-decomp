@@ -1,0 +1,23 @@
+{
+  "address": "0x00107E50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "deb53abe077a880d02bdc87021bc8a708ab26f86",
+      "candidate_size": 280,
+      "compared_bytes": 280,
+      "compared_instructions": 70,
+      "emitted_name": "set_path__13ai_locomotionRC8vector3dfb",
+      "instruction_score": 95.7143,
+      "matching_bytes": 242,
+      "matching_instructions": 67,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ai_locomotion.cpp:504-559; kelly-slaters-pro-surfer/KS/SRC/ai_locomotion.h:22-123; kelly-slaters-pro-surfer/KS/SRC/ai_polypath.h:17-37; tmp/functions/00107E50_set_path__13ai_locomotionRC8vector3dfb/attempt-1/result.json. Result `different`, score 86.4286; no later attempt.",
+      "score": 86.4286,
+      "source": "typedef float rational_t;\n#define START_PROF_TIMER(a) {}\n#define STOP_PROF_TIMER(a) {}\n#define assert(a) ((void)0)\n#define NULL 0\n\nclass vector3d\n{\npublic:\n  float x, y, z;\n};\n\nclass region_node;\nclass ai_polypath_cell;\n\nclass po\n{\n  char pad[48];\n  vector3d abs_position;\npublic:\n  const vector3d& get_abs_position() const { return abs_position; }\n};\n\nclass entity\n{\n  char pad[80];\n  po *my_po;\npublic:\n  const vector3d& get_abs_position() const { return my_po->get_abs_position(); }\n  region_node *get_primary_region() const;\n};\n\nclass ai_path\n{\n  char data[4];\n};\n\nclass ai_polypath\n{\npublic:\n  ai_polypath_cell* closest_cell(const vector3d& pt, region_node *reg = 0, entity *ent = 0) const;\n  bool los_test(ai_polypath_cell* start_cell, const vector3d& start_pos, ai_polypath_cell* end_cell, const vector3d& end_pos);\n  bool find_path(ai_path& path, ai_polypath_cell* start_cell, const vector3d& start_pos, ai_polypath_cell* end_cell, const vector3d& end_pos);\n};\n\nclass world_dynamics_system\n{\n  char pad[928];\n  ai_polypath *world_path;\npublic:\n  ai_polypath *get_world_path() const { return world_path; }\n};\n\nextern world_dynamics_system *g_world_ptr;\n\nclass ai_locomotion\n{\n  char pad[32];\n  ai_path my_path;\npublic:\n  virtual bool set_path(const vector3d &dest, rational_t additional_weight_mod, bool force_path);\n  void clear_path();\n  entity *get_my_entity() const;\n};\n\nbool ai_locomotion::set_path( const vector3d& dest, rational_t additional_weight_mod, bool force_path )\n{\n  START_PROF_TIMER(proftimer_adv_AI_pathfinding);\n  clear_path();\n\n  bool path_it = false;\n\n  ai_polypath *global_path = g_world_ptr->get_world_path();\n  if(global_path != NULL)\n  {\n    const vector3d &start = get_my_entity()->get_abs_position();\n    ai_polypath_cell *start_cell = global_path->closest_cell(start, get_my_entity()->get_primary_region(), get_my_entity());\n    ai_polypath_cell *dest_cell  = global_path->closest_cell(dest, NULL, get_my_entity());\n\n    assert(start_cell && dest_cell);\n\n    if(!global_path->los_test(start_cell, start, dest_cell, dest))\n      path_it = global_path->find_path(my_path, start_cell, start, dest_cell, dest);\n  }\n\n  STOP_PROF_TIMER(proftimer_adv_AI_pathfinding);\n\n  return path_it;\n}\n",
+      "status": "different",
+      "target_size": 280
+    }
+  ],
+  "raw_name": "set_path__13ai_locomotionRC8vector3dfb"
+}
