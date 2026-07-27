@@ -1,0 +1,23 @@
+{
+  "address": "0x003A67F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b1ea447e6ff33698ef8f74caa98c08ac5dea983e",
+      "candidate_size": 320,
+      "compared_bytes": 320,
+      "compared_instructions": 80,
+      "emitted_name": "nglListAddQuad__FP7nglQuad",
+      "instruction_score": 40.0,
+      "matching_bytes": 172,
+      "matching_instructions": 32,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:7951-7961; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:293-308,493-498,1208-1229; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2_internal.h:310-358,1106-1124; notes/function_queue.csv:0x003A67F0; tmp/functions/003A67F0_nglListAddQuad__FP7nglQuad/attempt-1/result.json; tmp/source_first/003A67F0/attempt-1.md. Result `different`, score 53.7500; no later attempt.",
+      "score": 53.75,
+      "source": "typedef unsigned char u_char;\ntypedef unsigned int u_int;\n\nstruct nglTexture\n{\n  char Padding[12];\n  u_int Hash;\n};\n\nstruct nglQuadVertex\n{\n  float X, Y;\n  float U, V;\n  u_int Color;\n};\n\nstruct nglQuad\n{\n  nglQuadVertex Verts[4];\n  float Z;\n  u_int MapFlags;\n  u_int BlendMode;\n  u_int BlendModeConstant;\n  nglTexture* Tex;\n};\n\ntypedef void (*nglCustomNodeFn)( u_int*& Packet, void* Data );\n\nstruct nglSortInfo\n{\n  u_int Type;\n  union {\n    float Dist;\n    u_int Hash;\n  };\n};\n\nenum\n{\n  NGLSORT_TRANSLUCENT,\n  NGLSORT_TEXTURED,\n  NGLNODE_QUAD = 2,\n};\n\nextern \"C\" void* memcpy( void* Dest, const void* Src, unsigned int Size );\nvoid* nglListAlloc( u_int Bytes, u_int Alignment = 4 );\nvoid nglListAddNode( u_int Type, nglCustomNodeFn NodeFn, void* Data, nglSortInfo* SortInfo, u_char **Buf = 0 );\nvoid nglVif1RenderSingleQuad( u_int*& Packet, void* Param );\n\ninline void nglGetSortInfo( nglSortInfo* SortInfo, u_int BlendMode, nglTexture* Tex, float Dist )\n{\n  if ( BlendMode == 0 || BlendMode == 1 )\n  {\n    SortInfo->Type = NGLSORT_TEXTURED;\n    if ( Tex )\n      SortInfo->Hash = Tex->Hash;\n    else\n      SortInfo->Hash = 0;\n  }\n  else\n  {\n    SortInfo->Type = NGLSORT_TRANSLUCENT;\n    SortInfo->Dist = Dist;\n  }\n}\n\n#define nglListNew( Type ) (Type*)nglListAlloc( sizeof(Type) )\n\nvoid nglListAddQuad( nglQuad* Quad )\n{\n  nglQuad* Entry = nglListNew( nglQuad );\n  if ( !Entry )\n    return;\n  memcpy( Entry, Quad, sizeof(nglQuad) );\n\n  nglSortInfo SortInfo;\n  nglGetSortInfo( &SortInfo, Entry->BlendMode, Entry->Tex, Entry->Z );\n  nglListAddNode( NGLNODE_QUAD, nglVif1RenderSingleQuad, Entry, &SortInfo );\n}\n",
+      "status": "different",
+      "target_size": 304
+    }
+  ],
+  "raw_name": "nglListAddQuad__FP7nglQuad"
+}
