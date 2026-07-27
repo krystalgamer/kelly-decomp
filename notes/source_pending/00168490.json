@@ -1,0 +1,23 @@
+{
+  "address": "0x00168490",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6f629cda6a1acc19bf2ccd46f755fb97bc9e74eb",
+      "candidate_size": 252,
+      "compared_bytes": 324,
+      "compared_instructions": 81,
+      "emitted_name": "Draw__18HorizBalanceWidget",
+      "instruction_score": 8.642,
+      "matching_bytes": 47,
+      "matching_instructions": 7,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_balance.cpp:100-115; kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_balance.h:10-27; kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget.h:8-25; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:427-485; config/SLUS_203.34.symbol_addrs.txt: Draw__9IGOWidget, Draw__9PanelQuadif; notes/function_queue.csv:0x00168490; tmp/functions/00168490_Draw__18HorizBalanceWidget/attempt-1/result.json; tmp/source_first/00168490/attempt-1.md. Result `different`, score 14.5062; no later attempt.",
+      "score": 14.5062,
+      "source": "// Target: 0x00168490 Draw__18HorizBalanceWidget\n// Reference: KS/SRC/ks/igo_widget_balance.cpp\n// Replace this file with one self-contained candidate function.\nclass IGOWidget\n{\nprotected:\n    bool display;\n\npublic:\n    virtual ~IGOWidget();\n    virtual void SetDisplay(const bool d = true);\n    virtual void Update(const float dt);\n    virtual void Draw(void);\n    virtual bool GetDisplay(void) const;\n};\n\nclass PanelQuad\n{\npublic:\n    virtual ~PanelQuad();\n    virtual void Draw(int layer = 0, float alpha = -1.0f);\n};\n\nclass HorizBalanceWidget : public IGOWidget\n{\nprivate:\n    PanelQuad * meterPQ;\n    PanelQuad * arrowPQ;\n    PanelQuad * leftKnobPQ;\n    PanelQuad * rightKnobPQ;\n    PanelQuad * colorLeftPQ;\n    PanelQuad * colorRightPQ;\n\n    float meterCenterX;\n    bool flashing;\n\npublic:\n    void Draw(void);\n};\n\n__asm__(\".equ Draw__9IGOWidget, 0x00164668\");\n__asm__(\".equ Draw__9PanelQuadif, 0x0014D378\");\n\nvoid HorizBalanceWidget::Draw(void)\n{\n    IGOWidget::Draw();\n\n    if (!display)\n        return;\n    \n    meterPQ->Draw(0);\n    arrowPQ->Draw(0);\n    leftKnobPQ->Draw(0);\n    rightKnobPQ->Draw(0);\n    colorLeftPQ->Draw(0);\n    colorRightPQ->Draw(0);\n}\n",
+      "status": "different",
+      "target_size": 324
+    }
+  ],
+  "raw_name": "Draw__18HorizBalanceWidget"
+}
