@@ -1,0 +1,23 @@
+{
+  "address": "0x00377488",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3657a59d4ac83bd41aed41046155a67322e4447b",
+      "candidate_size": 336,
+      "compared_bytes": 336,
+      "compared_instructions": 84,
+      "emitted_name": "WAVE_CheckScheduleType__FRC7stringxf",
+      "instruction_score": 7.1429,
+      "matching_bytes": 72,
+      "matching_instructions": 6,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/wave.cpp:3104-3138; kelly-slaters-pro-surfer/KS/SRC/stringx.h:91-97,230-237,305-306,399-402; config/SLUS_203.34.symbol_addrs.txt; tmp/functions/00377488_WAVE_CheckScheduleType__FRC7stringxf/attempt-1/result.json; tmp/source_first/00377488/attempt-1.md. Result `different`, score 21.4286; no later attempt.",
+      "score": 21.4286,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned long long big_int;\n\nclass string_buf\n{\npublic:\n    big_int *data;\n    int ref_count;\n    int char_length;\n    int block_length;\n    int max_blocks;\n\n    inline bool is_equal(const string_buf &buf) const\n    {\n        if (buf.block_length != block_length) return false;\n        for (int i = 0; i < block_length; i++) {\n            if (!(buf.data[i] == data[i])) return false;\n        }\n        return true;\n    }\n};\n\nclass stringx\n{\n    friend inline bool operator==(const stringx& lhs, const stringx& rhs);\n    char *chars;\n    string_buf *my_buf;\npublic:\n    stringx &operator=(const stringx &cp);\n};\n\ninline bool operator==(const stringx& lhs, const stringx& rhs)\n{\n    return lhs.my_buf->is_equal(*rhs.my_buf);\n}\n\n#define WAVE_TYPEMAX 3\n#define wavewarn(a)\n\nstruct WaveScheduleTypeStruct {\n    stringx name;\n    float scale;\n    float height;\n};\n\nextern WaveScheduleTypeStruct WAVE_ScheduleType[WAVE_TYPEMAX];\nextern u_int WAVE_ScheduleTypeMax;\n__asm__(\".equ WAVE_ScheduleType, 0x0057B990\");\n__asm__(\".equ WAVE_ScheduleTypeMax, 0x004846CC\");\n\nstatic u_int WAVE_CheckScheduleType(const stringx &typestr, float scale)\n{\n    u_int type = WAVE_TYPEMAX;\n\n    for (u_int i = 0; i < WAVE_ScheduleTypeMax; ++i)\n    {\n        if (typestr == WAVE_ScheduleType[i].name && scale == WAVE_ScheduleType[i].scale)\n        {\n            type = i;\n            break;\n        }\n    }\n    if (type == WAVE_TYPEMAX)\n    {\n        if (WAVE_ScheduleTypeMax < WAVE_TYPEMAX)\n        {\n            type = WAVE_ScheduleTypeMax;\n            WAVE_ScheduleType[WAVE_ScheduleTypeMax].name = typestr;\n            WAVE_ScheduleType[WAVE_ScheduleTypeMax].scale = scale;\n            ++WAVE_ScheduleTypeMax;\n        }\n        else\n        {\n            type = 0;\n            wavewarn((\"WAVE:\\tToo many wave types in .beach file.\"));\n            wavewarn((\"WAVE:\\tAt most %d variations of wave + scale are allowed.\", WAVE_TYPEMAX));\n            wavewarn((\"WAVE:\\tReplacing wave %s at scale %2.2f by wave %s at scale %2.2f.\",\n                typestr.c_str(), scale, WAVE_ScheduleType[0].name.c_str(), WAVE_ScheduleType[0].scale));\n        }\n    }\n\n    return type;\n}\n",
+      "status": "different",
+      "target_size": 320
+    }
+  ],
+  "raw_name": "WAVE_CheckScheduleType__FRC7stringxf"
+}
