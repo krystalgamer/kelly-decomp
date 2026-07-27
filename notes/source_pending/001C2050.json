@@ -1,0 +1,23 @@
+{
+  "address": "0x001C2050",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "68c01265399e534870893cde8673fde1e035fa60",
+      "candidate_size": 284,
+      "compared_bytes": 284,
+      "compared_instructions": 71,
+      "emitted_name": "DoneAsyncLoad__15FEEntityManager",
+      "instruction_score": 15.493,
+      "matching_bytes": 71,
+      "matching_instructions": 11,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEEntityManager.cpp:549-572; kelly-slaters-pro-surfer/KS/SRC/ks/FEEntityManager.h. Result `different`, score 25.0000; no later attempt.",
+      "score": 25.0,
+      "source": "struct anim_tree;\n\nstruct entity\n{\n    anim_tree *get_anim_tree(int) const;\n};\n\nstruct anim_tree_vtable\n{\n    char padding[32];\n    short adjustment;\n    short reserved;\n    void (*set_time)(void *, float);\n};\n\nstruct anim_tree\n{\n    int padding;\n    anim_tree_vtable *vtable;\n\n    void set_time(float time)\n    {\n        anim_tree_vtable *table = vtable;\n        table->set_time((char *)this + table->adjustment, time);\n    }\n};\n\nstruct world_dynamics_system\n{\n    void recompute_all_sectors();\n    void frame_advance(float);\n};\n\nextern world_dynamics_system *g_world_ptr;\nextern int StallSurferLoadSema;\nextern int endMarker1;\nextern int endMarker2;\nextern int WaitSema(int);\nextern int SignalSema(int);\nextern int mem_set_checkpoint();\n\nclass FEEntityManager\n{\n    entity *surfer_ent;\n    char padding[0x20];\n    int loading_surfer_index;\n    int loading_surfer_ent;\n\npublic:\n    void LoadSurfer(int);\n    void SetSurferPo(entity *, int);\n    void SurferPlay(int, float = -1.0f, int = 0, int = 0, bool = false);\n    void DoneAsyncLoad();\n};\n\nasm(\".equ g_world_ptr, 0x00431A8C\");\nasm(\".equ StallSurferLoadSema, 0x0045ABD4\");\nasm(\".equ endMarker1, 0x003FCE24\");\nasm(\".equ endMarker2, 0x003FCE28\");\nasm(\".equ WaitSema__Fi, 0x003DB6A0\");\nasm(\".equ SignalSema__Fi, 0x003DB680\");\nasm(\".equ mem_set_checkpoint__Fv, 0x002AC4F8\");\nasm(\".equ get_anim_tree__C6entityi, 0x001348D8\");\nasm(\".equ recompute_all_sectors__21world_dynamics_system, 0x002A92D0\");\nasm(\".equ frame_advance__21world_dynamics_systemf, 0x002A0260\");\nasm(\".equ LoadSurfer__15FEEntityManageri, 0x001C59E8\");\nasm(\".equ SetSurferPo__15FEEntityManagerP6entityi, 0x001C9298\");\nasm(\".equ SurferPlay__15FEEntityManagerifiib, 0x001C3118\");\n\nvoid FEEntityManager::DoneAsyncLoad()\n{\n    WaitSema(StallSurferLoadSema);\n    LoadSurfer(loading_surfer_index);\n    SetSurferPo(surfer_ent, loading_surfer_index);\n\n    g_world_ptr->recompute_all_sectors();\n    SurferPlay(0);\n    if (surfer_ent->get_anim_tree(0))\n        surfer_ent->get_anim_tree(0)->set_time(0);\n    g_world_ptr->frame_advance(.01f);\n    g_world_ptr->frame_advance(.01f);\n    if (loading_surfer_ent)\n        endMarker1 = mem_set_checkpoint();\n    else\n        endMarker2 = mem_set_checkpoint();\n\n    SignalSema(StallSurferLoadSema);\n}\n",
+      "status": "different",
+      "target_size": 284
+    }
+  ],
+  "raw_name": "DoneAsyncLoad__15FEEntityManager"
+}
