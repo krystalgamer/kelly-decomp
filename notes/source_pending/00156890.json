@@ -1,0 +1,23 @@
+{
+  "address": "0x00156890",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "554067becac4147c10c0e03ad50fe09826e5f175",
+      "candidate_size": 296,
+      "compared_bytes": 296,
+      "compared_instructions": 74,
+      "emitted_name": "Previous__6FEMenu",
+      "instruction_score": 6.7568,
+      "matching_bytes": 77,
+      "matching_instructions": 5,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.cpp:419-441; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:52-105,173-268; tmp/functions/00156890_Previous__6FEMenu/attempt-1/result.json. Result `different`, score 26.0135; no later attempt.",
+      "score": 26.0135,
+      "source": "#define assert(value) ((void)0)\n\nclass FEMenu;\n\nclass FEMenuEntry\n{\npublic:\n    int entry_num;\n    FEMenuEntry* next;\n    FEMenuEntry* previous;\n    FEMenu* menu;\n\n    virtual ~FEMenuEntry();\n    virtual void Load();\n    virtual void OnSelect();\n    virtual void Highlight(bool h = true, bool anim = true);\n    virtual void Disable(bool d = true);\n    virtual bool GetDisable();\n};\n\nenum {\n    FEMENU_SCROLLING = 0x001,\n    FEMENU_WRAP = 0x002,\n    FEMENU_DONT_SKIP_DISABLED = 0x040,\n    FEMENU_DONT_SHOW_DISABLED = 0x400,\n};\n\nclass FEMenu\n{\n    char padding_to_flags[0x38];\n\npublic:\n    int flags;\n    FEMenuEntry* entries;\n    FEMenuEntry* first_vis_entry;\n    FEMenuEntry* last_vis_entry;\n    FEMenuEntry* highlighted;\n\n    virtual ~FEMenu();\n    virtual void setBack(FEMenu* b, int bn = 1);\n    virtual void setHigh(FEMenuEntry* menu, bool anim = true);\n    virtual void setVis(FEMenuEntry* first);\n    virtual void Add(FEMenuEntry* e);\n    virtual void Init();\n    virtual void Load(bool floating);\n    virtual void Load();\n    virtual void Draw();\n    virtual void DrawTop();\n    virtual void UpdateInScene();\n    virtual void Update(float time_inc);\n    virtual void HighlightDefault(void);\n    virtual void OnActivate();\n    virtual void OnActivate(int sub_menu);\n    virtual void OnUnactivate(FEMenu* m);\n    virtual void OnSelect(int c);\n    virtual void OnStart(int c);\n    virtual void OnUp(int c);\n    virtual void OnDown(int c);\n    virtual void OnLeft(int c);\n    virtual void OnRight(int c);\n    virtual void OnCross(int c);\n    virtual void OnTriangle(int c);\n    virtual void OnSquare(int c);\n    virtual void OnCircle(int c);\n    virtual void OnL1(int c);\n    virtual void OnR1(int c);\n    virtual void OnL2(int c);\n    virtual void OnR2(int c);\n    virtual void OnAnyButtonPress(int c, int b);\n    virtual void OnButtonRelease(int c, int b);\n    virtual void SetAllScale(float s);\n    virtual void MakeActive(FEMenu* a);\n    virtual void SetHelpText(const int hFlags);\n    virtual void Select(int entry_num);\n\nprotected:\n    virtual void cons(void* s, int x, int y, int mve = 8);\n    virtual void cons(void* s, int x, int y, unsigned int ch, unsigned int cha, int mve = 8);\n    virtual void cons(void* s, int x, int y, unsigned int c, unsigned int ch, unsigned int cha, float sc = 1.0, float sch = 1.2, int mve = 8, int flg = 0);\n    virtual void Next();\n    virtual void Previous();\n    virtual void Select();\n    virtual void AddSubmenu(FEMenu* sub);\n};\n\nvoid FEMenu::Previous()\n{\n    assert(highlighted);\n    if(!(flags & FEMENU_WRAP) && highlighted == entries) return;\n    if((flags & FEMENU_SCROLLING) && highlighted == first_vis_entry)\n    {\n        FEMenuEntry* first = first_vis_entry->previous;\n        if(flags & FEMENU_DONT_SHOW_DISABLED)\n        {\n            while(first->GetDisable() && first != highlighted)\n                first = first->previous;\n        }\n        setVis(first);\n    }\n    \n    FEMenuEntry* tmp = highlighted->previous;\n    if(tmp)\n    {\n        if(!(flags & FEMENU_DONT_SKIP_DISABLED))\n            while(tmp->GetDisable() && tmp != highlighted) tmp = tmp->previous;\n            setHigh(tmp);\n    }\n}\n",
+      "status": "different",
+      "target_size": 288
+    }
+  ],
+  "raw_name": "Previous__6FEMenu"
+}
