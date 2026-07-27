@@ -1,0 +1,23 @@
+{
+  "address": "0x003874D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d055739c3dd39b62e98803cda5dd2b85b19c55ee",
+      "candidate_size": 316,
+      "compared_bytes": 316,
+      "compared_instructions": 79,
+      "emitted_name": "nvlMem2Cpy__FPUciT0iT0iT0i",
+      "instruction_score": 3.7975,
+      "matching_bytes": 91,
+      "matching_instructions": 3,
+      "notes": "# Attempt 1 \u2014 released-source extraction\n\n- Tested the exact released `nvlMem2Cpy` definition once with only the minimal `memcpy` declaration.\n- The candidate compiled and emitted the requested symbol but differed: 91/316 compared bytes (28.7975%) and 3/79 instructions (3.7975%); candidate size 316 versus target size 308.\n- Per FIRST PASS wave 26 lane B1 constraints, no variants, diff chasing, build, integration, finalization, queue edits, or source/prefix/shared proposal were attempted.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/NVL/PS2/nvlMPEG_ps2.cpp:356-383`\n- `tmp/functions/003874D8_nvlMem2Cpy__FPUciT0iT0iT0i/attempt-1/result.json`",
+      "score": 28.7975,
+      "source": "extern \"C\" void* memcpy(void*, const void*, unsigned int);\n\nstatic int nvlMem2Cpy( unsigned char* pd0, int d0, unsigned char* pd1, int d1, unsigned char* ps0, int s0, unsigned char* ps1, int s1 )\n{\n    if( d0 + d1 < s0 + s1 )\n    {\n        return 0;\n    }\n    if( s0 >= d0 )\n    {\n        memcpy( pd0, ps0, d0 );\n        memcpy( pd1, ps0 + d0, s0 - d0 );\n        memcpy( pd1 + s0 - d0, ps1, s1 );\n    }\n    else\n    {\n        if( s1 >= d0 - s0 )\n        {\n            memcpy( pd0, ps0, s0 );\n            memcpy( pd0 + s0, ps1, d0 - s0 );\n            memcpy( pd1, ps1 + d0 - s0, s1 - d0 + s0 );\n        }\n        else\n        {\n            memcpy( pd0, ps0, s0 );\n            memcpy( pd0 + s0, ps1, s1 );\n        }\n    }\n    return s0 + s1;\n}\n",
+      "status": "different",
+      "target_size": 308
+    }
+  ],
+  "raw_name": "nvlMem2Cpy__FPUciT0iT0iT0i"
+}
