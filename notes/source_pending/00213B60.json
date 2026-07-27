@@ -1,0 +1,23 @@
+{
+  "address": "0x00213B60",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3d7b98f5a9c14e0e0ff4fdb0ecc9c2e798ab32bd",
+      "candidate_size": 288,
+      "compared_bytes": 288,
+      "compared_instructions": 72,
+      "emitted_name": "Spin__22kellyslater_controllerf",
+      "instruction_score": 36.1111,
+      "matching_bytes": 123,
+      "matching_instructions": 26,
+      "notes": "Attempt 1 used the exact released definition cited by {'lines': '2420-2438', 'path': 'kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.cpp'}; {'lines': '50-90', 'path': 'kelly-slaters-pro-surfer/KS/SRC/ks/board.h'}; {'lines': '144-144', 'path': 'kelly-slaters-pro-surfer/KS/SRC/ks/board.h'}; {'lines': '300-310', 'path': 'kelly-slaters-pro-surfer/KS/SRC/ks/board.h'}; {'lines': '455-472', 'path': 'kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.h'}; {'lines': '511-511', 'path': 'kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.h'}; {'lines': '265-265', 'path': 'kelly-slaters-pro-surfer/KS/SRC/commands.h'}. The sole test returned `different` with score 42.7083. No variant or later attempt was made.",
+      "score": 42.7083,
+      "source": "typedef enum {\n\tREGULAR_TURN,\n\tHARD_REGULAR_TURN,\n\tGRAB_TURN,\n\tHARD_GRAB_TURN,\n\tTAILSLIDE_TURN,\n\tGRABSLIDE_TURN,\n\tHARD_TAILSLIDE_TURN,\n\tSNAP_TURN,\n\tHARD_SNAP_TURN,\n\tTAILCHUCK_TURN,\n\tREBOUND_TURN,\n\tLAYBACK_SLIDE_TURN,\n\tGOUGE_TURN,\n\tREVERT_CUTBACK_TURN,\n\tCROUCH_TURN,\n\tCARVE_TURN,\n\tTRIM_TURN,\n\tHARD_TRIM_TURN,\n\tTRICK_SPIN,\n\tHARD_TRICK_SPIN,\n\tLIE_TURN,\n\tNUM_TURN_TYPES\n} TurnTypeEnum;\ntypedef struct TurnPropertiesStruct { float maxLeanAngle; float maxTurnAngle; } TurnPropertiesType;\ntypedef enum { BOARD_NONE, BOARD_GRIND, BOARD_FLOAT, BOARD_FORWARD, BOARD_TURN_RIGHT, BOARD_TURN_LEFT, BOARD_ANIM_CONTROL, BOARD_JUMP, BOARD_IN_AIR } BoardStateEnum;\nenum { PAD_LSTICK_H = 203 };\nclass SurfBoardObjectClass {\n\tchar padding0[48];\n\tTurnPropertiesType turnProps[NUM_TURN_TYPES];\n\tfloat maxLeanAngle;\n\tfloat maxTurnAngle;\n\tchar padding1[2468];\n\tTurnTypeEnum TurnType;\npublic:\n\tvoid Turn(BoardStateEnum st, float degree, float dt, float leanEaseIn = 4.5f);\n\tvoid SetTurnType(TurnTypeEnum turn)\n\t{\n\t\tif (turn != TurnType)\n\t\t{\n\t\t\t//ground_turn = 0.0f;\n\t\t\t//abs_ground_turn = 0.0f;\n\t\t}\n\t\tTurnType = turn;\n\t\tthis->maxLeanAngle = this->turnProps[turn].maxLeanAngle;\n\t\tthis->maxTurnAngle = this->turnProps[turn].maxTurnAngle;\n\t};\n};\nclass kellyslater_controller {\n\tchar padding0[892];\n\tSurfBoardObjectClass my_board_controller;\n\tchar padding1[216];\n\tfloat stick, degree;\npublic:\n\tfloat CtrlEvent(int control);\n\tvoid TurnDegree();\n\tvoid Spin(float t);\n};\nasm(\".equ CtrlEvent__22kellyslater_controlleri,0x0020CFA0\");\nasm(\".equ TurnDegree__22kellyslater_controller,0x002138B8\");\nasm(\".equ Turn__20SurfBoardObjectClass14BoardStateEnumfff,0x001EFC60\");\nvoid kellyslater_controller::Spin(float t)\n{\n\tif (CtrlEvent(PAD_LSTICK_H))\n\t{\n\t\tmy_board_controller.SetTurnType(TRICK_SPIN);\n\n\t\tTurnDegree();\n\t\tif (stick > 0.0f)\n\t\t\tmy_board_controller.Turn(BOARD_TURN_RIGHT, degree, t);\n\t\telse\n\t\t\tmy_board_controller.Turn(BOARD_TURN_LEFT, degree, t);\n\t}\n\telse\n\t{\n\t\tmy_board_controller.SetTurnType(TRICK_SPIN);\n\t\tmy_board_controller.Turn(BOARD_TURN_RIGHT, 0.0f, t);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 260
+    }
+  ],
+  "raw_name": "Spin__22kellyslater_controllerf"
+}
