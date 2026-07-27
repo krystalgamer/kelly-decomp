@@ -50,6 +50,8 @@ public:
     virtual const vector3d &get_pivot() const;
     virtual unsigned int get_type() const = 0;
 
+    inline bool is_valid() const { return valid; }
+
 protected:
     entity *owner;
     bool valid;

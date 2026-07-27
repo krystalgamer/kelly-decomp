@@ -1946,3 +1946,20 @@ bool entity::set_ifc_str(
     return false;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00132148)
+// 0x00132148 get_updated_colgeom__6entityP2pof
+#include "KS/SRC/capsule_shared.h"
+#include "KS/SRC/entity_shared.h"
+
+collision_geometry* entity::get_updated_colgeom(po * replacement_po, rational_t radius_scale)
+{
+  if (get_colgeom() && !get_colgeom()->is_valid() && !is_stationary())
+  {
+    update_colgeom(replacement_po);
+  }
+  if (get_colgeom())
+    get_colgeom()->apply_radius_scale(radius_scale);
+  return get_colgeom();
+}
+#endif
