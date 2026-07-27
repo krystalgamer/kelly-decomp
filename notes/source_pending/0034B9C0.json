@@ -1,0 +1,23 @@
+{
+  "address": "0x0034B9C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "93d61b0072358dea278c51b654e608124b5101c2",
+      "candidate_size": 304,
+      "compared_bytes": 304,
+      "compared_instructions": 76,
+      "emitted_name": "valid__C10path_graph",
+      "instruction_score": 76.3158,
+      "matching_bytes": 259,
+      "matching_instructions": 58,
+      "notes": "FIRST PASS wave 24 lane B3. Tested the exact released `path_graph::valid() const` definition once with minimal self-contained declarations for `vector`, `stringx`, `path_graph_node`, `path_graph_edge`, and `path_graph`, preserving the member layouts and external graph-membership calls required by the released body. The candidate compiled and emitted the requested symbol but differed: 259/304 compared bytes (85.1974%) and 58/76 instructions (76.3158%); candidate and target were both 304 bytes. Per first-pass policy, no variants, diff chasing, build, integration, finalization, queue edits, or source/prefix/shared proposal were attempted.",
+      "score": 85.1974,
+      "source": "#define NULL 0\n\nclass path_graph_edge;\nclass path_graph_node;\n\ntemplate <class T> class vector\n{\n    T *start;\n    T *finish;\n    T *end_of_storage;\npublic:\n    typedef const T *const_iterator;\n    const_iterator begin() const { return start; }\n    const_iterator end() const { return finish; }\n};\n\nclass stringx\n{\n    void *buf;\n};\n\nclass path_graph_node\n{\n    virtual ~path_graph_node();\n    char pt[16];\n    void *my_region;\n    unsigned short flags;\n    vector<path_graph_edge *> edges;\n\n    friend class path_graph;\n};\n\nclass path_graph_edge\n{\n    virtual ~path_graph_edge();\n    path_graph_node *nodes[2];\n\n    friend class path_graph;\n};\n\nclass path_graph\n{\n    stringx id;\n    vector<path_graph_node *> nodes;\n    vector<path_graph_edge *> edges;\n\npublic:\n    virtual ~path_graph();\n    bool node_in_graph(const path_graph_node *node) const;\n    bool edge_in_graph(const path_graph_edge *edge) const;\n    bool valid() const;\n};\n\nbool path_graph::valid() const\n{\n  vector<path_graph_edge *>::const_iterator i = edges.begin();\n  while(i != edges.end())\n  {\n    if(*i != NULL)\n    {\n      path_graph_edge *edge = *i;\n\n      if(edge->nodes[0] == NULL || edge->nodes[1] == NULL || edge->nodes[0] == edge->nodes[1] || !node_in_graph(edge->nodes[0]) || !node_in_graph(edge->nodes[1]))\n        return(false);\n    }\n\n    ++i;\n  }\n\n  vector<path_graph_node *>::const_iterator j = nodes.begin();\n  while(j != nodes.end())\n  {\n    if(*j != NULL)\n    {\n      vector<path_graph_edge *>::const_iterator i2 = (*j)->edges.begin();\n      while(i2 != (*j)->edges.end())\n      {\n        if(*i2 != NULL)\n        {\n          if(!edge_in_graph((*i2)))\n            return(false);\n        }\n\n        ++i2;\n      }\n    }\n\n    ++j;\n  }\n\n  return true;\n}\n",
+      "status": "different",
+      "target_size": 304
+    }
+  ],
+  "raw_name": "valid__C10path_graph"
+}
