@@ -1,0 +1,23 @@
+{
+  "address": "0x001E7860",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a06c3292b53f8b913ced61f39a605aadf9f8d4dd",
+      "candidate_size": 284,
+      "compared_bytes": 284,
+      "compared_instructions": 71,
+      "emitted_name": "nglVif1AddWaveTransparency__FRPUiRUiP11nglMaterialUib",
+      "instruction_score": 16.9014,
+      "matching_bytes": 101,
+      "matching_instructions": 12,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_waverender.cpp:16-18,122-136; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2_internal.h:943-950,968,1276-1292; config/SLUS_203.34.symbol_addrs.txt:9670,9739,10187,10189,10199; tmp/functions/001E7860_nglVif1AddWaveTransparency__FRPUiRUiP11nglMaterialUib/attempt-1/result.json. Result `different`, score 35.5634; no later attempt.",
+      "score": 35.5634,
+      "source": "typedef unsigned int u_int;\n\nstruct nglMaterial {};\n\nextern char nglWaveTransAddr[];\nextern char nglBaseAddr[];\nextern float TransHighlightAlphaScale;\nextern float TransHighlightAlphaMin;\nextern float detransparifactor;\n\n__asm__(\".equ _$nglWaveTransAddr, 0x003E3A38\");\n__asm__(\".equ _$nglBaseAddr, 0x003E16A8\");\n__asm__(\".equ TransHighlightAlphaScale, 0x0041E694\");\n__asm__(\".equ TransHighlightAlphaMin, 0x0041E69C\");\n__asm__(\".equ detransparifactor, 0x0041E6D8\");\n\nextern char nglWaveTransAddr[] asm(\"_$nglWaveTransAddr\");\nextern char nglBaseAddr[] asm(\"_$nglBaseAddr\");\n\n#define SCE_VIF1_S_32 0x00\n#define SCE_VIF1_V3_32 0x08\n#define SCE_VIF1_USN ( 1 << 14 )\n#define SCE_VIF1_SET_UNPACK(addr, num, vnvl, flg) ((u_int)(0x60 | ((flg) << 7) | (vnvl)) << 24 | ((num) & 0xff) << 16 | ((addr) & 0x3ff))\n#define NGL_PROG_ADDR( x, base ) ( ( (u_int)x - (u_int)base ) / 8 )\n\ninline void nglVif1AddCommandListProgram( u_int*& Packet, u_int& DataPtr, char* Addr )\n{\n  Packet[0] = SCE_VIF1_SET_UNPACK( DataPtr++, 1, SCE_VIF1_S_32, 0 );\n  Packet[1] = NGL_PROG_ADDR( Addr, nglBaseAddr );\n  Packet += 2;\n}\n\ninline void nglVif1AddCommandListData( u_int*& Packet, u_int& DataPtr, int Mode, int QWC, void* Data, int DataSize )\n{\n  u_int* DataWords = (u_int*)Data;\n  *(Packet++) = SCE_VIF1_SET_UNPACK( DataPtr, QWC, Mode, 0 ) | SCE_VIF1_USN;\n  do {\n    *(Packet++) = *(DataWords++);\n    DataSize -= 4;\n  } while ( DataSize );\n  DataPtr += QWC;\n}\n\nvoid nglVif1AddWaveTransparency(u_int*& _Packet, u_int& _CmdListDataPtr, nglMaterial* Material, u_int MaterialFlags, bool standalone )\n{\n\tu_int* Packet = _Packet;\n\tu_int CmdListDataPtr = _CmdListDataPtr;\n\t\n\tnglVif1AddCommandListProgram(  Packet, CmdListDataPtr, nglWaveTransAddr );\n\tfloat ScaleOffset[] = {TransHighlightAlphaScale, TransHighlightAlphaMin, detransparifactor};\n\tnglVif1AddCommandListData( Packet, CmdListDataPtr, SCE_VIF1_V3_32, 1, (void *) ScaleOffset, sizeof(ScaleOffset) );\n\t\n\t_Packet = Packet;\n\t_CmdListDataPtr = CmdListDataPtr;\n}\n",
+      "status": "different",
+      "target_size": 276
+    }
+  ],
+  "raw_name": "nglVif1AddWaveTransparency__FRPUiRUiP11nglMaterialUib"
+}
