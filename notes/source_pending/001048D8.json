@@ -1,0 +1,23 @@
+{
+  "address": "0x001048D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4394746ec00a9cc860833fa97352cb11402f1de4",
+      "candidate_size": 236,
+      "compared_bytes": 248,
+      "compared_instructions": 62,
+      "emitted_name": "read_ai_file__12ai_interfaceRC7stringx",
+      "instruction_score": 54.8387,
+      "matching_bytes": 149,
+      "matching_instructions": 34,
+      "notes": "Exact released `ai_interface::read_ai_file` body with authentic string, PS2 file, text, stash, and chunk-file layouts. The 400-byte frame and main constructor/open/read/close sequence reproduce, but EE GCC emitted and called an out-of-line implicit `chunk_file` destructor instead of inlining the text-file and os-file member destructors as in the target.",
+      "score": 60.0806,
+      "source": "#include \"KS/SRC/entity_interface_shared.h\"\n#include \"KS/SRC/stringx.h\"\n\ntypedef unsigned long uint64;\n\nclass pstring {\n    uint64 pchunk[4];\n};\n\nstruct sceCdlFILE {\n    unsigned int lsn;\n    unsigned int size;\n    char name[16];\n    unsigned char date[8];\n};\n\nclass os_file {\npublic:\n    enum mode_flags {\n        FILE_READ = 1,\n        FILE_WRITE = 2,\n        FILE_MODIFY = 3,\n        FILE_APPEND = 4\n    };\n\n    os_file();\n    os_file(const stringx &name, int flags);\n    ~os_file();\n\nprivate:\n    stringx name;\n    int flags;\n    bool opened;\n    bool eof;\n    bool from_cd;\n    union {\n        int host;\n        sceCdlFILE cd;\n    } io;\n    int curr_fp;\n} __attribute__((aligned(8)));\n\nclass stash_index_entry;\n\nclass stash {\n    stash_index_entry *index;\n    bool opened;\n    bool eof;\n    unsigned int fp;\n    unsigned int max_fp;\n    pstring fullname;\n};\n\nclass text_file {\npublic:\n    text_file();\n    ~text_file();\n\nprivate:\n    os_file io;\n    stash the_stash;\n    int my_stash;\n    char *buf;\n    int bufpos;\n    int bufamt;\n    bool use_stash;\n    int pushbackdata;\n};\n\nclass chunk_file {\npublic:\n    enum chunk_file_flags_t {\n        MODE_MASK = 0x00FF,\n        FILE_TEXT = 0x0100,\n        FILE_BINARY = 0x0200\n    };\n\n    enum chunk_file_t {\n        CFT_NONE,\n        CFT_TEXT,\n        CFT_BINARY\n    };\n\n    chunk_file();\n    void open(const stringx &name, int flags = os_file::FILE_READ);\n    void close();\n\nprivate:\n    chunk_file_t type;\n    os_file binary;\n    text_file text;\n    stash the_stash;\n    int my_stash;\n};\n\ntemplate<class T>\nclass list {\n    void *node;\n};\n\nclass malloc_alloc {\n};\n\ntemplate<class T, class Allocator = malloc_alloc>\nclass vector {\n    T *start;\n    T *finish;\n    T *end_of_storage;\n};\n\nclass ai_locomotion;\nclass ai_goal;\n\nclass ai_interface : public entity_interface {\nprotected:\n    unsigned int flags;\n    unsigned int team;\n    unsigned int enemy_team;\n    static list<ai_interface *> all_ai_interfaces;\n    ai_locomotion *locomotion;\n    vector<ai_goal *, malloc_alloc> goals;\n    ai_goal *current_goal;\n    entity *target;\n    float help_timer;\n    int disable_count;\n\n    void read_ai_file(const stringx &file);\n    void read_goal_pack(const stringx &file);\n    void read_goal(chunk_file &file, const stringx &label);\n\npublic:\n    virtual ~ai_interface();\n    void read_data(chunk_file &file);\n};\n\nbool file_finder_exists(\n    const stringx &filename,\n    const stringx &extension,\n    stringx *found_name = 0);\nvoid error(const char *format, ...);\n\nextern const char ai_extension[];\nextern const char ai_not_found[];\n\n__asm__(\".equ __7stringx, 0x0034D3E0\");\n__asm__(\".equ __7stringxPCci, 0x0034D438\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\".equ file_finder_exists__FRC7stringxT0P7stringx, 0x00276EF0\");\n__asm__(\".equ error__FPCce, 0x001DFBD8\");\n__asm__(\".equ __10chunk_file, 0x00335FC8\");\n__asm__(\".equ open__10chunk_fileRC7stringxi, 0x00336048\");\n__asm__(\".equ close__10chunk_file, 0x003363A8\");\n__asm__(\".equ read_data__12ai_interfaceR10chunk_file, 0x00104B00\");\n__asm__(\".equ _$_9text_file, 0x00336DD8\");\n__asm__(\".equ _$_7os_file, 0x001DFD10\");\n__asm__(\".equ ai_extension, 0x004B7CD0\");\n__asm__(\".equ ai_not_found, 0x004B7CB8\");\n\nvoid ai_interface::read_ai_file(const stringx &file)\n{\n  stringx       filename;\n  if ( !file_finder_exists(file, stringx(ai_extension), &filename) )\n  {\n    error(ai_not_found, file.c_str());\n    return;\n  }\n\n  chunk_file    fs;\n  fs.open( filename, os_file::FILE_READ | chunk_file::FILE_TEXT );\n  read_data(fs);\n  fs.close();\n}\n",
+      "status": "different",
+      "target_size": 248
+    }
+  ],
+  "raw_name": "read_ai_file__12ai_interfaceRC7stringx"
+}
