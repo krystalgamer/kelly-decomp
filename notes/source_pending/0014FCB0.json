@@ -1,0 +1,15 @@
+{
+  "address": "0x0014FCB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "dcbe9de969792193ff05cdb37ef8b11f5f7d7651",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:PanelGeom::FindObject; kelly-slaters-pro-surfer/KS/SRC/stringx.h:string_buf::is_equal; kelly-slaters-pro-surfer/KS/SRC/stringx.h:operator==(const stringx&, const stringx&); config/SLUS_203.34.symbol_addrs.txt:FindObject__9PanelGeomRC7stringx; tmp/functions/0014FCB0_FindObject__9PanelGeomRC7stringx/attempt-1/compiler.stderr. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEPanel_shared.h\"\n\ninline bool operator==(const stringx &lhs, const stringx &rhs)\n{\n    struct access { char *chars; string_buf *my_buf; };\n    const string_buf *left = reinterpret_cast<const access *>(&lhs)->my_buf;\n    const string_buf *right = reinterpret_cast<const access *>(&rhs)->my_buf;\n    if (right->block_length != left->block_length)\n        return false;\n    for (int i = 0; i < left->block_length; i++)\n        if (right->data[i] != left->data[i])\n            return false;\n    return true;\n}\n\nPanelGeom *PanelGeom::FindObject(const stringx &search_name)\n{\n  if (name == search_name)\n    return this;\n  else\n  {\n    PanelGeom *temp;\n    if (children)\n    {\n      temp = children->FindObject(search_name);\n      if (temp && temp->name == search_name)\n        return temp;\n    }\n  }\n\n  return NULL;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "FindObject__9PanelGeomRC7stringx"
+}
