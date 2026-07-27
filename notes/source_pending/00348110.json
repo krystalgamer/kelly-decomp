@@ -1,0 +1,23 @@
+{
+  "address": "0x00348110",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cbbfe5b1e8f02bd34e284b49abc95a95780cf1ca",
+      "candidate_size": 252,
+      "compared_bytes": 264,
+      "compared_instructions": 66,
+      "emitted_name": "__5planeRC8vector3dT1",
+      "instruction_score": 25.7576,
+      "matching_bytes": 132,
+      "matching_instructions": 17,
+      "notes": "Extracted the released point/normal plane constructor exactly from `KS/SRC/plane.cpp:23-29`, with only the required `rational_t`, `vector3d`, math helper, dot product, and plane layout declarations. The non-placeholder candidate compiled and was tested exactly once; it differed at 50.0% byte score (25.7576% instruction score), so no variants were attempted.",
+      "score": 50.0,
+      "source": "typedef float rational_t;\ntypedef rational_t fp;\n\nextern \"C\" float sqrtf(float);\n\nconst rational_t SMALL_DIST = 0.00001f;\n\ninline fp fast_recip_sqrt(fp x)\n{\n  return 1.0F/(rational_t)sqrtf(x);\n}\n\nclass vector3d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z;\n\n  inline vector3d& operator = ( const vector3d& v )\n  { x = v.x; y = v.y; z = v.z; return *this; }\n\n  inline vector3d& operator *= ( T d )\n  { x *= d; y *= d; z *= d; return *this; }\n\n  inline T length2() const\n  { return x*x + y*y + z*z; }\n\n  inline vector3d& normalize()\n  {\n    T l2 = length2();\n    if (l2>SMALL_DIST*SMALL_DIST)\n      *this *= fast_recip_sqrt(l2);\n    return *this;\n  }\n};\n\ninline vector3d::T dot(const vector3d& a, const vector3d& b)\n{\n  vector3d::T t = a.x*b.x + a.y*b.y + a.z*b.z;\n  return t;\n}\n\nclass plane\n{\npublic:\n  typedef rational_t fp;\n  plane( const vector3d& _point_on_surface, const vector3d& _normal );\n\npublic:\n  fp odistance;\n  vector3d unit_normal;\n};\n\nplane::plane( const vector3d& _point_on_surface, const vector3d& _normal )\n{\n  unit_normal = _normal;\n  unit_normal.normalize();\n\n  odistance = dot( _point_on_surface, unit_normal );\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "__5planeRC8vector3dT1"
+}
