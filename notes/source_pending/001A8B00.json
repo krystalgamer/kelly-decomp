@@ -1,0 +1,23 @@
+{
+  "address": "0x001A8B00",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5a843e38034863011025d48f67d730943e235b82",
+      "candidate_size": 308,
+      "compared_bytes": 308,
+      "compared_instructions": 77,
+      "emitted_name": "Select__16HeatEndMenuClassi",
+      "instruction_score": 41.5584,
+      "matching_bytes": 154,
+      "matching_instructions": 32,
+      "notes": "Attempt 1 used exact released source cited at . Result `different`, score 50.0000; no later attempt.",
+      "score": 50.0,
+      "source": "typedef unsigned int nslSoundId;\nclass entity;\nenum EventType { SS_FE_ONX = 24 };\nextern \"C\" int nslGetSoundStatus(nslSoundId) __asm__(\"nslGetSoundStatus__FUi\");\nextern \"C\" void nslPauseGuardSound(nslSoundId) __asm__(\"nslPauseGuardSound__FUi\");\n__asm__(\".equ nslGetSoundStatus__FUi, 0x0038DBA0\");\n__asm__(\".equ nslPauseGuardSound__FUi, 0x0038D6F8\");\n\nclass SoundScriptManager {\npublic:\n    static SoundScriptManager *instance;\n    static inline SoundScriptManager *inst() { return instance; }\n    void pause();\n    void unpause();\n    nslSoundId playSound(EventType, entity * = 0);\n    inline int playEvent(EventType type, entity *source = 0, float = 0.0f) {\n        nslSoundId sound = playSound(type, source);\n        if (nslGetSoundStatus(sound))\n            nslPauseGuardSound(sound);\n        return sound;\n    }\n};\n__asm__(\".equ _18SoundScriptManager$instance, 0x0046B4A0\");\n__asm__(\".equ unpause__18SoundScriptManager, 0x0031BFA8\");\n__asm__(\".equ playSound__18SoundScriptManager9EventTypeP6entity, 0x0031BF28\");\n__asm__(\".equ pause__18SoundScriptManager, 0x0031BF98\");\n\nstruct NavigationEvent { inline void operator=(int) {} };\nstruct PauseMenuVtable {\n    char padding[0x88];\n    short adjustment;\n    short reserved;\n    void (*make_active)(void *, int, bool);\n};\nclass PauseMenuSystem {\n    char padding[0x88];\npublic:\n    NavigationEvent navigationEvent;\n    PauseMenuVtable *vtable;\n    enum { OptionsMenu = 7, GoalsMenu = 8, ReplayMenu = 14 };\n    inline void MakeActive(int menu) {\n        vtable->make_active((char *)this + vtable->adjustment, menu, true);\n    }\n    void Retry();\n    void EndComp();\n};\n__asm__(\".equ Retry__15PauseMenuSystem, 0x001B4920\");\n__asm__(\".equ EndComp__15PauseMenuSystem, 0x001B4AA0\");\n\nclass ScoringManager { public: void Reset(); };\n__asm__(\".equ Reset__14ScoringManager, 0x00246FE8\");\nclass kellyslater_controller {\n    char padding[0x10f8];\n    ScoringManager my_scoreManager;\npublic:\n    inline ScoringManager &get_my_scoreManager() { return my_scoreManager; }\n};\nclass world_dynamics_system {\n    char padding[0xf8];\n    kellyslater_controller *controllers[2];\npublic:\n    inline kellyslater_controller *get_ks_controller(int n) { return controllers[n]; }\n};\nextern world_dynamics_system *g_world_ptr;\n__asm__(\".equ g_world_ptr, 0x00431A8C\");\n\nclass HeatEndMenuClass {\n    char padding[0x78];\n    PauseMenuSystem *sys;\npublic:\n    enum { NextRun, Goals, Options, Replay, EndComp };\n    void Select(int entry_index);\n};\n\nvoid HeatEndMenuClass::Select(int entry_index)\n{\n    SoundScriptManager::inst()->unpause();\n    sys->navigationEvent=  SoundScriptManager::inst()->playEvent(SS_FE_ONX);\n    SoundScriptManager::inst()->pause();\n\n    switch(entry_index)\n    {\n    case NextRun: sys->Retry(); break;\n    case Goals: sys->MakeActive(PauseMenuSystem::GoalsMenu); break;\n    case Options: sys->MakeActive(PauseMenuSystem::OptionsMenu);  break;\n    case Replay: sys->MakeActive(PauseMenuSystem::ReplayMenu);  break;\n    case EndComp: g_world_ptr->get_ks_controller(0)->get_my_scoreManager().Reset(); sys->EndComp(); break;\n    default: ;\n    }\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "Select__16HeatEndMenuClassi"
+}
