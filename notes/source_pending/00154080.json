@@ -1,0 +1,23 @@
+{
+  "address": "0x00154080",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ae7e3545a1e9f6242670ba55603885636784d131",
+      "candidate_size": 276,
+      "compared_bytes": 276,
+      "compared_instructions": 70,
+      "emitted_name": "_$_9PanelAnim",
+      "instruction_score": 12.8571,
+      "matching_bytes": 79,
+      "matching_instructions": 9,
+      "notes": "Exact released `PanelAnim` destructor with the authentic animation/keyframe layout. The child deletion loop and 52-byte keyframe stride reproduce, but EE GCC emitted an out-of-line implicit `PanelAnimKeyframe` destructor and tail-called the final object delete, expanding the function to 276 bytes instead of the target's inlined string destruction and 248-byte form.",
+      "score": 28.6232,
+      "source": "#include \"KS/SRC/ks/FEPanel_shared.h\"\n\n#pragma interface\n\nenum PanelAnimKind {\n    AnimInstance = 0xA1,\n    AnimSpecial = 0xA2\n};\n\nclass PanelAnimKeyframe {\npublic:\n    float idx;\n    vector3d translation;\n    vector3d euler;\n    vector3d scale;\n    stringx event;\n    float vis;\n\n    PanelAnimKeyframe() : idx(0), vis(1) {}\n    bool Load(unsigned char *buffer, int &index);\n};\n\nclass PanelAnim {\npublic:\n    stringx name;\n    stringx properties;\n    PanelAnim *parent;\n    matrix4x4 matrix;\n    unsigned int numkeyframes;\n    PanelAnimKeyframe *keyframes;\n    PanelAnim *children;\n    PanelAnim *next;\n\n    PanelAnim()\n      : parent(0), keyframes(0), children(0), next(0)\n    {\n    }\n\n    virtual ~PanelAnim();\n    virtual PanelAnimKind Kind() const = 0;\n    virtual bool Load(\n        unsigned char *buffer,\n        int &index,\n        PanelFile *target_panel);\n\n    PanelQuad *quad;\n};\n\n__asm__(\".equ _vt$9PanelAnim, 0x004CC1B8\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\".equ __builtin_vec_delete, 0x002AC6D0\");\n__asm__(\".equ __builtin_delete, 0x002AC6B0\");\n\nPanelAnim::~PanelAnim()\n{\n\tdelete[] keyframes;\n\tPanelAnim* tmp = children;\n\tPanelAnim* tmp2;\n\twhile(tmp)\n\t{\n\t\ttmp2 = tmp->next;\n\t\tdelete tmp;\n\t\ttmp = tmp2;\n\t}\n}\n",
+      "status": "different",
+      "target_size": 248
+    }
+  ],
+  "raw_name": "_$_9PanelAnim"
+}
