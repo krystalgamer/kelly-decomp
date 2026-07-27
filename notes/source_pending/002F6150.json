@@ -1,0 +1,23 @@
+{
+  "address": "0x002F6150",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ba580fb3dccc7ad77683f632e94493d104a2684d",
+      "candidate_size": 220,
+      "compared_bytes": 256,
+      "compared_instructions": 64,
+      "emitted_name": "__uninitialized_copy_aux__H2ZPQ28vr_pmesh4boneZPQ28vr_pmesh4bone_X01X01X11G12__false_type_X11",
+      "instruction_score": 0.0,
+      "matching_bytes": 31,
+      "matching_instructions": 0,
+      "notes": "Exact GCC g++-2 stl_uninitialized.h __uninitialized_copy_aux false-type loop, instantiated for vr_pmesh::bone pointers; nested bone declaration is released at kelly-slaters-pro-surfer/KS/SRC/pmesh.h:269-275. Attempt 1 compiled but differed: score 12.1094 (31/256 bytes), candidate size 220 vs target 256. No variants attempted.",
+      "score": 12.1094,
+      "source": "class stringx\n{\n    char data[16];\n\npublic:\n    stringx(const stringx &);\n};\n\nclass po\n{\n    float data[16];\n};\n\nclass vr_pmesh\n{\npublic:\n    class bone\n    {\n    public:\n        stringx name;\n        po pivot;\n    };\n};\n\nstruct __false_type {};\n\ninline void *operator new(unsigned int, void *place)\n{\n    return place;\n}\n\ntemplate <class _T1, class _T2>\ninline void _Construct(_T1 *__p, const _T2 &__value)\n{\n    new ((void *) __p) _T1(__value);\n}\n\ntemplate <class _InputIter, class _ForwardIter>\n_ForwardIter\n__uninitialized_copy_aux(_InputIter __first, _InputIter __last,\n                         _ForwardIter __result,\n                         __false_type)\n{\n    _ForwardIter __cur = __result;\n    for ( ; __first != __last; ++__first, ++__cur)\n        _Construct(&*__cur, *__first);\n    return __cur;\n}\n\ntemplate vr_pmesh::bone *\n__uninitialized_copy_aux(vr_pmesh::bone *, vr_pmesh::bone *,\n                         vr_pmesh::bone *, __false_type);\n",
+      "status": "different",
+      "target_size": 256
+    }
+  ],
+  "raw_name": "__uninitialized_copy_aux__H2ZPQ28vr_pmesh4boneZPQ28vr_pmesh4bone_X01X01X11G12__false_type_X11"
+}
