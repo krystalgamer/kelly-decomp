@@ -1,0 +1,15 @@
+{
+  "address": "0x0023BD08",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3443e5209f1589d8cdae67682563e83d8c81e293",
+      "notes": "Attempt 1 used the released Tick definition verbatim from kelly-slaters-pro-surfer/KS/SRC/ks/ksreplay.cpp:713-749, with compile-only declarations based on ksreplay.h:100-188. The sole test compile failed because NULL was undeclared; score 0.0. No retry was made.",
+      "score": 0.0,
+      "source": "typedef float time_value_t;\n\nclass kellyslater_controller {\n    char padding[0x38];\npublic:\n    int get_super_state() const { return *(const int *)((const char *)this + 0x38); }\n};\n\nclass world_dynamics_system {\n    char padding[0xf8];\n    kellyslater_controller **controllers;\npublic:\n    kellyslater_controller *get_ks_controller(int player) { return controllers[player]; }\n};\n\nclass game {\n    char padding[0xbc];\n    int active_player;\npublic:\n    int get_active_player() const { return active_player; }\n};\n\nclass camera {\npublic:\n    virtual void frame_advance(float);\n};\n\nclass game_view {\n    char padding[0x28];\n    camera *current_view_camera;\npublic:\n    camera *get_current_view_camera() { return current_view_camera; }\n};\n\nclass app {\n    char padding[0x10];\n    game_view *the_game;\npublic:\n    static app *inst();\n    game_view *get_game() { return the_game; }\n};\n\nextern app *global_app;\ninline app *app::inst() { return global_app; }\n\nextern world_dynamics_system *g_world_ptr;\nextern game *g_game_ptr;\n\nenum { SUPER_STATE_FLYBY = 1 };\n\nclass KSReplay {\n    char padding0[0x10];\n    int status;\n    char padding1[0x4c];\n    void *frame;\npublic:\n    enum KSReplayStatus {\n        REPLAY_IGNORE,\n        REPLAY_RECORD,\n        REPLAY_PLAYBACK,\n        REPLAY_PAUSED\n    };\n\n    void SaveFrame();\n    void RestoreNextFrame(time_value_t time_inc);\n    bool Done();\n    void Tick(bool running, time_value_t time_inc);\n};\n\nvoid KSReplay::Tick(bool running, time_value_t time_inc)\n{\n  if(frame == NULL)\t\t// True when not recording a replay, such as in multiplayer mode\n    return;\n\n\n  switch(status)\n\t{\n\t\tcase REPLAY_IGNORE:\n      break;\n\n\t\tcase REPLAY_RECORD  :\n      if(SUPER_STATE_FLYBY != g_world_ptr->get_ks_controller(g_game_ptr->get_active_player())->get_super_state())  // Don't record during flyby\n      {\n\t\t\t  if (running && time_inc>0)\n\t\t\t\t  SaveFrame();\n      }\n\t\t\tbreak;\n\n\t\tcase REPLAY_PLAYBACK:\n      RestoreNextFrame(time_inc);\n      if(Done())\n        status = REPLAY_PAUSED;\n\t\t\tbreak;\n\n\t\tcase REPLAY_PAUSED  :\n\n      // Update camera\n      app::inst()->get_game()->get_current_view_camera()->frame_advance (0.0f);\n\t\t\tbreak;\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Tick__8KSReplaybf"
+}
