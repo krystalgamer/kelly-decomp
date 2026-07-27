@@ -1,0 +1,23 @@
+{
+  "address": "0x00126DD8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "372b84ed239c30906a9eca52401e42b50ab046e7",
+      "candidate_size": 228,
+      "compared_bytes": 252,
+      "compared_instructions": 63,
+      "emitted_name": "po_changed__4bone",
+      "instruction_score": 33.3333,
+      "matching_bytes": 119,
+      "matching_instructions": 21,
+      "notes": "# Attempt 1\n\n- Queue row was `pending` with zero attempts; no address scratch existed before preparation.\n- Used the released retail body from `bone.cpp:107-136`, with authentic `TEST_WARP_BUGS=0`, `BUILD_FINAL`, PS2 vector/PO layout, interface accessors, and virtual hierarchy declarations.\n- Result: **different** \u2014 byte score 47.2222%, instruction score 33.3333%; candidate size 228 versus target 252 bytes.\n- Exactly one candidate was tested; no second attempt or diff chasing was performed.",
+      "score": 47.2222,
+      "source": "typedef float rational_t;\n\nclass vector3d {\npublic:\n  rational_t x, y, z;\n\n  inline vector3d() {}\n  inline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n\n  bool is_valid() const {\n    return x > -1e30f && x < 1e30f &&\n           y > -1e30f && y < 1e30f &&\n           z > -1e30f && z < 1e30f;\n  }\n};\n\nclass vector4d {\npublic:\n  rational_t x, y, z, w;\n};\n\nclass matrix4x4 {\npublic:\n  vector4d x __attribute__((aligned(16)));\n  vector4d y;\n  vector4d z;\n  vector4d w;\n};\n\nclass po {\n  matrix4x4 m;\n\npublic:\n  inline const vector3d& get_position() const {\n    return (const vector3d&)(m.w);\n  }\n};\n\nclass signal_list;\n\nclass signaller {\n  unsigned int flags;\n  signal_list* signals;\n\npublic:\n  virtual ~signaller();\n  virtual bool is_an_entity() const;\n  virtual bool is_a_trigger() const;\n  virtual void raise_signal(unsigned int idx) const;\n\nprivate:\n  virtual signal_list* construct_signal_list();\n\nprotected:\n  virtual const char* get_signal_name(unsigned short idx) const;\n};\n\nclass pstring;\nclass stringx;\n\nclass generic_interface {\npublic:\n  virtual ~generic_interface();\n  virtual bool get_ifc_num(const pstring&, rational_t&);\n  virtual bool set_ifc_num(const pstring&, rational_t);\n  virtual bool get_ifc_vec(const pstring&, vector3d&);\n  virtual bool set_ifc_vec(const pstring&, const vector3d&);\n  virtual bool get_ifc_str(const pstring&, stringx&);\n  virtual bool set_ifc_str(const pstring&, const stringx&);\n};\n\nclass bone;\n\nclass bone_interface : public generic_interface {\nprotected:\n  bone* my_bone;\n\npublic:\n  virtual ~bone_interface();\n};\n\nclass link_interface : public bone_interface {\nprotected:\n  bone* my_parent;\n  bone* my_child;\n  bone* my_brother;\n  bool link_manages_abs_po;\n\npublic:\n  virtual ~link_interface();\n  bone* get_parent() const { return my_parent; }\n  bone* get_first_child() const { return my_child; }\n  bone* get_next_sibling() const { return my_brother; }\n};\n\nclass sector;\n\nclass bone : public signaller {\nprotected:\n  po my_rel_po;\n  po* my_abs_po;\n  po* my_handed_abs_po;\n  int bone_id;\n  sector* my_sector;\n  int flip_axis;\n  bool is_part_of_skeleton;\n  link_interface* my_link_interface;\n\npublic:\n  virtual ~bone();\n  virtual int get_bone_idx();\n  virtual void po_changed();\n\n  bool has_link_ifc() const { return my_link_interface != 0; }\n  link_interface* link_ifc() const { return my_link_interface; }\n  const vector3d& get_abs_position() const {\n    return my_abs_po->get_position();\n  }\n};\n\nvoid bone::po_changed()\n{\n\n  vector3d pos=get_abs_position();\n  if (!pos.is_valid())\n    return;\n  // update children if necessary\n  if( has_link_ifc() )\n  {\n    bone* child_iterator = link_ifc()->get_first_child();\n    for(; child_iterator;)\n    {\n      child_iterator->po_changed();\n      if( child_iterator->has_link_ifc())\n        child_iterator = child_iterator->link_ifc()->get_next_sibling();\n      else\n        break;\n    }\n  }\n}\n",
+      "status": "different",
+      "target_size": 252
+    }
+  ],
+  "raw_name": "po_changed__4bone"
+}
