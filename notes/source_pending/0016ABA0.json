@@ -1,0 +1,23 @@
+{
+  "address": "0x0016ABA0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1c966df135006764f47f4ae12e4c7e06cf14902c",
+      "candidate_size": 292,
+      "compared_bytes": 300,
+      "compared_instructions": 75,
+      "emitted_name": "Update__11PhotoWidgetf",
+      "instruction_score": 58.6667,
+      "matching_bytes": 194,
+      "matching_instructions": 44,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_photo.cpp:5-7,91-134; kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_photo.h:10-52; kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget.h:7-25; notes/function_queue.csv:5898; tmp/functions/0016ABA0_Update__11PhotoWidgetf/attempt-1/result.json; tmp/source_first/0016ABA0/notes.md. Result `different`, score 64.6667; no later attempt.",
+      "score": 64.6667,
+      "source": "#include \"KS/SRC/ks/igo_widget_shared.h\"\n#include \"NGL/PS2/ngl_ps2_shared.h\"\n\nclass TextString;\n\nclass PhotoWidget : public IGOWidget\n{\nprivate:\n\tstatic const float TIME_SHOWN;\n\tstatic const float TIME_FADE_IN;\n\tstatic const float TIME_FADE_OUT;\n\n\tPanelQuad *\t\tborderPQ;\n\tint\t\t\t\tborderCenterX, borderCenterY, borderZ;\n\tnglTexture *\tphotoTexture;\n\tnglQuad\t\t\tphotoQuad, darkQuad;\n\tfloat\t\t\tdarkFade;\n\tfloat\t\t\tfadeOutAlpha;\n\n\tfloat\t\t\tshownTimer;\n\tbool\t\t\ttimed;\n\n\tint\t\t\t\tphotoNum;\n\tTextString *\tpointText;\n\tint\t\t\t\tscore, * scorePtr;\n\nprivate:\n\tvirtual void SetPointText(void);\n\npublic:\n\tvirtual ~PhotoWidget();\n\tvirtual void Update(const float dt);\n\tvoid Hide(void);\n};\n\nconst float PhotoWidget::TIME_SHOWN = 5.0f;\nconst float PhotoWidget::TIME_FADE_IN = 4.0f;\nconst float PhotoWidget::TIME_FADE_OUT = 1.0f;\n\n__asm__(\".equ Update__9IGOWidgetf, 0x00164660\");\n__asm__(\".equ Hide__11PhotoWidget, 0x0016B000\");\n__asm__(\".equ SetPointText__11PhotoWidget, 0x0016B290\");\n\nvoid PhotoWidget::Update(const float dt)\n{\n\tfloat\tfadeTimeRemaining = 0.0f;\n\n\tIGOWidget::Update(dt);\n\n\tif (timed && photoTexture)\n\t{\n\t\tshownTimer -= dt;\n\n\t\t\tfadeOutAlpha = 1.0f;\n\n\t\tif (shownTimer <= 0.0f)\n\t\t{\n\t\t\tshownTimer = 0.0f;\n\t\t\tHide();\n\t\t}\n\t}\n\n\tif (scorePtr && (*scorePtr != score))\n\t{\n\t\tscore = *scorePtr;\n\t\tSetPointText();\n\t}\n\n\tif (timed)\n\t{\n\t\tif (shownTimer > 0.0f)\n\t\t{\n\t\t\tfadeTimeRemaining = TIME_FADE_IN-(TIME_SHOWN-shownTimer);\n\t\t\tif (fadeTimeRemaining > TIME_FADE_IN) fadeTimeRemaining = TIME_FADE_IN;\n\t\t\tif (fadeTimeRemaining < 0.0f) fadeTimeRemaining = 0.0f;\n\n\t\t\tdarkFade = fadeTimeRemaining/TIME_FADE_IN;\n\t\t}\n\t}\n}\n",
+      "status": "different",
+      "target_size": 300
+    }
+  ],
+  "raw_name": "Update__11PhotoWidgetf"
+}
