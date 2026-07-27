@@ -1,0 +1,15 @@
+{
+  "address": "0x001BE528",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5fd4dbbe94d70ad082b9472a11275ab594210a93",
+      "notes": "Attempt 1 used the exact released definition cited by {'path': 'kelly-slaters-pro-surfer/KS/SRC/ks/GraphicalMenuSystem.cpp', 'lines': '510-522', 'description': 'Released destructor body'}; {'path': 'kelly-slaters-pro-surfer/KS/SRC/ks/GraphicalMenuSystem.h', 'lines': '177-233', 'description': 'Released class fields, BeachMenu enum, and destructor declaration'}; {'path': 'kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h', 'lines': '161-204,434-451', 'description': 'Released FEMenu and FEMenuSystem declarations used for isolated layouts'}. The sole test returned `compile_failed` with score 0.0000. No variant or later attempt was made.",
+      "score": 0.0,
+      "source": "class FEMenu {\n    char data[116];\npublic:\n    virtual ~FEMenu();\n};\n\nclass FEMenuSystem {\n    char data[116];\npublic:\n    FEMenu **menus;\n    void *manager;\n    int active;\n    int size;\n    int count;\n    void *font;\n    virtual ~FEMenuSystem() { delete[] menus; }\n};\n\nclass FEDebugMenu : public FEMenu {};\n\nclass GraphicalMenuSystem : public FEMenuSystem {\n    char data[140];\n    FEDebugMenu *fedbm;\npublic:\n    enum { BeachMenu = 5 };\n    virtual ~GraphicalMenuSystem();\n    void killMovie();\n};\n\n__asm__(\".equ killMovie__19GraphicalMenuSystem, 0x001BE6F0\");\n\nGraphicalMenuSystem::~GraphicalMenuSystem()\n{\n\tkillMovie();\n\tdelete fedbm;\n\n\t// delete all menus except for the map menu\n\tfor(int i=0; i<size; i++)\n\t\tif(i != BeachMenu) \n\t\t{\n\t\t\tdelete menus[i];\n\t\t\tmenus[i] = NULL;\n\t\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_19GraphicalMenuSystem"
+}
