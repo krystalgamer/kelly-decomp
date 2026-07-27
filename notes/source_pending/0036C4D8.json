@@ -1,0 +1,23 @@
+{
+  "address": "0x0036C4D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5c0b48532c3cc419bfdc0d5de9c02474330d5d75",
+      "candidate_size": 328,
+      "compared_bytes": 328,
+      "compared_instructions": 82,
+      "emitted_name": "ks_fx_reset__Fv",
+      "instruction_score": 9.7561,
+      "matching_bytes": 73,
+      "matching_instructions": 8,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/ksfx.cpp:53-71; kelly-slaters-pro-surfer/KS/SRC/ks/ksfx.cpp:74-113; kelly-slaters-pro-surfer/KS/SRC/ks/ksfx.cpp:2025-2055; tmp/functions/0036C4D8_ks_fx_reset__Fv/attempt-1/result.json; tmp/source_first/0036C4D8/attempt-1.md. Result `different`, score 22.2561; no later attempt.",
+      "score": 22.2561,
+      "source": "typedef unsigned int u_int;\n\n#define MAX_LOOSE_PARTICLES 100\n#define MAX_TRAIL_GENERATORS 4\n#define MAX_LIP_SPLASHES 2\n#define MAX_CRASH_NODES 2000\n\nstruct nglParticleSystem\n{\n  char pad0[24];\n  float Life;\n  float Dura;\n  float Rlife;\n  float Ctime;\n  char pad1[184];\n};\n\nstruct loose_t\n{\n  nglParticleSystem part;\n};\n\nstruct trail\n{\n  int valid;\n  bool is_valid() { return valid; }\n  void reset();\n};\n\nstruct lip_splash_t\n{\n  char pad[568];\n  bool valid;\n  char tail[15];\n};\n\nstruct crashnode_t\n{\n  char pad[28];\n  crashnode_t *Next;\n};\n\nstruct entity\n{\n  virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();\n  virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();\n  virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();\n  virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();\n  virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();\n  virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();\n  virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();\n  virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();\n  virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();\n  virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();\n  virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43();\n  virtual void set_visible(bool);\n};\n\nextern int currentparticle;\nextern loose_t LooseParticles[MAX_LOOSE_PARTICLES];\nextern trail *g_trails[MAX_TRAIL_GENERATORS];\nextern lip_splash_t lip_splashes[MAX_LIP_SPLASHES];\nextern crashnode_t crashnodes[MAX_CRASH_NODES];\nextern crashnode_t *CrashFreeHead;\nextern crashnode_t *CrashHead;\nextern entity *tube_spit_entity;\n\nvoid ks_fx_reset (void)\n{\n\tu_int i,j;\n\n\tcurrentparticle = 0;\n\n\t// Reset Loose Particles\n\tfor(i=0;i<MAX_LOOSE_PARTICLES;i++)\n\t{\n\t\tLooseParticles[i].part.Ctime = 1;\n\t\tLooseParticles[i].part.Dura = LooseParticles[i].part.Life = LooseParticles[i].part.Rlife = 0;\n\t}\n\n\t// Reset Trail Geometry\n\tfor (j = 0; j < MAX_TRAIL_GENERATORS; j++)\n\t\tif (g_trails[j]->is_valid ())\n\t\t\tg_trails[j]->reset ();\n\n\tfor (i = 0; i < MAX_LIP_SPLASHES; i++)\n\t\tlip_splashes[i].valid = false;\n\n\tfor (u_int i = 0; i < MAX_CRASH_NODES; i++)\n\t\tcrashnodes[i].Next = &crashnodes[i + 1];\n\tcrashnodes[ MAX_CRASH_NODES - 1 ].Next = 0;\n\n\tCrashFreeHead = &crashnodes[0];\n\tCrashHead=0;\n\n\tif (tube_spit_entity)\n\t\ttube_spit_entity->set_visible(false);\n}\n",
+      "status": "different",
+      "target_size": 320
+    }
+  ],
+  "raw_name": "ks_fx_reset__Fv"
+}
