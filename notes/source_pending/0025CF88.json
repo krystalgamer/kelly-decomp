@@ -1,0 +1,23 @@
+{
+  "address": "0x0025CF88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bbb8d9a3bd29b378f9e9e8f76404930c7bcc66cf",
+      "candidate_size": 268,
+      "compared_bytes": 268,
+      "compared_instructions": 67,
+      "emitted_name": "paddle__9SFXEnginebffff",
+      "instruction_score": 80.597,
+      "matching_bytes": 198,
+      "matching_instructions": 54,
+      "notes": "Exact released `SFXEngine::paddle` body was tested once with minimal self-contained declarations for the NSL API, developer options, and the released `SFXEngine::paused` layout. It compiled at the exact 268-byte target size but differed: 198/268 bytes and 54/67 instructions matched (73.8806% byte score, 80.597% instruction score). No variants or diff chasing were performed.",
+      "score": 73.8806,
+      "source": "typedef unsigned int nslSourceId;\ntypedef unsigned int nslSoundId;\ntypedef float nlVector3d[3];\n\nenum nslSoundParamEnum\n{\n  NSL_SOUNDPARAM_VOLUME\n};\n\n#define NSL_INVALID_ID 0\n\nnslSourceId nslLoadSource( const char *soundSourceName );\nnslSoundId nslAddSound( nslSourceId soundSource );\nvoid nslSetSoundParam( nslSoundId soundToSet, nslSoundParamEnum whichParam, float newVal );\nvoid nslPlaySound3D( nslSoundId soundToPlay, const nlVector3d &pos );\n\nclass os_developer_options\n{\n  virtual ~os_developer_options();\n  bool flags[18];\n  static os_developer_options *instance;\npublic:\n  enum flags_t\n  {\n    FLAG_NO_AUDIO = 17\n  };\n  static inline os_developer_options *inst() { return instance; }\n  bool is_flagged( flags_t flag ) const { return flags[flag]; }\n};\n\nclass SFXEngine\n{\n  char released_layout[4468];\n  bool paused;\npublic:\n  void paddle( bool left, float x, float y, float z, float volume );\n};\n\nvoid SFXEngine::paddle( bool left, float x, float y, float z, float volume )\n  {\n  if(os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n    return;\n  if (paused) return;\n  if ( left )\n  {\n    nslSourceId src = nslLoadSource( \"MOVEMENT_PADDLE1\" );\n    if ( src != NSL_INVALID_ID )\n    {\n      nslSoundId snd = nslAddSound( src );\n      if ( snd != NSL_INVALID_ID )\n      {\n        nlVector3d pos;\n        pos[0] = x;\n        pos[1] = y;\n        pos[2] = z;\n        nslSetSoundParam( snd, NSL_SOUNDPARAM_VOLUME, volume );\n        nslPlaySound3D( snd, pos );\n\n      }\n    }\n  }\n  else\n  {\n    nslSourceId src = nslLoadSource( \"MOVEMENT_PADDLE2\" );\n    if ( src != NSL_INVALID_ID )\n    {\n      nslSoundId snd = nslAddSound( src );\n      if ( snd != NSL_INVALID_ID )\n      {\n        nlVector3d pos;\n        pos[0] = x;\n        pos[1] = y;\n        pos[2] = z;\n        nslSetSoundParam( snd, NSL_SOUNDPARAM_VOLUME, volume );\n        nslPlaySound3D( snd, pos );\n\n      }\n    }\n  }\n\n\n\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "paddle__9SFXEnginebffff"
+}
