@@ -1,0 +1,23 @@
+{
+  "address": "0x00134F08",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "575db238841678c5074445f91a10a739e051733b",
+      "candidate_size": 328,
+      "compared_bytes": 332,
+      "compared_instructions": 83,
+      "emitted_name": "__14entity_manager",
+      "instruction_score": 18.0723,
+      "matching_bytes": 121,
+      "matching_instructions": 15,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/entity.cpp:4203-4214; kelly-slaters-pro-surfer/KS/SRC/entity.h:231-263; kelly-slaters-pro-surfer/KS/SRC/entityid.h:5-28; kelly-slaters-pro-surfer/KS/SRC/singleton.h:34-42; tmp/functions/00134F08___14entity_manager/attempt-1/result.json; tmp/source_first/00134F08/attempt-1.md. Result `different`, score 36.4458; no later attempt.",
+      "score": 36.4458,
+      "source": "typedef unsigned int size_t;\n\nextern \"C\" void *arch_malloc(size_t, const char *, int)\n    __asm__(\"arch_malloc__FUiPCci\");\nextern \"C\" void *oom_malloc(size_t)\n    __asm__(\"_S_oom_malloc__t23__malloc_alloc_template1i0Ui\");\nextern \"C\" char *strdupcpp(const char *)\n    __asm__(\"strdupcpp__FPCc\");\n\nstruct charstarwrap\n{\n    char *str;\n    charstarwrap(char *s) { str = s; }\n};\n\ntemplate<class A, class B>\nstruct pair\n{\n    A first;\n    B second;\n    pair(const A &a, const B &b) : first(a), second(b) {}\n};\n\nstruct rb_node\n{\n    int color;\n    rb_node *parent;\n    rb_node *left;\n    rb_node *right;\n    pair<const charstarwrap, unsigned int> value;\n};\n\nstruct name_to_number_map;\n\nextern \"C\" void rb_erase(name_to_number_map *, rb_node *)\n    __asm__(\"_M_erase__t8_Rb_tree5Z12charstarwrapZt4pair2ZC12charstarwrapZUiZt10_Select1st1Zt4pair2ZC12charstarwrapZUiZt4less1Z12charstarwrapZt23__malloc_alloc_template1i0Pt13_Rb_tree_node1Zt4pair2ZC12charstarwrapZUi\");\n\nextern \"C\" pair<rb_node *, bool> rb_insert(\n    name_to_number_map *, const pair<const charstarwrap, unsigned int> &)\n    __asm__(\"insert_unique__t8_Rb_tree5Z12charstarwrapZt4pair2ZC12charstarwrapZUiZt10_Select1st1Zt4pair2ZC12charstarwrapZUiZt4less1Z12charstarwrapZt23__malloc_alloc_template1i0RCt4pair2ZC12charstarwrapZUi\");\n\nstruct name_to_number_map\n{\n    typedef pair<const charstarwrap, unsigned int> value_type;\n    rb_node *header;\n    unsigned int count;\n    bool key_compare;\n    char padding[3];\n\n    name_to_number_map()\n    {\n        header = static_cast<rb_node *>(arch_malloc(24, __FILE__, 0));\n        if (!header)\n            header = static_cast<rb_node *>(oom_malloc(24));\n        count = 0;\n        key_compare = false;\n        header->color = 0;\n        header->parent = 0;\n        header->left = header;\n        header->right = header;\n    }\n\n    void clear()\n    {\n        if (count)\n        {\n            rb_erase(this, header->parent);\n            header->left = header;\n            header->parent = 0;\n            header->right = header;\n            count = 0;\n        }\n    }\n\n    pair<rb_node *, bool> insert(const value_type &value)\n    {\n        return rb_insert(this, value);\n    }\n};\n\nclass singleton\n{\nprotected:\n    singleton() {}\n    virtual ~singleton();\n};\n\nclass entity_manager : name_to_number_map, public singleton\n{\n    name_to_number_map name_to_number;\n    int number_server;\npublic:\n    entity_manager();\n};\n\nentity_manager::entity_manager() : number_server( 0 )\n{\n  name_to_number.clear();\n  number_server = 0;\n  name_to_number.insert( name_to_number_map::value_type( strdupcpp(\"UNREG\"), -1) );\n}\n",
+      "status": "different",
+      "target_size": 332
+    }
+  ],
+  "raw_name": "__14entity_manager"
+}
