@@ -1,0 +1,23 @@
+{
+  "address": "0x00353050",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6666e53ae454535d309942eb68c54cb23289fa9e",
+      "candidate_size": 124,
+      "compared_bytes": 268,
+      "compared_instructions": 67,
+      "emitted_name": "_$_13vm_executable",
+      "instruction_score": 4.4776,
+      "matching_bytes": 38,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/vm_executable.cpp:50-53; kelly-slaters-pro-surfer/KS/SRC/vm_executable.h:20-60; kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-287; kelly-slaters-pro-surfer/KS/SRC/custom_stl.h:230-249,422-462. Result `different`, score 14.1791; no later attempt.",
+      "score": 14.1791,
+      "source": "typedef unsigned int size_t;\n\nextern \"C\" void arch_free(void *) __asm__(\"arch_free__FPv\");\nextern void *allocator_free_lists[16];\n__asm__(\".equ arch_free__FPv, 0x002AC768\");\n__asm__(\".equ allocator_free_lists, 0x003E5628\");\n\ntemplate<class T>\nclass vector\n{\n  T *start;\n  T *finish;\n  T *end_of_storage;\n\npublic:\n  ~vector()\n  {\n    size_t count = end_of_storage - start;\n    if (count)\n    {\n      size_t bytes = count * sizeof(T);\n      if (bytes > 128)\n        arch_free(start);\n      else\n      {\n        size_t index = ((bytes + 7) >> 3) - 1;\n        *(void **)start = allocator_free_lists[index];\n        allocator_free_lists[index] = start;\n      }\n    }\n  }\n};\n\nclass string_buf;\n\nclass stringx\n{\n  char *chars;\n  string_buf *my_buf;\n\npublic:\n  ~stringx();\n};\n\nclass script_object;\nclass script_library_class;\n\nclass vm_executable\n{\npublic:\n  typedef vector<script_library_class*> parms_list;\n\nprotected:\n  script_object* owner;\n  stringx name;\n  stringx fullname;\n  parms_list parameters;\n  int parms_stacksize;\n  bool static_func;\n  bool linked;\n  unsigned short* buffer;\n  int buffer_len;\n  vector<stringx const *> strings;\n\npublic:\n  ~vm_executable();\n\nprotected:\n  void _destroy();\n};\n\n__asm__(\".equ _destroy__13vm_executable, 0x00353160\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n\nvm_executable::~vm_executable()\n  {\n  _destroy();\n  }\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "_$_13vm_executable"
+}
