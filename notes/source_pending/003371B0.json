@@ -1,0 +1,15 @@
+{
+  "address": "0x003371B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "10da458da67d384c61f96be6957876be3df190ba",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/textfile.cpp:117-139; kelly-slaters-pro-surfer/KS/SRC/textfile.h:12-33,72-75; tmp/source_first/003371B0/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include <ctype.h>\n\nclass text_file\n{\n  char io[64];\n  char the_stash[52];\n  int my_stash;\n  char *buf;\n  int bufpos;\n  int bufamt;\n  bool use_stash;\n  int pushbackdata;\n\npublic:\n  char peek_char();\n  char read_char();\n  void read(int *i);\n\nprivate:\n  void eat_whitespace();\n  bool at_eof() const\n  {\n    return use_stash ? (bufpos >= bufamt && *(const bool *)(the_stash + 16))\n                     : (bufpos >= bufamt && *(const bool *)(io + 16));\n  }\n};\n\nvoid error(const char *, ...);\n\n__asm__(\".equ peek_char__9text_file, 0x00338110\");\n__asm__(\".equ read_char__9text_file, 0x00338138\");\n__asm__(\".equ eat_whitespace__9text_file, 0x00337D20\");\n__asm__(\".equ error__FPCce, 0x001DFBD8\");\n\n#define ISDIGIT isdigit\n\nvoid text_file::read(int* i)\n{\n  int ret=0;\n  bool negative;\n  bool found=false;\n\n  eat_whitespace();\n\n  negative=false;\n  if (peek_char()=='-') { negative=true; read_char(); }\n  else if (peek_char()=='+') { negative=false; read_char(); }\n\n  while (ISDIGIT(peek_char()) && !at_eof())\n  {\n    found=true;\n    ret=ret*10+(read_char()-'0');\n  }\n\n  if (!found)\n    error(\"Integer value expected.\");\n\n  *i=negative ? -ret : ret;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "read__9text_filePi"
+}
