@@ -1,0 +1,23 @@
+{
+  "address": "0x00159270",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7a8067ca5b6bbb18561aa90e6dbbf9f5849dc234",
+      "candidate_size": 284,
+      "compared_bytes": 284,
+      "compared_instructions": 71,
+      "emitted_name": "getButtonState__Fii",
+      "instruction_score": 100.0,
+      "matching_bytes": 245,
+      "matching_instructions": 71,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.cpp:1365-1385; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:30-48; kelly-slaters-pro-surfer/KS/SRC/commands.h:243-256; tmp/functions/00159270_getButtonState__Fii/attempt-1/result.json. Result `different`, score 86.2676; no later attempt.",
+      "score": 86.2676,
+      "source": "enum FEMENUCMD\n{\n\tFEMENUCMD_SELECT,\n\tFEMENUCMD_START,\n\tFEMENUCMD_UP,\n\tFEMENUCMD_DOWN,\n\tFEMENUCMD_LEFT,\n\tFEMENUCMD_RIGHT,\n\tFEMENUCMD_CROSS,\n\tFEMENUCMD_TRIANGLE,\n\tFEMENUCMD_SQUARE,\n\tFEMENUCMD_CIRCLE,\n\tFEMENUCMD_L1,\n\tFEMENUCMD_R1,\n\tFEMENUCMD_L2,\n\tFEMENUCMD_R2\n};\n\nenum\n{\n\tPSX_X = 184,\n\tPSX_CIRCLE,\n\tPSX_TRIANGLE,\n\tPSX_SQUARE,\n\tPSX_L1,\n\tPSX_L2,\n\tPSX_L3,\n\tPSX_R1,\n\tPSX_R2,\n\tPSX_R3,\n\tPSX_UD,\n\tPSX_LR,\n\tPSX_START,\n\tPSX_SELECT\n};\n\nint getButtonPressed(int button, int controller);\nint getAnalogState(int button, int controller);\n\n#define BACK_OUT_BUTTON PSX_TRIANGLE\n#define NON_BACK_OUT_BUTTON_1 PSX_CIRCLE\n#define NON_BACK_OUT_BUTTON_2 PSX_SQUARE\n\nint getButtonState(int button, int controller)\n{\n\tswitch(button)\n\t{\n\tcase FEMENUCMD_SELECT  : return getButtonPressed(PSX_SELECT, controller);\n\tcase FEMENUCMD_START   : return getButtonPressed(PSX_START, controller);\n\tcase FEMENUCMD_UP      : return (getAnalogState(PSX_UD, controller) == -1)?1:0;\n\tcase FEMENUCMD_DOWN    : return (getAnalogState(PSX_UD, controller) == 1)?1:0;\n\tcase FEMENUCMD_LEFT    : return (getAnalogState(PSX_LR, controller) == -1)?1:0;\n\tcase FEMENUCMD_RIGHT   : return (getAnalogState(PSX_LR, controller) == 1)?1:0;\n\tcase FEMENUCMD_CROSS   : return getButtonPressed(PSX_X, controller);\n\tcase FEMENUCMD_TRIANGLE: return getButtonPressed(BACK_OUT_BUTTON, controller);\n\tcase FEMENUCMD_CIRCLE  : return getButtonPressed(NON_BACK_OUT_BUTTON_1, controller);\n\tcase FEMENUCMD_SQUARE  : return getButtonPressed(NON_BACK_OUT_BUTTON_2, controller);\n\tcase FEMENUCMD_L1      : return getButtonPressed(PSX_L1, controller);\n\tcase FEMENUCMD_R1      : return getButtonPressed(PSX_R1, controller);\n\tcase FEMENUCMD_L2      : return getButtonPressed(PSX_L2, controller);\n\tcase FEMENUCMD_R2      : return getButtonPressed(PSX_R2, controller);\n\tdefault: return 0;\n\t}\n}\n",
+      "status": "different",
+      "target_size": 284
+    }
+  ],
+  "raw_name": "getButtonState__Fii"
+}
