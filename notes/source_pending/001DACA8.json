@@ -1,0 +1,23 @@
+{
+  "address": "0x001DACA8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3faea54b29d8fbe367115776f3891e95176ba577",
+      "candidate_size": 132,
+      "compared_bytes": 272,
+      "compared_instructions": 68,
+      "emitted_name": "Add__8FrontEndG16PanelAnimManager",
+      "instruction_score": 0.0,
+      "matching_bytes": 36,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:274-289; kelly-slaters-pro-surfer/KS/SRC/ks/FEAnim.h:100-139; src/KS/SRC/ks/FEMenu_shared.h:230-254; config/SLUS_203.34.symbol_addrs.txt:2517; notes/function_queue.csv: target row for 0x001DACA8. Result `different`, score 13.2353; no later attempt.",
+      "score": 13.2353,
+      "source": "#include \"KS/SRC/ks/FEMenu_shared.h\"\n\nvoid FrontEnd::Add(PanelAnimManager a) { pam = a; }\n",
+      "status": "different",
+      "target_size": 272
+    }
+  ],
+  "raw_name": "Add__8FrontEndG16PanelAnimManager"
+}
