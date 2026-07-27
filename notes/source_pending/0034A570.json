@@ -1,0 +1,15 @@
+{
+  "address": "0x0034A570",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "02e8311057aeff29814a62b100630ca53ae2cdbd",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/path.cpp:278-291; kelly-slaters-pro-surfer/KS/SRC/path.h:198-247; src/KS/SRC/path.cpp:118-129,161-165; config/SLUS_203.34.symbol_addrs.txt:6795. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "extern \"C\" void arch_free(void *) __asm__(\"arch_free__FPv\");\nextern void *free_lists[];\n__asm__(\".equ arch_free__FPv, 0x002AC768\");\n__asm__(\".equ free_lists, 0x003E5628\");\n\nclass stringx\n{\npublic:\n  virtual ~stringx();\n};\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n\ntemplate <class T> class vector\n{\n  T *start;\n  T *finish;\n  T *end_of_storage;\npublic:\n  ~vector()\n  {\n    unsigned count = end_of_storage - start;\n    if (count)\n    {\n      unsigned bytes = count * sizeof(T);\n      if (bytes >= 129)\n        arch_free(start);\n      else\n      {\n        unsigned index = ((bytes + 7) >> 3) - 1;\n        *(void **)start = free_lists[index];\n        free_lists[index] = start;\n      }\n    }\n  }\n};\n\nclass path_graph_node;\nclass path_graph_edge;\n\nclass path_graph\n{\n  stringx id;\n  vector<path_graph_node *> nodes;\n  vector<path_graph_edge *> edges;\n  char warning_state[16];\npublic:\n  virtual ~path_graph();\n  void clear();\n};\n\n__asm__(\".equ clear__10path_graph, 0x0034BAF0\");\n__asm__(\".equ _vt$10path_graph, 0x00504020\");\n\npath_graph::~path_graph()\n{\n  clear();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_10path_graph"
+}
