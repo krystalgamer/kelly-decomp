@@ -1,0 +1,23 @@
+{
+  "address": "0x001579F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "36883d3418a68390a127a21c998a7b1afa6b80b3",
+      "candidate_size": 280,
+      "compared_bytes": 280,
+      "compared_instructions": 70,
+      "emitted_name": "cons__8FrontEndP9FEManagerG7stringxT2",
+      "instruction_score": 2.8571,
+      "matching_bytes": 72,
+      "matching_instructions": 2,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.cpp:761-766; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:275-303; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:719-761; tmp/functions/001579F8_cons__8FrontEndP9FEManagerG7stringxT2/attempt-1/result.json. Result `different`, score 25.7143; no later attempt.",
+      "score": 25.7143,
+      "source": "struct string_buf;\n\nclass stringx\n{\n    char *chars;\n    string_buf *my_buf;\n\npublic:\n    stringx(const stringx &);\n    ~stringx();\n    stringx &operator=(const stringx &);\n};\n\nclass PanelFile\n{\n    int slide_state;\n    float slide_offset;\n    float slide_timer;\n    float slide_max_time;\n    stringx filename;\n\npublic:\n    void *obs;\n    stringx path;\n    PanelFile *next;\n    void *pquads;\n\n    PanelFile(stringx f, stringx p);\n    virtual ~PanelFile();\n} __attribute__((aligned(16)));\n\nclass FEManager;\n\nclass FrontEnd\n{\n    char padding[128];\n\npublic:\n    PanelFile panel;\n    FrontEnd *next;\n    stringx path;\n    FEManager *manager;\n\n    void cons(FEManager *man, stringx p, stringx pf_name);\n};\n\nvoid FrontEnd::cons(FEManager *man, stringx p, stringx pf_name)\n{\n    panel = PanelFile(pf_name, p);\n    manager = man;\n    path = p;\n}\n",
+      "status": "different",
+      "target_size": 276
+    }
+  ],
+  "raw_name": "cons__8FrontEndP9FEManagerG7stringxT2"
+}
