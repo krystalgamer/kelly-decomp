@@ -1,0 +1,23 @@
+{
+  "address": "0x003775C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "195a56ab2cfc6c635972f1e4f93c673396478ae3",
+      "candidate_size": 292,
+      "compared_bytes": 292,
+      "compared_instructions": 73,
+      "emitted_name": "WAVE_CheckBreakType__FRC7stringx",
+      "instruction_score": 4.1096,
+      "matching_bytes": 57,
+      "matching_instructions": 3,
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Copied `WAVE_CheckBreakType` exactly from the released source.\n- Added one self-contained declaration set for `stringx`, `string_buf`, wave break enums/structures, globals, and the released disabled `wavewarn` macro.\n- Ran `function_test` exactly once. Result: `different`; byte score 19.5205% (57/292), instruction score 4.1096% (3/73), candidate size 292 versus target 268.\n- No variants, retries, disassembly comparison, or diff chasing were performed.\n- Because the attempt did not match, no source, prefix, or shared-declaration proposal is included.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/wave.cpp:72-85,647-660,3140-3172`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/wave.h:265-274`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/wavebreak.txt:1-7`\n- `kelly-slaters-pro-surfer/KS/SRC/stringx.h:62-76,193-202,230-287,310,374-378,456-460`\n- `tmp/functions/003775C8_WAVE_CheckBreakType__FRC7stringx/attempt-1/result.json`",
+      "score": 19.5205,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned long long big_int;\n\nclass stringx;\n\nclass string_buf\n{\nprotected:\n\tfriend class stringx;\n\tfriend inline bool operator==(const stringx& lhs, const stringx& rhs);\n\n\tbig_int *data;\n\tint ref_count;\n\tint char_length;\n\tint block_length;\n\tint max_blocks;\n\npublic:\n\tinline bool is_equal(const string_buf &buf) const\n\t{\n\t\tif (buf.block_length != block_length) return false;\n\t\tfor (int i = 0; i < block_length; i++) {\n\t\t\tif (!(buf.data[i] == data[i])) return false;\n\t\t}\n\t\treturn true;\n\t}\n};\n\nclass stringx\n{\n\tfriend inline bool operator==(const stringx& lhs, const stringx& rhs);\n\nprotected:\n\tchar *chars;\n\tstring_buf *my_buf;\n\npublic:\n\tstringx &operator=(const stringx &cp);\n\n\tinline const char *c_str() const\n\t{\n\t\treturn chars;\n\t}\n};\n\ninline bool operator==(const stringx& lhs, const stringx& rhs)\n{\n\treturn lhs.my_buf->is_equal(*rhs.my_buf);\n}\n\nenum WavePerturbTypeEnum {\n\tWAVE_PerturbTypeRush,\n\tWAVE_PerturbTypeBigRush,\n\tWAVE_PerturbTypeSurge,\n\tWAVE_PerturbTypeBigSurge,\n\tWAVE_PerturbTypeTongue,\n\tWAVE_PerturbTypeBigTongue,\n\tWAVE_PerturbTypeMax\n};\n\nstruct WaveBreakStruct {\n\tWavePerturbTypeEnum type;\n\tfloat time;\n\tfloat prob[WAVE_PerturbTypeMax];\n};\n\n#define WAVE_MAXBREAK 8\nstruct WaveBreakTypeStruct {\n\tstringx name;\n\tint numbreak;\n\tWaveBreakStruct breaklist[WAVE_MAXBREAK];\n};\n\n#define WAVE_MAXBREAKTYPE 8\nstatic WaveBreakTypeStruct WAVE_BreakArray[WAVE_MAXBREAKTYPE];\nstatic u_int WAVE_BreakTypeMax;\n\n#define wavewarn(a)\n\nu_int WAVE_CheckBreakType(const stringx &breakstr)\n{\n\tu_int break_type = WAVE_MAXBREAKTYPE;\n\n\t// Find the right break type.\n\tfor (u_int i = 0; i < WAVE_BreakTypeMax; ++i)\n\t{\n\t\tif (breakstr == WAVE_BreakArray[i].name)\n\t\t{\n\t\t\tbreak_type = i;\n\t\t\tbreak;\n\t\t}\n\t}\n\tif (break_type == WAVE_MAXBREAKTYPE)\n\t{\n\t\tif (WAVE_BreakTypeMax < WAVE_MAXBREAKTYPE)\n\t\t{\n\t\t\tbreak_type = WAVE_BreakTypeMax;\n\t\t\tWAVE_BreakArray[WAVE_BreakTypeMax].name = breakstr;\n\t\t\t++WAVE_BreakTypeMax;\n\t\t}\n\t\telse\n\t\t{\n\t\t\tbreak_type = 0;\n\t\t\twavewarn((\"WAVE:\\tToo many break types in .beach file.\"));\n\t\t\twavewarn((\"WAVE:\\tAt most %d different .break files are allowed.\"));\n\t\t\twavewarn((\"WAVE:\\tReplacing break type %s by break type %s for purposes of wave effects.\",\n\t\t\t\tbreakstr.c_str(), WAVE_BreakArray[0].name.c_str()));\n\t\t}\n\t}\n\n\treturn break_type;\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "WAVE_CheckBreakType__FRC7stringx"
+}
