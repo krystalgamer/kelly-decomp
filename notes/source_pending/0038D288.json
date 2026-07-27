@@ -1,0 +1,23 @@
+{
+  "address": "0x0038D288",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "793276ee25207ee595da15a1cfc28d266b8bd923",
+      "candidate_size": 328,
+      "compared_bytes": 328,
+      "compared_instructions": 82,
+      "emitted_name": "nslStopSound__FUi",
+      "instruction_score": 14.6341,
+      "matching_bytes": 95,
+      "matching_instructions": 12,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2_sound.cpp:379-402; kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2.h:156-203,220-268; tmp/functions/0038D288_nslStopSound__FUi/attempt-1/result.json. Result `different`, score 28.9634; no later attempt.",
+      "score": 28.9634,
+      "source": "typedef unsigned int nlUint32;\ntypedef unsigned int nslSoundId;\n\nenum nslSoundStatusEnum {\n  NSL_SOUNDSTATUS_INVALID = 0\n};\n\nenum {\n  NSL_SLOT_MASK = 0x000003ff,\n  NSL_ID_INCREMENT = 0x00000400,\n  NSL_GLOBAL_EMITTER_ID = 0,\n  GAS_RPC_STOP_INSTANCE = 0x10b0\n};\n\n#define NSL_GET_SLOT_FROM_ID(x) ((x) & NSL_SLOT_MASK)\n#define GAS_INVALID_ID -1\n\ntemplate<class T> class fifo_queue {\n  T *queue;\n  short queue_max;\n  short start;\n  short end;\n  short count;\npublic:\n  short find(const T& index_to_find, short remove_flag);\n};\n\nstruct nslSound {\n  bool isReady;\n  bool used;\n  bool inRange;\n  bool isReallyReady;\n  bool isPlaying;\n  bool isReallyPlaying;\n  bool looping;\n  bool isQueuing;\n  short left;\n  short right;\n  short old_left;\n  short old_right;\n  nlUint32 gasInstanceId;\n  int pauseCount;\n  int dampenCount;\n  nslSoundId myId;\n  unsigned int mySource;\n  unsigned int myEmitter;\n  float rawVolume;\n  float positionalVolume;\n  float angle;\n  float pitch;\n  float minDist;\n  float maxDist;\n};\n\nstruct nslEmitter {\n  char fields[44];\n  fifo_queue<nslSoundId> emittedSounds;\n  char tail[8];\n};\n\nstruct nslSystem {\n  char beforeSounds[0xc040];\n  nslSound soundSlots[256];\n  nslEmitter emitterSlots[256];\n  nlUint32 sourceSlotsUsedCount;\n  nlUint32 soundSlotsUsedCount;\n  nlUint32 emitterSlotsUsedCount;\n  int firstInit;\n  int initialized;\n  nlUint32 numBanks;\n  fifo_queue<nslSoundId> queuedSounds;\n  char state[28];\n  bool on;\n};\n\nextern nslSystem nsl;\nextern const char init_error[];\nextern void nslFatal(const char *, ...);\nextern nslSoundStatusEnum nslGetSoundStatus(nslSoundId);\nextern int nslPs2GasRpc(int, const char *, int, int, int, int);\nextern void _nslClearSoundSlot(nlUint32, bool);\n\nasm(\".equ nsl,0x0049B5F0\");\nasm(\".equ init_error,0x0051BF80\");\nasm(\".equ nslFatal__FPCce,0x00391420\");\nasm(\".equ nslGetSoundStatus__FUi,0x0038DBA0\");\nasm(\".equ nslPs2GasRpc__FiPCciiii,0x00391AC0\");\nasm(\".equ _nslClearSoundSlot__FUib,0x00390FC8\");\nasm(\".equ find__t10fifo_queue1ZUiRCUis,0x0038F0A8\");\n\n#define ASSERT_NSL_INITIALIZED() \\\n  do { if (!(nsl.initialized == 1)) nslFatal(init_error); } while (0)\n\nvoid nslStopSound( nslSoundId soundToStop )\n{\n  if (!nsl.on) return;\n  ASSERT_NSL_INITIALIZED();\n\n  if ( nslGetSoundStatus( soundToStop ) != NSL_SOUNDSTATUS_INVALID )\n  {\n    if (nsl.soundSlots[NSL_GET_SLOT_FROM_ID(soundToStop)].gasInstanceId != (nlUint32)GAS_INVALID_ID)\n      nslPs2GasRpc(GAS_RPC_STOP_INSTANCE, \"\", nsl.soundSlots[NSL_GET_SLOT_FROM_ID(soundToStop)].gasInstanceId, 0, 0, 0);\n    nsl.queuedSounds.find(soundToStop, true);\n\n    if (nsl.soundSlots[NSL_GET_SLOT_FROM_ID(soundToStop)].myEmitter != NSL_GLOBAL_EMITTER_ID)\n      nsl.emitterSlots[NSL_GET_SLOT_FROM_ID(nsl.soundSlots[NSL_GET_SLOT_FROM_ID(soundToStop)].myEmitter)].emittedSounds.find(soundToStop, true);\n\n    _nslClearSoundSlot(NSL_GET_SLOT_FROM_ID(soundToStop), false);\n    nsl.soundSlotsUsedCount--;\n    nsl.soundSlots[NSL_GET_SLOT_FROM_ID(soundToStop)].myId += NSL_ID_INCREMENT;\n  }\n}\n",
+      "status": "different",
+      "target_size": 324
+    }
+  ],
+  "raw_name": "nslStopSound__FUi"
+}
