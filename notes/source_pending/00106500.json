@@ -1,0 +1,15 @@
+{
+  "address": "0x00106500",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "40bf977f4cfc307ccb965874c63218efe2b8cdd9",
+      "notes": "Released-source candidate was tested once and failed compilation because the legacy compiler could not find list.h or assert.h. No retry was made.",
+      "score": 0.0,
+      "source": "#include <list.h>\n#include <assert.h>\n\ntypedef float rational_t;\ntypedef rational_t time_value_t;\n\nclass ai_goal;\n\nclass ai_action\n{\npublic:\n  enum\n  {\n    IN_SERVICE      = 0x00000001\n  };\n\n  ai_action(ai_goal *own);\n  virtual ~ai_action() { }\n\n  // returns  TRUE = POP_ME\n  //         bsptr = PUSH_THIS\n  virtual bool frame_advance( time_value_t delta_t ) = 0;\n\n  virtual void going_out_of_service();\n  virtual void going_into_service();\n\n  inline bool is_flagged(int flag) const          { return((flags & flag) != 0); }\n  inline void set_flag(int flag, bool on = true)  { if(on) flags |= flag; else flags &= ~flag; }\n\n  inline bool is_in_service()                     { return(is_flagged(IN_SERVICE)); }\n\n  inline ai_goal *get_ai_goal() const             { return(owner); }\n  inline unsigned int get_id() const              { return(id); }\n\nprotected:\n  ai_goal *owner;\n  int flags;\n  unsigned int id;\n\nprivate:\n  static unsigned int action_id_counter;\n};\n\nclass ai_goal\n{\nprotected:\n  rational_t priority;\n  rational_t priority_modifier;\n  bool in_service;\n  list<ai_action *> actions;\n\n  virtual rational_t frame_advance(time_value_t t);\n};\n\nrational_t ai_goal::frame_advance(time_value_t t)\n{\n  // NB: TWO RETURN VALUES ARE HAPPENING HERE\n  list<ai_action *>::iterator i = actions.begin();\n  while(i != actions.end())\n  {\n    ai_action *action = (*i);\n    assert(action->is_in_service());\n\n    if( action->frame_advance( t ) )\n    {\n      action->going_out_of_service();\n      delete action;\n\n      i = actions.erase(i);\n    }\n    else\n      ++i;\n  }\n\n  return(priority);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "frame_advance__7ai_goalf"
+}
