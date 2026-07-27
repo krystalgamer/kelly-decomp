@@ -1,0 +1,15 @@
+{
+  "address": "0x0038AA30",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "50597e76625e3cb7c1af832dc4fa416f302abd17",
+      "notes": "Used the exact released `viBufPutTs` body with the minimal authentic `TimeStamp`, `ViBuf`, DMA-environment, semaphore, and helper declarations. The isolated compile rejected the released static `viBufModifyPts` declaration because its definition was not present; no alternate source was tested.",
+      "score": 0.0,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned int u_long128 __attribute__((mode(TI)));\n\nstruct sceIpuDmaEnv\n{\n    u_int d4madr;\n    u_int d4tadr;\n    u_int d4qwc;\n    u_int d4chcr;\n    u_int d3madr;\n    u_int d3qwc;\n    u_int d3chcr;\n    u_int ipubp;\n    u_int ipuctrl;\n};\n\ntypedef struct\n{\n    long pts;\n    long dts;\n    int pos;\n    int len;\n} TimeStamp;\n\ntypedef struct\n{\n    u_long128 *data;\n    u_long128 *tag;\n    int n;\n    int dmaStart;\n    int dmaN;\n    int readBytes;\n    int buffSize;\n    sceIpuDmaEnv env;\n    int sema;\n    int isActive;\n    long totalBytes;\n    TimeStamp *ts;\n    int n_ts;\n    int count_ts;\n    int wt_ts;\n} ViBuf;\n\nextern \"C\" int WaitSema(int sema);\nextern \"C\" int SignalSema(int sema);\nstatic int viBufModifyPts(ViBuf *f, TimeStamp *new_ts);\n\n__asm__(\".equ WaitSema, 0x003DB6A0\");\n__asm__(\".equ SignalSema, 0x003DB680\");\n__asm__(\".equ viBufModifyPts__FP5ViBufP9TimeStamp, 0x0038A8D8\");\n\nstatic int viBufPutTs( ViBuf* f, TimeStamp* ts )\n{\n    int ret = 0;\n\n    WaitSema( f->sema );\n    if( f->count_ts < f->n_ts )\n    {\n        viBufModifyPts( f, ts );\n        if( ts->pts >= 0 || ts->dts >= 0 )\n        {\n            f->ts[f->wt_ts].pts = ts->pts;\n            f->ts[f->wt_ts].dts = ts->dts;\n            f->ts[f->wt_ts].pos = ts->pos;\n            f->ts[f->wt_ts].len = ts->len;\n            f->count_ts++;\n            f->wt_ts = (f->wt_ts + 1) % f->n_ts;\n        }\n        ret = 1;\n    }\n    SignalSema( f->sema );\n    return ret;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "viBufPutTs__FP5ViBufP9TimeStamp"
+}
