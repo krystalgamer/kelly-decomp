@@ -1,0 +1,23 @@
+{
+  "address": "0x0025BA90",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "eab618d5f7ba02b8af1447c14b457eaa5557072f",
+      "candidate_size": 328,
+      "compared_bytes": 328,
+      "compared_instructions": 82,
+      "emitted_name": "WasNewBeachUnlocked__6Career",
+      "instruction_score": 4.878,
+      "matching_bytes": 65,
+      "matching_instructions": 4,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/career.cpp:647-682; kelly-slaters-pro-surfer/KS/SRC/ks/career.h:36-65,121-153,194-195; kelly-slaters-pro-surfer/KS/SRC/ks/careerdata.h:9-11,14-47,108-126; kelly-slaters-pro-surfer/KS/SRC/ks/compressedphoto.h:9-43; kelly-slaters-pro-surfer/KS/SRC/game.h:545-550; config/SLUS_203.34.symbol_addrs.txt: WasNewBeachUnlocked__6Career; tmp/functions/0025BA90_WasNewBeachUnlocked__6Career/attempt-1/result.json; tmp/source_first/0025BA90/attempt-1.md. Result `different`, score 19.8171; no later attempt.",
+      "score": 19.8171,
+      "source": "enum { MAX_NEXT_LEVELS = 2, LEVEL_LAST = 32 };\nstruct CareerData {\n    int beach, goal_param[5], reward_param[5];\n    char beach_file[32], name[32];\n    int goal[5], goal_param_2[5], reward[5], prev_levels[4], next_levels[2];\n    float level_duration;\n    char stash_name[15];\n    int use_ai_surfer;\n    char challenge_name[32];\n};\nextern CareerData CareerDataArray[];\nclass game { public: int get_level_id(); };\nextern game *g_game_ptr;\nclass Career {\npublic:\n    class Level {\n        int my_id;\n        bool is_new, advanced, unlocked, goals[5];\n    public:\n        bool IsUnlocked(void) const { return unlocked; }\n    };\nprivate:\n    char prefix[0x1019c];\npublic:\n    Level levels[LEVEL_LAST];\n    int WasNewLevelUnlocked();\n    int WasNewBeachUnlocked();\n};\n\nint Career::WasNewBeachUnlocked() // ******* DONE BUT NEEDS TO BE TESTED\n{\n\tint i, j;\n\tint num_new_beaches = 0; // the number of new beaches that have been unlocked\n\tint beach_to_check;      // which beach the unlocked level is on.  Check for this beach in \n\t                         // all the previously unlocked levels\n\tint current_level = g_game_ptr->get_level_id();\n\n\tif(WasNewLevelUnlocked()) // if a new level was unlocked\n\t{\n\t\tfor(i = 0; i < MAX_NEXT_LEVELS; i++)\n\t\t{\n\t\t\tif(CareerDataArray[current_level].next_levels[i] != -1 &&\n\t\t\t   levels[CareerDataArray[current_level].next_levels[i]].IsUnlocked())\n\t\t\t{\n\t\t\t\t// which beach does this level use?\n\t\t\t\tbeach_to_check = CareerDataArray[CareerDataArray[current_level].next_levels[i]].beach;\n\t\t\t\t// now check every other level.  If every unlocked level's beach is different than \n\t\t\t\t// this one then this beach must have just been unlocked (since the level was unlocked).\n\t\t\t\tfor(j = 0; j < LEVEL_LAST; j++)\n\t\t\t\t\tif(j != CareerDataArray[current_level].next_levels[i] &&\n\t\t\t\t\t   levels[j].IsUnlocked()  &&\n\t\t\t\t\t   CareerDataArray[j].beach == beach_to_check)\n\t\t\t\t\t\tbreak;  // if the beaches are the same then break\n\t\t\t\t// Now if j < LEVEL_LAST then there must have been a break, so the beach isn't a new one.\n\t\t\t\tif(j == LEVEL_LAST)\n\t\t\t\t\tnum_new_beaches++;\n\t\t\t}\n\t\t}\n\t}\n\treturn num_new_beaches;\n}\n",
+      "status": "different",
+      "target_size": 312
+    }
+  ],
+  "raw_name": "WasNewBeachUnlocked__6Career"
+}
