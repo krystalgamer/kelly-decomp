@@ -1,0 +1,23 @@
+{
+  "address": "0x001E7468",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c6f8870aa359db1fb4282f06098928e389828ddc",
+      "candidate_size": 276,
+      "compared_bytes": 276,
+      "compared_instructions": 69,
+      "emitted_name": "nglVif1AddWaveDark__FRPUiRUiP11nglMaterialUib",
+      "instruction_score": 21.7391,
+      "matching_bytes": 118,
+      "matching_instructions": 15,
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Copied the released `nglVif1AddWaveDark` body exactly from `kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_waverender.cpp:70-85`.\n- Included only the required exact declarations: `nglStageStruct` through `DetailPass`, the wave/base/global symbols, the VIF constants/macros, and the two inline command-list helpers.\n- Ran `function_test` exactly once. Result: `different`, byte score 42.7536% (118/276), instruction score 21.7391% (15/69), candidate size 276 versus target 268.\n- No variants, retries, or diff chasing were performed. Because the attempt did not match, no source, prefix, or shared-declaration proposal is made.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_waverender.cpp:16-18,70-85`\n- `kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2_internal.h:100-103,365-385,821,935,944,968,1276-1292`\n- `config/SLUS_203.34.symbol_addrs.txt:9670,9733,10181-10182,12085`",
+      "score": 42.7536,
+      "source": "typedef unsigned char u_char;\ntypedef unsigned int u_int;\n\nstruct nglMaterial {};\nstruct nglStageStruct\n{\n  u_char FSAA;\n  u_char DMASend;\n  u_char Clip;\n  u_char BatchDMA;\n  u_char Skin;\n  u_char XForm;\n  u_char Backface;\n  u_char Light;\n  u_char Kick;\n  u_char PlaneClip;\n  u_char CommandList;\n  u_char DiffusePass;\n  u_char DetailPass;\n  u_char EnvironmentPass;\n  u_char LightPass;\n  u_char ProjectedTexturePass;\n  u_char FogPass;\n};\n\nextern nglStageStruct nglStage;\nextern char nglWaveDarkAddr[];\nextern char nglBaseAddr[];\nextern float DarkAlphaScale;\nextern float DarkAlphaOffset;\n\n__asm__(\".equ nglStage, 0x004AC9C0\");\n__asm__(\".equ _$nglWaveDarkAddr, 0x003E3220\");\n__asm__(\".equ _$nglBaseAddr, 0x003E16A8\");\n__asm__(\".equ DarkAlphaScale, 0x0041E67C\");\n__asm__(\".equ DarkAlphaOffset, 0x0041E680\");\n\nextern char nglWaveDarkAddr[] asm(\"_$nglWaveDarkAddr\");\nextern char nglBaseAddr[] asm(\"_$nglBaseAddr\");\n\n#define STAGE_ENABLE( x ) ( nglStage.x )\n#define SCE_VIF1_S_32 0x00\n#define SCE_VIF1_V2_32 0x04\n#define SCE_VIF1_USN ( 1 << 14 )\n#define SCE_VIF1_SET_UNPACK(addr, num, vnvl, flg) ((u_int)(0x60 | ((flg) << 7) | (vnvl)) << 24 | ((num) & 0xff) << 16 | ((addr) & 0x3ff))\n#define NGL_PROG_ADDR( x, base ) ( ( (u_int)x - (u_int)base ) / 8 )\n\ninline void nglVif1AddCommandListProgram( u_int*& Packet, u_int& DataPtr, char* Addr )\n{\n  Packet[0] = SCE_VIF1_SET_UNPACK( DataPtr++, 1, SCE_VIF1_S_32, 0 );\n  Packet[1] = NGL_PROG_ADDR( Addr, nglBaseAddr );\n  Packet += 2;\n}\n\ninline void nglVif1AddCommandListData( u_int*& Packet, u_int& DataPtr, int Mode, int QWC, void* Data, int DataSize )\n{\n  u_int* DataWords = (u_int*)Data;\n  *(Packet++) = SCE_VIF1_SET_UNPACK( DataPtr, QWC, Mode, 0 ) | SCE_VIF1_USN;\n  do {\n    *(Packet++) = *(DataWords++);\n    DataSize -= 4;\n  } while ( DataSize );\n  DataPtr += QWC;\n}\n\nvoid nglVif1AddWaveDark(u_int*& _Packet, u_int& _CmdListDataPtr, nglMaterial* Material, u_int MaterialFlags, bool standalone )\n{\n\tu_int* Packet = _Packet;\n\tu_int CmdListDataPtr = _CmdListDataPtr;\n\t\n\tif ( !STAGE_ENABLE( DetailPass ) )\n\t\treturn;\n\t\n\tnglVif1AddCommandListProgram( Packet, CmdListDataPtr, nglWaveDarkAddr );\n\tfloat ScaleOffset[] = {DarkAlphaScale, DarkAlphaOffset};\n    nglVif1AddCommandListData( Packet, CmdListDataPtr, SCE_VIF1_V2_32, 1, (void *) ScaleOffset, sizeof(ScaleOffset) );\n\t\n\t_Packet = Packet;\n\t_CmdListDataPtr = CmdListDataPtr;\n\t\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "nglVif1AddWaveDark__FRPUiRUiP11nglMaterialUib"
+}
