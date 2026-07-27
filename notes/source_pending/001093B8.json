@@ -1,0 +1,23 @@
+{
+  "address": "0x001093B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "98a8e9c98a7f53dfe948151bf54955b47d7f325c",
+      "candidate_size": 312,
+      "compared_bytes": 312,
+      "compared_instructions": 78,
+      "emitted_name": "get_num__13ai_locomotionRC7pstringRf",
+      "instruction_score": 17.9487,
+      "matching_bytes": 102,
+      "matching_instructions": 14,
+      "notes": "Attempt 1 used the exact released source and minimum declarations cited at kelly-slaters-pro-surfer/KS/SRC/ai_locomotion.cpp:1113-1119; kelly-slaters-pro-surfer/KS/SRC/ai_locomotion.h:22-158; kelly-slaters-pro-surfer/KS/SRC/entity_interface.h:59-60; kelly-slaters-pro-surfer/KS/SRC/pstring.h:45-65,139-149. Result `different`, score 32.6923; no variants attempted.",
+      "score": 32.6923,
+      "source": "typedef unsigned long long uint64;\ntypedef float rational_t;\n\nclass pstring\n{\nprivate:\n  uint64 pchunk[4];\n  void pack_string(const char *the_string);\n\npublic:\n  pstring(const char *target_string)\n  {\n    pack_string(target_string);\n  }\n\n  bool operator == (const pstring &check_me) const\n  {\n    for (unsigned i = 0; i < 4; ++i)\n    {\n      if (pchunk[i] != check_me.pchunk[i])\n        return false;\n    }\n    return true;\n  }\n};\n\n#define IFC_INTERNAL_GET_MACRO(a,b) { static pstring pstring_get(a); if(att == pstring_get) { val = b; return(true); } }\n\nclass ai_locomotion\n{\n  char data_before_patrol_radius[112];\n  rational_t patrol_radius;\n  char data_before_jockey_speed[164];\n  rational_t jockey_speed;\n\npublic:\n  bool get_num(const pstring &att, rational_t &val);\n};\n\nbool ai_locomotion::get_num(const pstring &att, rational_t &val)\n{\n  IFC_INTERNAL_GET_MACRO(\"PATROL_RADIUS\", patrol_radius);\n  IFC_INTERNAL_GET_MACRO(\"JOCKEY_SPEED\", jockey_speed);\n\n  return(false);\n}\n",
+      "status": "different",
+      "target_size": 308
+    }
+  ],
+  "raw_name": "get_num__13ai_locomotionRC7pstringRf"
+}
