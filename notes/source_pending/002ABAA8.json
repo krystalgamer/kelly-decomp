@@ -1,0 +1,23 @@
+{
+  "address": "0x002ABAA8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5ad3459d7c24a50ba281ffe366752d98e418976f",
+      "candidate_size": 284,
+      "compared_bytes": 288,
+      "compared_instructions": 72,
+      "emitted_name": "MergeBlock__4HeapP12MemBlockInfo",
+      "instruction_score": 77.7778,
+      "matching_bytes": 245,
+      "matching_instructions": 56,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/heap.cpp:993-1087; kelly-slaters-pro-surfer/KS/SRC/heap.h:1-180; kelly-slaters-pro-surfer/KS/SRC/heaptype.h:1-34; tmp/functions/002ABAA8_MergeBlock__4HeapP12MemBlockInfo/attempt-1/result.json. Result `different`, score 85.0694; no later attempt.",
+      "score": 85.0694,
+      "source": "typedef unsigned int MemSize;\ntypedef unsigned int MemFlags;\n\nenum MemoryBlockTypes {\n    mbtUsed = 1\n};\n\nstruct MemFlagDWord {\n    MemFlags magic : 16;\n    MemFlags heapid : 8;\n    MemFlags flags : 8;\n};\n\nclass MemBlockInfo {\npublic:\n    MemBlockInfo *prev;\n    MemBlockInfo *next;\n    MemBlockInfo *prevoftype;\n    MemBlockInfo *nextoftype;\n    MemSize size;\n    MemFlagDWord flags;\n    MemFlags blockid;\n};\n\nclass Heap {\n    MemBlockInfo *fullhead;\n    MemBlockInfo *fulltail;\n    MemBlockInfo *usedhead;\n    MemBlockInfo *usedtail;\n    MemBlockInfo *freehead;\n    MemBlockInfo *freetail;\n    MemSize heapsize;\n    void *heapstart;\n    MemSize allocatedblocks;\n    MemSize minalloc;\n    MemSize minalign;\n    MemSize lastalloc;\n    MemFlags heapid;\n\npublic:\n    MemFlags GetHeapID() const { return heapid; }\n    MemSize HeaderSize() const;\n    void MoveFreeToUsed(MemBlockInfo *block);\n    void MoveUsedToFree(MemBlockInfo *block);\n    void SetBlockSentry(MemBlockInfo *block);\n    void MergeBlock(MemBlockInfo *block);\n};\n\n__asm__(\".equ HeaderSize__C4Heap, 0x002AB370\");\n__asm__(\".equ MoveFreeToUsed__4HeapP12MemBlockInfo, 0x002AC0C8\");\n__asm__(\".equ MoveUsedToFree__4HeapP12MemBlockInfo, 0x002ABFF0\");\n__asm__(\".equ SetBlockSentry__4HeapP12MemBlockInfo, 0x002AB678\");\n\nvoid Heap::MergeBlock( MemBlockInfo *block )\n{\n\tif ( (block->flags.flags & mbtUsed) != (block->next->flags.flags & mbtUsed)  )\n\t{\n\t\tif ( (block->flags.flags & mbtUsed) )\n\t\t{\n\t\t\tMoveFreeToUsed(block->next);\n\t\t}\n\t\telse\n\t\t{\n\t\t\tMoveUsedToFree(block->next);\n\t\t}\n\t}\n\n\tblock->next->flags.magic = 0;\n\tblock->next->flags.heapid = 0xFF;\n\n\tblock->size += block->next->size + HeaderSize();\n\n\tMemBlockInfo *nblock=block->next;\n\n\tMemBlockInfo *prev=nblock->prev;\n\tMemBlockInfo *next=nblock->next;\n\tif ( prev )\n\t{\n\t\tprev->next=next;\n\t}\n\telse\n\t{\n\t\tfullhead=next;\n\t}\n\tif ( next )\n\t{\n\t\tnext->prev=prev;\n\t}\n\telse\n\t{\n\t\tfulltail=block;\n\t}\n\n\tMemBlockInfo *prevoftype=nblock->prevoftype;\n\tMemBlockInfo *nextoftype=nblock->nextoftype;\n\tif ( prevoftype )\n\t{\n\t\tprevoftype->nextoftype=nextoftype;\n\t}\n\telse\n\t{\n\t\tif ( (block->flags.flags & mbtUsed) )\n\t\t{\n\t\t\tusedhead=nextoftype;\n\t\t}\n\t\telse\n\t\t{\n\t\t\tfreehead=nextoftype;\n\t\t}\n\t}\n\tif ( nextoftype )\n\t{\n\t\tnextoftype->prevoftype=prevoftype;\n\t}\n\telse\n\t{\n\t\tif ( (block->flags.flags & mbtUsed) )\n\t\t{\n\t\t\tusedtail=prevoftype;\n\t\t}\n\t\telse\n\t\t{\n\t\t\tfreetail=prevoftype;\n\t\t}\n\t}\n\tblock->flags.magic = 0x7E07;\n\tblock->flags.heapid = GetHeapID();\n\tSetBlockSentry(block);\n}\n",
+      "status": "different",
+      "target_size": 288
+    }
+  ],
+  "raw_name": "MergeBlock__4HeapP12MemBlockInfo"
+}
