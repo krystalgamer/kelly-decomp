@@ -1,0 +1,23 @@
+{
+  "address": "0x001BD690",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e37a3dadf552655b307ef1b7bce1bd9bda142a22",
+      "candidate_size": 188,
+      "compared_bytes": 272,
+      "compared_instructions": 66,
+      "emitted_name": "_$_9HelpbarFE",
+      "instruction_score": 21.2121,
+      "matching_bytes": 89,
+      "matching_instructions": 14,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/GraphicalMenuSystem.cpp:308-312; kelly-slaters-pro-surfer/KS/SRC/ks/GraphicalMenuSystem.h:124-147; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:275-299; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:48-81; kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-287; tmp/functions/001BD690__$_9HelpbarFE/attempt-1/result.json. Result `different`, score 32.7206; no later attempt.",
+      "score": 32.7206,
+      "source": "class PanelAnimManager\n{\n    char data[128] __attribute__((aligned(16)));\npublic:\n    ~PanelAnimManager();\n};\n\nclass PanelFile\n{\n    char data[52];\npublic:\n    ~PanelFile();\n};\n\nstruct string_buf;\nclass stringx\n{\nprotected:\n    char* chars;\n    string_buf* my_buf;\npublic:\n    ~stringx();\n};\n\nclass FEManager;\nclass FrontEnd\n{\npublic:\n    PanelAnimManager pam;\n    PanelFile panel;\n    FrontEnd* next;\n    stringx path;\n    FEManager* manager;\n\n    virtual ~FrontEnd() {}\n};\n\nclass PanelQuad;\nclass TextString\n{\npublic:\n    virtual ~TextString();\n};\n\nclass HelpbarFE : public FrontEnd\n{\nprivate:\n    enum {\n        ARROW_H,\n        ARROW_V,\n        ARROW_BOTH,\n        CROSS,\n        TRIANGLE,\n        CIRCLE,\n        SQUARE,\n        BTN_NUM\n    };\n\n    PanelQuad* buttons[BTN_NUM];\n    TextString* help_text[BTN_NUM];\n    bool has_text[BTN_NUM];\n    stringx default_text[BTN_NUM];\n    bool disabled;\n\npublic:\n    virtual ~HelpbarFE();\n};\n\nHelpbarFE::~HelpbarFE()\n{\n\tfor(int i=0; i<BTN_NUM; i++)\n\t\tdelete help_text[i];\n}\n",
+      "status": "different",
+      "target_size": 272
+    }
+  ],
+  "raw_name": "_$_9HelpbarFE"
+}
