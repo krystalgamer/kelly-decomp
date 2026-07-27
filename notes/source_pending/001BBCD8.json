@@ -1,0 +1,23 @@
+{
+  "address": "0x001BBCD8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4862e8d4e49db991fa581e3804eab932e0cb536c",
+      "candidate_size": 316,
+      "compared_bytes": 316,
+      "compared_instructions": 79,
+      "emitted_name": "Select__11FEDebugMenui",
+      "instruction_score": 43.038,
+      "matching_bytes": 169,
+      "matching_instructions": 34,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/GraphicalMenuSystem.cpp:57-85; kelly-slaters-pro-surfer/KS/SRC/ks/GraphicalMenuSystem.h:43-62; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:161-216; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndManager.h:13-20; kelly-slaters-pro-surfer/KS/SRC/ks/FEEntityManager.h:117-118,191; kelly-slaters-pro-surfer/KS/SRC/camera.h:57-60; kelly-slaters-pro-surfer/KS/SRC/app.h:29-49; tmp/functions/001BBCD8_Select__11FEDebugMenui/attempt-1/result.json; tmp/source_first/001BBCD8/attempt-1.md. Result `different`, score 53.4810; no later attempt.",
+      "score": 53.481,
+      "source": "class camera;\n\nclass entity_id\n{\npublic:\n    entity_id(const char *);\n};\n\nenum entity_flavor_t\n{\n    ENTITY_CAMERA\n};\n\nclass entity_manager\n{\npublic:\n    static entity_manager *inst();\n    void *find_entity(const entity_id &, entity_flavor_t, bool = false, bool = false);\n};\n\nextern entity_manager *entity_manager_instance;\n__asm__(\".equ entity_manager_instance, 0x003E5A60\");\n\ninline entity_manager *entity_manager::inst()\n{\n    return entity_manager_instance;\n}\n\ninline camera *find_camera(const entity_id &id)\n{\n    return (camera *)entity_manager::inst()->find_entity(id, ENTITY_CAMERA);\n}\n\nclass game\n{\npublic:\n    void set_current_camera(camera *);\n};\n\nclass app\n{\n    char padding[0x10];\n    game *the_game;\n\npublic:\n    static app *inst();\n    game *get_game() { return the_game; }\n};\n\nextern app *app_instance;\n__asm__(\".equ app_instance, 0x0045AC18\");\n\ninline app *app::inst()\n{\n    return app_instance;\n}\n\nclass FEEntityManager\n{\n    char padding[0x214];\n\npublic:\n    camera *fe_camera;\n    camera *active_camera;\n    void FEDB_ToggleDraw(int);\n};\n\nclass FEManager\n{\n    char padding[0x0C];\n\npublic:\n    FEEntityManager *em;\n};\n\nclass FEMenuSystem\n{\n    char padding[0xE0];\n\npublic:\n    bool usercam;\n    char padding2[0x3F];\n    bool fedb_draw_overlays;\n};\n\nclass FEMenu\n{\n    char padding[0x50];\n\nprotected:\n    FEMenuSystem *system;\n    char padding2[0x24];\n};\n\nenum\n{\n    FEDB_Surfer,\n    FEDB_Board,\n    FEDB_Room,\n    FEDB_Overlays,\n    FEDB_Language,\n    FEDB_UserCam,\n    FEDB_NormCam,\n    FEDB_End\n};\n\nenum\n{\n    LANGUAGE_ENGLISH,\n    LANGUAGE_PIG_LATIN\n};\n\nextern int ksGlobalTextLanguage;\nvoid GLOBALTEXT_Load();\n\nclass GraphicalMenuSystem : public FEMenuSystem\n{\n};\n\nclass FEDebugMenu : public FEMenu\n{\n    FEManager *man;\n\npublic:\n    virtual void Select(int entry);\n};\n\nvoid FEDebugMenu::Select(int entry)\n{\n\tcamera* cam;\n\tswitch(entry)\n\t{\n\tcase FEDB_Overlays:\n\t\t((GraphicalMenuSystem*) system)->fedb_draw_overlays = !((GraphicalMenuSystem*) system)->fedb_draw_overlays;\n\t\tbreak;\n\tcase FEDB_Language: \n\t\tif(ksGlobalTextLanguage == LANGUAGE_ENGLISH) ksGlobalTextLanguage = LANGUAGE_PIG_LATIN;\n\t\telse ksGlobalTextLanguage = LANGUAGE_ENGLISH;\n\t\tGLOBALTEXT_Load();\n\t\tbreak;\n\tcase FEDB_UserCam:\n\t\tcam = find_camera(entity_id(\"USER_CAM\"));\n\t\tapp::inst()->get_game()->set_current_camera(cam);\n\t\t((GraphicalMenuSystem*) system)->usercam = true;\n\t\tman->em->active_camera = cam;\n\t\tbreak;\n\tcase FEDB_NormCam:\n\t\tapp::inst()->get_game()->set_current_camera(man->em->fe_camera);\n\t\t((GraphicalMenuSystem*) system)->usercam = false;\n\t\tman->em->active_camera = man->em->fe_camera;\n\t\tbreak;\n\tdefault: \n\t\tman->em->FEDB_ToggleDraw(entry);\n\t\tbreak;\n\t}\n}\n",
+      "status": "different",
+      "target_size": 312
+    }
+  ],
+  "raw_name": "Select__11FEDebugMenui"
+}
