@@ -1,0 +1,16 @@
+{
+  "address": "0x00390820",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "658b9e36517ec0c1f1090d6d697028b3419baa78",
+      "error": "Candidate did not emit nslGetVolume__F18_nslSourceTypeEnum; emitted functions: ['_nslInitialized__Fv', 'nslGetVolume__F17nslSourceTypeEnum']",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2.cpp:717-738; kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2.h:107-108; kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2.h; tmp/functions/00390820_nslGetVolume__F18_nslSourceTypeEnum/attempt-1/result.json. Result `symbol_missing`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "enum nslSourceTypeEnum\n{\n  NSL_SOURCETYPE_SFX,\n  NSL_SOURCETYPE_AMBIENT,\n  NSL_SOURCETYPE_MUSIC,\n  NSL_SOURCETYPE_VOICE,\n  NSL_SOURCETYPE_MOVIE,\n  NSL_SOURCETYPE_USER1,\n  NSL_SOURCETYPE_USER2\n};\n\nstruct nslSystem\n{\n  char padding0[0x15850];\n  int initialized;\n  char padding1[0x38];\n  float sfxVolume;\n  float ambientVolume;\n  float musicVolume;\n  float voiceVolume;\n  float movieVolume;\n  float user1Volume;\n  float user2Volume;\n};\n\nextern nslSystem nsl;\nextern const char nsl_not_initialized[];\nvoid nslFatal(const char *format, ...);\n__asm__(\".equ nsl, 0x0049B5F0\");\n__asm__(\".equ nsl_not_initialized, 0x0051C480\");\n__asm__(\".equ nslFatal__FPCce, 0x00391420\");\n\ninline __attribute__((always_inline)) void _nslInitialized()\n{\n  if (!(nsl.initialized == 1))\n    nslFatal(nsl_not_initialized);\n}\n\nfloat nslGetVolume( nslSourceTypeEnum typeOfSound )\n{\n  if (!nsl.initialized) return 1;\n  _nslInitialized();\n  switch(typeOfSound) \n  {\n    case NSL_SOURCETYPE_SFX:      return nsl.sfxVolume;     break;\n    case NSL_SOURCETYPE_MUSIC:    return nsl.musicVolume;   break;\n    case NSL_SOURCETYPE_AMBIENT:  return nsl.ambientVolume; break;\n    case NSL_SOURCETYPE_VOICE:    return nsl.voiceVolume;   break;\n    case NSL_SOURCETYPE_MOVIE:    return nsl.movieVolume;   break;\n    case NSL_SOURCETYPE_USER1:    return nsl.user1Volume;   break;\n    case NSL_SOURCETYPE_USER2:    return nsl.user2Volume;   break;\n    default: nslFatal(false && \"Unhandled sourcetype\"); break;\n  };\n\n  return 0.0f;\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "nslGetVolume__F18_nslSourceTypeEnum"
+}
