@@ -1,0 +1,23 @@
+{
+  "address": "0x0038C190",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "716ca6a3ac17aee69dfab4e9e4729733e0aa6405",
+      "candidate_size": 244,
+      "compared_bytes": 268,
+      "compared_instructions": 67,
+      "emitted_name": "nslGetSource__FPCcb",
+      "instruction_score": 1.4925,
+      "matching_bytes": 38,
+      "matching_instructions": 1,
+      "notes": "# Attempt 1\n\n- Used the released `nslGetSource(const char *, bool)` body verbatim from `kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2_source.cpp:216-239`.\n- Added only the required source/system layout, NSL ID/constants, runtime string declarations, initialization/fatal declarations, and fixed symbol bindings needed for an isolated candidate.\n- Result: **different** \u2014 byte score 14.1791%, instruction score 1.4925%. Exactly one candidate was tested; no variants or diff chase were performed.",
+      "score": 14.1791,
+      "source": "typedef unsigned int nslSourceId;\n\nstruct nslSource\n{\n  bool used;\n  bool looping;\n  char fileName[48];\n  int bank;\n  nslSourceId myId;\n  float length;\n  float paddedLength;\n  int type;\n  unsigned int gasSourceId;\n  float rawVolume;\n  float pitch;\n  float minDist;\n  float maxDist;\n};\n\nstruct nslSystem\n{\n  char listenerPo[64];\n  nslSource sourceSlots[512];\n  char sourcePadding[16384];\n  unsigned int sourceSlotsUsedCount;\n  char statePadding[52];\n  bool on;\n};\n\nextern nslSystem nsl;\nvoid _nslInitialized();\nvoid nslFatal(const char *, ...);\nextern \"C\" char *strncpy(char *, const char *, unsigned int);\nextern \"C\" char *strupr(char *);\nextern \"C\" int strcmp(const char *, const char *);\n\nasm(\".equ nsl,0x0049B5F0\");\nasm(\".equ _nslInitialized__Fv,0x0038BDF8\");\nasm(\".equ nslFatal__FPCce,0x00391420\");\nasm(\".equ strncpy,0x003F05A8\");\nasm(\".equ strupr,0x003EF9A8\");\nasm(\".equ strcmp,0x003EFC08\");\n\n#define NSL_INVALID_ID 0\n#define ASSERT_NSL_INITIALIZED() _nslInitialized()\n\nnslSourceId nslGetSource( const char *soundSourceName, bool fatal )\n{\n  if (!nsl.on) return 0;\n  ASSERT_NSL_INITIALIZED();\n  char checkName[48];\n  strncpy(checkName, soundSourceName, 48);\n  checkName[47] = '\\0';\n  strupr(checkName);\n  for (unsigned int i=0; i < nsl.sourceSlotsUsedCount; i++) \n  {\n    if (strcmp(checkName, nsl.sourceSlots[i].fileName)==0) \n    {\n      return nsl.sourceSlots[i].myId;\n    }\n  }\n\n  if (fatal)\n  {\n    nslFatal(\"nslGetSource: bad source name\\n\");\n  }\n  return NSL_INVALID_ID;\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "nslGetSource__FPCcb"
+}
