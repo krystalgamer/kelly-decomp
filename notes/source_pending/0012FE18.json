@@ -1,0 +1,23 @@
+{
+  "address": "0x0012FE18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3782bf5ee3c65ea49baf8b841aeca494afde08e4",
+      "candidate_size": 328,
+      "compared_bytes": 328,
+      "compared_instructions": 82,
+      "emitted_name": "remove_from_regions__6entity",
+      "instruction_score": 2.439,
+      "matching_bytes": 73,
+      "matching_instructions": 2,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/entity.cpp:2203-2211; kelly-slaters-pro-surfer/KS/SRC/region_graph.h:8-23; config/SLUS_203.34.symbol_addrs.txt:530; notes/function_queue.csv:5909; tmp/functions/0012FE18_remove_from_regions__6entity/attempt-1/result.json. Result `different`, score 22.2561; no later attempt.",
+      "score": 22.2561,
+      "source": "class region;\n\nclass region_node\n{\n  region *data;\npublic:\n  region *get_data() const { return data; }\n};\n\nstruct region_tree_node\n{\n  int color;\n  region_tree_node *parent;\n  region_tree_node *left;\n  region_tree_node *right;\n  region_node *value;\n};\n\nclass region_node_pset_iterator\n{\n  region_tree_node *node;\npublic:\n  region_node_pset_iterator(region_tree_node *n) : node(n) {}\n  region_node *operator*() const { return node->value; }\n  bool operator!=(const region_node_pset_iterator& i) const { return node != i.node; }\n  region_node_pset_iterator& operator++()\n  {\n    if (node->right != 0)\n    {\n      node = node->right;\n      while (node->left != 0)\n        node = node->left;\n    }\n    else\n    {\n      region_tree_node *y = node->parent;\n      while (node == y->right)\n      {\n        node = y;\n        y = y->parent;\n      }\n      if (node->right != y)\n        node = y;\n    }\n    return *this;\n  }\n  region_node_pset_iterator operator++(int)\n  {\n    region_node_pset_iterator tmp = *this;\n    ++*this;\n    return tmp;\n  }\n};\n\nclass region_node_pset\n{\n  region_tree_node *header;\n  unsigned int node_count;\n  void _M_erase(region_tree_node *);\npublic:\n  typedef region_node_pset_iterator iterator;\n  iterator begin() { return iterator(header->left); }\n  iterator end() { return iterator(header); }\n  void clear()\n  {\n    if (node_count != 0)\n    {\n      _M_erase(header->parent);\n      header->left = header;\n      header->parent = 0;\n      header->right = header;\n      node_count = 0;\n    }\n  }\n};\n\nclass entity\n{\n  char padding[0x160];\n  region_node_pset in_regions;\npublic:\n  virtual void remove_me_from_region(region *r);\n  void remove_from_regions();\n};\n\nvoid entity::remove_from_regions()\n{\n#ifndef REGIONCULL\n \tfor ( region_node_pset::iterator i=in_regions.begin(); i!=in_regions.end(); i++ )\n    remove_me_from_region( (*i)->get_data() );\n  in_regions.clear();\n#endif\n}\n",
+      "status": "different",
+      "target_size": 304
+    }
+  ],
+  "raw_name": "remove_from_regions__6entity"
+}
