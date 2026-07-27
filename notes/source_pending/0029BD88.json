@@ -1,0 +1,15 @@
+{
+  "address": "0x0029BD88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c4788e4d5dc68816455f23ac3af158b114d35cd7",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/wds.cpp:3018-3032; kelly-slaters-pro-surfer/KS/SRC/wds.h; kelly-slaters-pro-surfer/KS/SRC/item.h; kelly-slaters-pro-surfer/KS/SRC/physical_interface.h; tmp/functions/0029BD88_add_item__21world_dynamics_systemRC7stringxbN32R9entity_id15entity_flavor_t/attempt-1/compiler.stderr; tmp/functions/0029BD88_add_item__21world_dynamics_systemRC7stringxbN32R9entity_id15entity_flavor_t/attempt-1/result.json. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "// Target: 0x0029BD88 add_item__21world_dynamics_systemRC7stringxbN32R9entity_id15entity_flavor_t\n// Reference: KS/SRC/wds.cpp\n// Replace this file with one self-contained candidate function.\n#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/project.h\"\n#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/wds.h\"\n#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/item.h\"\n#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/physical_interface.h\"\n\nvoid world_dynamics_system::add_item( const stringx& entity_name,\n\t\t\t\t\t\t\t\t\t bool a, bool stationary, bool invisible, bool cosmetic,\n\t\t\t\t\t\t\t\t\t entity_id & _id, entity_flavor_t flavor )\n{\n\tstringx ent_filename = entity_name;\n\titem * new_item = NEW item(ent_filename, _id, flavor, a, stationary);\n\tif (invisible)\n\t\tnew_item->set_visible(false);\n\telse\n\t\tnew_item->set_visible(true);\n\tnew_item->set_flag( EFLAG_MISC_NONSTATIC, true );\n\tif (cosmetic && new_item->has_physical_ifc())\n\t\tnew_item->physical_ifc()->set_collision_flags(0x00000000);\n\tadd_item( new_item );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "add_item__21world_dynamics_systemRC7stringxbN32R9entity_id15entity_flavor_t"
+}
