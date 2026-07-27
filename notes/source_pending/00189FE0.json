@@ -1,0 +1,23 @@
+{
+  "address": "0x00189FE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "82d4fd6c30a0b49f733e2a762b6b5774e7db0308",
+      "candidate_size": 248,
+      "compared_bytes": 320,
+      "compared_instructions": 80,
+      "emitted_name": "_$_17SurferBioFrontEnd",
+      "instruction_score": 8.75,
+      "matching_bytes": 80,
+      "matching_instructions": 7,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.cpp:1121-1128; kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.h:140-186; config/SLUS_203.34.symbol_addrs.txt:1592; notes/function_queue.csv:5981; tmp/functions/00189FE0__$_17SurferBioFrontEnd/attempt-1/result.json. Result `different`, score 25.0000; no later attempt.",
+      "score": 25.0,
+      "source": "class FETextBase\n{\npublic:\n\tvirtual ~FETextBase();\n};\n\nclass TextPadding\n{\n\tchar padding[76];\n};\n\nclass PreformatText : public TextPadding, public FETextBase {};\nclass TextString : public TextPadding, public FETextBase {};\nclass BoxText : public TextPadding, public FETextBase {};\n\nclass FEMultiMenu\n{\n\tchar padding[352];\n\npublic:\n\tvirtual ~FEMultiMenu();\n};\n\nenum { SURFER_LAST = 14 };\n\nclass SurferBioFrontEnd : public FEMultiMenu\n{\n\tPreformatText* bios[SURFER_LAST];\n\tvoid* sys;\n\tvoid* bio_parent;\n\tTextString* firstname;\n\tTextString* lastname;\n\tBoxText* intro;\n\npublic:\n\tvirtual ~SurferBioFrontEnd();\n};\n\nSurferBioFrontEnd::~SurferBioFrontEnd()\n{\n\tfor(int i=0; i<SURFER_LAST; i++)\n\t\tdelete bios[i];\n\tdelete firstname;\n\tdelete lastname;\n\tdelete intro;\n}\n",
+      "status": "different",
+      "target_size": 320
+    }
+  ],
+  "raw_name": "_$_17SurferBioFrontEnd"
+}
