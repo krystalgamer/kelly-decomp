@@ -1,0 +1,23 @@
+{
+  "address": "0x001D1428",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "97ed152c1411e61155e33b8e9c72688e11cf239a",
+      "candidate_size": 188,
+      "compared_bytes": 280,
+      "compared_instructions": 70,
+      "emitted_name": "_$_13CheatFrontEnd",
+      "instruction_score": 4.2857,
+      "matching_bytes": 46,
+      "matching_instructions": 3,
+      "notes": "# First pass A1 notes \u2014 _$_13CheatFrontEnd\n\n- Used the exact released `CheatFrontEnd::~CheatFrontEnd` body with only minimal offset-bearing class declarations.\n- Tested exactly once with `env/bin/python tools/function_test.py test 0x001D1428 --candidate tmp/source_first/001D1428/candidate.cpp`.\n- Result: `different`; byte score 16.4286% (46/280), instruction score 4.2857% (3/70), candidate size 188 versus target 280.\n- No variants, diff chasing, build, finalization, source/prefix/shared proposal, or tracked-source edits were performed.\n\nCitations:\n- `kelly-slaters-pro-surfer/KS/SRC/ks/CheatFrontEnd.cpp:64-70` \u2014 exact released destructor body.\n- `kelly-slaters-pro-surfer/KS/SRC/ks/CheatFrontEnd.h:45-88` \u2014 class inheritance, field order, and destructor declaration.\n- `tmp/functions/001D1428__$_13CheatFrontEnd/attempt-1/result.json` \u2014 sole test result.",
+      "score": 16.4286,
+      "source": "#define CheatFrontEnd ReleasedCheatFrontEndLayout\n#include \"KS/SRC/ks/CheatFrontEnd_shared.h\"\n#undef CheatFrontEnd\n\nclass CheatFrontEnd : public FEMultiMenu\n{\n    GraphicalMenuSystem *sys;\n    bool pq_indices_set;\n    PanelQuad *arrow_up[2];\n    PanelQuad *arrow_down[2];\n    PanelQuad *cellphone;\n    PanelQuad *numbers[10];\n    PanelQuad *numbers_hi[10];\n    CheatCodeMenu *code_menu;\n    EnterCheatMenu *enter_code;\n    FEMenuEntry *new_cheat_entry;\n    FEMenuEntry *toggle_cheats_entry;\n\npublic:\n    virtual ~CheatFrontEnd();\n};\n\nCheatFrontEnd::~CheatFrontEnd()\n{\n    delete code_menu;\n    delete enter_code;\n    if (!toggle_cheats_entryAdded)\n        delete toggle_cheats_entry;\n}\n",
+      "status": "different",
+      "target_size": 280
+    }
+  ],
+  "raw_name": "_$_13CheatFrontEnd"
+}
