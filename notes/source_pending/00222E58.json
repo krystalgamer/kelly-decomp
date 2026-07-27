@@ -1,0 +1,23 @@
+{
+  "address": "0x00222E58",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "eea7a702edf1be42fdc825990fba8112ee5127a7",
+      "candidate_size": 260,
+      "compared_bytes": 260,
+      "compared_instructions": 65,
+      "emitted_name": "StartFlyby__22kellyslater_controller",
+      "instruction_score": 78.4615,
+      "matching_bytes": 213,
+      "matching_instructions": 51,
+      "notes": "Released-source first-pass candidate preserves the StartFlyby body verbatim and supplies isolated declarations. The single test scored 81.9231 (different); no second candidate was attempted.",
+      "score": 81.9231,
+      "source": "// Target: 0x00222E58 StartFlyby__22kellyslater_controller\n// Released source: KS/SRC/ks/kellyslater_controller.cpp\n\nclass singleton {\npublic:\n    static singleton *s_inst;\n};\n\nclass os_developer_options : public singleton {\npublic:\n    enum flags_t { FLAG_NOFLYBY = 88, FLAG_MAKE_MOVIE = 89 };\n    char _pad[352];\n    int flags[2];\n    static os_developer_options *inst() { return (os_developer_options *)s_inst; }\n    bool is_flagged(flags_t _flag) const { return flags[_flag - FLAG_NOFLYBY]; }\n};\n\nclass game_camera {};\nclass flyby_camera : public game_camera {\npublic:\n    bool load();\n    void start();\n};\n\nclass entity {\npublic:\n    virtual void set_visible(bool a);\n};\n\nclass game {\npublic:\n    char _pad[552];\nprotected:\n    int beachid;\npublic:\n    int get_beach_id(void) { return beachid; }\n};\nextern game *g_game_ptr;\n\nenum { BEACH_OPENSEA = 24 };\n\nstruct debug_info_t {\n    bool dump_frame_info : 1;\n    bool dump_threads : 1;\n    bool render_spheres : 1;\n    bool turtle_watch : 1;\n    bool halt_on_asserts : 1;\n    bool stay_halted : 1;\n    bool simulate32meg : 1;\n    bool assert_screen : 1;\n    bool mem_free_screen : 1;\n};\nextern debug_info_t g_debug;\n\nclass IGOFrontEnd {\npublic:\n    void SetDisplay(bool on);\n};\nclass FEManager {\npublic:\n    IGOFrontEnd *IGO;\n};\nextern FEManager frontendmanager;\n\nclass kellyslater_controller {\npublic:\n    enum { SUPER_STATE_FLYBY = 1, STATE_FLYBY = 10 };\n    char _pad0[12];\n    entity *owner;\n    char _pad1[32];\n    int state;\n    int last_state;\n    int super_state;\n    char _pad2[3596];\n    entity *my_board_model;\n    char _pad3[2784];\n    bool exit_state;\n    char _pad4[504];\n    bool flyby_first;\n    char _pad5[96];\n    flyby_camera *flyby_cam_ptr;\n\n    entity *get_owner() const { return owner; }\n    void SetPlayerCamera(game_camera *cam);\n    bool StartFlyby();\n};\n\n//  Set up everything for a flyby of the beach.\nbool kellyslater_controller::StartFlyby()\n{\n\t//  Check to make sure that the user is allowing flybys.\n\tif (os_developer_options::inst()->is_flagged (os_developer_options::FLAG_NOFLYBY))\n\t\treturn false;\n\n\tif (!flyby_cam_ptr->load())  //   Don't do anything if the file isn't there.\n\t\treturn false;\n\n\tflyby_cam_ptr->start();\n\tSetPlayerCamera(flyby_cam_ptr);\n\n\tif (os_developer_options::inst()->is_flagged (os_developer_options::FLAG_MAKE_MOVIE) || \n\t\tg_game_ptr->get_beach_id () == BEACH_OPENSEA)\n\t{\n\t\tg_debug.halt_on_asserts = 0;\n\t\tfrontendmanager.IGO->SetDisplay(false);\n\t}\n\n\texit_state = true;\n\n\tsuper_state = SUPER_STATE_FLYBY;\n\tstate = STATE_FLYBY;\n\n\tget_owner()->set_visible(false);\n\tmy_board_model->set_visible(false);\n\tflyby_first = true;\n\n\treturn true;\n}\n",
+      "status": "different",
+      "target_size": 260
+    }
+  ],
+  "raw_name": "StartFlyby__22kellyslater_controller"
+}
