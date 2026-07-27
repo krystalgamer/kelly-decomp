@@ -1,0 +1,23 @@
+{
+  "address": "0x002EEFB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c712420f3fc929c635ef0648d5d082178b9ed182",
+      "candidate_size": 284,
+      "compared_bytes": 292,
+      "compared_instructions": 73,
+      "emitted_name": "OnClose__13MenuSoundDrawb",
+      "instruction_score": 36.9863,
+      "matching_bytes": 138,
+      "matching_instructions": 27,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/menuSound.cpp:11-36,166-191; tmp/functions/002EEFB0_OnClose__13MenuSoundDrawb/attempt-1/result.json; tmp/source_first/002EEFB0/notes.md. Result `different`, score 47.2603; no later attempt.",
+      "score": 47.2603,
+      "source": "typedef unsigned int nslSoundId;\nenum { MENUSOUND_MAXSOURCES = 32, NSL_SOUNDSTATUS_INVALID = 0 };\n\nclass MenuEntry {\npublic:\n    int data;\n    virtual ~MenuEntry();\n};\nclass MenuEntryFunction : public MenuEntry {};\nclass SoundMenuEntryFunctionFloatEdit : public MenuEntry {\n    char padding[52];\npublic:\n    unsigned int src;\n    nslSoundId snd;\n};\nclass Menu {\n    int padding;\n    int entries;\npublic:\n    int NumEntries();\n    void ClearMenu();\n    void OnClose(bool);\n};\nclass MenuSoundDraw : public Menu {\npublic:\n    void OnClose(bool);\n};\n\nextern SoundMenuEntryFunctionFloatEdit *MENUSOUND_SourceEntries[MENUSOUND_MAXSOURCES];\nextern MenuEntryFunction *DumpFunc;\nextern int nslGetSoundStatus(nslSoundId);\nextern void nslStopSound(nslSoundId);\nextern void nslUnpauseAllSounds();\nextern void mem_lock_malloc(bool);\n__asm__(\".equ MENUSOUND_SourceEntries,0x00579950\");\n__asm__(\".equ DumpFunc,0x005799D0\");\n__asm__(\".equ nslGetSoundStatus__FUi,0x0038DBA0\");\n__asm__(\".equ nslStopSound__FUi,0x0038D288\");\n__asm__(\".equ nslUnpauseAllSounds__Fv,0x0038D8D8\");\n__asm__(\".equ mem_lock_malloc__Fb,0x002AC438\");\n__asm__(\".equ NumEntries__4Menu,0x0023E4D8\");\n__asm__(\".equ ClearMenu__4Menu,0x0023E538\");\n__asm__(\".equ OnClose__4Menub,0x0023EB70\");\n\nvoid MenuSoundDraw::OnClose(bool toparent)\n{\n    int i;\n    for (i=0; i < MENUSOUND_MAXSOURCES; i++)\n    {\n        if (nslGetSoundStatus(MENUSOUND_SourceEntries[i]->snd) != NSL_SOUNDSTATUS_INVALID)\n        {\n            nslStopSound(MENUSOUND_SourceEntries[i]->snd);\n        }\n    }\n\n    nslUnpauseAllSounds();\n    mem_lock_malloc(false);\n\n    for (i=0; i < NumEntries()-1; i++)\n    {\n        delete MENUSOUND_SourceEntries[i];\n        MENUSOUND_SourceEntries[i] = 0;\n    }\n    delete DumpFunc;\n    DumpFunc = 0;\n    ClearMenu();\n\n    mem_lock_malloc(true);\n    Menu::OnClose(toparent);\n}\n",
+      "status": "different",
+      "target_size": 292
+    }
+  ],
+  "raw_name": "OnClose__13MenuSoundDrawb"
+}
