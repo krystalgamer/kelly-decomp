@@ -1,0 +1,23 @@
+{
+  "address": "0x00181F40",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f5cfd23c2311ef39a01f6df41a7dc9a82f97274f",
+      "candidate_size": 284,
+      "compared_bytes": 308,
+      "compared_instructions": 77,
+      "emitted_name": "Draw__11OptionsMenu",
+      "instruction_score": 1.2987,
+      "matching_bytes": 60,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.cpp:711-720; kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.h:120-187; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.cpp:940-957; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:55-135,155-260,337-360; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:48-86,719-753; tmp/functions/00181F40_Draw__11OptionsMenu/attempt-1/result.json; tmp/source_first/00181F40/attempt-1.md. Result `different`, score 19.4805; no later attempt.",
+      "score": 19.4805,
+      "source": "struct text_vtable { char padding[24]; short adjustment; short zero; void (*draw)(void *); };\nstruct TextString { char padding[76]; text_vtable *vtable; void Draw() { text_vtable *v = vtable; v->draw((char *)this + v->adjustment); } };\nstruct entry_vtable { char padding[56]; short adjustment; short zero; void (*draw)(void *); };\nstruct FEMenuEntry { int entry_num; FEMenuEntry *next; char padding[88]; entry_vtable *vtable; void Draw() { entry_vtable *v = vtable; v->draw((char *)this + v->adjustment); } };\nclass PanelFile { public: void Draw(int layer); };\nclass FEGraphicalMenu {\nprotected:\n    char prefix[60];\n    int flags;\n    FEMenuEntry *entries;\n    char gap[188];\npublic:\n    PanelFile panel;\n    char suffix[76];\n    void Draw()\n    {\n        FEMenuEntry *tmp = entries;\n        while(tmp != 0)\n        {\n            tmp->Draw();\n            tmp = tmp->next;\n        }\n    }\n};\nclass PanelQuad;\nclass OptionsMenu : public FEGraphicalMenu\n{\n    enum { OpStereoEntry = 5, OpMasterEntry = 6, OpEnd = 11 };\n    static const int MAX_VOLUME = 10;\n    static const int NUM_VOLUME = 5;\n    static const int num_switches = OpStereoEntry;\n    PanelQuad* levels[NUM_VOLUME][MAX_VOLUME];\n    PanelQuad* lights[OpEnd];\n    PanelQuad* back;\n    float rumbleTimer[4];\n    int stereo_op;\n    TextString* stereo_text[3];\n    TextString* switch_text[num_switches][2];\n    TextString* options_text;\n    TextString* slevels_text;\n    int volumes[NUM_VOLUME];\n    FEMenuEntry* options_list[OpEnd];\n    bool switches[num_switches];\npublic:\n    void Draw();\n};\nvoid OptionsMenu::Draw()\n{\n    options_text->Draw();\n    slevels_text->Draw();\n    stereo_text[stereo_op]->Draw();\n    for(int i=0; i<num_switches; i++)\n        switch_text[i][switches[i]]->Draw();\n    panel.Draw(0);\n    FEGraphicalMenu::Draw();\n}\n",
+      "status": "different",
+      "target_size": 308
+    }
+  ],
+  "raw_name": "Draw__11OptionsMenu"
+}
