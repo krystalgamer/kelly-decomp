@@ -1,0 +1,23 @@
+{
+  "address": "0x003AA298",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "30cb5f7d457d315db9ce63e7db79b90ee0201704",
+      "candidate_size": 268,
+      "compared_bytes": 268,
+      "compared_instructions": 67,
+      "emitted_name": "nglMeshWriteVertexPCUV__FfffUiff",
+      "instruction_score": 56.7164,
+      "matching_bytes": 176,
+      "matching_instructions": 38,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:9730-9733; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2_internal.h:632-647; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2_internal.h:1671-1679,1705-1732; config/SLUS_203.34.symbol_addrs.txt:10147; tmp/functions/003AA298_nglMeshWriteVertexPCUV__FfffUiff/attempt-1/result.json. Result `different`, score 65.6716; no later attempt.",
+      "score": 65.6716,
+      "source": "typedef unsigned int u_int;\n\nstruct nglMeshBatchInfo\n{\n  u_int NVerts;\n  u_int* StripData;\n  float* PosData;\n  float* UVData;\n  u_int* ColorData;\n  float* NormData;\n  float* LightUVData;\n  char* BoneCountData;\n  unsigned short* BoneIdxData;\n  float* BoneWeightData;\n};\n\nextern nglMeshBatchInfo nglScratchBatch;\nextern u_int nglScratchVertIdx;\nextern u_int nglScratchStripVertIdx;\n\nvoid nglMeshNextBatch();\n\ninline void nglMeshFastWriteVertexPCUV( float X, float Y, float Z, u_int Color, float U, float V )\n{\n  if ( nglScratchVertIdx >= nglScratchBatch.NVerts )\n    nglMeshNextBatch();\n\n  register const u_int idx1i = nglScratchVertIdx * 1 * sizeof(u_int);\n\n  register const u_int idx2f = nglScratchVertIdx * 2 * sizeof(float);\n  register const u_int idx3f = nglScratchVertIdx * 3 * sizeof(float);\n\n  register u_int * const StripData = (u_int *)(((u_int)nglScratchBatch.StripData)+idx1i);\n  StripData[0] = nglScratchStripVertIdx >> 1 ? 0 : 0x8000;\n\n  register float * const PosData = (float *)(((u_int)nglScratchBatch.PosData)+idx3f);\n  PosData[0] = X;\n  PosData[1] = Y;\n  PosData[2] = Z;\n\n  register float * const UVData = (float *)(((u_int)nglScratchBatch.UVData)+idx2f);\n  UVData[0] = U;\n  UVData[1] = V;\n\n  register u_int * const ColorData = (u_int *)(((u_int)nglScratchBatch.ColorData)+idx1i);\n  ColorData[0] = Color;\n\n  nglScratchStripVertIdx++;\n  nglScratchVertIdx++;\n}\n\nvoid nglMeshWriteVertexPCUV( float X, float Y, float Z, u_int Color, float U, float V )\n{\n\tnglMeshFastWriteVertexPCUV( X, Y, Z, Color, U, V );\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "nglMeshWriteVertexPCUV__FfffUiff"
+}
