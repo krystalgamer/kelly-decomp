@@ -1,0 +1,15 @@
+{
+  "address": "0x00135950",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6b0ffaed771717ad0c95c2d28c49fca3d080234c",
+      "notes": "Attempt 1 used the exact released `entity_manager::register_entity` body from `kelly-slaters-pro-surfer/KS/SRC/entity.cpp:4340-4351` with released map/entity declarations from `entity.h:171-263`. No variant or later attempt was made.",
+      "score": 0.0,
+      "source": "#include <map>\nusing namespace std;\nclass stringx { public: stringx(const char *); stringx(const stringx &); const char *c_str() const; };\nstringx operator+(const stringx &, const stringx &);\nclass entity_id { unsigned int val; public: bool operator==(const entity_id& e) const { return val == e.val; } bool operator<(const entity_id& e) const { return val < e.val; } stringx get_val() const; };\nextern const entity_id ANONYMOUS;\nclass entity { public: entity_id get_id() const; };\nclass singleton {};\ntypedef map<entity_id, entity*> entity_map;\nclass entity_manager : entity_map, public singleton { public: void register_entity(entity*); };\nextern void error(const char *);\n\nvoid entity_manager::register_entity(entity* e)\n{\n  if( !(e->get_id() == ANONYMOUS) )\n  {\n    pair<iterator,bool> retval = insert( value_type(e->get_id(), e) );\n    if(!retval.second)\n    {\n      stringx composite = stringx(\"Same entity name appears twice:\")+ e->get_id().get_val();\n      error( composite.c_str() );\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "register_entity__14entity_managerP6entity"
+}
