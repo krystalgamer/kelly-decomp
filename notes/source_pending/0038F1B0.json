@@ -1,0 +1,23 @@
+{
+  "address": "0x0038F1B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "11b373881c885471cbf1f9c4fdc65a06dd514cc0",
+      "candidate_size": 272,
+      "compared_bytes": 272,
+      "compared_instructions": 68,
+      "emitted_name": "nslCreateEmitter__FRA2_Cf",
+      "instruction_score": 95.5882,
+      "matching_bytes": 263,
+      "matching_instructions": 65,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2_emitter.cpp:10-35; kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2.h:206-257; kelly-slaters-pro-surfer/NSL/PS2/nl_ps2.h:48; config/SLUS_203.34.symbol_addrs.txt:15295; tmp/functions/0038F1B0_nslCreateEmitter__FRA2_Cf/attempt-1/result.json. Result `different`, score 96.6912; no later attempt.",
+      "score": 96.6912,
+      "source": "typedef unsigned int nlUint32;\ntypedef unsigned int nslEmitterId;\ntypedef float nlVector3d[3];\n\nstruct fifo_queue\n{\n  int data[3];\n};\n\nstruct nslEmitter\n{\n  bool used;\n  bool autoRelease;\n  bool isALineEmitter;\n  nslEmitterId myId;\n  nlVector3d startPosition;\n  nlVector3d endPosition;\n  nlVector3d position;\n  fifo_queue emittedSounds;\n};\n\nstruct nslSystem\n{\n  char padding[0x11840];\n  nslEmitter emitterSlots[256];\n  nlUint32 sourceSlotsUsedCount;\n  nlUint32 soundSlotsUsedCount;\n  nlUint32 emitterSlotsUsedCount;\n  int firstInit;\n  int initialized;\n  nlUint32 numBanks;\n  char state[32];\n  bool on;\n};\n\nenum _nslClearBehaviour\n{\n  NSL_CLEAR_INIT,\n  NSL_CLEAR_RESET,\n  NSL_CLEAR_FREE\n};\n\nextern nslSystem nsl;\nextern const char nsl_not_initialized[];\nextern \"C\" void *memcpy(void *, const void *, unsigned int);\nvoid nslFatal(const char *, ...);\nvoid _nslClearEmitterSlot(nlUint32, bool, _nslClearBehaviour);\n\n__asm__(\".equ nsl, 0x0049B5F0\");\n__asm__(\".equ nsl_not_initialized, 0x0051C2F0\");\n__asm__(\".equ nslFatal__FPCce, 0x00391420\");\n__asm__(\".equ _nslClearEmitterSlot__FUib18_nslClearBehaviour, 0x003910A0\");\n\n#define NSL_NUM_EMITTERS 256\n#define NSL_ID_INCREMENT 0x00000400\n#define NSL_INVALID_ID 0\n#define ASSERT_NSL_INITIALIZED() \\\n  do { if (!(nsl.initialized == 1)) nslFatal(nsl_not_initialized); } while (0)\n\nnslEmitterId nslCreateEmitter( const nlVector3d &position )\n{\n  if (!nsl.on) return 1;\n  ASSERT_NSL_INITIALIZED();\n  for (int i=0; i < NSL_NUM_EMITTERS; i++) \n  {\n    if (!nsl.emitterSlots[i].used) \n    {\n      _nslClearEmitterSlot(i, false, NSL_CLEAR_RESET);\n      nsl.emitterSlots[i].used = true;\n      nsl.emitterSlots[i].autoRelease = false;\n      nsl.emitterSlots[i].isALineEmitter = false;\n      nsl.emitterSlotsUsedCount++;\n      memcpy(nsl.emitterSlots[i].position, position, sizeof(nlVector3d));\n      /*nsl.emitterSlots[i].position[0] = position[0];\n      nsl.emitterSlots[i].position[1] = position[1];\n      nsl.emitterSlots[i].position[2] = position[2];*/\n      nsl.emitterSlots[i].myId += NSL_ID_INCREMENT;\n      return nsl.emitterSlots[i].myId;\n    }\n  }\n  return NSL_INVALID_ID;\n}\n",
+      "status": "different",
+      "target_size": 272
+    }
+  ],
+  "raw_name": "nslCreateEmitter__FRA2_Cf"
+}
