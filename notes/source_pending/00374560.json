@@ -1,0 +1,23 @@
+{
+  "address": "0x00374560",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "db96821c15c3086b682846cf6d0a794ee4991779",
+      "candidate_size": 212,
+      "compared_bytes": 244,
+      "compared_instructions": 61,
+      "emitted_name": "WAVE_ReplayTick__Fv",
+      "instruction_score": 19.6721,
+      "matching_bytes": 65,
+      "matching_instructions": 12,
+      "notes": "Exact released `WAVE_ReplayTick` body using the canonical wave and replay declarations. It emitted 212 bytes: the target contains an additional slow-replay toggle at `0x00484BE0`, and the released build tail-called `WAVE_GetBreakInfo` where the target retains a normal call/epilogue.",
+      "score": 26.6393,
+      "source": "#include \"KS/SRC/ks/wave_shared.h\"\n#include \"KS/SRC/ks/ksreplay_shared.h\"\n\nextern bool particle_enable;\nvoid ks_fx_update();\n\n__asm__(\".equ Playspeed__8KSReplay, 0x0023CA88\");\n__asm__(\".equ particle_enable, 0x00424CC4\");\n__asm__(\".equ ks_fx_update__Fv, 0x00368818\");\n\nvoid WAVE_ReplayTick(void)\n{\n\tWAVE_TotalSec += WAVE_GetFrameSec();\n\n  if(ksreplay.Playspeed() >= 1.0f)\n\t  WAVE_TexAnimFrame = WAVETEX_FrameFix(0, WAVE_TexAnimFrame + WAVE_TexAnimSpeed );\n\tWAVE_ComputeGrid();\n\tWAVE_ComputeShift();\n\tWAVE_ComputeStage();\n\tWAVE_ComputeVTwist();\n\tWAVE_ComputeSlices();\n\tWAVE_EmitterUpdate();\n\tWAVE_SoundUpdate();\n\tUNDERWATER_ScrollBottom();\n\tif ( particle_enable )\n\t{\n\t  ks_fx_update();\n\t}\n\n\tWAVE_GetBreakInfo(&WAVE_BreakInfo);\n}\n",
+      "status": "different",
+      "target_size": 244
+    }
+  ],
+  "raw_name": "WAVE_ReplayTick__Fv"
+}
