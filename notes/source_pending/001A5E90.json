@@ -1,0 +1,15 @@
+{
+  "address": "0x001A5E90",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "89dbd48b22d1c69945fde0c9ea7d78e99102b837",
+      "notes": "Attempt 1 used the released definition at `kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:245-258`, with enum/class declarations cited from `FrontEndMenus.h:62-85` and `FrontEndMenus.h:585-645`. The sole test returned `compile_failed` (score 0.0) because the released `<assert.h>` include was unavailable in the function-test toolchain include paths. No further candidate was attempted.",
+      "score": 0.0,
+      "source": "#include <assert.h>\n\nclass FEMenu\n{\n\tchar released_layout[120];\n};\n\nclass FEMenuEntry;\n\nclass PauseMenuSystem\n{\npublic:\n\tenum {\tPauseMenu,\n\t\t\tTimeAttackPauseMenu,\n\t\t\tTutorialPauseMenu,\n\t\t\tEndRunMenu,\n\t\t\tHeatMidMenu,\n\t\t\tHeatEndMenu,\n\t\t\tCompEndMenu,\n\t\t\tOptionsMenu,\n\t\t\tGoalsMenu,\n\t\t\tLostControllerMenu,\n\t\t\tSoundMenu,\n\t\t\tCameraMenu,\n\t\t\tTrickTypeMenu,\n\t\t\tPlaylistMenu,\n\t\t\tReplayMenu,\n\t\t\tMapMenu,\n\t\t\tHighScoreMenu,\n\t\t\tPhotoMenu,\n\t\t\tTutorialMenu,\n\t\t\tSaveLoadMenu,\n\t\t\tSaveConfirmMenu,\n\t\t\tTipMenu,\n\t\t\tQuitConfirmMenu,\n\t\t\tNumMenus\n\t};\n\n\tvirtual void MakeActive(int m, int sm=1);\n\tvoid EndLevel();\n\tvoid EndRun();\n\tvoid Restart();\n};\n\nclass TimeAttackPauseMenuClass : public FEMenu\n{\npublic:\n\tenum\n\t{\n\t\tContinue,\n\t\tOptions,\n\t\tTrickBook,\n\t\tEndRun,\n\t\tRestart,\n\t\tQuit,\n\t\tReturnToFE,\n\t};\n\tPauseMenuSystem* sys;\n\tFEMenuEntry *options;\n\tFEMenuEntry *trickbook;\n\npublic:\n\tvirtual void Select(int entry_index);\n};\n\nvoid TimeAttackPauseMenuClass::Select(int entry_index)\n{\n\tswitch(entry_index)\n\t{\n\tcase Continue:\tbreak;\n\tcase Options:\tsys->MakeActive(PauseMenuSystem::OptionsMenu); break;\n\tcase TrickBook:\tsys->MakeActive(PauseMenuSystem::TrickTypeMenu); break;\n\tcase EndRun :\tsys->EndRun(); break;\n\tcase Restart:\tsys->Restart(); break;\n\tcase Quit:\t\tsys->EndLevel(); break;\n\tcase ReturnToFE:sys->MakeActive(PauseMenuSystem::QuitConfirmMenu); break;\n\tdefault: assert(0);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Select__24TimeAttackPauseMenuClassi"
+}
