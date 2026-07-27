@@ -26,6 +26,58 @@ void MCDetectFrontEnd::OnActivate()
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001A47B8)
+// 0x001A47B8 findGlobalData__16MCDetectFrontEndRiT1
+#include "KS/SRC/HWOSPS2/GenericGameSaver_shared.h"
+#include "KS/SRC/ks/MCDetectFrontEnd_shared.h"
+
+enum {
+    INVALID_CARD_VALUE = -1,
+    NUM_MEMORY_PORTS = 2,
+    NUM_MEMORY_SLOTS = 1
+};
+
+__asm__(".equ _16GenericGameSaver$instance, 0x0042E5B8");
+
+bool MCDetectFrontEnd::findGlobalData(
+    int &foundPort,
+    int &foundSlot)
+{
+    int port, slot;
+    if (foundPort == INVALID_CARD_VALUE &&
+        foundSlot == INVALID_CARD_VALUE)
+    {
+        for (port = GenericGameSaver::inst()->getFirstCard();
+             port < NUM_MEMORY_PORTS;
+             port++)
+        {
+            for (slot = 0; slot < NUM_MEMORY_SLOTS; slot++)
+            {
+                if (port == -1 && slot == 1)
+                    continue;
+                if (GenericGameSaver::inst()->hasSystemFile(
+                        port,
+                        slot))
+                {
+                    foundPort = port;
+                    foundSlot = slot;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    else
+    {
+        if (GenericGameSaver::inst()->hasSystemFile(
+                foundPort,
+                foundSlot))
+            return true;
+        return false;
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001A34F8)
 // 0x001A34F8 OnTriangle__16MCDetectFrontEndi
 class MCDetectFrontEnd {
