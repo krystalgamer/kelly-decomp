@@ -1,0 +1,23 @@
+{
+  "address": "0x0038D9D0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bbc33b7f78569bb149d5be50810ad252cd0330c0",
+      "candidate_size": 116,
+      "compared_bytes": 308,
+      "compared_instructions": 77,
+      "emitted_name": "nslDampenGuardSound__FUi",
+      "instruction_score": 3.8961,
+      "matching_bytes": 30,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2_sound.cpp:634-643; config/SLUS_203.34.symbol_addrs.txt:7634; notes/function_queue.csv:5943; tmp/functions/0038D9D0_nslDampenGuardSound__FUi/attempt-1/result.json. Result `different`, score 9.7403; no later attempt.",
+      "score": 9.7403,
+      "source": "typedef unsigned int nslSoundId;\nstruct nslSound { char pad[28]; int dampenCount; char tail[56]; };\nstruct nslSystem { char pad0[0xC040]; nslSound soundSlots[256]; char pad1[0x400C]; int initialized; char pad2[44]; bool on; };\nextern nslSystem nsl;\nextern void _nslCheckSoundIdValidity(nslSoundId checkId);\n#define NSL_SLOT_MASK 0x000003FF\n#define NSL_GET_SLOT_FROM_ID( x ) ( x&NSL_SLOT_MASK )\n#define ASSERT_SOUND_ID_VALID(checkId) _nslCheckSoundIdValidity(checkId)\n\nvoid nslDampenGuardSound( nslSoundId soundToGuard )\n{\n  if (!nsl.on) return;\n// not needed?   ASSERT_SOURCE_ID_VALID(nsl.soundSlots[NSL_GET_SLOT_FROM_ID(soundToGuard)].mySource);\n\n  ASSERT_SOUND_ID_VALID(soundToGuard);\n  \n  if (nsl.soundSlots[NSL_GET_SLOT_FROM_ID(soundToGuard)].dampenCount <= 0)\n    nsl.soundSlots[NSL_GET_SLOT_FROM_ID(soundToGuard)].dampenCount = -1;\n}\n",
+      "status": "different",
+      "target_size": 308
+    }
+  ],
+  "raw_name": "nslDampenGuardSound__FUi"
+}
