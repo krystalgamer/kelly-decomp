@@ -167,6 +167,41 @@ extern "C" void prepare() __asm__("WAVETEX_PrepareMaterials__Fv");__asm__(".equ 
 struct light_source;struct texture;struct matrix{char p0[64];};struct vector4{float v[4];};extern "C" bool project(light_source*) __asm__("WAVETEX_ProjectThisLight__FP12light_source");extern "C" texture*shadow_tex() __asm__("WAVETEX_GetShadowTex__Fv");extern "C" void add_light(unsigned,const matrix&,const vector4&,unsigned,unsigned,texture*) __asm__("nglListAddDirProjectorLight__FUiRC9nglMatrixRC9nglVectorUiUiP10nglTexture");__asm__(".equ WAVETEX_ProjectThisLight__FP12light_source,0x0037F328");__asm__(".equ WAVETEX_GetShadowTex__Fv,0x0037F2A8");__asm__(".equ nglListAddDirProjectorLight__FUiRC9nglMatrixRC9nglVectorUiUiP10nglTexture,0x0039B458");extern float lightscale;extern vector4 projScale;extern matrix suntolit;extern unsigned blend;__asm__(".equ lightscale,0x00484FD0");__asm__(".equ projScale,0x00484FE0");__asm__(".equ suntolit,0x00484F80");__asm__(".equ blend,0x00484FF0");extern "C" void project_light(light_source*lp) __asm__("WAVETEX_ProjectLight__FP12light_source");void project_light(light_source*lp){if(project(lp)){projScale.v[0]=lightscale;projScale.v[1]=lightscale;projScale.v[2]=lightscale;projScale.v[3]=1.0f;texture*t=shadow_tex();add_light(0x80000000,suntolit,projScale,blend,0,t);int dead;__asm__("" : "=r"(dead));}}
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0037F328)
+// 0x0037F328 WAVETEX_ProjectThisLight__FP12light_source
+#include "KS/SRC/ks/wavetex_project_light_shared.h"
+
+const float minvisiblealpha = 1.0f / 128.0f;
+
+bool WAVETEX_ProjectThisLight(light_source *lp)
+{
+    int current_state =
+        g_world_ptr->get_ks_controller(
+            g_game_ptr->get_active_player())->get_current_state();
+    int super_state =
+        g_world_ptr->get_ks_controller(
+            g_game_ptr->get_active_player())->get_super_state();
+
+    if (super_state == SUPER_STATE_WIPEOUT ||
+        current_state == STATE_DUCKDIVE ||
+        current_state == STATE_SWIMTOLIE ||
+        current_state == STATE_FLYBY)
+        return false;
+
+    if (g_game_ptr->is_splitscreen())
+        return false;
+
+    if (WAVETEX_shadowalpha < minvisiblealpha)
+        return false;
+    if ((!WavetexDebug.ShadowLights) ||
+        lp->get_properties().get_flavor() == LIGHT_FLAVOR_POINT)
+        return false;
+    if (updateshadowsun)
+        WAVETEX_UpdateSunCamPos();
+    return WavetexDebug_ShadowPass;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00380B28)
 // 0x00380B28 WAVETEX_PrepareMaterials__Fv
 struct nglMaterial{char data[264];};extern int AllTranslucent,WAVETEX_alltrans,WAVETEX_transval,wavetex_currentmat;extern nglMaterial WaveTexLMat[][5];extern void WAVETEX_WriteMaterialParms();extern void WAVETEX_InitMaterial(nglMaterial&,int,int,int);asm(".equ AllTranslucent,0x00484DB0");asm(".equ WAVETEX_alltrans,0x00484E60");asm(".equ WAVETEX_transval,0x00484E5C");asm(".equ wavetex_currentmat,0x00595CC8");asm(".equ WaveTexLMat,0x0058DE98");asm(".equ WAVETEX_WriteMaterialParms__Fv,0x0037E620");asm(".equ WAVETEX_InitMaterial__FR11nglMaterialiii,0x003805B0");void WAVETEX_PrepareMaterials(){if(AllTranslucent)WAVETEX_transval=WAVETEX_alltrans;else WAVETEX_transval=128;WAVETEX_WriteMaterialParms();for(int i=0;i<5;i++)WAVETEX_InitMaterial(WaveTexLMat[wavetex_currentmat][i],0,5,i);}
