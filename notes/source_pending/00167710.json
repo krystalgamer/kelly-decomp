@@ -1,0 +1,23 @@
+{
+  "address": "0x00167710",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "639342047f0587899dfa80914839dd83ca4b9e34",
+      "candidate_size": 304,
+      "compared_bytes": 320,
+      "compared_instructions": 80,
+      "emitted_name": "Update__19WaveIndicatorWidgetf",
+      "instruction_score": 35.0,
+      "matching_bytes": 151,
+      "matching_instructions": 28,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_waveindicator.cpp:4-7,137-176; kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_waveindicator.h:9-64; kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget.h:7-25; notes/function_queue.csv:5977; tmp/functions/00167710_Update__19WaveIndicatorWidgetf/attempt-1/result.json; tmp/source_first/00167710/notes.md. Result `different`, score 47.1875; no later attempt.",
+      "score": 47.1875,
+      "source": "class IGOWidget\n{\nprotected:\n    bool display;\npublic:\n    virtual ~IGOWidget();\n    virtual void SetDisplay(const bool d = true);\n    virtual void Update(const float dt);\n    virtual void Draw(void);\n    virtual bool GetDisplay(void) const;\n};\n\nclass PanelQuad;\nclass TextString;\n\nclass WaveIndicatorWidget : public IGOWidget\n{\npublic:\n    enum STATE\n    {\n        STATE_NONE,\n        STATE_DIR,\n        STATE_SURGE,\n        STATE_TONGUE,\n        STATE_HILITE_NONE,\n        STATE_HILITE_FACE,\n        STATE_HILITE_LIP,\n        STATE_HILITE_TUBE,\n    };\nprivate:\n    enum { NUM_WAVES = 3 };\n    enum { NUM_TONGUES = 6 };\n    static const float TIME_FADE;\n    static const float TIME_TUTORIAL_FADE;\n    static const float TIME_ANIMATE;\n    static const float SPEED_HILITE_FLASH;\n    PanelQuad *wavePQ[2][NUM_WAVES];\n    PanelQuad *arrowPQ[2];\n    PanelQuad *tonguePQ[2][NUM_TONGUES];\n    PanelQuad *hilitePQ[2][3];\n    PanelQuad *heightPQ;\n    TextString *heightText;\n    TextString *unitText;\n    TextString *nextHeightText;\n    TextString *nextUnitText;\n    int dirIdx;\n    float waveIdx;\n    float tongueIdx;\n    float hiliteTime;\n    float fade;\n    int fadeDir;\n    STATE state;\npublic:\n    ~WaveIndicatorWidget();\n    void SetDisplay(const bool d = true);\n    void Update(const float dt);\n    void Draw(void);\n};\n\nconst float WaveIndicatorWidget::TIME_FADE = 4.0f;\nconst float WaveIndicatorWidget::TIME_TUTORIAL_FADE = 1.0f;\nconst float WaveIndicatorWidget::TIME_ANIMATE = 0.5f;\nconst float WaveIndicatorWidget::SPEED_HILITE_FLASH = 2.0f;\n\n__asm__(\".equ Update__9IGOWidgetf, 0x00164660\");\n\nvoid WaveIndicatorWidget::Update(const float dt)\n{\n    IGOWidget::Update(dt);\n\n    if (state != STATE_NONE)\n    {\n        if (state == STATE_HILITE_FACE || state == STATE_HILITE_LIP || state == STATE_HILITE_TUBE)\n            fade += (dt/TIME_TUTORIAL_FADE)*float(fadeDir);\n        else\n            fade += (dt/TIME_FADE)*float(fadeDir);\n        if (fade >= 1.0f)\n            fade = 1.0f;\n        if (fade <= 0.0f)\n        {\n            fade = 0.0f;\n            state = STATE_NONE;\n        }\n\n        if (state == STATE_SURGE)\n        {\n            waveIdx += dt/TIME_ANIMATE;\n            if (int(waveIdx) >= NUM_WAVES)\n                waveIdx = 0;\n        }\n        else if (state == STATE_TONGUE)\n        {\n            tongueIdx += dt/TIME_ANIMATE;\n            if (int(tongueIdx) >= NUM_TONGUES)\n                tongueIdx = 0;\n        }\n        \n        if (state == STATE_HILITE_FACE || state == STATE_HILITE_LIP || state == STATE_HILITE_TUBE)\n            hiliteTime += dt;\n    }\n}\n",
+      "status": "different",
+      "target_size": 320
+    }
+  ],
+  "raw_name": "Update__19WaveIndicatorWidgetf"
+}
