@@ -1,0 +1,23 @@
+{
+  "address": "0x001C3228",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c4137ae976dca5df9fd2ae24b5ce2b4a1963425a",
+      "candidate_size": 304,
+      "compared_bytes": 312,
+      "compared_instructions": 78,
+      "emitted_name": "TrickPlay__15FEEntityManageri",
+      "instruction_score": 53.8462,
+      "matching_bytes": 189,
+      "matching_instructions": 42,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEEntityManager.cpp:897-927; kelly-slaters-pro-surfer/KS/SRC/ks/FEEntityManager.h:117-139,195; kelly-slaters-pro-surfer/KS/SRC/ks/trickdata.h:217-265,316-333; tmp/functions/001C3228_TrickPlay__15FEEntityManageri/attempt-1/result.json; tmp/source_first/001C3228/attempt-1.md. Result `different`, score 60.5769; no later attempt.",
+      "score": 60.5769,
+      "source": "class string_buf;\nclass stringx\n{\nprotected:\n    char *chars;\n    string_buf *my_buf;\npublic:\n    stringx(const char *);\n    stringx(const stringx &);\n    ~stringx();\n};\n\nclass entity;\nstruct SurferTrick\n{\n    int trick_id;\n    int anim_id;\n    int board_anim_id;\n    int flags;\n    int IK_flags;\n    int trickbook_type;\n    int trick_type;\n    unsigned char button1, button2, button3;\n    char button1_string[16], button2_string[16], button3_string[16];\n    int Time, Points;\n};\n\nextern stringx g_surfer_anims[];\nextern SurferTrick GTrickList[];\n\nenum { TRICK_EXIT_5 = 40, TRICK_EXIT_4 = 47 };\n\nclass FEEntityManager\n{\npublic:\n    entity *surfer_ent;\n    char pad04[0x220];\n    int next_anim;\n    int cur_anim;\n    int cur_b_anim;\n    int cur_trick_anim;\n    int cur_trick;\n    int cur_state;\n    int last_state;\n    bool op_ext;\n    bool forward;\n    bool loop_around;\n    char pad23f[0x38];\n    bool trick_playing;\n\n    enum { SA_IDLE, SA_SPECIAL_OCC, SA_OCC_1, SA_OCC_2, SA_SELECT, SA_TRICK };\n    void Anim(stringx anim, float blend_time, bool loop, float time);\n    void TrickPlay(int anim_id);\n};\n\nvoid FEEntityManager::TrickPlay(int anim_id)\n{\n\tfloat blend_time = 0.3f;\n\tif(anim_id == cur_trick_anim || cur_trick_anim == -2) blend_time = 0.0f;\n\n\tif(surfer_ent)\n\t{\n\t\tif(anim_id != -1)\n\t\t{\n\t\t\tAnim(g_surfer_anims[anim_id], blend_time, false, 0.0f);\n\t\t\ttrick_playing = true;\n\t\t}\n\t\telse\n\t\t{\n\t\t\t//  hack for exit moves to pop to idle\n\t\t\tfor (int n = TRICK_EXIT_5; n <= TRICK_EXIT_4; n++)\n\t\t\t{\n\t\t\t\tif (GTrickList[n].anim_id == cur_trick_anim)\n\t\t\t\t\tblend_time = 0.0f;\n\t\t\t}\n\n\t\t\tstringx anim = \"ALL_TRK_TUBE_FS_1\";\n\t\t\tAnim(anim, blend_time, false, 0.0f);\n\t\t\ttrick_playing = false;\n\t\t}\n\t\tnext_anim = SA_TRICK;\n\t\tcur_anim = SA_TRICK;\n\t\tcur_trick_anim = anim_id;\n\t}\n}\n",
+      "status": "different",
+      "target_size": 312
+    }
+  ],
+  "raw_name": "TrickPlay__15FEEntityManageri"
+}
