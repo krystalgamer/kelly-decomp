@@ -1,0 +1,23 @@
+{
+  "address": "0x002D9CC0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "87fc91b8785ea58f2e91e7257e45615e1744e7f7",
+      "candidate_size": 180,
+      "compared_bytes": 296,
+      "compared_instructions": 74,
+      "emitted_name": "__7cg_meshPCcb",
+      "instruction_score": 1.3514,
+      "matching_bytes": 46,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/colgeom.cpp:411-420; kelly-slaters-pro-surfer/KS/SRC/colmesh.h:30-47,118-135; kelly-slaters-pro-surfer/KS/SRC/colgeom.h:33-38,88-90; kelly-slaters-pro-surfer/KS/SRC/chunkfile.h:23-63; notes/function_queue.csv:5894; tmp/functions/002D9CC0___7cg_meshPCcb/attempt-1/result.json. Result `different`, score 15.5405; no later attempt.",
+      "score": 15.5405,
+      "source": "template<class T, class A> class vector\n{\n  T* first;\n  T* last;\n  T* limit;\npublic:\n  vector();\n  ~vector();\n};\n\nclass malloc_alloc {};\nclass cface {};\nclass vert {};\nclass material;\nclass entity;\nclass po;\n\nclass vector3d\n{\n  float x, y, z;\n};\n\nclass collision_geometry\n{\npublic:\n  collision_geometry();\n  virtual ~collision_geometry();\nprotected:\n  entity* owner;\n  bool valid;\n};\n\nclass chunk_file\n{\n  char storage[256];\npublic:\n  chunk_file();\n  ~chunk_file();\n  void open(const char* name);\n  void close();\n};\n\ntypedef vector<cface, malloc_alloc> cface_vect;\ntypedef vector<vert, malloc_alloc> vert_vect;\ntypedef vector<int, malloc_alloc> intvector;\n\nclass cg_mesh : public collision_geometry\n{\npublic:\n  cg_mesh(const char* cg_mesh_fname, bool allow_warnings);\n  virtual ~cg_mesh();\n  void read_from_file(chunk_file& fs, bool allow_warnings);\nprotected:\n  vert_vect raw_verts;\n  vert_vect verts;\n  cface_vect cfaces;\n  vector<material*, malloc_alloc> materials;\n  float cface_xmin;\n  intvector lookup_low;\n  intvector lookup_high;\n  vector3d pivot;\n  unsigned int flags;\n  int lookup_size;\n  float radius;\n};\n\ncg_mesh::cg_mesh(const char * cg_mesh_fname, bool allow_warnings ) : collision_geometry()\n{\n  chunk_file fs;\n  fs.open(cg_mesh_fname);\n\n  read_from_file( fs, allow_warnings );\n\n  fs.close();\n}\n",
+      "status": "different",
+      "target_size": 296
+    }
+  ],
+  "raw_name": "__7cg_meshPCcb"
+}
