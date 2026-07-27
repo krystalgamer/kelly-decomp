@@ -1,0 +1,23 @@
+{
+  "address": "0x001B0CA8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "df6defb35b1128ca0a78e1f2225c876db1a6fc24",
+      "candidate_size": 204,
+      "compared_bytes": 264,
+      "compared_instructions": 66,
+      "emitted_name": "ReplayEnd__15ReplayMenuClass",
+      "instruction_score": 9.0909,
+      "matching_bytes": 62,
+      "matching_instructions": 6,
+      "notes": "# Attempt 1\n\nUsed the released `ReplayMenuClass::ReplayEnd` body verbatim with self-contained declarations reconstructed from released headers and adjacent matched front-end layouts. The candidate was not the empty placeholder. Result: **different** \u2014 23.4848% byte score and 9.0909% instruction score (62/264 bytes, 6/66 instructions); no variant or second attempt was made.",
+      "score": 23.4848,
+      "source": "typedef unsigned int uint32;\n\nclass KSReplay { public: void Pause(bool paused); };\nextern KSReplay ksreplay;\n__asm__(\".equ ksreplay, 0x004252A8\");\n__asm__(\".equ Pause__8KSReplayb, 0x0023C9E0\");\n\nclass IGOFrontEnd {\n    char data[1492];\n    bool replay_mode;\npublic:\n    void ShowMenuBackground(bool on = true);\n    void SetDisplay(bool display);\n    void OnReplayEnd() { ShowMenuBackground(true); replay_mode = false; }\n};\n__asm__(\".equ ShowMenuBackground__11IGOFrontEndb, 0x0017CED0\");\n__asm__(\".equ SetDisplay__11IGOFrontEndb, 0x0017B9A8\");\n\nstruct PauseMenuSystem;\nstruct FEManager { IGOFrontEnd *IGO; PauseMenuSystem *pms; };\nstruct PauseMenuSystem {\n    char data[144];\n    bool draw;\n    bool replay_mode;\n    bool end_level;\n    char padding;\n    FEManager *manager;\n};\n\nclass Track { char data[72]; public: void Pause(); };\nclass MusicListing {\n    int totalSources;\n    int current;\n    Track sources[50];\n    uint32 currentSoundId;\n    bool successfulLastPlay;\npublic:\n    int order[50];\n    bool enabled[50];\n    void pause() { sources[order[current]].Pause(); }\n};\nclass MusicMan {\n    void *vtable;\n    float volume;\n    int inited;\n    bool paused;\npublic:\n    static MusicMan *instance;\n    static MusicMan *inst() { return instance; }\n    MusicListing musicTrack;\n    void stop();\n    void pause() { if (!paused) { paused = true; musicTrack.pause(); } }\n};\n__asm__(\".equ _8MusicMan$instance, 0x00427B18\");\n__asm__(\".equ stop__8MusicMan, 0x002595F0\");\n__asm__(\".equ Pause__5Track, 0x002586E8\");\n\nclass os_developer_options {\n    void *vtable;\npublic:\n    enum flags_t { FLAG_NO_AUDIO = 17 };\n    static os_developer_options *instance;\n    static os_developer_options *inst() { return instance; }\nprivate:\n    bool flags[80];\npublic:\n    bool is_flagged(flags_t flag) const { return flags[flag]; }\n};\n__asm__(\".equ _20os_developer_options$instance, 0x0045B180\");\n\nstruct ReplayMenuVTable {\n    char padding[192];\n    short triangle_adjustment;\n    short reserved;\n    void (*triangle)(void *, int);\n};\nclass ReplayMenuClass {\n    char data[116];\n    ReplayMenuVTable *vtable;\n    PauseMenuSystem *sys;\npublic:\n    void ReplayEnd();\n    virtual void OnTriangle(int controller);\n};\n\nvoid ReplayMenuClass::ReplayEnd()\n{\n    ksreplay.Pause(true);\n    sys->replay_mode = false;\n    sys->draw = true;\n    sys->manager->IGO->SetDisplay(false);\n    sys->manager->IGO->OnReplayEnd();\n    sys->manager->pms->replay_mode = false;\n\n    if (!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n    {\n        MusicMan::inst()->stop();\n        MusicMan::inst()->pause();\n    }\n\n    OnTriangle(0);\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "ReplayEnd__15ReplayMenuClass"
+}
