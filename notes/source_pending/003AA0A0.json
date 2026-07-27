@@ -1,0 +1,16 @@
+{
+  "address": "0x003AA0A0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "09e0ba3d90371bd83477098f8f143b57c31df866",
+      "error": "Candidate did not emit nglMeshNextBatch__Fv; emitted functions: []",
+      "notes": "Released-source extraction was attempted, but candidate generation failed before testing because the system `python` command was unavailable. The single permitted test therefore scored the prepared placeholder as symbol_missing; no retry was run.",
+      "score": 0.0,
+      "source": "// Target: 0x003AA0A0 nglMeshNextBatch__Fv\n// Reference: NGL/PS2/ngl_ps2.cpp\n// Replace this file with one self-contained candidate function.\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "nglMeshNextBatch__Fv"
+}
