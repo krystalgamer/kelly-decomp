@@ -1,0 +1,15 @@
+{
+  "address": "0x001444A0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "270dc3fde5775925edd54a34a832fdf45faed301",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/entity.h:108-157; kelly-slaters-pro-surfer/KS/SRC/singleton.h:34-42; tmp/target-full-disasm.txt:71088-71157; config/SLUS_203.34.symbol_addrs.txt; tmp/functions/001444A0__$_15anim_id_manager/attempt-1/result.json; tmp/functions/001444A0__$_15anim_id_manager/attempt-1/compiler.stderr. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/entity.h\"\n\nanim_id_manager::~anim_id_manager()\n{\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_15anim_id_manager"
+}
