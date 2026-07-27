@@ -1,0 +1,15 @@
+{
+  "address": "0x00154FC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "961de359a8670ba01f4179493b32cceaafe8f82f",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEAnim.cpp:216-268; kelly-slaters-pro-surfer/KS/SRC/ks/FEAnim.h:15-50; kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-311; tmp/functions/00154FC8_GetEvent__9PanelAnimffR7stringx/attempt-1/result.json; tmp/functions/00154FC8_GetEvent__9PanelAnimffR7stringx/attempt-1/compiler.stderr; tmp/source_first/00154FC8/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "// Target: 0x00154FC8 GetEvent__9PanelAnimffR7stringx\n// Reference: KS/SRC/ks/FEAnim.cpp\n#include \"KS/SRC/ks/FEPanel_shared.h\"\n\nclass PanelAnimKeyframe\n{\npublic:\n\tfloat idx;\n\tvector3d translation;\n\tvector3d euler;\n\tvector3d scale;\n\tstringx event;\n\tfloat vis;\n};\n\nclass PanelAnim\n{\npublic:\n\tstringx name;\n\tstringx properties;\n\tPanelAnim* parent;\n\tmatrix4x4 matrix;\n\tunsigned numkeyframes;\n\tPanelAnimKeyframe* keyframes;\n\tPanelAnim* children;\n\tPanelAnim* next;\n\n\tvirtual ~PanelAnim();\n\tvirtual int Kind() const = 0;\n\tbool GetEvent(float start_time, float end_time, stringx& event);\n};\n\n__asm__(\".equ __as__7stringxPCc, 0x0034D420\");\n\nbool PanelAnim::GetEvent(float last_time, float current_time, stringx &event)\n{\n\tevent = \"\";\n\n\tif (keyframes)\n\t{\n\t\tconst PanelAnimKeyframe& firstkey = keyframes[0];\n\t\tconst PanelAnimKeyframe& lastkey = keyframes[numkeyframes - 1];\n\n\t\t//  If we're past the last keyframe's time or things haven't started yet, then no events were found\n\t\tif (last_time >= lastkey.idx || current_time <= firstkey.idx)\n\t\t{\n\t\t\treturn false;\n\t\t}\n\t\telse  //  Figure out how far between frames we are and interpolate.\n\t\t{\n\t\t\tif (last_time < firstkey.idx)\n\t\t\t\tlast_time = firstkey.idx;\n\n\t\t\tif (current_time > lastkey.idx)\n\t\t\t\tcurrent_time = lastkey.idx;\n\n\t\t\tu_int currentkeyframe = 0;\n\t\t\tfloat starttime = keyframes[0].idx;\n\n\t\t\t//  Catch up to the keyframe that passed our current animation time last.\n\t\t\twhile (currentkeyframe < numkeyframes - 1 &&\n\t\t\t\tkeyframes[currentkeyframe + 1].idx - starttime < current_time - starttime)\n\t\t\t\tcurrentkeyframe++;\n\n\t\t\tconst PanelAnimKeyframe& curkey = keyframes[currentkeyframe];\n\n\t\t\t//  Check to see if we've already caught this one.\n\t\t\tif (curkey.idx <= last_time)\n\t\t\t\treturn false;\n\n\t\t\tevent = curkey.event;\n\t\t\treturn true;\n\t\t}\n\t}\n\n\treturn false;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "GetEvent__9PanelAnimffR7stringx"
+}
