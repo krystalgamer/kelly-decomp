@@ -1,0 +1,16 @@
+{
+  "address": "0x00264A58",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a3f688c75e1970b45ab16b3f01a41c42d797b19a",
+      "error": "Candidate did not emit DecodeColorBlock__9ImageDXTCPUiP11DXTColBlockiT1N31; emitted functions: ['DecodeColorBlock__9ImageDXTCPUiP11DXTColBlockiT1T1T1T1']",
+      "notes": "Attempt 1 used exact released source cited at . Result `symbol_missing`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "struct DXTColBlock\n{\n\tunsigned short col0;\n\tunsigned short col1;\n\n\t// no bit fields - use bytes\n\tunsigned char row[4];\n};\n\nclass ImageDXTC\n{\nprivate:\n\tvoid DecodeColorBlock(unsigned int * pImPos, DXTColBlock * pColorBlock, int width, unsigned int * col_0, unsigned int * col_1, unsigned int * col_2, unsigned int * col_3);\n};\n\nvoid ImageDXTC::DecodeColorBlock(unsigned int * pImPos, DXTColBlock * pColorBlock, int width, unsigned int * col_0, unsigned int * col_1, unsigned int * col_2, unsigned int * col_3 )\n{\n\t// width is width of image in pixels\n\n\n\tunsigned int bits;\n\tint r,n;\n\n\t// bit masks = 00000011, 00001100, 00110000, 11000000\n\tconst unsigned int masks[] = { 3, 12, 3 << 4, 3 << 6 };\n\tconst int   shift[] = { 0, 2, 4, 6 };\n\n\t// r steps through lines in y\n\tfor( r=0; r < 4; r++, pImPos += width-4 )\t// no width*4 as unsigned int ptr inc will *4\n\t{\n\n\t\t// width * 4 bytes per pixel per line\n\t\t// each j dxtc row is 4 lines of pixels\n\n\t\t// pImPos = (unsigned int*)((unsigned int)pBase + i*16 + (r+j*4) * m_nWidth * 4 );\n\n\t\t// n steps through pixels\n\t\tfor( n=0; n < 4; n++ )\n\t\t{\n\t\t\tbits =\t\tpColorBlock->row[r] & masks[n];\n\t\t\tbits >>=\tshift[n];\n\n\t\t\tswitch( bits )\n\t\t\t{\n\t\t\tcase 0 :\n\t\t\t\t*pImPos = *col_0;\n\t\t\t\tpImPos++;\t\t// increment to next unsigned int\n\t\t\t\tbreak;\n\t\t\tcase 1 :\n\t\t\t\t*pImPos = *col_1;\n\t\t\t\tpImPos++;\n\t\t\t\tbreak;\n\t\t\tcase 2 :\n\t\t\t\t*pImPos = *col_2;\n\t\t\t\tpImPos++;\n\t\t\t\tbreak;\n\t\t\tcase 3 :\n\t\t\t\t*pImPos = *col_3;\n\t\t\t\tpImPos++;\n\t\t\t\tbreak;\n\t\t\tdefault:\n\t\t\t\t//assert(0);\n\t\t\t\t//TRACE(\"Your logic is jacked! bits == 0x%x\\n\", bits );\n\t\t\t\t//pImPos++;\n\t\t\t\tbreak;\n\t\t\t}\n\t\t}\n\t}\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "DecodeColorBlock__9ImageDXTCPUiP11DXTColBlockiT1N31"
+}
