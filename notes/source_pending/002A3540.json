@@ -1,0 +1,23 @@
+{
+  "address": "0x002A3540",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1b045b4b1a5a4061223c02cb59aae5787a44c99c",
+      "candidate_size": 248,
+      "compared_bytes": 316,
+      "compared_instructions": 79,
+      "emitted_name": "add_time_limited_effect__21world_dynamics_systemPCcRC2pof",
+      "instruction_score": 1.2658,
+      "matching_bytes": 54,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/wds.cpp:6513-6530; kelly-slaters-pro-surfer/KS/SRC/wds.h:303-306,445-453; kelly-slaters-pro-surfer/KS/SRC/entity_maker.h:66-71; kelly-slaters-pro-surfer/KS/SRC/entity.h:184,835-836,1215; tmp/functions/002A3540_add_time_limited_effect__21world_dynamics_systemPCcRC2pof/attempt-1/result.json; tmp/source_first/002A3540/attempt-1.md. Result `different`, score 17.0886; no later attempt.",
+      "score": 17.0886,
+      "source": "typedef float time_value_t;\n#define NULL 0\n#define assert(x) ((void)0)\nclass stringx { public: stringx(const char*, int = -1); ~stringx(); };\nclass po {};\nclass entity_id { unsigned val; public: static entity_id& make_unique_id(); };\nclass entity { public: void set_time_limited(bool); void frame_done(); };\ntemplate<class T> class my_allocator {};\ntemplate<class T, class A = my_allocator<T> > class vector { public: T *start, *finish, *end; void push_back(const T&); };\nclass entity_maker { public: entity* create_entity_or_subclass(const stringx&, entity_id, const po&, const stringx&, unsigned int, const void* = 0); };\nextern entity_maker* g_entity_maker;\nenum { ACTIVE_FLAG = 1, NONSTATIC_FLAG = 0x80 };\nclass world_dynamics_system {\npublic:\n  struct ent_time_limit { entity* ent; time_value_t duration; ent_time_limit() : ent(0) {} ent_time_limit(entity* _ent, time_value_t _duration) : ent(_ent), duration(_duration) {} };\n  char released_layout[0xd4];\n  vector<ent_time_limit> time_limited_entities;\n  entity* add_time_limited_effect(const char*, const po&, time_value_t);\n};\nentity* world_dynamics_system::add_time_limited_effect( const char* name,\n                                                       const po& loc,\n                                                       time_value_t duration )\n{\n  entity* e = g_entity_maker->create_entity_or_subclass( name, entity_id::make_unique_id(), loc, \"fx\\\\\", ACTIVE_FLAG|NONSTATIC_FLAG );\n\n  assert(e != NULL);\n\n  time_limited_entities.push_back( ent_time_limit(e,duration) );\n  e->set_time_limited(true);\n\n  // this needs to be called to set up last-frame info\n  e->frame_done();\n  return e;\n}\n",
+      "status": "different",
+      "target_size": 316
+    }
+  ],
+  "raw_name": "add_time_limited_effect__21world_dynamics_systemPCcRC2pof"
+}
