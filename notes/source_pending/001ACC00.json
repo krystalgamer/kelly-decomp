@@ -1,0 +1,23 @@
+{
+  "address": "0x001ACC00",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "72ee454384a3e721ec082f4e0c0e99b41f7fcc70",
+      "candidate_size": 320,
+      "compared_bytes": 320,
+      "compared_instructions": 80,
+      "emitted_name": "__17PlaylistMenuClassP12FEMenuSystemiiG7color32N24",
+      "instruction_score": 42.5,
+      "matching_bytes": 275,
+      "matching_instructions": 34,
+      "notes": "Attempt 1 used exact released source cited at . Result `different`, score 85.9375; no later attempt.",
+      "score": 85.9375,
+      "source": "typedef unsigned int color32;\n\nstruct FEMenu;\nstruct FEMenuSystem {\n    char padding[0x74];\n    FEMenu **menus;\n};\n\nenum { SONGS_PER_SCREEN = 6 };\n\nstruct FEMenu {\n    char padding0[0x34];\n    float scale_high;\n    char padding1[0x20];\n    FEMenu *back;\n    int back_num;\n    char padding2[0x18];\n    const void *vtable;\n};\n\nstruct PauseMenuSystem : FEMenuSystem {\n    enum { OptionsMenu = 3 };\n};\n\nstruct stringx;\nstruct FEMenuEntry;\nstruct TextString;\n\nstruct PlaylistMenuClass {\n    FEMenu base;\n    PauseMenuSystem *sys;\n    stringx *song_names;\n    FEMenuEntry *songName[SONGS_PER_SCREEN];\n    TextString *upArrow;\n    TextString *downArrow;\n    TextString *helpText2;\n    TextString *lineNumbers[SONGS_PER_SCREEN];\n    TextString *onOff[SONGS_PER_SCREEN];\n    TextString *playing;\n    TextString *currentSong;\n    TextString *currentArtist;\n    int offset;\n    int pos;\n    int active;\n    int numSongs;\n    color32 col;\n    color32 colh;\n    bool tweaked;\n};\n\nextern \"C\" void FEMenuCtor(FEMenu *self) __asm__(\"__6FEMenu\");\nextern \"C\" void FEMenuCons(\n    FEMenu *self, FEMenuSystem *system, int x, int y,\n    color32 color, color32 color_high, color32 color_high_alt,\n    float scale, float scale_high, int max_visible, int flags)\n    __asm__(\"cons__6FEMenuP12FEMenuSystemiiG7color32N24ffii\");\nextern \"C\" void SetHelpText(FEMenu *self, int flags)\n    __asm__(\"SetHelpText__6FEMenui\");\nextern const char playlist_menu_vtable[];\n\n__asm__(\".equ __6FEMenu, 0x00156280\");\n__asm__(\".equ cons__6FEMenuP12FEMenuSystemiiG7color32N24ffii, 0x00156330\");\n__asm__(\".equ SetHelpText__6FEMenui, 0x00156E20\");\n__asm__(\".equ playlist_menu_vtable, 0x004C7AE0\");\n\nextern \"C\" PlaylistMenuClass *PlaylistMenuCtor(\n    PlaylistMenuClass *self, FEMenuSystem *system, int x, int y,\n    color32 color, color32 color_high, color32 color_high_alt)\n    __asm__(\"__17PlaylistMenuClassP12FEMenuSystemiiG7color32N24\");\n\nPlaylistMenuClass *PlaylistMenuCtor(\n    PlaylistMenuClass *self, FEMenuSystem *system, int x, int y,\n    color32 color, color32 color_high, color32 color_high_alt)\n{\n    FEMenuCtor(&self->base);\n    self->base.vtable = playlist_menu_vtable;\n\n    self->active = 0;\n    self->tweaked = false;\n    self->col = color;\n    self->colh = color_high;\n    self->offset = 0;\n    self->pos = 0;\n    FEMenuCons(&self->base, system, x, y, color, color_high, color_high_alt,\n               1.0f, 1.2f, 8, 0);\n    self->upArrow = 0;\n    self->downArrow = 0;\n    self->helpText2 = 0;\n    self->playing = 0;\n    self->currentSong = 0;\n    self->currentArtist = 0;\n    for (int i = 0; i < SONGS_PER_SCREEN; i++) {\n        self->lineNumbers[i] = 0;\n        self->onOff[i] = 0;\n    }\n\n    self->sys = (PauseMenuSystem *)system;\n    self->base.back = self->sys->menus[PauseMenuSystem::OptionsMenu];\n    self->base.back_num = 1;\n    SetHelpText(&self->base, 0);\n    self->base.scale_high = 1.0f;\n    return self;\n}\n",
+      "status": "different",
+      "target_size": 320
+    }
+  ],
+  "raw_name": "__17PlaylistMenuClassP12FEMenuSystemiiG7color32N24"
+}
