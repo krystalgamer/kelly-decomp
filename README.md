@@ -45,9 +45,11 @@ env/bin/python tools/function_test.py prepare FUNCTION
 env/bin/python tools/function_test.py test FUNCTION
 ```
 
-Each function gets at most five distinct candidate compile/diff attempts.
-A match is integrated and checksum-verified before its atomic commit. An
-unmatched function receives a notes-only commit after the fifth attempt.
+The first pass tests the exact released source and declarations once. A match
+is integrated and checksum-verified before its atomic commit; a miss is stored
+as `source_pending` with a durable notes-only handoff. After every eligible
+function has received that released-source attempt, Sol resumes the handoffs
+for attempts two through five.
 
 All attempt artifacts belong under `tmp/`. Durable state belongs under
 `notes/`.

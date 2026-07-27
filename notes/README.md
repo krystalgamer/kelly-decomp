@@ -6,6 +6,10 @@ ordered by `size_bytes`, then address.
 ## Statuses
 
 - `pending`: eligible and not attempted
+- `source_pending`: exact released source was attempted once; later Sol work
+  may continue with attempts two through five after the first pass completes
+- `sol_pending`: legacy three-attempt handoff awaiting Sol attempts four and
+  five after the first pass completes
 - `matched`: integrated source passed the isolated bench and full ROM checksum
 - `deferred`: five candidates were attempted without a match
 - `excluded_handwritten`: known handwritten PS2/VU assembly
@@ -26,11 +30,15 @@ No function may exceed five distinct candidates.
 
 1. `tools/decomp.py next` selects the smallest pending function.
 2. Prepare its isolated scratch directory under `tmp/functions/`.
-3. Record each hypothesis in the attempt directory and compile/diff it.
+3. Compile/diff the exact released body and declarations as attempt one.
 4. If matched, integrate only that function and verify the full ROM checksum.
-5. Run `tools/decomp.py finalize ...`.
-6. Commit the source plus note, or the failed-function note alone.
+5. Otherwise finalize a durable `source_pending` handoff and continue.
+6. Commit the source plus note, or the handoff note alone.
 7. Continue immediately with the next queue row.
+
+When no `pending` rows remain, Sol resumes `source_pending` and legacy
+`sol_pending` handoffs. The combined history remains capped at five distinct
+source candidates before a final deferral.
 
 Committed source mirrors the original reference tree below `src/`. Multiple
 matched functions from one original file live together in guarded blocks.

@@ -95,7 +95,7 @@ def discover_sources(
             raise RuntimeError(f"Source has no queue function: {source.path}")
         if row["classification"] != "eligible":
             raise RuntimeError(f"Source is not eligible: {source.path}")
-        if row["status"] in {"deferred", "sol_pending"}:
+        if row["status"] in {"deferred", "source_pending", "sol_pending"}:
             raise RuntimeError(
                 f"Source belongs to a {row['status']} function: {source.path}"
             )

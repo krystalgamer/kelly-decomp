@@ -24,6 +24,7 @@ QUEUE_PATH = ROOT / "notes" / "function_queue.csv"
 TARGET_ELF = ROOT / "SLUS_203.34"
 TARGET_ROM = ROOT / "SLUS_203.34.rom"
 SCRATCH_ROOT = ROOT / "tmp" / "functions"
+SOURCE_PENDING_ROOT = ROOT / "notes" / "source_pending"
 SOL_PENDING_ROOT = ROOT / "notes" / "sol_pending"
 TEXT_VRAM = 0x00100000
 MAX_ATTEMPTS = 5
@@ -74,17 +75,21 @@ def attempt_limit(row: dict[str, str]) -> int:
     return MAX_ATTEMPTS
 
 
-def restore_sol_pending_attempts(
+def restore_interim_attempts(
     row: dict[str, str],
     directory: Path,
 ) -> bool:
-    if row["status"] != "sol_pending":
+    status = row["status"]
+    if status not in ("source_pending", "sol_pending"):
         return False
     address = int(row["address"], 0)
-    handoff_path = SOL_PENDING_ROOT / f"{address:08X}.json"
+    handoff_root = (
+        SOURCE_PENDING_ROOT if status == "source_pending" else SOL_PENDING_ROOT
+    )
+    handoff_path = handoff_root / f"{address:08X}.json"
     if not handoff_path.exists():
         raise RuntimeError(
-            f"Missing durable Sol handoff for {row['address']}"
+            f"Missing durable {status} handoff for {row['address']}"
         )
 
     handoff = json.loads(handoff_path.read_text(encoding="utf-8"))
@@ -93,7 +98,7 @@ def restore_sol_pending_attempts(
         source = str(record["source"])
         if hashlib.sha1(source.encode()).hexdigest() != record["candidate_sha1"]:
             raise RuntimeError(
-                f"Durable Luna source hash mismatch for {row['address']} "
+                f"Durable source hash mismatch for {row['address']} "
                 f"attempt {record['attempt']}"
             )
         result = {
@@ -112,8 +117,8 @@ def restore_sol_pending_attempts(
     if local_attempts:
         if len(local_attempts) < len(durable_attempts):
             raise RuntimeError(
-                f"Local attempt history for {row['address']} is missing "
-                "the durable Luna prefix"
+                f"Local attempt history for {row['address']} is missing the "
+                f"durable {status} prefix"
             )
         local_prefix = [
             attempt["candidate_sha1"]
@@ -126,7 +131,7 @@ def restore_sol_pending_attempts(
         if local_prefix != durable_prefix:
             raise RuntimeError(
                 f"Local attempt history for {row['address']} conflicts "
-                "with the durable Luna prefix"
+                f"with the durable {status} prefix"
             )
         extra_attempts = local_attempts[len(durable_attempts) :]
         expected_numbers = list(
@@ -143,8 +148,8 @@ def restore_sol_pending_attempts(
             or len(durable_attempts) + len(extra_attempts) > MAX_ATTEMPTS
         ):
             raise RuntimeError(
-                f"Local Sol attempts for {row['address']} are not a "
-                "valid continuation of the durable Luna prefix"
+                f"Local later-pass attempts for {row['address']} are not a "
+                f"valid continuation of the durable {status} prefix"
             )
         restored_attempts = durable_attempts + extra_attempts
     else:
@@ -162,7 +167,7 @@ def restore_sol_pending_attempts(
                 "candidate_sha1"
             ]:
                 raise RuntimeError(
-                    f"Local Luna candidate conflicts with durable source "
+                    f"Local candidate conflicts with durable source "
                     f"for {row['address']} attempt {attempt_number}"
                 )
         else:
@@ -236,8 +241,8 @@ def prepare(row: dict[str, str]) -> Path:
     (directory / "target.s").write_text(target_assembly, encoding="utf-8")
 
     attempts_path = directory / "attempts.json"
-    if row["status"] == "sol_pending":
-        restore_sol_pending_attempts(row, directory)
+    if row["status"] in ("source_pending", "sol_pending"):
+        restore_interim_attempts(row, directory)
     elif not attempts_path.exists():
         attempts_path.write_text("[]\n", encoding="ascii")
 
@@ -601,7 +606,7 @@ def main() -> int:
         )
     if (
         args.command in ("prepare", "test")
-        and row["status"] == "sol_pending"
+        and row["status"] in ("source_pending", "sol_pending")
         and any(
             queued["status"] == "pending"
             for queued in load_queue()

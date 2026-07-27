@@ -63,7 +63,7 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
             flush=True,
         )
         return False
-    if expected_status == "sol_pending" and any(
+    if expected_status in ("source_pending", "sol_pending") and any(
         queued["status"] == "pending" for queued in rows
     ):
         raise RuntimeError(
@@ -147,11 +147,11 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
         str(note_path.relative_to(ROOT)),
         str(source_path.relative_to(ROOT)),
     ]
-    if expected_status == "sol_pending":
+    if expected_status in ("source_pending", "sol_pending"):
         handoff_path = (
             ROOT
             / "notes"
-            / "sol_pending"
+            / expected_status
             / f"{int(row['address'], 0):08X}.json"
         )
         staged_paths.append(str(handoff_path.relative_to(ROOT)))
