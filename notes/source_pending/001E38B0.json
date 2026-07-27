@@ -1,0 +1,23 @@
+{
+  "address": "0x001E38B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "69b9d697317258d8a0ad4172966e987a75263c2c",
+      "candidate_size": 268,
+      "compared_bytes": 268,
+      "compared_instructions": 67,
+      "emitted_name": "Ascii2Sjis__FUc",
+      "instruction_score": 100.0,
+      "matching_bytes": 259,
+      "matching_instructions": 67,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_gamesaver.cpp:24-67,73,176-215; kelly-slaters-pro-surfer/KS/SRC/debug.h:25; config/SLUS_203.34.symbol_addrs.txt:2865; config/SLUS_203.34.symbol_addrs.txt:371; notes/function_queue.csv:5755; tmp/functions/001E38B0_Ascii2Sjis__FUc/attempt-1/result.json. Result `different`, score 96.6418; no later attempt.",
+      "score": 96.6418,
+      "source": "typedef unsigned short u_short;\n\nextern void debug_print(const char* fmt, ...) __asm__(\"debug_print__FPCce\");\nasm(\".equ debug_print__FPCce, 0x00120790\");\n\nunsigned short ascii_special[33][2] = {\n\t{0x8140, 32},\n\t{0x8149, 33},\n\t{0x8168, 34},\n\t{0x8194, 35},\n\t{0x8190, 36},\n\t{0x8193, 37},\n\t{0x8195, 38},\n\t{0x8166, 39},\n\t{0x8169, 40},\n\t{0x816a, 41},\n\t{0x8196, 42},\n\t{0x817b, 43},\n\t{0x8143, 44},\n\t{0x817c, 45},\n\t{0x8144, 46},\n\t{0x815e, 47},\n\t{0x8146, 58},\n\t{0x8147, 59},\n\t{0x8171, 60},\n\t{0x8181, 61},\n\t{0x8172, 62},\n\t{0x8148, 63},\n\t{0x8197, 64},\n\t{0x816d, 91},\n\t{0x818f, 92},\n\t{0x816e, 93},\n\t{0x814f, 94},\n\t{0x8151, 95},\n\t{0x8165, 96},\n\t{0x816f, 123},\n\t{0x8162, 124},\n\t{0x8170, 125},\n\t{0x8150, 126},\n};\n\nstatic unsigned short ascii_table[3][2] = {\n\t{0x824f, 0x30},\n\t{0x8260, 0x41},\n\t{0x8281, 0x61},\n};\n\nu_short Ascii2Sjis(unsigned char ascii_code)\n{\n\tu_short sjis_code = 0;\n\tunsigned char stmp = 0;\n\tunsigned char stmp2 = 0;\n\n\tif((ascii_code >= 0x20) && (ascii_code <= 0x2f))\n\t\tstmp2 = 1;\n\n\telse if((ascii_code >= 0x30) && (ascii_code <= 0x39))\n\t\tstmp = 0;\n\n\telse if((ascii_code >= 0x3a) && (ascii_code <= 0x40))\n\t\tstmp2 = 11;\n\n\telse if((ascii_code >= 0x41) && (ascii_code <= 0x5a))\n\t\tstmp = 1;\n\n\telse if((ascii_code >= 0x5b) && (ascii_code <= 0x60))\n\t\tstmp2 = 37;\n\n\telse if((ascii_code >= 0x61) && (ascii_code <= 0x7a))\n\t\tstmp = 2;\n\n\telse if((ascii_code >= 0x7b) && (ascii_code <= 0x7e))\n\t\tstmp2 = 63;\n\n\telse\n\t{\n\t\tdebug_print(\"bad ASCII code 0x%x\\n\", ascii_code);\n\t\treturn 0;\n\t}\n\n\tif (stmp2)\n\t   \tsjis_code = ascii_special[ascii_code - 0x20 - (stmp2 - 1)][0];\n\telse\n\t\tsjis_code = ascii_table[stmp][0] + ascii_code - ascii_table[stmp][1];\n\n\treturn sjis_code;\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "Ascii2Sjis__FUc"
+}
