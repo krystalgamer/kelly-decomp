@@ -1,0 +1,23 @@
+{
+  "address": "0x0030F170",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b2215e8be25daf8e0918c0d46d33246ad8593baf",
+      "candidate_size": 252,
+      "compared_bytes": 256,
+      "compared_instructions": 64,
+      "emitted_name": "OnOpen__8MenuDrawP4MenuP10MenuSystem",
+      "instruction_score": 81.25,
+      "matching_bytes": 224,
+      "matching_instructions": 52,
+      "notes": "Released-source first pass. The exact released `MenuDraw::OnOpen` body was tested once with a self-contained declaration prefix copied from the released menu and menudraw declarations. Result: different, score 87.5% (52/64 instructions; 224/256 bytes). No tuning or second attempt was performed. The first prepare invocation used unavailable `python`; preparation then succeeded with the repository virtualenv interpreter before the sole test.",
+      "score": 87.5,
+      "source": "typedef unsigned int u_int;\n\nclass MenuSystem;\nclass MenuEntry;\ntypedef MenuEntry *pMenuEntry;\n\nclass Menu\n{\n\tMenu       *parent;\n\tint         entries;\n\tpMenuEntry *entry;\n\tint         activeentry;\n\tbool        isopen;\n\tMenu       *closeto;\n\tMenuSystem *control;\n\npublic:\n\tvirtual ~Menu();\n\tvirtual void CloseAll( void );\n\tvirtual void OnTick( float dtime );\n\tvirtual void OnButtonPress( int buttonid );\n\tvirtual void OnButtonRelease( int buttonid );\n\tvirtual void OnOpen( Menu *cto, MenuSystem *c );\n\tvirtual void OnClose( bool toparent );\n};\n\nclass MenuEntityDraw : public Menu\n{\npublic:\n\tvirtual void OnOpen(Menu *cto, MenuSystem *c);\n};\n\nclass MenuParticleDraw : public Menu\n{\npublic:\n\tvirtual void OnOpen(Menu *cto, MenuSystem *c);\n};\n\nclass MenuWaterDraw : public Menu\n{\npublic:\n\tvirtual void OnOpen(Menu *cto, MenuSystem *c);\n};\n\nenum MenudrawTypeEnum\n{\n\tMENUDRAW_TypeIGO,\n\tMENUDRAW_TypeShadow,\n\tMENUDRAW_TypeMax\n};\n\nextern int MENUDRAW_Flags[MENUDRAW_TypeMax];\nextern bool (*MENUDRAW_Get[MENUDRAW_TypeMax])(void);\nextern MenuEntityDraw *MENUDRAW_MenuEntities;\nextern MenuParticleDraw *MENUDRAW_MenuParticle;\nextern MenuWaterDraw *MENUDRAW_MenuWater;\n\n__asm__(\".equ MENUDRAW_Flags, 0x0058A438\");\n__asm__(\".equ MENUDRAW_Get, 0x0046B258\");\n__asm__(\".equ MENUDRAW_MenuEntities, 0x0046B19C\");\n__asm__(\".equ MENUDRAW_MenuParticle, 0x0046B208\");\n__asm__(\".equ MENUDRAW_MenuWater, 0x0046B240\");\n__asm__(\".equ OnOpen__4MenuP4MenuP10MenuSystem, 0x0023EAE0\");\n\nclass MenuDraw : public Menu\n{\npublic:\n\tvirtual void OnOpen(Menu *cto, MenuSystem *c) __asm__(\"OnOpen__8MenuDrawP4MenuP10MenuSystem\");\n};\n\nvoid MenuDraw::OnOpen(Menu *cto, MenuSystem *c)\n{\n\tfor (u_int i = 0; i < MENUDRAW_TypeMax; ++i)\n\t{\n\t\tMENUDRAW_Flags[i] = MENUDRAW_Get[i]();\n\t}\n\t// For \"All On\" and \"All Off\" to be recursive.\n\t// A little wasteful, since these will be called again\n\t// when the submenus are activated.  Also, this temporarily\n\t// sets the parent of these menus incorrectly. (dc 10/18/01)\n\tMENUDRAW_MenuEntities->OnOpen(cto, c);\n\tMENUDRAW_MenuParticle->OnOpen(cto, c);\n\tMENUDRAW_MenuWater->OnOpen(cto, c);\n\n\tMenu::OnOpen(cto, c);\n}\n",
+      "status": "different",
+      "target_size": 256
+    }
+  ],
+  "raw_name": "OnOpen__8MenuDrawP4MenuP10MenuSystem"
+}
