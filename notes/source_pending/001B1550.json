@@ -1,0 +1,15 @@
+{
+  "address": "0x001B1550",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "38ae469e10c715199b76d7c62b5a8961d8cdfecf",
+      "notes": "Attempted the exact released GoalsMenuClass::Draw body and declarations via the released global.h and FrontEndMenus.h. The sole function_test invocation failed before compilation because the candidate-relative released-header include paths were not found; no retry or variant was attempted.",
+      "score": 0.0,
+      "source": "#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/ks/global.h\"\n#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h\"\n\nvoid GoalsMenuClass::Draw()\n{\n\ttitle->Draw();\n\tfor (int g = 0; g < MAX_GOALS_PER_LEVEL; g++)\n\t{\n\t\tnames[g]->Draw();\n\t\tstatus[g]->Draw();\n\t}\n\thelpText->Draw();\n\n\tif(show_tip)\n\t{\n\t\tfor(int i=0; i<9; i++)\n\t\t\ttip_box[i]->Draw(0);\n\t\ttip->Draw();\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Draw__14GoalsMenuClass"
+}
