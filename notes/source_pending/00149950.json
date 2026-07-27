@@ -1,0 +1,23 @@
+{
+  "address": "0x00149950",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5eaca1b729a2d173f5dbd257b83d4995c58fcf45",
+      "candidate_size": 316,
+      "compared_bytes": 324,
+      "compared_instructions": 81,
+      "emitted_name": "Draw__7BoxText",
+      "instruction_score": 9.8765,
+      "matching_bytes": 82,
+      "matching_instructions": 8,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:562-590; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:10-45,48-125,194-255; tmp/functions/00149950_Draw__7BoxText/attempt-1/result.json; tmp/source_first/00149950/attempt-1.md. Result `different`, score 25.3086; no later attempt.",
+      "score": 25.3086,
+      "source": "class stringx { int value; };\nclass Font;\nstruct color32 { unsigned int value; };\nstruct vector3d { float x, y, z; };\ntypedef float nglVector[4];\nstruct nglFileBuf { void *Buf; int Size; };\n\nclass StringList\n{\npublic:\n    stringx data;\n    float x;\n    float y;\n    float fall_speed[150];\n    float drift_speed[150];\n    int drift_max[150];\n    float delta_x[150];\n    float delta_y[150];\n};\n\nclass TextString\n{\nprotected:\n    Font *font;\n    stringx text;\n    float x;\n    float y;\n    int z;\n    int hJustify;\n    int vJustify;\n    bool even_number_spacing;\n    int fade;\n    float fade_alpha;\n    float fade_timer;\n    float scale;\n    float button_scale;\n    bool override_alpha;\npublic:\n    bool checkTime;\n    float time;\n    bool no_color;\n    color32 color;\n\n    virtual ~TextString();\n    virtual void Update(float);\n    virtual void Draw();\n    virtual void setHJustify(int);\n    virtual void setVJustify(int);\n    virtual void setFont(Font *);\n    virtual void setButtonScale(float);\n    virtual void numberSpacing(bool);\n    virtual void changeText(stringx);\n    virtual void changeScale(float);\n    virtual void changePos(float, float);\n    virtual void changeX(float);\n    virtual void changeY(float);\n    virtual void changeZ(int);\n    virtual void ChangeFade(bool, bool, float);\n    virtual void SetFade(float);\n    virtual float getX();\n    virtual float getY();\n    virtual int getZ();\n    virtual stringx getText();\n    virtual float GetScale() const;\n    virtual float GetButtonScale() const;\n    virtual bool GetNumberSpacing() const;\n    virtual Font *GetFont();\n    virtual int GetHJustify() const;\n    virtual int GetVJustify() const;\n    virtual void setLineSpacing(int);\n    virtual void resetLineSpacing();\n    virtual void UpdateInScene(bool);\n    virtual void SetLocation3D(vector3d);\n    virtual vector3d GetLocation3D();\n    virtual void SetBehaviorNF(float, float);\n    virtual void SetBehavior(bool);\nprotected:\n    virtual void Render();\n    virtual void Render(stringx *, float, float);\n    virtual void Render(stringx *, float, float, float *, float *, bool);\n};\n\nclass BoxText : public TextString\n{\nprotected:\n    int width;\n    int height;\n    bool reverse;\n    int max_box_strings;\n    StringList *box_strings;\n    int box_str_count;\n    nglFileBuf fileBuf;\n    bool non_floating_behavior;\n    nglVector location_2d;\n    nglVector location_3d;\n    float real_scale;\n    float real_x;\n    float real_y;\n    float adjusted_x;\n    float adjusted_y;\n    bool scrollable;\n    int max_vis_lines;\n    int first_vis;\npublic:\n    virtual void Draw();\n};\n\nvoid BoxText::Draw()\n{\n    if(!checkTime || time > 0)\n    {\n        int start = 0;\n        int end = box_str_count;\n        if(scrollable)\n        {\n            start = first_vis;\n            end = first_vis + max_vis_lines;\n            if(end > box_str_count) end = box_str_count;\n        }\n        for(int i=start; i<end; i++)\n        {\n            StringList* tmp = &box_strings[i];\n            if(non_floating_behavior)\n            {\n                scale = real_scale;\n                Render(&tmp->data, tmp->x, tmp->y);\n            }\n            else\n            {\n                float x = location_2d[0] - real_x;\n                float y = location_2d[1] - real_y;\n                if(scale > 0) Render(&tmp->data, tmp->x + x, tmp->y + y);\n            }\n        }\n    }\n}\n",
+      "status": "different",
+      "target_size": 324
+    }
+  ],
+  "raw_name": "Draw__7BoxText"
+}
