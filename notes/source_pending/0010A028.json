@@ -1,0 +1,15 @@
+{
+  "address": "0x0010A028",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a6090c3a9059b29edbf149ba95d8363cbeef4da7",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ai_polypath.cpp:38-50; kelly-slaters-pro-surfer/KS/SRC/ai_polypath.h:11-56; kelly-slaters-pro-surfer/KS/SRC/ai_polypath_cell.h:1-100; tmp/functions/0010A028_add_cell__11ai_polypathRC8vector3dN21/attempt-1/compiler.stderr. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/global.h\"\n#include \"KS/SRC/ai_polypath.h\"\n#include \"KS/SRC/ai_polypath_cell.h\"\n\nvoid ai_polypath::add_cell(const vector3d& a, const vector3d& b, const vector3d& c)\n{\n  assert(a != b && b != c && c != a);\n  ai_polypath_cell *cell = NEW ai_polypath_cell();\n  cell->init(a, b, c);\n\tcells.push_back(cell);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "add_cell__11ai_polypathRC8vector3dN21"
+}
