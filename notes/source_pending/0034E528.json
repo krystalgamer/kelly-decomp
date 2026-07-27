@@ -1,0 +1,23 @@
+{
+  "address": "0x0034E528",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f51dc4720b9b5b8144d80ebdebc3445839a59acd",
+      "candidate_size": 180,
+      "compared_bytes": 268,
+      "compared_instructions": 67,
+      "emitted_name": "append__7stringxRC7stringx",
+      "instruction_score": 5.9701,
+      "matching_bytes": 54,
+      "matching_instructions": 4,
+      "notes": "# First-pass notes\n\nUsed the exact released `stringx::append(const stringx &)` body from `KS/SRC/stringx.cpp:612-629` with only the minimal self-contained `stringx`/`string_buf` layouts, inline released helpers, external method declarations, and symbol bindings needed to compile it.\n\nThe single test compiled successfully but differed: 54/268 bytes and 4/67 instructions matched (byte score 20.1493; instruction score 5.9701). Per first-pass policy, no variants or diff chasing were attempted.",
+      "score": 20.1493,
+      "source": "typedef unsigned long long big_int;\nextern \"C\" void *memcpy(void *, const void *, unsigned int);\nextern \"C\" void *memset(void *, int, unsigned int);\n\nclass stringx;\nclass string_buf\n{\n    friend class stringx;\n    big_int *data;\n    int ref_count;\n    int char_length;\n    int block_length;\n    int max_blocks;\n    int blocks_needed(int chars)\n    {\n        chars++;\n        if (chars % sizeof(big_int) != 0)\n            return chars / sizeof(big_int) + 1;\n        return chars / sizeof(big_int);\n    }\npublic:\n    big_int *get_data() { return data; }\n    int get_ref() { return ref_count; }\n    void set_char_length(int len)\n    {\n        char_length = len;\n        block_length = blocks_needed(len);\n        memset((char *)data + len, 0, max_blocks * sizeof(big_int) - len);\n    }\n    void null_terminate() const;\n};\n\nclass stringx\n{\n    char *chars;\n    string_buf *my_buf;\n    static void add_buf_to_cache(string_buf *buf);\npublic:\n    void fork_data(int new_len = -1);\n    void make_room(int size);\n    void lock()\n    {\n        if (my_buf->get_ref() > 1)\n            fork_data();\n    }\n    void append(const stringx &cp);\n};\n\n__asm__(\".equ memcpy, 0x003D171C\");\n__asm__(\".equ memset, 0x003D18D0\");\n__asm__(\".equ null_terminate__C10string_buf, 0x0034D380\");\n__asm__(\".equ add_buf_to_cache__7stringxP10string_buf, 0x0034DEB8\");\n__asm__(\".equ fork_data__7stringxi, 0x0034DF70\");\n__asm__(\".equ make_room__7stringxi, 0x0034E220\");\n\nvoid stringx::append(const stringx &cp)\n{\n\tint len = cp.my_buf->char_length;\n\tlock();\n\tmake_room(my_buf->char_length + cp.my_buf->char_length);\n\tmemcpy(chars + my_buf->char_length, cp.my_buf->get_data(), len);\n\tbool cache_it = false;\n\tif (my_buf->char_length == 0)\n\t\tcache_it = true;\n\tmy_buf->set_char_length(my_buf->char_length + len);\n\tmy_buf->null_terminate();\n\t\tif (cache_it)\n\t\t\tadd_buf_to_cache(my_buf);\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "append__7stringxRC7stringx"
+}
