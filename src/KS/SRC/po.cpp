@@ -1,5 +1,26 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_003485C0)
+// 0x003485C0 set_rotate_x__2pof
+#include "KS/SRC/po_shared.h"
+
+void po::set_rotate_x(float radians)
+{
+    m = identity_matrix;
+    float sine;
+    float cosine;
+    fast_sin_cos_approx(
+        radians,
+        &sine,
+        &cosine);
+
+    m.y.y = cosine;
+    m.y.z = -sine;
+    m.z.y = sine;
+    m.z.z = cosine;
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00348440)
 // 0x00348440 set_translate__2poRC8vector3d
 #include "KS/SRC/po_shared.h"
