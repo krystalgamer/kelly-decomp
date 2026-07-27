@@ -1,0 +1,16 @@
+{
+  "address": "0x0032CDB8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "096a242ea08b7f5b1c55daa7a411db86b7094916",
+      "error": "Candidate did not emit __cl__37slf_text_block_widget_set_max_lines_tR8vm_stackQ320script_library_class8function7entry_t; emitted functions: []",
+      "notes": "Attempt 1 used exact released source cited at . Result `symbol_missing`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "typedef unsigned char uint8;\ntypedef float rational_t;\ntypedef float vm_num_t;\n\nclass stringx\n{\nprotected:\n  char *chars;\n  void *my_buf;\n\npublic:\n  stringx(const stringx &cp);\n  ~stringx();\n};\n\nclass color\n{\npublic:\n  rational_t r, g, b, a;\n};\n\nenum text_widget_justification\n{\n  JUSTIFY_LEFT = 0,\n  JUSTIFY_CENTER,\n  JUSTIFY_RIGHT\n};\n\nclass text_block_widget\n{\npublic:\n  class block_info_t\n  {\n  public:\n    block_info_t();\n    rational_t scale;\n    text_widget_justification just;\n    stringx typeface;\n    uint8 max_lines;\n    short line_spacing;\n    short max_width;\n    stringx break_substring;\n    stringx text;\n    color col;\n  };\n\n  void set_block_info(block_info_t *info_ptr);\n  const block_info_t &get_block_info() const;\n};\n\ntypedef text_block_widget* vm_text_block_widget_t;\n\nclass vm_stack\n{\npublic:\n  int salloc;\n  char* buffer;\n  char* SP;\n\nprivate:\n  void *my_thread;\n\nprotected:\n  void move_SP(int n)\n  {\n    SP += n;\n  }\n\npublic:\n  char* get_SP() const { return SP; }\n  void pop(int n) { move_SP(-n); }\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n\n  protected:\n    char* name;\n\n  public:\n    function(script_library_class* slc, const char* n);\n\n  protected:\n    virtual ~function();\n\n  public:\n    virtual bool operator()(vm_stack& stack, entry_t entry) { return true; }\n  };\n};\n\nclass slf_text_block_widget_set_max_lines_t : public script_library_class::function\n{\npublic:\n  slf_text_block_widget_set_max_lines_t(script_library_class* slc,const char* n) : script_library_class::function(slc,n) {}\n  struct parms_t\n  {\n    vm_text_block_widget_t me;\n    vm_num_t val;\n  };\n\n  virtual bool operator()(vm_stack& stack,entry_t entry)\n  {\n    stack.pop(sizeof(parms_t));\n    parms_t* parms = (parms_t*)stack.get_SP();\n\n    text_block_widget::block_info_t info = parms->me->get_block_info();\n    info.max_lines = (uint8)parms->val;\n\n    parms->me->set_block_info(&info);\n\n    return true;\n  }\n};\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__cl__37slf_text_block_widget_set_max_lines_tR8vm_stackQ320script_library_class8function7entry_t"
+}
