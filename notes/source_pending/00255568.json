@@ -1,0 +1,23 @@
+{
+  "address": "0x00255568",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "99dff18cf4b3b1895239f01dab6ec62cfebc33c4",
+      "candidate_size": 296,
+      "compared_bytes": 304,
+      "compared_instructions": 76,
+      "emitted_name": "wentUnderWater__9WaveSoundb",
+      "instruction_score": 2.6316,
+      "matching_bytes": 44,
+      "matching_instructions": 2,
+      "notes": "Attempt 1 used the exact released function body from kelly-slaters-pro-surfer/KS/SRC/ks/wavesound.cpp:1461-1492 with the released member declaration from kelly-slaters-pro-surfer/KS/SRC/ks/wavesound.h:17-136 and minimal standalone ABI declarations. Result `different`, score 14.4737; no variants or later attempts.",
+      "score": 14.4737,
+      "source": "typedef unsigned int nslSoundId;\ntypedef int SSEventId;\n\nclass entity;\n\nenum EventType\n{\n    SS_UNDERWATER_FRONT = 80,\n    SS_UNDERWATER_REAR = 95\n};\n\nclass SoundScriptManager\n{\npublic:\n    static SoundScriptManager *inst();\n    nslSoundId getSoundId(SSEventId e);\n    void endEvent(SSEventId e, float fadeOutTime = 0);\n    SSEventId startEvent(EventType etype, entity *e = 0, float fadeInTime = 0);\n};\n\nextern int nslGetSoundStatus(nslSoundId sound);\nextern void nslDampenGuardSound(nslSoundId sound);\nextern void nslSetSoundEmitter(unsigned int emitter, nslSoundId sound);\nextern void nslDampenAllSounds(float dampenLevel);\nextern void nslUndampenAllSounds();\n\nenum\n{\n    NSL_SOUNDSTATUS_INVALID = 0\n};\n\nclass WaveSound\n{\n    char padding0[0x138];\n    nslSoundId underwaterSnd1;\n    nslSoundId underwaterSnd2;\n    char padding1[0x2D0];\n    SSEventId underwaterEventFront;\n    SSEventId underwaterEventRear;\n    char padding2[0x78];\n    bool underwater;\n    char padding3[0x1B];\n\npublic:\n    unsigned int behindTheCamera;\n    void wentUnderWater(bool under);\n};\n\nvoid WaveSound::wentUnderWater( bool under )\n{\n//  int i=0;\n  underwater = under;\n  if ( under )\n  {\n    // The underwater rumble\n\t\tunderwaterEventFront = SoundScriptManager::inst()->startEvent(SS_UNDERWATER_FRONT, 0);\n\t\tunderwaterSnd1\t      = SoundScriptManager::inst()->getSoundId(underwaterEventFront);\n\n\t\tunderwaterEventFront = SoundScriptManager::inst()->startEvent(SS_UNDERWATER_REAR, 0);\n\t\tunderwaterSnd2\t      = SoundScriptManager::inst()->getSoundId(underwaterEventFront);\n\t\t\n\t\tif (nslGetSoundStatus( underwaterSnd1 ) != NSL_SOUNDSTATUS_INVALID)\n\t\t\tnslDampenGuardSound(underwaterSnd1);\n\n\t\tif (nslGetSoundStatus( underwaterSnd2 ) != NSL_SOUNDSTATUS_INVALID)\n\t\t{\n\t\t\tnslSetSoundEmitter(behindTheCamera, underwaterSnd2);\n\t\t\tnslDampenGuardSound(underwaterSnd2);\n\t\t}\n\n    nslDampenAllSounds(.2f);\n  }\n  else\n  {\n\t\tSoundScriptManager::inst()->endEvent(SS_UNDERWATER_FRONT);\n\t\tSoundScriptManager::inst()->endEvent(SS_UNDERWATER_REAR);\n    nslUndampenAllSounds();\n    //underWaterModifier  = 0.1f;\n  }\n}\n",
+      "status": "different",
+      "target_size": 304
+    }
+  ],
+  "raw_name": "wentUnderWater__9WaveSoundb"
+}
