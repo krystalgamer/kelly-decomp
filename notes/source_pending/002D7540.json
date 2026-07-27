@@ -1,0 +1,23 @@
+{
+  "address": "0x002D7540",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d26f55b832534d0a91341510d75a2fec4955d517",
+      "candidate_size": 224,
+      "compared_bytes": 292,
+      "compared_instructions": 73,
+      "emitted_name": "find_visual_rep__FRC7stringx",
+      "instruction_score": 39.726,
+      "matching_bytes": 115,
+      "matching_instructions": 29,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/visrep.cpp:199-220; kelly-slaters-pro-surfer/KS/SRC/visrep.h:23-31,46-115,132-143; kelly-slaters-pro-surfer/KS/SRC/instance.h:58-74; kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-275,454-474; notes/function_queue.csv: target 0x002D7540; tmp/functions/002D7540_find_visual_rep__FRC7stringx/attempt-1/result.json. Result `different`, score 39.3836; no later attempt.",
+      "score": 39.3836,
+      "source": "class stringx\n{\n  char* chars;\n  void* my_buf;\npublic:\n  stringx();\n  stringx(const stringx&);\n  stringx(const char*, int len = -1);\n  ~stringx();\n  const char* c_str() const { return chars; }\n  friend stringx operator+(const stringx&, const stringx&);\n};\n\nclass visual_rep {};\nclass vr_pmesh : public visual_rep {};\nclass vr_billboard : public visual_rep {};\n\nenum visrep_t\n{\n  VISREP_PMESH,\n  VISREP_BILLBOARD,\n  VISREP_DROPSHADOW,\n  VISREP_HIGHLIGHT = VISREP_DROPSHADOW,\n  VISREP_KRMESH\n};\n\ntemplate<class T> class instance_bank\n{\npublic:\n  T* new_instance(const stringx& filename, unsigned additional_flags);\n  T* find_instance_by_filename(const stringx& filename);\n};\n\nextern instance_bank<vr_pmesh> vr_pmesh_bank;\nextern instance_bank<vr_billboard> vr_billboard_bank;\nvisrep_t visual_rep_name_to_type(const stringx& visrep_name);\nvoid error(const char*);\n\nvisual_rep* find_visual_rep( const stringx& visrep_name )\n{\n  visrep_t flavor = visual_rep_name_to_type( visrep_name );\n  if ( flavor == VISREP_PMESH )\n  {\n    if ( vr_pmesh_bank.find_instance_by_filename( visrep_name ) )\n      return vr_pmesh_bank.new_instance( visrep_name, 0 );\n  }\n  else\n  {\n    // use me when you wanna come\n    if ( vr_billboard_bank.find_instance_by_filename( visrep_name ) )\n      return vr_billboard_bank.new_instance( visrep_name, 0 );\n  }\n  stringx composite = stringx(\"3D Animation hasn't been loaded: \") + visrep_name;\n  error( composite.c_str() );\n  return 0;\n}\n",
+      "status": "different",
+      "target_size": 292
+    }
+  ],
+  "raw_name": "find_visual_rep__FRC7stringx"
+}
