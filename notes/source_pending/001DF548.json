@@ -1,0 +1,23 @@
+{
+  "address": "0x001DF548",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2713ea62050cde68bd243cd50e87e57684898281",
+      "candidate_size": 168,
+      "compared_bytes": 276,
+      "compared_instructions": 69,
+      "emitted_name": "transpose__9matrix4x4",
+      "instruction_score": 0.0,
+      "matching_bytes": 30,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.cpp:635-648; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:520-590; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:686-710; notes/function_queue.csv: target row for 0x001DF548. Result `different`, score 10.8696; no later attempt.",
+      "score": 10.8696,
+      "source": "typedef float rational_t;\n\nclass vector4d\n{\npublic:\n  rational_t x, y, z, w;\n\n  inline const rational_t& operator[](int i) const\n  {\n    return (&x)[i];\n  }\n\n  inline rational_t& operator[](int i)\n  {\n    return (&x)[i];\n  }\n};\n\nclass matrix4x4\n{\npublic:\n  typedef vector4d row;\n\n  row x __attribute__((aligned(16)));\n  row y;\n  row z;\n  row w;\n\n  inline const row& operator[](int i) const\n  {\n    return (&x)[i];\n  }\n\n  inline row& operator[](int i)\n  {\n    return (&x)[i];\n  }\n\n  matrix4x4 transpose();\n};\n\nmatrix4x4 matrix4x4::transpose()\n{\n  static matrix4x4 loc;\n\n\tfor(int i = 0; i < 4; ++i)\n  {\n\t\tfor(int j = 0; j < 4; ++j)\n    {\n\t\t\tloc[i][j] = (*this)[j][i];\n\t\t}\n  }\n\n\treturn loc;\n}\n",
+      "status": "different",
+      "target_size": 276
+    }
+  ],
+  "raw_name": "transpose__9matrix4x4"
+}
