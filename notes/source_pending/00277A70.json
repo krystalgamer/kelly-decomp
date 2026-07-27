@@ -1,0 +1,23 @@
+{
+  "address": "0x00277A70",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2705f43073be30dc79f2c927aef6f8a03158acd5",
+      "candidate_size": 332,
+      "compared_bytes": 332,
+      "compared_instructions": 83,
+      "emitted_name": "get_str__C9game_infoRC7pstringR7stringx",
+      "instruction_score": 19.2771,
+      "matching_bytes": 109,
+      "matching_instructions": 16,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/game.cpp:163-174; kelly-slaters-pro-surfer/KS/SRC/game_info_vars.h:10-15; kelly-slaters-pro-surfer/KS/SRC/game.h:74-101; kelly-slaters-pro-surfer/KS/SRC/pstring.h:32,45-82,139-148; kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-277,304; tmp/functions/00277A70_get_str__C9game_infoRC7pstringR7stringx/attempt-1/result.json; tmp/source_first/00277A70/attempt-1.md. Result `different`, score 32.8313; no later attempt.",
+      "score": 32.8313,
+      "source": "typedef unsigned long long uint64;\n\nclass stringx\n{\n  char *chars;\n  void *my_buf;\npublic:\n  stringx &operator=(const stringx &cp);\n};\n\nclass pstring\n{\n  uint64 pchunk[4];\n  void pack_string(const char *the_string);\npublic:\n  pstring(const char *target_string)\n  {\n    pack_string(target_string);\n  }\n\n  bool operator == (const pstring &check_me) const\n  {\n    for (unsigned i=0; i<4; ++i)\n    {\n      if (pchunk[i] != check_me.pchunk[i])\n        return false;\n    }\n    return true;\n  }\n};\n\nclass game_info\n{\nprotected:\n  int difficulty;\n  stringx hero_name_0;\n  stringx hero_name_1;\npublic:\n  bool get_str(const pstring &att, stringx &val) const;\n};\n\nbool game_info::get_str(const pstring &att, stringx &val) const\n{\n#define MAC(type, var, def, str)  { static pstring pstring_get(##str##); if(att == pstring_get) { val = ##var##; return(true); } }\n#define GAME_INFO_STRS\nMAC(stringx, hero_name_0, 0, \"HERO_NAME_0\");\nMAC(stringx, hero_name_1, 0, \"HERO_NAME_1\");\n#undef GAME_INFO_STRS\n#undef MAC\n\n\treturn(false);\n}\n",
+      "status": "different",
+      "target_size": 324
+    }
+  ],
+  "raw_name": "get_str__C9game_infoRC7pstringR7stringx"
+}
