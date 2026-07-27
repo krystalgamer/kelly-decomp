@@ -1,0 +1,15 @@
+{
+  "address": "0x00264B68",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a3095fd70b4da740849f4cc1a988947554daff49",
+      "notes": "# Attempt 1\n\n- Queue was clean `pending` with zero attempts; no pre-existing address scratch was present.\n- Used the released `SOUNDDATA_Load` body verbatim from `sounddata.cpp:208-234`.\n- Added only the narrow released declarations required for `nglFileBuf`, file hooks, NSL source IDs, `EventType`, and `SoundScriptManager`.\n- Result: **compile_failed** \u2014 the isolated candidate omitted the authentic `NULL` macro declaration used by the released body. Score 0.0; no object was emitted. No second attempt was made.",
+      "score": 0.0,
+      "source": "typedef unsigned int nslSourceId;\n\n#define NSL_INVALID_ID 0\n#define assert(expression) ((void)0)\n\nextern \"C\" void *memcpy(void *, const void *, unsigned int);\nextern \"C\" char *strchr(const char *, int);\nextern \"C\" char *strtok(char *, const char *);\n\nstruct nglFileBuf\n{\n    unsigned char *Buf;\n    unsigned int Size;\n    unsigned int UserData;\n};\n\nbool KSReadFile(const char *, nglFileBuf *, unsigned int);\nvoid KSReleaseFile(nglFileBuf *);\nnslSourceId nslLoadSource(const char *);\n\nenum EventType\n{\n    SS_LAST = 105\n};\n\nclass SoundScriptManager\n{\n    static SoundScriptManager *instance;\n\npublic:\n    static inline SoundScriptManager *inst() { return instance; }\n    bool createMapping(EventType, nslSourceId);\n};\n\nvoid SOUNDDATA_Load(void)\n{\n    nglFileBuf F;\n    char *lineptr, *word, *s, *eol;\n    char line[2000];\n    KSReadFile(\"sounddata.dat\", &F, 1);\n    s = (char *) F.Buf;\n    lineptr = s;\n\n    for(int i = 0; i < SS_LAST; i++)\n    {\n         eol = strchr(lineptr, '\\n');\n         assert(lineptr < (char *)(F.Buf + F.Size));\n         assert (eol-lineptr < 1999);\n         memcpy(line, lineptr, eol-lineptr);\n         line[eol-lineptr-1] = '\\0';\n         word = strtok(line,\" ,\\t\\n\");\n         while (word)\n         {\n              nslSourceId s = nslLoadSource(word);\n              if (s != NSL_INVALID_ID) SoundScriptManager::inst()->createMapping((EventType)i, s);\n              word = strtok(NULL, \" ,\\t\\n\");\n         }\n         lineptr = eol + 1;\n    }\n    KSReleaseFile(&F);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "SOUNDDATA_Load__Fv"
+}
