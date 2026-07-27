@@ -1,0 +1,23 @@
+{
+  "address": "0x00390700",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "350977d766374259a6f2b9cec2416279e512a0ee",
+      "candidate_size": 268,
+      "compared_bytes": 284,
+      "compared_instructions": 71,
+      "emitted_name": "nslSetVolume__F18_nslSourceTypeEnumf",
+      "instruction_score": 2.8169,
+      "matching_bytes": 31,
+      "matching_instructions": 2,
+      "notes": "Attempt 1 used exact released source cited at . Result `different`, score 10.9155; no later attempt.",
+      "score": 10.9155,
+      "source": "typedef enum _nslSourceTypeEnum\n{\n  NSL_SOURCETYPE_SFX = 0,\n  NSL_SOURCETYPE_AMBIENT,\n  NSL_SOURCETYPE_MUSIC,\n  NSL_SOURCETYPE_VOICE,\n  NSL_SOURCETYPE_MOVIE,\n  NSL_SOURCETYPE_USER1,\n  NSL_SOURCETYPE_USER2,\n  NSL_SOURCETYPE_Z\n} nslSourceTypeEnum;\n\nstruct nslSystem\n{\n  char pad0[0x15850];\n  int initialized;\n  char pad1[0x38];\n  float sfxVolume;\n  float ambientVolume;\n  float musicVolume;\n  float voiceVolume;\n  float movieVolume;\n  float user1Volume;\n  float user2Volume;\n};\n\nextern nslSystem nsl;\nvoid _nslInitialized();\nvoid nslFatal(const char*, ...);\n\n__asm__(\".equ nsl, 0x004AB5F0\");\n__asm__(\".equ _nslInitialized__Fv, 0x003912A0\");\n__asm__(\".equ nslFatal__FPCce, 0x00391420\");\n\nvoid nslSetVolume( nslSourceTypeEnum typeOfSound, float newVolume )\n{\n  if (!nsl.initialized) return;\n  _nslInitialized();\n  switch(typeOfSound) \n  {\n    case NSL_SOURCETYPE_SFX:      nsl.sfxVolume = newVolume;     break;\n    case NSL_SOURCETYPE_MUSIC:    nsl.musicVolume = newVolume;   break;\n    case NSL_SOURCETYPE_AMBIENT:  nsl.ambientVolume = newVolume; break;\n    case NSL_SOURCETYPE_VOICE:    nsl.voiceVolume = newVolume;   break;\n    case NSL_SOURCETYPE_MOVIE:    nsl.movieVolume = newVolume;   break;\n    case NSL_SOURCETYPE_USER1:    nsl.user1Volume = newVolume;   break;\n    case NSL_SOURCETYPE_USER2:    nsl.user2Volume = newVolume;   break;\n\n    default: nslFatal(false && \"Unhandled sourcetype\"); break;\n  };\n}\n",
+      "status": "different",
+      "target_size": 284
+    }
+  ],
+  "raw_name": "nslSetVolume__F18_nslSourceTypeEnumf"
+}
