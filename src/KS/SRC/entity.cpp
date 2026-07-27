@@ -1963,3 +1963,52 @@ collision_geometry* entity::get_updated_colgeom(po * replacement_po, rational_t 
   return get_colgeom();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00139598)
+// 0x00139598 get_ifc_num__6entityRC7pstringRf
+typedef float rational_t;
+
+class pstring;
+
+class generic_interface
+{
+public:
+  virtual ~generic_interface() {}
+  virtual bool get_ifc_num(const pstring &att, rational_t &val)
+  {
+    return false;
+  }
+};
+
+class entity
+{
+  char prefix[0xac];
+  generic_interface *my_ai_interface;
+  char gap_b0[4];
+  generic_interface *my_hard_attrib_interface;
+  char gap_b8[4];
+  generic_interface *my_physical_interface;
+  char gap_c0[12];
+  generic_interface *my_soft_attrib_interface;
+  generic_interface *my_time_interface;
+
+public:
+  bool get_ifc_num(const pstring &att, rational_t &val);
+};
+
+bool entity::get_ifc_num(const pstring &att, rational_t &val)
+{
+  if (my_ai_interface && my_ai_interface->get_ifc_num(att, val))
+    return true;
+  if (my_physical_interface && my_physical_interface->get_ifc_num(att, val))
+    return true;
+  if (my_soft_attrib_interface && my_soft_attrib_interface->get_ifc_num(att, val))
+    return true;
+  if (my_hard_attrib_interface && my_hard_attrib_interface->get_ifc_num(att, val))
+    return true;
+  if (my_time_interface && my_time_interface->get_ifc_num(att, val))
+    return true;
+
+  return false;
+}
+#endif
