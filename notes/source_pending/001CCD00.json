@@ -1,0 +1,23 @@
+{
+  "address": "0x001CCD00",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4c8e3c80515ea22251e3e898c3ce5933944dda55",
+      "candidate_size": 160,
+      "compared_bytes": 264,
+      "compared_instructions": 66,
+      "emitted_name": "_$_13NameEntryMenu",
+      "instruction_score": 1.5152,
+      "matching_bytes": 23,
+      "matching_instructions": 1,
+      "notes": "Exact released-source attempt from kelly-slaters-pro-surfer/KS/SRC/ks/HighScoreFrontEnd.cpp:529-534; kelly-slaters-pro-surfer/KS/SRC/ks/HighScoreFrontEnd.h:72-101; tmp/functions/001CCD00__$_13NameEntryMenu/target.s:1-69. Result `different`, score 8.7121; no variant or later attempt was made.",
+      "score": 8.7121,
+      "source": "// Exact released-source first-pass candidate for 0x001CCD00.\nstruct TextString\n{\n    char storage[76];\n    virtual ~TextString();\n};\n\nclass FEMultiMenu\n{\n    char storage[736];\npublic:\n    virtual ~FEMultiMenu();\n};\n\nclass NameEntryMenu : public FEMultiMenu\n{\n    TextString* high_score;\n    TextString* enter_name;\n    TextString* name;\npublic:\n    virtual ~NameEntryMenu();\n};\n\nNameEntryMenu::~NameEntryMenu()\n{\n    delete high_score;\n    delete enter_name;\n    delete name;\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "_$_13NameEntryMenu"
+}
