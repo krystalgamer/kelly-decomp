@@ -1,0 +1,23 @@
+{
+  "address": "0x00259F28",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5022f2d98bc067fdffb167c603a74a2b40ad9dc9",
+      "candidate_size": 336,
+      "compared_bytes": 336,
+      "compared_instructions": 84,
+      "emitted_name": "AdvanceRun__13JudgingSystem",
+      "instruction_score": 5.9524,
+      "matching_bytes": 49,
+      "matching_instructions": 5,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/judge.cpp:184-225; kelly-slaters-pro-surfer/KS/SRC/ks/judge.h:14-55; kelly-slaters-pro-surfer/KS/SRC/ks/career.h:36-68,106-154,187-207; kelly-slaters-pro-surfer/KS/SRC/ks/careerdata.h:8-10,48-56,107-126; kelly-slaters-pro-surfer/KS/SRC/game.h:545-550; kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-287; notes/function_queue.csv:5962; tmp/functions/00259F28_AdvanceRun__13JudgingSystem/attempt-1/result.json; tmp/source_first/00259F28/notes.md. Result `different`, score 14.5833; no later attempt.",
+      "score": 14.5833,
+      "source": "enum {\n    SURFER_LAST = 18,\n    LEVEL_LAST = 32,\n    GOAL_COMPETITION_1 = 3,\n    GOAL_COMPETITION_2 = 4,\n    GOAL_COMPETITION_3 = 5\n};\n\nclass stringx {\n    char *chars;\n    void *my_buf;\npublic:\n    stringx();\n    ~stringx();\n};\n\nstruct CareerData {\n    int beach;\n    int goal_param[5];\n    int reward_param[5];\n    char beach_file[32];\n    char name[32];\n    int goal[5];\n    int goal_param_2[5];\n    int reward[5];\n    int prev_levels[4];\n    int next_levels[2];\n    float level_duration;\n    char stash_name[15];\n    int use_ai_surfer;\n    char challenge_name[32];\n};\n\nextern CareerData CareerDataArray[];\n\nclass game {\npublic:\n    int get_level_id();\n    int GetSurferIdx(int player);\n};\n\nextern game *g_game_ptr;\n\nclass Career {\npublic:\n    class Level {\n        int my_id;\n        bool is_new;\n        bool advanced;\n        bool unlocked;\n        bool goals[5];\n    public:\n        void SetGoalDone(const int goalIdx);\n        bool IsGoalDone(const int goalIdx) const;\n    };\nprivate:\n    char prefix[0x1019c];\npublic:\n    Level levels[LEVEL_LAST];\n    void OnGoalReDone(const int levelIdx, const int goalIdx);\n    void OnGoalDone(const int levelIdx, const int goalIdx);\n    static bool GetGoalText(int level_num, int goal_num, stringx &goal_text);\n};\n\nextern Career *g_career;\n\nclass JudgingSystem {\npublic:\n    struct RUN {\n        float regionScores[3];\n    };\n    struct RESULT {\n        RUN runs[3];\n        int rank;\n    };\nprotected:\n    float skills[SURFER_LAST];\n    bool isCompetitor[SURFER_LAST];\n    float difficulties[3];\n    RESULT results[SURFER_LAST];\n    int currRunIdx;\n    bool over;\n    int numPlayerWipeouts;\n    void AdvanceRun(void);\n};\n\nvoid JudgingSystem::AdvanceRun(void)\n{\n\tint\tlevelIdx = g_game_ptr->get_level_id();\n\tint\trequiredRank;\n\n\tnumPlayerWipeouts = 0;\n\tcurrRunIdx++;\n\n\tif (currRunIdx == 3)\n\t{\n\t\tcurrRunIdx = 0;\n\t\tover = true;\n\n\t\tif (CareerDataArray[levelIdx].goal[0] == GOAL_COMPETITION_3)\n\t\t\trequiredRank = 3;\n\t\telse if (CareerDataArray[levelIdx].goal[0] == GOAL_COMPETITION_2)\n\t\t\trequiredRank = 2;\n\t\telse\n\t\t\trequiredRank = 1;\n\n\t\tif (results[g_game_ptr->GetSurferIdx(0)].rank <= requiredRank)\n\t\t{\n\t\t\tif (!g_career->levels[levelIdx].IsGoalDone(0))\n\t\t\t{\n\t\t\t\tstringx completion_message;\n\t\t\t\tg_career->GetGoalText(levelIdx, 0, completion_message);\n\t\t\t\tg_career->levels[levelIdx].SetGoalDone(0);\n\t\t\t\tg_career->OnGoalDone(levelIdx, 0);\n\t\t\t}\n\t\t\telse\n\t\t\t\tg_career->OnGoalReDone(levelIdx, 0);\n\t\t}\n\t}\n}\n",
+      "status": "different",
+      "target_size": 316
+    }
+  ],
+  "raw_name": "AdvanceRun__13JudgingSystem"
+}
