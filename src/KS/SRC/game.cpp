@@ -220,6 +220,32 @@ void SetMovie(void *self, stringx *name)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_0027D9C0)
+// 0x0027D9C0 enable_marky_cam__4gamebT1f
+#include "KS/SRC/game_marky_cam_shared.h"
+
+void game::enable_marky_cam(
+    bool enable,
+    bool sync_camera,
+    float priority)
+{
+    FEDone();
+    if (!FEDone() ||
+        (enable &&
+         priority >= the_world->get_marky_cam_ptr()->get_priority()) ||
+        (!enable &&
+         priority == the_world->get_marky_cam_ptr()->get_priority()))
+    {
+        if (sync_camera)
+            the_world->get_marky_cam_ptr()->sync(*current_view_camera);
+        the_world->enable_marky_cam(enable, priority);
+        the_world
+            ->get_marky_cam_ptr()
+            ->camera_set_collide_with_world(false);
+    }
+}
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_002778F0)
 // 0x002778F0 __9game_info
 class stringx { char storage[8]; public: stringx(); };
