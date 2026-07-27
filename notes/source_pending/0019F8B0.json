@@ -1,0 +1,15 @@
+{
+  "address": "0x0019F8B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2a9d19363a4cc30eb89714a30b5e741e734ac1fa",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/SaveLoadFrontEnd.cpp:1810-1842; kelly-slaters-pro-surfer/KS/SRC/ks/SaveLoadFrontEnd.h:195-260; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:405-442; tmp/functions/0019F8B0_OnRight__9NamesMenui/attempt-1/compiler.stderr:1-4; tmp/functions/0019F8B0_OnRight__9NamesMenui/attempt-1/result.json; tmp/source_first/0019F8B0/notes.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEMenu_shared.h\"\n#include \"KS/SRC/ks/igo_widget_shared.h\"\n\nstruct MemCard {\n    int free;\n    bool exists;\n    bool changed;\n    bool available;\n    bool ask_format;\n    bool saved_games;\n    int status;\n};\n\nclass FEManager {\n    char padding[0x15678];\npublic:\n    bool fe_done;\n};\n\nclass SoundScriptManager {\npublic:\n    enum EventType { SS_FE_LEFTRIGHT = 26 };\n    static SoundScriptManager *inst();\n    void pause();\n    void unpause();\n    void playEvent(EventType type, void *entity = 0, float value = 0.0f);\n};\n\nclass NamesMenu : public FEMultiMenu {\n    static const int arrow_timer = 3;\n    char padding0[0x178 - sizeof(FEMultiMenu)];\n    int arrow_num;\n    int arrow_counter;\n    char padding1[0x1bc - 0x180];\n    MemCard cards[2];\n    char padding2[0x200 - 0x1f4];\n    int adjusted_active_card;\n    char padding3[0x20c - 0x204];\n    PanelQuad *arrows[2][2];\npublic:\n    void OnRight(int c);\nprivate:\n    void OnCardSwitch();\n    void MakeSpaceFreeMessage(int free);\n};\n\nextern FEManager frontendmanager;\nextern SoundScriptManager *sound_script_manager;\n\n__asm__(\".equ frontendmanager, 0x003F7728\");\n__asm__(\".equ sound_script_manager, 0x0045B4A0\");\n__asm__(\".equ OnCardSwitch__9NamesMenu, 0x0019F9D8\");\n__asm__(\".equ MakeSpaceFreeMessage__9NamesMenui, 0x0019E790\");\n__asm__(\".equ unpause__18SoundScriptManager, 0x0031BFA8\");\n__asm__(\".equ pause__18SoundScriptManager, 0x0031BF98\");\n__asm__(\".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380\");\n\nSoundScriptManager *SoundScriptManager::inst()\n{\n    return sound_script_manager;\n}\n\nvoid NamesMenu::OnRight(int c)\n{\n\tFEMenuEntry* initial = highlighted;\n\tFEMenuEntry* before = highlighted;\n\tFEMultiMenu::OnRight(c);\n\tif(before != highlighted)\n\t{\n\t\tOnCardSwitch();\n\t}\n\tif(initial != highlighted)\n\t{\n\t\tif (frontendmanager.fe_done)\n\t\t\tSoundScriptManager::inst()->unpause();\n\t\tSoundScriptManager::inst()->playEvent(SS_FE_LEFTRIGHT);\n\t\tif (frontendmanager.fe_done)\n\t\t\tSoundScriptManager::inst()->pause();\n\t\tarrows[1][1]->TurnOn(true);\n\t\tarrows[1][0]->TurnOn(false);\n\t\tarrow_num = 1;\n\t\tarrow_counter = arrow_timer;\n\t\tcards[adjusted_active_card].changed = true;\n\t\tMakeSpaceFreeMessage(cards[adjusted_active_card].free);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "OnRight__9NamesMenui"
+}
