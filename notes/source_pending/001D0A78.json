@@ -1,0 +1,15 @@
+{
+  "address": "0x001D0A78",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "077891271e43e273ba313ff657829803112b5fcb",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/TutorialFrontEnd.cpp:48-63; kelly-slaters-pro-surfer/KS/SRC/ks/TutorialFrontEnd.h; kelly-slaters-pro-surfer/KS/SRC/global.h. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"kelly-slaters-pro-surfer/KS/SRC/ks/TutorialFrontEnd.h\"\n\nvoid TutorialFrontEnd::Update(time_value_t time_inc)\n{\n\tFEMultiMenu::Update(time_inc);\n\n\tfrontendmanager.IGO->GetTutorialManager()->Update(0.0f);\n\thelp_text->changeText(frontendmanager.IGO->GetTutorialManager()->help_text);\n\thelp_text->makeBox(390,400);\n\t\n\tif (frontendmanager.IGO->GetTutorialManager()->WaveIndicatorType())\n\t\twaveIndicator->Update(time_inc);\n\n\t// Update current menu.\n\tif (active)\n\t\tactive->Update(time_inc);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Update__16TutorialFrontEndf"
+}
