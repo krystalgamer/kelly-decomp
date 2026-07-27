@@ -16,6 +16,11 @@ public:
         const int *state_flow,
         int state_count);
     ~game_process();
+
+    void reset_index();
+    inline void set_timer(float value) {
+        timer = value;
+    }
 };
 
 #endif

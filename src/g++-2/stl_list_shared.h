@@ -2,6 +2,7 @@
 #define KELLY_DECOMP_STL_LIST_SHARED_H
 
 #include "KS/SRC/archalloc_shared.h"
+#include "g++-2/my_allocator_shared.h"
 
 template<class T>
 struct _List_node {
@@ -33,10 +34,6 @@ inline void construct(T1 *pointer, const T2 &value)
 {
     new((void *)pointer) T1(value);
 }
-
-template<class T>
-struct my_allocator {
-};
 
 struct _List_iterator_base {
     void *_M_node;
@@ -144,6 +141,17 @@ public:
     iterator end()
     {
         return iterator(_M_node);
+    }
+
+    T &front()
+    {
+        return *begin();
+    }
+
+    void push_front(const T &value)
+    {
+        __my_default_alloc_template *pool = &allocator_pool;
+        _M_insert(begin(), value, pool);
     }
 
     void insert(

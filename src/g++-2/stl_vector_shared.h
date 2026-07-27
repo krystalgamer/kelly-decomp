@@ -1,15 +1,13 @@
 #ifndef KELLY_DECOMP_STL_VECTOR_SHARED_H
 #define KELLY_DECOMP_STL_VECTOR_SHARED_H
 
+#include "g++-2/my_allocator_shared.h"
+
 extern "C" void *memmove(
     void *destination,
     const void *source,
     unsigned int size
 );
-
-template<class T>
-struct my_allocator {
-};
 
 template<class T>
 inline T *__copy_trivial(const T *first, const T *last, T *result)

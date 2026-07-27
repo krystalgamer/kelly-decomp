@@ -12,6 +12,20 @@ void game::advance_state_paused(float time_inc)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_00286990)
+// 0x00286990 push_process__4gameR12game_process
+#include "KS/SRC/game_shared.h"
+
+__asm__(".equ reset_index__12game_process, 0x00286988");
+
+void game::push_process(game_process &process)
+{
+    process_stack.push_front(process);
+    process_stack.front().reset_index();
+    process_stack.front().set_timer(0.0f);
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00286978)
 // 0x00286978 go_next_state__12game_process

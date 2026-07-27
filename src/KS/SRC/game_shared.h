@@ -2,8 +2,10 @@
 #define KELLY_DECOMP_GAME_SHARED_H
 
 #include "KS/SRC/commands_shared.h"
+#include "KS/SRC/game_process_shared.h"
 #include "KS/SRC/inputmgr_shared.h"
 #include "KS/SRC/stringx.h"
+#include "g++-2/stl_list_shared.h"
 
 struct BeachData {
     char name[32];
@@ -45,7 +47,9 @@ struct game_recti {
 };
 
 class game {
-    char data_before_snapshot_state[0x68];
+    char data_before_process_stack[0x5c];
+    list<game_process> process_stack;
+    char data_after_process_stack[0x08];
     int snapshotState;
     nglTexture *destSnapshot;
     int renderState;
@@ -85,6 +89,7 @@ public:
     inline camera *get_player_camera(int player) {
         return player_cam[player];
     }
+    void push_process(game_process &process);
 };
 
 extern game *g_game_ptr;
