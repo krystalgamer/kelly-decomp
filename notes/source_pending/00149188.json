@@ -1,0 +1,16 @@
+{
+  "address": "0x00149188",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f8819e015daedfe6cebfc5378f4424f4597f7a1d",
+      "error": "Candidate did not emit __9FlashTextP4FontG7stringxffifQ24Font9HORIZJUSTQ24Font8VERTJUSTG7color32b; emitted functions: ['__9FlashTextP4FontG7stringxffifQ24Font9HORIZJUSTQ24Font8VERTJUSTUib']",
+      "notes": "Attempt 1 used exact released source cited at config/SLUS_203.34.symbol_addrs.txt:967; notes/function_queue.csv:6032; tmp/functions/00149188___9FlashTextP4FontG7stringxffifQ24Font9HORIZJUSTQ24Font8VERTJUSTG7color32b/attempt-1/result.json; tmp/source_first/00149188/attempt-1.md. Result `symbol_missing`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "struct stringx\n{\n    char *chars;\n    void *my_buf;\n    stringx(const stringx &);\n    ~stringx();\n};\n\ntypedef unsigned int color32;\n\nclass Font\n{\npublic:\n    enum HORIZJUST\n    {\n        HORIZJUST_LEFT,\n        HORIZJUST_CENTER,\n        HORIZJUST_RIGHT\n    };\n\n    enum VERTJUST\n    {\n        VERTJUST_TOP,\n        VERTJUST_CENTER,\n        VERTJUST_BOTTOM\n    };\n};\n\nclass TextString\n{\npublic:\n    TextString(Font *f, stringx t, float x, float y, int z, float scale,\n               Font::HORIZJUST hj, Font::VERTJUST vj, color32 col)\n    {\n        cons(f, t, x, y, z, scale, hj, vj, false, col);\n    }\n\n    virtual ~TextString();\n    virtual void Update(float);\n    virtual void Draw();\n\nprotected:\n    virtual void cons(Font *, stringx, float, float, int, float,\n                      Font::HORIZJUST, Font::VERTJUST, bool, color32);\n};\n\nclass FlashText : public TextString\n{\npublic:\n    bool flash;\n    color32 color1;\n    color32 color2;\n    float flash_time;\n    float flash_alpha;\n\n    FlashText(Font *, stringx, float, float, int, float,\n              Font::HORIZJUST, Font::VERTJUST, color32, bool);\n    virtual ~FlashText();\n    virtual void Update(float);\n    virtual void Draw();\n};\n\nFlashText::FlashText(Font *f, stringx t, float x, float y, int z, float scale,\n                     Font::HORIZJUST hj, Font::VERTJUST vj, color32 col, bool fl)\n    : TextString(f, t, x, y, z, scale, hj, vj, col)\n{\n    flash = fl;\n    color1 = col;\n    color2 = col;\n    flash_time = 0.0f;\n    flash_alpha = 0.0f;\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__9FlashTextP4FontG7stringxffifQ24Font9HORIZJUSTQ24Font8VERTJUSTG7color32b"
+}
