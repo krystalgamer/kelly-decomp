@@ -153,3 +153,27 @@ struct block{block*prev,*next,*prevoftype,*nextoftype;};struct Heap;extern "C" v
 // 0x002AB770 IsThisYours__C4HeapPv
 struct MemBlockInfo;struct Heap{char pad[24];unsigned heapsize;void*heapstart;};extern "C" bool contain(const Heap*,void*)__asm__("DoYouContain__C4HeapPv");extern "C" bool mine(const Heap*,const MemBlockInfo*)__asm__("IsThisMine__C4HeapPC12MemBlockInfo");extern "C" unsigned header(const Heap*)__asm__("HeaderSize__C4Heap");__asm__(".equ DoYouContain__C4HeapPv,0x002AB6F0");__asm__(".equ IsThisMine__C4HeapPC12MemBlockInfo,0x002AB748");__asm__(".equ HeaderSize__C4Heap,0x002AB370");inline bool has_memory(const Heap*self){return self->heapsize>0&&self->heapstart!=0;}extern "C" bool is_yours(const Heap*self,void*ptr)__asm__("IsThisYours__C4HeapPv");bool is_yours(const Heap*self,void*ptr){return has_memory(self)&&contain(self,ptr)&&mine(self,(const MemBlockInfo*)((char*)ptr-header(self)));}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002AB530)
+// 0x002AB530 Allocate__4HeapUiUiUiPCci
+#include "KS/SRC/heap_shared.h"
+
+Pointer Heap::Allocate(MemSize size, MemSize align, MemFlags flags, const char* name, int line) {
+    statsuptodate = false;
+    size = RoundUp(size, minalloc);
+    align = RoundUp(align, minalign);
+    MemBlockInfo* splitme = FindFree(size, align, flags);
+    if (splitme) {
+        Pointer rv = AllocateBlock(splitme, size, align, flags, name, line);
+        if (rv) {
+            MemBlockInfo* mbi = PtrToBlock(rv);
+            mbi->flags.magic = 0x7E07;
+            mbi->flags.heapid = GetHeapID();
+        }
+        return rv;
+    } else {
+        Warning(allocation_warning, size);
+        return 0;
+    }
+}
+#endif
