@@ -1,0 +1,15 @@
+{
+  "address": "0x001A8488",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "46d68e8d1e3c4b5f8e442425b1ad7abd84cdafa4",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:743-761; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h:201-229; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h:585-652; tmp/functions/001A8488_Select__16HeatMidMenuClassi/attempt-1/compiler.stderr:1; tmp/functions/001A8488_Select__16HeatMidMenuClassi/attempt-1/result.json; tmp/source_first/001A8488/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "typedef unsigned int nslSoundId;\ntypedef int SSEventId;\nclass entity;\nenum EventType { SS_FE_ONX = 24 };\n\nclass SoundScriptManager\n{\npublic:\n    static SoundScriptManager *instance;\n    static inline SoundScriptManager *inst() { return instance; }\n    void unpause();\n    void pause();\n    SSEventId playEvent(EventType type, entity *e = 0, float fadeInTime = 0);\n};\n\nclass PauseMenuSystem\n{\npublic:\n    enum { OptionsMenu = 7, GoalsMenu = 8, TrickTypeMenu = 12, TipMenu = 21 };\n    char padding[0x88];\n    struct VTable {\n        char padding[0x88];\n        short adjustment;\n        short reserved;\n        void (*MakeActive)(void *, int, int);\n    } *vtable;\n    SSEventId navigationEvent;\n\n    inline void MakeActive(int menu, int submenu = 1)\n    {\n        VTable *v = vtable;\n        v->MakeActive((char *)this + v->adjustment, menu, submenu);\n    }\n    void RestartComp();\n    void EndRun();\n    void EndComp();\n};\n\nclass HeatMidMenuClass\n{\n    char padding[0x78];\npublic:\n    enum { Continue, Restart, Goals, Tip, Options, TrickBook, EndRun, EndComp };\n    PauseMenuSystem *sys;\n    void Select(int entry_index);\n};\n\n__asm__(\".equ _18SoundScriptManager$instance, 0x0046B4A0\");\n__asm__(\".equ unpause__18SoundScriptManager, 0x0031BFA8\");\n__asm__(\".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380\");\n__asm__(\".equ pause__18SoundScriptManager, 0x0031BF98\");\n__asm__(\".equ RestartComp__15PauseMenuSystem, 0x001B4A58\");\n__asm__(\".equ EndRun__15PauseMenuSystem, 0x001B4A00\");\n__asm__(\".equ EndComp__15PauseMenuSystem, 0x001B4AA0\");\n\nvoid HeatMidMenuClass::Select(int entry_index)\n{\n\tSoundScriptManager::inst()->unpause();\n\tsys->navigationEvent=  SoundScriptManager::inst()->playEvent(SS_FE_ONX);\n\tSoundScriptManager::inst()->pause();\n\t\n\tswitch(entry_index)\n\t{\n\tcase Continue:\tbreak;\n\tcase Restart:\tsys->RestartComp(); break;\n\tcase Goals:     sys->MakeActive(PauseMenuSystem::GoalsMenu); break;\n\tcase Tip :\t\tsys->MakeActive(PauseMenuSystem::TipMenu); break;\n\tcase TrickBook:\tsys->MakeActive(PauseMenuSystem::TrickTypeMenu); break;\n\tcase Options:   sys->MakeActive(PauseMenuSystem::OptionsMenu);  break;\n\tcase EndRun:\tsys->EndRun(); break;\n\tcase EndComp:   sys->EndComp(); break;\n\tdefault: __builtin_trap();\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Select__16HeatMidMenuClassi"
+}
