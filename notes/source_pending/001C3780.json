@@ -1,0 +1,23 @@
+{
+  "address": "0x001C3780",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d0acd0158a10235fb4c4f2a01ec1fa12778c45a3",
+      "candidate_size": 252,
+      "compared_bytes": 252,
+      "compared_instructions": 63,
+      "emitted_name": "ToBeachSelect__15FEEntityManager",
+      "instruction_score": 87.3016,
+      "matching_bytes": 237,
+      "matching_instructions": 55,
+      "notes": "# Attempt 1\n\n- Queue was clean `pending` with zero attempts; no pre-existing address or function scratch existed.\n- Used the released `FEEntityManager::ToBeachSelect` body verbatim with authentic FE manager, graphical menu, beach menu, and game surfer-index declarations/layouts.\n- Result: **different** \u2014 byte score 94.0476%, instruction score 87.3016%; candidate and target were both 252 bytes. Exactly one candidate was tested; no second attempt or diff chasing was performed.",
+      "score": 94.0476,
+      "source": "#include \"KS/SRC/ks/GraphicalMenuSystem_shared.h\"\n\nclass entity;\n\nclass BeachFrontEnd {\npublic:\n    void SkipSlide(bool in);\n};\n\nclass FEManager {\npublic:\n    void *IGO;\n    void *pms;\n    GraphicalMenuSystem *gms;\n};\n\nclass game {\n    char padding[0x258];\n    int surferIdx[2];\n\npublic:\n    int GetSurferIdx(int hero_num) const { return surferIdx[hero_num]; }\n};\n\nextern game *g_game_ptr;\n\nclass FEEntityManager {\npublic:\n    enum {\n        STATE_MAIN,\n        STATE_SURFER1,\n        STATE_SURFER2,\n        STATE_TRICK,\n        STATE_BEACH,\n        STATE_BOARD,\n        STATE_OTHER_SET,\n        STATE_OTHER\n    };\n    enum {\n        CAM_POS_WALL_1,\n        CAM_POS_WALL_2_IN,\n        CAM_POS_WALL_2_OUT,\n        CAM_POS_WALL_3_MAP,\n        CAM_POS_WALL_3_CLOSET,\n        CAM_POS_WALL_4,\n        CAM_POS_END\n    };\n\n    entity *surfer_ent;\n    bool mm_anims_loaded;\n    bool all_loaded;\n    float camera_roll_time;\n    int camera_roll_stop;\n    int surfer_anim_count;\n    int current_surfer_index;\n    int previous_surfer_index[2];\n    int loading_surfer_index;\n    int loading_surfer_ent;\n    int surfer_index_2;\n    int current_board_index;\n    FEManager *manager;\n    char fields_to_cur_state[0x240 - 0x38];\n    int cur_state;\n    int last_state;\n    bool op_ext;\n\n    bool UpdateSurferIndex(int csi, bool force_load = false);\n    void ToBeachSelect();\n    void SetSurferPo(entity *surfer, int surfer_num);\n    void CameraAnim(int anim_pos, float start_time = -2.0f);\n    void moveClosetDoor(bool door_left, bool open);\n};\n\n__asm__(\".equ g_game_ptr, 0x0045AC64\");\n__asm__(\".equ SkipSlide__13BeachFrontEndb, 0x0018EE50\");\n__asm__(\".equ UpdateSurferIndex__15FEEntityManagerib, 0x001C2450\");\n__asm__(\".equ CameraAnim__15FEEntityManagerif, 0x001C4E28\");\n__asm__(\".equ moveClosetDoor__15FEEntityManagerbT1, 0x001C50E0\");\n__asm__(\".equ SetSurferPo__15FEEntityManagerP6entityi, 0x001C9298\");\n\nvoid FEEntityManager::ToBeachSelect()\n{\n    if(!all_loaded) manager->gms->LoadAll();\n    ((BeachFrontEnd *)manager->gms->menus[GraphicalMenuSystem::BeachMenu])->SkipSlide(true);\n\n    if (!surfer_ent)\n    {\n        if ((manager->gms->multiplayer && manager->gms->multi_1) || !manager->gms->multiplayer)\n            UpdateSurferIndex(g_game_ptr->GetSurferIdx(0));\n        else\n            UpdateSurferIndex(g_game_ptr->GetSurferIdx(1));\n    }\n\n    SetSurferPo(surfer_ent, loading_surfer_index);\n\n    CameraAnim(CAM_POS_WALL_3_MAP);\n    moveClosetDoor(true, false);\n    op_ext = false;\n    cur_state = STATE_BEACH;\n}\n",
+      "status": "different",
+      "target_size": 252
+    }
+  ],
+  "raw_name": "ToBeachSelect__15FEEntityManager"
+}
