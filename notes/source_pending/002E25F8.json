@@ -1,0 +1,23 @@
+{
+  "address": "0x002E25F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f58e2fc36c93d190d80381e98391ecefb0af6520",
+      "candidate_size": 412,
+      "compared_bytes": 412,
+      "compared_instructions": 104,
+      "emitted_name": "frame_advance__8launcherf",
+      "instruction_score": 1.9231,
+      "matching_bytes": 79,
+      "matching_instructions": 2,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/generator.cpp:74-99; kelly-slaters-pro-surfer/KS/SRC/generator.h:12-79; kelly-slaters-pro-surfer/KS/SRC/mobject.h:4-27; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:295-368; kelly-slaters-pro-surfer/KS/SRC/entity.h:414-464,944; kelly-slaters-pro-surfer/KS/SRC/physical_interface.h:14-42,123,191-201; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_devopts.h:15-45,97,121-124; notes/function_queue.csv:5903. Result `different`, score 19.1748; no later attempt.",
+      "score": 19.1748,
+      "source": "typedef float rational_t;\ntypedef rational_t time_value_t;\n\nextern \"C\" float sqrtf(float);\n#define __fsqrt(f) sqrtf(f)\n\nclass vector3d\n{\npublic:\n  rational_t x, y, z;\n  vector3d operator*(rational_t b) const\n  {\n    vector3d r = { x*b, y*b, z*b };\n    return r;\n  }\n};\n\nclass physical_interface\n{\npublic:\n  enum force_type\n  {\n    CONTINUOUS=0,\n    INSTANT=1\n  };\n  rational_t get_mass() const;\n  virtual void apply_force_increment(const vector3d& f, force_type ft, const vector3d& loc, int mods=0);\n  void apply_force_increment(const vector3d& f, force_type ft)\n  {\n    apply_force_increment(f, ft, *(const vector3d*)0, 0);\n  }\n};\n\nclass entity\n{\npublic:\n  virtual void get_velocity(vector3d* target) const;\n  bool has_physical_ifc() const;\n  physical_interface* physical_ifc() const;\n};\n\nclass os_developer_options\n{\npublic:\n  static os_developer_options* inst();\n  bool get_gravity_enabled() const;\n};\n\nclass character_hard_attributes;\n\nclass motion_object\n{\npublic:\n  virtual ~motion_object();\n  virtual bool is_active() const;\n  virtual void set_active(bool yorn);\nprotected:\n  bool active;\n  bool locked;\n};\n\nclass force_generator : public motion_object\n{\npublic:\n  virtual void frame_advance(time_value_t time_inc)=0;\n};\n\nclass linear_force_generator : public force_generator\n{\nprotected:\n  vector3d dir;\n  entity* ent;\n};\n\nclass launcher : public linear_force_generator\n{\npublic:\n  virtual void frame_advance(time_value_t time_inc);\nprotected:\n  bool doit;\n  character_hard_attributes* att;\n  rational_t (*att_get_launch_height)(character_hard_attributes*);\n};\n\nextern rational_t g_gravity;\n\nvoid launcher::frame_advance(time_value_t time_inc)\n  {\n  if (doit)\n    {\n    vector3d vel;\n    rational_t impulse_accel = __fsqrt((*att_get_launch_height)(att)*g_gravity*2);\n    if (os_developer_options::inst()->get_gravity_enabled())\n      {\n      ent->get_velocity(&vel);\n      if (vel.y>0)\n        impulse_accel -= vel.y;\n      if (impulse_accel<0) impulse_accel = 0;\n      }\n\n      if(ent->has_physical_ifc())\n      {\n        rational_t impulse = impulse_accel*ent->physical_ifc()->get_mass();\n        ent->physical_ifc()->apply_force_increment(dir*impulse, physical_interface::INSTANT);\n      }\n/*!    if( ent->get_flavor() == ENTITY_CHARACTER )\n      {\n      ((character*)ent)->play_sound_group(stringx(\"jump\"));\n      }\n!*/\n    }\n  }\n",
+      "status": "different",
+      "target_size": 300
+    }
+  ],
+  "raw_name": "frame_advance__8launcherf"
+}
