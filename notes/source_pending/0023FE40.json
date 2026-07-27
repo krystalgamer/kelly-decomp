@@ -1,0 +1,23 @@
+{
+  "address": "0x0023FE40",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "76924950723bfbaf418f9f6f5d9c78ab405900d8",
+      "candidate_size": 264,
+      "compared_bytes": 264,
+      "compared_instructions": 66,
+      "emitted_name": "MenuText__26MenuEntryFunctionFloatEditPci",
+      "instruction_score": 95.4545,
+      "matching_bytes": 246,
+      "matching_instructions": 63,
+      "notes": "Exact released MenuEntryFunctionFloatEdit::MenuText body with only the class layout, virtual declarations, C library declarations, and exact address bindings needed for a self-contained candidate. First-pass result: different, score 93.1818; no variants or diff chasing attempted.",
+      "score": 93.1818,
+      "source": "extern \"C\" int sprintf(char*, const char*, ...);\nextern \"C\" char* strncpy(char*, const char*, unsigned int);\nextern \"C\" unsigned int strlen(const char*);\n__asm__(\".equ sprintf, 0x003D38A8\");\n__asm__(\".equ strncpy, 0x003D4508\");\n__asm__(\".equ strlen, 0x003D40E0\");\n\nclass Menu;\nclass MenuSystem;\nenum MenuColor { MENUCOLOR_NORMAL };\n\nclass MenuEntry\n{\n  unsigned int flags;\npublic:\n  virtual ~MenuEntry() {}\n  virtual MenuColor GetColor();\n  virtual void Show();\n  virtual void Hide();\n  virtual void Enable();\n  virtual void Disable();\n  virtual void Activate();\n  virtual void Deactivate();\n  virtual void OnTick(float) {}\n  virtual void OnMenuOpen(Menu*, MenuSystem*);\n  virtual void OnMenuClose();\n  virtual void OnButtonPress(int) {}\n  virtual void OnButtonRelease(int) {}\nprotected:\n  virtual void OnHide() {}\n  virtual void OnShow() {}\n  virtual void OnEnable() {}\n  virtual void OnDisable() {}\n  virtual void OnActivate() {}\n  virtual void OnDeactivate() {}\npublic:\n  virtual int MenuText(char *text, int len) { if (len>0) *text=0; return 0; }\n};\n\nclass MenuEntryLabel : public MenuEntry\n{\nprotected:\n  const char *label;\npublic:\n  virtual ~MenuEntryLabel() {}\n  virtual int MenuText(char*, int);\n};\n__asm__(\".equ MenuText__14MenuEntryLabelPci, 0x0023F108\");\n\nclass MenuEntryFunctionFloatEdit : public MenuEntryLabel\n{\n  float *tfloat;\nprotected:\n  float lo, hi, step;\n  char *format;\n  void *fn;\npublic:\n  virtual ~MenuEntryFunctionFloatEdit() {}\n  virtual void OnMenuOpen(Menu*, MenuSystem*);\n  virtual int MenuText(char*, int);\n  virtual void OnButtonPress(int);\n  void FixValue();\n  virtual void SetValue(float n) { *tfloat = n; }\n  virtual float GetValue() { return tfloat ? *tfloat : 0; }\n};\n\nint MenuEntryFunctionFloatEdit::MenuText( char *text, int len )\n{\n\tif ( len && label )\n\t{\n\t\tint lused=MenuEntryLabel::MenuText(text,len);\n\t\tchar tval[32];\n\t\tif ( format )\n\t\t{\n\t\t\tsprintf(tval,format,GetValue());\n\t\t}\n\t\telse\n\t\t{\n\t\t\tsprintf(tval,\" : %0.2f\",GetValue());\n\t\t}\n\n\t\tstrncpy(text+lused,tval,len-lused);\n\t\ttext[len-1]=0;\n\t\treturn strlen(text);\n\t}\n\telse\n\t\treturn MenuEntry::MenuText(text,len);\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "MenuText__26MenuEntryFunctionFloatEditPci"
+}
