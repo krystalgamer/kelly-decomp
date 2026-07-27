@@ -1,0 +1,23 @@
+{
+  "address": "0x00105908",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "eb5d233ff6ccc87ae000baa8157ffc20da0569b2",
+      "candidate_size": 216,
+      "compared_bytes": 272,
+      "compared_instructions": 68,
+      "emitted_name": "play_animation__12ai_interfaceRC7stringxiUsPiPfT5T4",
+      "instruction_score": 5.8824,
+      "matching_bytes": 54,
+      "matching_instructions": 4,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ai_interface.cpp:1627-1658; kelly-slaters-pro-surfer/KS/SRC/ai_interface.h:62-107,420-424; kelly-slaters-pro-surfer/KS/SRC/animation_interface.h:11-18,62-68; kelly-slaters-pro-surfer/KS/SRC/entity_interface.h:38-82; kelly-slaters-pro-surfer/KS/SRC/entity.h:427-449,1394-1403; kelly-slaters-pro-surfer/KS/SRC/stringx.h:454-470,567; kelly-slaters-pro-surfer/KS/SRC/anim.h:19-24; tmp/functions/00105908_play_animation__12ai_interfaceRC7stringxiUsPiPfT5T4/attempt-1/result.json; tmp/source_first/00105908/notes.md. Result `different`, score 19.8529; no later attempt.",
+      "score": 19.8529,
+      "source": "typedef float rational_t;\ntypedef float time_value_t;\n\nclass string_buf\n{\npublic:\n  bool is_equal(const string_buf& other) const;\n};\n\nclass stringx\n{\n  char* chars;\n  string_buf* my_buf;\npublic:\n  friend inline bool operator==(const stringx& lhs, const stringx& rhs);\n  friend inline bool operator!=(const stringx& lhs, const stringx& rhs);\n};\n\ninline bool operator==(const stringx& lhs, const stringx& rhs)\n{\n  return lhs.my_buf->is_equal(*rhs.my_buf);\n}\n\ninline bool operator!=(const stringx& lhs, const stringx& rhs)\n{\n  return !(lhs == rhs);\n}\n\nextern stringx empty_string;\nclass entity;\n\nclass generic_interface\n{\npublic:\n  virtual ~generic_interface();\n};\n\nclass entity_interface : public generic_interface\n{\nprotected:\n  entity *my_entity;\npublic:\n  entity *get_my_entity() const { return(my_entity); }\n};\n\nclass animation_interface : public entity_interface\n{\npublic:\n  enum\n  {\n    ANIM_IFC_REVERSE = 0x00000001\n  };\n\n  const stringx& extract_random_anim_info_id_map_anim(const stringx& id, int *damage_value = 0, rational_t *recover = 0, rational_t *recover_var = 0, int *flags = 0);\n};\n\nclass entity\n{\n  animation_interface *my_animation_interface;\npublic:\n  bool has_animation_ifc() const { return (my_animation_interface != 0); }\n  animation_interface *animation_ifc() const { return my_animation_interface; }\n  void *play_anim(int slot, const stringx& filename, time_value_t start_time, unsigned short anim_flags = 0, short loop = -1);\n  void kill_anim(int slot);\n};\n\nenum anim_flags_t\n{\n  ANIM_REVERSE = 0x0002\n};\n\nclass ai_interface : public entity_interface\n{\npublic:\n  bool play_animation(const stringx &anim_id, int slot, unsigned short anim_flags, int *damage_value, rational_t *recover, rational_t *recover_var, int *flags);\n};\n\nbool ai_interface::play_animation(const stringx &anim_id, int slot, unsigned short anim_flags, int *damage_value, rational_t *recover, rational_t *recover_var, int *flags)\n{\n  if(my_entity->has_animation_ifc())\n  {\n    int my_flags;\n    const stringx &res = my_entity->animation_ifc()->extract_random_anim_info_id_map_anim(anim_id, damage_value, recover, recover_var, &my_flags);\n    if(flags)\n      *flags = my_flags;\n\n\n    if( res != empty_string )\n    {\n      if(my_flags & animation_interface::ANIM_IFC_REVERSE)\n        anim_flags |= ANIM_REVERSE;\n\n      get_my_entity()->play_anim( slot, res, 0.0f, anim_flags);\n      return(true);\n    }\n    else\n    {\n      get_my_entity()->kill_anim( slot );\n      return(false);\n    }\n  }\n\n  return(false);\n}\n",
+      "status": "different",
+      "target_size": 272
+    }
+  ],
+  "raw_name": "play_animation__12ai_interfaceRC7stringxiUsPiPfT5T4"
+}
