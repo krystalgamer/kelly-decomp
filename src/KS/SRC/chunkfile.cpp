@@ -167,3 +167,149 @@ typedef unsigned long uint64;struct pstring{uint64 pchunk[4];pstring(){for(unsig
 // 0x00336800 serial_in__FR10chunk_fileP12chunk_flavor
 extern "C" char*strcpy(char*,const char*);class text_file{};extern "C" void read_text(text_file*,char*,int) __asm__("read__9text_filePci");class stash{public:unsigned read(void*,int);};class os_file{public:int read(void*,int,bool=false);};class chunk_file{public:int use_stash;int type;os_file binary;char p0[64-sizeof(os_file)];text_file text;char p1[144-sizeof(text_file)];stash the_stash;};class chunk_flavor{char flavor[16];public:enum{CHUNK_FLAVOR_SIZE=16};chunk_flavor(const char*s){strcpy(flavor,s);}};asm(".equ read__9text_filePci,0x003378D8");asm(".equ read__5stashPvi,0x00348010");asm(".equ read__7os_filePvib,0x001E0450");asm(".equ strcpy,0x003D3FCC");void serial_in(chunk_file&io,chunk_flavor*d){if(io.type==1){char cfname[17];register char*buf asm("$5")=cfname;asm("" : "+r"(buf));read_text(&io.text,buf,16);*d=chunk_flavor(cfname);}else{if(io.use_stash)io.the_stash.read(d,sizeof(chunk_flavor));else io.binary.read(d,sizeof(chunk_flavor));}}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003369F8)
+// 0x003369F8 serial_in__FR10chunk_fileP7stringx
+struct string_buf {
+    unsigned long long *data;
+    int ref_count;
+    int char_length;
+    int block_length;
+    int max_blocks;
+
+    inline int compare(const char *text) const {
+        const char *value = reinterpret_cast<const char *>(data);
+        int index;
+        for (index = 0; index < char_length; ++index) {
+            if (text[index] == 0)
+                return -1;
+            if (value[index] == text[index])
+                continue;
+            if (text[index] > value[index])
+                return 1;
+            if (text[index] < value[index])
+                return -1;
+        }
+        return text[index] == 0 ? 0 : 1;
+    }
+};
+
+class stringx {
+protected:
+    char *chars;
+    string_buf *my_buf;
+
+public:
+    stringx();
+    stringx(const stringx &);
+    stringx(const char *, int = -1);
+    explicit stringx(float);
+    explicit stringx(int);
+    explicit stringx(unsigned int);
+    ~stringx();
+    stringx &operator=(const stringx &);
+    stringx &operator=(const char *);
+    inline const char *c_str() const { return chars; }
+    inline char *data() const { return chars; }
+    int length() const;
+    int find(const char *text) const;
+    void lock();
+    void fork_data(int new_length = -1);
+    inline int size() const { return my_buf->char_length; }
+    inline bool operator==(const char *text) const {
+        return my_buf->compare(text) == 0;
+    }
+};
+
+#define assert(condition) ((void)0)
+
+class os_file {
+    char state[64];
+
+public:
+    int read(void *data, int size, bool async = false);
+};
+
+class text_file {
+    char state[144];
+
+public:
+    void read(stringx *text);
+};
+
+class stash {
+    char state[1];
+
+public:
+    unsigned int read(void *data, int size);
+    bool is_open() const;
+};
+
+class chunk_file {
+public:
+    enum chunk_file_t {
+        CFT_NONE,
+        CFT_TEXT,
+        CFT_BINARY
+    };
+
+    bool use_stash;
+
+private:
+    chunk_file_t type;
+    os_file binary;
+    text_file text;
+    stash the_stash;
+    int my_stash;
+
+public:
+    chunk_file_t get_type() { return type; }
+    os_file *get_binary() {
+        assert(type == CFT_BINARY);
+        return &binary;
+    }
+    text_file *get_text() {
+        assert(type == CFT_TEXT);
+        return &text;
+    }
+    stash *get_stash() {
+        assert(type == CFT_BINARY && the_stash.is_open());
+        return &the_stash;
+    }
+};
+
+__asm__(".equ read__9text_fileP7stringx, 0x00337890");
+__asm__(".equ read__5stashPvi, 0x00348010");
+__asm__(".equ read__7os_filePvib, 0x001E0450");
+__asm__(".equ __7stringx, 0x0034D3E0");
+__asm__(".equ __as__7stringxRC7stringx, 0x0034E0B8");
+__asm__(".equ __as__7stringxPCc, 0x0034E118");
+__asm__(".equ _$_7stringx, 0x0034D6E0");
+
+void serial_in(chunk_file& io, stringx* d)
+{
+  if (io.get_type()==chunk_file::CFT_TEXT)
+    io.get_text()->read(d);
+  else
+  {
+    int len;
+    char work[256];
+    if (io.use_stash)
+      io.get_stash()->read( &len, sizeof(int) );
+    else
+      io.get_binary()->read( &len, sizeof(int) );
+    assert( len < (int)sizeof(work)-1 );
+    if ( len > 0 )
+    {
+      if (io.use_stash)
+        io.get_stash()->read( work, len );
+      else
+        io.get_binary()->read( work, len );
+      work[len] = '\0';
+      *d = work;
+    }
+    else
+      *d = stringx();
+  }
+}
+#endif
