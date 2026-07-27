@@ -1,0 +1,23 @@
+{
+  "address": "0x00373410",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "faf1e2bd1100ef02eb20d4807d52418601c9542e",
+      "candidate_size": 332,
+      "compared_bytes": 332,
+      "compared_instructions": 83,
+      "emitted_name": "Restore__12KSWaterState",
+      "instruction_score": 9.6386,
+      "matching_bytes": 102,
+      "matching_instructions": 8,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/wave.cpp:1186-1225; kelly-slaters-pro-surfer/KS/SRC/ks/wave.h:82-85,271-283,329-365; kelly-slaters-pro-surfer/KS/SRC/ks/wavestage.txt:1-3; tmp/functions/00373410_Restore__12KSWaterState/attempt-1/result.json; tmp/source_first/00373410/attempt-1.md. Result `different`, score 30.7229; no later attempt.",
+      "score": 30.7229,
+      "source": "enum WaveStageEnum {\n    WAVE_StageBuilding,\n    WAVE_StageStable,\n    WAVE_StageSubsiding,\n    WAVE_StageMax\n};\n\nenum WavePerturbStageEnum {\n    WAVE_PerturbStageNone\n};\n\nenum WavePerturbTypeEnum {\n    WAVE_PerturbTypeDummy\n};\n\nstruct WaveBreakInfoStruct {\n    bool onoff;\n    WavePerturbTypeEnum type;\n    float time;\n    WavePerturbStageEnum stage;\n    float stageprogress;\n};\n\nextern float WAVE_StageStart[WAVE_StageMax];\nextern float WAVE_StageDuration[WAVE_StageMax];\nextern float WAVE_TotalSec;\nextern float WAVE_ScaleU;\nextern float WAVE_ScaleV;\nextern float WAVE_ShiftU;\nextern float WAVE_ShiftV;\nextern float WAVE_ShiftX;\nextern float WAVE_ShiftZ;\nextern float WAVE_ShiftSpeedU;\nextern float WAVE_ShiftSpeedV;\nextern float WAVE_ScheduleTimeStart;\nextern float WAVE_ScheduleTimeEnd;\nextern WaveStageEnum WAVE_Stage;\nextern WavePerturbStageEnum WAVE_PerturbStage;\nextern bool particle_enable;\nextern WaveBreakInfoStruct WAVE_BreakInfo;\n\nvoid WAVE_ComputeGrid(void);\nvoid WAVE_ComputeShift(void);\nvoid WAVE_ComputeStage(void);\nvoid WAVE_ComputeVTwist(void);\nvoid WAVE_ComputeSlices(void);\nvoid WAVE_EmitterUpdate(void);\nvoid WAVE_SoundUpdate(void);\nvoid ks_fx_update(void);\nvoid WAVE_GetBreakInfo(WaveBreakInfoStruct *);\n\nclass KSWaterState\n{\n    float StageStart[WAVE_StageMax];\n    float StageDuration[WAVE_StageMax];\n    float ScaleU;\n    float ScaleV;\n    float ShiftU;\n    float ShiftV;\n    float ShiftX;\n    float ShiftZ;\n    float ShiftSpeedU;\n    float ShiftSpeedV;\n    int Stage;\n    int PerturbStage;\n    float ScheduleTimeStart;\n    float ScheduleTimeEnd;\n    float TotalSec;\n\npublic:\n    void Restore(void);\n};\n\nvoid KSWaterState::Restore(void)\n{\n  for(int i=0; i<WAVE_StageMax; i++)\n  {\n    WAVE_StageStart[i] = StageStart[i];\n    WAVE_StageDuration[i] = StageDuration[i];\n  }\n    WAVE_TotalSec = TotalSec;\n    WAVE_ScaleU=ScaleU;\n    WAVE_ScaleV=ScaleV;\n    WAVE_ShiftU=ShiftU;\n    WAVE_ShiftV=ShiftV;\n    WAVE_ShiftX=ShiftX;\n    WAVE_ShiftZ=ShiftZ;\n    WAVE_ShiftSpeedU = ShiftSpeedU;\n    WAVE_ShiftSpeedV = ShiftSpeedV;\n    WAVE_ScheduleTimeStart = ScheduleTimeStart;\n    WAVE_ScheduleTimeEnd = ScheduleTimeEnd;\n    WAVE_Stage=(WaveStageEnum) Stage;\n    WAVE_PerturbStage = (WavePerturbStageEnum) PerturbStage;\n    WAVE_ComputeGrid();\n    WAVE_ComputeShift();\n    WAVE_ComputeStage();\n    WAVE_ComputeVTwist();\n    WAVE_ComputeSlices();\n    WAVE_EmitterUpdate();\n    WAVE_SoundUpdate();\n    if ( particle_enable )\n    {\n      ks_fx_update();\n    }\n    WAVE_GetBreakInfo(&WAVE_BreakInfo);\n}\n",
+      "status": "different",
+      "target_size": 324
+    }
+  ],
+  "raw_name": "Restore__12KSWaterState"
+}
