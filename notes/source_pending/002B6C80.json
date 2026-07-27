@@ -1,0 +1,15 @@
+{
+  "address": "0x002B6C80",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "beda3d743ce3708abe7359a3b5e6a459e1be40ac",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/vsplit.h:16-32; kelly-slaters-pro-surfer/KS/SRC/meshrefs.h:12-19; tmp/functions/002B6C80___11wedge_splitRC11wedge_split/attempt-1/compiler.stderr; tmp/functions/002B6C80___11wedge_splitRC11wedge_split/attempt-1/result.json; tmp/source_first/002B6C80/notes.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include <vector>\n\ntypedef unsigned short wedge_ref;\ntypedef unsigned face_ref;\n\nclass wedge_split\n{\npublic:\n    wedge_split(const wedge_split&);\n\n    wedge_ref old_wedge_id;\n    wedge_ref new_wedge_id;\n    vector<face_ref> faces_for_split;\n};\n\nwedge_split::wedge_split(const wedge_split& split) :\n    old_wedge_id(split.old_wedge_id),\n    new_wedge_id(split.new_wedge_id),\n    faces_for_split(split.faces_for_split)\n{\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__11wedge_splitRC11wedge_split"
+}
