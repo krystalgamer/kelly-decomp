@@ -1,0 +1,23 @@
+{
+  "address": "0x00103FB8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6389be1e1f4dece28d4924a5a1f3bcd440dce707",
+      "candidate_size": 196,
+      "compared_bytes": 248,
+      "compared_instructions": 62,
+      "emitted_name": "pressDir__18AISurferControllerif",
+      "instruction_score": 33.871,
+      "matching_bytes": 101,
+      "matching_instructions": 21,
+      "notes": "Exact released `AISurferController::pressDir` switch with the authentic controller layout and pad constants. Direct axis stores match, but EE GCC converted the diagonal cases' second recursive calls into loops back through the switch, producing 196 bytes instead of the target's retained recursive-call form.",
+      "score": 40.7258,
+      "source": "#include \"KS/SRC/vector3d_shared.h\"\n\n#define PAD_U 1\n#define PAD_D 2\n#define PAD_L 3\n#define PAD_R 4\n#define PAD_UL 5\n#define PAD_UR 6\n#define PAD_DL 7\n#define PAD_DR 8\n#define assert(condition) ((void)0)\n\nclass input_device {\nprotected:\n    int device_id;\n\npublic:\n    virtual ~input_device();\n};\n\nclass AISurferController : public input_device {\nprivate:\n    enum AI_SURFER_STATE {\n        STATE_STANDING,\n        STATE_CHASE,\n        STATE_DO_TRICK,\n        STATE_AVOID_SURFER,\n        STATE_BOUNCE_AROUND_WAVE,\n        STATE_LAST_STATE\n    };\n\n    enum AI_SURFER_SUBSTATE {\n        NO_SUBSTATE,\n        TRICK_APPROACH,\n        TRICK_LAUNCH,\n        TRICK_DOING_TRICK,\n        TRICK_LANDING,\n        TRICK_DONE,\n        STATE_LAST_SUBSTATE\n    };\n\n    vector3d target;\n    vector3d toTube;\n    vector3d right;\n    vector3d velocity;\n    vector3d dir;\n    vector3d paddleDirVec;\n    AI_SURFER_STATE myState;\n    AI_SURFER_SUBSTATE mySubstate;\n    float offdh;\n    float diffAngle;\n    float paddleAngle;\n    float toTargetDistance;\n    float lastToTargetDistance;\n    float relativeVelocityToTarget;\n    float lastRelativeVelocityToTarget;\n    float toTubeDist;\n    float last_toward_tube_velocity;\n    float this_toward_tube_velocity;\n    vector3d heading;\n    float acel;\n    float oldAcel;\n    void *ksctl;\n    bool hitRegionPocket;\n    float X;\n    float Y;\n    float XRight;\n    float YRight;\n    bool ButtonX;\n    bool ButtonO;\n    bool ButtonSq;\n    bool ButtonTr;\n    bool ButtonL1;\n    bool ButtonL2;\n    bool ButtonL3;\n    bool ButtonR1;\n    bool ButtonR2;\n    bool ButtonR3;\n    bool ButtonSelect;\n    bool ButtonStart;\n\npublic:\n    virtual ~AISurferController();\n    void pressDir(int which, float howmuch);\n};\n\nvoid AISurferController::pressDir(int which, float howmuch)\n{\n  assert(howmuch <= 1.05 && howmuch >=-.05);\n  switch (which)\n  {\n    case PAD_L:\n      X = -howmuch;\n      break;\n    case PAD_R:\n      X = howmuch;\n      break;\n    case PAD_U:\n      Y = -howmuch;\n      break;\n    case PAD_D:\n      Y = howmuch;\n      break;\n    case PAD_UL:\n      pressDir(PAD_L, howmuch);\n      pressDir(PAD_U, howmuch);\n      break;\n    case PAD_UR:\n      pressDir(PAD_R, howmuch);\n      pressDir(PAD_U, howmuch);\n      break;\n    case PAD_DL:\n      pressDir(PAD_L, howmuch);\n      pressDir(PAD_D, howmuch);\n      break;\n    case PAD_DR:\n      pressDir(PAD_R, howmuch);\n      pressDir(PAD_D, howmuch);\n      break;\n  }\n}\n",
+      "status": "different",
+      "target_size": 248
+    }
+  ],
+  "raw_name": "pressDir__18AISurferControllerif"
+}
