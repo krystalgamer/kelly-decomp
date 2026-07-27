@@ -1,0 +1,15 @@
+{
+  "address": "0x003ABC70",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "fab13ddba4673c07e336d4326904274195fe80e4",
+      "notes": "Attempt 1 used exact released source cited at GCC 2.95.2 g++/stl_algo.h, __insertion_sort(RandomAccessIter, RandomAccessIter, Compare); src/NGL/ps2/ngl_ps2.cpp: nglTransCompare definition; tmp/source_first/003ABC70/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "struct nglListNode;\n\ntemplate<class T1, class T2>\nstruct pair {\n    T1 first;\n    T2 second;\n};\n\nstruct nglTransCompare {\n    bool operator()(\n        const pair<nglListNode *, unsigned int> &left,\n        const pair<nglListNode *, unsigned int> &right) const\n    {\n        if (reinterpret_cast<const float &>(left.second) >\n            reinterpret_cast<const float &>(right.second))\n            return true;\n        if (reinterpret_cast<const float &>(left.second) <\n            reinterpret_cast<const float &>(right.second))\n            return false;\n        return left.first < right.first;\n    }\n};\n\ntemplate<class BidirectionalIter>\nBidirectionalIter copy_backward(\n    BidirectionalIter first,\n    BidirectionalIter last,\n    BidirectionalIter result)\n{\n    while (first != last)\n        *--result = *--last;\n    return result;\n}\n\ntemplate<class RandomAccessIter, class T, class Compare>\ninline void __linear_insert(\n    RandomAccessIter first,\n    RandomAccessIter last,\n    T *,\n    Compare comp)\n{\n    T value = *last;\n    if (comp(value, *first)) {\n        copy_backward(first, last, last + 1);\n        *first = value;\n    }\n    else\n        __unguarded_linear_insert(last, value, comp);\n}\n\ntemplate<class RandomAccessIter, class Compare>\nvoid __insertion_sort(\n    RandomAccessIter first,\n    RandomAccessIter last,\n    Compare comp)\n{\n    if (first == last)\n        return;\n    for (RandomAccessIter i = first + 1; i != last; ++i)\n        __linear_insert(first, i, (pair<nglListNode *, unsigned int> *)0, comp);\n}\n\ntemplate void __insertion_sort(\n    pair<nglListNode *, unsigned int> *,\n    pair<nglListNode *, unsigned int> *,\n    nglTransCompare);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__insertion_sort__H2ZPt4pair2ZP11nglListNodeZUiZ15nglTransCompare_X01X01X11_v"
+}
