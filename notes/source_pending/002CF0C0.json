@@ -1,0 +1,15 @@
+{
+  "address": "0x002CF0C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c160cc426779050fe82fb469be51dbb07f03e70d",
+      "notes": "Attempt 1 used the exact released candidate cited at kelly-slaters-pro-surfer/KS/SRC/particle.cpp:88-95; kelly-slaters-pro-surfer/KS/SRC/particle.h:68-75,156-198. The sole test returned `compile_failed` with score 0.0000; no variant or later attempt was made.",
+      "score": 0.0,
+      "source": "#include <vector>\n\nclass entity {\n    char fields[0x204];\n\npublic:\n    virtual ~entity();\n};\n\nclass stringx {\n    char fields[8];\n\npublic:\n    ~stringx();\n};\n\nclass particle {\n};\n\nclass particle_force {\n    char fields[40];\n};\n\nclass particle_generator : public entity {\n    stringx filename;\n    particle* particles;\n    char fields_before_force_list[0x7c];\n    std::vector<particle_force> force_list;\n\npublic:\n    virtual ~particle_generator();\n};\n\nparticle_generator::~particle_generator()\n{\n  if (particles != NULL)\n  {\n    delete[] particles;\n    particles = NULL;\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_18particle_generator"
+}
