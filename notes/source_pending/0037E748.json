@@ -1,0 +1,23 @@
+{
+  "address": "0x0037E748",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a0d5321fb50120211d84e055fe1c835b847330df",
+      "candidate_size": 308,
+      "compared_bytes": 308,
+      "compared_instructions": 77,
+      "emitted_name": "WAVETEX_SetCameraPos__Fv",
+      "instruction_score": 6.4935,
+      "matching_bytes": 59,
+      "matching_instructions": 5,
+      "notes": "Attempt 1 used exact released source cited at . Result `different`, score 19.1558; no later attempt.",
+      "score": 19.1558,
+      "source": "// Target: 0x0037E748 WAVETEX_SetCameraPos__Fv\n// Reference: KS/SRC/ks/wavetex.cpp\n// Replace this file with one self-contained candidate function.\nextern float WAVE_camy;\nextern float WAVETEX_DarkAlphaScale;\nextern float WAVETEX_DarkAlphaOffset;\nextern float WAVETEX_DarkHighAlphaScale;\nextern float WAVETEX_DarkHighAlphaOffset;\nextern float WAVETEX_DarkUnderAlphaScale;\nextern float WAVETEX_DarkUnderAlphaOffset;\nextern float lo_dark_limit;\nextern float hi_dark_limit;\n\nbool WAVETEX_CameraUnderwater(void);\nvoid WAVERENDER_SetWaveDarkParams(float scale, float offset);\n\n__asm__(\".equ WAVE_camy, 0x00484524\");\n__asm__(\".equ WAVETEX_DarkAlphaScale, 0x00484E20\");\n__asm__(\".equ WAVETEX_DarkAlphaOffset, 0x00484E24\");\n__asm__(\".equ WAVETEX_DarkHighAlphaScale, 0x00484E28\");\n__asm__(\".equ WAVETEX_DarkHighAlphaOffset, 0x00484E2C\");\n__asm__(\".equ WAVETEX_DarkUnderAlphaScale, 0x00484E30\");\n__asm__(\".equ WAVETEX_DarkUnderAlphaOffset, 0x00484E34\");\n__asm__(\".equ lo_dark_limit, 0x00484E90\");\n__asm__(\".equ hi_dark_limit, 0x00484E94\");\n__asm__(\".equ WAVETEX_CameraUnderwater__Fv, 0x0037E5C8\");\n__asm__(\".equ WAVERENDER_SetWaveDarkParams__Fff, 0x001E7400\");\n\nvoid WAVETEX_SetCameraPos( )\n{\n\tconst float &y = WAVE_camy;\n\tif ( WAVETEX_CameraUnderwater() )\n\t{\n\t\tWAVERENDER_SetWaveDarkParams( WAVETEX_DarkUnderAlphaScale/128.0f, WAVETEX_DarkUnderAlphaOffset/128.0f );\n\t}\n\telse if ( y<=lo_dark_limit )\n\t{\n\t\tWAVERENDER_SetWaveDarkParams( WAVETEX_DarkAlphaScale/128.0f, WAVETEX_DarkAlphaOffset/128.0f );\n\t}\n\telse if ( y>=hi_dark_limit )\n\t{\n\t\tWAVERENDER_SetWaveDarkParams( WAVETEX_DarkHighAlphaScale/128.0f, WAVETEX_DarkHighAlphaOffset/128.0f );\n\t}\n\telse\n\t{\n\t\tfloat hi=(y-lo_dark_limit)/(hi_dark_limit-lo_dark_limit);\n\t\tfloat lo=1.0f-hi;\n\t\tWAVERENDER_SetWaveDarkParams( (lo*WAVETEX_DarkAlphaScale + hi*WAVETEX_DarkHighAlphaScale)/128.0f,\n\t\t                      (lo*WAVETEX_DarkAlphaOffset + hi*WAVETEX_DarkHighAlphaOffset)/128.0f);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 280
+    }
+  ],
+  "raw_name": "WAVETEX_SetCameraPos__Fv"
+}
