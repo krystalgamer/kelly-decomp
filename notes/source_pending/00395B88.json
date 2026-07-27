@@ -1,0 +1,23 @@
+{
+  "address": "0x00395B88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "469e379838c35963668fe379e12e9739470263e7",
+      "candidate_size": 296,
+      "compared_bytes": 300,
+      "compared_instructions": 75,
+      "emitted_name": "nglReadFile__FPCcP10nglFileBufUi",
+      "instruction_score": 32.0,
+      "matching_bytes": 114,
+      "matching_instructions": 24,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:344-371; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:160-183; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:84; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:222; tmp/source_first/00395B88/notes.md. Result `different`, score 38.0000; no later attempt.",
+      "score": 38.0,
+      "source": "typedef unsigned char u_char;\ntypedef unsigned int u_int;\ntypedef unsigned int size_t;\n\nstruct nglFileBuf\n{\n  u_char* Buf;\n  u_int Size;\n  u_int UserData;\n};\n\nstruct nglSystemCallbackStruct\n{\n  bool (*ReadFile)( const char* FileName, nglFileBuf* File, u_int Align );\n  void (*ReleaseFile)( nglFileBuf* File );\n  void (*CriticalError)( const char* Text );\n  void (*DebugPrint)( const char* Text );\n  void* (*MemAlloc)( u_int Size, u_int Align );\n  void (*MemFree)( void* Ptr );\n};\n\nextern nglSystemCallbackStruct nglSystemCallbacks;\nextern const char* nglHostPrefix;\nextern \"C\" int strncmp( const char*, const char*, size_t );\nextern \"C\" size_t strlen( const char* );\nextern \"C\" char* strcpy( char*, const char* );\nextern \"C\" char* strcat( char*, const char* );\nextern \"C\" int sceOpen( const char*, int, ... );\nextern \"C\" int sceLseek( int, int, int );\nextern \"C\" int sceRead( int, void*, int );\nextern \"C\" int sceClose( int );\nextern void* nglMemAlloc( u_int Size, u_int Align );\n\nenum\n{\n  SCE_RDONLY = 1,\n  SCE_SEEK_SET = 0,\n  SCE_SEEK_END = 2\n};\n\nbool nglReadFile( const char* FileName, nglFileBuf* File, u_int Align )\n{\n  if ( nglSystemCallbacks.ReadFile )\n    return nglSystemCallbacks.ReadFile( FileName, File, Align );\n  else\n  {\n    static char Work[256];\n\n    if ( strncmp( FileName, nglHostPrefix, strlen( nglHostPrefix ) ) == 0 )\n      strcpy( Work, \"\" );\n    else\n      strcpy( Work, nglHostPrefix );\n    strcat( Work, FileName );\n\n    int fd = sceOpen( Work, SCE_RDONLY );\n    if ( fd < 0 )\n      return false;\n\n    File->Size = sceLseek( fd, 0, SCE_SEEK_END );\n    sceLseek( fd, 0, SCE_SEEK_SET );\n\n    // sceRead only reads in 32-byte chunks, rounding down, so we need to read in the extra on our own.\n    File->Buf = (u_char*)nglMemAlloc( ( File->Size + 31 ) & ~31, 128 );\n    sceRead( fd, File->Buf, ( File->Size + 31 ) & ~31 );\n    sceClose( fd );\n\n    return true;\n  }\n}\n",
+      "status": "different",
+      "target_size": 300
+    }
+  ],
+  "raw_name": "nglReadFile__FPCcP10nglFileBufUi"
+}
