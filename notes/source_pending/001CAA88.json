@@ -1,0 +1,23 @@
+{
+  "address": "0x001CAA88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6b9cd513210d78ebaf4771a8887f113e822c4e32",
+      "candidate_size": 328,
+      "compared_bytes": 328,
+      "compared_instructions": 82,
+      "emitted_name": "Select__17HighScoreFrontEndi",
+      "instruction_score": 9.7561,
+      "matching_bytes": 69,
+      "matching_instructions": 8,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/HighScoreFrontEnd.cpp:167-195; kelly-slaters-pro-surfer/KS/SRC/ks/HighScoreFrontEnd.h:15-63; tmp/functions/001CAA88_Select__17HighScoreFrontEndi/attempt-1/result.json; tmp/source_first/001CAA88/attempt-1.md. Result `different`, score 21.0366; no later attempt.",
+      "score": 21.0366,
+      "source": "typedef unsigned int color32;\n\nstruct TextString {\n    char padding[0x48];\n    color32 color;\n};\n\nstruct FEMenuEntry {};\n\nstruct FEManager {\n    char padding[0x15644];\n    color32 col_info_b;\n    color32 col_info_g;\n};\n\nstruct menu_slot {\n    short adjustment;\n    unsigned short reserved;\n    void (*function)(void *, FEMenuEntry *, bool);\n};\n\nstruct menu_vtable {\n    char padding[0x18];\n    menu_slot set_high;\n};\n\nstruct menu_base {\n    char padding[0x74];\n    menu_vtable *vtable;\n};\n\nstruct system_slot {\n    short adjustment;\n    unsigned short reserved;\n    void (*function)(void *, bool);\n};\n\nstruct system_vtable {\n    char padding[0x58];\n    system_slot end_draw;\n};\n\nstruct GraphicalMenuSystem {\n    char padding[0x8c];\n    system_vtable *vtable;\n\n    inline void endDraw(bool value)\n    {\n        system_slot &slot = vtable->end_draw;\n        slot.function((char *)this + slot.adjustment, value);\n    }\n};\n\nstruct game {\n    char padding[0x228];\n    int beach_id;\n\n    inline int get_beach_id() const { return beach_id; }\n};\n\nstruct SoundScriptManager {\n    void unpause();\n    void playEvent(int, void * = 0, float = 0.0f);\n    void pause();\n    static SoundScriptManager *inst();\n};\n\nenum {\n    NUM_COLUMNS = 5,\n    SS_FE_ONX = 24\n};\n\nclass HighScoreFrontEnd {\n    char padding0[0x50];\n    GraphicalMenuSystem *system;\n    char padding1[0x20];\n    menu_vtable *menu_table;\n    char padding2[0xc0];\n    FEManager *manager;\n    char padding3[0x38];\n    TextString *info[10][NUM_COLUMNS];\n    char padding4[0x48];\n    bool in_game;\n    char padding5[0x0b];\n    FEMenuEntry *all_beaches[44];\n    char padding6[0xac];\n    int first_line;\n    int second_line;\n\n    inline void setHigh(FEMenuEntry *entry, bool value = true)\n    {\n        menu_slot &slot = menu_table->set_high;\n        slot.function((char *)this + 0x80 + slot.adjustment, entry, value);\n    }\n\npublic:\n    void Select(int entry_index);\n    void OnSwitchBeach();\n};\n\nextern game *g_game_ptr;\nextern SoundScriptManager *sound_manager;\n\n__asm__(\".equ g_game_ptr, 0x0046AC64\");\n__asm__(\".equ sound_manager, 0x0046B4A0\");\n__asm__(\".equ unpause__18SoundScriptManager, 0x0031BFA8\");\n__asm__(\".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380\");\n__asm__(\".equ pause__18SoundScriptManager, 0x0031BF98\");\n__asm__(\".equ OnSwitchBeach__17HighScoreFrontEnd, 0x001CBAD0\");\n\ninline SoundScriptManager *SoundScriptManager::inst()\n{\n    return sound_manager;\n}\n\nvoid HighScoreFrontEnd::Select(int entry_index)\n{\n\tif(in_game)\n\t{\n\t\tif(first_line != -1)\n\t\t{\n\t\t\t// reset the flashing color correctly\n\t\t\tfor(int i=0; i<NUM_COLUMNS; i++)\n\t\t\t\tinfo[first_line][i]->color = (i==1 || i==3) ? manager->col_info_b : manager->col_info_g;\n\t\t}\n\n\t\tif(second_line != -1)\n\t\t{\n\t\t\tfirst_line = second_line;\n\t\t\tsecond_line = -1;\n\t\t\tsetHigh(all_beaches[g_game_ptr->get_beach_id()]);\n\t\t\tOnSwitchBeach();\n\t\t}\n\t\telse\n\t\t{\n\t\t\t//manager->IGO->ShowMenuBackground(true);\n\t\t\t//system->MakeActive(next_menu);\n\t\t\tSoundScriptManager::inst()->unpause();\n\t\t\tSoundScriptManager::inst()->playEvent(SS_FE_ONX);\n\t\t\tSoundScriptManager::inst()->pause();\n\t\t\tsystem->endDraw(false);\n\t\t}\n\t}\n}\n",
+      "status": "different",
+      "target_size": 324
+    }
+  ],
+  "raw_name": "Select__17HighScoreFrontEndi"
+}
