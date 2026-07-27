@@ -1,0 +1,23 @@
+{
+  "address": "0x00316878",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b8e1289eb87315c2bef4e70c652e8e46e063a5bb",
+      "candidate_size": 200,
+      "compared_bytes": 272,
+      "compared_instructions": 68,
+      "emitted_name": "register_scene_anim_lib__Fv",
+      "instruction_score": 4.4118,
+      "matching_bytes": 40,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/script_lib_scene_anim.cpp:99-109; kelly-slaters-pro-surfer/KS/SRC/script_lib_scene_anim.h:14-19; kelly-slaters-pro-surfer/KS/SRC/script_lib_scene_anim.cpp:22-96; kelly-slaters-pro-surfer/KS/SRC/archalloc.h:119-145. Result `different`, score 14.7059; no later attempt.",
+      "score": 14.7059,
+      "source": "typedef unsigned int size_t;\n\nvoid *operator new(size_t size, unsigned int flags, const char *descript, int line);\n\n#define NEW new(0,__PRETTY_FUNCTION__,0)\n\nclass script_library_class\n{\n    char storage[40];\n\npublic:\n    class function\n    {\n        char storage[8];\n    };\n};\n\nclass slc_scene_anim_t : public script_library_class\n{\npublic:\n    slc_scene_anim_t(const char* n, int sz, const char* p = 0);\n};\n\nclass slf_scene_anim_kill_anim_t : public script_library_class::function\n{\npublic:\n    slf_scene_anim_kill_anim_t(script_library_class* slc, const char* n);\n};\n\nclass slf_load_scene_anim_t : public script_library_class::function\n{\npublic:\n    slf_load_scene_anim_t(const char* n);\n};\n\nclass slf_play_scene_anim_t : public script_library_class::function\n{\npublic:\n    slf_play_scene_anim_t(const char* n);\n};\n\nvoid register_scene_anim_lib()\n{\n  // pointer to single instance of library class\n  slc_scene_anim_t* slc_scene_anim = NEW slc_scene_anim_t(\"scene_anim\",4);\n\n  NEW slf_scene_anim_kill_anim_t(slc_scene_anim,\"kill_anim()\");\n  NEW slf_load_scene_anim_t(\"load_scene_anim(str)\");\n  NEW slf_play_scene_anim_t(\"play_scene_anim(str)\");\n}\n",
+      "status": "different",
+      "target_size": 272
+    }
+  ],
+  "raw_name": "register_scene_anim_lib__Fv"
+}
