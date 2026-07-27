@@ -1,0 +1,15 @@
+{
+  "address": "0x001A7CB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "83fca4a09d7e932db8ade5ef1407c09e045e27e6",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:662-679; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h:121-148; tmp/source_first/001A7CB0/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEMenu_shared.h\"\n\nenum EventType { SS_FE_ONX = 24 };\n\nclass SoundScriptManager {\npublic:\n    static SoundScriptManager *instance;\n    static inline SoundScriptManager *inst() { return instance; }\n    void pause();\n    void unpause();\n    int playEvent(EventType type, entity *source = 0, float fade_in_time = 0.0f);\n};\n\nclass PauseMenuSystem : public FEMenuSystem {\npublic:\n    enum { GoalsMenu = 3, OptionsMenu = 4, ReplayMenu = 5, QuitConfirmMenu = 8 };\n    bool draw;\n    bool replay_mode;\n    bool end_level;\n    int pause_controller;\n    int pause_player;\n    void *map;\n    TextString *player;\n    int popupEvent;\n    int navigationEvent;\n    void Retry();\n    void EndLevel();\n};\n\nclass EndRunMenuClass : public FEMenu {\npublic:\n    enum { Retry, BeachGoals, Options, Replay, Quit, ReturnToFE };\nprivate:\n    FEMenuEntry *replayEntry;\n    FEMenuEntry *goalsEntry;\n    FEMenuEntry *optionsEntry;\npublic:\n    PauseMenuSystem *sys;\n    FEMenuEntry *save;\n    virtual void Select(int entry_index);\n};\n\n__asm__(\".equ pause__18SoundScriptManager, 0x0031BF98\");\n__asm__(\".equ unpause__18SoundScriptManager, 0x0031BFA8\");\n__asm__(\".equ _18SoundScriptManager$instance, 0x0046B4A0\");\n__asm__(\".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380\");\n__asm__(\".equ Retry__15PauseMenuSystem, 0x001B4920\");\n__asm__(\".equ EndLevel__15PauseMenuSystem, 0x001B4980\");\n\nvoid EndRunMenuClass::Select(int entry_index)\n{\t\n\tSoundScriptManager::inst()->unpause();\n\tsys->navigationEvent=SoundScriptManager::inst()->playEvent(SS_FE_ONX);\n\tSoundScriptManager::inst()->pause();\n\n\tswitch(entry_index)\n\t{\n\tcase Retry:\t\t\tsys->Retry(); break;\n\tcase BeachGoals:\tsys->MakeActive(PauseMenuSystem::GoalsMenu); break;\n\tcase Options:\t\tsys->MakeActive(PauseMenuSystem::OptionsMenu); break;\n\tcase Replay:\t\tsys->MakeActive(PauseMenuSystem::ReplayMenu); break;\n\tcase Quit:\t\t\tsys->EndLevel(); break;\n\tcase ReturnToFE:\tsys->MakeActive(PauseMenuSystem::QuitConfirmMenu); break;\n\tdefault: assert(0);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Select__15EndRunMenuClassi"
+}
