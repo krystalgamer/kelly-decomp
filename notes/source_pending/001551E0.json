@@ -1,0 +1,23 @@
+{
+  "address": "0x001551E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d2c996efb06883e06004f36c80f744e05224747c",
+      "candidate_size": 280,
+      "compared_bytes": 280,
+      "compared_instructions": 70,
+      "emitted_name": "Load__13PanelAnimFilePcP9PanelFile",
+      "instruction_score": 37.1429,
+      "matching_bytes": 135,
+      "matching_instructions": 26,
+      "notes": "Released source-first candidate using FEAnim.cpp:294-335 and only required declarations; exactly one test returned different at 48.2143%.",
+      "score": 48.2143,
+      "source": "typedef unsigned int uint32;\ntypedef unsigned int u_int;\n\n#define NULL 0\n#define assert(condition) ((void)0)\n\nstruct nglFileBuf\n{\n\tunsigned char* Buf;\n\tu_int Size;\n\tu_int UserData;\n};\n\nclass PanelFile;\n\nclass PanelAnim\n{\n\tchar* name;\n\tchar padding[0x68];\n\npublic:\n\tPanelAnim* next;\n\tstatic PanelAnim* LoadPanelAnim(unsigned char* buffer, int& index, PanelFile* target_panel);\n};\n\nclass PanelAnimFile\n{\n\tvirtual void anchor();\n\npublic:\n\tPanelAnim* obs;\n\tfloat totalseconds;\n\tbool Load(char* filename, PanelFile* target_panel);\n\tstatic bool ReadHeader(unsigned char* buffer, int& index);\n};\n\nextern void KSReadFile(const char* filename, nglFileBuf* file, u_int align);\nextern void KSReleaseFile(nglFileBuf* file);\nextern uint32 ReadLong(unsigned char* buffer, int& index);\nextern float ReadFloat(unsigned char* buffer, int& index);\n\nbool PanelAnimFile::Load(char* filename, PanelFile* target_panel)\n{\n\tnglFileBuf file;\n\tfile.Buf=NULL; file.Size=0;\n\tKSReadFile(filename, &file, 1);\n//\tint buf_size = file.Size;\n\tunsigned char* buffer = (unsigned char*) file.Buf;\n\tint index = 0;\n\tif(!buffer)\n\t{\n\t\tKSReleaseFile(&file);\n\t\tassert(0);\n\t\treturn false;\n\t}\n\tif(!ReadHeader(buffer, index))\n\t{\n\t\tKSReleaseFile(&file);\n\t\tassert(0);\n\t\treturn false;\n\t}\n//\tuint32 version = \n\t\tReadLong(buffer, index);\n\ttotalseconds = ReadFloat(buffer, index);\n\tuint32 nobjects = ReadLong(buffer, index);\n\n\tfor (u_int i=0; i<nobjects; ++i)\n\t{\n\t\tPanelAnim* anim = PanelAnim::LoadPanelAnim(buffer, index, target_panel);\n\t\tif (!anim)\n\t\t{\n\t\t\tKSReleaseFile(&file);\n\t\t\tassert(0);\n\t\t\treturn false;\n\t\t}\n\t\tanim->next = obs;\n\t\tobs = anim;\n\t}\n\n\tKSReleaseFile(&file);\n\treturn true;\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "Load__13PanelAnimFilePcP9PanelFile"
+}
