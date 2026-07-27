@@ -1,0 +1,23 @@
+{
+  "address": "0x002D6850",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "463c22a44a49ae70abdfc599c3325ba3c61f2e63",
+      "candidate_size": 280,
+      "compared_bytes": 280,
+      "compared_instructions": 70,
+      "emitted_name": "compute_xz_radius_rel_center__8vr_pmeshRC2po",
+      "instruction_score": 2.8571,
+      "matching_bytes": 70,
+      "matching_instructions": 2,
+      "notes": "Released-source first-pass attempt using the verbatim pmesh.cpp definition and isolated copied declarations. Tested exactly once; result was different at 25.0% byte score (2/70 instructions). No further candidate attempted.",
+      "score": 25.0,
+      "source": "typedef float rational_t;\n\nextern \"C\" float sqrtf(float);\n#define __fsqrt sqrtf\n\ntemplate <class T>\ninline const T& max(const T& a, const T& b)\n{\n  return a < b ? b : a;\n}\n\nclass vector3d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z;\n\n  inline vector3d() {}\n  inline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n  inline vector3d& operator-=(const vector3d& v) { x -= v.x; y -= v.y; z -= v.z; return *this; }\n  inline T xz_length2() const { return x*x + z*z; }\n};\n\nclass po\n{\npublic:\n  vector3d non_affine_slow_xform(const vector3d& source_vector) const;\n};\n\nclass hw_rasta_vert\n{\npublic:\n  vector3d xyz;\n  char released_layout[48];\n};\n\nclass vr_pmesh\n{\n  char released_layout0[24];\nprotected:\n  hw_rasta_vert *xverts;\n  char released_layout1[12];\n  int num_wedges;\n  char released_layout2[76];\n  vector3d center;\npublic:\n  inline int get_num_wedges() const { return num_wedges; }\n  virtual rational_t compute_xz_radius_rel_center( const po& xform );\n};\n\nrational_t vr_pmesh::compute_xz_radius_rel_center( const po& xform )\n{\n#if defined(TARGET_PC)  || XBOX_USE_PMESH_STUFF\n  if (optimized_verts)\n    return radius * xform.get_scale();\n#endif\n\n  rational_t rad2 = 0.0f;\n  int i;\n  vector3d ctr = xform.non_affine_slow_xform( center );\n  for ( i=get_num_wedges(); --i>=0; )\n  {\n    vector3d v = xform.non_affine_slow_xform( xverts[i].xyz );\n    v -= ctr;\n    rad2 = max( v.xz_length2(), rad2 );\n  }\n  return __fsqrt(rad2);\n}\n",
+      "status": "different",
+      "target_size": 260
+    }
+  ],
+  "raw_name": "compute_xz_radius_rel_center__8vr_pmeshRC2po"
+}
