@@ -1,0 +1,23 @@
+{
+  "address": "0x0034E3F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "47091555ae6e29c0d8ea11c7282d20daa1cdad06",
+      "candidate_size": 216,
+      "compared_bytes": 308,
+      "compared_instructions": 77,
+      "emitted_name": "append__7stringxPCci",
+      "instruction_score": 9.0909,
+      "matching_bytes": 54,
+      "matching_instructions": 7,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/stringx.cpp:588-609; kelly-slaters-pro-surfer/KS/SRC/stringx.h:61-224,227-304,357-367,403-405; tmp/functions/0034E3F0_append__7stringxPCci/attempt-1/result.json. Result `different`, score 17.5325; no later attempt.",
+      "score": 17.5325,
+      "source": "typedef unsigned long long big_int;\nextern \"C\" unsigned int strlen(const char *);\nextern \"C\" void *memcpy(void *, const void *, unsigned int);\nextern \"C\" void *memset(void *, int, unsigned int);\n\nclass stringx;\n\nclass string_buf\n{\nprotected:\n  friend class stringx;\n  big_int *data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n\n  inline int blocks_needed(int chars)\n  {\n    chars++;\n    if (chars % sizeof(big_int) != 0)\n      return (chars / sizeof(big_int) + 1);\n    else\n      return (chars / sizeof(big_int));\n  }\n\npublic:\n  inline int get_ref() { return ref_count; }\n\n  inline void set_char_length(int len)\n  {\n    char_length = len;\n    block_length = blocks_needed(len);\n    memset((char *)data + len, 0, max_blocks * sizeof(big_int) - len);\n  }\n\n  void null_terminate() const;\n};\n\nclass stringx\n{\nprotected:\n  char *chars;\n  string_buf *my_buf;\n\n  static void add_buf_to_cache(string_buf *buf);\n  bool aggressively_cache_buffer();\n\npublic:\n  void append(const char *str, int len = -1);\n\n  inline void lock()\n  {\n    if (my_buf->get_ref() > 1)\n      fork_data();\n  }\n\n  void fork_data(int new_len = -1);\n  void make_room(int size);\n};\n\nvoid stringx::append(const char *str, int len)\n{\n  if (str == 0) {\n    append(\"\");\n    return;\n  }\n  if (len == -1) len = strlen(str);\n  lock();\n  make_room(my_buf->char_length + len);\n  memcpy(chars + my_buf->char_length, str, len);\n  bool cache_it = false;\n  if (my_buf->char_length == 0)\n    cache_it = true;\n  my_buf->set_char_length(my_buf->char_length + len);\n  my_buf->null_terminate();\n  if (!aggressively_cache_buffer())\n    if (cache_it)\n      add_buf_to_cache(my_buf);\n}\n",
+      "status": "different",
+      "target_size": 308
+    }
+  ],
+  "raw_name": "append__7stringxPCci"
+}
