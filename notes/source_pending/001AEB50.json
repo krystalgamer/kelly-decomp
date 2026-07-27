@@ -1,0 +1,23 @@
+{
+  "address": "0x001AEB50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f15855d7c172f5da8d2f65bf1d8009e697bf19a5",
+      "candidate_size": 200,
+      "compared_bytes": 248,
+      "compared_instructions": 62,
+      "emitted_name": "OnTriangle__17PlaylistMenuClassi",
+      "instruction_score": 1.6129,
+      "matching_bytes": 25,
+      "matching_instructions": 1,
+      "notes": "Exact released `PlaylistMenuClass::OnTriangle` body with the authentic MusicMan/MusicListing, sound-script, pause-menu, and global pause-count declarations. In isolation EE GCC kept the released inline `MusicMan::pause` and `MusicListing::pause` helpers out of line and tail-called the base menu handler, producing a 200-byte caller instead of the target's 248-byte fully inlined form.",
+      "score": 10.0806,
+      "source": "#include \"KS/SRC/singleton_shared.h\"\n\ntypedef unsigned int nslSourceId;\ntypedef unsigned int nslSoundId;\n\nenum nslSoundStatusEnum {\n    NSL_SOUNDSTATUS_INVALID = 0\n};\n\nnslSoundStatusEnum nslGetSoundStatus(nslSoundId sound);\nvoid nslPauseSound(nslSoundId sound);\n\nclass Track {\n    nslSourceId mySrcId;\n    nslSoundId mySndId;\n    bool paused;\n\npublic:\n    char songName[30];\n    char artistName[30];\n    void Pause();\n};\n\nclass MusicListing {\n    int totalSources;\n    int current;\n    Track sources[50];\n    nslSoundId currentSoundId;\n    bool successfulLastPlay;\n\npublic:\n    inline int getCurrent() const { return current; }\n    inline nslSoundId getSoundId() const { return currentSoundId; }\n    inline void pause() { sources[order[current]].Pause(); }\n    int order[50];\n    bool enabled[50];\n};\n\ntemplate<class T>\nclass singleton_ptr {\n    T *pointer;\n\npublic:\n    inline operator T *() const { return pointer; }\n};\n\nclass MusicMan : public singleton {\n    float volume;\n    int inited;\n    bool paused;\n\npublic:\n    static singleton_ptr<MusicMan> instance;\n\n    static inline MusicMan *inst() { return instance; }\n\n    MusicListing musicTrack;\n\n    inline void pause()\n    {\n        if (!paused)\n        {\n            paused = true;\n            musicTrack.pause();\n        }\n    }\n};\n\nclass entity;\n\nenum EventType {\n    SS_FE_BACK = 27\n};\n\nclass SoundScriptManager : public singleton {\npublic:\n    static SoundScriptManager *instance;\n\n    static inline SoundScriptManager *inst() { return instance; }\n    void pause();\n    void unpause();\n    int playEvent(\n        EventType type,\n        entity *source = 0,\n        float fade_in_time = 0.0f);\n};\n\n#include \"KS/SRC/ks/FEMenu_shared.h\"\n\nclass PauseMenuSystem : public FEMenuSystem {\npublic:\n    bool draw;\n    bool replay_mode;\n    bool end_level;\n    int pause_controller;\n    int pause_player;\n    void *map;\n    TextString *player;\n    int popupEvent;\n    int navigationEvent;\n};\n\nclass PlaylistMenuClass : public FEMenu {\n    PauseMenuSystem *sys;\n\npublic:\n    virtual void OnTriangle(int controller);\n};\n\nextern int pauseCount;\n\n__asm__(\".equ _8MusicMan$instance, 0x00427B18\");\n__asm__(\".equ Pause__5Track, 0x002586E8\");\n__asm__(\".equ _18SoundScriptManager$instance, 0x0046B4A0\");\n__asm__(\".equ unpause__18SoundScriptManager, 0x0031BFA8\");\n__asm__(\".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380\");\n__asm__(\".equ pause__18SoundScriptManager, 0x0031BF98\");\n__asm__(\".equ pauseCount, 0x0040CE0C\");\n__asm__(\".equ nslGetSoundStatus__FUi, 0x0038DBA0\");\n__asm__(\".equ nslPauseSound__FUi, 0x0038D460\");\n__asm__(\".equ OnTriangle__6FEMenui, 0x001577F0\");\n\nvoid PlaylistMenuClass::OnTriangle(int c)\n{\n\tMusicMan::inst()->pause();\n\tSoundScriptManager::inst()->unpause();\n\tsys->navigationEvent=  SoundScriptManager::inst()->playEvent(SS_FE_BACK);\n\tSoundScriptManager::inst()->pause();\n\twhile ((pauseCount > 0) && (nslGetSoundStatus(MusicMan::inst()->musicTrack.getSoundId()) != NSL_SOUNDSTATUS_INVALID))\n\t{\n\t\tnslPauseSound(MusicMan::inst()->musicTrack.getSoundId());\n\t\tpauseCount--;\n\t}\n\tFEMenu::OnTriangle(c);\n}\n",
+      "status": "different",
+      "target_size": 248
+    }
+  ],
+  "raw_name": "OnTriangle__17PlaylistMenuClassi"
+}
