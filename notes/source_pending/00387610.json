@@ -1,0 +1,15 @@
+{
+  "address": "0x00387610",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3eec5f507e2305b6a8405e332eb25fdccf52ccae",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NVL/PS2/nvlMPEG_ps2.cpp:145-181; kelly-slaters-pro-surfer/NVL/PS2/nvlMPEG_ps2.cpp:193-199; kelly-slaters-pro-surfer/NVL/PS2/nvlMPEG_ps2.cpp:324-326; kelly-slaters-pro-surfer/NVL/PS2/nvlMPEG_ps2.cpp:351-400; notes/function_queue.csv:5925; tmp/functions/00387610_videoCallback__FP7sceMpegP16sceMpegCbDataStrPv/attempt-1/result.json. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "typedef unsigned char u_char;\n\nstruct sceMpeg {};\n\nstruct sceMpegCbDataStr\n{\n    u_char* data;\n    int len;\n    long pts;\n    long dts;\n};\n\nstruct ReadBuf\n{\n    unsigned char data[5 * (64 * 1024)];\n    int put;\n    int count;\n    int size;\n};\n\nstruct VideoDec {};\n\n#define UNCMASK 0x0fffffff\n#define UNCBASE 0x20000000\n#define min(x,y) (((x) > (y))? (y): (x))\n#define assert(x) ((void)0)\n\nstatic VideoDec videoDec;\n\nstatic void videoDecBeginPut(VideoDec*, unsigned char**, int*, unsigned char**, int*);\nstatic void videoDecEndPut(VideoDec*, int);\nstatic int videoDecPutTs(VideoDec*, long, long, unsigned char*, int);\nstatic int nvlMem2Cpy(unsigned char*, int, unsigned char*, int, unsigned char*, int, unsigned char*, int);\n\nstatic inline void *UncAddr( void *val )\n{\n    return (void*)(((unsigned)val & UNCMASK) | UNCBASE );\n}\n\nstatic int videoCallback( sceMpeg* mp, sceMpegCbDataStr* str, void* data )\n{\n    ReadBuf         *rb = (ReadBuf*)data;\n    unsigned char   *ps0 = str->data, *ps1 = rb->data, *pd0, *pd1;\n    int             s0 = min( rb->data + rb->size - str->data, (int)str->len ), s1 = str->len - s0, d0, d1, len;\n\n    videoDecBeginPut( &videoDec, &pd0, &d0, &pd1, &d1 );\n    len = nvlMem2Cpy( (unsigned char*)UncAddr(pd0), d0, (unsigned char*)UncAddr(pd1), d1, ps0, s0, ps1, s1 );\n    if( len > 0 )\n    {\n        int res = videoDecPutTs( &videoDec, str->pts, str->dts, pd0, len );\n        assert( res );\n    }\n    videoDecEndPut( &videoDec, len );\n    return len > 0;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "videoCallback__FP7sceMpegP16sceMpegCbDataStrPv"
+}
