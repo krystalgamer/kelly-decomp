@@ -1,0 +1,23 @@
+{
+  "address": "0x0028E7F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d477059e15aee60376f820ab61bc445dce2e9775",
+      "candidate_size": 252,
+      "compared_bytes": 252,
+      "compared_instructions": 64,
+      "emitted_name": "read__14region_triggerR10chunk_file",
+      "instruction_score": 14.0625,
+      "matching_bytes": 66,
+      "matching_instructions": 9,
+      "notes": "Exact released `region_trigger::read` body with the authentic string buffer equality helper, trigger hierarchy, chunk label, serial input, and by-value `force_region` call. The 112-byte frame and behavior reproduce, but EE GCC generated an indexed 64-bit string comparison and different loop layout instead of the target's pointer-increment form, yielding 252 versus 248 bytes.",
+      "score": 26.1905,
+      "source": "typedef unsigned long big_int;\n\nclass stringx;\n\nclass string_buf {\n    friend class stringx;\n    friend bool operator==(const stringx &left, const stringx &right);\n\n    big_int *data;\n    int ref_count;\n    int char_length;\n    int block_length;\n    int max_blocks;\n\npublic:\n    bool is_equal(const string_buf &other) const\n    {\n        if (other.block_length != block_length)\n            return false;\n        for (int index = 0; index < block_length; ++index)\n        {\n            if (!(other.data[index] == data[index]))\n                return false;\n        }\n        return true;\n    }\n};\n\nclass stringx {\n    friend bool operator==(const stringx &left, const stringx &right);\n\n    char *chars;\n    string_buf *my_buf;\n\npublic:\n    stringx();\n    stringx(const stringx &other);\n    ~stringx();\n};\n\ninline bool operator==(const stringx &left, const stringx &right)\n{\n    return left.my_buf->is_equal(*right.my_buf);\n}\n\ninline bool operator!=(const stringx &left, const stringx &right)\n{\n    return !(left == right);\n}\n\nclass chunk_file;\nclass entity;\n\nclass signaller {\n    unsigned int flags;\n    void *signals;\n\npublic:\n    signaller();\n    virtual ~signaller();\n    virtual bool is_an_entity() const { return false; }\n    virtual bool is_a_trigger() const { return false; }\n    virtual void raise_signal(unsigned int signal_id) const;\n\nprivate:\n    virtual void *construct_signal_list();\n\nprotected:\n    virtual const char *get_signal_name(unsigned short signal_id) const;\n};\n\nclass vector3d {\n    float x;\n    float y;\n    float z;\n};\n\nclass trigger : public signaller {\npublic:\n    trigger(const stringx &id);\n    virtual void read(chunk_file &file) {}\n    virtual bool triggered(entity *) { return false; }\n    virtual void update_region() {}\n    virtual bool is_a_trigger() const { return true; }\n    virtual const vector3d &get_abs_position() const;\n\n    void force_region(stringx id);\n\nprotected:\n    entity *whodunnit;\n    stringx id;\n    trigger *next;\n    char in_regions[12];\n    bool static_regions;\n    bool active;\n    bool occupied;\n    bool use_any_char;\n};\n\nclass region_trigger : public trigger {\npublic:\n    region_trigger(const stringx &id);\n    virtual void read(chunk_file &file);\n    virtual bool triggered(entity *value);\n    virtual void update_region();\n};\n\nvoid serial_in(chunk_file &file, stringx *value);\nextern const stringx chunkend_label;\n\n__asm__(\".equ __7stringx, 0x0034D3E0\");\n__asm__(\".equ __7stringxRC7stringx, 0x0034D4D0\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\".equ serial_in__FR10chunk_fileP7stringx, 0x003369F8\");\n__asm__(\".equ force_region__7triggerG7stringx, 0x0028DAA0\");\n__asm__(\".equ chunkend_label, 0x0046B558\");\n\nvoid region_trigger::read(chunk_file &fs)\n{\n\tstringx reg_id;\n\tfor ( serial_in(fs,&reg_id); reg_id!=chunkend_label; serial_in(fs,&reg_id) )\n    force_region( reg_id );\n\n\ttrigger::read(fs);\n}\n",
+      "status": "different",
+      "target_size": 248
+    }
+  ],
+  "raw_name": "read__14region_triggerR10chunk_file"
+}
