@@ -1,0 +1,23 @@
+{
+  "address": "0x0038A430",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "083dfe543c4d055a63136d522ec060486c1f22a2",
+      "candidate_size": 256,
+      "compared_bytes": 272,
+      "compared_instructions": 65,
+      "emitted_name": "viBufStopDMA__FP5ViBuf",
+      "instruction_score": 24.6154,
+      "matching_bytes": 136,
+      "matching_instructions": 16,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NVL/PS2/nvlMPEG_ps2.cpp:145-172; kelly-slaters-pro-surfer/NVL/PS2/nvlMPEG_ps2.cpp:1723-1742; tmp/source_first/0038A430/notes.md. Result `different`, score 50.0000; no later attempt.",
+      "score": 50.0,
+      "source": "typedef unsigned int u_int;\n#define FALSE 0\n#define TRUE 1\n\nstruct sceIpuDmaEnv {\n    u_int d4madr;\n    u_int d4tadr;\n    u_int d4qwc;\n    u_int d4chcr;\n    u_int d3madr;\n    u_int d3qwc;\n    u_int d3chcr;\n    u_int ipubp;\n    u_int ipuctrl;\n};\n\nstruct ViBuf {\n    void *data;\n    void *tag;\n    int n;\n    int dmaStart;\n    int dmaN;\n    int readBytes;\n    int buffSize;\n    sceIpuDmaEnv env;\n    int sema;\n    int isActive;\n};\n\nextern \"C\" int WaitSema(int sema);\nextern \"C\" int SignalSema(int sema);\nextern void setD4_CHCR(u_int val);\nextern void setD3_CHCR(u_int val);\n__asm__(\".equ WaitSema, 0x003DB6A0\");\n__asm__(\".equ SignalSema, 0x003DB680\");\n__asm__(\".equ setD4_CHCR__FUi, 0x00389E68\");\n__asm__(\".equ setD3_CHCR__FUi, 0x00389DF8\");\n\n#define D4_CHCR ((volatile u_int*)0x1000B400)\n#define D4_MADR ((volatile u_int*)0x1000B410)\n#define D4_QWC ((volatile u_int*)0x1000B420)\n#define D4_TADR ((volatile u_int*)0x1000B430)\n#define D3_CHCR ((volatile u_int*)0x1000B000)\n#define D3_MADR ((volatile u_int*)0x1000B010)\n#define D3_QWC ((volatile u_int*)0x1000B020)\n#define DGET_IPU_BP() (*(volatile u_int*)0x10002020)\n#define DGET_IPU_CTRL() (*(volatile u_int*)0x10002010)\n\nstatic int viBufStopDMA( ViBuf* f )\n{\n    WaitSema( f->sema );\n    f->isActive = FALSE;\n    setD4_CHCR( (0<<8) | (1<<2) | 1 );\n    f->env.d4madr = *D4_MADR;\n    f->env.d4tadr = *D4_TADR;\n    f->env.d4qwc =  *D4_QWC;\n    f->env.d4chcr = *D4_CHCR;\n    while( DGET_IPU_CTRL() & 0xf0 )\n        ;\n    setD3_CHCR( (0<<8) | 0 );\n    f->env.d3madr = *D3_MADR;\n    f->env.d3qwc =  *D3_QWC;\n    f->env.d3chcr = *D3_CHCR;\n    f->env.ipubp = DGET_IPU_BP();\n    f->env.ipuctrl = DGET_IPU_CTRL();\n    SignalSema(f->sema);\n    return TRUE;\n}\n__asm__(\".globl viBufStopDMA__FP5ViBuf\");\n",
+      "status": "different",
+      "target_size": 272
+    }
+  ],
+  "raw_name": "viBufStopDMA__FP5ViBuf"
+}
