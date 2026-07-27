@@ -1,0 +1,23 @@
+{
+  "address": "0x002D6E18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "50fbc0c2ab51d4bba78373b46a3d660083a67363",
+      "candidate_size": 256,
+      "compared_bytes": 280,
+      "compared_instructions": 70,
+      "emitted_name": "set_light_method__8vr_pmesh14light_method_t",
+      "instruction_score": 15.7143,
+      "matching_bytes": 105,
+      "matching_instructions": 11,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/pmesh.cpp:3189-3214; kelly-slaters-pro-surfer/KS/SRC/pmesh.h; kelly-slaters-pro-surfer/KS/SRC/visrep.h; kelly-slaters-pro-surfer/KS/SRC/material.h:37; tmp/functions/002D6E18_set_light_method__8vr_pmesh14light_method_t/attempt-1/result.json; tmp/source_first/002D6E18/notes.md. Result `different`, score 37.5000; no later attempt.",
+      "score": 37.5,
+      "source": "enum light_method_t\n{\n  LIGHT_METHOD_DIFFUSE = 0,\n  LIGHT_METHOD_ADDITIVE_DYNAMIC_ONLY = 1\n};\n\nclass material\n{\npublic:\n  unsigned int get_flags() const __asm__(\"get_flags__C8material\");\n  void set_flags(unsigned int) __asm__(\"set_flags__8materialUi\");\n  void process_vertex_contexts() __asm__(\"process_vertex_contexts__8material\");\n};\n\ntemplate<class T> class vector\n{\n  T* start;\n  T* finish;\n  T* end_of_storage;\npublic:\n  unsigned int size() const { return finish - start; }\n  T& operator[](unsigned int n) { return start[n]; }\n};\n\nclass vr_pmesh\n{\n  char pad[0x38];\n  vector<material*> materials;\n  char pad2[0x5c];\n  unsigned mesh_flags;\npublic:\n  enum { NORMAL=0, FORCE_LIGHT=1 };\n  void set_light_method(light_method_t lmt);\n};\n\nvoid vr_pmesh::set_light_method( light_method_t lmt )\n{\n  if(lmt==LIGHT_METHOD_DIFFUSE)\n  {\n    mesh_flags = (mesh_flags & ~1) | FORCE_LIGHT;\n  }\n  else\n  {\n    mesh_flags = (mesh_flags & ~1) | NORMAL;\n  }\n  for( int i=0 ; i<(int)materials.size() ; ++i )\n  {\n    if(lmt==LIGHT_METHOD_DIFFUSE)\n      materials[i]->set_flags( materials[i]->get_flags() & (0xffff^0x08) );\n    else\n      materials[i]->set_flags( materials[i]->get_flags()| 0x08 );\n\n    materials[i]->process_vertex_contexts();\n  }\n}\n",
+      "status": "different",
+      "target_size": 280
+    }
+  ],
+  "raw_name": "set_light_method__8vr_pmesh14light_method_t"
+}
