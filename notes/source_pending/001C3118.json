@@ -1,0 +1,23 @@
+{
+  "address": "0x001C3118",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3d0392cabb20d23bba478967ef29cb54815e7428",
+      "candidate_size": 272,
+      "compared_bytes": 272,
+      "compared_instructions": 68,
+      "emitted_name": "SurferPlay__15FEEntityManagerifiib",
+      "instruction_score": 85.2941,
+      "matching_bytes": 244,
+      "matching_instructions": 58,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEEntityManager.cpp:861-894; kelly-slaters-pro-surfer/KS/SRC/ks/FEEntityManager.h:18-139,207-210; kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-287; kelly-slaters-pro-surfer/KS/SRC/entity.h:385-399; kelly-slaters-pro-surfer/KS/SRC/ks/surferdata.h:8-24. Result `different`, score 89.7059; no later attempt.",
+      "score": 89.7059,
+      "source": "class string_buf;\nclass stringx\n{\nprotected:\n    char *chars;\n    string_buf *my_buf;\npublic:\n    stringx(const stringx &);\n    ~stringx();\n};\n\nclass entity_anim_tree\n{\npublic:\n    void frame_advance(float);\n};\n\nclass entity\n{\npublic:\n    entity_anim_tree *get_anim_tree(int);\n};\n\nenum { SURFER_LAST = 14 };\nenum { ANIM_PRIMARY = 0 };\n\nclass FEEntityManager\n{\npublic:\n    enum { SA_IDLE, SA_SPECIAL_OCC, SA_OCC_1, SA_OCC_2, SA_SELECT, SA_TRICK };\n    enum { BA_SPIN, BA_TRICK };\n\n    entity *surfer_ent;\n    char pad04[12];\n    int surfer_anim_count;\n    int current_surfer_index;\n    char pad18[508];\n    entity_anim_tree *surfer_tree;\n    char pad218[12];\n    int next_anim;\n    int cur_anim;\n    int cur_b_anim;\n    int cur_trick_anim;\n\n    void TrickPlay(int anim_id);\n    void BoardPlay(int type, int anim_id = 0, float time = -1.0f);\n    stringx makeString(int surfer, int anim);\n    void Anim(stringx anim, float blend_time, bool loop, float time);\n    void SurferPlay(int type, float time, int trick_num, int b_trick_num, bool no_blend);\n};\n\nvoid FEEntityManager::SurferPlay(int type, float time, int trick_num, int b_trick_num, bool no_blend)\n{\n\tif(type == SA_TRICK)\n\t{\n\t\tTrickPlay(trick_num);\n\t\tBoardPlay(BA_TRICK, b_trick_num);\n\t}\n\telse if(current_surfer_index < SURFER_LAST)\n\t{\n\t\tfloat blend_time = 0.0f;\n\t\t\n\t\tif(surfer_ent)\n\t\t{\n\t\t\tAnim(makeString(current_surfer_index, type), blend_time, false, time);\n\t\t\tif (surfer_tree)\n\t\t\t\tsurfer_ent->get_anim_tree(ANIM_PRIMARY)->frame_advance(0.0f);\n\t\t}\n\t\t\n\t\tcur_anim = type;\n\n\t\tsurfer_anim_count++;\n\t\tif(surfer_anim_count == 6)\n\t\t{\n\t\t\tnext_anim = SA_SPECIAL_OCC;\n\t\t\tsurfer_anim_count = 0;\n\t\t}\n\t\telse next_anim = SA_IDLE;\n\n\t\t\n\t\tcur_trick_anim = -2;\n\t}\n}\n",
+      "status": "different",
+      "target_size": 272
+    }
+  ],
+  "raw_name": "SurferPlay__15FEEntityManagerifiib"
+}
