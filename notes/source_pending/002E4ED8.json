@@ -1,0 +1,23 @@
+{
+  "address": "0x002E4ED8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7a2987337ec7465e4d3f9534c7c24420657945a7",
+      "candidate_size": 324,
+      "compared_bytes": 324,
+      "compared_instructions": 81,
+      "emitted_name": "touches_sphere__C6portalRC6sphere",
+      "instruction_score": 1.2346,
+      "matching_bytes": 48,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/portal.cpp:138-181; kelly-slaters-pro-surfer/KS/SRC/portal.h:20-52; kelly-slaters-pro-surfer/KS/SRC/sphere.h:15-45; kelly-slaters-pro-surfer/KS/SRC/plane.h:20-49; kelly-slaters-pro-surfer/KS/SRC/usefulmath.h:35. Result `different`, score 14.8148; no later attempt.",
+      "score": 14.8148,
+      "source": "typedef float rational_t;\n\nclass vector3d\n{\npublic:\n  float x, y, z;\n};\n\ninline rational_t dot(const vector3d& a, const vector3d& b)\n{\n  return a.x*b.x + a.y*b.y + a.z*b.z;\n}\n\nclass sphere\n{\npublic:\n  const vector3d& get_center() const { return center; }\n  rational_t get_radius() const { return radius; }\n  inline bool intersects(const sphere& v) const\n  {\n    vector3d d = { center.x-v.center.x, center.y-v.center.y, center.z-v.center.z };\n    rational_t r = radius+v.radius;\n    return d.x*d.x+d.y*d.y+d.z*d.z <= r*r;\n  }\nprivate:\n  vector3d center;\n  rational_t radius;\n};\n\nclass plane\n{\npublic:\n  plane(const vector3d& point_on_surface, const vector3d& normal);\n  rational_t distance_above(const vector3d& pt) const\n  {\n    return dot(unit_normal, pt) - odistance;\n  }\n  rational_t odistance;\n  vector3d unit_normal;\n};\n\nextern \"C\" float fabsf(float);\n#define __fabs(f) fabsf(f)\n\nclass portal\n{\npublic:\n  bool touches_sphere(const sphere& s) const;\nprivate:\n  char base[172];\n  sphere bound;\n  rational_t cylinder_depth;\n  vector3d normal;\n};\n\nbool portal::touches_sphere(const sphere& s) const\n{\n  if (!bound.intersects(s))\n    return false;\n  plane p(bound.get_center(),normal);\n  if (__fabs(p.distance_above(s.get_center())) >= s.get_radius()+cylinder_depth)\n  {\n    // This check is kinda expensive and only matters for portals that\n    // are very non-planar.  Fuck 'em.  --Sean\n    /*\n    int i;\n    for (i=verts->size(); --i>=0; )\n    {\n      vector3d v = (*verts)[i].get_point();\n      if (s.contains(v))\n        return true;\n    }\n    */\n    return false;\n  }\n  return true; // close enough\n  /*\n  if (bound.get_radius()<s.get_radius())\n    return false; // no point in continuing.\n  // check faces for intersection\n  for (i=get_max_faces(); --i>=0; )\n  {\n    const vector3d& v0 = get_xvert_unxform( get_wedge_ref( i, 0) );\n    const vector3d& v1 = get_xvert_unxform( get_wedge_ref( i, 1) );\n    const vector3d& v2 = get_xvert_unxform( get_wedge_ref( i, 2) );\n    plane p(v0,v1,v2); // involves a dot and a sqrt\n    if (__fabs(p.distance_above(bound.get_center())) < bound.get_radius())\n    {\n      // see if sphere center is within poly edges + radius\n      return true;\n    }\n  }\n  */\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "touches_sphere__C6portalRC6sphere"
+}
