@@ -1,0 +1,16 @@
+{
+  "address": "0x00313978",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "dc3d263e5892315de386196acefdd730f2029b9c",
+      "error": "Candidate did not emit get_soft_attrib_num__C31character_soft_attrib_interfaceR7pstring; emitted functions: []",
+      "notes": "The one permitted test failed with symbol_missing: the compiler emitted no function symbol. No second attempt was made.",
+      "score": 0.0,
+      "source": "typedef float rational_t;\ntypedef unsigned long long uint64;\n#define assert(x) ((void)0)\n\nclass pstring\n{\n  private:\n    uint64 pchunk[4];\n\n  public:\n    bool operator == (const pstring &check_me) const\n    {\n      for (unsigned i=0; i<4; ++i)\n      {\n        if (pchunk[i] != check_me.pchunk[i])\n          return false;\n      }\n      return true;\n    }\n};\n\ntemplate <class type>\nclass basic_attribute\n{\n  private:\n    static pstring type_name;\n    type value;\n\n  public:\n    virtual ~basic_attribute() {}\n    const type &get () const\n    {\n      return value;\n    }\n};\n\ntemplate <class type>\nclass bounded_attribute\n{\n  private:\n    static pstring type_name;\n    type max_value;\n    type min_value;\n    type value;\n\n  public:\n    virtual ~bounded_attribute() {}\n    const type &get () const\n    {\n      return value;\n    }\n};\n\nclass team_attrib : public basic_attribute<int>\n{\n  protected:\n    static pstring attribute_name;\n\n  public:\n    const pstring &get_name() const { return attribute_name; }\n};\n\nclass ammo_points_attrib : public bounded_attribute<int>\n{\n  protected:\n    static pstring attribute_name;\n\n  public:\n    const pstring &get_name() const { return attribute_name; }\n};\n\nclass ammo_clips_attrib : public bounded_attribute<int>\n{\n  protected:\n    static pstring attribute_name;\n\n  public:\n    const pstring &get_name() const { return attribute_name; }\n};\n\nclass entity_interface\n{\n  protected:\n    void *my_entity;\n\n  public:\n    virtual ~entity_interface() {}\n};\n\nclass soft_attrib_interface : public entity_interface\n{\n  protected:\n    team_attrib team;\n};\n\nclass character_soft_attrib_interface : public soft_attrib_interface\n{\n  private:\n    ammo_points_attrib ammo_points;\n    ammo_clips_attrib ammo_clips;\n\n  public:\n    virtual const rational_t get_soft_attrib_num(pstring &by_name) const \n    {\n      #define PROCESS_NUMBERS_ONLY\n      #define MAC(atype, itype, itype_name, code_name, str_name, default_val, min_val, max_val) \\\n        if (by_name == code_name##.get_name()) { return (rational_t)##code_name##.get(); }\n\n      MAC( basic, int, \"INT\", team, \"TEAM\", 0x00000100, -1, -1 )\n      MAC( bounded, int, \"INT\", ammo_points, \"AMMO_POINTS\", 100, 0, 100 )\n      MAC( bounded, int, \"INT\", ammo_clips, \"AMMO_CLIPS\", 1, 0, 10 )\n      #undef MAC\n      #undef PROCESS_NUMBERS_ONLY\n      assert(\"Could not get a character soft attribute number by name.\" == 0);\n      return 0.0f;\n    }\n};\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "get_soft_attrib_num__C31character_soft_attrib_interfaceR7pstring"
+}
