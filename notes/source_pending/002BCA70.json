@@ -1,0 +1,23 @@
+{
+  "address": "0x002BCA70",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d302e9f196740d80503f7ae107ce6db7f8742e98",
+      "candidate_size": 300,
+      "compared_bytes": 324,
+      "compared_instructions": 81,
+      "emitted_name": "load_material__7mat_facRC7stringx",
+      "instruction_score": 69.1358,
+      "matching_bytes": 205,
+      "matching_instructions": 56,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/matfac.cpp:87-107; kelly-slaters-pro-surfer/KS/SRC/matfac.h:20-68; kelly-slaters-pro-surfer/KS/SRC/filespec.h:9-25; kelly-slaters-pro-surfer/KS/SRC/stringx.h:485-511; tmp/functions/002BCA70_load_material__7mat_facRC7stringx/attempt-1/result.json; tmp/source_first/002BCA70/attempt-1.md. Result `different`, score 63.2716; no later attempt.",
+      "score": 63.2716,
+      "source": "typedef unsigned long long big_int;\nextern \"C\" unsigned int strlen(const char *);\n\nclass stringx;\nclass string_buf {\n    friend class stringx;\n    friend stringx operator+(const stringx &, const char *);\n    big_int *data;\n    int ref_count;\n    int char_length;\n    int block_length;\n    int max_blocks;\n};\n\nclass stringx {\n    friend stringx operator+(const stringx &, const char *);\n    char *chars;\n    string_buf *my_buf;\npublic:\n    stringx();\n    stringx(const stringx &);\n    ~stringx();\n    stringx &operator=(const stringx &);\n    const char *c_str() const { return chars; }\n    bool empty() const { return chars[0] == '\\0'; }\n    void make_room(int size);\n    void append(const stringx &);\n    void append(const char *, int len = -1);\n};\n\ninline stringx operator+(const stringx &lhs, const char *rhs)\n{\n    stringx foo;\n    int len = strlen(rhs);\n    foo.make_room(len + lhs.my_buf->char_length);\n    foo.append(lhs);\n    foo.append(rhs, len);\n    return foo;\n}\n\nclass filespec {\npublic:\n    stringx path;\n    stringx name;\n    stringx ext;\n    explicit filespec(const stringx &s);\n};\n\nclass os_developer_options {\npublic:\n    enum strings_t { STRING_TEXTURE_DIR = 72 };\n    static os_developer_options *inst();\n    const stringx &get_string(strings_t value) const { return strings[value]; }\nprivate:\n    char flags[0x1c];\n    stringx strings[1];\n};\n\nextern os_developer_options *os_developer_options_instance;\n__asm__(\".equ os_developer_options_instance, 0x0045B180\");\ninline os_developer_options *os_developer_options::inst() { return os_developer_options_instance; }\n\nstruct nglTexture;\nstruct nglMaterial {\n    unsigned int Flags;\n    nglTexture *Map;\n    char padding[0x30];\n    unsigned int MapBlendMode;\n    unsigned int MapBlendModeConstant;\n};\n\nextern void nglReleaseTexture(nglTexture *);\nextern void nglSetTexturePath(const char *);\nextern nglTexture *nglLoadTextureA(const char *);\n__asm__(\".equ nglReleaseTexture__FP10nglTexture, 0x0039C820\");\n__asm__(\".equ nglSetTexturePath__FPCc, 0x00395DE0\");\n__asm__(\".equ nglLoadTextureA__FPCc, 0x0039C1C8\");\n\nclass mat_fac {\npublic:\n    void load_material(const stringx &file);\nprivate:\n    nglMaterial m_nglmat;\n};\n\nvoid mat_fac::load_material(const stringx &file)\n{\n    filespec pather(file);\n    if (pather.path.empty())\n        pather.path = os_developer_options::inst()->get_string(os_developer_options::STRING_TEXTURE_DIR) + \"\\\\\";\n\n    if (m_nglmat.Map)\n        nglReleaseTexture(m_nglmat.Map);\n\n    nglSetTexturePath((char *)pather.path.c_str());\n    m_nglmat.Map = nglLoadTextureA((char *)pather.name.c_str());\n    m_nglmat.Flags |= 0x10;\n    m_nglmat.MapBlendMode = 1;\n    m_nglmat.MapBlendModeConstant = 255;\n}\n",
+      "status": "different",
+      "target_size": 324
+    }
+  ],
+  "raw_name": "load_material__7mat_facRC7stringx"
+}
