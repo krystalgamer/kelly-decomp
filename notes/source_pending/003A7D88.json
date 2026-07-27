@@ -1,0 +1,23 @@
+{
+  "address": "0x003A7D88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8678249a0a3488b25f00a531adc67c4747bff480",
+      "candidate_size": 300,
+      "compared_bytes": 316,
+      "compared_instructions": 79,
+      "emitted_name": "nglListAddString__FP7nglFontffdUiPCce",
+      "instruction_score": 22.7848,
+      "matching_bytes": 113,
+      "matching_instructions": 18,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:8353-8359; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:8557-8585; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:293-308; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:1332-1333; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2_internal.h:313-321; tmp/functions/003A7D88_nglListAddString__FP7nglFontffdUiPCce/attempt-1/result.json; tmp/source_first/003A7D88/attempt-1.md. Result `different`, score 35.7595; no later attempt.",
+      "score": 35.7595,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned char u_char;\ntypedef unsigned long u_long;\ntypedef char* va_list;\n#define va_start(ap, last) (ap = (char*)__builtin_next_arg())\n#define va_end(ap) ((void)0)\n#define NULL 0\n\nstruct nglFont;\nstruct nglStringNode\n{\n  char* Text;\n  nglFont* Font;\n  float X, Y, Z;\n  u_int Color;\n};\n\ntypedef void (*nglCustomNodeFn)( u_int*& Packet, void* Data );\nstruct nglSortInfo\n{\n  u_int Type;\n  union {\n    float Dist;\n    u_int Hash;\n  };\n};\n\nenum { NGLSORT_TRANSLUCENT };\nenum { NGLNODE_STRING = 3 };\n\nextern char nglWork[];\nvoid* nglListAlloc( u_int Size );\nint vsprintf( char* Buffer, const char* Format, va_list Args );\nu_int strlen( const char* Text );\nvoid* memcpy( void* Dest, const void* Source, u_int Size );\nvoid nglVif1RenderString( u_int*& Packet, void* Param );\nvoid nglListAddNode( u_int Type, nglCustomNodeFn NodeFn, void* Data, nglSortInfo* SortInfo, u_char** Buf = NULL );\n#define nglListNew( Type ) (Type*)nglListAlloc( sizeof(Type) )\n\nvoid nglListAddString( nglFont* Font, float x, float y, double z, u_int Color, const char* Text, ... )\n{\n  if (Text == NULL || *Text == '\\0' || Font == NULL )\n    return;\n\n  nglStringNode* StringNode = nglListNew( nglStringNode );\n  if ( !StringNode )\n    return;\n\n  va_list argptr;\n  va_start( argptr, Text );\n  vsprintf( nglWork, Text, argptr );\n  va_end( argptr );\n\n  u_int Len = strlen( nglWork );\n  StringNode->Text = (char*)nglListAlloc( Len + 1 );\n  memcpy( StringNode->Text, nglWork, Len + 1 );\n\n  StringNode->Font = Font;\n  StringNode->Color = Color;\n  StringNode->X = x;\n  StringNode->Y = y;\n  StringNode->Z = z;\n\n  nglSortInfo SortInfo;\n  SortInfo.Type = NGLSORT_TRANSLUCENT;\n  SortInfo.Dist = z;\n  nglListAddNode( NGLNODE_STRING, nglVif1RenderString, StringNode, &SortInfo );\n}\n",
+      "status": "different",
+      "target_size": 316
+    }
+  ],
+  "raw_name": "nglListAddString__FP7nglFontffdUiPCce"
+}
