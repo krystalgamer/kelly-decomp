@@ -1,0 +1,23 @@
+{
+  "address": "0x0014F300",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "10492323fda499bfd9cb88c4335bef27dab5e2e7",
+      "candidate_size": 412,
+      "compared_bytes": 412,
+      "compared_instructions": 103,
+      "emitted_name": "Init__10FloatingPQfffffffffffffG9matrix4x4",
+      "instruction_score": 0.0,
+      "matching_bytes": 66,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:2157-2172; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:427-471,560-600; tmp/functions/0014F300_Init__10FloatingPQfffffffffffffG9matrix4x4/attempt-1/result.json; tmp/source_first/0014F300/attempt-1.md. Result `different`, score 16.0194; no later attempt.",
+      "score": 16.0194,
+      "source": "struct matrix4x4 { float m[4][4]; };\n\nextern \"C\" void unadjustCoords(float &, float &)\n    __asm__(\"unadjustCoords__H1Zf_RX01T0_v\");\n\nclass PanelQuad {\nprotected:\n    char padding0[0xa8];\n    float x1, y1, x2, y2;\n    char padding1[0x8];\n    float width, height, width_a, height_a;\n    char padding2[0xcc];\npublic:\n    virtual void Init(float, float, float, float, float, float, float,\n                      float, float, float, float, float, float, matrix4x4);\n};\n\nclass FloatingPQ : public PanelQuad {\n    float location_3d[4];\n    float location_2d[4];\n    float scale;\n    int h_just;\n    float width_f, height_f;\n    float x1_const, x2_const, y1_const, y2_const;\n    bool non_floating_behavior;\npublic:\n    virtual void Init(float, float, float, float, float, float, float,\n                      float, float, float, float, float, float, matrix4x4);\n};\n\n__asm__(\".equ Init__9PanelQuadfffffffffffffG9matrix4x4, 0x0014CC48\");\n__asm__(\".equ unadjustCoords__H1Zf_RX01T0_v, 0x001D6BF0\");\n\nvoid FloatingPQ::Init(float xa, float ya, float xb, float yb,\n                      float r1, float g1, float b1, float a1,\n                      float ua, float va, float ub, float vb,\n                      float z1, matrix4x4 obj)\n{\n    PanelQuad::Init(xa, ya, xb, yb, r1, g1, b1, a1, ua, va, ub, vb, z1, obj);\n    width_f = width_a;\n    height_f = height_a;\n    x1_const = x1;\n    y1_const = y1;\n    x2_const = x2;\n    y2_const = y2;\n    unadjustCoords(x1_const, y1_const);\n    unadjustCoords(x2_const, y2_const);\n    non_floating_behavior = false;\n}\n",
+      "status": "different",
+      "target_size": 316
+    }
+  ],
+  "raw_name": "Init__10FloatingPQfffffffffffffG9matrix4x4"
+}
