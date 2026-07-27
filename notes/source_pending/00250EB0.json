@@ -1,0 +1,23 @@
+{
+  "address": "0x00250EB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "50d24052e551fc9d8209f892f49e2e70f1fb2c08",
+      "candidate_size": 256,
+      "compared_bytes": 264,
+      "compared_instructions": 66,
+      "emitted_name": "OnEvent__12SpecialMeter5EVENTii",
+      "instruction_score": 51.5152,
+      "matching_bytes": 190,
+      "matching_instructions": 34,
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Extracted `SpecialMeter::OnEvent` verbatim from released `specialmeter.cpp` (comments omitted only).\n- Self-contained declarations reproduce the `EVENT` enumerators used by the body and the `SpecialMeter` field order/offset-bearing layout required by the method.\n- Tested exactly once with `env/bin/python tools/function_test.py test 0x00250EB0 --candidate .../candidate.cpp`.\n- Result: `different`; byte score 71.9697% (190/264), instruction score 51.5152% (34/66), candidate size 256 versus target 264.\n- No variants or diff chasing performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/specialmeter.cpp:147-190` \u2014 exact released function body.\n- `kelly-slaters-pro-surfer/KS/SRC/ks/specialmeter.h:10-49` \u2014 class inheritance, field order, and method declaration.\n- `kelly-slaters-pro-surfer/KS/SRC/ks/eventmanager.h:7-23` \u2014 exact `EVENT` values used by the body.\n- `notes/function_queue.csv:5739` \u2014 target metadata and queue state.",
+      "score": 71.9697,
+      "source": "enum EVENT\n{\n    EVT_SURFER_LAND,\n    EVT_SURFER_WIPEOUT,\n    EVT_SURFER_DUCK_DIVE,\n    EVT_TRICK_REGION_CHANGE,\n    EVT_TRICK_FACE_BEGIN,\n    EVT_TRICK_FACE_END,\n    EVT_SCORING_SERIES_END,\n    EVT_SCORING_CHAIN_END\n};\n\nclass SpecialMeter\n{\n    char event_recipient[4];\n    int playerIdx;\n    float fillage;\n    bool isEnabled;\n    float specialTime;\n    int trickRegion;\n    bool isDoingTrick;\n    int faceLink;\n    float faceLinkTimer;\n    float current_special_time;\n    int numPerfects;\n\npublic:\n    void OnEvent(const EVENT event, const int param1, const int param2);\n};\n\nvoid SpecialMeter::OnEvent(const EVENT event, const int param1, const int param2)\n{\n    if (param1 != playerIdx)\n        return;\n\n    if (event == EVT_TRICK_FACE_BEGIN)\n    {\n        switch (faceLink)\n        {\n        case 0 : faceLinkTimer = 1.0f; break;\n        case 1 : faceLinkTimer = 0.75f; break;\n        case 2 : faceLinkTimer = 0.50f; break;\n        case 3 : faceLinkTimer = 0.25f; break;\n        case 4 : faceLinkTimer = 0.10f; break;\n        case 5 : faceLinkTimer = 0.05f; break;\n        default : faceLinkTimer = 0.01f; break;\n        }\n\n        faceLink++;\n    }\n    else if (event == EVT_TRICK_FACE_END)\n    {\n\n    }\n    else if (event == EVT_SURFER_LAND)\n    {\n        if (param2 & 0x01)\n            numPerfects++;\n        else\n            numPerfects = 0;\n    }\n    else if (event == EVT_SCORING_CHAIN_END)\n    {\n        numPerfects = 0;\n    }\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "OnEvent__12SpecialMeter5EVENTii"
+}
