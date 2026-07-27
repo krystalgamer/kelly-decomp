@@ -1,0 +1,23 @@
+{
+  "address": "0x001B17A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7eae9046ae4b604c8b794a0f758cbdea71db7bd6",
+      "candidate_size": 332,
+      "compared_bytes": 332,
+      "compared_instructions": 83,
+      "emitted_name": "SetNoTip__14GoalsMenuClass",
+      "instruction_score": 22.8916,
+      "matching_bytes": 114,
+      "matching_instructions": 19,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:2427-2444; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h:483-516; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:200-248; tmp/functions/001B17A8_SetNoTip__14GoalsMenuClass/attempt-1/result.json; tmp/source_first/001B17A8/attempt-1.md. Result `different`, score 34.3373; no later attempt.",
+      "score": 34.3373,
+      "source": "struct BoxTextVTable {\n    char padding0[80];\n    short changeScale_adjustment;\n    short changeScale_reserved;\n    void (*changeScale_function)(void *, float);\n    short changePos_adjustment;\n    short changePos_reserved;\n    void (*changePos_function)(void *, float, float);\n};\n\nclass BoxText {\n    char padding0[76];\n    BoxTextVTable *vtable;\n\npublic:\n    void changeScale(float scale)\n    {\n        vtable->changeScale_function(\n            (char *)this + vtable->changeScale_adjustment,\n            scale\n        );\n    }\n\n    void changePos(float x, float y)\n    {\n        vtable->changePos_function(\n            (char *)this + vtable->changePos_adjustment,\n            x,\n            y\n        );\n    }\n\n    int makeBox(int width, int height, bool reverse = false,\n                float scale_override = -1, int height_override = -1);\n};\n\nclass TextString {\n    char padding0[76];\n    BoxTextVTable *vtable;\n\npublic:\n    void changeScale(float scale)\n    {\n        vtable->changeScale_function(\n            (char *)this + vtable->changeScale_adjustment,\n            scale\n        );\n    }\n\n    void changePos(float x, float y)\n    {\n        vtable->changePos_function(\n            (char *)this + vtable->changePos_adjustment,\n            x,\n            y\n        );\n    }\n};\n\nclass GoalsMenuClass {\n    char padding0[124];\n    BoxText *names[5];\n    TextString *status[5];\n\npublic:\n    void SetNoTip();\n};\n\n__asm__(\".equ makeBox__7BoxTextiibfi, 0x00149D30\");\n\nvoid GoalsMenuClass::SetNoTip()\n{\n\tstatic const int spacing = 50;\n\tstatic const int extra_spacing = 20;\n\tint extra_lines = 0;\n\tfloat scale = 1.0f;\n\n\tfor(int i=0; i<5; i++)\n\t{\n\t\tint y = 105 + (i*spacing) + extra_lines*extra_spacing;\n\t\tnames[i]->changePos(320, y);\n\t\tnames[i]->changeScale(scale);\n\t\textra_lines += names[i]->makeBox(502, 200) - 1;\n\t\ty = 105 + (i*spacing) + (extra_lines+1)*extra_spacing;\n\t\tstatus[i]->changePos(320, y);\n\t\tstatus[i]->changeScale(scale);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 328
+    }
+  ],
+  "raw_name": "SetNoTip__14GoalsMenuClass"
+}
