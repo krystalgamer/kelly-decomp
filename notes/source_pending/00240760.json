@@ -1,0 +1,23 @@
+{
+  "address": "0x00240760",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e2a52029b5b63871b3edb80771f404a119da0d87",
+      "candidate_size": 328,
+      "compared_bytes": 332,
+      "compared_instructions": 83,
+      "emitted_name": "Draw__10MenuRender",
+      "instruction_score": 4.8193,
+      "matching_bytes": 93,
+      "matching_instructions": 4,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/menusys.cpp:39-72; kelly-slaters-pro-surfer/KS/SRC/ks/menusys.h:49-72,97-124,138-170; tmp/functions/00240760_Draw__10MenuRender/attempt-1/result.json; tmp/source_first/00240760/attempt-1.md. Result `different`, score 28.0120; no later attempt.",
+      "score": 28.012,
+      "source": "typedef unsigned int MENU_UINT32;\ntypedef unsigned short MENU_UINT16;\ntypedef char MenuLine[64];\n\nstruct MenuColor\n{\n\tunsigned char r,g,b,a;\n};\n\nstruct MenuRect\n{\n\tMENU_UINT16 x0,y0,x1,y1;\n};\n\nextern void MENU_DrawStart( void );\nextern void MENU_DrawEnd( void );\nextern int MENU_BorderSizeFactor( void );\nextern int MENU_BorderSpaceFactor( void );\nextern void MENU_DrawTextAt( int x, int y, const char *text, const MenuColor &color );\nextern int MENU_TextHeight( const char *text );\nextern int MENU_TextSeparation( void );\n\nconst int maxmenulines=16;\nconst int menuborderwidth = 1;\nconst int entry0offx = 1;\nconst int entry0offy = 1;\n\nclass MenuRender\n{\n\tMenuRect limit;\n\tMenuRect inuse;\n\tMenuLine text[maxmenulines];\n\tMENU_UINT32 state[maxmenulines];\n\tint active;\n\tint topentry;\n\npublic:\n\tvoid Draw( void );\n\nprotected:\n\tvoid DrawFrame( int x0, int y0, int x1, int y1 );\n\tvirtual int TotalEntries( void )=0;\n\tvirtual MENU_UINT32 GetElementState( int i )=0;\n\tvirtual void GetElementText( int i, char *t, int len )=0;\n\tvirtual MenuColor GetElementColor( int i )=0;\n};\n\nenum\n{\n\tMENTRY_VISIBLE = 0x00000008\n};\n\nvoid MenuRender::Draw( void )\n{\n\tif ( active )\n\t{\n\t\tMENU_DrawStart();\n\t\tDrawFrame(inuse.x0, inuse.y0, inuse.x1, inuse.y1);\n\t\tint x=inuse.x0+(entry0offx * MENU_BorderSpaceFactor());\n\t\tint y=inuse.y0+(entry0offy * MENU_BorderSpaceFactor())+(menuborderwidth * MENU_BorderSizeFactor());\n\t\tfor ( int i=0; i<active; i++ )\n\t\t{\n\t\t\tif ( state[i] & MENTRY_VISIBLE )\n\t\t\t{\n\t\t\t\tMENU_DrawTextAt( x,y,text[i],GetElementColor(topentry+i) );\n\t\t\t\ty+=MENU_TextHeight(text[i])+MENU_TextSeparation();\n\t\t\t}\n\t\t}\n\t\tMENU_DrawEnd();\n\t}\n}\n",
+      "status": "different",
+      "target_size": 332
+    }
+  ],
+  "raw_name": "Draw__10MenuRender"
+}
