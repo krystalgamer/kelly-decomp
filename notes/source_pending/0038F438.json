@@ -1,0 +1,23 @@
+{
+  "address": "0x0038F438",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "43b60bda04ef91532f251f31322493e0fe606c2a",
+      "candidate_size": 132,
+      "compared_bytes": 288,
+      "compared_instructions": 72,
+      "emitted_name": "nslSetEmitterPosition__FUiRA2_Cf",
+      "instruction_score": 1.3889,
+      "matching_bytes": 28,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at . Result `different`, score 9.7222; no later attempt.",
+      "score": 9.7222,
+      "source": "typedef unsigned int nlUint32;\ntypedef nlUint32 nslEmitterId;\ntypedef float nlVector3d[3];\n\nstruct nslEmitter\n{\n  bool used;\n  bool autoRelease;\n  bool isALineEmitter;\n  char alignment;\n  nslEmitterId myId;\n  nlVector3d startPosition;\n  nlVector3d endPosition;\n  nlVector3d position;\n  char emittedSounds[24];\n};\n\nstruct nslSystem\n{\n  char beforeEmitterSlots[45160];\n  nslEmitter emitterSlots[256];\n  char beforeOn[16];\n  int on;\n};\n\nextern nslSystem nsl;\nextern void _nslInitialized();\nextern void _nslCheckEmitterIdValidity(nslEmitterId checkId);\nextern \"C\" void *memcpy(void *dest, const void *src, unsigned int count);\n\n#define ASSERT_NSL_INITIALIZED() _nslInitialized()\n#define ASSERT_EMITTER_ID_VALID(id) _nslCheckEmitterIdValidity(id)\n#define NSL_GET_SLOT_FROM_ID(id) ((id) & 0x3ff)\n\nvoid nslSetEmitterPosition( nslEmitterId emitterToSet, const nlVector3d &newPosition )\n{\n  if (!nsl.on) return;\n  ASSERT_NSL_INITIALIZED();\n  ASSERT_EMITTER_ID_VALID(emitterToSet);\n  memcpy(nsl.emitterSlots[NSL_GET_SLOT_FROM_ID(emitterToSet)].position, newPosition, sizeof(nlVector3d));\n  /*nsl.emitterSlots[NSL_GET_SLOT_FROM_ID(emitterToSet)].position[0] = newPosition[0];\n  nsl.emitterSlots[NSL_GET_SLOT_FROM_ID(emitterToSet)].position[1] = newPosition[1];\n  nsl.emitterSlots[NSL_GET_SLOT_FROM_ID(emitterToSet)].position[2] = newPosition[2];*/\n\n}\n",
+      "status": "different",
+      "target_size": 288
+    }
+  ],
+  "raw_name": "nslSetEmitterPosition__FUiRA2_Cf"
+}
