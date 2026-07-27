@@ -1,0 +1,23 @@
+{
+  "address": "0x001CABD0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "836cb895434730e0d431463144e08f73d39ce891",
+      "candidate_size": 244,
+      "compared_bytes": 248,
+      "compared_instructions": 62,
+      "emitted_name": "IsNewHighScore__17HighScoreFrontEndii",
+      "instruction_score": 56.4516,
+      "matching_bytes": 164,
+      "matching_instructions": 35,
+      "notes": "Exact released `HighScoreFrontEnd::IsNewHighScore` body with the authentic game, high-score aggregate, 22-entry cheat enum, and cheat layout. The aggregate calls, cheat scan, and comparisons reproduce; EE GCC omitted the target's loop-scheduling nop and reordered several call setup instructions, producing 244 bytes instead of 248.",
+      "score": 66.129,
+      "source": "template<class T>\nclass list {\n    void *node;\n};\n\nclass game_process;\nclass nglTexture;\nclass camera;\nclass TimeAttackMode;\nclass MeterAttackMode;\nclass HeadToHeadMode;\n\nclass PushMode {\n};\n\nstruct PlayMode {\n    TimeAttackMode *timeAttack;\n    MeterAttackMode *meterAttack;\n    HeadToHeadMode *headToHead;\n    PushMode *push;\n};\n\nstruct game_recti {\n    int x0;\n    int y0;\n    int x1;\n    int y1;\n};\n\nclass game {\n    char data_before_process_stack[0x5c];\n    list<game_process> process_stack;\n    char data_after_process_stack[0x08];\n    int snapshotState;\n    nglTexture *destSnapshot;\n    int renderState;\n    int game_mode;\n    PlayMode play_mode;\n    camera *player_cam[2];\n    game_recti player_viewports[2];\n    int num_players;\n    int num_ai_players;\n    int num_active_players;\n    int active_player;\n\npublic:\n    inline int get_game_mode() const { return game_mode; }\n    inline int get_beach_id() const {\n        return *(const int *)((const char *)this + 0x228);\n    }\n};\n\nenum {\n    GAME_MODE_FREESURF_ICON = 3,\n    NUM_ROWS = 10\n};\n\nstruct HighScoreData {\n    char initials[4];\n    char character[32];\n    int score;\n    int icons;\n};\n\nclass GlobalDataClass {\npublic:\n    HighScoreData getBeachHighScore(\n        int beach,\n        int whichScore,\n        bool icons);\n};\n\nenum CheatId {\n    CHEAT_RAINBOW,\n    CHEAT_TRIPPY,\n    CHEAT_FREAK_BOY,\n    CHEAT_TONY_HAWK,\n    CHEAT_TIKI_GOD,\n    CHEAT_TRAVIS_PASTRANA,\n    CHEAT_FPS_CAM,\n    CHEAT_INCREASE_BALANCE,\n    CHEAT_SUPER_BALANCE,\n    CHEAT_INCREASE_JUMP,\n    CHEAT_SUPER_JUMP,\n    CHEAT_PERFECT_BALANCE,\n    CHEAT_CAREER_PERSONALITY_SUIT,\n    CHEAT_ALL_PERSONALITY_SUITS,\n    CHEAT_BAILS_MOVIE,\n    CHEAT_ESPN_MOVIE,\n    CHEAT_ALL_LEVELS,\n    CHEAT_ALL_BOARDS,\n    CHEAT_UNLOCK_ALL_SURFERS,\n    CHEAT_UNLOCK_ALL_SURFER_TRICKS,\n    CHEAT_UNLOCK_ALL_SKILL_POINTS,\n    CHEAT_MEGA_CHEAT,\n    CHEAT_LAST\n};\n\nclass Cheat {\n    bool locked;\n    bool on;\n\npublic:\n    bool isOn() const { return on; }\n};\n\nclass HighScoreFrontEnd {\npublic:\n    static bool IsNewHighScore(int score, int icons);\n};\n\nextern game *g_game_ptr;\nextern GlobalDataClass globalCareerData;\nextern Cheat g_session_cheats[CHEAT_LAST];\n\n__asm__(\".equ g_game_ptr, 0x0046AC64\");\n__asm__(\".equ globalCareerData, 0x004349B8\");\n__asm__(\".equ getBeachHighScore__15GlobalDataClassiib, 0x002F0020\");\n__asm__(\".equ g_session_cheats, 0x0043BD48\");\n\nbool HighScoreFrontEnd::IsNewHighScore(const int score, const int icons)\n{\n\tbool icon_mode = g_game_ptr->get_game_mode() == GAME_MODE_FREESURF_ICON;\n\tint lowest_high = globalCareerData.getBeachHighScore(g_game_ptr->get_beach_id(), NUM_ROWS-1, icon_mode).score;\n\tint lowest_high_i = globalCareerData.getBeachHighScore(g_game_ptr->get_beach_id(), NUM_ROWS-1, icon_mode).icons;\n\n\tfor(int i=0; i<CHEAT_LAST; i++)\n\t{\n\t\tif (g_session_cheats[i].isOn())\n\t\t\treturn false;\n\t}\n\tif ((!icon_mode && score > lowest_high || (icon_mode && icons > lowest_high_i)))\n\t\treturn true;\n\n\treturn false;\n}\n",
+      "status": "different",
+      "target_size": 248
+    }
+  ],
+  "raw_name": "IsNewHighScore__17HighScoreFrontEndii"
+}
