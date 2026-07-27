@@ -1,0 +1,15 @@
+{
+  "address": "0x00373D68",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3039123c93ef55becec4ff70681964698ef31975",
+      "notes": "# WAVE_LoadAll__Fv first pass\n\n- Queue was clean and pending with zero attempts; no pre-existing address scratch existed.\n- Candidate uses the exact released body. `wavewarn` is omitted only through its authentic disabled macro expansion.\n- Narrow declarations preserve the released `u_int`, two-pointer `stringx` layout and converting constructor/destructor, schedule helper signature, counter, and static loader.\n- Exactly one candidate is tested; no source iteration or diff chasing.\n\n## Result\n\n- **compile_failed**, score 0.0. The compiler rejected the static `WAVE_Load` declaration as used but never defined.\n- No second attempt was made.",
+      "score": 0.0,
+      "source": "typedef unsigned int u_int;\n\nclass string_buf;\n\nclass stringx\n{\nprotected:\n\tchar *chars;\n\tstring_buf *my_buf;\n\npublic:\n\tstringx(const char *str, int len = -1);\n\t~stringx();\n};\n\nextern u_int WAVE_ScheduleTypeMax;\n\nvoid WAVE_AddToSchedule(char id, const stringx &typestr, const stringx &breakstr,\n\tconst stringx &wdstr, float scale, float duration);\nstatic void WAVE_Load(u_int type);\n\n__asm__(\".equ WAVE_ScheduleTypeMax, 0x004846CC\");\n__asm__(\".equ __7stringxPCci, 0x0034D438\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\".equ WAVE_AddToSchedule__FcRC7stringxN21ff, 0x00377840\");\n__asm__(\".equ WAVE_Load__FUi, 0x003737A8\");\n\nstatic void WAVE_LoadAll(void)\n{\n\tif (WAVE_ScheduleTypeMax == 0)\n\t{\n\t\tWAVE_AddToSchedule('B', \"default\", \"default\", \"default\", 1, 60);\n\t}\n\tfor (u_int i = 0; i < WAVE_ScheduleTypeMax; ++i)\n\t{\n\t\tWAVE_Load(i);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WAVE_LoadAll__Fv"
+}
