@@ -1,0 +1,23 @@
+{
+  "address": "0x003978B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "265d4004c02e9db0eb9cb47de78f2e37ccb27359",
+      "candidate_size": 292,
+      "compared_bytes": 292,
+      "compared_instructions": 73,
+      "emitted_name": "nglGifSafeWait__Fv",
+      "instruction_score": 76.7123,
+      "matching_bytes": 241,
+      "matching_instructions": 56,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:171-172,1248-1287; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2_internal.h:191-196,932; config/SLUS_203.34.symbol_addrs.txt:7995,8807,12021-12022; tmp/functions/003978B8_nglGifSafeWait__Fv/target.s; tmp/functions/003978B8_nglGifSafeWait__Fv/attempt-1/result.json. Result `different`, score 82.5342; no later attempt.",
+      "score": 82.5342,
+      "source": "typedef unsigned int u_int;\n\n#define D1_CHCR ((volatile u_int *)0x10009000)\n#define D2_CHCR ((volatile u_int *)0x1000A000)\n#define VIF1_FBRST ((volatile u_int *)0x10003C10)\n#define GIF_CTRL ((volatile u_int *)0x10003000)\n#define GIF_STAT ((volatile u_int *)0x10003020)\n\nextern bool nglStopOnDmaTimeout;\nextern bool nglCompleteFrame;\nextern const char ngl_gif_dma_timeout[];\n\nextern \"C\" int scePcStart(int, int, int);\nvoid nglWarning(const char *, ...);\n\n__asm__(\".equ nglStopOnDmaTimeout, 0x004AB814\");\n__asm__(\".equ nglCompleteFrame, 0x004AB818\");\n__asm__(\".equ ngl_gif_dma_timeout, 0x0050D530\");\n__asm__(\".equ scePcStart, 0x003C5DD0\");\n__asm__(\".equ nglWarning__FPCce, 0x003AC088\");\n\ninline long volatile nglGetCPUCycle()\n{\n  register unsigned long result;\n  __asm__ volatile (\"mfc0 %0,$9\" : \"=r\" (result));\n  return result;\n}\n\nconst u_int nglGifTimeOut = (u_int)(294912.0f * 100.0f);\n\nvoid nglGifSafeWait()\n{\n  register u_int Start = nglGetCPUCycle();\n\n  while ( (*D2_CHCR & 0x0100) || (*GIF_STAT & 0x0c00) )\n  {\n    u_int Time = nglGetCPUCycle();\n    if ( Time - Start >= nglGifTimeOut )\n    {\n      nglCompleteFrame = !nglStopOnDmaTimeout;\n      while (!nglCompleteFrame)\n      {\n        scePcStart( 0, 0, 0 );\n      }\n      nglWarning( ngl_gif_dma_timeout );\n      *D1_CHCR = 1 | (1<<2) | (0<<4) | (0<<6) | (0<<7) | (0<<8);\n      *D2_CHCR = 1 | (1<<2) | (0<<4) | (0<<6) | (0<<7) | (0<<8);\n      *VIF1_FBRST = 1 | (1<<3);\n      *GIF_CTRL = 1;\n      break;\n    }\n  }\n}\n",
+      "status": "different",
+      "target_size": 292
+    }
+  ],
+  "raw_name": "nglGifSafeWait__Fv"
+}
