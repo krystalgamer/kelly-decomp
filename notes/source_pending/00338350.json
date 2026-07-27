@@ -1,0 +1,23 @@
+{
+  "address": "0x00338350",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "75f74db83e0e912346323bf862dcef70c82e97c8",
+      "candidate_size": 260,
+      "compared_bytes": 260,
+      "compared_instructions": 66,
+      "emitted_name": "__11fog_manager",
+      "instruction_score": 98.4848,
+      "matching_bytes": 240,
+      "matching_instructions": 65,
+      "notes": "Attempt 1 used the exact released definition cited at kelly-slaters-pro-surfer/KS/SRC/fogmgr.cpp:14-32; kelly-slaters-pro-surfer/KS/SRC/fogmgr.h:13-44; kelly-slaters-pro-surfer/KS/SRC/ini_parser.h:4-40,86-94; kelly-slaters-pro-surfer/KS/SRC/devoptflags.h:34; kelly-slaters-pro-surfer/KS/SRC/devoptints.h:4-7; kelly-slaters-pro-surfer/KS/SRC/color.h:153-168; kelly-slaters-pro-surfer/KS/SRC/singleton.h:31-59. The sole test returned `different` with score 92.3077. No variant or later attempt was made.",
+      "score": 92.3077,
+      "source": "typedef float rational_t;\n\nclass singleton\n{\nprotected:\n  singleton() {}\n  virtual ~singleton() {}\n};\n\ntemplate <class T>\nclass singleton_ptr\n{\n  T *p;\npublic:\n  operator T *() const { return p; }\n};\n\nclass color\n{\npublic:\n  rational_t r, g, b, a;\n  color() {}\n  color(float _r, float _g, float _b, float _a = 1.0F)\n    : r(_r), g(_g), b(_b), a(_a) {}\n};\n\nclass os_developer_options : public singleton\n{\npublic:\n  enum flags_t { FLAG_FOG_OVERRIDE = 29 };\n  enum ints_t\n  {\n    INT_FOG_RED = 2,\n    INT_FOG_GREEN = 3,\n    INT_FOG_BLUE = 4,\n    INT_FOG_DISTANCE = 5\n  };\n\n  static singleton_ptr<os_developer_options> instance;\n  static inline os_developer_options *inst() { return instance; }\n  bool is_flagged(flags_t flag) const { return flags[flag]; }\n  int get_int(ints_t index) const { return ints[index]; }\n\nprivate:\n  bool flags[105];\n  char strings[29 * 8];\n  int ints[26];\n};\n\nclass fog_manager : public singleton\n{\npublic:\n  fog_manager();\n  void set_fog_color(const color& value);\n  void set_fog_distance(rational_t start_dist, rational_t end_dist);\n\nprotected:\n  color fog_color;\n  rational_t specified_fog_start_distance;\n  rational_t specified_fog_end_distance;\n  rational_t specified_fog_table_gamma;\n  rational_t computed_fog_start_distance;\n  rational_t computed_fog_end_distance;\n  rational_t fog_of_war;\n};\n\nfog_manager::fog_manager()\n{\n  computed_fog_end_distance = 0;\n  fog_of_war = 0;\n  specified_fog_table_gamma = 1;\n  if( os_developer_options::inst()->is_flagged( os_developer_options::FLAG_FOG_OVERRIDE ) )\n  {\n    set_fog_distance( 0, os_developer_options::inst()->get_int( os_developer_options::INT_FOG_DISTANCE ) );\n    set_fog_color( color( os_developer_options::inst()->get_int( os_developer_options::INT_FOG_RED   )/255.0f,\n                          os_developer_options::inst()->get_int( os_developer_options::INT_FOG_GREEN )/255.0f,\n                          os_developer_options::inst()->get_int( os_developer_options::INT_FOG_BLUE  )/255.0f,\n                          1.0f ) );\n  }\n  else\n  {\n    set_fog_distance( 0, 160.0f );\n    set_fog_color( color( 0.0f, 0.0f, 0.0f, 1.0f ) );\n  }\n}\n",
+      "status": "different",
+      "target_size": 260
+    }
+  ],
+  "raw_name": "__11fog_manager"
+}
