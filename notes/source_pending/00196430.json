@@ -1,0 +1,23 @@
+{
+  "address": "0x00196430",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d0dfbe1bbf821f508e14e828f19f49578d7842bb",
+      "candidate_size": 292,
+      "compared_bytes": 292,
+      "compared_instructions": 73,
+      "emitted_name": "SetPQIndices__17TrickBookFrontEnd",
+      "instruction_score": 6.8493,
+      "matching_bytes": 37,
+      "matching_instructions": 5,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/TrickBookFrontEnd.cpp:159-173; kelly-slaters-pro-surfer/KS/SRC/ks/TrickBookFrontEnd.h:10-58; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:286-306,390-433. Result `different`, score 12.6712; no later attempt.",
+      "score": 12.6712,
+      "source": "class PanelQuad;\n\ntypedef PanelQuad *(*GetPointerFunction)(void *, const char *);\nstruct GetPointerSlot\n{\n    short adjustment;\n    unsigned short padding;\n    GetPointerFunction function;\n};\nstruct FEMenuVTable\n{\n    char padding[0x198];\n    GetPointerSlot get_pointer;\n};\nstruct FEMenuParent\n{\n    FEMenuVTable *vtable;\n};\n\ntypedef void (*TurnOnFunction)(void *, bool);\nstruct TurnOnSlot\n{\n    short adjustment;\n    unsigned short padding;\n    TurnOnFunction function;\n};\nstruct PanelQuadVTable\n{\n    char padding[0x18];\n    TurnOnSlot turn_on;\n};\nclass PanelQuad\n{\n    char padding[0x194];\n    PanelQuadVTable *vtable;\n\npublic:\n    void TurnOn(bool on)\n    {\n        TurnOnSlot &slot = vtable->turn_on;\n        slot.function((char *)this + slot.adjustment, on);\n    }\n};\n\nclass TrickBookFrontEnd\n{\n    char padding_to_parent[0x74];\n    FEMenuParent *parent;\n    char padding_to_arrows[0x18C - 0x78];\n    PanelQuad *arrows[2][2];\n    PanelQuad *bkg;\n\n    PanelQuad *GetPointer(const char *name)\n    {\n        GetPointerSlot &slot = parent->vtable->get_pointer;\n        return slot.function((char *)this + slot.adjustment, name);\n    }\n\npublic:\n    void SetPQIndices();\n};\n\nvoid TrickBookFrontEnd::SetPQIndices()\n{\n\tarrows[0][0] = GetPointer(\"button_off_01\");\n\tarrows[0][1] = GetPointer(\"button_on_01\");\n\tarrows[1][0] = GetPointer(\"button_off_02\");\n\tarrows[1][1] = GetPointer(\"button_on_02\");\n\n\tarrows[0][1]->TurnOn(false);\n\tarrows[1][1]->TurnOn(false);\n\n\tbkg = GetPointer(\"trickbook_window\");\n\tbkg->TurnOn(false);\t// drawn separately\n}\n",
+      "status": "different",
+      "target_size": 272
+    }
+  ],
+  "raw_name": "SetPQIndices__17TrickBookFrontEnd"
+}
