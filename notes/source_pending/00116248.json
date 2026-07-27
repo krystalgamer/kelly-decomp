@@ -1,0 +1,23 @@
+{
+  "address": "0x00116248",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cf43a63924bd1effc42f8b89f2066611d54c7f48",
+      "candidate_size": 300,
+      "compared_bytes": 320,
+      "compared_instructions": 80,
+      "emitted_name": "__16entity_anim_treeRC7stringxP6entityRC17entity_track_treeT3ffUsfis",
+      "instruction_score": 10.0,
+      "matching_bytes": 97,
+      "matching_instructions": 8,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/entity_anim.cpp:1404-1420; tmp/functions/00116248___16entity_anim_treeRC7stringxP6entityRC17entity_track_treeT3ffUsfis/attempt-1/result.json. Result `different`, score 30.3125; no later attempt.",
+      "score": 30.3125,
+      "source": "typedef float rational_t;\ntypedef float time_value_t;\n\nclass entity;\nclass entity_track_tree;\nclass po_anim;\nclass signal_anim;\n\nclass stringx {\n    int value;\npublic:\n    stringx();\n};\n\nclass quaternion {\npublic:\n    float a, b, c, d;\n    quaternion() { a = 1.0f; b = c = d = 0.0f; }\n};\n\nclass vector3d {\npublic:\n    float x, y, z;\n    vector3d() {}\n};\n\nclass entity_anim {\nprotected:\n    unsigned short flags;\n    unsigned short pad;\npublic:\n    virtual ~entity_anim();\nprotected:\n    entity *ent;\n    po_anim *po_anim_ptr;\n    signal_anim *signal_anim_ptr;\n    int priority;\n    quaternion tween_quat;\n    vector3d rel_pos;\npublic:\n    rational_t floor_offset;\n    entity_anim(entity *_ent)\n    : ent(_ent), po_anim_ptr(0), signal_anim_ptr(0), floor_offset(0) {}\n};\n\nstruct pentity_anim_vector {\n    entity_anim **start;\n    entity_anim **finish;\n    entity_anim **end;\n};\n\nstruct anim_control_t { char data[36]; };\n\nextern pentity_anim_vector *entity_anim_tree_anims;\nextern int current_allocation;\n\nclass entity_anim_tree : public entity_anim {\n    stringx name;\n    const entity_track_tree *track;\n    rational_t blend_a;\n    anim_control_t control;\n    pentity_anim_vector &anims;\n    rational_t floor_offset;\n    const entity_track_tree *trackb;\n    rational_t blend_b;\n    pentity_anim_vector anims_b;\n    anim_control_t control_b;\npublic:\n    entity_anim_tree(const stringx& _name, entity* _ent,\n                     const entity_track_tree& _tracka,\n                     const entity_track_tree& _trackb,\n                     rational_t blenda, rational_t blendb,\n                     unsigned short anim_flags = 0,\n                     time_value_t start_time = 0,\n                     int _priority = 0, short loop = -1);\n    virtual ~entity_anim_tree();\n    void construct(const stringx& _name, const entity_track_tree& _tracka,\n                   const entity_track_tree& _trackb,\n                   rational_t blenda, rational_t blendb,\n                   unsigned short anim_flags, time_value_t start_time,\n                   int _priority, short loop);\n};\n\n__asm__(\".equ __vt_11entity_anim, 0x004BA170\");\n__asm__(\".equ __vt_16entity_anim_tree, 0x004BA120\");\n__asm__(\".equ __7stringx, 0x0034D3E0\");\n__asm__(\".equ construct__16entity_anim_treeRC7stringxRC17entity_track_treeT2ffUsfis, 0x001167D8\");\n__asm__(\".equ entity_anim_tree_anims, 0x003E5848\");\n__asm__(\".equ current_allocation, 0x003E5758\");\n\nentity_anim_tree::entity_anim_tree( const stringx& _name,\n                                    entity* _ent,\n                                    const entity_track_tree& _tracka,\n                                    const entity_track_tree& _trackb,\n                                    rational_t blenda,\n                                    rational_t blendb,\n                                    unsigned short anim_flags,\n                                    time_value_t start_time,\n                                    int _priority,\n                                    short loop )\n: entity_anim( _ent )\n, anims ( entity_anim_tree_anims[current_allocation] )\n{\n  construct( _name, _tracka, _trackb, blenda, blendb, anim_flags, start_time, _priority, loop );\n}\n",
+      "status": "different",
+      "target_size": 320
+    }
+  ],
+  "raw_name": "__16entity_anim_treeRC7stringxP6entityRC17entity_track_treeT3ffUsfis"
+}
