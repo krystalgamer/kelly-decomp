@@ -1,0 +1,15 @@
+{
+  "address": "0x00196818",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1f400af600893d0a1c208034985262c91d5617ee",
+      "notes": "# Attempt 1\n\n- Queue row was `pending` with zero attempts; no address scratch existed (0 files), and the tracked tree was clean.\n- Used the released `TrickBookFrontEnd::OnLeft` body verbatim from `TrickBookFrontEnd.cpp:210-222`, with authentic `TrickBookFrontEnd`, `FEMenu`/`FEMultiMenu`, `FEMenuEntry`, and `PanelQuad::TurnOn` declarations.\n- Result: **compile_failed** \u2014 `FEPanel_shared.h` redefined `PanelFile` already supplied by `FEMenu_shared.h`; score 0%. Exactly one candidate was tested; no second attempt or diff chasing was performed.",
+      "score": 0.0,
+      "source": "#define KELLY_DECOMP_FULL_FEMENU_ENTRY\n#define KELLY_DECOMP_FULL_FEMULTI_MENU\n#include \"KS/SRC/ks/FEMenu_shared.h\"\n#include \"KS/SRC/ks/FEPanel_shared.h\"\n\nclass SurferTrick;\nclass GraphicalMenuSystem;\n\nclass TrickBookFrontEnd : public FEMultiMenu {\n    GraphicalMenuSystem *sys;\n    SurferTrick **tricks[4];\n    TextString *buttons;\n    TextString *trickbook;\n    FEMenu *State2[4];\n    PanelQuad *arrows[2][2];\n    PanelQuad *bkg;\n    int arrow_counter;\n    int arrow_num;\n    bool wait_for_camera;\n\npublic:\n    void OnLeft(int controller);\n\nprivate:\n    void ChangeButtonText(SurferTrick *trick);\n};\n\nvoid TrickBookFrontEnd::OnLeft(int c)\n{\n    arrows[0][1]->TurnOn(true);\n    arrows[0][0]->TurnOn(false);\n    arrow_num = 0;\n    arrow_counter = 3;\n\n    int high = highlighted->entry_num;\n    int num = State2[high]->highlighted->entry_num;\n    State2[high]->OnLeft(c);\n    if(num != State2[high]->highlighted->entry_num)\n        ChangeButtonText(tricks[high][State2[high]->highlighted->entry_num]);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "OnLeft__17TrickBookFrontEndi"
+}
