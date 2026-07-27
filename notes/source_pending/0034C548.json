@@ -1,0 +1,23 @@
+{
+  "address": "0x0034C548",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "50749aed375d946bdcb90528c99ef2ef6f847be0",
+      "candidate_size": 236,
+      "compared_bytes": 260,
+      "compared_instructions": 65,
+      "emitted_name": "add_callback__6signalPQ213script_object8instanceP13vm_executablePcb",
+      "instruction_score": 20.0,
+      "matching_bytes": 120,
+      "matching_instructions": 13,
+      "notes": "Released source-first candidate used only the callback, list allocator, and allocation ABI declarations needed for standalone compilation; the single test completed with a different result.",
+      "score": 46.1538,
+      "source": "typedef unsigned int size_t;\n\nvoid *operator new(size_t size, unsigned int alignment, const char *description, int line);\ninline void *operator new(size_t, void *memory) { return memory; }\n__asm__(\".equ __nw__FUiUiPCci, 0x002AC578\");\n\nunion allocator_object { allocator_object *next; char data[1]; };\nstruct allocator_state { allocator_object *free_list[16]; };\nextern allocator_state allocator_pool;\nextern void *allocator_refill(unsigned int bytes) __asm__(\"_S_refill__t27__my_default_alloc_template2b0i0Ui\");\n__asm__(\".equ allocator_pool, 0x003E5628\");\n__asm__(\".equ _S_refill__t27__my_default_alloc_template2b0i0Ui, 0x0010DAE0\");\n\ntemplate<class T> struct list_node { list_node *next; list_node *previous; T data; };\ntemplate<class T> class list {\n    typedef list_node<T> node_type;\npublic:\n    class iterator { friend class list<T>; node_type *node; public: iterator(node_type *value) : node(value) {} };\nprivate:\n    node_type *sentinel;\n    node_type *create_node(const T &value) {\n        const unsigned int bytes = (sizeof(node_type) + 7) & ~7;\n        const unsigned int index = bytes / 8 - 1;\n        allocator_object *raw = allocator_pool.free_list[index];\n        void *memory;\n        if (raw == 0) memory = allocator_refill(bytes);\n        else { allocator_pool.free_list[index] = raw->next; memory = raw; }\n        node_type *node = static_cast<node_type *>(memory);\n        T *data = &node->data;\n        if (data) new((void *)data) T(value);\n        return node;\n    }\n    iterator insert(iterator position, const T &value) {\n        node_type *node = create_node(value);\n        node->next = position.node;\n        node->previous = position.node->previous;\n        position.node->previous->next = node;\n        position.node->previous = node;\n        return iterator(node);\n    }\npublic:\n    iterator end() { return iterator(sentinel); }\n    void push_back(const T &value) { insert(end(), value); }\n};\n\nclass signaller;\nclass vm_executable;\nclass script_object { public: class instance; };\nclass signal_callback {\npublic:\n    signal_callback();\n    virtual ~signal_callback();\n    virtual void spawn(signaller *source = 0) = 0;\n    void set_one_shot(bool value) { one_shot = value; }\n    unsigned int get_id() const { return id; }\nprotected:\n    char *parms;\n    bool disabled;\n    bool one_shot;\n    unsigned int id;\n};\nclass script_callback : public signal_callback {\n    script_object::instance *inst;\n    const vm_executable *func;\npublic:\n    script_callback(script_object::instance *_inst, const vm_executable *_func, const char *_parms);\n    virtual ~script_callback();\n    virtual void spawn(signaller *source = 0);\n};\nclass signal {\npublic: enum flavor_t { SIGNAL, GATED_SIGNAL, N_FLAVORS };\nprivate:\n    flavor_t flavor;\n    unsigned int flags;\n    const char *name;\n    list<signal *> *outputs;\n    list<signal_callback *> callbacks;\npublic:\n    unsigned int add_callback(script_object::instance *_inst, vm_executable *_func, char *_parms, bool one_shot = false);\n};\nextern const char signal_add_callback_desc[];\n__asm__(\".equ signal_add_callback_desc, 0x005030A8\");\n__asm__(\".equ __15script_callbackPQ213script_object8instancePC13vm_executablePCc, 0x0034BC28\");\n#define NEW new(0, signal_add_callback_desc, 0)\n\nunsigned int signal::add_callback( script_object::instance* _inst, vm_executable* _func, char* _parms, bool one_shot )\n{\n  script_callback* new_callback = NEW script_callback( _inst, _func, _parms );\n  new_callback->set_one_shot( one_shot );\n  callbacks.push_back( new_callback );\n\n  return(new_callback->get_id());\n}\n",
+      "status": "different",
+      "target_size": 260
+    }
+  ],
+  "raw_name": "add_callback__6signalPQ213script_object8instanceP13vm_executablePcb"
+}
