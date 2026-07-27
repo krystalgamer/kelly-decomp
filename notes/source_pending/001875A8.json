@@ -1,0 +1,15 @@
+{
+  "address": "0x001875A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "30772f1ac4c82f48ad335b60e7e749ab23dacb71",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.cpp:410-424; kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.h:18-101; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:216-248,337-365; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:427-525; kelly-slaters-pro-surfer/KS/SRC/ks/FEEntityManager.h:35-179; tmp/functions/001875A8_Update__14SurferFrontEndf/attempt-1/compiler.stderr; tmp/functions/001875A8_Update__14SurferFrontEndf/attempt-1/result.json; tmp/source_first/001875A8/notes.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "typedef float time_value_t;\n\nstruct virtual_entry {\n    short adjustment;\n    short reserved;\n    void (*function)();\n};\n\nstruct FEMenu {\n    virtual_entry *vtable;\n\n    void Update(time_value_t time_inc)\n    {\n        virtual_entry &entry = vtable[11];\n        ((void (*)(void *, time_value_t))entry.function)\n            ((char *)this + entry.adjustment, time_inc);\n    }\n};\n\nstruct PanelQuad {\n    virtual_entry *vtable;\n\n    void Update(time_value_t time_inc)\n    {\n        virtual_entry &entry = vtable[6];\n        ((void (*)(void *, time_value_t))entry.function)\n            ((char *)this + entry.adjustment, time_inc);\n    }\n};\n\nstruct FEEntityManager {\n    char padding[0x1c0];\n    bool cam_stopped;\n    char alignment[3];\n    int cam_stopped_at;\n\n    bool OKtoDrawSurferSelect()\n    {\n        return cam_stopped && cam_stopped_at == 1;\n    }\n};\n\nstruct FEManager {\n    char padding[0xc];\n    FEEntityManager *em;\n};\n\nextern \"C\" void graphical_update(void *, time_value_t)\n    __asm__(\"Update__15FEGraphicalMenuf\");\n__asm__(\".equ Update__15FEGraphicalMenuf, 0x00159DF8\");\n\nclass FEGraphicalMenu {\n    char padding0[0x60];\nprotected:\n    FEMenu *active;\n    char padding1[0x100];\npublic:\n    void Update(time_value_t time_inc)\n    {\n        graphical_update(this, time_inc);\n    }\n};\n\nclass SurferFrontEnd : public FEGraphicalMenu {\n    char padding2[0xec];\n    PanelQuad *red_gauges[4];\n    char padding3[0x48];\n    PanelQuad *hcap_color[3];\n    void *ents[3];\n    FEManager *manager;\n    bool wait_for_camera;\n\npublic:\n    void Update(time_value_t time_inc);\n};\n\nvoid SurferFrontEnd::Update(time_value_t time_inc)\n{\n\tif(active) active->Update(time_inc);\n\telse\n\t{\n\t\tif(wait_for_camera && manager->em->OKtoDrawSurferSelect()) wait_for_camera = false;\n\t\telse if(!wait_for_camera && !manager->em->OKtoDrawSurferSelect()) wait_for_camera = true;\n\t\tFEGraphicalMenu::Update(time_inc);\n\t\tfor(int i=0; i<4; i++)\n\t\t{\n\t\t\tred_gauges[i]->Update(time_inc);\n\t\t\tif(i<3) hcap_color[i]->Update(time_inc);\n\t\t}\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Update__14SurferFrontEndf"
+}
