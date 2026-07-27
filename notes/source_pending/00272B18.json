@@ -1,0 +1,23 @@
+{
+  "address": "0x00272B18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7ac4e8ffdb8afc8427628ba34fbb503663a5058a",
+      "candidate_size": 244,
+      "compared_bytes": 248,
+      "compared_instructions": 62,
+      "emitted_name": "set_alpha_delta__11beam_effectUcUcfffb",
+      "instruction_score": 67.7419,
+      "matching_bytes": 195,
+      "matching_instructions": 42,
+      "notes": "Exact released `beam_effect::set_alpha_delta` body with the authentic effect hierarchy, 16-byte alpha effect, vtable, allocation macro, and layout. It emitted the same 112-byte frame and operations; the target retains one integer-to-float scheduling nop and selects the mode with the opposite branch layout, totaling 248 versus 244 bytes.",
+      "score": 78.629,
+      "source": "typedef unsigned char uint8;\ntypedef float rational_t;\ntypedef float time_value_t;\n\nclass beam;\n\nclass beam_effect_type {\nprotected:\n    beam_effect_type() {}\n    virtual ~beam_effect_type() {}\n    virtual void apply_start_vals(beam *the_beam) {}\n    virtual void apply_target_vals(beam *the_beam) {}\n    virtual void apply_delta_vals(beam *the_beam, time_value_t time) {}\n    virtual void reverse() {}\n    virtual beam_effect_type *make_instance() { return 0; }\n};\n\nclass beam_effect_alpha : public beam_effect_type {\nprotected:\n    beam_effect_alpha() {}\n    virtual ~beam_effect_alpha() {}\n    virtual void apply_start_vals(beam *the_beam);\n    virtual void apply_target_vals(beam *the_beam);\n    virtual void apply_delta_vals(beam *the_beam, time_value_t time);\n    virtual void reverse();\n\n    uint8 start;\n    uint8 target;\n    rational_t delta;\n    rational_t curr;\n\n    virtual beam_effect_type *make_instance();\n\n    friend class beam_effect;\n};\n\nclass beam_effect {\n    enum effect_mode {\n        EFFECT_DEAD = 0,\n        EFFECT_DELAY = 1,\n        EFFECT_ACTIVE = 2,\n        EFFECT_INVERTED_DELAY = -1,\n        EFFECT_INVERTED_ACTIVE = -2\n    };\n\n    beam *my_beam;\n    beam_effect_type *effect;\n    unsigned short id;\n    char mode;\n    rational_t timer;\n    rational_t loop_delay;\n    rational_t duration;\n\n    virtual void dump();\n    virtual void set_active();\n    virtual void set_delaying();\n\npublic:\n    virtual ~beam_effect();\n    virtual void set_alpha_delta(\n        uint8 start_alpha,\n        uint8 end_alpha,\n        rational_t duration,\n        rational_t delay = 0.0f,\n        rational_t loop_delay = -1.0f,\n        bool invert_loop = false);\n};\n\nvoid *operator new(\n    unsigned int size,\n    unsigned int flags,\n    const char *description,\n    int line);\n\nextern const char beam_alpha_description[];\n\n__asm__(\".equ __nw__FUiUiPCci, 0x002AC578\");\n__asm__(\".equ beam_alpha_description, 0x004E5DB8\");\n__asm__(\".equ _vt$17beam_effect_alpha, 0x004FCF88\");\n\n#define NEW new(0, beam_alpha_description, 0)\n\nvoid beam_effect::set_alpha_delta(uint8 start_alpha, uint8 end_alpha, rational_t the_duration, rational_t the_delay, rational_t the_loop_delay, bool invert_loop)\n{\n  dump();\n\n  effect = NEW beam_effect_alpha();\n  beam_effect_alpha *alpha_effect = (beam_effect_alpha *)effect;\n\n  alpha_effect->start = start_alpha;\n  alpha_effect->target = end_alpha;\n\n  duration = the_duration;\n\n  if(duration > 0)\n  {\n    alpha_effect->delta = (alpha_effect->target - alpha_effect->start) / duration;\n  }\n\n  if(invert_loop)\n    mode = EFFECT_INVERTED_DELAY;\n  else\n    mode = EFFECT_DELAY;\n\n  loop_delay = the_loop_delay;\n  timer = the_delay;\n}\n",
+      "status": "different",
+      "target_size": 248
+    }
+  ],
+  "raw_name": "set_alpha_delta__11beam_effectUcUcfffb"
+}
