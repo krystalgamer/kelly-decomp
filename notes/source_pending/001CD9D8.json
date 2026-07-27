@@ -1,0 +1,23 @@
+{
+  "address": "0x001CD9D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "11e0efd86d6f31edd5b26b8e20ed50defb8e163e",
+      "candidate_size": 328,
+      "compared_bytes": 328,
+      "compared_instructions": 82,
+      "emitted_name": "TurnNameEntry__13NameEntryMenub",
+      "instruction_score": 1.2195,
+      "matching_bytes": 53,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/HighScoreFrontEnd.cpp:708-720; kelly-slaters-pro-surfer/KS/SRC/ks/HighScoreFrontEnd.h:77-115; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:427-474; tmp/functions/001CD9D8_TurnNameEntry__13NameEntryMenub/attempt-1/result.json; tmp/source_first/001CD9D8/notes.md. Result `different`, score 16.1585; no later attempt.",
+      "score": 16.1585,
+      "source": "class PanelQuad\n{\npublic:\n\tvirtual void TurnOn(bool on);\n};\n\nclass NameEntryMenu\n{\nprivate:\n\tPanelQuad* box[9];\n\tPanelQuad* line;\n\tPanelQuad* name_box[3];\n\tPanelQuad* keys[41][2];\n\npublic:\n\tvoid TurnNameEntry(bool on);\n};\n\nvoid NameEntryMenu::TurnNameEntry(bool on)\n{\n\tfor(int i=0; i<9; i++)\n\t\tbox[i]->TurnOn(on);\n\tfor(int i=0; i<3; i++)\n\t\tname_box[i]->TurnOn(on);\n\tline->TurnOn(on);\n\tfor(int i=0; i<41; i++)\n\t{\n\t\tkeys[i][0]->TurnOn(on);\n\t\tkeys[i][1]->TurnOn(false);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 316
+    }
+  ],
+  "raw_name": "TurnNameEntry__13NameEntryMenub"
+}
