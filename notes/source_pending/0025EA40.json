@@ -1,0 +1,23 @@
+{
+  "address": "0x0025EA40",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9c4c06ee7acd4cdeca2399b7b3b95c7ccd59fceb",
+      "candidate_size": 288,
+      "compared_bytes": 288,
+      "compared_instructions": 72,
+      "emitted_name": "TRICKDATA_Load__Fv",
+      "instruction_score": 100.0,
+      "matching_bytes": 261,
+      "matching_instructions": 72,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/trickdata.cpp:776-802; kelly-slaters-pro-surfer/KS/SRC/ks/trickdata.h:316-333; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:161-166; kelly-slaters-pro-surfer/KS/SRC/kshooks.h:13-14; tmp/functions/0025EA40_TRICKDATA_Load__Fv/attempt-1/result.json. Result `different`, score 90.6250; no later attempt.",
+      "score": 90.625,
+      "source": "typedef unsigned char uint8;\ntypedef unsigned int u_int;\n\nstruct nglFileBuf\n{\n  unsigned char *Buf;\n  u_int Size;\n  u_int UserData;\n};\n\nstruct SurferTrick\n{\n  int trick_id;\n  int anim_id;\n  int board_anim_id;\n  int flags;\n  int IK_flags;\n  int trickbook_type;\n  int trick_type;\n  uint8 button1;\n  uint8 button2;\n  uint8 button3;\n  char button1_string[16];\n  char button2_string[16];\n  char button3_string[16];\n  int Time;\n  int Points;\n};\n\nextern SurferTrick GTrickList[];\nextern bool KSReadFile(const char *FileName, nglFileBuf *File, u_int Align);\nextern void KSReleaseFile(nglFileBuf *File);\nextern void TRICKDATA_LoadButtons(void);\nextern char *strchr(const char *, int);\nextern int sscanf(const char *, const char *, ...);\n\n#define assert(exp) ((void)0)\n#define verify(a) if (a) {}\n\nvoid TRICKDATA_Load(void)\n{\n    nglFileBuf F;\n    KSReadFile(\"trickdata.dat\", &F, 1);\n    char *s = (char *) F.Buf;\n    const char *format = \"%[^,], %[^,], %[^,], %d, %d, \";\n    for (int i = 0; i < 95; ++i)\n    {\n         char *p = strchr (s, '\\n');\n         if (p) *p = 0;\n         int n = sscanf(s, format,\n              &GTrickList[i].button1_string,\n              &GTrickList[i].button2_string,\n              &GTrickList[i].button3_string,\n              &GTrickList[i].Time,\n              &GTrickList[i].Points\n         );\n         if (p) *p = '\\n';\n         assert(5 == n);\n         verify((s = strchr(s, '\\n')) != 0);\n         ++s;\n    }\n    KSReleaseFile(&F);\n\n    TRICKDATA_LoadButtons();\n\n}\n",
+      "status": "different",
+      "target_size": 288
+    }
+  ],
+  "raw_name": "TRICKDATA_Load__Fv"
+}
