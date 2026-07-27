@@ -1,0 +1,23 @@
+{
+  "address": "0x003909E8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2cf9263a06e214c5d064efdb53a9e25151709416",
+      "candidate_size": 288,
+      "compared_bytes": 324,
+      "compared_instructions": 81,
+      "emitted_name": "nslSetListenerOrientation__FRA2_CfT0",
+      "instruction_score": 0.0,
+      "matching_bytes": 70,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2.cpp:788-819; kelly-slaters-pro-surfer/NSL/PS2/nl_ps2.h:32-45; kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2.h:219-268,380-383; tmp/functions/003909E8_nslSetListenerOrientation__FRA2_CfT0/attempt-1/result.json; tmp/source_first/003909E8/attempt-1.md. Result `different`, score 21.6049; no later attempt.",
+      "score": 21.6049,
+      "source": "typedef float nlMatrix4x4[4][4] __attribute__((aligned(16)));\ntypedef float nlVector3d[3];\n\nstruct nslSystem\n{\n  nlMatrix4x4 listenerPo;\n  char resources[0x15810];\n  int initialized;\n};\n\nextern nslSystem nsl;\nextern void nslFatal(const char *, ...);\nextern void nlCrossProduct3d(nlVector3d, nlVector3d, nlVector3d);\nextern float sqrtf(float);\nextern void *memcpy(void *, const void *, unsigned int);\n\ninline void _nslInitialized()\n{\n  if (!(nsl.initialized == 1))\n    nslFatal(\"NSL NOT INITIALIZED\");\n}\n\nvoid nslSetListenerOrientation(const nlVector3d &facingVector, const nlVector3d &upVector)\n{\n  if (!nsl.initialized) return;\n  _nslInitialized();\n  // Assumes facingVector and UpVector are normalized\n\n  // Cross product doesn't use const's\n  nlVector3d left, up, fwd;\n  memcpy(fwd, facingVector, sizeof(facingVector));\n  memcpy(up, upVector, sizeof(upVector));\n\n\n  nlCrossProduct3d(left, up, fwd);\n  float leftmag = sqrtf(left[0] * left[0] + left[1] * left[1] + left[2] * left[2]);\n\n  left[0] /= leftmag;\n  left[1] /= leftmag;\n  left[2] /= leftmag;\n\n  nsl.listenerPo[0][0] = left[0];         nsl.listenerPo[0][1] = left[1];     nsl.listenerPo[0][2] = left[2];\n  nsl.listenerPo[1][0] = upVector[0];     nsl.listenerPo[1][1] = upVector[1]; nsl.listenerPo[1][2] = upVector[2];\n  nsl.listenerPo[2][0] = fwd[0];          nsl.listenerPo[2][1] = fwd[1];       nsl.listenerPo[2][2] = fwd[2];\n}\n",
+      "status": "different",
+      "target_size": 324
+    }
+  ],
+  "raw_name": "nslSetListenerOrientation__FRA2_CfT0"
+}
