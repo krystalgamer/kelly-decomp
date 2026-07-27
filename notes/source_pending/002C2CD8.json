@@ -1,0 +1,23 @@
+{
+  "address": "0x002C2CD8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e2d0fedd7aa7ef63913d6258340fcbf253df16e8",
+      "candidate_size": 264,
+      "compared_bytes": 296,
+      "compared_instructions": 74,
+      "emitted_name": "frame_advance__9lensflaref",
+      "instruction_score": 47.2973,
+      "matching_bytes": 163,
+      "matching_instructions": 35,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/lensflare.cpp:236-277. Result `different`, score 55.0676; no later attempt.",
+      "score": 55.0676,
+      "source": "extern \"C\" float fmodf(float, float);\nextern bool blocked_by_wave();\n\nstruct board_controller\n{\n  char pad[3552];\n  int region;\n  int GetRegion() const { return region; }\n};\n\nstruct kellyslater_controller\n{\n  board_controller board;\n  board_controller& get_board_controller() { return board; }\n};\n\nstruct game\n{\n  char pad[188];\n  int active_player;\n  int get_active_player() const { return active_player; }\n};\n\nstruct world_dynamics_system\n{\n  char pad[248];\n  kellyslater_controller* controllers[2];\n  kellyslater_controller* get_ks_controller(int n) { return controllers[n]; }\n};\n\nextern game* g_game_ptr;\nextern world_dynamics_system* g_world_ptr;\n__asm__(\".equ g_game_ptr,0x0045AC64\");\n__asm__(\".equ g_world_ptr,0x00431A8C\");\n\ntemplate<class T> T range(T v, T lo, T hi)\n{\n  return v < lo ? lo : (v > hi ? hi : v);\n}\n\nstruct lensflare\n{\n  char pad0[8];\n  struct vtable_t\n  {\n    char pad[248];\n    short delta;\n    short unused;\n    void (*set_active)(void*, bool);\n  }* vtable;\n  char pad1[504];\n  float speed;\n  char pad2[4];\n  float amount;\n  float target;\n  char pad3[228];\n  float los_time;\n  float los_freq;\n\n  void set_active(bool active)\n  {\n    vtable->set_active((char*)this + vtable->delta, active);\n  }\n\n  void frame_advance(float t);\n};\n\nvoid lensflare::frame_advance(float t)\n{\n  float d = fmodf(t, los_freq);\n  los_time += d;\n  if (los_time >= los_freq)\n  {\n    bool v = false;\n\n    if (blocked_by_wave() || g_world_ptr->get_ks_controller(g_game_ptr->get_active_player())->get_board_controller().GetRegion() == 9)\n      v = true;\n    target = v ? 0.0f : 1.0f;\n    los_time -= los_freq;\n  }\n\n  float diff = target - amount;\n  float dmax = t * speed;\n  diff = range(diff, -dmax, dmax);\n  amount += diff;\n\n  set_active(true);\n}\n",
+      "status": "different",
+      "target_size": 296
+    }
+  ],
+  "raw_name": "frame_advance__9lensflaref"
+}
