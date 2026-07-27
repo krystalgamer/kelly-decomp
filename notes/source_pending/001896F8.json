@@ -1,0 +1,23 @@
+{
+  "address": "0x001896F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a5e641fa6e5571741a506c6257de9755cffbccb5",
+      "candidate_size": 248,
+      "compared_bytes": 260,
+      "compared_instructions": 65,
+      "emitted_name": "SetPersonality__14SurferFrontEndb",
+      "instruction_score": 13.8462,
+      "matching_bytes": 61,
+      "matching_instructions": 9,
+      "notes": "First-pass released-source candidate tested exactly once. The released body was preserved verbatim; self-contained copied declarations compiled and scored different (23.4615). No tuning or follow-up candidate was attempted.",
+      "score": 23.4615,
+      "source": "struct stringx { stringx(const stringx&); char data[8]; };\nclass FEMenuEntry {\npublic:\n\tvirtual void p00(); virtual void p04(); virtual void p08(); virtual void p0c();\n\tvirtual void p10(); virtual void p14(); virtual void p18(); virtual void p1c();\n\tvirtual void p20(); virtual void p24(); virtual void p28(); virtual void p2c();\n\tvirtual void p30(); virtual void p34(); virtual void p38(); virtual void p3c();\n\tvirtual void p40(); virtual void p44(); virtual void p48(); virtual void p4c();\n\tvirtual void p50(); virtual void p54(); virtual void p58(); virtual void p5c();\n\tvirtual void SetText(stringx text);\n};\nstruct GraphicalMenuSystem { char padding[0xd4]; int multiplayer; int multi_1; };\nclass game { public: void SetUsingPersonalitySuit(int player, bool personality); };\nclass FEEntityManager { public: void UpdateSurferIndex(int index, bool force=false); };\nstruct FEManager { char padding0[0xc]; FEEntityManager* em; char padding1[0x1565c]; int tmp_game_mode; };\nclass career {\n\tchar padding[0x24];\npublic:\n\tvoid SetUsingPersonality(bool personality) { *(bool*)((char*)this + 0x24) = personality; }\n};\nenum { GAME_MODE_CAREER = 0 };\nenum { GT_FE_MENU_REGULAR_SUIT = 0, GT_FE_MENU_PERSONALITY_SUIT = 1 };\nextern stringx ksGlobalTextArray[];\nextern game* g_game_ptr;\nextern career* g_career;\nclass SurferFrontEnd {\n\tchar padding0[0x1a0];\n\tbool personality_unlocked[25];\n\tchar padding1[0x1b];\n\tGraphicalMenuSystem* sys;\n\tchar padding2[0x14];\n\tFEMenuEntry* Personality;\n\tchar padding3[0xcc];\n\tFEManager* manager;\n\tchar padding4[0x20];\npublic:\n\tint current_surfer_index;\n\tstatic bool personality_up;\n\tvoid SetPersonality(bool up);\n};\n\nvoid SurferFrontEnd::SetPersonality(bool up)\n{\n\tif(personality_unlocked[current_surfer_index] || !up)\n\t{\n\t\tpersonality_up = up;\n\t\tPersonality->SetText(ksGlobalTextArray[personality_up ? GT_FE_MENU_REGULAR_SUIT : GT_FE_MENU_PERSONALITY_SUIT]);\n\t\tif (sys->multiplayer)\n\t\t\tg_game_ptr->SetUsingPersonalitySuit(sys->multi_1?0:1, personality_up);\n\t\telse g_game_ptr->SetUsingPersonalitySuit(0, personality_up);\n\t\tmanager->em->UpdateSurferIndex(current_surfer_index);\n\t\tif(manager->tmp_game_mode == GAME_MODE_CAREER)\n\t\t\tg_career->SetUsingPersonality(personality_up);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 260
+    }
+  ],
+  "raw_name": "SetPersonality__14SurferFrontEndb"
+}
