@@ -3,19 +3,7 @@
 
 #include "KS/SRC/ks/MainFrontEnd_shared.h"
 #include "KS/SRC/ks/GraphicalMenuSystem_shared.h"
-
-enum game_mode_t {
-    GAME_MODE_CAREER,
-    GAME_MODE_FREESURF_INFINITE,
-    GAME_MODE_FREESURF_HIGHSCORE,
-    GAME_MODE_FREESURF_ICON,
-    GAME_MODE_PRACTICE,
-    GAME_MODE_TIME_ATTACK,
-    GAME_MODE_METER_ATTACK,
-    GAME_MODE_SEA_HORSE,
-    GAME_MODE_HEAD_TO_HEAD,
-    GAME_MODE_PUSH
-};
+#include "KS/SRC/ks/game_mode_shared.h"
 
 class FEManager {
     char data_before_tmp_game_mode[0x1566c];

@@ -4,6 +4,8 @@
 #pragma interface
 
 #include "KS/SRC/ks/FEMenu_shared.h"
+#include "KS/SRC/ks/GraphicalMenuSystem_shared.h"
+#include "KS/SRC/ks/game_mode_shared.h"
 
 class IGOFrontEnd;
 class PauseMenuSystem;
@@ -23,6 +25,7 @@ public:
     };
 
     void JumpTo(int position);
+    void ExitState();
     inline bool CamIsMoving() {
         return !cam_stopped;
     }
@@ -34,12 +37,22 @@ public:
     PauseMenuSystem *pms;
     GraphicalMenuSystem *gms;
     FEEntityManager *em;
+
+private:
+    char manager_data[0x1566c - 16];
+
+public:
+    game_mode_t tmp_game_mode;
 };
 
 class BoardFrontEnd : public FEMultiMenu {
+    bool unlocked;
+    GraphicalMenuSystem *sys;
+
 public:
     virtual void Load();
     virtual void OnAnyButtonPress(int controller, int button);
+    virtual void OnTriangle(int controller);
 
 private:
     virtual void SetPQIndices();

@@ -26,6 +26,37 @@ bool BoardFrontEnd::IsLevelBoardUnlocked(int location)
 }
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001B6F68)
+// 0x001B6F68 OnTriangle__13BoardFrontEndi
+#include "KS/SRC/ks/BoardFrontEnd_shared.h"
+#include "KS/SRC/ks/SoundScript_shared.h"
+
+void nslFrameAdvance(float time);
+
+__asm__(".equ ExitState__15FEEntityManager, 0x001C4C70");
+__asm__(".equ nslFrameAdvance__Ff, 0x00390068");
+
+void BoardFrontEnd::OnTriangle(int controller)
+{
+    SoundScriptManager::inst()->playEvent(SS_FE_BACK);
+    nslFrameAdvance(0.01f);
+
+    if (sys->multiplayer && !sys->multi_1)
+    {
+        sys->multi_1 = true;
+        sys->MakeActive(GraphicalMenuSystem::BoardMenu);
+    }
+    else
+    {
+        manager->em->ExitState();
+        if (manager->tmp_game_mode == GAME_MODE_PRACTICE)
+            system->MakeActive(GraphicalMenuSystem::SurferMenu);
+        else
+            system->MakeActive(GraphicalMenuSystem::BeachMenu);
+    }
+}
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_001B7058)
 // 0x001B7058 OnCross__13BoardFrontEndi

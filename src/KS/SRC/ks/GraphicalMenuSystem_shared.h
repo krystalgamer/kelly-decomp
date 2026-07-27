@@ -6,7 +6,14 @@
 #include "KS/SRC/ks/FEMenu_shared.h"
 
 class GraphicalMenuSystem : public FEMenuSystem {
-    char graphical_menu_data[0x120 - sizeof(FEMenuSystem)];
+    char graphical_menu_data0[0xd4 - sizeof(FEMenuSystem)];
+
+public:
+    bool multiplayer;
+    bool multi_1;
+
+private:
+    char graphical_menu_data1[0x120 - 0xdc];
     bool fedb_draw_overlays;
     bool soundStarted;
     bool LoadedAll;
