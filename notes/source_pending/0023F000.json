@@ -1,0 +1,23 @@
+{
+  "address": "0x0023F000",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a1e2e44cc7b6979a20a9d219d4eeb18fb0073329",
+      "candidate_size": 276,
+      "compared_bytes": 276,
+      "compared_instructions": 69,
+      "emitted_name": "GetColor__9MenuEntry",
+      "instruction_score": 7.2464,
+      "matching_bytes": 64,
+      "matching_instructions": 5,
+      "notes": "Exact released-source attempt from kelly-slaters-pro-surfer/KS/SRC/ks/menu.cpp:18-21,400-414; kelly-slaters-pro-surfer/KS/SRC/ks/menusys.h:61-67; kelly-slaters-pro-surfer/KS/SRC/ks/menu.h:51-61,140-161. Result `different`, score 23.1884; no variant or later attempt was made.",
+      "score": 23.1884,
+      "source": "typedef unsigned char MENU_UINT8;\n\nstruct MenuColor\n{\n\tMENU_UINT8 r,g,b,a;\n};\n\nenum MenuEntryFlags\n{\n\tMENTRY_VISIBLE = 1 << 0,\n\tMENTRY_ENABLED = 1 << 1,\n\tMENTRY_ACTIVE = 1 << 2,\n};\n\nextern MenuColor entryactive;\nextern MenuColor entryenabled;\nextern MenuColor entrydisabled;\n\nclass MenuEntry\n{\n\tunsigned int flags;\n\nprotected:\n\tbool GetFlag( unsigned int flag ) { return (flags & flag)!=0; }\n\npublic:\n\tbool IsVisible( void ) { return GetFlag(MENTRY_VISIBLE); }\n\tbool IsEnabled( void ) { return IsVisible() && GetFlag(MENTRY_ENABLED); }\n\tbool IsActive( void ) { return GetFlag(MENTRY_ACTIVE); }\n\tMenuColor GetColor( void );\n};\n\nMenuColor MenuEntry::GetColor( void )\n{\n\tif ( IsActive() )\n\t{\n\t\treturn entryactive;\n\t}\n\telse if ( IsEnabled() )\n\t{\n\t\treturn entryenabled;\n\t}\n\telse\n\t{\n\t\treturn entrydisabled;\n\t}\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "GetColor__9MenuEntry"
+}
