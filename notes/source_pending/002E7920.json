@@ -1,0 +1,15 @@
+{
+  "address": "0x002E7920",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b4f7dc764359e9effee1383c388980b0e1f5fe30",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/region.cpp:707-740; kelly-slaters-pro-surfer/KS/SRC/region.h:86-94,143-159,255-261; kelly-slaters-pro-surfer/KS/SRC/entity.h:583-585,879-881; tmp/functions/002E7920_update_poss_render__6regionP6entity/attempt-1/compiler.stderr. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#define entity entity_base\n#include \"../../../../src/KS/SRC/entity_shared.h\"\n#undef entity\n\ntemplate<class T>\nclass my_allocator;\n\nstruct random_access_iterator_tag {};\n\ntemplate<class Iterator, class T>\nIterator find(Iterator, Iterator, const T &, random_access_iterator_tag);\n\ntemplate<class Iterator, class T>\ninline Iterator find(Iterator first, Iterator last, const T &value)\n{\n    return find(first, last, value, random_access_iterator_tag());\n}\n\ntemplate<class T, class Allocator = my_allocator<T> >\nclass vector {\npublic:\n    typedef T *iterator;\n\n    iterator start;\n    iterator finish;\n    iterator end_of_storage;\n\n    iterator begin() { return start; }\n    iterator end() { return finish; }\n    void _M_insert_aux(iterator, const T &);\n\n    void push_back(const T &value)\n    {\n        if (finish != end_of_storage) {\n            if (finish)\n                *finish = value;\n            ++finish;\n        } else {\n            _M_insert_aux(end(), value);\n        }\n    }\n};\n\nclass entity : public entity_base {\npublic:\n    bool is_flagged(register unsigned int f) const\n    {\n        const unsigned int *flags =\n            reinterpret_cast<const unsigned int *>(\n                reinterpret_cast<const char *>(this) + 0x78);\n        return *flags & f;\n    }\n};\n\nclass region {\npublic:\n    typedef vector<entity *> entity_list;\n\nprivate:\n    char data_before_possible_render_ents[0xA0];\n    entity_list possible_render_ents;\n\npublic:\n    void update_poss_render(entity *e);\n};\n\nvoid region::update_poss_render( entity* e )\n{\n  if(e)\n  {\n    if(e->is_still_visible() && e->is_flagged(EFLAG_GRAPHICS))\n    {\n      entity_list::iterator ei_begin = possible_render_ents.begin();\n      entity_list::iterator ei_end = possible_render_ents.end();\n\n      entity_list::iterator ei = find( ei_begin, ei_end, e );\n      if ( ei == ei_end )\n      {\n        ei = find( ei_begin, ei_end, (entity*)0 );\n        if ( ei != ei_end )\n          *ei = e;\n        else\n        {\n          possible_render_ents.push_back( e );\n        }\n      }\n    }\n    else\n    {\n      entity_list::iterator ei_end = possible_render_ents.end();\n      entity_list::iterator ei = find( possible_render_ents.begin(), ei_end, e );\n      if ( ei != ei_end )\n        *ei = 0;\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "update_poss_render__6regionP6entity"
+}
