@@ -1,0 +1,23 @@
+{
+  "address": "0x001CB898",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "75e5665e3d92e7973f7fa0612060ef7cdbf9eb4e",
+      "candidate_size": 288,
+      "compared_bytes": 304,
+      "compared_instructions": 76,
+      "emitted_name": "TurnHighScore__17HighScoreFrontEndb",
+      "instruction_score": 28.9474,
+      "matching_bytes": 119,
+      "matching_instructions": 22,
+      "notes": "Exact released HighScoreFrontEnd::TurnHighScore body with only the declarations and object layout required for a self-contained candidate. The single test completed with status different and score 39.1447.",
+      "score": 39.1447,
+      "source": "typedef void (*turn_handler)(void *, bool);\nstruct turn_slot { short adjustment; unsigned short padding; turn_handler function; };\nstruct panel_vtable { char padding[24]; turn_slot turn_on; };\nclass PanelQuad {\n    char padding[404];\n    panel_vtable *vtable;\npublic:\n    void TurnOn(bool on)\n    {\n        turn_slot &slot = vtable->turn_on;\n        slot.function((char *)this + slot.adjustment, on);\n    }\n};\nclass HighScoreFrontEnd {\n    char padding[0x240];\n    PanelQuad* arrows[2][2];\n    char padding2[0x30];\n    bool in_game;\n    char padding3[0xd7];\n    PanelQuad* fade;\n    PanelQuad* lines[19];\npublic:\n    void TurnHighScore(bool on);\n};\nvoid HighScoreFrontEnd::TurnHighScore(bool on)\n{\n\tarrows[0][1]->TurnOn(false);\n\tarrows[1][1]->TurnOn(false);\n\tarrows[0][0]->TurnOn(!in_game && on);\n\tarrows[1][0]->TurnOn(!in_game && on);\n\n\tif(in_game)\n\t{\n\t\tfor(int i=0; i<19; i++)\n\t\t\tlines[i]->TurnOn(on);\n\t\tfade->TurnOn(on);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 304
+    }
+  ],
+  "raw_name": "TurnHighScore__17HighScoreFrontEndb"
+}
