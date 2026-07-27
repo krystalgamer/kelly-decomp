@@ -1,0 +1,23 @@
+{
+  "address": "0x003A1408",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7a4481d064465e841ffc672f819ae8579ff44677",
+      "candidate_size": 316,
+      "compared_bytes": 316,
+      "compared_instructions": 79,
+      "emitted_name": "nglProcessMesh__FP7nglMeshUi",
+      "instruction_score": 83.5443,
+      "matching_bytes": 283,
+      "matching_instructions": 66,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:6201-6248; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:679-732,841-891; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2_internal.h:135,616-628; tmp/functions/003A1408_nglProcessMesh__FP7nglMeshUi/attempt-1/result.json; tmp/source_first/003A1408/attempt-1.md. Result `different`, score 89.5570; no later attempt.",
+      "score": 89.557,
+      "source": "typedef unsigned int u_int;\n\ntypedef float nglMatrix[4][4];\n\nstruct nglTexture;\nstruct nglMaterialInfo\n{\n  u_int Hash;\n  u_int DiffuseKickAddr;\n  u_int DetailKickAddr;\n  u_int EnvironmentKickAddr;\n  u_int LightKickAddr;\n  u_int CmdListEndAddr;\n  u_int* BakedDMA;\n};\n\nstruct nglMaterial\n{\n  u_int Flags;\n  nglTexture* Map;\n  char released_to_info[132];\n  nglMaterialInfo* Info;\n};\n\nstruct nglMeshSection\n{\n  nglMaterial* Material;\n  char released_rest[60];\n};\n\nstruct nglMesh\n{\n  u_int Flags;\n  char released_to_nbones[48];\n  u_int NBones;\n  nglMatrix* Bones;\n  u_int NSections;\n  nglMeshSection* Sections;\n};\n\nenum\n{\n  NGLMAT_TEXTURE_MAP = 0x00000001,\n  NGLMAT_LIGHT_MAP = 0x00000020,\n  NGLMAT_DETAIL_MAP = 0x00000040,\n  NGLMAT_ENVIRONMENT_MAP = 0x00000080,\n  NGLMESH_PROCESSED = 0x00100000\n};\n\n#define NGL_TEXTURE_MASK ( NGLMAT_TEXTURE_MAP | NGLMAT_LIGHT_MAP | NGLMAT_DETAIL_MAP | NGLMAT_ENVIRONMENT_MAP )\n#define SCE_MATRIX(x) ((float(*)[4])(float*)&(x))\n\nextern nglTexture* nglWhiteTex;\nextern int sceVu0InversMatrix( float Dest[4][4], float Src[4][4] );\nextern void nglBindMeshTextures( nglMesh* Mesh, bool Load );\nextern void* nglMemAlloc( u_int Size, u_int Align );\nextern void nglBakeMaterial( nglMesh* Mesh, nglMeshSection* Section, bool Scratch );\n\nvoid nglProcessMesh( nglMesh* Mesh, u_int Version )\n{\n  u_int i;\n\n  // Pre-invert bone matrices.\n  for ( i = 0; i < Mesh->NBones; i++ )\n    sceVu0InversMatrix( SCE_MATRIX( Mesh->Bones[i] ), SCE_MATRIX( Mesh->Bones[i] ) );\n\n  for ( i = 0; i < Mesh->NSections; i++ )\n  {\n    // Process the material data.\n    nglMeshSection* Section = &Mesh->Sections[i];\n    nglMaterial* Material = Section->Material;\n\n    Material->Flags &= ~NGLMAT_DETAIL_MAP;\n\n    // Automatically attach textures used by the mesh.\n\t\tif (i==0)\n\t\t\tnglBindMeshTextures( Mesh, true );\n\t\telse\n\t\t\tnglBindMeshTextures( Mesh, false );\n    // Flat shaded meshes (or meshes whose textures could not be loaded) automatically receive nglWhiteTex.\n    if ( !( Material->Flags & NGL_TEXTURE_MASK ) )\n    {\n      Material->Flags |= NGLMAT_TEXTURE_MAP;\n      Material->Map = nglWhiteTex;\n    }\n\n    Material->Info = (nglMaterialInfo*)nglMemAlloc( sizeof(nglMaterialInfo), 8 );\n    void nglBakeMaterial( nglMesh* Mesh, nglMeshSection* Section, bool Scratch );\n    nglBakeMaterial( Mesh, Section, false );\n  }\n\n\n  Mesh->Flags |= NGLMESH_PROCESSED;\n}\n",
+      "status": "different",
+      "target_size": 316
+    }
+  ],
+  "raw_name": "nglProcessMesh__FP7nglMeshUi"
+}
