@@ -1,0 +1,23 @@
+{
+  "address": "0x00131E70",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "662455e7ab9da897aa1b3dceff29f646d5139d1b",
+      "candidate_size": 256,
+      "compared_bytes": 256,
+      "compared_instructions": 64,
+      "emitted_name": "force_regions__6entityP6entity",
+      "instruction_score": 10.9375,
+      "matching_bytes": 119,
+      "matching_instructions": 7,
+      "notes": "# Attempt 1\n\n- Queue was clean `pending` with zero attempts; no pre-existing address scratch was present.\n- Used the released `entity::force_regions` body verbatim from `entity.cpp:2704-2712`.\n- Used authentic released `region_node_pset` iterator semantics and entity region/virtual declarations, narrowed around the established shared entity layout and prior matched `unforce_regions` work.\n- Result: **different** \u2014 byte score 46.4844%, instruction score 10.9375%; candidate size 256 vs target 252. No second attempt was made.",
+      "score": 46.4844,
+      "source": "#define entity entity_shared_base\n#define region_node_pset entity_shared_region_node_pset\n#define region_node_pset_iterator entity_shared_region_node_pset_iterator\n#include \"KS/SRC/entity_shared.h\"\n#undef region_node_pset_iterator\n#undef region_node_pset\n#undef entity\n\nstruct region_node_tree_node {\n  int color;\n  region_node_tree_node* parent;\n  region_node_tree_node* left;\n  region_node_tree_node* right;\n  region_node* value;\n};\n\nclass region_node_pset_iterator {\n  region_node_tree_node* node;\n\n  void increment()\n  {\n    if (node->right != 0)\n    {\n      node = node->right;\n      while (node->left != 0)\n        node = node->left;\n    }\n    else\n    {\n      region_node_tree_node* parent = node->parent;\n      while (node == parent->right)\n      {\n        node = parent;\n        parent = parent->parent;\n      }\n      if (node->right != parent)\n        node = parent;\n    }\n  }\n\npublic:\n  region_node_pset_iterator() {}\n  region_node_pset_iterator(region_node_tree_node* value) : node(value) {}\n  region_node*& operator*() const { return node->value; }\n  region_node_pset_iterator& operator++() { increment(); return *this; }\n  region_node_pset_iterator operator++(int)\n  {\n    region_node_pset_iterator result = *this;\n    increment();\n    return result;\n  }\n  bool operator!=(const region_node_pset_iterator& other) const\n  {\n    return node != other.node;\n  }\n};\n\nclass region_node_pset {\n  region_node_tree_node* header;\n  unsigned int node_count;\n\npublic:\n  typedef region_node_pset_iterator const_iterator;\n  const_iterator begin() const { return const_iterator(header->left); }\n  const_iterator end() const { return const_iterator(header); }\n};\n\nclass entity : public entity_shared_base {\npublic:\n  const region_node_pset& get_regions() const\n  {\n    return *(const region_node_pset*)((const char*)this + 0x160);\n  }\n  virtual void force_region(region_node* r);\n  virtual void force_current_region();\n  virtual void unforce_regions();\n  virtual void force_regions(entity* e);\n};\n\n// put me into the same region(s) as the given entity\nvoid entity::force_regions( entity* e )\n{\n#ifndef REGIONCULL\n  region_node_pset::const_iterator i;\n  for ( i=e->get_regions().begin(); i!=e->get_regions().end(); i++ )\n    force_region( *i );\n#endif\n}\n",
+      "status": "different",
+      "target_size": 252
+    }
+  ],
+  "raw_name": "force_regions__6entityP6entity"
+}
