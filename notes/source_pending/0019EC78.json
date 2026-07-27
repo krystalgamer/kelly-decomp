@@ -1,0 +1,23 @@
+{
+  "address": "0x0019EC78",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3becb744572a44701bcd22c3cc18139bcbb963ca",
+      "candidate_size": 244,
+      "compared_bytes": 248,
+      "compared_instructions": 62,
+      "emitted_name": "TurnPQ__9NamesMenub",
+      "instruction_score": 82.2581,
+      "matching_bytes": 213,
+      "matching_instructions": 51,
+      "notes": "Exact released `NamesMenu::TurnPQ` body with the authentic `FEMultiMenu`, names-menu, and 0x194 `PanelQuad` layouts. Every panel toggle and object offset reproduces, but EE GCC tail-called `TurnPQLines`, producing 244 bytes instead of the target's normal call and 248-byte epilogue.",
+      "score": 85.8871,
+      "source": "#define KELLY_DECOMP_FULL_FEMENU_ENTRY\n#define KELLY_DECOMP_FULL_FEMULTI_MENU\n#define KELLY_DECOMP_SAVELOAD_VTABLE\n#include \"KS/SRC/ks/FEMenu_shared.h\"\n#undef KELLY_DECOMP_SAVELOAD_VTABLE\n#undef KELLY_DECOMP_FULL_FEMULTI_MENU\n#undef KELLY_DECOMP_FULL_FEMENU_ENTRY\n\nclass PanelAnim;\n\nclass matrix4x4 {\n    float values[16] __attribute__((aligned(16)));\n};\n\nstruct nglQuadVertex {\n    float X;\n    float Y;\n    float U;\n    float V;\n    unsigned int Color;\n};\n\nstruct nglTexture;\n\nstruct nglQuad {\n    nglQuadVertex Verts[4];\n    float Z;\n    unsigned int MapFlags;\n    unsigned int BlendMode;\n    unsigned int BlendModeConstant;\n    nglTexture *Tex;\n};\n\nstruct recti {\n    int x0;\n    int y0;\n    int x1;\n    int y1;\n};\n\nclass PanelQuad {\nprotected:\n    bool isAnim;\n    int fade;\n    float fade_alpha;\n    float fade_timer;\n    float mask;\n    int maskType;\n    PanelAnim *anim;\n    nglQuad quad;\n    bool drawOn;\n    int rotate;\n    float rotation;\n    float rotate_x;\n    float rotate_y;\n    int layer;\n    float r;\n    float g;\n    float b;\n    float a;\n    float x1;\n    float y1;\n    float x2;\n    float y2;\n    float width;\n    float height;\n    float width_a;\n    float height_a;\n    matrix4x4 matrix;\n    bool on_menu;\n    bool clip;\n    recti clipping;\n\npublic:\n    matrix4x4 Xform;\n    stringx name;\n    bool dont_draw;\n    float z;\n    float u1;\n    float v1;\n    float u2;\n    float v2;\n    PanelQuad *next;\n\n    virtual ~PanelQuad();\n    virtual void Init(\n        float x1, float y1, float x2, float y2,\n        float r, float g, float b, float a,\n        float u1, float v1, float u2, float v2,\n        float z, matrix4x4 object_matrix);\n    virtual void TurnOn(bool enabled);\n};\n\nstruct vector2d {\n    float x;\n    float y;\n};\n\nstruct MemCard {\n    int free;\n    bool exists;\n    bool changed;\n    bool available;\n    bool ask_format;\n    bool saved_games;\n    int status;\n};\n\nclass SaveLoadFrontEnd {\npublic:\n    enum { num_each = 15 };\n};\n\nclass BoxText;\n\nclass NamesMenu : public FEMultiMenu {\n    int type;\n    bool save;\n    vector2d card_center;\n    SaveLoadFrontEnd *sl_parent;\n    int check_cards_counter;\n    int arrow_num;\n    int arrow_counter;\n    bool empty[SaveLoadFrontEnd::num_each];\n    MemCard cards[2];\n    stringx blank_name;\n    int active_card;\n    int adjusted_active_card;\n    bool cardSide;\n    PanelQuad *box;\n    PanelQuad *arrows[2][2];\n    PanelQuad *lines[10];\n    PanelQuad *top_line;\n    PanelQuad *side_line;\n    FEMenuEntry *entry[SaveLoadFrontEnd::num_each + 2];\n    BoxText *message;\n    BoxText *freeSpace;\n    bool draw_message;\n\npublic:\n    void TurnPQ(bool enabled);\n    void TurnPQLines(bool enabled);\n};\n\n__asm__(\".equ TurnPQLines__9NamesMenub, 0x0019ED70\");\n\nvoid NamesMenu::TurnPQ(bool on)\n{\n\tbox->TurnOn(on);\n\ttop_line->TurnOn(on);\n\tside_line->TurnOn(on);\n\tarrows[0][0]->TurnOn(on);\n\tarrows[0][1]->TurnOn(false);\n\tarrows[1][0]->TurnOn(on);\n\tarrows[1][1]->TurnOn(false);\n\tTurnPQLines(on);\n}\n",
+      "status": "different",
+      "target_size": 248
+    }
+  ],
+  "raw_name": "TurnPQ__9NamesMenub"
+}
