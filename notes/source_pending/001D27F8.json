@@ -1,0 +1,23 @@
+{
+  "address": "0x001D27F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8092b0ec3b311cc708eade9a6d74864e58bc7585",
+      "candidate_size": 268,
+      "compared_bytes": 268,
+      "compared_instructions": 67,
+      "emitted_name": "ResetToggles__13CheatCodeMenu",
+      "instruction_score": 0.0,
+      "matching_bytes": 60,
+      "matching_instructions": 0,
+      "notes": "The queue entry was `pending` with zero recorded attempts, and no target scratch existed before preparation. Attempt 1 transcribed the released `CheatCodeMenu::ResetToggles` body exactly and supplied narrow declarations for the authentic two-entry menu layout, `Cheat::isOn`, `TextString::changeText`, global text entries, and linked globals.\n\nThe candidate compiled and emitted the requested symbol, but differed: 22.3881% byte score, 0.0% instruction score, 268 candidate bytes versus 252 target bytes. Per FIRST-PASS rules, no second candidate or diff chase was attempted.",
+      "score": 22.3881,
+      "source": "#include \"KS/SRC/ks/FEPanel_shared.h\"\n\n#define MAX_CHEATS_PER_SCREEN 2\n\nclass FEMenuEntry;\nclass GraphicalMenuSystem;\nclass PanelQuad;\n\nclass FEMultiMenu\n{\n    char built_layout[0x160];\n};\n\nclass CheatCodeMenu : public FEMultiMenu\n{\nprivate:\n    FEMenuEntry *cheats[MAX_CHEATS_PER_SCREEN];\n    int menu_entry_cheat_index[MAX_CHEATS_PER_SCREEN];\n    GraphicalMenuSystem *sys;\n    int next_down, next_up;\n    TextString *toggle_state[MAX_CHEATS_PER_SCREEN];\n    PanelQuad *arrow_up;\n    PanelQuad *arrow_down;\n\n    void ResetToggles();\n};\n\nclass Cheat\n{\nprivate:\n    bool locked;\n    bool on;\n\npublic:\n    bool isOn() const { return on; }\n};\n\nenum\n{\n    CHEAT_LAST = 22,\n    GT_FE_MENU_OP_ON = 178,\n    GT_FE_MENU_OP_OFF\n};\n\nextern Cheat g_session_cheats[CHEAT_LAST];\nextern stringx ksGlobalTextArray[];\n\nasm(\".equ g_session_cheats, 0x0042BD48\");\nasm(\".equ ksGlobalTextArray, 0x003E6050\");\n\nvoid CheatCodeMenu::ResetToggles()\n{\n    for(int i = 0; i < MAX_CHEATS_PER_SCREEN; i++)\n    {\n        if(menu_entry_cheat_index[i] != -1)\n        {\n            if(g_session_cheats[menu_entry_cheat_index[i]].isOn())\n                toggle_state[i]->changeText(ksGlobalTextArray[GT_FE_MENU_OP_ON]);\n            else\n                toggle_state[i]->changeText(ksGlobalTextArray[GT_FE_MENU_OP_OFF]);\n        }\n        else\n            toggle_state[i]->changeText(\"\");\n    }\n}\n",
+      "status": "different",
+      "target_size": 252
+    }
+  ],
+  "raw_name": "ResetToggles__13CheatCodeMenu"
+}
