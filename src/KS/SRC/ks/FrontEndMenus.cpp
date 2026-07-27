@@ -969,3 +969,65 @@ void PlaylistMenuClass::Select(int entry_index)
     return;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001B12D0)
+// 0x001B12D0 _$_14GoalsMenuClass
+struct text_vtable {
+    char padding[8];
+    short adjustment;
+    short reserved;
+    void (*destroy)(void *, int);
+};
+
+struct TextString {
+    char padding[76];
+    text_vtable *vtable;
+};
+
+extern "C" void destroy_base(void *, int) __asm__("_$_6FEMenu");
+extern const char derived_vtable[];
+__asm__(".equ _$_6FEMenu,0x00156580");
+__asm__(".equ derived_vtable,0x004C77E0");
+
+struct goals_layout {
+    char padding[116];
+    const void *vtable;
+    TextString *title;
+    TextString *names[5];
+    TextString *status[5];
+    char padding2[40];
+    TextString *tip;
+};
+
+extern "C" void destroy_goals(goals_layout *self, int deleting)
+    __asm__("_$_14GoalsMenuClass");
+
+void destroy_goals(goals_layout *self, int deleting)
+{
+    self->vtable = derived_vtable;
+    TextString *title = self->title;
+    if (title) {
+        text_vtable *table = title->vtable;
+        table->destroy((char *)title + table->adjustment, 3);
+    }
+    for (int g = 0; g < 5; g++) {
+        TextString *name = self->names[g];
+        if (name) {
+            text_vtable *table = name->vtable;
+            table->destroy((char *)name + table->adjustment, 3);
+        }
+        TextString *status = self->status[g];
+        if (status) {
+            text_vtable *table = status->vtable;
+            table->destroy((char *)status + table->adjustment, 3);
+        }
+    }
+    TextString *tip = self->tip;
+    if (tip) {
+        text_vtable *table = tip->vtable;
+        table->destroy((char *)tip + table->adjustment, 3);
+    }
+    destroy_base(self, deleting);
+    __asm__ __volatile__("" : : : "memory");
+}
+#endif
