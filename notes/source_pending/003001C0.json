@@ -1,0 +1,16 @@
+{
+  "address": "0x003001C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6b329d89724b7a030278d199a329a47de1ff0bf9",
+      "error": "Candidate did not emit _$_6vsplit; emitted functions: []",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/vsplit.h:18-52; kelly-slaters-pro-surfer/KS/SRC/meshrefs.h:10-20; tmp/functions/003001C0__$_6vsplit/attempt-1/result.json; tmp/source_first/003001C0/notes.md. Result `symbol_missing`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "typedef unsigned int size_t;\n\nextern \"C\" void arch_free(void *) __asm__(\"arch_free__FPv\");\nextern void *stl_free_list[];\n__asm__(\".equ arch_free__FPv, 0x002AC768\");\n__asm__(\".equ stl_free_list, 0x003E5628\");\n\ninline void stl_deallocate(void *p, size_t bytes)\n{\n    if (bytes > 128) {\n        arch_free(p);\n    } else if (bytes) {\n        unsigned index = ((bytes + 7) / 8) - 1;\n        *(void **)p = stl_free_list[index];\n        stl_free_list[index] = p;\n    }\n}\n\ntemplate<class T>\nstruct vector {\n    T *start;\n    T *finish;\n    T *end_of_storage;\n\n    ~vector()\n    {\n        for (T *p = start; p < finish; ++p)\n            p->~T();\n        stl_deallocate(start, (char *)end_of_storage - (char *)start);\n    }\n};\n\ntemplate<>\nvector<unsigned int>::~vector()\n{\n    stl_deallocate(start, (char *)end_of_storage - (char *)start);\n}\n\nstruct wedge_split {\n    unsigned short old_wedge_id;\n    unsigned short new_wedge_id;\n    vector<unsigned int> faces_for_split;\n};\n\nclass vsplit {\npublic:\n    unsigned short old_vert;\n    unsigned short new_vert_ids[2];\n    unsigned int new_face_ids[2];\n    vector<wedge_split> wedge_splits;\n    ~vsplit() {}\n};\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "_$_6vsplit"
+}
