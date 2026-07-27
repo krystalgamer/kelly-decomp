@@ -1,0 +1,15 @@
+{
+  "address": "0x0034F438",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5d4ff9a4c92a0c3f119f9caa1401779a1461f3d4",
+      "notes": "Attempt 1 used the exact released link_hierarchy definition with the repository integration header. Compilation failed because that selector-guarded header emitted no slc_manager declarations in the isolated candidate.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/script_library_class.h\"\n\n// call this after static initialization, to establish parent links\nvoid slc_manager::link_hierarchy()\n{\n  class_list::iterator i = classes.begin();\n  class_list::iterator i_end = classes.end();\n  for ( ; i!=i_end; ++i )\n  {\n    // for each class that has a parent_name, find that parent and link the pointer\n    script_library_class* c = *i;\n    if ( c->parent_name )\n      c->parent = find( c->parent_name );\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "link_hierarchy__11slc_manager"
+}
