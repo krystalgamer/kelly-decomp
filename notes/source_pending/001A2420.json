@@ -1,0 +1,23 @@
+{
+  "address": "0x001A2420",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f08d131bd87836ae08614471b2df51fa7a66a1aa",
+      "candidate_size": 320,
+      "compared_bytes": 320,
+      "compared_instructions": 80,
+      "emitted_name": "go_to_previous_menu__12KeyboardMenu",
+      "instruction_score": 22.5,
+      "matching_bytes": 110,
+      "matching_instructions": 18,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/SaveLoadFrontEnd.cpp:2438-2461; kelly-slaters-pro-surfer/KS/SRC/ks/SaveLoadFrontEnd.h:327-367; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:433-462; tmp/functions/001A2420_go_to_previous_menu__12KeyboardMenu/attempt-1/result.json; tmp/source_first/001A2420/notes.md. Result `different`, score 34.3750; no later attempt.",
+      "score": 34.375,
+      "source": "struct FEMenuEntry { int entry_num; };\n\nstruct FEMenuSystemVTable {\n    char padding[0x20];\n    short adjustment;\n    short padding2;\n    void (*MakeActive)(void *self, int index, int sub_menu);\n};\nstruct FEMenuSystem { char padding[0x8c]; FEMenuSystemVTable *vtable; };\n\nclass SaveLoadFrontEnd {\n    char padding[0x32a4];\npublic:\n    int back_menu;\n    int back_sub_menu;\n    void SetDState(int state, bool activate = true, bool end_error = false);\n};\n\nclass SoundScriptManager {\npublic:\n    enum EventType { SS_FE_ONX = 24 };\n    void pause();\n    void unpause();\n    void playEvent(EventType type, void *ent = 0, float arg = 0.0f);\n};\n\nstruct FEManager { char padding[0x15678]; bool fe_done; };\nextern FEManager frontendmanager;\nextern SoundScriptManager *sound_script_manager;\n\nclass KeyboardMenu {\n    char padding0[0x4c];\n    FEMenuEntry *highlighted;\n    FEMenuSystem *system;\n    char padding1[0x1b8];\n    SaveLoadFrontEnd *sl_parent;\npublic:\n    void go_to_previous_menu();\nprivate:\n    void KeyOn(int index, bool on);\n};\n\n__asm__(\".equ frontendmanager, 0x003F7728\");\n__asm__(\".equ sound_script_manager, 0x0045B4A0\");\n__asm__(\".equ KeyOn__12KeyboardMenuib, 0x001A28B8\");\n__asm__(\".equ unpause__18SoundScriptManager, 0x0031BFA8\");\n__asm__(\".equ pause__18SoundScriptManager, 0x0031BF98\");\n__asm__(\".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380\");\n__asm__(\".equ SetDState__16SaveLoadFrontEndibT2, 0x0019B760\");\n\nvoid KeyboardMenu::go_to_previous_menu()\n{\n    if (highlighted->entry_num < 37)\n        KeyOn(highlighted->entry_num, false);\n\n    if (frontendmanager.fe_done)\n        sound_script_manager->unpause();\n    sound_script_manager->playEvent(SoundScriptManager::SS_FE_ONX);\n    if (frontendmanager.fe_done)\n        sound_script_manager->pause();\n\n    if (frontendmanager.fe_done)\n        sl_parent->SetDState(7);\n    else\n    {\n        if (sl_parent->back_menu == -1)\n            sl_parent->SetDState(7);\n        else if (sl_parent->back_sub_menu == -1)\n        {\n            FEMenuSystemVTable *table = system->vtable;\n            table->MakeActive((char *)system + table->adjustment,\n                              sl_parent->back_menu, 1);\n        }\n        else\n        {\n            FEMenuSystemVTable *table = system->vtable;\n            table->MakeActive((char *)system + table->adjustment,\n                              sl_parent->back_menu,\n                              sl_parent->back_sub_menu);\n        }\n    }\n}\n",
+      "status": "different",
+      "target_size": 280
+    }
+  ],
+  "raw_name": "go_to_previous_menu__12KeyboardMenu"
+}
