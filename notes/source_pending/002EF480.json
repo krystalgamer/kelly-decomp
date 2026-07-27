@@ -1,0 +1,15 @@
+{
+  "address": "0x002EF480",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "058028043d1efdac54a42bb9b3d6105e209033d8",
+      "notes": "Attempt 1 used the exact released MENUCHEAT_StaticInit definition from kelly-slaters-pro-surfer/KS/SRC/ks/cheatmenu.cpp:68-80, with the exact released includes and required declarations/definitions from lines 1-26. The single test compile failed because the function-test include roots do not contain global.h, menu.h, entity.h, wave.h, or wds.h; no further attempt was made.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\t// For all files\n#include \"menu.h\"\t// For menu structures\n#include \"entity.h\"\n#include \"wave.h\"\n#include \"wds.h\"\n\nMenuEntryIntEdit *\tplayer1Score = NULL;\nMenuEntryIntEdit *\tplayer2Score = NULL;\nMenuEntryFunction *\tcheat_goal0 = NULL;\nMenuEntryFunction *\tcheat_goal1 = NULL;\nMenuEntryFunction *\tcheat_goal2 = NULL;\nMenuEntryFunction *\tcheat_goal3 = NULL;\nMenuEntryFunction *\tcheat_goal4 = NULL;\n\nclass MenuCheat : public Menu\n{\npublic:\n\tMenuCheat(Menu *p, int ents, pMenuEntry *ent) : Menu(p, ents, ent) {}\n\tvirtual ~MenuCheat() {};\n\n\tvirtual void OnOpen(Menu *cto, MenuSystem *c);\n\tvirtual void OnClose( bool toparent );\n};\n\nMenuCheat *MENCHEAT_Menu=NULL; //(NULL, 0, NULL);\nSubmenu *menu_cheat = NULL; //Submenu(\"Entities\", &MENUDRAW_MenuEntities);\n\nvoid MENUCHEAT_StaticInit( void )\n{\n\t\n\tplayer1Score = NULL;\n\tplayer2Score = NULL;\n\tcheat_goal0 = NULL;\n\tcheat_goal1 = NULL;\n\tcheat_goal2 = NULL;\n\tcheat_goal3 = NULL;\n\tcheat_goal4 = NULL;\n\tMENCHEAT_Menu = NEW MenuCheat(NULL, 0, NULL);\n\tmenu_cheat = NEW Submenu(\"Cheat Menu\", MENCHEAT_Menu);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "MENUCHEAT_StaticInit__Fv"
+}
