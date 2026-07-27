@@ -1,0 +1,23 @@
+{
+  "address": "0x001D1BC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b799f418d312491069013d3ecb1b031f49de629c",
+      "candidate_size": 304,
+      "compared_bytes": 304,
+      "compared_instructions": 76,
+      "emitted_name": "TurnOnPhone__13CheatFrontEndb",
+      "instruction_score": 6.5789,
+      "matching_bytes": 56,
+      "matching_instructions": 5,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/CheatFrontEnd.cpp:207-224; kelly-slaters-pro-surfer/KS/SRC/ks/CheatFrontEnd.h:45-88; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:427-475; notes/function_queue.csv:5916; tmp/functions/001D1BC8_TurnOnPhone__13CheatFrontEndb/attempt-1/result.json. Result `different`, score 18.4211; no later attempt.",
+      "score": 18.4211,
+      "source": "class PanelQuad\n{\npublic:\n    virtual ~PanelQuad();\n    virtual void Init();\n    virtual void TurnOn(bool on);\n};\n\nclass CheatFrontEnd\n{\nprivate:\n    char base_layout[0x160];\n    void *sys;\n    bool pq_indices_set;\n    char pq_indices_padding[3];\n    PanelQuad *arrow_up[2];\n    PanelQuad *arrow_down[2];\n    PanelQuad *cellphone;\n    PanelQuad *numbers[10];\n    PanelQuad *numbers_hi[10];\n\npublic:\n    void SetPQIndices();\n    void TurnOnPhone(bool on);\n};\n\nvoid CheatFrontEnd::TurnOnPhone(bool on)\n{\n\tSetPQIndices();\n\n\t//Turn off the cell phone, etc\n\tarrow_up[0]->TurnOn(false);\n\tarrow_up[1]->TurnOn(false);\n\tarrow_down[0]->TurnOn(false);\n\tarrow_down[1]->TurnOn(false);\n\tcellphone->TurnOn(on);\n\n\tfor(int i = 0; i < 10; i++)\n\t{\n\t\tnumbers[i]->TurnOn(on);\n\t\tnumbers_hi[i]->TurnOn(false);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 304
+    }
+  ],
+  "raw_name": "TurnOnPhone__13CheatFrontEndb"
+}
