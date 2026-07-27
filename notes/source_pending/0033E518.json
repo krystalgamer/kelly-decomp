@@ -1,0 +1,15 @@
+{
+  "address": "0x0033E518",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "55694ba36bce798cf64c387c9592c93c94664a59",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/widget.cpp:526-548; kelly-slaters-pro-surfer/KS/SRC/widget.h:24-29,173-356; tmp/functions/0033E518_flush__6widget/attempt-1/result.json. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/widget_shared.h\"\n\nvoid widget::flush()\n{\n  while ( wevent_run_list.size() )\n  {\n    wevent_list_t::iterator we = wevent_run_list.begin();\n    (*we)->do_wevent( 1.0f );\n    delete *we;\n    wevent_run_list.erase( we );\n  }\n\n  next_state = WSTATE_None;\n  state_wait_time = 0.0f;\n\n  // children\n  widget_list_t::iterator it;\n  for( it = children.begin(); it != children.end(); ++it )\n  {\n    (*it)->flush();\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "flush__6widget"
+}
