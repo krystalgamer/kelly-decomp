@@ -1,0 +1,23 @@
+{
+  "address": "0x0017FFB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ee128fca682ab3dd41597074b4280213b91b9ffb",
+      "candidate_size": 332,
+      "compared_bytes": 332,
+      "compared_instructions": 83,
+      "emitted_name": "Select__12MainFrontEndi",
+      "instruction_score": 3.6145,
+      "matching_bytes": 63,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.cpp:348-370; kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.h:26-75; tmp/functions/0017FFB0_Select__12MainFrontEndi/attempt-1/result.json; tmp/source_first/0017FFB0/attempt-1.md. Result `different`, score 18.9759; no later attempt.",
+      "score": 18.9759,
+      "source": "#define KELLY_DECOMP_FULL_FEMENU_ENTRY\n#define KELLY_DECOMP_FULL_FEMULTI_MENU\n#include \"KS/SRC/ks/FEMenu_shared.h\"\n#undef KELLY_DECOMP_FULL_FEMULTI_MENU\n#undef KELLY_DECOMP_FULL_FEMENU_ENTRY\n#include \"KS/SRC/ks/GraphicalMenuSystem_shared.h\"\n\n#define assert(condition) ((void)0)\n\nclass FEEntityManager {\npublic:\n    bool InFlyin();\n    void ExitState();\n};\n\nclass FEManager {\n    char padding[12];\npublic:\n    FEEntityManager *em;\n};\n\nclass OptionsMenu : public FEMenu {};\nclass MultiplayerMenu : public FEMenu {};\nclass FreesurfMenu : public FEMenu {};\nclass CareerMenu : public FEMenu {};\nclass MultiSubMenu;\n\nclass MainFrontEnd : public FEMultiMenu {\npublic:\n    enum {\n        MainFreeEntry,\n        MainCareerEntry,\n        MainMultiEntry,\n        MainExtrasEntry,\n        MainOpEntry,\n        MainEnd\n    };\n\nprivate:\n    FEManager *manager;\n    GraphicalMenuSystem *sys;\n    FEMenuEntry *entry_list[MainEnd];\n    entity *ents[MainEnd];\n    PanelQuad *boxes[MainEnd][9];\n    PanelQuad *circles[MainEnd][1];\n    PanelQuad *lines[MainEnd][3];\n\npublic:\n    OptionsMenu *Options;\n    MultiplayerMenu *Multi;\n    FreesurfMenu *Freesurf;\n    CareerMenu *career_menu;\n    MultiSubMenu *multi_sub;\n\n    virtual void MakeActive(FEMenu *menu);\n    virtual void Select(int entry_index);\n};\n\nvoid MainFrontEnd::Select(int entry_index)\n{\n\tif(manager->em->InFlyin()) return;\n\tif(active)\n\t\tactive->Select(active->highlighted->entry_num);\n\telse\n\t{\n\t\tif(entry_index != MainExtrasEntry && entry_index != MainOpEntry && entry_index != MainMultiEntry)\n\t\t\tmanager->em->ExitState();\n\t\tsys->multiplayer = (entry_index == MainMultiEntry);\n\n\t\tstringx tmp;\n\t\tswitch(entry_index)\n\t\t{\n\t\tcase MainCareerEntry:\tcareer_menu->Select(career_menu->highlighted->entry_num); break;\n\t\tcase MainFreeEntry:\t\tFreesurf->Select(Freesurf->highlighted->entry_num); break;\n\t\tcase MainMultiEntry:\tMulti->Select(Multi->highlighted->entry_num); break;\n\t\tcase MainExtrasEntry:\tsys->MakeActive(GraphicalMenuSystem::ExtrasMenu); break;\n\t\tcase MainOpEntry:\t\tMakeActive(Options); break;\n\t\tdefault: assert(0);\n\t\t}\n\t}\n}\n",
+      "status": "different",
+      "target_size": 328
+    }
+  ],
+  "raw_name": "Select__12MainFrontEndi"
+}
