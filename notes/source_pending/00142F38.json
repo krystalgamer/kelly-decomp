@@ -1,0 +1,15 @@
+{
+  "address": "0x00142F38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ff0cb7bc3d68773dce7d834e7d8c58c4cb1d9b75",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/animation_interface.h:31-45; kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-287; asm/cod/text_03ADA8.s:10787-10875; tmp/functions/00142F38___t4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_int_cf1fbf5b81ca/attempt-1/compiler.stderr; tmp/functions/00142F38___t4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_int_cf1fbf5b81ca/attempt-1/result.json; tmp/source_first/00142F38/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#define protected public\n#include \"animation_interface.h\"\n\ntypedef pair<stringx, vector<animation_interface::anim_info> > anim_pair;\n\nextern \"C\" anim_pair *copy_anim_pair(anim_pair *, const anim_pair &)\n    __asm__(\"__t4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoRCt4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_info\");\n\nanim_pair *copy_anim_pair(anim_pair *self, const anim_pair &source)\n{\n  return new (self) anim_pair(source);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__t4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoRCt4pair2ZC7stringxZt6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_info"
+}
