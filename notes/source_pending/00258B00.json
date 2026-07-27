@@ -1,0 +1,23 @@
+{
+  "address": "0x00258B00",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7f302e32e6b75c213f3c7fb88239374bfb36df8d",
+      "candidate_size": 308,
+      "compared_bytes": 316,
+      "compared_instructions": 79,
+      "emitted_name": "playNext__12MusicListing",
+      "instruction_score": 15.1899,
+      "matching_bytes": 107,
+      "matching_instructions": 12,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/MusicMan.cpp:152-183; kelly-slaters-pro-surfer/KS/SRC/ks/MusicMan.h:7-25,28-62; tmp/functions/00258B00_playNext__12MusicListing/attempt-1/result.json; tmp/source_first/00258B00/attempt-1.md. Result `different`, score 33.8608; no later attempt.",
+      "score": 33.8608,
+      "source": "typedef unsigned int nslSoundId;\n\n#define MAX_SONGS 50\n#define NSL_INVALID_ID 0\n\nclass Track\n{\n  nslSoundId mySrcId;\n  nslSoundId mySndId;\n  bool paused;\npublic:\n  char songName[30];\n  char artistName[30];\n  nslSoundId Play();\n};\n\nclass MusicListing\n{\nprivate:\n  int               totalSources;\n  int               current;\n  Track             sources[MAX_SONGS];\n  nslSoundId        currentSoundId;\n  bool              sucessfulLastPlay;\npublic:\n  nslSoundId  playNext();\n\n  int               order[MAX_SONGS];\n  bool              enabled[MAX_SONGS];\n};\n\nnslSoundId MusicListing::playNext()\n{\n  int counter = 0;\n  if (sucessfulLastPlay)\n    current++;\n  if (current >= totalSources)\n    current = 0;\n  while ((counter < MAX_SONGS) && (!enabled[order[current]]))\n  {\n    counter++;\n    current++;\n    if (current >= totalSources)\n      current = 0;\n  }\n  if (!enabled[order[current]])\n    return NSL_INVALID_ID;\n\n  if (totalSources > 0)\n  {\n    currentSoundId = sources[order[current]].Play();\n    sucessfulLastPlay = (currentSoundId != NSL_INVALID_ID);\n    return currentSoundId;\n  }\n  else\n  {\n    currentSoundId = NSL_INVALID_ID;\n    return NSL_INVALID_ID;\n  }\n\n}\n",
+      "status": "different",
+      "target_size": 316
+    }
+  ],
+  "raw_name": "playNext__12MusicListing"
+}
