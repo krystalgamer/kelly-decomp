@@ -1,0 +1,23 @@
+{
+  "address": "0x0033D298",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9cd9f7b912c6eb485ff070a6e0b4a879761840cd",
+      "candidate_size": 236,
+      "compared_bytes": 268,
+      "compared_instructions": 67,
+      "emitted_name": "typeface_open__FRC7stringx",
+      "instruction_score": 14.9254,
+      "matching_bytes": 94,
+      "matching_instructions": 10,
+      "notes": "First-pass source-faithful attempt used the exact released function body with minimal self-contained declarations for stringx, typeface_def, the SGI-style list node insertion, allocator free list, and target symbols.\n\nThe candidate compiled and emitted the requested symbol, but did not match: 94/268 bytes and 10/67 instructions matched; candidate size was 236 bytes versus 268 target bytes. Per first-pass rules, no declaration variants or diff-driven follow-up were attempted.",
+      "score": 35.0746,
+      "source": "class stringx\n{\n    char *characters;\n    void *buffer;\npublic:\n    stringx();\n};\n\nclass typeface_def\n{\n    char characters[5120];\n    int field_1400;\n    char padding[8];\n    void *glyphs[3];\npublic:\n    stringx m_name;\n    int usercount;\n    void open(const stringx &fname);\n};\n\ntemplate <bool threads, int inst>\nclass __my_default_alloc_template\n{\n    union obj { union obj *free_list_link; char data[1]; };\npublic:\n    static obj *free_list[16];\n    static void *refill(unsigned int);\n    static void *allocate(unsigned int n)\n    {\n        obj **list = free_list + ((n + 7) / 8 - 1);\n        obj *result = *list;\n        if (result == 0)\n            return refill(n);\n        *list = result->free_list_link;\n        return result;\n    }\n};\n\ntemplate<class T> class my_allocator {};\n\ntemplate<class T, class Alloc>\nclass list\n{\n    struct node_base { node_base *next; node_base *prev; };\n    struct node : node_base { T data; };\n    node_base *sentinel;\npublic:\n    void push_back(const T &value)\n    {\n        node *entry = (node *)__my_default_alloc_template<false, 0>::allocate(sizeof(node));\n        if (&entry->data)\n            entry->data = value;\n        entry->next = sentinel;\n        entry->prev = sentinel->prev;\n        sentinel->prev->next = entry;\n        sentinel->prev = entry;\n    }\n};\n\nextern const char source_file[];\nvoid *operator new(unsigned int, unsigned int, const char *, int);\nextern list<typeface_def *, my_allocator<typeface_def *> > typeface_list;\ntypeface_def *typeface_already_exists(const stringx &fname);\n\n__asm__(\".equ source_file, 0x00501710\");\n__asm__(\".equ __nw__FUiUiPCci, 0x002AC578\");\n__asm__(\".equ __7stringx, 0x0034D3E0\");\n__asm__(\".equ open__12typeface_defRC7stringx, 0x0033C6C8\");\n__asm__(\".equ typeface_already_exists__FRC7stringx, 0x0033D3A8\");\n__asm__(\".equ typeface_list, 0x0058AA90\");\n__asm__(\".equ _S_free_list__t27__my_default_alloc_template2b0i0, 0x003E5628\");\n__asm__(\".equ _S_refill__t27__my_default_alloc_template2b0i0Ui, 0x0010DAE0\");\n\ntypeface_def *typeface_open( const stringx &fname )\n{\n  typeface_def *res = 0;\n\n  // DETERMINE IF FACE SETUP ALREADY\n  if( (res = typeface_already_exists( fname ) ) != 0 )\n  {\n    return( res );\n  }\n\n  res = new(0, source_file, 0) typeface_def;\n  if( res )\n  {\n    // FIRST WE MUST READ/SETUP A CHAR_INFO ARRAY\n    res->open( fname );\n    typeface_list.push_back( res );\n  }\n\n  // OTHERWISE ALLOCATE A NEW FACE\n  return( res );\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "typeface_open__FRC7stringx"
+}
