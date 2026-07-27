@@ -1,0 +1,16 @@
+{
+  "address": "0x00121970",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bb90b038f98ae83194162c8e0a083b3af4292f74",
+      "error": "Candidate did not emit get_value__Ct8key_anim3Z10quaternionZt10linear_key1Z10quaternionZt12linear_track1Z10quaternionfP10quaternion; emitted functions: []",
+      "notes": "# Attempt 1\n\n- Queue row was pending with zero attempts; no address scratch existed.\n- Tested one candidate using the released `key_anim::get_value(time_value_t, animatable_t*)` body, authentic linear key/track and quaternion layouts, disabled assert, and interpolation helper address.\n- Result: **different** (tool status `symbol_missing`, score 0.0); no function symbol was emitted. No second attempt or diff chasing was performed.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/linear_anim_shared.h\"\n\n#define assert(condition) ((void)0)\n\n__asm__(\n    \".equ interpolate__Ct10linear_key1Z10quaternion\"\n    \"RCt10linear_key1Z10quaternionf, 0x001133A8\"\n);\n\ntemplate <>\nvoid key_anim<\n    quaternion,\n    linear_key<quaternion>,\n    linear_track<quaternion>\n>::get_value(float t, quaternion* dest) const\n{\n    assert( track!=NULL && dest!=NULL );\n    linear_track<quaternion>::iterator i0 = track->m_keys;\n    linear_track<quaternion>::iterator i1 = i0;\n    linear_track<quaternion>::iterator i_end = (track->m_keys + track->num_keys);\n    ++i1;\n    while ( i1!=i_end && t>=(*i1).get_time() )\n    {\n      ++i0;\n      ++i1;\n    }\n    const linear_key<quaternion>& k0 = *i0;\n    const linear_key<quaternion>& k1 = *i1;\n    if ( t<k0.get_time() || i1==i_end )\n    {\n      // off the front or back of the track\n      *dest = k0.get_value();\n    }\n    else\n    {\n      // in the track;\n      // interpolate between current key and the next\n      *dest = k0.get_value( t, k1 );\n    }\n}\n\n#undef assert\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "get_value__Ct8key_anim3Z10quaternionZt10linear_key1Z10quaternionZt12linear_track1Z10quaternionfP10quaternion"
+}
