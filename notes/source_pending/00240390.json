@@ -1,0 +1,23 @@
+{
+  "address": "0x00240390",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "18840730baa53fa9da1c01c3b604c0beb5c916c1",
+      "candidate_size": 232,
+      "compared_bytes": 248,
+      "compared_instructions": 62,
+      "emitted_name": "MENU_DrawRect__FiiiiRC9MenuColor",
+      "instruction_score": 14.5161,
+      "matching_bytes": 73,
+      "matching_instructions": 9,
+      "notes": "Exact released `MENU_DrawRect` body with the authentic aligned `nglQuad`, `MenuColor`, PS2 `NGL_RGBA32` macro, and NGL calls. It emitted the same operations in 232 bytes, while the target retains four conversion-scheduling nops and a different color-pack instruction order for 248 bytes.",
+      "score": 29.4355,
+      "source": "typedef unsigned char MENU_UINT8;\n\nstruct MenuColor {\n    MENU_UINT8 r;\n    MENU_UINT8 g;\n    MENU_UINT8 b;\n    MENU_UINT8 a;\n};\n\nstruct nglQuadVertex {\n    float X;\n    float Y;\n    float U;\n    float V;\n    unsigned int Color;\n};\n\nstruct nglTexture;\n\nstruct nglQuad {\n    nglQuadVertex Verts[4];\n    float Z;\n    unsigned int MapFlags;\n    unsigned int BlendMode;\n    unsigned int BlendModeConstant;\n    nglTexture *Tex;\n} __attribute__((aligned(16)));\n\nvoid nglInitQuad(nglQuad *quad);\nvoid nglSetQuadRect(\n    nglQuad *quad,\n    float x0,\n    float y0,\n    float x1,\n    float y1);\nvoid nglSetQuadColor(nglQuad *quad, unsigned int color);\nvoid nglSetQuadZ(nglQuad *quad, float z);\nvoid nglListAddQuad(nglQuad *quad);\n\n__asm__(\".equ nglInitQuad__FP7nglQuad, 0x003A6920\");\n__asm__(\".equ nglSetQuadRect__FP7nglQuadffff, 0x003A6A68\");\n__asm__(\".equ nglSetQuadColor__FP7nglQuadUi, 0x003A69E8\");\n__asm__(\".equ nglSetQuadZ__FP7nglQuadf, 0x003A6A90\");\n__asm__(\".equ nglListAddQuad__FP7nglQuad, 0x003A67F0\");\n\n#define NGL_RGBA32(r,g,b,a) \\\n    (((int)((r) + 1) >> 1) \\\n     | (((int)((g) + 1) >> 1) << 8) \\\n     | (((int)((b) + 1) >> 1) << 16) \\\n     | (((int)((a) + 1) >> 1) << 24))\n\nvoid MENU_DrawRect( int x0, int y0, int x1, int y1, const MenuColor &color )\n{\n\tnglQuad q;\n\tnglInitQuad( &q );\n\tnglSetQuadRect( &q, x0, y0, x1, y1 );\n\tnglSetQuadColor(&q, NGL_RGBA32(color.r, color.g, color.b, color.a));\n\tnglSetQuadZ( &q, 1.0f );\n\tnglListAddQuad( &q );\n}\n",
+      "status": "different",
+      "target_size": 248
+    }
+  ],
+  "raw_name": "MENU_DrawRect__FiiiiRC9MenuColor"
+}
