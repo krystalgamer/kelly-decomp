@@ -1,0 +1,23 @@
+{
+  "address": "0x0023FA90",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d02c9a2c43d00240d5dca7ea38087be6c6798b93",
+      "candidate_size": 264,
+      "compared_bytes": 264,
+      "compared_instructions": 66,
+      "emitted_name": "MenuText__18MenuEntryFloatEditPci",
+      "instruction_score": 95.4545,
+      "matching_bytes": 231,
+      "matching_instructions": 63,
+      "notes": "# Attempt 1\n\n- Used the released `MenuEntryFloatEdit::MenuText` body verbatim from `kelly-slaters-pro-surfer/KS/SRC/ks/menu.cpp:644-665`.\n- Used only the required released `MenuEntry`, `MenuEntryLabel`, and `MenuEntryFloatEdit` layout and virtual declarations from `menu.h:103-188,340-362`, plus the required C library declarations.\n- Verified the candidate was not the generated placeholder before testing.\n- Result: **different** \u2014 byte score 87.5%, instruction score 95.4545%; candidate and target are both 264 bytes. Exactly one function test was run; no variants were attempted.",
+      "score": 87.5,
+      "source": "extern \"C\" int sprintf(char *, const char *, ...);\nextern \"C\" char *strncpy(char *, const char *, unsigned int);\nextern \"C\" unsigned int strlen(const char *);\n\nclass Menu;\nclass MenuSystem;\n\nstruct MenuColor\n{\n    unsigned char r, g, b, a;\n};\n\nclass MenuEntry\n{\n    unsigned int flags;\npublic:\n    MenuEntry();\n    virtual ~MenuEntry();\n    virtual MenuColor GetColor(void);\n    virtual void Show(void);\n    virtual void Hide(void);\n    virtual void Enable(void);\n    virtual void Disable(void);\n    virtual void Activate(void);\n    virtual void Deactivate(void);\n    virtual void OnTick(float dtime);\n    virtual void OnMenuOpen(Menu *m, MenuSystem *c);\n    virtual void OnMenuClose(void);\n    virtual void OnButtonPress(int buttonid);\n    virtual void OnButtonRelease(int buttonid);\nprotected:\n    virtual void OnHide(void);\n    virtual void OnShow(void);\n    virtual void OnEnable(void);\n    virtual void OnDisable(void);\n    virtual void OnActivate(void);\n    virtual void OnDeactivate(void);\npublic:\n    virtual int MenuText(char *text, int len) { if (len>0) *text=0; return 0; }\n};\n\nclass MenuEntryLabel : public MenuEntry\n{\nprotected:\n    const char *label;\npublic:\n    MenuEntryLabel(const char *text);\n    virtual ~MenuEntryLabel();\n    virtual int MenuText(char *text, int len);\n};\n\nclass MenuEntryFloatEdit : public MenuEntryLabel\n{\n    float *tfloat;\nprotected:\n    float lo, hi, step;\n    char *format;\npublic:\n    MenuEntryFloatEdit(char *text, float *t, float l, float h, float s);\n    MenuEntryFloatEdit(char *text, float *t, float l, float h, float s, char *f);\n    virtual ~MenuEntryFloatEdit();\n    virtual void OnMenuOpen(Menu *m, MenuSystem *c);\n    virtual int MenuText(char *text, int len);\n    virtual void OnButtonPress(int buttonid);\n    void FixValue(void);\n    virtual void SetValue(float n);\n    virtual float GetValue(void);\n};\n\nint MenuEntryFloatEdit::MenuText( char *text, int len )\n{\n\tif ( len && label )\n\t{\n\t\tint lused=MenuEntryLabel::MenuText(text,len);\n\t\tchar tval[32];\n\t\tif ( format )\n\t\t{\n\t\t\tsprintf(tval,format,GetValue());\n\t\t}\n\t\telse\n\t\t{\n\t\t\tsprintf(tval,\" : %0.2f\",GetValue());\n\t\t}\n\n\t\tstrncpy(text+lused,tval,len-lused);\n\t\ttext[len-1]=0;\n\t\treturn strlen(text);\n\t}\n\telse\n\t\treturn MenuEntry::MenuText(text,len);\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "MenuText__18MenuEntryFloatEditPci"
+}
