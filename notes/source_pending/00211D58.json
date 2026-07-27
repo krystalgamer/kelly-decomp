@@ -1,0 +1,23 @@
+{
+  "address": "0x00211D58",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cb27515a00b81a903cd6c869f55d5b29f098224f",
+      "candidate_size": 292,
+      "compared_bytes": 312,
+      "compared_instructions": 78,
+      "emitted_name": "SetJumpedEntity__22kellyslater_controllerP6entity",
+      "instruction_score": 28.2051,
+      "matching_bytes": 134,
+      "matching_instructions": 22,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.cpp:1524-1551; kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.h:301-304,630-631,820; kelly-slaters-pro-surfer/KS/SRC/ks/beach.h:12-16,75,81; kelly-slaters-pro-surfer/KS/SRC/ks/floatobj.h:25-38; kelly-slaters-pro-surfer/KS/SRC/entity.h:488; kelly-slaters-pro-surfer/KS/SRC/stringx.h:425; kelly-slaters-pro-surfer/KS/SRC/ks/SoundScript.h:53-72; kelly-slaters-pro-surfer/KS/SRC/ks/sounddata.h:8-61; tmp/functions/00211D58_SetJumpedEntity__22kellyslater_controllerP6entity/attempt-1/result.json. Result `different`, score 42.9487; no later attempt.",
+      "score": 42.9487,
+      "source": "class stringx\n{\npublic:\n  static const int npos = -1;\n  int find(const char *) const;\n};\n\nclass entity\n{\npublic:\n  stringx get_parsed_name();\n};\n\nclass beach_object\n{\npublic:\n  virtual void jumped_over(entity *ent);\n};\n\nclass beach\n{\npublic:\n  beach_object *find_object(entity *ent) const;\n};\n\nextern beach *g_beach_ptr;\n\nenum EventType\n{\n  SS_PIER_CHEER = 51\n};\n\nclass SoundScriptManager\n{\npublic:\n  static SoundScriptManager *inst();\n  int playEvent(EventType type, entity *ent = 0, float fadeInTime = 0);\n};\n\nclass kellyslater_controller\n{\n  enum { MAX_JUMP_ENT = 3 };\n  entity *owner;\n  entity *jumped_entities[MAX_JUMP_ENT];\n  int num_jumped__entities;\n\npublic:\n  void SetJumpedEntity(entity *ent);\n};\n\nvoid kellyslater_controller::SetJumpedEntity (entity *ent)\n{\n\tbool exists = false;\n\n\tif (!ent || (num_jumped__entities > 0 && ent == jumped_entities[num_jumped__entities-1]))\n\t\treturn;\n\n\tg_beach_ptr->find_object (ent)->jumped_over (owner);\n\n\tif (num_jumped__entities < MAX_JUMP_ENT)\n\t{\n\t\t// Toby change: only add this entity if it has not been added yet.\n\t\tfor (int i = 0; i < num_jumped__entities; i++)\n\t\t{\n\t\t\tif (jumped_entities[i] == ent)\n\t\t\t\texists = true;\n\t\t}\n\t\t\n\t\tif (!exists)\n\t\t{\n\t\t\tjumped_entities[num_jumped__entities++] = ent;\n\t\t\tif (ent->get_parsed_name().find (\"sebastian_pier\") != stringx::npos )\n\t\t\t{\n\t\t\t\tSoundScriptManager::inst()->playEvent(SS_PIER_CHEER, ent);\n\t\t\t}\n\t\t}\n\t}\n}\n",
+      "status": "different",
+      "target_size": 312
+    }
+  ],
+  "raw_name": "SetJumpedEntity__22kellyslater_controllerP6entity"
+}
