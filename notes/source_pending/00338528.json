@@ -1,0 +1,23 @@
+{
+  "address": "0x00338528",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c2c16d19b92b62f998626adb5fbdf44949d0275f",
+      "candidate_size": 268,
+      "compared_bytes": 268,
+      "compared_instructions": 67,
+      "emitted_name": "update_fog__11fog_managerb",
+      "instruction_score": 85.0746,
+      "matching_bytes": 223,
+      "matching_instructions": 57,
+      "notes": "Attempt 1 used the exact released definition cited at kelly-slaters-pro-surfer/KS/SRC/fogmgr.cpp:55-106; kelly-slaters-pro-surfer/KS/SRC/fogmgr.h:15-42; kelly-slaters-pro-surfer/KS/SRC/singleton.h:20-78. The sole test returned `different` with score 83.2090. No variant or later attempt was made.",
+      "score": 83.209,
+      "source": "typedef float rational_t;\n\nclass geometry_manager {\npublic:\n  void rebuild_view_frame();\n};\n\nclass hw_rasta {\npublic:\n  void set_fog_dist(float start_dist, float end_dist);\n};\n\nextern geometry_manager *geometry_manager_instance __asm__(\"_16geometry_manager$instance\");\nextern hw_rasta *hw_rasta_instance __asm__(\"_8hw_rasta$instance\");\nextern rational_t PROJ_FAR_PLANE_D;\nextern rational_t g_debug_fog_override;\n\nclass fog_manager {\n  char padding[0x14];\n  rational_t specified_fog_start_distance;\n  rational_t specified_fog_end_distance;\n  rational_t specified_fog_table_gamma;\n  rational_t computed_fog_start_distance;\n  rational_t computed_fog_end_distance;\n  rational_t fog_of_war;\npublic:\n  void update_fog(bool forced);\n};\n\nconst rational_t MIN_FOG_END_DIST = 20;\n\nvoid fog_manager::update_fog(bool forced)\n{\n  float last_computed_fog_end_distance = computed_fog_end_distance;\n  if ( fog_of_war > 0 )\n  {\n    rational_t r = 1.0f - (0.5f * fog_of_war);\n    computed_fog_start_distance = specified_fog_start_distance * r;\n    if ( specified_fog_end_distance > MIN_FOG_END_DIST )\n    {\n      if ( specified_fog_end_distance*r < MIN_FOG_END_DIST )\n        computed_fog_end_distance = MIN_FOG_END_DIST;\n      else\n        computed_fog_end_distance = specified_fog_end_distance * r;\n    }\n    else\n      computed_fog_end_distance = specified_fog_end_distance;\n  }\n  else\n  {\n    computed_fog_start_distance = specified_fog_start_distance;\n    computed_fog_end_distance = specified_fog_end_distance;\n  }\n\n  if( last_computed_fog_end_distance != computed_fog_end_distance || forced)\n  {\n    if( g_debug_fog_override )\n      PROJ_FAR_PLANE_D = g_debug_fog_override;\n    else\n      PROJ_FAR_PLANE_D = computed_fog_end_distance;\n\n    geometry_manager_instance->rebuild_view_frame();\n    hw_rasta_instance->set_fog_dist( computed_fog_start_distance, computed_fog_end_distance );\n  }\n}\n",
+      "status": "different",
+      "target_size": 260
+    }
+  ],
+  "raw_name": "update_fog__11fog_managerb"
+}
