@@ -1,0 +1,23 @@
+{
+  "address": "0x0038D460",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "83f329b715f2b29a74e971150481e436c00472e0",
+      "candidate_size": 116,
+      "compared_bytes": 328,
+      "compared_instructions": 82,
+      "emitted_name": "nslPauseSound__FUi",
+      "instruction_score": 3.6585,
+      "matching_bytes": 35,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used exact released source cited at . Result `different`, score 10.6707; no later attempt.",
+      "score": 10.6707,
+      "source": "typedef unsigned int nslSoundId;\n\nextern \"C\" void nslFatal(const char *, ...);\nextern const char nsl_not_initialized[];\nextern const char bad_sound_id[];\nextern const char bad_sound_slot[];\n\n__asm__(\".equ nslFatal__FPCce, 0x00391420\");\n__asm__(\".equ nsl_not_initialized, 0x0051BF80\");\n__asm__(\".equ bad_sound_id, 0x0051BE20\");\n__asm__(\".equ bad_sound_slot, 0x0051BE38\");\n\nstruct nslSound\n{\n  int used;\n  char pad0[36];\n  int pauseCount;\n  int dampenCount;\n  nslSoundId myId;\n  char pad1[36];\n};\n\nstruct nslSystem\n{\n  char pad0[0xC044];\n  nslSound soundSlots[256];\n  char pad1[0x400C];\n  int initialized;\n  char pad2[44];\n  int on;\n};\n\nextern nslSystem nsl;\n__asm__(\".equ nsl, 0x0049B5F0\");\n\ninline void _nslCheckSoundIdValidity(nslSoundId checkId)\n{\n  nslSoundId checkSlot = (checkId & 0x3FF);\n  nslSoundId upCheckId = (checkId & 0xFFFFFC00);\n  if (checkId == 0)\n    nslFatal(bad_sound_id, checkId);\n  if (!(nsl.soundSlots[checkSlot].used))\n    nslFatal(bad_sound_id, checkId);\n  if (!(checkSlot < 256))\n    nslFatal(bad_sound_id, checkId);\n  if (!(checkId == nsl.soundSlots[checkSlot].myId))\n    nslFatal(bad_sound_id, checkId);\n  if (!(upCheckId > 0))\n    nslFatal(bad_sound_id, checkId);\n  if (checkSlot > 256)\n    nslFatal(bad_sound_slot, checkId);\n}\n\ninline void _nslInitialized()\n{\n  if (!(nsl.initialized == 1))\n    nslFatal(nsl_not_initialized);\n}\n\nvoid nslPauseSound( nslSoundId whichSound )\n{\n  if (!nsl.on) return;\n  _nslInitialized();\n\n  // The new, command list style pause/unpause\n  _nslCheckSoundIdValidity(whichSound);\n  nsl.soundSlots[(whichSound&0x000003FF)].pauseCount++;\n}\n",
+      "status": "different",
+      "target_size": 328
+    }
+  ],
+  "raw_name": "nslPauseSound__FUi"
+}
