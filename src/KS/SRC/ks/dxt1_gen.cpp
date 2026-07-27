@@ -65,3 +65,38 @@ int Count = Pixels.GetNumCodes();
 	return Error;
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00262E90)
+// 0x00262E90 BuildCodes4__7DXTCGenR8cbVectorT1
+class cbVector
+{
+  unsigned char pData[4];
+public:
+  inline unsigned char &operator[](int i) { return pData[i]; }
+  cbVector &operator=(const cbVector &Vect) { *(int *)pData = *(int *)Vect.pData; return *this; }
+};
+
+class DXTCGen
+{
+  unsigned char released_vects[148];
+  cbVector *pVects;
+public:
+  void BuildCodes4(cbVector &v1, cbVector &v2);
+};
+
+void DXTCGen::BuildCodes4(cbVector &v1, cbVector &v2)
+{
+	pVects[0] = v1;
+	pVects[3] = v2;
+
+	pVects[1][0] = v1[0];
+	pVects[1][1] = (unsigned char)( ((int)v1[1] * 2 + (int)v2[1]) / 3 );
+	pVects[1][2] = (unsigned char)( ((int)v1[2] * 2 + (int)v2[2]) / 3 );
+	pVects[1][3] = (unsigned char)( ((int)v1[3] * 2 + (int)v2[3]) / 3 );
+
+	pVects[2][0] = v1[0];
+	pVects[2][1] = (unsigned char)( ((int)v2[1] * 2 + (int)v1[1]) / 3 );
+	pVects[2][2] = (unsigned char)( ((int)v2[2] * 2 + (int)v1[2]) / 3 );
+	pVects[2][3] = (unsigned char)( ((int)v2[3] * 2 + (int)v1[3]) / 3 );
+}
+#endif
