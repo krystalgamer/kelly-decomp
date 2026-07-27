@@ -1,0 +1,23 @@
+{
+  "address": "0x0011DFA8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7643dfaa225d8f2630aad7964a585b0bd056c903",
+      "candidate_size": 276,
+      "compared_bytes": 292,
+      "compared_instructions": 73,
+      "emitted_name": "create_anim__10anim_makerRC7stringxRC17entity_track_treeT2ffP6entityUsfisP13entity_widget",
+      "instruction_score": 34.2466,
+      "matching_bytes": 151,
+      "matching_instructions": 25,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/anim_maker.cpp:124-158; kelly-slaters-pro-surfer/KS/SRC/anim_maker.h:46-56; kelly-slaters-pro-surfer/KS/SRC/entity_anim.h:79-107,357-366; kelly-slaters-pro-surfer/KS/SRC/wds.h:291; kelly-slaters-pro-surfer/KS/SRC/widget_entity.h:18-30; kelly-slaters-pro-surfer/KS/SRC/anim.h:19-24; kelly-slaters-pro-surfer/KS/SRC/osassert.h:39-43; kelly-slaters-pro-surfer/KS/SRC/profiler.h:347; kelly-slaters-pro-surfer/KS/SRC/archalloc.h:108-127; tmp/functions/0011DFA8_create_anim__10anim_makerRC7stringxRC17entity_track_treeT2ffP6entityUsfisP13entity_widget/attempt-1/result.json; tmp/source_first/0011DFA8/notes.md. Result `different`, score 51.7123; no later attempt.",
+      "score": 51.7123,
+      "source": "typedef float rational_t;\ntypedef float time_value_t;\ntypedef unsigned int uint32;\ntypedef int int32;\n\nclass stringx;\nclass entity;\nclass entity_anim_tree;\n\nclass entity_track_tree\n{\n  char file_header[4];\n  uint32 version;\n  int32 num_root_nodes;\n  rational_t floor_offset;\n  time_value_t duration;\npublic:\n  time_value_t get_duration() const { return duration; }\n};\n\nclass entity_anim_tree\n{\npublic:\n  entity_anim_tree(const stringx&, entity*, const entity_track_tree&,\n                   const entity_track_tree&, rational_t, rational_t,\n                   unsigned short, time_value_t, int, short);\n};\n\nclass entity_widget\n{\npublic:\n  void add_anim(entity_anim_tree*);\n};\n\nclass world_dynamics_system\n{\npublic:\n  void add_anim(entity_anim_tree*);\n};\n\nextern world_dynamics_system *g_world_ptr;\n\nenum\n{\n  ANIM_REVERSE = 0x0002\n};\n\n#define START_PROF_TIMER(a) {}\n#define STOP_PROF_TIMER(a) {}\n#define assert(a) ((void)0)\n#define NEW new\n\nclass anim_maker\n{\npublic:\n  entity_anim_tree* create_anim(const stringx& name,\n                                const entity_track_tree& _tracka,\n                                const entity_track_tree& _trackb,\n                                rational_t blenda,\n                                rational_t blendb,\n                                entity* ent,\n                                unsigned short flags,\n                                time_value_t start_time,\n                                int priority,\n                                short loop,\n                                entity_widget *owning_widget);\n};\n\nentity_anim_tree* anim_maker::create_anim( const stringx& name,\n                                           const entity_track_tree& _tracka,\n                                           const entity_track_tree& _trackb,\n                                           rational_t blenda,\n                                           rational_t blendb,\n                                           entity* ent,\n                                           unsigned short flags,\n                                           time_value_t start_time,\n                                           int priority,\n                                           short loop,\n                                           entity_widget *owning_widget )\n{\n \tSTART_PROF_TIMER( proftimer_create_anim3 );\n  assert( ent );\n#if defined(EVAN) && defined(PROJECT_KELLYSLATER)\n\tassert(false);\n#endif\n  entity_anim_tree* new_anim = 0;\n  if ( flags & ANIM_REVERSE )\n    start_time = _tracka.get_duration() - start_time;\n\n  new_anim = NEW entity_anim_tree( name, ent, _tracka, _trackb, blenda, blendb, flags, start_time, priority, loop );\n\n  if ( !owning_widget )\n  {\n    g_world_ptr->add_anim( new_anim );\n  }\n  else\n  {\n    owning_widget->add_anim( new_anim );\n\t\tassert(0);\n  }\n \tSTOP_PROF_TIMER( proftimer_create_anim3 );\n  return new_anim;\n}\n",
+      "status": "different",
+      "target_size": 292
+    }
+  ],
+  "raw_name": "create_anim__10anim_makerRC7stringxRC17entity_track_treeT2ffP6entityUsfisP13entity_widget"
+}
