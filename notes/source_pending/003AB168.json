@@ -1,0 +1,23 @@
+{
+  "address": "0x003AB168",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "22d93f74b4d71391453433c3aec259306a36ad7f",
+      "candidate_size": 256,
+      "compared_bytes": 316,
+      "compared_instructions": 79,
+      "emitted_name": "__introsort_loop__H4ZPt4pair2ZP11nglListNodeZUiZt4pair2ZP11nglListNodeZUiZiZ16nglOpaqueCompare_X01X01PX11X21X31_v",
+      "instruction_score": 18.9873,
+      "matching_bytes": 90,
+      "matching_instructions": 15,
+      "notes": "Attempt 1 used exact released source cited at config/SLUS_203.34.symbol_addrs.txt:7976; notes/function_queue.csv:5970; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:2419-2427; GCC releases/gcc-2.95.2/libstdc++/stl_algo.h. Result `different`, score 28.4810; no later attempt.",
+      "score": 28.481,
+      "source": "struct nglListNode;\n\nstruct Pair {\n    nglListNode *first;\n    unsigned int second;\n};\n\nclass nglOpaqueCompare {\npublic:\n    bool operator()(const Pair &a, const Pair &b) {\n        return a.second < b.second;\n    }\n};\n\nextern \"C\" void partial_sort_impl(Pair *, Pair *, Pair *, Pair *, Pair *,\n                                  nglOpaqueCompare)\n    __asm__(\"__partial_sort__H3ZPt4pair2ZP11nglListNodeZUiZt4pair2ZP11nglListNodeZUiZ16nglOpaqueCompare_X01X01X01PX11X21_v\");\nextern \"C\" Pair *unguarded_partition_impl(Pair *, Pair *, const Pair &,\n                                           nglOpaqueCompare)\n    __asm__(\"__unguarded_partition__H3ZPt4pair2ZP11nglListNodeZUiZt4pair2ZP11nglListNodeZUiZ16nglOpaqueCompare_X01X01X11X21_X01\");\n\nstatic const Pair &median_impl(const Pair &a, const Pair &b, const Pair &c,\n                               nglOpaqueCompare comp) {\n    if (comp(a, b))\n        if (comp(b, c))\n            return b;\n        else if (comp(a, c))\n            return c;\n        else\n            return a;\n    else if (comp(a, c))\n        return a;\n    else if (comp(b, c))\n        return c;\n    else\n        return b;\n}\n\nextern \"C\" void introsort_loop_impl(Pair *, Pair *, Pair *, int,\n                                    nglOpaqueCompare)\n    __asm__(\"__introsort_loop__H4ZPt4pair2ZP11nglListNodeZUiZt4pair2ZP11nglListNodeZUiZiZ16nglOpaqueCompare_X01X01PX11X21X31_v\");\nvoid introsort_loop_impl(Pair *first, Pair *last, Pair *, int depth_limit,\n                         nglOpaqueCompare comp) {\n    while (last - first > 16) {\n        if (depth_limit == 0) {\n            partial_sort_impl(first, last, last, (Pair *)0, (Pair *)0, comp);\n            return;\n        }\n        --depth_limit;\n        Pair *cut = unguarded_partition_impl(\n            first, last,\n            Pair(median_impl(*first, *(first + (last - first) / 2),\n                             *(last - 1), comp)),\n            comp);\n        introsort_loop_impl(cut, last, (Pair *)0, depth_limit, comp);\n        last = cut;\n    }\n}\n",
+      "status": "different",
+      "target_size": 316
+    }
+  ],
+  "raw_name": "__introsort_loop__H4ZPt4pair2ZP11nglListNodeZUiZt4pair2ZP11nglListNodeZUiZiZ16nglOpaqueCompare_X01X01PX11X21X31_v"
+}
