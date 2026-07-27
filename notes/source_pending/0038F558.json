@@ -1,0 +1,23 @@
+{
+  "address": "0x0038F558",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0f4633f9822033cbea9b284676cc9afbfc66b821",
+      "candidate_size": 100,
+      "compared_bytes": 280,
+      "compared_instructions": 70,
+      "emitted_name": "nslSetEmitterAutoRelease__FUi",
+      "instruction_score": 1.4286,
+      "matching_bytes": 18,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2_emitter.cpp:104-109; kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2.h:43-65,104-108,200-214; kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2_emitter.lst:665-714; config/SLUS_203.34.symbol_addrs.txt: target symbol for 0x0038F558; notes/function_queue.csv: target row for 0x0038F558. Result `different`, score 6.4286; no later attempt.",
+      "score": 6.4286,
+      "source": "typedef unsigned int nlUint32;\ntypedef unsigned int nslEmitterId;\n\nstruct nslEmitter\n{\n  bool used;\n  bool autoRelease;\n  bool isALineEmitter;\n  nslEmitterId myId;\n  char remainder[48];\n};\n\nstruct nslSystem\n{\n  char beforeEmitterSlots[45120];\n  nslEmitter emitterSlots[256];\n  char beforeOn[56];\n  bool on;\n};\n\nextern nslSystem nsl;\nvoid _nslInitialized();\nvoid _nslCheckEmitterIdValidity(nslEmitterId checkId);\n\n#define NSL_SLOT_MASK 0x000003FF\n#define NSL_GET_SLOT_FROM_ID( x ) ( x&NSL_SLOT_MASK )\n#define ASSERT_EMITTER_ID_VALID(checkId) _nslCheckEmitterIdValidity(checkId)\n#define ASSERT_NSL_INITIALIZED() _nslInitialized()\n\nvoid nslSetEmitterAutoRelease( nslEmitterId emitterToSet )\n{\n  if (!nsl.on) return;\n  ASSERT_NSL_INITIALIZED();\n  ASSERT_EMITTER_ID_VALID(emitterToSet);\n  nsl.emitterSlots[NSL_GET_SLOT_FROM_ID(emitterToSet)].autoRelease = true;\n}\n",
+      "status": "different",
+      "target_size": 280
+    }
+  ],
+  "raw_name": "nslSetEmitterAutoRelease__FUi"
+}
