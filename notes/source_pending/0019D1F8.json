@@ -1,0 +1,23 @@
+{
+  "address": "0x0019D1F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c55bfed1538d843c1c640d0f7c47e2f8ab05cdbc",
+      "candidate_size": 276,
+      "compared_bytes": 276,
+      "compared_instructions": 69,
+      "emitted_name": "Draw__10DialogMenu",
+      "instruction_score": 79.7101,
+      "matching_bytes": 262,
+      "matching_instructions": 55,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/SaveLoadFrontEnd.cpp:1209-1233; kelly-slaters-pro-surfer/KS/SRC/ks/SaveLoadFrontEnd.h:272-310. Result `different`, score 94.9275; no later attempt.",
+      "score": 94.9275,
+      "source": "class FEMenuEntry\n{\n    char data[0x60];\npublic:\n    virtual void reserved0();\n    virtual void reserved1();\n    virtual void reserved2();\n    virtual void reserved3();\n    virtual void reserved4();\n    virtual void reserved5();\n    virtual void reserved6();\n    virtual void reserved7();\n    virtual void reserved8();\n    virtual void reserved9();\n    virtual void reserved10();\n    virtual void reserved11();\n    virtual void reserved12();\n    virtual void reserved13();\n    virtual void Draw();\n};\n\nclass BoxText\n{\n    char data[0x4c];\npublic:\n    virtual void reserved0();\n    virtual void reserved1();\n    virtual void reserved2();\n    virtual void reserved3();\n    virtual void reserved4();\n    virtual void reserved5();\n    virtual void Draw();\n};\n\nclass DialogMenu\n{\npublic:\n    enum {\n        DM_TYPE_MNG,\n        DM_TYPE_FMT,\n        DM_TYPE_YES,\n        DM_TYPE_OK,\n        DM_TYPE_PROGRESS,\n        DM_TYPE_EMPTY\n    };\n\nprivate:\n    enum { DM_YES, DM_NO, DM_OK, DM_FMT, DM_CNL, DM_MNG, DM_CNL2, DM_NUM };\n    char data[0x160];\n    BoxText* message;\n    BoxText* prompt;\n    int type;\n    char padding[0x1c];\n    int draw_count;\n    FEMenuEntry* entry[DM_NUM];\n\npublic:\n    void Draw();\n};\n\nvoid DialogMenu::Draw()\n{\n\tdraw_count++;\n\tif(type == DM_TYPE_YES)\n\t{\n\t\tentry[DM_YES]->Draw();\n\t\tentry[DM_NO]->Draw();\n\t}\n\telse if(type == DM_TYPE_OK)\n\t{\n\t\tentry[DM_OK]->Draw();\n\t}\n\telse if( type == DM_TYPE_FMT )\n\t{\n\t\tentry[DM_FMT]->Draw();\n\t\tentry[DM_CNL]->Draw();\n\t}\n\telse if( type == DM_TYPE_MNG )\n\t{\n\t\tentry[DM_MNG]->Draw();\n\t\tentry[DM_CNL2]->Draw();\n\t}\n\tmessage->Draw();\n\tprompt->Draw();\n}\n",
+      "status": "different",
+      "target_size": 276
+    }
+  ],
+  "raw_name": "Draw__10DialogMenu"
+}
