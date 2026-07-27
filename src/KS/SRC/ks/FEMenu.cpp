@@ -485,3 +485,25 @@ void FEMenuSystem::InitAll()
         menus[i]->Init();
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_001589D8)
+// 0x001589D8 MakeActive__12FEMenuSystemiib
+#include "KS/SRC/ks/FEMenu_shared.h"
+
+void FEMenuSystem::MakeActive(int index, int sub_menu, bool notify)
+{
+    if (active != -1 && notify)
+        menus[active]->OnUnactivate(menus[index]);
+    if (sub_menu == 1)
+    {
+        if (notify)
+            menus[index]->OnActivate();
+    }
+    else
+    {
+        if (notify)
+            menus[index]->OnActivate(sub_menu);
+    }
+    active = index;
+}
+#endif
