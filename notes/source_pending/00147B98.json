@@ -1,0 +1,23 @@
+{
+  "address": "0x00147B98",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0423f53001f57bd118b12c3946acc48a07ba6c1a",
+      "candidate_size": 392,
+      "compared_bytes": 392,
+      "compared_instructions": 98,
+      "emitted_name": "Update__10StringListf",
+      "instruction_score": 8.1633,
+      "matching_bytes": 78,
+      "matching_instructions": 8,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:30-53; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:12-45; kelly-slaters-pro-surfer/KS/SRC/ks/coords.h:19-24; kelly-slaters-pro-surfer/KS/SRC/stringx.h:62-77,230-236,386-390; notes/function_queue.csv:5932; tmp/functions/00147B98_Update__10StringListf/attempt-1/result.json. Result `different`, score 19.8980; no later attempt.",
+      "score": 19.898,
+      "source": "typedef float time_value_t;\ntypedef unsigned int big_int;\n\nclass stringx;\nclass string_buf\n{\nprotected:\n    friend class stringx;\n    big_int *data;\n    int ref_count;\n    int char_length;\n    int block_length;\n};\n\nclass stringx\n{\nprotected:\n    char *chars;\n    string_buf *my_buf;\npublic:\n    inline int size() const\n    {\n        return my_buf->char_length;\n    }\n};\n\nextern int nglGetScreenWidth();\nextern int nglGetScreenHeight();\n\ntemplate <class T> void adjustSizes(T &x, T &y)\n{\n    x = (T) (x*(nglGetScreenWidth()/640.f));\n    y = (T) (y*(nglGetScreenHeight()/480.f));\n}\n\nclass StringList\n{\npublic:\n    enum { MAX_STRING_SIZE = 150 };\n    static float SPEED_FALL;\n    static float SPEED_DRIFT;\n\n    stringx data;\n    float x;\n    float y;\n    float fall_speed[MAX_STRING_SIZE];\n    float drift_speed[MAX_STRING_SIZE];\n    int drift_max[MAX_STRING_SIZE];\n    float delta_x[MAX_STRING_SIZE];\n    float delta_y[MAX_STRING_SIZE];\n\n    void Update(time_value_t time_inc);\n};\n\nvoid StringList::Update(const time_value_t time_inc)\n{\n    float driftSpeed = SPEED_DRIFT;\n    float fallSpeed = SPEED_FALL;\n\n    adjustSizes(driftSpeed, fallSpeed);\n\n    for (int i = 0; i < data.size(); i++)\n    {\n        delta_x[i] += drift_speed[i]*driftSpeed*time_inc;\n        if (delta_x[i] < -drift_max[i] && drift_speed[i] < 0.0f)\n        {\n            drift_speed[i] = -drift_speed[i];\n            delta_x[i] = -drift_max[i];\n        }\n        else if (delta_x[i] > drift_max[i] && drift_speed[i] > 0.0f)\n        {\n            drift_speed[i] = -drift_speed[i];\n            delta_x[i] = drift_max[i];\n        }\n\n        delta_y[i] += fall_speed[i]*fallSpeed*time_inc;\n    }\n}\n",
+      "status": "different",
+      "target_size": 308
+    }
+  ],
+  "raw_name": "Update__10StringListf"
+}
