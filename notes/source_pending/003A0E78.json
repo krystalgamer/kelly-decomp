@@ -1,0 +1,23 @@
+{
+  "address": "0x003A0E78",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a112939cdc625ca586c5a2dc6bc369fa72ad094c",
+      "candidate_size": 248,
+      "compared_bytes": 284,
+      "compared_instructions": 68,
+      "emitted_name": "nglSaveTexture__FP10nglTexturePCc",
+      "instruction_score": 5.8824,
+      "matching_bytes": 50,
+      "matching_instructions": 4,
+      "notes": "# Attempt 1\n\n- Used the exact released `nglSaveTexture` body from `kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:6030-6058` without functional changes.\n- Supplied only the released declaration details needed for isolated compilation: `nglTexture` accessed-field offsets/size, `nglFixedString::c_str`, allocator default alignment, and called function/global declarations.\n- Result: **different** \u2014 byte score 17.6056%, instruction score 5.8824%. No second candidate was tested.",
+      "score": 17.6056,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned short u_short;\n\nclass nglFixedString\n{\npublic:\n  const char* c_str() const { return str; }\nprivate:\n  char str[32];\n};\n\nstruct nglTexture\n{\n  char pad0[8];\n  u_short Width, Height;\n  char pad1[16];\n  u_int Format;\n  u_int* Data;\n  char pad2[12];\n  u_int SrcDataSize;\n  char pad3[16];\n  nglFixedString FileName;\n  char pad4[208];\n};\n\nextern char nglWork[512];\nextern void nglVif1SafeWait();\nextern void* nglMemAlloc(u_int Size, u_int Align = 1);\nextern void nglMemFree(void*);\nextern void nglDownloadTexture(nglTexture*, nglTexture*);\nextern void nglExportTextureTGA(nglTexture*, const char*);\nextern void nglPrintf(const char*, ...);\nextern \"C\" int sprintf(char*, const char*, ...);\n\n// Works only on 32bit and 16bit textures, and gives the contents from the previous frame, if locked\nvoid nglSaveTexture( nglTexture* Tex, const char* FileName )\n{\n  // Wait for any render in progress to finish\n  nglVif1SafeWait();\n\n  // Save the texture.\n  nglTexture Dest;\n  static u_int SaveCount = 0;\n\n  Dest.Format = Tex->Format;\n  Dest.SrcDataSize = Tex->Width * Tex->Height * 4;\n  Dest.Data = (u_int*)nglMemAlloc( Dest.SrcDataSize );\n  Dest.Height = Tex->Height;\n  Dest.Width = Tex->Width;\n\n  if ( FileName )\n    sprintf( nglWork, \"host:%s.tga\", FileName );\n  else\n    sprintf( nglWork, \"host:savetex%d.tga\", SaveCount++ );\n\n  nglDownloadTexture( &Dest, Tex );\n  nglExportTextureTGA( &Dest, nglWork );\n\n  nglMemFree( Dest.Data );\n  nglPrintf( \"NGL: Saved texture %s to %s.\\n\", Tex->FileName.c_str(), nglWork );\n}\n",
+      "status": "different",
+      "target_size": 284
+    }
+  ],
+  "raw_name": "nglSaveTexture__FP10nglTexturePCc"
+}
