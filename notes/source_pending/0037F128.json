@@ -1,0 +1,23 @@
+{
+  "address": "0x0037F128",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b52aaaae0a73d3ae74809b4279710ed2cfc4c86d",
+      "candidate_size": 312,
+      "compared_bytes": 312,
+      "compared_instructions": 78,
+      "emitted_name": "WAVETEX_UnloadTextureAnims__Fv",
+      "instruction_score": 100.0,
+      "matching_bytes": 223,
+      "matching_instructions": 78,
+      "notes": "Used the exact released PS2 function body with only forward declarations for `nglTexture` and `nglFileBuf`, pointer globals, and the four called APIs. The candidate emits all 78 target instructions in the exact order; the raw byte score reflects unresolved relocations in the standalone object.",
+      "score": 71.4744,
+      "source": "struct nglTexture;\nstruct nglFileBuf;\n\nextern nglTexture *WaveTexAnimLight;\nextern nglTexture *WaveTexAnimDark;\nextern nglTexture *WaveTexAnimHighlight;\nextern nglTexture *WaveTexAnimSpotlight;\nextern nglTexture *WaveTexAnimFoam;\nextern nglTexture *ShadowSourceTexture;\nextern nglTexture *ShadowTargetTexture;\nextern nglTexture *ShadowBlurryTexture;\nextern nglTexture *FoamTexture;\nextern nglFileBuf WaveAnimFile;\n\nvoid nglUnlockTexturePS2(nglTexture *);\nvoid nglDestroyTexture(nglTexture *);\nvoid nglReleaseTexture(nglTexture *);\nvoid nglReleaseFile(nglFileBuf *);\n\nbool WAVETEX_UnloadTextureAnims(void)\n{\n    if (ShadowSourceTexture)\n    {\n        nglUnlockTexturePS2(ShadowSourceTexture);\n        nglDestroyTexture(ShadowSourceTexture);\n    }\n    if (ShadowTargetTexture)\n    {\n        nglUnlockTexturePS2(ShadowTargetTexture);\n        nglDestroyTexture(ShadowTargetTexture);\n    }\n    if (ShadowBlurryTexture)\n    {\n        nglUnlockTexturePS2(ShadowBlurryTexture);\n        nglDestroyTexture(ShadowBlurryTexture);\n    }\n    if (WaveTexAnimLight)\n        nglReleaseTexture(WaveTexAnimLight);\n    if (WaveTexAnimSpotlight)\n        nglReleaseTexture(WaveTexAnimSpotlight);\n    if (WaveTexAnimHighlight)\n        nglReleaseTexture(WaveTexAnimHighlight);\n    if (WaveTexAnimDark)\n        nglReleaseTexture(WaveTexAnimDark);\n    if (WaveTexAnimFoam)\n        nglReleaseTexture(WaveTexAnimFoam);\n    if (FoamTexture)\n        nglReleaseTexture(FoamTexture);\n    nglReleaseFile(&WaveAnimFile);\n    ShadowSourceTexture = 0;\n    ShadowTargetTexture = 0;\n    ShadowBlurryTexture = 0;\n    FoamTexture = 0;\n    return true;\n}\n",
+      "status": "different",
+      "target_size": 312
+    }
+  ],
+  "raw_name": "WAVETEX_UnloadTextureAnims__Fv"
+}
