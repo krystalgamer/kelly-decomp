@@ -1,0 +1,23 @@
+{
+  "address": "0x001F9BD0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "131cd18548105aecfb652e1a1a0a36f548c5612c",
+      "candidate_size": 264,
+      "compared_bytes": 264,
+      "compared_instructions": 66,
+      "emitted_name": "MoveForwardOnX__20SurfBoardObjectClassf",
+      "instruction_score": 7.5758,
+      "matching_bytes": 79,
+      "matching_instructions": 5,
+      "notes": "# MoveForwardOnX__20SurfBoardObjectClassf first pass\n\n- Queue was clean and pending with zero attempts; no pre-existing target scratch existed.\n- Tested exactly the released body from `board.cpp:3078-3095`.\n- Used authentic narrow `vector3d`, `SimpleForce`, and `PhysicsObjectClass`\n  declarations and the released surfboard field order/offsets through `lip_vec`.\n- Result: **different** \u2014 byte score 29.9242%, instruction score 7.5758%;\n  candidate size 264 bytes versus target size 252 bytes.\n- No second candidate or diff chasing was performed.",
+      "score": 29.9242,
+      "source": "typedef float rational_t;\n\n#define assert(exp) ((void)0)\nextern \"C\" float fabsf(float);\n#define fabs(x) fabsf(x)\n\nclass vector3d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z;\n\n  inline vector3d() {}\n  inline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n  inline vector3d(T _x, T _y, T _z) { x = _x; y = _y; z = _z; }\n\n  inline vector3d& operator = (const vector3d& v)\n  { x = v.x; y = v.y; z = v.z; return *this; }\n\n  inline vector3d& operator += (const vector3d& v)\n  { x += v.x; y += v.y; z += v.z; return *this; }\n};\n\ninline vector3d operator * (const vector3d& a, vector3d::T d)\n{ return vector3d(d * a.x, d * a.y, d * a.z); }\n\ninline vector3d operator / (const vector3d& a, vector3d::T d)\n{\n  assert(d != 0.0f);\n  vector3d::T d_inv = 1.0f/d;\n  return vector3d(a.x*d_inv, a.y*d_inv, a.z*d_inv);\n}\n\nclass SimpleForce\n{\npublic:\n  void SetForceScalar(float scalar) { s = scalar;}\n\n  vector3d dir;\n  float s;\n};\n\nclass PhysicsObjectClass\n{\npublic:\n  float mass;\n  char released_layout[0x6C];\n  vector3d linMom;\n};\n\nclass SurfBoardObjectClass\n{\npublic:\n  float props_forwardForce;\n  PhysicsObjectClass *rb;\n  SimpleForce forward;\n  char released_layout[0xA98];\n  vector3d lip_vec;\n\n  void MoveForwardOnX(float degree);\n};\n\n//  useful for tubes, this changes player velocity, but only along the X-axis.\nvoid SurfBoardObjectClass::MoveForwardOnX(float degree)\n{\n//\tint current_beach = g_game_ptr->get_beach_id ();\n\n\tforward.SetForceScalar(props_forwardForce * degree);\n\n\t//  Set the surfer at normal speed based on his direction.\n\tvector3d vel = this->rb->linMom / this->rb->mass;\n\n\t//  No left/right or up/down.\n\tvel.x *= fabs(lip_vec.x);\n\tvel.y *= fabs(lip_vec.y);\n\tvel.z *= fabs(lip_vec.z);\n\n\trb->linMom = vel*this->rb->mass;\n\trb->linMom += forward.dir * forward.s;\n}\n",
+      "status": "different",
+      "target_size": 252
+    }
+  ],
+  "raw_name": "MoveForwardOnX__20SurfBoardObjectClassf"
+}
