@@ -1,0 +1,15 @@
+{
+  "address": "0x00189970",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f72e90f996fc68e79a809f14ea9f1e8d631b0662",
+      "notes": "Attempt 1 used the exact released `SurferFrontEnd::Down` body from `kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.cpp:1068-1083` with the sibling released menu/audio declaration context. No variant or later attempt was made.",
+      "score": 0.0,
+      "source": "#define assert(x) ((void)0)\nstruct FEMenuEntry;\nstruct entry_vtable { char pad[48]; short adjust; short reserved; bool (*GetDisable)(void *); };\nstruct FEMenuEntry { char pad0[84]; FEMenuEntry *down; char pad1[8]; entry_vtable *vtable; };\nstruct self_vtable { char pad[24]; short adjust; short reserved; void (*setHigh)(void *, FEMenuEntry *, bool); };\nstruct os_developer_options { char pad[72]; int no_audio; static os_developer_options *inst() { return *(os_developer_options **)0x0045B180; } bool is_flagged(int) { return no_audio; } enum { FLAG_NO_AUDIO = 17 }; };\nstruct SoundScriptManager { static SoundScriptManager *inst() { return *(SoundScriptManager **)0x0045B4A0; } void playEvent(int, void * = 0, float = 0.0f) __asm__(\"playEvent__18SoundScriptManager9EventTypeP6entityf\"); };\nenum { SS_FE_UPDOWN = 25, SS_FE_ERROR = 28 };\nstruct SurferFrontEnd { char pad0[76]; FEMenuEntry *highlighted; char pad1[32]; self_vtable *vtable; void setHigh(FEMenuEntry *entry, bool anim) { self_vtable *t=vtable; t->setHigh((char *)this+t->adjustment,entry,anim); } void Down(); };\n\nvoid SurferFrontEnd::Down()\n{\n\tassert(highlighted);\n\tFEMenuEntry* tmp = highlighted->down;\n\twhile(tmp && tmp->GetDisable()) tmp = tmp->down;\n\n\tif(tmp)\n\t{\n\t\tsetHigh(tmp, false);\n\t\tif (!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n\t\t\tSoundScriptManager::inst()->playEvent(SS_FE_UPDOWN);\n\t\t\n\t}\n\telse if (!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n\t\tSoundScriptManager::inst()->playEvent(SS_FE_ERROR);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Down__14SurferFrontEnd"
+}
