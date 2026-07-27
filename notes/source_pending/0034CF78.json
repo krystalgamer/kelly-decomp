@@ -1,0 +1,15 @@
+{
+  "address": "0x0034CF78",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c1448f6ea690dec80e7c36c6739c472c12faa8af",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/signal.cpp:533-539; kelly-slaters-pro-surfer/KS/SRC/signals.h:317-345; tmp/functions/0034CF78_get_id__C14signal_managerRC7stringx/attempt-1/result.json; tmp/source_first/0034CF78/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/signals.h\"\n#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/oserrmsg.h\"\n\nunsigned short signal_manager::get_id( const stringx& name ) const\n{\n  signal_id_map_t::const_iterator i = signal_id_map.find( name );\n  if ( i == signal_id_map.end() )\n    error( \"signal \" + name + \" not found\" );\n  return (*i).second;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "get_id__C14signal_managerRC7stringx"
+}
