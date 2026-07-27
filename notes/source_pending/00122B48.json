@@ -1,0 +1,15 @@
+{
+  "address": "0x00122B48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9a318b393006ac6b2bf0c7586e92e04fa0eb1a29",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/physical_interface.cpp:19-50; kelly-slaters-pro-surfer/KS/SRC/physical_interface.h:18-73; kelly-slaters-pro-surfer/KS/SRC/entity_interface.h:78-95; src/KS/SRC/physical_interface_shared.h; src/KS/SRC/entity_interface_shared.h; tmp/functions/00122B48___18physical_interfaceP6entity/attempt-1/result.json. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/physical_interface_shared.h\"\n\nextern const vector3d ZEROVEC;\nextern const vector3d YVEC;\n\nphysical_interface::physical_interface(entity *ent)\n  : entity_interface(ent),\n  flags(0)\n{\n  mass = 0.0f;\n  volume = 0.0f;\n  velocity = ZEROVEC;\n  angular_velocity = ZEROVEC;\n  acceleration_factor = ZEROVEC;\n  acceleration_correction_factor = ZEROVEC;\n  collision_flags = 0x00000000;\n\n  bounce_factor = 0.5f;\n  slide_factor = 0.65f;\n  sticky_offset = 0.025f;\n\n  gravity_multiplier = 1.0f;\n\n  guide_sys = NULL;\n\n  stuck_parent_was_alive_last_frame = true;\n\n  last_elevation = 0.0f;\n  cur_elevation = 0.0f;\n  effectively_standing = false;\n  cur_normal = YVEC;\n  last_floor_offset = 0.0f;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__18physical_interfaceP6entity"
+}
