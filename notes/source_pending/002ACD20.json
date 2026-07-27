@@ -1,0 +1,23 @@
+{
+  "address": "0x002ACD20",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6a2e35d604ebc772bd092628c391b440068aa700",
+      "candidate_size": 248,
+      "compared_bytes": 248,
+      "compared_instructions": 62,
+      "emitted_name": "mem_create_heap__Fii",
+      "instruction_score": 83.871,
+      "matching_bytes": 216,
+      "matching_instructions": 52,
+      "notes": "# Attempt 1\n\nTested the released `mem_create_heap(int, int)` body with BUILD_FINAL-only\nassert/debug code omitted, authentic `Heap` layout/method declarations, and\nexact allocator globals/helper/string addresses. The 248-byte candidate was\ndifferent: 87.0968% byte score (216/248) and 83.871% instruction score\n(52/62). Per first-pass rules, no second candidate was prepared.",
+      "score": 87.0968,
+      "source": "typedef void *pvoid;\ntypedef char *pchar;\ntypedef unsigned int MemSize;\ntypedef unsigned int MemFlags;\n\nclass Heap\n{\n    char data[48];\n    MemFlags heapid;\n    char remainder[56];\n\npublic:\n    void AddHeapMemory(pvoid ptr, MemSize size);\n    void SetGranularity(MemSize foralloc, MemSize foralign);\n    void SetHeapID(MemFlags id) { heapid = id; }\n    pvoid Allocate(\n        MemSize size,\n        MemSize align,\n        MemFlags flags,\n        const char *name,\n        int line);\n};\n\nextern Heap heaps[];\nextern unsigned int heapsize[];\nextern pchar heapmem[];\nextern pvoid heapdummyalloc[];\nextern const char child_heap_description[];\nextern const char dummy_allocation_description[];\n\nvoid mem_destroy_heap(int heapid);\nvoid *mem_malloc(\n    unsigned int size,\n    const char *description,\n    int line,\n    int flags = 0);\n\n__asm__(\".equ heaps, 0x00570528\");\n__asm__(\".equ heapsize, 0x005707F8\");\n__asm__(\".equ heapmem, 0x00570810\");\n__asm__(\".equ heapdummyalloc, 0x00570828\");\n__asm__(\".equ child_heap_description, 0x004E9500\");\n__asm__(\".equ dummy_allocation_description, 0x004E9510\");\n__asm__(\".equ mem_destroy_heap__Fi, 0x002ACE18\");\n__asm__(\".equ mem_malloc__FUiPCcii, 0x002AC788\");\n__asm__(\".equ SetGranularity__4HeapUiUi, 0x002AB360\");\n__asm__(\".equ AddHeapMemory__4HeapPvUi, 0x002AB390\");\n__asm__(\".equ Allocate__4HeapUiUiUiPCci, 0x002AB530\");\n\nvoid mem_create_heap(int heapid, int size)\n{\n    mem_destroy_heap(heapid);\n\n    heapmem[heapid] =\n        (char *)mem_malloc(size, child_heap_description, heapid);\n    if (heapmem[heapid])\n    {\n        heapsize[heapid] = size;\n        heaps[heapid].SetGranularity(16, 16);\n        heaps[heapid].SetHeapID(heapid);\n        heaps[heapid].AddHeapMemory(heapmem[heapid], heapsize[heapid]);\n        heapdummyalloc[heapid] = heaps[heapid].Allocate(\n            4, 1, 0, dummy_allocation_description, 0);\n    }\n}\n",
+      "status": "different",
+      "target_size": 248
+    }
+  ],
+  "raw_name": "mem_create_heap__Fii"
+}
