@@ -1,0 +1,23 @@
+{
+  "address": "0x00351C38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b1d5c3539d245bd5b96a9e8a71f4fda15d1cb60f",
+      "candidate_size": 244,
+      "compared_bytes": 244,
+      "compared_instructions": 61,
+      "emitted_name": "_clear__13script_object",
+      "instruction_score": 67.2131,
+      "matching_bytes": 176,
+      "matching_instructions": 41,
+      "notes": "Exact released `script_object::_clear` body with authentic `vm_symbol_list`, `so_data_block`, and vector declarations. It emitted the exact 244-byte operation sequence and calls, but EE GCC scheduled the list-resize and vector-insert argument setup in different delay slots from the target.",
+      "score": 72.1311,
+      "source": "#include \"g++-2/my_allocator_shared.h\"\n#include \"g++-2/stl_vector_shared.h\"\n\nclass string_buf;\n\nclass stringx {\n    char *chars;\n    string_buf *my_buf;\n\npublic:\n    stringx();\n    stringx(const stringx &other);\n    ~stringx();\n};\n\nclass vm_symbol {\nprotected:\n    stringx type_name;\n    stringx name;\n    int offset;\n\npublic:\n    vm_symbol();\n    vm_symbol(const vm_symbol &other);\n};\n\ntemplate<class T, class Allocator = my_allocator<T> >\nclass list {\n    void *_M_node;\n\npublic:\n    void resize(unsigned int new_size, const T &value = T());\n};\n\ntypedef list<vm_symbol> vm_symbol_list;\n\nclass so_data_block {\nprotected:\n    int blocksize;\n    char *buffer;\n\npublic:\n    so_data_block() : blocksize(0), buffer(0) {}\n    so_data_block(const so_data_block &other);\n    so_data_block(int size);\n    ~so_data_block();\n\n    void init(int size);\n    void clear();\n    int size() const { return blocksize; }\n    char *get_buffer() const { return buffer; }\n\nprotected:\n    void _destroy();\n    void _init(int size);\n};\n\nclass vm_executable;\n\nclass script_object {\nprotected:\n    stringx name;\n    bool global_object;\n    vm_symbol_list static_symbols;\n    vm_symbol_list symbols;\n    so_data_block static_data;\n    int data_blocksize;\n    vector<vm_executable *> funcs;\n\n    void _destroy();\n    void _clear();\n};\n\n__asm__(\".equ _destroy__13script_object, 0x00351B90\");\n__asm__(\".equ __9vm_symbol, 0x003541A0\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\n    \".equ resize__t4list2Z9vm_symbolZt12my_allocator1Z9vm_symbol\"\n    \"UiRC9vm_symbol, 0x0035C120\");\n__asm__(\".equ clear__13so_data_block, 0x00352F38\");\n__asm__(\n    \".equ insert__t6vector2ZP13vm_executableZt12my_allocator1ZP13vm_executable\"\n    \"PP13vm_executableUiRCP13vm_executable, 0x0035C220\");\n__asm__(\".equ memmove, 0x003D17CC\");\n\nvoid script_object::_clear()\n{\n  _destroy();\n  static_symbols.resize(0);\n  symbols.resize(0);\n  static_data.clear();\n  funcs.resize(0);\n}\n",
+      "status": "different",
+      "target_size": 244
+    }
+  ],
+  "raw_name": "_clear__13script_object"
+}
