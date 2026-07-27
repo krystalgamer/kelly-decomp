@@ -1,0 +1,15 @@
+{
+  "address": "0x003392F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "900470f52aa63fc82c2e729938508be2205d2373",
+      "notes": "# Attempt 1\n\nUsed the exact released PS2 constructor body and the implicit member-initialization declarations needed for `material`, `anim_texture`, `stringx`, vectors, and `color32`. The single test compile failed because the candidate guard checked `TARGET_PS2`, while the isolated compiler defines `SN_TARGET_PS2`/`PS2`; no further variant was attempted.",
+      "score": 0.0,
+      "source": "typedef unsigned char uint8;\ntypedef unsigned int uint32;\n\nclass stringx {\n  char *chars;\n  void *my_buf;\npublic:\n  stringx();\n  stringx &operator=(const stringx &);\n};\n\n__asm__(\".equ __7stringx, 0x0034D3E0\");\n__asm__(\".equ __as__7stringxRC7stringx, 0x0034E0B8\");\n\nclass color32 {\npublic:\n  union {\n    struct { uint8 b, g, r, a; } c;\n    uint32 i;\n  };\n\n  color32(uint8 _r, uint8 _g, uint8 _b, uint8 _a = 255) {\n    c.b = _b;\n    c.g = _g;\n    c.r = _r;\n    c.a = _a;\n  }\n};\n\ntemplate<class T>\nclass vector {\n  T *begin;\n  T *end;\n  T *capacity;\npublic:\n  vector() : begin(0), end(0), capacity(0) {}\n};\n\nclass anim_texture {\n  stringx filename;\n  vector<void *> frame_list;\n  vector<void *> vc_list;\n  unsigned tex_flags;\n  unsigned blend_mode;\n  float blend_amount;\n  color32 diffuse_color;\npublic:\n  anim_texture() : tex_flags(0), diffuse_color(255, 255, 255, 255) {}\n};\n\nclass material {\npublic:\n  material(const stringx &filename, unsigned additional_mat_flags = 0,\n           unsigned additional_tex_flags = 0);\n  void set_defaults();\nprivate:\n  void build_hash_name();\npublic:\n  stringx material_name;\n  stringx texture_filename[4];\n  anim_texture diffuse_map[4];\n  float u_anim;\n  float v_anim;\n  float det_u_scale;\n  float det_v_scale;\n  float det_range;\n  float det_alpha_clamp;\n  unsigned mat_flags;\n};\n\n__asm__(\".equ set_defaults__8material, 0x003394C0\");\n__asm__(\".equ build_hash_name__8material, 0x00339538\");\n\nmaterial::material(const stringx &filename, unsigned additional_mat_flags,\n                   unsigned additional_tex_flags)\n{\n  set_defaults();\n  texture_filename[0] = filename;\n\n#ifndef TARGET_PS2\n#error TARGET_PS2 must be defined for the released PS2 constructor\n#endif\n\n  build_hash_name();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__8materialRC7stringxUiUi"
+}
