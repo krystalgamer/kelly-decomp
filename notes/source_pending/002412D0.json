@@ -1,0 +1,23 @@
+{
+  "address": "0x002412D0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "66f3d2be1b5967350b51d73bf55b05a6ef38ff1d",
+      "candidate_size": 268,
+      "compared_bytes": 268,
+      "compared_instructions": 67,
+      "emitted_name": "Init__15RungeKuttaClassifPFP18PhysicsObjectClassfPfPf_v",
+      "instruction_score": 77.6119,
+      "matching_bytes": 224,
+      "matching_instructions": 52,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/ode.cpp:7-32; kelly-slaters-pro-surfer/KS/SRC/ks/ode.h:6-56; kelly-slaters-pro-surfer/KS/SRC/archalloc.h:122-133; tmp/functions/002412D0_Init__15RungeKuttaClassifPFP18PhysicsObjectClassfPfPf_v/notes.md; tmp/functions/002412D0_Init__15RungeKuttaClassifPFP18PhysicsObjectClassfPfPf_v/attempt-1/result.json. Result `different`, score 83.5821; no later attempt.",
+      "score": 83.5821,
+      "source": "typedef int int32;\nclass PhysicsObjectClass;\ntypedef void (*OdeDerivFunc)(PhysicsObjectClass* phyobj, float rTime,\n   float* rInStateArray, float* rOutStateArray);\nextern void *arch_malloc(unsigned int size, const char *desc, int line);\nextern const char ode_init_description[];\n__asm__(\".equ arch_malloc__FUiPCci, 0x002AC6F0\");\n__asm__(\".equ ode_init_description, 0x004D2CF0\");\n#define malloc(size) arch_malloc(size, ode_init_description, 0)\n\nclass RungeKuttaClass\n{\npublic:\n\tint32 Init(int d, float step, OdeDerivFunc dfn);\nprivate:\n\tint32 dim;\n\tfloat stepSize;\n\tOdeDerivFunc fnDerivFunc;\n\tchar vtable[4];\n\tfloat step2, step6;\n\tfloat* temp1;\n\tfloat* temp2;\n\tfloat* temp3;\n\tfloat* temp4;\n\tfloat* xtemp;\n};\n\nint32 RungeKuttaClass::Init(int d, float step, OdeDerivFunc dfn)\n{\n\tthis->dim = d;\n\tthis->stepSize = step;\n\tthis->fnDerivFunc = dfn;\n\t\n\t\n\tthis->step2 = step/2.0f;\n\tthis->step6 = step/6.0f;\n\n\tthis->temp1 = (float*)malloc(sizeof(float) * d);\n\tthis->temp2 = (float*)malloc(sizeof(float) * d);\n\tthis->temp3 = (float*)malloc(sizeof(float) * d);\n\tthis->temp4 = (float*)malloc(sizeof(float) * d);\n\tthis->xtemp = (float*)malloc(sizeof(float) * d);\n\n\tif(!this->temp1 || !this->temp2 || !this->temp3 || !this->temp4 || !this->xtemp)\n\t\treturn -1;\n\n\treturn 1;\n\t\n}\n",
+      "status": "different",
+      "target_size": 268
+    }
+  ],
+  "raw_name": "Init__15RungeKuttaClassifPFP18PhysicsObjectClassfPfPf_v"
+}
