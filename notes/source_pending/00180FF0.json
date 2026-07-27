@@ -1,0 +1,23 @@
+{
+  "address": "0x00180FF0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "fe8621ffc056ae6adff73e7b8665b8ae641de319",
+      "candidate_size": 244,
+      "compared_bytes": 248,
+      "compared_instructions": 62,
+      "emitted_name": "StartWarning__10CareerMenu",
+      "instruction_score": 87.0968,
+      "matching_bytes": 220,
+      "matching_instructions": 54,
+      "notes": "Exact released `CareerMenu::StartWarning` body with the authentic menu and entry vtable layouts. All highlight/disable calls and field offsets reproduce; EE GCC tail-called `MainFrontEnd::ResizeCareerBox`, yielding 244 bytes instead of the target's normal call and 248-byte epilogue.",
+      "score": 88.7097,
+      "source": "#define KELLY_DECOMP_FULL_FEMENU_ENTRY\n#include \"KS/SRC/ks/FEMenu_shared.h\"\n#undef KELLY_DECOMP_FULL_FEMENU_ENTRY\n\nclass BoxText;\nclass GraphicalMenuSystem;\n\nclass MainFrontEnd {\npublic:\n    void ResizeCareerBox(int height);\n};\n\nclass CareerMenu : public FEMenu {\npublic:\n    enum {\n        ContinueEntry,\n        NewEntry,\n        LoadEntry,\n        SaveEntry,\n        OKEntry,\n        CancelEntry,\n        NumEntries\n    };\n\n    FEMenuEntry *entry[NumEntries];\n    BoxText *warning;\n    bool warning_up;\n    GraphicalMenuSystem *system;\n    int warning_bottom;\n    int regular_bottom;\n\n    virtual void Draw();\n    void StartWarning();\n};\n\n__asm__(\".equ ResizeCareerBox__12MainFrontEndi, 0x0017F550\");\n\nvoid CareerMenu::StartWarning()\n{\n\twarning_up = true;\n\tsetHigh(entry[SaveEntry]);\n\tentry[ContinueEntry]->Disable(true);\n\tentry[LoadEntry]->Disable(true);\n\tentry[NewEntry]->Disable(true);\n\tentry[SaveEntry]->Disable(false);\n\tentry[OKEntry]->Disable(false);\n\tentry[CancelEntry]->Disable(false);\n\t((MainFrontEnd*) parent)->ResizeCareerBox(warning_bottom);\n}\n",
+      "status": "different",
+      "target_size": 248
+    }
+  ],
+  "raw_name": "StartWarning__10CareerMenu"
+}
