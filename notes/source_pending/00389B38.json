@@ -1,0 +1,15 @@
+{
+  "address": "0x00389B38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7c5a5211073c61d68fe3c32738d007e7c87efc17",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NVL/PS2/nvlMPEG_ps2.cpp:286-287; kelly-slaters-pro-surfer/NVL/PS2/nvlMPEG_ps2.cpp:1464-1501; tmp/functions/00389B38_sendToIOP2area__FiiiiPUciT4i/attempt-1/compiler.stderr:1; tmp/functions/00389B38_sendToIOP2area__FiiiiPUciT4i/attempt-1/result.json; tmp/source_first/00389B38/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "typedef unsigned char u_char;\n\nstatic int sendToIOP( int dst, u_char *src, int size );\n\nstatic int sendToIOP2area( int pd0, int d0, int pd1, int d1, u_char *ps0, int s0, u_char *ps1, int s1 )\n{\n    if( d0 + d1 < s0 + s1 )\n    {\n        int diff = (s0 + s1) - (d0 + d1);\n\n        if( diff >= s1 )\n        {\n            s0 -= ( diff - s1 );\n            s1 = 0;\n        }\n        else\n        {\n            s1 -= diff;\n        }\n    }\n    if( s0 >= d0 )\n    {\n        sendToIOP( pd0, ps0, d0 );\n        sendToIOP( pd1, ps0 + d0, s0 - d0 );\n        sendToIOP( pd1 + s0 - d0, ps1, s1 );\n    }\n    else\n    {\n        if( s1 >= d0 - s0 )\n        {\n            sendToIOP( pd0, ps0, s0 );\n            sendToIOP( pd0 + s0, ps1, d0 - s0 );\n            sendToIOP( pd1, ps1 + d0 - s0, s1 - (d0 - s0) );\n        }\n        else\n        {\n            sendToIOP( pd0, ps0, s0 );\n            sendToIOP( pd0 + s0, ps1, s1 );\n        }\n    }\n    return s0 + s1;\n}\n\n__asm__(\".globl sendToIOP2area__FiiiiPUciT4i\");\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "sendToIOP2area__FiiiiPUciT4i"
+}
