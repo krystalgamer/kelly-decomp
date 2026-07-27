@@ -1,0 +1,23 @@
+{
+  "address": "0x002CCFC0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2b2a9c435eae43034d04182f6c5fc5ae305ef766",
+      "candidate_size": 236,
+      "compared_bytes": 260,
+      "compared_instructions": 65,
+      "emitted_name": "__12light_sourceRC16light_propertiesP6entityRC9entity_id",
+      "instruction_score": 1.5385,
+      "matching_bytes": 60,
+      "matching_instructions": 1,
+      "notes": "Released-source first-pass candidate. The constructor body and initializer list are verbatim from KS/SRC/light.cpp:188-196; only isolated supporting declarations were supplied. Tested exactly once: different, 23.0769% byte score and 1.5385% instruction score. No tuning or subsequent attempt was performed.",
+      "score": 23.0769,
+      "source": "typedef float rational_t;\ntypedef unsigned int u_int;\n\nclass entity_id;\nclass entity;\nclass entity_link_ifc\n{\npublic:\n  void set_parent( entity* );\n};\n\nenum entity_flavor_t\n{\n  ENTITY_CAMERA,\n  ENTITY_ENTITY,\n  ENTITY_MARKER,\n  ENTITY_MIC,\n  ENTITY_LIGHT_SOURCE\n};\n\nclass entity\n{\n  char released_layout[0x204];\npublic:\n  entity( const entity_id&, entity_flavor_t );\n  entity_link_ifc* link_ifc();\n};\n\nclass color\n{\npublic:\n  rational_t r, g, b, a;\n  color( const color& c ) : r(c.r), g(c.g), b(c.b), a(c.a) {}\n};\n\nenum light_flavor_t\n{\n  LIGHT_FLAVOR_POINT,\n  LIGHT_FLAVOR_SPOT,\n  LIGHT_FLAVOR_DIRECTIONAL,\n  LIGHT_FLAVOR_PARALLELPOINT,\n  NUM_LIGHT_FLAVORS\n};\n\nclass light_properties \n{\nprotected:\n  light_flavor_t flavor;\n  color          diffuse_color;\n  color          additive_color;\n  rational_t     near_range;\n  rational_t     cutoff_range;\n  rational_t     recip_cutoff_minus_near;\n  u_int lightcat;\n  unsigned flags;\n  friend class light_source;\n};\n\nclass light_source : public entity\n{\npublic:\n  light_source( const light_properties& _properties,\n                entity* parent,\n                const entity_id& _id );\nprivate:\n  light_properties* properties;\n};\n\n#define NEW new\n#define NULL 0\n\nlight_source::light_source( const light_properties& _properties,\n                            entity* _parent,\n                            const entity_id& _id )\n  :   entity( _id, ENTITY_LIGHT_SOURCE )\n{\n  properties = NEW light_properties( _properties );\n  if (_parent != NULL)\n    link_ifc()->set_parent( _parent );\n}\n",
+      "status": "different",
+      "target_size": 260
+    }
+  ],
+  "raw_name": "__12light_sourceRC16light_propertiesP6entityRC9entity_id"
+}
