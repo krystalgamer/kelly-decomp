@@ -1,0 +1,15 @@
+{
+  "address": "0x001F4828",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2ec8371aabfe339b97c2d8f91b614c977318f3f5",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/board.cpp:1883-1934; kelly-slaters-pro-surfer/KS/SRC/ks/board.h:318-378; kelly-slaters-pro-surfer/KS/SRC/ks/wave.h:262-284; tmp/functions/001F4828_CanBustThroughTube__20SurfBoardObjectClassG8vector3d/attempt-1/compiler.stderr:1-3; tmp/functions/001F4828_CanBustThroughTube__20SurfBoardObjectClassG8vector3d/attempt-1/result.json. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/board.h\"\n\nbool SurfBoardObjectClass::CanBustThroughTube(vector3d position)\n{\n\t//int current_beach = g_game_ptr->get_beach_id ();\n\t//bool left = BeachDataArray[current_beach].bdir;\n\t//float near_tube_x = (WAVE_GetMarker(WAVE_MarkerEmitterStartCrestX)->x + WAVE_GetMarker(WAVE_MarkerEmitterStartLipX)->x)*0.5f;\n\t//bool near_tube = (left && (position.x > near_tube_x)) || (!left && (position.x < near_tube_x));\n\t//vector3d crash_point = *WAVE_GetMarker(WAVE_MarkerLipCrash);\n\tif (!wave_info.onoff)\n\t{\n\t\t//if ((position.x > crash_point.x && !left) || (position.x < crash_point.x && left))\n\t\t\treturn true;\n\t}\n\n\tint stage = wave_info.stage;\n\tif ((wave_info.type == WAVE_PerturbTypeBigTongue) || (wave_info.type == WAVE_PerturbTypeTongue))\n\t{\n\t\tif (((stage == WAVE_PerturbStageDo) && (wave_info.stageprogress > 0.5f)) || (stage == WAVE_PerturbStageHold)\n\t\t\t\t|| ((stage == WAVE_PerturbStageCollapse) && (wave_info.stageprogress <= 0.5f)))\n\t\t{\n\t\t\t\t//if (((position.x > crash_point.x && !left) || (position.x < crash_point.x && left)) && near_tube)\n\t\t\t\t\treturn true;\n\t\t}\n\t\telse if (((stage == WAVE_PerturbStageCollapse) && (wave_info.stageprogress > 0.5f)) || (stage == WAVE_PerturbStageWait)\n\t\t\t\t|| ((stage == WAVE_PerturbStageUndo) && (wave_info.stageprogress < 0.2f)))\n\t\t{\n\t\t\t\t//if (((position.x > crash_point.x && !left) || (position.x < crash_point.x && left)) && near_tube)\n\t\t\t\t\treturn true;\n\t\t}\n\t\telse\n\t\t\treturn false;\n\t}\n\telse if ((wave_info.type == WAVE_PerturbTypeBigSurge) || (wave_info.type == WAVE_PerturbTypeSurge))\n\t{\n\t\tif (((stage == WAVE_PerturbStageDo) && (wave_info.stageprogress > 0.3f)) || (stage == WAVE_PerturbStageHold)\n\t\t\t\t|| (stage == WAVE_PerturbStageCollapse) || (stage == WAVE_PerturbStageHold)\n\t\t\t\t|| ((stage == WAVE_PerturbStageUndo) && (wave_info.stageprogress < 0.5f)))\n\t\t{\n\t\t\t\t//if (((position.x > crash_point.x && !left) || (position.x < crash_point.x && left)) && near_tube)\n\t\t\t\t\treturn true;\n\t\t}\n\t\telse\n\t\t\treturn false;\n\t}\n\telse if ((wave_info.type == WAVE_PerturbTypeBigRush) || (wave_info.type == WAVE_PerturbTypeRush))\n\t{\n\t\treturn true;\n\t}\n\n\treturn false;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "CanBustThroughTube__20SurfBoardObjectClassG8vector3d"
+}
