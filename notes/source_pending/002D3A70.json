@@ -1,0 +1,15 @@
+{
+  "address": "0x002D3A70",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ca33ef984182b3511210cb197566ec954ecf0fbd",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/pmesh.cpp:1954-1960; kelly-slaters-pro-surfer/KS/SRC/pmesh.h:80-134,310-370; tmp/functions/002D3A70___8vr_pmeshPCcUi/attempt-1/compiler.stderr:1-9; tmp/functions/002D3A70___8vr_pmeshPCcUi/attempt-1/result.json. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include <vector>\n#include <map>\n\nclass stringx {\n    char *chars;\n    void *buffer;\npublic:\n    stringx();\n    stringx(const char *, int = -1);\n    ~stringx();\n};\n\nstruct vector3d { float x, y, z; };\nstruct vert {};\nstruct hw_rasta_vert {};\nstruct wedge {};\nstruct face {};\nstruct reduced_face {};\nstruct material {};\nstruct po { char data[0x40]; };\n\ntypedef unsigned short vert_ref;\ntypedef unsigned short wedge_ref;\ntypedef short material_ref;\ntypedef unsigned int face_ref;\ntypedef int visrep_t;\n\nenum { VISREP_PMESH = 0 };\n\nclass visual_rep {\npublic:\n    visual_rep(visrep_t, bool = true);\n    virtual ~visual_rep();\nprivate:\n    char fields[0x10];\n};\n\nclass vr_pmesh : public visual_rep {\npublic:\n    typedef std::map<material_ref, face_ref> material_map;\n    struct bone { stringx name; po pivot; };\n\n    vr_pmesh(const char *, unsigned);\n    virtual ~vr_pmesh();\n\nprivate:\n    void _construct(const stringx &, unsigned);\n\n    std::vector<vert> *verts;\n    hw_rasta_vert *xverts;\n    wedge *wedges;\n    int min_faces;\n    int *xverts_for_lod;\n    int num_wedges;\n    face *faces;\n    reduced_face *reduced_faces;\n    int num_faces;\n    std::vector<material *> materials;\n    vert_ref *vert_refs_for_wedge_ref;\n    wedge_ref *wedge_index_list;\n    short *wedge_lod_starts;\n    face_ref *original_face_for_face_slot;\n    material_map material_changes;\n    std::vector<bone> bones;\n    bool has_translucent_verts;\n    bool progressive;\n    int uvanim_update_frame;\n    vector3d center;\n    float radius;\n    vector3d pivot;\n    int pivot_valid;\n    stringx filename;\n    unsigned mesh_flags;\n    int max_detail;\n    int min_detail;\n};\n\nvr_pmesh::vr_pmesh(const char * pmesh_filename, unsigned _mesh_flags ) : visual_rep( VISREP_PMESH )\n{\n#if defined(TARGET_PC) || XBOX_USE_PMESH_STUFF\n  optimized_verts = NULL;\n#endif\n  _construct(stringx(pmesh_filename), _mesh_flags);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__8vr_pmeshPCcUi"
+}
