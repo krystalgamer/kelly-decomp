@@ -1,0 +1,23 @@
+{
+  "address": "0x001E9AC0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "fe1b51db036478ae7a7469bc419fd32545a6686a",
+      "candidate_size": 408,
+      "compared_bytes": 408,
+      "compared_instructions": 102,
+      "emitted_name": "reset__5beach",
+      "instruction_score": 1.9608,
+      "matching_bytes": 66,
+      "matching_instructions": 2,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/beach.cpp:62-94; kelly-slaters-pro-surfer/KS/SRC/ks/beach.h:13-79; kelly-slaters-pro-surfer/KS/SRC/ks/floatobj.h:24-66; kelly-slaters-pro-surfer/KS/SRC/ks/player.h:55-78; tmp/functions/001E9AC0_reset__5beach/attempt-1/result.json; tmp/source_first/001E9AC0/attempt-1.md. Result `different`, score 16.1765; no later attempt.",
+      "score": 16.1765,
+      "source": "struct vector3d { float x, y, z; vector3d& operator=(const vector3d& v) { x=v.x; y=v.y; z=v.z; return *this; } };\nstruct beach_object_vtable { char padding[24]; short adjustment; short reserved; void (*despawn)(void *); };\nstruct beach_object {\n  beach_object *next; float spawn_time; int timer_type; int times_spawned; int spawned;\n  char padding[4]; int active; char padding2[28]; beach_object_vtable *vtable;\n  void despawn() { vtable->despawn((char *)this + vtable->adjustment); }\n};\nclass player_info { public: void ClearAccomplishments(); };\nclass IconChallenge { public: void Retry(); };\nclass PhotoChallenge { public: void Retry(); };\nclass game { char padding[0x74]; int game_mode; public: int get_game_mode() const { return game_mode; } };\nclass Career { public: void ClearAllGoals(); void StartNewRun(); };\nclass os_developer_options {\n  char padding[0x194]; int e3_build;\npublic:\n  enum { FLAG_E3_BUILD = 0 };\n  static os_developer_options *instance;\n  static os_developer_options *inst() { return instance; }\n  bool is_flagged(int) const { return e3_build != 0; }\n};\nextern const vector3d ZEROVEC;\nextern player_info current_player_info;\nextern game *g_game_ptr;\nextern Career *g_career;\n__asm__(\".equ ZEROVEC, 0x00554478\");\n__asm__(\".equ current_player_info, 0x00427C48\");\n__asm__(\".equ g_game_ptr, 0x0045AC64\");\n__asm__(\".equ g_career, 0x00427C9C\");\n__asm__(\".equ _20os_developer_options$instance, 0x0045B180\");\n__asm__(\".equ ClearAccomplishments__11player_info, 0x00259810\");\n__asm__(\".equ Retry__13IconChallenge, 0x00260960\");\n__asm__(\".equ Retry__14PhotoChallenge, 0x002620A8\");\n__asm__(\".equ ClearAllGoals__6Career, 0x0025AA20\");\n__asm__(\".equ StartNewRun__6Career, 0x0025AE80\");\nclass beach {\n  char padding[0x2B8]; vector3d travel_distance; beach_object *my_objects;\n  int current_breakmap; int num_breakmap; void *smashedEntity;\n  struct { IconChallenge *icon; PhotoChallenge *photo; } challenges;\npublic: void reset();\n};\nvoid beach::reset ()\n{\n  beach_object *tmp;\n  for (tmp = my_objects; tmp != 0; tmp = tmp->next) {\n    if (tmp->spawned) tmp->despawn ();\n    tmp->times_spawned = 0;\n  }\n  for (beach_object *fobj = my_objects; fobj != 0; fobj = fobj->next)\n    fobj->active = ((fobj->timer_type == current_breakmap) || (fobj->timer_type == -1));\n  travel_distance = ZEROVEC;\n  current_player_info.ClearAccomplishments();\n  if (challenges.icon) challenges.icon->Retry();\n  if (challenges.photo) challenges.photo->Retry();\n  if(g_game_ptr->get_game_mode() == 0 &&\n     os_developer_options::inst()->is_flagged(os_developer_options::FLAG_E3_BUILD))\n    g_career->ClearAllGoals();\n  if (g_game_ptr->get_game_mode() == 0)\n    g_career->StartNewRun();\n}\n",
+      "status": "different",
+      "target_size": 332
+    }
+  ],
+  "raw_name": "reset__5beach"
+}
