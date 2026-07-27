@@ -1,0 +1,23 @@
+{
+  "address": "0x001A7010",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4e42c6c7cc10fffe92803550fea266b531898037",
+      "candidate_size": 280,
+      "compared_bytes": 300,
+      "compared_instructions": 75,
+      "emitted_name": "Select__21SaveCareerPromptClassi",
+      "instruction_score": 22.6667,
+      "matching_bytes": 96,
+      "matching_instructions": 17,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:502-525; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h:151-194; tmp/functions/001A7010_Select__21SaveCareerPromptClassi/attempt-1/candidate.cpp; tmp/functions/001A7010_Select__21SaveCareerPromptClassi/attempt-1/result.json. Result `different`, score 32.0000; no later attempt.",
+      "score": 32.0,
+      "source": "typedef int SSEventId;\n\nstruct entity;\nextern \"C\" void sound_unpause(void *) __asm__(\"unpause__18SoundScriptManager\");\nextern \"C\" int sound_play(void *, SSEventId, entity *, float)\n    __asm__(\"playEvent__18SoundScriptManager9EventTypeP6entityf\");\nextern \"C\" void sound_pause(void *) __asm__(\"pause__18SoundScriptManager\");\nextern \"C\" void nslFrameAdvance(float) __asm__(\"nslFrameAdvance__Ff\");\nextern void *sound_manager;\nasm(\".equ sound_manager,0x0046B4A0\");\n\nclass SoundScriptManager {\npublic:\n    static SoundScriptManager *inst() { return (SoundScriptManager *)sound_manager; }\n    void unpause() { sound_unpause(this); }\n    int playEvent(SSEventId event, entity *ent = 0, float volume = 0.0f)\n    {\n        return sound_play(this, event, ent, volume);\n    }\n    void pause()\n    {\n        sound_pause(this);\n        nslFrameAdvance(0.1f);\n    }\n};\n\nenum { SS_FE_ONX = 24 };\n\nstruct IGOFrontEnd {\n    void ShowMenuBackground(bool);\n};\nasm(\".equ ShowMenuBackground__11IGOFrontEndb,0x0017CED0\");\n\nstruct FEManager {\n    IGOFrontEnd *IGO;\n};\n\nstruct PauseMenuVTable {\n    char before_end_draw[88];\n    short end_draw_adjustment;\n    short end_draw_padding;\n    void (*end_draw)(void *, bool);\n    char before_make_active[40];\n    short make_active_adjustment;\n    short make_active_padding;\n    void (*make_active)(void *, int, int);\n};\n\nstruct PauseMenuSystem {\n    char before_manager[120];\n    FEManager *manager;\n    char before_vtable[16];\n    PauseMenuVTable *vtable;\n    char before_navigation_event[32];\n    int navigationEvent;\n\n    void MakeActive(int menu, int sub_menu)\n    {\n        vtable->make_active((char *)this + vtable->make_active_adjustment,\n                            menu, sub_menu);\n    }\n    void endDraw(bool unpause = true)\n    {\n        vtable->end_draw((char *)this + vtable->end_draw_adjustment, unpause);\n    }\n    enum { SaveLoadMenu = 19, SaveConfirmMenu = 20 };\n};\n\nstruct SaveLoadFrontEnd {\n    char before_back_menu[12964];\n    int back_menu;\n    int back_sub_menu;\n    int forward_menu;\n    int forward_sub_menu;\n    enum { ACT_SAVE = 2 };\n};\n\nstruct FEMenuSystem {\n    char before_menus[116];\n    SaveLoadFrontEnd **menus;\n};\n\nclass SaveCareerPromptClass {\n    char before_system[80];\npublic:\n    FEMenuSystem *system;\nprivate:\n    char before_sys[36];\npublic:\n    PauseMenuSystem *sys;\n    enum { Yes, No };\n    void Select(int entry_index);\n};\n\nvoid SaveCareerPromptClass::Select(int entry_index)\n{\n\tSoundScriptManager::inst()->unpause();\n\tsys->navigationEvent=SoundScriptManager::inst()->playEvent(SS_FE_ONX);\n\tSoundScriptManager::inst()->pause();\n\n\tswitch (entry_index)\n\t{\n\t\tcase Yes:\n\t\t\t{\n\t\t\t\tsys->manager->IGO->ShowMenuBackground(false);\n\t\t\t\tsys->MakeActive(PauseMenuSystem::SaveLoadMenu, SaveLoadFrontEnd::ACT_SAVE);\n\t\t\t\t((SaveLoadFrontEnd *)system->menus[PauseMenuSystem::SaveLoadMenu])->forward_menu = -1;\n\t\t\t\t((SaveLoadFrontEnd *)system->menus[PauseMenuSystem::SaveLoadMenu])->forward_sub_menu = -1;\n\t\t\t\t((SaveLoadFrontEnd *)system->menus[PauseMenuSystem::SaveLoadMenu])->back_menu = PauseMenuSystem::SaveConfirmMenu;\n\t\t\t\t((SaveLoadFrontEnd *)system->menus[PauseMenuSystem::SaveLoadMenu])->back_sub_menu = -1;\n\t\t\t}\n\n\t\tbreak;\n\t\tcase No:\n\t\t\tsys->endDraw(false);\n\t\tbreak;\n\t}\n}\n",
+      "status": "different",
+      "target_size": 300
+    }
+  ],
+  "raw_name": "Select__21SaveCareerPromptClassi"
+}
