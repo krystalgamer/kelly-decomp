@@ -1,0 +1,23 @@
+{
+  "address": "0x001C3360",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "74df498eaaa20e26d0edbfc34c9b0abff1870dd0",
+      "candidate_size": 280,
+      "compared_bytes": 292,
+      "compared_instructions": 73,
+      "emitted_name": "BoardPlay__15FEEntityManageriif",
+      "instruction_score": 31.5068,
+      "matching_bytes": 132,
+      "matching_instructions": 23,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEEntityManager.cpp:928-960; kelly-slaters-pro-surfer/KS/SRC/ks/FEEntityManager.h:18-139,207-213; kelly-slaters-pro-surfer/KS/SRC/ks/trickdata.h:240-380; kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-287; kelly-slaters-pro-surfer/KS/SRC/entity.h:1391-1397; tmp/functions/001C3360_BoardPlay__15FEEntityManageriif/attempt-1/result.json; tmp/source_first/001C3360/notes.md. Result `different`, score 45.2055; no later attempt.",
+      "score": 45.2055,
+      "source": "typedef float time_value_t;\n\nclass stringx\n{\n    char* chars;\n    void* my_buf;\n\npublic:\n    stringx(const char* str, int len = -1);\n    ~stringx();\n};\n\nclass entity_anim_tree;\n\nclass entity\n{\npublic:\n    entity_anim_tree* play_anim(const stringx& filename,\n                                time_value_t start_time,\n                                unsigned short anim_flags = 0,\n                                short loop = -1);\n};\n\nstruct SurferTrick\n{\n    int trick_id;\n    int anim_id;\n    int board_anim_id;\n    int flags;\n    int IK_flags;\n    int trickbook_type;\n    int trick_type;\n    unsigned char button1;\n    unsigned char button2;\n    unsigned char button3;\n    char button1_string[16];\n    char button2_string[16];\n    char button3_string[16];\n    int Time;\n    int Points;\n};\n\nextern SurferTrick GTrickList[];\n\nenum\n{\n    BA_SPIN,\n    BA_TRICK,\n    TRICK_EXIT_5 = 40,\n    TRICK_EXIT_4 = 47\n};\n\nclass FEEntityManager\n{\n    char pad0[404];\n    entity* board;\n    char pad1[28];\n    entity_anim_tree* board_tree;\n    char pad2[124];\n    int cur_b_anim;\n\npublic:\n    void BoardAnim(int anim_id, float blend_time, bool loop, float time);\n    void BoardPlay(int type, int anim_id, float time);\n};\n\n__asm__(\".equ GTrickList, 0x00427CA8\");\n__asm__(\".equ BoardAnim__15FEEntityManagerifbf, 0x001C2D60\");\n__asm__(\".equ __7stringxPCci, 0x0034D438\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\".equ play_anim__6entityRC7stringxfUss, 0x00134288\");\n\nvoid FEEntityManager::BoardPlay(int type, int anim_id, float time)\n{\n\tif(type == BA_TRICK)\n\t{\n\t\tif(anim_id == -1) anim_id = 0;\n\t\tfloat blend_time = 0.3f;\n\t\tif(anim_id == cur_b_anim) blend_time = 0.0f;\n\n\t\tif (anim_id == 0)\n\t\t{\n\t\t\t//  hack for exit moves to pop to idle\n\t\t\tfor (int n = TRICK_EXIT_5; n <= TRICK_EXIT_4; n++)\n\t\t\t{\n\t\t\t\tif (GTrickList[n].board_anim_id == cur_b_anim)\n\t\t\t\t\tblend_time = 0.0f;\n\t\t\t}\n\t\t}\n\n\t\tBoardAnim(anim_id, blend_time, false, time);\n\t\tcur_b_anim = anim_id;\n\t}\n\telse\n\t{\n\t\tif(time == -1.0f) time = 0.0f;\n\n\t\tswitch(type)\n\t\t{\n\t\tcase BA_SPIN:\n\t\t\tboard_tree = board->play_anim(\"characters\\\\frontend\\\\animations\\\\BOARD_SELECT_360.PS2\", time);\n\t\t\tbreak;\n\t\t}\n\t}\n}\n",
+      "status": "different",
+      "target_size": 292
+    }
+  ],
+  "raw_name": "BoardPlay__15FEEntityManageriif"
+}
