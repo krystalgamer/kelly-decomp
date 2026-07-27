@@ -1,0 +1,15 @@
+{
+  "address": "0x0029BEA8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7432d39b1e5df72a332e012ebe373afdb7752aff",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/wds.cpp:3035-3057; kelly-slaters-pro-surfer/KS/SRC/wds.h:261-263; kelly-slaters-pro-surfer/KS/SRC/item.h:314-345; tmp/functions/0029BEA8_add_morphable_item__21world_dynamics_systemRC7stringxbN32R9entity_id15entity_flavor_t/attempt-1/compiler.stderr:1-5; tmp/functions/0029BEA8_add_morphable_item__21world_dynamics_systemRC7stringxbN32R9entity_id15entity_flavor_t/attempt-1/result.json. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"../../../kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"../../../kelly-slaters-pro-surfer/KS/SRC/project.h\"\n#include \"../../../kelly-slaters-pro-surfer/KS/SRC/wds.h\"\n#include \"../../../kelly-slaters-pro-surfer/KS/SRC/item.h\"\n#include \"../../../kelly-slaters-pro-surfer/KS/SRC/physical_interface.h\"\n\nvoid world_dynamics_system::add_morphable_item( const stringx& entity_name,\n\t\t\t\t\t\t\t\t\t\t\t   bool a, bool stationary, bool invisible, bool cosmetic,\n\t\t\t\t\t\t\t\t\t\t\t   entity_id & _id, entity_flavor_t flavor )\n{\n\tstringx ent_filename = entity_name;\n\tmorphable_item * new_item = NEW morphable_item(ent_filename, _id, flavor, a, stationary);\n\n\tif (invisible)\n\t\tnew_item->set_visible(false);\n\telse\n\t\tnew_item->set_visible(true);\n\n\tnew_item->set_flag( EFLAG_MISC_NONSTATIC, true );\n\n\tif (cosmetic && new_item->has_physical_ifc())\n\t\tnew_item->physical_ifc()->set_collision_flags(0x00000000);\n\n\tadd_item( new_item );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "add_morphable_item__21world_dynamics_systemRC7stringxbN32R9entity_id15entity_flavor_t"
+}
