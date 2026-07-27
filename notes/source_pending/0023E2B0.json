@@ -1,0 +1,23 @@
+{
+  "address": "0x0023E2B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "caccf5cd4716b824cbcb18a3e6d937d27ed83659",
+      "candidate_size": 272,
+      "compared_bytes": 288,
+      "compared_instructions": 72,
+      "emitted_name": "Resize__4Menui",
+      "instruction_score": 1.3889,
+      "matching_bytes": 56,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/menu.cpp:51-84; kelly-slaters-pro-surfer/KS/SRC/ks/menu.h:32-45,78-94; kelly-slaters-pro-surfer/KS/SRC/archalloc.h:119-145. Result `different`, score 19.4444; no later attempt.",
+      "score": 19.4444,
+      "source": "typedef unsigned int size_t;\n\nvoid *operator new[](size_t, unsigned int, const char *, int);\nvoid operator delete[](void *);\n\nclass MenuEntry;\ntypedef MenuEntry *pMenuEntry;\n\nclass Menu\n{\n  Menu *parent;\n  int entries;\n  pMenuEntry *entry;\n  int activeentry;\n\npublic:\n  bool Resize(int n);\n};\n\nbool Menu::Resize(int n)\n{\n  if (entries != n)\n  {\n    pMenuEntry *nentry = 0;\n    if (n)\n    {\n      nentry = new (0, __PRETTY_FUNCTION__, 0) pMenuEntry[n];\n      if (nentry == 0)\n        return false;\n      for (int i = 0; i < n; i++)\n      {\n        nentry[i] = 0;\n      }\n      int cpy = n < entries ? n : entries;\n      if (cpy)\n      {\n        for (int i = 0; i < cpy; i++)\n        {\n          nentry[i] = entry[i];\n        }\n      }\n    }\n    if (entry)\n    {\n      delete[] entry;\n    }\n    entry = nentry;\n    entries = n;\n    if (activeentry >= entries)\n    {\n      activeentry = -1;\n    }\n  }\n  return true;\n}\n",
+      "status": "different",
+      "target_size": 288
+    }
+  ],
+  "raw_name": "Resize__4Menui"
+}
