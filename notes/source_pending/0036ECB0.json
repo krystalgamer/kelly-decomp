@@ -1,0 +1,23 @@
+{
+  "address": "0x0036ECB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ba6e67c8612cbe30e444612d8f82529dfd084dc9",
+      "candidate_size": 292,
+      "compared_bytes": 292,
+      "compared_instructions": 73,
+      "emitted_name": "WATER_ListAdd__Fv",
+      "instruction_score": 67.1233,
+      "matching_bytes": 224,
+      "matching_instructions": 49,
+      "notes": "Attempt 1 used the exact released `WATER_ListAdd` body with the minimum\ndeclarations needed by the isolated compiler. Sources:\n`kelly-slaters-pro-surfer/KS/SRC/ks/water.cpp:504-552`,\n`kelly-slaters-pro-surfer/KS/SRC/ks/water.cpp:125-131,159-187`,\n`kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:765-786`, and\n`notes/function_queue.csv:5877`.\n\nResult: `different`; byte score 76.7123%, instruction score 67.1233%.\nNo later attempt was made.",
+      "score": 76.7123,
+      "source": "typedef unsigned int u_int;\ntypedef float nglVector[4];\ntypedef float nglMatrix[4][4];\nstruct nglLightContext;\nstruct nglRenderParams\n{\n\tu_int Flags;\n\tu_int TextureFrame;\n\tfloat ScrollU, ScrollV;\n\tnglVector TintColor;\n\tnglVector Scale;\n\tu_int MaterialMask;\n\tfloat ZBias;\n\tnglLightContext* LightContext;\n\tu_int NBones;\n\tnglMatrix* Bones;\n};\n\nenum { NGLP_SCALE = 0x40 };\n\nstruct WaterDebugStruct\n{\n\tu_int BackfaceCull : 1;\n\tu_int BilinearFilter : 1;\n\tu_int DrawNearMesh : 1;\n\tu_int DrawSeamMesh : 1;\n\tu_int DrawSeamMeshDark : 1;\n\tu_int DrawSeamMeshHigh : 1;\n\tu_int DrawFarMesh : 1;\n\tu_int DrawFarMeshDark : 1;\n\tu_int DrawFarMeshHigh : 1;\n\tu_int DrawHorizonMesh : 1;\n\tu_int DrawTexture : 1;\n\tu_int DrawTextureAnim : 1;\n\tu_int DrawWaterMesh : 1;\n\tu_int FadeFarMesh : 1;\n\tu_int FadeHorizonMesh : 1;\n\tu_int FreezeWater : 1;\n\tu_int RecomputeExtents : 1;\n\tu_int ScissorNearMesh : 1;\n\tu_int ScissorSeamMesh : 1;\n\tu_int ScissorFarMesh : 1;\n\tu_int ScissorHorizonMesh : 1;\n\tu_int ShowNearLines : 1;\n\tu_int ShowSeamLines : 1;\n\tu_int ShowFarLines : 1;\n\tu_int ShowHorizonLines : 1;\n\tu_int TranparentNear : 1;\n\tu_int UniformGrid : 1;\n\tu_int UseLights : 1;\n};\n\nextern float WAVE_LocalScale[4];\nextern nglMatrix WATER_LocalToWorld;\nextern WaterDebugStruct WaterDebug;\nextern u_int SeamWaterMeshID;\nextern u_int FarWaterMeshID;\nextern u_int HorizonWaterMeshID;\nextern void WAVE_ListAdd(void);\nextern void WAVETEX_SubmitMesh(\n\tu_int MeshID, const nglMatrix &LocalToWorld, nglRenderParams &Params,\n\tbool DrawMesh, bool DrawDark, bool DrawHighlight, bool DrawFoam, bool DrawSpecular);\n\n__asm__(\".equ WAVE_LocalScale, 0x00484690\");\n__asm__(\".equ WATER_LocalToWorld, 0x0057B92C\");\n__asm__(\".equ WaterDebug, 0x00484618\");\n__asm__(\".equ SeamWaterMeshID, 0x0058EA34\");\n__asm__(\".equ FarWaterMeshID, 0x0058EA38\");\n__asm__(\".equ HorizonWaterMeshID, 0x0058EA3C\");\n__asm__(\".equ WAVE_ListAdd__Fv, 0x00374930\");\n__asm__(\".equ WAVETEX_SubmitMesh__FUiRC9nglMatrixR15nglRenderParamsbN43, 0x00381188\");\n\nvoid WATER_ListAdd(void)\n{\n\tnglRenderParams rp;\n\trp.Flags = NGLP_SCALE;\n\trp.Scale[0] = WAVE_LocalScale[0];\n\trp.Scale[1] = WAVE_LocalScale[1];\n\trp.Scale[2] = WAVE_LocalScale[2];\n\n\tWAVE_ListAdd();\n\n\tif (WaterDebug.DrawWaterMesh && WaterDebug.DrawSeamMesh)\n\t{\n\t\tWAVETEX_SubmitMesh(SeamWaterMeshID, WATER_LocalToWorld, rp,\n\t\t\tWaterDebug.DrawSeamMesh, WaterDebug.DrawSeamMeshDark,\n\t\t\tWaterDebug.DrawSeamMeshHigh, WaterDebug.DrawSeamMeshHigh, true);\n\t}\n\tif (WaterDebug.DrawWaterMesh && WaterDebug.DrawHorizonMesh)\n\t{\n\t\tWAVETEX_SubmitMesh(HorizonWaterMeshID, WATER_LocalToWorld, rp,\n\t\t\tfalse, false, false, false, false);\n\t}\n\tif (WaterDebug.DrawWaterMesh && WaterDebug.DrawFarMesh)\n\t{\n\t\tWAVETEX_SubmitMesh(FarWaterMeshID, WATER_LocalToWorld, rp,\n\t\t\tWaterDebug.DrawFarMesh, WaterDebug.DrawFarMeshDark,\n\t\t\tWaterDebug.DrawFarMeshHigh, WaterDebug.DrawFarMeshHigh, true);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 292
+    }
+  ],
+  "raw_name": "WATER_ListAdd__Fv"
+}
