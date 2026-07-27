@@ -1,0 +1,15 @@
+{
+  "address": "0x002C40A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "03198420e3ba8f2f222b462001859793ba201c7a",
+      "notes": "Exact released `game_camera::game_camera` constructor body and initializer list from `kelly-slaters-pro-surfer/KS/SRC/camera.cpp:112-122`, with only layout-critical declarations and symbol bindings required for the isolated candidate. Tested exactly once with no variants.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/po_shared.h\"\n\nclass entity;\nclass entity_id;\nclass kellyslater_controller;\ntypedef float rational_t;\n\nenum entity_flavor_t {\n  ENTITY_ENTITY = 0\n};\n\nclass camera {\n  char data[0x210];\npublic:\n  camera(entity*, const entity_id&, entity_flavor_t);\n  virtual ~camera();\n};\n\nclass game_camera : public camera\n{\npublic:\n  game_camera( const entity_id& entity, entity* _target_entity = 0 );\n  virtual ~game_camera() {}\n\nprotected:\n  bool last_frame_valid;\n  kellyslater_controller *ksctrl;\n\nprivate:\n  entity* target_entity;\n  bool reset_old_elevation;\n  vector3d targ_ent_pos;\n  rational_t targ_ent_elev;\n  rational_t last_frame_target_elev;\n  rational_t last_frame_focus_y;\n  bool temporary_lock;\n  po ground_pitch_po;\n  po last_frame_po;\n  bool crawl_mode;\n  bool crawl_mode_firstperson;\n};\n\nextern const po po_identity_matrix;\n__asm__(\".equ __6cameraP6entityRC9entity_id15entity_flavor_t, 0x002C37D0\");\n__asm__(\".equ _vt$11game_camera, 0x004F3AD0\");\n__asm__(\".equ po_identity_matrix, 0x00588930\");\n\ngame_camera::game_camera( const entity_id& _id, entity* _target_entity )\n  :   camera( 0, _id, ENTITY_ENTITY ),\n      last_frame_valid ( false ),\n      target_entity( _target_entity ),\n      temporary_lock( false ),\n      ground_pitch_po( po_identity_matrix ),\n      crawl_mode( false ),\n      crawl_mode_firstperson( false )\n{\n  ksctrl=0;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__11game_cameraRC9entity_idP6entity"
+}
