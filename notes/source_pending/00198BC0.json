@@ -1,0 +1,23 @@
+{
+  "address": "0x00198BC0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "759436f4cc167ca186acf3a8b870063d1fe7ac24",
+      "candidate_size": 256,
+      "compared_bytes": 264,
+      "compared_instructions": 66,
+      "emitted_name": "DrawFE__9FEManager",
+      "instruction_score": 72.7273,
+      "matching_bytes": 225,
+      "matching_instructions": 48,
+      "notes": "Exact released-source attempt from kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndManager.cpp:338-380; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndManager.h:13-25; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:399-403; kelly-slaters-pro-surfer/KS/SRC/ks/ksngl.h:6; config/SLUS_203.34.symbol_addrs.txt:1692,2097,2099-2101,2110-2111,7804,7820-7821; tmp/functions/00198BC0_DrawFE__9FEManager/attempt-1/result.json. Result `different`, score 85.2273; no variant or later attempt was made.",
+      "score": 85.2273,
+      "source": "struct nglSortInfo;\nvoid nglListBeginScene(nglSortInfo* info = 0);\nvoid nglSetClearFlags(unsigned int flags);\nvoid nglListEndScene();\n__asm__(\".equ nglListBeginScene__FP11nglSortInfo, 0x00399560\");\n__asm__(\".equ nglSetClearFlags__FUi, 0x00398578\");\n__asm__(\".equ nglListEndScene__Fv, 0x00399668\");\n\nenum { NGLCLEAR_COLOR = 0x1, NGLCLEAR_Z = 0x2, NGLCLEAR_STENCIL = 0 };\n\nclass GraphicalMenuSystem {\npublic:\n    virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();\n    virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();\n    virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();\n    virtual void v12(); virtual void v13(); virtual void v14();\n    virtual void Draw();\n    virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();\n    virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();\n    virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();\n    virtual void v28(); virtual void v29(); virtual void v30();\n    virtual void UpdateInScene();\n    virtual void v32();\n    virtual void DrawMovie();\n    virtual void v34();\n    virtual void DrawTop();\n};\nclass FEEntityManager { public: void DrawBack(); void DrawFront(); };\n__asm__(\".equ DrawBack__15FEEntityManager, 0x001C1F18\");\n__asm__(\".equ DrawFront__15FEEntityManager, 0x001C1D38\");\n\nclass FEManager {\npublic:\n    void* IGO;\n    void* pms;\n    GraphicalMenuSystem* gms;\n    FEEntityManager* em;\n    void DrawFE();\n};\n\nvoid FEManager::DrawFE()\n{\n    nglListBeginScene();\n    nglSetClearFlags(NGLCLEAR_Z | NGLCLEAR_COLOR | NGLCLEAR_STENCIL);\n    gms->DrawMovie();\n    nglListEndScene();\n\n    nglListBeginScene();\n    nglSetClearFlags(NGLCLEAR_Z | NGLCLEAR_STENCIL);\n    em->DrawBack();\n    gms->UpdateInScene();\n    nglListEndScene();\n\n    nglListBeginScene();\n    nglSetClearFlags(NGLCLEAR_Z | NGLCLEAR_STENCIL);\n    gms->Draw();\n    nglListEndScene();\n\n    nglListBeginScene();\n    nglSetClearFlags(NGLCLEAR_Z | NGLCLEAR_STENCIL);\n    em->DrawFront();\n    nglListEndScene();\n\n    nglListBeginScene();\n    nglSetClearFlags(NGLCLEAR_Z | NGLCLEAR_STENCIL);\n    gms->DrawTop();\n    nglListEndScene();\n}\n",
+      "status": "different",
+      "target_size": 264
+    }
+  ],
+  "raw_name": "DrawFE__9FEManager"
+}
