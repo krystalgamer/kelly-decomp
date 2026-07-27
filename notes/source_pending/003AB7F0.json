@@ -1,0 +1,23 @@
+{
+  "address": "0x003AB7F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "578618c8b6390f0c2a976a9dfed1f92fdce1e483",
+      "candidate_size": 268,
+      "compared_bytes": 280,
+      "compared_instructions": 70,
+      "emitted_name": "__partial_sort__H3ZPt4pair2ZP11nglListNodeZUiZt4pair2ZP11nglListNodeZUiZ15nglTransCompare_X01X01X01PX11X21_v",
+      "instruction_score": 10.0,
+      "matching_bytes": 94,
+      "matching_instructions": 7,
+      "notes": "Attempt 1 used exact released source cited at config/SLUS_203.34.symbol_addrs.txt:14345; notes/function_queue.csv:1995; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:2429-2442; GCC releases/gcc-2.95.2/libstdc++/stl_algo.h. Result `different`, score 33.5714; no later attempt.",
+      "score": 33.5714,
+      "source": "struct nglListNode;\nstruct Pair { nglListNode *first; unsigned int second; };\n\nclass nglTransCompare {\npublic:\n    bool operator()(const Pair &a, const Pair &b) {\n        if ((float &)a.second > (float &)b.second)\n            return true;\n        if ((float &)a.second < (float &)b.second)\n            return false;\n        return (unsigned int)a.first < (unsigned int)b.first;\n    }\n};\n\nextern \"C\" void make_heap_impl(Pair *, Pair *, nglTransCompare, Pair *, int *) __asm__(\"__make_heap__H4ZPt4pair2ZP11nglListNodeZUiZ15nglTransCompareZt4pair2ZP11nglListNodeZUiZi_X01X01X11PX21PX31_v\");\nextern \"C\" void adjust_heap_impl(Pair *, int, int, Pair, nglTransCompare) __asm__(\"__adjust_heap__H4ZPt4pair2ZP11nglListNodeZUiZiZt4pair2ZP11nglListNodeZUiZ15nglTransCompare_X01X11X11X21X31_v\");\nextern \"C\" void sort_heap_impl(Pair *, Pair *, nglTransCompare) __asm__(\"sort_heap__H2ZPt4pair2ZP11nglListNodeZUiZ15nglTransCompare_X01X01X11_v\");\n\ninline void pop_heap_impl(Pair *first, Pair *last, Pair *result, Pair value, nglTransCompare comp, int *)\n{\n    *result = *first;\n    adjust_heap_impl(first, 0, last - first, value, comp);\n}\n\nextern \"C\" void partial_sort_impl(Pair *, Pair *, Pair *, Pair *, Pair *, nglTransCompare) __asm__(\"__partial_sort__H3ZPt4pair2ZP11nglListNodeZUiZt4pair2ZP11nglListNodeZUiZ15nglTransCompare_X01X01X01PX11X21_v\");\nvoid partial_sort_impl(Pair *first, Pair *middle, Pair *last, Pair *, Pair *, nglTransCompare comp)\n{\n    make_heap_impl(first, middle, comp, (Pair *)0, (int *)0);\n    for (Pair *i = middle; i < last; ++i)\n        if (comp(*i, *first))\n            pop_heap_impl(first, middle, i, Pair(*i), comp, (int *)0);\n    sort_heap_impl(first, middle, comp);\n}\n",
+      "status": "different",
+      "target_size": 280
+    }
+  ],
+  "raw_name": "__partial_sort__H3ZPt4pair2ZP11nglListNodeZUiZt4pair2ZP11nglListNodeZUiZ15nglTransCompare_X01X01X01PX11X21_v"
+}
