@@ -1,0 +1,23 @@
+{
+  "address": "0x00121EB8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ccba9fcb27db14b129ad0f0513840a4c895c1795",
+      "candidate_size": 320,
+      "compared_bytes": 320,
+      "compared_instructions": 80,
+      "emitted_name": "set_ifc_num__14time_interfaceRC7pstringf",
+      "instruction_score": 18.75,
+      "matching_bytes": 101,
+      "matching_instructions": 15,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/time_interface.cpp:16-30; kelly-slaters-pro-surfer/KS/SRC/time_interface.h:10-13,17-21,59,65-66; kelly-slaters-pro-surfer/KS/SRC/entity_interface.h:59-60; kelly-slaters-pro-surfer/KS/SRC/pstring.h:41-55,68-73,115-125; notes/function_queue.csv:5908; tmp/functions/00121EB8_set_ifc_num__14time_interfaceRC7pstringf/attempt-1/result.json. Result `different`, score 31.5625; no later attempt.",
+      "score": 31.5625,
+      "source": "typedef float rational_t;\ntypedef unsigned long uint64;\n\nclass pstring\n{\nprivate:\n  uint64 pchunk[4];\n  void pack_string(const char *the_string);\n\npublic:\n  pstring(const char *target_string)\n  {\n    pack_string(target_string);\n  }\n\n  bool operator==(const pstring &check_me) const\n  {\n    for (unsigned i = 0; i < 4; ++i)\n    {\n      if (pchunk[i] != check_me.pchunk[i])\n        return false;\n    }\n    return true;\n  }\n};\n\nclass generic_interface\n{\npublic:\n  virtual ~generic_interface();\n  virtual bool get_ifc_num(const pstring &, rational_t &);\n  virtual bool set_ifc_num(const pstring &, rational_t);\n};\n\nclass entity_interface : public generic_interface\n{\nprotected:\n  void *my_entity;\n};\n\ntypedef enum\n{\n  _TIME_WORLD = 0,\n  _TIME_ABSOLUTE = 1,\n  _TIME_RELATIVE = 2\n} eTimeMode;\n\nclass time_interface : public entity_interface\n{\nprotected:\n  rational_t time_dilation;\n  eTimeMode time_mode;\n\npublic:\n  void set_mode(eTimeMode mode) { time_mode = mode; }\n  virtual bool set_ifc_num(const pstring &att, rational_t val);\n};\n\n#define IFC_INTERNAL_SET_MACRO(a,b) { static pstring pstring_set(a); if(att == pstring_set) { b = val; return(true); } }\n\nbool time_interface::set_ifc_num(const pstring &att, rational_t val)\n{\n  IFC_INTERNAL_SET_MACRO(\"TIME_DILATION\", time_dilation);\n\n  static pstring check_mode(\"TIME_MODE\");\n  if(att == check_mode)\n  {\n    set_mode((eTimeMode)((int)val));\n    return(true);\n  }\n\n\n\n  return(false);\n}\n",
+      "status": "different",
+      "target_size": 304
+    }
+  ],
+  "raw_name": "set_ifc_num__14time_interfaceRC7pstringf"
+}
