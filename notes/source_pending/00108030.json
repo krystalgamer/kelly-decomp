@@ -1,0 +1,15 @@
+{
+  "address": "0x00108030",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "98dd92c906a6986f58b7fbff26e03168e3f3ba52",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ai_locomotion.cpp:577-595; kelly-slaters-pro-surfer/KS/SRC/ai_locomotion.h:22-64,132; config/SLUS_203.34.symbol_addrs.txt:89; tmp/target-full-disasm.txt:8365-8433. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "typedef float rational_t;\n\nclass vector3d {\npublic:\n    float x;\n    float y;\n    float z;\n\n    vector3d() {}\n    vector3d(const vector3d &other) : x(other.x), y(other.y), z(other.z) {}\n    float length2() const { return x * x + y * y + z * z; }\n};\n\ninline vector3d operator-(const vector3d &left, const vector3d &right)\n{\n    return vector3d(left.x - right.x, left.y - right.y, left.z - right.z);\n}\n\ninline float dot(const vector3d &left, const vector3d &right)\n{\n    return left.x * right.x + left.y * right.y + left.z * right.z;\n}\n\nclass ai_locomotion {\n    char padding_to_start_pos[0x90];\n    vector3d start_pos;\npublic:\n    bool crossed_point(const vector3d test_point, const vector3d &cur_pos, rational_t radius, bool force_xz);\n};\n\nbool ai_locomotion::crossed_point(const vector3d test_point, const vector3d &cur_pos, rational_t radius, bool force_xz)\n{\n  if(radius < 0.0f)\n    return(false);\n\n  vector3d delta = test_point - cur_pos;\n  vector3d move_delta = test_point - start_pos;\n\n  if(force_xz || __builtin_fabsf(delta.y) < 1.0f)\n  {\n    move_delta.y = 0.0f;\n    delta.y = 0.0f;\n  }\n\n  return(delta.length2() <= (radius*radius) || dot(delta, move_delta) < 0.0f);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "crossed_point__13ai_locomotionG8vector3dRC8vector3dfb"
+}
