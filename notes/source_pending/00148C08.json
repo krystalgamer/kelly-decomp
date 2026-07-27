@@ -1,0 +1,23 @@
+{
+  "address": "0x00148C08",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "458fb0e7a20a7a5774718515ebfbdb4f94d068c5",
+      "candidate_size": 304,
+      "compared_bytes": 304,
+      "compared_instructions": 76,
+      "emitted_name": "getWidth__15MultiLineString",
+      "instruction_score": 42.1053,
+      "matching_bytes": 199,
+      "matching_instructions": 32,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:335-408; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:128-151; kelly-slaters-pro-surfer/KS/SRC/text_font.h:62-118; tmp/functions/00148C08_getWidth__15MultiLineString/attempt-1/result.json. Result `different`, score 65.4605; no later attempt.",
+      "score": 65.4605,
+      "source": "struct string_buf {\n    unsigned long long *data;\n    int ref_count;\n    int char_length;\n    int block_length;\n    int max_blocks;\n};\n\nclass stringx {\nprotected:\n    char *chars;\n    string_buf *my_buf;\n\npublic:\n    int length() const;\n    void lock();\n    inline int size() const { return my_buf->char_length; }\n    inline char &operator[](int index) {\n        lock();\n        if (index < 0)\n            index += length();\n        return chars[index];\n    }\n};\n\nstruct Glyph {\n    char padding[12];\n    int cell_width;\n};\n\nclass Font {\npublic:\n    bool unset;\n    Glyph *getGlyph(char value);\n};\n\nclass MultiLineString {\n    Font *font;\n    stringx text;\n\npublic:\n    int getWidth();\n};\n\n__asm__(\".equ lock__7stringx, 0x001D84D0\");\n__asm__(\".equ length__C7stringx, 0x00144388\");\n__asm__(\".equ getGlyph__4Fontc, 0x0033BD68\");\n\nint MultiLineString::getWidth()\n{\n    int max_width = 0;\n    int curr_width = 0;\n\n    if(font->unset)\n        return 0;\n\n    for(int i=0; i<text.size(); i++)\n    {\n        if(text[i] == '\\n')\n        {\n            if(curr_width > max_width)\n                max_width = curr_width;\n            curr_width = 0;\n        }\n        else\n            curr_width += font->getGlyph(text[i])->cell_width;\n    }\n\n    return curr_width > max_width ? curr_width : max_width;\n}\n",
+      "status": "different",
+      "target_size": 304
+    }
+  ],
+  "raw_name": "getWidth__15MultiLineString"
+}
