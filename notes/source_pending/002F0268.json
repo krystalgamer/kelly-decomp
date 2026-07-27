@@ -1,0 +1,15 @@
+{
+  "address": "0x002F0268",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9e7396e97b8f911614ba0fe3bfd01aef5b13db00",
+      "notes": "Attempt 1 used the released definition cited at kelly-slaters-pro-surfer/KS/SRC/ks/GlobalData.cpp:205-250; kelly-slaters-pro-surfer/KS/SRC/ks/GlobalData.h:1-65. The single exact-source test returned `compile_failed` with score 0.0000. No variant or later attempt was made.",
+      "score": 0.0,
+      "source": "#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/ks/GlobalData.h\"\n\nbool GlobalDataClass::updateFromCareer(Career *c)\n{\n\tint i;\n\tbool changed =false;\n\tif (c->GetSurferIdx() == SURFER_LAST)\n\t\treturn false;\n\tfor (i=0; i < BEACH_LAST; i++)\n\t{\n\t\tif (c->beaches[i].IsUnlocked())\n\t\t{\n\t\t\tunlockBeach(CareerDataArray[i].beach);\t\t\n\t\t\tchanged = true;\n\t\t}\n\t}\n\tglobalSurfers[c->GetSurferIdx()].unlocked = true;\n\t\n\tfor (i=0; i < MAX_BOARDS; i++)\n\t{\n\t\tif (c->IsBoardUnlocked(i))\n\t\t{\n\t\t\tglobalSurfers[c->GetSurferIdx()].boardsUnlocked[i] = true;\n\t\t\tchanged = true;\n\t\t}\n\t}\n\n\tfor (i=0; i < MAP_LOC_LAST; i++)\n\t{\n\t\tif (c->locations[i].IsBoardUnlocked())\n\t\t{\n\t\t\tglobalLocations[i].boardUnlocked = true;\n\t\t\tchanged = true;\n\t\t}\n\t\tif (c->locations[i].IsMovieUnlocked()) \n\t\t{\n\t\t\tchanged = true;\n\t\t\tglobalLocations[i].movieUnlocked = true;\n\t\t}\n\t\tif (c->locations[i].IsMovieShown())\n\t\t{\n\t\t\tchanged = true;\n\t\t\tglobalLocations[i].movieUnlocked = true;\n\t\t}\n\t}\n\treturn changed;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "updateFromCareer__15GlobalDataClassP6Career"
+}
