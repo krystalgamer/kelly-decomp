@@ -1,0 +1,15 @@
+{
+  "address": "0x00378810",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7736edb6efd68ef0e7e6edc4c0f8e77a08c31d91",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/wave.cpp:3910-3930; kelly-slaters-pro-surfer/KS/SRC/ks/spline.h:10-22,62-67; kelly-slaters-pro-surfer/KS/SRC/ks/wave.h:129-136; kelly-slaters-pro-surfer/KS/SRC/ks/ksngl.h:96-108; tmp/functions/00378810_WAVE_Normal__FRC17WaveProfileCoeffsfRfN22/attempt-1/compiler.stderr:1-4; tmp/functions/00378810_WAVE_Normal__FRC17WaveProfileCoeffsfRfN22/attempt-1/result.json. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "typedef unsigned int u_int;\n\ntemplate <int n> struct SplineCoeffs {\n\tfloat a[n], b[n], c[n], d[n];\n};\n\ntypedef struct {\n\tSplineCoeffs<16> y, z;\n} WaveProfileCoeffs;\n\nstruct WaveControlPoints {\n\tchar data[0x2400];\n\tu_int numcontrol, numprofile;\n};\n\nextern float WAVE_ControlZ[16];\nextern WaveControlPoints *WAVE_ControlPoints;\nextern \"C\" void sceVu0Normalize(float *, const float *);\n\ninline u_int SPLINE_BinarySearch(const float *x, u_int n, const float &valx)\n{\n\tu_int lo = 0, hi = n - 1, mid;\n\twhile (hi - lo > 1)\n\t{\n\t\tmid = (lo + hi) / 2;\n\t\tif (x[mid] < valx) lo = mid;\n\t\telse hi = mid;\n\t}\n\n\treturn lo;\n}\n\ninline float SPLINE_EvaluateD(const float *x, const float *a, const float *b, const float *c, const float *d,\n\tu_int n, float valx)\n{\n\tu_int lo = SPLINE_BinarySearch(x, n, valx);\n\tvalx -= x[lo];\n\treturn (3 * a[lo] * valx + 2 * b[lo]) * valx + c[lo];\n}\n\ninline void KSNGL_Normalize(float *n)\n{\n\tsceVu0Normalize(n, n);\n}\n\nvoid WAVE_Normal(const WaveProfileCoeffs &wpc, float z, float &nx, float &ny, float &nz)\n{\n\tu_int zhint = SPLINE_BinarySearch(WAVE_ControlZ, WAVE_ControlPoints->numcontrol, z);\n\tfloat dyy_dz, dzz_dz;\n\n\tdyy_dz = SPLINE_EvaluateD(WAVE_ControlZ, wpc.y.a, wpc.y.b, wpc.y.c, wpc.y.d, WAVE_ControlPoints->numcontrol, z, zhint);\n\tdzz_dz = SPLINE_EvaluateD(WAVE_ControlZ, wpc.z.a, wpc.z.b, wpc.z.c, wpc.z.d, WAVE_ControlPoints->numcontrol, z, zhint);\n\n\tnx = 0;\n\tny = dzz_dz;\n\tnz = -dyy_dz;\n\n\tKSNGL_Normalize((float *) &nx);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WAVE_Normal__FRC17WaveProfileCoeffsfRfN22"
+}
