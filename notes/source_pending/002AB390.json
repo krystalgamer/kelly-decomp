@@ -1,0 +1,23 @@
+{
+  "address": "0x002AB390",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f292792d1c02450bc426ff52b0bbfabf5eeca6de",
+      "candidate_size": 316,
+      "compared_bytes": 320,
+      "compared_instructions": 80,
+      "emitted_name": "AddHeapMemory__4HeapPvUi",
+      "instruction_score": 82.5,
+      "matching_bytes": 276,
+      "matching_instructions": 66,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/heap.cpp:26-28,35-69,278-317; kelly-slaters-pro-surfer/KS/SRC/heap.h:8-94,179-180; config/SLUS_203.34.symbol_addrs.txt:4356; tmp/functions/002AB390_AddHeapMemory__4HeapPvUi/attempt-1/result.json; tmp/source_first/002AB390/notes.md. Result `different`, score 86.2500; no later attempt.",
+      "score": 86.25,
+      "source": "typedef void *Pointer;\ntypedef unsigned int MemSize;\ntypedef unsigned int MemFlags;\n\nenum MemoryBlockTypes\n{\n    mbtFree = 0x00000000\n};\n\nenum MemoryAllocationFlags\n{\n    mafNone = 0x00,\n    mafHigh = 0x01\n};\n\nstruct MemFlagDWord\n{\n    MemFlags magic : 16;\n    MemFlags heapid : 8;\n    MemFlags flags : 8;\n};\n\nclass MemBlockInfo\n{\npublic:\n    MemBlockInfo *prev;\n    MemBlockInfo *next;\n    MemBlockInfo *prevoftype;\n    MemBlockInfo *nextoftype;\n    MemSize size;\n    MemFlagDWord flags;\n    MemFlags blockid;\n};\n\nclass Heap\n{\n    MemBlockInfo *fullhead;\n    MemBlockInfo *fulltail;\n    MemBlockInfo *usedhead;\n    MemBlockInfo *usedtail;\n    MemBlockInfo *freehead;\n    MemBlockInfo *freetail;\n    MemSize heapsize;\n    Pointer heapstart;\n    MemSize allocatedblocks;\n    MemSize minalloc;\n    MemSize minalign;\n    MemSize lastalloc;\n    MemFlags heapid;\n    Pointer loblock;\n    Pointer hiblock;\n    bool locked;\n    bool statsuptodate;\n\npublic:\n    void AddHeapMemory(Pointer ptr, MemSize size);\n    void FreeHeapMemory();\n    MemSize HeaderSize() const;\n    MemFlags GetHeapID() const { return heapid; }\n    void SetBlockSentry(MemBlockInfo *block);\n    Pointer Allocate(MemSize size, MemSize align, MemFlags flags,\n                     const char *name, int line);\n    void InitLoHi(Pointer lo, Pointer hi);\n};\n\nextern const char lowblock_name[];\nextern const char highblock_name[];\n\nasm(\".equ FreeHeapMemory__4Heap, 0x002AB4D0\");\nasm(\".equ HeaderSize__C4Heap, 0x002AB370\");\nasm(\".equ SetBlockSentry__4HeapP12MemBlockInfo, 0x002AB678\");\nasm(\".equ Allocate__4HeapUiUiUiPCci, 0x002AB530\");\nasm(\".equ InitLoHi__4HeapPvT1, 0x002AB628\");\nasm(\".equ lowblock_name, 0x004F90B0\");\nasm(\".equ highblock_name, 0x004F90C0\");\n\nvoid Heap::AddHeapMemory(Pointer ptr, MemSize size)\n{\n    if (minalloc < 1) minalloc = 1;\n    if (minalign < 1) minalign = 1;\n    FreeHeapMemory();\n    fullhead = (MemBlockInfo *)ptr;\n    fullhead->size = size - HeaderSize();\n    fullhead->flags.flags = mbtFree;\n    fullhead->next = 0;\n    fullhead->prev = 0;\n    fullhead->nextoftype = 0;\n    fullhead->prevoftype = 0;\n    fulltail = fullhead;\n    freehead = fullhead;\n    freetail = fullhead;\n    heapstart = ptr;\n    heapsize = size;\n    lastalloc = 1;\n    SetBlockSentry(fullhead);\n    fullhead->flags.magic = 0x7E07;\n    fullhead->flags.heapid = GetHeapID();\n    statsuptodate = false;\n    loblock = Allocate(4, minalign, mafNone, lowblock_name, 0);\n    hiblock = Allocate(4, minalign, mafHigh, highblock_name, 0);\n    InitLoHi(loblock, hiblock);\n}\n",
+      "status": "different",
+      "target_size": 320
+    }
+  ],
+  "raw_name": "AddHeapMemory__4HeapPvUi"
+}
