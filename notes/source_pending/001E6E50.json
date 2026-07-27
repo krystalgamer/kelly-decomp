@@ -1,0 +1,16 @@
+{
+  "address": "0x001E6E50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8e1227d5f5f9c46638a1abf89f99d6be5301b420",
+      "error": "Candidate did not emit end_frame__11movieplayerbT1; emitted functions: ['end_frame__11movieplayerbb']",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_movieplayer.cpp:283-301; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_movieplayer.h:34-75; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:1208-1241; tmp/functions/001E6E50_end_frame__11movieplayerbT1/attempt-1/result.json. Result `symbol_missing`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "typedef unsigned int u_int;\n\nstruct nglTexture;\nstruct nglQuad\n{\n    unsigned char data[104];\n};\n\nextern bool nvlMPEGAdvance();\nextern void nglInitQuad(nglQuad *Quad);\nextern void nglSetQuadBlend(nglQuad *Quad, u_int Blend, u_int Constant = 0);\nextern void nglSetQuadMapFlags(nglQuad *Quad, u_int MapFlags);\nextern void nglSetQuadTex(nglQuad *Quad, nglTexture *Tex);\nextern int nglGetScreenWidth();\nextern int nglGetScreenHeight();\nextern void nglSetQuadRect(nglQuad *Quad, float x1, float y1, float x2, float y2);\nextern void nglSetQuadZ(nglQuad *Quad, float z);\nextern void nglListAddQuad(nglQuad *Quad);\nextern void nglListSend(bool Flip);\n\nenum\n{\n    NGLBM_OPAQUE = 0,\n    NGLMAP_BILINEAR_FILTER = 0x2,\n    NGLMAP_CLAMP_U = 0x10,\n    NGLMAP_CLAMP_V = 0x20\n};\n\nclass movieplayer\n{\n    void *singleton_vtable;\n    bool hiRes;\n    unsigned char db_and_movies[580];\n    nglTexture *texture;\n    nglQuad frame;\n    bool movieStarted;\n    bool isPlaying;\n\npublic:\n    void end_frame(bool flip, bool listSend);\n};\n\nvoid movieplayer::end_frame(bool flip, bool listSend)\n{\n  if(hiRes && isPlaying)\n    isPlaying = nvlMPEGAdvance();\n  else if (isPlaying)\n  {\n      nglInitQuad( &frame );\n      nglSetQuadBlend( &frame, NGLBM_OPAQUE, 0 );\n      nglSetQuadMapFlags(&frame, NGLMAP_CLAMP_U | NGLMAP_CLAMP_V | NGLMAP_BILINEAR_FILTER);\n      nglSetQuadTex( &frame, texture );\n      nglSetQuadRect( &frame, 0.0f, 0.0f, nglGetScreenWidth(),  nglGetScreenHeight());\n    nglSetQuadZ(&frame, 800.0f);\n      nglListAddQuad( &frame );\n    if(listSend)\n        nglListSend( flip );\n  }\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "end_frame__11movieplayerbT1"
+}
