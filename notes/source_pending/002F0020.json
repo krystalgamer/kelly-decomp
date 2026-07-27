@@ -1,0 +1,23 @@
+{
+  "address": "0x002F0020",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4b5184327707837afe2706ad69f6b760fbfc694c",
+      "candidate_size": 244,
+      "compared_bytes": 248,
+      "compared_instructions": 62,
+      "emitted_name": "getBeachHighScore__15GlobalDataClassiib",
+      "instruction_score": 11.2903,
+      "matching_bytes": 121,
+      "matching_instructions": 7,
+      "notes": "# Attempt 1\n\n- Used the released body verbatim from `kelly-slaters-pro-surfer/KS/SRC/ks/GlobalData.cpp:190-196`.\n- Used the released `HighScoreData`, `BeachData` arrays, and `NUM_ROWS = 10` declarations from `GlobalData.h:13-18,38-43,113` and `HighScoreFrontEnd.h:18`, with only the preceding class storage narrowed to its authentic `0x75C` beach-array offset.\n- Result: **different** \u2014 byte score 48.7903%, instruction score 11.2903%. No second attempt was made.",
+      "score": 48.7903,
+      "source": "#define assert(condition) ((void)0)\n\nclass HighScoreFrontEnd\n{\npublic:\n    static const int NUM_ROWS = 10;\n};\n\nstruct HighScoreData\n{\n    char initials[4];\n    char character[32];\n    int score;\n    int icons;\n};\n\nclass GlobalDataClass\n{\nprivate:\n    class BeachData\n    {\n    public:\n        HighScoreData high_scores[HighScoreFrontEnd::NUM_ROWS];\n        HighScoreData high_icons[HighScoreFrontEnd::NUM_ROWS];\n        bool unlocked;\n    };\n\n    char data_before_globalBeaches[0x75C];\n    BeachData globalBeaches[1];\n\npublic:\n    HighScoreData getBeachHighScore(int beach, int whichScore, bool icons);\n};\n\nHighScoreData GlobalDataClass::getBeachHighScore(int beach, int whichScore, bool icons) \n{ \n    assert(beach < 32);\n    if(icons)\n        return globalBeaches[beach].high_icons[whichScore]; \n    else return globalBeaches[beach].high_scores[whichScore]; \n} \n",
+      "status": "different",
+      "target_size": 248
+    }
+  ],
+  "raw_name": "getBeachHighScore__15GlobalDataClassiib"
+}
