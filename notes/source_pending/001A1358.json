@@ -1,0 +1,15 @@
+{
+  "address": "0x001A1358",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "11442d1ba1fe9d5ee46c42c6988dedf45e75a149",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/SaveLoadFrontEnd.cpp:2283-2288; kelly-slaters-pro-surfer/KS/SRC/ks/SaveLoadFrontEnd.h:315-336; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:405-432; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:48-78; tmp/functions/001A1358__$_12KeyboardMenu/attempt-1/compiler.stderr:1-2; tmp/functions/001A1358__$_12KeyboardMenu/attempt-1/result.json. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "class FEMenuEntry;\nclass TextString\n{\npublic:\n    virtual ~TextString();\n};\n\nclass FEMultiMenu\n{\npublic:\n    virtual ~FEMultiMenu();\n};\n__asm__(\".equ _$_11FEMultiMenu, 0x001DB6A0\");\n\nclass KeyboardMenu : public FEMultiMenu\n{\nprivate:\n    FEMenuEntry* ent[40];\n    TextString* filename;\n    TextString* enter_text;\n    TextString* name_text;\npublic:\n    virtual ~KeyboardMenu();\n};\n__asm__(\".equ _vt$12KeyboardMenu, 0x004C9178\");\n\nKeyboardMenu::~KeyboardMenu()\n{\n    delete filename;\n    delete enter_text;\n    delete name_text;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_12KeyboardMenu"
+}
