@@ -1,0 +1,23 @@
+{
+  "address": "0x002441C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "faa1f23e92cabdc86ac5247da16cd6bfe626c25d",
+      "candidate_size": 324,
+      "compared_bytes": 328,
+      "compared_instructions": 82,
+      "emitted_name": "UpdateQueue__12TrickManager",
+      "instruction_score": 62.1951,
+      "matching_bytes": 258,
+      "matching_instructions": 51,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/trick_system.cpp:588-628; kelly-slaters-pro-surfer/KS/SRC/ks/trick_system.h:10-91; kelly-slaters-pro-surfer/KS/SRC/ks/trickdata.h:83-101; kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.h:711-712; tmp/functions/002441C0_UpdateQueue__12TrickManager/attempt-1/result.json; tmp/source_first/002441C0/attempt-1.md. Result `different`, score 78.6585; no later attempt.",
+      "score": 78.6585,
+      "source": "typedef unsigned char uint8;\n\nstruct SurferTrick\n{\n    int trick_id;\n    int anim_id;\n    int board_anim_id;\n    int flags;\n};\n\nstruct TrickEvent\n{\n    SurferTrick *trick;\n    uint8 Button;\n    float EventTime;\n    float Time;\n};\n\nstruct ButtonEvent\n{\n    uint8 Button;\n    bool Pressed;\n    float Time;\n};\n\n#define MAX_EVENT 32\n#define MAX_TRICKS_QUEUED 10\n#define NUM_BUTTONS 20\n#define MAX_TRICK_QUEUE_TIME 3.0f\nconst int NoInterruptFlag = 0x00020;\n\nclass kellyslater_controller\n{\n    char data_before_doing_special[0x16b8];\n    bool bSpecialTrick;\n\npublic:\n    bool IsDoingSpecialTrick() const { return bSpecialTrick; }\n    void SetDoingSpecialTrick(bool set) { bSpecialTrick = set; }\n    void SetNewTrick(int trick) __asm__(\"SetNewTrick__22kellyslater_controlleri\");\n};\n\nclass TrickManager\n{\n    ButtonEvent mEventQueue[MAX_EVENT];\n    TrickEvent mTrickQueue[MAX_TRICKS_QUEUED];\n    bool CurrentButtonState[NUM_BUTTONS];\n    float time;\n    int mTricksQueued;\n    int mTrickQueueTail;\n    int mEventQueuePos;\n    float mActionButtonEventTime;\n    uint8 mActionButton;\n    int LastFrameTrickQueued;\n    float TimePerFrame;\n    bool trick_this_frame;\n    bool button_pressed_this_frame;\n    kellyslater_controller *ksctrl;\n\npublic:\n    void UpdateQueue(void);\n};\n\n__asm__(\".equ SetNewTrick__22kellyslater_controlleri,0x0020D200\");\n\nvoid TrickManager::UpdateQueue(void)\n{\n\tif (!ksctrl)\n\t{\n\t\tmTricksQueued = 0;\n\t\treturn;\n\t}\n\n\tif (!mTricksQueued || ksctrl->IsDoingSpecialTrick()) // if there are no tricks queued or a special trick in progress\n\t\treturn;\n\n\t// check to see if the oldest trick was recent enough\n   if (time - mTrickQueue[mTrickQueueTail].Time < MAX_TRICK_QUEUE_TIME)\n   {\n      // get the button that was pressed, and when it was pressed\n      // so later we can see if it has been released any time\n      // since it has been pressed (See ActionButtonHeld(), below).\n      mActionButton = mTrickQueue[mTrickQueueTail].Button;\n      mActionButtonEventTime = mTrickQueue[mTrickQueueTail].EventTime;\n      // Now we've triggered a trick, we cna discard any \"pressed\" event from the\n      // button queue that is older then this\n      // this will stop you from pre-queuing manuals\n      for (int e=0;e<MAX_EVENT;e++)\n      {\n\t\t if (mEventQueue[e].Pressed && (mEventQueue[e].Button != 0) && (mEventQueue[e].Button != mActionButton)\n\t\t\t\t\t\t\t\t/*&& (mEventQueue[e].Time <= mActionButtonEventTime)*/)\n         {\n            mEventQueue[e].Button = 0;\n\t\t\tmEventQueue[e].Pressed = false;\n         }\n      }\n\t  if (mTrickQueue[mTrickQueueTail].trick->flags & NoInterruptFlag)\n\t\t  ksctrl->SetDoingSpecialTrick(true);\n\n\t  ksctrl->SetNewTrick(mTrickQueue[mTrickQueueTail].trick->trick_id);\n   }\n   // always kill the oldest trick, either we just executed it, or it was too old.\n   mTrickQueueTail++;\n   mTrickQueueTail %= MAX_TRICKS_QUEUED;\n   mTricksQueued--;\n}\n",
+      "status": "different",
+      "target_size": 328
+    }
+  ],
+  "raw_name": "UpdateQueue__12TrickManager"
+}
