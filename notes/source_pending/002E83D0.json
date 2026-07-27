@@ -1,0 +1,23 @@
+{
+  "address": "0x002E83D0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5ad689e5588dc53d05a09a2ef423993a92b419be",
+      "candidate_size": 76,
+      "compared_bytes": 280,
+      "compared_instructions": 70,
+      "emitted_name": "find_sector__C6tree_tRC8vector3d",
+      "instruction_score": 0.0,
+      "matching_bytes": 18,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/terrain.cpp:69-78; kelly-slaters-pro-surfer/KS/SRC/terrain.h:45-53,112-128; kelly-slaters-pro-surfer/KS/SRC/bp_tree.h:41-63,159-220,317-330; kelly-slaters-pro-surfer/KS/SRC/bsp_tree.h:420-434; notes/function_queue.csv: target 0x002E83D0; tmp/functions/002E83D0_find_sector__C6tree_tRC8vector3d/attempt-1/result.json. Result `different`, score 6.4286; no later attempt.",
+      "score": 6.4286,
+      "source": "struct vector3d { float x, y, z; };\nclass sector;\n\nclass partition3 {\n  char padding[0x10];\n  sector* my_sector;\npublic:\n  sector* get_sector() const { return my_sector; }\n};\n\nclass tree_t {\npublic:\n  struct node { node* left; node* parent; node* right; partition3 value; };\n  class iterator {\n    node* ptr;\n  public:\n    iterator() {}\n    iterator(node* p) : ptr(p) {}\n    partition3* operator->() const { return &ptr->value; }\n    node* _Mynode() const { return ptr; }\n  };\n  class branch {\n  public:\n    enum dir_t { RIGHT, LEFT, NONE };\n    iterator parent;\n    dir_t child;\n  };\n\n  branch find_leaf(const vector3d& key) const;\n  sector* find_sector(const vector3d& pos) const;\n};\n\nsector* tree_t::find_sector(const vector3d& pos) const\n{\n  branch br = find_leaf(pos);\n  if (br.child == branch::LEFT)\n    return 0;\n  return br.parent->get_sector();\n}\n",
+      "status": "different",
+      "target_size": 280
+    }
+  ],
+  "raw_name": "find_sector__C6tree_tRC8vector3d"
+}
