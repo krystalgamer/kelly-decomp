@@ -1,0 +1,23 @@
+{
+  "address": "0x00372980",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4d12c14f117e7602bed7e8463ee3f0dad2b809e4",
+      "candidate_size": 312,
+      "compared_bytes": 316,
+      "compared_instructions": 79,
+      "emitted_name": "OnOpen__19MenuPerturbDurationP4MenuP10MenuSystem",
+      "instruction_score": 75.9494,
+      "matching_bytes": 259,
+      "matching_instructions": 60,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/wavemenu.cpp:128-164; kelly-slaters-pro-surfer/KS/SRC/ks/wave.h:271-275; kelly-slaters-pro-surfer/KS/SRC/ks/wavebreakstage.txt:1-5; kelly-slaters-pro-surfer/KS/SRC/ks/menu.h:78-132,340-356; kelly-slaters-pro-surfer/KS/SRC/ks/menusys.h:138-172,192-200; kelly-slaters-pro-surfer/KS/SRC/archalloc.h:96-114,142-145; tmp/functions/00372980_OnOpen__19MenuPerturbDurationP4MenuP10MenuSystem/attempt-1/result.json; tmp/source_first/00372980/attempt-1.md. Result `different`, score 81.9620; no later attempt.",
+      "score": 81.962,
+      "source": "typedef unsigned int u_int;\nclass MenuEntry {};\ntypedef MenuEntry *pMenuEntry;\nclass MenuSystem;\nclass Menu {\npublic:\n    void ClearMenu();\n    void AddEntry(MenuEntry *);\n    void OnOpen(Menu *, MenuSystem *);\n};\nclass MenuRender { public: void Refresh(); };\nclass MenuInput {};\nclass MenuSystem : public MenuRender, public MenuInput {};\nclass MenuEntryFloatEdit : public MenuEntry {\npublic:\n    char storage[28];\n    MenuEntryFloatEdit(char *, float *, float, float, float);\n};\nclass WaveBasePerturbClass {\npublic:\n    virtual void Init() = 0;\n    float *duration;\n};\nclass MenuPerturbDuration : public Menu {\npublic:\n    void OnOpen(Menu *cto, MenuSystem *c);\n};\nbool mem_malloc_locked();\nvoid mem_lock_malloc(bool);\nvoid *operator new(unsigned int, unsigned int, const char *, int);\n#define NEW new(0,__FILE__,__LINE__)\nextern char *WAVE_PerturbStageName[6];\nextern int WAVE_DebugPerturbType;\nextern WaveBasePerturbClass *WAVE_PerturbArray[6];\n__asm__(\".equ mem_malloc_locked__Fv,0x002AC4B8\");\n__asm__(\".equ mem_lock_malloc__Fb,0x002AC438\");\n__asm__(\".equ ClearMenu__4Menu,0x0023E538\");\n__asm__(\".equ AddEntry__4MenuP9MenuEntry,0x0023E558\");\n__asm__(\".equ Refresh__10MenuRender,0x00240A58\");\n__asm__(\".equ OnOpen__4MenuP4MenuP10MenuSystem,0x0023EAE0\");\n__asm__(\".equ __nw__FUiUiPCci,0x002AC578\");\n__asm__(\".equ __18MenuEntryFloatEditPcPffff,0x0023F810\");\n__asm__(\".equ WAVE_PerturbStageName,0x00484928\");\n__asm__(\".equ WAVE_DebugPerturbType,0x00484944\");\n__asm__(\".equ WAVE_PerturbArray,0x00484B58\");\n\nvoid MenuPerturbDuration::OnOpen(Menu *cto, MenuSystem *c)\n{\n    bool memlocked=mem_malloc_locked();\n    mem_lock_malloc(false);\n\n    ClearMenu();\n\n    for (u_int mecount = 0; mecount < 6; ++mecount)\n    {\n        MenuEntryFloatEdit *pmefe = NEW MenuEntryFloatEdit(\n            WAVE_PerturbStageName[mecount + 1],\n            WAVE_PerturbArray[WAVE_DebugPerturbType]->duration + mecount + 1,\n            0.f, 20.f, 0.1f\n            );\n        AddEntry(pmefe);\n    }\n\n    c->Refresh();\n\n    Menu::OnOpen(cto, c);\n\n    mem_lock_malloc(memlocked);\n}\n",
+      "status": "different",
+      "target_size": 316
+    }
+  ],
+  "raw_name": "OnOpen__19MenuPerturbDurationP4MenuP10MenuSystem"
+}
