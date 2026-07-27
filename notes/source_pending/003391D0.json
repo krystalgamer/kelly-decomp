@@ -1,0 +1,23 @@
+{
+  "address": "0x003391D0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b42c99b82d2e437a4aa8af39be0522874b7a3b19",
+      "candidate_size": 288,
+      "compared_bytes": 288,
+      "compared_instructions": 72,
+      "emitted_name": "__8materialR10chunk_fileRC7stringxUiUi",
+      "instruction_score": 4.1667,
+      "matching_bytes": 198,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/material.cpp:291-296; kelly-slaters-pro-surfer/KS/SRC/material.h:38-117,121-218; kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-275; tmp/functions/003391D0___8materialR10chunk_fileRC7stringxUiUi/attempt-1/result.json; tmp/source_first/003391D0/notes.md. Result `different`, score 68.7500; no later attempt.",
+      "score": 68.75,
+      "source": "class stringx\n{\n    char* chars;\n    void* my_buf;\n\npublic:\n    stringx();\n};\n\ntemplate<class T>\nclass vector\n{\n    T* begin;\n    T* end;\n    T* capacity;\n\npublic:\n    vector() : begin(0), end(0), capacity(0) {}\n};\n\nclass hw_texture;\n\ntemplate<class T>\nclass refptr\n{\n    T* pointer;\n};\n\nclass vertex_context\n{\n    unsigned int data;\n};\n\nclass color32\n{\n    unsigned char value[4];\n\npublic:\n    color32(unsigned char r, unsigned char g, unsigned char b, unsigned char a)\n    {\n        value[0] = r;\n        value[1] = g;\n        value[2] = b;\n        value[3] = a;\n    }\n};\n\nclass anim_texture\n{\n    stringx filename;\n    vector<refptr<hw_texture> > frame_list;\n    vector<vertex_context> vc_list;\n    unsigned int tex_flags;\n    unsigned int blend_mode;\n    float blend_amount;\n    color32 diffuse_color;\n\npublic:\n    anim_texture() : tex_flags(0), diffuse_color(255, 255, 255, 255) {}\n};\n\nclass chunk_file;\n\nclass material\n{\npublic:\n    material(chunk_file& io, const stringx& texture_dir,\n             unsigned int additional_mat_flags,\n             unsigned int additional_tex_flags);\n\n    void set_defaults();\n    void build_hash_name();\n\n    stringx material_name;\n    stringx texture_filename[4];\n    anim_texture diffuse_map[4];\n    float u_anim;\n    float v_anim;\n    float det_u_scale;\n    float det_v_scale;\n    float det_range;\n    float det_alpha_clamp;\n    unsigned int mat_flags;\n};\n\nvoid serial_in(chunk_file& io, material* m, const stringx& texture_dir,\n               unsigned int additional_mat_flags,\n               unsigned int additional_tex_flags);\n\n__asm__(\".equ __7stringx, 0x0034D3E0\");\n__asm__(\".equ set_defaults__8material, 0x003394C0\");\n__asm__(\".equ serial_in__FR10chunk_fileP8materialRC7stringxUiUi, 0x00338990\");\n__asm__(\".equ build_hash_name__8material, 0x00339538\");\n\nmaterial::material(chunk_file& io, const stringx& texture_dir,\n                   unsigned int additional_mat_flags,\n                   unsigned int additional_tex_flags)\n{\n    set_defaults();\n    serial_in(io, this, texture_dir, additional_mat_flags, additional_tex_flags);\n    build_hash_name();\n}\n",
+      "status": "different",
+      "target_size": 288
+    }
+  ],
+  "raw_name": "__8materialR10chunk_fileRC7stringxUiUi"
+}
