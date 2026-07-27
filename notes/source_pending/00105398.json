@@ -1,0 +1,23 @@
+{
+  "address": "0x00105398",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "823d617a0fbda003cde17fb2d9269022c6bed9b1",
+      "candidate_size": 200,
+      "compared_bytes": 292,
+      "compared_instructions": 73,
+      "emitted_name": "frame_advance_ai_interfaces__12ai_interfacef",
+      "instruction_score": 1.3699,
+      "matching_bytes": 49,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ai_interface.cpp:775-789; kelly-slaters-pro-surfer/KS/SRC/ai_interface.h:62-69,219-232; kelly-slaters-pro-surfer/KS/SRC/entity_interface.h:38-82; kelly-slaters-pro-surfer/KS/SRC/time_interface.h:69-70; tmp/functions/00105398_frame_advance_ai_interfaces__12ai_interfacef/attempt-1/result.json; tmp/source_first/00105398/notes.md. Result `different`, score 16.7808; no later attempt.",
+      "score": 16.7808,
+      "source": "typedef float rational_t;\ntypedef float time_value_t;\n\nstruct _List_node_base\n{\n  _List_node_base* _M_next;\n  _List_node_base* _M_prev;\n};\n\ntemplate<class T>\nstruct _List_node : public _List_node_base\n{\n  T _M_data;\n};\n\ntemplate<class T>\nstruct _List_iterator\n{\n  typedef _List_iterator<T> self;\n  _List_node_base* _M_node;\n\n  _List_iterator(_List_node_base* x) : _M_node(x) {}\n  T& operator*() const { return ((_List_node<T>*) _M_node)->_M_data; }\n  self& operator++() { _M_node = _M_node->_M_next; return *this; }\n  bool operator!=(const self& x) const { return _M_node != x._M_node; }\n};\n\ntemplate<class T>\nclass list\n{\n  _List_node_base _M_node;\npublic:\n  typedef _List_iterator<T> iterator;\n  iterator begin() { return iterator(_M_node._M_next); }\n  iterator end() { return iterator(&_M_node); }\n};\n\nclass entity;\n\nclass generic_interface\n{\npublic:\n  virtual ~generic_interface();\n};\n\nclass entity_interface : public generic_interface\n{\nprotected:\n  entity *my_entity;\n};\n\nclass time_interface\n{\npublic:\n  rational_t calc_time_dilation() const;\n};\n\nclass entity\n{\npublic:\n  bool has_time_ifc() const;\n  time_interface *time_ifc() const;\n};\n\nextern rational_t g_time_dilation;\n\n#define ENTITY_TIME_DILATION(e)           (e->has_time_ifc() ? e->time_ifc()->calc_time_dilation() : g_time_dilation)\n#define CALC_ENTITY_TIME_DILATION(a, e)   (a*ENTITY_TIME_DILATION(e))\n\nclass ai_interface : public entity_interface\n{\nprotected:\n  unsigned int flags;\n  unsigned int team;\n  unsigned int enemy_team;\n\n  static list<ai_interface *> all_ai_interfaces;\n\npublic:\n  enum\n  {\n    _AI_ACTIVE = 0x00000001\n  };\n\n  bool is_flagged(unsigned int f) const { return((flags & f) != 0); }\n  bool is_active() const { return(is_flagged(_AI_ACTIVE) && my_entity != 0); }\n  void frame_advance(time_value_t t);\n  static void frame_advance_ai_interfaces(time_value_t t);\n};\n\nvoid ai_interface::frame_advance_ai_interfaces(time_value_t t)\n{\n  rational_t tx;\n  list<ai_interface *>::iterator ai = all_ai_interfaces.begin();\n  list<ai_interface *>::iterator ai_end = all_ai_interfaces.end();\n  while(ai != ai_end)\n  {\n    if((*ai)->is_active())\n    {\n      tx = CALC_ENTITY_TIME_DILATION(t, (*ai)->my_entity);\n      (*ai)->frame_advance(tx);\n    }\n    ++ai;\n  }\n}\n",
+      "status": "different",
+      "target_size": 292
+    }
+  ],
+  "raw_name": "frame_advance_ai_interfaces__12ai_interfacef"
+}
