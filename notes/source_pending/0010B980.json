@@ -1,0 +1,23 @@
+{
+  "address": "0x0010B980",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "acba3d1e20d6e71103d2bfdc8bc6c40e18cebdb1",
+      "candidate_size": 292,
+      "compared_bytes": 292,
+      "compared_instructions": 73,
+      "emitted_name": "link__11ai_polypath",
+      "instruction_score": 4.1096,
+      "matching_bytes": 69,
+      "matching_instructions": 3,
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Copied the released `ai_polypath::link` body exactly.\n- Added only self-contained declarations required by the body: the three-pointer `vector` representation, `ai_polypath::cells`, `ai_polypath_cell` side enum, vertex/link accessors, link setter, and `request_link` declaration.\n- Ran `function_test` exactly once. Result: `different`, byte score 23.6301% (69/292), instruction score 4.1096% (3/73), candidate size 292 versus target size 272 bytes.\n- No variants, disassembly comparison, or diff chasing were performed. Because the attempt did not match, no source, prefix, or shared-declaration proposal is made.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ai_polypath.cpp:345-379` \u2014 exact released function body.\n- `kelly-slaters-pro-surfer/KS/SRC/ai_polypath.h:17-55` \u2014 released `ai_polypath` declaration and `CELL_ARRAY` member.\n- `kelly-slaters-pro-surfer/KS/SRC/ai_polypath_cell.h:392-396,427-440` \u2014 exact called method declarations and inline bodies.\n- `tmp/functions/0010B980_link__11ai_polypath/attempt-1/result.json` \u2014 sole test result.",
+      "score": 23.6301,
+      "source": "struct vector3d { float x, y, z; };\n\nclass ai_polypath_cell {\npublic:\n\tenum eCellSide { SIDE_AB = 0, SIDE_BC, SIDE_CA };\n\tbool request_link(const vector3d& a, const vector3d& b, ai_polypath_cell* caller);\n\tinline void set_link(eCellSide side, ai_polypath_cell* caller) { m_Link[side] = caller; }\n\tinline const vector3d& vertex(int Vert) const { return m_Vertex[Vert]; }\n\tinline ai_polypath_cell* link(int side) const { return m_Link[side]; }\nprivate:\n\tchar m_CellPlane[28];\n\tvector3d m_Vertex[3];\n\tchar m_Data[112];\n\tai_polypath_cell* m_Link[3];\n};\n\ntemplate<class T> class vector {\npublic:\n\ttypedef T* iterator;\n\titerator begin() { return first; }\n\titerator end() { return last; }\nprivate:\n\tT* first;\n\tT* last;\n\tT* limit;\n};\n\nclass ai_polypath {\npublic:\n\ttypedef vector<ai_polypath_cell *> CELL_ARRAY;\nprotected:\n\tCELL_ARRAY cells;\n\tvoid link();\n};\n\nvoid ai_polypath::link()\n{\n\tCELL_ARRAY::iterator IterA = cells.begin();\n\n\twhile (IterA != cells.end())\n\t{\n\t\tai_polypath_cell* cellA = *IterA;\n\t\tCELL_ARRAY::iterator IterB = cells.begin();\n\n\t\twhile (IterB != cells.end())\n\t\t{\n\t\t\tai_polypath_cell* cellB = *IterB;\n\n\t\t\tif (IterA != IterB)\n\t\t\t{\n\t\t\t\tif (!cellA->link(ai_polypath_cell::SIDE_AB) && cellB->request_link(cellA->vertex(0), cellA->vertex(1), cellA))\n\t\t\t\t{\n\t\t\t\t\tcellA->set_link(ai_polypath_cell::SIDE_AB, cellB);\n\t\t\t\t}\n\t\t\t\telse if (!cellA->link(ai_polypath_cell::SIDE_BC) && cellB->request_link(cellA->vertex(1), cellA->vertex(2), cellA))\n\t\t\t\t{\n\t\t\t\t\tcellA->set_link(ai_polypath_cell::SIDE_BC, cellB);\n\t\t\t\t}\n\t\t\t\telse if (!cellA->link(ai_polypath_cell::SIDE_CA) && cellB->request_link(cellA->vertex(2), cellA->vertex(0), cellA))\n\t\t\t\t{\n\t\t\t\t\tcellA->set_link(ai_polypath_cell::SIDE_CA, cellB);\n\t\t\t\t}\n\t\t\t}\n\n\t\t\t++IterB;\n\t\t}\n\n\t\t++IterA;\n\t}\n}\n",
+      "status": "different",
+      "target_size": 272
+    }
+  ],
+  "raw_name": "link__11ai_polypath"
+}
