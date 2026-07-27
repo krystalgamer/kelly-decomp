@@ -1,0 +1,23 @@
+{
+  "address": "0x002EDFE8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e05da439bbc5a540f26e22ebdbd14842d8443dbd",
+      "candidate_size": 280,
+      "compared_bytes": 280,
+      "compared_instructions": 70,
+      "emitted_name": "_$_10camMenuObj",
+      "instruction_score": 85.7143,
+      "matching_bytes": 237,
+      "matching_instructions": 60,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/camera_tool.cpp:109-120; kelly-slaters-pro-surfer/KS/SRC/ks/camera_tool.h:18-64; kelly-slaters-pro-surfer/KS/SRC/ks/menu.h:78-120,130-215,279-295. Result `different`, score 84.6429; no later attempt.",
+      "score": 84.6429,
+      "source": "class MenuEntry\n{\n  unsigned int flags;\n\npublic:\n  virtual ~MenuEntry() {}\n};\n\nclass MenuEntryLabel : public MenuEntry\n{\nprotected:\n  const char *label;\n\npublic:\n  virtual ~MenuEntryLabel() {}\n};\n\nclass MenuEntryTitle : public MenuEntryLabel\n{\npublic:\n  virtual ~MenuEntryTitle() {}\n};\n\nclass ChangeCamMenuEntryFunction : public MenuEntryLabel\n{\npublic:\n  virtual ~ChangeCamMenuEntryFunction() {}\n};\n\nclass DeleteCamMenuEntryFunction : public MenuEntryLabel\n{\npublic:\n  virtual ~DeleteCamMenuEntryFunction() {}\n};\n\nclass Menu\n{\n  Menu *parent;\n  int entries;\n  MenuEntry **entry;\n  int activeentry;\n  bool isopen;\n  Menu *closeto;\n  void *control;\n\npublic:\n  virtual ~Menu() {}\n  void DelEntry(MenuEntry *ent);\n};\n\nclass Submenu : public MenuEntryLabel\n{\npublic:\n  virtual ~Submenu() {}\n};\n\nclass camera;\n\nclass camMenuObj\n{\npublic:\n  camMenuObj(char *name, Menu *menu_parent, camera *cam);\n  ~camMenuObj();\n\n  bool deleted;\n  bool po_changed;\n\nprivate:\n  camera *p_dbg_cam;\n  MenuEntryTitle *cam_title;\n  ChangeCamMenuEntryFunction *ent1;\n  DeleteCamMenuEntryFunction *ent2;\n  Menu *inner_menu;\n  Submenu *cam_submenu;\n  Menu *parent;\n};\n\ncamMenuObj::~camMenuObj()\n{\n  inner_menu->DelEntry(cam_title);\n  inner_menu->DelEntry(ent1);\n  inner_menu->DelEntry(ent2);\n  delete cam_title;\n  delete ent1;\n  delete ent2;\n  parent->DelEntry(cam_submenu);\n  delete inner_menu;\n  delete cam_submenu;\n}\n",
+      "status": "different",
+      "target_size": 272
+    }
+  ],
+  "raw_name": "_$_10camMenuObj"
+}
