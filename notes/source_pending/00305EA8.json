@@ -1,0 +1,23 @@
+{
+  "address": "0x00305EA8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cad665c8c700e2efcf1403a034814dd2a40cf4f9",
+      "candidate_size": 180,
+      "compared_bytes": 316,
+      "compared_instructions": 79,
+      "emitted_name": "add_member__12conglomerateP6entityRC7stringx",
+      "instruction_score": 1.2658,
+      "matching_bytes": 33,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/conglom.cpp:687-701; kelly-slaters-pro-surfer/KS/SRC/conglom.h:11-31,97; kelly-slaters-pro-surfer/KS/SRC/entity.h. Result `different`, score 10.4430; no later attempt.",
+      "score": 10.443,
+      "source": "typedef unsigned int u_int;\n\nclass stringx\n{\n  char *chars;\n  void *my_buf;\npublic:\n  stringx(const stringx &);\n};\n\ntemplate<class T> class my_allocator;\nclass malloc_alloc;\n\ntemplate<class T, class Alloc = my_allocator<T> >\nclass vector\n{\npublic:\n  typedef T *iterator;\n  T *start;\n  T *finish;\n  T *end_of_storage;\n  iterator begin() { return start; }\n  iterator end() { return finish; }\n  void _M_insert_aux(iterator, const T &);\n  void push_back(const T &x)\n  {\n    if (finish != end_of_storage)\n    {\n      if (finish) *finish = x;\n      ++finish;\n    }\n    else\n      _M_insert_aux(finish, x);\n  }\n};\n\ntemplate<class Iterator, class T>\nIterator find(Iterator, Iterator, const T &);\n\nclass entity;\nclass entity_link_ifc\n{\n  char pad[8];\n  entity *parent;\npublic:\n  entity *get_parent() const { return parent; }\n};\n\nclass entity\n{\n  char pad0[0x68];\n  entity_link_ifc *my_link_ifc;\n  char pad1[0x12c];\n  u_int ext_flags;\npublic:\n  void set_ext_flag(u_int f, bool set)\n  {\n    if (set) ext_flags |= f;\n    else ext_flags &= ~f;\n  }\n  bool has_parent() const { return my_link_ifc->get_parent() != 0; }\n  entity_link_ifc *link_ifc() const { return my_link_ifc; }\n};\n\nenum { EFLAG_EXT_MEMBER = 0x800 };\ntypedef vector<entity *> pentity_vector;\n\nclass conglomerate : public entity\n{\n  pentity_vector members;\n  vector<stringx, malloc_alloc> names;\n  vector<char> parents;\npublic:\n  void add_member(entity *, const stringx &);\n};\n\nvoid conglomerate::add_member( entity* ent, const stringx& nodename )\n{\n  members.push_back( ent );\n  names.push_back( nodename );\n\n  ent->set_ext_flag(EFLAG_EXT_MEMBER, true);\n\n  char pidx = -1;\n  pentity_vector::iterator ei;\n  ei = find( members.begin(), members.end(), ent->link_ifc()->get_parent() );\n  if ( ei != members.end() )\n    pidx = ei - members.begin();\n  parents.push_back( pidx );\n}\n",
+      "status": "different",
+      "target_size": 316
+    }
+  ],
+  "raw_name": "add_member__12conglomerateP6entityRC7stringx"
+}
