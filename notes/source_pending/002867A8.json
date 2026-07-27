@@ -1,0 +1,23 @@
+{
+  "address": "0x002867A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4c632c30de51c7d48a41532a3d421f02de0d64c2",
+      "candidate_size": 292,
+      "compared_bytes": 292,
+      "compared_instructions": 73,
+      "emitted_name": "Attack__15MeterAttackModeif",
+      "instruction_score": 5.4795,
+      "matching_bytes": 60,
+      "matching_instructions": 4,
+      "notes": "# Attack__15MeterAttackModeif \u2014 first pass A3\n\n- Released body copied exactly, with only self-contained class/player declarations and `MAX_PLAYERS` materialized as `2`.\n- Shared 24-byte player layout is confirmed by the exact matches for `BeginAttacking` and `IsAttacking`.\n- The single non-placeholder compile/compare test produced `different`: 20.5479% byte score, 5.4795% instruction score, 292 candidate bytes versus 284 target bytes.\n- No variants were attempted.",
+      "score": 20.5479,
+      "source": "struct kellyslater_controller;\n\nclass MeterAttackMode\n{\npublic:\n    static int SCORE_DROP_SPEED;\n    static int SCORE_ATTACK_STRENGTH;\n\nprotected:\n    struct PLAYER\n    {\n        kellyslater_controller *ks;\n        float time;\n        int prevScore;\n        int score;\n        bool attacking;\n        int attackScore;\n    };\n\n    PLAYER players[2];\n    int gameNum, setNum;\n\n    void Attack(const int playerIdx, const float dt);\n};\n\nvoid MeterAttackMode::Attack(const int playerIdx, const float dt)\n{\n    int j;\n\n    if (players[playerIdx].attacking)\n    {\n        int diff = int(float(SCORE_DROP_SPEED)*dt);\n\n        if (diff > players[playerIdx].score)\n            diff = players[playerIdx].score;\n        players[playerIdx].score -= diff;\n        players[playerIdx].attackScore += diff;\n\n        while (players[playerIdx].attackScore >= SCORE_ATTACK_STRENGTH)\n        {\n            players[playerIdx].attackScore -= SCORE_ATTACK_STRENGTH;\n            for (j = 0; j < 2; j++)\n            {\n                if (playerIdx != j)\n                {\n                    players[j].time -= 1.0f;\n\n                    if (players[j].time < 0.0f)\n                        players[j].time = 0.0f;\n                }\n            }\n        }\n\n        if (players[playerIdx].score == 0)\n        {\n            players[playerIdx].attacking = false;\n            players[playerIdx].attackScore = 0;\n        }\n    }\n}\n",
+      "status": "different",
+      "target_size": 284
+    }
+  ],
+  "raw_name": "Attack__15MeterAttackModeif"
+}
