@@ -1,0 +1,23 @@
+{
+  "address": "0x00148150",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2e8f42ef59821358d0496744880fef76e44f7cf8",
+      "candidate_size": 280,
+      "compared_bytes": 284,
+      "compared_instructions": 71,
+      "emitted_name": "cons__10TextStringP4FontG7stringxffifQ24Font9HORIZJUSTQ24Font8VERTJUSTbG7color32",
+      "instruction_score": 15.493,
+      "matching_bytes": 131,
+      "matching_instructions": 11,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:130-151; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:48-125; src/KS/SRC/ks/FEPanel_shared.h. Result `different`, score 46.1268; no later attempt.",
+      "score": 46.1268,
+      "source": "class stringx {\n    char *data;\n\npublic:\n    stringx &operator=(const stringx &);\n    ~stringx();\n};\n\nclass Font {\npublic:\n    enum HORIZJUST {\n        HORIZJUST_LEFT,\n        HORIZJUST_CENTER,\n        HORIZJUST_RIGHT\n    };\n    enum VERTJUST {\n        VERTJUST_TOP,\n        VERTJUST_CENTER,\n        VERTJUST_BOTTOM\n    };\n};\n\nclass color32 {\n    unsigned char red;\n    unsigned char green;\n    unsigned char blue;\n    unsigned char alpha;\n\npublic:\n    unsigned char get_alpha() const { return alpha; }\n    void set_alpha(unsigned char value) { alpha = value; }\n};\n\ntemplate <class T>\nvoid adjustCoords(T &, T &);\n\nclass TextString {\n    Font *font;\n    stringx text;\n    float x;\n    float y;\n    int z;\n    Font::HORIZJUST hJustify;\n    Font::VERTJUST vJustify;\n    bool even_number_spacing;\n    int fade;\n    float fade_alpha;\n    float fade_timer;\n    float scale;\n    float button_scale;\n    bool override_alpha;\n\npublic:\n    bool checkTime;\n    float time;\n    bool no_color;\n    color32 color;\n\nprotected:\n    void cons(Font *f, stringx t, float x1, float y1, int z1, float s,\n              Font::HORIZJUST horizJust, Font::VERTJUST vertJust,\n              bool no_col, color32 col);\n};\n\nvoid TextString::cons(Font* f, stringx t, float x1, float y1, int z1, float s, const Font::HORIZJUST horizJust, const Font::VERTJUST vertJust, bool no_col, color32 col)\n{\n\tfont = f;\n\ttext = t;\n\tx = x1;\n\ty = y1;\n\tadjustCoords(x, y);\n\tz = z1;\n\tscale = s;\n\thJustify = horizJust;\n\tvJustify = vertJust;\n\tcheckTime = false;\n\ttime = 1.0f;\n\teven_number_spacing = true;\n\tno_color = no_col;\n\tcolor = col;\n\tif(color.get_alpha() == 0)\n\t\tcolor.set_alpha(255);\n\tfade = 0;\n\tbutton_scale = -1;\n\toverride_alpha = false;\n}\n",
+      "status": "different",
+      "target_size": 284
+    }
+  ],
+  "raw_name": "cons__10TextStringP4FontG7stringxffifQ24Font9HORIZJUSTQ24Font8VERTJUSTbG7color32"
+}
