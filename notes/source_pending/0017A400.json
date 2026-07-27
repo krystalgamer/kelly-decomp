@@ -1,0 +1,23 @@
+{
+  "address": "0x0017A400",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "01029fb79014466a55e1e52c840e2d3c270353e4",
+      "candidate_size": 296,
+      "compared_bytes": 296,
+      "compared_instructions": 74,
+      "emitted_name": "UpdateStateLast__11IGOFrontEndf",
+      "instruction_score": 41.8919,
+      "matching_bytes": 174,
+      "matching_instructions": 31,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/IGOFrontEnd.cpp:2558-2589; kelly-slaters-pro-surfer/KS/SRC/ks/IGOFrontEnd.h:37-55,57-119,306-333,481; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h:585-629; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndManager.h:13-18; kelly-slaters-pro-surfer/KS/SRC/game.h:238,552,631; kelly-slaters-pro-surfer/KS/SRC/ks/beach.h:15-20,81; kelly-slaters-pro-surfer/KS/SRC/ks/judge.h:14-71; tmp/functions/0017A400_UpdateStateLast__11IGOFrontEndf/attempt-1/result.json; notes/function_queue.csv. Result `different`, score 58.7838; no later attempt.",
+      "score": 58.7838,
+      "source": "typedef float time_value_t;\n\nenum game_mode_t\n{\n    GAME_MODE_CAREER,\n    GAME_MODE_FREESURF_INFINITE,\n    GAME_MODE_FREESURF_HIGHSCORE,\n    GAME_MODE_FREESURF_ICON,\n    GAME_MODE_PRACTICE,\n    GAME_MODE_TIME_ATTACK,\n    GAME_MODE_METER_ATTACK,\n    GAME_MODE_SEA_HORSE,\n    GAME_MODE_HEAD_TO_HEAD,\n    GAME_MODE_PUSH\n};\n\nclass game\n{\npublic:\n    bool is_competition_level(void);\n    game_mode_t get_game_mode(void);\n};\n\nclass JudgingSystem\n{\npublic:\n    bool IsCompetitionOver(void) const;\n};\n\nclass beach\n{\npublic:\n    JudgingSystem judges;\n};\n\nclass IGOPrintQueue\n{\npublic:\n    void clear();\n};\n\nclass BoxText\n{\npublic:\n    float time;\n};\n\nclass PauseMenuSystem\n{\npublic:\n    enum\n    {\n        PauseMenu,\n        TimeAttackPauseMenu,\n        TutorialPauseMenu,\n        EndRunMenu,\n        HeatMidMenu,\n        HeatEndMenu,\n        CompEndMenu\n    };\n\n    virtual void UpdateButtonDown();\n    virtual void startDraw(int menu_num = -1, const bool pauseGame = true);\n};\n\nclass FEManager\n{\npublic:\n    void *IGO;\n    PauseMenuSystem *pms;\n};\n\nextern game *g_game_ptr;\nextern beach *g_beach_ptr;\n\nclass IGOFrontEnd\n{\npublic:\n    enum RUNSTATE\n    {\n        RUNSTATE_NORMAL,\n        RUNSTATE_GOALS,\n        RUNSTATE_REWARDS,\n        RUNSTATE_STATS,\n        RUNSTATE_HIGHSCORE,\n        RUNSTATE_PHOTOS,\n        RUNSTATE_SAVE,\n        RUNSTATE_JUDGE,\n        RUNSTATE_RANK,\n        RUNSTATE_MEDAL,\n        RUNSTATE_PUSH,\n        RUNSTATE_TIME_ATTACK,\n        RUNSTATE_METER_ATTACK,\n        RUNSTATE_HEAD_TO_HEAD,\n        RUNSTATE_LAST\n    };\n\n    FEManager *manager;\n    RUNSTATE runState;\n    IGOPrintQueue printQueue;\n    BoxText *otherText;\n\n    void ShowAccompBackground(const bool bgOn, const int hLineFlags = 0, const int vLineFlags = 0);\n    void UpdateStateLast(time_value_t time_inc);\n};\n\nvoid IGOFrontEnd::UpdateStateLast(time_value_t time_inc)\n{\n    ShowAccompBackground(false);\n    runState = RUNSTATE_NORMAL;\n\n    // clear the print queue so no remaining messages will be shown on the next run\n    printQueue.clear(); \n    if (otherText) otherText->time = 0.0f;\n\n    // clear the print queue so no remaining messages will be shown on the next run\n    printQueue.clear(); \n    if (otherText) otherText->time = 0.0f;\n\n    if (g_game_ptr->is_competition_level() && g_game_ptr->get_game_mode() == GAME_MODE_CAREER)\n    {\n        if (!g_beach_ptr->judges.IsCompetitionOver())\n        {\n            manager->pms->startDraw(PauseMenuSystem::HeatEndMenu);\n            manager->pms->UpdateButtonDown();\n        }\n        else\n        {\n            manager->pms->startDraw(PauseMenuSystem::CompEndMenu);\n            manager->pms->UpdateButtonDown();\n        }\n    }\n    else\n    {\n        manager->pms->startDraw(PauseMenuSystem::EndRunMenu);\n        manager->pms->UpdateButtonDown();\n    }\n}\n",
+      "status": "different",
+      "target_size": 296
+    }
+  ],
+  "raw_name": "UpdateStateLast__11IGOFrontEndf"
+}
