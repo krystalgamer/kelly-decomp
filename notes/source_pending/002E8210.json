@@ -1,0 +1,23 @@
+{
+  "address": "0x002E8210",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1fc4388a3e819b338bcbed4a70508870edebd4af",
+      "candidate_size": 268,
+      "compared_bytes": 280,
+      "compared_instructions": 70,
+      "emitted_name": "__10partition3RC8vector3dT1P6sector",
+      "instruction_score": 27.1429,
+      "matching_bytes": 143,
+      "matching_instructions": 19,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/terrain.cpp:50-54; kelly-slaters-pro-surfer/KS/SRC/terrain.h:80-134; kelly-slaters-pro-surfer/KS/SRC/hyperplane.h:18-55; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:292-335; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_math.h:42-45; tmp/functions/002E8210___10partition3RC8vector3dT1P6sector/attempt-1/result.json; tmp/source_first/002E8210/notes.md. Result `different`, score 51.0714; no later attempt.",
+      "score": 51.0714,
+      "source": "typedef float rational_t;\ntypedef float fp;\n\nextern \"C\" float sqrtf(float);\n\nconst rational_t SMALL_DIST = 0.00001f;\n\ninline fp fast_recip_sqrt(fp x)\n{\n  return 1.0F/(rational_t)sqrtf(x);\n}\n\nclass vector3d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z;\n\n  inline vector3d() {}\n  inline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n\n  inline T length2() const\n  { return x*x + y*y + z*z; }\n\n  inline vector3d& operator *= (T d)\n  { x *= d; y *= d; z *= d; return *this; }\n\n  inline vector3d& normalize()\n  {\n    T l2 = length2();\n    if (l2>SMALL_DIST*SMALL_DIST)\n      *this *= fast_recip_sqrt(l2);\n    return *this;\n  }\n};\n\ninline rational_t dot(const vector3d& a, const vector3d& b)\n{ return a.x*b.x + a.y*b.y + a.z*b.z; }\n\ntemplate <class spacial_t>\nclass hyperplane\n{\nprotected:\n  rational_t d;\n  spacial_t normal;\npublic:\n  hyperplane(const spacial_t& c,const spacial_t& n)\n    : normal(n)\n  {\n    normal.normalize();\n    d = dot(normal,c);\n  }\n};\n\nclass sector;\n\nclass partition3 : public hyperplane<vector3d>\n{\npublic:\n  typedef hyperplane<vector3d> _H;\nprivate:\n  sector* my_sector;\npublic:\n  partition3(const vector3d& c, const vector3d& n, sector* s);\n};\n\npartition3::partition3(const vector3d& c, const vector3d& n, sector* s)\n  : _H(c, n),\n    my_sector(s)\n{\n}\n",
+      "status": "different",
+      "target_size": 280
+    }
+  ],
+  "raw_name": "__10partition3RC8vector3dT1P6sector"
+}
