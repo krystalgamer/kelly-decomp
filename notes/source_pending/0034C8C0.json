@@ -1,0 +1,15 @@
+{
+  "address": "0x0034C8C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "08ef8ea6c8600ab3fa4fc4d95512c37fbb05ef2e",
+      "notes": "Attempt 1 used the exact released source for clear_script_callback__6signalRC7stringx. Result `compile_failed`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "#include <list>\n\ntypedef unsigned long long big_int;\n\nclass stringx;\n\nclass string_buf\n{\n    friend class stringx;\n    friend inline bool operator==(const stringx&, const stringx&);\n\n    big_int *data;\n    int ref_count;\n    int char_length;\n    int block_length;\n    int max_blocks;\n\npublic:\n    inline bool is_equal(const string_buf &buf) const\n    {\n        if (buf.block_length != block_length)\n            return false;\n        for (int i = 0; i < block_length; i++)\n            if (!(buf.data[i] == data[i]))\n                return false;\n        return true;\n    }\n};\n\nclass stringx\n{\n    friend inline bool operator==(const stringx&, const stringx&);\n\n    char *chars;\n    string_buf *my_buf;\n};\n\ninline bool operator==(const stringx &lhs, const stringx &rhs)\n{\n    return lhs.my_buf->is_equal(*rhs.my_buf);\n}\n\nclass signaller;\n\nclass signal_callback\n{\npublic:\n    virtual ~signal_callback();\n    virtual void spawn(signaller *source = 0) = 0;\n    virtual bool is_code_callback() { return false; }\n    virtual bool is_script_callback() { return false; }\n};\n\nclass script_callback : public signal_callback\n{\npublic:\n    const stringx &get_func_name();\n};\n\n__asm__(\".equ get_func_name__15script_callback, 0x0034BE60\");\n\nclass signal\n{\n    int flavor;\n    unsigned int flags;\n    const char *signal_name;\n    void *outputs;\n    list<signal_callback*> callbacks;\n\npublic:\n    void clear_script_callback(const stringx &name);\n};\n\nvoid signal::clear_script_callback(const stringx &name)\n{\n  list<signal_callback*>::iterator i = callbacks.begin();\n\n  for ( ; i!=callbacks.end(); ++i )\n  {\n    signal_callback* sc = *i;\n    if ( sc != NULL && sc->is_script_callback() && ((script_callback *)sc)->get_func_name() == name)\n    {\n      callbacks.erase(i);\n      delete sc;\n\n      return;\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "clear_script_callback__6signalRC7stringx"
+}
