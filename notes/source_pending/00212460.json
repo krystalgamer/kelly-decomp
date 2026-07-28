@@ -1,0 +1,16 @@
+{
+  "address": "0x00212460",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "17c1047e205fdc2655be7a8ab93214a9ab57ccf1",
+      "error": "Candidate did not emit SetAnimAndFrame__22kellyslater_controlleriifffbN36; emitted functions: ['SetAnimAndFrame__22kellyslater_controlleriifffbbbb']",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.cpp:1662-1724; kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.h:415-439,819; tmp/functions/00212460_SetAnimAndFrame__22kellyslater_controlleriifffbN36/attempt-1/result.json; tmp/source_first/00212460/attempt-1.md. Result `symbol_missing`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "class entity_anim_tree\n{\npublic:\n  void frame_advance(float time);\n};\n\nclass entity\n{\npublic:\n  entity_anim_tree *get_anim_tree(int slot) const;\n};\n\nenum { ANIM_PRIMARY = 0 };\n\nclass kellyslater_controller\n{\n  char pad0[0x0c];\n  entity *owner;\n  char pad1[0x204];\n  float lastTime;\n  short mAnim;\n  char pad2[0x0a];\n  short bAnim;\n  char pad3[0xc26];\n  entity *my_board_model;\n\npublic:\n  entity *get_owner() { return owner; }\n  void Anim(int animation, float blend_time, bool loop = true,\n            float start_time = 0.0f, bool reverse = false);\n  void BoardAnim(int animation, float blend_time, bool loop = true,\n                 float start_time = 0.0f);\n  void SetAnimAndFrame(int a, int b, float time, float blenda, float blendb,\n                       bool KSLoop, bool BLoop, bool KSAnimCall, bool BAnimCall);\n};\n\n__asm__(\".equ get_anim_tree__C6entityi, 0x001348D8\");\n__asm__(\".equ frame_advance__16entity_anim_treef, 0x001177F0\");\n__asm__(\".equ Anim__22kellyslater_controllerifbfT3, 0x00212660\");\n__asm__(\".equ BoardAnim__22kellyslater_controllerifbf, 0x002128B0\");\n\nvoid kellyslater_controller::SetAnimAndFrame( int a, int b, float time, float blenda, float blendb, bool KSLoop, bool BLoop, bool KSAnimCall, bool BAnimCall )\n{\n  if ((bAnim != b) || BAnimCall)\n  {\n    BoardAnim(b, blendb, BLoop, 0);\n  }\n  else\n  {\n    if (time > lastTime)\n      my_board_model->get_anim_tree(ANIM_PRIMARY)->frame_advance(time-lastTime);\n    else\n      my_board_model->get_anim_tree(ANIM_PRIMARY)->frame_advance(time);\n  }\n\n\tif (( mAnim!=a) || KSAnimCall )\n\t{\n\t\tAnim(a,blenda,KSLoop,0);\n\t}\n\telse\n\t{\n\t\t//Anim(a,0,true,time);\n\t\t//Anim(a,0,false,time);\n    if (time > lastTime)\n      get_owner()->get_anim_tree(ANIM_PRIMARY)->frame_advance(time-lastTime);\n    else\n      get_owner()->get_anim_tree(ANIM_PRIMARY)->frame_advance(time);\n\n\t\t// this doesn't work - the frame doesn't update\n\t\t//mFrame=f;\n    //rational_t start_time = (mFrame / 30.0f);\n    //get_owner()->play_anim(ANIM_PRIMARY, g_surfer_anims[a], start_time, ANIM_NONCOSMETIC | (mAnimDir == SURFER_ANIM_REVERSE ? ANIM_REVERSE : 0));\n\t}\n  lastTime = time;\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "SetAnimAndFrame__22kellyslater_controlleriifffbN36"
+}
