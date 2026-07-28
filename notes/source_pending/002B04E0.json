@@ -1,0 +1,15 @@
+{
+  "address": "0x002B04E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6bddc64287c6da4bb1d3f69b50eb2eefe80cb7c7",
+      "notes": "Attempt 1 used exact released source cited at notes/function_queue.csv:6095; kelly-slaters-pro-surfer/KS/SRC/global.h:84; https://github.com/phracker/MacOSX-SDKs/blob/041600eda65c6a668f66cb7d56b7d1da3e8bcc93/MacOSX10.3.0.sdk/usr/include/gcc/darwin/2.95.2/g%2B%2B/stl_tree.h#L872-L896; tmp/functions/002B04E0_insert_unique__t8_Rb_tree5ZP6regionZP6regionZt9_Identity1ZP6regionZt4less1ZP6regionZt12my_allocato_52ac29c0d246/attempt-1/compiler.stderr:1-8; tmp/functions/002B04E0_insert_unique__t8_Rb_tree5ZP6regionZP6regionZt9_Identity1ZP6regionZt4less1ZP6regionZt12my_allocato_52ac29c0d246/attempt-1/result.json; tmp/source_first/002B04E0/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n\nstruct region;\ntemplate class _Rb_tree<region *, region *, _Identity<region *>, less<region *>, my_allocator<region *> >;\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "insert_unique__t8_Rb_tree5ZP6regionZP6regionZt9_Identity1ZP6regionZt4less1ZP6regionZt12my_allocator1ZP6regionRCP6region"
+}
