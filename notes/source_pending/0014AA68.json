@@ -1,0 +1,23 @@
+{
+  "address": "0x0014AA68",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9ec990beb46285baefb70777fa6e43d6fd7074ef",
+      "candidate_size": 352,
+      "compared_bytes": 376,
+      "compared_instructions": 94,
+      "emitted_name": "SetSize__12TrickBoxTextii",
+      "instruction_score": 27.6596,
+      "matching_bytes": 134,
+      "matching_instructions": 26,
+      "notes": "Exact released-source first-pass attempt using the body from kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:897-927 and minimal declarations/type layout from KS/SRC/ks/FEPanel.h:259-290, KS/SRC/text_font.h:65-106, and KS/SRC/ks/coords.h:21-26.\n\nCanonical result: different; score 35.6383 (instruction score 27.6596). Stopped after this sole candidate test; no retry was attempted.",
+      "score": 35.6383,
+      "source": "extern int nglGetScreenWidth();\nextern int nglGetScreenHeight();\n\ntemplate <class T> void adjustSizes(T &x, T &y)\n{\n\tx = (T) (x*(nglGetScreenWidth()/640.f));\n\ty = (T) (y*(nglGetScreenHeight()/480.f));\n}\n\nclass Font\n{\npublic:\n\tstruct glyph_info\n\t{\n\t\tunsigned char ascii;\n\t\tunsigned int cell_x, cell_y;\n\t\tunsigned int cell_width, cell_height;\n\t\tunsigned int glyph_x, glyph_y;\n\t\tunsigned int glyph_width, glyph_height;\n\t};\n\tenum VERTJUST { VERTJUST_TOP, VERTJUST_CENTER, VERTJUST_BOTTOM };\n\tglyph_info* getGlyph(char c);\n};\n\nstruct StringList\n{\n\tchar pad[8];\n\tfloat x;\n\tfloat y;\n\tchar rest[3000];\n};\n\nclass TrickBoxText\n{\npublic:\n\tFont *font;\n\tchar pad04[8];\n\tfloat x;\n\tfloat y;\n\tchar pad14[8];\n\tFont::VERTJUST vJustify;\n\tchar pad20[16];\n\tfloat scale;\n\tchar pad34[3052];\n\tint numLines;\n\tint lineHeight;\n\tint width;\n\tint height;\n\tchar pad0c30[4];\n\tStringList box_strings[10];\n\n\tvoid SetSize(const int w, const int h);\n};\n\nvoid TrickBoxText::SetSize(const int w, const int h)\n{\n\tfloat\tscale_x = scale, scale_y = scale;\n\t\n\t// Get hardware-dependent width and height.\n\twidth = w;\n\theight = h;\n\tif (width < 0) width = 0;\n\tif (height < 0) height = 0;\n\tadjustSizes(width, height);\n\n\t// Get hardware-dependent font size.\n\tadjustSizes(scale_x, scale_y);\n\tlineHeight = int(font->getGlyph('A')->cell_height*scale_y);\n\tif (lineHeight == 0) lineHeight = 1;\n\n\t// Reposition onscreen text.\n\tfor(int i = 0; i < numLines; i++)\n\t{\n\t\tStringList* tmp = &box_strings[i];\n\n\t\t// X is simple.\n\t\ttmp->x = x+(width/2);\n\t\t\n\t\t// Y is more complicated.\n\t\tif (vJustify == Font::VERTJUST_TOP)\n\t\t\ttmp->y = y+i*lineHeight;\n\t\telse\n\t\t\ttmp->y = (y+height-lineHeight) - i*lineHeight;\n\t}\n}\n",
+      "status": "different",
+      "target_size": 376
+    }
+  ],
+  "raw_name": "SetSize__12TrickBoxTextii"
+}
