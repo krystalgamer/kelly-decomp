@@ -1,0 +1,15 @@
+{
+  "address": "0x002F7940",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4e624fdf0a900104f4d29b038fe0c638e8ab059a",
+      "notes": "Attempt 1 used the exact released source for insert_unique__t8_Rb_tree5ZPQ2t13instance_bank1Z12vr_billboard5ref_tZPQ2t13instance_bank1Z12vr_billboard5ref_tZt9_Identity1ZPQ2t13instance_bank1Z12vr_billboard5ref_tZQ2t13instance_bank1Z12vr_billboard11less_by_ptrZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z12vr_billboard5ref_t. Result `compile_failed`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "#include <set>\n#include \"osalloc.h\"\n\nclass vr_billboard;\n\ntemplate <class T>\nclass instance_bank\n{\npublic:\n  struct ref_t\n  {\n    T* ptr;\n  };\n\n  class less_by_ptr : public binary_function<const ref_t*, const ref_t*, bool>\n  {\n  public:\n    bool operator()(const ref_t* a, const ref_t* b) const\n    {\n      return a->ptr < b->ptr;\n    }\n  };\n};\n\ntypedef instance_bank<vr_billboard> billboard_bank_t;\ntypedef set<billboard_bank_t::ref_t*, billboard_bank_t::less_by_ptr, malloc_alloc>\n  billboard_ref_set_t;\n\npair<billboard_ref_set_t::iterator, bool>\nforce_insert_unique(billboard_ref_set_t& refs, billboard_bank_t::ref_t* const& ref)\n{\n  return refs.insert(ref);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "insert_unique__t8_Rb_tree5ZPQ2t13instance_bank1Z12vr_billboard5ref_tZPQ2t13instance_bank1Z12vr_billboard5ref_tZt9_Identity1ZPQ2t13instance_bank1Z12vr_billboard5ref_tZQ2t13instance_bank1Z12vr_billboard11less_by_ptrZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z12vr_billboard5ref_t"
+}
