@@ -1,0 +1,23 @@
+{
+  "address": "0x0038A8D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5466be03290642b1fda8475b245668855eb0939f",
+      "candidate_size": 344,
+      "compared_bytes": 344,
+      "compared_instructions": 86,
+      "emitted_name": "viBufModifyPts__FP5ViBufP9TimeStamp",
+      "instruction_score": 12.7907,
+      "matching_bytes": 170,
+      "matching_instructions": 11,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NVL/PS2/nvlMPEG_ps2.cpp:69,91,143-172,1538-1542,1849-1888; tmp/functions/0038A8D8_viBufModifyPts__FP5ViBufP9TimeStamp/attempt-1/result.json; tmp/source_first/0038A8D8/attempt-1.md. Result `different`, score 49.4186; no later attempt.",
+      "score": 49.4186,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned int u_long128 __attribute__((mode(TI)));\n\nstruct sceIpuDmaEnv\n{\n    u_int d4madr;\n    u_int d4tadr;\n    u_int d4qwc;\n    u_int d4chcr;\n    u_int d3madr;\n    u_int d3qwc;\n    u_int d3chcr;\n    u_int ipubp;\n    u_int ipuctrl;\n};\n\ntypedef struct\n{\n    long pts;\n    long dts;\n    int pos;\n    int len;\n} TimeStamp;\n\ntypedef struct\n{\n    u_long128 *data;\n    u_long128 *tag;\n    int n;\n    int dmaStart;\n    int dmaN;\n    int readBytes;\n    int buffSize;\n    sceIpuDmaEnv env;\n    int sema;\n    int isActive;\n    long totalBytes;\n    TimeStamp *ts;\n    int n_ts;\n    int count_ts;\n    int wt_ts;\n} ViBuf;\n\n#define TS_NONE (-1)\n#define VIBUF_ELM_SIZE 2048\n#define min(a,b) (((a) < (b)) ? (a) : (b))\n#define max(a,b) (((a) > (b)) ? (a) : (b))\n\nstatic inline int IsPtsInRegion( int tgt, int pos, int len, int size )\n{\n    int tgt1 = (tgt + size - pos) % size;\n    return tgt1 < len;\n}\n\nstatic int viBufModifyPts( ViBuf* f, TimeStamp* new_ts )\n{\n    TimeStamp   *ts;\n    int         rd = ( f->wt_ts - f->count_ts + f->n_ts ) % f->n_ts, datasize =  VIBUF_ELM_SIZE * f->n, loop = 1;\n\n    if( f->count_ts > 0 )\n    {\n        while( loop )\n        {\n            ts = f->ts + rd;\n            if( ts->len == 0 || new_ts->len == 0 )\n            {\n                break;\n            }\n            if( IsPtsInRegion(ts->pos, new_ts->pos, new_ts->len, datasize) )\n            {\n                int len = min( new_ts->pos + new_ts->len - ts->pos, ts->len );\n\n                ts->pos = (ts->pos + len) % datasize;\n                ts->len -= len;\n                if( ts->len == 0 )\n                {\n                    if( ts->pts >= 0 )\n                    {\n                        ts->pts = TS_NONE;\n                        ts->dts = TS_NONE;\n                        ts->pos = 0;\n                        ts->len = 0;\n                    }\n                    f->count_ts = max(f->count_ts - 1, 0);\n                }\n            }\n            else\n            {\n                loop = 0;\n            }\n            rd = (rd + 1) % f->n_ts;\n        }\n    }\n    return 0;\n}\n",
+      "status": "different",
+      "target_size": 340
+    }
+  ],
+  "raw_name": "viBufModifyPts__FP5ViBufP9TimeStamp"
+}
