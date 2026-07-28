@@ -1,0 +1,23 @@
+{
+  "address": "0x003A1010",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "738d0572fe7b9f5e95320aac3100ea4877a47f57",
+      "candidate_size": 440,
+      "compared_bytes": 440,
+      "compared_instructions": 110,
+      "emitted_name": "nglRebaseMesh__FUiUiP7nglMeshb",
+      "instruction_score": 14.5455,
+      "matching_bytes": 117,
+      "matching_instructions": 16,
+      "notes": "# nglRebaseMesh__FUiUiP7nglMeshb\n\n- Address: `0x003A1010`\n- Size: `0x1A8` (424 bytes)\n- Debug source: `C:/NGL/ps2/ngl_ps2.cpp`\n- Reference source: `NGL/PS2/ngl_ps2.cpp`\n- Result: **source_pending**\n\n## Attempts\n\n| # | Status | Byte score | Instruction score | Candidate |\n| ---: | --- | ---: | ---: | --- |\n| 1 | different | 26.5909 | 14.5455 | `candidate.cpp` |\n\n## Outcome\n\nThe single exact released-source body did not match. No source variant was attempted.",
+      "score": 26.5909,
+      "source": "typedef unsigned int u_int;\n\nstruct nglMatrix;\nstruct nglMeshLODInfo;\nstruct nglMaterialInfo\n{\n  u_int Hash;\n  u_int DiffuseKickAddr;\n  u_int DetailKickAddr;\n  u_int EnvironmentKickAddr;\n  u_int LightKickAddr;\n  u_int CmdListEndAddr;\n  u_int* BakedDMA;\n};\n\nstruct nglMaterial\n{\n  char Pad[236];\n  nglMaterialInfo* Info;\n};\n\nstruct nglMeshBatchInfo\n{\n  u_int NVerts;\n  u_int* StripData;\n  float* PosData;\n  float* UVData;\n  u_int* ColorData;\n  float* NormData;\n  float* LightUVData;\n  char* BoneCountData;\n  unsigned short* BoneIdxData;\n  float* BoneWeightData;\n};\n\nstruct nglMeshSection\n{\n  nglMaterial* Material;\n  u_int NVerts;\n  u_int NStrips;\n  float SphereRadius;\n  float SphereCenter[4];\n  u_int NBones;\n  nglMatrix* Bones;\n  u_int NBatches;\n  nglMeshBatchInfo* BatchInfo;\n  u_int* BatchDMA;\n  u_int BatchQWC;\n  u_int BatchBufSize;\n  void (*RenderFn)(void*);\n};\n\nstruct nglMesh\n{\n  char Pad0[68];\n  u_int NLODs;\n  nglMeshLODInfo* LODs;\n  u_int NBones;\n  nglMatrix* Bones;\n  u_int NSections;\n  nglMeshSection* Sections;\n};\n\n#define NGL_ASSERT(Condition, Message)\n\nvoid nglRebaseMesh( u_int NewBase, u_int OldBase, nglMesh* Mesh, bool Scratch /*= false*/ )\n{\n#define PTR_OFFSET( Ptr, Type ) { if ( Ptr ) Ptr = (Type)( (u_int)Ptr + ( (u_int)NewBase - (u_int)OldBase ) ); }\n\n  PTR_OFFSET( Mesh->Bones, nglMatrix* );\n  PTR_OFFSET( Mesh->LODs, nglMeshLODInfo* );\n  PTR_OFFSET( Mesh->Sections, nglMeshSection* );\n\n  for ( u_int i = 0; i < Mesh->NSections; i++ )\n  {\n    nglMeshSection* Section = &Mesh->Sections[i];\n\n    PTR_OFFSET( Section->BatchInfo, nglMeshBatchInfo* );\n    PTR_OFFSET( Section->BatchDMA, u_int* );\n\n    // All meshes are exported with their batch DMA at a multiple of 128 bytes to increase DMA speed.  If this\n    // assert hits, either a) the exporter is broken or b) nglMemAlloc isn't respecting the alignment parameter.\n    NGL_ASSERT( ( (u_int)Section->BatchDMA & 127 ) == 0, \"Invalid mesh image, or nglMemAlloc alignment is broken.\" );\n\n    PTR_OFFSET( Section->Material, nglMaterial* );\n    if ( Scratch )\n    {\n      PTR_OFFSET( Section->Material->Info, nglMaterialInfo* );\n      if ( Section->Material->Info )\n        PTR_OFFSET( Section->Material->Info->BakedDMA, u_int* )\n    }\n\n    for ( u_int j = 0; j < Section->NBatches; j++ )\n    {\n      nglMeshBatchInfo* Batch = &Section->BatchInfo[j];\n      PTR_OFFSET( Batch->StripData, u_int* );\n      PTR_OFFSET( Batch->PosData, float* );\n      PTR_OFFSET( Batch->NormData, float* );\n      PTR_OFFSET( Batch->ColorData, u_int* );\n      PTR_OFFSET( Batch->UVData, float* );\n      PTR_OFFSET( Batch->LightUVData, float* );\n      PTR_OFFSET( Batch->BoneCountData, char* );\n      PTR_OFFSET( Batch->BoneIdxData, unsigned short* );\n      PTR_OFFSET( Batch->BoneWeightData, float* );\n    }\n  }\n#undef PTR_OFFSET\n}\n",
+      "status": "different",
+      "target_size": 424
+    }
+  ],
+  "raw_name": "nglRebaseMesh__FUiUiP7nglMeshb"
+}
