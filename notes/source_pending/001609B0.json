@@ -1,0 +1,23 @@
+{
+  "address": "0x001609B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "047b636433561010003bfdc612875353ebe6d621",
+      "candidate_size": 392,
+      "compared_bytes": 392,
+      "compared_instructions": 98,
+      "emitted_name": "PopCompletedIcons__14IGOIconManagerb",
+      "instruction_score": 1.0204,
+      "matching_bytes": 47,
+      "matching_instructions": 1,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 55 lane A2 for `0x001609B0 PopCompletedIcons__14IGOIconManagerb`.\n- Tested the exact released `IGOIconManager::PopCompletedIcons` body once with minimal self-contained declarations for icon state/layout, scoring access, world/controller access, sound dispatch, and trick-chain replay.\n- Result: **different**, byte score **11.9898%** (47/392) and instruction score **1.0204%** (1/98); candidate size 392 bytes versus target size 368 bytes.\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/igoiconmanager.cpp:1124-1162`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/igoiconmanager.h:116-275`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/scoringmanager.h:284-294`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/SoundScript.h:48-76`\n- `kelly-slaters-pro-surfer/KS/SRC/wds.h:188-190`\n- `tmp/functions/001609B0_PopCompletedIcons__14IGOIconManagerb/attempt-1/result.json`",
+      "score": 11.9898,
+      "source": "typedef int EventType;\n\nclass ScoringManager {\n  char padding[0x20];\n  int score;\npublic:\n  void SetScore(const int s) { score = s; }\n  int GetScore(void) const { return score; }\n};\n\nclass kellyslater_controller {\npublic:\n  ScoringManager my_scoreManager;\n};\n\nclass world_dynamics_system {\n  kellyslater_controller *ks_controller[2];\npublic:\n  kellyslater_controller *get_ks_controller(int n) { return ks_controller[n]; }\n};\n\nextern world_dynamics_system *g_world_ptr;\n\nclass SoundScriptManager {\npublic:\n  static SoundScriptManager *inst();\n  int playEvent(EventType type, void *entity = 0, float fadeInTime = 0);\n};\n\nconst EventType SS_ICON_FAILED_TRICKCHAIN = 0;\nconst int ICON_STATE_FROZEN = 3;\n\nclass IGOIconManager {\npublic:\n  class Icon {\n    char padding0[0x6c];\n  public:\n    float vy;\n    char padding1[0x9];\n    unsigned char state;\n    char padding2[0x2];\n  };\n\nprivate:\n  char padding0[0x700];\n  Icon effectIcons[5];\n  unsigned char numEffectIcons;\n  unsigned char effectType;\n  float effectTime;\n  char padding1[0x420];\n  Icon *icons;\n  char padding2[0xc];\n  int numIcons;\n  int iconCounter;\n  char padding3[0x4];\n  int completedIcons;\n  char padding4[0x5c];\n  bool failure;\n  int prepareFailure;\n  char padding5[0x8];\n  int trickStack[4];\n  int tsSize;\n  char padding6[0x105c];\n  int scoreBonuses[5];\n\npublic:\n  void TrickChain(int trickIdx);\n  void PopCompletedIcons(bool success);\n};\n\nvoid IGOIconManager::PopCompletedIcons(bool success)\n{\n  if(prepareFailure)\n    return;\n\n  if (completedIcons == 0)\n    return;\n\n  failure = false;\n\n  if(success)\n  {\n    iconCounter += completedIcons;\n    int score = g_world_ptr->get_ks_controller(0)->my_scoreManager.GetScore();\n    score += scoreBonuses[completedIcons-1];\n    g_world_ptr->get_ks_controller(0)->my_scoreManager.SetScore(score);\n\n    numEffectIcons = 0;\n    completedIcons = 0;\n    for(int i=0; i<numIcons; i++)\n      if(icons[i].vy == 0.0f)\n        icons[i].vy = 0.01f;\n  }\n  else\n  {\n    SoundScriptManager::inst()->playEvent(SS_ICON_FAILED_TRICKCHAIN);\n    effectType = 2;\n    for(int i=0; i<numEffectIcons; i++)\n      effectIcons[i].state = ICON_STATE_FROZEN;\n    effectTime = 2.0f;\n  }\n\n  for(int i=0; i<tsSize; i++)\n    TrickChain(trickStack[i]);\n  tsSize = 0;\n}\n",
+      "status": "different",
+      "target_size": 368
+    }
+  ],
+  "raw_name": "PopCompletedIcons__14IGOIconManagerb"
+}
