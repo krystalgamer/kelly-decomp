@@ -1,0 +1,23 @@
+{
+  "address": "0x002D38B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0b9e06bcf36ff0f23f702862a68e60b4cde54746",
+      "candidate_size": 308,
+      "compared_bytes": 448,
+      "compared_instructions": 112,
+      "emitted_name": "__8vr_pmeshUi",
+      "instruction_score": 1.7857,
+      "matching_bytes": 87,
+      "matching_instructions": 2,
+      "notes": "First-pass released-source attempt only. The constructor body is unchanged from `kelly-slaters-pro-surfer/KS/SRC/pmesh.cpp:1924-1951`; minimal self-contained declarations model the member layout and required external symbols. Result: different (19.4196% bytes, 1.7857% instructions). Per wave81 instructions, no retry, alternate logic, or post-test diff investigation was performed.",
+      "score": 19.4196,
+      "source": "typedef unsigned int size_t;\n\nvoid* operator new(size_t, unsigned int, const char*, int);\n#define NEW new(0,__FILE__,__LINE__)\n#define NULL 0\n\nenum visrep_t { VISREP_PMESH };\n\nclass visual_rep {\n    int type;\n    float min_detail_dist;\n    float max_detail_dist;\n    bool instanced;\npublic:\n    visual_rep(visrep_t, bool = true);\n    virtual ~visual_rep();\n};\n\nstruct vert { int data[3]; };\nstruct material;\nstruct face;\nstruct reduced_face;\nstruct hw_rasta_vert;\nstruct wedge;\ntypedef unsigned short vert_ref;\ntypedef unsigned short wedge_ref;\ntypedef unsigned short face_ref;\ntypedef short material_ref;\n\nstruct vector3d { float x, y, z; };\nextern const vector3d ZEROVEC;\n\nclass stringx {\n    unsigned int data[2];\npublic:\n    stringx();\n};\n\ntemplate<class T> class vector {\n    T* begin_;\n    T* end_;\n    T* capacity_;\npublic:\n    vector() : begin_(0), end_(0), capacity_(0) {}\n    void resize(unsigned int n) {\n        if (n < (unsigned int)(end_ - begin_)) end_ = begin_ + n;\n        else if (n > (unsigned int)(end_ - begin_)) insert(end_, n - (end_ - begin_), T());\n    }\n    void insert(T*, unsigned int, const T&);\n};\n\ntemplate<class K, class V> class map {\n    void* node;\n    unsigned int count;\n    bool key_compare;\npublic:\n    map() : node(0), count(0), key_compare(false) {}\n};\n\nclass vr_pmesh : public visual_rep {\npublic:\n    typedef map<material_ref, face_ref> material_map;\n    enum { NORMAL=0, FORCE_LIGHT=1, ALLOW_SELF_LIT_MATERIALS=2, LIT_LAST_FRAME=4 };\n    vr_pmesh(unsigned _mesh_flags = 0);\n    virtual ~vr_pmesh();\nprotected:\n    vector<vert>* verts;\n    hw_rasta_vert* xverts;\n    wedge* wedges;\n    int min_faces;\n    int* xverts_for_lod;\n    int num_wedges;\n    face* faces;\n    reduced_face* reduced_faces;\n    int num_faces;\n    vector<material*> materials;\n    vert_ref* vert_refs_for_wedge_ref;\n    wedge_ref* wedge_index_list;\n    short* wedge_lod_starts;\n    face_ref* original_face_for_face_slot;\n    material_map material_changes;\n    vector<int> bones;\n    bool has_translucent_verts;\n    bool progressive;\n    char align0[2];\n    int uvanim_update_frame;\n    vector3d center;\n    float radius;\n    vector3d pivot;\n    int pivot_valid;\n    stringx filename;\n    unsigned mesh_flags;\npublic:\n    int max_detail;\n    int min_detail;\n};\n\n__asm__(\".equ __10visual_rep8visrep_tb, 0x002D7008\");\n__asm__(\".equ __7stringx, 0x0034D3E0\");\n__asm__(\".equ __nw__FUiUiPCci, 0x002AC578\");\n__asm__(\".equ __vt_8vr_pmesh, 0x004F2FF0\");\n__asm__(\".equ ZEROVEC, 0x005887F0\");\n\nvr_pmesh::vr_pmesh( unsigned _mesh_flags )\n         : visual_rep(VISREP_PMESH)\n         , min_faces(0)\n         , max_detail(0)\n{\n  has_translucent_verts = false;\n  mesh_flags = _mesh_flags | LIT_LAST_FRAME;\n  xverts = NULL;\n  uvanim_update_frame = 0;\n  wedges = NULL;\n  vert_refs_for_wedge_ref = NULL;\n  wedge_lod_starts = NULL;\n  original_face_for_face_slot = NULL;\n  faces = NULL;\n  reduced_faces = NULL;\n  wedge_index_list = NULL;\n  num_faces = 0;\n  num_wedges = 0;\n  pivot = ZEROVEC;\n  pivot_valid = false;\n  xverts_for_lod = NULL;\n\n  materials.resize(0);\n  verts = NEW vector<vert>;\n#if defined(TARGET_PC) || XBOX_USE_PMESH_STUFF\n  optimized_verts = NULL;\n#endif\n}\n",
+      "status": "different",
+      "target_size": 448
+    }
+  ],
+  "raw_name": "__8vr_pmeshUi"
+}
