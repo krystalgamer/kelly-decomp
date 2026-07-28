@@ -1,0 +1,23 @@
+{
+  "address": "0x002EDE40",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "237930b9f146c93bc48709c3dc6f44d9b85f084d",
+      "candidate_size": 424,
+      "compared_bytes": 424,
+      "compared_instructions": 106,
+      "emitted_name": "__10camMenuObjPcP4MenuP6camera",
+      "instruction_score": 69.8113,
+      "matching_bytes": 280,
+      "matching_instructions": 74,
+      "notes": "# FIRST PASS wave 75 lane A3 \u2014 0x002EDE40\n\n- Status: **source_pending** (`different`)\n- Attempts: **1**\n- Byte score: **66.0377%** (280/424)\n- Instruction score: **69.8113%** (74/106)\n- Candidate: `tmp/functions/002EDE40___10camMenuObjPcP4MenuP6camera/attempt-1/candidate.cpp`\n- SHA-1: `237930b9f146c93bc48709c3dc6f44d9b85f084d`\n- Candidate/target size: 424/424 bytes\n\nThe exact released constructor body was tested once with minimal declarations. It compiled at the exact target size but differed. No retry, variant, diff chasing, finalization, build, integration, or commit was performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/camera_tool.cpp:92-107`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/camera_tool.h:38-56`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/menu.h:62-89,190-222,272-290`\n- `tmp/functions/002EDE40___10camMenuObjPcP4MenuP6camera/attempt-1/result.json`",
+      "score": 66.0377,
+      "source": "class Menu;\nclass camera;\n\nvoid *operator new(unsigned int, unsigned int, const char *, int);\n\nclass MenuEntry {\n    unsigned int flags;\npublic:\n    MenuEntry() { flags = 3; }\n    virtual ~MenuEntry() {}\n    virtual void Disable();\n};\n\nclass MenuEntryLabel : public MenuEntry {\nprotected:\n    const char *label;\npublic:\n    MenuEntryLabel(const char *t) { label = t; }\n    virtual ~MenuEntryLabel() {}\n};\n\nclass MenuEntryTitle : public MenuEntryLabel {\npublic:\n    MenuEntryTitle(char *t) : MenuEntryLabel(t) { Disable(); }\n    virtual ~MenuEntryTitle() {}\n    virtual void Enable() { Disable(); }\n    virtual void Disable() { MenuEntry::Disable(); }\n};\n\nclass camMenuObj;\n\nclass ChangeCamMenuEntryFunction : public MenuEntryLabel {\n    camMenuObj *parent;\npublic:\n    ChangeCamMenuEntryFunction(char *t, camMenuObj *p) : MenuEntryLabel(t) { parent = p; }\n    virtual ~ChangeCamMenuEntryFunction() {}\n};\n\nclass DeleteCamMenuEntryFunction : public MenuEntryLabel {\n    camMenuObj *parent;\npublic:\n    DeleteCamMenuEntryFunction(char *t, camMenuObj *p) : MenuEntryLabel(t) { parent = p; }\n    virtual ~DeleteCamMenuEntryFunction() {}\n};\n\nclass Submenu : public MenuEntryLabel {\n    Menu *menuopen;\n    Menu *parent;\n    void *system;\npublic:\n    Submenu(char *text, Menu *p) : MenuEntryLabel(text) { menuopen = p; parent = 0; system = 0; }\n    virtual ~Submenu() {}\n};\n\nclass Menu {\npublic:\n    Menu(Menu *);\n    void AddEntry(MenuEntry *);\n};\n\nclass camMenuObj {\npublic:\n    camMenuObj(char *name, Menu *menu_parent, camera *cam);\n    bool deleted;\n    bool po_changed;\nprivate:\n    camera *p_dbg_cam;\n    MenuEntryTitle *cam_title;\n    ChangeCamMenuEntryFunction *ent1;\n    DeleteCamMenuEntryFunction *ent2;\n    Menu *inner_menu;\n    Submenu *cam_submenu;\n    Menu *parent;\n};\n\n#define NEW new(0, \"KS/SRC/ks/camera_tool.cpp\", 0)\n\ncamMenuObj::camMenuObj(char *name, Menu *menu_parent, camera *cam)\n{\n\tdeleted = false;\n\tpo_changed = false;\n\tp_dbg_cam = cam;\n\tparent = menu_parent;\n\tcam_title= NEW MenuEntryTitle(name);\n\tent1 = NEW ChangeCamMenuEntryFunction( \"Change PO\", this );\n\tent2 = NEW DeleteCamMenuEntryFunction(\"Delete Camera\", this );\n\tinner_menu = NEW Menu(menu_parent);\n\tinner_menu->AddEntry(cam_title);\n\tinner_menu->AddEntry(ent1);\n\tinner_menu->AddEntry(ent2);\n\tcam_submenu = NEW Submenu(name, inner_menu);\n\tmenu_parent->AddEntry(cam_submenu);\n}\n",
+      "status": "different",
+      "target_size": 424
+    }
+  ],
+  "raw_name": "__10camMenuObjPcP4MenuP6camera"
+}
