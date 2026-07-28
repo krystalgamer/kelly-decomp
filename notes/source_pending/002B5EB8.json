@@ -1,0 +1,15 @@
+{
+  "address": "0x002B5EB8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "42c940ee2b312a78940a5110c80b5ba7ff281715",
+      "notes": "Attempt 1 used the exact released source for insert_unique__t8_Rb_tree5ZPQ2t13instance_bank1Z8material5ref_tZPQ2t13instance_bank1Z8material5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8material5ref_tZQ2t13instance_bank1Z8material11less_by_ptrZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z8material5ref_t. Result `compile_failed`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "#include <set>\n\nclass material;\n\ntemplate <class T>\nclass instance_bank\n{\npublic:\n  struct ref_t\n  {\n    void *label;\n    T *ptr;\n    unsigned int count;\n  };\n\n  class less_by_ptr : public binary_function<const ref_t *, const ref_t *, bool>\n  {\n  public:\n    bool operator()(const ref_t *a, const ref_t *b) const\n    {\n      return a->ptr < b->ptr;\n    }\n  };\n};\n\ntypedef instance_bank<material>::ref_t material_ref_t;\ntypedef instance_bank<material>::less_by_ptr material_less_by_ptr_t;\ntypedef set<material_ref_t *, material_less_by_ptr_t, malloc_alloc> material_ref_set_t;\n\ntemplate pair<material_ref_set_t::iterator, bool>\nmaterial_ref_set_t::insert(material_ref_t *const &);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "insert_unique__t8_Rb_tree5ZPQ2t13instance_bank1Z8material5ref_tZPQ2t13instance_bank1Z8material5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8material5ref_tZQ2t13instance_bank1Z8material11less_by_ptrZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z8material5ref_t"
+}
