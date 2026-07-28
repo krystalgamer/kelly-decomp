@@ -1,0 +1,23 @@
+{
+  "address": "0x001CA400",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a71e10ef5356875951c0975f472637128c8c9dc8",
+      "candidate_size": 276,
+      "compared_bytes": 388,
+      "compared_instructions": 97,
+      "emitted_name": "_$_17HighScoreFrontEnd",
+      "instruction_score": 2.0619,
+      "matching_bytes": 50,
+      "matching_instructions": 2,
+      "notes": "Attempt 1 used the exact released destructor body from `kelly-slaters-pro-surfer/KS/SRC/ks/HighScoreFrontEnd.cpp:82-92` with minimum layout declarations. It compiled as `_$_17HighScoreFrontEnd` but differed: 12.8866% bytes, 2.0619% instructions. No later attempt was made.",
+      "score": 12.8866,
+      "source": "class FEMultiMenu {\n    char layout[0x15c];\npublic:\n    virtual ~FEMultiMenu();\n};\n\nclass TextString {\npublic:\n    virtual ~TextString();\n};\n\nclass NameEntryMenu {\npublic:\n    virtual ~NameEntryMenu();\n};\n\nclass HighScoreFrontEnd : public FEMultiMenu {\n    void* sys;\n    TextString* column_labels[5];\n    TextString* info[10][5];\n    void* arrows[2][2];\n    void* line;\n    int arrow_counter;\n    int arrow_num;\n    unsigned int labelColor;\n    bool in_game;\n    float flash_timer;\n    int next_menu;\n    void* all_beaches[28 * 2];\n    NameEntryMenu* nem;\n    void* fade;\n    void* lines[19];\n    int first_line;\n    int second_line;\npublic:\n    virtual ~HighScoreFrontEnd();\n};\n\nHighScoreFrontEnd::~HighScoreFrontEnd()\n{\n    for(int i=0; i<5; i++)\n    {\n        for(int j=0; j<10; j++)\n            delete info[j][i];\n        delete column_labels[i];\n    }\n\n    delete nem;\n}\n",
+      "status": "different",
+      "target_size": 388
+    }
+  ],
+  "raw_name": "_$_17HighScoreFrontEnd"
+}
