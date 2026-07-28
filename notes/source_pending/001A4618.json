@@ -1,0 +1,23 @@
+{
+  "address": "0x001A4618",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5618ab94352e31a1a17a2d7dec39c41b71b86265",
+      "candidate_size": 440,
+      "compared_bytes": 440,
+      "compared_instructions": 110,
+      "emitted_name": "findMostRecentGame__16MCDetectFrontEndRiT1R8saveInfo",
+      "instruction_score": 10.9091,
+      "matching_bytes": 154,
+      "matching_instructions": 12,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- Confirmed there were no prior attempts.\n- Copied the exact active released `MCDetectFrontEnd::findMostRecentGame(int &, int &, saveInfo &)` body from `kelly-slaters-pro-surfer/KS/SRC/ks/MCDetectFrontEnd.cpp:354-397`.\n- Added minimal self-contained declarations from the released PS2 game-saver interface.\n- Ran `function_test` exactly once. Result: `different`, byte score 35.0%, instruction score 10.9091%.\n- Candidate size was 440 bytes versus the 412-byte target.\n- No variants, retries, diff chasing, build, finalization, integration, commit, push, or tracked-file edits were performed.\n- Because the attempt did not match, no source, prefix, or shared-declaration proposal is included.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/MCDetectFrontEnd.cpp:354-397`\n- `kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_gamesaver.h:26-50,72-94`\n- `config/SLUS_203.34.symbol_addrs.txt`\n- `tmp/functions/001A4618_findMostRecentGame__16MCDetectFrontEndRiT1R8saveInfo/attempt-1/result.json`",
+      "score": 35.0,
+      "source": "// Target: 0x001A4618 findMostRecentGame__16MCDetectFrontEndRiT1R8saveInfo\n// Reference: KS/SRC/ks/MCDetectFrontEnd.cpp\ntypedef struct\n{\n    float version;\n    int type;\n    char shortname[8];\n    char desc[68];\n    long int timestamp;\n    int valid;\n} saveInfo;\n\nclass GenericGameSaver\n{\npublic:\n    static GenericGameSaver *instance;\n    static GenericGameSaver *inst() { return instance; }\n    int getFirstCard() { return 0; }\n    static int getInfo(int port, int slot, int *type, int *free, int *formatted);\n    int getFileListing(int port, int slot, saveInfo *s,\n                       void (*progressCallback)(void *, float),\n                       void *userCallbackData);\n};\n\nclass MCDetectFrontEnd\n{\npublic:\n    bool findMostRecentGame(int &savePort, int &saveSlot, saveInfo &mostRecent);\n};\n\nextern \"C\" void *memcpy(void *dest, const void *src, unsigned int count);\n\n__asm__(\".equ _16GenericGameSaver$instance, 0x0041E5B8\");\n__asm__(\".equ getInfo__16GenericGameSaveriiPiN23, 0x001E3DC0\");\n__asm__(\".equ getFileListing__16GenericGameSaveriiP8saveInfoPFPvf_vPv, 0x001E45D8\");\n__asm__(\".equ memcpy, 0x003D171C\");\n\nbool MCDetectFrontEnd::findMostRecentGame(int &savePort, int &saveSlot, saveInfo &mostRecent)\n{\n\t// Try to find an actual game to load\n\tint port, slot, retVal = -2;\n\tint type, free, formatted, oldestDate = 0;\n\tsaveInfo SavedData[20];\n\tmostRecent.valid = -2;\n\tfor(port = GenericGameSaver::inst()->getFirstCard(); port < 2; port++)\n\t\tfor(slot = 0; slot < 1; slot++)\n\t\t{\n\t\t\tif (port == -1 && slot == 1)\n\t\t\t\tcontinue;\n\t\t\tretVal = GenericGameSaver::inst()->getInfo(port,slot, &type, &free, &formatted);\n\n\t\t\tif (retVal == 0)\n\t\t\t{\n\t\t\t\tint numGames = GenericGameSaver::inst()->getFileListing(port,slot, SavedData, 0, 0);\n\t\t\t\tfor (int i=0; i < numGames; i++)\n\t\t\t\t{\n\t\t\t\t\tif (SavedData[i].valid == 0)\n\t\t\t\t\t{\n\t\t\t\t\t\tif (SavedData[i].timestamp > oldestDate)\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\toldestDate = SavedData[i].timestamp;\n\t\t\t\t\t\t\tsavePort = port;\n\t\t\t\t\t\t\tsaveSlot = slot;\n\n\t\t\t\t\t\t\tmemcpy(&mostRecent, &(SavedData[i]), sizeof(saveInfo));\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\t\t}\n\n\tif (mostRecent.valid == 0)\n\t{\n\t\treturn true;\n\t}\n\telse\n\t{\n\t\treturn false;\n\t}\n}\n",
+      "status": "different",
+      "target_size": 412
+    }
+  ],
+  "raw_name": "findMostRecentGame__16MCDetectFrontEndRiT1R8saveInfo"
+}
