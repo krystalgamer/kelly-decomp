@@ -1,0 +1,15 @@
+{
+  "address": "0x0031F820",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "631f6076caca560393bf3028283c675274f1e421",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/script_lib.cpp:1208-1223; kelly-slaters-pro-surfer/KS/SRC/vm_stack.h:10-12,21-58,82-94; kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:22-61,279-300; kelly-slaters-pro-surfer/KS/SRC/wds.h:377; tmp/functions/0031F820___cl__18slf_get_time_inc_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/compiler.stderr:1-4; tmp/functions/0031F820___cl__18slf_get_time_inc_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/result.json; tmp/source_first/0031F820/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "class stringx\n{\npublic:\n  stringx();\n  stringx(const stringx &);\n  ~stringx();\n};\n\nstringx operator+(const char *, const stringx &);\nstringx operator+(const stringx &, const char *);\n\nclass script_instance\n{\npublic:\n  const stringx &get_name() const;\n};\n\nclass script_executable\n{\npublic:\n  const stringx &get_fullname() const;\n};\n\nclass vm_thread\n{\npublic:\n  script_instance *get_instance() const;\n  script_executable *get_executable() const;\n};\n\ntypedef float vm_num_t;\n\nclass vm_stack\n{\n  int salloc;\n  char *buffer;\n  char *SP;\n  vm_thread *my_thread;\npublic:\n  vm_thread *get_thread() const { return my_thread; }\n  bool push(const char *, int);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n\n    virtual ~function();\n    virtual bool operator()(vm_stack &, entry_t) { return true; }\n  };\n};\n\ntypedef float time_value_t;\n\nclass world_dynamics_system\n{\n  time_value_t cur_time_inc;\npublic:\n  time_value_t get_cur_time_inc() const { return cur_time_inc; }\n};\n\nextern world_dynamics_system *g_world_ptr;\nvoid error(const stringx &);\n\nclass slf_get_time_inc_t : public script_library_class::function\n{\npublic:\n  virtual bool operator()(vm_stack &stack, entry_t entry)\n  {\n    vm_num_t result = g_world_ptr->get_cur_time_inc();\n    if (!stack.push((char*)&result,sizeof(result)) )\n      error( stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname() );\n    return true;\n  }\n};\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__cl__18slf_get_time_inc_tR8vm_stackQ320script_library_class8function7entry_t"
+}
