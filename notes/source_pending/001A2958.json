@@ -1,0 +1,23 @@
+{
+  "address": "0x001A2958",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1d0508fcb7a10655f8ea2a80e7d52ba392f34983",
+      "candidate_size": 452,
+      "compared_bytes": 468,
+      "compared_instructions": 117,
+      "emitted_name": "OnActivate__12KeyboardMenu",
+      "instruction_score": 5.9829,
+      "matching_bytes": 74,
+      "matching_instructions": 7,
+      "notes": "FIRST PASS wave85 B3 tested the exact released `KeyboardMenu::OnActivate` body once with minimal standalone declarations. Result: `different` (score 15.812); no retry, post-test chase, build, finalize, integration, or tracked edits.",
+      "score": 15.812,
+      "source": "extern \"C\" unsigned int strlen(const char *);\n\nclass stringx\n{\n  char data[16];\npublic:\n  stringx();\n  stringx(const stringx &);\n  ~stringx();\n  stringx &operator=(const char *);\n  void append(const char *, int = -1);\n  void append(char c) { append(&c, 1); }\n  void to_upper();\n};\n\nclass FEMenuEntry\n{\npublic:\n  int entry_num;\n};\n\nclass TextString\n{\npublic:\n  virtual void changeText(stringx);\n};\n\nclass HelpbarFE\n{\npublic:\n  void Reset();\n  void Reformat();\n};\n\nstruct FEManager\n{\n  char pad[0x156a4];\n  HelpbarFE *helpbar;\n};\n\nclass SaveLoadFrontEnd\n{\n  char pad[0x32b4];\npublic:\n  bool in_frontend;\n};\n\nclass FEGraphicalMenu\n{\nprotected:\n  char pad0[0x4c];\n  FEMenuEntry *highlighted;\n  char pad1[0x74 - 0x50];\npublic:\n  virtual void setHigh(FEMenuEntry *, bool = true);\n  virtual void OnActivate();\nprotected:\n  char pad2[0x13c - 0x78];\n  FEManager *manager;\n};\n\nclass FEMultiMenu : public FEGraphicalMenu\n{\n};\n\nclass Career\n{\npublic:\n  int GetSurferIdx();\n};\n\nstruct SurferData\n{\n  char pad[444];\n  char firstname[32];\n  char lastname[32];\n  char rest[144];\n};\n\nextern Career *g_career;\nextern SurferData SurferDataArray[];\n\nclass KeyboardMenu : public FEMultiMenu\n{\n  FEMenuEntry *ent[40];\n  TextString *filename;\n  TextString *enter_text;\n  TextString *name_text;\n  SaveLoadFrontEnd *sl_parent;\n  char pad3[0x3fc - 0x210];\n  stringx name;\n  bool default_cleared;\npublic:\n  void TurnPQ(bool);\n  void KeyOn(int, bool);\n  void Switch(FEMenuEntry *, FEMenuEntry *);\n  virtual void OnActivate();\n};\n\nvoid KeyboardMenu::OnActivate()\n{\n\t\n\tTurnPQ(true);\n\tFEMultiMenu::OnActivate();\n\tKeyOn(highlighted->entry_num, true);\n\n\tif(sl_parent->in_frontend)\n\t{\n\t\tmanager->helpbar->Reset();\n\t\tmanager->helpbar->Reformat();\n\t}\n\n\tname = \"\";\n\tif (strlen(SurferDataArray[g_career->GetSurferIdx()].lastname) > 0)\n\t{\n\t\tname.append(SurferDataArray[g_career->GetSurferIdx()].firstname[0]);\n\t\tname.append(' ');\n\t\tname.append(SurferDataArray[g_career->GetSurferIdx()].lastname);\n\t\tname.to_upper();\n\t}\n\telse\n\t{\n\t\tname.append(SurferDataArray[g_career->GetSurferIdx()].firstname);\n\t\tname.to_upper();\n\t}\n\tfilename->changeText(name);\n\tdefault_cleared = false;\n\n\tSwitch(highlighted, ent[38]);\n\tsetHigh(ent[38]);\n}\n",
+      "status": "different",
+      "target_size": 468
+    }
+  ],
+  "raw_name": "OnActivate__12KeyboardMenu"
+}
