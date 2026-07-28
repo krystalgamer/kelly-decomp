@@ -1,0 +1,23 @@
+{
+  "address": "0x002562E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7ce09687a11a46158faa581424b49cca885118b5",
+      "candidate_size": 484,
+      "compared_bytes": 484,
+      "compared_instructions": 118,
+      "emitted_name": "play__8RandomVO",
+      "instruction_score": 11.0169,
+      "matching_bytes": 133,
+      "matching_instructions": 13,
+      "notes": "# Released-source FIRST PASS wave 80 lane B5\n\n- Target: `0x002562E0 play__8RandomVO`, 448 bytes (`0x1C0`)\n- Object: `game/files_kellyslater`\n- Zero attempts confirmed before preparation: queue status `pending`, attempts `0`, and no scratch/lane directory existed.\n- Candidate uses the exact released function body unchanged, with minimal faithful self-contained declarations and no unavailable project headers.\n- Released source citation: `kelly-slaters-pro-surfer/KS/SRC/ks/VOEngine.cpp:41-97`; layout citation: `kelly-slaters-pro-surfer/KS/SRC/ks/VOEngine.h:27,37-64`; random semantics citation: `kelly-slaters-pro-surfer/KS/SRC/random.h:13,17,64-96,113-146`.\n- Target assembly inspected before testing: `tmp/functions/002562E0_play__8RandomVO/target.s`.\n- Exactly one candidate test was run. Result: `different`, score `27.4793`, instruction score `11.0169`, matching bytes `133/484`, matching instructions `13/118`, emitted size `484`, target size `448`.\n- Candidate SHA-1: `7ce09687a11a46158faa581424b49cca885118b5`.\n- Result: `tmp/functions/002562E0_play__8RandomVO/attempt-1/result.json`.\n- No retry, alternative body, variant, asm/matching annotation, or post-test diff chasing was performed. Attempts 2-5 were not run.\n- `tracked_files_changed=false`; `finalized=false`; `integrated=false`.",
+      "score": 27.4793,
+      "source": "#define MAX_RANDOM_SOURCES 50\n#define NSL_INVALID_ID 0\n\ntypedef unsigned int nslSoundId;\ntypedef unsigned int nslSourceId;\ntypedef unsigned int nslEmitterId;\n\nclass Random\n{\npublic:\n  unsigned int NextRand();\n};\n\nextern Random *g_random_ptr;\n\ninline float random()\n{\n  float r = g_random_ptr->NextRand() * (1.0f/32767);\n  return r;\n}\n\ninline int random(int end)\n{\n  unsigned int r = g_random_ptr->NextRand();\n  return r % end;\n}\n\nextern nslSoundId nslAddSound(nslSourceId source);\nextern void nslPlaySound(nslSoundId sound);\n\nclass RandomVO\n{\nprivate:\n  float             probability;\n  nslSoundId        thisSound;\n  int               totalSources;\n  int               numUsedSources;\n  int               numUnusedSources;\n  bool              valid;\n  int               lastSource;\n  int               probablity;\n  nslEmitterId      pos;\n  nslSourceId sources[MAX_RANDOM_SOURCES];\n  nslSourceId sourcesUsed[MAX_RANDOM_SOURCES];\n  nslSourceId sourcesUnused[MAX_RANDOM_SOURCES];\npublic:\n  int  play();\n};\n\nint RandomVO::play()\n{\n  int index = 0;\n  if (!valid) return NSL_INVALID_ID;\n  if (totalSources == 0) return NSL_INVALID_ID;\n\n  // Have we run out?\n  // Then move them all back\n  if (numUnusedSources == 0) {\n    for (int i=0; i < totalSources; i++)\n    {\n      sourcesUnused[i] = sources[i];\n      sourcesUsed[i] = NSL_INVALID_ID;\n    }\n    numUnusedSources = totalSources;\n    numUsedSources = 0;\n  }\n  // Check random factor to see if we should\n  // play\n  float val = random();\n  if (val > probability)\n    return NSL_INVALID_ID;\n\n  // Random number between 0 and unused - 1\n  int src = random(numUnusedSources);\n\n  for (int i=0; i < totalSources; i++)\n  {\n    if (sources[i] == sourcesUnused[src])\n      index = i;\n  }\n  lastSource = sourcesUnused[src];\n  if (lastSource != NSL_INVALID_ID)\n  {\n    //  Create that sound\n    thisSound = nslAddSound(lastSource);\n    if (thisSound != NSL_INVALID_ID)\n    {\n      // add it to the used list\n      sourcesUsed[numUsedSources++] = src;\n      // Move the last one to the spot that we removed\n      sourcesUnused[src] = sourcesUnused[--numUnusedSources];\n      // Play it.. it will get done soon enough\n      if (thisSound != NSL_INVALID_ID)\n        nslPlaySound(thisSound);\n    }\n    else\n    {\n      return NSL_INVALID_ID;\n    }\n  }\n  else\n  {\n    return NSL_INVALID_ID;\n  }\n  return thisSound;\n}\n",
+      "status": "different",
+      "target_size": 448
+    }
+  ],
+  "raw_name": "play__8RandomVO"
+}
