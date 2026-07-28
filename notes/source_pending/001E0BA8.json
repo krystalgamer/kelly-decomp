@@ -1,0 +1,15 @@
+{
+  "address": "0x001E0BA8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "396ce35955c5ee8faf0b7922c5d15ad4530b8314",
+      "notes": "Attempt 1 used the exact released source body and minimal declarations for `set_fp__7os_fileiQ27os_file9filepos_t`. Result `compile_failed`, score 0.0000; no retry or declaration variant was made. Citations: kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_file.cpp:23-46, kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_file.cpp:572-626, kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_file.h:12-109, config/SLUS_203.34.symbol_addrs.txt, notes/function_queue.csv, tmp/functions/001E0BA8_set_fp__7os_fileiQ27os_file9filepos_t/attempt-1/result.json, tmp/functions/001E0BA8_set_fp__7os_fileiQ27os_file9filepos_t/attempt-1/compiler.stderr, tmp/source_first/001E0BA8/attempt-1.md.",
+      "score": 0.0,
+      "source": "#define assert(x) ((void)0)\n#define MAX_DISK_OP_TRIES 300\n#define SCE_SEEK_SET 0\n#define SCE_SEEK_CUR 1\n#define SCE_SEEK_END 2\n\nstatic int g_error_condition;\nstatic int g_try_count;\n\nextern \"C\" int sceLseek(int, int, int);\n\nclass os_file\n{\npublic:\n  enum filepos_t\n  {\n    FP_BEGIN,\n    FP_CURRENT,\n    FP_END\n  };\n\n  int get_size();\n  int set_fp(int pos, filepos_t base);\n\nprivate:\n  int name[2];\n  int flags;\n  int opened;\n  int eof;\n  int from_cd;\n  union\n  {\n    int host;\n    char cd[36];\n  } io;\n  int curr_fp;\n};\n\n__asm__(\".equ get_size__7os_file, 0x001E0A48\");\n__asm__(\".equ sceLseek, 0x003DED80\");\n__asm__(\".equ g_error_condition, 0x003FE3A4\");\n__asm__(\".equ g_try_count, 0x003FE3A8\");\n\n#define RETRY_LOOP_ENTRY g_try_count = 0; do{\n#define RETRY_LOOP_WHILE(cond) g_error_condition = ((cond)); g_try_count++; }while( ( g_try_count < MAX_DISK_OP_TRIES ) && g_error_condition );\n#define ON_RETRY_ERROR if( g_error_condition )\n\nint os_file::set_fp( int pos, filepos_t base )\n{\n  int method = 0;\n  int ret = -1;\n  \n  int size = get_size();\n\n  switch( base )\n  {\n    case FP_BEGIN:\n      curr_fp = pos;\n      break;\n\n    case FP_CURRENT:\n      curr_fp += pos;\n      break;\n\n    case FP_END:\n      curr_fp = size + pos;\n      break;\n\n    default:\n      assert( 0 );\n      break;\n  }\n\n  if( curr_fp > size ) curr_fp = size - 1;\n  if( curr_fp < 0 ) curr_fp = 0;\n\n  if( !from_cd )\n  {\n    switch ( base )\n    {\n      case FP_BEGIN:\n        method = SCE_SEEK_SET;\n        break;\n      case FP_CURRENT:\n        method = SCE_SEEK_CUR;\n        break;\n      case FP_END:\n        method = SCE_SEEK_END;\n        break;\n    }\n    RETRY_LOOP_ENTRY;\n      ret = sceLseek(io.host, pos, method);\n    RETRY_LOOP_WHILE( ret < 0 );\n\n    ON_RETRY_ERROR{ eof = true; return -1; };\n  }\n\n  // could actually be true now, but chances are it will be false.\n  eof = false;\n\n  return ret;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "set_fp__7os_fileiQ27os_file9filepos_t"
+}
