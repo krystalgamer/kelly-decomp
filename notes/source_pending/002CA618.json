@@ -1,0 +1,15 @@
+{
+  "address": "0x002CA618",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e48dd67719d144c9037ba5524c5f2e4b3c3f9bd5",
+      "notes": "Attempt 1 used the exact released source for _$_7element. Result `compile_failed`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/custom_stl.h\"\n\nclass element;\nclass event;\ntypedef list<element *> element_list_t;\ntypedef list<event *> event_list_t;\n\nclass element_manager {\npublic:\n  static element_manager *inst();\n  void remove_element(element *e);\n};\n\nstruct rectf { float x0, y0, x1, y1; };\nstruct color { float r, g, b, a; };\n\nclass element\n{\npublic:\n  virtual ~element();\n  void event_flush();\n  virtual void render() = 0;\nprotected:\n  element *parent;\n  int type;\n  unsigned int flags;\n  element_list_t subelements;\n  rectf subrect;\n  float R[2][2];\n  float T[2];\n  float S[2];\n  float S_Override[2];\n  float O[2];\n  float angle;\n  color mycolor[4];\n  event_list_t event_run_list;\n  bool linear_animation;\n};\n\nelement::~element()\n{\n  if ( parent )\n    parent->subelements.remove( this );\n  else\n    element_manager::inst()->remove_element( this );\n\n  event_flush();\n  while( subelements.size() )\n    delete *subelements.begin();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_7element"
+}
