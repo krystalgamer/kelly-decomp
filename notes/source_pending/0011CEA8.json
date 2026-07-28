@@ -1,0 +1,23 @@
+{
+  "address": "0x0011CEA8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "727bc57bb38027d1cb2628c7717a111e56003142",
+      "candidate_size": 344,
+      "compared_bytes": 400,
+      "compared_instructions": 100,
+      "emitted_name": "load__10scene_animRC7stringx",
+      "instruction_score": 4.0,
+      "matching_bytes": 67,
+      "matching_instructions": 4,
+      "notes": "# FIRST PASS wave 67 lane B5 \u2014 0x0011CEA8\n\n- Confirmed there were no prior attempts.\n- Copied the exact active released `scene_anim::load` body from `kelly-slaters-pro-surfer/KS/SRC/scene_anim.cpp:199-209`.\n- Added minimal self-contained declarations for `stringx`, `filespec`, and `scene_anim` while preserving the released body exactly.\n- Ran `function_test` exactly once. Result: `different`, byte score 16.7500%, instruction score 4.0000%.\n- No variants, retries, diff chasing, build, finalization, integration, commit, push, tool edits, subagents, or tracked-file edits were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/scene_anim.cpp:199-209`\n- `kelly-slaters-pro-surfer/KS/SRC/filespec.h:9-22`\n- `kelly-slaters-pro-surfer/KS/SRC/stringx.h:276-291,462-465`\n- `tmp/functions/0011CEA8_load__10scene_animRC7stringx/attempt-1/result.json`",
+      "score": 16.75,
+      "source": "typedef unsigned int big_int;\n\nclass string_buf\n{\npublic:\n  big_int *data;\n  int max_blocks;\n  int block_length;\n  int char_length;\n  int ref_count;\n\n  inline int compare(const char *str) const\n  {\n    int i;\n    const char *a = reinterpret_cast<const char *>(data);\n    for (i = 0; i < char_length; i++) {\n      if (str[i] == '\\0') return -1;\n      if (a[i] == str[i]) continue;\n      if (str[i] > a[i]) return 1;\n      if (str[i] < a[i]) return -1;\n    }\n    if (str[i] == '\\0') return 0;\n    return 1;\n  }\n\n  inline bool is_equal(const char *str) const\n  {\n    return (compare(str) == 0);\n  }\n};\n\nclass stringx\n{\n  friend inline bool operator==(const stringx& lhs, const char *rhs);\nprotected:\n  char *chars;\n  string_buf *my_buf;\npublic:\n  ~stringx();\n};\n\ninline bool operator==(const stringx& lhs, const char *rhs)\n{\n  return lhs.my_buf->is_equal(rhs);\n}\n\nclass filespec\n{\npublic:\n  stringx path;\n  stringx name;\n  stringx ext;\n  explicit filespec(const stringx& s);\n};\n\nclass scene_anim\n{\npublic:\n  void load(const stringx& filename);\nprivate:\n  void text_load(const stringx& filename);\n  void binary_load(const stringx& filename);\n};\n\nvoid scene_anim::load( const stringx& filename )\n{\n  filespec spec( filename );\n\n  if( spec.ext == \".snm\" || spec.ext == \".SNM\" ) {\n    text_load( filename );\n  } else {\n    binary_load( filename );\n  }\n\n}\n",
+      "status": "different",
+      "target_size": 400
+    }
+  ],
+  "raw_name": "load__10scene_animRC7stringx"
+}
