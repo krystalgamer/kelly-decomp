@@ -1,0 +1,23 @@
+{
+  "address": "0x0038FE60",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4316184d5e6d1b87edb29e6d38a3abe285f2d6b1",
+      "candidate_size": 384,
+      "compared_bytes": 388,
+      "compared_instructions": 97,
+      "emitted_name": "nslPopBank__Fv",
+      "instruction_score": 8.2474,
+      "matching_bytes": 98,
+      "matching_instructions": 8,
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Result: **different**\n- Byte score: **25.2577%** (98/388)\n- Instruction score: **8.2474%** (8/97)\n- Candidate size: `384` bytes; target size: `388` bytes.\n- Used the exact released `nslPopBank` body with only minimal faithful declarations and layouts required to compile it.\n- No variants, diff chasing, later attempts, build, finalization, integration, or tracked-file edits were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2.cpp:324-362`\n- `kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2.h:39-77,125-249`\n- `kelly-slaters-pro-surfer/NSL/PS2/gas.h:159`\n- `config/SLUS_203.34.symbol_addrs.txt`\n- `tmp/functions/0038FE60_nslPopBank__Fv/attempt-1/result.json`",
+      "score": 25.2577,
+      "source": "typedef unsigned int nslSoundId;\ntypedef unsigned int nslSourceId;\n\nstruct nslSource\n{\n  bool used;\n  char storage[55];\n  int bank;\n  char tail[36];\n};\n\nstruct nslSound\n{\n  char flags[4];\n  bool used;\n  char storage[47];\n  nslSoundId myId;\n  nslSourceId mySource;\n  char tail[28];\n};\n\nstruct nslSystem\n{\n  char listenerPo[64];\n  nslSource sourceSlots[512];\n  nslSound soundSlots[256];\n  char storage[30740];\n  unsigned int numBanks;\n  char queuedSounds[40];\n  int speakerMode;\n  int outputMode;\n  int language;\n  int cdDvdMode;\n  unsigned long long lastClock;\n  bool on;\n};\n\nextern nslSystem nsl;\nvoid nslStopSound(nslSoundId);\nvoid _nslClearSourceSlot(unsigned int, bool);\nint nslPs2GasRpc(int, const char *, int, int, int, int);\n\n#define NSL_NUM_SOURCES 512\n#define NSL_NUM_SOUNDS 256\n#define NSL_SOURCE_SLOT_MASK 0x0000FFFF\n#define NSL_GET_SOURCE_SLOT_FROM_ID(x) (x & NSL_SOURCE_SLOT_MASK)\n#define GAS_RPC_POP_BANK 0x00f5\n\nbool nslPopBank( )\n{\n  if (nsl.numBanks == 0)\n    return false;\n  int src;\n  for (int i=0; i < NSL_NUM_SOUNDS; i++)\n  {\n    src = NSL_GET_SOURCE_SLOT_FROM_ID(nsl.soundSlots[i].mySource);\n    if (nsl.sourceSlots[src].used && nsl.soundSlots[i].used && (nsl.sourceSlots[src].bank == nsl.numBanks - 1))\n    {\n      nslStopSound(nsl.soundSlots[i].myId); \n    }\n  }\n\n  for (int i=0; i < NSL_NUM_SOURCES; i++)\n  {\n    if (nsl.sourceSlots[i].used && nsl.sourceSlots[i].bank == nsl.numBanks - 1)\n    {\n      _nslClearSourceSlot(i, false); \n    }\n  }\n\n  bool retVal = nslPs2GasRpc(GAS_RPC_POP_BANK, 0, 0,0,0,0);\n\t\n  nsl.numBanks--;\n  if (nsl.numBanks == 0 )\n    nsl.on = false;\n  else\n    nsl.on = true;\n\n  return retVal;\n}\n",
+      "status": "different",
+      "target_size": 388
+    }
+  ],
+  "raw_name": "nslPopBank__Fv"
+}
