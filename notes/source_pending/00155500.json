@@ -1,0 +1,23 @@
+{
+  "address": "0x00155500",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2af9a4a839a9467217a31e2ec4cbd751b07f6ffd",
+      "candidate_size": 428,
+      "compared_bytes": 456,
+      "compared_instructions": 111,
+      "emitted_name": "Play__16PanelAnimManagerP13PanelAnimFile8AnimTypei",
+      "instruction_score": 13.5135,
+      "matching_bytes": 152,
+      "matching_instructions": 15,
+      "notes": "Attempt 1 used the exact released FEAnim.cpp body with minimal faithful self-contained declarations and no unavailable headers. Result `different`, score 33.3333; no retry, variant, integration, finalization, build, or tracked-file write was performed.",
+      "score": 33.3333,
+      "source": "struct matrix4x4 { float m[16]; };\n\nclass PanelQuad\n{\npublic:\n  bool animating;\n  void StartAnim(bool value) { animating = value; }\n};\n\nclass PanelAnim\n{\npublic:\n  char data[108];\n  PanelAnim *next;\n  PanelQuad *quad;\n};\n\nclass PanelAnimFile\n{\npublic:\n  PanelAnim* obs;\n  float totalseconds;\n};\n\nenum AnimType\n{\n  PLAY,\n  PLAY_BACKWARD,\n  PING_PONG,\n};\n\nenum\n{\n  NO_FLAGS = 0x00,\n  ALREADY_PLAYING = 0x01,\n  HOLD_AFTER_PLAYING = 0x02,\n  LOOP = 0x04,\n  PING_PONGING = 0x08,\n};\n\nclass PanelAnimEvent\n{\npublic:\n  float current_time;\n  float start_offset;\n  float total_time;\n  PanelAnimEvent *next;\n  PanelAnimEvent *prev;\n  int flags;\n  matrix4x4 offsets;\n  AnimType type;\n  PanelAnimFile *animation;\n\n  PanelAnimEvent() { next = 0; prev = 0; animation = 0; }\n};\n\nclass PanelAnimManager\n{\nprivate:\n  PanelAnimEvent eventlist;\npublic:\n  PanelAnimEvent *Play(PanelAnimFile* anim, AnimType play_type, int flags);\n  PanelAnimEvent *Find(PanelAnimFile &anim);\n};\n\nextern matrix4x4 identity_matrix;\nvoid *operator new(unsigned int, unsigned int, const char *, int);\n#define NEW new(0, __FILE__, 0)\n#ifndef NULL\n#define NULL 0\n#endif\n\nPanelAnimEvent *PanelAnimManager::Play(PanelAnimFile* anim, AnimType play_type, int flags)\n{\n\tPanelAnimEvent *new_event = NULL;\n\n\tif(flags & ALREADY_PLAYING)\n\t{\n\t\tnew_event = Find(*anim);\n\t\tflags &= ~ALREADY_PLAYING;\n\t}\n\n\t//  If the event was not already listed, then make room for it.\n\tif(new_event == NULL)\n\t{\n\t\tnew_event = NEW PanelAnimEvent;\n\t\tnew_event->next = eventlist.next;\n\t\tnew_event->prev = &eventlist;\n\t\teventlist.next = new_event;\n\t\tif(new_event->next)\n\t\t\tnew_event->next->prev = new_event;\n\t}\n\n\tnew_event->animation = anim;\n\tPanelAnim* object = new_event->animation->obs;\n\twhile(object)\n\t{\n\t\tobject->quad->StartAnim(true);\n\t\tobject = object->next;\n\t}\n\tnew_event->current_time = 0;  //  Start and endtime will be set the first time an anim is drawn.\n\tnew_event->start_offset = 0;  //  There are no offsets when we play the whole animation.\n\tnew_event->total_time = new_event->animation->totalseconds;\n\tnew_event->offsets = identity_matrix;\n\n\tnew_event->flags = flags;\n\n\tif(play_type == PING_PONG)\n\t{\n\t\tnew_event->type = PLAY;            //  Just start out playing forward.\n\t\tnew_event->flags |= PING_PONGING;\n\t}\n\telse\n\t{\n\t\tnew_event->type = play_type;\n\t\tnew_event->flags &= ~PING_PONGING;\n\t}\n\n\treturn new_event;\n\n}\n",
+      "status": "different",
+      "target_size": 456
+    }
+  ],
+  "raw_name": "Play__16PanelAnimManagerP13PanelAnimFile8AnimTypei"
+}
