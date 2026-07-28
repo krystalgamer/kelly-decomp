@@ -1,0 +1,23 @@
+{
+  "address": "0x00184F70",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "55c690281bc6528bb2446bc6e63c30c299780fa5",
+      "candidate_size": 332,
+      "compared_bytes": 336,
+      "compared_instructions": 84,
+      "emitted_name": "Update__19MultiControllerMenuf",
+      "instruction_score": 78.5714,
+      "matching_bytes": 298,
+      "matching_instructions": 66,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.cpp:1085-1139; kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.h:187-216; tmp/functions/00184F70_Update__19MultiControllerMenuf/attempt-1/result.json; tmp/source_first/00184F70/attempt-1.md. Result `different`, score 88.6905; no later attempt.",
+      "score": 88.6905,
+      "source": "typedef float time_value_t;\n\nstruct input_device_vtable\n{\n    char padding[0x48];\n    short adjustment;\n    short padding2;\n    bool (*is_connected)(void *);\n};\n\nclass input_device\n{\n    char padding[4];\n    input_device_vtable *vtable;\n\npublic:\n    bool is_connected()\n    {\n        input_device_vtable *table = vtable;\n        return table->is_connected((char *)this + table->adjustment);\n    }\n};\n\nclass input_mgr\n{\n    char padding[0x28];\n    input_device *joysticks[4];\n\npublic:\n    static input_mgr *inst();\n    input_device *get_joystick_index(int index) { return joysticks[index]; }\n};\n\n__asm__(\".equ input_manager, 0x0045B7B0\");\nextern input_mgr *input_manager;\ninline input_mgr *input_mgr::inst() { return input_manager; }\n\nstruct menu_entry_vtable\n{\n    char padding[0x28];\n    short adjustment;\n    short padding2;\n    void (*disable)(void *, bool);\n};\n\nclass FEMenuEntry\n{\n    char padding[0x60];\n    menu_entry_vtable *vtable;\n\npublic:\n    void Disable(bool disabled)\n    {\n        menu_entry_vtable *table = vtable;\n        table->disable((char *)this + table->adjustment, disabled);\n    }\n};\n\nstruct menu_vtable\n{\n    char padding[0x18];\n    short adjustment;\n    short padding2;\n    void (*set_high)(void *, FEMenuEntry *, bool);\n};\n\nclass FEMenu\n{\n    char padding0[0x4c];\n\nprotected:\n    FEMenuEntry *highlighted;\n\nprivate:\n    char padding1[0x24];\n    menu_vtable *vtable;\n\nprotected:\n    void setHigh(FEMenuEntry *entry, bool anim = true)\n    {\n        menu_vtable *table = vtable;\n        table->set_high((char *)this + table->adjustment, entry, anim);\n    }\n\npublic:\n    void Update(time_value_t time_inc);\n};\n\n__asm__(\".equ Update__6FEMenuf, 0x00156DC8\");\n\nclass MultiControllerMenu : public FEMenu\n{\npublic:\n    enum\n    {\n        MultiOneEntry,\n        MultiTwoEntry,\n        MultiEnd\n    };\n\n    FEMenuEntry *entry[MultiEnd];\n\n    void Update(time_value_t time_inc);\n};\n\nvoid MultiControllerMenu::Update(time_value_t time_inc)\n{\n    int num_controllers = 0;\n\n    for (int j = 0; j < 4; j++)\n    {\n        input_device *joy = input_mgr::inst()->get_joystick_index(j);\n        if (joy && joy->is_connected())\n            num_controllers++;\n    }\n\n    if (num_controllers >= 2)\n    {\n        entry[MultiOneEntry]->Disable(false);\n        entry[MultiTwoEntry]->Disable(false);\n    }\n    else\n    {\n        if (highlighted == entry[MultiTwoEntry])\n            setHigh(entry[MultiOneEntry]);\n        entry[MultiOneEntry]->Disable(false);\n        entry[MultiTwoEntry]->Disable(true);\n    }\n\n    FEMenu::Update(time_inc);\n}\n",
+      "status": "different",
+      "target_size": 336
+    }
+  ],
+  "raw_name": "Update__19MultiControllerMenuf"
+}
