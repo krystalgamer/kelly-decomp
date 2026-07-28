@@ -1,0 +1,23 @@
+{
+  "address": "0x0019F538",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0344639c6dc52aa93abbe2266987920dbc8f1b7a",
+      "candidate_size": 388,
+      "compared_bytes": 388,
+      "compared_instructions": 97,
+      "emitted_name": "OnUp__9NamesMenui",
+      "instruction_score": 2.0619,
+      "matching_bytes": 73,
+      "matching_instructions": 2,
+      "notes": "Attempt 1 used the exact released source for OnUp__9NamesMenui. Result `different`, score 18.8144; no retry or variant was made.",
+      "score": 18.8144,
+      "source": "class FEMenuEntry\n{\npublic:\n\tint entry_num;\n\tFEMenuEntry *next;\n\tFEMenuEntry *previous;\n\tchar pad0[0x44];\n\tFEMenuEntry *up;\n\tFEMenuEntry *down;\n\tFEMenuEntry *left;\n\tFEMenuEntry *right;\n\tvirtual ~FEMenuEntry();\n\tvirtual void Load();\n\tvirtual void OnSelect();\n\tvirtual void Highlight(bool highlighted = true, bool animate = true);\n\tvirtual void Disable(bool disabled = true);\n\tvirtual bool GetDisable();\n};\n\nclass SoundScriptManager\n{\npublic:\n\tenum EventType { SS_FE_UPDOWN = 25 };\n\tstatic inline SoundScriptManager *inst()\n\t{\n\t\treturn *(SoundScriptManager **)0x0045B4A0;\n\t}\n\tvoid unpause();\n\tvoid pause();\n\tvoid playEvent(EventType event, void *ent = 0, float param = 0.0f);\n};\n\nstruct FEManager\n{\n\tchar pad[0x15678];\n\tint fe_done;\n};\n\nextern FEManager frontendmanager;\n\nclass NamesMenu\n{\n\tchar pad0[0x3c];\n\tint flags;\n\tchar pad1[4];\n\tFEMenuEntry *first_vis_entry;\n\tchar pad2[0x110];\n\tFEMenuEntry *secondary_cursor;\n\tchar pad3[0xf0];\n\tFEMenuEntry *entry[1];\n\npublic:\n\tenum { FEMENU_SCROLLING = 1, num = 15 };\n\tvoid SetVis(FEMenuEntry *first);\n\tvoid SetSecondaryCursor(FEMenuEntry *entry);\n\tvoid OnUp(int c);\n};\n\n__asm__(\".equ frontendmanager, 0x003F7728\");\n__asm__(\".equ unpause__18SoundScriptManager, 0x0031BFA8\");\n__asm__(\".equ pause__18SoundScriptManager, 0x0031BF98\");\n__asm__(\".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380\");\n__asm__(\".equ SetVis__9NamesMenuP11FEMenuEntry, 0x0019F6A0\");\n__asm__(\".equ SetSecondaryCursor__9NamesMenuP11FEMenuEntry, 0x001A0818\");\n\nvoid NamesMenu::OnUp(int c)\n{\n\tif(secondary_cursor->up)\n\t{\n\t\tif((flags & FEMENU_SCROLLING) && secondary_cursor == first_vis_entry &&\n\t\t\tfirst_vis_entry != entry[0])\n\t\t{\n\t\t\tFEMenuEntry* first = first_vis_entry->up;\n\n\t\t\twhile(first && first->GetDisable() && first != entry[0])\n\t\t\t\tfirst = first->previous;\n\t\t\tif(first->entry_num >= 0)\n\t\t\t\tSetVis(first);\n\t\t}\n\n\t\tFEMenuEntry* tmp = secondary_cursor->up;\n\t\twhile(tmp && tmp->GetDisable() && tmp->down != entry[0])\n\t\t\ttmp = tmp->up;\n\n\t\tif(tmp && tmp->entry_num < num && tmp->down != entry[0])\n\t\t{\n\t\t\tif (frontendmanager.fe_done)\n\t\t\t\tSoundScriptManager::inst()->unpause();\n\n\t\t\tSoundScriptManager::inst()->playEvent(SoundScriptManager::SS_FE_UPDOWN);\n\t\t\tif (frontendmanager.fe_done)\n\t\t\t\tSoundScriptManager::inst()->pause();\n\n\t\t\tSetSecondaryCursor(tmp);\n\t\t}\n\t}\n}\n",
+      "status": "different",
+      "target_size": 360
+    }
+  ],
+  "raw_name": "OnUp__9NamesMenui"
+}
