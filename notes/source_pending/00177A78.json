@@ -1,0 +1,23 @@
+{
+  "address": "0x00177A78",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d34356b1f0eb39ef13260eeafdfc765440181adb",
+      "candidate_size": 336,
+      "compared_bytes": 388,
+      "compared_instructions": 97,
+      "emitted_name": "UpdateStatePhotos__11IGOFrontEndf",
+      "instruction_score": 13.4021,
+      "matching_bytes": 113,
+      "matching_instructions": 13,
+      "notes": "# 0x00177A78 UpdateStatePhotos__11IGOFrontEndf\n\nExact released body from `kelly-slaters-pro-surfer/KS/SRC/ks/IGOFrontEnd.cpp:1721-1769` was tested once with minimum standalone declarations. It compiled but differed: 29.1237% byte score, 13.4021% instruction score (113/388 bytes; 13/97 instructions). No further attempts were made.",
+      "score": 29.1237,
+      "source": "typedef float time_value_t;\n\nstruct PhotoChallenge\n{\n    char pad[0x28];\n    int numTaken;\n    int GetNumTaken() { return numTaken; }\n};\n\nstruct BeachChallenges\n{\n    PhotoChallenge *photo;\n};\n\nstruct Beach\n{\n    char pad[0x2D8];\n    BeachChallenges challenges;\n    BeachChallenges *get_challenges() { return &challenges; }\n};\n\nstruct Game\n{\n    char pad[0x74];\n    int game_mode;\n    int get_game_mode() { return game_mode; }\n};\n\nstruct PauseMenuSystem\n{\n    enum Menu\n    {\n        PhotoMenu = 17\n    };\n\n    char pad0[0x7C];\n    int active;\n    char pad1[0x0C];\n    void *menu_vtable;\n    int draw;\n\n    void startDraw(int menu);\n    void UpdateButtonDown();\n};\n\nstruct FEManager\n{\n    char pad[4];\n    PauseMenuSystem *pms;\n};\n\nstruct PHOTOS\n{\n    int waitingOnMenu;\n};\n\nclass IGOFrontEnd\n{\npublic:\n    enum RUNSTATE\n    {\n        RUNSTATE_NORMAL,\n        RUNSTATE_GOALS,\n        RUNSTATE_REWARDS,\n        RUNSTATE_STATS,\n        RUNSTATE_HIGHSCORE,\n        RUNSTATE_PHOTOS,\n        RUNSTATE_SAVE\n    };\n\n    char pad0[0xBC];\n    FEManager *manager;\n    char pad1[0x68];\n    RUNSTATE runState;\n    char pad2[0xD0];\n    PHOTOS photos;\n\n    void ShowAccompBackground(bool enabled, int h = 0, int v = 0);\n    void UpdateStateSave(time_value_t time_inc);\n    void UpdateStatePhotos(time_value_t time_inc);\n};\n\nextern Game *g_game_ptr;\nextern Beach *g_beach_ptr;\n\n__asm__(\".equ g_game_ptr, 0x0045AC64\");\n__asm__(\".equ g_beach_ptr, 0x0042F710\");\n__asm__(\".equ startDraw__15PauseMenuSystemi, 0x00100000\");\n__asm__(\".equ UpdateButtonDown__15PauseMenuSystem, 0x00100000\");\n__asm__(\".equ ShowAccompBackground__11IGOFrontEndbii, 0x0017CC88\");\n__asm__(\".equ UpdateStateSave__11IGOFrontEndf, 0x00177C00\");\n\nenum\n{\n    GAME_MODE_CAREER = 0\n};\n\nvoid IGOFrontEnd::UpdateStatePhotos(time_value_t time_inc)\n{\n\tbool\tadvanceState = false;\n\tbool\tpopup = true;\n\t\n\tif (photos.waitingOnMenu == -1)\n\t{\n\t\t// Only popup menu in career mode beaches with photo challenges.\n\t\tif (g_game_ptr->get_game_mode() != GAME_MODE_CAREER || !g_beach_ptr->get_challenges()->photo)\n\t\t\tpopup = false;\n\t\t// Only popup menu if some photos were taken this run.\n\t\telse if (g_beach_ptr->get_challenges()->photo->GetNumTaken() == 0)\n\t\t\tpopup = false;\n\t\t// If there is nothing to overwrite and we only took one photo, then don't popup menu.\n/*\t\telse if (g_beach_ptr->get_challenges()->photo->GetNumTaken() == 1 && !g_career->PhotoExistsForLevel (g_game_ptr->get_level_id()))\n\t\t\tpopup = false;*/\n\t}\n\t\n\tif (popup)\n\t{\n\t\t// First frame: popup photo menu.\n\t\tif ((manager->pms->active != PauseMenuSystem::PhotoMenu || !manager->pms->draw) &&\n\t\t\tphotos.waitingOnMenu == -1)\n\t\t{\n\t\t\tmanager->pms->startDraw(PauseMenuSystem::PhotoMenu);\n\t\t\tmanager->pms->UpdateButtonDown();\n\t\t\tphotos.waitingOnMenu = manager->pms->active;\n\t\t\tShowAccompBackground(true);\n\t\t}\n\t\t// Wait for photo menu to finish.\n\t\telse if (photos.waitingOnMenu != -1 && !manager->pms->draw)\n\t\t{\n\t\t\tadvanceState = true;\n\t\t}\n\t}\n\telse\n\t{\n\t\tadvanceState = true;\n\t}\n\n\t// Photo menu finished, proceed with normal end run states.\n\tif (advanceState)\n\t{\n\t\tShowAccompBackground(false);\n\t\tphotos.waitingOnMenu = -1;\n\t\trunState = RUNSTATE_SAVE;\n\t\tUpdateStateSave(time_inc);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 388
+    }
+  ],
+  "raw_name": "UpdateStatePhotos__11IGOFrontEndf"
+}
