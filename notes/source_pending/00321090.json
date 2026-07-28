@@ -1,0 +1,23 @@
+{
+  "address": "0x00321090",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "38a9aeb7c9588f2c413fcc4a9c369f9a7f1ee821",
+      "candidate_size": 376,
+      "compared_bytes": 376,
+      "compared_instructions": 94,
+      "emitted_name": "__cl__23slf_get_control_state_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 2.1277,
+      "matching_bytes": 89,
+      "matching_instructions": 2,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 53 lane B3 for `0x00321090 __cl__23slf_get_control_state_tR8vm_stackQ320script_library_class8function7entry_t`.\n- Tested the exact released `slf_get_control_state_t::operator()` body once with minimal self-contained declarations preserving the VM stack layout and operations, parameter layout, joystick device value, singleton access, input call, return push, and overflow expression.\n- Result: **different**, byte score **23.6702%** (89/376) and instruction score **2.1277%** (2/94); candidate size 376 bytes versus target size 364 bytes.\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/script_lib.cpp:1827-1847`\n- `kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:264-300`\n- `kelly-slaters-pro-surfer/KS/SRC/vm_stack.h:21-93`\n- `kelly-slaters-pro-surfer/KS/SRC/inputmgr.h:67-86,116,383-453`\n- `tmp/functions/00321090___cl__23slf_get_control_state_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/result.json`",
+      "score": 23.6702,
+      "source": "extern \"C\" unsigned int strlen(const char*);\n\nstruct string_buf { int pad0; int pad4; int char_length; };\nclass stringx {\npublic:\n  string_buf* my_buf;\n  stringx();\n  stringx(const stringx&);\n  ~stringx();\n  void make_room(int);\n  void append(const char*, int = -1);\n  void append(const stringx&);\n};\ninline stringx operator+(const stringx& lhs, const stringx& rhs) {\n  stringx foo; foo.make_room(lhs.my_buf->char_length + rhs.my_buf->char_length);\n  foo.append(lhs); foo.append(rhs); return foo;\n}\ninline stringx operator+(const stringx& lhs, const char* rhs) {\n  stringx foo; int len = strlen(rhs); foo.make_room(len + lhs.my_buf->char_length);\n  foo.append(lhs); foo.append(rhs, len); return foo;\n}\nnamespace script_object { class instance { public: int pad0; stringx name; const stringx& get_name() const { return name; } }; }\nclass vm_executable { public: int pad[3]; stringx fullname; const stringx& get_fullname() const { return fullname; } };\nclass vm_thread { public: script_object::instance* inst; const vm_executable* ex; script_object::instance* get_instance() const { return inst; } const vm_executable* get_executable() const { return ex; } };\ntypedef float vm_num_t;\nclass vm_stack {\npublic:\n  int salloc; char* buffer; char* SP; vm_thread* my_thread;\n  char* get_SP() const { return SP; }\n  vm_thread* get_thread() const { return my_thread; }\n  void pop(int n) { SP -= n; }\n  bool push(const char*, int);\n};\nvoid error(const stringx&);\nenum device_id_t { INVALID_DEVICE_ID = -1, JOYSTICK1_DEVICE = 1 };\ntypedef int control_id_t;\nclass input_mgr {\npublic:\n  static input_mgr* instance;\n  static input_mgr* inst() { return instance; }\n  float get_control_state(device_id_t, control_id_t) const;\n};\nclass script_library_class {\npublic:\n  class function {\n  public:\n    enum entry_t { FIRST_ENTRY, RECALL_ENTRY };\n    virtual ~function();\n    virtual bool operator()(vm_stack&, entry_t) { return true; }\n  };\n};\nclass slf_get_control_state_t : public script_library_class::function {\npublic:\n  struct parms_t { vm_num_t id; };\n  virtual bool operator()(vm_stack&, entry_t);\n};\nbool slf_get_control_state_t::operator()(vm_stack& stack, entry_t entry)\n{\n  stack.pop(sizeof(parms_t));\n  parms_t* parms = (parms_t*)stack.get_SP();\n  vm_num_t result = input_mgr::inst()->get_control_state( JOYSTICK1_DEVICE, parms->id );\n  if (!stack.push((char*)&result,sizeof(result)) )\n    error( stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname() );\n  return true;\n}\n",
+      "status": "different",
+      "target_size": 364
+    }
+  ],
+  "raw_name": "__cl__23slf_get_control_state_tR8vm_stackQ320script_library_class8function7entry_t"
+}
