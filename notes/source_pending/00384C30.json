@@ -1,0 +1,15 @@
+{
+  "address": "0x00384C30",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e7f168ab47e7b8e41c4b1564744f311fb92a25e5",
+      "notes": "The exact released push-pulse world conversion was tested once and failed isolated compilation because the minimal shared declarations do not provide `assert`, `min`, `max`, or `SPLINE_Evaluate`; no source variant was attempted.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/wave_perturb_shared.h\"\n\ntemplate <int n>\nfloat WavePushPerturbClass<n>::WorldToPulse(float worldx)\n{\n    static const float &domain = pulsex[num - 1];\n    assert(pulsex[0] == 0);\n\n    float progress;\n\n    switch (WAVE_PerturbStage)\n    {\n    case WAVE_PerturbStageDo:\n        progress = 2 - WAVE_PerturbProgress;\n        break;\n    case WAVE_PerturbStageUndo:\n        progress = WAVE_PerturbProgress + 1;\n        break;\n    default:\n        progress = 1;\n        break;\n    }\n\n    float modx = worldx - offset + (progress - 1) * domain;\n    modx = min(max(0.f, modx), domain);\n\n    float profilex = worldx;\n    profilex += SPLINE_Evaluate(\n        pulsex,\n        pulsecoeffs.a,\n        pulsecoeffs.b,\n        pulsecoeffs.c,\n        pulsecoeffs.d,\n        num,\n        modx);\n    profilex -= modx;\n\n    return profilex;\n}\n\ntemplate float WavePushPerturbClass<6>::WorldToPulse(float worldx);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WorldToPulse__t20WavePushPerturbClass1i6f"
+}
