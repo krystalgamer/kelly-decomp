@@ -1,0 +1,15 @@
+{
+  "address": "0x00343D50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "291ca703505fd39891f305d2c0498d28523ff58e",
+      "notes": "Attempt 1 used the exact released source for register_control__9input_mgrRC12game_control. Result `compile_failed`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "#include <map>\n#include <list>\n#include <vector>\n\nusing namespace std;\n\n#define assert(condition) ((void)0)\n\ntypedef int control_id_t;\ntypedef int device_id_t;\ntypedef int axis_id_t;\n\nclass singleton\n{\n};\n\nclass input_device;\nclass rumble_manager;\n\ntypedef vector<input_device *> device_map_t;\n\nclass device_axis\n{\npublic:\n    device_axis()\n    {}\n\n    device_axis(device_id_t dev, axis_id_t axis)\n        : device(dev),\n          axis(axis)\n    {}\n\nprivate:\n    device_id_t device;\n    axis_id_t axis;\n    int control_axis;\n\n    friend class input_mgr;\n};\n\ntypedef list<device_axis> device_axis_list_t;\n\nenum control_t\n{\n    CT_BOOLEAN,\n    CT_RATIONAL,\n};\n\nclass game_control\n{\npublic:\n    game_control()\n    {}\n\n    game_control(control_id_t _name, control_t _type)\n        : name(_name),\n          type(_type)\n    {}\n\nprivate:\n    control_id_t name;\n    control_t type;\n    device_axis_list_t mapping;\n\n    friend class input_mgr;\n};\n\ntypedef map<control_id_t, game_control> control_map_t;\n\nclass input_mgr : public singleton\n{\npublic:\n    void register_control(const game_control &control);\n\nprivate:\n    rumble_manager *rumble_ptr;\n    device_map_t device_map;\n    control_map_t control_map;\n};\n\nvoid input_mgr::register_control(const game_control &control)\n{\n    assert(control_map.find(control.name) == control_map.end());\n    control_map[control.name] = control;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "register_control__9input_mgrRC12game_control"
+}
