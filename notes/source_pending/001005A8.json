@@ -1,0 +1,23 @@
+{
+  "address": "0x001005A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a2745b3a79d8a221b79e3dd6cfd0b5f44b48feaf",
+      "candidate_size": 368,
+      "compared_bytes": 472,
+      "compared_instructions": 118,
+      "emitted_name": "get_axis_old_state__C18AISurferControllerii",
+      "instruction_score": 19.4915,
+      "matching_bytes": 132,
+      "matching_instructions": 23,
+      "notes": "# FIRST PASS wave86 B2 \u2014 0x001005A8\n\n- Confirmed queue state: pending, attempts 0 before preparation/testing.\n- Reference: `kelly-slaters-pro-surfer/KS/SRC/AIController.cpp`.\n- Candidate: one LF-normalized exact released function body with minimal self-contained declarations and no headers.\n- Attempt 1: `different`; byte score 27.9661% (132/472), instruction score 19.4915% (23/118), candidate size 368 vs target 472.\n- No alternatives, retries, integration, finalization, build, or tracked/reference edits performed.",
+      "score": 27.9661,
+      "source": "typedef int axis_id_t;\ntypedef float rational_t;\n\nenum PS2_Axes\n{\n  JOY_PS2_DX,\n  JOY_PS2_DY,\n  JOY_PS2_X,\n  JOY_PS2_Y,\n  JOY_PS2_LX,\n  JOY_PS2_LY,\n  JOY_PS2_BTNL3,\n  JOY_PS2_RX,\n  JOY_PS2_RY,\n  JOY_PS2_BTNR3,\n  JOY_PS2_BTNX,\n  JOY_PS2_BTNO,\n  JOY_PS2_DUMMMY1,\n  JOY_PS2_BTNSQ,\n  JOY_PS2_BTNTR,\n  JOY_PS2_DUMMMY2,\n  JOY_PS2_BTNL1,\n  JOY_PS2_BTNR1,\n  JOY_PS2_BTNL2,\n  JOY_PS2_BTNR2,\n  JOY_PS2_START,\n  JOY_PS2_SELECT,\n  JOY_PS2_DISCONNECT,\n  JOY_PS2_NUM_AXES\n};\n\n#define assert(x) ((void)0)\n\nclass AISurferController\n{\n  char data[220];\n  float oldX, oldY, oldXRight, oldYRight;\n  int oldButtonX, oldButtonO, oldButtonSq, oldButtonTr;\n  int oldButtonL1, oldButtonL2, oldButtonL3, oldButtonR1, oldButtonR2, oldButtonR3;\n  int oldButtonSelect, oldButtonStart;\n\npublic:\n  rational_t get_axis_old_state(axis_id_t axis, int control_axis) const;\n};\n\nrational_t AISurferController::get_axis_old_state(axis_id_t axis, int control_axis ) const\n{\n   switch (axis) \n  {\n    case JOY_PS2_X: // left analog horiz\n      return oldX;\n\n    case JOY_PS2_Y: // left analog vert\n      return oldY;\n\n    case JOY_PS2_DX: // just Dpad\n      if (oldX < 0)\n      {\n          return -1.0f;\n      }\n      else if (oldX > 0)\n      {\n          return 1.0f;\n      }\n      return 0.0f;\n      \n    case JOY_PS2_DY: // just Dpad -1 = up\n      if (oldY < 0)\n      {\n          return -1.0f;  //up\n      }\n      else if (oldY > 0)\n      {\n          return 1.0f;\n      }\n      return 0.0f;\n \n    case JOY_PS2_LX: //  - 1 = left\n      return oldX;\n    case JOY_PS2_LY: // -1 = up\n      return oldY;\n    case JOY_PS2_RX: \n      return oldXRight;\n    case JOY_PS2_RY: \n      return oldYRight;\n\n    case JOY_PS2_BTNL3: // L3\n      return oldButtonL3;\n    case JOY_PS2_BTNR3: \n      return oldButtonR3;\n    case JOY_PS2_BTNX:  // A (ps2 x)\n      return oldButtonX;\n    case JOY_PS2_BTNO:  // B (ps2 o)\n        return oldButtonO;\n    case JOY_PS2_BTNSQ: // X (ps2 sq)\n        return oldButtonSq;\n    case JOY_PS2_BTNTR: // Y (ps2 tr)\n        return oldButtonTr;\n\n    case JOY_PS2_BTNR1: // C (ps2 R1)\n        return oldButtonR1;\n    case JOY_PS2_BTNR2: // R (ps2 R2)\n        return oldButtonR2;\n\n    case JOY_PS2_BTNL1: // Z (ps2 L1)\n        return oldButtonL1;\n    case JOY_PS2_BTNL2: // L (ps2 L2)\n        return oldButtonL2;\n\n\n    case JOY_PS2_START: // Start\n      return oldButtonStart;\n    case JOY_PS2_SELECT:\n      return oldButtonSelect;\n\n    default:\n      assert(\"ps2_joypad_device::get_axis_state illegal axis queried.\" == 0);\n      return 0.0f;\n  \n  }\n\n}\n",
+      "status": "different",
+      "target_size": 472
+    }
+  ],
+  "raw_name": "get_axis_old_state__C18AISurferControllerii"
+}
