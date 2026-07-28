@@ -1,0 +1,23 @@
+{
+  "address": "0x00350FE8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c0a43af634a8c0e8800da267efef6da37daf3b7f",
+      "candidate_size": 452,
+      "compared_bytes": 464,
+      "compared_instructions": 116,
+      "emitted_name": "create_auto_instance__13script_object",
+      "instruction_score": 3.4483,
+      "matching_bytes": 115,
+      "matching_instructions": 4,
+      "notes": "# FIRST PASS wave85 A5\n\n- Target: `0x00350FE8 create_auto_instance__13script_object`\n- Size/object: `464 / 0x1D0`, `game/files_vsim`\n- Reference: `kelly-slaters-pro-surfer/KS/SRC/script_object.cpp`\n- Confirmed zero prior attempts before preparation.\n- Used the exact released function body with minimal faithful declarations and only resolved local shared headers.\n- Sole test: `env/bin/python tools/function_test.py test 0x00350FE8 --candidate tmp/source-first-wave85/A5-00350FE8/candidate.cpp`\n- Result: `different`; 115/464 matching bytes (24.7845%), 4/116 matching instructions (3.4483%); candidate size 452 bytes.\n- Exactly one attempt; no retry, variant, alternate logic, asm/annotations, post-test chase, tracked/reference edit, finalize, integrate, build, or git operation.",
+      "score": 24.7845,
+      "source": "typedef unsigned int size_t;\ntypedef unsigned long long big_int;\n\n#include \"g++-2/stl_list_shared.h\"\n#include \"g++-2/stl_vector_shared.h\"\n\nvoid *operator new(size_t, unsigned int, const char *, int);\n#define NEW new(0, __PRETTY_FUNCTION__, 0)\n\nclass string_buf {\n    big_int *data;\n    int refs;\n    int char_length;\n    int block_length;\n    int max_blocks;\n\npublic:\n    bool is_equal(const string_buf &other) const\n    {\n        if (char_length != other.char_length)\n            return false;\n        for (int i = 0; i < char_length; ++i)\n            if (data[i] != other.data[i])\n                return false;\n        return true;\n    }\n};\n\nclass stringx {\n    char *chars;\n    string_buf *my_buf;\n\npublic:\n    stringx(const char *, int = -1);\n    ~stringx();\n    friend bool operator==(const stringx &, const stringx &);\n};\n\ninline bool operator==(const stringx &left, const stringx &right)\n{\n    return left.my_buf->is_equal(*right.my_buf);\n}\n\nclass vm_stack {\n    int salloc;\n    char *buffer;\n    char *SP;\n    void *my_thread;\n\npublic:\n    bool push(const char *, int);\n};\n\nclass script_object;\n\nclass vm_executable {\n    script_object *owner;\n    stringx name;\n    stringx fullname;\n    vector<void *> parameters;\n    int parms_stacksize;\n\npublic:\n    const stringx &get_name() const { return name; }\n    int get_parms_stacksize() const { return parms_stacksize; }\n};\n\nclass vm_thread {\n    char padding[12];\n    vm_stack dstack;\n\npublic:\n    vm_stack &get_data_stack() { return dstack; }\n};\n\nclass script_object {\npublic:\n    class instance {\n        char storage[24];\n\n    public:\n        instance(const stringx &, int);\n        vm_thread *add_thread(const vm_executable *);\n    };\n\n    typedef list<instance *> instance_list;\n\nprivate:\n    stringx name;\n    bool global_object;\n    char padding[19];\n    int data_blocksize;\n    vector<vm_executable *> funcs;\n    instance_list instances;\n\npublic:\n    const stringx &get_name() const { return name; }\n    const vm_executable &get_func(int n) const { return *funcs.begin()[n]; }\n    bool is_global_object() const { return global_object; }\n    instance *create_auto_instance();\n};\n\nscript_object::instance* script_object::create_auto_instance()\n{\n  script_object::instance* inst = 0;\n  const vm_executable& con = get_func(0);\n  if ( con.get_name() == get_name() &&\n       (is_global_object()? con.get_parms_stacksize()==0 : con.get_parms_stacksize()==4) )\n  {\n    inst = NEW instance( \"__auto\", data_blocksize );\n    instances.push_front( inst );\n    vm_thread* con_thread = inst->add_thread( &con );\n    if ( !is_global_object() )\n    {\n      con_thread->get_data_stack().push( (char*)&inst, 4 );\n    }\n  }\n  return inst;\n}\n",
+      "status": "different",
+      "target_size": 464
+    }
+  ],
+  "raw_name": "create_auto_instance__13script_object"
+}
