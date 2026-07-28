@@ -1,0 +1,23 @@
+{
+  "address": "0x0029B5A0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a9051f0cd41c2ce5f12918545777ef3728fc2a71",
+      "candidate_size": 124,
+      "compared_bytes": 464,
+      "compared_instructions": 116,
+      "emitted_name": "remove_entity_from_world_processing__21world_dynamics_systemP6entity",
+      "instruction_score": 13.7931,
+      "matching_bytes": 85,
+      "matching_instructions": 16,
+      "notes": "# FIRST PASS wave 85 lane A1\n\nExact released body tested once for `0x0029B5A0 remove_entity_from_world_processing__21world_dynamics_systemP6entity`. Result `different`, byte score 18.3190%, instruction score 13.7931%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 18.319,
+      "source": "typedef float rational_t;\n\nclass vector3d\n{\npublic:\n  rational_t x, y, z;\n  inline vector3d(rational_t _x, rational_t _y, rational_t _z) { x = _x; y = _y; z = _z; }\n};\n\nclass region_node;\n\nclass entity\n{\npublic:\n  void remove_from_terrain();\n  virtual void force_region(region_node* r);\n  virtual void set_active(bool a);\n  void set_rel_position(const vector3d& p);\n};\n\nclass world_dynamics_system\n{\npublic:\n  void remove_entity_from_world_processing(entity* e);\n};\n\nvoid world_dynamics_system::remove_entity_from_world_processing( entity *e )\n{\n  e->remove_from_terrain();\n  e->force_region( 0 );  // this effectively removes the entity from the world\n  e->set_active( false );\n  e->set_rel_position( vector3d(-9000.0f,-9000.0f,-9000.0f) );\n}\n",
+      "status": "different",
+      "target_size": 464
+    }
+  ],
+  "raw_name": "remove_entity_from_world_processing__21world_dynamics_systemP6entity"
+}
