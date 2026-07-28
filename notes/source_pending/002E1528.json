@@ -1,0 +1,16 @@
+{
+  "address": "0x002E1528",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0e86d3247a3ef06c806a465fa1ccd3216bd8f813",
+      "error": "Candidate did not emit collide_sphere_three_partition3s_almost_parallel__FRC8vector3dfRC10partition3N22R8vector3d; emitted functions: ['collide_sphere_three_partition3s_almost_parallel__FRC8vector3dfRC10partition3T2T2R8vector3d']",
+      "notes": "# Attempt 1\n\nExact released function body from `KS/SRC/collide.cpp:2044-2062` with minimal\n`rational_t`, `vector3d`, `partition3`, `dot`, and two-plane collision\ndeclarations. The harness reported `symbol_missing`: the candidate emitted\n`collide_sphere_three_partition3s_almost_parallel__FRC8vector3dfRC10partition3T2T2R8vector3d`\ninstead of the target symbol ending in `N22R8vector3d`. Per first-pass policy,\nno second candidate or diff chasing was performed.",
+      "score": 0.0,
+      "source": "typedef float rational_t;\n\nclass vector3d\n{\npublic:\n  rational_t x, y, z;\n\n  vector3d() {}\n\n  vector3d& operator=( const vector3d& v )\n  {\n    x = v.x;\n    y = v.y;\n    z = v.z;\n    return *this;\n  }\n};\n\ninline rational_t dot( const vector3d& a, const vector3d& b )\n{\n  rational_t t = a.x*b.x + a.y*b.y + a.z*b.z;\n  return t;\n}\n\nclass partition3\n{\nprotected:\n  rational_t d;\n  vector3d normal;\n\npublic:\n  const vector3d& get_normal() const { return normal; }\n  rational_t distance( const vector3d& p ) const { return dot(p,normal)-d; }\n};\n\nbool collide_sphere_two_partition3s( const vector3d& pos, rational_t r,\n                                     const partition3& h1,\n                                     const partition3& h2,\n                                     vector3d& hit_point );\n\nbool collide_sphere_three_partition3s_almost_parallel( const vector3d& pos, rational_t r,\n                                                       const partition3& h1,\n                                                       const partition3& h2,\n                                                       const partition3& h3,\n                                                       vector3d& hit_point )\n{\n  vector3d hit_point1, hit_point2;\n\n  if ( !collide_sphere_two_partition3s(pos, r, h1, h3, hit_point1)\n       || !collide_sphere_two_partition3s(pos, r, h2, h3, hit_point2) )\n    return false;\n\n  if ( dot(h1.get_normal(), h2.get_normal()) >= 0.0f )\n    hit_point = h1.distance(pos) < h2.distance(pos) ? hit_point2 : hit_point1;\n  else\n    hit_point = h1.distance(pos) < 0.0f ? hit_point2 : hit_point1;\n\n  return true;\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "collide_sphere_three_partition3s_almost_parallel__FRC8vector3dfRC10partition3N22R8vector3d"
+}
