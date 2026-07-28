@@ -1,0 +1,23 @@
+{
+  "address": "0x001A56D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7b87941467b96b7073c632e70281346fca337ec8",
+      "candidate_size": 344,
+      "compared_bytes": 348,
+      "compared_instructions": 87,
+      "emitted_name": "Select__14PauseMenuClassi",
+      "instruction_score": 8.046,
+      "matching_bytes": 108,
+      "matching_instructions": 7,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:157-180; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h:24-55,582-652; kelly-slaters-pro-surfer/KS/SRC/ks/SoundScript.h:53-76; kelly-slaters-pro-surfer/KS/SRC/ks/sounddata.h:9-38; kelly-slaters-pro-surfer/KS/SRC/ks/game.h:234-244,631-633; tmp/functions/001A56D8_Select__14PauseMenuClassi/attempt-1/result.json; tmp/source_first/001A56D8/attempt-1.md. Result `different`, score 31.0345; no later attempt.",
+      "score": 31.0345,
+      "source": "// Target: 0x001A56D8 Select__14PauseMenuClassi\n// Reference: KS/SRC/ks/FrontEndMenus.cpp\n// Replace this file with one self-contained candidate function.\n#include \"KS/SRC/singleton_shared.h\"\n#include \"KS/SRC/ks/FEMenu_shared.h\"\n\n#define assert(x) ((void)0)\n\ntypedef unsigned int nslSoundId;\ntypedef int SSEventId;\n\nenum EventType {\n    SS_FE_ONX = 24\n};\n\nclass SoundScriptManager : public singleton {\npublic:\n    static SoundScriptManager *instance;\n    static inline SoundScriptManager *inst() { return instance; }\n    void pause();\n    void unpause();\n    SSEventId playEvent(EventType, entity * = 0, float = 0.0f);\n};\n\nclass PauseMenuSystem : public FEMenuSystem {\npublic:\n    enum {\n        PauseMenu,\n        TimeAttackPauseMenu,\n        TutorialPauseMenu,\n        EndRunMenu,\n        HeatMidMenu,\n        HeatEndMenu,\n        CompEndMenu,\n        OptionsMenu,\n        GoalsMenu,\n        LostControllerMenu,\n        SoundMenu,\n        CameraMenu,\n        TrickTypeMenu,\n        PlaylistMenu,\n        ReplayMenu,\n        MapMenu,\n        HighScoreMenu,\n        PhotoMenu,\n        TutorialMenu,\n        SaveLoadMenu,\n        SaveConfirmMenu,\n        TipMenu,\n        QuitConfirmMenu\n    };\n\n    bool draw;\n    bool replay_mode;\n    bool end_level;\n    int pause_controller;\n    int pause_player;\n    void *map;\n    TextString *player;\n    SSEventId popupEvent;\n    SSEventId navigationEvent;\n\n    virtual void MakeActive(int, int = 1);\n    virtual void Select(int, int);\n    void Retry();\n    void EndLevel();\n    void EndRun();\n};\n\nenum game_mode_t {\n    GAME_MODE_CAREER,\n    GAME_MODE_FREESURF_INFINITE\n};\n\nclass game {\n    char padding[116];\n    game_mode_t game_mode;\n\npublic:\n    inline game_mode_t get_game_mode() { return game_mode; }\n};\n\nextern game *g_game_ptr;\n\nclass PauseMenuClass : public FEMenu {\npublic:\n    enum {\n        Continue,\n        Retry,\n        Goals,\n        Tip,\n        Options,\n        TrickBook,\n        EndRun,\n        ReturnToFE\n    };\n\n    PauseMenuSystem *sys;\n    FEMenuEntry *goals;\n    FEMenuEntry *tip;\n    FEMenuEntry *options;\n    FEMenuEntry *trickbook;\n    FEMenuEntry *returnFE;\n\n    virtual void Select(int entry_index);\n};\n\n__asm__(\".equ _18SoundScriptManager$instance, 0x0045B4A0\");\n__asm__(\".equ unpause__18SoundScriptManager, 0x0031BFA8\");\n__asm__(\".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380\");\n__asm__(\".equ pause__18SoundScriptManager, 0x0031BF98\");\n__asm__(\".equ Retry__15PauseMenuSystem, 0x001B4920\");\n__asm__(\".equ EndLevel__15PauseMenuSystem, 0x001B4980\");\n__asm__(\".equ EndRun__15PauseMenuSystem, 0x001B4A00\");\n__asm__(\".equ g_game_ptr, 0x0045AC64\");\n\nvoid PauseMenuClass::Select(int entry_index)\n{\n\tSoundScriptManager::inst()->unpause();\n\tsys->navigationEvent=SoundScriptManager::inst()->playEvent(SS_FE_ONX);\n\tSoundScriptManager::inst()->pause();\n\n\tswitch(entry_index)\n\t{\n\tcase Continue:\t\tbreak;\n\tcase Retry:\t\tsys->Retry(); break;\n\tcase Goals:\t\tsys->MakeActive(PauseMenuSystem::GoalsMenu); break;\n\tcase Tip:\t\t\tsys->MakeActive(PauseMenuSystem::TipMenu); break;\n\tcase Options:\t\tsys->MakeActive(PauseMenuSystem::OptionsMenu); break;\n\tcase TrickBook:\tsys->MakeActive(PauseMenuSystem::TrickTypeMenu); break;\n\tcase EndRun:\n\t\tif (g_game_ptr->get_game_mode() == GAME_MODE_FREESURF_INFINITE)\n\t\t\tsys->EndLevel();\n\t\telse\n\t\t\tsys->EndRun();\n\t\tbreak;\n\tcase ReturnToFE:\tsys->MakeActive(PauseMenuSystem::QuitConfirmMenu); break;\n\tdefault: assert(0);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 348
+    }
+  ],
+  "raw_name": "Select__14PauseMenuClassi"
+}
