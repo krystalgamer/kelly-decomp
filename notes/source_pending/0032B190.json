@@ -1,0 +1,23 @@
+{
+  "address": "0x0032B190",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "04a9bf998ee23c9312a1a240928a61757ea37158",
+      "candidate_size": 264,
+      "compared_bytes": 432,
+      "compared_instructions": 108,
+      "emitted_name": "__cl__16slf_distance3d_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 0.9259,
+      "matching_bytes": 64,
+      "matching_instructions": 1,
+      "notes": "# LEAN FIRST PASS wave77 A5 \u2014 0x0032B190\n\n- Status: **source_pending** (`different`)\n- Attempts: **1**\n- Byte score: **14.8148%** (64/432)\n- Instruction score: **0.9259%** (1/108)\n- Candidate: `tmp/functions/0032B190___cl__16slf_distance3d_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/candidate.cpp`\n- SHA-1: `04a9bf998ee23c9312a1a240928a61757ea37158`\n- Candidate/target size: 264/432 bytes\n- Started: `2026-07-28T17:46:58.727463745Z`\n- Completed: `2026-07-28T17:47:50.055124042Z`\n- Duration: **51.327661s**\n\nExact released body from `script_lib_vector3d.cpp:447-453` was tested once with minimal source-faithful declarations. It compiled but differed. No variants, retries, diff chasing, finalization, integration, build, tracked-file edits, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/script_lib_vector3d.cpp:433-455`\n- `kelly-slaters-pro-surfer/KS/SRC/vm_stack.h:10-12,21-65,87-94`\n- `kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:20-55,264-299`\n- `kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:292-328,371-375`\n- `tmp/functions/0032B190___cl__16slf_distance3d_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/result.json`",
+      "score": 14.8148,
+      "source": "// Target: 0x0032B190 __cl__16slf_distance3d_tR8vm_stackQ320script_library_class8function7entry_t\n// Exact released body: KS/SRC/script_lib_vector3d.cpp:447-453\nextern float __fsqrt(float);\ntypedef float vm_num_t;\n\nclass stringx;\nclass script_instance { public: const stringx& get_name() const; };\nclass script_executable { public: const stringx& get_fullname() const; };\nclass vm_thread {\npublic:\n  script_instance* get_instance() const;\n  script_executable* get_executable() const;\n};\nclass vm_stack {\npublic:\n  int salloc;\n  char* buffer;\n  char* SP;\nprivate:\n  vm_thread* my_thread;\npublic:\n  char* get_SP() const { return SP; }\n  void pop(int n) { SP -= n; }\n  vm_thread* get_thread() const { return my_thread; }\n  bool push(const char* src, int n);\n};\nclass stringx {\npublic:\n  stringx();\n  stringx(const stringx&);\n  ~stringx();\n};\nstringx operator+(const stringx&, const char*);\nstringx operator+(const stringx&, const stringx&);\nvoid error(const stringx&);\n\nclass script_library_class {\npublic:\n  class function {\n  public:\n    enum entry_t { FIRST_ENTRY, RECALL_ENTRY };\n  protected:\n    char* name;\n  public:\n    virtual bool operator()(vm_stack&, entry_t) { return true; }\n  };\n};\n\nclass vector3d {\npublic:\n  typedef float T;\n  T x, y, z;\n  inline vector3d() {}\n  inline vector3d(T _x, T _y, T _z) { x = _x; y = _y; z = _z; }\n  inline T length() const { return (T)__fsqrt(x*x + y*y + z*z); }\n};\ninline vector3d operator-(const vector3d& a, const vector3d& b)\n{\n  return vector3d(a.x - b.x, a.y - b.y, a.z - b.z);\n}\n\n#define SLF_PARMS \\\n  stack.pop(sizeof(parms_t)); \\\n  parms_t* parms = (parms_t*)stack.get_SP()\n#define SLF_RETURN \\\n  if (!stack.push((char*)&result,sizeof(result)) ) \\\n    error( stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname() )\n#define SLF_DONE return true\n\nclass slf_distance3d_t : public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    vector3d v1;\n    vector3d v2;\n  };\n  virtual bool operator()(vm_stack& stack,entry_t entry);\n};\n\nbool slf_distance3d_t::operator()(vm_stack& stack,entry_t entry)\n{\n  SLF_PARMS;\n  vm_num_t result = (parms->v1-parms->v2).length();\n  SLF_RETURN;\n  SLF_DONE;\n}\n",
+      "status": "different",
+      "target_size": 432
+    }
+  ],
+  "raw_name": "__cl__16slf_distance3d_tR8vm_stackQ320script_library_class8function7entry_t"
+}
