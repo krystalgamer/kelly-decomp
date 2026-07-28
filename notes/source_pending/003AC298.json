@@ -1,0 +1,23 @@
+{
+  "address": "0x003AC298",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "75261287581ceb06c92833c56be52027f234ad27",
+      "candidate_size": 468,
+      "compared_bytes": 468,
+      "compared_instructions": 117,
+      "emitted_name": "Insert__15nglInstanceBankRC14nglFixedStringPv",
+      "instruction_score": 0.8547,
+      "matching_bytes": 74,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 75 lane B5 \u2014 0x003AC298\n\n- Status: **source_pending** (`different`)\n- Attempts: **1**\n- Byte score: **15.812%** (74/468)\n- Instruction score: **0.8547%** (1/117)\n- Candidate: `tmp/functions/003AC298_Insert__15nglInstanceBankRC14nglFixedStringPv/attempt-1/candidate.cpp`\n- SHA-1: `75261287581ceb06c92833c56be52027f234ad27`\n- Candidate/target size: 468/424 bytes\n\nExact released `nglInstanceBank::Insert` body was tested once with minimal declarations reproducing the released bank/node layout and inline fixed-string assignment/comparisons. It compiled but differed. No variants, retries, diff chasing, finalization, integration, build, tracked-file edits, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/NGL/PS2/ngl_instbank.cpp:83-123`\n- `kelly-slaters-pro-surfer/NGL/PS2/ngl_instbank.h:6-49`\n- `kelly-slaters-pro-surfer/NGL/PS2/ngl_fixedstr.h:11-111`\n- `tmp/functions/003AC298_Insert__15nglInstanceBankRC14nglFixedStringPv/attempt-1/result.json`",
+      "score": 15.812,
+      "source": "extern \"C\" int strcmp(const char*, const char*);\n\nclass nglFixedString\n{\npublic:\n  typedef unsigned long long fint;\n  enum { STR_SIZE = 32, NUM_FINTS = 4 };\n  typedef nglFixedString FS;\n\n  fint* value() { return reinterpret_cast<fint*>(str); }\n  const fint* value() const { return reinterpret_cast<const fint*>(str); }\n\n  const FS& operator=(const FS& rhs)\n  {\n    for (int i = 0; i < NUM_FINTS; ++i)\n      value()[i] = rhs.value()[i];\n    return *this;\n  }\n\n  bool operator==(const FS& rhs) const\n  {\n    for (int i = 0; i < NUM_FINTS; ++i)\n      if (!(value()[i] == rhs.value()[i]))\n        return false;\n    return true;\n  }\n\n  bool operator>=(const FS& rhs)\n  {\n    return strcmp(&str[0], &rhs.str[0]) >= 0;\n  }\n\nprivate:\n  char str[STR_SIZE];\n} __attribute__((aligned(8)));\n\nclass nglInstanceBank\n{\npublic:\n  struct Instance\n  {\n    nglFixedString Key;\n    void* Value;\n    int RefCount;\n    Instance* Forward[1];\n  };\n\n  Instance* NIL;\n  Instance* Head;\n  Instance* Insert(const nglFixedString& Key, void* Value);\n\nprivate:\n  enum { MaxNumberOfLevels = 16 };\n  int RandomsLeft;\n  int RandomBits;\n  int Level;\n  Instance* NewNodeOfLevel(int l);\n  int RandomLevel();\n};\n\nnglInstanceBank::Instance* nglInstanceBank::Insert(const nglFixedString& Key, void* Value)\n{\n  int k;\n  Instance* update[MaxNumberOfLevels];\n  Instance* p;\n  Instance* q;\n  p = Head;\n  k = Level;\n  do\n  {\n    for (;;)\n    {\n      q = p->Forward[k];\n      if (q->Key >= Key) break;\n      p = q;\n    }\n    update[k] = p;\n  } while(--k >= 0);\n  if (q->Key == Key)\n  {\n    q->RefCount++;\n    return q;\n  }\n  k = RandomLevel();\n  if (k > Level)\n  {\n    k = ++Level;\n    update[k] = Head;\n  };\n  q = NewNodeOfLevel(k);\n  q->Key = Key;\n  q->Value = Value;\n  q->RefCount = 1;\n  do\n  {\n    p = update[k];\n    q->Forward[k] = p->Forward[k];\n    p->Forward[k] = q;\n  } while(--k >= 0);\n  return 0;\n}\n",
+      "status": "different",
+      "target_size": 424
+    }
+  ],
+  "raw_name": "Insert__15nglInstanceBankRC14nglFixedStringPv"
+}
