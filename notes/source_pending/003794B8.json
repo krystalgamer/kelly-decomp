@@ -1,0 +1,23 @@
+{
+  "address": "0x003794B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "17f6fc3582d9393b67c3f63e97332984678dedd2",
+      "candidate_size": 476,
+      "compared_bytes": 476,
+      "compared_instructions": 119,
+      "emitted_name": "WAVE_RestrictPartition__FP13WavePartitionff",
+      "instruction_score": 7.563,
+      "matching_bytes": 130,
+      "matching_instructions": 9,
+      "notes": "# FIRST PASS wave 87 lane B5\n\nExact released body tested once for `0x003794B8 WAVE_RestrictPartition__FP13WavePartitionff`. Result `different`, score 27.3109%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 27.3109,
+      "source": "typedef unsigned int u_int;\n\n#define assert(exp) ((void)0)\n\nstruct WavePartition {\n\tWavePartition(u_int N_in, float *guide_in, float *guidestep_in, float *weight_in)\n\t\t: N(N_in), guide(guide_in), guidestep(guidestep_in), weight(weight_in) {}\n\n\tu_int N;\n\tfloat *guide;\n\tfloat *guidestep;\n\tfloat *weight;\n};\n\nstatic void WAVE_RestrictPartition(WavePartition *wp, float min, float max)\n{\n\tfloat *guideptr = wp->guide;\n\tu_int i;\n\n\tfor (i = 0; i < wp->N && *guideptr < min ; ++i, ++guideptr) continue;\n\tif (i > 0 && *guideptr > min && *(guideptr - 1) < min)\n\t{\n\t\t--i;\n\t\t--guideptr;\n\t\twp->guide[i] = min;\n\t\tfloat oldguidestep = wp->guidestep[i];\n\t\twp->guidestep[i] = wp->guide[i+1] - wp->guide[i];\n\t\tassert(wp->guidestep[i] > 0);\n\t\twp->weight[i] *= wp->guidestep[i] / oldguidestep;\n\t}\n\twp->guide += i;\n\twp->guidestep += i;\n\twp->weight += i;\n\twp->N -= i;\n\tfor (i = 0; i < wp->N && *guideptr <= max ; ++i, ++guideptr) continue;\n\tif (i < wp->N && *guideptr > max && *(guideptr-1) < max)\n\t{\n\t\twp->guide[i] = max;\n\t\tfloat oldguidestep = wp->guidestep[i-1];\n\t\twp->guidestep[i-1] = wp->guide[i] - wp->guide[i-1];\n\t\tassert(wp->guidestep[i-1] > 0);\n\t\twp->weight[i-1] *= wp->guidestep[i-1] / oldguidestep;\n\t\t++i;\n\t}\n\twp->N = i;\n}\n",
+      "status": "different",
+      "target_size": 472
+    }
+  ],
+  "raw_name": "WAVE_RestrictPartition__FP13WavePartitionff"
+}
