@@ -1,0 +1,16 @@
+{
+  "address": "0x003291C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "21fb5c925a832f60f410eef44f5cb2243f23552f",
+      "error": "Candidate did not emit __cl__18slf_vector3d_add_tR8vm_stackQ320script_library_class8function7entry_t; emitted functions: []",
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Status: **symbol_missing**\n- Byte score: **0.0%**\n- Instruction score: **0.0%**\n- Tested exactly one source-faithful body with minimum declarations for `vector3d`, `vm_stack`, and `script_library_class::function`.\n- Compilation succeeded, but the isolated compiler emitted no discoverable function symbol, so no byte comparison was possible.\n- No variants, retries, diff chasing, normalization, tracked-file edits, finalization, integration, ROM build, commit, or git mutation were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/script_lib_vector3d.cpp:55-72` \u2014 released class parameters and exact operator body.\n- `kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:292-305,371-372` \u2014 released vector layout, constructors, and addition operator.\n- `kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:25-64,270-300` \u2014 released entry type and SLF macro expansions.\n- `kelly-slaters-pro-surfer/KS/SRC/vm_stack.h:21-66` \u2014 released stack layout and accessors.\n- `tmp/functions/003291C0___cl__18slf_vector3d_add_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/result.json` \u2014 isolated test result.",
+      "score": 0.0,
+      "source": "typedef float rational_t;\n\nclass vector3d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z;\n  inline vector3d() {}\n  inline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n  inline vector3d(T _x, T _y, T _z) { x = _x; y = _y; z = _z; }\n};\n\ninline vector3d operator + (const vector3d& a, const vector3d& b)\n{ return vector3d(a.x + b.x, a.y + b.y, a.z + b.z); }\n\nclass vm_stack\n{\npublic:\n  int salloc;\n  char* buffer;\n  char* SP;\n  void pop(int n) { SP -= n; }\n  char* get_SP() const { return SP; }\n  bool push(const char* src, int n);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t { FIRST_ENTRY, RECALL_ENTRY };\n    virtual bool operator()(vm_stack& stack,entry_t entry) { return true; }\n  };\n};\n\nclass slf_vector3d_add_t : public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    vector3d me;\n    vector3d b;\n  };\n  virtual bool operator()(vm_stack& stack,entry_t entry)\n  {\n    stack.pop(sizeof(parms_t));\n    parms_t* parms = (parms_t*)stack.get_SP();\n    vector3d result = parms->me + parms->b;\n    if (!stack.push((char*)&result,sizeof(result)) )\n      ;\n    return true;\n  }\n};\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__cl__18slf_vector3d_add_tR8vm_stackQ320script_library_class8function7entry_t"
+}
