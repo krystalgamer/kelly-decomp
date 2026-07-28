@@ -1,0 +1,23 @@
+{
+  "address": "0x002E39B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2cb4ce7c7919b90fc93210ed0656db70c664e906",
+      "candidate_size": 124,
+      "compared_bytes": 460,
+      "compared_instructions": 115,
+      "emitted_name": "do_lift__20dolly_and_strafe_mcsf",
+      "instruction_score": 1.7391,
+      "matching_bytes": 38,
+      "matching_instructions": 2,
+      "notes": "FIRST PASS wave84 A1\nTarget: 0x002E39B8 do_lift__20dolly_and_strafe_mcsf (460 bytes / 0x1CC, game/files_misc2)\nReference: kelly-slaters-pro-surfer/KS/SRC/mcs.cpp\nConfirmed attempts=0 before testing. Prepared the target, then tested exactly one nonempty LF self-contained candidate preserving the exact released do_lift body with minimal local declarations and no unresolved headers.\nResult: different, score 8.2609% (38/460 matching bytes; 2/115 matching instructions); candidate size 124 bytes versus target size 460 bytes.\nNo alternatives, assembly candidate, annotations, variants, retry, attempts 2-5, diff chasing, tracked edits, finalize, integrate, build, commit, or push. This first-pass lane stopped after the single honest test.",
+      "score": 8.2609,
+      "source": "typedef float rational_t;\n\nstruct vector3d\n{\n  float x;\n  float y;\n  float z;\n\n  vector3d(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {}\n\n  vector3d& operator*=(rational_t scale)\n  {\n    x *= scale;\n    y *= scale;\n    z *= scale;\n    return *this;\n  }\n};\n\ninline vector3d operator+(const vector3d& lhs, const vector3d& rhs)\n{\n  return vector3d(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z);\n}\n\nclass entity\n{\npublic:\n  const vector3d& get_abs_position() const;\n  void set_rel_position(const vector3d& position);\n};\n\nclass dolly_and_strafe_mcs\n{\n  char motion_control_system_layout[12];\n  entity* ent;\n\npublic:\n  void do_lift(rational_t distance);\n};\n\nvoid dolly_and_strafe_mcs::do_lift( rational_t distance )\n{\n  // doing lift in world coordinates\n  vector3d lift(0,1,0);\n  lift *= distance;\n  ent->set_rel_position( ent->get_abs_position() + lift );\n}\n",
+      "status": "different",
+      "target_size": 460
+    }
+  ],
+  "raw_name": "do_lift__20dolly_and_strafe_mcsf"
+}
