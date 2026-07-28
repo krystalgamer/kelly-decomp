@@ -1,0 +1,23 @@
+{
+  "address": "0x00159F08",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f25ce3c371904238086533a31e5939a82645c1b9",
+      "candidate_size": 400,
+      "compared_bytes": 400,
+      "compared_instructions": 100,
+      "emitted_name": "process_help_string__18IGOTutorialManagerR7stringxPCc",
+      "instruction_score": 8.0,
+      "matching_bytes": 76,
+      "matching_instructions": 8,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/tutorialmanager.cpp:306-350; kelly-slaters-pro-surfer/KS/SRC/ks/tutorialmanager.h:11-64; kelly-slaters-pro-surfer/KS/SRC/ks/globaltextenum.h:600-619; tmp/functions/00159F08_process_help_string__18IGOTutorialManagerR7stringxPCc/attempt-1/result.json; tmp/source_first/00159F08/attempt-1.md. Result `different`, score 19.0000; no later attempt.",
+      "score": 19.0,
+      "source": "extern \"C\" char *strcpy(char *, const char *);\n\nclass stringx {\n    char *chars;\n    void *my_buf;\npublic:\n    stringx(const char *, int = -1);\n    ~stringx();\n    stringx &operator=(const stringx &);\n    const char *c_str() const { return chars; }\n};\n\nenum {\n    GT_PadCircle = 8,\n    GT_PadCross = 9,\n    GT_PadTriangle = 10,\n    GT_PadSquare = 11,\n    GT_PadBack = 18,\n    GT_PadStart = 19\n};\n\nextern stringx ksGlobalButtonArray[];\n\nclass IGOTutorialManager {\npublic:\n    void process_help_string(stringx &dest, const char *source);\n};\n\nvoid IGOTutorialManager::process_help_string(stringx &dest, const char *source)\n{\n\tchar temp[500];\n\tint index = 0;\n\n\tstrcpy(temp, source);\n\n\twhile (temp[index] != 0)\n\t{\n\t\tif (temp[index] == '@')\n\t\t{\n\t\t\tchar insert[3];\n\t\t\tswitch (temp[index + 1])\n\t\t\t{\n\t\t\tcase 'T':\n\t\t\t\tstrcpy(insert, ksGlobalButtonArray[GT_PadTriangle].c_str());\n\t\t\t\tbreak;\n\t\t\tcase 'S':\n\t\t\t\tstrcpy(insert, ksGlobalButtonArray[GT_PadSquare].c_str());\n\t\t\t\tbreak;\n\t\t\tcase 'C':\n\t\t\t\tstrcpy(insert, ksGlobalButtonArray[GT_PadCircle].c_str());\n\t\t\t\tbreak;\n\t\t\tcase 'X':\n\t\t\t\tstrcpy(insert, ksGlobalButtonArray[GT_PadCross].c_str());\n\t\t\t\tbreak;\n\t\t\tcase 'B':\n\t\t\t\tstrcpy(insert, ksGlobalButtonArray[GT_PadBack].c_str());\n\t\t\t\tbreak;\n\t\t\tcase 'A':\n\t\t\t\tstrcpy(insert, ksGlobalButtonArray[GT_PadStart].c_str());\n\t\t\t\tbreak;\n\t\t\tdefault:\n\t\t\t\tbreak;\n\t\t\t}\n\n\t\t\ttemp[index] = insert[0];\n\t\t\ttemp[index + 1] = insert[1];\n\t\t}\n\n\t\tindex++;\n\t}\n\n\tdest = temp;\n}\n",
+      "status": "different",
+      "target_size": 344
+    }
+  ],
+  "raw_name": "process_help_string__18IGOTutorialManagerR7stringxPCc"
+}
