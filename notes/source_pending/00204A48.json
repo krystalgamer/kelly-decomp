@@ -1,0 +1,15 @@
+{
+  "address": "0x00204A48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "14e7dd20e5c3fa26ce9e1682608298549dffccfd",
+      "notes": "Exact released source/minimal declarations. Compile failed because the minimal preamble omitted the `NULL` declaration.",
+      "score": 0.0,
+      "source": "typedef float rational_t;\n\nclass vector3d\n{\npublic:\n  rational_t x;\n  rational_t y;\n  rational_t z;\n};\n\nextern vector3d global_ZEROVEC;\n#define ZEROVEC global_ZEROVEC\n\nclass entity;\n\nclass entity_anim_tree\n{\npublic:\n  bool is_finished() const;\n  rational_t get_floor_offset() const;\n  bool is_root(entity *ent) const;\n  bool is_relative_to_start() const;\n  void get_current_root_relpos(vector3d *destP) const;\n};\n\nclass entity\n{\npublic:\n  entity_anim_tree *get_anim_tree(int slot) const;\n};\n\n#define MAX_ANIM_SLOTS 4\n\nstatic rational_t get_floor_offset (entity *ent)\n{\n  // for now at least, this is entirely determined by the root animation\n  entity_anim_tree* a = NULL;\n  rational_t last_floor_offset = 0.0f;\n\n  for(int i=(MAX_ANIM_SLOTS-1); i>=0 && (a == NULL); --i)\n  {\n    a = ent->get_anim_tree( i );\n    if(a && (a->is_finished() || a->get_floor_offset() <= 0.0f || !a->is_root(ent)))\n      a = NULL;\n  }\n\n  if ( a!=NULL && a->is_relative_to_start() )\n  {\n    vector3d relp = ZEROVEC;\n    a->get_current_root_relpos( &relp );\n    last_floor_offset = a->get_floor_offset();\n    last_floor_offset += relp.y;\n  }\n\n  return last_floor_offset;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "get_floor_offset__FP6entity"
+}
