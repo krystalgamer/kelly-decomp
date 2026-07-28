@@ -1,0 +1,15 @@
+{
+  "address": "0x00330750",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ba8a4a3fdae222acf5817eb06ac10eb90318ffe3",
+      "notes": "Attempt 1 used the exact released source for __cl__37slf_vector3d_list_iterator_is_equal_tR8vm_stackQ320script_library_class8function7entry_t. Result `compile_failed`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "typedef float vm_num_t;\n\nclass stringx\n{\npublic:\n  stringx operator+(const char*) const;\n};\n\nstringx operator+(const char*, const stringx&);\nvoid error(const stringx&);\n\nclass script_object\n{\npublic:\n  const stringx& get_name() const;\n};\n\nclass vm_executable\n{\npublic:\n  const stringx& get_fullname() const;\n};\n\nclass vm_thread\n{\npublic:\n  script_object* get_instance() const;\n  vm_executable* get_executable() const;\n};\n\nclass vm_stack\n{\npublic:\n  char* SP;\n  vm_thread* my_thread;\n\n  char* get_SP() const { return SP; }\n  vm_thread* get_thread() const { return my_thread; }\n  void pop(int n) { SP -= n; }\n  bool push(const char* src, int n);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n\n    virtual bool operator()(vm_stack&, entry_t) { return true; }\n  };\n};\n\nstruct vm_vector3d_list_iterator_t\n{\n  void* current;\n\n  bool operator==(const vm_vector3d_list_iterator_t& other) const\n  {\n    return current == other.current;\n  }\n};\n\nclass slf_vector3d_list_iterator_is_equal_t : public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    vm_vector3d_list_iterator_t me;\n    vm_vector3d_list_iterator_t you;\n  };\n\n  virtual bool operator()(vm_stack& stack, entry_t entry);\n};\n\nbool slf_vector3d_list_iterator_is_equal_t::operator()(vm_stack& stack, entry_t entry)\n{\n  stack.pop(sizeof(parms_t));\n  parms_t* parms = (parms_t*)stack.get_SP();\n  vm_num_t result = parms->me==parms->you;\n  if (!stack.push((char*)&result,sizeof(result)) )\n    error( stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname() );\n  return true;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__cl__37slf_vector3d_list_iterator_is_equal_tR8vm_stackQ320script_library_class8function7entry_t"
+}
