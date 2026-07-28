@@ -1,0 +1,23 @@
+{
+  "address": "0x001A4C08",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "70e4225ed3094e60dbaab4556397484dd859635c",
+      "candidate_size": 288,
+      "compared_bytes": 404,
+      "compared_instructions": 101,
+      "emitted_name": "Select__16MCDetectFrontEndi",
+      "instruction_score": 0.9901,
+      "matching_bytes": 46,
+      "matching_instructions": 1,
+      "notes": "Exact released `MCDetectFrontEnd::Select(int)` body from `historicalsource/kelly-slaters-pro-surfer/KS/SRC/ks/MCDetectFrontEnd.cpp` was tested once with minimal declarations.\n\nResult: different, score 11.3861%. The released body omits target sound-play/wait sequences in the insert-card and no-space paths; no variant or diff chase was attempted.",
+      "score": 11.3861,
+      "source": "// Target: 0x001A4C08 Select__16MCDetectFrontEndi\n// Reference: KS/SRC/ks/MCDetectFrontEnd.cpp\n// Replace this file with one self-contained candidate function.\nclass FEMenuSystem {\npublic:\n    virtual void pad0();\n    virtual void pad1();\n    virtual void MakeActive(int, bool = true, bool = true);\n};\n\nclass GraphicalMenuSystem {\npublic:\n    enum { MainMenu };\n};\n\nstruct Career {\n    char padding[0x10864];\n    char cfg;\n};\n\nclass StoredConfigData {\npublic:\n    static StoredConfigData *instance;\n    static StoredConfigData *inst() { return instance; }\n    void setGameConfig(void *);\n};\n\nclass MCDetectFrontEnd {\n    char padding0[0x50];\n    FEMenuSystem *system;\n    char padding1[0x11c];\n    int mc_state;\n\npublic:\n    enum {\n        MCContinue,\n        MCRetry,\n        MC_INSERT_CARD = 1,\n        MC_FORMAT_CARD,\n        MC_DONE = 4,\n        MC_ERROR_LOADING,\n        MC_NO_DISK_SPACE,\n        MC_FORMATTING = 8,\n        MC_EXIT\n    };\n\n    void goState(int);\n    void tryToLoadMostRecent();\n    int loadMostRecentGame();\n    void Select(int);\n};\n\nextern int formatCounter;\nextern Career *g_career;\n\n__asm__(\".equ formatCounter, 0x0040CDF0\");\n__asm__(\".equ g_career, 0x00427C9C\");\n__asm__(\".equ _16StoredConfigData$instance, 0x0040CDE8\");\n__asm__(\".equ setGameConfig__16StoredConfigDataPv, 0x001A2E80\");\n__asm__(\".equ goState__16MCDetectFrontEndi, 0x001A3930\");\n__asm__(\".equ tryToLoadMostRecent__16MCDetectFrontEnd, 0x001A4DA0\");\n__asm__(\".equ loadMostRecentGame__16MCDetectFrontEnd, 0x001A4A80\");\n\nvoid MCDetectFrontEnd::Select(int entry_index)\n{\n    if (mc_state == MC_FORMAT_CARD)\n    {\n        if (entry_index == MCContinue)\n        {\n            goState(MC_FORMATTING);\n            formatCounter = 0;\n        }\n        else\n        {\n            tryToLoadMostRecent();\n        }\n    }\n    else if (mc_state == MC_INSERT_CARD)\n    {\n        if (entry_index == MCContinue)\n        {\n            goState(MC_EXIT);\n        }\n        else\n        {\n            tryToLoadMostRecent();\n        }\n    }\n    else if (mc_state == MC_DONE)\n    {\n        StoredConfigData::inst()->setGameConfig(&(g_career->cfg));\n        system->MakeActive(GraphicalMenuSystem::MainMenu);\n    }\n    else if (mc_state == MC_ERROR_LOADING)\n    {\n        system->MakeActive(GraphicalMenuSystem::MainMenu);\n    }\n    else if (mc_state == MC_NO_DISK_SPACE)\n    {\n        if (entry_index == MCRetry)\n        {\n            tryToLoadMostRecent();\n        }\n        else\n        {\n            loadMostRecentGame();\n        }\n    }\n}\n",
+      "status": "different",
+      "target_size": 404
+    }
+  ],
+  "raw_name": "Select__16MCDetectFrontEndi"
+}
