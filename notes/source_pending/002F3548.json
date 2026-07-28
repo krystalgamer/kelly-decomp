@@ -1,0 +1,23 @@
+{
+  "address": "0x002F3548",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "11a6a88e35602ec89fd70578f318f8555b113a7a",
+      "candidate_size": 152,
+      "compared_bytes": 396,
+      "compared_instructions": 99,
+      "emitted_name": "__unguarded_insertion_sort_aux__H2ZP20instance_render_infoZ20instance_render_info_X01X01PX11_v",
+      "instruction_score": 0.0,
+      "matching_bytes": 28,
+      "matching_instructions": 0,
+      "notes": "FIRST PASS wave67 A3. Attempt 1 used the exact released GCC 2.95.2 STL template body and minimum faithful released game declarations. The one isolated test completed and differed: score 7.0707, 28/396 matching bytes, 0/99 matching instructions. No variants or diff chase were attempted; tracked files remained untouched.",
+      "score": 7.0707,
+      "source": "struct po {\n    float data[16];\n} __attribute__((aligned(16)));\n\nstruct frame_info {\n    float age;\n    int ifl_frame_boost;\n    int ifl_frame_locked;\n};\n\nstruct vector3d {\n    float x;\n    float y;\n    float z;\n};\n\nstruct instance_render_info {\n    float number_of_faces_to_attempt;\n    po local_to_world;\n    unsigned int force_flags;\n    unsigned int color_scale;\n    float camera_relative_rotation;\n    frame_info frame_time_info;\n    void *my_region;\n    float particle_scale;\n    void *my_light_set;\n    void *alt_materials;\n    int frame;\n    vector3d render_scale;\n};\n\nextern \"C\" void unguarded_linear_insert(\n    instance_render_info *,\n    instance_render_info\n) __asm__(\"__unguarded_linear_insert__H2ZP20instance_render_infoZ20instance_render_info_X01X11_v\");\n\n__asm__(\".equ __unguarded_linear_insert__H2ZP20instance_render_infoZ20instance_render_info_X01X11_v,0x002F2D38\");\n\nextern \"C\" void unguarded_insertion_sort_aux(\n    instance_render_info *,\n    instance_render_info *,\n    instance_render_info *\n) __asm__(\"__unguarded_insertion_sort_aux__H2ZP20instance_render_infoZ20instance_render_info_X01X01PX11_v\");\n\nvoid unguarded_insertion_sort_aux(\n    instance_render_info *first,\n    instance_render_info *last,\n    instance_render_info *\n) {\n    for (instance_render_info *i = first; i != last; ++i)\n        unguarded_linear_insert(i, instance_render_info(*i));\n}\n",
+      "status": "different",
+      "target_size": 396
+    }
+  ],
+  "raw_name": "__unguarded_insertion_sort_aux__H2ZP20instance_render_infoZ20instance_render_info_X01X01PX11_v"
+}
