@@ -1,0 +1,23 @@
+{
+  "address": "0x0019EF50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "391758e6fcd0dea735db7ad5b7e641c389b908d9",
+      "candidate_size": 388,
+      "compared_bytes": 388,
+      "compared_instructions": 97,
+      "emitted_name": "Draw__9NamesMenu",
+      "instruction_score": 18.5567,
+      "matching_bytes": 154,
+      "matching_instructions": 18,
+      "notes": "Attempt 1 used the exact released source for Draw__9NamesMenu. Result `different`, score 39.6907; no retry or variant was made.",
+      "score": 39.6907,
+      "source": "class FEMenuEntry {\npublic:\n    int entry_num;\n    FEMenuEntry *next;\n    virtual void Draw();\n};\n\nclass PanelQuad {\npublic:\n    virtual void TurnOn(bool);\n};\n\nclass BoxText {\npublic:\n    virtual void Draw();\n};\n\nstruct MemCard {\n    int free;\n    bool exists;\n    bool changed;\n    bool available;\n    bool ask_format;\n    bool saved_games;\n    int status;\n};\n\nclass NamesMenu {\n    char pad00[0x38];\n    int max_vis_entries;\n    char pad3c[0x44 - 0x3c];\n    FEMenuEntry *first_vis_entry;\n    char pad48[0x4c - 0x48];\n    FEMenuEntry *highlighted;\n    char pad50[0x178 - 0x50];\n    int arrow_num;\n    int arrow_counter;\n    char pad180[0x1bc - 0x180];\n    MemCard cards[2];\n    char pad1dc[0x200 - 0x1dc];\n    int adjusted_active_card;\n    char pad204[0x208 - 0x204];\n    PanelQuad *box;\n    PanelQuad *arrows[2][2];\n    PanelQuad *lines[10];\n    PanelQuad *top_line;\n    PanelQuad *side_line;\n    FEMenuEntry *entry[17];\n    BoxText *message;\n    BoxText *freeSpace;\n    char pad298[0x2a4 - 0x298];\n    bool draw_message;\n\npublic:\n    void Draw();\n};\n\nvoid NamesMenu::Draw()\n{\n    if(arrow_counter >= 0) arrow_counter--;\n    if(arrow_counter < 0 && arrow_counter > -5)\n    {\n        arrow_counter = -5;\n        arrows[0][0]->TurnOn(true);\n        arrows[0][1]->TurnOn(false);\n        arrows[1][0]->TurnOn(true);\n        arrows[1][1]->TurnOn(false);\n    }\n\n    if (cards[adjusted_active_card].exists && cards[adjusted_active_card].available)\n    {\n#ifndef TARGET_PS2\n        freeSpace->Draw();\n#endif\n    }\n    highlighted->Draw();\n    if(!draw_message)\n    {\n        FEMenuEntry* tmp = first_vis_entry;\n        for(int i=0; i<max_vis_entries; i++)\n        {\n            tmp->Draw();\n            tmp = tmp->next;\n        }\n    }\n    else message->Draw();\n}\n",
+      "status": "different",
+      "target_size": 360
+    }
+  ],
+  "raw_name": "Draw__9NamesMenu"
+}
