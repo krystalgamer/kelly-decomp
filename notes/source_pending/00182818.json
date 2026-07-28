@@ -1,0 +1,23 @@
+{
+  "address": "0x00182818",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9da0d1c4a1741d98ada71c12e2c9eea0818f3db1",
+      "candidate_size": 220,
+      "compared_bytes": 336,
+      "compared_instructions": 84,
+      "emitted_name": "OnUp__11OptionsMenui",
+      "instruction_score": 7.1429,
+      "matching_bytes": 53,
+      "matching_instructions": 6,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.cpp:821-831; kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.h:120-187; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:55-135,155-260,337-366; kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:448-513; tmp/functions/00182818_OnUp__11OptionsMenui/attempt-1/result.json; tmp/source_first/00182818/attempt-1.md. Result `different`, score 15.7738; no later attempt.",
+      "score": 15.7738,
+      "source": "struct FEMenuEntry { int entry_num; };\n\nclass PanelQuad {\npublic:\n    void TurnOn(bool on);\n    void GetFade(int& fade, float& alpha, float& timer);\n    void SetFade(int fade, float alpha, float timer);\n};\n\nclass FEGraphicalMenu {\nprotected:\n    char state_before_highlighted[76];\n    FEMenuEntry *highlighted;\n    char state_after_highlighted[284];\npublic:\n    virtual void OnUp(int c);\n};\n\nstruct SoundScriptManager {\n    static SoundScriptManager *inst() { return *(SoundScriptManager **)0x0046B4A0; }\n    void playEvent(int event, void *entity = 0, float volume = 0.0f);\n};\n\nenum { SS_FE_UPDOWN = 25 };\n\nclass OptionsMenu : public FEGraphicalMenu\n{\n    enum { OpEnd = 11 };\n    static const int MAX_VOLUME = 10;\n    static const int NUM_VOLUME = 5;\n    PanelQuad* levels[NUM_VOLUME][MAX_VOLUME];\n    PanelQuad* lights[OpEnd];\npublic:\n    virtual void OnUp(int c);\n};\n\n__asm__(\".equ TurnOn__9PanelQuadb, 0x0014DD30\");\n__asm__(\".equ GetFade__9PanelQuadRiRfT2, 0x0014E3A8\");\n__asm__(\".equ SetFade__9PanelQuadiT1T1, 0x0014E3C0\");\n__asm__(\".equ OnUp__15FEGraphicalMenui, 0x0015B2E8\");\n__asm__(\".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380\");\n\nvoid OptionsMenu::OnUp(int c)\n{\n\tSoundScriptManager::inst()->playEvent(SS_FE_UPDOWN);\n\tlights[highlighted->entry_num]->TurnOn(false);\n\tint fade;\n\tfloat alpha, timer;\n\tlights[highlighted->entry_num]->GetFade(fade, alpha, timer);\n\tFEGraphicalMenu::OnUp(c);\n\tlights[highlighted->entry_num]->TurnOn(true);\n\tlights[highlighted->entry_num]->SetFade(fade, alpha, timer);\n}\n",
+      "status": "different",
+      "target_size": 336
+    }
+  ],
+  "raw_name": "OnUp__11OptionsMenui"
+}
