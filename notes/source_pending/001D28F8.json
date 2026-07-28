@@ -1,0 +1,23 @@
+{
+  "address": "0x001D28F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f3bc731bb443c82fea8e1cb9f9a7c5a09704fffb",
+      "candidate_size": 340,
+      "compared_bytes": 340,
+      "compared_instructions": 85,
+      "emitted_name": "ResetUpDownArrows__13CheatCodeMenu",
+      "instruction_score": 81.1765,
+      "matching_bytes": 277,
+      "matching_instructions": 69,
+      "notes": "Attempt 1 used the exact released source for ResetUpDownArrows__13CheatCodeMenu. Result `different`, score 81.4706; no variant or later attempt was made.",
+      "score": 81.4706,
+      "source": "class GlobalDataClass {\npublic:\n    bool isCheatUnlocked(int whichCheat) const;\n};\n\nextern GlobalDataClass globalCareerData;\n\nclass PanelQuad {\n    char data[0x194];\npublic:\n    virtual ~PanelQuad();\n    virtual void Init(float, float, float, float,\n                      float, float, float, float,\n                      float, float, float, float,\n                      float, void *);\n    virtual void TurnOn(bool on);\n};\n\nclass CheatCodeMenu {\n    char data[0x168];\n    int menu_entry_cheat_index[2];\n    void *sys;\n    int next_down;\n    int next_up;\n    void *toggle_state[2];\n    PanelQuad *arrow_up;\n    PanelQuad *arrow_down;\npublic:\n    void ResetUpDownArrows();\n};\n\nvoid CheatCodeMenu::ResetUpDownArrows()\n{\n    int i;\n    if(menu_entry_cheat_index[0] != 0)\n    {\n        for(i = menu_entry_cheat_index[0] - 1; i >= 0; i--)\n            if(globalCareerData.isCheatUnlocked(i))\n                break;\n        next_up = i;\n    }\n    else\n        next_up = -1;\n\n    if(menu_entry_cheat_index[2 - 1] != 22 - 1 && menu_entry_cheat_index[2 - 1] != -1)\n    {\n        for(i = menu_entry_cheat_index[2 - 1] + 1; i < 22; i++)\n            if(globalCareerData.isCheatUnlocked(i))\n                break;\n        if(i != 22)\n            next_down = i;\n        else\n            next_down = -1;\n    }\n    else\n        next_down = -1;\n\n    if(next_up != -1)\n        arrow_up->TurnOn(true);\n    else\n        arrow_up->TurnOn(false);\n\n    if(next_down != -1)\n        arrow_down->TurnOn(true);\n    else\n        arrow_down->TurnOn(false);\n}\n",
+      "status": "different",
+      "target_size": 340
+    }
+  ],
+  "raw_name": "ResetUpDownArrows__13CheatCodeMenu"
+}
