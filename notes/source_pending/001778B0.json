@@ -1,0 +1,23 @@
+{
+  "address": "0x001778B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "71b95f7d6940b4b0725b3c201a63c445bc1e18bc",
+      "candidate_size": 436,
+      "compared_bytes": 452,
+      "compared_instructions": 113,
+      "emitted_name": "UpdateStateHighScore__11IGOFrontEndf",
+      "instruction_score": 38.9381,
+      "matching_bytes": 210,
+      "matching_instructions": 44,
+      "notes": "Prepared and tested exactly one released-source candidate for `UpdateStateHighScore__11IGOFrontEndf` using the exact unchanged body from `kelly-slaters-pro-surfer/KS/SRC/ks/IGOFrontEnd.cpp:1665-1719` with minimal self-contained declarations and LF endings.\n\nResult: `different`, 46.4602% byte score and 38.9381% instruction score (210/452 bytes; 44/113 instructions). No retry, variant, alternate logic, diff chase, finalization, integration, or build was performed.",
+      "score": 46.4602,
+      "source": "typedef float time_value_t;\n\nclass ScoringManager\n{\npublic:\n    char pad[0x10fc];\n    int score;\n    int GetScore() { return score; }\n};\n\nclass kellyslater_controller\n{\npublic:\n    char pad[0x10fc];\n    ScoringManager my_scoreManager;\n    ScoringManager &get_my_scoreManager() { return my_scoreManager; }\n};\n\nclass world_dynamics_system\n{\npublic:\n    char pad[0xf8];\n    kellyslater_controller *ks_controller[2];\n    kellyslater_controller *get_ks_controller(int n) { return ks_controller[n]; }\n};\n\nclass game\n{\npublic:\n    char pad0[0x74];\n    int game_mode;\n    char pad1[0x44];\n    int active_player;\n    int get_game_mode() { return game_mode; }\n    int get_active_player() { return active_player; }\n};\n\nclass IGOIconManager\n{\npublic:\n    char pad[0xb5c];\n    int iconCounter;\n    int IconsCleared() { return iconCounter; }\n};\n\nclass HighScoreFrontEnd\n{\npublic:\n    static bool IsNewHighScore(const int score, const int icons);\n};\n\nclass PauseMenuSystem\n{\npublic:\n    enum { HighScoreMenu = 16 };\n    char pad0[0x7c];\n    int active;\n    char pad1[0x10];\n    int draw;\n    void startDraw(int menu);\n    void UpdateButtonDown();\n};\n\nclass FEManager\n{\npublic:\n    char pad[4];\n    PauseMenuSystem *pms;\n};\n\nclass IGOFrontEnd\n{\npublic:\n    enum RUNSTATE { RUNSTATE_PHOTOS = 5 };\n    char pad0[0xbc];\n    FEManager *manager;\n    char pad1[0x68];\n    RUNSTATE runState;\n    char pad2[0xcc];\n    struct HIGHSCORE { int waitingOnMenu; } highScore;\n    char pad3[0x27c];\n    IGOIconManager *iconManager;\n    char pad4[4];\n    void *tutorialManager;\n\n    void ShowAccompBackground(bool enabled, int h = 0, int v = 0);\n    void UpdateStatePhotos(time_value_t time_inc);\n    void UpdateStateHighScore(time_value_t time_inc);\n};\n\nextern world_dynamics_system *g_world_ptr;\nextern game *g_game_ptr;\n\nenum\n{\n    GAME_MODE_CAREER = 0,\n    GAME_MODE_FREESURF_HIGHSCORE = 2,\n    GAME_MODE_FREESURF_ICON = 3\n};\n\nvoid IGOFrontEnd::UpdateStateHighScore(time_value_t time_inc)\n{\n\tint\t\tscore = 0;\n\tint\t\ticons = 0;\n\tbool\tadvanceState = false;\n\tbool\tpopup = true;\n\t\n\tif (highScore.waitingOnMenu == -1)\n\t{\n\t\tscore = g_world_ptr->get_ks_controller(g_game_ptr->get_active_player())->get_my_scoreManager().GetScore();\n\t\tif (iconManager)\n\t\t\ticons = iconManager->IconsCleared();\n\t\t\n\t\t// Only popup menu in highscore mode, or in career mode but not tutorial. (dc 06/10/02)\n\t\tif (HighScoreFrontEnd::IsNewHighScore(score, icons))\n\t\t{\n\t\t\tpopup = (g_game_ptr->get_game_mode() == GAME_MODE_FREESURF_HIGHSCORE ||\n\t\t\t\tg_game_ptr->get_game_mode() == GAME_MODE_FREESURF_ICON ||\n\t\t\t\t(g_game_ptr->get_game_mode() == GAME_MODE_CAREER && !tutorialManager));\n\t\t}\n\t\telse\n\t\t\tpopup = false;\n\t}\n\t\n\tif (popup)\n\t{\n\t\t// First frame: popup high score menu.\n\t\tif ((manager->pms->active != PauseMenuSystem::HighScoreMenu || !manager->pms->draw) &&\n\t\t\thighScore.waitingOnMenu == -1)\n\t\t{\n\t\t\tShowAccompBackground(true);\n\t\t\tmanager->pms->startDraw(PauseMenuSystem::HighScoreMenu);\n\t\t\tmanager->pms->UpdateButtonDown();\n\t\t\thighScore.waitingOnMenu = manager->pms->active;\n\t\t}\n\t\t// Wait for high score menu to finish.\n\t\telse if (highScore.waitingOnMenu != -1 && !manager->pms->draw)\n\t\t{\n\t\t\tadvanceState = true;\n\t\t}\n\t}\n\telse\n\t{\n\t\tadvanceState = true;\n\t}\n\n\t// High score menu finished, proceed with normal end run states.\n\tif (advanceState)\n\t{\n\t\tShowAccompBackground(false);\n\t\thighScore.waitingOnMenu = -1;\n\t\trunState = RUNSTATE_PHOTOS;\n\t\tUpdateStatePhotos(time_inc);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 452
+    }
+  ],
+  "raw_name": "UpdateStateHighScore__11IGOFrontEndf"
+}
