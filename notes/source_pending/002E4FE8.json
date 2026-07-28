@@ -1,0 +1,23 @@
+{
+  "address": "0x002E4FE8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cb1afdbc6d76839495f976b8bc95a609a21152d4",
+      "candidate_size": 428,
+      "compared_bytes": 432,
+      "compared_instructions": 108,
+      "emitted_name": "touches_segment__C6portalRC8vector3dT1",
+      "instruction_score": 26.8519,
+      "matching_bytes": 218,
+      "matching_instructions": 29,
+      "notes": "# First pass wave77 A3 \u2014 touches_segment__C6portalRC8vector3dT1\n\n- Tested one candidate only: the exact released function body, with minimal standalone type/layout declarations (the released `__fabs` intrinsic is spelled `__builtin_fabsf` for the isolated compiler).\n- Result: `different`; byte score `50.4630%` (218/432), instruction score `26.8519%` (29/108); candidate 428 bytes, target 432 bytes.\n- No variants, diff chase, finalization, integration, tracked-file edits, build, or commit.\n\nCitations:\n- `kelly-slaters-pro-surfer/KS/SRC/portal.cpp:156-168`\n- `kelly-slaters-pro-surfer/KS/SRC/portal.h:19-48`\n- `kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:292-403`\n- `tmp/functions/002E4FE8_touches_segment__C6portalRC8vector3dT1/attempt-1/result.json`",
+      "score": 50.463,
+      "source": "typedef float rational_t;\n\nclass vector3d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z;\n  inline vector3d() {}\n  inline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n  inline vector3d(T _x, T _y, T _z) { x = _x; y = _y; z = _z; }\n  inline vector3d& operator = ( const vector3d& v )\n  { x = v.x; y = v.y; z = v.z; return *this; }\n  inline T length2() const\n  { return x*x + y*y + z*z; }\n};\n\ninline vector3d operator + (const vector3d& a, const vector3d& b)\n{ return vector3d(a.x + b.x, a.y + b.y, a.z + b.z); }\ninline vector3d operator - (const vector3d& a, const vector3d& b)\n{ return vector3d(a.x - b.x, a.y - b.y, a.z - b.z); }\ninline vector3d operator * (const vector3d& a, vector3d::T d)\n{ return vector3d(d * a.x, d * a.y, d * a.z); }\ninline vector3d::T dot(const vector3d& a, const vector3d& b)\n{\n  vector3d::T t = a.x*b.x + a.y*b.y + a.z*b.z;\n  return t;\n}\n\ninline int sgn(float x)\n{\n  return (x<0)?-1:((x>0)?1:0);\n}\n\nclass sphere\n{\n  vector3d center;\n  rational_t radius;\npublic:\n  const vector3d& get_center() const { return center; }\n  rational_t get_radius() const { return radius; }\n};\n\nclass portal\n{\n  char base[172];\n  sphere bound;\n  rational_t cylinder_depth;\n  vector3d normal;\npublic:\n  const vector3d& get_effective_center() const { return bound.get_center(); }\n  rational_t get_effective_radius() const { return bound.get_radius(); }\n  const vector3d& get_cylinder_normal() const { return normal; }\n  bool touches_segment( const vector3d& p1, const vector3d& p2 ) const;\n};\n\nbool portal::touches_segment( const vector3d& p1, const vector3d& p2 ) const\n{\n  vector3d v1 = p1 - get_effective_center();\n  vector3d v2 = p2 - get_effective_center();\n  rational_t d1 = dot( v1, get_cylinder_normal() );\n  rational_t d2 = dot( v2, get_cylinder_normal() );\n  // both points on same side of plane?\n  if ( sgn(d1) == sgn(d2) )\n    return false;\n  // check against disc\n  v2 = (v2 - v1) * (__builtin_fabsf(d1) / (__builtin_fabsf(d1)+__builtin_fabsf(d2))) + v1;\n  return ( v2.length2() < get_effective_radius()*get_effective_radius() );\n}\n",
+      "status": "different",
+      "target_size": 432
+    }
+  ],
+  "raw_name": "touches_segment__C6portalRC8vector3dT1"
+}
