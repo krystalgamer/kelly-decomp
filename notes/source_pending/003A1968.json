@@ -1,0 +1,23 @@
+{
+  "address": "0x003A1968",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5f8db59cf0d6229d34100ffd69dd86f1e7f03884",
+      "candidate_size": 416,
+      "compared_bytes": 416,
+      "compared_instructions": 104,
+      "emitted_name": "nglReleaseMeshFile__FRC14nglFixedString",
+      "instruction_score": 47.1154,
+      "matching_bytes": 265,
+      "matching_instructions": 49,
+      "notes": "Exact released-source FIRST PASS candidate using the verbatim function body from `NGL/PS2/ngl_ps2.cpp:6420-6466` at pinned commit `7c3ade041cc03409a3114ce3ba4a70053c6e4e3b`.\n\nMinimal declarations and layouts were derived from `NGL/PS2/ngl_instbank.h:6-36`, `NGL/PS2/ngl_ps2.h:619-622,678-732,820-891`, and `NGL/PS2/ngl_ps2_internal.h:603-628` at the same commit.\n\nCanonical attempt 1 result: `different`, score `63.7019` (instruction score `47.1154`), candidate size 416 versus target size 376. Per the one-candidate constraint, no retry, variant, or diff chase was performed.",
+      "score": 63.7019,
+      "source": "typedef unsigned int u_int;\n#define NULL 0\n\nclass nglFixedString\n{\n  char Data[32];\n};\n\nstruct nglTexture;\nstruct nglMaterialInfo\n{\n  u_int Hash;\n  u_int DiffuseKickAddr;\n  u_int DetailKickAddr;\n  u_int EnvironmentKickAddr;\n  u_int LightKickAddr;\n  u_int CmdListEndAddr;\n  u_int* BakedDMA;\n};\n\nstruct nglMaterial\n{\n  u_int Flags;\n  nglTexture* Map;\n  nglTexture* LightMap;\n  nglTexture* DetailMap;\n  nglTexture* EnvironmentMap;\n  char Data[216];\n  nglMaterialInfo* Info;\n};\n\nstruct nglMeshSection\n{\n  nglMaterial* Material;\n  char Data[60];\n};\n\nstruct nglMesh\n{\n  u_int Flags;\n  void* File;\n  nglMesh* NextMesh;\n  u_int DataSize;\n  nglFixedString Name;\n  char Data[36];\n  u_int NSections;\n  nglMeshSection* Sections;\n  u_int Pad;\n};\n\nstruct nglFileBuf\n{\n  void* Buf;\n  u_int Size;\n  u_int UserData;\n};\n\nstruct nglMeshFile\n{\n  nglFixedString FileName;\n  char FilePath[256];\n  nglFileBuf FileBuf;\n  bool LoadedInPlace;\n  nglMesh* FirstMesh;\n};\n\nclass nglInstanceBank\n{\npublic:\n  struct Instance\n  {\n    nglFixedString Key;\n    void* Value;\n    int RefCount;\n    Instance* Forward[1];\n  };\n\n  int Delete( const nglFixedString& Key );\n  Instance* Search( const nglFixedString& Key );\n};\n\nenum\n{\n  NGLMAT_TEXTURE_MAP = 0x00000010,\n  NGLMAT_LIGHT_MAP = 0x00000020,\n  NGLMAT_DETAIL_MAP = 0x00000040,\n  NGLMAT_ENVIRONMENT_MAP = 0x00000080,\n};\n\nextern nglInstanceBank nglMeshFileBank;\nextern nglInstanceBank nglMeshBank;\nvoid nglVif1SafeWait();\nvoid nglReleaseTexture( nglTexture* Tex );\nvoid nglMemFree( void* Ptr );\nvoid nglReleaseFile( nglFileBuf* File );\n\n__asm__(\".equ nglMeshFileBank, 0x004BBFE0\");\n__asm__(\".equ nglMeshBank, 0x004BBFC8\");\n__asm__(\".equ nglVif1SafeWait__Fv, 0x00397728\");\n__asm__(\".equ Search__15nglInstanceBankRC14nglFixedString, 0x003AC608\");\n__asm__(\".equ Delete__15nglInstanceBankRC14nglFixedString, 0x003AC440\");\n__asm__(\".equ nglReleaseTexture__FP10nglTexture, 0x0039C820\");\n__asm__(\".equ nglMemFree__FPv, 0x00395D50\");\n__asm__(\".equ nglReleaseFile__FP10nglFileBuf, 0x00395CB8\");\n\nvoid nglReleaseMeshFile( const nglFixedString& FileName )\n{\n  // Make sure they don't try and destroy it while it's being rendered from.\n  nglVif1SafeWait();\n\n  // Remove a reference from the instance bank, delete the mesh file only if the count hits 0.\n  nglInstanceBank::Instance* Inst = nglMeshFileBank.Search( FileName );\n  if ( !Inst )\n    return;\n  if ( --Inst->RefCount > 0 )\n    return;\n\n  nglMeshFile* MeshFile = (nglMeshFile*)Inst->Value;\n  nglMeshFileBank.Delete( MeshFile->FileName );\n\n  nglMesh* Mesh = MeshFile->FirstMesh;\n  while ( Mesh )\n  {\n    for ( u_int i = 0; i < Mesh->NSections; i++ )\n    {\n      nglMaterial* Material = Mesh->Sections[i].Material;\n      if ( Material->Flags & NGLMAT_TEXTURE_MAP )\n        nglReleaseTexture( Material->Map );\n\n      if ( Material->Flags & NGLMAT_LIGHT_MAP )\n        nglReleaseTexture( Material->LightMap );\n\n      if ( Material->Flags & NGLMAT_DETAIL_MAP )\n        nglReleaseTexture( Material->DetailMap );\n\n      if ( Material->Flags & NGLMAT_ENVIRONMENT_MAP )\n        nglReleaseTexture( Material->EnvironmentMap );\n\n      nglMemFree( Material->Info->BakedDMA );\n      nglMemFree( Material->Info );\n\t  Material->Info = NULL;\n    }\n\n    nglMeshBank.Delete( Mesh->Name );\n    Mesh = Mesh->NextMesh;\n  }\n\n  if ( !MeshFile->LoadedInPlace )\n    nglReleaseFile( &MeshFile->FileBuf );\n\n  nglMemFree( MeshFile );\n}\n",
+      "status": "different",
+      "target_size": 376
+    }
+  ],
+  "raw_name": "nglReleaseMeshFile__FRC14nglFixedString"
+}
