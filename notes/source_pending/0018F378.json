@@ -1,0 +1,23 @@
+{
+  "address": "0x0018F378",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "392c39abfcc072cb05da9d7d50e1d5f71d5ed85b",
+      "candidate_size": 440,
+      "compared_bytes": 440,
+      "compared_instructions": 110,
+      "emitted_name": "DrawMap__13BeachFrontEndf",
+      "instruction_score": 7.2727,
+      "matching_bytes": 73,
+      "matching_instructions": 8,
+      "notes": "# Attempt 1\n\nUsed the exact released `BeachFrontEnd::DrawMap(float)` body from `kelly-slaters-pro-surfer/KS/SRC/ks/BeachFrontEnd.cpp:673-716` with a self-contained minimal declaration scaffold based on `KS/SRC/ks/BeachFrontEnd.h:29-40` and `KS/SRC/ks/BeachFrontEnd.h:52-134`.\n\nCanonical result: `different`, score `16.5909` (8/110 matching instructions; 73 matching bytes; candidate 440 bytes versus target 376 bytes). This FIRST PASS lane permits one candidate test only, so no retry or declaration variant was attempted.",
+      "score": 16.5909,
+      "source": "class PanelFile\n{\npublic:\n\tvoid Draw(int layer);\n};\n\nclass TextString\n{\npublic:\n\tvoid Draw();\n\tvoid changeText(const char *text);\n\tvoid makeBox(int width, int height);\n\tvoid changePos(int x, int y);\n};\n\nclass PanelQuad\n{\npublic:\n\tvoid TurnOn(bool on);\n};\n\nstruct BFE_Beach\n{\n\tint location;\n\tbool locked;\n\tchar pad0[3];\n\tint unused;\n\tint main_beach;\n\tint secondary_beaches[2];\n\tbool new_challenges;\n\tbool done;\n\tchar pad1[2];\n};\n\nclass MapData\n{\npublic:\n\tvoid DrawPath(float loading_progress);\n};\n\nextern const char *ksGlobalTextArray[];\nenum { GT_FE_MENU_RETURN_FE_QUESTION };\n\nclass BeachFrontEnd\n{\n\tstatic const int max_blink_index = 3;\n\tchar pad0000[76];\n\tint highlighted;\n\tchar pad0050[176];\n\tPanelFile panel;\n\tchar pad0101[491];\n\tBFE_Beach beaches[47];\n\tint current_beach_index;\n\tchar pad0814[12];\n\tint home_beach;\n\tchar pad0824[112];\n\tint fe_return;\n\tchar pad0898[108];\n\tTextString *return_question;\n\tchar pad0908[16];\n\tint blink_index;\n\tchar pad091c[188];\n\tPanelQuad *here[47];\n\tchar pad0a94[212];\n\tPanelQuad *select_circle[47][3];\n\tchar pad0d9c[328];\n\tMapData map;\n\tbool no_progress_path;\n\tchar pad0f05[3];\n\tint map_wait_loading;\n\npublic:\n\tvoid DrawMap(float loading_progress);\n};\n\nvoid BeachFrontEnd::DrawMap(float loading_progress)\n{\n\tif(highlighted == fe_return)\n\t{\n\t\tpanel.Draw(0);\n\t\t\n\t\treturn_question->Draw();\n\t\t\n\t\tif(map_wait_loading > 0)\n\t\t\tmap_wait_loading--;\n\t\telse if(map_wait_loading == 0)\n\t\t{\n\t\t\tmap_wait_loading = -1;\n\t\t\treturn_question->changeText(ksGlobalTextArray[GT_FE_MENU_RETURN_FE_QUESTION]);\n\t\t\treturn_question->makeBox(200, 100);\n\t\t\treturn_question->changePos(320, 200);\n\t\t}\n\t\t\n\t\tpanel.Draw(1);\n\t}\n\telse\n\t{\n\t\tblink_index++;\n\t\tif(blink_index >= max_blink_index) blink_index = 0;\n\t\t\n\t\tint current_main_beach = current_beach_index;\n\t\tif(beaches[current_beach_index].main_beach != -1)\n\t\t\tcurrent_main_beach = beaches[current_beach_index].main_beach;\n\t\t\n\t\tfor(int j=0; j<max_blink_index; j++)\n\t\t\tif(select_circle[current_main_beach][j])\n\t\t\t\tselect_circle[current_main_beach][j]->TurnOn(j == blink_index);\n\t\t\t\n\t\tif(home_beach != -1 && here[home_beach]) here[home_beach]->TurnOn(true);\n\t\t\n\t\tpanel.Draw(0);\n\t\t\n\t\t// draw map path\n\t\tif(!no_progress_path)\n\t\t\tmap.DrawPath(loading_progress);\n\t\t\n\t\tpanel.Draw(1);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 376
+    }
+  ],
+  "raw_name": "DrawMap__13BeachFrontEndf"
+}
