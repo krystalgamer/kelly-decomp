@@ -1,0 +1,15 @@
+{
+  "address": "0x002FD6F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5f0f01e78ed38ed814262dd1fa3e4214790ea31f",
+      "notes": "# Attempt 1\n\n- UTC: 2026-07-28T18:21:06Z\u20132026-07-28T18:24:28Z.\n- Released body citation: `kelly-slaters-pro-surfer/KS/SRC/instance.h:99-110`; declarations/layout citation: `instance.h:14-64`; target metadata: `tmp/functions/002FD6F0__$_t13instance_bank1Z12vr_billboard/metadata.json`; target assembly: `target.s:1-113`.\n- Exact released-template body was used once with self-contained faithful declarations.\n- Result: `compile_failed`; byte score `0.0`; instruction score unavailable; target size `436` bytes; candidate emitted size unavailable.\n- Candidate SHA-1: `5f0f01e78ed38ed814262dd1fa3e4214790ea31f`; result: `attempt-1/result.json`; compiler reported `<set>` unavailable.\n- One-shot only: one harness invocation, no retry, no build/configure/ninja, no finalize/integrate, and no tracked-file edit.",
+      "score": 0.0,
+      "source": "#include <set>\n\n#define assert(expr) ((void)0)\n\nclass stringx\n{\n  char data[8];\npublic:\n  ~stringx();\n};\n\nclass vr_billboard;\nvoid debug_print(const char*, ...);\n\ntemplate <class T>\nclass instance_bank\n{\npublic:\n  struct ref_t\n  {\n    stringx label;\n    T* ptr;\n    unsigned int count;\n  };\n  class less_by_label : public binary_function<const ref_t*,const ref_t*,bool>\n  {\n  public:\n    bool operator()(const ref_t* a,const ref_t* b) const;\n  };\n  class less_by_ptr : public binary_function<const ref_t*,const ref_t*,bool>\n  {\n  public:\n    bool operator()(const ref_t* a,const ref_t* b) const;\n  };\n  typedef set<ref_t*,less_by_label,malloc_alloc> lref_set;\n  typedef set<ref_t*,less_by_ptr,malloc_alloc> pref_set;\n\n  lref_set refs_by_label;\n  pref_set refs_by_ptr;\n\n  ~instance_bank();\n};\n\ntemplate <class T>\ninstance_bank<T>::~instance_bank()\n{\n  lref_set::iterator i;\n  for ( i=refs_by_label.begin(); i!=refs_by_label.end(); ++i )\n  {\n    ref_t* r = *i;\n    assert( r->count );\n    debug_print( \"WARNING: Unreleased instance.\" );\n    delete r;\n  }\n}\n\ntemplate instance_bank<vr_billboard>::~instance_bank();\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_t13instance_bank1Z12vr_billboard"
+}
