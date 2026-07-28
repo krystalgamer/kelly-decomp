@@ -1,0 +1,23 @@
+{
+  "address": "0x002728D0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "77404eecf3f2bce305c52e876eeedfd430af3da2",
+      "candidate_size": 324,
+      "compared_bytes": 352,
+      "compared_instructions": 88,
+      "emitted_name": "set_color_delta__11beam_effectRC7color32T1fffb",
+      "instruction_score": 22.7273,
+      "matching_bytes": 135,
+      "matching_instructions": 20,
+      "notes": "Attempt 1 used the exact released source for set_color_delta__11beam_effectRC7color32T1fffb. Result `different`, score 38.3523; no retry or variant was made.",
+      "score": 38.3523,
+      "source": "typedef unsigned char uint8;\ntypedef float rational_t;\n\nclass color32 {\npublic:\n    union {\n        struct { uint8 b, g, r, a; } c;\n        unsigned int i;\n    };\n    uint8 get_red() const { return c.r; }\n    uint8 get_green() const { return c.g; }\n    uint8 get_blue() const { return c.b; }\n};\n\nclass beam;\nclass beam_effect_type {\npublic:\n    virtual ~beam_effect_type();\n    virtual void apply_target_vals(beam *the_beam) = 0;\n    virtual void apply_delta_vals(beam *the_beam, float t) = 0;\n    virtual void reverse() = 0;\n    virtual beam_effect_type *make_instance() = 0;\n};\n\nclass beam_effect_color : public beam_effect_type {\npublic:\n    virtual ~beam_effect_color();\n    virtual void apply_target_vals(beam *the_beam);\n    virtual void apply_delta_vals(beam *the_beam, float t);\n    virtual void reverse();\n    uint8 start[3];\n    uint8 target[3];\n    rational_t delta[3];\n    rational_t curr[3];\n    virtual beam_effect_type *make_instance();\n};\n\nclass beam_effect {\n    enum effect_mode {\n        EFFECT_DEAD = 0,\n        EFFECT_DELAY = 1,\n        EFFECT_ACTIVE = 2,\n        EFFECT_INVERTED_DELAY = -1,\n        EFFECT_INVERTED_ACTIVE = -2\n    };\n    beam *my_beam;\n    beam_effect_type *effect;\n    unsigned short id;\n    char mode;\n    rational_t timer;\n    rational_t loop_delay;\n    rational_t duration;\npublic:\n    virtual ~beam_effect();\n    virtual void dump();\n    virtual void set_active();\n    virtual void set_delaying();\n    virtual void set_color_delta(const color32&, const color32&, rational_t, rational_t, rational_t, bool) __asm__(\"set_color_delta__11beam_effectRC7color32T1fffb\");\n};\n\nvoid beam_effect::set_color_delta(const color32& start_color, const color32& end_color, rational_t the_duration, rational_t the_delay, rational_t the_loop_delay, bool invert_loop)\n{\n  dump();\n\n  effect = new beam_effect_color();\n  beam_effect_color *color_effect = (beam_effect_color *)effect;\n\n  color_effect->start[0] = start_color.get_red();\n  color_effect->target[0] = end_color.get_red();\n\n  color_effect->start[1] = start_color.get_green();\n  color_effect->target[1] = end_color.get_green();\n\n  color_effect->start[2] = start_color.get_blue();\n  color_effect->target[2] = end_color.get_blue();\n\n  duration = the_duration;\n\n  if(duration > 0)\n  {\n    color_effect->delta[0] = (color_effect->target[0] - color_effect->start[0]) / duration;\n    color_effect->delta[1] = (color_effect->target[1] - color_effect->start[1]) / duration;\n    color_effect->delta[2] = (color_effect->target[2] - color_effect->start[2]) / duration;\n  }\n\n  if(invert_loop)\n    mode = EFFECT_INVERTED_DELAY;\n  else\n    mode = EFFECT_DELAY;\n\n  loop_delay = the_loop_delay;\n  timer = the_delay;\n}\n",
+      "status": "different",
+      "target_size": 352
+    }
+  ],
+  "raw_name": "set_color_delta__11beam_effectRC7color32T1fffb"
+}
