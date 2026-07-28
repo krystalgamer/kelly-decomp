@@ -1,0 +1,23 @@
+{
+  "address": "0x00158AC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1c05ee103e45d49d59e2bccd04f52e1573de8dee",
+      "candidate_size": 344,
+      "compared_bytes": 344,
+      "compared_instructions": 86,
+      "emitted_name": "Update__12FEMenuSystemf",
+      "instruction_score": 97.6744,
+      "matching_bytes": 336,
+      "matching_instructions": 84,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.cpp:1200-1226; kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:434-472; tmp/functions/00158AC8_Update__12FEMenuSystemf/attempt-1/result.json; tmp/source_first/00158AC8/attempt-1.md. Result `different`, score 97.6744; no later attempt.",
+      "score": 97.6744,
+      "source": "typedef float time_value_t;\n\nenum\n{\n  FEMENUCMD_END = 14,\n  NUM_CONTROLLER_PORTS = 2\n};\n\nclass FEMenu\n{\n  char data[116];\n\npublic:\n  virtual ~FEMenu();\n  virtual void setBack(FEMenu *, int = 1);\n  virtual void setHigh(void *, bool = true);\n  virtual void setVis(void *);\n  virtual void Add(void *);\n  virtual void Init();\n  virtual void Load(bool);\n  virtual void Load();\n  virtual void Draw();\n  virtual void DrawTop();\n  virtual void UpdateInScene();\n  virtual void Update(time_value_t);\n  virtual void HighlightDefault();\n  virtual void OnActivate();\n  virtual void OnActivate(int);\n  virtual void OnUnactivate(FEMenu *);\n  virtual void OnSelect(int);\n  virtual void OnStart(int);\n  virtual void OnUp(int);\n  virtual void OnDown(int);\n  virtual void OnLeft(int);\n  virtual void OnRight(int);\n  virtual void OnCross(int);\n  virtual void OnTriangle(int);\n  virtual void OnSquare(int);\n  virtual void OnCircle(int);\n  virtual void OnL1(int);\n  virtual void OnR1(int);\n  virtual void OnL2(int);\n  virtual void OnR2(int);\n  virtual void OnAnyButtonPress(int, int);\n  virtual void OnButtonRelease(int, int);\n};\n\nextern int getButtonState(int, int);\n\nclass FEMenuSystem\n{\nprotected:\n  bool button_down[FEMENUCMD_END][NUM_CONTROLLER_PORTS];\n  int device_flags;\n\npublic:\n  FEMenu **menus;\n  void *manager;\n  int active;\n  int size;\n  int count;\n  void *font;\n\n  virtual void InitAll();\n  virtual void Add(FEMenu *);\n  virtual void MakeActive(int, int = 1);\n  virtual void Update(time_value_t);\n  virtual void UpdateButtonDown();\n  virtual void Draw();\n  virtual void Select(int, int) = 0;\n  virtual void Exit();\n  virtual void startDraw(int = -1, const bool = true);\n  virtual void endDraw(const bool = true);\n  virtual FEMenu *GetActiveMenu();\n\nprotected:\n  virtual void cons(int, void *, void *);\n  virtual void OnButtonPress(int, int);\n};\n\nvoid FEMenuSystem::Update(time_value_t time_inc)\n{\n  int i, j;\n\n  menus[active]->Update(time_inc);\n\n  for (i = 0; i < FEMENUCMD_END; i++)\n    for (j = 0; j < NUM_CONTROLLER_PORTS; j++)\n    {\n      if (button_down[i][j] && !getButtonState(i, j))\n      {\n        button_down[i][j] = false;\n        if (device_flags & (1 << j))\n          menus[active]->OnButtonRelease(j, i);\n        return;\n      }\n      else if (!button_down[i][j] && getButtonState(i, j))\n      {\n        button_down[i][j] = true;\n        if (device_flags & (1 << j))\n          OnButtonPress(i, j);\n        return;\n      }\n    }\n}\n",
+      "status": "different",
+      "target_size": 344
+    }
+  ],
+  "raw_name": "Update__12FEMenuSystemf"
+}
