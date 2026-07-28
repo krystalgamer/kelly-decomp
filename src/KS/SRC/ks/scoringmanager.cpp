@@ -356,3 +356,90 @@ struct LevelTrick{};struct Trick{float GetRawSickness(const LevelTrick*)const __
 // 0x002490E0 GetPartialScores__CQ214ScoringManager5ChainRiN21
 class ScoringManager{public:class Chain{public:void GetPartialRawScores(int&,int&,int&)const __asm__("GetPartialRawScores__CQ214ScoringManager5ChainRiN21");float GetMultiplier()const;void GetPartialScores(int&,int&,int&)const __asm__("GetPartialScores__CQ214ScoringManager5ChainRiN21");};};asm(".equ GetPartialRawScores__CQ214ScoringManager5ChainRiN21,0x00249270");asm(".equ GetMultiplier__CQ214ScoringManager5Chain,0x00249390");void ScoringManager::Chain::GetPartialScores(int&facePoints,int&airPoints,int&tubePoints)const{GetPartialRawScores(facePoints,airPoints,tubePoints);facePoints=int(float(facePoints)*GetMultiplier());airPoints=int(float(airPoints)*GetMultiplier());tubePoints=int(float(tubePoints)*GetMultiplier());}
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_00249848)
+// 0x00249848 GetPartialRawScores__CQ214ScoringManager6SeriesRiN21
+template <class T> class list {
+    struct node { node *next; node *prev; T value; };
+public:
+    class const_iterator {
+        node *p;
+    public:
+        const_iterator() {}
+        const_iterator(node *n) : p(n) {}
+        const T &operator*() const { return p->value; }
+        const_iterator &operator++() { p = p->next; return *this; }
+        bool operator!=(const const_iterator &right) const { return p != right.p; }
+    };
+    node *head;
+    const_iterator begin() const { return const_iterator(head->next); }
+    const_iterator end() const { return const_iterator(head); }
+};
+
+struct SurferTrick { char pad0[12]; int flags; char pad1[72]; };
+extern SurferTrick GTrickList[];
+asm(".equ GTrickList,0x00427CA8");
+enum { FaceFlag = 1, GrindFlag = 2, TubeFlag = 4, AirFlag = 8 };
+
+class ScoringManager {
+public:
+    struct LevelTrick { int numLandings; };
+    class Trick {
+    public:
+        enum TYPE { TYPE_TRICK, TYPE_GAP };
+        TYPE type; int index; int flags; float time; int numSpins;
+        float mouthDist; float lipDist; int repetitions;
+        int GetRawScore(const LevelTrick *, const bool = true) const
+            __asm__("GetRawScore__CQ214ScoringManager5TrickPCQ214ScoringManager10LevelTrickb");
+        bool IsInteresting() const __asm__("IsInteresting__CQ214ScoringManager5Trick");
+    };
+    typedef list<Trick> TrickList;
+    class Series {
+        LevelTrick *levelTricks;
+    public:
+        TrickList tricks; int numSpins; int landing; int flags;
+        float GetScale() const __asm__("GetScale__CQ214ScoringManager6Series");
+        void GetPartialRawScores(int &, int &, int &) const
+            __asm__("GetPartialRawScores__CQ214ScoringManager6SeriesRiN21");
+    };
+};
+asm(".equ GetRawScore__CQ214ScoringManager5TrickPCQ214ScoringManager10LevelTrickb,0x00249D00");
+asm(".equ IsInteresting__CQ214ScoringManager5Trick,0x0024A0E0");
+asm(".equ GetScale__CQ214ScoringManager6Series,0x00249C48");
+
+//	GetPartialRawScores()
+// Retrieves the partial scores of face tricks, air tricks, and tube tricks in this series.
+void ScoringManager::Series::GetPartialRawScores(int & facePoints, int & airPoints, int & tubePoints) const
+{
+	TrickList::const_iterator	it;
+
+	facePoints = 0;
+	airPoints = 0;
+	tubePoints = 0;
+
+	// Sum points of all tricks in this series.
+	for (it = tricks.begin(); it != tricks.end(); ++it)
+	{
+		if ((*it).IsInteresting())
+		{
+			// Partial scores currently ignore gaps.
+			if ((*it).type == Trick::TYPE_TRICK)
+			{
+				// This trick counts toward the face partial score.
+				if ((GTrickList[(*it).index].flags & FaceFlag) || (GTrickList[(*it).index].flags & GrindFlag))
+					facePoints += (*it).GetRawScore(levelTricks);
+				// This trick counts toward the air partial score.
+				else if (GTrickList[(*it).index].flags & AirFlag)
+					airPoints += (*it).GetRawScore(levelTricks);
+				// This trick counts toward the air partial score.
+				else if (GTrickList[(*it).index].flags & TubeFlag)
+					tubePoints += (*it).GetRawScore(levelTricks);
+			}
+		}
+	}
+
+	facePoints = int(GetScale()*float(facePoints));
+	airPoints = int(GetScale()*float(airPoints));
+	tubePoints = int(GetScale()*float(tubePoints));
+}
+#endif
