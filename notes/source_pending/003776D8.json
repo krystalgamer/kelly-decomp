@@ -1,0 +1,23 @@
+{
+  "address": "0x003776D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "83688858565a9fb2e1c5d2437cc650ecab59c9ed",
+      "candidate_size": 356,
+      "compared_bytes": 356,
+      "compared_instructions": 89,
+      "emitted_name": "WAVE_CheckWaveDataType__FRC7stringx",
+      "instruction_score": 40.4494,
+      "matching_bytes": 164,
+      "matching_instructions": 36,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 50 lane A4 for `0x003776D8 WAVE_CheckWaveDataType__FRC7stringx`.\n- Tested the exact released `WAVE_CheckWaveDataType` body once with minimal self-contained declarations preserving `stringx` construction, assignment, uppercase conversion, inline equality, `WaveData`/`BeachData` strides, globals, and the beach-id offset.\n- Result: **different**, byte score **46.0674%** (164/356) and instruction score **40.4494%** (36/89); candidate size 356 bytes, equal to the 356-byte target.\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/wave.cpp:3174-3212`\n- `kelly-slaters-pro-surfer/KS/SRC/stringx.h:56-78,193-202,230-236,456-459`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/wavedata.h:7-43`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/beachdata.h:7-35`\n- `tmp/functions/003776D8_WAVE_CheckWaveDataType__FRC7stringx/attempt-1/result.json`",
+      "score": 46.0674,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned long long big_int;\n\nclass stringx;\n\nclass string_buf\n{\n  friend class stringx;\n  friend inline bool operator==(const stringx &, const stringx &);\n\n  big_int *data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n\npublic:\n  inline bool is_equal(const string_buf &buf) const\n  {\n    if (buf.block_length != block_length)\n      return false;\n    for (int i = 0; i < block_length; i++)\n      if (!(buf.data[i] == data[i]))\n        return false;\n    return true;\n  }\n};\n\nclass stringx\n{\n  friend inline bool operator==(const stringx &, const stringx &);\n\n  char *chars;\n  string_buf *my_buf;\n\npublic:\n  stringx();\n  stringx(const stringx &);\n  ~stringx();\n  stringx &operator=(const char *);\n  void to_upper();\n};\n\ninline bool operator==(const stringx &lhs, const stringx &rhs)\n{\n  return lhs.my_buf->is_equal(*rhs.my_buf);\n}\n\nenum { WAVE_LAST = 31 };\n\nstruct WaveData\n{\n  char name[32];\n  char rest[584 - 32];\n};\n\nstruct BeachData\n{\n  char name[32];\n  char rest[532 - 32];\n};\n\nclass game\n{\n  char pad[552];\n\npublic:\n  int beach_id;\n};\n\nextern WaveData WaveDataArray[];\nextern BeachData BeachDataArray[];\nextern game *g_game_ptr;\n\nstatic u_int WAVE_CheckWaveDataType(const stringx &wdstr)\n{\n  u_int wd_type = WAVE_LAST;\n\n  stringx wd = wdstr;\n  stringx cwd;\n  bool retried = false;\nretry:\n  wd.to_upper();\n  for (u_int i = 0; i < WAVE_LAST; ++i)\n  {\n    cwd = WaveDataArray[i].name;\n    cwd.to_upper();\n    if (wd == cwd)\n    {\n      wd_type = i;\n      break;\n    }\n  }\n  if (wd_type == WAVE_LAST)\n  {\n    if (retried)\n    {\n      wd_type = 0;\n    }\n    else\n    {\n      int curbeach = g_game_ptr->beach_id;\n      wd = BeachDataArray[curbeach].name;\n      retried = true;\n      goto retry;\n    }\n  }\n\n  return wd_type;\n}\n",
+      "status": "different",
+      "target_size": 356
+    }
+  ],
+  "raw_name": "WAVE_CheckWaveDataType__FRC7stringx"
+}
