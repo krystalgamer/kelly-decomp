@@ -1,0 +1,23 @@
+{
+  "address": "0x00229F98",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "358a45c2d9ae206848a75766641a56c82f0fc7fb",
+      "candidate_size": 368,
+      "compared_bytes": 380,
+      "compared_instructions": 95,
+      "emitted_name": "Filter_Float__12float_filterRffff",
+      "instruction_score": 20.0,
+      "matching_bytes": 130,
+      "matching_instructions": 19,
+      "notes": "Attempt 1 used the exact released source body and minimal declarations for `Filter_Float__12float_filterRffff`. Result `different`, score 34.2105; no retry or declaration variant was made. Citations: kelly-slaters-pro-surfer/KS/SRC/ks/ks_camera.cpp:993-1033, kelly-slaters-pro-surfer/KS/SRC/ks/ks_camera.h:26-35, kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_math.h:78-84,112-118, tmp/functions/00229F98_Filter_Float__12float_filterRffff/attempt-1/result.json, tmp/source_first/00229F98/attempt-1.md.",
+      "score": 34.2105,
+      "source": "typedef float rational_t;\ntypedef float time_value_t;\ntypedef float fp;\n\nfloat pow(float, float);\nvoid fast_sin_cos_approx(fp rads, fp *sinx, fp *cosx);\n\ninline fp fast_sin(fp rads)\n{\n  fp sinx, cosx;\n  fast_sin_cos_approx(rads, &sinx, &cosx);\n  return sinx;\n}\n\ninline fp fast_cos(fp rads)\n{\n  fp sinx, cosx;\n  fast_sin_cos_approx(rads, &sinx, &cosx);\n  return cosx;\n}\n\nclass float_filter\n{\npublic:\n  void Filter_Float(float &filtered_float, time_value_t time_step,\n                    float filter_speed_r, float filter_speed_i);\n\nprivate:\n  rational_t Pos[2];\n  rational_t err[2];\n};\n\nvoid float_filter::Filter_Float(float &filtered_float, time_value_t time_step,\n                                float filter_speed_r, float filter_speed_i)\n{\n\tif (time_step > 0.1f)\n\t\ttime_step = 0.1f;\n\telse if (time_step < 0.014f)\n\t\ttime_step = 0.014f;\n\n\tif (filter_speed_i == 1000000)\n\t\tfilter_speed_i = filter_speed_r;\n\n\tfloat r = filter_speed_r*6.9282f;\n\tfloat i = filter_speed_i*4.0f;\n\n\tfloat eneg = 0.36787944f;\n\tfloat coeff = pow(eneg,r*time_step);\n\tfloat coss = fast_cos(i*time_step);\n\tfloat sins = fast_sin(i*time_step);\n\tfloat r1 = -coeff*coss;\n\tfloat i1 = coeff*sins;\n\n\tfloat a = r1*r1 + i1*i1;\n\tfloat g = 2.0f*r1 + a + 1.0f;\n\n\tfloat error = filtered_float - Pos[0];\n    filtered_float = (a+1.0f)*Pos[0] - a*Pos[1] + g*err[0];\n\n    Pos[1] = Pos[0];\n    Pos[0] = filtered_float;\n    err[1] = err[0];\n    err[0] = error;\n}\n",
+      "status": "different",
+      "target_size": 380
+    }
+  ],
+  "raw_name": "Filter_Float__12float_filterRffff"
+}
