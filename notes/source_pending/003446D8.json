@@ -1,0 +1,23 @@
+{
+  "address": "0x003446D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "733ae35d1406700384f84d3d819bfdf7a5771a9e",
+      "candidate_size": 364,
+      "compared_bytes": 388,
+      "compared_instructions": 97,
+      "emitted_name": "get_control_delta_helper__C9input_mgrP12input_deviceii9control_t",
+      "instruction_score": 20.6186,
+      "matching_bytes": 125,
+      "matching_instructions": 20,
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Result: **different**\n- Byte score: **32.2165%** (125/388)\n- Instruction score: **20.6186%** (20/97)\n- Candidate size: `364` bytes; target size: `388` bytes.\n- Candidate: `tmp/functions/003446D8_get_control_delta_helper__C9input_mgrP12input_deviceii9control_t/attempt-1/candidate.cpp`\n- SHA-1: `733ae35d1406700384f84d3d819bfdf7a5771a9e`\n- Started: `2026-07-28T10:27:29.338534441Z`; completed: `2026-07-28T10:38:18.742855810Z`; elapsed: `649.404321` seconds.\n- Used the exact active PS2 released body with minimum source-faithful declarations.\n- No retry, variant, diff chasing, normalization, finalization, integration, ROM build, commit, or tracked-file edit was performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/inputmgr.cpp:21-26`\n- `kelly-slaters-pro-surfer/KS/SRC/inputmgr.cpp:533-569`\n- `kelly-slaters-pro-surfer/KS/SRC/inputmgr.h:58-61`\n- `kelly-slaters-pro-surfer/KS/SRC/inputmgr.h:120-123`\n- `kelly-slaters-pro-surfer/KS/SRC/inputmgr.h:236-274`\n- `kelly-slaters-pro-surfer/KS/SRC/inputmgr.h:349-353`\n- `tmp/functions/003446D8_get_control_delta_helper__C9input_mgrP12input_deviceii9control_t/attempt-1/result.json`",
+      "score": 32.2165,
+      "source": "typedef float rational_t;\ntypedef int axis_id_t;\n\nconst rational_t AXIS_MAX = 1.0f;\nconst rational_t AXIS_MID = 0.0f;\nconst rational_t AXIS_MIN = -1.0f;\nconst float BOOLEAN_AXIS_FUDGE_FACTOR = 0.75f;\n\nenum control_t\n{\n  CT_BOOLEAN,\n  CT_RATIONAL,\n};\n\nclass stringx;\nclass input_device\n{\npublic:\n  virtual stringx get_name() const = 0;\n  virtual stringx get_name(int axis) const = 0;\n  virtual int get_id() const = 0;\n  virtual int get_axis_count() const = 0;\n  virtual axis_id_t get_axis_id(int axis) const = 0;\n  virtual rational_t get_axis_state(axis_id_t axis, int control_axis) const = 0;\n  virtual rational_t get_axis_old_state(axis_id_t axis, int control_axis) const = 0;\n  virtual rational_t get_axis_delta(axis_id_t axis, int control_axis) const = 0;\n};\n\nclass input_mgr\n{\npublic:\n  rational_t get_control_delta_helper(input_device *devptr, axis_id_t axis, int control_axis, control_t ctype) const;\n};\n\n#define assert(expr) ((void)0)\n\nrational_t input_mgr::get_control_delta_helper(input_device *devptr, axis_id_t axis, int control_axis, control_t ctype ) const\n{ // just a helper function for get_control_delta function so we don't write duplicate code\n  assert(devptr);\n  \n  rational_t retval;\n  \n  if ( ctype == CT_BOOLEAN )\n  {\n    rational_t v0 = devptr->get_axis_old_state( axis, control_axis );\n    if ( v0 < AXIS_MIN*BOOLEAN_AXIS_FUDGE_FACTOR )\n      v0 = AXIS_MIN;\n    else if ( v0 > AXIS_MAX*BOOLEAN_AXIS_FUDGE_FACTOR )\n      v0 = AXIS_MAX;\n    else\n      v0 = AXIS_MID;\n    \n    rational_t v1 = devptr->get_axis_state( axis, control_axis );\n    if ( v1 < AXIS_MIN*BOOLEAN_AXIS_FUDGE_FACTOR )\n      v1 = AXIS_MIN;\n    else if ( v1 > AXIS_MAX*BOOLEAN_AXIS_FUDGE_FACTOR )\n      v1 = AXIS_MAX;\n    else\n      v1 = AXIS_MID;\n    \n    retval = v1 - v0;\n    if ( retval < 0 )\n      retval = AXIS_MIN;\n    else if ( retval > 0 )\n      retval = AXIS_MAX;\n  }\n  else\n  {\n    retval = devptr->get_axis_delta( axis, control_axis );\n  }\n  \n  return retval;\n}\n",
+      "status": "different",
+      "target_size": 388
+    }
+  ],
+  "raw_name": "get_control_delta_helper__C9input_mgrP12input_deviceii9control_t"
+}
