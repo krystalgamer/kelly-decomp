@@ -1,0 +1,23 @@
+{
+  "address": "0x001BA7A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "03ffe49feae14ab69fbc96327534c1fd434fb866",
+      "candidate_size": 268,
+      "compared_bytes": 352,
+      "compared_instructions": 88,
+      "emitted_name": "OnLeft__14ExtrasFrontEndi",
+      "instruction_score": 6.8182,
+      "matching_bytes": 60,
+      "matching_instructions": 6,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 47 lane B4 for `0x001BA7A8 OnLeft__14ExtrasFrontEndi`.\n- Tested the exact released `ExtrasFrontEnd::OnLeft` control flow once with minimal self-contained declarations matching the active menu, highlighted entry, submenu, arrow, and timer fields plus the required virtual calls and sound event.\n- Result: **different**, byte score **17.0455%**, instruction score **6.8182%** (6/88 instructions).\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/ExtrasFrontEnd.cpp:541-565`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/ExtrasFrontEnd.h:11-64`\n- `tmp/functions/001BA7A8_OnLeft__14ExtrasFrontEndi/attempt-1/result.json`",
+      "score": 17.0455,
+      "source": "struct SoundScriptManager;\nextern SoundScriptManager *sound_manager;\nextern \"C\" int play_event(SoundScriptManager *, int, void *, float)\n    __asm__(\"playEvent__18SoundScriptManager9EventTypeP6entityf\");\n\n__asm__(\".equ sound_manager, 0x0046B4A0\");\n__asm__(\".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380\");\n\nstruct menu_vtable {\n    char padding[168];\n    short adjustment;\n    short padding2;\n    void (*on_left)(void *, int);\n};\n\nstruct menu {\n    char padding[116];\n    menu_vtable *vtable;\n};\n\nstruct entry {\n    int entry_num;\n};\n\nstruct panel_vtable {\n    char padding[24];\n    short adjustment;\n    short padding2;\n    void (*turn_on)(void *, bool);\n};\n\nstruct panel {\n    char padding[404];\n    panel_vtable *vtable;\n};\n\nstruct ExtrasFrontEnd {\n    char padding0[76];\n    entry *highlighted;\n    char padding1[16];\n    menu *active;\n    char padding2[308];\n    menu *surfers;\n    menu *beaches;\n    menu *trailers;\n    char padding3[100];\n    panel *arrows[2][2];\n    char padding4[4];\n    int arrow_counter;\n    int arrow_num;\n\n    void OnLeft(int c);\n};\n\nstatic void menu_left(menu *self, int c)\n{\n    menu_vtable *table = self->vtable;\n    table->on_left((char *)self + table->adjustment, c);\n}\n\nstatic void panel_on(panel *self, bool on)\n{\n    panel_vtable *table = self->vtable;\n    table->turn_on((char *)self + table->adjustment, on);\n}\n\nvoid ExtrasFrontEnd::OnLeft(int c)\n{\n    if (active)\n        menu_left(active, c);\n    switch (highlighted->entry_num)\n    {\n    case 0:\n        play_event(sound_manager, 26, 0, 0.0f);\n        menu_left(beaches, c); break;\n    case 1:\n        play_event(sound_manager, 26, 0, 0.0f);\n        menu_left(surfers, c); break;\n    case 2:\n        play_event(sound_manager, 26, 0, 0.0f);\n        menu_left(trailers, c); break;\n    }\n\n    if (highlighted->entry_num <= 2)\n    {\n        panel_on(arrows[0][1], true);\n        panel_on(arrows[0][0], false);\n        arrow_num = 0;\n        arrow_counter = 3;\n    }\n}\n",
+      "status": "different",
+      "target_size": 352
+    }
+  ],
+  "raw_name": "OnLeft__14ExtrasFrontEndi"
+}
