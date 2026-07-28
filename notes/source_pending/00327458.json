@@ -1,0 +1,23 @@
+{
+  "address": "0x00327458",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "07dc8bddb0fc857d36cbcbc85c96ddbe52811f80",
+      "candidate_size": 344,
+      "compared_bytes": 344,
+      "compared_instructions": 86,
+      "emitted_name": "__cl__30slf_entity_widget_get_entity_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 63.9535,
+      "matching_bytes": 213,
+      "matching_instructions": 55,
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Result: **different**\n- Byte score: **61.9186%** (213/344 bytes)\n- Instruction score: **63.9535%** (55/86 instructions)\n- Candidate and target sizes: **344 bytes**\n- Used the exact released `slf_entity_widget_get_entity_t::operator()` body with only declarations and released inline behavior required for isolated compilation.\n- No variants, diff chasing, build, finalization, integration, or tracked-file edits were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/script_lib_entity_widget.cpp:50-70` \u2014 released class, parameter, and function body.\n- `kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:262-300` \u2014 released `SLF_PARMS`, `SLF_RETURN`, and `SLF_DONE` expansions.\n- `kelly-slaters-pro-surfer/KS/SRC/vm_stack.h:21-72` \u2014 released stack layout and inline access/pop behavior.\n- `kelly-slaters-pro-surfer/KS/SRC/stringx.h:484-520` \u2014 released inline string concatenation behavior.\n- `kelly-slaters-pro-surfer/KS/SRC/widget_entity.h:55` \u2014 released inline `get_ent()` behavior.\n- `tmp/functions/00327458___cl__30slf_entity_widget_get_entity_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/result.json` \u2014 isolated non-placeholder test result.",
+      "score": 61.9186,
+      "source": "extern \"C\" int strlen(const char *);\nclass stringx;\nclass string_buf {\n  void *data;\n  int ref_count;\npublic:\n  int char_length;\n};\nclass stringx {\n  void *chars;\npublic:\n  string_buf *my_buf;\n  stringx();\n  stringx(const stringx &);\n  ~stringx();\n  void make_room(int);\n  void append(const stringx &);\n  void append(const char *, int = -1);\n};\ninline stringx operator+(const stringx &lhs, const stringx &rhs) {\n  stringx foo;\n  foo.make_room(lhs.my_buf->char_length + rhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs);\n  return foo;\n}\ninline stringx operator+(const stringx &lhs, const char *rhs) {\n  stringx foo;\n  int len = strlen(rhs);\n  foo.make_room(len + lhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs, len);\n  return foo;\n}\nclass script_instance {\n  char gap[12];\n  stringx name;\npublic:\n  const stringx &get_name() const { return name; }\n};\nclass vm_executable {\n  stringx fullname;\npublic:\n  const stringx &get_fullname() const { return fullname; }\n};\nclass vm_thread {\n  script_instance *inst;\n  const vm_executable *ex;\npublic:\n  script_instance *get_instance() const { return inst; }\n  const vm_executable *get_executable() const { return ex; }\n};\nclass vm_stack {\n  int salloc;\n  char *buffer;\n  char *SP;\n  vm_thread *my_thread;\npublic:\n  char *get_SP() const { return SP; }\n  vm_thread *get_thread() const { return my_thread; }\n  void pop(int n) { SP -= n; }\n  bool push(const char *, int);\n};\nclass script_library_class {\npublic:\n  class function {\n  public:\n    enum entry_t { FIRST_ENTRY, RECALL_ENTRY };\n    virtual ~function();\n    virtual bool operator()(vm_stack &, entry_t);\n  };\n};\nclass entity;\nclass entity_widget {\n  char gap[324];\n  entity *ent;\npublic:\n  entity *get_ent() const { return ent; }\n};\ntypedef entity *vm_entity_t;\ntypedef entity_widget *vm_entity_widget_t;\nvoid error(const stringx &);\nclass slf_entity_widget_get_entity_t : public script_library_class::function {\npublic:\n  struct parms_t { vm_entity_widget_t me; };\n  virtual bool operator()(vm_stack &stack, entry_t entry);\n};\nbool slf_entity_widget_get_entity_t::operator()(vm_stack& stack,entry_t entry)\n{\n  stack.pop(sizeof(parms_t));\n  parms_t* parms = (parms_t*)stack.get_SP();\n  vm_entity_t result = parms->me->get_ent();\n  if (!stack.push((char*)&result,sizeof(result)) )\n    error( stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname() );\n  return true;\n}\n",
+      "status": "different",
+      "target_size": 344
+    }
+  ],
+  "raw_name": "__cl__30slf_entity_widget_get_entity_tR8vm_stackQ320script_library_class8function7entry_t"
+}
