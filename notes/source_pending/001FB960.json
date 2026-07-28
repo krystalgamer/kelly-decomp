@@ -1,0 +1,23 @@
+{
+  "address": "0x001FB960",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a63cc3a3ac2035483b7aa8a20046733b4f3a1af4",
+      "candidate_size": 440,
+      "compared_bytes": 464,
+      "compared_instructions": 116,
+      "emitted_name": "parse_params__15beach_billboardPPci",
+      "instruction_score": 43.9655,
+      "matching_bytes": 269,
+      "matching_instructions": 51,
+      "notes": "FIRST PASS wave84 B4\nTarget: 0x001FB960 parse_params__15beach_billboardPPci\nSource: KS/SRC/ks/floatobj.cpp\nConfirmed attempts0 before testing.\nAttempt 1: different; 269/464 compared bytes, 51/116 instructions; score 57.9741; candidate 440 bytes versus target 464 bytes.\nCandidate used the exact released function body with minimal faithful declarations and no headers.\nExactly one non-placeholder candidate was tested. No alternatives, assembly annotations, variants, retries, attempts 2-5, diff chasing, build, finalization, integration, queue edits, tracked edits, commit, or push were performed. No tracked files changed.",
+      "score": 57.9741,
+      "source": "struct vector3d\n{\n  float x;\n  float y;\n  float z;\n\n  vector3d() {}\n  vector3d(float X, float Y, float Z) : x(X), y(Y), z(Z) {}\n};\n\nstruct po\n{\n  float data[16];\n\n  void set_position(const vector3d& position)\n  {\n    data[12] = position.x;\n    data[13] = position.y;\n    data[14] = position.z;\n  }\n};\n\nstruct entity_vtable\n{\n  char padding[1560];\n  short set_render_scale_adjustment;\n  short padding2;\n  void (*set_render_scale)(void*, const vector3d&);\n};\n\nstruct entity\n{\n  char padding[8];\n  entity_vtable* vtable;\n\n  void set_render_scale(const vector3d& scale)\n  {\n    vtable->set_render_scale(\n      (char*)this + vtable->set_render_scale_adjustment, scale);\n  }\n};\n\nextern const po po_identity_matrix;\nextern const char position_name[];\nextern const char velocity_name[];\nextern const char scale_name[];\nextern const char life_name[];\nextern const char dont_rotate_name[];\n\n__asm__(\".equ po_identity_matrix,0x005545C0\");\n__asm__(\".equ position_name,0x004D0AD8\");\n__asm__(\".equ velocity_name,0x004D0AE8\");\n__asm__(\".equ scale_name,0x004D0AF8\");\n__asm__(\".equ life_name,0x004D0B00\");\n__asm__(\".equ dont_rotate_name,0x004D0B08\");\n\nclass beach_object\n{\n  char padding0[40];\n\nprotected:\n  entity* my_entity;\n\nprivate:\n  char padding1[16];\n\npublic:\n  bool parse_params(char** argp, int argc);\n  bool find_param(char** argp, int argc, const char* name) const;\n  bool read_float_param(\n    char** argp, int argc, const char* name, float* value) const;\n  bool read_vector3d_param(\n    char** argp, int argc, const char* name, vector3d* value) const;\n};\n\n__asm__(\".equ parse_params__12beach_objectPPci,0x001FAB80\");\n__asm__(\".equ find_param__C12beach_objectPPciPCc,0x001FAC30\");\n__asm__(\".equ read_float_param__C12beach_objectPPciPCcPf,0x001FAD50\");\n__asm__(\".equ read_vector3d_param__C12beach_objectPPciPCcP8vector3d,0x001FADF8\");\n\nclass beach_billboard : public beach_object\n{\n  vector3d my_velocity;\n  char padding0[8];\n  po my_initial_po;\n  int rotate;\n  float my_age;\n  float my_life;\n\npublic:\n  bool parse_params(char** argp, int argc);\n};\n\nbool beach_billboard::parse_params (char** argp, int argc)\n{\n  vector3d pos;\n  float scale;\n\n  if (!beach_object::parse_params (argp, argc))\n    return false;\n\n  if (!read_vector3d_param (argp, argc, position_name, &pos))\n    return false;\n\n  if (!read_vector3d_param (argp, argc, velocity_name, &my_velocity))\n    return false;\n\n  if (read_float_param (argp, argc, scale_name, &scale))\n    my_entity->set_render_scale (vector3d (scale, scale, scale));\n\n  read_float_param (argp, argc, life_name, &my_life);\n\n  if (find_param (argp, argc, dont_rotate_name))\n    rotate = false;\n\n  my_initial_po = po_identity_matrix;\n  my_initial_po.set_position (pos);\n\n  return true;\n}\n",
+      "status": "different",
+      "target_size": 464
+    }
+  ],
+  "raw_name": "parse_params__15beach_billboardPPci"
+}
