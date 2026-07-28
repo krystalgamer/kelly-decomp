@@ -1,0 +1,23 @@
+{
+  "address": "0x0033CBC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7bdca708a988675bf95f25929dccf58e18f75501",
+      "candidate_size": 452,
+      "compared_bytes": 452,
+      "compared_instructions": 113,
+      "emitted_name": "text_width__C12typeface_defRC7stringx",
+      "instruction_score": 12.3894,
+      "matching_bytes": 171,
+      "matching_instructions": 14,
+      "notes": "# FIRST PASS wave 80 lane A4 \u2014 attempt 1\n\nTarget: `0x0033CBC8 text_width__C12typeface_defRC7stringx` (444 bytes / `0x1BC`), object `game/files_vsim`.\n\nConfirmed zero prior attempts before preparation. Tested exactly once using the exact released `typeface_def::text_width` body with minimal faithful declarations.\n\nResult: **different**, byte score **37.8319%**, instruction score **12.3894%**; candidate **452 bytes**, target **444 bytes**. Candidate SHA-1: `7bdca708a988675bf95f25929dccf58e18f75501`.\n\nNo retries, variants, alternate logic, manual assembly, matching annotations, post-test diff chasing, finalization, integration, builds, tracked edits, or git mutation.\n\nCitations:\n- `kelly-slaters-pro-surfer/KS/SRC/text_font.cpp:1437-1466`\n- `kelly-slaters-pro-surfer/KS/SRC/text_font.h` (`char_info`, `typeface_def`)\n- `kelly-slaters-pro-surfer/KS/SRC/stringx.h:247-252,336-353,386-394`\n- `tmp/functions/0033CBC8_text_width__C12typeface_defRC7stringx/target.s`\n- `tmp/source-first-wave80/A4-0033CBC8/candidate.cpp`\n- `tmp/functions/0033CBC8_text_width__C12typeface_defRC7stringx/attempt-1/result.json`",
+      "score": 37.8319,
+      "source": "struct string_buf\n{\n  int pad0;\n  int pad4;\n  int char_length;\n};\n\nclass stringx\n{\nprotected:\n  char *chars;\n  string_buf *my_buf;\npublic:\n  inline const char operator[](int i) const\n  {\n    if (i < 0)\n      i += length();\n    return chars[i];\n  }\n\n  inline int size() const\n  {\n    return my_buf->char_length;\n  }\n\n  int length() const;\n};\n\nstruct char_info\n{\n  int x0;\n  int y0;\n  int x1;\n  int y1;\n  int adv;\n};\n\nclass typeface_def\n{\n  char_info char_infos[256];\n  const char_info *get_char_info(int c) const { return &char_infos[c]; }\n  int interkern(int l1, int l2) const;\npublic:\n  int text_width(const stringx &s) const;\n};\n\nint typeface_def::text_width( const stringx &s ) const\n{\n  int w = 0;\n  const char_info *ci;\n  int ssize = s.size();\n\n  for (int i=0 ; i<ssize; ++i)\n  {\n    if( s[i] == '\\\\' )\n    {\n      ++i;\n      if (i>=ssize-1) break;\n      if (s[i] == 'n') break;\n      if (s[i] == 'c') { i += 9; }\n      continue;\n    }\n    ci = get_char_info((unsigned char)(s[i]));\n    if(ci)\n    {\n      w += ci->x1 - ci->x0 + 0 + ci->adv;\n      if( i < ssize-1 )\n      {\n        w += interkern( s[i], s[i+1] );\n      }\n    }\n  }\n  return w;\n}\n",
+      "status": "different",
+      "target_size": 444
+    }
+  ],
+  "raw_name": "text_width__C12typeface_defRC7stringx"
+}
