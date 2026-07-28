@@ -1,0 +1,15 @@
+{
+  "address": "0x001D7570",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c2a5c1e7935f1d1ec616e98f95a3c1943cf7670e",
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- FIRST PASS wave69 B1 for `0x001D7570 purge__t13instance_bank1Z12vr_billboard`.\n- Tested exactly once: the exact released `instance_bank<T>::purge()` body with minimal declarations for `stringx`, `vr_billboard`, the bank reference record, comparators, and PS2 `set` specializations.\n- Result: **compile_failed** (score `0.0`). The isolated compiler could not resolve the released `<set>` header.\n- No retry, declaration variant, diff chase, finalize, build, integration, tracked/reference edit, commit, or push was performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/instance.h:14-52,253-287`\n- `kelly-slaters-pro-surfer/KS/SRC/billboard.h:13-22`\n- `tmp/functions/001D7570_purge__t13instance_bank1Z12vr_billboard/attempt-1/candidate.cpp`\n- `tmp/functions/001D7570_purge__t13instance_bank1Z12vr_billboard/attempt-1/compiler.stderr:1`\n- `tmp/functions/001D7570_purge__t13instance_bank1Z12vr_billboard/attempt-1/result.json`",
+      "score": 0.0,
+      "source": "#include <set>\n\nclass string_buf;\n\nclass stringx\n{\nprotected:\n  char* chars;\n  string_buf* my_buf;\n\npublic:\n  ~stringx();\n};\n\nbool operator<( const stringx& lhs, const stringx& rhs );\n\nclass vr_billboard\n{\npublic:\n  virtual ~vr_billboard();\n};\n\ntemplate <class T>\nclass instance_bank\n{\npublic:\n  struct ref_t\n  {\n    stringx label;\n    T* ptr;\n    unsigned int count;\n  };\n\n  class less_by_label : public binary_function<const ref_t*,const ref_t*,bool>\n  {\n  public:\n    bool operator()(const ref_t* a,const ref_t* b) const\n    {\n      return ( a->label < b->label );\n    }\n  };\n\n  class less_by_ptr : public binary_function<const ref_t*,const ref_t*,bool>\n  {\n  public:\n    bool operator()(const ref_t* a,const ref_t* b) const\n    {\n      return ( a->ptr < b->ptr );\n    }\n  };\n\n  typedef set<ref_t*,less_by_label,__malloc_alloc_template<0> > lref_set;\n  typedef set<ref_t*,less_by_ptr,__malloc_alloc_template<0> > pref_set;\n\n  lref_set refs_by_label;\n  pref_set refs_by_ptr;\n\n  void purge();\n};\n\ntemplate <class T>\nvoid instance_bank<T>::purge()\n{\n  lref_set::iterator i = refs_by_label.begin();\n  lref_set::iterator i_end = refs_by_label.end();\n\n  while(i != i_end)\n  {\n    lref_set::iterator del = i;\n    ++i;\n\n    #if defined(DEBUG) && 0\n    debug_print(\"%s ptr=%p\",(*del)->label.c_str(),(*del)->ptr);\n    #endif\n    delete (*del)->ptr;\n    delete *del;\n  }\n/*\n  for ( i=refs_by_label.begin(); i!=refs_by_label.end(); ++i )\n  {\n    delete (*i)->ptr;\n    delete *i;\n  }\n*/\n  // unlike erase(), these functions should deallocate the sets\n\n  // PEH TEST\n/*   refs_by_label = lref_set(); */\n/*   refs_by_ptr   = pref_set(); */\n  refs_by_label.clear();\n  refs_by_ptr.clear();\n}\n\ntemplate void instance_bank<vr_billboard>::purge();\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "purge__t13instance_bank1Z12vr_billboard"
+}
