@@ -1,0 +1,23 @@
+{
+  "address": "0x002B29B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0756ad8756c0c4027ca8788e7e39c0619857ffbb",
+      "candidate_size": 308,
+      "compared_bytes": 344,
+      "compared_instructions": 80,
+      "emitted_name": "insert_unique__t8_Rb_tree5ZiZt4pair2ZCiZPQ221world_dynamics_system17surface_type_infoZt10_Select1st1Zt4pair2ZCiZPQ221world_dynamics_system17surface_type_infoZt4less1ZiZt12my_allocator1ZPQ221world_dynamics_system17surface_type_infoRCt4pair2ZCiZPQ221world_dynamics_system17surface_type_info",
+      "instruction_score": 2.5,
+      "matching_bytes": 102,
+      "matching_instructions": 2,
+      "notes": "FIRST PASS wave 41 B5.\n\nUsed the GCC 2.95 SGI `stl_tree.h` `insert_unique(const value_type&)`\nalgorithm with the released `map<int, world_dynamics_system::surface_type_info*>`\nkey/value layout and the target `_M_insert` symbol. The sole permitted test\nreturned `different`: 29.6512% bytes, 2.5% instructions, candidate size 308\nversus target size 344. No variants were attempted.\n\nReleased declarations:\n- `kelly-slaters-pro-surfer/KS/SRC/wds.h:455-465`\n- debug source `C:/usr/local/sce/ee/gcc/include/g++-2/stl_tree.h`\n- toolchain identity `tools/toolchain/lib/gcc-lib/ee/2.9-ee-991111/`\n\nArtifacts: `candidate.cpp`, `candidate.o`, `candidate.s`, `candidate.bin`,\n`assembly.diff`, compiler logs, and `result.json`.",
+      "score": 29.6512,
+      "source": "struct value_type { const int first; void *second; };\nstruct node {\n  int color;\n  node *parent;\n  node *left;\n  node *right;\n  value_type value;\n};\nstruct tree { node header; unsigned int node_count; };\nstruct result { node *position; bool inserted; };\n\nextern \"C\" node *tree_insert(tree *, node *, node *, const value_type &)\n  __asm__(\"_M_insert__t8_Rb_tree5ZiZt4pair2ZCiZPQ221world_dynamics_system17surface_type_infoZt10_Select1st1Zt4pair2ZCiZPQ221world_dynamics_system17surface_type_infoZt4less1ZiZt12my_allocator1ZPQ221world_dynamics_system17surface_type_infoP18_Rb_tree_node_baseT1RCt4pair2ZCiZPQ221world_dynamics_system17surface_type_info\");\nresult *insert_unique(result *, tree *, const value_type &)\n  __asm__(\"insert_unique__t8_Rb_tree5ZiZt4pair2ZCiZPQ221world_dynamics_system17surface_type_infoZt10_Select1st1Zt4pair2ZCiZPQ221world_dynamics_system17surface_type_infoZt4less1ZiZt12my_allocator1ZPQ221world_dynamics_system17surface_type_infoRCt4pair2ZCiZPQ221world_dynamics_system17surface_type_info\");\n\nresult *insert_unique(result *out, tree *self, const value_type &value) {\n  node *y = &self->header;\n  node *x = self->header.parent;\n  bool comp = true;\n  while (x != 0) {\n    y = x;\n    comp = value.first < x->value.first;\n    x = comp ? x->left : x->right;\n  }\n  node *j = y;\n  if (comp) {\n    if (j == self->header.left) {\n      out->position = tree_insert(self, x, y, value);\n      out->inserted = true;\n      return out;\n    }\n    if (j->left != 0) {\n      j = j->left;\n      while (j->right != 0) j = j->right;\n    } else {\n      node *p = j->parent;\n      while (j == p->left) {\n        j = p;\n        p = p->parent;\n      }\n      j = p;\n    }\n  }\n  if (j->value.first < value.first) {\n    out->position = tree_insert(self, x, y, value);\n    out->inserted = true;\n  } else {\n    out->position = j;\n    out->inserted = false;\n  }\n  return out;\n}\n",
+      "status": "different",
+      "target_size": 344
+    }
+  ],
+  "raw_name": "insert_unique__t8_Rb_tree5ZiZt4pair2ZCiZPQ221world_dynamics_system17surface_type_infoZt10_Select1st1Zt4pair2ZCiZPQ221world_dynamics_system17surface_type_infoZt4less1ZiZt12my_allocator1ZPQ221world_dynamics_system17surface_type_infoRCt4pair2ZCiZPQ221world_dynamics_system17surface_type_info"
+}
