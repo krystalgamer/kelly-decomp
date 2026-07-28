@@ -1,0 +1,23 @@
+{
+  "address": "0x00395F78",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bec5ff2b5f82d824fb194fe04c170e5c676e82a1",
+      "candidate_size": 380,
+      "compared_bytes": 448,
+      "compared_instructions": 112,
+      "emitted_name": "nglSetDisplayEnv__Fii",
+      "instruction_score": 0.0,
+      "matching_bytes": 42,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 tested the exact released nglSetDisplayEnv body unchanged with minimal self-contained PS2 GS register declarations and no includes. The candidate compiled and differed: 9.375% byte score, 0.0% instruction score, 380 bytes versus the 448-byte target. Per first-pass constraints, no variant, retry, annotation, alternate source, or diff chase was performed.",
+      "score": 9.375,
+      "source": "typedef unsigned long long u_long;\n\nstruct tGS_PMODE { u_long EN1:1, EN2:1, CRTMD:3, MMOD:1, AMOD:1, SLBG:1, ALP:8, _pad:48; };\nstruct tGS_SMODE2 { u_long INT:1, FFMD:1, DPMS:2, _pad:60; };\nstruct tGS_DISPFB2 { u_long FBP:9, FBW:6, PSM:5, _pad0:12, DBX:11, DBY:11, _pad1:10; };\nstruct tGS_DISPLAY2 { u_long DX:12, DY:11, MAGH:4, MAGV:2, _pad0:3, DW:12, DH:11, _pad1:9; };\nstruct tGS_BGCOLOR { u_long R:8, G:8, B:8, _pad:40; };\ntypedef tGS_DISPFB2 tGS_DISPFB1;\ntypedef tGS_DISPLAY2 tGS_DISPLAY1;\nstruct sceGsDispEnv;\nextern \"C\" void sceGsSetDefDispEnv(sceGsDispEnv*, int, int, int, int, int);\nextern unsigned int nglDisplayWidth;\nextern unsigned int nglDisplayHeight;\n\n#define NGL_FRAME_FORMAT 0\n#define NGL_VRAM_FRAME1 0\n#define NGL_VRAM_FRAME2 0xE00\n#define DPUT_GS_PMODE(v) (*(volatile u_long*)0x12000000 = (v))\n#define DPUT_GS_SMODE2(v) (*(volatile u_long*)0x12000020 = (v))\n#define DPUT_GS_DISPFB1(v) (*(volatile u_long*)0x12000070 = (v))\n#define DPUT_GS_DISPLAY1(v) (*(volatile u_long*)0x12000080 = (v))\n#define DPUT_GS_DISPFB2(v) (*(volatile u_long*)0x12000090 = (v))\n#define DPUT_GS_DISPLAY2(v) (*(volatile u_long*)0x120000A0 = (v))\n#define DPUT_GS_BGCOLOR(v) (*(volatile u_long*)0x120000E0 = (v))\n\nstruct nglDisplayEnv\n{\n  tGS_PMODE pmode;\n  tGS_SMODE2 smode2;\n  tGS_DISPFB2 dispfb;\n  tGS_DISPLAY2 display;\n  tGS_BGCOLOR bgcolor;\n\n  // extra registers\n  tGS_DISPFB1 dispfb1;\n  tGS_DISPLAY1 display1;\n  tGS_DISPLAY1 pad;\n} __attribute__ ((aligned(64)));\n\nvoid nglSetDisplayEnv( int frame, int fsaa )\n{\n  nglDisplayEnv disp;\n  sceGsSetDefDispEnv((sceGsDispEnv*)&disp, NGL_FRAME_FORMAT, nglDisplayWidth, nglDisplayHeight, 0, 0 ); // dx,dy = 0\n\n  disp.dispfb.FBP = frame == 0 ? ( NGL_VRAM_FRAME1 / 32 ) : ( NGL_VRAM_FRAME2 / 32 );\n\n  // set up 2 circuit antialiasing\n  *(u_long*)&disp.dispfb1 = *(u_long*)&disp.dispfb;\n  *(u_long*)&disp.display1 = *(u_long*)&disp.display;\n\n  disp.dispfb.DBY = 1; // dispfb2 has DBY field of 1\n  disp.display.DH = disp.display1.DH - 1;\n  disp.display.DX = disp.display.DX + 2; // display2 has magh/2\n  disp.pmode.ALP = 0x80;\n\n  // toggle FSAA\n  disp.pmode.EN1 = fsaa;\n  disp.pmode.EN2 = 1;\n\n  // write registers to GS.\n  DPUT_GS_PMODE( *(u_long*)&disp.pmode );\n  DPUT_GS_SMODE2( *(u_long*)&disp.smode2 );\n  DPUT_GS_DISPFB2( *(u_long*)&disp.dispfb );\n  DPUT_GS_DISPLAY2( *(u_long*)&disp.display );\n  DPUT_GS_BGCOLOR( *(u_long*)&disp.bgcolor );\n\n  DPUT_GS_DISPLAY1( *(u_long*)&disp.display1 );\n  DPUT_GS_DISPFB1( *(u_long*)&disp.dispfb1 );\n}\n",
+      "status": "different",
+      "target_size": 448
+    }
+  ],
+  "raw_name": "nglSetDisplayEnv__Fii"
+}
