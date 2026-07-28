@@ -1,0 +1,23 @@
+{
+  "address": "0x001961F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a5a61cb660ea5d307205c157f7f960e9a33fd83b",
+      "candidate_size": 232,
+      "compared_bytes": 352,
+      "compared_instructions": 88,
+      "emitted_name": "_$_17TrickBookFrontEnd",
+      "instruction_score": 1.1364,
+      "matching_bytes": 37,
+      "matching_instructions": 1,
+      "notes": "# Attempt 1 \u2014 exact released destructor/minimal declarations\n\n- FIRST PASS wave 47 lane B1 for `0x001961F8 _$_17TrickBookFrontEnd`.\n- Tested the exact released destructor body once with minimal declarations for `FEMultiMenu`, `TextString`, `FEMenu`, and the released member order. `NUM_TYPES` was concretized as four from the released trick-book enum.\n- Result: **different** \u2014 37/352 compared bytes (10.5114%) and 1/88 instructions (1.1364%); candidate size 232 versus target size 352.\n- The body reproduced the two scalar deletes, four submenu deletes, and four trick-array deletes, but minimal base/element declarations did not reproduce the released virtual-delete and base-destructor chains.\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/TrickBookFrontEnd.cpp:127-136`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/TrickBookFrontEnd.h:11-34`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/trickdata.h:354-363`\n- `attempt-1/result.json`",
+      "score": 10.5114,
+      "source": "class FEMultiMenu {\n    char pad[348];\n\npublic:\n    virtual ~FEMultiMenu();\n};\n\nclass GraphicalMenuSystem;\nclass SurferTrick;\n\nclass TextString {\npublic:\n    virtual ~TextString();\n};\n\nclass FEMenu {\npublic:\n    virtual ~FEMenu();\n};\n\nclass TrickBookFrontEnd : public FEMultiMenu {\n    GraphicalMenuSystem* sys;\n    SurferTrick** tricks[4];\n    TextString* buttons;\n    TextString* trickbook;\n    FEMenu* State2[4];\n\npublic:\n    virtual ~TrickBookFrontEnd();\n};\n\nTrickBookFrontEnd::~TrickBookFrontEnd()\n{\n    delete buttons;\n    delete trickbook;\n    for(int i=0; i<4; i++)\n    {\n        delete State2[i];\n        delete[] tricks[i];\n    }\n}\n",
+      "status": "different",
+      "target_size": 352
+    }
+  ],
+  "raw_name": "_$_17TrickBookFrontEnd"
+}
