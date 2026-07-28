@@ -1,0 +1,23 @@
+{
+  "address": "0x00114A38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "197205739a30c98aa81b0970b89f27dc41a2d980",
+      "candidate_size": 460,
+      "compared_bytes": 460,
+      "compared_instructions": 115,
+      "emitted_name": "serial_in__FR10chunk_fileP17entity_track_tree",
+      "instruction_score": 90.4348,
+      "matching_bytes": 334,
+      "matching_instructions": 104,
+      "notes": "FIRST PASS wave83 B1\nTarget: 0x00114A38 serial_in__FR10chunk_fileP17entity_track_tree (460 bytes / 0x1CC), object game/files_anim.\nConfirmed zero prior attempts before preparation/testing. Exactly one LF-terminated, non-placeholder candidate was tested, preserving the exact released entity_anim.cpp function body with minimal faithful self-contained declarations and no unavailable includes.\nResult: different; byte score 72.6087% (334/460), instruction score 90.4348% (104/115), candidate size 460 bytes versus target size 460 bytes.\nNo alternate source, assembly, annotations, variants, retry, attempts 2-5, post-test chase, build, finalize, integrate, git mutation, or tracked/reference edits were performed.",
+      "score": 72.6087,
+      "source": "extern \"C\" char* strcpy(char*, const char*);\nextern \"C\" unsigned int strlen(const char*);\n\nclass string_buf\n{\npublic:\n  long long* data;\n  int ref_count;\n  int char_length;\n};\n\nclass stringx\n{\n  char* chars;\n  string_buf* my_buf;\n\n  void make_room(int);\n  friend stringx operator+(const stringx&, const char*);\n\npublic:\n  stringx();\n  stringx(const stringx&);\n  ~stringx();\n  void append(const char*, int = -1);\n  void append(const stringx&);\n};\n\ninline stringx operator+(const stringx& lhs, const char* rhs)\n{\n  stringx foo;\n  int len = strlen(rhs);\n  foo.make_room(len + lhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs, len);\n  return foo;\n}\n\nclass chunk_file\n{\npublic:\n  stringx get_name();\n};\n\nclass chunk_flavor\n{\n  char flavor[16];\n\npublic:\n  chunk_flavor(const char* s = \"UNREG\")\n  {\n    strcpy(flavor, s);\n  }\n\n  bool operator==(const chunk_flavor&) const;\n  bool operator!=(const chunk_flavor& cf) const\n  {\n    return !(*this == cf);\n  }\n};\n\nclass entity_track_node;\n\nclass entity_track_tree\n{\n  char file_header[4];\n  unsigned int version;\n  int num_root_nodes;\n  float floor_offset;\n\npublic:\n  entity_track_node* insert_root();\n  void _compute_duration();\n\n  friend void serial_in(chunk_file&, entity_track_tree*);\n};\n\nextern const chunk_flavor CHUNK_END;\n\nvoid serial_in(chunk_file&, chunk_flavor*);\nvoid serial_in(chunk_file&, float*);\nvoid serial_in(chunk_file&, entity_track_node*, entity_track_tree*);\nvoid error(const stringx&);\n\nvoid serial_in(chunk_file& fs, entity_track_tree* tree)\n{\n  chunk_flavor cf;\n  for (serial_in(fs, &cf); cf != CHUNK_END; serial_in(fs, &cf))\n  {\n    if (cf == chunk_flavor(\"anim\"))\n    {\n    }\n    else if (cf == chunk_flavor(\"floor\"))\n    {\n      serial_in(fs, &tree->floor_offset);\n    }\n    else if (cf == chunk_flavor(\"tree\"))\n    {\n      serial_in(fs, tree->insert_root(), tree);\n    }\n    else\n      error(fs.get_name() + \": unknown chunk found in entity_track_tree\");\n  }\n  tree->_compute_duration();\n}\n",
+      "status": "different",
+      "target_size": 460
+    }
+  ],
+  "raw_name": "serial_in__FR10chunk_fileP17entity_track_tree"
+}
