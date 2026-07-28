@@ -1,0 +1,23 @@
+{
+  "address": "0x003048B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5001866d5543815205933e88a9efe41b74ed16a5",
+      "candidate_size": 380,
+      "compared_bytes": 404,
+      "compared_instructions": 101,
+      "emitted_name": "compute_radius__12conglomerate",
+      "instruction_score": 0.0,
+      "matching_bytes": 63,
+      "matching_instructions": 0,
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Result: **different**\n- Byte score: **15.5941%** (63/404)\n- Instruction score: **0.0000%** (0/101)\n- Candidate size: `380` bytes; target size: `404` bytes.\n- Used the exact released `conglomerate::compute_radius` body with minimal self-contained declarations.\n- No variants, disassembly comparison, diff chasing, build, finalization, integration, commit, or tracked-file edits were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/conglom.cpp:366-387` \u2014 exact released function body.\n- `kelly-slaters-pro-surfer/KS/SRC/conglom.h:15-30,104-118` \u2014 released class members and declaration.\n- `kelly-slaters-pro-surfer/KS/SRC/entity.h:703-704,719-721,922` \u2014 entity radius, position, and collision geometry API.\n- `kelly-slaters-pro-surfer/KS/SRC/colgeom.h:33-81` \u2014 collision geometry type and radius API.\n- `kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:292-374` \u2014 released vector operations and length.\n- `tmp/functions/003048B0_compute_radius__12conglomerate/attempt-1/result.json` \u2014 sole test result.",
+      "score": 15.5941,
+      "source": "typedef float rational_t;\nextern \"C\" float sqrtf(float);\n\nclass vector3d {\npublic:\n  rational_t x, y, z;\n  vector3d() {}\n  vector3d(rational_t X, rational_t Y, rational_t Z) : x(X), y(Y), z(Z) {}\n  rational_t length() const { return sqrtf(x*x + y*y + z*z); }\n};\ninline vector3d operator-(const vector3d& a, const vector3d& b) { return vector3d(a.x-b.x, a.y-b.y, a.z-b.z); }\n\nclass collision_geometry {\npublic:\n  enum { NONE, CAPSULE, MESH };\n  unsigned int get_type() const;\n  rational_t get_radius() const;\n};\nclass entity {\npublic:\n  collision_geometry* get_colgeom() const;\n  virtual void set_radius(rational_t);\n  virtual rational_t get_radius() const;\n  const vector3d& get_abs_position() const;\n};\nclass conglomerate : public entity {\n  char padding[500];\n  entity** members_begin;\n  entity** members_end;\npublic:\n  void compute_radius();\n};\n\nvoid conglomerate::compute_radius()\n{\n//  set_rel_po( po_identity_matrix );\n//  update_abs_po();\n\n  // can take radius from collision mesh, if any\n  collision_geometry* cg = get_colgeom();\n  if ( cg && cg->get_type()==collision_geometry::MESH )\n  {\n    set_radius( cg->get_radius() );\n  }\n\n  entity** i = members_begin;\n  entity** i_end = members_end;\n  for ( ; i!=i_end; ++i )\n  {\n    entity* e = *i;\n    rational_t r = (e->get_abs_position()-get_abs_position()).length() + e->get_radius();\n    if ( r > get_radius() )\n      set_radius( r );\n  }\n}\n",
+      "status": "different",
+      "target_size": 404
+    }
+  ],
+  "raw_name": "compute_radius__12conglomerate"
+}
