@@ -1,0 +1,23 @@
+{
+  "address": "0x003A17F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "83a3de4f661bbae17ae4567a877a62125787f18a",
+      "candidate_size": 360,
+      "compared_bytes": 364,
+      "compared_instructions": 91,
+      "emitted_name": "nglLoadMeshFile__FRC14nglFixedString",
+      "instruction_score": 6.5934,
+      "matching_bytes": 88,
+      "matching_instructions": 6,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 54 lane B5 for `0x003A17F8 nglLoadMeshFile__FRC14nglFixedString`.\n- Tested the exact released `nglLoadMeshFile` body once with minimal self-contained declarations preserving `nglFixedString`, `nglInstanceBank::Instance`, `nglFileBuf`, and `nglMeshFile` layouts and the released external calls/globals.\n- Result: **different**, byte score **24.1758%** (88/364) and instruction score **6.5934%** (6/91); candidate size 360 bytes versus target size 364 bytes.\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:6383-6418`\n- `kelly-slaters-pro-surfer/NGL/PS2/ngl_fixedstr.h:14-64,98-102`\n- `kelly-slaters-pro-surfer/NGL/PS2/ngl_instbank.h:6-39`\n- `kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:161-166`\n- `kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2_internal.h:603-614`\n- `tmp/functions/003A17F8_nglLoadMeshFile__FRC14nglFixedString/attempt-1/result.json`",
+      "score": 24.1758,
+      "source": "// Target: 0x003A17F8 nglLoadMeshFile__FRC14nglFixedString\n// Reference: NGL/PS2/ngl_ps2.cpp\n// Replace this file with one self-contained candidate function.\ntypedef unsigned char u_char;\ntypedef unsigned int u_int;\ntypedef unsigned long u_long;\n\nclass nglFixedString\n{\npublic:\n  typedef u_long fint;\n  enum { FINT_SIZE = 8, STR_SIZE = 32, NUM_FINTS = STR_SIZE / FINT_SIZE };\n\n  fint* value() { return reinterpret_cast<fint*>(str); }\n  const fint* value() const { return reinterpret_cast<const fint*>(str); }\n\n  const nglFixedString& operator=(const nglFixedString& rhs)\n  {\n    for (int i = 0; i < NUM_FINTS; ++i)\n      value()[i] = rhs.value()[i];\n    return *this;\n  }\n\n  const char* c_str() const { return str; }\n\nprivate:\n  char str[STR_SIZE];\n};\n\nclass nglInstanceBank\n{\npublic:\n  struct Instance\n  {\n    nglFixedString Key;\n    void* Value;\n    int RefCount;\n    Instance* Forward[1];\n  };\n\n  Instance* Search(const nglFixedString& Key);\n  Instance* Insert(const nglFixedString& Key, void* Value);\n};\n\nstruct nglFileBuf\n{\n  u_char* Buf;\n  u_int Size;\n  u_int UserData;\n};\n\nstruct nglMesh;\n\nstruct nglMeshFile\n{\n  nglFixedString FileName;\n  char FilePath[256];\n  nglFileBuf FileBuf;\n  bool LoadedInPlace;\n  nglMesh* FirstMesh;\n};\n\nextern nglInstanceBank nglMeshFileBank;\nextern char nglMeshPath[256];\nextern char nglWork[512];\n\nextern \"C\" char* strcpy(char*, const char*);\nextern \"C\" char* strcat(char*, const char*);\n\nvoid* nglMemAlloc(u_int Size, u_int Align = 1);\nvoid nglMemFree(void* Ptr);\nbool nglReadFile(const char* FileName, nglFileBuf* File, u_int Align);\nvoid nglReleaseFile(nglFileBuf* File);\nvoid nglWarning(const char* Format, ...);\nbool nglLoadMeshFileInternal(const nglFixedString& FileName, nglMeshFile* MeshFile);\n\nbool nglLoadMeshFile(const nglFixedString& FileName)\n{\n  nglInstanceBank::Instance* Inst;\n  if ((Inst = nglMeshFileBank.Search(FileName)))\n  {\n    Inst->RefCount++;\n    return true;\n  }\n\n  strcpy(nglWork, nglMeshPath);\n  strcat(nglWork, FileName.c_str());\n  strcat(nglWork, \".ps2mesh\");\n\n  nglMeshFile* MeshFile = (nglMeshFile*)nglMemAlloc(sizeof(nglMeshFile));\n  strcpy(MeshFile->FilePath, nglMeshPath);\n  MeshFile->FileName = FileName;\n  MeshFile->LoadedInPlace = false;\n\n  if (!nglReadFile(nglWork, &MeshFile->FileBuf, 128))\n  {\n    nglWarning(\"nglLoadMeshFile: Unable to open %s%s.\\n\", nglMeshPath, FileName.c_str());\n    nglMemFree(MeshFile);\n    return false;\n  }\n\n  bool Result = nglLoadMeshFileInternal(FileName, MeshFile);\n  if (!Result)\n  {\n    nglReleaseFile(&MeshFile->FileBuf);\n    nglMemFree(MeshFile);\n    return false;\n  }\n\n  nglMeshFileBank.Insert(FileName, MeshFile);\n  return true;\n}\n",
+      "status": "different",
+      "target_size": 364
+    }
+  ],
+  "raw_name": "nglLoadMeshFile__FRC14nglFixedString"
+}
