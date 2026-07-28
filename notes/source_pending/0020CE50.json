@@ -1,0 +1,23 @@
+{
+  "address": "0x0020CE50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "41bc68de62c57efed5251eaa9adcb8bc257a7ede",
+      "candidate_size": 332,
+      "compared_bytes": 336,
+      "compared_instructions": 84,
+      "emitted_name": "map_kellyslater_inputs__Fv",
+      "instruction_score": 90.4762,
+      "matching_bytes": 267,
+      "matching_instructions": 76,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.cpp:404-424; kelly-slaters-pro-surfer/KS/SRC/inputmgr.h:59-60,67-86,115-118,382-388,421-431; kelly-slaters-pro-surfer/KS/SRC/singleton.h:7-17,42-51; kelly-slaters-pro-surfer/KS/SRC/joystick.h:72-110; kelly-slaters-pro-surfer/KS/SRC/commands.h:262-276; tmp/functions/0020CE50_map_kellyslater_inputs__Fv/attempt-1/result.json; tmp/source_first/0020CE50/attempt-1.md. Result `different`, score 79.4643; no later attempt.",
+      "score": 79.4643,
+      "source": "typedef int control_id_t;\n\nenum device_id_t\n{\n  INVALID_DEVICE_ID = -1,\n  JOYSTICK1_DEVICE = 1\n};\n\n#define JOYSTICK_DEVICE JOYSTICK1_DEVICE\n\nenum PS2_Axes\n{\n  JOY_PS2_DX,\n  JOY_PS2_DY,\n  JOY_PS2_X,\n  JOY_PS2_Y,\n  JOY_PS2_LX,\n  JOY_PS2_LY,\n  JOY_PS2_BTNL3,\n  JOY_PS2_RX,\n  JOY_PS2_RY,\n  JOY_PS2_BTNR3,\n  JOY_PS2_BTNX,\n  JOY_PS2_BTNO,\n  JOY_PS2_DUMMMY1,\n  JOY_PS2_BTNSQ,\n  JOY_PS2_BTNTR,\n  JOY_PS2_DUMMMY2,\n  JOY_PS2_BTNL1,\n  JOY_PS2_BTNR1,\n  JOY_PS2_BTNL2,\n  JOY_PS2_BTNR2\n};\n\nenum game_controls\n{\n  PAD_EASY_TRICK = 200,\n  PAD_GRAB,\n  PAD_SPRAY,\n  PAD_LSTICK_H,\n  PAD_LSTICK_V,\n  PAD_OLLIE,\n  PAD_SLIDE,\n  PAD_GRIND,\n  PAD_SNAP,\n  PAD_CARVE,\n  PAD_SPEED_PUMP,\n  PAD_HARD_LEFT,\n  PAD_HARD_RIGHT,\n  PAD_LOOK_BACK,\n  PAD_SWITCH_CAMERA\n};\n\ntemplate <class T>\nclass singleton_ptr\n{\n  T* p;\npublic:\n  operator T*() const { return p; }\n};\n\nclass input_mgr\n{\n  static singleton_ptr<input_mgr> instance;\npublic:\n  static inline input_mgr* inst() { return instance; }\n  void map_control(control_id_t control, device_id_t device, int axis);\n};\n\nvoid map_kellyslater_inputs()\n{\n  input_mgr* inputmgr = input_mgr::inst();\n  inputmgr->map_control( PAD_SPRAY,        JOYSTICK_DEVICE, JOY_PS2_BTNO );\n  inputmgr->map_control( PAD_GRAB,        JOYSTICK_DEVICE, JOY_PS2_BTNO );\n  inputmgr->map_control( PAD_SNAP,        JOYSTICK_DEVICE, JOY_PS2_BTNO );\n  inputmgr->map_control( PAD_CARVE,        JOYSTICK_DEVICE, JOY_PS2_BTNSQ );\n  inputmgr->map_control( PAD_LSTICK_H,        JOYSTICK_DEVICE, JOY_PS2_X );\n  inputmgr->map_control( PAD_LSTICK_V,        JOYSTICK_DEVICE, JOY_PS2_Y );\n  inputmgr->map_control( PAD_SLIDE,        JOYSTICK_DEVICE, JOY_PS2_BTNTR );\n  inputmgr->map_control( PAD_GRIND,        JOYSTICK_DEVICE, JOY_PS2_BTNTR );\n  inputmgr->map_control( PAD_SPEED_PUMP,        JOYSTICK_DEVICE, JOY_PS2_BTNL3 );\n  inputmgr->map_control( PAD_EASY_TRICK,        JOYSTICK_DEVICE, JOY_PS2_BTNO );\n  inputmgr->map_control( PAD_OLLIE,        JOYSTICK_DEVICE, JOY_PS2_BTNX );\n  inputmgr->map_control( PAD_HARD_LEFT,        JOYSTICK_DEVICE, JOY_PS2_BTNL1 );\n  inputmgr->map_control( PAD_HARD_RIGHT,        JOYSTICK_DEVICE, JOY_PS2_BTNR1 );\n  inputmgr->map_control( PAD_LOOK_BACK,        JOYSTICK_DEVICE, JOY_PS2_BTNR2 );\n#ifndef TARGET_GC //Ain't got these buttons beeatch!\n  inputmgr->map_control( PAD_SWITCH_CAMERA,        JOYSTICK_DEVICE, JOY_PS2_BTNL2 );\n#endif\n}\n",
+      "status": "different",
+      "target_size": 336
+    }
+  ],
+  "raw_name": "map_kellyslater_inputs__Fv"
+}
