@@ -1,0 +1,23 @@
+{
+  "address": "0x00397728",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6aec006758cbb4d272d4fd43c068fe08a218892c",
+      "candidate_size": 376,
+      "compared_bytes": 400,
+      "compared_instructions": 100,
+      "emitted_name": "nglVif1SafeWait__Fv",
+      "instruction_score": 0.0,
+      "matching_bytes": 74,
+      "matching_instructions": 0,
+      "notes": "The exact released `nglVif1SafeWait` body and minimal declarations were tested once. It differed at 18.5000% byte score (0.0000% instructions); no variants or diff investigation were performed.",
+      "score": 18.5,
+      "source": "typedef unsigned int u_int;\n\n#define DEBUG_ENABLE(x) 0\n#define NGL_CPU_CLOCKS_PER_MS 294912.0f\n#define D1_CHCR ((volatile u_int*)0x10009000)\n#define D2_CHCR ((volatile u_int*)0x1000a000)\n#define VIF1_FBRST ((volatile u_int*)0x10003c10)\n#define GIF_CTRL ((volatile u_int*)0x10003000)\n\nextern volatile bool nglDMAFinished;\nextern bool nglStopOnDmaTimeout;\nextern bool nglCompleteFrame;\nextern int _nglVif1IntEntryIdx;\nextern int _nglNVif1IntEntries;\nextern \"C\" int scePcStart(int, int, int);\nvoid nglWarning(const char*, ...);\n\ninline long volatile nglGetCPUCycle()\n{\n  register unsigned long result;\n  __asm__ volatile (\"mfc0 %0,$9\" : \"=r\" (result));\n  return result;\n}\n\nvoid nglVif1SafeWait()\n{\n  // If the DMA doesn't complete in 100ms then cancel it.\n  register u_int Start = nglGetCPUCycle();\n\n  while ( !nglDMAFinished )\n  {\n    u_int Time = nglGetCPUCycle();\n    if ( !DEBUG_ENABLE( VUDebugBreak ) && Time - Start >= NGL_CPU_CLOCKS_PER_MS * 100.0f )\n    {\n      // all these pretty variables are for deciding if we should wait to restart or not\n      nglCompleteFrame = !nglStopOnDmaTimeout;\n      while (!nglCompleteFrame)\n\t\t\t{\n#if !NGL_USE_SN_TUNER\n        scePcStart( 0, 0, 0 );\n#endif\n\t\t\t}\n      // print message\n      nglWarning( \"NGL: Vif1 DMA Timeout, resetting VIF1/GIF.\\n\" );\n#ifndef NGL_FINAL\n//      nglDMATimeoutCounter = 120;\n#endif\n      // stops dma on channel one ...\n      *D1_CHCR = 1 | (1<<2) | (0<<4) | (0<<6) | (0<<7) | (0<<8);\n      *D2_CHCR = 1 | (1<<2) | (0<<4) | (0<<6) | (0<<7) | (0<<8);\n      // resets the vif1\n      *VIF1_FBRST = 1 | (1<<3);\n      // resets the gif\n      *GIF_CTRL = 1;\n      // jump out of the loop\n      break;\n    }\n  }\n  if ( _nglVif1IntEntryIdx != _nglNVif1IntEntries )\n    nglWarning( \"NGL: Not enough interrupts received (%d/%d).\\n\", _nglVif1IntEntryIdx, _nglNVif1IntEntries );\n}\n",
+      "status": "different",
+      "target_size": 400
+    }
+  ],
+  "raw_name": "nglVif1SafeWait__Fv"
+}
