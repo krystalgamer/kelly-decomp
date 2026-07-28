@@ -1,0 +1,15 @@
+{
+  "address": "0x00344018",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "205a96285a8931b0f55b320f534a874a3291ffdb",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/inputmgr.cpp:341-347; kelly-slaters-pro-surfer/KS/SRC/inputmgr.h:35-60,309-380,383-437,551-559; kelly-slaters-pro-surfer/KS/SRC/singleton.h:34-42; tmp/functions/00344018_clear_mapping__9input_mgr/attempt-1/compiler.stderr:1-2; tmp/functions/00344018_clear_mapping__9input_mgr/attempt-1/result.json; tmp/source_first/00344018/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include <map>\n#include <list>\n\nclass singleton\n{\nprotected:\n    singleton() {}\n    virtual ~singleton() {}\n};\n\ntypedef int control_id_t;\ntypedef int axis_id_t;\n\nenum device_id_t\n{\n    INVALID_DEVICE_ID = -1\n};\n\nclass device_axis\n{\n    device_id_t device;\n    axis_id_t axis;\n    int control_axis;\n};\n\ntypedef list<device_axis> device_axis_list_t;\n\nenum control_t\n{\n    CT_BOOLEAN,\n    CT_RATIONAL\n};\n\nclass game_control\n{\n    control_id_t name;\n    control_t type;\n    device_axis_list_t mapping;\n\n    friend class input_mgr;\n};\n\ntypedef map<control_id_t, game_control> control_map_t;\n\nclass input_mgr : public singleton\n{\n    void *rumble_ptr;\n    void *device_map[3];\n    control_map_t control_map;\n\npublic:\n    void clear_mapping();\n};\n\nvoid input_mgr::clear_mapping()\n{\n  control_map_t::iterator it = control_map.begin();\n  for ( ; it != control_map.end(); ++it )\n    (*it).second.mapping = device_axis_list_t();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "clear_mapping__9input_mgr"
+}
