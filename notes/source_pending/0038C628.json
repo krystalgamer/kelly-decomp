@@ -1,0 +1,23 @@
+{
+  "address": "0x0038C628",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6cd8d8462febad601d9345ca3672107f4c052485",
+      "candidate_size": 252,
+      "compared_bytes": 440,
+      "compared_instructions": 110,
+      "emitted_name": "nslGetSourceParam__FUi18_nslSoundParamEnum",
+      "instruction_score": 1.8182,
+      "matching_bytes": 58,
+      "matching_instructions": 2,
+      "notes": "# Attempt 1 notes\n\n- Exact released body: `kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2_source.cpp:370-388`.\n- Faithful declarations/layout citations: `kelly-slaters-pro-surfer/NSL/COMMON/nsl.h:131-139`; `kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2.h:35-108,125-153,219-268,345-386`.\n- Target metadata: `tmp/functions/0038C628_nslGetSourceParam__FUi18_nslSoundParamEnum/metadata.json`; assembly inspected before testing: `tmp/functions/0038C628_nslGetSourceParam__FUi18_nslSoundParamEnum/target.s`.\n- Sole test result: `different`, byte score 13.1818% (58/440), instruction score 1.8182% (2/110), candidate size 252, target size 440, SHA-1 `6cd8d8462febad601d9345ca3672107f4c052485`.\n- Exactly one candidate and one `function_test.py test` invocation; no retry, alternate body, diff chasing, build, finalize, integration, tracked edit, or git mutation.",
+      "score": 13.1818,
+      "source": "typedef unsigned int nslSourceId;\ntypedef unsigned int nlUint32;\n\ntypedef enum _nslSoundParamEnum\n{\n  NSL_SOUNDPARAM_VOLUME,\n  NSL_SOUNDPARAM_PITCH,\n  NSL_SOUNDPARAM_MINDIST,\n  NSL_SOUNDPARAM_MAXDIST,\n  NSL_SOUNDPARAM_Z\n} nslSoundParamEnum;\n\nstruct nslSource\n{\n  char prefix[0x3c];\n  nslSourceId myId;\n  char middle[0x0c];\n  nlUint32 gasSourceId;\n  float rawVolume;\n  float pitch;\n  float minDist;\n  float maxDist;\n};\n\nstruct nslSystem\n{\n  char listenerPo[0x40];\n  nslSource sourceSlots[512];\n  char afterSources[0x9810];\n  int initialized;\n  char beforeOn[0x2c];\n  bool on;\n};\n\nextern nslSystem nsl;\nextern void nslFatal(const char *, ...);\n__asm__(\".equ nsl, 0x0049B5F0\");\n__asm__(\".equ nslFatal__FPCce, 0x00391420\");\n\n#define NSL_INVALID_ID 0\n#define NSL_NUM_SOURCES 512\n#define NSL_SOURCE_ID_MASK 0xFFFF0000\n#define NSL_SOURCE_SLOT_MASK 0x0000FFFF\n#define NSL_GET_SOURCE_SLOT_FROM_ID( x ) ( x&NSL_SOURCE_SLOT_MASK )\n\ninline void _nslCheckSourceIdValidity(nslSourceId checkId)\n{\n  nslSourceId checkSlot = (checkId & NSL_SOURCE_SLOT_MASK);\n  nslSourceId upCheckId = (checkId & NSL_SOURCE_ID_MASK);\n  nlUint32 gasId = nsl.sourceSlots[checkSlot].gasSourceId;\n\n  nlUint32 negativeOne = (nlUint32)-1;\n  if (!(checkId != NSL_INVALID_ID))\n  {\n    nslFatal(\"This source id is the INVALID id\");\n  }\n  if (!(gasId != negativeOne))\n  {\n    nslFatal(\"This source has a bad GAS id\");\n  }\n  if (!(checkSlot < NSL_NUM_SOURCES))\n  {\n    nslFatal(\"This source is above the max number of sources\");\n  }\n  if (!(checkId == nsl.sourceSlots[checkSlot].myId))\n  {\n    nslFatal(\"This ID passed does not match the id for the source slot\");\n  }\n  if (!(upCheckId > 0))\n  {\n    nslFatal(\"THE INSTANCE PART OF THE ID IS NOT > 0\");\n  }\n  if (checkSlot > NSL_NUM_SOURCES)\n  {\n    nslFatal(\"THE SLOT PART IS MORE THAN THE NUMBER OF TOTAL SLOTS\");\n  }\n  return;\n}\n\ninline void _nslInitialized()\n{\n  if (!(nsl.initialized == 1))\n    nslFatal(\"NSL NOT INITIALIZED\");\n}\n\n#define ASSERT_SOURCE_ID_VALID(checkId) _nslCheckSourceIdValidity(checkId)\n#define ASSERT_NSL_INITIALIZED() _nslInitialized()\n\nfloat nslGetSourceParam( nslSourceId whichSource, nslSoundParamEnum whichParam )\n{\n  if (!nsl.on) return 0.0;\n  ASSERT_NSL_INITIALIZED();\n  ASSERT_SOURCE_ID_VALID(whichSource);\n  switch (whichParam) {\n    case NSL_SOUNDPARAM_VOLUME: \n      return nsl.sourceSlots[NSL_GET_SOURCE_SLOT_FROM_ID(whichSource)].rawVolume; break;\n    case NSL_SOUNDPARAM_PITCH:\n      return nsl.sourceSlots[NSL_GET_SOURCE_SLOT_FROM_ID(whichSource)].pitch; break;\n    case NSL_SOUNDPARAM_MINDIST:\n      return nsl.sourceSlots[NSL_GET_SOURCE_SLOT_FROM_ID(whichSource)].minDist; break;\n    case NSL_SOUNDPARAM_MAXDIST:\n      return nsl.sourceSlots[NSL_GET_SOURCE_SLOT_FROM_ID(whichSource)].maxDist; break;\n    default: nslFatal(false && \"Unhandled sourcetype\"); break;\n  }\n\n  return 0.0f;\n}\n",
+      "status": "different",
+      "target_size": 440
+    }
+  ],
+  "raw_name": "nslGetSourceParam__FUi18_nslSoundParamEnum"
+}
