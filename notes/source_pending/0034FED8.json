@@ -1,0 +1,23 @@
+{
+  "address": "0x0034FED8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f0c02f076d9ad1a7b459dd0976f5a649b196894c",
+      "candidate_size": 348,
+      "compared_bytes": 348,
+      "compared_instructions": 87,
+      "emitted_name": "find_instance__C19slc_script_object_tRC7stringx",
+      "instruction_score": 93.1034,
+      "matching_bytes": 255,
+      "matching_instructions": 81,
+      "notes": "Tested the exact released `slc_script_object_t::find_instance` body from\n`kelly-slaters-pro-surfer/KS/SRC/script_library_class.cpp:218-229`, using only\nthe required declarations and the released inline `stringx` concatenation\noperators from `KS/SRC/stringx.h:486-520`.\n\nThe single non-placeholder candidate compiled to the target size (348 bytes)\nand differed: 73.2759% byte score and 93.1034% instruction score. No variants\nwere attempted.",
+      "score": 73.2759,
+      "source": "extern \"C\" unsigned int strlen(const char*);\n\nclass string_buf\n{\npublic:\n  int ref;\n  int capacity;\n  int char_length;\n};\n\nclass stringx\n{\n  char* chars;\n  string_buf* my_buf;\npublic:\n  stringx();\n  stringx(const stringx&);\n  ~stringx();\n  stringx& operator=(const stringx&);\n  stringx& operator=(const char*);\n  void append(const char*, int = -1);\n  void append(const stringx&);\n  void make_room(int);\n  const char* c_str() const { return chars; }\n  friend stringx operator+(const char*, const stringx&);\n  friend stringx operator+(const stringx&, const char*);\n};\n\ninline stringx operator+(const char* lhs, const stringx& rhs)\n{\n  stringx foo;\n  int len = strlen(lhs);\n  foo.make_room(len + rhs.my_buf->char_length);\n  foo.append(lhs, len);\n  foo.append(rhs);\n  return foo;\n}\n\ninline stringx operator+(const stringx& lhs, const char* rhs)\n{\n  stringx foo;\n  int len = strlen(rhs);\n  foo.make_room(len + lhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs, len);\n  return foo;\n}\n\nclass script_object\n{\npublic:\n  class instance;\n  instance* find_instance(const stringx&) const;\n};\n\nclass script_library_class\n{\npublic:\n  virtual ~script_library_class();\nprotected:\n  stringx name;\n  int size;\n  const char* parent_name;\n  const script_library_class* parent;\n  int funcs[3];\n};\n\nclass script_manager;\n\nclass slc_script_object_t : public script_library_class\n{\n  const script_manager& sman;\n  script_object* sobj;\npublic:\n  unsigned find_instance(const stringx& n) const;\n};\n\nvoid error(const char*, ...);\n\nunsigned slc_script_object_t::find_instance(const stringx& n) const\n{\n  script_object::instance* soinst = sobj->find_instance(n);\n  if (!soinst)\n  {\n    stringx err;\n    err=\"script object instance \"+n+\" not found\";\n    error(err.c_str());\n  }\n  return (unsigned)soinst;\n}\n",
+      "status": "different",
+      "target_size": 348
+    }
+  ],
+  "raw_name": "find_instance__C19slc_script_object_tRC7stringx"
+}
