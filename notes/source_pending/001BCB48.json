@@ -1,0 +1,16 @@
+{
+  "address": "0x001BCB48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1fb32249399b9372b73e11736871405d5b486b5f",
+      "error": "Candidate did not emit Load__13TitleFrontEnd; emitted functions: []",
+      "notes": "# Attempt 1\n\nExact released `TitleFrontEnd::Load` body with minimal faithful declarations.\nThe single test emitted no recognized functions, so the result is\n`symbol_missing` with score 0. No correction, retry, or variant was attempted.",
+      "score": 0.0,
+      "source": "// Target: 0x001BCB48 Load__13TitleFrontEnd\n// Reference: KS/SRC/ks/GraphicalMenuSystem.cpp\n// Replace this file with one self-contained candidate function.\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "Load__13TitleFrontEnd"
+}
