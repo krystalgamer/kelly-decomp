@@ -1,0 +1,23 @@
+{
+  "address": "0x002B2138",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "52d155e738a8089b26ae06fde896e9e141ddf34c",
+      "candidate_size": 384,
+      "compared_bytes": 392,
+      "compared_instructions": 96,
+      "emitted_name": "purge__t13instance_bank1Z17entity_track_tree",
+      "instruction_score": 6.25,
+      "matching_bytes": 135,
+      "matching_instructions": 6,
+      "notes": "Attempt 1 used the exact released `instance_bank<T>::purge` template body with minimal faithful declarations for `stringx`, `entity_track_tree`, and the two set types. The initially missing legacy standard headers were repaired only through scratch-local identical-candidate include infrastructure; the candidate hash did not change. Result `different`, byte score 34.4388, instruction score 6.2500, candidate size 384 versus target size 392. No declaration variant, alternate body, diff chase, or additional candidate was attempted. Citations: kelly-slaters-pro-surfer/KS/SRC/instance.h:245-280, kelly-slaters-pro-surfer/KS/SRC/entity_anim.h:63-108, kelly-slaters-pro-surfer/KS/SRC/stringx.h:229-283, tmp/functions/002B2138_purge__t13instance_bank1Z17entity_track_tree/attempt-1/result.json.",
+      "score": 34.4388,
+      "source": "#include <set>\n#include <stddef.h>\n\nclass string_buf;\n\nclass stringx\n{\nprotected:\n  char* chars;\n  string_buf* my_buf;\n\npublic:\n  ~stringx();\n};\n\nbool operator<( const stringx& lhs, const stringx& rhs );\n\nclass entity_track_tree\n{\npublic:\n  ~entity_track_tree();\n  void* operator new( size_t size );\n  void operator delete( void* p );\n};\n\ntemplate <class T>\nclass instance_bank\n{\npublic:\n  struct ref_t\n  {\n    stringx label;\n    T* ptr;\n    unsigned int count;\n  };\n\n  class less_by_label : public binary_function<const ref_t*,const ref_t*,bool>\n  {\n  public:\n    bool operator()(const ref_t* a,const ref_t* b) const\n    {\n      return ( a->label < b->label );\n    }\n  };\n\n  class less_by_ptr : public binary_function<const ref_t*,const ref_t*,bool>\n  {\n  public:\n    bool operator()(const ref_t* a,const ref_t* b) const\n    {\n      return ( a->ptr < b->ptr );\n    }\n  };\n\n  typedef set<ref_t*,less_by_label,__malloc_alloc_template<0> > lref_set;\n  typedef set<ref_t*,less_by_ptr,__malloc_alloc_template<0> > pref_set;\n\n  lref_set refs_by_label;\n  pref_set refs_by_ptr;\n\n  void purge();\n};\n\ntemplate <class T>\nvoid instance_bank<T>::purge()\n{\n  lref_set::iterator i = refs_by_label.begin();\n  lref_set::iterator i_end = refs_by_label.end();\n\n  while(i != i_end)\n  {\n    lref_set::iterator del = i;\n    ++i;\n\n    #if defined(DEBUG) && 0\n    debug_print(\"%s ptr=%p\",(*del)->label.c_str(),(*del)->ptr);\n    #endif\n    delete (*del)->ptr;\n    delete *del;\n  }\n/*\n  for ( i=refs_by_label.begin(); i!=refs_by_label.end(); ++i )\n  {\n    delete (*i)->ptr;\n    delete *i;\n  }\n*/\n  // unlike erase(), these functions should deallocate the sets\n\n  // PEH TEST\n/*   refs_by_label = lref_set(); */\n/*   refs_by_ptr   = pref_set(); */\n  refs_by_label.clear();\n  refs_by_ptr.clear();\n}\n\ntemplate void instance_bank<entity_track_tree>::purge();\n",
+      "status": "different",
+      "target_size": 392
+    }
+  ],
+  "raw_name": "purge__t13instance_bank1Z17entity_track_tree"
+}
