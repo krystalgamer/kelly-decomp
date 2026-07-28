@@ -1,0 +1,23 @@
+{
+  "address": "0x002EDBF8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2e287a74612cf7f753d80a4f5569fa3001317563",
+      "candidate_size": 400,
+      "compared_bytes": 400,
+      "compared_instructions": 100,
+      "emitted_name": "CAMERA_TOOL_StaticInit__Fv",
+      "instruction_score": 66.0,
+      "matching_bytes": 294,
+      "matching_instructions": 66,
+      "notes": "# FIRST PASS wave 68 lane A5 \u2014 0x002EDBF8\n\nThe exact released source candidate was tested once and differed. The attempt is preserved; no alternative candidate or diff chase was attempted.\n\nSee `attempt-1.md` and `packet.json`.",
+      "score": 73.5,
+      "source": "// Target: 0x002EDBF8 CAMERA_TOOL_StaticInit__Fv\n// Reference: KS/SRC/ks/camera_tool.cpp\n// Replace this file with one self-contained candidate function.\nvoid *operator new(unsigned int, unsigned int, const char *, int);\n#define NEW new(0, __PRETTY_FUNCTION__, 0)\n\nclass camera_list {\n    char storage[0x1c];\npublic:\n    camera_list();\n};\n\nclass MenuEntry {\nprotected:\n    unsigned int flags;\npublic:\n    MenuEntry() : flags(3) {}\n    virtual ~MenuEntry() {}\n};\n\nclass MenuEntryLabel : public MenuEntry {\nprotected:\n    const char *label;\npublic:\n    MenuEntryLabel(const char *text) : label(text) {}\n    virtual ~MenuEntryLabel() {}\n};\n\nclass MenuEntryTitle : public MenuEntryLabel {\npublic:\n    MenuEntryTitle(char *text) : MenuEntryLabel(text) { Disable(); }\n    virtual ~MenuEntryTitle() {}\n    virtual void Disable();\n};\n\ntypedef bool (*MenuEntryButtonFunctionPtr)(MenuEntry *, int);\n\nclass MenuEntryFunction : public MenuEntryLabel {\n    MenuEntryButtonFunctionPtr function;\npublic:\n    MenuEntryFunction(char *text, MenuEntryButtonFunctionPtr callback)\n        : MenuEntryLabel(text), function(callback) {}\n    virtual ~MenuEntryFunction() {}\n};\n\nclass Menu {\npublic:\n    Menu(Menu *, int, MenuEntry **);\n    virtual ~Menu();\n};\n\nclass Submenu : public MenuEntryLabel {\n    Menu *menuopen;\n    Menu *parent;\n    void *system;\npublic:\n    Submenu(char *text, Menu *menu) : MenuEntryLabel(text) {\n        menuopen = menu;\n        parent = 0;\n        system = 0;\n    }\n    virtual ~Submenu() {}\n};\n\nextern camera_list *CameraList;\nextern MenuEntryFunction *entry_add_cam;\nextern MenuEntryTitle *camtool_title;\nextern MenuEntry *camtool_entries[2];\nextern Menu *menu_inner_camtool;\nextern Submenu *menu_camtool;\nbool AddCamButton(MenuEntry *, int);\n\n__asm__(\".equ __nw__FUiUiPCci, 0x002AC578\");\n__asm__(\".equ __11camera_list, 0x002EE0F8\");\n__asm__(\".equ Disable__14MenuEntryTitle, 0x002706F0\");\n__asm__(\".equ __4MenuP4MenuiPP9MenuEntry, 0x0023E250\");\n__asm__(\".equ CameraList, 0x00434960\");\n__asm__(\".equ entry_add_cam, 0x00434964\");\n__asm__(\".equ camtool_title, 0x00434968\");\n__asm__(\".equ camtool_entries, 0x00434970\");\n__asm__(\".equ menu_inner_camtool, 0x00434978\");\n__asm__(\".equ menu_camtool, 0x0043497C\");\n__asm__(\".equ AddCamButton__FP9MenuEntryi, 0x002EDD90\");\n__asm__(\".equ __vt_17MenuEntryFunction, 0x004D5A88\");\n__asm__(\".equ __vt_14MenuEntryTitle, 0x004D5B38\");\n__asm__(\".equ __vt_7Submenu, 0x004D5918\");\n\nvoid CAMERA_TOOL_StaticInit(void)\n{\n    CameraList=NEW camera_list;\n    entry_add_cam = NEW MenuEntryFunction(\"Add Camera\", AddCamButton);\n    camtool_title = NEW MenuEntryTitle(\"Camera Tool Menu\");\n    camtool_entries[0] = camtool_title;\n    camtool_entries[1] = entry_add_cam;\n    menu_inner_camtool = NEW Menu(0, 2, camtool_entries);\n    menu_camtool = NEW Submenu(\"Camera Tool Menu\", menu_inner_camtool);\n}\n",
+      "status": "different",
+      "target_size": 400
+    }
+  ],
+  "raw_name": "CAMERA_TOOL_StaticInit__Fv"
+}
