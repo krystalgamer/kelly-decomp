@@ -1,0 +1,23 @@
+{
+  "address": "0x0036B2B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0fdbd3d43e455f8c62e57c69ba5108830a580a22",
+      "candidate_size": 428,
+      "compared_bytes": 428,
+      "compared_instructions": 107,
+      "emitted_name": "ks_fx_create_snap_splash__FRC8vector3dT0R16WavePositionHintbi",
+      "instruction_score": 22.4299,
+      "matching_bytes": 202,
+      "matching_instructions": 24,
+      "notes": "# 0x0036B2B0 source-first notes\n\nThe exact released `ks_fx_create_snap_splash` body and minimal declarations received the single permitted test. The 428-byte candidate differed from the 420-byte target: 202/428 compared bytes and 24/107 instructions matched, for a score of 47.1963. No variants, diff chasing, build, finalization, integration, commit, or tracked edits were performed.\n\nSources:\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/ksfx.cpp:90-110`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/ksfx.cpp:1741-1770`\n- `config/SLUS_203.34.symbol_addrs.txt:7235`\n- `notes/function_queue.csv:6420`\n- `tmp/functions/0036B2B0_ks_fx_create_snap_splash__FRC8vector3dT0R16WavePositionHintbi/attempt-1/result.json`",
+      "score": 47.1963,
+      "source": "typedef unsigned int u_int;\nstruct vector3d { float x, y, z; };\ntemplate <int n> struct SplineCoeffs { float a[n], b[n], c[n], d[n]; };\ntypedef struct { SplineCoeffs<16> y, z; } WaveProfileCoeffs;\nstruct WavePositionHint {\n\tfloat x, z;\n\tfloat xprofile;\n\tu_int xcell, zcell;\n\tu_int xgrid, zgrid;\n\tWaveProfileCoeffs wpc;\n};\nstruct nglTexture;\ntypedef enum { LIP_SNAP_LEFT, LIP_SNAP_RIGHT, LIP_LAUNCH } lip_splash_types;\ntypedef struct {\n\tvector3d position;\n\tvector3d normal;\n\tWavePositionHint hint;\n\tfloat age;\n\tbool valid;\n\tint hero_index;\n\tnglTexture *texture;\n\tint type;\n} lip_splash_t;\nclass game {\n\tchar pad[176];\n\tint num_players;\npublic:\n\tint get_num_players() { return num_players; }\n};\nextern game *g_game_ptr;\nextern lip_splash_t lip_splashes[2];\nextern nglTexture *fx_tex[11];\n\nvoid ks_fx_create_snap_splash(const vector3d& pos, const vector3d& normal, WavePositionHint& hint, bool left, int hero_index)\n{\n\tif (hero_index >= g_game_ptr->get_num_players())\n\t{\n\t\treturn;\n\t}\n\n\tlip_splash_t *splash = 0;\n\n\tfor (int i = 0; i < 2; i++)\n\t{\n\t\tif (!lip_splashes[i].valid)\n\t\t{\n\t\t\tsplash = &lip_splashes[i];\n\t\t\tbreak;\n\t\t}\n\t}\n\n\tif (splash != 0)\n\t{\n\t\tsplash->age = 0;\n\t\tsplash->valid = true;\n\t\tsplash->position = pos;\n\t\tsplash->hint = hint;\n\t\tsplash->normal = normal;\n\t\tsplash->type = left ? LIP_SNAP_LEFT : LIP_SNAP_RIGHT;\n\t\tsplash->hero_index = hero_index;\n\t\tsplash->texture = fx_tex[9];\n\t}\n}\n",
+      "status": "different",
+      "target_size": 420
+    }
+  ],
+  "raw_name": "ks_fx_create_snap_splash__FRC8vector3dT0R16WavePositionHintbi"
+}
