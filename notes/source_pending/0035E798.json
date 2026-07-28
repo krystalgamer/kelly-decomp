@@ -1,0 +1,23 @@
+{
+  "address": "0x0035E798",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d3d354c223269ae38eccd6f1585d2cd9c7c6352e",
+      "candidate_size": 352,
+      "compared_bytes": 436,
+      "compared_instructions": 105,
+      "emitted_name": "_$_t13instance_bank1Z8material",
+      "instruction_score": 2.8571,
+      "matching_bytes": 114,
+      "matching_instructions": 3,
+      "notes": "Released-source first pass for `0x0035E798`, using the exact destructor body from\n`kelly-slaters-pro-surfer/KS/SRC/instance.h:99-110` with only minimal faithful\nlocal declarations. Exactly one test; no retry, build, finalize, integration, or\ntracked edit.",
+      "score": 26.1468,
+      "source": "typedef unsigned int size_t;\n\nextern \"C\" void debug_print(const char*, ...);\nextern \"C\" void arch_free(void*);\n\n#define assert(x) ((void)0)\n\nclass stringx\n{\npublic:\n  ~stringx();\n  void* data;\n};\n\nclass material\n{\n};\n\ntemplate <class T>\nstruct tree_node\n{\n  int color;\n  tree_node* parent;\n  tree_node* left;\n  tree_node* right;\n  T value;\n};\n\ntemplate <class T>\nclass local_set\n{\npublic:\n  typedef tree_node<T> node;\n\n  class iterator\n  {\n  public:\n    node* current;\n\n    iterator(node* p = 0) : current(p) {}\n\n    T operator*() const\n    {\n      return current->value;\n    }\n\n    iterator& operator++()\n    {\n      if (current->right)\n      {\n        current = current->right;\n        while (current->left)\n          current = current->left;\n      }\n      else\n      {\n        node* parent = current->parent;\n        while (current == parent->right)\n        {\n          current = parent;\n          parent = parent->parent;\n        }\n        if (current->right != parent)\n          current = parent;\n      }\n      return *this;\n    }\n\n    bool operator!=(const iterator& other) const\n    {\n      return current != other.current;\n    }\n  };\n\n  node* header;\n  unsigned int node_count;\n  unsigned int unused;\n\n  iterator begin()\n  {\n    return iterator(header->left);\n  }\n\n  iterator end()\n  {\n    return iterator(header);\n  }\n\n  ~local_set()\n  {\n    if (node_count)\n      erase_tree(header->parent);\n    arch_free(header);\n  }\n\nprivate:\n  static void erase_tree(node*);\n};\n\ntemplate <class T>\nclass instance_bank\n{\npublic:\n  struct ref_t\n  {\n    stringx label;\n    T* ptr;\n    unsigned int count;\n  };\n\n  typedef local_set<ref_t*> lref_set;\n  typedef local_set<ref_t*> pref_set;\n\n  lref_set refs_by_label;\n  pref_set refs_by_ptr;\n\n  ~instance_bank();\n};\n\ntemplate <class T>\ninstance_bank<T>::~instance_bank()\n{\n  lref_set::iterator i;\n  for ( i=refs_by_label.begin(); i!=refs_by_label.end(); ++i )\n  {\n    ref_t* r = *i;\n    assert( r->count );\n    debug_print( \"WARNING: Unreleased instance.\" );\n    delete r;\n  }\n}\n\ntemplate instance_bank<material>::~instance_bank();\n",
+      "status": "different",
+      "target_size": 436
+    }
+  ],
+  "raw_name": "_$_t13instance_bank1Z8material"
+}
