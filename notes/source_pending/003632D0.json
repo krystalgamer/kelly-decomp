@@ -1,0 +1,23 @@
+{
+  "address": "0x003632D0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "53b0b736b289b438c2e40f3acc5af3eec30c1de5",
+      "candidate_size": 356,
+      "compared_bytes": 356,
+      "compared_instructions": 89,
+      "emitted_name": "board_update_air__5trailf",
+      "instruction_score": 95.5056,
+      "matching_bytes": 317,
+      "matching_instructions": 85,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 50 lane A3 for `0x003632D0 board_update_air__5trailf`.\n- Tested the exact released `trail::board_update_air` body once with minimal self-contained declarations preserving the required `trail`, controller, board, entity, transform, spray-parameter, and vector layouts/inlines.\n- Result: **different**, byte score **89.0449%** (317/356) and instruction score **95.5056%** (85/89); candidate and target sizes were both 356 bytes.\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/trail.cpp:712-746`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/trail.h:51-72,74-120`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.h:796,815`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/board.h:204`\n- `tmp/functions/003632D0_board_update_air__5trailf/attempt-1/result.json`",
+      "score": 89.0449,
+      "source": "typedef unsigned int u_int;\n\nclass vector3d\n{\npublic:\n  float x;\n  float y;\n  float z;\n  vector3d () {}\n  vector3d (float _x, float _y, float _z) : x(_x), y(_y), z(_z) {}\n  vector3d (const vector3d& v) : x(v.x), y(v.y), z(v.z) {}\n  vector3d& operator=(const vector3d& v) { x=v.x; y=v.y; z=v.z; return *this; }\n};\n\nextern const vector3d ZEROVEC;\nclass WavePositionHint;\nclass po\n{\npublic:\n  vector3d slow_xform (const vector3d& source_vector) const;\n};\n\nclass entity\n{\n  char pad[80];\n  po *my_abs_po;\npublic:\n  const po& get_abs_po() const { return *my_abs_po; }\n};\n\nclass SurfBoardObjectClass { public: char pad[3480]; float air_timer; float GetAirTime(void) { return air_timer; } };\nclass kellyslater_controller\n{\n  char pad0[3480];\n  float air_timer;\n  char pad1[172];\n  entity *my_board;\npublic:\n  SurfBoardObjectClass & get_board_controller(void) { return *(SurfBoardObjectClass *)this; }\n  entity * GetBoard(void) { return my_board; }\n};\n\nstruct spray_params_t\n{\n  char pad[3264];\n  float airdrops_interval;\n};\n\nvoid ks_fx_add_splash (u_int fxindex, const vector3d& pos, float size);\n\nstatic float airdrops_time = 0.2f;\nstatic float airdrops_interval_time = 0.05f;\n\nclass trail\n{\n  char pad[0xcd74];\n  kellyslater_controller* my_owner;\n  spray_params_t *my_spray;\npublic:\n  void add_point (vector3d *pointa, vector3d *center, vector3d *pointb, float vela, float velb, WavePositionHint *hint, bool dummy);\n  void board_update_air (float dt);\n};\n\nvoid trail::board_update_air (float dt)\n{\n  entity *board_ptr = my_owner->GetBoard();\n\n  vector3d pt(ZEROVEC);\n  add_point (&pt, &pt, &pt, 0, 0, 0, true);\n\n  if (my_owner->get_board_controller ().GetAirTime () < airdrops_time)\n  {\n    my_spray->airdrops_interval += dt;\n\n    static float last_splash = 0.0f;\n    last_splash += dt;\n    if(last_splash < 1.0f/60.0f)\n      return;\n\n    last_splash = 0.0f;\n\n    if (my_spray->airdrops_interval > airdrops_interval_time)\n    {\n      vector3d pos;\n\n      pos = board_ptr->get_abs_po().slow_xform (vector3d (0, 0, -0.2));\n\n      ks_fx_add_splash(11, pos, 1.0f);\n    }\n  }\n  else\n    my_spray->airdrops_interval = 0;\n}\n",
+      "status": "different",
+      "target_size": 356
+    }
+  ],
+  "raw_name": "board_update_air__5trailf"
+}
