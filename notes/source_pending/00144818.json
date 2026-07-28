@@ -1,0 +1,23 @@
+{
+  "address": "0x00144818",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5884efdeaaa0ddf7c45c4fe63126dff149778fae",
+      "candidate_size": 228,
+      "compared_bytes": 368,
+      "compared_instructions": 92,
+      "emitted_name": "update_abs_po_reverse__4bone",
+      "instruction_score": 7.6087,
+      "matching_bytes": 77,
+      "matching_instructions": 7,
+      "notes": "Attempt 1 used the exact released source for update_abs_po_reverse__4bone. Result `different`, score 20.9239; no retry or variant was made.",
+      "score": 20.9239,
+      "source": "class bone;\n\nclass po {\npublic:\n  float m[4][4];\n};\n\nvoid fast_po_mul(po&, const po&, const po&);\n\nclass link_interface {\npublic:\n  bone* my_parent;\n  bone* get_parent() const { return my_parent; }\n};\n\nclass signaller {\npublic:\n  virtual ~signaller();\n};\n\nclass bone : public signaller {\nprotected:\n  po my_rel_po;\n  po* my_abs_po;\n  po* my_handed_abs_po;\n  int bone_id;\n  void* my_sector;\n  int flip_axis;\n  bool is_part_of_skeleton;\n  link_interface* my_link_interface;\n\npublic:\n  bool has_link_ifc() const { return (my_link_interface != 0); }\n  link_interface* link_ifc() const { return my_link_interface; }\n  const po& get_rel_po() const { return my_rel_po; }\n  const po& get_abs_po() const { return *my_abs_po; }\n  void update_abs_po_reverse();\n};\n\nvoid bone::update_abs_po_reverse()\n    {\n      if (has_link_ifc())\n      {\n        if (link_ifc()->my_parent)\n        {\n          link_ifc()->my_parent->update_abs_po_reverse();\n\n          fast_po_mul(*my_abs_po, get_rel_po(), link_ifc()->get_parent()->get_abs_po());\n//          *my_abs_po = get_rel_po() * link_ifc()->my_parent->get_abs_po();\n        }\n        else\n          *my_abs_po = get_rel_po();\n      }\n    }\n",
+      "status": "different",
+      "target_size": 368
+    }
+  ],
+  "raw_name": "update_abs_po_reverse__4bone"
+}
