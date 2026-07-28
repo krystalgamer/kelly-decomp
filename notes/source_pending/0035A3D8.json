@@ -1,0 +1,15 @@
+{
+  "address": "0x0035A3D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ce233a657f0ff9963d262483266537a305f9ad33",
+      "notes": "Attempt 1 used the exact released source for find__Ct8_Rb_tree5Z7stringxZt4pair2ZC7stringxZUsZt10_Select1st1Zt4pair2ZC7stringxZUsZt4less1Z7stringxZt12my_allocator1ZUsRC7stringx. Result `compile_failed`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"signals.h\"\n\ntemplate signal_manager::signal_id_map_t::const_iterator signal_manager::signal_id_map_t::find(const stringx&) const;\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "find__Ct8_Rb_tree5Z7stringxZt4pair2ZC7stringxZUsZt10_Select1st1Zt4pair2ZC7stringxZUsZt4less1Z7stringxZt12my_allocator1ZUsRC7stringx"
+}
