@@ -1,0 +1,23 @@
+{
+  "address": "0x0019EDE8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "073066ed754cd61f2b1c1cd886d11152fd595ae1",
+      "candidate_size": 332,
+      "compared_bytes": 356,
+      "compared_instructions": 89,
+      "emitted_name": "Update__9NamesMenuf",
+      "instruction_score": 3.3708,
+      "matching_bytes": 53,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used the exact released source for Update__9NamesMenuf. Result `different`, score 14.8876; no retry or variant was made.",
+      "score": 14.8876,
+      "source": "typedef float time_value_t;\n\nclass FEMenu\n{\npublic:\n\tvoid Update(time_value_t time_inc);\n};\n\nclass FrontEnd\n{\npublic:\n\tvoid Update(time_value_t time_inc);\n};\n\nclass FEMultiMenu : public FEMenu\n{\n\tchar front_end_offset[0x7c];\npublic:\n\tvoid Update(time_value_t time_inc)\n\t{\n\t\t((FrontEnd *) ((char *) this + 0x80))->Update(time_inc);\n\t\tFEMenu::Update(time_inc);\n\t}\n};\n\nclass SaveLoadFrontEnd\n{\n\tchar pad[0x32c4];\n\tint dstate;\npublic:\n\tenum\n\t{\n\t\tDSTATE_LOADING = 5,\n\t\tDSTATE_DELETING = 11,\n\t\tDSTATE_SAVING = 18,\n\t\tDSTATE_FORMATTING = 20\n\t};\n\n\tbool Busy()\n\t{\n\t\treturn (dstate == DSTATE_SAVING || dstate == DSTATE_LOADING || dstate == DSTATE_DELETING || dstate == DSTATE_FORMATTING);\n\t}\n\tbool DialogActive();\n\tvoid CancelDialog();\n};\n\nstruct MemCard\n{\n\tint free;\n\tbool exists;\n\tbool changed;\n\tbool available;\n\tbool ask_format;\n\tbool saved_games;\n\tchar pad[3];\n\tint status;\n\tchar tail[12];\n};\n\nclass NamesMenu : public FEMultiMenu\n{\n\tchar pad0[0xe8];\n\tSaveLoadFrontEnd* sl_parent;\n\tint check_cards_counter;\n\tchar pad1[0x44];\n\tMemCard cards[2];\n\tchar pad2[8];\n\tint active_card;\n\tint adjusted_active_card;\n\n\tvoid CheckCardNum(int c);\n\tvoid UpdateMessage();\npublic:\n\tvoid MakeSpaceFreeMessage(int freeBytes);\n\tvoid RefreshDisplay();\n\tvoid Update(time_value_t time_inc);\n};\n\n__asm__(\".equ Update__8FrontEndf, 0x00157B30\");\n__asm__(\".equ Update__6FEMenuf, 0x00156DC8\");\n__asm__(\".equ CheckCardNum__9NamesMenui, 0x001A0470\");\n__asm__(\".equ MakeSpaceFreeMessage__9NamesMenui, 0x0019E790\");\n__asm__(\".equ DialogActive__16SaveLoadFrontEnd, 0x0019BF38\");\n__asm__(\".equ CancelDialog__16SaveLoadFrontEnd, 0x0019BF00\");\n__asm__(\".equ RefreshDisplay__9NamesMenu, 0x0019FF58\");\n__asm__(\".equ UpdateMessage__9NamesMenu, 0x0019FDD0\");\n\nvoid NamesMenu::Update(time_value_t time_inc)\n{\n\tif(sl_parent->Busy()) return;\n\n\t// execute CheckCurrentCard only every 10 times, because it's slow\n\tcheck_cards_counter++;\n\tif(check_cards_counter >= 10)\n\t{\n\t\tCheckCardNum(active_card);\n\t\tMakeSpaceFreeMessage(cards[adjusted_active_card].free);\n\t\tcheck_cards_counter = 0;\n\t}\n\n\t// if the card that previously needed formatting has been pulled out, end\n\t// the format loop\n/*\tif(!cards[adjusted_active_card].exists && cards[adjusted_active_card].changed && !cards[adjusted_active_card].available)\n\t\tAskFormat(false);*/\n\n\tif(cards[adjusted_active_card].changed && !cards[adjusted_active_card].exists && sl_parent->DialogActive())\n\t\tsl_parent->CancelDialog();\n\n#ifdef TARGET_XBOX\t// Not supposed to display empty memory unit slots on Xbox (dc 07/07/02)\n\tif(!cards[adjusted_active_card].exists)\n\t{\n\t\tOnRight(0);\n\t}\n#endif\n\t\n\t// if card has been put in or pulled out\n\tif(cards[adjusted_active_card].changed)\n\t\tRefreshDisplay();\n\n\tif (!sl_parent->DialogActive())\n\t\tUpdateMessage();\n\tFEMultiMenu::Update(time_inc);\n}\n",
+      "status": "different",
+      "target_size": 356
+    }
+  ],
+  "raw_name": "Update__9NamesMenuf"
+}
