@@ -1,0 +1,23 @@
+{
+  "address": "0x0014FEA0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ae28251b4708d84f390c4e181f5d116a97191877",
+      "candidate_size": 300,
+      "compared_bytes": 396,
+      "compared_instructions": 99,
+      "emitted_name": "Init__9PanelGeomPP9PanelQuadG9matrix4x4b",
+      "instruction_score": 0.0,
+      "matching_bytes": 46,
+      "matching_instructions": 0,
+      "notes": "# Attempt 1\n\nExact released `PanelGeom::Init` body with minimal faithful `matrix4x4`,\n`PanelGeom`, child-vtable, and PS2 inline matrix-multiply declarations.\n\nOutcome: **different**, 46/396 bytes (11.6162%), 0/99 instructions (0.0%);\ncandidate size 300 bytes versus target size 396 bytes.",
+      "score": 11.6162,
+      "source": "class PanelQuad;\n\nstruct vector4d {\n    float x, y, z, w;\n};\n\nstruct matrix4x4 {\n    vector4d x __attribute__((aligned(16)));\n    vector4d y, z, w;\n};\n\nstatic inline matrix4x4 operator*(const matrix4x4 &a, const matrix4x4 &b)\n{\n    matrix4x4 local;\n    asm(\n        \"lqc2 vf1,0x0(%2)\\n\"\n        \"lqc2 vf2,0x10(%2)\\n\"\n        \"lqc2 vf3,0x20(%2)\\n\"\n        \"lqc2 vf4,0x30(%2)\\n\"\n        \"lqc2 vf5,0x0(%1)\\n\"\n        \"lqc2 vf6,0x10(%1)\\n\"\n        \"lqc2 vf7,0x20(%1)\\n\"\n        \"lqc2 vf8,0x30(%1)\\n\"\n        \"vmulax.xyzw ACC,vf1,vf5\\n\"\n        \"vmadday.xyzw ACC,vf2,vf5\\n\"\n        \"vmaddaz.xyzw ACC,vf3,vf5\\n\"\n        \"vmaddw.xyzw vf9,vf4,vf5\\n\"\n        \"vmulax.xyzw ACC,vf1,vf6\\n\"\n        \"vmadday.xyzw ACC,vf2,vf6\\n\"\n        \"vmaddaz.xyzw ACC,vf3,vf6\\n\"\n        \"vmaddw.xyzw vf10,vf4,vf6\\n\"\n        \"vmulax.xyzw ACC,vf1,vf7\\n\"\n        \"vmadday.xyzw ACC,vf2,vf7\\n\"\n        \"vmaddaz.xyzw ACC,vf3,vf7\\n\"\n        \"vmaddw.xyzw vf11,vf4,vf7\\n\"\n        \"vmulax.xyzw ACC,vf1,vf8\\n\"\n        \"vmadday.xyzw ACC,vf2,vf8\\n\"\n        \"vmaddaz.xyzw ACC,vf3,vf8\\n\"\n        \"vmaddw.xyzw vf12,vf4,vf8\\n\"\n        \"sqc2 vf9,0x0(%0)\\n\"\n        \"sqc2 vf10,0x10(%0)\\n\"\n        \"sqc2 vf11,0x20(%0)\\n\"\n        \"sqc2 vf12,0x30(%0)\\n\"\n        :\n        : \"r\" (&local.x.x), \"r\" (&a.x.x), \"r\" (&b.x.x)\n    );\n    return local;\n}\n\nstruct panel_vtable {\n    char padding[64];\n    short adjustment;\n    short reserved;\n    void (*init)(void *, PanelQuad **, matrix4x4, bool);\n};\n\nstruct PanelGeom {\n    char padding[16];\n    matrix4x4 matrix;\n    char padding2[28];\n    PanelGeom *children;\n    char padding3[8];\n    panel_vtable *vtable;\n\n    void Init(PanelQuad **pquads, matrix4x4 parent_matrix, bool floating);\n};\n\nvoid PanelGeom::Init(PanelQuad **pquads, matrix4x4 parent_matrix, bool floating)\n{\n    matrix4x4 this_matrix = parent_matrix*matrix;\n    if(children) children->Init(pquads, this_matrix, floating);\n}\n",
+      "status": "different",
+      "target_size": 396
+    }
+  ],
+  "raw_name": "Init__9PanelGeomPP9PanelQuadG9matrix4x4b"
+}
