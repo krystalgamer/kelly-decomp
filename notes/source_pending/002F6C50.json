@@ -1,0 +1,23 @@
+{
+  "address": "0x002F6C50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d0a2c605f213dc83509612d0bd3b0d35857e531e",
+      "candidate_size": 324,
+      "compared_bytes": 344,
+      "compared_instructions": 80,
+      "emitted_name": "insert_unique__t8_Rb_tree5ZsZt4pair2ZCsZUiZt10_Select1st1Zt4pair2ZCsZUiZt4less1ZsZt12my_allocator1ZUiRCt4pair2ZCsZUi",
+      "instruction_score": 1.25,
+      "matching_bytes": 71,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used the exact GCC 2.95 SGI RB-tree insert_unique algorithm instantiated for short-to-unsigned released map types. The result is preserved; no retry or variant was made.",
+      "score": 20.6395,
+      "source": "struct value_type { const short first; unsigned int second; };\nstruct node {\n  int color;\n  node *parent;\n  node *left;\n  node *right;\n  value_type value;\n};\nstruct tree { node header; unsigned int node_count; };\nstruct result { node *position; bool inserted; };\n\nextern \"C\" node *tree_insert(tree *, node *, node *, const value_type &)\n  __asm__(\"_M_insert__t8_Rb_tree5ZsZt4pair2ZCsZUiZt10_Select1st1Zt4pair2ZCsZUiZt4less1ZsZt12my_allocator1ZUiP18_Rb_tree_node_baseT1RCt4pair2ZCsZUi\");\nresult *insert_unique(result *, tree *, const value_type &)\n  __asm__(\"insert_unique__t8_Rb_tree5ZsZt4pair2ZCsZUiZt10_Select1st1Zt4pair2ZCsZUiZt4less1ZsZt12my_allocator1ZUiRCt4pair2ZCsZUi\");\n\nresult *insert_unique(result *out, tree *self, const value_type &value) {\n  node *y = &self->header;\n  node *x = self->header.parent;\n  bool comp = true;\n  while (x != 0) {\n    y = x;\n    comp = value.first < x->value.first;\n    x = comp ? x->left : x->right;\n  }\n  node *j = y;\n  if (comp) {\n    if (j == self->header.left) {\n      out->position = tree_insert(self, x, y, value);\n      out->inserted = true;\n      return out;\n    }\n    if (j->left != 0) {\n      j = j->left;\n      while (j->right != 0) j = j->right;\n    } else {\n      node *p = j->parent;\n      while (j == p->left) {\n        j = p;\n        p = p->parent;\n      }\n      j = p;\n    }\n  }\n  if (j->value.first < value.first) {\n    out->position = tree_insert(self, x, y, value);\n    out->inserted = true;\n  } else {\n    out->position = j;\n    out->inserted = false;\n  }\n  return out;\n}\n",
+      "status": "different",
+      "target_size": 344
+    }
+  ],
+  "raw_name": "insert_unique__t8_Rb_tree5ZsZt4pair2ZCsZUiZt10_Select1st1Zt4pair2ZCsZUiZt4less1ZsZt12my_allocator1ZUiRCt4pair2ZCsZUi"
+}
