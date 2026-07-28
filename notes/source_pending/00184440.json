@@ -1,0 +1,23 @@
+{
+  "address": "0x00184440",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d6f5436972c4768dace98f2a3d30c6395b1afcb2",
+      "candidate_size": 472,
+      "compared_bytes": 472,
+      "compared_instructions": 118,
+      "emitted_name": "OnActivate__12MultiSubMenu",
+      "instruction_score": 81.3559,
+      "matching_bytes": 349,
+      "matching_instructions": 96,
+      "notes": "# FIRST PASS wave 86 lane B4\n\nExact released body tested once for `0x00184440 OnActivate__12MultiSubMenu`. Result `different`, score 73.9407%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 73.9407,
+      "source": "extern \"C\" int sprintf(char *, const char *, ...);\n\nclass stringx {\n    char *chars;\n    void *my_buf;\npublic:\n    stringx();\n    stringx(const char *, int = -1);\n    stringx(const stringx &);\n    ~stringx();\n    const char *data() const { return chars; }\n};\n\nclass FEManager;\n\nclass FEMenuSystem {\n    char padding[0x78];\npublic:\n    FEManager *manager;\n};\n\nclass FEMenuEntry {\n    char padding[0x60];\npublic:\n    virtual void f00();\n    virtual void f01();\n    virtual void f02();\n    virtual void f03();\n    virtual void f04();\n    virtual void f05();\n    virtual void f06();\n    virtual void f07();\n    virtual void f08();\n    virtual void f09();\n    virtual void f10();\n    virtual void f11();\n    virtual void f12();\n    virtual void f13();\n    virtual void f14();\n    virtual void f15();\n    virtual void f16();\n    virtual void f17();\n    virtual void f18();\n    virtual void f19();\n    virtual void f20();\n    virtual void f21();\n    virtual void f22();\n    virtual void f23();\n    virtual void f24();\n    virtual void f25();\n    virtual void f26();\n    virtual void f27();\n    virtual void f28();\n    virtual void f29();\n    virtual void f30();\n    virtual void f31();\n    virtual void f32();\n    virtual void f33();\n    virtual void f34();\n    virtual void SetText(stringx);\n};\n\nclass FEMenu {\n    char padding0[0x50];\nprotected:\n    FEMenuSystem *system;\n    char padding1[0x20];\npublic:\n    virtual void OnActivate();\n};\n\nclass GraphicalMenuSystem;\n\nclass HelpbarFE {\npublic:\n    void Reset();\n    void Reformat();\n    void ChangeBtn(int, bool, stringx);\n    void AddArrowV(stringx text = stringx(\"\")) {\n        ChangeBtn(1, true, text);\n        ChangeBtn(2, false, \"\");\n    }\n};\n\nclass FEManager {\n    char padding0[0x1566c];\npublic:\n    int tmp_game_mode;\n    char padding1[0x34];\n    HelpbarFE *helpbar;\n};\n\nextern FEManager frontendmanager;\nextern stringx ksGlobalTextArray[];\n\nenum {\n    GAME_MODE_TIME_ATTACK = 5,\n    GT_FE_MENU_PUSH_LEVEL = 154,\n    GT_FE_MENU_TIME_LEVEL = 155\n};\n\nclass MultiSubMenu : public FEMenu {\npublic:\n    enum {\n        SubEasyEntry,\n        SubMediumEntry,\n        SubHardEntry,\n        SubEnd\n    };\n    GraphicalMenuSystem *sys;\n    FEMenuEntry *entry[SubEnd];\n    void *difficulty;\n    int push[SubEnd];\n    int time[SubEnd];\n\n    virtual void OnActivate();\n};\n\nvoid MultiSubMenu::OnActivate()\n{\n\tFEMenu::OnActivate();\n\n\t// set default according to tmp_game_mode\n\tif(system->manager->tmp_game_mode == GAME_MODE_TIME_ATTACK)\n\t{\n\t\tchar tmp[100];\n\t\tfor(int i=0; i<SubEnd; i++)\n\t\t{\n\t\t\tsprintf(tmp, ksGlobalTextArray[GT_FE_MENU_TIME_LEVEL].data(), time[i]);\n\t\t\tentry[i]->SetText(tmp);\n\t\t}\n\t}\n\telse\n\t{\n\t\tchar tmp[100];\n\t\tfor(int i=0; i<SubEnd; i++)\n\t\t{\n\t\t\tsprintf(tmp, ksGlobalTextArray[GT_FE_MENU_PUSH_LEVEL].data(), push[i]);\n\t\t\tentry[i]->SetText(tmp);\n\t\t}\n\t}\n\n\tfrontendmanager.helpbar->Reset();\n\tfrontendmanager.helpbar->AddArrowV();\n\tfrontendmanager.helpbar->Reformat();\n}\n",
+      "status": "different",
+      "target_size": 472
+    }
+  ],
+  "raw_name": "OnActivate__12MultiSubMenu"
+}
