@@ -1,0 +1,23 @@
+{
+  "address": "0x001C9520",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1b34ba0e93c609f46611046a9a3f4c9154fdf06a",
+      "candidate_size": 360,
+      "compared_bytes": 364,
+      "compared_instructions": 91,
+      "emitted_name": "get_floor_offset__15FEEntityManager",
+      "instruction_score": 24.1758,
+      "matching_bytes": 154,
+      "matching_instructions": 22,
+      "notes": "Attempt 1 used the exact released source for get_floor_offset__15FEEntityManager. Result `different`, score 42.3077; no retry or variant was made.",
+      "score": 42.3077,
+      "source": "typedef float rational_t;\ntypedef float time_value_t;\n\nclass vector3d\n{\npublic:\n  rational_t x, y, z;\n};\n\nextern const vector3d ZEROVEC;\n\nclass entity;\n\nclass anim_control_t\n{\n  time_value_t current_time;\n  time_value_t time_delta;\n  time_value_t duration;\n  rational_t timescale_factor;\n  rational_t cntrl_tween_duration;\n  rational_t tween_timer;\n  unsigned int flags;\n  short loop_count;\n\npublic:\n  inline bool is_flagged(unsigned int f) const { return (flags & f); }\n  inline bool is_reverse() const { return is_flagged(0x0002); }\n  inline bool is_looping() const { return is_flagged(0x0004); }\n  inline bool is_finished() const\n  {\n    if (is_looping() && (loop_count == -1 || loop_count > 0))\n      return false;\n    if (is_reverse())\n      return current_time <= 0;\n    else\n      return current_time >= duration;\n  }\n};\n\nclass entity_anim_tree\n{\n  unsigned short flags;\n  char padding0[70];\n  anim_control_t control;\n  char padding1[6];\n  rational_t floor_offset;\n\npublic:\n  inline bool is_finished() const { return control.is_finished(); }\n  inline bool is_relative_to_start() const { return (flags & 0x0001); }\n  inline rational_t get_floor_offset() const { return floor_offset; }\n  bool is_root(entity *value) const;\n  void get_current_root_relpos(vector3d *position) const;\n};\n\nclass entity\n{\npublic:\n  entity_anim_tree *get_anim_tree(int slot) const;\n};\n\n#define MAX_ANIM_SLOTS 10\n\nclass FEEntityManager\n{\npublic:\n  entity *surfer_ent;\nprivate:\n  char padding[536];\n  entity_anim_tree *surfer_tree;\npublic:\n  float get_floor_offset(void);\n};\n\nasm(\".equ ZEROVEC, 0x00513C60\");\nasm(\".equ get_anim_tree__C6entityi, 0x001348D8\");\nasm(\".equ is_root__C16entity_anim_treeP6entity, 0x00118598\");\nasm(\".equ get_current_root_relpos__C16entity_anim_treeP8vector3d, 0x00118510\");\n\nfloat FEEntityManager::get_floor_offset(void)\n{\n  // for now at least, this is entirely determined by the root animation\n  entity_anim_tree* a = surfer_tree;\n  rational_t last_floor_offset = 0.0f;\n\n  for(int i=(MAX_ANIM_SLOTS-1); i>=0 && (a == 0); --i)\n  {\n    a = surfer_ent->get_anim_tree( i );\n    if(a && (a->is_finished() || a->get_floor_offset() <= 0.0f || !a->is_root(surfer_ent)))\n      a = 0;\n  }\n\n  if ( a!=0 && a->is_relative_to_start() )\n  {\n    vector3d relp = ZEROVEC;\n    a->get_current_root_relpos( &relp );\n    last_floor_offset = a->get_floor_offset();\n    last_floor_offset += relp.y;\n  }\n\n  return last_floor_offset;\n}\n",
+      "status": "different",
+      "target_size": 364
+    }
+  ],
+  "raw_name": "get_floor_offset__15FEEntityManager"
+}
