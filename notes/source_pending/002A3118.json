@@ -1,0 +1,23 @@
+{
+  "address": "0x002A3118",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "af8414d60ae945972bd2038e7b55733888ab1c70",
+      "candidate_size": 108,
+      "compared_bytes": 472,
+      "compared_instructions": 118,
+      "emitted_name": "load_scene_anim__21world_dynamics_systemRC7stringx",
+      "instruction_score": 1.6949,
+      "matching_bytes": 35,
+      "matching_instructions": 2,
+      "notes": "FIRST PASS wave87 B1\nTarget: 0x002A3118 load_scene_anim__21world_dynamics_systemRC7stringx (472/0x1D8), game/files_misc1\nReference: kelly-slaters-pro-surfer/KS/SRC/wds.cpp\nAttempts before: 0\nAttempt 1: exact released body with minimal faithful self-contained declarations\nResult: different; byte score 7.4153; instruction score 1.6949; candidate size 108; target size 472\nNo alternatives, retries, integration, finalization, build, or tracked-file changes.",
+      "score": 7.4153,
+      "source": "typedef unsigned int size_t;\n\nvoid *operator new(size_t, unsigned int, const char *, int);\n\nclass stringx {};\n\ntemplate <class Key, class Value>\nclass map\n{\npublic:\n    Value &operator[](const Key &);\n};\n\nclass entity_track_tree;\n\nclass scene_anim\n{\n    map<stringx, entity_track_tree *> track_tree_map;\npublic:\n    scene_anim() {}\n    void load(const stringx &filename);\n};\n\nclass world_dynamics_system\n{\n    char padding[880];\n    map<stringx, scene_anim *> scene_anim_map;\npublic:\n    void load_scene_anim(const stringx &filename);\n};\n\n#define NEW new(0, __PRETTY_FUNCTION__, 0)\n\nvoid world_dynamics_system::load_scene_anim( const stringx &filename )\n{\n\tscene_anim* snm_pt = NEW scene_anim;\n\tsnm_pt->load( filename );\n\tscene_anim_map[ filename ] = snm_pt;\n}\n",
+      "status": "different",
+      "target_size": 472
+    }
+  ],
+  "raw_name": "load_scene_anim__21world_dynamics_systemRC7stringx"
+}
