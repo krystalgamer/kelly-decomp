@@ -1,0 +1,23 @@
+{
+  "address": "0x001DE7B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "12ecb54eb580e6f00cc4278d5cb4e66e08207a31",
+      "candidate_size": 368,
+      "compared_bytes": 368,
+      "compared_instructions": 92,
+      "emitted_name": "make_rotate__9matrix4x4RC8vector3df",
+      "instruction_score": 100.0,
+      "matching_bytes": 365,
+      "matching_instructions": 92,
+      "notes": "Attempt 1 used the exact released source for make_rotate__9matrix4x4RC8vector3df. Result `different`, score 99.1848; no retry or variant was made.",
+      "score": 99.1848,
+      "source": "typedef float rational_t;\n\nclass vector3d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z;\n};\n\nclass vector4d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z,w;\n};\n\nclass matrix4x4\n{\npublic:\n  typedef rational_t T;\n  typedef vector4d row;\n\n  row x __attribute__((aligned(16)));\n  row y;\n  row z;\n  row w;\n\n  void make_rotate( const vector3d& u, T a );\n};\n\nvoid fast_sin_cos_approx( float rads, float* sinx, float* cosx );\n\nvoid matrix4x4::make_rotate( const vector3d& u, rational_t a )\n{\n  rational_t sa, ca;\n\n  fast_sin_cos_approx( a, &sa, &ca );\n\n  x.x = u.x * u.x + ca * (1.0f - u.x * u.x);\n  y.x = u.x * u.y * (1.0f - ca) - u.z * sa;\n  z.x = u.x * u.z * (1.0f - ca) + u.y * sa;\n  w.x = 0.0f;\n  x.y = u.x * u.y * (1.0f - ca) + u.z * sa;\n  y.y = u.y * u.y + ca * (1.0f - u.y * u.y);\n  z.y = u.y * u.z * (1.0f - ca) - u.x * sa;\n  w.y = 0.0f;\n  x.z = u.x * u.z * (1.0f - ca) - u.y * sa;\n  y.z = u.y * u.z * (1.0f - ca) + u.x * sa;\n  z.z = u.z * u.z + ca * (1.0f - u.z * u.z);\n  w.z = 0.0f;\n  x.w = 0.0f;\n  y.w = 0.0f;\n  z.w = 0.0f;\n  w.w = 1.0f;\n}\n",
+      "status": "different",
+      "target_size": 368
+    }
+  ],
+  "raw_name": "make_rotate__9matrix4x4RC8vector3df"
+}
