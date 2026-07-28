@@ -1,0 +1,23 @@
+{
+  "address": "0x001951E8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "fa216795f39c6504b962731e2b1ecd2e945ae3c6",
+      "candidate_size": 400,
+      "compared_bytes": 400,
+      "compared_instructions": 100,
+      "emitted_name": "BeachBioExists__13BeachFrontEndR7stringx",
+      "instruction_score": 91.0,
+      "matching_bytes": 297,
+      "matching_instructions": 91,
+      "notes": "Exact released body from `kelly-slaters-pro-surfer/KS/SRC/ks/BeachFrontEnd.cpp:2326-2337` was tested once with minimal faithful declarations for `stringx`, `BeachFrontEnd`, `FEMenuEntry`, and `BeachData`. Result: `different`, byte score 74.25, instruction score 91.0 (`tmp/functions/001951E8_BeachBioExists__13BeachFrontEndR7stringx/attempt-1/result.json`). No inherited attempt existed; no variant or diff chase was tried.",
+      "score": 74.25,
+      "source": "extern \"C\" int strlen(const char *);\n\nclass string_buf {\npublic:\n    int ref_count;\n    int max_length;\n    int char_length;\n};\n\nclass stringx {\n    friend stringx operator+(const stringx& lhs, const char* rhs);\nprotected:\n    char *chars;\n    string_buf *my_buf;\npublic:\n    stringx();\n    stringx(const stringx& cp);\n    stringx(const char *str, int len = -1);\n    ~stringx();\n    stringx& operator=(const stringx& cp);\n    stringx& operator+=(const char *str);\n    void append(const stringx& cp);\n    void append(const char *str, int len = -1);\n    void make_room(int size);\n};\n\ninline stringx operator+(const stringx& lhs, const char* rhs)\n{\n    stringx foo;\n    int len = strlen(rhs);\n\n    foo.make_room(len + lhs.my_buf->char_length);\n    foo.append(lhs);\n    foo.append(rhs, len);\n\n    return foo;\n}\n\nstruct FEMenuEntry {\n    int entry_num;\n};\n\nstruct BeachDataStruct {\n    char name[32];\n    char folder[32];\n    char stashfile[16];\n    char rest[452];\n};\ntypedef BeachDataStruct BeachData;\n\nextern BeachData BeachDataArray[];\nextern int ksGlobalTextLanguage;\nenum { LANGUAGE_FRENCH = 2, LANGUAGE_GERMAN = 3 };\nextern bool file_finder_exists(const stringx& filename, const stringx& extension, stringx *stashname = 0);\n\nclass BeachFrontEnd {\npublic:\n    char pad0[76];\n    FEMenuEntry *highlighted;\n    char pad1[2116];\n    FEMenuEntry *fe_return;\n\n    bool BeachBioExists(stringx& tmp);\n};\n\nbool BeachFrontEnd::BeachBioExists(stringx& tmp)\n{\n    if(highlighted == fe_return) return false;\n    tmp = stringx(\"interface\\\\map\\\\beaches\\\\\") + BeachDataArray[highlighted->entry_num].stashfile;\n    if(ksGlobalTextLanguage == LANGUAGE_FRENCH)\n        tmp += \"_fr\";\n    else if(ksGlobalTextLanguage == LANGUAGE_GERMAN)\n        tmp += \"_ge\";\n    tmp += \".txt\";\n    return file_finder_exists(tmp, \"\");\n}\n",
+      "status": "different",
+      "target_size": 400
+    }
+  ],
+  "raw_name": "BeachBioExists__13BeachFrontEndR7stringx"
+}
