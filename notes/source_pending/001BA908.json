@@ -1,0 +1,23 @@
+{
+  "address": "0x001BA908",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1075cc16503335a5e3fd77929e255576781e066b",
+      "candidate_size": 328,
+      "compared_bytes": 356,
+      "compared_instructions": 89,
+      "emitted_name": "OnRight__14ExtrasFrontEndi",
+      "instruction_score": 38.2022,
+      "matching_bytes": 183,
+      "matching_instructions": 34,
+      "notes": "Attempt 1 used the exact released source for OnRight__14ExtrasFrontEndi. Result `different`, score 51.4045; no retry or variant was made.",
+      "score": 51.4045,
+      "source": "struct SoundScriptManager;\nextern SoundScriptManager *sound_manager;\nextern \"C\" int play(SoundScriptManager *, int, void *, float) __asm__(\"playEvent__18SoundScriptManager9EventTypeP6entityf\");\n__asm__(\".equ sound_manager, 0x0046B4A0\");\n__asm__(\".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380\");\n\nstruct menu_vtable {\n    char padding[0xb0];\n    short adjustment;\n    short padding2;\n    void (*OnRight)(void *, int);\n};\nstruct menu {\n    char padding[0x74];\n    menu_vtable *vtable;\n};\nstruct entry { int entry_num; };\n\nstruct quad_vtable {\n    char padding[0x18];\n    short adjustment;\n    short padding2;\n    void (*TurnOn)(void *, bool);\n};\nstruct quad {\n    char padding[0x194];\n    quad_vtable *vtable;\n};\n\nstruct extras {\n    char padding0[0x4c];\n    entry *highlighted;\n    char padding1[0x10];\n    menu *active;\n    char padding2[0x134];\n    menu *surfers;\n    menu *beaches;\n    menu *trailers;\n    char padding3[0x6c];\n    quad *arrows[2][2];\n    int arrow_counter;\n    int arrow_num;\n};\n\nextern \"C\" void OnRight(extras *self, int c) __asm__(\"OnRight__14ExtrasFrontEndi\");\nvoid OnRight(extras *self, int c)\n{\n    if (self->active) {\n        menu *active = self->active;\n        menu_vtable *table = active->vtable;\n        table->OnRight((char *)active + table->adjustment, c);\n    }\n\n    switch (self->highlighted->entry_num) {\n    case 0: {\n        play(sound_manager, 26, 0, 0.0f);\n        menu *beaches = self->beaches;\n        menu_vtable *table = beaches->vtable;\n        table->OnRight((char *)beaches + table->adjustment, c);\n        break;\n    }\n    case 1: {\n        play(sound_manager, 26, 0, 0.0f);\n        menu *surfers = self->surfers;\n        menu_vtable *table = surfers->vtable;\n        table->OnRight((char *)surfers + table->adjustment, c);\n        break;\n    }\n    case 2: {\n        play(sound_manager, 26, 0, 0.0f);\n        menu *trailers = self->trailers;\n        menu_vtable *table = trailers->vtable;\n        table->OnRight((char *)trailers + table->adjustment, c);\n        break;\n    }\n    }\n\n    if (self->highlighted->entry_num <= 2) {\n        quad *on = self->arrows[1][1];\n        quad_vtable *on_table = on->vtable;\n        on_table->TurnOn((char *)on + on_table->adjustment, true);\n\n        quad *off = self->arrows[1][0];\n        quad_vtable *off_table = off->vtable;\n        off_table->TurnOn((char *)off + off_table->adjustment, false);\n\n        self->arrow_num = 1;\n        self->arrow_counter = 3;\n    }\n}\n",
+      "status": "different",
+      "target_size": 356
+    }
+  ],
+  "raw_name": "OnRight__14ExtrasFrontEndi"
+}
