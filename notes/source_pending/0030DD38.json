@@ -1,0 +1,23 @@
+{
+  "address": "0x0030DD38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0ed352520f663358c150bd143c6f3adc1686e6d2",
+      "candidate_size": 372,
+      "compared_bytes": 372,
+      "compared_instructions": 93,
+      "emitted_name": "write_level_cache_tree__12file_managerR7os_fileT1Pt8TreeNode1Z14file_info_node",
+      "instruction_score": 17.2043,
+      "matching_bytes": 107,
+      "matching_instructions": 16,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 48 lane A1 for `0x0030DD38 write_level_cache_tree__12file_managerR7os_fileT1Pt8TreeNode1Z14file_info_node`.\n- Tested the exact released `file_manager::write_level_cache_tree` body once with minimal self-contained declarations for `file_manager`, `os_file`, `stringx`, `pstring`, `file_info_node`, and `TreeNode`.\n- Result: **different**, byte score **28.7634%** (107/372) and instruction score **17.2043%** (16/93); candidate size 372 bytes versus target size 352 bytes.\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/File_manager.cpp:379-408`\n- `kelly-slaters-pro-surfer/KS/SRC/file_manager.h:14-116,153-243`\n- `kelly-slaters-pro-surfer/KS/SRC/avltree.h:20-59`\n- `tmp/functions/0030DD38_write_level_cache_tree__12file_managerR7os_fileT1Pt8TreeNode1Z14file_info_node/attempt-1/result.json`",
+      "score": 28.7634,
+      "source": "class stringx\n{\npublic:\n  stringx();\n  stringx(const char *);\n  stringx &operator=(const char *);\n  stringx &operator+=(const char *);\n  stringx &operator+=(const stringx &);\n  const char *c_str() const;\n  int length() const;\n};\n\nclass pstring\n{\npublic:\n  const char *c_str() const;\n};\n\nclass os_file\n{\npublic:\n  bool is_open() const;\n  void write(void *, int);\n};\n\nclass file_info_node\n{\nprivate:\n  pstring name;\n  char path[64];\n  unsigned char ext[10];\n  unsigned char *buffer;\n  unsigned int buffer_size;\n  unsigned short ref_count;\n  unsigned char flag;\n\npublic:\n  bool was_used() { return (flag & 8) != 0; }\n\n  friend class file_manager;\n};\n\ntemplate <class T>\nclass TreeNode\n{\nprotected:\n  TreeNode *l;\n  TreeNode *r;\n  TreeNode *p;\n  T *d;\n  char h;\n\npublic:\n  TreeNode *left() { return l; }\n  TreeNode *right() { return r; }\n  T *data() { return d; }\n};\n\nclass file_manager\n{\nprivate:\n  char level_dir[64];\n\npublic:\n  void write_level_cache_tree(os_file &fp, os_file &sfl,\n                              TreeNode<file_info_node> *curr);\n};\n\nvoid file_manager::write_level_cache_tree(os_file &fp, os_file &sfl,\n                                          TreeNode<file_info_node> *curr)\n{\n  if (curr == 0)\n    return;\n  file_info_node *me = curr->data();\n  if (me->was_used())\n  {\n    stringx file_entry(me->path);\n    file_entry += me->name.c_str();\n    file_entry += (char *)me->ext;\n    file_entry += \"\\r\\n\";\n    fp.write((void *)file_entry.c_str(), file_entry.length());\n    if (sfl.is_open())\n    {\n      stringx sfl_entry;\n      if (me->path[0] != '\\\\' && me->path[0] != '\\0')\n      {\n        sfl_entry = level_dir;\n      }\n      sfl_entry += file_entry;\n      sfl.write((void *)sfl_entry.c_str(), sfl_entry.length());\n    }\n  }\n\n  if (curr->left() != 0)\n    write_level_cache_tree(fp, sfl, curr->left());\n  if (curr->right() != 0)\n    write_level_cache_tree(fp, sfl, curr->right());\n}\n",
+      "status": "different",
+      "target_size": 352
+    }
+  ],
+  "raw_name": "write_level_cache_tree__12file_managerR7os_fileT1Pt8TreeNode1Z14file_info_node"
+}
