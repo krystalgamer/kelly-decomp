@@ -1,0 +1,23 @@
+{
+  "address": "0x002D7120",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f0e9729511c031bac5fc989e2cbd0de325de4fad",
+      "candidate_size": 292,
+      "compared_bytes": 348,
+      "compared_instructions": 87,
+      "emitted_name": "visual_rep_name_to_type__FRC7stringx",
+      "instruction_score": 39.0805,
+      "matching_bytes": 125,
+      "matching_instructions": 34,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 44 A3 for `0x002D7120 visual_rep_name_to_type__FRC7stringx`.\n- Tested the exact released `visual_rep_name_to_type(const stringx&)` body once with minimal declarations preserving the released `stringx` layout, constructors, lookup/lowercase operations, concatenation, error call, and `visrep_t` values.\n- Result: **different** \u2014 125/348 bytes (35.9195%) and 34/87 instructions (39.0805%); candidate size 292 versus target size 348.\n- Exactly one non-placeholder candidate was tested. No variants, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/visrep.cpp:65-92`\n- `kelly-slaters-pro-surfer/KS/SRC/visrep.h:18-26`\n- `kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-275,408,425,431`\n- `tmp/functions/002D7120_visual_rep_name_to_type__FRC7stringx/attempt-1/result.json`",
+      "score": 35.9195,
+      "source": "class string\n{\npublic:\n  static const unsigned int npos = -1;\n};\n\nclass stringx\n{\n  char* chars;\n  void* my_buf;\n\npublic:\n  stringx();\n  stringx(const stringx&);\n  stringx(const char*, int len = -1);\n  ~stringx();\n\n  void to_lower();\n  int find(const char*) const;\n  const char* c_str() const;\n\n  friend stringx operator+(const stringx&, const stringx&);\n};\n\nvoid error(const char*);\n\nenum visrep_t\n{\n  VISREP_PMESH,\n  VISREP_BILLBOARD,\n  VISREP_DROPSHADOW,\n  VISREP_HIGHLIGHT = VISREP_DROPSHADOW,\n  VISREP_KRMESH\n};\n\nvisrep_t visual_rep_name_to_type( const stringx& visrep_name )\n{\n  stringx lower_name( visrep_name );\n  lower_name.to_lower( );\n\n  if( ( lower_name.find( \".tpm\" ) != (int) string::npos) ||      // keeping TPM for backwards compatibility\n      ( lower_name.find( \".txtmesh\" ) != (int) string::npos ) ||\n      ( lower_name.find( \".ter\" ) != (int) string::npos ) )\n  {\n    return VISREP_PMESH;\n  }\n  else if( lower_name.find( \".tbb\" ) != (int) string::npos )\n  {\n    return VISREP_BILLBOARD;\n  }\n  else\n  {\n    stringx composite = stringx( \"Unknown 3D file extension: \" ) + lower_name;\n    error( composite.c_str( ) );\n  }\n\n  return static_cast<visrep_t>( -1 );\n}\n",
+      "status": "different",
+      "target_size": 348
+    }
+  ],
+  "raw_name": "visual_rep_name_to_type__FRC7stringx"
+}
