@@ -1,0 +1,23 @@
+{
+  "address": "0x00284A00",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a467fc5ba49ff36e7200111b05db7435325c1dc9",
+      "candidate_size": 392,
+      "compared_bytes": 392,
+      "compared_instructions": 98,
+      "emitted_name": "update_game_mode__4gamef",
+      "instruction_score": 23.4694,
+      "matching_bytes": 141,
+      "matching_instructions": 23,
+      "notes": "Exact active released `game::update_game_mode` body, with only minimal declarations and constants needed to compile it independently. No retry or variant was attempted.",
+      "score": 35.9694,
+      "source": "class recti\n{\npublic:\n\tint x0, y0, x1, y1;\n\tint get_right() const { return x1; }\n};\n\nclass PushMode\n{\npublic:\n\tvoid Update(float);\n\tconst recti & GetPlayerViewport(int) const;\n\tfloat GetPlayerShare(int) const;\n};\nclass TimeAttackMode { public: void Update(float); };\nclass MeterAttackMode { public: void Update(float); };\nclass HeadToHeadMode { public: void Update(float); };\nclass IGOFrontEnd { public: void OnViewportChange(); };\nstruct frontend_manager { IGOFrontEnd * IGO; };\nextern frontend_manager frontendmanager;\n\nstruct PlayMode\n{\n\tTimeAttackMode * timeAttack;\n\tMeterAttackMode * meterAttack;\n\tHeadToHeadMode * headToHead;\n\tPushMode * push;\n};\n\nclass game\n{\n\tchar pad[120];\n\tPlayMode play_mode;\n\tchar pad2[8];\n\trecti player_viewports[2];\npublic:\n\tbool is_paused() const;\n\tvoid set_active_player(int);\n\tvoid update_game_mode(const float time_inc);\n};\n\nvoid game::update_game_mode(const float time_inc)\n{\n\tint\ti;\n\n\t// Update push mode.\n\tif (!is_paused() && play_mode.push)\n\t{\n\t\tplay_mode.push->Update(time_inc);\n\n\t\t// Notice viewport changes.\n\t\tif (play_mode.push->GetPlayerViewport(0).get_right() != player_viewports[0].get_right())\n\t\t{\n\t\t\t// Update viewport in response to player pushing.\n\t\t\tfor (i = 0; i < 2; i++)\n\t\t\t\tplayer_viewports[i] = play_mode.push->GetPlayerViewport(i);\n\n\t\t\t// Did this player destroy the other player?\n\t\t\tif (play_mode.push->GetPlayerShare(0) == 1.0f)\n\t\t\t\tset_active_player(0);\n\t\t\telse if (play_mode.push->GetPlayerShare(1) == 1.0f)\n\t\t\t\tset_active_player(1);\n\n\t\t\t// Tell IGO to notice viewport change.\n\t\t\tfrontendmanager.IGO->OnViewportChange();\n\t\t}\n\t}\n\n\t// Update time attack mode.\n\tif (play_mode.timeAttack)\n\t{\n\t\tplay_mode.timeAttack->Update(time_inc);\n\t}\n\n\t// Update meter attack mode.\n\tif (play_mode.meterAttack)\n\t{\n\t\tplay_mode.meterAttack->Update(time_inc);\n\t}\n\n\t// Update head to head mode.\n\tif (!is_paused() && play_mode.headToHead)\n\t{\n\t\tplay_mode.headToHead->Update(time_inc);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 380
+    }
+  ],
+  "raw_name": "update_game_mode__4gamef"
+}
