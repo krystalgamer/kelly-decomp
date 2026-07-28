@@ -1,0 +1,15 @@
+{
+  "address": "0x001B1658",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2ef3749e9429c2f9de82bcce8323b898c3004a22",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:2408-2425; kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h:483-516; tmp/functions/001B1658_SetAsTip__14GoalsMenuClass/attempt-1/compiler.stderr:1-2; tmp/functions/001B1658_SetAsTip__14GoalsMenuClass/attempt-1/result.json. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/ks/global.h\"\n#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h\"\n\nvoid GoalsMenuClass::SetAsTip()\n{\n\tstatic const int spacing = 40;\n\tstatic const int extra_spacing = 20;\n\tint extra_lines = 0;\n\tfloat scale = 0.9f;\n\n\tfor(int i=0; i<MAX_GOALS_PER_LEVEL; i++)\n\t{\n\t\tint y = IGOFrontEnd::POS_GOALS_TOP + (i*spacing) + extra_lines*extra_spacing;\n\t\tnames[i]->changePos(320, y);\n\t\tnames[i]->changeScale(scale);\n\t\textra_lines += names[i]->makeBox(502, 200) - 1;\n\t\ty = IGOFrontEnd::POS_GOALS_TOP + (i*spacing) + (extra_lines+1)*extra_spacing;\n\t\tstatus[i]->changePos(320, y);\n\t\tstatus[i]->changeScale(scale);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "SetAsTip__14GoalsMenuClass"
+}
