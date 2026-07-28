@@ -1,0 +1,15 @@
+{
+  "address": "0x00186CE8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "af896412b541038f5c34f0bc4cb0f54ad5c97d40",
+      "notes": "Exact released-source first-pass attempt using the body from `kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.cpp:259-275` and the released class declaration/layout from `kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.h:18-135`.\n\nCanonical result: `compile_failed`, score `0.0`. The released header dependency chain could not find required headers such as `global.h`, `inputmgr.h`, and `commands.h` under the fixed test include paths. Per the one-attempt lane constraint, no retry or declaration variant was attempted.",
+      "score": 0.0,
+      "source": "#include \"/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.h\"\n\nvoid SurferFrontEnd::TurnPQ(bool on)\n{\n\tfor(int i=0; i<9; i++)\n\t\tss_box[i]->TurnOn(on);\n\tfor(int i=0; i<4; i++)\n\t\tfor(int j=0; j<3; j++)\n\t\t\tgauges[i][j]->TurnOn(on);\n\tif (disp_state != DISP_STATS)\n\t{\n\t\thoriz_arrows[0][0]->TurnOn(on);\n\t\thoriz_arrows[1][0]->TurnOn(on);\n\t\thoriz_arrows[0][1]->TurnOn(false);\n\t\thoriz_arrows[1][1]->TurnOn(false);\n\t\tss_lines[0]->TurnOn(on);\n\t}\t\n\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "TurnPQ__14SurferFrontEndb"
+}
