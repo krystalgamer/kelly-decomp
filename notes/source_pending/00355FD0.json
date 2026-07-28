@@ -1,0 +1,15 @@
+{
+  "address": "0x00355FD0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "15ab50d5fde9d7eb801a0fe32a6696d5efc2f1e4",
+      "notes": "Exact released `vm_thread::create_event_callback` from `kelly-slaters-pro-surfer/KS/SRC/vm_thread.cpp:1107-1122` was tested once with the shared VM declarations.\n\nResult: compile failed because the shared declarations omit required members and types; per lane rules this is the sole attempt (`attempt-1/compiler.stderr`, `attempt-1/result.json`).",
+      "score": 0.0,
+      "source": "#include \"decomp_annotations.h\"\n#include \"KS/SRC/vm_thread_shared.h\"\n\nvoid vm_thread::create_event_callback(const argument_t &arg, bool one_shot)\n{\n    script_object::instance *local_inst =\n        (script_object::instance *)dstack.pop_addr();\n    if (local_inst == NULL ||\n        (uint32)local_inst == UNINITIALIZED_SCRIPT_PARM)\n    {\n        slf_error(\"(local) event callback \" + arg.sfr->get_fullname() +\n                  \": invalid local script object instance pointer\");\n    }\n    dstack.pop(arg.sfr->get_parms_stacksize());\n    char *parms = dstack.get_SP();\n    vm_signal_t v = dstack.pop_signal();\n    v->add_callback(local_inst, arg.sfr, parms, one_shot);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "create_event_callback__9vm_threadRCQ29vm_thread10argument_tb"
+}
