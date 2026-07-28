@@ -1,0 +1,23 @@
+{
+  "address": "0x001A4A80",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c16dca4b427ee6813bc022eb6e477915fe0682f3",
+      "candidate_size": 604,
+      "compared_bytes": 604,
+      "compared_instructions": 151,
+      "emitted_name": "loadMostRecentGame__16MCDetectFrontEnd",
+      "instruction_score": 1.3245,
+      "matching_bytes": 59,
+      "matching_instructions": 2,
+      "notes": "Tested the exact active released `loadMostRecentGame` body once with minimal faithful declarations. It compiled but differed: 9.7682% bytes (59/604) and 1.3245% instructions (2/151), with 604 candidate bytes versus 392 target bytes. No variant or additional attempt was made.",
+      "score": 9.7682,
+      "source": "struct saveInfo\n{\n    char data[96];\n    int valid;\n    char tail[4];\n};\n\nstruct Career\n{\n    char data[0x10A48];\n    void init();\n};\n\nstruct GlobalDataClass\n{\n    void init();\n};\n\nclass GenericGameSaver\n{\n    static GenericGameSaver *instance;\npublic:\n    static GenericGameSaver *inst() { return instance; }\n    void setFileInfo(saveInfo info);\n    void readFile(int port, int slot, void *data, int size,\n                  void (*callback)(void *, int), void *userData);\n};\n\nclass MCDetectFrontEnd\n{\npublic:\n    bool findMostRecentGame(int &port, int &slot, saveInfo &newest);\n    bool findGlobalData(int &port, int &slot);\n    void goState(int which);\n    static void configLoadCallback(void *userData, int percent);\n    int loadMostRecentGame();\n};\n\nextern Career *g_career;\nextern GlobalDataClass globalCareerData;\nextern saveInfo currentGame;\nextern int savePort, saveSlot;\nextern bool foundGame;\nextern \"C\" void *memcpy(void *, const void *, unsigned int);\n\nenum {\n    GSOk = 0,\n    GSErrorOther = -2,\n    INVALID_CARD_VALUE = -1,\n    MC_LOADING = 3,\n    MC_DONE = 4,\n    MC_EXIT = 9,\n    MC_LOAD_GLOBAL = 10\n};\n\n__asm__(\".equ _16GenericGameSaver$instance, 0x0041E5B8\");\n__asm__(\".equ g_career, 0x00427C9C\");\n__asm__(\".equ globalCareerData, 0x004349B8\");\n__asm__(\".equ currentGame, 0x0042EB50\");\n__asm__(\".equ savePort, 0x0041E5AC\");\n__asm__(\".equ saveSlot, 0x0041E5B0\");\n__asm__(\".equ foundGame, 0x003FCE00\");\n__asm__(\".equ init__6Career, 0x0025A4C0\");\n__asm__(\".equ init__15GlobalDataClass, 0x002EFC10\");\n__asm__(\".equ findMostRecentGame__16MCDetectFrontEndRiT1R8saveInfo, 0x001A4618\");\n__asm__(\".equ findGlobalData__16MCDetectFrontEndRiT1, 0x001A47B8\");\n__asm__(\".equ goState__16MCDetectFrontEndi, 0x001A3930\");\n__asm__(\".equ setFileInfo__16GenericGameSaverG8saveInfo, 0x001E6030\");\n__asm__(\".equ readFile__16GenericGameSaveriiPviPFPvi_vT3, 0x001E4A88\");\n__asm__(\".equ configLoadCallback__16MCDetectFrontEndPvi, 0x001A4518\");\n\nint MCDetectFrontEnd::loadMostRecentGame()\n{\n\tsaveInfo  mostRecent;\n\tmostRecent.valid = -1;\n\t\n\tfindMostRecentGame(savePort, saveSlot, mostRecent);\n\n\t// Now that we're done, check how many valid cards\n\tif (mostRecent.valid != GSOk)\n\t{\n\t\tg_career->init();\n\t\tglobalCareerData.init();\n\t\tif (findGlobalData(savePort, saveSlot))\n\t\t\tgoState(MC_LOAD_GLOBAL);\n\t\telse if (savePort != INVALID_CARD_VALUE)\n\t\t\tgoState(MC_DONE);\n\t\telse\n\t\t\tgoState(MC_EXIT);\n\t\treturn GSOk;\n\t}\n\telse \n\t{\n\t\tfoundGame = true; \n\t\tmemcpy(&currentGame, &mostRecent, sizeof(saveInfo));\n\t\tGenericGameSaver::inst()->setFileInfo(mostRecent);\n\t\tgoState(MC_LOADING);\n\t\tGenericGameSaver::inst()->readFile(savePort,saveSlot,g_career,sizeof(Career), MCDetectFrontEnd::configLoadCallback, this);\n\t\treturn GSOk;\n\t}\n\t\n}\n",
+      "status": "different",
+      "target_size": 392
+    }
+  ],
+  "raw_name": "loadMostRecentGame__16MCDetectFrontEnd"
+}
