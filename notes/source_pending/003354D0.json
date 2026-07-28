@@ -1,0 +1,15 @@
+{
+  "address": "0x003354D0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "593d1da7fb4e932586c22cfa3888b74b54e663a8",
+      "notes": "Result: compile_failed (score 0.0).\n\nThe candidate used the released `pack_string` body verbatim from pinned commit `7c3ade041cc03409a3114ce3ba4a70053c6e4e3b`, `KS/SRC/pstring.cpp:75-132`, with minimal declarations derived from `KS/SRC/pstring.h`. Compilation failed because the isolated compiler could not find `assert.h`, `ctype.h`, or `string.h`.\n\nNo retry was made; the one-candidate FIRST PASS budget was consumed.",
+      "score": 0.0,
+      "source": "#include <assert.h>\n#include <ctype.h>\n#include <string.h>\n\ntypedef unsigned long uint64;\n\n#define PSTRING_SHIFT_START 58\n#define PSTRING_SHIFT_BY 6\n#define PSTRING_PCHUNK_NUMBER 4\n#define PSTRING_PCHUNK_LENGTH_BITS 4\n#define PSTRING_PCHUNK_LENGTH 10\n\nvoid error(const char *, ...);\nvoid debug_print(const char *, ...);\n\nclass pstring\n{\n  private:\n    static const char pc_to_ascii[64];\n    static const char ascii_to_pc[128];\n    uint64 pchunk[PSTRING_PCHUNK_NUMBER];\n\n    void pack_string(const char *the_string);\n};\n\n/*** pack_string ***/\nvoid pstring::pack_string(const char *the_string)\n{\n  int shift;\n  int i=0, k=0;\n  int end_found=0;\n\n  // Convert over the characters\n\n  for (unsigned j=0; j<PSTRING_PCHUNK_NUMBER; ++j)\n  {\n    shift = PSTRING_SHIFT_START;\n    pchunk[j] = 0;\n    if (end_found)\n      continue;\n\n    while (shift >= PSTRING_PCHUNK_LENGTH_BITS)\n    {\n      if (the_string[i] != '\\0')\n      {\n        int temp = ascii_to_pc[the_string[i]];\n\n        // Check for illegal characters\n\t\t\t  if ( temp == -1 )\n          error( \"Character cannot be packed: %c (%s)\", the_string[i], the_string );\n\n        // check the table, make sure it's right\n        assert (toupper(the_string[i]) == pc_to_ascii[temp]);\n\n        pchunk[j] |= uint64(temp) << shift;\n      }\n      else\n      {\n        end_found = 1;\n        break;\n      }\n\n\t    shift -= PSTRING_SHIFT_BY;\n\t    ++i;\n    }\n\n    // store the length of the pchunk\n    k = i - (j * PSTRING_PCHUNK_LENGTH);\n\n    assert(k <= PSTRING_PCHUNK_LENGTH);\n    pchunk[j] |= k;\n  }\n\n  if (end_found == 0)\n  {\n    // Catch strings that are too long, might want to be more forgiving and make it just\n    // a warning and not an assert\n    unsigned len = strlen(the_string);\n//    if (len > PSTRING_MAX_LENGTH)\n    if (the_string[i] != '\\0')\n      debug_print(\"String is too long (%d) '%s'\\n\", len, the_string);\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "pack_string__7pstringPCc"
+}
