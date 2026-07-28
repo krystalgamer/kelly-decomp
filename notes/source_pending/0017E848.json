@@ -1,0 +1,23 @@
+{
+  "address": "0x0017E848",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "465001086f42bba0370f4f5e013fcdd961f641e3",
+      "candidate_size": 224,
+      "compared_bytes": 360,
+      "compared_instructions": 90,
+      "emitted_name": "_$_12MainFrontEnd",
+      "instruction_score": 1.1111,
+      "matching_bytes": 26,
+      "matching_instructions": 1,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 51 lane A1 for `0x0017E848 _$_12MainFrontEnd`.\n- Tested the exact released `MainFrontEnd::~MainFrontEnd` body once with minimal self-contained declarations preserving the five released owned-menu pointer members and their polymorphic deletion.\n- Result: **different**, byte score **7.2222%** (26/360) and instruction score **1.1111%** (1/90); candidate size 224 bytes versus target size 360 bytes.\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing after the test, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.cpp:109-116`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/MainFrontEnd.h:23-64`\n- `tmp/functions/0017E848__$_12MainFrontEnd/attempt-1/result.json`",
+      "score": 7.2222,
+      "source": "// Target: 0x0017E848 _$_12MainFrontEnd\n// Reference: KS/SRC/ks/MainFrontEnd.cpp\n\nclass OptionsMenu { public: virtual ~OptionsMenu(); };\nclass MultiplayerMenu { public: virtual ~MultiplayerMenu(); };\nclass FreesurfMenu { public: virtual ~FreesurfMenu(); };\nclass CareerMenu { public: virtual ~CareerMenu(); };\nclass MultiSubMenu { public: virtual ~MultiSubMenu(); };\n\nclass FEMultiMenu\n{\npublic:\n\tvirtual ~FEMultiMenu();\n};\n\nclass MainFrontEnd : public FEMultiMenu\n{\n\tchar released_members[656];\n\npublic:\n\tOptionsMenu* Options;\n\tMultiplayerMenu* Multi;\n\tFreesurfMenu* Freesurf;\n\tCareerMenu* career_menu;\n\tMultiSubMenu* multi_sub;\n\n\tvirtual ~MainFrontEnd();\n};\n\nMainFrontEnd::~MainFrontEnd()\n{\n\tdelete Options;\n\tdelete Multi;\n\tdelete Freesurf;\n\tdelete career_menu;\n\tdelete multi_sub;\n}\n",
+      "status": "different",
+      "target_size": 360
+    }
+  ],
+  "raw_name": "_$_12MainFrontEnd"
+}
