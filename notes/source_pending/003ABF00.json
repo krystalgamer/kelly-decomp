@@ -1,0 +1,15 @@
+{
+  "address": "0x003ABF00",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1fe75b0066bce86fb1a48696e5152744581ae1b1",
+      "notes": "Attempt 1 used the exact released source for __static_initialization_and_destruction_0_003ABF00. Result `compile_failed`, score 0.0000; no variant or later attempt was made.",
+      "score": 0.0,
+      "source": "typedef unsigned int u_int;\n\nclass nglVector {\npublic:\n    float x, y, z, w;\n    nglVector(float _x, float _y, float _z, float _w = 1.0f)\n    { x = _x; y = _y; z = _z; w = _w; }\n};\n\nclass nglScene {\npublic:\n    nglScene();\n};\n\nclass nglTexStreamPos {\npublic:\n    u_int addr, cycle;\n    nglTexStreamPos(u_int a, u_int c) : addr(a), cycle(c) {}\n};\n\nclass nglFixedString {\n    char Data[64];\npublic:\n    nglFixedString() { Data[0] = 0; }\n};\n\nstruct nglTexture {\n    char Prefix[88];\n    nglFixedString FileName;\n    char Suffix[88];\n};\n\nclass nglInstanceBank {\npublic:\n    nglInstanceBank();\n};\n\nextern nglVector nglScreenMaxValue;\nextern nglVector nglScreenMinValue;\nextern nglScene nglDefaultScene;\nextern u_int nglDisplayWidth;\nextern u_int nglDisplayHeight;\nextern u_int nglLockedTextureSize;\nextern nglTexStreamPos nglTexStreamAlloc;\nextern nglTexture nglFrontBufferTex;\nextern nglTexture nglBackBufferTex;\nextern nglInstanceBank nglMeshBank;\nextern nglInstanceBank nglMeshFileBank;\nextern nglInstanceBank nglTextureBank;\nextern nglInstanceBank nglFontBank;\n\nstatic void __static_initialization_and_destruction_0(int initialize, int priority)\n{\n    if (priority == 65535 && initialize) {\n        new (&nglScreenMaxValue) nglVector(4095, 4095, 16777215, 1);\n        new (&nglScreenMinValue) nglVector(0, 0, 0, 0);\n        new (&nglDefaultScene) nglScene;\n        new (&nglTexStreamAlloc)\n            nglTexStreamPos(nglLockedTextureSize +\n                            3 * ((nglDisplayWidth >> 6) * nglDisplayHeight), 2);\n        new (&nglFrontBufferTex) nglTexture;\n        new (&nglBackBufferTex) nglTexture;\n        new (&nglMeshBank) nglInstanceBank;\n        new (&nglMeshFileBank) nglInstanceBank;\n        new (&nglTextureBank) nglInstanceBank;\n        new (&nglFontBank) nglInstanceBank;\n    }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__static_initialization_and_destruction_0"
+}
