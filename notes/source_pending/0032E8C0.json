@@ -1,0 +1,16 @@
+{
+  "address": "0x0032E8C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e20318132d97a5525b659b1117d80a97415a4abe",
+      "error": "Candidate did not emit __cl__33slf_fluid_bar_widget_get_height_tR8vm_stackQ320script_library_class8function7entry_t; emitted functions: []",
+      "notes": "Attempt 1 used the exact released source for __cl__33slf_fluid_bar_widget_get_height_tR8vm_stackQ320script_library_class8function7entry_t. Result `symbol_missing`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "// Target: 0x0032E8C0 __cl__33slf_fluid_bar_widget_get_height_tR8vm_stackQ320script_library_class8function7entry_t\n// Reference: KS/SRC/script_lib_widget.cpp\nclass stringx\n{\n};\n\nstringx operator+(const stringx&, const char*);\nstringx operator+(const stringx&, const stringx&);\nvoid error(const stringx&);\n\nclass script_object\n{\npublic:\n  const stringx& get_name() const;\n};\n\nclass script_executable\n{\npublic:\n  const stringx& get_fullname() const;\n};\n\nclass vm_thread\n{\npublic:\n  script_object* get_instance() const;\n  script_executable* get_executable() const;\n};\n\nclass vm_stack\n{\npublic:\n  char* get_SP() const;\n  vm_thread* get_thread() const;\n  void pop(int n);\n  bool push(const char* src, int n);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n\n    function(script_library_class*, const char*);\n    virtual bool operator()(vm_stack& stack, entry_t entry) { return true; }\n  };\n};\n\ntypedef float vm_num_t;\n\nclass fluid_bar\n{\npublic:\n  float get_height();\n};\n\ntypedef fluid_bar* vm_fluid_bar_widget_t;\n\nclass slf_fluid_bar_widget_get_height_t : public script_library_class::function\n{\npublic:\n  // constructor required\n  slf_fluid_bar_widget_get_height_t(script_library_class* slc,const char* n) : script_library_class::function(slc,n) {}\n  // library function parameters\n  struct parms_t\n  {\n    // parameters\n    vm_fluid_bar_widget_t me;\n  };\n  // library function execution\n  virtual bool operator()(vm_stack& stack,entry_t entry)\n  {\n    stack.pop(sizeof(parms_t));\n    parms_t* parms = (parms_t*)stack.get_SP();\n    vm_num_t result = parms->me->get_height();\n    if (!stack.push((char*)&result,sizeof(result)) )\n      error( stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname() );\n    return true;\n  }\n};\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__cl__33slf_fluid_bar_widget_get_height_tR8vm_stackQ320script_library_class8function7entry_t"
+}
