@@ -1,0 +1,23 @@
+{
+  "address": "0x00274770",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d87398bfe31aecb85e1143865dcb31c0ddbe13c6",
+      "candidate_size": 484,
+      "compared_bytes": 484,
+      "compared_instructions": 121,
+      "emitted_name": "parse_instance__4beamRC7stringxR10chunk_file",
+      "instruction_score": 11.5702,
+      "matching_bytes": 124,
+      "matching_instructions": 14,
+      "notes": "Attempt 1 uses the exact tracked function body with self-contained ABI-faithful string storage, chunk I/O, entity/beam, terrain, and world declarations. No project headers are included.",
+      "score": 25.6198,
+      "source": "typedef unsigned long long uint64;\n\nstruct string_buf\n{\n  uint64* data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n};\n\nclass stringx\n{\npublic:\n  char* chars;\n  string_buf* my_buf;\n\n  stringx();\n  stringx(const char*, int = -1);\n  ~stringx();\n};\n\ninline bool operator==(const stringx& lhs, const stringx& rhs)\n{\n  if (lhs.my_buf->char_length != rhs.my_buf->char_length)\n    return false;\n  for (int i = 0; i < lhs.my_buf->char_length; ++i)\n    if (lhs.my_buf->data[i] != rhs.my_buf->data[i])\n      return false;\n  return true;\n}\n\ninline bool operator!=(const stringx& lhs, const stringx& rhs)\n{\n  return !(lhs == rhs);\n}\n\nclass chunk_file;\nclass terrain;\n\nvoid serial_in(chunk_file&, stringx*);\nextern const stringx chunkend_label;\n\nclass entity\n{\npublic:\n  virtual bool parse_instance(const stringx&, chunk_file&);\n  virtual void compute_sector(terrain&, bool = false);\n};\n\nclass beam : public entity\n{\npublic:\n  virtual bool parse_instance(const stringx&, chunk_file&);\n  virtual bool handle_enx_chunk(chunk_file&, stringx&);\n};\n\nclass world_dynamics_system\n{\n  char pad[236];\n  terrain* the_terrain;\n\npublic:\n  terrain& get_the_terrain() { return *the_terrain; }\n};\n\nextern world_dynamics_system* g_world_ptr;\n\nbool beam::parse_instance( const stringx& pcf, chunk_file& fs )\n{\n  if ( pcf == stringx(\"beam:\") )\n  {\n    stringx label;\n    for ( serial_in(fs,&label); label!=chunkend_label; serial_in(fs,&label) )\n      handle_enx_chunk( fs, label );\n\n    compute_sector(g_world_ptr->get_the_terrain());\n\n    return true;\n  }\n\n  return (entity::parse_instance( pcf, fs ) );\n}\n",
+      "status": "different",
+      "target_size": 464
+    }
+  ],
+  "raw_name": "parse_instance__4beamRC7stringxR10chunk_file"
+}
