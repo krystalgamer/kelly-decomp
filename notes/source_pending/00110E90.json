@@ -1,0 +1,23 @@
+{
+  "address": "0x00110E90",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "88c20e5b38b789cdbbf71a5c63d3a5dfdf8cde89",
+      "candidate_size": 372,
+      "compared_bytes": 380,
+      "compared_instructions": 95,
+      "emitted_name": "_M_insert_aux__t6vector2ZP7ai_goalZt23__malloc_alloc_template1i0PP7ai_goalRCP7ai_goal",
+      "instruction_score": 10.5263,
+      "matching_bytes": 121,
+      "matching_instructions": 10,
+      "notes": "Attempt 1 used the exact released `_M_insert_aux` vector template body and declarations for the `ai_goal*` specialization. Result `different`, score 31.8421; no retry or variant was made. Citations: `src/g++-2/stl_vector_shared.h:1-97`, `src/g++-2/my_allocator_shared.h:1-8`.",
+      "score": 31.8421,
+      "source": "class ai_goal;\n\nextern \"C\" void *memmove(void *, const void *, unsigned int);\nextern \"C\" void *arch_malloc(unsigned int, const char *, int);\nextern \"C\" void arch_free(void *);\n\ntemplate<int __inst>\nclass __malloc_alloc_template {\npublic:\n    static void *_S_oom_malloc(unsigned int);\n    static void *allocate(unsigned int __n) {\n        void *__result = arch_malloc(__n, __FILE__, 0);\n        if (__result == 0) __result = _S_oom_malloc(__n);\n        return __result;\n    }\n    static void deallocate(void *__p, unsigned int) { arch_free(__p); }\n};\n\ntemplate<class _T1, class _T2>\ninline void construct(_T1 *__p, const _T2 &__value) {\n    if (__p) *__p = __value;\n}\n\ntemplate<class _Tp>\ninline _Tp *copy(const _Tp *__first, const _Tp *__last, _Tp *__result) {\n    memmove(__result, __first, sizeof(_Tp) * (__last - __first));\n    return __result + (__last - __first);\n}\n\ntemplate<class _Tp>\ninline _Tp *copy_backward(const _Tp *__first, const _Tp *__last,\n                          _Tp *__result) {\n    unsigned int __count = __last - __first;\n    memmove(__result - __count, __first, sizeof(_Tp) * __count);\n    return __result - __count;\n}\n\ntemplate<class _Tp>\ninline _Tp *uninitialized_copy(const _Tp *__first, const _Tp *__last,\n                               _Tp *__result) {\n    return copy(__first, __last, __result);\n}\n\ntemplate<class _Tp>\ninline void destroy(_Tp *, _Tp *) {}\n\ntemplate<class _Tp, class _Alloc>\nclass _Vector_base {\npublic:\n    typedef unsigned int size_type;\n    typedef _Tp *iterator;\n    _Tp *_M_start;\n    _Tp *_M_finish;\n    _Tp *_M_end_of_storage;\n    iterator _M_allocate(size_type __n) {\n        return __n ? (iterator)_Alloc::allocate(__n * sizeof(_Tp)) : 0;\n    }\n    void _M_deallocate(iterator __p, size_type __n) {\n        if (__p) _Alloc::deallocate(__p, __n * sizeof(_Tp));\n    }\n};\n\ntemplate<class _Tp, class _Alloc>\nclass vector : protected _Vector_base<_Tp, _Alloc> {\npublic:\n    typedef _Tp value_type;\n    typedef value_type *iterator;\n    typedef unsigned int size_type;\n    iterator begin() { return _M_start; }\n    iterator end() { return _M_finish; }\n    size_type size() const { return size_type(_M_finish - _M_start); }\n    void _M_insert_aux(iterator __position, const _Tp &__x);\n};\n\ntemplate<class _Tp, class _Alloc>\nvoid vector<_Tp, _Alloc>::_M_insert_aux(iterator __position,\n                                        const _Tp &__x) {\n    if (_M_finish != _M_end_of_storage) {\n        construct(_M_finish, *(_M_finish - 1));\n        ++_M_finish;\n        _Tp __x_copy = __x;\n        copy_backward(__position, _M_finish - 2, _M_finish - 1);\n        *__position = __x_copy;\n    }\n    else {\n        const size_type __old_size = size();\n        const size_type __len = __old_size != 0 ? 2 * __old_size : 1;\n        iterator __new_start = _M_allocate(__len);\n        iterator __new_finish = __new_start;\n        __new_finish = uninitialized_copy(_M_start, __position, __new_start);\n        construct(__new_finish, __x);\n        ++__new_finish;\n        __new_finish = uninitialized_copy(__position, _M_finish,\n                                          __new_finish);\n        destroy(begin(), end());\n        _M_deallocate(_M_start, _M_end_of_storage - _M_start);\n        _M_start = __new_start;\n        _M_finish = __new_finish;\n        _M_end_of_storage = __new_start + __len;\n    }\n}\n\ntemplate void vector<ai_goal *, __malloc_alloc_template<0> >::_M_insert_aux(\n    ai_goal **, ai_goal *const &);\n",
+      "status": "different",
+      "target_size": 380
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2ZP7ai_goalZt23__malloc_alloc_template1i0PP7ai_goalRCP7ai_goal"
+}
