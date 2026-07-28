@@ -1,0 +1,23 @@
+{
+  "address": "0x002CDBC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f9d62cb74c9b2b16297f801b735a88c080858505",
+      "candidate_size": 324,
+      "compared_bytes": 360,
+      "compared_instructions": 90,
+      "emitted_name": "copy_instance_data__12light_sourceRC12light_source",
+      "instruction_score": 8.8889,
+      "matching_bytes": 106,
+      "matching_instructions": 8,
+      "notes": "Attempt 1 used the exact released source for copy_instance_data__12light_sourceRC12light_source. Result `different`, score 29.4444; no retry or variant was made.",
+      "score": 29.4444,
+      "source": "typedef unsigned int u_int;\ntypedef float rational_t;\n\nvoid* operator new(unsigned int, const char*, int)\n  __asm__(\"__nw__FUiUiPCci\");\n\nclass color\n{\npublic:\n  float r, g, b, a;\n};\n\nenum light_flavor_t\n{\n  LIGHT_FLAVOR_NONE\n};\n\nclass light_properties\n{\nprotected:\n  light_flavor_t flavor;\n  color diffuse_color;\n  color additive_color;\n  rational_t near_range;\n  rational_t cutoff_range;\n  rational_t recip_cutoff_minus_near;\n  u_int lightcat;\n  unsigned flags;\n\n  friend class light_source;\n};\n\nclass entity\n{\n  char data[512];\n\npublic:\n  void copy_instance_data(const entity&);\n};\n\nclass light_source : public entity\n{\n  light_properties* properties;\n\npublic:\n  const light_properties& get_properties() const { return *properties; }\n\nprotected:\n  void copy_instance_data(const light_source&);\n};\n\n#define NEW new(__FILE__, 0)\n\nvoid light_source::copy_instance_data(const light_source& b)\n{\n  entity::copy_instance_data(b);\n\n  if (b.properties)\n    if (!properties)\n      properties = NEW light_properties(b.get_properties());\n    else\n      *properties = b.get_properties();\n}\n",
+      "status": "different",
+      "target_size": 360
+    }
+  ],
+  "raw_name": "copy_instance_data__12light_sourceRC12light_source"
+}
