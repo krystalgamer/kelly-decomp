@@ -1,0 +1,16 @@
+{
+  "address": "0x0032A5C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4f7c47435fd0d8ae6d583dd12adedad751c451e3",
+      "error": "Candidate did not emit __cl__16slf_vector3d_x_tR8vm_stackQ320script_library_class8function7entry_t; emitted functions: []",
+      "notes": "Attempt 1 used the exact released source for __cl__16slf_vector3d_x_tR8vm_stackQ320script_library_class8function7entry_t. Result `symbol_missing`, score 0.0000; no variant or later attempt was made.",
+      "score": 0.0,
+      "source": "class stringx\n{\npublic:\n  stringx();\n  stringx(const stringx &);\n  ~stringx();\n};\n\nstringx operator+(const stringx &, const char *);\nstringx operator+(const stringx &, const stringx &);\n\nclass script_instance\n{\npublic:\n  const stringx &get_name() const;\n};\n\nclass script_executable\n{\npublic:\n  const stringx &get_fullname() const;\n};\n\nclass vm_thread\n{\npublic:\n  script_instance *get_instance() const;\n  script_executable *get_executable() const;\n};\n\ntypedef float vm_num_t;\n\nclass vm_stack\n{\npublic:\n  int salloc;\n  char *buffer;\n  char *SP;\nprivate:\n  vm_thread *my_thread;\npublic:\n  char *get_SP() const { return SP; }\n  vm_thread *get_thread() const { return my_thread; }\n  void pop(int n) { SP -= n; }\n  bool push(const char *, int);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n\n    function(script_library_class *, const char *);\n    virtual ~function();\n    virtual bool operator()(vm_stack &, entry_t) { return true; }\n  };\n};\n\nclass vector3d\n{\npublic:\n  float x;\n  float y;\n  float z;\n};\n\nvoid error(const stringx &);\n\n#define SLF_PARMS \\\n  stack.pop(sizeof(parms_t)); \\\n  parms_t* parms = (parms_t*)stack.get_SP()\n\n#define SLF_RETURN \\\n  if (!stack.push((char*)&result,sizeof(result)) ) \\\n    error( stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname() )\n\n#define SLF_DONE \\\n  return true\n\nclass slf_vector3d_x_t : public script_library_class::function\n{\npublic:\n  slf_vector3d_x_t(script_library_class* slc,const char* n) : script_library_class::function(slc,n) {}\n  struct parms_t\n  {\n    vector3d me;\n  };\n  virtual bool operator()(vm_stack& stack,entry_t entry)\n  {\n    SLF_PARMS;\n    vm_num_t result = parms->me.x;\n    SLF_RETURN;\n    SLF_DONE;\n  }\n};\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__cl__16slf_vector3d_x_tR8vm_stackQ320script_library_class8function7entry_t"
+}
