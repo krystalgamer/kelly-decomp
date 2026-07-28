@@ -1,0 +1,23 @@
+{
+  "address": "0x002F7C68",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f711a764e364140beef791a6a4f5cbe2985af132",
+      "candidate_size": 368,
+      "compared_bytes": 468,
+      "compared_instructions": 117,
+      "emitted_name": "new_instance__t13instance_bank1Z12vr_billboardRC7stringxUi",
+      "instruction_score": 8.547,
+      "matching_bytes": 96,
+      "matching_instructions": 10,
+      "notes": "# FIRST PASS wave 86 lane A3\n\nExact released body tested once for `0x002F7C68 new_instance__t13instance_bank1Z12vr_billboardRC7stringxUi`. Result `different`, score 20.5128%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 20.5128,
+      "source": "class string_buf;\nclass stringx\n{\nprotected:\n  char* chars;\n  string_buf* my_buf;\npublic:\n  stringx();\n  stringx(const stringx&);\n  stringx(const char*, int len = -1);\n  ~stringx();\n  const char* data() const { return chars; }\n};\n\nclass filespec\n{\npublic:\n  stringx path;\n  stringx name;\n  stringx ext;\n  explicit filespec(const stringx&);\n};\n\ntemplate<class A, class B, class R> struct binary_function {};\nclass malloc_alloc;\n\ntemplate<class T, class Compare, class Alloc>\nclass set\n{\npublic:\n  class iterator\n  {\n    void* node;\n  public:\n    T operator*() const;\n    bool operator==(const iterator&) const;\n    bool operator!=(const iterator&) const;\n  };\n  iterator find(const T&) const;\n  iterator end() const;\n  void insert(const T&);\n};\n\nclass vr_billboard\n{\npublic:\n  vr_billboard(const stringx&, unsigned);\n};\n\ntemplate <class T>\nclass instance_bank\n{\npublic:\n  struct ref_t\n  {\n    stringx label;\n    T* ptr;\n    unsigned int count;\n    ref_t(const stringx& _label) : label(_label), ptr(0), count(0) {}\n    ref_t(const stringx& _label, T* _ptr) : label(_label), ptr(_ptr), count(1) {}\n  };\n  class less_by_label : public binary_function<const ref_t*, const ref_t*, bool>\n  {\n  public:\n    bool operator()(const ref_t* a, const ref_t* b) const;\n  };\n  typedef set<ref_t*, less_by_label, malloc_alloc> lref_set;\n  lref_set refs_by_label;\n  void insert(const stringx& label, T* ptr)\n  {\n    ref_t* r = new ref_t(label, ptr);\n    refs_by_label.insert(r);\n  }\n  T* new_instance(const stringx& filename, unsigned additional_flags);\n};\n\ntemplate <class T>\nT* instance_bank<T>::new_instance( const stringx& filename, unsigned additional_flags )\n{\n  // we will use the file basename as the instance label\n  filespec fspec( filename );\n  ref_t fspec_ref(fspec.name);\n  lref_set::iterator i = refs_by_label.find( &fspec_ref );\n  if ( i == refs_by_label.end() )\n  {\n    // matching label not found; load NEW instance from file\n    T* new_T = new T( filename.data(), additional_flags );\n    insert( fspec.name, new_T );\n    return new_T;\n  }\n  else\n  {\n    // matching label found; increment reference count\n    ++(*i)->count;\n    return (*i)->ptr;\n  }\n}\n\ntemplate vr_billboard* instance_bank<vr_billboard>::new_instance(const stringx&, unsigned);\n",
+      "status": "different",
+      "target_size": 468
+    }
+  ],
+  "raw_name": "new_instance__t13instance_bank1Z12vr_billboardRC7stringxUi"
+}
