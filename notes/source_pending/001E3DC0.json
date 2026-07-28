@@ -1,0 +1,23 @@
+{
+  "address": "0x001E3DC0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8303a9db404d9ae9f3d8672c36770d6cb79658d3",
+      "candidate_size": 400,
+      "compared_bytes": 408,
+      "compared_instructions": 96,
+      "emitted_name": "getInfo__16GenericGameSaveriiPiN23",
+      "instruction_score": 87.5,
+      "matching_bytes": 344,
+      "matching_instructions": 84,
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Result: **different**\n- Byte score: **84.3137%**\n- Instruction score: **87.5%**\n- Candidate size: **400 bytes**; target size: **408 bytes**.\n- Used the exact released `GenericGameSaver::getInfo` PS2 body with only minimal declarations and symbol bindings required for isolated compilation.\n- Preserved the initial repeated-pointer mangling infrastructure failure under `infrastructure-symbol-failure/`; it was repaired without changing the released body before the single canonical attempt.\n- No variants, disassembly/diff chasing, build, finalization, integration, tracked-file edits, commit, or Git operations were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_gamesaver.cpp:369-509` \u2014 exact released function body.\n- `kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_gamesaver.h:30-35,72-104` \u2014 released result constants and method declaration.\n- `tmp/functions/001E3DC0_getInfo__16GenericGameSaveriiPiN23/attempt-1/candidate.cpp` \u2014 isolated exact-source candidate.\n- `tmp/functions/001E3DC0_getInfo__16GenericGameSaveriiPiN23/attempt-1/result.json` \u2014 canonical isolated test result.",
+      "score": 84.3137,
+      "source": "// Target: 0x001E3DC0 getInfo__16GenericGameSaveriiPiN23\n// Reference: KS/SRC/HWOSPS2/ps2_gamesaver.cpp\n// Replace this file with one self-contained candidate function.\nextern \"C\" int sceMcGetInfo(int, int, int *, int *, int *);\nextern \"C\" int sceMcSync(int, int *, int *);\n\n__asm__(\".equ sceMcGetInfo, 0x00392688\");\n__asm__(\".equ sceMcSync, 0x00392550\");\n\nclass GenericGameSaver\n{\npublic:\n    int getInfo(int port, int slot, int *type, int *free, int *formatted)\n        __asm__(\"getInfo__16GenericGameSaveriiPiN23\");\n};\n\nint GenericGameSaver::getInfo(int port, int slot, int *type, int *free, int *formatted)\n{\n  int cmd, result;\n  int retry = 2;\n\n  while (retry)\n  {\n    if (sceMcGetInfo(port, slot, type, free, formatted) != 0)\n    {\n      if (sceMcGetInfo(port, slot, type, free, formatted) != 0)\n      {\n        return -2;\n      }\n    }\n    else if (sceMcSync(0, &cmd, &result) != 1)\n    {\n      return -2;\n    }\n    else\n    {\n      switch (result)\n      {\n        case -1: break;\n        case -2: retry--;\n        case 0:\n          if (!*formatted)\n          {\n            if (retry == 2)\n              retry--;\n            else\n            {\n              return -1;\n            }\n            break;\n          }\n          if (!type)\n          {\n            return -5;\n          }\n          if (*type != 2)\n          {\n            return -4;\n          }\n          else return 0;\n        break;\n        default:\n          if (retry == 2) retry--;\n          else\n          {\n            return -5;\n          }\n      }\n    }\n    for (int stall=0; stall<100000; stall++) continue;\n  }\n\n  return 0;\n}\n",
+      "status": "different",
+      "target_size": 408
+    }
+  ],
+  "raw_name": "getInfo__16GenericGameSaveriiPiN23"
+}
