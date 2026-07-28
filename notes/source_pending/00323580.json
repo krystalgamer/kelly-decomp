@@ -1,0 +1,23 @@
+{
+  "address": "0x00323580",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b4bdda531803ca647945e6e8df7b776de633a300",
+      "candidate_size": 144,
+      "compared_bytes": 404,
+      "compared_instructions": 101,
+      "emitted_name": "__cl__23slf_get_game_info_str_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 2.9703,
+      "matching_bytes": 40,
+      "matching_instructions": 3,
+      "notes": "# Source-first attempt 1\n\n- Function: `0x00323580 __cl__23slf_get_game_info_str_tR8vm_stackQ320script_library_class8function7entry_t`\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/script_lib.cpp:2809-2825`\n- Supporting declarations: `kelly-slaters-pro-surfer/KS/SRC/script_lib.cpp:2796-2808`, `kelly-slaters-pro-surfer/KS/SRC/script_library_class.h`, `kelly-slaters-pro-surfer/KS/SRC/vm_stack.h`, `kelly-slaters-pro-surfer/KS/SRC/game.h`, `kelly-slaters-pro-surfer/KS/SRC/pstring.h`, `kelly-slaters-pro-surfer/KS/SRC/stringx.h`\n- Candidate: `tmp/functions/00323580___cl__23slf_get_game_info_str_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/candidate.cpp`\n- Result: `different`\n- Byte score: `9.9010%` (40/404), candidate 144 bytes, target 404 bytes\n- Instruction score: `2.9703%` (3/101)\n- Candidate uses the exact released function body after direct expansion of `SLF_PARMS`, `SLF_RETURN`, and `SLF_DONE`, plus minimal declarations.\n- No variants, additional attempts, diff chase, tracked edits, build, finalization, or commit were performed.",
+      "score": 9.901,
+      "source": "class stringx {\npublic:\n    const char *chars;\n    const char *c_str() const { return chars; }\n    stringx &operator=(const stringx &);\n};\ntypedef const stringx *vm_str_t;\nclass vm_stack {\npublic:\n    int salloc; char *buffer; char *SP; void *my_thread;\n    char *get_SP() const { return SP; }\n    void move_SP(int n) { SP += n; }\n    void pop(int n) { move_SP(-n); }\n    bool push(const char *, int);\n};\nclass pstring {\n    unsigned short pchunk[8];\npublic:\n    pstring(const char *s) { pack_string(s); }\n    void pack_string(const char *);\n};\nclass game_info { public: bool get_str(const pstring &, stringx &) const; };\nclass game { public: game_info info; game_info &get_game_info() { return info; } };\nnamespace script_library_class { class function { public: enum entry_t { FIRST_ENTRY }; }; }\nextern stringx script_game_string;\nextern stringx empty_string;\nextern game *g_game_ptr;\nclass slf_get_game_info_str_t : public script_library_class::function {\npublic:\n    struct parms_t { vm_str_t att; };\n    virtual bool operator()(vm_stack& stack, entry_t entry);\n};\nbool slf_get_game_info_str_t::operator()(vm_stack& stack, entry_t entry)\n{\n    stack.pop(sizeof(parms_t));\n    parms_t* parms = (parms_t*)stack.get_SP();\n\n\n    script_game_string = empty_string;\n    pstring p(parms->att->c_str());\n    g_game_ptr->get_game_info().get_str(p, script_game_string);\n\n    vm_str_t result = &script_game_string;\n\n    if (!stack.push((char*)&result,sizeof(result)) )\n      ;\n    return true;\n}\n",
+      "status": "different",
+      "target_size": 404
+    }
+  ],
+  "raw_name": "__cl__23slf_get_game_info_str_tR8vm_stackQ320script_library_class8function7entry_t"
+}
