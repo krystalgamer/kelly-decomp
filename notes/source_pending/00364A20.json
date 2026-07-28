@@ -1,0 +1,23 @@
+{
+  "address": "0x00364A20",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d5dd81373af4b29ea3a239948f1c6f0364b83eb5",
+      "candidate_size": 388,
+      "compared_bytes": 388,
+      "compared_instructions": 97,
+      "emitted_name": "spraypt_pos__5trailP15spray_control_t",
+      "instruction_score": 23.7113,
+      "matching_bytes": 184,
+      "matching_instructions": 23,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 64 lane B5 for `0x00364A20 spraypt_pos__5trailP15spray_control_t` (388 bytes, `game/files_wave`).\n- Tested exactly one exact released body with minimum source-faithful declarations for `vector3d`, `spray_control_t`, trail-node position layout, `board_spray`, and `FXD`.\n- Result: **different**, byte score **47.4227%** (184/388) and instruction score **23.7113%** (23/97); candidate and target sizes are both 388 bytes.\n- No variants, retries, diff chasing, normalization, tracked-file edits, finalize/integrate, ROM build, commit, or git mutation were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/trail.cpp:62-74,1173-1179`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/trail.h:15-53`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/ksfx.h:73`\n- `tmp/functions/00364A20_spraypt_pos__5trailP15spray_control_t/attempt-1/result.json`",
+      "score": 47.4227,
+      "source": "// Target: 0x00364A20 spraypt_pos__5trailP15spray_control_t\n// Reference: KS/SRC/ks/trail.cpp\nclass vector3d {\npublic:\n  float x, y, z;\n  vector3d() {}\n  vector3d(float X, float Y, float Z) : x(X), y(Y), z(Z) {}\n  vector3d operator-(const vector3d &b) const { return vector3d(x-b.x, y-b.y, z-b.z); }\n  vector3d operator+(const vector3d &b) const { return vector3d(x+b.x, y+b.y, z+b.z); }\n  vector3d operator*(float s) const { return vector3d(x*s, y*s, z*s); }\n};\n\nstruct surface_point_t { char pad[1128]; vector3d pos; };\nstruct trail_node_t { char pad[12]; surface_point_t pnt2; };\nstruct spray_control_t {\n  vector3d current __attribute__((aligned(16)));\n  vector3d start __attribute__((aligned(16)));\n  vector3d *trailpt;\n  trail_node_t *trail_node;\n  vector3d vel;\n  float seed;\n  float age;\n  float life;\n  int valid;\n};\nstruct board_spray_t {\n  float angle_scale, vel_scale, bonus_y, tex_size, tex_speed, tex_scale, grav, curve;\n};\nstruct fx_data_t { char pad[23156]; float Trail_Start_Width_Mod; };\nextern board_spray_t board_spray;\nextern fx_data_t FXD;\n\nclass trail {\npublic:\n  void spraypt_pos(spray_control_t *SC);\n};\n\nvoid trail::spraypt_pos (spray_control_t *SC)\n{\n\tvector3d Grav (0, board_spray.grav, 0);\n\n\tSC->start = (*(SC->trailpt) - SC->trail_node->pnt2.pos) * FXD.Trail_Start_Width_Mod + SC->trail_node->pnt2.pos;\n\tSC->current = SC->start + (SC->vel * SC->age) + (Grav * SC->age * SC->age * 0.5f);\n}\n",
+      "status": "different",
+      "target_size": 388
+    }
+  ],
+  "raw_name": "spraypt_pos__5trailP15spray_control_t"
+}
