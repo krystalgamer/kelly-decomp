@@ -1,0 +1,23 @@
+{
+  "address": "0x002A97A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e500a6f56303108d26074bbd7de14e8498dcdd6d",
+      "candidate_size": 316,
+      "compared_bytes": 336,
+      "compared_instructions": 84,
+      "emitted_name": "launch__19rocket_guidance_sysRC8vector3df",
+      "instruction_score": 17.8571,
+      "matching_bytes": 91,
+      "matching_instructions": 15,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/guidance_sys.cpp:69-80; kelly-slaters-pro-surfer/KS/SRC/guidance_sys.h:10-46; kelly-slaters-pro-surfer/KS/SRC/guidance_sys.h:49-129; kelly-slaters-pro-surfer/KS/SRC/physical_interface.h:12-18,63-92; kelly-slaters-pro-surfer/KS/SRC/random.h:11-101,108-137,207; tmp/functions/002A97A8_launch__19rocket_guidance_sysRC8vector3df/attempt-1/result.json; tmp/source_first/002A97A8/attempt-1.md. Result `different`, score 27.0833; no later attempt.",
+      "score": 27.0833,
+      "source": "typedef float rational_t;\nclass vector3d;\n\nclass Random {\npublic:\n  unsigned int NextRand();\n  float randf(float begin, float end) {\n    unsigned int r = NextRand();\n    return r * (1.0f/32767)*(end-begin) + begin;\n  }\n};\nextern Random *g_random_ptr;\ninline float random(float begin,float end) {\n  float r = g_random_ptr->randf(begin, end);\n  return r;\n}\n#define PLUS_MINUS_ONE (random(-1.0f, 1.0f))\n\nclass physical_interface {\n  char base[8];\n  unsigned int flags;\npublic:\n  enum { _PHYS_GRAVITY = 0x00000004 };\n  void set_flag(unsigned int flag, bool val = true) { if(val) flags |= flag; else flags &= ~flag; }\n  void set_gravity(bool val = true) { set_flag(_PHYS_GRAVITY, val); }\n};\n\nclass guidance_system {\nprotected:\n  physical_interface *owner;\n  int flags;\npublic:\n  void launch(const vector3d &dir, rational_t force);\n};\n\nclass rocket_guidance_sys : public guidance_system {\nprotected:\n  char target_pos[12];\n  void *target;\n  rational_t launch_force;\n  rational_t wobble_timer;\n  rational_t guidance_delay;\n  rational_t accel_delay;\n  rational_t guided_accuracy;\n  rational_t turn_factor;\n  rational_t accel_factor;\n  rational_t full_wobble_timer;\n  rational_t full_guidance_delay;\n  rational_t full_accel_delay;\n  rational_t wobble_timer_var;\n  rational_t guidance_delay_var;\n  rational_t accel_delay_var;\npublic:\n  rational_t get_guidance_delay_with_var() const { return(full_guidance_delay + (PLUS_MINUS_ONE*guidance_delay_var)); }\n  rational_t get_accel_delay_with_var() const { return(full_accel_delay + (PLUS_MINUS_ONE*accel_delay_var)); }\n  void launch(const vector3d &dir, rational_t force);\n};\n\nvoid rocket_guidance_sys::launch(const vector3d &dir, rational_t force)\n{\n  launch_force = force;\n\n  guidance_delay = get_guidance_delay_with_var();\n  accel_delay = get_accel_delay_with_var();\n  wobble_timer = 0.0f;\n\n  owner->set_gravity(false);\n\n  guidance_system::launch(dir, force);\n}\n",
+      "status": "different",
+      "target_size": 336
+    }
+  ],
+  "raw_name": "launch__19rocket_guidance_sysRC8vector3df"
+}
