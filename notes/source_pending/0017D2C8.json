@@ -1,0 +1,23 @@
+{
+  "address": "0x0017D2C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b459ab272232d541715fa3272cf030f4128a6b5e",
+      "candidate_size": 304,
+      "compared_bytes": 364,
+      "compared_instructions": 91,
+      "emitted_name": "MakeOtherText__11IGOFrontEndRC7stringx",
+      "instruction_score": 2.1978,
+      "matching_bytes": 42,
+      "matching_instructions": 2,
+      "notes": "Attempt 1 used the exact released source for MakeOtherText__11IGOFrontEndRC7stringx. Result `different`, score 11.5385; no retry or variant was made.",
+      "score": 11.5385,
+      "source": "struct stringx\n{\n    char *data;\n    void *buffer;\n};\n\nextern \"C\" void copy_string(stringx *, const stringx *) __asm__(\"__7stringxRC7stringx\");\n__asm__(\".equ __7stringxRC7stringx, 0x0034D4D0\");\n\nstruct text_vtable\n{\n    char padding0[72];\n    short change_text_adjustment;\n    short padding1;\n    void (*change_text)(void *, stringx *);\n    short scale_adjustment;\n    short padding2;\n    void (*change_scale)(void *, float);\n    short position_adjustment;\n    short padding3;\n    void (*change_position)(void *, float, float);\n    char padding4[76];\n    short get_scale_adjustment;\n    short padding5;\n    float (*get_scale)(void *);\n};\n\nstruct BoxText\n{\n    char padding0[76];\n    text_vtable *vtable;\n    char padding1[8];\n    float time;\n\n    void changeText(const stringx &text)\n    {\n        stringx temporary;\n        copy_string(&temporary, &text);\n        vtable->change_text((char *)this + vtable->change_text_adjustment, &temporary);\n    }\n\n    void changePos(float x, float y)\n    {\n        vtable->change_position((char *)this + vtable->position_adjustment, x, y);\n    }\n\n    void makeBox(int width, int height, bool absolute = false, float scale = -1.0f, int lines = -1);\n};\n__asm__(\".equ makeBox__7BoxTextiibfi, 0x00149D30\");\n\nstruct IconManager\n{\n    char padding0[3016];\n    int failed;\n    char padding1[2752];\n    void *button;\n    char padding2[4];\n    float button_time;\n\n    bool Failed() const\n    {\n        return failed || !button || button_time != 0.0f;\n    }\n};\n\nstruct PhotoWidget\n{\n    char padding[24];\n    int shown;\n    bool IsShown() const { return shown; }\n};\n\nstruct PhotoChallenge\n{\n    int state;\n    bool IsTakingPhoto() const { return state != 0; }\n};\n\nstruct BeachChallenges\n{\n    PhotoChallenge *photo;\n};\n\nstruct beach\n{\n    BeachChallenges challenges;\n    BeachChallenges *get_challenges() { return &challenges; }\n};\n\nextern beach *g_beach_ptr;\n__asm__(\".equ g_beach_ptr, 0x0046B2D0\");\n\nclass IGOFrontEnd\n{\n    char padding0[228];\n    float TEXT_WAIT_MAX;\n    char padding1[912];\n    IconManager *iconManager;\n    char padding2[216];\n    BoxText *otherText;\n    char padding3[84];\n    PhotoWidget *photoWidget;\n\npublic:\n    void MakeOtherText(const stringx &t);\n};\n\nvoid IGOFrontEnd::MakeOtherText(const stringx &t)\n{\n    int x1, x2;\n\n    otherText->time = TEXT_WAIT_MAX;\n    otherText->changeText(t);\n\n    if (iconManager && !iconManager->Failed())\n        x1 = 50 + 70;\n    else\n        x1 = 50;\n    if ((photoWidget && photoWidget->IsShown()) ||\n        (g_beach_ptr->get_challenges()->photo &&\n         g_beach_ptr->get_challenges()->photo->IsTakingPhoto()))\n        x2 = 640 - 50 - 140;\n    else\n        x2 = 640 - 50;\n    otherText->changePos(x1 + (x2 - x1) / 2, 300);\n    otherText->makeBox(x2 - x1, 100);\n}\n",
+      "status": "different",
+      "target_size": 364
+    }
+  ],
+  "raw_name": "MakeOtherText__11IGOFrontEndRC7stringx"
+}
