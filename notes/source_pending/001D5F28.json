@@ -1,0 +1,23 @@
+{
+  "address": "0x001D5F28",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1f9a6353c2d3b1b9abba3da8a5f6ab30f5165d82",
+      "candidate_size": 284,
+      "compared_bytes": 380,
+      "compared_instructions": 95,
+      "emitted_name": "OnActivate__15LogbookFrontEnd",
+      "instruction_score": 5.2632,
+      "matching_bytes": 55,
+      "matching_instructions": 5,
+      "notes": "# Attempt 1\n\nUsed the exact released `LogbookFrontEnd::OnActivate` body with minimal declarations for its class layout, inherited activation call, helpbar inlines, and string type. The single permitted test compiled but differed: 55/380 bytes and 5/95 instructions matched. No retry or diff chase was performed.",
+      "score": 14.4737,
+      "source": "struct stringx {\n    char data[16];\n    stringx(const stringx&);\n    stringx(const char*, int = -1);\n    ~stringx();\n};\n\nextern stringx ksGlobalTextArray[];\n\nclass HelpbarFE {\npublic:\n    void Reset();\n    void ChangeBtn(int, bool, stringx);\n    void Reformat();\n    void AddArrowH(stringx text = stringx(\"\")) {\n        ChangeBtn(0, true, text);\n        ChangeBtn(2, false, \"\");\n    }\n    void RemoveX() {\n        ChangeBtn(3, false, \"\");\n    }\n};\n\nclass FEManager {\n    char pad[0x156A4];\npublic:\n    HelpbarFE* helpbar;\n};\n\nclass FEGraphicalMenu {\n    char pad[0x13C];\npublic:\n    FEManager* manager;\n    void OnActivate();\n};\n\nclass FEMultiMenu : public FEGraphicalMenu {\n    char pad[0x2A8];\n};\n\nclass LogbookFrontEnd : public FEMultiMenu {\n    int cur_spread;\n    int max_spread;\npublic:\n    void ReadNotesFromFile();\n    void UpdateUnlockedNotes(int = 0);\n    void OnActivate();\n};\n\nenum { GT_FE_MENU_SWITCH = 0 };\n\nvoid LogbookFrontEnd::OnActivate()\n{\n\tReadNotesFromFile();\n\tFEMultiMenu::OnActivate();\n\tcur_spread = 0;\n\tUpdateUnlockedNotes();\n\n\tmanager->helpbar->Reset();\n\tmanager->helpbar->AddArrowH(ksGlobalTextArray[GT_FE_MENU_SWITCH]);\n\tmanager->helpbar->RemoveX();\n\tmanager->helpbar->Reformat();\n}\n",
+      "status": "different",
+      "target_size": 380
+    }
+  ],
+  "raw_name": "OnActivate__15LogbookFrontEnd"
+}
