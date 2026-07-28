@@ -1,0 +1,23 @@
+{
+  "address": "0x0023FC68",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "aeb811003d53b6768e1e27cbd581bc0eab455d91",
+      "candidate_size": 636,
+      "compared_bytes": 636,
+      "compared_instructions": 159,
+      "emitted_name": "OnButtonPress__26MenuEntryFunctionFloatEditi",
+      "instruction_score": 18.239,
+      "matching_bytes": 153,
+      "matching_instructions": 29,
+      "notes": "FIRST PASS wave87 A3\nTarget: 0x0023FC68 OnButtonPress__26MenuEntryFunctionFloatEditi (472/0x1D8), game/files_kellyslater\nReference: kelly-slaters-pro-surfer/KS/SRC/ks/menu.cpp:702-736\nAttempts before: 0\nAttempt 1: exact released body with minimal faithful self-contained declarations and no headers\nResult: different; byte score 24.0566; instruction score 18.2390; candidate size 636; target size 472\nCandidate SHA-1: aeb811003d53b6768e1e27cbd581bc0eab455d91\nExactly one candidate and one harness invocation. No alternate implementation, asm, annotations, variants, retry, attempts 2-5, or post-test chase.\nTracked/reference files remained read-only. No finalize, integrate, build, or git mutation.",
+      "score": 24.0566,
+      "source": "class Menu;\nclass MenuSystem;\nclass MenuEntry;\n\ntypedef bool MenuEntryButtonFunction( MenuEntry *entry, int buttonid );\ntypedef MenuEntryButtonFunction *pMenuEntryButtonFunction;\n\nenum\n{\n\tMENUCMD_NONE = 0,\n\tMENUCMD_SELECT,\n\tMENUCMD_START,\n\tMENUCMD_UP,\n\tMENUCMD_DOWN,\n\tMENUCMD_LEFT,\n\tMENUCMD_RIGHT,\n\tMENUCMD_CROSS,\n\tMENUCMD_TRIANGLE,\n\tMENUCMD_SQUARE,\n\tMENUCMD_CIRCLE,\n\tMENUCMD_L1,\n\tMENUCMD_R1,\n\tMENUCMD_L2,\n\tMENUCMD_R2\n};\n\nclass MenuEntry\n{\n\tunsigned int flags;\n\npublic:\n\tvirtual ~MenuEntry();\n\tvirtual int GetColor( void );\n\tvirtual void Show( void );\n\tvirtual void Hide( void );\n\tvirtual void Enable( void );\n\tvirtual void Disable( void );\n\tvirtual void Activate( void );\n\tvirtual void Deactivate( void );\n\tvirtual void OnTick( float dtime ) {}\n\tvirtual void OnMenuOpen( Menu *m, MenuSystem *c );\n\tvirtual void OnMenuClose( void );\n\tvirtual void OnButtonPress( int buttonid ) {}\n\tvirtual void OnButtonRelease( int buttonid ) {}\n\tvirtual void OnHide( void ) {}\n\tvirtual void OnShow( void ) {}\n\tvirtual void OnEnable( void ) {}\n\tvirtual void OnDisable( void ) {}\n\tvirtual void OnActivate( void ) {}\n\tvirtual void OnDeactivate( void ) {}\n\tvirtual int MenuText( char *text, int len ) { if (len>0) *text=0; return 0; }\n};\n\nclass MenuEntryLabel : public MenuEntry\n{\nprotected:\n\tconst char *label;\n\npublic:\n\tvirtual ~MenuEntryLabel();\n\tvirtual int MenuText( char *text, int len );\n};\n\nclass MenuEntryFunctionFloatEdit : public MenuEntryLabel\n{\n\tfloat *tfloat;\n\nprotected:\n\tfloat lo, hi, step;\n\tchar *format;\n\tpMenuEntryButtonFunction fn;\n\npublic:\n\tvirtual ~MenuEntryFunctionFloatEdit();\n\tvirtual void OnMenuOpen( Menu *m, MenuSystem *c );\n\tvirtual int MenuText( char *text, int len );\n\tvirtual void OnButtonPress( int buttonid );\n\n\tvoid FixValue( void );\n\tvirtual void SetValue( float n ) { *tfloat = n; }\n\tvirtual float GetValue( void ) { return tfloat ? *tfloat : 0; }\n};\n\nvoid MenuEntryFunctionFloatEdit::OnButtonPress( int buttonid )\n{\n  switch (buttonid)\n  {\n  case MENUCMD_LEFT:\n\tSetValue (GetValue () - step);\n\tFixValue ();\n    break;\n  case MENUCMD_RIGHT:\n\tSetValue (GetValue () + step);\n\tFixValue ();\n    break;\n  case MENUCMD_L1:\n\tSetValue (GetValue () - step * 10);\n\tFixValue ();\n    break;\n  case MENUCMD_R1:\n\tSetValue (GetValue () + step * 10);\n\tFixValue ();\n    break;\n  case MENUCMD_L2:\n\tSetValue (GetValue () - step * 100);\n\tFixValue ();\n    break;\n  case MENUCMD_R2:\n\tSetValue (GetValue () + step * 100);\n\tFixValue ();\n    break;\n\tcase MENUCMD_CROSS:\n\tif (fn) (*fn)(this,buttonid);\n\tbreak;\n  default:\n    MenuEntryLabel::OnButtonPress(buttonid);\n  }\n}\n",
+      "status": "different",
+      "target_size": 472
+    }
+  ],
+  "raw_name": "OnButtonPress__26MenuEntryFunctionFloatEditi"
+}
