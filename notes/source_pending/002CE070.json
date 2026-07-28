@@ -1,0 +1,23 @@
+{
+  "address": "0x002CE070",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4f31ef216a62b0918f6cdbd64adf0837d0e3909a",
+      "candidate_size": 316,
+      "compared_bytes": 340,
+      "compared_instructions": 85,
+      "emitted_name": "get_ambient_factor__18scan_light_contextP6regioni",
+      "instruction_score": 28.2353,
+      "matching_bytes": 117,
+      "matching_instructions": 24,
+      "notes": "Attempt 1 used the exact released source for get_ambient_factor__18scan_light_contextP6regioni. Result `different`, score 34.4118; no variant or later attempt was made.",
+      "score": 34.4118,
+      "source": "typedef unsigned int u_int;\n\nclass color\n{\npublic:\n  float r, g, b, a;\n};\n\nclass region\n{\n  char pad[108];\n  color ambient;\n\npublic:\n  const color& get_ambient() const { return ambient; }\n};\n\nclass game\n{\n  char pad[552];\n  int beachid;\n\npublic:\n  int get_beach_id(void) { return beachid; }\n};\n\nstruct BeachData\n{\n  char pad[512];\n  int underwaterambient;\n  char tail[16];\n};\n\nextern bool UNDERWATER_CameraUnderwater(const int playerIdx);\nextern game* g_game_ptr;\nextern BeachData BeachDataArray[];\n\nclass scan_light_context\n{\n  char lights[12];\n  color ambient_factor;\n  color underwater_ambient_factor;\n\npublic:\n  const color& get_ambient_factor(region* reg, const int playerID);\n};\n\nconst color &scan_light_context::get_ambient_factor(region *reg, const int playerID )\n{\n\tif ( UNDERWATER_CameraUnderwater(playerID) )\n\t{\n\t\tint curbeach=g_game_ptr->get_beach_id();\n\t\tu_int underwater = BeachDataArray[curbeach].underwaterambient;\n\t\tunderwater_ambient_factor.a=1.0f;\n\t\tunderwater_ambient_factor.r=((float) ((underwater >> 16) & 0xFF )) / 255.0f;\n\t\tunderwater_ambient_factor.g=((float) ((underwater >>  8) & 0xFF )) / 255.0f;\n\t\tunderwater_ambient_factor.b=((float) ((underwater      ) & 0xFF )) / 255.0f;\n  \treturn underwater_ambient_factor;\n\t}\n\n  return reg->get_ambient();\n}\n",
+      "status": "different",
+      "target_size": 340
+    }
+  ],
+  "raw_name": "get_ambient_factor__18scan_light_contextP6regioni"
+}
