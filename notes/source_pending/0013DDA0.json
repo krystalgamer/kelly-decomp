@@ -1,0 +1,23 @@
+{
+  "address": "0x0013DDA0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "df91d746ba931af55707f2dbe6e77aa9704dffea",
+      "candidate_size": 268,
+      "compared_bytes": 336,
+      "compared_instructions": 84,
+      "emitted_name": "set_ifc_vec__21script_data_interfaceRC7pstringRC8vector3d",
+      "instruction_score": 4.7619,
+      "matching_bytes": 70,
+      "matching_instructions": 4,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/script_data_interface.cpp:88-94; kelly-slaters-pro-surfer/KS/SRC/script_data_interface.h:7-36; kelly-slaters-pro-surfer/KS/SRC/entity_interface.h:59-60; tmp/functions/0013DDA0_set_ifc_vec__21script_data_interfaceRC7pstringRC8vector3d/attempt-1/result.json; tmp/source_first/0013DDA0/attempt-1.md. Result `different`, score 20.8333; no later attempt.",
+      "score": 20.8333,
+      "source": "class pstring {\n    unsigned int value;\npublic:\n    pstring(const char *);\n    bool operator==(const pstring &) const;\n};\n\nclass vector3d {\npublic:\n    float x;\n    float y;\n    float z;\n};\n\nclass script_data_interface {\n    void *vtable;\n    void *owner;\n    float num_1;\n    float num_2;\n    float num_3;\n    float num_4;\n    float num_5;\n    float num_6;\n    float num_7;\n    float num_8;\n    char strings[32];\n    vector3d vec_1;\n    vector3d vec_2;\npublic:\n    bool set_ifc_vec(const pstring &att, const vector3d &val);\n};\n\n#define IFC_INTERNAL_SET_MACRO(a,b)       { static pstring pstring_set(##a##);  if(att == pstring_set)  { ##b## = val; return(true); } }\n\nbool script_data_interface::set_ifc_vec(const pstring &att, const vector3d &val)\n{\n  IFC_INTERNAL_SET_MACRO(\"SD_VEC_1\", vec_1);\n  IFC_INTERNAL_SET_MACRO(\"SD_VEC_2\", vec_2);\n\n  return(false);\n}\n",
+      "status": "different",
+      "target_size": 336
+    }
+  ],
+  "raw_name": "set_ifc_vec__21script_data_interfaceRC7pstringRC8vector3d"
+}
