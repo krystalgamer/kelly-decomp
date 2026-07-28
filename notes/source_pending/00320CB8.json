@@ -1,0 +1,15 @@
+{
+  "address": "0x00320CB8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "241aa216bb19e43d53c897268a47e366a685d508",
+      "notes": "# 0x00320CB8 __cl__19slf_was_B_pressed_tR8vm_stackQ320script_library_class8function7entry_t\n\nThe exact released body was submitted once with the lane's minimal declaration context. Result: `compile_failed`, byte score 0.0000%. No source variant was attempted.\n\nCitations: `kelly-slaters-pro-surfer/KS/SRC/script_lib.cpp`; `tmp/functions/00320CB8___cl__19slf_was_B_pressed_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/result.json`.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/global.h\"\n#include \"KS/SRC/script_library_class.h\"\n#include \"KS/SRC/game.h\"\n#include \"KS/SRC/vm_stack.h\"\n\nclass slf_was_B_pressed_t : public script_library_class::function\n{\npublic:\n    slf_was_B_pressed_t(const char* n): script_library_class::function(n) { }\n    virtual bool operator ()(vm_stack &stack, entry_t entry)\n    {\n        vm_num_t result = app::inst()->get_game()->was_B_pressed();\n        SLF_RETURN;\n        SLF_DONE;\n    }\n};\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__cl__19slf_was_B_pressed_tR8vm_stackQ320script_library_class8function7entry_t"
+}
