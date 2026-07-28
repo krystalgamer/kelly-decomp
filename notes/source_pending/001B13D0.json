@@ -1,0 +1,23 @@
+{
+  "address": "0x001B13D0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "97921ffc9a95dfc7bf92e88aea774a2e38dd8634",
+      "candidate_size": 388,
+      "compared_bytes": 388,
+      "compared_instructions": 97,
+      "emitted_name": "Load__14GoalsMenuClassP9PanelFile",
+      "instruction_score": 41.2371,
+      "matching_bytes": 186,
+      "matching_instructions": 40,
+      "notes": "Attempt 1 used the exact released source body and minimal declarations for `Load__14GoalsMenuClassP9PanelFile`. Result `different`, score 47.9381; no retry or variant was made. Citations: kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:2379-2388, kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h:483-517, kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:427-501,719-748, kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-289,380-384,497-507, tmp/functions/001B13D0_Load__14GoalsMenuClassP9PanelFile/attempt-1/result.json, tmp/source_first/001B13D0/timing.txt.",
+      "score": 47.9381,
+      "source": "// Target: 0x001B13D0 Load__14GoalsMenuClassP9PanelFile\n// Reference: KS/SRC/ks/FrontEndMenus.cpp\n\nclass string_buf\n{\npublic:\n    int char_length;\n};\n\nclass stringx\n{\n    char *chars;\n    string_buf *my_buf;\n\npublic:\n    stringx();\n    explicit stringx(int i);\n    ~stringx();\n    void make_room(int n);\n    stringx &append(const char *s, int n);\n    stringx &append(const stringx &s);\n    const char *data() const { return chars; }\n\n    friend stringx operator+(const char *lhs, const stringx &rhs);\n};\n\nextern \"C\" int strlen(const char *);\n\ninline stringx operator+(const char *lhs, const stringx &rhs)\n{\n    stringx foo;\n    int len = strlen(lhs);\n    foo.make_room(len + rhs.my_buf->char_length);\n    foo.append(lhs, len);\n    foo.append(rhs);\n    return foo;\n}\n\nclass PanelAnim;\nclass nglTexture;\nclass matrix4x4;\nclass color;\nclass recti;\n\nclass PanelQuad\n{\npublic:\n    virtual ~PanelQuad();\n    virtual void Init(float, float, float, float,\n                      float, float, float, float,\n                      float, float, float, float,\n                      float, matrix4x4);\n    virtual void TurnOn(bool);\n    virtual void SetLayer(int);\n    virtual void Rotate(float);\n    virtual void Rotate(float, float, float);\n    virtual void Update(float);\n    virtual void Draw(int = 0, float = -1.0f);\n    virtual void SetColor(float, float, float, float);\n    virtual void SetColor(color);\n    virtual void SetZ(float);\n    virtual void SetUV(float, float, float, float);\n    virtual bool IsOn() const;\n    virtual void SetPos(float, float, float, float);\n    virtual void SetPos(float, float);\n    virtual void SetPos(float, float, float, float,\n                        float, float, float, float);\n    virtual void GetPos(float &, float &, float &, float &);\n    virtual void SetCenterX(float);\n    virtual void SetCenterY(float);\n    virtual void SetCenterPos(float, float);\n    virtual void GetCenterPos(float &, float &);\n};\n\nclass PanelFile\n{\npublic:\n    PanelQuad *GetPointer(const char *);\n};\n\nclass GoalsMenuClass\n{\n    char padding[172];\n    PanelQuad *tip_box[9];\n\npublic:\n    void Load(PanelFile *panel);\n};\n\nvoid GoalsMenuClass::Load(PanelFile* panel)\n{\n\tfloat x, y;\n\tfor(int i=0; i<9; i++)\n\t{\n\t\ttip_box[i] = panel->GetPointer((\"tip_box_0\"+stringx(i+1)).data());\n\t\ttip_box[i]->GetCenterPos(x, y);\n\t\ttip_box[i]->SetCenterPos(x, y+80);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 384
+    }
+  ],
+  "raw_name": "Load__14GoalsMenuClassP9PanelFile"
+}
