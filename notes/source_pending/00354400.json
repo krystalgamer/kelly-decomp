@@ -1,0 +1,23 @@
+{
+  "address": "0x00354400",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "58e84f1646de1367880bd60863dcb887e593db09",
+      "candidate_size": 172,
+      "compared_bytes": 424,
+      "compared_instructions": 106,
+      "emitted_name": "__9vm_threadPQ213script_object8instancePC13vm_executableiP15script_callback",
+      "instruction_score": 2.8302,
+      "matching_bytes": 52,
+      "matching_instructions": 3,
+      "notes": "# FIRST PASS wave 75 lane B2 \u2014 0x00354400\n\n- Status: **different**\n- Attempts: **1**\n- Byte score: **12.2642%** (52/424)\n- Instruction score: **2.8302%** (3/106)\n- Candidate/target size: **172/424 bytes**\n- Candidate SHA-1: `58e84f1646de1367880bd60863dcb887e593db09`\n\nTested the exact released four-argument `vm_thread` constructor body once\nwith minimal declarations for its member layout, stack, vector, executable,\ncallback, and script-library entry type. No variants, retries, diff chasing,\nfinalization, build, integration, tracked-file edits, commit, or push were\nperformed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/vm_thread.cpp:76-98`\n- `kelly-slaters-pro-surfer/KS/SRC/vm_thread.h:20-78,101-105`\n- `kelly-slaters-pro-surfer/KS/SRC/vm_stack.h:21-57`\n- `kelly-slaters-pro-surfer/KS/SRC/vm_executable.h:17-53`\n- `kelly-slaters-pro-surfer/KS/SRC/signals.h:11-47`\n- `tmp/functions/00354400___9vm_threadPQ213script_object8instancePC13vm_executableiP15script_callback/attempt-1/result.json`",
+      "score": 12.2642,
+      "source": "// Target: 0x00354400 __9vm_threadPQ213script_object8instancePC13vm_executableiP15script_callback\n// Exact released KS/SRC/vm_thread.cpp constructor with minimal declarations.\n\n#define NULL 0\n#define THREAD_PROFILING 1\n\nnamespace script_object\n{\n  class instance;\n}\n\nclass vm_thread;\nclass region;\n\ntemplate<class T> class vector\n{\n  T* first;\n  T* last;\n  T* end;\npublic:\n  vector() : first(NULL), last(NULL), end(NULL) {}\n  void reserve(unsigned int);\n};\n\nclass vm_stack\n{\npublic:\n  int salloc;\n  char* buffer;\n  char* SP;\nprivate:\n  vm_thread* my_thread;\npublic:\n  vm_stack(int sa, vm_thread* thread);\n  ~vm_stack();\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n  };\n};\n\nclass vm_executable\n{\n  char opaque[32];\n  unsigned short* buffer;\npublic:\n  const unsigned short* get_start() const { return buffer; }\n};\n\nclass signal_callback\n{\npublic:\n  virtual ~signal_callback();\n  virtual void spawn(void* = 0) = 0;\n  void disable() { disabled = true; }\n  virtual bool is_code_callback();\n  virtual bool is_script_callback();\nprotected:\n  char* parms;\n  bool disabled;\n  bool one_shot;\n  unsigned int id;\n};\n\nclass script_callback : public signal_callback\n{\n};\n\nclass vm_thread\n{\nprotected:\n  enum flags_t\n  {\n    SUSPENDED = 0x0001,\n    SUSPENDABLE = 0x0002\n  };\n\n  script_object::instance* inst;\n  const vm_executable* ex;\n  unsigned int flags;\n  vm_stack dstack;\n  const unsigned short* PC;\n  vector<const unsigned short*> PC_stack;\n  script_library_class::function::entry_t entry;\n  script_callback* my_callback;\n  region* local_region;\n  float camera_priority;\n  static unsigned int id_counter;\n  unsigned int thread_id;\n\npublic:\n  vm_thread(script_object::instance* i, const vm_executable* x, int sa,\n            script_callback* cb);\n\n#if THREAD_PROFILING\n  float prof_runtime;\n  unsigned int prof_opcount;\n#endif\n};\n\nvm_thread::vm_thread(script_object::instance* i,const vm_executable* x,int sa,script_callback* cb)\n  : inst(i),\n    ex(x),\n    flags( vm_thread::SUSPENDABLE ),\n    dstack(sa,this),\n    PC(ex->get_start()),\n    PC_stack(),\n    entry(script_library_class::function::FIRST_ENTRY)\n{\n  PC_stack.reserve(8);\n  local_region = NULL;\n  #if THREAD_PROFILING\n  prof_runtime = 0;\n  prof_opcount = 0;\n  #endif\n  my_callback = cb;\n  // by default, callback is disabled until this thread terminates\n  cb->disable();\n  camera_priority = 0;\n\n  thread_id = ++id_counter;\n}\n",
+      "status": "different",
+      "target_size": 424
+    }
+  ],
+  "raw_name": "__9vm_threadPQ213script_object8instancePC13vm_executableiP15script_callback"
+}
