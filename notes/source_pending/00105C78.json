@@ -1,0 +1,23 @@
+{
+  "address": "0x00105C78",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "426f4b1ff07069a9a34fd3738c80603aadb08ee1",
+      "candidate_size": 396,
+      "compared_bytes": 396,
+      "compared_instructions": 99,
+      "emitted_name": "set_ifc_num__12ai_interfaceRC7pstringf",
+      "instruction_score": 9.0909,
+      "matching_bytes": 103,
+      "matching_instructions": 9,
+      "notes": "# Attempt 1 \u2014 canonical released source\n\nExact released body from `kelly-slaters-pro-surfer/KS/SRC/ai_interface.cpp:1968-1985`, with minimal declarations reproducing the relevant `pstring`, interface layout, flag values, and inline setters.\n\nResult: `different`, score 26.0101; candidate SHA-1 `426f4b1ff07069a9a34fd3738c80603aadb08ee1`. No additional attempt was made.",
+      "score": 26.0101,
+      "source": "typedef float rational_t;\ntypedef unsigned long uint64;\n\nclass pstring\n{\n  uint64 pchunk[4];\n  void pack_string(const char *);\npublic:\n  pstring(const char *target_string)\n  {\n    pack_string(target_string);\n  }\n\n  bool operator==(const pstring &check_me) const\n  {\n    for (unsigned i=0; i<4; ++i)\n    {\n      if (pchunk[i] != check_me.pchunk[i])\n        return false;\n    }\n    return true;\n  }\n};\n\nclass entity;\n\nclass generic_interface\n{\npublic:\n  virtual ~generic_interface();\n};\n\nclass entity_interface : public generic_interface\n{\nprotected:\n  entity *my_entity;\n};\n\nclass ai_interface : public entity_interface\n{\nprotected:\n  unsigned int flags;\n\npublic:\n  enum\n  {\n    _AI_ACTIVE = 0x00000001,\n    _AI_COSMETIC = 0x00000080\n  };\n\n  inline void set_flag(unsigned int f, bool val = true)\n  {\n    if(val) flags |= f; else flags &= ~f;\n  }\n\n  inline void set_active(bool a) { set_flag(_AI_ACTIVE, a); }\n  inline void set_cosmetic(bool a) { set_flag(_AI_COSMETIC, a); }\n\n  bool set_ifc_num(const pstring &att, rational_t val);\n};\n\n__asm__(\".equ pack_string__7pstringPCc,0x003354D0\");\n\n#define IFC_INTERNAL_FUNC_MACRO(a,b) { static pstring pstring_func(a); if(att == pstring_func) { b; return(true); } }\n\nbool ai_interface::set_ifc_num(const pstring &att, rational_t val)\n{\n  IFC_INTERNAL_FUNC_MACRO(\"AI_ACTIVE\", set_active(val != 0.0f));\n  IFC_INTERNAL_FUNC_MACRO(\"AI_COSMETIC\", set_cosmetic(val != 0.0f));\n#if 0 // BIGCULL\n  IFC_INTERNAL_SET_MACRO(\"AI_EYE_ARC\", eyes->detection_arc);\n  IFC_INTERNAL_SET_MACRO(\"AI_EYE_ARC_Y\", eyes->detection_arc_y);\n  IFC_INTERNAL_SET_MACRO(\"AI_EYE_MIN\", eyes->min_dist);\n  IFC_INTERNAL_SET_MACRO(\"AI_EYE_MAX\", eyes->max_dist);\n  IFC_INTERNAL_SET_MACRO(\"AI_EAR_ARC\", ears->detection_arc);\n  IFC_INTERNAL_SET_MACRO(\"AI_EAR_MIN\", ears->min_dist);\n  IFC_INTERNAL_SET_MACRO(\"AI_EAR_MAX\", ears->max_dist);\n#endif // BIGCULL\n\n  return(false);\n}\n",
+      "status": "different",
+      "target_size": 392
+    }
+  ],
+  "raw_name": "set_ifc_num__12ai_interfaceRC7pstringf"
+}
