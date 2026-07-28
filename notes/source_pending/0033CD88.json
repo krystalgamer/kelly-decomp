@@ -1,0 +1,23 @@
+{
+  "address": "0x0033CD88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "80482c8d5b6aa60a3bf2cc150183b7e5b378d160",
+      "candidate_size": 260,
+      "compared_bytes": 368,
+      "compared_instructions": 92,
+      "emitted_name": "text_height__C12typeface_defRC7stringx",
+      "instruction_score": 0.0,
+      "matching_bytes": 37,
+      "matching_instructions": 0,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 56 lane B1 for `0x0033CD88 text_height__C12typeface_defRC7stringx`.\n- Tested the exact released `typeface_def::text_height` body once with minimal self-contained declarations preserving the released `string_buf`, `stringx`, `char_info`, and `typeface_def` layouts and inline accessors used by the function.\n- Result: **different**, byte score **10.0543%** (37/368) and instruction score **0.0%** (0/92); candidate size 260 bytes versus target size 368 bytes.\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/text_font.cpp:1470-1501`\n- `kelly-slaters-pro-surfer/KS/SRC/text_font.h:220-267`\n- `kelly-slaters-pro-surfer/KS/SRC/stringx.h:55-68,270-277,346-353,386-390`\n- `tmp/functions/0033CD88_text_height__C12typeface_defRC7stringx/attempt-1/result.json`",
+      "score": 10.0543,
+      "source": "// Target: 0x0033CD88 text_height__C12typeface_defRC7stringx\n// Reference: KS/SRC/text_font.cpp\ntypedef unsigned long long big_int;\n\nclass string_buf\n{\n  big_int *data;\n  int ref_count;\npublic:\n  int char_length;\n};\n\nclass stringx\n{\n  char *chars;\n  string_buf *my_buf;\npublic:\n  inline const char operator[](int i) const\n  {\n    if (i < 0)\n      i += my_buf->char_length;\n    return chars[i];\n  }\n  inline int size() const\n  {\n    return my_buf->char_length;\n  }\n};\n\nstruct char_info\n{\n  int x0;\n  int y0;\n  int x1;\n  int y1;\n  int adv;\n};\n\nclass typeface_def\n{\n  char_info char_infos[256];\npublic:\n  const char_info *get_char_info(int c) const\n  {\n    return &char_infos[c];\n  }\n  int text_height(const stringx &s) const;\n};\n\nint typeface_def::text_height( const stringx &s ) const\n{\n  int largest_h = 0;\n  const char_info *ci;\n  int ssize = s.size();\n\n  for (int i = 0; i<ssize; ++i)\n  {\n    if( s[i] == '\\\\' )\n    {\n      ++i;\n      if (i>=ssize-1) break;\n      if( s[i] == 'n' ) break;\n      if( s[i] == 'c' ) { i += 9; }\n      continue;\n    }\n    ci = get_char_info(s[i]);\n    if(ci)\n    {\n      int h = ci->y1 - ci->y0 + 1;\n      if ( h > largest_h )\n      {\n        largest_h = h;\n      }\n    }\n  }\n  return largest_h;\n}\n",
+      "status": "different",
+      "target_size": 368
+    }
+  ],
+  "raw_name": "text_height__C12typeface_defRC7stringx"
+}
