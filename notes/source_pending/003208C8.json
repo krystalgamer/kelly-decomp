@@ -1,0 +1,23 @@
+{
+  "address": "0x003208C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "be7d3af2a8d0d0d15d1e0b2893beb6938be0ce4e",
+      "candidate_size": 400,
+      "compared_bytes": 400,
+      "compared_instructions": 100,
+      "emitted_name": "__cl__23slf_was_start_pressed_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 12.0,
+      "matching_bytes": 134,
+      "matching_instructions": 12,
+      "notes": "# FIRST PASS wave 66 A3\n\nTarget: `0x003208C8 __cl__23slf_was_start_pressed_tR8vm_stackQ320script_library_class8function7entry_t`\n\nExactly one non-placeholder candidate was tested: the exact released `slf_was_start_pressed_t::operator()` body with minimal faithful declarations for the VM stack, error expression, app/game calls, and script function interface.\n\nResult: **different**, byte score **33.5%** (134/400), instruction score **12.0%** (12/100); candidate size 400 bytes versus target size 392 bytes.\n\nNo retry, variants, diff chasing, build, finalize, integration, tracked-file edits, commit, or push.\n\nCitations: released `kelly-slaters-pro-surfer/KS/SRC/script_lib.cpp:1587-1601`; candidate `tmp/wave66-a3-003208C8/candidate.cpp`; result `tmp/functions/003208C8___cl__23slf_was_start_pressed_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/result.json`.",
+      "score": 33.5,
+      "source": "extern \"C\" unsigned int strlen(const char*);\n\nstruct string_buf { int pad0; int pad4; int char_length; };\nclass stringx {\npublic:\n  string_buf* my_buf;\n  stringx();\n  stringx(const stringx&);\n  ~stringx();\n  void make_room(int);\n  void append(const char*, int = -1);\n  void append(const stringx&);\n};\ninline stringx operator+(const stringx& lhs, const stringx& rhs) {\n  stringx foo; foo.make_room(lhs.my_buf->char_length + rhs.my_buf->char_length);\n  foo.append(lhs); foo.append(rhs); return foo;\n}\ninline stringx operator+(const stringx& lhs, const char* rhs) {\n  stringx foo; int len = strlen(rhs); foo.make_room(len + lhs.my_buf->char_length);\n  foo.append(lhs); foo.append(rhs, len); return foo;\n}\nnamespace script_object { class instance { public: int pad0; stringx name; const stringx& get_name() const { return name; } }; }\nclass vm_executable { public: int pad[3]; stringx fullname; const stringx& get_fullname() const { return fullname; } };\nclass vm_thread { public: script_object::instance* inst; const vm_executable* ex; script_object::instance* get_instance() const { return inst; } const vm_executable* get_executable() const { return ex; } };\ntypedef float vm_num_t;\nclass vm_stack {\npublic:\n  int salloc; char* buffer; char* SP; vm_thread* my_thread;\n  char* get_SP() const { return SP; }\n  vm_thread* get_thread() const { return my_thread; }\n  bool push(const char*, int);\n};\nvoid error(const stringx&);\nclass game { public: bool was_start_pressed() const; };\nclass app {\npublic:\n  static app* instance;\n  static app* inst() { return instance; }\n  game* get_game();\n};\nclass script_library_class {\npublic:\n  class function {\n  public:\n    enum entry_t { FIRST_ENTRY, RECALL_ENTRY };\n    virtual ~function();\n    virtual bool operator()(vm_stack&, entry_t) { return true; }\n  };\n};\nclass slf_was_start_pressed_t : public script_library_class::function {\npublic:\n  virtual bool operator()(vm_stack&, entry_t);\n};\nbool slf_was_start_pressed_t::operator()(vm_stack& stack, entry_t entry)\n{\n  vm_num_t result = app::inst()->get_game()->was_start_pressed();\n  if (!stack.push((char*)&result,sizeof(result)) )\n    error( stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname() );\n  return true;\n}\n",
+      "status": "different",
+      "target_size": 392
+    }
+  ],
+  "raw_name": "__cl__23slf_was_start_pressed_tR8vm_stackQ320script_library_class8function7entry_t"
+}
