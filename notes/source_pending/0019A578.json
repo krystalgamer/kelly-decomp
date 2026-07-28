@@ -1,0 +1,15 @@
+{
+  "address": "0x0019A578",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "833b8983e44479f89d83a117480930503a8d5f20",
+      "notes": "# FIRST PASS wave 84 lane B3\n\nExact released body tested once for `0x0019A578 OnActivate__16SaveLoadFrontEnd`. Result `compile_failed`, score 0.0. No retry, build, finalize, integration, or tracked edit.",
+      "score": 0.0,
+      "source": "class stringx\n{\n  char data[16];\npublic:\n  stringx(const char *, int = -1);\n  stringx(const stringx &);\n  ~stringx();\n};\n\nstruct color32\n{\n  unsigned int value;\n};\n\nclass FEMenuEntry\n{\npublic:\n  void SetSpecialColor(color32, color32);\n};\n\nclass NamesMenu\n{\npublic:\n  void ResetCardFormat();\n};\n\nclass HelpbarFE\n{\npublic:\n  void Reset();\n  void ChangeBtn(int, bool, stringx);\n  void Reformat();\n};\n\nstruct FEEntityManager\n{\n  char pad[12];\n  struct CameraRoll\n  {\n    char pad[16];\n    int state;\n  } *camera;\n};\n\nstruct FEManager\n{\n  char pad0[12];\n  FEEntityManager *em;\n  char pad1[0x156a4 - 16];\n  HelpbarFE *helpbar;\n};\n\nstruct FrontendManager\n{\n  char pad[0xcd58];\n  color32 col_unselected;\n  color32 col_highlight;\n};\n\nextern FrontendManager frontendmanager;\n\nclass SaveLoadFrontEnd\n{\n  char pad0[0x4c];\n  FEMenuEntry *highlighted;\n  char pad1[0x13c - 0x50];\npublic:\n  FEManager *manager;\nprivate:\n  char pad2[0x32a4 - 0x140];\n  int back_menu;\n  int back_sub_menu;\n  int forward_menu;\n  int forward_sub_menu;\n  bool in_frontend;\n  char pad3[0x32e4 - 0x32b5];\n  FEMenuEntry *entry[3];\n  char pad4[4];\n  NamesMenu *NameMenu;\n\n  void SetDState(int, bool = true, bool = false, bool = false);\n  void BaseOnActivate();\n  void setHigh(FEMenuEntry *, bool = true);\n\npublic:\n  void OnActivate();\n};\n\nvoid SaveLoadFrontEnd::BaseOnActivate()\n  __asm__(\"OnActivate__15FEGraphicalMenu\");\nvoid SaveLoadFrontEnd::setHigh(FEMenuEntry *, bool)\n  __asm__(\"setHigh__6FEMenuP11FEMenuEntryb\");\n\nvoid SaveLoadFrontEnd::OnActivate()\n{\n  if (in_frontend && manager->em->camera->state == 0)\n    manager->em->camera->state = 2;\n\n  forward_menu = -1;\n  forward_sub_menu = -1;\n  back_menu = -1;\n  back_sub_menu = -1;\n  FEMenuEntry *tmp = highlighted;\n  SetDState(0, false);\n  for (int i = 0; i < 3; i++)\n    entry[i]->SetSpecialColor(frontendmanager.col_unselected,\n                              frontendmanager.col_highlight);\n  BaseOnActivate();\n  if (tmp)\n    setHigh(tmp);\n  NameMenu->ResetCardFormat();\n\n  if (in_frontend)\n  {\n    manager->helpbar->Reset();\n    manager->helpbar->ChangeBtn(1, true, stringx(\"\"));\n    manager->helpbar->ChangeBtn(2, false, stringx(\"\"));\n    manager->helpbar->Reformat();\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "OnActivate__16SaveLoadFrontEnd"
+}
