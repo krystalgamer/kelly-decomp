@@ -1,0 +1,23 @@
+{
+  "address": "0x00121D48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f28ab94bcedb96742fe0d6f8420ba2d23bafffbc",
+      "candidate_size": 364,
+      "compared_bytes": 364,
+      "compared_instructions": 92,
+      "emitted_name": "get_ifc_num__14time_interfaceRC7pstringRf",
+      "instruction_score": 32.6087,
+      "matching_bytes": 155,
+      "matching_instructions": 30,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 52 lane B4 for `0x00121D48 get_ifc_num__14time_interfaceRC7pstringRf`.\n- Tested the exact released `time_interface::get_ifc_num` body once with minimal self-contained declarations preserving the released `pstring` storage and inline equality loop, generic/entity interface inheritance, and time-interface member layout.\n- Result: **different**, byte score **42.5824%** (155/364) and instruction score **32.6087%** (30/92); candidate and target sizes were both 364 bytes.\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/time_interface.cpp:8-14`\n- `kelly-slaters-pro-surfer/KS/SRC/time_interface.h:17-64`\n- `kelly-slaters-pro-surfer/KS/SRC/entity_interface.h:39-59,76-88`\n- `kelly-slaters-pro-surfer/KS/SRC/pstring.h:21-35,45-63,137-149`\n- `tmp/functions/00121D48_get_ifc_num__14time_interfaceRC7pstringRf/attempt-1/result.json`",
+      "score": 42.5824,
+      "source": "typedef float rational_t;\ntypedef unsigned long uint64;\n\n#define PSTRING_PCHUNK_NUMBER 4\n\nclass pstring\n{\nprivate:\n  uint64 pchunk[PSTRING_PCHUNK_NUMBER];\n  void pack_string(const char *the_string);\npublic:\n  pstring(const char *target_string)\n  {\n    pack_string(target_string);\n  }\n\n  bool operator == (const pstring &check_me) const\n  {\n    for (unsigned i=0; i<PSTRING_PCHUNK_NUMBER; ++i)\n    {\n      if (pchunk[i] != check_me.pchunk[i])\n        return false;\n    }\n    return true;\n  }\n};\n\nclass vector3d;\nclass stringx;\nclass generic_interface\n{\npublic:\n  virtual ~generic_interface() {}\n  virtual bool get_ifc_num(const pstring &att, rational_t &val) { return(false); }\n  virtual bool set_ifc_num(const pstring &att, rational_t val) { return(false); }\n  virtual bool get_ifc_vec(const pstring &att, vector3d &val) { return(false); }\n  virtual bool set_ifc_vec(const pstring &att, const vector3d &val) { return(false); }\n  virtual bool get_ifc_str(const pstring &att, stringx &val) { return(false); }\n  virtual bool set_ifc_str(const pstring &att, const stringx &val) { return(false); }\n};\n\nclass entity;\nclass entity_interface : public generic_interface\n{\nprotected:\n  entity *my_entity;\n};\n\ntypedef enum\n{\n  _TIME_WORLD = 0,\n  _TIME_ABSOLUTE = 1,\n  _TIME_RELATIVE = 2\n} eTimeMode;\n\nclass time_interface : public entity_interface\n{\nprotected:\n  rational_t time_dilation;\n  eTimeMode time_mode;\npublic:\n  virtual bool get_ifc_num(const pstring &att, rational_t &val);\n};\n\nbool time_interface::get_ifc_num(const pstring &att, rational_t &val)\n{\n  { static pstring pstring_get(\"TIME_DILATION\"); if(att == pstring_get) { val = time_dilation; return(true); } }\n  { static pstring pstring_get(\"TIME_MODE\"); if(att == pstring_get) { val = time_mode; return(true); } }\n\n  return(false);\n}\n",
+      "status": "different",
+      "target_size": 364
+    }
+  ],
+  "raw_name": "get_ifc_num__14time_interfaceRC7pstringRf"
+}
