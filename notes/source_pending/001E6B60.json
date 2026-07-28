@@ -1,0 +1,15 @@
+{
+  "address": "0x001E6B60",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c303e549763bd26ea027044d41ee344854de5c92",
+      "notes": "Attempt 1 used the exact released source for play__11movieplayerPcbN22i. Result `compile_failed`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "#include <stddef.h>\n\nstruct sceGsDBuff { char data[560]; };\nstruct nvlMovieSource;\nstruct nvlMovie;\nstruct nglTexture;\nstruct nglQuad { char data[104]; };\n\nenum { NGLTF_32BIT = 1 };\n\nextern \"C\" void free(void*);\nextern \"C\" void* memalign(unsigned int, unsigned int);\nextern \"C\" int nvlMPEGLoad(char*, void*);\nextern \"C\" nvlMovieSource* nvlLoadMovieSource(const char*, int, void*);\nextern \"C\" nvlMovie* nvlAddMovie(nvlMovieSource*);\nextern \"C\" void nvlReleaseMovieSource(nvlMovieSource*);\nextern \"C\" unsigned int nvlMovieGetWidth(const nvlMovie*);\nextern \"C\" unsigned int nvlMovieGetHeight(const nvlMovie*);\nextern \"C\" nglTexture* nglCreateTexture(unsigned int, unsigned int, unsigned int);\nextern \"C\" void nvlPlayMovie(nvlMovie*, void* (*)(nvlMovie*, size_t*, void*), void*, bool);\nextern \"C\" int nglPrintf(const char*, ...);\nextern \"C\" void* myOutputFunc(nvlMovie*, size_t*, void*);\nextern \"C\" void __assert(const char*, const char*, int);\n\n#define assert(expr) ((expr) ? (void)0 : __assert(#expr, __FILE__, __LINE__))\n\nclass movieplayer\n{\npublic:\n  void play(char*, bool, bool, bool, int);\nprivate:\n  int singleton_pad;\n  bool hiRes;\n  sceGsDBuff db;\n  char* movieBuf;\n  nvlMovieSource* movieSource;\n  nvlMovie* movie;\n  nglTexture* texture;\n  nglQuad frame;\n  bool movieStarted;\n  bool isPlaying;\n};\n\nvoid movieplayer::play( char *filename, bool play_video, bool play_audio, bool loop, int buffersize )\n{\n  if(hiRes)\n  {\n\t\t\n    if(nvlMPEGLoad(filename, &db))\n    {\n\t\t\t//nvlMPEGSetVolume(ps2MovieVolume);\n      movieStarted = true;\n      isPlaying    = true;\n    }\n    else\n    {\n      movieStarted = false;\n      isPlaying    = false;\n    }\n\n  }\n  else\n  {\n    if(movieBuf)\n      free(movieBuf);\n    movieBuf = (char *)memalign(64, buffersize);\n    assert(movieBuf);\n\n\t  movieSource = nvlLoadMovieSource(filename, buffersize, movieBuf);\n    if(movieSource)\n\t    movie = nvlAddMovie( movieSource );\n\t  if (!movie)\n\t  {\n\t\t  nglPrintf(\"WARNING: Could not play movie %s!\", filename);\n      if(movieSource)\n\t\t    nvlReleaseMovieSource(movieSource);\n\t\t  movieSource = NULL;\n      if(movieBuf)\n        free(movieBuf);\n      movieBuf = NULL;\n\t\t  return;\n\t  }\n\t  //nglDev->SetRenderState(D3DRS_YUVENABLE, TRUE);\n    texture = nglCreateTexture( NGLTF_32BIT, (unsigned int)nvlMovieGetWidth(movie), (unsigned int)nvlMovieGetHeight(movie) );\n\t  nvlPlayMovie( movie, myOutputFunc, texture, loop );\n\t  //nvlMovieSetVolume(movie, nslGetVolume(NSL_SOURCETYPE_MOVIE));\n\t  movieStarted = true;\n    isPlaying    = true;\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "play__11movieplayerPcbN22i"
+}
