@@ -1,0 +1,23 @@
+{
+  "address": "0x002D53C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9804091c62799abfe15059fa2e4ca60aafc691f1",
+      "candidate_size": 356,
+      "compared_bytes": 360,
+      "compared_instructions": 90,
+      "emitted_name": "serial_in__FR10chunk_fileP8lod_info",
+      "instruction_score": 53.3333,
+      "matching_bytes": 191,
+      "matching_instructions": 48,
+      "notes": "Attempt 1 used the exact released source for serial_in__FR10chunk_fileP8lod_info. Result `different`, score 53.0556; no retry or variant was made.",
+      "score": 53.0556,
+      "source": "extern \"C\" char* strcpy(char*, const char*);\n\nclass chunk_file {};\n\nclass chunk_flavor\n{\nprivate:\n  char flavor[16];\npublic:\n  enum { CHUNK_FLAVOR_SIZE=16 };\n  chunk_flavor(const char* s=\"UNREG\") { strcpy( flavor, s ); }\n  bool operator==( const chunk_flavor& cf ) const;\n  bool operator!=( const chunk_flavor& cf ) const;\n};\n\nclass stringx\n{\nprotected:\n  char *chars;\n  void *my_buf;\npublic:\n  stringx();\n  stringx(const stringx &cp);\n  stringx(const char *str, int len = -1);\n  ~stringx();\n  stringx &operator=(const stringx &cp);\n};\n\nextern const chunk_flavor CHUNK_END;\nvoid serial_in(chunk_file& io,chunk_flavor* d);\nvoid serial_in(chunk_file& io, int* d);\nvoid serial_in(chunk_file& io, float* d);\nvoid serial_in(chunk_file& io, stringx* d);\nvoid error(const char*, ...);\n\nclass lod_info\n{\npublic:\n  float ranges[4];\n  stringx names[4];\n\n  lod_info( void )\n  {\n    for( int i = 0; i < 3; i++ ) {\n      ranges[i] = 0.0f;\n    }\n  }\n};\n\nvoid serial_in( chunk_file& fs, lod_info* lod )\n{\n  chunk_flavor cf;\n  int level;\n  float range;\n  stringx name;\n\n  for( serial_in( fs, &cf ); cf != CHUNK_END; serial_in( fs, &cf ) ) {\n\n    if( cf == chunk_flavor( \"level\" ) ) {\n      serial_in( fs, &level );\n    } else if( cf == chunk_flavor( \"range\" ) ) {\n      serial_in( fs, &range );\n    } else if( cf == chunk_flavor( \"name\" ) ) {\n      serial_in( fs, &name );\n    } else {\n      error( \"unknown chunk parsing lod tag\" );\n    }\n\n  }\n\n  lod->ranges[level] = range;\n  lod->names[level] = name;\n}\n",
+      "status": "different",
+      "target_size": 360
+    }
+  ],
+  "raw_name": "serial_in__FR10chunk_fileP8lod_info"
+}
