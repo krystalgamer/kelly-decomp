@@ -1,0 +1,23 @@
+{
+  "address": "0x0019BF78",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "15c70d08ba16f12a4514011d1ab053ed511605fc",
+      "candidate_size": 664,
+      "compared_bytes": 664,
+      "compared_instructions": 166,
+      "emitted_name": "LoadFile__16SaveLoadFrontEndii",
+      "instruction_score": 1.2048,
+      "matching_bytes": 55,
+      "matching_instructions": 2,
+      "notes": "Attempt 1 used the exact released source for LoadFile__16SaveLoadFrontEndii. Result `different`, score 8.2831; no retry or variant was made.",
+      "score": 8.2831,
+      "source": "enum { NUM_MEMORY_SLOTS = 1 };\n\nstruct saveInfo {\n    char data[104];\n};\n\nclass NamesMenu {\npublic:\n    static int FindAdjusted(int active);\n};\n\nclass GenericGameSaver {\npublic:\n    static GenericGameSaver *inst();\n    void setFileInfo(saveInfo info);\n    void readFile(\n        int port,\n        int slot,\n        void *data,\n        int size,\n        void (*progress)(void *, int),\n        void *user);\n};\n\nstruct career {\n    char data[0x10a48];\n};\n\nstruct FEManager {\n    char data[0x15690];\n    bool unsaved_career;\n};\n\nclass SaveLoadFrontEnd {\n    char data[0x2600];\n    saveInfo savedConfigs[2][15];\n    NamesMenu *NameMenu;\n\npublic:\n    static void SetLoadProgressGame(void *userData, int val);\n    void LoadFile(int card, int filenum);\n};\n\nextern FEManager frontendmanager;\nextern saveInfo loading;\nextern int savePort;\nextern int saveSlot;\nextern career *g_career;\n\n__asm__(\".equ _16GenericGameSaver$instance, 0x0041E5B8\");\n__asm__(\".equ setFileInfo__16GenericGameSaverG8saveInfo, 0x001E6030\");\n__asm__(\".equ readFile__16GenericGameSaveriiPviPFPvi_vT3, 0x001E4A88\");\n__asm__(\".equ FindAdjusted__9NamesMenui, 0x001A0808\");\n__asm__(\".equ frontendmanager, 0x003F7728\");\n__asm__(\".equ loading, 0x003FE2F8\");\n__asm__(\".equ savePort, 0x0041E5AC\");\n__asm__(\".equ saveSlot, 0x0041E5B0\");\n__asm__(\".equ g_career, 0x00427C9C\");\n__asm__(\".equ SetLoadProgressGame__16SaveLoadFrontEndPvi, 0x0019A238\");\n\nGenericGameSaver *GenericGameSaver::inst()\n{\n    return *(GenericGameSaver **)0x0041E5B8;\n}\n\nvoid SaveLoadFrontEnd::LoadFile(int card, int filenum)\n{\n    GenericGameSaver::inst()->setFileInfo(savedConfigs[NameMenu->FindAdjusted(card)][filenum]);\n    loading = savedConfigs[NameMenu->FindAdjusted(card)][filenum];\n    frontendmanager.unsaved_career = false;\n    savePort = (card!=-1)?card/NUM_MEMORY_SLOTS:-1;\n    saveSlot = (card!=-1)?card%NUM_MEMORY_SLOTS:0;\n    GenericGameSaver::inst()->readFile(savePort, saveSlot , (void*)g_career,\n        sizeof(*g_career),\n        (SaveLoadFrontEnd::SetLoadProgressGame), (void *)this);\n}\n",
+      "status": "different",
+      "target_size": 372
+    }
+  ],
+  "raw_name": "LoadFile__16SaveLoadFrontEndii"
+}
