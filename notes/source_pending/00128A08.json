@@ -1,0 +1,15 @@
+{
+  "address": "0x00128A08",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "80633e3cd9cb8782ad4cb85385227b7efdcb8200",
+      "notes": "Wave 78 lane A2 \u2014 FIRST PASS released-source attempt 1\n\nTarget: 0x00128A08 `set_entity_id__9entity_idPCc`, object `game/files_entity`, expected size 436 (0x1B4).\nReleased source citation: `kelly-slaters-pro-surfer/KS/SRC/entity.cpp:276-307`; declarations: `KS/SRC/entity.h:171-263`, `KS/SRC/entityid.h:5-28`.\nCandidate SHA-1: 80633e3cd9cb8782ad4cb85385227b7efdcb8200\nResult: compile_failed; score: 0.0; expected size: 436; candidate size: unavailable (compile failed).\nUTC start: 2026-07-28T18:21:02Z; UTC end: 2026-07-28T18:27:14Z; duration: 372 seconds.\nHarness invocations: 1. Attempts records: 1.\nNo retry, no finalize, no build/configure/ninja, and no tracked-file edit was performed.\nCompiler diagnostics: `tmp/functions/00128A08_set_entity_id__9entity_idPCc/attempt-1/compiler.stderr`.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"entity.h\"\n#include \"entityid.h\"\n\nvoid entity_id::set_entity_id(const char* name)\n{\n  // from now on, entity_id's must be uppercase.  tools are responsible\n  // for converting.\n#ifndef NDEBUG\n  for(unsigned i=0;i<strlen(name);++i)\n  {\n    if(islower(name[i]))\n    {\n      stringx warnmsg = stringx(name) + \" is not all uppercase.\";\n      warning( warnmsg );\n      break;  // so we can ignore and find more\n    }\n  }\n#endif\n  name_to_number_map& name_to_number = entity_manager::inst()->name_to_number;\n  name_to_number_map::iterator it =\n    name_to_number.find( charstarwrap( const_cast<char*>(name) ) );\n  if( it == name_to_number.end() )\n  {\n    char* newname = strdupcpp( name );\n/*    char* newname = NEW char[strlen(name)+1];\n    memcpy(newname,name,strlen(name));\n    newname[strlen(name)]=0;*/\n    pair<name_to_number_map::iterator,bool> result = name_to_number.insert(\n      name_to_number_map::value_type( charstarwrap( newname ), entity_manager::inst()->number_server++ ) );\n    // will only insert if not in there already\n    val = (*result.first).second;\n  }\n  else\n    val = (*it).second;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "set_entity_id__9entity_idPCc"
+}
