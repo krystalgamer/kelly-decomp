@@ -1,0 +1,23 @@
+{
+  "address": "0x002C28E8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "055a0249da9007a3d8b2c5cdfa9d37f63c4091b5",
+      "candidate_size": 432,
+      "compared_bytes": 432,
+      "compared_instructions": 108,
+      "emitted_name": "copy_instance_data__9lensflareRC9lensflare",
+      "instruction_score": 0.0,
+      "matching_bytes": 54,
+      "matching_instructions": 0,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 51 lane A5 for `0x002C28E8 copy_instance_data__9lensflareRC9lensflare`.\n- Tested the released `lensflare::copy_instance_data` body once with minimal self-contained declarations preserving the entity prefix, lensflare/flare field layout, `mat_fac` copy construction, released random wrapper, and base `entity::copy_instance_data` call.\n- Result: **different**, byte score **12.5%** (54/432) and instruction score **0.0%** (0/108); candidate size 432 bytes versus target size 360 bytes.\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/lensflare.cpp:178-202`\n- `kelly-slaters-pro-surfer/KS/SRC/lensflare.h:9-48`\n- `kelly-slaters-pro-surfer/KS/SRC/random.h:71-76,123-130`\n- `tmp/functions/002C28E8_copy_instance_data__9lensflareRC9lensflare/attempt-1/result.json`",
+      "score": 12.5,
+      "source": "struct mat_fac {};\nstruct color { float r, g, b, a; };\n\nextern \"C\" void *operator_new(unsigned, unsigned, const char *, int)\n  __asm__(\"__nw__FUiUiPCci\");\nextern \"C\" mat_fac *copy_mat_fac(mat_fac *, const mat_fac &)\n  __asm__(\"__7mat_facRC7mat_fac\");\nextern \"C\" void copy_entity(void *, const void *)\n  __asm__(\"copy_instance_data__6entityRC6entity\");\nextern const char source_name[];\n\n__asm__(\".equ __nw__FUiUiPCci,0x002AC578\");\n__asm__(\".equ __7mat_facRC7mat_fac,0x002BC948\");\n__asm__(\".equ copy_instance_data__6entityRC6entity,0x0012EB50\");\n__asm__(\".equ source_name,0x004EF8B0\");\n\nclass Random {\npublic:\n  unsigned int NextRand();\n  float randf(float end) {\n    unsigned int r = NextRand();\n    return r * (1.0f / 32767) * end;\n  }\n};\n\n__asm__(\".equ NextRand__6Random,0x00112C68\");\nextern Random *g_random_ptr;\n__asm__(\".equ g_random_ptr,0x00432360\");\n\ninline float random(float end) {\n  float r = g_random_ptr->randf(end);\n  return r;\n}\n\nclass lensflare {\n  char entity_data[516];\n  float brightness;\n  float speed;\n  float farrange;\n  float amount;\n  float target;\n\n  struct flare {\n    float offset;\n    float size;\n    mat_fac *texture;\n    color col;\n  };\n\n  int nflares;\n  flare flares[8];\n  float los_time;\n  float los_freq;\n\npublic:\n  void copy_instance_data(const lensflare &b);\n};\n\nvoid lensflare::copy_instance_data(const lensflare &b)\n{\n  speed = b.speed;\n  amount = b.amount;\n  target = b.target;\n  farrange = b.farrange;\n\n  nflares = b.nflares;\n  for (int i = 0; i < nflares; i++)\n  {\n    mat_fac *memory = (mat_fac *)operator_new(272, 0, source_name, 0);\n    flares[i].texture = copy_mat_fac(memory, *b.flares[i].texture);\n    flares[i].offset = b.flares[i].offset;\n    flares[i].size = b.flares[i].size;\n    flares[i].col = b.flares[i].col;\n  }\n\n  los_freq = b.los_freq;\n  los_time = random(los_freq);\n\n  copy_entity(this, &b);\n}\n",
+      "status": "different",
+      "target_size": 360
+    }
+  ],
+  "raw_name": "copy_instance_data__9lensflareRC9lensflare"
+}
