@@ -1,0 +1,23 @@
+{
+  "address": "0x001E69B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1019a697e5a77631e3f4b9b42a6ec071cbe48b17",
+      "candidate_size": 368,
+      "compared_bytes": 372,
+      "compared_instructions": 93,
+      "emitted_name": "initHiRes__11movieplayerii",
+      "instruction_score": 13.9785,
+      "matching_bytes": 95,
+      "matching_instructions": 13,
+      "notes": "Attempt 1 used the exact released source for initHiRes__11movieplayerii. Result `different`, score 25.5376; no retry or variant was made.",
+      "score": 25.5376,
+      "source": "typedef unsigned int size_t;\n\nclass singleton {};\n\nstruct sceGsDBuff\n{\n  char data[256];\n};\n\nclass os_developer_options\n{\npublic:\n  enum flags_t\n  {\n    FLAG_NO_AUDIO\n  };\n\n  static os_developer_options* inst();\n  bool is_flagged(flags_t);\n};\n\nstruct movieplayer : public singleton\n{\n  void initHiRes(int width, int height);\n  void clearGsMem(int r, int g, int b, int disp_width, int disp_height);\n\n  bool hiRes;\n  sceGsDBuff db;\n};\n\nvoid nglExit();\nvoid nslShutdown();\nvoid nvlMPEGSetMemoryAllocCallback(void* (*callback)(int, int));\nvoid nvlMPEGSetMemoryFreeCallback(void (*callback)(void*));\nvoid* KSMemAllocNVL(int size, int alignment);\nvoid KSMemFree(void* memory);\nint GetThreadId();\nint ChangeThreadPriority(int thread_id, int priority);\nvoid sceSifInitRpc(int mode);\nvoid sceSifInitIopHeap();\nbool _nvlLoadModule(char* module);\nvoid debug_print(char* format, ...);\nvoid sceGsResetPath();\nvoid sceDmaReset(int channel);\nvoid sceGsSetDefDBuff(\n  sceGsDBuff* db,\n  int pixel_format,\n  int width,\n  int height,\n  int zbuffer,\n  int zbuffer_format,\n  int clear\n);\nvoid FlushCache(int mode);\n\nenum\n{\n  NVLMPEG_PRIORITY = 9,\n  SCE_GS_PSMCT32 = 0,\n  SCE_GS_ZNOUSE = 1,\n  SCE_GS_CLEAR = 1\n};\n\nstatic bool firstTime = true;\n\nvoid movieplayer::initHiRes(int width, int height)\n{\n  bool res;\n\n  hiRes = true;\n\t\n  nglExit();\n\tif (!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n\t{\n\t\t\n\t\tnslShutdown();\n\t}\n\n  nvlMPEGSetMemoryAllocCallback((void *(*)(int, int))KSMemAllocNVL);\n  nvlMPEGSetMemoryFreeCallback(KSMemFree);\n\n  ChangeThreadPriority( GetThreadId(), NVLMPEG_PRIORITY );\n  sceSifInitRpc( 0 );\n  sceSifInitIopHeap();\n\n\t// We load these modules elsewhere too, so \n\t// don't assert if it fails \n\n\tif (firstTime)\n\t{\n\t\t// Don't load this if the sound already has\n\t\tif (os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n\t\t{\n\t\t\tres = _nvlLoadModule(\"LIBSD.IRX\" );\n\t\t\tif (!res)\n\t\t\t\tdebug_print(\"Could not load libsd.irx from movieplayer.  Maybe its already loaded\");\n\t\t\tres = _nvlLoadModule(\"SDRDRV.IRX\" );\n\t\t\tif (!res)\n\t\t\t\tdebug_print(\"Could not load sdrdrv.irx from movieplayer.  Maybe its already loaded\");\n\t\t\t//assert( res );\n\n\t\t}\n\n/*\n\t\t//assert( res );\n\t\tres = _nvlLoadModule(\"SDRDRV.IRX\" );\n\t\tif (!res)\n\t\t\tdebug_print(\"Could not load sdrdrv.irx from movieplayer.  Maybe its already loaded\");\n\t\t//assert( res );*/\n\t\tfirstTime =false;\n\t}\n  \n\t/* should be loaded by the input manager\n\tres = _nvlLoadModule(\"sio2man.irx\" );\n\tif (!res)\n\t\tdebug_print(\"Could not load sio2man.irx from movieplayer.  Maybe its already loaded\");\n\t*/\n  //assert( res );\n\n  sceGsResetPath();\n  sceDmaReset( 1 );\n#ifdef TV_PAL\n  //sceGsResetGraph( 0, SCE_GS_INTERLACE, SCE_GS_PAL, SCE_GS_FRAME );\n#else\n  //sceGsResetGraph( 0, SCE_GS_INTERLACE, SCE_GS_NTSC, SCE_GS_FRAME );\n#endif\n  clearGsMem(0x00, 0x00, 0x00, width, height);\n  sceGsSetDefDBuff( &db, SCE_GS_PSMCT32, width, (height/2), SCE_GS_ZNOUSE, 0, SCE_GS_CLEAR );\n  FlushCache(0);\n}\n",
+      "status": "different",
+      "target_size": 372
+    }
+  ],
+  "raw_name": "initHiRes__11movieplayerii"
+}
