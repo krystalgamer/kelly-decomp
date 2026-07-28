@@ -1,0 +1,23 @@
+{
+  "address": "0x001B3C48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a897d54ca56e5bd54e9812344b07d3a2c359cedb",
+      "candidate_size": 412,
+      "compared_bytes": 412,
+      "compared_instructions": 104,
+      "emitted_name": "InitAll__15PauseMenuSystem",
+      "instruction_score": 38.4615,
+      "matching_bytes": 225,
+      "matching_instructions": 40,
+      "notes": "# InitAll__15PauseMenuSystem\n\nAddress `0x001B3C48`, size `0x19C`, object `game/files_frontend`. First-pass result: `different` (54.6117% bytes, 38.4615% instructions). Exactly one attempt; no variants. Released body is at `kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:2844-2868`. Tracked files remain untouched.",
+      "score": 54.6117,
+      "source": "#include \"KS/SRC/ks/FEMenu_shared.h\"\n\nextern int getButtonState(int button, int controller);\n\nstruct GameState {\n    char padding0[0xb0];\n    int num_players;\n    char padding1[0xc];\n    int player_device[2];\n};\n\nstruct Application {\n    char padding[0x10];\n    GameState *game;\n};\n\nstruct BeachState {\n    char padding[0x2d8];\n    void *career;\n};\n\nextern Application *g_app;\nextern BeachState *g_beach_ptr;\n__asm__(\".equ g_app, 0x0046AC18\");\n__asm__(\".equ g_beach_ptr, 0x0043F710\");\n__asm__(\".equ getButtonState__Fii, 0x00159270\");\n\nclass PauseMenuSystem : public FEMenuSystem {\npublic:\n    void InitAll();\n};\n\nvoid PauseMenuSystem::InitAll()\n{\n    device_flags = 1 << g_app->game->player_device[0];\n    if (g_app->game->num_players >= 2)\n        device_flags |= 1 << g_app->game->player_device[1];\n\n    for (int i = 0; i < 14; i++)\n        for (int j = 0; j < 2; j++)\n            button_down[i][j] = getButtonState(i, j);\n\n    for (int i = 0; i < count; i++)\n        if (i != 15)\n            menus[i]->Init();\n\n    menus[16]->Load();\n    if (g_beach_ptr->career)\n        menus[17]->Load();\n    menus[19]->Load();\n    menus[21]->Load();\n}\n",
+      "status": "different",
+      "target_size": 412
+    }
+  ],
+  "raw_name": "InitAll__15PauseMenuSystem"
+}
