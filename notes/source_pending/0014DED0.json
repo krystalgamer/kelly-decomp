@@ -1,0 +1,23 @@
+{
+  "address": "0x0014DED0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "da5169acb9b7efbae3f75a0ef1a364555e21b344",
+      "candidate_size": 416,
+      "compared_bytes": 420,
+      "compared_instructions": 105,
+      "emitted_name": "Init__10PanelQuad4fffffffffffff",
+      "instruction_score": 4.7619,
+      "matching_bytes": 134,
+      "matching_instructions": 5,
+      "notes": "# FIRST PASS wave 73 lane B3 \u2014 0x0014DED0\n\n- Confirmed there were no prior attempts.\n- Tested the exact released `PanelQuad4::Init` body from `kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:1876-1896` with minimal declarations.\n- Ran `function_test` exactly once. Result: `different`, byte score 31.9048%, instruction score 4.7619%.\n- Preserved all attempt artifacts. No variants, retries, diff chasing, build, finalization, tracked-file edits, or commit.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:1876-1896`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:430-548`\n- `tmp/functions/0014DED0_Init__10PanelQuad4fffffffffffff/attempt-1/result.json`",
+      "score": 31.9048,
+      "source": "typedef unsigned int u_int;\n\nstruct nglQuad\n{\n    char data[0x8c];\n};\n\nextern \"C\" void adjustCoords(float &, float &)\n    __asm__(\"adjustCoords__H1Zf_RX01T0_v\");\nextern \"C\" void nglSetQuadVPos(nglQuad *, int, float, float)\n    __asm__(\"nglSetQuadVPos__FP7nglQuadiff\");\nextern \"C\" void nglSetQuadColor(nglQuad *, u_int)\n    __asm__(\"nglSetQuadColor__FP7nglQuadUi\");\nextern \"C\" void nglSetQuadZ(nglQuad *, float)\n    __asm__(\"nglSetQuadZ__FP7nglQuadf\");\n\nclass PanelQuad4\n{\n    char panel_quad_prefix[0x1c];\n    nglQuad quad;\n    char panel_quad_tail[0xec];\n    float width;\n    float height;\n    char panel_quad_end[0xb0];\n    float x[4];\n    float y[4];\n    float u[4];\n    float v[4];\n    float r, g, b, a;\n    float z;\n\npublic:\n    virtual void Init(float xa, float xb, float xc, float xd,\n                      float ya, float yb, float yc, float yd,\n                      float r1, float g1, float b1, float a1, float z1);\n};\n\n#define FTOI(x) ((int)(x))\n#define NGL_RGBA32(r, g, b, a) \\\n    (((int)((r) + 1) >> 1) | (((int)((g) + 1) >> 1) << 8) | \\\n     (((int)((b) + 1) >> 1) << 16) | (((int)((a) + 1) >> 1) << 24))\n\nvoid PanelQuad4::Init(float xa, float xb, float xc, float xd,\n                      float ya, float yb, float yc, float yd,\n                      float r1, float g1, float b1, float a1, float z1)\n{\n    r = r1; g = g1; b = b1; a = a1;\n    z = z1;\n    x[0] = xa; x[1] = xb; x[2] = xc; x[3] = xd;\n    y[0] = ya; y[1] = yb; y[2] = yc; y[3] = yd;\n    for(int i=0; i<4; i++)\n    {\n        adjustCoords(x[i], y[i]);\n        nglSetQuadVPos(&quad, i, x[i], y[i]);\n    }\n    nglSetQuadColor(&quad, NGL_RGBA32(FTOI(r*255.0f), FTOI(g*255.0f), FTOI(b*255.0f), FTOI(a*255.0f)));\n\n    nglSetQuadZ(&quad, z);\n\n    width = x[1]-x[0];\n    height = y[2]-y[0];\n}\n",
+      "status": "different",
+      "target_size": 420
+    }
+  ],
+  "raw_name": "Init__10PanelQuad4fffffffffffff"
+}
