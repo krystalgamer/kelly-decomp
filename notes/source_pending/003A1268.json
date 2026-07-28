@@ -1,0 +1,23 @@
+{
+  "address": "0x003A1268",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "144e37652f9d265df20aa21e80a813f8cc4b423a",
+      "candidate_size": 400,
+      "compared_bytes": 412,
+      "compared_instructions": 103,
+      "emitted_name": "nglBindMeshTextures__FP7nglMeshb",
+      "instruction_score": 27.1845,
+      "matching_bytes": 191,
+      "matching_instructions": 28,
+      "notes": "# 0x003A1268 nglBindMeshTextures__FP7nglMeshb \u2014 released-source attempt 1\n\n- Reference body: `kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:6152-6199`\n- Declaration basis: `kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:679-732,841-891`\n- Candidate: `tmp/functions/003A1268_nglBindMeshTextures__FP7nglMeshb/attempt-1/candidate.cpp`\n- Result: `different`\n- Target size: 412 bytes\n- Candidate size: 400 bytes\n- Byte score: 46.3592% (191/412)\n- Instruction score: 27.1845% (28/103)\n- Candidate SHA-1: `144e37652f9d265df20aa21e80a813f8cc4b423a`\n\nExact released body with minimal layout-preserving declarations. No variants or later attempts were tested.",
+      "score": 46.3592,
+      "source": "typedef unsigned int u_int;\n\nstruct nglTexture;\nstruct nglFixedString\n{\n  char data[8];\n};\n\nstruct nglMaterial\n{\n  u_int Flags;\n  nglTexture* Map;\n  nglTexture* LightMap;\n  nglTexture* DetailMap;\n  nglTexture* EnvironmentMap;\n  u_int Pad0;\n  nglFixedString MapName;\n  int MapBlendMode;\n  int MapBlendModeConstant;\n  nglFixedString LightMapName;\n  int LightMapBlendMode;\n  int LightMapBlendModeConstant;\n  nglFixedString DetailMapName;\n  int DetailMapBlendMode;\n  int DetailMapBlendModeConstant;\n  float DetailMapUScale;\n  float DetailMapVScale;\n  float DetailMapRange;\n  float DetailMapAlphaClamp;\n  nglFixedString EnvironmentMapName;\n};\n\nstruct nglMeshSection\n{\n  nglMaterial* Material;\n  char released_rest[60];\n};\n\nstruct nglMesh\n{\n  char released_to_nsections[60];\n  u_int NSections;\n  nglMeshSection* Sections;\n};\n\nenum\n{\n  NGLMAT_TEXTURE_MAP = 0x00000001,\n  NGLMAT_LIGHT_MAP = 0x00000020,\n  NGLMAT_DETAIL_MAP = 0x00000040,\n  NGLMAT_ENVIRONMENT_MAP = 0x00000080\n};\n\nextern nglTexture* nglWhiteTex;\nextern nglTexture* nglLoadTexture( const nglFixedString& Name );\nextern nglTexture* nglGetTexture( const nglFixedString& Name );\nextern void nglCalcMaterialHash( nglMaterial* Material );\n\nvoid nglBindMeshTextures( nglMesh* Mesh, bool Load )\n{\n  for ( u_int i = 0; i < Mesh->NSections; i++ )\n  {\n    // Process the material data.\n    nglMeshSection* Section = &Mesh->Sections[i];\n    nglMaterial* Material = Section->Material;\n\n    // Automatically load textures used by the mesh.\n    if ( Material->Flags & NGLMAT_TEXTURE_MAP )\n    {\n      if ( Load )\n        Material->Map = nglLoadTexture( Material->MapName );\n      else\n        Material->Map = nglGetTexture( Material->MapName );\n      if ( !Material->Map ) Material->Map = nglWhiteTex;\n    }\n\n    if ( Material->Flags & NGLMAT_LIGHT_MAP )\n    {\n      if ( Load )\n        Material->LightMap = nglLoadTexture( Material->LightMapName );\n      else\n        Material->LightMap = nglGetTexture( Material->LightMapName );\n      if ( !Material->LightMap ) Material->LightMap = nglWhiteTex;\n    }\n\n    if ( Material->Flags & NGLMAT_DETAIL_MAP )\n    {\n      if ( Load )\n        Material->DetailMap = nglLoadTexture( Material->DetailMapName );\n      else\n        Material->DetailMap = nglGetTexture( Material->DetailMapName );\n      if ( !Material->DetailMap ) Material->DetailMap = nglWhiteTex;\n    }\n\n    if ( Material->Flags & NGLMAT_ENVIRONMENT_MAP )\n    {\n      if ( Load )\n        Material->EnvironmentMap = nglLoadTexture( Material->EnvironmentMapName );\n      else\n        Material->EnvironmentMap = nglGetTexture( Material->EnvironmentMapName );\n      if ( !Material->EnvironmentMap ) Material->EnvironmentMap = nglWhiteTex;\n    }\n\n    nglCalcMaterialHash( Material );\n  }\n}\n",
+      "status": "different",
+      "target_size": 412
+    }
+  ],
+  "raw_name": "nglBindMeshTextures__FP7nglMeshb"
+}
