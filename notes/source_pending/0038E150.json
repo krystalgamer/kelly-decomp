@@ -1,0 +1,23 @@
+{
+  "address": "0x0038E150",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "557047649e09bd36284df5618d1badc05e4ca8f6",
+      "candidate_size": 132,
+      "compared_bytes": 348,
+      "compared_instructions": 87,
+      "emitted_name": "nslSetSoundRange__FUiff",
+      "instruction_score": 4.5977,
+      "matching_bytes": 42,
+      "matching_instructions": 4,
+      "notes": "Attempt 1 used the exact released source for nslSetSoundRange__FUiff. Result `different`, score 12.0690; no retry or variant was made.",
+      "score": 12.069,
+      "source": "typedef unsigned int nslSoundId;\n\nstruct nslSound {\n  char fields[80];\n  float minDist;\n  float maxDist;\n};\n\nstruct nslSystem {\n  char beforeSoundSlots[22592];\n  nslSound soundSlots[196];\n  char beforeOn[17120];\n  int on;\n};\n\nextern nslSystem nsl;\nvoid _nslInitialized() __asm__(\"_nslInitialized__Fv\");\nvoid _nslCheckSoundIdValidity(nslSoundId) __asm__(\"_nslCheckSoundIdValidity__FUi\");\n\n#define NSL_SLOT_MASK 0x3ff\n#define NSL_GET_SLOT_FROM_ID(x) ((x) & NSL_SLOT_MASK)\n#define ASSERT_NSL_INITIALIZED() _nslInitialized()\n#define ASSERT_SOUND_ID_VALID(x) _nslCheckSoundIdValidity(x)\n\nvoid nslSetSoundRange( nslSoundId soundToSet, float minDist, float maxDist)\n{\n  if (!nsl.on) return;\n  // if a sound uses the global emitter, do we use these?\n  ASSERT_NSL_INITIALIZED();\n// not needed?    ASSERT_SOURCE_ID_VALID(nsl.soundSlots[NSL_GET_SLOT_FROM_ID(soundToSet)].mySource);\n\n  ASSERT_SOUND_ID_VALID(soundToSet);\n  nsl.soundSlots[NSL_GET_SLOT_FROM_ID(soundToSet)].minDist = minDist;\n  nsl.soundSlots[NSL_GET_SLOT_FROM_ID(soundToSet)].maxDist = maxDist;\n\n}\n",
+      "status": "different",
+      "target_size": 348
+    }
+  ],
+  "raw_name": "nslSetSoundRange__FUiff"
+}
