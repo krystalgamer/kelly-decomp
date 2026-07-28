@@ -1,0 +1,23 @@
+{
+  "address": "0x00192B18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1d4ba9f76cb8147418d72a66ec61e11a6541a8ba",
+      "candidate_size": 312,
+      "compared_bytes": 472,
+      "compared_instructions": 118,
+      "emitted_name": "PrepareForLoading__13BeachFrontEnd",
+      "instruction_score": 4.2373,
+      "matching_bytes": 53,
+      "matching_instructions": 5,
+      "notes": "# FIRST PASS wave 86 lane B5\n\nExact released body tested once for `0x00192B18 PrepareForLoading__13BeachFrontEnd`. Result `different`, score 11.2288%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 11.2288,
+      "source": "class PanelQuad\n{\npublic:\n\tvoid TurnOn(bool on);\n};\n\nclass BeachFrontEnd\n{\nprivate:\n\tenum\n\t{\n\t\tMAX_BEACHES_PER_LOC = 3,\n\t\tMAX_GOALS_PER_LEVEL = 5\n\t};\n\n\tPanelQuad* completed_lights[MAX_BEACHES_PER_LOC][MAX_GOALS_PER_LEVEL][2];\n\tPanelQuad* bkg;\n\tPanelQuad* cell_phone;\n\tPanelQuad* bio_book;\n\tPanelQuad* bio_circle;\n\tPanelQuad* bio_scr[3];\n\tPanelQuad* bio_scr_marker;\n\tbool in_frontend;\n\n\tvoid TurnBox(int b_num, bool all_off, float offset);\n\tvoid ReadjustBeachPoints();\n\npublic:\n\tvoid PrepareForLoading();\n};\n\nvoid BeachFrontEnd::PrepareForLoading()\n{\n\tbkg->TurnOn(true);\n\tin_frontend = false;\n\tcell_phone->TurnOn(false);\n\tbio_book->TurnOn(false);\n\tbio_circle->TurnOn(false);\n\tfor(int i=0; i<3; i++)\n\t\tbio_scr[i]->TurnOn(false);\n\tbio_scr_marker->TurnOn(false);\n\n\tTurnBox(0, true, 0);\n\tReadjustBeachPoints();\n\n\tfor(int i=0; i<MAX_BEACHES_PER_LOC; i++)\n\t\tfor(int j=0; j<MAX_GOALS_PER_LEVEL; j++)\n\t\t{\n\t\t\tcompleted_lights[i][j][0]->TurnOn(false);\n\t\t\tcompleted_lights[i][j][1]->TurnOn(false);\n\t\t}\n}\n",
+      "status": "different",
+      "target_size": 472
+    }
+  ],
+  "raw_name": "PrepareForLoading__13BeachFrontEnd"
+}
