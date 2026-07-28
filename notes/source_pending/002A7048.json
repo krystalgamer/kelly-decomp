@@ -1,0 +1,23 @@
+{
+  "address": "0x002A7048",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "039d4dd3b16e5ac4f085a8126f7709b5a4a449d2",
+      "candidate_size": 360,
+      "compared_bytes": 412,
+      "compared_instructions": 103,
+      "emitted_name": "add_particle_generator__21world_dynamics_systemRC7stringxRC9entity_idUi",
+      "instruction_score": 0.9709,
+      "matching_bytes": 65,
+      "matching_instructions": 1,
+      "notes": "# First-pass source-first attempt \u2014 0x002A7048\n\n- Used the exact released `world_dynamics_system::add_particle_generator` body from `wds.cpp`.\n- Added only minimal declarations needed to compile the released body.\n- Ran one non-placeholder `function_test` attempt with `env/bin/python`.\n- Result: `different`, score 15.7767% (65/412 bytes), instruction score 0.9709% (1/103); candidate 360 bytes versus target 412 bytes.\n- No variants, diff chasing, build, finalize, integration, commit, push, tool edits, or subagents.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/wds.cpp:7687-7705` \u2014 exact released function body.\n- `kelly-slaters-pro-surfer/KS/SRC/filespec.h:8-21` \u2014 released `filespec` layout and assignment.\n- `kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-287,309-310` \u2014 released `stringx` layout and special members.\n- `kelly-slaters-pro-surfer/KS/SRC/particle.h:89-92` \u2014 released particle-generator constructor.\n- `kelly-slaters-pro-surfer/KS/SRC/entflavor.h:11-34` \u2014 released entity-flavor value.\n- `kelly-slaters-pro-surfer/KS/SRC/entity.h:113-145` \u2014 released nonstatic entity flag.\n- `tmp/functions/002A7048_add_particle_generator__21world_dynamics_systemRC7stringxRC9entity_idUi/attempt-1/result.json` \u2014 sole test result.",
+      "score": 15.7767,
+      "source": "typedef unsigned int size_t;\nvoid* operator new(size_t, unsigned int, const char*, int);\n#define NEW new(0, \"C:/KS/SRC/wds.cpp\", 0)\n\nclass stringx\n{\n  char* chars;\n  void* my_buf;\npublic:\n  stringx();\n  stringx(const stringx&);\n  stringx(const char*, int = -1);\n  ~stringx();\n  stringx& operator=(const stringx&);\n};\n\nclass entity_id { unsigned int value; };\n\nclass filespec\n{\npublic:\n  stringx path;\n  stringx name;\n  stringx ext;\n  filespec() {}\n  explicit filespec(const stringx&);\n  const filespec& operator=(const filespec& rhs)\n  {\n    path=rhs.path; name=rhs.name; ext=rhs.ext; return *this;\n  }\n};\n\nclass os_developer_options\n{\npublic:\n  enum flags_t { FLAG_STASH_ONLY };\n  static os_developer_options* inst();\n  bool is_flagged(flags_t) const;\n};\n\nclass file_finder\n{\npublic:\n  stringx find_file(const stringx&, const stringx&);\n};\nextern file_finder* g_file_finder;\n\nenum entity_flavor_t { ENTITY_PARTICLE_GENERATOR = 5 };\nclass particle_generator\n{\npublic:\n  particle_generator(const stringx&, const entity_id&, entity_flavor_t, unsigned int);\n};\n\nclass world_dynamics_system\n{\npublic:\n  particle_generator* add_particle_generator(const stringx&, const entity_id&, unsigned int);\n  void add_particle_generator(particle_generator*);\n};\n\nparticle_generator*\nworld_dynamics_system::add_particle_generator( const stringx& fname,\n                                               const entity_id& id,\n                                               unsigned int flags )\n{\n  filespec spec(fname);\n  if (!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_STASH_ONLY))\n  {\n    stringx actual_fname (g_file_finder->find_file( fname, \".ent\" ));\n    spec = filespec(actual_fname);\n  }\n\n  // all particle generators added to world must be nonstatic\n  flags |= 0x08000000;\n  particle_generator* ent = NEW particle_generator( spec.name, id, ENTITY_PARTICLE_GENERATOR, flags );\n\n  add_particle_generator( ent );\n  return ent;\n}\n",
+      "status": "different",
+      "target_size": 412
+    }
+  ],
+  "raw_name": "add_particle_generator__21world_dynamics_systemRC7stringxRC9entity_idUi"
+}
