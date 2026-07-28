@@ -1,0 +1,15 @@
+{
+  "address": "0x003364E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "303a1e447dfea08a048847412204ca5806481599",
+      "notes": "# Attempt 1 \u2014 exact released source/declaration context\n\n- FIRST PASS wave 46 lane B2 for `0x003364E0 get_name__10chunk_file`.\n- Tested the exact released `chunk_file::get_name()` body once with the released `chunk_file.h` declaration context.\n- Result: **compile_failed**, score **0.0%**. The isolated candidate's relative include path did not resolve under the EE compiler invocation, so no object or target symbol was emitted.\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/chunkfile.cpp:312-332`\n- `kelly-slaters-pro-surfer/KS/SRC/chunkfile.h:20-72`\n- `tmp/functions/003364E0_get_name__10chunk_file/attempt-1/result.json`\n- `tmp/functions/003364E0_get_name__10chunk_file/attempt-1/compiler.stderr`",
+      "score": 0.0,
+      "source": "#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/chunkfile.h\"\n\nstringx chunk_file::get_name()\n{\n  int theOldStash = the_stash.get_current_stash();\n  stringx retval=\"\";\n  the_stash.set_current_stash(my_stash);\n\n  if (type==CFT_BINARY)\n  {\n    if (use_stash)\n      retval= stringx(the_stash.get_name().c_str());\n    else\n      retval= binary.get_name();\n  }\n  else\n  if (type==CFT_TEXT)\n    retval= text.get_name();\n  else\n    retval= \"File not open\";\n  the_stash.set_current_stash(theOldStash);\n  return retval;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "get_name__10chunk_file"
+}
