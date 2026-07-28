@@ -1,0 +1,23 @@
+{
+  "address": "0x00343968",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a9fe50f20418d7e90e7aff4bad9938788fe7b963",
+      "candidate_size": 280,
+      "compared_bytes": 368,
+      "compared_instructions": 83,
+      "emitted_name": "__9input_mgr",
+      "instruction_score": 4.8193,
+      "matching_bytes": 91,
+      "matching_instructions": 4,
+      "notes": "Attempt 1 used the exact released source for __9input_mgr. Result `different`, score 24.7283; no retry or variant was made.",
+      "score": 24.7283,
+      "source": "class singleton\n{\npublic:\n  singleton() {}\n  virtual ~singleton();\n};\n\nenum device_id_t\n{\n  JOYSTICK1_DEVICE = 1,\n  AI_JOYSTICK = 9\n};\n\nclass input_device\n{\npublic:\n  device_id_t device_id;\n  virtual ~input_device();\n};\n\nclass AISurferController : public input_device\n{\n  char released_storage[280];\npublic:\n  AISurferController();\n};\n\nclass device_map_t\n{\n  input_device **begin_;\n  input_device **end_;\n  input_device **storage_end_;\npublic:\n  device_map_t() : begin_(0), end_(0), storage_end_(0) {}\n};\n\nclass control_map_t\n{\n  void *root_;\n  unsigned count_;\n  unsigned char key_compare_;\n  unsigned char padding_[3];\npublic:\n  control_map_t() : root_(0), count_(0), key_compare_(0)\n  {\n    padding_[0] = padding_[1] = padding_[2] = 0;\n  }\n};\n\nclass rumble_manager;\n\nclass input_mgr : public singleton\n{\npublic:\n  input_mgr();\n  virtual ~input_mgr();\n  void insert_device(input_device *);\n  void scan_devices();\n  void SetDefaultController(int cont) { default_controller = cont; }\n\nprivate:\n  rumble_manager *rumble_ptr;\n  device_map_t device_map;\n  control_map_t control_map;\n  int default_controller;\n  unsigned int flags;\n\nprotected:\n  input_device *joystick_devices[9];\n  input_device *keyboard_devices[1];\n  input_device *mouse_devices[1];\n};\n\n__asm__(\".equ _vt$9input_mgr, 0x00504FB0\");\n__asm__(\".equ __18AISurferController, 0x00100208\");\n__asm__(\".equ insert_device__9input_mgrP12input_device, 0x00343B50\");\n__asm__(\".equ scan_devices__9input_mgr, 0x001E2548\");\n\ninput_mgr::input_mgr()\n{\n  flags = 0;\n\n  int index = 0;\n\n  for(index = 0; index < 9; ++index)\n    joystick_devices[index] = 0;\n  for(index = 0; index < 1; ++index)\n    keyboard_devices[index] = 0;\n  for(index = 0; index < 1; ++index)\n    mouse_devices[index] = 0;\n\n  joystick_devices[AI_JOYSTICK - JOYSTICK1_DEVICE] = new AISurferController();\n  joystick_devices[AI_JOYSTICK - JOYSTICK1_DEVICE]->device_id = AI_JOYSTICK;\n  insert_device(joystick_devices[AI_JOYSTICK - JOYSTICK1_DEVICE]);\n  scan_devices();\n\n  rumble_ptr = 0;\n\n  SetDefaultController(0);\n}\n",
+      "status": "different",
+      "target_size": 368
+    }
+  ],
+  "raw_name": "__9input_mgr"
+}
