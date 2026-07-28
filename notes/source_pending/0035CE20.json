@@ -1,0 +1,23 @@
+{
+  "address": "0x0035CE20",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7788e6209996a3d5cd32ac0396e1ae9d5f08bec8",
+      "candidate_size": 148,
+      "compared_bytes": 356,
+      "compared_instructions": 89,
+      "emitted_name": "find__Ct8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP13script_objectZt10_Select1st1Zt4pair2ZC7stringxZP13script_objectZt4less1Z7stringxZt12my_allocator1ZP13script_objectRC7stringx",
+      "instruction_score": 0.0,
+      "matching_bytes": 25,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 used the exact released source for find__Ct8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP13script_objectZt10_Select1st1Zt4pair2ZC7stringxZP13script_objectZt4less1Z7stringxZt12my_allocator1ZP13script_objectRC7stringx. Result `different`, score 7.0225; no retry or variant was made.",
+      "score": 7.0225,
+      "source": "class stringx {\npublic:\n    char *chars;\n    void *my_buf;\n};\n\nbool operator<(const stringx &, const stringx &);\nclass script_object;\n\nstruct value_type {\n    const stringx first;\n    script_object *second;\n};\n\nstruct node {\n    int color;\n    node *parent;\n    node *left;\n    node *right;\n    value_type value;\n};\n\nstruct iterator {\n    node *_M_node;\n    iterator(node *x) : _M_node(x) {}\n};\n\nclass tree {\n    node *_M_header;\n    unsigned int _M_node_count;\npublic:\n    iterator find(const stringx &k) const __asm__(\"find__Ct8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP13script_objectZt10_Select1st1Zt4pair2ZC7stringxZP13script_objectZt4less1Z7stringxZt12my_allocator1ZP13script_objectRC7stringx\");\n};\n\niterator tree::find(const stringx &k) const\n{\n    node *y = _M_header;\n    node *x = _M_header->parent;\n    while (x != 0)\n        if (!(x->value.first < k))\n            y = x, x = x->left;\n        else\n            x = x->right;\n    iterator j = iterator(y);\n    return (j._M_node == _M_header || k < j._M_node->value.first) ? iterator(_M_header) : j;\n}\n",
+      "status": "different",
+      "target_size": 356
+    }
+  ],
+  "raw_name": "find__Ct8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP13script_objectZt10_Select1st1Zt4pair2ZC7stringxZP13script_objectZt4less1Z7stringxZt12my_allocator1ZP13script_objectRC7stringx"
+}
