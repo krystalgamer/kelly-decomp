@@ -1,0 +1,23 @@
+{
+  "address": "0x00348FF0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9c38efbaab33cbadd8b69023a0950b4befb2a1ea",
+      "candidate_size": 312,
+      "compared_bytes": 340,
+      "compared_instructions": 85,
+      "emitted_name": "non_affine_inverse_scaled_xform__C2poRC8vector3d",
+      "instruction_score": 1.1765,
+      "matching_bytes": 71,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/po.cpp:684-728; kelly-slaters-pro-surfer/KS/SRC/po.h:273-278,315; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_math.h:9; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:292-328,523-531,686-701; tmp/functions/00348FF0_non_affine_inverse_scaled_xform__C2poRC8vector3d/attempt-1/result.json; tmp/source_first/00348FF0/attempt-1.md. Result `different`, score 20.8824; no later attempt.",
+      "score": 20.8824,
+      "source": "typedef float rational_t;\n\nextern \"C\" float __fsqrt(float);\n\nclass vector3d\n{\npublic:\n  rational_t x, y, z;\n\n  inline vector3d() {}\n  inline vector3d& operator *= (rational_t d)\n  {\n    x *= d;\n    y *= d;\n    z *= d;\n    return *this;\n  }\n  inline rational_t length() const\n  {\n    return (rational_t)__fsqrt(x*x + y*y + z*z);\n  }\n};\n\nclass vector4d\n{\npublic:\n  rational_t x, y, z, w;\n};\n\nclass matrix4x4\n{\npublic:\n  vector4d x __attribute__((aligned(16)));\n  vector4d y;\n  vector4d z;\n  vector4d w;\n};\n\nclass po\n{\nprivate:\n  matrix4x4 m;\n\npublic:\n  inline rational_t get_scale() const\n  {\n    return ((const vector3d&)m).length();\n  }\n\n  vector3d non_affine_inverse_scaled_xform(const vector3d& v) const;\n};\n\nvector3d po::non_affine_inverse_scaled_xform( const vector3d & v ) const\n{\n  vector3d result;\n  result.x = m.x.x * v.x + m.x.y * v.y + m.x.z * v.z;\n  result.y = m.y.x * v.x + m.y.y * v.y + m.y.z * v.z;\n  result.z = m.z.x * v.x + m.z.y * v.y + m.z.z * v.z;\n\n  rational_t s = get_scale();\n  if ( s<0.999f || s>1.001f )\n    result *= 1.0f / (s*s);\n\n  return result;\n}\n",
+      "status": "different",
+      "target_size": 340
+    }
+  ],
+  "raw_name": "non_affine_inverse_scaled_xform__C2poRC8vector3d"
+}
