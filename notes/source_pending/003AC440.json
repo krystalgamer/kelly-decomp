@@ -1,0 +1,23 @@
+{
+  "address": "0x003AC440",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b8674acd435f9f6187649d1ea23767a5375a3ee5",
+      "candidate_size": 488,
+      "compared_bytes": 488,
+      "compared_instructions": 122,
+      "emitted_name": "Delete__15nglInstanceBankRC14nglFixedString",
+      "instruction_score": 2.459,
+      "matching_bytes": 108,
+      "matching_instructions": 3,
+      "notes": "# FIRST PASS wave 82 lane A4 \u2014 0x003AC440 `Delete__15nglInstanceBankRC14nglFixedString`\n\n- Candidate: exact released nglInstanceBank::Delete body with faithful fixed-string and skip-list declarations.\n- Citation: `kelly-slaters-pro-surfer/NGL/PS2/ngl_instbank.cpp:125-169; ngl_instbank.h:6-48; ngl_fixedstr.h:14-129`.\n- Result: `different`; byte score 22.1311%; instruction score 2.4590%.\n- Candidate/target size: 488/452 bytes.\n- Candidate SHA-1: `b8674acd435f9f6187649d1ea23767a5375a3ee5`.\n- Duration: 5.542s.\n\nExactly one candidate and harness invocation were used. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked-file edit occurred.",
+      "score": 22.1311,
+      "source": "extern \"C\" int strcmp(const char *, const char *);\nextern \"C\" void free(void *);\n\nclass nglFixedString\n{\n  char str[32];\n\npublic:\n  typedef nglFixedString FS;\n\n  bool operator==(const FS &rhs) const\n  {\n    for (int i = 0; i < 8; ++i)\n      if (!(((const int *)str)[i] == ((const int *)rhs.str)[i]))\n        return false;\n    return true;\n  }\n\n  bool operator>=(const FS &rhs)\n  {\n    return strcmp(&str[0], &rhs.str[0]) >= 0;\n  }\n};\n\nclass nglInstanceBank\n{\npublic:\n  struct Instance\n  {\n    nglFixedString Key;\n    void *Value;\n    int RefCount;\n    Instance *Forward[1];\n  };\n\n  typedef void (*InstanceFree)(void *);\n\n  Instance *NIL;\n  Instance *Head;\n\nprivate:\n  int RandomsLeft;\n  int RandomBits;\n  int Level;\n\npublic:\n  static InstanceFree FreeFunc;\n  int Delete(const nglFixedString &Key);\n};\n\nint nglInstanceBank::Delete(const nglFixedString &Key)\n{\n  int k, m;\n  Instance *update[16];\n  Instance *p;\n  Instance *q;\n  p = Head;\n  k = m = Level;\n  do\n  {\n    for (;;)\n    {\n      q = p->Forward[k];\n      if (q->Key >= Key)\n        break;\n      p = q;\n    }\n    update[k] = p;\n  }\n  while (--k >= 0);\n  if (q->Key == Key)\n  {\n    int RefCount = --q->RefCount;\n    if (RefCount <= 0)\n    {\n      for (\n        k = 0;\n        k <= m && (p = update[k])->Forward[k] == q;\n        k++)\n        p->Forward[k] = q->Forward[k];\n\n      if (FreeFunc)\n      {\n        FreeFunc(q);\n      }\n      else\n      {\n        free(q);\n      }\n\n      while (Head->Forward[m] == NIL && m > 0)\n        m--;\n      Level = m;\n    }\n    return RefCount;\n  }\n  else\n    return -1;\n}\n",
+      "status": "different",
+      "target_size": 452
+    }
+  ],
+  "raw_name": "Delete__15nglInstanceBankRC14nglFixedString"
+}
