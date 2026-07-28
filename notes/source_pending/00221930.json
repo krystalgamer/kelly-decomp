@@ -1,0 +1,23 @@
+{
+  "address": "0x00221930",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7d37a47c4c1a8be3102e4feff14a60185d84d982",
+      "candidate_size": 408,
+      "compared_bytes": 408,
+      "compared_instructions": 102,
+      "emitted_name": "InitKlugeWipeout__22kellyslater_controllerii",
+      "instruction_score": 4.902,
+      "matching_bytes": 82,
+      "matching_instructions": 5,
+      "notes": "# FIRST PASS wave 70 lane A5 \u2014 0x00221930\n\n- Tested the exact released `kellyslater_controller::InitKlugeWipeout(int, int)` body once with minimal self-contained declarations preserving the accessed controller, board-controller, scoring-manager, entity, pose, string, and vector layouts.\n- Result: `different`; 82/408 compared bytes (20.0980%) and 5/102 instructions (4.9020%) matched. Candidate and target sizes were both 408 bytes.\n- No variants, retries, diff chasing, build, finalization, integration, tracked writes, commit, or push were attempted.\n- Because the attempt did not match, no source, candidate-prefix, or shared-declaration proposal is included.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.cpp:7715-7741`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.h:531-610,841`\n- `tmp/functions/00221930_InitKlugeWipeout__22kellyslater_controllerii/attempt-1/result.json`",
+      "score": 20.098,
+      "source": "struct vector3d\n{\n  float x, y, z;\n};\n\nextern const vector3d ZEROVEC;\n\nclass stringx\n{\npublic:\n  stringx(const char *, int = -1);\n  ~stringx();\n};\n\nstruct po\n{\n  char pad[48];\n  vector3d position;\n};\n\nclass entity\n{\npublic:\n  char pad0[80];\n  po *abs_po;\n  char pad1[72];\n  int cull;\n\n  const vector3d &get_abs_position() const { return abs_po->position; }\n  void SetCull(bool value) { cull = value; }\n};\n\nclass conglomerate : public entity\n{\npublic:\n  entity *get_member(const stringx &);\n};\n\nenum WaveRegionEnum\n{\n  WAVE_REGION_DUMMY\n};\n\nclass SurfBoardObjectClass\n{\npublic:\n  vector3d wave_current;\n  vector3d wave_normal;\n  char pad0[72];\n  WaveRegionEnum wave_region;\n  char pad1[788];\n\n  vector3d GetWaveNormal() { return wave_normal; }\n  WaveRegionEnum GetWaveRegion() { return wave_region; }\n  vector3d GetWaveCurrent() { return wave_current; }\n};\n\nclass ScoringManager\n{\npublic:\n  void FinishChain(bool);\n};\n\nenum\n{\n  STATE_WIPEOUT_GENERAL = 84,\n  SUPER_STATE_WIPEOUT = 3,\n  WIP_PHYS_TUMBLE = 4,\n  BOARD_ANIM_NULL = -1\n};\n\nclass kellyslater_controller\n{\npublic:\n  char pad0[12];\n  entity *owner;\n  char pad1[32];\n  int state;\n  char pad2[4];\n  int super_state;\n  char pad3[3396];\n  SurfBoardObjectClass my_board_controller;\n  ScoringManager my_scoreManager;\n  char pad4[2047];\n  bool wave_hint_valid;\n  char pad5[143];\n  vector3d surfer_velocity;\n  vector3d wip_position;\n  vector3d water_current;\n  vector3d water_normal;\n  WaveRegionEnum water_region;\n  int wip_phys_state;\n  int wipeout_type;\n  float low_wip_y_height;\n  int get_on_board_anim;\n  int b_get_on_board_anim;\n  int num_wipeouts;\n  bool no_buttons_pressed;\n  char pad6[7];\n  int wip_anim_dis;\n  int wip_anim_free;\n  int wip_anim_imp;\n  int wip_anim_imp2;\n  int wip_anim_trans;\n  int wip_anim_swim;\n  int b_wip_anim_dis;\n  int b_wip_anim_free;\n  int b_wip_anim_imp;\n  int goofy_int;\n  bool dry;\n  char pad7[87];\n  float tween_timer;\n  float tween_time;\n\n  entity *get_owner() { return owner; }\n  bool IsAIPlayer();\n  void InitKlugeWipeout(int tumble_anim, int swim_anim);\n};\n\nvoid kellyslater_controller::InitKlugeWipeout(int tumble_anim, int swim_anim)\n{\n\tmy_scoreManager.FinishChain(true);\n\tsurfer_velocity = ZEROVEC;\n\twip_position = ((conglomerate *)get_owner())->get_member(\"BIP01 PELVIS\")->get_abs_position();\n\tlow_wip_y_height = wip_position.y - 1.5f;\n\n\tstate = STATE_WIPEOUT_GENERAL;\n\tsuper_state = SUPER_STATE_WIPEOUT;\n\n\twip_anim_trans = tumble_anim;\n\twip_anim_swim = swim_anim;\n\tb_wip_anim_dis = BOARD_ANIM_NULL;\n\n\ttween_timer = 0.0f;\n\ttween_time = 0.3f;\n\n\twater_normal = my_board_controller.GetWaveNormal();\n\n\twip_phys_state = WIP_PHYS_TUMBLE;\n\tdry = false;\n\twave_hint_valid = false;\n\twater_region = (WaveRegionEnum) my_board_controller.GetWaveRegion();\n\twater_current = my_board_controller.GetWaveCurrent();\n\n\tif (!IsAIPlayer())\n\t\tget_owner()->SetCull(false);\n}\n",
+      "status": "different",
+      "target_size": 408
+    }
+  ],
+  "raw_name": "InitKlugeWipeout__22kellyslater_controllerii"
+}
