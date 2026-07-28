@@ -1,0 +1,23 @@
+{
+  "address": "0x00325728",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "33e3a305d75edc1630fe83ef406f0db60677964c",
+      "candidate_size": 164,
+      "compared_bytes": 368,
+      "compared_instructions": 92,
+      "emitted_name": "__cl__27slf_beam_get_impact_point_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 1.087,
+      "matching_bytes": 29,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used the exact released source for __cl__27slf_beam_get_impact_point_tR8vm_stackQ320script_library_class8function7entry_t. Result `different`, score 7.8804; no retry or variant was made.",
+      "score": 7.8804,
+      "source": "class stringx\n{\npublic:\n  stringx operator+(const char*) const;\n  stringx operator+(const stringx&) const;\n};\n\nstringx operator+(const char*, const stringx&);\nvoid error(const stringx&);\n\nclass script_object\n{\npublic:\n  const stringx& get_name() const;\n};\n\nclass vm_executable\n{\npublic:\n  const stringx& get_fullname() const;\n};\n\nclass vm_thread\n{\npublic:\n  script_object* get_instance() const;\n  vm_executable* get_executable() const;\n};\n\nclass vm_stack\n{\npublic:\n  char* SP;\n  vm_thread* my_thread;\n\n  char* get_SP() const { return SP; }\n  vm_thread* get_thread() const { return my_thread; }\n  void pop(int n) { SP -= n; }\n  bool push(const char* src, int n);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n\n    virtual bool operator()(vm_stack&, entry_t) { return true; }\n  };\n};\n\nclass vector3d\n{\npublic:\n  float x;\n  float y;\n  float z;\n};\n\ntypedef vector3d vm_vector3d_t;\n\nclass beam\n{\npublic:\n  vector3d get_impact_point() const;\n};\n\ntypedef beam* vm_beam_t;\n\nclass slf_beam_get_impact_point_t : public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    vm_beam_t me;\n  };\n\n  virtual bool operator()(vm_stack& stack, entry_t entry);\n};\n\nbool slf_beam_get_impact_point_t::operator()(vm_stack& stack, entry_t entry)\n{\n  stack.pop(sizeof(parms_t));\n  parms_t* parms = (parms_t*)stack.get_SP();\n  vm_vector3d_t result = parms->me->get_impact_point();\n  if (!stack.push((char*)&result,sizeof(result)) )\n    error( stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname() );\n  return true;\n}\n",
+      "status": "different",
+      "target_size": 368
+    }
+  ],
+  "raw_name": "__cl__27slf_beam_get_impact_point_tR8vm_stackQ320script_library_class8function7entry_t"
+}
