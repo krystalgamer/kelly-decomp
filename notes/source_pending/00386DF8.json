@@ -1,0 +1,23 @@
+{
+  "address": "0x00386DF8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b36bd9c0742889363aec0f5a1e5ba808d97094ff",
+      "candidate_size": 228,
+      "compared_bytes": 392,
+      "compared_instructions": 98,
+      "emitted_name": "nvlStreamRewind__FP9nvlStream",
+      "instruction_score": 1.0204,
+      "matching_bytes": 38,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 66 lane B1 \u2014 0x00386DF8\n\n- Status: **source_pending** (`different`)\n- Attempts: **1**\n- Byte score: **9.6939%** (38/392)\n- Instruction score: **1.0204%** (1/98)\n- Candidate size: **228 bytes**; target size: **392 bytes**\n- Candidate: `tmp/functions/00386DF8_nvlStreamRewind__FP9nvlStream/attempt-1/candidate.cpp`\n- SHA-1: `b36bd9c0742889363aec0f5a1e5ba808d97094ff`\n- Started: `2026-07-28T11:45:05Z`; completed: `2026-07-28T11:45:08Z`; duration: **3s**\n\nTested the exact released `nvlStreamRewind` body once with minimal faithful declarations preserving the release stream layout, flags, mutex API, and stream-read API. The candidate differed. Per first-pass policy, no variants, retries, disassembly comparison, or diff chasing were performed. No finalization, build, tracked-file edit, commit, or git mutation was performed.\n\nCitations: `kelly-slaters-pro-surfer/NVL/PS2/nvlstream_ps2.cpp:46-101,1177-1209`; `kelly-slaters-pro-surfer/NVL/PS2/nvlstream_ps2.h:4-20,43-93`; `tmp/functions/00386DF8_nvlStreamRewind__FP9nvlStream/attempt-1/result.json`.",
+      "score": 9.6939,
+      "source": "#define assert(x) ((void)0)\n#define NULL 0\n\nenum nvlMutexMode\n{\n  NVL_MUTEX_BLOCK,\n  NVL_MUTEX_NOBLOCK\n};\n\ntypedef int nvlMutex;\n\nstruct nvlStream\n{\n  int           idx;\n  unsigned int  startSector;\n  unsigned int  endSector;\n  unsigned int  readSector;\n  unsigned int  filesize;\n  int           bytes_in_last_sect;\n  int           bufsize;\n  char          *buf;\n  char          *endbuf;\n  char          *pRead;\n  char          *pWrite;\n  char          *pLock;\n  char          *pEndOfData;\n  char          *pStartOfData;\n  int           private_buffer;\n  int           bitrate;\n  unsigned int  flags;\n  int           available;\n  nvlMutex      mtx;\n  int           lp_skip;\n  int           requireRewind;\n  int           fh;\n};\n\nenum\n{\n  NVL_STREAM_FLAG_LOOPING = 0x00000004,\n  NVL_STREAM_FLAG_HOST_FILE = 0x00000010\n};\n\nextern int nvlStreamSystemInitialized;\nint nvlLockMutex( nvlMutex* mtx, nvlMutexMode mode );\nvoid nvlUnlockMutex( nvlMutex* mtx );\nvoid* nvlStreamGet( nvlStream*, int *bytes, int lock = 1 );\n\nint nvlStreamRewind( nvlStream* s  )\n{\n  assert( nvlStreamSystemInitialized && s && s->pStartOfData );\n  if( (s->flags & NVL_STREAM_FLAG_LOOPING) && s->pStartOfData )\n  {\n    int   delta;\n\n    assert( s->pEndOfData );\n    nvlLockMutex( &s->mtx, NVL_MUTEX_BLOCK );\n    if( s->pEndOfData >= s->pRead )\n    {\n      delta = s->pEndOfData - s->pRead;\n    }\n    else\n    {\n      delta = s->endbuf - s->pRead + s->pEndOfData - s->buf;\n    }\n    assert( delta <= s->available );\n    s->available -= delta;\n    s->pLock = NULL;\n    s->pRead = s->pStartOfData;\n    s->pEndOfData = s->pStartOfData = NULL;\n    nvlUnlockMutex( &s->mtx );\n    if( !(s->flags & NVL_STREAM_FLAG_HOST_FILE) && s->lp_skip > 0 )\n    {\n      delta = s->lp_skip;\n      nvlStreamGet( s, &delta, 0 );\n      assert( delta == s->lp_skip );\n    }\n    return 1;\n  }\n  return 0;\n}\n",
+      "status": "different",
+      "target_size": 392
+    }
+  ],
+  "raw_name": "nvlStreamRewind__FP9nvlStream"
+}
