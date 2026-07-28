@@ -1,0 +1,23 @@
+{
+  "address": "0x00271568",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0e6cd0f141a1e2725406606c2df97bda8b3798c3",
+      "candidate_size": 276,
+      "compared_bytes": 356,
+      "compared_instructions": 89,
+      "emitted_name": "copy_instance_data__4beamRC4beam",
+      "instruction_score": 4.4944,
+      "matching_bytes": 60,
+      "matching_instructions": 4,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 49 lane A5 for `0x00271568 copy_instance_data__4beamRC4beam`.\n- Tested the exact released `beam::copy_instance_data` body once with minimal self-contained declarations preserving the released entity base call, beam fields and accessors, material instance bank, beam-effect cloning, and three-pointer vector interface.\n- Result: **different**, byte score **16.8539%** (60/356) and instruction score **4.4944%** (4/89); candidate size 276 bytes versus target size 356 bytes.\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/beam.cpp:103-126`\n- `kelly-slaters-pro-surfer/KS/SRC/beam.h:22-98,410-470`\n- `kelly-slaters-pro-surfer/KS/SRC/instance.h:45-78`\n- `tmp/functions/00271568_copy_instance_data__4beamRC4beam/attempt-1/result.json`",
+      "score": 16.8539,
+      "source": "// Target: 0x00271568 copy_instance_data__4beamRC4beam\n// Reference: KS/SRC/beam.cpp\n// Replace this file with one self-contained candidate function.\ntypedef float rational_t;\n\nclass color32\n{\npublic:\n  unsigned int c;\n};\n\nclass material;\nclass beam;\n\nclass entity\n{\npublic:\n  void copy_instance_data( const entity& b );\n};\n\ntemplate<class T> class vector\n{\npublic:\n  typedef T* iterator;\n  typedef const T* const_iterator;\n\n  T* start;\n  T* finish;\n  T* end_of_storage;\n\n  iterator begin() { return start; }\n  const_iterator begin() const { return start; }\n  iterator end() { return finish; }\n  const_iterator end() const { return finish; }\n  bool empty() const { return begin() == end(); }\n  void resize(unsigned int n);\n  void push_back(const T& x)\n  {\n    if (finish != end_of_storage)\n      *finish++ = x;\n    else\n      insert_aux(end(), x);\n  }\n\nprivate:\n  void insert_aux(iterator position, const T& x);\n};\n\nclass beam_effect\n{\npublic:\n  virtual beam_effect* make_instance(beam *the_beam);\n};\n\ntemplate<class T> class instance_bank\n{\npublic:\n  T* new_instance(T* ptr);\n};\n\nextern instance_bank<material> material_bank;\n\nclass beam : public entity\n{\n  rational_t thickness;\n  rational_t max_length;\n  color32 my_color;\n  vector<beam_effect*> effects;\n  material* my_material;\n  bool additive;\n\npublic:\n  void set_thickness(rational_t value);\n  rational_t get_thickness() const;\n  void set_max_length(rational_t value);\n  rational_t get_max_length() const;\n  void set_beam_color(const color32& value);\n  color32 get_beam_color() const;\n  void copy_instance_data(const beam& b);\n};\n\nvoid beam::copy_instance_data( const beam& b )\n{\n  entity::copy_instance_data( b );\n\n  additive = b.additive;\n  set_thickness( b.get_thickness() );\n  set_max_length( b.get_max_length() );\n  set_beam_color( b.get_beam_color() );\n  if ( b.my_material != 0 )\n    my_material = material_bank.new_instance( b.my_material );\n\n  effects.resize(0);\n  if ( !b.effects.empty() )\n  {\n    vector<beam_effect*>::const_iterator i = b.effects.begin();\n    for ( ; i!=b.effects.end(); ++i )\n    {\n      if ( (*i) )\n        effects.push_back((*i)->make_instance(this));\n    }\n  }\n}\n",
+      "status": "different",
+      "target_size": 356
+    }
+  ],
+  "raw_name": "copy_instance_data__4beamRC4beam"
+}
