@@ -1,0 +1,23 @@
+{
+  "address": "0x001E4DE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "fd70b7206a6aef05cf8781b3e55a7f793e3a655c",
+      "candidate_size": 456,
+      "compared_bytes": 456,
+      "compared_instructions": 114,
+      "emitted_name": "isFileValid__16GenericGameSaveriiG8saveInfo",
+      "instruction_score": 12.2807,
+      "matching_bytes": 145,
+      "matching_instructions": 14,
+      "notes": "Attempt 1 used the exact released PS2 body with minimal faithful self-contained declarations. Result `different`, score 31.7982; no retry, variant, integration, or finalization was performed.",
+      "score": 31.7982,
+      "source": "typedef struct\n{\n  float version;\n  int type;\n  char shortname[8];\n  char desc[68];\n  long int timestamp;\n  int valid;\n} saveInfo;\n\ntypedef struct\n{\n  char data[96];\n} sceMcTblGetDir;\n\nextern \"C\" char *strcpy(char *, const char *);\nextern \"C\" char *strcat(char *, const char *);\nextern \"C\" int sceMcGetDir(int, int, const char *, int, int, sceMcTblGetDir *);\nextern \"C\" int sceMcSync(int, int *, int *);\n\n#define CAREER_DATA_VERSION 68168\n#define PRODUCT_CODE \"BASLUS-20334\"\n#define GSOk 0\n#define GSErrorOther -2\n\nclass GenericGameSaver\n{\npublic:\n  static int getInfo(int port, int slot, int *type, int *free, int *formatted);\n  int isFileValid(int port, int slot, saveInfo s);\n};\n\nint GenericGameSaver::isFileValid( int port, int slot, saveInfo s )\n{\n  char iconname[100];\n  sceMcTblGetDir tble[1] __attribute__((aligned (64)));;\n  int free, formatted, type, cmd, result;\n  char shortname[20];\n  strcpy(shortname, s.shortname);\n  \n  shortname[7] = '\\0';\n\n  if (s.version != CAREER_DATA_VERSION)\n    return GSErrorOther;\n  if (getInfo(port, slot, &type, &free, &formatted) < 0)\n    return GSErrorOther;\n  strcpy(iconname, \"/\");\n  strcat(iconname, PRODUCT_CODE);\n  strcat(iconname, shortname);\n  strcat(iconname, \"/\");\n  strcat(iconname, PRODUCT_CODE);\n  strcat(iconname, shortname);\n  strcat(iconname, \".icn\");\n\n\n  if (sceMcGetDir(port, slot, iconname , 0, 1, tble) != 0)\n    if (sceMcGetDir(port, slot, iconname , 0, 1, tble) != 0)\n      return GSErrorOther;\n\n  if (sceMcSync(0, &cmd, &result) != 1)\n    return GSErrorOther;\n  if (result == -4)\n    return GSErrorOther;\n  else if (result < 0)\n    return GSErrorOther;\n  \n  \n  return GSOk;\n}\n",
+      "status": "different",
+      "target_size": 452
+    }
+  ],
+  "raw_name": "isFileValid__16GenericGameSaveriiG8saveInfo"
+}
