@@ -1,0 +1,23 @@
+{
+  "address": "0x001E0190",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1a75ef7c9af09a9df86bdde38299a262714d8c3a",
+      "candidate_size": 444,
+      "compared_bytes": 444,
+      "compared_instructions": 111,
+      "emitted_name": "open__7os_fileRC7stringxi",
+      "instruction_score": 95.4955,
+      "matching_bytes": 380,
+      "matching_instructions": 106,
+      "notes": "Attempt 1 used the exact released open body with minimal self-contained released declarations. Result: different, 85.5856%% byte score, 95.4955%% instruction score, 444-byte candidate. No retry or post-test diff chasing performed.",
+      "score": 85.5856,
+      "source": "extern \"C\" int strlen(const char *);\n\nclass string_buf\n{\npublic:\n  void *data;\n  int ref_count;\n  int char_length;\n\n  int compare(const char *str) const\n  {\n    int i;\n    const char *a = reinterpret_cast<const char *>(data);\n    for (i = 0; i < char_length; i++) {\n      if (str[i] == '\\0') return -1;\n      if (a[i] == str[i]) continue;\n      if (str[i] > a[i]) return 1;\n      if (str[i] < a[i]) return -1;\n    }\n    if (str[i] == '\\0') return 0;\n    return 1;\n  }\n\n  bool is_equal(const char *str) const\n  {\n    return (compare(str) == 0);\n  }\n};\n\nclass stringx\n{\n  friend stringx operator+(const stringx& lhs, const char* rhs);\n  friend bool operator==(const stringx& lhs, const char *rhs);\n\n  char *chars;\n  string_buf *my_buf;\n\npublic:\n  stringx();\n  stringx(const stringx &cp);\n  ~stringx();\n  stringx &operator=(const stringx &cp);\n  void make_room(int size);\n  void append(const char *str, int len = -1);\n  void append(const stringx &cp);\n};\n\ninline bool operator==(const stringx& lhs, const char *rhs)\n{\n  return lhs.my_buf->is_equal(rhs);\n}\n\ninline stringx operator+(const stringx& lhs, const char* rhs)\n{\n  stringx foo;\n  int len = strlen(rhs);\n\n  foo.make_room(len + lhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs, len);\n\n  return foo;\n}\n\nvoid warning(const stringx& str);\n\nclass os_developer_options\n{\n  char base[4];\n  bool flags[125];\n  static os_developer_options *instance;\n\npublic:\n  enum flags_t\n  {\n    FLAG_NO_CD = 4,\n    FLAG_MOVE_EDITOR = 124\n  };\n\n  static os_developer_options *inst()\n  {\n    return instance;\n  }\n\n  bool is_flagged(flags_t _flag) const { return flags[_flag]; }\n};\n\nclass os_file\n{\npublic:\n  enum mode_flags\n  {\n    FILE_READ = 1\n  };\n\n  void open(const stringx & _name, int _flags);\n  static bool is_system_locked() { return system_locked; }\n\nprivate:\n  stringx name;\n  int flags;\n  bool opened;\n  bool eof;\n  bool from_cd;\n\n  static bool system_locked;\n\n  bool try_to_open_from_cd();\n  bool try_to_open_from_disk();\n};\n\n#define assert(exp) ((void)0)\n\nstatic inline void check_system_locked( const stringx& name )\n{\n  if ( os_file::is_system_locked()  && !os_developer_options::inst()->is_flagged(os_developer_options::FLAG_MOVE_EDITOR))\n    warning( name + \": os_file system is locked; no file access allowed\" );\n}\n\nvoid os_file::open(const stringx & _name, int _flags)\n{\n  bool ret = false;\n  assert(!opened);\n\n  check_system_locked( _name );\n\n  name = _name;\n  flags = _flags;\n\n  if (( _flags & FILE_READ) &&\n    (_name == \"GAME.INI\" ||\t// next line will crash unless game.ini already loaded (dc 01/07/02)\n    !os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_CD)))\n  {\n    ret = try_to_open_from_cd();\n    if( ret ) return;\n  }\n\n  if (ret == false)\n  {\n    ret = try_to_open_from_disk();\n  }\n\n  if (ret == false)\n  {\n//    let's fail silently\n//    nglPrintf(\"Error.  Could not open file %s on either the cd or the host disk.\\n\", name.c_str());\n    opened = false;\n  }\n}\n",
+      "status": "different",
+      "target_size": 444
+    }
+  ],
+  "raw_name": "open__7os_fileRC7stringxi"
+}
