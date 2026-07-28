@@ -1,0 +1,23 @@
+{
+  "address": "0x00229BA8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "26def230ee0529a65678196b2c6ed237fad9566b",
+      "candidate_size": 364,
+      "compared_bytes": 368,
+      "compared_instructions": 92,
+      "emitted_name": "interpolate_vector__FP8vector3dG8vector3dT1fi",
+      "instruction_score": 9.7826,
+      "matching_bytes": 106,
+      "matching_instructions": 9,
+      "notes": "Exact released interpolate_vector body with minimal self-contained declarations for rational_t, vector3d construction/assignment, scalar multiplication, addition, normalization, SMALL_DIST, fast_recip_sqrt, and sqrtf. The released assert is preserved as the non-debug no-op used by this compile.",
+      "score": 28.8043,
+      "source": "typedef float rational_t;\ntypedef float fp;\n\nextern \"C\" float sqrtf(float);\n#define assert(condition) ((void)0)\n\nconst rational_t SMALL_DIST = 0.00001f;\n\ninline fp fast_recip_sqrt(fp x)\n{\n  return 1.0F/(rational_t)sqrtf(x);\n}\n\nclass vector3d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z;\n\n  inline vector3d() {}\n  inline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n  inline vector3d(T _x, T _y, T _z) { x = _x; y = _y; z = _z; }\n\n  inline vector3d& operator = (const vector3d& v)\n  { x = v.x; y = v.y; z = v.z; return *this; }\n\n  inline vector3d& operator *= (T d)\n  { x *= d; y *= d; z *= d; return *this; }\n\n  inline T length2() const\n  { return x*x + y*y + z*z; }\n\n  inline vector3d& normalize()\n  {\n    T l2 = length2();\n    if (l2>SMALL_DIST*SMALL_DIST)\n      *this *= fast_recip_sqrt(l2);\n    return *this;\n  }\n};\n\ninline vector3d operator + (const vector3d& a, const vector3d& b)\n{ return vector3d(a.x + b.x, a.y + b.y, a.z + b.z); }\n\ninline vector3d operator * (const vector3d& a, vector3d::T d)\n{ return vector3d(d * a.x, d * a.y, d * a.z); }\n\nvoid interpolate_vector(vector3d *new_vector, vector3d first_vector, vector3d second_vector, float difference, int curve)\n{\n  assert(difference >= 0.0f && difference <= 1.0f);\n\n  if (curve == 1)\n    difference = 3*difference*difference- 2*difference*difference*difference;\n  else if (curve == 2)\n    difference *= difference;\n  else if (curve == 3)\n    difference = (2*difference) - (difference*difference);\n\n  *new_vector = (first_vector * (1-difference)) + (second_vector * difference);\n\n  if (curve != 4)\n    new_vector->normalize();\n}\n",
+      "status": "different",
+      "target_size": 368
+    }
+  ],
+  "raw_name": "interpolate_vector__FP8vector3dG8vector3dT1fi"
+}
