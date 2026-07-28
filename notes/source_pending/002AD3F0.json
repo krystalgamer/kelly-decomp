@@ -1,0 +1,23 @@
+{
+  "address": "0x002AD3F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "20e84fc04bfe8e57b330276d9ee7e04712983d9f",
+      "candidate_size": 364,
+      "compared_bytes": 380,
+      "compared_instructions": 95,
+      "emitted_name": "find__Ct8_Rb_tree5ZPQ2t13instance_bank1Z8material5ref_tZPQ2t13instance_bank1Z8material5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8material5ref_tZQ2t13instance_bank1Z8material13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z8material5ref_t",
+      "instruction_score": 11.5789,
+      "matching_bytes": 114,
+      "matching_instructions": 11,
+      "notes": "Attempt 1 used the exact released source body and minimal declarations for `find__Ct8_Rb_tree5ZPQ2t13instance_bank1Z8material5ref_tZPQ2t13instance_bank1Z8material5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8material5ref_tZQ2t13instance_bank1Z8material13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z8material5ref_t`. Result `different`, score 30.0000; no retry or declaration variant was made. Citations: C:/usr/local/sce/ee/gcc/include/g++-2/stl_tree.h (queue source_file; exact released find body), kelly-slaters-pro-surfer/KS/SRC/instance.h:14-46, kelly-slaters-pro-surfer/KS/SRC/stringx.h:173-190,480-483, tmp/functions/002AD3F0_find__Ct8_Rb_tree5ZPQ2t13instance_bank1Z8material5ref_tZPQ2t13instance_bank1Z8material5ref_tZt9_Id_0f5b9d46f6e3/attempt-1/result.json, tmp/source_first/002AD3F0/attempt-1.md.",
+      "score": 30.0,
+      "source": "struct string_buf {\n  char* data;\n  int block_length;\n  int char_length;\n\n  inline int compare(const string_buf& buf) const {\n    int i;\n    const char* a = data;\n    const char* b = buf.data;\n    int cmp_len = (char_length < buf.char_length ? char_length : buf.char_length);\n    for (i = 0; i < cmp_len; i++) {\n      if (a[i] == b[i]) continue;\n      if (b[i] > a[i]) return 1;\n      if (b[i] < a[i]) return -1;\n    }\n    if (buf.char_length > char_length) return 1;\n    if (buf.char_length < char_length) return -1;\n    return 0;\n  }\n};\n\nstruct stringx {\n  char* chars;\n  string_buf* my_buf;\n};\n\ninline bool operator<(const stringx& lhs, const stringx& rhs) {\n  return (lhs.my_buf->compare(*rhs.my_buf) == 1);\n}\n\nstruct ref_t {\n  stringx label;\n  void* ptr;\n  unsigned int count;\n};\n\nstruct less_by_label {\n  bool operator()(const ref_t* a, const ref_t* b) const {\n    return (a->label < b->label);\n  }\n};\n\nstruct node {\n  int color;\n  node* parent;\n  node* left;\n  node* right;\n  ref_t* value;\n};\n\nstruct iterator {\n  node* _M_node;\n  iterator(node* x) : _M_node(x) {}\n  bool operator==(const iterator& x) const { return _M_node == x._M_node; }\n};\n\nclass tree {\n  node* _M_header;\n  less_by_label _M_key_compare;\n\n  node*& _M_root() const { return _M_header->parent; }\n  static node* _S_left(node* x) { return x->left; }\n  static node* _S_right(node* x) { return x->right; }\n  static ref_t* const& _S_key(node* x) { return x->value; }\n\npublic:\n  typedef ref_t* key_type;\n  typedef node* link_type;\n\n  iterator end() const { return iterator(_M_header); }\n  iterator find(const key_type& __k) const\n    __asm__(\"find__Ct8_Rb_tree5ZPQ2t13instance_bank1Z8material5ref_tZPQ2t13instance_bank1Z8material5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8material5ref_tZQ2t13instance_bank1Z8material13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z8material5ref_t\");\n};\n\niterator tree::find(const key_type& __k) const {\n  link_type __y = (link_type) _M_header;\n  link_type __x = (link_type) _M_root();\n  while (__x != 0)\n    if (!_M_key_compare(_S_key(__x), __k))\n      __y = __x, __x = (link_type) _S_left(__x);\n    else\n      __x = (link_type) _S_right(__x);\n  iterator __j = iterator(__y);\n  return (__j == end() || _M_key_compare(__k, _S_key(__j._M_node))) ? end() : __j;\n}\n",
+      "status": "different",
+      "target_size": 380
+    }
+  ],
+  "raw_name": "find__Ct8_Rb_tree5ZPQ2t13instance_bank1Z8material5ref_tZPQ2t13instance_bank1Z8material5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8material5ref_tZQ2t13instance_bank1Z8material13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z8material5ref_t"
+}
