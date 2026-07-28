@@ -1,0 +1,23 @@
+{
+  "address": "0x001DF788",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "412c565b6de29fdc5b3103c6b4df2e069aab4be2",
+      "candidate_size": 220,
+      "compared_bytes": 356,
+      "compared_instructions": 89,
+      "emitted_name": "Cof__9matrix4x4",
+      "instruction_score": 0.0,
+      "matching_bytes": 41,
+      "matching_instructions": 0,
+      "notes": "Exact released matrix4x4::Cof body with minimal rational_t, vector4d, matrix4x4, indexing, and cofactor declarations. No variants or diff chasing.",
+      "score": 11.5169,
+      "source": "typedef float rational_t;\n\nclass vector4d\n{\npublic:\n  rational_t x, y, z, w;\n\n  inline rational_t& operator[](int i)\n  { return (&x)[i]; }\n\n  inline const rational_t& operator[](int i) const\n  { return (&x)[i]; }\n};\n\nclass matrix4x4\n{\npublic:\n  typedef rational_t T;\n  typedef vector4d row;\n\n  row x __attribute__((aligned(16)));\n  row y;\n  row z;\n  row w;\n\n  inline matrix4x4() {}\n\n  inline const row& operator[](int i) const\n  { return (&x)[i]; }\n\n  inline row& operator[](int i)\n  { return (&x)[i]; }\n\n  matrix4x4 Cof() __asm__(\"Cof__9matrix4x4\");\n  T cofactor(int, int) const __asm__(\"cofactor__C9matrix4x4ii\");\n};\n\nmatrix4x4 matrix4x4::Cof()\n{\n  matrix4x4 t;\n\n  for(int i = 0; i < 4; ++i)\n  {\n    for(int j = 0; j < 4; ++j)\n      t[i][j] = this->cofactor(i, j);\n  }\n\n  return t;\n}\n",
+      "status": "different",
+      "target_size": 356
+    }
+  ],
+  "raw_name": "Cof__9matrix4x4"
+}
