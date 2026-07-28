@@ -1,0 +1,23 @@
+{
+  "address": "0x0018F558",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a5e01fd693aa539e63624de8d4ffa28683385616",
+      "candidate_size": 264,
+      "compared_bytes": 356,
+      "compared_instructions": 89,
+      "emitted_name": "Select__13BeachFrontEndi",
+      "instruction_score": 1.1236,
+      "matching_bytes": 51,
+      "matching_instructions": 1,
+      "notes": "Exact released BeachFrontEnd::Select control flow with minimal declarations; the released MAX_MAP_LOADING class constant is represented by its exact value (3). No variants or diff chasing.",
+      "score": 14.3258,
+      "source": "class stringx {};\nextern stringx ksGlobalTextArray[];\n\nclass FEMenuEntry {};\n\nclass BoxText {\npublic:\n    void changeText(const stringx &) __asm__(\"changeText__7BoxTextRC7stringx\");\n    void makeBox(float, float) __asm__(\"makeBox__7BoxTextff\");\n    void changePos(float, float) __asm__(\"changePos__7BoxTextff\");\n};\n\nclass HelpBar {\npublic:\n    void DisableHelpbar() __asm__(\"DisableHelpbar__7HelpBar\");\n};\n\nclass FEManager {\npublic:\n    HelpBar *helpbar;\n};\nextern FEManager frontendmanager;\n\nclass SoundScriptManager {\npublic:\n    static SoundScriptManager *instance __asm__(\"_18SoundScriptManager$instance\");\n    static SoundScriptManager *inst() { return instance; }\n    void pause() __asm__(\"pause__18SoundScriptManager\");\n    void unpause() __asm__(\"unpause__18SoundScriptManager\");\n    int playEvent(int, void * = 0, float = 0) __asm__(\"playEvent__18SoundScriptManager9EventTypeP6entityf\");\n};\n\nenum { SS_FE_ONX = 24, GT_FE_MENU_LOADING = 0 };\n\nclass BeachFrontEnd {\npublic:\n    FEMenuEntry *highlighted;\n    FEMenuEntry *secondary_cursor;\n    FEMenuEntry *fe_return;\n    FEMenuEntry *yes_entry;\n    BoxText *return_question;\n    int map_wait_loading;\n    bool in_frontend;\n\n    void FromFEReturn() __asm__(\"FromFEReturn__13BeachFrontEnd\");\n    void Pick() __asm__(\"Pick__13BeachFrontEnd\");\n    void Select(int) __asm__(\"Select__13BeachFrontEndi\");\n};\n\nvoid BeachFrontEnd::Select(int entry_index)\n{\n    if (!in_frontend)\n        SoundScriptManager::inst()->unpause();\n\n    if(!in_frontend && highlighted == fe_return)\n    {\n        SoundScriptManager::inst()->playEvent(SS_FE_ONX);\n        if(secondary_cursor == yes_entry)\n        {\n            map_wait_loading = 3;\n            return_question->changeText(ksGlobalTextArray[GT_FE_MENU_LOADING]);\n            return_question->makeBox(200, 100);\n            return_question->changePos(320, 240);\n            frontendmanager.helpbar->DisableHelpbar();\n        }\n        else FromFEReturn();\n    }\n    else Pick();\n    if (!in_frontend)\n        SoundScriptManager::inst()->pause();\n}\n",
+      "status": "different",
+      "target_size": 356
+    }
+  ],
+  "raw_name": "Select__13BeachFrontEndi"
+}
