@@ -1,0 +1,15 @@
+{
+  "address": "0x002646A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b606fe158b4ffcea0d1070b573aec893e3907c69",
+      "notes": "# Attempt 1 \u2014 exact released source\n\nTested the released `EmitMultiColorBlock3` body unchanged with minimal isolated declarations and LF endings. The candidate compile failed, so the score is 0.0. Per first-pass policy, no alternate implementation, retry, variants, assembly annotations, attempts 2\u20135, or post-test diff investigation was performed. Tracked sources were not changed; the function was not finalized or integrated.",
+      "score": 0.0,
+      "source": "class cbVector\n{\n    unsigned char pData[4];\n};\n\ntemplate <class Type> class Table\n{\n    Type data[16];\n    int size;\npublic:\n    virtual ~Table();\n    Type &operator[](const int i);\n};\n\nclass CodeBook\n{\n    Table<cbVector> VectList;\n    Table<int> usageCount;\npublic:\n    virtual ~CodeBook();\n    int FindVectorSlow(const cbVector &Vect);\n    cbVector &operator[](const int i) { return VectList[i]; }\n};\n\nclass DXT1Color\n{\npublic:\n    DXT1Color() {}\n    union {\n        struct { unsigned char r, g, b, a; };\n        unsigned int Col;\n    };\n};\n\nclass ImageDXTC\n{\n    static const unsigned short ColorBits3[3];\n    int XSize, YSize;\n    unsigned char AlphaValue;\n\n    unsigned short Make565(const DXT1Color & Col) const\n    {\n        return ((unsigned short)(Col.r >> 3) << 11) | ((unsigned short)(Col.g >> 2) << 5) | ((unsigned short)(Col.b >> 3));\n    }\n\npublic:\n    void EmitMultiColorBlock3(unsigned short *pDest, CodeBook &cb, DXT1Color *pSrc);\n};\n\nvoid ImageDXTC::EmitMultiColorBlock3(unsigned short *pDest, CodeBook &cb, DXT1Color *pSrc)\n{\nint x, y, Shift;\nunsigned short Index, Col1, Col2;\nDXT1Color C, C2;\n\n\tC = *((DXT1Color *)&cb[0]);\n\tC2 = *((DXT1Color *)&cb[2]);\n\n\tCol1 = Make565(C);\n\tCol2 = Make565(C2);\n\n\tif(Col1 > Col2)\n\t{\n\t\t*((DXT1Color *)&cb[0]) = C2;\n\t\t*((DXT1Color *)&cb[2]) = C;\t\t// Shuffle the color table order around\n\t\tpDest[0] = Col2;\n\t\tpDest[1] = Col1;\n\t}\n\telse\n\t{\n\t\tpDest[0] = Col1;\n\t\tpDest[1] = Col2;\n\t}\n\n\tpDest[2] = 0;\n\tpDest[3] = 0;\n\tpDest += 2;\n\n\tunsigned char *pcDest = (unsigned char *)pDest;\n\tfor(y=0; y<4; y++)\n\t{\n\t\tShift = 0;\n\t\tfor(x=0; x<4; x++)\n\t\t{\n\t\t\tC = pSrc[x];\n\t\t\tC.a = 0;\n\t\t\tIndex = ColorBits3[ cb.FindVectorSlow( *((cbVector *)(&C)) ) ];\n\n\t\t\t*pcDest |= Index << Shift;\n\t\t\tShift += 2;\n\t\t}\n\t\tpSrc += XSize;\n\t\tpcDest ++;\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "EmitMultiColorBlock3__9ImageDXTCPUsR8CodeBookP9DXT1Color"
+}
