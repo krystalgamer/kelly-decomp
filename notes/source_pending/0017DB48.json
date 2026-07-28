@@ -1,0 +1,23 @@
+{
+  "address": "0x0017DB48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "482134a601d03b44e6796efb665bc679bcc5d165",
+      "candidate_size": 408,
+      "compared_bytes": 412,
+      "compared_instructions": 103,
+      "emitted_name": "GetCompStrTotal__C11IGOFrontEndi",
+      "instruction_score": 9.7087,
+      "matching_bytes": 107,
+      "matching_instructions": 10,
+      "notes": "# FIRST PASS wave 71 lane B1 \u2014 0x0017DB48\n\n- Confirmed there were no prior attempts.\n- Tested the exact released `IGOFrontEnd::GetCompStrTotal(const int) const` body once with minimal self-contained declarations preserving the relevant `game`, `JudgingSystem`, and `beach` layouts.\n- Result: **different**, byte score **25.9709%** (107/412), instruction score **9.7087%** (10/103); candidate size 408 bytes versus target size 412 bytes.\n- No variants, retries, disassembly comparison, diff chasing, build, finalization, integration, tracked-file edits, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/IGOFrontEnd.cpp:3626-3637`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/judge.h:15-40,43-47,67`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/beach.h:16-29,81`\n- `kelly-slaters-pro-surfer/KS/SRC/game.h:540-551`\n- `kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-285`\n- `tmp/functions/0017DB48_GetCompStrTotal__C11IGOFrontEndi/attempt-1/result.json`",
+      "score": 25.9709,
+      "source": "// Target: 0x0017DB48 GetCompStrTotal__C11IGOFrontEndi\n// Reference: KS/SRC/ks/IGOFrontEnd.cpp\nextern \"C\" int sprintf(char *, const char *, ...);\n\n#define assert(x) ((void)0)\n\nenum { BEACH_MAVERICKS = 6, SURFER_LAST = 14 };\n\nclass stringx\n{\n    char *chars;\n    void *my_buf;\npublic:\n    stringx(const char *str, int len = -1);\n};\n\nclass game\n{\n    char padding[0x224];\n    int levelid;\n    int beachid;\npublic:\n    int get_beach_id() { return beachid; }\n};\n\nextern game *g_game_ptr;\n\nclass JudgingSystem\n{\npublic:\n    struct RUN\n    {\n        float regionScores[3];\n\n        float GetAverageScore() const\n        {\n            if (g_game_ptr->get_beach_id() != BEACH_MAVERICKS)\n                return (regionScores[0]+regionScores[1]+regionScores[2])/3.0f;\n            else\n                return (regionScores[0]+regionScores[1])/2.0f;\n        }\n    };\n\n    struct RESULT\n    {\n        RUN runs[3];\n        int rank;\n\n        float GetRunTotal() const { return runs[0].GetAverageScore() + runs[1].GetAverageScore() + runs[2].GetAverageScore(); }\n    };\n\nprivate:\n    float skills[SURFER_LAST];\n    bool isCompetitor[SURFER_LAST];\n    char alignment[2];\n    float difficulties[3];\n    RESULT results[SURFER_LAST];\n\npublic:\n    RESULT *GetCompetitionResults() { return results; }\n};\n\nclass beach\n{\npublic:\n    JudgingSystem judges;\n};\n\nextern beach *g_beach_ptr;\n\nclass IGOFrontEnd\n{\npublic:\n    stringx GetCompStrTotal(const int surferIdx) const;\n};\n\n__asm__(\".equ g_beach_ptr, 0x0042F710\");\n__asm__(\".equ g_game_ptr, 0x0045AC64\");\n__asm__(\".equ sprintf, 0x003D38A8\");\n__asm__(\".equ __7stringxPCci, 0x0034D438\");\n\nstringx IGOFrontEnd::GetCompStrTotal(const int surferIdx) const\n{\n\tJudgingSystem::RESULT *\tresults = g_beach_ptr->judges.GetCompetitionResults();\n\tchar\ts[256] = \"\";\n\n\tassert(surferIdx >= 0 && surferIdx < SURFER_LAST);\n\tsprintf(s, \"%.1f\", results[surferIdx].GetRunTotal());\n\t\n\treturn stringx(s);\n}\n",
+      "status": "different",
+      "target_size": 412
+    }
+  ],
+  "raw_name": "GetCompStrTotal__C11IGOFrontEndi"
+}
