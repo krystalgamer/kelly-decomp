@@ -1,0 +1,23 @@
+{
+  "address": "0x001A0310",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1f6b9bbe2c849cb73a16a224491e5efb962426be",
+      "candidate_size": 296,
+      "compared_bytes": 348,
+      "compared_instructions": 87,
+      "emitted_name": "ReplaceBadCharacters__9NamesMenuR7stringx",
+      "instruction_score": 10.3448,
+      "matching_bytes": 93,
+      "matching_instructions": 9,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 43 lane B4 for `0x001A0310 ReplaceBadCharacters__9NamesMenuR7stringx`.\n- Tested the exact released `NamesMenu::ReplaceBadCharacters(stringx&)` body once with minimal declarations preserving the released `stringx` object layout, `string_buf::char_length`, indexed read/write behavior, and `lock()` call.\n- Result: **different** \u2014 93/348 bytes (26.7241%) and 9/87 instructions (10.3448%); candidate size 296 versus target size 348.\n- Exactly one non-placeholder candidate was tested. No variants, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/SaveLoadFrontEnd.cpp:2044-2055`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/SaveLoadFrontEnd.h:247-268`\n- `kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-395`\n- `tmp/functions/001A0310_ReplaceBadCharacters__9NamesMenuR7stringx/attempt-1/result.json`",
+      "score": 26.7241,
+      "source": "class string_buf\n{\npublic:\n  unsigned long long *data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n};\n\nclass stringx\n{\nprotected:\n  char *chars;\n  string_buf *my_buf;\n\npublic:\n  void lock();\n\n  inline char &operator[](int i)\n  {\n    lock();\n    if (i < 0)\n      i += length();\n    return chars[i];\n  }\n\n  inline const char operator[](int i) const\n  {\n    if (i < 0)\n      i += length();\n    return chars[i];\n  }\n\n  inline int size() const\n  {\n    return my_buf->char_length;\n  }\n\n  inline int length() const\n  {\n    return size();\n  }\n};\n\nclass NamesMenu\n{\npublic:\n  static void ReplaceBadCharacters(stringx &tmp);\n};\n\nvoid NamesMenu::ReplaceBadCharacters(stringx &tmp)\n{\n  for(int i=0; i<tmp.length(); i++)\n  {\n    char c = tmp[i];\n    if(!(c >= 'A' && c <= 'Z') && !(c >= 'a' && c <= 'z') &&\n      !(c >= '0' && c <= '9') && c != ' ' && c!='(' && c!= ')')\n      tmp[i] = '#';\n  }\n}\n",
+      "status": "different",
+      "target_size": 348
+    }
+  ],
+  "raw_name": "ReplaceBadCharacters__9NamesMenuR7stringx"
+}
