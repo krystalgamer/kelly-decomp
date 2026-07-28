@@ -1,0 +1,15 @@
+{
+  "address": "0x0034EE68",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "af308daf6ddf6c23910c01a6785ed3288518e62b",
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Status: **compile_failed**\n- Byte score: **0.0%**\n- Instruction score: **0.0%** (not emitted)\n- Candidate: `tmp/functions/0034EE68__$_20script_library_class/attempt-1/candidate.cpp`\n- SHA-1: `af308daf6ddf6c23910c01a6785ed3288518e62b`\n- Exact released destructor body from `kelly-slaters-pro-surfer/KS/SRC/script_library_class.cpp:41-45`, with the released class declaration cited at `kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:16-82`.\n- Compilation failed because Wine GCC could not resolve the candidate-relative released header paths. No retry or source variant was attempted.",
+      "score": 0.0,
+      "source": "#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/script_library_class.h\"\n\nscript_library_class::~script_library_class()\n{\n  for (function_list::iterator i=funcs.begin(); i!=funcs.end(); ++i)\n    delete *i;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_20script_library_class"
+}
