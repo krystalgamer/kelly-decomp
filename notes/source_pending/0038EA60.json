@@ -1,0 +1,23 @@
+{
+  "address": "0x0038EA60",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "47157697dd8caa1a78e9eaab475c6da767e51b34",
+      "candidate_size": 412,
+      "compared_bytes": 412,
+      "compared_instructions": 103,
+      "emitted_name": "_setSoundPosVolume__FUiPf",
+      "instruction_score": 13.5922,
+      "matching_bytes": 152,
+      "matching_instructions": 14,
+      "notes": "The exact released `_setSoundPosVolume` source and minimal faithful declarations compiled to 412 bytes on attempt one versus the 400-byte target. The isolated comparison was different at 36.8932% (13.5922% instructions); no source variants or diff investigation were performed.",
+      "score": 36.8932,
+      "source": "typedef unsigned int nslSoundId;\ntypedef float nlVector3d[3];\n\nstruct nslSound\n{\n  char unused0[60];\n  unsigned int myEmitter;\n  float rawVolume;\n  float positionalVolume;\n  float angle;\n  float pitch;\n  float minDist;\n  float maxDist;\n};\n\nstruct nslEmitter\n{\n  char unused0[8];\n  bool isALineEmitter;\n  char unused1[7];\n  nlVector3d startPosition;\n  nlVector3d endPosition;\n  nlVector3d position;\n  char unused2[12];\n};\n\nstruct nslSystem\n{\n  float listenerPo[4][4];\n  char unused0[49152];\n  nslSound soundSlots[196];\n  char unused1[1696];\n  nslEmitter emitterSlots[128];\n};\n\nextern nslSystem nsl;\nextern void nlDistancePointSegment(const nlVector3d &, const nlVector3d &,\n                                   const nlVector3d &, nlVector3d &);\nextern void nslFatal(const char *, ...);\n\n#define NSL_GET_SLOT_FROM_ID(x) (x & 0x000003FF)\n\nbool _setSoundPosVolume( nslSoundId whichSound, float *xzDistanceSq ) \n{\n  // Calc the distance\n  // No sqaure roots here...\n  // calc volume based on SQ\n\n  nslEmitter *e;\n  nslSound *snd;\n\n  snd = &nsl.soundSlots[NSL_GET_SLOT_FROM_ID(whichSound)];\n  e = &nsl.emitterSlots[NSL_GET_SLOT_FROM_ID(snd->myEmitter)];\n\n  if (e->isALineEmitter)\n  {\n    nlVector3d listenerPos;\n    listenerPos[0] = nsl.listenerPo[0][3];\n    listenerPos[1] = nsl.listenerPo[1][3];\n    listenerPos[2] = nsl.listenerPo[2][3];\n    nlDistancePointSegment( listenerPos, e->startPosition, e->endPosition, e->position );\n  }\n\n  float xDist = e->position[0] - nsl.listenerPo[0][3];\n  float yDist = e->position[1] - nsl.listenerPo[1][3];\n  float zDist = e->position[2] - nsl.listenerPo[2][3];\n  float distanceSQ = xDist*xDist + zDist*zDist;\n  if (xzDistanceSq)\n    *xzDistanceSq = distanceSQ;\n  distanceSQ += yDist*yDist;\n  // Copy values for ease\n  if ( snd->minDist < 0.0f)\n    nslFatal (\"These should never go negative\" );\n  if ( snd->maxDist < 0.0f)\n    nslFatal (\"These should never go negative\" );\n/*\n  if ( snd->minDist < 0.0f || snd->maxDist < 0.0f)\n  {\n    nslFatal(\"FOOBARED\");\n  }\n*/\n  float minDistSQ = snd->minDist * snd->minDist;\n  float maxDistSQ = snd->maxDist * snd->maxDist;\n\n  // Check to see if the sound is in range or not.  \n  if (distanceSQ > maxDistSQ)\n  {\n    snd->positionalVolume = 0.0f;\n    return false;\n  } \n  else if (distanceSQ < minDistSQ) \n  {\n    snd->positionalVolume = 1.0f;\n    return true;\n  } \n  else \n  {\n    snd->positionalVolume = (maxDistSQ - distanceSQ)/(maxDistSQ-minDistSQ);\n    return true;\n  }\n}\n",
+      "status": "different",
+      "target_size": 400
+    }
+  ],
+  "raw_name": "_setSoundPosVolume__FUiPf"
+}
