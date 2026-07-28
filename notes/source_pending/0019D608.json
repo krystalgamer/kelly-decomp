@@ -1,0 +1,23 @@
+{
+  "address": "0x0019D608",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "32bf73291aaa9b8875f13c9a280b6c6ef1e47ec4",
+      "candidate_size": 408,
+      "compared_bytes": 412,
+      "compared_instructions": 103,
+      "emitted_name": "SetTypeAndMessage__10DialogMenu10SaveErrorsiG7stringx",
+      "instruction_score": 6.7961,
+      "matching_bytes": 72,
+      "matching_instructions": 7,
+      "notes": "# 0x0019D608 SetTypeAndMessage__10DialogMenu10SaveErrorsiG7stringx\n\nThe exact released body was tested once with minimal source-faithful declarations. Result: `different`, byte score 17.4757%, instruction score 6.7961%. No source variant was attempted.\n\nCitations: `kelly-slaters-pro-surfer/KS/SRC/ks/SaveLoadFrontEnd.cpp`; `tmp/functions/0019D608_SetTypeAndMessage__10DialogMenu10SaveErrorsiG7stringx/attempt-1/result.json`.",
+      "score": 17.4757,
+      "source": "struct string_buf {\n    void *data;\n    int ref_count;\n    int char_length;\n};\n\nclass stringx {\n    char *chars;\n    string_buf *my_buf;\n\npublic:\n    stringx(const stringx &);\n    stringx(const char *, int = -1);\n    ~stringx();\n    int length() const { return my_buf->char_length; }\n    void to_lower();\n};\n\nclass TextString {\npublic:\n    virtual ~TextString();\n    virtual void Update(float);\n    virtual void Draw();\n    virtual void setHJustify(int);\n    virtual void setVJustify(int);\n    virtual void setFont(void *);\n    virtual void setButtonScale(float);\n    virtual void numberSpacing(bool);\n    virtual void changeText(stringx);\n};\n\nclass BoxText : public TextString {\npublic:\n    void makeBox(int, int, bool, float = -1.0f, int = -1);\n};\n\nenum SaveErrors {\n    SE_NO_MEMORY_CARDS\n};\n\nclass DialogMenu {\n    char padding[0x160];\n    BoxText *message;\n    BoxText *prompt;\n    int type;\n    char remaining[4];\n    SaveErrors current_error;\n\npublic:\n    void SetTypeAndMessage(SaveErrors, int ty, stringx str);\n};\n\nvoid DialogMenu::SetTypeAndMessage(SaveErrors, int ty, stringx str)\n{\n\ttype = ty;\n\tif (str.length() > 40)\n\t{\n\t\tmessage->changeText(str);\n\t\tprompt->changeText(\"\");\n\t\tmessage->makeBox(240, 75, false);\n\t\tprompt->makeBox(240, 75, false);\n\t}\n\telse\n\t{\n\t\tstr.to_lower();\n\t\tprompt->changeText(str);\n\t\tmessage->changeText(\"\");\n\t\tmessage->makeBox(240, 75, false);\n\t\tprompt->makeBox(240, 75, false);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 412
+    }
+  ],
+  "raw_name": "SetTypeAndMessage__10DialogMenu10SaveErrorsiG7stringx"
+}
