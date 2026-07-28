@@ -1,0 +1,23 @@
+{
+  "address": "0x001B3220",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "73d53b09eedc6c323f8d34758e38eca8cfa91d1e",
+      "candidate_size": 436,
+      "compared_bytes": 436,
+      "compared_instructions": 109,
+      "emitted_name": "OnStart__23LostControllerMenuClassi",
+      "instruction_score": 1.8349,
+      "matching_bytes": 81,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave76 A5 \u2014 0x001B3220\n\n- Confirmed no inherited attempt existed.\n- Submitted exactly one candidate using the released\n  `PauseMenuSystem::endDraw` body corresponding to the target instructions,\n  under the target `LostControllerMenuClass::OnStart(int)` signature, with\n  minimal standalone declarations.\n- Result: `different`, 18.578% bytes and 1.8349% instructions; 436-byte\n  candidate versus 428-byte target.\n- Preserved attempt 1 unchanged and stopped. No variants, diff chasing,\n  finalization, integration, build, commit, or tracked-file edit.\n\nCitations:\n- `kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:2990-3025`\n- `tmp/functions/001B3220_OnStart__23LostControllerMenuClassi/attempt-1/result.json`\n- `tmp/source_first/001B3220/attempt-1.md`",
+      "score": 18.578,
+      "source": "class FEMenu {\npublic:\n    virtual void HighlightDefault();\n    virtual void OnUnactivate(FEMenu *);\n};\n\nclass IGOFrontEnd {\npublic:\n    enum RUN_STATE { RUNSTATE_NORMAL };\n    virtual void SetDisplay(bool);\n    virtual RUN_STATE GetRunState();\n    void ShowMenuBackground(bool);\n};\n\nclass FEManager {\npublic:\n    IGOFrontEnd *IGO;\n    bool score_display;\n};\n\nclass kellyslater_controller {\npublic:\n    enum { SUPER_STATE_FLYBY };\n    virtual int get_super_state();\n};\n\nclass world_dynamics_system {\npublic:\n    kellyslater_controller *get_ks_controller(int);\n};\n\nclass game {\npublic:\n    int get_active_player();\n    int get_beach_id();\n    int get_game_mode();\n    void unpause();\n};\n\nclass app {\npublic:\n    static app *inst();\n    game *get_game();\n};\n\nclass FrontEndManager {\npublic:\n    char pad[4];\n};\n\nextern FrontEndManager frontendmanager;\nextern world_dynamics_system *g_world_ptr;\nextern game *g_game_ptr;\n\nenum {\n    BEACH_INDOOR,\n    GAME_MODE_CAREER\n};\n\nclass LostControllerMenuClass {\n    char pad[0x78];\npublic:\n    bool draw;\n    char pad79[3];\n    int old_device_flags;\n    int pause_controller;\n    int pause_player;\n    char pad88[4];\n    bool replay_mode;\n    char pad8d[3];\n    int unused90;\n    int active;\n    FEManager *manager;\n    FEMenu **menus;\n\n    virtual void SetDeviceFlags(int);\n    void OnStart(int);\n};\n\nvoid LostControllerMenuClass::OnStart(int c)\n{\n\tint\ti;\n\t\n\tif (!draw)\n\t\treturn;\n\t\n\t// Reenable old devices when pause menu is cleared\n\tSetDeviceFlags( old_device_flags );\n\tpause_controller = -1;\n\tpause_player = -1;\n\n\tif (!replay_mode)\n\t{\n\t\tkellyslater_controller *\tksctrl = g_world_ptr->get_ks_controller(g_game_ptr->get_active_player());\n\n\t\tapp::inst()->get_game()->unpause();\n\n\t\tif (g_game_ptr->get_beach_id() == BEACH_INDOOR && g_game_ptr->get_game_mode() == GAME_MODE_CAREER)\n\t\t\tmanager->IGO->SetDisplay(true);\n\t\telse if (ksctrl->get_super_state() != kellyslater_controller::SUPER_STATE_FLYBY && manager->IGO->GetRunState() == IGOFrontEnd::RUNSTATE_NORMAL)\n\t\t\tmanager->IGO->SetDisplay(manager->score_display);\n\n\t\tmanager->IGO->ShowMenuBackground(false);\n\t}\n\n\t// Reset all menus' highlighted entries to defaults.\n\tfor (i = 0; i < 24; i++)\n\t\tmenus[i]->HighlightDefault();\n\n\tmenus[active]->OnUnactivate(0);\n\n\n\tdraw = false;\n}\n",
+      "status": "different",
+      "target_size": 428
+    }
+  ],
+  "raw_name": "OnStart__23LostControllerMenuClassi"
+}
