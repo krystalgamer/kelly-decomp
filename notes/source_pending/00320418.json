@@ -1,0 +1,16 @@
+{
+  "address": "0x00320418",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "106d4bff0d733fb7bd2977ac56fcc017fa48c6db",
+      "error": "Candidate did not emit __cl__23slf_set_region_active_tR8vm_stackQ320script_library_class8function7entry_t; emitted functions: []",
+      "notes": "FIRST PASS wave86 A5. Exact released operator body with minimal self-contained declarations.\nReference and tracked sources were read-only. One candidate only; no alternatives or retries.",
+      "score": 0.0,
+      "source": "class stringx {\npublic:\n    stringx();\n    stringx(const stringx&);\n    ~stringx();\n};\n\nstringx operator+(const char*, const stringx&);\nstringx operator+(const stringx&, const char*);\n\nclass vm_thread {\npublic:\n    void slf_error(const stringx&);\n};\n\nclass vm_stack {\n    char unused[8];\n    char* sp;\n    vm_thread* thread;\npublic:\n    void pop(int bytes) { sp -= bytes; }\n    char* get_SP() const { return sp; }\n    vm_thread* get_thread() const { return thread; }\n};\n\nclass region {\n    char unused[0x118];\n    unsigned short flags;\npublic:\n    void set_active(bool);\n    void set_locked(bool v) { flags = v ? (flags | 2) : (flags & ~2); }\n};\n\nclass region_node {\n    char unused[4];\n    region* data;\npublic:\n    region* get_data() { return data; }\n};\n\nclass terrain {\npublic:\n    region_node* find_region(const stringx&);\n};\n\nclass world_dynamics_system {\n    char unused[0xec];\n    terrain* the_terrain;\npublic:\n    terrain& get_the_terrain() { return *the_terrain; }\n};\n\nextern world_dynamics_system* g_world_ptr;\n\nclass script_library_class {\npublic:\n    class function {\n    public:\n        enum entry_t { FIRST_ENTRY };\n    };\n};\n\ntypedef const stringx* vm_str_t;\ntypedef float vm_num_t;\n\nclass slf_set_region_active_t : public script_library_class::function {\npublic:\n    struct parms_t {\n        vm_str_t region_name;\n        vm_num_t v;\n    };\n\n    virtual bool operator()(vm_stack& stack, entry_t entry)\n    {\n        stack.pop(sizeof(parms_t));\n        parms_t* parms = (parms_t*)stack.get_SP();\n        region_node* rn = g_world_ptr->get_the_terrain().find_region(*parms->region_name);\n        if (!rn)\n        {\n            stack.get_thread()->slf_error(\"set_region_active(): region '\" + *parms->region_name + \"' not found\");\n        }\n        region* r = rn->get_data();\n        r->set_locked(false);\n        if (parms->v)\n            r->set_active(true);\n        else\n        {\n            r->set_active(false);\n            r->set_locked(true);\n        }\n        return true;\n    }\n};\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__cl__23slf_set_region_active_tR8vm_stackQ320script_library_class8function7entry_t"
+}
