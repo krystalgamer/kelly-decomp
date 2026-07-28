@@ -1,0 +1,49 @@
+{
+  "address": "0x00351D30",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b6061050bff1b32796ed546d390441cb66624e42",
+      "notes": "Attempt 1 preserved the exact released script_object::_add body with an initial declaration context and compile failed because the released string constructor declaration was absent.",
+      "score": 0.0,
+      "source": "#include \"g++-2/stl_list_shared.h\"\n\nclass string_buf;\nclass stringx {\n    char *chars;\n    string_buf *my_buf;\npublic:\n    stringx();\n    stringx(const stringx &);\n    ~stringx();\n};\n\ntemplate<class A, class B> struct pair {\n    A first;\n    B second;\n};\n\nstruct stringx_set_iterator { void *node; };\nclass instance_name_set {\n    void *header;\n    unsigned int count;\n    char compare;\npublic:\n    pair<stringx_set_iterator, bool> insert(const stringx &)\n      __asm__(\"insert_unique__t8_Rb_tree5Z7stringxZ7stringxZt9_Identity1Z7stringxZt4less1Z7stringxZt12my_allocator1Z7stringxRC7stringx\");\n};\n\nclass script_object {\npublic:\n    class instance {\n        stringx name;\n    public:\n        const stringx &get_name() const { return name; }\n        friend class script_object;\n    };\nprivate:\n    char prefix[44];\n    list<instance *> instances;\n    instance_name_set instance_names;\n    void _add(instance *inst);\n};\n\nextern void error(const stringx &) __asm__(\"error__FRC7stringx\");\n\nvoid script_object::_add( instance* inst )\n{\n  pair<stringx_set_iterator,bool> iret = instance_names.insert( inst->get_name() );\n  if ( !iret.second )\n  {\n    error( stringx(\"Duplicate script instance name \") + inst->name );\n  }\n  instances.insert(instances.end(), 1, inst);\n}\n",
+      "status": "compile_failed"
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cb087349d7f3c4dfb725635cfb65c1f78681c53d",
+      "candidate_size": 312,
+      "compared_bytes": 336,
+      "compared_instructions": 84,
+      "emitted_name": "_add__13script_objectPQ213script_object8instance",
+      "instruction_score": 1.1905,
+      "matching_bytes": 64,
+      "matching_instructions": 1,
+      "notes": "Attempt 2 preserved the exact released body with a revised declaration context, emitted the target symbol, and differed at 19.0476%.",
+      "score": 19.0476,
+      "source": "#include \"g++-2/stl_list_shared.h\"\n\nclass string_buf;\nclass stringx {\n    char *chars;\n    string_buf *my_buf;\npublic:\n    stringx();\n    stringx(const char *);\n    stringx(const stringx &);\n    ~stringx();\n    stringx operator+(const stringx &) const;\n};\n\ntemplate<class A, class B> struct pair {\n    A first;\n    B second;\n};\n\nstruct stringx_set_iterator { void *node; };\nclass instance_name_set {\n    void *header;\n    unsigned int count;\n    char compare;\npublic:\n    pair<stringx_set_iterator, bool> insert(const stringx &)\n      __asm__(\"insert_unique__t8_Rb_tree5Z7stringxZ7stringxZt9_Identity1Z7stringxZt4less1Z7stringxZt12my_allocator1Z7stringxRC7stringx\");\n};\n\nclass script_object {\npublic:\n    class instance {\n        stringx name;\n    public:\n        const stringx &get_name() const { return name; }\n        friend class script_object;\n    };\nprivate:\n    char prefix[44];\n    list<instance *> instances;\n    instance_name_set instance_names;\n    void _add(instance *inst);\n};\n\nextern void error(const stringx &) __asm__(\"error__FRC7stringx\");\n\nvoid script_object::_add( instance* inst )\n{\n  pair<stringx_set_iterator,bool> iret = instance_names.insert( inst->get_name() );\n  if ( !iret.second )\n  {\n    error( stringx(\"Duplicate script instance name \") + inst->name );\n  }\n  instances.insert(instances.end(), 1, inst);\n}\n",
+      "status": "different",
+      "target_size": 336
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "71d997a0c511109532d93bc890b3321afe7c9260",
+      "candidate_size": 312,
+      "compared_bytes": 336,
+      "compared_instructions": 84,
+      "emitted_name": "_add__13script_objectPQ213script_object8instance",
+      "instruction_score": 3.5714,
+      "matching_bytes": 67,
+      "matching_instructions": 3,
+      "notes": "Attempt 3 preserved the exact released body with the released free operator+ and string constructor declarations. Its result is recorded here; no further attempt was made.",
+      "score": 19.9405,
+      "source": "#include \"g++-2/stl_list_shared.h\"\n\nclass string_buf;\nclass stringx {\n    char *chars;\n    string_buf *my_buf;\npublic:\n    stringx();\n    stringx(const stringx &);\n    stringx(const char *, int len = -1);\n    ~stringx();\n    friend stringx operator+(const stringx &, const stringx &);\n};\nstringx operator+(const stringx &, const stringx &);\n\ntemplate<class A, class B> struct pair {\n    A first;\n    B second;\n};\n\nstruct stringx_set_iterator { void *node; };\nclass instance_name_set {\n    void *header;\n    unsigned int count;\n    char compare;\npublic:\n    pair<stringx_set_iterator, bool> insert(const stringx &)\n      __asm__(\"insert_unique__t8_Rb_tree5Z7stringxZ7stringxZt9_Identity1Z7stringxZt4less1Z7stringxZt12my_allocator1Z7stringxRC7stringx\");\n};\n\nclass script_object {\npublic:\n    class instance {\n        stringx name;\n    public:\n        const stringx &get_name() const { return name; }\n        friend class script_object;\n    };\nprivate:\n    char prefix[44];\n    list<instance *> instances;\n    instance_name_set instance_names;\n    void _add(instance *inst);\n};\n\nextern void error(const stringx &) __asm__(\"error__FRC7stringx\");\n\nvoid script_object::_add( instance* inst )\n{\n  pair<stringx_set_iterator,bool> iret = instance_names.insert( inst->get_name() );\n  if ( !iret.second )\n  {\n    error( stringx(\"Duplicate script instance name \") + inst->name );\n  }\n  instances.insert(instances.end(), 1, inst);\n}\n",
+      "status": "different",
+      "target_size": 336
+    }
+  ],
+  "raw_name": "_add__13script_objectPQ213script_object8instance"
+}
