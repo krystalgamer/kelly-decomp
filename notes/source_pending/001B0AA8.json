@@ -1,0 +1,23 @@
+{
+  "address": "0x001B0AA8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a0e846cebdc091e3ea27b8526f46be107f2c9231",
+      "candidate_size": 308,
+      "compared_bytes": 368,
+      "compared_instructions": 92,
+      "emitted_name": "ReplayStart__15ReplayMenuClass",
+      "instruction_score": 3.2609,
+      "matching_bytes": 66,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used the exact released source for ReplayStart__15ReplayMenuClass. Result `different`, score 17.9348; no retry or variant was made.",
+      "score": 17.9348,
+      "source": "// Target: 0x001B0AA8 ReplayStart__15ReplayMenuClass\n// Reference: KS/SRC/ks/FrontEndMenus.cpp\nclass IGOFrontEnd { public: void SetDisplay(bool); void* pad0[361]; void* replayWidget; void VCRButtonSelect(int button); void VCRHighlightSelect(int highlight); };\nclass FEManager { public: IGOFrontEnd* IGO; char pad[116]; bool score_display; };\nclass PauseMenuSystem { public: char pad[120]; FEManager* manager; char pad2[20]; bool draw; char pad3[3]; bool replay_mode; };\nclass ReplayMenuClass { public: char pad[120]; PauseMenuSystem* sys; void ReplayStart(); };\nclass SurfBoardObjectClass { public: void ResetPhysics(); };\nclass kellyslater_controller { public: char pad[892]; SurfBoardObjectClass my_board_controller; SurfBoardObjectClass& get_board_controller() { return my_board_controller; } };\nclass world_dynamics_system { public: char pad[248]; kellyslater_controller* ks_controller[2]; kellyslater_controller* get_ks_controller(int n) { return ks_controller[n]; } };\nclass game { public: char pad[188]; int active_player; int get_active_player() { return active_player; } };\nclass KSReplay { public: enum KSReplayStatus { REPLAY_IGNORE, REPLAY_RECORD, REPLAY_PLAYBACK, REPLAY_PAUSED }; int bch, sfr, brd; unsigned int seed; KSReplayStatus status; void Play(); void Resume(); bool Done(); KSReplayStatus GetStatus() { return status; } };\nclass Track { public: char pad[8]; void Unpause(); };\nclass MusicListing { public: int current; int next; char pad[3624]; Track tracks[1]; void unpause() { tracks[current].Unpause(); } };\nclass MusicMan { public: void* vptr; float volume; int inited; bool paused; char pad[3]; MusicListing musicTrack; static MusicMan* inst(); void unpause() { if (paused) { paused = false; musicTrack.unpause(); } } void stop(); unsigned int playNext(); };\nclass os_developer_options { public: enum flags_t { FLAG_NO_AUDIO }; char pad[72]; bool flags[1]; static os_developer_options* inst(); bool is_flagged(flags_t flag) const { return flags[flag]; } };\nstruct FEManagerGlobal { IGOFrontEnd* IGO; };\nextern FEManagerGlobal frontendmanager;\nextern world_dynamics_system* g_world_ptr;\nextern game* g_game_ptr;\nextern KSReplay ksreplay;\nenum { VCR_PLAY = 2 };\n\nvoid ReplayMenuClass::ReplayStart()\n{\n  sys->manager->IGO->SetDisplay(sys->manager->score_display);\n  sys->draw = false;\n  sys->replay_mode = true;\n  g_world_ptr->get_ks_controller(g_game_ptr->get_active_player())->get_board_controller().ResetPhysics();\n  frontendmanager.IGO->VCRButtonSelect(VCR_PLAY);\n  frontendmanager.IGO->VCRHighlightSelect(VCR_PLAY);\n  if (ksreplay.GetStatus() == KSReplay::REPLAY_RECORD || ksreplay.Done())\n  {\n    ksreplay.Play();\n    if (!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n    {\n      MusicMan::inst()->unpause();\n      MusicMan::inst()->stop();\n      MusicMan::inst()->playNext();\n    }\n  }\n  else\n    ksreplay.Resume();\n}\n",
+      "status": "different",
+      "target_size": 368
+    }
+  ],
+  "raw_name": "ReplayStart__15ReplayMenuClass"
+}
