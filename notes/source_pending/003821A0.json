@@ -1,0 +1,15 @@
+{
+  "address": "0x003821A0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1548590941d85a83e2adb2811a18bc6c2531b450",
+      "notes": "First-pass exact released body candidate. Minimal class layout preserves pulsex at 0x1C0 and spline coefficient arrays at 0x1F0/0x208/0x220/0x238; the inline spline evaluator reproduces the target binary search and Horner evaluation without project headers.\n\nTest result: compile_failed. Legacy EE GCC could not deduce the array-bound template for SPLINE_Evaluate from the five array arguments. Per first-pass constraints, no retry or alternative candidate was attempted.",
+      "score": 0.0,
+      "source": "typedef unsigned int u_int;\n\nenum WavePerturbStageEnum {\n    WAVE_PerturbStageNone,\n    WAVE_PerturbStageDo,\n    WAVE_PerturbStageHold,\n    WAVE_PerturbStageCollapse,\n    WAVE_PerturbStageWait,\n    WAVE_PerturbStageUndo\n};\n\nextern float WAVE_ShiftX;\nextern float WAVE_MeshMinX;\nextern float WAVE_MeshMaxX;\nextern int WAVE_PerturbStage;\nextern float WAVE_PerturbProgress;\n\n#define WAVE_MESHWIDTH (WAVE_MeshMaxX-WAVE_MeshMinX)\n\ntemplate <int n> struct SplineCoeffs {\n    float a[n], b[n], c[n], d[n];\n};\n\ntemplate <int n> class WavePerturbStairstepClass {\npublic:\n    char base[448];\n    float pulsex[n];\n    float pulsexx[n];\n    SplineCoeffs<n> pulsecoeffs;\n    static const u_int num;\n    float WorldToProfile(float worldx);\n};\n\ntemplate <int n> const u_int WavePerturbStairstepClass<n>::num = n;\n\ntemplate <int n> inline float SPLINE_Evaluate(const float (&x)[n], const float (&a)[n], const float (&b)[n], const float (&c)[n], const float (&d)[n], u_int num, float xx)\n{\n    u_int lo = 0, hi = num - 1;\n    while (hi - lo >= 2) {\n        u_int mid = (lo + hi) >> 1;\n        if (x[mid] < xx) lo = mid;\n        else hi = mid;\n    }\n    xx -= x[lo];\n    return ((a[lo] * xx + b[lo]) * xx + c[lo]) * xx + d[lo];\n}\n\ntemplate <int n> float WavePerturbStairstepClass<n>::WorldToProfile(float worldx)\n{\n    float profilex;\n    static const float &domain = pulsex[num-1];\n    float modx = worldx + (WAVE_ShiftX >= 0 ? WAVE_ShiftX : -WAVE_ShiftX) + WAVE_MESHWIDTH;\n    modx -= domain * (int) (modx / domain);\n\n    float stairstepx = worldx;\n    stairstepx += SPLINE_Evaluate(pulsex, pulsecoeffs.a, pulsecoeffs.b, pulsecoeffs.c, pulsecoeffs.d, num, modx);\n    stairstepx -= modx;\n\n    switch (WAVE_PerturbStage) {\n    case WAVE_PerturbStageNone:\n        profilex = stairstepx;\n        break;\n    case WAVE_PerturbStageDo:\n        profilex = WAVE_PerturbProgress * worldx + (1 - WAVE_PerturbProgress) * stairstepx;\n        break;\n    case WAVE_PerturbStageUndo:\n        profilex = (1 - WAVE_PerturbProgress) * worldx + WAVE_PerturbProgress * stairstepx;\n        break;\n    default:\n        profilex = worldx;\n        break;\n    }\n    return profilex;\n}\n\ntemplate class WavePerturbStairstepClass<6>;\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WorldToProfile__t25WavePerturbStairstepClass1i6f"
+}
