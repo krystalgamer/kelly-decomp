@@ -1,0 +1,23 @@
+{
+  "address": "0x00141530",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "49ef89efa8a2bbfd3c17fa67412f2921d7bd883d",
+      "candidate_size": 316,
+      "compared_bytes": 344,
+      "compared_instructions": 80,
+      "emitted_name": "insert_unique__t8_Rb_tree5ZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt9_Identity1ZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt4less1ZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt23__malloc_alloc_template1i0RCPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node",
+      "instruction_score": 1.25,
+      "matching_bytes": 81,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/region_graph.h:11-24; kelly-slaters-pro-surfer/KS/SRC/graph.h:28-63; tools/toolchain/lib/gcc-lib/ee/2.9-ee-991111/libstdc++.a; tmp/functions/00141530_insert_unique__t8_Rb_tree5ZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZPQ2t5graph_436142dc3577/attempt-1/result.json; tmp/source_first/00141530/attempt-1.md. Result `different`, score 23.5465; no later attempt.",
+      "score": 23.5465,
+      "source": "struct node { int color; node *parent; node *left; node *right; void *value; };\nstruct result { node *position; bool inserted; };\nstruct tree { node *header; unsigned count; char compare; };\nextern \"C\" node *tree_insert(tree *, node *, node *, void *const *) __asm__(\"_M_insert__t8_Rb_tree5ZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt9_Identity1ZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt4less1ZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt23__malloc_alloc_template1i0P13_Rb_tree_node1ZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeT2RCPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node\");\nresult *insert_unique(result *out, tree *self, void *const *value) __asm__(\"insert_unique__t8_Rb_tree5ZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt9_Identity1ZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt4less1ZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt23__malloc_alloc_template1i0RCPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node\");\nresult *insert_unique(result *out, tree *self, void *const *value) {\n node *y=self->header,*x=y->parent; bool comp=true;\n while(x){y=x;comp=*value<x->value;x=comp?x->left:x->right;}\n node*j=y;\n if(comp){if(j==self->header->left){out->position=tree_insert(self,x,y,value);out->inserted=true;return out;}if(j->left){j=j->left;while(j->right)j=j->right;}else{node*p=j->parent;while(j==p->left){j=p;p=p->parent;}j=p;}}\n if(j->value<*value){out->position=tree_insert(self,x,y,value);out->inserted=true;}else{out->position=j;out->inserted=false;}return out;\n}\n",
+      "status": "different",
+      "target_size": 344
+    }
+  ],
+  "raw_name": "insert_unique__t8_Rb_tree5ZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt9_Identity1ZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt4less1ZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt23__malloc_alloc_template1i0RCPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node"
+}
