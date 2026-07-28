@@ -1,0 +1,23 @@
+{
+  "address": "0x0036C728",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7f4e27639c4876c29e6718a1df53ee7222cebc6d",
+      "candidate_size": 372,
+      "compared_bytes": 388,
+      "compared_instructions": 97,
+      "emitted_name": "crash_insert__FP11crashnode_tG8vector3dfUi",
+      "instruction_score": 12.3711,
+      "matching_bytes": 116,
+      "matching_instructions": 12,
+      "notes": "# 0x0036C728 crash_insert\n\nThe zero-response lane left no artifacts, so the integrator submitted the exact released `crash_insert` body once with minimal source-faithful crash-node, vector, timer, global, and helper declarations. The sole candidate differed at 29.8969% byte score and 12.3711% instruction score. No source variant was attempted.\n\nCitations: `kelly-slaters-pro-surfer/KS/SRC/ks/ksfx.cpp:2102-2197`; `tmp/functions/0036C728_crash_insert__FP11crashnode_tG8vector3dfUi/attempt-1/result.json`.",
+      "score": 29.8969,
+      "source": "typedef unsigned int u_int;\n\nclass vector3d\n{\npublic:\n  typedef float T;\n  T x, y, z;\n\n  inline vector3d() {}\n  inline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n  inline vector3d& operator=(const vector3d& v)\n  {\n    x = v.x;\n    y = v.y;\n    z = v.z;\n    return *this;\n  }\n};\n\ntypedef struct crashnode_t\n{\n  vector3d pos;\n  float mag;\n  float size;\n  float age;\n  u_int type;\n  struct crashnode_t* Next;\n} crashnode_s;\n\nextern crashnode_s* CrashHead;\nextern crashnode_s* CrashFreeHead;\nextern float debug_reject_dist;\nextern float TIMER_FrameSec;\n\ninline float TIMER_GetFrameSec(void) { return TIMER_FrameSec; }\nvoid set_size(crashnode_s* Ptr);\n\nasm(\".equ CrashHead,0x0048A898\");\nasm(\".equ CrashFreeHead,0x0048A89C\");\nasm(\".equ debug_reject_dist,0x004844C0\");\nasm(\".equ TIMER_FrameSec,0x0045B280\");\nasm(\".equ set_size__FP11crashnode_t,0x0036C6D0\");\n\n#define NULL 0\n#define assert(c) ((void)0)\n\ncrashnode_s *crash_insert(crashnode_s *Hint, vector3d pos, float mag, u_int type)\n{\n\tcrashnode_s *Ptr;\n\tcrashnode_s *BackPtr;\n\t//\tu_int done = 0;\n\tfloat tmp;\n\n\t//\tcurrentcrash++;\n\t//\tif(currentcrash>=MAX_CRASH_NODES)\n\t//\t\tcurrentcrash = 0;\n\t//  assert (!crashnodes[currentcrash].used);\n\n\t// Don't crash the game if it can't insert the crash node - rbroner (6/24/02)\n\tif(CrashFreeHead == NULL)\n\t{\n\t\treturn NULL;\n\t}\n\n\tassert( CrashFreeHead );\n\tcrashnode_s *node = CrashFreeHead;\n\n\tnode->age = (float)TIMER_GetFrameSec();\n\tnode->mag = mag;\n\tnode->size= 0;\n\tnode->pos = pos;\n\tnode->type = type;\n\n\n\tset_size( node );\n\n\tif((CrashHead==NULL)||(CrashHead->pos.x >= node->pos.x))\n\t{\n\t\tCrashFreeHead = node->Next;\n\t\tnode->Next = CrashHead;\n\t\tCrashHead = node;\n\t\treturn(CrashHead);\n\t}\n\n\tif(Hint!=NULL)\n\t{\n\t\tBackPtr = Hint;\n\t\tPtr = Hint;\n\t}\n\telse\n\t{\n\t\tBackPtr = CrashHead;\n\t\tPtr = CrashHead;\n\t}\n\n#if defined(TARGET_XBOX)\n\tint running_count = 0;\n\n\twhile((Ptr!=NULL) && (Ptr->pos.x < node->pos.x) && (running_count < MAX_CRASH_NODES))\n\t{\n\t\ttmp = node->pos.x - Ptr->pos.x;\n\t\tif((tmp * tmp) < (debug_reject_dist * debug_reject_dist))\n\t\t\treturn(Ptr);\n\n\t\trunning_count++;\n\n\t\tBackPtr=Ptr;\n\t\tPtr=Ptr->Next;\n\t}\n\n\tif(running_count == MAX_CRASH_NODES)\n\t{\n\t\tdebug_print( \"crash_insert circular list\\n\" );\n\t}\n#else\n\twhile((Ptr!=NULL) && (Ptr->pos.x < node->pos.x))\n\t{\n\t\ttmp = node->pos.x - Ptr->pos.x;\n\t\tif((tmp * tmp) < (debug_reject_dist * debug_reject_dist))\n\t\t\treturn(Ptr);\n\n\t\tBackPtr=Ptr;\n\t\tPtr=Ptr->Next;\n\t}\n#endif /* TARGET_XBOX JIV DEBUG */\n\n\tif(BackPtr->Next!=NULL)\n\t{\n\t\ttmp = node->pos.x - BackPtr->pos.x;\n\t\tif((tmp * tmp) < (debug_reject_dist * debug_reject_dist))\n\t\t\treturn(BackPtr);\n\t}\n\n\tCrashFreeHead = node->Next;\n\tnode->Next = BackPtr->Next;\n\tBackPtr->Next=node;\n\n\treturn( node );\n}\n",
+      "status": "different",
+      "target_size": 388
+    }
+  ],
+  "raw_name": "crash_insert__FP11crashnode_tG8vector3dfUi"
+}
