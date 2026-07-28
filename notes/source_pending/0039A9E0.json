@@ -1,0 +1,23 @@
+{
+  "address": "0x0039A9E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "97f206d0c3fd6dcc2c2e917cf8707e4e30084da6",
+      "candidate_size": 504,
+      "compared_bytes": 504,
+      "compared_instructions": 126,
+      "emitted_name": "nglListAddFakePointLight__FUiRC9nglVectorffT1",
+      "instruction_score": 1.5873,
+      "matching_bytes": 45,
+      "matching_instructions": 2,
+      "notes": "Attempt 1 used the exact released source for nglListAddFakePointLight__FUiRC9nglVectorffT1. Result `different`, score 8.9286; no retry or variant was made.",
+      "score": 8.9286,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned char u_char;\ntypedef float sceVu0FVECTOR[4];\n\nclass nglVector\n{\npublic:\n  float x, y, z, w;\n  inline const float& operator[](int i) const { return (&x)[i]; }\n  inline float& operator[](int i) { return (&x)[i]; }\n  inline operator float*() { return &x; }\n  inline operator const float*() { return &x; }\n} __attribute__((aligned (16)));\n\nstruct nglDebugStruct\n{\n  u_char ShowPerfInfo, ScreenShot;\n  u_char DisableQuads, DisableMeshes, DisableTextures, DisableMipmaps, DisableVSync, DisableScratch, DisableMipOpt;\n  u_char DebugPrints, DumpFrameLog, DumpSceneFile, DumpTextures;\n  u_char DrawLightSpheres, DrawMeshSpheres, DrawNormals;\n  u_char DrawAsPoints, DrawAsLines;\n  u_char VUClearMem, VUClearRegs, VUDebugBreak, VUParticleDebugBreak;\n  u_char DMARepeatMode;\n  u_char DrawToFrontBuffer, SyncRender;\n};\nextern nglDebugStruct nglSyncDebug;\nextern int nglGetClipResultViewOnly( nglVector& Center, float Radius );\nextern void* nglListAlloc( u_int Bytes, u_int Alignment = 4 );\nextern \"C\" void sceVu0CopyVector( sceVu0FVECTOR v0, sceVu0FVECTOR v1 );\nextern void nglListAddVertexLightNode( u_int Type, void* NodeData, u_int LightCat );\nextern void nglDrawDebugSphere( const nglVector& Pos, float Scale, u_int Color, bool Solid );\nextern void nglSceneDumpPointLight( u_int Type, u_int LightCat, const nglVector& Pos, float Near, float Far, const nglVector& Color );\n\n#define NGL_RGBA32(r,g,b,a) ((int)((r)+1)>>1) | (((int)((g)+1)>>1)<<8) | (((int)((b)+1)>>1)<<16) | (((int)((a)+1)>>1)<<24)\ninline int nglFTOI( float input )\n{\n  register float output;\n  __asm__ volatile (\"cvt.w.s %0, %1\" : \"=f\" (output) : \"f\" (input) );\n  return (int&)output;\n}\ninline u_int nglVectorToColor( const nglVector& Color )\n{\n  return NGL_RGBA32( nglFTOI( Color[0] * 255.0f ), nglFTOI( Color[1] * 255.0f ), nglFTOI( Color[2] * 255.0f ), nglFTOI( Color[3] * 255.0f ) );\n}\n\nstruct nglPointLightInfo\n{\n  nglVector Pos;\n  nglVector Color;\n  float Near;\n  float Far;\n};\n\nenum { NGLLIGHT_FAKEPOINT };\n#define nglListNew(Type) (Type*)nglListAlloc(sizeof(Type))\n#define DEBUG_ENABLE(x) (nglSyncDebug.x)\n\nvoid nglListAddFakePointLight( u_int LightCat, const nglVector& Pos, float Near, float Far, const nglVector& Color )\n{\n  if ( nglGetClipResultViewOnly( (nglVector&)Pos, Far ) == -1 )\n    return;\n\n  nglPointLightInfo* Light = nglListNew( nglPointLightInfo );\n  if ( !Light )\n    return;\n\n  sceVu0CopyVector( Light->Pos, (nglVector)Pos );\n  Light->Pos[3] = 1.0f;\n  Light->Near = Near;\n  Light->Far = Far;\n  sceVu0CopyVector( Light->Color, (nglVector)Color );\n\n  nglListAddVertexLightNode( NGLLIGHT_FAKEPOINT, Light, LightCat );\n\n  if ( DEBUG_ENABLE( DrawLightSpheres ) )\n  {\n    u_int col = nglVectorToColor( Light->Color );\n    nglDrawDebugSphere( Light->Pos, 0.25f, col, true );\n    nglDrawDebugSphere( Light->Pos, Light->Near, col, false );\n    nglDrawDebugSphere( Light->Pos, Light->Far, col, false );\n  }\n\n  if ( DEBUG_ENABLE( DumpSceneFile ) )\n    nglSceneDumpPointLight( NGLLIGHT_FAKEPOINT, LightCat, Pos, Near, Far, Color );\n}\n",
+      "status": "different",
+      "target_size": 360
+    }
+  ],
+  "raw_name": "nglListAddFakePointLight__FUiRC9nglVectorffT1"
+}
