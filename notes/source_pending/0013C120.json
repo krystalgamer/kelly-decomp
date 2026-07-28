@@ -1,0 +1,23 @@
+{
+  "address": "0x0013C120",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2847e68a562d459fc020dfa7c10caf2c4acd1565",
+      "candidate_size": 404,
+      "compared_bytes": 460,
+      "compared_instructions": 115,
+      "emitted_name": "read_anim_info_file__19animation_interfaceRC7stringx",
+      "instruction_score": 5.2174,
+      "matching_bytes": 75,
+      "matching_instructions": 6,
+      "notes": "# FIRST PASS wave 83 lane B2 \u2014 0x0013C120 `read_anim_info_file__19animation_interfaceRC7stringx`\n\nExact released body with minimal faithful declarations was tested once. Result `different`, byte score 16.3043%, instruction score 5.2174%. Candidate SHA-1 `2847e68a562d459fc020dfa7c10caf2c4acd1565`. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 16.3043,
+      "source": "struct string_buf\n{\n  int data;\n  int max_blocks;\n  int char_length;\n};\n\nclass stringx\n{\n  char *chars;\n  string_buf *my_buf;\n\npublic:\n  stringx();\n  stringx(const char *str, int len = -1);\n  ~stringx();\n\n  const char *c_str() const { return chars; }\n  int size() const { return my_buf->char_length; }\n  int length() const;\n  const char operator[](int i) const\n  {\n    if (i < 0)\n      i += length();\n    return chars[i];\n  }\n};\n\nclass os_file\n{\n  long long alignment;\n  char storage[56];\n\npublic:\n  enum { FILE_READ = 1 };\n  ~os_file();\n};\n\nclass text_file\n{\n  char storage[216];\n\npublic:\n  ~text_file();\n};\n\nclass chunk_file\n{\npublic:\n  enum { FILE_TEXT = 0x0100 };\n\n  chunk_file();\n  void open(const stringx &name, int flags = os_file::FILE_READ);\n  void close();\n\nprivate:\n  int type;\n  os_file binary;\n  text_file text;\n};\n\nbool file_finder_exists(const stringx &filename, const stringx &extension,\n                        stringx *found_name = 0);\nvoid error(const char *format, ...);\nextern \"C\" char *strncpy(char *destination, const char *source,\n                         unsigned int count);\n\nclass animation_interface\n{\n  void read_animations(chunk_file &f, const stringx &anims_directory);\n\npublic:\n  void read_anim_info_file(const stringx &anims_filename);\n};\n\nvoid animation_interface::read_anim_info_file( const stringx& anims_filename )\n{\n  int           i;\n\tchunk_file    f;\n  stringx       filename;\n  char          tc[256];\n\n  if ( !file_finder_exists(anims_filename, stringx(\".ani\"), &filename) ) \n  {\n    error(\"File '%s' not found!\", anims_filename.c_str());\n    return;\n  }\n  i = anims_filename.size();\n  while( --i )\n  {\n    if( anims_filename[ i ] == '\\\\' )\n      break;\n  }\n  strncpy( tc, anims_filename.c_str(), ++i );\n  tc[i] = 0;\n  stringx anims_directory( tc );\n\n  f.open( filename, os_file::FILE_READ | chunk_file::FILE_TEXT );\n\n  read_animations(f, anims_directory);\n\n  f.close();\n}\n",
+      "status": "different",
+      "target_size": 460
+    }
+  ],
+  "raw_name": "read_anim_info_file__19animation_interfaceRC7stringx"
+}
