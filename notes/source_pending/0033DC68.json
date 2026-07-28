@@ -1,0 +1,23 @@
+{
+  "address": "0x0033DC68",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f3440a08438c9e5b30c2586bcd752fb3b5ba96da",
+      "candidate_size": 228,
+      "compared_bytes": 356,
+      "compared_instructions": 87,
+      "emitted_name": "_$_6widget",
+      "instruction_score": 2.2989,
+      "matching_bytes": 52,
+      "matching_instructions": 2,
+      "notes": "Attempt 1 used the exact released source for _$_6widget. Result `different`, score 14.6067; no retry or variant was made.",
+      "score": 14.6067,
+      "source": "typedef unsigned int size_t;\n\nclass stringx\n{\n  char *characters;\n  void *buffer;\npublic:\n  ~stringx();\n};\n\ntemplate<class T>\nclass list\n{\npublic:\n  class iterator\n  {\n    void *node;\n  public:\n    T &operator*() const;\n  };\n\n  ~list();\n  size_t size() const;\n  iterator begin();\n  void erase(iterator);\n};\n\nclass wevent;\nclass widget;\n\ntypedef list<widget *> widget_list_t;\ntypedef list<wevent *> wevent_list_t;\n\nclass widget\n{\npublic:\n  virtual ~widget();\n  virtual void flush();\n\nprotected:\n  stringx widget_name;\n  int type;\n  widget *parent;\n  widget_list_t children;\n  unsigned int flags;\n  wevent_list_t wevent_run_list;\n};\n\nwidget::~widget()\n{\n  flush();\n\n  // delete children\n  while ( children.size() )\n  {\n    delete *children.begin();\n    children.erase( children.begin() );\n  }\n}\n",
+      "status": "different",
+      "target_size": 356
+    }
+  ],
+  "raw_name": "_$_6widget"
+}
