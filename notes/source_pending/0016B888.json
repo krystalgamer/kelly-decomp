@@ -1,0 +1,23 @@
+{
+  "address": "0x0016B888",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e7182c084b560c8b77a05e1242e8820116271962",
+      "candidate_size": 428,
+      "compared_bytes": 456,
+      "compared_instructions": 114,
+      "emitted_name": "Update__12ReplayWidgetf",
+      "instruction_score": 23.6842,
+      "matching_bytes": 171,
+      "matching_instructions": 27,
+      "notes": "Attempt 1 uses the exact released Update body with only self-contained declarations needed to reproduce the original object layout, static color initialization, developer-option lookup, base update call, sine call, and color assignment.",
+      "score": 37.5,
+      "source": "typedef unsigned char uint8;\ntypedef unsigned int uint32;\n\nclass color32\n{\npublic:\n  union\n  {\n    struct { uint8 b, g, r, a; } c;\n    uint32 i;\n  };\n\n  color32(uint8 r, uint8 g, uint8 b, uint8 a = 255)\n  {\n    c.b = b;\n    c.g = g;\n    c.r = r;\n    c.a = a;\n  }\n\n  uint8 get_red() const { return c.r; }\n  uint8 get_green() const { return c.g; }\n  uint8 get_blue() const { return c.b; }\n};\n\nclass os_developer_options\n{\n  int values[189];\n\npublic:\n  static os_developer_options *inst();\n  int get_int(int index) const { return values[index]; }\n};\n\nextern os_developer_options *developer_options_instance;\n__asm__(\".equ developer_options_instance, 0x0046B180\");\ninline os_developer_options *os_developer_options::inst()\n{\n  return developer_options_instance;\n}\n\nstruct TextString\n{\n  char padding[72];\n  color32 color;\n};\n\nextern \"C\" void igo_update(void *, float) __asm__(\"Update__9IGOWidgetf\");\nextern \"C\" float sinf(float);\n\nclass ReplayWidget\n{\n  char padding[88];\n  TextString *pauseText;\n  char padding2[4];\n  float highlight_intensity;\n  float highlight_timer;\n\npublic:\n  void Update(float dt);\n};\n\nvoid ReplayWidget::Update(const float dt)\n{\n  igo_update(this, dt);\n\n  float period =\n    (float)(os_developer_options::inst()->get_int(188)) /\n    1000.0f;\n\n  highlight_timer += dt;\n  highlight_intensity = 0.5f * sinf(2 * 3.14159265358979323846f *\n                                     (highlight_timer / period));\n\n  static color32 c = color32(224, 128, 0, 255);\n  static color32 ch = color32(255, 255, 0, 255);\n\n  int r = (int)(c.get_red() + (highlight_intensity + .5f) *\n                (ch.get_red() - c.get_red()));\n  int g = (int)(c.get_green() + (highlight_intensity + .5f) *\n                (ch.get_green() - c.get_green()));\n  int b = (int)(c.get_blue() + (highlight_intensity + .5f) *\n                (ch.get_blue() - c.get_blue()));\n  int a = 255;\n\n  pauseText->color = color32(r, g, b, a);\n}\n",
+      "status": "different",
+      "target_size": 456
+    }
+  ],
+  "raw_name": "Update__12ReplayWidgetf"
+}
