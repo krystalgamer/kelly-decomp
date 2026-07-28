@@ -1,0 +1,23 @@
+{
+  "address": "0x002D79C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8949c7051ce53b5adb64c2743128d605e4da71a6",
+      "candidate_size": 456,
+      "compared_bytes": 472,
+      "compared_instructions": 118,
+      "emitted_name": "split_xform__17collision_capsuleRC2poT1i",
+      "instruction_score": 16.1017,
+      "matching_bytes": 160,
+      "matching_instructions": 19,
+      "notes": "# FIRST PASS wave87 B2\n\n- Target: `0x002D79C8 split_xform__17collision_capsuleRC2poT1i`, 472 bytes (`0x1D8`), object `game/files_misc2`.\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/capsule.cpp:55-77` at commit `7c3ade041cc03409a3114ce3ba4a70053c6e4e3b`.\n- Confirmed `attempts0` immediately after prepare.\n- Candidate is LF-only and self-contained, with minimal faithful declarations and no headers.\n- Sole invocation is recorded in `invocation.txt`.\n- Result: **different**; byte score **33.8983%** (160/472), instruction score **16.1017%** (19/118), candidate size **456** bytes.\n- Candidate SHA-1: `8949c7051ce53b5adb64c2743128d605e4da71a6`; SHA-256: `9838b85e827da884ffaf4e984fff55548016a5f9b82142f414ff042f787b1d1c`.\n- Exactly one honest candidate and one test attempt. No alternate implementation, assembly candidate, annotations, variants, retry, attempts 2-5, or post-test chase.\n- Tracked/reference files remained read-only. No finalize, integrate, build, or git operation was performed.",
+      "score": 33.8983,
+      "source": "typedef float rational_t;\n\nclass vector3d\n{\npublic:\n  float x;\n  float y;\n  float z;\n\n  vector3d() {}\n  vector3d(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {}\n  vector3d(const vector3d& v) : x(v.x), y(v.y), z(v.z) {}\n  vector3d& operator=(const vector3d& v)\n  {\n    x = v.x;\n    y = v.y;\n    z = v.z;\n    return *this;\n  }\n};\n\ninline vector3d operator-(const vector3d& a, const vector3d& b)\n{\n  return vector3d(a.x-b.x, a.y-b.y, a.z-b.z);\n}\n\ninline rational_t dot(const vector3d& a, const vector3d& b)\n{\n  return a.x*b.x+a.y*b.y+a.z*b.z;\n}\n\nclass po\n{\npublic:\n  vector3d slow_xform(const vector3d& v) const;\n};\n\nclass entity\n{\npublic:\n  void get_velocity(vector3d* v) const;\n};\n\nclass capsule\n{\npublic:\n  vector3d base;\n  vector3d end;\n  rational_t radius;\n};\n\nclass collision_geometry\n{\npublic:\n  virtual ~collision_geometry();\n  virtual collision_geometry* make_instance(entity*) const = 0;\n  virtual void xform(const po&);\n  virtual void apply_radius_scale(rational_t);\n  virtual void split_xform(const po&, const po&, int);\n\nprotected:\n  entity* owner;\n  bool valid;\n};\n\nclass collision_capsule : public collision_geometry\n{\npublic:\n  capsule rel_cap;\n  capsule abs_cap;\n  vector3d lag_point;\n\n  void split_xform(po const & po_1, po const & po_2, int second_po_start_idx);\n};\n\nvoid collision_capsule::split_xform(po const & po_1, po const & po_2, int second_po_start_idx)\n{\n  // Note:  po_2 is last frame's po.\n  collision_geometry::xform(po_2);\n  vector3d vel;\n  owner->get_velocity(&vel);\n  abs_cap.base = po_2.slow_xform(rel_cap.base);\n  abs_cap.end = po_2.slow_xform(rel_cap.end);\n  abs_cap.radius = rel_cap.radius;\n  rational_t a = dot(abs_cap.end-abs_cap.base,vel);\n  if (a>0)\n  {\n    abs_cap.end = po_1.slow_xform(rel_cap.end);\n    lag_point = abs_cap.base;\n  }\n  else\n  {\n    abs_cap.base = po_1.slow_xform(rel_cap.base);\n    lag_point = abs_cap.end;\n  }\n}\n",
+      "status": "different",
+      "target_size": 472
+    }
+  ],
+  "raw_name": "split_xform__17collision_capsuleRC2poT1i"
+}
