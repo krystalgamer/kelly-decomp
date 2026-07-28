@@ -1,0 +1,23 @@
+{
+  "address": "0x002875A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0970cab6864947d7589361cc9cdf31b8c854fffd",
+      "candidate_size": 200,
+      "compared_bytes": 396,
+      "compared_instructions": 99,
+      "emitted_name": "advance_state_play_fe_movie__4gamef",
+      "instruction_score": 3.0303,
+      "matching_bytes": 37,
+      "matching_instructions": 3,
+      "notes": "# Attempt 1\n\n- Inherited attempts: 0 (no prior lane artifacts existed).\n- Tested exactly the released `game::advance_state_play_fe_movie` body once, with only self-contained declarations added.\n- Result: different; byte score 9.3434%, instruction score 3.0303% (3/99 instructions).\n- No alternate source, declaration variant, or diff chase was attempted.\n- Released source: `historicalsource/kelly-slaters-pro-surfer`, `KS/SRC/game_process.cpp`, commit `7c3ade041cc03409a3114ce3ba4a70053c6e4e3b`.",
+      "score": 9.3434,
+      "source": "typedef float time_value_t;\n\nclass stringx { public: const char *c_str() const; };\nclass frontend_map { public: void HideAllDots(); void PutUpLoadingScreen(); void PickDemo(int); };\nclass frontend_manager { public: bool fe_init; frontend_map *map; void ReloadTextures(); };\nclass os_developer_options { public: enum { FLAG_NO_AUDIO }; static os_developer_options *inst(); bool is_flagged(int); };\nclass game { public: stringx movie_name; void advance_state_play_fe_movie(time_value_t); void play_movie(const char *, bool, int, int); void soft_reset_process(); void set_render_state(int); };\nextern frontend_manager frontendmanager;\nextern game *g_game_ptr;\nextern bool start_drawing_map;\nextern void sceGsResetGraph(int, int, int, int);\nextern void KSNGL_ReInit();\nextern void nglResetDisplay();\nextern bool nslInit();\nextern void nglListInit();\nextern void render_map_screen();\nextern void nglListSend(bool);\nextern void nglReleaseAllTextures();\nenum { SCE_GS_INTERLACE, SCE_GS_NTSC, SCE_GS_FRAME, SCE_GS_PAL, GAME_RENDER_LOADING_LEVEL };\n\nvoid game::advance_state_play_fe_movie( time_value_t time_inc )\n{\n#if !defined(TARGET_XBOX)\n  frontendmanager.fe_init = false;\n\t//stash::close_stash(STASH_COMMON);\n\t//stash::free_stored(STASH_COMMON);\n\n#if defined(TARGET_PS2)\n\n#ifdef TV_PAL\n  sceGsResetGraph( 0, SCE_GS_INTERLACE, SCE_GS_PAL, SCE_GS_FRAME );\n  g_game_ptr->play_movie(movie_name.c_str(), true, 640, 512);\n#else\n  sceGsResetGraph( 0, SCE_GS_INTERLACE, SCE_GS_NTSC, SCE_GS_FRAME );\n  g_game_ptr->play_movie(movie_name.c_str(), true, 640, 448);\n#endif\n  KSNGL_ReInit();\n  nglResetDisplay();\n  if (!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n\t  if (!nslInit())\n\t  {\n#if defined(TARGET_XBOX) && defined(BUILD_FINAL)\n\t\t  // Xbox requires a message on all disk read failures.  (dc 07/11/02)\n\t\t  disk_read_error();\n#endif\n\t  }\n\n#elif defined(TARGET_GC)\n  g_game_ptr->play_movie( movie_name.c_str( ), true );\n#endif\n  start_drawing_map = true;\n\n\tfrontendmanager.ReloadTextures();\n\tfrontendmanager.map->HideAllDots();\n\tfrontendmanager.map->PutUpLoadingScreen();\n\tfor (int i=0; i < 4; i++)\n\t{\n\t\tnglListInit();\n\t\trender_map_screen();\n\t\tnglListSend(true);\n\t}\n\tstart_drawing_map = false;\n\tnglReleaseAllTextures();\n  soft_reset_process();\n\tset_render_state(GAME_RENDER_LOADING_LEVEL);\n  start_drawing_map = true;\n  frontendmanager.map->PickDemo(0);\n\t\n  //frontendmanager.map->PickFE();\n\t//((BeachFrontEnd *)frontendmanager.gms->menus[GraphicalMenuSystem::BeachMenu])->Pick();\n\t//frontendmanager.OnLevelEnding();\n\t//frontendmanager.in_game_map_up = true;\n\t//frontendmanager.IGO->ShowMenuBackground(false);\n\n#endif\n}\n",
+      "status": "different",
+      "target_size": 396
+    }
+  ],
+  "raw_name": "advance_state_play_fe_movie__4gamef"
+}
