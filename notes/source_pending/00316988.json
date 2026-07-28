@@ -1,0 +1,23 @@
+{
+  "address": "0x00316988",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3f8b7c497c3ba29faee8a7537534e440d5bb63a4",
+      "candidate_size": 336,
+      "compared_bytes": 336,
+      "compared_instructions": 84,
+      "emitted_name": "register_signal_lib__Fv",
+      "instruction_score": 77.381,
+      "matching_bytes": 201,
+      "matching_instructions": 65,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/script_lib_signal.cpp:25-115,173-184; kelly-slaters-pro-surfer/KS/SRC/script_lib_signal.h:15-29; kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:20-68; kelly-slaters-pro-surfer/KS/SRC/archalloc.h:119-145; tmp/functions/00316988_register_signal_lib__Fv/attempt-1/result.json; tmp/source_first/00316988/attempt-1.md. Result `different`, score 59.8214; no later attempt.",
+      "score": 59.8214,
+      "source": "typedef unsigned int size_t;\n\nvoid *operator new(size_t, unsigned int, const char *, int);\n\n#define NEW new(0, __FILE__, __LINE__)\n\nclass vm_stack;\n\nclass script_library_class {\n    char data[32];\n\npublic:\n    script_library_class(const char *, int, const char * = 0);\n    virtual ~script_library_class();\n\n    class function {\n    protected:\n        char *name;\n\n    public:\n        enum entry_t { FIRST_ENTRY, RECALL_ENTRY };\n\n        function(script_library_class *, const char *);\n        virtual ~function();\n        virtual bool operator()(vm_stack &, entry_t) { return true; }\n    };\n};\n\nclass slc_signaller_t : public script_library_class {\npublic:\n    slc_signaller_t(const char *n, int sz, const char *p = 0)\n        : script_library_class(n, sz, p) {}\n};\n\nclass slf_signaller_enable_signals_t : public script_library_class::function {\npublic:\n    slf_signaller_enable_signals_t(script_library_class *slc, const char *n)\n        : script_library_class::function(slc, n) {}\n};\n\nclass slf_signaller_disable_signals_t : public script_library_class::function {\npublic:\n    slf_signaller_disable_signals_t(script_library_class *slc, const char *n)\n        : script_library_class::function(slc, n) {}\n};\n\nclass slf_signaller_clear_callbacks_t : public script_library_class::function {\npublic:\n    slf_signaller_clear_callbacks_t(script_library_class *slc, const char *n)\n        : script_library_class::function(slc, n) {}\n};\n\nclass slf_signaller_clear_callback_t : public script_library_class::function {\npublic:\n    slf_signaller_clear_callback_t(script_library_class *slc, const char *n)\n        : script_library_class::function(slc, n) {}\n};\n\nvoid register_signal_lib()\n{\n    slc_signaller_t *slc_signaller = NEW slc_signaller_t(\"signaller\", 4);\n\n    NEW slf_signaller_enable_signals_t(slc_signaller, \"enable_signals()\");\n    NEW slf_signaller_disable_signals_t(slc_signaller, \"disable_signals()\");\n    NEW slf_signaller_clear_callbacks_t(slc_signaller, \"clear_callbacks()\");\n    NEW slf_signaller_clear_callback_t(slc_signaller, \"clear_callback(str)\");\n}\n",
+      "status": "different",
+      "target_size": 336
+    }
+  ],
+  "raw_name": "register_signal_lib__Fv"
+}
