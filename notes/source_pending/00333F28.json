@@ -1,0 +1,15 @@
+{
+  "address": "0x00333F28",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "199f66176426e300df5e7600d1d5dbfb5fdfdac1",
+      "notes": "# FIRST PASS wave 70 lane B5 \u2014 0x00333F28\n\n- Status: **source_pending** (`compile_failed`)\n- Attempts: **1**\n- Byte score: **0.0%**\n- Candidate: `tmp/functions/00333F28___cl__19slf_str_list_size_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/candidate.cpp`\n- SHA-1: `199f66176426e300df5e7600d1d5dbfb5fdfdac1`\n- Started: `2026-07-28T13:27:44.738079120Z`\n- Completed: `2026-07-28T13:28:40.451605002Z`\n- Duration: **55.713526s**\n\nExact released `slf_str_list_size_t::operator()` body was tested once with minimal released declarations/headers. Compilation failed because the isolated legacy compiler environment could not resolve required standard and project headers. No variants, retries, diff chasing, finalization, integration, build, tracked-file edits, or git mutation were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/script_lib_list.cpp:1220-1240`\n- `kelly-slaters-pro-surfer/KS/SRC/script_lib_list.h:127-143`\n- `kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:262-300`\n- `tmp/functions/00333F28___cl__19slf_str_list_size_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/result.json`\n- `tmp/functions/00333F28___cl__19slf_str_list_size_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/compiler.stderr`\n- `tmp/source_first/00333F28/attempt-1.md`",
+      "score": 0.0,
+      "source": "#include \"kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"kelly-slaters-pro-surfer/KS/SRC/script_lib_list.h\"\n#include \"kelly-slaters-pro-surfer/KS/SRC/vm_thread.h\"\n\nclass slf_str_list_size_t : public script_library_class::function\n  {\n  public:\n    slf_str_list_size_t(script_library_class* slc,const char* n) : script_library_class::function(slc,n) {}\n    struct parms_t\n      {\n      vm_str_list_t me;\n      };\n    virtual bool operator()(vm_stack& stack,entry_t entry)\n      {\n      SLF_PARMS;\n      vm_num_t result = parms->me->size();\n      SLF_RETURN;\n      SLF_DONE;\n      }\n  };\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__cl__19slf_str_list_size_tR8vm_stackQ320script_library_class8function7entry_t"
+}
