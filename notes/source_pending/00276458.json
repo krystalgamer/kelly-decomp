@@ -1,0 +1,15 @@
+{
+  "address": "0x00276458",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "709f35050187585fca81be83c18b0ea46577a76c",
+      "notes": "Exact released destructor body (`clear_path_list();`) was tested with the released\nincludes. The isolated compiler exposes only `include/` and `src/`; neither\n`global.h` nor `file_finder.h` is available there, so compilation failed before\ncode generation. A future pass needs self-contained minimal declarations for\nthe file_finder/vector/stringx layout and inline resize path.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"file_finder.h\"\n\nfile_finder::~file_finder()\n{\n  clear_path_list();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_11file_finder"
+}
