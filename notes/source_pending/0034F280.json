@@ -1,0 +1,15 @@
+{
+  "address": "0x0034F280",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4623e57f15e8ede282d5950eed1a8975bd168e09",
+      "notes": "Exact released destructor body from `kelly-slaters-pro-surfer/KS/SRC/script_library_class.cpp:113-120` was tested once with only its released class header and `script_strings_deconstruct` declaration.\n\nResult: compile failed because Wine GCC could not resolve the released header include; per lane rules this is the sole attempt (`attempt-1/compiler.stderr`, `attempt-1/result.json`).",
+      "score": 0.0,
+      "source": "#define KSCULL\n#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/script_library_class.h\"\n\nvoid script_strings_deconstruct();\n\nslc_manager::~slc_manager()\n{\n#ifdef KSCULL\n  script_strings_deconstruct();\n#endif\n  for (class_list::iterator i=classes.begin(); i!=classes.end(); ++i)\n    delete *i;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_11slc_manager"
+}
