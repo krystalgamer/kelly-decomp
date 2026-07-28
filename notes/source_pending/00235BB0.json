@@ -1,0 +1,23 @@
+{
+  "address": "0x00235BB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ec42ca15755aa8491d337036ba4a202b7302165a",
+      "candidate_size": 472,
+      "compared_bytes": 472,
+      "compared_instructions": 118,
+      "emitted_name": "DebugButton__FP9MenuEntryi",
+      "instruction_score": 100.0,
+      "matching_bytes": 334,
+      "matching_instructions": 118,
+      "notes": "FIRST PASS wave87 A2\nTarget: 0x00235BB0 DebugButton__FP9MenuEntryi (472/0x1D8), game/files_kellyslater\nReference: kelly-slaters-pro-surfer/KS/SRC/ks/ksdbmenu.cpp\nAttempts before: 0 (confirmed by prepared attempts.json)\nAttempt 1: exact released body with minimal faithful self-contained declarations; LF-terminated; no unavailable includes\nResult: different; byte score 70.7627; instruction score 100.0; candidate size 472; target size 472\nNo alternatives, retries, attempts 2-5, assembly, annotations, variants, chasing, integration, finalization, build, or tracked/reference changes.",
+      "score": 70.7627,
+      "source": "class MenuEntry;\n\nvoid debug_print(const char *, ...) __asm__(\"debug_print__FPCce\");\n\nenum\n{\n\tMENUCMD_NONE = 0,\n\tMENUCMD_SELECT,\n\tMENUCMD_START,\n\tMENUCMD_UP,\n\tMENUCMD_DOWN,\n\tMENUCMD_LEFT,\n\tMENUCMD_RIGHT,\n\tMENUCMD_CROSS,\n\tMENUCMD_TRIANGLE,\n\tMENUCMD_SQUARE,\n\tMENUCMD_CIRCLE,\n\tMENUCMD_L1,\n\tMENUCMD_R1,\n\tMENUCMD_L2,\n\tMENUCMD_R2\n};\n\nbool DebugButton(MenuEntry *entry, int buttonid)\n{\n\tswitch ( buttonid )\n\t{\n\t\tcase MENUCMD_NONE    : debug_print(\"Button %s pressed\\n\",\"MENUCMD_NONE    \"); break;\n\t\tcase MENUCMD_SELECT  : debug_print(\"Button %s pressed\\n\",\"MENUCMD_SELECT  \"); break;\n\t\tcase MENUCMD_START   : debug_print(\"Button %s pressed\\n\",\"MENUCMD_START   \"); break;\n\t\tcase MENUCMD_UP      : debug_print(\"Button %s pressed\\n\",\"MENUCMD_UP      \"); break;\n\t\tcase MENUCMD_DOWN    : debug_print(\"Button %s pressed\\n\",\"MENUCMD_DOWN    \"); break;\n\t\tcase MENUCMD_LEFT    : debug_print(\"Button %s pressed\\n\",\"MENUCMD_LEFT    \"); break;\n\t\tcase MENUCMD_RIGHT   : debug_print(\"Button %s pressed\\n\",\"MENUCMD_RIGHT   \"); break;\n\t\tcase MENUCMD_CROSS   : debug_print(\"Button %s pressed\\n\",\"MENUCMD_CROSS   \"); break;\n\t\tcase MENUCMD_TRIANGLE: debug_print(\"Button %s pressed\\n\",\"MENUCMD_TRIANGLE\"); break;\n\t\tcase MENUCMD_SQUARE  : debug_print(\"Button %s pressed\\n\",\"MENUCMD_SQUARE  \"); break;\n\t\tcase MENUCMD_CIRCLE  : debug_print(\"Button %s pressed\\n\",\"MENUCMD_CIRCLE  \"); break;\n\t\tcase MENUCMD_L1      : debug_print(\"Button %s pressed\\n\",\"MENUCMD_L1      \"); break;\n\t\tcase MENUCMD_R1      : debug_print(\"Button %s pressed\\n\",\"MENUCMD_R1      \"); break;\n\t\tcase MENUCMD_L2      : debug_print(\"Button %s pressed\\n\",\"MENUCMD_L2      \"); break;\n\t\tcase MENUCMD_R2      : debug_print(\"Button %s pressed\\n\",\"MENUCMD_R2      \"); break;\n\t}\n\treturn true;\n}\n",
+      "status": "different",
+      "target_size": 472
+    }
+  ],
+  "raw_name": "DebugButton__FP9MenuEntryi"
+}
