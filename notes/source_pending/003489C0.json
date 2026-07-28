@@ -1,0 +1,23 @@
+{
+  "address": "0x003489C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7e7979b2f19a966ac932d595f99aaac7c8f3cb66",
+      "candidate_size": 380,
+      "compared_bytes": 408,
+      "compared_instructions": 102,
+      "emitted_name": "set_rot__2poRC8vector3d",
+      "instruction_score": 10.7843,
+      "matching_bytes": 118,
+      "matching_instructions": 11,
+      "notes": "# FIRST PASS wave 71 lane A1 \u2014 0x003489C0\n\n- Confirmed there were no prior attempts.\n- Copied the exact active released `po::set_rot(const vector3d&)` body from `kelly-slaters-pro-surfer/KS/SRC/po.cpp:430-474`.\n- Added minimal declarations faithful to the released vector, matrix, and `po` layouts and inline vector operations.\n- Ran `function_test` exactly once. Result: `different`, byte score 28.9216%, instruction score 10.7843%.\n- No variants, retries, disassembly comparison, diff chasing, build, finalization, integration, commit, push, or tracked-file edits were performed.\n- Because the attempt did not match, no source, prefix, or shared-declaration proposal is included.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/po.cpp:430-474`\n- `kelly-slaters-pro-surfer/KS/SRC/po.h:62-70`\n- `kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:292-328,686-694`\n- `tmp/functions/003489C0_set_rot__2poRC8vector3d/attempt-1/result.json`",
+      "score": 28.9216,
+      "source": "typedef float rational_t;\n\nfloat __fsqrt( float value );\nvoid fast_sin_cos_approx( float rads, float* sinx, float* cosx );\n\nconst rational_t SMALL_ANGLE = 0.00001f;\n\nclass vector3d\n{\npublic:\n  rational_t x, y, z;\n\n  inline vector3d( const vector3d& v )\n  {\n    x = v.x;\n    y = v.y;\n    z = v.z;\n  }\n\n  inline vector3d& operator *= ( rational_t d )\n  {\n    x *= d;\n    y *= d;\n    z *= d;\n    return *this;\n  }\n\n  inline rational_t length() const\n  {\n    return (rational_t)__fsqrt( x*x + y*y + z*z );\n  }\n};\n\nclass vector4d\n{\npublic:\n  rational_t x, y, z, w;\n};\n\nclass matrix4x4\n{\npublic:\n  vector4d x, y, z, w;\n};\n\nclass po\n{\nprivate:\n  matrix4x4 m;\n\npublic:\n  void set_rot( const vector3d& rot_dir );\n};\n\n#define __fabs(f) __builtin_fabsf(f)\n\nvoid po::set_rot( const vector3d& rot_dir )\n{\n  vector3d       v      = rot_dir;\n  rational_t     rads   = v.length();\n  rational_t     fCos, fSin;\n  fast_sin_cos_approx( rads, &fSin, &fCos );\n\n  if (__fabs(rads)>SMALL_ANGLE)\n    v *= 1/rads;\n\n  rational_t _1_minus_fCos = ( 1.0f - fCos );\n\n  m.x.x = ( v.x * v.x ) * _1_minus_fCos + fCos;\n  m.x.y = ( v.x * v.y ) * _1_minus_fCos - (v.z * fSin);\n  m.x.z = ( v.x * v.z ) * _1_minus_fCos + (v.y * fSin);\n\n  m.y.x = ( v.y * v.x ) * _1_minus_fCos + (v.z * fSin);\n  m.y.y = ( v.y * v.y ) * _1_minus_fCos + fCos ;\n  m.y.z = ( v.y * v.z ) * _1_minus_fCos - (v.x * fSin);\n\n  m.z.x = ( v.z * v.x ) * _1_minus_fCos - (v.y * fSin);\n  m.z.y = ( v.z * v.y ) * _1_minus_fCos + (v.x * fSin);\n  m.z.z = ( v.z * v.z ) * _1_minus_fCos + fCos;\n\n  m.x.w = m.y.w = m.z.w = 0.0f;\n  m.w.x = m.w.y = m.w.z = 0.0f;\n  m.w.w = 1.0f;\n}\n",
+      "status": "different",
+      "target_size": 408
+    }
+  ],
+  "raw_name": "set_rot__2poRC8vector3d"
+}
