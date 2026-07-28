@@ -1,0 +1,23 @@
+{
+  "address": "0x001B8DF0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ef664cd7fceaf21f19d46257d4d44520c5f4b24c",
+      "candidate_size": 304,
+      "compared_bytes": 448,
+      "compared_instructions": 112,
+      "emitted_name": "Load__14ExtrasFrontEnd",
+      "instruction_score": 3.5714,
+      "matching_bytes": 37,
+      "matching_instructions": 4,
+      "notes": "# Attempt 1 notes\n\n- Exact released body copied unchanged from `kelly-slaters-pro-surfer/KS/SRC/ks/ExtrasFrontEnd.cpp:160-182`.\n- Minimal standalone declarations model only `stringx`, `FEMultiMenu`, `BoxText`, `PanelQuad`, `CheatFrontEnd`, and the referenced `ExtrasFrontEnd` fields; no project or STL headers.\n- Declaration/layout sources: `kelly-slaters-pro-surfer/KS/SRC/ks/ExtrasFrontEnd.h:11-55`, `kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:404-431`, `kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:193-216`, and `kelly-slaters-pro-surfer/KS/SRC/ks/CheatFrontEnd.h:45-86`.\n- Target metadata and assembly inspected before testing: `tmp/functions/001B8DF0_Load__14ExtrasFrontEnd/metadata.json`, `tmp/functions/001B8DF0_Load__14ExtrasFrontEnd/target.s`.\n- Sole candidate test returned `different`: 8.2589% bytes (37/448), 3.5714% instructions (4/112), candidate size 304, target size 448, SHA-1 `ef664cd7fceaf21f19d46257d4d44520c5f4b24c`.\n- Exactly one test invocation; no retry, alternate body, post-test diff chase, build, finalize, integration, tracked edit, or git mutation.",
+      "score": 8.2589,
+      "source": "class stringx\n{\n  char storage[16];\npublic:\n  stringx();\n  stringx(const char *, int = -1);\n  stringx(const stringx &);\n  ~stringx();\n  stringx &operator+=(const char *);\n  const char *data() const;\n  friend stringx operator+(const stringx &, const stringx &);\n};\n\nclass FEMultiMenu\n{\n  char layout[304];\npublic:\n  virtual void Load();\n};\n\nclass BoxText\n{\npublic:\n  void ReadFromFile(char *, bool);\n  void makeBox(int, int, bool, float, int);\n};\n\nclass PanelQuad\n{\npublic:\n  virtual void TurnOn(bool);\n};\n\nclass CheatFrontEnd : public FEMultiMenu\n{\npublic:\n  void TurnOnPhone(bool);\n};\n\nclass ExtrasFrontEnd : public FEMultiMenu\n{\n  stringx path;\n  char layout0[104];\n  BoxText *websites;\n  CheatFrontEnd *cheat_menu;\n  char layout1[88];\n  PanelQuad *arrows[2][2];\npublic:\n  virtual void Load();\n  virtual void SetPQIndices();\n};\n\nvoid ExtrasFrontEnd::Load()\n{\n\tFEMultiMenu::Load();\n\tSetPQIndices();\n\n\tstringx file = \"websites\";\n//\tif(ksGlobalTextLanguage == LANGUAGE_FRENCH)\n//\t\tfile += \"_fr\";\n//\telse if(ksGlobalTextLanguage == LANGUAGE_GERMAN)\n//\t\tfile += \"_ge\";\n\tfile += \".txt\";\n\n\tchar* tmp = (char*) (path+file).data();\n\twebsites->ReadFromFile(tmp, false);\n\tint sp = 15;\n\twebsites->makeBox(300, 300, false, -1, sp);\n\n\tarrows[0][1]->TurnOn(false);\n\tarrows[1][1]->TurnOn(false);\n\n\tcheat_menu->Load();\n\tcheat_menu->TurnOnPhone(false);\n}\n",
+      "status": "different",
+      "target_size": 448
+    }
+  ],
+  "raw_name": "Load__14ExtrasFrontEnd"
+}
