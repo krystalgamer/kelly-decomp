@@ -1,0 +1,23 @@
+{
+  "address": "0x001D1A30",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1c207bc2299cbc1ec237bbe7e04985f95a0bc8a1",
+      "candidate_size": 312,
+      "compared_bytes": 404,
+      "compared_instructions": 101,
+      "emitted_name": "SetPQIndices__13CheatFrontEnd",
+      "instruction_score": 4.9505,
+      "matching_bytes": 49,
+      "matching_instructions": 5,
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- FIRST PASS wave 69 lane A3 for `0x001D1A30 SetPQIndices__13CheatFrontEnd`.\n- Tested the exact released body once with minimal self-contained declarations.\n- Result: **different**.\n- Byte score: **12.1287%** (49/404).\n- Instruction score: **4.9505%** (5/101).\n- Candidate size: `312` bytes; target size: `404` bytes.\n- No variants, retries, diff chasing, finalize, build, integration, tracked-file edits, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/CheatFrontEnd.cpp:183-205`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/CheatFrontEnd.h:45-87`\n- `tmp/functions/001D1A30_SetPQIndices__13CheatFrontEnd/attempt-1/result.json`",
+      "score": 12.1287,
+      "source": "class PanelQuad;\n\nclass stringx\n{\npublic:\n    void printf(const char *format, ...);\n    const char *c_str() const;\n};\n\nclass CheatFrontEnd\n{\nprivate:\n    char base_layout[0x160];\n    void *sys;\n    bool pq_indices_set;\n    char pq_indices_padding[3];\n    PanelQuad *arrow_up[2];\n    PanelQuad *arrow_down[2];\n    PanelQuad *cellphone;\n    PanelQuad *numbers[10];\n    PanelQuad *numbers_hi[10];\n\n    PanelQuad *GetPointer(const char *name);\n\npublic:\n    void SetPQIndices();\n};\n\nvoid CheatFrontEnd::SetPQIndices()\n{\n\tstringx number_name;\n\n\tif(!pq_indices_set)\n\t{\n\t\tarrow_up[0] = GetPointer(\"btn_up_off\");\n\t\tarrow_up[1] = GetPointer(\"btn_up_on\");\n\t\tarrow_down[0] = GetPointer(\"btn_down_off\");\n\t\tarrow_down[1] = GetPointer(\"btn_down_on\");\n\t\tcellphone = GetPointer(\"cellphone\");\n\n\t\tfor(int i = 0; i < 10; i++)\n\t\t{\n\t\t\tnumber_name.printf(\"key_%d_yellow\", i);\n\t\t\tnumbers[i] = GetPointer(number_name.c_str());\n\t\t\tnumber_name.printf(\"key_%d_green\", i);\n\t\t\tnumbers_hi[i] = GetPointer(number_name.c_str());\n\t\t}\n\n\t\tpq_indices_set = true;\n\t}\n}\n",
+      "status": "different",
+      "target_size": 404
+    }
+  ],
+  "raw_name": "SetPQIndices__13CheatFrontEnd"
+}
