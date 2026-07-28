@@ -1,0 +1,23 @@
+{
+  "address": "0x0018FCB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2e940b1e57f2f008b25a30d36d154a0e27bcd26e",
+      "candidate_size": 412,
+      "compared_bytes": 412,
+      "compared_instructions": 103,
+      "emitted_name": "HideAllDots__13BeachFrontEnd",
+      "instruction_score": 96.1165,
+      "matching_bytes": 408,
+      "matching_instructions": 99,
+      "notes": "# FIRST PASS wave 71 lane B2 \u2014 0x0018FCB0\n\n- Confirmed there were no prior attempts.\n- Copied the exact released `BeachFrontEnd::HideAllDots()` body from `kelly-slaters-pro-surfer/KS/SRC/ks/BeachFrontEnd.cpp:917-932`.\n- Added only minimal self-contained declarations for `PanelQuad`, the six referenced arrays, and their measured layout.\n- Ran `function_test` exactly once. Result: `different`, byte score 99.0291%, instruction score 96.1165%.\n- No variants, retries, diff chasing, build, finalization, integration, commit, push, or tracked-file edits were performed.\n- Because the attempt did not match, no source, prefix, or shared-declaration proposal is included.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/BeachFrontEnd.cpp:917-932`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/BeachFrontEnd.h:125-132,191`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:427-506`\n- `tmp/functions/0018FCB0_HideAllDots__13BeachFrontEnd/attempt-1/result.json`",
+      "score": 99.0291,
+      "source": "// Target: 0x0018FCB0 HideAllDots__13BeachFrontEnd\n// Reference: KS/SRC/ks/BeachFrontEnd.cpp\n// Replace this file with one self-contained candidate function.\nclass PanelQuad {\n    char padding[0x194];\n\npublic:\n    virtual ~PanelQuad();\n    virtual void Init();\n    virtual void TurnOn(bool on);\n};\n\nclass BeachFrontEnd {\n    char padding[0x9d8];\n    PanelQuad* here[25];\n    PanelQuad* selected[25];\n    PanelQuad* open[25];\n    PanelQuad* done[25];\n    PanelQuad* select_circle[25][3];\n    PanelQuad* new_open_circle[25][3];\n\npublic:\n    static const int max_blink_index = 3;\n    void HideAllDots();\n};\n\nvoid BeachFrontEnd::HideAllDots()\n{\n\tfor(int i=0; i<25; i++)\n  {\n\t\tfor(int j=0; j<max_blink_index; j++)\n    {\n      if(new_open_circle[i][j])   new_open_circle[i][j]->TurnOn(false);\n      if(select_circle[i][j])     select_circle[i][j]->TurnOn(false);\n    }\n    if(here[i])       here[i]->TurnOn(false);;\n    if(selected[i])   selected[i]->TurnOn(false);;\n    if(open[i])       open[i]->TurnOn(false);;\n    if(done[i])       done[i]->TurnOn(false);;\n  }\n\n}\n",
+      "status": "different",
+      "target_size": 412
+    }
+  ],
+  "raw_name": "HideAllDots__13BeachFrontEnd"
+}
