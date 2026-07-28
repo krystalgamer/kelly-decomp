@@ -1,0 +1,23 @@
+{
+  "address": "0x0038B890",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cfce52eba64fa3624c0404ad0f5302d5e7714fee",
+      "candidate_size": 304,
+      "compared_bytes": 360,
+      "compared_instructions": 88,
+      "emitted_name": "nvlStopMovie__FP8nvlMovie",
+      "instruction_score": 1.1364,
+      "matching_bytes": 49,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used the exact released source for nvlStopMovie__FP8nvlMovie. Result `different`, score 13.6111; no retry or variant was made.",
+      "score": 13.6111,
+      "source": "// Target: 0x0038B890 nvlStopMovie__FP8nvlMovie\n// Reference: NVL/PS2/nvl_ps2.cpp:879-919\n#define NULL 0\n#define assert(x) ((void)0)\n#define NVL_MAX_MOVIE_NUM 4\n\nstruct nvlMovieSource\n{\n  int refs;\n  char* filename;\n  void* buf;\n  int bufsize;\n};\n\nstruct nvlStream;\n\nstruct nvlMovie\n{\n  nvlMovieSource* src;\n  nvlStream* s;\n  int dataSize;\n  int width;\n  int height;\n  volatile int currentFrame;\n  int framesTotal;\n  void* decodeBuffer;\n  void* tagBuffer;\n};\n\nextern struct nvlSystemData_t\n{\n  int fromIPUHandlerID;\n  int toIPUHandlerID;\n  int disableToIPU;\n  int disableFromIPU;\n  nvlMovie* pMovies[NVL_MAX_MOVIE_NUM];\n  int runFullAdvance;\n  volatile int currentMovieIdx;\n  volatile int advanceOK;\n  volatile int ioPending;\n  volatile int initInterrupts;\n} nvlSystemData;\n\nextern void (*nvlFreeFunc)(void*);\nvoid nvlWaitForVB();\nvoid nvlStreamDestroy(nvlStream*);\nextern \"C\" void free(void*);\n\nvoid nvlStopMovie( nvlMovie* m )\n{\n  assert( nvlSystemInitialized && m );\n/*\n  m->flags &= ~NVL_FLAG_PLAYING;\n  m->flags |= NVL_FLAG_STOPPING;\n  m->src->refs--;\n*/\n  int i;\n\n  while( !nvlSystemData.advanceOK )\n  {\n      // Processing a frame\n      nvlWaitForVB();\n  }\n\n  for( i = 0; i < NVL_MAX_MOVIE_NUM; i++ )\n  {\n    if( nvlSystemData.pMovies[i] == m )\n    {\n      break;\n    }\n  }\n  assert( i < NVL_MAX_MOVIE_NUM );\n  nvlSystemData.pMovies[i] = NULL;\n  m->src->refs--;\n  nvlStreamDestroy( m->s );\n  if( nvlFreeFunc )\n  {\n    (*nvlFreeFunc)( m->decodeBuffer );\n    (*nvlFreeFunc)( m->tagBuffer );\n    (*nvlFreeFunc)( m );\n  }\n  else\n  {\n    free( m->decodeBuffer );\n    free( m->tagBuffer );\n    free( m );\n  }\n}\n",
+      "status": "different",
+      "target_size": 360
+    }
+  ],
+  "raw_name": "nvlStopMovie__FP8nvlMovie"
+}
