@@ -1,0 +1,23 @@
+{
+  "address": "0x001147F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5e23ae435483cce3c662b092184ec77e5e8da86b",
+      "candidate_size": 352,
+      "compared_bytes": 372,
+      "compared_instructions": 93,
+      "emitted_name": "insert_root__17entity_track_tree",
+      "instruction_score": 4.3011,
+      "matching_bytes": 136,
+      "matching_instructions": 4,
+      "notes": "Attempt 1 used the exact released source for insert_root__17entity_track_tree. Result `different`, score 36.5591; no retry or variant was made.",
+      "score": 36.5591,
+      "source": "typedef int int32;\ntypedef float rational_t;\ntypedef float time_value_t;\n\nclass entity_track_node\n{\n  int32 id;\n  int32 owner;\n  char pad[16];\n  entity_track_node* m_child;\n  entity_track_node* m_sibling;\n  void* m_prs_track;\n  void* m_signal_track;\n  int32 more_pad[4];\n\npublic:\n  entity_track_node();\n  ~entity_track_node();\n};\n\nenum { MAX_ROOT_NODES = 4 };\n\nclass entity_track_tree\n{\n  char file_header[4];\n  unsigned int version;\n  int32 num_root_nodes;\n  rational_t floor_offset;\n  time_value_t duration;\n  int32 total_nodes;\n  int32 pad[2];\n  entity_track_node root_nodes[MAX_ROOT_NODES];\n\npublic:\n  entity_track_node* insert_root();\n};\n\nentity_track_node* entity_track_tree::insert_root()\n{\n  // shift roots\n  num_root_nodes++;\n  int i;\n  for( i=num_root_nodes-1; i>0; i-- )\n    root_nodes[i] = root_nodes[i-1];\n  root_nodes[0] = entity_track_node();\n  return root_nodes;\n}\n",
+      "status": "different",
+      "target_size": 372
+    }
+  ],
+  "raw_name": "insert_root__17entity_track_tree"
+}
