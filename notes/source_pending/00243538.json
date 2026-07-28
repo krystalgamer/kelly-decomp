@@ -1,0 +1,23 @@
+{
+  "address": "0x00243538",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "dff549177af68ca25740dc2f859a272152f009cb",
+      "candidate_size": 568,
+      "compared_bytes": 568,
+      "compared_instructions": 142,
+      "emitted_name": "UpdateButtons__12TrickManager",
+      "instruction_score": 66.9014,
+      "matching_bytes": 389,
+      "matching_instructions": 95,
+      "notes": "# FIRST PASS wave83 B4 \u2014 0x00243538\n\n- Target: `UpdateButtons__12TrickManager`, 460 bytes (`0x1CC`), object `game/files_kellyslater`.\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/ks/trick_system.cpp`, with minimal faithful self-contained declarations and no includes.\n- Confirmed attempts=0 before prepare; inspected `metadata.json`, `target.s`, and the LF-only candidate before testing.\n- Sole test result: `different`; byte score 68.4859% (389/568), instruction score 66.9014% (95/142); target size 460, candidate size 568.\n- Candidate SHA-1: `dff549177af68ca25740dc2f859a272152f009cb`; SHA-256: `681fc44f967040df4442eff595ff0793ec2013b5222138c16cf8b8a3a68bf402`.\n- Exactly one candidate and one attempt. No alternatives, asm body, annotations, variants, retry, attempts 2-5, or post-test chase.\n- Tracked/reference files remained read-only. No finalize, integrate, build, or git mutation.",
+      "score": 68.4859,
+      "source": "typedef unsigned char uint8;\n\n#define assert(x) ((void)0)\n\n#define PAD_U 1\n#define PAD_D 2\n#define PAD_L 3\n#define PAD_R 4\n#define PAD_UL 5\n#define PAD_UR 6\n#define PAD_DL 7\n#define PAD_DR 8\n#define PAD_CIRCLE 9\n#define PAD_CROSS 10\n#define PAD_TRIANGLE 11\n#define PAD_SQUARE 12\n#define PAD_L1 13\n#define PAD_L2 14\n#define PAD_R1 15\n#define PAD_R2 16\n\nenum {\n   PSX_X = 184,\n   PSX_CIRCLE,\n   PSX_TRIANGLE,\n   PSX_SQUARE,\n   PSX_L1,\n   PSX_L2,\n   PSX_L3,\n   PSX_R1,\n   PSX_R2\n};\n\nclass kellyslater_controller\n{\npublic:\n   float CtrlEvent(int control);\n};\n\nclass TrickManager\n{\n   char padding[664];\n   kellyslater_controller *ksctrl;\n\n   void ButtonRecord(uint8 button, bool pressed);\n   int GetDirection(void);\n\npublic:\n   void UpdateButtons(void);\n};\n\n__asm__(\".equ GetDirection__12TrickManager,0x002433E0\");\n__asm__(\".equ ButtonRecord__12TrickManagerUcb,0x002434B0\");\n__asm__(\".equ CtrlEvent__22kellyslater_controlleri,0x0020CFA0\");\n\nvoid TrickManager::UpdateButtons(void)\n{\n   assert(ksctrl);\n//   input_mgr* inputmgr = input_mgr::inst();\n\n\t// Update the direction buttons\n   int Direction = GetDirection();\n\n   ButtonRecord(PAD_U,Direction==PAD_U);\n   ButtonRecord(PAD_D,Direction==PAD_D);\n   ButtonRecord(PAD_L,Direction==PAD_L);\n   ButtonRecord(PAD_R,Direction==PAD_R);\n   ButtonRecord(PAD_UL,Direction==PAD_UL);\n   ButtonRecord(PAD_UR,Direction==PAD_UR);\n   ButtonRecord(PAD_DL,Direction==PAD_DL);\n   ButtonRecord(PAD_DR,Direction==PAD_DR);\n\n   // Update the action buttons\n   ButtonRecord(PAD_CIRCLE, ksctrl->CtrlEvent(PSX_CIRCLE));\n   ButtonRecord(PAD_SQUARE, ksctrl->CtrlEvent(PSX_SQUARE));\n   ButtonRecord(PAD_TRIANGLE, ksctrl->CtrlEvent(PSX_TRIANGLE));\n   ButtonRecord(PAD_CROSS, ksctrl->CtrlEvent(PSX_X));\n\n   // Update the shoulder buttons\n\n   ButtonRecord(PAD_L1, ksctrl->CtrlEvent(PSX_L1));\n   ButtonRecord(PAD_L2, ksctrl->CtrlEvent(PSX_L2));\n   ButtonRecord(PAD_R1, ksctrl->CtrlEvent(PSX_R1));\n   ButtonRecord(PAD_R2, ksctrl->CtrlEvent(PSX_R2));\n\n}\n",
+      "status": "different",
+      "target_size": 460
+    }
+  ],
+  "raw_name": "UpdateButtons__12TrickManager"
+}
