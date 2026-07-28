@@ -1,0 +1,23 @@
+{
+  "address": "0x00345A50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2cf3bc97121d50f5085262136fb4ccde18815d79",
+      "candidate_size": 376,
+      "compared_bytes": 376,
+      "compared_instructions": 94,
+      "emitted_name": "Write_Extra_Stash__FP10multistash",
+      "instruction_score": 7.4468,
+      "matching_bytes": 67,
+      "matching_instructions": 7,
+      "notes": "Attempt 1 used the exact released source for Write_Extra_Stash__FP10multistash. Result `different`, score 17.8191; no retry or variant was made.",
+      "score": 17.8191,
+      "source": "// Target: 0x00345A50 Write_Extra_Stash__FP10multistash\n// Reference: KS/SRC/mustash.cpp:373-411\nclass stringx\n{\n  char* chars;\n  void* my_buf;\n\npublic:\n  stringx(const char*, int = -1);\n  ~stringx();\n};\n\nclass os_file\n{\n  char storage[64];\n\npublic:\n  enum mode_flags\n  {\n    FILE_READ = 1,\n    FILE_WRITE = 2,\n    FILE_MODIFY = 3,\n    FILE_APPEND = 4\n  };\n\n  os_file();\n  ~os_file();\n  void open(const stringx&, int);\n  void close();\n  int write(void*, int);\n};\n\nclass avl_index\n{\npublic:\n  void* root_node;\n  void* root() { return root_node; }\n};\n\nclass multistash\n{\n  char list_filename[256];\n  char stash_filename[256];\n  char remainder[196];\n  bool stash_file_is_open;\n  int type;\n  avl_index index_tree;\n\npublic:\n  bool is_stash_open() { return stash_file_is_open; }\n  const char* get_stash_filename() { return stash_filename; }\n  avl_index& get_index_tree() { return index_tree; }\n};\n\nextern \"C\" char* strcpy(char*, const char*);\nextern \"C\" unsigned strlen(const char*);\nextern \"C\" char* strchr(const char*, int);\nvoid Print_Stash_Node(os_file&, void*);\n\nvoid Write_Extra_Stash(multistash *the_stash)\n{\n\t// Open the file and write to it, appending to the end of what was there before.\n\tos_file stash_extra_file;\n\tchar file_name[100];\n\n\tif (!the_stash->is_stash_open())\n\t\treturn;\n\n\tstrcpy(file_name, (char *)the_stash->get_stash_filename());\n\tint last_char = strlen(file_name) - 1;\n\n\tif (last_char == -1)  //  no name\n\t\treturn;\n\n\t//  change the extention.\n\tfile_name[last_char - 2] = 'x';\n\tfile_name[last_char - 1] = 't';\n\tfile_name[last_char] = 'r';\n\n\t//  add something onto the front so that it goes to the your diskimg directory.\n\twhile (strchr(file_name, '\\\\'))\n\t{\n\t\tstrcpy(file_name, strchr(file_name, '\\\\') + 1);\n\t}\n\n\tstash_extra_file.open(file_name, os_file::FILE_WRITE);\n\n\t//  Name of the file at the top.\n\tstash_extra_file.write((void *)file_name, strlen(file_name));\n\tstash_extra_file.write((void *)\"\\n\\n\",2);\n\n\t//  Now look at everything file listed in the stash.  If it was not loaded, then list it.\n\tPrint_Stash_Node(stash_extra_file, the_stash->get_index_tree().root());\n\tstash_extra_file.write((void *)\"\\n\\n\\n\\n\",4);\n\n\tstash_extra_file.close();\n}\n",
+      "status": "different",
+      "target_size": 364
+    }
+  ],
+  "raw_name": "Write_Extra_Stash__FP10multistash"
+}
