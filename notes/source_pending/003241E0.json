@@ -1,0 +1,15 @@
+{
+  "address": "0x003241E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c553ef76ccdc1018268316d91aebef08334ae22e",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/script_lib.cpp:3040-3055; kelly-slaters-pro-surfer/KS/SRC/game.h:104-113,333,538; kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:282-300; tmp/source_first/003241E0/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"../../../../../kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"../../../../../kelly-slaters-pro-surfer/KS/SRC/game.h\"\n#include \"../../../../../kelly-slaters-pro-surfer/KS/SRC/script_library_class.h\"\n\nclass slf_systime_day_of_week_t : public script_library_class::function\n{\n  public:\n    slf_systime_day_of_week_t(const char* n) : script_library_class::function(n) {}\n    virtual bool operator()(vm_stack& stack,entry_t entry)\n    {\n      vm_num_t result = g_game_ptr->get_systime().weekday;\n\n      SLF_RETURN;\n      SLF_DONE;\n    }\n};\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__cl__25slf_systime_day_of_week_tR8vm_stackQ320script_library_class8function7entry_t"
+}
