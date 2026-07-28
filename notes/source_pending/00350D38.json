@@ -1,0 +1,23 @@
+{
+  "address": "0x00350D38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "33f91c95cc78de445b45363f8c93cd41d4f8465b",
+      "candidate_size": 160,
+      "compared_bytes": 348,
+      "compared_instructions": 87,
+      "emitted_name": "_$_13script_object",
+      "instruction_score": 3.4483,
+      "matching_bytes": 36,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used the exact released source for _$_13script_object. Result `different`, score 10.3448; no retry or variant was made.",
+      "score": 10.3448,
+      "source": "// Exact released body with minimal release-layout declarations.\nclass stringx {\n    char data[8];\npublic:\n    ~stringx() __asm__(\"_$_7stringx\");\n};\n\nclass vm_symbol_list {\n    void *node;\npublic:\n    ~vm_symbol_list() __asm__(\"_$_t4list2Z9vm_symbolZt12my_allocator1Z9vm_symbol\");\n};\n\nclass so_data_block {\n    char data[8];\npublic:\n    ~so_data_block() __asm__(\"_$_13so_data_block\");\n};\n\nclass executable_vector {\n    void **begin_value;\n    void **end_value;\n    void **capacity;\npublic:\n    ~executable_vector() __asm__(\"_$_t6vector2ZP13vm_executableZt12my_allocator1ZP13vm_executable\");\n};\n\nclass instance_list {\n    void *node;\npublic:\n    ~instance_list() __asm__(\"_$_t4list2ZPQ213script_object8instanceZt12my_allocator1ZPQ213script_object8instance\");\n};\n\nclass instance_name_list {\n    char data[24];\npublic:\n    ~instance_name_list() __asm__(\"_$_t3set3Z7stringxZt4less1Z7stringxZt12my_allocator1Z7stringx\");\n};\n\nclass script_object {\n    stringx name;\n    bool global_object;\n    char alignment[3];\n    vm_symbol_list static_symbols;\n    vm_symbol_list symbols;\n    so_data_block static_data;\n    int data_blocksize;\n    executable_vector funcs;\n    instance_list instances;\n    instance_name_list instance_names;\npublic:\n    void _destroy() __asm__(\"_destroy__13script_object\");\n    ~script_object() __asm__(\"_$_13script_object\");\n};\n\nscript_object::~script_object()\n{\n    _destroy();\n}\n",
+      "status": "different",
+      "target_size": 348
+    }
+  ],
+  "raw_name": "_$_13script_object"
+}
