@@ -1,0 +1,15 @@
+{
+  "address": "0x002B6900",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6460889e562eb43e7c3a8852e1d4d086b1b8941c",
+      "notes": "# Attempt 1 \u2014 exact released/toolchain template\n\n- FIRST PASS wave 51 lane A4 for `0x002B6900 find__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP10scene_animZt10_Select1st1Zt4pair2ZC7stringxZP10scene_animZt4less1Z7stringxZt12my_allocator1ZP10scene_animRC7stringx`.\n- Tested the exact released `map<stringx, scene_anim *>` type with an explicit instantiation of the toolchain-provided `_Rb_tree::find(const stringx&)` template once.\n- Result: **compile_failed**, score **0.0%**. The isolated compiler include roots do not provide the toolchain `<map>` header (`map: No such file or directory`).\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/wds.h:24,68`\n- `kelly-slaters-pro-surfer/KS/SRC/wds.cpp:8674-8686`\n- `tmp/functions/002B6900_find__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP10scene_animZt10_Select1st1Zt4pair2ZC7stringxZP10sce_ba75a169a402/attempt-1/compiler.stderr`\n- `tmp/functions/002B6900_find__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP10scene_animZt10_Select1st1Zt4pair2ZC7stringxZP10sce_ba75a169a402/attempt-1/result.json`",
+      "score": 0.0,
+      "source": "#include <map>\n\nclass stringx\n{\n  char *chars;\n  void *my_buf;\n};\n\nclass scene_anim;\n\nbool operator<(const stringx &, const stringx &);\n\ntypedef map<stringx, scene_anim *> scene_anim_map_t;\n\ntemplate scene_anim_map_t::iterator scene_anim_map_t::find(const stringx &);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "find__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP10scene_animZt10_Select1st1Zt4pair2ZC7stringxZP10scene_animZt4less1Z7stringxZt12my_allocator1ZP10scene_animRC7stringx"
+}
