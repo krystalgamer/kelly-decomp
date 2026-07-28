@@ -1,0 +1,15 @@
+{
+  "address": "0x001864A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "220b271a655eabc92e3ca4b90251927001177071",
+      "notes": "FIRST PASS wave72 B3. One exact released-source destructor attempt only; compile failed because the available generated header did not declare `SurferFrontEnd`. Attempts preserved under `tmp/functions/001864A8__$_14SurferFrontEnd/attempt-1/`. No retry, finalize, build, or commit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/SurferFrontEnd.h\"\n\nSurferFrontEnd::~SurferFrontEnd()\n{\n\tfor(int i=0; i<4; i++)\n\t{\n\t\tdelete gauge_labels[i];\n\t\tdelete red_gauges[i];\n\t}\n\n\tdelete players[0];\n\tdelete players[1];\n\tdelete surfer_select;\n\tdelete bio_menu;\n\tdelete hcap_color[2];\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_14SurferFrontEnd"
+}
