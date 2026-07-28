@@ -1,0 +1,23 @@
+{
+  "address": "0x0014A838",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7843961ef44bbe589a8d1c929c551ed94ee7b26a",
+      "candidate_size": 356,
+      "compared_bytes": 364,
+      "compared_instructions": 91,
+      "emitted_name": "Draw__12TrickBoxText",
+      "instruction_score": 12.0879,
+      "matching_bytes": 117,
+      "matching_instructions": 11,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 52 lane B5 for `0x0014A838 Draw__12TrickBoxText`.\n- Tested the exact released `TrickBoxText::Draw()` body once with minimal self-contained declarations preserving the required `TextString`, `RandomText`, `StringList`, `color32`, and `TrickBoxText` member layout and the two `Render` overloads.\n- Result: **different**, byte score **32.1429%** (117/364) and instruction score **12.0879%** (11/91); candidate size 356 bytes versus target size 364 bytes.\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:853-875`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:12-45,48-70,120-122,167-190,259-291`\n- `kelly-slaters-pro-surfer/KS/SRC/color.h:45-61`\n- `tmp/functions/0014A838_Draw__12TrickBoxText/attempt-1/result.json`",
+      "score": 32.1429,
+      "source": "typedef unsigned char uint8;\n\nclass stringx {\n  char data[8];\n};\n\nclass color32 {\npublic:\n  union {\n    struct { uint8 r, g, b, a; } c;\n    unsigned int rgba;\n  };\n  void set_alpha(uint8 arg) { c.a = arg; }\n};\n\nclass StringList {\npublic:\n  enum { MAX_STRING_SIZE = 150 };\n  stringx data;\n  float x;\n  float y;\n  float fall_speed[MAX_STRING_SIZE];\n  float drift_speed[MAX_STRING_SIZE];\n  int drift_max[MAX_STRING_SIZE];\n  float delta_x[MAX_STRING_SIZE];\n  float delta_y[MAX_STRING_SIZE];\n};\n\nclass TextString {\nprotected:\n  char pad0[52];\n  bool override_alpha;\npublic:\n  bool checkTime;\n  float time;\n  bool no_color;\n  color32 color;\n  virtual void Render(stringx* t, float x1, float y1);\n  virtual void Render(stringx* t, float x1, float y1, float* xs, float* ys, bool random_text_fade = true);\n};\n\nclass RandomText : public TextString {\nprotected:\n  bool isRand;\n  bool noFade;\n  StringList rand_string;\n};\n\nclass TrickBoxText : public RandomText {\nprotected:\n  int numLines;\n  int lineHeight;\n  int width;\n  int height;\n  bool reverse;\n  StringList box_strings[10];\n  int box_str_count;\npublic:\n  void Draw() __asm__(\"Draw__12TrickBoxText\");\n};\n\nvoid TrickBoxText::Draw()\n{\n  if (!checkTime || time > 0)\n  {\n    for(int i = 0; i < box_str_count; i++)\n    {\n      StringList * tmp = &box_strings[i];\n\n      if (override_alpha)\n      {\n        if (i == 0) color.set_alpha(255);\n        else if (i == 1) color.set_alpha(127);\n        else if (i == 2) color.set_alpha(63);\n        else color.set_alpha(31);\n      }\n\n      if (isRand)\n        Render(&tmp->data, tmp->x, tmp->y, tmp->delta_x, tmp->delta_y);\n      else\n        Render(&tmp->data, tmp->x, tmp->y);\n    }\n  }\n}\n",
+      "status": "different",
+      "target_size": 364
+    }
+  ],
+  "raw_name": "Draw__12TrickBoxText"
+}
