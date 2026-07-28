@@ -1,0 +1,15 @@
+{
+  "address": "0x001355B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b7a3f5367659d172ebcda3818a5b2d949b8a9ed5",
+      "notes": "Exact released-body first-pass candidate with minimal faithful declarations. The sole recorded compilation attempt failed; accepted without retry, variant, alternative logic, or post-test diff chase.",
+      "score": 0.0,
+      "source": "#include <map>\n\nclass entity;\n\nclass entity_id\n{\n  unsigned int val;\npublic:\n  bool operator<(const entity_id& e) const { return val < e.val; }\n};\n\nclass singleton\n{\nprotected:\n  singleton() {}\n  virtual ~singleton() {}\nprivate:\n  singleton(const singleton&);\n  singleton& operator=(const singleton&);\n};\n\nclass charstarwrap\n{\npublic:\n  char* str;\n  charstarwrap(char* s) { str = s; }\n  bool operator<(const charstarwrap& csw) const\n  {\n    return strcmp(str, csw.str) < 0;\n  }\n};\n\ntypedef map<entity_id, entity*, less<entity_id>, malloc_alloc> entity_map;\ntypedef map<charstarwrap, unsigned int, less<charstarwrap>, malloc_alloc> name_to_number_map;\n\nclass entity_manager : entity_map, public singleton\n{\npublic:\n  void purge();\nprivate:\n  name_to_number_map name_to_number;\n  int number_server;\n};\n\nvoid entity_manager::purge()\n{\n  name_to_number_map::iterator mi;\n  mi = name_to_number.begin();\n  for(; mi != name_to_number.end(); ++mi )\n  {\n    delete[] (*mi).first.str;\n  }\n  erase( begin(), end() );\n  name_to_number = name_to_number_map();\n  number_server = 0;\n  // *weird:  this causes allocations at the end of a heap we're going to delete most of\n//  pair<name_to_number_map::iterator,bool> result =  // unused, remove me?\n\t//nglPrintf(\"Weird 6 byte leak\\n\");\n  //name_to_number.insert( name_to_number_map::value_type( strdupcpp(\"UNREG\"), -1) );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "purge__14entity_manager"
+}
