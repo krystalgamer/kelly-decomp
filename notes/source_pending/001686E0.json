@@ -1,0 +1,23 @@
+{
+  "address": "0x001686E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "dd3cf120880e0e3377fd04a6aba096103baa67b4",
+      "candidate_size": 452,
+      "compared_bytes": 468,
+      "compared_instructions": 117,
+      "emitted_name": "SetArrow__18HorizBalanceWidgetf",
+      "instruction_score": 5.9829,
+      "matching_bytes": 107,
+      "matching_instructions": 7,
+      "notes": "Attempt 1 uses the exact released SetArrow body with minimal self-contained declarations for the HorizBalanceWidget layout and the four PanelQuad calls.\n\nResult: different; score 22.8632% (107/468 bytes), instruction score 5.9829% (7/117). The candidate emitted the exact target symbol and compiled to the target size. No alternative, retry, integration, finalization, tracked-source edit, or build was performed.",
+      "score": 22.8632,
+      "source": "class PanelQuad\n{\npublic:\n    void GetCenterPos(float &x, float &y);\n    void SetCenterPos(float x, float y);\n    void Rotate(float x, float y, float angle);\n    void SetColor(float r, float g, float b, float a);\n};\n\n__asm__(\".equ GetCenterPos__9PanelQuadRfT1, 0x0014DE08\");\n__asm__(\".equ SetCenterPos__9PanelQuadff, 0x0014DC90\");\n__asm__(\".equ Rotate__9PanelQuadfff, 0x0014DA20\");\n__asm__(\".equ SetColor__9PanelQuadffff, 0x001D9AE8\");\n\nclass HorizBalanceWidget\n{\n    char base[8];\n    PanelQuad *meterPQ;\n    PanelQuad *arrowPQ;\n    PanelQuad *leftKnobPQ;\n    PanelQuad *rightKnobPQ;\n    PanelQuad *colorLeftPQ;\n    PanelQuad *colorRightPQ;\n    float meterCenterX;\n    bool flashing;\n\npublic:\n    void SetArrow(float f);\n};\n\nvoid HorizBalanceWidget::SetArrow(float f)\n{\n    float fp = f, r = 1.0f, g = 1.0f;\n    float x, y;\n\n    if (f > 1.0f) f = 1.0f;\n    if (f < -1.0f) f = -1.0f;\n    if (f < 0.0f) fp = -f;\n\n    arrowPQ->GetCenterPos(x, y);\n    arrowPQ->SetCenterPos(x, y);\n    arrowPQ->Rotate(meterCenterX, 243, f * 3.14159265358979323846f / 6.0f);\n\n    g = 2 - 2 * fp;\n    if (fp < .5f)\n    {\n        r = 2 * fp;\n        g = 1.0f;\n    }\n    if (f < 0)\n    {\n        leftKnobPQ->SetColor(r, g, 0, 1.0f);\n        rightKnobPQ->SetColor(0, 1.0f, 0, 1.0f);\n        flashing = (f > -.05f);\n    }\n    else\n    {\n        leftKnobPQ->SetColor(0, 1.0f, 0, 1.0f);\n        rightKnobPQ->SetColor(r, g, 0, 1.0f);\n        flashing = (f < .05f);\n    }\n}\n",
+      "status": "different",
+      "target_size": 468
+    }
+  ],
+  "raw_name": "SetArrow__18HorizBalanceWidgetf"
+}
