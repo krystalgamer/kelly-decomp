@@ -1,0 +1,23 @@
+{
+  "address": "0x0016B290",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "53cb756737a89d071674398aa0d2a987237603ff",
+      "candidate_size": 376,
+      "compared_bytes": 376,
+      "compared_instructions": 94,
+      "emitted_name": "SetPointText__11PhotoWidget",
+      "instruction_score": 81.9149,
+      "matching_bytes": 270,
+      "matching_instructions": 77,
+      "notes": "# Attempt 1\n\nExact released-source body from `kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_photo.cpp:261-275`, with minimal released declarations/type layout from `KS/SRC/ks/igo_widget_photo.h:8-34`, `KS/SRC/stringx.h:230-286,486-495`, `KS/SRC/ks/FEPanel.h:48-82`, and `KS/SRC/ks/globaltextenum.h:6-75`. Canonical result: `different`, score 71.8085 (instruction score 81.9149; 270/376 bytes, 77/94 instructions). No retry was attempted.",
+      "score": 71.8085,
+      "source": "typedef unsigned long long big_int;\n\nclass stringx;\n\nclass string_buf\n{\n\tfriend class stringx;\n\tfriend stringx operator+(const stringx &, const stringx &);\n\tbig_int *data;\n\tint ref_count;\n\tint char_length;\n\tint block_length;\n\tint max_blocks;\n};\n\nclass stringx\n{\n\tchar *chars;\n\tstring_buf *my_buf;\n\npublic:\n\tstringx();\n\tstringx(const stringx &cp);\n\tstringx(const char *str, int len = -1);\n\texplicit stringx(int i);\n\t~stringx();\n\tvoid append(const stringx &cp);\n\tvoid make_room(int size);\n\tstringx &operator+=(const stringx &cp);\n\n\tfriend stringx operator+(const stringx &, const stringx &);\n};\n\ninline stringx operator+( const stringx& lhs, const stringx& rhs )\n{\n  stringx foo;\n\n  foo.make_room(lhs.my_buf->char_length + rhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs);\n\n  return foo;\n}\n\nclass TextString\n{\npublic:\n\tvirtual ~TextString();\n\tvirtual void Update(float);\n\tvirtual void Draw();\n\tvirtual void setHJustify(int);\n\tvirtual void setVJustify(int);\n\tvirtual void setFont(void *);\n\tvirtual void setButtonScale(float);\n\tvirtual void numberSpacing(bool);\n\tvirtual void changeText(stringx t);\n};\n\nextern stringx ksGlobalTextArray[];\nenum { GT_PHOTOSHOOT_POINTS = 68 };\n\nclass PhotoWidget\n{\n\tchar padding[244];\n\tTextString *pointText;\n\tint score;\n\tint *scorePtr;\n\nprivate:\n\tvirtual void SetPointText(void);\n};\n\nvoid PhotoWidget::SetPointText(void)\n{\n\tstringx\ttext;\n\n\tif (scorePtr)\n\t{\n\t\ttext += stringx(score);\n\t\ttext += stringx(\" \")+ksGlobalTextArray[GT_PHOTOSHOOT_POINTS];\n\t\tpointText->changeText(text);\n\t}\n\telse\n\t\tpointText->changeText(\"\");\n}\n",
+      "status": "different",
+      "target_size": 376
+    }
+  ],
+  "raw_name": "SetPointText__11PhotoWidget"
+}
