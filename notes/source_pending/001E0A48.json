@@ -1,0 +1,23 @@
+{
+  "address": "0x001E0A48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "efd9cf31a09e74bdee0f8f97e5594e1a36b6803d",
+      "candidate_size": 340,
+      "compared_bytes": 348,
+      "compared_instructions": 87,
+      "emitted_name": "get_size__7os_file",
+      "instruction_score": 19.5402,
+      "matching_bytes": 114,
+      "matching_instructions": 17,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 44 lane A1 for `0x001E0A48`.\n- Tested the exact released `os_file::get_size()` body once, with minimal declarations preserving the released `os_file` member offsets, `sceCdlFILE` shape, retry globals/macros, seek constants, and `sceLseek` declaration.\n- Result: **different**, byte score **32.7586%** (114/348 bytes) and instruction score **19.5402%** (17/87 instructions); candidate emitted 340 bytes versus the 348-byte target.\n- No variants, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, commit, or push were attempted.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_file.cpp:18-38,535-568`\n- `kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_file.h:10-104`\n- `config/SLUS_203.34.symbol_addrs.txt: get_size__7os_file`\n- `notes/function_queue.csv: target row for 0x001E0A48`\n- `tmp/functions/001E0A48_get_size__7os_file/attempt-1/result.json`",
+      "score": 32.7586,
+      "source": "typedef struct sceCdlFILE\n{\n  unsigned int lsn;\n  unsigned int size;\n  char name[16];\n  unsigned char date[8];\n} sceCdlFILE;\n\nextern \"C\" int sceLseek(int fd, int offset, int where);\n\nenum { SCE_SEEK_SET = 0, SCE_SEEK_CUR = 1, SCE_SEEK_END = 2 };\n\nstatic bool g_error_condition = false;\nstatic int g_try_count = 0;\n\n#define MAX_DISK_OP_TRIES 300\n#define RETRY_LOOP_ENTRY g_try_count = 0; do{\n#define RETRY_LOOP_WHILE(cond) g_error_condition = ((cond)); g_try_count++; }while( ( g_try_count < MAX_DISK_OP_TRIES ) && g_error_condition );\n#define ON_RETRY_ERROR if( g_error_condition )\n\nclass os_file\n{\n  char name[8];\n  int flags;\n  bool opened;\n  bool eof;\n  bool from_cd;\n  union\n  {\n    int host;\n    sceCdlFILE cd;\n  } io;\n  int curr_fp;\n\npublic:\n  int get_size();\n};\n\nint os_file::get_size()  // returns file size\n{\n  if (!opened) \n    return -1;\n\n  int cur;\n  int ret, ret2;\n\n  if( from_cd )\n  {\n    return io.cd.size;\n  }\n  else\n  {\n    RETRY_LOOP_ENTRY;\n      cur = sceLseek(io.host, 0, SCE_SEEK_CUR);\n    RETRY_LOOP_WHILE( cur < 0 );\n\n    ON_RETRY_ERROR{ eof = true; return -1; };\n\n    RETRY_LOOP_ENTRY;\n      ret = sceLseek(io.host, 0, SCE_SEEK_END);\n    RETRY_LOOP_WHILE( ret < 0 );\n\n    ON_RETRY_ERROR{ eof = true; return -1; };\n\n    RETRY_LOOP_ENTRY;\n      ret2 = sceLseek(io.host, cur, SCE_SEEK_SET);\n    RETRY_LOOP_WHILE( ret2 < 0 );\n\n    ON_RETRY_ERROR{ eof = true; return -1; };\n\n    return ret;\n  }\n}\n",
+      "status": "different",
+      "target_size": 348
+    }
+  ],
+  "raw_name": "get_size__7os_file"
+}
