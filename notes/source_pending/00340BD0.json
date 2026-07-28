@@ -1,0 +1,23 @@
+{
+  "address": "0x00340BD0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "33dea832d091cd5676fbbd3a011b39d0e4344474",
+      "candidate_size": 504,
+      "compared_bytes": 504,
+      "compared_instructions": 126,
+      "emitted_name": "set_block_info__17text_block_widgetPQ217text_block_widget12block_info_t",
+      "instruction_score": 0.7937,
+      "matching_bytes": 50,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used the exact released source body and minimal declarations for `set_block_info__17text_block_widgetPQ217text_block_widget12block_info_t`. Result `different`, score 9.9206; no retry or variant was made. Citations: kelly-slaters-pro-surfer/KS/SRC/widget.cpp:1896-1922, kelly-slaters-pro-surfer/KS/SRC/widget.h:597-640, kelly-slaters-pro-surfer/KS/SRC/stringx.h:62-82,192-201,230-242,456-470, kelly-slaters-pro-surfer/KS/SRC/text_font.h:230-274, tmp/functions/00340BD0_set_block_info__17text_block_widgetPQ217text_block_widget12block_info_t/attempt-1/result.json, tmp/source_first/00340BD0/attempt-1.md.",
+      "score": 9.9206,
+      "source": "typedef long long big_int;\ntypedef float rational_t;\ntypedef unsigned char uint8;\n\nclass string_buf\n{\npublic:\n  big_int *data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n\n  inline bool is_equal(const string_buf &buf) const\n  {\n    if (buf.block_length != block_length) return false;\n    for (int i = 0; i < block_length; i++) {\n      if (!(buf.data[i] == data[i])) return false;\n    }\n    return true;\n  }\n};\n\nclass stringx\n{\npublic:\n  char *chars;\n  string_buf *my_buf;\n  stringx &operator=(const stringx &cp);\n};\n\ninline bool operator==(const stringx& lhs, const stringx& rhs)\n{\n  return lhs.my_buf->is_equal(*rhs.my_buf);\n}\n\ninline bool operator!=(const stringx& lhs, const stringx& rhs)\n{\n  return !(lhs == rhs);\n}\n\nenum text_widget_justification { JUSTIFY_LEFT };\nstruct color { float r, g, b, a; };\n\nclass typeface_def\n{\npublic:\n  void load();\n  void unload();\n};\n\ntypeface_def *typeface_open(const stringx &fname);\nvoid typeface_close(typeface_def *tdefptr);\n\nclass text_block_widget\n{\npublic:\n  class block_info_t\n  {\n  public:\n    rational_t scale;\n    text_widget_justification just;\n    stringx typeface;\n    uint8 max_lines;\n    short line_spacing;\n    short max_width;\n    stringx break_substring;\n    stringx text;\n    color col;\n  };\n\n  char widget_base[324];\n  block_info_t block_info;\n  uint8 num_lines_used;\n  char pad[3];\n  rational_t first_rhw;\n  typeface_def *text_font;\n\n  void fill_lines();\n  void set_block_info(block_info_t *info_ptr);\n};\n\nvoid text_block_widget::set_block_info( block_info_t *info_ptr )\n{\n  typeface_def *old_text_font = 0;\n  if(text_font && block_info.typeface != info_ptr->typeface)\n  {\n    old_text_font = text_font;\n    text_font = 0;\n  }\n\n  block_info = *info_ptr;\n\n  if(!text_font)\n  {\n    text_font = typeface_open(block_info.typeface);\n    text_font->load();\n  }\n\n  if(old_text_font)\n  {\n    old_text_font->unload();\n    typeface_close(old_text_font);\n    old_text_font = 0;\n  }\n\n  fill_lines();\n}\n",
+      "status": "different",
+      "target_size": 380
+    }
+  ],
+  "raw_name": "set_block_info__17text_block_widgetPQ217text_block_widget12block_info_t"
+}
