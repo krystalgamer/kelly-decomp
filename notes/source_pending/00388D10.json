@@ -1,0 +1,15 @@
+{
+  "address": "0x00388D10",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4d2c2c857ee35a8ff5f7486b07321de8788b99da",
+      "notes": "FIRST PASS wave 84 A5\nTarget: 0x00388D10 decBs0__FP8VideoDec\nSource: NVL/PS2/nvlMPEG_ps2.cpp\nAttempts before work: 0.\nAttempt 1: compile_failed; score 0.0000; no candidate metrics emitted.\nCandidate used the exact released function body with minimal self-contained declarations and no unavailable headers.\nExactly one LF candidate was tested. No variants, retries, post-test investigation, build, finalization, integration, queue edits, tracked/reference edits, commit, or push performed.",
+      "score": 0.0,
+      "source": "typedef unsigned int u_int;\n\nstruct sceIpuRGB32\n{\n    u_int value;\n};\n\nstruct sceMpeg\n{\n    int width;\n    int height;\n    int frameCount;\n    char reserved[0x3c];\n};\n\nstruct ViBuf\n{\n    char data[1];\n};\n\nstruct VideoDec\n{\n    sceMpeg mpeg;\n    ViBuf vibuf;\n    u_int state;\n};\n\nstruct VoData\n{\n    unsigned char v[720 * 576 * 4];\n};\n\nstruct VoTag\n{\n    int status;\n    int dummy[15];\n    u_int v[2][155584];\n};\n\nstruct VoBuf\n{\n    VoData *data;\n    VoTag *tag;\n    volatile int write;\n    volatile int count;\n    int size;\n};\n\nstatic VoBuf voBuf;\n\nextern \"C\" int sceMpegIsEnd(sceMpeg *);\nextern \"C\" int sceMpegGetPicture(sceMpeg *, sceIpuRGB32 *, int);\nextern \"C\" int sceMpegReset(sceMpeg *);\nextern \"C\" int RotateThreadReadyQueue(int);\n\nstatic u_int videoDecGetState(VideoDec *);\nstatic VoData *voBufGetData(VoBuf *);\nstatic void voBufIncCount(VoBuf *);\nstatic void setImageTag(u_int *, void *, int, int, int);\n\ninline void nvlPrintf(const char *, ...)\n{\n}\n\nstatic int decBs0( VideoDec* vd )\n{\n    VoData      *voData;\n    sceIpuRGB32 *rgb32;\n    int         ret, status = 1;\n    sceMpeg     *mp = &vd->mpeg;\n\n    while( !sceMpegIsEnd(&vd->mpeg) )\n    {\n        if( videoDecGetState(vd) == 1 )\n        {\n            status = -1;\n            nvlPrintf(\"decode thread: aborted\\n\");\n            break;\n        }\n        while( !(voData = voBufGetData(&voBuf)) )\n        {\n            RotateThreadReadyQueue( 50 );\n        }\n        rgb32 = (sceIpuRGB32*)voData->v;\n        ret = sceMpegGetPicture( mp, rgb32, 720 / 16 * 576 / 16 );\n        if( ret < 0 )\n        {\n            nvlPrintf(\"sceMpegGetPicture() decode error\");\n        }\n        if( mp->frameCount == 0 )\n        {\n            int i, image_w, image_h;\n\n            image_w = mp->width;\n            image_h = mp->height;\n            for( i = 0; i < voBuf.size; i++ )\n            {\n                setImageTag( voBuf.tag[i].v[0], voBuf.data[i].v, 0, image_w, image_h );\n                setImageTag( voBuf.tag[i].v[1], voBuf.data[i].v, 1, image_w, image_h );\n            }\n        }\n        voBufIncCount( &voBuf );\n        RotateThreadReadyQueue( 50 );\n    }\n    sceMpegReset( mp );\n    return status;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "decBs0__FP8VideoDec"
+}
