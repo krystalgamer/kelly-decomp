@@ -1,0 +1,15 @@
+{
+  "address": "0x002E84E8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6e32a98882bd9fb0cf9e8356968362f6ca3815a1",
+      "notes": "# Attempt 1\n\n- Result: `compile_failed`\n- Score: `0.0`\n- Candidate copied the released constructor body from pinned commit `7c3ade041cc03409a3114ce3ba4a70053c6e4e3b`, `KS/SRC/terrain.cpp:95-101`, with released `global.h` and `terrain.h` includes.\n- Compilation failed because the compiler could not resolve those relative released-header paths (`compiler.stderr:1-2`).\n- No retry was made; the one-candidate FIRST PASS allowance was consumed.",
+      "score": 0.0,
+      "source": "#include \"../../../kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"../../../kelly-slaters-pro-surfer/KS/SRC/terrain.h\"\n\nterrain::terrain(const stringx& filename)\n{\n  chunk_file fs;\n  fs.open(filename);\n  tree = NEW tree_t;\n  serial_in(fs,this);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__7terrainRC7stringx"
+}
