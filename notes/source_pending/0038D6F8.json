@@ -1,0 +1,23 @@
+{
+  "address": "0x0038D6F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a6a03b85f9e3425cda2a1e1128a10b8735bb4c71",
+      "candidate_size": 148,
+      "compared_bytes": 360,
+      "compared_instructions": 90,
+      "emitted_name": "nslPauseGuardSound__FUi",
+      "instruction_score": 3.3333,
+      "matching_bytes": 36,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used the exact released source for nslPauseGuardSound__FUi. Result `different`, score 10.0000; no retry or variant was made.",
+      "score": 10.0,
+      "source": "typedef unsigned int nlUint32;\ntypedef int nlInt32;\ntypedef unsigned int nslSoundId;\n\n#define NSL_NUM_SOUNDS 256\n#define NSL_ID_MASK 0xFFFFFC00\n#define NSL_SLOT_MASK 0x000003FF\n#define NSL_INVALID_ID 0\n#define NSL_GET_SLOT_FROM_ID(x) (x&NSL_SLOT_MASK)\n\nvoid nslFatal(const char *Format, ...);\n\nstruct nslSound\n{\n  bool isReady;\n  bool used;\n  bool inRange;\n  bool isReallyReady;\n  bool isPlaying;\n  bool isReallyPlaying;\n  bool looping;\n  bool isQueuing;\n  short left;\n  short right;\n  short old_left;\n  short old_right;\n  nlUint32 gasInstanceId;\n  nlInt32 pauseCount;\n  nlInt32 dampenCount;\n  nslSoundId myId;\n  nslSoundId mySource;\n  nslSoundId myEmitter;\n  float rawVolume;\n  float positionalVolume;\n  float angle;\n  float pitch;\n  float minDist;\n  float maxDist;\n};\n\nstruct nslSystem\n{\n  char beforeSoundSlots[0xC040];\n  nslSound soundSlots[NSL_NUM_SOUNDS];\n  char beforeInitialized[0x4010];\n  nlInt32 initialized;\n  char beforeOn[0x2C];\n  bool on;\n};\n\nextern nslSystem nsl;\n\ninline void _nslCheckSoundIdValidity(nslSoundId checkId)\n{\n  nslSoundId checkSlot = (checkId & NSL_SLOT_MASK);\n  nslSoundId upCheckId = (checkId & NSL_ID_MASK);\n  if (checkId == NSL_INVALID_ID)\n    nslFatal(\"Bad Sound ID 0x%x\\n\", checkId);\n  if (!(nsl.soundSlots[checkSlot].used))\n    nslFatal(\"Bad Sound ID 0x%x\\n\", checkId);\n  if (!(checkSlot < NSL_NUM_SOUNDS))\n    nslFatal(\"Bad Sound ID 0x%x\\n\", checkId);\n  if (!(checkId == nsl.soundSlots[checkSlot].myId))\n    nslFatal(\"Bad Sound ID 0x%x\\n\", checkId);\n  if (!(upCheckId > 0))\n    nslFatal(\"Bad Sound ID 0x%x\\n\", checkId);\n  if (checkSlot > NSL_NUM_SOUNDS)\n    nslFatal(\"Bad Sound ID 0x%x SLOT NUMBER ABOVE SLOTS\\n\", checkId);\n}\n\ninline void _nslInitialized()\n{\n  if (!(nsl.initialized == 1))\n    nslFatal(\"NSL NOT INITIALIZED\");\n}\n\n#define ASSERT_SOUND_ID_VALID(checkId) _nslCheckSoundIdValidity(checkId)\n#define ASSERT_NSL_INITIALIZED() _nslInitialized()\n\nvoid nslPauseGuardSound(nslSoundId soundToGuard)\n{\n  if (!nsl.on) return;\n  ASSERT_NSL_INITIALIZED();\n  ASSERT_SOUND_ID_VALID(soundToGuard);\n  int pc = nsl.soundSlots[NSL_GET_SLOT_FROM_ID(soundToGuard)].pauseCount;\n  if (!(pc <= 0))\n    nslFatal(\"Trying to pause guard a paused sound!\");\n  if (nsl.soundSlots[NSL_GET_SLOT_FROM_ID(soundToGuard)].pauseCount <= 0)\n    nsl.soundSlots[NSL_GET_SLOT_FROM_ID(soundToGuard)].pauseCount = -1;\n}\n",
+      "status": "different",
+      "target_size": 360
+    }
+  ],
+  "raw_name": "nslPauseGuardSound__FUi"
+}
