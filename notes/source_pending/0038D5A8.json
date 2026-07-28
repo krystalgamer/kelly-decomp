@@ -1,0 +1,23 @@
+{
+  "address": "0x0038D5A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b656e81ee0bfc61b7fd70efd84ff40efdbe6de6a",
+      "candidate_size": 120,
+      "compared_bytes": 332,
+      "compared_instructions": 83,
+      "emitted_name": "nslUnpauseSound__FUi",
+      "instruction_score": 3.6145,
+      "matching_bytes": 35,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2_sound.cpp:553-566; kelly-slaters-pro-surfer/NSL/PS2/nsl_ps2.h:43-76,94-108,156-188,220-245,323-345,380-383; kelly-slaters-pro-surfer/NSL/COMMON/nsl.h:90-92; kelly-slaters-pro-surfer/NSL/PS2/nl_ps2.h:17-21; tmp/functions/0038D5A8_nslUnpauseSound__FUi/attempt-1/result.json; tmp/source_first/0038D5A8/attempt-1.md. Result `different`, score 10.5422; no later attempt.",
+      "score": 10.5422,
+      "source": "typedef unsigned int nslSoundId;\n\nextern \"C\" void nslFatal(const char *, ...);\nextern const char nsl_not_initialized[];\nextern const char bad_sound_id[];\nextern const char bad_sound_slot[];\n\n__asm__(\".equ nslFatal__FPCce, 0x00391420\");\n__asm__(\".equ nsl_not_initialized, 0x0051BF80\");\n__asm__(\".equ bad_sound_id, 0x0051BE20\");\n__asm__(\".equ bad_sound_slot, 0x0051BE38\");\n\nstruct nslSound\n{\n  int used;\n  char pad0[36];\n  int pauseCount;\n  int dampenCount;\n  nslSoundId myId;\n  char pad1[36];\n};\n\nstruct nslSystem\n{\n  char pad0[0xC044];\n  nslSound soundSlots[256];\n  char pad1[0x400C];\n  int initialized;\n  char pad2[44];\n  int on;\n};\n\nextern nslSystem nsl;\n__asm__(\".equ nsl, 0x0049B5F0\");\n\ninline void _nslCheckSoundIdValidity(nslSoundId checkId)\n{\n  nslSoundId checkSlot = (checkId & 0x3FF);\n  nslSoundId upCheckId = (checkId & 0xFFFFFC00);\n  if (checkId == 0)\n    nslFatal(bad_sound_id, checkId);\n  if (!(nsl.soundSlots[checkSlot].used))\n    nslFatal(bad_sound_id, checkId);\n  if (!(checkSlot < 256))\n    nslFatal(bad_sound_id, checkId);\n  if (!(checkId == nsl.soundSlots[checkSlot].myId))\n    nslFatal(bad_sound_id, checkId);\n  if (!(upCheckId > 0))\n    nslFatal(bad_sound_id, checkId);\n  if (checkSlot > 256)\n    nslFatal(bad_sound_slot, checkId);\n}\n\ninline void _nslInitialized()\n{\n  if (!(nsl.initialized == 1))\n    nslFatal(nsl_not_initialized);\n}\n\nvoid nslUnpauseSound( nslSoundId whichSound )\n{\n  if (!nsl.on) return;\n  _nslInitialized();\n  _nslCheckSoundIdValidity(whichSound);\n  \n  if (nsl.soundSlots[(whichSound&0x000003FF)].pauseCount > 0) \n    nsl.soundSlots[(whichSound&0x000003FF)].pauseCount--;\n\n}\n",
+      "status": "different",
+      "target_size": 332
+    }
+  ],
+  "raw_name": "nslUnpauseSound__FUi"
+}
