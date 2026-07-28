@@ -1,0 +1,23 @@
+{
+  "address": "0x001D6518",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7ac7635983a12fa8876d9f8e81c8c1792cab3308",
+      "candidate_size": 32,
+      "compared_bytes": 344,
+      "compared_instructions": 86,
+      "emitted_name": "OnRight__15LogbookFrontEndi",
+      "instruction_score": 0.0,
+      "matching_bytes": 1,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/LogbookFrontEnd.h:10-23,42-51; config/SLUS_203.34.symbol_addrs.txt: OnRight__15LogbookFrontEndi; notes/function_queue.csv:0x001D6518; tmp/functions/001D6518_OnRight__15LogbookFrontEndi/attempt-1/result.json; tmp/source_first/001D6518/attempt-1.md. Result `different`, score 0.2907; no later attempt.",
+      "score": 0.2907,
+      "source": "class LogbookFrontEnd\n{\n  char prefix[0x3e8];\n  int cur_spread;\n  int max_spread;\n\npublic:\n  void OnRight(int c);\n};\n\nvoid LogbookFrontEnd::OnRight(int c) { if(cur_spread < max_spread) cur_spread++; }\n",
+      "status": "different",
+      "target_size": 344
+    }
+  ],
+  "raw_name": "OnRight__15LogbookFrontEndi"
+}
