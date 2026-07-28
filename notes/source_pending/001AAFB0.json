@@ -1,0 +1,23 @@
+{
+  "address": "0x001AAFB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3bf57a0f054392887069645e8f3ff2a3c4219d6f",
+      "candidate_size": 428,
+      "compared_bytes": 428,
+      "compared_instructions": 107,
+      "emitted_name": "Select__15CameraMenuClassi",
+      "instruction_score": 92.5234,
+      "matching_bytes": 345,
+      "matching_instructions": 99,
+      "notes": "# FIRST PASS wave 76 lane A4 \u2014 0x001AAFB0\n\n- Confirmed the queue row was pending and the isolated scratch had no prior attempts.\n- Copied the active released `CameraMenuClass::Select` body from `historicalsource/kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:1306-1336`.\n- Added only minimal self-contained declarations preserving the released member offsets, singleton globals, and call shapes.\n- Ran `function_test` exactly once. Result: `different`, byte score 80.6075%, instruction score 92.5234%.\n- No variants, retries, diff chasing, build, finalization, integration, commit, push, or tracked-file edits were performed.\n- Because the attempt did not match, no source, prefix, or shared-declaration proposal is included.\n\n## Citations\n\n- `historicalsource/kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:1306-1336`\n- `historicalsource/kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h:267-288`\n- `tmp/functions/001AAFB0_Select__15CameraMenuClassi/attempt-1/result.json`",
+      "score": 80.6075,
+      "source": "// Target: 0x001AAFB0 Select__15CameraMenuClassi\n// Reference: KS/SRC/ks/FrontEndMenus.cpp\n// Replace this file with one self-contained candidate function.\n#define assert(x) ((void)0)\n\nclass stringx\n{\n    char *data;\npublic:\n    stringx();\n    ~stringx();\n    stringx &operator=(const char *);\n    const char *c_str() const { return data; }\n};\n\nclass entity_id\n{\n    char data[16];\npublic:\n    entity_id(const char *);\n};\n\nclass entity {};\nclass game_camera : public entity {};\nenum entity_flavor_t { ENTITY_ANY };\n\nclass entity_manager\n{\npublic:\n    entity *find_entity(const entity_id &, entity_flavor_t, bool);\n    static entity_manager *instance;\n};\n\ninline entity *find_camera(const entity_id &id)\n{\n    return entity_manager::instance->find_entity(id, ENTITY_ANY, false);\n}\n\nclass SoundScriptManager\n{\npublic:\n    enum EventType { SS_FE_ONX = 24 };\n    static SoundScriptManager *instance;\n    static SoundScriptManager *inst() { return instance; }\n    void unpause();\n    int playEvent(EventType, entity *ent = 0, float delay = 0.0f);\n    void pause();\n};\n\nclass kellyslater_controller\n{\npublic:\n    void SetPlayerCamera(game_camera *);\n};\n\nstruct world_dynamics_system\n{\n    char padding[0xf8];\n    kellyslater_controller *controller[2];\n    kellyslater_controller *get_ks_controller(int player)\n    {\n        return controller[player];\n    }\n};\n\nclass StoredConfigData\n{\npublic:\n    static StoredConfigData *instance;\n    static StoredConfigData *inst() { return instance; }\n    void setLastCamera(int, const char *);\n};\n\nstruct PauseMenuSystem\n{\n    char padding[0xa0];\n    int pause_player;\n    char padding2[0xc];\n    int navigationEvent;\n};\n\nclass CameraMenuClass\n{\n    char padding[0x78];\n    PauseMenuSystem *sys;\npublic:\n    enum { Follow, Beach, FPS };\n    void Select(int entry_index);\n};\n\nextern world_dynamics_system *g_world_ptr;\n\n__asm__(\".equ _18SoundScriptManager$instance, 0x0045B4A0\");\n__asm__(\".equ _14entity_manager$instance, 0x003E5A60\");\n__asm__(\".equ _16StoredConfigData$instance, 0x003FCDE8\");\n__asm__(\".equ g_world_ptr, 0x00431A8C\");\n\nvoid CameraMenuClass::Select(int entry_index)\n{\n\tint\t\t\t\t\t\t\tply = sys->pause_player;\n\tstringx\t\t\t\t\t\tname;\n\t\n\tassert(sys->pause_player != -1);\n\t\n\tSoundScriptManager::inst()->unpause();\n\tsys->navigationEvent=  SoundScriptManager::inst()->playEvent(SoundScriptManager::SS_FE_ONX);\n\tSoundScriptManager::inst()->pause();\n\n\tswitch(entry_index)\n\t{\n\tcase Follow:\n\t\tif (ply == 0) name = \"FOLLOW_CLOSE_CAM0\";\n\t\telse name = \"FOLLOW_CLOSE_CAM1\";\t\n\t\tbreak;\n\tcase Beach:\n\t\tif (ply == 0) name = \"BEACH_CAM0\";\n\t\telse name = \"BEACH_CAM1\";\t\n\t\tbreak;\n\tcase FPS:\n\t\tif (ply == 0) name = \"FPS_CAM0\";\n\t\telse name = \"FPS_CAM1\";\t\n\t\tbreak;\n\tdefault: assert(0);\n\t}\n\n\tg_world_ptr->get_ks_controller(ply)->SetPlayerCamera((game_camera *)find_camera(entity_id(name.c_str())));\n\tStoredConfigData::inst()->setLastCamera(ply, name.c_str());\n}\n",
+      "status": "different",
+      "target_size": 428
+    }
+  ],
+  "raw_name": "Select__15CameraMenuClassi"
+}
