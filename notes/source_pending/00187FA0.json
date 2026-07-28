@@ -1,0 +1,23 @@
+{
+  "address": "0x00187FA0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d47b12778022dfc50be8708e5f6a2403d0c29905",
+      "candidate_size": 404,
+      "compared_bytes": 404,
+      "compared_instructions": 101,
+      "emitted_name": "BioAvailable__14SurferFrontEnd",
+      "instruction_score": 72.2772,
+      "matching_bytes": 290,
+      "matching_instructions": 73,
+      "notes": "# FIRST PASS wave 68 lane B5 \u2014 0x00187FA0\n\n- Confirmed there were no prior attempts.\n- Copied the exact released `SurferFrontEnd::BioAvailable` body from `kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.cpp:587-592`.\n- Added minimal self-contained declarations for `stringx`, `file_finder_exists`, and the accessed `SurferFrontEnd` layout.\n- Ran `function_test` exactly once. Result: `different`, byte score 71.7822%, instruction score 72.2772%.\n- No variants, retries, diff chasing, build, finalization, integration, commit, push, or tracked-file edits were performed.\n- Because the attempt did not match, no source, prefix, or shared-declaration proposal is included.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.cpp:587-592`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.h:23-43,110-139`\n- `kelly-slaters-pro-surfer/KS/SRC/stringx.h:228-234,278-310,473-492`\n- `tmp/functions/00187FA0_BioAvailable__14SurferFrontEnd/attempt-1/result.json`",
+      "score": 71.7822,
+      "source": "extern \"C\" unsigned int strlen(const char *);\n\nclass string_buf\n{\n    friend class stringx;\n    friend stringx operator+(const stringx &, const stringx &);\n    friend stringx operator+(const char *, const stringx &);\n    friend stringx operator+(const stringx &, const char *);\n\n    unsigned long long *data;\n    int ref_count;\n    int char_length;\n    int block_length;\n    int max_blocks;\n};\n\nclass stringx\n{\nprotected:\n    char *chars;\n    string_buf *my_buf;\n\npublic:\n    stringx();\n    stringx(const stringx &);\n    stringx(const char *, int len = -1);\n    ~stringx();\n\n    void append(const char *, int len = -1);\n    void append(const stringx &);\n    void make_room(int);\n\n    friend stringx operator+(const char *, const stringx &);\n    friend stringx operator+(const stringx &, const char *);\n};\n\ninline stringx operator+(const char *lhs, const stringx &rhs)\n{\n    stringx foo;\n    int len = strlen(lhs);\n    foo.make_room(len + rhs.my_buf->char_length);\n    foo.append(lhs, len);\n    foo.append(rhs);\n    return foo;\n}\n\ninline stringx operator+(const stringx &lhs, const char *rhs)\n{\n    stringx foo;\n    int len = strlen(rhs);\n    foo.make_room(len + lhs.my_buf->char_length);\n    foo.append(lhs);\n    foo.append(rhs, len);\n    return foo;\n}\n\nbool file_finder_exists(const stringx &, const stringx &, stringx *found_name = 0);\n\nclass SurferFrontEnd\n{\n    char padding0[0x168];\n    int availability[32];\n    char padding1[0xFC];\n\npublic:\n    int current_surfer_index;\n\n    static stringx getAbbr(int index);\n    bool BioAvailable();\n};\n\nbool SurferFrontEnd::BioAvailable()\n{\n    bool bio_exists = file_finder_exists(\"interface\\\\FE\\\\surfermenu\\\\\" + getAbbr(current_surfer_index) + \"_bio.txt\", \"\");\n    bool viewable = availability[current_surfer_index] == 1;\n    return (bio_exists && !viewable);\n}\n",
+      "status": "different",
+      "target_size": 404
+    }
+  ],
+  "raw_name": "BioAvailable__14SurferFrontEnd"
+}
