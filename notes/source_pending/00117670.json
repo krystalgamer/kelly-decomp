@@ -1,0 +1,23 @@
+{
+  "address": "0x00117670",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "223f956da9bbb49eb8535fc385a5e6dde039573d",
+      "candidate_size": 360,
+      "compared_bytes": 360,
+      "compared_instructions": 90,
+      "emitted_name": "deconstruct__16entity_anim_tree",
+      "instruction_score": 12.2222,
+      "matching_bytes": 98,
+      "matching_instructions": 11,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 43 lane B1 for `0x00117670 deconstruct__16entity_anim_tree`.\n- Tested the exact released `entity_anim_tree::deconstruct()` body once with minimal declarations preserving the released animation flag/vtable behavior, vector iteration, tree member offsets, world/ETT-manager calls, and track clearing.\n- Result: **different** \u2014 98/360 compared bytes (27.2222%) and 11/90 instructions (12.2222%); candidate size 360 versus target size 348.\n- Exactly one non-placeholder candidate was tested. No variants, diff chasing, build, finalization, integration, tracked writes, tool edits, subagents, lean work, commit, or push were attempted.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/entity_anim.cpp:1988-2025`\n- `kelly-slaters-pro-surfer/KS/SRC/entity_anim.h:165-175,205-221,311-345`\n- `kelly-slaters-pro-surfer/KS/SRC/anim.h:165-200`\n- `tmp/functions/00117670_deconstruct__16entity_anim_tree/attempt-1/result.json`",
+      "score": 27.2222,
+      "source": "typedef unsigned short anim_flags_t;\nclass entity_track_tree;\n\nclass anim_base {\nprotected:\n  unsigned short flags;\npublic:\n  virtual void set_flag(anim_flags_t f);\n  virtual void clear_flag(anim_flags_t f);\n  virtual void set_flag(anim_flags_t f, bool torf);\n  virtual void set_time(float t);\n  virtual void frame_advance(const void *, void *);\n  virtual void get_value(const void *, void *) const;\n  virtual void get_value(float, void *) const;\n  bool is_valid() const { return flags & 0x1000; }\n  void set_valid(bool v) { set_flag(0x1000, v); }\n};\n\nclass entity_anim : public anim_base {\n  char data[52];\npublic:\n  void detach();\n};\n\ntemplate<class T> class vector {\npublic:\n  typedef T* iterator;\n  T *start;\n  T *finish;\n  T *end_of_storage;\n  iterator begin() { return start; }\n  iterator end() { return finish; }\n};\n\ntypedef vector<entity_anim*> pentity_anim_vector;\n\nclass ett_manager {\npublic:\n  void release(const entity_track_tree *ett);\n};\n\nclass world_dynamics_system {\npublic:\n  ett_manager *get_ett_manager();\n};\n\nextern world_dynamics_system *g_world_ptr;\n\nclass entity_anim_tree : public entity_anim {\n  char name[4];\n  const entity_track_tree *track;\n  float blend_a;\n  char control[36];\n  pentity_anim_vector& anims;\n  float floor_offset;\n  const entity_track_tree *trackb;\n  float blend_b;\n  pentity_anim_vector anims_b;\n  char control_b[36];\npublic:\n  void deconstruct();\n};\n\n__asm__(\".equ detach__11entity_anim, 0x00113A50\");\n__asm__(\".equ get_ett_manager__21world_dynamics_system, 0x002A3770\");\n__asm__(\".equ release__11ett_managerPC17entity_track_tree, 0x001151B0\");\n__asm__(\".equ g_world_ptr, 0x00431A8C\");\n\nvoid entity_anim_tree::deconstruct()\n{\n  pentity_anim_vector::iterator i;\n  for ( i=anims.begin(); i!=anims.end(); ++i )\n  {\n    entity_anim* a = *i;\n    if ( a->is_valid() )\n    {\n      a->detach();\n      a->set_valid( false );\n    }\n  }\n  for ( i=anims_b.begin(); i!=anims_b.end(); ++i )\n  {\n    entity_anim* a = *i;\n    if ( a->is_valid() )\n    {\n      a->detach();\n      a->set_valid( false );\n    }\n  }\n  set_valid( false );\n\n  if( track )\n  {\n    g_world_ptr->get_ett_manager()->release( track );\n    track = 0;\n  }\n\n  if( trackb )\n  {\n    g_world_ptr->get_ett_manager()->release( trackb );\n    trackb = 0;\n  }\n}\n",
+      "status": "different",
+      "target_size": 348
+    }
+  ],
+  "raw_name": "deconstruct__16entity_anim_tree"
+}
