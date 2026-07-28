@@ -1,0 +1,15 @@
+{
+  "address": "0x00117180",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2c159e6285d1c7e0ef9f23ff22019dde1c1df0e7",
+      "notes": "Attempt 1 used the exact released source for _$_16entity_anim_tree. Result `compile_failed`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/entity_anim_shared.h\"\n\nclass ett_manager {\npublic:\n    void release(const entity_track_tree *track);\n};\n\nclass world_dynamics_system {\npublic:\n    ett_manager *get_ett_manager();\n};\n\nextern world_dynamics_system *g_world_ptr;\n\nentity_anim_tree::~entity_anim_tree()\n{\n    clear_anims();\n\n    clear_anims_b();\n\n    detach();\n\n    if (track)\n    {\n        g_world_ptr->get_ett_manager()->release(track);\n        track = 0;\n    }\n\n    if (trackb)\n    {\n        g_world_ptr->get_ett_manager()->release(trackb);\n        trackb = 0;\n    }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_16entity_anim_tree"
+}
