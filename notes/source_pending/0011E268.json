@@ -1,0 +1,15 @@
+{
+  "address": "0x0011E268",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7af0c363f83cd17efb92ca39db2a39dbb3a412fa",
+      "notes": "Attempt 1 used the exact released source for find__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZ8ett_nodeZt10_Select1st1Zt4pair2ZC7stringxZ8ett_nodeZt4less1Z7stringxZt12my_allocator1Z8ett_nodeRC7stringx. Result `compile_failed`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "#include \"kelly-slaters-pro-surfer/KS/SRC/files_anim.cpp\"\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "find__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZ8ett_nodeZt10_Select1st1Zt4pair2ZC7stringxZ8ett_nodeZt4less1Z7stringxZt12my_allocator1Z8ett_nodeRC7stringx"
+}
