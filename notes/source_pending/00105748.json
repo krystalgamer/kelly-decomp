@@ -1,0 +1,23 @@
+{
+  "address": "0x00105748",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "98f721f79542ff3034fd1c64a83d4ce98634f045",
+      "candidate_size": 360,
+      "compared_bytes": 360,
+      "compared_instructions": 90,
+      "emitted_name": "frame_advance__12ai_interfacef",
+      "instruction_score": 10.0,
+      "matching_bytes": 105,
+      "matching_instructions": 9,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ai_interface.cpp:1191-1491; kelly-slaters-pro-surfer/KS/SRC/ai_interface.h:62-90,428; kelly-slaters-pro-surfer/KS/SRC/ai_goals.h:17-69; tmp/functions/00105748_frame_advance__12ai_interfacef/attempt-1/result.json; tmp/source_first/00105748/attempt-1.md. Result `different`, score 29.1667; no later attempt.",
+      "score": 29.1667,
+      "source": "typedef float rational_t;\ntypedef float time_value_t;\ntypedef unsigned int size_t;\n\nextern \"C\" void qsort(void *, size_t, size_t, int (*)(const void *, const void *));\n\nclass ai_locomotion {\npublic:\n  virtual void unused0();\n  virtual void unused1();\n  virtual void unused2();\n  virtual void unused3();\n  virtual void unused4();\n  virtual void unused5();\n  virtual void unused6();\n  virtual void unused7();\n  virtual void unused8();\n  virtual void unused9();\n  virtual void unused10();\n  virtual void unused11();\n  virtual void unused12();\n  virtual void unused13();\n  virtual void unused14();\n  virtual void unused15();\n  virtual void unused16();\n  virtual void unused17();\n  virtual time_value_t frame_advance(time_value_t t);\n};\n\nclass ai_goal {\nprotected:\n  void *owner;\n  rational_t priority;\n  rational_t priority_modifier;\n\n  virtual rational_t frame_advance(time_value_t t);\n  virtual void unused0();\n  virtual void unused1();\n  virtual void unused2();\n  virtual void unused3();\n  virtual void unused4();\n  virtual void unused5();\n  virtual void unused6();\n  virtual void unused7();\n  virtual void unused8();\n  virtual void unused9();\n  virtual void unused10();\n  virtual void unused11();\n  virtual void unused12();\n  virtual void going_into_service();\n  virtual void going_out_of_service();\n\npublic:\n  rational_t get_priority() { return priority * priority_modifier; }\n\n  static int compare(const void *x1, const void *x2)\n  {\n    rational_t diff = (*((ai_goal **)x1))->get_priority() - (*((ai_goal **)x2))->get_priority();\n    if (diff < 0.0f)\n      return 1;\n    if (diff > 0.0f)\n      return -1;\n    return 0;\n  }\n\n  friend class ai_interface;\n};\n\ntemplate<class T> class vector {\n  T *start;\n  T *finish;\n  T *end_of_storage;\npublic:\n  bool empty() const { return start == finish; }\n  size_t size() const { return finish - start; }\n  T *begin() { return start; }\n};\n\nclass ai_interface {\n  void *vtable;\n  void *my_entity;\n  unsigned int flags;\n  unsigned int team;\n  unsigned int enemy_team;\n  ai_locomotion *locomotion;\n  vector<ai_goal *> goals;\n  ai_goal *current_goal;\n\n  void set_reached_dest(bool a)\n  {\n    if (a)\n      flags |= 0x40;\n    else\n      flags &= ~0x40;\n  }\n\npublic:\n  virtual void frame_advance(time_value_t t);\n};\n\n#define START_PROF_TIMER(x)\n#define STOP_PROF_TIMER(x)\n\nvoid ai_interface::frame_advance(time_value_t t)\n{\n  START_PROF_TIMER(proftimer_adv_AI_locomotion);\n  set_reached_dest(locomotion == 0 ? true : locomotion->frame_advance(t));\n  STOP_PROF_TIMER(proftimer_adv_AI_locomotion);\n\n  START_PROF_TIMER(proftimer_adv_AI_priority);\n  if(!goals.empty())\n  {\n    if(goals.size() > 1)\n      qsort( &(*goals.begin()), goals.size(), sizeof(ai_goal *), ai_goal::compare );\n\n    ai_goal *goal = *goals.begin();\n\n    if(!current_goal || (goal->get_priority() > 0.0f && (current_goal != *goals.begin() && (!current_goal || goal->get_priority() > current_goal->get_priority()))))\n    {\n      if(current_goal)\n        current_goal->going_out_of_service();\n\n      current_goal = *goals.begin();\n      current_goal->going_into_service();\n    }\n  }\n  STOP_PROF_TIMER(proftimer_adv_AI_priority);\n\n  START_PROF_TIMER(proftimer_adv_AI_goal);\n  if(current_goal)\n    current_goal->frame_advance(t);\n  STOP_PROF_TIMER(proftimer_adv_AI_goal);\n}\n",
+      "status": "different",
+      "target_size": 336
+    }
+  ],
+  "raw_name": "frame_advance__12ai_interfacef"
+}
