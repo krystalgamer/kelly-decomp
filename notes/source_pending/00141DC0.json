@@ -1,0 +1,15 @@
+{
+  "address": "0x00141DC0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bd7f2f6b4fbb80d5106d712170ea44518565d7ae",
+      "notes": "Attempt 1 used exact released source cited at C:/usr/local/sce/ee/gcc/include/g++-2/stl_tree.h; kelly-slaters-pro-surfer/KS/SRC/entityid.h:5-27. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "struct tree_node {\n    int color;\n    tree_node *parent;\n    tree_node *left;\n    tree_node *right;\n    struct value_type { char *first; unsigned int second; } value;\n};\n\nextern void *arch_malloc(unsigned int, const char *, int) __asm__(\"arch_malloc__FUiPCci\");\nextern void *oom_malloc(unsigned int) __asm__(\"_S_oom_malloc__t23__malloc_alloc_template1i0Ui\");\n\nstruct char_tree {\n    tree_node *clone_node(tree_node *x) {\n        tree_node *tmp = (tree_node *)arch_malloc(sizeof(tree_node), \"C:/usr/local/sce/ee/gcc/include/g++-2/stl_alloc.h\", 0);\n        if (!tmp)\n            tmp = (tree_node *)oom_malloc(sizeof(tree_node));\n        if (&tmp->value)\n            tmp->value = x->value;\n        tmp->color = x->color;\n        tmp->left = 0;\n        tmp->right = 0;\n        return tmp;\n    }\n\n    tree_node *copy(tree_node *, tree_node *);\n};\n\ntree_node *char_tree::copy(tree_node *x, tree_node *p)\n    __asm__(\"_M_copy__t8_Rb_tree5Z12charstarwrapZt4pair2ZC12charstarwrapZUiZt10_Select1st1Zt4pair2ZC12charstarwrapZUiZt4less1Z12charstarwrapZt23__malloc_alloc_template1i0Pt13_Rb_tree_node1Zt4pair2ZC12charstarwrapZUiT1\");\n\ntree_node *char_tree::copy(tree_node *x, tree_node *p)\n{\n    tree_node *top = clone_node(x);\n    top->parent = p;\n    if (x->right)\n        top->right = copy(x->right, top);\n    p = top;\n    x = x->left;\n    while (x != 0) {\n        tree_node *y = clone_node(x);\n        p->left = y;\n        y->parent = p;\n        if (x->right)\n            y->right = copy(x->right, y);\n        p = y;\n        x = x->left;\n    }\n    return top;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_M_copy__t8_Rb_tree5Z12charstarwrapZt4pair2ZC12charstarwrapZUiZt10_Select1st1Zt4pair2ZC12charstarwrapZUiZt4less1Z12charstarwrapZt23__malloc_alloc_template1i0Pt13_Rb_tree_node1Zt4pair2ZC12charstarwrapZUiT1"
+}
