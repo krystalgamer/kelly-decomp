@@ -1,0 +1,23 @@
+{
+  "address": "0x0038AB40",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "30abc940beebe2e36491ae314e854e827f91a2e4",
+      "candidate_size": 420,
+      "compared_bytes": 420,
+      "compared_instructions": 105,
+      "emitted_name": "viBufGetTs__FP5ViBufP9TimeStamp",
+      "instruction_score": 58.0952,
+      "matching_bytes": 272,
+      "matching_instructions": 61,
+      "notes": "# FIRST PASS wave 74 lane B1 \u2014 0x0038AB40\n\n- Confirmed there were no prior attempts.\n- Copied the exact released `viBufGetTs` body from `kelly-slaters-pro-surfer/NVL/PS2/nvlMPEG_ps2.cpp:1914-1944`.\n- Added only minimal self-contained declarations for `TimeStamp`, `sceIpuDmaEnv`, `ViBuf`, SDK registers/semaphores, constants, macro, and inline helper.\n- Ran `function_test` exactly once. Result: `different`, byte score 64.7619%, instruction score 58.0952%.\n- No variants, retries, diff chasing, build, finalization, integration, commit, push, or tracked-file edits were performed.\n- Because the attempt did not match, no source integration proposal is included.",
+      "score": 64.7619,
+      "source": "typedef unsigned int u_int;\n\nstruct TimeStamp\n{\n    long pts;\n    long dts;\n    int pos;\n    int len;\n};\n\nstruct sceIpuDmaEnv\n{\n    int padding[7];\n    u_int ipubp;\n};\n\nstruct ViBuf\n{\n    void* data;\n    void* tag;\n    int n;\n    int dmaStart;\n    int dmaN;\n    int readBytes;\n    int buffSize;\n    sceIpuDmaEnv env;\n    int sema;\n    int isActive;\n    long totalBytes;\n    TimeStamp* ts;\n    int n_ts;\n    int count_ts;\n    int wt_ts;\n};\n\nextern \"C\" int WaitSema(int);\nextern \"C\" int SignalSema(int);\n\n#define D4_MADR ((volatile u_int*)0x1000b410)\n#define DGET_IPU_BP() (*(volatile u_int*)0x10002020)\n#define VIBUF_ELM_SIZE 2048\n#define TS_NONE (-1)\n#define min(x,y) (((x) > (y))? (y): (x))\n\nstatic inline int IsPtsInRegion( int tgt, int pos, int len, int size )\n{\n    int tgt1 = (tgt + size - pos) % size;\n    return tgt1 < len;\n}\n\nstatic int viBufGetTs( ViBuf* f, TimeStamp* ts )\n{\n    u_int   d4madr = *D4_MADR, ipubp = DGET_IPU_BP(), d4madr_next, stop;\n    int     bp, fp = (ipubp >> 16) & 0x3, ifc = (ipubp >> 8) & 0xf, datasize, isEnd = 0, tscount, wt;\n\n    WaitSema( f->sema );\n    bp = f->env.ipubp & 0x7f;\n    d4madr_next = d4madr - ( (fp + ifc) << 4 );\n    datasize =  VIBUF_ELM_SIZE * f->n;\n    ts->pts = TS_NONE;\n    ts->dts = TS_NONE;\n    stop = ( d4madr_next + (bp >> 3) + datasize - (u_int)f->data ) % datasize;\n    tscount = f->count_ts;\n    wt = f->wt_ts;\n    for( int i = 0; i < tscount && !isEnd; i++ )\n    {\n        int rd = ( wt - tscount + f->n_ts + i ) % f->n_ts;\n\n        if( IsPtsInRegion(stop, f->ts[rd].pos, f->ts[rd].len, datasize) )\n        {\n            ts->pts = f->ts[rd].pts;\n            ts->dts = f->ts[rd].dts;\n            f->ts[rd].pts = TS_NONE;\n            f->ts[rd].dts = TS_NONE;\n            isEnd = 1;\n            f->count_ts -= min( 1, f->count_ts );\n        }\n    }\n    SignalSema( f->sema );\n    return 1;\n}\n",
+      "status": "different",
+      "target_size": 420
+    }
+  ],
+  "raw_name": "viBufGetTs__FP5ViBufP9TimeStamp"
+}
