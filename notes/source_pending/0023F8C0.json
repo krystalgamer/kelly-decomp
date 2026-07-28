@@ -1,0 +1,23 @@
+{
+  "address": "0x0023F8C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5440aa2aeeaaa087ccff6078ae240e3b3adbc685",
+      "candidate_size": 620,
+      "compared_bytes": 620,
+      "compared_instructions": 156,
+      "emitted_name": "OnButtonPress__18MenuEntryFloatEditi",
+      "instruction_score": 12.8205,
+      "matching_bytes": 138,
+      "matching_instructions": 20,
+      "notes": "# FIRST PASS wave 83 lane B3 \u2014 0x0023F8C0 `OnButtonPress__18MenuEntryFloatEditi`\n\nExact released body with minimal faithful declarations was tested once. Result `different`, byte score 22.2581%, instruction score 12.8205%. Candidate SHA-1 `5440aa2aeeaaa087ccff6078ae240e3b3adbc685`. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 22.2581,
+      "source": "enum MenuCommand\n{\n  MENUCMD_NONE = 0,\n  MENUCMD_SELECT,\n  MENUCMD_START,\n  MENUCMD_UP,\n  MENUCMD_DOWN,\n  MENUCMD_LEFT,\n  MENUCMD_RIGHT,\n  MENUCMD_CROSS,\n  MENUCMD_TRIANGLE,\n  MENUCMD_SQUARE,\n  MENUCMD_CIRCLE,\n  MENUCMD_L1,\n  MENUCMD_R1,\n  MENUCMD_L2,\n  MENUCMD_R2\n};\n\nclass MenuEntryLabel\n{\n  int entry_data;\n\npublic:\n  virtual ~MenuEntryLabel() {}\n  virtual void OnButtonPress(int);\n};\n\nclass MenuEntryFloatEdit : public MenuEntryLabel\n{\n  float *tfloat;\n\nprotected:\n  float lo;\n  float hi;\n  float step;\n  char *format;\n\npublic:\n  virtual ~MenuEntryFloatEdit() {}\n  virtual void OnButtonPress(int buttonid);\n  virtual void SetValue(float n) { *tfloat = n; }\n  virtual float GetValue() { return tfloat ? *tfloat : 0; }\n  void FixValue();\n};\n\nvoid MenuEntryFloatEdit::OnButtonPress(int buttonid)\n{\n  switch (buttonid)\n  {\n    case MENUCMD_LEFT:\n      SetValue(GetValue() - step);\n      FixValue();\n      break;\n    case MENUCMD_RIGHT:\n      SetValue(GetValue() + step);\n      FixValue();\n      break;\n    case MENUCMD_L1:\n      SetValue(GetValue() - step * 10);\n      FixValue();\n      break;\n    case MENUCMD_R1:\n      SetValue(GetValue() + step * 10);\n      FixValue();\n      break;\n    case MENUCMD_L2:\n      SetValue(GetValue() - step * 100);\n      FixValue();\n      break;\n    case MENUCMD_R2:\n      SetValue(GetValue() + step * 100);\n      FixValue();\n      break;\n    default:\n      MenuEntryLabel::OnButtonPress(buttonid);\n  }\n}\n",
+      "status": "different",
+      "target_size": 460
+    }
+  ],
+  "raw_name": "OnButtonPress__18MenuEntryFloatEditi"
+}
