@@ -1,0 +1,23 @@
+{
+  "address": "0x002EED70",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "03cfef0df6bd7a631ebf9131c23efc429d1a9103",
+      "candidate_size": 412,
+      "compared_bytes": 456,
+      "compared_instructions": 114,
+      "emitted_name": "Dump__FP9MenuEntryi",
+      "instruction_score": 5.2632,
+      "matching_bytes": 59,
+      "matching_instructions": 6,
+      "notes": "# Attempt 1\n\n- Confirmed queue status `pending` with zero attempts and `attempts.json` empty before testing.\n- Prepared and inspected metadata, generated stub, target disassembly, and exact released body at `kelly-slaters-pro-surfer/KS/SRC/menuSound.cpp:131-151` before the sole test.\n- Candidate preserves the exact released function body and uses minimal self-contained declarations with LF line endings and no headers.\n- Sole harness invocation tested `tmp/source-first-wave83/A2-002EED70/candidate.cpp`.\n- Result: `different`; 59/456 matching bytes (12.9386%), 6/114 matching instructions (5.2632%); emitted size 412 bytes.\n- Exactly one attempt; no retry, alternate source, variants, asm/annotations, post-test diff chase, tracked/reference edits, build, finalize, integrate, or git mutation.",
+      "score": 12.9386,
+      "source": "typedef unsigned int nslSourceId;\n\nclass MenuEntry {};\n\nclass SoundMenuEntryFunctionFloatEdit : public MenuEntry\n{\n  char padding[60];\npublic:\n  nslSourceId src;\n};\n\nclass stringx\n{\npublic:\n  stringx();\n  stringx(const char *, int = -1);\n  stringx(const stringx &);\n  ~stringx();\n  const char *c_str() const;\nprivate:\n  int data[4];\n};\n\nstringx operator+(const stringx &, const stringx &);\n\nclass os_file\n{\npublic:\n  enum mode { FILE_WRITE = 2 };\n  os_file();\n  ~os_file();\n  void open(const stringx &, int);\n  void write(void *, int);\n  void close();\nprivate:\n  char data[144];\n};\n\nstruct beach_data\n{\n  char name[532];\n};\n\nclass game\n{\n  char padding[552];\n  int beach_id;\npublic:\n  int get_beach_id() { return beach_id; }\n};\n\nenum { MENUSOUND_MAXSOURCES = 32, NSL_INVALID_ID = 0, NSL_SOUNDPARAM_VOLUME = 0 };\n\nextern beach_data BeachDataArray[];\nextern game *g_game_ptr;\nextern SoundMenuEntryFunctionFloatEdit *MENUSOUND_SourceEntries[MENUSOUND_MAXSOURCES];\nextern const char *nslGetSourceName(nslSourceId);\nextern float nslGetSourceParam(nslSourceId, int);\nextern int sprintf(char *, const char *, ...);\nextern unsigned int strlen(const char *);\n\n__asm__(\".equ MENUSOUND_SourceEntries,0x00579950\");\n\nbool Dump(MenuEntry *entry, int buttonid)\n{\n\tos_file out;\n\tchar line[80];\n\tint i;\n\tout.open((stringx(BeachDataArray[g_game_ptr->get_beach_id()].name) + stringx(\"SOUNDDUMP.TXT\")).c_str(), os_file::FILE_WRITE);\n\tfor (i = 0; i < MENUSOUND_MAXSOURCES; i++)\n\t{\n\t\tif (MENUSOUND_SourceEntries[i]->src != NSL_INVALID_ID)\n\t\t{\n\t\t\tsprintf(line, \"%s\\t%f\\r\\n\", nslGetSourceName(MENUSOUND_SourceEntries[i]->src),\n\t\t\t\t\tnslGetSourceParam(MENUSOUND_SourceEntries[i]->src, NSL_SOUNDPARAM_VOLUME));\n\t\t\tout.write(line, strlen(line));\n\t\t}\n\n\t}\n\n\tout.close();\n\n\treturn true;\n}\n",
+      "status": "different",
+      "target_size": 456
+    }
+  ],
+  "raw_name": "Dump__FP9MenuEntryi"
+}
