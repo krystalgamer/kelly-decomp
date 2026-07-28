@@ -1,0 +1,23 @@
+{
+  "address": "0x002AC0A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "334c766f6560d8e6d2f21b365e8eed8023e71d11",
+      "candidate_size": 424,
+      "compared_bytes": 424,
+      "compared_instructions": 106,
+      "emitted_name": "CheckHeapStats__4Heap",
+      "instruction_score": 70.7547,
+      "matching_bytes": 393,
+      "matching_instructions": 75,
+      "notes": "# FIRST PASS wave 75 lane A2 \u2014 0x002AC0A8\n\n- Status: **different**\n- Attempts: **1**\n- Byte score: **92.6887%** (393/424)\n- Instruction score: **70.7547%** (75/106)\n- Candidate: `tmp/functions/002AC0A8_CheckHeapStats__4Heap/attempt-1/candidate.cpp`\n- SHA-1: `334c766f6560d8e6d2f21b365e8eed8023e71d11`\n- Candidate/target size: 424/424 bytes\n\nUsed the exact released `Heap::CheckHeapStats` body once with minimal source-faithful declarations. It compiled but differed. No variants, retries, diff chasing, finalization, build, commit, or tracked-file edits were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/heap.cpp:42-73,1488-1530`\n- `kelly-slaters-pro-surfer/KS/SRC/heap.h:33-102`\n- `tmp/functions/002AC0A8_CheckHeapStats__4Heap/attempt-1/result.json`",
+      "score": 92.6887,
+      "source": "typedef unsigned int MemSize;\n\nenum MemoryBlockTypes {\n    mbtFree = 0,\n    mbtUsed = 1\n};\n\nstruct MemFlagDWord {\n    unsigned int pad : 24;\n    unsigned int flags : 8;\n};\n\nstruct MemBlockInfo {\n    MemBlockInfo *prev;\n    MemBlockInfo *next;\n    MemBlockInfo *prevoftype;\n    MemBlockInfo *nextoftype;\n    MemSize size;\n    MemFlagDWord flags;\n};\n\nclass Heap {\n    MemBlockInfo *fullhead;\n    char padding[60];\n    bool statsuptodate;\n    char alignment[3];\n    MemSize numblocks;\n    MemSize numfree;\n    MemSize numused;\n    MemSize memblocks;\n    MemSize memfree;\n    MemSize memused;\n    MemSize ovrblocks;\n    MemSize ovrfree;\n    MemSize ovrused;\n    MemSize largestfree;\n\npublic:\n    MemSize HeaderSize() const;\n    MemSize FooterSize() const;\n    void CheckHeapStats();\n};\n\n__asm__(\".equ HeaderSize__C4Heap, 0x002AB370\");\n__asm__(\".equ FooterSize__C4Heap, 0x002AB388\");\n\nvoid Heap::CheckHeapStats( void )\n{\n\tif ( !statsuptodate )\n\t{\n\t\tstatsuptodate=true;\n\t\tnumblocks=0;\n\t\tnumfree=0;\n\t\tnumused=0;\n\t\tmemblocks=0;\n\t\tmemfree=0;\n\t\tmemused=0;\n\t\tovrblocks=0;\n\t\tovrfree=0;\n\t\tovrused=0;\n\t\tlargestfree=0;\n\t\tMemBlockInfo *block=fullhead;\n\t\twhile ( block )\n\t\t{\n\t\t\tnumblocks++;\n\t\t\tmemblocks+=block->size-FooterSize();\n\t\t\tovrblocks+=HeaderSize()+FooterSize();\n\t\t\tif ( block->flags.flags & mbtUsed )\n\t\t\t{\n\t\t\t\tnumused++;\n\t\t\t\tmemused+=block->size-FooterSize();\n\t\t\t\tovrused+=HeaderSize()+FooterSize();\n\t\t\t}\n\t\t\telse\n\t\t\t{\n\t\t\t\tnumfree++;\n\t\t\t\tmemfree+=block->size-FooterSize();\n\t\t\t\tovrfree+=HeaderSize()+FooterSize();\n\t\t\t\tif ( block->size-FooterSize() > largestfree )\n\t\t\t\t{\n\t\t\t\t\tlargestfree=block->size-FooterSize();\n\t\t\t\t}\n\t\t\t}\n\t\t\tblock=block->next;\n\t\t}\n\t}\n}\n",
+      "status": "different",
+      "target_size": 424
+    }
+  ],
+  "raw_name": "CheckHeapStats__4Heap"
+}
