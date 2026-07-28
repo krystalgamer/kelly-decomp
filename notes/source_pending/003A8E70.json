@@ -1,0 +1,23 @@
+{
+  "address": "0x003A8E70",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "885ed72be0a05f399f24b15c1836c685312a5be6",
+      "candidate_size": 312,
+      "compared_bytes": 332,
+      "compared_instructions": 83,
+      "emitted_name": "nglVif1AddSkinDiffusePass__FRPUiUiP16nglMeshBatchInfoP11nglMaterial",
+      "instruction_score": 3.6145,
+      "matching_bytes": 79,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:9217-9248; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:619,652,678-683; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2_internal.h:630-647,935; kelly-slaters-pro-surfer/NGL/PS2/ngl_vudefs.h:6,52; tmp/functions/003A8E70_nglVif1AddSkinDiffusePass__FRPUiUiP16nglMeshBatchInfoP11nglMaterial/attempt-1/result.json; tmp/source_first/003A8E70/attempt-1.md. Result `different`, score 23.7952; no later attempt.",
+      "score": 23.7952,
+      "source": "typedef unsigned int u_int;\n\nstruct nglMeshBatchInfo\n{\n  u_int NVerts;\n  u_int* StripData;\n  float* PosData;\n  float* UVData;\n  u_int* ColorData;\n  float* NormData;\n  float* LightUVData;\n  char* BoneCountData;\n  unsigned short* BoneIdxData;\n  float* BoneWeightData;\n};\n\nstruct nglMaterial\n{\n  u_int Flags;\n};\n\n#define NGLMAT_TEXTURE_MAP 0x00000010\n#define NGLMAT_MATERIAL_COLOR 0x10000000\n#define NGLMEM_VERT_START 1\n#define NGLCMD_DIFFUSE 1\n#define SCE_VIF1_S_32 0x00\n#define SCE_VIF1_V2_32 0x04\n#define SCE_VIF1_V4_8 0x0e\n#define SCE_VIF1_MASK_ENABLE 0x10\n#define SCE_VIF1_USN ( 1 << 14 )\n#define SCE_VIF1_SET_STCYCL(wl, cl, irq) (0x01000000 | ((wl) << 8) | (cl))\n#define SCE_VIF1_SET_STMASK(irq) 0x20000000\n#define SCE_VIF1_SET_UNPACK(addr, num, mode, irq) (0x60000000 | ((mode) << 24) | ((num) << 16) | (addr))\n\nvoid nglVif1AddCommandListExec( u_int*& Packet, u_int VertBase, u_int Cmd );\n\nvoid nglVif1AddSkinDiffusePass( u_int*& Packet, u_int VertBase, nglMeshBatchInfo* Batch, nglMaterial* Material )\n{\n  // Unpack the strip flags onto where the destination positions will go.\n  Batch->StripData = (u_int*)Packet + 2;\n  Packet[0] = SCE_VIF1_SET_STCYCL( 1, 3, 0 );\n  Packet[1] = SCE_VIF1_SET_UNPACK( VertBase + NGLMEM_VERT_START + 2, Batch->NVerts, SCE_VIF1_S_32, 0 );\n  Packet += 2 + Batch->NVerts;\n\n//  for ( u_int i = 0; i < Batch->NVerts; i++ )\n//    if ( Batch->StripData[i] == 0x8000 )\n//      Batch->StripData[i] |= 1;\n\n  // Unpack the UV data.\n  if ( Material->Flags & NGLMAT_TEXTURE_MAP )\n  {\n    Batch->UVData = (float*)Packet + 3;\n    Packet[0] = SCE_VIF1_SET_STMASK( 0 );\n    Packet[1] = 0x50505050; // 01-01-00-00 (WZYX)\n    Packet[2] = SCE_VIF1_SET_UNPACK( VertBase + NGLMEM_VERT_START, Batch->NVerts, SCE_VIF1_V2_32 | SCE_VIF1_MASK_ENABLE, 0 );\n    Packet += 3 + Batch->NVerts * 2;\n  }\n\n  // Unpack the color data.\n  if ( !( Material->Flags & NGLMAT_MATERIAL_COLOR ) )\n  {\n    Batch->ColorData = (u_int*)Packet + 1;\n    Packet[0] = SCE_VIF1_SET_UNPACK( VertBase + NGLMEM_VERT_START + 1, Batch->NVerts, SCE_VIF1_V4_8, 0 ) | SCE_VIF1_USN;\n    Packet += 1 + Batch->NVerts;\n  }\n\n  nglVif1AddCommandListExec( Packet, VertBase, NGLCMD_DIFFUSE );\n}\n",
+      "status": "different",
+      "target_size": 332
+    }
+  ],
+  "raw_name": "nglVif1AddSkinDiffusePass__FRPUiUiP16nglMeshBatchInfoP11nglMaterial"
+}
