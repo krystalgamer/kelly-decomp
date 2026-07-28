@@ -1,0 +1,15 @@
+{
+  "address": "0x00312DA0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9030ce9fe54239134b2a95172bc8aa0c13eb6da6",
+      "notes": "# FIRST PASS wave 73 lane A2 \u2014 0x00312DA0\n\n- Confirmed there were no prior attempts.\n- Used the exact released `error_context` destructor from `kelly-slaters-pro-surfer/KS/SRC/errorcontext.h:30-33`, with only a destructor-emission function.\n- Ran `function_test` exactly once. Result: `compile_failed`, score 0.0%.\n- Wine GCC could not resolve the released header through the candidate's relative include.\n- No variants, retries, diff chasing, build, finalization, integration, commit, push, or tracked-file edits were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/errorcontext.h:15-57`\n- `tmp/functions/00312DA0__$_13error_context/attempt-1/compiler.stderr`\n- `tmp/functions/00312DA0__$_13error_context/attempt-1/result.json`",
+      "score": 0.0,
+      "source": "#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/errorcontext.h\"\n\nvoid emit_error_context_destructor(error_context *context)\n{\n  context->error_context::~error_context();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_13error_context"
+}
