@@ -1,0 +1,15 @@
+{
+  "address": "0x00149638",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "73ec655920e4b981f28a55961216e9cb53ef806c",
+      "notes": "Attempt 1 used the exact released source body and minimal declarations for `cons__7BoxTextP4FontG7stringxffifQ24Font9HORIZJUSTQ24Font8VERTJUSTG7color32i`. Result `compile_failed`, score 0.0000; no retry or variant was made. Citations: config/SLUS_203.34.symbol_addrs.txt:975, notes/function_queue.csv:6293, kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:509-524, kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:194-222, tmp/source_first/00149638/candidate.cpp, tmp/functions/00149638_cons__7BoxTextP4FontG7stringxffifQ24Font9HORIZJUSTQ24Font8VERTJUSTG7color32i/attempt-1/compiler.stderr, tmp/functions/00149638_cons__7BoxTextP4FontG7stringxffifQ24Font9HORIZJUSTQ24Font8VERTJUSTG7color32i/attempt-1/result.json.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEPanel.h\"\n\nvoid BoxText::cons(Font* f, stringx t, float x1, float y1, int z1, float s, const Font::HORIZJUST horizJust, const Font::VERTJUST vertJust, color32 col, int mbs)\n{\n\tTextString::cons(f, t, x1, y1, z1, s, horizJust, vertJust, col.get_alpha() == 0, col);\n\tnon_floating_behavior = true;\n\treverse = false;\n\tbox_str_count = 0;\n\tadjusted_x = real_x = x1;\n\tadjusted_y = real_y = y1;\n\tadjustCoords(adjusted_x, adjusted_y);\n\treal_scale = s;\n\tfileBuf.Buf = NULL;\n\tfileBuf.Size = 0;\n\tmax_box_strings = mbs;\n\tbox_strings = NEW StringList[max_box_strings];\n\tscrollable = false;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "cons__7BoxTextP4FontG7stringxffifQ24Font9HORIZJUSTQ24Font8VERTJUSTG7color32i"
+}
