@@ -1,0 +1,15 @@
+{
+  "address": "0x00323C80",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a5f26f93ba5d1a61dd017ccf240f2d2163752b0d",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/script_lib.cpp:2989-3001; kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:282-300; kelly-slaters-pro-surfer/KS/SRC/fogmgr.h:31-38; tmp/functions/00323C80___cl__22slf_get_fog_distance_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/result.json; tmp/source_first/00323C80/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/fogmgr.h\"\n#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/script_library_class.h\"\n\nclass slf_get_fog_distance_t : public script_library_class::function\n{\n  public:\n    slf_get_fog_distance_t(const char* n) : script_library_class::function(n) {}\n    virtual bool operator()(vm_stack& stack,entry_t entry)\n    {\n      vm_num_t result = fog_manager::inst()->get_fog_end_distance();\n      SLF_RETURN;\n      SLF_DONE;\n    }\n};\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__cl__22slf_get_fog_distance_tR8vm_stackQ320script_library_class8function7entry_t"
+}
