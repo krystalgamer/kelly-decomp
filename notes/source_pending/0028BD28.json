@@ -1,0 +1,23 @@
+{
+  "address": "0x0028BD28",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "30dc9d7f41d84921ae1633c863a05362ef97c929",
+      "candidate_size": 296,
+      "compared_bytes": 348,
+      "compared_instructions": 87,
+      "emitted_name": "copy_instance_data__14morphable_itemRC14morphable_item",
+      "instruction_score": 18.3908,
+      "matching_bytes": 131,
+      "matching_instructions": 16,
+      "notes": "Exact released body with minimal local declarations for `morphable_item`,\n`morphable_item_range`, its three-pointer vector, `stringx`, the visibility\nvtable slot, allocation, and the vector growth helper. The body is\nnon-placeholder and preserves the released inline `make_instance` path.\n\nThe candidate differs at 37.6437% byte score / 18.3908% instruction score.\nThe target uses a 192-byte frame and aggressively inlines the released range\nconstructor/copy/vector insertion sequence; this minimal declaration context\nemits a 296-byte function versus the target's 348 bytes.",
+      "score": 37.6437,
+      "source": "// Target: 0x0028BD28 copy_instance_data__14morphable_itemRC14morphable_item\n// Reference: KS/SRC/item.cpp\ntypedef unsigned int size_t;\n\nstruct stringx\n{\n    char *p;\n    void *buffer;\n    stringx();\n    ~stringx();\n    stringx& operator=(const stringx&);\n};\n\nvoid *operator new(size_t, unsigned int, const char *, int);\n\nclass morphable_item_range\n{\npublic:\n    morphable_item_range()\n    {\n        low = 0;\n        high = -1;\n        vis_rep = stringx();\n    }\n\n    void copy_instance_data(morphable_item_range *b)\n    {\n        low = b->low;\n        high = b->high;\n        vis_rep = b->vis_rep;\n    }\n\n    morphable_item_range *make_instance()\n    {\n        morphable_item_range *r =\n            new(0, \"C:/KS/SRC/item.h\", 302) morphable_item_range();\n        r->copy_instance_data(this);\n        return r;\n    }\n\n    int low;\n    int high;\n    stringx vis_rep;\n};\n\nextern \"C\" void vector_insert(\n    void *, morphable_item_range **, morphable_item_range *const&\n) __asm__(\"_M_insert_aux__t6vector2ZP20morphable_item_rangeZt12my_allocator1ZP20morphable_item_rangePP20morphable_item_rangeRCP20morphable_item_range\");\n\nstruct range_vector\n{\n    morphable_item_range **start;\n    morphable_item_range **finish;\n    morphable_item_range **end;\n\n    void push_back(morphable_item_range *const& value)\n    {\n        if (finish != end)\n        {\n            *finish = value;\n            ++finish;\n        }\n        else\n            vector_insert(this, finish, value);\n    }\n};\n\nstruct entity_vtable\n{\n    char pad[352];\n    short visible_adjust;\n    short unused;\n    void (*set_visible)(void *, bool);\n};\n\nclass morphable_item\n{\n    char pad0[8];\n    entity_vtable *vtable;\n    char pad1[564];\n    range_vector ranges;\n    int old_count;\n\npublic:\n    void copy_instance_data(const morphable_item&);\n    void dump_ranges();\n};\n\nextern \"C\" void copy_item(void *, const void *)\n    __asm__(\"copy_instance_data__4itemRC4item\");\nasm(\".equ copy_instance_data__4itemRC4item,0x0028A068\");\nasm(\".equ dump_ranges__14morphable_item,0x0028BF98\");\nasm(\".equ __7stringx,0x0034D3E0\");\nasm(\".equ _$_7stringx,0x0034D6E0\");\nasm(\".equ __as__7stringxRC7stringx,0x0034E0B8\");\nasm(\".equ __nw__FUiUiPCci,0x002AC578\");\nasm(\".equ _M_insert_aux__t6vector2ZP20morphable_item_rangeZt12my_allocator1ZP20morphable_item_rangePP20morphable_item_rangeRCP20morphable_item_range,0x002AFBB0\");\n\nvoid morphable_item::copy_instance_data(const morphable_item& b)\n{\n    copy_item(this, &b);\n    entity_vtable *v = vtable;\n    v->set_visible((char *)this + v->visible_adjust, true);\n    dump_ranges();\n\n    morphable_item_range **range = b.ranges.start;\n    morphable_item_range **range_end = b.ranges.finish;\n    for (; range != range_end; ++range)\n        ranges.push_back((*range)->make_instance());\n\n    old_count = -1;\n}\n",
+      "status": "different",
+      "target_size": 348
+    }
+  ],
+  "raw_name": "copy_instance_data__14morphable_itemRC14morphable_item"
+}
