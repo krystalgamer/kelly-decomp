@@ -1,0 +1,23 @@
+{
+  "address": "0x002EF580",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1abbfdeb31729c12c2d45f0cc4c873f6d81aa12f",
+      "candidate_size": 372,
+      "compared_bytes": 376,
+      "compared_instructions": 94,
+      "emitted_name": "OnClose__9MenuCheatb",
+      "instruction_score": 88.2979,
+      "matching_bytes": 341,
+      "matching_instructions": 83,
+      "notes": "Exact released-source FIRST PASS attempt using the function body from `kelly-slaters-pro-surfer/KS/SRC/ks/cheatmenu.cpp:82-118`, with minimal declarations/layout derived from `KS/SRC/ks/cheatmenu.cpp:7-23`, `KS/SRC/ks/menu.h:78-96,140-149,227-239,303-316`, and `KS/SRC/archalloc.h:97` at pinned commit `7c3ade041cc03409a3114ce3ba4a70053c6e4e3b`.\n\nCanonical attempt 1 result: `different`, score `90.6915` (instruction score `88.2979`), candidate size 372 versus target size 376. Per the one-attempt constraint, no retry, variant, or diff chase was performed.",
+      "score": 90.6915,
+      "source": "class MenuEntry\n{\n    unsigned int flags;\npublic:\n    virtual ~MenuEntry();\n};\n\nclass MenuEntryIntEdit : public MenuEntry {};\nclass MenuEntryFunction : public MenuEntry {};\n\nclass Menu\n{\npublic:\n    void ClearMenu();\n    void OnClose(bool toparent);\n};\n\nclass MenuCheat : public Menu\n{\npublic:\n    void OnClose(bool toparent);\n};\n\nextern MenuEntryIntEdit *player1Score;\nextern MenuEntryIntEdit *player2Score;\nextern MenuEntryFunction *cheat_goal0;\nextern MenuEntryFunction *cheat_goal1;\nextern MenuEntryFunction *cheat_goal2;\nextern MenuEntryFunction *cheat_goal3;\nextern MenuEntryFunction *cheat_goal4;\nextern void mem_lock_malloc(bool);\n\n__asm__(\".equ player1Score,0x00434990\");\n__asm__(\".equ player2Score,0x00434994\");\n__asm__(\".equ cheat_goal0,0x00434998\");\n__asm__(\".equ cheat_goal1,0x0043499C\");\n__asm__(\".equ cheat_goal2,0x004349A0\");\n__asm__(\".equ cheat_goal3,0x004349A4\");\n__asm__(\".equ cheat_goal4,0x004349A8\");\n__asm__(\".equ mem_lock_malloc__Fb,0x002AC438\");\n__asm__(\".equ ClearMenu__4Menu,0x0023E538\");\n__asm__(\".equ OnClose__4Menub,0x0023EB70\");\n\n#define NULL 0\n\nvoid MenuCheat::OnClose( bool toparent )\n{\n\tmem_lock_malloc(false);\n\n\tif (player1Score)\n\t\tdelete player1Score;\n\tplayer1Score=NULL;\n\n\tif (player2Score)\n\t\tdelete player2Score;\n\tplayer2Score=NULL;\n\n\tif (cheat_goal0)\n\t\tdelete cheat_goal0;\n\tcheat_goal0 = NULL;\n\t\n\tif (cheat_goal1)\n\t\tdelete cheat_goal1;\n\tcheat_goal1 = NULL;\n\t\n\tif (cheat_goal2)\n\t\tdelete cheat_goal2;\n\tcheat_goal2 = NULL;\n\t\n\tif (cheat_goal3)\n\t\tdelete cheat_goal3;\n\tcheat_goal3 = NULL;\n\t\n\tif (cheat_goal4)\n\t\tdelete cheat_goal4;\n\tcheat_goal4 = NULL;\n\n\tClearMenu();\n\n\tmem_lock_malloc(true);\n\tMenu::OnClose(toparent);\n}\n",
+      "status": "different",
+      "target_size": 376
+    }
+  ],
+  "raw_name": "OnClose__9MenuCheatb"
+}
