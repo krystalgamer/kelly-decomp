@@ -1,0 +1,23 @@
+{
+  "address": "0x00110A88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "86208e23b60e7f2796b73497a3cc6f1ba24b2007",
+      "candidate_size": 344,
+      "compared_bytes": 360,
+      "compared_instructions": 90,
+      "emitted_name": "find__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt10_Select1st1Zt4pair2ZC7stringxZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt4less1Z7stringxZt12my_allocator1ZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeRC7stringx",
+      "instruction_score": 6.6667,
+      "matching_bytes": 87,
+      "matching_instructions": 6,
+      "notes": "Attempt 1 used the exact released source for find__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt10_Select1st1Zt4pair2ZC7stringxZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt4less1Z7stringxZt12my_allocator1ZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeRC7stringx. Result `different`, score 24.1667; no retry or variant was made.",
+      "score": 24.1667,
+      "source": "struct string_rep { char* text; int capacity; int length; };\nstruct stringx {\n  int pad;\n  string_rep* rep;\n  int compare(const stringx& b) const {\n    int n = rep->length < b.rep->length ? rep->length : b.rep->length;\n    for (int i = 0; i < n; ++i) {\n      if (rep->text[i] < b.rep->text[i]) return -1;\n      if (b.rep->text[i] < rep->text[i]) return 1;\n    }\n    if (rep->length < b.rep->length) return -1;\n    if (b.rep->length < rep->length) return 1;\n    return 0;\n  }\n  bool operator<(const stringx& b) const { return compare(b) == -1; }\n};\nstruct rb_node { int color; rb_node* parent; rb_node* left; rb_node* right; stringx key; };\nstruct iterator { rb_node* node; iterator(rb_node* n) : node(n) {} };\nstruct tree { rb_node* header; };\nextern \"C\" iterator* target(iterator*, tree*, const stringx&) __asm__(\"find__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt10_Select1st1Zt4pair2ZC7stringxZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt4less1Z7stringxZt12my_allocator1ZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeRC7stringx\");\niterator* target(iterator* out, tree* self, const stringx& k) {\n  rb_node* y = self->header;\n  rb_node* x = self->header->parent;\n  while (x != 0)\n    if (!(x->key < k)) y = x, x = x->left;\n    else x = x->right;\n  iterator j(y);\n  iterator e(self->header);\n  *out = (j.node == e.node || k < j.node->key) ? e : j;\n  return out;\n}\n",
+      "status": "different",
+      "target_size": 360
+    }
+  ],
+  "raw_name": "find__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt10_Select1st1Zt4pair2ZC7stringxZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt4less1Z7stringxZt12my_allocator1ZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeRC7stringx"
+}
