@@ -1,0 +1,23 @@
+{
+  "address": "0x0036EEA8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "94a4238b759ba562d1e95830ca884b318dd61d4d",
+      "candidate_size": 392,
+      "compared_bytes": 408,
+      "compared_instructions": 102,
+      "emitted_name": "WATER_ComputeUniformGrid__Fv",
+      "instruction_score": 6.8627,
+      "matching_bytes": 109,
+      "matching_instructions": 7,
+      "notes": "# WATER_ComputeUniformGrid__Fv (0x0036EEA8)\n\nAttempt 1 used the exact released `WATER_ComputeUniformGrid` body with its two inline texture-coordinate helpers and minimal declarations/global bindings. Result: `different`, score 26.7157%. No later attempt, finalization, build, integration, commit, or tracked-file edit was performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/water.cpp:49-79`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/water.cpp:674-684`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/water.cpp:724-772`\n- `tmp/functions/0036EEA8_WATER_ComputeUniformGrid__Fv/attempt-1/result.json`\n- `tmp/source_first/0036EEA8/attempt-1.md`",
+      "score": 26.7157,
+      "source": "typedef unsigned int u_int;\n\nextern float WAVE_MeshMinX;\nextern float WAVE_MeshMaxX;\nextern float WAVE_MeshMinZ;\nextern float WAVE_MeshMaxZ;\nextern float WATER_MeshGridX[12];\nextern float WATER_MeshGridZ[12];\nextern float WATER_MeshGridU[12];\nextern float WATER_MeshGridV[12];\nextern u_int WATER_MeshStepX;\nextern u_int WATER_MeshStepZ;\nextern float WATER_MeshMinX;\nextern float WATER_MeshMaxX;\nextern float WATER_MeshMinZ;\nextern float WATER_MeshMaxZ;\nextern float WATER_SeamSizeX;\nextern float WATER_SeamSizeZ;\nextern float WATER_ScaleU;\nextern float WATER_ScaleV;\nextern float WATER_OffsetU;\nextern float WATER_OffsetV;\n\n__asm__(\".equ WATER_ScaleU, 0x004845BC\");\n__asm__(\".equ WATER_ScaleV, 0x004845C0\");\n__asm__(\".equ WATER_OffsetU, 0x004845C4\");\n__asm__(\".equ WATER_OffsetV, 0x004845C8\");\n__asm__(\".equ WATER_MeshMinX, 0x004845D0\");\n__asm__(\".equ WATER_MeshMaxX, 0x004845D4\");\n__asm__(\".equ WATER_MeshMinZ, 0x004845D8\");\n__asm__(\".equ WATER_MeshMaxZ, 0x004845DC\");\n__asm__(\".equ WAVE_MeshMinX, 0x00484620\");\n__asm__(\".equ WAVE_MeshMaxX, 0x00484624\");\n__asm__(\".equ WAVE_MeshMinZ, 0x00484628\");\n__asm__(\".equ WAVE_MeshMaxZ, 0x0048462C\");\n__asm__(\".equ WATER_MeshGridX, 0x0057E950\");\n__asm__(\".equ WATER_MeshGridZ, 0x0057E980\");\n__asm__(\".equ WATER_MeshGridU, 0x0057E9B0\");\n__asm__(\".equ WATER_MeshGridV, 0x0057E9E0\");\n__asm__(\".equ WATER_MeshStepX, 0x0057EA10\");\n__asm__(\".equ WATER_MeshStepZ, 0x0057EA14\");\n__asm__(\".equ WATER_SeamSizeX, 0x0057EA18\");\n__asm__(\".equ WATER_SeamSizeZ, 0x0057EA1C\");\n\n#define WATER_MESHIDEALSTEPX 8\n#define WATER_MESHIDEALSTEPZ 8\n#define WATER_MESH_WIDTH (WATER_MeshMaxX - WATER_MeshMinX)\n#define WATER_MESH_DEPTH (WATER_MeshMaxZ - WATER_MeshMinZ)\n\nstatic inline void WATER_TextureCoordU(float x, float &u)\n{\n\tu = WATER_ScaleU * x + WATER_OffsetU;\n}\n\nstatic inline void WATER_TextureCoordV(float z, float &v)\n{\n\tv = WATER_ScaleV * z + WATER_OffsetV;\n}\n\nstatic void WATER_ComputeUniformGrid(void)\n{\n\tu_int xstep, zstep;\n\tfloat xbase, zbase;\n\tconst float xcutlo = WAVE_MeshMinX - WATER_SeamSizeX;\n\tconst float xcuthi = WAVE_MeshMaxX + WATER_SeamSizeX;\n\tconst float zcutlo = WAVE_MeshMinZ - WATER_SeamSizeZ;\n\tconst float zcuthi = WAVE_MeshMaxZ + WATER_SeamSizeZ;\n\n\tif (WATER_MeshMinX > xcutlo)\n\t{\n\t\tWATER_MeshMinX = xcutlo;\n\t}\n\tif (WATER_MeshMaxX < xcuthi)\n\t{\n\t\tWATER_MeshMaxX = xcuthi;\n\t}\n\tif (WATER_MeshMinZ > zcutlo)\n\t{\n\t\tWATER_MeshMinZ = zcutlo;\n\t}\n\tif (WATER_MeshMaxZ < zcuthi)\n\t{\n\t\tWATER_MeshMaxZ = zcuthi;\n\t}\n\n\tfloat xinc = ((float) WATER_MESH_WIDTH) / WATER_MESHIDEALSTEPX;\n\tfloat zinc = ((float) WATER_MESH_DEPTH) / WATER_MESHIDEALSTEPZ;\n\n\tfor (xstep = 0, xbase = WATER_MeshMinX; xstep <= WATER_MESHIDEALSTEPX; ++xstep, xbase += xinc)\n\t{\n\t\tWATER_MeshGridX[xstep] = xbase;\n\t\tWATER_TextureCoordU(WATER_MeshGridX[xstep], WATER_MeshGridU[xstep]);\n\t}\n\tWATER_MeshStepX = WATER_MESHIDEALSTEPX;\n\n\tfor (zstep = 0, zbase = WATER_MeshMinZ; zstep <= WATER_MESHIDEALSTEPZ; ++zstep, zbase += zinc)\n\t{\n\t\tWATER_MeshGridZ[zstep] = zbase;\n\t\tWATER_TextureCoordV(WATER_MeshGridZ[zstep], WATER_MeshGridV[zstep]);\n\t}\n\tWATER_MeshStepZ = WATER_MESHIDEALSTEPZ;\n}\n",
+      "status": "different",
+      "target_size": 408
+    }
+  ],
+  "raw_name": "WATER_ComputeUniformGrid__Fv"
+}
