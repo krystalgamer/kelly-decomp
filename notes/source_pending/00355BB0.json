@@ -1,0 +1,15 @@
+{
+  "address": "0x00355BB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0094162bb1a6c61d7905a7452d2ead5281a1474f",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/vm_thread.cpp:1054-1075; kelly-slaters-pro-surfer/KS/SRC/vm_thread.h:21-130; kelly-slaters-pro-surfer/KS/SRC/vm_stack.h:21-87; kelly-slaters-pro-surfer/KS/SRC/vm_executable.h:20-53; kelly-slaters-pro-surfer/KS/SRC/script_object.h:25-61; tmp/functions/00355BB0_spawn_sub_thread__9vm_threadRCQ29vm_thread10argument_t/attempt-1/result.json. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "typedef float vm_num_t;\n\nclass stringx;\nstringx operator+(const char*, const stringx&);\n\nclass vm_thread;\n\nclass vm_stack {\npublic:\n  int salloc;\n  char* buffer;\n  char* SP;\n  vm_thread* my_thread;\n\n  char* get_SP() const { return SP; }\n  void pop(int n) { SP -= n; }\n  bool push(const char* src, int n);\n};\n\nclass vm_executable {\n  char pad0[0x34];\n  int parms_stacksize;\n  char pad1[4];\n  unsigned short* buffer;\npublic:\n  const stringx& get_fullname() const;\n  int get_parms_stacksize() const { return parms_stacksize; }\n  const unsigned short* get_start() const { return buffer; }\n};\n\nclass script_object {\npublic:\n  class instance {\n  public:\n    vm_thread* add_thread(const vm_executable* ex);\n  };\n};\n\nclass vm_thread {\nprotected:\n  union argument_t {\n    vm_num_t val;\n    short word;\n    char* sdr;\n    void* lfr;\n    vm_executable* sfr;\n    unsigned binary;\n  };\n\n  enum flags_t {\n    SUSPENDED = 0x0001,\n    SUSPENDABLE = 0x0002,\n  };\n\n  script_object::instance* inst;\n  const vm_executable* ex;\n  unsigned int flags;\n  vm_stack dstack;\n  const unsigned short* PC;\n  char pad0[0x18];\n  float camera_priority;\n\npublic:\n  void set_suspendable(bool v);\n  bool is_suspendable() const { return flags & SUSPENDABLE; }\n  void set_camera_priority(float pr);\n  float get_camera_priority() { return camera_priority; }\n  void slf_error(const stringx& err);\n\nprotected:\n  void spawn_sub_thread(const argument_t& arg);\n};\n\nvoid vm_thread::spawn_sub_thread( const argument_t& arg )\n{\n  vm_thread* newvmt = inst->add_thread(arg.sfr);\n\n  newvmt->set_suspendable( is_suspendable() );\n\n  newvmt->set_camera_priority( get_camera_priority() );\n\n  int psize = arg.sfr->get_parms_stacksize();\n  if ( psize )\n  {\n    if ( !newvmt->dstack.push(dstack.get_SP()-psize,psize) )\n      slf_error( \"stack overflow spawning \" + arg.sfr->get_fullname() );\n  }\n  newvmt->PC = arg.sfr->get_start();\n  dstack.pop( psize );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "spawn_sub_thread__9vm_threadRCQ29vm_thread10argument_t"
+}
