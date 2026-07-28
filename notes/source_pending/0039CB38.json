@@ -1,0 +1,23 @@
+{
+  "address": "0x0039CB38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2c6e00f1f8fd5eafcb678c3e756fec645133ac70",
+      "candidate_size": 396,
+      "compared_bytes": 408,
+      "compared_instructions": 102,
+      "emitted_name": "nglCreateTexture__FUiUiUi",
+      "instruction_score": 9.8039,
+      "matching_bytes": 122,
+      "matching_instructions": 10,
+      "notes": "# FIRST PASS wave 71 lane A4 \u2014 0x0039CB38\n\n- Tested the exact released `nglCreateTexture(u_int, u_int, u_int)` body once with minimal self-contained declarations preserving `nglTexture` size and accessed member offsets.\n- Result: **different**; byte score **29.9020%** (122/408), instruction score **9.8039%** (10/102).\n- Candidate size: **396 bytes**; target size: **408 bytes**.\n- No variants, retries, disassembly comparison, diff chasing, build, finalization, integration, commit, or tracked-file edits were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:3666-3724`\n- `kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:465-591`\n- `kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2_internal.h:357-358`\n- `tmp/functions/0039CB38_nglCreateTexture__FUiUiUi/attempt-1/result.json`",
+      "score": 29.902,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned short u_short;\ntypedef unsigned char u_char;\n\nenum\n{\n  NGLTEX_TGA,\n  NGLTF_32BIT = 0x1,\n  NGLTF_16BIT = 0x2,\n  NGLTF_TEMP = 0x1000,\n  NGLTF_RENDER_TARGET = 0x2000,\n  NGLTF_VRAM_ONLY = 0x8000,\n  SCE_GS_PSMCT32 = 0,\n  SCE_GS_PSMCT16 = 2\n};\n\nstruct nglTexture\n{\n  char _pad0[8];\n  u_short Width, Height;\n  u_int _padC;\n  u_char Type, TW, TH, _pad13;\n  struct\n  {\n    u_int LoadedInPlace : 1;\n    u_int Locked : 1;\n    u_int VRAMOnly : 1;\n    u_int System : 1;\n    u_int RenderTarget : 1;\n  } Flags;\n  u_int _ph;\n  u_int Format;\n  u_int* Data;\n  char _pad24[8];\n  u_int SrcDataSize;\n  char _pad30[52];\n  u_int GsSize;\n  char _pad68[200];\n};\n\nvoid* nglListAlloc( u_int Bytes, u_int Alignment = 4 );\n#define nglListNew( Type ) (Type*)nglListAlloc( sizeof(Type) )\nvoid* nglMemAlloc( u_int Size, u_int Align = 1 );\nvoid nglMemFree( void* Ptr );\nvoid nglWarning( const char* Format, ... );\nvoid nglCalcTextureGSRegs( nglTexture* Tex );\nextern \"C\" void* memset( void* Dest, int Value, u_int Size );\n#define NULL 0\n\nnglTexture* nglCreateTexture( u_int Format, u_int Width, u_int Height )\n{\n  nglTexture* Tex;\n  if ( Format & NGLTF_TEMP )\n    Tex = nglListNew( nglTexture );\n  else\n    Tex = (nglTexture*)nglMemAlloc( sizeof(nglTexture) );\n  if ( !Tex )\n    return NULL;\n\n  memset( Tex, 0, sizeof(nglTexture) );\n\n  Tex->Type = NGLTEX_TGA;\n\n  u_int PixelSize = 0;\n  if ( ( Format & 0xFF ) == NGLTF_32BIT )\n  {\n    Tex->Format = SCE_GS_PSMCT32;\n    PixelSize = 4;\n  }\n  else\n  if ( ( Format & 0xFF ) == NGLTF_16BIT )\n  {\n    Tex->Format = SCE_GS_PSMCT16;\n    PixelSize = 2;\n  }\n  else\n  {\n    nglWarning( \"NGL: Tried to create a texture without a valid format.\\n\" );\n    return NULL;\n  }\n\n  Tex->Width = Width;\n  Tex->Height = Height;\n\n  if ( Format & NGLTF_VRAM_ONLY )\n    Tex->Flags.VRAMOnly = 1;\n  else\n  if ( !( Format & NGLTF_TEMP ) )\n  {\n    Tex->Data = (u_int*)nglMemAlloc( Tex->Width * Tex->Height * PixelSize );\n    if ( !Tex->Data )\n    {\n      nglMemFree( Tex );\n      return NULL;\n    }\n  }\n\n  if ( Format & NGLTF_RENDER_TARGET )\n    Tex->Flags.RenderTarget = 1;\n\n  // Calculate GS storage requirement.\n  Tex->GsSize = ( ( Tex->Width * Tex->Height * PixelSize / 256 ) + 31 ) & ~31;\n  Tex->SrcDataSize = Tex->Width * Tex->Height * PixelSize;\n\n  nglCalcTextureGSRegs( Tex );\n\n  return Tex;\n}\n",
+      "status": "different",
+      "target_size": 408
+    }
+  ],
+  "raw_name": "nglCreateTexture__FUiUiUi"
+}
