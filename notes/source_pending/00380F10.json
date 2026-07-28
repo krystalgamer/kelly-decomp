@@ -1,0 +1,23 @@
+{
+  "address": "0x00380F10",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "26f61baff28d515597b5fe734c0af5824ee0c401",
+      "candidate_size": 336,
+      "compared_bytes": 340,
+      "compared_instructions": 85,
+      "emitted_name": "WAVETEX_InitWaveMesh__FUiiPFv_v",
+      "instruction_score": 40.0,
+      "matching_bytes": 179,
+      "matching_instructions": 34,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/wavetex.cpp:45-76,1694-1741; kelly-slaters-pro-surfer/KS/SRC/ks/ksngl.h:131; kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:642,789,808,815; tmp/functions/00380F10_WAVETEX_InitWaveMesh__FUiiPFv_v/attempt-1/result.json; tmp/source_first/00380F10/attempt-1.md. Result `different`, score 52.6471; no later attempt.",
+      "score": 52.6471,
+      "source": "typedef unsigned int u_int;\n\nstruct nglMesh;\nstruct nglMaterial\n{\n\tu_int Flags;\n\tchar padding[260];\n};\nstruct WaveMeshHandle\n{\n\tnglMesh *baseid[2];\n};\nstruct WavetexDebugStruct\n{\n\tchar padding0[60];\n\tint ScissorWaveMesh;\n\tchar padding1[36];\n\tint UseLights;\n};\n\nextern u_int numwavemeshes;\nextern WaveMeshHandle wavemeshes[6];\nextern nglMaterial WaveTexLMat[][5];\nextern int wavetex_currentmat;\nextern WavetexDebugStruct WavetexDebug;\nextern nglMesh *nglScratch;\n\nvoid WAVETEX_InitMaterial( nglMaterial &, int, int, int );\nvoid KSNGL_CreateScratchMesh( int, nglMaterial *, bool, bool = false );\nvoid nglSetMeshFlags( u_int );\n\nenum\n{\n\tWAVETEX_PASSFULL,\n\tWAVETEX_TEXLITE = 0,\n\tNGLMAT_LIGHT = 0x00100000,\n\tNGLMESH_PERFECT_TRICLIP = 0x00000001,\n\tNGLMESH_LIGHTCAT_1 = 0x01000000,\n\tNGLMESH_LIGHTCAT_8 = 0x80000000\n};\n\n#define assert(condition) ((void)0)\n#define WAVETEX_NUMBUFFER 2\n\nu_int WAVETEX_InitWaveMesh( u_int nvert, int mattype, void (*fillinfunc)(void) )\n{\n\tu_int rv=numwavemeshes++;\n\tassert(numwavemeshes<=6);\n\tWaveMeshHandle *wmh=&wavemeshes[rv];\n\t\tWAVETEX_InitMaterial( WaveTexLMat[wavetex_currentmat][mattype], WAVETEX_TEXLITE, WAVETEX_PASSFULL, mattype );\n\t\tWaveTexLMat[wavetex_currentmat][mattype].Flags |= NGLMAT_LIGHT;\n\tu_int MeshFlags = 0;\n\tMeshFlags |= NGLMESH_LIGHTCAT_8;\n\tif (WavetexDebug.UseLights)\n\t{\n\t\tMeshFlags |= NGLMESH_LIGHTCAT_1;\n\t}\n\tif (WavetexDebug.ScissorWaveMesh)\n\t{\n\t\tMeshFlags |= NGLMESH_PERFECT_TRICLIP;\n\t}\n\n\tfor (u_int i = 0; i < WAVETEX_NUMBUFFER; ++i)\n\t{\n  \t\tKSNGL_CreateScratchMesh( nvert, &WaveTexLMat[wavetex_currentmat][mattype], true );\n  \t\twmh->baseid[i] = nglScratch;\n\t\tnglSetMeshFlags( MeshFlags );\n\t}\n\n  return rv;\n}\n",
+      "status": "different",
+      "target_size": 340
+    }
+  ],
+  "raw_name": "WAVETEX_InitWaveMesh__FUiiPFv_v"
+}
