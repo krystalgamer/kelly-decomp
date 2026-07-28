@@ -1,0 +1,23 @@
+{
+  "address": "0x00373598",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b00959d4ed690b314407824802db3d2c7bc1b78d",
+      "candidate_size": 408,
+      "compared_bytes": 440,
+      "compared_instructions": 110,
+      "emitted_name": "WAVE_Init__Fv",
+      "instruction_score": 36.3636,
+      "matching_bytes": 173,
+      "matching_instructions": 40,
+      "notes": "# Attempt 1 \u2014 released-source first pass\n\n- Target: `0x00373598` `WAVE_Init__Fv`, object `game/files_wave`, expected size 440 (`0x1B8`). Metadata: `notes/function_queue.csv:6473` and `config/SLUS_203.34.symbol_addrs.txt:7308`.\n- Released body copied unchanged from `historicalsource/kelly-slaters-pro-surfer@7c3ade041cc03409a3114ce3ba4a70053c6e4e3b`, `KS/SRC/ks/wave.cpp:1240-1285`.\n- Faithful declarations derive from released `KS/SRC/ks/wavetex.h:29,56-65,88`, `KS/SRC/ks/beachdata.h:62-68`, and body/file globals in `KS/SRC/ks/wave.cpp:91-110,183-197` at the same commit.\n- Target metadata and assembly were inspected before testing at `tmp/functions/00373598_WAVE_Init__Fv/metadata.json` and `tmp/functions/00373598_WAVE_Init__Fv/target.s`.\n- Sole invocation: `python3 tools/function_test.py test 0x00373598 --candidate tmp/source-first-wave79/B2-00373598/candidate.cpp`.\n- Result: **different**; byte score **39.3182%** (173/440), instruction score **36.3636%** (40/110), target size **440**, candidate size **408**.\n- Candidate SHA-1: `b00959d4ed690b314407824802db3d2c7bc1b78d`; SHA-256: `74f949f4be4a84c7e1298c78d035a388550736a7646dad8e401068152cead9ce`.\n- UTC: start `2026-07-28T19:00:35Z`, end `2026-07-28T19:05:22Z`, elapsed 287s.\n- Exactly one isolated released-body candidate and one harness invocation. No alternate implementation, retry, variant, post-test diff chase, asm/matching annotation, finalize, integrate, manifest mutation, configure, build, ninja, git mutation, or tracked-file edit.",
+      "score": 39.3182,
+      "source": "typedef unsigned int u_int;\n\nclass game\n{\n  char data[552];\n  int beach_id;\npublic:\n  int get_beach_id() const { return beach_id; }\n};\n\nstruct BeachData\n{\n  char data[208];\n  int bdir;\n  char tail[320];\n};\n\nextern game* g_game_ptr;\nextern BeachData BeachDataArray[];\nextern bool WAVE_LeftBreaker;\nextern u_int WAVE_MeshNumVert;\nextern u_int WaveMeshID;\nextern float WAVE_TexMinU;\nextern float WAVE_TexMaxU;\nextern float WAVE_TexMinV;\nextern float WAVE_TexMaxV;\n\nenum { WAVETEX_MATWAVE = 0 };\n#define WAVE_TILELIMIT 2048\n\nbool WAVETEX_LoadTextureAnims(bool resetparms=true);\nvoid WAVETEX_Init(void);\nu_int WAVETEX_InitWaveMesh(u_int nvert, int mattype, void (*fillinfunc)(void) = 0);\nu_int WAVETEX_Width(int textype=0, int frame=-1);\nu_int WAVETEX_Height(int textype=0, int frame=-1);\nvoid WAVE_FillInMesh(void);\nvoid WAVE_LoadAll(void);\nvoid WAVE_Reset(void);\n\nvoid WAVE_Init(void)\n{\n\t#ifdef TARGET_GC\n\t\tint index=0;\n\t\t#undef USEINFO\n\t\t#ifdef DEBUG\n\t\t\t#define USEINFO(xx, zz, nn, cc) WAVE_Marker[index].x=xx;    \\\n\t\t\t                                   WAVE_Marker[index].z=zz;    \\\n\t\t\t                                   strcpy(WAVE_Marker[index].name, #nn ); \\\n\t\t\t                                   WAVE_Marker[index].color=COLOR_##cc;    \\\n\t\t\t                                   index++;\n\t\t#else\n\t\t\t#define USEINFO(xx, zz, nn, cc) WAVE_Marker[index].x=xx;    \\\n\t\t\t                                   WAVE_Marker[index].z=zz;    \\\n\t\t\t                                   index++;\n\t\t#endif\n\t\t#include \"wavemarker.txt\"\n\n\t#endif\n\n\n\n#if defined(TARGET_PS2)\n\tassert(!( ((u_int) (WAVE_ControlPoints)) & (16 - 1) ));\t// verify alignment\n#endif\n\n\tint curbeach=g_game_ptr->get_beach_id();\n\n\tWAVE_LeftBreaker = BeachDataArray[curbeach].bdir;\n\n\tWAVETEX_LoadTextureAnims();\n\tWAVETEX_Init();\n#ifdef TARGET_XBOX\n\tWAVERENDER_Init();\n#endif\n\tWaveMeshID = WAVETEX_InitWaveMesh(WAVE_MeshNumVert, WAVETEX_MATWAVE, WAVE_FillInMesh);\n\n\tWAVE_TexMinU = - WAVE_TILELIMIT / (int) WAVETEX_Width();\t// signed type\n\tWAVE_TexMaxU = WAVE_TILELIMIT / WAVETEX_Width();\n\n\tWAVE_TexMinV = - WAVE_TILELIMIT / (int) WAVETEX_Height();\n\tWAVE_TexMaxV = WAVE_TILELIMIT / WAVETEX_Height();\n\n\tWAVE_LoadAll();\n\tWAVE_Reset();\n}\n",
+      "status": "different",
+      "target_size": 440
+    }
+  ],
+  "raw_name": "WAVE_Init__Fv"
+}
