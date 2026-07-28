@@ -1,0 +1,16 @@
+{
+  "address": "0x00354268",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "46427f4a96f3f8385ae62b047b84e0c06e061c9d",
+      "error": "Candidate did not emit __9vm_threadPQ213script_object8instancePC13vm_executablei; emitted functions: []",
+      "notes": "# FIRST PASS wave70 A1\n\nTarget: `0x00354268 __9vm_threadPQ213script_object8instancePC13vm_executablei`\n\nThe exact released constructor body was tested once with minimal faithful declarations. Result: **symbol_missing**, score **0.0%**; no externally visible function was emitted.\n\nExactly one candidate was tested. No retry, variants, diff chasing, build, finalize, integration, tracked-file changes, commit, or push.\n\nSee `attempt-1.md` and `packet.json`.",
+      "score": 0.0,
+      "source": "// Target: 0x00354268 __9vm_threadPQ213script_object8instancePC13vm_executablei\n// Reference: KS/SRC/vm_thread.cpp\n// Replace this file with one self-contained candidate function.\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__9vm_threadPQ213script_object8instancePC13vm_executablei"
+}
