@@ -1,0 +1,23 @@
+{
+  "address": "0x001B7288",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b6661086e5fd60f1cdfef31f45c46465b71395a1",
+      "candidate_size": 396,
+      "compared_bytes": 396,
+      "compared_instructions": 99,
+      "emitted_name": "OnRight__13BoardFrontEndi",
+      "instruction_score": 43.4343,
+      "matching_bytes": 195,
+      "matching_instructions": 43,
+      "notes": "Attempt 1 used the exact released source body and minimal declarations for `OnRight__13BoardFrontEndi`. Result `different`, score 49.2424; no retry or variant was made. Citations: kelly-slaters-pro-surfer/KS/SRC/ks/BoardFrontEnd.cpp:467-519, kelly-slaters-pro-surfer/KS/SRC/ks/BoardFrontEnd.h:16-85, kelly-slaters-pro-surfer/KS/SRC/ks/GraphicalMenuSystem.h:184-218, kelly-slaters-pro-surfer/KS/SRC/game.h:573-574, kelly-slaters-pro-surfer/KS/SRC/ks/boarddata.h:24-27, config/SLUS_203.34.symbol_addrs.txt: OnRight__13BoardFrontEndi, notes/function_queue.csv: 0x001B7288, tmp/functions/001B7288_OnRight__13BoardFrontEndi/attempt-1/result.json.",
+      "score": 49.2424,
+      "source": "class entity;\n\nclass SoundScriptManager\n{\npublic:\n  static SoundScriptManager* instance;\n  static inline SoundScriptManager* inst() { return instance; }\n  void playEvent(int event, entity* ent = 0, float fade = 0.0f);\n};\n\nclass GraphicalMenuSystem\n{\n  char pad[212];\n\npublic:\n  bool multiplayer;\n  char pad2[3];\n  bool multi_1;\n};\n\nclass game\n{\n  char pad[600];\n  int surferIdx[2];\n  bool personality[2];\n\npublic:\n  int GetSurferIdx(int hero_num) const { return surferIdx[hero_num]; }\n  bool GetUsingPersonalitySuit(int hero_num) const { return personality[hero_num]; }\n};\n\nclass PanelQuad\n{\npublic:\n  virtual void TurnOn(bool on);\n};\n\nextern game* g_game_ptr;\nextern int NumBoards[];\n\nclass BoardFrontEnd\n{\n  char pad[356];\n  GraphicalMenuSystem* sys;\n  int current_board_index;\n  char pad2[92];\n  PanelQuad* arrows[2][2];\n  char pad3[140];\n  int arrow_counter;\n  int arrow_num;\n\n  static const int arrow_timer = 3;\n\npublic:\n  bool IsLevelBoardUnlocked(int location);\n  void OnHighlightBoard();\n  void OnRight(int c);\n};\n\n#define MAX_BOARDS 9\n#define MAP_LOC_LAST 17\n#define PERSONALITY_BOARD 0\n#define SS_FE_LEFTRIGHT 26\n\nvoid BoardFrontEnd::OnRight(int c)\n{\n\tint maxBoards = MAX_BOARDS + MAP_LOC_LAST;\n\n\tSoundScriptManager::inst()->playEvent(SS_FE_LEFTRIGHT);\t\t\n\tbool oneBoard = false;\n\tif (sys->multiplayer)\n\t{\n\t\tif ((sys->multi_1) && (g_game_ptr->GetUsingPersonalitySuit(0) || (NumBoards[g_game_ptr->GetSurferIdx(0)] == 1)))\n\t\t\toneBoard = true;\t\n\t\telse if ((!sys->multi_1) && (g_game_ptr->GetUsingPersonalitySuit(1) || (NumBoards[g_game_ptr->GetSurferIdx(1)] == 1)))\n\t\t\toneBoard = true;\n\t}\n\telse\n\t\toneBoard = g_game_ptr->GetUsingPersonalitySuit(0) || (NumBoards[g_game_ptr->GetSurferIdx(0)] == 1);\n\n\n\t\n\tif (oneBoard)\n\t{\n\t\tif (current_board_index == PERSONALITY_BOARD)\n\t\t\tcurrent_board_index = MAX_BOARDS;\n\t\telse \n\t\t\tcurrent_board_index++;\n\t}\n\telse\n\t\tcurrent_board_index++;\n\n\tif (current_board_index >= maxBoards)\n\t\tcurrent_board_index = 0;\n\n\tif (current_board_index >= MAX_BOARDS)\n\t{\n\t\twhile (!IsLevelBoardUnlocked( current_board_index - MAX_BOARDS ) && \n\t\t       current_board_index < (MAX_BOARDS + MAP_LOC_LAST) && \n\t\t\t\t\t current_board_index >= MAX_BOARDS)\n\t\t{\n\t\t\tcurrent_board_index++;\n\t\t\tif (current_board_index == MAX_BOARDS + MAP_LOC_LAST)\n\t\t\t{\n\t\t\t\tcurrent_board_index = 0;\n\t\t\t}\n\t\t\t\n\t\t}\n\t}\n\n\tarrow_counter = arrow_timer;\n\tarrows[1][1]->TurnOn(true);\n\tarrows[1][0]->TurnOn(false);\n\tarrow_num = 1;\n\n\tOnHighlightBoard();\n}\n",
+      "status": "different",
+      "target_size": 384
+    }
+  ],
+  "raw_name": "OnRight__13BoardFrontEndi"
+}
