@@ -1,0 +1,15 @@
+{
+  "address": "0x0034C0F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2d2afeadefc91155319dfdf63ca2432bbb91bf59",
+      "notes": "One source-faithful candidate submitted. The released body is `signal.cpp:117-125`; minimal class/list declarations follow `signals.h:76-109,126-127`. The sole attempt failed because isolated compiler include paths do not provide `<algorithm>` or `<list>`; no further candidate was attempted per lane rules.",
+      "score": 0.0,
+      "source": "#include <algorithm>\n#include <list>\n\nvoid* operator new(unsigned int, unsigned int, const char*, int);\n#define NEW new(0,__PRETTY_FUNCTION__,0)\n\nclass signal\n{\npublic:\n  typedef list<signal*> signal_list;\n\nprotected:\n  int flavor;\n\nprivate:\n  unsigned int flags;\n  const char* name;\n  signal_list* outputs;\n  list<void*> callbacks;\n\npublic:\n  void link( signal* s );\n};\n\nvoid signal::link( signal* s )\n{\n  if ( outputs == NULL )\n    outputs = NEW signal_list;\n  signal_list::const_iterator i = find( outputs->begin(), outputs->end(), s );\n  if ( i == outputs->end() )\n    outputs->push_front( s );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "link__6signalP6signal"
+}
