@@ -1,0 +1,23 @@
+{
+  "address": "0x00181D58",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "237946acb511629b3efb5439f16796bbe8ff8542",
+      "candidate_size": 320,
+      "compared_bytes": 416,
+      "compared_instructions": 104,
+      "emitted_name": "_$_11OptionsMenu",
+      "instruction_score": 7.6923,
+      "matching_bytes": 76,
+      "matching_instructions": 8,
+      "notes": "# 0x00181D58 _$_11OptionsMenu\n\nThe exact released `OptionsMenu::~OptionsMenu()` body was tested once with minimal standalone declarations. It compiled but differed from the target. No source variant or follow-up attempt was made.",
+      "score": 18.2692,
+      "source": "class TextString\n{\npublic:\n    virtual ~TextString();\n};\n\nclass FEGraphicalMenu\n{\n    char state[0x16c];\n\npublic:\n    virtual ~FEGraphicalMenu();\n};\n\nclass OptionsMenu : public FEGraphicalMenu\n{\n    enum\n    {\n        OpStereoEntry = 5,\n        OpEnd = 11,\n        MAX_VOLUME = 10,\n        NUM_VOLUME = 5,\n        num_switches = OpStereoEntry\n    };\n\n    void *levels[NUM_VOLUME][MAX_VOLUME];\n    void *lights[OpEnd];\n    void *back;\n    float rumbleTimer[4];\n    int stereo_op;\n    TextString *stereo_text[3];\n    TextString *switch_text[num_switches][2];\n    TextString *options_text;\n    TextString *slevels_text;\n\npublic:\n    virtual ~OptionsMenu();\n};\n\n__asm__(\".equ _$_15FEGraphicalMenu, 0x001DAF70\");\n\nOptionsMenu::~OptionsMenu()\n{\n\tfor(int i=0; i<num_switches; i++)\n\t{\n\t\tif(i < 3) delete stereo_text[i];\n\t\tdelete switch_text[i][0];\n\t\tdelete switch_text[i][1];\n\t}\n\tdelete options_text;\n\tdelete slevels_text;\n}\n",
+      "status": "different",
+      "target_size": 416
+    }
+  ],
+  "raw_name": "_$_11OptionsMenu"
+}
