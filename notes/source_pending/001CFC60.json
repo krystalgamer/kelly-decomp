@@ -1,0 +1,23 @@
+{
+  "address": "0x001CFC60",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8998cad880bf7fa08deed08a5437589b69898af0",
+      "candidate_size": 424,
+      "compared_bytes": 424,
+      "compared_instructions": 102,
+      "emitted_name": "OnActivate__13PhotoSaveMenu",
+      "instruction_score": 1.9608,
+      "matching_bytes": 74,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 68 A2 \u2014 0x001CFC60\n\n- Confirmed there were no prior attempts.\n- Used the exact released `PhotoSaveMenu::OnActivate` body and minimal declarations required to compile it.\n- Ran `function_test` exactly once. Result: `different`, byte score 17.4528%, instruction score 1.9608%.\n- Preserved the attempt. No variants, retries, diff chasing, build, finalization, integration, commit, push, tool edits, subagents, lean work, or tracked-file edits were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/PhotoFrontEnd.cpp:592-627`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/PhotoFrontEnd.h:80-105`\n- `tmp/functions/001CFC60_OnActivate__13PhotoSaveMenu/attempt-1/result.json`",
+      "score": 17.4528,
+      "source": "struct nglTexture;\n\nstruct FEMenuEntry {\n    FEMenuEntry *next;\n};\n\nclass FEGraphicalMenu {\n    char layout[0x150];\npublic:\n    FEMenuEntry *entries;\n};\n\nclass FEMultiMenu : public FEGraphicalMenu {\n    FEMenuEntry *first;\n    FEMenuEntry *last;\n    FEMenuEntry *secondary_cursor;\npublic:\n    virtual void OnActivate();\n    virtual void setHigh(FEMenuEntry *menu, bool anim = true);\n};\n\nclass PhotoWidget {\n    char layout[0x10c];\npublic:\n    void Show(nglTexture *texture, char *score, int photoIdx, float fade);\n};\n\nclass PhotoChallenge {\npublic:\n    int GetNumTaken() const;\n    nglTexture *GetPhotoTexture(const int photoIdx);\n};\n\nstruct Challenges {\n    PhotoChallenge *photo;\n};\n\nclass beach {\npublic:\n    Challenges *get_challenges();\n};\n\nclass CompressedPhoto {\npublic:\n    void CopyToTexture(nglTexture *texture) const;\n};\n\nclass Career {\npublic:\n    bool PhotoExistsForLevel(int level);\n    CompressedPhoto *GetPhotoForLevel(int index);\n};\n\nclass game {\npublic:\n    int get_level_id();\n};\n\nclass PanelQuad;\nclass BoxText;\n\nclass PhotoSaveMenu : public FEMultiMenu {\n    PanelQuad *arrowPQs[2][2];\n    PanelQuad *highlightPQs[2];\n    PhotoWidget photoWidgets[2];\n    BoxText *title;\n    int leftArrowIdx;\n    int rightArrowIdx;\n    float arrowHiTimer;\n    int *prevMenuPhotoIdx;\npublic:\n    virtual void OnActivate();\n};\n\nextern beach *g_beach_ptr;\nextern Career *g_career;\nextern game *g_game_ptr;\n\nvoid PhotoSaveMenu::OnActivate(void)\n{\n    PhotoChallenge *photoChallenge = g_beach_ptr->get_challenges()->photo;\n    float fade;\n    int otherIdx = 0;\n    bool loaded = false;\n\n    FEMultiMenu::OnActivate();\n\n    if (photoChallenge->GetNumTaken() > *prevMenuPhotoIdx) fade = 0.0f;\n    else fade = 1.0f;\n    photoWidgets[0].Show(photoChallenge->GetPhotoTexture(*prevMenuPhotoIdx), 0, *prevMenuPhotoIdx, fade);\n\n    while (otherIdx == *prevMenuPhotoIdx) otherIdx++;\n\n    if (g_career->PhotoExistsForLevel(g_game_ptr->get_level_id()))\n    {\n        CompressedPhoto *photo = g_career->GetPhotoForLevel(g_game_ptr->get_level_id());\n        photo->CopyToTexture(photoChallenge->GetPhotoTexture(otherIdx));\n        loaded = true;\n    }\n\n    if (loaded) fade = 0.0f;\n    else fade = 1.0f;\n    photoWidgets[1].Show(photoChallenge->GetPhotoTexture(otherIdx), 0, otherIdx, fade);\n\n    setHigh(entries->next);\n}\n",
+      "status": "different",
+      "target_size": 400
+    }
+  ],
+  "raw_name": "OnActivate__13PhotoSaveMenu"
+}
