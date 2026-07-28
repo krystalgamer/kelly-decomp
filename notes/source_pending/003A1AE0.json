@@ -1,0 +1,23 @@
+{
+  "address": "0x003A1AE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d610a9a6b161c5441db8025997636e0319d955ca",
+      "candidate_size": 416,
+      "compared_bytes": 456,
+      "compared_instructions": 108,
+      "emitted_name": "nglReleaseAllMeshFiles__Fv",
+      "instruction_score": 0.0,
+      "matching_bytes": 74,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 used the exact released ngl_ps2.cpp body with minimal faithful self-contained NGL declarations and no unavailable headers. Result `different`, score 16.2281; no retry, alternative, variant, assembly, annotation, integration, finalization, build, or tracked-file write was performed.",
+      "score": 16.2281,
+      "source": "extern \"C\" char* strncpy(char*, const char*, unsigned int);\nextern \"C\" char* strlwr(char*);\n\ntypedef unsigned long u_long;\n\nclass nglFixedString\n{\npublic:\n  typedef u_long fint;\n  enum { STR_SIZE = 32, NUM_FINTS = 4 };\n\n  fint* value() { return reinterpret_cast<fint*>(str); }\n  const fint* value() const { return reinterpret_cast<const fint*>(str); }\n\n  nglFixedString(const char* s)\n  {\n    for (int i = 0; i < NUM_FINTS; ++i)\n      value()[i] = 0;\n\n    strncpy(str, s, STR_SIZE - 1);\n    strlwr(str);\n  }\n\n  bool operator==(const nglFixedString& rhs) const\n  {\n    for (int i = 0; i < NUM_FINTS; ++i)\n      if (!(value()[i] == rhs.value()[i]))\n        return false;\n    return true;\n  }\n\nprivate:\n  char str[STR_SIZE];\n};\n\nclass nglInstanceBank\n{\npublic:\n  struct Instance\n  {\n    nglFixedString Key;\n    void* Value;\n    int RefCount;\n    Instance* Forward[1];\n  };\n\n  Instance* NIL;\n  Instance* Head;\n};\n\nstruct nglMeshFile\n{\n  nglFixedString FileName;\n};\n\nextern nglInstanceBank nglMeshFileBank;\nvoid nglReleaseMeshFile(const nglFixedString& FileName);\n\nvoid nglReleaseAllMeshFiles()\n{\n  nglInstanceBank::Instance* Inst = nglMeshFileBank.Head->Forward[0];\n  while ( Inst != nglMeshFileBank.NIL )\n  {\n    if ( ( (nglMeshFile*)Inst->Value )->FileName == nglFixedString( \"nglsphere\" ) || ( (nglMeshFile*)Inst->Value )->FileName == nglFixedString( \"nglradius\" ) )\n      Inst = Inst->Forward[0];\n    else\n    {\n      Inst->RefCount = 1;\n      nglReleaseMeshFile( ( (nglMeshFile*)Inst->Value )->FileName );\n      Inst = nglMeshFileBank.Head->Forward[0];\n    }\n  }\n}\n",
+      "status": "different",
+      "target_size": 456
+    }
+  ],
+  "raw_name": "nglReleaseAllMeshFiles__Fv"
+}
