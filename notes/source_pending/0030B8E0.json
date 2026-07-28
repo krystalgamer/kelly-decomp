@@ -1,0 +1,15 @@
+{
+  "address": "0x0030B8E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "75d56b80332c0013b3db53ac8f7df632704a3541",
+      "notes": "# First-pass result\n\n- Confirmed the target was not prepared and had zero prior attempts.\n- Prepared and tested exactly one LF-only candidate containing the released function body with minimal declarations.\n- Result: `compile_failed` (attempt 1, score 0.0).\n- Per first-pass constraints, no alternate, assembly, annotation, variant, retry, or post-test investigation was performed.\n- No tracked/reference files were changed; nothing was finalized or integrated.",
+      "score": 0.0,
+      "source": "#include <map>\n#include <stddef.h>\n\nclass stringx\n{\npublic:\n  stringx( const char*, int = -1 );\n  stringx( const stringx& );\n  ~stringx();\n  bool operator<( const stringx& b ) const;\n\n  char* data;\n  int capacity;\n  int length;\n};\n\ninline bool stringx::operator<( const stringx& b ) const\n{\n  int n = length < b.length ? length : b.length;\n  for ( int i = 0; i < n; ++i )\n  {\n    if ( data[i] < b.data[i] )\n      return true;\n    if ( b.data[i] < data[i] )\n      return false;\n  }\n  return length < b.length;\n}\n\nclass entity {};\n\nclass entity_id\n{\npublic:\n  static const entity_id& make_unique_id();\n};\n\nclass entity_pool\n{\npublic:\n  entity_pool();\n  void add( entity* );\n  entity* acquire( unsigned int );\n};\n\nclass world_dynamics_system\n{\npublic:\n  entity* add_beam( const entity_id&, unsigned int );\n};\n\nextern world_dynamics_system* g_world_ptr;\nvoid* operator new( size_t, unsigned int, const char*, int );\n\n#define NEW new( 0, __FILE__, __LINE__ )\n\nclass entity_pool_set\n{\npublic:\n  typedef std::map<stringx, entity_pool*> set_t;\n  set_t entity_pools;\n  entity* acquire_beam( unsigned int flags );\n};\n\nentity* entity_pool_set::acquire_beam( unsigned int flags )\n{\n  // find an entry corresponding to the given name\n  typedef entity_pool* ep_ptr_t;\n  ep_ptr_t& epool = entity_pools[\"_BEAM\"];\n  if ( epool == NULL )\n  {\n    // need to construct the base entity\n    entity* base = g_world_ptr->add_beam( entity_id::make_unique_id(), flags );\n    epool = NEW entity_pool();\n    epool->add( base );\n    return base;\n  }\n  else\n  {\n    // acquire an entity from the given pool\n    return epool->acquire( flags );\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "acquire_beam__15entity_pool_setUi"
+}
