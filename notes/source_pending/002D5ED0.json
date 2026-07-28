@@ -1,0 +1,23 @@
+{
+  "address": "0x002D5ED0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5f1e618057f7d3439810160448267c64ea054f1c",
+      "candidate_size": 328,
+      "compared_bytes": 364,
+      "compared_instructions": 91,
+      "emitted_name": "_construct__8vr_pmeshRC7stringxUi",
+      "instruction_score": 8.7912,
+      "matching_bytes": 86,
+      "matching_instructions": 8,
+      "notes": "Attempt 1 used the exact released source for _construct__8vr_pmeshRC7stringxUi. Result `different`, score 23.6264; no retry or variant was made.",
+      "score": 23.6264,
+      "source": "typedef unsigned int size_t;\n#define NULL 0\n\nclass stringx {\npublic:\n  typedef unsigned int size_type;\n  static const size_type npos = (size_type)-1;\n  stringx();\n  stringx(const stringx&);\n  ~stringx();\n  stringx& operator=(const stringx&);\n  size_type find(size_type, char) const;\n  stringx substr(size_type, size_type) const;\n  stringx& operator+=(const char*);\n};\n\nclass vector3d {\npublic:\n  float x, y, z;\n  vector3d& operator=(const vector3d&);\n};\nextern const vector3d ZEROVEC;\n\nclass chunk_file {\npublic:\n  chunk_file();\n  ~chunk_file();\n  void open(const stringx&);\n};\n\ntemplate<class T> class vector {\n  T* start;\n  T* finish;\n  T* end_of_storage;\n};\ntemplate<class K, class V> class map { char data[24]; };\n\nclass visual_rep { char data[20]; };\nclass vert;\nclass hw_rasta_vert;\nclass wedge;\nclass face;\nclass reduced_face;\nclass material;\nclass bone;\ntypedef unsigned short vert_ref;\ntypedef unsigned short wedge_ref;\ntypedef unsigned short face_ref;\n\nclass vr_pmesh : public visual_rep {\npublic:\n  enum { LIT_LAST_FRAME = 4 };\nprivate:\n  vector<vert>* verts;\n  hw_rasta_vert* xverts;\n  wedge* wedges;\n  int min_faces;\n  int* xverts_for_lod;\n  int num_wedges;\n  face* faces;\n  reduced_face* reduced_faces;\n  int num_faces;\n  vector<material*> materials;\n  vert_ref* vert_refs_for_wedge_ref;\n  wedge_ref* wedge_index_list;\n  short* wedge_lod_starts;\n  face_ref* original_face_for_face_slot;\n  map<short, unsigned short> material_changes;\n  vector<bone> bones;\n  bool has_translucent_verts;\n  bool progressive;\n  short alignment;\n  int uvanim_update_frame;\n  vector3d center;\n  float radius;\n  vector3d pivot;\n  int pivot_valid;\n  stringx filename;\n  unsigned mesh_flags;\npublic:\n  int max_detail;\n  int min_detail;\n  void internal_serial_in(chunk_file&);\n  void _construct(const stringx&, unsigned);\n};\n\nvoid vr_pmesh::_construct(const stringx& pmesh_filename, unsigned _mesh_flags )\n{\n  has_translucent_verts = false;\n  mesh_flags = _mesh_flags | LIT_LAST_FRAME;\n\n  // <<<< most of the asserts in this file should give warnings about\n  //      where file is corrupt to user, that is if this remains a text file\n  //      that people touch\n  verts = NULL;\n  xverts = NULL;\n  uvanim_update_frame = 0;\n  wedges = NULL;\n  vert_refs_for_wedge_ref = NULL;\n  wedge_lod_starts = NULL;\n  original_face_for_face_slot = NULL;\n  faces = NULL;\n  wedge_index_list = NULL;\n  reduced_faces = NULL;\n  pivot = ZEROVEC;\n  pivot_valid = false;\n  xverts_for_lod = NULL;\n\n  chunk_file fs;\n\n  // use \".txtmesh\" extension no matter what\n  stringx adjusted_pmesh_filename;\n  stringx::size_type dot_pos = pmesh_filename.find( 0, '.' );\n  if( dot_pos != stringx::npos )\n    adjusted_pmesh_filename = pmesh_filename.substr( 0, dot_pos );\n  else\n    adjusted_pmesh_filename = pmesh_filename;\n  adjusted_pmesh_filename += \".txtmesh\";\n\n  fs.open(adjusted_pmesh_filename);\n  internal_serial_in( fs );\n  filename = pmesh_filename;\n}\n",
+      "status": "different",
+      "target_size": 364
+    }
+  ],
+  "raw_name": "_construct__8vr_pmeshRC7stringxUi"
+}
