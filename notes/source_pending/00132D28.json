@@ -1,0 +1,23 @@
+{
+  "address": "0x00132D28",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b82cff5b914d8747158769d0cb0ad10217bffc5b",
+      "candidate_size": 360,
+      "compared_bytes": 384,
+      "compared_instructions": 96,
+      "emitted_name": "record_motion__6entity",
+      "instruction_score": 6.25,
+      "matching_bytes": 90,
+      "matching_instructions": 6,
+      "notes": "Attempt 1 used the exact released source body and minimal declarations for `record_motion__6entity`. Result `different`, score 23.4375; no retry or variant was made. Citations: kelly-slaters-pro-surfer/KS/SRC/entity.cpp:3362-3394, kelly-slaters-pro-surfer/KS/SRC/mbi.h:10-38, kelly-slaters-pro-surfer/KS/SRC/entity.h:1308-1313, tmp/functions/00132D28_record_motion__6entity/attempt-1/result.json, tmp/source_first/00132D28/notes.md.",
+      "score": 23.4375,
+      "source": "typedef float rational_t;\n\nclass matrix4x4 { float m[16]; };\nclass vector3d { float x, y, z; };\nclass quaternion {\npublic:\n  quaternion();\n  quaternion(const matrix4x4&);\n  quaternion& operator=(const quaternion&);\n  void to_matrix(matrix4x4*) const;\n};\nstruct qt { quaternion q; vector3d t; };\nclass po {\npublic:\n  const matrix4x4& get_matrix() const;\n  const vector3d& get_position() const;\n};\nclass motion_blur_info {\npublic:\n  int motion_trail_start;\n  int motion_trail_end;\n  int motion_trail_count;\n  int motion_trail_length;\n  int buffer_size;\n  qt* motion_trail_buffer;\n  vector3d motion_trail_head;\n  vector3d motion_trail_tail;\n  unsigned trail_color;\n  int trail_min_alpha;\n  int trail_max_alpha;\n  int num_blur_images;\n  rational_t blur_spread;\n  rational_t last_motion_recording;\n};\nclass entity {\n  char padding0[332];\n  motion_blur_info* mbi;\npublic:\n  bool is_motion_blurred() const;\n  bool is_motion_trailed() const;\n  const po& get_abs_po() const;\n  virtual void record_motion();\n};\nextern rational_t g_level_time;\n\nvoid entity::record_motion()\n{\n  if(is_motion_blurred() || is_motion_trailed())\n  {\n    if( mbi->last_motion_recording != g_level_time )\n    {\n      mbi->motion_trail_buffer[mbi->motion_trail_end].q = quaternion(get_abs_po().get_matrix());\n      matrix4x4 n;\n      mbi->motion_trail_buffer[mbi->motion_trail_end].q.to_matrix( &n );\n      mbi->motion_trail_buffer[mbi->motion_trail_end].t = get_abs_po().get_position();\n      mbi->motion_trail_end++;\n      if(mbi->motion_trail_end >= mbi->motion_trail_length)\n        mbi->motion_trail_end = 0;\n      if(mbi->motion_trail_count < mbi->motion_trail_length)\n      {\n        ++mbi->motion_trail_count;\n      }\n      else\n      {\n        mbi->motion_trail_start = mbi->motion_trail_end;\n      }\n      mbi->last_motion_recording = g_level_time;\n    }\n  }\n}\n",
+      "status": "different",
+      "target_size": 384
+    }
+  ],
+  "raw_name": "record_motion__6entity"
+}
