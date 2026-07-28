@@ -1,0 +1,23 @@
+{
+  "address": "0x002D7748",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ac28610e552982696473205ba927e38327eb0831",
+      "candidate_size": 752,
+      "compared_bytes": 752,
+      "compared_instructions": 188,
+      "emitted_name": "compute_dimensions__17collision_capsule",
+      "instruction_score": 1.0638,
+      "matching_bytes": 108,
+      "matching_instructions": 2,
+      "notes": "FIRST PASS wave83 A1\nTarget: 0x002D7748 compute_dimensions__17collision_capsule (456 bytes / 0x1C8, game/files_misc2)\nReference: historicalsource/kelly-slaters-pro-surfer/KS/SRC/capsule.cpp\nConfirmed attempts=0 before testing. Exactly one nonempty LF self-contained candidate was tested. It preserves the exact released compute_dimensions body and supplies minimal local declarations only, with no unavailable headers.\nResult: different, score 14.3617% (108/752 compared matching bytes; 2/188 matching instructions); candidate size 752 bytes versus target size 456 bytes.\nNo alternatives, assembly candidate, annotations, variants, retry, attempts 2-5, diff chasing, tracked edits, finalize, integrate, build, commit, or push. The low match reflects declaration/layout and code-generation mismatch around entity virtual dispatch and vector operations; this first-pass lane intentionally stopped after the single honest test.",
+      "score": 14.3617,
+      "source": "struct vector3d {\n    float x, y, z;\n};\n\ninline vector3d operator+(const vector3d& a, const vector3d& b)\n{\n    vector3d result = {a.x + b.x, a.y + b.y, a.z + b.z};\n    return result;\n}\n\ninline vector3d operator*(float scale, const vector3d& value)\n{\n    vector3d result = {scale * value.x, scale * value.y, scale * value.z};\n    return result;\n}\n\nextern const vector3d YVEC;\n\nclass entity_primary {\npublic:\n    virtual void unused_primary();\n    int padding;\n};\n\nclass entity_radius {\npublic:\n    virtual void unused0();\n    virtual void unused1();\n    virtual void unused2();\n    virtual void unused3();\n    virtual void unused4();\n    virtual void unused5();\n    virtual void unused6();\n    virtual void unused7();\n    virtual void unused8();\n    virtual void unused9();\n    virtual void unused10();\n    virtual void unused11();\n    virtual void unused12();\n    virtual void unused13();\n    virtual void unused14();\n    virtual void unused15();\n    virtual void unused16();\n    virtual void unused17();\n    virtual void unused18();\n    virtual void unused19();\n    virtual void unused20();\n    virtual void unused21();\n    virtual void unused22();\n    virtual void unused23();\n    virtual void unused24();\n    virtual void unused25();\n    virtual void unused26();\n    virtual void unused27();\n    virtual void unused28();\n    virtual void unused29();\n    virtual void unused30();\n    virtual void unused31();\n    virtual void unused32();\n    virtual void unused33();\n    virtual void unused34();\n    virtual void unused35();\n    virtual void unused36();\n    virtual void unused37();\n    virtual void unused38();\n    virtual void unused39();\n    virtual void unused40();\n    virtual void unused41();\n    virtual void unused42();\n    virtual void unused43();\n    virtual void unused44();\n    virtual void unused45();\n    virtual void unused46();\n    virtual void unused47();\n    virtual void unused48();\n    virtual void unused49();\n    virtual void unused50();\n    virtual void unused51();\n    virtual void unused52();\n    virtual void unused53();\n    virtual float get_radius() const;\n};\n\nstruct po_layout {\n    char padding[0x30];\n    vector3d position;\n};\n\nclass entity : public entity_primary, public entity_radius {\n    char padding_to_po[0x44];\n    po_layout* absolute_po;\npublic:\n    const vector3d& get_abs_position() const { return absolute_po->position; }\n};\n\nstruct capsule {\n    vector3d base;\n    vector3d end;\n    float radius;\n};\n\nclass collision_capsule {\n    entity* owner;\n    char padding[8];\n    capsule rel_cap;\n    capsule abs_cap;\npublic:\n    void compute_dimensions();\n};\n\nvoid collision_capsule::compute_dimensions()\n{\n  rel_cap.base = owner->get_abs_position()+(owner->get_radius()*0.125F)*YVEC;\n  rel_cap.end = (owner->get_radius()*0.5F)*YVEC+rel_cap.base;\n  rel_cap.radius = owner->get_radius()*0.25F;\n  abs_cap = rel_cap;\n}\n",
+      "status": "different",
+      "target_size": 456
+    }
+  ],
+  "raw_name": "compute_dimensions__17collision_capsule"
+}
