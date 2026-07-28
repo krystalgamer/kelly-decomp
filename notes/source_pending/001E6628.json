@@ -1,0 +1,23 @@
+{
+  "address": "0x001E6628",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c9193908d256b72e6ab64efc06e4c17a37871101",
+      "candidate_size": 168,
+      "compared_bytes": 336,
+      "compared_instructions": 84,
+      "emitted_name": "getInsertCardString__16GenericGameSaverii",
+      "instruction_score": 1.1905,
+      "matching_bytes": 31,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_gamesaver.cpp:1836-1839; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_gamesaver.h:72-104; tmp/functions/001E6628_getInsertCardString__16GenericGameSaverii/attempt-1/candidate.cpp; tmp/functions/001E6628_getInsertCardString__16GenericGameSaverii/attempt-1/result.json; tmp/source_first/001E6628/attempt-1.md. Result `different`, score 9.2262; no later attempt.",
+      "score": 9.2262,
+      "source": "class stringx\n{\npublic:\n    stringx();\n    stringx(const stringx &);\n    ~stringx();\n    stringx &operator+=(const stringx &);\n    stringx &operator+=(const char *);\n};\n\nstringx operator+(const stringx &, const char *);\nstringx operator+(const stringx &, const stringx &);\n\nclass GenericGameSaver\n{\npublic:\n    stringx getCardString(int port, int slot);\n    stringx getInsertCardString(int port, int slot);\n};\n\nextern stringx ksGlobalTextArray[];\nenum { GT_FE_MENU_NO_CARD = 110 };\n\n__asm__(\".equ ksGlobalTextArray, 0x003E6050\");\n__asm__(\".equ getCardString__16GenericGameSaverii, 0x001E60F0\");\n__asm__(\".equ __7stringx, 0x0034D3E0\");\n__asm__(\".equ __7stringxRC7stringx, 0x0034D4D0\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\".equ make_room__7stringxi, 0x0034E220\");\n__asm__(\".equ append__7stringxRC7stringx, 0x0034E528\");\n__asm__(\".equ append__7stringxPCci, 0x0034E3F0\");\n__asm__(\".equ strlen, 0x003D40E0\");\n\nstringx GenericGameSaver::getInsertCardString(int port, int slot)\n{\n    return ksGlobalTextArray[GT_FE_MENU_NO_CARD]+\" \"+getCardString(port, slot);\n}\n",
+      "status": "different",
+      "target_size": 336
+    }
+  ],
+  "raw_name": "getInsertCardString__16GenericGameSaverii"
+}
