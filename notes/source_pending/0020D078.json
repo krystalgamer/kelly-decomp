@@ -1,0 +1,23 @@
+{
+  "address": "0x0020D078",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "dc9842ab3b33bbddafbe25c77d8c529901fc1e5f",
+      "candidate_size": 404,
+      "compared_bytes": 404,
+      "compared_instructions": 101,
+      "emitted_name": "GetAttribs__22kellyslater_controlleri",
+      "instruction_score": 9.901,
+      "matching_bytes": 88,
+      "matching_instructions": 10,
+      "notes": "# 0x0020D078 GetAttribs__22kellyslater_controlleri\n\nAttempt 1 used the exact released body from `kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.cpp:463-500`, with only source-faithful enum, layout, cheat, meter, and global declarations.\n\nResult: `different`, score 21.7822, instruction score 9.9010 (10/101 instructions; candidate 404 bytes vs target 388). No further attempts were made. See `tmp/functions/0020D078_GetAttribs__22kellyslater_controlleri/attempt-1/result.json`.",
+      "score": 21.7822,
+      "source": "enum\n{\n    ATTRIB_AIR,\n    ATTRIB_SPEED,\n    ATTRIB_ROTATE,\n    ATTRIB_BALANCE,\n    NUM_ATTRIBS\n};\n\nenum cheats_enum\n{\n    CHEAT_RAINBOW,\n    CHEAT_TRIPPY,\n    CHEAT_FREAK_BOY,\n    CHEAT_TONY_HAWK,\n    CHEAT_TIKI_GOD,\n    CHEAT_TRAVIS_PASTRANA,\n    CHEAT_FPS_CAM,\n    CHEAT_INCREASE_BALANCE,\n    CHEAT_SUPER_BALANCE,\n    CHEAT_INCREASE_JUMP,\n    CHEAT_SUPER_JUMP\n};\n\nclass Cheat\n{\n    bool locked;\n    bool on;\n\npublic:\n    bool isOn() const { return on; }\n};\n\nclass SpecialMeter\n{\npublic:\n    bool CanRegionLink(void) const;\n};\n\nclass kellyslater_controller\n{\n    char pad0[5704];\n    SpecialMeter specialMeter;\n    char pad1[1227];\n    float attribs[4];\n\npublic:\n    float GetAttribs(int attr);\n};\n\nextern Cheat g_session_cheats[];\nextern float air_base;\nextern float speed_base;\nextern float rotate_base;\nextern float special_meter_bonus;\nextern float jump_cheat_inc;\nextern float balance_cheat_inc;\nextern float super_jump_cheat_inc;\nextern float super_balance_cheat_inc;\n\nfloat kellyslater_controller::GetAttribs(int attr) \n{ \n    float temp_attrib = attribs[attr];\n\n    if (attr == ATTRIB_BALANCE && g_session_cheats[CHEAT_SUPER_JUMP].isOn())\n        temp_attrib += super_balance_cheat_inc * (1.0f - air_base);\n    else if (attr == ATTRIB_AIR && g_session_cheats[CHEAT_INCREASE_JUMP].isOn())\n        temp_attrib += jump_cheat_inc * (1.0f - air_base);\n\n    if (attr == ATTRIB_BALANCE && g_session_cheats[CHEAT_SUPER_BALANCE].isOn())\n        temp_attrib += super_jump_cheat_inc * (1.0f - air_base);\n    else if (attr == ATTRIB_BALANCE && g_session_cheats[CHEAT_INCREASE_BALANCE].isOn())\n        temp_attrib += balance_cheat_inc * (1.0f - air_base);\n\n    if (specialMeter.CanRegionLink())\n    {\n        if (attr == ATTRIB_AIR)\n            temp_attrib += special_meter_bonus * (1.0f - air_base); \n        else if (attr == ATTRIB_SPEED)\n            temp_attrib += special_meter_bonus * (1.0f - speed_base); \n        else if (attr == ATTRIB_ROTATE)\n            temp_attrib += special_meter_bonus * (1.0f - rotate_base); \n        else\n            temp_attrib += special_meter_bonus;\n    }\n\n    return temp_attrib; \n}\n",
+      "status": "different",
+      "target_size": 388
+    }
+  ],
+  "raw_name": "GetAttribs__22kellyslater_controlleri"
+}
