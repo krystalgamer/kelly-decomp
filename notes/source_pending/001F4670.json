@@ -1,0 +1,23 @@
+{
+  "address": "0x001F4670",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2accc1bd052e7ac3a47575671aa6def7f5c2ab38",
+      "candidate_size": 448,
+      "compared_bytes": 448,
+      "compared_instructions": 112,
+      "emitted_name": "InGrindRegion__20SurfBoardObjectClass",
+      "instruction_score": 52.6786,
+      "matching_bytes": 273,
+      "matching_instructions": 59,
+      "notes": "# Attempt 1\n\nOne-shot released-source candidate only. The function body is preserved exactly from `kelly-slaters-pro-surfer/KS/SRC/ks/board.cpp` lines 1864-1880. Minimal local declarations model `vector3d`, the board position access path, `my_board` at `0x9D4`, `lip_vec` at `0xAB0`, marker enum values, and the released `g_grind_fudge` address. No project or STL includes, alternative algorithm, annotations, source variants, retries, or diff chasing.\n\nTarget metadata: `game/files_kellyslater`, address `0x001F4670`, size `0x1B8`/440. Exactly one test invocation was permitted and run; the honest result is retained as `different` (60.9375% bytes, 52.6786% instructions). No attempts 2-5 were made. Finalized/integrated/tracked changes are false.",
+      "score": 60.9375,
+      "source": "struct vector3d {\n    float x, y, z;\n    vector3d() {}\n    vector3d(float X, float Y, float Z) : x(X), y(Y), z(Z) {}\n    vector3d operator+(const vector3d& v) const { return vector3d(x + v.x, y + v.y, z + v.z); }\n    vector3d operator-(const vector3d& v) const { return vector3d(x - v.x, y - v.y, z - v.z); }\n};\ninline vector3d operator*(float s, const vector3d& v) { return vector3d(s * v.x, s * v.y, s * v.z); }\ninline float dot(const vector3d& a, const vector3d& b) { return a.x * b.x + a.y * b.y + a.z * b.z; }\n\nenum WaveMarkerEnum {\n    WAVE_MarkerLipMark8p5 = 20,\n    WAVE_MarkerLipMark11 = 23,\n    WAVE_MarkerLipMark12 = 28\n};\nvector3d* WAVE_GetMarker(WaveMarkerEnum);\nextern float g_grind_fudge;\n__asm__(\".equ g_grind_fudge, 0x0041EC4C\");\n\nstruct entity_pose { char pad[48]; vector3d position; };\nstruct entity { char pad[80]; entity_pose* pose; const vector3d& get_abs_position() const { return pose->position; } };\n\nclass SurfBoardObjectClass {\n    char pad0[0x9d4];\n    entity* my_board;\n    char pad1[0xd8];\n    vector3d lip_vec;\npublic:\n    bool InGrindRegion(void);\n};\n\nbool SurfBoardObjectClass::InGrindRegion(void)\n{\n\t//if ((current_region == WAVE_REGIONLIP)\n\t\t//|| (current_region == WAVE_REGIONLIP2)\n\t\t//|| (current_region == WAVE_REGIONROOF))\n\t//{\n\t\tvector3d diff_vec1 = *WAVE_GetMarker(WAVE_MarkerLipMark11) +\n\t\t\t\t\tg_grind_fudge*(*WAVE_GetMarker(WAVE_MarkerLipMark12) - *WAVE_GetMarker(WAVE_MarkerLipMark11));\n\t\tvector3d vec1 = my_board->get_abs_position() - diff_vec1;\n\t\tvector3d diff_vec2 = *WAVE_GetMarker(WAVE_MarkerLipMark8p5);\n\t\tvector3d vec2 = my_board->get_abs_position() - diff_vec2;\n\t\tif ((dot(vec1, lip_vec) < 0.0f) && (dot(vec2, lip_vec) > 0.0f))\n\t\t\treturn true;\n\t//}\n\n\treturn false;\n}\n",
+      "status": "different",
+      "target_size": 440
+    }
+  ],
+  "raw_name": "InGrindRegion__20SurfBoardObjectClass"
+}
