@@ -1,0 +1,23 @@
+{
+  "address": "0x0016BE40",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "75777c332630e688b63407befc4552ca547f2477",
+      "candidate_size": 340,
+      "compared_bytes": 340,
+      "compared_instructions": 85,
+      "emitted_name": "Init__16SplitMeterWidgetR9PanelFileP12SpecialMeterb",
+      "instruction_score": 90.5882,
+      "matching_bytes": 284,
+      "matching_instructions": 77,
+      "notes": "Attempt 1 used the exact released source for Init__16SplitMeterWidgetR9PanelFileP12SpecialMeterb. Result `different`, score 83.5294; no variant or later attempt was made.",
+      "score": 83.5294,
+      "source": "class PanelQuad\n{\n  struct VTable\n  {\n    char prefix[24];\n    short turn_on_adjust;\n    short gap;\n    void (*turn_on)(void *, bool);\n  };\n  char prefix[404];\n  VTable *vtable;\n\npublic:\n  void TurnOn(bool enabled)\n  {\n    VTable *table = vtable;\n    table->turn_on((char *)this + table->turn_on_adjust, enabled);\n  }\n};\n\nclass PanelFile\n{\npublic:\n  PanelQuad *GetPointer(const char *name);\n};\n\nclass SpecialMeter\n{\npublic:\n  void SetFillage(float amount);\n};\n\nclass IGOWidget\n{\nprotected:\n  int display;\n  struct VTable\n  {\n    char prefix[16];\n    short set_display_adjust;\n    short gap;\n    void (*set_display)(void *, bool);\n  } *vtable;\n\npublic:\n  void SetDisplay(bool enabled)\n  {\n    VTable *table = vtable;\n    table->set_display((char *)this + table->set_display_adjust, enabled);\n  }\n};\n\nclass SplitMeterWidget : public IGOWidget\n{\n  enum { NUM_FRAMES = 3 };\n  SpecialMeter *meter;\n  PanelQuad *colorPQ;\n  PanelQuad *framePQs[NUM_FRAMES];\n\npublic:\n  void Init(PanelFile &panel, SpecialMeter *specialMeter, const bool left);\n};\n\n__asm__(\".equ SetFillage__12SpecialMeterf, 0x00251028\");\n__asm__(\".equ GetPointer__9PanelFilePCc, 0x00152F88\");\n\nvoid SplitMeterWidget::Init(PanelFile & panel, SpecialMeter * specialMeter, const bool left)\n{\n\tmeter = specialMeter;\n\tmeter->SetFillage(0.0f);\n\t\n\tif (left)\n\t{\n\t\tframePQs[0] = panel.GetPointer(\"left_meter_01\");\n\t\tframePQs[1] = panel.GetPointer(\"left_meter_03\");\n\t\tframePQs[2] = panel.GetPointer(\"left_meter_04\");\n\t\tcolorPQ = panel.GetPointer(\"left_meter_02\");\n\t}\n\telse\n\t{\n\t\tframePQs[0] = panel.GetPointer(\"right_meter_01\");\n\t\tframePQs[1] = panel.GetPointer(\"right_meter_03\");\n\t\tframePQs[2] = panel.GetPointer(\"right_meter_04\");\n\t\tcolorPQ = panel.GetPointer(\"right_meter_02\");\n\t}\n\n\tfor (int i = 0; i < NUM_FRAMES; i++)\n\t\tframePQs[i]->TurnOn(true);\n\tcolorPQ->TurnOn(true);\n\n\tSetDisplay(true);\n}\n",
+      "status": "different",
+      "target_size": 340
+    }
+  ],
+  "raw_name": "Init__16SplitMeterWidgetR9PanelFileP12SpecialMeterb"
+}
