@@ -1,0 +1,23 @@
+{
+  "address": "0x0038D120",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1f3008b58e98df451bf8fb7f3448fb2bdeaae4c9",
+      "candidate_size": 140,
+      "compared_bytes": 356,
+      "compared_instructions": 89,
+      "emitted_name": "nslPlaySound3D__FUiRA2_Cf",
+      "instruction_score": 2.2472,
+      "matching_bytes": 29,
+      "matching_instructions": 2,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\nTested the released `nslPlaySound3D` body once. The candidate differed: 29/356 bytes (8.1461%) and 2/89 instructions (2.2472%); candidate size 140 bytes versus target size 356 bytes. No variants or retries were attempted.",
+      "score": 8.1461,
+      "source": "// Target: 0x0038D120 nslPlaySound3D__FUiRA2_Cf\n// Reference: NSL/PS2/nsl_ps2_sound.cpp\ntypedef unsigned int nlUint32;\ntypedef nlUint32 nslSoundId;\ntypedef nlUint32 nslEmitterId;\ntypedef float nlVector3d[3];\n\nstruct nslSound\n{\n  char pad0[0x44];\n  nlUint32 used;\n  char pad48[0x74 - 0x48];\n  nslSoundId myId;\n};\n\nstruct nslSystem\n{\n  char pad0[0xc044];\n  nslSound soundSlots[256];\n  char pad11844[0x15850 - 0x11844];\n  int initialized;\n  char pad15854[0x15880 - 0x15854];\n  int on;\n};\n\nextern nslSystem nsl;\nextern void nslFatal(const char *format, ...);\nextern nslEmitterId nslCreateEmitter(const nlVector3d &position);\nextern void nslSetEmitterAutoRelease(nslEmitterId emitterToSet);\nextern void nslSetSoundEmitter(nslEmitterId soundEmitter,\n                               nslSoundId soundInstance);\nextern void nslPlaySound(nslSoundId soundToPlay);\n\n#define NSL_SLOT_MASK 0x000003FF\n#define NSL_ID_MASK 0xFFFFFC00\n#define NSL_GET_SLOT_FROM_ID(x) ((x) & NSL_SLOT_MASK)\n\ninline void _nslInitialized()\n{\n  if (nsl.initialized != 1)\n    nslFatal(\"NSL is not initialized\");\n}\n\ninline void _nslCheckSoundIdValidity(nslSoundId checkId)\n{\n  unsigned int slot = NSL_GET_SLOT_FROM_ID(checkId);\n  unsigned int id = checkId & NSL_ID_MASK;\n  if (checkId == 0)\n    nslFatal(\"Invalid sound id %u\", checkId);\n  if (!nsl.soundSlots[slot].used)\n    nslFatal(\"Invalid sound id %u\", checkId);\n  if (slot >= 256)\n    nslFatal(\"Invalid sound id %u\", checkId);\n  if (nsl.soundSlots[slot].myId != checkId)\n    nslFatal(\"Invalid sound id %u\", checkId);\n  if (id == 0)\n    nslFatal(\"Invalid sound id %u\", checkId);\n  if (slot >= 257)\n    nslFatal(\"Sound id out of range %u\", checkId);\n}\n\n#define ASSERT_NSL_INITIALIZED() _nslInitialized()\n#define ASSERT_SOUND_ID_VALID(checkId) _nslCheckSoundIdValidity(checkId)\n\nvoid nslPlaySound3D(nslSoundId soundToPlay, const nlVector3d &pos)\n{\n  if (!nsl.on) return; \n  ASSERT_NSL_INITIALIZED();\n  // a convenience function\n  ASSERT_SOUND_ID_VALID(soundToPlay);\n  nslEmitterId emitId = nslCreateEmitter(pos);\n  nslSetEmitterAutoRelease(emitId);\n  nslSetSoundEmitter(emitId, soundToPlay);\n  nslPlaySound(soundToPlay);\n}\n",
+      "status": "different",
+      "target_size": 356
+    }
+  ],
+  "raw_name": "nslPlaySound3D__FUiRA2_Cf"
+}
