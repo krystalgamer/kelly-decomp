@@ -1,0 +1,15 @@
+{
+  "address": "0x001BC288",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "30da720f7e810dbb9e8a26226a2db1dcba911214",
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Result: **compile_failed**\n- Byte score: **0.0000%**\n- Candidate SHA-1: `30da720f7e810dbb9e8a26226a2db1dcba911214`\n- Used the exact released `LegalFrontEnd::Load()` body with minimal declarations.\n- The sole isolated candidate test failed because the released `TARGET_PS2` guard was not defined by the test compiler.\n- Per the one-shot FIRST PASS constraint, no retry, variant, diff chasing, build, finalization, integration, tracked/reference edit, commit, or push was performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/GraphicalMenuSystem.cpp:123-149` \u2014 exact released body.\n- `kelly-slaters-pro-surfer/KS/SRC/ks/GraphicalMenuSystem.h:71-88` \u2014 released class declaration.\n- `tmp/functions/001BC288_Load__13LegalFrontEnd/attempt-1/result.json` \u2014 sole test result.\n- `tmp/functions/001BC288_Load__13LegalFrontEnd/attempt-1/compiler.stderr` \u2014 compile diagnostic.",
+      "score": 0.0,
+      "source": "typedef unsigned int size_t;\nextern \"C\" size_t strlen(const char *);\n\nclass string_buf\n{\npublic:\n    void *data;\n    int ref_count;\n    int char_length;\n};\n\nclass stringx\n{\npublic:\n    char *chars;\n    string_buf *my_buf;\n\n    stringx();\n    stringx(const stringx &);\n    ~stringx();\n    void make_room(int);\n    void append(const char *, int = -1);\n    void append(const stringx &);\n    stringx &operator=(const stringx &);\n    stringx &operator+=(const char *);\n    char *data() const { return chars; }\n};\n\ninline stringx operator+(const stringx &lhs, const char *rhs)\n{\n    stringx foo;\n    int len = strlen(rhs);\n    foo.make_room(len + lhs.my_buf->char_length);\n    foo.append(lhs);\n    foo.append(rhs, len);\n    return foo;\n}\n\nclass BoxText\n{\npublic:\n    void ReadFromFile(char *, bool);\n    int makeBox(int, int, bool = false, float = -1, int = -1);\n};\n\nextern int ksGlobalTextLanguage;\nenum { LANGUAGE_FRENCH = 2, LANGUAGE_GERMAN = 3 };\n\nclass LegalFrontEnd\n{\n    char padding0[0x134];\n    stringx path;\n    char padding1[0x14];\n    BoxText *legal_babble;\n\npublic:\n    void Load();\n};\n\nvoid LegalFrontEnd::Load()\n{\n    stringx tmp = path+\"legal_text_\";\n#ifdef TARGET_PS2\n    tmp = tmp + \"ps2\";\n#elif defined(TARGET_XBOX)\n    tmp = tmp + \"xbox\";\n#elif defined(TARGET_GC)\n    tmp = tmp + \"gc\";\n#else\n#error Platform not declared!\n#endif\n\n    if(ksGlobalTextLanguage == LANGUAGE_FRENCH)\n        tmp += \"_fr\";\n    else if(ksGlobalTextLanguage == LANGUAGE_GERMAN)\n        tmp += \"_ge\";\n    tmp += \".txt\";\n\n    legal_babble->ReadFromFile((char*) (tmp.data()), false);\n    legal_babble->makeBox(550, 300);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Load__13LegalFrontEnd"
+}
