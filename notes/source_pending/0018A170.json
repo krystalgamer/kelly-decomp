@@ -1,0 +1,15 @@
+{
+  "address": "0x0018A170",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ca2234135b7370772e35af414eed8a5ba338363c",
+      "notes": "Attempt 1 used the exact released `SurferBioFrontEnd::Update` body from\n`kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.cpp:1136-1151`, with\nminimal declarations derived from\n`kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.h:140-186`.\n\nThe isolated test returned `compile_failed` because the local declaration\nthunk emitted `scroll__13PreformatTextbi` and the absolute symbol declaration\ndefined the same symbol. Per the first-pass constraint, no second candidate\nor test was attempted.",
+      "score": 0.0,
+      "source": "typedef float time_value_t;\nclass FEEntityManager{char p[448];int cam_stopped;int cam_stopped_at;public:bool OKtoDrawBio(){return cam_stopped&&cam_stopped_at==2;}};\nclass FEManager{char p[12];public:FEEntityManager*em;};\nclass PreformatText{public:void scroll(bool,int);};\nclass SurferFrontEnd{char p[740];public:int current_surfer_index;};\nclass SurferBioFrontEnd{\n char p0[316];FEManager*manager;char p1[32];PreformatText*bios[15];SurferFrontEnd*bio_parent;\n char p2[72];int wait_for_camera;int up_pressed,down_pressed;int counter;\n enum{count_max=3};\npublic:void Update(time_value_t);\nprivate:void UpdateScrollbar();\n};\nextern \"C\" void scroll_thunk(PreformatText*,bool,int)__asm__(\"scroll__13PreformatTextbi\");\nasm(\".equ scroll__13PreformatTextbi,0x0014C8A8\");\nvoid PreformatText::scroll(bool up,int lines){scroll_thunk(this,up,lines);}\nasm(\".equ UpdateScrollbar__17SurferBioFrontEnd,0x0018A308\");\n\nvoid SurferBioFrontEnd::Update(time_value_t time_inc)\n{\n\tif(wait_for_camera && manager->em->OKtoDrawBio()) wait_for_camera = false;\n\telse if(!wait_for_camera && !manager->em->OKtoDrawBio()) wait_for_camera = true;\n\n\tif(up_pressed || down_pressed)\n\t{\n\t\tcounter++;\n\t\tif(counter > count_max)\n\t\t{\n\t\t\tcounter = 0;\n\t\t\tbios[bio_parent->current_surfer_index]->scroll(up_pressed, 1);\n\t\t\tUpdateScrollbar();\n\t\t}\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Update__17SurferBioFrontEndf"
+}
