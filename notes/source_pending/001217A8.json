@@ -1,0 +1,23 @@
+{
+  "address": "0x001217A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e800f9dad739ad884625f28110945cfcca5889a9",
+      "candidate_size": 444,
+      "compared_bytes": 452,
+      "compared_instructions": 113,
+      "emitted_name": "frame_advance__t8key_anim3Z10quaternionZt10linear_key1Z10quaternionZt12linear_track1Z10quaternionRC14anim_control_tP10quaternion",
+      "instruction_score": 37.1681,
+      "matching_bytes": 252,
+      "matching_instructions": 42,
+      "notes": "Exact released anim.h key_anim::frame_advance template body with minimal self-contained declarations. Single first-pass attempt; result different, with no retry or post-test chase.",
+      "score": 55.7522,
+      "source": "typedef float time_value_t;\n\nstruct quaternion\n{\n  float x, y, z, w;\n};\n\ntemplate <class T>\nclass linear_key\n{\n  time_value_t time;\n  T value;\n\npublic:\n  time_value_t get_time() const { return time; }\n};\n\ntemplate <class T>\nclass linear_track\n{\npublic:\n  typedef linear_key<T>* iterator;\n  int num_keys;\n  iterator m_keys;\n};\n\nclass anim_control_t\n{\n  time_value_t current_time;\n  time_value_t time_delta;\n  time_value_t duration;\n  float timescale_factor;\n  float cntrl_tween_duration;\n  float tween_timer;\n  unsigned int flags;\n  short loop_count;\n\npublic:\n  time_value_t get_time() const { return current_time; }\n  bool is_reverse() const { return flags & 0x0002; }\n  bool was_looped() const { return flags & 0x0400; }\n};\n\ntemplate <class animatable_t>\nclass anim\n{\nprotected:\n  unsigned short flags;\n\npublic:\n  virtual void set_flag(int);\n  virtual void clear_flag(int);\n  virtual void set_flag(int, bool);\n  virtual void set_time(time_value_t);\n  virtual void frame_advance(const anim_control_t&, animatable_t*);\n  virtual void get_value(const anim_control_t&, animatable_t*) const;\n  virtual void get_value(time_value_t, animatable_t*) const;\n};\n\ntemplate <class animatable_t, class key_t, class track_t>\nclass key_anim : public anim<animatable_t>\n{\n  track_t* track;\n  typename track_t::iterator current_key;\n\npublic:\n  void sync_key(time_value_t t)\n  {\n    current_key = track->m_keys;\n    typename track_t::iterator next_key = current_key;\n    ++next_key;\n    while (next_key != (track->m_keys + track->num_keys) &&\n           t >= (*next_key).get_time())\n    {\n      ++current_key;\n      ++next_key;\n    }\n  }\n\n  virtual void frame_advance(const anim_control_t& ac, animatable_t* dest)\n  {\n    if (ac.was_looped())\n    {\n      sync_key(ac.get_time());\n    }\n    else if (ac.is_reverse())\n    {\n      while (current_key != track->m_keys &&\n             ac.get_time() < (*current_key).get_time())\n      {\n        --current_key;\n      }\n    }\n    else\n    {\n      typename track_t::iterator next_key = current_key;\n      ++next_key;\n      while (next_key != (track->m_keys + track->num_keys) &&\n             ac.get_time() >= (*next_key).get_time())\n      {\n        current_key = next_key;\n        ++next_key;\n      }\n    }\n    if (dest != 0)\n    {\n      this->get_value(ac, dest);\n    }\n  }\n};\n\ntemplate void key_anim<\n  quaternion,\n  linear_key<quaternion>,\n  linear_track<quaternion>\n>::frame_advance(const anim_control_t&, quaternion*);\n",
+      "status": "different",
+      "target_size": 452
+    }
+  ],
+  "raw_name": "frame_advance__t8key_anim3Z10quaternionZt10linear_key1Z10quaternionZt12linear_track1Z10quaternionRC14anim_control_tP10quaternion"
+}
