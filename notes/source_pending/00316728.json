@@ -1,0 +1,23 @@
+{
+  "address": "0x00316728",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "97beb602c210a4c9ef8d2d4b8b893327c8255872",
+      "candidate_size": 332,
+      "compared_bytes": 332,
+      "compared_instructions": 83,
+      "emitted_name": "register_item_lib__Fv",
+      "instruction_score": 78.3133,
+      "matching_bytes": 210,
+      "matching_instructions": 65,
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- FIRST PASS wave 36 A4 for `0x00316728 register_item_lib__Fv`.\n- Tested the exact released `register_item_lib()` body once with minimal self-contained declarations preserving the released class inheritance, constructor calls, virtual overrides, allocation sizes, and `NEW` form.\n- Result: **different** \u2014 210/332 bytes (63.2530%) and 65/83 instructions (78.3133%); candidate and target sizes were both 332 bytes.\n- No variants, diff chasing, build, finalization, integration, tracked writes, tool edits, subagents, commit, or push were attempted.\n- Matched-only proposal fields are omitted.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/script_lib_item.cpp:492-513`\n- `kelly-slaters-pro-surfer/KS/SRC/script_lib_item.h:16-24`\n- `kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:20-52,67-82`\n- `tmp/functions/00316728_register_item_lib__Fv/attempt-1/result.json`",
+      "score": 63.253,
+      "source": "typedef unsigned int size_t;\nvoid* operator new(size_t, unsigned int, const char*, int);\n#define NEW new(0, \"C:/KS/SRC/script_lib_item.cpp\", 0)\n\nclass script_library_class\n{\n  char storage[32];\npublic:\n  script_library_class(const char*, int, const char* = 0);\n  virtual ~script_library_class();\n  class function\n  {\n    char* name;\n  public:\n    function(script_library_class*, const char*);\n    function(const char*);\n    virtual ~function();\n    virtual bool operator()(void*, int) { return true; }\n  };\n};\n\nclass slc_item_t : public script_library_class\n{\npublic:\n  slc_item_t(const char* n, int sz, const char* p = 0)\n    : script_library_class(n, sz, p) {}\n  virtual ~slc_item_t();\n};\n\nclass slf_item_set_count_t : public script_library_class::function\n{\npublic:\n  slf_item_set_count_t(script_library_class* slc, const char* n)\n    : script_library_class::function(slc, n) {}\n  virtual bool operator()(void*, int);\n};\n\nclass slf_item_get_count_t : public script_library_class::function\n{\npublic:\n  slf_item_get_count_t(script_library_class* slc, const char* n)\n    : script_library_class::function(slc, n) {}\n  virtual bool operator()(void*, int);\n};\n\nclass slf_create_item_t : public script_library_class::function\n{\npublic:\n  slf_create_item_t(const char* n) : script_library_class::function(n) {}\n  virtual bool operator()(void*, int);\n};\n\nclass slf_to_item_t : public script_library_class::function\n{\npublic:\n  slf_to_item_t(const char* n) : script_library_class::function(n) {}\n  virtual bool operator()(void*, int);\n};\n\nvoid register_item_lib()\n{\n  slc_item_t* slc_item = NEW slc_item_t(\"item\",4,\"entity\");\n\n  NEW slf_item_set_count_t(slc_item,\"set_count(num)\");\n  NEW slf_item_get_count_t(slc_item,\"get_count()\");\n  NEW slf_create_item_t(\"create_item(str)\");\n  NEW slf_to_item_t(\"to_item(entity)\");\n}\n",
+      "status": "different",
+      "target_size": 332
+    }
+  ],
+  "raw_name": "register_item_lib__Fv"
+}
