@@ -1,0 +1,23 @@
+{
+  "address": "0x00310760",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "29db47e37a4a1e9e88c0733b97b53498972226fc",
+      "candidate_size": 328,
+      "compared_bytes": 332,
+      "compared_instructions": 83,
+      "emitted_name": "OnOpen__9TrickMenuP4MenuP10MenuSystem",
+      "instruction_score": 30.1205,
+      "matching_bytes": 143,
+      "matching_instructions": 25,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/menu_scoring.cpp:235-259; kelly-slaters-pro-surfer/KS/SRC/ks/menu_scoring.h:9-16; kelly-slaters-pro-surfer/KS/SRC/ks/menu.h:78-103,213-223,303-321; kelly-slaters-pro-surfer/KS/SRC/ks/menusys.h:138-163; kelly-slaters-pro-surfer/KS/SRC/ks/trickdata.h:313-322,381; tmp/functions/00310760_OnOpen__9TrickMenuP4MenuP10MenuSystem/attempt-1/result.json; tmp/source_first/00310760/attempt-1.md. Result `different`, score 43.0723; no later attempt.",
+      "score": 43.0723,
+      "source": "typedef unsigned int size_t;\n\nvoid *operator new(size_t, unsigned int, const char *, int);\n\nclass MenuEntry\n{\npublic:\n\tint type;\n\tvirtual ~MenuEntry();\n};\n\nclass MenuEntryTitle : public MenuEntry\n{\n\tconst char *text;\n\npublic:\n\tMenuEntryTitle(const char *t) : text(t)\n\t{\n\t\ttype = 3;\n\t\tDisable();\n\t}\n\tvoid Disable();\n};\n\nclass MenuEntryIntEdit : public MenuEntry\n{\npublic:\n\tMenuEntryIntEdit(const char *, int *, int, int);\n};\n\nclass MenuSystem;\n\nclass Menu\n{\npublic:\n\tvoid ClearMenu();\n\tvoid AddEntry(MenuEntry *);\n\tvirtual void OnOpen(Menu *, MenuSystem *);\n};\n\nclass MenuSystem\n{\npublic:\n\tvoid Refresh();\n};\n\nclass stringx\n{\n\tconst char *text;\n\tchar pad[4];\n\npublic:\n\tconst char *c_str() const { return text; }\n};\n\nenum { TRICK_NUM = 95 };\n\nstruct SurferTrick\n{\n\tint Points;\n\tchar pad[84];\n};\n\nextern SurferTrick GTrickList[];\nextern const stringx ksGlobalTrickTextArray[];\n\nbool mem_malloc_locked();\nvoid mem_lock_malloc(bool);\n\nclass TrickMenu : public Menu\n{\npublic:\n\tvirtual void OnOpen(Menu *, MenuSystem *);\n};\n\nvoid TrickMenu::OnOpen(Menu *cto, MenuSystem *c)\n{\n\tbool\t\t\t\tmemlocked = mem_malloc_locked();\n\tMenuEntryIntEdit *\tpmeie;\n\n\t// Trick menu externs.\n\textern struct SurferTrick GTrickList[];\n\n\tmem_lock_malloc(false);\n\n\tClearMenu();\n\n\tAddEntry(new(0, \"KS/SRC/ks/menu_scoring.cpp\", 0) MenuEntryTitle(\"Trick Menu\"));\n\n\tfor (int i = 0; i < TRICK_NUM; i++)\n\t{\n\t\tpmeie = new(0, \"KS/SRC/ks/menu_scoring.cpp\", 0) MenuEntryIntEdit(ksGlobalTrickTextArray[i].c_str(), &GTrickList[i].Points, 0, 10000);\n\t\tAddEntry(pmeie);\n\t}\n\tc->Refresh();\n\n\tMenu::OnOpen(cto, c);\n\n\tmem_lock_malloc(memlocked);\n}\n",
+      "status": "different",
+      "target_size": 332
+    }
+  ],
+  "raw_name": "OnOpen__9TrickMenuP4MenuP10MenuSystem"
+}
