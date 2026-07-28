@@ -1,0 +1,23 @@
+{
+  "address": "0x0028D910",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c54d2e6463bf2e19418c8384fb4172c85f1cb6d1",
+      "candidate_size": 440,
+      "compared_bytes": 440,
+      "compared_instructions": 110,
+      "emitted_name": "update__7trigger",
+      "instruction_score": 0.0,
+      "matching_bytes": 99,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave67 A2 \u2014 0x0028D910\n\n- Confirmed there were no prior attempts.\n- Used the exact active released `trigger::update` body from `kelly-slaters-pro-surfer/KS/SRC/trigger.cpp:145-190`.\n- Added one set of minimal faithful declarations based on `trigger.h`, `ai_interface.h`, `game.h`, and `wds.h`.\n- Ran `function_test` exactly once. Result: `different`, byte score 22.5%, instruction score 0.0%.\n- Preserved the candidate and canonical attempt note in scratch.\n- No variants, retries, diff chasing, build, finalization, integration, commit, push, or tracked-file edits were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/trigger.cpp:145-190`\n- `kelly-slaters-pro-surfer/KS/SRC/trigger.h:17-69`\n- `kelly-slaters-pro-surfer/KS/SRC/ai_interface.h:232`\n- `kelly-slaters-pro-surfer/KS/SRC/ai_interface.h:479`\n- `kelly-slaters-pro-surfer/KS/SRC/game.h:251`\n- `kelly-slaters-pro-surfer/KS/SRC/wds.h:320`\n- `tmp/functions/0028D910_update__7trigger/attempt-1/result.json`\n- `tmp/source_first/0028D910/attempt-1.md`",
+      "score": 22.5,
+      "source": "class entity;\n\ntemplate<class T> class list\n{\npublic:\n    class const_iterator\n    {\n        void *node;\n    public:\n        const_iterator();\n        const_iterator &operator++();\n        bool operator!=(const const_iterator &) const;\n        T operator*() const;\n    };\n\n    const_iterator begin() const;\n    const_iterator end() const;\n};\n\nclass ai_interface\n{\npublic:\n    static const list<ai_interface *> &get_all_ai_interfaces();\n    bool is_active() const;\n    entity *get_my_entity() const;\n};\n\nclass game\n{\npublic:\n    int get_active_player() const;\n};\n\nclass world_dynamics_system\n{\npublic:\n    entity *get_hero_ptr(int);\n};\n\nextern game *g_game_ptr;\nextern world_dynamics_system *g_world_ptr;\n\nclass trigger\n{\n    char signaller_and_vtable[12];\n    entity *whodunnit;\n    char id_next_and_regions[28];\n    bool static_regions;\n    bool active;\n    bool occupied;\n    bool use_any_char;\n\npublic:\n    enum { ENTER, LEAVE };\n    virtual bool triggered(entity *);\n    virtual void raise_signal(unsigned int) const;\n    bool is_active() const { return active; }\n    void update();\n};\n\nvoid trigger::update()\n{\n  if( is_active() )\n  {\n    // check the hero\n    bool hit = triggered( g_world_ptr->get_hero_ptr(g_game_ptr->get_active_player()) );\n\n    if(hit)\n      whodunnit = g_world_ptr->get_hero_ptr(g_game_ptr->get_active_player());\n\n    if ( !hit && use_any_char )\n    {\n      list<ai_interface *>::const_iterator ai = ai_interface::get_all_ai_interfaces().begin();\n      list<ai_interface *>::const_iterator ai_end = ai_interface::get_all_ai_interfaces().end();\n\n      // check other characters in the region\n      for ( ; !hit && ai!=ai_end; ++ai )\n      {\n        if((*ai)->is_active())\n        {\n          hit = triggered( (*ai)->get_my_entity() );\n\n          if(hit)\n            whodunnit = (*ai)->get_my_entity();\n        }\n      }\n    }\n\n    // should raise signal?\n    if( hit )\n    {\n      if( !occupied )\n        raise_signal( ENTER );\n    }\n    else\n    {\n      if( occupied )\n        raise_signal( LEAVE );\n    }\n\n    occupied = hit;\n  }\n}\n",
+      "status": "different",
+      "target_size": 396
+    }
+  ],
+  "raw_name": "update__7trigger"
+}
