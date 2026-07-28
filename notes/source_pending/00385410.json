@@ -1,0 +1,23 @@
+{
+  "address": "0x00385410",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cd2973627dd4cdbace2d573dbe7516ca5097dc78",
+      "candidate_size": 396,
+      "compared_bytes": 396,
+      "compared_instructions": 99,
+      "emitted_name": "nvlReceiveMsg__FP11nvlMsgQueue10nvlMsgModePP9nvlStream",
+      "instruction_score": 90.9091,
+      "matching_bytes": 327,
+      "matching_instructions": 90,
+      "notes": "The exact released `nvlReceiveMsg` source and minimal faithful declarations compiled to the target 396-byte size on attempt one. The isolated comparison was different at 82.5758% (90.9091% instructions); no source variants or diff investigation were performed.",
+      "score": 82.5758,
+      "source": "typedef int nvlMsg;\n\nenum nvlMsgMode\n{\n  NVL_MSG_BLOCK,\n  NVL_MSG_NOBLOCK\n};\n\nenum\n{\n  NVL_MSG_INVALID = -1\n};\n\nconst int NVL_MAX_STREAM_NUM = 8;\n\nstruct nvlMsgQueue\n{\n  int sema;\n  nvlMsg* array;\n};\n\nstruct nvlStream\n{\n  int idx;\n};\n\nstruct SemaParam\n{\n  int currentCount;\n  char released_rest[28];\n};\n\nstruct nvlStreamSystemData_t\n{\n  char released_to_pStream[140];\n  nvlStream* pStream[NVL_MAX_STREAM_NUM];\n};\n\nextern nvlStreamSystemData_t nvlStreamSystemData;\nextern \"C\" int WaitSema(int);\nextern \"C\" int PollSema(int);\nextern \"C\" int ReferSemaStatus(int, SemaParam*);\nextern \"C\" void __assert(const char*, int, const char*);\n\nstatic nvlMsg nvlReceiveMsg( nvlMsgQueue* q, nvlMsgMode mode, nvlStream** s )\n{\n  nvlMsg  rv = NVL_MSG_INVALID;\n  int     res;\n\n  if (!( q && s )) __assert(\"C:/NVL/ps2/nvlstream_ps2.cpp\", 161, \"q && s\");\n  if( mode == NVL_MSG_BLOCK )\n  {\n    res = WaitSema( q->sema );\n  }\n  else\n  {\n    res = PollSema( q->sema );\n  }\n  if (!( !(mode == NVL_MSG_BLOCK && res != q->sema) )) __assert(\"C:/NVL/ps2/nvlstream_ps2.cpp\", 170, \"!(mode == NVL_MSG_BLOCK && res != q->sema)\");\n  if( res == q->sema )\n  {\n    struct SemaParam  semaParam;\n\n    res = ReferSemaStatus( q->sema, &semaParam );\n    if (!( res == q->sema && semaParam.currentCount >= 0 )) __assert(\"C:/NVL/ps2/nvlstream_ps2.cpp\", 176, \"res == q->sema && semaParam.currentCount >= 0\");\n    rv = q->array[semaParam.currentCount];\n    res = rv >> 16;\n    if (!( res >= -1 && res < NVL_MAX_STREAM_NUM )) __assert(\"C:/NVL/ps2/nvlstream_ps2.cpp\", 179, \"res >= -1 && res < NVL_MAX_STREAM_NUM\");\n    *s = ( res >= 0 )? nvlStreamSystemData.pStream[res] : 0;\n    if (!( *s == 0 || (*s)->idx == res )) __assert(\"C:/NVL/ps2/nvlstream_ps2.cpp\", 181, \"*s == NULL || (*s)->idx == res\");\n    rv &= 0xffff;\n  }\n  return rv;\n}\n",
+      "status": "different",
+      "target_size": 396
+    }
+  ],
+  "raw_name": "nvlReceiveMsg__FP11nvlMsgQueue10nvlMsgModePP9nvlStream"
+}
