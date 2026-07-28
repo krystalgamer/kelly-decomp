@@ -1,0 +1,23 @@
+{
+  "address": "0x0019A0D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f866b26aa4beca43fe41e90e79899caf96ac9c96",
+      "candidate_size": 252,
+      "compared_bytes": 348,
+      "compared_instructions": 87,
+      "emitted_name": "Draw__16SaveLoadFrontEnd",
+      "instruction_score": 10.3448,
+      "matching_bytes": 76,
+      "matching_instructions": 9,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/SaveLoadFrontEnd.cpp:224-250; kelly-slaters-pro-surfer/KS/SRC/ks/SaveLoadFrontEnd.h:56-139,310; config/SLUS_203.34.symbol_addrs.txt:1718; notes/function_queue.csv:6114; tmp/functions/0019A0D8_Draw__16SaveLoadFrontEnd/attempt-1/result.json. Result `different`, score 21.8391; no later attempt.",
+      "score": 21.8391,
+      "source": "class PanelFile {\npublic:\n    void Draw(int layer);\n};\n\nclass FEMenuEntry {\npublic:\n    int entry_num;\n    FEMenuEntry *next;\n    FEMenuEntry *previous;\n    void *menu;\n    char data[0x50];\n    virtual ~FEMenuEntry();\n    virtual void Load();\n    virtual void OnSelect();\n    virtual void Highlight(bool highlighted = true, bool animate = true);\n    virtual void Disable(bool disabled = true);\n    virtual bool GetDisable();\n    virtual void Draw();\n};\n\nclass FEMenu {\npublic:\n    char data0[0x40];\n    FEMenuEntry *entries;\n    char data1[0x1c];\n    FEMenu *active;\n    virtual ~FEMenu();\n    virtual void setBack(FEMenu *, int = 1);\n    virtual void setHigh(FEMenuEntry *, bool = true);\n    virtual void setVis(FEMenuEntry *);\n    virtual void Add(FEMenuEntry *);\n    virtual void Init();\n    virtual void Load(bool);\n    virtual void Load();\n    virtual void Draw();\n};\n\nclass MultiLineString {\npublic:\n    virtual ~MultiLineString();\n    virtual void Draw();\n};\n\nclass NamesMenu : public FEMenu {\npublic:\n    void DrawHeader();\n};\n\nclass PanelQuad {\npublic:\n    void Mask(float amount);\n    void Update(float time);\n};\n\nclass DialogMenu : public FEMenu {\n    char data[0xfc];\n    PanelQuad *bar[4];\n\npublic:\n    void SetProgress(float fl) { bar[0]->Mask(fl); bar[0]->Update(0); }\n};\n\nclass SaveLoadFrontEnd : public FEMenu {\npublic:\n    enum disp_states {\n        DSTATE_LSD,\n        DSTATE_LOAD,\n        DSTATE_LOAD_PICK,\n        DSTATE_LOAD_GLOBAL,\n        DSTATE_LOADING_GLOBAL,\n        DSTATE_LOADING,\n        DSTATE_LOAD_DONE,\n        DSTATE_SAVE,\n        DSTATE_SAVE_GLOBAL,\n        DSTATE_SAVE_NAME,\n        DSTATE_SAVE_PICK,\n        DSTATE_SAVING,\n        DSTATE_SAVING_GLOBAL,\n        DSTATE_SAVE_PHOTO,\n        DSTATE_SAVING_PHOTO,\n        DSTATE_SAVE_DONE,\n        DSTATE_DELETE,\n        DSTATE_DELETE_PICK,\n        DSTATE_DELETING,\n        DSTATE_DEL_DONE,\n        DSTATE_FORMATTING,\n        DSTATE_FORM_DONE\n    };\n\n    char data2[0x9c];\n    PanelFile panel;\n    char data3[0x3170];\n    float progressval;\n    char data4[0x10];\n    bool flags;\n    char data5[0xf];\n    int dstate;\n    char data6[0x28];\n    MultiLineString *sftd;\n    NamesMenu *NameMenu;\n    char data7[4];\n    DialogMenu *dialogMenu;\n\n    virtual void Draw();\n};\n\n__asm__(\".equ Draw__9PanelFilei, 0x001530B8\");\n__asm__(\".equ Mask__9PanelQuadf, 0x0014EE58\");\n__asm__(\".equ Update__9PanelQuadf, 0x0014F138\");\n__asm__(\".equ DrawHeader__9NamesMenu, 0x0019F0B8\");\n\nvoid SaveLoadFrontEnd::Draw()\n{\n\t// set progress bar\n\tif(dstate == DSTATE_SAVING || dstate == DSTATE_LOADING || dstate == DSTATE_SAVING_GLOBAL)\n\t\tdialogMenu->SetProgress(progressval);\n\n\tpanel.Draw(0);\n\n\tif(active) active->Draw();\n\tif ((dstate == DSTATE_DELETE) ||\n      (dstate == DSTATE_DELETE_PICK) ||\n\t    (dstate == DSTATE_DELETING) ||\n\t    (dstate == DSTATE_DEL_DONE))\n\tsftd->Draw();\n\n\tif(active == dialogMenu && dstate != DSTATE_LSD && dstate != DSTATE_SAVE_NAME)\n\t\tNameMenu->DrawHeader();\n\n\t// always draw this\n\tFEMenuEntry* tmp = entries;\n\twhile(tmp)\n\t{\n\t\ttmp->Draw();\n\t\ttmp = tmp->next;\n\t}\n}\n",
+      "status": "different",
+      "target_size": 348
+    }
+  ],
+  "raw_name": "Draw__16SaveLoadFrontEnd"
+}
