@@ -1,0 +1,23 @@
+{
+  "address": "0x001A6A68",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8d9f5c44ae4bbc96882bba66d1cd5a24da6579bf",
+      "candidate_size": 320,
+      "compared_bytes": 428,
+      "compared_instructions": 107,
+      "emitted_name": "OnActivate__21SaveCareerPromptClass",
+      "instruction_score": 0.9346,
+      "matching_bytes": 41,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave76 A3\n\n- Target: `0x001A6A68 OnActivate__21SaveCareerPromptClass`\n- Reference: exact released `KS/SRC/ks/FrontEndMenus.cpp`\n- Candidate: exact released body with minimal self-contained declarations.\n- Scope: one candidate and one test only; no variants or diff chase.\n\n## Result\n\n- Status: **different**\n- Byte score: **9.5794%** (41/428 compared bytes)\n- Instruction score: **0.9346%** (1/107)\n- Candidate size: 320 bytes; target size: 428 bytes.\n- Attempt preserved at `tmp/functions/001A6A68_OnActivate__21SaveCareerPromptClass/attempt-1/`.\n- No additional tests, variants, build, finalize, tracked edits, commit, or push.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:396-408`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h:154-194`\n- `tmp/source_first/001A6A68/result.json`",
+      "score": 9.5794,
+      "source": "// Target: 0x001A6A68 OnActivate__21SaveCareerPromptClass\n// Reference: KS/SRC/ks/FrontEndMenus.cpp\nclass stringx\n{\npublic:\n  void *buffer;\n  char *chars;\n};\n\nclass FEMenuEntry\n{\npublic:\n  void Disable(bool disabled);\n  virtual void SetText(stringx text);\n};\n\nclass BoxText\n{\npublic:\n  virtual void changeText(stringx text);\n  int makeBox(int width, int height, bool reverse = false,\n              float scale_override = -1, int height_override = -1);\n};\n\nclass IGOFrontEnd\n{\npublic:\n  void ShowMenuBackground(bool on = true);\n};\n\nclass FEManager\n{\npublic:\n  IGOFrontEnd *IGO;\n};\n\nclass FEMenuSystem\n{\n  char pad[112];\npublic:\n  void **menus;\n  FEManager *manager;\n};\n\nclass FEMenu\n{\n  char pad0[76];\npublic:\n  FEMenuSystem *system;\nprivate:\n  char pad1[36];\npublic:\n  virtual void setHigh(FEMenuEntry *menu, bool anim = true);\n};\n\nclass FrontEndManager\n{\npublic:\n  bool unsaved_career;\n};\n\nextern FrontEndManager frontendmanager;\nextern stringx ksGlobalTextArray[];\n\nenum\n{\n  GT_FE_MENU_YES,\n  GT_FE_MENU_NO,\n  GT_IGO_SAVE_CAREER_PROMPT\n};\n\nclass PauseMenuSystem : public FEMenuSystem\n{\n};\n\nclass SaveCareerPromptClass : public FEMenu\n{\npublic:\n  enum\n  {\n    START_SAVING_GLOBAL,\n    SAVING_GLOBAL,\n    START_SAVING_CAREER,\n    SAVING_CAREER,\n    START_SAVING_PHOTO,\n    SAVING_PHOTO,\n    SAVING_DONE,\n    STATE_NONE\n  };\n  PauseMenuSystem *sys;\n  virtual void OnActivate();\nprivate:\n  int myFrameTimer;\n  int myState;\n  int next_menu;\n  FEMenuEntry *yes;\n  FEMenuEntry *no;\n  BoxText *message;\n  void SetState(const int idx);\n};\n\nvoid SaveCareerPromptClass::OnActivate()\n{\n\tfrontendmanager.unsaved_career = false; \n\tmessage->changeText(ksGlobalTextArray[GT_IGO_SAVE_CAREER_PROMPT]);\n\tmessage->makeBox(300,200);\n\tyes->Disable(false);\n\tno->Disable(false);\n\tsys->manager->IGO->ShowMenuBackground(true);\n\tsetHigh(yes);\n\tyes->SetText(ksGlobalTextArray[GT_FE_MENU_YES]);\n\tno->SetText(ksGlobalTextArray[GT_FE_MENU_NO]);\n\tSetState(STATE_NONE);\n}\n",
+      "status": "different",
+      "target_size": 428
+    }
+  ],
+  "raw_name": "OnActivate__21SaveCareerPromptClass"
+}
