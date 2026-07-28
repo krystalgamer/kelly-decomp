@@ -1,0 +1,23 @@
+{
+  "address": "0x003898E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "903056cd5d3224a2657bac25af79d29cf5e50bde",
+      "candidate_size": 436,
+      "compared_bytes": 436,
+      "compared_instructions": 109,
+      "emitted_name": "audioDecSendToIOP__FP8AudioDec",
+      "instruction_score": 54.1284,
+      "matching_bytes": 328,
+      "matching_instructions": 59,
+      "notes": "# First pass wave77 B3 \u2014 audioDecSendToIOP__FP8AudioDec\n\n- Target: `0x003898E0`, 432 bytes.\n- Tested exactly one candidate: the exact released function body with minimal standalone declarations.\n- Command: `env/bin/python tools/function_test.py test 0x003898E0 --candidate tmp/source_first/003898E0/candidate.cpp`.\n- Result: **different**; byte score **75.2294%** (328/436 compared), instruction score **54.1284%** (59/109), candidate size 436 bytes versus target size 432 bytes.\n- No retry, variant, diff chase, finalization, integration, build, commit, or tracked-file edit was performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/NVL/PS2/nvlMPEG_ps2.cpp:1404-1442` \u2014 exact released function body.\n- `kelly-slaters-pro-surfer/NVL/PS2/nvlMPEG_ps2.cpp:201-244` \u2014 released audio header and `AudioDec` layouts.\n- `kelly-slaters-pro-surfer/NVL/PS2/nvlMPEG_ps2.cpp:36-39,76-81` \u2014 released constants.\n- `tmp/functions/003898E0_audioDecSendToIOP__FP8AudioDec/attempt-1/result.json` \u2014 sole isolated test result.",
+      "score": 75.2294,
+      "source": "typedef unsigned char u_char;\n\nstruct SpuStreamHeader {\n    char id[4];\n    int size;\n    int type;\n    int rate;\n    int ch;\n    int interSize;\n    int loopStart;\n    int loopEnd;\n};\nstruct SpuStreamBody { char id[4]; int size; };\nstruct AudioDec {\n    int state;\n    SpuStreamHeader sshd;\n    SpuStreamBody ssbd;\n    int hdrCount;\n    unsigned char *data;\n    int put;\n    int count;\n    int size;\n    int totalBytes;\n    int iopBuff;\n    int iopBuffSize;\n    int iopLastPos;\n    int iopPausePos;\n    int totalBytesSent;\n    int iopZero;\n};\n\nextern int sceSdRemote(int, int, ...);\nextern void iopGetArea(int *, int *, int *, int *, AudioDec *, int);\nextern int sendToIOP2area(int, int, int, int, u_char *, int, u_char *, int);\n\n__asm__(\".equ sceSdRemote, 0x0038BAE0\");\n__asm__(\".equ iopGetArea__FPiN30P8AudioDeci, 0x00389A90\");\n__asm__(\".equ sendToIOP2area__FiiiiPUciT4i, 0x00389B38\");\n\n#define AUTODMA_CH 0\n#define UNIT_SIZE 1024\n#define AU_STATE_INIT 0\n#define AU_STATE_PRESET 1\n#define AU_STATE_PLAY 2\n#define AU_STATE_PAUSE 3\n#define rSdBlockTransStatus 10\n#define min(x,y) (((x) > (y)) ? (y) : (x))\n\nint audioDecSendToIOP(AudioDec* ad)\n{\n    int     pd0, pd1, d0, d1, s0, s1, count_sent = 0, countAdj, pos = 0;\n    u_char  *ps0, *ps1;\n\n    switch( ad->state )\n    {\n    case AU_STATE_INIT  :\n        return 0;\n        break;\n    case AU_STATE_PRESET:\n        pd0 = ad->iopBuff + ( ad->totalBytesSent ) % ad->iopBuffSize;\n        d0 = ad->iopBuffSize - ad->totalBytesSent;\n        pd1 = 0;\n        d1 = 0;\n        break;\n    case AU_STATE_PLAY  :\n        pos = ( (sceSdRemote(1, rSdBlockTransStatus, AUTODMA_CH) & 0x00FFFFFF) - ad->iopBuff );\n        iopGetArea( &pd0, &d0, &pd1, &d1, ad, pos );\n        break;\n    case AU_STATE_PAUSE :\n        return 0;\n        break;\n    }\n\n    ps0 = ad->data + ( ad->put - ad->count + ad->size ) % ad->size;\n    ps1 = ad->data;\n    countAdj = ( ad->count / UNIT_SIZE ) * UNIT_SIZE;\n    s0 = min( ad->data + ad->size - ps0, countAdj );\n    s1 = countAdj - s0;\n    if( d0 + d1 >= UNIT_SIZE && s0 + s1 >= UNIT_SIZE )\n    {\n        count_sent = sendToIOP2area(pd0, d0, pd1, d1, ps0, s0, ps1, s1);\n    }\n    ad->count -= count_sent;\n    ad->totalBytesSent += count_sent;\n    ad->iopLastPos = ( ad->iopLastPos + count_sent ) % ad->iopBuffSize;\n    return count_sent;\n}\n",
+      "status": "different",
+      "target_size": 432
+    }
+  ],
+  "raw_name": "audioDecSendToIOP__FP8AudioDec"
+}
