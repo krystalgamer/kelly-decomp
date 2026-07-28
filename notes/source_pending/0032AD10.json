@@ -1,0 +1,23 @@
+{
+  "address": "0x0032AD10",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1f993bdaefe9095088acc2e8b320075fa239eaab",
+      "candidate_size": 164,
+      "compared_bytes": 424,
+      "compared_instructions": 106,
+      "emitted_name": "__cl__12slf_cross3_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 0.0,
+      "matching_bytes": 40,
+      "matching_instructions": 0,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 75 lane B1 for `0x0032AD10 __cl__12slf_cross3_tR8vm_stackQ320script_library_class8function7entry_t`.\n- Tested the exact active released `slf_cross3_t::operator()` body once with minimal declarations for `vector3d`, `cross`, `vm_stack`, and the script-library function base.\n- Result: **different**, byte score **9.4340%** (40/424), instruction score **0.0000%** (0/106). Candidate size was 164 bytes versus the 424-byte target.\n- No variant, retry, diff chase, finalization, build, integration, tracked-file edit, commit, or push was performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/script_lib_vector3d.cpp:387-406`\n- `kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:292-310,406-414`\n- `kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:20-61,262-300`\n- `kelly-slaters-pro-surfer/KS/SRC/vm_stack.h:21-83`\n- `tmp/functions/0032AD10___cl__12slf_cross3_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/result.json`\n\n## Outcome\n\nThe exact released vector cross script wrapper differed from the target; the sole attempt scored 9.4340%.",
+      "score": 9.434,
+      "source": "typedef float rational_t;\n\nclass vector3d\n{\npublic:\n  rational_t x, y, z;\n\n  vector3d() {}\n  vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n  vector3d(rational_t _x, rational_t _y, rational_t _z)\n  {\n    x = _x;\n    y = _y;\n    z = _z;\n  }\n};\n\ninline vector3d cross(const vector3d& a, const vector3d& b)\n{\n  vector3d v( a.y * b.z - a.z * b.y,\n              a.z * b.x - a.x * b.z,\n              a.x * b.y - a.y * b.x );\n  return v;\n}\n\nclass vm_stack\n{\npublic:\n  char* SP;\n\n  char* get_SP() const { return SP; }\n  void pop(int n) { SP -= n; }\n  bool push(const char* src, int n);\n};\n\nvoid error(const char*);\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n\n    virtual bool operator()(vm_stack& stack, entry_t entry) { return true; }\n  };\n};\n\n#define SLF_PARMS \\\n  stack.pop(sizeof(parms_t)); \\\n  parms_t* parms = (parms_t*)stack.get_SP()\n\n#define SLF_RETURN \\\n  if (!stack.push((char*)&result,sizeof(result)) ) \\\n    error( \"script stack overflow\" )\n\n#define SLF_DONE \\\n  return true\n\nclass slf_cross3_t : public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    vector3d v1;\n    vector3d v2;\n  };\n\n  virtual bool operator()(vm_stack& stack,entry_t entry);\n};\n\nbool slf_cross3_t::operator()(vm_stack& stack,entry_t entry)\n{\n  SLF_PARMS;\n  vector3d result = cross(parms->v1,parms->v2);\n  SLF_RETURN;\n  SLF_DONE;\n}\n",
+      "status": "different",
+      "target_size": 424
+    }
+  ],
+  "raw_name": "__cl__12slf_cross3_tR8vm_stackQ320script_library_class8function7entry_t"
+}
