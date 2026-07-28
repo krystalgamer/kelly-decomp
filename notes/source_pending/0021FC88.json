@@ -1,0 +1,23 @@
+{
+  "address": "0x0021FC88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9fa91226d25b20e898e043967451a7ec947d22ba",
+      "candidate_size": 352,
+      "compared_bytes": 356,
+      "compared_instructions": 89,
+      "emitted_name": "get_floor_offset__22kellyslater_controller",
+      "instruction_score": 22.4719,
+      "matching_bytes": 146,
+      "matching_instructions": 20,
+      "notes": "Attempt 1 used the exact released body from kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.cpp:7177-7204 with minimal declarations from controller.h, entity.h, entity_anim.h, and anim.h. Result: different, score 41.0112 (146/356 bytes; 20/89 instructions); candidate size 352 bytes. No variants or diff chasing.",
+      "score": 41.0112,
+      "source": "typedef float rational_t;\ntypedef float time_value_t;\n\nclass vector3d\n{\npublic:\n  rational_t x, y, z;\n};\n\nextern const vector3d ZEROVEC;\n\nclass entity;\n\nclass anim_control_t\n{\n  time_value_t current_time;\n  time_value_t time_delta;\n  time_value_t duration;\n  rational_t timescale_factor;\n  rational_t cntrl_tween_duration;\n  rational_t tween_timer;\n  unsigned int flags;\n  short loop_count;\n\npublic:\n  inline bool is_flagged(unsigned int f) const { return (flags & f); }\n  inline bool is_reverse() const { return is_flagged(0x0002); }\n  inline bool is_looping() const { return is_flagged(0x0004); }\n  inline bool is_finished() const\n  {\n    if ( is_looping() && (loop_count==-1 || loop_count>0) )\n      return false;\n    if ( is_reverse() )\n      return ( current_time <= 0 );\n    else\n      return ( current_time >= duration );\n  }\n};\n\nclass entity_anim_tree\n{\n  unsigned short flags;\n  char padding0[70];\n  anim_control_t control;\n  char padding1[6];\n  rational_t floor_offset;\n\npublic:\n  inline bool is_finished() const { return control.is_finished(); }\n  inline bool is_relative_to_start() const { return (flags & 0x0001); }\n  inline rational_t get_floor_offset() const { return floor_offset; }\n  bool is_root(entity *value) const;\n  void get_current_root_relpos(vector3d *position) const;\n};\n\nclass entity\n{\npublic:\n  entity_anim_tree *get_anim_tree(int slot) const;\n};\n\nclass kellyslater_controller\n{\n  char padding[8];\n  entity *owner;\n\npublic:\n  inline entity *get_owner() const { return owner; }\n  rational_t get_floor_offset();\n};\n\nasm(\".equ ZEROVEC, 0x00513840\");\nasm(\".equ get_anim_tree__C6entityi, 0x001348D8\");\nasm(\".equ is_root__C16entity_anim_treeP6entity, 0x00118598\");\nasm(\".equ get_current_root_relpos__C16entity_anim_treeP8vector3d, 0x00118510\");\n\n// return desired distance from character's root to floor\nrational_t kellyslater_controller::get_floor_offset(void)\n{\n  // for now at least, this is entirely determined by the root animation\n  entity_anim_tree* a = 0;\n  rational_t last_floor_offset = 0.0f;\n\n  for(int i=(10-1); i>=0 && (a == 0); --i)\n//  for(int i=0; i<10 && (a == 0); ++i)\n  {\n    a = get_owner()->get_anim_tree( i );\n    if(a && (a->is_finished() || a->get_floor_offset() <= 0.0f || !a->is_root(get_owner())))\n      a = 0;\n  }\n\n  if ( a!=0 && a->is_relative_to_start() )\n  {\n    vector3d relp = ZEROVEC;\n    a->get_current_root_relpos( &relp );\n    last_floor_offset = a->get_floor_offset();\n    last_floor_offset += relp.y;\n  }\n  return last_floor_offset;\n}\n",
+      "status": "different",
+      "target_size": 356
+    }
+  ],
+  "raw_name": "get_floor_offset__22kellyslater_controller"
+}
