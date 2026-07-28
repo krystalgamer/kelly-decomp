@@ -1,0 +1,23 @@
+{
+  "address": "0x00349728",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "57fcd61941f47c2f789939fd06e9315de15d5993",
+      "candidate_size": 292,
+      "compared_bytes": 364,
+      "compared_instructions": 91,
+      "emitted_name": "get_quaternion__C2po",
+      "instruction_score": 1.0989,
+      "matching_bytes": 62,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used the exact released source for get_quaternion__C2po. Result `different`, score 17.0330; no retry or variant was made.",
+      "score": 17.033,
+      "source": "typedef float rational_t;\n\nextern \"C\" float sqrtf(float);\n#define __fsqrt sqrtf\n\nclass vector3d\n{\npublic:\n  rational_t x, y, z;\n\n  inline rational_t length() const\n  {\n    return (rational_t)__fsqrt(x*x + y*y + z*z);\n  }\n};\n\nclass vector4d\n{\npublic:\n  rational_t x, y, z, w;\n};\n\nclass matrix4x4\n{\npublic:\n  vector4d x __attribute__((aligned(16)));\n  vector4d y;\n  vector4d z;\n  vector4d w;\n};\n\nclass quaternion\n{\npublic:\n  quaternion(const matrix4x4 &M);\n\n  rational_t a;\n  rational_t b;\n  rational_t c;\n  rational_t d;\n};\n\nclass po\n{\nprivate:\n  matrix4x4 m;\n\npublic:\n  const matrix4x4& get_matrix() const\n  {\n    return m;\n  }\n\n  inline rational_t get_scale() const\n  {\n    return ((const vector3d&)m).length();\n  }\n\n  quaternion get_quaternion() const;\n};\n\nquaternion po::get_quaternion() const\n{\n  matrix4x4 orient_m = get_matrix();\n  rational_t s = 1.0f / get_scale();\n\n  orient_m.x.x *= s;  orient_m.x.y *= s;  orient_m.x.z *= s;\n  orient_m.y.x *= s;  orient_m.y.y *= s;  orient_m.y.z *= s;\n  orient_m.z.x *= s;  orient_m.z.y *= s;  orient_m.z.z *= s;\n\n  return quaternion(orient_m);\n}\n",
+      "status": "different",
+      "target_size": 364
+    }
+  ],
+  "raw_name": "get_quaternion__C2po"
+}
