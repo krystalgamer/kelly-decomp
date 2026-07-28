@@ -1,0 +1,23 @@
+{
+  "address": "0x002CDEF0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "18b57edb79489df3d6105db1db32f0f2cdd21939",
+      "candidate_size": 208,
+      "compared_bytes": 372,
+      "compared_instructions": 89,
+      "emitted_name": "LIGHTMGR_StaticInitLightSet__Fv",
+      "instruction_score": 5.618,
+      "matching_bytes": 70,
+      "matching_instructions": 5,
+      "notes": "Attempt 1 used the exact released source for LIGHTMGR_StaticInitLightSet__Fv. Result `different`, score 18.8172; no retry or variant was made.",
+      "score": 18.8172,
+      "source": "typedef unsigned int size_t;\n\nvoid *operator new(size_t, unsigned int, const char *, int);\nextern void arch_free(void *);\n\nclass ref\n{\nprotected:\n  unsigned count;\n\npublic:\n  ref() : count(0) {}\n  unsigned refs() const { return count; }\n  void addref() { ++count; }\n  bool subref() { return --count != 0; }\n};\n\ntemplate<class T>\nclass vector\n{\n  T *first;\n  T *last;\n  T *limit;\n\npublic:\n  vector() : first(0), last(0), limit(0) {}\n  ~vector()\n  {\n    for (T *p = first; p < last; ++p)\n      p->~T();\n    if (last - first)\n      arch_free(first);\n  }\n};\n\nclass color\n{\npublic:\n  float r, g, b, a;\n  color(float R, float G, float B, float A) : r(R), g(G), b(B), a(A) {}\n};\n\nclass sphere\n{\n  float data[4];\n};\n\nclass light_manager : public ref\n{\npublic:\n  class light_rec\n  {\n    char data[76];\n  public:\n    ~light_rec() {}\n  };\n\n  vector<light_rec> lights;\n  color last_ambient;\n  color goal_ambient;\n  color my_ambient;\n  unsigned max_lights;\n  unsigned cur_max_lights;\n  sphere bound;\n  bool allow_omni;\n  bool dynamic_only;\n\n  explicit light_manager(bool is_terrain=false)\n    : last_ambient(1.0f,1.0f,1.0f,1.0f)\n    , goal_ambient(1.0f,1.0f,1.0f,1.0f)\n    , my_ambient(1.0f,1.0f,1.0f,1.0f)\n    , max_lights(1)\n    , allow_omni(is_terrain)\n    , dynamic_only(is_terrain)\n  {}\n};\n\ntemplate<class T>\nclass refptr\n{\n  T *p;\n\n  void subref()\n  {\n    if (p)\n      if (!p->subref())\n        delete p;\n  }\n\n  void addref()\n  {\n    if (p)\n      p->addref();\n  }\n\npublic:\n  refptr(T *a=0) : p(a) { addref(); }\n\n  refptr<T>& operator=(T *a)\n  {\n    if (p != a)\n    {\n      subref();\n      p = a;\n      addref();\n    }\n    return *this;\n  }\n};\n\nstatic refptr<light_manager> static_light_set=0;\n\n#define NEW new(0,__FILE__,__LINE__)\n\nvoid LIGHTMGR_StaticInitLightSet( void )\n{\n\tstatic_light_set=NEW light_manager(true);\n}\n",
+      "status": "different",
+      "target_size": 372
+    }
+  ],
+  "raw_name": "LIGHTMGR_StaticInitLightSet__Fv"
+}
