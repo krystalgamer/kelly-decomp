@@ -1,0 +1,23 @@
+{
+  "address": "0x00378FB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9c5d6c9218e14c432d94d06297b2236a5a21f051",
+      "candidate_size": 372,
+      "compared_bytes": 372,
+      "compared_instructions": 93,
+      "emitted_name": "WAVE_SubdivideGrid__FPC13WavePartitionPfUi",
+      "instruction_score": 4.3011,
+      "matching_bytes": 84,
+      "matching_instructions": 4,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 50 lane A5 for `0x00378FB0 WAVE_SubdivideGrid__FPC13WavePartitionPfUi`.\n- Tested the exact released `WAVE_SubdivideGrid` body once with minimal self-contained declarations for `u_int`, `WavePartition`, and the retail no-op `assert` macro.\n- Result: **different**, byte score **22.5806%** (84/372) and instruction score **4.3011%** (4/93); candidate size 372 bytes versus target size 356 bytes.\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/wave.cpp:350-359,4233-4280`\n- `tmp/functions/00378FB0_WAVE_SubdivideGrid__FPC13WavePartitionPfUi/attempt-1/result.json`",
+      "score": 22.5806,
+      "source": "// Target: 0x00378FB0 WAVE_SubdivideGrid__FPC13WavePartitionPfUi\n// Reference: KS/SRC/ks/wave.cpp\ntypedef unsigned int u_int;\n\nstruct WavePartition {\n  WavePartition(u_int N_in, float *guide_in, float *guidestep_in, float *weight_in)\n    : N(N_in), guide(guide_in), guidestep(guidestep_in), weight(weight_in) {}\n\n  u_int N;\n  float *guide;\n  float *guidestep;\n  float *weight;\n};\n\n#define assert(x) ((void)0)\n\nstatic void WAVE_SubdivideGrid(const WavePartition *wp, float *gridarray, u_int stepmax)\n{\n\tu_int step, jump;\n\tfloat inc;\n\tfloat base, basestep;\n\tfloat weight;\n\tfloat weighttotal;\n\tconst float *weightptr = wp->weight;\n\tfloat guide;\n\tconst float *guideptr = wp->guide;\n\tfloat guidestep;\n\tconst float *guidestepptr = wp->guidestep;\n\tfloat *&gridptr = gridarray;\n\tconst u_int &jumpmax = wp->N - 1;\n\tfloat surplus;\n\n\t// Sum up the weights\n\tfor (jump = 0, weighttotal = 0; jump < jumpmax; ++jump, weighttotal += *weightptr++) continue;\n\tweightptr = wp->weight;\n\n\t// Compute the divisions\n\tfor (\n\t\tstep = 1, jump = 0, inc = 1, *gridptr++ = base = guide = *guideptr++, guidestep = 0,\n\t\t\tbasestep = guidestep + inc;\n\t\tstep < stepmax;\n\t\t++step, *gridptr++ = base, base += inc, basestep += inc\n\t)\n\t{\n\t\twhile (basestep > guidestep)\t// overshot next jump boundary\n\t\t{\n\t\t\tsurplus = (basestep - guidestep) / inc;\t// overshot by what fraction\n\n\t\t\t++jump;\n\t\t\tassert(jump <= jumpmax);\n\t\t\tweight = *weightptr++;\n\t\t\tguidestep = *guidestepptr++;\n\t\t\tassert(guidestep >= 0);\n\n\t\t\tinc = (guidestep * weighttotal) / (stepmax * weight);\t// step size for next jump interval\n\t\t\tbasestep = inc * surplus;\t// proceed by remaining fraction of a step\n\t\t\tbase = guide + basestep;\n\n\t\t\tguide = *guideptr++;\n\t\t}\n\t}\n\n\t*gridptr = wp->guide[jumpmax];\n}\n",
+      "status": "different",
+      "target_size": 356
+    }
+  ],
+  "raw_name": "WAVE_SubdivideGrid__FPC13WavePartitionPfUi"
+}
