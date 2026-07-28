@@ -1,0 +1,23 @@
+{
+  "address": "0x0019F3D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ef5ec5df245b9aef32f4d7069d0b1c4c0eb7d109",
+      "candidate_size": 372,
+      "compared_bytes": 372,
+      "compared_instructions": 93,
+      "emitted_name": "OnDown__9NamesMenui",
+      "instruction_score": 59.1398,
+      "matching_bytes": 263,
+      "matching_instructions": 55,
+      "notes": "Exact released source body with minimal release-offset declarations. No variants or diff chasing.",
+      "score": 70.6989,
+      "source": "class FEMenuEntry {\npublic:\n    int entry_num;\n    FEMenuEntry *next;\n    char pad08[76];\n    FEMenuEntry *down;\n    char pad58[8];\n    virtual bool GetDisable();\n};\n\nclass FEManager {\npublic:\n    char pad[22136];\n    bool fe_done;\n};\nextern FEManager frontendmanager;\n\nclass SoundScriptManager {\npublic:\n    static SoundScriptManager *instance __asm__(\"_18SoundScriptManager$instance\");\n    static SoundScriptManager *inst() { return instance; }\n    void pause() __asm__(\"pause__18SoundScriptManager\");\n    void unpause() __asm__(\"unpause__18SoundScriptManager\");\n    int playEvent(int, void * = 0, float = 0) __asm__(\"playEvent__18SoundScriptManager9EventTypeP6entityf\");\n};\n\nenum { FEMENU_SCROLLING = 1, SS_FE_UPDOWN = 25 };\n\nclass NamesMenu {\npublic:\n    char pad00[56];\n    int max_vis_entries;\n    int flags;\n    char pad40[4];\n    FEMenuEntry *first_vis_entry;\n    FEMenuEntry *last_vis_entry;\n    char pad4c[268];\n    FEMenuEntry *secondary_cursor;\n    char pad15c[240];\n    FEMenuEntry *entry[17];\n    void SetVis(FEMenuEntry *) __asm__(\"SetVis__9NamesMenuP11FEMenuEntry\");\n    void SetSecondaryCursor(FEMenuEntry *) __asm__(\"SetSecondaryCursor__9NamesMenuP11FEMenuEntry\");\n    void OnDown(int) __asm__(\"OnDown__9NamesMenui\");\n};\n\nvoid NamesMenu::OnDown(int c)\n{\n    if(secondary_cursor->down)\n    {\n        if((flags & FEMENU_SCROLLING) && secondary_cursor == last_vis_entry)\n        {\n            FEMenuEntry* first = first_vis_entry->down;\n\n            while(first && first->GetDisable())\n                first = first->next;\n            if(first->entry_num <= 15 - max_vis_entries)\n                SetVis(first);\n        }\n\n        FEMenuEntry* tmp = secondary_cursor->down;\n        while(tmp && tmp->GetDisable() && tmp != entry[0])\n            tmp = tmp->down;\n\n        if(tmp && tmp->entry_num < 15 && tmp != entry[0])\n        {\n            if (frontendmanager.fe_done)\n                SoundScriptManager::inst()->unpause();\n\n            SoundScriptManager::inst()->playEvent(SS_FE_UPDOWN);\n            if (frontendmanager.fe_done)\n                SoundScriptManager::inst()->pause();\n\n            SetSecondaryCursor(tmp);\n        }\n    }\n}\n",
+      "status": "different",
+      "target_size": 352
+    }
+  ],
+  "raw_name": "OnDown__9NamesMenui"
+}
