@@ -1,0 +1,23 @@
+{
+  "address": "0x00284D18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "40b7ee9de4e448aab45488ff3f88a7bbef53d404",
+      "candidate_size": 364,
+      "compared_bytes": 376,
+      "compared_instructions": 94,
+      "emitted_name": "set_active_player__4gamei",
+      "instruction_score": 12.766,
+      "matching_bytes": 109,
+      "matching_instructions": 12,
+      "notes": "# Attempt 1\n\nResult: `different`; byte score: `28.9894` (109/376), instruction score: `12.766` (12/94). Candidate used the exact released `game::set_active_player` body with minimal self-contained declarations/layout derived from the released headers.\n\nCitations: pinned reference `7c3ade041cc03409a3114ce3ba4a70053c6e4e3b`, `KS/SRC/game.cpp:5341-5360`; `KS/SRC/game.h:411-465`; `KS/SRC/wds.h:320-328`; `KS/SRC/controller.h:20-42`; `KS/SRC/ks/kellyslater_controller.h:691-692,815`; `KS/SRC/entity.h:839,866`; canonical `attempts.json` and `attempt-1/result.json`.\n\nNo retry: FIRST PASS lane permits exactly one candidate test.",
+      "score": 28.9894,
+      "source": "typedef void (*virtual_fn)(void *, bool);\ntypedef void (*controller_fn)(void *);\n#define assert(x) ((void) 0)\n\nstruct entity\n{\n  unsigned char pad[8];\n  struct vtable_t\n  {\n    unsigned char pad[0x160];\n    short delta;\n    short unused;\n    virtual_fn set_visible;\n  } *vtable;\n\n  void set_visible(bool value)\n  {\n    vtable->set_visible((char *) this + vtable->delta, value);\n  }\n};\n\nstruct kellyslater_controller\n{\n  int active;\n  unsigned char pad0[4];\n  struct vtable_t\n  {\n    unsigned char pad0[0x18];\n    short kill_delta;\n    short unused0;\n    controller_fn kill;\n    short resurrect_delta;\n    short unused1;\n    controller_fn resurrect;\n  } *vtable;\n  unsigned char pad1[0xe3c];\n  entity *my_board;\n  entity *my_board_model;\n  entity *my_board_member;\n\n  bool is_active() const { return active; }\n  void set_active(bool yorn)\n  {\n    if (is_active())\n    {\n      if (!yorn)\n        vtable->kill((char *) this + vtable->kill_delta);\n    }\n    else if (yorn)\n      vtable->resurrect((char *) this + vtable->resurrect_delta);\n  }\n  entity *GetBoard(void) { return my_board; }\n  entity *GetBoardModel(void) { return my_board_model; }\n  entity *GetBoardMember(void) { return my_board_member; }\n};\n\nstruct world_dynamics_system\n{\n  unsigned char pad[0xf0];\n  kellyslater_controller *ks_controller[2];\n  entity *hero_ptr[2];\n\n  entity *get_hero_ptr(int n) { return hero_ptr[n]; }\n  kellyslater_controller *get_ks_controller(int n) { return ks_controller[n]; }\n};\n\nclass game\n{\npublic:\n  unsigned char pad0[0xc];\n  world_dynamics_system *the_world;\n  unsigned char pad1[0xa0];\n  int num_players;\n  unsigned char pad2[8];\n  int active_player;\n\n  void set_active_player(const int n);\n};\n\nvoid game::set_active_player(const int n)\n{\n\tassert(n >= 0 && n < num_players);\n\n\tactive_player = n;\n\n\t// Set this player to active, and all the rest to inactive.\n\tfor (int i = 0; i < num_players; i++)\n\t{\n\t\t// Note: when changing these, change the code in retry_level too.\n\t\tthe_world->get_ks_controller(i)->set_active(active_player == i);\n\t\tthe_world->get_hero_ptr(i)->set_visible(active_player == i);\n\t\tthe_world->get_ks_controller(i)->GetBoard()->set_visible(active_player == i);\n\t\tthe_world->get_ks_controller(i)->GetBoardModel()->set_visible(active_player == i);\n\t\tthe_world->get_ks_controller(i)->GetBoardMember()->set_visible(active_player == i);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 376
+    }
+  ],
+  "raw_name": "set_active_player__4gamei"
+}
