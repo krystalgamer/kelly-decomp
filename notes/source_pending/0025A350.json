@@ -1,0 +1,23 @@
+{
+  "address": "0x0025A350",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "98503668e3e8a32aa56d9624c286cbe429443817",
+      "candidate_size": 316,
+      "compared_bytes": 368,
+      "compared_instructions": 81,
+      "emitted_name": "__6Career",
+      "instruction_score": 6.1728,
+      "matching_bytes": 59,
+      "matching_instructions": 5,
+      "notes": "Attempt 1 used the exact released source for __6Career. Result `different`, score 16.0326; no retry or variant was made.",
+      "score": 16.0326,
+      "source": "typedef unsigned int size_t;\n\nextern \"C\" char *strcpy(char *, const char *);\n\nstruct ksConfigData {\n    char data[1];\n};\n\nvoid initKSConfigStruct(ksConfigData *);\n__asm__(\".equ initKSConfigStruct__FP12ksConfigData, 0x001A2B50\");\n\nclass CompressedPhoto {\n    char data[0x2008];\n\npublic:\n    CompressedPhoto();\n};\n\n__asm__(\".equ __15CompressedPhoto, 0x00262A08\");\n\nclass Career {\npublic:\n    class Level {\n        char data[0x24];\n\n    public:\n        Level();\n    };\n\n    class Beach {\n        char data[0x0c];\n\n    public:\n        Beach();\n    };\n\n    class Location {\n        char data[0x10];\n\n    public:\n        Location();\n    };\n\nprivate:\n    int spin, speed, jump, balance;\n    int current_beach;\n    int my_id;\n    int my_board_id;\n    char myInitials[4];\n    int num_special_challenges_completed;\n    bool using_personality_suit;\n    int num_earned_tricks;\n    bool learned_tricks[16];\n    bool new_goal_passed[8];\n    bool goal_passed[8];\n    bool boards[9];\n    int totalStatPointsIncreased;\n    CompressedPhoto compressedPhotos[8];\n    int levels_completed_order[32];\n    int total_env_challenges;\n    int env_challenges_passed;\n    int super_board_was_unlocked;\n    int espn_movie_was_unlocked;\n    int bails_movie_was_unlocked;\n    bool awarded[8];\n\npublic:\n    Level levels[32];\n    Beach beaches[25];\n    Location locations[17];\n    ksConfigData cfg;\n\n    Career();\n};\n\n__asm__(\".equ __Q26Career5Level, 0x0025C318\");\n__asm__(\".equ __Q26Career5Beach, 0x0025C478\");\n__asm__(\".equ __Q26Career8Location, 0x0025B8F0\");\n\nCareer::Career()\n{\n    int i;\n    totalStatPointsIncreased=0;\n    initKSConfigStruct(&cfg);\n    for(i = 0; i < 9; i++)\n        boards[i] = false;\n    spin = speed = jump = balance = 0;\n    my_id = 14;\n    strcpy(myInitials, \"\");\n}\n",
+      "status": "different",
+      "target_size": 368
+    }
+  ],
+  "raw_name": "__6Career"
+}
