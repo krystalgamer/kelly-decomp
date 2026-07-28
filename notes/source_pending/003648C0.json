@@ -1,0 +1,23 @@
+{
+  "address": "0x003648C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "125b989e96252f88b86f1f3b614ef9e2531df701",
+      "candidate_size": 332,
+      "compared_bytes": 348,
+      "compared_instructions": 87,
+      "emitted_name": "spraypt_add__5trailP15spray_control_tT1Pi",
+      "instruction_score": 17.2414,
+      "matching_bytes": 125,
+      "matching_instructions": 15,
+      "notes": "# Attempt 1 \u2014 exact released source/minimal declarations\n\n- FIRST PASS wave 47 lane A1 for `0x003648C0 spraypt_add__5trailP15spray_control_tT1Pi`.\n- Tested the exact released `trail::spraypt_add` body once with minimal self-contained declarations preserving the released `vector3d`, `spray_control_t`, and `trail` layouts needed by the function.\n- Result: **different**, byte score **35.9195%** (125/348) and instruction score **17.2414%** (15/87); candidate size 332 bytes versus target size 348 bytes.\n- Exactly one non-placeholder candidate was tested using `env/bin/python`.\n- No variants, retries, diff chasing, build, finalization, integration, tracked-file/tool edits, subagents, lean work, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/trail.cpp:1148-1173`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/trail.h:20-49,64-104`\n- `tmp/functions/003648C0_spraypt_add__5trailP15spray_control_tT1Pi/attempt-1/result.json`",
+      "score": 35.9195,
+      "source": "typedef struct vector3d\n{\n  float x;\n  float y;\n  float z;\n} vector3d;\n\ntypedef struct trail_node_t trail_node_t;\n\ntypedef struct\n{\n  vector3d current __attribute__((aligned(16)));\n  vector3d start __attribute__((aligned(16)));\n  vector3d *trailpt;\n  trail_node_t *trail_node;\n  vector3d vel;\n  float seed;\n  float age;\n  float life;\n  int valid;\n} spray_control_t;\n\n#define MAX_SPRAY_PTS 25\n\nclass trail\n{\npublic:\n  bool spraypt_add (spray_control_t *SC, spray_control_t *ListPtr, int *ListCount);\n  void spraypt_pos (spray_control_t *SC);\n};\n\nbool trail::spraypt_add (spray_control_t *SC, spray_control_t *ListPtr, int *ListCount)\n{\n  if (SC->trailpt == ListPtr[*ListCount].trailpt)\n    return false;\n\n\t*ListCount = 1 + *ListCount;\n\tif(*ListCount>=MAX_SPRAY_PTS)\n\t\t*ListCount=0;\n\n\tspraypt_pos(SC);\n\n\tListPtr[*ListCount].age = 0;\n\tListPtr[*ListCount].life = SC->life;\n\tListPtr[*ListCount].trailpt = SC->trailpt;\n\tListPtr[*ListCount].vel = SC->vel;\n\tListPtr[*ListCount].start = SC->start;\n\tListPtr[*ListCount].current = SC->current;\n\tListPtr[*ListCount].valid = 1;\n\tListPtr[*ListCount].trail_node = SC->trail_node;\n\n  return true;\n}\n",
+      "status": "different",
+      "target_size": 348
+    }
+  ],
+  "raw_name": "spraypt_add__5trailP15spray_control_tT1Pi"
+}
