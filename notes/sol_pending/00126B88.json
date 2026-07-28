@@ -1,0 +1,41 @@
+{
+  "address": "0x00126B88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d3e279c9b4160dfc656f6b77aed8774d26102052",
+      "notes": "Attempt 1 used the exact released physical_interface::set_ifc_vec body with an initial declaration context and compile failed. This attempt is preserved honestly; the lane subsequently exceeded the first-pass cap.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/physical_interface_shared.h\"\n\n#define IFC_INTERNAL_FUNC_MACRO(a,b) { static pstring pstring_func(a); if(att == pstring_func) { b; return(true); } }\n\nbool physical_interface::set_ifc_vec(const pstring &att, const vector3d &val)\n{\n  IFC_INTERNAL_FUNC_MACRO(\"VELOCITY\", set_velocity(val));\n  IFC_INTERNAL_FUNC_MACRO(\"ANGULAR_VELOCITY\", set_angular_velocity(val));\n\n  return(false);\n}\n",
+      "status": "compile_failed"
+    },
+    {
+      "attempt": 2,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1808ab8db05c3ab5158b8a607aed81627dbf6b6b",
+      "candidate_size": 352,
+      "compared_bytes": 352,
+      "compared_instructions": 88,
+      "emitted_name": "set_ifc_vec__18physical_interfaceRC7pstringRC8vector3d",
+      "instruction_score": 18.1818,
+      "matching_bytes": 125,
+      "matching_instructions": 16,
+      "notes": "Attempt 2 preserved the exact released body with a revised declaration context. It emitted the target symbol and differed at 35.5114% bytes and 18.1818% instructions.",
+      "score": 35.5114,
+      "source": "typedef unsigned long uint64;\n\nclass pstring\n{\n  uint64 pchunk[4];\n  void pack_string(const char *the_string);\npublic:\n  pstring(const char *target_string) { pack_string(target_string); }\n  bool operator == (const pstring &check_me) const\n  {\n    for (unsigned i=0; i<4; ++i)\n      if (pchunk[i] != check_me.pchunk[i])\n        return false;\n    return true;\n  }\n};\n\nclass vector3d\n{\npublic:\n  float x, y, z;\n  vector3d& operator=(const vector3d& v)\n  {\n    x = v.x; y = v.y; z = v.z;\n    return *this;\n  }\n};\n\nclass physical_interface\n{\n  char prefix[20];\n  vector3d velocity;\n  vector3d angular_velocity;\npublic:\n  void set_velocity(const vector3d &value) { velocity = value; }\n  void set_angular_velocity(const vector3d &value) { angular_velocity = value; }\n  bool set_ifc_vec(const pstring &att, const vector3d &val);\n};\n\n#define IFC_INTERNAL_FUNC_MACRO(a,b) { static pstring pstring_func(a); if(att == pstring_func) { b; return(true); } }\n\nbool physical_interface::set_ifc_vec(const pstring &att, const vector3d &val)\n{\n  IFC_INTERNAL_FUNC_MACRO(\"VELOCITY\", set_velocity(val));\n  IFC_INTERNAL_FUNC_MACRO(\"ANGULAR_VELOCITY\", set_angular_velocity(val));\n\n  return(false);\n}\n",
+      "status": "different",
+      "target_size": 336
+    },
+    {
+      "attempt": 3,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e4642b7254a3b6112f57b2f6101647c815835590",
+      "notes": "Attempt 3 preserved the exact released body with another declaration-context extraction and compile failed. No further attempt was made.",
+      "score": 0.0,
+      "source": "#include \"Z:/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"Z:/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/physical_interface.h\"\n\nbool physical_interface::set_ifc_vec(const pstring &att, const vector3d &val)\n{\n  IFC_INTERNAL_FUNC_MACRO(\"VELOCITY\", set_velocity(val));\n  IFC_INTERNAL_FUNC_MACRO(\"ANGULAR_VELOCITY\", set_angular_velocity(val));\n\n  return(false);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "set_ifc_vec__18physical_interfaceRC7pstringRC8vector3d"
+}
