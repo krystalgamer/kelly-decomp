@@ -1,0 +1,23 @@
+{
+  "address": "0x0032D260",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "08398686b3210ca2003089808b793854ce5d5895",
+      "candidate_size": 276,
+      "compared_bytes": 460,
+      "compared_instructions": 115,
+      "emitted_name": "__cl__26slf_create_bitmap_widget_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 1.7391,
+      "matching_bytes": 53,
+      "matching_instructions": 2,
+      "notes": "FIRST PASS wave84 A4\nTarget: 0x0032D260 __cl__26slf_create_bitmap_widget_tR8vm_stackQ320script_library_class8function7entry_t (460 bytes / 0x1CC, game/files_script)\nReference: kelly-slaters-pro-surfer/KS/SRC/script_lib_widget.cpp\nConfirmed attempts=0 before preparation and testing. Exactly one nonempty LF self-contained candidate was tested. It preserves the exact released operator body and supplies minimal faithful declarations for stringx, VM stack/thread ownership, script library entry type, widget layering, bitmap_widget, and game access, with no includes or unresolved include dependencies.\nResult: different, score 11.5217% (53/460 matching bytes; 2/115 matching instructions); candidate size 276 bytes versus target size 460 bytes.\nNo alternate, assembly, annotations, variants, retry, attempts 2-5, diff chasing, tracked edits, finalize, integrate, build, commit, or push. This pre-test-only lane stopped after the single honest attempt.",
+      "score": 11.5217,
+      "source": "class stringx\n{\npublic:\n  const char* c_str() const;\n};\n\nstringx operator+(const stringx&, const char*);\nstringx operator+(const stringx&, const stringx&);\nvoid error(const stringx&);\n\nclass script_executable\n{\npublic:\n  const stringx& get_fullname() const;\n};\n\nclass script_instance\n{\npublic:\n  const stringx& get_name() const;\n};\n\nclass vm_thread\n{\npublic:\n  script_instance* get_instance() const;\n  script_executable* get_executable() const;\n};\n\nclass vm_stack\n{\npublic:\n  int salloc;\n  char* buffer;\n  char* SP;\n  vm_thread* my_thread;\n\n  char* get_SP() const { return SP; }\n  vm_thread* get_thread() const { return my_thread; }\n  void pop(int n) { SP -= n; }\n  bool push(const char* src, int n);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t { FIRST_ENTRY };\n  };\n};\n\nclass widget\n{\npublic:\n  enum rhw_layer_e { RHW0 };\n  static void set_rhw_2d_layer(rhw_layer_e);\n  static void restore_last_rhw_2d_layer();\n};\n\nclass bitmap_widget : public widget\n{\npublic:\n  bitmap_widget(const char*, widget*, short, short, int = 1);\n  bool open(const char*);\n};\n\nclass game\n{\npublic:\n  widget* get_script_widget_holder() const;\n};\n\nextern game* g_game_ptr;\ntypedef const stringx* vm_str_t;\ntypedef bitmap_widget* vm_bitmap_widget_t;\n\nclass slf_create_bitmap_widget_t : public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    vm_str_t filename;\n  };\n\n  bool operator()(vm_stack& stack, entry_t entry);\n};\n\nbool slf_create_bitmap_widget_t::operator()(vm_stack& stack, entry_t entry)\n{\n  stack.pop(sizeof(parms_t));\n  parms_t* parms = (parms_t*)stack.get_SP();\n\n  widget::set_rhw_2d_layer(widget::RHW0);\n  vm_bitmap_widget_t result = new bitmap_widget(\"script bitmap widg\", (widget*)(g_game_ptr->get_script_widget_holder()), 0, 0);\n  result->open(parms->filename->c_str());\n  widget::restore_last_rhw_2d_layer();\n\n  if (!stack.push((char*)&result, sizeof(result)))\n    error(stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname());\n  return true;\n}\n",
+      "status": "different",
+      "target_size": 460
+    }
+  ],
+  "raw_name": "__cl__26slf_create_bitmap_widget_tR8vm_stackQ320script_library_class8function7entry_t"
+}
