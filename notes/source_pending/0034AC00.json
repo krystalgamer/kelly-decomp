@@ -1,0 +1,15 @@
+{
+  "address": "0x0034AC00",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b1eccd0d1ed3f64fd56dd3025b62766ec849cbbf",
+      "notes": "Attempt 1 used the exact released source for add_node__10path_graphRC8vector3dUs. Result `compile_failed`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "typedef unsigned int size_t;\nextern \"C\" size_t strlen(const char *);\nvoid *operator new(size_t, size_t, const char *, int);\n#define NEW new(__FILE__, __LINE__)\n\nclass vector3d { public: float x, y, z; };\nclass region_node;\nclass path_graph_edge;\n\nclass string_buf {\npublic:\n    char pad[8];\n    int char_length;\n};\n\nclass stringx {\n    char *chars;\n    string_buf *my_buf;\npublic:\n    stringx();\n    stringx(const stringx &);\n    ~stringx();\n    void make_room(int);\n    void append(const stringx &);\n    void append(const char *, int = -1);\n    friend stringx operator+(const stringx &, const char *);\n};\n\ninline stringx operator+(const stringx& lhs, const char* rhs)\n{\n    stringx foo;\n    int len = strlen(rhs);\n\n    foo.make_room(len + lhs.my_buf->char_length);\n    foo.append(lhs);\n    foo.append(rhs, len);\n\n    return foo;\n}\n\ntemplate<class T> class vector {\n    T *start;\n    T *finish;\n    T *end_of_storage;\n    void _M_insert_aux(T *, const T &);\npublic:\n    void push_back(const T &x) {\n        if (finish != end_of_storage) {\n            if (finish) *finish = x;\n            ++finish;\n        } else {\n            _M_insert_aux(finish, x);\n        }\n    }\n};\n\nclass path_graph_node {\npublic:\n    vector3d pt;\n    region_node *my_region;\n    unsigned short flags;\n    unsigned short pad;\n    vector<path_graph_edge *> edges;\n    path_graph_node();\n};\n\nclass sector {\n    region_node *my_region;\npublic:\n    region_node *get_region() const { return my_region; }\n};\n\nclass terrain {\npublic:\n    sector *find_sector(const vector3d &) const;\n};\n\nclass world_dynamics_system {\n    char pad[0xec];\n    terrain *the_terrain;\npublic:\n    terrain& get_the_terrain() { return *the_terrain; }\n};\n\nextern world_dynamics_system *g_world_ptr;\nvoid warning(const stringx &);\n\nclass path_graph {\n    stringx id;\n    vector<path_graph_node *> nodes;\n    vector<path_graph_edge *> edges;\npublic:\n    bool node_in_graph(const vector3d &) const;\n    void add_node(const vector3d &, unsigned short);\n};\n\nvoid path_graph::add_node(const vector3d &pt, unsigned short flags)\n{\n  if ( !node_in_graph(pt) )\n  {\n    path_graph_node *node = NEW path_graph_node();\n    node->pt = pt;\n    sector* sec = g_world_ptr->get_the_terrain().find_sector( pt );\n    if ( sec )\n      node->my_region = sec->get_region();\n    else\n      warning( id + \": a node has been placed outside of the world\" );\n    node->flags = flags;\n    nodes.push_back(node);\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "add_node__10path_graphRC8vector3dUs"
+}
