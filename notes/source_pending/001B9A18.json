@@ -1,0 +1,23 @@
+{
+  "address": "0x001B9A18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4a53083915159a238c3eb15fe3244923154d088f",
+      "candidate_size": 128,
+      "compared_bytes": 340,
+      "compared_instructions": 85,
+      "emitted_name": "OnTriangle__14ExtrasFrontEndi",
+      "instruction_score": 0.0,
+      "matching_bytes": 17,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 used the exact released source for OnTriangle__14ExtrasFrontEndi. Result `different`, score 5.0000; no variant or later attempt was made.",
+      "score": 5.0,
+      "source": "#define KELLY_DECOMP_FULL_FEMENU_ENTRY\n#include \"KS/SRC/ks/GraphicalMenuSystem_shared.h\"\n#include \"KS/SRC/ks/SoundScript_shared.h\"\n\nclass BoxText;\nclass CheatFrontEnd;\n\nclass ExtrasFrontEnd : public FEMultiMenu\n{\npublic:\n    enum { ExtrasBeachesEntry, ExtrasSurfersEntry, ExtrasTrailersEntry,\n           ExtrasHighScoreEntry, ExtrasScrapbookEntry, ExtrasCheatsEntry,\n           ExtrasCreditsEntry, ExtrasWebsitesEntry, ExtrasLogbookEntry,\n           ExtrasTHDemoEntry, ExtrasDemoEntryYes, ExtrasDemoEntryNo,\n           ExtrasEndEntry };\n\nprivate:\n    int cur_index;\n    GraphicalMenuSystem* sys;\n    FEMenuEntry* entry[ExtrasEndEntry];\n    FEMenu* surfers;\n    FEMenu* beaches;\n    FEMenu* trailers;\n    TextString* extras;\n    BoxText* prompt;\n    BoxText* websites;\n    CheatFrontEnd* cheat_menu;\n    PanelQuad* videos[ExtrasEndEntry];\n    PanelQuad* website_box[9];\n    PanelQuad* arrows[2][2];\n    bool saveCareerPrompt;\n    int arrow_counter;\n    int arrow_num;\n\npublic:\n    virtual void OnTriangle(int c);\n};\n\nvoid ExtrasFrontEnd::OnTriangle(int c)\n{\n    int i;\n    if(active)\n        active->OnTriangle(c);\n    else\n    {\n        if (!saveCareerPrompt)\n            sys->MakeActive(GraphicalMenuSystem::MainMenu);\n#ifdef TARGET_PS2\n        else\n        {\n            for (i=0; i < ExtrasDemoEntryYes; i++)\n                entry[i]->Disable(false);\n            entry[ExtrasDemoEntryYes]->Disable(true);\n            entry[ExtrasDemoEntryNo]->Disable(true);\n            saveCareerPrompt = false;\n            setHigh(entry[ExtrasTHDemoEntry]);\n        }\n#endif\n        SoundScriptManager::inst()->playEvent(SS_FE_BACK);\n    }\n}\n",
+      "status": "different",
+      "target_size": 340
+    }
+  ],
+  "raw_name": "OnTriangle__14ExtrasFrontEndi"
+}
