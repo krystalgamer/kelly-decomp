@@ -1,0 +1,15 @@
+{
+  "address": "0x00120120",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6227dd6dcf92e84a68f348bab14cceda0319a60b",
+      "notes": "# Wave 78 lane A1 \u2014 attempt 1\n\n- Target: `0x00120120` `_$_t13instance_bank1Z17entity_track_tree`, object `game/files_anim`, expected size 436 (`0x1B4`).\n- Released citations: `kelly-slaters-pro-surfer/KS/SRC/instance.h:13-89` (template/declarations), `instance.h:98-109` (exact destructor body), and `kelly-slaters-pro-surfer/KS/SRC/entity_anim.h:68-105` (`entity_track_tree` declaration).\n- Candidate: included the released headers and explicitly instantiated `instance_bank<entity_track_tree>::~instance_bank()`, thereby selecting the exact released template body without an alternate implementation.\n- Result: `compile_failed`; byte score `0.0`; instruction score unavailable; expected size 436 bytes; candidate object size unavailable; candidate source size 109 bytes; SHA-1 `6227dd6dcf92e84a68f348bab14cceda0319a60b`.\n- Compiler failure: released headers were not found on the harness include paths (`entity_anim.h`, `instance.h`).\n- UTC start: `2026-07-28T18:20:57Z`; UTC end: `2026-07-28T18:24:13Z`; duration: 196 seconds.\n- Exactly one harness test invocation was made. No retry, finalize, build, or tracked-file edit occurred.",
+      "score": 0.0,
+      "source": "#include \"entity_anim.h\"\n#include \"instance.h\"\n\ntemplate instance_bank<entity_track_tree>::~instance_bank();\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_t13instance_bank1Z17entity_track_tree"
+}
