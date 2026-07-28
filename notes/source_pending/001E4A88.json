@@ -1,0 +1,23 @@
+{
+  "address": "0x001E4A88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "eb04ffa688c3e36c6757aafc6251de8a5c3070a8",
+      "candidate_size": 380,
+      "compared_bytes": 380,
+      "compared_instructions": 95,
+      "emitted_name": "readFile__16GenericGameSaveriiPviPFPvi_vT3",
+      "instruction_score": 50.5263,
+      "matching_bytes": 210,
+      "matching_instructions": 48,
+      "notes": "Attempt 1 used the exact released source for readFile__16GenericGameSaveriiPviPFPvi_vT3. Result `different`, score 55.2632; no retry or variant was made.",
+      "score": 55.2632,
+      "source": "typedef struct\n{\n  float version;\n  int type;\n  char shortname[8];\n  char desc[68];\n  long int timestamp;\n  int valid;\n} saveInfo;\n\ntypedef struct\n{\n  int port;\n  int slot;\n  saveInfo *info;\n  int maxItems;\n  void *buffer;\n  int size;\n  void *iconData;\n  int iconSize;\n  bool overWrite;\n  void(*progressCallback)(void *, int);\n  void *userCallbackData;\n} GameSaverThreadArgs;\n\ntypedef struct\n{\n  int status;\n  void (*entry)(void *);\n  void *stack;\n  int stackSize;\n  void *gpReg;\n  int initPriority;\n  int currentPriority;\n  int attr;\n  int option;\n} ThreadParam;\n\nextern int _gp;\nextern int CreateThread(ThreadParam *);\nextern int StartThread(int, void *);\n\nclass GenericGameSaver\n{\npublic:\n  unsigned char dastack[0x2000+17] __attribute__ ((aligned(16)));\n  char before_fInfo[0xa3f];\n  saveInfo fInfo;\n  GameSaverThreadArgs *arg;\n\n  int isFileValid(int port, int slot, saveInfo s);\n  static void readFileHelper(void *args);\n\n  void readFile(int port, int slot,\n                void *buffer, int maxSize,\n                void (*progressCallback)(void *, int),\n                void *userCallbackData);\n};\n\nvoid GenericGameSaver::readFile(int port, int slot,\n                               void *buffer, int maxSize,\n                               void (*progressCallback)(void *, int),\n                               void *userCallbackData)\n{\n  ThreadParam th_param;\n  int dathread;\n  th_param.entry = GenericGameSaver::readFileHelper;\n  th_param.stack = this->dastack+16;\n  th_param.stackSize = 0x2000;\n  th_param.initPriority = 1;\n  th_param.gpReg = &_gp;\n  th_param.option = 0;\n  arg->userCallbackData = userCallbackData;\n  arg->progressCallback = progressCallback;\n  arg->buffer = buffer;\n  arg->size = maxSize;\n  arg->info = &fInfo;\n  arg->port = port;\n  arg->slot = slot;\n\n  arg->info->valid = isFileValid(arg->port, arg->slot, *arg->info);\n\n  if (arg->info->valid < 0)\n  {\n    progressCallback(userCallbackData, arg->info->valid);\n    return;\n  }\n\n  dathread = CreateThread(&th_param);\n  if (dathread < 0)\n  {\n    progressCallback(userCallbackData, -1);\n    return;\n  }\n  if (StartThread(dathread, arg) < 0)\n  {\n    progressCallback(userCallbackData, -1);\n    return;\n  }\n}\n",
+      "status": "different",
+      "target_size": 372
+    }
+  ],
+  "raw_name": "readFile__16GenericGameSaveriiPviPFPvi_vT3"
+}
