@@ -1,0 +1,23 @@
+{
+  "address": "0x0035B880",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cf260a4081e0451ba0819712607937a6ef9dad77",
+      "candidate_size": 364,
+      "compared_bytes": 380,
+      "compared_instructions": 95,
+      "emitted_name": "find__Ct8_Rb_tree5ZP20script_library_classZP20script_library_classZt9_Identity1ZP20script_library_classZQ211slc_manager10class_lessZt12my_allocator1ZP20script_library_classRCP20script_library_class",
+      "instruction_score": 11.5789,
+      "matching_bytes": 114,
+      "matching_instructions": 11,
+      "notes": "Attempt 1 used the exact released source body and minimal declarations for `find__Ct8_Rb_tree5ZP20script_library_classZP20script_library_classZt9_Identity1ZP20script_library_classZQ211slc_manager10class_lessZt12my_allocator1ZP20script_library_classRCP20script_library_class`. Result `different`, score 30.0000; no retry or variant was made. Citations: C:/usr/local/sce/ee/gcc/include/g++-2/stl_tree.h, kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:80-100,150-158, kelly-slaters-pro-surfer/KS/SRC/stringx.h:62-77,173-190,480-483, tmp/functions/0035B880_find__Ct8_Rb_tree5ZP20script_library_classZP20script_library_classZt9_Identity1ZP20script_library__16d566aa8577/candidate.cpp, tmp/functions/0035B880_find__Ct8_Rb_tree5ZP20script_library_classZP20script_library_classZt9_Identity1ZP20script_library__16d566aa8577/attempt-1/result.json, tmp/source_first/0035B880/attempt-1.md.",
+      "score": 30.0,
+      "source": "struct string_buf {\n  char* data;\n  int block_length;\n  int char_length;\n\n  inline int compare(const string_buf& buf) const {\n    int i;\n    const char* a = data;\n    const char* b = buf.data;\n    int cmp_len = (char_length < buf.char_length ? char_length : buf.char_length);\n    for (i = 0; i < cmp_len; i++) {\n      if (a[i] == b[i]) continue;\n      if (b[i] > a[i]) return 1;\n      if (b[i] < a[i]) return -1;\n    }\n    if (buf.char_length > char_length) return 1;\n    if (buf.char_length < char_length) return -1;\n    return 0;\n  }\n};\n\nstruct stringx {\n  char* chars;\n  string_buf* my_buf;\n};\n\ninline bool operator<(const stringx& lhs, const stringx& rhs) {\n  return (lhs.my_buf->compare(*rhs.my_buf) == 1);\n}\n\nstruct script_library_class {\n  void* vtable;\n  stringx name;\n};\n\nstruct class_less {\n  bool operator()(const script_library_class* a,\n                  const script_library_class* b) const {\n    return (a->name < b->name);\n  }\n};\n\nstruct node {\n  int color;\n  node* parent;\n  node* left;\n  node* right;\n  script_library_class* value;\n};\n\nstruct iterator {\n  node* _M_node;\n  iterator(node* x) : _M_node(x) {}\n  bool operator==(const iterator& x) const { return _M_node == x._M_node; }\n};\n\nclass tree {\n  node* _M_header;\n  class_less _M_key_compare;\n\n  node*& _M_root() const { return _M_header->parent; }\n  static node* _S_left(node* x) { return x->left; }\n  static node* _S_right(node* x) { return x->right; }\n  static script_library_class* const& _S_key(node* x) { return x->value; }\n\npublic:\n  typedef script_library_class* key_type;\n  typedef node* link_type;\n\n  iterator end() const { return iterator(_M_header); }\n  iterator find(const key_type& __k) const\n    __asm__(\"find__Ct8_Rb_tree5ZP20script_library_classZP20script_library_classZt9_Identity1ZP20script_library_classZQ211slc_manager10class_lessZt12my_allocator1ZP20script_library_classRCP20script_library_class\");\n};\n\niterator tree::find(const key_type& __k) const {\n  link_type __y = (link_type) _M_header;\n  link_type __x = (link_type) _M_root();\n  while (__x != 0)\n    if (!_M_key_compare(_S_key(__x), __k))\n      __y = __x, __x = (link_type) _S_left(__x);\n    else\n      __x = (link_type) _S_right(__x);\n  iterator __j = iterator(__y);\n  return (__j == end() || _M_key_compare(__k, _S_key(__j._M_node))) ? end() : __j;\n}\n",
+      "status": "different",
+      "target_size": 380
+    }
+  ],
+  "raw_name": "find__Ct8_Rb_tree5ZP20script_library_classZP20script_library_classZt9_Identity1ZP20script_library_classZQ211slc_manager10class_lessZt12my_allocator1ZP20script_library_classRCP20script_library_class"
+}
