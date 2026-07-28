@@ -1,0 +1,23 @@
+{
+  "address": "0x001BAA70",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "38d53e227b5fd9cc123de4f7befc7fb07036ffdb",
+      "candidate_size": 304,
+      "compared_bytes": 420,
+      "compared_instructions": 105,
+      "emitted_name": "UpdateState__14ExtrasFrontEnd",
+      "instruction_score": 15.2381,
+      "matching_bytes": 101,
+      "matching_instructions": 16,
+      "notes": "# FIRST PASS wave 74 lane A1 \u2014 0x001BAA70\n\n- Confirmed there were no prior attempts.\n- Copied the exact released `ExtrasFrontEnd::UpdateState` body from `kelly-slaters-pro-surfer/KS/SRC/ks/ExtrasFrontEnd.cpp`.\n- Added minimal self-contained declarations for the highlighted entry, submenu activation, panel visibility, member layout, and `UpdateHelpbar`.\n- Ran `function_test` exactly once. Result: `different`, byte score 24.0476%, instruction score 15.2381%.\n- No variants, retries, diff chasing, build, finalization, integration, commit, push, tool edits, subagents, lean work, or tracked-file edits were performed.\n- Because the attempt did not match, no source, prefix, or shared-declaration proposal is included.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/ExtrasFrontEnd.cpp:569-589`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/ExtrasFrontEnd.h:11-64`\n- `tmp/functions/001BAA70_UpdateState__14ExtrasFrontEnd/attempt-1/result.json`\n- `tmp/source_first/001BAA70/attempt-1.md`",
+      "score": 24.0476,
+      "source": "struct FEMenuEntry\n{\n    int entry_num;\n};\n\nstruct MenuVTable\n{\n    char padding[112];\n    short adjustment;\n    short reserved;\n    void (*OnActivate)(void *);\n};\n\nstruct FEMenu\n{\n    char padding[116];\n    MenuVTable *vtable;\n};\n\nstruct PanelVTable\n{\n    char padding[24];\n    short adjustment;\n    short reserved;\n    void (*TurnOn)(void *, bool);\n};\n\nstruct PanelQuad\n{\n    char padding[404];\n    PanelVTable *vtable;\n};\n\nclass ExtrasFrontEnd\n{\npublic:\n    enum\n    {\n        ExtrasBeachesEntry,\n        ExtrasSurfersEntry,\n        ExtrasTrailersEntry,\n        ExtrasHighScoreEntry,\n        ExtrasScrapbookEntry,\n        ExtrasCheatsEntry,\n        ExtrasCreditsEntry,\n        ExtrasWebsitesEntry,\n        ExtrasLogbookEntry,\n        ExtrasTHDemoEntry,\n        ExtrasDemoEntryYes,\n        ExtrasDemoEntryNo,\n        ExtrasEndEntry\n    };\n\n    char padding0[76];\n    FEMenuEntry *highlighted;\n    char padding1[328];\n    FEMenu *surfers;\n    FEMenu *beaches;\n    FEMenu *trailers;\n    char padding2[16];\n    PanelQuad *videos[ExtrasEndEntry];\n    char padding3[36];\n    PanelQuad *arrows[2][2];\n\n    void UpdateState();\n    void UpdateHelpbar();\n};\n\n__asm__(\".equ UpdateHelpbar__14ExtrasFrontEnd, 0x001BA428\");\n\nstatic void activate(FEMenu *menu)\n{\n    MenuVTable *table = menu->vtable;\n    table->OnActivate((char *)menu + table->adjustment);\n}\n\nstatic void turn_on(PanelQuad *quad, bool on)\n{\n    PanelVTable *table = quad->vtable;\n    table->TurnOn((char *)quad + table->adjustment, on);\n}\n\nvoid ExtrasFrontEnd::UpdateState()\n{\n    bool on_beach = highlighted->entry_num == ExtrasBeachesEntry;\n    bool on_surfer = highlighted->entry_num == ExtrasSurfersEntry;\n    bool on_trailer = highlighted->entry_num == ExtrasTrailersEntry;\n    if(on_beach) activate(beaches);\n    else if(on_surfer) activate(surfers);\n    else if(on_trailer) activate(trailers);\n\n    turn_on(arrows[0][1], false);\n    turn_on(arrows[0][0], on_beach || on_surfer || on_trailer);\n    turn_on(arrows[1][1], false);\n    turn_on(arrows[1][0], on_beach || on_surfer || on_trailer);\n\n    for(int i=0; i<ExtrasEndEntry; i++)\n        if(videos[i]) turn_on(videos[i], i == highlighted->entry_num);\n\n    UpdateHelpbar();\n}\n",
+      "status": "different",
+      "target_size": 420
+    }
+  ],
+  "raw_name": "UpdateState__14ExtrasFrontEnd"
+}
