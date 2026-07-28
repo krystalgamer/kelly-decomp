@@ -1,0 +1,23 @@
+{
+  "address": "0x0031F530",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "15ecef680480d8861b0039cdc28f3db57a9e6af3",
+      "candidate_size": 116,
+      "compared_bytes": 368,
+      "compared_instructions": 92,
+      "emitted_name": "__cl__19slf_get_elevation_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 4.3478,
+      "matching_bytes": 39,
+      "matching_instructions": 4,
+      "notes": "Attempt 1 used the exact released source for __cl__19slf_get_elevation_tR8vm_stackQ320script_library_class8function7entry_t. Result `different`, score 10.5978; no retry or variant was made.",
+      "score": 10.5978,
+      "source": "typedef float vm_num_t;\n\nstruct vector3d\n{\n  float x, y, z;\n};\n\nclass vm_stack\n{\npublic:\n  int salloc;\n  char* buffer;\n  char* SP;\n  void* my_thread;\n\n  char* get_SP() const { return SP; }\n  void pop(int n) { SP -= n; }\n  bool push(const char* src, int n);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n\n  protected:\n    char* name;\n\n  public:\n    function(const char* n);\n    virtual ~function();\n    virtual bool operator()(vm_stack& stack, entry_t entry) { return true; }\n  };\n};\n\nclass terrain\n{\npublic:\n  vm_num_t get_elevation(const vector3d& p, vector3d& normal,\n                         void* default_region = 0,\n                         unsigned char* hit_surface_type = 0);\n};\n\nclass world_dynamics_system\n{\n  char padding[0xec];\n  terrain* the_terrain;\n\npublic:\n  terrain& get_the_terrain() { return *the_terrain; }\n};\n\nextern world_dynamics_system* g_world_ptr;\nextern void error(const char*);\n\nclass slf_get_elevation_t : public script_library_class::function\n{\npublic:\n  slf_get_elevation_t(const char* n): script_library_class::function(n) { }\n\n  struct parms_t\n  {\n    vector3d loc;\n  };\n\n  virtual bool operator()(vm_stack &stack, entry_t entry)\n  {\n    stack.pop(sizeof(parms_t));\n    parms_t* parms = (parms_t*)stack.get_SP();\n    vector3d dummy;\n    vm_num_t result = g_world_ptr->get_the_terrain().get_elevation(parms->loc, dummy);\n    if (!stack.push((char*)&result,sizeof(result)) )\n      error(\"script stack overflow\");\n    return true;\n  }\n};\n\nslf_get_elevation_t slf_get_elevation(\"get_elevation(vector3d)\");\n",
+      "status": "different",
+      "target_size": 368
+    }
+  ],
+  "raw_name": "__cl__19slf_get_elevation_tR8vm_stackQ320script_library_class8function7entry_t"
+}
