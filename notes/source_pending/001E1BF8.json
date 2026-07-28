@@ -1,0 +1,23 @@
+{
+  "address": "0x001E1BF8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3c77fe0faa308b71601df0f4019d072a5fd6f38d",
+      "candidate_size": 352,
+      "compared_bytes": 368,
+      "compared_instructions": 89,
+      "emitted_name": "playback_demo_start__17ps2_joypad_deviceRC7stringx",
+      "instruction_score": 6.7416,
+      "matching_bytes": 79,
+      "matching_instructions": 6,
+      "notes": "Attempt 1 used the exact released source for playback_demo_start__17ps2_joypad_deviceRC7stringx. Result `different`, score 21.4674; no retry or variant was made.",
+      "score": 21.4674,
+      "source": "extern \"C\" int strcmp(const char*, const char*);\nvoid warning(const char*, ...);\nvoid debug_print(const char*, ...);\n\nclass stringx {\npublic:\n  const char* chars;\n  const char* c_str() const { return chars; }\n};\n\nclass os_file {\npublic:\n  enum mode_flags { FILE_READ = 1 };\n  void open(const stringx&, int);\n  void close();\n  int read(void*, int, bool = false);\n  int get_size();\n};\n\nclass os_developer_options {\npublic:\n  enum ints_t { INT_FRAME_LOCK = 0 };\n  char padding[700];\n  int ints[1];\n  static os_developer_options* inst();\n  void set_int(ints_t option, int value) { ints[option] = value; }\n};\n\nextern os_developer_options* developer_options;\ninline os_developer_options* os_developer_options::inst() {\n  return developer_options;\n}\n\nclass demo_keyframe {\npublic:\n  demo_keyframe() : countdown(0) {}\n  ~demo_keyframe() {}\n\nprivate:\n  unsigned char rdata[32];\n  unsigned int countdown;\n};\n\nclass ps2_joypad_device {\npublic:\n  char padding[116];\n  bool playing_demo;\n  bool recording_demo;\n  char alignment[2];\n  unsigned int keyframe_count;\n  unsigned int curr_keyframe;\n  demo_keyframe* demo_data;\n  unsigned int frames_since_change;\n  os_file demo_log;\n\n  void playback_demo_start(const stringx& filename);\n};\n\n__asm__(\".equ developer_options,0x0046B180\");\n__asm__(\".equ open__7os_fileRC7stringxi,0x001E0190\");\n__asm__(\".equ close__7os_file,0x001E03A0\");\n__asm__(\".equ read__7os_filePvib,0x001E0450\");\n__asm__(\".equ get_size__7os_file,0x001E0A48\");\n__asm__(\".equ warning__FPCce,0x001DFB58\");\n__asm__(\".equ debug_print__FPCce,0x00120790\");\n\nvoid ps2_joypad_device::playback_demo_start(const stringx &filename)\n{\n  demo_log.open(filename, os_file::FILE_READ);\n\n  char id_string[5];\n  id_string[4] = '\\0';\n  demo_log.read(id_string, 4);\n\n  if (strcmp(id_string, \"demo\") != 0)\n  {\n    warning(\"Demo log %s is not a demo log...Not playing back demo.\");\n    demo_log.close();\n    return;\n  }\n\n  int frame_lock;\n  demo_log.read(&frame_lock, sizeof(frame_lock));\n  debug_print(\"Playback of %s demo is overriding framelock to be %d\", filename.c_str(), frame_lock);\n  os_developer_options::inst()->set_int(os_developer_options::INT_FRAME_LOCK, frame_lock);\n\n  keyframe_count = (demo_log.get_size() - 8) / sizeof(demo_keyframe);\n  demo_data = new demo_keyframe[keyframe_count];\n  demo_log.read(demo_data, keyframe_count * sizeof(demo_keyframe));\n  demo_log.close();\n  curr_keyframe = 0;\n  playing_demo = true;\n}\n",
+      "status": "different",
+      "target_size": 368
+    }
+  ],
+  "raw_name": "playback_demo_start__17ps2_joypad_deviceRC7stringx"
+}
