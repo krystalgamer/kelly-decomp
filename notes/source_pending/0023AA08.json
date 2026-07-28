@@ -1,0 +1,23 @@
+{
+  "address": "0x0023AA08",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5e589356f5d660b2ac9341a78725be5d8fddbdd8",
+      "candidate_size": 436,
+      "compared_bytes": 436,
+      "compared_instructions": 109,
+      "emitted_name": "Save__13KSEntityStatei",
+      "instruction_score": 92.6606,
+      "matching_bytes": 400,
+      "matching_instructions": 101,
+      "notes": "# Attempt 1 notes\n\n- Wave/lane: released-source FIRST PASS wave 78, lane A5\n- Target: `0x0023AA08 Save__13KSEntityStatei`, size 436 (`0x1B4`), object `game/files_kellyslater`\n- Released body: `kelly-slaters-pro-surfer/KS/SRC/ks/ksreplay.cpp:168-191`\n- Required class layout/declaration: `kelly-slaters-pro-surfer/KS/SRC/ks/ksreplay.h:39-82`\n- Result: `different`; byte score 91.7431 (400/436); instruction score 92.6606 (101/109)\n- Sizes: candidate 436 bytes; target 436 bytes\n- Candidate SHA-1: `5e589356f5d660b2ac9341a78725be5d8fddbdd8`\n- UTC start: 2026-07-28T18:21:05Z\n- UTC end: 2026-07-28T18:24:20Z\n- Duration: 195 seconds\n- Exactly one harness invocation and one attempt; no retry, finalize, integrate, configure, ninja/full build, git mutation, or tracked-file edit.",
+      "score": 91.7431,
+      "source": "typedef unsigned int uint32;\n\nenum { WAVE_REGIONTUBE = 9 };\n\nclass board_controller {\npublic:\n  char pad0[0x460];\n  int inAirFlag;\n  char pad1[0xDA0 - 0x464];\n  int wiped_out;\n  char pad2[0xDE0 - 0xDA4];\n  int region;\n\n  int GetRegion() { return region; }\n  int WipedOut() { return wiped_out; }\n};\n\nclass kellyslater_controller {\npublic:\n  char pad0[0x30];\n  int current_state;\n  char pad1[4];\n  int super_state;\n  char pad2[0x218 - 0x3C];\n  short current_anim;\n  char pad3[0x224 - 0x21A];\n  unsigned char current_board_anim;\n  char pad4[0x460 - 0x225];\n  int in_air;\n  char pad5[0xDA0 - 0x464];\n  int wiped_out;\n  char pad6[0xDE0 - 0xDA4];\n  int region;\n  char pad7[0x1690 - 0xDE4];\n  int ik_valid;\n  char pad8[0x19FC - 0x1694];\n  int dry;\n\n  int get_current_state() { return current_state; }\n  int get_super_state() { return super_state; }\n  int GetCurrentAnim() { return current_anim; }\n  int GetCurrentBoardAnim() { return current_board_anim; }\n  int GetCurrentTrick();\n  board_controller &get_board_controller() { return *(board_controller *)this; }\n  int isDry() { return dry; }\n  int get_ik_valid() { return ik_valid; }\n};\n\nclass world_dynamics_system {\npublic:\n  char pad[0xF8];\n  kellyslater_controller *controllers[2];\n\n  kellyslater_controller *get_ks_controller(int player) {\n    return controllers[player];\n  }\n};\n\nextern world_dynamics_system *g_world_ptr;\n\nclass KSEntityState\n{\nprivate:\n  uint32 KSState          : 7;\n  uint32 KSSuperState     : 4;\n  uint32 KSAnim           : 10;\n  uint32 KSBAnim          : 8;\n\n  uint32 KSBlend          : 7;\n  uint32 KSBBlend         : 7;\n  uint32 KSCurTrick       : 7;\n\n  uint32 KSAnimCall       : 1;\n  uint32 KSBAnimCall      : 1;\n  uint32 KSLoop           : 1;\n  uint32 KSBLoop          : 1;\n  uint32 KSWipedOut       : 1;\n  uint32 KSInAir          : 1;\n  uint32 KSInTube         : 1;\n  uint32 KSDry            : 1;\n  uint32 KSIKValid        : 1;\n  uint32 KSWipeoutSplash  : 1;\n  uint32 EndWave          : 1;\n\n  uint32 padding          : 3;\n\npublic:\n  void Save( int player );\n};\n\nvoid KSEntityState::Save( int player )\n{\n  // Grab the surfer state\n  KSState   = g_world_ptr->get_ks_controller(player)->get_current_state();\n  KSSuperState = g_world_ptr->get_ks_controller(player)->get_super_state();\n\n  // Grab anim info\n  KSAnim    = g_world_ptr->get_ks_controller(player)->GetCurrentAnim();\n  KSBAnim   = g_world_ptr->get_ks_controller(player)->GetCurrentBoardAnim();\n\n  KSCurTrick = g_world_ptr->get_ks_controller(player)->GetCurrentTrick();\n\n  // Grab frame info\n  //KSFrame   = g_world_ptr->get_ks_controller(player)->GetCurrentFrame();\n  //KSBFrame  = g_world_ptr->get_ks_controller(player)->GetBoardAnimTime();\n\n  // Grab various flags\n  KSInAir     = g_world_ptr->get_ks_controller(player)->get_board_controller().inAirFlag;\n  KSInTube    = g_world_ptr->get_ks_controller(player)->get_board_controller().GetRegion() == WAVE_REGIONTUBE;\n  KSDry       = g_world_ptr->get_ks_controller(player)->isDry();\n  KSIKValid   = g_world_ptr->get_ks_controller(player)->get_ik_valid();\n  KSWipedOut  = g_world_ptr->get_ks_controller(player)->get_board_controller().WipedOut ();\n}\n",
+      "status": "different",
+      "target_size": 436
+    }
+  ],
+  "raw_name": "Save__13KSEntityStatei"
+}
