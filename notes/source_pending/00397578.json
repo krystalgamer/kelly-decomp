@@ -1,0 +1,23 @@
+{
+  "address": "0x00397578",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "89e26f6129efea6ab9097d002ecc909c51c4ffd7",
+      "candidate_size": 456,
+      "compared_bytes": 456,
+      "compared_instructions": 114,
+      "emitted_name": "nglSetBufferSize__FUiUi",
+      "instruction_score": 28.9474,
+      "matching_bytes": 152,
+      "matching_instructions": 33,
+      "notes": "# LEAN FIRST PASS wave77 B4 \u2014 0x00397578\n\n- Target: `nglSetBufferSize__FUiUi` (`0x00397578`, 432 bytes).\n- Used the exact released `nglSetBufferSize` body with `NGL_ASYNC_LIST_SEND=1` expanded and only minimal required declarations.\n- Ran `function_test` exactly once.\n- Result: **different** \u2014 33.3333% byte score, 28.9474% instruction score (33/114 instructions); candidate size 456 versus target size 432.\n- No variants, retries, diff chasing, finalization, build, commit, or tracked-file edits were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:1152-1211` \u2014 exact released function body.\n- `kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h:250-260` \u2014 released buffer IDs and declaration.\n- `kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2_internal.h:67-70` \u2014 released async-list-send setting.\n- `tmp/functions/00397578_nglSetBufferSize__FUiUi/attempt-1/result.json` \u2014 sole isolated test result.",
+      "score": 33.3333,
+      "source": "typedef unsigned char u_char;\ntypedef unsigned int u_int;\n\nenum\n{\n  NGLBUF_VIF1_PACKET_WORK,\n  NGLBUF_GIF_PACKET_WORK,\n  NGLBUF_SCRATCH_MESH_WORK,\n  NGLBUF_LIST_WORK,\n};\n\nextern int nglInScene;\nextern u_char* nglVif1PacketWorkA;\nextern u_char* nglVif1PacketWorkB;\nextern u_int nglVif1PacketWorkSize;\nextern u_char* nglGifPacketWorkA;\nextern u_char* nglGifPacketWorkB;\nextern u_int nglGifPacketWorkSize;\nextern u_char* nglScratchMeshWorkA;\nextern u_char* nglScratchMeshWorkB;\nextern u_int nglScratchMeshWorkSize;\nextern u_char* nglScratchMeshWork;\nextern u_int* nglScratchMeshPos;\nextern u_char* nglListWork;\nextern u_int nglListWorkSize;\nextern u_char* nglListWorkEnd;\n\nextern void nglFatal( const char* Format, ... );\nextern void nglVif1SafeWait();\nextern void nglMemFree( void* Ptr );\nextern void* nglMemAlloc( u_int Size, u_int Align );\n\nvoid nglSetBufferSize( u_int BufID, u_int Size )\n{\n  if ( nglInScene )\n    nglFatal( \"nglSetBufferSize called from within a scene.\\n\" );\n  nglVif1SafeWait();\n\n  switch ( BufID )\n  {\n  case NGLBUF_VIF1_PACKET_WORK:\n    if ( nglVif1PacketWorkA )\n    {\n      nglMemFree( nglVif1PacketWorkA );\n      nglMemFree( nglVif1PacketWorkB );\n    }\n    nglVif1PacketWorkA = (u_char*)nglMemAlloc( Size, 128 );\n    nglVif1PacketWorkB = (u_char*)nglMemAlloc( Size, 128 );\n    nglVif1PacketWorkSize = Size;\n    break;\n  case NGLBUF_GIF_PACKET_WORK:\n    if ( nglGifPacketWorkA )\n    {\n      nglMemFree( nglGifPacketWorkA );\n      nglMemFree( nglGifPacketWorkB );\n    }\n    nglGifPacketWorkA = (u_char*)nglMemAlloc( Size, 128 );\n    nglGifPacketWorkB = (u_char*)nglMemAlloc( Size, 128 );\n    nglGifPacketWorkSize = Size;\n    break;\n  case NGLBUF_SCRATCH_MESH_WORK:\n    if ( nglScratchMeshWorkA )\n    {\n      nglMemFree( nglScratchMeshWorkA );\n      nglMemFree( nglScratchMeshWorkB );\n    }\n    nglScratchMeshWorkA = (u_char*)nglMemAlloc( Size, 128 );\n    nglScratchMeshWorkB = (u_char*)nglMemAlloc( Size, 128 );\n    nglScratchMeshWorkSize = Size;\n    nglScratchMeshWork = nglScratchMeshWorkA;\n    nglScratchMeshPos = (u_int*)nglScratchMeshWork;\n    break;\n  case NGLBUF_LIST_WORK:\n    if ( nglListWork )\n      nglMemFree( nglListWork );\n    nglListWork = (u_char*)nglMemAlloc( Size, 128 );\n    nglListWorkSize = Size;\n    nglListWorkEnd = (u_char*)(nglListWork + nglListWorkSize);\n    break;\n  }\n}\n",
+      "status": "different",
+      "target_size": 432
+    }
+  ],
+  "raw_name": "nglSetBufferSize__FUiUi"
+}
