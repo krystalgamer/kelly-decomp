@@ -1,0 +1,15 @@
+{
+  "address": "0x00350BC0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0d1f2c8ff190ed8e659a14bb05aceb935c92ee13",
+      "notes": "# Attempt 1\n\nResult: `compile_failed` (score `0.0`). The exact released constructor body was used with minimal declarations/layout derived from the pinned `script_object.h`; compilation failed because the isolated compiler include paths do not provide `<list>`, `<set>`, or `<vector>`.\n\nCitations:\n- `krystalgamer/kelly-slaters-pro-surfer@7c3ade041cc03409a3114ce3ba4a70053c6e4e3b:KS/SRC/script_object.cpp` (`script_object::script_object()`)\n- `krystalgamer/kelly-slaters-pro-surfer@7c3ade041cc03409a3114ce3ba4a70053c6e4e3b:KS/SRC/script_object.h` (`class script_object` data layout)\n\nNo retry: FIRST PASS permits exactly one candidate test, and this compile failure consumed it.",
+      "score": 0.0,
+      "source": "#include <list>\n#include <set>\n#include <vector>\n\nusing namespace std;\n\nclass stringx\n{\n  char data[8];\npublic:\n  stringx();\n  bool operator<(const stringx&) const;\n};\n\n__asm__(\".equ __7stringx, 0x0034D3E0\");\n\ntypedef list<int> vm_symbol_list;\n\nclass so_data_block\n{\n  char* buffer;\n  int size_value;\n  int max_size;\npublic:\n  so_data_block() : buffer(0), size_value(0), max_size(0) {}\n};\n\nclass vm_executable;\n\nclass script_object\n{\npublic:\n  class instance;\n  typedef list<instance*> instance_list;\n  typedef set<stringx> instance_name_list;\n\nprotected:\n  stringx name;\n  bool global_object;\n#ifndef _RELEASE\n  vm_symbol_list static_symbols;\n  vm_symbol_list symbols;\n#endif\n  so_data_block static_data;\n  int data_blocksize;\n  vector<vm_executable*> funcs;\n  instance_list instances;\n#ifndef BUILD_BOOTABLE\n  instance_name_list instance_names;\n#endif\n\npublic:\n  script_object();\n};\n\nscript_object::script_object()\n:   name(),\n    global_object(false),\n#ifndef _RELEASE\n    static_symbols(),\n    symbols(),\n#endif\n    static_data(),\n    data_blocksize(0),\n    funcs(),\n    instances()\n  {\n  }\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__13script_object"
+}
