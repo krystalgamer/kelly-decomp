@@ -1,0 +1,16 @@
+{
+  "address": "0x0032A3D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "96c4507f4f163e54cb16b25d343eadc3c6d3cd45",
+      "error": "Candidate did not emit __cl__22slf_vector3d_xz_norm_tR8vm_stackQ320script_library_class8function7entry_t; emitted functions: []",
+      "notes": "Reproduced the released `slf_vector3d_xz_norm_t::operator()` body with minimal stack, vector, and script declarations. The sole candidate compiled, but the isolated object emitted no function symbol, so the attempt is `symbol_missing` with score 0 and remains `source_pending`.",
+      "score": 0.0,
+      "source": "typedef float vm_num_t;\n\nextern \"C\" float sqrtf(float);\nextern void error(const char *);\n\nclass vm_stack\n{\npublic:\n  int salloc;\n  char *buffer;\n  char *SP;\nprivate:\n  void *my_thread;\nprotected:\n  void move_SP(int n)\n  {\n    SP += n;\n  }\npublic:\n  char *get_SP() const { return SP; }\n  void pop(int n) { move_SP(-n); }\n  bool push(const char *src, int n);\n};\n\ntemplate<class T> class vector3d_t\n{\npublic:\n  T x;\n  T y;\n  T z;\n\n  inline T xz_length() const { return (T)sqrtf(x*x + z*z); }\n};\n\ntypedef vector3d_t<float> vector3d;\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t { FIRST_ENTRY };\n  };\n};\n\nclass slf_vector3d_xz_norm_t : public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    vector3d me;\n  };\n\n  virtual bool operator()(vm_stack& stack,entry_t entry)\n  {\n    stack.pop(sizeof(parms_t));\n    parms_t* parms = (parms_t*)stack.get_SP();\n    vm_num_t result = parms->me.xz_length();\n    if (!stack.push((char*)&result,sizeof(result)) )\n      error( \"script stack overflow\" );\n    return true;\n  }\n};\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__cl__22slf_vector3d_xz_norm_tR8vm_stackQ320script_library_class8function7entry_t"
+}
