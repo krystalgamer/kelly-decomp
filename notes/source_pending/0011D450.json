@@ -1,0 +1,15 @@
+{
+  "address": "0x0011D450",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "775c1c990632422ee393f3e19ca60a658685f7a0",
+      "notes": "Attempt 1 used the exact released source for _$_10scene_anim. Result `compile_failed`, score 0.0000; no variant or later attempt was made.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/scene_anim.h\"\n\nscene_anim::~scene_anim()\n{\n  track_tree_list_t::iterator it;\n\n  for( it = track_tree_map.begin(); it != track_tree_map.end(); ++it )\n  {\n    entity_track_tree *track = (*it).second;\n    delete track;\n  }\n\n  track_tree_map.clear();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_10scene_anim"
+}
