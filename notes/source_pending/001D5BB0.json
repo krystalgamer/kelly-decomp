@@ -1,0 +1,23 @@
+{
+  "address": "0x001D5BB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7a631378afe10fddf163e7c4ca01c8b740ae0821",
+      "candidate_size": 192,
+      "compared_bytes": 344,
+      "compared_instructions": 84,
+      "emitted_name": "_$_15LogbookFrontEnd",
+      "instruction_score": 5.9524,
+      "matching_bytes": 50,
+      "matching_instructions": 5,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/LogbookFrontEnd.cpp:29-36; kelly-slaters-pro-surfer/KS/SRC/ks/LogbookFrontEnd.h:10-20,42-48; kelly-slaters-pro-surfer/KS/SRC/ks/careerdata.h:12-45; tmp/functions/001D5BB0__$_15LogbookFrontEnd/attempt-1/result.json; tmp/source_first/001D5BB0/attempt-1.md. Result `different`, score 14.5349; no later attempt.",
+      "score": 14.5349,
+      "source": "#define KELLY_DECOMP_FULL_FEMENU_ENTRY\n#define KELLY_DECOMP_FULL_FEMULTI_MENU\n#define KELLY_DECOMP_BUILT_FEMENU_SELECT_PADDING\n#include \"KS/SRC/ks/FEMenu_shared.h\"\n#undef KELLY_DECOMP_BUILT_FEMENU_SELECT_PADDING\n#undef KELLY_DECOMP_FULL_FEMULTI_MENU\n#undef KELLY_DECOMP_FULL_FEMENU_ENTRY\n\nclass GraphicalMenuSystem;\nclass BoxText {\npublic:\n    virtual ~BoxText();\n};\nclass TextString {\npublic:\n    virtual ~TextString();\n};\n\nclass LogbookFrontEnd : public FEMultiMenu {\n    GraphicalMenuSystem *sys;\n    static const int max_notes = 32;\n    BoxText *notes[max_notes];\n    TextString *dates[max_notes];\n\npublic:\n    virtual ~LogbookFrontEnd();\n};\n\nLogbookFrontEnd::~LogbookFrontEnd()\n{\n    for(int i=0; i<max_notes; i++)\n    {\n        delete notes[i];\n        delete dates[i];\n    }\n}\n",
+      "status": "different",
+      "target_size": 344
+    }
+  ],
+  "raw_name": "_$_15LogbookFrontEnd"
+}
