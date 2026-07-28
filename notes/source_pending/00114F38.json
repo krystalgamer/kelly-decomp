@@ -1,0 +1,15 @@
+{
+  "address": "0x00114F38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f1dba4db45b038cca50e761c1e1a9d8532a947dd",
+      "notes": "# FIRST PASS wave 65 lane A5 \u2014 0x00114F38\n\n- Status: **source_pending** (`compile_failed`)\n- Attempts: **1**\n- Score: **0.0000%**\n- Candidate: `tmp/functions/00114F38__$_11ett_manager/attempt-1/candidate.cpp`\n- SHA-1: `f1dba4db45b038cca50e761c1e1a9d8532a947dd`\n- Started: `2026-07-28T11:04:46Z`; completed: `2026-07-28T11:04:49Z`; duration: **3s**\n\nExact released destructor body from `entity_anim.cpp:739-763` was tested once with minimal faithful declarations. Compilation failed because the isolated toolchain include path did not provide `<map>`. Per first-pass policy, no candidate variant or retry was made. No diff chasing, finalization, build, tracked-file edit, commit, or git mutation was performed.\n\nCitations: `kelly-slaters-pro-surfer/KS/SRC/entity_anim.cpp:727-763`; `kelly-slaters-pro-surfer/KS/SRC/entity_anim.h:145-195`; `tmp/functions/00114F38__$_11ett_manager/attempt-1/compiler.stderr`; `tmp/functions/00114F38__$_11ett_manager/attempt-1/result.json`.",
+      "score": 0.0,
+      "source": "#include <map>\n\nclass stringx\n{\n  int data[4];\n\npublic:\n  stringx(const stringx&);\n  ~stringx();\n};\n\nbool operator<(const stringx&, const stringx&);\n\nclass entity_track_tree;\n\nstruct ett_node\n{\n  bool stored;\n  int ref;\n  unsigned int aram_id;\n  unsigned int offset;\n  unsigned int size;\n  entity_track_tree* ett;\n};\n\nclass ett_manager\n{\n  typedef std::map<stringx, ett_node> ett_map_t;\n  typedef std::map<stringx, ett_node>::iterator ett_map_itr_t;\n\npublic:\n  ~ett_manager();\n\nprivate:\n  void ett_free(void*);\n\n  ett_map_t ett_map;\n  char* bin1_addr;\n  char* bin2_addr;\n  int resident_anms;\n  int resident_alloc_size;\n  int max_resident_anms;\n  int max_resident_alloc_size;\n  int cache_hits;\n  int cache_misses;\n};\n\nett_manager::~ett_manager()\n{\n  ett_map_itr_t itr = ett_map.begin();\n  for (; itr != ett_map.end(); itr++)\n  {\n    stringx name = (*itr).first;\n    ett_node& node = (*itr).second;\n    if (!node.stored && node.ett != 0)\n      ett_free(node.ett);\n  }\n\n  ett_map.clear();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_11ett_manager"
+}
