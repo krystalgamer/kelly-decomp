@@ -1,0 +1,15 @@
+{
+  "address": "0x002B35D0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a1fbcdcdf09fe3cda49de65db43f7896360537ae",
+      "notes": "Attempt 1 used the exact released source for find__Ct8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP6entityZt10_Select1st1Zt4pair2ZC7stringxZP6entityZt4less1Z7stringxZt12my_allocator1ZP6entityRC7stringx. Result `compile_failed`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"entity.h\"\n\ntemplate entity_map::const_iterator entity_map::find(const entity_id&) const;\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "find__Ct8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP6entityZt10_Select1st1Zt4pair2ZC7stringxZP6entityZt4less1Z7stringxZt12my_allocator1ZP6entityRC7stringx"
+}
