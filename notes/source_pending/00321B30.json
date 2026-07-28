@@ -1,0 +1,23 @@
+{
+  "address": "0x00321B30",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cf48e3663ebcf00339cc5507d918b760e8637b3f",
+      "candidate_size": 192,
+      "compared_bytes": 428,
+      "compared_instructions": 107,
+      "emitted_name": "__cl__16slf_to_str_num_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 0.0,
+      "matching_bytes": 34,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 76 lane B4 \u2014 0x00321B30\n\nExact released `slf_to_str_num_t::operator()` body was tested once with minimal declarations. Result: **different**, byte score **7.9439%**, instruction score **0.0%**. No variants, diff chasing, finalization, build, tracked-file edits, commit, or push.\n\nSee `attempt-1.md` and the preserved function-test attempt.",
+      "score": 7.9439,
+      "source": "typedef float vm_num_t;\n\nclass stringx\n{\npublic:\n  stringx();\n  explicit stringx(float);\n  stringx& operator=(const stringx&);\n};\n\ntypedef stringx* vm_str_t;\n\nclass vm_stack\n{\npublic:\n  void pop(int);\n  char* get_SP() const;\n  bool push(const char*, int);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n    virtual bool operator()(vm_stack&, entry_t) { return true; }\n  };\n};\n\n#define MAX_STATIC_TO_STR_STRINGS 30\nstatic stringx script_strings[MAX_STATIC_TO_STR_STRINGS];\nstatic int script_strings_cnt;\n\n#define SLF_PARMS \\\n  stack.pop(sizeof(parms_t)); \\\n  parms_t* parms = (parms_t*)stack.get_SP()\n#define SLF_RETURN \\\n  if (!stack.push((char*)&result,sizeof(result)) ) \\\n    error( \"script stack overflow\" )\n#define SLF_DONE return true\n\nvoid error(const char*);\n\nclass slf_to_str_num_t : public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    vm_num_t n;\n  };\n\n  virtual bool operator()(vm_stack& stack, entry_t entry);\n};\n\nbool slf_to_str_num_t::operator()(vm_stack &stack, entry_t entry)\n{\n  SLF_PARMS;\n\n  script_strings[script_strings_cnt] = stringx(parms->n);\n  vm_str_t result = &script_strings[script_strings_cnt];\n  ++script_strings_cnt;\n  if(script_strings_cnt >= MAX_STATIC_TO_STR_STRINGS)\n    script_strings_cnt = 0;\n\n  SLF_RETURN;\n  SLF_DONE;\n}\n",
+      "status": "different",
+      "target_size": 428
+    }
+  ],
+  "raw_name": "__cl__16slf_to_str_num_tR8vm_stackQ320script_library_class8function7entry_t"
+}
