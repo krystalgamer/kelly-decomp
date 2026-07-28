@@ -1,0 +1,23 @@
+{
+  "address": "0x00167F30",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "released_min.cpp",
+      "candidate_sha1": "561837bb3384d5d78828e6d40ede2d3c1b55358e",
+      "candidate_size": 324,
+      "compared_bytes": 356,
+      "compared_instructions": 89,
+      "emitted_name": "ShowDirection__19WaveIndicatorWidgetbff",
+      "instruction_score": 49.4382,
+      "matching_bytes": 190,
+      "matching_instructions": 44,
+      "notes": "Attempt 1 used the exact released source for ShowDirection__19WaveIndicatorWidgetbff. Result `different`, score 53.3708; no retry or variant was made.",
+      "score": 53.3708,
+      "source": "class stringx {\n    char *chars;\n    void *my_buf;\npublic:\n    stringx();\n    stringx(const stringx &);\n    ~stringx();\n    int printf(const char *, ...);\n};\n\n__asm__(\".equ __7stringx, 0x0034D3E0\");\n__asm__(\".equ __7stringxRC7stringx, 0x0034D4D0\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\".equ printf__7stringxPCce, 0x0034E358\");\n\nclass TextString {\npublic:\n    void changeText(stringx);\n};\n\n__asm__(\".equ changeText__10TextStringG7stringx, 0x001483E0\");\n\nclass PanelQuad;\nclass IGOWidget {\n    bool display;\npublic:\n    virtual ~IGOWidget();\n    virtual void SetDisplay(bool);\n    virtual void Update(float);\n    virtual void Draw();\n    virtual bool GetDisplay() const;\n};\n\nextern float WAVE_GetHeightFudgeFactor(int);\nextern int WAVE_GetScheduleIndex();\nextern int WAVE_GetNextScheduleIndex();\n__asm__(\".equ WAVE_GetHeightFudgeFactor__Fi, 0x0037DCE8\");\n__asm__(\".equ WAVE_GetScheduleIndex__Fv, 0x0037D8B8\");\n__asm__(\".equ WAVE_GetNextScheduleIndex__Fv, 0x0037D8C8\");\n\nclass WaveIndicatorWidget : public IGOWidget {\npublic:\n    enum STATE { STATE_NONE, STATE_DIR, STATE_SURGE, STATE_TONGUE, STATE_HILITE_NONE, STATE_HILITE_FACE, STATE_HILITE_LIP, STATE_HILITE_TUBE };\nprivate:\n    PanelQuad *wavePQ[2][3];\n    PanelQuad *arrowPQ[2];\n    PanelQuad *tonguePQ[2][6];\n    PanelQuad *hilitePQ[2][3];\n    PanelQuad *heightPQ;\n    TextString *heightText;\n    TextString *unitText;\n    TextString *nextHeightText;\n    TextString *nextUnitText;\n    int dirIdx;\n    float waveIdx;\n    float tongueIdx;\n    float hiliteTime;\n    float fade;\n    int fadeDir;\n    STATE state;\npublic:\n    void ShowDirection(bool, float, float) __asm__(\"ShowDirection__19WaveIndicatorWidgetbff\");\n};\n\nvoid WaveIndicatorWidget::ShowDirection(const bool fadeIn, const float waveHeight, const float nextWaveHeight)\n{\n    stringx s;\n\n    if (fadeIn)\n    {\n        fade = 0.0f;\n        fadeDir = 1;\n    }\n    else\n    {\n        fade = 1.0f;\n        fadeDir = 0;\n    }\n\n    float wave_scale = 1.0f;\n    float next_wave_scale = 1.0f;\n\n    wave_scale = WAVE_GetHeightFudgeFactor(WAVE_GetScheduleIndex());\n    next_wave_scale = WAVE_GetHeightFudgeFactor(WAVE_GetNextScheduleIndex());\n\n    s.printf(\"%.1f\", waveHeight*3.28084f*wave_scale);\n    heightText->changeText(s);\n    s.printf(\"%.1f\", nextWaveHeight*3.28084f*next_wave_scale);\n    nextHeightText->changeText(s);\n\n    waveIdx = 0;\n    tongueIdx = 0;\n    state = STATE_DIR;\n}\n",
+      "status": "different",
+      "target_size": 356
+    }
+  ],
+  "raw_name": "ShowDirection__19WaveIndicatorWidgetbff"
+}
