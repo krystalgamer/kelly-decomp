@@ -1,0 +1,23 @@
+{
+  "address": "0x001FD048",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "78ceb660d8e081134dc11bd7da82da3de75d8f15",
+      "candidate_size": 340,
+      "compared_bytes": 364,
+      "compared_instructions": 91,
+      "emitted_name": "update__12water_objectf",
+      "instruction_score": 4.3956,
+      "matching_bytes": 83,
+      "matching_instructions": 4,
+      "notes": "Attempt 1 used the exact released source for update__12water_objectf. Result `different`, score 22.8022; no retry or variant was made.",
+      "score": 22.8022,
+      "source": "typedef unsigned char uint8;\ntypedef unsigned int uint32;\n\nclass vector3d\n{\npublic:\n  float x, y, z;\n};\n\nclass color32\n{\npublic:\n  union\n  {\n    struct { uint8 b, g, r, a; } c;\n    uint32 i;\n  };\n\n  color32(uint32 ic = 0) : i(ic) {}\n  color32(uint8 _r, uint8 _g, uint8 _b, uint8 _a = 255)\n  {\n    c.b = _b; c.g = _g; c.r = _r; c.a = _a;\n  }\n  uint8 get_alpha() const { return c.a; }\n  void set_alpha(uint8 arg) { c.a = arg; }\n};\n\n#define color32_white color32(255, 255, 255, 255)\n\nclass entity\n{\n  char pad0[64];\n  vector3d rel_position;\n  char pad1[396];\n  color32 render_color;\npublic:\n  const vector3d& get_rel_position() const { return rel_position; }\n  void set_render_color(const color32 new_color) { render_color = new_color; }\n};\n\nextern float WAVE_MeshMaxZ;\n\ntemplate<class T> inline const T& min(const T& a, const T& b)\n{\n  return b < a ? b : a;\n}\n\nclass water_object\n{\n  char pad0[40];\n  entity *my_entity;\n  char pad1[16];\n  color32 ren_col;\n  float my_max_alpha;\n  char pad2[624];\n  float fade_distance;\npublic:\n  bool update(float dt) __asm__(\"update__12water_objectf\");\n};\n\n// base update function that makes the objects fade\nbool water_object::update (float dt)\n{\n  vector3d position (my_entity->get_rel_position ());\n\n  // remove tinting to fix the sorting bug for now until we find the cause of the problem\n  my_entity->set_render_color (color32_white);\n\n  // fade object\n  if (((fade_distance >= 0) && (position.z > WAVE_MeshMaxZ + fade_distance)) || (my_max_alpha != 1.0f))\n  {\n    float blend;\n\n    blend = min (my_max_alpha, 1.0f - ((position.z - (WAVE_MeshMaxZ + fade_distance)) / 50));\n\n    if (blend < 0.025f)\n    {\n      color32 col = ren_col;\n      col.set_alpha (0);\n      my_entity->set_render_color (col);\n\n      return false;\n    }\n    else\n    {\n      color32 col = ren_col;\n      col.set_alpha (ren_col.get_alpha () * blend);\n      my_entity->set_render_color (col);\n    }\n  }\n\n  return true;\n}\n",
+      "status": "different",
+      "target_size": 364
+    }
+  ],
+  "raw_name": "update__12water_objectf"
+}
