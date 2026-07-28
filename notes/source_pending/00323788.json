@@ -1,0 +1,16 @@
+{
+  "address": "0x00323788",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1cb37d2106741b17f64fa6d6cba669f112d9e7be",
+      "error": "Candidate did not emit __cl__19slf_wait_fps_test_tR8vm_stackQ320script_library_class8function7entry_t; emitted functions: ['__cl__19slf_wait_fps_test_tR8vm_stacki']",
+      "notes": "# FIRST PASS wave 85 lane A4\n\nExact released body tested once for `0x00323788 __cl__19slf_wait_fps_test_tR8vm_stackQ320script_library_class8function7entry_t`. Result `symbol_missing`, byte score 0.0000%, instruction score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "typedef float rational_t;\ntypedef float vm_num_t;\n\nstruct vector3d\n{\n  float x;\n  float y;\n  float z;\n};\n\nstruct po\n{\n  char data[72];\n};\n\nclass game_clock_t\n{\n  unsigned int start;\n\npublic:\n  void reset();\n  rational_t elapsed() const;\n};\n\nclass vm_stack\n{\n  char pad[8];\n\npublic:\n  char *SP;\n  void *thread;\n  bool push(const char *, int);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    typedef int entry_t;\n    virtual bool operator()(vm_stack &, entry_t) = 0;\n  };\n};\n\nenum\n{\n  FIRST_ENTRY = 0\n};\n\nclass slf_wait_fps_test_t : public script_library_class::function\n{\npublic:\n  struct sdata_t\n  {\n    game_clock_t clock;\n    po initial_cam_po;\n    vector3d initial_target;\n    rational_t initial_roll;\n    vm_num_t avg_fps;\n    int num_frames;\n    bool disable_marky;\n  };\n\n  struct parms_t\n  {\n    vm_num_t min_fps;\n    vm_num_t duration;\n    vector3d pos;\n    vector3d facing;\n  };\n\n  virtual bool operator()(vm_stack &stack, entry_t entry);\n};\n\nbool slf_wait_fps_test_t::operator()(vm_stack &stack, entry_t entry)\n{\n  sdata_t *sdata = (sdata_t *)stack.SP;\n  stack.SP -= sizeof(parms_t);\n  parms_t *parms = (parms_t *)stack.SP;\n\n  if (entry == FIRST_ENTRY)\n  {\n    sdata->clock.reset();\n    return false;\n  }\n  else\n  {\n    if (sdata->clock.elapsed() >= parms->duration)\n    {\n      vm_num_t result = 1.0f;\n      if (!stack.push((const char *)&result, sizeof(result)))\n        return true;\n      return true;\n    }\n    else\n    {\n      return false;\n    }\n  }\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__cl__19slf_wait_fps_test_tR8vm_stackQ320script_library_class8function7entry_t"
+}
