@@ -1,0 +1,23 @@
+{
+  "address": "0x002A3C28",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e688f08a37548b624e4bafc9bde71e7a3d796bf3",
+      "candidate_size": 304,
+      "compared_bytes": 344,
+      "compared_instructions": 86,
+      "emitted_name": "add_dynamic_instanced_entity__21world_dynamics_systemP6entity",
+      "instruction_score": 1.1628,
+      "matching_bytes": 56,
+      "matching_instructions": 1,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/wds.cpp:6673-6707; kelly-slaters-pro-surfer/KS/SRC/wds.h:108-109,214-215,467-483; kelly-slaters-pro-surfer/KS/SRC/entity.h:298,582-585,1074,1137,1247; kelly-slaters-pro-surfer/KS/SRC/visrep.h:20,52; tmp/functions/002A3C28_add_dynamic_instanced_entity__21world_dynamics_systemP6entity/attempt-1/result.json; tmp/source_first/002A3C28/attempt-1.md. Result `different`, score 16.2791; no later attempt.",
+      "score": 16.2791,
+      "source": "typedef unsigned int uint32;\n\ntemplate<class T> class my_allocator;\n\ntemplate<class T, class Alloc = my_allocator<T> >\nclass vector\n{\npublic:\n  typedef T* iterator;\n  iterator start;\n  iterator finish;\n  iterator end_of_storage;\n\n  iterator begin() { return start; }\n  iterator end() { return finish; }\n  void _M_insert_aux(iterator, const T&);\n  void push_back(const T& value)\n  {\n    if (finish != end_of_storage)\n    {\n      *finish = value;\n      ++finish;\n    }\n    else\n      _M_insert_aux(finish, value);\n  }\n};\n\ntemplate<class Iterator, class T>\nIterator find(Iterator first, Iterator last, const T& value);\n\nenum entity_flavor_t\n{\n  ENTITY_ENTITY = 1,\n  ENTITY_MARKER = 2,\n  ENTITY_MIC = 3,\n  ENTITY_LIGHT_SOURCE = 4,\n  ENTITY_CONGLOMERATE = 10\n};\n\nenum visual_rep_type\n{\n  VISREP_PMESH = 0\n};\n\nenum entity_flag\n{\n  EFLAG_ACTIVE = 0x00020000\n};\n\nclass terrain;\n\nclass visual_rep\n{\npublic:\n  visual_rep_type type;\n  visual_rep_type get_type() const { return type; }\n};\n\nclass vr_pmesh : public visual_rep\n{\npublic:\n  virtual bool is_uv_animated() const;\n};\n\nclass entity\n{\npublic:\n  virtual void compute_sector(terrain&, bool);\n  virtual visual_rep* get_vrep() const;\n  virtual void frame_done();\n\n  char pad0[108];\n  uint32 flags;\n  entity_flavor_t flavor;\n\n  entity_flavor_t get_flavor() const { return flavor; }\n  void set_flag(uint32 f, bool set)\n  {\n    if (set)\n      flags |= f;\n    else\n      flags &= ~f;\n  }\n};\n\nvoid check_po(entity*);\n\nclass world_dynamics_system\n{\npublic:\n  char pad0[100];\n  vector<entity*> entities;\n  char pad1[124];\n  terrain* the_terrain;\n  char pad2[68];\n  bool loading_from_scn_file;\n\n  void add_dynamic_instanced_entity(entity*);\n};\n\nvoid world_dynamics_system::add_dynamic_instanced_entity(entity* e)\n{\n  vector<entity*>::iterator it;\n  it = find(entities.begin(), entities.end(), (entity*)0);\n  if (it == entities.end())\n  {\n    entities.push_back(e);\n  }\n  else\n    *it = e;\n  check_po(e);\n  e->compute_sector(*the_terrain, loading_from_scn_file);\n  switch (e->get_flavor())\n  {\n    case ENTITY_ENTITY:\n    case ENTITY_MARKER:\n    case ENTITY_MIC:\n    case ENTITY_LIGHT_SOURCE:\n    case ENTITY_CONGLOMERATE:\n    {\n      visual_rep* vrep = e->get_vrep();\n      if (!(vrep && vrep->get_type() == VISREP_PMESH\n            && ((vr_pmesh*)vrep)->is_uv_animated()))\n        e->set_flag(EFLAG_ACTIVE, false);\n      break;\n    }\n    default:\n      break;\n  }\n  e->frame_done();\n}\n",
+      "status": "different",
+      "target_size": 344
+    }
+  ],
+  "raw_name": "add_dynamic_instanced_entity__21world_dynamics_systemP6entity"
+}
