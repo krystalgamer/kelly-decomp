@@ -1,0 +1,15 @@
+{
+  "address": "0x00335300",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0bffcb329c98870bc6a35346630c0c8979e585b9",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/script_lib_list.cpp:1490-1511; kelly-slaters-pro-surfer/KS/SRC/script_lib_list.h:117-151; kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:264-300; tmp/functions/00335300___cl__31slf_str_list_iterator_get_str_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/result.json; tmp/functions/00335300___cl__31slf_str_list_iterator_get_str_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/compiler.stderr; tmp/source_first/00335300/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "#include \"kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"kelly-slaters-pro-surfer/KS/SRC/script_lib_list.h\"\n#include \"kelly-slaters-pro-surfer/KS/SRC/vm_thread.h\"\n\nclass slf_str_list_iterator_get_str_t : public script_library_class::function\n  {\n  public:\n    slf_str_list_iterator_get_str_t(script_library_class* slc,const char * n) : script_library_class::function(slc,n) {}\n    struct parms_t\n      {\n      vm_str_list_iterator_t me;\n      };\n    virtual bool operator()(vm_stack& stack,entry_t entry)\n      {\n      SLF_PARMS;\n      vm_str_t result = &(*(parms->me));\n      SLF_RETURN;\n      SLF_DONE;\n      }\n  };\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__cl__31slf_str_list_iterator_get_str_tR8vm_stackQ320script_library_class8function7entry_t"
+}
