@@ -1,0 +1,23 @@
+{
+  "address": "0x00147EE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "09cbea6d084ea65eb4116510a1aae183d4cb1978",
+      "candidate_size": 424,
+      "compared_bytes": 424,
+      "compared_instructions": 106,
+      "emitted_name": "Break__10StringList",
+      "instruction_score": 3.7736,
+      "matching_bytes": 88,
+      "matching_instructions": 4,
+      "notes": "# FIRST PASS wave 71 lane A5 \u2014 0x00147EE0\n\n- Confirmed no prior attempt existed.\n- Used the exact released `StringList::Break` body with minimal self-contained declarations.\n- Ran `function_test` exactly once. Result: `different`; byte score 20.7547% (88/424), instruction score 3.7736% (4/106), candidate size 424 versus target 412.\n- No variants, diff chasing, retries, finalization, build, integration, commit, or tracked source-file mutation were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:84-103`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:12-45`\n- `kelly-slaters-pro-surfer/KS/SRC/random.h:142-159`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/coords.h:47-52`\n- `tmp/functions/00147EE0_Break__10StringList/attempt-1/result.json`\n- `tmp/source_first/00147EE0/attempt-1.md`",
+      "score": 20.7547,
+      "source": "class stringx { char data_[8]; public: int size() const; };\nclass Random { unsigned int rand_next; public: unsigned int NextRand(); int rand(int end) { unsigned int r = NextRand(); return r % end; } int rand(int begin, int end) { unsigned int r = NextRand(); return r % (end-begin) + begin; } };\nextern Random *g_random_ptr;\ninline int random(int end) { int i = g_random_ptr->rand(end); return i; }\ninline int random(int begin,int end) { int i = g_random_ptr->rand(begin, end); return i; }\ntemplate <class T> void adjustSizes(T &x, T &y);\nclass StringList {\npublic:\n  enum { MAX_STRING_SIZE = 150 };\n  static int RANGE_BX_LO; static int RANGE_BX_HI; static int RANGE_BY_LO; static int RANGE_BY_HI;\n  stringx data; float x; float y; float fall_speed[MAX_STRING_SIZE]; float drift_speed[MAX_STRING_SIZE]; int drift_max[MAX_STRING_SIZE]; float delta_x[MAX_STRING_SIZE]; float delta_y[MAX_STRING_SIZE];\n  void Break(void);\n};\n__asm__(\".equ length__C7stringx,0x00144388\");\n__asm__(\".equ NextRand__6Random,0x00112C68\");\n__asm__(\".equ adjustSizes__H1Zi_RX01T0_v,0x001D6AD0\");\n__asm__(\".equ g_random_ptr,0x00432360\");\n__asm__(\".equ _10StringList$RANGE_BX_LO,0x003E75AC\");\n__asm__(\".equ _10StringList$RANGE_BX_HI,0x003E75B0\");\n__asm__(\".equ _10StringList$RANGE_BY_LO,0x003E75B4\");\n__asm__(\".equ _10StringList$RANGE_BY_HI,0x003E75B8\");\nint stringx::size() const { return data_[4]; }\nvoid StringList::Break(void)\n{\n  int xLo = RANGE_BX_LO, xHi = RANGE_BX_HI;\n  int yLo = RANGE_BY_LO, yHi = RANGE_BY_HI;\n  int amt;\n\n  adjustSizes(xLo, yLo);\n  adjustSizes(xHi, yHi);\n\n  for (int i = 0; i < data.size(); i++)\n  {\n    amt = random(xLo, xHi);\n    if (random(2) == 1) amt = -amt;\n    delta_x[i] += amt;\n\n    amt = random(yLo, yHi);\n    if (random(2) == 1) amt = -amt;\n    delta_y[i] += amt;\n  }\n}\n",
+      "status": "different",
+      "target_size": 412
+    }
+  ],
+  "raw_name": "Break__10StringList"
+}
