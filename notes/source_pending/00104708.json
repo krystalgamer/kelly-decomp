@@ -1,0 +1,23 @@
+{
+  "address": "0x00104708",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d481277cfb1380fa3a210c606c409ad69209b5d6",
+      "candidate_size": 404,
+      "compared_bytes": 464,
+      "compared_instructions": 116,
+      "emitted_name": "read_goal_pack__12ai_interfaceRC7stringx",
+      "instruction_score": 3.4483,
+      "matching_bytes": 71,
+      "matching_instructions": 4,
+      "notes": "# FIRST PASS wave84 B1\n\n- Target: `0x00104708 read_goal_pack__12ai_interfaceRC7stringx`, 464 bytes (`0x1D0`), object `game/files_ai`.\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/ai_interface.cpp:319-337`.\n- Candidate: `tmp/source-first-wave84/B1-00104708/candidate.cpp`; LF-only, self-contained minimal faithful declarations, no headers.\n- Confirmed zero attempts before preparation and inspected metadata, target assembly, and candidate before testing.\n- Sole result: `different`; byte score 15.3017% (71/464), instruction score 3.4483% (4/116), candidate size 404 bytes.\n- Candidate SHA-1: `d481277cfb1380fa3a210c606c409ad69209b5d6`.\n- Exactly one candidate and one attempt. No alternatives, asm, annotations, variants, retries, attempts 2-5, or post-test chase.\n- Tracked/reference files remained read-only. No finalize, integrate, build, or git mutation.",
+      "score": 15.3017,
+      "source": "typedef unsigned long long big_int;\n\nclass stringx;\n\nclass string_buf\n{\n  friend class stringx;\n  friend inline bool operator==(const stringx &, const stringx &);\n\n  big_int *data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n\npublic:\n  inline bool is_equal(const string_buf &buf) const\n  {\n    if (buf.block_length != block_length) return false;\n    for (int i = 0; i < block_length; i++)\n      if (!(buf.data[i] == data[i])) return false;\n    return true;\n  }\n};\n\nclass stringx\n{\n  friend inline bool operator==(const stringx &, const stringx &);\n\n  char *chars;\n  string_buf *my_buf;\n\npublic:\n  stringx();\n  stringx(const char *str, int len = -1);\n  ~stringx();\n\n  inline const char *c_str() const\n  {\n    return chars;\n  }\n\n  inline int size() const\n  {\n    return my_buf->char_length;\n  }\n};\n\ninline bool operator==(const stringx &lhs, const stringx &rhs)\n{\n  return lhs.my_buf->is_equal(*rhs.my_buf);\n}\n\ninline bool operator!=(const stringx &lhs, const stringx &rhs)\n{\n  return !(lhs == rhs);\n}\n\nclass os_file\n{\npublic:\n  enum mode_flags\n  {\n    FILE_READ = 1\n  };\n\n  ~os_file();\n\nprivate:\n  char data[64];\n};\n\nclass text_file\n{\npublic:\n  ~text_file();\n\nprivate:\n  char data[64];\n};\n\nclass chunk_file\n{\npublic:\n  enum chunk_file_flags_t\n  {\n    FILE_TEXT = 0x0100\n  };\n\n  chunk_file();\n  void open(const stringx &name, int flags = os_file::FILE_READ);\n  void close();\n\nprivate:\n  int type;\n  int padding;\n  os_file binary;\n  text_file text;\n  char remainder[152];\n};\n\nvoid serial_in(chunk_file &io, stringx *d);\nbool file_finder_exists(const stringx &filename, const stringx &extension,\n                        stringx *found_name = 0);\nvoid error(const char *fmt, ...);\nextern const stringx chunkend_label;\n\nclass ai_interface\n{\n  void read_goal(chunk_file &fs, const stringx &label);\n\npublic:\n  void read_goal_pack(const stringx &file);\n};\n\nvoid ai_interface::read_goal_pack(const stringx &file)\n{\n  stringx       filename;\n\n  if (!file_finder_exists(file, stringx(\".gpk\"), &filename) )\n  {\n    error(\"File '%s' not found!\", file.c_str());\n    return;\n  }\n\n\tchunk_file    fs;\n  fs.open( filename, os_file::FILE_READ | chunk_file::FILE_TEXT );\n\n  stringx label;\n  for ( serial_in(fs,&label); label!=chunkend_label && label.size() > 0; serial_in(fs,&label) )\n    read_goal(fs, label);\n\n  fs.close();\n}\n",
+      "status": "different",
+      "target_size": 464
+    }
+  ],
+  "raw_name": "read_goal_pack__12ai_interfaceRC7stringx"
+}
