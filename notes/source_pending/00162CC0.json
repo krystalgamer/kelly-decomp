@@ -1,0 +1,23 @@
+{
+  "address": "0x00162CC0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8f8b1aabd04e89cc19a8b599b36d50e3cec3d0b8",
+      "candidate_size": 408,
+      "compared_bytes": 420,
+      "compared_instructions": 105,
+      "emitted_name": "FindResource__14IGOIconManageri",
+      "instruction_score": 9.5238,
+      "matching_bytes": 95,
+      "matching_instructions": 10,
+      "notes": "# First pass wave73 B4 \u2014 FindResource__14IGOIconManageri\n\n- No pre-existing attempt was present for `0x00162CC0`.\n- Used the exact released `IGOIconManager::FindResource` body with minimal\n  standalone declarations.\n- Tested exactly once with\n  `env/bin/python tools/function_test.py test 0x00162CC0 --candidate tmp/source_first/00162CC0/candidate.cpp`.\n- Result: `different`; byte score `22.619%`, instruction score `9.5238%`.\n- Candidate size: `408` bytes; target size: `420` bytes.\n- The attempt is preserved under\n  `tmp/functions/00162CC0_FindResource__14IGOIconManageri/attempt-1/`.\n- No retry, variant, diff chase, finalization, integration, tracked-file edit,\n  build, commit, or push was performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/igoiconmanager.cpp:1680-1725`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/igoiconmanager.h:12-68,119-181`\n- `tmp/functions/00162CC0_FindResource__14IGOIconManageri/attempt-1/result.json`",
+      "score": 22.619,
+      "source": "class IGOIconManager\n{\npublic:\n    enum\n    {\n        ICON_TRICK_GENERIC_AIR = -1,\n        ICON_TRICK_GENERIC_FACE = -2,\n        ICON_TRICK_GENERIC_TUBE = -3\n    };\n\nprivate:\n    class IconResource\n    {\n    public:\n        void *texture;\n        int trickIdx;\n        unsigned int bitmask;\n        unsigned char timesDisplayed;\n        unsigned char iconType;\n        bool avail;\n    };\n\n    char padding[0xc28];\n    IconResource *airIconResources;\n    IconResource *faceIconResources;\n    IconResource *tubeIconResources;\n    IconResource *specialAirIconResources;\n    IconResource *specialFaceIconResources;\n    IconResource *specialTubeIconResources;\n    IconResource *genericIconResources;\n    int numAirIconResources;\n    int numFaceIconResources;\n    int numTubeIconResources;\n    int numSpecialAirIconResources;\n    int numSpecialFaceIconResources;\n    int numSpecialTubeIconResources;\n\npublic:\n    IconResource *FindResource(const int trickIdx);\n};\n\nIGOIconManager::IconResource *IGOIconManager::FindResource(const int trickIdx)\n{\n    int i;\n\n    if (trickIdx == ICON_TRICK_GENERIC_AIR)\n        return &genericIconResources[0];\n    else if (trickIdx == ICON_TRICK_GENERIC_FACE)\n        return &genericIconResources[1];\n    else if (trickIdx == ICON_TRICK_GENERIC_TUBE)\n        return &genericIconResources[2];\n\n    for (i = 0; i < numAirIconResources; i++)\n    {\n        if (airIconResources[i].trickIdx == trickIdx)\n            return &airIconResources[i];\n    }\n    for (i = 0; i < numFaceIconResources; i++)\n    {\n        if (faceIconResources[i].trickIdx == trickIdx)\n            return &faceIconResources[i];\n    }\n    for (i = 0; i < numTubeIconResources; i++)\n    {\n        if (tubeIconResources[i].trickIdx == trickIdx)\n            return &tubeIconResources[i];\n    }\n    for (i = 0; i < numSpecialAirIconResources; i++)\n    {\n        if (specialAirIconResources[i].trickIdx == trickIdx)\n            return &specialAirIconResources[i];\n    }\n    for (i = 0; i < numSpecialFaceIconResources; i++)\n    {\n        if (specialFaceIconResources[i].trickIdx == trickIdx)\n            return &specialFaceIconResources[i];\n    }\n    for (i = 0; i < numSpecialTubeIconResources; i++)\n    {\n        if (specialTubeIconResources[i].trickIdx == trickIdx)\n            return &specialTubeIconResources[i];\n    }\n\n    return 0;\n}\n",
+      "status": "different",
+      "target_size": 420
+    }
+  ],
+  "raw_name": "FindResource__14IGOIconManageri"
+}
