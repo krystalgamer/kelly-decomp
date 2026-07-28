@@ -1,0 +1,23 @@
+{
+  "address": "0x002EEB48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2c8d722e03a9796d71e71cf968febbc05febc5bd",
+      "candidate_size": 364,
+      "compared_bytes": 364,
+      "compared_instructions": 91,
+      "emitted_name": "MENUSOUND_StaticInit__Fv",
+      "instruction_score": 75.8242,
+      "matching_bytes": 290,
+      "matching_instructions": 69,
+      "notes": "Attempt 1 used the exact released source for MENUSOUND_StaticInit__Fv. Result `different`, score 79.6703; no retry or variant was made.",
+      "score": 79.6703,
+      "source": "typedef void *pMenuEntry;\nextern void *operator new(unsigned int, unsigned int, const char *, int) __asm__(\"__nw__FUiUiPCci\");\n__asm__(\".equ __nw__FUiUiPCci, 0x002AC578\");\n\nclass Menu {\npublic:\n    Menu(Menu *, int, pMenuEntry *);\n};\n__asm__(\".equ __4MenuP4MenuiPP9MenuEntry, 0x0023E250\");\n\nextern const char MenuSoundDraw_vtable[];\nextern const char MenuSound_vtable[];\nextern const char Submenu_vtable[];\n__asm__(\".equ MenuSoundDraw_vtable, 0x004F1350\");\n__asm__(\".equ MenuSound_vtable, 0x004F1308\");\n__asm__(\".equ Submenu_vtable, 0x004D5918\");\n\nclass MenuSoundDraw : public Menu {\npublic:\n    MenuSoundDraw(Menu *p, int ents, pMenuEntry *ent) : Menu(p, ents, ent) {}\n};\nclass MenuSound : public Menu {\npublic:\n    MenuSound(Menu *p, int ents, pMenuEntry *ent) : Menu(p, ents, ent) {}\n};\nstruct Submenu {\n    unsigned int flags;\n    const void *vtable;\n    const char *label;\n    Menu *menuopen;\n    Menu *parent;\n    void *system;\n    Submenu(char *text, Menu *p) : flags(3), vtable(Submenu_vtable), label(text), menuopen(p), parent(0), system(0) {}\n};\n\nextern MenuSoundDraw *MENUSOUND_MenuSources;\nextern Submenu *MENUSOUND_SubmenuSources;\nextern pMenuEntry MENUSOUND_SoundEntries[32];\nextern MenuSound *MENUSOUND_Menu;\nextern Submenu *menu_sound;\n__asm__(\".equ MENUSOUND_MenuSources, 0x00434980\");\n__asm__(\".equ MENUSOUND_SubmenuSources, 0x00434984\");\n__asm__(\".equ MENUSOUND_SoundEntries, 0x005799D8\");\n__asm__(\".equ MENUSOUND_Menu, 0x00434988\");\n__asm__(\".equ menu_sound, 0x0043498C\");\n\nvoid MENUSOUND_StaticInit(void)\n{\n    MENUSOUND_MenuSources = new(0, __FILE__, 0) MenuSoundDraw(0, 0, 0);\n    *(const void **)((char *)MENUSOUND_MenuSources + 0x1c) = MenuSoundDraw_vtable;\n    MENUSOUND_SubmenuSources = new(0, __FILE__, 0) Submenu((char *)\"Sounds\", MENUSOUND_MenuSources);\n    MENUSOUND_SoundEntries[0] = MENUSOUND_SubmenuSources;\n    MENUSOUND_Menu = new(0, __FILE__, 0) MenuSound(0, 32, MENUSOUND_SoundEntries);\n    *(const void **)((char *)MENUSOUND_Menu + 0x1c) = MenuSound_vtable;\n    menu_sound = new(0, __FILE__, 0) Submenu((char *)\"Sound Menu\", MENUSOUND_Menu);\n}\n",
+      "status": "different",
+      "target_size": 364
+    }
+  ],
+  "raw_name": "MENUSOUND_StaticInit__Fv"
+}
