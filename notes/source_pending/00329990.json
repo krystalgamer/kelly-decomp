@@ -1,0 +1,23 @@
+{
+  "address": "0x00329990",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f2b581744077f5ed3609a03d44176bf1144ac4a8",
+      "candidate_size": 280,
+      "compared_bytes": 456,
+      "compared_instructions": 114,
+      "emitted_name": "__cl__20slf_vector3d_equal_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 3.5088,
+      "matching_bytes": 65,
+      "matching_instructions": 4,
+      "notes": "# Attempt 1 \u2014 released-source first pass wave 83 lane A3\n\n- Target: `0x00329990` `__cl__20slf_vector3d_equal_tR8vm_stackQ320script_library_class8function7entry_t`; object `game/files_script`; size 456 (`0x1C8`) bytes.\n- Exact released operator body: `kelly-slaters-pro-surfer/KS/SRC/script_lib_vector3d.cpp:163-169`, preserved unchanged.\n- Minimal faithful declarations derive from `script_lib_vector3d.cpp:150-169`, `script_library_class.h:24-65,270-300`, `vm_stack.h:21-87`, and `HWOSPS2/ps2_algebra.h:292-307,390-391`.\n- Self-contained LF translation unit with no project or unavailable includes.\n- Before testing, preparation and status confirmed `attempts_used: 0`.\n- Exactly one harness invocation is authorized; no alternate, asm, annotations, variants, retry, attempts 2-5, or post-test chase.\n\n## Result\n\n- Sole invocation: `env/bin/python tools/function_test.py test 0x00329990 --candidate tmp/source-first-wave83/A3-00329990/candidate.cpp`.\n- Result: **different**; 65/456 matching bytes (14.2544%), 4/114 matching instructions (3.5088%); candidate size 280 bytes.\n- Candidate SHA-1: `f2b581744077f5ed3609a03d44176bf1144ac4a8`; SHA-256: `43cb6d00fa6ec9d5473638aab98a7b9b68fe6ba8d3051f6d9f4a78e86ab814e8`.\n- UTC timing: `2026-07-28T21:39:56Z` to `2026-07-28T21:40:00Z`.\n- One honest attempt only. No alternate/asm/annotations/variants/retry/attempts 2-5/post-test chase, tracked/reference edit, finalize, integrate, build, or git mutation.",
+      "score": 14.2544,
+      "source": "typedef float rational_t;\ntypedef float vm_num_t;\n\nclass stringx\n{\npublic:\n  stringx();\n  stringx(const stringx&);\n  ~stringx();\n};\n\nstringx operator+(const stringx&, const char*);\nstringx operator+(const stringx&, const stringx&);\nvoid error(const stringx&);\n\nclass script_object\n{\npublic:\n  class instance\n  {\n    int unused;\n    stringx name;\n  public:\n    const stringx& get_name() const { return name; }\n  };\n\nprivate:\n  int unused[3];\n  stringx fullname;\npublic:\n  const stringx& get_fullname() const { return fullname; }\n};\n\nclass vm_thread\n{\n  script_object::instance* instance_ptr;\n  script_object* executable;\npublic:\n  script_object::instance* get_instance() const { return instance_ptr; }\n  script_object* get_executable() const { return executable; }\n};\n\nclass vm_stack\n{\npublic:\n  int salloc;\n  char* buffer;\n  char* SP;\nprivate:\n  vm_thread* my_thread;\npublic:\n  char* get_SP() const { return SP; }\n  vm_thread* get_thread() const { return my_thread; }\n  void pop(int n) { SP -= n; }\n  bool push(const char* src, int n);\n};\n\nclass vector3d\n{\npublic:\n  rational_t x;\n  rational_t y;\n  rational_t z;\n};\n\ninline bool operator==(const vector3d& a, const vector3d& b)\n{\n  return (a.x == b.x) && (a.y == b.y) && (a.z == b.z);\n}\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n\n    virtual bool operator()(vm_stack& stack, entry_t entry) { return true; }\n  };\n};\n\n#define SLF_PARMS \\\n  stack.pop(sizeof(parms_t)); \\\n  parms_t* parms = (parms_t*)stack.get_SP()\n\n#define SLF_RETURN \\\n  if (!stack.push((char*)&result,sizeof(result)) ) \\\n    error( stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname() )\n\n#define SLF_DONE \\\n  return true\n\nclass slf_vector3d_equal_t : public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    vector3d me;\n    vector3d b;\n  };\n\n  virtual bool operator()(vm_stack& stack,entry_t entry);\n};\n\nbool slf_vector3d_equal_t::operator()(vm_stack& stack,entry_t entry)\n{\n  SLF_PARMS;\n  vm_num_t result = (parms->me == parms->b);\n  SLF_RETURN;\n  SLF_DONE;\n}\n",
+      "status": "different",
+      "target_size": 456
+    }
+  ],
+  "raw_name": "__cl__20slf_vector3d_equal_tR8vm_stackQ320script_library_class8function7entry_t"
+}
