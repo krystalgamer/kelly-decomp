@@ -1,0 +1,23 @@
+{
+  "address": "0x0034FC98",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2fbaad214eba657e2ff9ecbc1e61ded766882130",
+      "candidate_size": 316,
+      "compared_bytes": 452,
+      "compared_instructions": 113,
+      "emitted_name": "__19slc_script_object_tRC14script_managerPCc",
+      "instruction_score": 3.5398,
+      "matching_bytes": 61,
+      "matching_instructions": 4,
+      "notes": "# Attempt 1\n\n- Exact released constructor body preserved from `kelly-slaters-pro-surfer/KS/SRC/script_library_class.cpp:188-199`.\n- Self-contained LF candidate uses only minimal local declarations; no project or unavailable includes.\n- Before testing, inspected the released source, target disassembly, metadata, generated candidate stub, and confirmed `attempts.json` was `[]` / status was not prepared before preparation.\n- Sole harness invocation: `env/bin/python tools/function_test.py test 0x0034FC98 --candidate tmp/source-first-wave82/A2-0034FC98/candidate.cpp`.\n- Result: `different`; 61/452 matching bytes (13.4956%), 4/113 matching instructions (3.5398%); emitted candidate size 316 bytes.\n- Exactly one attempt. No retry, variants, alternate logic, post-test diff chase, asm/annotations, tracked/reference edits, finalize, integrate, build, or git mutation.",
+      "score": 13.4956,
+      "source": "#define NULL 0\n\nclass stringx\n{\npublic:\n  stringx();\n  stringx(const char*, int = -1);\n  stringx(const stringx&);\n  ~stringx();\n  stringx& operator=(const stringx&);\n  const char* c_str() const;\nprivate:\n  void* data;\n  int reserved[3];\n};\n\nstringx operator+(const stringx&, const char*);\n\nclass script_object;\n\nclass script_manager\n{\npublic:\n  script_object* find_object(const stringx&) const;\n};\n\nclass script_library_class\n{\npublic:\n  script_library_class(const char*, int, const char* = 0);\n  virtual ~script_library_class();\n  virtual unsigned find_instance(const stringx&) const;\n  virtual void read_value(void*, char*);\n  virtual void purge();\nprivate:\n  char layout[28];\n};\n\nvoid error(const char*, ...);\n\nclass slc_script_object_t : public script_library_class\n{\nprotected:\n  const script_manager& sman;\n  script_object* sobj;\npublic:\n  slc_script_object_t(const script_manager&, const char*);\n};\n\nslc_script_object_t::slc_script_object_t(const script_manager& sm,const char* n)\n  : script_library_class(n,4,NULL),\n    sman(sm)\n{\n  sobj = sman.find_object(n);\n  if (!sobj)\n  {\n    stringx err;\n    err=stringx(\"script object \")+n+\" not found\\n\";\n    error(err.c_str());\n  }\n}\n",
+      "status": "different",
+      "target_size": 452
+    }
+  ],
+  "raw_name": "__19slc_script_object_tRC14script_managerPCc"
+}
