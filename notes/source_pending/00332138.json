@@ -1,0 +1,16 @@
+{
+  "address": "0x00332138",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8a81213cda8a104fd9a4bf943feeeeb2778255b7",
+      "error": "Candidate did not emit __cl__33slf_num_list_iterator_not_equal_tR8vm_stackQ320script_library_class8function7entry_t; emitted functions: []",
+      "notes": "Attempt 1 used the exact released source for __cl__33slf_num_list_iterator_not_equal_tR8vm_stackQ320script_library_class8function7entry_t. Result `symbol_missing`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "extern \"C\" unsigned int strlen(const char*);\n\nstruct string_buf { int pad0; int pad4; int char_length; };\nclass stringx {\npublic:\n  string_buf* my_buf;\n  stringx();\n  stringx(const stringx&);\n  ~stringx();\n  void make_room(int);\n  void append(const char*, int = -1);\n  void append(const stringx&);\n};\ninline stringx operator+(const stringx& lhs, const stringx& rhs) {\n  stringx foo;\n  foo.make_room(lhs.my_buf->char_length + rhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs);\n  return foo;\n}\ninline stringx operator+(const stringx& lhs, const char* rhs) {\n  stringx foo;\n  int len = strlen(rhs);\n  foo.make_room(len + lhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs, len);\n  return foo;\n}\nnamespace script_object {\nclass instance {\npublic:\n  int pad0;\n  stringx name;\n  const stringx& get_name() const { return name; }\n};\n}\nclass vm_executable {\npublic:\n  int pad[3];\n  stringx fullname;\n  const stringx& get_fullname() const { return fullname; }\n};\nclass vm_thread {\npublic:\n  script_object::instance* inst;\n  const vm_executable* ex;\n  script_object::instance* get_instance() const { return inst; }\n  const vm_executable* get_executable() const { return ex; }\n};\nclass vm_stack {\npublic:\n  int salloc;\n  char* buffer;\n  char* SP;\n  vm_thread* my_thread;\n  char* get_SP() const { return SP; }\n  vm_thread* get_thread() const { return my_thread; }\n  void pop(int n) { SP -= n; }\n  bool push(const char*, int);\n};\nstruct vector3d { float x, y, z; };\nstruct vm_num_list_iterator_t {\n  float* p;\n  bool operator!=(const vm_num_list_iterator_t& other) const {\n    return p != other.p;\n  }\n};\ntypedef float vm_num_t;\nvoid error(const stringx&);\nclass script_library_class {\npublic:\n  class function {\n  public:\n    enum entry_t { FIRST_ENTRY, RECALL_ENTRY };\n    virtual ~function();\n    virtual bool operator()(vm_stack&, entry_t) { return true; }\n  };\n};\nclass slf_num_list_iterator_not_equal_t : public script_library_class::function\n  {\n  public:\n    struct parms_t\n      {\n      vm_num_list_iterator_t me;\n      vm_num_list_iterator_t you;\n      };\n    virtual bool operator()(vm_stack& stack,entry_t entry)\n      {\n      stack.pop(sizeof(parms_t));\n      parms_t* parms = (parms_t*)stack.get_SP();\n      vm_num_t result = parms->me!=parms->you;\n      if (!stack.push((char*)&result,sizeof(result)) )\n        error( stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname() );\n      return true;\n      }\n  };\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__cl__33slf_num_list_iterator_not_equal_tR8vm_stackQ320script_library_class8function7entry_t"
+}
