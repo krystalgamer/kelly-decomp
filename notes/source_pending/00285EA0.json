@@ -1,0 +1,23 @@
+{
+  "address": "0x00285EA0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "57043a6350dbc4581e95918b9109db4f64f4e11f",
+      "candidate_size": 332,
+      "compared_bytes": 332,
+      "compared_instructions": 83,
+      "emitted_name": "CalcViewports__8PushMode",
+      "instruction_score": 77.1084,
+      "matching_bytes": 272,
+      "matching_instructions": 64,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/mode_push.cpp:232-267; kelly-slaters-pro-surfer/KS/SRC/ks/mode_push.h:10-53; kelly-slaters-pro-surfer/KS/SRC/rect.h:16-53; kelly-slaters-pro-surfer/KS/SRC/ks/coords.h:36-42; tmp/functions/00285EA0_CalcViewports__8PushMode/attempt-1/result.json; tmp/source_first/00285EA0/attempt-1.md. Result `different`, score 81.9277; no later attempt.",
+      "score": 81.9277,
+      "source": "struct vector2di\n{\n    int x;\n    int y;\n};\n\nclass recti\n{\npublic:\n    vector2di tl;\n    vector2di br;\n\n    void set_left(const int i) { tl.x = i; }\n    void set_right(const int i) { br.x = i; }\n    void set_top(const int i) { tl.y = i; }\n    void set_bottom(const int i) { br.y = i; }\n};\n\nstruct kellyslater_controller;\n\nclass PushMode\n{\nprotected:\n    struct PLAYER\n    {\n        float share;\n        int extraShare;\n        recti viewport;\n        kellyslater_controller *ks;\n        int prevScore;\n    };\n\n    PLAYER players[2];\n    float attackTimer;\n    int scoreRequired;\n\n    void CalcViewports(void);\n};\n\nextern \"C\" void adjustCoords(float &x, float &y)\n    __asm__(\"adjustCoords__H1Zf_RX01T0_v\");\n__asm__(\".equ adjustCoords__H1Zf_RX01T0_v, 0x001D6B60\");\n\nvoid PushMode::CalcViewports(void)\n{\n    float\tx, y;\n\n    x = 0.0f;\n    y = 0.0f;\n    adjustCoords(x, y);\n    players[0].viewport.set_left(int(x));\n    players[0].viewport.set_top(int(y));\n    x = 640.0f*players[0].share - 1.0f;\n    y = 480.0f-1.0f;\n    adjustCoords(x, y);\n    players[0].viewport.set_right(int(x));\n    players[0].viewport.set_bottom(int(y));\n\n    x = 640.0f*players[0].share;\n    y = 0.0f;\n    adjustCoords(x, y);\n    players[1].viewport.set_left(int(x));\n    players[1].viewport.set_top(int(y));\n    x = 640.0f-1.0f;\n    y = 480.0f-1.0f;\n    adjustCoords(x, y);\n    players[1].viewport.set_right(int(x));\n    players[1].viewport.set_bottom(int(y));\n}\n",
+      "status": "different",
+      "target_size": 332
+    }
+  ],
+  "raw_name": "CalcViewports__8PushMode"
+}
