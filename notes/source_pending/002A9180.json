@@ -1,0 +1,23 @@
+{
+  "address": "0x002A9180",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "14554b499dafc0c522d1dce974baa9d8d912c412",
+      "candidate_size": 292,
+      "compared_bytes": 336,
+      "compared_instructions": 84,
+      "emitted_name": "add_crawl_box__21world_dynamics_systemibRC8vector3dRC10convex_box",
+      "instruction_score": 11.9048,
+      "matching_bytes": 84,
+      "matching_instructions": 10,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/wds.cpp:8742-8758; kelly-slaters-pro-surfer/KS/SRC/wds.h:108-115,142-144,415-440; kelly-slaters-pro-surfer/KS/SRC/crawl_box.h:10-24; kelly-slaters-pro-surfer/KS/SRC/convex_box.h:7-15; kelly-slaters-pro-surfer/KS/SRC/terrain.h:45-53; tmp/functions/002A9180_add_crawl_box__21world_dynamics_systemibRC8vector3dRC10convex_box/attempt-1/result.json; tmp/source_first/002A9180/attempt-1.md. Result `different`, score 25.0000; no later attempt.",
+      "score": 25.0,
+      "source": "typedef unsigned int size_t;\nvoid* operator new(size_t, unsigned int, const char*, int);\n#define NEW new(0, \"C:/KS/SRC/wds.cpp\", 0)\n\nclass vector3d\n{\npublic:\n  float x, y, z;\n};\n\nclass convex_box\n{\npublic:\n  unsigned char released_data[136];\n  convex_box(const convex_box&);\n};\n\nclass crawl_box\n{\npublic:\n  int type;\n  vector3d pos;\n  convex_box box;\n  bool forced;\n\n  crawl_box(int _type, bool _forced, const vector3d& _po, const convex_box& _box)\n    : type(_type), pos(_po), box(_box), forced(_forced) { }\n};\n\ntemplate<class T> class vector\n{\n  T* start;\n  T* finish;\n  T* end_of_storage;\npublic:\n  void _M_insert_aux(T*, const T&);\n  void push_back(const T& x)\n  {\n    if (finish != end_of_storage)\n    {\n      if (finish) *finish = x;\n      ++finish;\n    }\n    else\n      _M_insert_aux(finish, x);\n  }\n};\n\nclass region;\nclass region_node\n{\n  void* released_link;\n  region* data;\npublic:\n  region* get_data() const { return data; }\n};\n\nclass sector\n{\n  region_node* my_region;\npublic:\n  region_node* get_region() const { return my_region; }\n};\n\nclass terrain\n{\npublic:\n  sector* find_sector(const vector3d& pos) const;\n};\n\nclass region\n{\npublic:\n  void add(crawl_box*);\n};\n\nvoid warning(const char*, ...);\n\nclass world_dynamics_system\n{\n  unsigned char released_before_crawl_boxes[124];\n  vector<crawl_box*> crawl_boxes;\n  unsigned char released_before_terrain[100];\n  terrain* the_terrain;\npublic:\n  void add_crawl_box(int type, bool forced, const vector3d& where, const convex_box& binfo);\n};\n\nvoid world_dynamics_system::add_crawl_box( int type, bool forced, const vector3d& where, const convex_box& binfo )\n{\n\tcrawl_box* crawl = NEW crawl_box( type, forced, where, binfo );\n\n\t// wds 'owns' all crawl boxes for memory tracking purposes\n\tcrawl_boxes.push_back( crawl );\n\n\t//#pragma fixme( \"crawl box has volume, so it can straddle regions. -mkv 4/6/01\" )\n\tsector* sector = the_terrain->find_sector( where );\n\tregion_node* rnode = sector != 0 ? sector->get_region() : 0;\n\tregion* reg = rnode != 0 ? rnode->get_data() : 0;\n\n\tif(reg != 0)\n\t\treg->add( crawl );\n\telse\n\t\twarning(\"Crawl box placed outside world at <%.3f, %.3f, %.3f>\", where.x, where.y, where.z);\n}\n",
+      "status": "different",
+      "target_size": 336
+    }
+  ],
+  "raw_name": "add_crawl_box__21world_dynamics_systemibRC8vector3dRC10convex_box"
+}
