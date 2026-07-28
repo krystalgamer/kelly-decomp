@@ -1,0 +1,23 @@
+{
+  "address": "0x001894E8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ef43dd239d85e66bc3ed7ea6820e4fefb3519ee2",
+      "candidate_size": 328,
+      "compared_bytes": 404,
+      "compared_instructions": 101,
+      "emitted_name": "OnTriangle__14SurferFrontEndi",
+      "instruction_score": 6.9307,
+      "matching_bytes": 83,
+      "matching_instructions": 7,
+      "notes": "# FIRST PASS wave69 A1 \u2014 0x001894E8\n\n- Confirmed there were no prior attempts.\n- Copied the exact released `SurferFrontEnd::OnTriangle` body from `kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.cpp:980-1007`.\n- Added minimal self-contained declarations preserving accessed member offsets and call shapes.\n- Ran `function_test` exactly once. Result: `different`, byte score 20.5446%, instruction score 6.9307%.\n- No variants, retries, diff chasing, build, finalization, integration, commit, tracked-file edits, or subagents were performed.\n- Because the attempt did not match, no source proposal is included.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.cpp:980-1007`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.h:18-90`\n- `tmp/functions/001894E8_OnTriangle__14SurferFrontEndi/attempt-1/result.json`",
+      "score": 20.5446,
+      "source": "struct FEEntityManager {\n    enum CameraPosition { CAM_POS_WALL_1 = 0, CAM_POS_WALL_2_IN = 1 };\n    char padding[0x1c0];\n    int camera_moving;\n\n    bool CamIsMoving() { return !camera_moving; }\n    void JumpTo(int);\n    void ExitState();\n};\n\nstruct FEManager {\n    char padding[0xc];\n    FEEntityManager *em;\n};\n\nstruct ActiveVTable {\n    char padding[0xc0];\n    short adjustment;\n    short reserved;\n    void (*triangle)(void *, int);\n};\n\nstruct ActiveMenu {\n    char padding[0x74];\n    ActiveVTable *vtable;\n\n    void OnTriangle(int c)\n    {\n        vtable->triangle((char *)this + vtable->adjustment, c);\n    }\n};\n\nstruct GraphicalMenuSystem {\n    char padding0[0xd4];\n    int multiplayer;\n    int multi_1;\n\n    enum Menu { MainMenu = 0, SurferMenu = 4 };\n    void MakeActive(Menu);\n};\n\nstruct os_developer_options {\n    enum flags_t { FLAG_E3_BUILD = 0 };\n    char padding[0x194];\n    int flags;\n\n    static os_developer_options *inst();\n    bool is_flagged(flags_t flag) { return flags & (1 << flag); }\n};\n\nclass SurferFrontEnd {\n    char padding0[0x60];\n    ActiveMenu *active;\n    char padding1[0x174];\n    GraphicalMenuSystem *sys;\n    char padding2[0xe4];\n    FEManager *manager;\n    char padding3[0x14];\n    int in_tb_or_bio;\n\npublic:\n    void OnTriangle(int c);\n};\n\n__asm__(\".equ JumpTo__15FEEntityManageri, 0x001C4C88\");\n__asm__(\".equ ExitState__15FEEntityManager, 0x001C4C70\");\n\nvoid SurferFrontEnd::OnTriangle(int c)\n{\n\tif(active)\n\t{\n\t\tif(manager->em->CamIsMoving() && in_tb_or_bio)\n\t\t\tmanager->em->JumpTo(FEEntityManager::CAM_POS_WALL_2_IN);\n\t\tactive->OnTriangle(c);\n\t}\n\telse\n\t\tif(sys->multiplayer && !sys->multi_1)\n\t\t{\n\t\t\tif(manager->em->CamIsMoving())\n\t\t\t\tmanager->em->JumpTo(FEEntityManager::CAM_POS_WALL_2_IN);\n\t\t\tsys->multi_1 = true;\n\t\t\tsys->MakeActive(GraphicalMenuSystem::SurferMenu);\n\t\t}\n\t\telse\n\t\t{\n\t\t\tif(manager->em->CamIsMoving())\n\t\t\t\tmanager->em->JumpTo(FEEntityManager::CAM_POS_WALL_1);\n\t\t\tmanager->em->ExitState();\n\n\t\t\tif(os_developer_options::inst()->is_flagged(os_developer_options::FLAG_E3_BUILD))\n\t\t\t\tsys->MakeActive(GraphicalMenuSystem::MainMenu);\n\t\t\telse\n\t\t\t\tsys->MakeActive(GraphicalMenuSystem::MainMenu);\n\t\t}\n}\n",
+      "status": "different",
+      "target_size": 404
+    }
+  ],
+  "raw_name": "OnTriangle__14SurferFrontEndi"
+}
