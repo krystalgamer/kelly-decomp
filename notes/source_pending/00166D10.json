@@ -1,0 +1,23 @@
+{
+  "address": "0x00166D10",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c0c3e7f8bf68ec4e8f4e01954d7988232cc3ef98",
+      "candidate_size": 408,
+      "compared_bytes": 408,
+      "compared_instructions": 102,
+      "emitted_name": "Draw__18SpecialMeterWidget",
+      "instruction_score": 13.7255,
+      "matching_bytes": 122,
+      "matching_instructions": 14,
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Result: **different**\n- Byte score: **29.902%**\n- Instruction score: **13.7255%**\n- Candidate size: **408 bytes**; target size: **392 bytes**\n- Used the exact released `SpecialMeterWidget::Draw` body with minimal faithful ABI/layout declarations.\n- The initial released-header include failed because isolated compilation only searches `include/` and `src/`; this was repaired as identical-body infrastructure before the single canonical attempt.\n- No variants, disassembly comparison, diff chasing, attempts 2\u20135, build, finalization, integration, commit, or tracked-file edits were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_specialmeter.cpp:82-120`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_specialmeter.h:10-44`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget.h:7-25`\n- `kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.h:427-491`\n- `tmp/functions/00166D10_Draw__18SpecialMeterWidget/attempt-1/result.json`\n- `tmp/source_first/00166D10/infrastructure-include-failure.stderr`",
+      "score": 29.902,
+      "source": "typedef float rational_t;\nclass color\n{\npublic:\n\trational_t r, g, b, a;\n\tcolor() {}\n\tcolor(const color& c) : r(c.r), g(c.g), b(c.b), a(c.a) {}\n\tcolor& operator=(const color& c) { r = c.r; g = c.g; b = c.b; a = c.a; return *this; }\n};\n\nclass IGOWidget\n{\nprotected:\n\tbool display;\npublic:\n\tvirtual ~IGOWidget();\n\tvirtual void SetDisplay(const bool d = true);\n\tvirtual void Update(const float dt);\n\tvirtual void Draw(void);\n\tvirtual bool GetDisplay(void) const;\n};\n\nclass SpecialMeter\n{\npublic:\n\tbool CanRegionLink(void) const;\n};\n\nclass PanelQuad\n{\npublic:\n\tvirtual ~PanelQuad();\n\tvirtual void Init(float, float, float, float, float, float, float, float, float, float, float, float, float, int);\n\tvirtual void TurnOn(bool);\n\tvirtual void SetLayer(int);\n\tvirtual void Rotate(float);\n\tvirtual void Rotate(float, float, float);\n\tvirtual void Update(float);\n\tvirtual void Draw(int layer = 0, float alpha = -1.0f);\n\tvirtual void SetColor(const float, const float, const float, const float);\n\tvirtual void SetColor(const color clr);\n};\n\nclass SpecialMeterWidget : public IGOWidget\n{\nprivate:\n\tstatic const color COLOR_NORMAL;\n\tstatic const color COLOR_SPECIAL;\n\tstatic const float SPEED_COLOR_FLASH;\n\tstatic const float FLASH_MIN;\n\tstatic const float FLASH_MAX;\n\tSpecialMeter *meter;\n\tPanelQuad *bgPQ;\n\tPanelQuad *colorPQ;\n\tPanelQuad *fgPQ;\n\tint flashDir;\n\tfloat flashAmt;\npublic:\n\tvirtual void Draw(void);\n};\n\n__asm__(\".equ Draw__9IGOWidget, 0x00164668\");\n__asm__(\".equ CanRegionLink__C12SpecialMeter, 0x002510F0\");\n__asm__(\".equ _18SpecialMeterWidget$COLOR_NORMAL, 0x003E7670\");\n__asm__(\".equ _18SpecialMeterWidget$COLOR_SPECIAL, 0x003E7680\");\n\nvoid SpecialMeterWidget::Draw(void)\n{\n\tcolor\tmeterColor;\n\t\n\tIGOWidget::Draw();\n\n\tif (!display)\n\t\treturn;\n\n\t// Calculate meter's color.\n\tif (!meter->CanRegionLink())\n\t\tmeterColor = COLOR_NORMAL;\n\telse\n\t{\n\t\tmeterColor.r = COLOR_SPECIAL.r*flashAmt;\n\t\tmeterColor.g = COLOR_SPECIAL.g*flashAmt;\n\t\tmeterColor.b = COLOR_SPECIAL.b*flashAmt;\n\t\tmeterColor.a = COLOR_SPECIAL.a;\n\n\t\tif (meterColor.r > 1.0f) meterColor.r = 1.0f;\n\t\tif (meterColor.g > 1.0f) meterColor.g = 1.0f;\n\t\tif (meterColor.b > 1.0f) meterColor.b = 1.0f;\n\t}\n\n\t// Set meter's color.\n\tcolorPQ->SetColor(meterColor);\n\n\t// Draw components.\n\tbgPQ->Draw(0);\n\tcolorPQ->Draw(0);\n\tfgPQ->Draw(0);\n}\n",
+      "status": "different",
+      "target_size": 392
+    }
+  ],
+  "raw_name": "Draw__18SpecialMeterWidget"
+}
