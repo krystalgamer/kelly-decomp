@@ -1,0 +1,23 @@
+{
+  "address": "0x0034A2C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "70d6c9e766d4a5a39fc72a7f7416d96684e9856a",
+      "candidate_size": 392,
+      "compared_bytes": 400,
+      "compared_instructions": 100,
+      "emitted_name": "crossed_point__FG8vector3dRC8vector3dT1fb",
+      "instruction_score": 38.0,
+      "matching_bytes": 219,
+      "matching_instructions": 38,
+      "notes": "# FIRST PASS wave 68 B1 \u2014 0x0034A2C0\n\n- Status: **source_pending** (`different`)\n- Attempts: **1**\n- Byte score: **54.7500%** (219/400)\n- Instruction score: **38.0000%** (38/100)\n- Candidate: `tmp/functions/0034A2C0_crossed_point__FG8vector3dRC8vector3dT1fb/attempt-1/candidate.cpp`\n- SHA-1: `70d6c9e766d4a5a39fc72a7f7416d96684e9856a`\n- Candidate/target size: 392/400 bytes\n- Duration: **2.070442s**\n\nThe exact released body was tested once with minimal source-faithful declarations. It compiled but differed. No variants, retries, diff chasing, finalization, integration, build, commit, or tracked-file edits were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/path.cpp:355-371`\n- `kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:292-328,371-375`\n- `kelly-slaters-pro-surfer/KS/SRC/usefulmath.h:62-69`\n- `tmp/functions/0034A2C0_crossed_point__FG8vector3dRC8vector3dT1fb/attempt-1/result.json`\n- `tmp/source_first/0034A2C0/attempt-1.md`",
+      "score": 54.75,
+      "source": "typedef float rational_t;\n\nextern \"C\" float sqrtf(float);\nextern \"C\" float fabsf(float);\n\nclass vector3d\n{\npublic:\n  rational_t x, y, z;\n\n  inline vector3d() {}\n  inline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n  inline vector3d(rational_t _x, rational_t _y, rational_t _z) { x = _x; y = _y; z = _z; }\n\n  inline rational_t length2() const\n  { return x*x + y*y + z*z; }\n\n  inline rational_t length() const\n  { return (rational_t)sqrtf(x*x + y*y + z*z); }\n};\n\ninline vector3d operator - (const vector3d& a, const vector3d& b)\n{ return vector3d(a.x - b.x, a.y - b.y, a.z - b.z); }\n\nbool crossed_point(const vector3d test_point, const vector3d &cur_pos, const vector3d &last_pos, rational_t radius, bool force_xz)\n{\n    vector3d delta = ( test_point - cur_pos );\n    vector3d test_delta = ( test_point - last_pos );\n    vector3d move = (cur_pos - last_pos);\n    rational_t test_len = 0.0f;\n\n    if ( force_xz || fabsf(delta.y) < 1.0f )\n    {\n      delta.y = 0.0f;\n      test_delta.y = 0.0f;\n      move.y = 0.0f;\n    }\n\n    return(delta.length2() <= radius*radius || (test_len = test_delta.length() - radius) <= 0.0f || move.length2() >= test_len*test_len );\n}\n",
+      "status": "different",
+      "target_size": 400
+    }
+  ],
+  "raw_name": "crossed_point__FG8vector3dRC8vector3dT1fb"
+}
