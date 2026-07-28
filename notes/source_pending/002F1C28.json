@@ -1,0 +1,23 @@
+{
+  "address": "0x002F1C28",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "af7a947bb89007e6c6bcb1283e29603c63a0a68f",
+      "candidate_size": 232,
+      "compared_bytes": 460,
+      "compared_instructions": 115,
+      "emitted_name": "__make_heap__H3ZP20instance_render_infoZ20instance_render_infoZi_X01X01PX11PX21_v",
+      "instruction_score": 2.6087,
+      "matching_bytes": 45,
+      "matching_instructions": 3,
+      "notes": "# FIRST PASS wave84 A2 \u2014 0x002F1C28\n\n- Confirmed unprepared/zero attempts before preparation; prepared status reported 0 used.\n- Tested exactly one LF/ASCII, self-contained candidate using the faithful GCC 2.95.2 `stl_heap.h` `__make_heap` template body.\n- Declarations were limited to the released `instance_render_info` layout and the existing `__adjust_heap` ABI; no includes were used.\n- Result: **different**; byte score 9.7826% (45/460), instruction score 2.6087% (3/115); candidate 232 bytes, target 460 bytes.\n- No alternate algorithm, assembly, annotations, variants, retries, attempts 2\u20135, or post-test diff chase.\n- Tracked/reference files remained read-only; no finalize, integration, build, or git operation was performed.",
+      "score": 9.7826,
+      "source": "struct po {\n    float data[16];\n} __attribute__((aligned(16)));\n\nstruct frame_info {\n    float age;\n    int ifl_frame_boost;\n    int ifl_frame_locked;\n};\n\nstruct vector3d {\n    float x;\n    float y;\n    float z;\n};\n\nstruct instance_render_info {\n    float number_of_faces_to_attempt;\n    po local_to_world;\n    unsigned int force_flags;\n    unsigned int color_scale;\n    float camera_relative_rotation;\n    frame_info frame_time_info;\n    void *my_region;\n    float particle_scale;\n    void *my_light_set;\n    void *alt_materials;\n    int frame;\n    vector3d render_scale;\n};\n\nextern \"C\" void adjust_heap(\n    instance_render_info *,\n    int,\n    int,\n    instance_render_info\n) __asm__(\"__adjust_heap__H3ZP20instance_render_infoZiZ20instance_render_info_X01X11X11X21_v\");\n\n__asm__(\".equ __adjust_heap__H3ZP20instance_render_infoZiZ20instance_render_info_X01X11X11X21_v,0x002F17C0\");\n\nextern \"C\" void make_heap(\n    instance_render_info *,\n    instance_render_info *,\n    instance_render_info *,\n    int *\n) __asm__(\"__make_heap__H3ZP20instance_render_infoZ20instance_render_infoZi_X01X01PX11PX21_v\");\n\nvoid make_heap(\n    instance_render_info *first,\n    instance_render_info *last,\n    instance_render_info *,\n    int *\n) {\n    if (last - first < 2)\n        return;\n    int len = last - first;\n    int parent = (len - 2) / 2;\n\n    while (true) {\n        instance_render_info value = *(first + parent);\n        adjust_heap(first, parent, len, value);\n        if (parent == 0)\n            return;\n        parent--;\n    }\n}\n",
+      "status": "different",
+      "target_size": 460
+    }
+  ],
+  "raw_name": "__make_heap__H3ZP20instance_render_infoZ20instance_render_infoZi_X01X01PX11PX21_v"
+}
