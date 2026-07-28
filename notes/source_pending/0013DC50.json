@@ -1,0 +1,23 @@
+{
+  "address": "0x0013DC50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1a9380e3769b72b979684246a623b96b4ea66c9d",
+      "candidate_size": 344,
+      "compared_bytes": 344,
+      "compared_instructions": 86,
+      "emitted_name": "get_ifc_vec__21script_data_interfaceRC7pstringR8vector3d",
+      "instruction_score": 16.2791,
+      "matching_bytes": 116,
+      "matching_instructions": 14,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/script_data_interface.cpp:80-86; kelly-slaters-pro-surfer/KS/SRC/script_data_interface.h:7-36; kelly-slaters-pro-surfer/KS/SRC/entity_interface.h:37-60; kelly-slaters-pro-surfer/KS/SRC/pstring.h:39-79,139-149; kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_algebra.h:292-340; tmp/functions/0013DC50_get_ifc_vec__21script_data_interfaceRC7pstringR8vector3d/attempt-1/result.json; tmp/source_first/0013DC50/attempt-1.md. Result `different`, score 33.7209; no later attempt.",
+      "score": 33.7209,
+      "source": "typedef float rational_t;\ntypedef unsigned long uint64;\n\n#define PSTRING_PCHUNK_NUMBER 4\n#define assert(condition) ((void)0)\n\nclass pstring\n{\nprivate:\n  uint64 pchunk[PSTRING_PCHUNK_NUMBER];\n  void pack_string(const char *the_string);\n\npublic:\n  pstring(const char *target_string)\n  {\n    assert(target_string != 0);\n    pack_string(target_string);\n  }\n\n  bool operator == (const pstring &check_me) const\n  {\n    assert(check_me.is_set());\n\n    for (unsigned i=0; i<PSTRING_PCHUNK_NUMBER; ++i)\n    {\n      if (pchunk[i] != check_me.pchunk[i])\n        return false;\n    }\n    return true;\n  }\n\n  bool is_set() const;\n};\n\nclass stringx\n{\n  char *data;\n};\n\nclass vector3d\n{\npublic:\n  rational_t x;\n  rational_t y;\n  rational_t z;\n\n  vector3d &operator=(const vector3d &value)\n  {\n    x = value.x;\n    y = value.y;\n    z = value.z;\n    return *this;\n  }\n};\n\nclass generic_interface\n{\npublic:\n  virtual ~generic_interface();\n  virtual bool get_ifc_num(const pstring &, rational_t &);\n  virtual bool set_ifc_num(const pstring &, rational_t);\n  virtual bool get_ifc_vec(const pstring &, vector3d &);\n  virtual bool set_ifc_vec(const pstring &, const vector3d &);\n  virtual bool get_ifc_str(const pstring &, stringx &);\n  virtual bool set_ifc_str(const pstring &, const stringx &);\n};\n\nclass entity;\n\nclass entity_interface : public generic_interface\n{\nprotected:\n  entity *my_entity;\n};\n\nclass script_data_interface : public entity_interface\n{\nprotected:\n  rational_t num_1;\n  rational_t num_2;\n  rational_t num_3;\n  rational_t num_4;\n  rational_t num_5;\n  rational_t num_6;\n  rational_t num_7;\n  rational_t num_8;\n\n  stringx str_1;\n  stringx str_2;\n  stringx str_3;\n  stringx str_4;\n\n  vector3d vec_1;\n  vector3d vec_2;\n\npublic:\n  virtual bool get_ifc_vec(const pstring &att, vector3d &val);\n};\n\n#define IFC_INTERNAL_GET_MACRO(a,b)       { static pstring pstring_get(a);  if(att == pstring_get)  { val = b; return(true); } }\n\nbool script_data_interface::get_ifc_vec(const pstring &att, vector3d &val)\n{\n  IFC_INTERNAL_GET_MACRO(\"SD_VEC_1\", vec_1);\n  IFC_INTERNAL_GET_MACRO(\"SD_VEC_2\", vec_2);\n  \n  return(false);\n}\n",
+      "status": "different",
+      "target_size": 336
+    }
+  ],
+  "raw_name": "get_ifc_vec__21script_data_interfaceRC7pstringR8vector3d"
+}
