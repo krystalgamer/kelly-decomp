@@ -1,0 +1,15 @@
+{
+  "address": "0x00135798",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "80ed4ff41b9238bc38732c835f2143cd5ee2b777",
+      "notes": "# Attempt 1 notes\n\n- Wave/lane: released-source FIRST PASS wave 78, lane A3.\n- Target: `0x00135798 stl_prealloc__14entity_manager`, object `game/files_entity`, expected size 436 bytes (`0x1B4`). Metadata citation: `tmp/functions/00135798_stl_prealloc__14entity_manager/metadata.json`.\n- Released source citation: exact body at `kelly-slaters-pro-surfer/KS/SRC/entity.cpp:4323-4340`; declarations based on `entity.h:171-203`, `entity.h:225-261`, `conglom.h:12`, and `singleton.h:9-62`.\n- Target assembly citation: `tmp/functions/00135798_stl_prealloc__14entity_manager/target.s:1-112`, identifying the 436-byte reference and constructor/vector behavior.\n- Candidate: `attempt-1/candidate.cpp`; SHA-1 `80ed4ff41b9238bc38732c835f2143cd5ee2b777`; source size 993 bytes.\n- Result: `compile_failed`; score 0.0; matched/reference instruction counts unavailable because no object was emitted; candidate text size unavailable; reference size 436 bytes.\n- Compiler evidence: `attempt-1/compiler.stderr` reports `vector: No such file or directory`. Result record: `attempt-1/result.json`.\n- UTC timing: start `2026-07-28T18:21:05Z`; end `2026-07-28T18:33:51Z`.\n- Compliance: exactly one candidate attempt and exactly one test harness invocation; no retry or diff chasing. No build, finalize, integration, match_manifest, ninja, configure, git add/commit/reset/checkout/clean, or tracked-file edit was performed. Tracked status changed during lane work: `false` (before/after snapshots are in `tmp/`).",
+      "score": 0.0,
+      "source": "#include <vector>\n\nvoid *operator new(unsigned int, unsigned int, const char *, int);\n\nclass entity_id\n{\npublic:\n  entity_id(const char* name);\n\nprivate:\n  unsigned int val;\n};\n\nclass entity\n{\npublic:\n  entity(const entity_id&, unsigned int);\n  ~entity();\n};\n\ntemplate <class T>\nclass singleton_ptr\n{\n  T* p;\npublic:\n  singleton_ptr(T* ap=0) { p=ap; }\n  void operator=(T* ap) { p=ap; }\n};\n\nclass entity_manager\n{\n  char data[32];\n  static singleton_ptr<entity_manager> instance;\n\npublic:\n  entity_manager();\n  static inline void create_inst()\n  {\n    instance = new(0, \"C:/KS/SRC/entity.cpp\", 0) entity_manager;\n  }\n  static void stl_prealloc(void);\n};\n\ntypedef std::vector<entity*> pentity_vector;\n\nvoid entity_manager::stl_prealloc(void)\n{\n  entity_manager::create_inst();\n\tstatic entity_id teid=entity_id(\"STL_INIT\");\n\tstatic entity tentity=entity(teid,0);\n\tstatic entity *e=&tentity;\n\n\tpentity_vector evect;\n\tfor ( int i=0; i<1024; i++ )\n\t{\n\t\tevect.push_back( e );\n\t}\n\tevect.resize(0);\n\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "stl_prealloc__14entity_manager"
+}
