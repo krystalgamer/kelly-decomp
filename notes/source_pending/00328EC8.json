@@ -1,0 +1,23 @@
+{
+  "address": "0x00328EC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7f48f47368daf62528ba5ba3f463f0725c4df2f5",
+      "candidate_size": 208,
+      "compared_bytes": 356,
+      "compared_instructions": 89,
+      "emitted_name": "__cl__27slf_create_entity_trigger_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 3.3708,
+      "matching_bytes": 48,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used the exact released source for __cl__27slf_create_entity_trigger_tR8vm_stackQ320script_library_class8function7entry_t. Result `different`, score 13.4831; no retry or variant was made.",
+      "score": 13.4831,
+      "source": "class entity;\nclass trigger;\n\nclass stringx {\n    char *characters;\n    void *buffer;\npublic:\n    stringx();\n    stringx(const stringx &);\n    ~stringx();\n};\n\nstringx operator+(const stringx &, const char *);\nstringx operator+(const stringx &, const stringx &);\nvoid error(const stringx &);\n\nclass script_object {\npublic:\n    const stringx &get_name() const;\n};\n\nclass vm_executable {\npublic:\n    const stringx &get_fullname() const;\n};\n\nclass vm_thread {\n    script_object *instance;\n    vm_executable *executable;\npublic:\n    script_object *get_instance() const { return instance; }\n    vm_executable *get_executable() const { return executable; }\n};\n\nclass vm_stack {\npublic:\n    int salloc;\n    char *buffer;\n    char *SP;\nprivate:\n    vm_thread *my_thread;\npublic:\n    void pop(int n) { SP -= n; }\n    bool push(const char *, int);\n    char *get_SP() const { return SP; }\n    vm_thread *get_thread() const { return my_thread; }\n};\n\nclass script_library_class {\npublic:\n    class function {\n    public:\n        enum entry_t { FIRST_ENTRY, RECALL_ENTRY };\n    };\n};\n\nclass trigger_manager {\npublic:\n    static trigger_manager *inst();\n    trigger *new_entity_trigger(entity *, float);\n};\n\ntypedef entity *vm_entity_t;\ntypedef float vm_num_t;\n\nclass slf_create_entity_trigger_t : public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    vm_entity_t e;\n    vm_num_t r;\n  };\n  bool operator()( vm_stack& stack,entry_t entry );\n};\n\nextern trigger_manager *g_trigger_manager;\n__asm__(\".equ g_trigger_manager, 0x00431A88\");\n__asm__(\".equ new_entity_trigger__15trigger_managerP6entityf, 0x0028D568\");\n\ntrigger_manager *trigger_manager::inst()\n{\n  return g_trigger_manager;\n}\n\n#define SLF_PARMS \\\n  stack.pop(sizeof(parms_t)); \\\n  parms_t *parms = (parms_t *)stack.get_SP()\n#define SLF_RETURN \\\n  if (!stack.push((char*)&result,sizeof(result)) ) \\\n    error( stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname() )\n#define SLF_DONE return true\n\nbool slf_create_entity_trigger_t::operator()( vm_stack& stack,entry_t entry )\n{\n  SLF_PARMS;\n  trigger* result = trigger_manager::inst()->new_entity_trigger( parms->e, parms->r );\n  SLF_RETURN;\n  SLF_DONE;\n}\n",
+      "status": "different",
+      "target_size": 356
+    }
+  ],
+  "raw_name": "__cl__27slf_create_entity_trigger_tR8vm_stackQ320script_library_class8function7entry_t"
+}
