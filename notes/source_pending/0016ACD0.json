@@ -1,0 +1,23 @@
+{
+  "address": "0x0016ACD0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "929b400591bdae3f5b5ef4d91a4a9dff45756f45",
+      "candidate_size": 460,
+      "compared_bytes": 460,
+      "compared_instructions": 116,
+      "emitted_name": "Draw__11PhotoWidget",
+      "instruction_score": 31.0345,
+      "matching_bytes": 217,
+      "matching_instructions": 36,
+      "notes": "# B1 0x0016ACD0\n\n- Exact released body: kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_photo.cpp:139-171.\n- Prepared status before testing: attempts_used=0, attempts_remaining=5.\n- Exactly one LF candidate test: attempt 1, different, score 47.1739; 217/460 matching bytes and 36/116 matching instructions.\n- Released body preserved with minimal self-contained declarations and no includes.\n- No retry, alternative body, variants, annotations, assembly work, or post-test diff chasing.\n- tracked_changes=false; finalized=false; integrated=false.",
+      "score": 47.1739,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned char uint8;\n\nstruct nglTexture;\nstruct nglQuadVertex\n{\n\tfloat X, Y;\n\tfloat U, V;\n\tu_int Color;\n};\nstruct nglQuad\n{\n\tnglQuadVertex Verts[4];\n\tfloat Z;\n\tu_int MapFlags;\n\tu_int BlendMode;\n\tu_int BlendModeConstant;\n\tnglTexture* Tex;\n};\n\nclass color32\n{\npublic:\n\tunion\n\t{\n\t\tstruct { uint8 b, g, r, a; } c;\n\t\tu_int i;\n\t};\n\tvoid set_alpha(uint8 arg) { c.a = arg; }\n};\n\nclass TextString\n{\n\tchar data[64];\npublic:\n\tbool no_color;\n\tchar align[3];\n\tcolor32 color;\n\tvirtual void Draw();\n};\n\nclass PanelQuad\n{\npublic:\n\tvirtual ~PanelQuad();\n\tvirtual void Init(float, float, float, float, float, float, float, float,\n\t                  float, float, float, float, float, void *);\n\tvirtual void TurnOn(bool);\n\tvirtual void SetLayer(int);\n\tvirtual void Rotate(float);\n\tvirtual void Rotate(float, float, float);\n\tvirtual void Update(float);\n\tvirtual void Draw(int layer = 0, float alpha = -1.0f);\n\tvoid SetFade(const float amt);\n\tvirtual void SetZ(const float);\n\tvirtual void SetCenterPos(float, float);\n};\n\nvoid nglSetQuadColor(nglQuad *, u_int);\nvoid nglSetQuadBlend(nglQuad *, u_int, u_int = 0);\nvoid nglListAddQuad(nglQuad *);\n\nenum { NGLBM_OPAQUE = 0, NGLBM_BLEND = 1 };\n#define NGL_RGBA32(r, g, b, a) (((int)((r)+1)>>1) | (((int)((g)+1)>>1)<<8) | (((int)((b)+1)>>1)<<16) | (((int)((a)+1)>>1)<<24))\n#define FTOI(x) ((int)(x))\n\nclass IGOWidget\n{\nprotected:\n\tbool display;\npublic:\n\tvirtual ~IGOWidget();\n\tvirtual void SetDisplay(bool = true);\n\tvirtual void Update(float);\n\tvirtual void Draw();\n\tvirtual bool GetDisplay() const;\n};\n\nclass PhotoWidget : public IGOWidget\n{\n\tPanelQuad *borderPQ;\n\tint borderCenterX, borderCenterY, borderZ;\n\tnglTexture *photoTexture;\n\tnglQuad photoQuad, darkQuad;\n\tfloat darkFade;\n\tfloat fadeOutAlpha;\n\tfloat shownTimer;\n\tbool timed;\n\tint photoNum;\n\tTextString *pointText;\n\tint score, *scorePtr;\npublic:\n\tvoid Draw(void);\n};\n\nvoid PhotoWidget::Draw(void)\n{\t\n\tIGOWidget::Draw();\n\t\n\tif (!display)\n\t\treturn;\n\n\tif (photoTexture)\n\t{\n\t\tborderPQ->SetCenterPos(borderCenterX, borderCenterY);\n\t\tborderPQ->SetZ(borderZ);\n\t\tborderPQ->SetFade(fadeOutAlpha);\n\t\tborderPQ->Draw(0);\n\n\t\tif (fadeOutAlpha < 1.0f)\n\t\t{\n\t\t\tnglSetQuadColor(&photoQuad, NGL_RGBA32(255, 255, 255, 255.0f*fadeOutAlpha));\n\t\t\tnglSetQuadBlend(&photoQuad, NGLBM_BLEND, 0);\n\t\t}\n\t\telse\n\t\t{\n\t\t\tnglSetQuadColor(&photoQuad, NGL_RGBA32(255, 255, 255, 255));\n\t\t\tnglSetQuadBlend(&photoQuad, NGLBM_OPAQUE, 0);\n\t\t}\n\t\tnglListAddQuad(&photoQuad);\n\t\t\t\t\n\t\tnglSetQuadColor(&darkQuad, NGL_RGBA32(64, 64, 64, FTOI(darkFade*255.0f)));\n\t\tnglListAddQuad(&darkQuad);\n\n\t\tpointText->color.set_alpha(255.0f*fadeOutAlpha);\n\t\tpointText->Draw();\n\t}\n}\n",
+      "status": "different",
+      "target_size": 456
+    }
+  ],
+  "raw_name": "Draw__11PhotoWidget"
+}
