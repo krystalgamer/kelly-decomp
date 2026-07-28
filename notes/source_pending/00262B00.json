@@ -1,0 +1,23 @@
+{
+  "address": "0x00262B00",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5d63b291317ecd953f16e38bb28cf1b69c256634",
+      "candidate_size": 348,
+      "compared_bytes": 348,
+      "compared_instructions": 87,
+      "emitted_name": "checkCodeUnlock__5CheatG7stringx",
+      "instruction_score": 33.3333,
+      "matching_bytes": 151,
+      "matching_instructions": 29,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/cheat.cpp:34-54; kelly-slaters-pro-surfer/KS/SRC/ks/cheat.h:4-56; kelly-slaters-pro-surfer/KS/SRC/stringx.h:60-80,192-202,230-242,456-459; kelly-slaters-pro-surfer/KS/SRC/ks/GlobalData.h:20-94,119; tmp/functions/00262B00_checkCodeUnlock__5CheatG7stringx/attempt-1/result.json; tmp/source_first/00262B00/attempt-1.md. Result `different`, score 43.3908; no later attempt.",
+      "score": 43.3908,
+      "source": "typedef unsigned long long big_int;\n\nclass stringx;\n\nclass string_buf\n{\n    friend class stringx;\n    friend bool operator==(const stringx &, const stringx &);\n\n    big_int *data;\n    int ref_count;\n    int char_length;\n    int block_length;\n    int max_blocks;\n\npublic:\n    bool is_equal(const string_buf &buf) const\n    {\n        if (buf.block_length != block_length)\n            return false;\n        for (int i = 0; i < block_length; i++)\n            if (!(buf.data[i] == data[i]))\n                return false;\n        return true;\n    }\n};\n\nclass stringx\n{\n    friend bool operator==(const stringx &, const stringx &);\n\n    char *chars;\n    string_buf *my_buf;\n\npublic:\n    stringx(const char *, int = -1);\n    ~stringx();\n};\n\ninline bool operator==(const stringx &lhs, const stringx &rhs)\n{\n    return lhs.my_buf->is_equal(*rhs.my_buf);\n}\n\nenum\n{\n    CHEAT_LAST = 22,\n    CHEAT_INVALID_CODE = -1,\n    CHEAT_ALREADY_UNLOCKED = -2\n};\n\nclass Cheat\n{\n    bool locked;\n    bool on;\n\npublic:\n    void setLockedState(const bool l) { locked = l; }\n    void turnOn(const bool turn_on) { on = turn_on; }\n    static int checkCodeUnlock(const stringx check);\n};\n\nclass GlobalDataClass\n{\npublic:\n    bool isCheatUnlocked(int whichCheat) const;\n};\n\nextern const char *CheatCode[CHEAT_LAST];\nextern Cheat g_session_cheats[CHEAT_LAST];\nextern GlobalDataClass globalCareerData;\nextern void debug_print(const char *, ...);\n\nint Cheat::checkCodeUnlock(const stringx check)\n{\n    int i;\n    for(i = 0; i < CHEAT_LAST; i++)\n        if(CheatCode[i] == check)\n        {\n            if(globalCareerData.isCheatUnlocked(i))\n                return CHEAT_ALREADY_UNLOCKED;\n            g_session_cheats[i].setLockedState(false);\n            g_session_cheats[i].turnOn(true);\n            debug_print(\"Unlocked cheat #%d with the following code: %s\\n\", i, CheatCode[i]);\n            return i;\n        }\n\n    return CHEAT_INVALID_CODE;\n}\n",
+      "status": "different",
+      "target_size": 344
+    }
+  ],
+  "raw_name": "checkCodeUnlock__5CheatG7stringx"
+}
