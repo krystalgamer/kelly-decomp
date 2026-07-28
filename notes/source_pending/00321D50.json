@@ -1,0 +1,23 @@
+{
+  "address": "0x00321D50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cb428aa7551dd88dfdde286b32f987db52c57c6f",
+      "candidate_size": 200,
+      "compared_bytes": 436,
+      "compared_instructions": 109,
+      "emitted_name": "__cl__16slf_to_str_int_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 1.8349,
+      "matching_bytes": 39,
+      "matching_instructions": 2,
+      "notes": "# Attempt 1 \u2014 released-source first pass\n\n- Target: `0x00321D50` `__cl__16slf_to_str_int_tR8vm_stackQ320script_library_class8function7entry_t`, object `game/files_script`, expected size 436 (`0x1B4`). Metadata: `notes/function_queue.csv:6465` and `config/SLUS_203.34.symbol_addrs.txt:5797`.\n- Released body copied exactly from `kelly-slaters-pro-surfer/KS/SRC/script_lib.cpp:2299-2311`; declarations follow `kelly-slaters-pro-surfer/KS/SRC/script_lib.cpp:2285-2296`. SLF behavior follows `kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:264-295`.\n- Target metadata/assembly inspected only at `tmp/functions/00321D50___cl__16slf_to_str_int_tR8vm_stackQ320script_library_class8function7entry_t/metadata.json` and `tmp/functions/00321D50___cl__16slf_to_str_int_tR8vm_stackQ320script_library_class8function7entry_t/target.s` to select faithful declarations/layout.\n- Sole invocation: `env/bin/python tools/function_test.py test 0x00321D50`.\n- Result: **different**; byte score **8.9450%** (39/436), instruction score **1.8349%** (2/109), target size **436**, candidate size **200**.\n- Candidate SHA-1: `cb428aa7551dd88dfdde286b32f987db52c57c6f`.\n- UTC: start `2026-07-28T18:23:09Z`, end `2026-07-28T18:25:12Z`, elapsed 123s.\n- Exactly one attempt and one harness invocation. No retry, finalize, integrate, configure, build, ninja, manifest mutation, or tracked-file edit.",
+      "score": 8.945,
+      "source": "typedef float vm_num_t;\n\nclass stringx\n{\npublic:\n  stringx();\n  explicit stringx(int);\n  stringx& operator=(const stringx&);\n};\n\ntypedef stringx* vm_str_t;\n\nclass vm_stack\n{\npublic:\n  void pop(int);\n  char* get_SP() const;\n  bool push(const char*, int);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n    virtual bool operator()(vm_stack&, entry_t) { return true; }\n  };\n};\n\n#define MAX_STATIC_TO_STR_STRINGS 30\nstatic stringx script_strings[MAX_STATIC_TO_STR_STRINGS];\nstatic int script_strings_cnt;\n\n#define SLF_PARMS \\\n  stack.pop(sizeof(parms_t)); \\\n  parms_t* parms = (parms_t*)stack.get_SP()\n#define SLF_RETURN \\\n  if (!stack.push((char*)&result,sizeof(result)) ) \\\n    error( \"script stack overflow\" )\n#define SLF_DONE return true\n\nvoid error(const char*);\n\nclass slf_to_str_int_t : public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    vm_num_t n;\n  };\n\n  virtual bool operator()(vm_stack& stack, entry_t entry);\n};\n\nbool slf_to_str_int_t::operator()(vm_stack &stack, entry_t entry)\n{\n  SLF_PARMS;\n\n  script_strings[script_strings_cnt] = stringx(((int)parms->n));\n  vm_str_t result = &script_strings[script_strings_cnt];\n  ++script_strings_cnt;\n  if(script_strings_cnt >= MAX_STATIC_TO_STR_STRINGS)\n    script_strings_cnt = 0;\n\n  SLF_RETURN;\n  SLF_DONE;\n}\n",
+      "status": "different",
+      "target_size": 436
+    }
+  ],
+  "raw_name": "__cl__16slf_to_str_int_tR8vm_stackQ320script_library_class8function7entry_t"
+}
