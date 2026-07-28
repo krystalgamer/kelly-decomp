@@ -1,0 +1,15 @@
+{
+  "address": "0x003844F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "957677892d10dccfb51fb4fd86dcf68ccc6aebb6",
+      "notes": "FIRST PASS wave 73 A5\nTarget: 0x003844F8 WorldToPulse__t21WavePulsePerturbClass1i6f\nReleased body: select pulse progress by perturb stage, shift and clamp the pulse-domain coordinate, evaluate the pulse spline, and convert it back to profile space.\nExactly one scratch candidate used the exact released template body with the existing minimal wave perturb declarations and explicit `<6>` instantiation.\nResult: compile_failed, score 0.0%; isolated declarations lacked assert, min, max, and SPLINE_Evaluate.\nNo retry, variants, diff chasing, build, finalize, integration, tracked-file edits, commit, or push.\n\nCitations:\n- kelly-slaters-pro-surfer/KS/SRC/ks/wave.cpp:3513-3542\n- tmp/functions/003844F8_WorldToPulse__t21WavePulsePerturbClass1i6f/attempt-1/result.json",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/wave_perturb_shared.h\"\n\ntemplate <int n>\nfloat WavePulsePerturbClass<n>::WorldToPulse(float worldx)\n{\n    static const float &domain = pulsex[num - 1];\n    assert(pulsex[0] == 0);\n\n    float progress;\n\n    switch (WAVE_PerturbStage)\n    {\n    case WAVE_PerturbStageDo:\n        progress = WAVE_PerturbProgress;\n        break;\n    case WAVE_PerturbStageUndo:\n        progress = WAVE_PerturbProgress + 1;\n        break;\n    default:\n        progress = 1;\n        break;\n    }\n\n    float modx = worldx - offset + (progress - 1) * domain;\n    modx = min(max(0.f, modx), domain);\n\n    float profilex = worldx;\n    profilex += SPLINE_Evaluate(\n        pulsex,\n        pulsecoeffs.a,\n        pulsecoeffs.b,\n        pulsecoeffs.c,\n        pulsecoeffs.d,\n        num,\n        modx);\n    profilex -= modx;\n\n    return profilex;\n}\n\ntemplate float WavePulsePerturbClass<6>::WorldToPulse(float worldx);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WorldToPulse__t21WavePulsePerturbClass1i6f"
+}
