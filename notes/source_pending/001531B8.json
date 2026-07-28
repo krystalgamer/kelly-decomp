@@ -1,0 +1,15 @@
+{
+  "address": "0x001531B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4ba6b9eb63c8a688421591d7789ee7e13b51ca5d",
+      "notes": "Attempt 1 used the exact released source for Update__9PanelFilef. Result `compile_failed`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "// Exact released body with minimal release-layout declarations.\ntypedef float time_value_t;\nextern \"C\" float sinf(float);\n\nclass PanelGeom {\n    char data[116];\npublic:\n    PanelGeom *children;\n    PanelGeom *next;\n    PanelGeom *parent;\n    virtual ~PanelGeom();\n    virtual int Kind() const = 0;\n    virtual bool Load(unsigned char *, int &);\n    virtual void Reload();\n    virtual PanelGeom *FindObject(const void &);\n    virtual void *GetQuad();\n    virtual void Init(void **, bool = false);\n    virtual void Init(void **, const void &, bool = false);\n    virtual void Update(time_value_t);\n    virtual void Slide(float);\n};\n\nclass stringx { char data[8]; };\n\nclass PanelFile {\n    enum { PF_SLIDE_NONE, PF_SLIDE_IN, PF_SLIDE_OUT, PF_SLIDE_IN_DONE, PF_SLIDE_OUT_DONE };\n    int slide_state;\n    float slide_offset;\n    float slide_timer;\n    float slide_max_time;\n    stringx filename;\npublic:\n    PanelGeom *obs;\n    stringx path;\n    PanelFile *next;\n    void *pquads;\n    virtual ~PanelFile();\n    virtual PanelGeom *FindObject(const stringx &);\n    virtual PanelGeom *FindObject(const char *);\n    virtual void *FindQuad(const stringx &);\n    virtual void SetFilename(stringx);\n    bool IsSliding(void) const { return slide_state == PF_SLIDE_IN || slide_state == PF_SLIDE_OUT; }\n    void Update(time_value_t) __asm__(\"Update__9PanelFilef\");\n};\n\nvoid PanelFile::Update(time_value_t time_inc)\n{\n    if (IsSliding())\n    {\n        slide_timer += time_inc;\n        if (slide_timer > slide_max_time)\n        {\n            slide_timer = 0;\n            if (slide_state == PF_SLIDE_IN)\n                slide_state = PF_SLIDE_IN_DONE;\n            else\n                slide_state = PF_SLIDE_OUT_DONE;\n        }\n        else\n        {\n            slide_offset = 320*(1+sinf(1.57f*(2*slide_timer/slide_max_time - 1)));\n            if (slide_state == PF_SLIDE_IN)\n                slide_offset = 640-slide_offset;\n        }\n    }\n\n    PanelGeom* tmp = obs;\n    while (tmp)\n    {\n        tmp->Update(time_inc);\n        if (IsSliding())\n            tmp->Slide(slide_offset);\n        tmp = tmp->next;\n    }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Update__9PanelFilef"
+}
