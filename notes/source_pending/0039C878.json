@@ -1,0 +1,23 @@
+{
+  "address": "0x0039C878",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "83de93b435ead561579608699102bf8f1f9272ec",
+      "candidate_size": 324,
+      "compared_bytes": 348,
+      "compared_instructions": 87,
+      "emitted_name": "nglDestroyTexture__FP10nglTexture",
+      "instruction_score": 9.1954,
+      "matching_bytes": 78,
+      "matching_instructions": 8,
+      "notes": "Attempt 1 used the exact released source for nglDestroyTexture__FP10nglTexture. Result `different`, score 22.4138; no retry or variant was made.",
+      "score": 22.4138,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned char u_char;\n\nenum\n{\n  NGLTEX_TGA,\n  NGLTEX_TIM2,\n  NGLTEX_IFL,\n  NGLTEX_ATE,\n};\n\nstruct nglFileBuf\n{\n  void* Buf;\n  u_int Size;\n  u_int UserData;\n  u_int Flags;\n};\n\nstruct nglTexture\n{\n  u_char _pad0[16];\n  u_char Type;\n  u_char _pad1[3];\n  struct\n  {\n    u_int LoadedInPlace : 1;\n    u_int Locked : 1;\n  } Flags;\n  u_char _pad2[8];\n  u_int* Data;\n  u_int NFrames;\n  nglTexture** Frames;\n  u_char _pad3[4];\n  nglFileBuf FileBuf;\n  u_char _pad4[40];\n  u_int* DMAMem;\n};\n\nvoid nglVif1SafeWait();\nvoid nglUnlockTexturePS2( nglTexture* Tex );\nvoid nglReleaseTexture( nglTexture* Tex );\nvoid nglMemFree( void* Ptr );\nvoid nglReleaseFile( nglFileBuf* File );\n\nvoid nglDestroyTexture( nglTexture* Tex )\n{\n  nglVif1SafeWait();\n\n  if ( Tex->Flags.Locked )\n    nglUnlockTexturePS2( Tex );\n\n  if ( Tex->Type == NGLTEX_IFL )\n  {\n    for ( u_int i = 0; i < Tex->NFrames; i++ )\n      nglReleaseTexture( Tex->Frames[i] );\n    nglMemFree( Tex->Frames );\n  }\n\n  if ( Tex->Type == NGLTEX_ATE )\n  {\n    for ( u_int i = 0; i < Tex->NFrames; i++ )\n    {\n      if ( Tex->Frames[i] )\n      {\n        nglReleaseTexture( Tex->Frames[i] );\n      }\n    }\n    nglMemFree( Tex->Frames );\n  }\n\n  if ( !Tex->Flags.LoadedInPlace )\n  {\n    if (( Tex->Type == NGLTEX_TIM2 ) || ( Tex->Type == NGLTEX_IFL ) || ( Tex->Type == NGLTEX_ATE ))\n      nglReleaseFile( &Tex->FileBuf );\n    else\n    if ( Tex->Type == NGLTEX_TGA )\n      nglMemFree( Tex->Data );\n  }\n\n  if (Tex->DMAMem)\n    nglMemFree( Tex->DMAMem );\n\n  nglMemFree( Tex );\n}\n",
+      "status": "different",
+      "target_size": 348
+    }
+  ],
+  "raw_name": "nglDestroyTexture__FP10nglTexture"
+}
