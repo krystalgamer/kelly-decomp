@@ -1,0 +1,23 @@
+{
+  "address": "0x002641F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c6065bba9fe34e2ce2699213fb8382d1e8cf66d9",
+      "candidate_size": 360,
+      "compared_bytes": 360,
+      "compared_instructions": 90,
+      "emitted_name": "DecompressDXT1__9ImageDXTCPUiPUsii",
+      "instruction_score": 7.7778,
+      "matching_bytes": 133,
+      "matching_instructions": 7,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/dxt1_imagedxt1.cpp:118-151; kelly-slaters-pro-surfer/KS/SRC/ks/dxt1_imagedxt1.h:21-28,37-55,57-100; tmp/functions/002641F0_DecompressDXT1__9ImageDXTCPUiPUsii/attempt-1/result.json. Result `different`, score 36.9444; no later attempt.",
+      "score": 36.9444,
+      "source": "struct DXTColBlock\n{\n\tunsigned short col0;\n\tunsigned short col1;\n\tunsigned char row[4];\n};\n\nclass DXTColor8888\n{\npublic:\n\tunsigned char r;\n\tunsigned char g;\n\tunsigned char b;\n\tunsigned char a;\n};\n\nclass ImageDXTC\n{\n\tvoid GetColorBlockColors(DXTColBlock * pBlock, DXTColor8888 * col_0, DXTColor8888 * col_1, DXTColor8888 * col_2, DXTColor8888 * col_3, unsigned short & wrd);\n\tvoid DecodeColorBlock(unsigned int * pImPos, DXTColBlock * pColorBlock, int width, unsigned int * col_0, unsigned int * col_1, unsigned int * col_2, unsigned int * col_3);\n\npublic:\n\tvoid DecompressDXT1(unsigned int * m_pDecompBytes, unsigned short * m_pCompBytes, int imageWidth, int imageHeight);\n};\n\nvoid ImageDXTC::DecompressDXT1(unsigned int * m_pDecompBytes, unsigned short * m_pCompBytes, int imageWidth, int imageHeight)\n{\n\tunsigned int *\t\tpBase  = (unsigned int *) m_pDecompBytes;\n\tunsigned int *\t\tpImPos = (unsigned int *) pBase;\t\t\t// pos in decompressed data\n\t//unsigned short *\tpPos   = (unsigned short *) m_pCompBytes;\t// pos in compressed data\n\tint\t\t\t\t\txblocks, yblocks;\n\tint\t\t\t\t\ti,j;\n\tDXTColBlock *\t\tpBlock;\n\tDXTColor8888\t\t\tcol_0, col_1, col_2, col_3;\n\tunsigned short\t\twrd;\n\n\txblocks = imageWidth / 4;\n\tyblocks = imageHeight / 4;\n\n\tfor( j=0; j < yblocks; j++ )\n\t{\n\t\t// 8 bytes per block\n\t\tpBlock = (DXTColBlock*) ( (unsigned int)m_pCompBytes + j * xblocks * 8 );\n\n\t\tfor( i=0; i < xblocks; i++, pBlock++ )\n\t\t{\n\t\t\t// inline func:\n\t\t\tGetColorBlockColors( pBlock, &col_0, &col_1, &col_2, &col_3, wrd );\n\n\t\t\t// now decode the color block into the bitmap bits\n\t\t\t// inline func:\n\t\t\tpImPos = (unsigned int *)((unsigned int)pBase + i*16 + (j*4) * imageWidth * 4 );\n\t\t\tDecodeColorBlock(pImPos, pBlock, imageWidth, (unsigned int *)&col_0, (unsigned int *)&col_1, (unsigned int *)&col_2, (unsigned int *)&col_3);\n\n\t\t}\n\t}\n}\n",
+      "status": "different",
+      "target_size": 344
+    }
+  ],
+  "raw_name": "DecompressDXT1__9ImageDXTCPUiPUsii"
+}
