@@ -1,0 +1,15 @@
+{
+  "address": "0x0013B030",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d5b479a36583bcf95e4ef369c6d0eb37150ba518",
+      "notes": "# 0x0013B030 copy__19animation_interfaceP19animation_interface\n\nThe exact released body was submitted once with the lane's minimal declaration context. Result: `compile_failed`, byte score 0.0000%. No source variant was attempted.\n\nCitations: `kelly-slaters-pro-surfer/KS/SRC/animation_interface.cpp`; `tmp/functions/0013B030_copy__19animation_interfaceP19animation_interface/attempt-1/result.json`.",
+      "score": 0.0,
+      "source": "#include \"../../../kelly-slaters-pro-surfer/KS/SRC/animation_interface.cpp\"\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "copy__19animation_interfaceP19animation_interface"
+}
