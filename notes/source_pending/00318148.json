@@ -1,0 +1,23 @@
+{
+  "address": "0x00318148",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ac1198e696d30aa919aa7f081a56a06d7046c513",
+      "candidate_size": 416,
+      "compared_bytes": 416,
+      "compared_instructions": 104,
+      "emitted_name": "find_instance__C16slc_controller_tRC7stringx",
+      "instruction_score": 10.5769,
+      "matching_bytes": 142,
+      "matching_instructions": 11,
+      "notes": "# First pass wave73 A3 \u2014 find_instance__C16slc_controller_tRC7stringx\n\n- No pre-existing attempt was present for `0x00318148`.\n- Copied the exact released `slc_controller_t::find_instance` body and supplied\n  minimal standalone declarations.\n- Tested exactly once with\n  `env/bin/python tools/function_test.py test 0x00318148 --candidate tmp/source_first/00318148/candidate.cpp`.\n- Result: `different`; byte score 34.1346, instruction score 10.5769.\n  Candidate and target were both 416 bytes.\n- The attempt is preserved unchanged under\n  `tmp/functions/00318148_find_instance__C16slc_controller_tRC7stringx/attempt-1/`.\n- No retry, variant, diff chase, finalization, integration, tracked-file edit,\n  build, commit, or push was performed.\n\nCitations:\n- `kelly-slaters-pro-surfer/KS/SRC/script_lib_controller.cpp:42-50`\n- `kelly-slaters-pro-surfer/KS/SRC/script_lib_controller.h:54-73`\n- `kelly-slaters-pro-surfer/KS/SRC/signals.h:214-244`\n- `kelly-slaters-pro-surfer/KS/SRC/stringx.h:54-80,154-169,204-209,438-459`\n- `tmp/functions/00318148_find_instance__C16slc_controller_tRC7stringx/attempt-1/result.json`",
+      "score": 34.1346,
+      "source": "typedef unsigned long long big_int;\n\nclass string_buf\n{\n    big_int *data;\n    int ref_count;\n    int char_length;\n    int block_length;\n    int max_blocks;\npublic:\n    inline int compare(const char *str) const\n    {\n        int i;\n        const char *a = reinterpret_cast<const char *>(data);\n        for (i = 0; i < char_length; i++) {\n            if (str[i] == '\\0') return -1;\n            if (a[i] == str[i]) continue;\n            if (str[i] > a[i]) return 1;\n            if (str[i] < a[i]) return -1;\n        }\n        if (str[i] == '\\0') return 0;\n        return 1;\n    }\n\n    inline bool is_equal(const char *str) const\n    {\n        return compare(str) == 0;\n    }\n};\n\nclass stringx\n{\n    char *chars;\n    string_buf *my_buf;\npublic:\n    friend inline bool operator==(const stringx& lhs, const char *rhs);\n};\n\ninline bool operator==(const stringx& lhs, const char *rhs)\n{\n    return lhs.my_buf->is_equal(rhs);\n}\n\nclass signaller\n{\n    unsigned int flags;\n    void *signals;\npublic:\n    virtual ~signaller();\n};\n\nclass script_controller : public signaller\n{\npublic:\n    virtual ~script_controller();\n    virtual void update();\n};\n\nclass slc_controller_t\n{\npublic:\n    unsigned find_instance(const stringx& n) const;\n};\n\nextern script_controller* script_pad;\n\nunsigned slc_controller_t::find_instance(const stringx& n) const\n{\n  if (n==\"NULL\") return (unsigned)0;\n  if (n==\"CONTROLLER_1\") return (unsigned)&script_pad[0];\n  if (n==\"CONTROLLER_2\") return (unsigned)&script_pad[1];\n\n  return (unsigned)0;\n}\n",
+      "status": "different",
+      "target_size": 416
+    }
+  ],
+  "raw_name": "find_instance__C16slc_controller_tRC7stringx"
+}
