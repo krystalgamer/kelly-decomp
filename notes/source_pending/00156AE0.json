@@ -1,0 +1,23 @@
+{
+  "address": "0x00156AE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9919d1e5474c11dbbc963f32aef9143599c7b430",
+      "candidate_size": 444,
+      "compared_bytes": 444,
+      "compared_instructions": 111,
+      "emitted_name": "Init__6FEMenu",
+      "instruction_score": 20.7207,
+      "matching_bytes": 149,
+      "matching_instructions": 23,
+      "notes": "# First pass wave74 B5 \u2014 Init__6FEMenu\n\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.cpp:469-509`.\n- Minimal declarations derived from\n  `kelly-slaters-pro-surfer/KS/SRC/ks/FEMenu.h:52-138,160-227`.\n- One candidate only; no variants or diff chase.\n- Tested once with\n  `env/bin/python tools/function_test.py test 0x00156AE0 --candidate tmp/source_first/00156AE0/candidate.cpp`.\n- Result: `different`; byte score `33.5586`, instruction score `20.7207`.\n- Preserved attempt:\n  `tmp/functions/00156AE0_Init__6FEMenu/attempt-1/`.\n- No finalization, integration, build, tracked-file edit, or commit.",
+      "score": 33.5586,
+      "source": "class stringx\n{\n    void *chars;\n    void *my_buf;\n};\n\nclass FEMenu;\n\nclass FEMenuEntry\n{\npublic:\n    int entry_num;\n    FEMenuEntry *next;\n    FEMenuEntry *previous;\n    FEMenu *menu;\n    char fields[0x44];\n\n    virtual ~FEMenuEntry();\n    virtual void Load();\n    virtual void OnSelect();\n    virtual void Highlight(bool, bool);\n    virtual void Disable(bool);\n    virtual bool GetDisable();\n    virtual void Draw();\n    virtual void Update(float);\n    virtual void TurnOn(bool);\n    virtual void SetSpecialColor(unsigned int, unsigned int);\n    virtual void SetSpecialScale(float, float);\n    virtual bool GetSpecialScale(float &, float &);\n    virtual void SetNoFlash(bool);\n    virtual float GetHighlightIntensity();\n    virtual void SetPos(float, float);\n};\n\nclass FEMenu\n{\npublic:\n    int center_x;\n    int center_y;\n    int num_entries;\n    int dy;\n    int half;\n    int menu_num;\n    bool init;\n    stringx font_filename;\n    unsigned int color;\n    unsigned int color_high;\n    unsigned int color_high_alt;\n    float scale;\n    float scale_high;\n    int max_vis_entries;\n    int flags;\n    FEMenuEntry *entries;\n    FEMenuEntry *first_vis_entry;\n    FEMenuEntry *last_vis_entry;\n    FEMenuEntry *highlighted;\n    void *system;\n    FEMenu *back;\n    int back_num;\n    FEMenu *submenus;\n    FEMenu *active;\n    FEMenu *parent;\n    void *helpText;\n    int helpFlags;\n    FEMenu *next_sub;\n\n    virtual ~FEMenu();\n    virtual void setBack(FEMenu *, int);\n    virtual void setHigh(FEMenuEntry *, bool);\n    virtual void setVis(FEMenuEntry *);\n    virtual void Add(FEMenuEntry *);\n    virtual void Init();\n};\n\nenum\n{\n    FEMENU_SCROLLING = 0x001,\n    FEMENU_DONT_SHOW_DISABLED = 0x400\n};\n\nvoid FEMenu::Init()\n{\n\tif(num_entries > max_vis_entries) flags |= FEMENU_SCROLLING;\n\tif(flags & FEMENU_SCROLLING) half = (dy * (max_vis_entries-1))/2;\n\telse if(flags & FEMENU_DONT_SHOW_DISABLED)\n\t{\n\t\t// count up non-disabled entries\n\t\tint count = 0;\n\t\tFEMenuEntry* tmp = entries;\n\t\twhile(tmp != 0)\n\t\t{\n\t\t\tif(!tmp->GetDisable()) count++;\n\t\t\ttmp = tmp->next;\n\t\t}\n\t\thalf = (dy * (count-1))/2;\n\t}\n\telse half = (dy * (num_entries-1))/2;\n\n\n\tif (entries)\n\t\tsetHigh(entries, false);\n\tinit = true;\n\t\n\tif(flags & FEMENU_SCROLLING) setVis(entries);\n\telse\n\t{\n\t\tint y;\n\t\tFEMenuEntry* tmp = entries;\n\t\tint index = 0;\n\t\twhile(tmp != 0)\n\t\t{\n\t\t\tif(!(flags & FEMENU_DONT_SHOW_DISABLED) || !tmp->GetDisable())\n\t\t\t{\n\t\t\t\ty = center_y + index * dy - half;\n\t\t\t\ttmp->SetPos(center_x, y);\n\t\t\t\tindex++;\n\t\t\t}\n\t\t\ttmp = tmp->next;\n\t\t}\n\t}\n}\n",
+      "status": "different",
+      "target_size": 424
+    }
+  ],
+  "raw_name": "Init__6FEMenu"
+}
