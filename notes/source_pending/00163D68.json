@@ -1,0 +1,15 @@
+{
+  "address": "0x00163D68",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9ea2d09f64b1fd4fe879a55a08f3d8e917032eec",
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/igohintmanager.cpp:37-53; kelly-slaters-pro-surfer/KS/SRC/ks/igohintmanager.h:10-55; tmp/functions/00163D68___14IGOHintManager/attempt-1/compiler.stderr:1-10; tmp/functions/00163D68___14IGOHintManager/attempt-1/result.json; tmp/source_first/00163D68/attempt-1.md. Result `compile_failed`, score 0.0000; no later attempt.",
+      "score": 0.0,
+      "source": "class stringx {\n    char *chars;\n    void *my_buf;\npublic:\n    stringx();\n    stringx(const char *, int = -1);\n    stringx(const stringx &);\n    ~stringx();\n    stringx &operator=(const char *);\n};\n\nclass Font {\npublic:\n    enum HORIZJUST { HORIZJUST_LEFT = 2 };\n    enum VERTJUST { VERTJUST_CENTER = 1 };\n};\n\nstruct color32 {\n    unsigned int value;\n    color32(unsigned char r, unsigned char g, unsigned char b, unsigned char a)\n        : value(r | (g << 8) | (b << 16) | (a << 24)) {}\n};\n\nclass TextString {\n    char storage[80];\npublic:\n    TextString(Font *, stringx, float, float, int, float,\n               Font::HORIZJUST, Font::VERTJUST, bool, color32);\n};\n\nclass FEManager {\n    char fields_before_font_info[0xE94];\npublic:\n    Font font_info;\n};\n\nextern FEManager frontendmanager;\nvoid *operator new(unsigned int, unsigned int, const char *, int);\n#define NEW new(0, __FILE__, __LINE__)\n#define MAX_HINTS 15\n\nclass IGOHintManager {\n    stringx hint_text;\n    TextString *instruction_text;\n    float current_hint_time;\n    int current_hint;\n    bool competition_help;\n    int hint_use[MAX_HINTS];\npublic:\n    IGOHintManager();\n};\n\n__asm__(\".equ frontendmanager, 0x003E7728\");\n__asm__(\".equ __7stringx, 0x0034D3E0\");\n__asm__(\".equ __7stringxPCci, 0x0034D438\");\n__asm__(\".equ __7stringxRC7stringx, 0x0034D4D0\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\".equ __as__7stringxPCc, 0x0034E118\");\n__asm__(\".equ __nw__FUiUiPCci, 0x002AC578\");\n__asm__(\".equ cons__10TextStringP4FontG7stringxffifQ24Font9HORIZJUSTQ24Font8VERTJUSTbG7color32, 0x00148150\");\n\n#line 193 \"C:/KS/SRC/ks/igohintmanager.cpp\"\nIGOHintManager::IGOHintManager()\n{\n\t//ksGlobalTextArray[GT_TUTORIAL_PRESS_START]\n\tinstruction_text = NEW TextString(&frontendmanager.font_info, \"\", 382, 125, 800, 0.9f, Font::HORIZJUST_LEFT, Font::VERTJUST_CENTER, color32(235, 53, 8, 255));\n\n\thint_text = \"\";\n\tcurrent_hint = -1;\n\n\t//  Show that none of the hints have been used yet.\n\tfor (int index = 0; index < MAX_HINTS; index++)\n\t\thint_use[index] = 0;\n\n\tcompetition_help = false;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__14IGOHintManager"
+}
