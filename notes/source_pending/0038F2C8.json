@@ -1,0 +1,23 @@
+{
+  "address": "0x0038F2C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b8f3a14ee7533a6b8db5e31cc34d274e44eff7c9",
+      "candidate_size": 372,
+      "compared_bytes": 372,
+      "compared_instructions": 94,
+      "emitted_name": "nslReleaseEmitter__FUi",
+      "instruction_score": 3.1915,
+      "matching_bytes": 51,
+      "matching_instructions": 3,
+      "notes": "Attempt 1 used the exact released source for nslReleaseEmitter__FUi. Result `different`, score 13.7097; no retry or variant was made.",
+      "score": 13.7097,
+      "source": "typedef unsigned int nlUint32;\ntypedef unsigned int nslSoundId;\ntypedef unsigned int nslEmitterId;\n\nenum nslSoundStatusEnum\n{\n  NSL_SOUNDSTATUS_INVALID = 0,\n  NSL_SOUNDSTATUS_QUEUING,\n  NSL_SOUNDSTATUS_READY,\n  NSL_SOUNDSTATUS_PLAYING,\n  NSL_SOUNDSTATUS_PAUSED\n};\n\ntypedef enum\n{\n  NSL_CLEAR_INIT,\n  NSL_CLEAR_RESET,\n  NSL_CLEAR_FREE\n} _nslClearBehaviour;\n\ntemplate<class T>\nclass fifo_queue\n{\nprivate:\n  T *queue;\n  short queue_max;\n  short start;\n  short end;\n  short count;\n\npublic:\n  T pop();\n  int size() { return count; }\n};\n\nstruct nslEmitter\n{\n  bool used;\n  bool autoRelease;\n  bool isALineEmitter;\n  nslEmitterId myId;\n  float startPosition[3];\n  float endPosition[3];\n  float position[3];\n  fifo_queue<nslSoundId> emittedSounds;\n};\n\nstruct nslSystem\n{\n  char beforeEmitters[0x1840];\n  nslEmitter emitterSlots[256];\n  char beforeEmitterCount[0x40];\n  nlUint32 emitterSlotsUsedCount;\n  int firstInit;\n  int initialized;\n  char beforeOn[0x2c];\n  bool on;\n};\n\nextern nslSystem nsl;\nextern void nslFatal(const char *, ...);\nextern nslSoundStatusEnum nslGetSoundStatus(nslSoundId);\nextern void nslStopSound(nslSoundId);\nextern void _nslClearEmitterSlot(nlUint32, bool, _nslClearBehaviour);\n\ninline void _nslInitialized()\n{\n  if (!(nsl.initialized == 1))\n    nslFatal(\"NSL NOT INITIALIZED\");\n}\n\ninline void _nslCheckEmitterIdValidity(nslEmitterId checkId)\n{\n  if (checkId == 0) return;\n  nslEmitterId checkSlot = (checkId & 0x3ff);\n  nslEmitterId upCheckId = checkId & 0xfffffc00;\n  if (!(checkId != 0))\n    nslFatal(\"Bad Emitter ID 0x%x\\n\", checkId);\n  if (!(checkSlot < 256))\n    nslFatal(\"Bad Emitter ID 0x%x\\n\", checkId);\n  if (!(checkId == nsl.emitterSlots[checkSlot].myId))\n    nslFatal(\"Bad Emitter ID 0x%x\\n\", checkId);\n  if (!(upCheckId > 0))\n    nslFatal(\"Bad Emitter ID 0x%x\\n\", checkId);\n  if (checkSlot > 256)\n    nslFatal(\"Bad Sound ID 0x%x SLOT NUMBER ABOVE SLOTS\\n\", checkId);\n}\n\n#define ASSERT_NSL_INITIALIZED() _nslInitialized()\n#define ASSERT_EMITTER_ID_VALID(checkId) _nslCheckEmitterIdValidity(checkId)\n#define NSL_GET_SLOT_FROM_ID(x) (x & 0x3ff)\n\nvoid nslReleaseEmitter(nslEmitterId emitterToRelease)\n{\n\n  if (!nsl.on) return;\n  ASSERT_NSL_INITIALIZED();\n  ASSERT_EMITTER_ID_VALID(emitterToRelease);\n  nsl.emitterSlotsUsedCount--;\n  \n  while (nsl.emitterSlots[NSL_GET_SLOT_FROM_ID(emitterToRelease)].emittedSounds.size())\n  {\n    nslSoundId mySound = nsl.emitterSlots[NSL_GET_SLOT_FROM_ID(emitterToRelease)].emittedSounds.pop();\n    if ( nslGetSoundStatus( mySound ) != NSL_SOUNDSTATUS_INVALID )\n      nslStopSound(mySound);  \n  }\n\n  _nslClearEmitterSlot(NSL_GET_SLOT_FROM_ID(emitterToRelease), false, NSL_CLEAR_RESET);\n}\n",
+      "status": "different",
+      "target_size": 368
+    }
+  ],
+  "raw_name": "nslReleaseEmitter__FUi"
+}
