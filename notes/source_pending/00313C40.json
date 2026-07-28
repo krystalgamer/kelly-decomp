@@ -1,0 +1,23 @@
+{
+  "address": "0x00313C40",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4fc0b74463507090ee3e60060801f49463698c04",
+      "candidate_size": 148,
+      "compared_bytes": 464,
+      "compared_instructions": 116,
+      "emitted_name": "dump__t7AvlTree1Z14path_info_nodeRPt8TreeNode1Z14path_info_nodei",
+      "instruction_score": 0.8621,
+      "matching_bytes": 40,
+      "matching_instructions": 1,
+      "notes": "FIRST PASS wave85 A3\nTarget: 0x00313C40 dump__t7AvlTree1Z14path_info_nodeRPt8TreeNode1Z14path_info_nodei\nSource: kelly-slaters-pro-surfer/KS/SRC/avltree.h\nConfirmed attempts0 before testing.\nAttempt 1: different; 40/464 compared bytes, 1/116 instructions; score 8.6207; candidate 148 bytes versus target 464 bytes.\nCandidate used the exact released template body with minimal faithful declarations, LF line endings, and no headers.\nExactly one non-placeholder candidate was tested. No alternatives, assembly, annotations, variants, retries, attempts 2-5, diff chasing, build, finalization, integration, queue edits, tracked edits, commit, or push were performed. No tracked files changed.",
+      "score": 8.6207,
+      "source": "#define NULL 0\n\nclass path_info_node\n{\npublic:\n\t~path_info_node();\n};\n\ntemplate <class T>\nclass AvlTree;\n\ntemplate <class T>\nclass TreeNode\n{\nprotected:\n\tfriend class AvlTree<T>;\n\n\tTreeNode *l;\n\tTreeNode *r;\n\tTreeNode *p;\n\n\tT *d;\n\tchar h;\n};\n\ntemplate <class T>\nclass AvlTree\n{\nprotected:\n\ttypedef TreeNode<T> TNode;\n\n\tTNode *rootNode;\n\n\tint s;\n\n\tchar disposeElements;\n\n\tvoid dump(TNode * &node, int delData)\n\t//void dump(TreeNode * &node, int delData)\n  {\n  \tif(node != NULL)\n  \t{\n  \t\tdump(node->l, delData);\n  \t\tdump(node->r, delData);\n\n  \t\tif(delData && node->d != NULL)\n  \t\t\tdelete node->d;\n\n  \t\tdelete node;\n  \t\tnode = NULL;\n\n  \t\ts--;\n  \t}\n  }\n};\n\ntemplate void AvlTree<path_info_node>::dump(TreeNode<path_info_node>* &, int);\n",
+      "status": "different",
+      "target_size": 464
+    }
+  ],
+  "raw_name": "dump__t7AvlTree1Z14path_info_nodeRPt8TreeNode1Z14path_info_nodei"
+}
