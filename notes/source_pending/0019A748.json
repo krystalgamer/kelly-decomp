@@ -1,0 +1,23 @@
+{
+  "address": "0x0019A748",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e08cf943d0bb388f50c2eb06e86f5533498a5828",
+      "candidate_size": 472,
+      "compared_bytes": 472,
+      "compared_instructions": 118,
+      "emitted_name": "OnUnactivate__16SaveLoadFrontEndP6FEMenu",
+      "instruction_score": 100.0,
+      "matching_bytes": 469,
+      "matching_instructions": 118,
+      "notes": "FIRST PASS wave87 A1\nTarget: 0x0019A748 OnUnactivate__16SaveLoadFrontEndP6FEMenu (472/0x1D8), game/files_frontend\nReference: kelly-slaters-pro-surfer/KS/SRC/ks/SaveLoadFrontEnd.cpp\nAttempts before: 0\nAttempt 1: exact released body with minimal faithful self-contained declarations, LF line endings, and no headers\nResult: different; byte score 99.3644 (469/472); instruction score 100.0 (118/118); candidate size 472; target size 472\nExactly one candidate was tested. No alternatives, assembly, annotations, variants, retries, attempts 2-5, diff chasing, build, finalization, integration, queue edits, tracked edits, commit, or push were performed.",
+      "score": 99.3644,
+      "source": "typedef unsigned char uint8;\ntypedef unsigned int uint32;\n\nclass color32\n{\npublic:\n\tunion\n\t{\n\t\tstruct\n\t\t{\n\t\t\tuint8 b,g,r,a;\n\t\t} c;\n\t\tuint32 i;\n\t};\n\n\tcolor32(uint32 ic=0) : i(ic) {}\n};\n\nclass FEMenu;\n\nclass FEMenuEntry\n{\npublic:\n\tint entry_num;\n\tchar layout[0x5c];\n\n\tvirtual ~FEMenuEntry();\n\tvirtual void Load();\n\tvirtual void OnSelect();\n\tvirtual void Highlight(bool h = true, bool anim = true);\n\tvirtual void Disable(bool d = true);\n\tvirtual bool GetDisable();\n\tvirtual void Draw();\n\tvirtual void Update(float time_inc);\n\tvirtual void TurnOn(bool on);\n\tvirtual void SetSpecialColor(color32 c, color32 ch);\n};\n\nclass FEManager\n{\npublic:\n\tchar layout[0x15644];\n\tcolor32 col_info_b;\n};\n\nextern FEManager frontendmanager;\n\nclass SaveLoadFrontEnd\n{\npublic:\n\tenum type\n\t{\n\t\tSL_SAVE,\n\t\tSL_LOAD,\n\t\tSL_DELETE,\n\t};\n\n\tchar layout_to_highlighted[0x4c];\n\tFEMenuEntry* highlighted;\n\tchar layout_to_entry[0x3294];\n\tFEMenuEntry* entry[3];\n\n\tvoid OnUnactivate(FEMenu* m);\n};\n\nvoid SaveLoadFrontEnd::OnUnactivate(FEMenu* m)\n{\n\tcolor32 c = frontendmanager.col_info_b;\n\n\tif (!highlighted)\n\t{\n\t\tfor(int i=0; i<3; i++)\n\t\t\tentry[i]->SetSpecialColor(c, c);\n\t\treturn;\n\t}\n\tswitch(highlighted->entry_num)\n\t{\n\tcase SL_LOAD:\n\t\tc.c.a = 127;\n\t\tentry[SL_SAVE]->SetSpecialColor(c,c);\n\t\t\n\t\tc.c.a = 255;\n\t\tentry[SL_LOAD]->SetSpecialColor(c,c);\n\t\t\n\t\tc.c.a = 127;\n\t\tentry[SL_DELETE]->SetSpecialColor(c,c);\n\t\tbreak;\n\t\t\n\tcase SL_SAVE:\n\t\tc.c.a = 127;\n\t\tentry[SL_LOAD]->SetSpecialColor(c,c);\n\t\t\n\t\tc.c.a = 255;\n\t\tentry[SL_SAVE]->SetSpecialColor(c,c);\n\t\t\n\t\tc.c.a = 127;\n\t\tentry[SL_DELETE]->SetSpecialColor(c,c);\n\t\tbreak;\n\t\t\n\tcase SL_DELETE:\n\t\tc.c.a = 127;\n\t\tentry[SL_SAVE]->SetSpecialColor(c,c);\n\t\t\n\t\tc.c.a = 255;\n\t\tentry[SL_DELETE]->SetSpecialColor(c,c);\n\t\t\n\t\tc.c.a = 127;\n\t\tentry[SL_LOAD]->SetSpecialColor(c,c);\n\t\tbreak;\n\t}\n}\n",
+      "status": "different",
+      "target_size": 472
+    }
+  ],
+  "raw_name": "OnUnactivate__16SaveLoadFrontEndP6FEMenu"
+}
