@@ -1,0 +1,23 @@
+{
+  "address": "0x0032F6F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6ca8306b889833eef3210e50e5c091b07bb78b7e",
+      "candidate_size": 156,
+      "compared_bytes": 420,
+      "compared_instructions": 105,
+      "emitted_name": "__cl__24slf_vector3d_list_size_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 0.0,
+      "matching_bytes": 28,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 74 lane A2 \u2014 0x0032F6F8\n\nExact released `slf_vector3d_list_size_t::operator()` body was tested once with minimal declarations. Result: **different**, byte score **6.6667%**, instruction score **0.0%**. No variants, diff chasing, finalization, build, tracked-file edits, commit, or push.\n\nSee `attempt-1.md` and the preserved function-test attempt.",
+      "score": 6.6667,
+      "source": "typedef float vm_num_t;\n\nclass vm_stack\n{\npublic:\n  char* SP;\n  void pop(int n) { SP -= n; }\n  char* get_SP() const { return SP; }\n  bool push(const char* src, int n);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n    virtual bool operator()(vm_stack& stack, entry_t entry) { return true; }\n  };\n};\n\nstruct vector3d\n{\n  float x;\n  float y;\n  float z;\n};\n\nstruct vector3d_list\n{\n  vector3d* start;\n  vector3d* finish;\n  vector3d* end_of_storage;\n  unsigned size() const { return finish - start; }\n};\n\ntypedef vector3d_list* vm_vector3d_list_t;\nvoid error(const char*);\n\nclass slf_vector3d_list_size_t : public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    vm_vector3d_list_t me;\n  };\n  virtual bool operator()(vm_stack& stack, entry_t entry);\n};\n\nbool slf_vector3d_list_size_t::operator()(vm_stack& stack, entry_t entry)\n{\n  stack.pop(sizeof(parms_t));\n  parms_t* parms = (parms_t*)stack.get_SP();\n  vm_num_t result = parms->me->size();\n  if (!stack.push((char*)&result,sizeof(result)) )\n    error( \"script stack overflow\" );\n  return true;\n}\n",
+      "status": "different",
+      "target_size": 420
+    }
+  ],
+  "raw_name": "__cl__24slf_vector3d_list_size_tR8vm_stackQ320script_library_class8function7entry_t"
+}
