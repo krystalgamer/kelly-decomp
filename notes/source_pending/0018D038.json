@@ -1,0 +1,23 @@
+{
+  "address": "0x0018D038",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0692b5c5fd31fafcfc83cccbadacc5f60b54223b",
+      "candidate_size": 356,
+      "compared_bytes": 428,
+      "compared_instructions": 107,
+      "emitted_name": "ReloadPanel__13BeachFrontEnd",
+      "instruction_score": 1.8692,
+      "matching_bytes": 41,
+      "matching_instructions": 2,
+      "notes": "# ReloadPanel__13BeachFrontEnd\n\n- Address: `0x0018D038`\n- Size: `0x1AC` (428 bytes)\n- Object: `game/files_frontend`\n- Reference source: `KS/SRC/ks/BeachFrontEnd.cpp`\n- Released citation: `kelly-slaters-pro-surfer/KS/SRC/ks/BeachFrontEnd.cpp:249-264`\n- Result: **source_pending**\n\n## Attempts\n\n| # | Status | Byte score | Instruction score | Candidate |\n| ---: | --- | ---: | ---: | --- |\n| 1 | different | 9.5794 | 1.8692 | `candidate.cpp` |\n\n### Attempt 1 notes\n\nUsed the exact released `BeachFrontEnd::ReloadPanel()` body with one minimal, self-contained declaration scaffold. The candidate emitted 356 bytes versus the 428-byte target and scored 9.5794% (2/107 matching instructions; 41 matching bytes). Per FIRST PASS instructions, no declaration variant or diff chase was attempted.\n\n## Outcome\n\nPreserved as a single tested source-level attempt in scratch only; tracked files were not modified.",
+      "score": 9.5794,
+      "source": "typedef unsigned int u_int;\n\nstruct nglTexture;\nstruct nglQuad;\n\nextern void nglSetQuadTex(nglQuad *, nglTexture *);\nextern void nglSetQuadMapFlags(nglQuad *, u_int);\n\nclass PanelQuad\n{\n    char pad[0x1c];\n    nglQuad *quad;\npublic:\n    virtual nglTexture *GetTexture();\n    void setTexture(nglTexture *texture) { nglSetQuadTex(quad, texture); }\n    void setMaterialFlags(u_int flags) { nglSetQuadMapFlags(quad, flags); }\n};\n\nclass PanelFile\n{\npublic:\n    void Reload();\n};\n\nclass FEMultiMenu\n{\n    char pad0[0x64];\n    void *manager;\n    char pad1[0x98];\n    PanelFile panel;\npublic:\n    void ReloadPanel();\n};\n\nclass BeachFrontEnd : public FEMultiMenu\n{\n    char pad0[0xd08];\n    PanelQuad *line_across;\n    char pad1[0x7c];\n    PanelQuad *locked_light_template;\n    PanelQuad *locked_first_light_template;\n    PanelQuad *unlocked_light_template;\n    char pad2[0x10];\n    PanelQuad *completed_lights[3][5][2];\n    char pad3[0x18];\n    PanelQuad *chall_div_line;\npublic:\n    void ReloadPanel();\n};\n\nenum\n{\n    NGLMAT_TEXTURE_MAP = 0x1000,\n    NGLMAT_BILINEAR_FILTER = 0x10,\n    NGLMAT_CLAMP_U = 0x10000,\n    NGLMAT_CLAMP_V = 0x20000,\n    NGLMAP_BILINEAR_FILTER = 0x2,\n    NGLMAP_CLAMP_U = 0x10,\n    NGLMAP_CLAMP_V = 0x20,\n    MAX_BEACHES_PER_LOC = 3,\n    MAX_GOALS_PER_LEVEL = 5\n};\n\nvoid BeachFrontEnd::ReloadPanel()\n{\n\tFEMultiMenu::ReloadPanel();\n\n\tchall_div_line->setMaterialFlags(NGLMAT_CLAMP_U | NGLMAT_CLAMP_V | NGLMAT_TEXTURE_MAP | NGLMAT_BILINEAR_FILTER);\n\tchall_div_line->setTexture(line_across->GetTexture());\n\tfor(int i=0; i<MAX_BEACHES_PER_LOC; i++)\n\t\tfor(int j=0; j<MAX_GOALS_PER_LEVEL; j++)\n\t\t{\n\t\t\tcompleted_lights[i][j][0]->setMaterialFlags(NGLMAP_CLAMP_U | NGLMAP_CLAMP_V | NGLMAP_BILINEAR_FILTER);\n\t\t\tcompleted_lights[i][j][0]->setTexture(j == 0 ? locked_first_light_template->GetTexture() : locked_light_template->GetTexture());\n\t\t\tcompleted_lights[i][j][1]->setMaterialFlags(NGLMAP_CLAMP_U | NGLMAP_CLAMP_V | NGLMAP_BILINEAR_FILTER);\n\t\t\tcompleted_lights[i][j][1]->setTexture(unlocked_light_template->GetTexture());\n\t\t}\n}\n",
+      "status": "different",
+      "target_size": 428
+    }
+  ],
+  "raw_name": "ReloadPanel__13BeachFrontEnd"
+}
