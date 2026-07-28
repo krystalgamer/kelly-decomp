@@ -1,0 +1,23 @@
+{
+  "address": "0x00260A98",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "acdf8776efe5111275314290996d48a7d1616ac3",
+      "candidate_size": 408,
+      "compared_bytes": 408,
+      "compared_instructions": 102,
+      "emitted_name": "Reset__Q213IconChallenge11ArrangementPQ213IconChallenge4Icon",
+      "instruction_score": 0.0,
+      "matching_bytes": 38,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/challenge_icon.cpp:115-143; kelly-slaters-pro-surfer/KS/SRC/ks/challenge_icon.h:13-169; tmp/functions/00260A98_Reset__Q213IconChallenge11ArrangementPQ213IconChallenge4Icon/attempt-1/result.json; tmp/source_first/00260A98/attempt-1.md. Result `different`, score 9.3137; no later attempt.",
+      "score": 9.3137,
+      "source": "class IconChallenge\n{\npublic:\n    enum { MAX_SEQUENCE_SIZE = 10 };\n    enum { MAX_ARRANGEMENT_SIZE = 10 };\n\n    class Icon\n    {\n        char data[44];\n    };\n\n    class Task\n    {\n    public:\n        enum TYPE\n        {\n            TYPE_AIR_FLIP,\n            TYPE_AIR_GRAB,\n            TYPE_AIR_SPIN,\n            TYPE_AIR_POINTS_1000,\n            TYPE_AIR_POINTS_2000,\n            TYPE_AIR_POINTS_5000,\n            TYPE_AIR_SPECIAL,\n            TYPE_FACE_SPIN,\n            TYPE_TUBE_TIME_10,\n            TYPE_TUBE_TIME_15,\n            TYPE_TUBE_TIME_30,\n            TYPE_TUBE_TRICK,\n            TYPE_NUM,\n            TYPE_NONE,\n        };\n    };\n\n    class Sequence\n    {\n        char data[168];\n\n    public:\n        void Reset(void);\n        void PushTask(Icon *i, const Task::TYPE t);\n    };\n\n    class Arrangement\n    {\n        int numSequences;\n        int currSequenceIdx;\n        Sequence sequences[MAX_ARRANGEMENT_SIZE];\n        bool completed;\n\n    public:\n        void Reset(Icon *icons);\n        void Spawn(void);\n    };\n};\n\n__asm__(\".equ Reset__Q213IconChallenge8Sequence, 0x00260D98\");\n__asm__(\".equ PushTask__Q213IconChallenge8SequencePQ213IconChallenge4IconQ313IconChallenge4Task4TYPE, 0x00260ED0\");\n__asm__(\".equ Spawn__Q213IconChallenge11Arrangement, 0x00260C90\");\n\nvoid IconChallenge::Arrangement::Reset(Icon *icons)\n{\n    for (int i = 0; i < MAX_ARRANGEMENT_SIZE; i++)\n        sequences[i].Reset();\n\n    currSequenceIdx = 0;\n    numSequences = 4;\n    sequences[0].PushTask(&icons[9], Task::TYPE_FACE_SPIN);\n    sequences[0].PushTask(&icons[1], Task::TYPE_AIR_GRAB);\n\n    sequences[1].PushTask(&icons[8], Task::TYPE_FACE_SPIN);\n    sequences[1].PushTask(&icons[12], Task::TYPE_TUBE_TIME_10);\n    sequences[1].PushTask(&icons[15], Task::TYPE_TUBE_TRICK);\n\n    sequences[2].PushTask(&icons[7], Task::TYPE_AIR_SPECIAL);\n    sequences[2].PushTask(&icons[1], Task::TYPE_AIR_GRAB);\n\n    sequences[3].PushTask(&icons[2], Task::TYPE_AIR_GRAB);\n    sequences[3].PushTask(&icons[11], Task::TYPE_AIR_SPIN);\n    sequences[3].PushTask(&icons[4], Task::TYPE_AIR_POINTS_1000);\n    sequences[3].PushTask(&icons[10], Task::TYPE_FACE_SPIN);\n\n    completed = false;\n\n    Spawn();\n}\n",
+      "status": "different",
+      "target_size": 332
+    }
+  ],
+  "raw_name": "Reset__Q213IconChallenge11ArrangementPQ213IconChallenge4Icon"
+}
