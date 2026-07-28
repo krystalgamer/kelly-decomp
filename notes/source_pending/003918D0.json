@@ -1,0 +1,16 @@
+{
+  "address": "0x003918D0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3182c637e93c877cb89b324e90ddab67f174f18a",
+      "error": "Candidate did not emit nlDistancePointSegment__FRA2_CfN20RA2_f; emitted functions: ['nlDistancePointSegment__FRA2_CfT0T0RA2_f']",
+      "notes": "Exact released `nlDistancePointSegment` body from `historicalsource/kelly-slaters-pro-surfer/NSL/PS2/nl_ps2.cpp` was tested once with minimal declarations.\n\nResult: symbol missing because the compiler emitted the released signature as `nlDistancePointSegment__FRA2_CfT0T0RA2_f`, not the queued target spelling `nlDistancePointSegment__FRA2_CfN20RA2_f`. Per lane rules, no variant or diff chase was attempted.",
+      "score": 0.0,
+      "source": "typedef float nlVector3d[3];\n\nextern float sqrtf(float);\nextern float nlDotProduct3d(nlVector3d, nlVector3d);\nextern void nlAddVect3d(nlVector3d &, const nlVector3d &, const nlVector3d &);\nextern void nlSubVect3d(nlVector3d &, const nlVector3d &, const nlVector3d &);\nextern void nlScaleVect3d(nlVector3d &, const nlVector3d &, float);\n\nfloat nlDistancePointSegment( const nlVector3d & p,\n                              const nlVector3d & n1, const nlVector3d & n2,\n                              nlVector3d & hit_point )\n{\n  nlVector3d n;\n  nlSubVect3d( n, n2, n1 );\n\n  float n_len = nlDotProduct3d(n, n);\n  if (n_len > 0.0f)\n    n_len = sqrtf(n_len);\n\n  // cover the zero length segment case\n  if (n_len > 0.0f)\n  {\n    nlScaleVect3d( n, n, 1.0f / n_len );\n  }\n\n  nlVector3d c1;\n  nlSubVect3d( c1, p, n1 );\n\n  float ofs = nlDotProduct3d( c1, n );\n  if (ofs < 0.0f) \n    ofs = 0.0f;\n  else if (ofs > n_len) \n    ofs = n_len;\n\n  nlScaleVect3d( hit_point, n, ofs );\n  nlAddVect3d( hit_point, n1, hit_point );\n\n  nlVector3d temp_vec;\n  nlSubVect3d( temp_vec, hit_point, p );\n  float ret_val = nlDotProduct3d( temp_vec, temp_vec );\n  if (ret_val > 0.0f)\n    ret_val = sqrtf(ret_val);\n\n  return ret_val;\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "nlDistancePointSegment__FRA2_CfN20RA2_f"
+}
