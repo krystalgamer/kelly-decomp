@@ -1,0 +1,15 @@
+{
+  "address": "0x00331220",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "da3f60a02ddd0f503b4e34025f78879247cbe6d9",
+      "notes": "Attempt 1 used the exact released source for __cl__20slf_num_list_begin_tR8vm_stackQ320script_library_class8function7entry_t. Result `compile_failed`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "extern \"C\" int strlen(const char *);\n\nstruct string_buf {\n  int refs;\n  int alloc;\n  int char_length;\n};\n\nclass stringx {\npublic:\n  char *chars;\n  string_buf *my_buf;\n\n  stringx() __asm__(\"__7stringx\");\n  stringx(const stringx &) __asm__(\"__7stringxRC7stringx\");\n  ~stringx() __asm__(\"_$_7stringx\");\n  void make_room(int) __asm__(\"make_room__7stringxi\");\n  void append(const stringx &) __asm__(\"append__7stringxRC7stringx\");\n  void append(const char *, int) __asm__(\"append__7stringxPCci\");\n};\n\ninline stringx operator+(const char *lhs, const stringx &rhs) {\n  stringx foo;\n  int len = strlen(lhs);\n  foo.make_room(len + rhs.my_buf->char_length);\n  foo.append(lhs, len);\n  foo.append(rhs);\n  return foo;\n}\n\ninline stringx operator+(const stringx &lhs, const stringx &rhs) {\n  stringx foo;\n  foo.make_room(lhs.my_buf->char_length + rhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs);\n  return foo;\n}\n\nextern void error(const stringx &) __asm__(\"error__FRC7stringx\");\n\nstruct num_list {\n  int *begin_value;\n};\n\nstruct instance {\n  stringx name;\n};\n\nstruct executable {\n  int unused[3];\n  stringx fullname;\n};\n\nstruct vm_thread {\n  instance *inst;\n  executable *ex;\n};\n\nclass vm_stack {\npublic:\n  int salloc;\n  char *buffer;\n  char *SP;\n  vm_thread *my_thread;\n\n  bool push(const char *, int) __asm__(\"push__8vm_stackPCci\");\n};\n\nstruct entry_t {\n  int value;\n};\n\nbool function(vm_stack &stack, entry_t)\n  __asm__(\"__cl__20slf_num_list_begin_tR8vm_stackQ320script_library_class8function7entry_t\");\n\nbool function(vm_stack &stack, entry_t) {\n  stack.SP -= 4;\n  num_list *me = *(num_list **)stack.SP;\n  int *result = me->begin_value;\n  if (!stack.push((char *)&result, sizeof(result)))\n    error(stack.my_thread->inst->name + \": stack overflow in \" +\n          stack.my_thread->ex->fullname);\n  return true;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__cl__20slf_num_list_begin_tR8vm_stackQ320script_library_class8function7entry_t"
+}
