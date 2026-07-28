@@ -1,0 +1,23 @@
+{
+  "address": "0x001E1108",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d8bdd9ce18116819729a68042bc646832b9f3a69",
+      "candidate_size": 316,
+      "compared_bytes": 384,
+      "compared_instructions": 96,
+      "emitted_name": "load_iop_module__FPCcT0",
+      "instruction_score": 16.6667,
+      "matching_bytes": 94,
+      "matching_instructions": 16,
+      "notes": "# 0x001E1108 load_iop_module\n\nExact released body was tested once with minimal source-faithful declarations. Result: `different`, byte score 24.4792%, instruction score 16.6667%. No inherited attempt existed; status is `source_pending`.",
+      "score": 24.4792,
+      "source": "class string_buf;\n\nclass stringx\n{\nprotected:\n  char *chars;\n  string_buf *my_buf;\n\npublic:\n  stringx(const char *str, int len = -1);\n  ~stringx();\n  stringx &operator=(const stringx &cp);\n  stringx &operator+=(const char *str);\n  void to_upper();\n  inline const char *c_str() const { return chars; }\n\n  friend stringx operator+(const stringx& lhs, const stringx& rhs);\n};\n\ntemplate <class T>\nclass singleton_ptr\n{\n  T* p;\npublic:\n  operator T*() const { return p; }\n};\n\nclass singleton\n{\nprotected:\n  singleton() {}\n  virtual ~singleton() {}\n};\n\nclass os_developer_options : public singleton\n{\npublic:\n  enum flags_t\n  {\n    FLAG_STASH_ONLY,\n    FLAG_NO_CD\n  };\n\n  bool is_flagged(flags_t flag) const { return flags[flag]; }\n  static os_developer_options* inst() { return instance; }\n\nprivate:\n  static singleton_ptr<os_developer_options> instance;\n  bool flags[2];\n};\n\nextern const char* nglHostPrefix;\nextern \"C\" int sceSifLoadModule(char *, int, const char *);\nvoid nglPrintf(const char *, ...);\n\nbool load_iop_module(const char *module_name, const char *debug_path)\n{\n  int ret = -1;\n\n  // try to grab the sio2man off of the CD first \n  if (!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_CD))\n  {\n    stringx cd_name(module_name);\n    cd_name.to_upper();\n    cd_name = stringx(\"cdrom0:\\\\\") + cd_name;\n    cd_name += \";1\";\nnglPrintf(\"Trying to open %s\\n\", cd_name.c_str());\n    ret = sceSifLoadModule((char *)cd_name.c_str(), 0, 0);\n  }\n\n  if (ret < 0)\n  {\n    stringx disk_name(nglHostPrefix);\n    disk_name += module_name;\n    ret = sceSifLoadModule((char *)disk_name.c_str(), 0, 0);\n  }\n\n#if 0\n  if (ret < 0 && os_developer_options::inst()->is_flagged(os_developer_options::FLAG_STASH_ONLY))\n    return false;\n\n  if (ret < 0)\n  {\n    stringx debug_name(debug_path);\n    debug_name += module_name;\n    ret = sceSifLoadModule((char *)debug_name.c_str(),0, 0);\n  }\n#endif\n  return (ret >= 0);\n}\n",
+      "status": "different",
+      "target_size": 384
+    }
+  ],
+  "raw_name": "load_iop_module__FPCcT0"
+}
