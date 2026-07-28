@@ -1,0 +1,23 @@
+{
+  "address": "0x0031F158",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "048bf44dde933a048a571c940686d10d438290bb",
+      "candidate_size": 216,
+      "compared_bytes": 368,
+      "compared_instructions": 92,
+      "emitted_name": "__cl__12slf_strcmp_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 4.3478,
+      "matching_bytes": 46,
+      "matching_instructions": 4,
+      "notes": "Attempt 1 used the exact released source for __cl__12slf_strcmp_tR8vm_stackQ320script_library_class8function7entry_t. Result `different`, score 12.5000; no retry or variant was made.",
+      "score": 12.5,
+      "source": "typedef float vm_num_t;\n#define assert(condition) ((void)0)\n\nclass stringx\n{\npublic:\n  void* my_buf;\n  char* chars;\n  inline const char *data() const\n  {\n    assert(chars);\n    return chars;\n  }\n};\n\nextern stringx operator + (const stringx&, const char*);\nextern stringx operator + (const stringx&, const stringx&);\nextern void error(const stringx&);\nextern \"C\" int strcmp(const char*, const char*);\n\nclass script_object\n{\npublic:\n  class instance\n  {\n  public:\n    const stringx& get_name() const;\n  };\n};\n\nclass vm_executable\n{\npublic:\n  const stringx& get_fullname() const;\n};\n\nclass vm_thread\n{\npublic:\n  script_object::instance* get_instance() const;\n  const vm_executable* get_executable() const;\n};\n\nclass vm_stack\n{\npublic:\n  int salloc;\n  char* buffer;\n  char* SP;\nprivate:\n  vm_thread* my_thread;\npublic:\n  char* get_SP() const { return SP; }\n  void pop(int n) { SP -= n; }\n  bool push(const char* src, int n);\n  vm_thread* get_thread() const { return my_thread; }\n};\n\ntypedef const stringx* vm_str_t;\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t { FIRST_ENTRY, RECALL_ENTRY };\n  protected:\n    char* name;\n  public:\n    function(const char* n);\n    virtual ~function();\n    virtual bool operator()(vm_stack& stack, entry_t entry) = 0;\n  };\n};\n\n#define SLF_PARMS \\\n  stack.pop(sizeof(parms_t)); \\\n  parms_t* parms = (parms_t*)stack.get_SP()\n#define SLF_RETURN \\\n  if (!stack.push((char*)&result,sizeof(result)) ) \\\n    error( stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname() )\n#define SLF_DONE return true\n\nclass slf_strcmp_t : public script_library_class::function\n{\n  public:\n    slf_strcmp_t(const char* n): script_library_class::function(n) { }\n    struct parms_t\n    {\n      vm_str_t s1;\n      vm_str_t s2;\n    };\n    virtual bool operator ()(vm_stack &stack, entry_t entry)\n    {\n      SLF_PARMS;\n      vm_num_t result = strcmp( parms->s1->data(), parms->s2->data() );\n      SLF_RETURN;\n      SLF_DONE;\n    }\n};\n\nslf_strcmp_t slf_strcmp(\"strcmp(str,str)\");\n",
+      "status": "different",
+      "target_size": 368
+    }
+  ],
+  "raw_name": "__cl__12slf_strcmp_tR8vm_stackQ320script_library_class8function7entry_t"
+}
