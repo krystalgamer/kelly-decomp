@@ -1,0 +1,23 @@
+{
+  "address": "0x002F0118",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d494802edc3bf24f04e8aa9f9010d1c4ffa7468a",
+      "candidate_size": 332,
+      "compared_bytes": 336,
+      "compared_instructions": 84,
+      "emitted_name": "setBeachHighScore__15GlobalDataClassiibG13HighScoreData",
+      "instruction_score": 8.3333,
+      "matching_bytes": 154,
+      "matching_instructions": 7,
+      "notes": "Attempt 1 used exact released source cited at kelly-slaters-pro-surfer/KS/SRC/ks/GlobalData.cpp:198-205; kelly-slaters-pro-surfer/KS/SRC/ks/GlobalData.h:11-18,25-44,113-114; tmp/functions/002F0118_setBeachHighScore__15GlobalDataClassiibG13HighScoreData/attempt-1/result.json; tmp/source_first/002F0118/attempt-1.md. Result `different`, score 45.8333; no later attempt.",
+      "score": 45.8333,
+      "source": "#define assert(condition) ((void)0)\n\nclass HighScoreFrontEnd\n{\npublic:\n    static const int NUM_ROWS = 10;\n};\n\nstruct HighScoreData\n{\n    char initials[4];\n    char character[32];\n    int score;\n    int icons;\n};\n\nclass GlobalDataClass\n{\nprivate:\n    class BeachData\n    {\n    public:\n        HighScoreData high_scores[HighScoreFrontEnd::NUM_ROWS];\n        HighScoreData high_icons[HighScoreFrontEnd::NUM_ROWS];\n        bool unlocked;\n    };\n\n    char data_before_globalBeaches[0x75C];\n    BeachData globalBeaches[1];\n\npublic:\n    void setBeachHighScore(int beach, int whichScore, bool icons, HighScoreData newScore);\n};\n\nvoid GlobalDataClass::setBeachHighScore(int beach, int whichScore, bool icons, HighScoreData newScore) \n{ \n    assert(beach < 32);\n    if(icons)\n        globalBeaches[beach].high_icons[whichScore] = newScore; \n    else globalBeaches[beach].high_scores[whichScore] = newScore; \n}\n",
+      "status": "different",
+      "target_size": 336
+    }
+  ],
+  "raw_name": "setBeachHighScore__15GlobalDataClassiibG13HighScoreData"
+}
