@@ -1,0 +1,23 @@
+{
+  "address": "0x0034ADA0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "25c86d66796247d24260189d33ad3b5d8db8f51c",
+      "candidate_size": 280,
+      "compared_bytes": 420,
+      "compared_instructions": 105,
+      "emitted_name": "add_edge__10path_graphP15path_graph_nodeT1Usf",
+      "instruction_score": 20.9524,
+      "matching_bytes": 114,
+      "matching_instructions": 22,
+      "notes": "# Attempt 1 \u2014 exact released source\n\n- Used the exact released `path_graph::add_edge` body with minimal standalone\n  declarations.\n- Result: **different**\n- Byte score: **27.1429%**\n- Instruction score: **20.9524%**\n- Candidate size: **280 bytes**; target size: **420 bytes**\n- No variants, diff chasing, later attempts, build, finalization, integration,\n  tracked-file edits, commit, or push were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/path.cpp:573-598`\n- `kelly-slaters-pro-surfer/KS/SRC/path.h:25-180,329-376`\n- `tmp/functions/0034ADA0_add_edge__10path_graphP15path_graph_nodeT1Usf/attempt-1/result.json`",
+      "score": 27.1429,
+      "source": "typedef float rational_t;\n\nclass vector3d\n{\npublic:\n  float x, y, z;\n  vector3d operator-(const vector3d &) const;\n  rational_t length() const;\n  vector3d &operator*=(rational_t);\n};\n\ntemplate <class T> class vector\n{\n  T *start;\n  T *finish;\n  T *end_of_storage;\npublic:\n  void push_back(const T &);\n};\n\nclass path_graph_edge;\n\nclass path_graph_node\n{\n  vector3d pt;\n  void *my_region;\n  unsigned short flags;\n  vector<path_graph_edge *> edges;\n  friend class path_graph;\npublic:\n  virtual ~path_graph_node();\n  void add_edge(path_graph_edge *edge, bool sort = true);\n};\n\nclass path_graph_edge\n{\n  path_graph_node *nodes[2];\n  unsigned short flags;\n  rational_t distance;\n  rational_t weight_modifier;\n  rational_t additional_weight_modifier;\n  rational_t bias;\n  vector3d direction;\n  friend class path_graph;\npublic:\n  path_graph_edge();\n  virtual ~path_graph_edge();\n};\n\nclass path_graph\n{\n  char id[8];\n  vector<path_graph_node *> nodes;\n  vector<path_graph_edge *> edges;\npublic:\n  virtual ~path_graph();\n  bool edge_in_graph(const path_graph_node *node1, const path_graph_node *node2) const;\n  void add_edge(path_graph_node *node1, path_graph_node *node2, unsigned short flags, rational_t modifier);\n};\n\nvoid *operator new(unsigned int, unsigned int, const char *, int);\n\n#define NULL 0\n#define assert(x) ((void)0)\n#define NEW new(0, __PRETTY_FUNCTION__, 0)\n\nvoid path_graph::add_edge(path_graph_node *node1, path_graph_node *node2, unsigned short flags, rational_t modifier)\n{\n  assert(node1 != NULL && node2 != NULL);\n\n  if(!edge_in_graph(node1, node2))\n  {\n    path_graph_edge *edge = NEW path_graph_edge();\n\n    edge->nodes[0] = node1;\n    edge->nodes[1] = node2;\n    edge->direction = (edge->nodes[1]->pt - edge->nodes[0]->pt);\n    edge->distance = edge->direction.length();\n\n    assert(edge->distance > 0.0f);\n\n    edge->direction *= (1.0f / edge->distance);\n\n    edge->flags = flags;\n    edge->weight_modifier = modifier;\n\n    edge->nodes[0]->add_edge(edge, true);\n    edge->nodes[1]->add_edge(edge, true);\n\n    edges.push_back(edge);\n  }\n}\n",
+      "status": "different",
+      "target_size": 420
+    }
+  ],
+  "raw_name": "add_edge__10path_graphP15path_graph_nodeT1Usf"
+}
