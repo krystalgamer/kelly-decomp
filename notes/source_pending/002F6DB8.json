@@ -1,0 +1,23 @@
+{
+  "address": "0x002F6DB8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e8135976f623b29ec1d05370a6137b7af3a621e7",
+      "candidate_size": 364,
+      "compared_bytes": 380,
+      "compared_instructions": 95,
+      "emitted_name": "find__Ct8_Rb_tree5ZPQ2t13instance_bank1Z12vr_billboard5ref_tZPQ2t13instance_bank1Z12vr_billboard5ref_tZt9_Identity1ZPQ2t13instance_bank1Z12vr_billboard5ref_tZQ2t13instance_bank1Z12vr_billboard13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z12vr_billboard5ref_t",
+      "instruction_score": 11.5789,
+      "matching_bytes": 114,
+      "matching_instructions": 11,
+      "notes": "Attempt 1 used the exact released source body and minimal declarations for `find__Ct8_Rb_tree5ZPQ2t13instance_bank1Z12vr_billboard5ref_tZPQ2t13instance_bank1Z12vr_billboard5ref_tZt9_Identity1ZPQ2t13instance_bank1Z12vr_billboard5ref_tZQ2t13instance_bank1Z12vr_billboard13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z12vr_billboard5ref_t`. Result `different`, score 30.0000; no retry or declaration variant was made. Citations: C:/usr/local/sce/ee/gcc/include/g++-2/stl_tree.h, kelly-slaters-pro-surfer/KS/SRC/instance.h:11-42, kelly-slaters-pro-surfer/KS/SRC/stringx.h:184-205, kelly-slaters-pro-surfer/KS/SRC/stringx.h:609-612, tmp/functions/002F6DB8_find__Ct8_Rb_tree5ZPQ2t13instance_bank1Z12vr_billboard5ref_tZPQ2t13instance_bank1Z12vr_billboard5r_52ab3e5b9aef/attempt-1/result.json, tmp/source_first/002F6DB8/attempt-1.md.",
+      "score": 30.0,
+      "source": "struct string_buf\n{\n    unsigned long long *data;\n    int ref_count;\n    int char_length;\n    int block_length;\n    int max_blocks;\n\n    int compare(const string_buf &buf) const\n    {\n        int i;\n        const char *a = reinterpret_cast<const char *>(data);\n        const char *b = reinterpret_cast<const char *>(buf.data);\n        int cmp_len = (char_length < buf.char_length ? char_length : buf.char_length);\n        for (i = 0; i < cmp_len; i++) {\n            if (a[i] == b[i]) continue;\n            if (b[i] > a[i]) return 1;\n            if (b[i] < a[i]) return -1;\n        }\n        if (buf.char_length > char_length) return 1;\n        if (buf.char_length < char_length) return -1;\n        return 0;\n    }\n};\n\nstruct stringx\n{\n    char *chars;\n    string_buf *my_buf;\n};\n\ninline bool operator<(const stringx &lhs, const stringx &rhs)\n{\n    return lhs.my_buf->compare(*rhs.my_buf) == 1;\n}\n\nstruct ref_t\n{\n    stringx label;\n    void *ptr;\n    unsigned int count;\n};\n\nstruct node\n{\n    int color;\n    node *parent;\n    node *left;\n    node *right;\n    ref_t *value;\n};\n\nstruct tree\n{\n    node *header;\n\n    node *find(ref_t *const &key) const\n        __asm__(\"find__Ct8_Rb_tree5ZPQ2t13instance_bank1Z12vr_billboard5ref_tZPQ2t13instance_bank1Z12vr_billboard5ref_tZt9_Identity1ZPQ2t13instance_bank1Z12vr_billboard5ref_tZQ2t13instance_bank1Z12vr_billboard13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z12vr_billboard5ref_t\");\n};\n\nnode *tree::find(ref_t *const &key) const\n{\n    node *y = header;\n    node *x = header->parent;\n    while (x != 0)\n        if (!(x->value->label < key->label))\n            y = x, x = x->left;\n        else\n            x = x->right;\n    node *j = y;\n    return (j == header || key->label < j->value->label) ? header : j;\n}\n",
+      "status": "different",
+      "target_size": 380
+    }
+  ],
+  "raw_name": "find__Ct8_Rb_tree5ZPQ2t13instance_bank1Z12vr_billboard5ref_tZPQ2t13instance_bank1Z12vr_billboard5ref_tZt9_Identity1ZPQ2t13instance_bank1Z12vr_billboard5ref_tZQ2t13instance_bank1Z12vr_billboard13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z12vr_billboard5ref_t"
+}
