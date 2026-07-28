@@ -1,0 +1,15 @@
+{
+  "address": "0x0034EB50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1bac482953f42894128e09a91a95e36a18982022",
+      "notes": "Candidate 1 used the exact released `stringx::read_token` body with only the released type layout, declarations, inline helpers, and required C headers.\n\nResult: `compile_failed`, score `0.0`. The compiler could not locate `assert.h` or `string.h`; this consumed the sole permitted attempt. No retry was made.\n\nCitations: `kelly-slaters-pro-surfer/KS/SRC/stringx.cpp:765-789`; `kelly-slaters-pro-surfer/KS/SRC/stringx.h:18-19,230-236,278-287,301-302,391-424`.",
+      "score": 0.0,
+      "source": "#include <assert.h>\n#include <string.h>\n\ntypedef unsigned long long big_int;\n\nclass stringx;\n\nclass string_buf\n{\nprotected:\n  friend class stringx;\n\n  big_int *data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n};\n\nclass stringx\n{\n  friend class string_buf;\n\n  protected:\n    char *chars;\n    string_buf *my_buf;\n\n  public:\n    stringx(const stringx &cp);\n    ~stringx();\n\n    void copy(stringx &cp);\n\n    inline int size() const\n    {\n      assert(chars);\n      return my_buf->char_length;\n    }\n\n    inline int length() const\n    {\n      return size();\n    }\n\n    stringx substr(int i = 0, int n = -1) const;\n\n    inline stringx slice(int start, int end) const\n    {\n      if (start < 0)\n        start += length();\n      if (end < 0)\n        end += length();\n      assert(start <= end);\n      return substr(start, end-start);\n    };\n\n    stringx read_token(char *delim, int start_index = 0, bool ignore_leading = true, bool chop = false);\n};\n\nstringx stringx::read_token(char *delim, int start_index, bool ignore_leading, bool chop)\n{\n\tint start = start_index, end;\n\t\n\tif (start_index < 0)\n\t\tstart_index += length();\n\t\n\tif (ignore_leading) {\n\t\twhile (strchr(delim, chars[start]) && start < length())\n\t\t\tstart++;\n\t}\n\t\n\tend = start;\n\t\n\twhile (!strchr(delim, chars[end]) && end < length())\n\t\tend++;\n\t\n\tstringx result = slice(start, end);\n\t\n\tif (chop) {\n\t\tstringx tmp = slice(end, length());\n\t\tcopy(tmp);\n\t}\n\t\n\treturn result;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "read_token__7stringxPcibT3"
+}
