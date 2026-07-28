@@ -1,0 +1,15 @@
+{
+  "address": "0x003276D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "000d0bf1f1dca2ac0e394b39df1ef5ec5eee0546",
+      "notes": "Exact released-source first-pass attempt using the class declaration and unchanged operator body from `kelly-slaters-pro-surfer/KS/SRC/script_lib_item.cpp:77-100`, with supporting released declarations from `script_lib_item.h:9-28`, `item.h:32-103`, `vm_stack.h:21-77`, and `script_library_class.h:264-294`.\n\nCanonical result: `compile_failed`, score `0.0`. The compiler could not resolve `KS/SRC/global.h` and `KS/SRC/vm_stack.h`. Per the one-attempt lane constraint, no retry or declaration variant was attempted.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/global.h\"\n#include \"KS/SRC/script_lib_item.h\"\n#include \"KS/SRC/item.h\"\n#include \"KS/SRC/vm_stack.h\"\n\nclass slf_item_get_count_t : public script_library_class::function\n  {\n  public:\n    slf_item_get_count_t( script_library_class* slc, const char* n )\n    :   script_library_class::function( slc, n )\n      {\n      }\n    struct parms_t\n      {\n      vm_item_t me;\n      };\n    virtual bool operator()( vm_stack& stack, entry_t entry )\n      {\n      SLF_PARMS;\n      vm_num_t result = parms->me->get_count();\n      SLF_RETURN;\n      SLF_DONE;\n      }\n  };\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__cl__20slf_item_get_count_tR8vm_stackQ320script_library_class8function7entry_t"
+}
