@@ -1,0 +1,23 @@
+{
+  "address": "0x0013AA30",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a63361abf8450125040d4e682872fd4fefda16d4",
+      "candidate_size": 112,
+      "compared_bytes": 424,
+      "compared_instructions": 98,
+      "emitted_name": "_$_8polytube",
+      "instruction_score": 4.0816,
+      "matching_bytes": 28,
+      "matching_instructions": 4,
+      "notes": "# FIRST PASS wave 74 lane B3 \u2014 0x0013AA30\n\n- Confirmed no prior attempt existed.\n- Used the exact released `polytube::~polytube` body with minimal self-contained declarations.\n- Ran `function_test` exactly once. Result: `different`; byte score 6.6038% (28/424), instruction score 4.0816% (4/98), candidate size 112 versus target 424.\n- No variants, diff chasing, retries, finalization, build, integration, commit, or tracked-file mutation were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/polytube.cpp:370-377`\n- `kelly-slaters-pro-surfer/KS/SRC/polytube.h:11-35`\n- `kelly-slaters-pro-surfer/KS/SRC/b_spline.h:9-53`\n- `tmp/functions/0013AA30__$_8polytube/attempt-1/result.json`\n- `tmp/source_first/0013AA30/attempt-1.md`",
+      "score": 6.6038,
+      "source": "void operator delete(void*);\n\nclass entity\n{\n  char data_[508];\n\npublic:\n  virtual ~entity();\n};\n\nclass mat_fac\n{\npublic:\n  virtual ~mat_fac();\n};\n\nstruct vector3d\n{\n  float x;\n  float y;\n  float z;\n};\n\ntemplate <class T>\nclass vector\n{\n  T* start_;\n  T* finish_;\n  T* end_;\n\npublic:\n  ~vector()\n  {\n    if (start_ != 0)\n      operator delete(start_);\n  }\n};\n\nclass b_spline\n{\n  vector<vector3d> control_pts;\n  vector<vector3d> curve_pts;\n  int sub_divisions;\n  int spline_type;\n  bool force_start;\n\npublic:\n  ~b_spline()\n  {\n  }\n};\n\nclass polytube : public entity\n{\n  bool use_spline;\n  b_spline spline;\n  mat_fac* my_material;\n  float tube_radius;\n  int num_sides;\n  float tiles_per_meter;\n  float max_length;\n\npublic:\n  virtual ~polytube();\n};\n\n__asm__(\".equ _$_6entity,0x001298C8\");\n__asm__(\".equ _$_7mat_fac,0x002BC998\");\n__asm__(\".equ __builtin_delete,0x002AC6B0\");\n\npolytube::~polytube()\n{\n  if (my_material != 0)\n  {\n    delete my_material;\n    my_material = 0;\n  }\n}\n",
+      "status": "different",
+      "target_size": 424
+    }
+  ],
+  "raw_name": "_$_8polytube"
+}
