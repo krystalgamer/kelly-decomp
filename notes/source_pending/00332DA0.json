@@ -1,0 +1,16 @@
+{
+  "address": "0x00332DA0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ca460cad88282d34e2cd7c02fefb35c0b153006a",
+      "error": "Candidate did not emit __cl__24slf_entity_list_rbegin_tR8vm_stackQ320script_library_class8function7entry_t; emitted functions: []",
+      "notes": "Attempt 1 used the exact released source for __cl__24slf_entity_list_rbegin_tR8vm_stackQ320script_library_class8function7entry_t. Result `symbol_missing`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "class vm_stack\n{\npublic:\n  void pop(int);\n  void* get_SP();\n  bool push(char*, int);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t { FIRST_ENTRY, RECALL_ENTRY };\n    function(script_library_class*, const char*);\n    virtual ~function();\n    virtual bool operator()(vm_stack&, entry_t) { return true; }\n  };\n};\n\nstruct vm_entity_list_iterator_t\n{\n  vm_entity_list_iterator_t& operator--();\n};\n\nstruct entity_list\n{\n  vm_entity_list_iterator_t end();\n};\n\ntypedef entity_list* vm_entity_list_t;\n\n#define SLF_PARMS \\\n  stack.pop(sizeof(parms_t)); \\\n  parms_t* parms = (parms_t*)stack.get_SP()\n#define SLF_RETURN \\\n  if (!stack.push((char*)&result,sizeof(result)) ) \\\n    error( \"script stack overflow\" )\n#define SLF_DONE return true\n\nvoid error(const char*);\n\n// script library function:  entity_list_iterator entity_list::rbegin()\nclass slf_entity_list_rbegin_t : public script_library_class::function\n  {\n  public:\n    // constructor required\n    slf_entity_list_rbegin_t(script_library_class* slc,const char* n) : script_library_class::function(slc,n) {}\n    // library function parameters\n    struct parms_t\n      {\n      // parameters\n      vm_entity_list_t me;\n      };\n    // library function execution\n    virtual bool operator()(vm_stack& stack,entry_t entry)\n      {\n      SLF_PARMS;\n      vm_entity_list_iterator_t result = parms->me->end();\n\t    --result;\n      SLF_RETURN;\n      SLF_DONE;\n      }\n  };\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__cl__24slf_entity_list_rbegin_tR8vm_stackQ320script_library_class8function7entry_t"
+}
