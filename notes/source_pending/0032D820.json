@@ -1,0 +1,15 @@
+{
+  "address": "0x0032D820",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4e9b58762e7332f2a764d828d773af2262feca98",
+      "notes": "Attempt 1 used the exact released source for __cl__29slf_bitmap_widget_get_width_tR8vm_stackQ320script_library_class8function7entry_t. Result `compile_failed`, score 0.0000; no retry or variant was made.",
+      "score": 0.0,
+      "source": "typedef float vm_num_t;\n\nclass stringx\n{\npublic:\n  stringx operator+(const char*) const;\n};\n\nclass script_object\n{\npublic:\n  class instance\n  {\n  public:\n    const stringx& get_name() const;\n  };\n};\n\nclass vm_executable\n{\npublic:\n  const stringx& get_fullname() const;\n};\n\nclass vm_thread\n{\npublic:\n  script_object::instance* get_instance() const;\n  vm_executable* get_executable() const;\n};\n\nclass vm_stack\n{\npublic:\n  int salloc;\n  char* buffer;\n  char* SP;\nprivate:\n  vm_thread* my_thread;\npublic:\n  char* get_SP() const { return SP; }\n  vm_thread* get_thread() const { return my_thread; }\n  void pop(int n) { SP -= n; }\n  bool push(const char* src, int n);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n\n  protected:\n    char* name;\n\n  public:\n    function(script_library_class*, const char*) {}\n    virtual ~function() {}\n    virtual bool operator()(vm_stack&, entry_t) { return true; }\n  };\n};\n\nclass bitmap_widget\n{\npublic:\n  virtual vm_num_t get_width() { return 1.0f; }\n};\n\ntypedef bitmap_widget* vm_bitmap_widget_t;\n\nvoid error(const stringx&);\n\nclass slf_bitmap_widget_get_width_t : public script_library_class::function\n{\npublic:\n  slf_bitmap_widget_get_width_t(script_library_class* slc,const char* n) : script_library_class::function(slc,n) {}\n  struct parms_t\n  {\n    vm_bitmap_widget_t me;\n  };\n  virtual bool operator()(vm_stack& stack,entry_t entry)\n  {\n    stack.pop(sizeof(parms_t));\n    parms_t* parms = (parms_t*)stack.get_SP();\n    vm_num_t result = parms->me->get_width();\n    if (!stack.push((char*)&result,sizeof(result)) )\n      error( stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname() );\n    return true;\n  }\n};\n\nslf_bitmap_widget_get_width_t slf_bitmap_widget_get_width((script_library_class*)0,\"get_width()\");\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__cl__29slf_bitmap_widget_get_width_tR8vm_stackQ320script_library_class8function7entry_t"
+}
