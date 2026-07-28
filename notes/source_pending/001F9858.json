@@ -1,0 +1,23 @@
+{
+  "address": "0x001F9858",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "14c90ab7167f64eae615b60f9d3994a28d5868ba",
+      "candidate_size": 376,
+      "compared_bytes": 376,
+      "compared_instructions": 94,
+      "emitted_name": "CorrectLipError__20SurfBoardObjectClassR8vector3df",
+      "instruction_score": 100.0,
+      "matching_bytes": 366,
+      "matching_instructions": 94,
+      "notes": "# Attempt 1\n\nResult: different (source_pending), score 97.3404%; instruction score 100.0%. Candidate and target are both 376 bytes; 366/376 bytes and 94/94 instructions matched.\n\nReleased-source citations: `7c3ade041cc03409a3114ce3ba4a70053c6e4e3b:KS/SRC/ks/board.cpp:2988-3005` and `7c3ade041cc03409a3114ce3ba4a70053c6e4e3b:KS/SRC/ks/board.h:328-329,333,348-354,440`.\n\nNo retry: FIRST PASS lane permits exactly one candidate test.",
+      "score": 97.3404,
+      "source": "typedef float rational_t;\n\nclass vector3d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z;\n\n  inline vector3d() {}\n  inline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n  inline vector3d(T _x, T _y, T _z) { x = _x; y = _y; z = _z; }\n  inline vector3d& operator = (const vector3d& v)\n  { x = v.x; y = v.y; z = v.z; return *this; }\n  inline vector3d& operator -= (const vector3d& v)\n  { x -= v.x; y -= v.y; z -= v.z; return *this; }\n};\n\ninline vector3d operator - (const vector3d& a, const vector3d& b)\n{ return vector3d(a.x - b.x, a.y - b.y, a.z - b.z); }\n\ninline vector3d operator + (const vector3d& a, const vector3d& b)\n{ return vector3d(a.x + b.x, a.y + b.y, a.z + b.z); }\n\ninline vector3d operator * (const vector3d& a, vector3d::T d)\n{ return vector3d(d * a.x, d * a.y, d * a.z); }\n\ninline vector3d operator * (vector3d::T d, const vector3d& a)\n{ return vector3d(d * a.x, d * a.y, d * a.z); }\n\nextern const vector3d ZVEC;\nextern const vector3d ZEROVEC;\n\nenum WavePerturbType\n{\n  WAVE_PerturbTypeTongue = 4,\n  WAVE_PerturbTypeBigTongue = 5\n};\n\nstruct WaveBreakInfoStruct\n{\n  int onoff;\n  WavePerturbType type;\n};\n\nclass PhysicsObjectClass\n{\npublic:\n  char pad[0x20];\n  vector3d pos;\n};\n\nclass SurfBoardObjectClass\n{\npublic:\n  char pad_000[0x04];\n  PhysicsObjectClass *rb;\n  char pad_008[0xE8];\n  int lip_jump;\n  char pad_0F4[0x04];\n  int float_jump;\n  char pad_0FC[0x0C];\n  int exit_jump;\n  char pad_10C[0x10];\n  WaveBreakInfoStruct wave_info;\n  char pad_124[0x980];\n  vector3d float_pos;\n\n  void CorrectLipError(vector3d &pos, float dt);\n  bool TongueEffectOn(void) { return (wave_info.onoff && ((wave_info.type == WAVE_PerturbTypeBigTongue)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t|| (wave_info.type == WAVE_PerturbTypeTongue))); }\n};\n\nvoid SurfBoardObjectClass::CorrectLipError(vector3d &pos, float dt)\n{\n\tif (lip_jump && float_jump && !exit_jump)\n\t{\n\t\tvector3d delta = -0.5f*ZVEC;\n\t\tif (TongueEffectOn())\n\t\t{\n\t\t\tdelta = ZEROVEC;\n\t\t}\n\n\t\tvector3d vec1 = rb->pos - (float_pos + delta);\n\t\tvec1.y = 0.0f;\n\t\t//vec1.normalize();\n\t\trb->pos -= vec1*dt*4.0f;\n\t\tpos = rb->pos;\n\t}\n\n}\n",
+      "status": "different",
+      "target_size": 376
+    }
+  ],
+  "raw_name": "CorrectLipError__20SurfBoardObjectClassR8vector3df"
+}
