@@ -1,0 +1,23 @@
+{
+  "address": "0x00386520",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "795b391e6eb2ab32e9a74f2f5383c0530478e348",
+      "candidate_size": 376,
+      "compared_bytes": 384,
+      "compared_instructions": 96,
+      "emitted_name": "nvlStreamSystemShutdown__Fi",
+      "instruction_score": 3.125,
+      "matching_bytes": 75,
+      "matching_instructions": 3,
+      "notes": "# 0x00386520 nvlStreamSystemShutdown\n\nTested the exact released body once with minimal source-faithful declarations. The initial harness invocation supplied the candidate from inside the destination attempt directory, an infrastructure error that removed it before compilation. Re-running the identical SHA-1 candidate from safe scratch produced the canonical sole attempt: `different`, 19.5312% byte score and 3.1250% instruction score. No source variant was attempted.\n\nCitations: `kelly-slaters-pro-surfer/NVL/PS2/nvlstream_ps2.cpp:850-899`; `tmp/functions/00386520_nvlStreamSystemShutdown__Fi/attempt-1/result.json`.",
+      "score": 19.5312,
+      "source": "typedef int nvlMsg;\ntypedef void (*callbackType)(int);\nstruct nvlMsgQueue { int sema; nvlMsg *array; };\nstruct nvlStream;\nstruct ThreadParam { int status; void (*entry)(void *); void *stack; int stackSize; void *gpReg; int initPriority, currentPriority; unsigned int attr, option; int waitType, waitId, wakeupCount; };\nenum { NVLSTREAM_MSG_NUM=8, CDVD_MSG_NUM=1, NVL_MAX_STREAM_NUM=8, NVL_MSG_SHUTDOWN=0, NVL_STREAM_MAX_TRIES=3600, INTC_VBLANK_S=2, SCECdEXIT=1 };\nstruct nvlStreamSystemData_t {\n  char *threadStack; ThreadParam threadParam; int threadID, mainThreadID;\n  nvlMsgQueue threadMsgQueue; nvlMsg msg[NVLSTREAM_MSG_NUM];\n  nvlMsgQueue cdvdMsgQueue; nvlMsg cdvdMsg[CDVD_MSG_NUM];\n  int vblankHandlerID, VBWasEnabled, vblankSema;\n  nvlStream *pStream[NVL_MAX_STREAM_NUM]; int streamList[NVL_MAX_STREAM_NUM];\n  callbackType prevCDVDCallback;\n};\nextern nvlStreamSystemData_t nvlStreamSystemData;\nextern int nvlStreamSystemInitialized, nvlStreamSystemLibsInitialized;\nextern volatile int nvlStreamSystemThreadIsRunning;\nextern void (*nvlStreamFreeFunc)(void *);\nvoid nvlStreamDestroy(nvlStream *); void nvlSendMsg(nvlMsgQueue *, nvlMsg, nvlStream *);\nvoid nvlWaitForVB(); void nvlDestroyMsgQueue(nvlMsgQueue *);\nextern \"C\" void free(void *); extern \"C\" callbackType sceCdCallback(callbackType);\nextern \"C\" int DisableIntc(int); extern \"C\" int RemoveIntcHandler(int,int);\nextern \"C\" int EnableIntc(int); extern \"C\" int sceCdInit(int);\nextern \"C\" void __assert(const char *, int, const char *);\nextern const char source_file[], max_tries_expression[];\n__asm__(\".equ nvlStreamSystemData,0x00595E80\\n.equ nvlStreamSystemInitialized,0x0048AFE0\\n.equ nvlStreamSystemLibsInitialized,0x0048AFE4\\n.equ nvlStreamSystemThreadIsRunning,0x0048AFEC\\n.equ nvlStreamFreeFunc,0x00596F48\\n.equ nvlStreamDestroy__FP9nvlStream,0x00386B38\\n.equ nvlSendMsg__FP11nvlMsgQueueiP9nvlStream,0x003855A0\\n.equ nvlWaitForVB__Fv,0x00385650\\n.equ nvlDestroyMsgQueue__FP11nvlMsgQueue,0x003853C8\\n.equ free,0x003D0BC8\\n.equ sceCdCallback,0x003BC948\\n.equ DisableIntc,0x003DBD60\\n.equ RemoveIntcHandler,0x003DB470\\n.equ EnableIntc,0x003DBDC8\\n.equ sceCdInit,0x003BD440\\n.equ __assert,0x003CF6B0\\n.equ source_file,0x0051AD40\\n.equ max_tries_expression,0x0051B300\");\n#define assert(x) ((x)?(void)0:__assert(source_file,881,max_tries_expression))\nvoid nvlStreamSystemShutdown( int exitCDVD )\n{\n  if( nvlStreamSystemInitialized )\n  {\n    for( int i = 0; i < NVL_MAX_STREAM_NUM; i++ )\n    {\n      nvlStream *s = nvlStreamSystemData.pStream[i];\n      if( s ) { nvlStreamDestroy( s ); }\n    }\n    nvlSendMsg( &nvlStreamSystemData.threadMsgQueue, NVL_MSG_SHUTDOWN, 0 );\n    for( int i = 0; nvlStreamSystemThreadIsRunning; i++ )\n    {\n      assert( i < NVL_STREAM_MAX_TRIES );\n      nvlWaitForVB();\n    }\n    if( nvlStreamFreeFunc ) { (*nvlStreamFreeFunc)( nvlStreamSystemData.threadStack ); }\n    else { free( nvlStreamSystemData.threadStack ); }\n    sceCdCallback( nvlStreamSystemData.prevCDVDCallback );\n    DisableIntc( INTC_VBLANK_S );\n    RemoveIntcHandler( INTC_VBLANK_S, nvlStreamSystemData.vblankHandlerID );\n    if( nvlStreamSystemData.VBWasEnabled ) { EnableIntc( INTC_VBLANK_S ); }\n    nvlDestroyMsgQueue( &nvlStreamSystemData.threadMsgQueue );\n    nvlDestroyMsgQueue( &nvlStreamSystemData.cdvdMsgQueue );\n    nvlStreamSystemInitialized = 0;\n  }\n  if( exitCDVD && nvlStreamSystemLibsInitialized )\n  {\n    sceCdInit( SCECdEXIT );\n    nvlStreamSystemLibsInitialized = 0;\n  }\n}\n",
+      "status": "different",
+      "target_size": 384
+    }
+  ],
+  "raw_name": "nvlStreamSystemShutdown__Fi"
+}
