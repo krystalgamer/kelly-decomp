@@ -1,0 +1,23 @@
+{
+  "address": "0x003AAB00",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bd846e54d42d90445ce0b9ed1633b45e7c3cd1bb",
+      "candidate_size": 428,
+      "compared_bytes": 444,
+      "compared_instructions": 111,
+      "emitted_name": "nglDumpTextures__Fv",
+      "instruction_score": 15.3153,
+      "matching_bytes": 145,
+      "matching_instructions": 17,
+      "notes": "Exact released body from `kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:10019-10065`, with only isolated, layout-faithful declarations. Target assembly (`tmp/functions/003AAB00_nglDumpTextures__Fv/target.s`) and reference were inspected before this sole test. Result: `different`, byte score 32.6577%, instruction score 15.3153%. Per lane instructions, no retry, alternate body, variants, or post-test diff chasing.",
+      "score": 32.6577,
+      "source": "typedef unsigned int u_int;\n\nclass nglFixedString\n{\npublic:\n  const char* c_str() const\n  {\n    return str;\n  }\n\n  char str[32];\n};\n\nclass nglInstanceBank\n{\npublic:\n  struct Instance\n  {\n    nglFixedString Key;\n    void* Value;\n    int RefCount;\n    Instance* Forward[1];\n  };\n\n  Instance* NIL;\n  Instance* Head;\n};\n\nenum\n{\n  NGLTEX_TGA,\n  NGLTEX_TIM2,\n  NGLTEX_IFL,\n  NGLTEX_ATE,\n};\n\nstruct nglTexture\n{\n  char Pad0[16];\n  unsigned char Type;\n  char Pad1[27];\n  u_int SrcDataSize;\n  char FileBuf[16];\n  nglFixedString FileName;\n};\n\nstruct nglMaterial\n{\n  u_int Flags;\n  nglTexture* Map;\n  nglTexture* LightMap;\n  nglTexture* DetailMap;\n  nglTexture* EnvironmentMap;\n};\n\nstruct nglMeshSection\n{\n  nglMaterial* Material;\n  char Pad[60];\n};\n\nstruct nglMesh\n{\n  char Pad0[16];\n  nglFixedString Name;\n  char Pad1[36];\n  u_int NSections;\n  nglMeshSection* Sections;\n};\n\nextern nglInstanceBank nglTextureBank;\nextern nglInstanceBank nglMeshBank;\nu_int nglHostOpen( const char* FileName );\nvoid nglHostPrintf( u_int File, const char* Format, ... );\nvoid nglHostClose( u_int File );\n\nvoid nglDumpTextures()\n{\n  u_int file = nglHostOpen( \"ngl_texdump.txt\" );\n\n  int TotalCount = 0;\n  int TotalSize = 0;\n\n  nglInstanceBank::Instance* Inst = nglTextureBank.Head->Forward[0];\n  while ( Inst != nglTextureBank.NIL )\n  {\n    nglTexture* Tex = (nglTexture*)Inst->Value;\n    int Size = 0;\n    if ( Tex->Type == NGLTEX_TIM2 || Tex->Type == NGLTEX_TGA )\n      Size = Tex->SrcDataSize;\n    else if ( Tex->Type == NGLTEX_IFL )\n    {\n      // Size stays 0 for IFLs, as we can't easily track duplicate frames.\n//      for ( u_int i = 0; i < Tex->NFrames; i++ )\n//        Size += Tex->Frames[i]->ph->TotalSize;\n    }\n    nglHostPrintf( file, \"%s (%d): \", Tex->FileName.c_str(), Size );\n\n    TotalCount++;\n    TotalSize += Size;\n\n    nglInstanceBank::Instance* MeshInst = nglMeshBank.Head->Forward[0];\n    while ( MeshInst != nglMeshBank.NIL )\n    {\n      nglMesh* Mesh = (nglMesh*)MeshInst->Value;\n      bool Found = false;\n      for ( u_int i = 0; i < Mesh->NSections; i++ )\n      {\n        nglMaterial* Material = Mesh->Sections[i].Material;\n        if ( Material->Map == Tex || Material->DetailMap == Tex || Material->LightMap == Tex || Material->EnvironmentMap == Tex )\n          Found = true;\n      }\n      if ( Found )\n        nglHostPrintf( file, \"%s, \", Mesh->Name.c_str() );\n      MeshInst = MeshInst->Forward[0];\n    }\n    nglHostPrintf( file, \"\\n\" );\n    Inst = Inst->Forward[0];\n  }\n\n  nglHostPrintf( file, \"Total Textures: %d   Total Size: %d\\n\", TotalCount, TotalSize );\n  nglHostClose( file );\n}\n",
+      "status": "different",
+      "target_size": 444
+    }
+  ],
+  "raw_name": "nglDumpTextures__Fv"
+}
