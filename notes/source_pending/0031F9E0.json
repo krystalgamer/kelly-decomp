@@ -1,0 +1,16 @@
+{
+  "address": "0x0031F9E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1e572b43773ea90c59e0c8bffba663710cef16d5",
+      "error": "Candidate did not emit __cl__16slf_text_width_tR8vm_stackQ320script_library_class8function7entry_t; emitted functions: []",
+      "notes": "# FIRST PASS wave 67 A4\n\nTarget: `0x0031F9E0 __cl__16slf_text_width_tR8vm_stackQ320script_library_class8function7entry_t`\n\nExactly one candidate was tested: the exact released `slf_text_width_t::operator()` body with minimal declarations.\n\nResult: **symbol_missing**, score **0.0%**; the isolated candidate emitted no functions.\n\nNo retry, variants, diff chasing, build, finalize, integration, tracked-file edits, commit, or push.\n\nCitations: released `kelly-slaters-pro-surfer/KS/SRC/script_lib.cpp:1226-1247`; candidate `tmp/source_first/0031F9E0/candidate.cpp`; result `tmp/functions/0031F9E0___cl__16slf_text_width_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/result.json`.",
+      "score": 0.0,
+      "source": "class stringx\n{\npublic:\n  stringx();\n  stringx(const stringx &);\n  ~stringx();\n  const char *c_str() const;\n};\n\nstringx operator+(const stringx &, const char *);\nstringx operator+(const char *, const stringx &);\nstringx operator+(const stringx &, const stringx &);\n\nclass script_instance\n{\npublic:\n  const stringx &get_name() const;\n};\n\nclass script_executable\n{\npublic:\n  const stringx &get_fullname() const;\n};\n\nclass vm_thread\n{\npublic:\n  script_instance *get_instance() const;\n  script_executable *get_executable() const;\n};\n\ntypedef float rational_t;\ntypedef float vm_num_t;\ntypedef stringx *vm_str_t;\n\nclass vm_stack\n{\n  int salloc;\n  char *buffer;\n  char *SP;\n  vm_thread *my_thread;\npublic:\n  vm_thread *get_thread() const { return my_thread; }\n  bool push(const char *, int);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n\n    virtual ~function();\n    virtual bool operator()(vm_stack &, entry_t) { return true; }\n  };\n};\n\nclass typeface_def\n{\npublic:\n  float text_width(const char *) const;\n};\n\nextern typeface_def *font;\nvoid error(const stringx &);\n\nclass slf_text_width_t : public script_library_class::function\n{\n  public:\n    struct parms_t\n    {\n      vm_str_t msg;\n    };\n    virtual bool operator ()(vm_stack &stack, entry_t entry)\n    {\n      parms_t* parms = (parms_t*)stack.get_thread();\n      vm_num_t result = (rational_t)font->text_width((*parms->msg).c_str());\n      if (!stack.push((char*)&result,sizeof(result)) )\n        error( stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname() );\n      return true;\n    }\n};\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__cl__16slf_text_width_tR8vm_stackQ320script_library_class8function7entry_t"
+}
