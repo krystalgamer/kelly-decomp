@@ -1,0 +1,23 @@
+{
+  "address": "0x00285350",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "dfbe0dc25396f03ab2eb779abf8a579d2999a486",
+      "candidate_size": 376,
+      "compared_bytes": 376,
+      "compared_instructions": 94,
+      "emitted_name": "calc_beach_spawn_pos__4game",
+      "instruction_score": 80.8511,
+      "matching_bytes": 344,
+      "matching_instructions": 76,
+      "notes": "# Attempt 1\n\nResult: `different` (score `91.4894`; instruction score `80.8511`; 344/376 matching bytes, 76/94 matching instructions). The candidate used the exact released function body with minimal declarations and layouts from pinned commit `7c3ade041cc03409a3114ce3ba4a70053c6e4e3b`.\n\nCitations: `KS/SRC/game.cpp:5562-5595`, `KS/SRC/HWOSPS2/ps2_algebra.h:292-390`, `KS/SRC/ks/beachdata.h:52-149`, `KS/SRC/ks/wavedata.h:39-186`, `KS/SRC/game.h:137-256`.\n\nNo retry: FIRST PASS lane permits exactly one candidate test.",
+      "score": 91.4894,
+      "source": "typedef float rational_t;\n\nclass vector3d\n{\npublic:\n\ttypedef rational_t T;\n\tT x,y,z;\n\n\tinline vector3d() {}\n\tinline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n\tinline vector3d(T _x, T _y, T _z) { x = _x; y = _y; z = _z; }\n\tinline vector3d& operator = (const vector3d& v)\n\t{ x = v.x; y = v.y; z = v.z; return *this; }\n};\n\ninline vector3d operator + (const vector3d& a, const vector3d& b)\n{ return vector3d(a.x + b.x, a.y + b.y, a.z + b.z); }\n\ninline vector3d operator * (vector3d::T d, const vector3d& a)\n{ return vector3d(d * a.x, d * a.y, d * a.z); }\n\ntypedef struct BeachDataStruct {\n\tchar name[32];\n\tchar folder[32];\n\tchar stashfile[16];\n\tchar fe_name[32];\n\tchar career_name[32];\n\tchar bottomname[32];\n\tchar capsulename[32];\n\tint bdir;\n\tchar rest[320];\n} BeachData;\n\ntypedef struct WaveDataStruct {\n\tchar name[32];\n\tfloat tileu;\n\tfloat tilev;\n\tfloat tileu_xbox;\n\tfloat tilev_xbox;\n\tfloat speedx;\n\tfloat speedz;\n\tchar rest[528];\n} WaveData;\n\nclass game\n{\n\tchar pad0[180];\n\tint num_ai_players;\n\tint num_active_players;\n\tchar pad1[364];\n\tint beach_id;\npublic:\n\tint get_beach_id() { return beach_id; }\n\tbool is_splitscreen(void) { return num_active_players > 1 && num_ai_players == 0; }\n\tvector3d calc_beach_spawn_pos();\n};\n\nenum WaveMarkerEnum {\n\tWAVE_MarkerSplitscreenSpawnEnd = 51,\n\tWAVE_MarkerSpawnEnd = 52\n};\n\nextern game *g_game_ptr;\nextern BeachData BeachDataArray[];\nextern WaveData WaveDataArray[];\nextern float g_takeoff_current_offset;\nextern int WAVE_GetIndex(void);\nextern const vector3d *WAVE_GetMarker(WaveMarkerEnum markernum);\n\n__asm__(\".equ g_game_ptr, 0x0045AC64\");\n__asm__(\".equ BeachDataArray, 0x0042C198\");\n__asm__(\".equ WaveDataArray, 0x004861E0\");\n__asm__(\".equ g_takeoff_current_offset, 0x0041EC34\");\n__asm__(\".equ WAVE_GetIndex__Fv, 0x0037D890\");\n__asm__(\".equ WAVE_GetMarker__F14WaveMarkerEnum, 0x0037D7E8\");\n\n#define assert(x) ((void)0)\n\nvector3d game::calc_beach_spawn_pos()\n{\n\tint\t\t\tcurbeach = g_game_ptr->get_beach_id();\n\tint\t\t\tcurrent_wave = WAVE_GetIndex();\n\tvector3d\ttake_offset,spawnPos, current;\n\n\tif (BeachDataArray[curbeach].bdir)\n\t\tcurrent.x = WaveDataArray[current_wave].speedx;\n\telse\n\t\tcurrent.x = -WaveDataArray[current_wave].speedx;\n\n\tcurrent.y = 0.0f;\n\tcurrent.z = -WaveDataArray[current_wave].speedz;\n\n\ttake_offset = - g_takeoff_current_offset*current;\n\n\t// Pick spawn position for player.\n\tif (!g_game_ptr->is_splitscreen())\n\t{\n\t\tspawnPos = *WAVE_GetMarker(WAVE_MarkerSpawnEnd) + take_offset;\n\t}\n\t// For splitscreen modes, we need to make sure player is starting in a safe spot.\n\telse\n\t{\n\n\t\tspawnPos = *WAVE_GetMarker(WAVE_MarkerSplitscreenSpawnEnd) + take_offset;\n\t}\n\n\t// make sure the surfer is inside the wave mesh\n\tassert ((spawnPos.x < WAVE_MeshMaxX) && (spawnPos.x > WAVE_MeshMinX) && (spawnPos.z < WAVE_MeshMaxZ) && (spawnPos.z > WAVE_MeshMinZ));\n\n\treturn spawnPos;\n}\n",
+      "status": "different",
+      "target_size": 376
+    }
+  ],
+  "raw_name": "calc_beach_spawn_pos__4game"
+}
