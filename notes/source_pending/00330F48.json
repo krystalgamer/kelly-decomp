@@ -1,0 +1,23 @@
+{
+  "address": "0x00330F48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e479bdf6ac8aa8182947359556772276779f598b",
+      "candidate_size": 144,
+      "compared_bytes": 408,
+      "compared_instructions": 102,
+      "emitted_name": "__cl__19slf_num_list_size_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 0.0,
+      "matching_bytes": 28,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 70 lane B3 \u2014 0x00330F48\n\n- Confirmed there were no prior attempts.\n- Copied the exact active released `slf_num_list_size_t::operator()` body from `script_lib_list.cpp`.\n- Added minimal self-contained declarations for the numeric list, VM stack, error path, and script-library base interface.\n- Ran `function_test` exactly once. Result: `different`, byte score 6.8627%, instruction score 0.0000%.\n- No variants, retries, diff chasing, build, finalization, integration, commit, push, tool edits, subagents, lean work, or tracked-file edits were performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/script_lib_list.cpp:541-562`\n- `kelly-slaters-pro-surfer/KS/SRC/script_lib_list.h:44-70`\n- `kelly-slaters-pro-surfer/KS/SRC/script_library_class.h:20-61,264-300`\n- `kelly-slaters-pro-surfer/KS/SRC/vm_stack.h:21-93`\n- `tmp/functions/00330F48___cl__19slf_num_list_size_tR8vm_stackQ320script_library_class8function7entry_t/attempt-1/result.json`\n- `tmp/source_first/00330F48/attempt-1.md`",
+      "score": 6.8627,
+      "source": "typedef float vm_num_t;\n\nclass num_list\n{\npublic:\n  vm_num_t* start;\n  vm_num_t* finish;\n  vm_num_t* end_of_storage;\n\n  unsigned int size() const { return finish - start; }\n};\n\ntypedef num_list* vm_num_list_t;\n\nclass vm_stack\n{\npublic:\n  char* SP;\n\n  char* get_SP() const { return SP; }\n  void pop(int n) { SP -= n; }\n  bool push(const char* src, int n);\n};\n\nvoid error(const char*);\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n\n    function(script_library_class*, const char*) {}\n    virtual bool operator()(vm_stack&, entry_t) { return true; }\n  };\n};\n\n#define SLF_PARMS \\\n  stack.pop(sizeof(parms_t)); \\\n  parms_t* parms = (parms_t*)stack.get_SP()\n\n#define SLF_RETURN \\\n  if (!stack.push((char*)&result, sizeof(result))) \\\n    error(\"script stack overflow\")\n\n#define SLF_DONE \\\n  return true\n\nclass slf_num_list_size_t : public script_library_class::function\n{\npublic:\n  slf_num_list_size_t(script_library_class* slc, const char* n)\n    : script_library_class::function(slc, n) {}\n\n  struct parms_t\n  {\n    vm_num_list_t me;\n  };\n\n  virtual bool operator()(vm_stack& stack, entry_t entry)\n  {\n    SLF_PARMS;\n    vm_num_t result = parms->me->size();\n    SLF_RETURN;\n    SLF_DONE;\n  }\n};\n\nslf_num_list_size_t slf_num_list_size(0, \"size()\");\n",
+      "status": "different",
+      "target_size": 408
+    }
+  ],
+  "raw_name": "__cl__19slf_num_list_size_tR8vm_stackQ320script_library_class8function7entry_t"
+}
