@@ -1,0 +1,23 @@
+{
+  "address": "0x0010D770",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ae49b5fad6f381cf479bbf1cb0472d37a4f6765b",
+      "candidate_size": 416,
+      "compared_bytes": 416,
+      "compared_instructions": 104,
+      "emitted_name": "render__16ai_polypath_cell",
+      "instruction_score": 80.7692,
+      "matching_bytes": 330,
+      "matching_instructions": 84,
+      "notes": "# First pass B1 notes \u2014 render__16ai_polypath_cell\n\n- Used the exact released body from `KS/SRC/ai_polypath_cell.cpp`.\n- Retained only minimal declarations required to compile that body.\n- Tested exactly once with `env/bin/python tools/function_test.py test 0x0010D770 --candidate 'tmp/functions/0010D770_render__16ai_polypath_cell/candidate.cpp'`.\n- Result: `different`; byte score 79.3269% (330/416), instruction score 80.7692% (84/104), with exact target size 416 bytes.\n- No variants, diff chasing, build, finalization, tracked-source edits, commit, or push were performed.\n\nCitations:\n- `kelly-slaters-pro-surfer/KS/SRC/ai_polypath_cell.cpp:506-529`\n- `kelly-slaters-pro-surfer/KS/SRC/ai_polypath_cell.h:467,472-495`\n- `kelly-slaters-pro-surfer/KS/SRC/color.h:29-52`\n- `kelly-slaters-pro-surfer/KS/SRC/debug_render.h:16-17,51`\n- `tmp/functions/0010D770_render__16ai_polypath_cell/attempt-1/result.json`",
+      "score": 79.3269,
+      "source": "#include \"KS/SRC/ai_polypath_cell_shared.h\"\n\ntypedef unsigned char uint8;\ntypedef unsigned int uint32;\n\nclass color32\n{\npublic:\n\tunion\n\t{\n\t\tstruct\n\t\t{\n\t\t\tuint8 b, g, r, a;\n\t\t} c;\n\t\tuint32 i;\n\t};\n\n\tcolor32(uint8 red, uint8 green, uint8 blue, uint8 alpha = 255)\n\t{\n\t\tc.b = blue;\n\t\tc.g = green;\n\t\tc.r = red;\n\t\tc.a = alpha;\n\t}\n};\n\nvoid render_triangle(\n\tconst vector3d& pt1,\n\tconst vector3d& pt2,\n\tconst vector3d& pt3,\n\tcolor32 col,\n\tbool double_sided\n);\nvoid render_beam(\n\tconst vector3d& pt1,\n\tconst vector3d& pt2,\n\tcolor32 col,\n\trational_t thickness\n);\n\nvoid ai_polypath_cell::render()\n{\n#ifndef BUILD_BOOTABLE\n\trender_beam(m_Vertex[0], m_Vertex[1], color32(0, 255, 255, 128), 0.05f);\n\trender_beam(m_Vertex[1], m_Vertex[2], color32(0, 255, 255, 128), 0.05f);\n\trender_beam(m_Vertex[2], m_Vertex[0], color32(0, 255, 255, 128), 0.05f);\n\n\tswitch (sector_valid)\n\t{\n\tcase -1:\n\t\trender_triangle(m_Vertex[0], m_Vertex[1], m_Vertex[2], color32(255, 255, 0, 96), true);\n\t\tbreak;\n\n\tcase 0:\n\t\trender_triangle(m_Vertex[0], m_Vertex[1], m_Vertex[2], color32(255, 0, 0, 96), true);\n\t\tbreak;\n\n\tcase 1:\n\tdefault:\n\t\trender_triangle(m_Vertex[0], m_Vertex[1], m_Vertex[2], color32(0, 255, 0, 96), true);\n\t\tbreak;\n\t}\n#endif\n}\n",
+      "status": "different",
+      "target_size": 416
+    }
+  ],
+  "raw_name": "render__16ai_polypath_cell"
+}
