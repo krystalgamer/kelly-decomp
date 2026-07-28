@@ -1,0 +1,16 @@
+{
+  "address": "0x0015A140",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8614af67caf7c7e9b42f58823c73f6c829f93e97",
+      "error": "Candidate did not emit PlayCurrentVO__18IGOTutorialManageri; emitted functions: ['PlayCurrentVO__18IGOTutorialManagerb']",
+      "notes": "Attempt 1 used the exact released source body and minimal declarations for `PlayCurrentVO__18IGOTutorialManageri`. Result `symbol_missing`, score 0.0000; no retry or declaration variant was made. Citations: kelly-slaters-pro-surfer/KS/SRC/ks/tutorialmanager.cpp:400-421, kelly-slaters-pro-surfer/KS/SRC/ks/tutorialmanager.h:62, tmp/functions/0015A140_PlayCurrentVO__18IGOTutorialManageri/attempt-1/result.json, tmp/source_first/0015A140/attempt-1.md.",
+      "score": 0.0,
+      "source": "extern \"C\" int strcmp(const char *, const char *);\n\ntypedef unsigned int nslSoundId;\nenum nslSoundStatusEnum\n{\n\tNSL_SOUNDSTATUS_INVALID = 0\n};\n\nextern nslSoundStatusEnum nslGetSoundStatus(nslSoundId sound);\nextern void nslStopSound(nslSoundId sound);\n\nenum\n{\n\tLEVEL_INDOOR_1,\n\tLEVEL_INDOOR_2\n};\n\nstruct TutorialStep\n{\n\tchar vo_name_string[100];\n};\n\nextern TutorialStep GTutorialStep[];\n\nclass game\n{\n\tchar pad[548];\n\tint level_id;\npublic:\n\tint get_level_id() { return level_id; }\n};\n\nextern game *g_game_ptr;\n\nclass IGOTutorialManager\n{\n\tchar pad0[40];\n\tint current_step;\n\tchar pad1[16];\n\tnslSoundId current_VO;\npublic:\n\tnslSoundId play_sound(const char *name);\n\tvoid PlayCurrentVO(bool intro);\n};\n\nvoid IGOTutorialManager::PlayCurrentVO(bool intro)\n{\n\t//  Stop the old sound.\n\tif (nslGetSoundStatus(current_VO) != NSL_SOUNDSTATUS_INVALID)\n\t\tnslStopSound(current_VO);\n\n\t//  Start the new sound\n\tif (!intro)\n\t{\n\t\tif (strcmp(GTutorialStep[current_step].vo_name_string, \"TUTORIAL_NONE\"))\n\t\t\tcurrent_VO = play_sound(GTutorialStep[current_step].vo_name_string);\n\t}\n\telse\n\t{\n\t\tif (g_game_ptr->get_level_id() == LEVEL_INDOOR_1)\n\t\t\tcurrent_VO = play_sound(\"TUTORIAL_OPENING_BEGINNER\");\n\t\telse if (g_game_ptr->get_level_id() == LEVEL_INDOOR_2)\n\t\t\tcurrent_VO = play_sound(\"TUTORIAL_OPENING_INTERMEDIATE\");\n\t\telse\n\t\t\tcurrent_VO = play_sound(\"TUTORIAL_OPENING_ADVANCE\");\n\t}\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "PlayCurrentVO__18IGOTutorialManageri"
+}
