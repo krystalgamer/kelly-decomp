@@ -1,0 +1,23 @@
+{
+  "address": "0x0016A4F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "fcd994a46c3971ed2dbeca7b4f4b3ea74775ad6f",
+      "candidate_size": 312,
+      "compared_bytes": 360,
+      "compared_instructions": 90,
+      "emitted_name": "Update__17ObjectAlertWidgetf",
+      "instruction_score": 26.6667,
+      "matching_bytes": 144,
+      "matching_instructions": 24,
+      "notes": "Attempt 1 used the exact released source for Update__17ObjectAlertWidgetf. Result `different`, score 40.0000; no retry or variant was made.",
+      "score": 40.0,
+      "source": "class IGOWidget\n{\nprotected:\n\tbool display;\npublic:\n\tvirtual ~IGOWidget();\n\tvirtual void SetDisplay(const bool d = true);\n\tvirtual void Update(const float dt);\n\tvirtual void Draw(void);\n};\n\nclass PanelQuad\n{\npublic:\n\tvoid SetFade(const float amt);\n};\n\nclass IGOHintManager\n{\npublic:\n\tenum { StandUp, ObjectApproaching };\n\tvoid SetHint(int new_hint);\n};\n\nclass IGOFrontEnd\n{\n\tchar pad[0x484];\n\tIGOHintManager *hintManager;\npublic:\n\tIGOHintManager *GetHintManager() { return hintManager; }\n};\n\nclass FrontEndManager\n{\npublic:\n\tIGOFrontEnd *IGO;\n};\n\nclass game\n{\n\tchar pad[0xbc];\n\tint active_player;\npublic:\n\tint get_active_player(void) { return active_player; }\n};\n\nclass kellyslater_controller\n{\n\tchar pad[0x38];\n\tint super_state;\npublic:\n\tint get_super_state(void) const { return super_state; }\n};\n\nclass world_dynamics_system\n{\n\tchar pad[0xf8];\n\tkellyslater_controller *ks_controller[2];\npublic:\n\tkellyslater_controller *get_ks_controller(int n) { return ks_controller[n]; }\n};\n\nenum { SUPER_STATE_WIPEOUT = 3 };\n\nextern FrontEndManager frontendmanager;\nextern game *g_game_ptr;\nextern world_dynamics_system *g_world_ptr;\n\nclass ObjectAlertWidget : public IGOWidget\n{\n\tstatic const float TIME_FADE;\n\tstatic const float TIME_ANIMATE;\n\tstatic const float SPEED_HILITE_FLASH;\n\n\tPanelQuad *objectRoot;\n\tfloat hiliteTime;\n\tfloat fade;\n\tint fadeDir;\n\n\tbool FindNearestObject(void);\n\npublic:\n\tvoid Update(const float dt);\n};\n\nconst float ObjectAlertWidget::TIME_FADE = 0.30f;\n\nvoid ObjectAlertWidget::Update(const float dt)\n{\n\tbool\tobject_near = false;\n\t\n\tIGOWidget::Update(dt);\n\n\tfade += (dt/TIME_FADE)*float(fadeDir);\n\tif (fade >= 1.0f)\n\t\tfade = 1.0f;\n\telse if (fade <= 0.0f)\n\t{\n\t\tfade = 0.0f;\n\t}\n\n\tif ((fade <= 1.0f) && (fade >= 0.0f))\n\t{\n\t\tobjectRoot->SetFade(fade);\n\t}\n\n\tif (FindNearestObject())\n\t\tobject_near = true;\n\n\tif (object_near && (fade <= 1.0f))\n\t{\n\t\tif (fadeDir == -1 && \n\t\t\t(g_world_ptr->get_ks_controller(g_game_ptr->get_active_player()))->get_super_state() != SUPER_STATE_WIPEOUT)\n\t\t\tfrontendmanager.IGO->GetHintManager()->SetHint(IGOHintManager::ObjectApproaching);\n\n\t\tfadeDir = 1;\n\t}\n\telse if (!object_near)\n\t\tfadeDir = -1;\n}\n",
+      "status": "different",
+      "target_size": 360
+    }
+  ],
+  "raw_name": "Update__17ObjectAlertWidgetf"
+}
