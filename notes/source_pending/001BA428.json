@@ -1,0 +1,23 @@
+{
+  "address": "0x001BA428",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "353ee724fcb61bf4f8ca8aa2eefc08109a5657dc",
+      "candidate_size": 592,
+      "compared_bytes": 656,
+      "compared_instructions": 164,
+      "emitted_name": "UpdateHelpbar__14ExtrasFrontEnd",
+      "instruction_score": 6.0976,
+      "matching_bytes": 82,
+      "matching_instructions": 10,
+      "notes": "# FIRST PASS wave 123 lane B2\n\nExact released source tested once for `0x001BA428 UpdateHelpbar__14ExtrasFrontEnd`. Attempts before: 0. Result `different`, byte score 12.5000% and instruction score 6.0976%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 12.5,
+      "source": "struct string_buf;\n\nclass stringx\n{\nprotected:\n\tchar *chars;\n\tstring_buf *my_buf;\n\npublic:\n\tstringx(const stringx &cp);\n\tstringx(const char *str, int len = -1);\n\t~stringx();\n};\n\nclass HelpbarFE\n{\nprivate:\n\tenum {\n\t\tARROW_H,\n\t\tARROW_V,\n\t\tARROW_BOTH,\n\t\tCROSS,\n\t\tTRIANGLE,\n\t\tCIRCLE,\n\t\tSQUARE,\n\t\tBTN_NUM\n\t};\n\n\tvoid ChangeBtn(int index, bool add, stringx text);\n\npublic:\n\tvoid AddArrowBoth(stringx text=stringx(\"\"))\t{ ChangeBtn(ARROW_BOTH, true, text);  ChangeBtn(ARROW_H, false, \"\"); ChangeBtn(ARROW_H, false, \"\");}\n\tvoid AddArrowV(stringx text=stringx(\"\"))\t{ ChangeBtn(ARROW_V, true, text); ChangeBtn(ARROW_BOTH, false, \"\"); }\n\tvoid RemoveX()\t\t\t\t\t\t\t\t{ ChangeBtn(CROSS, false, \"\"); }\n\tvoid Reset();\n\tvoid Reformat();\n};\n\nclass FEManager\n{\n\tchar padding[0x156A4];\npublic:\n\tHelpbarFE *helpbar;\n};\n\nstruct FEMenuEntry\n{\n\tint entry_num;\n};\n\nclass FEMultiMenu\n{\nprotected:\n\tchar padding0[0x4C];\n\tFEMenuEntry *highlighted;\n\tchar padding1[0xEC];\n\tFEManager *manager;\n};\n\nclass ExtrasFrontEnd : public FEMultiMenu\n{\npublic:\n\tenum {\tExtrasBeachesEntry,\n\t\t\tExtrasSurfersEntry,\n\t\t\tExtrasTrailersEntry,\n\t\t\tExtrasHighScoreEntry,\n\t\t\tExtrasScrapbookEntry,\n\t\t\tExtrasCheatsEntry,\n\t\t\tExtrasCreditsEntry,\n\t\t\tExtrasWebsitesEntry,\n\t\t\tExtrasLogbookEntry,\n\t\t\tExtrasTHDemoEntry,\n\t\t\tExtrasDemoEntryYes,\n\t\t\tExtrasDemoEntryNo,\n\t\t\tExtrasEndEntry };\n\nprivate:\n\tvoid UpdateHelpbar();\n};\n\nvoid ExtrasFrontEnd::UpdateHelpbar()\n{\n\tmanager->helpbar->Reset();\n\n\tswitch(highlighted->entry_num)\n\t{\n\tcase ExtrasBeachesEntry:\n\tcase ExtrasSurfersEntry:\n\tcase ExtrasTrailersEntry:\n\t\tmanager->helpbar->AddArrowBoth();\n\t\tbreak;\n\tcase ExtrasCreditsEntry:\n\tcase ExtrasCheatsEntry:\n\tcase ExtrasScrapbookEntry:\n\tcase ExtrasLogbookEntry:\n\tcase ExtrasTHDemoEntry:\n\tcase ExtrasHighScoreEntry:\n\t\tmanager->helpbar->AddArrowV();\n\t\tbreak;\n\tcase ExtrasWebsitesEntry:\n\t\tmanager->helpbar->AddArrowV();\n\t\tmanager->helpbar->RemoveX();\n\t\tbreak;\n\t}\n\n\tmanager->helpbar->Reformat();\n}\n",
+      "status": "different",
+      "target_size": 656
+    }
+  ],
+  "raw_name": "UpdateHelpbar__14ExtrasFrontEnd"
+}
