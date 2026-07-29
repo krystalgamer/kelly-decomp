@@ -1,0 +1,23 @@
+{
+  "address": "0x002E35C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b38a24d15eab8227816cb0db11920c1153db4722",
+      "candidate_size": 132,
+      "compared_bytes": 488,
+      "compared_instructions": 122,
+      "emitted_name": "do_dolly__20dolly_and_strafe_mcsf",
+      "instruction_score": 0.8197,
+      "matching_bytes": 31,
+      "matching_instructions": 1,
+      "notes": "# 0x002E35C0 do_dolly__20dolly_and_strafe_mcsf\n\nConfirmed the target was unprepared, therefore attempts used were 0. Prepared and tested exactly one LF candidate containing the exact released function body and minimal faithful standalone declarations, with no headers. It compiled to the correct symbol but differed: 132 candidate bytes versus 488 target bytes, 31/488 matching bytes (6.3525%) and 1/122 matching instructions (0.8197%). No alternate, assembly, annotations, variants, retries, later attempts, or post-test chase were performed. Tracked/reference files remained read-only; nothing was finalized or integrated.",
+      "score": 6.3525,
+      "source": "typedef float rational_t;\n\nclass vector3d\n{\npublic:\n  vector3d(const vector3d&);\n  vector3d& operator=(const vector3d&);\n  vector3d& operator*=(rational_t);\n};\n\nvector3d operator+(const vector3d&, const vector3d&);\n\nclass po\n{\npublic:\n  const vector3d& get_facing() const;\n};\n\nclass entity\n{\npublic:\n  const po& get_abs_po() const;\n  const vector3d& get_abs_position() const;\n  void set_rel_position(const vector3d&);\n};\n\nclass motion_control_system\n{\npublic:\n  virtual ~motion_control_system();\n  virtual void frame_advance(float) = 0;\nprotected:\n  char layout_pad[8];\n  entity* ent;\n};\n\nclass dolly_and_strafe_mcs : public motion_control_system\n{\npublic:\n  virtual ~dolly_and_strafe_mcs();\n  virtual void frame_advance(float);\nprivate:\n  rational_t dolly;\n  rational_t strafe;\n  rational_t lift;\n  void do_dolly(rational_t distance);\n  void do_lift(rational_t distance);\n  void do_strafe(rational_t distance);\n};\n\nvoid dolly_and_strafe_mcs::do_dolly( rational_t distance )\n{\n  // get direction facing\n  vector3d facing = ent->get_abs_po().get_facing();\n  // multiply distance by it\n  facing *= distance;\n  // add it to position\n  ent->set_rel_position( ent->get_abs_position() + facing );\n}\n",
+      "status": "different",
+      "target_size": 488
+    }
+  ],
+  "raw_name": "do_dolly__20dolly_and_strafe_mcsf"
+}
