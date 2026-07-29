@@ -1,0 +1,15 @@
+{
+  "address": "0x0029B780",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a6c388a5c1d120888f3f82732eea186284abfd07",
+      "notes": "# FIRST PASS wave 148 lane A3\n\nExact released source tested once for `0x0029B780 add_light_source__21world_dynamics_systemG9entity_idRC2poRC16light_propertiesPCt4list2ZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt23__malloc_alloc_template1i0Ui`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"Z:/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"Z:/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/wds.h\"\n#include \"Z:/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/light.h\"\n\nlight_source* world_dynamics_system::add_light_source( entity_id id,\n\t\t\t\t\t\t\t\t\t\t\t\t\t  po const & loc,\n\t\t\t\t\t\t\t\t\t\t\t\t\t  const light_properties& props,\n\t\t\t\t\t\t\t\t\t\t\t\t\t  const region_node_list* forced_regions,\n\t\t\t\t\t\t\t\t\t\t\t\t\t  unsigned int scene_flags )\n{\n\tlight_source* new_ls = NEW light_source( props, NULL, id );\n\tif ( !(scene_flags & NONSTATIC_FLAG) )\n\t\tnew_ls->set_flag( EFLAG_MISC_NONSTATIC, true );\n\tadd_light_source( new_ls );\n\n\tnew_ls->set_rel_po( loc );\n\n\tif ( forced_regions && forced_regions->size() )\n\t{\n\t\tregion_node_list::const_iterator fri;\n\t\tfor ( fri=forced_regions->begin(); fri!=forced_regions->end(); ++fri )\n\t\t\tnew_ls->force_region( *fri );\n\t}\n\telse\n\t{\n\t\tnew_ls->compute_sector( *the_terrain );\n\t}\n\tnew_ls->frame_done();\n\treturn new_ls;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "add_light_source__21world_dynamics_systemG9entity_idRC2poRC16light_propertiesPCt4list2ZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt23__malloc_alloc_template1i0Ui"
+}
