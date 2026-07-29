@@ -1,0 +1,23 @@
+{
+  "address": "0x002DC680",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "197dba44914ea35a3f70f2ea55a82ccc518bd88b",
+      "candidate_size": 420,
+      "compared_bytes": 512,
+      "compared_instructions": 128,
+      "emitted_name": "collide_segment_entity__FRC8vector3dT0PC6entityP8vector3dT3fb",
+      "instruction_score": 3.125,
+      "matching_bytes": 106,
+      "matching_instructions": 4,
+      "notes": "# FIRST PASS wave 95 lane B4\n\nExact released body tested once for `0x002DC680 collide_segment_entity__FRC8vector3dT0PC6entityP8vector3dT3fb`. Result `different`, score 20.7031%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 20.7031,
+      "source": "typedef float rational_t;\n\nclass vector3d\n{\npublic:\n  float x, y, z;\n  vector3d() {}\n  vector3d &operator=(const vector3d &o)\n  {\n    x = o.x;\n    y = o.y;\n    z = o.z;\n    return *this;\n  }\n  vector3d operator-(const vector3d &o) const\n  {\n    vector3d r;\n    r.x = x - o.x;\n    r.y = y - o.y;\n    r.z = z - o.z;\n    return r;\n  }\n  void normalize();\n};\n\nclass po;\nclass collision_geometry;\n\nclass entity\n{\npublic:\n  rational_t get_radius() const;\n  const vector3d &get_abs_position() const;\n  const po &get_abs_po() const;\n  collision_geometry *get_colgeom() const;\n};\n\nextern bool collide_segment_sphere(\n  const vector3d &, const vector3d &, const vector3d &,\n  rational_t, vector3d *);\nextern bool collide_segment_geometry(\n  const vector3d &, const vector3d &, collision_geometry *,\n  vector3d &, vector3d &, const po &, bool);\n\nbool collide_segment_entity(\n  const vector3d &p0, const vector3d &p1, const entity *ent,\n  vector3d *impact_pos, vector3d *impact_normal,\n  rational_t default_radius, bool rear_cull)\n{\n  rational_t erad;\n  erad = ent->get_radius();\n  if (erad <= 0.0f)\n    erad = default_radius;\n  if (erad > 0.0f)\n  {\n    vector3d sphere_hit_pos;\n    bool hit_sphere = collide_segment_sphere(\n      p0, p1, ent->get_abs_position(), erad, &sphere_hit_pos);\n\n    if (hit_sphere)\n    {\n      collision_geometry *cg = ent->get_colgeom();\n      if (cg)\n      {\n        bool hit = collide_segment_geometry(\n          p0, p1, cg, *impact_pos, *impact_normal,\n          ent->get_abs_po(), rear_cull);\n        return hit;\n      }\n      else\n      {\n        *impact_pos = sphere_hit_pos;\n        *impact_normal = p0 - sphere_hit_pos;\n        impact_normal->normalize();\n        return true;\n      }\n    }\n  }\n  else if (ent->get_colgeom())\n  {\n    bool hit = collide_segment_geometry(\n      p0, p1, ent->get_colgeom(), *impact_pos, *impact_normal,\n      ent->get_abs_po(), rear_cull);\n    return hit;\n  }\n  return false;\n}\n",
+      "status": "different",
+      "target_size": 512
+    }
+  ],
+  "raw_name": "collide_segment_entity__FRC8vector3dT0PC6entityP8vector3dT3fb"
+}
