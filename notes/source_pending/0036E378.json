@@ -1,0 +1,15 @@
+{
+  "address": "0x0036E378",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e054a78f228799c6c42a1ecb536dacfb04f4ea4e",
+      "notes": "# FIRST PASS wave 117 lane B3\n\nExact released source tested once for `0x0036E378 UNDERWATER_ScrollPlayerBottom__Fi` with LF line endings. Result `compile_failed`, score 0.0000%. No retry, variant, declarations, diff chase, follow-up, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "static void UNDERWATER_ScrollPlayerBottom( const int playerId )\n{\n\t#ifdef TARGET_GC\n\tif (g_game_ptr->is_splitscreen()) return;\n\t#endif\n\tif ( UNDERWATER_bottom_bottom )\n\t{\n\t\t//vector3d botpos = UNDERWATER_bottom_bottom->get_rel_position();\n\t\tvector3d newvel;\n\t  if ( g_world_ptr->get_ks_controller(playerId)->get_super_state() != SUPER_STATE_WIPEOUT )\n\t\t{\n\t\t\tvector3d water_current;\n\t\t\tWAVE_GlobalCurrent(&water_current);\n\n\t\t\tnewvel.x=water_current.x*6.0f;\n\t\t\tnewvel.z=water_current.z*6.0f;\n\n\t\t}\n\t\telse\n\t\t{\n\t\t\tg_world_ptr->get_ks_controller(playerId)->get_owner()->get_velocity(&newvel);\n\t\t}\n\t\tnewvel.y=0.0f;\n\n\t\tvector3d oldvel = UNDERWATER_bottomspeed[playerId];\n\n\t\tUNDERWATER_bottomspeed[playerId] = ( UNDERWATER_oldspeedmult * oldvel ) +\n\t\t                   ( UNDERWATER_newspeedmult * newvel );\n\n\t\tif ( WallDebug.ScrollBottomX )\n\t\t\tUNDERWATER_bottompos[playerId].x += TIMER_GetFrameSec() * UNDERWATER_bottomspeed[playerId].x;\n\t\tif ( WallDebug.ScrollBottomZ )\n\t\t\tUNDERWATER_bottompos[playerId].z += TIMER_GetFrameSec() * UNDERWATER_bottomspeed[playerId].z;\n\t\tif ( UNDERWATER_bottompos[playerId].x>UNDERWATER_BottomMax )\n\t\t\tUNDERWATER_bottompos[playerId].x=UNDERWATER_BottomMin;\n\t\telse if ( UNDERWATER_bottompos[playerId].x<UNDERWATER_BottomMin )\n\t\t\tUNDERWATER_bottompos[playerId].x=UNDERWATER_BottomMax;\n\t\tif ( UNDERWATER_bottompos[playerId].z>UNDERWATER_BottomMax )\n\t\t\tUNDERWATER_bottompos[playerId].z=UNDERWATER_BottomMin;\n\t\telse if ( UNDERWATER_bottompos[playerId].z<UNDERWATER_BottomMin )\n\t\t\tUNDERWATER_bottompos[playerId].z=UNDERWATER_BottomMax;\n\t\t//UNDERWATER_bottom_bottom->set_rel_position(UNDERWATER_bottompos[playerId]);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "UNDERWATER_ScrollPlayerBottom__Fi"
+}
