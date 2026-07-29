@@ -1,0 +1,15 @@
+{
+  "address": "0x001EF7A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "67949a4e4664ef7b963735dbaa326b0dbdf55531",
+      "notes": "# FIRST PASS wave 158 lane A4\n\nExact released source tested once for `0x001EF7A8 check_for_grinding__20SurfBoardObjectClass`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/ks/board.cpp\"\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "check_for_grinding__20SurfBoardObjectClass"
+}
