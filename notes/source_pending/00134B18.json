@@ -1,0 +1,15 @@
+{
+  "address": "0x00134B18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2e836cc8783c50cc1dc506d03c20efa351248abc",
+      "notes": "# FIRST PASS wave 106 lane B4\n\nExact released body tested once for `0x00134B18 compute_bounding_box__6entity`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "void entity::compute_bounding_box()\n{\n  if ( get_colgeom() && get_colgeom()->get_type()==collision_geometry::MESH )\n  {\n    if ( !has_bounding_box() )\n      bbi = NEW bounding_box;\n    cg_mesh* m = static_cast<cg_mesh*>( get_colgeom() );\n    int i;\n    for ( i=0; i<m->get_num_verts(); ++i )\n    {\n//      vector3d v = get_abs_po().slow_xform( m->get_vert_ptr(i)->get_point() );\n      vector3d v = get_abs_po().fast_8byte_xform( m->get_vert_ptr(i)->get_point() );\n\n      if ( v.x < bbi->vmin.x )\n        bbi->vmin.x = v.x;\n      if ( v.x > bbi->vmax.x )\n        bbi->vmax.x = v.x;\n      if ( v.y < bbi->vmin.y )\n        bbi->vmin.y = v.y;\n      if ( v.y > bbi->vmax.y )\n        bbi->vmax.y = v.y;\n      if ( v.z < bbi->vmin.z )\n        bbi->vmin.z = v.z;\n      if ( v.z > bbi->vmax.z )\n        bbi->vmax.z = v.z;\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "compute_bounding_box__6entity"
+}
