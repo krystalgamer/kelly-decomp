@@ -1,0 +1,15 @@
+{
+  "address": "0x00261D90",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0cb8582a885446c4dec371bc4fc294344ac36d68",
+      "notes": "# FIRST PASS wave 143 lane A3\n\nExact released source tested once for `0x00261D90 Init__14PhotoChallengeP22kellyslater_controlleriiP12beach_objectiii`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"challenge_photo.h\"\n\nvoid PhotoChallenge::Init(kellyslater_controller * ks, const int g, const int reqScore, beach_object * firstObject,\n                          const int maxPhotos, const int photoWidth, const int photoHeight)\n{\n    beach_object * currObject = NULL;\n    int i = 0;\n\n    ksctrl = ks;\n    goal = g;\n    requiredScore = reqScore;\n    state = STATE_NONE;\n    recordChain = false;\n\n    activeCameramanIdx = -1;\n    numCameramen = 1;\n    for (currObject = firstObject; currObject != NULL; currObject = currObject->next)\n    {\n        if (currObject->get_entity() && currObject->get_entity()->get_parsed_name() == \"cameraman\")\n            numCameramen++;\n    }\n\n    cameramen = NEW Cameraman[numCameramen];\n    for (currObject = firstObject, i = 1; currObject != NULL; currObject = currObject->next)\n    {\n        if (currObject->get_entity() && currObject->get_entity()->get_parsed_name() == \"cameraman\")\n        {\n            cameramen[i++].Init(currObject->get_entity());\n        }\n    }\n\n    numTaken = 0;\n    numPhotos = maxPhotos;\n    if (numPhotos > 0) photos = NEW Photo[numPhotos];\n    for (i = 0; i < numPhotos; i++)\n        photos[i].Init(photoWidth, photoHeight);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Init__14PhotoChallengeP22kellyslater_controlleriiP12beach_objectiii"
+}
