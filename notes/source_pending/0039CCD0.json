@@ -1,0 +1,23 @@
+{
+  "address": "0x0039CCD0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7fd95ac5397fe410036dd8ead96eb65ccd204a2e",
+      "candidate_size": 496,
+      "compared_bytes": 632,
+      "compared_instructions": 158,
+      "emitted_name": "nglLoadTextureIFL__FP10nglTexturePUcUi",
+      "instruction_score": 0.0,
+      "matching_bytes": 66,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 120 lane B1\n\nExact released body tested once for `0x0039CCD0 nglLoadTextureIFL__FP10nglTexturePUcUi`. Result `different`, score 10.443%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 10.443,
+      "source": "typedef unsigned char u_char;\ntypedef unsigned short u_short;\ntypedef unsigned int u_int;\n\nstruct nglTexture\n{\n  u_int TexStreamPos[2];\n  u_short Width;\n  u_short Height;\n  u_int Hash;\n  u_char Type;\n  u_char TW;\n  u_char TH;\n  u_char Pad;\n  u_int Flags;\n  void* ph;\n  u_int Format;\n  u_int* Data;\n  u_int NFrames;\n  nglTexture** Frames;\n};\n\nenum { NGLTEX_IFL = 2 };\n\nextern bool nglInLoadTextureIFL;\nextern void nglWarning(const char*, ...);\nextern nglTexture* nglLoadTextureA(const char*);\nextern void* nglMemAlloc(u_int, u_int = 1);\nextern int isspace(int);\nextern char* strncpy(char*, const char*, u_int);\nextern char* strchr(const char*, int);\nextern void* memcpy(void*, const void*, u_int);\n\nbool nglLoadTextureIFL( nglTexture* Tex, unsigned char *Buf, u_int BufSize )\n{\n  // Temporary buffer for building the texture array.\n  static char FileName[256];\n  static nglTexture* Textures[512];\n  int NTextures = 0;\n\n  if ( nglInLoadTextureIFL )\n  {\n    nglWarning( \"NGL: Recursive IFL detected.\\n\" );\n    return false;\n  }\n  nglInLoadTextureIFL = true;\n\n// handy parser macro\n#define endofbuf( a ) ( (a) - (char*)Buf >= (int)BufSize )\n\n  char* Pos = (char*)Buf;\n  while ( !endofbuf( Pos ) )\n  {\n    // parse out the filename (no extension).\n    char* Line = Pos;\n    while ( !endofbuf( Line ) && !isspace( *Line ) ) Line++;\n    u_int Count = ( Line - Pos < 255 ? Line - Pos : 255 );\n    if ( !Count ) break;\n    strncpy( FileName, Pos, Count );\n    FileName[Count] = '\\0';\n    char* Ext = strchr( FileName, '.' );\n    if ( Ext ) *Ext = '\\0';\n\n    if ( (u_int)NTextures >= (sizeof(Textures) / sizeof(Textures[0])) )\n    {\n      nglWarning( \"Exceeded max number of textures in an IFL file (%d).\\n\", (sizeof(Textures) / sizeof(Textures[0])) );\n      break;\n    }\n\n    // attempt to load the texture.\n    Textures[NTextures] = nglLoadTextureA( FileName );\n    if ( Textures[NTextures] )\n      NTextures++;\n\n    // skip any whitespace\n    Pos = Line;\n    while ( !endofbuf( Pos ) && isspace( *Pos ) ) Pos++;\n  }\n\n#undef endofbuf\n\n  nglInLoadTextureIFL = false;\n\n  if ( NTextures )\n  {\n    Tex->Type = NGLTEX_IFL;\n    Tex->NFrames = NTextures;\n\n    Tex->Frames = (nglTexture**)nglMemAlloc( sizeof(nglTexture*) * NTextures );\n    memcpy( Tex->Frames, Textures, sizeof(nglTexture*) * NTextures );\n\n    // Steal our 'width and height' from the first frame.\n    Tex->Width = Tex->Frames[0]->Width;\n    Tex->Height = Tex->Frames[0]->Height;\n    return true;\n  }\n\n  return false;\n}\n",
+      "status": "different",
+      "target_size": 632
+    }
+  ],
+  "raw_name": "nglLoadTextureIFL__FP10nglTexturePUcUi"
+}
