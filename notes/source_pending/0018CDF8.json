@@ -1,0 +1,23 @@
+{
+  "address": "0x0018CDF8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2991022972b7dcda9ac1f9220d3892808644d78f",
+      "candidate_size": 492,
+      "compared_bytes": 572,
+      "compared_instructions": 143,
+      "emitted_name": "Load__13BeachFrontEnd",
+      "instruction_score": 1.3986,
+      "matching_bytes": 75,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 110 lane B2\n\nExact released body tested once for `0x0018CDF8 Load__13BeachFrontEnd`. Result `different`, score 13.1119%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 13.1119,
+      "source": "struct vector2d\n{\n\tfloat x;\n\tfloat y;\n};\n\nclass PanelQuad\n{\npublic:\n\tvoid TurnOn(bool);\n};\n\nclass FEMenuEntry\n{\npublic:\n\tFEMenuEntry* left;\n\tFEMenuEntry* right;\n};\n\nclass FEMultiMenu\n{\npublic:\n\tvoid Load();\n\tPanelQuad* GetPointer(char*);\n};\n\nclass MapData\n{\npublic:\n\tstruct MapBeach\n\t{\n\t\tbool desc_at_right;\n\t\tvector2d loc2d;\n\t};\n\n\tMapBeach* beaches;\n\tint* west_east_order;\n\n\tvoid Load(char*, PanelQuad*);\n};\n\nenum\n{\n\tBEACH_LAST = 25\n};\n\nclass BeachFrontEnd : public FEMultiMenu\n{\npublic:\n\tFEMenuEntry* entry_list[BEACH_LAST];\n\tPanelQuad* path_pq;\n\tMapData map;\n\tbool boxes_on;\n\tbool sliding_in;\n\tbool ignore_controller;\n\n\tvoid SetPQIndices();\n\tvoid Load();\n};\n\nvoid BeachFrontEnd::Load()\n{\n\tFEMultiMenu::Load();\n\tpath_pq = GetPointer(\"dot_path\");\n\tmap.Load(\"interface\\\\map\\\\fe_path.map\", path_pq);\n\tpath_pq->TurnOn(false);\n\n\tSetPQIndices();\n\n\t// adjust west_east_order & desc_at_right\n\tfloat lowest = 1000;\n\tfloat higher_than = -1000;\n\tint lowest_index = 0;\n\tfor(int i=0; i<BEACH_LAST; i++)\n\t{\n\t\tfor(int j=0; j<BEACH_LAST; j++)\n\t\t{\n\t\t\tfloat z = map.beaches[j].loc2d.x;\n\t\t\tif(z < lowest && ((z > higher_than) ||\n\t\t\t\t(i != 0 && z == higher_than && j > map.west_east_order[i-1])))\n\t\t\t{\n\t\t\t\tlowest = z;\n\t\t\t\tlowest_index = j;\n\t\t\t}\n\t\t}\n\t\tmap.west_east_order[i] = lowest_index;\n\t\thigher_than = lowest;\n\t\tlowest = 1000;\n\n\t\t// beaches far to the left (g-land, bells, & currens) should not\n\t\t// have the description to the right\n\t\tmap.beaches[i].desc_at_right = map.beaches[i].loc2d.x < 320;\n\t}\n\n\tFEMenuEntry* tmp;\n\t// looping through west_east_order here\n\tfor(int i=0; i<BEACH_LAST; i++)\n\t{\n\t\ttmp = entry_list[map.west_east_order[i]];\n\t\tif(i == 0) tmp->left = entry_list[map.west_east_order[BEACH_LAST-1]];  //save_load;\n\t\telse tmp->left = entry_list[map.west_east_order[i-1]];\n\t\tif(i == BEACH_LAST-1) tmp->right = entry_list[map.west_east_order[0]];\t//save_load;\n\t\telse tmp->right = entry_list[map.west_east_order[i+1]];\n\t}\n\n/*\tSave/load no longer part of map screen.  (dc 07/01/02)\n\tsave_load->right = entry_list[map.west_east_order[0]];\n\tsave_load->left = entry_list[map.west_east_order[BEACH_LAST-1]];\n*/\n\n\tboxes_on = true;\n\tsliding_in = true;\n\tignore_controller = false;\n}\n",
+      "status": "different",
+      "target_size": 572
+    }
+  ],
+  "raw_name": "Load__13BeachFrontEnd"
+}
