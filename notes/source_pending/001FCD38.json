@@ -1,0 +1,15 @@
+{
+  "address": "0x001FCD38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0c425f215575a289d2c97b8c2af907436fc247f6",
+      "notes": "# FIRST PASS wave 142 lane A5\n\nExact released source tested once for `0x001FCD38 parse_params__12water_objectPPci`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/ks/global.h\"\n#include \"/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/ks/floatobj.h\"\n#include \"/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/ks/ngl_ps2.h\"\n\nbool water_object::parse_params (char** argp, int argc)\n{\n\tfloat rotate, scale;\n\tvector3d pos;\n\tbool found_marker = false;\n\tbool found_mag = false;\n\n\tmy_initial_po = po_identity_matrix;\n\n\tif (!beach_object::parse_params (argp, argc))\n\t\treturn false;\n\n\tif (find_param (argp, argc, \"grindable\"))\n\t\tgrindable = true;\n\n\tif (read_float_param (argp, argc, \"marker\", &marker_num))\n\t\tfound_marker = true;\n\n\tif (read_float_param (argp, argc, \"magnitude\", &marker_offset))\n\t\tfound_mag = true;\n\n\tif (read_float_param (argp, argc, \"scale\", &scale))\n\t\tmy_entity->set_render_scale (vector3d (scale, scale, scale));\n\n\tif (read_float_param (argp, argc, \"rotate_x\", &rotate))\n\t\tmy_initial_po.set_rotate_x (DEG_TO_RAD (rotate));\n\n\tif (read_float_param (argp, argc, \"rotate_y\", &rotate))\n\t\tmy_initial_po.set_rotate_y (DEG_TO_RAD (rotate));\n\n\tif (read_float_param (argp, argc, \"rotate_z\", &rotate))\n\t\tmy_initial_po.set_rotate_z (DEG_TO_RAD (rotate));\n\n\tread_float_param (argp, argc, \"fade_distance\", &fade_distance);\n\n\tif (found_marker && found_mag)\n\t\tspawn_by_marker = true;\n\telse if (!read_vector3d_param (argp, argc, \"position\", &pos))\n\t{\n\t\tnglPrintf (\"No marker or position provided.\\n\");\n\t\tspawn_by_marker = false;\n\t\treturn false;\n\t}\n\n\tmy_initial_po.set_position (pos);\n\n\treturn true;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "parse_params__12water_objectPPci"
+}
