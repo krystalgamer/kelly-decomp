@@ -1,0 +1,23 @@
+{
+  "address": "0x00386B38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "923a504ce229164e1ffd6804ec07023dd45e38d0",
+      "candidate_size": 516,
+      "compared_bytes": 528,
+      "compared_instructions": 132,
+      "emitted_name": "nvlStreamDestroy__FP9nvlStream",
+      "instruction_score": 4.5455,
+      "matching_bytes": 103,
+      "matching_instructions": 6,
+      "notes": "FIRST PASS wave102 A3\nTarget: 0x00386B38 nvlStreamDestroy__FP9nvlStream (528/0x210), NVL/PS2/nvlstream_ps2.cpp\nAttempts before: 0\nAttempt 1: exact released nvlStreamDestroy body with minimal self-contained declarations and LF line endings\nResult: different; byte score 19.5076; instruction score 4.5455; candidate size 516; target size 528\nExactly one candidate was tested. No retry, diff chase, build, finalization, integration, queue edit, tracked edit, commit, or push.",
+      "score": 19.5076,
+      "source": "typedef int nvlMutex;\n\nenum nvlMutexMode\n{\n  NVL_MUTEX_BLOCK\n};\n\nenum\n{\n  NVL_MAX_STREAM_NUM = 8,\n  NVL_STREAM_FLAG_READ_IN_PROGRESS = 1,\n  NVL_STREAM_MAX_TRIES = 3600\n};\n\nstruct nvlStream\n{\n  int idx;\n  unsigned int startSector;\n  unsigned int endSector;\n  unsigned int readSector;\n  unsigned int filesize;\n  int bytes_in_last_sect;\n  int bufsize;\n  char* buf;\n  char* endbuf;\n  char* pRead;\n  char* pWrite;\n  char* pLock;\n  char* pEndOfData;\n  char* pStartOfData;\n  int private_buffer;\n  int bitrate;\n  unsigned int flags;\n  int available;\n  nvlMutex mtx;\n  int lp_skip;\n  int requireRewind;\n};\n\nstruct nvlStreamSystemData_t\n{\n  char padding[0x7c];\n  nvlStream* pStream[NVL_MAX_STREAM_NUM];\n};\n\nextern nvlStreamSystemData_t nvlStreamSystemData;\nextern int nvlStreamSystemInitialized;\nextern void (*nvlStreamFreeFunc)(void*);\n\nint nvlLockMutex(nvlMutex*, nvlMutexMode);\nvoid nvlUnlockMutex(nvlMutex*);\nvoid nvlWaitForVB();\nvoid nvlDestroyMutex(nvlMutex*);\nextern \"C\" void free(void*);\nextern \"C\" void __assert(const char*, int, const char*);\n\nextern const char source_file[];\nextern const char initialized_expression[];\nextern const char stream_expression[];\nextern const char lock_expression[];\nextern const char tries_expression[];\nextern const char slot_expression[];\nextern const char buffer_expression[];\n\n__asm__(\".equ nvlStreamSystemData,0x00595E80\");\n__asm__(\".equ nvlStreamSystemInitialized,0x0048AFE0\");\n__asm__(\".equ nvlStreamFreeFunc,0x00596F48\");\n__asm__(\".equ nvlLockMutex__FPi12nvlMutexMode,0x003873E8\");\n__asm__(\".equ nvlUnlockMutex__FPi,0x00387480\");\n__asm__(\".equ nvlWaitForVB__Fv,0x00385650\");\n__asm__(\".equ nvlDestroyMutex__FPi,0x003873A0\");\n__asm__(\".equ free,0x003D0BC8\");\n__asm__(\".equ __assert,0x003CF6B0\");\n__asm__(\".equ source_file,0x0051AD40\");\n__asm__(\".equ initialized_expression,0x0051B338\");\n__asm__(\".equ stream_expression,0x0051B120\");\n__asm__(\".equ lock_expression,0x0051B378\");\n__asm__(\".equ tries_expression,0x0051B300\");\n__asm__(\".equ slot_expression,0x0051B388\");\n__asm__(\".equ buffer_expression,0x0051B3C0\");\n\n#define assert_line(condition, line, expression) \\\n  ((condition) ? (void)0 : __assert(source_file, line, expression))\n\nvoid nvlStreamDestroy( nvlStream* s )\n{\n  int   i;\n\n  assert_line( nvlStreamSystemInitialized, 1055, initialized_expression );\n  assert_line( s, 1056, stream_expression );\n\n  i = nvlLockMutex( &s->mtx, NVL_MUTEX_BLOCK );\n  assert_line( i, 1059, lock_expression );\n\n  for( i = 0; s->flags & NVL_STREAM_FLAG_READ_IN_PROGRESS; i++ )\n  {\n    assert_line( i < NVL_STREAM_MAX_TRIES, 1063, tries_expression );\n    nvlUnlockMutex( &s->mtx );\n    nvlWaitForVB();\n    nvlLockMutex( &s->mtx, NVL_MUTEX_BLOCK );\n  }\n\n  assert_line( nvlStreamSystemData.pStream[s->idx] == s, 1069, slot_expression );\n  nvlStreamSystemData.pStream[s->idx] = 0;\n\n  nvlDestroyMutex( &s->mtx );\n\n  if( s->private_buffer )\n  {\n    assert_line( s->buf, 1083, buffer_expression );\n    if( nvlStreamFreeFunc )\n    {\n      (*nvlStreamFreeFunc)( s->buf );\n    }\n    else\n    {\n      free( s->buf );\n    }\n  }\n  if( nvlStreamFreeFunc )\n  {\n    (*nvlStreamFreeFunc)( s );\n  }\n  else\n  {\n    free( s );\n  }\n}\n",
+      "status": "different",
+      "target_size": 528
+    }
+  ],
+  "raw_name": "nvlStreamDestroy__FP9nvlStream"
+}
