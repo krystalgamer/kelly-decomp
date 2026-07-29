@@ -1,0 +1,23 @@
+{
+  "address": "0x00224FC0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b48ec992a74575cd00aa18cb47ebc051f33a44e8",
+      "candidate_size": 660,
+      "compared_bytes": 660,
+      "compared_instructions": 166,
+      "emitted_name": "Update__12BalanceMeterif",
+      "instruction_score": 4.8193,
+      "matching_bytes": 152,
+      "matching_instructions": 8,
+      "notes": "# FIRST PASS wave 121 lane B1\n\nExact released body tested once for `0x00224FC0 Update__12BalanceMeterif`. Attempts before: 0. Result `different`, byte score 23.0303% and instruction score 4.8193%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 23.0303,
+      "source": "extern \"C\" float fabs(float);\n\ntemplate<class T> inline T min(T a, T b) { return a < b ? a : b; }\n\nenum game_mode_t { GAME_MODE_CAREER };\nenum { BEACH_INDOOR = 12 };\nenum cheats_enum { CHEAT_PERFECT_BALANCE = 11, CHEAT_LAST = 22 };\n\nclass game\n{\npublic:\n\tgame_mode_t get_game_mode(void);\n\tint get_beach_id(void);\n};\n\nclass Random\n{\npublic:\n\tfloat randf(float begin, float end)\n\t{\n\t\tunsigned int r = NextRand();\n\t\treturn r * (1.0f/32767)*(end-begin) + begin;\n\t}\nprivate:\n\tunsigned int rand_next;\n\tunsigned int NextRand()\n\t{\n\t\trand_next = rand_next*1103515245 + 12345;\n\t\treturn (rand_next>>16)&32767;\n\t}\n};\n\nextern Random *g_random_ptr;\n\ninline float random(float begin,float end)\n{\n\tfloat r = g_random_ptr->randf(begin, end);\n\treturn r;\n}\n\nclass Cheat\n{\nprivate:\n\tbool locked;\n\tbool on;\npublic:\n\tbool isOn() const { return on; }\n};\n\nclass IGOFrontEnd\n{\npublic:\n\tvoid SetBalanceMeter(const int playerIdx, bool vert, float f);\n};\n\nclass FEManager\n{\npublic:\n\tIGOFrontEnd* IGO;\n};\n\nclass BalanceMeter\n{\npublic:\n\tfloat Update(int direction, const float time_step);\nprivate:\n\tfloat current_balance;\n\tfloat balance_acc;\n\tfloat total_balance_time;\n\tfloat time_to_full_acc;\n\tbool vert_meter;\n\tint player_num;\n};\n\nextern game* g_game_ptr;\nextern Cheat g_session_cheats[CHEAT_LAST];\nextern FEManager frontendmanager;\nextern int g_perfect_balance;\nextern int g_debug_balance;\nextern float USER_BALANCE_INC;\nextern float TUTORIAL_USER_BALANCE_INC;\nextern float TIME_BALANCE_INC;\nextern float TUTORIAL_TIME_BALANCE_INC;\n\n#define BALANCE_SCALE 10.0f\n#define delta_offset 0.7f\n\nfloat BalanceMeter::Update(int direction, const float time_step)\n{\n\t//  Figure out how fast the meter should be moving based on how long the player has been balancing.\n\tfloat delta_to_full_speed;\n\ttotal_balance_time += time_step;\n\tdelta_to_full_speed = total_balance_time/time_to_full_acc;\n\tfloat user_bal_inc = USER_BALANCE_INC;\n\tfloat time_bal_inc = TIME_BALANCE_INC;\n\n\tif (g_game_ptr->get_game_mode() == GAME_MODE_CAREER && g_game_ptr->get_beach_id() == BEACH_INDOOR)\n\t{\n\t\tuser_bal_inc = TUTORIAL_USER_BALANCE_INC;\n\t\ttime_bal_inc = TUTORIAL_TIME_BALANCE_INC;\n\t}\n\n\tif (g_perfect_balance || g_session_cheats[CHEAT_PERFECT_BALANCE].isOn())   //  perfect balance cheat.\n\t\treturn current_balance;\n\n\tif (current_balance == 0)  //  Make sure that the meter doesn't get stuck in the middle.\n\t{\n\t\tif (random(-1.0F,1.0F) > 0)\n\t\t\tcurrent_balance = user_bal_inc * time_step * (delta_to_full_speed * delta_offset);\n\t\telse\n\t\t\tcurrent_balance = -(user_bal_inc * time_step * (delta_to_full_speed * delta_offset));\n\t}\n\n\tif (!g_debug_balance)\n\t{\n\t\t//  This changes the acceleration based on user input, normalized for time. (.05 is just an arbitray time normalization.)\n\t\tbalance_acc += (direction * user_bal_inc * (time_step *.5f)) * (delta_to_full_speed * min(1.0f, delta_offset));\n\n\t\t//  Now add some even if the user isn't adding anything, based on how long the surfer has been balancing.\n\t\t//  The last bit is a little something to make the meter move faster when it is near the edges.\n\t\tif (balance_acc > 0)\n\t\t\tbalance_acc += time_bal_inc * time_step * (fabs(current_balance) * BALANCE_SCALE);\n\t\telse\n\t\t\tbalance_acc -= time_bal_inc * time_step * (fabs(current_balance) * BALANCE_SCALE);\n\t}\n\telse\n\t\tbalance_acc += (direction * user_bal_inc * (time_step *.5f)) * (min(1.0f, delta_offset));\n\n\t//  This adds whatever input we have so far into the total balance.\n\tcurrent_balance += balance_acc;\n\n\t//  Update the meter and get out of here.\n\tfrontendmanager.IGO->SetBalanceMeter(player_num, vert_meter, current_balance);\n\treturn current_balance;\n}\n",
+      "status": "different",
+      "target_size": 640
+    }
+  ],
+  "raw_name": "Update__12BalanceMeterif"
+}
