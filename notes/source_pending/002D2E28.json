@@ -1,0 +1,23 @@
+{
+  "address": "0x002D2E28",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6f8fb3d7c44eff917506aed4646a6ca33a5bc98b",
+      "candidate_size": 912,
+      "compared_bytes": 912,
+      "compared_instructions": 228,
+      "emitted_name": "get_new_v__14particle_forceRC8particleR18particle_generatorf",
+      "instruction_score": 6.5789,
+      "matching_bytes": 250,
+      "matching_instructions": 15,
+      "notes": "# FIRST PASS wave 149 lane B1\n\nExact released source tested once for `0x002D2E28 get_new_v__14particle_forceRC8particleR18particle_generatorf`. Attempts before: 0. Result `different`, byte score 27.4123% and instruction score 6.5789%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 27.4123,
+      "source": "typedef float rational_t;\ntypedef float time_value_t;\n\nextern \"C\" float sqrtf(float);\n__asm__(\".equ sqrtf, 0x003C7058\");\n\nstruct vector3d\n{\n  float x, y, z;\n  vector3d() {}\n  vector3d(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {}\n  vector3d operator-(const vector3d& b) const { return vector3d(x-b.x, y-b.y, z-b.z); }\n  vector3d operator+(const vector3d& b) const { return vector3d(x+b.x, y+b.y, z+b.z); }\n  vector3d operator*(float f) const { return vector3d(x*f, y*f, z*f); }\n  vector3d& operator*=(float f) { x*=f; y*=f; z*=f; return *this; }\n};\n\ninline float fast_length2(float x, float y, float z) { return x*x + y*y + z*z; }\ninline float __fsqrt(float x) { return sqrtf(x); }\ninline float fast_recip_length(float x, float y, float z) { return 1.0f / sqrtf(x*x + y*y + z*z); }\n\nextern const vector3d XVEC;\n__asm__(\".equ XVEC, 0x005787C0\");\n\nclass particle_generator {};\n\nclass particle\n{\n  vector3d my_pos;\n  vector3d my_velocity;\n  vector3d rot_axis;\n  rational_t scale;\n  rational_t rotation;\n  rational_t rotation_speed;\n  time_value_t life_remaining;\n  time_value_t total_life;\n  friend class particle_force;\n};\n\nclass particle_force\n{\npublic:\n  enum force_flavor_t { CONSTANT, RESISTANCE, TOWARDS_POINT };\n  vector3d get_new_v(const particle&, particle_generator&, time_value_t);\n  force_flavor_t flavor;\n  vector3d multipurpose;\n  vector3d utility;\n  rational_t delta_speed;\n  rational_t terminal_speed;\n  rational_t recip_terminal_speed;\n};\n\nvector3d particle_force::get_new_v( const particle& _particle, particle_generator& pg, time_value_t delta_t )\n{\n  vector3d result;\n  if (flavor==RESISTANCE)\n  {\n    rational_t norm_vel = fast_length2(_particle.my_velocity.x, _particle.my_velocity.y, _particle.my_velocity.z );\n    if( norm_vel > terminal_speed*terminal_speed)\n    {\n      norm_vel = __fsqrt(norm_vel);\n      rational_t mul = -delta_speed * (norm_vel-terminal_speed) / norm_vel;\n      mul *= delta_t;\n      result = _particle.my_velocity * (mul + 1.0f);\n    }\n    else\n      result = _particle.my_velocity;\n  }\n  else\n  {\n    if (flavor==CONSTANT)\n    {\n      result = _particle.my_velocity + multipurpose * delta_t;\n    }\n    else\n    {\n      vector3d orientation = utility - _particle.my_pos;\n      rational_t recip_n = fast_recip_length(orientation.x, orientation.y, orientation.z);\n      if (recip_n>100)\n      {\n        orientation = XVEC;\n        recip_n = 1;\n      }\n      orientation *= delta_speed * recip_n;\n      result = _particle.my_velocity + orientation * delta_t;\n    }\n    float recip_norm_result = fast_recip_length(result.x, result.y, result.z);\n    if (recip_norm_result < recip_terminal_speed)\n    {\n      result = result * (terminal_speed * recip_norm_result);\n    }\n  }\n  return result;\n}\n",
+      "status": "different",
+      "target_size": 852
+    }
+  ],
+  "raw_name": "get_new_v__14particle_forceRC8particleR18particle_generatorf"
+}
