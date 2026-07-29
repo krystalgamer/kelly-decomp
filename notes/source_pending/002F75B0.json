@@ -1,0 +1,15 @@
+{
+  "address": "0x002F75B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b4d30b16f1e42d9ab3a243ff33551853baf7a24e",
+      "notes": "# FIRST PASS wave 157 lane B1\n\nExact released source tested once for `0x002F75B0 _M_insert__t8_Rb_tree5ZPQ2t13instance_bank1Z12vr_billboard5ref_tZPQ2t13instance_bank1Z12vr_billboard5ref_tZt9_Identity1ZPQ2t13instance_bank1Z12vr_billboard5ref_tZQ2t13instance_bank1Z12vr_billboard11less_by_ptrZt23__malloc_alloc_template1i0P18_Rb_tree_node_baseT1RCPQ2t13instance_bank1Z12vr_billboard5ref_t`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "class string_buf;\n\nclass stringx\n{\nprotected:\n  char *chars;\n  string_buf *my_buf;\n};\n\nclass vr_billboard;\n\ntemplate <class T>\nclass instance_bank\n{\npublic:\n  struct ref_t\n  {\n    stringx label;\n    T *ptr;\n    unsigned int count;\n  };\n\n  class less_by_ptr;\n};\n\n#define private public\n#include <stl_tree.h>\n#undef private\n\ntypedef instance_bank<vr_billboard>::ref_t *vr_billboard_ref_ptr;\ntypedef _Rb_tree<vr_billboard_ref_ptr, vr_billboard_ref_ptr,\n                 _Identity<vr_billboard_ref_ptr>,\n                 instance_bank<vr_billboard>::less_by_ptr,\n                 __malloc_alloc_template<0> > vr_billboard_ptr_tree;\n\ntemplate vr_billboard_ptr_tree::iterator vr_billboard_ptr_tree::_M_insert(\n  vr_billboard_ptr_tree::_Base_ptr, vr_billboard_ptr_tree::_Base_ptr,\n  vr_billboard_ref_ptr const &);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_M_insert__t8_Rb_tree5ZPQ2t13instance_bank1Z12vr_billboard5ref_tZPQ2t13instance_bank1Z12vr_billboard5ref_tZt9_Identity1ZPQ2t13instance_bank1Z12vr_billboard5ref_tZQ2t13instance_bank1Z12vr_billboard11less_by_ptrZt23__malloc_alloc_template1i0P18_Rb_tree_node_baseT1RCPQ2t13instance_bank1Z12vr_billboard5ref_t"
+}
