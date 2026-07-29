@@ -1,0 +1,23 @@
+{
+  "address": "0x002BC5E8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8ca947c63316b6201b8e5b1bad4c9476a60bb813",
+      "candidate_size": 228,
+      "compared_bytes": 480,
+      "compared_instructions": 120,
+      "emitted_name": "remove_script_function__12timer_widgetff",
+      "instruction_score": 0.8333,
+      "matching_bytes": 38,
+      "matching_instructions": 1,
+      "notes": "FIRST PASS wave89 B4\nTarget: 0x002BC5E8 remove_script_function__12timer_widgetff (480/0x1E0), game/files_misc2\nReference: kelly-slaters-pro-surfer/KS/SRC/widget_script.cpp\nAttempts before: 0\nAttempt 1: exact released body with minimal faithful self-contained declarations, LF line endings, and no headers\nResult: different; score 7.9167 (instruction score 0.8333), candidate 228 bytes versus target 480 bytes.\nExactly one candidate was tested. No alternatives, assembly, annotations, variants, retries, attempts 2-5, diff chasing, build, finalization, integration, queue edits, tracked edits, commit, or push were performed.",
+      "score": 7.9167,
+      "source": "typedef float time_value_t;\n\nstruct stringx {\n    char data[8];\n};\n\nclass timer_widget {\npublic:\n    class timer_func {\n    public:\n        time_value_t time;\n        stringx function;\n    };\n\n    template<class T> class vector {\n        T *start;\n        T *finish;\n        T *end_of_storage;\n    public:\n        typedef T *iterator;\n        iterator begin() { return start; }\n        iterator end() { return finish; }\n        iterator erase(iterator position);\n    };\n\nprivate:\n    char padding[0x1a4];\n    vector<timer_func> script_calls_left;\n    vector<timer_func> script_calls_made;\n\npublic:\n    void remove_script_function(time_value_t start, time_value_t end);\n};\n\nvoid timer_widget::remove_script_function(time_value_t start, time_value_t end)\n{\n  vector<timer_func>::iterator sci = script_calls_made.begin();\n  while(sci != script_calls_made.end())\n  {\n    if((*sci).time >= start && (*sci).time <= end)\n      sci = script_calls_made.erase(sci);\n    else\n      ++sci;\n  }\n\n  sci = script_calls_left.begin();\n  while(sci != script_calls_left.end())\n  {\n    if((*sci).time >= start && (*sci).time <= end)\n      sci = script_calls_left.erase(sci);\n    else\n      ++sci;\n  }\n}\n",
+      "status": "different",
+      "target_size": 480
+    }
+  ],
+  "raw_name": "remove_script_function__12timer_widgetff"
+}
