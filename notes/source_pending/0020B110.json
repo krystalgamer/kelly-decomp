@@ -1,0 +1,16 @@
+{
+  "address": "0x0020B110",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6dfa92aaa6224439b276fc7675a8a253e10fc722",
+      "error": "Candidate did not emit update__19generic_anim_animalbN21Pf; emitted functions: ['update__19generic_anim_animalbbbPf']",
+      "notes": "FIRST PASS wave115 B2\nTarget: 0x0020B110 update__19generic_anim_animalbN21Pf (600/0x258), game/files_kellyslater\nReference: kelly-slaters-pro-surfer/KS/SRC/ks/floatobj.cpp\nAttempts before: 0\nAttempt 1: exact released body with minimal faithful self-contained declarations and LF line endings\nResult: symbol_missing; score 0.0. The candidate emitted update__19generic_anim_animalbbbPf instead of update__19generic_anim_animalbN21Pf.\nExactly one candidate was tested. No follow-up, alternative, retry, diff chase, build, finalization, integration, queue edit, tracked edit, commit, or push was performed.",
+      "score": 0.0,
+      "source": "extern \"C\" int sprintf(char *, const char *, ...);\n\nint random(int);\n\nclass stringx\n{\n  char *chars;\n  void *my_buf;\npublic:\n  stringx(const char *, int = -1);\n  ~stringx();\n  const char *c_str() const { return chars; }\n};\n\nclass entity_anim_tree\n{\npublic:\n  bool is_finished() const;\n  bool is_done_tween() const;\n  float get_time_remaining() const;\n  float get_duration() const;\n};\n\nclass entity\n{\npublic:\n  entity_anim_tree *get_anim_tree(int);\n  void *play_anim(int, const stringx &, float, unsigned short = 0, short = -1);\n};\n\nclass generic_anim_animal\n{\n  stringx my_base_name;\n  int cur_state, cur_anim;\n  bool dummy;\n  bool left_down, right_down;\n  char pad[5];\n  int generic_anims[2];\n  int generic_anim_state;\n  entity *my_entity;\n\n  static const char *generic_anim_names[];\n  enum { AA_IDLE, AA_DIVE, AA_SPAWN };\npublic:\n  void update(bool collide, bool jump, bool spray, float *alpha);\n};\n\nvoid generic_anim_animal::update (bool collide, bool jump, bool spray, float *alpha)\n{\n  entity_anim_tree* anim_tree = my_entity->get_anim_tree (0);\n  int play = -1;\n\n  if (generic_anim_state == AA_SPAWN)\n  {\n    play = generic_anim_state = AA_IDLE;\n  }\n  else if ((generic_anim_state == AA_IDLE) && (collide || jump || spray))\n  {\n    // check for collision/spray/jump\n    if (collide || jump || spray)\n    {\n      generic_anim_state = play = AA_DIVE;\n    }\n  }\n  else if (anim_tree && anim_tree->is_finished () && anim_tree->is_done_tween ())\n  {\n    switch (generic_anim_state)\n    {\n    case AA_IDLE: generic_anim_state = AA_IDLE; break;\n    case AA_DIVE: generic_anim_state = AA_IDLE; break;\n    }\n    play = generic_anim_state;\n  }\n\n  if ((play != -1) && (generic_anims[play] > 0))\n  {\n    char anim[256];\n    sprintf (anim, \"%s_%s_%d\", my_base_name.c_str (), generic_anim_names[play], random(generic_anims[play]) + 1);\n\n    my_entity->play_anim (0, anim, 0.3f, 0x0a00);\n  }\n\n\tif (generic_anim_state == AA_DIVE)\n\t{\n\t\t*alpha = anim_tree->get_time_remaining () / anim_tree->get_duration ();\n\t}\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "update__19generic_anim_animalbN21Pf"
+}
