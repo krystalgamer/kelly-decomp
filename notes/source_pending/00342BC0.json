@@ -1,0 +1,23 @@
+{
+  "address": "0x00342BC0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3f339bd8380b8eb4484a1fe45cf0e93624ed5968",
+      "candidate_size": 516,
+      "compared_bytes": 528,
+      "compared_instructions": 132,
+      "emitted_name": "frame_advance__9fluid_barf",
+      "instruction_score": 2.2727,
+      "matching_bytes": 104,
+      "matching_instructions": 3,
+      "notes": "# FIRST PASS wave 102 lane A2\n\nExact released `fluid_bar::frame_advance` body tested once for `0x00342BC0`. Attempts before: 0. LF-only candidate. Result `different`, byte score 19.697%, instruction score 2.2727%. No retry, follow-up, chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 19.697,
+      "source": "typedef float rational_t;\ntypedef float time_value_t;\n\nenum widget_dir_e {\n  WDIR_Left,\n  WDIR_Right,\n  WDIR_Up,\n  WDIR_Down\n};\n\nstruct virtual_entry {\n  short adjustment;\n  short padding;\n  void (*function)();\n};\n\nclass bitmap_widget {\n  char padding[0x140];\n  virtual_entry *table;\npublic:\n  void set_subrect(int x0, int y0, int x1, int y1) {\n    virtual_entry *call = (virtual_entry *)((char *)table + 0xD8);\n    ((void (*)(void *, int, int, int, int))call->function)\n      ((char *)this + call->adjustment, x0, y0, x1, y1);\n  }\n  void move_to(short x, short y) {\n    virtual_entry *call = (virtual_entry *)((char *)table + 0x68);\n    ((void (*)(void *, short, short))call->function)\n      ((char *)this + call->adjustment, x, y);\n  }\n};\n\nclass fluid_bar {\n  char padding0[0x14];\n  unsigned int flags;\n  char padding1[0x12C];\n  widget_dir_e dir;\n  char padding2[0xC];\n  bitmap_widget *bar_map;\n  char name[8];\n  rational_t w, h;\n  rational_t full_val, to_val, cur_val, fill_rate, empty_rate, special_rate;\n  rational_t old_full_val, old_to_val, old_cur_val, old_fill_rate, old_empty_rate;\n  bool update, using_special_rate;\npublic:\n  bool is_shown() const { return flags & 1; }\n  void frame_advance(time_value_t time_inc);\n};\n\n#define assert(exp) ((void)0)\n\nvoid fluid_bar::frame_advance( time_value_t time_inc )\n{\n  if ( !is_shown() ) return;\n\n  assert( full_val >= 0.0f );\n  assert( to_val >= 0.0f && to_val <= full_val );\n  assert( cur_val >= 0.0f && cur_val <= full_val );\n\n  if ( update || cur_val != to_val )\n  {\n    if ( cur_val < to_val )\n    {\n      if ( using_special_rate )\n      {\n        cur_val += time_inc * full_val * special_rate;\n      }\n      else\n      {\n        cur_val += time_inc * full_val * fill_rate;\n      }\n\n      if ( cur_val > to_val )\n      {\n        cur_val = to_val;\n      }\n    }\n    else\n    {\n      if ( using_special_rate )\n      {\n        cur_val -= time_inc * full_val * special_rate;\n      }\n      else\n      {\n        cur_val -= time_inc * full_val * empty_rate;\n      }\n\n      if ( cur_val < to_val )\n      {\n        cur_val = to_val;\n      }\n    }\n\n    int adj_w = int( w * ( cur_val / full_val ) + 0.5f );\n    int adj_h = int( h * ( cur_val / full_val ) + 0.5f );\n\n    int x0 = 0, y0 = 0, x1 = int( w ), y1 = int( h );\n\n    if ( dir == WDIR_Left )\n    {\n      x0 = int( w ) - adj_w;\n    }\n    else if ( dir == WDIR_Right )\n    {\n      x1 = adj_w;\n    }\n    else if ( dir == WDIR_Up )\n    {\n      y0 = int( h ) - adj_h;\n    }\n    else if ( dir == WDIR_Down )\n    {\n      y1 = adj_h;\n    }\n\n    bar_map->set_subrect( x0, y0, x1, y1 );\n    bar_map->move_to( x0, y0 );\n\n    update = false;\n    old_full_val = full_val;\n    old_to_val = to_val;\n    old_cur_val = cur_val;\n    old_fill_rate = fill_rate;\n    old_empty_rate = empty_rate;\n\n    if ( cur_val == to_val )\n    {\n      using_special_rate = false;\n    }\n  }\n}\n",
+      "status": "different",
+      "target_size": 528
+    }
+  ],
+  "raw_name": "frame_advance__9fluid_barf"
+}
