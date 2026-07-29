@@ -1,0 +1,23 @@
+{
+  "address": "0x001CA890",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "13e70a5d5942e904d15d4d174227d529ec4710d4",
+      "candidate_size": 508,
+      "compared_bytes": 508,
+      "compared_instructions": 127,
+      "emitted_name": "Draw__17HighScoreFrontEnd",
+      "instruction_score": 72.4409,
+      "matching_bytes": 408,
+      "matching_instructions": 92,
+      "notes": "FIRST PASS wave93 A2\nTarget: 0x001CA890 Draw__17HighScoreFrontEnd (500/0x1F4), game/files_frontend\nReference: kelly-slaters-pro-surfer/KS/SRC/ks/HighScoreFrontEnd.cpp (read-only)\nAttempts before: 0 (queue pending/0 and no target scratch directory before prepare)\nAttempt 1: one LF self-contained candidate using the released Draw control flow/body, minimal faithful layout/vtable declarations, no includes, and call-through macros for unavailable class definitions.\nResult: different; score 80.3150; instruction score 72.4409; candidate 508 bytes versus target 500; 408/508 compared bytes and 92/127 instructions matched.\nExactly one candidate was tested. No alternatives, assembly candidate, annotations, variants, retries, attempts 2-5, diff chasing, build, finalization, integration, queue edits, tracked edits, commit, or push were performed.",
+      "score": 80.315,
+      "source": "struct draw_slot\n{\n  short adjustment;\n  unsigned short reserved;\n  void (*function)(void *);\n};\n\nstruct turn_slot\n{\n  short adjustment;\n  unsigned short reserved;\n  void (*function)(void *, bool);\n};\n\nstruct active_vtable\n{\n  char padding[72];\n  draw_slot draw;\n};\n\nstruct highlighted_vtable\n{\n  char padding[56];\n  draw_slot draw;\n};\n\nstruct text_vtable\n{\n  char padding[24];\n  draw_slot draw;\n};\n\nstruct quad_vtable\n{\n  char padding[24];\n  turn_slot turn_on;\n};\n\nstruct FEMenu\n{\n  char padding[0x74];\n  active_vtable *vtable;\n};\n\nstruct FEMenuEntry\n{\n  int entry_num;\n  char padding[0x58];\n  highlighted_vtable *vtable;\n};\n\nstruct TextString\n{\n  char padding[0x4c];\n  text_vtable *vtable;\n};\n\nstruct PanelQuad\n{\n  char padding[0x194];\n  quad_vtable *vtable;\n};\n\nclass PanelFile\n{\n  char padding[0x64];\n\npublic:\n  void Draw(int layer);\n};\n\n__asm__(\".equ Draw__9PanelFilei, 0x001530B8\");\n\nclass HighScoreFrontEnd\n{\n  char padding0[0x4c];\n  FEMenuEntry *highlighted;\n  char padding1[0x10];\n  FEMenu *active;\n  char padding2[4];\n  TextString *helpText;\n  char padding3[0x94];\n  PanelFile panel;\n  TextString *column_labels[5];\n  TextString *info[10][5];\n  PanelQuad *arrows[2][2];\n  char padding4[0x30];\n  int arrow_counter;\n  char padding5[8];\n  bool in_game;\n\npublic:\n  void Draw();\n};\n\n#define DRAW_OBJECT(object)                                                   \\\n  ((object)->vtable->draw.function(                                           \\\n      (char *)(object) + (object)->vtable->draw.adjustment))\n\n#define TURN_OBJECT(object, value)                                            \\\n  ((object)->vtable->turn_on.function(                                        \\\n      (char *)(object) + (object)->vtable->turn_on.adjustment, value))\n\nvoid HighScoreFrontEnd::Draw()\n{\n  if (arrow_counter >= 0)\n    arrow_counter--;\n  if (arrow_counter < 0 && arrow_counter > -5)\n  {\n    arrow_counter = -5;\n    TURN_OBJECT(arrows[0][0], !in_game);\n    TURN_OBJECT(arrows[0][1], false);\n    TURN_OBJECT(arrows[1][0], !in_game);\n    TURN_OBJECT(arrows[1][1], false);\n  }\n\n  panel.Draw(0);\n\n  if (active)\n    DRAW_OBJECT(active);\n  else\n  {\n    DRAW_OBJECT(highlighted);\n\n    for (int i = 0; i < 5; i++)\n    {\n      if (i != 5 - 1 || highlighted->entry_num >= 25)\n      {\n        for (int j = 0; j < 10; j++)\n          DRAW_OBJECT(info[j][i]);\n        DRAW_OBJECT(column_labels[i]);\n      }\n    }\n\n    DRAW_OBJECT(helpText);\n  }\n}\n",
+      "status": "different",
+      "target_size": 500
+    }
+  ],
+  "raw_name": "Draw__17HighScoreFrontEnd"
+}
