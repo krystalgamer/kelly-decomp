@@ -1,0 +1,15 @@
+{
+  "address": "0x0027A840",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "930e055d7392f5cf367dd22b2f4edd1d9378f6dc",
+      "notes": "# FIRST PASS wave 107 lane B4\n\nExact released body tested once for `0x0027A840 set_level__4gameG7stringxb`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "void game::set_level(stringx lname, bool career)\n{\n\tstringx cmpto=lname;\n\tcmpto.to_upper();\n\tif(career)\n\t{ // in career mode, so load a level\n\t\tfor ( int i=0; i<LEVEL_LAST; i++ )\n\t\t{\n\t\t\tchar *bname=CareerDataArray[i].name;\n\t\t\tassert(strlen(bname));\n\t\t\tstringx cmpi=stringx(bname);\n\t\t\tcmpi.to_upper();\n\t\t\tif ( cmpto==cmpi )\n\t\t\t{\n\t\t\t\tset_level(i);\n\t\t\t\treturn;\n\t\t\t}\n\t\t}\n\t\tset_level(0); // use the first level in the database by default\n\t}\n\telse // not in career mode, so load a beach\n\t{\n\t\tfor ( int i=0; i<BEACH_LAST; i++ )\n\t\t{\n\t\t\tchar *bname=BeachDataArray[i].folder;\n\t\t\tassert(strlen(bname));\n\t\t\tstringx cmpi=stringx(bname);\n\t\t\tcmpi.to_upper();\n\t\t\tif ( cmpto==cmpi )\n\t\t\t{\n\t\t\t\tset_beach(i);\n\t\t\t\treturn;\n\t\t\t}\n\t\t}\n\t\tset_beach(BEACH_BELLS);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "set_level__4gameG7stringxb"
+}
