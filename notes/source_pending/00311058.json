@@ -1,0 +1,23 @@
+{
+  "address": "0x00311058",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ce7db0f8f40e5dc363d19a8739b94561203070fc",
+      "candidate_size": 528,
+      "compared_bytes": 540,
+      "compared_instructions": 135,
+      "emitted_name": "__as__t6vector2Z7stringxZt23__malloc_alloc_template1i0RCt6vector2Z7stringxZt23__malloc_alloc_template1i0",
+      "instruction_score": 2.963,
+      "matching_bytes": 99,
+      "matching_instructions": 4,
+      "notes": "# FIRST PASS wave 104 lane A4\n\nExact released body tested once for `0x00311058 __as__t6vector2Z7stringxZt23__malloc_alloc_template1i0RCt6vector2Z7stringxZt23__malloc_alloc_template1i0`. Result `different`, score 18.3333%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 18.3333,
+      "source": "typedef unsigned int size_t;\n\nvoid *arch_malloc(size_t, const char *, int) __asm__(\"arch_malloc__FUiPCci\");\nvoid arch_free(void *) __asm__(\"arch_free__FPv\");\nvoid *oom_malloc(size_t) __asm__(\"_S_oom_malloc__t23__malloc_alloc_template1i0Ui\");\n\ntemplate<int inst>\nclass __malloc_alloc_template {\npublic:\n  static void *allocate(size_t n) {\n    void *result = arch_malloc(n, __PRETTY_FUNCTION__, 0);\n    if (result == 0) result = oom_malloc(n);\n    return result;\n  }\n  static void deallocate(void *p, size_t n) {\n    if (n != 0) arch_free(p);\n  }\n};\n\nclass stringx {\n  char data[8];\npublic:\n  stringx& operator=(const stringx&) __asm__(\"__as__7stringxRC7stringx\");\n  ~stringx() __asm__(\"_$_7stringx\");\n};\n\nextern \"C\" stringx *uninitialized_copy(const stringx *, const stringx *, stringx *, int) __asm__(\"__uninitialized_copy_aux__H2ZPC7stringxZP7stringx_X01X01X11G12__false_type_X11\");\n\ninline stringx *copy(const stringx *first, const stringx *last, stringx *result) {\n  while (first != last) {\n    *result = *first;\n    ++first;\n    ++result;\n  }\n  return result;\n}\n\ninline void destroy(stringx *first, stringx *last) {\n  while (first != last) {\n    first->~stringx();\n    ++first;\n  }\n}\n\ntemplate<class T, class Alloc>\nclass vector {\n  T *start;\n  T *finish;\n  T *end_of_storage;\n  typedef unsigned int size_type;\n  typedef T *iterator;\n  typedef const T *const_iterator;\n\n  iterator allocate_and_copy(size_type n, const_iterator first, const_iterator last) {\n    iterator result = (iterator)Alloc::allocate(n * sizeof(T));\n    uninitialized_copy(first, last, result, 0);\n    return result;\n  }\n  void deallocate() {\n    Alloc::deallocate(start, end_of_storage - start);\n  }\npublic:\n  size_type size() const { return finish - start; }\n  size_type capacity() const { return end_of_storage - start; }\n  iterator begin() { return start; }\n  const_iterator begin() const { return start; }\n  const_iterator end() const { return finish; }\n\n  vector& operator=(const vector& x) {\n    if (&x != this) {\n      const size_type xlen = x.size();\n      if (xlen > capacity()) {\n        iterator tmp = allocate_and_copy(xlen, x.begin(), x.end());\n        destroy(start, finish);\n        deallocate();\n        start = tmp;\n        end_of_storage = start + xlen;\n      }\n      else if (size() >= xlen) {\n        iterator i = copy(x.begin(), x.end(), begin());\n        destroy(i, finish);\n      }\n      else {\n        copy(x.begin(), x.begin() + size(), start);\n        uninitialized_copy(x.begin() + size(), x.end(), finish, 0);\n      }\n      finish = start + xlen;\n    }\n    return *this;\n  }\n};\n\ntemplate class vector<stringx, __malloc_alloc_template<0> >;\n",
+      "status": "different",
+      "target_size": 540
+    }
+  ],
+  "raw_name": "__as__t6vector2Z7stringxZt23__malloc_alloc_template1i0RCt6vector2Z7stringxZt23__malloc_alloc_template1i0"
+}
