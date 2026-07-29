@@ -1,0 +1,23 @@
+{
+  "address": "0x0013E9F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d779540f5d70a892f143366790bfc156f58a563b",
+      "candidate_size": 384,
+      "compared_bytes": 600,
+      "compared_instructions": 144,
+      "emitted_name": "insert_unique__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZsZt10_Select1st1Zt4pair2ZC7stringxZsZt4less1Z7stringxZt12my_allocator1ZsRCt4pair2ZC7stringxZs",
+      "instruction_score": 0.0,
+      "matching_bytes": 81,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 115 lane A3\n\nExact released body tested once for `0x0013E9F8 insert_unique__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZsZt10_Select1st1Zt4pair2ZC7stringxZsZt4less1Z7stringxZt12my_allocator1ZsRCt4pair2ZC7stringxZs`. Result `different`, score 13.5000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 13.5,
+      "source": "struct stringx {\n  char data[8];\n};\n\nstruct value_type {\n  const stringx first;\n  short second;\n};\n\nstruct node {\n  int color;\n  node *parent;\n  node *left;\n  node *right;\n  value_type value;\n};\n\nstruct iterator {\n  node *_M_node;\n\n  iterator& operator--() {\n    if (_M_node->color == 0 &&\n        _M_node->parent->parent == _M_node)\n      _M_node = _M_node->right;\n    else if (_M_node->left != 0) {\n      node *y = _M_node->left;\n      while (y->right != 0)\n        y = y->right;\n      _M_node = y;\n    } else {\n      node *y = _M_node->parent;\n      while (_M_node == y->left) {\n        _M_node = y;\n        y = y->parent;\n      }\n      _M_node = y;\n    }\n    return *this;\n  }\n};\n\nstruct result {\n  iterator first;\n  bool second;\n\n  result(const iterator& x, const bool& y) : first(x), second(y) {}\n};\n\nstruct tree {\n  node *_M_header;\n  unsigned int _M_node_count;\n};\n\nextern bool stringx_less(const stringx &, const stringx &)\n  __asm__(\"lt__7stringxRC7stringx\");\n\nextern \"C\" iterator tree_insert(tree *, node *, node *, const value_type &)\n  __asm__(\"_M_insert__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZsZt10_Select1st1Zt4pair2ZC7stringxZsZt4less1Z7stringxZt12my_allocator1ZsP18_Rb_tree_node_baseT1RCt4pair2ZC7stringxZs\");\n\nresult insert_unique_value(tree *, const value_type &)\n  __asm__(\"insert_unique__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZsZt10_Select1st1Zt4pair2ZC7stringxZsZt4less1Z7stringxZt12my_allocator1ZsRCt4pair2ZC7stringxZs\");\n\nresult insert_unique_value(tree *self, const value_type &v) {\n  node *y = self->_M_header;\n  node *x = self->_M_header->parent;\n  bool comp = true;\n  while (x != 0) {\n    y = x;\n    comp = stringx_less(v.first, x->value.first);\n    x = comp ? x->left : x->right;\n  }\n  iterator j;\n  j._M_node = y;\n  if (comp)\n    if (j._M_node == self->_M_header->left)\n      return result(tree_insert(self, x, y, v), true);\n    else\n      --j;\n  if (stringx_less(j._M_node->value.first, v.first))\n    return result(tree_insert(self, x, y, v), true);\n  return result(j, false);\n}\n",
+      "status": "different",
+      "target_size": 600
+    }
+  ],
+  "raw_name": "insert_unique__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZsZt10_Select1st1Zt4pair2ZC7stringxZsZt4less1Z7stringxZt12my_allocator1ZsRCt4pair2ZC7stringxZs"
+}
