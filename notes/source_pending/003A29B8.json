@@ -1,0 +1,15 @@
+{
+  "address": "0x003A29B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1572deddd00ff34dbf655f6dfd5dd17a70aa6329",
+      "notes": "# FIRST PASS wave 129 lane B5\n\nExact released source tested once for `0x003A29B8 nglVif1UnpackBones__FRPUiP7nglMeshUiP9nglMatrixT3`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x003A29B8 nglVif1UnpackBones__FRPUiP7nglMeshUiP9nglMatrixT3\n// Reference: NGL/PS2/ngl_ps2.cpp\n// Replace this file with one self-contained candidate function.\n#include \"NGL/PS2/ngl_ps2_shared.h\"\n\n// Requires and leaves Packet 16 byte aligned.\nvoid nglVif1UnpackBones( u_int*& Packet, nglMesh* Mesh, u_int Flags, nglMatrix* Bones, nglMatrix* WorldToLocal /*= NULL*/ )\n{\n  if ( !STAGE_ENABLE( Skin ) )\n    return;\n  if ( Mesh->NBones > NGL_MAX_BONES )\n    return;\n\n  // Verify that exactly one flag is set.\n  NGL_ASSERT( ( Flags & NGLP_BONES_MASK ) == NGLP_BONES_RELATIVE ||\n              ( Flags & NGLP_BONES_MASK ) == NGLP_BONES_LOCAL ||\n              ( Flags & NGLP_BONES_MASK ) == NGLP_BONES_WORLD,\n              \"Invalid bone flags in render params (only one bit can be set).\" );\n\n  nglVif1AddUnpackAligned( Packet, NGLMEM_END - Mesh->NBones * 4, Mesh->NBones == 64 ? 0 : Mesh->NBones * 4, SCE_VIF1_V4_32 );\n\n  matrix_t* OutputBones = (matrix_t*)Packet;\n  Packet += Mesh->NBones * sizeof(matrix_t) / sizeof(u_int);\n\n  matrix_t* ParamBones = (matrix_t*)Bones;\n  if ( Flags & NGLP_BONES_RELATIVE )\n    memcpy( OutputBones, ParamBones, sizeof(matrix_t) * Mesh->NBones );\n  else\n  if ( Flags & NGLP_BONES_LOCAL )\n  {\n    matrix_t* MeshBones = (matrix_t*)Mesh->Bones;\n    for ( u_int i = 0; i < Mesh->NBones; i++ )\n      OutputBones[i] = ParamBones[i] * MeshBones[i];\n  }\n  else /*NGLP_BONES_WORLD*/\n  {\n    NGL_ASSERT( WorldToLocal != NULL, \"NGLP_BONES_WORLD requires a WorldToLocal matrix.\" ); \n    matrix_t* MeshBones = (matrix_t*)Mesh->Bones;\n    matrix_t WorldToLocalMat = *(matrix_t*)WorldToLocal;\n    for ( u_int i = 0; i < Mesh->NBones; i++ )\n      OutputBones[i] = WorldToLocalMat * ParamBones[i] * MeshBones[i];\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "nglVif1UnpackBones__FRPUiP7nglMeshUiP9nglMatrixT3"
+}
