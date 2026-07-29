@@ -1,0 +1,23 @@
+{
+  "address": "0x00169BD8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a10ef89aa7c0d886721c4e34777be9840c11c10c",
+      "candidate_size": 696,
+      "compared_bytes": 712,
+      "compared_instructions": 178,
+      "emitted_name": "Init__12CameraWidgetR9PanelFile",
+      "instruction_score": 61.7978,
+      "matching_bytes": 365,
+      "matching_instructions": 110,
+      "notes": "# FIRST PASS wave 133 lane A2\n\nExact released source tested once for `0x00169BD8 Init__12CameraWidgetR9PanelFile`. Attempts before: 0. Result `different`, byte score 51.2640% and instruction score 61.7978%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 51.264,
+      "source": "struct panel_quad_vtable { char padding[24]; short adjustment; short reserved; void (*turn_on)(void *, bool); };\nstruct PanelQuad { char padding[404]; panel_quad_vtable *vtable; };\nclass PanelFile { public: PanelQuad *GetPointer(const char *name); };\n__asm__(\".equ GetPointer__9PanelFilePCc, 0x00152F88\");\nclass IGOWidget { public: bool display; void *vtable; };\nclass CameraWidget : public IGOWidget {\n    enum { NUM_RETICLE_PQS = 28 };\n    PanelQuad *reticlePQs[NUM_RETICLE_PQS];\n    float fade;\n    float showTimer;\n    float showTime;\npublic:\n    void SetDisplay(bool d);\n    void Init(PanelFile &panel);\n};\n__asm__(\".equ SetDisplay__12CameraWidgetb, 0x00169BB8\");\nvoid CameraWidget::Init(PanelFile & panel)\n{\n    int i = 0;\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_count_0\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_count_1\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_count_2\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_count_3\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_1a\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_1b\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_1c\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_1d\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_2a\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_2b\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_2c\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_2d\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_2e\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_2f\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_2g\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_2h\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_2i\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_2j\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_2k\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_2l\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_3a\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_3b\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_3c\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_3d\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_3e\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_3f\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_3g\");\n    reticlePQs[i++] = panel.GetPointer(\"igo_camera_3h\");\n    for (i = 0; i < NUM_RETICLE_PQS; i++)\n    {\n        PanelQuad *quad = reticlePQs[i];\n        panel_quad_vtable *table = quad->vtable;\n        table->turn_on((char *)quad + table->adjustment, false);\n    }\n    fade = 1.0f;\n    SetDisplay(true);\n}\n",
+      "status": "different",
+      "target_size": 712
+    }
+  ],
+  "raw_name": "Init__12CameraWidgetR9PanelFile"
+}
