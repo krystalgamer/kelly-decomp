@@ -1,0 +1,16 @@
+{
+  "address": "0x00327D08",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9b4a3ff44444ff2c02f0f3f83722b971906e21cb",
+      "error": "Candidate did not emit __cl__13slf_to_item_tR8vm_stackQ320script_library_class8function7entry_t; emitted functions: []",
+      "notes": "# FIRST PASS wave 125 lane A5\n\nExact released source tested once for `0x00327D08 __cl__13slf_to_item_tR8vm_stackQ320script_library_class8function7entry_t`. Attempts before: 0. Result `symbol_missing`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "class stringx {\npublic:\n  stringx();\n  stringx(const char *);\n  stringx(const stringx &);\n  ~stringx();\n};\nstringx operator+(const char *, const stringx &);\nstringx operator+(const stringx &, const char *);\n\nclass entity_id {\n  unsigned val;\npublic:\n  stringx get_val() const;\n};\n\nclass entity {\n  entity_id id;\npublic:\n  virtual bool is_an_item() const;\n  entity_id get_id() const { return id; }\n};\nclass item : public entity {};\n\ntypedef entity *vm_entity_t;\ntypedef item *vm_item_t;\n\nclass vm_thread {\npublic:\n  void slf_error(const stringx &);\n};\n\nclass vm_stack {\npublic:\n  int salloc;\n  char *buffer;\n  char *SP;\nprivate:\n  vm_thread *my_thread;\npublic:\n  char *get_SP() const { return SP; }\n  vm_thread *get_thread() const { return my_thread; }\n  void pop(int n) { SP -= n; }\n  bool push(const char *, int);\n};\n\nclass script_library_class {\npublic:\n  class function {\n  public:\n    enum entry_t { FIRST_ENTRY, RECALL_ENTRY };\n    virtual bool operator()(vm_stack &, entry_t) { return true; }\n  };\n};\n\nvoid error(const stringx &);\n\n#define SLF_PARMS \\\n  stack.pop(sizeof(parms_t)); \\\n  parms_t* parms = (parms_t*)stack.get_SP()\n#define SLF_RETURN \\\n  if (!stack.push((char*)&result,sizeof(result)) ) \\\n    error( \"script stack overflow\" )\n#define SLF_DONE return true\n\nclass slf_to_item_t : public script_library_class::function\n  {\n  public:\n    struct parms_t\n      {\n      vm_entity_t e;\n      };\n    virtual bool operator()( vm_stack &stack, entry_t entry )\n      {\n      SLF_PARMS;\n      vm_item_t result = 0;\n      if ( parms->e->is_an_item() )\n        result = static_cast<vm_item_t>( parms->e );\n      else\n        stack.get_thread()->slf_error( \"to_item(): \" + parms->e->get_id().get_val() + \" is not a item\" );\n      SLF_RETURN;\n      SLF_DONE;\n      }\n  };\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__cl__13slf_to_item_tR8vm_stackQ320script_library_class8function7entry_t"
+}
