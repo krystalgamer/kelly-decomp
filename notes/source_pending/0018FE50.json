@@ -1,0 +1,23 @@
+{
+  "address": "0x0018FE50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "82f5957eeb466b2068ae25789df0ae7b0cc02e8f",
+      "candidate_size": 444,
+      "compared_bytes": 536,
+      "compared_instructions": 134,
+      "emitted_name": "PickDemo__13BeachFrontEndi",
+      "instruction_score": 5.2239,
+      "matching_bytes": 85,
+      "matching_instructions": 7,
+      "notes": "# FIRST PASS wave 103 lane A4\n\nExact released body tested once for `0x0018FE50 PickDemo__13BeachFrontEndi`. Result `different`, score 15.8582%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 15.8582,
+      "source": "#define NULL 0\n\nenum { MAP_LOC_LAST = 17, MAX_BEACHES_PER_LOC = 3, GAME_MODE_CAREER = 0 };\n\nclass FEMenuEntry {};\nclass PanelQuad { public: void TurnOn(bool); };\nclass PanelFile { public: void StartSlide(bool); };\n\nclass FEMenu\n{\npublic:\n\tFEMenuEntry* current;\n\tvirtual void setHigh(FEMenuEntry*, bool = true);\n};\n\nclass FEMultiMenu : public FEMenu\n{\npublic:\n\tvirtual void OnActivate();\n};\n\nstruct BFE_Location\n{\n\tint levels[MAX_BEACHES_PER_LOC];\n\tint beaches[MAX_BEACHES_PER_LOC];\n\tbool all_levels_locked;\n\tbool all_beaches_locked;\n\tbool no_existing_levels;\n};\n\nclass FEManager\n{\npublic:\n\tint tmp_game_mode;\n};\n\nclass FrontEndManager\n{\npublic:\n\tbool return_to_fe;\n\tbool map_loading_screen;\n};\n\nextern FrontEndManager frontendmanager;\n\nclass BeachFrontEnd : public FEMultiMenu\n{\npublic:\n\tbool in_career_mode;\n\tbool in_frontend;\n\tbool in_demo_mode;\n\tbool offset_set;\n\tint home_beach;\n\tint current_level_index;\n\tint goal_num[MAX_BEACHES_PER_LOC];\n\tFEMenuEntry* chall_text[MAX_BEACHES_PER_LOC];\n\tint current_beach_index;\n\tint current_location_index;\n\tBFE_Location locations[MAP_LOC_LAST];\n\tbool no_progress_path;\n\tPanelQuad* selected[64];\n\tPanelFile panel;\n\tbool sliding_in;\n\tFEManager* manager;\n\n\tvoid SetBeachData();\n\tvoid SetSecondaryCursor(FEMenuEntry*);\n\tvoid UpdateBeach(bool);\n\tvoid TurnBox(int, bool, float);\n\tvoid HideAllDots();\n\tvoid PrepareForLoading();\n\tvirtual void PickDemo(int beach);\n};\n\nvoid BeachFrontEnd::PickDemo(int beach)\n{\n\tin_career_mode = true;\n\tin_frontend = true;\n\tin_demo_mode = true;\n/*\tSave/load no longer part of map screen.  (dc 07/01/02)\n\tsave_load->down = NULL;\n*/\n\toffset_set = false;\n\n\thome_beach = -1;\n\tcurrent_level_index = beach; //locations[current_location_index].levels[0];\n\t\n\tSetBeachData();\n\n\tFEMultiMenu::OnActivate();\n\tsetHigh(current);\n\tSetSecondaryCursor(goal_num[0] != 0 ? chall_text[0] : NULL);\n\tif(in_frontend) \n\t{\n\t\tUpdateBeach(false);\n\t}\n\telse //if(in_career_mode)\n\t{\n\t\tpanel.StartSlide(sliding_in);\n\t\tTurnBox(current_beach_index, true, 0);\t// we will call UpdateBeach after the slide-in (dc 04/27/02)\n//\t\tmem_lock_malloc(false);\n//\t\tg_game_ptr->play_movie(\"MAPROLL\", true);\n\t}\n\n//\tStartFrontendFade();\n\t\n\tint l;\n\tfor(l=0; l<MAP_LOC_LAST; l++)\n\t{\n\t\tint b;\n\t\tfor(b=0; b<MAX_BEACHES_PER_LOC; b++)\n\t\t\tif(locations[l].levels[b] == current_level_index)\n\t\t\t{\n\t\t\t\tcurrent_beach_index = locations[l].beaches[0];\n\t\t\t\tbreak;\n\t\t\t}\n\t\t\t\n\t\t\tif(b < MAX_BEACHES_PER_LOC)\n\t\t\t\tbreak;\n\t}\n\tcurrent_location_index = l;\n\t\n  no_progress_path = true;\n\n  //SetProgressPath();\n\n  // Turn off all blinking lights except for destination\n\tHideAllDots();\n\n  // Turn on green destination dot\n  if(selected[locations[current_location_index].beaches[0]]) selected[locations[current_location_index].beaches[0]]->TurnOn(true);\n\t\n  frontendmanager.return_to_fe = false;\n\tfrontendmanager.map_loading_screen = true;\n\tmanager->tmp_game_mode = GAME_MODE_CAREER;\n\tPrepareForLoading();\n}\n",
+      "status": "different",
+      "target_size": 536
+    }
+  ],
+  "raw_name": "PickDemo__13BeachFrontEndi"
+}
