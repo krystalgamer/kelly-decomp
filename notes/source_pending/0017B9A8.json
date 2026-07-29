@@ -1,0 +1,23 @@
+{
+  "address": "0x0017B9A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d0224ee08bd576e7a9446168262e93680a933327",
+      "candidate_size": 532,
+      "compared_bytes": 532,
+      "compared_instructions": 133,
+      "emitted_name": "SetDisplay__11IGOFrontEndb",
+      "instruction_score": 69.1729,
+      "matching_bytes": 486,
+      "matching_instructions": 92,
+      "notes": "# FIRST PASS wave 102 lane A5\n\nExact released body tested once for `0x0017B9A8 SetDisplay__11IGOFrontEndb`. Result `different`, score 91.3534%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 91.3534,
+      "source": "class IGOWidget\n{\npublic:\n\tvirtual ~IGOWidget();\n\tvirtual void SetDisplay(const bool d = true);\n};\n\nclass IGOFrontEnd\n{\n\tstruct PLAYER\n\t{\n\t\tchar pad[16];\n\t\tIGOWidget * meterWidget;\n\t\tIGOWidget * horizBalanceWidget;\n\t\tchar tail[36];\n\t};\n\n\tchar pad0[0x108];\n\tbool display;\n\tchar pad1[0x13];\n\tint numPlayers;\n\tint numActivePlayers;\n\tPLAYER * players;\n\tchar pad2[0x46c];\n\tIGOWidget * analogClockWidget;\n\tIGOWidget * centerClockWidget;\n\tIGOWidget * splitterWidget;\n\tIGOWidget * waveIndicatorWidget;\n\tIGOWidget * bigWaveMeterWidget;\n\tIGOWidget * cameraWidget;\n\tIGOWidget * photoWidget;\n\tIGOWidget * replayWidget;\n\tIGOWidget * timeAttackWidget;\n\tIGOWidget * meterAttackWidget;\n\tIGOWidget * iconRadarWidget;\n\npublic:\n\tvoid SetDisplay(const bool disp);\n};\n\nvoid IGOFrontEnd::SetDisplay(const bool disp)\n{\n\tint\ti;\n\t\n\tdisplay = disp;\n\t\n\t// Display widgets.\n\tif (analogClockWidget) analogClockWidget->SetDisplay(display);\n\tif (centerClockWidget) centerClockWidget->SetDisplay(display);\n\t//if (splitterWidget) splitterWidget->SetDisplay(display);\n\tif (waveIndicatorWidget) waveIndicatorWidget->SetDisplay(display);\n\tif (bigWaveMeterWidget) bigWaveMeterWidget->SetDisplay(display);\n\tif (cameraWidget) cameraWidget->SetDisplay(display);\n\tif (photoWidget) photoWidget->SetDisplay(display);\n\tif (replayWidget) replayWidget->SetDisplay(display);\n\tif (timeAttackWidget) timeAttackWidget->SetDisplay(display);\n\tif (meterAttackWidget) meterAttackWidget->SetDisplay(display);\n\tif (iconRadarWidget) iconRadarWidget->SetDisplay(display);\n\tfor (i = 0; i < numPlayers; i++)\n\t{\n\t\tif (players[i].meterWidget) players[i].meterWidget->SetDisplay(display);\n\t\tif (players[i].horizBalanceWidget) players[i].horizBalanceWidget->SetDisplay(display);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 532
+    }
+  ],
+  "raw_name": "SetDisplay__11IGOFrontEndb"
+}
