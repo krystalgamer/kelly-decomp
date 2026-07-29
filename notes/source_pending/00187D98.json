@@ -1,0 +1,23 @@
+{
+  "address": "0x00187D98",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8878b061371d5c43798be397fae17e84acf2a690",
+      "candidate_size": 464,
+      "compared_bytes": 520,
+      "compared_instructions": 130,
+      "emitted_name": "OnHighlightHero__14SurferFrontEndi",
+      "instruction_score": 10.0,
+      "matching_bytes": 128,
+      "matching_instructions": 13,
+      "notes": "# FIRST PASS wave 100 lane A4\n\nExact released body tested once for `0x00187D98 OnHighlightHero__14SurferFrontEndi`. Result `different`, score 24.6154%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 24.6154,
+      "source": "class FEMenuEntry\n{\npublic:\n\tvoid Disable(bool);\n\tFEMenuEntry *up;\n\tFEMenuEntry *down;\n};\n\nclass GraphicalMenuSystem\n{\npublic:\n\tbool multiplayer;\n\tbool multi_1;\n};\n\nclass FEManager\n{\npublic:\n\tint tmp_game_mode;\n};\n\nclass game\n{\npublic:\n\tint get_player_handicap(int);\n\tvoid SetSurferIdx(int, int);\n};\n\nclass career\n{\npublic:\n\tbool IsUsingPersonality();\n};\n\nextern game *g_game_ptr;\nextern career *g_career;\n\nenum\n{\n\tGAME_MODE_CAREER,\n\tSURFER_LAST = 25\n};\n\nclass SurferFrontEnd\n{\n\tenum\n\t{\n\t\tDISP_SELECT,\n\t\tDISP_HANDICAP,\n\t\tDISP_STATS\n\t};\n\n\tint disp_state;\n\tint availability[SURFER_LAST];\n\tbool personality_unlocked[SURFER_LAST];\n\tGraphicalMenuSystem *sys;\n\tFEMenuEntry *current_surfer;\n\tFEMenuEntry *Bio;\n\tFEMenuEntry *Personality;\n\tFEMenuEntry *Continue;\n\tFEMenuEntry *Handicap;\n\tFEManager *manager;\n\npublic:\n\tint current_surfer_index;\n\tvoid OnHighlightHero(int old_index);\n\tvoid AdjustHandicapAbso(int absolute);\n\tvoid SetPersonality(bool up);\n\tvoid MaskWave(int wave);\n\tbool BioAvailable();\n};\n\nvoid SurferFrontEnd::OnHighlightHero(int old_index)\n{\n\tswitch(disp_state)\n\t{\n\tcase DISP_STATS:\n\t\tPersonality->down = Continue;\n\t\tContinue->up = Personality;\n\t\tbreak;\n\tcase DISP_HANDICAP:\n\t\tHandicap->up = current_surfer;\n\t\tcurrent_surfer->down = Handicap;\n\t\tif((sys->multiplayer && sys->multi_1) || (!sys->multiplayer))\n\t\t\tAdjustHandicapAbso(g_game_ptr->get_player_handicap(0));\n\t\telse\n\t\t\tAdjustHandicapAbso(g_game_ptr->get_player_handicap(1));\n\t\tbreak;\n\tcase DISP_SELECT:\n\t\tBio->up = current_surfer;\n\t\tcurrent_surfer->down = Bio;\n\t\tbreak;\n\t}\n\n\tif(disp_state != DISP_STATS)\n\t{\n\t\tPersonality->down = current_surfer;\n\t\tcurrent_surfer->up = Personality;\n\t}\n\n\tg_game_ptr->SetSurferIdx(sys->multiplayer && !sys->multi_1 ? 1 : 0, current_surfer_index);\n\n\tPersonality->Disable(!personality_unlocked[current_surfer_index]);\n\tbool use_pers = (manager->tmp_game_mode == GAME_MODE_CAREER && g_career->IsUsingPersonality() && personality_unlocked[current_surfer_index]);\n\n\tSetPersonality(use_pers);\n\n\tfor(int i=0; i<4; i++)\n\t\tMaskWave(i);\n\n\tBio->Disable(!BioAvailable());\n}\n",
+      "status": "different",
+      "target_size": 520
+    }
+  ],
+  "raw_name": "OnHighlightHero__14SurferFrontEndi"
+}
