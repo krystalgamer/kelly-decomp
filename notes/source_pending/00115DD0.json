@@ -1,0 +1,15 @@
+{
+  "address": "0x00115DD0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "08201056b89b1dd4294b5ab795b2b18383b9b748",
+      "notes": "# FIRST PASS wave 110 lane A5\n\nExact released body tested once for `0x00115DD0 entity_anim_tree_stl_prealloc__Fv`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/entity_anim_shared.h\"\n\n#define NEW new\n#define MAX_CONCURRENT_ANIM 1000\n#define ENITITY_ANIM_TREE_PREALLOC 64\n\nextern pentity_anim_vector *entity_anim_tree_anims;\n\nvoid entity_anim_tree_stl_prealloc ()\n{\n\t#ifndef USINGSTATICSTLALLOCATIONS\n\t\tmemset(entity_anim_tree_membuffer,0,MAX_CONCURRENT_ANIM*sizeof(entity_anim_tree));\n\t#endif\n\n    if (!entity_anim_tree_anims)\n      entity_anim_tree_anims = NEW pentity_anim_vector[MAX_CONCURRENT_ANIM];\n\n  for (int i = 0; i < MAX_CONCURRENT_ANIM; i++)\n  {\n\t\t#ifdef USINGSTATICSTLALLOCATIONS\n//    entity_anim_tree *rv=(entity_anim_tree*)( ((char *)entity_anim_tree::membuffer)+(i*sizeof(entity_anim_tree)) );\n\t\t#else\n//    entity_anim_tree *rv=(entity_anim_tree*)( ((char *)entity_anim_tree_membuffer)+(i*sizeof(entity_anim_tree)) );\n\t\t#endif\n/*\n    entity_anim anim_pt;\n    rv->anims.clear ();\n    for (int j = 0; j < ENITITY_ANIM_TREE_PREALLOC; j++)\n      rv->anims.push_back (&anim_pt);\n    rv->anims.clear ();\n*/\n    entity_anim anim_pt;\n    entity_anim_tree_anims[i].clear ();\n    for (int j = 0; j < ENITITY_ANIM_TREE_PREALLOC; j++)\n      entity_anim_tree_anims[i].push_back (&anim_pt);\n    entity_anim_tree_anims[i].clear ();\n\n//    rv->anims = &entity_anim_tree_anims[i];\n  }\n\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "entity_anim_tree_stl_prealloc__Fv"
+}
