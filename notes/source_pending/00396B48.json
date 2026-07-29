@@ -1,0 +1,23 @@
+{
+  "address": "0x00396B48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0848c629d9bee53bce67df05df66e224e5fc3065",
+      "candidate_size": 484,
+      "compared_bytes": 580,
+      "compared_instructions": 142,
+      "emitted_name": "nglInitPhongTexture__Fv",
+      "instruction_score": 6.338,
+      "matching_bytes": 83,
+      "matching_instructions": 9,
+      "notes": "FIRST PASS wave111 B3\n0x00396B48 nglInitPhongTexture__Fv exact released source body.\nAttempts before: 0. Exactly one LF candidate test.\nResult: different; byte score 14.3103% (83/580), instruction score 6.3380% (9/142), candidate size 484 bytes.\nNo follow-up, build, git operation, or tracked edit.",
+      "score": 14.3103,
+      "source": "typedef unsigned char u_char;\ntypedef unsigned short u_short;\ntypedef unsigned int u_int;\n\nextern \"C\" float powf( float, float );\n\ntemplate<class T> const T& min( const T& a, const T& b )\n{\n  return b < a ? b : a;\n}\n\nclass nglFixedString\n{\npublic:\n  char str[32];\n  nglFixedString( const char* );\n  const nglFixedString& operator=( const nglFixedString& );\n};\n\nstruct nglTexture\n{\n  u_int TexStreamPos[2];\n  u_short Width, Height;\n  u_int Hash;\n  u_char Type, TW, TH;\n  u_char Pad;\n  struct\n  {\n    u_int LoadedInPlace : 1;\n    u_int Locked : 1;\n    u_int VRAMOnly : 1;\n    u_int System : 1;\n    u_int RenderTarget : 1;\n  } Flags;\n  void* ph;\n  u_int Format;\n  u_int* Data;\n  u_int NFrames;\n  nglTexture** Frames;\n  u_int SrcDataSize;\n  struct\n  {\n    u_char* Buf;\n    u_int Size;\n    u_int UserData;\n  } FileBuf;\n  nglFixedString FileName;\n};\n\nenum\n{\n  NGLTF_32BIT\n};\n\nnglTexture* nglCreateTexture( int Type, int Width, int Height );\n\nclass nglInstanceBank\n{\npublic:\n  void* Insert( const nglFixedString& Key, void* Value );\n};\n\nextern nglInstanceBank nglTextureBank;\n\n#define NGL_RGBA32_TEX( r, g, b, a )  ((int)(r)) | ( ((int)(g)) << 8 ) | ( ((int)(b)) << 16 ) | ( ((int)((a)+1)>>1) << 24 )\n#define NGL_PHONG_TEXSIZE 64\nnglTexture* nglPhongTex = 0;\n\nvoid nglInitPhongTexture()\n{\n  nglPhongTex = nglCreateTexture( NGLTF_32BIT, NGL_PHONG_TEXSIZE, NGL_PHONG_TEXSIZE );\n  nglPhongTex->FileName = nglFixedString( \"nglphong\" );\n  nglPhongTex->Flags.System = 1;\n\n  u_int* Data = (u_int*)nglPhongTex->Data;\n  for ( float j = 0; j < NGL_PHONG_TEXSIZE; j++ )\n    for ( float i = 0; i < NGL_PHONG_TEXSIZE; i++ )\n    {\n      float x = ( NGL_PHONG_TEXSIZE / 2.0f - ( i + 0.5f ) ) / ( NGL_PHONG_TEXSIZE / 2.0f - 0.5f );\n      float y = ( NGL_PHONG_TEXSIZE / 2.0f - ( j + 0.5f ) ) / ( NGL_PHONG_TEXSIZE / 2.0f - 0.5f );\n//      float Color = 1.0f - min( sqrtf( x*x + y*y ), 1.0f );\n//      float Color = 1.0f - min( 1.0f / ( x*x + y*y ), 1.0f );\n      int Color = int( ( 1.0f - min( powf( x*x + y*y, 0.33333f ), 1.0f ) ) * 255.0f );\n      int Ofs = int( j * NGL_PHONG_TEXSIZE + i );\n      Data[Ofs] = NGL_RGBA32_TEX( 255, 255, 255, Color );\n    }\n\n  nglTextureBank.Insert( nglPhongTex->FileName, nglPhongTex );\n}\n",
+      "status": "different",
+      "target_size": 580
+    }
+  ],
+  "raw_name": "nglInitPhongTexture__Fv"
+}
