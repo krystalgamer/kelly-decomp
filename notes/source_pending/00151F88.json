@@ -1,0 +1,23 @@
+{
+  "address": "0x00151F88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "536ead446814d6dc2459fb29b31fd24365520f37",
+      "candidate_size": 464,
+      "compared_bytes": 616,
+      "compared_instructions": 154,
+      "emitted_name": "Init__9PanelTextPP9PanelQuadG9matrix4x4",
+      "instruction_score": 1.9481,
+      "matching_bytes": 85,
+      "matching_instructions": 3,
+      "notes": "# FIRST PASS wave 118 lane A1\n\nExact released body tested once for `0x00151F88 Init__9PanelTextPP9PanelQuadG9matrix4x4`. Result `different`, score 13.7987%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 13.7987,
+      "source": "#include \"KS/SRC/ks/FEPanel_shared.h\"\n\nstatic inline matrix4x4 operator*(const matrix4x4 &a, const matrix4x4 &b)\n{\n    matrix4x4 local;\n    asm(\n        \"lqc2 vf1,0x0(%2)\\n\"\n        \"lqc2 vf2,0x10(%2)\\n\"\n        \"lqc2 vf3,0x20(%2)\\n\"\n        \"lqc2 vf4,0x30(%2)\\n\"\n        \"lqc2 vf5,0x0(%1)\\n\"\n        \"lqc2 vf6,0x10(%1)\\n\"\n        \"lqc2 vf7,0x20(%1)\\n\"\n        \"lqc2 vf8,0x30(%1)\\n\"\n        \"vmulax.xyzw ACC,vf1,vf5\\n\"\n        \"vmadday.xyzw ACC,vf2,vf5\\n\"\n        \"vmaddaz.xyzw ACC,vf3,vf5\\n\"\n        \"vmaddw.xyzw vf9,vf4,vf5\\n\"\n        \"vmulax.xyzw ACC,vf1,vf6\\n\"\n        \"vmadday.xyzw ACC,vf2,vf6\\n\"\n        \"vmaddaz.xyzw ACC,vf3,vf6\\n\"\n        \"vmaddw.xyzw vf10,vf4,vf6\\n\"\n        \"vmulax.xyzw ACC,vf1,vf7\\n\"\n        \"vmadday.xyzw ACC,vf2,vf7\\n\"\n        \"vmaddaz.xyzw ACC,vf3,vf7\\n\"\n        \"vmaddw.xyzw vf11,vf4,vf7\\n\"\n        \"vmulax.xyzw ACC,vf1,vf8\\n\"\n        \"vmadday.xyzw ACC,vf2,vf8\\n\"\n        \"vmaddaz.xyzw ACC,vf3,vf8\\n\"\n        \"vmaddw.xyzw vf12,vf4,vf8\\n\"\n        \"sqc2 vf9,0x0(%0)\\n\"\n        \"sqc2 vf10,0x10(%0)\\n\"\n        \"sqc2 vf11,0x20(%0)\\n\"\n        \"sqc2 vf12,0x30(%0)\\n\"\n        :\n        : \"r\" (&local), \"r\" (&a), \"r\" (&b));\n    return local;\n}\n\nstruct nglQuad {\n    char data[0x100];\n};\n\nextern void nglInitQuad(nglQuad *);\nextern void nglSetQuadRect(nglQuad *, float, float, float, float);\nextern void nglSetQuadColor(nglQuad *, unsigned int);\nextern void nglSetQuadZ(nglQuad *, float);\n\nclass PanelText : public PanelGeom {\npublic:\n    stringx fontname;\n    color32 color;\n    unsigned char justification;\n    float linespacing;\n    uint32 numtextlines;\n    stringx text;\n    nglQuad quad;\n\n    virtual void Init(PanelQuad **pquads);\n    virtual void Init(PanelQuad **pquads, matrix4x4 matrix);\n    virtual void Draw(float alpha = 1);\n};\n\nvoid PanelText::Init(PanelQuad** pquads, matrix4x4 parent_matrix)\n{\n\tmatrix4x4 this_matrix = parent_matrix*matrix;\n\n\t// text needs to be drawn here, with the appropriate matrix\n\t// right now, an incorrect quad will be drawn\n\tnglInitQuad(&quad);\n\tvector3d bbc = boundboxcenter;\n\tvector3d bbs = boundboxsize;\n\tnglSetQuadRect(&quad, bbc.x - bbs.x, bbc.y - bbs.y, bbc.x + bbs.x, bbc.y + bbs.y);\n\tnglSetQuadColor(&quad, ((unsigned int)(0) << 24) | ((unsigned int)(0x64) << 16) | ((unsigned int)(0x64) << 8) | (unsigned int)(0));\n\tnglSetQuadZ(&quad, 1.0f);\n//\tif(next) next->Init(pquads, parent_matrix);\n\tif(children) children->Init(pquads, this_matrix);\n}\n",
+      "status": "different",
+      "target_size": 616
+    }
+  ],
+  "raw_name": "Init__9PanelTextPP9PanelQuadG9matrix4x4"
+}
