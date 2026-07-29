@@ -1,0 +1,15 @@
+{
+  "address": "0x0013EF98",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "08d25e9a6e9ba795b4a34c62ee5b0dd5f2e4ead4",
+      "notes": "# FIRST PASS wave 158 lane A2\n\nExact released source tested once for `0x0013EF98 _M_insert__t8_Rb_tree5Z12charstarwrapZt4pair2ZC12charstarwrapZUiZt10_Select1st1Zt4pair2ZC12charstarwrapZUiZt4less1Z12charstarwrapZt23__malloc_alloc_template1i0P18_Rb_tree_node_baseT1RCt4pair2ZC12charstarwrapZUi`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <map>\n#include <string.h>\n\nclass charstarwrap\n{\npublic:\n  char* str;\n  charstarwrap(char* s) { str = s; }\n  bool operator<(const charstarwrap& csw) const\n  {\n    return strcmp(str, csw.str) < 0;\n  }\n  bool operator==(const charstarwrap& csw) const\n  {\n    return strcmp(str, csw.str) == 0;\n  }\n};\n\ntypedef pair<const charstarwrap, unsigned int> value_type;\ntypedef _Rb_tree<charstarwrap, value_type, _Select1st<value_type>,\n                 less<charstarwrap>, malloc_alloc> tree_type;\n\ntemplate tree_type::iterator tree_type::_M_insert(\n    tree_type::_Base_ptr, tree_type::_Base_ptr, const value_type&);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_M_insert__t8_Rb_tree5Z12charstarwrapZt4pair2ZC12charstarwrapZUiZt10_Select1st1Zt4pair2ZC12charstarwrapZUiZt4less1Z12charstarwrapZt23__malloc_alloc_template1i0P18_Rb_tree_node_baseT1RCt4pair2ZC12charstarwrapZUi"
+}
