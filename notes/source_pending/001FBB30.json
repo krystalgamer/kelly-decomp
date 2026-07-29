@@ -1,0 +1,23 @@
+{
+  "address": "0x001FBB30",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "25c18cfe1646d33a8f7949265877008bedd63e12",
+      "candidate_size": 108,
+      "compared_bytes": 612,
+      "compared_instructions": 153,
+      "emitted_name": "spawn__15beach_billboard",
+      "instruction_score": 0.0,
+      "matching_bytes": 28,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 117 lane B1\n\nExact released `beach_billboard::spawn` body tested once from `KS/SRC/ks/floatobj.cpp` with minimal self-contained declarations. Result `different`, score 4.5752% (0/153 instructions; 28/612 bytes); candidate emitted 108 bytes. Confirmed attempts0 before testing. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 4.5752,
+      "source": "struct po\n{\n  float data[16];\n};\n\nclass entity\n{\npublic:\n  void set_visible(bool);\n  void update_region(bool force = true);\n  void set_rel_po(const po&);\n};\n\n__asm__(\".equ set_visible__6entityb,0x00138E00\");\n__asm__(\".equ update_region__6entityb,0x00134E20\");\n\nclass beach_object\n{\n  void* vtable;\n\npublic:\n  float spawn_time;\n  int timer_type;\n  int times_spawned;\n  int spawned;\n  int smashable;\n  int active;\n  int never_despawn;\n  int physical;\n\nprotected:\n  entity* my_entity;\n  int spawn_count;\n};\n\nclass beach_billboard : public beach_object\n{\n  char padding0[20];\n  po my_initial_po;\n  int rotate;\n  float my_age;\n  float my_life;\n\npublic:\n  void spawn();\n};\n\nvoid beach_billboard::spawn ()\n{\n  if (times_spawned == spawn_count)\n    return;\n\n  my_entity->set_visible (true);\n  my_entity->update_region ();\n\n  //my_entity->set_rel_po (po_identity_matrix);\n  my_entity->set_rel_po(my_initial_po);\n\n  my_age = 0;\n  spawned = true;\n  times_spawned++;\n}\n",
+      "status": "different",
+      "target_size": 612
+    }
+  ],
+  "raw_name": "spawn__15beach_billboard"
+}
