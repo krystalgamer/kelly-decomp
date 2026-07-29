@@ -1,0 +1,15 @@
+{
+  "address": "0x00311D48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "466de31c6f5bbd1cb2b2474d20dc1b958c8d8697",
+      "notes": "# FIRST PASS wave 161 lane A4\n\nExact released source tested once for `0x00311D48 insert_unique__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP11entity_poolZt10_Select1st1Zt4pair2ZC7stringxZP11entity_poolZt4less1Z7stringxZt12my_allocator1ZP11entity_poolGt17_Rb_tree_iterator3Zt4pair2ZC7stringxZP11entity_poolZRt4pair2ZC7stringxZP11entity_poolZPt4pair2ZC7stringxZP11entity_poolRCt4pair2ZC7stringxZP11entity_pool`. Attempts before: 0. Result `compile_failed`, score 0.0000%. Capacity-only child failures produced no attempts and were remediated directly with established exact source. No source retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <map>\n\nclass stringx {\n    char data[8];\npublic:\n    bool operator<(const stringx &) const;\n};\nclass entity_pool;\n\ntemplate<class T>\nstruct my_allocator : public allocator<T> {};\n\ntypedef pair<const stringx, entity_pool *> value_type;\ntypedef _Rb_tree<stringx, value_type, _Select1st<value_type>, less<stringx>, my_allocator<entity_pool *> > tree_type;\n\ntemplate pair<tree_type::iterator, bool> tree_type::insert_unique(const value_type &);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "insert_unique__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP11entity_poolZt10_Select1st1Zt4pair2ZC7stringxZP11entity_poolZt4less1Z7stringxZt12my_allocator1ZP11entity_poolGt17_Rb_tree_iterator3Zt4pair2ZC7stringxZP11entity_poolZRt4pair2ZC7stringxZP11entity_poolZPt4pair2ZC7stringxZP11entity_poolRCt4pair2ZC7stringxZP11entity_pool"
+}
