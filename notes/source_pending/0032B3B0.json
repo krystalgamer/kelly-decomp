@@ -1,0 +1,16 @@
+{
+  "address": "0x0032B3B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "843b8a45f34475f6febe9ca703682069a62d6fd5",
+      "error": "Candidate did not emit __cl__20slf_angle_between3_tR8vm_stackQ320script_library_class8function7entry_t; emitted functions: []",
+      "notes": "# FIRST PASS wave 114 lane B1\n\nExact released body tested once for `0x0032B3B0 __cl__20slf_angle_between3_tR8vm_stackQ320script_library_class8function7entry_t`. Result `symbol_missing`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "typedef float rational_t;\ntypedef float vm_num_t;\n\nclass stringx\n{\npublic:\n  stringx();\n  stringx(const stringx&);\n  ~stringx();\n};\n\nstringx operator+(const stringx&, const char*);\nstringx operator+(const stringx&, const stringx&);\nvoid error(const stringx&);\n\nclass script_object\n{\npublic:\n  class instance\n  {\n    int unused;\n    stringx name;\n  public:\n    const stringx& get_name() const { return name; }\n  };\n\nprivate:\n  int unused[3];\n  stringx fullname;\npublic:\n  const stringx& get_fullname() const { return fullname; }\n};\n\nclass vm_thread\n{\n  script_object::instance* instance_ptr;\n  script_object* executable;\npublic:\n  script_object::instance* get_instance() const { return instance_ptr; }\n  script_object* get_executable() const { return executable; }\n};\n\nclass vm_stack\n{\npublic:\n  int salloc;\n  char* buffer;\n  char* SP;\nprivate:\n  vm_thread* my_thread;\npublic:\n  char* get_SP() const { return SP; }\n  vm_thread* get_thread() const { return my_thread; }\n  void pop(int n) { SP -= n; }\n  bool push(const char* src, int n);\n};\n\nclass vector3d\n{\npublic:\n  rational_t x;\n  rational_t y;\n  rational_t z;\n};\n\nvm_num_t angle_between(const vector3d&, const vector3d&);\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n\n    virtual bool operator()(vm_stack& stack, entry_t entry) { return true; }\n  };\n};\n\n#define SLF_PARMS \\\n  stack.pop(sizeof(parms_t)); \\\n  parms_t* parms = (parms_t*)stack.get_SP()\n\n#define SLF_RETURN \\\n  if (!stack.push((char*)&result,sizeof(result)) ) \\\n    error( stack.get_thread()->get_instance()->get_name() + \": stack overflow in \" + stack.get_thread()->get_executable()->get_fullname() )\n\n#define SLF_DONE \\\n  return true\n\nclass slf_angle_between3_t : public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    vector3d v1;\n    vector3d v2;\n  };\n  virtual bool operator()(vm_stack& stack,entry_t entry)\n  {\n    SLF_PARMS;\n    vm_num_t result = angle_between(parms->v1,parms->v2);\n    SLF_RETURN;\n    SLF_DONE;\n  }\n};\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__cl__20slf_angle_between3_tR8vm_stackQ320script_library_class8function7entry_t"
+}
