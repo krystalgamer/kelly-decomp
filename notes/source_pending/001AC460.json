@@ -1,0 +1,23 @@
+{
+  "address": "0x001AC460",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "54375d09efb66ae7a46a794920893ba9958a1072",
+      "candidate_size": 600,
+      "compared_bytes": 600,
+      "compared_instructions": 150,
+      "emitted_name": "OnActivate__18TrickTypeMenuClass",
+      "instruction_score": 0.6667,
+      "matching_bytes": 123,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 112 lane A1\n\nExact released body tested once for `0x001AC460 OnActivate__18TrickTypeMenuClass`. Result `different`, score 20.5000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 20.5,
+      "source": "struct FEMenuEntry {\n\tchar pad0[4];\n\tFEMenuEntry *next;\n\tchar pad1[88];\n\tvirtual void d0();\n\tvirtual void d1();\n\tvirtual void d2();\n\tvirtual void d3();\n\tvirtual void d4();\n\tvirtual void d5();\n\tvirtual void d6();\n\tvirtual void d7();\n\tvirtual void d8();\n\tvirtual void d9();\n\tvirtual void Disable(bool disabled = true);\n};\n\nstruct FEMenu {\n\tchar pad[64];\n\tFEMenuEntry *entries;\n};\n\nstruct PauseMenuSystem {\n\tchar pad[156];\n\tint pause_controller;\n};\n\nstruct Game {\n\tchar pad0[176];\n\tint num_players;\n\tint active_player;\n\tint player_device[102];\n\tint surfer_index[8];\n\n\tint get_num_active_players() const { return num_players; }\n\tint get_active_player() const { return active_player; }\n\tint get_player_device(int player) const { return player_device[player]; }\n\tint get_player_from_device(int device) const {\n\t\tfor (int i = 0; i < num_players; ++i)\n\t\t\tif (player_device[i] == device)\n\t\t\t\treturn i;\n\t\treturn -1;\n\t}\n\tint GetSurferIdx(int player) const { return surfer_index[player]; }\n};\n\nstruct SurferTrick {\n\tchar pad[12];\n\tint flags;\n\tchar tail[72];\n};\n\nstruct SurferData {\n\tchar pad[20];\n\tint trickBook[158];\n};\n\nstruct UnlockingManager {\n\tbool isSurferTrickUnlocked(int trick, bool ignore_learning = false) const;\n};\n\nextern Game *g_game_ptr;\nextern SurferTrick GTrickList[];\nextern SurferData SurferDataArray[];\nextern UnlockingManager unlockManager;\nextern int SpecialFlag;\nextern int TRICKBOOK_SIZE;\n\nenum { NUM_TYPES = 4 };\n#define assert(x) ((void)0)\n\nstruct TrickTypeMenuClass {\n\tchar pad[120];\n\tPauseMenuSystem *sys;\n\tFEMenu *sub_menus[NUM_TYPES];\n\tint trick_list_index[NUM_TYPES][50];\n\n\tvoid OnActivate();\n};\n\nvoid TrickTypeMenuClass::OnActivate()\n{\n\tFEMenuEntry* tmp;\n\tint surfer_idx = -1;\n\n\tif( g_game_ptr->get_num_active_players() == 1 )\n\t{\n\t\tint active_player = g_game_ptr->get_active_player();\n\t\tassert( g_game_ptr->get_player_device( active_player ) == sys->pause_controller );\n\t\tsurfer_idx = g_game_ptr->GetSurferIdx( active_player );\n\t}\n\telse\n\t{\n\t\tint active_player = g_game_ptr->get_player_from_device( sys->pause_controller );\n\t\tassert( g_game_ptr->get_player_device( active_player ) == sys->pause_controller );\n\t\tsurfer_idx = g_game_ptr->GetSurferIdx( active_player );\n\t}\n\t// Disable tricks that haven't been learned yet, or don't exist for current surfer;\n\tfor(int j=0; j<NUM_TYPES; j++)\n\t{\n\t\ttmp = sub_menus[j]->entries;\n\n\t\tint i=0;\n\t\twhile(tmp)\n\t\t{\n\t\t\tint index = trick_list_index[j][i];\n\t\t\tbool not_learned = GTrickList[index].flags & SpecialFlag && !unlockManager.isSurferTrickUnlocked(index, true);  //  Check to see if a trick is open, but only if it it not currently being learned.\n\t\t\tbool not_avail = true;\n\n\t\t\tfor(int k=0; k<TRICKBOOK_SIZE; k++)\n\t\t\t\tif(index == SurferDataArray[surfer_idx].trickBook[k])\n\t\t\t\t{\n\t\t\t\t\tnot_avail = false;\n\t\t\t\t\tbreak;\n\t\t\t\t}\n\n\t\t\ttmp->Disable(not_avail || not_learned);\n\t\t\ttmp = tmp->next;\n\t\t\ti++;\n\t\t}\n\t}\n\t//FEMenu::OnActivate();\n}\n",
+      "status": "different",
+      "target_size": 584
+    }
+  ],
+  "raw_name": "OnActivate__18TrickTypeMenuClass"
+}
