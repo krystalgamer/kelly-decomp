@@ -1,0 +1,23 @@
+{
+  "address": "0x00160688",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3d7ed94713a40584274ee4b5d2fd96935bb494cf",
+      "candidate_size": 884,
+      "compared_bytes": 884,
+      "compared_instructions": 221,
+      "emitted_name": "PushBack__14IGOIconManageri",
+      "instruction_score": 7.6923,
+      "matching_bytes": 218,
+      "matching_instructions": 17,
+      "notes": "# FIRST PASS wave 143 lane B2\n\nExact released source tested once for `0x00160688 PushBack__14IGOIconManageri`. Attempts before: 0. Result `different`, byte score 24.6606% and instruction score 7.6923%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 24.6606,
+      "source": "class IGOIconManager\n{\npublic:\n  class IconResource;\n  class Icon\n  {\n    char data[100];\n\n  public:\n    IconResource *resource;\n    int y;\n    float vy;\n    int sizeInterp;\n    int state;\n    bool show;\n    char padding[3];\n    float colorInterp;\n    void Initialize(IconResource &res);\n  };\n\n  struct IconSpawn\n  {\n    float velocity;\n    char padding[128];\n  };\n\nprivate:\n  char padding0[2648];\n  unsigned char numEffectIcons;\n  unsigned char effectType;\n  char padding1[106];\n  int maxIcons;\n  Icon *icons;\n  Icon nextIcon;\n  int numIcons;\n  char padding2[8];\n  int activeIcon;\n  char padding3[52];\n  int lastDropTime;\n  char padding4[48];\n  int prepareFailure;\n  float effectTime;\n  int startFail;\n  char padding5[596];\n  IconSpawn iconSpawns[16];\n  char padding6[1951];\n  unsigned char currentSpawn;\n\npublic:\n  IconResource *FindResource(int trickIdx);\n  void PopCompletedIcons(bool success);\n  void PushBack(int trickIdx);\n};\n\nenum\n{\n  ICON_STATE_ACTIVE = 1,\n  ICON_STATE_QUEUED = 0,\n  ICON_STATE_FROZEN = 3,\n  SS_ICON_FAILED_TRICKCHAIN = 10\n};\n\nclass entity;\nclass SoundScriptManager\n{\npublic:\n  void playEvent(int type, entity *ent = 0, float value = 0.0f);\n};\n\nextern SoundScriptManager *g_sound_script_manager;\nextern IGOIconManager::Icon *fallingIcon;\n\n__asm__(\".equ FindResource__14IGOIconManageri, 0x00162CC0\");\n__asm__(\".equ PopCompletedIcons__14IGOIconManagerb, 0x001609B0\");\n__asm__(\".equ Initialize__Q214IGOIconManager4IconRQ214IGOIconManager12IconResource, 0x00163CB8\");\n__asm__(\".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380\");\n__asm__(\".equ g_sound_script_manager, 0x0045B4A0\");\n__asm__(\".equ fallingIcon, 0x003E760C\");\n\nvoid IGOIconManager::PushBack(const int trickIdx)\n{\n  if(prepareFailure)\n    return;\n\n  IconResource * res = FindResource(trickIdx);\n\n  if(!res)\n    return;\n\n  if (numIcons+numEffectIcons >= maxIcons)\n    PopCompletedIcons(true);\n\n  if (numIcons >= maxIcons)\n  {\n    for(int i=0; i<numIcons; i++)\n    {\n      ((Icon *)((char *)this + 2008))[i] = icons[i];\n      ((Icon *)((char *)this + 2008))[i].state = ICON_STATE_FROZEN;\n      ((Icon *)((char *)this + 2008))[i].colorInterp = 0.0f;\n    }\n    prepareFailure = 1;\n    numEffectIcons = 5;\n    effectTime = 3.0f;\n    startFail = 0.0f;\n    effectType = 2;\n    numIcons = 0;\n    g_sound_script_manager->playEvent(SS_ICON_FAILED_TRICKCHAIN);\n    return;\n  }\n\n  bool inc = nextIcon.resource != 0;\n  if(nextIcon.resource)\n  {\n    lastDropTime = 0.0f;\n    icons[numIcons] = nextIcon;\n    icons[numIcons].show = true;\n    if (fallingIcon == 0)\n      fallingIcon = &icons[numIcons];\n    icons[numIcons].state = (numIcons == activeIcon) ? ICON_STATE_ACTIVE : ICON_STATE_QUEUED;\n    icons[numIcons].vy = iconSpawns[currentSpawn].velocity;\n  }\n  nextIcon.Initialize(*res);\n  if(inc)\n    numIcons++;\n}\n",
+      "status": "different",
+      "target_size": 796
+    }
+  ],
+  "raw_name": "PushBack__14IGOIconManageri"
+}
