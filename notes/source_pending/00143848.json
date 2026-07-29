@@ -1,0 +1,23 @@
+{
+  "address": "0x00143848",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "294a9830e8f0b8c20a225669ac3d008490c420b4",
+      "candidate_size": 832,
+      "compared_bytes": 884,
+      "compared_instructions": 221,
+      "emitted_name": "_M_insert_aux__t6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoPQ219animation_interface9anim_infoRCQ219animation_interface9anim_info",
+      "instruction_score": 0.905,
+      "matching_bytes": 176,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 152 lane B5\n\nExact released source tested once for `0x00143848 _M_insert_aux__t6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoPQ219animation_interface9anim_infoRCQ219animation_interface9anim_info`. Attempts before: 0. Result `different`, byte score 19.9095% and instruction score 0.9050%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 19.9095,
+      "source": "typedef float rational_t;\n\nclass stringx\n{\n  char *chars;\n  int length;\npublic:\n  stringx(const stringx &);\n  ~stringx();\n  stringx &operator=(const stringx &);\n};\n\nclass animation_interface\n{\npublic:\n  struct anim_info\n  {\n    rational_t percent;\n    stringx anim;\n    int damage;\n    rational_t recover_time;\n    rational_t recover_var;\n    int flags;\n\n    anim_info();\n    anim_info(rational_t, const stringx &, int, rational_t, rational_t, int);\n  };\n};\n\nextern \"C\" void *arch_malloc(unsigned int, const char *, int);\nextern \"C\" void arch_free(void *);\ninline void *operator new(unsigned int, void *p) { return p; }\n\ntemplate<class T>\nclass my_allocator\n{\npublic:\n  static T *allocate(unsigned int n)\n  {\n    return n ? (T *)arch_malloc(n * sizeof(T), __FILE__, 0) : 0;\n  }\n  static void deallocate(T *p, unsigned int)\n  {\n    if (p) arch_free(p);\n  }\n};\n\ntemplate<class T1, class T2>\ninline void construct(T1 *p, const T2 &value)\n{\n  if (p) new ((void *)p) T1(value);\n}\n\ntemplate<class T>\ninline T *copy_backward(T *first, T *last, T *result)\n{\n  while (first != last) *--result = *--last;\n  return result;\n}\n\ntemplate<class T>\ninline T *uninitialized_copy(T *first, T *last, T *result)\n{\n  T *cur = result;\n  for (; first != last; ++first, ++cur) construct(cur, *first);\n  return cur;\n}\n\ntemplate<class T>\ninline void destroy(T *first, T *last)\n{\n  for (; first != last; ++first) first->~T();\n}\n\ntemplate<class T, class Alloc>\nclass vector\n{\nprotected:\n  T *start_;\n  T *finish_;\n  T *end_of_storage_;\n  T *allocate(unsigned int n) { return Alloc::allocate(n); }\n  void deallocate(T *p, unsigned int n) { Alloc::deallocate(p, n); }\npublic:\n  typedef T *iterator;\n  typedef unsigned int size_type;\n  iterator begin() { return start_; }\n  iterator end() { return finish_; }\n  size_type size() const { return finish_ - start_; }\n  void _M_insert_aux(iterator position, const T &x);\n};\n\ntemplate<class T, class Alloc>\nvoid vector<T, Alloc>::_M_insert_aux(iterator position, const T &x)\n{\n  if (finish_ != end_of_storage_)\n  {\n    construct(finish_, *(finish_ - 1));\n    ++finish_;\n    T x_copy = x;\n    copy_backward(position, finish_ - 2, finish_ - 1);\n    *position = x_copy;\n  }\n  else\n  {\n    const size_type old_size = size();\n    const size_type len = old_size != 0 ? 2 * old_size : 1;\n    iterator new_start = allocate(len);\n    iterator new_finish = new_start;\n    new_finish = uninitialized_copy(start_, position, new_start);\n    construct(new_finish, x);\n    ++new_finish;\n    new_finish = uninitialized_copy(position, finish_, new_finish);\n    destroy(begin(), end());\n    deallocate(start_, end_of_storage_ - start_);\n    start_ = new_start;\n    finish_ = new_finish;\n    end_of_storage_ = new_start + len;\n  }\n}\n\ntemplate void vector<animation_interface::anim_info, my_allocator<animation_interface::anim_info> >::_M_insert_aux(\n  animation_interface::anim_info *, const animation_interface::anim_info &);\n",
+      "status": "different",
+      "target_size": 884
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2ZQ219animation_interface9anim_infoZt12my_allocator1ZQ219animation_interface9anim_infoPQ219animation_interface9anim_infoRCQ219animation_interface9anim_info"
+}
