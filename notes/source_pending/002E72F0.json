@@ -1,0 +1,15 @@
+{
+  "address": "0x002E72F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0e6a75ae8a887d62afd7c7d607d3ff710e1ede30",
+      "notes": "# FIRST PASS wave 155 lane A2\n\nExact released source tested once for `0x002E72F0 add__6regionP6entity`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"region.h\"\n#include \"colmesh.h\"\n#include \"entity.h\"\n\n#include <algorithm>\n\nvoid region::add( entity* e )\n{\n  entity_list::iterator ei_begin = entities.begin();\n  entity_list::iterator ei_end = entities.end();\n\n  entity_list::iterator ei = find( ei_begin, ei_end, e );\n  if ( ei == ei_end )\n  {\n    ei = find( ei_begin, ei_end, (entity*)NULL );\n    if ( ei != ei_end )\n      *ei = e;\n    else\n    {\n      entities.push_back( e );\n    }\n    if ( e->is_beamable() || e->is_scannable() || (e->get_colgeom() && e->get_colgeom()->is_camera_collision()) )\n      add_cam_coll_ent( e );\n  }\n\n  if(e->possibly_active() || e->possibly_aging())\n  {\n    ei_begin = possible_active_ents.begin();\n    ei_end = possible_active_ents.end();\n\n    entity_list::iterator ei = find( ei_begin, ei_end, e );\n    if ( ei == ei_end )\n    {\n      ei = find( ei_begin, ei_end, (entity*)NULL );\n      if ( ei != ei_end )\n        *ei = e;\n      else\n      {\n        possible_active_ents.push_back( e );\n      }\n    }\n  }\n\n#if USE_POSS_RENDER_LIST\n  if(e->is_still_visible() && e->is_flagged(EFLAG_GRAPHICS) /*&& (e->get_vrep() || e->has_mesh() || e->get_flavor() == ENTITY_POLYTUBE)*/)\n  {\n    entity_list::iterator ei_begin = possible_render_ents.begin();\n    entity_list::iterator ei_end = possible_render_ents.end();\n\n    entity_list::iterator ei = find( ei_begin, ei_end, e );\n    if ( ei == ei_end )\n    {\n      ei = find( ei_begin, ei_end, (entity*)NULL );\n      if ( ei != ei_end )\n        *ei = e;\n      else\n      {\n        possible_render_ents.push_back( e );\n      }\n    }\n  }\n#endif\n\n  if(e->get_colgeom() && e->are_collisions_active())\n  {\n    entity_list::iterator ei_begin = possible_collide_ents.begin();\n    entity_list::iterator ei_end = possible_collide_ents.end();\n\n    entity_list::iterator ei = find( ei_begin, ei_end, e );\n    if ( ei == ei_end )\n    {\n      ei = find( ei_begin, ei_end, (entity*)NULL );\n      if ( ei != ei_end )\n        *ei = e;\n      else\n      {\n        possible_collide_ents.push_back( e );\n      }\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "add__6regionP6entity"
+}
