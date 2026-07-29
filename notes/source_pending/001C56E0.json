@@ -1,0 +1,15 @@
+{
+  "address": "0x001C56E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "33b2897d25f6ad67e12a284af7c8e7293d5ff76e",
+      "notes": "# FIRST PASS wave 140 lane A3\n\nExact released source tested once for `0x001C56E0 LoadAll__15FEEntityManager`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "void FEEntityManager::LoadAll()\n{\n\tif(all_loaded) return;\n\tbool pers = SurferFrontEnd::getPersonalityUp();\n\tint csi = current_surfer_index;\t\n\tstringx abbr = SurferFrontEnd::getAbbr(csi);\n\tstringx hero_filename;\n\tif(pers) hero_filename = \"PERSONALITY\"+abbr;\n\telse hero_filename = SurferFrontEnd::getName(csi);\n\tif(pers) abbr = abbr+\"_P\";\n\tchar name[40];\n\tchar auxName[40];\n\thero_filename.to_upper();\n\tstrcpy(name, \"SURFERS\\\\\");\n\tstrcpy(auxName, \"SURFERS\\\\AUXSTASH\\\\\");\n\t\t\n\tstash::close_stash(STASH_SURFER);\n\tstash::close_stash(STASH_SURFER_AUX);\n\t\n\tstash::close_stash(STASH_SURFER_2);\n\tstash::close_stash(STASH_SURFER_2_AUX);\n\tloading_surfer_index = g_game_ptr->GetSurferIdx(0);\n\tprevious_surfer_index[0] = loading_surfer_index;\n\tcurrent_surfer_index = -1;\n\n\t\n\tboardCount = 0;\n\n\tboard = NULL;\t\n\tLoadSet();\n\tnlVector3d v;\n\tmemset(&v, 0, sizeof(nlVector3d));\n\tif (!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n\t\tbehindTheCamera = nslCreateEmitter(v);\n\t// Use the right surfer from game_ptr\n\tUpdateSurferIndex(loading_surfer_index);\n\t//g_game_ptr->SetSurferIdx(0,loading_surfer_index);\n\n\n\tcolor32 c = surfer_ent->get_render_color();\n\tc.set_alpha(255);\n\tsurfer_ent->set_render_color(c);\n\tLoadAuxStash();\n\tLoadBoard(0,0);\n\tboard->set_visible(false);\n\n\tLoadSurferAnims(0);\n\tall_loaded = true;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "LoadAll__15FEEntityManager"
+}
