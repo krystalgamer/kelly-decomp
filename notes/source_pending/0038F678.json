@@ -1,0 +1,23 @@
+{
+  "address": "0x0038F678",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "67316557fab5535838bad16d35819e2d4d018c24",
+      "candidate_size": 360,
+      "compared_bytes": 580,
+      "compared_instructions": 145,
+      "emitted_name": "nslSetSoundEmitter__FUiUi",
+      "instruction_score": 2.069,
+      "matching_bytes": 43,
+      "matching_instructions": 3,
+      "notes": "# FIRST PASS wave 111 lane B2\n\nExact released `nslSetSoundEmitter` body tested once for `0x0038F678 nslSetSoundEmitter__FUiUi` with minimal faithful PS2 NSL declarations. Result: `different`, byte score **7.4138%** (43/580), instruction score **2.0690%** (3/145); candidate size 360 bytes versus target size 580 bytes. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 7.4138,
+      "source": "// Target: 0x0038F678 nslSetSoundEmitter__FUiUi\n// Reference: NSL/PS2/nsl_ps2_emitter.cpp\n\ntypedef unsigned int nlUint32;\ntypedef nlUint32 nslSoundId;\ntypedef nlUint32 nslEmitterId;\n\ntemplate<class T>\nclass fifo_queue\n{\n  T *queue;\n  short queue_max;\n  short start;\n  short end;\n  short count;\npublic:\n  short push(const T& index_to_add);\n  short find(const T& index_to_find, short remove_flag);\n};\n\nstruct nslSound\n{\n  bool isReady;\n  bool used;\n  bool inRange;\n  bool isReallyReady;\n  bool isPlaying;\n  bool isReallyPlaying;\n  bool looping;\n  bool isQueuing;\n  short left, right, old_left, old_right;\n  nlUint32 gasInstanceId;\n  int pauseCount;\n  int dampenCount;\n  nslSoundId myId;\n  nlUint32 mySource;\n  nslEmitterId myEmitter;\n  float rawVolume, positionalVolume, angle, pitch, minDist, maxDist;\n};\n\nstruct nslEmitter\n{\n  bool used;\n  bool autoRelease;\n  bool isALineEmitter;\n  nslEmitterId myId;\n  float startPosition[3];\n  float endPosition[3];\n  float position[3];\n  fifo_queue<nslSoundId> emittedSounds;\n};\n\nstruct nslSystem\n{\n  char pad0[0xc044];\n  nslSound soundSlots[256];\n  nslEmitter emitterSlots[256];\n  char pad13c44[0x15850 - 0x13c44];\n  int initialized;\n  char pad15854[0x15880 - 0x15854];\n  bool on;\n};\n\nextern nslSystem nsl;\nextern void nslFatal(const char *format, ...);\n\ninline void _nslInitialized()\n{\n  if (!(nsl.initialized == 1))\n    nslFatal(\"NSL NOT INITIALIZED\");\n}\n\ninline void _nslCheckSoundIdValidity(nslSoundId checkId)\n{\n  nslSoundId checkSlot = (checkId & 0x000003FF);\n  nslSoundId upCheckId = (checkId & 0xFFFFFC00);\n  if (checkId == 0)\n    nslFatal(\"Bad Sound ID 0x%x\\n\", checkId);\n  if (!(nsl.soundSlots[checkSlot].used))\n    nslFatal(\"Bad Sound ID 0x%x\\n\", checkId);\n  if (!(checkSlot < 256))\n    nslFatal(\"Bad Sound ID 0x%x\\n\", checkId);\n  if (!(checkId == nsl.soundSlots[checkSlot].myId))\n    nslFatal(\"Bad Sound ID 0x%x\\n\", checkId);\n  if (!(upCheckId > 0))\n    nslFatal(\"Bad Sound ID 0x%x\\n\", checkId);\n  if (checkSlot > 256)\n    nslFatal(\"Bad Sound ID 0x%x SLOT NUMBER ABOVE SLOTS\\n\", checkId);\n}\n\ninline void _nslCheckEmitterIdValidity(nslEmitterId checkId)\n{\n  if (checkId == 0) return;\n  nslEmitterId checkSlot = (checkId & 0x000003FF);\n  nslEmitterId upCheckId = checkId & 0xFFFFFC00;\n  if (!(checkId != 0))\n    nslFatal(\"Bad Emitter ID 0x%x\\n\", checkId);\n  if (!(checkSlot < 256))\n    nslFatal(\"Bad Emitter ID 0x%x\\n\", checkId);\n  if (!(checkId == nsl.emitterSlots[checkSlot].myId))\n    nslFatal(\"Bad Emitter ID 0x%x\\n\", checkId);\n  if (!(upCheckId > 0))\n    nslFatal(\"Bad Emitter ID 0x%x\\n\", checkId);\n  if (checkSlot > 256)\n    nslFatal(\"Bad Sound ID 0x%x SLOT NUMBER ABOVE SLOTS\\n\", checkId);\n}\n\nvoid nslSetSoundEmitter( nslEmitterId soundEmitter, nslSoundId soundInstance )\n{\n  if (!nsl.on) return;\n  _nslInitialized();\n  _nslCheckEmitterIdValidity(soundEmitter);\n  _nslCheckSoundIdValidity(soundInstance);\n  \n  if (nsl.soundSlots[(soundInstance&0x000003FF)].myEmitter != 0) \n  {\n    nsl.emitterSlots[(nsl.soundSlots[(soundInstance&0x000003FF)].myEmitter&0x000003FF)].emittedSounds.find(soundInstance, true);\n  }\n  if (soundEmitter != 0)\n    nsl.emitterSlots[(soundEmitter&0x000003FF)].emittedSounds.push(soundInstance);\n\n  nsl.soundSlots[(soundInstance&0x000003FF)].myEmitter = soundEmitter;\n}\n",
+      "status": "different",
+      "target_size": 580
+    }
+  ],
+  "raw_name": "nslSetSoundEmitter__FUiUi"
+}
