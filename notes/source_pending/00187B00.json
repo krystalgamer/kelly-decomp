@@ -1,0 +1,15 @@
+{
+  "address": "0x00187B00",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3c8a19e7de9d76b47a8fceaa7af11bf47ce74bc2",
+      "notes": "# FIRST PASS wave 124 lane B1\n\nExact released source tested once for `0x00187B00 Pick__14SurferFrontEndi`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "void SurferFrontEnd::Pick(int entry_index)\n{\n\tconst int &surferIdx = entry_index;\n\tstringx tmp;\n\tif(personality_up)\n\t\ttmp = stringx(SurferDataArray[entry_index].name_ps);\n\telse\n\t\ttmp = stringx(SurferDataArray[entry_index].name);\n\n\tif(sys->multiplayer)\n\t\tif(sys->multi_1)\n\t\t{\n\t\t\tapp::inst()->get_game()->setHeroname(0,tmp);\n\t\t\tapp::inst()->get_game()->SetSurferIdx(0,surferIdx);\n\t\t\tapp::inst()->get_game()->set_player_device( 0, most_recent_controller );\n\t\t\tsys->multi_1 = false;\n#ifdef REAL_ASYNC_LOAD\n\t\t\tstash::WaitForStashLoad();\n#endif\n\t\t\tsys->MakeActive(GraphicalMenuSystem::SurferMenu);\n\t\t}\n\t\telse\n\t\t{\n\t\t\tapp::inst()->get_game()->setHeroname(1,tmp);\n\t\t\tapp::inst()->get_game()->SetSurferIdx(1,surferIdx);\n\t\t\tapp::inst()->get_game()->set_player_device( 1, most_recent_controller );\n\t\t\tsys->multi_1 = true;\n\t\t\tsys->MakeActive(GraphicalMenuSystem::BeachMenu);\n\t\t}\n\telse\n\t{\n\t\tapp::inst()->get_game()->setHeroname(0,tmp);\n\t\tapp::inst()->get_game()->SetSurferIdx(0,surferIdx);\n\t\tapp::inst()->get_game()->set_player_device( 0, most_recent_controller );\n\t\tif(manager->tmp_game_mode == GAME_MODE_CAREER && disp_state != DISP_STATS)\n\t\t{\n\t\t\tg_career->SetMyId(surferIdx);\n\t\t\tSetDisplay(DISP_STATS);\n\t\t}\n\t\tif(manager->tmp_game_mode == GAME_MODE_PRACTICE)\n\t\t\tsys->MakeActive(GraphicalMenuSystem::BoardMenu);\n\t\telse sys->MakeActive(GraphicalMenuSystem::BeachMenu);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Pick__14SurferFrontEndi"
+}
