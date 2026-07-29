@@ -1,0 +1,23 @@
+{
+  "address": "0x00122920",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "29f7c134fcddc2f3877969814122ace4708deb22",
+      "candidate_size": 496,
+      "compared_bytes": 532,
+      "compared_instructions": 130,
+      "emitted_name": "set_parent__14link_interfaceP4bone",
+      "instruction_score": 14.6154,
+      "matching_bytes": 202,
+      "matching_instructions": 19,
+      "notes": "# FIRST PASS wave 102 lane A4\n\nExact released body tested once for `0x00122920 set_parent__14link_interfaceP4bone`. Result `different`, score 37.9699%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 37.9699,
+      "source": "// Target: 0x00122920 set_parent__14link_interfaceP4bone\n\ntypedef float sceVu0FMATRIX[4][4];\nstruct vector4d { float x, y, z, w; };\nstruct matrix4x4 { vector4d x, y, z, w; };\nclass po {\npublic:\n  matrix4x4 m;\n  inline po operator*(const po& b) const\n  {\n    po local;\n    asm(\"lqc2    vf1,0x0(%2)  \\n\"\n        \"lqc2    vf2,0x10(%2) \\n\"\n        \"lqc2    vf3,0x20(%2) \\n\"\n        \"lqc2    vf4,0x30(%2) \\n\"\n        \"lqc2    vf5,0x0(%1) \\n\"\n        \"lqc2    vf6,0x10(%1) \\n\"\n        \"lqc2    vf7,0x20(%1) \\n\"\n        \"lqc2    vf8,0x30(%1) \\n\"\n        \"vmulax.xyzw ACC, vf1,vf5 \\n\"\n        \"vmadday.xyzw ACC, vf2,vf5 \\n\"\n        \"vmaddz.xyzw vf9, vf3,vf5 \\n\"\n        \"vmulax.xyzw ACC, vf1,vf6 \\n\"\n        \"vmadday.xyzw ACC, vf2,vf6 \\n\"\n        \"vmaddz.xyzw vf10, vf3,vf6 \\n\"\n        \"vmulax.xyzw ACC, vf1,vf7 \\n\"\n        \"vmadday.xyzw ACC, vf2,vf7 \\n\"\n        \"vmaddz.xyzw vf11, vf3,vf7 \\n\"\n        \"vmulax.xyzw ACC, vf1,vf8 \\n\"\n        \"vmadday.xyzw ACC, vf2,vf8 \\n\"\n        \"vmaddaz.xyzw ACC, vf3,vf8 \\n\"\n        \"vmaddw.xyzw vf12, vf4,vf8 \\n\"\n        \"sqc2    vf9,0x0(%0) \\n\"\n        \"sqc2    vf10,0x10(%0) \\n\"\n        \"sqc2    vf11,0x20(%0) \\n\"\n        \"sqc2    vf12,0x30(%0) \\n\"\n        : : \"r\" ((sceVu0FMATRIX)&local.m.x.x), \"r\" ((sceVu0FMATRIX)&m.x.x), \"r\" ((sceVu0FMATRIX)&b.m.x.x));\n    local.m.x.w = 0.0f;\n    local.m.y.w = 0.0f;\n    local.m.z.w = 0.0f;\n    local.m.w.w = 1.0f;\n    return local;\n  }\n};\nvoid* operator new(unsigned int, unsigned int, const char*, int);\nextern const char source_file[];\nasm(\".equ source_file, 0x004BA998\");\nasm(\".equ __nw__FUiUiPCci, 0x002AC578\");\n\nclass link_interface;\nclass bone {\n  char pad0[16];\npublic:\n  po my_rel_po;\n  po* my_abs_po;\n  char pad1[16];\n  link_interface* link;\n  bool has_link_ifc() const { return link != 0; }\n  link_interface* link_ifc() const { return link; }\n  const po& get_abs_po() const { return *my_abs_po; }\n};\n\nclass link_interface {\n  char pad0[4];\n  bone* my_bone;\n  bone* my_parent;\n  bone* my_child;\n  bone* my_brother;\npublic:\n  bool link_manages_abs_po;\n  void clear_parent();\n  bone* get_first_child() const { return my_child; }\n  void set_first_child(bone* child) { my_child = child; }\n  bone* get_next_sibling() const { return my_brother; }\n  void set_next_sibling(bone* sibling) { my_brother = sibling; }\n  void set_parent(bone* new_parent);\n};\nasm(\".equ clear_parent__14link_interface, 0x001228B0\");\n\nvoid link_interface::set_parent(bone *new_parent)\n{\n  if(new_parent == 0)\n  {\n    clear_parent();\n  }\n  else if(new_parent != my_parent)\n  {\n    if(my_parent != 0)\n      clear_parent();\n\n    if (link_manages_abs_po == true && my_bone->my_abs_po == &my_bone->my_rel_po)\n    {\n      my_bone->my_abs_po = new(0, source_file, 0) po(my_bone->my_rel_po * new_parent->get_abs_po());\n    }\n\n    link_interface *parent_ifc = new_parent->link_ifc();\n\n    if (parent_ifc->get_first_child() == 0)\n    {\n      parent_ifc->set_first_child(my_bone);\n    }\n    else\n    {\n      const bone *prev = parent_ifc->get_first_child();\n      const bone *curr = prev->link_ifc()->get_next_sibling();\n\n      while (curr != 0)\n      {\n        prev = curr;\n        curr = curr->link_ifc()->get_next_sibling();\n      }\n      prev->link_ifc()->set_next_sibling(my_bone);\n    }\n    my_parent = new_parent;\n    my_brother = 0;\n  }\n}\n\n",
+      "status": "different",
+      "target_size": 532
+    }
+  ],
+  "raw_name": "set_parent__14link_interfaceP4bone"
+}
