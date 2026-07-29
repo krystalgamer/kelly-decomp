@@ -1,0 +1,23 @@
+{
+  "address": "0x002B3230",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "469483f65309bdf2d0bda864902025ef94f3c647",
+      "candidate_size": 616,
+      "compared_bytes": 928,
+      "compared_instructions": 232,
+      "emitted_name": "insert__t6vector2Z16scene_anims_infoZt12my_allocator1Z16scene_anims_infoP16scene_anims_infoUiRC16scene_anims_info",
+      "instruction_score": 2.5862,
+      "matching_bytes": 120,
+      "matching_instructions": 6,
+      "notes": "# FIRST PASS wave 158 lane B4\n\nExact released source tested once for `0x002B3230 insert__t6vector2Z16scene_anims_infoZt12my_allocator1Z16scene_anims_infoP16scene_anims_infoUiRC16scene_anims_info`. Attempts before: 0. Result `different`, byte score 12.9310% and instruction score 2.5862%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 12.931,
+      "source": "typedef unsigned int size_t;\ninline void *operator new(size_t, void *p) { return p; }\nextern \"C\" void *arch_malloc(unsigned int, const char *, int);\nextern \"C\" void arch_free(void *);\ntemplate<class T> class my_allocator { public: static T *allocate(size_t n) { return n ? (T *)arch_malloc(n * sizeof(T), __FILE__, 0) : 0; } static void deallocate(T *p, size_t) { if (p) arch_free(p); } };\nstruct vector3d { float x,y,z; vector3d(const vector3d& v) { x=v.x; y=v.y; z=v.z; } };\nclass stringx { char data[8]; public: stringx(const stringx&); };\nasm(\".equ __7stringxRC7stringx,0x0034D4D0\");\nclass scene_anims_info { public: void *ent; vector3d entity_up_vec; unsigned int handle; stringx name; void *anim_tree; scene_anims_info(const scene_anims_info& v):ent(v.ent),entity_up_vec(v.entity_up_vec),handle(v.handle),name(v.name),anim_tree(v.anim_tree) {} };\ntemplate<class T> inline void construct(T *p, const T& value) { new ((void*)p) T(value); }\ntemplate<class T> inline void destroy(T *p) { p->~T(); }\ntemplate<class T> inline void destroy(T *first, T *last) { while (first != last) { destroy(first); ++first; } }\ntemplate<class T> T *uninitialized_copy(T *first, T *last, T *result) { T *cur=result; while(first!=last) { construct(cur,*first); ++first; ++cur; } return cur; }\ntemplate<class T> T *uninitialized_fill_n(T *first, unsigned int n, const T& value) { T *cur=first; while(n) { construct(cur,value); ++cur; --n; } return cur; }\ntemplate<class T> T *copy_backward(T *first, T *last, T *result) { while(first!=last) { --result; --last; *result=*last; } return result; }\ntemplate<class T> void fill(T *first, T *last, const T& value) { while(first!=last) { *first=value; ++first; } }\ntemplate<class T> inline const T& max(const T& a,const T& b) { return a<b?b:a; }\ntemplate<class T,class Alloc> class vector { protected: T *_M_start,*_M_finish,*_M_end_of_storage; typedef T *iterator; typedef unsigned int size_type; T *_M_allocate(size_type n){return Alloc::allocate(n);} void _M_deallocate(T*p,size_type n){Alloc::deallocate(p,n);} public: size_type size()const{return _M_finish-_M_start;} void insert(iterator,size_type,const T&); };\ntemplate<class T,class Alloc> void vector<T,Alloc>::insert(iterator position,size_type n,const T& x) {\n if(n!=0) { if(size_type(_M_end_of_storage-_M_finish)>=n) { T x_copy=x; const size_type elems_after=_M_finish-position; iterator old_finish=_M_finish; if(elems_after>n) { uninitialized_copy(_M_finish-n,_M_finish,_M_finish); _M_finish+=n; copy_backward(position,old_finish-n,old_finish); fill(position,position+n,x_copy); } else { uninitialized_fill_n(_M_finish,n-elems_after,x_copy); _M_finish+=n-elems_after; uninitialized_copy(position,old_finish,_M_finish); _M_finish+=elems_after; fill(position,old_finish,x_copy); } } else { const size_type old_size=size(); const size_type len=old_size+max(old_size,n); iterator new_start=_M_allocate(len); iterator new_finish=new_start; new_finish=uninitialized_copy(_M_start,position,new_start); new_finish=uninitialized_fill_n(new_finish,n,x); new_finish=uninitialized_copy(position,_M_finish,new_finish); destroy(_M_start,_M_finish); _M_deallocate(_M_start,_M_end_of_storage-_M_start); _M_start=new_start; _M_finish=new_finish; _M_end_of_storage=new_start+len; } }\n}\ntemplate void vector<scene_anims_info,my_allocator<scene_anims_info> >::insert(scene_anims_info*,unsigned int,const scene_anims_info&);\n",
+      "status": "different",
+      "target_size": 928
+    }
+  ],
+  "raw_name": "insert__t6vector2Z16scene_anims_infoZt12my_allocator1Z16scene_anims_infoP16scene_anims_infoUiRC16scene_anims_info"
+}
