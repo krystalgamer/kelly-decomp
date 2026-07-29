@@ -1,0 +1,23 @@
+{
+  "address": "0x002B7088",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "89ca237cfb0fb67b0c4a79a41790bad57f304025",
+      "candidate_size": 504,
+      "compared_bytes": 852,
+      "compared_instructions": 213,
+      "emitted_name": "__as__t6vector2Z11wedge_splitZt12my_allocator1Z11wedge_splitRCt6vector2Z11wedge_splitZt12my_allocator1Z11wedge_split",
+      "instruction_score": 4.6948,
+      "matching_bytes": 129,
+      "matching_instructions": 10,
+      "notes": "# FIRST PASS wave 149 lane A5\n\nExact released source tested once for `0x002B7088 __as__t6vector2Z11wedge_splitZt12my_allocator1Z11wedge_splitRCt6vector2Z11wedge_splitZt12my_allocator1Z11wedge_split`. Attempts before: 0. Result `different`, byte score 15.1408% and instruction score 4.6948%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 15.1408,
+      "source": "typedef unsigned int size_t;\n\nstruct uint_vector {\n    unsigned int *start;\n    unsigned int *finish;\n    unsigned int *end_of_storage;\n    uint_vector& operator=(const uint_vector&)\n        __asm__(\"__as__t6vector2ZUiZt12my_allocator1ZUiRCt6vector2ZUiZt12my_allocator1ZUi\");\n};\n\nstruct wedge_split {\n    unsigned short old_wedge_id;\n    unsigned short new_wedge_id;\n    uint_vector faces_for_split;\n    wedge_split(const wedge_split&);\n    wedge_split& operator=(const wedge_split& x) {\n        old_wedge_id = x.old_wedge_id;\n        new_wedge_id = x.new_wedge_id;\n        faces_for_split = x.faces_for_split;\n        return *this;\n    }\n    ~wedge_split();\n};\n\nextern \"C\" wedge_split *allocate_wedges(size_t)\n    __asm__(\"_M_allocate__t12my_allocator1Z11wedge_splitUi\");\nextern \"C\" void deallocate_wedges(wedge_split *, size_t)\n    __asm__(\"_M_deallocate__t12my_allocator1Z11wedge_splitP11wedge_splitUi\");\nextern \"C\" wedge_split *copy_wedges(\n    const wedge_split *, const wedge_split *, wedge_split *)\n    __asm__(\"__uninitialized_copy_aux__H2ZPC11wedge_splitZP11wedge_split_X01X01X11G12__false_type_X11\");\n\nstruct wedge_vector {\n    wedge_split *start;\n    wedge_split *finish;\n    wedge_split *end_of_storage;\n\n    wedge_vector& operator=(const wedge_vector&)\n        __asm__(\"__as__t6vector2Z11wedge_splitZt12my_allocator1Z11wedge_splitRCt6vector2Z11wedge_splitZt12my_allocator1Z11wedge_split\");\n};\n\nwedge_vector& wedge_vector::operator=(const wedge_vector& x) {\n    if (&x != this) {\n        size_t xlen = x.finish - x.start;\n        if (xlen > size_t(end_of_storage - start)) {\n            wedge_split *tmp = xlen ? allocate_wedges(xlen) : 0;\n            copy_wedges(x.start, x.finish, tmp);\n            for (wedge_split *p = start; p != finish; ++p)\n                p->~wedge_split();\n            deallocate_wedges(start, end_of_storage - start);\n            start = tmp;\n            end_of_storage = start + xlen;\n        } else if (size_t(finish - start) >= xlen) {\n            wedge_split *first = x.start;\n            wedge_split *result = start;\n            while (first != x.finish) {\n                *result = *first;\n                ++first;\n                ++result;\n            }\n            for (wedge_split *p = result; p != finish; ++p)\n                p->~wedge_split();\n        } else {\n            wedge_split *middle = x.start + (finish - start);\n            wedge_split *first = x.start;\n            wedge_split *result = start;\n            while (first != middle) {\n                *result = *first;\n                ++first;\n                ++result;\n            }\n            copy_wedges(middle, x.finish, finish);\n        }\n        finish = start + xlen;\n    }\n    return *this;\n}\n",
+      "status": "different",
+      "target_size": 852
+    }
+  ],
+  "raw_name": "__as__t6vector2Z11wedge_splitZt12my_allocator1Z11wedge_splitRCt6vector2Z11wedge_splitZt12my_allocator1Z11wedge_split"
+}
