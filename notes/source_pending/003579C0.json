@@ -1,0 +1,15 @@
+{
+  "address": "0x003579C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "42c251ef5326cc19b7b09df0e7702b2221bfa70c",
+      "notes": "# FIRST PASS wave 165 lane B2\n\nExact released source tested once for `0x003579C0 insert__t6vector2Z14vertex_contextZt12my_allocator1Z14vertex_contextP14vertex_contextUiRC14vertex_context`. Attempts before: 0. Result `compile_failed`, score 0.0000%. Capacity-only child failures and Sol retries produced no attempts for nine lanes; those lanes were remediated directly. No source retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <vector>\n\nclass vertex_context;\ntemplate<class T> class my_allocator;\n\ntemplate void vector<vertex_context, my_allocator<vertex_context> >::insert(\n    vertex_context *, unsigned int, const vertex_context &);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "insert__t6vector2Z14vertex_contextZt12my_allocator1Z14vertex_contextP14vertex_contextUiRC14vertex_context"
+}
