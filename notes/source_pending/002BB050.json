@@ -1,0 +1,15 @@
+{
+  "address": "0x002BB050",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "91cd4cb03ed7edb9e375abff53adf9ee20dca6bf",
+      "notes": "# FIRST PASS wave 144 lane A5\n\nExact released source tested once for `0x002BB050 _$_12timer_widget`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <vector>\n\ntypedef float rational_t;\ntypedef float time_value_t;\n\nclass stringx\n{\n  char *characters;\n  void *buffer;\n\npublic:\n  stringx();\n  stringx(const stringx &);\n  ~stringx();\n  stringx &operator=(const stringx &);\n};\n\nextern const stringx empty_string;\n\nclass widget\n{\n  char data[0x140];\n\npublic:\n  virtual ~widget();\n};\n\nclass bitmap_widget;\n\nclass timer_widget : public widget\n{\nprotected:\n  class timer_func\n  {\n  public:\n    time_value_t time;\n    stringx function;\n\n    timer_func()\n    {\n      time = -1.0f;\n      function = empty_string;\n    }\n\n    timer_func(const timer_func &b)\n    {\n      copy(b);\n    }\n\n    ~timer_func()\n    {\n    }\n\n    void copy(const timer_func &b)\n    {\n      time = b.time;\n      function = b.function;\n    }\n\n    timer_func &operator=(const timer_func &b)\n    {\n      copy(b);\n      return *this;\n    }\n  };\n\n  bitmap_widget *digits[10];\n  bitmap_widget *colon1;\n  bitmap_widget *colon2;\n  bitmap_widget *point;\n  bitmap_widget *bg;\n  int minutes;\n  int seconds1;\n  int seconds2;\n  int tenths;\n  rational_t time_left;\n  bool running;\n  bool updated;\n  vector<timer_func> script_calls_left;\n  vector<timer_func> script_calls_made;\n\npublic:\n  virtual ~timer_widget();\n};\n\ntimer_widget::~timer_widget()\n{\n  script_calls_left.resize(0);\n  script_calls_made.resize(0);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_12timer_widget"
+}
