@@ -1,0 +1,23 @@
+{
+  "address": "0x0028AA88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "36f1d72689abb338c56bfbde78c807140cbba1ff",
+      "candidate_size": 308,
+      "compared_bytes": 536,
+      "compared_instructions": 134,
+      "emitted_name": "parse_instance__4itemRC7stringxR10chunk_file",
+      "instruction_score": 1.4925,
+      "matching_bytes": 65,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 103 lane B1\n\nExact released body tested once for `0x0028AA88 parse_instance__4itemRC7stringxR10chunk_file`. Result `different`, score 12.1269%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 12.1269,
+      "source": "struct chunk_file {};\n\nclass stringx {\npublic:\n  stringx();\n  stringx(const char *, int = -1);\n  ~stringx();\n  bool operator==(const stringx&) const;\n  bool operator!=(const stringx&) const;\nprivate:\n  char *data;\n  void *buffer;\n};\n\nextern const stringx chunkend_label;\nvoid serial_in(chunk_file&, stringx*);\nvoid serial_in(chunk_file&, int*);\n\nclass entity {\npublic:\n  bool parse_instance(const stringx&, chunk_file&);\n};\n\nclass item : public entity {\n  char padding[0x214];\n  int count;\npublic:\n  bool parse_instance(const stringx&, chunk_file&);\n};\n\nbool item::parse_instance( const stringx& pcf, chunk_file& fs )\n{\n  if ( pcf == stringx(\"item\") )\n  {\n    stringx cf;\n    for ( serial_in(fs,&cf); cf!=chunkend_label; serial_in(fs,&cf) )\n    {\n      if ( cf == stringx(\"count\") )\n      {\n        serial_in( fs, &count );\n      }\n    }\n  }\n  else\n    return entity::parse_instance( pcf, fs );\n\n  return true;\n}\n",
+      "status": "different",
+      "target_size": 536
+    }
+  ],
+  "raw_name": "parse_instance__4itemRC7stringxR10chunk_file"
+}
