@@ -1,0 +1,23 @@
+{
+  "address": "0x0033A638",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "90aef96423a8e08474ef018bb6ce9ee26065bbdc",
+      "candidate_size": 352,
+      "compared_bytes": 508,
+      "compared_instructions": 125,
+      "emitted_name": "reload__4Font",
+      "instruction_score": 4.0,
+      "matching_bytes": 56,
+      "matching_instructions": 5,
+      "notes": "# FIRST PASS wave94 B5\n\n- Target: `0x0033A638 reload__4Font` (508 / `0x1FC`), `game/files_vsim`.\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/text_font.cpp:410-429`.\n- Confirmed attempts0 before preparation/testing (`not prepared`).\n- Candidate: LF-only exact released body with minimal faithful self-contained declarations and no headers.\n- Sole attempt: `different`; byte score 11.0236% (56/508), instruction score 4.0000% (5/125); candidate 352 bytes, target 508 bytes.\n- Candidate SHA-1: `90aef96423a8e08474ef018bb6ce9ee26065bbdc`.\n- Exactly one candidate and one harness invocation. No retry, alternatives, chase, build, finalize, integration, git mutation, or tracked edits.",
+      "score": 11.0236,
+      "source": "typedef unsigned long long big_int;\n\nclass string_buf;\n\nclass stringx\n{\n  char* chars;\n  string_buf* my_buf;\npublic:\n  stringx();\n  stringx(const stringx&);\n  stringx(const char*, int = -1);\n  ~stringx();\n  const char* c_str() const { return chars; }\n  const char* data() const { return chars; }\n};\n\nstringx operator+(const char*, const stringx&);\nstringx operator+(const stringx&, const char*);\n\nclass os_developer_options\n{\npublic:\n  enum strings_t { STRING_TEXTURE_DIR = 0 };\n  static os_developer_options* inst();\n  const stringx& get_string(strings_t) const;\n};\n\nstruct nglTexture;\nvoid nglSetTexturePath(char*);\nnglTexture* nglLoadTextureA(const char*);\n\nenum\n{\n  GT_PadU,\n  GT_PadD,\n  GT_PadL,\n  GT_PadR,\n  GT_PadUL,\n  GT_PadUR,\n  GT_PadDL,\n  GT_PadDR,\n  GT_PadCircle,\n  GT_PadCross,\n  GT_PadTriangle,\n  GT_PadSquare,\n  GT_PadL1,\n  GT_PadL2,\n  GT_PadR1,\n  GT_PadR2,\n  GT_PadRelease,\n  GT_PadLaunch,\n  GT_PadBack,\n  GT_PadStart,\n  GT_ButtonSpacing\n};\n\nclass Font\n{\npublic:\n  bool unset;\n  char pad0[3];\n  int max_width;\n  char m_chars[256 * 36];\n  stringx m_texname;\n  unsigned int m_texwidth, m_texheight;\n  nglTexture* texture;\n  int numGlyphs;\n  float m_ascent, m_descent;\n  float m_scale;\n  stringx filename;\n  int m_refcount;\n  nglTexture* art_button_tex[GT_ButtonSpacing];\n  int art_button_width[GT_ButtonSpacing];\n  int art_button_height[GT_ButtonSpacing];\n\n  void reload();\n};\n\nvoid Font::reload()\n{\n\tstringx path = \"interface\\\\font\\\\\"+os_developer_options::inst()->get_string(os_developer_options::STRING_TEXTURE_DIR)+\"\\\\\";\n\tnglSetTexturePath((char*) path.c_str());\n\ttexture = nglLoadTextureA(filename.data());\n\n\t// load art button textures\n\tart_button_tex[GT_PadU] = nglLoadTextureA(\"igo_icon_arrow\");\n\tfor(int i=1; i<GT_PadCircle; i++)\n\t\tart_button_tex[i] = art_button_tex[0];\n\tart_button_tex[GT_PadCircle] = nglLoadTextureA(\"igo_icon_circle\");\n\tart_button_tex[GT_PadSquare] = nglLoadTextureA(\"igo_icon_square\");\n\tart_button_tex[GT_PadCross] = nglLoadTextureA(\"igo_icon_x\");\n\tart_button_tex[GT_PadTriangle] = nglLoadTextureA(\"igo_icon_triangle\");\n\tart_button_tex[GT_PadL1] = nglLoadTextureA(\"igo_icon_left_1\");\n\tart_button_tex[GT_PadL2] = nglLoadTextureA(\"igo_icon_left_1\");\n\tart_button_tex[GT_PadR1] = nglLoadTextureA(\"igo_icon_right_1\");\n\tart_button_tex[GT_PadR2] = nglLoadTextureA(\"igo_icon_right_1\");\n\tart_button_tex[GT_PadStart] = nglLoadTextureA(\"igo_icon_start\");\n}\n",
+      "status": "different",
+      "target_size": 508
+    }
+  ],
+  "raw_name": "reload__4Font"
+}
