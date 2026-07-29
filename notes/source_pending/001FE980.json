@@ -1,0 +1,15 @@
+{
+  "address": "0x001FE980",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ea97dc167eb10ff7a16ba4bb35a9d0879b190f9b",
+      "notes": "# FIRST PASS wave 117 lane A4\n\nExact released body tested once for `0x001FE980 parse_params__13static_objectPPci`. Attempts before: 0. LF-only candidate. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "bool static_object::parse_params (char** argp, int argc)\n{\n\tstringx anim;\n\n  if (!water_object::parse_params (argp, argc))\n    return false;\n\n  if (find_param (argp, argc, \"dont_move\"))\n    dont_move = true;\n\n\tif (read_text_param (argp, argc, \"play_animation\", anim))\n\t{\n\t\tanim = my_path + \"\\\\ANIMATIONS\\\\\" + anim;\n\n\t\tif (file_finder_exists (anim, entity_track_tree::extension ()))\n\t\t{\n\t\t\tanim += entity_track_tree::extension ();\n\t\t\tmy_entity->load_anim (anim);\n\t\t\tmy_entity->play_anim (ANIM_PRIMARY, my_entity->get_parsed_name (), BLEND_TIME, ANIM_LOOPING | ANIM_TWEEN | ANIM_NONCOSMETIC);\n\t\t}\n\t\telse\n\t\t\tnglPrintf (\"Cannot load animation %s.\\n\", anim.c_str ());\n\t}\n\n  return true;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "parse_params__13static_objectPPci"
+}
