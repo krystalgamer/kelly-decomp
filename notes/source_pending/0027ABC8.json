@@ -1,0 +1,15 @@
+{
+  "address": "0x0027ABC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e1ff595a5ad12ce1a1f6b1f29f243f63856df851",
+      "notes": "# FIRST PASS wave 151 lane B1\n\nExact released source tested once for `0x0027ABC8 load_level_stash__4game`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n\nvoid game::load_level_stash()\n{\n\tif(current_loading_state == LOADING_COMMON_STASH)\n\t{\n\t\t//strcpy(nglHostPrefix,\"\");\n\t\tstrcpy(g_scene_name, get_beach_name().c_str());\n\t\t/*\n\t\tif (stash::open_stash(\"common.st2\", STASH_COMMON) == false)\n\t\t{\n\t\tdebug_print(\"could not open common stash file common.st2\\n\");\n\t\twarning(\"could not open common stash file common.st2\\n\");\n\t\t}\n\t\t*/\n\n\t\tint stash_size = 1;\n\t\tif(current_loading_sub_state == 0)\n\t\t{\n\t\t\tstash_size = stash::pre_open_stash_for_async(\"common.st2\", STASH_COMMON);\n\t\t\tstash::set_async_read_size(STASH_COMMON);\n\t\t\tif(stash_size == 0) current_loading_sub_state = -1;\n\t\t\tSetStashSize(LOADING_COMMON_STASH, stash_size);\n\t\t}\n\n\t\tif(stash_size != 0)\n\t\t{\n\t\t\tbool done = stash::read_stash_async(STASH_COMMON);\n\t\t\tif(done) current_loading_sub_state = -1;\n\t\t}\n\t}\n\telse if(current_loading_state == LOADING_BEACH_STASH)\n\t{\n\t\tif(current_loading_sub_state == 0)\n\t\t{\n#ifdef USE_FILE_MANAGER\n\t\t\tif (file_manager::inst()->level_context_is_set() == false)\n\t\t\t\tfile_manager::inst()->init_level_context(\"levels\\\\\"+g_scene_name);\n#endif\n\n\t\t\t//stringx stash_filename (os_developer_options::inst()->get_string(os_developer_options::STRING_STASH_NAME));\n\t\t\tstringx stash_filename = get_beach_stash_name();\n\n\t\t\tstash_filename= \"BEACHES\\\\\"+stash_filename;\n\t\t\t//level_prefix = get_beach_stash_name();\n\t\t\tlevel_prefix = \"levels\\\\\"+get_beach_name();\n\t\t\t//(os_developer_options::inst()->get_string(os_developer_options::STRING_STASH_NAME));\n\t\t\tstash_filename += PLATFORM_STASH_EXT;\n\t\t\t// open up the stash for this level\n\t\t\tstash a_stash;\n\t\t\tif (stash::using_stash() == true)\n\t\t\t{\n\t\t\t\tif (os_developer_options::inst()->is_flagged(os_developer_options::FLAG_STASH_ONLY))\n\t\t\t\t{\n\t\t\t\t\t//\t\t\t\t\tstash::open_stash((char *)stash_filename.c_str(),STASH_BEACH);\n\t\t\t\t\tint stash_size = stash::pre_open_stash_for_async((char *)stash_filename.c_str(), STASH_BEACH);\n\t\t\t\t\tstash::set_async_read_size(STASH_BEACH);\n\t\t\t\t\tif(stash_size == 0) current_loading_sub_state = -1;\n\t\t\t\t\tSetStashSize(LOADING_BEACH_STASH, stash_size);\n\t\t\t\t}\n\t\t\t}\n\t\t\telse current_loading_sub_state = -1;\n\t\t}\n\n\t\tif (stash::using_stash() == true)\n\t\t{\n\t\t\tbool done = stash::read_stash_async(STASH_BEACH);\n\t\t\tif(done) current_loading_sub_state = -1;\n\t\t}\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "load_level_stash__4game"
+}
