@@ -1,0 +1,15 @@
+{
+  "address": "0x001514B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "661772a1d51c1ac73cff680626ee7a0a6c45eab4",
+      "notes": "# FIRST PASS wave94 A2\n\nTarget: `0x001514B0 Load__11PanelObjectPUcRi` (504/0x1F8), `game/files_frontend`.\nReference: `kelly-slaters-pro-surfer/KS/SRC/ks/FEPanel.cpp:2748-2767` (read-only).\nAttempts before preparation: 0 (`pending`, queue attempt count 0).\nPrepared: `tmp/functions/001514B0_Load__11PanelObjectPUcRi`.\nExactly one LF candidate and one harness invocation were used.\nCandidate: exact released `PanelObject::Load` body with minimal self-contained declarations.\nResult: `compile_failed`, score 0.0; candidate SHA-1 `661772a1d51c1ac73cff680626ee7a0a6c45eab4`.\nNo retry, variant, chase, build, finalize, integration, git mutation, or tracked edit.\n\npacket=false; tracked_files_changed=false; finalized=false; integrated=false.",
+      "score": 0.0,
+      "source": "typedef unsigned short uint16;\n\nvoid *operator new[](unsigned int, unsigned int, const char *, int);\n\nclass stringx\n{\n  char data[8];\n\npublic:\n  stringx();\n};\n\nstruct PanelMaterial\n{\n  stringx name;\n  char data0[24];\n  void *texture;\n  char data1[12];\n  stringx filename;\n};\n\nclass PanelFile\n{\npublic:\n  static void ReadPanelMaterial(PanelMaterial &, unsigned char *, int &);\n};\n\nclass PanelBatch\n{\n  virtual ~PanelBatch();\n  stringx mat_name;\n  char data0[40];\n  stringx filename;\n  char data1[8];\n  void *pq;\n  void *wedges;\n  void *colors;\n  void *tex;\n  char data2[4];\n  void *didxs;\n\npublic:\n  PanelBatch()\n  {\n    pq = 0;\n    wedges = 0;\n    colors = 0;\n    tex = 0;\n    didxs = 0;\n  }\n  bool Load(PanelMaterial *, unsigned char *, int &);\n};\n\nclass PanelGeom\n{\n  char data[128];\n\npublic:\n  bool Load(unsigned char *, int &);\n};\n\nshort ReadShort(unsigned char *, int &);\n\nclass PanelObject : public PanelGeom\n{\npublic:\n  PanelMaterial *materials;\n  uint16 size;\n  uint16 nbatches;\n  PanelBatch *batches;\n\n  bool Load(unsigned char *, int &);\n};\n\n#define NEW new (0, __PRETTY_FUNCTION__, 0)\n\nbool PanelObject::Load(unsigned char* buffer, int& index)\n{\n\tif(!PanelGeom::Load(buffer, index)) return false;\n\n\tsize = ReadShort(buffer, index);\n\n\tmaterials = NEW PanelMaterial[size];\n\tfor(int i=0; i<size; i++)\n\t{\n\t\tmaterials[i].texture = NULL;\n\t\tPanelFile::ReadPanelMaterial(materials[i], buffer, index);\n\t}\n\n\tnbatches = ReadShort(buffer, index);\n\tbatches = NEW PanelBatch[nbatches];\n\tfor(int i=0; i<nbatches; i++)\n\t\tif(!batches[i].Load(materials, buffer, index)) return false;\n\n\treturn true;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Load__11PanelObjectPUcRi"
+}
