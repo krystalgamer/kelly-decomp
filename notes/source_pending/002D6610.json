@@ -1,0 +1,23 @@
+{
+  "address": "0x002D6610",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "99fb559122fe160b776dd879ab323cf6d20aa0cc",
+      "candidate_size": 604,
+      "compared_bytes": 604,
+      "compared_instructions": 152,
+      "emitted_name": "compute_info__8vr_pmesh",
+      "instruction_score": 5.2632,
+      "matching_bytes": 138,
+      "matching_instructions": 8,
+      "notes": "# FIRST PASS wave 109 lane A5\n\nExact released body tested once for `0x002D6610 compute_info__8vr_pmesh`. Result `different`, score 22.8477%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 22.8477,
+      "source": "typedef float rational_t;\n\nextern \"C\" float sqrtf(float);\n#define __fsqrt sqrtf\n#define assert(e) ((void)0)\n\ntemplate <class T>\ninline const T& max(const T& a, const T& b)\n{\n  return a < b ? b : a;\n}\n\nclass vector3d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z;\n\n  inline vector3d() {}\n  inline vector3d(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {}\n  inline vector3d(const vector3d& v) : x(v.x), y(v.y), z(v.z) {}\n  inline vector3d operator-(const vector3d& v) const { return vector3d(x-v.x,y-v.y,z-v.z); }\n  inline vector3d operator+(const vector3d& v) const { return vector3d(x+v.x,y+v.y,z+v.z); }\n  inline vector3d operator*(T s) const { return vector3d(x*s,y*s,z*s); }\n  inline T length2() const { return x*x + y*y + z*z; }\n  inline bool is_valid() const { return true; }\n};\n\nclass bounding_box\n{\npublic:\n  vector3d vmin;\n  vector3d vmax;\n\n  bounding_box()\n    : vmin(3.402823466e+38F,3.402823466e+38F,3.402823466e+38F),\n      vmax(-3.402823466e+38F,-3.402823466e+38F,-3.402823466e+38F)\n  {}\n\n  vector3d center() const { return (vmax+vmin)*0.5F; }\n\n  void accumulate(const vector3d& p)\n  {\n    if (vmin.x>p.x) vmin.x=p.x;\n    if (vmin.y>p.y) vmin.y=p.y;\n    if (vmin.z>p.z) vmin.z=p.z;\n    if (vmax.x<p.x) vmax.x=p.x;\n    if (vmax.y<p.y) vmax.y=p.y;\n    if (vmax.z<p.z) vmax.z=p.z;\n  }\n};\n\nclass hw_rasta_vert\n{\npublic:\n  vector3d xyz;\n  char released_layout[48];\n};\n\nclass vr_pmesh\n{\n  char released_layout0[24];\nprotected:\n  hw_rasta_vert *xverts;\n  char released_layout1[12];\n  int num_wedges;\n  char released_layout2[76];\n  vector3d center;\n  rational_t radius;\npublic:\n  inline int get_num_wedges() const { return num_wedges; }\n  virtual void compute_info();\n};\n\nvoid vr_pmesh::compute_info()\n{\n  int i;\n  bounding_box box;\n\n  //float radius2 = 0.0f;\n  for(i = get_num_wedges(); --i>=0; )\n  {\n    const vector3d& p = xverts[i].xyz;\n    assert(p.is_valid());\n    box.accumulate(p);\n    //radius2 = max(p.length2(), radius2);\n  }\n  //radius = __fsqrt(radius2);\n  center = box.center();\n  assert(center.is_valid());\n  float radius_rel_center2 = 0.0f;\n  for(i = get_num_wedges(); --i>=0; )\n  {\n    vector3d delta = xverts[i].xyz - center;\n    radius_rel_center2 = max( delta.length2(), radius_rel_center2 );\n  }\n  radius = __fsqrt(radius_rel_center2);\n}\n",
+      "status": "different",
+      "target_size": 564
+    }
+  ],
+  "raw_name": "compute_info__8vr_pmesh"
+}
