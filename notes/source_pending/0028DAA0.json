@@ -1,0 +1,23 @@
+{
+  "address": "0x0028DAA0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8dfcb014caff334cf296e1abea023d47d86f1988",
+      "candidate_size": 484,
+      "compared_bytes": 500,
+      "compared_instructions": 125,
+      "emitted_name": "force_region__7triggerG7stringx",
+      "instruction_score": 7.2,
+      "matching_bytes": 88,
+      "matching_instructions": 9,
+      "notes": "FIRST PASS wave93 A5\nTarget: 0x0028DAA0 force_region__7triggerG7stringx (500/0x1F4), game/files_misc1\nReference: kelly-slaters-pro-surfer/KS/SRC/trigger.cpp\nAttempts before: 0\nAttempt 1: exact released body with minimal faithful self-contained declarations\nResult: different; byte score 17.6; instruction score 7.2; candidate size 484; target size 500\nNo alternatives, retries, later attempts, integration, finalization, build, or tracked-file changes.",
+      "score": 17.6,
+      "source": "typedef unsigned long big_int;\n\nclass stringx;\n\nclass string_buf {\n  friend class stringx;\n  friend stringx operator+(const stringx &, const stringx &);\n  friend stringx operator+(const char *, const stringx &);\n  friend stringx operator+(const stringx &, const char *);\n  big_int *data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n};\n\nclass stringx {\n  friend stringx operator+(const stringx &, const stringx &);\n  friend stringx operator+(const char *, const stringx &);\n  friend stringx operator+(const stringx &, const char *);\n  char *chars;\n  string_buf *my_buf;\npublic:\n  stringx();\n  stringx(const stringx &);\n  ~stringx();\n  void make_room(int);\n  void append(const stringx &);\n  void append(const char *, int = -1);\n};\n\nextern \"C\" unsigned strlen(const char *);\n\ninline stringx operator+(const stringx &lhs, const stringx &rhs)\n{\n  stringx foo;\n  foo.make_room(lhs.my_buf->char_length + rhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs);\n  return foo;\n}\n\ninline stringx operator+(const char *lhs, const stringx &rhs)\n{\n  stringx foo;\n  int len = strlen(lhs);\n  foo.make_room(len + rhs.my_buf->char_length);\n  foo.append(lhs, len);\n  foo.append(rhs);\n  return foo;\n}\n\ninline stringx operator+(const stringx &lhs, const char *rhs)\n{\n  stringx foo;\n  int len = strlen(rhs);\n  foo.make_room(len + lhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs, len);\n  return foo;\n}\n\nclass region {};\n\nstruct region_node {\n  char pad[4];\n  region *data;\n  region *get_data() { return data; }\n};\n\nstruct region_iterator {\n  void *node;\n};\n\nstruct region_tree {\n  void *head;\n  char pad[8];\n  void *end_node;\n};\n\nextern \"C\" region_iterator FindRegion(region_tree *, const stringx &)\n  __asm__(\"find__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt10_Select1st1Zt4pair2ZC7stringxZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt4less1Z7stringxZt12my_allocator1ZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeRC7stringx\");\n\nclass terrain {\n  char pad[12];\n  region_tree regions;\npublic:\n  region_node *find_region(const stringx &id)\n  {\n    region_iterator result = FindRegion(&regions, id);\n    if (result.node == regions.end_node)\n      return 0;\n    return (region_node *)((char *)result.node + 24);\n  }\n};\n\nclass world_dynamics_system {\n  char pad[0xec];\n  terrain the_terrain;\npublic:\n  terrain &get_the_terrain() { return the_terrain; }\n};\n\nextern world_dynamics_system *g_world_ptr;\nvoid error(const stringx &);\n\nclass trigger {\n  char pad[0x28];\n  bool static_regions;\npublic:\n  void force_region(stringx id);\n  bool add_region(region *);\n};\n\nvoid trigger::force_region(stringx id)\n{\n\tregion *r = 0;\n\tregion_node *rn = g_world_ptr->get_the_terrain().find_region(id);\n\tif (rn)\n\t\tr = rn->get_data();\n\tif (!r)\n\t\terror( id + \": unknown region \\\"\" + id + \"\\\" in trigger parameters\");\n\n  add_region( r );\n\tstatic_regions = true;\n}\n",
+      "status": "different",
+      "target_size": 500
+    }
+  ],
+  "raw_name": "force_region__7triggerG7stringx"
+}
