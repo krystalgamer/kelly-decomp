@@ -1,0 +1,15 @@
+{
+  "address": "0x00210BD0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8f360f3b8bec703e5f36ee5eacef6bacf792b5d0",
+      "notes": "# FIRST PASS wave 162 lane B5\n\nExact released source tested once for `0x00210BD0 InitializeSurfer__22kellyslater_controllerG7stringx`. Attempts before: 0. Result `compile_failed`, score 0.0000%. Capacity-only child failures and Sol retries produced no attempts for some lanes; those were remediated directly with exact released source. No source retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "void kellyslater_controller::InitializeSurfer(stringx hero_name)\n{\n\tint start_stand = 0, start_turn = 0, start_carve = 0, start_surfer_anims = 0, end_surfer_anims = 0;\n\n\tsurfer_num = -1;\n\tfor (int i = 0; i < SURFER_LAST; ++i)\n\t{\n\t\tif (!stricmp(hero_name.c_str(), SurferDataArray[i].name)\n\t\t\t|| !stricmp(hero_name.c_str(), SurferDataArray[i].name_ps))\n\t\t{\n\t\t\tgoofy = SurferDataArray[i].goofy;\n\t\t\tstart_stand = SurferDataArray[i].start_stand;\n\t\t\tstart_turn = SurferDataArray[i].start_turn;\n\t\t\tstart_carve = SurferDataArray[i].start_carve;\n\t\t\tstart_surfer_anims = SurferDataArray[i].start_anims;\n\t\t\tend_surfer_anims = SurferDataArray[i].end_anims;\n\t\t\tsurfer_num = i;\n\t\t}\n\t}\n\t#ifndef TARGET_GC\n\tassertmsg (surfer_num != -1, \"Who's this guy you're trying to load ?\\n\");\n\t#endif\n\n\tint n;\n\tfor (n = 0; n < NUM_STAND_ANIMS; n++)\n\t\tstand_anim_nums[n] = start_stand + n;\n\n\tfor (n = 0; n < NUM_TURN_ANIMS; n++)\n\t\tturn_anim_nums[n] = start_turn + n;\n\n\tfor (n = 0; n < NUM_CARVE_ANIMS; n++)\n\t\tcarve_anim_nums[n] = start_carve + n;\n\n\tstringx anim_dir = \"characters\\\\COMMON\\\\ANIMATIONS\\\\\";\n\tstringx ext = entity_track_tree::extension( );\n\n\t//   load unique kelly slater anims\n\tanim_dir = \"characters\\\\\"+hero_name+\"\\\\ANIMATIONS\\\\\";\n\tfor(int i=start_surfer_anims; i<end_surfer_anims; ++i)\n\t{\n\t\tsurfer_anims[i] = anim_dir+g_surfer_anims[i];\n\t\tif(file_finder_exists(surfer_anims[i], ext))\n\t\t{\n\t\t\tsurfer_anims[i] += ext;\n\t\t\tget_owner()->load_anim(surfer_anims[i]);\n\t\t}\n\t\telse\n\t\t{\n\t\t\tg_surfer_anims[i] = g_surfer_anims[SURFER_ANIM_PLACEHOLDER];\n\t\t}\n\t}\n\n\t/*for (n = _SURFER_NUM_START_SLATER_ANIMS; n < _SURFER_NUM_ANIMS; n++)\n\t{\n\t\tif ((n < start_surfer_anims) || (n >= end_surfer_anims))\n\t\t\tg_surfer_anims[n] = g_surfer_anims[SURFER_ANIM_PLACEHOLDER];\n\t}*/\n\n\t//   set surfer attributes\n\tSetSurferAttribs();\n\n\tdid_celebration = false;\n\tdone_scoring = false;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "InitializeSurfer__22kellyslater_controllerG7stringx"
+}
