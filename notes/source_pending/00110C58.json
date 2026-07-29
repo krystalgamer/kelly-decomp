@@ -1,0 +1,15 @@
+{
+  "address": "0x00110C58",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6c241e3bd635d13bc5e224af7c0a33a7c490bd7f",
+      "notes": "# FIRST PASS wave 109 lane A2\n\nExact GCC 2.95 `vector<ai_goal*>::insert` source tested once for `0x00110C58`. Result `compile_failed`, score 0.0000%; the isolated harness could not resolve `ai_goals.h`. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"ai_goals.h\"\n\ntemplate <>\nvoid vector<ai_goal *>::insert(iterator position, size_type n, ai_goal * const& x)\n{\n  if (n != 0) {\n    if (size_type(end_of_storage - finish) >= n) {\n      ai_goal * x_copy = x;\n      const size_type elems_after = finish - position;\n      iterator old_finish = finish;\n      if (elems_after > n) {\n        uninitialized_copy(finish - n, finish, finish);\n        finish += n;\n        copy_backward(position, old_finish - n, old_finish);\n        fill(position, position + n, x_copy);\n      }\n      else {\n        uninitialized_fill_n(finish, n - elems_after, x_copy);\n        finish += n - elems_after;\n        uninitialized_copy(position, old_finish, finish);\n        finish += elems_after;\n        fill(position, old_finish, x_copy);\n      }\n    }\n    else {\n      const size_type old_size = size();\n      const size_type len = old_size + max(old_size, n);\n      iterator new_start = data_allocator::allocate(len);\n      iterator new_finish = new_start;\n      __STL_TRY {\n        new_finish = uninitialized_copy(start, position, new_start);\n        new_finish = uninitialized_fill_n(new_finish, n, x);\n        new_finish = uninitialized_copy(position, finish, new_finish);\n      }\n      __STL_UNWIND((destroy(new_start,new_finish),\n                    data_allocator::deallocate(new_start,len)));\n      destroy(start, finish);\n      deallocate();\n      start = new_start;\n      finish = new_finish;\n      end_of_storage = new_start + len;\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "insert__t6vector2ZP7ai_goalZt23__malloc_alloc_template1i0PP7ai_goalUiRCP7ai_goal"
+}
