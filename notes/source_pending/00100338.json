@@ -1,0 +1,23 @@
+{
+  "address": "0x00100338",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c9825cd5e35625c1b829c80d3aaeb987613a8f3a",
+      "candidate_size": 520,
+      "compared_bytes": 556,
+      "compared_instructions": 139,
+      "emitted_name": "get_axis_delta__C18AISurferControllerii",
+      "instruction_score": 17.2662,
+      "matching_bytes": 231,
+      "matching_instructions": 24,
+      "notes": "# FIRST PASS wave 107 lane A4\n\nExact released body tested once for `0x00100338 get_axis_delta__C18AISurferControllerii`. Result `different`, score 41.5468%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 41.5468,
+      "source": "typedef int axis_id_t;\ntypedef float rational_t;\n\nenum PS2_Axes\n{\n  JOY_PS2_DX,\n  JOY_PS2_DY,\n  JOY_PS2_X,\n  JOY_PS2_Y,\n  JOY_PS2_LX,\n  JOY_PS2_LY,\n  JOY_PS2_BTNL3,\n  JOY_PS2_RX,\n  JOY_PS2_RY,\n  JOY_PS2_BTNR3,\n  JOY_PS2_BTNX,\n  JOY_PS2_BTNO,\n  JOY_PS2_DUMMMY1,\n  JOY_PS2_BTNSQ,\n  JOY_PS2_BTNTR,\n  JOY_PS2_DUMMMY2,\n  JOY_PS2_BTNL1,\n  JOY_PS2_BTNR1,\n  JOY_PS2_BTNL2,\n  JOY_PS2_BTNR2,\n  JOY_PS2_START,\n  JOY_PS2_SELECT,\n  JOY_PS2_DISCONNECT,\n  JOY_PS2_NUM_AXES\n};\n\n#define assert(expr) ((void)0)\n\nclass AISurferController\n{\n  char padding[0x9c];\n  float X, Y, XRight, YRight;\n  bool ButtonX, ButtonO, ButtonSq, ButtonTr;\n  bool ButtonL1, ButtonL2, ButtonL3, ButtonR1,ButtonR2,ButtonR3;\n  bool ButtonSelect,ButtonStart;\n  float oldX, oldY, oldXRight, oldYRight;\n  bool oldButtonX, oldButtonO, oldButtonSq, oldButtonTr;\n  bool oldButtonL1, oldButtonL2, oldButtonL3, oldButtonR1, oldButtonR2, oldButtonR3;\n  bool oldButtonSelect,oldButtonStart;\n\npublic:\n  rational_t get_axis_delta(axis_id_t axis, int control_axis) const;\n};\n\nrational_t AISurferController::get_axis_delta(axis_id_t axis, int control_axis ) const\n{\n  switch (axis) \n  {\n    case JOY_PS2_X: // left analog horiz\n      return X - oldX;\n\n    case JOY_PS2_Y: // left analog vert\n      return Y - oldY;\n\n    case JOY_PS2_DX: // just Dpad\n      if (oldX < 0)\n      {\n        if (X < 0)\n          return 0;\n        else if (X > 0)\n          return 2;\n        else \n          return 1;\n\n      }\n      else if (oldX > 0)\n      {\n        if (X < 0)\n          return 0;\n        else if (X > 0)\n          return -2;\n        else \n          return -1;\n          \n      }\n      else\n      {\n        if (X == 0)\n          return 0;\n        else if (X < 0)\n          return -1;\n        else \n          return 1;\n      }\n      \n    case JOY_PS2_DY: // just Dpad -1 = up\n      if (oldY < 0)\n      {\n        if (Y < 0)\n          return 0;\n        else if (Y > 0)\n          return 2;\n        else \n          return 1;\n\n      }\n      else if (oldY > 0)\n      {\n        if (Y < 0)\n          return 0;\n        else if (Y > 0)\n          return -2;\n        else \n          return -1;\n          \n      }\n      else\n      {\n        if (Y == 0)\n          return 0;\n        else if (Y < 0)\n          return -1;\n        else \n          return 1;\n      }\n      \n \n    case JOY_PS2_LX: //  - 1 = left\n      return X - oldX;\n    case JOY_PS2_LY: // -1 = up\n      return Y - oldY;\n    case JOY_PS2_RX: \n      return XRight - oldXRight;\n    case JOY_PS2_RY: \n      return YRight - oldYRight;\n\n    case JOY_PS2_BTNL3: // L3\n      return ButtonL3 - oldButtonL3;\n    case JOY_PS2_BTNR3: \n      return ButtonR3 - oldButtonR3;\n    case JOY_PS2_BTNX:  // A (ps2 x)\n      return ButtonX - oldButtonX;\n    case JOY_PS2_BTNO:  // B (ps2 o)\n        return ButtonO - oldButtonO;\n    case JOY_PS2_BTNSQ: // X (ps2 sq)\n        return ButtonSq - oldButtonSq;\n    case JOY_PS2_BTNTR: // Y (ps2 tr)\n        return ButtonTr - oldButtonTr;\n\n    case JOY_PS2_BTNR1: // C (ps2 R1)\n        return ButtonR1 - oldButtonR1;\n    case JOY_PS2_BTNR2: // R (ps2 R2)\n        return ButtonR2 - oldButtonR2;\n\n    case JOY_PS2_BTNL1: // Z (ps2 L1)\n        return ButtonL1 - oldButtonL1;\n    case JOY_PS2_BTNL2: // L (ps2 L2)\n        return ButtonL2 - oldButtonL2;\n\n\n    case JOY_PS2_START: // Start\n      return ButtonStart - oldButtonStart;\n    case JOY_PS2_SELECT:\n      return ButtonSelect - oldButtonSelect;\n\n    default:\n      assert(\"ps2_joypad_device::get_axis_state illegal axis queried.\" == 0);\n      return 0.0f;\n  \n  }\n\n}\n",
+      "status": "different",
+      "target_size": 556
+    }
+  ],
+  "raw_name": "get_axis_delta__C18AISurferControllerii"
+}
