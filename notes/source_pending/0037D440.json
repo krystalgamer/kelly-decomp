@@ -1,0 +1,23 @@
+{
+  "address": "0x0037D440",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "B3-0037D440-candidate.cpp",
+      "candidate_sha1": "c200215dfab8ab27e0df5df74300e8cdd3abe4cd",
+      "candidate_size": 788,
+      "compared_bytes": 788,
+      "compared_instructions": 197,
+      "emitted_name": "WAVE_GetGrindPosition__FPC16WavePositionHintP16WavePositionHintRC8vector3dP8vector3d",
+      "instruction_score": 1.5228,
+      "matching_bytes": 103,
+      "matching_instructions": 3,
+      "notes": "# FIRST PASS wave 134 lane B3\n\nExact released source tested once for `0x0037D440 WAVE_GetGrindPosition__FPC16WavePositionHintP16WavePositionHintRC8vector3dP8vector3d`. Attempts before: 0. Result `different`, byte score 13.0711% and instruction score 1.5228%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 13.0711,
+      "source": "typedef unsigned int u_int;\n\nclass vector3d {\npublic:\n    float x, y, z;\n};\n\ntemplate <int n> struct SplineCoeffs {\n    float a[n], b[n], c[n], d[n];\n};\n\ntypedef struct {\n    SplineCoeffs<16> y, z;\n} WaveProfileCoeffs;\n\nstruct WavePositionHint {\n    float x, z;\n    float xprofile;\n    u_int xcell, zcell;\n    u_int xgrid, zgrid;\n    WaveProfileCoeffs wpc;\n};\n\nstruct WaveControlPoints {\n    char data[6144];\n    u_int numcontrol, numprofile;\n};\n\nstatic float WAVE_ControlZ[16];\nstatic float WAVE_GrindGridX[16];\nstatic SplineCoeffs<16> WAVE_GrindCoeffs;\nstatic u_int WAVE_NumGrindCoeffs;\nstatic WaveControlPoints WAVE_ControlPointsArray[1];\nstatic WaveControlPoints *WAVE_ControlPoints = WAVE_ControlPointsArray;\n\nvoid WAVE_BuildHint(WavePositionHint *, float, float, float, const WaveProfileCoeffs &);\n\ninline u_int SPLINE_BinarySearch(const float *x, u_int n, const float &valx)\n{\n    u_int lo = 0, hi = n - 1, mid;\n    while (hi - lo > 1)\n    {\n        mid = (lo + hi) / 2;\n        if (x[mid] < valx) lo = mid;\n        else hi = mid;\n    }\n    return lo;\n}\n\ninline float SPLINE_Evaluate(const float *x, const float *a, const float *b, const float *c, const float *d,\n    u_int n, float valx)\n{\n    u_int lo = SPLINE_BinarySearch(x, n, valx);\n    valx -= x[lo];\n    return ((a[lo] * valx + b[lo]) * valx + c[lo]) * valx + d[lo];\n}\n\ninline float SPLINE_Evaluate(const float *x, const float *a, const float *b, const float *c, const float *d,\n    u_int n, float valx, u_int lo)\n{\n    valx -= x[lo];\n    return ((a[lo] * valx + b[lo]) * valx + c[lo]) * valx + d[lo];\n}\n\nvoid WAVE_GetGrindPosition(const WavePositionHint *hintin, WavePositionHint *hintout,\n    const vector3d &posin, vector3d *posout)\n{\n    const float &x0 = posin.x, &profilex0 = hintin->xprofile;\n    const SplineCoeffs<16> &wgc = WAVE_GrindCoeffs;\n\n    float grindz = SPLINE_Evaluate(WAVE_GrindGridX, wgc.a, wgc.b, wgc.c, wgc.d, WAVE_NumGrindCoeffs, profilex0);\n    WAVE_BuildHint(hintout, x0, profilex0, grindz, hintin->wpc);\n\n    const WaveProfileCoeffs wpc = hintin->wpc;\n\n    posout->x = x0;\n    posout->y = SPLINE_Evaluate(WAVE_ControlZ, wpc.y.a, wpc.y.b, wpc.y.c, wpc.y.d, WAVE_ControlPoints->numcontrol,\n        grindz, hintout->zcell);\n    posout->z = SPLINE_Evaluate(WAVE_ControlZ, wpc.z.a, wpc.z.b, wpc.z.c, wpc.z.d, WAVE_ControlPoints->numcontrol,\n        grindz, hintout->zcell);\n}\n",
+      "status": "different",
+      "target_size": 724
+    }
+  ],
+  "raw_name": "WAVE_GetGrindPosition__FPC16WavePositionHintP16WavePositionHintRC8vector3dP8vector3d"
+}
