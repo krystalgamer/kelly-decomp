@@ -1,0 +1,15 @@
+{
+  "address": "0x00126930",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a198519e0cdd68a17cdc56a8da8ba3d8bf0338c3",
+      "notes": "# FIRST PASS wave115 A2\n\n- Target: `0x00126930 get_ifc_vec__18physical_interfaceRC7pstringR8vector3d` (600 / `0x258`), `game/files_entity`.\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/physical_interface.cpp` lines 1129-1137.\n- Confirmed attempts0 before testing.\n- Candidate: LF-only exact released function body with local declaration context.\n- Sole attempt: `compile_failed`; score 0.0000%.\n- Candidate SHA-1: `a198519e0cdd68a17cdc56a8da8ba3d8bf0338c3`.\n- Exactly one candidate and one harness invocation. No retry, build, finalize, integration, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"/home/superconta/data/share/kelly/src/KS/SRC/physical_interface_shared.h\"\n\n#define IFC_INTERNAL_GET_MACRO(a,b)       { static pstring pstring_get(a);  if(att == pstring_get)  { val = b; return(true); } }\n\nbool physical_interface::get_ifc_vec(const pstring &att, vector3d &val)\n{\n  IFC_INTERNAL_GET_MACRO(\"VELOCITY\", get_velocity());\n  IFC_INTERNAL_GET_MACRO(\"ANGULAR_VELOCITY\", get_angular_velocity());\n  IFC_INTERNAL_GET_MACRO(\"BOUNCE_POS\", bounce_pos);\n  IFC_INTERNAL_GET_MACRO(\"BOUNCE_NORM\", bounce_norm);\n\n  return(false);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "get_ifc_vec__18physical_interfaceRC7pstringR8vector3d"
+}
