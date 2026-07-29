@@ -1,0 +1,23 @@
+{
+  "address": "0x001EA938",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9d8964bb6d580e5efceeaba8d7c7f37d45091c73",
+      "candidate_size": 468,
+      "compared_bytes": 512,
+      "compared_instructions": 128,
+      "emitted_name": "OnNewWave__5beach",
+      "instruction_score": 4.6875,
+      "matching_bytes": 83,
+      "matching_instructions": 6,
+      "notes": "# FIRST PASS wave95 A5 \u2014 0x001EA938 OnNewWave__5beach\n\n- Scope: exact `KS/SRC/ks/beach.cpp`; no tracked edits, integration, finalize, build, retry, or chase.\n- Queue state before preparation: `pending`, attempts `0`; harness scratch was absent (`not prepared`).\n- Candidate: one LF-only, self-contained exact-body reconstruction from the 0x200-byte target assembly.\n- Body modeled: clear sound events; select wave duration; enqueue nine countdown events and the competition-specific final event; update the wave schedule index; despawn eligible beach objects; update object activity.\n- Harness invocations: 1.\n- Result: `different`, 83/512 matching bytes (16.2109%), 6/128 matching instructions (4.6875%); candidate size 468 vs target 512.\n- No retry performed per first-pass instructions.",
+      "score": 16.2109,
+      "source": "class entity;\n\nclass SoundScriptManager {\npublic:\n    enum EventType { WAVE_EVENT = 21, COMP_EVENT = 23 };\n    void clearEvents();\n    void addEvent(EventType type, float time, entity *ent);\n};\n\nclass game {\n    char pad0[0x74];\npublic:\n    int mode;\nprivate:\n    char pad1[0x38];\npublic:\n    int submode;\n    bool is_competition_level();\n};\n\nstruct beach_object {\n    beach_object *next;\n    char pad04[4];\n    int schedule;\n    char pad0c[4];\n    int spawned;\n    char pad14[4];\n    int active;\n    int never_despawn;\n    char pad20[0x18];\n    struct vtable_t {\n        char pad00[0x18];\n        short adjustment;\n        short reserved;\n        void (*despawn)(void *);\n    } *vtable;\n};\n\nstruct BeachData {\n    char pad00[0xC4];\n    float wave_duration;\n    char padC8[0x14];\n};\n\nstruct CareerData {\n    char pad00[0x150];\n    float wave_duration;\n    char pad154[0xB8];\n};\n\nextern SoundScriptManager *sound_script_mgr;\nextern game *g_game_ptr;\nextern BeachData BeachDataArray[];\nextern CareerData CareerDataArray[];\nextern int WAVE_GetScheduleIndex();\n\n__asm__(\".equ sound_script_mgr, 0x0045B4A0\");\n__asm__(\".equ g_game_ptr, 0x0045AC64\");\n__asm__(\".equ BeachDataArray, 0x0041ECA0\");\n__asm__(\".equ CareerDataArray, 0x0042C198\");\n__asm__(\".equ clearEvents__18SoundScriptManager, 0x0031BEC0\");\n__asm__(\".equ addEvent__18SoundScriptManager9EventTypefP6entity, 0x0031C580\");\n__asm__(\".equ is_competition_level__4game, 0x0027AAA8\");\n__asm__(\".equ WAVE_GetScheduleIndex__Fv, 0x0037D8B8\");\n\nclass beach {\n    char pad00[0x2C4];\n    beach_object *my_objects;\n    int current_breakmap;\npublic:\n    void OnNewWave();\n};\n\nvoid beach::OnNewWave()\n{\n    sound_script_mgr->clearEvents();\n\n    if (g_game_ptr->mode == 0 || g_game_ptr->mode == 2 ||\n        g_game_ptr->submode == 2) {\n        float duration;\n        if (g_game_ptr->mode == 0)\n            duration = BeachDataArray[*((int *)g_game_ptr + 137)].wave_duration;\n        else\n            duration = CareerDataArray[*((int *)g_game_ptr + 138)].wave_duration;\n\n        int end_time = (int)duration;\n        if (end_time < 11) {\n            int event_time = end_time - 2;\n            for (int i = 0; i < 9; ++i)\n                sound_script_mgr->addEvent(SoundScriptManager::WAVE_EVENT,\n                                           (float)(event_time - i), 0);\n\n            if (g_game_ptr->is_competition_level() && g_game_ptr->mode == 0)\n                sound_script_mgr->addEvent(SoundScriptManager::COMP_EVENT,\n                                           (float)(end_time - 1), 0);\n            else\n                sound_script_mgr->addEvent(SoundScriptManager::WAVE_EVENT,\n                                           (float)(end_time - 1), 0);\n        } else {\n            return;\n        }\n    }\n\n    current_breakmap = WAVE_GetScheduleIndex();\n    for (beach_object *object = my_objects; object; object = object->next) {\n        if (!object->never_despawn && object->spawned) {\n            beach_object::vtable_t *vtable = object->vtable;\n            vtable->despawn((char *)object + vtable->adjustment);\n        }\n        object->active = object->schedule == current_breakmap ||\n                         object->schedule == -1;\n    }\n}\n",
+      "status": "different",
+      "target_size": 512
+    }
+  ],
+  "raw_name": "OnNewWave__5beach"
+}
