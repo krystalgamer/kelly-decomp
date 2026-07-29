@@ -1,0 +1,23 @@
+{
+  "address": "0x0037B518",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b90be858b942e262d7a9ec64c7ee0dd64743077e",
+      "candidate_size": 648,
+      "compared_bytes": 648,
+      "compared_instructions": 162,
+      "emitted_name": "WAVE_BuildHint__FP16WavePositionHintfffRC17WaveProfileCoeffs",
+      "instruction_score": 0.0,
+      "matching_bytes": 105,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 116 lane B2\n\nExact released body tested once for `0x0037B518 WAVE_BuildHint__FP16WavePositionHintfffRC17WaveProfileCoeffs`. Result `different`, score 16.2037%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 16.2037,
+      "source": "typedef unsigned int u_int;\n\ntemplate <int count>\nstruct SplineCoeffs {\n    float a[count];\n    float b[count];\n    float c[count];\n    float d[count];\n};\n\nstruct WaveProfileCoeffs {\n    SplineCoeffs<16> y;\n    SplineCoeffs<16> z;\n};\n\nstruct WavePositionHint {\n    float x;\n    float z;\n    float xprofile;\n    u_int xcell;\n    u_int zcell;\n    u_int xgrid;\n    u_int zgrid;\n    WaveProfileCoeffs wpc;\n};\n\nstruct WaveControlPointData {\n    char pad[0x2400];\n    u_int numcontrol;\n    u_int numprofile;\n};\n\nextern WaveControlPointData *WAVE_ControlPoints;\nextern float WAVE_ControlZ[];\nextern float WAVE_BaseProfile[];\nextern float WAVE_MeshGridX[];\nextern float WAVE_ControlGridZ[];\nextern u_int WAVE_MeshStepX;\nextern u_int WAVE_MeshStepZ;\n\n__asm__(\".equ WAVE_ControlPoints, 0x004846F0\");\n__asm__(\".equ WAVE_ControlZ, 0x00585A40\");\n__asm__(\".equ WAVE_BaseProfile, 0x00585940\");\n__asm__(\".equ WAVE_MeshGridX, 0x00485180\");\n__asm__(\".equ WAVE_ControlGridZ, 0x0048AE90\");\n__asm__(\".equ WAVE_MeshStepX, 0x00484630\");\n__asm__(\".equ WAVE_MeshStepZ, 0x00484634\");\n\ninline u_int SPLINE_BinarySearch(const float *x, u_int n, const float &valx)\n{\n    u_int lo = 0, hi = n - 1, mid;\n    while (hi - lo > 1)\n    {\n        mid = (lo + hi) / 2;\n        if (x[mid] < valx) lo = mid;\n        else hi = mid;\n    }\n\n    return lo;\n}\n\nstatic void WAVE_BuildHint(WavePositionHint *hint, float x0, float profilex0, float z0,\n    const WaveProfileCoeffs &wpc)\n{\n    hint->x = x0;\n    hint->z = z0;\n    hint->xprofile = profilex0;\n    hint->zcell = SPLINE_BinarySearch(WAVE_ControlZ, WAVE_ControlPoints->numcontrol, z0);\n    // This is only needed for WAVE_FindRegion for now\n    hint->xcell = SPLINE_BinarySearch(WAVE_BaseProfile, WAVE_ControlPoints->numprofile, profilex0);\n    // These are only needed for WAVE_TrackFloater for now\n    hint->xgrid = SPLINE_BinarySearch(WAVE_MeshGridX, WAVE_MeshStepX + 1, x0);\n    hint->zgrid = SPLINE_BinarySearch(WAVE_ControlGridZ, WAVE_MeshStepZ + 1, z0);\n    if (&hint->wpc != &wpc)\n    {\n        hint->wpc = wpc;\n    }\n}\n",
+      "status": "different",
+      "target_size": 600
+    }
+  ],
+  "raw_name": "WAVE_BuildHint__FP16WavePositionHintfffRC17WaveProfileCoeffs"
+}
