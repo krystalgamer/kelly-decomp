@@ -1,0 +1,15 @@
+{
+  "address": "0x001375E8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f876cb84bde7f5f16a62a1da41ef4e0c46657c26",
+      "notes": "# FIRST PASS wave 124 lane B4\n\nExact released source tested once for `0x001375E8 spawn_entity_script_function__C6entityRC7stringx`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// # FIRST PASS wave 124 lane B4\n#include \"global.h\"\n#include \"entity.h\"\n#include \"vm_thread.h\"\n#include \"wds.h\"\n\nvm_thread* entity::spawn_entity_script_function( const stringx& function_name ) const\n{\n  vm_thread* nt = NULL;\n\n  if ( function_name.length() > 0 )\n  {\n    stringx actual_name = function_name + \"(entity)\";\n    actual_name.to_lower();\n\n    script_object* so = g_world_ptr->get_current_level_global_script_object();\n    script_object::instance* inst = g_world_ptr->get_current_level_global_script_object_instance();\n\n    if ( so!=NULL && inst!=NULL )\n    {\n      int fidx = so->find_func( actual_name );\n      if ( fidx >= 0 )\n      {\n        nt = inst->add_thread( &so->get_func(fidx) );\n        // push entity parameter\n        const entity* e = this;\n        nt->get_data_stack().push( (char*)&e, 4 );\n      }\n      else\n        warning( get_name() + \": script function '\" + actual_name + \"' not found\" );\n    }\n  }\n\n  return nt;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "spawn_entity_script_function__C6entityRC7stringx"
+}
