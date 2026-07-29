@@ -1,0 +1,15 @@
+{
+  "address": "0x002F1138",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "61a5dfd21af59f8fdf5e943fbd526017c2013202",
+      "notes": "# FIRST PASS wave 139 lane A5\n\nExact released source tested once for `0x002F1138 _M_insert_aux__t6vector2ZQ212timer_widget10timer_funcZt12my_allocator1ZQ212timer_widget10timer_funcPQ212timer_widget10timer_funcRCQ212timer_widget10timer_func`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <vector>\n\n__asm__(\".equ __7stringx,0x0034D3E0\");\n__asm__(\".equ __as__7stringxRC7stringx,0x0034E0B8\");\n__asm__(\".equ _$_7stringx,0x0034D6E0\");\n\nstruct stringx {\n    char data[8];\n    stringx();\n    ~stringx();\n    stringx &operator=(const stringx &);\n};\n\nclass timer_widget {\npublic:\n    struct timer_func {\n        float time;\n        stringx function;\n\n        timer_func(const timer_func &other)\n          : time(other.time), function()\n        {\n            function = other.function;\n        }\n\n        timer_func &operator=(const timer_func &other)\n        {\n            time = other.time;\n            function = other.function;\n            return *this;\n        }\n    };\n};\n\ntemplate<class T>\nstruct my_allocator : public allocator<T> {\n};\n\ntemplate class vector<\n    timer_widget::timer_func,\n    my_allocator<timer_widget::timer_func>\n>;\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2ZQ212timer_widget10timer_funcZt12my_allocator1ZQ212timer_widget10timer_funcPQ212timer_widget10timer_funcRCQ212timer_widget10timer_func"
+}
