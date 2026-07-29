@@ -1,0 +1,23 @@
+{
+  "address": "0x002416C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d7b923dc682456e70ada1dfac9593a76cb3c720b",
+      "candidate_size": 396,
+      "compared_bytes": 480,
+      "compared_instructions": 120,
+      "emitted_name": "__18PhysicsObjectClass",
+      "instruction_score": 4.1667,
+      "matching_bytes": 115,
+      "matching_instructions": 5,
+      "notes": "FIRST PASS wave89 B3\n\nTarget: 0x002416C0 __18PhysicsObjectClass (480/0x1E0), game/files_kellyslater.\nReference: kelly-slaters-pro-surfer/KS/SRC/ks/physics.cpp.\nConfirmed attempts0 before preparation.\n\nAttempt 1: different; byte score 23.9583% (115/480), instruction score 4.1667% (5/120), candidate size 396, target size 480.\nCandidate SHA-1: d7b923dc682456e70ada1dfac9593a76cb3c720b.\n\nThe candidate uses the exact released constructor body with minimal faithful self-contained declarations, LF line endings, and no unavailable headers.\nExactly one candidate and one harness invocation. No alternatives, assembly implementation, annotations, variants, retries, attempts 2-5, post-test chase, finalization, integration, build, or git mutation.\n\nPacket: false. Tracked: false. Finalized: false. Integrated: false.",
+      "score": 23.9583,
+      "source": "typedef int int32;\ntypedef float rational_t;\nclass PhysicsObjectClass;\ntypedef PhysicsObjectClass *PhysicsObjectClassPtr;\ntypedef void (*OdeDerivFunc)(PhysicsObjectClass *, float, float *, float *);\nclass vector3d\n{\npublic:\n  rational_t x, y, z;\n  vector3d() {}\n  vector3d(rational_t _x, rational_t _y, rational_t _z) : x(_x), y(_y), z(_z) {}\n};\nclass po\n{\npublic:\n  float m[16] __attribute__((aligned(16)));\n};\nextern const po po_identity_matrix;\nclass OdeSolverClass\n{\npublic:\n  OdeSolverClass() { dim = 0; stepSize = 0.0f; fnDerivFunc = 0; }\n  virtual ~OdeSolverClass() {}\n  virtual int32 Init(int, float, OdeDerivFunc) = 0;\n  virtual int32 Terminate() = 0;\n  virtual int32 Update(PhysicsObjectClass *, float, float *, float *, float *) = 0;\n  virtual void SetStepSize(float dt) { stepSize = dt; }\nprotected:\n  int32 dim;\n  float stepSize;\n  OdeDerivFunc fnDerivFunc;\n};\nclass RungeKuttaClass : public OdeSolverClass\n{\npublic:\n  RungeKuttaClass() { temp1 = temp2 = temp3 = temp4 = xtemp = 0; }\n  virtual ~RungeKuttaClass() { this->Terminate(); }\n  int32 Init(int, float, OdeDerivFunc);\n  int32 Terminate();\n  int32 Update(PhysicsObjectClass *, float, float *, float *, float *);\n  virtual void SetStepSize(float dt) { stepSize = dt; step2 = dt / 2.0f; step6 = dt / 6.0f; }\nprivate:\n  float step2, step6;\n  float *temp1, *temp2, *temp3, *temp4, *xtemp;\n};\nclass PhysicsObjectClass\n{\npublic:\n  PhysicsObjectClass();\n  static void DerivFunc(PhysicsObjectClassPtr, float, float *, float *);\n  float mass;\n  float inverseMass;\n  vector3d force;\n  vector3d velo;\n  vector3d pos;\n  po my_po;\n  vector3d linMom;\nprivate:\n  RungeKuttaClass ode;\n};\nPhysicsObjectClass::PhysicsObjectClass()\n{\n  force = vector3d(0, 0, 0);\n  velo = vector3d(0, 0, 0);\n  pos = vector3d(0, 0, 0);\n  my_po = po_identity_matrix;\n\n  mass = 1.0;\n  inverseMass = 1.0;\n\n  pos = vector3d(0,0,0);\n  linMom = vector3d(0,0,0);\n\n  // init ode\n  this->ode.Init(18, 0.1f, PhysicsObjectClass::DerivFunc);\n}\n",
+      "status": "different",
+      "target_size": 480
+    }
+  ],
+  "raw_name": "__18PhysicsObjectClass"
+}
