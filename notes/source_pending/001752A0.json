@@ -1,0 +1,15 @@
+{
+  "address": "0x001752A0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "43aaaaa1eef3efdf7aa4cbd67f6f6caba58c5071",
+      "notes": "# FIRST PASS wave 118 lane A2\n\nConfirmed zero prior attempts. One LF-only exact released-body test from `KS/SRC/ks/IGOFrontEnd.cpp` for `0x001752A0 OnSurferReset__11IGOFrontEndib`. Result `compile_failed` because the candidate's source-root-qualified includes were not found by the harness include paths. No retry, variant, diff chase, build, finalize, integration, git mutation, tracked edit, commit, or push.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/global.h\"\n#include \"KS/SRC/ks/IGOFrontEnd.h\"\n\nvoid IGOFrontEnd::OnSurferReset(const int playerIdx, const bool waveDirection)\n{\n\tassert(playerIdx >= 0 && playerIdx < numPlayers);\n\n\t//if (TIMER_GetLevelSec() < 10.0f)\n\t{\n\t\tif (waveIndicatorWidget) waveIndicatorWidget->ShowDirection(true, WAVE_GetHeight(), WAVE_GetNextHeight());\n\t}\n\tif (cameraWidget) cameraWidget->Reset();\n\tif (analogClockWidget) analogClockWidget->HideElapsedTime();\t\n\t\n\tif (players[playerIdx].trickText)\n\t{\n\t\tplayers[playerIdx].trickText->checkTime = true;\n\t\tplayers[playerIdx].trickText->time = 0.0f;\n\t\tplayers[playerIdx].trickText->changeText(\"\");\n\t}\n\tif (players[playerIdx].trickBurstText)\n\t{\n\t\tplayers[playerIdx].trickBurstText->checkTime = true;\n\t\tplayers[playerIdx].trickBurstText->time = 0.0f;\n\t\tplayers[playerIdx].trickBurstText->changeText(\"\");\n\t}\n\tif (players[playerIdx].trickPointText)\n\t{\n\t\tplayers[playerIdx].trickPointText->checkTime = true;\n\t\tplayers[playerIdx].trickPointText->time = 0.0f;\n\t\tplayers[playerIdx].trickPointText->changeText(\"\");\n\t}\n\tif (players[playerIdx].pointBurstText)\n\t{\n\t\tplayers[playerIdx].pointBurstText->checkTime = true;\n\t\tplayers[playerIdx].pointBurstText->time = 0.0f;\n\t\tplayers[playerIdx].pointBurstText->changeText(\"\");\n\t}\n\tif (players[playerIdx].trickAttrText)\n\t{\n\t\tplayers[playerIdx].trickAttrText->checkTime = true;\n\t\tplayers[playerIdx].trickAttrText->time = 0.0f;\n\t\tplayers[playerIdx].trickAttrText->changeText(\"\");\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "OnSurferReset__11IGOFrontEndib"
+}
