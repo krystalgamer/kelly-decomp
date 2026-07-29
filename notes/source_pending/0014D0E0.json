@@ -1,0 +1,23 @@
+{
+  "address": "0x0014D0E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "abde9f41d52e2150f661e34f4f27cac8013ca0d9",
+      "candidate_size": 660,
+      "compared_bytes": 660,
+      "compared_instructions": 165,
+      "emitted_name": "Update__9PanelQuadf",
+      "instruction_score": 26.6667,
+      "matching_bytes": 251,
+      "matching_instructions": 44,
+      "notes": "# FIRST PASS wave 124 lane A5\n\nExact released source tested once for `0x0014D0E0 Update__9PanelQuadf`. Attempts before: 0. Result `different`, byte score 38.0303% and instruction score 26.6667%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 38.0303,
+      "source": "struct nglQuad { char data[0x64]; };\ntypedef float time_value_t;\n\nvoid nglSetQuadRect(nglQuad *, float, float, float, float);\nvoid nglSetQuadUV(nglQuad *, float, float, float, float);\nvoid nglRotateQuad(nglQuad *, float, float, float);\n\nclass PanelQuad\n{\n    bool isAnim;\n    int fade;\n    float fade_alpha;\n    float fade_timer;\n    float mask;\n    int maskType;\n    void *anim;\n    nglQuad quad;\n    bool drawOn;\n    int rotate;\n    float rotation;\n    float rotate_x;\n    float rotate_y;\n    int layer;\n    float r, g, b, a;\n    float x1, y1, x2, y2;\n    char remaining_fields[0xc8];\n    float u1, v1, u2, v2;\npublic:\n    void Update(time_value_t time_inc);\n};\n\nvoid PanelQuad::Update(time_value_t time_inc)\n{\n\t// Fade in.\n\tif(fade == 1)\n\t{\n\t\tfade_alpha += (time_inc/fade_timer)*a;\n\t\tif(fade_alpha >= a)\n\t\t\tfade = 0;\n\t}\n\t// Fade out.\n\telse if(fade == -1)\n\t{\n\t\tfade_alpha -= (time_inc/fade_timer)*a;\n\t\tif(fade_alpha <= 0.0f)\n\t\t{\n\t\t\tfade = 0;\n\t\t\tdrawOn = false;\n\t\t}\n\t}\n\t// Constant fade.\n\telse if(fade == 2)\n\t{\n\n\t}\n\n\tif (maskType != 0)\n\t{\n\t\tif (mask > 1.0f)\n\t\t\tmask = 2.0f - mask;\n\n\t\tif (maskType == 1)\n\t\t{\n\t\t\tfloat tmp_x = (x2-x1)*mask + x1;\n\t\t\tfloat tmp_u = (u2-u1)*mask + u1;\n\t\t\tnglSetQuadRect(&quad, x1, y1, tmp_x, y2);\n\t\t\tnglSetQuadUV(&quad, u1, v1, tmp_u, v2);\n\t\t}\n\t\telse if (maskType == 2)\n\t\t{\n\t\t\tfloat tmp_x = x2 - (x2-x1)*mask;\n\t\t\tfloat tmp_u = u2 - (u2-u1)*mask;\n\t\t\tnglSetQuadRect(&quad, tmp_x, y1, x2, y2);\n\t\t\tnglSetQuadUV(&quad, tmp_u, v1, u2, v2);\n\t\t}\n\t\telse if (maskType == 3)\n\t\t{\n\t\t\tfloat tmp_y = (y1-y2)*mask + y2;\n\t\t\tfloat tmp_v = (v1-v2)*mask + v2;\n\t\t\tnglSetQuadRect(&quad, x1, tmp_y, x2, y2);\n\t\t\tnglSetQuadUV(&quad, u1, tmp_v, u2, v2);\n\t\t}\n\n\t\tif (rotate == 1)\n\t\t\tnglRotateQuad(&quad, (x2-x1)/2.0f+x1, (y2-y1)/2.0f+y1, rotation);\n\t\tif (rotate == 2)\n\t\t\tnglRotateQuad(&quad, rotate_x, rotate_y, rotation);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 660
+    }
+  ],
+  "raw_name": "Update__9PanelQuadf"
+}
