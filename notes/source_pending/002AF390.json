@@ -1,0 +1,23 @@
+{
+  "address": "0x002AF390",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "29dfcb5adf1c099becda1f4b304255e5734861a6",
+      "candidate_size": 372,
+      "compared_bytes": 516,
+      "compared_instructions": 129,
+      "emitted_name": "_M_insert_aux__t6vector2ZP11beam_effectZt12my_allocator1ZP11beam_effectPP11beam_effectRCP11beam_effect",
+      "instruction_score": 2.3256,
+      "matching_bytes": 84,
+      "matching_instructions": 3,
+      "notes": "# FIRST PASS wave 97 A2\n\nTarget: `0x002AF390 vector<beam_effect *, my_allocator<beam_effect *> >::_M_insert_aux`\n\nConfirmed queue attempts were `0`. Exactly one source-faithful GCC 2.95.2\n`stl_vector` insertion candidate was tested.\n\nResult: **different**, byte score **16.2791%** (84/516), instruction score\n**2.3256%** (3/129); candidate size 372 bytes versus target size 516 bytes.\n\nNo retry, variant chasing, build, finalize, integration, tracked-file edit,\ncommit, or push.",
+      "score": 16.2791,
+      "source": "class beam_effect;\n\nvoid *operator new(unsigned int);\nvoid operator delete(void *);\n\ntemplate<class T>\nstruct my_allocator {\n  static T *allocate(unsigned int n) { return (T *)operator new(n * sizeof(T)); }\n  static void deallocate(T *p) { operator delete(p); }\n};\n\ntemplate<class T, class Alloc>\nclass vector {\npublic:\n  typedef T *iterator;\n  typedef unsigned int size_type;\n\n  T *_M_start;\n  T *_M_finish;\n  T *_M_end_of_storage;\n\n  size_type size() const { return _M_finish - _M_start; }\n  T *_M_allocate(size_type n) { return Alloc::allocate(n); }\n  void _M_deallocate(T *p, size_type) { Alloc::deallocate(p); }\n  void _M_insert_aux(iterator, const T &);\n};\n\ntemplate<class T>\ninline void construct(T *p, const T &value)\n{\n  *p = value;\n}\n\ntemplate<class T>\ninline void destroy(T *, T *)\n{\n}\n\ntemplate<class T>\ninline T *copy_backward(T *first, T *last, T *result)\n{\n  while (first != last)\n    *--result = *--last;\n  return result;\n}\n\ntemplate<class T>\ninline T *uninitialized_copy(T *first, T *last, T *result)\n{\n  while (first != last)\n    *result++ = *first++;\n  return result;\n}\n\ntemplate<class T, class Alloc>\nvoid vector<T, Alloc>::_M_insert_aux(iterator position, const T &x)\n{\n  if (_M_finish != _M_end_of_storage) {\n    construct(_M_finish, *(_M_finish - 1));\n    ++_M_finish;\n    copy_backward(position, _M_finish - 2, _M_finish - 1);\n    *position = x;\n  } else {\n    const size_type old_size = size();\n    const size_type len = old_size != 0 ? 2 * old_size : 1;\n    iterator new_start = _M_allocate(len);\n    iterator new_finish = new_start;\n    new_finish = uninitialized_copy(_M_start, position, new_start);\n    construct(new_finish, x);\n    ++new_finish;\n    new_finish = uninitialized_copy(position, _M_finish, new_finish);\n    destroy(_M_start, _M_finish);\n    _M_deallocate(_M_start, _M_end_of_storage - _M_start);\n    _M_start = new_start;\n    _M_finish = new_finish;\n    _M_end_of_storage = new_start + len;\n  }\n}\n\ntemplate void vector<beam_effect *, my_allocator<beam_effect *> >::_M_insert_aux(\n    beam_effect **, beam_effect *const &);\n",
+      "status": "different",
+      "target_size": 516
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2ZP11beam_effectZt12my_allocator1ZP11beam_effectPP11beam_effectRCP11beam_effect"
+}
