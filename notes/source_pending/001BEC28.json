@@ -1,0 +1,23 @@
+{
+  "address": "0x001BEC28",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d58777d814c26e051ce4750524b177079a76be68",
+      "candidate_size": 716,
+      "compared_bytes": 716,
+      "compared_instructions": 179,
+      "emitted_name": "check_for_cheats__19GraphicalMenuSystemf",
+      "instruction_score": 4.4693,
+      "matching_bytes": 155,
+      "matching_instructions": 8,
+      "notes": "# FIRST PASS wave 126 lane B2\n\nExact released source tested once for `0x001BEC28 check_for_cheats__19GraphicalMenuSystemf`. Attempts before: 0. Result `different`, byte score 21.6480% and instruction score 4.4693%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 21.648,
+      "source": "typedef int control_id_t;\n\nenum\n{\n  INVALID_CONTROL_ID = -1,\n  PSX_X = 184,\n  PSX_CIRCLE,\n  PSX_TRIANGLE,\n  PSX_SQUARE\n};\n\n#define MAX_CHEAT_SIZE 16\n#define CHEAT_SPEED 1\n\ntemplate<class T>\ninline const T& min(const T& a, const T& b)\n{\n  return b < a ? b : a;\n}\n\nextern \"C\" void nglPrintf(const char *, ...);\nasm(\".equ nglPrintf__FPCce,0x003AC050\");\n\nclass GraphicalMenuSystem\n{\n  char pad[300];\n  float cheat_timer;\n  int cheat_release;\n  int cheat_index;\n  control_id_t cheat_buffer[MAX_CHEAT_SIZE];\n\npublic:\n  bool get_one_button_down(control_id_t&) const;\n  void check_for_cheats(float);\n};\n\nvoid GraphicalMenuSystem::check_for_cheats (float time_inc)\n{\n  control_id_t btn;\n  int i, j;\n\n  struct\n  {\n    int size;\n    control_id_t buttons[MAX_CHEAT_SIZE];\n  }\n  cheats[] =\n  {\n    { 4, { PSX_X, PSX_CIRCLE, PSX_TRIANGLE, PSX_SQUARE } },\n    { 4, { PSX_SQUARE, PSX_TRIANGLE, PSX_CIRCLE, PSX_X } }\n  };\n  const int num_cheats = sizeof (cheats) / sizeof (cheats[0]);\n\n  if (get_one_button_down (btn))\n  {\n    if (btn == INVALID_CONTROL_ID)\n    {\n      if (cheat_release)\n      {\n        cheat_timer = 0;\n        cheat_release = false;\n      }\n      else\n      {\n        cheat_timer += time_inc;\n\n        if (cheat_timer > CHEAT_SPEED)\n          cheat_index = 0;\n      }\n    }\n    else\n    {\n      if (!cheat_release)\n      {\n        cheat_timer = 0;\n        cheat_release = true;\n\n        cheat_buffer[cheat_index] = btn;\n        cheat_index++;\n      }\n      else\n      {\n        cheat_timer += time_inc;\n\n        if (cheat_timer > CHEAT_SPEED)\n          cheat_index = 0;\n      }\n    }\n  }\n  else\n  {\n    cheat_timer += time_inc;\n\n    if (cheat_timer > CHEAT_SPEED)\n      cheat_index = 0;\n  }\n\n  for (;;)\n  {\n    bool valid = false;\n\n    for (i = 0; i < num_cheats; i++)\n    {\n      int count = min (cheats[i].size, cheat_index);\n\n      for (j = 0; j < count; j++)\n      {\n        if (cheats[i].buttons[j] == cheat_buffer[j])\n        {\n          if (j == cheat_index - 1)\n            valid = true;\n        }\n        else\n          break;\n      }\n\n      if (j == cheats[i].size)\n      {\n        nglPrintf (\"You suck and need to cheat ? Because of that the game is now much harder !\\n\");\n        cheat_index = 0;\n        break;\n      }\n    }\n\n    if (valid || cheat_index == 0)\n      break;\n\n    if (cheat_index < 0 || cheat_index >= MAX_CHEAT_SIZE)\n    {\n      cheat_index = 0;\n      break;\n    }\n\n    for (i = 0; i < MAX_CHEAT_SIZE - 1; i++)\n      cheat_buffer[i] = cheat_buffer[i+1];\n    cheat_index--;\n  }\n}\n",
+      "status": "different",
+      "target_size": 672
+    }
+  ],
+  "raw_name": "check_for_cheats__19GraphicalMenuSystemf"
+}
