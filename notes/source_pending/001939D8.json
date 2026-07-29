@@ -1,0 +1,23 @@
+{
+  "address": "0x001939D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "de084a3e5908492d3e398cef2d370b01b0451ffb",
+      "candidate_size": 556,
+      "compared_bytes": 556,
+      "compared_instructions": 139,
+      "emitted_name": "SetProgressPath__13BeachFrontEnd",
+      "instruction_score": 5.036,
+      "matching_bytes": 129,
+      "matching_instructions": 7,
+      "notes": "# FIRST PASS wave103 B4\n\nExact released `SetProgressPath__13BeachFrontEnd` body from `KS/SRC/ks/BeachFrontEnd.cpp`, tested once from attempts0 with LF line endings.\n\nResult: `different`, score `23.2014%` (`129/556` matching bytes; instruction score `5.0360%`). No follow-up, build, git operation, or tracked edit.",
+      "score": 23.2014,
+      "source": "struct BFE_Beach\n{\n\tint location;\n\tchar padding[24];\n};\n\nstruct BFE_Location\n{\n\tint levels[3];\n\tint beaches[3];\n\tbool all_levels_locked;\n\tbool all_beaches_locked;\n\tbool no_existing_levels;\n\tchar padding[9];\n};\n\nclass MapData\n{\npublic:\n\tbool setPath(int beach1, int beach2);\n};\n\n__asm__(\".equ setPath__7MapDataii, 0x0018B5C8\");\n\nenum\n{\n\tMAP_LOC_CORTESBANK = 3,\n\tMAP_LOC_JAWS = 5,\n\tMAP_LOC_MAVERICKS = 7,\n\tMAP_LOC_PIPELINE = 9,\n\tMAP_LOC_TRESTLES = 12\n};\n\nclass BeachFrontEnd\n{\n\tchar padding0[0x2f4];\n\tBFE_Beach beaches[24];\n\tchar padding1[0];\n\tBFE_Location locations[17];\n\tchar padding2[0x40];\n\tint current_beach_index;\n\tint current_level_index;\n\tint current_location_index;\n\tint cur_we_index;\n\tint home_beach;\n\tchar padding3[0x6c0];\n\tMapData map;\n\tbool no_progress_path;\n\npublic:\n\tvoid SetProgressPath();\n};\n\nvoid BeachFrontEnd::SetProgressPath()\n{\n\tno_progress_path = current_location_index == beaches[home_beach].location;\n\n\t// also set for no path if too close together\n\tif(!no_progress_path)\n\t{\n\t\tif((current_location_index == MAP_LOC_CORTESBANK || \n\t\t\tcurrent_location_index == MAP_LOC_MAVERICKS ||\n\t\t\tcurrent_location_index == MAP_LOC_TRESTLES) &&\n\t\t\t(beaches[home_beach].location == MAP_LOC_CORTESBANK || \n\t\t\tbeaches[home_beach].location == MAP_LOC_MAVERICKS ||\n\t\t\tbeaches[home_beach].location == MAP_LOC_TRESTLES))\n\t\t\tno_progress_path = true;\n\t\telse if((current_location_index == MAP_LOC_PIPELINE && \n\t\t\tbeaches[home_beach].location == MAP_LOC_JAWS) || \n\t\t\t(beaches[home_beach].location == MAP_LOC_PIPELINE && \n\t\t\tcurrent_location_index == MAP_LOC_JAWS))\n\t\t\tno_progress_path = true;\n\t}\n\n\tif(!no_progress_path)\n\t{\n\t\tBFE_Location loc1 = locations[current_location_index];\n\t\tBFE_Location loc2 = locations[beaches[home_beach].location];\n\t\tbool ret = map.setPath(loc1.beaches[0], loc2.beaches[0]);\n\t\tif(!ret) ret = map.setPath(loc1.beaches[1], loc2.beaches[0]);\n\t\tif(!ret) ret = map.setPath(loc1.beaches[0], loc2.beaches[1]);\n\t\tif(!ret) ret = map.setPath(loc1.beaches[1], loc2.beaches[1]);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 540
+    }
+  ],
+  "raw_name": "SetProgressPath__13BeachFrontEnd"
+}
