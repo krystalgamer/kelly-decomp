@@ -1,0 +1,15 @@
+{
+  "address": "0x002C9A78",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ba20611d59681bb20df7d9d4e6d41e5e58c86c28",
+      "notes": "# FIRST PASS wave 134 lane B1\n\nExact released source tested once for `0x002C9A78 add_2d_text__FRC8vector3dG7color32fRC7stringx`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <vector>\n#include \"KS/SRC/stringx.h\"\n\ntypedef float time_value_t;\n\nstruct vector3d\n{\n  float x;\n  float y;\n  float z;\n};\n\nstruct color32\n{\n  unsigned int value;\n};\n\nclass debug_text\n{\npublic:\n  debug_text(bool _3d, const vector3d& p, color32 c, time_value_t dur, const stringx &s)\n  {\n    _3d_text = _3d;\n    str = s;\n    col = c;\n    pos = p;\n    duration = dur;\n  }\n\n  debug_text(const debug_text &d)\n  {\n    _3d_text = d._3d_text;\n    str = d.str;\n    col = d.col;\n    pos = d.pos;\n    duration = d.duration;\n  }\n\n  bool _3d_text;\n  stringx str;\n  color32 col;\n  vector3d pos;\n  time_value_t duration;\n};\n\n#define MAX_DEBUG_TEXT_STRINGS 25\n\nvector<debug_text> debug_strings;\n\nvoid add_2d_text(const vector3d& pos, color32 col, time_value_t dur, const stringx &str)\n{\n  debug_strings.reserve(MAX_DEBUG_TEXT_STRINGS);\n\n  vector<debug_text>::iterator i = debug_strings.begin();\n  vector<debug_text>::iterator i_end = debug_strings.end();\n  while(i != i_end)\n  {\n    if((*i).duration <= 0.0f)\n    {\n      (*i)._3d_text = false;\n      (*i).str = str;\n      (*i).pos = pos;\n      (*i).col = col;\n      (*i).duration = dur;\n      return;\n    }\n\n    ++i;\n  }\n\n  debug_strings.push_back(debug_text(false, pos, col, dur, str));\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "add_2d_text__FRC8vector3dG7color32fRC7stringx"
+}
