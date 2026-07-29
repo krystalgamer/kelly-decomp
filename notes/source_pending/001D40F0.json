@@ -1,0 +1,15 @@
+{
+  "address": "0x001D40F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ae4cbfb976efecd54ddbb1974041a16dd42a54e2",
+      "notes": "# FIRST PASS wave 134 lane A1\n\nExact released source tested once for `0x001D40F0 OnActivate__14AccompFrontEnd`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"CompressedPhoto.h\"\n#include \"osGameSaver.h\"\n#if _XBOX\n#include \"xbglobals.h\"\n#endif\n\n#include \"AccompFrontEnd.h\"\n\nvoid AccompFrontEnd::OnActivate()\n{\n\tint previous = system->active;\n\tFEMultiMenu::OnActivate();\n\n\tif(previous == GraphicalMenuSystem::ExtrasMenu)\n\t{\n\t\tmanager->em->ToMainScreen();\n\t\tback = system->menus[GraphicalMenuSystem::ExtrasMenu];\n\t\tback_num = 1;\n\t}\n\telse\n\t{\n\t\t// only for coming from ss, or direct from game\n\t\tmanager->em->ToSurferSelect();\n\t\tback = system->menus[GraphicalMenuSystem::SurferMenu];\n\t\tback_num = SurferFrontEnd::ACT_SURFER;\n\t}\n\n\tnum_photos = 0;\n\tint cover_index = 0;\n\tfor(int i=0; i<LEVEL_LAST; i++)\n\t{\t\n\t\tif (CareerDataArray[i].goal[0] == GOAL_PHOTO_1 ||\n\t\t\tCareerDataArray[i].goal[0] == GOAL_PHOTO_2 ||\n\t\t\tCareerDataArray[i].goal[0] == GOAL_PHOTO_3)\n\t\t{\n\t\t\tbeach_index[num_photos] = CareerDataArray[i].beach;\n\t\t\tlevel_index[num_photos] = i;\n\n\t\t\t// Keep track of which beaches we are \n\t\t\t// snapping pics for\n\t\t\tif (g_career->PhotoExistsForLevel (i))\n\t\t\t{\n\t\t\t\tmag_cover_beach_index[CareerDataArray[i].beach] = cover_index;\n\t\t\t\tcover_index++;\n\t\t\t\tnum_photos++;\n\t\t\t}\n\t\t\tassert(num_photos < MAX_PAGES);\n\t\t}\n\t}\n\n\tnum_pages = (num_photos/2)+(num_photos%2);\n\tcur_page = 0;\n\n\tfor(int i=0; i<num_covers; i++)\n\t{\n\t\tmag_covers[i][0]->TurnOn(i == cur_page*2);\n\t\tmag_covers[i][1]->TurnOn(i == cur_page*2+1);\n\t}\n\tUpdatePhotos();\n\n\tmanager->helpbar->Reset();\n\tmanager->helpbar->AddArrowH(ksGlobalTextArray[GT_FE_MENU_SWITCH]);\n\tmanager->helpbar->RemoveX();\n\tmanager->helpbar->Reformat();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "OnActivate__14AccompFrontEnd"
+}
