@@ -1,0 +1,15 @@
+{
+  "address": "0x002C3DE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "27fed7c25334e0dcecee95b79a695eb4deead44a",
+      "notes": "# FIRST PASS wave 133 lane A1\n\nExact released source tested once for `0x002C3DE0 adjust_geometry_pipe__6camerab`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"../../../kelly-slaters-pro-surfer/KS/SRC/camera.cpp\"\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "adjust_geometry_pipe__6camerab"
+}
