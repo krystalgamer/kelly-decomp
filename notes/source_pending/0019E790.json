@@ -1,0 +1,15 @@
+{
+  "address": "0x0019E790",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "74b3eac903108d3da28afba4e5f9b4b40d27123c",
+      "notes": "# FIRST PASS wave 112 lane B1\n\nExact released body tested once for `0x0019E790 MakeSpaceFreeMessage__9NamesMenui`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEPanel_shared.h\"\n\nclass CandidateBoxText : public BoxText\n{\npublic:\n    int makeBox(int w, int h, bool r = false, float scale_override = -1, int height_override = -1) __asm__(\"makeBox__7BoxTextiibfi\");\n};\n\nextern stringx ksGlobalTextArray[];\n\nenum\n{\n    GT_MC_FREE = 556,\n    GT_MC_KB = 570\n};\n\nclass NamesMenu\n{\n    char pad[660];\n    CandidateBoxText* freeSpace;\npublic:\n    void MakeSpaceFreeMessage(int freeBytes);\n};\n\nvoid NamesMenu::MakeSpaceFreeMessage(int freeBytes)\n{\n#ifdef TARGET_XBOX\n\tif (freeBytes > 50000)\n\t\tfreeSpace->changeText(stringx(50000) +stringx(\"+ \") +ksGlobalTextArray[GT_MC_FREE] + \" \" + ksGlobalTextArray[GT_MC_BLOCKS] );\n\telse\n\t\tfreeSpace->changeText(stringx(freeBytes) + stringx(\" \") + ksGlobalTextArray[GT_MC_FREE] + \" \" + ksGlobalTextArray[GT_MC_BLOCKS]);\n#elif defined(TARGET_GC)\n\tfreeSpace->changeText(stringx(freeBytes) + stringx(\" \") + ksGlobalTextArray[GT_MC_BLOCKS] + \" \" + ksGlobalTextArray[GT_MC_FREE] );\n#else\n\tfreeSpace->changeText(stringx(freeBytes) + stringx(\" \") + ksGlobalTextArray[GT_MC_KB] + \" \" + ksGlobalTextArray[GT_MC_FREE] );\n#endif\n\n\tfreeSpace->makeBox(100,50);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "MakeSpaceFreeMessage__9NamesMenui"
+}
