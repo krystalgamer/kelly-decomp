@@ -1,0 +1,23 @@
+{
+  "address": "0x001E2EC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6669656d2732941842be119e86aa5f9f0eee24be",
+      "candidate_size": 464,
+      "compared_bytes": 484,
+      "compared_instructions": 45,
+      "emitted_name": "fast_sin_cos_approx__FfPfT1",
+      "instruction_score": 53.3333,
+      "matching_bytes": 167,
+      "matching_instructions": 24,
+      "notes": "# FIRST PASS wave90 A3 \u2014 0x001E2EC8\n\n- Function: `fast_sin_cos_approx__FfPfT1`\n- Reference: `kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_math.cpp`\n- Queue attempts before test: 0; prepared `attempts.json` was empty.\n- Attempt: 1 only, exact released body with minimal faithful declarations.\n- Candidate is LF-only, self-contained, and compiled without unresolved headers.\n- Result: `different`; 167/484 bytes (34.5041%), 24/45 instructions (53.3333%).\n- Target size: 484 bytes; candidate size: 464 bytes.\n- No alternatives, assembly replacement, annotations, variants, retries, attempts 2\u20135, integration, build, or tracked/reference edits performed.\n- Packet flags: tracked=false, finalized=false, integrated=false.",
+      "score": 34.5041,
+      "source": "typedef float rational_t;\ntypedef float fp;\ntypedef int sceVu0IVECTOR[4] __attribute__((aligned(16)));\ntypedef float sceVu0FVECTOR[4] __attribute__((aligned(16)));\n\nextern \"C\" float fabsf(float);\nextern rational_t *fast_sin_lookup_table;\n\nconst float PI = 3.1415927f;\n\n#define _DISABLE_FAST_SIN_COS 0\n#define _FAST_SIN_LOOKUP_SIZE_F (4096.0f*4.0f)\n#define _FAST_SIN_LOOKUP_THRESHOLD (0.05f)\n#define _FAST_SIN_LOOKUP_THRESHOLD_INV (1.0f / _FAST_SIN_LOOKUP_THRESHOLD)\n\nvoid fast_sin_cos_approx( fp rads, fp* sinx, fp* cosx )\n{\n#if _DISABLE_FAST_SIN_COS\n  *sinx = sinf(rads);\n  *cosx = cosf(rads);\n#else\n\n  static sceVu0IVECTOR _S5432 = { 0x362e9c14, 0xb94fb21f, 0x3c08873e, 0xbe2aaaa4 };\n  static sceVu0FVECTOR res;\n\n  static float inv_PI = (float)(1.0f / PI);\n  static float my_PI = (float)(PI);\n\n  rational_t muller = 1.0f;\n  rational_t orig_rads = rads;\n\n  if(rads >= my_PI || rads <= -my_PI)\n  {\n    int num = (int)(rads*inv_PI);\n    if(num & 0x1)\n      muller = -1.0f;\n\n    rads -= (((float)num)*my_PI);\n  }\n\n\tasm __volatile__(\n\n  \"mtc1\t$0,$f0 \\n\"\n\t\"c.olt.s %1,$f0 \\n\"\n\t\"li.s    $f0,1.57079637050628662109e0\t \\n\"\n\t\"bc1f    _fcsa_01 \\n\"\n\t\"add.s   %1,$f0,%1 \\n\"\n\t\"li \t$7,1 \\n\"\n\t\"j\t_fcsa_02 \\n\"\n  \"_fcsa_01: \\n\"\n\t\"sub.s   %1,$f0,%1 \\n\"\n\t\"move\t$7,$0 \\n\"\n  \"_fcsa_02: \\n\"\n\n\t\"mfc1    $8,%1 \\n\"\n\t\"qmtc2    $8,vf6 \\n\"\n\t\"move\t$6,$31 \\n\"\n  \n  \n\t\"lqc2\tvf05,0x0(%2) \\n\"\n//\t\"lqc2\tvf06,0x0(%0) \\n\"\n\t\"vmr32.w vf06,vf06 \\n\"\n\t\"vaddx.x vf04,vf00,vf06 \\n\"\n\t\"vmul.x vf06,vf06,vf06 \\n\"\n\t\"vmulx.yzw vf04,vf04,vf00 \\n\"\n\t\"vmulw.xyzw vf08,vf05,vf06 \\n\"\n\t\"vsub.xyzw vf05,vf00,vf00 \\n\"\n\t\"vmulx.xyzw vf08,vf08,vf06 \\n\"\n\t\"vmulx.xyz vf08,vf08,vf06 \\n\"\n\t\"vaddw.x vf04,vf04,vf08 \\n\"\n\t\"vmulx.xy vf08,vf08,vf06 \\n\"\n\t\"vaddz.x vf04,vf04,vf08 \\n\"\n\t\"vmulx.x vf08,vf08,vf06 \\n\"\n\t\"vaddy.x vf04,vf04,vf08 \\n\"\n\t\"vaddx.x vf04,vf04,vf08 \\n\"\n\n\t\"vaddx.xy vf04,vf05,vf04 \\n\"\n\n\t\"vmul.x vf07,vf04,vf04 \\n\"\n\t\"vsubx.w vf07,vf00,vf07 \\n\"\n\n\t\"vsqrt Q,vf07w \\n\"\n\t\"vwaitq \\n\"\n\n\t\"vaddq.x vf07,vf00,Q \\n\"\n\n\t\"bne\t$7,$0,_fcsa_01x \\n\"\n\t\"vaddx.x vf04,vf05,vf07 \\n\"\n\t\"b\t_fcsa_02x \\n\"\n\"_fcsa_01x:\t \\n\"\n\t\"vsubx.x vf04,vf05,vf07 \\n\"\n\"_fcsa_02x:\t \\n\"\n\n  \"sqc2 vf04, 0x0(%0)  \\n\"\n\n\t: \n  : \"r\" (&res[0]), \"f\" (rads), \"r\" (&_S5432[0])\n  :\"$6\",\"$7\",\"$8\",\"$f0\");\n\n  *sinx = res[0]*muller;\n  *cosx = res[1]*muller;\n\n  // This fixes the accuracy problem with sin when rads < 0.05f (quaternions)\n//  #pragma todo(\"Make this also handle values close to PI/-PI\")\n  if(orig_rads < _FAST_SIN_LOOKUP_THRESHOLD && orig_rads > -_FAST_SIN_LOOKUP_THRESHOLD)\n  {\n    *sinx = fast_sin_lookup_table[(int)(((fabsf(orig_rads) * _FAST_SIN_LOOKUP_THRESHOLD_INV) * _FAST_SIN_LOOKUP_SIZE_F) + 0.5f)];\n    if(orig_rads < 0.0f)\n      *sinx *= -1.0f;\n  }\n\n#endif\n}\n",
+      "status": "different",
+      "target_size": 484
+    }
+  ],
+  "raw_name": "fast_sin_cos_approx__FfPfT1"
+}
