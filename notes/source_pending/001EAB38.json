@@ -1,0 +1,23 @@
+{
+  "address": "0x001EAB38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "79076125bbd94088da78727362a7f6a9e943604f",
+      "candidate_size": 584,
+      "compared_bytes": 584,
+      "compared_instructions": 146,
+      "emitted_name": "update__5beachf",
+      "instruction_score": 1.3699,
+      "matching_bytes": 110,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 107 lane B2\n\nExact released body tested once for `0x001EAB38 update__5beachf`. Result `different`, score 18.8356%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 18.8356,
+      "source": "#define NULL 0\n#define assert(x) ((void)0)\n\nstruct vector3d {\n    float x, y, z;\n    vector3d operator*(float value) const {\n        vector3d result = { x * value, y * value, z * value };\n        return result;\n    }\n    vector3d &operator+=(const vector3d &value) {\n        x += value.x; y += value.y; z += value.z;\n        return *this;\n    }\n};\n\nextern float TIMER_FrameSec;\nextern float TIMER_LevelSec;\ninline float TIMER_GetFrameSec(void) { return TIMER_FrameSec; }\ninline float TIMER_GetLevelSec(void) { return TIMER_LevelSec; }\nextern void WAVE_GlobalCurrent(vector3d *current);\nextern float WAVE_GetScheduleSec(void);\n\nclass kellyslater_controller;\nclass game {\npublic:\n    int get_game_mode(void);\n    int get_active_player(void);\n};\nclass world_dynamics_system {\npublic:\n    kellyslater_controller *get_ks_controller(int player);\n};\nextern game *g_game_ptr;\nextern world_dynamics_system *g_world_ptr;\nenum { GAME_MODE_CAREER = 0 };\n\nclass IconChallenge { public: void Update(float dt); };\nclass PhotoChallenge { public: void Update(float dt); };\n\nclass beach_object {\npublic:\n    virtual ~beach_object();\n    virtual void spawn() = 0;\n    virtual void despawn() = 0;\n    virtual bool update(float dt) = 0;\n    virtual bool parse_params(char **argp, int argc);\n    virtual void get_settings(const beach_object &obj);\n    virtual void collide(void *ent, const vector3d &dir);\n    virtual void jumped_over(void *ent);\n    virtual void sprayed(void *ent);\n    virtual bool is_surfing_object();\n    beach_object *next;\n    float spawn_time;\n    int timer_type;\n    int times_spawned;\n    bool spawned;\n    bool smashable;\n    bool active;\n    bool never_despawn;\n    bool is_active() const { return active; }\n};\n\nclass beach {\n    char judges[696];\npublic:\n    vector3d travel_distance;\n    beach_object *my_objects;\nprotected:\n    int current_breakmap;\n    int num_breakmap;\n    void *smashedEntity;\n    struct BeachChallenges { IconChallenge *icon; PhotoChallenge *photo; } challenges;\n    void check_challenges(kellyslater_controller *ksctrl);\npublic:\n    void update(float dt);\n};\n\nvoid beach::update (float dt)\n{\n\tvector3d current;\n\t\n\tWAVE_GlobalCurrent (&current);\n\t\n\ttravel_distance += current * TIMER_GetFrameSec ();\n\tfloat level_time = TIMER_GetLevelSec();\n\tfloat wave_time = WAVE_GetScheduleSec();\n\t\n\tif (g_game_ptr->get_game_mode() == GAME_MODE_CAREER)\n\t\tcheck_challenges(g_world_ptr->get_ks_controller(g_game_ptr->get_active_player()));    // Active Player s/b 0 in 1-player game\n\t\n\t// Update every beach object.\n\tfor (beach_object *fobj = my_objects; fobj != NULL; fobj = fobj->next)\n\t{\n\t\tif (!fobj->is_active ())\n\t\t\tcontinue;\n\t\t\n\t\tbool timetospawn = false;\n\t\t\n\t\tif (fobj->timer_type == -1) // timed relative to level start\n\t\t{\n\t\t\ttimetospawn = (fobj->spawn_time < level_time) && (fobj->times_spawned == 0);\n\t\t}\n\t\telse // timed relative to this wave's start\n\t\t{\n\t\t\tassert(fobj->timer_type == current_breakmap);\n\t\t\ttimetospawn = (fobj->spawn_time < wave_time);\n\t\t}\n\t\t\n\t\tif (fobj->spawned)\n\t\t{\n\t\t\tif (!fobj->update (dt))\n\t\t\t{\n\t\t\t\tfobj->active = false;\n\t\t\t\tfobj->despawn ();\n\t\t\t}\n\t\t}\n\t\telse\n\t\t{\n\t\t\tif (timetospawn)\n\t\t\t\tfobj->spawn ();\n\t\t}\n\t}\n\t\n\t// Update complex challenges.\n\tif (challenges.icon) challenges.icon->Update(dt);\n\tif (challenges.photo) challenges.photo->Update(dt);\n}\n",
+      "status": "different",
+      "target_size": 556
+    }
+  ],
+  "raw_name": "update__5beachf"
+}
