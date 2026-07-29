@@ -1,0 +1,23 @@
+{
+  "address": "0x00308030",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cc2c6712042c54b7926dba0ff7779543390748ba",
+      "candidate_size": 396,
+      "compared_bytes": 528,
+      "compared_instructions": 132,
+      "emitted_name": "BLUR_Draw__Fv",
+      "instruction_score": 6.8182,
+      "matching_bytes": 78,
+      "matching_instructions": 9,
+      "notes": "# FIRST PASS wave 102 lane A1\n\nExact released body tested once for `0x00308030 BLUR_Draw__Fv`. Result `different`, score 14.7727%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 14.7727,
+      "source": "typedef unsigned int u_int;\n\nclass game\n{\npublic:\n\tbool is_paused() const;\n};\n\nstruct nglTexture;\nstruct nglQuadVertex\n{\n\tfloat X, Y;\n\tfloat U, V;\n\tu_int Color;\n};\nstruct nglQuad\n{\n\tnglQuadVertex Verts[4];\n\tfloat Z;\n\tu_int MapFlags;\n\tu_int BlendMode;\n\tu_int BlendModeConstant;\n\tnglTexture* Tex;\n};\n\nenum\n{\n\tNGLCLEAR_Z = 1,\n\tNGLCLEAR_STENCIL = 4,\n\tNGLMAP_BILINEAR_FILTER = 2,\n\tNGLMAP_CLAMP_U = 0x10,\n\tNGLMAP_CLAMP_V = 0x20,\n\tNGLBM_CONST_BLEND = 3\n};\n\nextern bool BLUR_Active;\nextern float BLUR_StartTime;\nextern float BLUR_Duration;\nextern float BLUR_Alpha;\nextern game* g_game_ptr;\nfloat TIMER_GetTotalSec();\nu_int RoundUpToPowerOf2(u_int);\nvoid nglListBeginScene(void* SortInfo = 0);\nvoid nglSetClearFlags(u_int);\nnglTexture* nglGetFrontBufferTex();\nvoid nglInitQuad(nglQuad*);\nvoid nglSetQuadMapFlags(nglQuad*, u_int);\nvoid nglSetQuadTex(nglQuad*, nglTexture*);\nvoid nglSetQuadColor(nglQuad*, u_int);\nvoid nglSetQuadRect(nglQuad*, float, float, float, float);\nint nglGetScreenWidth();\nint nglGetScreenHeight();\nvoid nglSetQuadZ(nglQuad*, float);\nvoid nglSetQuadUV(nglQuad*, float, float, float, float);\nvoid nglSetQuadBlend(nglQuad*, u_int, u_int = 0);\nvoid nglListAddQuad(nglQuad*);\nvoid nglListEndScene();\n\ninline int FTOI(float input)\n{\n\tregister float output;\n\t__asm__ volatile (\"cvt.w.s %0, %1\" : \"=f\" (output) : \"f\" (input));\n\treturn (int&)output;\n}\n\n#define NGL_RGBA32(r, g, b, a) ((int)((r)+1)>>1) | (((int)((g)+1)>>1) << 8) | (((int)((b)+1)>>1) << 16) | (((int)((a)+1)>>1) << 24)\n\nvoid BLUR_Draw(void)\n{\n\n\t// These magic numbers get the PS2 to be blur free for the IGO's\n\tstatic float MAGICx1=-.55,MAGICy1=-.55, MAGICx2=.55, MAGICy2=.5;\n\t// no access to front buffer on GC\n\tif (BLUR_Active && !g_game_ptr->is_paused())\n\t{\n\t\tfloat progress = (TIMER_GetTotalSec() - BLUR_StartTime) / BLUR_Duration;\n\t\tif (progress >= 1)\n\t\t{\n\t\t\tBLUR_Active = false;\n\t\t}\n#if defined(TARGET_PS2)\n\t\tfloat alpha = BLUR_Alpha * (1 - progress / 2) * 128;\n#else\n\t\tfloat alpha = BLUR_Alpha * (1 - progress / 2) * 255;\n#endif\n\n#ifdef TARGET_GC\n#if (NGL > 0x010700)\n\t\t#warning \"need reimplementation of motion blur that doesn't suck -- mdm\"\n#else\n    nglGCMotionBlur( NGL_RGBA32( 255, 255, 255, alpha ) );\n#endif\n#else\n\t\tnglListBeginScene();\n\t\tnglSetClearFlags(NGLCLEAR_Z | NGLCLEAR_STENCIL);\n\t\tfloat zmax = 1;\n\t\tnglTexture *Tex = nglGetFrontBufferTex();\n\t\tnglQuad q;\n\t\tnglInitQuad(&q);\n\t\tnglSetQuadMapFlags(&q, NGLMAP_CLAMP_U | NGLMAP_CLAMP_V | NGLMAP_BILINEAR_FILTER);\n\t\tnglSetQuadTex(&q, Tex);\n\t\tnglSetQuadColor(&q, NGL_RGBA32(255, 255, 255, 255));\n#ifdef TARGET_PS2\n\t\tnglSetQuadRect(&q, MAGICx1 , MAGICy1, RoundUpToPowerOf2(nglGetScreenWidth())-MAGICx2, RoundUpToPowerOf2(nglGetScreenHeight())-MAGICy2);\n#else\n\t\tnglSetQuadRect(&q, 0, 0, nglGetScreenWidth(), nglGetScreenHeight());\n#endif\n\t\tnglSetQuadZ(&q, zmax);\n\t\tnglSetQuadUV(&q, 0, 0, 1, 1);\n\t\tnglSetQuadBlend(&q, NGLBM_CONST_BLEND, FTOI(alpha));\n\t\tnglListAddQuad(&q);\n\t\tnglListEndScene();\n#endif\t//TARGET_GC\n\t}\n}\n",
+      "status": "different",
+      "target_size": 528
+    }
+  ],
+  "raw_name": "BLUR_Draw__Fv"
+}
