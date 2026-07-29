@@ -1,0 +1,23 @@
+{
+  "address": "0x001E4228",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "477ae50a110ea67be9b37a0b022d057418f6f7f8",
+      "candidate_size": 732,
+      "compared_bytes": 732,
+      "compared_instructions": 183,
+      "emitted_name": "hasSystemFile__16GenericGameSaverii",
+      "instruction_score": 86.8852,
+      "matching_bytes": 673,
+      "matching_instructions": 159,
+      "notes": "# FIRST PASS wave 135 lane B2\n\nExact released source tested once for `0x001E4228 hasSystemFile__16GenericGameSaverii`. Attempts before: 0. Result `different`, byte score 91.9399% and instruction score 86.8852%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 91.9399,
+      "source": "struct string_buf {\n    void *data;\n    int ref_count;\n    int char_length;\n    int block_length;\n    int max_blocks;\n};\n\nclass stringx {\n    char *chars;\n    string_buf *my_buf;\n\npublic:\n    stringx();\n    stringx(const stringx &);\n    stringx(const char *, int = -1);\n    ~stringx();\n    void append(const stringx &);\n    void append(const char *, int = -1);\n    void make_room(int);\n    const char *c_str() const { return chars; }\n\n    friend stringx operator+(const stringx &, const stringx &);\n    friend stringx operator+(const stringx &, const char *);\n};\n\ninline stringx operator+(const stringx &lhs, const stringx &rhs)\n{\n    stringx foo;\n    foo.make_room(lhs.my_buf->char_length + rhs.my_buf->char_length);\n    foo.append(lhs);\n    foo.append(rhs);\n    return foo;\n}\n\nextern \"C\" unsigned strlen(const char *);\n\ninline stringx operator+(const stringx &lhs, const char *rhs)\n{\n    stringx foo;\n    int len = strlen(rhs);\n    foo.make_room(len + lhs.my_buf->char_length);\n    foo.append(lhs);\n    foo.append(rhs, len);\n    return foo;\n}\n\nstruct sceMcTblGetDir {\n    char data[64];\n};\n\nextern \"C\" char *strcpy(char *, const char *);\nextern \"C\" int sceMcGetDir(int, int, const char *, unsigned, int, sceMcTblGetDir *);\nextern \"C\" int sceMcSync(int, int *, int *);\n\nasm(\".equ __7stringx, 0x0034D3E0\");\nasm(\".equ __7stringxPCci, 0x0034D438\");\nasm(\".equ __7stringxRC7stringx, 0x0034D4D0\");\nasm(\".equ _$_7stringx, 0x0034D6E0\");\nasm(\".equ make_room__7stringxi, 0x0034E220\");\nasm(\".equ append__7stringxPCci, 0x0034E3F0\");\nasm(\".equ append__7stringxRC7stringx, 0x0034E528\");\nasm(\".equ strlen, 0x003D40E0\");\nasm(\".equ strcpy, 0x003D3FCC\");\nasm(\".equ sceMcGetDir, 0x00392818\");\nasm(\".equ sceMcSync, 0x00392550\");\n\nclass GenericGameSaver {\npublic:\n    bool hasSystemFile(int port, int slot);\n};\n\nbool GenericGameSaver::hasSystemFile(int port, int slot)\n{\n    sceMcTblGetDir listing[10] __attribute__((aligned(64)));\n    stringx name = stringx(\"/\") + stringx(\"BASLUS-20334\") + \"/\" + stringx(\"BASLUS-20334\");\n    char dirList[100];\n    int cmd, result;\n    strcpy(dirList, name.c_str());\n\n    if (sceMcGetDir(port, slot, dirList, 0, 10, listing) != 0)\n        if (sceMcGetDir(port, slot, dirList, 0, 10, listing) != 0)\n            return false;\n\n    if (sceMcSync(0, &cmd, &result) != 1)\n    {\n        if (sceMcGetDir(port, slot, dirList, 0, 10, listing) != 0)\n        {\n            if (sceMcGetDir(port, slot, dirList, 0, 10, listing) != 0)\n            {\n                return false;\n            }\n            else\n            {\n                if (sceMcSync(0, &cmd, &result) != 1)\n                    return false;\n            }\n        }\n        else\n        {\n            if (sceMcSync(0, &cmd, &result) != 1)\n                return false;\n        }\n    }\n    return result > 0;\n}\n",
+      "status": "different",
+      "target_size": 732
+    }
+  ],
+  "raw_name": "hasSystemFile__16GenericGameSaverii"
+}
