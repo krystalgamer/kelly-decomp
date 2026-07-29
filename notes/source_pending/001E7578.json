@@ -1,0 +1,23 @@
+{
+  "address": "0x001E7578",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0d4c2b44b3d83db5395d37dabde12b2912c29167",
+      "candidate_size": 708,
+      "compared_bytes": 740,
+      "compared_instructions": 185,
+      "emitted_name": "nglVif1AddWaveHighlight__FRPUiRUiiP11nglMaterialUib",
+      "instruction_score": 14.0541,
+      "matching_bytes": 238,
+      "matching_instructions": 26,
+      "notes": "# FIRST PASS wave 137 lane A1\n\nExact released source tested once for `0x001E7578 nglVif1AddWaveHighlight__FRPUiRUiiP11nglMaterialUib`. Attempts before: 0. Result `different`, byte score 32.1622% and instruction score 14.0541%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 32.1622,
+      "source": "typedef unsigned int u_int;\nstruct nglMaterial {};\nclass nglVector { public: float x, y, z, w; } __attribute__((aligned(16)));\n\n__asm__(\".equ _$nglWaveHighlightAddr, 0x00001F40\");\n__asm__(\".equ _$nglBaseAddr, 0x00000000\");\n__asm__(\".equ SunPos, 0x005141A0\");\n__asm__(\".equ HighlightAlphaScale, 0x0042E684\");\n__asm__(\".equ HighlightAlphaOffset, 0x0042E688\");\n__asm__(\".equ CoreHighlightAlphaScale, 0x0042E68C\");\n__asm__(\".equ CoreHighlightAlphaOffset, 0x0042E690\");\n__asm__(\".equ nglStageLightPass, 0x004AC9CE\");\n__asm__(\".equ nglStageEnvironmentPass, 0x004AC9CD\");\nextern char nglWaveHighlightAddr asm(\"_$nglWaveHighlightAddr\");\nextern char nglBaseAddr asm(\"_$nglBaseAddr\");\nextern nglVector SunPos;\nextern float HighlightAlphaScale, HighlightAlphaOffset;\nextern float CoreHighlightAlphaScale, CoreHighlightAlphaOffset;\nextern unsigned char nglStageLightPass, nglStageEnvironmentPass;\nvoid nglFatal(const char *, ...);\n\n#define SCE_VIF1_S_32 0x00\n#define SCE_VIF1_V2_32 0x04\n#define SCE_VIF1_V4_32 0x0c\n#define SCE_VIF1_USN (1 << 14)\n#define SCE_VIF1_SET_UNPACK(addr, qwc, mode, irq) (0x60000000 | ((mode) << 24) | ((qwc) << 16) | (addr))\n\ninline void nglVif1AddCommandListProgram(u_int *&Packet, u_int &DataPtr, char *Addr)\n{\n  Packet[0] = SCE_VIF1_SET_UNPACK(DataPtr++, 1, SCE_VIF1_S_32, 0);\n  Packet[1] = ((u_int)Addr - (u_int)&nglBaseAddr) / 8;\n  Packet += 2;\n}\n\ninline void nglVif1AddCommandListData(u_int *&Packet, u_int &DataPtr, int Mode, int QWC, void *Data, int DataSize)\n{\n  u_int *DataWords = (u_int *)Data;\n  *(Packet++) = SCE_VIF1_SET_UNPACK(DataPtr, QWC, Mode, 0) | SCE_VIF1_USN;\n  do {\n    *(Packet++) = *(DataWords++);\n    DataSize -= 4;\n  } while (DataSize);\n  DataPtr += QWC;\n}\n\nvoid nglVif1AddWaveHighlight(u_int*& _Packet, u_int& _CmdListDataPtr, int asCore, nglMaterial* Material, u_int MaterialFlags, bool standalone )\n{\n\tu_int* Packet = _Packet;\n\tu_int CmdListDataPtr = _CmdListDataPtr;\n\t\n\tif ( asCore == 0) // highlights\n\t{\n\t\tif ( !nglStageLightPass )\n\t\t\treturn;\n\t\t\n\t\tnglVif1AddCommandListProgram(  Packet, CmdListDataPtr, &nglWaveHighlightAddr );\n\t\tnglVif1AddCommandListData( Packet, CmdListDataPtr, SCE_VIF1_V4_32, 1, &SunPos, sizeof(nglVector) );\n\t\tfloat ScaleOffset[] = {HighlightAlphaScale, HighlightAlphaOffset};\n\t\tnglVif1AddCommandListData( Packet, CmdListDataPtr, SCE_VIF1_V2_32, 1, (void *) ScaleOffset, sizeof(ScaleOffset) );\n\t}\n\telse if ( asCore == 1) // core specularity\n\t{\n\t\tif ( !nglStageEnvironmentPass )\n\t\t\treturn;\n\t\t\n\t\tnglVif1AddCommandListProgram(  Packet, CmdListDataPtr, &nglWaveHighlightAddr );\n\t\tnglVif1AddCommandListData( Packet, CmdListDataPtr, SCE_VIF1_V4_32, 1, &SunPos, sizeof(nglVector) );\n\t\tfloat ScaleOffset[] = {CoreHighlightAlphaScale, CoreHighlightAlphaOffset};\n\t\tnglVif1AddCommandListData( Packet, CmdListDataPtr, SCE_VIF1_V2_32, 1, (void *) ScaleOffset, sizeof(ScaleOffset) );\n\t}\n\telse\n\t{\n\t\tnglFatal(\"Bad parameter\\n\");\n\t}\n\t\n\t_Packet = Packet;\n\t_CmdListDataPtr = CmdListDataPtr;\n}\n",
+      "status": "different",
+      "target_size": 740
+    }
+  ],
+  "raw_name": "nglVif1AddWaveHighlight__FRPUiRUiiP11nglMaterialUib"
+}
