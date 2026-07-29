@@ -1,0 +1,23 @@
+{
+  "address": "0x00338780",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7da17170f8d3548e288538e42d76ecc47fa2c3ae",
+      "candidate_size": 504,
+      "compared_bytes": 524,
+      "compared_instructions": 131,
+      "emitted_name": "skip_material_chunk__FR10chunk_file",
+      "instruction_score": 18.3206,
+      "matching_bytes": 154,
+      "matching_instructions": 24,
+      "notes": "# FIRST PASS wave 101 lane A4\n\nConfirmed `attempts_used: 0` before testing. Prepared `0x00338780 skip_material_chunk__FR10chunk_file` from exact reference path `KS/SRC/material.cpp` and tested one LF candidate body.\n\nResult: `different`, score `29.3893%` (`154/524` matching bytes; instruction score `18.3206%`). No retry, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 29.3893,
+      "source": "struct chunk_file;\n\nstruct chunk_flavor\n{\n    char name[16];\n    chunk_flavor() { __builtin_strcpy(name, \"\"); }\n    bool operator==(const chunk_flavor &) const;\n};\n\nstruct stringx\n{\n    char data[8];\n    stringx();\n    ~stringx();\n};\n\nstruct color\n{\n    float r;\n    float g;\n    float b;\n    float a;\n};\n\nextern chunk_flavor CHUNK_TEXTURE;\nextern chunk_flavor CHUNK_TEXFLAGS;\nextern chunk_flavor CHUNK_TEXINFO;\nextern chunk_flavor CHUNK_DETINFO;\nextern chunk_flavor CHUNK_ENVIRONMENT;\nextern chunk_flavor CHUNK_DIFFUSE_COLOR;\nextern chunk_flavor CHUNK_FLAGS;\nextern chunk_flavor CHUNK_END;\n\n__asm__(\".equ CHUNK_TEXTURE, 0x0045B5C0\");\n__asm__(\".equ CHUNK_TEXFLAGS, 0x0045B5D0\");\n__asm__(\".equ CHUNK_TEXINFO, 0x0045B5E0\");\n__asm__(\".equ CHUNK_DETINFO, 0x0045B5F0\");\n__asm__(\".equ CHUNK_ENVIRONMENT, 0x0045B600\");\n__asm__(\".equ CHUNK_DIFFUSE_COLOR, 0x0045B610\");\n__asm__(\".equ CHUNK_FLAGS, 0x0045B630\");\n__asm__(\".equ CHUNK_END, 0x0045B528\");\n__asm__(\".equ __eq__C12chunk_flavorRC12chunk_flavor, 0x00336B60\");\n__asm__(\".equ __7stringx, 0x0034D3E0\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n\nvoid serial_in(chunk_file &, chunk_flavor *);\nvoid serial_in(chunk_file &, unsigned *);\nvoid serial_in(chunk_file &, float *);\nvoid serial_in(chunk_file &, stringx *);\nvoid serial_in(chunk_file &, color *);\n\n__asm__(\".equ serial_in__FR10chunk_fileP12chunk_flavor, 0x00336800\");\n__asm__(\".equ serial_in__FR10chunk_filePUi, 0x00336930\");\n__asm__(\".equ serial_in__FR10chunk_filePf, 0x00336998\");\n__asm__(\".equ serial_in__FR10chunk_fileP7stringx, 0x003369F8\");\n\nvoid skip_material_chunk(chunk_file &io)\n{\n    for (;;)\n    {\n        chunk_flavor cf;\n        serial_in(io, &cf);\n        if (CHUNK_TEXTURE == cf)\n        {\n            stringx filename;\n            serial_in(io, &filename);\n        }\n        else if (CHUNK_TEXFLAGS == cf)\n        {\n            unsigned flags;\n            serial_in(io, &flags);\n        }\n        else if (CHUNK_TEXINFO == cf)\n        {\n            unsigned mode;\n            serial_in(io, &mode);\n            float amt;\n            serial_in(io, &amt);\n        }\n        else if (CHUNK_DETINFO == cf)\n        {\n            float f;\n            serial_in(io, &f);\n            serial_in(io, &f);\n            serial_in(io, &f);\n            serial_in(io, &f);\n        }\n        else if (CHUNK_ENVIRONMENT == cf)\n        {\n            stringx filename;\n            serial_in(io, &filename);\n        }\n        else if (CHUNK_DIFFUSE_COLOR == cf)\n        {\n            color c;\n            serial_in(io, &c);\n        }\n        else if (CHUNK_FLAGS == cf)\n        {\n            unsigned flags;\n            serial_in(io, &flags);\n        }\n        else if (CHUNK_END == cf)\n        {\n            break;\n        }\n    }\n}\n",
+      "status": "different",
+      "target_size": 524
+    }
+  ],
+  "raw_name": "skip_material_chunk__FR10chunk_file"
+}
