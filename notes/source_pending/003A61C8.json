@@ -1,0 +1,23 @@
+{
+  "address": "0x003A61C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f0ff7fa07390e83c3e2f337721095f809ed4343c",
+      "candidate_size": 448,
+      "compared_bytes": 472,
+      "compared_instructions": 118,
+      "emitted_name": "nglVif1AddQuadMaterial__FP7nglQuad",
+      "instruction_score": 1.6949,
+      "matching_bytes": 70,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 88 lane A2\n\nExact released body tested once for `0x003A61C8 nglVif1AddQuadMaterial__FP7nglQuad`. Result `different`, score 14.8305%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 14.8305,
+      "source": "typedef unsigned char u_char;\ntypedef unsigned int u_int;\ntypedef unsigned long long u_long;\n\nstruct nglTexture;\n\nstruct nglQuadVertex\n{\n  float X, Y;\n  float U, V;\n  u_int Color;\n};\n\nstruct nglQuad\n{\n  nglQuadVertex Verts[4];\n  float Z;\n  u_int MapFlags;\n  u_int BlendMode;\n  u_int BlendModeConstant;\n  nglTexture* Tex;\n};\n\nstruct nglScene\n{\n  char _pad[1096];\n  bool ZTestEnable;\n};\n\nenum nglGSRegType\n{\n  NGL_GS_FOG,\n  NGL_GS_PRMODE,\n  NGL_GS_TEX0_1,\n  NGL_GS_TEX1_1,\n  NGL_GS_TEXCLUT,\n  NGL_GS_MIPTBP1_1,\n  NGL_GS_MIPTBP2_1,\n  NGL_GS_CLAMP_1,\n  NGL_GS_TEXA,\n  NGL_GS_ALPHA_1,\n  NGL_GS_TEST_1\n};\n\nenum\n{\n  NGLBM_OPAQUE,\n  NGLBM_PUNCHTHROUGH,\n  NGLBM_BLEND,\n  NGLBM_ADDITIVE,\n  NGLBM_SUBTRACTIVE,\n  NGLBM_CONST_BLEND,\n  NGLBM_CONST_ADDITIVE,\n  NGLBM_CONST_SUBTRACTIVE,\n  NGLBM_PUNCHTHROUGH_NO_ZTEST,\n  NGLBM_DESTALPHA_ADDITIVE,\n  NGLBM_MAX_BLEND_MODES\n};\n\nenum\n{\n  NGLMAP_CLAMP_U = 0x00000010,\n  NGLMAP_CLAMP_V = 0x00000020\n};\n\n#define SCE_GS_SET_CLAMP(wms, wmt, minu, maxu, minv, maxv) \\\n  ((u_long)(wms) | (u_long)(wmt) << 2 | (u_long)(minu) << 4 | \\\n   (u_long)(maxu) << 14 | (u_long)(minv) << 24 | (u_long)(maxv) << 34)\n#define SCE_GS_SET_PRMODE(iip, tme, fge, abe, aa1, fst, ctxt, fix) \\\n  ((u_long)(iip) << 3 | (u_long)(tme) << 4 | (u_long)(fge) << 5 | \\\n   (u_long)(abe) << 6 | (u_long)(aa1) << 7 | (u_long)(fst) << 8 | \\\n   (u_long)(ctxt) << 9 | (u_long)(fix) << 10)\n#define GS_TEST_ZTST_M (3ULL << 17)\n\nextern u_int nglGifRegCount;\nextern u_char nglGifRegIdx[128];\nextern u_long nglGifRegVal[128];\nextern u_int nglGSRegIdx[];\nextern const u_long nglGSBlendModes[NGLBM_MAX_BLEND_MODES][2];\nextern nglScene* nglCurScene;\n\nvoid nglVif1AddSetTexture( nglTexture* Tex, u_int Flags, float MipRatio );\n\ninline void nglVif1AddGSReg( nglGSRegType Reg, u_long Val )\n{\n  nglGifRegIdx[nglGifRegCount] = nglGSRegIdx[Reg];\n  nglGifRegVal[nglGifRegCount] = Val;\n  nglGifRegCount++;\n}\n\ninline void nglVif1AddSetBlendModeCheckZTest( int Mode, int Fix = 0, bool ForceZ = false)\n{\n  nglVif1AddGSReg( NGL_GS_ALPHA_1, nglGSBlendModes[Mode][0] | (u_long)Fix << 32 );\n  if (nglCurScene->ZTestEnable)\n    nglVif1AddGSReg( NGL_GS_TEST_1,  ForceZ ? nglGSBlendModes[NGLBM_OPAQUE][1] : nglGSBlendModes[Mode][1] );\n  else\n    nglVif1AddGSReg( NGL_GS_TEST_1, (ForceZ ? nglGSBlendModes[NGLBM_OPAQUE][1] : nglGSBlendModes[Mode][1]) & ~GS_TEST_ZTST_M | (1<<17) );\n}\n\nvoid nglVif1AddQuadMaterial( nglQuad* Quad )\n{\n  if ( Quad->Tex )\n    nglVif1AddSetTexture( Quad->Tex, Quad->MapFlags, 0.0f );\n  nglVif1AddSetBlendModeCheckZTest( Quad->BlendMode, Quad->BlendModeConstant );\n  nglVif1AddGSReg( NGL_GS_CLAMP_1, \n\t  SCE_GS_SET_CLAMP( ( Quad->MapFlags & NGLMAP_CLAMP_U ) != 0, ( Quad->MapFlags & NGLMAP_CLAMP_V ) != 0, 0, 0, 0, 0 ) );\n  nglVif1AddGSReg( NGL_GS_PRMODE, SCE_GS_SET_PRMODE( 1, Quad->Tex != 0, 0, Quad->BlendMode != NGLBM_OPAQUE, 0, 0, 0, 0 ) );\n}\n",
+      "status": "different",
+      "target_size": 472
+    }
+  ],
+  "raw_name": "nglVif1AddQuadMaterial__FP7nglQuad"
+}
