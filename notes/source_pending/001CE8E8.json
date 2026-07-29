@@ -1,0 +1,15 @@
+{
+  "address": "0x001CE8E8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3172502756230a1d952c43e5e5e21ecaf085bbaa",
+      "notes": "# FIRST PASS wave 124 lane A1\n\nExact released source tested once for `0x001CE8E8 Init__15PhotoSelectMenu`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// # FIRST PASS wave 124 lane A1\n// Released source: KS/SRC/ks/PhotoFrontEnd.cpp with shared declarations.\nclass PanelQuad {\npublic:\n    void TurnOn(bool);\n};\nclass Font;\nclass PhotoWidget {\n    char layout[0x40];\npublic:\n    void Init(PanelQuad *, Font *);\n};\nclass FEMenuEntry;\nclass FEManager {\npublic:\n    Font font_info;\n};\nclass FEMultiMenu {\n    char shared_layout[0x40];\nprotected:\n    FEManager *manager;\npublic:\n    FEMenuEntry *entries;\n    PanelQuad *GetPointer(const char *);\n    void setHigh(FEMenuEntry *);\n};\nclass PhotoSelectMenu : public FEMultiMenu {\nprivate:\n    PanelQuad *arrowPQs[2][2];\n    PanelQuad *highlightPQs[3];\n    PhotoWidget photoWidgets[3];\n    void *title;\n    int leftArrowIdx, rightArrowIdx;\n    float arrowHiTimer;\n    int highlightedIdx;\npublic:\n    void Init(void);\n};\n\nvoid PhotoSelectMenu::Init(void)\n{\n\tarrowPQs[0][0] = GetPointer(\"pp_btn_3_left_off\");\n\tarrowPQs[0][0]->TurnOn(true);\n\tarrowPQs[0][1] = GetPointer(\"pp_btn_3_left_on\");\n\tarrowPQs[0][1]->TurnOn(true);\n\tarrowPQs[1][0] = GetPointer(\"pp_btn_3_right_off\");\n\tarrowPQs[1][0]->TurnOn(true);\n\tarrowPQs[1][1] = GetPointer(\"pp_btn_3_right_on\");\n\tarrowPQs[1][1]->TurnOn(true);\n\n\tphotoWidgets[0].Init(GetPointer(\"pp_polaroid_01\"), &manager->font_info);\n\tphotoWidgets[1].Init(GetPointer(\"pp_polaroid_02\"), &manager->font_info);\n\tphotoWidgets[2].Init(GetPointer(\"pp_polaroid_03\"), &manager->font_info);\n\n\thighlightPQs[0] = GetPointer(\"pp_hilite_01\");\n\thighlightPQs[0]->TurnOn(true);\n\thighlightPQs[1] = GetPointer(\"pp_hilite_02\");\n\thighlightPQs[1]->TurnOn(true);\n\thighlightPQs[2] = GetPointer(\"pp_hilite_03\");\n\thighlightPQs[2]->TurnOn(true);\n\n\tarrowHiTimer = 0.0f;\n\tleftArrowIdx = 0;\n\trightArrowIdx = 0;\n\n\tsetHigh(entries);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Init__15PhotoSelectMenu"
+}
