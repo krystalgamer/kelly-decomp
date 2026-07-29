@@ -1,0 +1,15 @@
+{
+  "address": "0x002AEC50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c1654204a0035b425b18caf10a00d6231e72581f",
+      "notes": "# FIRST PASS wave 157 lane A2\n\nExact released source tested once for `0x002AEC50 _M_insert__t8_Rb_tree5ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZPQ2t13instance_bank1Z8vr_pmesh5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZQ2t13instance_bank1Z8vr_pmesh11less_by_ptrZt23__malloc_alloc_template1i0P18_Rb_tree_node_baseT1RCPQ2t13instance_bank1Z8vr_pmesh5ref_t`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <stl_tree.h>\n\nclass stringx\n{\n  char data[8];\n};\n\nclass vr_pmesh;\n\ntemplate <class T> class instance_bank\n{\npublic:\n  struct ref_t\n  {\n    stringx label;\n    T *ptr;\n    unsigned int count;\n  };\n\n  struct less_by_ptr\n  {\n    bool operator()(const ref_t *a, const ref_t *b) const\n    {\n      return a->ptr < b->ptr;\n    }\n  };\n};\n\ntypedef instance_bank<vr_pmesh>::ref_t *value_type;\ntypedef _Rb_tree<value_type, value_type, _Identity<value_type>,\n                 instance_bank<vr_pmesh>::less_by_ptr,\n                 __malloc_alloc_template<0> > tree_type;\n\ntemplate tree_type::iterator tree_type::_M_insert(\n  _Rb_tree_node_base *, _Rb_tree_node_base *, value_type const &);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_M_insert__t8_Rb_tree5ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZPQ2t13instance_bank1Z8vr_pmesh5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZQ2t13instance_bank1Z8vr_pmesh11less_by_ptrZt23__malloc_alloc_template1i0P18_Rb_tree_node_baseT1RCPQ2t13instance_bank1Z8vr_pmesh5ref_t"
+}
