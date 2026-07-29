@@ -1,0 +1,15 @@
+{
+  "address": "0x00337D20",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "53643000fe35880313491b12a89154244e12c423",
+      "notes": "# FIRST PASS wave 149 lane B2\n\nExact released source tested once for `0x00337D20 eat_whitespace__9text_file`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <ctype.h>\n\nclass text_file\n{\n  char io[64];\n  char the_stash[52];\n  int my_stash;\n  char *buf;\n  int bufpos;\n  int bufamt;\n  bool use_stash;\n  int pushbackdata;\n\npublic:\n  char peek_char();\n  char read_char();\n\nprivate:\n  void eat_whitespace();\n  bool at_eof() const\n  {\n    return use_stash ? (bufpos >= bufamt && *(const bool *)(the_stash + 16))\n                     : (bufpos >= bufamt && *(const bool *)(io + 16));\n  }\n};\n\nvoid error(const char *, ...);\n\n__asm__(\".equ peek_char__9text_file, 0x00338110\");\n__asm__(\".equ read_char__9text_file, 0x00338138\");\n__asm__(\".equ error__FPCce, 0x001DFBD8\");\n\n#define ISSPACE isspace\n\nvoid text_file::eat_whitespace()\n{\n  while(ISSPACE(peek_char()) && !at_eof())\n    read_char();\n\n  // C++ style comments.\n  while ( peek_char() == '/' && !at_eof())\n  {\n    read_char();\n    if ( peek_char() == '*' )\n    {\n      while ( !( read_char() == '*' && peek_char() == '/' ) && !at_eof() ) {}\n      read_char();\n    }\n    else\n    if ( peek_char() == '/' )\n    {\n      while ( peek_char() == '/' && !at_eof())\n      {\n        // Skip to the end of the line.\n        while (peek_char()!='\\n' && !at_eof())\n          read_char();\n      }\n    }\n    else\n    {\n      error( \"Invalid comment.\" );\n    }\n\n    while(ISSPACE(peek_char()) && !at_eof())\n      read_char();\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "eat_whitespace__9text_file"
+}
