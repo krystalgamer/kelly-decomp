@@ -1,0 +1,23 @@
+{
+  "address": "0x002A3778",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "58f9c6c90eff89e1aaa9cdecfe3ffd9fa67f5ae8",
+      "candidate_size": 396,
+      "compared_bytes": 524,
+      "compared_instructions": 131,
+      "emitted_name": "eligible_for_frame_advance__C21world_dynamics_systemP16entity_anim_tree",
+      "instruction_score": 1.5267,
+      "matching_bytes": 83,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 101 lane A2\n\nExact released body tested once for `0x002A3778 eligible_for_frame_advance__C21world_dynamics_systemP16entity_anim_tree`. Result `different`, score 15.8397%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 15.8397,
+      "source": "class ai_interface\n{\npublic:\n  bool is_active() const;\n  bool cosmetic() const;\n  bool is_disabled() const;\n};\n\nclass entity\n{\npublic:\n  virtual bool is_visible() const;\n  bool is_flagged(unsigned int f) const;\n  bool has_ai_ifc() const;\n  ai_interface* ai_ifc() const;\n  int is_in_active_region();\n};\n\nclass entity_anim_tree\n{\npublic:\n  bool is_suspended() const;\n  bool is_finished() const;\n  bool is_done_tween() const;\n  entity* get_entity() const;\n  bool is_relative_to_start() const;\n  bool is_noncosmetic() const;\n  bool is_looping() const;\n  float get_time() const;\n};\n\nenum\n{\n  EFLAG_GRAPHICS = 0x00000100,\n  EFLAG_MISC_IN_VISIBLE_REGION = 0x00004000\n};\n\n#define NULL 0\n\nclass world_dynamics_system\n{\npublic:\n  bool eligible_for_frame_advance(entity_anim_tree* anm) const;\n};\n\nbool world_dynamics_system::eligible_for_frame_advance( entity_anim_tree* anm ) const\n{\n\tif ( anm->is_suspended() || (anm->is_finished() && anm->is_done_tween()) )  // don't advance suspended or finished anim\n\t\treturn false;\n\n\tentity* e = anm->get_entity();\n\n\tif(e == NULL || !e->is_visible())\t// don't frame_advance our despawned water objects (dc 10/15/01)\n\t\treturn(false);\n\n\treturn (\n        ( !anm->is_relative_to_start()\n\t\t|| anm->is_noncosmetic()                          // always advance NONCOSMETIC anims\n\t\t|| e->is_flagged( EFLAG_MISC_IN_VISIBLE_REGION )  // or if entity is currently visible\n\t\t|| (e->has_ai_ifc() && e->ai_ifc()->is_active() && !e->ai_ifc()->cosmetic() && !e->ai_ifc()->is_disabled())\n\t\t|| (!e->is_flagged(EFLAG_GRAPHICS) && e->is_in_active_region())  // or, if non-graphical, is in an active region\n\t\t|| !anm->is_looping()                             // or anim is not looping\n\t\t|| anm->get_time() == 0.0f                        // or at start of looping anim\n\t\t|| !anm->is_done_tween()\n\t\t)\n        );\n}\n",
+      "status": "different",
+      "target_size": 524
+    }
+  ],
+  "raw_name": "eligible_for_frame_advance__C21world_dynamics_systemP16entity_anim_tree"
+}
