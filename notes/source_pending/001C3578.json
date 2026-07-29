@@ -1,0 +1,23 @@
+{
+  "address": "0x001C3578",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "90527a6cbb51ee604200ac85bc69d308665ecaca",
+      "candidate_size": 348,
+      "compared_bytes": 520,
+      "compared_instructions": 130,
+      "emitted_name": "ToSurferSelect__15FEEntityManager",
+      "instruction_score": 1.5385,
+      "matching_bytes": 66,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 100 lane A5\n\nExact released body tested once for `0x001C3578 ToSurferSelect__15FEEntityManager`. Result `different`, score 12.6923%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 12.6923,
+      "source": "class entity\n{\npublic:\n\tvoid set_handed_axis(int axis);\n\tvoid set_render_scale(const class vector3d& scale);\n};\n\nclass vector3d\n{\npublic:\n\tvector3d(float x, float y, float z) : x(x), y(y), z(z) {}\n\tfloat x, y, z;\n};\n\nclass GraphicalMenuSystem\n{\npublic:\n\tvirtual void LoadAll();\n};\n\nclass FEManager\n{\n\tchar pad[8];\npublic:\n\tGraphicalMenuSystem* gms;\n};\n\nstruct SurferData\n{\n\tchar pad[544];\n\tint goofy;\n\tchar tail[104];\n};\n\nextern SurferData SurferDataArray[];\n\nenum\n{\n\tSURFER_TRAVIS_PASTRANA = 10,\n\tSURFER_TONY_HAWK = 12\n};\n\nclass FEEntityManager\n{\npublic:\n\tentity* surfer_ent;\n\tchar pad04[4];\n\tint all_loaded;\n\tchar pad0c[12];\n\tint current_surfer_index;\n\tchar pad1c[8];\n\tint loading_surfer_index;\n\tchar pad28[12];\n\tFEManager* manager;\n\tchar pad38[348];\n\tentity* board;\n\tchar pad198[148];\n\tint op_ext;\n\tchar pad230[12];\n\tint cur_state;\n\tchar pad244[4];\n\tint next_anim;\n\n\tenum\n\t{\n\t\tSTATE_SURFER1 = 1,\n\t\tSA_IDLE = 0,\n\t\tCAM_POS_WALL_2_IN = 1\n\t};\n\n\tvoid CameraAnim(int anim_pos, float start_time = -2);\n\tvoid SurferPlay(int type, float time = -1.0f, int trick_num = 0,\n\t                int b_trick_num = 0, bool no_blend = false);\n\tvoid SetSurferPo(entity* surfer, int surfer_num);\n\tvoid ToSurferSelect();\n};\n\nvoid FEEntityManager::ToSurferSelect()\n{\n\tif(!all_loaded) manager->gms->LoadAll();\n\tif (SurferDataArray[current_surfer_index].goofy && surfer_ent && board)\n\t{\n\t\tsurfer_ent->set_handed_axis(-1);\n\t\tboard->set_handed_axis(-1);\n\t}\n\t\n\tCameraAnim(CAM_POS_WALL_2_IN);\n\n\tSurferPlay(SA_IDLE, -1, 0, 0, true);\n\n\tif(surfer_ent) \n\t\tSetSurferPo(surfer_ent, loading_surfer_index);\n\n\t// Originally all surfers were flipped so that their reflection would be \"reversed\"\n\t// but Jeff requested that TP and TH be flipped again so their animations would \n\t// appear different. -Beth\n\tif(current_surfer_index == SURFER_TRAVIS_PASTRANA || current_surfer_index == SURFER_TONY_HAWK)\n\t\tsurfer_ent->set_render_scale(vector3d(1, 1, 1));\n\telse surfer_ent->set_render_scale(vector3d(-1, 1, 1));\n\n\top_ext = false;\n\tcur_state = STATE_SURFER1;\n\tnext_anim = SA_IDLE;\n}\n",
+      "status": "different",
+      "target_size": 520
+    }
+  ],
+  "raw_name": "ToSurferSelect__15FEEntityManager"
+}
