@@ -1,0 +1,23 @@
+{
+  "address": "0x003441C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2c9b63da46d6f30a442abf35f0c55a58c6ffd2e0",
+      "candidate_size": 432,
+      "compared_bytes": 564,
+      "compared_instructions": 139,
+      "emitted_name": "get_control_state__C9input_mgr11device_id_ti",
+      "instruction_score": 9.3525,
+      "matching_bytes": 125,
+      "matching_instructions": 13,
+      "notes": "# FIRST PASS wave 109 lane B3\n\nExact released body tested once for `0x003441C8 get_control_state__C9input_mgr11device_id_ti`. Result `different`, score 22.1631%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 22.1631,
+      "source": "typedef float rational_t;\ntypedef int control_id_t;\ntypedef int axis_id_t;\n\nenum device_id_t\n{\n\tINVALID_DEVICE_ID = -1,\n\tJOYSTICK1_DEVICE = 1,\n\tJOYSTICK2_DEVICE,\n\tJOYSTICK3_DEVICE,\n\tJOYSTICK4_DEVICE,\n\tANY_LOCAL_JOYSTICK = 12\n};\n\nenum control_t\n{\n\tCT_BOOLEAN,\n\tCT_RATIONAL,\n};\n\nclass input_device;\n\nclass device_axis\n{\npublic:\n\tdevice_id_t device;\n\taxis_id_t axis;\n\tint control_axis;\n};\n\ntemplate<class T>\nclass list\n{\npublic:\n\tclass const_iterator\n\t{\n\t\tvoid *node;\n\tpublic:\n\t\tconst T& operator*() const;\n\t\tconst T* operator->() const;\n\t\tconst_iterator& operator++();\n\t\tbool operator!=(const const_iterator&) const;\n\t};\n\tconst_iterator begin() const;\n\tconst_iterator end() const;\n\tunsigned int size() const;\n};\n\ntypedef list<device_axis> device_axis_list_t;\n\nclass game_control\n{\npublic:\n\tcontrol_id_t name;\n\tcontrol_t type;\n\tdevice_axis_list_t mapping;\n};\n\ntemplate<class K, class V>\nclass map\n{\npublic:\n\tstruct value_type\n\t{\n\t\tK first;\n\t\tV second;\n\t};\n\tclass const_iterator\n\t{\n\t\tvoid *node;\n\tpublic:\n\t\tconst value_type& operator*() const;\n\t\tconst value_type* operator->() const;\n\t\tbool operator!=(const const_iterator&) const;\n\t};\n\tconst_iterator find(const K&) const;\n\tconst_iterator end() const;\n};\n\ntypedef map<control_id_t, game_control> control_map_t;\n\nclass input_mgr\n{\n\tchar singleton_layout[8];\n\tvoid *rumble_ptr;\n\tchar device_map[12];\n\tcontrol_map_t control_map;\npublic:\n\tinput_device *get_device(device_id_t id) const;\n\trational_t get_control_state_helper(input_device *devptr, axis_id_t axis, int control_axis, control_t ctype) const;\n\trational_t get_control_state(device_id_t dev_id, control_id_t control) const;\n};\n\n#define assert(x) ((void)0)\n\nrational_t input_mgr::get_control_state( device_id_t dev_id, control_id_t control ) const\n{\n\tcontrol_map_t::const_iterator it = control_map.find( control );\n\tassert( it != control_map.end() );\n\tconst game_control& ctrl = (*it).second;\n\t\n\t// If the control is not mapped, it's pinned at 0.0f.\n\tif ( !ctrl.mapping.size() )\n\t{\n\t\treturn 0.0f;\n\t}\n\t\n\t\n\tconst device_axis_list_t& dalist = ctrl.mapping;\n\tdevice_axis_list_t::const_iterator dait;\n\t\n\tinput_device * device_ptr;\n\trational_t value = 0.0f;\n\t\n\tfor ( dait = dalist.begin(); dait != dalist.end(); ++dait )\n\t{\n\t\t//device_id_t dev_id = ( *dait ).device;\n\t\tif(dev_id == ANY_LOCAL_JOYSTICK)\n\t\t{ // need to check against all joystick ports\n\t\t\tfor ( int i=JOYSTICK1_DEVICE; i<=JOYSTICK4_DEVICE; i++ )\n\t\t\t{\n\t\t\t\tdevice_ptr = get_device( (device_id_t) i );\n\t\t\t\tif(device_ptr)\n\t\t\t\t\tvalue += get_control_state_helper(device_ptr,(*dait).axis,(*dait).control_axis,ctrl.type);  //measures axis\n\t\t\t}\n\t\t}\n\t\telse\n\t\t{ // just check against specified controller port\n\t\t\tdevice_ptr = get_device( dev_id );\n\t\t\tif(device_ptr)\n\t\t\t\tvalue += get_control_state_helper(device_ptr,(*dait).axis,(*dait).control_axis,ctrl.type);  //measures axis\n\t\t}\n\t}\n\treturn value;\n}\n",
+      "status": "different",
+      "target_size": 564
+    }
+  ],
+  "raw_name": "get_control_state__C9input_mgr11device_id_ti"
+}
