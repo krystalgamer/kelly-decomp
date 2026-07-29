@@ -1,0 +1,15 @@
+{
+  "address": "0x0038AEC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cf7e06484dcbaf55399c70cf7f382424d00f7a5a",
+      "notes": "FIRST PASS wave117 A1\nTarget: 0x0038AEC8 nvlLoadMovieSource__FPCciPv (604/0x25C), nvl/nvl_ps2\nReference: kelly-slaters-pro-surfer/NVL/PS2/nvl_ps2.cpp\nAttempts before: 0\nAttempt 1: exact released body with minimal self-contained declarations and LF line endings\nResult: compile_failed; score 0.0.\nExactly one candidate was tested. No follow-up, alternative, retry, diff chase, build, finalization, integration, queue edit, tracked edit, commit, or push was performed.",
+      "score": 0.0,
+      "source": "typedef unsigned int size_t;\n\nstruct sceCdlFILE\n{\n  unsigned int lsn;\n  unsigned int size;\n  char name[16];\n  unsigned char date[8];\n};\n\nstruct nvlMovieSource\n{\n  int refs;\n  char *filename;\n  void *buf;\n  int bufsize;\n};\n\nextern int nvlSystemInitialized;\nextern void *(*nvlAllocFunc)(int, int);\nextern \"C\" int toupper(int);\nextern \"C\" int sceOpen(const char *, int);\nextern \"C\" int sceClose(int);\nextern \"C\" int sceCdSearchFile(sceCdlFILE *, const char *);\nextern \"C\" void *malloc(size_t);\nextern \"C\" void *memset(void *, int, size_t);\nextern \"C\" size_t strlen(const char *);\nextern \"C\" char *strcpy(char *, const char *);\nextern \"C\" void __assert(const char *, int, const char *);\n\n#define SCE_RDONLY 1\n#define assert(x) ((x) ? (void)0 : __assert(\"C:/NVL/ps2/nvl_ps2.cpp\", __LINE__, #x))\n\nnvlMovieSource *nvlLoadMovieSource( const char* filename, int buffer_size, void* buffer )\n{\n  nvlMovieSource  *rv = NULL;\n  char            hostStr[] = \"HOST\";\n  const char      *sp, *hp;\n  int             hostFile = 1, found = 0;\n  sceCdlFILE      fp;\n\n  assert( nvlSystemInitialized );\n  assert( filename );\n  for( sp = filename, hp = hostStr; *sp && *hp; sp++, hp++ )\n  {\n    if( toupper(*sp) != *hp )\n    {\n      hostFile = 0;\n      break;\n    }\n  }\n  if( hostFile && ((sp[0] == ':') || ((sp[0] == '0' || sp[0] == '1') && sp[1] == ':')) )\n  {\n    int fh = sceOpen( filename, SCE_RDONLY );\n\n    if( fh >= 0 )\n    {\n      found = 1;\n      sceClose( fh );\n    }\n  }\n  else if( sceCdSearchFile(&fp, filename) )\n  {\n    found = 1;\n  }\n  if( found )\n  {\n    if( nvlAllocFunc )\n    {\n      rv = (nvlMovieSource*)(*nvlAllocFunc)( 1, sizeof(nvlMovieSource) );\n    }\n    else\n    {\n      rv = (nvlMovieSource*)malloc( sizeof(nvlMovieSource) );\n    }\n    assert( rv );\n    memset( rv, 0, sizeof(nvlMovieSource) );\n    if( nvlAllocFunc )\n    {\n      rv->filename = (char*)(*nvlAllocFunc)( 1, strlen(filename) + 1 );\n    }\n    else\n    {\n      rv->filename = (char*)malloc( strlen(filename) + 1 );\n    }\n    assert( rv );\n    strcpy( rv->filename, filename );\n    rv->buf = buffer;\n    rv->bufsize = buffer_size;\n  }\n  return rv;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "nvlLoadMovieSource__FPCciPv"
+}
