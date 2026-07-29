@@ -1,0 +1,23 @@
+{
+  "address": "0x002BBE90",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d47ca68991fb3a16c87ce799f940bc3b5c6dcdbb",
+      "candidate_size": 448,
+      "compared_bytes": 664,
+      "compared_instructions": 166,
+      "emitted_name": "set_time_left__12timer_widgetf",
+      "instruction_score": 0.6024,
+      "matching_bytes": 83,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 125 lane A2\n\nExact released source tested once for `0x002BBE90 set_time_left__12timer_widgetf`. Attempts before: 0. Result `different`, byte score 12.5000% and instruction score 0.6024%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 12.5,
+      "source": "typedef float rational_t;\ntypedef unsigned int size_t;\n\ninline void *operator new(size_t, void *place) { return place; }\n\nclass stringx\n{\n  int reserved;\n  void *rep;\n\npublic:\n  stringx();\n  stringx(const stringx &value) : reserved(0), rep(0) { *this = value; }\n  ~stringx();\n  stringx &operator=(const stringx &value);\n};\n\ntemplate<class T>\nclass my_allocator\n{\n};\n\ntemplate<class T, class Allocator = my_allocator<T> >\nclass vector\n{\n  T *start;\n  T *finish;\n  T *end_of_storage;\n\n  void _M_insert_aux(T *position, const T &value);\n\npublic:\n  typedef T *iterator;\n\n  iterator begin() { return start; }\n  iterator end() { return finish; }\n\n  void push_back(const T &value)\n  {\n    if (finish != end_of_storage)\n    {\n      new (finish) T(value);\n      ++finish;\n    }\n    else\n      _M_insert_aux(end(), value);\n  }\n\n  iterator erase(iterator position)\n  {\n    if (position + 1 != end())\n      for (iterator source = position + 1; source != end(); ++source, ++position)\n        *position = *source;\n    --finish;\n    finish->~T();\n    return position;\n  }\n};\n\nclass timer_widget\n{\nprotected:\n  class timer_func\n  {\n  public:\n    rational_t time;\n    stringx function;\n\n    timer_func(const timer_func &value)\n      : time(value.time), function(value.function)\n    {\n    }\n\n    timer_func &operator=(const timer_func &value)\n    {\n      time = value.time;\n      function = value.function;\n      return *this;\n    }\n  };\n\n  char padding[0x18c];\n  rational_t time_left;\n  bool running, updated;\n  char alignment[2];\n  vector<timer_func> script_calls_left;\n  vector<timer_func> script_calls_made;\n\npublic:\n  void set_time_left(rational_t _time_left);\n};\n\nvoid timer_widget::set_time_left( rational_t _time_left )\n{\n  if(_time_left > time_left)\n  {\n    vector<timer_func>::iterator sci = script_calls_made.begin();\n    while(sci != script_calls_made.end())\n    {\n      if(_time_left > (*sci).time)\n      {\n        script_calls_left.push_back((*sci));\n        sci = script_calls_made.erase(sci);\n      }\n      else\n        ++sci;\n    }\n  }\n  else if(_time_left < time_left)\n  {\n    vector<timer_func>::iterator sci = script_calls_left.begin();\n    while(sci != script_calls_left.end())\n    {\n      if(_time_left <= (*sci).time)\n      {\n        script_calls_made.push_back((*sci));\n        sci = script_calls_left.erase(sci);\n      }\n      else\n        ++sci;\n    }\n  }\n\n  time_left = _time_left;\n  if ( time_left < 0.0f )\n    time_left = 0.0f;\n  updated = false;\n}\n",
+      "status": "different",
+      "target_size": 664
+    }
+  ],
+  "raw_name": "set_time_left__12timer_widgetf"
+}
