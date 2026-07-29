@@ -1,0 +1,23 @@
+{
+  "address": "0x001CDB18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9c99c80524f70f11d07cbeed91c14f2ccad3013e",
+      "candidate_size": 368,
+      "compared_bytes": 656,
+      "compared_instructions": 164,
+      "emitted_name": "__13PhotoFrontEndP12FEMenuSystemP9FEManagerG7stringxT3",
+      "instruction_score": 1.2195,
+      "matching_bytes": 35,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 123 lane B5\n\nExact released source tested once for `0x001CDB18 __13PhotoFrontEndP12FEMenuSystemP9FEManagerG7stringxT3`. Attempts before: 0. Result `different`, byte score 5.3354% and instruction score 1.2195%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 5.3354,
+      "source": "// # FIRST PASS wave 123 lane B5\n// Released source: KS/SRC/ks/PhotoFrontEnd.cpp and authentic PhotoFrontEnd.h declarations.\n#define NEW new\n\nclass stringx {\n    char *data;\npublic:\n    stringx(const stringx &);\n    ~stringx();\n};\n\nclass FEMenuSystem;\nclass FEManager;\n\nclass FEMenu {\n    char layout0[0x70];\npublic:\n    FEMenu *next_sub;\n    FEMenu *back;\n};\n\nclass FEMultiMenu : public FEMenu {\n    char layout1[0xe4];\npublic:\n    FEMultiMenu();\n    virtual ~FEMultiMenu();\n    void cons(FEMenuSystem *s, FEManager *man, stringx p, stringx pf_name);\n    void AddSubmenu(FEMenu *menu);\n};\n\nclass PhotoSelectMenu : public FEMultiMenu {\n    char layout[0x74];\n    int highlightedIdx;\npublic:\n    PhotoSelectMenu(FEMenuSystem *s, FEManager *man);\n    int *GetPhotoIdx(void) { return &highlightedIdx; }\n};\n\nclass PhotoSaveMenu : public FEMultiMenu {\n    char layout[0x70];\n    int *prevMenuPhotoIdx;\npublic:\n    PhotoSaveMenu(FEMenuSystem *s, FEManager *man);\n    void SetPrevMenuPhotoIdx(int *idx) { prevMenuPhotoIdx = idx; }\n};\n\nclass PhotoDevelopMenu : public FEMultiMenu {\n    char layout[0x70];\n    int *whichPhotoPtr;\npublic:\n    PhotoDevelopMenu(FEMenuSystem *s, FEManager *man);\n    void SetPrevMenuPhotoIdx(int *idx) { whichPhotoPtr = idx; }\n};\n\nclass PhotoFrontEnd : public FEMultiMenu {\n    PhotoSelectMenu *selectMenu;\n    PhotoSaveMenu *saveMenu;\n    PhotoDevelopMenu *develMenu;\npublic:\n    PhotoFrontEnd(FEMenuSystem* s, FEManager* man, stringx p, stringx pf_name);\n    virtual ~PhotoFrontEnd();\n};\n\nPhotoFrontEnd::PhotoFrontEnd(FEMenuSystem* s, FEManager* man, stringx p, stringx pf_name)\n{\n\tcons(s, man, p, pf_name);\n\n\t// Create submenus.\n\tselectMenu = NEW PhotoSelectMenu(s, man);\n\tsaveMenu = NEW PhotoSaveMenu(s, man);\n\tdevelMenu = NEW PhotoDevelopMenu(s, man);\n\t// Add submenus.\n\tAddSubmenu(selectMenu);\n\tAddSubmenu(saveMenu);\n\tAddSubmenu(develMenu);\n\n\tselectMenu->next_sub = saveMenu;\n\tsaveMenu->next_sub = develMenu;\n\tsaveMenu->back = selectMenu;\n\tsaveMenu->SetPrevMenuPhotoIdx(selectMenu->GetPhotoIdx());\n\tdevelMenu->SetPrevMenuPhotoIdx(selectMenu->GetPhotoIdx());\n}\n",
+      "status": "different",
+      "target_size": 656
+    }
+  ],
+  "raw_name": "__13PhotoFrontEndP12FEMenuSystemP9FEManagerG7stringxT3"
+}
