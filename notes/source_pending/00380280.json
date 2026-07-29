@@ -1,0 +1,15 @@
+{
+  "address": "0x00380280",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3e76b0b95601c49106de517cef32ed4d325b3f23",
+      "notes": "# FIRST PASS wave 121 lane A1\n\nExact released body tested once for `0x00380280 WAVETEX_AverageColor__FiUi`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "typedef unsigned int u_int;\n\nstruct nglTexture\n{\n\tchar padding[8];\n\tunsigned short Width;\n\tunsigned short Height;\n};\n\nnglTexture *WAVETEX_GetTexture( int textype, unsigned int frame );\nu_int KSNGL_GetTexel( nglTexture* Tex, int x, int y );\n\ninline int FTOI( float input )  // doesn't round according to C standard\n{\n  register float output;\n  __asm__ volatile (\"cvt.w.s %0, %1\" : \"=f\" (output) : \"f\" (input) );\n  return (int&)output;\n}\n\n#define assert(exp) ((void)0)\n#define TARGET_PS2\n\nu_int WAVETEX_AverageColor( int textype, unsigned int frame )\n{\n#ifdef TARGET_GC\n\treturn 0x80808080;\n#else\n\tu_int i, j;\n\tconst u_int istep = 16, jstep = 16;\n\tu_int t;\n\tfloat avgr = 0, avgg = 0, avgb = 0, avga = 0, avgcount = 0;\n\n\t\tnglTexture *tex = WAVETEX_GetTexture(textype, frame);\n\n\t\tif ( tex==NULL ) return 0x80808080;\n\n\t\t#if defined(TARGET_XBOX)\n\t\t  // JIV FIXME\n\t\t  bool locked = nglLockTextureXB(tex);\n\t\t  assert(locked);\n\t\t#endif /* TARGET_XBOX JIV DEBUG */\n\n\t\tif (tex)\n\t\tfor (i = 0; i < tex->Width; i += istep)\n\t\t{\n\t\t\tfor (j = 0; j < tex->Height; j += jstep)\n\t\t\t{\n\t\t\t\tt = KSNGL_GetTexel(tex, i, j);\n\t\t\t\tavgr += t & 0x000000ff;\n\t\t\t\tavgg += (t & 0x0000ff00) >> 8;\n\t\t\t\tavgb += (t & 0x00ff0000) >> 16;\n\t\t\t\tavga += (t & 0xff000000) >> 24;\n\t\t\t\t++avgcount;\n\t\t\t}\n\t\t}\n\n\t\t#if defined(TARGET_XBOX)\n\t\t  nglUnlockTextureXB(tex);\n\t\t#endif /* TARGET_XBOX JIV DEBUG */\n\n\t\tavgr /= avgcount;\n\t\tavgg /= avgcount;\n\t\tavgb /= avgcount;\n\t\tavga /= avgcount;\n\n\t\tassert(avga >= 0 && avga < 256);\n\t\tassert(avgb >= 0 && avgb < 256);\n\t\tassert(avgg >= 0 && avgg < 256);\n\t\tassert(avgr >= 0 && avgr < 256);\n\n#ifdef TARGET_PS2\n\t\tavgr /= 2;\t// vertex colors should range from 0 to 128 on PS2 (dc 06/19/02)\n\t\tavgg /= 2;\n\t\tavgb /= 2;\n#endif\n\n\t\treturn (((u_int) FTOI(avga)) << 24) + (((u_int) FTOI(avgb)) << 16) + (((u_int) FTOI(avgg)) << 8) + ((u_int) FTOI(avgr));\n#endif\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WAVETEX_AverageColor__FiUi"
+}
