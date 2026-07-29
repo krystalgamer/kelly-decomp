@@ -1,0 +1,15 @@
+{
+  "address": "0x0010E370",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "38f47db1844f3f4cfc1a89db8c70be7f2e60763e",
+      "notes": "# FIRST PASS wave 155 lane A5\n\nExact released source tested once for `0x0010E370 _M_insert__t8_Rb_tree5ZPCQ220script_library_class8functionZPCQ220script_library_class8functionZt9_Identity1ZPCQ220script_library_class8functionZQ220script_library_class18function_cptr_lessZt12my_allocator1ZPCQ220script_library_class8functionP18_Rb_tree_node_baseT1RCPCQ220script_library_class8function`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x0010E370 _M_insert__t8_Rb_tree5ZPCQ220script_library_class8functionZPCQ220script_library_class8functionZt9_Identity1ZPCQ220script_library_class8functionZQ220script_library_class18function_cptr_lessZt12my_allocator1ZPCQ220script_library_class8functionP18_Rb_tree_node_baseT1RCPCQ220script_library_class8function\n// Reference:\nclass script_library_class {\npublic:\n  class function;\n\n  struct function_cptr_less {\n    bool operator()(const function *, const function *) const;\n  };\n};\n\n#define private public\n#include <stl_tree.h>\n#undef private\n\ntypedef const script_library_class::function *function_ptr;\ntypedef _Rb_tree<function_ptr, function_ptr, _Identity<function_ptr>,\n                 script_library_class::function_cptr_less,\n                 my_allocator<function_ptr> > function_tree;\n\ntemplate function_tree::iterator function_tree::_M_insert(\n  function_tree::_Base_ptr, function_tree::_Base_ptr, function_ptr const &);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_M_insert__t8_Rb_tree5ZPCQ220script_library_class8functionZPCQ220script_library_class8functionZt9_Identity1ZPCQ220script_library_class8functionZQ220script_library_class18function_cptr_lessZt12my_allocator1ZPCQ220script_library_class8functionP18_Rb_tree_node_baseT1RCPCQ220script_library_class8function"
+}
