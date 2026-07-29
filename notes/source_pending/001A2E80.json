@@ -1,0 +1,23 @@
+{
+  "address": "0x001A2E80",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "325109efbb4a4eedf575cea1e540c70873a9bb80",
+      "candidate_size": 840,
+      "compared_bytes": 840,
+      "compared_instructions": 210,
+      "emitted_name": "setGameConfig__16StoredConfigDataPv",
+      "instruction_score": 10.4762,
+      "matching_bytes": 221,
+      "matching_instructions": 22,
+      "notes": "# FIRST PASS wave 138 lane B3\n\nExact released source tested once for `0x001A2E80 setGameConfig__16StoredConfigDataPv`. Attempts before: 0. Result `different`, byte score 26.3095% and instruction score 10.4762%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 26.3095,
+      "source": "// Target: 0x001A2E80 setGameConfig__16StoredConfigDataPv\n// Reference: KS/SRC/ks/GameData.cpp\n\ntypedef int nslSpeakerModeEnum;\nenum nslSourceTypeEnum {\n  NSL_SOURCETYPE_SFX = 0,\n  NSL_SOURCETYPE_AMBIENT = 1,\n  NSL_SOURCETYPE_MUSIC = 2,\n  NSL_SOURCETYPE_VOICE = 3\n};\n#define MAX_SONGS 50\n\nextern \"C\" void *memcpy(void *, const void *, unsigned int);\nvoid nslSetMasterVolume(float);\nvoid nslSetSpeakerMode(nslSpeakerModeEnum);\nvoid nslSetVolume(nslSourceTypeEnum, float);\n\nclass os_developer_options {\n  char padding[72];\n  int flags[64];\npublic:\n  enum flags_t { FLAG_NO_AUDIO = 0 };\n  static os_developer_options *instance;\n  static os_developer_options *inst() { return instance; }\n  bool is_flagged(flags_t flag) const { return flags[flag]; }\n};\n\nclass MusicListing {\n  char padding0[0xe30];\npublic:\n  int order[MAX_SONGS];\n  bool enabled[MAX_SONGS];\n};\nclass MusicMan {\npublic:\n  static MusicMan *instance;\n  static MusicMan *inst() { return instance; }\n  MusicListing musicTrack;\n};\n\nclass FrontEndManager {\n  char padding[0x15660];\n  bool score_display;\npublic:\n  void enableScoreDisplay(bool on) { score_display = on; }\n};\n\nclass rumbleManager {\npublic:\n  void turnOn(bool on_p, int controller);\n};\n\nextern FrontEndManager frontendmanager;\nextern rumbleManager rumbleMan;\n\ntypedef struct {\n  float masterVolume, ambientVolume, musicVolume, voiceVolume, sfxVolume;\n  bool rumbleOn[2];\n  bool scoreDisplay;\n  nslSpeakerModeEnum audioMode;\n  char camera[2][20];\n  int order[MAX_SONGS];\n  bool enabled[MAX_SONGS];\n} ksConfigData;\n\nclass StoredConfigData {\n  void *vtable;\n  ksConfigData cData;\npublic:\n  void setGameConfig(void *);\n};\n\n__asm__(\".equ _20os_developer_options$instance, 0x0045B180\");\n__asm__(\".equ _8MusicMan$instance, 0x00427B18\");\n__asm__(\".equ nslSetMasterVolume__Ff, 0x00390640\");\n__asm__(\".equ nslSetSpeakerMode__F19_nslSpeakerModeEnum, 0x00390B68\");\n__asm__(\".equ nslSetVolume__F18_nslSourceTypeEnumf, 0x00390700\");\n__asm__(\".equ frontendmanager, 0x003E7728\");\n__asm__(\".equ rumbleMan, 0x004253C0\");\n__asm__(\".equ turnOn__13rumbleManagerbi, 0x00241CD8\");\n\nvoid StoredConfigData::setGameConfig(void *cfg)\n{\n  if (cfg)\n    cData = *(ksConfigData *)cfg;\n\n  if (!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n  {\n    nslSetMasterVolume(cData.masterVolume);\n    nslSetSpeakerMode(cData.audioMode);\n    nslSetVolume(NSL_SOURCETYPE_MUSIC, cData.musicVolume);\n    nslSetVolume(NSL_SOURCETYPE_SFX, cData.sfxVolume);\n    nslSetVolume(NSL_SOURCETYPE_VOICE, cData.voiceVolume);\n    nslSetVolume(NSL_SOURCETYPE_AMBIENT, cData.ambientVolume);\n    memcpy(&MusicMan::inst()->musicTrack.enabled, &cData.enabled, sizeof(bool)*MAX_SONGS);\n    memcpy(&MusicMan::inst()->musicTrack.order, &cData.order,     sizeof(int)*MAX_SONGS);\n\n  }\n  frontendmanager.enableScoreDisplay(cData.scoreDisplay);\n  rumbleMan.turnOn(cData.rumbleOn[0],0);\n  rumbleMan.turnOn(cData.rumbleOn[1],1);\n}\n",
+      "status": "different",
+      "target_size": 756
+    }
+  ],
+  "raw_name": "setGameConfig__16StoredConfigDataPv"
+}
