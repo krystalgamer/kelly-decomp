@@ -1,0 +1,23 @@
+{
+  "address": "0x00158CB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8187f5516d57b0b25ee61336fc5f327e80858116",
+      "candidate_size": 716,
+      "compared_bytes": 716,
+      "compared_instructions": 179,
+      "emitted_name": "OnButtonPress__12FEMenuSystemii",
+      "instruction_score": 91.6201,
+      "matching_bytes": 698,
+      "matching_instructions": 164,
+      "notes": "# FIRST PASS wave 133 lane B2\n\nExact released source tested once for `0x00158CB0 OnButtonPress__12FEMenuSystemii`. Attempts before: 0. Result `different`, byte score 97.4860% and instruction score 91.6201%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 97.486,
+      "source": "enum FEMENUCMD\n{\n    FEMENUCMD_SELECT,\n    FEMENUCMD_START,\n    FEMENUCMD_UP,\n    FEMENUCMD_DOWN,\n    FEMENUCMD_LEFT,\n    FEMENUCMD_RIGHT,\n    FEMENUCMD_CROSS,\n    FEMENUCMD_TRIANGLE,\n    FEMENUCMD_SQUARE,\n    FEMENUCMD_CIRCLE,\n    FEMENUCMD_L1,\n    FEMENUCMD_R1,\n    FEMENUCMD_L2,\n    FEMENUCMD_R2,\n    FEMENUCMD_END\n};\n\nclass FEMenuSystem;\nclass FEManager;\nclass Font;\n\nclass FEMenu\n{\npublic:\n    virtual ~FEMenu();\n    virtual void setBack(FEMenu *, int = 1);\n    virtual void setHigh(void *, bool = true);\n    virtual void setVis(void *);\n    virtual void Add(void *);\n    virtual void Init();\n    virtual void Load(bool);\n    virtual void Load();\n    virtual void Draw();\n    virtual void DrawTop();\n    virtual void UpdateInScene();\n    virtual void Update(float);\n    virtual void HighlightDefault();\n    virtual void OnActivate();\n    virtual void OnActivate(int);\n    virtual void OnUnactivate(FEMenu *);\n    virtual void OnSelect(int);\n    virtual void OnStart(int);\n    virtual void OnUp(int);\n    virtual void OnDown(int);\n    virtual void OnLeft(int);\n    virtual void OnRight(int);\n    virtual void OnCross(int);\n    virtual void OnTriangle(int);\n    virtual void OnSquare(int);\n    virtual void OnCircle(int);\n    virtual void OnL1(int);\n    virtual void OnR1(int);\n    virtual void OnL2(int);\n    virtual void OnR2(int);\n    virtual void OnAnyButtonPress(int, int);\n    virtual void OnButtonRelease(int, int);\n};\n\nclass FEMenuSystem\n{\nprotected:\n    bool button_down[FEMENUCMD_END][2];\n    int device_flags;\npublic:\n    FEMenu **menus;\n    FEManager *manager;\n    int active;\n    int size;\n    int count;\n    Font *font;\n    virtual ~FEMenuSystem();\n    virtual void InitAll();\n    virtual void Add(FEMenu *);\n    virtual void MakeActive(int, int = 1);\n    virtual void Update(float);\n    virtual void UpdateButtonDown();\n    virtual void Draw();\n    virtual void Select(int, int) = 0;\n    virtual void Exit();\n    virtual void startDraw(int = -1, const bool = true);\n    virtual void endDraw(const bool = true);\n    virtual FEMenu *GetActiveMenu();\nprotected:\n    virtual void cons(int, FEManager *, Font *);\n    virtual void OnButtonPress(int, int);\n};\n\nvoid FEMenuSystem::OnButtonPress(int button, int controller)\n{\n    menus[active]->OnAnyButtonPress(controller, button);\n    switch(button)\n    {\n    case FEMENUCMD_SELECT  : menus[active]->OnSelect(controller); break;\n    case FEMENUCMD_START   : menus[active]->OnStart(controller); break;\n    case FEMENUCMD_UP      : menus[active]->OnUp(controller); break;\n    case FEMENUCMD_DOWN    : menus[active]->OnDown(controller); break;\n    case FEMENUCMD_LEFT    : menus[active]->OnLeft(controller); break;\n    case FEMENUCMD_RIGHT   : menus[active]->OnRight(controller); break;\n    case FEMENUCMD_CROSS   : menus[active]->OnCross(controller); break;\n    case FEMENUCMD_TRIANGLE: menus[active]->OnTriangle(controller); break;\n    case FEMENUCMD_SQUARE  : menus[active]->OnSquare(controller); break;\n    case FEMENUCMD_CIRCLE  : menus[active]->OnCircle(controller); break;\n    case FEMENUCMD_L1      : menus[active]->OnL1(controller); break;\n    case FEMENUCMD_R1      : menus[active]->OnR1(controller); break;\n    case FEMENUCMD_L2      : menus[active]->OnL2(controller); break;\n    case FEMENUCMD_R2      : menus[active]->OnR2(controller); break;\n    default: ;\n    }\n}\n",
+      "status": "different",
+      "target_size": 716
+    }
+  ],
+  "raw_name": "OnButtonPress__12FEMenuSystemii"
+}
