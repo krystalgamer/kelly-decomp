@@ -1,0 +1,15 @@
+{
+  "address": "0x0028AEE8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "aa3b839d1ad78df3a64aa3c9ff0a90650e4291f4",
+      "notes": "FIRST PASS wave119 B4\nTarget: 0x0028AEE8 set_placement__11visual_itemP6entityRC7stringxRC2pob (628/0x274), game/files_misc1\nReference: kelly-slaters-pro-surfer/KS/SRC/item.cpp\nAttempts before: 0\nAttempt 1: exact released translation-unit includes and function body with LF line endings\nResult: compile_failed; score 0.0. Released headers were not available on the harness include paths.\nExactly one candidate was tested. No follow-up, alternative, retry, diff chase, build, finalization, integration, queue edit, tracked edit, commit, or push was performed.",
+      "score": 0.0,
+      "source": "////////////////////////////////////////////////////////////////////////////////\n/*\n  item.cpp\n\n  Items in game.  Inventory management and Item effects\n\n*/\n////////////////////////////////////////////////////////////////////////////////\n#include \"global.h\"\n\n#include \"osalloc.h\"\n\n//!#include \"character.h\"\n#include \"stringx.h\"\n#include \"item.h\"\n#include \"wds.h\"\n#include \"msgboard.h\"\n#include \"terrain.h\"\n#include \"hwaudio.h\"\n#include \"script_object.h\"\n//!#include \"attrib.h\"\n#include \"vm_thread.h\"\n#include \"controller.h\"\n#include \"interface.h\"\n\n#if _CONSOLE_ENABLE\n#include \"console.h\"\n#endif\n\n//#include \"dread_net.h\"\n#include \"entity_maker.h\"\n#include \"entityflags.h\"\n// BIGCULL #include \"spiderman_controller.h\"\n// BIGCULL #include \"damage_interface.h\"\nvoid visual_item::set_placement(entity *_owner, const stringx& limb, const po& offset, bool drawn)\n{\n  owner = _owner;\n\n  assert(owner);\n\n  switch(owner->get_flavor())\n  {\n/*!\n    case ENTITY_CHARACTER:\n    {\n      character *tmp_owner = (character *)owner;\n      if(tmp_owner->is_active())\n      {\n        entity *lb;\n\n        anim_id_t aid = anim_id_manager::inst()->anim_id( limb );\n\n        if ( tmp_owner->limb_valid(aid) )\n          lb = tmp_owner->limb_ptr(aid)->get_body();\n        else if((lb = tmp_owner->has_limb_tree() ? tmp_owner->nonlimb_ptr(aid) : NULL) == NULL)\n        {\n          aid = drawn ? RIGHT_HAND : RIGHT_UPPER_LEG;\n\n          if ( tmp_owner->limb_valid(aid) )\n            lb = tmp_owner->limb_ptr(aid)->get_body();\n//          else\n//            error(\"No valid attach limb/nonlimb\");\n        }\n\n        set_parent( lb );\n      }\n    }\n    break;\n!*/\n    case ENTITY_CONGLOMERATE:\n    {\n      conglomerate *conglom = (conglomerate *)owner;\n\n      entity *node = conglom->get_member(limb);\n      if ( node )\n        link_ifc()->set_parent( node );\n      else\n        link_ifc()->set_parent( owner );\n    }\n    break;\n\n    default:\n    {\n      link_ifc()->set_parent(owner);\n    }\n    break;\n  }\n\n  set_rel_po(offset);\n\n  set_visible(true);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "set_placement__11visual_itemP6entityRC7stringxRC2pob"
+}
