@@ -1,0 +1,15 @@
+{
+  "address": "0x001876E8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "da011e48bea0cdf882f94641958238cc598e2452",
+      "notes": "# FIRST PASS wave 149 lane A1\n\nExact released source tested once for `0x001876E8 Draw__14SurferFrontEnd`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"FrontEndManager.h\"\n#include \"SurferFrontEnd.h\"\n#include \"hwmovieplayer.h\"\n#include \"wds.h\"\n#include \"osdevopts.h\"\n#include \"career.h\"\n#include \"geomgr.h\"\n#include \"MusicMan.h\"\n#include \"ksnsl.h\"\n#include \"osgamesaver.h\"\n#include \"globaldata.h\"\n#include \"unlock_manager.h\"\n\nvoid SurferFrontEnd::Draw()\n{\n\tif(active)\n\t{\n\t\tif(manager->em->OKtoDrawMain() || active == bio_menu)\n\t\t{\n\t\t\t// Other menus do all their drawing themselves, including the panel\n\t\t\tactive->Draw();\n\t\t}\n\t}\n\telse\n\t{\n\t\tif(wait_for_camera) return;\n\n\t\tif(!parent) panel.Draw(0);\n\n\t\tif (disp_state == DISP_STATS)\n\t\t{\n\t\t\tScrapBook->Draw();\n\t\t\tContinue->Draw();\n\t\t}\n\n\t\tcurrent_surfer->Draw();\n\t\tif(!sys->multiplayer) surfer_select->Draw();\n\n\t\tif(disp_state == DISP_HANDICAP)\n\t\t{\n\t\t\tHandicap->Draw();\n\t\t\thcap_color[2]->Draw(0);\n\t\t}\n\n\t\tBio->Draw();\n\t\tTrick->Draw();\n\t\tif (stricmp(SurferDataArray[current_surfer_index].name_ps, \"NONE\"))\n\t\t\tPersonality->Draw();\n\n\t\tfor(int i=0; i<4; i++)\n\t\t{\n\t\t\tgauge_labels[i]->Draw();\n\t\t\tred_gauges[i]->Draw(0);\n\t\t}\n\n\t\tif(sys->multiplayer)\n\t\t\tif(sys->multi_1) players[0]->Draw();\n\t\t\telse players[1]->Draw();\n\n\t\tif(arrow_counter >= 0) arrow_counter--;\n\t\tif(arrow_counter < 0 && arrow_counter > -5)\n\t\t{\n\t\t\tarrow_counter = -5;\n\t\t\thoriz_arrows[0][0]->TurnOn(true);\n\t\t\thoriz_arrows[0][1]->TurnOn(false);\n\t\t\thoriz_arrows[1][0]->TurnOn(true);\n\t\t\thoriz_arrows[1][1]->TurnOn(false);\n\t\t}\n\t\tif(!parent) panel.Draw(1);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Draw__14SurferFrontEnd"
+}
