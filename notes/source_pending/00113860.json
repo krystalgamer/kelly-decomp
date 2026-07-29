@@ -1,0 +1,23 @@
+{
+  "address": "0x00113860",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e24fbec59374d2c0f7e29f9d13d4e2192d1c3e7a",
+      "candidate_size": 472,
+      "compared_bytes": 496,
+      "compared_instructions": 124,
+      "emitted_name": "attach__11entity_animRC14anim_control_t",
+      "instruction_score": 2.4194,
+      "matching_bytes": 96,
+      "matching_instructions": 3,
+      "notes": "FIRST PASS wave91 B5\n\nTarget: 0x00113860 attach__11entity_animRC14anim_control_t\nSize/object: 496 (0x1F0), game/files_anim\nReference: kelly-slaters-pro-surfer/KS/SRC/entity_anim.cpp\nConfirmed attempts0 before testing.\n\nAttempt 1: different\nByte score: 19.3548% (96/496)\nInstruction score: 2.4194% (3/124)\nCandidate size: 472 bytes\nTarget size: 496 bytes\nCandidate SHA-1: e24fbec59374d2c0f7e29f9d13d4e2192d1c3e7a\n\nThe candidate is LF-only and self-contained, uses the exact released function\nbody with minimal faithful declarations, and includes no headers.\n\nExactly one candidate and one harness invocation were used. No alternate,\nassembly, annotations, variants, retry, attempts 2-5, or post-test chase.\nTracked/reference files remained read-only. No finalize, integrate, build, or\ngit mutation.\n\nFull packet: false\nTracked: false\nFinalized: false\nIntegrated: false",
+      "score": 19.3548,
+      "source": "enum anim_flags_t\n{\n  ANIM_ATTACHED = 0x0010,\n  ANIM_TWEEN = 0x0800,\n  ANIM_VALID = 0x1000\n};\n\nclass anim_control_t\n{\n  float current_time;\n  float time_delta;\n  float duration;\n  float timescale_factor;\n  float cntrl_tween_duration;\n  float tween_timer;\n  unsigned int flags;\n  short loop_count;\n\npublic:\n  bool is_tween() const { return flags & ANIM_TWEEN; }\n};\n\nclass vector3d\n{\n  float data[4];\n};\n\nclass matrix4x4;\n\nclass quaternion\n{\n  float data[4];\n\npublic:\n  quaternion() {}\n  quaternion(const matrix4x4&);\n};\n\nclass po\n{\n  float data[16];\n\npublic:\n  const vector3d& get_abs_position() const;\n  void set_position(const vector3d&);\n  void fixup();\n  const matrix4x4& get_matrix() const;\n};\n\nextern const vector3d ZEROVEC;\n\nclass po_anim\n{\npublic:\n  bool is_valid() const;\n  bool has_R() const;\n};\n\nclass entity_anim;\n\nclass entity\n{\npublic:\n  virtual bool attach_anim(entity_anim*);\n  const po& get_rel_po() const;\n  const vector3d& get_rel_position() const;\n  bool is_conglom_member() const;\n};\n\nclass entity_anim\n{\n  unsigned short flags;\n  unsigned short padding;\n  void* vtable_padding;\n\nprotected:\n  entity* ent;\n  po_anim* po_anim_ptr;\n  void* signal_anim_ptr;\n  int priority;\n  quaternion tween_quat;\n  vector3d rel_pos;\n\npublic:\n  bool is_attached() const { return flags & ANIM_ATTACHED; }\n  bool has_po_anim() const\n  {\n    return po_anim_ptr != 0 && po_anim_ptr->is_valid();\n  }\n  virtual void set_flag(anim_flags_t);\n  bool attach(const anim_control_t&);\n};\n\nbool entity_anim::attach( const anim_control_t& ac )\n{\n  if ( !is_attached() && ent->attach_anim( this ) )\n  {\n    if(ac.is_tween() && has_po_anim() && po_anim_ptr->has_R() && ent->is_conglom_member())\n    {\n      po the_po = ent->get_rel_po();\n\t  rel_pos = ent->get_rel_position();\n      the_po.set_position(ZEROVEC);\n      the_po.fixup();\n      tween_quat = quaternion(the_po.get_matrix());\n\n    }\n\n    set_flag( ANIM_ATTACHED );\n    return true;\n  }\n  return false;\n}\n",
+      "status": "different",
+      "target_size": 496
+    }
+  ],
+  "raw_name": "attach__11entity_animRC14anim_control_t"
+}
