@@ -1,0 +1,15 @@
+{
+  "address": "0x0014EFC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7321e59736f7b52cb4ff05e1288650c13c32d3ec",
+      "notes": "# FIRST PASS wave 146 lane A1\n\nExact released source tested once for `0x0014EFC8 __10FloatingPQffffiiiiiQ210FloatingPQ5HJust`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"hwrasterize.h\"\n\n#include \"file_finder.h\"\n\n#include \"FEPanel.h\"\n#include \"osdevopts.h\"\n#include \"kshooks.h\"\n#include \"FrontEndManager.h\"\n#include \"geomgr.h\"\n#include \"coords.h\"\n\nFloatingPQ::FloatingPQ(float _r, float _g, float _b, float _a, int _x1, int _y1, int _x2, int _y2, int _z, HJust _hj)\n{\n\tcons(\"\");\n\tr = _r; g = _g; b = _b; a = _a;\n\tz = _z;\n\tx1 = _x1; y1 = _y1; x2 = _x2; y2 = _y2;\n\tx1_const = x1;\n\ty1_const = y1;\n\tx2_const = x2;\n\ty2_const = y2;\n\twidth = width_f = x2-x1;\n\theight = height_f = y2-y1;\n\tmatrix = matrix4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);\n\tu1 = 0; v1 = 0; u2 = 0; v2 = 0;\n\th_just = _hj;\n\tnglSetQuadRect(&quad, x1, y1, x2, y2);\n\tnglSetQuadColor(&quad, (u_int)FTOI((255.0f*r+1))>>1 | ((u_int)FTOI((255.0f*g+1))>>1) << 8 | ((u_int)FTOI((255.0f*b+1))>>1) << 16 | ((u_int)FTOI((255.0f*a+1))>>1)<<24);\n\tnglSetQuadZ(&quad, z);\n\tnon_floating_behavior = false;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__10FloatingPQffffiiiiiQ210FloatingPQ5HJust"
+}
