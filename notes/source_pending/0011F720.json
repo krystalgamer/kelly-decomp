@@ -1,0 +1,15 @@
+{
+  "address": "0x0011F720",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4256f53dfbd3c7dc83a4d95fc74d0c08b04d3f17",
+      "notes": "# FIRST PASS wave 161 lane A1\n\nExact released source tested once for `0x0011F720 insert_unique__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP17entity_track_treeZt10_Select1st1Zt4pair2ZC7stringxZP17entity_track_treeZt4less1Z7stringxZt12my_allocator1ZP17entity_track_treeGt17_Rb_tree_iterator3Zt4pair2ZC7stringxZP17entity_track_treeZRt4pair2ZC7stringxZP17entity_track_treeZPt4pair2ZC7stringxZP17entity_track_treeRCt4pair2ZC7stringxZP17entity_track_tree`. Attempts before: 0. Result `compile_failed`, score 0.0000%. Capacity-only child failures produced no attempts and were remediated directly with established exact source. No source retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <map>\n\nclass stringx {\n    char data[8];\npublic:\n    bool operator<(const stringx &) const;\n};\nclass entity_track_tree;\n\ntemplate<class T>\nstruct my_allocator : public allocator<T> {};\n\ntypedef pair<const stringx, entity_track_tree *> value_type;\ntypedef _Rb_tree<stringx, value_type, _Select1st<value_type>, less<stringx>, my_allocator<entity_track_tree *> > tree_type;\n\ntemplate pair<tree_type::iterator, bool> tree_type::insert_unique(const value_type &);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "insert_unique__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP17entity_track_treeZt10_Select1st1Zt4pair2ZC7stringxZP17entity_track_treeZt4less1Z7stringxZt12my_allocator1ZP17entity_track_treeGt17_Rb_tree_iterator3Zt4pair2ZC7stringxZP17entity_track_treeZRt4pair2ZC7stringxZP17entity_track_treeZPt4pair2ZC7stringxZP17entity_track_treeRCt4pair2ZC7stringxZP17entity_track_tree"
+}
