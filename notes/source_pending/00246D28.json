@@ -1,0 +1,15 @@
+{
+  "address": "0x00246D28",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bfa57d1564d54f366c02142fd0f490af4cc8dde8",
+      "notes": "# FIRST PASS wave 127 lane B2\n\nExact released source tested once for `0x00246D28 stl_prealloc__14ScoringManager`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <list>\n\nclass ScoringManager\n{\npublic:\n    class Trick\n    {\n    public:\n        int type;\n        int index;\n        int flags;\n        float time;\n        int numSpins;\n        float mouthDist;\n        float lipDist;\n        int repetitions;\n\n        Trick();\n        ~Trick() { }\n    };\n\n    typedef list<Trick> TrickList;\n\n    class Series\n    {\n        void *levelTricks;\n\n    public:\n        TrickList tricks;\n        int numSpins;\n        int landing;\n        int flags;\n\n        Series();\n        ~Series() { }\n    };\n\n    typedef list<Series> SeriesList;\n    static void stl_prealloc(void);\n};\n\n#define MAX_SERIES_PER_CHAIN 32\n#define MAX_TRICKS_PER_SERIES 64\n\nvoid ScoringManager::stl_prealloc(void)\n{\n    SeriesList slist;\n    Series series;\n    for (int i = 0; i < MAX_SERIES_PER_CHAIN; i++)\n    {\n        slist.push_back(series);\n    }\n    slist.resize(0);\n    TrickList tlist;\n    Trick trick;\n    for (int i = 0; i < MAX_TRICKS_PER_SERIES; i++)\n    {\n        tlist.push_back(trick);\n    }\n    tlist.resize(0);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "stl_prealloc__14ScoringManager"
+}
