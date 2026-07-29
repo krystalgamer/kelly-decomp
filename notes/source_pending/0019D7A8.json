@@ -1,0 +1,15 @@
+{
+  "address": "0x0019D7A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ea86c3f6b5cbff4932c98563237e6a9051111b58",
+      "notes": "# FIRST PASS wave 114 lane A3\n\nExact released body tested once for `0x0019D7A8 OnActivate__10DialogMenu`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/SaveLoadFrontEnd.h\"\n\nvoid DialogMenu::OnActivate()\n{\n\tTurnPQ(true);\n\tif(type == DM_TYPE_YES)\n\t\tsetHigh(entry[DM_NO]);\n\telse if( type == DM_TYPE_FMT )\n\t\tsetHigh( entry[DM_CNL] );\n\telse if( type == DM_TYPE_MNG )\n\t\tsetHigh( entry[DM_CNL2] );\n\telse\n\t\tsetHigh(entry[DM_OK]);\n\tdraw_count = 0;\n\n\tif(((SaveLoadFrontEnd*) parent)->in_frontend)\n\t{\n\t\tmanager->helpbar->Reset();\n\t\tif(type == DM_TYPE_YES || type == DM_TYPE_FMT || type == DM_TYPE_MNG) manager->helpbar->AddArrowH();\n\t\telse manager->helpbar->RemoveArrowBoth();\n\t\tif(type == DM_TYPE_EMPTY) manager->helpbar->RemoveX();\n\t\telse manager->helpbar->RemoveTriangle();\n\t\tmanager->helpbar->Reformat();\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "OnActivate__10DialogMenu"
+}
