@@ -1,0 +1,15 @@
+{
+  "address": "0x00339888",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "dc71c83da11282f3b0f2c4b568458b0b9c8f7492",
+      "notes": "# FIRST PASS wave 150 lane A3\n\nExact released source tested once for `0x00339888 _$_12anim_texture`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"material.h\"\n\nanim_texture::~anim_texture()\n{\n  frame_list.resize(0);\n  vc_list.resize(0);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_12anim_texture"
+}
