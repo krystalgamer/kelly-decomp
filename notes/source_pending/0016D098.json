@@ -1,0 +1,15 @@
+{
+  "address": "0x0016D098",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "09f6d9ea0aa848311a39f9c9b63d219c93050083",
+      "notes": "# FIRST PASS wave 108 lane A5\n\nExact released body tested once for `0x0016D098 GetTimeText__C16TimeAttackWidgetif`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/igo_widget_timeattack.h\"\n\nstringx TimeAttackWidget::GetTimeText(const int min, const float sec) const\n{\n\tstringx\tclockText((int)sec);\n\t\t\n\tif (sec < 10)\n\t\tclockText = stringx(\"0\") + clockText;\n\tclockText = stringx(min) + stringx(\":\") + clockText;\n\n\treturn clockText;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "GetTimeText__C16TimeAttackWidgetif"
+}
