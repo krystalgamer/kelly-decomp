@@ -1,0 +1,15 @@
+{
+  "address": "0x002BA218",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7d230343ac2e56782d9f3bd24e395730b500ec1f",
+      "notes": "# FIRST PASS wave 143 lane A4\n\nExact released source tested once for `0x002BA218 render_entity__13entity_widgetP6entityP6camera`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n\n#include \"app.h\"\n#include \"game.h\"\n#include \"projconst.h\"\n#include \"camera.h\"\n#include \"iri.h\"\n#include \"widget.h\"\n#include \"widget_entity.h\"\n#include \"conglom.h\"\n#include \"entityflags.h\"\n#include \"entity_maker.h\"\n#include \"anim_maker.h\"\n#include \"wds.h\"\n#include \"pmesh.h\"\n#include \"geomgr.h\"\n#include \"time_interface.h\"\n\n#include <cstdarg>\n#include <algorithm>\n\nvoid entity_widget::render_entity( entity *e, camera* camera_link )\n{\n  if ( e )\n  {\n    visual_rep *vrep = e->get_vrep();\n    if ( vrep )\n    {\n      float prevcopx,prevcopy,prevminz,prevmaxz;\n      geometry_manager::inst()->get_cop(&prevcopx,&prevcopy,&prevminz,&prevmaxz);\n\n      color cl = color(1.0f, 1.0f, 1.0f, 1.0f);\n      rational_t v[2] = { 0.0f, 0.0f };\n      transform(v, cl, 0);\n\n#ifdef TARGET_MKS\n      cur_special_w_xform = calc_special_w_xform( e->get_abs_po().get_matrix(), v[0], v[1] );\n#endif\n\n      geometry_manager::inst()->set_cop(v[0], v[1], VREPWIDGET_MIN_Z, VREPWIDGET_MAX_Z);\n\n      render_flavor_t flavor = 0;\n#ifdef TARGET_PC\n      if ( abs_col[0].a == 1.0f )\n      {\n        flavor = RENDER_ENTITY_WIDGET|RENDER_OPAQUE_PORTION;\n        e->render( camera_link, vrep->get_max_faces(0), flavor, cl.a );\n      }\n      flavor = RENDER_ENTITY_WIDGET|RENDER_TRANSLUCENT_PORTION;\n      e->render( camera_link, vrep->get_max_faces(0), flavor, cl.a );\n#else\n      flavor = RENDER_ENTITY_WIDGET|RENDER_TRANSLUCENT_PORTION|RENDER_OPAQUE_PORTION;\n      e->render( camera_link, vrep->get_max_faces(0), flavor, cl.a );\n#endif\n\n      geometry_manager::inst()->set_cop(prevcopx,prevcopy,prevminz,prevmaxz);\n    }\n\n    if ( e->is_a_conglomerate() )\n    {\n      pentity_vector children = ((conglomerate*)e)->get_members();\n      pentity_vector::iterator vi;\n      pentity_vector::iterator vi_end = children.end();\n      for ( vi = children.begin(); vi != vi_end; ++vi )\n      {\n        render_entity( *vi, camera_link );\n      }\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "render_entity__13entity_widgetP6entityP6camera"
+}
