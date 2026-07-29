@@ -1,0 +1,23 @@
+{
+  "address": "0x00335708",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2de954086c9f65f31d5a725bef693c1c84adead0",
+      "candidate_size": 640,
+      "compared_bytes": 640,
+      "compared_instructions": 160,
+      "emitted_name": "concatinate__7pstringPCc",
+      "instruction_score": 11.875,
+      "matching_bytes": 171,
+      "matching_instructions": 19,
+      "notes": "# FIRST PASS wave 114 lane B2\n\nExact released body tested once for `0x00335708 concatinate__7pstringPCc`. Result `different`, score 26.7188%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 26.7188,
+      "source": "typedef unsigned long uint64;\n\nextern \"C\" unsigned int strlen(const char *);\nextern \"C\" int toupper(int);\nextern void error(const char *, ...);\nextern void debug_print(const char *, ...);\n\n#define assert(x) ((void)0)\n\nclass pstring\n{\n    static const char pc_to_ascii[64];\n    static const char ascii_to_pc[128];\n    uint64 pchunk[4];\n\npublic:\n    unsigned length() const\n    {\n        register unsigned check;\n        register unsigned ret_val = 0;\n\n        for (unsigned i = 0; i < 4; ++i)\n        {\n            check = unsigned(pchunk[i] & 0xf);\n            if (check == 0)\n                return ret_val;\n            else\n                ret_val += check;\n        }\n        return ret_val;\n    }\n\n    const char *c_str() const;\n    bool concatinate(const char *the_string);\n};\n\nbool pstring::concatinate(const char *the_string)\n{\n  unsigned len;\n  unsigned i, j;\n  int shift;\n  unsigned end_found = 0;\n  assert(the_string != 0);\n\n  if (strlen(the_string) + length() > 40)\n    return false;\n\n  for (j=0; j<4; ++j)\n  {\n    len = unsigned (pchunk[j] & 0xf);\n    if (len != 10)\n      break;\n  }\n\n  i = 0;\n  pchunk[j] &= ~0xf;\n  shift = 58 - (len * 6);\n\n  for (; j<4; ++j, shift = 58, len=0)\n  {\n    while (shift >= 4)\n    {\n      if (the_string[i] != '\\0')\n      {\n        int temp = ascii_to_pc[the_string[i]];\n\n        if ( temp == -1 )\n          error( \"Character cannot be packed: %c (%s)\", the_string[i], the_string );\n\n        assert (toupper(the_string[i]) == pc_to_ascii[temp]);\n\n        pchunk[j] |= uint64(temp) << shift;\n      }\n      else\n      {\n        end_found = 1;\n        break;\n      }\n\n      shift -= 6;\n      ++i;\n      ++len;\n    }\n\n    assert(len <= 10);\n    pchunk[j] |= len;\n    if (end_found == 1)\n      break;\n  }\n\n  if (end_found == 0)\n  {\n    if (the_string[i] != '\\0')\n    {\n      debug_print(\"String '%s' is too long to concatonate onto '%s'\\n\", the_string, this->c_str());\n      return false;\n    }\n  }\n\n  return true;\n}\n",
+      "status": "different",
+      "target_size": 596
+    }
+  ],
+  "raw_name": "concatinate__7pstringPCc"
+}
