@@ -1,0 +1,23 @@
+{
+  "address": "0x0010D2D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4438d531f57ed88da3a15c80562acdfffa9dc339",
+      "candidate_size": 424,
+      "compared_bytes": 504,
+      "compared_instructions": 126,
+      "emitted_name": "compute_sector__16ai_polypath_cellR7terrainb",
+      "instruction_score": 7.1429,
+      "matching_bytes": 108,
+      "matching_instructions": 9,
+      "notes": "# FIRST PASS wave93 B5 0x0010D2D8\n\n- Confirmed attempts used before testing: 0.\n- Tested exactly one LF, self-contained candidate with minimal declarations and the inferred released body.\n- Result: different; 108/504 bytes, 9/126 instructions, score 21.4286%.\n- No alternate, assembly, annotations, variants, retry, chase, tracked-source edit, finalize, integrate, git operation, or build.\n- Full packet: false. Tracked: false. Finalized: false. Integrated: false.",
+      "score": 21.4286,
+      "source": "struct vector3d {\n    float x;\n    float y;\n    float z;\n};\n\nstruct sphere {\n    vector3d center;\n    float radius;\n\n    sphere(const vector3d &value, float size) : center(value), radius(size) {}\n};\n\nclass ai_polypath_cell;\nclass region {\npublic:\n    void add(ai_polypath_cell *cell);\n};\n\nstruct region_node {\n    void *key;\n    region *value;\n};\n\nstruct sector {\n    region_node *node;\n};\n\nclass terrain {\npublic:\n    sector *find_sector(const vector3d &position) const;\n};\n\ntemplate<class T> class vector {\npublic:\n    T *begin_value;\n    T *end_value;\n    T *capacity_value;\n\n    void resize(unsigned size);\n    T *begin() { return begin_value; }\n    T *end() { return end_value; }\n};\n\nextern vector<region_node *> cell_regions;\nextern int warning(const char *format, ...);\n\nclass ai_polypath_cell {\n    char padding0[64];\n    vector3d m_CenterPoint;\n    float radius;\n    char padding1[164];\n    char sector_valid;\n\npublic:\n    void compute_sector(terrain &ter, bool use_high_res_intersect);\n    void _intersect(\n        region_node *node,\n        const sphere &the_sphere,\n        bool use_high_res_intersect\n    );\n};\n\nvoid ai_polypath_cell::compute_sector(\n    terrain &ter,\n    bool use_high_res_intersect)\n{\n    sector_valid = false;\n    sector *center_sector = ter.find_sector(m_CenterPoint);\n    if (center_sector)\n    {\n        cell_regions.resize(0);\n        sphere cell_sphere(m_CenterPoint, radius);\n        _intersect(center_sector->node, cell_sphere, use_high_res_intersect);\n        region_node **current = cell_regions.begin();\n        region_node **finish = cell_regions.end();\n        for (; current != finish; ++current)\n            (*current)->value->add(this);\n        sector_valid = true;\n    }\n    else\n    {\n        sector *vertex_sector[3];\n        for (int i = 0; i < 3; ++i)\n            vertex_sector[i] = ter.find_sector(\n                *reinterpret_cast<vector3d *>(\n                    reinterpret_cast<char *>(this) + 28 + i * 12));\n\n        if (\n            vertex_sector[0]\n            && vertex_sector[1]\n            && vertex_sector[2]\n            && vertex_sector[0]->node == vertex_sector[1]->node\n            && vertex_sector[0]->node == vertex_sector[2]->node)\n        {\n            vertex_sector[0]->node->value->add(this);\n            sector_valid = -1;\n        }\n    }\n\n    if (!sector_valid)\n        warning(\n            \"A polypath triangle is outside the world and cannot be auto-fixed! \"\n            \"(center <%.2f, %.2f, %.2f>), please check and re-export!!\",\n            m_CenterPoint.x,\n            m_CenterPoint.y,\n            m_CenterPoint.z);\n}\n",
+      "status": "different",
+      "target_size": 504
+    }
+  ],
+  "raw_name": "compute_sector__16ai_polypath_cellR7terrainb"
+}
