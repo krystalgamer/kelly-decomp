@@ -1,0 +1,23 @@
+{
+  "address": "0x00197AE8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b1e38e0a3a6c218e7c913c6c7234d962fbe7e8ca",
+      "candidate_size": 624,
+      "compared_bytes": 624,
+      "compared_instructions": 156,
+      "emitted_name": "_$_9FEManager",
+      "instruction_score": 74.359,
+      "matching_bytes": 481,
+      "matching_instructions": 116,
+      "notes": "# FIRST PASS wave 112 lane A5\n\nExact released `FEManager::~FEManager()` body tested once for `0x00197AE8 _$_9FEManager` with minimal self-contained layout declarations. Result `different`: byte score 77.0833%, instruction score 74.359% (481/624 bytes; 116/156 instructions), emitted size 624 versus target 588. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 77.0833,
+      "source": "class IGOFrontEnd { public: virtual ~IGOFrontEnd(); };\nclass PauseMenuSystem { public: virtual ~PauseMenuSystem(); };\nclass GraphicalMenuSystem { public: virtual ~GraphicalMenuSystem(); };\nclass PanelAnimFile { public: virtual ~PanelAnimFile(); };\nclass FloatingPQ { public: virtual ~FloatingPQ(); };\nclass BeachFrontEnd { public: virtual ~BeachFrontEnd(); };\nclass HelpbarFE { public: virtual ~HelpbarFE(); };\n\nclass Font\n{\n  char data_[9512];\n\npublic:\n  ~Font();\n  void unload();\n};\n\nclass FEManager\n{\npublic:\n  IGOFrontEnd *IGO;\n  PauseMenuSystem *pms;\n  GraphicalMenuSystem *gms;\n  char before_fonts[11456];\n  Font trick_font;\n  Font numberFont;\n  Font font_hand;\n  Font font_thin;\n  Font font_bold;\n  Font font_info;\n  Font font_bold_old;\n  Font font_body;\n  char before_paf[72];\n  PanelAnimFile *paf;\n  char before_map[68];\n  BeachFrontEnd *map;\n  HelpbarFE *helpbar;\n  char before_default_pq[8];\n  FloatingPQ *default_pq;\n\n  virtual ~FEManager();\n};\n\nFEManager::~FEManager()\n{\n  delete IGO;\n  delete pms;\n  delete gms;\n  delete paf;\n  delete default_pq;\n  delete map;\n  delete helpbar;\n  trick_font.unload();\n  numberFont.unload();\n  //clockFont.unload();\n\n  font_hand.unload();\n  font_thin.unload();\n  font_bold.unload();\n  font_info.unload();\n  font_bold_old.unload();\n  font_body.unload();\n}\n",
+      "status": "different",
+      "target_size": 588
+    }
+  ],
+  "raw_name": "_$_9FEManager"
+}
