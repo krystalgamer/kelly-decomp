@@ -1,0 +1,23 @@
+{
+  "address": "0x0030E6A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "dde9a2b76f11606125c290d548793f8e3613db4a",
+      "candidate_size": 604,
+      "compared_bytes": 604,
+      "compared_instructions": 151,
+      "emitted_name": "MENUDRAW_EntityLabel__FP6entity",
+      "instruction_score": 5.9603,
+      "matching_bytes": 127,
+      "matching_instructions": 9,
+      "notes": "# FIRST PASS wave 113 lane A3\n\nExact released body tested once for `0x0030E6A8 MENUDRAW_EntityLabel__FP6entity`. Result `different`, score 21.0265%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 21.0265,
+      "source": "struct string_buf { char *chars; int refs; int length; };\nclass stringx {\npublic:\n  char *chars;\n  string_buf *my_buf;\n  stringx();\n  stringx(const stringx &);\n  stringx &operator=(const stringx &);\n  stringx &operator=(const char *);\n  ~stringx();\n  int find(const char *) const;\n  stringx substr(int, int) const;\n  void to_lower();\n  bool operator!=(const char *s) const {\n    int i = 0;\n    int n = my_buf->length;\n    while (i < n) {\n      char b = s[i];\n      if (!b) return true;\n      char a = my_buf->chars[i];\n      if (a != b) {\n        if (a < b) return true;\n        if (b < a) return true;\n      }\n      ++i;\n    }\n    return s[i] != 0;\n  }\n};\nclass entity_id { public: stringx get_val() const; };\nclass entity { public: char pad[128]; entity_id id; stringx label; };\nextern char MENUDRAW_EntityLabels[];\nasm(\".equ MENUDRAW_EntityLabels,0x004F5030\");\nstringx MENUDRAW_EntityLabel(entity *e) {\n  stringx result;\n  result = e->label;\n  if (result != MENUDRAW_EntityLabels) {\n  } else {\n    result = e->id.get_val();\n    if (result != MENUDRAW_EntityLabels) {\n    } else {\n      result = \"Unknown\";\n    }\n  }\n  if (result.find(\"_ENTID_\") == 0)\n    result = result.substr(7, -1);\n  int pos = result.find(\"_\");\n  if (pos >= 0)\n    result = result.substr(pos + 1, -1);\n  result.to_lower();\n  return result;\n}\n",
+      "status": "different",
+      "target_size": 588
+    }
+  ],
+  "raw_name": "MENUDRAW_EntityLabel__FP6entity"
+}
