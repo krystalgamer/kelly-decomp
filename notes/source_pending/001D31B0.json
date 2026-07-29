@@ -1,0 +1,15 @@
+{
+  "address": "0x001D31B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9822d142f13f3bb6b76f9820a4a028012aad4283",
+      "notes": "# FIRST PASS wave 150 lane B4\n\nExact released source tested once for `0x001D31B0 Select__14EnterCheatMenui`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"FrontEndManager.h\"\n#include \"CheatFrontEnd.h\"\n\nvoid EnterCheatMenu::Select(int entry_index)\n{\n\tstringx display_string;\n\tint len, cur_idx;\n\n\tif(closing)\n\t\treturn;\n\n\tif(current_code.length() < MAX_PHONE_NUM_LEN)\n\t\tcurrent_code.append((char)('0' + current_button));\n\n\tlen = current_code.length();\n\tcur_idx = 0;\n\tfor(int i = 0; i < NUM_PHONE_NUM_GAPS; i++)\n\t{\n\t\tif(len > phone_num_gap[i])\n\t\t{\n\t\t\tdisplay_string.append(current_code.slice(cur_idx, len - phone_num_gap[i]));\n\t\t\tdisplay_string.append(PHONE_NUM_GAP_CHAR);\n\t\t\tcur_idx = len - phone_num_gap[i];\n\t\t}\n\t}\n\tdisplay_string.append(current_code.slice(cur_idx, len));\n\n\tcode_display->changeText(display_string);\n\n\tif(cursor->getText().length() != 0)\n\t{\n\t\tfloat text_width = frontendmanager.font_body.getWidth(code_display->getText(), 1.0f, false, 1.0f);\n\t\tcursor->changeX(PHONE_SCREEN_MIDDLE_X + text_width * PHONE_TEXT_SIZE * 1.5f * MYSTERY_KLUDGE_VALUE / 2.0f);\n\t\tcursor->setHJustify(Font::HORIZJUST_LEFT);\n\t}\n\n\tif(len == MAX_PHONE_NUM_LEN)\n\t\tExitMenu(CHEAT_CODE_MESSAGE_DELAY);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Select__14EnterCheatMenui"
+}
