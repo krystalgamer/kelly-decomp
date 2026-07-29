@@ -1,0 +1,23 @@
+{
+  "address": "0x00259CB8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b6507667132c444c7ede3701e41dcd57cf39813b",
+      "candidate_size": 584,
+      "compared_bytes": 624,
+      "compared_instructions": 156,
+      "emitted_name": "JudgeRun__13JudgingSystem",
+      "instruction_score": 5.1282,
+      "matching_bytes": 127,
+      "matching_instructions": 8,
+      "notes": "# FIRST PASS wave 119 lane A3\n\nExact released body tested once for `0x00259CB8 JudgeRun__13JudgingSystem`. Result `different`, score 20.3526%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 20.3526,
+      "source": "enum { SURFER_LAST = 18 };\n\nclass game {\npublic:\n\tint GetSurferIdx(int player);\n\tint get_active_player();\n};\n\nextern game *g_game_ptr;\n\nclass ScoreManager {\npublic:\n\tvoid GetPartialScores(int &face, int &air, int &tube);\n};\n\nclass KellySlaterController {\npublic:\n\tScoreManager &get_my_scoreManager();\n};\n\nclass world_dynamics_system {\npublic:\n\tKellySlaterController *get_ks_controller(int player);\n};\n\nextern world_dynamics_system *g_world_ptr;\n\nint random(int n);\nint random(int low, int high);\n\nclass JudgingSystem\n{\npublic:\n\tstruct RUN\n\t{\n\t\tfloat regionScores[3];\n\t};\n\n\tstruct RESULT\n\t{\n\t\tRUN runs[3];\n\t\tint rank;\n\t};\n\nprotected:\n\tfloat skills[SURFER_LAST];\n\tbool isCompetitor[SURFER_LAST];\n\tfloat difficulties[3];\n\tRESULT results[SURFER_LAST];\n\tint currRunIdx;\n\tbool over;\n\tint numPlayerWipeouts;\n\n\tvoid AdvanceRun(void);\n\tvoid CalcRank(void);\n\tfloat Judge(const int score, const int region) const;\n\npublic:\n\tvoid JudgeRun(void);\n};\n\nvoid JudgingSystem::JudgeRun(void)\n{\n\tint\t\tscore[3];\n\tfloat\tjudgedScore[3];\n\tfloat\tdeviation;\n\tint\t\ti;\n\t\n\t// Judge each surfer's run.\n\tfor (i = 0; i < SURFER_LAST; i++)\n\t{\n\t\t// Ignore invalid surfers in the array.\n\t\tif (!isCompetitor[i]) continue;\n\n\t\t// If this surfer is the player, then use his run.\n\t\tif (i == g_game_ptr->GetSurferIdx(0))\n\t\t{\n\t\t\t// Use player score.\n\t\t\tg_world_ptr->get_ks_controller(g_game_ptr->get_active_player())->get_my_scoreManager().GetPartialScores(score[0], score[1], score[2]);\n\n\t\t\t// Deduct points for wipeouts.\n\t\t\t//score -= WIPEOUT_PENALTY*numPlayerWipeouts;\n\n\t\t\tjudgedScore[0] = Judge(score[0], 0);\n\t\t\tjudgedScore[1] = Judge(score[1], 1);\n\t\t\tjudgedScore[2] = Judge(score[2], 2);\n\t\t}\n\t\t// If this surfer is an AI opponent, then generate a run.\n\t\telse\n\t\t{\n\t\t\tdeviation = float(random(1, 5))/10.0f;\n\t\t\tif (random(2) == 1)\n\t\t\t\tdeviation = -deviation;\n\t\t\tjudgedScore[0] = skills[i] + deviation;\n\t\t\tjudgedScore[1] = skills[i] + deviation;\n\t\t\tjudgedScore[2] = skills[i] + deviation;\n\t\t}\n\n\t\t// Apply the surfer's judged scores.\n\t\tif (judgedScore[0] > 9.9f)\n\t\t\tjudgedScore[0] = 9.9f;\n\t\tif (judgedScore[0] < 0.0f)\n\t\t\tjudgedScore[0] = 0.0f;\n\t\tif (judgedScore[1] > 9.9f)\n\t\t\tjudgedScore[1] = 9.9f;\n\t\tif (judgedScore[1] < 0.0f)\n\t\t\tjudgedScore[1] = 0.0f;\n\t\tif (judgedScore[2] > 9.9f)\n\t\t\tjudgedScore[2] = 9.9f;\n\t\tif (judgedScore[2] < 0.0f)\n\t\t\tjudgedScore[2] = 0.0f;\n\t\tresults[i].runs[currRunIdx].regionScores[0] = judgedScore[0];\n\t\tresults[i].runs[currRunIdx].regionScores[1] = judgedScore[1];\n\t\tresults[i].runs[currRunIdx].regionScores[2] = judgedScore[2];\n\t}\n\t\n\tCalcRank();\n\tAdvanceRun();\n}\n",
+      "status": "different",
+      "target_size": 624
+    }
+  ],
+  "raw_name": "JudgeRun__13JudgingSystem"
+}
