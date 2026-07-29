@@ -1,0 +1,23 @@
+{
+  "address": "0x002FA378",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e27428129918071e1a49ee97537d0b92fe6fdd73",
+      "candidate_size": 656,
+      "compared_bytes": 984,
+      "compared_instructions": 243,
+      "emitted_name": "__as__t6vector2Z5cfaceZt23__malloc_alloc_template1i0RCt6vector2Z5cfaceZt23__malloc_alloc_template1i0",
+      "instruction_score": 1.2346,
+      "matching_bytes": 131,
+      "matching_instructions": 3,
+      "notes": "# FIRST PASS wave 163 lane A2\n\nExact released source tested once for `0x002FA378 __as__t6vector2Z5cfaceZt23__malloc_alloc_template1i0RCt6vector2Z5cfaceZt23__malloc_alloc_template1i0`. Attempts before: 0. Result `different`, byte score 13.3130% and instruction score 1.2346%. Capacity-only child failures produced no attempts for several lanes; one Sol retry succeeded and remaining lanes were remediated directly. No source retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 13.313,
+      "source": "// Target: 0x002FA378 __as__t6vector2Z5cfaceZt23__malloc_alloc_template1i0RCt6vector2Z5cfaceZt23__malloc_alloc_template1i0\n// Reference: \n// Replace this file with one self-contained candidate function.\ntypedef unsigned int size_t;\ntypedef unsigned short vert_ref;\ntypedef unsigned short material_ref;\ntypedef float rational_t;\n\nstruct vector3d {\n    float x, y, z;\n};\n\nextern int global_cface_count;\n__asm__(\".equ global_cface_count,0x004348E8\");\n\nclass cface {\n    vert_ref vert_refs[3];\n    material_ref my_material;\n    vector3d raw_normal;\n    vector3d normal __attribute__((aligned(16)));\n    vector3d raw_center;\n    vector3d center;\n    rational_t radius;\n    unsigned short flags;\npublic:\n    cface(const cface &f);\n    ~cface() { global_cface_count--; }\n};\n\nextern void *arch_malloc(unsigned int, const char *, int)\n    __asm__(\"arch_malloc__FUiPCci\");\nextern void arch_free(void *) __asm__(\"arch_free__FPv\");\n\ntemplate <int inst>\nclass __malloc_alloc_template {\npublic:\n    static void *_S_oom_malloc(size_t)\n        __asm__(\"_S_oom_malloc__t23__malloc_alloc_template1i0Ui\");\n};\n\nextern cface *__uninitialized_copy(const cface *, const cface *, cface *)\n    __asm__(\"__uninitialized_copy_aux__H2ZPC5cfaceZP5cface_X01X01X11G12__false_type_X11\");\n\ntemplate <class T, class Alloc>\nclass vector {\n    T *start;\n    T *finish;\n    T *end_of_storage;\n\n    static T *allocate(size_t n) {\n        if (!n)\n            return 0;\n        void *result = arch_malloc(n * sizeof(T), \"stl_vector.h\", 0);\n        if (!result)\n            result = Alloc::_S_oom_malloc(n * sizeof(T));\n        return (T *)result;\n    }\n\n    static void deallocate(T *p, size_t n) {\n        if (n)\n            arch_free(p);\n    }\n\n    static void destroy(T *first, T *last) {\n        while (first != last) {\n            first->~T();\n            ++first;\n        }\n    }\n\npublic:\n    vector &operator=(const vector &x) {\n        if (&x != this) {\n            const size_t xlen = x.finish - x.start;\n            if (xlen > size_t(end_of_storage - start)) {\n                T *tmp = allocate(xlen);\n                __uninitialized_copy(x.start, x.finish, tmp);\n                destroy(start, finish);\n                deallocate(start, end_of_storage - start);\n                start = tmp;\n                end_of_storage = start + xlen;\n            } else if (size_t(finish - start) >= xlen) {\n                T *i = start;\n                const T *j = x.start;\n                for (; j != x.finish; ++i, ++j)\n                    *i = *j;\n                destroy(i, finish);\n            } else {\n                const T *mid = x.start + (finish - start);\n                T *i = start;\n                const T *j = x.start;\n                for (; j != mid; ++i, ++j)\n                    *i = *j;\n                __uninitialized_copy(mid, x.finish, finish);\n            }\n            finish = start + xlen;\n        }\n        return *this;\n    }\n};\n\ntemplate class vector<cface, __malloc_alloc_template<0> >;\n",
+      "status": "different",
+      "target_size": 984
+    }
+  ],
+  "raw_name": "__as__t6vector2Z5cfaceZt23__malloc_alloc_template1i0RCt6vector2Z5cfaceZt23__malloc_alloc_template1i0"
+}
