@@ -1,0 +1,15 @@
+{
+  "address": "0x00357478",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1018f52baeb33094c97b8abfaab61974e58f16bc",
+      "notes": "# FIRST PASS wave 162 lane B4\n\nExact released source tested once for `0x00357478 insert__t6vector2Zt6refptr1Z10hw_textureZt12my_allocator1Zt6refptr1Z10hw_texturePt6refptr1Z10hw_textureUiRCt6refptr1Z10hw_texture`. Attempts before: 0. Result `compile_failed`, score 0.0000%. Capacity-only child failures and Sol retries produced no attempts for some lanes; those were remediated directly with exact released source. No source retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <vector>\n\nclass hw_texture;\ntemplate<class T> class refptr;\ntemplate<class T> class my_allocator;\n\ntemplate void vector<refptr<hw_texture>, my_allocator<refptr<hw_texture> > >::insert(\n    refptr<hw_texture> *, unsigned int, const refptr<hw_texture> &);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "insert__t6vector2Zt6refptr1Z10hw_textureZt12my_allocator1Zt6refptr1Z10hw_texturePt6refptr1Z10hw_textureUiRCt6refptr1Z10hw_texture"
+}
