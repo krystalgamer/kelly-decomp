@@ -1,0 +1,23 @@
+{
+  "address": "0x00146560",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4ab59aef920e14cefe8256e3f180afd82b975f95",
+      "candidate_size": 512,
+      "compared_bytes": 512,
+      "compared_instructions": 128,
+      "emitted_name": "GLOBALTEXT_Load__Fv",
+      "instruction_score": 8.5938,
+      "matching_bytes": 170,
+      "matching_instructions": 11,
+      "notes": "# FIRST PASS wave 92 lane A1\n\nExact released body tested once for `0x00146560 GLOBALTEXT_Load__Fv`. Result `different`, score 33.2031%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 33.2031,
+      "source": "typedef unsigned int u_int;\n#define NULL 0\n\nstruct nglFileBuf\n{\n    unsigned char* Buf;\n    u_int Size;\n    u_int UserData;\n};\n\nclass stringx\n{\n    char* chars;\n    void* my_buf;\n\npublic:\n    stringx(const char* str, int len = -1);\n    ~stringx();\n    stringx& operator=(const stringx& cp);\n};\n\nenum\n{\n    GT_LAST = 650,\n    BUTTON_LAST = 21,\n    LANGUAGE_LAST = 4,\n    PLATFORM_PS2 = 0,\n    PLATFORM_LAST = 3\n};\n\nextern stringx ksGlobalTextArray[GT_LAST];\nextern stringx ksGlobalButtonArray[BUTTON_LAST];\nextern int ksGlobalTextLanguage;\n\nbool KSReadFile(const char* FileName, nglFileBuf* File, u_int Align);\nvoid KSReleaseFile(nglFileBuf* File);\n\n#define assert(condition) ((void)0)\n#define TARGET_PS2\n\nvoid GLOBALTEXT_Load()\n{\n    nglFileBuf file;\n    file.Buf = NULL;\n    file.Size = 0;\n    KSReadFile(\"globaltext.dat\", &file, 1);\n    char* buffer = (char*) file.Buf;\n    if(!buffer)\n    {\n         KSReleaseFile(&file);\n         assert(0);\n    }\n\n    char word[512];\n    int row_num = 0;\n    int lang_num = 0;\n    int plat_num = 0;\n    int word_ct = 0;\n    char c;\n    bool found_start = false;\n    bool in_word = false;\n\n    for(int i=0; i<(signed)file.Size; i++)\n    {\n         c = buffer[i];\n         if((c == ' ' && !in_word) || c == '\\t' || c == '\\r' || (c == '\\n' && !found_start)) continue;\n         found_start = true;\n         if(c == '\\n')\n         {\n              word[word_ct] = '\\0';\n              if(row_num < GT_LAST)\n              {\n                   if(lang_num == ksGlobalTextLanguage)\n                        ksGlobalTextArray[row_num] = stringx(word);\n                   lang_num++;\n                   word_ct = 0;\n                   in_word = false;\n                   if(lang_num >= LANGUAGE_LAST)\n                   {\n                        lang_num = 0;\n                        row_num++;\n                   }\n              }\n              else\n              {\n                   assert(row_num < GT_LAST + BUTTON_LAST);\n#ifdef TARGET_PS2\n                   if(plat_num == PLATFORM_PS2)\n                        ksGlobalButtonArray[row_num-GT_LAST] = stringx(word);\n#endif\n#ifdef TARGET_XBOX\n                   if(plat_num == PLATFORM_XBOX)\n                        ksGlobalButtonArray[row_num-GT_LAST] = stringx(word);\n#endif\n#ifdef TARGET_GC\n                   if(plat_num == PLATFORM_GC)\n                        ksGlobalButtonArray[row_num-GT_LAST] = stringx(word);\n#endif\n                   plat_num++;\n                   word_ct = 0;\n                   in_word = false;\n                   if(plat_num >= PLATFORM_LAST)\n                   {\n                        plat_num = 0;\n                        row_num++;\n                   }\n              }\n         }\n         else\n         {\n              in_word = true;\n              assert(word_ct < 512);\n              word[word_ct] = c;\n              word_ct++;\n         }\n    }\n\n    KSReleaseFile(&file);\n}\n",
+      "status": "different",
+      "target_size": 496
+    }
+  ],
+  "raw_name": "GLOBALTEXT_Load__Fv"
+}
