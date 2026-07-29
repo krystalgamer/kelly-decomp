@@ -1,0 +1,15 @@
+{
+  "address": "0x0035C8F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "871c188c665ed8b25afa962986355fc7af6fba1b",
+      "notes": "# FIRST PASS wave 116 lane A5\n\nExact GCC `set<stringx>` `_Rb_tree::insert_unique(const stringx&)` template instantiation tested once for `0x0035C8F8`. Result `compile_failed`, score 0.0000%. No retry, follow-up, variant, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <set>\n\nclass stringx {\n  char data[8];\npublic:\n  bool operator<(const stringx &) const;\n};\n\ntemplate<class T>\nstruct my_allocator : public allocator<T> {};\n\ntypedef _Rb_tree<stringx, stringx, _Identity<stringx>, less<stringx>,\n                 my_allocator<stringx> > tree_type;\n\ntemplate pair<tree_type::iterator, bool>\ntree_type::insert_unique(const stringx &);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "insert_unique__t8_Rb_tree5Z7stringxZ7stringxZt9_Identity1Z7stringxZt4less1Z7stringxZt12my_allocator1Z7stringxRC7stringx"
+}
