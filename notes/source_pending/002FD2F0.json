@@ -1,0 +1,23 @@
+{
+  "address": "0x002FD2F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "545f225d96dc87d48b1b16b21bca5dac9c0cc37d",
+      "candidate_size": 672,
+      "compared_bytes": 808,
+      "compared_instructions": 198,
+      "emitted_name": "_M_insert_aux__t6vector2Zt16binary_tree_node1Z10partition3Zt12my_allocator1Zt16binary_tree_node1Z10partition3Pt16binary_tree_node1Z10partition3RCt16binary_tree_node1Z10partition3",
+      "instruction_score": 2.0202,
+      "matching_bytes": 132,
+      "matching_instructions": 4,
+      "notes": "# FIRST PASS wave 145 lane A5\n\nExact released source tested once for `0x002FD2F0 _M_insert_aux__t6vector2Zt16binary_tree_node1Z10partition3Zt12my_allocator1Zt16binary_tree_node1Z10partition3Pt16binary_tree_node1Z10partition3RCt16binary_tree_node1Z10partition3`. Attempts before: 0. Result `different`, byte score 16.3366% and instruction score 2.0202%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 16.3366,
+      "source": "typedef unsigned int size_t;\ninline void *operator new(size_t, void *p) { return p; }\n\nclass vector3d\n{\npublic:\n  float x, y, z;\n};\n\ntemplate <class spacial_t>\nclass hyperplane\n{\nprotected:\n  float d;\n  spacial_t normal;\n};\n\nclass partition3 : public hyperplane<vector3d>\n{\nprivate:\n  void *my_sector;\npublic:\n  partition3(const partition3&);\n};\n\ntemplate <class K>\nclass binary_tree_node\n{\npublic:\n  binary_tree_node() {}\n  void *_Left;\n  void *_Right;\n  K _Val;\n};\n\ntemplate <class T>\nclass my_allocator\n{\npublic:\n  T *allocate(size_t);\n  void deallocate(T *, size_t);\n};\n\ntemplate <class T>\ninline void construct(T *p, const T& value)\n{\n  new (p) T(value);\n}\n\ntemplate <class T>\ninline void destroy(T *first, T *last)\n{\n  while (first != last)\n  {\n    first->~T();\n    ++first;\n  }\n}\n\ntemplate <class T>\ninline T *copy_backward(T *first, T *last, T *result)\n{\n  while (last != first)\n    *--result = *--last;\n  return result;\n}\n\ntemplate <class T>\ninline T *uninitialized_copy(T *first, T *last, T *result)\n{\n  while (first != last)\n  {\n    construct(result, *first);\n    ++first;\n    ++result;\n  }\n  return result;\n}\n\ntemplate <class T, class Alloc>\nclass vector\n{\npublic:\n  typedef T *iterator;\n  typedef unsigned int size_type;\n\n  iterator _M_start;\n  iterator _M_finish;\n  iterator _M_end_of_storage;\n\n  size_type size() const { return size_type(_M_finish - _M_start); }\n  iterator begin() { return _M_start; }\n  iterator end() { return _M_finish; }\n\n  void _M_insert_aux(iterator, const T&)\n    __asm__(\"_M_insert_aux__t6vector2Zt16binary_tree_node1Z10partition3Zt12my_allocator1Zt16binary_tree_node1Z10partition3Pt16binary_tree_node1Z10partition3RCt16binary_tree_node1Z10partition3\");\n\nprivate:\n  Alloc _M_allocator;\n\n  iterator _M_allocate(size_type n)\n  {\n    return n ? _M_allocator.allocate(n) : 0;\n  }\n\n  void _M_deallocate(iterator p, size_type n)\n  {\n    if (p)\n      _M_allocator.deallocate(p, n);\n  }\n};\n\ntemplate <class T, class Alloc>\nvoid vector<T, Alloc>::_M_insert_aux(iterator __position, const T& __x)\n{\n  if (_M_finish != _M_end_of_storage) {\n    construct(_M_finish, *(_M_finish - 1));\n    ++_M_finish;\n    T __x_copy = __x;\n    copy_backward(__position, _M_finish - 2, _M_finish - 1);\n    *__position = __x_copy;\n  }\n  else {\n    const size_type __old_size = size();\n    const size_type __len = __old_size != 0 ? 2 * __old_size : 1;\n    iterator __new_start = _M_allocate(__len);\n    iterator __new_finish = __new_start;\n    __new_finish = uninitialized_copy(_M_start, __position, __new_start);\n    construct(__new_finish, __x);\n    ++__new_finish;\n    __new_finish = uninitialized_copy(__position, _M_finish, __new_finish);\n    destroy(begin(), end());\n    _M_deallocate(_M_start, _M_end_of_storage - _M_start);\n    _M_start = __new_start;\n    _M_finish = __new_finish;\n    _M_end_of_storage = __new_start + __len;\n  }\n}\n\ntemplate void vector<binary_tree_node<partition3>, my_allocator<binary_tree_node<partition3> > >::_M_insert_aux(\n  binary_tree_node<partition3> *, const binary_tree_node<partition3>&);\n",
+      "status": "different",
+      "target_size": 808
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2Zt16binary_tree_node1Z10partition3Zt12my_allocator1Zt16binary_tree_node1Z10partition3Pt16binary_tree_node1Z10partition3RCt16binary_tree_node1Z10partition3"
+}
