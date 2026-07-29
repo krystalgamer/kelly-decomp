@@ -1,0 +1,23 @@
+{
+  "address": "0x0025FA40",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6e931836a85f4e464f4a293693a99879b6f79055",
+      "candidate_size": 560,
+      "compared_bytes": 820,
+      "compared_instructions": 193,
+      "emitted_name": "BOARD_UnloadMesh__FP6entity",
+      "instruction_score": 4.6632,
+      "matching_bytes": 128,
+      "matching_instructions": 9,
+      "notes": "# FIRST PASS wave 146 lane B2\n\nExact released source tested once for `0x0025FA40 BOARD_UnloadMesh__FP6entity`. Attempts before: 0. Result `different`, byte score 15.6098% and instruction score 4.6632%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 15.6098,
+      "source": "extern \"C\" char *strncpy(char *, const char *, unsigned int);\nextern \"C\" char *strlwr(char *);\n\nclass stringx\n{\n  void *data;\n  int length;\n  int capacity;\n  int flags;\npublic:\n  stringx();\n  stringx(const char *, int = -1);\n  stringx(const stringx &);\n  ~stringx();\n  const char *c_str() const;\n  stringx operator +(const stringx &) const;\n};\n\nstruct nglMesh;\n\nclass nglFixedString\n{\npublic:\n  char Name[32];\n  nglFixedString(const char *Text)\n  {\n    Name[0] = 0;\n    strncpy(Name, Text, sizeof(Name) - 1);\n    strlwr(Name);\n  }\n};\n\nnglMesh *nglGetFirstMeshInFile(const nglFixedString &);\nvoid nglReleaseMeshFile(const nglFixedString &);\n\nclass entity\n{\n  char pad[112];\npublic:\n  stringx fileName;\n  virtual void unused00();\n  virtual void set_mesh(nglMesh *);\n  virtual void unused02();\n  virtual void set_lores_mesh(nglMesh *);\n};\n\nclass conglomerate : public entity\n{\npublic:\n  entity *get_member(const stringx &);\n};\n\nvoid BOARD_UnloadMesh(entity *board)\n{\n\tif (!board)\n\t\treturn;\n  while (nglGetFirstMeshInFile((board->fileName + stringx(\"_lo\")).c_str()))\n\tnglReleaseMeshFile((board->fileName + stringx(\"_lo\")).c_str());\n\n  ((conglomerate*)board)->get_member(\"BOARD\")->set_lores_mesh((nglMesh *)0x0);\n  \n  \n\t  while (nglGetFirstMeshInFile((board->fileName).c_str()))\n    nglReleaseMeshFile((board->fileName).c_str());\n  ((conglomerate*)board)->get_member(\"BOARD\")->set_mesh((nglMesh *)0x0);\n\n  \n}\n",
+      "status": "different",
+      "target_size": 820
+    }
+  ],
+  "raw_name": "BOARD_UnloadMesh__FP6entity"
+}
