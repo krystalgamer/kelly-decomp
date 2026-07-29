@@ -1,0 +1,23 @@
+{
+  "address": "0x001FEBE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c223c003327e9913b2b4ddec2ad0bb2dd786a7e0",
+      "candidate_size": 192,
+      "compared_bytes": 548,
+      "compared_instructions": 137,
+      "emitted_name": "update__13static_objectf",
+      "instruction_score": 1.4599,
+      "matching_bytes": 69,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 106 lane A3\n\nExact released `static_object::update` body tested once for `0x001FEBE0`. Attempts before: 0. LF-only candidate. Result `different`, byte score 12.5912%, instruction score 1.4599%. No retry, follow-up, chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 12.5912,
+      "source": "class vector3d\n{\npublic:\n  float x, y, z;\n  vector3d () {}\n  vector3d (const vector3d& v) : x(v.x), y(v.y), z(v.z) {}\n  vector3d& operator += (const vector3d& v)\n  {\n    x += v.x;\n    y += v.y;\n    z += v.z;\n    return *this;\n  }\n};\n\ninline vector3d operator * (const vector3d& v, float f)\n{\n  vector3d result;\n  result.x = v.x * f;\n  result.y = v.y * f;\n  result.z = v.z * f;\n  return result;\n}\n\nclass entity\n{\npublic:\n  vector3d get_rel_position () const;\n  void set_rel_position (const vector3d& p);\n};\n\nclass water_object\n{\n  char padding[0x2c];\nprotected:\n  entity *my_entity;\n  char water_data[0x29c];\npublic:\n  bool update (float dt);\n};\n\nclass static_object : public water_object\n{\npublic:\n  bool update (float dt);\nprivate:\n  bool dont_move;\n};\n\nvoid WAVE_GlobalCurrent (vector3d *current);\n\nbool static_object::update (float dt)\n{\n  if (!dont_move)\n  {\n    vector3d current, position (my_entity->get_rel_position ());\n\n    WAVE_GlobalCurrent (&current);\n    position += current * dt;\n\n    my_entity->set_rel_position (position);\n  }\n\n  return water_object::update (dt);\n}\n",
+      "status": "different",
+      "target_size": 548
+    }
+  ],
+  "raw_name": "update__13static_objectf"
+}
