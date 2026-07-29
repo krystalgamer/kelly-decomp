@@ -1,0 +1,23 @@
+{
+  "address": "0x0013DA30",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d1ea85e73ff976ff80ccddee6a6acbb5467310ae",
+      "candidate_size": 544,
+      "compared_bytes": 544,
+      "compared_instructions": 136,
+      "emitted_name": "set_ifc_str__21script_data_interfaceRC7pstringRC7stringx",
+      "instruction_score": 37.5,
+      "matching_bytes": 266,
+      "matching_instructions": 51,
+      "notes": "# FIRST PASS wave 104 lane B2\n\nExact released `script_data_interface::set_ifc_str` body tested once for `0x0013DA30`. Attempts before: 0. LF-only candidate. Result `different`, byte score 48.8971%, instruction score 37.5%. No retry, follow-up, chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 48.8971,
+      "source": "typedef unsigned long uint64;\n\nclass pstring {\n    uint64 pchunk[4];\n    void pack_string(const char *);\n\npublic:\n    pstring(const char *text) {\n        pack_string(text);\n    }\n\n    bool operator==(const pstring &other) const {\n        for (unsigned i = 0; i < 4; ++i) {\n            if (pchunk[i] != other.pchunk[i])\n                return false;\n        }\n        return true;\n    }\n};\n\nclass stringx {\n    char *chars;\n    void *my_buf;\n\npublic:\n    stringx &operator=(const stringx &);\n};\n\nclass script_data_interface {\n    void *vtable;\n    void *my_entity;\n    float num_1;\n    float num_2;\n    float num_3;\n    float num_4;\n    float num_5;\n    float num_6;\n    float num_7;\n    float num_8;\n    stringx str_1;\n    stringx str_2;\n    stringx str_3;\n    stringx str_4;\n\npublic:\n    bool set_ifc_str(const pstring &att, const stringx &val);\n};\n\n#define IFC_INTERNAL_SET_MACRO(a,b)       { static pstring pstring_set(a);  if(att == pstring_set)  { b = val; return(true); } }\n\nbool script_data_interface::set_ifc_str(const pstring &att, const stringx &val)\n{\n  IFC_INTERNAL_SET_MACRO(\"SD_STR_1\", str_1);\n  IFC_INTERNAL_SET_MACRO(\"SD_STR_2\", str_2);\n  IFC_INTERNAL_SET_MACRO(\"SD_STR_3\", str_3);\n  IFC_INTERNAL_SET_MACRO(\"SD_STR_4\", str_4);\n\n  return(false);\n}\n",
+      "status": "different",
+      "target_size": 544
+    }
+  ],
+  "raw_name": "set_ifc_str__21script_data_interfaceRC7pstringRC7stringx"
+}
