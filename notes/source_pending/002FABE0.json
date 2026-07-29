@@ -1,0 +1,15 @@
+{
+  "address": "0x002FABE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0716b83ccb557f2b0cc0d8a0615f3b366c679864",
+      "notes": "# FIRST PASS wave98 A5\n\n- Target: `0x002FABE0 vector<nglMesh*>::_M_insert_aux`, GCC 2.95 `stl_vector.h`.\n- Confirmed attempts0 (`attempts.json` absent, treated as `[]`) before testing.\n- LF-only candidate requested the compiler's exact template body via explicit instantiation.\n- Sole test: `compile_failed`, score 0; bundled compiler could not locate `<vector>`.\n- No retry, chase, build, finalize, integration, git mutation, or tracked edits.",
+      "score": 0.0,
+      "source": "#include <vector>\n\nclass nglMesh;\n\ntemplate void vector<nglMesh *>::_M_insert_aux(nglMesh **, nglMesh * const &);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2ZP7nglMeshZt12my_allocator1ZP7nglMeshPP7nglMeshRCP7nglMesh"
+}
