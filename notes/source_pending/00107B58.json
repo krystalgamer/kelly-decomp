@@ -1,0 +1,23 @@
+{
+  "address": "0x00107B58",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0135c0021bea55a3e24e23ae52436c2799dadd5d",
+      "candidate_size": 496,
+      "compared_bytes": 516,
+      "compared_instructions": 129,
+      "emitted_name": "get_xz_rotation_to_dir__C13ai_locomotionRC8vector3d",
+      "instruction_score": 62.0155,
+      "matching_bytes": 342,
+      "matching_instructions": 80,
+      "notes": "# FIRST PASS wave 96 lane A2\n\nExact released body tested once for `0x00107B58 get_xz_rotation_to_dir__C13ai_locomotionRC8vector3d`. Result `different`, score 66.2791%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 66.2791,
+      "source": "typedef float rational_t;\n\nextern \"C\" float sqrtf(float);\nextern rational_t *fast_acos_lookup_table;\n\nstruct vector3d\n{\n  rational_t x;\n  rational_t y;\n  rational_t z;\n};\n\nstruct po\n{\n  char padding[32];\n  vector3d z_facing;\n\n  const vector3d& get_z_facing() const { return z_facing; }\n  const vector3d& get_facing() const { return get_z_facing(); }\n};\n\nclass entity\n{\n  char padding[80];\n  po *my_abs_po;\n\npublic:\n  const po& get_abs_po() const { return *my_abs_po; }\n};\n\ninline rational_t safe_atan2(rational_t x, rational_t y)\n{\n  rational_t res = 0.0f;\n\n  if(x != 0.0f || y != 0.0f)\n  {\n    res = (x*x) + (y*y);\n    res = sqrtf(res);\n    res = y / res;\n\n    res = fast_acos_lookup_table[(int)((res+1.0f)*8192.0f)];\n\n    if(x < 0.0f)\n      res = -res;\n  }\n\n  return(res);\n}\n\nclass ai_locomotion\n{\npublic:\n  entity *get_my_entity() const;\n  rational_t get_xz_rotation_to_dir( const vector3d &dir ) const;\n};\n\nrational_t ai_locomotion::get_xz_rotation_to_dir( const vector3d &dir ) const\n{\n  vector3d face = get_my_entity()->get_abs_po().get_facing();\n\n  rational_t diff = safe_atan2( -dir.x, dir.z ) - safe_atan2( -face.x, face.z );\n\n  if( diff > 3.14159265358979323846f )\n    diff -= 6.28318530717958647692f;\n  if( diff < -3.14159265358979323846f )\n    diff += 6.28318530717958647692f;\n\n  return( diff );\n}\n",
+      "status": "different",
+      "target_size": 516
+    }
+  ],
+  "raw_name": "get_xz_rotation_to_dir__C13ai_locomotionRC8vector3d"
+}
