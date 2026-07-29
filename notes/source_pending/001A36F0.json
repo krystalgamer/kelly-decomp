@@ -1,0 +1,23 @@
+{
+  "address": "0x001A36F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "33a3c800390ec79cfcd467c903651b81f5779dde",
+      "candidate_size": 412,
+      "compared_bytes": 572,
+      "compared_instructions": 143,
+      "emitted_name": "Init__16MCDetectFrontEnd",
+      "instruction_score": 1.3986,
+      "matching_bytes": 53,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 110 lane B3\n\nExact released body tested once for `0x001A36F0 Init__16MCDetectFrontEnd`. Result `different`, score 9.2657%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 9.2657,
+      "source": "typedef unsigned int size_t;\n\nvoid *operator new(size_t, unsigned int, const char *, int);\n#define NEW new(0, __FILE__, 0)\n\nclass stringx\n{\n  char data[16];\n\npublic:\n  stringx(const char *, int = -1);\n  stringx(const stringx &);\n  ~stringx();\n};\n\nstruct color32\n{\n  unsigned int value;\n};\n\nclass Font\n{\npublic:\n  enum HORIZJUST { HORIZJUST_CENTER };\n  enum VERTJUST { VERTJUST_CENTER };\n};\n\nclass FEMenuEntry\n{\n  char padding[88];\n\npublic:\n  FEMenuEntry *left;\n  FEMenuEntry *right;\n  virtual void reserved00();\n  virtual void reserved01();\n  virtual void reserved02();\n  virtual void reserved03();\n  virtual void reserved04();\n  virtual void reserved05();\n  virtual void reserved06();\n  virtual void reserved07();\n  virtual void reserved08();\n  virtual void reserved09();\n  virtual void reserved10();\n  virtual void reserved11();\n  virtual void reserved12();\n  virtual void reserved13();\n  virtual void reserved14();\n  virtual void reserved15();\n  virtual void reserved16();\n  virtual void reserved17();\n  virtual void reserved18();\n  virtual void reserved19();\n  virtual void reserved20();\n  virtual void reserved21();\n  virtual void reserved22();\n  virtual void reserved23();\n  virtual void reserved24();\n  virtual void reserved25();\n  virtual void reserved26();\n  virtual void reserved27();\n  virtual void reserved28();\n  virtual void SetPos(float, float);\n};\n\nclass BoxText\n{\n  char padding[68];\n\npublic:\n  bool no_color;\n  char padding2[3];\n  color32 color;\n\n  BoxText(Font *, stringx, float, float, int = 1,\n          Font::HORIZJUST = Font::HORIZJUST_CENTER,\n          Font::VERTJUST = Font::VERTJUST_CENTER,\n          color32 = (color32){0}, int = 10);\n  virtual void changeScale(float);\n  void makeBox(int, int, bool = false, float = -1.0f, int = -1);\n};\n\nclass FEManager\n{\n  char padding[0x15648];\n\npublic:\n  color32 col_info_g;\n};\n\nclass FrontEndManager\n{\n  char padding[0x82E4];\n\npublic:\n  Font font_body;\n};\n\nextern FrontEndManager frontendmanager;\n\nclass FEGraphicalMenu\n{\nprotected:\n  char padding[316];\n  FEManager *manager;\n\npublic:\n  virtual void Init();\n};\n\nclass MCDetectFrontEnd : public FEGraphicalMenu\n{\n  char padding2[32];\n  FEMenuEntry *entries[2];\n  int wait;\n  int current_sel;\n  int mc_state;\n  int last_state;\n  int percent;\n  char padding3[488];\n  BoxText *error;\n  char padding4[8];\n  int leftx, uppery, width, height;\n\npublic:\n  virtual void Init();\n};\n\nvoid MCDetectFrontEnd::Init()\n{\n\t\n\tleftx = 75;\n\tuppery = 100;\n\twidth = 640 - leftx*2 - 90;\t// 90 for extra spacing -beth\n\theight = 300;\n\tentries[0]->SetPos(leftx + 140, 300);\n\tentries[0]->right = entries[1];\n\tentries[1]->left = entries[0];\n\tentries[1]->SetPos(640 - leftx - 140, 300);\n\t\n\terror = NEW BoxText(&frontendmanager.font_body, \"\", 320,uppery+80);\n\terror->changeScale(.75f*1.5f);\n//\terror->color = manager->white;\n\terror->color = manager->col_info_g;\n\terror->no_color = false;\n\t\t\n\terror->makeBox(width, height);\n\tpercent = 0;\n\tcurrent_sel = 0;\n\t//LoadPanel();\n\t//bkg = GetPointer(\"title_screen_bkg\");\n\t\n\twait = 0;\n\t\n\t//  OnActivate();\n\tFEGraphicalMenu::Init();\n}\n",
+      "status": "different",
+      "target_size": 572
+    }
+  ],
+  "raw_name": "Init__16MCDetectFrontEnd"
+}
