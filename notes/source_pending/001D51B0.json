@@ -1,0 +1,23 @@
+{
+  "address": "0x001D51B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b41282d81bf8ac10971cb3410c34719810c4ec5e",
+      "candidate_size": 664,
+      "compared_bytes": 1032,
+      "compared_instructions": 258,
+      "emitted_name": "Init__13PAL60FrontEnd",
+      "instruction_score": 1.1628,
+      "matching_bytes": 82,
+      "matching_instructions": 3,
+      "notes": "# FIRST PASS wave 166 lane B3\n\nExact released source tested once for `0x001D51B0 Init__13PAL60FrontEnd`. Attempts before: 0. Result `different`, byte score 7.9457% and instruction score 1.1628%. Capacity-only child failures and Sol retries produced no attempts for some lanes; those lanes were remediated directly. No source retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 7.9457,
+      "source": "typedef float time_value_t;\nclass stringx { char data[16]; public: stringx(); stringx(const stringx&); stringx(const char*, int=-1); ~stringx(); };\nclass color32 { public: unsigned int value; };\nclass Font { public: enum HORIZJUST { HORIZJUST_CENTER }; enum VERTJUST { VERTJUST_CENTER }; };\nclass matrix4x4 { float data[16] __attribute__((aligned(16))); };\nextern const matrix4x4 identity_matrix;\nextern int nglGetScreenWidth();\nextern int nglGetScreenHeight();\nvoid* operator new(unsigned int, unsigned int, const char*, int);\n#define NEW new(0, \"C:/KS/SRC/ks/PAL60FrontEnd.cpp\", 0)\nclass FEMenuEntry { char pad0[0x58]; public: FEMenuEntry* left; FEMenuEntry* right; char pad1[4]; struct V { char p[0x78]; short adj; short p2; void (*setpos)(void*,float,float); }* vtable; void SetPos(float,float); };\nclass BoxText { public: color32 color; BoxText(Font*, stringx, float, float, int=0, float=1.0f, Font::HORIZJUST=Font::HORIZJUST_CENTER, Font::VERTJUST=Font::VERTJUST_CENTER, color32=color32(), int=-1); void makeBox(int,int,bool=false,float=-1.0f,int=-1); };\nclass PanelQuad { public: PanelQuad(stringx); virtual void Init(float,float,float,float,float,float,float,float,float,float,float,float,float,const matrix4x4&); };\nclass FEManager { public: char pad0[0x130e4]; Font font_bold_old; char pad1[0x252f]; color32 white; };\nclass FEGraphicalMenu { public: char pad0[0x13c]; FEManager* manager; virtual void Init(); };\nclass FEMultiMenu : public FEGraphicalMenu { public: FEMenuEntry* first; FEMenuEntry* last; };\nextern stringx ksGlobalTextArray[];\nenum { GT_FE_MENU_PAL60 = 0 };\nclass PAL60FrontEnd : public FEMultiMenu { protected: PanelQuad* box; BoxText* msg; FEMenuEntry* yes; FEMenuEntry* no; int selected; bool done; public: virtual void Init(); };\nvoid PAL60FrontEnd::Init( void )\n{\n\tint w = nglGetScreenWidth( );\n\tint h = nglGetScreenHeight( );\n\n\tint width = w / 2;\n\tint height = h / 2;\n\n\tint left = width - ( width / 2 );\n\tint top = height - ( height / 2 );\n\n\t// I should go to Hell for this sort of buggery.\n\tyes->SetPos( left + ( width / 4 ), h - top - ( height / 4 ) );\n\tyes->right = no;\n\tno->SetPos( w - left - ( width / 4 ), h - top - ( height / 4 ) );\n\tno->left = yes;\n\n\tmsg = NEW BoxText( &manager->font_bold_old,\n\t\t\t\t\t\t\t\t\t\t ksGlobalTextArray[GT_FE_MENU_PAL60],\n\t\t\t\t\t\t\t\t\t\t width,\n\t\t\t\t\t\t\t\t\t\t height - ( height / 4 ) );\n\tmsg->color = manager->white;\n\t// gutter space\n\tmsg->makeBox( width - 15, height - 15 );\n\n\tbox = NEW PanelQuad( \"box_pal60\" );\n\t// FIXME: make wider\n\tbox->Init( left, top, left + width, top + height,\n\t\t\t\t\t\t 0.0f, 0.0f, 1.0f, 0.75f,\n\t\t\t\t\t\t 0.0f, 0.0f,\n\t\t\t\t\t\t 0.0f, 0.0f,\n\t\t\t\t\t\t 50.0f,\n\t\t\t\t\t\t identity_matrix );\n\n\tFEGraphicalMenu::Init( );\n}\n",
+      "status": "different",
+      "target_size": 1032
+    }
+  ],
+  "raw_name": "Init__13PAL60FrontEnd"
+}
