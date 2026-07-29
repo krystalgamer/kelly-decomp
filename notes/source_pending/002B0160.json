@@ -1,0 +1,15 @@
+{
+  "address": "0x002B0160",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c2ec41ee40bea3ca167cc2188273c81f39db4de0",
+      "notes": "# FIRST PASS wave 154 lane B3\n\nExact released source tested once for `0x002B0160 _M_insert__t8_Rb_tree5ZP6regionZP6regionZt9_Identity1ZP6regionZt4less1ZP6regionZt12my_allocator1ZP6regionP18_Rb_tree_node_baseT1RCP6region`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <stl_tree.h>\n\nclass region;\ntemplate class _Rb_tree<region *, region *, _Identity<region *>, less<region *>, my_allocator<region *> >;\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_M_insert__t8_Rb_tree5ZP6regionZP6regionZt9_Identity1ZP6regionZt4less1ZP6regionZt12my_allocator1ZP6regionP18_Rb_tree_node_baseT1RCP6region"
+}
