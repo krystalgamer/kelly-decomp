@@ -1,0 +1,23 @@
+{
+  "address": "0x00155FD0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "de9da2db217de3482a96648e95c0494a2597fcf6",
+      "candidate_size": 484,
+      "compared_bytes": 520,
+      "compared_instructions": 130,
+      "emitted_name": "Draw__11FEMenuEntry",
+      "instruction_score": 6.9231,
+      "matching_bytes": 173,
+      "matching_instructions": 9,
+      "notes": "FIRST PASS wave100 A2\nTarget: 0x00155FD0 Draw__11FEMenuEntry (520/0x208), KS/SRC/ks/FEMenu.cpp\nAttempts before: 0\nAttempt 1: exact released Draw body with minimal self-contained declarations and LF line endings\nResult: different; byte score 33.2692; instruction score 6.9231; candidate size 484; target size 520\nExactly one candidate was tested. No retry, diff chase, build, finalization, integration, queue edit, tracked edit, commit, or push.",
+      "score": 33.2692,
+      "source": "typedef unsigned char uint8;\ntypedef unsigned int uint32;\n\nclass color32\n{\npublic:\n    union {\n        struct { uint8 b, g, r, a; } c;\n        uint32 i;\n    };\n\n    color32(uint32 value = 0) : i(value) {}\n    color32(uint8 r, uint8 g, uint8 b, uint8 a = 255)\n    {\n        c.b = b;\n        c.g = g;\n        c.r = r;\n        c.a = a;\n    }\n    uint8 get_red() const { return c.r; }\n    uint8 get_green() const { return c.g; }\n    uint8 get_blue() const { return c.b; }\n    uint8 get_alpha() const { return c.a; }\n    void set_alpha(uint8 value) { c.a = value; }\n    const color32 &operator=(const color32 &value)\n    {\n        i = value.i;\n        return *this;\n    }\n};\n\nstruct TextVTable {\n    char padding[8];\n    short adjustment;\n    short reserved;\n    void (*draw)(void *);\n};\n\nstruct MultiLineString {\n    TextVTable *vtable;\n    char padding[0x3c];\n    bool no_color;\n    char padding2[3];\n    color32 color;\n\n    void Draw()\n    {\n        TextVTable *table = vtable;\n        table->draw((char *)this + table->adjustment);\n    }\n};\n\nstruct FEMenu {\n    char padding[0x20];\n    color32 color;\n    color32 color_high;\n    color32 color_high_alt;\n    char padding2[0x10];\n    unsigned int flags;\n};\n\nclass FEMenuEntry {\n    int entry_num;\n    FEMenuEntry *next;\n    FEMenuEntry *previous;\n    FEMenu *menu;\n    bool highlight;\n    bool disabled;\n    char padding[2];\n    void *ent;\n    color32 high_ent_color;\n    color32 norm_ent_color;\n    MultiLineString *text;\n    float highlight_intensity;\n    float highlight_timer;\n    int disabled_alpha;\n    color32 special_color;\n    color32 special_color_high;\n    bool has_special_color;\n    bool no_flash;\n    char padding2[2];\n    float special_scale;\n    float special_scale_high;\n    bool has_special_scale;\n\npublic:\n    void Draw();\n};\n\nenum {\n    FEMENU_HAS_COLOR_HIGH_ALT = 0x10,\n    FEMENU_DONT_SKIP_DISABLED = 0x40,\n    FEMENU_NO_FLASHING = 0x100,\n    FEMENU_NORM_COLOR_NO_FLASH = 0x200\n};\n\nvoid FEMenuEntry::Draw()\n{\n    uint8 r, g, b, a;\n\n    if (highlight && (!(menu->flags & FEMENU_DONT_SKIP_DISABLED) || !disabled))\n    {\n        color32 ch = menu->color_high;\n        color32 c = menu->color;\n        if (menu->flags & FEMENU_HAS_COLOR_HIGH_ALT)\n            c = menu->color_high_alt;\n        if (has_special_color)\n        {\n            c = special_color;\n            ch = special_color_high;\n        }\n\n        if (menu->flags & FEMENU_NO_FLASHING || no_flash)\n        {\n            if (menu->flags & FEMENU_NORM_COLOR_NO_FLASH)\n                text->color = c;\n            else\n                text->color = ch;\n            if (disabled)\n                text->color.set_alpha(disabled_alpha);\n        }\n        else\n        {\n            r = (int)(c.get_red() + (highlight_intensity + .5f) *\n                (ch.get_red() - c.get_red()));\n            g = (int)(c.get_green() + (highlight_intensity + .5f) *\n                (ch.get_green() - c.get_green()));\n            b = (int)(c.get_blue() + (highlight_intensity + .5f) *\n                (ch.get_blue() - c.get_blue()));\n            a = ch.get_alpha();\n            text->color = color32(r, g, b, a);\n        }\n    }\n    else\n    {\n        if (has_special_color)\n            text->color = special_color;\n        else\n            text->color = menu->color;\n        if (disabled)\n            text->color.set_alpha(disabled_alpha);\n    }\n\n    text->Draw();\n}\n",
+      "status": "different",
+      "target_size": 520
+    }
+  ],
+  "raw_name": "Draw__11FEMenuEntry"
+}
