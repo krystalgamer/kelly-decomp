@@ -1,0 +1,15 @@
+{
+  "address": "0x001B5CD0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c54913226a600a813878f2f5d22dcd692638fa12",
+      "notes": "# FIRST PASS wave 129 lane A3\n\nExact released source tested once for `0x001B5CD0 Draw__13BoardFrontEnd`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x001B5CD0 Draw__13BoardFrontEnd\n// Reference: KS/SRC/ks/BoardFrontEnd.cpp\n// Replace this file with one self-contained candidate function.\n#include \"global.h\"\n\n#if _XBOX\n#include \"xbglobals.h\"\n#endif\n\n#include \"FrontEndManager.h\"\n#include \"BoardFrontEnd.h\"\n#include \"unlock_manager.h\"\n\nextern game* g_game_ptr;\n\nvoid BoardFrontEnd::Draw()\n{\n\tif(wait_for_camera) return;\n\tif(arrow_counter >= 0) arrow_counter--;\n\tif(arrow_counter < 0 && arrow_counter > -5)\n\t{\n\t\tarrow_counter = -5;\n\t\tarrows[0][0]->TurnOn(true);\n\t\tarrows[0][1]->TurnOn(false);\n\t\tarrows[1][0]->TurnOn(true);\n\t\tarrows[1][1]->TurnOn(false);\n\t}\n\n\tFEMultiMenu::Draw();\n\n\t// says \"LOCKED\" if not unlocked\n\tboard_stats->Draw();\n\n\tif(unlocked)\n\t{\n\t\tfor(int i=0; i<4; i++)\n\t\t{\n\t\t\tgauge_labels[i]->Draw();\n\t\t\ttop_gauge_labels[i]->Draw();\n\t\t\tred_gauges[i]->Draw(0);\n\t\t}\n\n\t\theight->Draw();\n\t\twidth->Draw();\n\t\tthick->Draw();\n\t\ttail->Draw();\n\t\theight_label->Draw();\n\t\twidth_label->Draw();\n\t\tthick_label->Draw();\n\t\ttail_label->Draw();\n\t\tcomb_stats->Draw();\n\t}\n\n\tif(sys->multiplayer)\n\t{\n\t\tif(sys->multi_1) players[0]->Draw();\n\t\telse players[1]->Draw();\n\t}\n\telse header->Draw();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Draw__13BoardFrontEnd"
+}
