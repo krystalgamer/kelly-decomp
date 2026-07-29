@@ -1,0 +1,23 @@
+{
+  "address": "0x00105A98",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "29e64374d1ae1c0427dca04220c59c1f349a8840",
+      "candidate_size": 468,
+      "compared_bytes": 476,
+      "compared_instructions": 119,
+      "emitted_name": "get_ifc_num__12ai_interfaceRC7pstringRf",
+      "instruction_score": 32.7731,
+      "matching_bytes": 232,
+      "matching_instructions": 39,
+      "notes": "FIRST PASS wave88 B1\nTarget: 0x00105A98 get_ifc_num__12ai_interfaceRC7pstringRf (476/0x1DC), game/files_ai\nReference: kelly-slaters-pro-surfer/KS/SRC/ai_interface.cpp\nAttempts before: 0\nAttempt 1: exact released body with minimal faithful self-contained declarations\nResult: different; byte score 48.7395; instruction score 32.7731; candidate size 468; target size 476\nThe first two harness command forms failed before candidate preparation/testing (missing `python`, then omitted `--candidate`); exactly one candidate attempt was recorded.\nNo alternatives, candidate retries, integration, finalization, build, or tracked-file changes.",
+      "score": 48.7395,
+      "source": "typedef float rational_t;\ntypedef unsigned long uint64;\n\nclass pstring\n{\n  uint64 pchunk[4];\n  void pack_string(const char *);\npublic:\n  pstring(const char *target_string)\n  {\n    pack_string(target_string);\n  }\n\n  bool operator==(const pstring &check_me) const\n  {\n    for (unsigned i=0; i<4; ++i)\n    {\n      if (pchunk[i] != check_me.pchunk[i])\n        return false;\n    }\n    return true;\n  }\n};\n\nclass entity;\n\nclass generic_interface\n{\npublic:\n  virtual ~generic_interface();\n};\n\nclass entity_interface : public generic_interface\n{\nprotected:\n  entity *my_entity;\n};\n\nclass ai_interface : public entity_interface\n{\nprotected:\n  unsigned int flags;\n\npublic:\n  enum\n  {\n    _AI_ACTIVE = 0x00000001,\n    _AI_REACHED_DEST = 0x00000040,\n    _AI_COSMETIC = 0x00000080\n  };\n\n  inline bool is_flagged(unsigned int f) const\n  {\n    return((flags & f) != 0);\n  }\n\n  inline bool is_active() const\n  {\n    return(is_flagged(_AI_ACTIVE) && my_entity != 0);\n  }\n\n  inline bool reached_dest() const\n  {\n    return(is_flagged(_AI_REACHED_DEST));\n  }\n\n  inline bool cosmetic() const\n  {\n    return(is_flagged(_AI_COSMETIC));\n  }\n\n  bool get_ifc_num(const pstring &att, rational_t &val);\n};\n\n#define IFC_INTERNAL_GET_MACRO(a,b) { static pstring pstring_get(a); if(att == pstring_get) { val = b; return(true); } }\n#define IFC_INTERNAL_FUNC_MACRO(a,b) { static pstring pstring_func(a); if(att == pstring_func) { b; return(true); } }\n\nbool ai_interface::get_ifc_num(const pstring &att, rational_t &val)\n{\n  IFC_INTERNAL_FUNC_MACRO(\"AI_ACTIVE\", is_active());\n  IFC_INTERNAL_FUNC_MACRO(\"AI_COSMETIC\", cosmetic());\n#if 0 // BIGCULL\n  IFC_INTERNAL_GET_MACRO(\"AI_EYE_ARC\", eyes->detection_arc);\n  IFC_INTERNAL_GET_MACRO(\"AI_EYE_ARC_Y\", eyes->detection_arc_y);\n  IFC_INTERNAL_GET_MACRO(\"AI_EYE_MIN\", eyes->min_dist);\n  IFC_INTERNAL_GET_MACRO(\"AI_EYE_MAX\", eyes->max_dist);\n  IFC_INTERNAL_GET_MACRO(\"AI_EAR_ARC\", ears->detection_arc);\n  IFC_INTERNAL_GET_MACRO(\"AI_EAR_MIN\", ears->min_dist);\n  IFC_INTERNAL_GET_MACRO(\"AI_EAR_MAX\", ears->max_dist);\n#endif // BIGCULL\n  IFC_INTERNAL_GET_MACRO(\"AI_REACHED_DEST\", reached_dest());\n\n  return(false);\n}\n",
+      "status": "different",
+      "target_size": 476
+    }
+  ],
+  "raw_name": "get_ifc_num__12ai_interfaceRC7pstringRf"
+}
