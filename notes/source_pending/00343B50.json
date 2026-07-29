@@ -1,0 +1,23 @@
+{
+  "address": "0x00343B50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0483ed7dc68159045fd8e13ffd4a460e5756eb1c",
+      "candidate_size": 452,
+      "compared_bytes": 508,
+      "compared_instructions": 127,
+      "emitted_name": "insert_device__9input_mgrP12input_device",
+      "instruction_score": 8.6614,
+      "matching_bytes": 122,
+      "matching_instructions": 11,
+      "notes": "# FIRST PASS wave95 A1\n\n- Target: `0x00343B50 insert_device__9input_mgrP12input_device` (508 / `0x1FC`), `game/files_vsim`.\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/inputmgr.cpp:267-282`.\n- Confirmed attempts0 before preparation/testing (`not prepared`).\n- Candidate: LF-only exact released body with minimal faithful self-contained declarations and no headers.\n- Sole attempt: `different`; byte score 24.0157% (122/508), instruction score 8.6614% (11/127); candidate 452 bytes, target 508 bytes.\n- Candidate SHA-1: `0483ed7dc68159045fd8e13ffd4a460e5756eb1c`.\n- Exactly one candidate and one harness invocation. No retry, alternatives, chase, build, finalize, integration, git mutation, or tracked edits.",
+      "score": 24.0157,
+      "source": "enum device_id_t\n{\n  INVALID_DEVICE_ID = -1,\n  JOYSTICK1_DEVICE = 1,\n  AI_JOYSTICK = 9,\n  KEYBOARD1_DEVICE = 10,\n  MOUSE1_DEVICE = 11\n};\n\nclass input_device\n{\npublic:\n  device_id_t device_id;\n  virtual ~input_device();\n  virtual device_id_t get_id() const;\n};\n\ntemplate<class T>\nclass vector\n{\npublic:\n  typedef T* iterator;\n  iterator begin();\n  iterator end();\n  void push_back(const T&);\n};\n\ntemplate<class Iterator, class T>\nIterator find(Iterator first, Iterator last, const T& value)\n{\n  while(first != last && !(*first == value))\n    ++first;\n  return first;\n}\n\ntypedef vector<input_device *> device_map_t;\n\nclass input_mgr\n{\n  char singleton_layout[8];\n  void *rumble_ptr;\n  device_map_t device_map;\n  char control_map[12];\n  int default_controller;\n  unsigned int flags;\n  input_device *joystick_devices[9];\n  input_device *keyboard_devices[1];\n  input_device *mouse_devices[1];\npublic:\n  void insert_device(input_device * device);\n};\n\n#define IS_JOYSTICK_DEVICE(id) ((id) >= JOYSTICK1_DEVICE && (id) <= AI_JOYSTICK)\n#define DEVICE_ID_TO_JOYSTICK_INDEX(id) ((id) - JOYSTICK1_DEVICE)\n#define IS_KEYBOARD_DEVICE(id) ((id) >= KEYBOARD1_DEVICE && (id) <= KEYBOARD1_DEVICE)\n#define DEVICE_ID_TO_KEYBOARD_INDEX(id) ((id) - KEYBOARD1_DEVICE)\n#define IS_MOUSE_DEVICE(id) ((id) >= MOUSE1_DEVICE && (id) <= MOUSE1_DEVICE)\n#define DEVICE_ID_TO_MOUSE_INDEX(id) ((id) - MOUSE1_DEVICE)\n\n#define USE_STL_MAP_FOR_DEVICES 0\n\nvoid input_mgr::insert_device( input_device * device )\n{\n#if USE_STL_MAP_FOR_DEVICES\n\tdevice_map[device->get_id()]=device;\n#else\n\tif(find(device_map.begin(), device_map.end(), device) == device_map.end())\n\t\tdevice_map.push_back(device);\n#endif\n\t\n\tif(IS_JOYSTICK_DEVICE(device->get_id()))\n\t\tjoystick_devices[DEVICE_ID_TO_JOYSTICK_INDEX(device->get_id())] = device;\n\telse if(IS_KEYBOARD_DEVICE(device->get_id()))\n\t\tkeyboard_devices[DEVICE_ID_TO_KEYBOARD_INDEX(device->get_id())] = device;\n\telse if(IS_MOUSE_DEVICE(device->get_id()))\n\t\tmouse_devices[DEVICE_ID_TO_MOUSE_INDEX(device->get_id())] = device;\n}\n",
+      "status": "different",
+      "target_size": 508
+    }
+  ],
+  "raw_name": "insert_device__9input_mgrP12input_device"
+}
