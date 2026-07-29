@@ -1,0 +1,16 @@
+{
+  "address": "0x0020A8D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c609acb9b90ea7c7dcb80856b916fdd24ee9b18e",
+      "error": "Candidate did not emit update__17generic_anim_miscbN21Pf; emitted functions: []",
+      "notes": "# FIRST PASS wave 136 lane A5\n\nExact released source tested once for `0x0020A8D8 update__17generic_anim_miscbN21Pf`. Attempts before: 0. Result `symbol_missing`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x0020A8D8 update__17generic_anim_miscbN21Pf\n// Reference: KS/SRC/ks/floatobj.cpp\n// Replace this file with one self-contained candidate function.\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "update__17generic_anim_miscbN21Pf"
+}
