@@ -1,0 +1,15 @@
+{
+  "address": "0x001FB038",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8b0708c5a352efb005000f1e88812efd6c27a874",
+      "notes": "# FIRST PASS wave 116 lane B4\n\nExact released body tested once for `0x001FB038 create_from_file__11beach_eventR11text_parseri`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "beach_event* beach_event::create_from_file (text_parser& parser, int timer_relative)\r\n{\r\n  beach_event *event = NULL;\r\n  char *argp[32];\r\n  int argc = 0;\r\n  char type[64];\r\n\r\n  // event type\r\n  parser.get_token (false, false);\r\n  strcpy (type, parser.token);\r\n\r\n  // store all parameters for later use\r\n  while (parser.get_token (false, true))\r\n  {\r\n    // Evan, why can't I use strdup ?\r\n//    argp[argc++] = strdup (parser.token);\r\n    argp[argc] = (char*)malloc (strlen (parser.token) + 1);\r\n    strcpy (argp[argc], parser.token);\r\n    argc++;\r\n  }\r\n\r\n  if (!strcmp (type, \"tube_spit\"))\r\n    event = NEW beach_event (&ks_fx_create_tube_spit);\r\n  else if (!stricmp (type, \"lightning_l\"))\r\n\t  event = NEW beach_event (&ks_fx_create_lightning_l);\r\n  else if (!stricmp (type, \"lightning_r\"))\r\n\t  event = NEW beach_event (&ks_fx_create_lightning_r);\r\n  else if (!stricmp (type, \"photo\"))\r\n\t  event = NEW beach_event (&TakePhoto);\r\n  else\r\n  {\r\n    nglPrintf (\"Unknown event type: %s\\n\", type);\r\n  }\r\n\r\n  if (event)\r\n  {\r\n    event->timer_type = timer_relative;\r\n    if (!event->parse_params (argp, argc))\r\n    {\r\n      nglPrintf (\"Cannot parse params for %s, ignoring event.\\n\", type);\r\n      delete event;\r\n      event = NULL;\r\n    }\r\n  }\r\n\r\n  while (argc)\r\n    free (argp[--argc]);\r\n\r\n  return event;\r\n}\r\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "create_from_file__11beach_eventR11text_parseri"
+}
