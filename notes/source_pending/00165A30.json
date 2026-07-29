@@ -1,0 +1,23 @@
+{
+  "address": "0x00165A30",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0ea9be6224879aca8dc6379dd160eac9c0012e13",
+      "candidate_size": 500,
+      "compared_bytes": 500,
+      "compared_instructions": 125,
+      "emitted_name": "Draw__17AnalogClockWidget",
+      "instruction_score": 44.0,
+      "matching_bytes": 270,
+      "matching_instructions": 55,
+      "notes": "FIRST PASS wave92 B5\n\nTarget: 0x00165A30 Draw__17AnalogClockWidget (500/0x1F4), game/files_frontend.\nReference: kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_analogclock.cpp.\nConfirmed attempts0 before preparation.\n\nAttempt 1: different; byte score 54.0% (270/500), instruction score 44.0% (55/125), candidate size 500, target size 500.\nCandidate SHA-1: 0ea9be6224879aca8dc6379dd160eac9c0012e13.\n\nThe candidate uses the exact released function body with minimal faithful self-contained declarations, LF line endings, and no unavailable headers.\nExactly one candidate and one harness invocation. No alternatives, assembly implementation, annotations, variants, retries, attempts 2-5, post-test chase, finalization, integration, build, or git mutation.\n\nPacket: false. Tracked: false. Finalized: false. Integrated: false.",
+      "score": 54.0,
+      "source": "typedef float time_value_t;\n\nbool TIMER_IsInfiniteDuration();\n\nclass IGOWidget\n{\nprotected:\n\tbool display;\npublic:\n\tvirtual ~IGOWidget();\n\tvirtual void SetDisplay(const bool);\n\tvirtual void Update(const float);\n\tvirtual void Draw(void);\n};\n\nclass PanelQuad\n{\npublic:\n\tvirtual ~PanelQuad();\n\tvirtual void Init(float, float, float, float, float, float, float, float, float, float, float, float, float, void *);\n\tvirtual void TurnOn(bool);\n\tvirtual void SetLayer(int);\n\tvirtual void Rotate(float);\n\tvirtual void Rotate(float, float, float);\n\tvirtual void Update(time_value_t);\n\tvirtual void Draw(int = 0, float = -1.0f);\n};\n\nclass PanelQuad4 : public PanelQuad\n{\n};\n\nclass TextString\n{\npublic:\n\tvirtual ~TextString();\n\tvirtual void Update(time_value_t);\n\tvirtual void Draw();\n};\n\nclass AnalogClockWidget : public IGOWidget\n{\nprivate:\n\tenum { MAX_TIME_SEGMENTS = 60 };\n\tint clockMin;\n\tfloat clockSec;\n\tfloat elapsedInterval;\n\tPanelQuad *clockHandPQ;\n\tPanelQuad *clockFramePQ;\n\tPanelQuad *clockFacePQ;\n\tPanelQuad *num1PQ;\n\tPanelQuad *num2PQ;\n\tPanelQuad *num3PQ;\n\tPanelQuad *num4PQ;\n\tPanelQuad *num5PQ;\n\tPanelQuad *infPQ;\n\tPanelQuad4 *timeSegs[MAX_TIME_SEGMENTS];\n\tfloat handCenterX, handCenterY;\n\tint score;\n\tTextString *scoreText;\npublic:\n\tvirtual ~AnalogClockWidget();\n\tvirtual void SetDisplay(const bool);\n\tvirtual void Init(void *, void *);\n\tvirtual void Update(const float);\n\tvirtual void Draw(void);\n\tvirtual void SetScore(const int);\n\tvirtual void ShowElapsedTime(const float);\n\tvirtual void HideElapsedTime(void);\n};\n\nvoid AnalogClockWidget::Draw(void)\n{\n\tint i;\n\n\tIGOWidget::Draw();\n\n\tif (!display)\n\t\treturn;\n\n\tif (!TIMER_IsInfiniteDuration())\n\t{\n\t\tnum1PQ->Draw(0);\n\t\tnum2PQ->Draw(0);\n\t\tnum3PQ->Draw(0);\n\t\tnum4PQ->Draw(0);\n\t\tnum5PQ->Draw(0);\n\t}\n\telse\n\t\tinfPQ->Draw(0);\n\t\n\tclockFramePQ->Draw(0);\n\tclockFacePQ->Draw(0);\n\tif (!TIMER_IsInfiniteDuration())\n\t\tclockHandPQ->Draw(0);\n\n\tfor (i = 0; i<MAX_TIME_SEGMENTS; i++)\n\t{\n\t\ttimeSegs[i]->Draw(0);\n\t}\n\n\tscoreText->Draw();\n}\n",
+      "status": "different",
+      "target_size": 500
+    }
+  ],
+  "raw_name": "Draw__17AnalogClockWidget"
+}
