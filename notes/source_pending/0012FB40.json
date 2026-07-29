@@ -1,0 +1,15 @@
+{
+  "address": "0x0012FB40",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "aa99d4b039fceb271190e0b4cb0b215dae5a5b75",
+      "notes": "# FIRST PASS wave 101 lane A5\n\nExact released body tested once for `0x0012FB40 compute_sector__6entityR7terrainb`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"../../../../../kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"../../../../../kelly-slaters-pro-surfer/KS/SRC/entity.h\"\n#include \"../../../../../kelly-slaters-pro-surfer/KS/SRC/terrain.h\"\n#include \"../../../../../kelly-slaters-pro-surfer/KS/SRC/profiler.h\"\n\nstatic vector<region_node*> new_regions(32);\n\nvoid entity::compute_sector( terrain& ter, bool use_high_res_intersect )\n{\n#ifndef REGIONCULL\n  START_PROF_TIMER(proftimer_compute_sector);\n\n  set_needs_compute_sector(false);\n\n  // while forced to region(s), sector is irrelevant;\n  // also, we're not allowing limbs to compute their sector\n\n  if ( !is_flagged(EFLAG_REGION_FORCED) && !is_a_limb_body() )\n  {\n    vector3d curpos = get_abs_position();\n    rational_t poshash = POSHASH(curpos);\n    if ( poshash != last_compute_sector_position_hash )\n    {\n      last_compute_sector_position_hash = poshash;\n      sector* sec = ter.find_sector( curpos ); //terrain_position() );\n      if (sec)\n      {\n        assert( sec->get_region() );\n        if ( terrain_radius() > 0 )\n        {\n          // store region of origin\n          center_region = sec->get_region();\n          // entity obviously intersects the region he currently belongs to;\n          // adjacent regions will be checked recursively\n          // NOTE: new_regions is a local workspace for listing the regions he intersects\n          new_regions.resize(0);\n          region::prepare_for_visiting();\n          _intersect( sec->get_region(), use_high_res_intersect );\n          // now remove entity from regions he has departed and add him to regions he has entered\n          _update_regions();\n        }\n        else\n        {\n          // entity with zero radius\n          if ( !in_regions.empty() )\n          {\n            if ( sec->get_region() != *in_regions.begin() )\n            {\n              // entity moved from one region to another\n              remove_from_regions();\n              center_region = sec->get_region();\n              add_region( sec->get_region() );\n            }\n          }\n          else\n          {\n            center_region = sec->get_region();\n            add_region( sec->get_region() );\n          }\n        }\n      }\n//      set_flag(EFLAG_MISC_COMP_SECT_THIS_FRAME,true);\n      my_sector = sec;\n    }\n  }\n\n  ADD_PROF_COUNT(profcounter_compute_sector, 1);\n  STOP_PROF_TIMER(proftimer_compute_sector);\n#endif\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "compute_sector__6entityR7terrainb"
+}
