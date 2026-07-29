@@ -1,0 +1,15 @@
+{
+  "address": "0x001A8C10",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b9d1bf132856bd3284585e83ffd7e9ca59b16414",
+      "notes": "# FIRST PASS wave 163 lane B3\n\nExact released source tested once for `0x001A8C10 __16CompEndMenuClassP12FEMenuSystemiiG7color32N24`. Attempts before: 0. Result `compile_failed`, score 0.0000%. Capacity-only child failures produced no attempts for several lanes; one Sol retry succeeded and remaining lanes were remediated directly. No source retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"../../../../../kelly-slaters-pro-surfer/KS/SRC/ks/global.h\"\n#include \"../../../../../kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.h\"\n\nCompEndMenuClass::CompEndMenuClass(FEMenuSystem* m, int x, int y, color32 c, color32 ch, color32 cha)\n{\n\tcons(m, x, y, c, ch, cha);\n\tsys = (PauseMenuSystem*) m;\n\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_RESTART_COMP], this));\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_BEACH_GOALS], this));\n\toptionsEntry = NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_OPTIONS], this);\n\tAdd(optionsEntry);\n\tFEMenuEntry *replayEntry = NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_REPLAY], this);\n\tif (os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_REPLAY))\n\t\treplayEntry->Disable(true);\n\tAdd(replayEntry);\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_BEACH_SELECT], this));\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_RETURN_FE], this));\n\t\n\tscale_high = 1.0f;\n\tflags |= FEMENU_WRAP;\n\tSetHelpText(HF_UP | HF_DOWN | HF_SELECT);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__16CompEndMenuClassP12FEMenuSystemiiG7color32N24"
+}
