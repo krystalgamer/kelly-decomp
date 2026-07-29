@@ -1,0 +1,23 @@
+{
+  "address": "0x001DF068",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "45f3d6738cd7aa79cbcb33253a2a27973b225562",
+      "candidate_size": 616,
+      "compared_bytes": 616,
+      "compared_instructions": 154,
+      "emitted_name": "orthonormalize__9matrix4x4",
+      "instruction_score": 7.1429,
+      "matching_bytes": 166,
+      "matching_instructions": 11,
+      "notes": "# FIRST PASS wave 102 lane B2\n\nExact released body tested once for `0x001DF068 orthonormalize__9matrix4x4`. Result `different`, score 26.9481%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 26.9481,
+      "source": "extern \"C\" float sqrtf(float);\n\ntypedef float rational_t;\n\nclass vector4d {\npublic:\n    rational_t x, y, z, w;\n\n    rational_t length2() const { return x*x + y*y + z*z; }\n    void normalize() {\n        rational_t len2 = length2();\n        if (len2 > 1.0e-10f) {\n            rational_t invlen = 1.0f / sqrtf(len2);\n            x *= invlen;\n            y *= invlen;\n            z *= invlen;\n        }\n    }\n    vector4d &operator-=(const vector4d &v) {\n        x -= v.x; y -= v.y; z -= v.z;\n        return *this;\n    }\n    vector4d &operator=(const vector4d &v) {\n        x = v.x; y = v.y; z = v.z; w = v.w;\n        return *this;\n    }\n};\n\ninline rational_t dot(const vector4d &a, const vector4d &b) {\n    return a.x*b.x + a.y*b.y + a.z*b.z;\n}\n\ninline vector4d operator*(rational_t s, const vector4d &v) {\n    vector4d r;\n    r.x=s*v.x; r.y=s*v.y; r.z=s*v.z;\n    return r;\n}\n\ninline vector4d cross(const vector4d &a, const vector4d &b) {\n    vector4d r;\n    r.x=a.y*b.z-a.z*b.y;\n    r.y=a.z*b.x-a.x*b.z;\n    r.z=a.x*b.y-a.y*b.x;\n    return r;\n}\n\nclass matrix4x4 {\npublic:\n    vector4d x __attribute__((aligned(16)));\n    vector4d y, z, w;\n    void orthonormalize() __asm__(\"orthonormalize__9matrix4x4\");\n};\n\nvoid matrix4x4::orthonormalize() {\n    z.normalize();\n    y -= dot(z, y) * z;\n    y.normalize();\n    x = cross(y, z);\n}\n",
+      "status": "different",
+      "target_size": 532
+    }
+  ],
+  "raw_name": "orthonormalize__9matrix4x4"
+}
