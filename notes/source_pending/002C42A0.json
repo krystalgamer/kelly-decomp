@@ -1,0 +1,15 @@
+{
+  "address": "0x002C42A0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "51082cbcfcb3e546c50f45388deb5a234ac7a01a",
+      "notes": "# FIRST PASS wave 152 lane A2\n\nExact released source tested once for `0x002C42A0 collide_with_world__FP6cameraRC8vector3dfT1PQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x002C42A0 collide_with_world__FP6cameraRC8vector3dfT1PQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node\n// Reference: KS/SRC/camera.cpp\n// Replace this file with one self-contained candidate function.\n#include \"global.h\"\n\n#include \"camera.h\"\n#include \"geomgr.h\"\n#include \"hwmath.h\"\n#include \"wds.h\"\n#include \"game.h\"\n#include \"terrain.h\"\n#include \"inputmgr.h\"\n#include \"commands.h\"\n#include \"collide.h\"\n#include \"controller.h\"\n#include \"time_interface.h\"\n#include \"ai_interface.h\"\n#include \"msgboard.h\"\n#include \"console.h\"\n#include \"wave.h\"\n#include \"kellyslater_controller.h\"\n#include \"beachdata.h\"\n\n#define MAX_COLLISIONS 5\n\nstatic vector3d collide_with_world( camera * cam, const vector3d& p, rational_t r, const vector3d& v, region_node* start_region )\n{\n  vector3d tv = v;\n\n  // first see if v sends the sphere origin through any solid surface\n  region_node* hit_region = start_region;\n  if ( tv.length2() > 0.00001f )\n  {\n    vector3d hit_loc, hit_normal;\n    bool hit = find_intersection( p, p+tv,\n                                  start_region,\n                                  FI_COLLIDE_WORLD|FI_COLLIDE_CAMERA,\n                                  &hit_loc, &hit_normal,\n                                  &hit_region, NULL );\n    if ( hit )\n    {\n      // adjust tv to avoid going through surface\n      tv = hit_loc - p;\n      rational_t d = tv.length();\n      tv *= (d-0.01f) / d;\n    }\n  }\n\n  // now collide sphere with world\n  vector3d newp;\n  int collisions = 0;\n  bool valid = false;\n  bool first_hit_this_frame = true;\n  do\n  {\n    // update the position according to this trial\n    newp = p;\n    newp += tv;\n    vector3d n, pi;\n    rational_t d;\n    if ( !in_world( newp, r, v, hit_region, pi, true ) )\n    {\n      n = newp - pi;\n      d = n.length2();\n      if ( d > 0 )\n      {\n        d = __fsqrt( d );\n        n *= 1.0f / d;\n        tv = tv + (r+0.0001f-d)*n;\n        ++collisions;\n      }\n      else\n        collisions = MAX_COLLISIONS;\n      first_hit_this_frame = false;\n    }\n    else\n    {\n      valid = true;\n    }\n  } while ( !valid && collisions<MAX_COLLISIONS );\n\n  if ( valid )\n    return newp;\n  return p;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "collide_with_world__FP6cameraRC8vector3dfT1PQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node"
+}
