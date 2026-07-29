@@ -1,0 +1,15 @@
+{
+  "address": "0x00211538",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b070c21b582124128200a487653e64b4f23a05b3",
+      "notes": "# FIRST PASS wave 141 lane A4\n\nExact released source tested once for `0x00211538 Reset__22kellyslater_controller`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/kellyslater_controller.h\"\n#include \"KS/SRC/ks/board.h\"\n\nvoid kellyslater_controller::Reset(void)\n{\n\tpos.x\t\t\t= 0.8600f;\n\tpos.y\t\t\t= 4.0f;\n\tpos.z\t\t\t= 0.350f; //5.0f;\n\n//\tscript.Reset();\n\trot = vector3d (0,0,0);\t\t\t// current orientation angles\n\trotVel = vector3d (0,0,0);\t\t// current orientation angle velocities\n\trotAccel = vector3d (0,0,0);\t// current orientation angle accelerations\n\trotDest = vector3d (0,0,0);\t\t// destination orientation angle\n\trotDestVel = vector3d (0,0,0);\t// destination orientation angle velocities\n    velocity = ZEROVEC;\n\tCalcTransform(rot, pos);\n\n\twave_norm = YVEC;\n\twave_norm_lf = YVEC;\n\n\tdry = true;\n\tleft_hand_dry = true;\n\tright_hand_dry = true;\n\n\tif (get_on_board_anim == 0)\n\t\tget_on_board_anim = SURFER_ANIM_W_1_R_GOB;\n\n\tif (b_get_on_board_anim == 0)\n\t\tb_get_on_board_anim = BOARD_ANIM_W_1_R_GOB;\n\n\twip_phys_state = WIP_PHYS_DISMOUNT;\n\n\tspeed = 0.001f;\n\trideTimer = 0.0f;\n\tlastAnim = 0;\n\tbAnim = BOARD_ANIM_W_1_R_GOB;\n\tmAnim = SURFER_ANIM_W_1_R_GOB;\n\n\tspecialMeter.Reset();\n\t//float_meter.End();\n\tdid_celebration = false;\n\tdone_scoring = false;\n\tshakeoff = false;\n\tClearTricks();\n\n\t//  make sure surfer is on board and on the wave\n\tframe_advance(0.0f);\n\tif (get_owner())\n\t{\n\t\tentity_anim_tree *surfer_tr = get_owner()->get_anim_tree(ANIM_PRIMARY);\n\t\tif (surfer_tr)\n\t\t\tsurfer_tr->frame_advance(0.0f);\n\t}\n\n\tif (my_board_model)\n\t{\n\t\tentity_anim_tree *board_tr = my_board_model->get_anim_tree(ANIM_PRIMARY);\n\t\tif (board_tr)\n\t\t\tboard_tr->frame_advance(0.0f);\n\t}\n\n\tAlignSurferWithBoard(0);\n\tif (beach_cam_ptr) beach_cam_ptr->Reset();\n\tif (auto_cam_ptr) auto_cam_ptr->Reset();\n\tif (big_wave_cam_ptr) big_wave_cam_ptr->Reset();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Reset__22kellyslater_controller"
+}
