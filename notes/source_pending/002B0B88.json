@@ -1,0 +1,15 @@
+{
+  "address": "0x002B0B88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4ee40153311c23c98d2a6ed267f9e19a706fecbe",
+      "notes": "# FIRST PASS wave 131 lane A1\n\nExact released source tested once for `0x002B0B88 insert__t6vector2ZP10controllerZt12my_allocator1ZP10controllerPP10controllerUiRCP10controller`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"g++-2/stl_vector_shared.h\"\n\nclass controller;\n\ntemplate <class _Tp, class _Alloc>\nvoid vector<_Tp, _Alloc>::insert(iterator __position, unsigned int __n,\n                                 const _Tp& __x)\n{\n  if (__n != 0) {\n    if (unsigned int(_M_end_of_storage - _M_finish) >= __n) {\n      _Tp __x_copy = __x;\n      const unsigned int __elems_after = _M_finish - __position;\n      iterator __old_finish = _M_finish;\n      if (__elems_after > __n) {\n        uninitialized_copy(_M_finish - __n, _M_finish, _M_finish);\n        _M_finish += __n;\n        copy_backward(__position, __old_finish - __n, __old_finish);\n        fill(__position, __position + __n, __x_copy);\n      }\n      else {\n        uninitialized_fill_n(_M_finish, __n - __elems_after, __x_copy);\n        _M_finish += __n - __elems_after;\n        uninitialized_copy(__position, __old_finish, _M_finish);\n        _M_finish += __elems_after;\n        fill(__position, __old_finish, __x_copy);\n      }\n    }\n    else {\n      const unsigned int __old_size = size();\n      const unsigned int __len = __old_size + max(__old_size, __n);\n      iterator __new_start = _M_allocate(__len);\n      iterator __new_finish = __new_start;\n      __new_finish = uninitialized_copy(_M_start, __position, __new_start);\n      __new_finish = uninitialized_fill_n(__new_finish, __n, __x);\n      __new_finish\n        = uninitialized_copy(__position, _M_finish, __new_finish);\n      destroy(_M_start, _M_finish);\n      _M_deallocate(_M_start, _M_end_of_storage - _M_start);\n      _M_start = __new_start;\n      _M_finish = __new_finish;\n      _M_end_of_storage = __new_start + __len;\n    }\n  }\n}\n\ntemplate void vector<controller *, my_allocator<controller *> >::insert(\n    controller **, unsigned int, controller *const &);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "insert__t6vector2ZP10controllerZt12my_allocator1ZP10controllerPP10controllerUiRCP10controller"
+}
