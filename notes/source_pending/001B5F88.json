@@ -1,0 +1,15 @@
+{
+  "address": "0x001B5F88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f3689a47923db00a742bf6cf085d1a4f98c654e3",
+      "notes": "# FIRST PASS wave 121 lane A3\n\nExact released body tested once for `0x001B5F88 Select__13BoardFrontEnd`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n\n#if _XBOX\n#include \"xbglobals.h\"\n#endif\n\n#include \"FrontEndManager.h\"\n#include \"BoardFrontEnd.h\"\n#include \"unlock_manager.h\"\n\nextern game* g_game_ptr;\n\nvoid BoardFrontEnd::Select()\n{\n\tgame *game_ptr = app::inst()->get_game();\n\tint player_1_device = 1 << game_ptr->get_player_device( 0 );\n\tint player_2_device = 1 << game_ptr->get_player_device( 1 );\n\t\n\tint maxBoards = MAX_BOARDS + MAP_LOC_LAST;\n\n\t\n\tassert(current_board_index >= 0 && current_board_index < maxBoards);\n\n\tif(os_developer_options::inst()->is_flagged(os_developer_options::FLAG_REALISTIC_FE) && !unlocked) \n\t{\n\t\tSoundScriptManager::inst()->playEvent(SS_FE_ERROR);\t\t\n\t\treturn;\n\t}\n\tSoundScriptManager::inst()->playEvent(SS_FE_ONX);\t\t\n\tif(sys->multiplayer)\n\t\tif(sys->multi_1)\n\t\t{\n\t\t\tg_game_ptr->SetBoardIdx(0,current_board_index);\n\t\t\tsys->multi_1 = false;\n\t\t\tsys->MakeActive(GraphicalMenuSystem::BoardMenu);\n\n\t\t\tBoardData bd = SurferBoardArray[g_game_ptr->GetSurferIdx(1)][0];\n\t\t\tint size = bd.height_feet * 12 + bd.height_inches;\n\n\t\t\tmanager->em->UpdateBoardIndex(0, ROUND,size, true);\n\t\t\t\n\t\t}\n\t\telse\n\t\t{\n\t\t\tsys->SetDeviceFlags( player_1_device | player_2_device );\n\t\t\tmanager->em->ExitState();\n\t\t\tg_game_ptr->SetBoardIdx(1,current_board_index);\n\t\t\tsys->multi_1 = true;\n\t\t\tfrontendmanager.map_loading_screen = true;\n\t\t\tsys->PrepareToExit();\n\t\t}\n\telse\n\t{\n\t\tsys->SetDeviceFlags( player_1_device );\n\t\tmanager->em->ExitState();\n\t\tg_game_ptr->SetBoardIdx(0,current_board_index);\n\t\tif(manager->tmp_game_mode == GAME_MODE_PRACTICE)\n\t\t\tg_game_ptr->set_level(\"indoor\");\n\t\tfrontendmanager.map_loading_screen = true;\n\t\tsys->PrepareToExit();\n\t\tif (frontendmanager.tmp_game_mode == GAME_MODE_CAREER)\n\t\t\tg_career->SetMyBoardId(current_board_index);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Select__13BoardFrontEnd"
+}
