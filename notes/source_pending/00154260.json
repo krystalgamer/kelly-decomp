@@ -1,0 +1,15 @@
+{
+  "address": "0x00154260",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "45631b30ed324624ef4806b7ea0e41159ec07331",
+      "notes": "# FIRST PASS wave 121 lane B4\n\nExact released body tested once for `0x00154260 Update__9PanelAnimfRC9matrix4x4`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"kelly-slaters-pro-surfer/KS/SRC/ks/FEAnim.h\"\n\n//  Take a matrix from the parent panelanim, and use that to render this object.\nvoid PanelAnim::Update(float time, const matrix4x4& parent_matrix)\n{\n\tmatrix4x4 Xform = GetXFormMatrix( time );\n\n#if defined(TARGET_XBOX)\n  assert(Xform.is_valid());\n#endif /* TARGET_XBOX JIV DEBUG */\n\n\tXform = Xform*parent_matrix;\n\n#if defined(TARGET_XBOX)\n  assert(Xform.is_valid());\n#endif /* TARGET_XBOX JIV DEBUG */\n\n\tif(quad) quad->Xform = Xform;\n\tPanelAnim* kids = children;\n\twhile (kids != NULL)\n\t{\n\t\tkids->Update(time, Xform);\n\t\tkids = kids->next;\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Update__9PanelAnimfRC9matrix4x4"
+}
