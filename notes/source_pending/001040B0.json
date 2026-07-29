@@ -1,0 +1,23 @@
+{
+  "address": "0x001040B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2957e6297f4754c9e995bc28a43f269f6e901244",
+      "candidate_size": 348,
+      "compared_bytes": 488,
+      "compared_instructions": 122,
+      "emitted_name": "__12ai_interfaceP6entity",
+      "instruction_score": 1.6393,
+      "matching_bytes": 71,
+      "matching_instructions": 2,
+      "notes": "FIRST PASS wave90 B4\nTarget: 0x001040B0 __12ai_interfaceP6entity (488/0x1E8), game/files_ai\nReference: kelly-slaters-pro-surfer/KS/SRC/ai_interface.cpp\nAttempts before: 0\nAttempt 1: exact released constructor body with minimal faithful self-contained declarations, LF line endings, and no headers\nResult: different; score 14.5492 (instruction score 1.6393), candidate 348 bytes versus target 488 bytes.\nExactly one candidate was tested. Packet: false. Tracked: false. Finalized: false. Integrated: false.\nNo alternatives, assembly, annotations, variants, retries, attempts 2-5, diff chasing, build, finalization, integration, queue edits, tracked edits, commit, or push were performed.",
+      "score": 14.5492,
+      "source": "class entity;\nclass ai_goal;\nclass ai_locomotion;\n\nextern \"C\" void *memmove(void *, const void *, unsigned int);\nvoid *arch_malloc(unsigned int, const char *, int);\nvoid arch_free(void *);\n\nclass entity_interface {\nprotected:\n    entity *my_entity;\npublic:\n    entity_interface(entity *ent) : my_entity(ent) {}\n    virtual ~entity_interface() {}\n};\n\ntemplate<class T> struct list_node {\n    list_node *next;\n    list_node *prev;\n    T value;\n};\n\ntemplate<class T> class list {\n    list_node<T> node;\npublic:\n    void push_back(const T& value)\n    {\n        list_node<T> *n = (list_node<T> *)arch_malloc(sizeof(list_node<T>), \"C:/KS/SRC/ai_interface.cpp\", 0);\n        n->value = value;\n        n->next = &node;\n        n->prev = node.prev;\n        node.prev->next = n;\n        node.prev = n;\n    }\n};\n\ntemplate<class T> class vector {\n    T *start;\n    T *finish;\n    T *end_of_storage;\npublic:\n    vector() : start(0), finish(0), end_of_storage(0) {}\n    void reserve(unsigned int n)\n    {\n        unsigned int count = finish - start;\n        if ((unsigned int)(end_of_storage - start) < n) {\n            T *p = (T *)arch_malloc(n * sizeof(T), \"C:/KS/SRC/ai_interface.cpp\", 0);\n            memmove(p, start, count * sizeof(T));\n            if (end_of_storage - start)\n                arch_free(start);\n            start = p;\n            finish = p + count;\n            end_of_storage = p + n;\n        }\n    }\n    void resize(unsigned int n)\n    {\n        if (n < (unsigned int)(finish - start))\n            finish = start + n;\n        else\n            while ((unsigned int)(finish - start) < n)\n                *finish++ = T();\n    }\n};\n\nclass ai_interface : public entity_interface {\nprotected:\n    unsigned int flags;\n    unsigned int team;\n    unsigned int enemy_team;\n    static list<ai_interface *> all_ai_interfaces;\n    ai_locomotion *locomotion;\n    vector<ai_goal *> goals;\n    ai_goal *current_goal;\n    entity *target;\n    float help_timer;\n    int disable_count;\npublic:\n    ai_interface(entity *ent);\n    virtual ~ai_interface();\n};\n\nai_interface::ai_interface(entity *ent)\n  : entity_interface(ent),\n  flags(0),\n  team(0),\n  enemy_team(0),\n  disable_count(0)\n{\n  locomotion = 0;\n\n  all_ai_interfaces.push_back(this);\n\n  target = 0;\n\n  current_goal = 0;\n\n  help_timer = 0.0f;\n\n  goals.reserve(10);\n  goals.resize(0);\n}\n",
+      "status": "different",
+      "target_size": 488
+    }
+  ],
+  "raw_name": "__12ai_interfaceP6entity"
+}
