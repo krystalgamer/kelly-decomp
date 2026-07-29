@@ -1,0 +1,23 @@
+{
+  "address": "0x001937D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2c06dc864764d3dedc3f603430927476f6dc38b0",
+      "candidate_size": 436,
+      "compared_bytes": 512,
+      "compared_instructions": 128,
+      "emitted_name": "StartFrontendFade__13BeachFrontEnd",
+      "instruction_score": 0.7812,
+      "matching_bytes": 95,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 95 lane A4\n\nConfirmed `attempts_used: 0` before testing. Prepared `0x001937D8 StartFrontendFade__13BeachFrontEnd` from exact reference path `KS/SRC/ks/BeachFrontEnd.cpp` and tested one LF candidate body.\n\nResult: `different`, score `18.5547%` (`95/512` matching bytes; instruction score `0.7812%`). No retry, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 18.5547,
+      "source": "struct fade_vtable\n{\n    char padding[0x60];\n    short adjustment;\n    short reserved;\n    void (*change_fade)(void *, bool, bool, float);\n};\n\nstruct menu_vtable\n{\n    char padding[0x4c];\n    short adjustment;\n    short reserved;\n    void (*change_fade)(void *, bool, bool, float);\n};\n\nstruct fade_item\n{\n    fade_vtable *vtable;\n};\n\nstruct menu_item\n{\n    menu_vtable *vtable;\n};\n\nstruct PanelQuad\n{\n    void ChangeFade(bool start, bool fade_in, float time);\n};\n\n__asm__(\".equ ChangeFade__9PanelQuadbT1f, 0x0014D078\");\n\nclass BeachFrontEnd\n{\n    char padding0[0x4c];\n    fade_item *main_item;\n    char padding1[0x7fc];\n    int selection;\n    char padding2[0x14];\n    fade_item *headers[3];\n    char padding3[0xc];\n    menu_item *entries[3][5];\n    char padding4[0x53c];\n    PanelQuad *fade_quads[2][9];\n    char padding5[0x8];\n    PanelQuad *extra_quad0;\n    PanelQuad *extra_quad1;\n    char padding6[0xf8];\n    int enabled;\n    int detailed;\n\npublic:\n    void StartFrontendFade();\n};\n\nstatic void change_fade(fade_item *item)\n{\n    fade_vtable *table = item->vtable;\n    table->change_fade((char *)item + table->adjustment, true, true, 1.0f);\n}\n\nstatic void change_fade(menu_item *item)\n{\n    menu_vtable *table = item->vtable;\n    table->change_fade((char *)item + table->adjustment, true, true, 1.0f);\n}\n\nvoid BeachFrontEnd::StartFrontendFade()\n{\n    if (enabled)\n    {\n        if (detailed)\n        {\n            for (int i = 0; i < 3; ++i)\n            {\n                change_fade(headers[i]);\n                for (int j = 0; j < 5; ++j)\n                    if (entries[selection][i])\n                        change_fade(entries[i][j]);\n            }\n\n            int row = entries[selection][0] != 0;\n            for (int i = 0; i < 9; ++i)\n                fade_quads[row][i]->ChangeFade(true, true, 1.0f);\n\n            extra_quad0->ChangeFade(true, true, 1.0f);\n            extra_quad1->ChangeFade(true, true, 1.0f);\n        }\n\n        change_fade(main_item);\n    }\n}\n",
+      "status": "different",
+      "target_size": 512
+    }
+  ],
+  "raw_name": "StartFrontendFade__13BeachFrontEnd"
+}
