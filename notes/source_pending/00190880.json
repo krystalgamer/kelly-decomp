@@ -1,0 +1,15 @@
+{
+  "address": "0x00190880",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a1e8ab80c7d0c3ae1856cf087c8b05ead1cedac8",
+      "notes": "# FIRST PASS wave 164 lane B3\n\nExact released source tested once for `0x00190880 OnActivate__13BeachFrontEnd`. Attempts before: 0. Result `compile_failed`, score 0.0000%. Capacity-only child failures and Sol retries produced no attempts for some lanes; those lanes were remediated directly. No source retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"../../../kelly-slaters-pro-surfer/KS/SRC/ks/BeachFrontEnd.cpp\"\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "OnActivate__13BeachFrontEnd"
+}
