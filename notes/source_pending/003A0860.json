@@ -1,0 +1,23 @@
+{
+  "address": "0x003A0860",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c4ec6a3f9984ad1fa752bfc710057e92404f4c0d",
+      "candidate_size": 728,
+      "compared_bytes": 728,
+      "compared_instructions": 182,
+      "emitted_name": "nglPagePSMCT16toPSMCT32__FiiPUcT2",
+      "instruction_score": 17.5824,
+      "matching_bytes": 311,
+      "matching_instructions": 32,
+      "notes": "# FIRST PASS wave 133 lane B1\n\nExact released source tested once for `0x003A0860 nglPagePSMCT16toPSMCT32__FiiPUcT2`. Attempts before: 0. Result `different`, byte score 42.7198% and instruction score 17.5824%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 42.7198,
+      "source": "typedef unsigned char u_char;\ntypedef unsigned int u_int;\nextern \"C\" void *memcpy(void *, const void *, unsigned int);\nextern \"C\" void *memset(void *, int, unsigned int);\nvoid* nglMemAlloc(u_int Size, u_int Align = 1);\nvoid nglMemFree(void* Ptr);\nint nglBlockPSMCT16toPSMCT32(u_char *block_in, u_char *block_out);\n#define BLOCK_WIDTH_16 16\n#define BLOCK_HEIGHT_16 8\n#define PSMCT32_BLOCK_WIDTH 8\n#define PSMCT32_BLOCK_HEIGHT 8\n\nint nglPagePSMCT16toPSMCT32(int width, int height, u_char *p_input, u_char *p_output)\n{\n\n  static u_int block_table16[] = {\n     0,  2,  8, 10,\n     1,  3,  9, 11,\n     4,  6, 12, 14,\n     5,  7, 13, 15,\n    16, 18, 24, 26,\n    17, 19, 25, 27,\n    20, 22, 28, 30,\n    21, 23, 29, 31\n  };\n\n  static u_int block_table32[] = {\n    0,  1,  4,  5, 16, 17, 20, 21,\n    2,  3,  6,  7, 18, 19, 22, 23,\n    8,  9, 12, 13, 24, 25, 28, 29,\n    10, 11, 14, 15, 26, 27, 30, 31\n  };\n\n  u_int *index32_h, *index32_v, in_block_nb;\n\n  u_char input_block[16 * 16], output_block[16 * 16];\n  u_char *pi0, *pi1, *po0, *po1;\n  int index0, index1, i, j, k;\n  int n_width, n_height, input_page_line_size;\n  int output_page_line_size;\n\n\n\n  // --- create table for output 32bit buffer ---\n  index32_h = (u_int*) nglMemAlloc(8 * 4 * sizeof(u_int));\n  index32_v = (u_int*) nglMemAlloc(8 * 4 * sizeof(u_int));\n  index0 = 0;\n  for(i = 0; i < 4; i++)\n  {\n    for(j = 0; j < 8; j++)\n    {\n      index1 = block_table32[index0];\n      index32_h[index1] = j;\n      index32_v[index1] = i;\n      index0++;\n    }\n  }\n\n\n  // how many blocks we should calc (width/height)\n  n_width = width / BLOCK_WIDTH_16;\n  n_height = height / BLOCK_HEIGHT_16;\n\n  memset(input_block, 0xFF, 16 *16);\n  memset(output_block, 0xFF, 16 * 16);\n\n  input_page_line_size  = 128;    // PSMCT16 page width (byte)\n  output_page_line_size = 256;    // PSMCT32 page width (byte)\n\n  // now assume copying from page top.\n  for(i = 0; i < n_height; i++)\n  {\n\n    for(j = 0; j < n_width; j++)\n    {\n\n      pi0 = input_block;\n      pi1 = p_input + BLOCK_HEIGHT_16 * i * input_page_line_size + j * BLOCK_WIDTH_16*2; // byte\n\n      in_block_nb = block_table16[i * n_width + j];\n\n      for(k = 0; k < BLOCK_HEIGHT_16; k++) {\n        memcpy(pi0, pi1, BLOCK_WIDTH_16*2); // copy full 1 line of 1 block.\n        pi0 += BLOCK_WIDTH_16*2;\n        pi1 += input_page_line_size;\n      }\n\n      nglBlockPSMCT16toPSMCT32(input_block, output_block);\n\n      po0 = output_block;\n      po1 = p_output + 8 * index32_v[in_block_nb] * output_page_line_size + index32_h[in_block_nb] * 32;\n      for(k = 0; k < PSMCT32_BLOCK_HEIGHT; k++)\n      {\n        memcpy(po1, po0, PSMCT32_BLOCK_WIDTH * 4);\n        po0 += PSMCT32_BLOCK_WIDTH * 4;\n        po1 += output_page_line_size;\n      }\n\n    }\n  }\n\n  nglMemFree(index32_h);\n  nglMemFree(index32_v);\n\n  return 0;\n}\n",
+      "status": "different",
+      "target_size": 712
+    }
+  ],
+  "raw_name": "nglPagePSMCT16toPSMCT32__FiiPUcT2"
+}
