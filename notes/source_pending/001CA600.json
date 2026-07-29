@@ -1,0 +1,15 @@
+{
+  "address": "0x001CA600",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f213bfabc8de0b54fb4019fb4c3ae5c8db85dcc5",
+      "notes": "# FIRST PASS wave 123 lane B4\n\nExact released source tested once for `0x001CA600 Update__17HighScoreFrontEndf`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// # FIRST PASS wave 123 lane B4\n// HighScoreFrontEnd.cpp\n\n// With precompiled headers enabled, all text up to and including \n// the following line are ignored by the compiler (dc 01/18/02)\n#include \"global.h\"\n\n#if _XBOX\n#include \"xbglobals.h\"\n#endif /* TARGET_XBOX JIV DEBUG */\n\n#include \"FrontEndManager.h\"\n#include \"HighScoreFrontEnd.h\"\n#include \"GlobalData.h\"\n#include \"unlock_manager.h\"\n\nvoid HighScoreFrontEnd::Update(time_value_t time_inc)\n{\n\tif(active) active->Update(time_inc);\n\telse\n\t{\n\t\tif(in_game && first_line != -1)\n\t\t{\n\t\t\t// flashing\n\t\t\tfloat period = \n\t\t\t\t(float)(os_developer_options::inst()->get_int(os_developer_options::INT_MENU_HIGHLIGHT_PERIOD)) / \n\t\t\t\tMENU_HIGHLIGHT_MULTIPLIER;\n\t\t\t\n\t\t\tflash_timer += time_inc;\n\t\t\tfloat fl = THROB_INTENSITY * sinf(6.28f*(flash_timer/period));\n\n\t\t\tcolor32 c;\n\t\t\tfloat r, g, b, a;\n\t\t\tfor(int i=0; i<NUM_COLUMNS; i++)\n\t\t\t{\n\t\t\t\tc = (i==1 || i==3) ? manager->col_info_b : manager->col_info_g;\n\t\t\t\tr = FTOI(c.get_red() + (fl+.5f)*(labelColor.get_red() - c.get_red()));\n\t\t\t\tg = FTOI(c.get_green() + (fl+.5f)*(labelColor.get_green() - c.get_green()));\n\t\t\t\tb = FTOI(c.get_blue() + (fl+.5f)*(labelColor.get_blue() - c.get_blue()));\n\t\t\t\ta = labelColor.get_alpha();\n\t\t\t\tinfo[first_line][i]->color = color32(r, g, b, a);\n\t\t\t}\n\t\t}\n\t\tFEMultiMenu::Update(time_inc);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Update__17HighScoreFrontEndf"
+}
