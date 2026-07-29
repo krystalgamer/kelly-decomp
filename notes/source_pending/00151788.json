@@ -1,0 +1,23 @@
+{
+  "address": "0x00151788",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c5bf7f393702e10464f4523b4d2545e279699521",
+      "candidate_size": 476,
+      "compared_bytes": 528,
+      "compared_instructions": 132,
+      "emitted_name": "Init__11PanelObjectPP9PanelQuadb",
+      "instruction_score": 0.7576,
+      "matching_bytes": 105,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 101 lane B2\n\nExact released body tested once for `0x00151788 Init__11PanelObjectPP9PanelQuadb`. Result `different`, score 19.8864%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 19.8864,
+      "source": "// Target: 0x00151788 Init__11PanelObjectPP9PanelQuadb\nstruct stringx { char data[16]; };\nstruct matrix4x4 { float data[16]; };\nclass PanelQuad;\nclass PanelGeom {\npublic:\n    stringx name;\n    matrix4x4 matrix;\n    char pad[28];\n    PanelGeom *children;\n    PanelGeom *next;\n    PanelGeom *parent;\n    virtual ~PanelGeom();\n    virtual int Kind() const;\n    virtual bool Load(unsigned char *, int &);\n    virtual void Reload();\n    virtual PanelGeom *FindObject(const stringx &);\n    virtual PanelQuad *GetQuad();\n    virtual void Init(PanelQuad **, bool = false);\n    virtual void Init(PanelQuad **, matrix4x4, bool = false);\n};\nclass PanelBatch {\npublic:\n    char data[100];\n    void Init(PanelQuad **, stringx, matrix4x4, bool);\n};\nclass PanelObject : public PanelGeom {\npublic:\n    char pad[12];\n    unsigned short size;\n    unsigned short nbatches;\n    PanelBatch *batches;\n    virtual void Init(PanelQuad **pquads, bool floating = false);\n};\n\nvoid PanelObject::Init(PanelQuad** pquads, bool floating)\n{\n\tfor(int i=0; i<nbatches; i++)\n\t\tbatches[i].Init(pquads, name, matrix, floating);\n\tif(children)\n\t\tchildren->Init(pquads, matrix, floating);\n}\n",
+      "status": "different",
+      "target_size": 528
+    }
+  ],
+  "raw_name": "Init__11PanelObjectPP9PanelQuadb"
+}
