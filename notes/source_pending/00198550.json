@@ -1,0 +1,23 @@
+{
+  "address": "0x00198550",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e88a606e977478e0f3551acb25b5ade71f6a75f2",
+      "candidate_size": 504,
+      "compared_bytes": 516,
+      "compared_instructions": 129,
+      "emitted_name": "AddHighScore__9FEManagerG7stringxiii",
+      "instruction_score": 87.5969,
+      "matching_bytes": 430,
+      "matching_instructions": 113,
+      "notes": "# FIRST PASS wave 96 lane B4\n\nExact released body tested once for `0x00198550 AddHighScore__9FEManagerG7stringxiii`. Result `different`, score 83.3333%. No retry, chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 83.3333,
+      "source": "extern \"C\" char *strcpy(char *, const char *);\n\nclass stringx\n{\n    char *chars;\n    void *my_buf;\npublic:\n    const char *data() const { return chars; }\n};\n\nstruct HighScoreData\n{\n    char initials[4];\n    char character[32];\n    int score;\n    int icons;\n};\n\ntypedef struct SurferDataStruct\n{\n    int start_stand;\n    int start_turn;\n    int start_carve;\n    int start_anims;\n    int end_anims;\n    int trickBook[70];\n    int learnedtrickBook[16];\n    char name[32];\n    char name_ps[32];\n    char stashfile[16];\n    char firstname[32];\n    char lastname[32];\n    char fullname[32];\n    char abbr[4];\n    int goofy;\n    int load_in_fe;\n    int bio_length;\n    int has_movie;\n    int attr_spin;\n    int attr_speed;\n    int attr_balance;\n    int attr_air;\n    char board_ent_name[20];\n    char p_board_name[20];\n    int selectable;\n    int competitor;\n    int initially_unlocked;\n    char surfer_nick[20];\n    int sort_order;\n} SurferData;\n\nextern SurferData SurferDataArray[];\n\nclass game\n{\n    char padding[552];\n    int beach_id;\npublic:\n    int get_beach_id() { return beach_id; }\n};\n\nextern game *g_game_ptr;\n\nclass GlobalDataClass\n{\npublic:\n    HighScoreData getBeachHighScore(int beach, int whichScore, bool icons);\n    void setBeachHighScore(int beach, int whichScore, bool icons, HighScoreData newScore);\n};\n\nextern GlobalDataClass globalCareerData;\n\nclass HighScoreFrontEnd\n{\npublic:\n    enum { NUM_ROWS = 10 };\n};\n\nclass FEManager\n{\npublic:\n    int AddHighScore(stringx name, int score, int icons, int character);\n};\n\nint FEManager::AddHighScore(stringx name, int score, int icons, int character)\n{\n\t// if icons is -1, this means that we aren't looking at the icon challenge high list\n\tbool icon_mode = icons != -1;\n\tint beach;\n\tbeach = g_game_ptr->get_beach_id();\n\tint line = -1;\n\n\n\tHighScoreData temp;\n\tfor(int i=HighScoreFrontEnd::NUM_ROWS-1; i>=0; i--)\n\t{\n\t\tint sc = globalCareerData.getBeachHighScore(beach,i, icon_mode).score;\n\t\tint ic = globalCareerData.getBeachHighScore(beach,i, icon_mode).icons;\n\n\t\tif((!icon_mode && score > sc) || (icon_mode && (icons > ic || icons == ic && score > sc)))\n\t\t{\n\t\t\tif(i == HighScoreFrontEnd::NUM_ROWS-1)\n\t\t\t{\n\t\t\t\ttemp.initials[0] = name.data()[0];\n\t\t\t\ttemp.initials[1] = name.data()[1];\n\t\t\t\ttemp.initials[2] = name.data()[2];\n\t\t\t\ttemp.initials[3] = '\\0';\n\t\t\t\tstrcpy( temp.character, SurferDataArray[character].fullname );\n\t\t\t\ttemp.score = score;\n\t\t\t\ttemp.icons = icons;\n\t\t\t\tglobalCareerData.setBeachHighScore(beach, HighScoreFrontEnd::NUM_ROWS-1, icon_mode, temp);\n\t\t\t}\n\t\t\telse\n\t\t\t{\n\t\t\t\tHighScoreData hsd = globalCareerData.getBeachHighScore(beach, i, icon_mode);\n\t\t\t\tglobalCareerData.setBeachHighScore(beach, i, icon_mode, globalCareerData.getBeachHighScore(beach,i+1, icon_mode));\n\t\t\t\tglobalCareerData.setBeachHighScore(beach, i+1, icon_mode, hsd);\n\t\t\t}\n\t\t\tline = i;\n\t\t}\n\t}\n\treturn line;\n}\n",
+      "status": "different",
+      "target_size": 516
+    }
+  ],
+  "raw_name": "AddHighScore__9FEManagerG7stringxiii"
+}
