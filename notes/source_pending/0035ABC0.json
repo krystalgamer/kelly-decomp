@@ -1,0 +1,23 @@
+{
+  "address": "0x0035ABC0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "82c7021e4ddf648e84d1214ed3dc70dec90e0f67",
+      "candidate_size": 356,
+      "compared_bytes": 516,
+      "compared_instructions": 129,
+      "emitted_name": "_M_insert_aux__t6vector2ZP6signalZt12my_allocator1ZP6signalPP6signalRCP6signal",
+      "instruction_score": 6.2016,
+      "matching_bytes": 96,
+      "matching_instructions": 8,
+      "notes": "Sole source-first attempt preserved in this packet. The candidate implements the GCC 2.95 vector insertion/reallocation control flow with minimal declarations for `signal`, `my_allocator`, and `vector`.",
+      "score": 18.6047,
+      "source": "class signal;\n\ntypedef unsigned int size_t;\n\ntemplate <class T>\nclass my_allocator\n{\npublic:\n  T* allocate(size_t);\n  void deallocate(T*, size_t);\n};\n\ntemplate <class T, class Alloc>\nclass vector\n{\npublic:\n  typedef T* iterator;\n  typedef unsigned int size_type;\n\n  iterator _M_start;\n  iterator _M_finish;\n  iterator _M_end_of_storage;\n\n  void _M_insert_aux(iterator, const T&)\n    __asm__(\"_M_insert_aux__t6vector2ZP6signalZt12my_allocator1ZP6signalPP6signalRCP6signal\");\n\nprivate:\n  Alloc _M_allocator;\n\n  iterator _M_allocate(size_type n)\n  {\n    return n ? _M_allocator.allocate(n) : 0;\n  }\n\n  void _M_deallocate(iterator p, size_type n)\n  {\n    if (p)\n      _M_allocator.deallocate(p, n);\n  }\n};\n\ntemplate <class T, class Alloc>\nvoid vector<T, Alloc>::_M_insert_aux(iterator position, const T& x)\n{\n  if (_M_finish != _M_end_of_storage)\n  {\n    *_M_finish = *(_M_finish - 1);\n    ++_M_finish;\n    T x_copy = x;\n    iterator first = position;\n    iterator last = _M_finish - 2;\n    iterator result = _M_finish - 1;\n    while (last != first)\n      *--result = *--last;\n    *position = x_copy;\n  }\n  else\n  {\n    size_type old_size = _M_finish - _M_start;\n    size_type len = old_size != 0 ? 2 * old_size : 1;\n    iterator new_start = _M_allocate(len);\n    iterator new_finish = new_start;\n    iterator cur = _M_start;\n    while (cur != position)\n      *new_finish++ = *cur++;\n    *new_finish++ = x;\n    while (cur != _M_finish)\n      *new_finish++ = *cur++;\n    _M_deallocate(_M_start, _M_end_of_storage - _M_start);\n    _M_start = new_start;\n    _M_finish = new_finish;\n    _M_end_of_storage = new_start + len;\n  }\n}\n\ntemplate void vector<signal*, my_allocator<signal*> >::_M_insert_aux(signal**, signal* const&);\n",
+      "status": "different",
+      "target_size": 516
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2ZP6signalZt12my_allocator1ZP6signalPP6signalRCP6signal"
+}
