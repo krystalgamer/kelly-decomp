@@ -1,0 +1,23 @@
+{
+  "address": "0x00148720",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f2a072cf79c6c237c922d8dfa96f4c98a0df6444",
+      "candidate_size": 580,
+      "compared_bytes": 596,
+      "compared_instructions": 149,
+      "emitted_name": "MakeReplacements__10TextStringR7stringx",
+      "instruction_score": 18.7919,
+      "matching_bytes": 176,
+      "matching_instructions": 28,
+      "notes": "# FIRST PASS wave 113 lane B5\n\nExact released body tested once for `0x00148720 MakeReplacements__10TextStringR7stringx`. Result `different`, score 29.5302%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 29.5302,
+      "source": "typedef unsigned long long big_int;\n\nclass string_buf\n{\n  big_int *data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n\npublic:\n  inline int get_ref()\n  {\n    return ref_count;\n  }\n\n  friend class stringx;\n};\n\nclass stringx\n{\n  char *chars;\n  string_buf *my_buf;\n\npublic:\n  void fork_data(int new_len = -1);\n\n  inline char &operator[](int i)\n  {\n    lock();\n    if (i < 0)\n      i += length();\n    return chars[i];\n  }\n\n  inline void lock()\n  {\n    if (my_buf->get_ref() > 1)\n      fork_data();\n  }\n\n  inline int size() const\n  {\n    return my_buf->char_length;\n  }\n\n  inline int length() const\n  {\n    return size();\n  }\n};\n\nenum {\n  GT_REPLACE_ENDLINE,\n  GT_REPLACE_LAST\n};\n\nenum {\n  GT_REPLACE_FR_1,\n  GT_REPLACE_FR_2,\n  GT_REPLACE_FR_3,\n  GT_REPLACE_FR_4,\n  GT_REPLACE_FR_5,\n  GT_REPLACE_FR_6,\n  GT_REPLACE_FR_7,\n  GT_REPLACE_FR_8,\n  GT_REPLACE_FR_9,\n  GT_REPLACE_FR_10,\n  GT_REPLACE_FR_11,\n  GT_REPLACE_FR_12,\n  GT_REPLACE_FR_13,\n  GT_REPLACE_FR_LAST\n};\n\nenum {\n  GT_REPLACE_GE_1,\n  GT_REPLACE_GE_2,\n  GT_REPLACE_GE_3,\n  GT_REPLACE_GE_4,\n  GT_REPLACE_GE_5,\n  GT_REPLACE_GE_LAST\n};\n\nenum {\n  LANGUAGE_ENGLISH,\n  LANGUAGE_PIG_LATIN,\n  LANGUAGE_FRENCH,\n  LANGUAGE_GERMAN,\n  LANGUAGE_LAST\n};\n\nextern char ksGlobalReplaceArray[][2];\nextern char ksGlobalReplaceFRArray[][2];\nextern char ksGlobalReplaceGEArray[][2];\nextern int ksGlobalTextLanguage;\n\nclass TextString\n{\npublic:\n  static void MakeReplacements(stringx& text);\n};\n\nvoid TextString::MakeReplacements(stringx& text)\n{\n\tfor(int i=0; i<text.size(); i++)\n\t{\n\t\tfor(int j=0; j<GT_REPLACE_LAST; j++)\n\t\t{\n\t\t\tif(text[i] == ksGlobalReplaceArray[j][0])\n\t\t\t\ttext[i] = ksGlobalReplaceArray[j][1];\n\t\t}\n\n\t\t// make french & german replacements, if necessary\n\t\t// (they share a few letters)\n\t\tif(ksGlobalTextLanguage == LANGUAGE_FRENCH || ksGlobalTextLanguage == LANGUAGE_GERMAN)\n\t\t{\n\t\t\tfor(int j=0; j<GT_REPLACE_FR_LAST; j++)\n\t\t\t{\n\t\t\t\tif(text[i] == ksGlobalReplaceFRArray[j][0])\n\t\t\t\t\ttext[i] = ksGlobalReplaceFRArray[j][1];\n\t\t\t}\n\n\t\t\tfor(int j=0; j<GT_REPLACE_GE_LAST; j++)\n\t\t\t{\n\t\t\t\tif(text[i] == ksGlobalReplaceGEArray[j][0])\n\t\t\t\t\ttext[i] = ksGlobalReplaceGEArray[j][1];\n\t\t\t}\n\t\t}\n\t}\n}\n",
+      "status": "different",
+      "target_size": 596
+    }
+  ],
+  "raw_name": "MakeReplacements__10TextStringR7stringx"
+}
