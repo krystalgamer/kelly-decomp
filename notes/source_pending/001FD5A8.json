@@ -1,0 +1,23 @@
+{
+  "address": "0x001FD5A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c4dcf9fa93d506fbef37b4c6f834740fa2ef959f",
+      "candidate_size": 352,
+      "compared_bytes": 500,
+      "compared_instructions": 125,
+      "emitted_name": "get_settings__12water_objectRC12water_object",
+      "instruction_score": 0.0,
+      "matching_bytes": 47,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave93 A3\n\n- Target: `0x001FD5A8 get_settings__12water_objectRC12water_object` (500 / `0x1F4`), `game/files_kellyslater`.\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/ks/floatobj.cpp`.\n- Confirmed attempts0 before preparation/testing.\n- Candidate: LF-only exact released body with minimal faithful self-contained declarations and no headers.\n- Sole attempt: `different`; byte score 9.4% (47/500 compared), instruction score 0.0% (0/125); candidate 352 bytes, target 500 bytes.\n- Candidate SHA-1: `c4dcf9fa93d506fbef37b4c6f834740fa2ef959f`.\n- Exactly one candidate and one harness invocation. No alternatives, asm, annotations, variants, retry, attempts 2-5, or post-test chase.\n- Tracked/reference files remained read-only. No finalize, integrate, build, or git mutation.",
+      "score": 9.4,
+      "source": "class color32\n{\npublic:\n  unsigned int value;\n};\n\nstruct WavePositionHint\n{\n  char data[0x21C];\n};\n\nstruct po\n{\n  float data[16];\n} __attribute__((aligned(16)));\n\nclass beach_object\n{\n  char data[0x3C];\n\npublic:\n  void get_settings (const beach_object& obj);\n};\n\nclass water_object : public beach_object\n{\npublic:\n  void get_settings (const water_object& obj);\n\nprotected:\n  color32 ren_col;\n  float my_max_alpha;\n  WavePositionHint wave_hint;\n  bool use_hint;\n  po my_initial_po;\n  bool grindable;\n  float fade_distance;\n};\n\n// only implemented for water_objects right now\nvoid water_object::get_settings (const water_object& obj)\n{\n  ren_col = obj.ren_col;\n  wave_hint = obj.wave_hint;\n  use_hint = obj.use_hint;\n  my_initial_po = obj.my_initial_po;\n  grindable = obj.grindable;\n  fade_distance = obj.fade_distance;\n\n  beach_object::get_settings (obj);\n}\n",
+      "status": "different",
+      "target_size": 500
+    }
+  ],
+  "raw_name": "get_settings__12water_objectRC12water_object"
+}
