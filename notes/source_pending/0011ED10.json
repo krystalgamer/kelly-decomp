@@ -1,0 +1,15 @@
+{
+  "address": "0x0011ED10",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e32cf922381eb824acab65d333f1888f4bbd57cc",
+      "notes": "# FIRST PASS wave 130 lane A4\n\nExact released source tested once for `0x0011ED10 insert__t6vector2ZP11entity_animZt12my_allocator1ZP11entity_animPP11entity_animUiRCP11entity_anim`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <stddef.h>\n#include <new>\n\nclass my_alloc\n{\npublic:\n  static void *allocate(size_t);\n  static void deallocate(void *, size_t);\n};\n\ntemplate <class T>\nclass my_allocator\n{\npublic:\n  typedef size_t size_type;\n  typedef ptrdiff_t difference_type;\n  typedef T *pointer;\n  typedef const T *const_pointer;\n  typedef T &reference;\n  typedef const T &const_reference;\n  typedef T value_type;\n\n  template <class U> struct rebind { typedef my_allocator<U> other; };\n\n  my_allocator() throw() {}\n  my_allocator(const my_allocator &) throw() {}\n  template <class U> my_allocator(const my_allocator<U> &) throw() {}\n  ~my_allocator() throw() {}\n\n  pointer address(reference x) const { return &x; }\n  const_pointer address(const_reference x) const { return &x; }\n  pointer allocate(size_type n, const void * = 0)\n  {\n    return n != 0 ? static_cast<pointer>(my_alloc::allocate(n * sizeof(T))) : 0;\n  }\n  void deallocate(pointer p, size_type n)\n  {\n    my_alloc::deallocate(p, n * sizeof(T));\n  }\n  size_type max_size() const throw() { return size_t(-1) / sizeof(T); }\n  void construct(pointer p, const T &value) { new(p) T(value); }\n  void destroy(pointer p) { p->~T(); }\n};\n\ntemplate <class T, class U>\ninline bool operator==(const my_allocator<T> &, const my_allocator<U> &) { return true; }\ntemplate <class T, class U>\ninline bool operator!=(const my_allocator<T> &, const my_allocator<U> &) { return false; }\n\n#include <vector>\n\nclass entity_anim;\n\ntemplate void vector<entity_anim *, my_allocator<entity_anim *> >::insert(\n  entity_anim **, unsigned int, entity_anim *const &);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "insert__t6vector2ZP11entity_animZt12my_allocator1ZP11entity_animPP11entity_animUiRCP11entity_anim"
+}
