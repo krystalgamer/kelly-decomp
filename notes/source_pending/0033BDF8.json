@@ -1,0 +1,23 @@
+{
+  "address": "0x0033BDF8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "10a9a33a39d05d6a0669e59fd278ecd35f89993a",
+      "candidate_size": 676,
+      "compared_bytes": 780,
+      "compared_instructions": 195,
+      "emitted_name": "getWidth__4FontG7stringxfbf",
+      "instruction_score": 6.6667,
+      "matching_bytes": 162,
+      "matching_instructions": 13,
+      "notes": "# FIRST PASS wave 141 lane B2\n\nExact released source tested once for `0x0033BDF8 getWidth__4FontG7stringxfbf`. Attempts before: 0. Result `different`, byte score 20.7692% and instruction score 6.6667%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 20.7692,
+      "source": "struct stringx_buffer { void *data; int ref_count; int length; };\nclass stringx {\n    char *characters;\n    stringx_buffer *buffer;\npublic:\n    ~stringx();\n    int length() const;\n    char &operator[](int index);\n    const char *c_str() const;\n};\ntemplate <class T> void adjustSizes(T &x, T &y);\nenum { GT_ButtonSpacing = 20 };\nextern stringx ksGlobalButtonArray[21];\nclass nglTexture;\nclass Font {\nprotected:\n    struct glyph_info {\n        unsigned char ascii;\n        unsigned int cell_x, cell_y;\n        unsigned int cell_width, cell_height;\n        unsigned int glyph_x, glyph_y;\n        unsigned int glyph_width, glyph_height;\n    };\npublic:\n    bool unset;\n    int max_width;\n    int getIndex(char c);\n    bool CheckArtButtonCodes(const char *text, int &length, int &button_index);\n    float getWidth(stringx s, float sc, bool even_number_spacing, float art_button_sc);\nprotected:\n    glyph_info m_chars[256];\n    stringx m_texname;\n    unsigned int m_texwidth, m_texheight;\n    nglTexture *texture;\n    int numGlyphs;\n    float m_ascent, m_descent;\n    float m_scale;\n    stringx filename;\n    int m_refcount;\n    nglTexture *art_button_tex[GT_ButtonSpacing];\n    int art_button_width[GT_ButtonSpacing];\n    int art_button_height[GT_ButtonSpacing];\n};\n__asm__(\".equ adjustSizes__H1Zf_RX01T0_v, 0x001D6A50\");\n__asm__(\".equ lock__7stringx, 0x001D84D0\");\n__asm__(\".equ length__C7stringx, 0x00144388\");\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\".equ getIndex__4Fontc, 0x0033BDB0\");\n__asm__(\".equ CheckArtButtonCodes__4FontPCcRiT2, 0x0033BBE8\");\n__asm__(\".equ ksGlobalButtonArray, 0x003E74A0\");\n\nfloat Font::getWidth(stringx s, float sc, bool even_number_spacing, float art_button_sc)\n{\n    float scale_x = sc;\n    float scale_y = sc;\n    adjustSizes(scale_x, scale_y);\n\n    if(art_button_sc == -1.0f)\n        art_button_sc = sc;\n    float art_sc_x = art_button_sc;\n    float art_sc_y = art_button_sc;\n    adjustSizes(art_sc_x, art_sc_y);\n\n    float w = 0;\n    int len = s.length();\n    bool ignore_next = false;\n    int art_button_count = 0;\n\n    for (int i = 0; i < len; i++)\n    {\n        if(art_button_count > 0) art_button_count--;\n        if(art_button_count > 0) continue;\n        if(ignore_next)\n        {\n            ignore_next = false;\n            continue;\n        }\n        if(s[i] == '@')\n        {\n            if (i == len-1)\n            {\n            }\n            else if (s[i+1] == '@')\n            {\n                i++;\n            }\n            else\n            {\n                ignore_next = true;\n                continue;\n            }\n        }\n        if(art_button_count <= 0 && s[i] == ksGlobalButtonArray[GT_ButtonSpacing].c_str()[0])\n        {\n            int length, button_index;\n            bool is_art_button = CheckArtButtonCodes(&(s.c_str()[i]), length, button_index);\n            if(is_art_button)\n            {\n                w += (art_button_width[button_index])*art_sc_x;\n                art_button_count = length;\n                continue;\n            }\n        }\n\n        int tmp = getIndex(s[i]);\n        if (tmp == -1) tmp = getIndex('X');\n        const Font::glyph_info *ci = &m_chars[tmp];\n        if(even_number_spacing && tmp >= getIndex('0') && tmp <= getIndex('9'))\n            w += (max_width)*scale_x;\n        else\n            w += (ci->cell_width)*scale_x;\n    }\n    return w;\n}\n",
+      "status": "different",
+      "target_size": 780
+    }
+  ],
+  "raw_name": "getWidth__4FontG7stringxfbf"
+}
