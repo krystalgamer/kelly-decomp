@@ -1,0 +1,15 @@
+{
+  "address": "0x00377008",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "88202b4d444cc400d7c402fc656dc2f30886e45a",
+      "notes": "# FIRST PASS wave 103 lane A1\n\nExact released body tested once for `0x00377008 WAVE_ResetBreaks__Fv`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "void WAVE_ResetBreaks()\n{\n    int i;\n    int j;\n    float r;\n    float prob;\n\n    for (i = 0; i < WaveDataArray[WAVE_ScheduleArray[WAVE_ScheduleIndex].wd_type].numbreak; i++)\n    {\n        r = random(1.0f);\n        prob = 0.0f;\n        for (j = 0; j < WAVE_PerturbTypeMax; j++)\n        {\n            prob += WaveDataArray[WAVE_ScheduleArray[WAVE_ScheduleIndex].wd_type].breaks[i].prob[j];\n            if (r < prob)\n                break;\n        }\n        WaveDataArray[WAVE_ScheduleArray[WAVE_ScheduleIndex].wd_type].breaks[i].type = (WavePerturbTypeEnum)j;\n    }\n\n    WAVE_BreakNext = WaveDataArray[WAVE_ScheduleArray[WAVE_ScheduleIndex].wd_type].breaks;\n    WAVE_PerturbType = WAVE_BreakNext->type;\n    WAVE_PerturbSkipBlanks();\n    WAVE_PerturbReset(WAVE_BreakNext->time - WAVE_TotalSec);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WAVE_ResetBreaks__Fv"
+}
