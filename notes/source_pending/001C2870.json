@@ -1,0 +1,23 @@
+{
+  "address": "0x001C2870",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6c8df1d55af8ff748f8d7b82966a13839fac5c9a",
+      "candidate_size": 716,
+      "compared_bytes": 932,
+      "compared_instructions": 233,
+      "emitted_name": "LoadTricks__15FEEntityManager",
+      "instruction_score": 12.0172,
+      "matching_bytes": 195,
+      "matching_instructions": 28,
+      "notes": "# FIRST PASS wave 159 lane A1\n\nExact released source tested once for `0x001C2870 LoadTricks__15FEEntityManager`. Attempts before: 0. Result `different`, byte score 20.9227% and instruction score 12.0172%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 20.9227,
+      "source": "class stringx {\n    char *chars;\n    void *my_buf;\npublic:\n    stringx();\n    stringx(const stringx &);\n    stringx(const char *, int = -1);\n    ~stringx();\n    stringx &operator=(const stringx &);\n};\nstringx operator+(const stringx &, const stringx &);\nstringx operator+(const stringx &, const char *);\n\nstruct entity { void load_anim(const stringx &) const; };\nstruct graphical_system { char pad[0xd4]; int multiplayer; int multi_1; };\nstruct manager_layout { char pad[8]; graphical_system *gms; };\nstruct SurferTrick {\n    int trick_id;\n    int anim_id;\n    int board_anim_id;\n    int flags;\n    int IK_flags;\n    int trickbook_type;\n    int trick_type;\n    unsigned char button1, button2, button3;\n    char button1_string[16];\n    char button2_string[16];\n    char button3_string[16];\n    int Time;\n    int Points;\n};\nstruct TrickBookFrontEnd { static bool TrickOK(int); };\nbool file_finder_exists(const stringx &, const stringx &, stringx * = 0);\nextern SurferTrick GTrickList[95];\nextern stringx g_surfer_anims[];\nextern stringx g_board_anims[];\n\nenum { TRICK_NUM = 95, SURFER_ANIM_NULL = -1, BOARD_ANIM_NULL = -1,\n       SURFER_ANIM_PLACEHOLDER = 0, BOARD_ANIM_ZERO = 0 };\n\nclass FEEntityManager {\n    entity *surfer_ent;\n    char pad0[48];\n    manager_layout *manager;\n    char pad1[348];\n    entity *board;\n    char pad2[244];\n    int tricks_loaded;\npublic:\n    void LoadBoard(int, int);\n    void LoadTricks();\n};\n\nvoid FEEntityManager::LoadTricks()\n{\n\tif(tricks_loaded) return;\n\n\t// I'll need the board, but more importantly, I need the aux stash loaded\n\tif(manager->gms->multiplayer && !manager->gms->multi_1)\n\t\tLoadBoard(1,0);\n\telse\n\t\tLoadBoard(0,0);\n\n\tstringx anim_dir = \"characters\\\\COMMON\\\\ANIMATIONS\\\\\";\n\tstringx surfer_anim = \"\";\n\tstringx board_anim = \"\";\n\n\tentity* cur_surf = surfer_ent;\n\tif(cur_surf)\n\t{\n\t\t// currently my idle anim\n\t\tcur_surf->load_anim(anim_dir+\"ALL_TRK_TUBE_FS_1\");\n\t\tfor(int i=0; i<TRICK_NUM; i++)\n\t\t{\n\t\t\tif(TrickBookFrontEnd::TrickOK(i))\n\t\t\t{\n\t\t\t\tSurferTrick* st = &(GTrickList[i]);\n\t\t\t\tif( st->anim_id != SURFER_ANIM_NULL )\n\t\t\t\t{\n\t\t\t\t\tsurfer_anim = anim_dir+g_surfer_anims[st->anim_id];\n\t\t\t\t\tif(file_finder_exists(surfer_anim, \".ANMX\"))\n\t\t\t\t\t\tcur_surf->load_anim(surfer_anim);\n\t\t\t\t\telse\n\t\t\t\t\t\tg_surfer_anims[st->anim_id] = g_surfer_anims[SURFER_ANIM_PLACEHOLDER];\n\t\t\t\t}\n\n\t\t\t\tif( st->board_anim_id != BOARD_ANIM_NULL )\n\t\t\t\t{\n\t\t\t\t\tboard_anim = anim_dir+g_board_anims[st->board_anim_id];\n\t\t\t\t\tif(file_finder_exists(board_anim, \".ANMX\"))\n\t\t\t\t\t\tboard->load_anim(board_anim);\n\t\t\t\t\telse\n\t\t\t\t\t\tg_board_anims[st->board_anim_id] = g_board_anims[BOARD_ANIM_ZERO];\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\ttricks_loaded = true;\n}\n",
+      "status": "different",
+      "target_size": 932
+    }
+  ],
+  "raw_name": "LoadTricks__15FEEntityManager"
+}
