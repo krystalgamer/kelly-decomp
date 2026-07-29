@@ -1,0 +1,15 @@
+{
+  "address": "0x003429A0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7475730fabfdb9e93b4aba99f1f5f9273f709238",
+      "notes": "# FIRST PASS wave 105 lane B3\n\nExact released body tested once for `0x003429A0 __9fluid_barPCcP6widgetssQ26widget12widget_dir_effRC7stringx`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "typedef float rational_t;\n\nenum widget_dir_e { WDIR_Left, WDIR_Right };\n\nclass widget;\n\nclass color\n{\npublic:\n  float r, g, b, a;\n  color(rational_t _r, rational_t _g, rational_t _b, rational_t _a)\n    : r(_r), g(_g), b(_b), a(_a) {}\n};\n\nclass stringx\n{\n  char *data;\npublic:\n  stringx& operator=(const stringx&);\n  const char *c_str() const;\n};\n\nclass bar_widget\n{\n  char data[0x154];\npublic:\n  bar_widget(const char *, widget *, short, short, widget_dir_e);\n  virtual ~bar_widget();\n};\n\nclass bitmap_widget\n{\npublic:\n  bitmap_widget(const char *, widget *, short, short, int);\n  void open(const char *);\n  void resize(rational_t, rational_t);\n  void set_color(const color&);\n};\n\nclass fluid_bar : public bar_widget\n{\npublic:\n  fluid_bar(const char *, widget *, short, short, widget_dir_e, rational_t, rational_t, const stringx&);\n  virtual ~fluid_bar();\nprotected:\n  bitmap_widget *bar_map;\n  stringx name;\n  rational_t w, h;\n  rational_t full_val, to_val, cur_val, fill_rate, empty_rate, special_rate;\n  rational_t old_full_val, old_to_val, old_cur_val, old_fill_rate, old_empty_rate;\n  bool update, using_special_rate;\n  color col[4];\n};\n\n#define NEW new\n\nfluid_bar::fluid_bar( const char *_widget_name, widget *_parent, short _x, short _y, widget_dir_e _dir, rational_t _w, rational_t _h, const stringx& _name )\n  : bar_widget( _widget_name, _parent, _x, _y, _dir )\n{\n  w = _w;\n  h = _h;\n  name = _name;\n  full_val = old_full_val = 1.0f;\n  to_val = old_to_val = 1.0f;\n  cur_val = old_cur_val = 0.0f;\n  fill_rate = empty_rate = special_rate = old_fill_rate = old_empty_rate = 1.0f;\n  update = true;\n  using_special_rate = false;\n  col[0] = col[1] = col[2] = col[3] = color( 1.0f, 1.0f, 1.0f, 1.0f );\n\n  bar_map = NEW bitmap_widget( \"fluid-bar_map\", this, 0, 0, 1 );\n  bar_map->open( name.c_str() );\n  bar_map->resize( w, h );\n  bar_map->set_color( col[0] );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__9fluid_barPCcP6widgetssQ26widget12widget_dir_effRC7stringx"
+}
