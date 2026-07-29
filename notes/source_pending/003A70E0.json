@@ -1,0 +1,16 @@
+{
+  "address": "0x003A70E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4062f1251faf6a0ba4308fa064501c837e5013f9",
+      "error": "Candidate did not emit nglSetFontMeasures__FP7nglFontPfN31ffRC12nglGlyphInfo; emitted functions: ['nglSetFontMeasures__FP7nglFontPfT1T1T1ffRC12nglGlyphInfo']",
+      "notes": "FIRST PASS wave88 A4\nTarget: 0x003A70E0 nglSetFontMeasures__FP7nglFontPfN31ffRC12nglGlyphInfo (472/0x1D8), ngl/ngl_ps2\nReference: kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp\nAttempts before: 0\nAttempt 1: exact released body with minimal faithful self-contained declarations, LF line endings, and no headers\nResult: symbol_missing; score 0.0. Candidate emitted nglSetFontMeasures__FP7nglFontPfT1T1T1ffRC12nglGlyphInfo rather than the target symbol.\nExactly one candidate was tested. No alternatives, assembly, annotations, variants, retries, attempts 2-5, post-test chasing, build, finalization, integration, queue edits, tracked edits, commit, or push were performed.",
+      "score": 0.0,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned short u_short;\n\nclass nglTexStreamPos\n{\npublic:\n  u_int addr, cycle;\n};\n\nstruct nglTexture\n{\n  nglTexStreamPos TexStreamPos;\n  u_short Width, Height;\n};\n\nstruct nglGlyphInfo\n{\n  u_int TexOfs[2];\n  u_int GlyphSize[2];\n  u_int GlyphOrigin[2];\n  u_int CellWidth;\n};\n\nstruct nglFontHeader\n{\n  u_int Version;\n  u_int CellHeight;\n  u_int Ascent;\n  u_int FirstGlyph;\n  u_int NumGlyphs;\n};\n\nstruct nglFont\n{\n  nglTexture* Tex;\n  nglGlyphInfo* GlyphInfo;\n  nglFontHeader Header;\n  u_int MapFlags;\n  u_int BlendMode;\n  u_int BlendModeConstant;\n  bool System;\n};\n\nvoid nglSetFontMeasures(nglFont* Font, float* aoffs, float* asize, float* auvpos,\n                        float* auvsize,  float scalex, float scaley, const nglGlyphInfo& ginfo)\n{\n  float InvWidth  = 1.0f / (float)Font->Tex->Width;\n  float InvHeight = 1.0f / (float)Font->Tex->Height;\n  aoffs[0]   = int(ginfo.GlyphOrigin[0]) * scalex;\n  aoffs[1]   = int(ginfo.GlyphOrigin[1]) * scaley;\n  asize[0]   = u_int(ginfo.GlyphSize[0]) * scalex;\n  asize[1]   = u_int(ginfo.GlyphSize[1]) * scaley;\n  auvpos[0]  = u_int(ginfo.TexOfs[0]) * InvWidth;\n  auvpos[1]  = u_int(ginfo.TexOfs[1]) * InvHeight;\n  auvsize[0] = u_int(ginfo.GlyphSize[0]) * InvWidth;\n  auvsize[1] = u_int(ginfo.GlyphSize[1]) * InvHeight;\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "nglSetFontMeasures__FP7nglFontPfN31ffRC12nglGlyphInfo"
+}
