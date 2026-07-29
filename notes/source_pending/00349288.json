@@ -1,0 +1,23 @@
+{
+  "address": "0x00349288",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d3a6473524b435ff47009dfabf42be59ceec43c0",
+      "candidate_size": 896,
+      "compared_bytes": 932,
+      "compared_instructions": 233,
+      "emitted_name": "set_facing__2poRC8vector3d",
+      "instruction_score": 15.0215,
+      "matching_bytes": 292,
+      "matching_instructions": 35,
+      "notes": "# FIRST PASS wave 159 lane A3\n\nExact released source tested once for `0x00349288 set_facing__2poRC8vector3d`. Attempts before: 0. Result `different`, byte score 31.3305% and instruction score 15.0215%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 31.3305,
+      "source": "extern \"C\" float sqrtf(float);\ntypedef float rational_t;\nconst rational_t SMALL_DIST = 0.00001f;\ninline rational_t fast_recip_sqrt(rational_t x) { return 1.0F/(rational_t)sqrtf(x); }\nclass vector3d {\npublic:\n  typedef rational_t T;\n  T x,y,z;\n  inline vector3d() {}\n  inline vector3d(const vector3d& v) { x=v.x; y=v.y; z=v.z; }\n  inline vector3d(T _x,T _y,T _z) { x=_x; y=_y; z=_z; }\n  inline vector3d& operator=(const vector3d& v) { x=v.x; y=v.y; z=v.z; return *this; }\n  inline vector3d& operator*=(T d) { x*=d; y*=d; z*=d; return *this; }\n  inline T length2() const { return x*x+y*y+z*z; }\n  inline vector3d& normalize() { T l2=length2(); if(l2>SMALL_DIST*SMALL_DIST) *this*=fast_recip_sqrt(l2); return *this; }\n};\ninline vector3d operator-(const vector3d&a,const vector3d&b){return vector3d(a.x-b.x,a.y-b.y,a.z-b.z);}\ninline vector3d cross(const vector3d&a,const vector3d&b){vector3d v(a.y*b.z-a.z*b.y,a.z*b.x-a.x*b.z,a.x*b.y-a.y*b.x);return v;}\nclass vector4d { public: float x,y,z,w; };\nclass matrix4x4 { public: vector4d x __attribute__((aligned(16))); vector4d y,z,w; };\nclass po {\n  matrix4x4 m;\npublic:\n  inline const vector3d& get_position() const { return *(const vector3d*)&m.w; }\n  void set_facing(const vector3d& v) __asm__(\"set_facing__2poRC8vector3d\");\n};\nvoid po::set_facing( const vector3d& v )\n{\n  vector3d zv = v - get_position();\n  zv.normalize();\n  if(( zv.y > 0.9999f )&&( zv.y < 1.0001f ))\n  {\n    m.x.x= 1.0f;  m.x.y= 0.0f;  m.x.z= 0.0f;\n    m.y.x= 0.0f;  m.y.y= 0.0f;  m.y.z=-1.0f;\n    m.z.x= 0.0f;  m.z.y= 1.0f;  m.z.z= 0.0f;\n  }\n  else if(( zv.y < -0.9999f )&&( zv.y > -1.0001f ))\n  {\n    m.x.x= 1.0f;  m.x.y= 0.0f;  m.x.z= 0.0f;\n    m.y.x= 0.0f;  m.y.y= 0.0f;  m.y.z= 1.0f;\n    m.z.x= 0.0f;  m.z.y= -1.0f;  m.z.z= 0.0f;\n  }\n  else\n  {\n    vector3d yv(0.0f,1.0f,0.0f);\n    vector3d xv = cross( yv, zv );\n    xv.normalize();\n    yv = cross( zv, xv );\n    yv.normalize();\n    m.x.x=xv.x;  m.x.y=xv.y;  m.x.z=xv.z;\n    m.y.x=yv.x;  m.y.y=yv.y;  m.y.z=yv.z;\n    m.z.x=zv.x;  m.z.y=zv.y;  m.z.z=zv.z;\n  }\n}\n",
+      "status": "different",
+      "target_size": 932
+    }
+  ],
+  "raw_name": "set_facing__2poRC8vector3d"
+}
