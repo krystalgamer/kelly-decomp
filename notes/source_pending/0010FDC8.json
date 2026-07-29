@@ -1,0 +1,23 @@
+{
+  "address": "0x0010FDC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "caca96ed5a23ef511f236de75d6075f50e18893b",
+      "candidate_size": 500,
+      "compared_bytes": 600,
+      "compared_instructions": 146,
+      "emitted_name": "_M_insert_aux__t6vector2Z16ai_polypath_nodeZt12my_allocator1Z16ai_polypath_nodeP16ai_polypath_nodeRC16ai_polypath_node",
+      "instruction_score": 0.6849,
+      "matching_bytes": 98,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave114 B4 0x0010FDC8\n\nExact GCC 2.95.3 `vector::_M_insert_aux(iterator, const T&)` source from\n`libstdc++/stl/stl_vector.h`, instantiated for `ai_polypath_node` with\n`my_allocator`. The single LF-only candidate uses minimal self-contained\ndeclarations.\n\nResult: different, 16.3333% bytes and 0.6849% instructions; emitted 500 versus\n600 target bytes. Attempts before: 0. No follow-up, build, git operation, or\ntracked edit.",
+      "score": 16.3333,
+      "source": "typedef unsigned int size_t;\ninline void *operator new(size_t, void *p) { return p; }\n\nclass ai_polypath_cell;\n\nclass ai_polypath_node\n{\npublic:\n  ai_polypath_node() : cell(0), cost(0) {}\n  ~ai_polypath_node() {}\n\n  ai_polypath_cell *cell;\n  float cost;\n};\n\ntemplate <class T>\nclass my_allocator\n{\npublic:\n  T *allocate(size_t);\n  void deallocate(T *, size_t);\n};\n\ntemplate <class T>\ninline void construct(T *p, const T& value)\n{\n  new (p) T(value);\n}\n\ntemplate <class T>\ninline void destroy(T *first, T *last)\n{\n  while (first != last)\n  {\n    first->~T();\n    ++first;\n  }\n}\n\ntemplate <class T>\ninline T *copy_backward(T *first, T *last, T *result)\n{\n  while (last != first)\n    *--result = *--last;\n  return result;\n}\n\ntemplate <class T>\ninline T *uninitialized_copy(T *first, T *last, T *result)\n{\n  while (first != last)\n  {\n    construct(result, *first);\n    ++first;\n    ++result;\n  }\n  return result;\n}\n\ntemplate <class T, class Alloc>\nclass vector\n{\npublic:\n  typedef T *iterator;\n  typedef unsigned int size_type;\n\n  iterator _M_start;\n  iterator _M_finish;\n  iterator _M_end_of_storage;\n\n  size_type size() const { return size_type(_M_finish - _M_start); }\n  iterator begin() { return _M_start; }\n  iterator end() { return _M_finish; }\n\n  void _M_insert_aux(iterator, const T&)\n    __asm__(\"_M_insert_aux__t6vector2Z16ai_polypath_nodeZt12my_allocator1Z16ai_polypath_nodeP16ai_polypath_nodeRC16ai_polypath_node\");\n\nprivate:\n  Alloc _M_allocator;\n\n  iterator _M_allocate(size_type n)\n  {\n    return n ? _M_allocator.allocate(n) : 0;\n  }\n\n  void _M_deallocate(iterator p, size_type n)\n  {\n    if (p)\n      _M_allocator.deallocate(p, n);\n  }\n};\n\ntemplate <class T, class Alloc>\nvoid vector<T, Alloc>::_M_insert_aux(iterator __position, const T& __x)\n{\n  if (_M_finish != _M_end_of_storage) {\n    construct(_M_finish, *(_M_finish - 1));\n    ++_M_finish;\n    T __x_copy = __x;\n    copy_backward(__position, _M_finish - 2, _M_finish - 1);\n    *__position = __x_copy;\n  }\n  else {\n    const size_type __old_size = size();\n    const size_type __len = __old_size != 0 ? 2 * __old_size : 1;\n    iterator __new_start = _M_allocate(__len);\n    iterator __new_finish = __new_start;\n    __new_finish = uninitialized_copy(_M_start, __position, __new_start);\n    construct(__new_finish, __x);\n    ++__new_finish;\n    __new_finish = uninitialized_copy(__position, _M_finish, __new_finish);\n    destroy(begin(), end());\n    _M_deallocate(_M_start, _M_end_of_storage - _M_start);\n    _M_start = __new_start;\n    _M_finish = __new_finish;\n    _M_end_of_storage = __new_start + __len;\n  }\n}\n\ntemplate void vector<ai_polypath_node, my_allocator<ai_polypath_node> >::_M_insert_aux(\n  ai_polypath_node *, const ai_polypath_node&);\n",
+      "status": "different",
+      "target_size": 600
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2Z16ai_polypath_nodeZt12my_allocator1Z16ai_polypath_nodeP16ai_polypath_nodeRC16ai_polypath_node"
+}
