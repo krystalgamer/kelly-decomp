@@ -1,0 +1,23 @@
+{
+  "address": "0x001E22B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "be98ca311e74cb9c628d94df503b6efaeeebb158",
+      "candidate_size": 508,
+      "compared_bytes": 508,
+      "compared_instructions": 127,
+      "emitted_name": "__13ps2_input_mgr",
+      "instruction_score": 7.0866,
+      "matching_bytes": 105,
+      "matching_instructions": 9,
+      "notes": "FIRST PASS wave92 A3\nTarget: 0x001E22B0 __13ps2_input_mgr (496/0x1F0), game/files_hwosps2\nReference: kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_input.cpp\nAttempts before: 0 (confirmed by prepared attempts.json)\nAttempt 1: exact released constructor body with minimal faithful self-contained declarations; LF-terminated; no unresolved headers\nResult: different; score 20.6693; instruction score 7.0866; candidate 508 bytes vs target 496 bytes\nNo alternatives, retries, attempts 2-5, assembly, annotations, variants, chasing, integration, finalization, build, or tracked/reference changes.",
+      "score": 20.6693,
+      "source": "typedef int bool32;\n\nclass stringx\n{\n    char *data;\n    char *buffer;\n\npublic:\n    stringx(const char *);\n    ~stringx();\n    stringx &operator=(const char *);\n    stringx &operator+=(const char *);\n    const char *c_str() const;\n};\n\nclass ps2_joypad_device\n{\npublic:\n    int device_id;\n\n    ps2_joypad_device(int which_port = 0, int which_slot = 0);\n    virtual ~ps2_joypad_device();\n    virtual void get_name() const;\n    virtual void get_axis_name(int) const;\n    virtual int get_id() const;\n    virtual int get_axis_count() const;\n    virtual int get_axis_id(int) const;\n    virtual float get_axis_state(int, int) const;\n    virtual float get_axis_old_state(int, int) const;\n    virtual float get_axis_delta(int, int) const;\n    virtual bool is_connected() const;\n\nprivate:\n    char state[91];\n    bool port_opened;\n\npublic:\n    bool is_port_open() const { return port_opened; }\n};\n\nclass ps2_input_mgr\n{\npublic:\n    ps2_input_mgr();\n\nprivate:\n    ps2_joypad_device *pad[2];\n    int max_keyb;\n};\n\nextern const char *nglHostPrefix;\nextern ps2_joypad_device *g_pad;\nextern \"C\" void nglPrintf(const char *, ...);\nextern \"C\" int sceSifInitRpc(int);\nextern \"C\" int sceCdSync(int);\nextern \"C\" int scePadInit(int);\nextern bool load_iop_module(const char *, const char *);\n\n#define false 0\n#define NULL 0\n#define assert(condition) ((void)0)\n#define PS2_MAX_PORTS 2\n#define PS2_MAX_SLOTS 1\n#define PORT_SLOT_TO_CONTROL_NUM(port, slot) (((port) * PS2_MAX_SLOTS) + (slot))\n#define JOYSTICK_TO_DEVICE_ID(id) (((id) - 1) + 3)\n#define INVALID_DEVICE_ID -1\n\nps2_input_mgr::ps2_input_mgr()\n{\n\tnglPrintf(\"ps2 input init\\n\");\n\t\n\tsceSifInitRpc(0);\n\t\n\tsceCdSync(0);\n\t\n\tstringx debug_dir(nglHostPrefix);\n\tdebug_dir += \"c:\\\\usr\\\\local\\\\sce\\\\iop\\\\modules\\\\\";\n\t\n\t\n\t// $jim - I moved this to ps2_storage.cpp as I need it earlier than here for memcard init.\n\t\n\tif (load_iop_module(\"sio2man.irx\", debug_dir.c_str()) == false)\n\t{\n\t\tnglPrintf(\"Can't load module sio2man\\n\");\n\t\tassert(0);\n\t}\n\t\n\t\n\tdebug_dir = nglHostPrefix;\n\tdebug_dir += \"c:\\\\usr\\\\local\\\\sce\\\\iop\\\\modules\\\\\";\n\tif (load_iop_module(\"padman.irx\", debug_dir.c_str()) == false)\n\t{\n\t\tnglPrintf(\"Can't load module padman\\n\");\n\t\tassert(0);\n\t}\n\t\n\t// --- pad open ---\n\tscePadInit(0);\n\t\n\tg_pad = NULL;\n\tint joystick_num = 1;\n\tfor(int _port=0; _port < PS2_MAX_PORTS; ++_port)\n\t{\n\t\tfor(int _slot=0; _slot < PS2_MAX_SLOTS; ++_slot)\n\t\t{\n\t\t\tint control_num = PORT_SLOT_TO_CONTROL_NUM(_port, _slot);\n\t\t\tpad[control_num] = new ps2_joypad_device(_port, _slot);\n\t\t\tif(pad[control_num]->is_port_open() && pad[control_num]->is_connected())\n\t\t\t{\n\t\t\t\tpad[control_num]->device_id = JOYSTICK_TO_DEVICE_ID(joystick_num);\n\t\t\t\t++joystick_num; \n\t\t\t\tif(g_pad == NULL)\n\t\t\t\t\tg_pad = pad[control_num];\n\t\t\t}\n\t\t\telse\n\t\t\t\tpad[control_num]->device_id = INVALID_DEVICE_ID;\n\t\t}\n\t}\n\tif(g_pad == NULL)\n\t\tg_pad = pad[0];\n}\n",
+      "status": "different",
+      "target_size": 496
+    }
+  ],
+  "raw_name": "__13ps2_input_mgr"
+}
