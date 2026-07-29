@@ -1,0 +1,15 @@
+{
+  "address": "0x00133210",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4bcd64668273bce0788cd0b6f49db8dc4009c03d",
+      "notes": "# FIRST PASS wave 111 lane B4\n\nExact released body, LF-normalized, tested once for `0x00133210 set_frame_delta_trans__6entityRC8vector3df`. Result `compile_failed`, score 0.0%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "void entity::set_frame_delta_trans(const vector3d &bob, time_value_t t)\n{\n  if(t > 0.0f)\n  {\n    if ( !mi )\n    {\n      // CTT 07/22/00: for the Max Steel project, the NONSTATIC flag only matters\n      // for walkable entities\n  //    #ifdef PROJECT_STEEL\n      // guard against dynamic allocation in static entity\n      if ( is_walkable() && !is_flagged(EFLAG_MISC_NONSTATIC) )\n      {\n        error( \"Tried to manipulate static walkable object, ID: \" + id.get_val() );\n      }\n\n      mi = NEW movement_info;\n      invalidate_frame_delta();\n    }\n\n    if(mi->frame_delta_valid)\n    {\n      static po trans;\n      trans.set_translate(bob);\n      fast_po_mul(mi->frame_delta, mi->frame_delta, trans);\n  //    mi->frame_delta = mi->frame_delta*trans;\n    }\n    else\n    {\n      mi->frame_delta.set_position(bob);\n    }\n\n    mi->frame_time = t;\n    mi->frame_delta_valid = true;\n  }\n\n  assert(!mi || !mi->frame_delta_valid || mi->frame_time > 0.0f);\n\n//  assert(!mi || !mi->frame_delta_valid || mi->frame_delta.get_position().length() < 50.0f);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "set_frame_delta_trans__6entityRC8vector3df"
+}
