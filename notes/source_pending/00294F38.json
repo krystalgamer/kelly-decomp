@@ -1,0 +1,23 @@
+{
+  "address": "0x00294F38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0c7931e1409ba76910cf3a20bca521b594323341",
+      "candidate_size": 300,
+      "compared_bytes": 512,
+      "compared_instructions": 128,
+      "emitted_name": "wds_open__21world_dynamics_systemR8app_fileRC7stringxT2i",
+      "instruction_score": 5.4688,
+      "matching_bytes": 88,
+      "matching_instructions": 7,
+      "notes": "# FIRST PASS wave 95 lane B3\n\nExact released body tested once for `0x00294F38 wds_open__21world_dynamics_systemR8app_fileRC7stringxT2i`. Result `different`, score 17.1875%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 17.1875,
+      "source": "class stringx\n{\n  char data_[8];\n\npublic:\n  stringx();\n  stringx(const char *);\n  stringx(const stringx &);\n  ~stringx();\n  const char *c_str() const;\n};\n\nstringx operator+(const stringx &, const stringx &);\nstringx operator+(const char *, const stringx &);\nstringx operator+(const stringx &, const char *);\nextern bool file_finder_exists(\n  const stringx &, const stringx &, stringx *);\nextern void error(const stringx &);\n\nclass app_file\n{\npublic:\n  void open(const char *, int);\n};\n\nclass world_dynamics_system\n{\npublic:\n  stringx wds_open(\n    app_file &, const stringx &, const stringx &, int);\n};\n\nstringx world_dynamics_system::wds_open(\n  app_file &fs, const stringx &filename,\n  const stringx &extension, int io_flags)\n{\n  stringx fname;\n  if (file_finder_exists(filename, extension, &fname))\n  {\n    fs.open(fname.c_str(), io_flags);\n    return fname;\n  }\n  else\n  {\n    error(\"Couldn't open \\\"\" + filename + extension + \"\\\"\");\n    return stringx();\n  }\n}\n",
+      "status": "different",
+      "target_size": 512
+    }
+  ],
+  "raw_name": "wds_open__21world_dynamics_systemR8app_fileRC7stringxT2i"
+}
