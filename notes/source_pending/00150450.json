@@ -1,0 +1,23 @@
+{
+  "address": "0x00150450",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "35ae16fc4b923bc00d797395780ffa4c2a41f889",
+      "candidate_size": 568,
+      "compared_bytes": 568,
+      "compared_instructions": 142,
+      "emitted_name": "check__10PanelBatchii",
+      "instruction_score": 94.3662,
+      "matching_bytes": 536,
+      "matching_instructions": 134,
+      "notes": "# FIRST PASS wave 110 lane A1\n\nExact released `PanelBatch::check` body tested once for `0x00150450 check__10PanelBatchii` with faithful source declarations. Result `different`, byte/instruction score 94.3662%%; candidate and target size 568 bytes. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 94.3662,
+      "source": "typedef unsigned int uint32;\ntypedef unsigned short uint16;\n\nstruct stringx\n{\n    char data[16];\n};\n\nstruct vector3d\n{\n    float x;\n    float y;\n    float z;\n};\n\nstruct vector2d\n{\n    float x;\n    float y;\n};\n\nstruct color32\n{\n    uint32 value;\n};\n\nclass nglTexture;\nclass PanelQuad;\n\nstruct PanelMaterial\n{\n    stringx name;\n    uint32 color;\n    float emissive;\n    float shininess;\n    float shinestr;\n    bool additive;\n    bool hasmap;\n    nglTexture *texture;\n    bool bilinearfilter;\n    bool wrapu;\n    bool wrapv;\n    stringx filename;\n};\n\nclass PanelBatch\n{\npublic:\n    uint32 material;\n    PanelMaterial mat;\n    uint32 verttype;\n    uint32 color;\n    uint16 nwedges;\n    PanelQuad *pq;\n    vector3d *wedges;\n    color32 *colors;\n    vector2d *tex;\n    uint16 strip_count;\n    uint16 index_count;\n    uint16 *didxs;\n\n    virtual ~PanelBatch();\n    bool check(int x2, int y2);\n    bool eq_to_tolerance(float a, float b, float tolerance);\n};\n\nbool PanelBatch::check(int x2, int y2)\n{\n\tint x1 = 0;  // always\n\tint y1 = 0;\n\tint x3 = (x2 == 1) ? ((x2 == 2) ? 3 : 2) : 1;\n\tint x4 = (x2 == 2 || x3 == 2) ? 3 : 2;\n\tint y3 = (y2 == 1) ? ((y2 == 2) ? 3 : 2) : 1;\n\tint y4 = (y2 == 2 || y3 == 2) ? 3 : 2;\n\treturn (eq_to_tolerance(wedges[x1].x, wedges[x2].x, .01f) &&\n\t\t\teq_to_tolerance(wedges[x3].x, wedges[x4].x, .01f) &&\n\t\t\teq_to_tolerance(wedges[y1].y, wedges[y2].y, .01f) &&\n\t\t\teq_to_tolerance(wedges[y3].y, wedges[y4].y, .01f) &&\n\t\t\teq_to_tolerance(tex[x1].x, tex[x2].x, .01f) &&\n\t\t\teq_to_tolerance(tex[x3].x, tex[x4].x, .01f) &&\n\t\t\teq_to_tolerance(tex[y1].y, tex[y2].y, .01f) &&\n\t\t\teq_to_tolerance(tex[y3].y, tex[y4].y, .01f));\n}\n",
+      "status": "different",
+      "target_size": 568
+    }
+  ],
+  "raw_name": "check__10PanelBatchii"
+}
