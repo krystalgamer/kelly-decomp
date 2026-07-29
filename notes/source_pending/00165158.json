@@ -1,0 +1,15 @@
+{
+  "address": "0x00165158",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "03863a4624707f2361203e3b59c4e7fa9907bba9",
+      "notes": "# FIRST PASS wave 156 lane B5\n\nExact released source tested once for `0x00165158 Init__17AnalogClockWidgetR9PanelFileP4Font`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEPanel.h\"\n#include \"KS/SRC/text_font_shared.h\"\n#include \"KS/SRC/ks/igo_widget_analogclock.h\"\n\nextern const char hand01[];\nextern const char timeframe_1[];\nextern const char face01[];\nextern const char minute_1[];\nextern const char minute_2[];\nextern const char minute_3[];\nextern const char minute_4[];\nextern const char minute_5[];\nextern const char minute_infinty[];\n\n__asm__(\".equ hand01, 0x004C0A20\");\n__asm__(\".equ timeframe_1, 0x004C0A28\");\n__asm__(\".equ face01, 0x004C0A38\");\n__asm__(\".equ minute_1, 0x004C0A40\");\n__asm__(\".equ minute_2, 0x004C0A50\");\n__asm__(\".equ minute_3, 0x004C0A60\");\n__asm__(\".equ minute_4, 0x004C0A70\");\n__asm__(\".equ minute_5, 0x004C0A80\");\n__asm__(\".equ minute_infinty, 0x004C0A90\");\n__asm__(\".equ GetPointer__9PanelFilePCc, 0x00152F88\");\n\nvoid AnalogClockWidget::Init(PanelFile & panel, Font * numberFont)\n{\n\tfloat d = 23.0f * tanf(2*PI/(float)60) * 1.2f; //1.02f;\n\tfloat ccx = 556.0f;\n\tfloat ccy = 73.0f;\n\n\tclockHandPQ = panel.GetPointer(hand01);;\n\tclockHandPQ->TurnOn(true);\n\tclockHandPQ->GetCenterPos(handCenterX, handCenterY);\n\tclockFramePQ = panel.GetPointer(timeframe_1);\n\tclockFramePQ->TurnOn(true);\n\tclockFacePQ = panel.GetPointer(face01);\n\tclockFacePQ->TurnOn(true);\n\tnum1PQ = panel.GetPointer(minute_1);\n\tnum1PQ->TurnOn(false);\n\tnum2PQ = panel.GetPointer(minute_2);\n\tnum2PQ->TurnOn(false);\n\tnum3PQ = panel.GetPointer(minute_3);\n\tnum3PQ->TurnOn(false);\n\tnum4PQ = panel.GetPointer(minute_4);\n\tnum4PQ->TurnOn(false);\n\tnum5PQ = panel.GetPointer(minute_5);\n\tnum5PQ->TurnOn(false);\n\tinfPQ = panel.GetPointer(minute_infinty);\n\tinfPQ->TurnOn(true);\n\n\tfor(int i=0; i<60; i++)\n\t{\n\t\ttimeSegs[i]->Init(ccx-d, ccx, ccx, ccx, ccy-23.0f, ccy-23.0f, ccy, ccy, 0.0f, 0.0f, .5f, 1.0f, 300);\n\t}\n\tfor(int i=0; i<60; i++)\n\t{\n\t\ttimeSegs[i]->RotateOnce(ccx, ccy, -i*(2*PI/(float)60));\n\t}\n\n\tscoreText->setFont(numberFont);\n\telapsedInterval = 0.0f;\n\n\tSetDisplay(true);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Init__17AnalogClockWidgetR9PanelFileP4Font"
+}
