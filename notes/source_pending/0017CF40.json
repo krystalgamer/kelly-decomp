@@ -1,0 +1,15 @@
+{
+  "address": "0x0017CF40",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0d96691361566818f90e52578321f0cfe5e1e8aa",
+      "notes": "# FIRST PASS wave 126 lane B5\n\nExact released source tested once for `0x0017CF40 MakeTrickAttrText__11IGOFrontEndi`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/global.h\"\n#include \"KS/SRC/ks/IGOFrontEnd.h\"\n#include \"KS/SRC/ks/conglom.h\"\n#include \"KS/SRC/ks/kellyslater_controller.h\"\n#include \"KS/SRC/ks/VOEngine.h\"\n#include \"KS/SRC/ks/random.h\"\n#include \"KS/SRC/ks/ini_parser.h\"\n#include \"KS/SRC/ks/wds.h\"\n#include \"KS/SRC/ks/ksngl.h\"\n#include \"KS/SRC/ks/demomode.h\"\n\nvoid IGOFrontEnd::MakeTrickAttrText(const int playerIdx)\n{\n\tkellyslater_controller *\tksctrl = g_world_ptr->get_ks_controller(playerIdx);\n\t\n\tif (playerIdx && g_game_ptr->get_num_ai_players()) return;\n\t\n\tif (ksctrl->get_my_scoreManager().GetChain().series.empty())\n\t{\n\t\tplayers[playerIdx].trickAttrText->changeText(\"\");\n\t\treturn;\n\t}\n\t\n\tconst ScoringManager::Series &\tseries = ksctrl->get_my_scoreManager().GetChain().series.back();\n\t\n\t// Set text.\n\tif (series.landing == ScoringManager::LAND_PERFECT)\n\t{\n\t\tplayers[playerIdx].trickAttrText->changeText(ksGlobalTextArray[GT_TRICK_PERFECT]);\n\t\tplayers[playerIdx].trickAttrText->color = COLOR_PERFECT;\n\t\tplayers[playerIdx].trickAttrText->checkTime = true;\n\t\tplayers[playerIdx].trickAttrText->time = TRICK_WAIT_MAX;\n\t}\n\telse if (series.landing == ScoringManager::LAND_SLOPPY)\n\t{\n\t\tplayers[playerIdx].trickAttrText->changeText(ksGlobalTextArray[GT_TRICK_SLOPPY]);\n\t\tplayers[playerIdx].trickAttrText->color = COLOR_BAD;\n\t\tplayers[playerIdx].trickAttrText->checkTime = true;\n\t\tplayers[playerIdx].trickAttrText->time = TRICK_WAIT_MAX;\n\t}\n\t/*\n\telse if (series.landing == ScoringManager::LAND_JUNK)\n\t{\n\t\tplayers[playerIdx].trickAttrText->changeText(ksGlobalTextArray[GT_TRICK_JUNK]);\n\t\tplayers[playerIdx].trickAttrText->color = COLOR_JUNK;\n\t\tplayers[playerIdx].trickAttrText->checkTime = true;\n\t\tplayers[playerIdx].trickAttrText->time = TRICK_WAIT_MAX;\n\t}\n\t*/\n\telse\n\t\tplayers[playerIdx].trickAttrText->changeText(\"\");\n\t\n\t// Set position of text.\n\tTrickBoxText * t = players[playerIdx].trickText;\n\tplayers[playerIdx].trickAttrText->changeY(t->getY()+t->getHeight()-t->GetTextHeight()-17);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "MakeTrickAttrText__11IGOFrontEndi"
+}
