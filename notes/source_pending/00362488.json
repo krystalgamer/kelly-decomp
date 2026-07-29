@@ -1,0 +1,23 @@
+{
+  "address": "0x00362488",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "44fcd378137463bbeffd3fc8e72cbf11c7d0ea2f",
+      "candidate_size": 596,
+      "compared_bytes": 596,
+      "compared_instructions": 149,
+      "emitted_name": "update__5trailf",
+      "instruction_score": 14.094,
+      "matching_bytes": 189,
+      "matching_instructions": 21,
+      "notes": "# FIRST PASS wave 107 lane A2\n\nExact released `trail::update` source tested once for `0x00362488`. Attempts before: 0. Result `different`, byte score 31.7114%, instruction score 14.094%. No retry, follow-up, build, git operation, or tracked edit.",
+      "score": 31.7114,
+      "source": "typedef unsigned int u_int;\n\nenum WaveRegionEnum\n{\n  WAVE_REGIONCURL = 2,\n  WAVE_REGIONROOF = 7,\n  WAVE_REGIONSHOULDER = 8,\n  WAVE_REGIONSHOULDER2 = 13\n};\n\nstruct surface_point_t\n{\n  char data[0x23c];\n  WaveRegionEnum region;\n  u_int vvalid;\n};\n\nstruct trail_node_t\n{\n  u_int valid;\n  float age;\n  float uv;\n  surface_point_t pnt1;\n  surface_point_t pnt2;\n  surface_point_t pnt3;\n};\n\nstruct spray_control_t\n{\n  char data[0x60];\n};\nstruct spray_params_t\n{\n  spray_control_t control_points_a[25];\n  spray_control_t control_points_b[25];\n};\n\nclass SurfBoardObjectClass\n{\npublic:\n  bool InAir();\n};\n\nclass kellyslater_controller\n{\npublic:\n  bool is_active();\n  SurfBoardObjectClass &get_board_controller();\n};\n\nclass trail\n{\npublic:\n  virtual ~trail();\n  void update(float dt);\n  void update_surface_point(surface_point_t *sp);\n  void spraypt_update(spray_control_t *points, u_int max);\n  void board_update_air(float dt);\n  void board_update(float dt);\n\nprivate:\n  bool valid;\n  u_int my_index;\n  float my_life;\n  float my_sample_rate;\n  float my_last_sample;\n  u_int my_total_nodes;\n  trail_node_t my_trail_data[30];\n  bool my_extra;\n  float my_lastmag1;\n  float my_lastmag2;\n  kellyslater_controller *my_owner;\n  spray_params_t *my_spray;\n};\n\nvoid trail::update (float dt)\n{\n  WaveRegionEnum region;\n\n  if (my_owner && !my_owner->is_active())\n    return;\n\n  my_last_sample += dt;\n\n  for (u_int i = 0; i < my_total_nodes; i++)\n  {\n    trail_node_t *node = &my_trail_data[i];\n\n    if (!node->valid)\n      continue;\n\n    node->age += dt;\n\n    if (node->age > my_life)\n    {\n      node->valid = false;\n      continue;\n    }\n\n    update_surface_point (&node->pnt1);\n    region = node->pnt1.region;\n\n    if ((region == WAVE_REGIONROOF) || (region == WAVE_REGIONCURL) ||\n        (region == WAVE_REGIONSHOULDER) || (region == WAVE_REGIONSHOULDER2))\n    {\n      node->age *= 1.75f;\n      continue;\n    }\n\n    if (my_extra)\n    {\n      update_surface_point (&node->pnt2);\n      region = node->pnt2.region;\n\n      if ((region == WAVE_REGIONROOF) || (region == WAVE_REGIONCURL) ||\n          (region == WAVE_REGIONSHOULDER) || (region == WAVE_REGIONSHOULDER2))\n      {\n        node->age *= 1.75f;\n        continue;\n      }\n    }\n\n    update_surface_point (&node->pnt3);\n    region = node->pnt3.region;\n\n    if ((region == WAVE_REGIONROOF) || (region == WAVE_REGIONCURL) ||\n        (region == WAVE_REGIONSHOULDER) || (region == WAVE_REGIONSHOULDER2))\n    {\n      node->age *= 1.75f;\n      continue;\n    }\n  }\n\n  if (my_owner)\n  {\n    SurfBoardObjectClass& board = my_owner->get_board_controller();\n\n    spraypt_update (my_spray->control_points_a, 25);\n    spraypt_update (my_spray->control_points_b, 25);\n\n    if (board.InAir ())\n      board_update_air (dt);\n    else\n      board_update (dt);\n  }\n}\n",
+      "status": "different",
+      "target_size": 552
+    }
+  ],
+  "raw_name": "update__5trailf"
+}
