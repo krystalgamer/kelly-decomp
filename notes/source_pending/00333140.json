@@ -1,0 +1,23 @@
+{
+  "address": "0x00333140",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "63528ced21a1390257ae93dc21996b11b0f1374d",
+      "candidate_size": 228,
+      "compared_bytes": 504,
+      "compared_instructions": 126,
+      "emitted_name": "__cl__27slf_entity_list_get_index_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 0.7937,
+      "matching_bytes": 62,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 94 lane B2\n\nExact released body tested once for `0x00333140 __cl__27slf_entity_list_get_index_tR8vm_stackQ320script_library_class8function7entry_t`. Result `different`, score 12.3016%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 12.3016,
+      "source": "typedef float vm_num_t;\n\nclass entity;\n\nclass entity_list\n{\n  entity **start;\n  entity **finish;\n  entity **end_of_storage;\n\npublic:\n  unsigned int size() const { return finish - start; }\n  entity *operator[](unsigned int index) { return start[index]; }\n};\n\nclass vm_stack\n{\n  char padding[8];\n\npublic:\n  char *SP;\n  void *thread;\n\n  void pop(int n) { SP -= n; }\n  bool push(const char *, int);\n};\n\nextern void error(const char *, ...);\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t\n    {\n      FIRST_ENTRY,\n      RECALL_ENTRY\n    };\n\n    virtual bool operator()(vm_stack &, entry_t) = 0;\n  };\n};\n\nclass slf_entity_list_get_index_t :\n  public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    entity_list *me;\n    vm_num_t index;\n  };\n\n  virtual bool operator()(vm_stack &, entry_t);\n};\n\nbool slf_entity_list_get_index_t::operator()(\n  vm_stack &stack, entry_t)\n{\n  stack.pop(sizeof(parms_t));\n  parms_t *parms = (parms_t *)stack.SP;\n\n  if ((parms->index >= parms->me->size()) || (parms->index < 0))\n    error(\"Index out of range %d\", (int)parms->index);\n\n  entity *result = (*parms->me)[(int)parms->index];\n  stack.push((char *)&result, sizeof(result));\n  return true;\n}\n",
+      "status": "different",
+      "target_size": 504
+    }
+  ],
+  "raw_name": "__cl__27slf_entity_list_get_index_tR8vm_stackQ320script_library_class8function7entry_t"
+}
