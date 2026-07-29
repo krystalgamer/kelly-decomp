@@ -1,0 +1,15 @@
+{
+  "address": "0x001B1CB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8d9db38ea1860d9e7d3ac1503bfdaae5d95682f6",
+      "notes": "# FIRST PASS wave 107 lane B1\n\nExact released source body tested once for `0x001B1CB0 __12TipMenuClassP12FEMenuSystemiiG7color32N24`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"ks_camera.h\"\n#include \"FrontEndMenus.h\"\n#include \"osGameSaver.h\"\n\nTipMenuClass::TipMenuClass(FEMenuSystem* m, int x, int y, color32 c, color32 ch, color32 cha)\n{\n\tFEMenu::cons(m, x, y, c, ch, cha);\n\tsys = (PauseMenuSystem*) m;\n\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_NEXT_TIP], this));\n\ttip_list = NULL;\n\ttip_list_size = -1;\n\ttip = NEW BoxText(&frontendmanager.font_bold_old, \"\", 148, 200, 0, 0.666f*1.18f, Font::HORIZJUST_LEFT, Font::VERTJUST_CENTER, c);\n\n\tscale_high = 1.0f;\n\tSetHelpText(HF_RESUME | HF_SELECT | HF_BACK);\n\tflags |= FEMENU_WRAP;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__12TipMenuClassP12FEMenuSystemiiG7color32N24"
+}
