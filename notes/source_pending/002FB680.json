@@ -1,0 +1,23 @@
+{
+  "address": "0x002FB680",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ef4be415baee3c1cbc7ed873d7fb6a263af07e49",
+      "candidate_size": 296,
+      "compared_bytes": 516,
+      "compared_instructions": 129,
+      "emitted_name": "_M_insert_aux__t6vector2ZP7triggerZt12my_allocator1ZP7triggerPP7triggerRCP7trigger",
+      "instruction_score": 7.7519,
+      "matching_bytes": 77,
+      "matching_instructions": 10,
+      "notes": "# FIRST PASS wave 98 lane B1\n\nExact released body tested once for `0x002FB680 _M_insert_aux__t6vector2ZP7triggerZt12my_allocator1ZP7triggerPP7triggerRCP7trigger`. Result `different`, score 14.9225%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 14.9225,
+      "source": "class trigger;\n\ntemplate <class T>\nclass my_allocator {\n};\n\ntemplate <class T>\nvoid construct(T*, const T&);\n\ntemplate <class T>\nvoid destroy(T*, T*);\n\ntemplate <class InputIterator, class ForwardIterator>\nForwardIterator uninitialized_copy(InputIterator, InputIterator, ForwardIterator);\n\ntemplate <class BidirectionalIterator1, class BidirectionalIterator2>\nBidirectionalIterator2 copy_backward(BidirectionalIterator1, BidirectionalIterator1,\n                                     BidirectionalIterator2);\n\ntemplate <class T, class Alloc>\nclass vector {\npublic:\n  typedef T* iterator;\n  typedef unsigned int size_type;\n\n  iterator begin() { return _M_start; }\n  iterator end() { return _M_finish; }\n  size_type size() const { return size_type(_M_finish - _M_start); }\n  iterator _M_allocate(size_type);\n  void _M_deallocate(iterator, size_type);\n  void _M_insert_aux(iterator, const T&);\n\n  iterator _M_start;\n  iterator _M_finish;\n  iterator _M_end_of_storage;\n};\n\ntemplate <class T, class Alloc>\nvoid vector<T, Alloc>::_M_insert_aux(iterator position, const T& x) {\n  if (_M_finish != _M_end_of_storage) {\n    construct(_M_finish, *(_M_finish - 1));\n    ++_M_finish;\n    T x_copy = x;\n    copy_backward(position, _M_finish - 2, _M_finish - 1);\n    *position = x_copy;\n  }\n  else {\n    const size_type old_size = size();\n    const size_type len = old_size != 0 ? 2 * old_size : 1;\n    iterator new_start = _M_allocate(len);\n    iterator new_finish = new_start;\n    new_finish = uninitialized_copy(_M_start, position, new_start);\n    construct(new_finish, x);\n    ++new_finish;\n    new_finish = uninitialized_copy(position, _M_finish, new_finish);\n    destroy(begin(), end());\n    _M_deallocate(_M_start, _M_end_of_storage - _M_start);\n    _M_start = new_start;\n    _M_finish = new_finish;\n    _M_end_of_storage = new_start + len;\n  }\n}\n\ntemplate void vector<trigger*, my_allocator<trigger*> >::_M_insert_aux(\n    trigger**, trigger* const&);\n",
+      "status": "different",
+      "target_size": 516
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2ZP7triggerZt12my_allocator1ZP7triggerPP7triggerRCP7trigger"
+}
