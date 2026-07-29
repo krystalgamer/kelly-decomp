@@ -1,0 +1,23 @@
+{
+  "address": "0x00385AF8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2b9a03b4f301e7eb792330e1d7249227be80db42",
+      "candidate_size": 724,
+      "compared_bytes": 724,
+      "compared_instructions": 181,
+      "emitted_name": "nvlReadHost__FP9nvlStream",
+      "instruction_score": 3.8674,
+      "matching_bytes": 132,
+      "matching_instructions": 7,
+      "notes": "# FIRST PASS wave 132 lane B4\n\nExact released source tested once for `0x00385AF8 nvlReadHost__FP9nvlStream`. Attempts before: 0. Result `different`, byte score 18.2320% and instruction score 3.8674%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 18.232,
+      "source": "// Target: 0x00385AF8 nvlReadHost__FP9nvlStream\n// Reference: NVL/PS2/nvlstream_ps2.cpp\n// Replace this file with one self-contained candidate function.\ntypedef int nvlMutex;\n\nstruct nvlStream\n{\n  int idx;\n  unsigned int startSector;\n  unsigned int endSector;\n  unsigned int readSector;\n  unsigned int filesize;\n  int bytes_in_last_sect;\n  int bufsize;\n  char *buf;\n  char *endbuf;\n  char *pRead;\n  char *pWrite;\n  char *pLock;\n  char *pEndOfData;\n  char *pStartOfData;\n  int private_buffer;\n  int bitrate;\n  int flags;\n  int available;\n  nvlMutex mtx;\n  int lp_skip;\n  int requireRewind;\n  int fh;\n};\n\nenum nvlMutexMode { NVL_MUTEX_BLOCK, NVL_MUTEX_NOBLOCK };\n\nextern int nvlLockMutex(nvlMutex *, nvlMutexMode);\nextern void nvlUnlockMutex(nvlMutex *);\nextern \"C\" int sceRead(int, void *, int);\nextern \"C\" int sceLseek(int, int, int);\nextern \"C\" int FlushCache(int);\nextern \"C\" void __assert(const char *, int, const char *);\nextern const char source_file[];\nextern const char assert_sector_size[];\nextern const char assert_read_order[];\nextern const char assert_read_result[];\nextern const char assert_write_bounds[];\nextern const char assert_end_data[];\n\n__asm__(\".equ nvlLockMutex__FPi12nvlMutexMode,0x003873E8\");\n__asm__(\".equ nvlUnlockMutex__FPi,0x00387480\");\n__asm__(\".equ sceRead,0x003DEFB8\");\n__asm__(\".equ sceLseek,0x003DED80\");\n__asm__(\".equ FlushCache,0x003DB770\");\n__asm__(\".equ __assert,0x003CF6B0\");\n__asm__(\".equ source_file,0x0051AD40\");\n__asm__(\".equ assert_sector_size,0x0051B0E0\");\n__asm__(\".equ assert_read_order,0x0051AEB0\");\n__asm__(\".equ assert_read_result,0x0051B110\");\n__asm__(\".equ assert_write_bounds,0x0051AFB8\");\n__asm__(\".equ assert_end_data,0x0051AFD0\");\n\n#define assert_at(condition, line, expression) \\\n  ((condition) ? (void)0 : __assert(source_file, line, expression))\n\nstatic void nvlReadHost(nvlStream *s)\n{\n  int byte_num = 0, res;\n\n  if (s->pLock && s->pLock >= s->pWrite)\n  {\n    byte_num = s->pLock - s->pWrite;\n  }\n  else if (s->pRead == 0 || s->pRead < s->pWrite ||\n           (s->pRead == s->pWrite && s->available == 0))\n  {\n    byte_num = s->endbuf - s->pWrite;\n    assert_at(byte_num == 0 || byte_num >= 2048, 541, assert_sector_size);\n  }\n  else\n  {\n    assert_at(s->pRead >= s->pWrite, 545, assert_read_order);\n    byte_num = s->pRead - s->pWrite;\n  }\n  if (byte_num < 2048)\n  {\n    byte_num = 0;\n  }\n  else if (byte_num > 0x100000)\n  {\n    byte_num = 0x100000;\n  }\n  byte_num &= ~(2048 - 1);\n\n  if (byte_num)\n  {\n    nvlLockMutex(&s->mtx, NVL_MUTEX_BLOCK);\n    if (s->flags & 3)\n    {\n      nvlUnlockMutex(&s->mtx);\n      return;\n    }\n    s->flags |= 2;\n    nvlUnlockMutex(&s->mtx);\n\n    res = sceRead(s->fh, s->pWrite, byte_num);\n    FlushCache(0);\n    assert_at(res >= 0, 571, assert_read_result);\n\n    nvlLockMutex(&s->mtx, NVL_MUTEX_BLOCK);\n    s->pWrite += byte_num;\n    assert_at(s->pWrite <= s->endbuf, 575, assert_write_bounds);\n    if (res < byte_num)\n    {\n      assert_at(s->pEndOfData == 0, 578, assert_end_data);\n      s->flags |= 8;\n      s->pEndOfData = s->pWrite - byte_num + res;\n      if (s->flags & 4)\n      {\n        if (s->pWrite >= s->endbuf)\n        {\n          s->pWrite = s->buf;\n        }\n        s->pStartOfData = s->pWrite;\n        sceLseek(s->fh, s->lp_skip, 0);\n      }\n    }\n    else if (s->flags & 8)\n    {\n      s->flags &= ~8;\n    }\n    s->available += res;\n    if (s->pWrite == s->endbuf)\n    {\n      s->pWrite = s->buf;\n    }\n    if (s->pRead == 0)\n    {\n      s->pRead = s->buf;\n    }\n    s->flags &= ~2;\n    nvlUnlockMutex(&s->mtx);\n  }\n}\n",
+      "status": "different",
+      "target_size": 704
+    }
+  ],
+  "raw_name": "nvlReadHost__FP9nvlStream"
+}
