@@ -1,0 +1,15 @@
+{
+  "address": "0x00244CD0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "18ec51621304a6a1bd08b48acddc46424b7edeb4",
+      "notes": "# FIRST PASS wave 142 lane B1\n\nExact released source tested once for `0x00244CD0 InitIK__9ik_objectP6entityP12conglomerate`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x00244CD0 InitIK__9ik_objectP6entityP12conglomerate\n// Reference: KS/SRC/ks/ik_object.cpp\n#include \"kelly-slaters-pro-surfer/KS/SRC/ks/ik_object.h\"\n\nvoid ik_object::InitIK(entity *floor, conglomerate *biped)\n{\n\tfloor_obj = floor;\n\tbiped_obj = biped;\n\tassert(biped_obj != NULL);\n\n\tpelvis = biped_obj->get_member(\"BIP01 PELVIS\");\n\tl_thigh = biped_obj->get_member(\"BIP01 L THIGH\");\n\tl_calf = biped_obj->get_member(\"BIP01 L CALF\");\n\tl_foot = biped_obj->get_member(\"BIP01 L FOOT\");\n\tr_thigh = biped_obj->get_member(\"BIP01 R THIGH\");\n\tr_calf = biped_obj->get_member(\"BIP01 R CALF\");\n\tr_foot = biped_obj->get_member(\"BIP01 R FOOT\");\n\n\tfloat thigh_len = l_calf->get_rel_position().length();\n\tfloat calf_len = l_foot->get_rel_position().length();\n\tfloat inv_2_thigh_len = 0.5f/thigh_len;\n\tfloat inv_2_calf_len = 0.5f/calf_len;\n\tfloat thigh_len2_calf_len2 = thigh_len*thigh_len - calf_len*calf_len;\n\n\tl_thigh_ik_invc = thigh_len2_calf_len2 * inv_2_thigh_len;\n\tl_thigh_ik_c = inv_2_thigh_len;\n\tl_calf_ik_invc = -thigh_len2_calf_len2 * inv_2_calf_len;\n\tl_calf_ik_c = inv_2_calf_len;\n\n\tthigh_len = r_calf->get_rel_position().length();\n\tcalf_len = r_foot->get_rel_position().length();\n\tinv_2_thigh_len = 0.5f/thigh_len;\n\tinv_2_calf_len = 0.5f/calf_len;\n\tthigh_len2_calf_len2 = thigh_len*thigh_len - calf_len*calf_len;\n\n\tr_thigh_ik_invc = thigh_len2_calf_len2 * inv_2_thigh_len;\n\tr_thigh_ik_c = inv_2_thigh_len;\n\tr_calf_ik_invc = -thigh_len2_calf_len2 * inv_2_calf_len;\n\tr_calf_ik_c = inv_2_calf_len;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "InitIK__9ik_objectP6entityP12conglomerate"
+}
