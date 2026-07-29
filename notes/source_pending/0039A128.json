@@ -1,0 +1,15 @@
+{
+  "address": "0x0039A128",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cb5ad961a38c1a23c92c0f7573cb20d8cb1c8ba0",
+      "notes": "# FIRST PASS wave 160 lane B3\n\nExact released source tested once for `0x0039A128 nglVif1SetupScene__FRPUiP8nglSceneb`. Attempts before: 0. Result `compile_failed`, score 0.0000%. Capacity-only child failures were retried with Sol and non-attempting lanes were remediated directly; infrastructure failures did not count. No source retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"../../../../kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h\"\n#include \"../../../../kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2_internal.h\"\n\nvoid nglVif1SetupScene( u_int*& Packet, nglScene* Scene, bool ClearEnable )\n{\n  nglDmaStartTag( Packet );\n\n  // Reset some VIF1 registers.\n  Packet[0] = SCE_VIF1_SET_BASE( 0, 0 );\n  Packet[1] = SCE_VIF1_SET_OFFSET( 0, 0 );\n  Packet[2] = SCE_VIF1_SET_STCYCL( 1, 1, 0 );\n  Packet[3] = SCE_VIF1_SET_ITOP( 0, 0 );\n  Packet += 4;\n\n  // Calculate fog coefficients.\n  nglVector FogVal( Scene->FogNear, 1.0f / ( Scene->FogFar - Scene->FogNear ), Scene->FogMin * 255.0f, ( Scene->FogMax - Scene->FogMin ) * 255.0f );\n  nglVif1AddUnpack( Packet, NGLMEM_FOG_VAL, SCE_VIF1_V4_32, 1, &FogVal, sizeof(float) * 4 );\n  nglVif1AddUnpack( Packet, NGLMEM_FOG_COLOR, SCE_VIF1_V3_32, 1, &Scene->FogColor, sizeof(float) * 3 );\n\n  // Set up scene constants in VU memory.\n  nglVif1AddUnpack( Packet, NGLMEM_WORLD_TO_VIEW, SCE_VIF1_V4_32, 4, Scene->WorldToView, sizeof(nglMatrix) );\n  nglVif1AddUnpack( Packet, NGLMEM_WORLD_TO_SCREEN, SCE_VIF1_V4_32, 4, Scene->WorldToScreen, sizeof(nglMatrix) );\n  nglVif1AddUnpack( Packet, NGLMEM_WORLD_TO_CLIP, SCE_VIF1_V4_32, 4, Scene->WorldToClip, sizeof(nglMatrix) );\n  nglVif1AddUnpack( Packet, NGLMEM_CLIP_TO_SCREEN, SCE_VIF1_V4_32, 4, Scene->ClipToScreen, sizeof(nglMatrix) );\n  nglVif1AddUnpack( Packet, NGLMEM_VIEW_TO_WORLD, SCE_VIF1_V4_32, 4, Scene->ViewToWorld, sizeof(nglMatrix) );\n\n  nglVif1AddGiftagSetup( Packet );\n\n  nglVif1AddUnpack( Packet, NGLMEM_SCREEN_MIN, SCE_VIF1_V4_32, 1, nglScreenMinValue, sizeof(nglVector) );\n  nglVif1AddUnpack( Packet, NGLMEM_SCREEN_MAX, SCE_VIF1_V4_32, 1, nglScreenMaxValue, sizeof(nglVector) );\n\n  // Set up the global drawing environment for the scene (viewport, framebuffer, fog, etc).\n  nglVif1AddSetDrawEnv( Packet, Scene, ClearEnable );\n\n  nglDmaEndTag( Packet, SCE_DMA_ID_CNT );\n\n  nglVif1FlushSPAD( Packet, true );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "nglVif1SetupScene__FRPUiP8nglSceneb"
+}
