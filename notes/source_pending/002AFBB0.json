@@ -1,0 +1,23 @@
+{
+  "address": "0x002AFBB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f599e98b986f178936ef9e8afc5f73150d6d159a",
+      "candidate_size": 400,
+      "compared_bytes": 516,
+      "compared_instructions": 129,
+      "emitted_name": "_M_insert_aux__t6vector2ZP20morphable_item_rangeZt12my_allocator1ZP20morphable_item_rangePP20morphable_item_rangeRCP20morphable_item_range",
+      "instruction_score": 6.2016,
+      "matching_bytes": 98,
+      "matching_instructions": 8,
+      "notes": "# FIRST PASS wave 97 lane A3\n\nTested one LF-only, self-contained GCC 2.95.2-style `stl_vector`/`my_allocator`\ncandidate for `0x002AFBB0` exactly once from attempts0.\n\nResult: `different`, 18.9922% byte score, 6.2016% instruction score.\nNo retry, chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 18.9922,
+      "source": "typedef unsigned int size_t;\ntypedef int ptrdiff_t;\n\ninline void* operator new(size_t, void* p) { return p; }\n\nclass my_alloc\n{\npublic:\n  static void* allocate(size_t);\n  static void deallocate(void*, size_t);\n};\n\ntemplate<class T>\nclass my_allocator\n{\npublic:\n  typedef T* pointer;\n  typedef const T* const_pointer;\n  typedef T& reference;\n  typedef const T& const_reference;\n  typedef size_t size_type;\n  typedef ptrdiff_t difference_type;\n\n  pointer allocate(size_type n) { return (pointer)my_alloc::allocate(n * sizeof(T)); }\n  void deallocate(pointer p, size_type n) { my_alloc::deallocate(p, n * sizeof(T)); }\n  void construct(pointer p, const_reference x) { new(p) T(x); }\n  void destroy(pointer p) { p->~T(); }\n};\n\nclass morphable_item_range;\n\ntemplate<class T, class Alloc>\nclass vector\n{\npublic:\n  typedef T* iterator;\n  typedef size_t size_type;\n\n  iterator _M_start;\n  iterator _M_finish;\n  iterator _M_end_of_storage;\n  Alloc _M_allocator;\n\n  void _M_insert_aux(iterator position, const T& x);\n};\n\ntemplate<class T, class Alloc>\nvoid vector<T, Alloc>::_M_insert_aux(iterator position, const T& x)\n{\n  if (_M_finish != _M_end_of_storage)\n  {\n    _M_allocator.construct(_M_finish, *(_M_finish - 1));\n    ++_M_finish;\n    T x_copy = x;\n    T* first = position;\n    T* last = _M_finish - 2;\n    T* result = _M_finish - 1;\n    while (first != last)\n      *--result = *--last;\n    *position = x_copy;\n  }\n  else\n  {\n    const size_type old_size = _M_finish - _M_start;\n    const size_type len = old_size != 0 ? 2 * old_size : 1;\n    iterator new_start = _M_allocator.allocate(len);\n    iterator new_finish = new_start;\n    for (iterator i = _M_start; i != position; ++i, ++new_finish)\n      _M_allocator.construct(new_finish, *i);\n    _M_allocator.construct(new_finish, x);\n    ++new_finish;\n    for (iterator i = position; i != _M_finish; ++i, ++new_finish)\n      _M_allocator.construct(new_finish, *i);\n    for (iterator i = _M_start; i != _M_finish; ++i)\n      _M_allocator.destroy(i);\n    _M_allocator.deallocate(_M_start, _M_end_of_storage - _M_start);\n    _M_start = new_start;\n    _M_finish = new_finish;\n    _M_end_of_storage = new_start + len;\n  }\n}\n\ntemplate void vector<morphable_item_range*, my_allocator<morphable_item_range*> >::_M_insert_aux(\n  morphable_item_range**, morphable_item_range* const&);\n",
+      "status": "different",
+      "target_size": 516
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2ZP20morphable_item_rangeZt12my_allocator1ZP20morphable_item_rangePP20morphable_item_rangeRCP20morphable_item_range"
+}
