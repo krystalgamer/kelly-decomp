@@ -1,0 +1,23 @@
+{
+  "address": "0x00137318",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "22467b1894bfd77d9b3591f80cf244fff4e7a17d",
+      "candidate_size": 528,
+      "compared_bytes": 660,
+      "compared_instructions": 165,
+      "emitted_name": "apply_destruction_fx__16destroyable_info",
+      "instruction_score": 4.2424,
+      "matching_bytes": 144,
+      "matching_instructions": 7,
+      "notes": "# FIRST PASS wave 124 lane A4\n\nExact released source tested once for `0x00137318 apply_destruction_fx__16destroyable_info`. Attempts before: 0. Result `different`, byte score 21.8182% and instruction score 4.2424%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 21.8182,
+      "source": "typedef float rational_t;\n#define NULL 0\n#define assert(x) ((void)0)\n\nstruct vector3d { float x, y, z; };\nstruct vector4d { float x, y, z, w; };\n\nclass po\n{\n  vector4d m[4];\npublic:\n  void set_position(const vector3d& p) { m[3].x = p.x; m[3].y = p.y; m[3].z = p.z; }\n};\n\nextern po po_identity_matrix;\n\nclass stringx\n{\n  char data[8];\npublic:\n  const char* c_str() const;\n};\n\nclass visual_rep;\nclass vm_thread;\n\nclass entity\n{\n  char padding[80];\n  po* my_abs_po;\npublic:\n  const vector3d& get_abs_position() const { return *(const vector3d*)((const char*)my_abs_po + 48); }\n  vm_thread* spawn_entity_script_function(const stringx&) const;\n  void change_visrep(const stringx&);\n  void set_visible(bool);\n  void set_collisions_active(bool, bool = true);\n  void set_walkable(bool);\n  void set_repulsion(bool);\n  void set_active(bool);\n  void set_actionable(bool);\n};\n\nclass world_dynamics_system\n{\npublic:\n  entity* add_time_limited_effect(const char*, const po&, rational_t);\n};\n\nextern world_dynamics_system* g_world_ptr;\nvoid unload_visual_rep(visual_rep*);\n\nclass destroyable_info\n{\nprotected:\n  short flags;\n  rational_t destroy_lifetime;\n  stringx destroy_fx;\n  stringx destroy_script;\n  stringx destroyed_visrep;\n  stringx preload_script;\n  visual_rep* destroyed_mesh;\n  int hit_points;\n  virtual void copy_instance_data(destroyable_info*);\n  entity* owner;\n\npublic:\n  enum eDestroyInfoFlags\n  {\n    _DESTROY_FX = 0x0002,\n    _DESTROY_SCRIPT = 0x0004,\n    _DESTROYED_VISREP = 0x0010,\n    _REMAIN_VISIBLE = 0x0040,\n    _REMAIN_ACTIVE = 0x0080,\n    _NO_COLLISION = 0x0400,\n    _REMAIN_COLLISION = 0x0800\n  };\n\n  bool is_flagged(eDestroyInfoFlags f) const { return (flags & f) != 0; }\n  bool has_destroy_fx() const { return is_flagged(_DESTROY_FX); }\n  bool has_destroy_script() const { return is_flagged(_DESTROY_SCRIPT); }\n  bool has_destroyed_visrep() const { return is_flagged(_DESTROYED_VISREP) && destroyed_mesh != NULL; }\n  bool remain_visible() const { return is_flagged(_REMAIN_VISIBLE); }\n  bool no_collision() const { return is_flagged(_NO_COLLISION); }\n  bool remain_collision() const { return is_flagged(_REMAIN_COLLISION); }\n  bool remain_active() const { return is_flagged(_REMAIN_ACTIVE); }\n  const stringx& get_destroy_script() const { return destroy_script; }\n  void apply_destruction_fx();\n};\n\nvoid destroyable_info::apply_destruction_fx()\n{\n  assert(owner != NULL);\n\n//  if(dread_net_cue != dread_net::UNDEFINED_AV_CUE)\n//    g_world_ptr->get_dread_net()->add_cue((dread_net::eAVCueType)dread_net_cue, owner);\n\n  if ( has_destroy_fx() )\n  {\n    po the_po = po_identity_matrix;\n    the_po.set_position(owner->get_abs_position());\n//    entity *fx =  // unused, remove me?\n    g_world_ptr->add_time_limited_effect( destroy_fx.c_str(), the_po, destroy_lifetime );\n  }\n\n  if ( has_destroy_script() )\n  {\n    owner->spawn_entity_script_function( get_destroy_script() );\n  }\n\n  if ( has_destroyed_visrep() )\n  {\n    owner->change_visrep(destroyed_visrep);\n    unload_visual_rep(destroyed_mesh);\n    destroyed_mesh = NULL;\n  }\n  else if ( !remain_visible() )\n  {\n    owner->set_visible( false );\n\n    if( !remain_collision() )\n    {\n      owner->set_collisions_active( false );\n      owner->set_walkable( false );\n      owner->set_repulsion( false );\n    }\n  }\n\n  if( no_collision() )\n  {\n    owner->set_collisions_active( false );\n    owner->set_walkable( false );\n    owner->set_repulsion( false );\n  }\n\n  if ( !remain_active() )\n  {\n    owner->set_active( false );\n    owner->set_actionable( false );\n  }\n}\n",
+      "status": "different",
+      "target_size": 660
+    }
+  ],
+  "raw_name": "apply_destruction_fx__16destroyable_info"
+}
