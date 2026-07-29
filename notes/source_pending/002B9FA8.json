@@ -1,0 +1,15 @@
+{
+  "address": "0x002B9FA8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6dfeb90c846e1c6253976d642d39f124132eda58",
+      "notes": "# FIRST PASS wave 118 lane B4\n\nExact released body tested once for `0x002B9FA8 frame_advance__13entity_widgetf`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/widget_entity.h\"\n\nvoid entity_widget::frame_advance( time_value_t time_inc )\n{\n  // update any rotation\n  if ( rps )\n  {\n    angle += rps * time_inc;\n    angle = fmodf(angle,2.0f*PI);\n    update_entity_po();\n  }\n\n  frame_advance_entity( ent, time_inc );\n\n  // frame advance animations for this entity\n  pentity_anim_tree_vector::iterator ani = anims.begin();\n  pentity_anim_tree_vector::iterator ani_end = anims.end();\n  for ( ; ani!=ani_end; ++ani )\n  {\n    entity_anim_tree* anm = *ani;\n    if ( anm )\n    {\n      if ( !anm->is_suspended() && !anm->is_finished() )\n      {\n        if ( anm->is_relative_to_start() )\n          anm->reset_root_position();\n\n        anm->frame_advance( CALC_ENTITY_TIME_DILATION(time_inc, anm->get_entity()) );\n\n        update_entity_po();\n      }\n\n      if ( anm->is_autokill() && anm->is_finished() )\n        kill_anim( anm );\n    }\n  }\n  widget::frame_advance( time_inc );\n\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "frame_advance__13entity_widgetf"
+}
