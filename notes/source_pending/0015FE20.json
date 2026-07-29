@@ -1,0 +1,23 @@
+{
+  "address": "0x0015FE20",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e780181ab8c61ecbe8e7bb94ee9ec58acd22660b",
+      "candidate_size": 676,
+      "compared_bytes": 812,
+      "compared_instructions": 203,
+      "emitted_name": "Draw__14IGOIconManager",
+      "instruction_score": 0.4926,
+      "matching_bytes": 68,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 145 lane B1\n\nExact released source tested once for `0x0015FE20 Draw__14IGOIconManager`. Attempts before: 0. Result `different`, byte score 8.3744% and instruction score 0.4926%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 8.3744,
+      "source": "struct nglQuad { char data[0x70]; };\nvoid nglListAddQuad(nglQuad *);\nclass TextString { public: void changeText(const char *); void Draw(); };\nextern \"C\" int sprintf(char *, const char *, ...);\n\nclass IGOIconManager {\npublic:\n  class IconResource { char padding[12]; public: unsigned char timesDisplayed; };\n  class Icon {\n    char padding[0x40];\n  public:\n    IconResource *resource;\n    char padding2[0x30];\n    bool show;\n    void Draw();\n  };\n  struct IconSpawn { char padding[0x38]; int buttonDisplay; float buttonDelay; };\nprivate:\n  nglQuad glowQuad[5], iceQuad[5], chainQuad[5], buttonQuad[8];\n  Icon effectIcons[5];\n  char padding0[0x294];\n  Icon *icons;\n  char padding1[0xc];\n  int numIcons;\n  char padding2[0x8];\n  int activeIcon;\n  char padding3[0x8];\n  unsigned char numEffectIcons;\n  char padding4[0x1f];\n  float buttonTimer;\n  int prepareFailure;\n  bool failure, drawButtons, showTimer, nextEnable;\n  unsigned char numChains, numFrozen, numGlowing;\n  char padding5;\n  float time, timeLastQueueChange;\n  char padding6[0x40];\n  int currentSpawn;\n  IconSpawn iconSpawns[8];\n  Icon nextIcon;\n  float spawnTimer;\n  int numButtons, numEffectPadding;\n  int scoreBonuses[5];\n  bool prepPop;\n  TextString *timerText, *scoreText, *scoreTextEffect;\npublic:\n  void Draw(void);\n};\n\nvoid IGOIconManager::Draw(void)\n{\n  int i;\n\n  timeLastQueueChange = time;\n\n  if(!failure)\n  {\n    // Draw glowing textures\n    for(i=0; i<numGlowing; i++)\n      nglListAddQuad(&glowQuad[i]);\n\n    // Draw Icons\n\t  for (i = 0; i < numIcons; i++)\n\t\t  icons[i].Draw();\n    if(nextEnable && nextIcon.show)\n      nextIcon.Draw();\n\n    // Draw Effect Icons\n\t  for (i = 0; i < numEffectIcons; i++)\n\t\t  effectIcons[i].Draw();\n\n    // Draw frozen textures\n    for(i=0; i<numFrozen; i++)\n      nglListAddQuad(&iceQuad[i]);\n\n    // Draw chain links\n    for(i=0; i<numChains; i++)\n      nglListAddQuad(&chainQuad[i]);\n\n    // Draw Buttons\n    if(activeIcon < numIcons && icons[activeIcon].resource->timesDisplayed < iconSpawns[currentSpawn].buttonDisplay &&\n       buttonTimer >= iconSpawns[currentSpawn].buttonDelay)\n      drawButtons = true;\n    else\n      drawButtons = false;\n\n    if(drawButtons)\n    {\n\t    for (i = 0; i<numButtons; i++)\n\t\t    nglListAddQuad(&buttonQuad[i]);\n    }\n\n    // Draw Spawn Countdown\n    char text2[16];\n    sprintf(text2, \"%0.1f\", spawnTimer);\n\t  timerText->changeText(text2);\n    if(nextEnable && showTimer)\n      timerText->Draw();\n  }\n\n  // Draw Score Bonus text\n  if(numEffectIcons > 0 && scoreBonuses[numEffectIcons-1] != 0 && !prepareFailure && !failure )\n  {\n\t  scoreText->Draw();\n    if(prepPop)\n      scoreTextEffect->Draw();\n  }\n}\n",
+      "status": "different",
+      "target_size": 812
+    }
+  ],
+  "raw_name": "Draw__14IGOIconManager"
+}
