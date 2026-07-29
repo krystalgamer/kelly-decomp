@@ -1,0 +1,15 @@
+{
+  "address": "0x00212660",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c6280dc43721d995a6ec155d1d56e54c2c4e00e8",
+      "notes": "# FIRST PASS wave 112 lane B3\n\nExact released source body tested once for `0x00212660 Anim__22kellyslater_controllerifbfT3`.\nResult: `compile_failed`, score 0.0000.\n\nNo retry, alternative, diff chase, follow-up, build, finalization, integration, tracked edit, git mutation, commit, or push was performed.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/global.h\"\n#include \"KS/SRC/ks/kellyslater_controller.h\"\n#include \"KS/SRC/ks/replay.h\"\n\nextern profiler_timer proftimer_ksc_anim;\nextern bool g_no_tween;\nextern stringx g_surfer_anims[_SURFER_NUM_ANIMS];\nextern KSReplay ksreplay;\n\nvoid kellyslater_controller::Anim(int animid, float blend_time, bool loop, float time, bool reverse )\n{\n  START_PROF_TIMER( proftimer_ksc_anim );\n\n//  bool same_anim = (mAnim==animid);\n  mAnim=animid;\n  mAnimDir = reverse ? SURFER_ANIM_REVERSE : SURFER_ANIM_FORWARDS;\n  float time_dilation = 1.0f;\n\n  entity_anim_tree* anim_tree = get_owner()->get_anim_tree(ANIM_PRIMARY);\n  bool no_tween;\n\n  no_tween = g_no_tween || !anim_tree || (blend_time <= 0.01f);///*|| anim_tree->is_finished()*/ || ((anim_tree->get_timescale_factor() == 0.0f || same_anim) && anim_tree->get_time_remaining() < 0.15f);\n  ignore_tweening = no_tween;\n\n  //no_tween = false;  // test by JBW\n\n  ksreplay.SetKSAnimInfo(this, blend_time, loop, time);\n\n  if(time > 0.0f)\n  {\n    //rational_t start_time = (mFrame / 30.0f);\n    get_owner()->play_anim(ANIM_PRIMARY, g_surfer_anims[animid], time, (loop ? ANIM_LOOPING : 0) | (no_tween ? 0 : ANIM_TWEEN) | ANIM_NONCOSMETIC | (mAnimDir == SURFER_ANIM_REVERSE ? ANIM_REVERSE : 0));\n    get_owner()->get_anim_tree(ANIM_PRIMARY)->frame_advance(0.0f);\n  }\n  else\n  {\n\t  get_owner()->play_anim(ANIM_PRIMARY, g_surfer_anims[animid], 0.0f, (loop ? ANIM_LOOPING : 0) | (no_tween ? 0 : ANIM_TWEEN) | ANIM_NONCOSMETIC | (mAnimDir == SURFER_ANIM_REVERSE ? ANIM_REVERSE : 0));\n\t  if (!no_tween)\n\t\t  get_owner()->get_anim_tree(ANIM_PRIMARY)->set_tween_duration(blend_time);\n  }\n\n#ifdef _DEBUG\n  curr_anim_enum = animid;\n#endif\n\n  anim_tree = get_owner()->get_anim_tree(ANIM_PRIMARY);\n\tif ( anim_tree==NULL )\n\t{\n\t\twarning(\"Bad anim_tree\");\n\t\treturn;\n\t}\n  anim_tree->set_timescale_factor(time_dilation);\n\n  if(time_dilation == 0.0f)\n  {\n    anim_tree->set_time(0.0f);\n    anim_tree->frame_advance(0.0f);\n  }\n  STOP_PROF_TIMER( proftimer_ksc_anim );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Anim__22kellyslater_controllerifbfT3"
+}
