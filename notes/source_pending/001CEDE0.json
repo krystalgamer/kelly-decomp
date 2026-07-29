@@ -1,0 +1,23 @@
+{
+  "address": "0x001CEDE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ba286bdd27036eb8e80881ad707712843be86909",
+      "candidate_size": 604,
+      "compared_bytes": 704,
+      "compared_instructions": 173,
+      "emitted_name": "OnActivate__15PhotoSelectMenu",
+      "instruction_score": 3.4682,
+      "matching_bytes": 95,
+      "matching_instructions": 6,
+      "notes": "# FIRST PASS wave 130 lane B1\n\nExact released source tested once for `0x001CEDE0 OnActivate__15PhotoSelectMenu`. Attempts before: 0. Result `different`, byte score 13.4943% and instruction score 3.4682%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 13.4943,
+      "source": "class nglTexture;\nclass PhotoChallenge {\npublic:\n    int GetNumTaken(void);\n    nglTexture *GetPhotoTexture(int);\n    int *GetPhotoScore(int);\n};\nclass BeachChallenges {\npublic:\n    PhotoChallenge *photo;\n};\nclass beach {\npublic:\n    BeachChallenges *get_challenges(void);\n};\nextern beach *g_beach_ptr;\nclass FEMenuEntry {\npublic:\n    FEMenuEntry *next;\n    void Disable(bool);\n};\nclass FEMultiMenu {\n    char layout[0x44];\npublic:\n    FEMenuEntry *entries;\n    void OnActivate(void);\n    void Right(void);\n};\nclass PhotoWidget {\n    char layout[0x104];\npublic:\n    void Show(nglTexture *, int *, int, float);\n};\nclass PanelQuad;\nclass TextString;\nclass PhotoSelectMenu : public FEMultiMenu {\nprivate:\n    PanelQuad *arrowPQs[2][2];\n    PanelQuad *highlightPQs[3];\n    PhotoWidget photoWidgets[3];\n    TextString *title;\n    int leftArrowIdx, rightArrowIdx;\n    float arrowHiTimer;\n    int highlightedIdx;\npublic:\n    void OnActivate(void);\n    void setHigh(FEMenuEntry *, bool = true);\n};\n\nvoid PhotoSelectMenu::OnActivate(void)\n{\n    PhotoChallenge *photoChallenge = g_beach_ptr->get_challenges()->photo;\n    float fade;\n    int hiIdx = 0;\n    int i;\n\n    FEMultiMenu::OnActivate();\n\n    if (photoChallenge->GetNumTaken() > 0)\n    {\n        fade = 0.0f;\n        entries->Disable(false);\n    }\n    else\n    {\n        fade = 1.0f;\n        entries->Disable(true);\n    }\n    photoWidgets[0].Show(photoChallenge->GetPhotoTexture(0), photoChallenge->GetPhotoScore(0), 0, fade);\n\n    if (photoChallenge->GetNumTaken() > 1)\n    {\n        fade = 0.0f;\n        entries->next->Disable(false);\n    }\n    else\n    {\n        fade = 1.0f;\n        entries->next->Disable(true);\n    }\n    photoWidgets[1].Show(photoChallenge->GetPhotoTexture(1), photoChallenge->GetPhotoScore(1), 1, fade);\n\n    if (photoChallenge->GetNumTaken() > 2)\n    {\n        fade = 0.0f;\n        entries->next->next->Disable(false);\n    }\n    else\n    {\n        fade = 1.0f;\n        entries->next->next->Disable(true);\n    }\n    photoWidgets[2].Show(photoChallenge->GetPhotoTexture(2), fade == 1.0f ? 0 : photoChallenge->GetPhotoScore(2), 2, fade);\n\n    for (i = 1; i < 3; i++)\n    {\n        if (*photoChallenge->GetPhotoScore(i) > *photoChallenge->GetPhotoScore(hiIdx))\n            hiIdx = i;\n    }\n    setHigh(entries);\n    for (i = 0; i < hiIdx; i++)\n        FEMultiMenu::Right();\n}\n",
+      "status": "different",
+      "target_size": 704
+    }
+  ],
+  "raw_name": "OnActivate__15PhotoSelectMenu"
+}
