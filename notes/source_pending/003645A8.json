@@ -1,0 +1,15 @@
+{
+  "address": "0x003645A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5709836db7b3a70d3d114d8759522a8f4ba073f7",
+      "notes": "# FIRST PASS wave 143 lane B1\n\nExact released source tested once for `0x003645A8 comp_trail_orig__5trailP8vector3dN21`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x003645A8 comp_trail_orig__5trailP8vector3dN21\n// Reference: KS/SRC/ks/trail.cpp\n#include \"kelly-slaters-pro-surfer/KS/SRC/ks/global.h\"\n#include \"kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.h\"\n#include \"kelly-slaters-pro-surfer/KS/SRC/ks/trail.h\"\n\nextern float debug_ellipse_len;\nextern float debug_ellipse_wid;\n\nvoid trail::comp_trail_orig (vector3d *pointa, vector3d *cent, vector3d *pointb)\n{\n  float theta;\n\n  vector3d unit;\n\n  entity *board_ptr = my_owner->GetBoard();\n\n  unit = my_owner->get_board_controller().current - my_owner->get_board_controller().rb->linMom;\n  unit = board_ptr->get_abs_po().non_affine_inverse_xform(unit);\n  unit.y = 0;\n  unit.normalize();\n\n#if !defined(TARGET_PS2)\n  assert( unit.is_valid() );\n\n  if( unit.x == 0.0f )\n  {\n    // avoid divide by 0\n    unit.x = 0.0000001f;\n  }\n#endif /* TARGET_XBOX JIV DEBUG */\n\n  theta = atanf(debug_ellipse_wid/debug_ellipse_len * unit.z / unit.x);\n\n  pointa->x = - debug_ellipse_wid * sinf(theta);\n  pointa->y = 0;\n  pointa->z = debug_ellipse_len * cosf(theta);\n\n  pointb->x = - debug_ellipse_wid * sinf(theta + PI);\n  pointb->y =  0;\n  pointb->z = debug_ellipse_len * cosf(theta + PI);\n\n  *cent = (*pointa - *pointb)/2 + *pointb;\n\n  assert( pointa->is_valid() );\n  assert( pointb->is_valid() );\n  assert( cent->is_valid() );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "comp_trail_orig__5trailP8vector3dN21"
+}
