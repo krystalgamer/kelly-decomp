@@ -1,0 +1,23 @@
+{
+  "address": "0x0030C480",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "78da863b5aaf866a60caebabda731cd9809d2475",
+      "candidate_size": 436,
+      "compared_bytes": 664,
+      "compared_instructions": 166,
+      "emitted_name": "cleanup__3app",
+      "instruction_score": 4.2169,
+      "matching_bytes": 96,
+      "matching_instructions": 7,
+      "notes": "# FIRST PASS wave 125 lane A3\n\nExact released source tested once for `0x0030C480 cleanup__3app`. Attempts before: 0. Result `different`, byte score 14.4578% and instruction score 4.2169%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 14.4578,
+      "source": "struct singleton_vtable {\n  char pad[8];\n  short adjustment;\n  short reserved;\n  void (*destroy)(void *, int);\n};\n\n#define DECLARE_SINGLETON(type, symbol) \\\nclass type { \\\npublic: \\\n  singleton_vtable *vtable; \\\n  static type *instance; \\\n  static void delete_inst() { \\\n    if (instance != 0) { \\\n      delete instance; \\\n      instance = 0; \\\n    } \\\n  } \\\n}; \\\ntype *type::instance __asm__(symbol)\n\nDECLARE_SINGLETON(input_mgr, \"_9input_mgr$instance\");\nDECLARE_SINGLETON(ps2_input_mgr, \"_13ps2_input_mgr$instance\");\nDECLARE_SINGLETON(trigger_manager, \"_15trigger_manager$instance\");\nDECLARE_SINGLETON(anim_id_manager, \"_15anim_id_manager$instance\");\nDECLARE_SINGLETON(signal_manager, \"_14signal_manager$instance\");\nDECLARE_SINGLETON(hw_texture_mgr, \"_14hw_texture_mgr$instance\");\nDECLARE_SINGLETON(fog_manager, \"_11fog_manager$instance\");\nDECLARE_SINGLETON(hw_rasta, \"_8hw_rasta$instance\");\nDECLARE_SINGLETON(geometry_manager, \"_16geometry_manager$instance\");\nDECLARE_SINGLETON(slc_manager, \"_11slc_manager$instance\");\nDECLARE_SINGLETON(master_clock, \"_12master_clock$instance\");\nDECLARE_SINGLETON(error_context, \"_13error_context$instance\");\n\nstruct entity_manager {\n  char pad[12];\n  singleton_vtable *vtable;\n  static entity_manager *instance;\n  static void delete_inst() {\n    if (instance != 0) {\n      entity_manager *object = instance;\n      singleton_vtable *table = object->vtable;\n      table->destroy((char *)object + 12 + table->adjustment, 3);\n      instance = 0;\n    }\n  }\n};\nentity_manager *entity_manager::instance\n  __asm__(\"_14entity_manager$instance\");\n\nextern \"C\" void arch_free(void *) __asm__(\"arch_free__FPv\");\nextern void *particle_allocator_freelist[];\n__asm__(\".equ particle_allocator_freelist, 0x003E5628\");\n\nclass particle_generator;\nclass particle_cleaner {\npublic:\n  particle_generator **start;\n  particle_generator **finish;\n  particle_generator **end;\n\n  ~particle_cleaner() {\n    unsigned int count = finish - start;\n    if (count != 0) {\n      unsigned int bytes = count * sizeof(particle_generator *);\n      if (bytes > 128)\n        arch_free(start);\n      else {\n        unsigned int index = (count >> 3) - 1;\n        *start = (particle_generator *)particle_allocator_freelist[index];\n        particle_allocator_freelist[index] = start;\n      }\n    }\n  }\n};\n\nextern particle_cleaner *g_particle_cleaner;\n__asm__(\".equ g_particle_cleaner, 0x0043AB98\");\n\nclass app {\npublic:\n  void cleanup();\n};\n\nvoid app::cleanup()\n{\n  input_mgr::delete_inst();\n  ps2_input_mgr::delete_inst();\n  trigger_manager::delete_inst();\n  entity_manager::delete_inst();\n  anim_id_manager::delete_inst();\n  signal_manager::delete_inst();\n  hw_texture_mgr::delete_inst();\n  fog_manager::delete_inst();\n  hw_rasta::delete_inst();\n  geometry_manager::delete_inst();\n  slc_manager::delete_inst();\n  master_clock::delete_inst();\n  error_context::delete_inst();\n\n  delete g_particle_cleaner;\n}\n",
+      "status": "different",
+      "target_size": 664
+    }
+  ],
+  "raw_name": "cleanup__3app"
+}
