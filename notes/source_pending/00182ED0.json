@@ -1,0 +1,15 @@
+{
+  "address": "0x00182ED0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "479727462853f20be8b76cfdc08099ac7e4a58a5",
+      "notes": "# FIRST PASS wave 104 lane B4\n\nExact released body tested once for `0x00182ED0 ChangeSwitch__11OptionsMenub`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "typedef unsigned int size_t;\n\nstruct FEMenuEntry { int entry_num; };\n\nclass FEManager {\n    char padding[0x15660];\npublic:\n    bool score_display;\n    void enableScoreDisplay(bool on) { score_display = on; }\n};\n\nclass FEGraphicalMenu {\n    char padding[0x13c];\npublic:\n    FEManager *manager;\n};\n\nclass FEMenu {\npublic:\n    void play_sound(const char *name);\n};\n\nclass rumbleManager {\npublic:\n    void turnOn(bool on, int controller);\n};\n\nextern rumbleManager rumbleMan;\n\nenum _nslSpeakerModeEnum {\n    NSL_SPEAKER_STEREO = 0,\n    NSL_SPEAKER_MONO = 1,\n    NSL_SPEAKER_PROLOGIC = 3\n};\nvoid nslSetSpeakerMode(_nslSpeakerModeEnum mode);\n\nclass OptionsMenu : public FEMenu {\n    char padding0[0x48];\n    FEMenuEntry *highlighted;\n    char padding1[0x14];\n    FEGraphicalMenu *parent;\n    char padding2[0x1f0];\n    int stereo_op;\n    char padding3[0x7c];\n    bool switches[5];\npublic:\n    enum { OpScoreEntry, OpRumble1Entry, OpRumble2Entry, OpRumble3Entry,\n           OpRumble4Entry, OpStereoEntry, OpMasterEntry };\n    void RumbleOn(bool on, int controller);\n    void ChangeSwitch(bool up);\n};\n\nvoid OptionsMenu::ChangeSwitch(bool up)\n{\n\tint index = highlighted->entry_num;\n\n\tif(index == OpStereoEntry)\n\t{\n\t\tif(up)\n\t\t{\n\t\t\tstereo_op++;\n\t\t\tif(stereo_op == 3) stereo_op = 0;\n\t\t}\n\t\telse\n\t\t{\n\t\t\tstereo_op--;\n\t\t\tif(stereo_op == -1) stereo_op = 2;\n\t\t}\n\t}\n\telse switches[index] = !switches[index];\n  \n\tplay_sound(\"LEFTRIGHT\");\n\n\tswitch(index)\n\t{\n\tcase OpScoreEntry:   ((FEGraphicalMenu*)parent)->manager->enableScoreDisplay(switches[index]); break;\n\tcase OpStereoEntry:\n\t\tif(stereo_op == 0) nslSetSpeakerMode(NSL_SPEAKER_MONO);\n\t\telse if(stereo_op == 1) nslSetSpeakerMode(NSL_SPEAKER_STEREO);\n\t\telse nslSetSpeakerMode(NSL_SPEAKER_PROLOGIC); break;\n\tcase OpRumble1Entry: RumbleOn(switches[index], 0);  rumbleMan.turnOn(switches[index], 0); break;\n\tcase OpRumble2Entry: RumbleOn(switches[index], 1);  rumbleMan.turnOn(switches[index], 1); break;\n\tcase OpRumble3Entry: RumbleOn(switches[index], 2);  rumbleMan.turnOn(switches[index], 2); break;\n\tcase OpRumble4Entry: RumbleOn(switches[index], 3);  rumbleMan.turnOn(switches[index], 3); break;\n\tdefault: __builtin_trap();\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "ChangeSwitch__11OptionsMenub"
+}
