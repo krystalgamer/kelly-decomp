@@ -1,0 +1,23 @@
+{
+  "address": "0x002F9BE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "88b8632b3fbce0e932940b50860a3e9159816251",
+      "candidate_size": 368,
+      "compared_bytes": 532,
+      "compared_instructions": 125,
+      "emitted_name": "__as__t6vector2Z5wedgeZt23__malloc_alloc_template1i0RCt6vector2Z5wedgeZt23__malloc_alloc_template1i0",
+      "instruction_score": 0.8,
+      "matching_bytes": 76,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 102 lane B4\n\nExact released body tested once for `0x002F9BE0 __as__t6vector2Z5wedgeZt23__malloc_alloc_template1i0RCt6vector2Z5wedgeZt23__malloc_alloc_template1i0`. Result `different`, score 14.2857%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 14.2857,
+      "source": "class wedge { int data[4]; };\n\nextern \"C\" void *memmove(void *, const void *, unsigned int);\nextern \"C\" void *arch_malloc(unsigned int, const char *, int);\nextern \"C\" void arch_free(void *);\n\ntemplate<int __inst>\nclass __malloc_alloc_template {\npublic:\n  static void *_S_oom_malloc(unsigned int);\n  static void *allocate(unsigned int __n) {\n    void *__result = arch_malloc(__n, __FILE__, 0);\n    if (__result == 0) __result = _S_oom_malloc(__n);\n    return __result;\n  }\n  static void deallocate(void *__p, unsigned int) { arch_free(__p); }\n};\n\ntemplate<class _Tp>\ninline _Tp *copy(const _Tp *__first, const _Tp *__last, _Tp *__result) {\n  memmove(__result, __first, sizeof(_Tp) * (__last - __first));\n  return __result + (__last - __first);\n}\n\ntemplate<class _Tp>\ninline _Tp *uninitialized_copy(const _Tp *__first, const _Tp *__last,\n                               _Tp *__result) {\n  return copy(__first, __last, __result);\n}\n\ntemplate<class _Tp>\ninline void destroy(_Tp *, _Tp *) {}\n\ntemplate<class _Tp, class _Alloc>\nclass _Vector_base {\nprotected:\n  _Tp *_M_start;\n  _Tp *_M_finish;\n  _Tp *_M_end_of_storage;\n\n  _Tp *_M_allocate(unsigned int __n) {\n    return __n ? (_Tp *)_Alloc::allocate(__n * sizeof(_Tp)) : 0;\n  }\n  void _M_deallocate(_Tp *__p, unsigned int __n) {\n    if (__p) _Alloc::deallocate(__p, __n * sizeof(_Tp));\n  }\n};\n\ntemplate<class _Tp, class _Alloc>\nclass vector : protected _Vector_base<_Tp, _Alloc> {\npublic:\n  typedef _Tp value_type;\n  typedef value_type *iterator;\n  typedef const value_type *const_iterator;\n  typedef unsigned int size_type;\n\n  iterator begin() { return _M_start; }\n  const_iterator begin() const { return _M_start; }\n  iterator end() { return _M_finish; }\n  const_iterator end() const { return _M_finish; }\n  size_type size() const { return size_type(_M_finish - _M_start); }\n  size_type capacity() const {\n    return size_type(_M_end_of_storage - _M_start);\n  }\n\n  iterator _M_allocate_and_copy(size_type __n,\n                                const_iterator __first,\n                                const_iterator __last) {\n    iterator __result = _M_allocate(__n);\n    uninitialized_copy(__first, __last, __result);\n    return __result;\n  }\n\n  vector<_Tp, _Alloc>& operator=(const vector<_Tp, _Alloc>& __x);\n};\n\ntemplate <class _Tp, class _Alloc>\nvector<_Tp,_Alloc>&\nvector<_Tp,_Alloc>::operator=(const vector<_Tp, _Alloc>& __x)\n{\n  if (&__x != this) {\n    const size_type __xlen = __x.size();\n    if (__xlen > capacity()) {\n      iterator __tmp = _M_allocate_and_copy(__xlen, __x.begin(), __x.end());\n      destroy(_M_start, _M_finish);\n      _M_deallocate(_M_start, _M_end_of_storage - _M_start);\n      _M_start = __tmp;\n      _M_end_of_storage = _M_start + __xlen;\n    }\n    else if (size() >= __xlen) {\n      iterator __i = copy(__x.begin(), __x.end(), begin());\n      destroy(__i, _M_finish);\n    }\n    else {\n      copy(__x.begin(), __x.begin() + size(), _M_start);\n      uninitialized_copy(__x.begin() + size(), __x.end(), _M_finish);\n    }\n    _M_finish = _M_start + __xlen;\n  }\n  return *this;\n}\n\ntemplate vector<wedge, __malloc_alloc_template<0> >&\nvector<wedge, __malloc_alloc_template<0> >::operator=(\n    const vector<wedge, __malloc_alloc_template<0> >&);\n",
+      "status": "different",
+      "target_size": 532
+    }
+  ],
+  "raw_name": "__as__t6vector2Z5wedgeZt23__malloc_alloc_template1i0RCt6vector2Z5wedgeZt23__malloc_alloc_template1i0"
+}
