@@ -1,0 +1,23 @@
+{
+  "address": "0x002F7340",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f472f653362e6c105656eb9c1438000065ae9162",
+      "candidate_size": 584,
+      "compared_bytes": 624,
+      "compared_instructions": 150,
+      "emitted_name": "insert_unique__t8_Rb_tree5ZPQ2t13instance_bank1Z12vr_billboard5ref_tZPQ2t13instance_bank1Z12vr_billboard5ref_tZt9_Identity1ZPQ2t13instance_bank1Z12vr_billboard5ref_tZQ2t13instance_bank1Z12vr_billboard13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z12vr_billboard5ref_t",
+      "instruction_score": 5.3333,
+      "matching_bytes": 166,
+      "matching_instructions": 8,
+      "notes": "# FIRST PASS wave 119 lane B1\n\nExact released GCC `stl_tree.h` `insert_unique` body tested once for `0x002F7340`. Result `different`, score 26.6026%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 26.6026,
+      "source": "struct string_buf\n{\n  unsigned long long *data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n\n  int compare(const string_buf &buf) const\n  {\n    int i;\n    const char *a = reinterpret_cast<const char *>(data);\n    const char *b = reinterpret_cast<const char *>(buf.data);\n    int cmp_len = char_length < buf.char_length ? char_length : buf.char_length;\n    for (i = 0; i < cmp_len; ++i)\n    {\n      if (a[i] == b[i])\n        continue;\n      if (b[i] > a[i])\n        return 1;\n      if (b[i] < a[i])\n        return -1;\n    }\n    if (buf.char_length > char_length)\n      return 1;\n    if (buf.char_length < char_length)\n      return -1;\n    return 0;\n  }\n};\n\nstruct stringx\n{\n  char *chars;\n  string_buf *my_buf;\n};\n\ninline bool operator<(const stringx &lhs, const stringx &rhs)\n{\n  return lhs.my_buf->compare(*rhs.my_buf) == 1;\n}\n\nstruct ref_t\n{\n  stringx label;\n  void *ptr;\n  unsigned count;\n};\n\nstruct node\n{\n  int color;\n  node *parent;\n  node *left;\n  node *right;\n  ref_t *value;\n};\n\nstruct result\n{\n  node *position;\n  bool inserted;\n};\n\nstruct tree\n{\n  node *header;\n  unsigned count;\n  char compare;\n};\n\nextern \"C\" node *tree_insert(tree *, node *, node *, ref_t *const *)\n  __asm__(\"_M_insert__t8_Rb_tree5ZPQ2t13instance_bank1Z12vr_billboard5ref_tZPQ2t13instance_bank1Z12vr_billboard5ref_tZt9_Identity1ZPQ2t13instance_bank1Z12vr_billboard5ref_tZQ2t13instance_bank1Z12vr_billboard13less_by_labelZt23__malloc_alloc_template1i0P18_Rb_tree_node_baseT1RCPQ2t13instance_bank1Z12vr_billboard5ref_t\");\n\nresult *insert_unique(result *out, tree *self, ref_t *const *value)\n  __asm__(\"insert_unique__t8_Rb_tree5ZPQ2t13instance_bank1Z12vr_billboard5ref_tZPQ2t13instance_bank1Z12vr_billboard5ref_tZt9_Identity1ZPQ2t13instance_bank1Z12vr_billboard5ref_tZQ2t13instance_bank1Z12vr_billboard13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z12vr_billboard5ref_t\");\n\nresult *insert_unique(result *out, tree *self, ref_t *const *value)\n{\n  node *y = self->header;\n  node *x = y->parent;\n  bool comp = true;\n  while (x != 0)\n  {\n    y = x;\n    comp = (*value)->label < x->value->label;\n    x = comp ? x->left : x->right;\n  }\n  node *j = y;\n  if (comp)\n  {\n    if (j == self->header->left)\n    {\n      out->position = tree_insert(self, x, y, value);\n      out->inserted = true;\n      return out;\n    }\n    if (j->left)\n    {\n      j = j->left;\n      while (j->right)\n        j = j->right;\n    }\n    else\n    {\n      node *p = j->parent;\n      while (j == p->left)\n      {\n        j = p;\n        p = p->parent;\n      }\n      j = p;\n    }\n  }\n  if (j->value->label < (*value)->label)\n  {\n    out->position = tree_insert(self, x, y, value);\n    out->inserted = true;\n  }\n  else\n  {\n    out->position = j;\n    out->inserted = false;\n  }\n  return out;\n}\n",
+      "status": "different",
+      "target_size": 624
+    }
+  ],
+  "raw_name": "insert_unique__t8_Rb_tree5ZPQ2t13instance_bank1Z12vr_billboard5ref_tZPQ2t13instance_bank1Z12vr_billboard5ref_tZt9_Identity1ZPQ2t13instance_bank1Z12vr_billboard5ref_tZQ2t13instance_bank1Z12vr_billboard13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z12vr_billboard5ref_t"
+}
