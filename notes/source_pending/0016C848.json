@@ -1,0 +1,23 @@
+{
+  "address": "0x0016C848",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4691b24fc68d3438a0d112e58615bea08234d335",
+      "candidate_size": 372,
+      "compared_bytes": 560,
+      "compared_instructions": 140,
+      "emitted_name": "GetTimeText__C16SplitClockWidgetif",
+      "instruction_score": 7.8571,
+      "matching_bytes": 94,
+      "matching_instructions": 11,
+      "notes": "# FIRST PASS wave 108 lane A4\n\nExact released `SplitClockWidget::GetTimeText` body tested once for\n`0x0016C848 GetTimeText__C16SplitClockWidgetif`.\n\nResult: **different**, byte score **16.7857%** (94/560), instruction score\n**7.8571%** (11/140); candidate size 372 bytes versus target size 560 bytes.\n\nNo retry, variant, diff chase, build, finalize, integration, git mutation, or\ntracked edit.",
+      "score": 16.7857,
+      "source": "class stringx\n{\n  char *chars;\n  void *my_buf;\n\npublic:\n  stringx(const stringx &);\n  stringx(const char *, int len = -1);\n  explicit stringx(int);\n  ~stringx();\n  stringx &operator=(const stringx &);\n};\n\nstringx operator+(const stringx &, const stringx &);\n\nclass SplitClockWidget\n{\npublic:\n  stringx GetTimeText(const int min, const float sec) const;\n};\n\nstringx SplitClockWidget::GetTimeText(const int min, const float sec) const\n{\n\tstringx\tclockText((int)sec);\n\t\t\n\tif (sec < 10)\n\t\tclockText = stringx(\"0\") + clockText;\n\tclockText = stringx(min) + stringx(\":\") + clockText;\n\n\treturn clockText;\n}\n",
+      "status": "different",
+      "target_size": 560
+    }
+  ],
+  "raw_name": "GetTimeText__C16SplitClockWidgetif"
+}
