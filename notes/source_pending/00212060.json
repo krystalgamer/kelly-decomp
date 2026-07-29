@@ -1,0 +1,23 @@
+{
+  "address": "0x00212060",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3aade2c433c39fd2b3d208c699c3197acdaa025b",
+      "candidate_size": 648,
+      "compared_bytes": 652,
+      "compared_instructions": 163,
+      "emitted_name": "SetWorldLimits__22kellyslater_controller",
+      "instruction_score": 61.9632,
+      "matching_bytes": 461,
+      "matching_instructions": 101,
+      "notes": "# FIRST PASS wave 123 lane A4\n\nExact released source tested once for `0x00212060 SetWorldLimits__22kellyslater_controller`. Attempts before: 0. Result `different`, byte score 70.7055% and instruction score 61.9632%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 70.7055,
+      "source": "// Target: 0x00212060 SetWorldLimits__22kellyslater_controller\n// Released source: KS/SRC/ks/kellyslater_controller.cpp\n\nenum\n{\n\tTURN_RATINGS,\n\tWORST_TURNS,\n\tBEST_TURNS\n};\n\nenum\n{\n\tTURN_HEADING_CARVE,\n\tTURN_HEADING_GRAB,\n\tTURN_HEADING_SLIDE,\n\tTURN_HEADING_HARD_CARVE,\n\tTURN_HEADING_HARD_GRAB,\n\tTURN_HEADING_HARD_SLIDE,\n\tTURN_HEADING_SNAP,\n\tNUM_TURN_HEADINGS\n};\n\nclass kellyslater_controller\n{\npublic:\n\tvoid SetTurnStat(int table,int heading, float turnVel, float bankAccel, float bankVel, float bank);\n\tvoid SetWorldLimits();\n};\n\n__asm__(\".equ SetTurnStat__22kellyslater_controlleriiffff, 0x00211F18\");\n\nvoid kellyslater_controller::SetWorldLimits()\n{\n\tSetTurnStat(WORST_TURNS, TURN_HEADING_CARVE, 2.5, 0.10, 0.50, 10.00);\n\tSetTurnStat(BEST_TURNS,  TURN_HEADING_CARVE, 8.0, 1.00, 2.00, 20.00);\n\n\tSetTurnStat(WORST_TURNS, TURN_HEADING_HARD_CARVE,  5.00, 0.20, 1.00, 20.00);\n\tSetTurnStat(BEST_TURNS,  TURN_HEADING_HARD_CARVE, 16.00, 2.00, 4.00, 40.00);\n\n\tSetTurnStat(WORST_TURNS, TURN_HEADING_GRAB,  5.00, 0.20, 1.00, 10.00);\n\tSetTurnStat(BEST_TURNS,  TURN_HEADING_GRAB, 10.00, 2.00, 4.00, 20.00);\n\n\tSetTurnStat(WORST_TURNS, TURN_HEADING_HARD_GRAB, 10.00, 0.40, 2.00, 20.00);\n\tSetTurnStat(BEST_TURNS,  TURN_HEADING_HARD_GRAB, 20.00, 4.00, 8.00, 40.00);\n\n\tSetTurnStat(WORST_TURNS, TURN_HEADING_SLIDE,  5.00, 0.02, 0.25, 2.50);\n\tSetTurnStat(BEST_TURNS,  TURN_HEADING_SLIDE, 10.00, 0.05, 0.50, 5.00);\n\n\tSetTurnStat(WORST_TURNS, TURN_HEADING_HARD_SLIDE, 10.00, 0.05, 0.50,  5.00);\n\tSetTurnStat(BEST_TURNS,  TURN_HEADING_HARD_SLIDE, 20.00, 0.10, 1.00, 10.00);\n}\n",
+      "status": "different",
+      "target_size": 652
+    }
+  ],
+  "raw_name": "SetWorldLimits__22kellyslater_controller"
+}
