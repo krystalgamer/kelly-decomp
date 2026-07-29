@@ -1,0 +1,15 @@
+{
+  "address": "0x00316448",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "84ba7af75e861161dd8b11fb5bf414877550424b",
+      "notes": "# FIRST PASS wave 135 lane B5\n\nExact released source tested once for `0x00316448 find_instance__C10slc_item_tRC7stringx`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/stringx.h\"\n\nenum entity_flavor_t {\n  ENTITY_CAMERA, ENTITY_ENTITY, ENTITY_MARKER, ENTITY_MIC, ENTITY_LIGHT_SOURCE,\n  ENTITY_PARTICLE_GENERATOR, ENTITY_PHYSICAL, ENTITY_ITEM, ENTITY_LIGHT,\n  ENTITY_MOBILE, ENTITY_CONGLOMERATE, ENTITY_TURRET, ENTITY_BEAM, ENTITY_SCANNER,\n  ENTITY_MORPHABLE_ITEM, ENTITY_SKY, ENTITY_MANIP, ENTITY_SWITCH,\n  ENTITY_BOX_TRIGGER, ENTITY_POLYTUBE, ENTITY_LENSFLARE, NUM_ENTITY_FLAVORS,\n  IGNORE_FLAVOR\n};\n\nclass entity_id {\npublic:\n  entity_id(const char *);\n};\n\nclass entity {\n  char data[0x7c];\n  entity_flavor_t flavor;\npublic:\n  entity_flavor_t get_flavor() const { return flavor; }\n};\n\nclass entity_manager {\npublic:\n  static entity_manager *inst();\n  entity *find_entity(const entity_id &, entity_flavor_t, bool);\n};\n\nextern entity_manager *entity_manager_instance;\n__asm__(\".equ entity_manager_instance,0x003E5A60\");\ninline entity_manager *entity_manager::inst() { return entity_manager_instance; }\n\nvoid error(const stringx &);\n\ninline stringx operator+(const char *left, const stringx &right) {\n  stringx result;\n  int left_length = __builtin_strlen(left);\n  result.make_room(left_length + right.length());\n  result.append(left, left_length);\n  result.append(right);\n  return result;\n}\n\ninline stringx operator+(const stringx &left, const char *right) {\n  stringx result;\n  int right_length = __builtin_strlen(right);\n  result.make_room(left.length() + right_length);\n  result.append(left);\n  result.append(right, right_length);\n  return result;\n}\n\nclass slc_item_t {\npublic:\n  unsigned find_instance(const stringx &n) const;\n};\n\nunsigned slc_item_t::find_instance(const stringx& n) const\n  {\n  if ( n == \"NULL\" )\n    return (unsigned)0;\n  const entity* r = entity_manager::inst()->find_entity( entity_id(n.c_str()), IGNORE_FLAVOR, true );\n  if ( !r )\n    error( \"item \" + n + \" not found\\n\" );\n  else if ( r->get_flavor() != ENTITY_ITEM )\n    error( \"entity \" + n + \" is not a item\\n\" );\n  return (unsigned)r;\n  }\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "find_instance__C10slc_item_tRC7stringx"
+}
