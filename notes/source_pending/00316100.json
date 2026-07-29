@@ -1,0 +1,23 @@
+{
+  "address": "0x00316100",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "52149109e74774d79756ee41527a58fe12847f5e",
+      "candidate_size": 488,
+      "compared_bytes": 488,
+      "compared_instructions": 122,
+      "emitted_name": "find_instance__C12slc_entity_tRC7stringx",
+      "instruction_score": 28.6885,
+      "matching_bytes": 198,
+      "matching_instructions": 35,
+      "notes": "# FIRST PASS wave90 B1\n\n- Target: `0x00316100 find_instance__C12slc_entity_tRC7stringx`\n- Size/object: 484 (`0x1E4`), `game/files_script`\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/script_lib_entity.cpp:49-58`\n- Confirmed zero attempts before preparation and testing.\n- Candidate is LF-only, self-contained, and uses minimal faithful declarations with no headers.\n- Sole test: `python3 tools/function_test.py test 0x00316100 --candidate tmp/source-first-wave90/B1-00316100/candidate.cpp`\n- Result: `different`; 198/488 compared bytes matched (40.5738%), 35/122 instructions matched (28.6885%); candidate size 488 bytes, target size 484 bytes.\n- Candidate SHA-1: `52149109e74774d79756ee41527a58fe12847f5e`\n- Exactly one honest candidate and one harness invocation. No alternate, asm, annotations, variants, retry, attempts 2-5, or post-test chase.\n- Tracked/reference files remained read-only. No finalize, integrate, build, or git mutation.",
+      "score": 40.5738,
+      "source": "typedef unsigned int big_int;\n\nclass stringx;\n\nclass string_buf\n{\n  big_int *data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n\npublic:\n  int compare(const char *str) const\n  {\n    int i;\n    const char *a = reinterpret_cast<const char *>(data);\n    for (i = 0; i < char_length; i++)\n    {\n      if (str[i] == '\\0') return -1;\n      if (a[i] == str[i]) continue;\n      if (str[i] > a[i]) return 1;\n      if (str[i] < a[i]) return -1;\n    }\n    if (str[i] == '\\0') return 0;\n    return 1;\n  }\n\n  bool is_equal(const char *str) const\n  {\n    return (compare(str) == 0);\n  }\n\n  friend class stringx;\n  friend stringx operator+(const char *, const stringx &);\n  friend stringx operator+(const stringx &, const char *);\n};\n\nclass stringx\n{\n  char *chars;\n  string_buf *my_buf;\n\npublic:\n  stringx();\n  stringx(const stringx &);\n  ~stringx();\n  void make_room(int);\n  void append(const char *, int = -1);\n  void append(const stringx &);\n  const char *c_str() const { return chars; }\n\n  friend bool operator==(const stringx &lhs, const char *rhs);\n  friend stringx operator+(const char *lhs, const stringx &rhs);\n  friend stringx operator+(const stringx &lhs, const char *rhs);\n};\n\nextern \"C\" int strlen(const char *);\n\ninline bool operator==(const stringx &lhs, const char *rhs)\n{\n  return lhs.my_buf->is_equal(rhs);\n}\n\ninline stringx operator+(const char *lhs, const stringx &rhs)\n{\n  stringx foo;\n  int len = strlen(lhs);\n\n  foo.make_room(len + rhs.my_buf->char_length);\n  foo.append(lhs, len);\n  foo.append(rhs);\n\n  return foo;\n}\n\ninline stringx operator+(const stringx &lhs, const char *rhs)\n{\n  stringx foo;\n  int len = strlen(rhs);\n\n  foo.make_room(len + lhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs, len);\n\n  return foo;\n}\n\nclass entity;\n\nclass entity_id\n{\npublic:\n  entity_id(const char *name);\n\nprivate:\n  unsigned int val;\n};\n\nenum entity_flavor_t\n{\n  ENTITY_CAMERA,\n  ENTITY_ENTITY,\n  ENTITY_MARKER,\n  ENTITY_MIC,\n  ENTITY_LIGHT_SOURCE,\n  ENTITY_PARTICLE_GENERATOR,\n  ENTITY_PHYSICAL,\n  ENTITY_ITEM,\n  ENTITY_LIGHT,\n  ENTITY_MOBILE,\n  ENTITY_CONGLOMERATE,\n  ENTITY_TURRET,\n  ENTITY_BEAM,\n  ENTITY_SCANNER,\n  ENTITY_MORPHABLE_ITEM,\n  ENTITY_SKY,\n  ENTITY_MANIP,\n  ENTITY_SWITCH,\n  ENTITY_BOX_TRIGGER,\n  ENTITY_POLYTUBE,\n  ENTITY_LENSFLARE,\n  NUM_ENTITY_FLAVORS,\n  IGNORE_FLAVOR\n};\n\nclass entity_manager\n{\npublic:\n  static entity_manager *inst();\n  entity *find_entity(const entity_id &, entity_flavor_t, bool);\n};\n\nvoid error(const stringx &);\n\nenum\n{\n  FIND_ENTITY_UNKNOWN_NOT_OK = false,\n  FIND_ENTITY_UNKNOWN_OK = true\n};\n\nclass slc_entity_t\n{\npublic:\n  virtual unsigned find_instance(const stringx &n) const;\n};\n\nunsigned slc_entity_t::find_instance(const stringx& n) const\n{\n  if (n==\"NULL\") return (unsigned)0;\n  const entity* r = entity_manager::inst()->find_entity(entity_id(n.c_str()),IGNORE_FLAVOR,FIND_ENTITY_UNKNOWN_OK);\n  if (!r)\n    {\n    error( \"entity \" + n + \" not found\" );\n    }\n  return (unsigned)r;\n}\n",
+      "status": "different",
+      "target_size": 484
+    }
+  ],
+  "raw_name": "find_instance__C12slc_entity_tRC7stringx"
+}
