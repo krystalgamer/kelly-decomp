@@ -1,0 +1,15 @@
+{
+  "address": "0x00376068",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bb03028b70a942aa1090622aa6ea26409d018470",
+      "notes": "# FIRST PASS wave 140 lane A1\n\nExact released source tested once for `0x00376068 WAVE_MarkerInit__Fv`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"kelly-slaters-pro-surfer/KS/SRC/ks/wave.cpp\"\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WAVE_MarkerInit__Fv"
+}
