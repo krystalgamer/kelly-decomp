@@ -1,0 +1,23 @@
+{
+  "address": "0x00284F80",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ef8eaa880e5c808f7295197dc8a9eb21dcf5abc1",
+      "candidate_size": 580,
+      "compared_bytes": 580,
+      "compared_instructions": 145,
+      "emitted_name": "LoadingStatePrint__4game",
+      "instruction_score": 85.5172,
+      "matching_bytes": 403,
+      "matching_instructions": 124,
+      "notes": "# FIRST PASS wave 111 lane B1\n\nExact released body tested once for `0x00284F80 LoadingStatePrint__4game`. Result `different`, score 69.4828%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 69.4828,
+      "source": "class stringx\n{\npublic:\n\tchar *chars;\n\tvoid *my_buf;\n\n\tstringx();\n\t~stringx();\n\tstringx& operator=(const char *);\n\tconst char *data() const { return chars; }\n};\n\nvoid nglPrintf(const char *, ...);\n\nclass game\n{\n\tunsigned char pad[656];\npublic:\n\tenum loading_state_t\n\t{\n\t\tLOADING_INITIAL,\n\t\tLOADING_WORLD_CREATE,\n\t\tLOADING_RESET_SOUND,\n\t\tLOADING_COMMON_STASH,\n\t\tLOADING_BEACH_STASH,\n\t\tLOADING_INIT_DBMENU,\n\t\tLOADING_SCENE,\n\t\tLOADING_HERO_1_STASH,\n\t\tLOADING_HERO_1_AUX_STASH,\n\t\tLOADING_HERO_1_REST,\n\t\tLOADING_HERO_2_STASH,\n\t\tLOADING_HERO_2_AUX_STASH,\n\t\tLOADING_HERO_2_REST,\n\t\tLOADING_SCENE_END,\n\t\tLOADING_GAME_MODE,\n\t\tLOADING_LENS_FLARE,\n\t\tLOADING_SCRIPT,\n\t\tLOADING_PERFORMANCE,\n\t\tLOADING_STATE_DONE\n\t};\n\n\tint current_loading_state;\n\tvoid LoadingStatePrint();\n};\n\nvoid game::LoadingStatePrint()\n{\n\tstringx tmp;\n\tswitch(current_loading_state)\n\t{\n\tcase LOADING_INITIAL:\t\t\ttmp = \"Initial Stuff\"; break;\n\tcase LOADING_WORLD_CREATE:\t\ttmp = \"New World\"; break;\n\tcase LOADING_RESET_SOUND:\t\ttmp = \"Sound Reset\"; break;\n\tcase LOADING_COMMON_STASH:\t\ttmp = \"Common Stash\"; break;\n\tcase LOADING_BEACH_STASH:\t\ttmp = \"Beach Stash\"; break;\n\tcase LOADING_INIT_DBMENU:\t\ttmp = \"Init Debug Menu\"; break;\n\tcase LOADING_SCENE:\t\t\t\ttmp = \"Scene\"; break;\n\tcase LOADING_HERO_1_STASH:\t\ttmp = \"Hero 1 Stash\"; break;\n\tcase LOADING_HERO_1_AUX_STASH:\ttmp = \"Hero 1 Aux Stash\"; break;\n\tcase LOADING_HERO_1_REST:\t\ttmp = \"Hero 1 Rest\"; break;\n\tcase LOADING_HERO_2_STASH:\t\ttmp = \"Hero 2 Stash\"; break;\n\tcase LOADING_HERO_2_AUX_STASH:\ttmp = \"Hero 2 Aux Stash\"; break;\n\tcase LOADING_HERO_2_REST:\t\ttmp = \"Hero 2 Rest\"; break;\n\tcase LOADING_SCENE_END:\t\t\ttmp = \"Scene End\"; break;\n\tcase LOADING_GAME_MODE:\t\t\ttmp = \"Game Mode\"; break;\n\tcase LOADING_LENS_FLARE:\t\ttmp = \"Lens Flare\"; break;\n\tcase LOADING_SCRIPT:\t\t\ttmp = \"Script\"; break;\n\tcase LOADING_PERFORMANCE:\t\ttmp = \"Performance\"; break;\n\tcase LOADING_STATE_DONE:\t\ttmp = \"Done\"; break;\n\tdefault:\t\t\t\t\t\ttmp = \"Unknown\"; break;\n\t}\n\tnglPrintf(\"Currently loading %s\\n\", tmp.data());\n}\n",
+      "status": "different",
+      "target_size": 580
+    }
+  ],
+  "raw_name": "LoadingStatePrint__4game"
+}
