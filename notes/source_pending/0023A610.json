@@ -1,0 +1,23 @@
+{
+  "address": "0x0023A610",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1aaf74e7f9cab269db573527bda484874f87bfc6",
+      "candidate_size": 984,
+      "compared_bytes": 984,
+      "compared_instructions": 246,
+      "emitted_name": "interpolate_entity_po__FRC10KSEntityPOT0R10KSEntityPOf",
+      "instruction_score": 19.1057,
+      "matching_bytes": 409,
+      "matching_instructions": 47,
+      "notes": "# FIRST PASS wave 155 lane B4\n\nExact released source tested once for `0x0023A610 interpolate_entity_po__FRC10KSEntityPOT0R10KSEntityPOf`. Attempts before: 0. Result `different`, byte score 41.5650% and instruction score 19.1057%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 41.565,
+      "source": "extern \"C\" float fabsf(float);\nextern \"C\" float acosf(float);\nextern \"C\" float sinf(float);\n\ntypedef unsigned int uint32;\n\nstruct vector3d {\n  float x;\n  float y;\n  float z;\n};\n\nstruct quaternion {\n  float a;\n  float b;\n  float c;\n  float d;\n};\n\nclass KSEntityPO {\n  vector3d KSPos;\n  vector3d KSBPos;\n  quaternion KSRot;\n  quaternion KSBRot;\n  vector3d BoardCurrent;\n  vector3d BoardMomentum;\n\npublic:\n  friend void interpolate_entity_po(const KSEntityPO &, const KSEntityPO &, KSEntityPO &, float);\n};\n\nclass KSEntityState {\n  uint32 KSState : 7;\n  uint32 KSSuperState : 4;\n  uint32 KSAnim : 10;\n  uint32 KSBAnim : 8;\n\npublic:\n  friend void interpolate_entity_po(const KSEntityPO &, const KSEntityPO &, KSEntityPO &, float);\n};\n\nclass KSReplay {\n  char padding[44];\n\npublic:\n  unsigned int playframe;\n\nprivate:\n  char padding2[44];\n\npublic:\n  KSEntityState *mainEntityState;\n\n  friend void interpolate_entity_po(const KSEntityPO &, const KSEntityPO &, KSEntityPO &, float);\n};\n\nextern KSReplay ksreplay;\n__asm__(\".equ ksreplay, 0x004252A8\");\n\nenum {\n  SUPER_STATE_WIPEOUT = 3\n};\n\nstatic void interpolate_quat(const quaternion &from, const quaternion &to, quaternion &res, float interp)\n{\n  const float DELTA = 0.001;\n\n  float sinom, cosom, omega, s0, s1;\n\n  quaternion q1 = from;\n  quaternion q2 = to;\n\n  cosom = q1.a*q2.a + q1.b*q2.b + q1.c*q2.c + q1.d*q2.d;\n\n  if (cosom < 0.0)\n  {\n    cosom = -cosom;\n    q2.a  = -q2.a;\n    q2.b  = -q2.b;\n    q2.c  = -q2.c;\n    q2.d  = -q2.d;\n  }\n\n  if ((1.0 - cosom) > DELTA)\n  {\n    omega = acosf(cosom);\n    sinom = sinf(omega);\n    s0 = sinf((1.0 - interp) * omega) / sinom;\n    s1 = sinf(interp * omega) / sinom;\n  }\n  else\n  {\n    s0 = 1.0 - interp;\n    s1 = interp;\n  }\n\n  res.a = s0*q1.a + s1*q2.a;\n  res.b = s0*q1.b + s1*q2.b;\n  res.c = s0*q1.c + s1*q2.c;\n  res.d = s0*q1.d + s1*q2.d;\n}\n\nvoid interpolate_entity_po(const KSEntityPO &po1, const KSEntityPO &po2, KSEntityPO &res, float interp)\n{\n  const float interp_threshold = 5.0f;\n\n  res.BoardCurrent.x = (1.0f-interp)*po1.BoardCurrent.x + interp*po2.BoardCurrent.x;\n  res.BoardCurrent.y = (1.0f-interp)*po1.BoardCurrent.y + interp*po2.BoardCurrent.y;\n  res.BoardCurrent.z = (1.0f-interp)*po1.BoardCurrent.z + interp*po2.BoardCurrent.z;\n\n  res.BoardMomentum.x = (1.0f-interp)*po1.BoardMomentum.x + interp*po2.BoardMomentum.x;\n  res.BoardMomentum.y = (1.0f-interp)*po1.BoardMomentum.y + interp*po2.BoardMomentum.y;\n  res.BoardMomentum.z = (1.0f-interp)*po1.BoardMomentum.z + interp*po2.BoardMomentum.z;\n\n  if(fabsf(po1.KSPos.x - po2.KSPos.x) > interp_threshold || fabsf(po1.KSPos.y - po2.KSPos.y) > interp_threshold || fabsf(po1.KSPos.z - po2.KSPos.z) > interp_threshold)\n  {\n    if(ksreplay.mainEntityState[ksreplay.playframe].KSSuperState != SUPER_STATE_WIPEOUT)\n      res = po1;\n    else\n      res = po2;\n    return;\n  }\n\n  res.KSPos.x = (1.0f-interp)*po1.KSPos.x + interp*po2.KSPos.x;\n  res.KSPos.y = (1.0f-interp)*po1.KSPos.y + interp*po2.KSPos.y;\n  res.KSPos.z = (1.0f-interp)*po1.KSPos.z + interp*po2.KSPos.z;\n\n  interpolate_quat(po1.KSRot, po2.KSRot, res.KSRot, interp);\n\n  res.KSBPos.x = (1.0f-interp)*po1.KSBPos.x + interp*po2.KSBPos.x;\n  res.KSBPos.y = (1.0f-interp)*po1.KSBPos.y + interp*po2.KSBPos.y;\n  res.KSBPos.z = (1.0f-interp)*po1.KSBPos.z + interp*po2.KSBPos.z;\n\n  interpolate_quat(po1.KSBRot, po2.KSBRot, res.KSBRot, interp);\n}\n",
+      "status": "different",
+      "target_size": 904
+    }
+  ],
+  "raw_name": "interpolate_entity_po__FRC10KSEntityPOT0R10KSEntityPOf"
+}
