@@ -1,0 +1,23 @@
+{
+  "address": "0x00285C80",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c34aaa89f83c00e8b09f8d078d9a849ec48600a6",
+      "candidate_size": 500,
+      "compared_bytes": 540,
+      "compared_instructions": 135,
+      "emitted_name": "Attack__8PushModei",
+      "instruction_score": 0.7407,
+      "matching_bytes": 89,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 104 lane A1\n\nExact released body tested once for `0x00285C80 Attack__8PushModei`. Result `different`, score 16.4815%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 16.4815,
+      "source": "#define assert(x) ((void)0)\n#define MAX_PLAYERS 2\n\nstruct recti\n{\n\tint values[4];\n};\n\nclass kellyslater_controller\n{\npublic:\n\tbool IsDoingSomething(void);\n};\n\nclass PushMode\n{\nprotected:\n\tstatic const float SHARE_DELTA;\n\tstatic const float SHARE_MAX;\n\n\tstruct PLAYER\n\t{\n\t\tfloat share;\n\t\tint extraShare;\n\t\trecti viewport;\n\t\tkellyslater_controller *ks;\n\t\tint prevScore;\n\t};\n\n\tPLAYER players[MAX_PLAYERS];\n\tfloat attackTimer;\n\tint scoreRequired;\n\n\tbool Attack(const int playerIdx);\n};\n\n__asm__(\".equ IsDoingSomething__22kellyslater_controller, 0x00224E40\");\n\nconst float PushMode::SHARE_DELTA = 0.05f;\nconst float PushMode::SHARE_MAX = 0.80f;\n\nbool PushMode::Attack(const int playerIdx)\n{\n\tbool\trecalcViewports = false;\n\tbool\tallowFatality = true;\n\tint\t\totherIdx;\n\t\n\tassert(playerIdx >= 0 && playerIdx < MAX_PLAYERS);\n\n\t// Ignore done players.\n\tif (!players[playerIdx].ks || players[playerIdx].share == 0.0f || players[playerIdx].share == 1.0f)\n\t\treturn recalcViewports;\n\n\t// Get other player index.\n\totherIdx = playerIdx == 0 ? 1 : 0;\n\n\t// Check if it's ok for this player to waste the other guy.\n\tif (players[otherIdx].extraShare > 0 || players[otherIdx].ks->IsDoingSomething())\n\t\tallowFatality = false;\n\t\n\t// Spend one extra share point.\n\tif (players[playerIdx].extraShare > 0)\n\t{\n\t\t// This player is about to waste the other guy.\n\t\tif (players[playerIdx].share == SHARE_MAX && allowFatality)\n\t\t{\n\t\t\t// Fatalities require double the points.\n\t\t\tif (players[playerIdx].extraShare >= 2)\n\t\t\t{\n\t\t\t\t// WASTED!\n\t\t\t\tplayers[playerIdx].share = 1.0f;\n\t\t\t\tplayers[playerIdx].extraShare = 0;\n\t\t\t\tplayers[otherIdx].share = 0.0f;\n\t\t\t\tplayers[otherIdx].extraShare = 0;\n\t\t\t}\n\t\t}\n\t\t// This player is about to push the other player a bit.\n\t\telse\n\t\t{\n\t\t\t// Attack.\n\t\t\tplayers[playerIdx].extraShare -= 1;\n\t\t\tplayers[playerIdx].share += SHARE_DELTA;\n\t\t\tplayers[otherIdx].share -= SHARE_DELTA;\n\n\t\t\t// Paranoia.\n\t\t\tif (players[playerIdx].share > SHARE_MAX)\n\t\t\t\tplayers[playerIdx].share = SHARE_MAX;\n\t\t\tif (players[playerIdx].share < 1.0f-SHARE_MAX)\n\t\t\t\tplayers[playerIdx].share = 1.0f-SHARE_MAX;\n\t\t\tif (players[otherIdx].share > SHARE_MAX)\n\t\t\t\tplayers[otherIdx].share = SHARE_MAX;\n\t\t\tif (players[otherIdx].share < 1.0f-SHARE_MAX)\n\t\t\t\tplayers[otherIdx].share = 1.0f-SHARE_MAX;\n\t\t}\n\t\t\n\t\trecalcViewports = true;\n\t}\n\n\treturn recalcViewports;\n}\n",
+      "status": "different",
+      "target_size": 540
+    }
+  ],
+  "raw_name": "Attack__8PushModei"
+}
