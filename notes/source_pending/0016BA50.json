@@ -1,0 +1,15 @@
+{
+  "address": "0x0016BA50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "source-first-wave128-A5-candidate.cpp",
+      "candidate_sha1": "30a718baef7ac2aba4d9e428a758a73482401881",
+      "notes": "# FIRST PASS wave 128 lane A5\n\nExact released source tested once for `0x0016BA50 Draw__12ReplayWidget`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"../../../kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_replay.cpp\"\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Draw__12ReplayWidget"
+}
