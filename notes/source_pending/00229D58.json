@@ -1,0 +1,23 @@
+{
+  "address": "0x00229D58",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c2bc84645efe8d1c92bb6b9285112a025a825fcf",
+      "candidate_size": 512,
+      "compared_bytes": 524,
+      "compared_instructions": 131,
+      "emitted_name": "Filter_Vector__13vector_filterR8vector3dfff",
+      "instruction_score": 14.5038,
+      "matching_bytes": 176,
+      "matching_instructions": 19,
+      "notes": "# FIRST PASS wave 100 lane B5\n\nExact historical source body for `Filter_Vector__13vector_filterR8vector3dfff` at `0x00229D58` tested once with LF line endings.\n\nResult: `different`, score 33.5878%% (instruction score 14.5038%%), candidate size 512 vs target 524 bytes. No follow-up, build, git operation, or tracked edit.",
+      "score": 33.5878,
+      "source": "typedef float time_value_t;\ntypedef float rational_t;\n\nstruct vector3d\n{\n    float x, y, z;\n};\n\nextern \"C\" float powf(float, float);\nextern \"C\" void fast_sin_cos_approx(float, float *, float *)\n    __asm__(\"fast_sin_cos_approx__FfPfT1\");\n\ninline float fast_cos(float rads)\n{\n    float sinx, cosx;\n    fast_sin_cos_approx(rads, &sinx, &cosx);\n    return cosx;\n}\n\ninline float fast_sin(float rads)\n{\n    float sinx, cosx;\n    fast_sin_cos_approx(rads, &sinx, &cosx);\n    return sinx;\n}\n\nclass vector_filter\n{\npublic:\n    void Filter_Vector(vector3d &, time_value_t, float, float);\n\nprivate:\n    rational_t xwPos[2];\n    rational_t ywPos[2];\n    rational_t zwPos[2];\n    rational_t xerr[2];\n    rational_t yerr[2];\n    rational_t zerr[2];\n};\n\nvoid vector_filter::Filter_Vector(vector3d &filtered_vec, time_value_t time_step, float filter_speed_r, float filter_speed_i)\n{\n    if (time_step > 0.1f)\n        time_step = 0.1f;\n    else if (time_step < 0.014f)\n        time_step = 0.014f;\n\n    if (filter_speed_i == 1000000)\n        filter_speed_i = filter_speed_r;\n\n    float r = filter_speed_r * 6.9282f;\n    float i = filter_speed_i * 4.0f;\n\n    float eneg = 0.36787944f;\n    float coeff = powf(eneg, r * time_step);\n    float coss = fast_cos(i * time_step);\n    float sins = fast_sin(i * time_step);\n    float r1 = -coeff * coss;\n    float i1 = coeff * sins;\n\n    float a = r1 * r1 + i1 * i1;\n    float g = 2.0f * r1 + a + 1.0f;\n\n    float error = filtered_vec.x - xwPos[0];\n    filtered_vec.x = (a + 1.0f) * xwPos[0] - a * xwPos[1] + g * xerr[0];\n\n    xwPos[1] = xwPos[0];\n    xwPos[0] = filtered_vec.x;\n    xerr[1] = xerr[0];\n    xerr[0] = error;\n\n    error = filtered_vec.y - ywPos[0];\n    filtered_vec.y = (a + 1.0f) * ywPos[0] - a * ywPos[1] + g * yerr[0];\n\n    ywPos[1] = ywPos[0];\n    ywPos[0] = filtered_vec.y;\n    yerr[1] = yerr[0];\n    yerr[0] = error;\n\n    error = filtered_vec.z - zwPos[0];\n    filtered_vec.z = (a + 1.0f) * zwPos[0] - a * zwPos[1] + g * zerr[0];\n\n    zwPos[1] = zwPos[0];\n    zwPos[0] = filtered_vec.z;\n    zerr[1] = zerr[0];\n    zerr[0] = error;\n}\n",
+      "status": "different",
+      "target_size": 524
+    }
+  ],
+  "raw_name": "Filter_Vector__13vector_filterR8vector3dfff"
+}
