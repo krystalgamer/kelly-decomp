@@ -1,0 +1,23 @@
+{
+  "address": "0x001A99E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4733ffbd6962e99bbb2e50999a0edba2129f1277",
+      "candidate_size": 316,
+      "compared_bytes": 552,
+      "compared_instructions": 138,
+      "emitted_name": "OnActivate__16OptionsMenuClass",
+      "instruction_score": 7.971,
+      "matching_bytes": 84,
+      "matching_instructions": 11,
+      "notes": "FIRST PASS wave106 B5\nTarget: 0x001A99E0 OnActivate__16OptionsMenuClass (552/0x228), game/files_frontend\nReference: kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp\nAttempts before: 0\nAttempt 1: exact released body with minimal faithful self-contained declarations, LF line endings, and no headers\nResult: different; score 15.2174 (instruction score 7.9710), candidate 316 bytes versus target 552 bytes.\nExactly one candidate was tested. No alternatives, assembly, annotations, variants, retries, attempts 2-5, diff chasing, build, finalization, integration, queue edits, tracked edits, commit, or push were performed.",
+      "score": 15.2174,
+      "source": "class stringx\n{\n  char *chars;\n  void *my_buf;\npublic:\n  stringx(const stringx&);\n  ~stringx();\n};\n\nclass FEMenuEntry\n{\npublic:\n  void Disable(bool d = true);\n  bool GetDisable();\n  void SetText(stringx str);\n};\n\nclass FEMenu\n{\n  char pad0[76];\nprotected:\n  FEMenuEntry *highlighted;\n  char pad1[40];\npublic:\n  void Init();\n  void setHigh(FEMenuEntry *, bool);\n  void HighlightDefault();\n  void SetHelpText(int);\n};\n\nclass PauseMenuSystem\n{\n  char pad[160];\npublic:\n  int pause_player;\n  bool IsResumable(FEMenu *menu) const;\n};\n\nclass game\n{\n  char pad[192];\n  int player_devices[4];\npublic:\n  int get_player_device(int player) { return player_devices[player]; }\n};\n\nclass rumble_manager\n{\npublic:\n  bool isOn(int controller);\n};\n\nextern game *g_game_ptr;\nextern rumble_manager rumbleMan;\nextern stringx ksGlobalTextArray[];\n\nclass OptionsMenuClass : public FEMenu\n{\n  PauseMenuSystem *sys;\n  FEMenuEntry *cameraEntry;\n  FEMenuEntry *rumbleEntry;\n  FEMenuEntry *displayEntry;\n  bool rumble;\n  float rumbleTimer;\npublic:\n  void OnActivate() __asm__(\"OnActivate__16OptionsMenuClass\");\n};\n\nenum\n{\n  NATIVE_RUMBLE_ON = 38,\n  NATIVE_RUMBLE_OFF = 39,\n  HF_UP = 0x001,\n  HF_DOWN = 0x002,\n  HF_SELECT = 0x010,\n  HF_BACK = 0x020,\n  HF_RESUME = 0x040\n};\n\nvoid OptionsMenuClass::OnActivate()\n{\n\tFEMenuEntry *\toldHigh;\n\trumbleTimer = -1;\n\tif (sys->pause_player != -1)\n\t{\n\t\tcameraEntry->Disable(false);\n\t\t\n\t\trumble = rumbleMan.isOn( g_game_ptr->get_player_device( sys->pause_player ) );\n\t\trumbleEntry->SetText( ksGlobalTextArray[ rumble ? NATIVE_RUMBLE_ON : NATIVE_RUMBLE_OFF ] );\n\t\trumbleEntry->Disable(false);\n\t}\n\telse\n\t{\n\t\tcameraEntry->Disable(true);\n\t\trumbleEntry->Disable(true);\n\t}\n\n\t// Reposition entries.\n\toldHigh = highlighted;\n\tInit();\n\tif (oldHigh && !oldHigh->GetDisable())\n\t\tsetHigh(oldHigh, false);\n\telse\n\t\tHighlightDefault();\n\t\n\t// Only let Start = Continue if we can continue playing. (dc 07/12/02)\n\tif (sys->IsResumable(this))\n\t\tSetHelpText(HF_RESUME | HF_UP | HF_DOWN | HF_SELECT | HF_BACK);\n\telse\n\t\tSetHelpText(HF_UP | HF_DOWN | HF_SELECT | HF_BACK);\n}\n",
+      "status": "different",
+      "target_size": 552
+    }
+  ],
+  "raw_name": "OnActivate__16OptionsMenuClass"
+}
