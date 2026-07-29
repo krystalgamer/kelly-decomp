@@ -1,0 +1,15 @@
+{
+  "address": "0x00302CC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3e96f84f77129a669dcea12280c7c579df221f80",
+      "notes": "# FIRST PASS wave 157 lane B2\n\nExact released source tested once for `0x00302CC8 _$_12conglomerate`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x00302CC8 _$_12conglomerate\n// Reference: KS/SRC/conglom.cpp\n#include \"global.h\"\n\n//!#include \"character.h\"\n#include \"conglom.h\"\n#include \"wds.h\"\n#include \"light.h\"\n#include \"lightmgr.h\"\n//#include \"oserrmsg.h\"\n#include \"particle.h\"\n//!#include \"ladder.h\"\n#include \"pmesh.h\"\n#include \"osdevopts.h\"\n#include \"renderflav.h\"\n#include \"iri.h\"\n#include \"colgeom.h\"\n#include \"colmesh.h\"\n// BIGCULL #include \"scanner.h\"\n#include \"controller.h\"\n// BIGCULL #include \"handheld_item.h\"\n#include \"entity_maker.h\"\n#include \"physical_interface.h\"\n// BIGCULL #include \"damage_interface.h\"\n#include \"ai_interface.h\"\n#include \"collide.h\"\n#include \"profiler.h\"\n\n#include \"ngl_support.h\"\n\n#ifdef TARGET_GC\n#include <dolphin/mtx.h>\n#endif //TARGET_GC\n\nconglomerate::~conglomerate()\n{\n  pentity_vector::iterator i;\n  for ( i=members.begin(); i!=members.end(); ++i )\n  {\n    entity *ent = (*i);\n//    warning(\"%s\", (ent != NULL ? ent->get_name().c_str() : \"NULL\"));\n\n    if ( ent->get_bone_idx() >= 0 )\n      delete ent;\n    else\n      g_entity_maker->destroy_entity( ent );\n  }\n\n  members.resize(0); // PEH BETA\n  names.resize(0); // PEH BETA\n  parents.resize(0); // PEH BETA\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_12conglomerate"
+}
