@@ -1,0 +1,15 @@
+{
+  "address": "0x002E20B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f14379c553ad4b0c00480e3aafcc0fc5805b600d",
+      "notes": "# FIRST PASS wave 129 lane A5\n\nExact released source tested once for `0x002E20B0 find_intersection_with_camera_collision_entity__FRC8vector3dfT0PQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeR8vector3d`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"pmesh.h\"\n#include \"hwmath.h\"\n#include \"colmesh.h\"\n#include \"collide.h\"\n#include \"profiler.h\"\n#include \"terrain.h\"\n#include \"capsule.h\"\n#include \"wds.h\"\n#include \"bsp_collide.h\"\n#include \"debug_render.h\"\n\nstatic bool find_intersection_with_camera_collision_entity( const vector3d& p,\n                                                            rational_t r,\n                                                            const vector3d& v,\n                                                            region_node* rn,\n                                                            vector3d& hit_loc )\n{\n  region* rg = rn->get_data();\n  rg->visit();\n  region::entity_list::const_iterator ei = rg->get_camera_collision_entities().begin();\n  region::entity_list::const_iterator ei_end = rg->get_camera_collision_entities().end();\n  for ( ; ei!=ei_end; ++ei )\n  {\n    entity* e = *ei;\n    if ( e && !e->already_visited() && e->are_collisions_active() )\n    {\n      e->visit();\n      if ( (p-e->get_abs_position()).length2() < sqr(r+e->get_radius()) )\n      {\n        if ( e->get_colgeom()->get_type() == collision_geometry::MESH )\n        {\n          vector3d local_p = e->get_abs_po().fast_inverse_xform( p );\n          vector3d local_v = e->get_abs_po().fast_non_affine_inverse_xform( v );\n\n          if ( collide_sphere_mesh( local_p, r, local_v, static_cast<cg_mesh*>( e->get_colgeom() ), hit_loc ) )\n          {\n            hit_loc = e->get_abs_po().fast_8byte_xform( hit_loc );\n            return true;\n          }\n        }\n      }\n    }\n  }\n  return false;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "find_intersection_with_camera_collision_entity__FRC8vector3dfT0PQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeR8vector3d"
+}
