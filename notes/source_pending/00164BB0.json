@@ -1,0 +1,15 @@
+{
+  "address": "0x00164BB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b46212e558d2671c4f1e2aca3874b7dbcd193e6a",
+      "notes": "# FIRST PASS wave100 A3\n\n- Target: `0x00164BB0 Update__20MeterChallengeWidgetf` (520 / `0x208`), `game/files_frontend`.\n- Exact released source: `kelly-slaters-pro-surfer/KS/SRC/ks/igo_widget_meterchallenge.cpp`.\n- Confirmed attempts0 before preparation/testing.\n- Candidate: LF-only released includes and exact released function body.\n- Sole attempt: `compile_failed`; score 0.0%.\n- Candidate SHA-1: `b46212e558d2671c4f1e2aca3874b7dbcd193e6a`.\n- Exactly one harness invocation; no follow-up, build, finalize, integration, or git mutation.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"igo_widget_meterchallenge.h\"\n\nvoid MeterChallengeWidget::Update(const float dt)\n{\n\tIGOWidget::Update(dt);\n\n\t// Fade overlay in and out.\n\tfade += (dt/TIME_FADE)*float(fadeDir);\n\tif (fade >= 1.0f)\n\t\tfade = 1.0f;\n\telse if (fade <= 0.0f)\n\t{\n\t\tfade = 0.0f;\n\t}\n\n\tif ((fade <= 1.0f) && (fade >= 0.0f))\n\t{\n\t\tobjectRoot->SetFade(fade);\n\t\tText->SetFade(fade);\n\t}\n\n\tint player = g_game_ptr->get_active_player();\n\tkellyslater_controller *ksctrl = g_world_ptr->get_ks_controller(player);\n\tbool display_meter = ksctrl->get_special_meter()->CanRegionLink();\n\tif (display_meter && (fade <= 1.0f))\n\t\tfadeDir = 1;\n\telse if (!display_meter)\n\t\tfadeDir = -1;\n\n\tif (fade != 0.0f)\n\t{\n\t\tfloat time = ksctrl->get_special_meter()->GetCurrentSpecialTime();\n\t\tstringx s;\n\t\ts.printf(\"%.1f\", time);\n\t\tText->changeText(s);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Update__20MeterChallengeWidgetf"
+}
