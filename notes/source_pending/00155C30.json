@@ -1,0 +1,15 @@
+{
+  "address": "0x00155C30",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ed6ae8293c5cfc71c8f7ea737f03a2770f45f47f",
+      "notes": "# FIRST PASS wave 109 lane A3\n\nExact released source body tested once for `0x00155C30 Highlight__11FEMenuEntrybT1`. Result `compile_failed`, score 0.0000%. The shared harness declarations lack the released entity/color/menu constants and OnHighlight declaration. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEMenuEntry_disable_shared.h\"\n\nvoid FEMenuEntry::Highlight(bool h, bool anim)\n{\n\thighlight = h;\n\tif(highlight)\n\t{\n\t\thighlight_timer = 0.0f;\n\t\tif(ent) ent->set_render_color(high_ent_color);\n\n\t\tif(!has_special_scale && menu->flags & FEMENU_USE_SCALE)\n\t\t\ttext->changeScale(menu->scale_high);\n\t\tif(has_special_scale) text->changeScale(special_scale_high);\n\n\t\tif(menu->flags & FEMENU_HAS_COLOR_HIGH)\n\t\t{\n\t\t\tif(menu->flags & FEMENU_DONT_SKIP_DISABLED && disabled)\n\t\t\t{\n\t\t\t\tif(has_special_color) text->color = special_color;\n\t\t\t\telse text->color = menu->color;\n\t\t\t\ttext->color.set_alpha(disabled_alpha);\n\t\t\t}\n\t\t\telse\n\t\t\t{\n\t\t\t\tif(has_special_color) text->color = special_color_high;\n\t\t\t\telse text->color = menu->color_high;\n\t\t\t}\n\t\t\ttext->no_color = false;\n\t\t}\n\t\tOnHighlight(anim);\n\t}\n\telse\n\t{\n\t\tif(ent) ent->set_render_color(norm_ent_color);\n\t\ttext->no_color = !disabled && !(menu->flags & FEMENU_HAS_COLOR);\n\t\tif(!text->no_color)\n\t\t{\n\t\t\tif(has_special_color) text->color = special_color;\n\t\t\telse text->color = menu->color;\n\t\t\tif(disabled) text->color.c.a = disabled_alpha;\n\t\t}\n\n\t\tif(!has_special_scale && menu->flags & FEMENU_USE_SCALE)\n\t\t\ttext->changeScale(menu->scale);\n\t\tif(has_special_scale) text->changeScale(special_scale);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Highlight__11FEMenuEntrybT1"
+}
