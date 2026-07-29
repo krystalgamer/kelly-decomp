@@ -1,0 +1,23 @@
+{
+  "address": "0x0011B018",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "95943ec21f49c60d9e0f8c6bcf709a4e7e9b3277",
+      "candidate_size": 712,
+      "compared_bytes": 936,
+      "compared_instructions": 234,
+      "emitted_name": "get_value__C7po_animRC14anim_control_tP2po",
+      "instruction_score": 7.265,
+      "matching_bytes": 189,
+      "matching_instructions": 17,
+      "notes": "# FIRST PASS wave 159 lane A5\n\nExact released source tested once for `0x0011B018 get_value__C7po_animRC14anim_control_tP2po`. Attempts before: 0. Result `different`, byte score 20.1923% and instruction score 7.2650%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 20.1923,
+      "source": "struct anim_control_t {};\nstruct vector3d { float x, y, z; vector3d operator+(const vector3d&) const; };\nstruct quaternion { float x, y, z, w; quaternion operator*(const quaternion&) const; };\nstruct vector4d { float x, y, z, w; } __attribute__((aligned(16)));\nstruct matrix4x4 { vector4d x, y, z, w; };\nclass po { matrix4x4 m; public: po(const vector3d&, const quaternion&, float); };\ntemplate<class T> class anim {\nprotected: unsigned short flags;\npublic:\n  virtual void set_flag(int); virtual void clear_flag(int);\n  virtual void set_flag(int, bool); virtual void set_time(float);\n  virtual void frame_advance(const anim_control_t&, T*);\n  virtual void get_value(const anim_control_t&, T*) const;\n  virtual void get_value(float, T*) const;\n  bool is_valid() const { return flags & 0x1000; }\n};\ninline vector3d anim_xform3d_1(const vector3d *rot, const vector3d &sv)\n{\n  vector3d res;\n  res.x = rot[0].x * sv.x + rot[1].x * sv.y + rot[2].x * sv.z;\n  res.y = rot[0].y * sv.x + rot[1].y * sv.y + rot[2].y * sv.z;\n  res.z = rot[0].z * sv.x + rot[1].z * sv.y + rot[2].z * sv.z;\n  return(res);\n}\nclass po_anim: public anim<po> {\n  anim<vector3d>* P; anim<quaternion>* R; anim<float>* S;\n  vector3d P_start; quaternion R_start; float S_start;\n  vector3d R_start_mat[3];\npublic:\n  bool has_P() const { return P && P->is_valid(); }\n  bool has_R() const { return R && R->is_valid(); }\n  bool has_S() const { return S && S->is_valid(); }\n  bool is_relative_to_start() const { return flags & 0x20; }\n  void get_value(const anim_control_t&, po*) const;\n};\nvoid po_anim::get_value( const anim_control_t& ac, po* dest ) const\n{\n  vector3d p;\n  if ( has_P() )\n  {\n    P->get_value( ac, &p );\n    if ( is_relative_to_start() )\n      p = anim_xform3d_1(&R_start_mat[0], p) + P_start;\n  }\n  else\n    p = P_start;\n  quaternion r;\n  if ( has_R() )\n  {\n    R->get_value( ac, &r );\n    if ( is_relative_to_start() )\n      r = r * R_start;\n  }\n  else\n    r = R_start;\n  float s;\n  if ( has_S() )\n  {\n    S->get_value( ac, &s );\n    if ( is_relative_to_start() )\n      s *= S_start;\n  }\n  else\n    s = S_start;\n  *dest = po( p, r, s );\n}\n",
+      "status": "different",
+      "target_size": 936
+    }
+  ],
+  "raw_name": "get_value__C7po_animRC14anim_control_tP2po"
+}
