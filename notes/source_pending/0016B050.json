@@ -1,0 +1,23 @@
+{
+  "address": "0x0016B050",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8fb46e2da2c16ee09d115f70447526ad4de1c6a6",
+      "candidate_size": 556,
+      "compared_bytes": 576,
+      "compared_instructions": 144,
+      "emitted_name": "SetPosition__11PhotoWidgetiii",
+      "instruction_score": 2.7778,
+      "matching_bytes": 91,
+      "matching_instructions": 4,
+      "notes": "# FIRST PASS wave 111 lane A2\n\nExact released `PhotoWidget::SetPosition` body tested once with LF endings for `0x0016B050 SetPosition__11PhotoWidgetiii`. Result `different`, score 15.7986% (instruction score 2.7778%; candidate 556 bytes, target 576 bytes). No retry, follow-up, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 15.7986,
+      "source": "struct nglQuad { char data[200]; };\n\nclass PanelQuad\n{\npublic:\n    virtual ~PanelQuad();\n    virtual void Init(float, float, float, float, float, float, float, float, float, float, float, float, float, void *);\n    virtual void TurnOn(bool);\n    virtual void SetLayer(int);\n    virtual void Rotate(float);\n    virtual void Rotate(float, float, float);\n    virtual void Update(float);\n    virtual void Draw(int, float);\n    virtual void SetColor(float, float, float, float);\n    virtual void SetColor(unsigned int);\n    virtual void SetZ(float);\n    virtual void SetUV(float, float, float, float);\n    virtual bool IsOn() const;\n    virtual void SetPos(float, float, float, float);\n    virtual void SetPos(float, float);\n    virtual void SetPos(float, float, float, float, float, float, float, float);\n    virtual void GetPos(float &, float &, float &, float &);\n    virtual void SetCenterX(float);\n    virtual void SetCenterY(float);\n    virtual void SetCenterPos(float, float);\n    virtual void GetCenterPos(float &, float &);\n};\n\nclass TextString\n{\npublic:\n    virtual ~TextString();\n    virtual void Update(float);\n    virtual void Draw();\n    virtual void setHJustify(int);\n    virtual void setVJustify(int);\n    virtual void setFont(void *);\n    virtual void setButtonScale(float);\n    virtual void numberSpacing(bool);\n    virtual void changeText(void *);\n    virtual void changeScale(float);\n    virtual void changePos(float, float);\n    virtual void changeX(float);\n    virtual void changeY(float);\n    virtual void changeZ(int);\n};\n\nvoid adjustCoords(float &, float &);\nvoid nglSetQuadRect(nglQuad *, float, float, float, float);\nvoid nglSetQuadZ(nglQuad *, float);\n\nclass PhotoWidget\n{\n    int display;\n    void *vtable;\n    PanelQuad *borderPQ;\n    int borderCenterX;\n    int borderCenterY;\n    int borderZ;\n    void *photoTexture;\n    nglQuad photoQuad;\n    nglQuad darkQuad;\n    float darkFade;\n    float fadeOutAlpha;\n    float shownTimer;\n    bool timed;\n    int photoNum;\n    TextString *pointText;\n    int score;\n    int *scorePtr;\n\npublic:\n    void SetPosition(const int x, const int y, const int z);\n};\n\nvoid PhotoWidget::SetPosition(const int x, const int y, const int z)\n{\n\tfloat x1, y1, x2, y2;\n\n\t// Move panel quad.\n\tborderPQ->SetPos(x, y);\n\tborderZ = z;\n\tborderPQ->SetZ(borderZ);\n\t\n\t// Get new position.\n\tborderPQ->GetCenterPos(x1, y1);\n\tborderCenterX = int(x1);\n\tborderCenterY = int(y1);\n\tborderPQ->GetPos(x1, y1, x2, y2);\n\n\t// Move text.\n\tpointText->changePos((x2-x1)/2+x1, y2-25);\n\tpointText->changeZ(z-10);\n\t\n\t// Move picture quads.\n\tx1 += 27;\n\ty1 += 23;\n\tx2 = x1+128;\n\ty2 = y1+128;\n\tadjustCoords(x1, y1);\n\tadjustCoords(x2, y2);\n\tnglSetQuadRect(&photoQuad, x1, y1, x2, y2);\n\tnglSetQuadZ(&photoQuad, z-10);\n\tnglSetQuadRect(&darkQuad, x1, y1, x2, y2);\n\tnglSetQuadZ(&darkQuad, z-20);\n}\n",
+      "status": "different",
+      "target_size": 576
+    }
+  ],
+  "raw_name": "SetPosition__11PhotoWidgetiii"
+}
