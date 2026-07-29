@@ -1,0 +1,23 @@
+{
+  "address": "0x001B6208",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "20f4cca81bab85630c879c77484189b880758dc3",
+      "candidate_size": 484,
+      "compared_bytes": 488,
+      "compared_instructions": 122,
+      "emitted_name": "OnHighlightBoard__13BoardFrontEnd",
+      "instruction_score": 0.8197,
+      "matching_bytes": 72,
+      "matching_instructions": 1,
+      "notes": "# OnHighlightBoard__13BoardFrontEnd\n\n- Address: `0x001B6208`\n- Size: `0x1E8` (488 bytes)\n- Object: `game/files_frontend`\n- Reference: `kelly-slaters-pro-surfer/KS/SRC/ks/BoardFrontEnd.cpp`\n- Attempts before first pass: `0`\n- Attempt 1: `different`; 484 candidate bytes; byte score `14.7541`; instruction score `0.8197`.\n\nAttempt 1 used exactly the released `OnHighlightBoard` body with minimal self-contained faithful declarations and LF line endings. The target begins by selecting a surfer index from multiplayer state and `g_game_ptr`, behavior absent from the released body, so no retry or variant was attempted.\n\nCitations: `kelly-slaters-pro-surfer/KS/SRC/ks/BoardFrontEnd.cpp:198-231`; `kelly-slaters-pro-surfer/KS/SRC/ks/BoardFrontEnd.h:19-89`; `kelly-slaters-pro-surfer/KS/SRC/ks/boarddata.h:8-27`; `tmp/functions/001B6208_OnHighlightBoard__13BoardFrontEnd/attempt-1/result.json`.",
+      "score": 14.7541,
+      "source": "struct BoardData {\n    int balance;\n    int speed;\n    int air;\n    int spin;\n    int height_feet;\n    int height_inches;\n    int width;\n    float thickness;\n    int tail_type;\n};\n\nclass FEEntityManager {\npublic:\n    void UpdateBoardIndex(int board, int tail_type, int size, bool draw);\n};\n\nclass FEManager {\n    char pad[12];\npublic:\n    FEEntityManager *em;\n};\n\nclass PanelQuad {\n    char pad[0x194];\npublic:\n    virtual ~PanelQuad();\n    virtual void Init();\n    virtual void TurnOn(bool enabled);\n};\n\nclass UnlockingManager {\npublic:\n    bool isSurferBoardUnlocked(int surfer, int board) const;\n};\n\nclass BoardFrontEnd {\n    char pad0[0x13c];\n    FEManager *manager;\n    bool unlocked;\n    char pad1[3];\n    void *sys;\n    int current_board_index;\n    char pad2[0x260 - 0x16c];\n    PanelQuad *line_a;\n    PanelQuad *line_b;\n    char pad3[0x270 - 0x268];\n    int surfer_index;\npublic:\n    enum { ROUND };\n    bool IsLevelBoardUnlocked(int location);\n    void OnHighlightBoard();\n    void SetDisplay(BoardData bd);\n};\n\nextern BoardData SurferBoardArray[15][9];\nextern BoardData LocationBoardArray[17];\nextern UnlockingManager unlockManager;\n\n#define MAX_BOARDS 9\n#define MAP_LOC_LAST 17\n\nvoid BoardFrontEnd::OnHighlightBoard()\n{\n\tint maxBoards = MAX_BOARDS+MAP_LOC_LAST;\n\n\tBoardData bd;\n\t\n\tif (current_board_index >= MAX_BOARDS)\n\t\tbd = LocationBoardArray[current_board_index - MAX_BOARDS];\n\telse\n\t\tbd = SurferBoardArray[surfer_index][current_board_index];\n\n\tint size = bd.height_feet * 12 + bd.height_inches;\n\tmanager->em->UpdateBoardIndex(current_board_index, ROUND, size, false);\n\tif (current_board_index < MAX_BOARDS)\n\t{\n\t\tunlocked = unlockManager.isSurferBoardUnlocked(surfer_index, current_board_index);\n\t}\n\telse\n\t{\n\t\tunlocked = IsLevelBoardUnlocked(current_board_index - MAX_BOARDS);\n\t}\n\n\tline_a->TurnOn(unlocked);\n\tline_b->TurnOn(unlocked);\n\n\tSetDisplay(bd);\n}\n",
+      "status": "different",
+      "target_size": 488
+    }
+  ],
+  "raw_name": "OnHighlightBoard__13BoardFrontEnd"
+}
