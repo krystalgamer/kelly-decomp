@@ -1,0 +1,15 @@
+{
+  "address": "0x001013D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b6d6a102043037ce85815df2ee505085f4fec423",
+      "notes": "# FIRST PASS wave 108 lane A2\n\nExact released body tested once for `0x001013D8 doStandUp__18AISurferController`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"kelly-slaters-pro-surfer/KS/SRC/AIController.h\"\r\n#include \"kelly-slaters-pro-surfer/KS/SRC/inputmgr.h\"\r\n#include \"kelly-slaters-pro-surfer/KS/SRC/joystick.h\"\r\n#include \"kelly-slaters-pro-surfer/KS/SRC/kellyslater_controller.h\"\r\n#include \"kelly-slaters-pro-surfer/KS/SRC/board.h\"\r\n#include \"kelly-slaters-pro-surfer/KS/SRC/wds.h\"\r\n#include \"kelly-slaters-pro-surfer/KS/SRC/timer.h\"\r\n#include \"kelly-slaters-pro-surfer/KS/SRC/random.h\"\r\n#include \"kelly-slaters-pro-surfer/KS/SRC/trickdata.h\"\r\n#include \"kelly-slaters-pro-surfer/KS/SRC/wipeoutdata.h\"\r\nbool AISurferController::doStandUp()\r\n{\r\n\r\n  pressDir(PAD_L, 0);\r\n\r\n  static float startPaddleTime = 999999;\r\n  if(ksctl->get_super_state() != SUPER_STATE_LIE_ON_BOARD)\r\n    return true;\r\n  if (buttonStatus(PAD_TRIANGLE) && ksctl->get_current_state() == STATE_LIEONBOARD)\r\n  {\r\n    releaseButton(PAD_TRIANGLE);\r\n    return true;\r\n  }\r\n  if (paddleAngle > 10) \r\n  {\r\n\r\n    if (dot(paddleDirVec - dir, right) > 0)\r\n      pressDir(PAD_R, (paddleAngle>90?1:paddleAngle/90.0f));\r\n    else\r\n      pressDir(PAD_L, (paddleAngle>90?1:paddleAngle/90.0f));\r\n   \r\n  }\r\n  int myRegion = ksctl->get_board_controller().GetRegion();\r\n  if ((myRegion  == WAVE_REGIONPOCKET) || (hitRegionPocket) || (myRegion  == WAVE_REGIONFACE))\r\n  {\r\n    hitRegionPocket = true;\r\n    startPaddleTime = 99999;\r\n    pressButton(PAD_TRIANGLE);\r\n    pressDir(PAD_U, 1.0);\r\n    return false;\r\n    }\r\n    else \r\n  {\r\n    releaseButton(PAD_TRIANGLE);\r\n  }\r\n\r\n  if (myRegion == WAVE_REGIONWOBBLE)\r\n  {    \r\n    if (startPaddleTime == 99999)\r\n    {\r\n      startPaddleTime = TIMER_GetTotalSec();\r\n    }\r\n   \r\n      //pressDir(PAD_U, 1);\r\n    \r\n  }\r\n  else\r\n  {\r\n    pressDir(PAD_U, 0);\r\n  }\r\n\r\n  return false;\r\n}\r\n\r\n\r\nvoid AISurferController::moveToTarget()\r\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "doStandUp__18AISurferController"
+}
