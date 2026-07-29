@@ -1,0 +1,23 @@
+{
+  "address": "0x00239C70",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5000b1129b1f52108746d47e01c25c04376aac5c",
+      "candidate_size": 600,
+      "compared_bytes": 600,
+      "compared_instructions": 150,
+      "emitted_name": "interpolate_quat__FRC10quaternionT0R10quaternionf",
+      "instruction_score": 16.0,
+      "matching_bytes": 185,
+      "matching_instructions": 24,
+      "notes": "# FIRST PASS wave 110 lane B5\n\nExact released body tested once for `0x00239C70 interpolate_quat__FRC10quaternionT0R10quaternionf`. Result `different`, score 30.8333%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 30.8333,
+      "source": "extern \"C\" float acosf(float);\nextern \"C\" float sinf(float);\n\nclass quaternion\n{\npublic:\n  float a;\n  float b;\n  float c;\n  float d;\n};\n\nstatic void interpolate_quat(const quaternion &from, const quaternion &to, quaternion &res, float interp)\n{\n  const float DELTA = 0.001;    // Threshold of whether or not to do a simple linear interpolation\n\n  float sinom, cosom, omega, s0, s1;\n\n  quaternion q1 = from;\n  quaternion q2 = to;\n\n  // adjust signs (if necessary)\n  cosom = q1.a*q2.a + q1.b*q2.b + q1.c*q2.c + q1.d*q2.d;\n\n  if (cosom < 0.0)\n  {\n    cosom = -cosom;\n    q2.a  = -q2.a;\n\t\tq2.b  = -q2.b;\n\t\tq2.c  = -q2.c;\n\t\tq2.d  = -q2.d;\n  }\n\n  // calculate coefficients\n  if ((1.0 - cosom) > DELTA)\n  {\n    omega = acosf(cosom);\n    sinom = sinf(omega);\n    s0 = sinf((1.0 - interp) * omega) / sinom;\n    s1 = sinf(interp * omega) / sinom;\n  }\n  else\n  {\n    // q1 and q2 quaternions are very close\n\t  //  ... so we can do a linear interpolation\n    s0 = 1.0 - interp;\n    s1 = interp;\n  }\n\n\t// calculate final values\n\tres.a = s0*q1.a + s1*q2.a;\n\tres.b = s0*q1.b + s1*q2.b;\n\tres.c = s0*q1.c + s1*q2.c;\n\tres.d = s0*q1.d + s1*q2.d;\n}\n",
+      "status": "different",
+      "target_size": 572
+    }
+  ],
+  "raw_name": "interpolate_quat__FRC10quaternionT0R10quaternionf"
+}
