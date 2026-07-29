@@ -1,0 +1,23 @@
+{
+  "address": "0x002C6AB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5d71c3d83f70a8f181c965eb881e7ef03462e4d8",
+      "candidate_size": 340,
+      "compared_bytes": 616,
+      "compared_instructions": 154,
+      "emitted_name": "render_sphere__FRC8vector3dfG7color32",
+      "instruction_score": 0.6494,
+      "matching_bytes": 46,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 118 lane A5\n\nExact released body tested once for `0x002C6AB0 render_sphere__FRC8vector3dfG7color32`. Attempts before: 0. LF-only candidate. Result `different`, score 7.4675%. No retry, follow-up, diff chase, build, finalize, integration, commit, or tracked edit.",
+      "score": 7.4675,
+      "source": "typedef float rational_t;\ntypedef unsigned int uint32;\n\nclass vector3d\n{\npublic:\n  vector3d(rational_t, rational_t, rational_t);\n};\n\nclass color32\n{\npublic:\n  uint32 value;\n};\n\nclass po\n{\npublic:\n  po(const vector3d &, const vector3d &, const vector3d &, const vector3d &);\n};\n\nclass region;\nclass camera\n{\npublic:\n  region *get_region();\n};\n\nclass game\n{\npublic:\n  camera *get_current_view_camera();\n};\n\nclass app\n{\npublic:\n  static app *inst();\n  game *get_game();\n};\n\nclass instance_render_info\n{\npublic:\n  instance_render_info(int, const po &, int, region *, int, color32, int);\n};\n\nclass vr_pmesh\n{\npublic:\n  int get_max_faces() const;\n  void render_instance(int, instance_render_info *);\n};\n\nextern vr_pmesh *global_cap_base;\nextern vr_pmesh *global_cap_end;\n\nenum\n{\n  FORCE_TRANSLUCENCY = 1,\n  RENDER_TRANSLUCENT_PORTION = 1,\n  RENDER_CLIPPED_FULL_DETAIL = 2,\n  RENDER_REAL_POINT_LIGHTS = 4\n};\n\nvoid render_sphere(const vector3d &pos, rational_t radius, color32 col)\n{\n#ifndef BUILD_BOOTABLE\n  if (radius < 0.05f) radius = 0.05f;\n\n  vector3d right(radius, 0, 0), up(0, radius, 0), forward(0, 0, radius);\n  po m(right,up,forward,pos);\n\n  instance_render_info iri(global_cap_base->get_max_faces(), m, 0, app::inst()->get_game()->get_current_view_camera()->get_region(), 0, col, FORCE_TRANSLUCENCY );\n  global_cap_base->render_instance(RENDER_TRANSLUCENT_PORTION|RENDER_CLIPPED_FULL_DETAIL|RENDER_REAL_POINT_LIGHTS, &iri);\n  global_cap_end->render_instance(RENDER_TRANSLUCENT_PORTION|RENDER_CLIPPED_FULL_DETAIL|RENDER_REAL_POINT_LIGHTS, &iri);\n#endif\n}\n",
+      "status": "different",
+      "target_size": 616
+    }
+  ],
+  "raw_name": "render_sphere__FRC8vector3dfG7color32"
+}
