@@ -1,0 +1,23 @@
+{
+  "address": "0x002564A0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e47787328817892dcd64ce2de390c5025d7f39ea",
+      "candidate_size": 576,
+      "compared_bytes": 576,
+      "compared_instructions": 141,
+      "emitted_name": "play3d__8RandomVOfffff",
+      "instruction_score": 14.8936,
+      "matching_bytes": 173,
+      "matching_instructions": 21,
+      "notes": "# FIRST PASS wave 106 lane A4\n\nExact released body tested once for `0x002564A0 play3d__8RandomVOfffff`. Result `different`, score 30.0347%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 30.0347,
+      "source": "typedef unsigned int nslSoundId;\ntypedef unsigned int nslSourceId;\ntypedef unsigned int nslEmitterId;\ntypedef float nlVector3d[3];\n\nenum { NSL_INVALID_ID = 0, MAX_RANDOM_SOURCES = 50 };\n\nclass Random\n{\npublic:\n  int NextRand();\n};\n\nextern Random g_random;\n\ninline float random()\n{\n  return (float)(unsigned int)g_random.NextRand() * (1.0f / 4294967296.0f);\n}\n\ninline int random(int n)\n{\n  return (unsigned int)g_random.NextRand() % n;\n}\n\nnslSoundId nslAddSound(nslSourceId source);\nnslEmitterId nslCreateEmitter(nlVector3d &position);\nvoid nslSetSoundEmitter(nslEmitterId emitter, nslSoundId sound);\nvoid nslSetSoundRange(nslSoundId sound, float minDist, float maxDist);\nvoid nslSetEmitterAutoRelease(nslEmitterId emitter);\nvoid nslPlaySound(nslSoundId sound);\n\nclass RandomVO\n{\nprivate:\n  float probability;\n  nslSoundId thisSound;\n  int totalSources;\n  int numUsedSources;\n  int numUnusedSources;\n  bool valid;\n  int lastSource;\n  int probablity;\n  nslEmitterId pos;\n  nslSourceId sources[MAX_RANDOM_SOURCES];\n  nslSourceId sourcesUsed[MAX_RANDOM_SOURCES];\n  nslSourceId sourcesUnused[MAX_RANDOM_SOURCES];\n\npublic:\n  int play3d(float x, float y, float z, float min, float max);\n};\n\nint RandomVO::play3d(float x, float y, float z, float min, float max)\n{\n  int index = 0;\n  if (!valid) return NSL_INVALID_ID;\n  if (totalSources == 0) return NSL_INVALID_ID;\n\n  if (numUnusedSources == 0) {\n    for (int i=0; i < totalSources; i++)\n    {\n      sourcesUnused[i] = sources[i];\n      sourcesUsed[i] = NSL_INVALID_ID;\n    }\n    numUnusedSources = totalSources;\n    numUsedSources = 0;\n  }\n\n  float val = random();\n  if (val > probability)\n    return NSL_INVALID_ID;\n\n  int src = random(numUnusedSources);\n\n  for (int i=0; i < totalSources; i++)\n  {\n    if (sources[i] == sourcesUnused[src])\n      index = i;\n  }\n  lastSource = sourcesUnused[src];\n  if (lastSource == NSL_INVALID_ID)\n    return NSL_INVALID_ID;\n  thisSound = nslAddSound(lastSource);\n  if (thisSound == NSL_INVALID_ID)\n    return NSL_INVALID_ID;\n  sourcesUsed[numUsedSources++] = src;\n  sourcesUnused[src] = sourcesUnused[--numUnusedSources];\n\n  nlVector3d pos;\n  pos[0] = x; pos[1] = y; pos[2] = z;\n\n  nslEmitterId e = nslCreateEmitter(pos);\n  nslSetSoundEmitter(e, thisSound);\n  nslSetSoundRange(thisSound, min, max);\n  nslSetEmitterAutoRelease(e);\n  nslPlaySound(thisSound);\n\n  return thisSound;\n}\n",
+      "status": "different",
+      "target_size": 548
+    }
+  ],
+  "raw_name": "play3d__8RandomVOfffff"
+}
