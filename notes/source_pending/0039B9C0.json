@@ -1,0 +1,23 @@
+{
+  "address": "0x0039B9C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "10985c6663776de35da7bb96fd301fb67715f827",
+      "candidate_size": 704,
+      "compared_bytes": 736,
+      "compared_instructions": 184,
+      "emitted_name": "nglVif1AddSetTexture__FP10nglTextureUif",
+      "instruction_score": 21.1957,
+      "matching_bytes": 244,
+      "matching_instructions": 39,
+      "notes": "# FIRST PASS wave 136 lane B2\n\nExact released source tested once for `0x0039B9C0 nglVif1AddSetTexture__FP10nglTextureUif`. Attempts before: 0. Result `different`, byte score 33.1522% and instruction score 21.1957%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 33.1522,
+      "source": "typedef unsigned char u_char;\ntypedef unsigned int u_int;\ntypedef unsigned long u_long;\n\nenum { NGLTEX_TGA, NGLTEX_TIM2, NGLTEX_IFL, NGLTEX_ATE };\nenum nglGSRegType {\n  NGL_GS_FOG, NGL_GS_PRMODE, NGL_GS_TEX0_1, NGL_GS_TEX1_1,\n  NGL_GS_TEXCLUT, NGL_GS_MIPTBP1_1, NGL_GS_MIPTBP2_1,\n  NGL_GS_CLAMP_1, NGL_GS_TEXA, NGL_GS_ALPHA_1, NGL_GS_TEST_1,\n  NGL_GS_PABE, NGL_GS_RGBAQ, NGL_GS_NUM_REGS\n};\nenum { NGLMAP_POINT_FILTER = 1, NGLMAP_TRILINEAR_FILTER = 4 };\nenum { SCE_GS_TEXFLUSH = 0x3f };\n\nstruct sceGsTex0 {\n  u_long TBP0:14, TBW:6, PSM:6, TW:4, TH:4, TCC:1, TFX:2,\n         CBP:14, CPSM:4, CSM:1, CSA:5, CLD:3;\n};\nstruct sceGsTex1 {\n  u_long LCM:1, unused0:1, MXL:3, MMAG:1, MMIN:3, MTBA:1,\n         unused1:9, L:2, unused2:11, K:12, unused3:20;\n};\nstruct nglTexture {\n  char pad0[0x10];\n  u_char Type;\n  char pad1[0x13];\n  u_int NFrames;\n  nglTexture **Frames;\n  char pad2[0xcc];\n  u_long GsTexA;\n  u_long GsTex0;\n  u_long GsTex1;\n};\nstruct nglScene { char pad[0x10]; nglTexture *RenderTarget; };\n\nextern nglTexture *nglWhiteTex;\nextern u_int nglTextureAnimFrame;\nextern nglScene *nglCurScene;\nextern u_int nglGifRegCount;\nextern u_char nglGifRegIdx[128];\nextern u_long nglGifRegVal[128];\nextern u_int nglGSRegIdx[NGL_GS_NUM_REGS];\n__asm__(\".equ nglWhiteTex,0x004BC034\");\n__asm__(\".equ nglTextureAnimFrame,0x004BBF88\");\n__asm__(\".equ nglCurScene,0x004BBD04\");\n__asm__(\".equ nglGifRegCount,0x004BCA78\");\n__asm__(\".equ nglGifRegIdx,0x004BCA80\");\n__asm__(\".equ nglGifRegVal,0x004BCB00\");\n__asm__(\".equ nglGSRegIdx,0x004B7118\");\n\ninline void nglVif1AddGSReg(nglGSRegType Reg, u_long Val)\n{\n  nglGifRegIdx[nglGifRegCount] = nglGSRegIdx[Reg];\n  nglGifRegVal[nglGifRegCount] = Val;\n  nglGifRegCount++;\n}\ninline void nglVif1AddRawGSReg(u_int Reg, u_long Val)\n{\n  nglGifRegIdx[nglGifRegCount] = Reg;\n  nglGifRegVal[nglGifRegCount] = Val;\n  nglGifRegCount++;\n}\n#define NGL_DISABLE_MIPMAPS 1\n#define START_PROF_TIMER(x)\n#define STOP_PROF_TIMER(x)\n#define SCE_GS_SET_TEX1(lcm,mxl,mmag,mmin,mtba,l,k) \\\n  ((u_long)(lcm) | ((u_long)(mxl)<<2) | ((u_long)(mmag)<<5) | \\\n   ((u_long)(mmin)<<6) | ((u_long)(mtba)<<9) | ((u_long)(l)<<19) | \\\n   ((u_long)(k)<<32))\n\nvoid nglVif1AddSetTexture( nglTexture* Tex, u_int MapFlags, float MipRatio )\n{\n  START_PROF_TIMER( proftimer_section_set_texture );\n\n  if (!Tex) Tex = nglWhiteTex;\n\n  if ( Tex->Type == NGLTEX_IFL || Tex->Type == NGLTEX_ATE )\n    Tex = Tex->Frames[nglTextureAnimFrame % Tex->NFrames];\n\n  if ( Tex->Type == NGLTEX_TGA )\n  {\n    nglVif1AddGSReg( NGL_GS_TEX0_1, Tex->GsTex0 );\n    nglVif1AddGSReg( NGL_GS_TEX1_1, Tex->GsTex1 );\n    nglVif1AddGSReg( NGL_GS_TEXA, Tex->GsTexA );\n  }\n  else\n  if ( Tex->Type == NGLTEX_TIM2 )\n  {\n    if ( ( (sceGsTex0*)&Tex->GsTex0 )->PSM == 20 )\n    {\n      ( (sceGsTex0*)&Tex->GsTex0 )->PSM = 19;\n      ( (sceGsTex0*)&Tex->GsTex0 )->CLD = 1;\n      nglVif1AddGSReg( NGL_GS_TEX0_1, Tex->GsTex0 );\n\n      ( (sceGsTex0*)&Tex->GsTex0 )->PSM = 20;\n      ( (sceGsTex0*)&Tex->GsTex0 )->CLD = 0;\n      nglVif1AddGSReg( NGL_GS_TEX0_1, Tex->GsTex0 );\n    }\n    else\n      nglVif1AddGSReg( NGL_GS_TEX0_1, Tex->GsTex0 );\n\n#if !NGL_DISABLE_MIPMAPS\n#endif\n    {\n      u_int MinFilter = 1, MagFilter = 1;\n      if ( MapFlags & NGLMAP_POINT_FILTER )\n        MinFilter = MagFilter = 0;\n      nglVif1AddGSReg(\n        NGL_GS_TEX1_1,\n        SCE_GS_SET_TEX1( 0, 0, MagFilter, MinFilter, 0, 0, 0 ) );\n    }\n    nglVif1AddGSReg( NGL_GS_TEXA, Tex->GsTexA );\n  }\n\n  if ( Tex == nglCurScene->RenderTarget )\n    nglVif1AddRawGSReg( SCE_GS_TEXFLUSH, 0 );\n\n  STOP_PROF_TIMER( proftimer_section_set_texture );\n}\n",
+      "status": "different",
+      "target_size": 736
+    }
+  ],
+  "raw_name": "nglVif1AddSetTexture__FP10nglTextureUif"
+}
