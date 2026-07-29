@@ -1,0 +1,23 @@
+{
+  "address": "0x0016D310",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e03317b40d79e0f5a790011ed4b973d30c453279",
+      "candidate_size": 640,
+      "compared_bytes": 788,
+      "compared_instructions": 197,
+      "emitted_name": "__15IconCountWidgeti",
+      "instruction_score": 4.5685,
+      "matching_bytes": 114,
+      "matching_instructions": 9,
+      "notes": "# FIRST PASS wave 143 lane A1\n\nExact released source tested once for `0x0016D310 __15IconCountWidgeti`. Attempts before: 0. Result `different`, byte score 14.4670% and instruction score 4.5685%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 14.467,
+      "source": "// Target: 0x0016D310 __15IconCountWidgeti\n// Reference: KS/SRC/ks/igo_widget_iconcount.cpp\n// Replace this file with one self-contained candidate function.\n#include \"KS/SRC/stringx.h\"\n\nstruct color32 {\n    unsigned int value;\n    color32(unsigned char r, unsigned char g, unsigned char b, unsigned char a)\n        : value(r | (g << 8) | (b << 16) | (a << 24)) {}\n};\n\nclass Font {\npublic:\n    enum HORIZJUST { HORIZJUST_RIGHT = 2 };\n    enum VERTJUST { VERTJUST_BOTTOM = 2 };\n};\n\nclass TextString {\npublic:\n    virtual ~TextString();\n    virtual void Update(float);\n    virtual void Draw();\n    virtual void setHJustify(Font::HORIZJUST);\n    virtual void setVJustify(Font::VERTJUST);\n    virtual void setFont(Font *);\n    virtual void setButtonScale(float);\n    virtual void numberSpacing(bool);\n    virtual void changeText(stringx);\n\n    TextString(\n        Font *, stringx, float, float, int, float,\n        Font::HORIZJUST, Font::VERTJUST, bool, color32);\n};\n\nclass IGOWidget {\npublic:\n    bool display;\n    virtual ~IGOWidget();\n    virtual void SetDisplay(bool);\n    virtual void Update(float);\n    virtual void Draw();\n    IGOWidget();\n};\n\nclass IconCountWidget : public IGOWidget {\n    enum {\n        STATE_NONE,\n        STATE_ICON,\n        STATE_360_SPIN,\n        STATE_360_SPIN_SCORE,\n        STATE_540_SPIN,\n        STATE_540_SPIN_SCORE\n    };\n\n    void *objectRoot;\n    TextString *iconText;\n    TextString *iconCountText;\n    float hiliteTime;\n    float fade;\n    int fadeDir;\n    int num_icons;\n    int num_spins;\n    int state;\n    float timer;\n\npublic:\n    IconCountWidget(int type);\n    virtual ~IconCountWidget();\n    virtual void SetDisplay(bool);\n    virtual void Update(float);\n    virtual void Draw();\n};\n\nvoid *operator new(unsigned int, unsigned int, const char *, int);\n\nextern const char source_file[];\nextern const char icon_text[];\nextern const char zero_text[];\nextern const char spin_text[];\n__asm__(\".equ source_file, 0x004C1430\");\n__asm__(\".equ icon_text, 0x004C0AE0\");\n__asm__(\".equ zero_text, 0x004C09C0\");\n__asm__(\".equ spin_text, 0x004C1458\");\n\nenum {\n    GOAL_ICON_TETRIS = 12,\n    GOAL_SKILL_360_SPIN = 16,\n    GOAL_SKILL_540_SPIN = 17,\n    GOAL_SKILL_360_SPIN_SCORE = 31,\n    GOAL_SKILL_540_SPIN_SCORE = 32\n};\n\nIconCountWidget::IconCountWidget(int type)\n{\n    objectRoot = 0;\n\n    iconText = new (0, source_file, 0) TextString(\n        0, icon_text, 214, 62, 10, 0.72f,\n        Font::HORIZJUST_RIGHT, Font::VERTJUST_BOTTOM, false,\n        color32(255, 255, 255, 255));\n    iconCountText = new (0, source_file, 0) TextString(\n        0, zero_text, 288, 62, 10, 0.9f,\n        Font::HORIZJUST_RIGHT, Font::VERTJUST_BOTTOM, false,\n        color32(255, 255, 255, 255));\n\n    fade = 1.0f;\n    fadeDir = 1;\n\n    if (type == GOAL_SKILL_360_SPIN) {\n        iconText->changeText(spin_text);\n        state = STATE_360_SPIN;\n    } else if (type == GOAL_SKILL_360_SPIN_SCORE) {\n        iconText->changeText(spin_text);\n        state = STATE_360_SPIN_SCORE;\n    } else if (type == GOAL_SKILL_540_SPIN) {\n        iconText->changeText(spin_text);\n        state = STATE_540_SPIN;\n    } else if (type == GOAL_SKILL_540_SPIN_SCORE) {\n        iconText->changeText(spin_text);\n        state = STATE_540_SPIN_SCORE;\n    } else if (type == GOAL_ICON_TETRIS) {\n        state = STATE_ICON;\n    } else {\n        state = STATE_NONE;\n    }\n\n    display = false;\n    timer = -1.0f;\n}\n",
+      "status": "different",
+      "target_size": 788
+    }
+  ],
+  "raw_name": "__15IconCountWidgeti"
+}
