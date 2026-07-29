@@ -1,0 +1,23 @@
+{
+  "address": "0x002F2D38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ab8084f196fae90d5619eee36d6ebf15da649b6d",
+      "candidate_size": 524,
+      "compared_bytes": 668,
+      "compared_instructions": 167,
+      "emitted_name": "__unguarded_linear_insert__H2ZP20instance_render_infoZ20instance_render_info_X01X11_v",
+      "instruction_score": 0.0,
+      "matching_bytes": 123,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 126 lane A1\n\nExact released source tested once for `0x002F2D38 __unguarded_linear_insert__H2ZP20instance_render_infoZ20instance_render_info_X01X11_v`. Attempts before: 0. Result `different`, byte score 18.4132% and instruction score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 18.4132,
+      "source": "struct po { float data[16]; } __attribute__((aligned(16)));\nstruct frame_info { float age; int ifl_frame_boost; int ifl_frame_locked; };\nstruct vector3d { float x; float y; float z; };\n\nstruct instance_render_info {\n    float number_of_faces_to_attempt;\n    po local_to_world;\n    unsigned int force_flags;\n    unsigned int color_scale;\n    float camera_relative_rotation;\n    frame_info frame_time_info;\n    void *my_region;\n    float particle_scale;\n    void *my_light_set;\n    void *alt_materials;\n    int frame;\n    vector3d render_scale;\n\n    bool operator<(const instance_render_info &iri) const {\n        return frame < iri.frame;\n    }\n\n    instance_render_info &operator=(const instance_render_info &new_guy) {\n        if (&new_guy == this)\n            return *this;\n        number_of_faces_to_attempt = new_guy.number_of_faces_to_attempt;\n        local_to_world = new_guy.local_to_world;\n        force_flags = new_guy.force_flags;\n        color_scale = new_guy.color_scale;\n        camera_relative_rotation = new_guy.camera_relative_rotation;\n        frame_time_info = new_guy.frame_time_info;\n        my_region = new_guy.my_region;\n        particle_scale = new_guy.particle_scale;\n        my_light_set = new_guy.my_light_set;\n        alt_materials = new_guy.alt_materials;\n        frame = new_guy.frame;\n        render_scale = new_guy.render_scale;\n        return *this;\n    }\n} __attribute__((aligned(16)));\n\nextern \"C\" void unguarded_linear_insert(\n    instance_render_info *last,\n    instance_render_info value\n) __asm__(\"__unguarded_linear_insert__H2ZP20instance_render_infoZ20instance_render_info_X01X11_v\");\n\nvoid unguarded_linear_insert(\n    instance_render_info *last,\n    instance_render_info value\n) {\n    instance_render_info *next = last;\n    --next;\n    while (value < *next) {\n        *last = *next;\n        last = next;\n        --next;\n    }\n    *last = value;\n}\n",
+      "status": "different",
+      "target_size": 668
+    }
+  ],
+  "raw_name": "__unguarded_linear_insert__H2ZP20instance_render_infoZ20instance_render_info_X01X11_v"
+}
