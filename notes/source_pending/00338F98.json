@@ -1,0 +1,23 @@
+{
+  "address": "0x00338F98",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c21582663aa6fe75eeea022bf0218489a6ac59e8",
+      "candidate_size": 500,
+      "compared_bytes": 568,
+      "compared_instructions": 140,
+      "emitted_name": "__8materialRC8material",
+      "instruction_score": 0.0,
+      "matching_bytes": 88,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 110 lane A3\n\nExact released body tested once for `0x00338F98 __8materialRC8material`. Result `different`, score 15.4930%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 15.493,
+      "source": "struct stringx {\n    char data[8];\n    stringx();\n    stringx& operator=(const stringx&);\n};\n\ntemplate<class T> struct refptr { T* ptr; };\nclass hw_texture;\nstruct vertex_context { char data[16]; };\ntemplate<class T> struct my_allocator { };\ntemplate<class T, class A> struct vector2 {\n    T* begin;\n    T* end;\n    T* capacity;\n    vector2& operator=(const vector2&);\n};\n\nstruct anim_texture {\n    stringx filename;\n    vector2<refptr<hw_texture>, my_allocator<refptr<hw_texture> > > textures;\n    vector2<vertex_context, my_allocator<vertex_context> > contexts;\n    unsigned int flags;\n    float frame_time;\n    unsigned int frame;\n    anim_texture();\n    anim_texture& operator=(const anim_texture& rhs) {\n        filename = rhs.filename;\n        textures = rhs.textures;\n        contexts = rhs.contexts;\n        flags = rhs.flags;\n        frame_time = rhs.frame_time;\n        frame = rhs.frame;\n        return *this;\n    }\n    void process_vertex_contexts(unsigned int);\n};\n\nstruct material {\n    stringx material_name;\n    stringx texture_filename[4];\n    anim_texture maps[4];\n    float diffuse_color[4];\n    float u_anim;\n    float v_anim;\n    unsigned int mat_flags;\n    material(const material&);\n};\n\nmaterial::material(const material& rhs) {\n    for (int i = 0; i < 4; ++i) {\n        texture_filename[i] = rhs.texture_filename[i];\n        maps[i] = rhs.maps[i];\n    }\n    mat_flags = rhs.mat_flags;\n    material_name = rhs.material_name;\n    for (int i = 0; i < 4; ++i)\n        diffuse_color[i] = rhs.diffuse_color[i];\n    u_anim = rhs.u_anim;\n    v_anim = rhs.v_anim;\n    for (int i = 3; i >= 0; --i)\n        if (texture_filename[i].data[4])\n            maps[i].process_vertex_contexts(mat_flags);\n}\n",
+      "status": "different",
+      "target_size": 568
+    }
+  ],
+  "raw_name": "__8materialRC8material"
+}
