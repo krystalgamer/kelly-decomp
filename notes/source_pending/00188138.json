@@ -1,0 +1,23 @@
+{
+  "address": "0x00188138",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6c06c595cddddd7043f3ed3eb7862a1176992e0f",
+      "candidate_size": 588,
+      "compared_bytes": 608,
+      "compared_instructions": 152,
+      "emitted_name": "MaskWave__14SurferFrontEndi",
+      "instruction_score": 0.6579,
+      "matching_bytes": 93,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 117 lane A3\n\nExact released body tested once for `0x00188138 MaskWave__14SurferFrontEndi`. Result `different`, score 15.2961%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 15.2961,
+      "source": "struct PanelQuad\n{\n\tchar pad[16];\n\tfloat mask;\n\tint mask_enabled;\n\n\tvoid Mask(float value)\n\t{\n\t\tmask = value;\n\t\tmask_enabled = 1;\n\t}\n};\n\n#define assert(condition) ((void)0)\n\nstruct SurferData\n{\n\tchar pad[560];\n\tint attr_spin;\n\tint attr_speed;\n\tint attr_balance;\n\tint attr_air;\n\tchar tail[76];\n};\n\nstruct Cheat\n{\n\tint on;\n\n\tbool isOn() { return on != 0; }\n};\n\nstruct Career\n{\n\tint spin;\n\tint speed;\n\tint jump;\n\tint balance;\n\n\tint GetSpin() { return spin; }\n\tint GetSpeed() { return speed; }\n\tint GetJump() { return jump; }\n\tint GetBalance() { return balance; }\n\tint GetSurferIdx();\n};\n\nstruct FrontEndManager\n{\n\tint tmp_game_mode;\n};\n\nenum\n{\n\tCHEAT_UNLOCK_ALL_SKILL_POINTS,\n\tGAME_MODE_CAREER,\n\tDISP_HANDICAP = 1\n};\n\nextern SurferData SurferDataArray[];\nextern Cheat g_session_cheats[];\nextern Career *g_career;\nextern FrontEndManager frontendmanager;\n\nstruct SurferFrontEnd\n{\n\tchar pad0[352];\n\tint disp_state;\n\tchar pad1[192];\n\tPanelQuad *gauges[4][3];\n\tPanelQuad *red_gauges[4];\n\tchar pad2[104];\n\tint hcap;\n\tchar pad3[24];\n\tint current_surfer_index;\n\n\tvoid MaskWave(int wave);\n};\n\nvoid SurferFrontEnd::MaskWave(int wave)\n{\n//\tint level = SurferDataArray[current_surfer_index].stats[wave];\n\tint level=0;\n\tint red_level=0;\n\tswitch(wave)\n\t{\n\tcase 0:\n\t\tlevel = SurferDataArray[current_surfer_index].attr_spin;\n\t\tif (g_session_cheats[CHEAT_UNLOCK_ALL_SKILL_POINTS].isOn())\n\t\t\tred_level = level + 6;\n\t\telse\n\t\t\tred_level = g_career->GetSpin();\n\t\tbreak;\n\tcase 1:\n\t\tlevel = SurferDataArray[current_surfer_index].attr_speed;\n\t\tif (g_session_cheats[CHEAT_UNLOCK_ALL_SKILL_POINTS].isOn())\n\t\t\tred_level = level + 6;\n\t\telse\n\t\t\tred_level = g_career->GetSpeed();\n\t\tbreak;\n\tcase 2:\n\t\tlevel = SurferDataArray[current_surfer_index].attr_air;\n\t\tif (g_session_cheats[CHEAT_UNLOCK_ALL_SKILL_POINTS].isOn())\n\t\t\tred_level = level + 6;\n\t\telse\n\t\t\tred_level = g_career->GetJump();\n\t\tbreak;\n\tcase 3:\n\t\tlevel = SurferDataArray[current_surfer_index].attr_balance;\n\t\tif (g_session_cheats[CHEAT_UNLOCK_ALL_SKILL_POINTS].isOn())\n\t\t\tred_level = level + 6;\n\t\telse\n\t\t\tred_level = g_career->GetBalance();\n\t\tbreak;\n\tdefault:\n\t\tassert(false);\n\t\tlevel = 0;\n\t\tred_level = 0;\n\t\tbreak;\n\t}\n\n\t// only show red gauges if same surfer\n\tif((frontendmanager.tmp_game_mode != GAME_MODE_CAREER || g_career->GetSurferIdx() != current_surfer_index) &&\n\t\t!(frontendmanager.tmp_game_mode == GAME_MODE_CAREER && g_session_cheats[CHEAT_UNLOCK_ALL_SKILL_POINTS].isOn()))\n\t\tred_level = level;\n\n\t// adjust for handicap\n\tif(disp_state == DISP_HANDICAP)\n\t{\n\t\tif(hcap < 0) level += hcap;\n\t\tred_level += hcap;\n\t}\n\n\tstatic const int MAX_LEVEL = 20;\n\tfloat val = ((float) level)/MAX_LEVEL;\n\tfloat red_val = ((float) red_level)/MAX_LEVEL;\n\n\tif(val > 1) val = 1;\n\tif(red_val > 1) red_val = 1;\n\n\tgauges[wave][1]->Mask(val);\n\tred_gauges[wave]->Mask(red_val);\n}\n",
+      "status": "different",
+      "target_size": 608
+    }
+  ],
+  "raw_name": "MaskWave__14SurferFrontEndi"
+}
