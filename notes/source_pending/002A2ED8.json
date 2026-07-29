@@ -1,0 +1,15 @@
+{
+  "address": "0x002A2ED8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "dfb6066cd2421a3a497e7fe441b5fef4c3f888d4",
+      "notes": "# FIRST PASS wave 109 lane A4\n\nExact released body tested once for `0x002A2ED8 create_preloaded_entity_or_subclass__21world_dynamics_systemRC7stringxT1`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <map>\n\nclass stringx\n{\npublic:\n  int size() const;\n  void to_upper();\n};\n\nclass filespec\n{\npublic:\n  filespec(const stringx&);\n  stringx name;\n};\n\nclass vector3d\n{\npublic:\n  vector3d(float, float, float);\n};\n\nclass po\n{\npublic:\n  po(const po&);\n  void set_translate(const vector3d&);\n};\n\nextern po po_identity_matrix;\n\nclass entity {};\nclass entity_id\n{\npublic:\n  static entity_id make_unique_id();\n};\n\ntypedef std::map<stringx, entity*> entfile_map;\n\nclass file_finder\n{\npublic:\n  void push_path_back(const stringx&);\n  void pop_path_back();\n};\n\nclass entity_maker\n{\npublic:\n  entity* create_entity_or_subclass(const stringx&, const entity_id&, const po&, const stringx&, unsigned int);\n};\n\nextern file_finder* g_file_finder;\nextern entity_maker* g_entity_maker;\nextern stringx empty_string;\n\nclass world_dynamics_system\n{\n  entfile_map entfiles;\npublic:\n  const entfile_map& get_entfiles() const { return entfiles; }\n  void remove_entity_from_world_processing(entity*);\n  entity* create_preloaded_entity_or_subclass(const stringx&, const stringx&);\n};\n\nentity* world_dynamics_system::create_preloaded_entity_or_subclass( const stringx& entity_name,\n                                                                   const stringx& entity_dir )\n{\n  entity* e;\n  filespec spec( entity_name );\n  spec.name.to_upper();\n  entfile_map::const_iterator fi = get_entfiles().find( spec.name );\n\n  po loc( po_identity_matrix );\n  loc.set_translate( vector3d(-9000,-9000,-9000) );\n\n  if ( fi == get_entfiles().end() )\n  {\n    if ( entity_dir.size() > 0 )\n      g_file_finder->push_path_back( entity_dir );\n    e = g_entity_maker->create_entity_or_subclass( entity_name,  entity_id::make_unique_id(), loc, empty_string, 0 );\n    remove_entity_from_world_processing( e );\n    if ( entity_dir.size() > 0 )\n      g_file_finder->pop_path_back();\n  }\n  else\n    e = (*fi).second;\n  return e;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "create_preloaded_entity_or_subclass__21world_dynamics_systemRC7stringxT1"
+}
