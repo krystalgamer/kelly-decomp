@@ -1,0 +1,15 @@
+{
+  "address": "0x00135058",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0a9b48535cd0b80e166b891f1953289fbd89bfe1",
+      "notes": "# FIRST PASS wave 117 lane B5\n\nExact released body tested once for `0x00135058 _$_14entity_manager`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"../kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"../kelly-slaters-pro-surfer/KS/SRC/entity.h\"\n\nentity_manager::~entity_manager()\n{\n  name_to_number_map::iterator mi;\n  mi = name_to_number.begin();\n  for(; mi != name_to_number.end(); ++mi )\n  {\n    delete[] (*mi).first.str;\n  }\n  erase( begin(), end() );\n  name_to_number = name_to_number_map();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_14entity_manager"
+}
