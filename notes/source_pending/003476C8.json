@@ -1,0 +1,15 @@
+{
+  "address": "0x003476C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a15de5cad899c45dbbe71c6a47abd0dd1f8a095d",
+      "notes": "# FIRST PASS wave 140 lane B1\n\nExact released source tested once for `0x003476C8 get_memory_image__5stashRC7pstringRPUcRiRP17stash_index_entry`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x003476C8 get_memory_image__5stashRC7pstringRPUcRiRP17stash_index_entry\n// Reference: KS/SRC/mustash.cpp\n#include \"kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"kelly-slaters-pro-surfer/KS/SRC/osdevopts.h\"\n#include \"kelly-slaters-pro-surfer/KS/SRC/mustash.h\"\n#include \"kelly-slaters-pro-surfer/KS/SRC/avltree.h\"\n\n#define STASHSEARCHREVERSED\n\nbool stash::get_memory_image(const pstring& _name, unsigned char *&buf,\n                             int &buf_size, stash_index_entry *&hdr)\n{\n#ifdef EVAN\n\tchar damnopaquestringclass[256];\n\tstrcpy(damnopaquestringclass,_name.c_str());\n#endif\n  assert(substash[curstash].stash_file_is_open);\n#if !defined(TARGET_XBOX) && !defined(TARGET_GC) && defined(DEBUG)\n  assert(substash[curstash].stored_buf != NULL);\n#endif /* TARGET_XBOX JIV DEBUG */\n\n  stash_index_entry find_me;\n  find_me.set_name(_name);\n  if (os_developer_options::inst()->is_flagged(os_developer_options::FLAG_CHATTY_LOAD))\n    debug_print(\"trying to find image %s in the stash\", _name.c_str());\n  AvlNode *the_node = NULL;\n\n\t#ifdef STASHSEARCHREVERSED\n\tfor ( int i=STASH_LIMIT-1; i>=STASH_SYSTEM; i-- )\n\t#else\n\tfor ( int i=STASH_SYSTEM; i<STASH_LIMIT; i++ )\n\t#endif\n\t{\n\t\tthe_node=substash[i].index_tree.find(&find_me);\n\t\tif ( the_node )\n\t\t{\n//    \t\tdebug_print(\"found %s in stash %d\", _name.c_str(),i);\t// too much output (dc 05/05/02)\n\t\t\tcurstash=i;\n\t\t\tbreak;\n\t\t}\n\t}\n\n  if (!the_node || !the_node->data())\n  {\n    return false;\n  }\n\n\n  unsigned char* base = substash[curstash].stored_buf;\n\n  if( the_node->data()->in_aram() )\n    base = NULL;\n  \n  if (!the_node->data()->is_stored())\n    base = substash[curstash].temp_buf;\n\n  the_node->data()->set_used( true );\n  buf = base + the_node->data()->file_offset;\n  buf_size = the_node->data()->entry_size;\n  hdr = the_node->data();\n  //debug_print(\"Refering to file %s in the stash\", the_node->data()->name.c_str());\n  return true;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "get_memory_image__5stashRC7pstringRPUcRiRP17stash_index_entry"
+}
