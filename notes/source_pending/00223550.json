@@ -1,0 +1,23 @@
+{
+  "address": "0x00223550",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9e402206bed65004361807eec2a747ccb51f76ce",
+      "candidate_size": 544,
+      "compared_bytes": 544,
+      "compared_instructions": 136,
+      "emitted_name": "Tube_Align__22kellyslater_controllerff",
+      "instruction_score": 14.7059,
+      "matching_bytes": 176,
+      "matching_instructions": 20,
+      "notes": "FIRST PASS wave101 B4\nTarget: 0x00223550 Tube_Align__22kellyslater_controllerff (528/0x210), game/files_kellyslater\nReference: kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.cpp\nAttempts before: 0\nAttempt 1: exact released body with minimal faithful self-contained declarations, LF line endings, and no headers\nResult: different; score 32.3529 (instruction score 14.7059), candidate 544 bytes versus target 528 bytes.\nExactly one candidate was tested. No alternatives, retries, diff chasing, build, finalization, integration, queue edits, tracked edits, commit, or push were performed.",
+      "score": 32.3529,
+      "source": "extern \"C\" float sqrtf(float);\nasm(\".equ sqrtf, 0x003C7058\");\n\nclass vector3d\n{\npublic:\n    float x, y, z;\n\n    vector3d() {}\n    vector3d(float a, float b, float c) : x(a), y(b), z(c) {}\n\n    vector3d operator-() const { return vector3d(-x, -y, -z); }\n    vector3d operator+(const vector3d &v) const { return vector3d(x + v.x, y + v.y, z + v.z); }\n    vector3d operator*(float s) const { return vector3d(x * s, y * s, z * s); }\n\n    void normalize()\n    {\n        float len2 = x * x + y * y + z * z;\n        if (len2 > 1.0e-10f)\n        {\n            float inv = 1.0f / sqrtf(len2);\n            x *= inv;\n            y *= inv;\n            z *= inv;\n        }\n    }\n};\n\ninline vector3d operator*(float s, const vector3d &v) { return v * s; }\n\nextern vector3d XVEC;\nextern vector3d ZVEC;\nextern float tube_tilt_towards_beach;\nasm(\".equ XVEC, 0x00554448\");\nasm(\".equ ZVEC, 0x00554468\");\nasm(\".equ tube_tilt_towards_beach, 0x00424C70\");\n\nclass po\n{\npublic:\n    vector3d non_affine_slow_xform(const vector3d &v) const;\n};\nasm(\".equ non_affine_slow_xform__C2poRC8vector3d, 0x003483A8\");\n\nclass entity\n{\n    char padding[0x50];\n    po absolute_po;\npublic:\n    const po &get_abs_po() const { return absolute_po; }\n};\n\nclass board_controller\n{\n    entity *my_board;\npublic:\n    vector3d GetForwardDir() const { return my_board->get_abs_po().non_affine_slow_xform(ZVEC); }\n};\n\nclass spin_controller\n{\npublic:\n    void SetSpinType(int type, float angle, vector3d axis, float rate);\n};\nasm(\".equ SetSpinType__15spin_controllerifG8vector3df, 0x0020C058\");\n\nenum { SPIN_FLOATER = 5 };\n\nclass kellyslater_controller\n{\n    char padding0[0xd50];\n    board_controller my_board_controller;\n    char padding1[0xbe4];\n    spin_controller spin_ctrl;\npublic:\n    void Tube_Align(float z_offset, float spin_rate);\n};\n\nvoid kellyslater_controller::Tube_Align(float z_offset, float spin_rate)\n{\n\tvector3d alignment_vec;\n\n\tz_offset += tube_tilt_towards_beach;  //  The default offset from the Z-axis.\n\n\tif ( my_board_controller.GetForwardDir().x > 0)\n\t\talignment_vec = XVEC + (z_offset * ZVEC);\n\telse\n\t\talignment_vec = -XVEC + (z_offset * ZVEC);\n\n\talignment_vec.normalize();\n\n\tspin_ctrl.SetSpinType(SPIN_FLOATER, 0.0f, alignment_vec, spin_rate);\n}\n",
+      "status": "different",
+      "target_size": 528
+    }
+  ],
+  "raw_name": "Tube_Align__22kellyslater_controllerff"
+}
