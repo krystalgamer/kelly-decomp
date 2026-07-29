@@ -1,0 +1,23 @@
+{
+  "address": "0x00203A80",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bdf937f2f32ad2f429bbb825fd69d6830be2db4a",
+      "candidate_size": 504,
+      "compared_bytes": 516,
+      "compared_instructions": 129,
+      "emitted_name": "floating_ai__14surfing_objectR8vector3dT1f",
+      "instruction_score": 1.5504,
+      "matching_bytes": 94,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 97 lane A1\n\nConfirmed zero prior attempts. One LF-only exact released-body test from `KS/SRC/ks/floatobj.cpp` for `0x00203A80 floating_ai__14surfing_objectR8vector3dT1f`. Result `different`, score 18.2171%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 18.2171,
+      "source": "typedef unsigned int u_int;\n\nclass vector3d\n{\npublic:\n  float x, y, z;\n\n  vector3d() {}\n  vector3d(float a, float b, float c) : x(a), y(b), z(c) {}\n  vector3d operator+(const vector3d& v) const { return vector3d(x + v.x, y + v.y, z + v.z); }\n  vector3d operator*(float f) const { return vector3d(x * f, y * f, z * f); }\n  vector3d& operator+=(const vector3d& v) { x += v.x; y += v.y; z += v.z; return *this; }\n};\n\nenum WaveRegionEnum { WAVE_REGION_DUMMY };\nenum WaveMarkerEnum { WAVE_MarkerInvalid = -1 };\n\nextern float WAVE_ToleranceDefaultD, WAVE_ToleranceDefaultZ;\nstruct WaveTolerance\n{\n  float dthresh;\n  float zthresh;\n  WaveTolerance() { dthresh = WAVE_ToleranceDefaultD; zthresh = WAVE_ToleranceDefaultZ; }\n};\n\nstruct WavePositionHint { char data[1]; };\n\nclass CollideCallStruct\n{\npublic:\n  CollideCallStruct(const vector3d& pos, vector3d* n, vector3d* c, WaveRegionEnum* r, WavePositionHint* h)\n  { position = pos; normal = n; current = c; region = r; hint = h; }\n\n  vector3d position;\n  vector3d* normal;\n  vector3d* current;\n  WaveRegionEnum* region;\n  WavePositionHint* hint;\n  WaveTolerance tolerance;\n};\n\nextern float WAVE_MeshMinX;\nextern float WAVE_MeshMaxX;\nextern float WAVE_MeshMinZ;\nextern float WAVE_MeshMaxZ;\n\nbool WAVE_CheckCollision(CollideCallStruct&, bool, bool, bool, bool = false,\n                         WaveMarkerEnum = WAVE_MarkerInvalid,\n                         WaveMarkerEnum = WAVE_MarkerInvalid);\nvoid WAVE_GlobalCurrent(vector3d* current);\nfloat WATER_Altitude(float x, float z);\nvoid WATER_Normal(float x, float z, float& nx, float& ny, float& nz);\n\nclass surfing_object\n{\n  char pad0[0x44];\n  WavePositionHint wave_hint;\n  char pad1[0x260 - 0x45];\n  bool use_hint;\n  char pad2[0x2c4 - 0x261];\n  float current_x_mult;\n\npublic:\n  bool floating_ai(vector3d& position, vector3d& normal, float dt);\n};\n\nbool surfing_object::floating_ai (vector3d& position, vector3d& normal, float dt)\n{\n  // make the object flow with the water\n  if ((position.x < WAVE_MeshMaxX) && (position.x > WAVE_MeshMinX) &&\n      (position.z < WAVE_MeshMaxZ) && (position.z > WAVE_MeshMinZ))\n  {\n    vector3d current;\n    CollideCallStruct collide (position, &normal, &current, 0, &wave_hint);\n    use_hint = WAVE_CheckCollision (collide, use_hint, false, false);\n    current.x *= current_x_mult;\n\n    position = collide.position + current * dt;\n  }\n  else\n  {\n    vector3d current;\n\n    position.y = WATER_Altitude (position.x, position.z);\n    WAVE_GlobalCurrent (&current);\n    WATER_Normal (position.x, position.z, normal.x, normal.y, normal.z);\n\n    position += current * dt;\n    use_hint = false;\n  }\n\n  return true;\n}\n",
+      "status": "different",
+      "target_size": 516
+    }
+  ],
+  "raw_name": "floating_ai__14surfing_objectR8vector3dT1f"
+}
