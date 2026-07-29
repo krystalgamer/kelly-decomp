@@ -1,0 +1,23 @@
+{
+  "address": "0x003A63A0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "295af3f9e4231a0873e4e25c500fd85a0f2732ae",
+      "candidate_size": 544,
+      "compared_bytes": 552,
+      "compared_instructions": 138,
+      "emitted_name": "nglVif1AddQuadVerts__FP7nglQuad",
+      "instruction_score": 70.2899,
+      "matching_bytes": 412,
+      "matching_instructions": 97,
+      "notes": "# FIRST PASS wave107 A3\n\n- Target: `0x003A63A0 nglVif1AddQuadVerts__FP7nglQuad` (`0x228`), object `ngl/ngl_ps2`.\n- Exact released body: `kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp:7900-7914`.\n- Confirmed attempts0 before testing.\n- Candidate: LF-only exact released NGL body with minimal self-contained declarations.\n- Sole attempt: `different`; byte score `74.6377%` (412/552), instruction score `70.2899%` (97/138); candidate 544 bytes, target 552 bytes.\n- Candidate SHA-1: `295af3f9e4231a0873e4e25c500fd85a0f2732ae`.\n- Exactly one harness test; no retry, follow-up, build, finalize, integration, or tracked edit.",
+      "score": 74.6377,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned long long u_long;\n\nstruct nglTexture { unsigned short Width, Height; };\nstruct nglQuadVertex { float X, Y, U, V; u_int Color; };\nstruct nglQuad { nglQuadVertex Verts[4]; float Z; };\n\nstruct nglVector\n{\n  float v[4];\n  nglVector(float x, float y, float z, float w) { v[0]=x; v[1]=y; v[2]=z; v[3]=w; }\n  float& operator[](int i) { return v[i]; }\n};\nstruct nglScene\n{\n  nglTexture* RenderTarget;\n  float NearZ, FarZ;\n  float ViewToScreen[4][4];\n};\n\nextern nglScene* nglCurScene;\nextern u_int nglGifRegCount;\nextern unsigned char nglGifRegIdx[128];\nextern u_long nglGifRegVal[128];\nvoid sceVu0ApplyMatrix(float*, float (*)[4], float*);\n\ninline int nglFTOI(float input)\n{\n  register float output;\n  __asm__ volatile (\"cvt.w.s %0, %1\" : \"=f\" (output) : \"f\" (input));\n  return (int&)output;\n}\ninline u_int nglViewZToGS(float Z)\n{\n  float _Z = Z;\n  if (_Z < nglCurScene->NearZ) _Z = nglCurScene->NearZ;\n  if (_Z > nglCurScene->FarZ) _Z = nglCurScene->FarZ;\n  nglVector V(0.0f, 0.0f, _Z, 1.0f);\n  sceVu0ApplyMatrix(V.v, nglCurScene->ViewToScreen, V.v);\n  V[2] /= V[3];\n  return nglFTOI(V[2] * 16.0f);\n}\ninline u_int nglScreenXToGS(float X) { return (int)((X + 2048 - (nglCurScene->RenderTarget->Width / 2)) * 16); }\ninline u_int nglScreenYToGS(float Y) { float YOfs = 0.0f; return (int)((Y + 2048 + YOfs - (nglCurScene->RenderTarget->Height / 2)) * 16); }\ninline void nglVif1AddRawGSReg(u_int Reg, u_long Val)\n{\n  nglGifRegIdx[nglGifRegCount] = Reg;\n  nglGifRegVal[nglGifRegCount] = Val;\n  nglGifRegCount++;\n}\n\n#define SCE_GS_PRIM 0\n#define SCE_GS_RGBAQ 1\n#define SCE_GS_ST 2\n#define SCE_GS_XYZ2 5\n#define SCE_GS_PRIM_TRISTRIP 4\n#define SCE_GS_SET_PRIM(prim,iip,tme,fge,abe,aa1,fst,ctxt,fix) ((u_long)(prim)|((u_long)(iip)<<3)|((u_long)(tme)<<4)|((u_long)(fge)<<5)|((u_long)(abe)<<6)|((u_long)(aa1)<<7)|((u_long)(fst)<<8)|((u_long)(ctxt)<<9)|((u_long)(fix)<<10))\n#define SCE_GS_SET_RGBAQ(r,g,b,a,q) ((u_long)(r)|((u_long)(g)<<8)|((u_long)(b)<<16)|((u_long)(a)<<24)|((u_long)(q)<<32))\n#define SCE_GS_SET_ST(s,t) ((u_long)(s)|((u_long)(t)<<32))\n#define SCE_GS_SET_XYZ(x,y,z) ((u_long)(x)|((u_long)(y)<<16)|((u_long)(z)<<32))\n\nvoid nglVif1AddQuadVerts( nglQuad* Quad )\n{\n  u_int z = nglViewZToGS( Quad->Z );\n\n  nglVif1AddRawGSReg( SCE_GS_PRIM, SCE_GS_SET_PRIM( SCE_GS_PRIM_TRISTRIP, 0, 0, 0, 0, 0, 0, 0, 0 ) );\n  for ( int j = 0; j < 4; j++ )\n  {\n    nglQuadVertex* Vert = &Quad->Verts[j];\n    nglVif1AddRawGSReg( SCE_GS_RGBAQ, SCE_GS_SET_RGBAQ( Vert->Color, 0, 0, 0, 0x3f800000 ) );  // Q == 1.0f.\n    nglVif1AddRawGSReg( SCE_GS_ST, SCE_GS_SET_ST( *(u_int*)&Vert->U, *(u_int*)&Vert->V ) );\n    u_int x = nglScreenXToGS( Vert->X );\n    u_int y = nglScreenYToGS( Vert->Y );\n    nglVif1AddRawGSReg( SCE_GS_XYZ2, SCE_GS_SET_XYZ( x, y, z ) );\n  }\n}\n",
+      "status": "different",
+      "target_size": 552
+    }
+  ],
+  "raw_name": "nglVif1AddQuadVerts__FP7nglQuad"
+}
