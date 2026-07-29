@@ -1,0 +1,23 @@
+{
+  "address": "0x001E6138",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e1fe74fdb968b37da34d6deb39c6f061c6fe4150",
+      "candidate_size": 1024,
+      "compared_bytes": 1024,
+      "compared_instructions": 256,
+      "emitted_name": "setupIcons__16GenericGameSaveriiPUciPcT5Pvi",
+      "instruction_score": 3.5156,
+      "matching_bytes": 113,
+      "matching_instructions": 9,
+      "notes": "FIRST PASS wave112 A2\n0x001E6138 GenericGameSaver::setupIcons exact released source body.\nAttempts before: 0. Exactly one LF candidate test.\nResult: different; byte score 11.0352% (113/1024 compared), instruction score 3.5156% (9/256), candidate size 1024 bytes; target size 584 bytes.\nNo follow-up, build, git operation, or tracked edit.",
+      "score": 11.0352,
+      "source": "typedef float sceVu0FVECTOR[4];\ntypedef int sceVu0IVECTOR[4];\n\nstruct sceMcIconSys\n{\n  char Head[4];\n  unsigned short Reserv1;\n  unsigned short OffsLF;\n  unsigned int TransRate;\n  sceVu0IVECTOR BgColor[4];\n  sceVu0FVECTOR LightDir[3];\n  sceVu0FVECTOR LightColor[3];\n  sceVu0FVECTOR Ambient;\n  unsigned short TitleName[34];\n  unsigned char FnameView[64];\n  unsigned char FnameCopy[64];\n  unsigned char FnameDel[64];\n  unsigned char Reserve3[512];\n  unsigned int Reserv2;\n};\n\nenum { GSErrorOther = -1, GSOk = 0 };\n\nextern \"C\" void* memset(void*, int, unsigned int);\nextern \"C\" void* memcpy(void*, const void*, unsigned int);\nextern \"C\" char* strcpy(char*, const char*);\nextern \"C\" char* strcat(char*, const char*);\nvoid AsciiString2Sjis(unsigned char*, unsigned short*);\n\nclass GenericGameSaver\n{\npublic:\n  int saveData(int, int, char*, void*, int, bool);\n  int setupIcons(int, int, unsigned char[33], int, char*, char*, void*, int);\n};\n\nint GenericGameSaver::setupIcons(int port, int slot, unsigned char gameTitle[33], int breakPoint, char *directory, char *iconName, void *iconData, int iconDataSize)\n{\n  static sceVu0FVECTOR ambient = { 0.50, 0.50, 0.50, 0.00 };\n  unsigned short SJISTitle[33];\n  char fullSysName[100];\n  char fullIconName[100];\n\n  strcpy(fullSysName, directory);\n  strcat(fullSysName, \"icon.sys\");\n\n  strcpy(fullIconName, directory);\n  strcat(fullIconName, iconName);\n\n\n  static sceVu0IVECTOR bgcolor[4] = {\n    { 0x80,    0,    0, 0 },\n    {    0, 0x80,    0, 0 },\n    {    0,    0, 0x80, 0 },\n    { 0x80, 0x80, 0x80, 0 },\n  };\n  static sceVu0FVECTOR lightdir[3] = {\n    { 0.5, 0.5, 0.5, 0.0 },\n    { 0.0,-0.4,-0.1, 0.0 },\n    {-0.5,-0.5, 0.5, 0.0 },\n  };\n  static sceVu0FVECTOR lightcol[3] = {\n    { 0.48, 0.48, 0.03, 0.00 },\n    { 0.50, 0.33, 0.20, 0.00 },\n    { 0.14, 0.14, 0.38, 0.00 },\n  };\n\n  sceMcIconSys sysfile;\n\n  memset((void *)&sysfile, 0, sizeof(sysfile));\n  AsciiString2Sjis(gameTitle, SJISTitle);\n\n  sysfile.Head[0] = 'P';\n  sysfile.Head[1] = 'S';\n  sysfile.Head[2] = '2';\n  sysfile.Head[3] = 'D';\n\n  memcpy(sysfile.TitleName, SJISTitle, sizeof(SJISTitle));\n\n  sysfile.OffsLF = breakPoint*sizeof(unsigned short);\n  sysfile.TransRate = 0x60;\n\n  memcpy(sysfile.BgColor, bgcolor, sizeof(bgcolor));\n  memcpy(sysfile.LightDir, lightdir, sizeof(lightdir));\n  memcpy(sysfile.LightColor, lightcol, sizeof(lightcol));\n  memcpy(sysfile.Ambient, ambient, sizeof(ambient));\n\n  strcpy((char *)sysfile.FnameView, iconName);\n  strcpy((char *)sysfile.FnameCopy, iconName);\n  strcpy((char *)sysfile.FnameDel, iconName);\n\n  sysfile.Reserv1 = sysfile.Reserv2 = 0;\n  memset(sysfile.Reserve3, 0, 512);\n\n  if (saveData(port, slot, fullSysName, (void *)&sysfile, sizeof(sysfile), true) < 0)\n    return GSErrorOther;\n\n  if (saveData(port, slot, fullIconName, (void *)iconData, iconDataSize, true) < 0)\n    return GSErrorOther;\n\n  return GSOk;\n}\n",
+      "status": "different",
+      "target_size": 584
+    }
+  ],
+  "raw_name": "setupIcons__16GenericGameSaveriiPUciPcT5Pvi"
+}
