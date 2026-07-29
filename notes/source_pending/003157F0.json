@@ -1,0 +1,15 @@
+{
+  "address": "0x003157F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d8f10875069eca1e1eff0eb1f0fc8a804c222a68",
+      "notes": "# FIRST PASS wave 135 lane B4\n\nExact released source tested once for `0x003157F0 find_instance__C10slc_beam_tRC7stringx`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/global.h\"\n#include \"/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/script_lib_beam.h\"\n#include \"/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/beam.h\"\n#include \"/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/wds.h\"\n\nunsigned slc_beam_t::find_instance( const stringx& n ) const\n{\n  if ( n == \"NULL\" )\n    return (unsigned)0;\n  const entity* r = entity_manager::inst()->find_entity( entity_id(n.c_str()), IGNORE_FLAVOR, FIND_ENTITY_UNKNOWN_OK );\n  if ( !r )\n    error( \"beam \" + n + \" not found\\n\" );\n  else if ( r->get_flavor() != ENTITY_BEAM )\n    error( \"entity \" + n + \" is not a beam\\n\" );\n  return (unsigned)r;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "find_instance__C10slc_beam_tRC7stringx"
+}
