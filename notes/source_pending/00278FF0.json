@@ -1,0 +1,23 @@
+{
+  "address": "0x00278FF0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e8341eb796538201c875364d442a517b4332fa6b",
+      "candidate_size": 432,
+      "compared_bytes": 476,
+      "compared_instructions": 119,
+      "emitted_name": "render_mem_free_screen__4game",
+      "instruction_score": 14.2857,
+      "matching_bytes": 99,
+      "matching_instructions": 17,
+      "notes": "# FIRST PASS wave88 B5 0x00278FF0\n\n- Zero attempts confirmed before preparation: `render_mem_free_screen__4game: not prepared`.\n- Attempt 1 only: exact released function body from `kelly-slaters-pro-surfer/KS/SRC/game.cpp:921-950`, with minimal faithful self-contained declarations and no headers.\n- Result: `different`; byte score 20.7983 (99/476), instruction score 14.2857 (17/119), candidate size 432 vs target 476.\n- No alternate source, assembly, annotations, variants, retries, later attempts, chase, finalize, integrate, or build.\n- full_packet: false\n- tracked: false\n- finalized: false\n- integrated: false",
+      "score": 20.7983,
+      "source": "typedef unsigned int u_int;\n\ntemplate <class T>\nclass singleton_ptr\n{\n  T *p;\npublic:\n  operator T *() const { return p; }\n};\n\nclass singleton\n{\nprotected:\n  singleton() {}\n  virtual ~singleton() {}\n};\n\nclass os_developer_options : public singleton\n{\npublic:\n  enum flags_t { FLAG_MEM_FREE_SCREEN = 92 };\n  bool is_flagged(flags_t flag) const { return flags[flag]; }\n  static os_developer_options *inst() { return instance; }\nprivate:\n  static singleton_ptr<os_developer_options> instance;\n  bool flags[93];\n};\n\nstruct debug_info_t\n{\n  bool dump_frame_info : 1;\n  bool dump_threads : 1;\n  bool render_spheres : 1;\n  bool turtle_watch : 1;\n  bool halt_on_asserts : 1;\n  bool stay_halted : 1;\n  bool simulate32meg : 1;\n  bool assert_screen : 1;\n  bool mem_free_screen : 1;\n};\n\nextern debug_info_t g_debug;\n\nstruct nglQuadVertex\n{\n  float X, Y;\n  float U, V;\n  u_int Color;\n};\n\nstruct nglTexture;\nstruct nglQuad\n{\n  nglQuadVertex Verts[4];\n  float Z;\n  u_int MapFlags;\n  u_int BlendMode;\n  u_int BlendModeConstant;\n  nglTexture *Tex;\n};\n\nstruct nglFont;\nextern nglFont *nglSysFont;\n\nvoid nglInitQuad(nglQuad *Quad);\nvoid nglListBeginScene();\nint nglGetScreenWidth();\nint nglGetScreenHeight();\nvoid nglSetQuadRect(nglQuad *Quad, float x1, float y1, float x2, float y2);\nvoid nglSetQuadColor(nglQuad *Quad, u_int c);\nvoid nglSetQuadZ(nglQuad *Quad, float z);\nvoid nglListAddQuad(nglQuad *Quad);\nvoid nglListAddString(nglFont *Font, float x, float y, double z, u_int Color, const char *Text, ...);\nint mem_get_total_avail(int heapid = 0);\nvoid nglListEndScene();\n\nclass game\n{\npublic:\n  void render_mem_free_screen();\n};\n\nvoid game::render_mem_free_screen()\n{\n\tif ( os_developer_options::inst()->is_flagged(os_developer_options::FLAG_MEM_FREE_SCREEN) || g_debug.mem_free_screen )\n\t{\n\t\tnglQuad q;\n\n\t\tnglInitQuad(&q);\n\t\tnglListBeginScene();\n\t\tnglSetQuadRect (&q, nglGetScreenWidth() - 100, nglGetScreenHeight() - 31, nglGetScreenWidth(), nglGetScreenHeight());\n\t\tnglSetQuadColor (&q, ((int)((0)+1)>>1) | ( ((int)((0)+1)>>1) << 8 ) | ( ((int)((0)+1)>>1) << 16 ) | ( ((int)((128)+1)>>1) << 24 ));\n\t\tnglSetQuadZ (&q, 0.3f);\n\t\tnglListAddQuad (&q);\n\n\t\tnglListAddString (nglSysFont, nglGetScreenWidth() - 95, nglGetScreenHeight() - 29, 0.2f,\n\t\t\t0x80808080, \"RAM Free:\");\n\t\tnglListAddString (nglSysFont, nglGetScreenWidth() - 95, nglGetScreenHeight() - 15, 0.2f,\n\t\t\t0x80808080, \"%d\", mem_get_total_avail() );\n\n\t\tnglListEndScene();\n\t}\n}\n",
+      "status": "different",
+      "target_size": 476
+    }
+  ],
+  "raw_name": "render_mem_free_screen__4game"
+}
