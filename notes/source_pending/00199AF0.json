@@ -1,0 +1,15 @@
+{
+  "address": "0x00199AF0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5c4fc5add7f66bd9d0eaebb460c890991b765049",
+      "notes": "# FIRST PASS wave 114 lane A2\n\nExact released body tested once for `0x00199AF0 getFileListing__16SaveLoadFrontEndii`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "enum {\n    GSOk = 0,\n    NUM_MEMORY_SLOTS = 1,\n    NUMCARDS = 2\n};\n\nstruct saveInfo {\n    int valid;\n    int type;\n    char data[0x78];\n};\n\nclass GenericGameSaver {\npublic:\n    static GenericGameSaver *inst();\n    int getFileListing(int, int, saveInfo *, void *, void *);\n};\n\nclass SaveLoadFrontEnd {\n    static const int num_each = 15;\n    int numGameData[NUMCARDS], numGameConfig[NUMCARDS];\n    saveInfo SavedData[NUMCARDS][num_each*2];\n    saveInfo savedGames[NUMCARDS][num_each];\n    saveInfo savedConfigs[NUMCARDS][num_each];\n    int fileType;\n    int numGames;\n\npublic:\n    void getFileListing(int active_card, int adjusted_card);\n};\n\nvoid SaveLoadFrontEnd::getFileListing(int active_card, int adjusted_card)\n{\n\tnumGames = GenericGameSaver::inst()->getFileListing((active_card!=-1)?active_card/NUM_MEMORY_SLOTS:-1, (active_card!=-1)?active_card%NUM_MEMORY_SLOTS:0, SavedData[adjusted_card], NULL, NULL);\n\t\n\t// Now we filter out into two types of data\n\tfileType = 0;\n\tnumGameData[adjusted_card] = 0;\n\tnumGameConfig[adjusted_card] = 0;\n#ifdef BETH\n\tint invalid_games = 0;\n\tint invalid_configs = 0;\n#endif\n\tfor (int i=0; i < numGames; i++)\n\t{\n\t\tif(SavedData[adjusted_card][i].valid == GSOk)\n\t\t{\n\t\t\tif (SavedData[adjusted_card][i].type == 1)\n\t\t\t{\n\t\t\t\t\tnumGameData[adjusted_card]++;\n\t\t\t}\n\t\t\telse if (SavedData[adjusted_card][i].type == 0)\n\t\t\t{\n\t\t\t\tif(SavedData[adjusted_card][i].valid == GSOk)\n\t\t\t\t\tnumGameConfig[adjusted_card]++;\n\t\t\t}\n\t\t}\n\t\telse\n\t\t{\n#ifdef BETH\n\t\t\tinvalid_games++;\n#endif\n\t\t}\t\n\t\t\n\t}\n\n#ifdef BETH\n\tif(invalid_games != 0)\n\t\tnglPrintf(\"WARNING: number of invalid games on this card is %d\\n\", invalid_games);\n\tif(invalid_configs != 0)\n\t\tnglPrintf(\"WARNING: number of invalid configs on this card is %d\\n\", invalid_configs);\n#endif\n\n\tint count1=0, count2=0;\n\n\tfor (int i=0; i < numGames; i++)\n\t{\n\t\tif (SavedData[adjusted_card][i].type == 1 && count1 < num_each && SavedData[adjusted_card][i].valid == GSOk)\n\t\t{\n\t\t\tsavedGames[adjusted_card][count1] = SavedData[adjusted_card][i];\n\t\t\tcount1++;\n\t\t}\n\t\telse if (SavedData[adjusted_card][i].type == 0 && count2 < num_each && SavedData[adjusted_card][i].valid == GSOk)\n\t\t{\n\t\t\tsavedConfigs[adjusted_card][count2] = SavedData[adjusted_card][i];\n\t\t\tcount2++;\n\t\t}\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "getFileListing__16SaveLoadFrontEndii"
+}
