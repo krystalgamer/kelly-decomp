@@ -1,0 +1,23 @@
+{
+  "address": "0x002CED48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "71304787e5b2595947b4b5a5387e2845de12dc0a",
+      "candidate_size": 468,
+      "compared_bytes": 620,
+      "compared_instructions": 155,
+      "emitted_name": "post__13message_boardG7stringxf",
+      "instruction_score": 0.0,
+      "matching_bytes": 84,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 118 lane B5\n\nExact released `message_board::post` body tested once with LF line endings for `0x002CED48 post__13message_boardG7stringxf`. Result `different`, score 13.5484% (instruction score 0.0000%). No retry, follow-up, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 13.5484,
+      "source": "typedef float time_value_t;\ntypedef unsigned size_t;\n\nextern \"C\" char *strncpy(char *, const char *, size_t);\n\nclass stringx\n{\npublic:\n  const char *c_str() const;\n};\n\ntemplate<class T> class vector\n{\n  T *begin_;\n  T *end_;\n  T *capacity_;\npublic:\n  unsigned size() const { return end_ - begin_; }\n  T& operator[](unsigned i) { return begin_[i]; }\n  void push_back(const T& value);\n};\n\n#define MESSAGE_STRING_LENGTH 100\n\nclass message_board\n{\npublic:\n  message_board();\n  void post(stringx s, time_value_t time);\n  void frame_advance(time_value_t time_inc);\n  void render();\nprivate:\n  struct message\n  {\n    char text[MESSAGE_STRING_LENGTH];\n    time_value_t time;\n  };\n  vector<message> messages;\n};\n\nvoid message_board::post(stringx s, time_value_t time )\n{\n#if !defined(BUILD_BOOTABLE) && !defined(BUILD_RELEASE)\n  unsigned i;\n  for (i=0;i<messages.size();++i)\n  {\n    if (messages[i].time==0) \n      break;\n  }\n  message msg;\n  strncpy(msg.text,s.c_str(),MESSAGE_STRING_LENGTH-1);\n  msg.time = time;\n\n  if (i==messages.size())\n    messages.push_back(msg);\n  else\n    messages[i] = msg;\n#endif\n}\n",
+      "status": "different",
+      "target_size": 620
+    }
+  ],
+  "raw_name": "post__13message_boardG7stringxf"
+}
