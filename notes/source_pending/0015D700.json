@@ -1,0 +1,23 @@
+{
+  "address": "0x0015D700",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8100c84a0a7d102ada083e00ae20c66746718b88",
+      "candidate_size": 596,
+      "compared_bytes": 596,
+      "compared_instructions": 145,
+      "emitted_name": "Reset__14IGOIconManager",
+      "instruction_score": 1.3793,
+      "matching_bytes": 133,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 114 lane A1\n\nExact released body tested once for `0x0015D700 Reset__14IGOIconManager`. Result `different`, score 22.3154%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 22.3154,
+      "source": "#define NULL 0\n\nclass IGOIconManager\n{\npublic:\n  enum { ICON_NUM_TYPES = 10 };\n  class IconResource { public: unsigned char pad[12]; unsigned char timesDisplayed; };\n  class Icon { public: char pad[64]; IconResource *resource; float y, vy, sizeInterp, colorInterp; bool show; unsigned char state; };\n\n  int numIcons;\n  unsigned char currentSetting;\n  unsigned char currentSpawn;\n  float spawnDelay;\n  float initSpawnTime;\n  float spawnTimer;\n  float lastDropTime;\n  unsigned char repeatCount[ICON_NUM_TYPES];\n  IconResource *airIconResources;\n  IconResource *faceIconResources;\n  IconResource *tubeIconResources;\n  IconResource *specialAirIconResources;\n  IconResource *specialFaceIconResources;\n  IconResource *specialTubeIconResources;\n  int numAirIconResources;\n  int numFaceIconResources;\n  int numTubeIconResources;\n  int numSpecialAirIconResources;\n  int numSpecialFaceIconResources;\n  int numSpecialTubeIconResources;\n  bool getIceTexture[6];\n  Icon nextIcon;\n  int activeIcon;\n  int completedIcons;\n  unsigned char numEffectIcons;\n  unsigned char effectType;\n  float effectTime;\n  bool chainedIcons;\n  int iconCounter;\n  int iconSpawnCounter;\n  float buttonTimer;\n  int prepareFailure;\n  bool failure;\n  bool enableNewIcons;\n  bool drawButtons;\n  bool showTimer;\n  bool nextEnable;\n  bool done_before;\n  unsigned char numChains;\n  unsigned char numFrozen;\n  unsigned char numGlowing;\n  float time;\n  float timeLastQueueChange;\n  IconResource *lastIcon;\n  int sameIconCount;\n  int lastIconGroup;\n  int sameIconGroupCount;\n  bool prepPop;\n  float popTime;\n  bool prepMidPop[5];\n  float midPopTime[5];\n  int tsSize;\n\n  void Reset(void);\n};\n\nvoid IGOIconManager::Reset(void)\n{\n  int i;\n\n  numIcons = 0;\n\n  currentSetting = 0;\n  currentSpawn   = 0xFF;\n\n  spawnDelay = initSpawnTime;\n\tspawnTimer = spawnDelay;\n  lastDropTime = 0.0f;\n\n  for(i=0; i<ICON_NUM_TYPES; i++)\n    repeatCount[i] = 0;\n\n  for(i=0; i<numAirIconResources; i++)\n    airIconResources[i].timesDisplayed = 0;\n  for(i=0; i<numFaceIconResources; i++)\n    faceIconResources[i].timesDisplayed = 0;\n  for(i=0; i<numTubeIconResources; i++)\n    tubeIconResources[i].timesDisplayed = 0;\n  for(i=0; i<numSpecialAirIconResources; i++)\n    specialAirIconResources[i].timesDisplayed = 0;\n  for(i=0; i<numSpecialFaceIconResources; i++)\n    specialFaceIconResources[i].timesDisplayed = 0;\n  for(i=0; i<numSpecialTubeIconResources; i++)\n    specialTubeIconResources[i].timesDisplayed = 0;\n\n  for(i=0; i<6; i++)\n    getIceTexture[i] = true;\n\n  nextIcon.show = false;\n  nextIcon.resource = NULL;\n  activeIcon = 0;\n  completedIcons = 0;\n  numEffectIcons = 0;\n  effectType = 0;\n  effectTime = 0.0f;\n  chainedIcons = false;\n  iconCounter = 0;\n  iconSpawnCounter = 0;\n  buttonTimer = 0.0f;\n  prepareFailure = false;\n  failure = false;\n  enableNewIcons = true;\n  drawButtons = false;\n  showTimer = false;\n  nextEnable = true;\n\n  done_before = false;\n\n  numChains = 0;\n  numFrozen = 0;\n  numGlowing = 0;\n\n  time = 0.0f;\n  timeLastQueueChange = 0.0f;\n\n  lastIcon            = NULL;\n  sameIconCount       = 0;\n  lastIconGroup       = -1;\n  sameIconGroupCount  = 0;\n\n  prepPop = false;\n  popTime = 0.0f;\n\n  for(i=0; i<5; i++)\n  {\n    prepMidPop[i] = false;\n    midPopTime[i] = 0.0f;\n  }\n\n  tsSize = 0;\n}\n",
+      "status": "different",
+      "target_size": 596
+    }
+  ],
+  "raw_name": "Reset__14IGOIconManager"
+}
