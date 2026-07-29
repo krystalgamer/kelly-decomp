@@ -1068,3 +1068,66 @@ void nglListAddNode(
     }
 }
 #endif
+
+#if defined(KELLY_DECOMP_FUNCTION_003A9E60)
+// 0x003A9E60 nglMeshCopyVertex__FP16nglMeshBatchInfoiT0i
+typedef unsigned int u_int;
+
+struct nglMeshBatchInfo
+{
+  u_int NVerts;
+  u_int* StripData;
+  float* PosData;
+  float* UVData;
+  u_int* ColorData;
+  float* NormData;
+  float* LightUVData;
+  char* BoneCountData;
+  unsigned short* BoneIdxData;
+  float* BoneWeightData;
+};
+
+void nglMeshCopyVertex( nglMeshBatchInfo* DestBatch, int DestIdx, nglMeshBatchInfo* SrcBatch, int SrcIdx )
+{
+  // Position, normal, UV, color.
+  DestBatch->PosData[DestIdx * 3 + 0] = SrcBatch->PosData[SrcIdx * 3 + 0];
+  DestBatch->PosData[DestIdx * 3 + 1] = SrcBatch->PosData[SrcIdx * 3 + 1];
+  DestBatch->PosData[DestIdx * 3 + 2] = SrcBatch->PosData[SrcIdx * 3 + 2];
+
+  if ( DestBatch->NormData )
+  {
+    DestBatch->NormData[DestIdx * 3 + 0] = SrcBatch->NormData[SrcIdx * 3 + 0];
+    DestBatch->NormData[DestIdx * 3 + 1] = SrcBatch->NormData[SrcIdx * 3 + 1];
+    DestBatch->NormData[DestIdx * 3 + 2] = SrcBatch->NormData[SrcIdx * 3 + 2];
+  }
+
+  if ( DestBatch->UVData )
+  {
+    DestBatch->UVData[DestIdx * 2 + 0] = SrcBatch->UVData[SrcIdx * 2 + 0];
+    DestBatch->UVData[DestIdx * 2 + 1] = SrcBatch->UVData[SrcIdx * 2 + 1];
+  }
+
+  if ( DestBatch->ColorData )
+    DestBatch->ColorData[DestIdx] = SrcBatch->ColorData[SrcIdx];
+
+  if ( DestBatch->LightUVData )
+  {
+    DestBatch->LightUVData[DestIdx * 2 + 0] = SrcBatch->LightUVData[SrcIdx * 2 + 0];
+    DestBatch->LightUVData[DestIdx * 2 + 1] = SrcBatch->LightUVData[SrcIdx * 2 + 1];
+  }
+
+  if ( DestBatch->BoneCountData )
+  {
+    DestBatch->BoneCountData[DestIdx] = SrcBatch->BoneCountData[SrcIdx];
+    DestBatch->BoneIdxData[DestIdx * 4 + 0] = SrcBatch->BoneIdxData[SrcIdx * 4 + 0];
+    DestBatch->BoneIdxData[DestIdx * 4 + 1] = SrcBatch->BoneIdxData[SrcIdx * 4 + 1];
+    DestBatch->BoneIdxData[DestIdx * 4 + 2] = SrcBatch->BoneIdxData[SrcIdx * 4 + 2];
+    DestBatch->BoneIdxData[DestIdx * 4 + 3] = SrcBatch->BoneIdxData[SrcIdx * 4 + 3];
+    DestBatch->BoneWeightData[DestIdx * 4 + 0] = SrcBatch->BoneWeightData[SrcIdx * 4 + 0];
+    DestBatch->BoneWeightData[DestIdx * 4 + 1] = SrcBatch->BoneWeightData[SrcIdx * 4 + 1];
+    DestBatch->BoneWeightData[DestIdx * 4 + 2] = SrcBatch->BoneWeightData[SrcIdx * 4 + 2];
+    DestBatch->BoneWeightData[DestIdx * 4 + 3] = SrcBatch->BoneWeightData[SrcIdx * 4 + 3];
+  }
+
+}
+#endif
