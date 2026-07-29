@@ -1,0 +1,15 @@
+{
+  "address": "0x002B4A80",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f441f77b567b1e87ee35a210a4062b999c38f0e8",
+      "notes": "# FIRST PASS wave 97 lane B3\n\nExact released body tested once for `0x002B4A80 _M_insert_aux__t6vector2ZP10controllerZt12my_allocator1ZP10controllerPP10controllerRCP10controller`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <alloc.h>\n#include <vector.h>\n\nclass controller;\n\ntemplate<class T>\nstruct my_allocator : public alloc {\n};\n\ntemplate void\nvector<controller *, my_allocator<controller *> >::_M_insert_aux(\n    controller **,\n    controller *const &\n);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2ZP10controllerZt12my_allocator1ZP10controllerPP10controllerRCP10controller"
+}
