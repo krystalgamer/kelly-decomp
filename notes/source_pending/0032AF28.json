@@ -1,0 +1,16 @@
+{
+  "address": "0x0032AF28",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9dfa989b0b9b5e3e046d5175907384c5b03c468b",
+      "error": "Candidate did not emit __cl__13slf_normal3_tR8vm_stackQ320script_library_class8function7entry_t; emitted functions: []",
+      "notes": "# FIRST PASS wave93 B2\n\n- Target: `0x0032AF28 __cl__13slf_normal3_tR8vm_stackQ320script_library_class8function7entry_t` (500 / `0x1F4`), `game/files_script`.\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/script_lib_vector3d.cpp`.\n- Confirmed attempts0 before preparation/testing.\n- Candidate: LF-only exact released body with minimal faithful self-contained declarations and no headers.\n- Sole attempt: `symbol_missing`; score 0.0000%. Candidate did not emit __cl__13slf_normal3_tR8vm_stackQ320script_library_class8function7entry_t; emitted functions: []\n- Candidate SHA-1: `9dfa989b0b9b5e3e046d5175907384c5b03c468b`.\n- Exactly one candidate and one harness invocation. No alternatives, asm, annotations, variants, retry, attempts 2-5, or post-test chase.\n- Tracked/reference files remained read-only. No finalize, integrate, build, or git mutation.",
+      "score": 0.0,
+      "source": "extern \"C\" float sqrtf(float);\nvoid error(const char*);\n\ninline float fast_recip_sqrt(float x)\n{\n  return 1.0F/(float)sqrtf(x);\n}\n\nclass vector3d\n{\npublic:\n  float x, y, z;\n\n  inline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n  inline vector3d& operator=(const vector3d& v)\n  { x = v.x; y = v.y; z = v.z; return *this; }\n  inline vector3d& operator*=(float d)\n  { x *= d; y *= d; z *= d; return *this; }\n  inline float length2() const\n  { return x*x + y*y + z*z; }\n  inline vector3d& normalize()\n  {\n    float l2 = length2();\n    if (l2>0.0001F*0.0001F)\n      *this *= fast_recip_sqrt(l2);\n    return *this;\n  }\n};\n\nclass vm_stack\n{\npublic:\n  int salloc;\n  char* buffer;\n  char* SP;\n  void* my_thread;\n\n  char* get_SP() const { return SP; }\n  void move_SP(int n) { SP += n; }\n  void pop(int n) { move_SP(-n); }\n  bool push(const char* src, int n);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t { FIRST_ENTRY, RECALL_ENTRY };\n    virtual ~function();\n    virtual bool operator()(vm_stack& stack,entry_t entry) { return true; }\n  };\n};\n\n#define SLF_PARMS \\\n  stack.pop(sizeof(parms_t)); \\\n  parms_t* parms = (parms_t*)stack.get_SP()\n#define SLF_RETURN \\\n  if (!stack.push((char*)&result,sizeof(result))) \\\n    error(\"script stack overflow\")\n#define SLF_DONE return true\n\nclass slf_normal3_t : public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    vector3d v1;\n  };\n  virtual bool operator()(vm_stack& stack,entry_t entry)\n  {\n    SLF_PARMS;\n    vector3d result = parms->v1.normalize();\n    SLF_RETURN;\n    SLF_DONE;\n  }\n};\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__cl__13slf_normal3_tR8vm_stackQ320script_library_class8function7entry_t"
+}
