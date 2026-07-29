@@ -1,0 +1,23 @@
+{
+  "address": "0x00316B78",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a8319f0e8c07bf695f7d44c06f884d738e6efa0a",
+      "candidate_size": 248,
+      "compared_bytes": 496,
+      "compared_instructions": 124,
+      "emitted_name": "register_trigger_lib__Fv",
+      "instruction_score": 4.0323,
+      "matching_bytes": 51,
+      "matching_instructions": 5,
+      "notes": "# FIRST PASS wave92 B2\n\n- Target: `0x00316B78 register_trigger_lib__Fv` (496 / `0x1F0`), `game/files_script`.\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/script_lib_trigger.cpp`.\n- Confirmed attempts0 before preparation/testing.\n- Candidate: LF-only exact released body with minimal faithful self-contained declarations and no headers.\n- Sole attempt: `different`; byte score 10.2823% (51/496 compared), instruction score 4.0323% (5/124); candidate 248 bytes, target 496 bytes.\n- Candidate SHA-1: `a8319f0e8c07bf695f7d44c06f884d738e6efa0a`.\n- Exactly one candidate and one harness invocation. No alternatives, asm, annotations, variants, retry, attempts 2-5, or post-test chase.\n- Tracked/reference files remained read-only. No finalize, integrate, build, or git mutation.",
+      "score": 10.2823,
+      "source": "#define NEW new\n\nclass slc_trigger_t\n{\npublic:\n  slc_trigger_t(const char*, int, const char*);\n};\n\nclass slf_trigger_get_triggered_ent_t\n{\npublic:\n  slf_trigger_get_triggered_ent_t(slc_trigger_t*, const char*);\n};\n\nclass slf_trigger_get_position_t\n{\npublic:\n  slf_trigger_get_position_t(slc_trigger_t*, const char*);\n};\n\nclass slf_trigger_set_active_t\n{\npublic:\n  slf_trigger_set_active_t(slc_trigger_t*, const char*);\n};\n\nclass slf_trigger_set_use_any_char_t\n{\npublic:\n  slf_trigger_set_use_any_char_t(slc_trigger_t*, const char*);\n};\n\nclass slf_create_point_trigger_t\n{\npublic:\n  slf_create_point_trigger_t(const char*);\n};\n\nclass slf_create_entity_trigger_t\n{\npublic:\n  slf_create_entity_trigger_t(const char*);\n};\n\nclass slf_create_box_trigger_t\n{\npublic:\n  slf_create_box_trigger_t(const char*);\n};\n\nvoid register_trigger_lib()\n{\n  // pointer to single instance of library class\n  slc_trigger_t* slc_trigger = NEW slc_trigger_t(\"trigger\",4,\"signaller\");\n\n  NEW slf_trigger_get_triggered_ent_t(slc_trigger,\"get_triggered_ent()\");\n  NEW slf_trigger_get_position_t(slc_trigger,\"get_abs_position()\");\n  NEW slf_trigger_set_active_t(slc_trigger,\"set_active(num)\");\n  NEW slf_trigger_set_use_any_char_t(slc_trigger,\"set_use_any_char(num)\");\n  NEW slf_create_point_trigger_t(\"create_trigger(vector3d,num)\");\n  NEW slf_create_entity_trigger_t(\"create_trigger(entity,num)\");\n  NEW slf_create_box_trigger_t(\"create_trigger(entity)\");\n}\n",
+      "status": "different",
+      "target_size": 496
+    }
+  ],
+  "raw_name": "register_trigger_lib__Fv"
+}
