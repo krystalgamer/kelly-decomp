@@ -1,0 +1,15 @@
+{
+  "address": "0x00152838",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "69d5e6fa7610260bb879c3ea617f05e857d0690f",
+      "notes": "# FIRST PASS wave 94 lane A3\n\nExact released body tested once for `0x00152838 Reload__9PanelFile`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "class stringx\n{\n  char data_[8];\n\npublic:\n  stringx();\n  stringx(const char *);\n  stringx(const stringx &);\n  ~stringx();\n  stringx &operator=(const stringx &);\n  const char *data() const;\n};\n\nstringx operator+(const stringx &, const char *);\nstringx operator+(const char *, const stringx &);\n\nclass os_developer_options\n{\npublic:\n  enum\n  {\n    STRING_TEXTURE_DIR\n  };\n\n  static os_developer_options *inst();\n  stringx get_string(int) const;\n};\n\nextern void nglSetTexturePath(const char *);\n\nclass PanelGeom\n{\npublic:\n  virtual void Reload();\n  char padding[104];\n  PanelGeom *next;\n};\n\nclass PanelFile\n{\n  int slide_state;\n  float slide_offset;\n  float slide_timer;\n  float slide_max_time;\n  stringx filename;\n\npublic:\n  PanelGeom *obs;\n  stringx path;\n  static stringx texture_path;\n  static stringx common_path;\n\n  void Reload();\n};\n\nvoid PanelFile::Reload()\n{\n  texture_path =\n    os_developer_options::inst()->get_string(\n      os_developer_options::STRING_TEXTURE_DIR) + \"\\\\\";\n  common_path = \"interface\\\\FE\\\\common\\\\\" + texture_path;\n  nglSetTexturePath((path + texture_path).data());\n\n  PanelGeom *tmp = obs;\n  while (tmp)\n  {\n    tmp->Reload();\n    tmp = tmp->next;\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Reload__9PanelFile"
+}
