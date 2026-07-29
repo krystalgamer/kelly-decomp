@@ -1,0 +1,23 @@
+{
+  "address": "0x00182550",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "fbf96a09fc3b9a31e72d7f6d5c6c301103f28077",
+      "candidate_size": 516,
+      "compared_bytes": 712,
+      "compared_instructions": 178,
+      "emitted_name": "Update__11OptionsMenuf",
+      "instruction_score": 0.5618,
+      "matching_bytes": 75,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 133 lane A3\n\nExact released source tested once for `0x00182550 Update__11OptionsMenuf`. Attempts before: 0. Result `different`, byte score 10.5337% and instruction score 0.5618%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 10.5337,
+      "source": "typedef float time_value_t;\nstruct stringx { void *data; int length; };\n\nclass input_device\n{\npublic:\n    virtual stringx get_name() const = 0;\n    virtual stringx get_name(int axis) const = 0;\n    virtual int get_id() const = 0;\n    virtual int get_axis_count() const = 0;\n    virtual int get_axis_id(int axis) const = 0;\n    virtual float get_axis_state(int axis, int control_axis) const = 0;\n    virtual float get_axis_old_state(int axis, int control_axis) const = 0;\n    virtual float get_axis_delta(int axis, int control_axis) const = 0;\n    virtual bool is_connected() const { return false; }\n};\n\nclass input_mgr\n{\n    char padding[40];\n    input_device *joystick_devices[9];\npublic:\n    static input_mgr *inst();\n    inline input_device *get_joystick_index(int index) const\n    {\n        return joystick_devices[index];\n    }\n};\nextern input_mgr *input_manager;\ninline input_mgr *input_mgr::inst() { return input_manager; }\n\nclass FEMenuEntry\n{\npublic:\n    int entry_num;\n    void Disable(bool disabled);\n};\n\nclass TextString\n{\npublic:\n    void Update(float time_inc);\n};\n\nclass PanelQuad;\n\nclass FEGraphicalMenu\n{\n    char padding0[0x4c];\nprotected:\n    FEMenuEntry *highlighted;\nprivate:\n    char padding1[0x100];\npublic:\n    void Update(float time_inc);\n    void setHigh(FEMenuEntry *entry, bool anim = true);\n};\n\nclass OptionsMenu : public FEGraphicalMenu\n{\npublic:\n    enum { OpScoreEntry, OpRumble1Entry, OpRumble2Entry, OpRumble3Entry,\n           OpRumble4Entry, OpStereoEntry, OpMasterEntry, OpAmbientEntry,\n           OpSFXEntry, OpVoiceEntry, OpMusicEntry, OpEnd };\nprivate:\n    static const int MAX_VOLUME = 10;\n    static const int NUM_VOLUME = 5;\n    static const int first_vol = OpMasterEntry;\n    static const int num_switches = OpStereoEntry;\n    PanelQuad *levels[NUM_VOLUME][MAX_VOLUME];\n    PanelQuad *lights[OpEnd];\n    PanelQuad *back;\n    float rumbleTimer[4];\n    int stereo_op;\n    TextString *stereo_text[3];\n    TextString *switch_text[num_switches][2];\n    TextString *options_text;\n    TextString *slevels_text;\n    int volumes[NUM_VOLUME];\n    FEMenuEntry *options_list[OpEnd];\n    bool switches[num_switches];\npublic:\n    void Update(time_value_t time_inc);\nprivate:\n    void RumbleOn(bool on, int controller);\n};\n\n#define RUMBLETIME .15f\n\n__asm__(\".equ input_manager, 0x0046B7B0\");\n__asm__(\".equ Disable__11FEMenuEntryb, 0x00155E68\");\n__asm__(\".equ Update__10TextStringf, 0x001482F8\");\n__asm__(\".equ setHigh__6FEMenuP11FEMenuEntryb, 0x00156638\");\n__asm__(\".equ Update__15FEGraphicalMenuf, 0x001DB100\");\n__asm__(\".equ RumbleOn__11OptionsMenubi, 0x00182E20\");\n\nvoid OptionsMenu::Update(time_value_t time_inc)\n{\n\tint i;\n\t\n\t\n\t// Update rumble status\n\tfor( int j = 0; j < 4; j++ )\n\t{\n\t\tinput_device* joy = input_mgr::inst()->get_joystick_index( j );\n\t\tif( joy && joy->is_connected() )\n\t\t\toptions_list[ OpRumble1Entry + j ]->Disable( false );\n\t\telse\n\t\t{\n\t\t\tif (highlighted == options_list[ OpRumble1Entry + j ])\n\t\t\t\tsetHigh(options_list[OpScoreEntry]);\n\t\t\toptions_list[ OpRumble1Entry + j ]->Disable( true );\n\t\t}\n\t}\n\t\n\toptions_text->Update(time_inc);\n\tslevels_text->Update(time_inc);\n\tstereo_text[stereo_op]->Update(time_inc);\n\n\tfor (i=0; i < 4; i++)\n\t\tif (rumbleTimer[i] >= 0)\n\t\t{\n\t\t\trumbleTimer[i] += time_inc;\n\t\t\tif (rumbleTimer[i] > RUMBLETIME)\n\t\t\t\tRumbleOn(false, i);\n\t\t}\n\n\tfor(i=0; i<num_switches; i++)\n\t\tswitch_text[i][switches[i]]->Update(time_inc);\n\tFEGraphicalMenu::Update(time_inc);\n}\n",
+      "status": "different",
+      "target_size": 712
+    }
+  ],
+  "raw_name": "Update__11OptionsMenuf"
+}
