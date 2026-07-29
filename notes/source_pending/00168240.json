@@ -1,0 +1,15 @@
+{
+  "address": "0x00168240",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "96e5c3500ae02ebcc1d684b1b8020c7c7f8598c0",
+      "notes": "# FIRST PASS wave 107 lane A5\n\nExact released source body tested once for `0x00168240 Init__18HorizBalanceWidgetR9PanelFilei`. Attempts before: 0. Result `compile_failed`, score 0.0%. No retry, follow-up, build, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"igo_widget_balance.h\"\n\nvoid HorizBalanceWidget::Init(PanelFile & panel, const int playerIdx)\n{\n\tif (playerIdx == 0)\n\t{\n\t\tmeterPQ = panel.GetPointer(\"balance_1_frame\");\n\t\tarrowPQ = panel.GetPointer(\"balance_1_arrow\");\n\t\tleftKnobPQ = panel.GetPointer(\"balance_1_circle_left\");\n\t\trightKnobPQ = panel.GetPointer(\"balance_1_circle_right\");\n\t\tcolorLeftPQ = panel.GetPointer(\"balance_1_color\");\n\t\tcolorRightPQ = panel.GetPointer(\"balance_1_color2\");\n\t}\n\telse\n\t{\n\t\tmeterPQ = panel.GetPointer(\"balance_2_frame\");\n\t\tarrowPQ = panel.GetPointer(\"balance_2_arrow\");\n\t\tleftKnobPQ = panel.GetPointer(\"balance_2_circle_left\");\n\t\trightKnobPQ = panel.GetPointer(\"balance_2_circle_right\");\n\t\tcolorLeftPQ = panel.GetPointer(\"balance_2_color\");\n\t\tcolorRightPQ = panel.GetPointer(\"balance_2_color2\");\n\t}\n\tmeterPQ->TurnOn(false);\n\tarrowPQ->TurnOn(false);\n\tleftKnobPQ->TurnOn(false);\n\trightKnobPQ->TurnOn(false);\n\tcolorLeftPQ->TurnOn(false);\n\tcolorRightPQ->TurnOn(false);\n\n\t// Tsk, tsk...\n\tcolorLeftPQ->Mask(0, 1);\n\tcolorRightPQ->Mask(0, 2);\n\n\tSetDisplay(true);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Init__18HorizBalanceWidgetR9PanelFilei"
+}
