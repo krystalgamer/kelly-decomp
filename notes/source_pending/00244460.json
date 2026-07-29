@@ -1,0 +1,23 @@
+{
+  "address": "0x00244460",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3e82b6c9eb8956128add3f503e9567f1b23ef138",
+      "candidate_size": 772,
+      "compared_bytes": 792,
+      "compared_instructions": 198,
+      "emitted_name": "FrameAdvance__12CarveManagerfb",
+      "instruction_score": 8.0808,
+      "matching_bytes": 219,
+      "matching_instructions": 16,
+      "notes": "# FIRST PASS wave 143 lane A2\n\nExact released source tested once for `0x00244460 FrameAdvance__12CarveManagerfb`. Attempts before: 0. Result `different`, byte score 27.6515% and instruction score 8.0808%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 27.6515,
+      "source": "typedef unsigned char uint8;\nstruct vector3d { float x, y, z; vector3d &operator=(const vector3d &o) { x=o.x; y=o.y; z=o.z; return *this; } };\ninline float dot(const vector3d &a, const vector3d &b) { return a.x*b.x+a.y*b.y+a.z*b.z; }\nextern float *fast_acos_lookup_table;\ninline float fast_acos(float a) { return fast_acos_lookup_table[(int)((a+1.0f)*512.0f)]; }\nstruct po { vector3d non_affine_slow_xform(const vector3d &) const __asm__(\"non_affine_slow_xform__C2poRC8vector3d\"); };\nextern vector3d ZVEC;\nstruct entity { char pad[48]; vector3d abs_position; const vector3d &get_abs_position() const { return abs_position; } };\nstruct SurfBoardObjectClass {\n  char pad0[3392]; int state; char pad1[12]; entity *my_board; char pad2[140]; int current_region; char pad3[28]; int TurnType;\n  vector3d GetForwardDir() { return my_board_po()->non_affine_slow_xform(ZVEC); }\n  po *my_board_po() { return *(po **)((char *)my_board + 80); }\n  int GetWaveRegion() { return current_region; }\n  int GetBoardState() { return state; }\n  int GetTurnType() { return TurnType; }\n};\nstruct kellyslater_controller {\n  char pad[48]; int state; char pad2[3356]; SurfBoardObjectClass my_board_controller;\n  int get_current_state() const { return state; }\n  SurfBoardObjectClass &get_board_controller() { return my_board_controller; }\n};\nenum { STATE_LEFTTURN=28, STATE_RIGHTTURN=61, STATE_STAND=74, GRAB_TURN=2, CARVE_TURN=15, BOARD_TURN_LEFT=5 };\nclass CarveManager {\n  void ParseCarveInfo() __asm__(\"ParseCarveInfo__12CarveManager\");\n  void DetermineTrick(int, int);\n  struct CarveNode { float time; float angle; vector3d board_vec; vector3d position; uint8 state; char pad[3]; int region; };\n  float board_angle; vector3d cur_board_vec; vector3d last_board_vec;\n  int TurnType; int Head; int Tail; float angle; float time; float last_record_time; int hardest_region;\n  kellyslater_controller *ksctrl;\npublic:\n  void FrameAdvance(float dt, bool force_update=false);\n  void SetInternalVars() __asm__(\"SetInternalVars__12CarveManager\");\n  CarveNode CarveArray[20];\n};\nvoid CarveManager::FrameAdvance(float dt, bool force_update)\n{\n  float record_delta = 0.075f;\n  int state = ksctrl->get_current_state();\n  bool correct_state = ((state == STATE_LEFTTURN) || (state == STATE_RIGHTTURN) || (state == STATE_STAND));\n  int tType = ksctrl->get_board_controller().GetTurnType();\n  if ((TurnType != CARVE_TURN) && (tType == CARVE_TURN) && correct_state)\n    SetInternalVars();\n  else if ((TurnType != GRAB_TURN) && (tType == GRAB_TURN) && correct_state)\n    SetInternalVars();\n  else if (!correct_state || ((tType != CARVE_TURN) && (tType != GRAB_TURN)))\n    return;\n\n  TurnType = tType;\n  last_board_vec = cur_board_vec;\n  cur_board_vec = ksctrl->get_board_controller().GetForwardDir();\n  int sign = CarveArray[Tail].state = ksctrl->get_board_controller().GetBoardState();\n  float f_sign = (sign == BOARD_TURN_LEFT?1.0f:-1.0f);\n  float dot_p = dot(cur_board_vec, last_board_vec);\n  if (dot_p > 1.0f)\n    dot_p = 1.0f;\n  else if (dot_p < -1.0f)\n    dot_p = -1.0f;\n\n  angle += f_sign*fast_acos(dot_p);\n\n  time += dt;\n  if (force_update || ((time - last_record_time) > record_delta))\n  {\n    last_record_time = time;\n    CarveArray[Tail].board_vec = cur_board_vec;\n    CarveArray[Tail].position = ksctrl->get_board_controller().my_board->get_abs_position();\n    CarveArray[Tail].time = time;\n    CarveArray[Tail].state = ksctrl->get_board_controller().GetBoardState();\n    CarveArray[Tail].angle = angle;\n    CarveArray[Tail].region = ksctrl->get_board_controller().GetWaveRegion();\n\n    ParseCarveInfo();\n  }\n}\n",
+      "status": "different",
+      "target_size": 792
+    }
+  ],
+  "raw_name": "FrameAdvance__12CarveManagerfb"
+}
