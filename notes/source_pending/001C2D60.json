@@ -1,0 +1,23 @@
+{
+  "address": "0x001C2D60",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2419e95653c1ba863c78c1c1f8bc2afb21fa26fe",
+      "candidate_size": 1028,
+      "compared_bytes": 1028,
+      "compared_instructions": 257,
+      "emitted_name": "BoardAnim__15FEEntityManagerifbf",
+      "instruction_score": 1.5564,
+      "matching_bytes": 176,
+      "matching_instructions": 4,
+      "notes": "# FIRST PASS wave 147 lane A3\n\nExact released source tested once for `0x001C2D60 BoardAnim__15FEEntityManagerifbf`. Attempts before: 0. Result `different`, byte score 17.1206% and instruction score 1.5564%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 17.1206,
+      "source": "struct vector4d\n{\n\tfloat x, y, z, w;\n};\n\nstruct po\n{\n\tvector4d m[4];\n};\n\nclass stringx\n{\n\tchar *chars;\n\tvoid *my_buf;\n};\n\nclass entity;\n\nstruct link_interface\n{\n\tchar pad0[8];\n\tlink_interface *parent;\n\tchar pad1[68];\n\tpo abs_po;\n\n\tvoid update_abs_po_family();\n};\n\nstruct entity_vtable\n{\n\tchar pad0[64];\n\tshort adjustment;\n\tshort reserved;\n\tvoid (*po_changed)(void *);\n};\n\nclass entity_anim_tree\n{\n\tchar pad0[88];\n\tfloat tween_duration;\n\npublic:\n\tvoid frame_advance(float time);\n\tvoid set_tween_duration(float duration) { tween_duration = duration; }\n};\n\nclass entity\n{\n\tchar pad0[8];\n\tentity_vtable *vtable;\n\tpo rel_po;\n\tchar pad1[24];\n\tlink_interface *link;\n\npublic:\n\tentity_anim_tree *get_anim_tree(int channel) const;\n\tentity_anim_tree *play_anim(int channel, const stringx &filename,\n\t                           float start_time, unsigned short anim_flags = 0,\n\t                           short loop = -1);\n\n\tvoid set_rel_po(const po &value)\n\t{\n\t\trel_po = value;\n\t\tif (link)\n\t\t{\n\t\t\tif (link->parent)\n\t\t\t{\n\t\t\t\tconst po &p = link->parent->abs_po;\n\t\t\t\tconst po &r = rel_po;\n\t\t\t\tpo &a = link->abs_po;\n\t\t\t\tfor (int i = 0; i != 4; ++i)\n\t\t\t\t{\n\t\t\t\t\ta.m[i].x = p.m[0].x*r.m[i].x + p.m[1].x*r.m[i].y + p.m[2].x*r.m[i].z;\n\t\t\t\t\ta.m[i].y = p.m[0].y*r.m[i].x + p.m[1].y*r.m[i].y + p.m[2].y*r.m[i].z;\n\t\t\t\t\ta.m[i].z = p.m[0].z*r.m[i].x + p.m[1].z*r.m[i].y + p.m[2].z*r.m[i].z;\n\t\t\t\t\ta.m[i].w = p.m[0].w*r.m[i].x + p.m[1].w*r.m[i].y + p.m[2].w*r.m[i].z + p.m[3].w*r.m[i].w;\n\t\t\t\t}\n\t\t\t\ta.m[0].w = a.m[1].w = a.m[2].w = 0.0f;\n\t\t\t\ta.m[3].w = 1.0f;\n\t\t\t}\n\t\t\telse\n\t\t\t\tlink->abs_po = rel_po;\n\t\t\tlink->update_abs_po_family();\n\t\t}\n\t\tentity_vtable *table = vtable;\n\t\ttable->po_changed((char *)this + table->adjustment);\n\t}\n};\n\nextern stringx g_board_anims[];\nextern const po po_identity_matrix;\n\nenum\n{\n\tANIM_PRIMARY,\n\tANIM_LOOPING = 0x4,\n\tANIM_TWEEN = 0x800,\n\tANIM_NONCOSMETIC = 0x200,\n\tBOARD_ANIM_ZERO = 0\n};\n\nclass FEEntityManager\n{\n\tchar pad0[404];\n\tentity *board;\n\tchar pad1[28];\n\tentity_anim_tree *board_tree;\n\npublic:\n\tvoid BoardAnim(int anim_id, float blend_time, bool loop, float time);\n};\n\n__asm__(\".equ g_board_anims, 0x00422640\");\n__asm__(\".equ po_identity_matrix, 0x00513CD0\");\n__asm__(\".equ get_anim_tree__C6entityi, 0x001348D8\");\n__asm__(\".equ play_anim__6entityiRC7stringxfUss, 0x00133E60\");\n__asm__(\".equ frame_advance__16entity_anim_treef, 0x001177F0\");\n__asm__(\".equ update_abs_po_family__14link_interface, 0x00122198\");\n\nvoid FEEntityManager::BoardAnim(int anim_id, float blend_time, bool loop, float time )\n{\n\tboard_tree = board->get_anim_tree(ANIM_PRIMARY);\n\tbool no_tween = false;\n\t\n\tif (anim_id == BOARD_ANIM_ZERO)\n\t  board->set_rel_po(po_identity_matrix);\n\n\tno_tween = !board_tree || (blend_time == 0.0f);\n\t\n\tif(time > 0.0f)\n\t{\n\t\tboard_tree = board->play_anim(ANIM_PRIMARY, g_board_anims[anim_id], time, (loop ? ANIM_LOOPING : 0) | (no_tween ? 0 : ANIM_TWEEN) | ANIM_NONCOSMETIC);\n\t\tboard_tree->frame_advance(0.0f);\n\t}\n\telse\n\t{\n\t\tboard_tree = board->play_anim(ANIM_PRIMARY, g_board_anims[anim_id], 0.0f, (loop ? ANIM_LOOPING : 0) | (no_tween ? 0 : ANIM_TWEEN) | ANIM_NONCOSMETIC);\n\t\tif (!no_tween)\n\t\t\tboard_tree->set_tween_duration(blend_time);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 824
+    }
+  ],
+  "raw_name": "BoardAnim__15FEEntityManagerifbf"
+}
