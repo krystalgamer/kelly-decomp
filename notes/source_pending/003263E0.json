@@ -1,0 +1,16 @@
+{
+  "address": "0x003263E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3fcf80baec7b66719992f844dd55f62f4a845188",
+      "error": "Candidate did not emit __cl__27slf_beam_add_color_effect_tR8vm_stackQ320script_library_class8function7entry_t; emitted functions: []",
+      "notes": "# FIRST PASS wave 94 lane B4\n\nExact released body tested once for `0x003263E0 __cl__27slf_beam_add_color_effect_tR8vm_stackQ320script_library_class8function7entry_t`. Result `symbol_missing`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "typedef unsigned char uint8;\ntypedef float rational_t;\ntypedef float vm_num_t;\n\nclass color32\n{\npublic:\n  union\n  {\n    struct { uint8 b,g,r,a; } c;\n    unsigned int i;\n  };\n\n  color32( uint8 _r, uint8 _g, uint8 _b, uint8 _a=255 )\n  {\n    c.b = _b;\n    c.g = _g;\n    c.r = _r;\n    c.a = _a;\n  }\n};\n\nclass beam\n{\npublic:\n  unsigned short add_color_effect(const color32& start_color, const color32& end_color, rational_t the_duration, rational_t the_delay, rational_t the_loop_delay, bool invert_loop);\n};\n\ntypedef beam* vm_beam_t;\n\nclass vm_stack\n{\npublic:\n  int salloc;\n  char* buffer;\n  char* SP;\n\n  void pop(int size) { SP -= size; }\n  char* get_SP() const { return SP; }\n  bool push(char* data, int size);\n};\n\nvoid error(const char* message);\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t { FIRST_ENTRY, RECALL_ENTRY };\n    virtual bool operator()(vm_stack& stack, entry_t entry);\n  };\n};\n\n#define SLF_PARMS stack.pop(sizeof(parms_t)); parms_t *parms = (parms_t *)stack.get_SP()\n#define SLF_RETURN if (!stack.push((char*)&result,sizeof(result))) error(\"script stack overflow\")\n#define SLF_DONE return true\n\nclass slf_beam_add_color_effect_t : public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    vm_beam_t me;\n\n    vm_num_t start_r;\n    vm_num_t start_g;\n    vm_num_t start_b;\n\n    vm_num_t end_r;\n    vm_num_t end_g;\n    vm_num_t end_b;\n\n    vm_num_t duration;\n    vm_num_t delay;\n    vm_num_t loop_delay;\n    vm_num_t invert;\n  };\n\n  virtual bool operator()( vm_stack& stack, entry_t entry )\n  {\n    SLF_PARMS;\n    rational_t result = parms->me->add_color_effect(color32((uint8)parms->start_r,(uint8)parms->start_g,(uint8)parms->start_b,(uint8)0), color32((uint8)parms->end_r,(uint8)parms->end_g,(uint8)parms->end_b,(uint8)0), parms->duration, parms->delay, parms->loop_delay, (bool)parms->invert);\n    SLF_RETURN;\n    SLF_DONE;\n  }\n};\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__cl__27slf_beam_add_color_effect_tR8vm_stackQ320script_library_class8function7entry_t"
+}
