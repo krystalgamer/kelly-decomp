@@ -1,0 +1,15 @@
+{
+  "address": "0x0033E8A0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c4db4b00744c002af91036e54bf81e0acd78d9a2",
+      "notes": "# FIRST PASS wave 109 lane B2\n\nExact released `widget::update_col` source tested once for `0x0033E8A0`. Attempts before: 0. Result `compile_failed`, score 0.0%. No retry, follow-up, build, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "void widget::update_col()\n{\n  int i;\n  if ( parent && !ignoring_parent() )\n  {\n    for ( i = 0; i < 4; ++i )\n    {\n      base_col[i].r = parent->get_abs_col( i ).r;\n      base_col[i].g = parent->get_abs_col( i ).g;\n      base_col[i].b = parent->get_abs_col( i ).b;\n      base_col[i].a = parent->get_abs_col( i ).a;\n    }\n  }\n\n  for ( i = 0; i < 4; ++i )\n  {\n    abs_col[i].r = col[i].r * base_col[i].r;\n    abs_col[i].g = col[i].g * base_col[i].g;\n    abs_col[i].b = col[i].b * base_col[i].b;\n    abs_col[i].a = col[i].a * base_col[i].a;\n  }\n\n  // recurse through children\n  widget_list_t::iterator child;\n  for( child = children.begin(); child != children.end(); ++child )\n  {\n    (*child)->update_col();\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "update_col__6widget"
+}
