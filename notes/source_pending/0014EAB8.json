@@ -1,0 +1,23 @@
+{
+  "address": "0x0014EAB8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b2eb413603034c99c046a9e4047bbfe4468a2f45",
+      "candidate_size": 752,
+      "compared_bytes": 752,
+      "compared_instructions": 188,
+      "emitted_name": "Update__10PanelQuad4f",
+      "instruction_score": 0.5319,
+      "matching_bytes": 155,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 128 lane A1\n\nExact released source tested once for `0x0014EAB8 Update__10PanelQuad4f`. Attempts before: 0. Result `different`, byte score 20.6117% and instruction score 0.5319%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 20.6117,
+      "source": "struct nglQuad { char data[0x70]; };\nstruct matrix4x4 { char data[0x40]; };\nstruct recti { char data[0x10]; };\nstruct stringx { char data[8]; };\ntypedef float time_value_t;\n\nvoid nglSetQuadVPos(nglQuad *, int, float, float);\nvoid nglSetQuadVUV(nglQuad *, int, float, float);\nvoid nglSetQuadRect(nglQuad *, float, float, float, float);\nvoid nglSetQuadUV(nglQuad *, float, float, float, float);\nvoid nglRotateQuad(nglQuad *, float, float, float);\n\nclass PanelQuad\n{\nprotected:\n    bool isAnim;\n    int fade;\n    float fade_alpha;\n    float fade_timer;\n    float mask;\n    int maskType;\n    void *anim;\n    nglQuad quad;\n    bool drawOn;\n    int rotate;\n    float rotation;\n    float rotate_x;\n    float rotate_y;\n    int layer;\n    float r, g, b, a;\n    float x1, y1, x2, y2;\n    float width, height;\n    float width_a, height_a;\n    matrix4x4 matrix;\n    bool on_menu;\n    bool clip;\n    recti clipping;\npublic:\n    matrix4x4 Xform;\n    stringx name;\n    bool dont_draw;\n    float z;\n    float u1, v1, u2, v2;\n    PanelQuad *next;\n    virtual void Update(time_value_t time_inc);\n};\n\nclass PanelQuad4 : public PanelQuad\n{\n    float x[4];\n    float y[4];\n    float u[4];\n    float v[4];\npublic:\n    virtual void Update(time_value_t time_inc);\n};\n\nvoid PanelQuad4::Update(time_value_t time_inc)\n{\n\tfor(int i=0; i<4; i++)\n\t{\n\t\tnglSetQuadVPos(&quad, i, x[i], y[i]);\n\t\tnglSetQuadVUV(&quad, i, u[i], v[i]);\n\t}\n\n\t// Fade in.\n\tif(fade == 1)\n\t{\n\t\tfade_alpha += (time_inc/fade_timer)*a;\n\t\tif(fade_alpha >= a)\n\t\t\tfade = 0;\n\t}\n\t// Fade out.\n\telse if(fade == -1)\n\t{\n\t\tfade_alpha -= (time_inc/fade_timer)*a;\n\t\tif(fade_alpha <= 0.0f)\n\t\t{\n\t\t\tfade = 0;\n\t\t\tdrawOn = false;\n\t\t}\n\t}\n\t// Constant fade.\n\telse if(fade == 2)\n\t{\n\n\t}\n\n\tif (mask != 1.0f)\n\t{\n\t\tif (mask > 1.0f)\n\t\t\tmask = 2.0f - mask;\n\n\t\tif (maskType == 1)\n\t\t{\n\t\t\tfloat tmp_x = (x2-x1)*mask + x1;\n\t\t\tfloat tmp_u = (u2-u1)*mask + u1;\n\t\t\tnglSetQuadRect(&quad, x1, y1, tmp_x, y2);\n\t\t\tnglSetQuadUV(&quad, u1, v1, tmp_u, v2);\n\t\t}\n\t\telse if (maskType == 2)\n\t\t{\n\t\t\tfloat tmp_x = x2 - (x2-x1)*mask;\n\t\t\tfloat tmp_u = u2 - (u2-u1)*mask;\n\t\t\tnglSetQuadRect(&quad, tmp_x, y1, x2, y2);\n\t\t\tnglSetQuadUV(&quad, tmp_u, v1, u2, v2);\n\t\t}\n\t\telse if (maskType == 3)\n\t\t{\n\t\t\tfloat tmp_y = (y1-y2)*mask + y2;\n\t\t\tfloat tmp_v = (v1-v2)*mask + v2;\n\t\t\tnglSetQuadRect(&quad, x1, tmp_y, x2, y2);\n\t\t\tnglSetQuadUV(&quad, u1, tmp_v, u2, v2);\n\t\t}\n\n\t\t// rotate == 1 is not supported here.\n\t\tif(rotate == 2)\n\t\t\tnglRotateQuad(&quad, rotate_x, rotate_y, rotation);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 684
+    }
+  ],
+  "raw_name": "Update__10PanelQuad4f"
+}
