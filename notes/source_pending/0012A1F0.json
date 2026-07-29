@@ -1,0 +1,23 @@
+{
+  "address": "0x0012A1F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bee8ebbea6cfd8c200b244d0dae6941b797169ad",
+      "candidate_size": 488,
+      "compared_bytes": 500,
+      "compared_instructions": 125,
+      "emitted_name": "FixupEntityMesh__FP7nglMeshi",
+      "instruction_score": 44.8,
+      "matching_bytes": 282,
+      "matching_instructions": 56,
+      "notes": "# FIRST PASS wave92 B3\n\n- Target: `0x0012A1F0 FixupEntityMesh__FP7nglMeshi` (500 / `0x1F4`), object `game/files_entity`.\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/entity.cpp:710-788`.\n- Confirmed attempts0 before preparation/testing.\n- Candidate: LF-only exact body with minimal faithful self-contained declarations and no headers.\n- Sole attempt: `different`; byte score 56.4000% (282/500), instruction score 44.8000% (56/125); candidate 488 bytes, target 500 bytes.\n- Candidate SHA-1: `bee8ebbea6cfd8c200b244d0dae6941b797169ad`.\n- Exactly one candidate and one harness invocation. No alternate, asm, annotations, variants, retry, attempts 2-5, or post-test chase.\n- Tracked/reference files remained read-only. No finalize, integrate, build, git mutation, or full packet submission.",
+      "score": 56.4,
+      "source": "typedef unsigned int u_int;\n\n#define PRINT_BLACK \"\\x1b\\x1e\"\n#define PRINT_RED \"\\x1b\\x1f\"\n\nenum\n{\n  NGLMAT_BACKFACE_DEFAULT = 0x00000400,\n  NGLMAT_BACKFACE_CULL = 0x00000800,\n  NGLMAT_FOG = 0x00040000,\n  NGLMAT_FORCE_Z_WRITE = 0x00080000,\n  NGLMAT_LIGHT = 0x00100000,\n  NGLMESH_LIGHTCAT_1 = 0x01000000\n};\n\n#define NGL_LIGHTCAT_MASK 0xFF000000\n\nclass nglFixedString\n{\npublic:\n  const char* c_str() const\n  {\n    return str;\n  }\n\n  char str[32];\n};\n\nstruct nglMaterial\n{\n  u_int Flags;\n};\n\nstruct nglMeshSection\n{\n  nglMaterial* Material;\n  char Pad[60];\n};\n\nstruct nglMesh\n{\n  u_int Flags;\n  void* File;\n  nglMesh* NextMesh;\n  u_int DataSize;\n  nglFixedString Name;\n  char Pad0[36];\n  u_int NSections;\n  nglMeshSection* Sections;\n  u_int Pad;\n};\n\nvoid nglPrintf(const char* Format, ...);\n\nvoid FixupEntityMesh( nglMesh *Mesh, int lit=0 )\n{\n\tif ( Mesh )\n\t{\n\t\tif ( lit==-1 )\n\t\t{\n\t\t\tMesh->Flags &=~ NGL_LIGHTCAT_MASK;\n\t\t}\n\t\telse if ( lit==1 )\n\t\t{\n\t\t\tif ( 0 == (Mesh->Flags & NGL_LIGHTCAT_MASK) )\n\t\t\t\tMesh->Flags |= NGLMESH_LIGHTCAT_1;\n\t\t}\n\t\tfor ( u_int i = 0; i < Mesh->NSections; i++ )\n\t\t{\n\t\t\tnglMeshSection* Section = &Mesh->Sections[i];\n\t\t\tnglMaterial* Material = Section->Material;\n\n\t\t\tif (Material->Flags & NGLMAT_BACKFACE_CULL)\n\t\t\t{\n#ifndef USER_MKV\n\t\t\t\tnglPrintf(PRINT_RED \"Mesh %s has backface culling set.  Changing to backface default.\\n\" PRINT_BLACK, Mesh->Name.c_str());\n#endif\n\t\t\t\tMaterial->Flags &= ~NGLMAT_BACKFACE_CULL;\n\t\t\t}\n\t\t\telse if (!(Material->Flags & NGLMAT_BACKFACE_DEFAULT))\n\t\t\t{\n\t\t\t\tnglPrintf(PRINT_RED \"Mesh %s has culling set to none.  Changing to backface default.\\n\" PRINT_BLACK, Mesh->Name.c_str());\n\t\t\t}\n#ifdef DEBUG\n\t\t\tif (os_developer_options::inst()->get_string (os_developer_options::STRING_BACKFACE_CULL) == \"ALL\")\n\t\t\t{\n\t\t\t\tMaterial->Flags &= ~NGLMAT_BACKFACE_DEFAULT;\n\t\t\t\tMaterial->Flags |= NGLMAT_BACKFACE_CULL;\n\t\t\t}\n\t\t\telse if (os_developer_options::inst()->get_string (os_developer_options::STRING_BACKFACE_CULL) == \"NONE\")\n\t\t\t{\n\t\t\t\tMaterial->Flags &= ~NGLMAT_BACKFACE_DEFAULT;\n\t\t\t\tMaterial->Flags &= ~NGLMAT_BACKFACE_CULL;\n\t\t\t}\n\t\t\telse \n#endif\n\t\t\t{\n\t\t\t\tMaterial->Flags |= NGLMAT_BACKFACE_DEFAULT;\n\t\t\t\tMaterial->Flags &= ~NGLMAT_BACKFACE_CULL;\n\t\t\t}\n\t\t\tif (Material->Flags & NGLMAT_FOG)\n\t\t\t{\n#ifndef USER_MKV\n\t\t\t\tnglPrintf(PRINT_RED \"Mesh %s has fog set.  Turning it off.\\n\" PRINT_BLACK, Mesh->Name.c_str());\n#endif\n\t\t\t}\n\t\t\tMaterial->Flags &= ~NGLMAT_FOG;\n\t\t\tif ( lit==-1 )\n\t\t\t{\n\t\t\t\tMaterial->Flags &= ~NGLMAT_LIGHT;\n#ifdef TARGET_PS2\n\t\t\t\tMaterial->Flags |= NGLMAT_FORCE_Z_WRITE ;\n#endif\n\t\t\t}\n\t\t\telse if ( lit==1 )\n\t\t\t{\n\t\t\t\tMaterial->Flags |= NGLMAT_LIGHT;\n\t\t\t}\n\t\t\telse if ( Mesh->Flags & NGL_LIGHTCAT_MASK )\n\t\t\t{\n\t\t\t\tif (! ( Material->Flags & NGLMAT_LIGHT ))\n\t\t\t\t{\n\t\t\t\t\tMaterial->Flags |= NGLMAT_LIGHT;\n\t\t\t\t\tnglPrintf(PRINT_RED \"Mesh %s has light cat, but material had lighting turned off.  Turning it on.\\n\" PRINT_BLACK, Mesh->Name.c_str());\n\t\t\t\t}\n\t\t\t}\n\t\t\telse\n\t\t\t{\n\t\t\t\tMaterial->Flags &= ~NGLMAT_LIGHT;\n\t\t\t}\n\t\t}\n\t}\n}\n",
+      "status": "different",
+      "target_size": 500
+    }
+  ],
+  "raw_name": "FixupEntityMesh__FP7nglMeshi"
+}
