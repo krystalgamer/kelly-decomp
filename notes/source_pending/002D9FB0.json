@@ -1,0 +1,23 @@
+{
+  "address": "0x002D9FB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3b3febe925378431932dbeac95cc11f898668d09",
+      "candidate_size": 648,
+      "compared_bytes": 780,
+      "compared_instructions": 195,
+      "emitted_name": "xform__7cg_meshRC2po",
+      "instruction_score": 0.0,
+      "matching_bytes": 99,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 141 lane A5\n\nExact released source tested once for `0x002D9FB0 xform__7cg_meshRC2po`. Attempts before: 0. Result `different`, byte score 12.6923% and instruction score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 12.6923,
+      "source": "typedef unsigned short vert_ref;\ntypedef unsigned short face_ref;\ntypedef unsigned short material_ref;\n\nclass vector3d\n{\npublic:\n  float x;\n  float y;\n  float z;\n};\n\nclass po\n{\npublic:\n  vector3d slow_xform(const vector3d&) const;\n  vector3d non_affine_slow_xform(const vector3d&) const;\n};\n\nclass vert\n{\npublic:\n  vert(const vector3d& _point) : point(_point) { num_bones=0; }\n  const vector3d& get_point() const { return point; }\n\n  vector3d point __attribute__((aligned(16)));\n  int num_bones;\n  unsigned char bone_ids[4];\n  float bone_weights[4];\n};\n\nclass cface\n{\npublic:\n  const vector3d& get_raw_normal() const { return raw_normal; }\n  void set_normal(vector3d v) { normal = v; }\n  const vector3d& get_raw_center() const { return raw_center; }\n  void set_center(vector3d c) { center = c; }\n\nprivate:\n  vert_ref vert_refs[3];\n  material_ref my_material;\n  vector3d raw_normal;\n  vector3d normal __attribute__((aligned(16)));\n  vector3d raw_center;\n  vector3d center;\n  float radius;\n  unsigned short flags;\n};\n\ntemplate<class T>\nclass vector\n{\npublic:\n  T* begin_;\n  T* end_;\n  T* capacity_;\n\n  T& operator[](unsigned int i) { return begin_[i]; }\n  const T& operator[](unsigned int i) const { return begin_[i]; }\n  unsigned int size() const { return end_ - begin_; }\n};\n\nclass collision_geometry\n{\n  char layout[12];\npublic:\n  void xform(po const& the_po);\n};\n\nclass cg_mesh : public collision_geometry\n{\npublic:\n  const vert& get_raw_vert(vert_ref i) const { return raw_verts[i]; }\n  const cface& get_cface(face_ref i) const { return cfaces[i]; }\n  void set_vert(int i, vert v) { verts[i] = v; }\n  int get_num_verts() const { return verts.size(); }\n  int get_num_cfaces() const { return cfaces.size(); }\n  void xform(po const& the_po);\n\nprotected:\n  vector<vert> raw_verts;\n  vector<vert> verts;\n  vector<cface> cfaces;\n};\n\nvoid cg_mesh::xform(po const & the_po)\n{\n  int i;\n  collision_geometry::xform(the_po);\n  for (i=0; i<get_num_verts(); ++i)\n  {\n    vert v(the_po.slow_xform(get_raw_vert(i).get_point()));\n    set_vert(i,v);\n  }\n  for (i=0; i<get_num_cfaces(); ++i)\n  {\n    vector3d v = the_po.non_affine_slow_xform(get_cface(i).get_raw_normal());\n    cfaces[i].set_normal(v);\n    v = the_po.slow_xform(get_cface(i).get_raw_center());\n    cfaces[i].set_center(v);\n  }\n}\n",
+      "status": "different",
+      "target_size": 780
+    }
+  ],
+  "raw_name": "xform__7cg_meshRC2po"
+}
