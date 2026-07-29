@@ -1,0 +1,15 @@
+{
+  "address": "0x00283598",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3442a4c85750f7a7896a8fc5621a3434cea5a46e",
+      "notes": "# FIRST PASS wave 152 lane A1\n\nExact released source tested once for `0x00283598 end_level__4game`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n\nvoid game::end_level( void )\n{\n\n\n\tunload_current_level();\n\tif(frontendmanager.in_game_map_up && !frontendmanager.return_to_fe)\n\t{\n\t\treset_index();\n\t\tgo_next_state();\n\t}\n\telse reset_index();\n\n\tfrontendmanager.in_game_map_up = false;\n\n#ifdef USINGSTATICSTLALLOCATIONS\n\t// Also add to void FEManager::ReleaseFE() in FrontendManager.cpp\n\tentity_anim::mem_cleanup();\n\tentity_anim_tree::mem_cleanup();\n\tpo_anim::mem_cleanup();\n\tlinear_anim<quaternion>::mem_cleanup();\n\tlinear_anim<vector3d>::mem_cleanup();\n\tlinear_anim<rational_t>::mem_cleanup();\n\tentity::movement_info::mem_cleanup();\n#endif\n\n#ifdef PLAY_ENDING_MOVIES\n\n#if defined(TARGET_XBOX)\n    g_game_ptr->play_movie(\"ACTIVISN\",true);\n#elif defined(TARGET_PS2)\n\n#ifdef TV_PAL\n    sceGsResetGraph( 0, SCE_GS_INTERLACE, SCE_GS_PAL, SCE_GS_FRAME );\n\t\tg_game_ptr->play_movie(\"KSINTRO\", true, 640, 512);\n#else\n    sceGsResetGraph( 0, SCE_GS_INTERLACE, SCE_GS_NTSC, SCE_GS_FRAME );\n\t\tg_game_ptr->play_movie(\"KSINTRO\", true, 640, 448);\n#endif\n#else\n\t\tnslShutdown( );\n\n    play_movie( \"TREYARCH\", true );\n\n#endif\n\tKSNGL_ReInit();\n  nglResetDisplay();\n\tfrontendmanager.ReloadTextures();\n\tfrontendmanager.map->HideAllDots();\n\tfor (int i=0; i < 4; i++)\n\t{\n\t\tnglListInit();\n\t\trender_map_screen();\n\t\tnglListSend(true);\n\t}\n\tnglReleaseAllTextures();\n#endif\n\n\tstart_drawing_map = false;\n\n\tmem_leak_test(true);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "end_level__4game"
+}
