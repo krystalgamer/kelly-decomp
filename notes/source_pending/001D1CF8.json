@@ -1,0 +1,15 @@
+{
+  "address": "0x001D1CF8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1fd62fc41cd226850724e7a56c77d85f2378e08f",
+      "notes": "FIRST PASS wave113 B3\n0x001D1CF8 CheatCodeMenu constructor exact released source body.\nAttempts before: 0. Exactly one LF candidate test.\nResult: compile_failed; score 0.0.\nNo follow-up, build, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#define KELLY_DECOMP_FULL_FEMENU_ENTRY\n#define KELLY_DECOMP_FULL_FEMULTI_MENU\n#define KELLY_DECOMP_BUILT_FEMENU_SELECT_PADDING\n#include \"KS/SRC/ks/FEMenu_shared.h\"\n\n#define MAX_CHEATS_PER_SCREEN 2\n#define PHONE_TEXT_COLOR color32(49, 67, 48, 255)\n#define PHONE_TEXT_COLOR_HI color32(73, 100, 72, 255)\n#define PHONE_TOGGLE_TEXT_SIZE 0.555f\n\nenum\n{\n    FEMENU_USE_SCALE = 0x080,\n    FEMENU_NO_FLASHING = 0x100\n};\n\nclass GraphicalMenuSystem;\n\nclass CheatCodeMenu : public FEMultiMenu\n{\nprivate:\n    FEMenuEntry *cheats[MAX_CHEATS_PER_SCREEN];\n    int menu_entry_cheat_index[MAX_CHEATS_PER_SCREEN];\n    GraphicalMenuSystem* sys;\n    int next_down, next_up;\n    TextString *toggle_state[MAX_CHEATS_PER_SCREEN];\n    PanelQuad *arrow_up;\n    PanelQuad *arrow_down;\n\npublic:\n    CheatCodeMenu(FEMenuSystem* s, FEManager* man, stringx p, stringx pf_name);\n};\n\nCheatCodeMenu::CheatCodeMenu(FEMenuSystem* s, FEManager* man, stringx p, stringx pf_name)\n{\n\tcons(s, man, p, pf_name);\n\tsys = (GraphicalMenuSystem*) s;\n\n\tflags |= FEMENU_USE_SCALE;\n\tflags &= ~FEMENU_NO_FLASHING;\n\tscale = scale_high = PHONE_TOGGLE_TEXT_SIZE*1.5f;\n\tcolor = PHONE_TEXT_COLOR;\n\tcolor_high = PHONE_TEXT_COLOR_HI;\n\tcolor_high_alt = PHONE_TEXT_COLOR;\n\n\tnext_up = next_down = -1;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__13CheatCodeMenuP12FEMenuSystemP9FEManagerG7stringxT3"
+}
