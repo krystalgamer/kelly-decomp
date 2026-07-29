@@ -1,0 +1,23 @@
+{
+  "address": "0x00244778",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9a73f3a2beabceb50e08d999837267d56bb9654a",
+      "candidate_size": 584,
+      "compared_bytes": 584,
+      "compared_instructions": 146,
+      "emitted_name": "ParseCarveInfo__12CarveManager",
+      "instruction_score": 16.4384,
+      "matching_bytes": 217,
+      "matching_instructions": 24,
+      "notes": "FIRST PASS wave102 B3\nTarget: 0x00244778 ParseCarveInfo__12CarveManager (532/0x214), KS/SRC/ks/trick_system.cpp\nAttempts before: 0\nAttempt 1: exact released ParseCarveInfo body with minimal self-contained declarations and LF line endings\nResult: different; score 37.1575%; instruction score 16.4384%; candidate/target 584/532 bytes\nExactly one candidate was tested. No follow-up, alternatives, retries, build, finalization, git operations, or tracked edits were performed.",
+      "score": 37.1575,
+      "source": "typedef unsigned char uint8;\n\nstruct vector3d {\n  float x, y, z;\n};\n\nenum {\n  GRAB_TURN = 2,\n  WAVE_REGIONFACE = 3,\n  WAVE_REGIONLIP = 5,\n  WAVE_REGIONPOCKET = 6,\n  WAVE_REGIONCHIN = 11,\n  WAVE_REGIONLIP2 = 12,\n  MAX_CARVE_FRAMES = 20\n};\n\nextern \"C\" float fabsf(float);\nextern \"C\" void __assert(const char *, const char *, int);\n#define fabs(x) fabsf(x)\n#define assert(x) ((x) ? (void)0 : __assert(#x, __FILE__, __LINE__))\n\nclass CarveManager {\n  struct CarveNode {\n    float time;\n    float angle;\n    vector3d board_vec;\n    vector3d position;\n    uint8 state;\n    int region;\n  };\n\n  float board_angle;\n  vector3d cur_board_vec;\n  vector3d last_board_vec;\n  int TurnType;\n  int Head;\n  int Tail;\n  float angle;\n  float time;\n  float last_record_time;\n  int hardest_region;\n  void *ksctrl;\n\n  void DetermineTrick(int start, int end);\n  void SetInternalVars();\n\npublic:\n  CarveNode CarveArray[MAX_CARVE_FRAMES];\n  void ParseCarveInfo();\n};\n\nvoid CarveManager::ParseCarveInfo()\n{\n\tint index = -1;\t// otherwise uninitialized (dc 01/29/02)\n\tint end = Tail;\n\tint start = Head;\n\n\tfloat delta_angle;\n\tfloat delta_time;\n//\tbool lip_carve = false;\n//\tbool tube_carve = false;\n\tbool possible_trick = false;\n\n\tfloat trick_time = 1.0f;\n\tif (TurnType == GRAB_TURN)\n\t\ttrick_time = 0.7f;\n\n\tfloat trick_angle = 2.5f;\n\n\t// first determine head of list\n\tfor (int n = end; n != start; n--)\n\t{\n\t\tdelta_time = CarveArray[end].time - CarveArray[n].time;\n\t\tif (delta_time > trick_time)\n\t\t{\n\t\t\tstart = Head = n;\n\t\t\tbreak;\n\t\t}\n\n\t\tif (n == 0)\n\t\t\tn = MAX_CARVE_FRAMES - 1;\n\t}\n\n\thardest_region = WAVE_REGIONPOCKET;\n\tfor (int n = end; n != start; n--)\n\t{\n\t\tif ((hardest_region == WAVE_REGIONPOCKET) && ((CarveArray[n].region == WAVE_REGIONFACE) ||\n\t\t\t(CarveArray[n].region == WAVE_REGIONCHIN) || (CarveArray[n].region == WAVE_REGIONLIP) ||\n\t\t\t(CarveArray[n].region == WAVE_REGIONLIP2)))\n\t\t{\n\t\t\thardest_region = CarveArray[n].region;\n\t\t}\n\t\telse if ((hardest_region == WAVE_REGIONFACE) && ((CarveArray[n].region == WAVE_REGIONCHIN) ||\n\t\t\t(CarveArray[n].region == WAVE_REGIONLIP) || (CarveArray[n].region == WAVE_REGIONLIP2)))\n\t\t{\n\t\t\thardest_region = CarveArray[n].region;\n\t\t}\n\n\t\tdelta_angle = fabs(CarveArray[end].angle - CarveArray[n].angle);\n\t\tif (delta_angle > trick_angle)\n\t\t{\n\t\t\tindex = n;\n\t\t\tpossible_trick = true;\n\t\t\tbreak;\n\t\t}\n\n\t\tif (n == 0)\n\t\t\tn = MAX_CARVE_FRAMES - 1;\n\t}\n\n\tif (possible_trick)\n\t{\n\t\tassert(index != -1);\t// check that it got initialized (dc 01/29/02)\n\n\t\tDetermineTrick(index, end);\n\t\tSetInternalVars();\n\t\treturn;\n\t}\n\n\tTail++;\n\tif (Tail == MAX_CARVE_FRAMES)\n\t\tTail = 0;\n}\n",
+      "status": "different",
+      "target_size": 532
+    }
+  ],
+  "raw_name": "ParseCarveInfo__12CarveManager"
+}
