@@ -1,0 +1,16 @@
+{
+  "address": "0x001D6670",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "68627073ecbe30257e646601c22315cacf31af21",
+      "error": "Candidate did not emit ReadNotesFromFile__15LogbookFrontEnd; emitted functions: []",
+      "notes": "# FIRST PASS wave 139 lane A3\n\nExact released source tested once for `0x001D6670 ReadNotesFromFile__15LogbookFrontEnd`. Attempts before: 0. Result `symbol_missing`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x001D6670 ReadNotesFromFile__15LogbookFrontEnd\n// Reference: KS/SRC/ks/LogbookFrontEnd.cpp\n// Replace this file with one self-contained candidate function.\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "ReadNotesFromFile__15LogbookFrontEnd"
+}
