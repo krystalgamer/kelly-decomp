@@ -1,0 +1,15 @@
+{
+  "address": "0x0020AEF0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a2f30ac9c6778733230108dce918713548b6acb0",
+      "notes": "Sole source-first attempt preserved in this packet. Candidate is the exact constructor source from `KS/SRC/ks/floatobj.cpp`; the standalone LF test failed compilation because surrounding declarations are absent.",
+      "score": 0.0,
+      "source": "generic_anim_animal::generic_anim_animal (entity *entity, const stringx& path, const stringx& name)\n\t: generic_anim (path, name)\n{\n\tbool play = true;\n\n\tmy_entity = entity;\n\n  for (int i = 0; i < 2; i++)\n  {\n    generic_anims[i] = 0;\n\n    for (;;)\n    {\n      char anim[256];\n      sprintf (anim, \"%s\\\\ANIMATIONS\\\\%s_%s_%d\", path.c_str(), name.c_str(), generic_anim_names[i], generic_anims[i] + 1);\n\n      if (file_finder_exists (anim, entity_track_tree::extension ()))\n      {\n        strcat (anim, entity_track_tree::extension ());\n        my_entity->load_anim (anim);\n        generic_anims[i]++;\n\n\t\t\t\tif (play)\n\t\t\t\t{\n\t\t\t\t  my_entity->play_anim (ANIM_PRIMARY, anim, 0, ANIM_NONCOSMETIC);\n\t\t\t\t\tplay = false;\n\t\t\t\t}\n      }\n      else\n        break;\n    }\n  }\n\n#ifdef DEBUG\n\tstringx none = \"NONE\";\n\tcolor32 yel = color32(255, 255, 0, 255);\n\tanim_label = NEW FloatingText(&frontendmanager.font_info, none, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, yel);\n#endif\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__19generic_anim_animalP6entityRC7stringxT2"
+}
