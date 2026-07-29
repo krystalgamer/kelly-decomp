@@ -1,0 +1,23 @@
+{
+  "address": "0x001B18F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9435200bfe06d3ff6049418f4f7a41a8a525e359",
+      "candidate_size": 628,
+      "compared_bytes": 676,
+      "compared_instructions": 169,
+      "emitted_name": "OnActivate__14GoalsMenuClass",
+      "instruction_score": 8.8757,
+      "matching_bytes": 157,
+      "matching_instructions": 15,
+      "notes": "# FIRST PASS wave 127 lane A1\n\nExact released source tested once for `0x001B18F0 OnActivate__14GoalsMenuClass`. Attempts before: 0. Result `different`, byte score 23.2249% and instruction score 8.8757%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 23.2249,
+      "source": "class stringx { public: stringx(const stringx &); };\nstruct color32 { unsigned int value; };\nclass FEMenu { public: virtual void SetHelpText(int); };\nclass TextString { public: virtual void changeText(const stringx &); color32 color; };\nclass BoxText : public TextString { public: int makeBox(int, int, bool = false, float = -1.0f, int = -1); };\nclass kellyslater_controller { char padding[56]; int super_state; public: int get_super_state() { return super_state; } };\nclass world_dynamics_system { char padding[248]; kellyslater_controller *controller; public: kellyslater_controller *get_ks_controller(int) { return controller; } };\nclass IGOFrontEnd { public: bool IsMenuBGShown() const; void ShowMenuBackground(bool); void ShowAccompBackground(bool, int = 0, int = 0); };\nstruct FEManager { IGOFrontEnd *IGO; char padding[116]; color32 col_highlight; color32 col_info_b; };\nclass PauseMenuSystem {\n    char padding[84];\npublic:\n    enum { TipMenu = 8 };\n    FEMenu *menus[9];\n    FEManager *manager;\n    bool IsResumable(FEMenu *) const;\n};\nstruct game_layout { char padding[548]; int level_id; int get_level_id() const { return level_id; } };\nstruct career_level { char padding[36]; bool IsGoalDone(int) const; };\nstruct Career { char padding[65960]; career_level levels[1]; };\nstruct career_data { char padding[112]; int goal[5]; char tail[88]; };\nclass TipMenuClass : public FEMenu { public: stringx NextTip(); };\nclass GoalsMenuClass : public FEMenu {\n    char padding0[20];\n    TextString *status[5];\n    char padding1[20];\npublic:\n    PauseMenuSystem *sys;\n    char padding2[36];\n    BoxText *tip;\n    bool show_tip;\n    bool wasMenuBGOn;\n    void SetAsTip();\n    void SetNoTip();\n    void OnActivate();\n};\nextern world_dynamics_system *g_world_ptr;\nextern game_layout *g_game_ptr;\nextern Career *g_career;\nextern career_data CareerDataArray[];\nextern stringx ksGlobalTextArray[];\nenum {\n    SUPER_STATE_FLYBY = 1,\n    HF_BACK = 0x20,\n    HF_RESUME = 0x40,\n    MAX_GOALS_PER_LEVEL = 5,\n    GOAL_NOTHING = 0,\n    GT_GOALS_DONE = 0,\n    GT_GOALS_NOT_DONE = 1\n};\n\nvoid GoalsMenuClass::OnActivate()\n{\n\t// Don't show help text during flyby.\n\tif (g_world_ptr->get_ks_controller(0) && g_world_ptr->get_ks_controller(0)->get_super_state() == SUPER_STATE_FLYBY)\n\t{\n\t\tSetHelpText(0);\n\t\ttip->changeText(((TipMenuClass*) sys->menus[PauseMenuSystem::TipMenu])->NextTip());\n\t\ttip->makeBox(344, 100);\n\t\tSetAsTip();\n\t\tshow_tip = true;\n\t}\n\telse\n\t{\n\t\t// If this menu was activated from the pause menu, then allow resume option.\n\t\tif (sys->IsResumable(this))\n\t\t\tSetHelpText(HF_BACK | HF_RESUME);\n\t\telse\n\t\t\tSetHelpText(HF_BACK);\n\t\tshow_tip = false;\n\t\tSetNoTip();\n\t}\n\n\t// Set status to show if goal is done or not.\n\tfor (int g = 0; g < MAX_GOALS_PER_LEVEL; g++)\n\t{\n\t\tif(CareerDataArray[g_game_ptr->get_level_id()].goal[g] != GOAL_NOTHING)\n\t\t{\n\t\t\tif (g_career->levels[g_game_ptr->get_level_id()].IsGoalDone(g))\n\t\t\t{\n\t\t\t\tstatus[g]->changeText(ksGlobalTextArray[GT_GOALS_DONE]);\n\t\t\t\tstatus[g]->color = sys->manager->col_highlight;\n\t\t\t}\n\t\t\telse\n\t\t\t{\n\t\t\t\tstatus[g]->changeText(ksGlobalTextArray[GT_GOALS_NOT_DONE]);\n\t\t\t\tstatus[g]->color = sys->manager->col_info_b;\n\t\t\t}\n\t\t}\n\t}\n\n\twasMenuBGOn = sys->manager->IGO->IsMenuBGShown();\n\tsys->manager->IGO->ShowMenuBackground(false);\n\tsys->manager->IGO->ShowAccompBackground(true);\n}\n",
+      "status": "different",
+      "target_size": 676
+    }
+  ],
+  "raw_name": "OnActivate__14GoalsMenuClass"
+}
