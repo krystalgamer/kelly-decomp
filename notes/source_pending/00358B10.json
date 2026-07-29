@@ -1,0 +1,15 @@
+{
+  "address": "0x00358B10",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1591d578e1f4cb3988f48c9c0babab9b780ca969",
+      "notes": "# FIRST PASS wave 159 lane A4\n\nExact released source tested once for `0x00358B10 _M_insert__t8_Rb_tree5ZiZt4pair2ZCiZ12game_controlZt10_Select1st1Zt4pair2ZCiZ12game_controlZt4less1ZiZt12my_allocator1Z12game_controlP18_Rb_tree_node_baseT1RCt4pair2ZCiZ12game_control`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <map>\n\nstruct device_axis;\nstruct game_control {\n    int device_id;\n    int control_id;\n    device_axis *axes;\n    game_control(const game_control &);\n};\n\ntemplate<class T>\nstruct my_allocator : public allocator<T> {};\n\ntypedef pair<const int, game_control> value_type;\ntypedef _Rb_tree<int, value_type, _Select1st<value_type>, less<int>, my_allocator<game_control> > tree_type;\n\ntemplate tree_type::iterator tree_type::_M_insert(_Rb_tree_node_base *, _Rb_tree_node_base *, const value_type &);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_M_insert__t8_Rb_tree5ZiZt4pair2ZCiZ12game_controlZt10_Select1st1Zt4pair2ZCiZ12game_controlZt4less1ZiZt12my_allocator1Z12game_controlP18_Rb_tree_node_baseT1RCt4pair2ZCiZ12game_control"
+}
