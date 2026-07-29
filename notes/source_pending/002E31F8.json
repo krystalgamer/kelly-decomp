@@ -1,0 +1,23 @@
+{
+  "address": "0x002E31F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2286c18d73170de4012bebde52e589b33e979cb8",
+      "candidate_size": 292,
+      "compared_bytes": 888,
+      "compared_instructions": 222,
+      "emitted_name": "frame_advance__17theta_and_psi_mcsf",
+      "instruction_score": 5.4054,
+      "matching_bytes": 104,
+      "matching_instructions": 12,
+      "notes": "# FIRST PASS wave 153 lane B1\n\nExact released source tested once for `0x002E31F8 frame_advance__17theta_and_psi_mcsf`. Attempts before: 0. Result `different`, byte score 11.7117% and instruction score 5.4054%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 11.7117,
+      "source": "typedef float rational_t;\ntypedef float time_value_t;\n\nenum device_id_t { JOYSTICK_DEVICE = 1 };\nenum { PLAYER_FRONT_CROUCH = 26 };\nstatic const float AXIS_MAX = 1.0f;\nstatic const float PI = 3.14159265358979323846f;\n\nclass vector3d {\npublic:\n  float x, y, z;\n  vector3d(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {}\n};\n\nclass orientation { float m[16]; };\nclass po {\npublic:\n  float m[16];\n  void set_rot(const vector3d &, rational_t);\n  orientation get_orientation() const;\n};\npo operator*(const po &, const po &);\n\nclass input_mgr {\npublic:\n  static input_mgr *inst();\n  rational_t get_control_state(device_id_t, int) const;\n};\n\nclass entity {\npublic:\n  void set_rel_orientation(const orientation &);\n};\n\nclass motion_object {\n  bool active;\n  bool locked;\npublic:\n  virtual ~motion_object();\n};\nclass motion_control_system : public motion_object {\npublic:\n  virtual ~motion_control_system();\n  virtual void frame_advance(time_value_t) = 0;\nprotected:\n  entity *ent;\n};\nclass theta_and_psi_mcs : public motion_control_system {\npublic:\n  virtual ~theta_and_psi_mcs();\n  virtual void frame_advance(time_value_t);\nprivate:\n  rational_t theta;\n  rational_t psi;\n  rational_t d_theta_for_next_frame;\n  rational_t d_psi_for_next_frame;\n};\n\nextern vector3d up_vector;\n\nvoid theta_and_psi_mcs::frame_advance(time_value_t time_inc)\n{\n  if (input_mgr::inst()->get_control_state( JOYSTICK_DEVICE, PLAYER_FRONT_CROUCH) < 2*AXIS_MAX/3 )\n  {\n    theta += d_theta_for_next_frame;\n    psi += d_psi_for_next_frame;\n\n    if (psi < -PI*0.5f) psi = -PI*0.5f;\n    else if (psi > PI*0.5f) psi = PI*0.5f;\n\n    po rotate_around_y;\n    rotate_around_y.set_rot( up_vector, theta );\n    po rotate_around_x;\n    rotate_around_x.set_rot( vector3d(1,0,0), psi );\n    po rotate_around = rotate_around_x * rotate_around_y;\n    ent->set_rel_orientation( rotate_around.get_orientation() );\n  }\n}\n",
+      "status": "different",
+      "target_size": 888
+    }
+  ],
+  "raw_name": "frame_advance__17theta_and_psi_mcsf"
+}
