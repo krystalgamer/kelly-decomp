@@ -1,0 +1,23 @@
+{
+  "address": "0x00147CD0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5de176fce2bd5d190a5706cb8b1b0cd5e8f2f67a",
+      "candidate_size": 604,
+      "compared_bytes": 604,
+      "compared_instructions": 151,
+      "emitted_name": "MakeRand__10StringList",
+      "instruction_score": 13.9073,
+      "matching_bytes": 154,
+      "matching_instructions": 21,
+      "notes": "# FIRST PASS wave 100 lane B3\n\nExact released body tested once for `0x00147CD0 MakeRand__10StringList`. Result `different`, score 25.4967%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 25.4967,
+      "source": "class stringx { char data_[8]; public: int size() const; };\nclass Random { unsigned int rand_next; public: unsigned int NextRand(); int rand(int end) { unsigned int r = NextRand(); return r % end; } int rand(int begin, int end) { unsigned int r = NextRand(); return r % (end-begin) + begin; } };\nextern Random *g_random_ptr;\ninline int random(int end) { int i = g_random_ptr->rand(end); return i; }\ninline int random(int begin,int end) { int i = g_random_ptr->rand(begin, end); return i; }\ntemplate <class T> void adjustSizes(T &x, T &y);\nvoid nglPrintf(const char *, ...);\nvoid assert(int);\nclass StringList {\npublic:\n  enum { MAX_STRING_SIZE = 150 };\n  static int RANGE_D_SPEED_LO; static int RANGE_D_SPEED_HI; static int RANGE_F_SPEED_LO; static int RANGE_F_SPEED_HI; static int RANGE_D_MAX_LO; static int RANGE_D_MAX_HI;\n  stringx data; float x; float y; float fall_speed[MAX_STRING_SIZE]; float drift_speed[MAX_STRING_SIZE]; int drift_max[MAX_STRING_SIZE]; float delta_x[MAX_STRING_SIZE]; float delta_y[MAX_STRING_SIZE];\n  void MakeRand(void);\n};\n__asm__(\".equ length__C7stringx,0x00144388\");\n__asm__(\".equ NextRand__6Random,0x00112C68\");\n__asm__(\".equ adjustSizes__H1Zi_RX01T0_v,0x001D6AD0\");\n__asm__(\".equ g_random_ptr,0x00432360\");\n__asm__(\".equ nglPrintf,0x0039DBA0\");\n__asm__(\".equ _10StringList$RANGE_D_SPEED_LO,0x003E7594\");\n__asm__(\".equ _10StringList$RANGE_D_SPEED_HI,0x003E7598\");\n__asm__(\".equ _10StringList$RANGE_F_SPEED_LO,0x003E759C\");\n__asm__(\".equ _10StringList$RANGE_F_SPEED_HI,0x003E75A0\");\n__asm__(\".equ _10StringList$RANGE_D_MAX_LO,0x003E75A4\");\n__asm__(\".equ _10StringList$RANGE_D_MAX_HI,0x003E75A8\");\nint stringx::size() const { return data_[4]; }\nvoid StringList::MakeRand(void)\n{\n  int driftLo = RANGE_D_SPEED_LO, driftHi = RANGE_D_SPEED_HI;\n  int fallLo = RANGE_F_SPEED_LO, fallHi = RANGE_F_SPEED_HI;\n  int driftMaxLo = RANGE_D_MAX_LO, driftMaxHi = RANGE_D_MAX_HI;\n  int y;\n\n  adjustSizes(driftLo, fallLo);\n  adjustSizes(driftHi, fallHi);\n  adjustSizes(driftMaxLo, y);\n  adjustSizes(driftMaxHi, y);\n\n  if (data.size() > StringList::MAX_STRING_SIZE)\n  {\n    nglPrintf(\"String too long!  Max is %d and size is %d\\n\", StringList::MAX_STRING_SIZE, data.size());\n    assert(0);\n  }\n\n  for (int i = 0; i < data.size(); i++)\n  {\n    drift_speed[i] = random(driftLo, driftHi);\n    if (random(2) == 1) drift_speed[i] = -drift_speed[i];\n    fall_speed[i] = -(random(fallLo, fallHi));\n    drift_max[i] = random(driftMaxLo, driftMaxHi);\n    delta_x[i] = 0;\n    delta_y[i] = 0;\n  }\n}\n",
+      "status": "different",
+      "target_size": 524
+    }
+  ],
+  "raw_name": "MakeRand__10StringList"
+}
