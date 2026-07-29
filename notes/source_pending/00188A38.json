@@ -1,0 +1,15 @@
+{
+  "address": "0x00188A38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d1f7cc39ac44460e71e1a8b3e9f3274e4a5395c7",
+      "notes": "# FIRST PASS wave 108 lane B2\n\nExact released `SurferFrontEnd::SetState` source tested once for `0x00188A38`. Attempts before: 0. Result `compile_failed`, score 0.0%. No retry, follow-up, build, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "void SurferFrontEnd::SetState(int s)\r\n{\r\n\tmanager->helpbar->Reset();\r\n\tswitch(s)\r\n\t{\r\n\tcase OnSurfer:\r\n\t\tmanager->helpbar->AddArrowH(ksGlobalTextArray[GT_FE_MENU_SWITCH]);\r\n\t\tbreak;\r\n\tcase BioHigh:\r\n\tcase TrickHigh:\r\n\tcase PersHigh:\r\n\tcase ScrapHigh:\r\n\tcase ContHigh:\r\n\t\tbreak;\r\n\tcase HCapHigh:\r\n\t\tmanager->helpbar->AddArrowH(ksGlobalTextArray[GT_FE_MENU_CHANGE]);\r\n\t\tmanager->helpbar->RemoveX();\r\n\t\tbreak;\r\n\tdefault: assert(0);\r\n\t}\r\n\tmanager->helpbar->AddArrowV();\r\n\tmanager->helpbar->Reformat();\r\n\tstate = s;\r\n}\r\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "SetState__14SurferFrontEndi"
+}
