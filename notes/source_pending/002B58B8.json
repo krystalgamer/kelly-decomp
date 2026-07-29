@@ -1,0 +1,16 @@
+{
+  "address": "0x002B58B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "16cb47aecf9d8754554346a5abe4c01808a12b4d",
+      "error": "Candidate did not emit insert_unique__t8_Rb_tree5ZPQ2t13instance_bank1Z8material5ref_tZPQ2t13instance_bank1Z8material5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8material5ref_tZQ2t13instance_bank1Z8material13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z8material5ref_t; emitted functions: []",
+      "notes": "# FIRST PASS wave 119 lane A5\n\nExact released body tested once for `0x002B58B8 insert_unique__t8_Rb_tree5ZPQ2t13instance_bank1Z8material5ref_tZPQ2t13instance_bank1Z8material5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8material5ref_tZQ2t13instance_bank1Z8material13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z8material5ref_t`. Result `symbol_missing`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x002B58B8 insert_unique__t8_Rb_tree5ZPQ2t13instance_bank1Z8material5ref_tZPQ2t13instance_bank1Z8material5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8material5ref_tZQ2t13instance_bank1Z8material13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z8material5ref_t\n// Reference: \n// Replace this file with one self-contained candidate function.\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "insert_unique__t8_Rb_tree5ZPQ2t13instance_bank1Z8material5ref_tZPQ2t13instance_bank1Z8material5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8material5ref_tZQ2t13instance_bank1Z8material13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z8material5ref_t"
+}
