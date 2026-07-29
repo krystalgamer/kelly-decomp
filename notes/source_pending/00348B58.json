@@ -1,0 +1,23 @@
+{
+  "address": "0x00348B58",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2d11f29e4a3f34de44fbae9693a5ba1ef49a5e04",
+      "candidate_size": 260,
+      "compared_bytes": 548,
+      "compared_instructions": 137,
+      "emitted_name": "fixup__2po",
+      "instruction_score": 1.4599,
+      "matching_bytes": 58,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 106 lane B2\n\nExact released `po::fixup` source tested once for `0x00348B58`. Attempts before: 0. Result `different`, byte score 10.5839%, instruction score 1.4599%. No retry, follow-up, build, git operation, or tracked edit.",
+      "score": 10.5839,
+      "source": "class vector3d\n{\npublic:\n  float x;\n  float y;\n  float z;\n\n  vector3d() {}\n  vector3d(float x, float y, float z) : x(x), y(y), z(z) {}\n  vector3d &operator=(const vector3d &other)\n  {\n    x = other.x;\n    y = other.y;\n    z = other.z;\n    return *this;\n  }\n  void normalize();\n};\n\nvector3d cross(const vector3d &a, const vector3d &b);\n\nstruct vector4d\n{\n  float x;\n  float y;\n  float z;\n  float w;\n};\n\nstruct matrix4x4\n{\n  vector4d x;\n  vector4d y;\n  vector4d z;\n  vector4d w;\n};\n\nclass po\n{\n  matrix4x4 m;\n\npublic:\n  void fixup();\n};\n\nvoid po::fixup()\n{\n  vector3d new_x(m.x.x,m.y.x,m.z.x);\n  vector3d new_y(m.x.y,m.y.y,m.z.y);\n  vector3d new_z;\n\n  new_x.normalize();\n  new_z = cross(new_x,new_y);\n  new_z.normalize();\n  new_y = cross(new_z,new_x);\n  m.x.x = new_x.x;\n  m.y.x = new_x.y;\n  m.z.x = new_x.z;\n  m.x.y = new_y.x;\n  m.y.y = new_y.y;\n  m.z.y = new_y.z;\n  m.x.z = new_z.x;\n  m.y.z = new_z.y;\n  m.z.z = new_z.z;\n}\n",
+      "status": "different",
+      "target_size": 548
+    }
+  ],
+  "raw_name": "fixup__2po"
+}
