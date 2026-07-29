@@ -1,0 +1,15 @@
+{
+  "address": "0x001D2AA0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ac609d8121cbbc3f0ab1be0406b3b4b33f179dc4",
+      "notes": "# FIRST PASS wave 155 lane B3\n\nExact released source tested once for `0x001D2AA0 __14EnterCheatMenuP12FEMenuSystemP9FEManagerG7stringxT3`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"FrontEndManager.h\"\n#include \"CheatFrontEnd.h\"\n\nEnterCheatMenu::EnterCheatMenu(FEMenuSystem* s, FEManager* man, stringx p, stringx pf_name)\n{\n\tcons(s, man, p, pf_name);\n\tsys = (GraphicalMenuSystem*) s;\n\tpq_indices_set = false;\n\n\tcode_display = NEW MultiLineString(&frontendmanager.font_bold_old, \"\", PHONE_SCREEN_MIDDLE_X, PHONE_SCREEN_MIDDLE_Y, \n\t                                   0, PHONE_TEXT_SIZE*1.18f, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, PHONE_TEXT_COLOR);\n\tcode_display->setLineSpacing(PHONE_MAIN_MENU_VERT_SPACING);\n\n\tcursor       = NEW TextString(&frontendmanager.font_bold_old, \"_\", PHONE_SCREEN_MIDDLE_X, PHONE_SCREEN_MIDDLE_Y, \n\t                              0, PHONE_TEXT_SIZE*1.18f, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, PHONE_TEXT_COLOR);\n\tcheat_unlocked = -1;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__14EnterCheatMenuP12FEMenuSystemP9FEManagerG7stringxT3"
+}
