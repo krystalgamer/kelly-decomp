@@ -1,0 +1,15 @@
+{
+  "address": "0x00183598",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "73831d82fbf1a28133e51fa1659fc31c56667ad1",
+      "notes": "# FIRST PASS wave 104 lane B5\n\nExact released `KS/SRC/ks/MainFrontEnd.cpp` function tested once for `0x00183598 ChangeVolume__11OptionsMenub`. Result `compile_failed`, score 0.0%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "void OptionsMenu::ChangeVolume(bool up)\n{\n\tint index = highlighted->entry_num-first_vol;\n\tif(up)\n\t{\n\t\tif(volumes[index] < MAX_VOLUME)\n\t\t{\n\t\t\tvolumes[index]++;\n\t\t\tEventType soundtoPlay = SS_FE_LEFTRIGHT;\n\t\t\tswitch (index+first_vol)\n\t\t\t{\n\t\t\t\tcase OpAmbientEntry: soundtoPlay = SS_FE_LEFTRIGHT_AMBIENT; break;\n\t\t\t\tcase OpVoiceEntry: soundtoPlay = SS_FE_LEFTRIGHT_VOICE;   break;\n\t\t\t\tcase OpMusicEntry: soundtoPlay = SS_FE_LEFTRIGHT_MUSIC;   break;\n\t\t\t}\n\t\t\t//SoundScriptManager::inst()->unpause();\n\t\t\tSoundScriptManager::inst()->playEvent(soundtoPlay);\n\t\t\t//SoundScriptManager::inst()->pause();\n\t\t}\n\t\telse play_sound(\"ERROR\");\n\t}\n\telse\n\t{\n\t\tif(volumes[index] > 0)\n\t\t{\n\t\t\tvolumes[index]--;\n\t\t\tEventType soundtoPlay = SS_FE_LEFTRIGHT;\n\t\t\tswitch (index+first_vol)\n\t\t\t{\n\t\t\t\tcase OpAmbientEntry: soundtoPlay = SS_FE_LEFTRIGHT_AMBIENT; break;\n\t\t\t\tcase OpVoiceEntry: soundtoPlay = SS_FE_LEFTRIGHT_VOICE;   break;\n\t\t\t\tcase OpMusicEntry: soundtoPlay = SS_FE_LEFTRIGHT_MUSIC;   break;\n\t\t\t}\n\t\t\t//SoundScriptManager::inst()->unpause();\n\t\t\tSoundScriptManager::inst()->playEvent(soundtoPlay);\n\t\t\t//SoundScriptManager::inst()->pause();\n\t\t}\n\t\telse play_sound(\"ERROR\");\n\t}\n\n\tMaskVolume(index);\n\n\tfloat level = ((float)volumes[index] +.5f)/(float)MAX_VOLUME;\n\tif (level > 1) level = 1;\n\tswitch(index+first_vol)\n\t{\n\tcase OpMasterEntry:\t\tnslSetMasterVolume(level); break;\n\tcase OpAmbientEntry:\tnslSetVolume(NSL_SOURCETYPE_AMBIENT, level); break;\n\tcase OpSFXEntry:\t\tnslSetVolume(NSL_SOURCETYPE_SFX, level); break;\n\tcase OpVoiceEntry:\t\tnslSetVolume(NSL_SOURCETYPE_VOICE, level); break;\n\tcase OpMusicEntry:\t\tnslSetVolume(NSL_SOURCETYPE_MUSIC, level); break;\n\tdefault: assert(0);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "ChangeVolume__11OptionsMenub"
+}
