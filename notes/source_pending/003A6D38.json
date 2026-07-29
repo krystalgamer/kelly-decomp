@@ -1,0 +1,23 @@
+{
+  "address": "0x003A6D38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "076625a3b5c42efdda8f9077539ec141d4870a79",
+      "candidate_size": 476,
+      "compared_bytes": 476,
+      "compared_instructions": 119,
+      "emitted_name": "nglParseFDF__FPcP7nglFont",
+      "instruction_score": 66.3866,
+      "matching_bytes": 271,
+      "matching_instructions": 79,
+      "notes": "# FIRST PASS wave 89 lane A3\n\nExact released body tested once for `0x003A6D38 nglParseFDF__FPcP7nglFont`. Result `different`, score 56.9328%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 56.9328,
+      "source": "typedef unsigned int u_int;\n\nstruct nglGlyphInfo\n{\n  u_int TexOfs[2];\n  u_int GlyphSize[2];\n  u_int GlyphOrigin[2];\n  u_int CellWidth;\n};\n\nstruct nglFontHeader\n{\n  u_int Version;\n  u_int CellHeight;\n  u_int Ascent;\n  u_int FirstGlyph;\n  u_int NumGlyphs;\n};\n\nstruct nglFont\n{\n  void *Tex;\n  nglGlyphInfo *GlyphInfo;\n  nglFontHeader Header;\n  u_int MapFlags;\n  u_int BlendMode;\n  u_int BlendModeConstant;\n};\n\nextern u_int nglGetTokenUINT(char *&, const char *, u_int);\nextern u_int nglGetUINT(char *&, u_int);\nextern void *nglMemAlloc(u_int, u_int = 1);\n\nvoid nglParseFDF(char *Data, nglFont *Font)\n{\n  Font->Header.Version = nglGetTokenUINT(Data, \"version\", 16);\n  Font->Header.CellHeight = nglGetTokenUINT(Data, \"cellheight\", 10);\n  Font->Header.Ascent = nglGetTokenUINT(Data, \"ascent\", 10);\n  Font->Header.FirstGlyph = nglGetTokenUINT(Data, \"firstglyph\", 10);\n  Font->Header.NumGlyphs = nglGetTokenUINT(Data, \"numglyphs\", 10);\n\n  Font->GlyphInfo = (nglGlyphInfo *)nglMemAlloc(\n    sizeof(nglGlyphInfo) * Font->Header.NumGlyphs);\n\n  for (u_int i = 0; i < Font->Header.NumGlyphs; i++)\n  {\n    u_int gidx = nglGetUINT(Data, 10);\n\n    nglGlyphInfo &gi =\n      Font->GlyphInfo[gidx - Font->Header.FirstGlyph];\n    gi.TexOfs[0] = nglGetTokenUINT(Data, \"x\", 10);\n    gi.TexOfs[1] = nglGetTokenUINT(Data, \"y\", 10);\n    gi.CellWidth = nglGetTokenUINT(Data, \"w\", 10);\n    gi.GlyphOrigin[0] = nglGetTokenUINT(Data, \"gx\", 10);\n    gi.GlyphOrigin[1] = nglGetTokenUINT(Data, \"gy\", 10);\n    gi.GlyphSize[0] = nglGetTokenUINT(Data, \"gw\", 10);\n    gi.GlyphSize[1] = nglGetTokenUINT(Data, \"gh\", 10);\n  }\n}\n",
+      "status": "different",
+      "target_size": 476
+    }
+  ],
+  "raw_name": "nglParseFDF__FPcP7nglFont"
+}
