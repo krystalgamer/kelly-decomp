@@ -1,0 +1,23 @@
+{
+  "address": "0x003A7EC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9f82d0a6668cac0017512864b0b5b4e744bc6e74",
+      "candidate_size": 708,
+      "compared_bytes": 740,
+      "compared_instructions": 185,
+      "emitted_name": "nglGetStringDimensions__FP7nglFontPUiT1PCce",
+      "instruction_score": 11.8919,
+      "matching_bytes": 198,
+      "matching_instructions": 22,
+      "notes": "# FIRST PASS wave 137 lane A4\n\nExact released source tested once for `0x003A7EC8 nglGetStringDimensions__FP7nglFontPUiT1PCce`. Attempts before: 0. Result `different`, byte score 26.7568% and instruction score 11.8919%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 26.7568,
+      "source": "typedef unsigned int u_int;\n\nstruct nglTexture;\n\nstruct nglGlyphInfo\n{\n  u_int TexOfs[2];\n  u_int GlyphSize[2];\n  u_int GlyphOrigin[2];\n  u_int CellWidth;\n};\n\nstruct nglFontHeader\n{\n  u_int Version;\n  u_int CellHeight;\n  u_int Ascent;\n  u_int FirstGlyph;\n  u_int NumGlyphs;\n};\n\nstruct nglFont\n{\n  nglTexture* Tex;\n  nglGlyphInfo* GlyphInfo;\n  nglFontHeader Header;\n  u_int MapFlags;\n  u_int BlendMode;\n  u_int BlendModeConstant;\n  bool System;\n};\n\nextern \"C\" unsigned long strtoul(const char*, char**, int);\nextern \"C\" double strtod(const char*, char**);\n\n#define NGLFONT_TOKEN_COLOR    '\\1'\n#define NGLFONT_TOKEN_SCALE    '\\2'\n#define NGLFONT_TOKEN_SCALEXY  '\\3'\n\ninline int nglFTOI( float input )\n{\n  register float output;\n  __asm__ volatile (\"cvt.w.s %0, %1\" : \"=f\" (output) : \"f\" (input) );\n  return (int&)output;\n}\n\nvoid nglGetStringDimensions(nglFont *Font, u_int *outWidth, u_int *outHeight, const char *Text, ...)\n{\n\tconst char *TextPtr = Text;\n\tchar c;\n\tchar prev_c = 0;\n\n\tfloat ScaleX = 1.0f;\n\tfloat ScaleY = 1.0f;\n\tfloat CurMaxScaleY = ScaleY;\n\n\tfloat Width  = 0.0f;\n\tfloat MaxWidth = 0.0f;\n\tfloat Height = 0.0f;\n\tfloat MaxHeight = 0.0f;\n\tfloat TotalHeight = 0.0f;\n\n\twhile ((c = *TextPtr))\n\t{\n\t\t// Check for color token: \\1[RRGGBBAA] or \\1[0xRRGGBBAA]\n\t\tif (c == NGLFONT_TOKEN_COLOR)\n\t\t{\n\t\t\tTextPtr += 2;\n\t\t\t// String to integer (hexa) conversion.\n\t\t\tchar *StopString;\n\t\t\tstrtoul(TextPtr, &StopString, 16);\n\t\t\tTextPtr = StopString + 1;\n\t\t\tcontinue;\n\t\t}\n\t\t// Check for scale token: \\2[SCALE]\n\t\telse if (c == NGLFONT_TOKEN_SCALE)\n\t\t{\n\t\t\tTextPtr += 2;\n\t\t\t// String to float conversion.\n\t\t\tchar *StopString;\n\t\t\tfloat OldScaleY = ScaleY;\n\t\t\tScaleY = (float) strtod(TextPtr, &StopString);\n\t\t\tScaleX = ScaleY;\n\t\t\tTextPtr = StopString + 1;\n\n\t\t\t// Store the current max scale (needed to go to the next line).\n\t\t\tif (ScaleY > OldScaleY)\n\t\t\t\tCurMaxScaleY = ScaleY;\n\t\t\telse\n\t\t\t\tCurMaxScaleY = OldScaleY;\n\n\t\t\tcontinue;\n\t\t}\n\t\t// Check for independent scale token: \\3[SCALEX,SCALEY]\n\t\telse if (c == NGLFONT_TOKEN_SCALEXY)\n\t\t{\n\t\t\tTextPtr += 2;\n\t\t\t// String to float conversion (SCALEX).\n\t\t\tchar *StopString;\n\t\t\tScaleX = (float) strtod(TextPtr, &StopString);\n\t\t\tTextPtr = StopString + 1;\n\n\t\t\t// String to float conversion (SCALEY).\n\t\t\tfloat OldScaleY = ScaleY;\n\t\t\tScaleY = (float) strtod(TextPtr, &StopString);\n\t\t\tTextPtr = StopString + 1;\n\n\t\t\t// Store the current max scale (needed to go to the next line).\n\t\t\tif (ScaleY > OldScaleY)\n\t\t\t\tCurMaxScaleY = ScaleY;\n\t\t\telse\n\t\t\t\tCurMaxScaleY = OldScaleY;\n\n\t\t\tcontinue;\n\t\t}\n\n\t\tif (c != '\\n')\n\t\t{\n\t\t\tif (prev_c == '\\n')\n\t\t\t{\n\t\t\t\tTotalHeight += MaxHeight;\n\t\t\t\tCurMaxScaleY = ScaleY;\n\t\t\t\tHeight = Font->Header.CellHeight * ScaleY;\n\t\t\t\tMaxHeight = Height;\n\t\t\t\tWidth = 0;\n\t\t\t}\n\n\t\t\tconst nglGlyphInfo &ginfo = Font->GlyphInfo[(char)c - Font->Header.FirstGlyph];\n\n\t\t\tWidth += ginfo.CellWidth * ScaleX;\n\t\t\tif (Width > MaxWidth)\n\t\t\t\tMaxWidth = Width;\n\n\t\t\tHeight = Font->Header.CellHeight * CurMaxScaleY;\n\t\t\tif (Height > MaxHeight)\n\t\t\t\tMaxHeight = Height;\n\t\t}\n\n\t\tprev_c = c;\n\n\t\tTextPtr++;\n\t}\n\n\tTotalHeight += MaxHeight;\n\n\t*outHeight = nglFTOI(TotalHeight);\n\t*outWidth = nglFTOI(MaxWidth);\n}\n",
+      "status": "different",
+      "target_size": 740
+    }
+  ],
+  "raw_name": "nglGetStringDimensions__FP7nglFontPUiT1PCce"
+}
