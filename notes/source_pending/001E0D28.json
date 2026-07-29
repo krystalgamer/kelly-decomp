@@ -1,0 +1,23 @@
+{
+  "address": "0x001E0D28",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d0e49b75350b96408e42659b70aa1fbd0d9c19a4",
+      "candidate_size": 676,
+      "compared_bytes": 676,
+      "compared_instructions": 169,
+      "emitted_name": "file_exists__7os_fileRC7stringx",
+      "instruction_score": 29.5858,
+      "matching_bytes": 318,
+      "matching_instructions": 50,
+      "notes": "# FIRST PASS wave 127 lane A4\n\nExact released source tested once for `0x001E0D28 file_exists__7os_fileRC7stringx`. Attempts before: 0. Result `different`, byte score 47.0414% and instruction score 29.5858%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 47.0414,
+      "source": "typedef unsigned long long big_int;\n\nclass string_buf\n{\npublic:\n  big_int *data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n\n  inline int compare(const char *str) const\n  {\n    int i;\n    const char *a = reinterpret_cast<const char *>(data);;\n    for (i = 0; i < char_length; i++) {\n      if (str[i] == '\\0') return -1;\n      if (a[i] == str[i]) continue;\n      if (str[i] > a[i]) return 1;\n      if (str[i] < a[i]) return -1;\n    }\n    if (str[i] == '\\0') return 0;\n    return 1;\n  }\n};\n\nclass stringx\n{\n  char *chars;\n  string_buf *my_buf;\npublic:\n  stringx();\n  ~stringx();\n  stringx &operator=(const stringx &cp);\n  friend inline bool operator==(const stringx& lhs, const char *rhs);\n  friend inline bool operator!=(const stringx& lhs, const char *rhs);\n};\n\ninline bool operator==(const stringx& lhs, const char *rhs)\n{\n  return (lhs.my_buf->compare(rhs) == 0);\n}\n\ninline bool operator!=(const stringx& lhs, const char *rhs)\n{\n  return !lhs.my_buf->compare(rhs);\n}\n\ntemplate <class T> class singleton_ptr\n{\n  T *p;\npublic:\n  operator T*() const { return p; }\n};\n\nclass singleton { public: virtual ~singleton(); };\n\nclass os_developer_options : public singleton\n{\npublic:\n  enum flags_t { FLAG_STASH_ONLY, FLAG_NO_CD };\n  bool is_flagged(flags_t flag) const { return flags[flag]; }\n  static os_developer_options *inst() { return instance; }\nprivate:\n  bool flags[2];\n  static singleton_ptr<os_developer_options> instance;\n};\n\nasm(\".equ _20os_developer_options$instance,0x0045B180\");\n\nstruct sceCdlFILE { unsigned int lsn, size; char name[16]; unsigned char date[8]; };\n\nclass os_file\n{\npublic:\n  enum mode_flags { FILE_READ = 1 };\n  os_file();\n  ~os_file();\n  void close();\n  static bool file_exists(const stringx& name);\nprivate:\n  stringx name;\n  int flags;\n  bool opened;\n  bool eof;\n  bool from_cd;\n  union { int host; sceCdlFILE cd; } io;\n  int curr_fp;\n  bool try_to_open_from_cd();\n  bool try_to_open_from_disk();\n};\n\nbool os_file::file_exists(const stringx& _name)\n{\n//  proftimer_file_exists.start();\n  os_file foo;\n  int ret = false;\n\n  foo.name = _name;\n  foo.flags = FILE_READ;\n\n  if (_name != \"GAME.INI\" && _name != \"tricks.dat\" && !os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_CD))\n    ret = foo.try_to_open_from_cd();\n  else if (_name == \"GAME.INI\" || _name == \"tricks.dat\")\n    ret = foo.try_to_open_from_cd();\n  if (ret == false)\n    ret = foo.try_to_open_from_disk();\n\n  if (ret)\n  {\n    foo.close();\n    return true;\n  }\n  return false;\n\n//  proftimer_file_exists.stop();\n}\n",
+      "status": "different",
+      "target_size": 676
+    }
+  ],
+  "raw_name": "file_exists__7os_fileRC7stringx"
+}
