@@ -1,0 +1,15 @@
+{
+  "address": "0x002D8A70",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "62d827fcca5cabb96593a512f1e3332618a43a5c",
+      "notes": "# FIRST PASS wave 122 lane A5\n\nExact released source tested once for `0x002D8A70 _$_7cg_mesh`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n\n#include \"osalloc.h\"\n\n#include \"colgeom.h\"\n#include \"pmesh.h\"\n#include \"collide.h\"\n#include \"colmesh.h\"\n#include \"face.h\"\n#include \"oserrmsg.h\"\n#include \"hwmath.h\"\n#include \"profiler.h\"\n#include \"terrain.h\"\n#include \"capsule.h\"\n#include \"vsplit.h\"\n#include \"osdevopts.h\"\n\n#include \"physical_interface.h\"\n\ncg_mesh::~cg_mesh()\n{\n  for (int i=0;i<(int)materials.size();++i)\n  {\n    material_bank.delete_instance( materials[i] );\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_7cg_mesh"
+}
