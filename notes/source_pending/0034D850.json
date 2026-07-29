@@ -1,0 +1,23 @@
+{
+  "address": "0x0034D850",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f590b14d82b3dddd7b5905c2a768a9c85d6b185c",
+      "candidate_size": 452,
+      "compared_bytes": 500,
+      "compared_instructions": 120,
+      "emitted_name": "init__7stringx",
+      "instruction_score": 1.6667,
+      "matching_bytes": 91,
+      "matching_instructions": 2,
+      "notes": "FIRST PASS wave93 B4\nTarget: 0x0034D850 init__7stringx (500/0x1F4), game/files_vsim\nReference: kelly-slaters-pro-surfer/KS/SRC/stringx.cpp\nAttempts before: 0\nAttempt 1: exact released body with minimal faithful self-contained declarations, LF line endings, and no headers\nResult: different; score 18.2 (instruction score 1.6667), candidate 452 bytes versus target 500 bytes.\nExactly one candidate was tested. No alternatives, assembly, annotations, variants, retries, attempts 2-5, diff chasing, build, finalization, integration, queue edits, tracked edits, commit, or push were performed.",
+      "score": 18.2,
+      "source": "typedef unsigned long long big_int;\n\n#define STRINGX_MAX_SHORT_STRINGS 15000\n#define STRINGX_MAX_MEDIUM_STRINGS 7000\n#define STRINGX_MAX_LONG_STRINGS 100\n#define STRINGX_TOTAL_STRINGS (STRINGX_MAX_SHORT_STRINGS + STRINGX_MAX_MEDIUM_STRINGS + STRINGX_MAX_LONG_STRINGS)\n#define STRINGX_SHORT_STRING_MAX_LENGTH 32\n#define STRINGX_MEDIUM_STRING_MAX_LENGTH 80\n#define STRINGX_LONG_STRING_MAX_LENGTH 1024\n#define STRING_POOL_BLOCKS ((STRINGX_MAX_SHORT_STRINGS * STRINGX_SHORT_STRING_MAX_LENGTH + STRINGX_MAX_MEDIUM_STRINGS * STRINGX_MEDIUM_STRING_MAX_LENGTH + STRINGX_MAX_LONG_STRINGS * STRINGX_LONG_STRING_MAX_LENGTH) / sizeof (big_int))\n#define STRINGX_CACHE_BUCKETS 16\n#define NULL 0\n#define assert(expression) ((void)0)\n\nclass string_buf\n{\n  big_int *data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n\n  inline int blocks_needed(int chars)\n  {\n    chars++;\n    if (chars % sizeof (big_int) != 0)\n      return (chars / sizeof (big_int) + 1);\n    else\n      return (chars / sizeof (big_int));\n  }\n\npublic:\n  void set_buf(big_int *buf, int blocks)\n  {\n    data = buf;\n    max_blocks = blocks;\n    ref_count = 0;\n    char_length = 0;\n    block_length = blocks_needed(char_length);\n    data[0] = 0;\n  };\n\n  inline int get_ref()\n  {\n    return ref_count;\n  }\n};\n\nclass stringx\n{\n  static string_buf strings[];\n  static big_int string_pool[];\n  static bool stringx_initialized;\n  static string_buf *free_small_buffers[];\n  static unsigned int free_small_buffers_end;\n  static string_buf *free_medium_buffers[];\n  static unsigned int free_medium_buffers_end;\n  static string_buf *free_long_buffers[];\n  static unsigned int free_long_buffers_end;\n  static string_buf *buf_cache[];\n  static unsigned int buf_cache_lru[256];\n\npublic:\n  static void init();\n};\n\nvoid stringx::init()\n{\n\tint i, s;\n\tbig_int *buf_pos = string_pool;\n\t\n\tfor (i = 0, s = 0; i < STRINGX_MAX_SHORT_STRINGS; i++, s++, buf_pos += STRINGX_SHORT_STRING_MAX_LENGTH / sizeof (big_int)) {\n\t\tstrings[i].set_buf(buf_pos, STRINGX_SHORT_STRING_MAX_LENGTH / sizeof (big_int));\n\t\tfree_small_buffers[s] = &strings[i];\n\t\tassert(strings[i].get_ref() == 0);\n\t}\n\tfree_small_buffers_end = s;\n\t\n\tfor (s = 0; i < STRINGX_MAX_SHORT_STRINGS + STRINGX_MAX_MEDIUM_STRINGS; i++, s++, buf_pos += STRINGX_MEDIUM_STRING_MAX_LENGTH / sizeof (big_int)) {\n\t\tstrings[i].set_buf(buf_pos, STRINGX_MEDIUM_STRING_MAX_LENGTH / sizeof (big_int));\n\t\tfree_medium_buffers[s] = &strings[i];\n\t\tassert(strings[i].get_ref() == 0);\n\t}\n\tfree_medium_buffers_end = s;\n\t\n\tfor (s = 0; i < STRINGX_TOTAL_STRINGS; i++, s++, buf_pos += STRINGX_LONG_STRING_MAX_LENGTH / sizeof (big_int)) {\n\t\tstrings[i].set_buf(buf_pos, STRINGX_LONG_STRING_MAX_LENGTH / sizeof (big_int));\n\t\tfree_long_buffers[s] = &strings[i];\n\t\tassert(strings[i].get_ref() == 0);\n\t}\n\tfree_long_buffers_end = s;\n\t\n\tassert(i == STRINGX_TOTAL_STRINGS);\n\tassert(s == STRINGX_MAX_LONG_STRINGS);\n\tassert((buf_pos - string_pool) == STRING_POOL_BLOCKS);\n\t\n\tfor (i = 0; i < 256 * STRINGX_CACHE_BUCKETS; i++) {\n\t\tbuf_cache[i] = NULL;\n\t}\n\t\n\tfor (i = 0; i < 256; i++) {\n\t\tbuf_cache_lru[i] = i * STRINGX_CACHE_BUCKETS;\n\t}\n\t\n#ifdef STRINGX_DEBUG\n\tpeak_small_strings = 0;\n\tpeak_medium_strings = 0;\n\tpeak_long_strings = 0;\n\tcache_hits = 0;\n\tcache_misses = 0;\n#endif\n\t\n\tstringx_initialized = true;\n}\n",
+      "status": "different",
+      "target_size": 500
+    }
+  ],
+  "raw_name": "init__7stringx"
+}
