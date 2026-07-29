@@ -1,0 +1,23 @@
+{
+  "address": "0x0016B6A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ff6a017f6b8d6b8762dd79f0193ecc8d8bc69f49",
+      "candidate_size": 456,
+      "compared_bytes": 480,
+      "compared_instructions": 120,
+      "emitted_name": "Init__12ReplayWidgetR9PanelFileP4Font",
+      "instruction_score": 35.8333,
+      "matching_bytes": 129,
+      "matching_instructions": 43,
+      "notes": "# FIRST PASS wave 89 lane B1\n\nExact released `ReplayWidget::Init` body tested once with minimal faithful self-contained declarations and no headers. Result `different`, score 26.8750% (43/120 instructions; 129/480 bytes); candidate emitted 456 bytes. Compilation succeeded with no unresolved headers. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 26.875,
+      "source": "class Font;\nclass PanelQuad;\n\nclass PanelFile\n{\npublic:\n  PanelQuad *GetPointer(const char *name);\n};\n\nclass TextBase\n{\n  char padding[76];\n};\n\nclass FontTarget\n{\npublic:\n  virtual void slot0();\n  virtual void slot1();\n  virtual void slot2();\n  virtual void slot3();\n  virtual void slot4();\n  virtual void slot5();\n  virtual void slot6();\n  virtual void slot7();\n  virtual void slot8();\n  virtual void slot9();\n  virtual void slot10();\n  virtual void slot11();\n  virtual void slot12();\n  virtual void setFont(Font *font);\n};\n\nclass TextString : public TextBase, public FontTarget\n{\n};\n\nclass IGOWidget\n{\n  char padding[8];\n};\n\nclass ReplayWidget : public IGOWidget\n{\n  int vcrButton;\n  int vcrButtonHL;\n  PanelQuad *vcrPQ;\n  PanelQuad *vcrHLPQ;\n  PanelQuad *vcrBGPQ;\n  PanelQuad *restartPQ;\n  PanelQuad *restartOffPQ;\n  PanelQuad *restartHLPQ;\n  PanelQuad *pausePQ;\n  PanelQuad *pauseOffPQ;\n  PanelQuad *pauseHLPQ;\n  PanelQuad *playPQ;\n  PanelQuad *playOffPQ;\n  PanelQuad *playHLPQ;\n  PanelQuad *slowPQ;\n  PanelQuad *slowOffPQ;\n  PanelQuad *slowHLPQ;\n  PanelQuad *fastforwardPQ;\n  PanelQuad *fastforwardOffPQ;\n  PanelQuad *fastforwardHLPQ;\n  TextString *pauseText;\n  float highlight_intensity;\n  float highlight_timer;\n\npublic:\n  void Init(PanelFile &panel, Font *font);\n};\n\nvoid ReplayWidget::Init(PanelFile & panel, Font *font)\n{\n\tvcrPQ             = panel.GetPointer(\"replay_main2\");\n\tvcrHLPQ           = panel.GetPointer(\"replay_main3\");\n\tvcrBGPQ           = panel.GetPointer(\"replay_main4\");\n\trestartPQ         = panel.GetPointer(\"replay_restart\");\n\trestartOffPQ      = panel.GetPointer(\"replay_restart_off\");\n\trestartHLPQ       = panel.GetPointer(\"replay_restart_hilite\");\n\tpausePQ           = panel.GetPointer(\"replay_pause\");\n\tpauseOffPQ        = panel.GetPointer(\"replay_pause_off\");\n\tpauseHLPQ         = panel.GetPointer(\"replay_pause_hilite\");\n\tplayPQ            = panel.GetPointer(\"replay_play\");\n\tplayOffPQ         = panel.GetPointer(\"replay_play_off\");\n\tplayHLPQ          = panel.GetPointer(\"replay_play_hilite\");\n\tslowPQ            = panel.GetPointer(\"replay_slowforward\");\n\tslowOffPQ         = panel.GetPointer(\"replay_slowforward_off\");\n\tslowHLPQ          = panel.GetPointer(\"replay_slowforward_hilite\");\n\tfastforwardPQ     = panel.GetPointer(\"replay_fastforward\");\n\tfastforwardOffPQ  = panel.GetPointer(\"replay_fastforward_off\");\n\tfastforwardHLPQ   = panel.GetPointer(\"replay_fastforward_hilite\");\n\n  pauseText->setFont(font);\n\n  highlight_intensity = 0.0f;\n  highlight_timer     = 0.0f;\n}\n",
+      "status": "different",
+      "target_size": 480
+    }
+  ],
+  "raw_name": "Init__12ReplayWidgetR9PanelFileP4Font"
+}
