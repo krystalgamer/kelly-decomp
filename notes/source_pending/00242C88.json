@@ -1,0 +1,23 @@
+{
+  "address": "0x00242C88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4cb52ca54d13d2788fc03d885cfe9cfdf54ccf64",
+      "candidate_size": 524,
+      "compared_bytes": 524,
+      "compared_instructions": 131,
+      "emitted_name": "SURFERDATA_Load__Fv",
+      "instruction_score": 61.0687,
+      "matching_bytes": 343,
+      "matching_instructions": 80,
+      "notes": "# FIRST PASS wave 101 lane A1\n\nExact released `SURFERDATA_Load` body tested once for `0x00242C88`. Attempts before: 0. LF-only candidate. Result `different`, byte score 65.458%, instruction score 61.0687%. No retry, follow-up, chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 65.458,
+      "source": "typedef unsigned char u_char;\ntypedef unsigned int u_int;\n\nstruct nglFileBuf\n{\n  u_char *Buf;\n  u_int Size;\n  u_int UserData;\n};\n\nbool KSReadFile(const char *, nglFileBuf *, u_int);\nvoid KSReleaseFile(nglFileBuf *);\nchar *strchr(const char *, int);\nint sscanf(const char *, const char *, ...);\nint strcmp(const char *, const char *);\n\ntypedef struct SurferDataStruct\n{\n  int start_stand;\n  int start_turn;\n  int start_carve;\n  int start_anims;\n  int end_anims;\n  int trickBook[70];\n  int learnedtrickBook[16];\n  char name[32];\n  char name_ps[32];\n  char stashfile[16];\n  char firstname[32];\n  char lastname[32];\n  char fullname[32];\n  char abbr[4];\n  int goofy;\n  int load_in_fe;\n  int bio_length;\n  int has_movie;\n  int attr_spin;\n  int attr_speed;\n  int attr_balance;\n  int attr_air;\n  char board_ent_name[20];\n  char p_board_name[20];\n  int selectable;\n  int competitor;\n  int initially_unlocked;\n  char surfer_nick[20];\n  int sort_order;\n} SurferData;\n\nextern SurferData SurferDataArray[];\n\n#define assert(exp) ((void)0)\n#define verify(a) if (a) {}\n#define NULL 0\n\nvoid SURFERDATA_Load(void)\n{\n    nglFileBuf F;\n    KSReadFile(\"surferdata.dat\", &F, 1);\n    char *s = (char *) F.Buf;\n    const char *format = \"%[^,], %[^,], %[^,], %[^,], %[^,], %[^,], %[^,], %d, %d, %d, %d, %d, %d, %d, %d, %[^,], %[^,], %d, %d, %d, %[^,], %d, \";\n    for (int i = 0; i < 14; ++i)\n    {\n         char *p = strchr (s, '\\n');\n         if (p) *p = 0;\n         int n = sscanf(s, format,\n              &SurferDataArray[i].name,\n              &SurferDataArray[i].name_ps,\n              &SurferDataArray[i].stashfile,\n              &SurferDataArray[i].firstname,\n              &SurferDataArray[i].lastname,\n              &SurferDataArray[i].fullname,\n              &SurferDataArray[i].abbr,\n              &SurferDataArray[i].goofy,\n              &SurferDataArray[i].load_in_fe,\n              &SurferDataArray[i].bio_length,\n              &SurferDataArray[i].has_movie,\n              &SurferDataArray[i].attr_spin,\n              &SurferDataArray[i].attr_speed,\n              &SurferDataArray[i].attr_balance,\n              &SurferDataArray[i].attr_air,\n              &SurferDataArray[i].board_ent_name,\n              &SurferDataArray[i].p_board_name,\n              &SurferDataArray[i].selectable,\n              &SurferDataArray[i].competitor,\n              &SurferDataArray[i].initially_unlocked,\n              &SurferDataArray[i].surfer_nick,\n              &SurferDataArray[i].sort_order\n         );\n         if (strcmp(SurferDataArray[i].lastname, \"-\")==0) SurferDataArray[i].lastname[0] = '\\0';\n         if (p) *p = '\\n';\n         assert(22 == n);\n         verify((s = strchr(s, '\\n')) != NULL);\n         ++s;\n    }\n    KSReleaseFile(&F);\n}\n",
+      "status": "different",
+      "target_size": 524
+    }
+  ],
+  "raw_name": "SURFERDATA_Load__Fv"
+}
