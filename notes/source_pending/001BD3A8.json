@@ -1,0 +1,23 @@
+{
+  "address": "0x001BD3A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e20f220969705751f000afff29f6fef147250014",
+      "candidate_size": 588,
+      "compared_bytes": 744,
+      "compared_instructions": 184,
+      "emitted_name": "__9HelpbarFEP9FEManagerG7stringxT2",
+      "instruction_score": 1.087,
+      "matching_bytes": 86,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 137 lane B1\n\nExact released source tested once for `0x001BD3A8 __9HelpbarFEP9FEManagerG7stringxT2`. Attempts before: 0. Result `different`, byte score 11.5591% and instruction score 1.0870%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 11.5591,
+      "source": "#include \"KS/SRC/stringx.h\"\n\nclass Font {\npublic:\n    enum HORIZJUST { HORIZJUST_LEFT };\n    enum VERTJUST { VERTJUST_CENTER = 1 };\n};\n\nclass color32 {\npublic:\n    unsigned int value;\n};\n\nclass PanelQuad;\nclass FEManager;\n\nclass __attribute__((aligned(16))) PanelAnimManager {\n    char data[0x80];\n};\n\nclass PanelFile {\n    char data[0x30];\n};\n\nclass FrontEnd {\npublic:\n    PanelAnimManager pam;\n    PanelFile panel;\n    FrontEnd *next;\n    stringx path;\n    FEManager *manager;\n\n    virtual ~FrontEnd();\n    virtual void Add(PanelAnimManager);\n    virtual void Update(float);\n    virtual void Draw();\n    virtual void LoadPanel(bool = false);\n    virtual PanelFile *GetPanel();\n    virtual void SetPanel(stringx);\n\nprotected:\n    virtual void SetPQIndices();\n};\n\nclass TextString {\n    char data[0x4c];\n\npublic:\n    TextString(\n        Font *, stringx, float, float, int, float,\n        Font::HORIZJUST, Font::VERTJUST, bool, color32\n    );\n};\n\nclass FEManager {\n    char padding0[0x15620];\n\npublic:\n    Font font_hand;\n\nprivate:\n    char padding1[0x20fb];\n\npublic:\n    color32 white;\n};\n\nclass HelpbarFE : public FrontEnd {\n    enum {\n        ARROW_H,\n        ARROW_V,\n        ARROW_BOTH,\n        CROSS,\n        TRIANGLE,\n        CIRCLE,\n        SQUARE,\n        BTN_NUM\n    };\n\n    PanelQuad *buttons[BTN_NUM];\n    TextString *help_text[BTN_NUM];\n    bool has_text[BTN_NUM];\n    stringx default_text[BTN_NUM];\n    bool disabled;\n\npublic:\n    HelpbarFE(FEManager *, stringx, stringx);\n    virtual ~HelpbarFE();\n    virtual void Draw();\n    virtual void LoadPanel(bool = false);\n\nprotected:\n    virtual void SetPQIndices();\n};\n\nextern stringx ksGlobalTextArray[];\nextern const char source_file[];\nextern \"C\" void front_end_cons(\n    FrontEnd *, FEManager *, stringx, stringx\n) __asm__(\"cons__8FrontEndP9FEManagerG7stringxT2\");\n\nvoid *operator new(unsigned int, unsigned int, const char *, int);\n\n__asm__(\".equ ksGlobalTextArray, 0x003E64D0\");\n__asm__(\".equ source_file, 0x004DD500\");\n__asm__(\".equ cons__8FrontEndP9FEManagerG7stringxT2, 0x001579F8\");\n__asm__(\".equ __10TextStringP4FontG7stringxffifQ24Font9HORIZJUSTQ24Font8VERTJUSTbG7color32, 0x00148150\");\n__asm__(\".equ __nw__FUiUiPCci, 0x002AC578\");\n\nHelpbarFE::HelpbarFE(FEManager* man, stringx p, stringx pf_name)\n{\n    front_end_cons(this, man, p, pf_name);\n\n    float sc_sm = 0.8f;\n    color32 color = manager->white;\n\n    default_text[ARROW_H] = ksGlobalTextArray[0];\n    default_text[ARROW_V] = ksGlobalTextArray[0];\n    default_text[ARROW_BOTH] = ksGlobalTextArray[0];\n    default_text[CROSS] = ksGlobalTextArray[6];\n    default_text[CIRCLE] = ksGlobalTextArray[7];\n    default_text[TRIANGLE] = ksGlobalTextArray[9];\n    default_text[SQUARE] = ksGlobalTextArray[8];\n\n    for(int i=0; i<BTN_NUM; i++)\n        help_text[i] = new(0, source_file, 0) TextString(\n            &manager->font_hand, default_text[i], 0, 0, 0, sc_sm,\n            Font::HORIZJUST_LEFT, Font::VERTJUST_CENTER, false, color\n        );\n}\n",
+      "status": "different",
+      "target_size": 744
+    }
+  ],
+  "raw_name": "__9HelpbarFEP9FEManagerG7stringxT2"
+}
