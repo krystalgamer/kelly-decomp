@@ -1,0 +1,23 @@
+{
+  "address": "0x001559B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e3b88a918f106cebb7be3605c5a79515d8e9a91b",
+      "candidate_size": 404,
+      "compared_bytes": 636,
+      "compared_instructions": 159,
+      "emitted_name": "cons__11FEMenuEntryG7stringxP6FEMenubP4Font",
+      "instruction_score": 0.6289,
+      "matching_bytes": 75,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 120 lane B2\n\nExact released body tested once for `0x001559B0 cons__11FEMenuEntryG7stringxP6FEMenubP4Font`. Result `different`, score 11.7925%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 11.7925,
+      "source": "typedef unsigned int size_t;\n\nclass stringx { char data[8]; };\nclass Font;\nclass MultiLineString;\n\nclass color32 {\npublic:\n    unsigned int value;\n    color32(int, int, int, int);\n};\n\nclass FEMenuEntry;\nclass FEMenuSystem {\n    char button_down[28];\n    int device_flags;\npublic:\n    void *menus;\n    void *manager;\n    int active;\n    int size;\n    int count;\n    Font *font;\n};\n\nclass FEMenu {\npublic:\n    int center_x, center_y, num_entries, dy, half, menu_num;\n    bool init;\n    stringx font_filename;\n    color32 color, color_high, color_high_alt;\n    float scale, scale_high;\n    int max_vis_entries, flags;\n    FEMenuEntry *entries, *first_vis_entry, *last_vis_entry, *highlighted;\n    FEMenuSystem *system;\n};\n\nclass MultiLineString {\npublic:\n    MultiLineString(Font *, stringx, float, float);\n    void changeScale(float);\n    color32 color;\n    bool no_color;\n};\n\nclass FloatingText : public MultiLineString {\npublic:\n    FloatingText(Font *, stringx);\n};\n\nclass FEMenuEntry {\npublic:\n    int entry_num;\n    FEMenuEntry *next;\n    FEMenuEntry *previous;\n    FEMenu *menu;\nprotected:\n    bool highlight;\n    bool disabled;\n    void *ent;\n    color32 high_ent_color;\n    color32 norm_ent_color;\n    MultiLineString *text;\nprivate:\n    float highlight_intensity;\n    float highlight_timer;\n    int disabled_alpha;\n    color32 special_color;\n    color32 special_color_high;\n    bool has_special_color;\n    bool no_flash;\n    float special_scale;\n    float special_scale_high;\n    bool has_special_scale;\npublic:\n    FEMenuEntry *up, *down, *left, *right;\n    void cons(stringx, FEMenu *, bool, Font *);\n};\n\nvoid *operator new(size_t, unsigned int, const char *, int);\n#define NEW new(0, (const char *)0x004C3438, 0)\n#define NULL 0\nenum { FEMENU_HAS_COLOR = 4 };\n\nvoid FEMenuEntry::cons(stringx l, FEMenu* m, bool floating, Font* ft)\n{\n\tmenu = m;\n\tif(!ft) ft = menu->system->font;\n\tif(floating) text = NEW FloatingText(ft, l);\n\telse text = NEW MultiLineString(ft, l, 0, 0);\n\tnext = NULL;\n\tprevious = NULL;\n\thighlight = false;\n\tdisabled = false;\n\tif(m->flags & FEMENU_HAS_COLOR) text->color = m->color;\n\ttext->no_color = !(menu->flags & FEMENU_HAS_COLOR);\n\ttext->changeScale(m->scale);\n\thigh_ent_color = color32(255, 255, 255, 255);\n\tnorm_ent_color = color32(255, 255, 255, 255);\n\tent = NULL;\n\tup = NULL;\n\tdown = NULL;\n\tleft = NULL;\n\tright = NULL;\n\thighlight_intensity = 0.0f;\n\thas_special_color = false;\n\thas_special_scale = false;\n\thighlight_timer = 0.0f;\n\tno_flash = false;\n\tdisabled_alpha = 64;\n}\n",
+      "status": "different",
+      "target_size": 636
+    }
+  ],
+  "raw_name": "cons__11FEMenuEntryG7stringxP6FEMenubP4Font"
+}
