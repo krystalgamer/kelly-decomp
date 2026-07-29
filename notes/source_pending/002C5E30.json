@@ -1,0 +1,15 @@
+{
+  "address": "0x002C5E30",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6c067de6e5f4357616cb2398e892840567f5cb97",
+      "notes": "# FIRST PASS wave 154 lane A2\n\nExact released source tested once for `0x002C5E30 make_po__12marky_camera`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x002C5E30 make_po__12marky_camera\n// Reference: KS/SRC/camera.cpp\n// Replace this file with one self-contained candidate function.\n#include \"global.h\"\n#include \"camera.h\"\n\nvoid marky_camera::make_po()\n{\n  assert( !is_externally_controlled() );\n  po my_po = get_rel_po();\n  my_po.set_facing( target ); //my_po\n\n  if(__fabs(roll) >= 0.001f)\n  {\n    po tmp_po;\n    tmp_po.set_rotate_z(roll);\n\n    fast_po_mul(my_po, tmp_po, my_po);\n//    my_po = tmp_po*my_po;\n  }\n\n  set_rel_po(my_po);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "make_po__12marky_camera"
+}
