@@ -1,0 +1,23 @@
+{
+  "address": "0x00222620",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a43b70d58ffa4e5a6c0c95671de5bc72a595242b",
+      "candidate_size": 576,
+      "compared_bytes": 588,
+      "compared_instructions": 147,
+      "emitted_name": "DetermineTubeGaps__22kellyslater_controller",
+      "instruction_score": 31.9728,
+      "matching_bytes": 245,
+      "matching_instructions": 47,
+      "notes": "# FIRST PASS wave112 B4 0x00222620\n\nExact released `DetermineTubeGaps` source was recovered from `historicalsource/kelly-slaters-pro-surfer` (`KS/SRC/ks/kellyslater_controller.cpp`, commit `7c3ade041cc03409a3114ce3ba4a70053c6e4e3b`). The single LF candidate preserves its region/tube reset, marker normalization, threshold ordering, gap IDs, flags, and sound events; only minimal self-contained declarations and numeric enum values were supplied for the harness.\n\nResult: different, 41.6667% bytes, 31.9728% instructions, emitted 576 vs target 588 bytes. No follow-up attempted.",
+      "score": 41.6667,
+      "source": "#include \"KS/SRC/vector3d_shared.h\"\n\nextern \"C\" float sqrtf(float);\ninline float length(const vector3d &v) { return sqrtf(v.x*v.x + v.y*v.y + v.z*v.z); }\ninline vector3d &operator/=(vector3d &v, float d) { float r=1.0f/d; v.x*=r; v.y*=r; v.z*=r; return v; }\ninline float dot(const vector3d &a, const vector3d &b) { return a.x*b.x+a.y*b.y+a.z*b.z; }\n\nenum WaveMarkerEnum { WAVE_MarkerTubeGapStart=53, WAVE_MarkerTubeGapEnd=54 };\nextern vector3d *WAVE_GetMarker(WaveMarkerEnum);\n\nclass entity {\n    char pad[0x30]; vector3d position;\npublic: const vector3d &get_abs_position() const { return position; }\n};\nclass board_controller {\n    char pad[0xDD4]; int region;\npublic: int GetWaveRegion() const { return region; }\n};\nclass ScoringManager { public: void AddGap(int); };\nclass game {\n    char pad[0x228]; int beach;\npublic: int get_beach_id() const { return beach; }\n};\nextern game *g_game_ptr;\nenum EventType { SS_TUBE_MID=32, SS_TUBE_DEEP=33 };\nclass SoundScriptManager {\npublic:\n    static SoundScriptManager *instance;\n    static SoundScriptManager *inst() { return instance; }\n    int playEvent(EventType, entity *source=0, float fade=0.0f);\n};\nclass kellyslater_controller {\n    char pad0[0xC]; entity *owner;\n    char pad1[0xDC8]; board_controller my_board_controller;\n    char pad2[0x310]; ScoringManager my_scoreManager;\n    char pad3[0x9A4]; bool passed_first_tube_thresh; bool passed_second_tube_thresh;\npublic:\n    entity *get_owner() const { return owner; }\n    bool Z_Within_Tube();\n    void DetermineTubeGaps();\n};\nextern float g_tube_gap1, g_tube_gap2;\n\n__asm__(\".equ WAVE_GetMarker__F14WaveMarkerEnum,0x0037D7E8\");\n__asm__(\".equ g_game_ptr,0x0046AC64\");\n__asm__(\".equ _18SoundScriptManager$instance,0x0046B4A0\");\n__asm__(\".equ Z_Within_Tube__22kellyslater_controller,0x00223978\");\n__asm__(\".equ AddGap__14ScoringManageri,0x00247C78\");\n__asm__(\".equ playEvent__18SoundScriptManager9EventTypeP6entityf,0x0031C380\");\n__asm__(\".equ g_tube_gap1,0x00424C60\");\n__asm__(\".equ g_tube_gap2,0x00424C64\");\n\nvoid kellyslater_controller::DetermineTubeGaps(void)\n{\n\tint region = my_board_controller.GetWaveRegion();\n\tif ((region != 9) || !this->Z_Within_Tube())\n\t{\n\t\tpassed_first_tube_thresh = false;\n\t\tpassed_second_tube_thresh = false;\n\t\treturn;\n\t}\n\n\tint current_beach = g_game_ptr->get_beach_id ();\n\n\tvector3d tube_start = *WAVE_GetMarker(WAVE_MarkerTubeGapEnd) - *WAVE_GetMarker(WAVE_MarkerTubeGapStart);\n\tfloat len = length(tube_start);\n\tif (len > 0.0f)\n\t\ttube_start /= len;\n\n\tvector3d tube_pos = get_owner()->get_abs_position() - *WAVE_GetMarker(WAVE_MarkerTubeGapStart);\n\tfloat perc = dot(tube_pos, tube_start);\n\n\tif ((perc > g_tube_gap2*len) && !passed_second_tube_thresh && passed_first_tube_thresh)\n\t{\n\t\tmy_scoreManager.AddGap((current_beach * 2) + 1);\n\t\tpassed_second_tube_thresh = true;\n\t\tSoundScriptManager::inst()->playEvent(SS_TUBE_DEEP);\n\t}\n\n\tif ((perc > g_tube_gap1*len) && !passed_first_tube_thresh)\n\t{\n\t\tmy_scoreManager.AddGap(current_beach * 2);\n\t\tpassed_first_tube_thresh = true;\n\t\tSoundScriptManager::inst()->playEvent(SS_TUBE_MID);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 588
+    }
+  ],
+  "raw_name": "DetermineTubeGaps__22kellyslater_controller"
+}
