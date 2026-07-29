@@ -1,0 +1,15 @@
+{
+  "address": "0x002D83B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4fe6b8c96fa79a0d5ba9b6de4298145fb0e34f79",
+      "notes": "# FIRST PASS wave 120 lane B5\n\nExact released body tested once for `0x002D83B8 COLGEOM_stl_prealloc__Fv`. Attempts before: 0. LF-only candidate. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "void COLGEOM_stl_prealloc( void )\n{\n\tvector3d dummy;\n\tfor ( int i=0; i<256; i++ )\n\t{\n    hit_list.push_back( dummy );\n    normal_list1.push_back( dummy );\n    normal_list2.push_back( dummy );\n\t}\n  hit_list.resize(0);\n  normal_list1.resize(0);\n  normal_list2.resize(0);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "COLGEOM_stl_prealloc__Fv"
+}
