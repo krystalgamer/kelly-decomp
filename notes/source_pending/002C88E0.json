@@ -1,0 +1,23 @@
+{
+  "address": "0x002C88E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "142b48d3427976f75098a58ef2c04bb73b6b55e4",
+      "candidate_size": 848,
+      "compared_bytes": 848,
+      "compared_instructions": 212,
+      "emitted_name": "render_beam__FRC8vector3dT0G7color32f",
+      "instruction_score": 8.9623,
+      "matching_bytes": 226,
+      "matching_instructions": 19,
+      "notes": "# FIRST PASS wave 138 lane B4\n\nExact released source tested once for `0x002C88E0 render_beam__FRC8vector3dT0G7color32f`. Attempts before: 0. Result `different`, byte score 26.6509% and instruction score 8.9623%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 26.6509,
+      "source": "extern \"C\" float sqrtf(float);\n\nstruct vector3d {\n  float x, y, z;\n  vector3d() {}\n  vector3d(float X, float Y, float Z) : x(X), y(Y), z(Z) {}\n  vector3d operator+(const vector3d& v) const { return vector3d(x+v.x,y+v.y,z+v.z); }\n  vector3d operator-(const vector3d& v) const { return vector3d(x-v.x,y-v.y,z-v.z); }\n  vector3d operator*(float f) const { return vector3d(x*f,y*f,z*f); }\n  vector3d operator/(float f) const { float inv=1.0f/f; return vector3d(x*inv,y*inv,z*inv); }\n  float length2() const { return x*x+y*y+z*z; }\n  float length() const { return sqrtf(length2()); }\n  void set_length(float f) { float l2=length2(); if (l2>1.0e-10f) { float s=f/sqrtf(l2); x*=s; y*=s; z*=s; } }\n};\ninline vector3d cross(const vector3d& a,const vector3d& b) { return vector3d(a.y*b.z-a.z*b.y,a.z*b.x-a.x*b.z,a.x*b.y-a.y*b.x); }\nstruct color32 { unsigned int i; };\nstruct po { char pad[48]; vector3d position; const vector3d& get_position() const { return position; } };\nstruct camera { char pad[80]; po* abs_po; const po& get_abs_po() const { return *abs_po; } };\nstruct game { char pad[40]; camera* current_view_camera; camera* get_current_view_camera() { return current_view_camera; } };\nstruct app { char pad[16]; game* the_game; static app* inst(); game* get_game() { return the_game; } };\nextern app* g_app __asm__(\"app_inst\");\n__asm__(\".equ app_inst,0x0045AC18\");\ninline app* app::inst() { return g_app; }\nvoid render_quad(const vector3d&,const vector3d&,const vector3d&,const vector3d&,color32,bool=false) __asm__(\"render_quad__FRC8vector3dN30G7color32b\");\n__asm__(\".equ render_quad__FRC8vector3dN30G7color32b,0x002C8280\");\n\nvoid render_beam( const vector3d &pt1, const vector3d &pt2, color32 col, float thickness )\n{\n  vector3d vec = pt2 - pt1;\n  float len = vec.length();\n  if (len<1e-9f)\n    return;\n  vector3d normvec = vec/len;\n  camera* curcam = app::inst()->get_game()->get_current_view_camera();\n  vector3d linevec = (pt1+pt2)*0.5f-curcam->get_abs_po().get_position();\n  vector3d cx = cross(linevec, normvec);\n  if (cx.length2()<1e-9f) return;\n  cx.set_length(thickness*0.5f);\n  vector3d p0,p1,p2,p3;\n  p0 = pt1 - cx;\n  p1 = pt1 + cx;\n  p2 = pt2 + cx;\n  p3 = pt2 - cx;\n  render_quad(p0,p1,p2,p3, col);\n}\n",
+      "status": "different",
+      "target_size": 756
+    }
+  ],
+  "raw_name": "render_beam__FRC8vector3dT0G7color32f"
+}
