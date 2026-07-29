@@ -1,0 +1,23 @@
+{
+  "address": "0x00315580",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "236c114d49d34c7cc815465562149536ad540834",
+      "candidate_size": 248,
+      "compared_bytes": 500,
+      "compared_instructions": 125,
+      "emitted_name": "register_anim_lib__Fv",
+      "instruction_score": 2.4,
+      "matching_bytes": 47,
+      "matching_instructions": 3,
+      "notes": "# FIRST PASS wave93 B1\n\n- Target: `0x00315580 register_anim_lib__Fv` (500 / `0x1F4`), `game/files_script`.\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/script_lib_anim.cpp`.\n- Confirmed attempts0 before preparation/testing.\n- Candidate: LF-only exact released body with minimal faithful self-contained declarations and no headers.\n- Sole attempt: `different`; byte score 9.4000% (47/500 compared), instruction score 2.4000% (3/125); candidate 248 bytes, target 500 bytes.\n- Candidate SHA-1: `236c114d49d34c7cc815465562149536ad540834`.\n- Exactly one candidate and one harness invocation. No alternatives, asm analysis, annotations, variants, retry, attempts 2-5, or post-test chase.\n- Tracked/reference files remained read-only. No finalize, integrate, build, or git mutation.\n\n## Outcome\n\nThe exact released animation-library registration body differed at 9.4000% byte score; no source variant was attempted.",
+      "score": 9.4,
+      "source": "#define NEW new\n\nclass slc_anim_t\n{\npublic:\n  slc_anim_t(const char*, int);\n};\n\nclass slf_anim_pause_t\n{\npublic:\n  slf_anim_pause_t(slc_anim_t*, const char*);\n};\n\nclass slf_anim_set_timescale_t\n{\npublic:\n  slf_anim_set_timescale_t(slc_anim_t*, const char*);\n};\n\nclass slf_anim_set_time_t\n{\npublic:\n  slf_anim_set_time_t(slc_anim_t*, const char*);\n};\n\nclass slf_anim_play_t\n{\npublic:\n  slf_anim_play_t(slc_anim_t*, const char*);\n};\n\nclass slf_anim_wait_finished_t\n{\npublic:\n  slf_anim_wait_finished_t(slc_anim_t*, const char*);\n};\n\nclass slf_anim_kill_anim_t\n{\npublic:\n  slf_anim_kill_anim_t(slc_anim_t*, const char*);\n};\n\nclass slf_load_anim_t\n{\npublic:\n  slf_load_anim_t(const char*);\n};\n\nvoid register_anim_lib()\n{\n  slc_anim_t* slc_anim = NEW slc_anim_t(\"anim\",4);\n\n  NEW slf_anim_pause_t(slc_anim,\"pause()\");\n  NEW slf_anim_set_timescale_t(slc_anim,\"set_timescale(num)\");\n  NEW slf_anim_set_time_t(slc_anim,\"set_time(num)\");\n  NEW slf_anim_play_t(slc_anim,\"play()\");\n  NEW slf_anim_wait_finished_t(slc_anim,\"wait_finished()\");\n  NEW slf_anim_kill_anim_t(slc_anim,\"kill_anim()\");\n  NEW slf_load_anim_t(\"load_anim(str)\");\n}\n",
+      "status": "different",
+      "target_size": 500
+    }
+  ],
+  "raw_name": "register_anim_lib__Fv"
+}
