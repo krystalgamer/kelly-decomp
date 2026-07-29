@@ -1,0 +1,15 @@
+{
+  "address": "0x00356FC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9ba57d5929acb2b6b88d25098d30a3218d94c7fd",
+      "notes": "# FIRST PASS wave 156 lane B1\n\nExact released source tested once for `0x00356FC8 __as__t6vector2Z14vertex_contextZt12my_allocator1Z14vertex_contextRCt6vector2Z14vertex_contextZt12my_allocator1Z14vertex_context`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "class hw_texture;\nclass vertex_context\n{\npublic:\n  enum filter_mode_t { POINT_SAMPLE, BILINEAR, TRILINEAR, ANISOTROPIC };\n  enum clamp_mode_t { NOCLAMP, CLAMP_V, CLAMP_U, CLAMP_UV };\n  enum flip_mode_t { NOFLIP, FLIP_V, FLIP_U, FLIP_UV };\n  enum alpha_mode_t { DESTALPHA, DESTCOLOR, INVDESTALPHA, INVDESTCOLOR, INVSRCALPHA, INVSRCCOLOR, SRCALPHA, SRCCOLOR, ONE, ZERO };\n  enum shade_mode_t { FLAT, GOURAUD };\n  enum cull_mode_t { CNONE, CCW, CW };\n  vertex_context();\n  ~vertex_context();\nprivate:\n  hw_texture* texture;\n  filter_mode_t filter_mode;\n  clamp_mode_t clamp_mode;\n  flip_mode_t flip_mode;\n  alpha_mode_t src_alpha;\n  alpha_mode_t dst_alpha;\n  shade_mode_t shade_mode;\n  cull_mode_t cull_mode;\n  bool fog;\n  bool changed;\n  bool punchthrough;\n};\n\n#include <vector>\n\ntemplate <class _Tp, class _Alloc>\nvector<_Tp,_Alloc>&\nvector<_Tp,_Alloc>::operator=(const vector<_Tp, _Alloc>& __x)\n{\n  if (&__x != this) {\n    const size_type __xlen = __x.size();\n    if (__xlen > capacity()) {\n      iterator __tmp = _M_allocate_and_copy(__xlen, __x.begin(), __x.end());\n      destroy(_M_start, _M_finish);\n      _M_deallocate(_M_start, _M_end_of_storage - _M_start);\n      _M_start = __tmp;\n      _M_end_of_storage = _M_start + __xlen;\n    }\n    else if (size() >= __xlen) {\n      iterator __i = copy(__x.begin(), __x.end(), begin());\n      destroy(__i, _M_finish);\n    }\n    else {\n      copy(__x.begin(), __x.begin() + size(), _M_start);\n      uninitialized_copy(__x.begin() + size(), __x.end(), _M_finish);\n    }\n    _M_finish = _M_start + __xlen;\n  }\n  return *this;\n}\n\ntemplate class vector<vertex_context, my_allocator<vertex_context> >;\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__as__t6vector2Z14vertex_contextZt12my_allocator1Z14vertex_contextRCt6vector2Z14vertex_contextZt12my_allocator1Z14vertex_context"
+}
