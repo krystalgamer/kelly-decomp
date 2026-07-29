@@ -1,0 +1,23 @@
+{
+  "address": "0x003A8C98",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c8fb27fac9a39820be0356dfc283191c60939ccc",
+      "candidate_size": 460,
+      "compared_bytes": 472,
+      "compared_instructions": 118,
+      "emitted_name": "nglVif1AddSkinPass__FRPUiUiUiP14nglMeshSectionP16nglMeshBatchInfo",
+      "instruction_score": 0.8475,
+      "matching_bytes": 103,
+      "matching_instructions": 1,
+      "notes": "FIRST PASS wave88 A5\nTarget: 0x003A8C98 nglVif1AddSkinPass__FRPUiUiUiP14nglMeshSectionP16nglMeshBatchInfo (472 bytes / 0x1D8), object ngl/ngl_ps2.\nConfirmed zero prior attempts. Tested exactly one LF-terminated self-contained candidate preserving the exact released body from kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.cpp with minimal faithful declarations and no unresolved includes.\nResult: different; byte score 21.8220% (103/472), instruction score 0.8475% (1/118), candidate size 460 bytes versus target size 472 bytes.\nNo alternatives, assembly, annotations, variants, retry, attempts 2-5, chase, build, finalize, integrate, git mutation, or tracked/reference edits. Packet flags: tracked=false, finalized=false, integrated=false.",
+      "score": 21.822,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned short u_short;\n\nstruct nglMaterial\n{\n  u_int Flags;\n};\n\nstruct nglMeshSection\n{\n  nglMaterial* Material;\n};\n\nstruct nglMeshBatchInfo\n{\n  u_int NVerts;\n  u_int* StripData;\n  float* PosData;\n  float* UVData;\n  u_int* ColorData;\n  float* NormData;\n  float* LightUVData;\n  char* BoneCountData;\n  u_short* BoneIdxData;\n  float* BoneWeightData;\n};\n\n#define NGLMAT_ALPHA_FALLOFF 0x00000004\n#define NGLMAT_DETAIL_MAP 0x00000040\n#define NGLMAT_ENVIRONMENT_MAP 0x00000080\n#define NGLMAT_LIGHT 0x00100000\n#define NGLMEM_VERT_START 1\n#define NGLCMD_SKIN 0\n#define SCE_VIF1_S_8 0x02\n#define SCE_VIF1_V3_32 0x08\n#define SCE_VIF1_V4_16 0x0d\n#define SCE_VIF1_V4_32 0x0c\n#define SCE_VIF1_MASK_ENABLE 0x10\n#define SCE_VIF1_SET_STCYCL(wl, cl, irq) (0x01000000 | ((wl) << 8) | (cl))\n#define SCE_VIF1_SET_STMASK(irq) 0x20000000\n#define SCE_VIF1_SET_UNPACK(addr, num, mode, irq) (0x60000000 | ((mode) << 24) | ((num) << 16) | (addr))\n\nvoid nglVif1AddCommandListExec( u_int*& Packet, u_int VertBase, u_int Pass );\n\nvoid nglVif1AddSkinPass( u_int*& Packet, u_int VertBase, u_int SrcBufSize, nglMeshSection* Section, nglMeshBatchInfo* Batch )\n{\n  // Unpack the SrcXYZs into the source buffer.\n  Batch->PosData = (float*)Packet + 4;\n  Packet[0] = SCE_VIF1_SET_STCYCL( 1, 2, 0 );\n  Packet[1] = SCE_VIF1_SET_STMASK( 0 );\n  Packet[2] = 0x40404040; // 01-00-00-00 (WZYX)\n  Packet[3] = SCE_VIF1_SET_UNPACK( VertBase + NGLMEM_VERT_START + SrcBufSize, Batch->NVerts, SCE_VIF1_V3_32 | SCE_VIF1_MASK_ENABLE, 0 );\n  Packet += 4 + Batch->NVerts * 3;\n\n  // Unpack the normal data (if present).\n  nglMaterial* Material = Section->Material;\n  if (    ( Material->Flags & NGLMAT_LIGHT )\n      ||  ( Material->Flags & NGLMAT_DETAIL_MAP )\n      ||  ( Material->Flags & NGLMAT_ENVIRONMENT_MAP )\n      ||  ( Material->Flags & NGLMAT_ALPHA_FALLOFF ) )\n  {\n    Batch->NormData = (float*)Packet + 1;\n    Packet[0] = SCE_VIF1_SET_UNPACK( VertBase + NGLMEM_VERT_START + SrcBufSize + 1, Batch->NVerts, SCE_VIF1_V3_32 | SCE_VIF1_MASK_ENABLE, 0 );\n    Packet += 1 + Batch->NVerts * 3;\n  }\n\n  // Unpack the bone counts into where the UVs normally go.\n  Batch->BoneCountData = (char*)( Packet + 2 );\n  Packet[0] = SCE_VIF1_SET_STCYCL( 1, 3, 0 );\n  Packet[1] = SCE_VIF1_SET_UNPACK( VertBase + NGLMEM_VERT_START, Batch->NVerts, SCE_VIF1_S_8, 0 );\n  Packet += 2 + ( Batch->NVerts + 3 ) / 4;\n\n// Fix up the bone count data to be jump table offsets instead of bone counts.\n//    for ( u_int k = 0; k < Batch->NVerts * 4; k++ )\n//      Batch->BoneCountData[k] = nglProgAddrs[NGLPROG_SKIN_ONE_BONE + Batch->BoneCountData[k] - 1];\n\n  // Unpack the bone indices into where the Colors normally go.\n  Batch->BoneIdxData = (u_short*)( Packet + 1 );\n  Packet[0] = SCE_VIF1_SET_UNPACK( VertBase + NGLMEM_VERT_START + 1, Batch->NVerts, SCE_VIF1_V4_16, 0 );\n  Packet += 1 + Batch->NVerts * 2;\n\n  // Unpack the weights into where the dest positions normally go.\n  Batch->BoneWeightData = (float*)Packet + 1;\n  Packet[0] = SCE_VIF1_SET_UNPACK( VertBase + NGLMEM_VERT_START + 2, Batch->NVerts, SCE_VIF1_V4_32, 0 );\n  Packet += 1 + Batch->NVerts * 4;\n\n  nglVif1AddCommandListExec( Packet, VertBase, NGLCMD_SKIN );\n}\n",
+      "status": "different",
+      "target_size": 472
+    }
+  ],
+  "raw_name": "nglVif1AddSkinPass__FRPUiUiUiP14nglMeshSectionP16nglMeshBatchInfo"
+}
