@@ -1,0 +1,15 @@
+{
+  "address": "0x001DFD70",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "35f990f835df110ed70064bd2c467a1dffa2bca1",
+      "notes": "# FIRST PASS wave 121 lane A4\n\nExact released body tested once for `0x001DFD70 try_to_open_from_cd__7os_file`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <string.h>\n#include <assert.h>\n#include <libcdvd.h>\n\nclass string_buf;\nclass stringx\n{\nprotected:\n  char *chars;\n  string_buf *my_buf;\npublic:\n  unsigned int length() const;\n  const char *c_str() const;\n  bool operator!=(const char *s) const;\n};\n\nclass filespec\n{\npublic:\n  stringx path;\n  stringx name;\n  stringx ext;\n  explicit filespec(const stringx& s);\n};\n\nclass os_developer_options\n{\npublic:\n  enum flags_t\n  {\n    FLAG_CHATTY_LOAD\n  };\n  static os_developer_options *inst();\n  bool is_flagged(flags_t flag) const;\n};\n\nextern int nglPrintf(const char *fmt, ...);\nextern \"C\" char *strupr(char *s);\n\n#define MAX_DISK_OP_TRIES 300\nstatic bool g_error_condition = false;\nstatic int g_try_count = 0;\n#define RETRY_LOOP_ENTRY g_try_count = 0; do{\n#define RETRY_LOOP_WHILE(cond) g_error_condition = ((cond)); g_try_count++; }while( ( g_try_count < MAX_DISK_OP_TRIES ) && g_error_condition );\n#define ON_RETRY_ERROR if( g_error_condition )\n\nclass os_file\n{\nprivate:\n  stringx name;\n  int flags;\n  bool opened;\n  bool eof;\n  bool from_cd;\n  static char root_dir[256];\n  static char pre_root_dir[256];\n  static bool system_locked;\n  union\n  {\n    int host;\n    sceCdlFILE cd;\n  } io;\n  int curr_fp;\n  bool try_to_open_from_cd();\n};\n\nbool os_file::try_to_open_from_cd()\n{\n  char filename[256];\n  char cd_filename[256];\n  int ret = 0;\n  opened = false;\n\n  filespec spec(name);\n  if (spec.name.length() > 8 || spec.ext.length() > 4)\n  {\n//    if (os_developer_options::inst()->is_flagged(os_developer_options::FLAG_CHATTY_LOAD))\n//      nglPrintf(\"File %s is not in 8.3 format\\n\", name.c_str());\n    return false;\n  }\n\n  // check the filename is within reasonable limits with cdrom0:\\ and ;1 added\n  assert(name.length() < 245);\n\n  strcpy(filename, name.c_str());\n  strupr(filename);\n  if (name != \"GAME.INI\" && os_developer_options::inst()->is_flagged(os_developer_options::FLAG_CHATTY_LOAD))\n    nglPrintf(\"CD Search Filename: '%s'\\n\", filename);\n\n\n  RETRY_LOOP_ENTRY;\n    int ready_ret;\n    ready_ret = sceCdDiskReady(0);\n  RETRY_LOOP_WHILE( ready_ret == SCECdNotReady );\n  \n  ON_RETRY_ERROR return false;\n\n  strcpy(cd_filename, \"\\\\\");\n  strcat(cd_filename, filename);\n  strcat(cd_filename, \";1\");\n  RETRY_LOOP_ENTRY;\n    ret = sceCdSearchFile( &io.cd, cd_filename );\n  RETRY_LOOP_WHILE( ret == 0 );\n\n  ON_RETRY_ERROR return false;\n\n  opened = true;\n  eof = false;\n  from_cd = true;\n  curr_fp = 0;\n\n  return true;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "try_to_open_from_cd__7os_file"
+}
