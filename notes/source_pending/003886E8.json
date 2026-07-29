@@ -1,0 +1,23 @@
+{
+  "address": "0x003886E8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ed7a057b18e48b756552017460367c08784eed89",
+      "candidate_size": 460,
+      "compared_bytes": 480,
+      "compared_instructions": 120,
+      "emitted_name": "vblankHandler__Fi",
+      "instruction_score": 5.0,
+      "matching_bytes": 67,
+      "matching_instructions": 6,
+      "notes": "# FIRST PASS wave90 A2 \u2014 0x003886E8 `vblankHandler__Fi`\n\n- Confirmed prepared attempt history was empty (`attempts_used: 0`).\n- Tested exactly one LF candidate: the released function body with self-contained minimal declarations and no SDK/project includes.\n- Result: **different** \u2014 67/480 matching bytes (13.9583%), 6/120 matching instructions (5.0%), candidate size 460 bytes.\n- No alternative, retry, annotation, assembly implementation, integration, finalization, git operation, or build was performed.\n- Reference and tracked files were read-only; artifacts are confined to this lane and function-tester scratch under `tmp/`.",
+      "score": 13.9583,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned long long u_long128;\n\nstruct sceDmaChan;\nstruct sceGsDrawEnv1 { unsigned char data[240]; };\nstruct sceGsDBuff {\n    unsigned char pad0[96];\n    sceGsDrawEnv1 draw0;\n    sceGsDrawEnv1 draw1;\n};\nstruct VoData;\nstruct VoTag {\n    int status;\n    int dummy[15];\n    unsigned int v[2][39232];\n};\nstruct VoBuf {\n    VoData *data;\n    VoTag *tag;\n    volatile int write;\n    volatile int count;\n    int size;\n};\n\nextern sceDmaChan *sceDmaGetChan(int);\nextern int sceGsSyncPath(int, int);\nextern VoTag *voBufGetTag(VoBuf *);\nextern void sceGsSetHalfOffset(sceGsDrawEnv1 *, int, int, int);\nextern void sceGsSwapDBuff(sceGsDBuff *, int);\nextern void sceDmaSend(sceDmaChan *, u_long128 *);\n\nextern sceGsDBuff *pGSDB;\nextern VoBuf voBuf;\nextern int frd;\nextern volatile int isCountVblank;\nextern volatile int vblankCount;\nextern volatile int isFrameEnd;\nextern volatile int oddeven;\nextern volatile int handler_error;\n\n__asm__(\n    \".equ pGSDB,0x00596F50\\n\"\n    \".equ voBuf,0x005970F0\\n\"\n    \".equ frd,0x00596F9C\\n\"\n    \".equ isCountVblank,0x0048AFF4\\n\"\n    \".equ vblankCount,0x0048AFF8\\n\"\n    \".equ isFrameEnd,0x0048AFFC\\n\"\n    \".equ oddeven,0x0048B008\\n\"\n    \".equ handler_error,0x0048B00C\\n\"\n    \".equ sceDmaGetChan__Fi,0x003BAF88\\n\"\n    \".equ sceGsSyncPath__Fii,0x003B9968\\n\"\n    \".equ voBufGetTag__FP5VoBuf,0x00389120\\n\"\n    \".equ sceGsSetHalfOffset__FP13sceGsDrawEnv1iiii,0x003BAC38\\n\"\n    \".equ sceGsSwapDBuff__FP10sceGsDBuffi,0x003BA370\\n\"\n    \".equ sceDmaSend__FP10sceDmaChanPv,0x003BB268\\n\"\n);\n\n#define SCE_DMA_GIF 2\n#define GS_CSR ((volatile unsigned long long *)0x12001000)\n#define UncAddr(x) ((void *)(((u_int)(x) & 0x0fffffff) | 0x20000000))\n#define VOBUF_STATUS_ 0\n#define VOBUF_STATUS_TOPDONE 1\n#define VOBUF_STATUS_FULL 2\n#define ExitHandler() __asm__ volatile(\"sync.p\\n\\tei\")\n\nstatic int vblankHandler( int val )\n{\n    sceDmaChan  *dmaGif_loadimage = sceDmaGetChan( SCE_DMA_GIF );\n\n    oddeven = ( *GS_CSR >> 13 ) & 1;\n    if( isCountVblank )\n    {\n        VoTag   *tag;\n\n        vblankCount++;\n        handler_error = sceGsSyncPath( 1, 0 );\n        if( !handler_error )\n        {\n            tag = voBufGetTag( &voBuf );\n            if( !tag )\n            {\n                frd++;\n                ExitHandler();\n                return 0;\n            }\n            sceGsSetHalfOffset( (oddeven&1)?(sceGsDrawEnv1*)UncAddr(&pGSDB->draw1) : (sceGsDrawEnv1*)UncAddr(&pGSDB->draw0), 2048, 2048, oddeven ^ 0x1 );\n            if( (oddeven == 0) && (tag->status == VOBUF_STATUS_FULL) )\n            {\n                sceGsSwapDBuff( pGSDB, 0 );\n                sceGsSyncPath( 0, 0 );\n                sceDmaSend( dmaGif_loadimage, (u_long128*)((u_int)tag->v[0]) );\n                tag->status = VOBUF_STATUS_TOPDONE;\n            }\n            else if( oddeven == 1 && tag->status == VOBUF_STATUS_TOPDONE )\n            {\n                sceGsSwapDBuff( pGSDB, 1 );\n                sceGsSyncPath( 0, 0 );\n                sceDmaSend( dmaGif_loadimage, (u_long128*)((u_int)tag->v[1]) );\n                tag->status = VOBUF_STATUS_;\n                isFrameEnd = 1;\n            }\n        }\n    }\n    ExitHandler();\n    return 0;\n}\n",
+      "status": "different",
+      "target_size": 480
+    }
+  ],
+  "raw_name": "vblankHandler__Fi"
+}
