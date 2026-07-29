@@ -1,0 +1,15 @@
+{
+  "address": "0x00108158",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "411a8260e42aa2c8f439061ad1f18d9a60da8499",
+      "notes": "# FIRST PASS wave 130 lane A1\n\nExact released source tested once for `0x00108158 handle_chunk__13ai_locomotionR10chunk_fileR7stringx`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ai_locomotion_shared.h\"\n#include \"KS/SRC/stringx.h\"\n\nvoid serial_in(chunk_file& fs, rational_t* value);\n\nvoid ai_locomotion::handle_chunk(chunk_file& fs, stringx &label)\n{\n  if(label == \"xz_movement\")\n  {\n    xz_movement = true;\n  }\n  else if(label == \"patrol_radius\")\n  {\n    serial_in(fs, &patrol_radius);\n  }\n  else if(label == \"jockey_speed\")\n  {\n    serial_in(fs, &jockey_speed);\n  }\n  else if(label == \"no_45_jockey_anims\")\n  {\n    use_45_jockey = false;\n  }\n  else if(label == \"use_45_jockey_anims\")\n  {\n    use_45_jockey = true;\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "handle_chunk__13ai_locomotionR10chunk_fileR7stringx"
+}
