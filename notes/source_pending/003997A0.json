@@ -1,0 +1,15 @@
+{
+  "address": "0x003997A0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8f6819521376a54a46ad9eba841aadd1a3762387",
+      "notes": "# FIRST PASS wave 147 lane B1\n\nExact released source tested once for `0x003997A0 nglVif1AddFastRect__FRPUiP8nglSceneR9nglVectorUiPi`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include <algorithm>\n#include <utility>\nusing namespace std;\n#include \"../../../kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2.h\"\n#include \"../../../kelly-slaters-pro-surfer/NGL/PS2/ngl_ps2_internal.h\"\n\nvoid nglVif1AddFastRect( u_int*& Packet, nglScene *Scene, nglVector& Rect, u_int Z, sceVu0IVECTOR Color )\n{\n  nglVif1AddRawGSReg( SCE_GS_PRIM, SCE_GS_SET_PRIM( SCE_GS_PRIM_SPRITE, 0, 0, 0, 0, 0, 0, 0, 0 ) );\n  nglVif1AddRawGSReg( SCE_GS_PRMODE, SCE_GS_SET_PRMODE( 0, 0, 0, 0, 0, 0, 0, 0 ) );\n  nglVif1AddRawGSReg( SCE_GS_RGBAQ, SCE_GS_SET_RGBAQ( Color[0], Color[1], Color[2], Color[3], 0x3f800000 ) );\n\n  nglTexture* Target = Scene->RenderTarget;\n  int x1 = nglFTOI( Rect[0] + 2048 - ( Target->Width / 2 ) );\n  int y1 = nglFTOI( Rect[1] + 2048 - ( Target->Height / 2 ) );\n  int x2 = nglFTOI( Rect[2] + 2048 - ( Target->Width / 2 ) );\n  int y2 = nglFTOI( Rect[3] + 2048 - ( Target->Height / 2 ) );\n\n  // Left sprite - align to a 32 pixel boundary.\n  if ( x1 & 31 )\n  {\n    nglVif1AddRawGSReg( SCE_GS_XYZ2, SCE_GS_SET_XYZ( x1 << 4, y1 << 4, Z ) );\n    nglVif1AddRawGSReg( SCE_GS_XYZ2, SCE_GS_SET_XYZ( ( ( x1 + 31 ) & ~31 ) << 4, ( y2 + 1 ) << 4, Z ) );\n    x1 = ( x1 + 31 ) & ~31;\n  }\n\n  // Middle - write 32 pixel wide vertical strips.\n  while ( x1 + 31 < x2 )\n  {\n    nglVif1AddRawGSReg( SCE_GS_XYZ2, SCE_GS_SET_XYZ( x1 << 4, y1 << 4, Z ) );\n    nglVif1AddRawGSReg( SCE_GS_XYZ2, SCE_GS_SET_XYZ( ( x1 + 32 ) << 4, ( y2 + 1 ) << 4, Z ) );\n    x1 += 32;\n  }\n\n  // Right edge - write the final strip to complete the rectangle.\n  nglVif1AddRawGSReg( SCE_GS_XYZ2, SCE_GS_SET_XYZ( x1 << 4, y1 << 4, Z ) );\n  nglVif1AddRawGSReg( SCE_GS_XYZ2, SCE_GS_SET_XYZ( ( x2 + 1 ) << 4, ( y2 + 1 ) << 4, Z ) );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "nglVif1AddFastRect__FRPUiP8nglSceneR9nglVectorUiPi"
+}
