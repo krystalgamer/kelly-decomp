@@ -1,0 +1,23 @@
+{
+  "address": "0x00381A00",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "dddc2d01f9e0c03c3cf432d9623e5c3be84f8f9e",
+      "candidate_size": 728,
+      "compared_bytes": 728,
+      "compared_instructions": 182,
+      "emitted_name": "KSNGL_GetTexel__FP10nglTextureii",
+      "instruction_score": 85.1648,
+      "matching_bytes": 677,
+      "matching_instructions": 155,
+      "notes": "# FIRST PASS wave 135 lane A5\n\nExact released source tested once for `0x00381A00 KSNGL_GetTexel__FP10nglTextureii`. Attempts before: 0. Result `different`, byte score 92.9945% and instruction score 85.1648%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 92.9945,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned short u_short;\n\nenum {\n\tNGLTEX_TGA = 0,\n\tNGLTEX_TIM2 = 1,\n\tSCE_GS_PSMCT32 = 0,\n\tSCE_GS_PSMCT16 = 2,\n\tTIM2_RGB16 = 1,\n\tTIM2_RGB24 = 2,\n\tTIM2_RGB32 = 3,\n\tTIM2_IDTEX4 = 4,\n\tTIM2_IDTEX8 = 5\n};\n\nstruct TIM2_PICTUREHEADER {\n\tchar padding[0x12];\n\tunsigned char ClutType;\n\tunsigned char ImageType;\n};\n\nstruct nglTexture {\n\tchar padding0[8];\n\tunsigned short Width;\n\tunsigned short Height;\n\tchar padding1[4];\n\tunsigned char Type;\n\tchar padding2[7];\n\tTIM2_PICTUREHEADER *ph;\n\tint Format;\n\tu_int *Data;\n};\n\nextern void* nglTim2GetClut( nglTexture *Tex );\nextern void* nglTim2GetImage( nglTexture *Tex, int mipmap );\nextern int nglTim2GetMipMapPictureSize(TIM2_PICTUREHEADER *ph, int mipmap, int *pWidth, int *pHeight);\n__asm__(\".equ nglTim2GetClut__FP10nglTexture, 0x0039F8A0\");\n__asm__(\".equ nglTim2GetImage__FP10nglTexturei, 0x0039F8B0\");\n__asm__(\".equ nglTim2GetMipMapPictureSize__FP18TIM2_PICTUREHEADERiPiT2, 0x0039F8D8\");\n\ninline u_int nglTim2GetClutTexel( nglTexture *Tex, int index )\n{\n\tTIM2_PICTUREHEADER *ph=Tex->ph;\n\tunsigned char *pClut;\n\n\tpClut = (unsigned char*)nglTim2GetClut(Tex);\n\n\tif(pClut==0) {\n\t\treturn(0);\n\t}\n\n\tswitch(ph->ClutType) {\n    case TIM2_RGB16:\n\t\treturn((pClut[index*2 + 1]<<8) | pClut[index*2]);\n\n    case TIM2_RGB24:\n\t\treturn((pClut[index*3 + 2]<<16) | (pClut[index*3 + 1]<<8) | pClut[index*3]);\n\n    case TIM2_RGB32:\n\t\treturn((pClut[index*4 + 3]<<24) | (pClut[index*4 + 2]<<16) | (pClut[index*4 + 1]<<8) | pClut[index*4]);\n\t}\n\n\treturn(0);\n}\n\ninline u_int KSNGL_Tim2GetTexel( nglTexture *Tex, int mipmap, int x, int y )\n{\n\tTIM2_PICTUREHEADER *ph=Tex->ph;\n\tunsigned char *pImage;\n\tint t;\n\tint w, h;\n\n\tpImage = (unsigned char*)nglTim2GetImage(Tex, mipmap);\n\tif(pImage==0) {\n\t\treturn(0);\n\t}\n\tnglTim2GetMipMapPictureSize(ph, mipmap, &w, &h);\n\tif(x>w || y>h) {\n\t\treturn(0);\n\t}\n\n\tint index=0;\n\n\tt = y*w + x;\n\tswitch(ph->ImageType) {\n    case TIM2_RGB16:\n\t\treturn((pImage[t*2 + 1]<<8) | pImage[t*2]);\n\n    case TIM2_RGB24:\n\t\treturn((pImage[t*3 + 2]<<16) | (pImage[t*3 + 1]<<8) | pImage[t*3]);\n\n    case TIM2_RGB32:\n\t\treturn((pImage[t*4 + 3]<<24) | (pImage[t*4 + 2]<<16) | (pImage[t*4 + 1]<<8) | pImage[t*4]);\n\n    case TIM2_IDTEX4:\n\t\tif(x & 1) {\n\t\t\tindex=(pImage[t/2]>>4);\n\t\t} else {\n\t\t\tindex=(pImage[t/2] & 0x0F);\n\t\t}\n\t\treturn nglTim2GetClutTexel( Tex, index );\n    case TIM2_IDTEX8:\n\t\tindex=(pImage[t]);\n\t\treturn nglTim2GetClutTexel( Tex, index );\n\t}\n\n\treturn(0);\n}\n\nu_int KSNGL_GetTexel( nglTexture* Tex, int x, int y )\n{\n\tif ( Tex->Type == NGLTEX_TGA )\n\t{\n\t\tif ( Tex->Format == SCE_GS_PSMCT32 )\n\t\t\treturn Tex->Data[y * Tex->Width + x];\n\t\telse\n\t\t\tif ( Tex->Format == SCE_GS_PSMCT16 )\n\t\t\t\treturn ( (u_short*)Tex->Data )[y * Tex->Width + x];\n\t}\n\telse\n\t\tif ( Tex->Type == NGLTEX_TIM2 )\n\t\t\treturn KSNGL_Tim2GetTexel( Tex, 0, x, y );\n\n\t\treturn 0;\n}\n",
+      "status": "different",
+      "target_size": 728
+    }
+  ],
+  "raw_name": "KSNGL_GetTexel__FP10nglTextureii"
+}
