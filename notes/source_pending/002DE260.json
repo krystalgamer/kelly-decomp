@@ -1,0 +1,16 @@
+{
+  "address": "0x002DE260",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9de7436d855fa28c60acce9ea25b03aafaf733e8",
+      "error": "Candidate did not emit collide_segment_sphere__FRC8vector3dN20fP8vector3d; emitted functions: ['collide_segment_sphere__FRC8vector3dT0T0fP8vector3d']",
+      "notes": "# FIRST PASS wave 105 lane B1\n\nExact released body tested once for `0x002DE260 collide_segment_sphere__FRC8vector3dN20fP8vector3d`. Result `symbol_missing`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "typedef float rational_t;\nextern \"C\" float sqrtf(float);\n#define __fsqrt(f) sqrtf(f)\n\nclass vector3d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z;\n  inline vector3d() {}\n  inline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n  inline vector3d(T _x, T _y, T _z) { x = _x; y = _y; z = _z; }\n  inline vector3d& operator = ( const vector3d& v )\n  { x = v.x; y = v.y; z = v.z; return *this; }\n  inline T length2() const\n  { return x*x + y*y + z*z; }\n};\n\ninline vector3d operator + (const vector3d& a, const vector3d& b)\n{ return vector3d(a.x + b.x, a.y + b.y, a.z + b.z); }\ninline vector3d operator - (const vector3d& a, const vector3d& b)\n{ return vector3d(a.x - b.x, a.y - b.y, a.z - b.z); }\ninline vector3d operator * (const vector3d& a, vector3d::T d)\n{ return vector3d(d * a.x, d * a.y, d * a.z); }\ninline vector3d::T dot(const vector3d& a, const vector3d& b)\n{\n  vector3d::T t = a.x*b.x + a.y*b.y + a.z*b.z;\n  return t;\n}\n\nbool collide_segment_sphere( const vector3d& p0, const vector3d& p1,\n                             const vector3d& s, rational_t r,\n                             vector3d* hit_loc )\n{\n  // use quadratic formula to see if line segment hits entity sphere\n  vector3d v = p1 - p0;\n  vector3d w = p0 - s;\n  rational_t a = v.length2();\n  if ( a < 0.000001f )\n  {\n    // segment is degenerate (single point)\n    if ( w.length2() < r*r )\n    {\n      *hit_loc = p0;\n      return true;\n    }\n    else\n      return false;\n  }\n  rational_t b = 2.0f * dot( v, w );\n  rational_t c = w.length2() - r*r;\n  rational_t d = b*b - 4.0f*a*c;\n  if ( d > 0.0f )\n  {\n    b *= -1.0f;\n    d = __fsqrt( d );\n    rational_t inv_f = 1.0f / (2.0f*a);\n    rational_t root1 = (b - d) * inv_f;\n    rational_t root2 = (b + d) * inv_f;\n    if ( root2 >= 0.0f && root1 <= 1.0f )\n    {\n      *hit_loc = p0 + v*root1;\n      return true;\n    }\n  }\n  return false;\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "collide_segment_sphere__FRC8vector3dN20fP8vector3d"
+}
