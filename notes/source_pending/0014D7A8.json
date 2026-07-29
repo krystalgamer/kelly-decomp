@@ -1,0 +1,23 @@
+{
+  "address": "0x0014D7A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f1125c6c5fb7232127b882d8cf897870c10f4c99",
+      "candidate_size": 672,
+      "compared_bytes": 672,
+      "compared_instructions": 164,
+      "emitted_name": "Animate__9PanelQuad",
+      "instruction_score": 0.6098,
+      "matching_bytes": 128,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 120 lane A1\n\nExact released body tested once for `0x0014D7A8 Animate__9PanelQuad`. Result `different`, score 19.0476%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 19.0476,
+      "source": "class vector3d {\npublic:\n    float x, y, z;\n\n    vector3d() {}\n    vector3d(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {}\n};\n\nclass vector4d {\npublic:\n    float x, y, z, w;\n};\n\nclass matrix4x4 {\npublic:\n    vector4d x, y, z, w;\n};\n\ninline vector3d xform3d_1_homog(const matrix4x4& m44, const vector3d& sv)\n{\n    float w;\n    w = m44.x.w * sv.x + m44.y.w * sv.y + m44.z.w * sv.z + m44.w.w;\n    if (w)\n        w = 1.0f / w;\n    vector3d result;\n    result.x = (m44.x.x * sv.x + m44.y.x * sv.y + m44.z.x * sv.z + m44.w.x) * w;\n    result.y = (m44.x.y * sv.x + m44.y.y * sv.y + m44.z.y * sv.z + m44.w.y) * w;\n    result.z = (m44.x.z * sv.x + m44.y.z * sv.y + m44.z.z * sv.z + m44.w.z) * w;\n    return result;\n}\n\nstruct nglQuad {\n    char data[0x64];\n};\n\nextern void nglSetQuadRect(nglQuad *, float, float, float, float);\n\nclass PanelQuad {\n    char before_quad[0x18];\n    nglQuad quad;\n    char before_coords[0x28];\n    float x1, y1, x2, y2;\n    char before_xform[0x78];\n\npublic:\n    matrix4x4 Xform;\n    char before_z[0x0c];\n    float z;\n\n    virtual ~PanelQuad() {}\n\nprivate:\n    void Animate();\n};\n\nvoid PanelQuad::Animate()\n{\n    vector3d wed[2];\n    float diff_x = (x2-x1)/2.0f;\n    float diff_y = (y2-y1)/2.0f;\n    wed[0] = xform3d_1_homog(Xform, vector3d(-diff_x, -diff_y, z));\n    wed[1] = xform3d_1_homog(Xform, vector3d(diff_x, diff_y, z));\n    nglSetQuadRect(&quad, wed[0].x, wed[0].y, wed[1].x, wed[1].y);\n}\n",
+      "status": "different",
+      "target_size": 632
+    }
+  ],
+  "raw_name": "Animate__9PanelQuad"
+}
