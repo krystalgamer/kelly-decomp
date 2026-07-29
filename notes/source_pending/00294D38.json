@@ -1,0 +1,23 @@
+{
+  "address": "0x00294D38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "91bff8ddfae57944045ed170ce3a5248f2374615",
+      "candidate_size": 292,
+      "compared_bytes": 512,
+      "compared_instructions": 128,
+      "emitted_name": "wds_open__21world_dynamics_systemR10chunk_fileRC7stringxT2i",
+      "instruction_score": 7.8125,
+      "matching_bytes": 80,
+      "matching_instructions": 10,
+      "notes": "# FIRST PASS wave 95 lane B2\n\nExact released body tested once for `0x00294D38 wds_open__21world_dynamics_systemR10chunk_fileRC7stringxT2i`. Result `different`, score 15.6250%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 15.625,
+      "source": "class stringx\n{\n  char data_[8];\n\npublic:\n  stringx();\n  stringx(const char *);\n  stringx(const stringx &);\n  ~stringx();\n  const char *c_str() const;\n};\n\nstringx operator+(const stringx &, const stringx &);\nstringx operator+(const char *, const stringx &);\nstringx operator+(const stringx &, const char *);\nextern bool file_finder_exists(\n  const stringx &, const stringx &, stringx *);\nextern void error(const stringx &);\n\nclass chunk_file\n{\npublic:\n  void open(const stringx &, int);\n};\n\nclass world_dynamics_system\n{\npublic:\n  stringx wds_open(\n    chunk_file &, const stringx &, const stringx &, int);\n};\n\nstringx world_dynamics_system::wds_open(\n  chunk_file &fs, const stringx &filename,\n  const stringx &extension, int io_flags)\n{\n  stringx fname;\n  if (file_finder_exists(filename, extension, &fname))\n  {\n    fs.open(fname, io_flags);\n    return fname;\n  }\n  else\n  {\n    error(\"Couldn't open \\\"\" + filename + extension + \"\\\"\");\n    return stringx();\n  }\n}\n",
+      "status": "different",
+      "target_size": 512
+    }
+  ],
+  "raw_name": "wds_open__21world_dynamics_systemR10chunk_fileRC7stringxT2i"
+}
