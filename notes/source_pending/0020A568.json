@@ -1,0 +1,23 @@
+{
+  "address": "0x0020A568",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "79b09d2b23b03a2e2d051d4d83bdd979f60e2437",
+      "candidate_size": 884,
+      "compared_bytes": 884,
+      "compared_instructions": 221,
+      "emitted_name": "construct__17generic_anim_miscPP6entityRC7stringxT2PPCci",
+      "instruction_score": 2.7149,
+      "matching_bytes": 112,
+      "matching_instructions": 6,
+      "notes": "# FIRST PASS wave 152 lane B2\n\nExact released source tested once for `0x0020A568 construct__17generic_anim_miscPP6entityRC7stringxT2PPCci`. Attempts before: 0. Result `different`, byte score 12.6697% and instruction score 2.7149%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 12.6697,
+      "source": "#include \"KS/SRC/stringx.h\"\n\nextern \"C\" int sprintf(char *, const char *, ...);\nextern \"C\" char *strcat(char *, const char *);\n\nclass entity_anim_tree;\nclass entity_track_tree\n{\npublic:\n  static const char *extension(void);\n};\n\nclass entity\n{\npublic:\n  void load_anim(const stringx &filename) const;\n  entity_anim_tree *play_anim(int slot, const stringx &filename, float start_time, unsigned short anim_flags = 0, short loop = -1);\n};\n\nbool file_finder_exists(const stringx &filename, const stringx &extension, stringx *found_name = 0);\n\nenum { ANIM_PRIMARY = 0, ANIM_NONCOSMETIC = 0x0200 };\n\nclass generic_anim\n{\npublic:\n  generic_anim(const stringx& path, const stringx& name) { my_base_name = name; dummy = false; cur_state = cur_anim = 0; left_down = right_down = false; }\n  virtual ~generic_anim() { }\n  virtual void update(bool collide, bool jump, bool spray, float *alpha) = 0;\n  virtual void spawn() = 0;\n  virtual void switch_anims() = 0;\nprotected:\n  stringx my_base_name;\n  int cur_state, cur_anim;\n  bool dummy;\n  bool left_down, right_down;\n};\n\nclass generic_anim_misc : public generic_anim\n{\npublic:\n  generic_anim_misc(entity **entities, const stringx& path, const stringx& name, const char **prefixes, int count);\n  void construct(entity **entities, const stringx& path, const stringx& name, const char **prefixes, int count);\n  virtual ~generic_anim_misc();\n  void update(bool collide, bool jump, bool spray, float *alpha);\n  void spawn();\n  void switch_anims();\nprivate:\n  static const char* generic_anim_names[];\n  int generic_anims[5];\n  int generic_anim_state;\n  int items_count;\n  stringx* items_prefixes;\n  entity **my_entities;\n};\n\nvoid generic_anim_misc::construct (entity **entities, const stringx& path, const stringx& name, const char **prefixes, int count)\n{\n\tint i, j;\n\n\titems_count = count;\n\titems_prefixes = new stringx[count];\n\tmy_entities = new entity* [count];\n\n\tfor (i = 0; i < count; i++)\n\t{\n\t\tif (i != 0)\n\t\t\titems_prefixes[i] = prefixes[i];\n\t\tmy_entities[i] = entities[i];\n\t}\n\n\tfor (i = 0; i < 5; i++)\n\t{\n\t\tgeneric_anims[i] = 0;\n\n\t\tfor (;;)\n\t  {\n\t\t\tfor (j = 0; j < count; j++)\n\t\t\t{\n\t\t\t\tchar anim[256];\n\t\t\t\tbool play = (i == 0);\n\n\t\t\t\tif (j == 0)\n\t\t\t\t\tsprintf (anim, \"%s\\\\ANIMATIONS\\\\%s_%s_%d\", path.c_str(), name.c_str(), generic_anim_names[i], generic_anims[i] + 1);\n\t\t\t\telse\n\t\t\t\t\tsprintf (anim, \"%s\\\\ANIMATIONS\\\\%s_%s_%s_%d\", path.c_str(), name.c_str(), prefixes[j], generic_anim_names[i], generic_anims[i] + 1);\n\n\t\t\t\tif (file_finder_exists (anim, entity_track_tree::extension ()))\n\t\t    {\n\t\t\t\t\tstrcat (anim, entity_track_tree::extension ());\n\t\t\t\t\tmy_entities[j]->load_anim (anim);\n\n\t\t\t\t\tif (play)\n\t\t\t\t\t{\n\t\t\t\t\t  my_entities[j]->play_anim (ANIM_PRIMARY, anim, 0, ANIM_NONCOSMETIC);\n\t\t\t\t\t\tplay = false;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t    else\n\t\t\t\t\tbreak;\n\t\t\t}\n\n\t\t\tif (j == count)\n\t\t\t\tgeneric_anims[i]++;\n\t\t\telse\n\t\t\t\tbreak;\n\t  }\n\t}\n}\n",
+      "status": "different",
+      "target_size": 880
+    }
+  ],
+  "raw_name": "construct__17generic_anim_miscPP6entityRC7stringxT2PPCci"
+}
