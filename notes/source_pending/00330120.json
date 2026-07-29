@@ -1,0 +1,16 @@
+{
+  "address": "0x00330120",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d99adced595e292adedc0c35f97ea0411b2ef184",
+      "error": "Candidate did not emit __cl__29slf_vector3d_list_get_index_tR8vm_stackQ320script_library_class8function7entry_t; emitted functions: []",
+      "notes": "0x00330120 vector3d-list get-index: exact released source captured. attempts=0. LF test=PASS. No tracked edits, build, or git operations.",
+      "score": 0.0,
+      "source": "// Target: 0x00330120 __cl__29slf_vector3d_list_get_index_tR8vm_stackQ320script_library_class8function7entry_t\n// Reference: KS/SRC/script_lib_list.cpp\n// Replace this file with one self-contained candidate function.\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__cl__29slf_vector3d_list_get_index_tR8vm_stackQ320script_library_class8function7entry_t"
+}
