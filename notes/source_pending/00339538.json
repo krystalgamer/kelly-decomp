@@ -1,0 +1,23 @@
+{
+  "address": "0x00339538",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b686b643a52da305f9cb22d8ab4e186b11e297a5",
+      "candidate_size": 452,
+      "compared_bytes": 492,
+      "compared_instructions": 123,
+      "emitted_name": "build_hash_name__8material",
+      "instruction_score": 12.1951,
+      "matching_bytes": 118,
+      "matching_instructions": 15,
+      "notes": "# FIRST PASS wave 91 lane B3\n\nExact released body tested once for `0x00339538 build_hash_name__8material`. Result `different`, score 23.9837%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 23.9837,
+      "source": "class stringx\n{\npublic:\n  char* chars;\n  void* my_buf;\n\n  stringx(const char*);\n  ~stringx();\n  stringx& operator=(const stringx&);\n  stringx& operator+=(const stringx&);\n};\n\nclass filespec\n{\npublic:\n  stringx path;\n  stringx name;\n  stringx ext;\n\n  explicit filespec(const stringx&);\n};\n\nclass anim_texture\n{\n  char data[48];\n\npublic:\n  unsigned get_blend_mode() const;\n  const stringx& get_filename();\n};\n\nenum\n{\n  MAPS_PER_MATERIAL = 4\n};\n\nclass material\n{\n  void build_hash_name();\n\npublic:\n  stringx material_name;\n  stringx texture_filename[MAPS_PER_MATERIAL];\n  anim_texture diffuse_map[MAPS_PER_MATERIAL];\n  float u_anim;\n  float v_anim;\n  float det_u_scale;\n  float det_v_scale;\n  float det_range;\n  float det_alpha_clamp;\n  unsigned mat_flags;\n};\n\nvoid material::build_hash_name()\n{\n  filespec fspec( texture_filename[0] );\n  material_name = fspec.name;\n  int i;\n  for( i=1;i<MAPS_PER_MATERIAL;i++ )\n  {\n    material_name += diffuse_map[i].get_filename();\n  }\n\n  // Build hash string to append to name.  All numerical values mashed into 8 char string.\n  char hasher_string[9] = \"12345678\";\n  float float_hash;\n  unsigned int hash;\n  float_hash = 2 * mat_flags +\n               3 * u_anim +\n               5 * v_anim +\n               7 * diffuse_map[0].get_blend_mode();\n  // bash it to an unsigned int\n  hash = *((unsigned int*) &float_hash);\n\n  unsigned int mask = 0x0000000F;\n  int shifter = 0;\n  for (i=0;i<8;++i)\n  {\n    hasher_string[i] = 'A' + ((hash&mask)>>shifter);\n    shifter+=4;\n    mask<<=4;\n  }\n\n  // And slap it on\n  material_name += stringx(hasher_string);\n}\n",
+      "status": "different",
+      "target_size": 492
+    }
+  ],
+  "raw_name": "build_hash_name__8material"
+}
