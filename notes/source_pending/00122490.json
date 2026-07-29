@@ -1,0 +1,15 @@
+{
+  "address": "0x00122490",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9761fa51771dc523da4a3d8858cb02409b3f16c8",
+      "notes": "# FIRST PASS wave 138 lane B1\n\nExact released source tested once for `0x00122490 update_handed_abs_po_family__14link_interface`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x00122490 update_handed_abs_po_family__14link_interface\n// Reference: KS/SRC/link_interface.cpp\n// Replace this file with one self-contained candidate function.\n#include \"kelly-slaters-pro-surfer/KS/SRC/link_interface.h\"\n#include \"kelly-slaters-pro-surfer/KS/SRC/bone.h\"\n\nvoid link_interface::update_handed_abs_po_family()\n{\n  assert(my_bone);\n\n  // update my children\n  if (my_child != NULL)\n  {\n    assert (my_child->has_link_ifc());\n    my_child->update_handed_abs_po();\n\n    // update my brothers (part of update children)\n    bone *it = my_child;\n    assert(it->has_link_ifc());\n    while(it->link_ifc()->my_brother != NULL)\n    {\n      it->link_ifc()->my_brother->update_handed_abs_po();\n      it = it->link_ifc()->my_brother;\n      assert(!it || it->has_link_ifc());\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "update_handed_abs_po_family__14link_interface"
+}
