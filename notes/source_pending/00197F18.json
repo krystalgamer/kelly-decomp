@@ -1,0 +1,23 @@
+{
+  "address": "0x00197F18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c194dc45ed565526c5226805fde0ac2d9bf024dd",
+      "candidate_size": 728,
+      "compared_bytes": 728,
+      "compared_instructions": 182,
+      "emitted_name": "LoadFonts__9FEManager",
+      "instruction_score": 94.5055,
+      "matching_bytes": 602,
+      "matching_instructions": 172,
+      "notes": "# FIRST PASS wave 134 lane B5\n\nExact released source tested once for `0x00197F18 LoadFonts__9FEManager`. Attempts before: 0. Result `different`, byte score 82.6923% and instruction score 94.5055%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 82.6923,
+      "source": "// Target: 0x00197F18 LoadFonts__9FEManager\n// Reference: KS/SRC/ks/FrontEndManager.cpp\n// Replace this file with one self-contained candidate function.\nclass stringx\n{\n    char data[16];\npublic:\n    stringx(const char *, int = -1);\n    ~stringx();\n};\n\nclass Font\n{\npublic:\n    bool unset;\n    char padding[0x2524];\n    bool load(const stringx &);\n};\n\nclass FEManager\n{\n    char padding[0x2CCC];\npublic:\n    Font trick_font;\n    Font numberFont;\n    Font font_hand;\n    Font font_thin;\n    Font font_bold;\n    Font font_info;\n    Font font_body;\n    Font font_bold_old;\nprivate:\n    char padding2[0xA0];\n    bool fontsLoaded;\npublic:\n    void LoadFonts();\n};\n\nvoid FEManager::LoadFonts()\n{\n\tif (fontsLoaded)\n\t\treturn;\n\n\tif(trick_font.load(\"trick\")) trick_font.unset = false;\n\telse trick_font.unset = true;\n\tif(numberFont.load(\"numbersitalic\")) numberFont.unset = false;\n\telse numberFont.unset = true;\n\n\tif(font_hand.load(\"handwritten\")) font_hand.unset = false;\n\telse font_hand.unset = true;\n\tif(font_thin.load(\"title_thin\")) font_thin.unset = false;\n\telse font_thin.unset = true;\n\tif(font_bold.load(\"title_bold\")) font_bold.unset = false;\n\telse font_bold.unset = true;\n\tif(font_info.load(\"info\")) font_info.unset = false;\n\telse font_info.unset = true;\n\tif(font_bold_old.load(\"bold\")) font_bold_old.unset = false;\n\telse font_bold_old.unset = true;\n\tif(font_body.load(\"body\")) font_body.unset = false;\n\telse font_body.unset = true;\n\n\tfontsLoaded=true;\n}\n",
+      "status": "different",
+      "target_size": 728
+    }
+  ],
+  "raw_name": "LoadFonts__9FEManager"
+}
