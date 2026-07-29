@@ -1,0 +1,16 @@
+{
+  "address": "0x00241470",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1ff2ddf5ce3f9fb07ab398fe3fe5dd0af3c02f7f",
+      "error": "Candidate did not emit Update__15RungeKuttaClassP18PhysicsObjectClassfPfN23; emitted functions: ['Update__15RungeKuttaClassP18PhysicsObjectClassfPfT3T3']",
+      "notes": "# FIRST PASS wave 112 lane B5\n\nExact released body tested once for `0x00241470 Update__15RungeKuttaClassP18PhysicsObjectClassfPfN23`. Result `symbol_missing`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "typedef int int32;\n\nclass PhysicsObjectClass;\n\ntypedef void (*OdeDerivFunc)(PhysicsObjectClass* phyobj, float rTime,\n   float* rInStateArray, float* rOutStateArray);\n\nclass OdeSolverClass\n{\npublic:\n\tvirtual ~OdeSolverClass() { };\n\n\tvirtual int32 Init(int d, float step, OdeDerivFunc dfn) = 0;\n\tvirtual int32 Terminate() = 0;\n\tvirtual int32 Update(PhysicsObjectClass* phyobj, float timein, float *inArray, float *timeout, float *outArray) = 0;\n\tvirtual void SetStepSize(float dt) { stepSize = dt;}\n\nprotected:\n\tint32\t\t\tdim;\n\tfloat\t\t\tstepSize;\n\tOdeDerivFunc\tfnDerivFunc;\n};\n\nclass RungeKuttaClass : public OdeSolverClass\n{\npublic:\n\tint32 Init(int d, float step, OdeDerivFunc dfn);\n\tint32 Terminate();\n\tint32 Update(PhysicsObjectClass* phyobj, float timein, float *inArray, float *timeout, float *outArray);\n\n\tvirtual void SetStepSize(float dt)\n\t{\n\t\tthis->stepSize = dt;\n\t\tthis->step2 = dt/2.0f;\n\t\tthis->step6 = dt/6.0f;\n\t}\n\nprivate:\n   float step2, step6;\n   float* temp1;\n   float* temp2;\n   float* temp3;\n   float* temp4;\n   float* xtemp;\n};\n\nint32 RungeKuttaClass::Update(PhysicsObjectClass* phyobj, float timein, float *inArray, float *timeout, float *outArray)\n{\n\n\tint32 i;\n\tfloat timeHalf;\n\n   // first step\n   (this->fnDerivFunc)(phyobj, timein, inArray, this->temp1);\n\n   for (i = 0; i < this->dim; i++)\n   {\n      this->xtemp[i] = inArray[i] + this->step2 * this->temp1[i];\n   }\n\n\n   // second step\n   timeHalf = timein + this->step2;\n   (this->fnDerivFunc)(phyobj, timeHalf, this->xtemp, this->temp2);\n\n   for (i = 0; i < this->dim; i++)\n   {\n      this->xtemp[i] = inArray[i] + this->step2 * this->temp2[i];\n   }\n\n\n   // third step\n   (this->fnDerivFunc)(phyobj, timeHalf, this->xtemp, this->temp3);\n   for (i = 0; i < this->dim; i++)\n   {\n      this->xtemp[i] = inArray[i] + this->stepSize * this->temp3[i];\n   }\n\n\n   // fourth step\n   *timeout = timein + this->stepSize;\n   (this->fnDerivFunc)(phyobj, *timeout, this->xtemp, this->temp4);\n   for (i = 0; i < this->dim; i++)\n   {\n      outArray[i] = inArray[i] +\n         this->step6 * (this->temp1[i] + 2.0f * (this->temp2[i] + this->temp3[i]) + this->temp4[i]);\n   }\n\n   return 1;\n\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "Update__15RungeKuttaClassP18PhysicsObjectClassfPfN23"
+}
