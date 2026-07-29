@@ -1,0 +1,15 @@
+{
+  "address": "0x0016A7E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "07c7a94eba5b75b8fa637826a58bc0f7052ab0ce",
+      "notes": "# FIRST PASS wave 108 lane A3\n\nExact released body tested once for `0x0016A7E0 __11PhotoWidget`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/igo_widget_shared.h\"\n#include \"NGL/PS2/ngl_ps2_shared.h\"\n\n#define NULL 0\n#define NEW new\n#define FTOI(x) ((int)(x))\n\nclass Font\n{\npublic:\n\tenum HORIZJUST { HORIZJUST_CENTER = 1 };\n\tenum VERTJUST { VERTJUST_BOTTOM = 2 };\n};\n\nclass stringx\n{\n\tchar *chars;\n\tvoid *my_buf;\npublic:\n\tstringx(const char *text, int length = -1);\n};\n\nclass TextString\n{\npublic:\n\tTextString(Font *, stringx, float, float, int, float,\n\t           Font::HORIZJUST, Font::VERTJUST, bool, color32);\n};\n\nclass PhotoWidget : public IGOWidget\n{\n\tPanelQuad *borderPQ;\n\tint borderCenterX, borderCenterY, borderZ;\n\tnglTexture *photoTexture;\n\tnglQuad photoQuad, darkQuad;\n\tfloat darkFade;\n\tfloat fadeOutAlpha;\n\tfloat shownTimer;\n\tbool timed;\n\tint photoNum;\n\tTextString *pointText;\n\tint score, *scorePtr;\n\tvirtual void SetPointText(void);\npublic:\n\tPhotoWidget();\n\tvirtual ~PhotoWidget();\n};\n\n__asm__(\".equ cons__7stringxPCci, 0x00117C40\");\n__asm__(\".equ cons__10TextStringP4FontG7stringxffifQ24Font9HORIZJUSTQ24Font8VERTJUSTbG7color32, 0x00148150\");\n__asm__(\".equ nglInitQuad__FP7nglQuad, 0x003A67E8\");\n__asm__(\".equ nglSetQuadUV__FP7nglQuadffff, 0x003A6A48\");\n__asm__(\".equ nglSetQuadColor__FP7nglQuadUi, 0x003A6B10\");\n__asm__(\".equ nglSetQuadZ__FP7nglQuadf, 0x003A6A28\");\n__asm__(\".equ nglSetQuadBlend__FP7nglQuadUiT2, 0x003A69D0\");\n\nPhotoWidget::PhotoWidget()\n{\n\tborderPQ = NULL;\n\t\n\tphotoTexture = NULL;\n\tshownTimer = 0.0f;\n\ttimed = false;\n\tfadeOutAlpha = 1.0f;\n\tphotoNum = 0;\n\n\tborderCenterX = 437;\n\tborderCenterY = 265;\n\tborderZ = 400;\n\n\tscorePtr = NULL;\n\tpointText = NEW TextString(NULL, \"\", 0, 0, 300, 0.9f, Font::HORIZJUST_CENTER, Font::VERTJUST_BOTTOM, color32(149, 251, 149, 255));\n\n\tnglInitQuad(&photoQuad);\n\tnglSetQuadUV(&photoQuad, 0, 0, 1, 1);\n\tnglSetQuadColor(&photoQuad, NGL_RGBA32(255, 255, 255, 255));\n\tnglSetQuadZ(&photoQuad, 300);\n\tnglSetQuadBlend(&photoQuad, NGLBM_OPAQUE, 0);\n\n\tnglInitQuad(&darkQuad);\n\tnglSetQuadUV(&darkQuad, 0, 0, 1, 1);\n\tnglSetQuadColor(&darkQuad, NGL_RGBA32(64, 64, 64, FTOI(darkFade*255.0f)));\n\tnglSetQuadZ(&darkQuad, 250);\n\tnglSetQuadBlend(&darkQuad, NGLBM_BLEND, 0);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__11PhotoWidget"
+}
