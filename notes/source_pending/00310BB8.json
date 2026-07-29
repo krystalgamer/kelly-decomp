@@ -1,0 +1,23 @@
+{
+  "address": "0x00310BB8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9ff1cc839bf675eced953a1078f927852349d84d",
+      "candidate_size": 604,
+      "compared_bytes": 632,
+      "compared_instructions": 158,
+      "emitted_name": "insert__t6vector2ZcZt12my_allocator1ZcPcUiRCc",
+      "instruction_score": 2.5316,
+      "matching_bytes": 117,
+      "matching_instructions": 4,
+      "notes": "# FIRST PASS wave 120 lane A4\n\nExact GCC `stl_vector.h` `vector<char>::insert(iterator, size_type, const char&)` body tested once with LF source. Result `different`, score 18.5127%. No retry, follow-up, build, git operation, or tracked edit.",
+      "score": 18.5127,
+      "source": "extern \"C\" void *memmove(void *, const void *, unsigned int);\nextern \"C\" void *memset(void *, int, unsigned int);\nextern \"C\" void *arch_malloc(unsigned int, const char *, int);\nextern \"C\" void arch_free(void *);\n\ntemplate<class T>\nclass my_allocator\n{\npublic:\n  static T *allocate(unsigned int n)\n  {\n    return n ? (T *)arch_malloc(n * sizeof(T), __FILE__, 0) : 0;\n  }\n\n  static void deallocate(T *p, unsigned int)\n  {\n    if (p)\n      arch_free(p);\n  }\n};\n\ntemplate<class T>\ninline T *copy(const T *first, const T *last, T *result)\n{\n  memmove(result, first, sizeof(T) * (last - first));\n  return result + (last - first);\n}\n\ntemplate<class T>\ninline T *copy_backward(const T *first, const T *last, T *result)\n{\n  unsigned int count = last - first;\n  memmove(result - count, first, sizeof(T) * count);\n  return result - count;\n}\n\ntemplate<class T>\ninline void fill(T *first, T *last, const T &value)\n{\n  while (first != last)\n    *first++ = value;\n}\n\ntemplate<class T>\ninline T *uninitialized_copy(const T *first, const T *last, T *result)\n{\n  return copy(first, last, result);\n}\n\ntemplate<class T>\ninline T *uninitialized_fill_n(T *first, unsigned int n, const T &value)\n{\n  while (n--)\n    *first++ = value;\n  return first;\n}\n\ntemplate<class T>\ninline void destroy(T *, T *)\n{\n}\n\ntemplate<class T, class Alloc>\nclass vector\n{\nprotected:\n  T *start_;\n  T *finish_;\n  T *end_of_storage_;\n\n  T *allocate(unsigned int n) { return Alloc::allocate(n); }\n  void deallocate(T *p, unsigned int n) { Alloc::deallocate(p, n); }\n\npublic:\n  typedef T *iterator;\n  typedef unsigned int size_type;\n\n  iterator begin() { return start_; }\n  iterator end() { return finish_; }\n  size_type size() const { return finish_ - start_; }\n  void insert(iterator position, size_type n, const T &x);\n};\n\ntemplate<class T, class Alloc>\nvoid vector<T, Alloc>::insert(iterator position, size_type n, const T &x)\n{\n  if (n != 0)\n  {\n    if (size_type(end_of_storage_ - finish_) >= n)\n    {\n      T x_copy = x;\n      const size_type elems_after = finish_ - position;\n      iterator old_finish = finish_;\n      if (elems_after > n)\n      {\n        uninitialized_copy(finish_ - n, finish_, finish_);\n        finish_ += n;\n        copy_backward(position, old_finish - n, old_finish);\n        fill(position, position + n, x_copy);\n      }\n      else\n      {\n        uninitialized_fill_n(finish_, n - elems_after, x_copy);\n        finish_ += n - elems_after;\n        uninitialized_copy(position, old_finish, finish_);\n        finish_ += elems_after;\n        fill(position, old_finish, x_copy);\n      }\n    }\n    else\n    {\n      const size_type old_size = size();\n      const size_type len = old_size + (old_size > n ? old_size : n);\n      iterator new_start = allocate(len);\n      iterator new_finish = new_start;\n      new_finish = uninitialized_copy(start_, position, new_start);\n      new_finish = uninitialized_fill_n(new_finish, n, x);\n      new_finish = uninitialized_copy(position, finish_, new_finish);\n      destroy(start_, finish_);\n      deallocate(start_, end_of_storage_ - start_);\n      start_ = new_start;\n      finish_ = new_finish;\n      end_of_storage_ = new_start + len;\n    }\n  }\n}\n\ntemplate void vector<char, my_allocator<char> >::insert(\n  char *, unsigned int, const char &);\n",
+      "status": "different",
+      "target_size": 632
+    }
+  ],
+  "raw_name": "insert__t6vector2ZcZt12my_allocator1ZcPcUiRCc"
+}
