@@ -1,0 +1,23 @@
+{
+  "address": "0x001FE768",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1c4163e57ddad97f8d1228b7d067cbc08ec265a0",
+      "candidate_size": 492,
+      "compared_bytes": 492,
+      "compared_instructions": 123,
+      "emitted_name": "__13static_objectP6entityRC7stringx",
+      "instruction_score": 80.4878,
+      "matching_bytes": 329,
+      "matching_instructions": 99,
+      "notes": "# FIRST PASS wave 91 lane B1\n\nExact released body tested once for `0x001FE768 __13static_objectP6entityRC7stringx`. Result `different`, score 66.8699%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 66.8699,
+      "source": "typedef float rational_t;\ntypedef unsigned short uint16;\n\nstruct string_buf\n{\n  int refs;\n  int capacity;\n  int char_length;\n};\n\nclass stringx\n{\n  char *chars;\n  string_buf *my_buf;\n\npublic:\n  stringx();\n  stringx(const stringx &cp);\n  stringx(const char *str, int len = -1);\n  ~stringx();\n  void append(const char *str, int len = -1);\n  void append(const stringx &cp);\n  void make_room(int n);\n  stringx &operator+=(const char *str);\n\n  friend stringx operator+(const stringx &lhs, const stringx &rhs);\n  friend stringx operator+(const stringx &lhs, const char *rhs);\n};\n\nextern \"C\" int strlen(const char *);\n\ninline stringx operator+(const stringx &lhs, const stringx &rhs)\n{\n  stringx foo;\n  foo.make_room(lhs.my_buf->char_length + rhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs);\n  return foo;\n}\n\ninline stringx operator+(const stringx &lhs, const char *rhs)\n{\n  stringx foo;\n  int len = strlen(rhs);\n  foo.make_room(len + lhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs, len);\n  return foo;\n}\n\nclass entity_anim_tree;\nclass vector3d;\n\nclass entity\n{\n  char padding[0x84];\n  stringx parsedName;\n\npublic:\n  stringx get_parsed_name() { return parsedName; }\n  void load_anim(const stringx &filename) const;\n  entity_anim_tree *play_anim(int slot, const stringx &filename,\n                              rational_t start_time, uint16 anim_flags = 0,\n                              short loop = -1);\n};\n\nclass entity_track_tree\n{\npublic:\n  static const char *extension();\n};\n\nbool file_finder_exists(const stringx &filename, const stringx &extension,\n                        stringx *found_name = 0);\n\nclass beach_object\n{\nprotected:\n  char padding0[0x28];\n  entity *my_entity;\n  char padding1[0x0c];\n};\n\nclass water_object : public beach_object\n{\npublic:\n  water_object(entity *ent, const stringx &path);\n  virtual ~water_object();\n  virtual bool parse_params(char **argp, int argc);\n  virtual void get_settings(const water_object &obj);\n  virtual void spawn();\n  virtual void despawn();\n  virtual bool update(float dt);\n  virtual void collide(entity *ent, const vector3d &dir);\n  virtual void jumped_over(entity *ent);\n  virtual void sprayed(entity *ent);\n\nprotected:\n  char padding2[0x294];\n};\n\nclass static_object : public water_object\n{\npublic:\n  static_object(entity *ent, const stringx &path);\n  virtual ~static_object();\n  bool update(float dt);\n  virtual bool parse_params(char **argp, int argc);\n\nprivate:\n  bool dont_move;\n};\n\nstatic_object::static_object(entity *ent, const stringx &path)\n  : water_object(ent, path)\n{\n  dont_move = false;\n\n  stringx anim = path + \"\\\\ANIMATIONS\\\\\" + ent->get_parsed_name();\n\n  if (file_finder_exists(anim, entity_track_tree::extension()))\n  {\n    anim += entity_track_tree::extension();\n    my_entity->load_anim(anim);\n    my_entity->play_anim(0, ent->get_parsed_name(), 0.3f, 4 | 512 | 2048);\n  }\n}\n",
+      "status": "different",
+      "target_size": 492
+    }
+  ],
+  "raw_name": "__13static_objectP6entityRC7stringx"
+}
