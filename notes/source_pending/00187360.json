@@ -1,0 +1,23 @@
+{
+  "address": "0x00187360",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "195b66a5d9d9fc28f4f8075cb0a0ae15ecabf555",
+      "candidate_size": 584,
+      "compared_bytes": 584,
+      "compared_instructions": 146,
+      "emitted_name": "Select__14SurferFrontEndi",
+      "instruction_score": 14.3836,
+      "matching_bytes": 189,
+      "matching_instructions": 21,
+      "notes": "# FIRST PASS wave 111 lane A4\n\nExact released `SurferFrontEnd::Select` body tested once for\n`0x00187360 Select__14SurferFrontEndi`.\n\nResult: **different**, byte score **32.3630%** (189/584 compared bytes),\ninstruction score **14.3836%** (21/146); candidate size 584 bytes versus\ntarget size 580 bytes.\n\nNo retry, variant, diff chase, follow-up, build, finalize, integration, git\nmutation, or tracked edit.",
+      "score": 32.363,
+      "source": "typedef int SSEventId;\nenum EventType { SS_FE_ONX = 28 };\n\nclass entity;\nclass FEMenu\n{\npublic:\n\tvoid setBack(FEMenu *, int = 1);\n};\n\nclass SoundScriptManager\n{\npublic:\n\tstatic SoundScriptManager *inst();\n\tSSEventId playEvent(EventType, entity * = 0, float = 0);\n};\n\nclass FEEntityManager\n{\n\tbool cam_stopped;\n\npublic:\n\tenum {\n\t\tCAM_POS_WALL_1,\n\t\tCAM_POS_WALL_2_IN,\n\t\tCAM_POS_WALL_2_OUT\n\t};\n\n\tvoid JumpTo(int);\n\tvoid BioTBZoom(bool);\n\tbool CamIsMoving() { return !cam_stopped; }\n\tvoid SurferSelected() {}\n};\n\nclass FEManager\n{\npublic:\n\tFEEntityManager *em;\n\tint current_surfer;\n};\n\nclass SurferBioFrontEnd : public FEMenu {};\nclass AccompFrontEnd : public FEMenu {};\n\nclass GraphicalMenuSystem\n{\npublic:\n\tenum {\n\t\tTrickBookMenu = 3,\n\t\tAccompMenu = 5\n\t};\n\n\tFEMenu *menus[16];\n\tvoid MakeActive(int);\n};\n\nvoid assert(int);\n\nclass SurferFrontEnd : public FEMenu\n{\n\tenum {\n\t\tOnSurfer,\n\t\tBioHigh,\n\t\tTrickHigh,\n\t\tPersHigh,\n\t\tScrapHigh,\n\t\tContHigh,\n\t\tHCapHigh\n\t};\n\n\tint state;\n\tGraphicalMenuSystem *sys;\n\tFEManager *manager;\n\tSurferBioFrontEnd *bio_menu;\n\tbool in_tb_or_bio;\n\npublic:\n\tint current_surfer_index;\n\tstatic bool personality_up;\n\n\tvoid MakeActive(FEMenu *);\n\tvoid Pick(int);\n\tvoid SetPersonality(bool);\n\tvoid Select(int entry_index);\n};\n\nvoid SurferFrontEnd::Select(int entry_index)\n{\n\tSoundScriptManager::inst()->playEvent(SS_FE_ONX);\n\n\tif(state == BioHigh || state == TrickHigh || state == ScrapHigh) in_tb_or_bio = true;\n\n\tswitch(state)\n\t{\n\tcase OnSurfer:\n\t\tif(manager->em->CamIsMoving())\n\t\t\tmanager->em->JumpTo(FEEntityManager::CAM_POS_WALL_2_IN);\n\t\telse\n\t\t{\n\t\t\tmanager->current_surfer = current_surfer_index;\n\t\t\tmanager->em->SurferSelected();\n\t\t\tPick(current_surfer_index);\n\t\t}\n\t\tbreak;\n\tcase BioHigh:\n\t\tMakeActive(bio_menu);\n\t\tif(manager->em->CamIsMoving())\n\t\t\tmanager->em->JumpTo(FEEntityManager::CAM_POS_WALL_2_OUT);\n\t\telse manager->em->BioTBZoom(true);\n\t\tbreak;\n\tcase TrickHigh:\n\t\tsys->MakeActive(GraphicalMenuSystem::TrickBookMenu);\n\t\tif(manager->em->CamIsMoving())\n\t\t\tmanager->em->JumpTo(FEEntityManager::CAM_POS_WALL_2_OUT);\n\t\telse manager->em->BioTBZoom(true);\n\t\tbreak;\n\tcase PersHigh:\n\t\tif(manager->em->CamIsMoving())\n\t\t\tmanager->em->JumpTo(FEEntityManager::CAM_POS_WALL_2_IN);\n\t\tSetPersonality(!personality_up);\n\t\tbreak;\n\tcase ScrapHigh:\n\t\t((AccompFrontEnd*)sys->menus[GraphicalMenuSystem::AccompMenu])->setBack(this);\n\t\tsys->MakeActive(GraphicalMenuSystem::AccompMenu);\n\t\tif(manager->em->CamIsMoving())\n\t\t\tmanager->em->JumpTo(FEEntityManager::CAM_POS_WALL_2_OUT);\n\t\telse manager->em->BioTBZoom(true);\n\t\tbreak;\n\tcase ContHigh:\n\t\tif(manager->em->CamIsMoving())\n\t\t\tmanager->em->JumpTo(FEEntityManager::CAM_POS_WALL_2_IN);\n\t\telse\n\t\t{\n\t\t\tmanager->current_surfer = current_surfer_index;\n\t\t\tmanager->em->SurferSelected();\n\t\t\tPick(current_surfer_index);\n\t\t}\n\t\tbreak;\n\tcase HCapHigh: break;\t// do nothing\n\tdefault: assert(0);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 580
+    }
+  ],
+  "raw_name": "Select__14SurferFrontEndi"
+}
