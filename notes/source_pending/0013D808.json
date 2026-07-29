@@ -1,0 +1,23 @@
+{
+  "address": "0x0013D808",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4426c7e25d9e8be1b32f670f00ca9be49e70dc1b",
+      "candidate_size": 572,
+      "compared_bytes": 572,
+      "compared_instructions": 144,
+      "emitted_name": "get_ifc_str__21script_data_interfaceRC7pstringR7stringx",
+      "instruction_score": 13.8889,
+      "matching_bytes": 152,
+      "matching_instructions": 20,
+      "notes": "# FIRST PASS wave 106 lane A2\n\nExact released body tested once for `0x0013D808 get_ifc_str__21script_data_interfaceRC7pstringR7stringx`. Result `different`, score 26.5734%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 26.5734,
+      "source": "typedef unsigned long long u64;\n\nextern \"C\" void pack_string(void *, const char *)\n    __asm__(\"pack_string__7pstringPCc\");\nextern \"C\" void assign_string(void *, const void *)\n    __asm__(\"__as__7stringxRC7stringx\");\n\nclass pstring\n{\npublic:\n    u64 data[4];\n\n    pstring(const char *text)\n    {\n        pack_string(this, text);\n    }\n\n    bool operator==(const pstring &other) const\n    {\n        for (unsigned i = 0; i < 4; ++i)\n            if (data[i] != other.data[i])\n                return false;\n        return true;\n    }\n};\n\nclass stringx\n{\npublic:\n    void operator=(const stringx &other)\n    {\n        assign_string(this, &other);\n    }\n};\n\nclass script_data_interface\n{\n    void *vtable;\n    void *owner;\n    char numbers[32];\n    stringx strings[4];\n\npublic:\n    bool get_ifc_str(const pstring &attribute, stringx &value);\n};\n\nbool script_data_interface::get_ifc_str(\n    const pstring &attribute,\n    stringx &value)\n{\n    static pstring str1(\"SD_STR_1\");\n    if (attribute == str1)\n    {\n        value = strings[0];\n        return true;\n    }\n\n    static pstring str2(\"SD_STR_2\");\n    if (attribute == str2)\n    {\n        value = strings[1];\n        return true;\n    }\n\n    static pstring str3(\"SD_STR_3\");\n    if (attribute == str3)\n    {\n        value = strings[2];\n        return true;\n    }\n\n    static pstring str4(\"SD_STR_4\");\n    if (attribute == str4)\n    {\n        value = strings[3];\n        return true;\n    }\n\n    return false;\n}\n",
+      "status": "different",
+      "target_size": 548
+    }
+  ],
+  "raw_name": "get_ifc_str__21script_data_interfaceRC7pstringR7stringx"
+}
