@@ -1,0 +1,23 @@
+{
+  "address": "0x003425F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8b76a92832c7af498294aec0124c79d0f86173c6",
+      "candidate_size": 756,
+      "compared_bytes": 756,
+      "compared_instructions": 190,
+      "emitted_name": "resize__10box_widgetffff",
+      "instruction_score": 84.7368,
+      "matching_bytes": 639,
+      "matching_instructions": 161,
+      "notes": "# FIRST PASS wave 139 lane A1\n\nExact released source tested once for `0x003425F0 resize__10box_widgetffff`. Attempts before: 0. Result `different`, byte score 84.5238% and instruction score 84.7368%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 84.5238,
+      "source": "// Target: 0x003425F0 resize__10box_widgetffff\n// Reference: KS/SRC/widget.cpp\n// Replace this file with one self-contained candidate function.\n#include \"KS/SRC/widget_shared.h\"\n\nclass bitmap_widget : public widget\n{\npublic:\n  void resize( rational_t width, rational_t height );\n};\n\nclass box_widget : public widget\n{\npublic:\n  virtual void resize( rational_t _w, rational_t _h, rational_t _w_thick = 2.0f, rational_t _h_thick = 2.0f );\n\nprotected:\n  bitmap_widget *corner[4], *side[4];\n  rational_t w, h, w_thick, h_thick;\n};\n\nvoid box_widget::resize( rational_t _w, rational_t _h, rational_t _w_thick, rational_t _h_thick )\n{\n  w = _w;\n  h = _h;\n  w_thick = _w_thick;\n  h_thick = _h_thick;\n\n  for ( int i = 0; i < 4; ++i )\n  {\n    corner[i]->resize( _w_thick, _h_thick );\n  }\n\n  side[0]->resize( w - w_thick * 2.0f, h_thick );\n  side[0]->move_to( short( w_thick ), 0 );\n  corner[0]->move_to( 0, 0 );\n\n  side[1]->resize( w_thick, h - h_thick * 2.0f );\n  side[1]->move_to( short( w ) - short( w_thick ), short( h_thick ) );\n  corner[1]->move_to( short( w ) - short( w_thick ), 0 );\n\n  side[2]->resize( w - w_thick * 2.0f, h_thick );\n  side[2]->move_to( short( w_thick ), short( h ) - short( h_thick ) );\n  corner[2]->move_to( short( w ) - short( w_thick ), short( h ) - short( h_thick ) );\n\n  side[3]->resize( w_thick , h - h_thick * 2.0f );\n  side[3]->move_to( 0, short( h_thick ) );\n  corner[3]->move_to( 0, short( h ) - short( h_thick ) );\n}\n",
+      "status": "different",
+      "target_size": 756
+    }
+  ],
+  "raw_name": "resize__10box_widgetffff"
+}
