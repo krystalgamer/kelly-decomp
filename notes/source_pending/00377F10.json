@@ -1,0 +1,23 @@
+{
+  "address": "0x00377F10",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d0c04d543a4868b3d57d98d5e4364b25337570e0",
+      "candidate_size": 472,
+      "compared_bytes": 480,
+      "compared_instructions": 120,
+      "emitted_name": "WAVE_WorldToProfile__Ff",
+      "instruction_score": 10.0,
+      "matching_bytes": 134,
+      "matching_instructions": 12,
+      "notes": "# FIRST PASS wave 90 lane A1\n\nExact released body tested once for `0x00377F10 WAVE_WorldToProfile__Ff`. Result `different`, score 27.9167%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 27.9167,
+      "source": "typedef unsigned int u_int;\n\nenum WaveStageEnum\n{\n\tWAVE_StageBuilding,\n\tWAVE_StageStable,\n\tWAVE_StageSubsiding,\n\tWAVE_StageMax\n};\n\nenum WavePerturbStageEnum\n{\n\tWAVE_PerturbStageNone,\n\tWAVE_PerturbStageDo,\n\tWAVE_PerturbStageHold,\n\tWAVE_PerturbStageCollapse,\n\tWAVE_PerturbStageWait,\n\tWAVE_PerturbStageUndo,\n\tWAVE_PerturbStageMax\n};\n\nstruct WavePartition\n{\n\tu_int N;\n\tfloat *guide;\n\tfloat *guidestep;\n\tfloat *weight;\n};\n\nclass WaveBasePerturbClass\n{\npublic:\n\tfloat (&duration)[WAVE_PerturbStageMax], start[WAVE_PerturbStageMax];\n\tWavePartition partition;\n\n\tbool Enabled(void) { return enabled; }\n\n\tvirtual void Init(void) = 0;\n\tvirtual float WorldToProfile(float worldx) = 0;\n\nprotected:\n\tconst int &enabled;\n\nprivate:\n\tfloat guide[32];\n\tfloat guidestep[32];\n\tfloat weight[32];\n};\n\nclass WavePerturbStairstepClass\n{\npublic:\n\tbool Enabled(void) { return enabled; }\n\tvirtual float WorldToProfile(float worldx);\nprivate:\n\tint enabled;\n};\n\nstruct WaveDebugStruct\n{\n\tint values[65];\n\tint StaticWave;\n};\n\nextern float WAVE_MeshMinX;\nextern float WAVE_MeshMaxX;\nextern bool WAVE_LeftBreaker;\nextern WaveDebugStruct WaveDebug;\nextern WavePerturbStageEnum WAVE_PerturbStage;\nextern WaveBasePerturbClass *WAVE_Perturb;\nextern WavePerturbStairstepClass WAVE_PerturbStairstep;\nextern WaveStageEnum WAVE_Stage;\nextern float WAVE_StageProgress;\n\ntemplate <class T> inline const T& min(const T& a, const T& b) { return b < a ? b : a; }\ntemplate <class T> inline const T& max(const T& a, const T& b) { return a < b ? b : a; }\n\nstatic float WAVE_WorldToProfile(float x)\n{\n\tif (WAVE_LeftBreaker)\n\t{\n\t\tx = WAVE_MeshMinX + WAVE_MeshMaxX - x;\n\t}\n\n\tif (WaveDebug.StaticWave)\n\t{\n\t\treturn x;\n\t}\n\n\tif (WAVE_PerturbStage != WAVE_PerturbStageNone && WAVE_Perturb->Enabled())\n\t{\n\t\tx = WAVE_Perturb->WorldToProfile(x);\n\t\tif (x < WAVE_MeshMinX) x = WAVE_MeshMinX;\n\t\telse if (x > WAVE_MeshMaxX) x = WAVE_MeshMaxX;\n\t}\n\n\tif (WAVE_PerturbStairstep.Enabled())\n\t{\n\t\tx = WAVE_PerturbStairstep.WorldToProfile(x);\n\t\tif (x < WAVE_MeshMinX) x = WAVE_MeshMinX;\n\t\telse if (x > WAVE_MeshMaxX) x = WAVE_MeshMaxX;\n\t}\n\n\tfloat a = (x - WAVE_MeshMinX) / (WAVE_MeshMaxX - WAVE_MeshMinX);\t// from 0 to 1 over width of wave, in reverse time\n\n\tswitch (WAVE_Stage)\t// these are linked to the subdivision methods in WAVE_ComputeGrid\n\t{\n\tcase WAVE_StageBuilding:\n/*\n\t\t// Old method\n\t\ta = 1 - (1 - a) * WAVE_StageProgress;\n*/\n\t\t// New method\n\t\ta = min(1.f, a + 1 - WAVE_StageProgress);\n\t\tbreak;\n\tcase WAVE_StageSubsiding:\n/*\n\t\t// Old method\n\t\ta = a * (1 - WAVE_StageProgress);\n*/\n\t\t// New method\n\t\ta = max(0.f, a - WAVE_StageProgress);\n\t\tbreak;\n\tdefault:\n\t\tbreak;\n\t}\n\n\treturn (WAVE_MeshMaxX - WAVE_MeshMinX) * a + WAVE_MeshMinX;\n}\n",
+      "status": "different",
+      "target_size": 480
+    }
+  ],
+  "raw_name": "WAVE_WorldToProfile__Ff"
+}
