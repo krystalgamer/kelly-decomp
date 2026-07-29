@@ -1,0 +1,15 @@
+{
+  "address": "0x0016E658",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "08c8bbab0f424f7b6adc712cb6cdc4bcb3e46928",
+      "notes": "# FIRST PASS wave 164 lane B5\n\nExact released source tested once for `0x0016E658 Init__10GridWidgetR9PanelFile`. Attempts before: 0. Result `compile_failed`, score 0.0000%. Capacity-only child failures and Sol retries produced no attempts for some lanes; those lanes were remediated directly. No source retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"igo_widget_grid.h\"\n\nvoid GridWidget::Init(PanelFile & panel)\n{\n\tstringx\tname;\n\tint\t\ti;\n\n\t// Get horizontal line PQs from the panel file.\n\tfor (i = 0; i < NUM_H_LINES; i++)\n\t{\n\t\tif (i < 9)\n\t\t\tname = stringx(\"line_h_0\") + stringx(i+1);\n\t\telse\n\t\t\tname = stringx(\"line_h_\") + stringx(i+1);\n\t\thLinePQs[i] = panel.GetPointer(name.c_str());\n\t\thLinePQs[i]->TurnOn(false);\n\t}\n\n\t// Get vertical line PQs from the panel file.\n\tfor (i = 0; i < NUM_V_LINES; i++)\n\t{\n\t\tif (i < 9)\n\t\t\tname = stringx(\"line_results_v_0\") + stringx(i+1);\n\t\telse\n\t\t\tname = stringx(\"line_results_v_\") + stringx(i+1);\n\t\tvLinePQs[i] = panel.GetPointer(name.c_str());\n\t\tvLinePQs[i]->TurnOn(false);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Init__10GridWidgetR9PanelFile"
+}
