@@ -1,0 +1,16 @@
+{
+  "address": "0x002B11D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "fd9bae208d2e6eb20b76e9cb5ca5b9b2a4123f87",
+      "error": "Candidate did not emit insert__t6vector2ZP20force_control_systemZt12my_allocator1ZP20force_control_systemPP20force_control_systemUiRCP20force_control_system; emitted functions: []",
+      "notes": "# FIRST PASS wave 131 lane A3\n\nExact released source tested once for `0x002B11D8 insert__t6vector2ZP20force_control_systemZt12my_allocator1ZP20force_control_systemPP20force_control_systemUiRCP20force_control_system`. Attempts before: 0. Result `symbol_missing`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x002B11D8 insert__t6vector2ZP20force_control_systemZt12my_allocator1ZP20force_control_systemPP20force_control_systemUiRCP20force_control_system\n// Reference: \n// Replace this file with one self-contained candidate function.\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "insert__t6vector2ZP20force_control_systemZt12my_allocator1ZP20force_control_systemPP20force_control_systemUiRCP20force_control_system"
+}
