@@ -1,0 +1,23 @@
+{
+  "address": "0x003218B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "03224e71e8c0c36db5c63d17553b9f375cbb6c8b",
+      "candidate_size": 252,
+      "compared_bytes": 516,
+      "compared_instructions": 129,
+      "emitted_name": "__cl__21slf_to_str_vector3d_tR8vm_stackQ320script_library_class8function7entry_t",
+      "instruction_score": 3.876,
+      "matching_bytes": 69,
+      "matching_instructions": 5,
+      "notes": "FIRST PASS wave98 B4\nTarget: 0x003218B8 __cl__21slf_to_str_vector3d_tR8vm_stackQ320script_library_class8function7entry_t (516/0x204), game/files_script\nReference: kelly-slaters-pro-surfer/KS/SRC/script_lib.cpp\nAttempts before: 0\nAttempt 1: exact released body with minimal faithful self-contained declarations, LF line endings, and no headers\nResult: different; score 13.3721 (instruction score 3.876), candidate 252 bytes versus target 516 bytes.\nExactly one candidate was tested. No alternatives, assembly, annotations, variants, retries, attempts 2-5, diff chasing, build, finalization, integration, queue edits, tracked edits, commit, or push were performed.",
+      "score": 13.3721,
+      "source": "typedef const class stringx* vm_str_t;\n\nclass stringx\n{\npublic:\n  enum fmt_t { fmt };\n  stringx(fmt_t, const char*, ...);\n  stringx& operator=(const stringx&);\n};\n\nclass vm_stack\n{\npublic:\n  char* SP;\n  void pop(int n) { SP -= n; }\n  char* get_SP() const { return SP; }\n  bool push(const char*, int);\n};\n\nclass script_library_class\n{\npublic:\n  class function\n  {\n  public:\n    enum entry_t { FIRST_ENTRY, RECALL_ENTRY };\n    virtual ~function();\n    virtual bool operator()(vm_stack&, entry_t);\n  };\n};\n\nclass vector3d\n{\npublic:\n  float x, y, z;\n};\n\nextern stringx script_strings[];\nextern int script_strings_cnt;\n\n#define MAX_STATIC_TO_STR_STRINGS 16\n#define SLF_PARMS stack.pop(sizeof(parms_t)); parms_t* parms = (parms_t*)stack.get_SP()\n#define SLF_RETURN stack.push((char*)&result, sizeof(result))\n#define SLF_DONE return true\n\nclass slf_to_str_vector3d_t : public script_library_class::function\n{\npublic:\n  struct parms_t\n  {\n    vector3d v;\n  };\n\n  virtual bool operator ()(vm_stack &stack, entry_t entry);\n};\n\nbool slf_to_str_vector3d_t::operator ()(vm_stack &stack, entry_t entry)\n{\n  SLF_PARMS;\n\n  script_strings[script_strings_cnt] = stringx(stringx::fmt, \"<%.3f, %.3f, %.3f>\", parms->v.x, parms->v.y, parms->v.z);\n  vm_str_t result = &script_strings[script_strings_cnt];\n  ++script_strings_cnt;\n  if(script_strings_cnt >= MAX_STATIC_TO_STR_STRINGS)\n    script_strings_cnt = 0;\n\n  SLF_RETURN;\n  SLF_DONE;\n}\n",
+      "status": "different",
+      "target_size": 516
+    }
+  ],
+  "raw_name": "__cl__21slf_to_str_vector3d_tR8vm_stackQ320script_library_class8function7entry_t"
+}
