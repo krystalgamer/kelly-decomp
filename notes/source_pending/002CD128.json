@@ -1,0 +1,15 @@
+{
+  "address": "0x002CD128",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "44c303112af3c78d42e1be2e0d66a9ce0750d978",
+      "notes": "0x002CD128 light_source constructor: exact released source captured. attempts=0. LF test=PASS. No tracked edits, build, or git operations.",
+      "score": 0.0,
+      "source": "light_source::light_source( chunk_file& fs,\n                            const entity_id& _id,\n                            entity_flavor_t _flavor,\n                            unsigned int _flags )\n  :   entity( _id, _flavor, _flags )\n{\n  chunk_flavor cf;\n  properties = NEW light_properties;\n  serial_in( fs, properties );\n  serial_in( fs, &cf );\n  if ( cf != CHUNK_END )\n    error( fs.get_name() + \": unexpected chunk '\" + cf.to_stringx() + \"' in light node\" );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__12light_sourceR10chunk_fileRC9entity_id15entity_flavor_tUi"
+}
