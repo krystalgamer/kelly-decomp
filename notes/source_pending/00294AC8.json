@@ -1,0 +1,23 @@
+{
+  "address": "0x00294AC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3ce13b6ea110133e87ce2fee0a09689ad1337715",
+      "candidate_size": 468,
+      "compared_bytes": 552,
+      "compared_instructions": 138,
+      "emitted_name": "wds_readfile__21world_dynamics_systemPCcPPUcPUiii",
+      "instruction_score": 4.3478,
+      "matching_bytes": 85,
+      "matching_instructions": 6,
+      "notes": "# FIRST PASS wave 107 lane A1\n\nExact released body tested once for `0x00294AC8 wds_readfile__21world_dynamics_systemPCcPPUcPUiii`. Result `different`, score 15.3986%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 15.3986,
+      "source": "typedef unsigned char u_char;\ntypedef unsigned int u_int;\n\nextern \"C\" char *strcpy(char *, const char *);\nextern \"C\" char *strcat(char *, const char *);\n\nclass stringx\n{\n  char *chars;\n  void *my_buf;\npublic:\n  stringx(const char *);\n  ~stringx();\n};\n\nstruct stash_index_entry;\n\nnamespace stash\n{\n  bool is_stash_open();\n}\n\nclass app_file\n{\npublic:\n  app_file();\n  ~app_file();\n  bool get_memory_image(const char *, unsigned char *&, unsigned int &,\n                        stash_index_entry *&, int alignment = 1);\n  int get_size();\n  bool read(void *, int);\n  void close();\n};\n\nvoid* KSMemAllocate(u_int Size, u_int Align, const char *file, int line);\n\nclass world_dynamics_system\n{\npublic:\n  static bool wds_exists(const stringx &, const stringx &, int flags = 0);\n  static stringx wds_open(app_file &, const stringx &, const stringx &, int io_flags = 1);\n  static bool wds_readfile(const char *, unsigned char **, unsigned int *, int, int);\n};\n\nbool world_dynamics_system::wds_readfile( const char *name, unsigned char **buf, unsigned int *len, int alignment, int extra_bytes )\n{\n\tstatic char Work[256];\n\n\tstrcpy( Work, \"\");\n\tstrcat( Work, name );\n\n\tstringx work=Work;\n\tstringx ext=\"\";\n\n\tif ( wds_exists(work,ext) )\n\t{\n\t\tapp_file ChunkU;\n\t\tstash_index_entry *hdr;\n\n\t\tif ( !stash::is_stash_open() || !ChunkU.get_memory_image( Work, *buf, *len, hdr, alignment ) )\n\t\t{\n\t\t\tapp_file ChunkU;\n\n\t\t\twds_open(ChunkU,work,ext);\n\n\t\t\t*len = ChunkU.get_size();\n\t\t\tif ( *len )\n\t\t\t{\n#ifdef TARGET_PS2\n\t\t\t\t// ps2 only reads in 32-byte chunks, rounding down, so we need to read in the extra on our own.\n\t\t\t\t*buf = (u_char*)KSMemAllocate( ( *len + 31 + extra_bytes ) & ~31, alignment, name, 99999  );\n\t\t\t\tChunkU.read( *buf, ( *len + 31 ) & ~31 );\n#else\n\t\t\t\t*buf = (u_char*)KSMemAllocate( *len + extra_bytes, alignment, name, 99999  );\n\t\t\t\tChunkU.read( *buf, *len );\n#endif\n\t\t\t}\n\t\t\tChunkU.close();\n\t\t}\n\n\t\treturn (*len)>0;\n\t}\n\treturn false;\n}\n",
+      "status": "different",
+      "target_size": 552
+    }
+  ],
+  "raw_name": "wds_readfile__21world_dynamics_systemPCcPPUcPUiii"
+}
