@@ -1,0 +1,23 @@
+{
+  "address": "0x002138F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "eb6d21825d2fb95705f8cf676a90705729e050cc",
+      "candidate_size": 624,
+      "compared_bytes": 624,
+      "compared_instructions": 156,
+      "emitted_name": "TurnType__22kellyslater_controller",
+      "instruction_score": 3.8462,
+      "matching_bytes": 115,
+      "matching_instructions": 6,
+      "notes": "FIRST PASS wave118 B3\nTarget: 0x002138F0 TurnType__22kellyslater_controller (620/0x26C), game/files_kellyslater\nReference: kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.cpp\nAttempts before: 0\nAttempt 1: exact released body with minimal self-contained declarations and LF line endings\nResult: different; score 18.4295; instruction score 3.8462; candidate 624 bytes versus target 620.\nExactly one candidate was tested. No follow-up, alternative, retry, diff chase, build, finalization, integration, queue edit, tracked edit, commit, or push was performed.",
+      "score": 18.4295,
+      "source": "typedef enum {\n\tREGULAR_TURN,\n\tHARD_REGULAR_TURN,\n\tGRAB_TURN,\n\tHARD_GRAB_TURN,\n\tTAILSLIDE_TURN,\n\tGRABSLIDE_TURN,\n\tHARD_TAILSLIDE_TURN,\n\tSNAP_TURN,\n\tHARD_SNAP_TURN,\n\tTAILCHUCK_TURN,\n\tREBOUND_TURN,\n\tLAYBACK_SLIDE_TURN,\n\tGOUGE_TURN,\n\tREVERT_CUTBACK_TURN,\n\tCROUCH_TURN,\n\tCARVE_TURN\n} TurnTypeEnum;\n\ntypedef enum {\n\tWAVE_REGIONWOBBLE = 14\n} WaveRegionEnum;\n\nenum {\n\tPAD_GRAB = 201,\n\tPAD_LSTICK_H = 203,\n\tPAD_OLLIE = 205,\n\tPAD_SLIDE = 206,\n\tPAD_CARVE = 209\n};\n\ntypedef struct TurnPropertiesStruct {\n\tfloat maxLeanAngle;\n\tfloat maxTurnAngle;\n} TurnPropertiesType;\n\nclass SurfBoardObjectClass {\n\tchar padding0[48];\n\tTurnPropertiesType turnProps[21];\n\tfloat maxLeanAngle;\n\tfloat maxTurnAngle;\n\tchar padding1[2436];\n\tint current_region;\n\tchar padding2[28];\n\tTurnTypeEnum TurnType;\n\npublic:\n\tint GetWaveRegion() { return current_region; }\n\tint DoingFaceTurn();\n\tvoid SetTurnType(TurnTypeEnum turn)\n\t{\n\t\tTurnType = turn;\n\t\tmaxLeanAngle = turnProps[turn].maxLeanAngle;\n\t\tmaxTurnAngle = turnProps[turn].maxTurnAngle;\n\t}\n};\n\nclass kellyslater_controller {\n\tchar padding0[892];\n\tSurfBoardObjectClass my_board_controller;\n\tchar padding1[2196];\n\tint turnType;\n\tint lastTurnType;\n\tint changeTurnType;\n\tchar padding2[12];\n\tint last_region;\n\tint current_region;\n\tchar padding3[848];\n\tint perform_snap;\n\npublic:\n\tfloat CtrlEvent(int control);\n\tint CtrlDelta(int control);\n\tvoid TurnType();\n};\n\nasm(\".equ CtrlEvent__22kellyslater_controlleri,0x0020CFA0\");\nasm(\".equ CtrlDelta__22kellyslater_controlleri,0x0020CFC8\");\nasm(\".equ DoingFaceTurn__20SurfBoardObjectClass,0x001EFC10\");\n\n#define TRUE 1\n#define FALSE 0\n\nvoid kellyslater_controller::TurnType()\n{\n\tlastTurnType = turnType;\n\tlast_region = current_region;\n\tcurrent_region = my_board_controller.GetWaveRegion();\n\t//turnType = (int) GetStick(PAD_LSTICK_H);\n\n\tif (CtrlEvent(PAD_GRAB) && (CtrlDelta(PAD_SLIDE) || (CtrlEvent(PAD_LSTICK_H) && CtrlEvent(PAD_SLIDE))))\n\t\tturnType = GRABSLIDE_TURN;\n\telse if (CtrlEvent(PAD_GRAB))\n\t\tturnType = GRAB_TURN;\n\telse if (CtrlDelta(PAD_OLLIE) || (CtrlEvent(PAD_LSTICK_H) && CtrlEvent(PAD_OLLIE)))\n\t\tturnType = CROUCH_TURN;\n\t//else if (my_board_controller.InSnapRegion() && perform_snap && CtrlEvent(PAD_SNAP))\n\telse if (perform_snap)\n\t\tturnType = SNAP_TURN;\n\telse if (CtrlDelta(PAD_CARVE) || (CtrlEvent(PAD_LSTICK_H) && CtrlEvent(PAD_CARVE)))\n\t\tturnType = CARVE_TURN;\n\telse if (CtrlDelta(PAD_SLIDE) || (CtrlEvent(PAD_LSTICK_H) && CtrlEvent(PAD_SLIDE)))\n\t\tturnType = TAILSLIDE_TURN;\n\telse if (CtrlEvent(PAD_LSTICK_H))\n\t{\n\t\t//if (CtrlEvent(PAD_HARD))\n\t\t\t//turnType = HARD_REGULAR_TURN;\n\t\tturnType = HARD_REGULAR_TURN;\n\t\t//else\n\t\t\t//turnType = REGULAR_TURN;\n\t}\n\n\tperform_snap = false;\n\n\tif (turnType != lastTurnType ||\n\t\t((last_region == WAVE_REGIONWOBBLE && current_region != WAVE_REGIONWOBBLE) && !my_board_controller.DoingFaceTurn()\n\t\t\t&& (turnType != TAILSLIDE_TURN) && (turnType != GRABSLIDE_TURN)))\n\t{\n\t\tmy_board_controller.SetTurnType(REGULAR_TURN);\n\t\tchangeTurnType = TRUE;\n\t}\n\telse\n\t\tchangeTurnType = FALSE;\n\n\treturn;\n}\n",
+      "status": "different",
+      "target_size": 620
+    }
+  ],
+  "raw_name": "TurnType__22kellyslater_controller"
+}
