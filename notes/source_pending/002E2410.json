@@ -1,0 +1,23 @@
+{
+  "address": "0x002E2410",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "972d8f663b2c8c16a7a9f971706acab21ee2b59e",
+      "candidate_size": 420,
+      "compared_bytes": 488,
+      "compared_instructions": 122,
+      "emitted_name": "frame_advance__17gravity_generatorf",
+      "instruction_score": 0.8197,
+      "matching_bytes": 76,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 91 lane A3\n\nExact released body tested once for `0x002E2410 frame_advance__17gravity_generatorf`. Result `different`, score 15.5738%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 15.5738,
+      "source": "typedef float rational_t;\ntypedef float time_value_t;\n\ntemplate <class T>\nclass vector\n{\npublic:\n  typedef const T* const_iterator;\n\n  const_iterator begin() const { return start; }\n  const_iterator end() const { return finish; }\n\nprivate:\n  T* start;\n  T* finish;\n  T* end_of_storage;\n};\n\nclass vector3d\n{\npublic:\n  vector3d operator*(rational_t) const;\n};\n\nextern const vector3d YVEC;\nextern rational_t g_gravity;\nextern rational_t g_time_dilation;\n\nclass physical_interface\n{\npublic:\n  enum force_type\n  {\n    CONTINUOUS=0,\n    INSTANT\n  };\n\n  bool is_enabled() const;\n  bool is_gravity() const;\n  rational_t get_mass() const;\n  rational_t get_gravity_multiplier() const;\n  virtual void apply_force_increment(const vector3d&, force_type);\n};\n\nclass time_interface\n{\npublic:\n  rational_t calc_time_dilation();\n};\n\nclass entity\n{\npublic:\n  bool has_physical_ifc() const;\n  physical_interface* physical_ifc() const;\n  virtual bool is_stationary() const;\n  bool has_time_ifc() const;\n  time_interface* time_ifc() const;\n};\n\nclass world_dynamics_system\n{\npublic:\n  vector<entity *> const& get_active_entities() const;\n};\n\nextern world_dynamics_system* g_world_ptr;\n\nclass os_developer_options\n{\npublic:\n  static os_developer_options* inst();\n  bool get_gravity_enabled() const;\n};\n\nclass force_generator\n{\npublic:\n  virtual ~force_generator();\n  virtual void frame_advance(time_value_t)=0;\n};\n\nclass gravity_generator: public force_generator\n{\npublic:\n  virtual void frame_advance(time_value_t time_inc);\n};\n\n#define ENTITY_TIME_DILATION(e)           (e->has_time_ifc() ? e->time_ifc()->calc_time_dilation() : g_time_dilation)\n#define CALC_ENTITY_TIME_DILATION(a, e)   (a*ENTITY_TIME_DILATION(e))\n\nvoid gravity_generator::frame_advance(time_value_t time_inc)\n{\n  vector<entity *>::const_iterator ei;\n\tif(os_developer_options::inst()->get_gravity_enabled()){\n//\t\tfor(int i = 0; i < g_world_ptr->get_num_entities(); i++){\n//\t\t\tif(g_world_ptr->is_entity_valid(i)){\n  for (ei = g_world_ptr->get_active_entities().begin();ei<g_world_ptr->get_active_entities().end();ei++)\n    {\n    entity *ent = (*ei); //g_world_ptr->get_entity(i);\n//    if ( ent && ent->is_flagged(EFLAG_PHYSICS) && ent->is_gravity() && !ent->is_stationary() )\n    if ( ent && ent->has_physical_ifc() && ent->physical_ifc()->is_enabled() && ent->physical_ifc()->is_gravity() && !ent->is_stationary() )\n      {\n/*\n#if defined(TARGET_PC)\n          if (ent->get_flavor()==ENTITY_ENTITY)\n            {\n            stringx composite = stringx(\"Active, non-stationary entity: \") + ent->get_id().get_val();\n            error(composite.c_str());\n            }\n#endif\n*/\n      vector3d force = YVEC * (-g_gravity * ent->physical_ifc()->get_mass() * (CALC_ENTITY_TIME_DILATION(time_inc, ent)) * ent->physical_ifc()->get_gravity_multiplier());\n      ent->physical_ifc()->apply_force_increment(force, physical_interface::CONTINUOUS);\n      }\n    }\n  }\n}\n",
+      "status": "different",
+      "target_size": 488
+    }
+  ],
+  "raw_name": "frame_advance__17gravity_generatorf"
+}
