@@ -1,0 +1,23 @@
+{
+  "address": "0x0016E2B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "919f5eb64a749d1e0c3c65fb87780f22310a6886",
+      "candidate_size": 576,
+      "compared_bytes": 668,
+      "compared_instructions": 167,
+      "emitted_name": "Update__15IconRadarWidgetf",
+      "instruction_score": 0.0,
+      "matching_bytes": 103,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 125 lane B5\n\nExact released source tested once for `0x0016E2B8 Update__15IconRadarWidgetf`. Attempts before: 0. Result `different`, byte score 15.4192% and instruction score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 15.4192,
+      "source": "typedef unsigned int u_int;\n\nclass nglVector\n{\npublic:\n    float x, y, z, w;\n    float &operator[](int i) { return ((float *)this)[i]; }\n    nglVector &operator=(const nglVector &v) { x=v.x; y=v.y; z=v.z; w=v.w; return *this; }\n};\n\nclass nglMatrix\n{\npublic:\n    nglVector v[4];\n};\n\nclass nglTexture;\nextern void nglGetMatrix(nglMatrix &Dest, u_int ID);\nextern void nglApplyMatrix(nglVector &dst, const nglMatrix m, const nglVector v);\nextern int nglGetScreenWidth();\nextern int nglGetScreenHeight();\n\ninline int nglGetScreenXOffsetTV() { return 0; }\ninline int nglGetScreenYOffsetTV() { return 0; }\n\ntemplate <class T> void unadjustCoords(T &x, T &y)\n{\n    x = (T) ((x-nglGetScreenXOffsetTV())*640.f/nglGetScreenWidth());\n    y = (T) ((y-nglGetScreenYOffsetTV())*480.f/nglGetScreenHeight());\n}\n\nclass IGOWidget\n{\nprotected:\n    bool display;\npublic:\n    virtual ~IGOWidget();\n    virtual void SetDisplay(const bool d = true);\n    virtual void Update(const float dt);\n    virtual void Draw(void);\n    virtual bool GetDisplay(void) const;\n};\n\nclass IconChallenge\n{\npublic:\n    class Task\n    {\n    public:\n        enum TYPE { TYPE_AIR_FLIP, TYPE_AIR_GRAB, TYPE_AIR_SPIN, TYPE_AIR_POINTS_1000,\n            TYPE_AIR_POINTS_2000, TYPE_AIR_POINTS_5000, TYPE_AIR_SPECIAL, TYPE_FACE_SPIN,\n            TYPE_TUBE_TIME_10, TYPE_TUBE_TIME_15, TYPE_TUBE_TIME_30, TYPE_TUBE_TRICK,\n            TYPE_NUM, TYPE_NONE };\n        bool IsCompleted(void) const;\n        TYPE GetType(void) const;\n        nglVector GetPosition(void) const;\n    };\n    class Sequence\n    {\n    public:\n        int GetNumTasks(void) const;\n        const Task *GetTask(const int i) const;\n    };\n    const Sequence *GetCurrentSequence(void) const;\n};\n\nclass IconRadarWidget : public IGOWidget\n{\n    struct OnscreenIcon { nglVector screenPos; nglTexture *texture; };\n    void *ellipsePQ;\n    IconChallenge *challenge;\n    int numIconTextures;\n    nglTexture **iconTextures;\n    int numOnscreenIcons;\n    OnscreenIcon *onscreenIcons;\npublic:\n    void Update(const float dt);\n};\n\nvoid IconRadarWidget::Update(const float dt)\n{\n    const IconChallenge::Sequence * currSequence;\n    nglMatrix mat;\n    nglVector dest;\n    int i;\n\n    IGOWidget::Update(dt);\n\n    nglGetMatrix(mat, 2);\n    numOnscreenIcons = 0;\n    if (challenge && challenge->GetCurrentSequence())\n    {\n        currSequence = challenge->GetCurrentSequence();\n        for (i = 0; i < currSequence->GetNumTasks(); i++)\n        {\n            if (!currSequence->GetTask(i)->IsCompleted())\n            {\n                onscreenIcons[numOnscreenIcons].texture = iconTextures[currSequence->GetTask(i)->GetType()];\n                onscreenIcons[numOnscreenIcons].screenPos[0] = currSequence->GetTask(i)->GetPosition().x;\n                onscreenIcons[numOnscreenIcons].screenPos[1] = currSequence->GetTask(i)->GetPosition().y;\n                onscreenIcons[numOnscreenIcons].screenPos[2] = currSequence->GetTask(i)->GetPosition().z;\n                onscreenIcons[numOnscreenIcons].screenPos[3] = 1;\n                nglApplyMatrix(dest, mat, onscreenIcons[numOnscreenIcons].screenPos);\n                onscreenIcons[numOnscreenIcons].screenPos = dest;\n                unadjustCoords(onscreenIcons[numOnscreenIcons].screenPos[0], onscreenIcons[numOnscreenIcons].screenPos[1]);\n                numOnscreenIcons++;\n            }\n        }\n    }\n}\n",
+      "status": "different",
+      "target_size": 668
+    }
+  ],
+  "raw_name": "Update__15IconRadarWidgetf"
+}
