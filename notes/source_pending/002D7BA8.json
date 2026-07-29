@@ -1,0 +1,23 @@
+{
+  "address": "0x002D7BA8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "fb41bba6ad4ab1564475e82138beeb16b7edf7dc",
+      "candidate_size": 652,
+      "compared_bytes": 656,
+      "compared_instructions": 164,
+      "emitted_name": "get_closest_point_along_dir__C17collision_capsuleP8vector3dRC8vector3d",
+      "instruction_score": 12.8049,
+      "matching_bytes": 235,
+      "matching_instructions": 21,
+      "notes": "# FIRST PASS wave 124 lane A3\n\nExact released source tested once for `0x002D7BA8 get_closest_point_along_dir__C17collision_capsuleP8vector3dRC8vector3d`. Attempts before: 0. Result `different`, byte score 35.8232% and instruction score 12.8049%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 35.8232,
+      "source": "typedef float rational_t;\nextern \"C\" float sqrtf(float);\nconst rational_t SMALL_DIST = 0.00001f;\n\ninline rational_t fast_recip_sqrt(rational_t x)\n{\n  return 1.0F/(rational_t)sqrtf(x);\n}\n\nclass vector3d\n{\npublic:\n  typedef rational_t T;\n  T x,y,z;\n\n  inline vector3d() {}\n  inline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; }\n  inline vector3d(T _x, T _y, T _z) { x = _x; y = _y; z = _z; }\n  inline vector3d& operator = (const vector3d& v)\n  { x = v.x; y = v.y; z = v.z; return *this; }\n  inline vector3d& operator *= (T d)\n  { x *= d; y *= d; z *= d; return *this; }\n  inline T length2() const\n  { return x*x + y*y + z*z; }\n  inline vector3d& normalize()\n  {\n    T l2 = length2();\n    if (l2>SMALL_DIST*SMALL_DIST)\n      *this *= fast_recip_sqrt(l2);\n    return *this;\n  }\n};\n\ninline vector3d operator + (const vector3d& a, const vector3d& b)\n{ return vector3d(a.x + b.x, a.y + b.y, a.z + b.z); }\ninline vector3d operator - (const vector3d& a, const vector3d& b)\n{ return vector3d(a.x - b.x, a.y - b.y, a.z - b.z); }\ninline vector3d operator * (const vector3d& a, vector3d::T d)\n{ return vector3d(d * a.x, d * a.y, d * a.z); }\ninline vector3d operator / (const vector3d& a, vector3d::T d)\n{\n  vector3d::T d_inv = 1.0f/d;\n  return vector3d(a.x*d_inv, a.y*d_inv, a.z*d_inv);\n}\ninline vector3d::T dot(const vector3d& a, const vector3d& b)\n{ return a.x*b.x + a.y*b.y + a.z*b.z; }\n\nclass collision_geometry { char data[12]; };\nclass capsule\n{\npublic:\n  vector3d base;\n  vector3d end;\n  rational_t radius;\n};\nclass collision_capsule : public collision_geometry\n{\npublic:\n  void get_closest_point_along_dir(vector3d* target, const vector3d& axis) const;\nprivate:\n  capsule rel_cap;\n  capsule abs_cap;\n  vector3d lag_point;\n};\n\nvoid collision_capsule::get_closest_point_along_dir( vector3d* target, const vector3d& axis ) const\n{\n  vector3d outval;\n  rational_t a = dot(abs_cap.base,axis);\n  rational_t b = dot(abs_cap.end,axis);\n  vector3d normal_axis = axis;\n  normal_axis.normalize();\n  if (a<b)\n  {\n    outval = abs_cap.base-normal_axis*rel_cap.radius;\n  }\n  else if (b<a)\n  {\n    outval = abs_cap.end-normal_axis*rel_cap.radius;\n  }\n  else\n  {\n    outval = (abs_cap.end+abs_cap.base)/2 - normal_axis*rel_cap.radius;\n  }\n  *target=outval;\n}\n",
+      "status": "different",
+      "target_size": 656
+    }
+  ],
+  "raw_name": "get_closest_point_along_dir__C17collision_capsuleP8vector3dRC8vector3d"
+}
