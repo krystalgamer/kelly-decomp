@@ -1,0 +1,23 @@
+{
+  "address": "0x00151998",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d66679e9dbb2b9c82b0764e52c2cc36d43723d21",
+      "candidate_size": 472,
+      "compared_bytes": 776,
+      "compared_instructions": 194,
+      "emitted_name": "Init__11PanelObjectPP9PanelQuadG9matrix4x4b",
+      "instruction_score": 0.0,
+      "matching_bytes": 67,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 140 lane B5\n\nExact released source tested once for `0x00151998 Init__11PanelObjectPP9PanelQuadG9matrix4x4b`. Attempts before: 0. Result `different`, byte score 8.6340% and instruction score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 8.634,
+      "source": "// Target: 0x00151998 Init__11PanelObjectPP9PanelQuadG9matrix4x4b\nstruct stringx { char data[16]; };\nstruct matrix4x4 { float data[16] __attribute__((aligned(16))); };\n\nstatic inline matrix4x4 operator*(const matrix4x4& a, const matrix4x4& b)\n{\n    matrix4x4 local;\n    asm(\"lqc2 vf1,0x0(%2)\\n\"\n        \"lqc2 vf2,0x10(%2)\\n\"\n        \"lqc2 vf3,0x20(%2)\\n\"\n        \"lqc2 vf4,0x30(%2)\\n\"\n        \"lqc2 vf5,0x0(%1)\\n\"\n        \"lqc2 vf6,0x10(%1)\\n\"\n        \"lqc2 vf7,0x20(%1)\\n\"\n        \"lqc2 vf8,0x30(%1)\\n\"\n        \"vmulax.xyzw ACC,vf1,vf5\\n\"\n        \"vmadday.xyzw ACC,vf2,vf5\\n\"\n        \"vmaddaz.xyzw ACC,vf3,vf5\\n\"\n        \"vmaddw.xyzw vf9,vf4,vf5\\n\"\n        \"vmulax.xyzw ACC,vf1,vf6\\n\"\n        \"vmadday.xyzw ACC,vf2,vf6\\n\"\n        \"vmaddaz.xyzw ACC,vf3,vf6\\n\"\n        \"vmaddw.xyzw vf10,vf4,vf6\\n\"\n        \"vmulax.xyzw ACC,vf1,vf7\\n\"\n        \"vmadday.xyzw ACC,vf2,vf7\\n\"\n        \"vmaddaz.xyzw ACC,vf3,vf7\\n\"\n        \"vmaddw.xyzw vf11,vf4,vf7\\n\"\n        \"vmulax.xyzw ACC,vf1,vf8\\n\"\n        \"vmadday.xyzw ACC,vf2,vf8\\n\"\n        \"vmaddaz.xyzw ACC,vf3,vf8\\n\"\n        \"vmaddw.xyzw vf12,vf4,vf8\\n\"\n        \"sqc2 vf9,0x0(%0)\\n\"\n        \"sqc2 vf10,0x10(%0)\\n\"\n        \"sqc2 vf11,0x20(%0)\\n\"\n        \"sqc2 vf12,0x30(%0)\\n\"\n        : : \"r\" (&local.data[0]), \"r\" (&a.data[0]), \"r\" (&b.data[0]));\n    return local;\n}\n\nclass PanelQuad;\nclass PanelGeom {\npublic:\n    stringx name;\n    matrix4x4 matrix;\n    char pad[28];\n    PanelGeom *children;\n    PanelGeom *next;\n    PanelGeom *parent;\n    virtual ~PanelGeom();\n    virtual int Kind() const;\n    virtual bool Load(unsigned char *, int &);\n    virtual void Reload();\n    virtual PanelGeom *FindObject(const stringx &);\n    virtual PanelQuad *GetQuad();\n    virtual void Init(PanelQuad **, bool = false);\n    virtual void Init(PanelQuad **, matrix4x4, bool = false);\n};\nclass PanelBatch {\npublic:\n    char data[100];\n    void Init(PanelQuad **, stringx, matrix4x4, bool);\n};\nclass PanelObject : public PanelGeom {\npublic:\n    char pad[12];\n    unsigned short size;\n    unsigned short nbatches;\n    PanelBatch *batches;\n    virtual void Init(PanelQuad **, matrix4x4, bool = false);\n};\n\nvoid PanelObject::Init(PanelQuad** pquads, matrix4x4 parent_matrix, bool floating)\n{\n\tmatrix4x4 this_matrix = parent_matrix*matrix;\n\tfor(int i=0; i<nbatches; i++)\n\t\tbatches[i].Init(pquads, name, this_matrix, floating);\n\tif(children)\n\t\tchildren->Init(pquads, this_matrix, floating);\n}\n",
+      "status": "different",
+      "target_size": 776
+    }
+  ],
+  "raw_name": "Init__11PanelObjectPP9PanelQuadG9matrix4x4b"
+}
