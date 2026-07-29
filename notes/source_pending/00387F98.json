@@ -1,0 +1,23 @@
+{
+  "address": "0x00387F98",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f2623032652119aa1375107800ac3085e23ddf7e",
+      "candidate_size": 552,
+      "compared_bytes": 552,
+      "compared_instructions": 138,
+      "emitted_name": "nvlMPEGStop__Fv",
+      "instruction_score": 42.7536,
+      "matching_bytes": 171,
+      "matching_instructions": 59,
+      "notes": "# FIRST PASS wave 103 lane A2\n\nExact released `nvlMPEGStop` body tested once for `0x00387F98`. Attempts before: 0. LF-only candidate. Result `different`, byte score 30.9783%, instruction score 42.7536%. No retry, follow-up, chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 30.9783,
+      "source": "struct VideoDec {\n    char padding[0x100];\n    int hid_endimage;\n    int hid_vblank;\n};\nstruct AudioDec {};\nstruct ReadBuf {};\nstruct VoBuf {};\nstruct StrFile {};\n\nextern VideoDec videoDec;\nextern AudioDec audioDec;\nextern ReadBuf *readBuf;\nextern VoBuf voBuf;\nextern StrFile infile;\nextern int videoDecTh;\nextern int defaultTh;\nextern void *voBufData;\nextern void *voBufTag;\nextern void *viBufTag;\nextern void *mpegWork;\nextern void *defStack;\nextern void *audioBuff;\nextern void *viBufData;\nextern void *videoDecStack;\nextern void *timeStamp;\nextern void *_0_buf;\nextern void (*nvlMPEGFreeFunc)(void *);\n\nextern void endDisplay();\nextern void audioDecReset(AudioDec *);\nextern void readBufDelete(ReadBuf *);\nextern void voBufDelete(VoBuf *);\nextern int TerminateThread(int);\nextern int DeleteThread(int);\nextern int DisableDmac(int);\nextern int RemoveDmacHandler(int, int);\nextern int DisableIntc(int);\nextern int RemoveIntcHandler(int, int);\nextern void videoDecDelete(VideoDec *);\nextern void audioDecDelete(AudioDec *);\nextern void strFileClose(StrFile *);\nextern \"C\" void free(void *);\n\n#define DMAC_GIF 2\n#define INTC_VBLANK_S 2\n\nvoid nvlMPEGStop()\n{\n    endDisplay();\n    audioDecReset( &audioDec );\n\n    readBufDelete( readBuf );\n    voBufDelete(&voBuf);\n\n    TerminateThread(videoDecTh);\n    DeleteThread(videoDecTh);\n\n    TerminateThread(defaultTh);\n    DeleteThread(defaultTh);\n\n    DisableDmac(DMAC_GIF);\n    RemoveDmacHandler(DMAC_GIF, videoDec.hid_endimage);\n\n    DisableIntc(INTC_VBLANK_S);\n    RemoveIntcHandler(INTC_VBLANK_S, videoDec.hid_vblank);\n\n    videoDecDelete(&videoDec);\n    audioDecDelete(&audioDec);\n\n    strFileClose(&infile);\n\n    if( nvlMPEGFreeFunc )\n    {\n        (*nvlMPEGFreeFunc)( voBufData );\n        (*nvlMPEGFreeFunc)( voBufTag );\n        (*nvlMPEGFreeFunc)( viBufTag );\n        (*nvlMPEGFreeFunc)( mpegWork );\n        (*nvlMPEGFreeFunc)( defStack );\n        (*nvlMPEGFreeFunc)( audioBuff );\n        (*nvlMPEGFreeFunc)( viBufData );\n        (*nvlMPEGFreeFunc)( videoDecStack );\n        (*nvlMPEGFreeFunc)( timeStamp );\n        (*nvlMPEGFreeFunc)( _0_buf );\n        (*nvlMPEGFreeFunc)( readBuf );\n    }\n    else\n    {\n        free( voBufData );\n        free( voBufTag );\n        free( viBufTag );\n        free( mpegWork );\n        free( defStack );\n        free( audioBuff );\n        free( viBufData );\n        free( videoDecStack );\n        free( timeStamp );\n        free( _0_buf );\n        free( readBuf );\n    }\n}\n",
+      "status": "different",
+      "target_size": 532
+    }
+  ],
+  "raw_name": "nvlMPEGStop__Fv"
+}
