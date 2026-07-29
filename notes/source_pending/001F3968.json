@@ -1,0 +1,23 @@
+{
+  "address": "0x001F3968",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "60e90b0b3fc59747a5f4603464265f48853d25ca",
+      "candidate_size": 492,
+      "compared_bytes": 524,
+      "compared_instructions": 131,
+      "emitted_name": "CalculateCeilingWipeout__20SurfBoardObjectClass",
+      "instruction_score": 0.0,
+      "matching_bytes": 78,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 100 lane B4\n\nExact released body tested once for `0x001F3968 CalculateCeilingWipeout__20SurfBoardObjectClass`. Result `different`, score 14.8855%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 14.8855,
+      "source": "struct vector3d\n{\n  float x, y, z;\n  void normalize();\n};\n\ninline float dot(const vector3d &a, const vector3d &b)\n{\n  return a.x*b.x + a.y*b.y + a.z*b.z;\n}\n\ninline vector3d operator-(const vector3d &v)\n{\n  vector3d r = { -v.x, -v.y, -v.z };\n  return r;\n}\n\nstruct po\n{\n  vector3d non_affine_slow_xform(const vector3d &) const;\n};\n\nstruct entity\n{\n  char pad[80];\n  po *abs_po;\n  po &get_abs_po() { return *abs_po; }\n};\n\nclass kellyslater_controller\n{\n  char pad[484];\n  bool goofy;\npublic:\n  bool IsGoofy(void) { return goofy; }\n};\n\nclass game\n{\n  char pad[552];\n  int beachid;\npublic:\n  int get_beach_id(void) { return beachid; }\n};\n\nstruct BeachData\n{\n  char pad0[208];\n  int bdir;\n  char pad1[320];\n};\n\nextern const vector3d ZVEC;\nextern game *g_game_ptr;\nextern BeachData BeachDataArray[];\n\nenum {\n  WIP_LOW_AIR_FOR,\n  WIP_LOW_AIR_BACK,\n  WIP_LOW_AIR_RIGHT,\n  WIP_LOW_AIR_LEFT,\n  WIP_LOW_AIR_FOR_RIGHT,\n  WIP_LOW_AIR_FOR_LEFT,\n  WIP_LOW_AIR_BOT_RIGHT,\n  WIP_LOW_AIR_BOT_LEFT,\n  WIP_LOW_HIT_BY_LIP,\n  WIP_LOW_STUMBLE_BACK,\n  WIP_LOW_LIE_FOR,\n  WIP_LOW_LIE_FLAT,\n  WIP_TAKE_OFF_FLAT,\n  WIP_HIT_BY_CEILING_LEFT,\n  WIP_HIT_BY_CEILING_RIGHT,\n  WIP_HIT_BY_CEILING_FOR,\n  WIP_HIT_BY_CEILING_BACK\n};\n\nclass SurfBoardObjectClass\n{\n  char pad0[2516];\n  entity *my_board;\n  entity *my_board_model;\n  kellyslater_controller *ksctrl;\n  char pad1[112];\n  int wipeout_type;\n  char pad2[92];\n  vector3d lip_vec;\npublic:\n  vector3d GetForwardDir(void) { return my_board->get_abs_po().non_affine_slow_xform(ZVEC); }\n  int CalculateCeilingWipeout(void);\n};\n\nint SurfBoardObjectClass::CalculateCeilingWipeout(void)\n{\n\tvector3d bdir = GetForwardDir();\n\tbdir.y = 0.0f;\n\tbdir.normalize();\n\tfloat cosine = dot(lip_vec, bdir);\n\tfloat cosine2 = dot(bdir, -ZVEC);\n\tint current_beach = g_game_ptr->get_beach_id ();\n    int negative = BeachDataArray[current_beach].bdir;\n\tif (cosine >= 0.707f)\n\t{\n\t\tif (negative)\n\t\t{\n\t\t\tif (ksctrl->IsGoofy())\n\t\t\t\twipeout_type = WIP_HIT_BY_CEILING_RIGHT;\n\t\t\telse\n\t\t\t\twipeout_type = WIP_HIT_BY_CEILING_LEFT;\n\t\t}\n\t\telse\n\t\t{\n\t\t\tif (ksctrl->IsGoofy())\n\t\t\t\twipeout_type = WIP_HIT_BY_CEILING_LEFT;\n\t\t\telse\n\t\t\t\twipeout_type = WIP_HIT_BY_CEILING_RIGHT;\n\t\t}\n\t}\n\telse if (cosine < -0.707f)\n\t{\n\t\tif (negative)\n\t\t{\n\t\t\tif (ksctrl->IsGoofy())\n\t\t\t\twipeout_type = WIP_HIT_BY_CEILING_LEFT;\n\t\t\telse\n\t\t\t\twipeout_type = WIP_HIT_BY_CEILING_RIGHT;\n\t\t}\n\t\telse\n\t\t{\n\t\t\tif (ksctrl->IsGoofy())\n\t\t\t\twipeout_type = WIP_HIT_BY_CEILING_RIGHT;\n\t\t\telse\n\t\t\t\twipeout_type = WIP_HIT_BY_CEILING_LEFT;\n\t\t}\n\t}\n\telse if (cosine2 >= 0.707f)\n\t\twipeout_type = WIP_HIT_BY_CEILING_FOR;\n\telse\n\t\twipeout_type = WIP_HIT_BY_CEILING_BACK;\n\n\treturn wipeout_type;\n}\n",
+      "status": "different",
+      "target_size": 524
+    }
+  ],
+  "raw_name": "CalculateCeilingWipeout__20SurfBoardObjectClass"
+}
