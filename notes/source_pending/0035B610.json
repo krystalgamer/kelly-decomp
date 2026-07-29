@@ -1,0 +1,15 @@
+{
+  "address": "0x0035B610",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ab91e425608103dfc57e9842313eda056291cf6e",
+      "notes": "# FIRST PASS wave119 B2\n\nExact released GCC `stl_tree.h` source instantiation tested once for `0x0035B610 insert_unique__t8_Rb_tree5ZP20script_library_classZP20script_library_classZt9_Identity1ZP20script_library_classZQ211slc_manager10class_lessZt12my_allocator1ZP20script_library_classRCP20script_library_class`.\n\nResult: `compile_failed`, score `0.0000%`. No retry, follow-up, build, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/script_library_class.h\"\n\ntypedef _Rb_tree<script_library_class*, script_library_class*,\n                 _Identity<script_library_class*>, slc_manager::class_less,\n                 my_allocator<script_library_class*> > tree_type;\n\ntemplate pair<tree_type::iterator, bool>\ntree_type::insert_unique(script_library_class* const&);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "insert_unique__t8_Rb_tree5ZP20script_library_classZP20script_library_classZt9_Identity1ZP20script_library_classZQ211slc_manager10class_lessZt12my_allocator1ZP20script_library_classRCP20script_library_class"
+}
