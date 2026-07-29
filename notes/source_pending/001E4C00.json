@@ -1,0 +1,23 @@
+{
+  "address": "0x001E4C00",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0f0097fae88ea6e14764d3119f41a3ab9cff9756",
+      "candidate_size": 524,
+      "compared_bytes": 524,
+      "compared_instructions": 131,
+      "emitted_name": "readData__16GenericGameSaveriiPcPvi",
+      "instruction_score": 11.4504,
+      "matching_bytes": 145,
+      "matching_instructions": 15,
+      "notes": "# FIRST PASS wave89 B2 \u2014 0x001E4C00\n\n- Function: `readData__16GenericGameSaveriiPcPvi`\n- Reference: `kelly-slaters-pro-surfer/KS/SRC/HWOSPS2/ps2_gamesaver.cpp`\n- Queue attempts before test: 0; prepared `attempts.json` was empty.\n- Attempt: 1 only, exact released non-Xbox/GC body with minimal faithful declarations.\n- Candidate is LF-only, self-contained, and compiled without unresolved headers.\n- Result: `different`; 145/524 bytes (27.6718%), 15/131 instructions (11.4504%).\n- Target size: 480 bytes; candidate size: 524 bytes.\n- No alternatives, variants, retries, integration, build, or tracked/reference edits performed.",
+      "score": 27.6718,
+      "source": "#define GSOk 0\n#define GSErrorOther -2\n#define SCE_RDONLY 1\n\nextern \"C\" int sceMcOpen(int port, int slot, const char *name, int mode);\nextern \"C\" int sceMcSync(int mode, int *cmd, int *result);\nextern \"C\" int sceMcRead(int fd, void *data, int size);\nextern \"C\" int sceMcClose(int fd);\n\nclass GenericGameSaver\n{\npublic:\n  static int getInfo(int port, int slot, int *type, int *free, int *formatted);\n  static int readData(int port, int slot, char *name, void *data, int maxSize);\n};\n\nint GenericGameSaver::readData(int port, int slot,\n                               char *name,\n                               void *data, int maxSize)\n{\n  int fp, type, free, formatted, cmd, result;\n  int infoRes = getInfo(port, slot, &type, &free, &formatted);\n  int bytes =0;\n  if (infoRes != GSOk)\n    return infoRes;\n\n  if (sceMcOpen(port, slot, name, SCE_RDONLY) != 0)\n    if (sceMcOpen(port, slot, name, SCE_RDONLY) != 0)\n      return GSErrorOther;\n\n  if (sceMcSync(0, &cmd, &result) != 1)\n  {\n    if (sceMcOpen(port, slot, name, SCE_RDONLY) != 0)\n    {\n      if (sceMcOpen(port, slot, name, SCE_RDONLY) != 0)\n      {\n        return GSErrorOther;\n      }\n      else\n      {\n        if (sceMcSync(0, &cmd, &result) != 1)\n          return GSErrorOther;\n      }\n    }\n    else\n    {\n      if (sceMcSync(0, &cmd, &result) != 1)\n        return GSErrorOther;\n    }\n  }\n\n  if (result < 0)\n    return GSErrorOther;\n\n  fp = result;\n\n  if (sceMcRead(fp, data, maxSize) != 0)\n    if (sceMcRead(fp, data, maxSize) != 0)\n      return GSErrorOther;\n\n  while (sceMcSync(1, &cmd, &result)==0)\n  {\n    if (result < 0) \n    {\n      sceMcClose(fp);\n      sceMcSync(0, &cmd, &result);\n      return GSErrorOther;\n    }\n    bytes +=result;\n  }\n  if (result < 0) \n  {\n    sceMcClose(fp);\n    sceMcSync(0, &cmd, &result);\n    return GSErrorOther;\n  }\n  bytes +=result;\n  if (sceMcClose(fp) != 0)\n    if (sceMcClose(fp) != 0)\n      return GSErrorOther;\n\n  sceMcSync(0, &cmd, &result);\n\n\n  return GSOk;\n}\n",
+      "status": "different",
+      "target_size": 480
+    }
+  ],
+  "raw_name": "readData__16GenericGameSaveriiPcPvi"
+}
