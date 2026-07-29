@@ -1,0 +1,23 @@
+{
+  "address": "0x0013E3F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cb324eec838cc298e0b7d5533fca91de97bae143",
+      "candidate_size": 444,
+      "compared_bytes": 480,
+      "compared_instructions": 120,
+      "emitted_name": "_M_insert_aux__t6vector2Z7stringxZt23__malloc_alloc_template1i0P7stringxRC7stringx",
+      "instruction_score": 1.6667,
+      "matching_bytes": 90,
+      "matching_instructions": 2,
+      "notes": "FIRST PASS wave89 A4\nTarget: 0x0013E3F0 _M_insert_aux__t6vector2Z7stringxZt23__malloc_alloc_template1i0P7stringxRC7stringx (480/0x1E0), game/files_entity\nReference: GCC 2.95.2 stl_vector.h\nAttempts before: 0\nAttempt 1: faithful template body with minimal self-contained declarations and no headers\nResult: different; byte score 18.75; instruction score 1.6667; candidate size 444; target size 480\nNo alternatives, retries, attempts 2-5, algorithm changes, assembly, annotations, integration, finalization, build, or tracked-file changes.",
+      "score": 18.75,
+      "source": "typedef unsigned int size_t;\n\ninline void *operator new(size_t, void *p) { return p; }\n\nclass stringx {\npublic:\n  stringx(const stringx &);\n  ~stringx();\n  stringx &operator=(const stringx &);\n  char data[8];\n};\n\nextern \"C\" void *arch_malloc(size_t, const char *, int)\n  __asm__(\"arch_malloc__FUiPCci\");\nextern \"C\" void arch_free(void *) __asm__(\"arch_free__FPv\");\nextern \"C\" void *oom_malloc(size_t)\n  __asm__(\"_S_oom_malloc__t23__malloc_alloc_template1i0Ui\");\nextern \"C\" stringx *uninitialized_copy(stringx *, stringx *, stringx *, int)\n  __asm__(\"__uninitialized_copy_aux__H2ZP7stringxZP7stringx_X01X01X11G12__false_type_X11\");\n\nstruct vector_stringx {\n  stringx *start;\n  stringx *finish;\n  stringx *end_of_storage;\n\n  void insert_aux(stringx *, const stringx &)\n    __asm__(\"_M_insert_aux__t6vector2Z7stringxZt23__malloc_alloc_template1i0P7stringxRC7stringx\");\n};\n\nvoid vector_stringx::insert_aux(stringx *position, const stringx &x)\n{\n  if (finish != end_of_storage) {\n    new (finish) stringx(*(finish - 1));\n    ++finish;\n    stringx x_copy = x;\n    stringx *last = finish - 2;\n    stringx *result = finish - 1;\n    while (position != last)\n      *--result = *--last;\n    *position = x_copy;\n  } else {\n    size_t old_size = finish - start;\n    size_t len = old_size != 0 ? 2 * old_size : 1;\n    size_t bytes = len * sizeof(stringx);\n    stringx *tmp = 0;\n    if (bytes != 0) {\n      tmp = (stringx *)arch_malloc(bytes, \"C:/usr/local/sce/ee/gcc/include/g++-2/stl_alloc.h\", 0);\n      if (tmp == 0)\n        tmp = (stringx *)oom_malloc(bytes);\n    }\n    stringx *new_finish = uninitialized_copy(start, position, tmp, 0);\n    if (new_finish)\n      new (new_finish) stringx(x);\n    new_finish = uninitialized_copy(position, finish, new_finish + 1, 0);\n    for (stringx *p = start; p != finish; ++p)\n      p->~stringx();\n    if (end_of_storage - start != 0)\n      arch_free(start);\n    start = tmp;\n    finish = new_finish;\n    end_of_storage = tmp + len;\n  }\n}\n",
+      "status": "different",
+      "target_size": 480
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2Z7stringxZt23__malloc_alloc_template1i0P7stringxRC7stringx"
+}
