@@ -1,0 +1,23 @@
+{
+  "address": "0x001C9298",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "38ee0399c3001128a8297a6aed94d31b9f49f2bd",
+      "candidate_size": 16,
+      "compared_bytes": 520,
+      "compared_instructions": 130,
+      "emitted_name": "SetSurferPo__15FEEntityManagerP6entityi",
+      "instruction_score": 0.0,
+      "matching_bytes": 2,
+      "matching_instructions": 0,
+      "notes": "FIRST PASS wave100 B1\nTarget: 0x001C9298 SetSurferPo__15FEEntityManagerP6entityi (520/0x208), game/files_frontend\nReference: kelly-slaters-pro-surfer/KS/SRC/ks/FEEntityManager.cpp\nAttempts before: 0\nAttempt 1: exact released body with minimal faithful self-contained declarations and LF line endings\ntmp/functions/001C9298_SetSurferPo__15FEEntityManagerP6entityi\ntmp/functions/001C9298_SetSurferPo__15FEEntityManagerP6entityi\n{\n  \"attempt\": 1,\n  \"candidate_file\": \"candidate.cpp\",\n  \"candidate_sha1\": \"38ee0399c3001128a8297a6aed94d31b9f49f2bd\",\n  \"candidate_size\": 16,\n  \"compared_bytes\": 520,\n  \"compared_instructions\": 130,\n  \"emitted_name\": \"SetSurferPo__15FEEntityManagerP6entityi\",\n  \"instruction_score\": 0.0,\n  \"matching_bytes\": 2,\n  \"matching_instructions\": 0,\n  \"score\": 0.3846,\n  \"status\": \"different\",\n  \"target_size\": 520\n}\nExactly one candidate was tested. No follow-up, alternatives, retries, build, finalization, git operations, or tracked edits were performed.",
+      "score": 0.3846,
+      "source": "struct po\n{\n    float m[4][4];\n};\n\nstruct entity;\n\nstruct link_interface\n{\n    char padding[8];\n    entity *parent;\n};\n\nstruct entity_vtable\n{\n    char padding[64];\n    short adjustment;\n    short reserved;\n    void (*po_changed)(void *);\n};\n\nstruct entity\n{\n    char padding0[8];\n    entity_vtable *vtable;\n    po my_po;\n    link_interface *link;\n\n    void set_rel_po(const po &the_po);\n};\n\nextern void update_abs_po_family(link_interface *);\n\nasm(\".equ update_abs_po_family__14link_interface, 0x00122198\");\n\nvoid entity::set_rel_po(const po &the_po)\n{\n    my_po = the_po;\n    update_abs_po_family(link);\n    entity_vtable *table = vtable;\n    table->po_changed((char *)this + table->adjustment);\n}\n\nclass FEEntityManager\n{\n    char padding[0x2a0];\n    po surfer_select_po;\n\npublic:\n    void SetSurferPo(entity *s, int s_num);\n};\n\nvoid FEEntityManager::SetSurferPo(entity* s, int s_num)\n{\n\ts->set_rel_po(surfer_select_po);\n}\n",
+      "status": "different",
+      "target_size": 520
+    }
+  ],
+  "raw_name": "SetSurferPo__15FEEntityManagerP6entityi"
+}
