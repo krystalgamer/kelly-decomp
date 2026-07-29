@@ -1,0 +1,15 @@
+{
+  "address": "0x00193DC0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "180221330a1059183981cec73050641dfcd1f8bd",
+      "notes": "# FIRST PASS wave 150 lane B2\n\nExact released source tested once for `0x00193DC0 SetBeachPoints__13BeachFrontEnd`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x00193DC0 SetBeachPoints__13BeachFrontEnd\n// Reference: KS/SRC/ks/BeachFrontEnd.cpp\n// Replace this file with one self-contained candidate function.\nvoid BeachFrontEnd::SetBeachPoints()\n{\n\tbool is_current = false;\n\tbool is_home = false;\n\tbool unlocked = true;\n\tbool challenges_complete = false;\n\tbool new_challenges = false;\n\tbool on_beach = highlighted != fe_return;\n\n\tfor(int i=0; i<BEACH_LAST; i++)\n\t{\n\t\tint loc = beaches[i].location;\n\t\tis_current = beaches[i].location == beaches[current_beach_index].location && on_beach;\n\t\tis_home = beaches[i].location == beaches[home_beach].location;\n\n\t\tif(in_career_mode)\n\t\t{\n\t\t\tnew_challenges = beaches[i].new_challenges;\n\t\t\tchallenges_complete = beaches[i].done;\n\t\t}\n\n\t\tif(Realistic(false))\n\t\t{\n\t\t\tif(in_career_mode) unlocked = !locations[loc].all_levels_locked && !locations[loc].no_existing_levels;\n\t\t\telse unlocked = !locations[loc].all_beaches_locked;\n\t\t}\n\t\telse\n\t\t{\n\t\t\tif(in_career_mode) unlocked = !locations[loc].no_existing_levels;\n\t\t\telse unlocked = true;\n\t\t}\n\n\t\tif(selected[i])\t\t\tselected[i]->TurnOn(is_current);\n\t\tif(done[i])\t\t\t\tdone[i]->TurnOn(!is_current && unlocked && challenges_complete);\n\t\tif(here[i])\t\t\t\there[i]->TurnOn(!is_current && unlocked && !challenges_complete && is_home);\n\t\tif(open[i])\t\t\t\topen[i]->TurnOn(!is_current && unlocked && !challenges_complete && !is_home);\n\n\t\tfor(int j=0; j<max_blink_index; j++)\n\t\t{\n\t\t\tif(new_open_circle[i][j]) new_open_circle[i][j]->TurnOn((j == blink_index) && new_challenges && unlocked);\n\t\t\tif(select_circle[i][j]) select_circle[i][j]->TurnOn((j == max_blink_index-1) && is_current && !new_challenges);\n\t\t}\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "SetBeachPoints__13BeachFrontEnd"
+}
