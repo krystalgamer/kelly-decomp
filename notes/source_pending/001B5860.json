@@ -1,0 +1,23 @@
+{
+  "address": "0x001B5860",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c67847f4758fba1a09b8d8557914977e715d99e9",
+      "candidate_size": 464,
+      "compared_bytes": 768,
+      "compared_instructions": 192,
+      "emitted_name": "_$_13BoardFrontEnd",
+      "instruction_score": 1.5625,
+      "matching_bytes": 79,
+      "matching_instructions": 3,
+      "notes": "# FIRST PASS wave 139 lane B5\n\nExact released source tested once for `0x001B5860 _$_13BoardFrontEnd`. Attempts before: 0. Result `different`, byte score 10.2865% and instruction score 1.5625%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 10.2865,
+      "source": "extern \"C\" void StringDtor(void *, int) __asm__(\"_$_7stringx\");\nextern \"C\" void PanelFileDtor(void *, int) __asm__(\"_$_9PanelFile\");\nextern \"C\" void PanelAnimManagerDtor(void *, int) __asm__(\"_$_16PanelAnimManager\");\nextern \"C\" void FEMenuDtor(void *, int) __asm__(\"_$_6FEMenu\");\n\n__asm__(\".equ _$_7stringx, 0x0034D6E0\");\n__asm__(\".equ _$_9PanelFile, 0x001522C0\");\n__asm__(\".equ _$_16PanelAnimManager, 0x00155480\");\n__asm__(\".equ _$_6FEMenu, 0x00156580\");\n\nextern const char board_frontend_vtable[];\nextern const char board_frontend_frontend_vtable[];\nextern const char femultimenu_vtable[];\nextern const char fegraphicalmenu_frontend_vtable[];\nextern const char frontend_vtable[];\n__asm__(\".equ board_frontend_vtable, 0x004C7110\");\n__asm__(\".equ board_frontend_frontend_vtable, 0x004C70C0\");\n__asm__(\".equ femultimenu_vtable, 0x004CBB40\");\n__asm__(\".equ fegraphicalmenu_frontend_vtable, 0x004CBAF0\");\n__asm__(\".equ frontend_vtable, 0x004CBE58\");\n\nstruct DeleteVTable {\n    char padding[8];\n    short adjustment;\n    short unused;\n    void (*destroy)(void *, int);\n};\nstruct DeleteObject {\n    char padding[0x4c];\n    DeleteVTable *vtable;\n};\nstruct DeleteObjectWide {\n    char padding[0x194];\n    DeleteVTable *vtable;\n};\nstruct BoardLayout {\n    char data0[0x74];\n    const void *menu_vtable;\n    char pam[0x80];\n    char panel[0x34];\n    char path[0x0c];\n    const void *frontend_vtable;\n    char data1[0x28];\n    void *single[11];\n    void *row0[4];\n    void *row1[4];\n    void *single_tail[2];\n    char data2[0x90];\n    void *row2[4];\n};\n\nstatic inline void destroy(void *object)\n{\n    if (object) {\n        DeleteVTable *table = ((DeleteObject *)object)->vtable;\n        table->destroy((char *)object + table->adjustment, 3);\n    }\n}\nstatic inline void destroy_wide(void *object)\n{\n    if (object) {\n        DeleteVTable *table = ((DeleteObjectWide *)object)->vtable;\n        table->destroy((char *)object + table->adjustment, 3);\n    }\n}\n\nextern \"C\" void BoardFrontEndDtor(BoardLayout *, int) __asm__(\"_$_13BoardFrontEnd\");\nvoid BoardFrontEndDtor(BoardLayout *self, int deleting)\n{\n    self->frontend_vtable = board_frontend_frontend_vtable;\n    self->menu_vtable = board_frontend_vtable;\n    for (int i = 0; i < 11; ++i)\n        destroy(self->single[i]);\n    destroy(self->single_tail[0]);\n    destroy(self->single_tail[1]);\n    for (int i = 0; i < 4; ++i) {\n        destroy(self->row0[i]);\n        destroy(self->row1[i]);\n        destroy_wide(self->row2[i]);\n    }\n    self->frontend_vtable = fegraphicalmenu_frontend_vtable;\n    self->menu_vtable = femultimenu_vtable;\n    *(const void **)(self->pam + 0xc0) = frontend_vtable;\n    StringDtor(self->path, 2);\n    PanelFileDtor(self->panel, 2);\n    PanelAnimManagerDtor(self->pam, 2);\n    FEMenuDtor(self, deleting);\n}\n",
+      "status": "different",
+      "target_size": 768
+    }
+  ],
+  "raw_name": "_$_13BoardFrontEnd"
+}
