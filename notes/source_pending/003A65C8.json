@@ -1,0 +1,23 @@
+{
+  "address": "0x003A65C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c4138ffba33fb02bd5f14c19be8176ad02b57e83",
+      "candidate_size": 496,
+      "compared_bytes": 496,
+      "compared_instructions": 124,
+      "emitted_name": "nglVif1RenderQuad__FRPUiP7nglQuad",
+      "instruction_score": 3.2258,
+      "matching_bytes": 108,
+      "matching_instructions": 4,
+      "notes": "# FIRST PASS wave 88 lane A3\n\nExact released body tested once for `0x003A65C8 nglVif1RenderQuad__FRPUiP7nglQuad` with minimal faithful self-contained declarations. Result `different`, score 21.7742%. Compilation succeeded with no unresolved headers. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 21.7742,
+      "source": "typedef unsigned int u_int;\ntypedef unsigned long long u_long;\n\nstruct nglTexture\n{\n  u_int TexStreamPos[2];\n  unsigned short Width, Height;\n};\n\nstruct nglQuadVertex\n{\n  float X, Y;\n  float U, V;\n  u_int Color;\n};\n\nstruct nglQuad\n{\n  nglQuadVertex Verts[4];\n  float Z;\n  u_int MapFlags;\n  u_int BlendMode;\n  u_int BlendModeConstant;\n  nglTexture* Tex;\n};\n\nstruct nglScene\n{\n  void* Parent;\n  void* NextSibling;\n  void* FirstChild;\n  void* LastChild;\n  nglTexture* RenderTarget;\n};\n\nextern nglScene* nglCurScene;\nextern u_int nglGifRegCount;\nextern unsigned char nglGifRegIdx[128];\nextern u_long nglGifRegVal[128];\n\nbool nglVif1AddTextureStreaming( u_int*& Packet, nglTexture** Textures, int NTextures );\nvoid nglVif1AddQuadMaterial( nglQuad* Quad );\nvoid nglVif1AddQuadVerts( nglQuad* Quad );\n\ninline int nglFTOI( float input )\n{\n  register float output;\n  __asm__ volatile (\"cvt.w.s %0, %1\" : \"=f\" (output) : \"f\" (input) );\n  return (int&)output;\n}\n\ninline bool nglVif1AddSingleTextureStreaming( u_int*& Packet, nglTexture* Tex )\n{\n  return nglVif1AddTextureStreaming( Packet, &Tex, 1 );\n}\n\ninline void nglVif1StartDirectGifAD()\n{\n  nglGifRegCount = 0;\n}\n\ninline void nglVif1EndDirectGifAD( u_int*& Packet )\n{\n  while ( (u_int)( Packet + 1 ) & 15 ) *(Packet++) = 0;\n  *(Packet++) = ( ( nglGifRegCount + 1 ) & 0xffff ) | ( 0x50 << 24 );\n\n  u_long* TagPtr = (u_long*)Packet;\n  TagPtr[0] = (u_long)nglGifRegCount | ( (u_long)1 << 15 ) | ( (u_long)1 << 60 );\n  TagPtr[1] = 0xE;\n  TagPtr += 2;\n\n  for ( u_int i = 0; i < nglGifRegCount; i++ )\n  {\n    TagPtr[0] = nglGifRegVal[i];\n    TagPtr[1] = nglGifRegIdx[i];\n    TagPtr += 2;\n  }\n  Packet = (u_int*)TagPtr;\n}\n\nvoid nglVif1RenderQuad( u_int*& Packet, nglQuad* Quad )\n{\n  if ( 0 )\n    return;\n\n  for ( int j = 0; j < 4; j++ )\n  {\n    nglQuadVertex* Vert = &Quad->Verts[j];\n    int x = nglFTOI( ( Vert->X + 2048 - ( nglCurScene->RenderTarget->Width / 2 ) ) * 16 );\n    int y = nglFTOI( ( Vert->Y + 2048 - ( nglCurScene->RenderTarget->Height / 2 ) ) * 16 );\n    if ( x < 0 || x > 4095 * 16 || y < 0 || y > 4095 * 16 )\n      return;\n  }\n\n  if ( Quad->Tex )\n    nglVif1AddSingleTextureStreaming( Packet, Quad->Tex );\n\n  nglVif1StartDirectGifAD();\n\n  nglVif1AddQuadMaterial( Quad );\n  nglVif1AddQuadVerts( Quad );\n\n  nglVif1EndDirectGifAD( Packet );\n}\n",
+      "status": "different",
+      "target_size": 472
+    }
+  ],
+  "raw_name": "nglVif1RenderQuad__FRPUiP7nglQuad"
+}
