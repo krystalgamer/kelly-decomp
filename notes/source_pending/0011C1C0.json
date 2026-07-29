@@ -1,0 +1,15 @@
+{
+  "address": "0x0011C1C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6561cd9bceb17f04a3ff399bac19947c6daa1757",
+      "notes": "# FIRST PASS wave 163 lane A4\n\nExact released source tested once for `0x0011C1C0 text_load__10scene_animRC7stringx`. Attempts before: 0. Result `compile_failed`, score 0.0000%. Capacity-only child failures produced no attempts for several lanes; one Sol retry succeeded and remaining lanes were remediated directly. No source retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n\n#include \"wds.h\"\n#include \"scene_anim.h\"\n#include \"controller.h\"\n#include \"app.h\"\n#include \"game.h\"\n\n#include \"physical_interface.h\"\n#include \"ai_interface.h\"\n#include \"aligned.h\"\n\nvoid scene_anim::text_load( const stringx& filename )\n{\n  chunk_file fs;\n  chunk_flavor cf;\n  unsigned short tracks, cn;\n\n  fs.open( filename );\n\n  serial_in( fs, &cf );\n  if( cf != chunk_flavor(\"tracks\") )\n    error( \"Invalid scene file \" + filename );\n\n  serial_in( fs, &tracks );\n\n  for( cn = 0; cn < tracks; ++cn )\n  {\n    stringx entity_name;\n\n    serial_in( fs, &cf );\n\n    if( cf != chunk_flavor(\"entity\") )\n      error( \"Invalid scene file \" + filename );\n\n    serial_in( fs, &entity_name );\n\n    entity_track_tree* et = new entity_track_tree;\n    serial_in( fs, et );\n\n    track_tree_map[ entity_name ] = et;\n  }\n\n  fs.close( );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "text_load__10scene_animRC7stringx"
+}
