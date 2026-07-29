@@ -1,0 +1,15 @@
+{
+  "address": "0x00105E98",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6c9387db46776ba5f230f4063a486db620c5717a",
+      "notes": "# FIRST PASS wave 148 lane A4\n\nExact released source tested once for `0x00105E98 frame_advance__14anim_ai_actionf`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"../../../kelly-slaters-pro-surfer/KS/SRC/ai_actions.cpp\"\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "frame_advance__14anim_ai_actionf"
+}
