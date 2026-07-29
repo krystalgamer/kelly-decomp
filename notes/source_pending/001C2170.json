@@ -1,0 +1,23 @@
+{
+  "address": "0x001C2170",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7323aade64809ae5de6142d873ed897498bd341b",
+      "candidate_size": 404,
+      "compared_bytes": 596,
+      "compared_instructions": 143,
+      "emitted_name": "UnloadCurrentSurfer__15FEEntityManager",
+      "instruction_score": 6.2937,
+      "matching_bytes": 70,
+      "matching_instructions": 9,
+      "notes": "Sole source-first attempt using the exact released UnloadCurrentSurfer body with minimal declarations.",
+      "score": 11.745,
+      "source": "class stringx\n{\n  char *chars;\n  void *my_buf;\npublic:\n  stringx();\n  stringx(const stringx &);\n  stringx(const char *, int = -1);\n  ~stringx();\n  const char *c_str() const { return chars; }\n  void append(const stringx &);\n};\n\ninline stringx operator+(const stringx &a, const stringx &b)\n{\n  stringx result(a);\n  result.append(b);\n  return result;\n}\n\nclass entity\n{\n  char padding[112];\npublic:\n  stringx fileName;\n  void kill_anim(int);\n  void unload_anim(const stringx &) const;\n};\n\nclass entity_maker\n{\npublic:\n  void destroy_entity(entity *);\n};\n\nextern entity_maker *g_entity_maker;\nvoid nglReleaseMeshFile(const char *);\n\nclass FEEntityManager\n{\npublic:\n  enum\n  {\n    SA_IDLE,\n    SA_SPECIAL_OCC,\n    SA_OCC_1,\n    SA_OCC_2\n  };\n\n  entity *surfer_ent;\n  char padding[20];\n  int current_surfer_index;\n  char padding2[620];\n  bool surfer_loaded;\n\n  stringx makeString(int surfer, int type);\n  bool UnloadCurrentSurfer();\n};\n\n#define NULL 0\n#define ANIM_PRIMARY 0\n\nbool FEEntityManager::UnloadCurrentSurfer()\n{\n  if (surfer_ent)\n  {\n\t  surfer_ent->kill_anim(ANIM_PRIMARY);\n\t  surfer_ent->unload_anim(makeString(current_surfer_index, SA_IDLE));\n\t  surfer_ent->unload_anim(makeString(current_surfer_index, SA_SPECIAL_OCC));\n\t  surfer_ent->unload_anim(makeString(current_surfer_index, SA_OCC_1));\n\t  surfer_ent->unload_anim(makeString(current_surfer_index, SA_OCC_2));\n\t\tnglReleaseMeshFile(((entity *)surfer_ent)->fileName.c_str());\n\t\tnglReleaseMeshFile((((entity *)surfer_ent)->fileName + stringx(\"_lo\")).c_str());\n\t\tsurfer_ent->kill_anim(ANIM_PRIMARY);\n\t\tg_entity_maker->destroy_entity(surfer_ent);\n    surfer_ent = NULL;\n    surfer_loaded = false;\n    return true;\n  }\n  surfer_loaded = false;\n  return false;\n}\n",
+      "status": "different",
+      "target_size": 596
+    }
+  ],
+  "raw_name": "UnloadCurrentSurfer__15FEEntityManager"
+}
