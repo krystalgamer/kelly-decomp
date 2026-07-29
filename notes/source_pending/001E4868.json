@@ -1,0 +1,23 @@
+{
+  "address": "0x001E4868",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "aaca234920040b7cbded5f7547423260470a5c98",
+      "candidate_size": 540,
+      "compared_bytes": 544,
+      "compared_instructions": 136,
+      "emitted_name": "readFileHelper__16GenericGameSaverPv",
+      "instruction_score": 30.1471,
+      "matching_bytes": 215,
+      "matching_instructions": 41,
+      "notes": "# FIRST PASS wave 105 lane A1\n\nExact released body tested once for `0x001E4868 readFileHelper__16GenericGameSaverPv`. Result `different`, score 39.5221%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 39.5221,
+      "source": "extern \"C\" char *strcpy(char *, const char *);\nextern \"C\" char *strcat(char *, const char *);\nextern \"C\" int WaitSema(int);\nextern \"C\" int SignalSema(int);\nextern \"C\" void ExitDeleteThread();\n\nstruct saveInfo\n{\n  float version;\n  int type;\n  char shortname[8];\n  char desc[68];\n  long int timestamp;\n  int valid;\n};\n\nstruct GameSaverThreadArgs\n{\n  int port;\n  int slot;\n  saveInfo *info;\n  int maxItems;\n  void *buffer;\n  int size;\n  void *iconData;\n  int iconSize;\n  bool overWrite;\n  void(*progressCallback)(void *, int);\n  void *userCallbackData;\n};\n\nclass GenericGameSaver\n{\npublic:\n  unsigned char dastack[0x2011] __attribute__((aligned(16)));\n  static GenericGameSaver *instance;\n  static GenericGameSaver *inst() { return instance; }\n  static void readFileHelper(void *data);\n  static int readData(int port, int slot, char *name, void *data, int maxSize);\n};\n\nextern int MemoryCardSema;\nextern bool bad_mc_stack_error;\n\n__asm__(\".equ strcpy, 0x003D3FCC\");\n__asm__(\".equ strcat, 0x003D3BCC\");\n__asm__(\".equ WaitSema, 0x003DB6A0\");\n__asm__(\".equ SignalSema, 0x003DB680\");\n__asm__(\".equ ExitDeleteThread, 0x003DB560\");\n__asm__(\".equ readData__16GenericGameSaveriiPcPvi, 0x001E4C00\");\n__asm__(\".equ MemoryCardSema, 0x0041E59C\");\n__asm__(\".equ bad_mc_stack_error, 0x0041E514\");\n__asm__(\".equ instance__16GenericGameSaver, 0x0041E5B8\");\n\n#define PRODUCT_CODE \"BASLUS-20334\"\n#define GSOk 0\n#define GSErrorBadVersion -9\n#define CAREER_DATA_VERSION 68136\n#define MC_STACK_SIZE 0x2000\n#define STACK_WATCH 0xBE\n#define CHECK_MC_STACK (!(GenericGameSaver::inst()->dastack[15] == STACK_WATCH && GenericGameSaver::inst()->dastack[MC_STACK_SIZE+1] == STACK_WATCH)?bad_mc_stack_error=true:0)\n\nvoid GenericGameSaver::readFileHelper(void *data)\n{\n  char fname[100];\n  saveInfo sInfo;\n  GameSaverThreadArgs *args = (GameSaverThreadArgs *)data;\n  WaitSema(MemoryCardSema);\n\n  strcpy(fname, \"/\");\n  strcat(fname, PRODUCT_CODE);\n  strcat(fname, args->info->shortname);\n  strcat(fname, \"/\");\n  strcat(fname, \"index.nfo\");\n\n  int error = readData(args->port, args->slot, fname, &sInfo, sizeof(saveInfo));\n  if (error != GSOk)\n  {\n    SignalSema(MemoryCardSema);\n\t\tif (args->progressCallback)\n      args->progressCallback(args->userCallbackData, error);\n    CHECK_MC_STACK;\n    ExitDeleteThread();\n    return;\n  }\n\n  if (sInfo.version != CAREER_DATA_VERSION)\n  {\n    SignalSema(MemoryCardSema);\n\t\tif (args->progressCallback)\n      args->progressCallback(args->userCallbackData, GSErrorBadVersion);\n    CHECK_MC_STACK;\n    ExitDeleteThread();\n    return;\n\n\n  }\n\n\n  strcpy(fname, \"/\");\n  strcat(fname, PRODUCT_CODE);\n  strcat(fname, args->info->shortname);\n  strcat(fname, \"/\");\n  strcat(fname, PRODUCT_CODE);\n  strcat(fname, args->info->shortname);\n\n  error = readData(args->port, args->slot, fname, args->buffer, args->size);\n  if (error != GSOk)\n  {\n    SignalSema(MemoryCardSema);\n\t\tif (args->progressCallback)\n      args->progressCallback(args->userCallbackData, error);\n\t\tCHECK_MC_STACK;\n    ExitDeleteThread();\n    return;\n  }\n\n\tSignalSema(MemoryCardSema);\n  if (args->progressCallback)\n    args->progressCallback(args->userCallbackData, 100);\n  CHECK_MC_STACK;\n  ExitDeleteThread();\n  return;\n}\n",
+      "status": "different",
+      "target_size": 544
+    }
+  ],
+  "raw_name": "readFileHelper__16GenericGameSaverPv"
+}
