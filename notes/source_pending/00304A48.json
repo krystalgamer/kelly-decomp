@@ -1,0 +1,23 @@
+{
+  "address": "0x00304A48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d2ed49ea5ef06bdbb1d88c0ea0fb1a04122fa8d6",
+      "candidate_size": 372,
+      "compared_bytes": 476,
+      "compared_instructions": 119,
+      "emitted_name": "parse_instance__12conglomerateRC7stringxR10chunk_file",
+      "instruction_score": 9.2437,
+      "matching_bytes": 102,
+      "matching_instructions": 11,
+      "notes": "# A2 0x00304A48\n\n- Target: `parse_instance__12conglomerateRC7stringxR10chunk_file`; size 476 (`0x1DC`), object `game/files_misfits`.\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/conglom.cpp:390-414`.\n- Prepared status before testing: attempts_used=0.\n- Exactly one LF candidate test: attempt 1, **different**, score 21.4286; 102/476 matching bytes and 11/119 matching instructions; candidate size 372.\n- Released body preserved with minimal faithful self-contained declarations and no includes.\n- No retry, alternative body, assembly, annotations, variants, attempts 2-5, post-test chase, build, git mutation, finalize, or integration.\n- tracked_changes=false; finalized=false; integrated=false; retry=false.",
+      "score": 21.4286,
+      "source": "typedef unsigned long long big_int;\n\nclass stringx;\n\nclass string_buf\n{\n  friend class stringx;\n  friend bool operator==(const stringx&, const stringx&);\n\n  big_int* data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n\npublic:\n  bool is_equal(const string_buf& buf) const\n  {\n    if (buf.block_length != block_length)\n      return false;\n    for (int i = 0; i < block_length; i++)\n      if (!(buf.data[i] == data[i]))\n        return false;\n    return true;\n  }\n};\n\nclass stringx\n{\n  friend bool operator==(const stringx&, const stringx&);\n\n  char* chars;\n  string_buf* my_buf;\n\npublic:\n  stringx();\n  stringx(const stringx&);\n  stringx(const char*, int len = -1);\n  ~stringx();\n  void append(const char*, int len = -1);\n  void append(const stringx&);\n};\n\ninline bool operator==(const stringx& lhs, const stringx& rhs)\n{\n  return lhs.my_buf->is_equal(*rhs.my_buf);\n}\n\nstringx operator+(const stringx& lhs, const char* rhs)\n{\n  stringx result;\n  result.append(lhs);\n  result.append(rhs);\n  return result;\n}\n\nvoid error(const stringx&);\n\nclass chunk_file;\n\nclass entity_id\n{\n  void* value[2];\n\npublic:\n  const stringx& get_val() const;\n};\n\nenum entity_flavor_t\n{\n  ENTITY_SCANNER = 13\n};\n\nclass entity\n{\n  char base_prefix[120];\n  entity_flavor_t flavor;\n  entity_id id;\n  char base_suffix[376];\n\npublic:\n  entity_flavor_t get_flavor() const { return flavor; }\n  const entity_id& get_id() const { return id; }\n  virtual bool parse_instance(const stringx&, chunk_file&);\n};\n\ntemplate <class T>\nclass vector\n{\npublic:\n  typedef T* iterator;\n\nprivate:\n  iterator start;\n  iterator finish;\n  iterator end_of_storage;\n\npublic:\n  iterator begin() { return start; }\n  iterator end() { return finish; }\n};\n\ntypedef vector<entity*> pentity_vector;\n\nclass conglomerate : public entity\n{\n  pentity_vector members;\n\npublic:\n  bool parse_instance(const stringx&, chunk_file&);\n};\n\nbool conglomerate::parse_instance(const stringx& pcf, chunk_file& fs)\n{\n  if (pcf == stringx(\"scanner\"))\n  {\n    pentity_vector::iterator i = members.begin();\n    pentity_vector::iterator i_end = members.end();\n    for (; i != i_end; i++)\n    {\n      if ((*i)->get_flavor() == ENTITY_SCANNER)\n        break;\n    }\n    if (i == i_end)\n      error(get_id().get_val() + \": parse_instance(): no scanner member found in conglomerate\");\n    else\n      return (*i)->parse_instance(pcf, fs);\n  }\n  else\n    return entity::parse_instance(pcf, fs);\n  return false;\n}\n",
+      "status": "different",
+      "target_size": 476
+    }
+  ],
+  "raw_name": "parse_instance__12conglomerateRC7stringxR10chunk_file"
+}
