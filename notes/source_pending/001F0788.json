@@ -1,0 +1,23 @@
+{
+  "address": "0x001F0788",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d32148085b1dbbaf59d4806f36b2e1a210be7854",
+      "candidate_size": 224,
+      "compared_bytes": 496,
+      "compared_instructions": 124,
+      "emitted_name": "TrickSpin__20SurfBoardObjectClassf",
+      "instruction_score": 8.871,
+      "matching_bytes": 80,
+      "matching_instructions": 11,
+      "notes": "FIRST PASS wave92 A4\nTarget: 0x001F0788 TrickSpin__20SurfBoardObjectClassf (496/0x1F0), game/files_kellyslater\nReference: kelly-slaters-pro-surfer/KS/SRC/ks/board.cpp:824-832\nConfirmed attempts0 before preparation/testing.\nAttempt 1: different; byte score 16.1290% (80/496), instruction score 8.8710% (11/124); candidate size 224, target size 496.\nCandidate used the exact released function body with minimal self-contained declarations, LF line endings, and no headers.\nExactly one candidate and one harness invocation. No alternate, asm, annotations, variants, retry, attempts 2-5, or post-test chase.\nTracked/reference files remained read-only. No finalize, integrate, build, git mutation, or full packet submission.\nCandidate SHA-1: d32148085b1dbbaf59d4806f36b2e1a210be7854",
+      "score": 16.129,
+      "source": "typedef float rational_t;\n#define DEG_TO_RAD(a) ((a) * (3.14159265358979323846f / 180.0f))\n\nstruct vector3d\n{\n\tfloat x;\n\tfloat y;\n\tfloat z;\n\tfloat w;\n};\n\nextern const vector3d YVEC;\n\nclass po\n{\npublic:\n\tfloat m[4][4];\n\n\tvoid set_rot(const vector3d& rot_dir, float rads);\n\tpo operator*(const po& b) const;\n};\n\nclass PhysicsObjectClass\n{\npublic:\n\tchar reserved[48];\n\tpo my_po;\n};\n\ntypedef PhysicsObjectClass *PhysicsObjectClassPtr;\n\nclass SurfBoardObjectClass\n{\npublic:\n\tchar reserved0[4];\n\tPhysicsObjectClassPtr rb;\n\tchar reserved1[2588];\n\tint wiped_out;\n\n\tvoid TrickSpin(float angle);\n};\n\nvoid SurfBoardObjectClass::TrickSpin(float angle)\n{\n\tif (!wiped_out)\n\t{\n\t\tpo turn;\n\t\tturn.set_rot (YVEC, DEG_TO_RAD((angle)));\n\t\trb->my_po = (turn * rb->my_po);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 496
+    }
+  ],
+  "raw_name": "TrickSpin__20SurfBoardObjectClassf"
+}
