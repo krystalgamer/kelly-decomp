@@ -1,0 +1,23 @@
+{
+  "address": "0x001EE648",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3f0b499758adeddbbfd0dff1efb0cb90dce305c8",
+      "candidate_size": 632,
+      "compared_bytes": 656,
+      "compared_instructions": 164,
+      "emitted_name": "OnNewWave__20SurfBoardObjectClass",
+      "instruction_score": 3.6585,
+      "matching_bytes": 149,
+      "matching_instructions": 6,
+      "notes": "# FIRST PASS wave 124 lane A2\n\nExact released source tested once for `0x001EE648 OnNewWave__20SurfBoardObjectClass`. Attempts before: 0. Result `different`, byte score 22.7134% and instruction score 3.6585%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 22.7134,
+      "source": "extern \"C\" float sqrtf(float);\n\nstruct vector3d {\n    float x, y, z;\n    vector3d() {}\n    vector3d(float X, float Y, float Z) : x(X), y(Y), z(Z) {}\n    vector3d operator-(const vector3d& v) const { return vector3d(x-v.x, y-v.y, z-v.z); }\n    vector3d& operator-=(const vector3d& v) { x-=v.x; y-=v.y; z-=v.z; return *this; }\n    void normalize() {\n        float len2 = x*x + y*y + z*z;\n        if (len2 > 1.0e-10f) {\n            float len = sqrtf(len2);\n            float inv = 1.0f / len;\n            x *= inv; y *= inv; z *= inv;\n        }\n    }\n};\ninline float dot(const vector3d& a, const vector3d& b) { return a.x*b.x + a.y*b.y + a.z*b.z; }\ninline vector3d operator*(const vector3d& v, float f) { return vector3d(v.x*f, v.y*f, v.z*f); }\ninline vector3d cross(const vector3d& a, const vector3d& b) { return vector3d(a.y*b.z-a.z*b.y, a.z*b.x-a.x*b.z, a.x*b.y-a.y*b.x); }\n\nextern const vector3d YVEC;\n__asm__(\".equ YVEC, 0x00554458\");\nenum WaveMarkerEnum { WAVE_MarkerLipMark11 = 23, WAVE_MarkerLipMark13 = 29 };\nconst vector3d *WAVE_GetMarker(WaveMarkerEnum);\n__asm__(\".equ WAVE_GetMarker__F14WaveMarkerEnum, 0x0037D7E8\");\n\nstruct game { char padding[0x228]; int beachid; int get_beach_id() { return beachid; } };\nextern game *g_game_ptr;\n__asm__(\".equ g_game_ptr, 0x0046AC64\");\nstruct BeachData { char padding[0xd0]; int bdir; char tail[0x140]; };\nextern BeachData BeachDataArray[];\n__asm__(\".equ BeachDataArray, 0x0043C198\");\n\nstruct board_controller {\n    void ResetPhysics() __asm__(\"ResetPhysics__20SurfBoardObjectClass\");\n};\nclass kellyslater_controller {\n    char padding[0x37c];\n    board_controller my_board_controller;\npublic:\n    void Reset();\n    void ResetPhysics() { my_board_controller.ResetPhysics(); Reset(); }\n};\n__asm__(\".equ Reset__22kellyslater_controller, 0x00211538\");\n\nclass SurfBoardObjectClass {\n    char padding0[0x9dc];\n    kellyslater_controller *ksctrl;\n    char padding1[0xd0];\n    vector3d lip_vec;\n    vector3d lip_normal;\npublic:\n    kellyslater_controller *get_ks_controller() { return ksctrl; }\n    void OnNewWave();\n};\n\nvoid SurfBoardObjectClass::OnNewWave()\n{\n    lip_vec = *WAVE_GetMarker(WAVE_MarkerLipMark13) - *WAVE_GetMarker(WAVE_MarkerLipMark11);\n    lip_vec -= YVEC*dot(YVEC, lip_vec);\n    lip_vec.normalize();\n    int curbeach = g_game_ptr->get_beach_id ();\n    if (BeachDataArray[curbeach].bdir)\n        lip_normal = cross(YVEC, lip_vec);\n    else\n        lip_normal = cross(lip_vec, YVEC);\n\n    get_ks_controller()->ResetPhysics();\n    //ResetPhysics();\t// ??? Do we want this here? (dc 01/24/02)\n}\n",
+      "status": "different",
+      "target_size": 656
+    }
+  ],
+  "raw_name": "OnNewWave__20SurfBoardObjectClass"
+}
