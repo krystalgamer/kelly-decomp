@@ -1,0 +1,23 @@
+{
+  "address": "0x002CAE88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ab0e48499d01236a04be856fee4834bfe791b466",
+      "candidate_size": 484,
+      "compared_bytes": 868,
+      "compared_instructions": 213,
+      "emitted_name": "__16geometry_manager",
+      "instruction_score": 0.939,
+      "matching_bytes": 93,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 151 lane B2\n\nExact released source tested once for `0x002CAE88 __16geometry_manager`. Attempts before: 0. Result `different`, byte score 10.7143% and instruction score 0.9390%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 10.7143,
+      "source": "typedef float rational_t;\n\nclass singleton\n{\nprotected:\n  singleton() {}\n  virtual ~singleton() {}\n};\n\nclass matrix4x4\n{\npublic:\n  float m[4][4];\n};\n\nclass vector3d\n{\npublic:\n  float x, y, z;\n  vector3d() {}\n  vector3d(rational_t _x, rational_t _y, rational_t _z) : x(_x), y(_y), z(_z) {}\n};\n\nclass hull;\n\nvoid *os_malloc32(int size);\nextern const matrix4x4 identity_matrix;\n\nclass geometry_manager : public singleton\n{\npublic:\n  enum xform_t\n  {\n    XFORM_LOCAL_TO_WORLD, XFORM_WORLD_TO_VIEW, XFORM_VIEW_TO_WORLD,\n    XFORM_VIEW_TO_PROJECTION, XFORM_PROJECTION_TO_SCREEN,\n    XFORM_EFFECTIVE_WORLD_TO_VIEW, XFORM_VIEW_TO_SCREEN,\n    XFORM_WORLD_TO_PROJECTION, XFORM_WORLD_TO_SCREEN, NUM_XFORMS\n  };\n\n  geometry_manager();\n  virtual ~geometry_manager();\n\n  matrix4x4 *xforms;\n  vector3d camera_pos;\n  vector3d camera_up;\n  vector3d camera_dir;\n  matrix4x4 scene_analyzer;\n  bool scene_analyzer_enabled;\n};\n\ngeometry_manager::geometry_manager()\n{\n  xforms = (matrix4x4*)os_malloc32(NUM_XFORMS*sizeof(matrix4x4));\n  for (int i=NUM_XFORMS; --i>=0; )\n    xforms[i]=identity_matrix;\n\n  scene_analyzer_enabled=false;\n  scene_analyzer=identity_matrix;\n\n  camera_pos = vector3d(0,0,0);\n  camera_up  = vector3d(0,1,0);\n  camera_dir = vector3d(0,0,1);\n}\n",
+      "status": "different",
+      "target_size": 868
+    }
+  ],
+  "raw_name": "__16geometry_manager"
+}
