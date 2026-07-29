@@ -1,0 +1,23 @@
+{
+  "address": "0x001DF2F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "584e4599b2bad9a66b2699966c76a4afae3f881f",
+      "candidate_size": 440,
+      "compared_bytes": 600,
+      "compared_instructions": 150,
+      "emitted_name": "inverse__9matrix4x4",
+      "instruction_score": 7.3333,
+      "matching_bytes": 125,
+      "matching_instructions": 11,
+      "notes": "# FIRST PASS wave 115 lane A5\n\nExact released `matrix4x4::inverse()` body tested once for `0x001DF2F0 inverse__9matrix4x4` with minimal self-contained declarations and the released inline scalar `operator*=`. Result `different`: byte score 20.8333%, instruction score 7.3333% (125/600 bytes; 11/150 instructions), emitted size 440 versus target 600. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 20.8333,
+      "source": "typedef float rational_t;\n\nclass vector4d\n{\npublic:\n  rational_t x, y, z, w;\n};\n\nclass matrix4x4\n{\npublic:\n  typedef rational_t T;\n\n  vector4d x __attribute__((aligned(16)));\n  vector4d y;\n  vector4d z;\n  vector4d w;\n\n  inline matrix4x4& operator*=(T s)\n  {\n    x.x *= s;  x.y *= s;  x.z *= s; x.w *= s;\n    y.x *= s;  y.y *= s;  y.z *= s; y.w *= s;\n    z.x *= s;  z.y *= s;  z.z *= s; z.w *= s;\n    w.x *= s;  w.y *= s;  w.z *= s; w.w *= s;\n    return *this;\n  }\n\n  matrix4x4 inverse();\n  matrix4x4 adjugate();\n  T det() const;\n};\n\nextern const matrix4x4 identity_matrix;\n\n__asm__(\".equ det__C9matrix4x4, 0x001DF710\");\n__asm__(\".equ adjugate__9matrix4x4, 0x001DF8F0\");\n\nmatrix4x4 matrix4x4::inverse()\n{\n  rational_t det = this->det();\n\n  if(det != 0.0f)\n    return this->adjugate() *= (1.0f / det);\n  else\n    return identity_matrix;\n}\n",
+      "status": "different",
+      "target_size": 600
+    }
+  ],
+  "raw_name": "inverse__9matrix4x4"
+}
