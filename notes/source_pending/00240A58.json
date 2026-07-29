@@ -1,0 +1,23 @@
+{
+  "address": "0x00240A58",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "02dc76ca71ed56bfd7d05095543aa54e8754ca3c",
+      "candidate_size": 856,
+      "compared_bytes": 856,
+      "compared_instructions": 214,
+      "emitted_name": "Refresh__10MenuRender",
+      "instruction_score": 70.5607,
+      "matching_bytes": 630,
+      "matching_instructions": 151,
+      "notes": "# FIRST PASS wave 149 lane A3\n\nExact released source tested once for `0x00240A58 Refresh__10MenuRender`. Attempts before: 0. Result `different`, byte score 73.5981% and instruction score 70.5607%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 73.5981,
+      "source": "typedef unsigned int MENU_UINT32;\ntypedef unsigned short MENU_UINT16;\ntypedef char MenuLine[64];\n\nstruct MenuColor;\nstruct MenuRect\n{\n    MENU_UINT16 x0,y0,x1,y1;\n};\nclass Menu;\n\nextern int MENU_BorderSizeFactor( void );\nextern int MENU_BorderSpaceFactor( void );\nextern int MENU_TextHeight( const char *text );\nextern int MENU_TextSeparation( void );\n\nclass MenuRender\n{\n    MenuRect limit;\n    MenuRect inuse;\n    MenuLine text[16];\n    MENU_UINT32 state[16];\n    int active;\n    int topentry;\n\npublic:\n    virtual ~MenuRender();\n    virtual void OpenMenu( Menu *m );\n    virtual void CloseMenu( void );\n    void Refresh( void );\n\nprotected:\n    virtual int TotalEntries( void )=0;\n    virtual MENU_UINT32 GetElementState( int i )=0;\n    virtual void GetElementText( int i, char *t, int len )=0;\n    virtual MenuColor GetElementColor( int i )=0;\n};\n\nvoid MenuRender::Refresh( void )\n{\n    int aent=0;\n    for ( int j=0; j<TotalEntries(); j++ )\n    {\n        if ( GetElementState(j) & 4 )\n        {\n            aent=j;\n            break;\n        }\n    }\n    if ( aent < topentry )\n    {\n        topentry=aent;\n    }\n\n    bool checked=false;\n    while ( !checked )\n    {\n        checked=true;\n        int acount=0;\n        int y=inuse.y0+2*MENU_BorderSpaceFactor()+2*MENU_BorderSizeFactor();\n        for ( int k=topentry; k<TotalEntries(); k++ )\n        {\n            char ttext[64];\n            GetElementText(k,ttext,64);\n            int estate=GetElementState(k);\n            if ( estate & 4 )\n            {\n                if ( acount+1 >= 16 || y + MENU_TextHeight(ttext)+(active>0?MENU_TextSeparation():0) > limit.y1)\n                {\n                    topentry++;\n                    checked=false;\n                }\n            }\n            if ( estate & 1 )\n            {\n                acount++;\n                y+=MENU_TextHeight(ttext)+(active>0?MENU_TextSeparation():0);\n            }\n        }\n    }\n\n    active=0;\n    inuse.y1=inuse.y0+2*MENU_BorderSpaceFactor()+2*MENU_BorderSizeFactor();\n    for ( int i=topentry; i<TotalEntries(); i++ )\n    {\n        state[active]=GetElementState(i);\n        if ( state[active] & 1 )\n        {\n            GetElementText(i,text[active],64);\n            if ( inuse.y1 + MENU_TextHeight(text[i])+(active>0?MENU_TextSeparation():0) > limit.y1 )\n                break;\n            if ( active+1 >= 16 )\n                break;\n            active++;\n            inuse.y1+=MENU_TextHeight(text[i])+(active>0?MENU_TextSeparation():0);\n        }\n    }\n}\n",
+      "status": "different",
+      "target_size": 852
+    }
+  ],
+  "raw_name": "Refresh__10MenuRender"
+}
