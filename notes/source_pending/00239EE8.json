@@ -1,0 +1,23 @@
+{
+  "address": "0x00239EE8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1fb8ef5b88bfabf8849bc94876f603f756c5c655",
+      "candidate_size": 408,
+      "compared_bytes": 624,
+      "compared_instructions": 156,
+      "emitted_name": "Save__10KSEntityPOi",
+      "instruction_score": 0.0,
+      "matching_bytes": 87,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 119 lane A2\n\nExact released body tested once for `0x00239EE8 Save__10KSEntityPOi`. Result `different`, score 13.9423%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 13.9423,
+      "source": "struct vector3d\n{\n  float x;\n  float y;\n  float z;\n  float w;\n};\n\nstruct quaternion\n{\n  float a;\n  float b;\n  float c;\n  float d;\n};\n\nclass po\n{\npublic:\n  vector3d get_position() const;\n  quaternion get_quaternion() const;\n};\n\nclass rigid_body\n{\npublic:\n  vector3d linMom;\n};\n\nclass board_controller\n{\npublic:\n  vector3d current;\n  rigid_body *rb;\n};\n\nclass entity\n{\npublic:\n  po get_rel_po() const;\n};\n\nclass kelly_slater_controller\n{\npublic:\n  po get_owner_po() const;\n  board_controller &get_board_controller();\n};\n\nclass world_dynamics_system\n{\npublic:\n  kelly_slater_controller *get_ks_controller(int player);\n  entity *get_board_ptr(int player);\n};\n\nextern world_dynamics_system *g_world_ptr;\n\nclass KSEntityPO\n{\n  vector3d KSPos;\n  vector3d KSBPos;\n  quaternion KSRot;\n  quaternion KSBRot;\n  vector3d BoardCurrent;\n  vector3d BoardMomentum;\n\npublic:\n  void Save(int player);\n};\n\nvoid KSEntityPO::Save( int player )\n{\n  po KSPo   = g_world_ptr->get_ks_controller(player)->get_owner_po();\n  po KSBPo  = g_world_ptr->get_board_ptr(player)->get_rel_po();\n\n  KSPos     = KSPo.get_position();\n  KSBPos    = KSBPo.get_position();\n  KSRot     = KSPo.get_quaternion();\n  KSBRot    = KSBPo.get_quaternion();\n  BoardCurrent    = g_world_ptr->get_ks_controller(player)->get_board_controller().current;\n  BoardMomentum   = g_world_ptr->get_ks_controller(player)->get_board_controller().rb->linMom;\n}\n",
+      "status": "different",
+      "target_size": 624
+    }
+  ],
+  "raw_name": "Save__10KSEntityPOi"
+}
