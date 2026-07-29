@@ -1,0 +1,23 @@
+{
+  "address": "0x003841E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "62f40daf9b73e8d3c24f107082d103488abf6b0f",
+      "candidate_size": 404,
+      "compared_bytes": 592,
+      "compared_instructions": 148,
+      "emitted_name": "WAVE_CheckForEmitter__FRC17WaveProfileCoeffsffP11WaveEmitter",
+      "instruction_score": 1.3514,
+      "matching_bytes": 86,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 113 lane B4\n\nExact released body tested once for `0x003841E0 WAVE_CheckForEmitter__FRC17WaveProfileCoeffsffP11WaveEmitter`. Result `different`, score 14.5270%. No retry, variant, follow-up, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 14.527,
+      "source": "typedef unsigned int u_int;\n\nstruct WaveProfileCoeffs {};\n\nenum WaveEmitterEnum\n{\n  WAVE_EM_NONE,\n  WAVE_EM_CREST,\n  WAVE_EM_SPLASH,\n  WAVE_EM_TRICKLE,\n  WAVE_EM_WARN\n};\n\nstruct WaveEmitter\n{\n  WaveEmitterEnum type;\n  float x, y, z;\n  float crestx, cresty, crestz;\n  float mod;\n  float xfactor;\n};\n\nextern float WAVE_EmitterStartCrashX;\nextern float WAVE_EmitterStartLipX;\nextern float WAVE_EmitterStartCrestX;\nextern float WAVE_EmitterEndX;\nextern float WAVE_EmitterZ;\nextern float WAVE_EmitterCrestZ;\nextern int WAVE_EmitterHint;\nextern int WAVE_EmitterCrestHint;\n\nextern void WAVE_Apply(const WaveProfileCoeffs &, float, u_int, float &, float &);\n\nvoid WAVE_CheckForEmitter(const WaveProfileCoeffs &wpc, float xmesh, float xslice, WaveEmitter *we)\n{\n  // figure out the locations of particle emitters\n\n  // check for regular particles\n  if (xslice > WAVE_EmitterStartCrashX && xslice <= WAVE_EmitterStartLipX)\n  {\n    we->type = WAVE_EM_SPLASH;\n  }\n  else if (xslice > WAVE_EmitterStartLipX && xslice < WAVE_EmitterStartCrestX)\n  {\n    we->type = WAVE_EM_TRICKLE;\n    we->xfactor = 1 - (xslice - WAVE_EmitterStartLipX)/(WAVE_EmitterStartCrestX - WAVE_EmitterStartLipX);\n  }\n  else if (xslice > WAVE_EmitterStartCrestX && xslice < WAVE_EmitterEndX)\n  {\n    we->type = WAVE_EM_CREST;\n    we->xfactor = 1 - (xslice - WAVE_EmitterStartCrestX)/(WAVE_EmitterEndX - WAVE_EmitterStartCrestX);\n  }\n  else\n  {\n    we->type = WAVE_EM_NONE;\n  }\n\n  // check for particles which warn of upcoming break\n/* Temporary fix.  This is screwing up particles.  (dc 03/29/02)\n  if (WAVE_BreakWarn)\n  {\n    if (\n      (xmesh > WAVE_BreakWarnStartX && xmesh < WAVE_BreakWarnStopX) &&\n      (we->type != WAVE_EM_SPLASH)\n    )\n    {\n      we->type = WAVE_EM_WARN;\n    }\n  }\n*/\n\n  if (we->type > WAVE_EM_NONE)\n  {\n    we->x = we->crestx = xmesh;\n    WAVE_Apply(wpc, WAVE_EmitterZ, WAVE_EmitterHint,\n      we->y, we->z);\n    WAVE_Apply(wpc, WAVE_EmitterCrestZ, WAVE_EmitterCrestHint,\n      we->cresty, we->crestz);\n  }\n  else\n  {\n    // Should be removed.  This data is being used by ksfx, but it shouldn't be.\n    we->x = we->crestx = xmesh; // crash_draw_intervals reads this even when emitter type is NONE! (dc 03/29/02)\n    WAVE_Apply(wpc, WAVE_EmitterZ, WAVE_EmitterHint,\n      we->y, we->z);\n    WAVE_Apply(wpc, WAVE_EmitterCrestZ, WAVE_EmitterCrestHint,\n      we->cresty, we->crestz);\n  }\n}\n",
+      "status": "different",
+      "target_size": 592
+    }
+  ],
+  "raw_name": "WAVE_CheckForEmitter__FRC17WaveProfileCoeffsffP11WaveEmitter"
+}
