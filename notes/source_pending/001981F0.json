@@ -1,0 +1,23 @@
+{
+  "address": "0x001981F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9bbd9c1e205361b67893ec9ac41a1b4120adf266",
+      "candidate_size": 968,
+      "compared_bytes": 968,
+      "compared_instructions": 242,
+      "emitted_name": "LoadScores__9FEManager",
+      "instruction_score": 8.2645,
+      "matching_bytes": 179,
+      "matching_instructions": 20,
+      "notes": "# FIRST PASS wave 149 lane B4\n\nExact released source tested once for `0x001981F0 LoadScores__9FEManager`. Attempts before: 0. Result `different`, byte score 18.4917% and instruction score 8.2645%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 18.4917,
+      "source": "struct nglFileBuf { void *Buf; unsigned int Size; };\nstruct HighScoreData { char initials[4]; char character[32]; int score; int icons; };\nstruct SurferData { char pad[508]; char fullname[32]; char tail[112]; };\nstruct GlobalDataClass { void setBeachHighScore(int, int, bool, HighScoreData) __asm__(\"setBeachHighScore__15GlobalDataClassiibG13HighScoreData\"); };\nclass FEManager { public: void LoadScores() __asm__(\"LoadScores__9FEManager\"); };\nextern SurferData SurferDataArray[];\nextern GlobalDataClass globalCareerData;\nextern \"C\" void KSReadFile(const char *, nglFileBuf *, unsigned int) __asm__(\"KSReadFile__FPCcP10nglFileBufUi\");\nextern \"C\" void KSReleaseFile(nglFileBuf *) __asm__(\"KSReleaseFile__FP10nglFileBuf\");\nextern \"C\" int sscanf(const char *, const char *, ...);\nextern \"C\" char *strcpy(char *, const char *);\nextern \"C\" char *strchr(const char *, int);\n__asm__(\".equ SurferDataArray,0x004254E0\");\n__asm__(\".equ globalCareerData,0x004349B8\");\n__asm__(\".equ KSReadFile__FPCcP10nglFileBufUi,0x001E32A0\");\n__asm__(\".equ KSReleaseFile__FP10nglFileBuf,0x001E3300\");\n__asm__(\".equ setBeachHighScore__15GlobalDataClassiibG13HighScoreData,0x002F0118\");\n__asm__(\".equ sscanf,0x003D3920\");\n__asm__(\".equ strcpy,0x003D3FCC\");\n__asm__(\".equ strchr,0x003D3CF8\");\n#define assert(x) ((void)0)\nvoid FEManager::LoadScores()\n{\n    nglFileBuf F;\n    KSReadFile(\"interface\\\\map\\\\default_high_scores.txt\", &F, 1);\n\tif(!F.Buf)\n\t{\n\t\tKSReleaseFile(&F);\n\t\tassert(0);\n\t}\n    char *s = (char *) F.Buf;\n\n\tHighScoreData tmp;\n\tunsigned int count = 0;\n\twhile(s[count] == '/' || s[count] == '\\r')\n\t{\n\t\tif(s[count] == '/' && count+1 < F.Size && s[count+1] == '*')\n\t\t{\n\t\t\tcount += 2;\n\t\t\twhile(count < F.Size && !(s[count] == '*' && count+1 < F.Size && s[count+1] == '/'))\n\t\t\t\tcount++;\n\t\t\tcount += 2;\n\t\t}\n\t\tif(s[count] == '\\r') count += 2;\n\t}\n\ts = &s[count];\n\n\tfor(int i=0; i<25*2; i++)\n\t{\n\t\tfor(int j=0; j<10; j++)\n\t\t{\n\t\t\tcount = 0;\n\t\t\tif(s[count] == '\\r') count += 2;\n\t\t\tif(s[count] == '/' && count+1 < F.Size && s[count+1] == '*')\n\t\t\t{\n\t\t\t\tcount += 2;\n\t\t\t\twhile(count < F.Size && !(s[count] == '*' && count+1 < F.Size && s[count+1] == '/'))\n\t\t\t\t\tcount++;\n\t\t\t\tcount += 2;\n\t\t\t}\n\n\t\t\tif(s[count] == '\\r') count++;\n\t\t\tif(s[count] == '\\n') count++;\n\n\t\t\tint character;\n\t\t\tif(i < 25)\n\t\t\t\tsscanf(&s[count], \"%s %d %d\\n\", tmp.initials, &character, &tmp.score);\n\t\t\telse sscanf(&s[count], \"%s %d %d %d\\n\", tmp.initials, &character, &tmp.score, &tmp.icons);\n\t\t\tstrcpy(tmp.character, SurferDataArray[character].fullname);\n\n\t\t\tint bn = i;\n\t\t\tif(bn >= 25) bn -= 25;\n\t\t\tglobalCareerData.setBeachHighScore(bn, j, i >= 25, tmp);\n\t\t\ts = strchr(&s[count], '\\n');\n\t\t\tif(s[0] == '\\n') s = &s[1];\n\t\t}\n\t}\n\n\tKSReleaseFile(&F);\n}\n",
+      "status": "different",
+      "target_size": 860
+    }
+  ],
+  "raw_name": "LoadScores__9FEManager"
+}
