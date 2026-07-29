@@ -1,0 +1,23 @@
+{
+  "address": "0x00159390",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4ddcce4f7b1bfd8ccafb0a2ee7368aa2d6a72d14",
+      "candidate_size": 492,
+      "compared_bytes": 592,
+      "compared_instructions": 148,
+      "emitted_name": "__18IGOTutorialManager",
+      "instruction_score": 2.7027,
+      "matching_bytes": 80,
+      "matching_instructions": 4,
+      "notes": "# FIRST PASS wave 113 lane B2\n\nExact released body tested once for `0x00159390 __18IGOTutorialManager`. Result `different`, score 13.5135%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 13.5135,
+      "source": "#define NEW new\n\nextern \"C\" int strcmp(const char *, const char *);\nextern \"C\" void debug_print(const char *, ...);\n\ntypedef unsigned int nslSourceId;\ntypedef unsigned int nslSoundId;\n\nenum\n{\n\tNSL_INVALID_ID = 0,\n\tTutorial_Step_Num = 21,\n\tGT_TUTORIAL_PRESS_START = 0,\n\tGT_TUTORIAL_PAUSE_BUTTONS = 1\n};\n\nclass stringx\n{\n\tchar *chars;\n\tvoid *my_buf;\npublic:\n\tstringx();\n\t~stringx();\n\tconst char *c_str() const { return chars; }\n};\n\nclass EventRecipient\n{\npublic:\n\tEventRecipient();\n\tvirtual ~EventRecipient();\n};\n\nstruct TutorialStep\n{\n\tchar vo_name_string[100];\n};\n\nextern TutorialStep GTutorialStep[];\nextern stringx ksGlobalTextArray[];\n\nclass os_developer_options\n{\npublic:\n\tenum\n\t{\n\t\tFLAG_NO_AUDIO\n\t};\n\tstatic os_developer_options *inst();\n\tbool is_flagged(int) const;\n};\n\nextern nslSourceId nslLoadSource(const char *);\n\nstruct font_info_t {};\n\nstruct frontendmanager_t\n{\n\tfont_info_t font_info;\n};\n\nextern frontendmanager_t frontendmanager;\n\nnamespace Font\n{\n\tenum HORIZJUST\n\t{\n\t\tHORIZJUST_LEFT\n\t};\n\tenum VERTJUST\n\t{\n\t\tVERTJUST_CENTER\n\t};\n}\n\nclass color32\n{\n\tunsigned int value;\npublic:\n\tcolor32(unsigned char, unsigned char, unsigned char, unsigned char);\n};\n\nclass BoxText\n{\npublic:\n\tBoxText(font_info_t *, const stringx &, int, int, int, float,\n\t        Font::HORIZJUST, Font::VERTJUST, color32, int);\n\tvoid makeBox(int, int);\n};\n\nclass IGOTutorialManager : public EventRecipient\n{\n\tvoid *buttonTexture[8];\n\tbool finished;\n\tbool first_step;\n\tint current_step;\n\tfloat current_step_time;\n\tint last_step;\n\tbool air_trick_in_chain;\n\tbool face_trick_in_chain;\n\tnslSoundId current_VO;\n\tint current_trick;\n\tint current_gap;\n\tbool needs_to_be_in_tube;\n\tbool is_perfect;\n\tbool show_advancement_text;\n\tbool show_hint_text;\n\tstringx ins_text;\npublic:\n\tIGOTutorialManager();\n\tvoid process_help_string(stringx &, const char *);\n\tstringx help_text;\n\tstringx button_text;\n\tBoxText *instruction_text;\n};\n\nIGOTutorialManager::IGOTutorialManager()\n{\n\t//  Load all the VO\n\tif(!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n\t\tfor (int index = 0; index < Tutorial_Step_Num; index++)\n\t\t{\n\t\t\tif (strcmp(GTutorialStep[index].vo_name_string, \"TUTORIAL_NONE\"))\n\t\t\t{\n\t\t\t\tnslSourceId s = nslLoadSource(GTutorialStep[index].vo_name_string);\n\t\t\t\tif (s == NSL_INVALID_ID)\n\t\t\t\t\tdebug_print(\"FIXME: MISSING %s SOUND\\n\", GTutorialStep[index].vo_name_string);\n\t\t\t}\n\t\t}\n\n\tprocess_help_string(ins_text, ksGlobalTextArray[GT_TUTORIAL_PRESS_START].c_str());\n\tinstruction_text = NEW BoxText(&frontendmanager.font_info, ins_text, 40, 40, 800, 1.0f, Font::HORIZJUST_LEFT, Font::VERTJUST_CENTER, color32(255, 255, 125, 255), 15);\n\tinstruction_text->makeBox(330,200);\n\n\tprocess_help_string(button_text, ksGlobalTextArray[GT_TUTORIAL_PAUSE_BUTTONS].c_str());\n\n\tfinished = false;\n\tfirst_step = true;\n\tneeds_to_be_in_tube = false;\n\tcurrent_trick = -1;\n\tcurrent_gap = -1;\n\tcurrent_step = 0;\n\tcurrent_step_time = 0.0f;\n\tair_trick_in_chain = false;\n\tface_trick_in_chain = false;\n\tis_perfect = false;\n\tshow_advancement_text = false;\n\tshow_hint_text = false;\n\tcurrent_VO = NSL_INVALID_ID;\n}\n",
+      "status": "different",
+      "target_size": 592
+    }
+  ],
+  "raw_name": "__18IGOTutorialManager"
+}
