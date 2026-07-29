@@ -1,0 +1,15 @@
+{
+  "address": "0x0028CE68",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "041c40555f99862177f2b289437f14f096e24bc2",
+      "notes": "# FIRST PASS wave95 B1\n\n- Target: `0x0028CE68 render__3skyP6camerafUif` (512 / `0x200`), `game/files_misc1`.\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/sky.cpp` lines 36-44.\n- Confirmed attempts0 before preparation/testing (`pending`; queue attempts `0`; no prior local attempt history).\n- Candidate: LF-only exact released function body using the released declarations/header set.\n- Sole attempt: `compile_failed`; score 0.0000%. The isolated compiler could not resolve the released include closure (standard, SDK, and project headers).\n- Candidate SHA-1: `041c40555f99862177f2b289437f14f096e24bc2`.\n- Exactly one candidate and one valid harness invocation. No alternative, retry, chase, attempts 2-5, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/global.h\"\n\n#include \"/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/project.h\"\n#include \"/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/sky.h\"\n#include \"/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/app.h\"\n#include \"/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/game.h\"\n#include \"/home/superconta/data/share/kelly/kelly-slaters-pro-surfer/KS/SRC/camera.h\"\n\nvoid sky::render( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct )\n{\n  // set sky position according to current_view_camera position\n  vector3d p = app::inst()->get_game()->get_current_view_camera()->get_abs_position();\n  p.y = get_abs_position().y;\n  set_rel_position( p );\n  // now do the render\n  entity::render( camera_link, detail, flavor, entity_translucency_pct );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "render__3skyP6camerafUif"
+}
