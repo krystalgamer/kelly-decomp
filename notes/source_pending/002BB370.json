@@ -1,0 +1,23 @@
+{
+  "address": "0x002BB370",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8ea206c6a87658da8247cf2901cca681cc222d34",
+      "candidate_size": 712,
+      "compared_bytes": 728,
+      "compared_instructions": 182,
+      "emitted_name": "render__12timer_widget",
+      "instruction_score": 24.1758,
+      "matching_bytes": 250,
+      "matching_instructions": 44,
+      "notes": "# FIRST PASS wave 135 lane A2\n\nExact released source tested once for `0x002BB370 render__12timer_widget`. Attempts before: 0. Result `different`, byte score 34.3407% and instruction score 24.1758%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 34.3407,
+      "source": "// Target: 0x002BB370 render__12timer_widget\n// Reference: KS/SRC/widget_script.cpp\n// Replace this file with one self-contained candidate function.\n#include \"KS/SRC/widget_shared.h\"\n\nclass bitmap_widget : public widget\n{\n};\n\nclass timer_widget : public widget\n{\npublic:\n  virtual void show();\n  virtual void frame_advance( time_value_t time_inc );\n  virtual void update_scale();\n  virtual void render();\n  virtual void set_layer( rhw_layer_e rhw_layer );\n\nprotected:\n  bitmap_widget *digits[10];\n  bitmap_widget *colon1, *colon2, *point, *bg;\n  int minutes;\n  int seconds1;\n  int seconds2;\n  int tenths;\n  rational_t time_left;\n  bool running, updated;\n};\n\nshort MAGIC_OFFSET= 97;\nshort digit_y     = -23;\nvoid timer_widget::render()\n{\n  const short digit_x[] = { -224-MAGIC_OFFSET, -66-MAGIC_OFFSET, 75-MAGIC_OFFSET, 224-MAGIC_OFFSET };\n\n  bg->render();\n  colon1->render();\n  colon2->render();\n  point->render();\n\n  digits[minutes]->move_to( digit_x[0]*abs_S[0], digit_y );\n  digits[minutes]->render();\n  digits[seconds1]->move_to( digit_x[1]*abs_S[0], digit_y );\n  digits[seconds1]->render();\n  digits[seconds2]->move_to( digit_x[2]*abs_S[0], digit_y );\n  digits[seconds2]->render();\n  digits[tenths]->move_to( digit_x[3]*abs_S[0], digit_y );\n  digits[tenths]->render();\n}\n",
+      "status": "different",
+      "target_size": 728
+    }
+  ],
+  "raw_name": "render__12timer_widget"
+}
