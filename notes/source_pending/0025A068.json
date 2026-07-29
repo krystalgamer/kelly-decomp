@@ -1,0 +1,23 @@
+{
+  "address": "0x0025A068",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b1408b19bdd0ab2b9f638be49d32ad580b6d406e",
+      "candidate_size": 756,
+      "compared_bytes": 756,
+      "compared_instructions": 187,
+      "emitted_name": "CalcRank__13JudgingSystem",
+      "instruction_score": 1.0695,
+      "matching_bytes": 135,
+      "matching_instructions": 2,
+      "notes": "FIRST PASS wave116 B5\nTarget: 0x0025A068 CalcRank__13JudgingSystem (604/0x25C), game/files_kellyslater\nReference: kelly-slaters-pro-surfer/KS/SRC/ks/judge.cpp\nAttempts before: 0\nAttempt 1: exact released body with minimal faithful self-contained declarations and LF line endings\nResult: different; score 17.8571.\nExactly one candidate was tested. No follow-up, alternative, retry, diff chase, build, finalization, integration, queue edit, tracked edit, commit, or push was performed.",
+      "score": 17.8571,
+      "source": "enum { SURFER_LAST = 14, BEACH_MAVERICKS = 6 };\n\nclass game\n{\npublic:\n\tint get_beach_id() const;\n};\n\nextern game *g_game_ptr;\n\nclass JudgingSystem\n{\npublic:\n\tenum { NUM_COMPETITORS = 9 };\n\n\tstruct RUN\n\t{\n\t\tfloat regionScores[3];\n\n\t\tfloat GetAverageScore(void) const\n\t\t{\n\t\t\tif (g_game_ptr->get_beach_id() != BEACH_MAVERICKS)\n\t\t\t\treturn (regionScores[0]+regionScores[1]+regionScores[2])/3.0f;\n\t\t\telse\n\t\t\t\treturn (regionScores[0]+regionScores[1])/2.0f;\n\t\t}\n\t};\n\n\tstruct RESULT\n\t{\n\t\tRUN runs[3];\n\t\tint rank;\n\n\t\tfloat GetRunTotal(void) const { return runs[0].GetAverageScore() + runs[1].GetAverageScore() + runs[2].GetAverageScore(); }\n\t};\n\nprotected:\n\tfloat skills[SURFER_LAST];\n\tbool isCompetitor[SURFER_LAST];\n\tfloat difficulties[3];\n\tRESULT results[SURFER_LAST];\n\tint currRunIdx;\n\tbool over;\n\tint numPlayerWipeouts;\n\n\tvoid CalcRank(void);\n};\n\nvoid JudgingSystem::CalcRank(void)\n{\n\tint\ti;\n\t\n\t// Reset ranks.\n\tfor (i = 0; i < SURFER_LAST; i++)\n\t\tresults[i].rank = 0;\n\t\n\t// Compute each surfer's rank.\n\tfor (int rank = 1; rank <= NUM_COMPETITORS; rank++)\n\t{\n\t\tint largestIdx = -1;\n\t\tfor (i = 0; i < SURFER_LAST; i++)\n\t\t{\n\t\t\t// Ignore invalid surfers.\n\t\t\tif (!isCompetitor[i]) continue;\n\t\t\t\n\t\t\tif (results[i].rank == 0)\n\t\t\t{\n\t\t\t\tif (largestIdx == -1 || results[i].GetRunTotal() > results[largestIdx].GetRunTotal())\n\t\t\t\t\tlargestIdx = i;\n\t\t\t}\n\t\t}\n\t\t\n\t\tresults[largestIdx].rank = rank;\n\t}\n}\n",
+      "status": "different",
+      "target_size": 604
+    }
+  ],
+  "raw_name": "CalcRank__13JudgingSystem"
+}
