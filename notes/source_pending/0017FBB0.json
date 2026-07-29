@@ -1,0 +1,15 @@
+{
+  "address": "0x0017FBB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "source-first-wave126-A5-candidate.cpp",
+      "candidate_sha1": "2658cf8a517978f5e2a9ae95be9f2c1950450f4e",
+      "notes": "# FIRST PASS wave 126 lane A5\n\nExact released source tested once for `0x0017FBB0 UpdateHighlight__12MainFrontEnd`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/MainFrontEnd_shared.h\"\n\n#define num_boxes 9\n#define num_circles 1\n#define num_lines 3\n\nvoid MainFrontEnd::UpdateHighlight()\n{\n\tif(highlighted->entry_num == MainFreeEntry)\n\t\tFreesurf->OnActivate();\n\telse if(highlighted->entry_num == MainCareerEntry)\n\t\tcareer_menu->OnActivate();\n\telse if(highlighted->entry_num == MainMultiEntry)\n\t\tMulti->OnActivate();\n\n\tfor(int i=0; i<MainEnd; i++)\n\t{\n\t\tfor(int j=0; j<num_boxes; j++)\n\t\t\tboxes[i][j]->TurnOn(highlighted->entry_num == i);\n\t\tfor(int j=0; j<num_circles; j++)\n\t\t\tcircles[i][j]->TurnOn(highlighted->entry_num == i);\n\t\tfor(int j=0; j<num_lines; j++)\n\t\t\tif(lines[i][j]) lines[i][j]->TurnOn(highlighted->entry_num == i);\n\t}\n\n\tmanager->helpbar->Reset();\n\tmanager->helpbar->RemoveTriangle();\n\tif(highlighted->entry_num == MainExtrasEntry || highlighted->entry_num == MainOpEntry)\n\t\tmanager->helpbar->AddArrowH();\n\tmanager->helpbar->Reformat();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "UpdateHighlight__12MainFrontEnd"
+}
