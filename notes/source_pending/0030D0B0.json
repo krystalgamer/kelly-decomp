@@ -1,0 +1,23 @@
+{
+  "address": "0x0030D0B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "69dc96d6600081209f22557f26d055c40e0e0c42",
+      "candidate_size": 484,
+      "compared_bytes": 496,
+      "compared_instructions": 124,
+      "emitted_name": "get_token__10ini_parserPPcPiT2",
+      "instruction_score": 20.1613,
+      "matching_bytes": 168,
+      "matching_instructions": 25,
+      "notes": "FIRST PASS wave92 B1\nTarget: 0x0030D0B0 get_token__10ini_parserPPcPiT2, 496/0x1F0, game/files_misfits.\nReference: kelly-slaters-pro-surfer/KS/SRC/ini_parser.cpp:244-298 (read-only).\nAttempts before: 0. Exactly one LF candidate and one harness invocation.\nCandidate: exact released function body with minimal faithful self-contained declarations and no project headers.\nResult: different; byte score 33.8710% (168/496), instruction score 20.1613% (25/124), candidate size 484.\nNo alternatives, asm, annotations, variants, retry, attempts 2-5, post-test chasing, tracked edits, finalize, integration, build, or git mutation.\npacket=false; tracked_files_changed=false; finalized=false; integrated=false.",
+      "score": 33.871,
+      "source": "extern \"C\" unsigned int strlen(const char *);\nextern \"C\" char *strlwr(char *);\nextern unsigned char ctype_table[];\n\n#define NULL 0\n#define isspace(c) (ctype_table[(signed char)(c)] & 8)\n\nclass ini_parser\n{\n  private:\n    enum TokenType {\n      NO_TOKEN = 0,\n      TOKEN_GROUP,\n      TOKEN_STRING,\n      TOKEN_EQUALS\n    };\n\n    char filename[256];\n    char token[256];\n    int scan_pos;\n    char *line;\n\n    char stored_token;\n    char stored_type;\n    char stored_num;\n\n    int build_token(char *line, char *the_token);\n    int get_token(char **curr_token, int *token_type, int *num_value);\n    void despacify_token(char *curr_token);\n};\n\nint ini_parser::get_token(char **curr_token, int *token_type, int *num_value)\n{\n  int ret;\n  if (stored_token)\n  {\n    *curr_token = token;\n    *token_type = stored_type;\n    *num_value = stored_num;\n\n    stored_token = 0;\n    return *token_type;\n  }\n\n  token[0] = '\\0';\n  while( (isspace(line[scan_pos]) && (line[scan_pos] != '\\0')) ||\n    line[scan_pos] == '\\n' || line[scan_pos] == '\\r' || line[scan_pos] == ';' )\n  {\n    if (line[scan_pos] == ';')\n    {\n      while (line[scan_pos] != '\\n' && line[scan_pos] != '\\r' && (line[scan_pos] != '\\0'))\n        ++scan_pos;\n    }\n    else\n      ++scan_pos;\n  }\n  ret = build_token(&line[scan_pos], token);\n  scan_pos += ret;\n\n  if (ret == 0)\n  {\n    *curr_token = NULL;\n    return NO_TOKEN;\n  }\n\n  *curr_token = token;\n  despacify_token(token);\n\n  if (token[0] == '[')\n  {\n    strlwr(token);\n    *token_type = TOKEN_GROUP;\n  }\n  else if (token[0] == '=')\n    *token_type = TOKEN_EQUALS;\n  else if (strlen(token) > 0)\n    *token_type = TOKEN_STRING;\n  else\n    *token_type = NO_TOKEN;\n  stored_num = *num_value;\n  stored_type = *token_type;\n\n  return *token_type;\n}\n",
+      "status": "different",
+      "target_size": 496
+    }
+  ],
+  "raw_name": "get_token__10ini_parserPPcPiT2"
+}
