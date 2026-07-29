@@ -1,0 +1,23 @@
+{
+  "address": "0x00342338",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cf563b5107cd03f7b71f459dd73e18326f2a2665",
+      "candidate_size": 700,
+      "compared_bytes": 700,
+      "compared_instructions": 176,
+      "emitted_name": "__17background_widgetPCcP6widgetssRC7stringx",
+      "instruction_score": 18.75,
+      "matching_bytes": 251,
+      "matching_instructions": 33,
+      "notes": "# FIRST PASS wave 128 lane B1\n\nExact released source tested once for `0x00342338 __17background_widgetPCcP6widgetssRC7stringx`. Attempts before: 0. Result `different`, byte score 35.8571% and instruction score 18.7500%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 35.8571,
+      "source": "typedef float rational_t;\n\nvoid *operator new(unsigned, unsigned, const char *, int);\nint nglGetScreenWidth();\n\nclass stringx\n{\npublic:\n  struct buffer { int refs; int alloc; int char_length; };\n  buffer *my_buf;\n\n  stringx();\n  stringx(int);\n  stringx(const stringx &);\n  ~stringx();\n  const char *c_str() const;\n  void make_room(int);\n  void append(const stringx &);\n};\n\ninline stringx operator+(const stringx &lhs, const stringx &rhs)\n{\n  stringx foo;\n  foo.make_room(lhs.my_buf->char_length + rhs.my_buf->char_length);\n  foo.append(lhs);\n  foo.append(rhs);\n  return foo;\n}\n\nclass widget\n{\npublic:\n  enum rhw_layer_e { RHW0 };\n  static rational_t rhw_2d_val[];\n  static rational_t rhw_layer_ranges[][2];\n  static rhw_layer_e rhw_2d_layer;\n  static rhw_layer_e last_rhw_2d_layer;\n\n  widget(const char *, widget *, short, short);\n  virtual ~widget();\n\n  static void set_rhw_2d_layer(rhw_layer_e layer)\n  {\n    last_rhw_2d_layer = rhw_2d_layer;\n    rhw_2d_layer = layer;\n    rhw_2d_val[rhw_2d_layer] = rhw_layer_ranges[rhw_2d_layer][0];\n  }\n\n  static void restore_last_rhw_2d_layer()\n  {\n    rhw_2d_layer = last_rhw_2d_layer;\n  }\n\nprivate:\n  char data[0x140];\n};\n\nclass bitmap_widget : public widget\n{\npublic:\n  bitmap_widget(const char *, widget *, short, short, int);\n  void open(const char *);\n  void resize(rational_t, rational_t);\n\nprivate:\n  char data[0x174];\n};\n\nclass background_widget : public widget\n{\npublic:\n  background_widget(const char *, widget *, short, short, const stringx &);\n};\n\n#define NEW new(0, __PRETTY_FUNCTION__, 0)\n\nbackground_widget::background_widget( const char *_widget_name, widget *_parent, short _x, short _y, const stringx &file_prefix )\n  : widget( _widget_name, _parent, _x, _y )\n{\n  const int wu = nglGetScreenWidth() / 5;\n  const int hu = 256;\n\n  const int tw[] = { wu, 2*wu, 2*wu, wu, 2*wu, 2*wu };\n  const int tx[] = { 0,    wu, 3*wu,  0,   wu, 3*wu };\n  const int ty[] = { 0,     0,    0, hu,   hu,   hu };\n\n  for ( int i = 0; i < 6; ++i )\n  {\n    widget::set_rhw_2d_layer( widget::RHW0 );\n    bitmap_widget *bitmap = NEW bitmap_widget( \"bg\", this, tx[i], ty[i], 1 );\n    stringx filename = file_prefix + stringx(i);\n    bitmap->open( filename.c_str() );\n    bitmap->resize( tw[i], hu );\n    widget::restore_last_rhw_2d_layer();\n  }\n}\n",
+      "status": "different",
+      "target_size": 688
+    }
+  ],
+  "raw_name": "__17background_widgetPCcP6widgetssRC7stringx"
+}
