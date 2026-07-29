@@ -1,0 +1,23 @@
+{
+  "address": "0x002F2AB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7b5b1b250fc811eca3018b3336a31b574fd3ae30",
+      "candidate_size": 396,
+      "compared_bytes": 648,
+      "compared_instructions": 162,
+      "emitted_name": "__introsort_loop__H3ZP20instance_render_infoZ20instance_render_infoZi_X01X01PX11X21_v",
+      "instruction_score": 3.7037,
+      "matching_bytes": 92,
+      "matching_instructions": 6,
+      "notes": "# FIRST PASS wave 123 lane A1\n\nExact released source tested once for `0x002F2AB0 __introsort_loop__H3ZP20instance_render_infoZ20instance_render_infoZi_X01X01PX11X21_v`. Attempts before: 0. Result `different`, byte score 14.1975% and instruction score 3.7037%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 14.1975,
+      "source": "struct vector4d {\n  float x, y, z, w;\n} __attribute__((aligned(16)));\n\nstruct frame_info {\n  float age;\n  int ifl_frame_boost;\n  int ifl_frame_locked;\n};\n\nstruct vector3d {\n  float x, y, z;\n};\n\nstruct instance_render_info {\n  float number_of_faces_to_attempt;\n  vector4d local_to_world[4];\n  unsigned int force_flags;\n  unsigned int color_scale;\n  float camera_relative_rotation;\n  frame_info frame_time_info;\n  void *my_region;\n  float particle_scale;\n  void *my_light_set;\n  void *alt_materials;\n  int frame;\n  vector3d render_scale;\n\n  bool operator<(const instance_render_info& iri) const { return frame < iri.frame; }\n} __attribute__((aligned(16)));\n\nextern \"C\" void partial_sort(instance_render_info *, instance_render_info *,\n                             instance_render_info *, instance_render_info *)\n  __asm__(\"__partial_sort__H2ZP20instance_render_infoZ20instance_render_info_X01X01X01PX11_v\");\nextern \"C\" instance_render_info *unguarded_partition(\n    instance_render_info *, instance_render_info *,\n    const instance_render_info &, instance_render_info *)\n  __asm__(\"__unguarded_partition__H2ZP20instance_render_infoZ20instance_render_info_X01X01X11_X01\");\n\ntemplate <class _Tp>\ninline const _Tp& __median(const _Tp& __a, const _Tp& __b, const _Tp& __c) {\n  if (__a < __b)\n    if (__b < __c)\n      return __b;\n    else if (__a < __c)\n      return __c;\n    else\n      return __a;\n  else if (__a < __c)\n    return __a;\n  else if (__b < __c)\n    return __c;\n  else\n    return __b;\n}\n\nextern \"C\" void introsort_loop(instance_render_info *, instance_render_info *,\n                                instance_render_info *, int)\n  __asm__(\"__introsort_loop__H3ZP20instance_render_infoZ20instance_render_infoZi_X01X01PX11X21_v\");\n\nvoid introsort_loop(instance_render_info* __first,\n                    instance_render_info* __last,\n                    instance_render_info*, int __depth_limit) {\n  while (__last - __first > 16) {\n    if (__depth_limit == 0) {\n      partial_sort(__first, __last, __last, (instance_render_info*) 0);\n      return;\n    }\n    --__depth_limit;\n    instance_render_info* __cut = unguarded_partition(\n      __first, __last,\n      instance_render_info(__median(*__first,\n                                   *(__first + (__last - __first)/2),\n                                   *(__last - 1))),\n      (instance_render_info*) 0);\n    introsort_loop(__cut, __last, (instance_render_info*) 0, __depth_limit);\n    __last = __cut;\n  }\n}\n",
+      "status": "different",
+      "target_size": 648
+    }
+  ],
+  "raw_name": "__introsort_loop__H3ZP20instance_render_infoZ20instance_render_infoZi_X01X01PX11X21_v"
+}
