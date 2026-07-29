@@ -1,0 +1,23 @@
+{
+  "address": "0x00157D38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6883c9d9e1beb3811a3e6dd15ef2e96f9cc8bd67",
+      "candidate_size": 312,
+      "compared_bytes": 544,
+      "compared_instructions": 136,
+      "emitted_name": "cons__15FEGraphicalMenuP12FEMenuSystemP9FEManagerG7stringxT3",
+      "instruction_score": 0.7353,
+      "matching_bytes": 46,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave104 B3\n\nReleased `FEGraphicalMenu::cons` body from `KS/SRC/ks/FEMenu.cpp`, tested once from attempts0 with LF line endings.\n\nResult: `different`, score `8.4559%` (`46/544` matching bytes; instruction score `0.7353%`). No follow-up, build, git operation, or tracked edit.",
+      "score": 8.4559,
+      "source": "struct stringx\n{\n\tchar data[8];\n};\n\nstruct color32\n{\n\tunsigned int value;\n};\n\nclass Font\n{\npublic:\n\tenum HORIZJUST\n\t{\n\t\tHORIZJUST_CENTER\n\t};\n\tenum VERTJUST\n\t{\n\t\tVERTJUST_CENTER\n\t};\n};\n\nclass TextString\n{\npublic:\n\tTextString(void *, const char *, int, int, int, float,\n\t\tFont::HORIZJUST, Font::VERTJUST, color32);\n\tvoid setButtonScale(float);\n};\n\nclass FEMenuSystem;\n\nclass FEManager\n{\npublic:\n\tvoid *font_info;\n\tcolor32 col_info_g;\n\tcolor32 col_unselected;\n\tcolor32 col_highlight;\n\tcolor32 col_highlight2;\n};\n\nclass FEMenu\n{\npublic:\n\tint center_x;\n\tint center_y;\n\tint num_entries;\n\tint dy;\n\tint half;\n\tint menu_num;\n\tint init;\n\tstringx font_filename;\n\tcolor32 color;\n\tcolor32 color_high;\n\tcolor32 color_high_alt;\n\tfloat scale;\n\tfloat scale_high;\n\tint max_vis_entries;\n\tint flags;\n\tvoid *entries;\n\tvoid *first_vis_entry;\n\tvoid *last_vis_entry;\n\tvoid *highlighted;\n\tFEMenuSystem *system;\n\tvoid *back;\n\tint back_num;\n\tvoid *submenus;\n\tvoid *active;\n\tvoid *parent;\n\tTextString *helpText;\n\tint helpFlags;\n\tvoid *next_sub;\n\n\tvoid SetHelpText(int);\n};\n\nclass FrontEnd\n{\npublic:\n\tvoid cons(FEManager *, stringx, stringx);\n};\n\nenum\n{\n\tFEMENU_HAS_COLOR = 4,\n\tFEMENU_HAS_COLOR_HIGH = 8,\n\tFEMENU_HAS_COLOR_HIGH_ALT = 16,\n\tHF_CONTINUE = 1\n};\n\nclass FEGraphicalMenu : public FEMenu, public FrontEnd\n{\npublic:\n\tvoid cons(FEMenuSystem *, FEManager *, stringx, stringx);\n};\n\nvoid FEGraphicalMenu::cons(FEMenuSystem* s, FEManager* man, stringx path, stringx pf_name)\n{\n\tentries = 0;\n\thighlighted = 0;\n\tback = 0;\n\tsystem = s;\n\tnum_entries = 0;\n\tinit = false;\n\tactive = 0;\n\tnext_sub = 0;\n\tparent = 0;\n\n\t// Ick.\n\thelpText = new TextString(&man->font_info, \"\", 320, 424, 20, 0.8f, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, man->col_info_g);\n\thelpText->setButtonScale(1.0f);\n\tSetHelpText(HF_CONTINUE);\n\t\n\t// default values for FEMenu stuff\n\tcenter_x = 100;\n\tcenter_y = 100;\n\tflags = 0;\n\tflags |= FEMENU_HAS_COLOR;\n\tflags |= FEMENU_HAS_COLOR_HIGH;\n\tflags |= FEMENU_HAS_COLOR_HIGH_ALT;\n\tcolor = man->col_unselected;\n\tcolor_high = man->col_highlight;\n\tcolor_high_alt = man->col_highlight2;\n\tmax_vis_entries = 1;\n\tscale = 1;\n\tscale_high = 1;\n\tFrontEnd::cons(man, path, pf_name);\n}\n",
+      "status": "different",
+      "target_size": 544
+    }
+  ],
+  "raw_name": "cons__15FEGraphicalMenuP12FEMenuSystemP9FEManagerG7stringxT3"
+}
