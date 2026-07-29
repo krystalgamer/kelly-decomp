@@ -1,0 +1,23 @@
+{
+  "address": "0x001EE900",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b17d1abd3cafa49e188587bc2321023a2ccfa9f1",
+      "candidate_size": 468,
+      "compared_bytes": 600,
+      "compared_instructions": 150,
+      "emitted_name": "fing_grind_cface__FP7cg_meshP5cface",
+      "instruction_score": 1.3333,
+      "matching_bytes": 114,
+      "matching_instructions": 2,
+      "notes": "# FIRST PASS wave 115 lane B1\n\nExact released body tested once for `0x001EE900 fing_grind_cface__FP7cg_meshP5cface`. Result `different`, score 19.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 19.0,
+      "source": "typedef unsigned short vert_ref;\n\nclass cface\n{\n  vert_ref vert_refs[3];\npublic:\n  vert_ref get_vert_ref(int i) const { return vert_refs[i]; }\n};\n\ntemplate<class T> class vector\n{\npublic:\n  typedef const T* const_iterator;\n  const_iterator begin() const;\n  const_iterator end() const;\n};\n\ntypedef vector<cface> cface_vect;\n\nclass cg_mesh\n{\npublic:\n  int get_num_verts() const;\n  const cface_vect& get_cfaces() const;\n};\n\nvoid nglPrintf(const char*, ...);\nvoid _assert(const char*, const char*, unsigned);\n#define assert(e) ((e) ? (void)0 : _assert(#e, __FILE__, __LINE__))\n\nstatic void fing_grind_cface (cg_mesh *colgeom, cface *hit_face)\n{\n  int half_idx = colgeom->get_num_verts () / 2 - 1;\n  int i, low = 0, count = 0;\n\n  for (i = 0; i < 3; i++)\n    if (hit_face->get_vert_ref (i) <= half_idx)\n      count++;\n\n  if (count == 2)\n    return;\n\n  if (count != 1)\n  {\n    nglPrintf (\"ERROR: Grinding geometry is wrong, ask for help on how to do it.\\n\");\n    assert (false);\n  }\n\n  for (i = 0; i < 3; i++)\n    if (hit_face->get_vert_ref (i) <= half_idx)\n    {\n      low = hit_face->get_vert_ref (i);\n      break;\n    }\n\n  for (cface_vect::const_iterator it = colgeom->get_cfaces ().begin (); it != colgeom->get_cfaces ().end (); it++)\n  {\n    count = 0;\n\n    for (i = 0; i < 3; i++)\n      if ((*it).get_vert_ref (i) == low)\n      {\n        count++;\n        break;\n      }\n\n    for (i = 0; i < 3; i++)\n      if ((*it).get_vert_ref (i) == low - 1)\n      {\n        count++;\n        break;\n      }\n\n    if (count == 2)\n    {\n      *hit_face = (*it);\n      break;\n    }\n  }\n}\n",
+      "status": "different",
+      "target_size": 600
+    }
+  ],
+  "raw_name": "fing_grind_cface__FP7cg_meshP5cface"
+}
