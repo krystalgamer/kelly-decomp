@@ -1,0 +1,23 @@
+{
+  "address": "0x00381EE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "532fa07e44fa644210ee33210f9c2e38fc23cf35",
+      "candidate_size": 808,
+      "compared_bytes": 808,
+      "compared_instructions": 202,
+      "emitted_name": "Init__t21WavePulsePerturbClass1i6",
+      "instruction_score": 0.495,
+      "matching_bytes": 101,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 129 lane B4\n\nExact released source tested once for `0x00381EE0 Init__t21WavePulsePerturbClass1i6`. Attempts before: 0. Result `different`, byte score 12.5000% and instruction score 0.4950%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 12.5,
+      "source": "#include \"KS/SRC/ks/wave_perturb_shared.h\"\n\ntypedef unsigned int u_int;\n\ninline u_int SPLINE_BinarySearch(const float *x, u_int n, const float &valx)\n{\n    u_int lo = 0, hi = n - 1, mid;\n    while (hi - lo > 1)\n    {\n        mid = (lo + hi) / 2;\n        if (x[mid] < valx) lo = mid;\n        else hi = mid;\n    }\n    return lo;\n}\n\ninline float SPLINE_Evaluate(const float *x, const float *a, const float *b, const float *c, const float *d,\n    u_int n, float valx)\n{\n    u_int lo = SPLINE_BinarySearch(x, n, valx);\n    valx -= x[lo];\n    return ((a[lo] * valx + b[lo]) * valx + c[lo]) * valx + d[lo];\n}\n\nvoid SPLINE_ComputeCoeffs(const float *x, const float *y, int n, float *a, float *b, float *c, float *d);\n\n#define WAVE_NUMPROFILEMAX 16\n#define WAVE_NUMCONTROLMAX 16\nstruct rgba { float r, g, b, a; } __attribute__((aligned(16)));\nstruct WaveControlPoints {\n    rgba color[WAVE_NUMPROFILEMAX][WAVE_NUMCONTROLMAX];\n    float x[WAVE_NUMCONTROLMAX][WAVE_NUMPROFILEMAX];\n    float y[WAVE_NUMCONTROLMAX][WAVE_NUMPROFILEMAX];\n    float z[WAVE_NUMCONTROLMAX][WAVE_NUMPROFILEMAX];\n    int region[WAVE_NUMCONTROLMAX][WAVE_NUMPROFILEMAX];\n    int emitter[WAVE_NUMCONTROLMAX][WAVE_NUMPROFILEMAX];\n    u_int numcontrol, numprofile;\n} __attribute__((aligned(16)));\n\nextern WaveControlPoints *WAVE_ControlPoints;\nextern float WAVE_ProfileX[WAVE_NUMPROFILEMAX];\nextern SplineCoeffs<WAVE_NUMPROFILEMAX> WAVE_ProfileToWorldCoeffs;\n\nstatic float WAVE_ArtToProfile(float x)\n{\n    int floorx = (int) x;\n    float fracx = x - floorx;\n    return (1 - fracx) * WAVE_ProfileX[floorx] + fracx * WAVE_ProfileX[floorx+1];\n}\n\ntemplate <int n> void WavePulsePerturbClass<n>::Init(void)\n{\n    float lo = SPLINE_Evaluate(WAVE_ProfileX,\n            WAVE_ProfileToWorldCoeffs.a,\n            WAVE_ProfileToWorldCoeffs.b,\n            WAVE_ProfileToWorldCoeffs.c,\n            WAVE_ProfileToWorldCoeffs.d,\n            WAVE_ControlPoints->numprofile, WAVE_ArtToProfile(profilelo));\n    float hi = SPLINE_Evaluate(WAVE_ProfileX,\n            WAVE_ProfileToWorldCoeffs.a,\n            WAVE_ProfileToWorldCoeffs.b,\n            WAVE_ProfileToWorldCoeffs.c,\n            WAVE_ProfileToWorldCoeffs.d,\n            WAVE_ControlPoints->numprofile, WAVE_ArtToProfile(profilehi));\n    float range = hi - lo;\n\n    u_int jumpindex = 0;\n    for (u_int i = 0; i < num; ++i)\n    {\n        pulsexx[i] = range * pulse[i];\n        pulsex[i] = pulsexx[i];\n        if (i > 0 && pulsexx[i] == pulsexx[i-1])\n        {\n            jumpindex = i;\n        }\n    }\n\n    pulsex[jumpindex] += range;\n    offset = hi - pulsex[jumpindex];\n\n    SPLINE_ComputeCoeffs(pulsex, pulsexx, num, pulsecoeffs.a, pulsecoeffs.b, pulsecoeffs.c, pulsecoeffs.d);\n}\n\ntemplate void WavePulsePerturbClass<6>::Init(void);\n",
+      "status": "different",
+      "target_size": 700
+    }
+  ],
+  "raw_name": "Init__t21WavePulsePerturbClass1i6"
+}
