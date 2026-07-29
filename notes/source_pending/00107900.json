@@ -1,0 +1,23 @@
+{
+  "address": "0x00107900",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "468e760b50bca41968657490593e7fc89bfeef01",
+      "candidate_size": 556,
+      "compared_bytes": 588,
+      "compared_instructions": 147,
+      "emitted_name": "get_xz_rotation_to_point__C13ai_locomotionRC8vector3d",
+      "instruction_score": 6.8027,
+      "matching_bytes": 146,
+      "matching_instructions": 10,
+      "notes": "# FIRST PASS wave 112 lane A3\n\nExact released body tested once for `0x00107900 get_xz_rotation_to_point__C13ai_locomotionRC8vector3d`. Result `different`, score 24.8299%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 24.8299,
+      "source": "struct vector3d {\n    float x, y, z;\n};\n\nstruct po {\n    char pad0[32];\n    vector3d position;\n    char pad1[4];\n    vector3d facing;\n};\n\nstruct entity {\n    char pad[80];\n    po* my_abs_po;\n};\n\nextern float* fast_acos_lookup_table;\n\nstatic inline float fast_acos(float x) {\n    return fast_acos_lookup_table[(int)((x + 1.0f) * 8192.0f)];\n}\n\nstatic inline float xz_rotation(float x, float z) {\n    float result = 0.0f;\n    if (x != 0.0f || z != 0.0f) {\n        result = fast_acos(z / __builtin_sqrtf(z * z + x * x));\n        if (x < 0.0f)\n            result = -result;\n    }\n    return result;\n}\n\nclass ai_locomotion {\npublic:\n    entity* get_my_entity() const __asm__(\"get_my_entity__C13ai_locomotion\");\n    float get_xz_rotation_to_point(const vector3d& point) const;\n};\n\nfloat ai_locomotion::get_xz_rotation_to_point(const vector3d& point) const {\n    vector3d facing = get_my_entity()->my_abs_po->position;\n    vector3d delta;\n    po* abs_po = get_my_entity()->my_abs_po;\n    delta.x = point.x - abs_po->facing.x;\n    delta.y = point.y - abs_po->facing.y;\n    delta.z = point.z - abs_po->facing.z;\n    float target_rotation = xz_rotation(-delta.x, delta.z);\n    float current_rotation = xz_rotation(-facing.x, facing.z);\n    float result = target_rotation - current_rotation;\n    if (result > 3.1415927f)\n        result -= 6.2831855f;\n    if (result < -3.1415927f)\n        result += 6.2831855f;\n    return result;\n}\n",
+      "status": "different",
+      "target_size": 588
+    }
+  ],
+  "raw_name": "get_xz_rotation_to_point__C13ai_locomotionRC8vector3d"
+}
