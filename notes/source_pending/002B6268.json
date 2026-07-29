@@ -1,0 +1,16 @@
+{
+  "address": "0x002B6268",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7cd18dcbf7700335433249f5ff671b5209e89986",
+      "error": "Candidate did not emit _M_insert_aux__t6vector2ZQ211render_data11region_infoZt12my_allocator1ZQ211render_data11region_infoPQ211render_data11region_infoRCQ211render_data11region_info; emitted functions: []",
+      "notes": "# FIRST PASS wave 145 lane A2\n\nExact released source tested once for `0x002B6268 _M_insert_aux__t6vector2ZQ211render_data11region_infoZt12my_allocator1ZQ211render_data11region_infoPQ211render_data11region_infoRCQ211render_data11region_info`. Attempts before: 0. Result `symbol_missing`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x002B6268 _M_insert_aux__t6vector2ZQ211render_data11region_infoZt12my_allocator1ZQ211render_data11region_infoPQ211render_data11region_infoRCQ211render_data11region_info\n// Reference: \n// Replace this file with one self-contained candidate function.\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2ZQ211render_data11region_infoZt12my_allocator1ZQ211render_data11region_infoPQ211render_data11region_infoRCQ211render_data11region_info"
+}
