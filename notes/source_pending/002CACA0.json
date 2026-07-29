@@ -1,0 +1,23 @@
+{
+  "address": "0x002CACA0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e85aa2db0401c6f3dff3e610bb97ce18cb791925",
+      "candidate_size": 452,
+      "compared_bytes": 476,
+      "compared_instructions": 119,
+      "emitted_name": "render__12text_element",
+      "instruction_score": 15.9664,
+      "matching_bytes": 159,
+      "matching_instructions": 19,
+      "notes": "FIRST PASS wave89 A1\nTarget: 0x002CACA0 render__12text_element, 476/0x1DC, game/files_misc2.\nReference: kelly-slaters-pro-surfer/KS/SRC/element.cpp:509-544 (read-only).\nAttempts before: 0. Exactly one LF candidate and one harness invocation.\nCandidate: exact released function body with minimal faithful self-contained declarations and no project headers.\nResult: different; byte score 33.4034% (159/476), instruction score 15.9664% (19/119), candidate size 452.\nNo alternatives, asm candidate, annotations, variants, retry, attempts 2-5, post-test chasing, tracked edits, finalize, integration, build, or git mutation.\npacket=false; tracked_files_changed=false; finalized=false; integrated=false.",
+      "score": 33.4034,
+      "source": "typedef unsigned char uint8;\ntypedef unsigned int uint32;\ntypedef float rational_t;\n\nclass color;\n\nclass color32\n{\npublic:\n  union\n  {\n    struct\n    {\n      uint8 b,g,r,a;\n    } c;\n    uint32 i;\n  };\n\n  color32(uint32 ic=0) : i(ic) {}\n  color32(uint8 _r, uint8 _g, uint8 _b, uint8 _a=255)\n  {\n    c.b = _b;\n    c.g = _g;\n    c.r = _r;\n    c.a = _a;\n  }\n};\n\nclass color\n{\npublic:\n  rational_t r, g, b, a;\n\n  color() {}\n  color32 to_color32() const\n  {\n    return color32(r * 255, g * 255, b * 255, a * 255);\n  }\n};\n\nstruct string_buf\n{\n  int refs;\n  int capacity;\n  int length;\n};\n\nclass stringx\n{\nprotected:\n  char *chars;\n  string_buf *my_buf;\n\npublic:\n  inline int size() const\n  {\n    return my_buf->length;\n  }\n};\n\nstruct font_char_info\n{\n  int x0;\n  int y0;\n  int x1;\n  int y1;\n  int adv;\n  int bitmap;\n};\n\nclass font_def\n{\npublic:\n  const font_char_info* get_char_info(char c) const;\n  void render(const stringx& s, color32 clr, float& x, float y, float z,\n              float rhw, float scale=1.0f) const;\n};\n\ntemplate <class T>\nclass list\n{\n  struct node\n  {\n    node *next;\n    node *prev;\n    T data;\n  };\n\npublic:\n  class iterator\n  {\n  public:\n    node *current;\n    iterator() {}\n    iterator(node *n) : current(n) {}\n    T& operator*() const { return current->data; }\n    iterator& operator++()\n    {\n      current = current->next;\n      return *this;\n    }\n    bool operator!=(const iterator& other) const\n    {\n      return current != other.current;\n    }\n  };\n\n  node *sentinel;\n  iterator begin() { return iterator(sentinel->next); }\n  iterator end() { return iterator(sentinel); }\n};\n\nclass element;\ntypedef list<element *> element_list_t;\n\nclass element\n{\npublic:\n  virtual ~element();\n  virtual void rotate_to(float, float, float);\n  virtual void set_subrect(int, int, int, int);\n  virtual void transform(float v[2], color &c, int index);\n  virtual void render() = 0;\n\nprotected:\n  element *parent;\n  int type;\n  unsigned int flags;\n  element_list_t subelements;\n  char subrect[16];\n  float R[2][2];\n  float T[2];\n  float S[2];\n  float S_Override[2];\n  float O[2];\n  float angle;\n  color mycolor[4];\n  char event_run_list[4];\n  bool linear_animation;\n};\n\nstatic float rhw_depth;\n\nclass text_element: public element\n{\npublic:\n  virtual ~text_element();\n  void render();\n\nprotected:\n  font_def *font;\n  stringx text;\n};\n\nvoid text_element::render()\n{\n  color c;\n  float health_xoff = 0.0f;\n  float health_yoff = -4.0f;\n\n  const font_char_info *ci = font->get_char_info('0');\n  if( text.size() == 2 )\n  {\n    health_xoff = (ci->x1-ci->x0) * 0.5f;\n  }\n  if( text.size() == 1 )\n  {\n    health_xoff = (ci->x1-ci->x0) * 1.5f;\n  }\n\n  // PEH'S MISGUIDED ATTEMPT AT ENSURING THAT ALL INTERFACE TEXT OUTPUT\n  // IS SET TO THE RIGHT SIZE\n  S[0] = 1.0f;\n  S[1] = 0.50f;\n\n  float v[2] = { health_xoff, health_yoff };\n  transform(v, c, 0);\n\n  font->render(text, c.to_color32(), v[0],v[1], 0.1f, rhw_depth, 0.5f);\n\n// DO NOT ADVANCE FOR TEXT OUTPUT\n//  rhw_depth += 1.0f;\n\n  element_list_t::iterator it;\n  for(it = subelements.begin(); it != subelements.end(); ++it)\n  {\n    (*it)->render();\n  }\n}\n",
+      "status": "different",
+      "target_size": 476
+    }
+  ],
+  "raw_name": "render__12text_element"
+}
