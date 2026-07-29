@@ -1,0 +1,23 @@
+{
+  "address": "0x0014C608",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e2e060aef1f3c2bf001c3bf44b87a76e6cb8c0e2",
+      "candidate_size": 648,
+      "compared_bytes": 672,
+      "compared_instructions": 166,
+      "emitted_name": "readText__13PreformatTextPcii",
+      "instruction_score": 2.4096,
+      "matching_bytes": 100,
+      "matching_instructions": 4,
+      "notes": "# FIRST PASS wave 126 lane A4\n\nExact released source tested once for `0x0014C608 readText__13PreformatTextPcii`. Attempts before: 0. Result `different`, byte score 14.8810% and instruction score 2.4096%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 14.881,
+      "source": "#include \"KS/SRC/ks/FEPanel_shared.h\"\n\ntypedef unsigned int u_int;\n#define NULL 0\n#define NEW new\n#define assert(x) ((void)0)\n\nextern void KSReadFile(const char *, nglFileBuf *, unsigned int);\nextern void KSReleaseFile(nglFileBuf *);\n\nclass PreformatText : public TextString\n{\nprivate:\n    stringx* file_head;\n    int start_line;\n    int num_vis_lines;\n    int max_lines;\n    int actual_lines;\n    static const int absolute_limit = 400;\n\npublic:\n    void readText(char* filename, int max_lines, int vis_lines);\n};\n\n__asm__(\".equ KSReadFile__FPCcP10nglFileBufUi, 0x001E32A0\");\n__asm__(\".equ KSReleaseFile__FP10nglFileBuf, 0x001E3300\");\n__asm__(\".equ MakeReplacements__10TextStringR7stringx, 0x001485A8\");\n\nvoid PreformatText::readText(char* filename, int ml, int vis_lines)\n{\n    max_lines = ml;\n    num_vis_lines = vis_lines;\n    start_line = 0;\n    file_head = NEW stringx[max_lines];\n    assert(max_lines <= absolute_limit);\n    const int line_size = 300;\n    char line[line_size];\n    u_int cur_index = 0;\n    int line_index = 0, file_index = 0;\n\n    nglFileBuf file;\n    file.Buf=NULL; file.Size=0;\n    KSReadFile(filename, &file, 1);\n    unsigned char* buffer = (unsigned char*) file.Buf;\n    if(!buffer)\n    {\n        KSReleaseFile(&file);\n        assert(0);\n    }\n\n    buffer[file.Size] = '\\0';\n\n    while(cur_index < file.Size && buffer[cur_index] != '\\x04')\n    {\n        line_index = 0;\n        while(buffer[cur_index] != '\\n' && buffer[cur_index] != '\\r' && buffer[cur_index] != '\\x04')\n            if(line_index < line_size)\n                line[line_index++] = buffer[cur_index++];\n            else { line_index++; cur_index++; }\n\n        if(buffer[cur_index] == '\\r' && buffer[cur_index+1] == '\\n')\n            cur_index++;\n        cur_index++;\n\n        if(line_index >= line_size)\n        {\n            line[line_size-1] = '\\0';\n        }\n        else\n            line[line_index] = '\\0';\n        if(file_index >= max_lines)\n            file_index++;\n        else file_head[file_index++] = stringx(line);\n    }\n\n    if(file_index >= max_lines)\n    {\n    }\n\n    KSReleaseFile(&file);\n\n    actual_lines = file_index;\n\n    for(int i=0; i<actual_lines; i++)\n        MakeReplacements(file_head[i]);\n}\n",
+      "status": "different",
+      "target_size": 672
+    }
+  ],
+  "raw_name": "readText__13PreformatTextPcii"
+}
