@@ -1,0 +1,23 @@
+{
+  "address": "0x001392B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e2edfd8420e4e20a2460f77121f7d070fa1360ef",
+      "candidate_size": 672,
+      "compared_bytes": 744,
+      "compared_instructions": 186,
+      "emitted_name": "add_signal_callbacks__6entity",
+      "instruction_score": 2.6882,
+      "matching_bytes": 127,
+      "matching_instructions": 5,
+      "notes": "# FIRST PASS wave 137 lane A5\n\nExact released source tested once for `0x001392B0 add_signal_callbacks__6entity`. Attempts before: 0. Result `different`, byte score 17.0699% and instruction score 2.6882%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 17.0699,
+      "source": "class signaller;\n\nclass signal\n{\npublic:\n  signal(const char* name, signaller* owner = 0);\n  unsigned int add_callback(void (*fn)(signaller*, const char*), char* parms, bool one_shot = false);\n};\n\nclass signal_list\n{\n  char allocator_state[4];\n  signal** start;\n  signal** finish;\n  signal** end_of_storage;\npublic:\n  typedef unsigned int size_t;\n  signal*& operator[](size_t index) { return start[index]; }\n};\n\nclass signaller\n{\n  unsigned int flags;\n  signal_list* signals;\npublic:\n  enum signal_id_t { N_SIGNALS };\n  virtual ~signaller();\n  virtual bool is_an_entity() const { return false; }\n  virtual bool is_a_trigger() const { return false; }\n  virtual void raise_signal(signal_list::size_t index) const;\nprivate:\n  virtual signal_list* construct_signal_list();\nprotected:\n  virtual const char* get_signal_name(unsigned short index) const;\npublic:\n  signal* signal_ptr(signal_list::size_t idx)\n  {\n    if (signals == 0)\n      signals = construct_signal_list();\n    signal_list& sl = *signals;\n    if (sl[idx] == 0)\n      sl[idx] = new signal(get_signal_name(idx), this);\n    return sl[idx];\n  }\n};\n\nclass entity : public signaller\n{\npublic:\n  enum signal_id_t\n  {\n    PARENT_SYNC_DUMMY = signaller::N_SIGNALS - 1,\n    ACTIVATED_BY_CHARACTER,\n    DAMAGED,\n    DESTROYED,\n    RADIO_DETONATE,\n    USE_ITEM,\n    ANIM_ACTION,\n    ATTACK_BEGIN,\n    ATTACK_END,\n    ATTACK,\n    FOOTSTEP_L,\n    FOOTSTEP_R,\n    AI_STATE_IDLE,\n    AI_STATE_ALERTED,\n    AI_STATE_COMBAT,\n    AI_STATE_INCREMENT,\n    AI_STATE_DECREMENT,\n    AI_BOSS_SIGNAL_1,\n    AI_BOSS_SIGNAL_2,\n    AI_BOSS_SIGNAL_3,\n    AI_BOSS_SIGNAL_4,\n    GENERIC_SIGNAL_1,\n    GENERIC_SIGNAL_2,\n    GENERIC_SIGNAL_3,\n    GENERIC_SIGNAL_4,\n    FADED_OUT,\n    SCENE_ANIM_FINISHED,\n    BOUNCED,\n    N_SIGNALS\n  };\n\n  void add_signal_callbacks();\n};\n\nvoid entity_signal_callback_attack(signaller*, const char*);\nvoid entity_signal_callback_footstep(signaller*, const char*);\nvoid entity_signal_callback_raiser(signaller*, const char*);\n\nvoid entity::add_signal_callbacks()\n{\n  signal_ptr(ATTACK)->add_callback(entity_signal_callback_attack, 0);\n\n  signal_ptr(FOOTSTEP_L)->add_callback(entity_signal_callback_footstep, 0);\n  signal_ptr(FOOTSTEP_R)->add_callback(entity_signal_callback_footstep, 0);\n\n  for (unsigned short i = 0; i < N_SIGNALS; ++i)\n    signal_ptr(i)->add_callback(entity_signal_callback_raiser, (char*)i);\n}\n",
+      "status": "different",
+      "target_size": 744
+    }
+  ],
+  "raw_name": "add_signal_callbacks__6entity"
+}
