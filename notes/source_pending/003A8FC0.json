@@ -1,0 +1,16 @@
+{
+  "address": "0x003A8FC0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a74d8f0edcb4ee55b774e4d337deb6f539910c59",
+      "error": "Candidate did not emit nglVif1AddDiffusePass__FRPUiUiUiP14nglMeshSectionP16nglMeshBatchInfo; emitted functions: []",
+      "notes": "FIRST PASS wave105 B5\nTarget: 0x003A8FC0 nglVif1AddDiffusePass__FRPUiUiUiP14nglMeshSectionP16nglMeshBatchInfo (544/0x220), NGL/PS2/ngl_ps2.cpp\nAttempts before: 0\nAttempt 1: exact released nglVif1AddDiffusePass body with minimal self-contained declarations and LF line endings\nResult: symbol_missing; score 0.0% (candidate emitted no recognized functions)\nExactly one candidate was tested. No follow-up, alternatives, retries, build, finalization, git operations, or tracked edits were performed.",
+      "score": 0.0,
+      "source": "// Target: 0x003A8FC0 nglVif1AddDiffusePass__FRPUiUiUiP14nglMeshSectionP16nglMeshBatchInfo\n// Reference: NGL/PS2/ngl_ps2.cpp\n// Replace this file with one self-contained candidate function.\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "nglVif1AddDiffusePass__FRPUiUiUiP14nglMeshSectionP16nglMeshBatchInfo"
+}
