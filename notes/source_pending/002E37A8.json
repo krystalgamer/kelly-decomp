@@ -1,0 +1,23 @@
+{
+  "address": "0x002E37A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5fb865fb462c0be2b4380aa890077bbc0f51dd2f",
+      "candidate_size": 164,
+      "compared_bytes": 528,
+      "compared_instructions": 132,
+      "emitted_name": "do_strafe__20dolly_and_strafe_mcsf",
+      "instruction_score": 0.0,
+      "matching_bytes": 23,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 101 lane B5\n\nExact released body tested once for `0x002E37A8 do_strafe__20dolly_and_strafe_mcsf`. Result `different`, score 4.3561%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 4.3561,
+      "source": "typedef float rational_t;\n\nclass vector3d\n{\npublic:\n  vector3d(rational_t, rational_t, rational_t);\n  vector3d(const vector3d&);\n  vector3d& operator=(const vector3d&);\n  vector3d& operator*=(rational_t);\n};\n\nvector3d operator+(const vector3d&, const vector3d&);\n\nclass po\n{\npublic:\n  vector3d fast_8byte_non_affine_xform(const vector3d&) const;\n};\n\nclass entity\n{\npublic:\n  const po& get_abs_po() const;\n  const vector3d& get_abs_position() const;\n  void set_rel_position(const vector3d&);\n};\n\nclass motion_control_system\n{\npublic:\n  virtual ~motion_control_system();\n  virtual void frame_advance(float) = 0;\nprotected:\n  char layout_pad[8];\n  entity* ent;\n};\n\nclass dolly_and_strafe_mcs : public motion_control_system\n{\npublic:\n  virtual ~dolly_and_strafe_mcs();\n  virtual void frame_advance(float);\nprivate:\n  rational_t dolly;\n  rational_t strafe;\n  rational_t lift;\n  void do_dolly(rational_t distance);\n  void do_lift(rational_t distance);\n  void do_strafe(rational_t distance);\n};\n\nvoid dolly_and_strafe_mcs::do_strafe( rational_t distance )\n{\n  // the x vector transformed by po should be strafe direction\n  vector3d x(1,0,0);\n\n//  vector3d strafe_vec = ent->get_po().non_affine_slow_xform( x );\n  vector3d strafe_vec = ent->get_abs_po().fast_8byte_non_affine_xform( x );\n\n  strafe_vec *= distance;\n  ent->set_rel_position( ent->get_abs_position() + strafe_vec );\n}\n",
+      "status": "different",
+      "target_size": 528
+    }
+  ],
+  "raw_name": "do_strafe__20dolly_and_strafe_mcsf"
+}
