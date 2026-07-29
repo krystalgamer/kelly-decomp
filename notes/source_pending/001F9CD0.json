@@ -1,0 +1,23 @@
+{
+  "address": "0x001F9CD0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "089e3f75af6a339b5a39f9cec9875c063ddd84a3",
+      "candidate_size": 544,
+      "compared_bytes": 736,
+      "compared_instructions": 184,
+      "emitted_name": "CAREERDATA_Load__Fv",
+      "instruction_score": 2.1739,
+      "matching_bytes": 124,
+      "matching_instructions": 4,
+      "notes": "# FIRST PASS wave 136 lane A4\n\nExact released source tested once for `0x001F9CD0 CAREERDATA_Load__Fv`. Attempts before: 0. Result `different`, byte score 16.8478% and instruction score 2.1739%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 16.8478,
+      "source": "typedef unsigned char u_char;\ntypedef unsigned int u_int;\n\nstruct nglFileBuf\n{\n  u_char *Buf;\n  u_int Size;\n  u_int UserData;\n};\n\nbool KSReadFile(const char *, nglFileBuf *, u_int);\nvoid KSReleaseFile(nglFileBuf *);\nchar *strchr(const char *, int);\nint sscanf(const char *, const char *, ...);\n\ntypedef struct CareerDataStruct {\n    int beach;\n    int goal_param[5];\n    int reward_param[5];\n    char beach_file[32];\n    char name[32];\n    int goal[5];\n    int goal_param_2[5];\n    int reward[5];\n    int prev_levels[4];\n    int next_levels[2];\n    float level_duration;\n    char stash_name[15];\n    int use_ai_surfer;\n    char challenge_name[32];\n} CareerData;\n\nextern CareerData CareerDataArray[];\n\n#define assert(exp) ((void)0)\n#define verify(a) if (a) {}\n#define NULL 0\n\nvoid CAREERDATA_Load(void)\n{\n    nglFileBuf F;\n    KSReadFile(\"careerdata.dat\", &F, 1);\n    char *s = (char *) F.Buf;\n    const char *format = \"%[^,], %[^,], %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %f, %[^,], %d, %[^,], \";\n    for (int i = 0; i < 32; ++i)\n    {\n         int n = sscanf(s, format,\n              &CareerDataArray[i].beach_file,\n              &CareerDataArray[i].name,\n              &CareerDataArray[i].goal[ 0 ],\n              &CareerDataArray[i].goal[ 1 ],\n              &CareerDataArray[i].goal[ 2 ],\n              &CareerDataArray[i].goal[ 3 ],\n              &CareerDataArray[i].goal[ 4 ],\n              &CareerDataArray[i].goal_param_2[ 0 ],\n              &CareerDataArray[i].goal_param_2[ 1 ],\n              &CareerDataArray[i].goal_param_2[ 2 ],\n              &CareerDataArray[i].goal_param_2[ 3 ],\n              &CareerDataArray[i].goal_param_2[ 4 ],\n              &CareerDataArray[i].reward[ 0 ],\n              &CareerDataArray[i].reward[ 1 ],\n              &CareerDataArray[i].reward[ 2 ],\n              &CareerDataArray[i].reward[ 3 ],\n              &CareerDataArray[i].reward[ 4 ],\n              &CareerDataArray[i].prev_levels[ 0 ],\n              &CareerDataArray[i].prev_levels[ 1 ],\n              &CareerDataArray[i].prev_levels[ 2 ],\n              &CareerDataArray[i].prev_levels[ 3 ],\n              &CareerDataArray[i].next_levels[ 0 ],\n              &CareerDataArray[i].next_levels[ 1 ],\n              &CareerDataArray[i].level_duration,\n              &CareerDataArray[i].stash_name,\n              &CareerDataArray[i].use_ai_surfer,\n              &CareerDataArray[i].challenge_name\n         );\n         assert(27 == n);\n         verify((s = strchr(s, '\\n')) != NULL);\n         ++s;\n    }\n    KSReleaseFile(&F);\n}\n",
+      "status": "different",
+      "target_size": 736
+    }
+  ],
+  "raw_name": "CAREERDATA_Load__Fv"
+}
