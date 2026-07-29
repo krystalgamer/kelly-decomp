@@ -1,0 +1,23 @@
+{
+  "address": "0x00160B20",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "601ff21557bf77ed17abaf889c7b18b2a41c9720",
+      "candidate_size": 344,
+      "compared_bytes": 496,
+      "compared_instructions": 124,
+      "emitted_name": "PopIcon__14IGOIconManageri",
+      "instruction_score": 0.0,
+      "matching_bytes": 40,
+      "matching_instructions": 0,
+      "notes": "# A2 0x00160B20\n\n- Target: `PopIcon__14IGOIconManageri`; size 496 (`0x1F0`), object `game/files_frontend`.\n- Exact released body: `kelly-slaters-pro-surfer/KS/SRC/ks/igoiconmanager.cpp:1163-1176`.\n- Prepared status before testing: attempts_used=0.\n- Exactly one LF candidate test: attempt 1, **different**, score 8.0645; 40/496 matching bytes and 0/124 matching instructions; candidate size 344.\n- Released body preserved with minimal faithful self-contained declarations and no includes.\n- No retry, alternative body, assembly, annotations, variants, attempts 2-5, post-test chase, build, git mutation, finalize, or integration.\n- tracked_changes=false; finalized=false; integrated=false; retry=false.",
+      "score": 8.0645,
+      "source": "class IGOIconManager\n{\npublic:\n  class Icon\n  {\n    char prefix[108];\n\n  public:\n    float vy;\n\n  private:\n    char suffix[16];\n  };\n\nprivate:\n  char prefix[2760];\n  Icon* icons;\n  char before_num_icons[140];\n  int numIcons;\n  int iconCounter;\n\npublic:\n  void PopIcon(int icon);\n};\n\nvoid IGOIconManager::PopIcon(int icon)\n{\n  for(int i=icon; i<numIcons; i++)\n  {\n    if(i != numIcons-1)\n      icons[i] = icons[i+1];\n  }\n  numIcons--;\n  for(int i=icon; i<numIcons; i++)\n    if(icons[i].vy == 0.0f)\n      icons[i].vy = 0.01;\n\n  iconCounter++;\n}\n",
+      "status": "different",
+      "target_size": 496
+    }
+  ],
+  "raw_name": "PopIcon__14IGOIconManageri"
+}
