@@ -1,0 +1,15 @@
+{
+  "address": "0x003A72B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7f7b643edb68461c0d74f89d39549c5533252951",
+      "notes": "# FIRST PASS wave 118 lane B1\n\nExact released body tested once for `0x003A72B8 nglRenderSingleCharacter__FRPUlPfN31`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "void nglRenderSingleCharacter( u_long*& RegPtr, float* pos, float* size, float* uvpos, float* uvsize )\n{\n  float x_ratio = 1.0f, y_ratio = 1.0f;\n\n  float left    = (pos[0]) * x_ratio,\n        top     = (pos[1]) * y_ratio,\n        right   = (pos[0] + size[0]) * x_ratio,\n        bottom  = (pos[1] + size[1]) * y_ratio;\n\n  float uvright = uvpos[0] + uvsize[0];\n  float uvbottom = uvpos[1] + uvsize[1];\n\n  u_int Z = nglViewZToGS( pos[2] );\n  RegPtr[0] = SCE_GS_SET_ST( (u_int&)uvpos[0], (u_int&)uvpos[1] );\n  RegPtr[1] = SCE_GS_SET_XYZ( nglScreenXToGS( left ), nglScreenYToGS( top ), Z );\n  RegPtr[2] = SCE_GS_SET_ST( (u_int&)uvright, (u_int&)uvbottom );\n  RegPtr[3] = SCE_GS_SET_XYZ( nglScreenXToGS( right ), nglScreenYToGS( bottom ), Z );\n  RegPtr += 4;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "nglRenderSingleCharacter__FRPUlPfN31"
+}
