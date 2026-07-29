@@ -1,0 +1,16 @@
+{
+  "address": "0x001892A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ff4f84815e9b4ec771865602c8a8ad639162ae73",
+      "error": "Candidate did not emit AdjustHandicapAbso__14SurferFrontEndi; emitted functions: []",
+      "notes": "FIRST PASS wave110 B1\nTarget: 0x001892A8 AdjustHandicapAbso__14SurferFrontEndi (572/0x23C), game/files_frontend\nReference: kelly-slaters-pro-surfer/KS/SRC/ks/SurferFrontEnd.cpp\nAttempts before: 0\nAttempt 1: exact released body with minimal faithful self-contained declarations, LF line endings, and no headers\nResult: symbol_missing; score 0.0000. Candidate object emitted no recognized functions.\nExactly one candidate was tested. No alternatives, assembly, annotations, variants, retries, diff chasing, build, finalization, integration, queue edits, tracked edits, commit, or push were performed.",
+      "score": 0.0,
+      "source": "// Target: 0x001892A8 AdjustHandicapAbso__14SurferFrontEndi\n// Reference: KS/SRC/ks/SurferFrontEnd.cpp\n// Replace this file with one self-contained candidate function.\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "AdjustHandicapAbso__14SurferFrontEndi"
+}
