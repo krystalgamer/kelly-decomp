@@ -1,0 +1,23 @@
+{
+  "address": "0x002FC458",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "18ed829bccb6d972e81323fcd32c64a0256d7464",
+      "candidate_size": 356,
+      "compared_bytes": 516,
+      "compared_instructions": 129,
+      "emitted_name": "_M_insert_aux__t6vector2ZP10partition3Zt12my_allocator1ZP10partition3PP10partition3RCP10partition3",
+      "instruction_score": 6.2016,
+      "matching_bytes": 92,
+      "matching_instructions": 8,
+      "notes": "# FIRST PASS wave 98 lane B2\n\nExact GCC 2.95.2 `vector<partition3*>` `_M_insert_aux` body tested once for `0x002FC458`. Attempts before: 0. LF-only candidate. Result `different`, byte score 17.8295%, instruction score 6.2016%. No retry, chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 17.8295,
+      "source": "class partition3;\n\nextern \"C\" void *memmove(void *, const void *, unsigned int);\nextern \"C\" void *arch_malloc(unsigned int, const char *, int);\nextern \"C\" void arch_free(void *);\n\ntemplate<class T>\nclass my_allocator\n{\npublic:\n  static T *allocate(unsigned int n)\n  {\n    return n ? (T *)arch_malloc(n * sizeof(T), __FILE__, 0) : 0;\n  }\n\n  static void deallocate(T *p, unsigned int)\n  {\n    if (p)\n      arch_free(p);\n  }\n};\n\ntemplate<class T1, class T2>\ninline void construct(T1 *p, const T2 &value)\n{\n  if (p)\n    *p = value;\n}\n\ntemplate<class T>\ninline T *copy(const T *first, const T *last, T *result)\n{\n  memmove(result, first, sizeof(T) * (last - first));\n  return result + (last - first);\n}\n\ntemplate<class T>\ninline T *copy_backward(const T *first, const T *last, T *result)\n{\n  unsigned int count = last - first;\n  memmove(result - count, first, sizeof(T) * count);\n  return result - count;\n}\n\ntemplate<class T>\ninline T *uninitialized_copy(const T *first, const T *last, T *result)\n{\n  return copy(first, last, result);\n}\n\ntemplate<class T>\ninline void destroy(T *, T *)\n{\n}\n\ntemplate<class T, class Alloc>\nclass vector\n{\nprotected:\n  T *start_;\n  T *finish_;\n  T *end_of_storage_;\n\n  T *allocate(unsigned int n) { return Alloc::allocate(n); }\n  void deallocate(T *p, unsigned int n) { Alloc::deallocate(p, n); }\n\npublic:\n  typedef T *iterator;\n  typedef unsigned int size_type;\n\n  iterator begin() { return start_; }\n  iterator end() { return finish_; }\n  size_type size() const { return finish_ - start_; }\n  void _M_insert_aux(iterator position, const T &x);\n};\n\ntemplate<class T, class Alloc>\nvoid vector<T, Alloc>::_M_insert_aux(iterator position, const T &x)\n{\n  if (finish_ != end_of_storage_)\n  {\n    construct(finish_, *(finish_ - 1));\n    ++finish_;\n    T x_copy = x;\n    copy_backward(position, finish_ - 2, finish_ - 1);\n    *position = x_copy;\n  }\n  else\n  {\n    const size_type old_size = size();\n    const size_type len = old_size != 0 ? 2 * old_size : 1;\n    iterator new_start = allocate(len);\n    iterator new_finish = new_start;\n    new_finish = uninitialized_copy(start_, position, new_start);\n    construct(new_finish, x);\n    ++new_finish;\n    new_finish = uninitialized_copy(position, finish_, new_finish);\n    destroy(begin(), end());\n    deallocate(start_, end_of_storage_ - start_);\n    start_ = new_start;\n    finish_ = new_finish;\n    end_of_storage_ = new_start + len;\n  }\n}\n\ntemplate void vector<partition3 *, my_allocator<partition3 *> >::_M_insert_aux(\n  partition3 **, partition3 *const &);\n",
+      "status": "different",
+      "target_size": 516
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2ZP10partition3Zt12my_allocator1ZP10partition3PP10partition3RCP10partition3"
+}
