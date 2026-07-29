@@ -1,0 +1,15 @@
+{
+  "address": "0x002B5B28",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6c23d05da22a3ab57923f5db0b5509fcbbee10fd",
+      "notes": "# FIRST PASS wave 157 lane A4\n\nExact released source tested once for `0x002B5B28 _M_insert__t8_Rb_tree5ZPQ2t13instance_bank1Z8material5ref_tZPQ2t13instance_bank1Z8material5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8material5ref_tZQ2t13instance_bank1Z8material11less_by_ptrZt23__malloc_alloc_template1i0P18_Rb_tree_node_baseT1RCPQ2t13instance_bank1Z8material5ref_t`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "class material;\n\ntemplate <class T>\nclass instance_bank {\npublic:\n  class ref_t;\n  class less_by_ptr;\n};\n\n#define private public\n#include <stl_tree.h>\n#undef private\n\ntypedef instance_bank<material>::ref_t *material_ref_ptr;\ntypedef _Rb_tree<material_ref_ptr, material_ref_ptr, _Identity<material_ref_ptr>,\n                 instance_bank<material>::less_by_ptr,\n                 __malloc_alloc_template<0> > material_ptr_tree;\n\ntemplate material_ptr_tree::iterator material_ptr_tree::_M_insert(\n  material_ptr_tree::_Base_ptr, material_ptr_tree::_Base_ptr,\n  material_ref_ptr const &);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_M_insert__t8_Rb_tree5ZPQ2t13instance_bank1Z8material5ref_tZPQ2t13instance_bank1Z8material5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8material5ref_tZQ2t13instance_bank1Z8material11less_by_ptrZt23__malloc_alloc_template1i0P18_Rb_tree_node_baseT1RCPQ2t13instance_bank1Z8material5ref_t"
+}
