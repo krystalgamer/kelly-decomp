@@ -1,0 +1,16 @@
+{
+  "address": "0x0022CE10",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "aa3f4df6bac99c00f66b215ef62dd4dd4432dc3b",
+      "error": "Candidate did not emit DoBreakCameraWork__11auto_camera; emitted functions: []",
+      "notes": "# FIRST PASS wave93 A4 \u2014 0x0022CE10\n\n- Confirmed queue state was `pending` with `attempts=0`; prepared scratch showed `[]`.\n- Intended one LF exact-body candidate with minimal faithful declarations and no unavailable headers.\n- Candidate-generation command failed because `python` was unavailable before the chained test command continued.\n- The sole test therefore consumed the generated prepare placeholder and emitted no function symbol.\n- Result: `symbol_missing`, score `0.0`; no retry or post-test chase performed.\n- Tracked/reference trees were not modified; not finalized or integrated.",
+      "score": 0.0,
+      "source": "// Target: 0x0022CE10 DoBreakCameraWork__11auto_camera\n// Reference: KS/SRC/ks/ks_camera.cpp\n// Replace this file with one self-contained candidate function.\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "DoBreakCameraWork__11auto_camera"
+}
