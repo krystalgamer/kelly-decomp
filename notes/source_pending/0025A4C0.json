@@ -1,0 +1,23 @@
+{
+  "address": "0x0025A4C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ccacee71ad3fcb13f5fefb839614a58b3b6a7818",
+      "candidate_size": 648,
+      "compared_bytes": 648,
+      "compared_instructions": 162,
+      "emitted_name": "init__6Career",
+      "instruction_score": 0.6173,
+      "matching_bytes": 151,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 114 lane A5\n\nExact released body tested once for `0x0025A4C0 init__6Career`. Result `different`, score 23.3025%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 23.3025,
+      "source": "enum {\n\tLEVEL_LAST = 32,\n\tBEACH_LAST = 13,\n\tMAP_LOC_LAST = 14,\n\tMAX_GOALS_PER_LEVEL = 5,\n\tSURFER_KELLY_SLATER = 0,\n\tGOAL_ENV_SPRAY_WINDSURFERS = 41,\n\tGOAL_ENV_JUMP_PIER = 48\n};\n\nstruct ksConfigData {\n\tchar data[0x4c];\n};\n\nstruct StoredConfigData {\n\tstatic StoredConfigData *inst();\n\tvoid *getGameConfig();\n};\n\nstruct Career {\n\tstruct Level {\n\t\tvoid SetMyId(int);\n\t};\n\tstruct Beach {\n\t\tvoid SetMyId(int);\n\t};\n\tstruct Location {\n\t\tvoid SetMyId(int);\n\t};\n\n\tchar prefix[0x24];\n\tksConfigData cfg;\n\tLevel levels[LEVEL_LAST];\n\tBeach beaches[BEACH_LAST];\n\tLocation locations[MAP_LOC_LAST];\n\tbool new_goal_passed[MAX_GOALS_PER_LEVEL];\n\tbool goal_passed[MAX_GOALS_PER_LEVEL];\n\tbool awarded[MAX_GOALS_PER_LEVEL];\n\tint total_env_challenges;\n\tint env_challenges_passed;\n\tint super_board_was_unlocked;\n\tint bails_movie_was_unlocked;\n\tint espn_movie_was_unlocked;\n\tint levels_completed_order[LEVEL_LAST];\n\n\tvoid SetMyId(int);\n\tvoid StartNewCareer();\n\tvoid init();\n};\n\nstruct CareerData {\n\tchar prefix[0x70];\n\tint goal[MAX_GOALS_PER_LEVEL];\n\tchar suffix[0x58];\n};\n\nextern CareerData CareerDataArray[];\n\nvoid Career::init()\n{\n\tint i, j;\n\t//bool level_available;\n\n\tfor(j = 0; j < LEVEL_LAST; j++)\n\t\tlevels[j].SetMyId(j);\n\tfor(j = 0; j < BEACH_LAST; j++)\n\t\tbeaches[j].SetMyId(j);\n\tfor(j = 0; j < MAP_LOC_LAST; j++)\n\t\tlocations[j].SetMyId(j);\n\t\n\tfor (j=0; j < MAX_GOALS_PER_LEVEL; j++)\n\t{\n\t\tnew_goal_passed[j] = false;\n\t\tgoal_passed[j] = false;\n\t\tawarded[j] = false;\n\t}\n\tSetMyId(SURFER_KELLY_SLATER);\n\tStartNewCareer(); // we do this just to make sure we don't inadvertently use weird data\n\n\tcfg = *(ksConfigData *)StoredConfigData::inst()->getGameConfig();\n\n\t// count up the environmental challenges\n\ttotal_env_challenges = 0;\n\tenv_challenges_passed = 0;\n\tsuper_board_was_unlocked = -1;\n\tbails_movie_was_unlocked = -1;\n\tespn_movie_was_unlocked  = -1;\n\n\tfor(i = 0; i < LEVEL_LAST; i++)\n\t{\n\t\tlevels_completed_order[i] = -1;\n\n\t\tfor(j = 0; j < MAX_GOALS_PER_LEVEL; j++)\n\t\t\t// if it's an environmental challenge\n\t\t\tif(CareerDataArray[i].goal[j] >= GOAL_ENV_SPRAY_WINDSURFERS && \n\t\t\t   CareerDataArray[i].goal[j] <= GOAL_ENV_JUMP_PIER)\n\t\t\t{\n\t\t\t\ttotal_env_challenges++;\n\t\t\t}\n\t}\n}\n",
+      "status": "different",
+      "target_size": 596
+    }
+  ],
+  "raw_name": "init__6Career"
+}
