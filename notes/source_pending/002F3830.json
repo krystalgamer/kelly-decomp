@@ -1,0 +1,23 @@
+{
+  "address": "0x002F3830",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0a2fcdc15065bf939d2c6e18c9888f6e558e4aaa",
+      "candidate_size": 904,
+      "compared_bytes": 984,
+      "compared_instructions": 246,
+      "emitted_name": "_M_insert_aux__t6vector2Z10debug_textZt12my_allocator1Z10debug_textP10debug_textRC10debug_text",
+      "instruction_score": 3.6585,
+      "matching_bytes": 173,
+      "matching_instructions": 9,
+      "notes": "# FIRST PASS wave 163 lane A1\n\nExact released source tested once for `0x002F3830 _M_insert_aux__t6vector2Z10debug_textZt12my_allocator1Z10debug_textP10debug_textRC10debug_text`. Attempts before: 0. Result `different`, byte score 17.5813% and instruction score 3.6585%. Capacity-only child failures produced no attempts for several lanes; one Sol retry succeeded and remaining lanes were remediated directly. No source retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 17.5813,
+      "source": "typedef unsigned int size_t;\ninline void *operator new(size_t, void *p) { return p; }\n\nclass stringx {\n  char *chars;\n  void *my_buf;\npublic:\n  stringx();\n  stringx(const stringx&);\n  ~stringx();\n  stringx& operator=(const stringx&);\n};\n\nstruct color32 { unsigned int value; };\nstruct vector3d { float x, y, z; };\ntypedef float time_value_t;\n\nclass debug_text {\npublic:\n  void copy(const debug_text& d) {\n    _3d_text = d._3d_text;\n    str = d.str;\n    col = d.col;\n    pos = d.pos;\n    duration = d.duration;\n  }\n  debug_text(const debug_text& d) { copy(d); }\n  ~debug_text() {}\n  debug_text& operator=(const debug_text& b) { copy(b); return *this; }\n  bool _3d_text;\n  stringx str;\n  color32 col;\n  vector3d pos;\n  time_value_t duration;\n};\n\ntemplate <class T> class my_allocator {\npublic:\n  T *allocate(size_t);\n  void deallocate(T *, size_t);\n};\n\ntemplate <class T> inline void construct(T *p, const T& value) { new (p) T(value); }\ntemplate <class T> inline void destroy(T *first, T *last) { while (first != last) { first->~T(); ++first; } }\ntemplate <class T> inline T *copy_backward(T *first, T *last, T *result) { while (last != first) *--result = *--last; return result; }\ntemplate <class T> inline T *uninitialized_copy(T *first, T *last, T *result) { while (first != last) { construct(result, *first); ++first; ++result; } return result; }\n\ntemplate <class T, class Alloc> class vector {\npublic:\n  typedef T *iterator;\n  typedef unsigned int size_type;\n  iterator _M_start;\n  iterator _M_finish;\n  iterator _M_end_of_storage;\n  size_type size() const { return size_type(_M_finish - _M_start); }\n  iterator begin() { return _M_start; }\n  iterator end() { return _M_finish; }\n  void _M_insert_aux(iterator, const T&) __asm__(\"_M_insert_aux__t6vector2Z10debug_textZt12my_allocator1Z10debug_textP10debug_textRC10debug_text\");\nprivate:\n  Alloc _M_allocator;\n  iterator _M_allocate(size_type n) { return n ? _M_allocator.allocate(n) : 0; }\n  void _M_deallocate(iterator p, size_type n) { if (p) _M_allocator.deallocate(p, n); }\n};\n\ntemplate <class T, class Alloc>\nvoid vector<T, Alloc>::_M_insert_aux(iterator __position, const T& __x) {\n  if (_M_finish != _M_end_of_storage) {\n    construct(_M_finish, *(_M_finish - 1));\n    ++_M_finish;\n    T __x_copy = __x;\n    copy_backward(__position, _M_finish - 2, _M_finish - 1);\n    *__position = __x_copy;\n  } else {\n    const size_type __old_size = size();\n    const size_type __len = __old_size != 0 ? 2 * __old_size : 1;\n    iterator __new_start = _M_allocate(__len);\n    iterator __new_finish = __new_start;\n    __new_finish = uninitialized_copy(_M_start, __position, __new_start);\n    construct(__new_finish, __x);\n    ++__new_finish;\n    __new_finish = uninitialized_copy(__position, _M_finish, __new_finish);\n    destroy(begin(), end());\n    _M_deallocate(_M_start, _M_end_of_storage - _M_start);\n    _M_start = __new_start;\n    _M_finish = __new_finish;\n    _M_end_of_storage = __new_start + __len;\n  }\n}\n\ntemplate void vector<debug_text, my_allocator<debug_text> >::_M_insert_aux(debug_text *, const debug_text&);\n",
+      "status": "different",
+      "target_size": 984
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2Z10debug_textZt12my_allocator1Z10debug_textP10debug_textRC10debug_text"
+}
