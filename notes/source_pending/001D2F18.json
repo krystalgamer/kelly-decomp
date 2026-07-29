@@ -1,0 +1,23 @@
+{
+  "address": "0x001D2F18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "306e6664a4c248100a1ba461d3312da8cd03d2f0",
+      "candidate_size": 400,
+      "compared_bytes": 488,
+      "compared_instructions": 122,
+      "emitted_name": "Update__14EnterCheatMenuf",
+      "instruction_score": 32.7869,
+      "matching_bytes": 191,
+      "matching_instructions": 40,
+      "notes": "FIRST PASS wave91 A1\nTarget: 0x001D2F18 Update__14EnterCheatMenuf, 488/0x1E8, game/files_frontend.\nReference: kelly-slaters-pro-surfer/KS/SRC/ks/CheatFrontEnd.cpp (read-only).\nAttempts before: 0. Exactly one LF candidate and one harness invocation.\nCandidate: exact released function body with minimal faithful self-contained declarations and no project headers.\nResult: different; byte score 39.1393% (191/488), instruction score 32.7869% (40/122), candidate size 400.\nNo alternatives, asm candidate, annotations, variants, retry, attempts 2-5, post-test chasing, tracked edits, finalize, integration, build, or git mutation.\npacket=false; tracked_files_changed=false; finalized=false; integrated=false.",
+      "score": 39.1393,
+      "source": "typedef float time_value_t;\n\nclass stringx\n{\npublic:\n  stringx(const stringx&);\n  int length() const;\n};\n\nclass TextString\n{\npublic:\n  char pad[75];\n  struct color_type\n  {\n    unsigned char alpha;\n    void set_alpha(int value) { alpha = value; }\n  } color;\n};\n\nclass MultiLineString\n{\npublic:\n  virtual void changeText(stringx text);\n};\n\nclass FEMenu\n{\npublic:\n  char pad[100];\n  FEMenu* parent;\n  virtual void MakeActive(FEMenu* menu);\n  void Update(time_value_t time_inc);\n};\n\nclass FrontEnd\n{\npublic:\n  void Update(time_value_t time_inc);\n};\n\nclass FEMultiMenu : public FEMenu\n{\npublic:\n  void Update(time_value_t time_inc)\n  {\n    ((FrontEnd*)((char*)this + 128))->Update(time_inc);\n    FEMenu::Update(time_inc);\n  }\n};\n\nextern stringx ksGlobalTextArray[];\n\nenum\n{\n  GT_FE_CHEAT_UNLOCKED = 306,\n  GT_FE_BAD_CHEAT_CODE,\n  GT_FE_CHEAT_ALREADY_UNLOCKED\n};\n\nclass EnterCheatMenu : public FEMultiMenu\n{\npublic:\n  char pad_to_current_code[256];\n  stringx current_code;\n  MultiLineString* code_display;\n  TextString* cursor;\n  char pad_to_closing[48];\n  bool closing;\n  char pad_to_closing_timer[7];\n  float closing_timer;\n  int cheat_unlocked;\n\n  void Update(time_value_t time_inc);\n};\n\nstatic inline float fabs(float value)\n{\n  return __builtin_fabsf(value);\n}\n\n#define PHONE_CURSOR_PERIOD 0.25f\n#define PHONE_CURSOR_INTENSITY 1.5f\n#define CHEAT_CODE_MESSAGE_DURATION 1.0f\n#define MAX_PHONE_NUM_LEN 10\n#define CHEAT_INVALID_CODE -1\n\nvoid EnterCheatMenu::Update(time_value_t time_inc)\n{\n\tstatic float cursor_time = 0.0f;\n\tstatic float button_highlight_time = 0.0f;\n\n\tcursor_time += time_inc;\n\tif(cursor_time > PHONE_CURSOR_PERIOD)\n\t\tcursor_time = cursor_time - PHONE_CURSOR_PERIOD;\n\t// Make the cursor fade-blink\n\tint new_alpha = (int)fabs((cursor_time / PHONE_CURSOR_PERIOD * 2.0f - 1.0f) * 255 * PHONE_CURSOR_INTENSITY);\n\tif(new_alpha > 255)\n\t\tnew_alpha = 255;\n\tcursor->color.set_alpha(new_alpha);\n\n\tif(closing)\n\t{\n\t\tclosing_timer -= time_inc;\n\t\tif(closing_timer <= CHEAT_CODE_MESSAGE_DURATION)\n\t\t{\n\t\t\t// if it is a real code, display a success message\n\t\t\tif(cheat_unlocked >= 0)\n\t\t\t\tcode_display->changeText(ksGlobalTextArray[GT_FE_CHEAT_UNLOCKED]);\n\t\t\telse if(current_code.length() == MAX_PHONE_NUM_LEN)\n\t\t\t{\n\t\t\t\tif(cheat_unlocked == CHEAT_INVALID_CODE)\n\t\t\t\t\tcode_display->changeText(ksGlobalTextArray[GT_FE_BAD_CHEAT_CODE]);\n\t\t\t\telse\n\t\t\t\t\tcode_display->changeText(ksGlobalTextArray[GT_FE_CHEAT_ALREADY_UNLOCKED]);\n\t\t\t}\n\t\t\telse // if exiting the menu without having typed in a full code\n\t\t\t\tclosing_timer = 0.0f; // exit without a messge.\n\t\t}\n\t\tif(closing_timer <= 0.0f)\n\t\t\tparent->MakeActive(0);\n\t}\n\tFEMultiMenu::Update(time_inc);\n}\n",
+      "status": "different",
+      "target_size": 488
+    }
+  ],
+  "raw_name": "Update__14EnterCheatMenuf"
+}
