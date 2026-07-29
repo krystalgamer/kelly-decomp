@@ -1,0 +1,23 @@
+{
+  "address": "0x003A0B28",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b88a41bf2e6584ba23a3f0f16c0caf937a0caf28",
+      "candidate_size": 792,
+      "compared_bytes": 792,
+      "compared_instructions": 198,
+      "emitted_name": "nglTim2Convert16to32__FiiPUcT2",
+      "instruction_score": 3.5354,
+      "matching_bytes": 199,
+      "matching_instructions": 7,
+      "notes": "# FIRST PASS wave 136 lane A1\n\nExact released source tested once for `0x003A0B28 nglTim2Convert16to32__FiiPUcT2`. Attempts before: 0. Result `different`, byte score 25.1263% and instruction score 3.5354%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 25.1263,
+      "source": "typedef unsigned char u_char;\nextern \"C\" void *memcpy(void *, const void *, unsigned int);\n#define PAGE_WIDTH      64 // in pixels\n#define PAGE_HEIGHT_16  64 // in lines\n#define PAGE_HEIGHT_32  32 // in lines\n#define PAGE_SIZE     8192 // in bytes\nint nglPagePSMCT16toPSMCT32(int width, int height, u_char *p_input, u_char *p_output);\n\nint nglTim2Convert16to32(int width, int height, u_char *image_in, u_char *image_out)\n{\n  int number_pages_w, nx;\n  int number_pages_h, ny;\n  int l, x, y, w;\n\n  u_char page_in[PAGE_SIZE], page_out[PAGE_SIZE];\n\n  // get the number of pages\n  number_pages_w=width/PAGE_WIDTH;\n  number_pages_h=height/PAGE_HEIGHT_16;\n\n  // for each page\n  for (ny=0; ny<number_pages_h; ny++)\n  {\n    for (nx=0; nx<number_pages_w; nx++)\n    {\n      // get page data\n      for (l=0; l<PAGE_HEIGHT_16; l++)\n      {\n        x=nx*PAGE_WIDTH*2;\n        y=ny*PAGE_HEIGHT_16;\n        w=width*2;\n        memcpy(page_in+l*PAGE_WIDTH*2, image_in+x+(y+l)*w, PAGE_WIDTH*2);\n      }\n\n      // convert page from PSMCT16 to PSMCT32\n    //  Page16to32(page_in, page_out);\n      nglPagePSMCT16toPSMCT32(PAGE_WIDTH, PAGE_HEIGHT_16, page_in, page_out);\n\n      // write converted page to output buffer\n      for (l=0; l<PAGE_HEIGHT_16/2; l++)\n      {\n        x=(nx%(number_pages_w/2))*PAGE_WIDTH*4;\n        y=(ny*2+(nx>=number_pages_w/2))*PAGE_HEIGHT_32;\n        w=width*2;\n        memcpy(image_out+x+(y+l)*w, page_out+l*PAGE_WIDTH*4, PAGE_WIDTH*4);\n      }\n    }\n  }\n\n  return 0;\n}\n",
+      "status": "different",
+      "target_size": 732
+    }
+  ],
+  "raw_name": "nglTim2Convert16to32__FiiPUcT2"
+}
