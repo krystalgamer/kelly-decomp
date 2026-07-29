@@ -1,0 +1,23 @@
+{
+  "address": "0x003979E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d376bbc3762002dcd4d48b240cb347b806afca43",
+      "candidate_size": 684,
+      "compared_bytes": 684,
+      "compared_instructions": 167,
+      "emitted_name": "nglFlip__Fv",
+      "instruction_score": 20.9581,
+      "matching_bytes": 230,
+      "matching_instructions": 35,
+      "notes": "# FIRST PASS wave 128 lane A4\n\nExact released source tested once for `0x003979E0 nglFlip__Fv`. Attempts before: 0. Result `different`, byte score 33.6257% and instruction score 20.9581%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 33.6257,
+      "source": "// Target: 0x003979E0 nglFlip__Fv\n// Reference: NGL/PS2/ngl_ps2.cpp\n// Replace this file with one self-contained candidate function.\ntypedef unsigned int u_int;\ntypedef unsigned long long u_long;\n\nstruct nglDebugStruct\n{\n  char pad;\n  unsigned char ScreenShot;\n};\n\nstruct nglPerfInfoStruct\n{\n  float FPS;\n  u_int RenderStart;\n  u_int RenderFinish;\n  float TotalMS;\n  float RenderMS;\n  float FrameMS;\n  float pad[5];\n  float TotalSeconds;\n};\n\nstruct sceGsTex0\n{\n  u_long TBP0 : 14;\n  u_long rest : 50;\n};\n\nstruct nglTexture\n{\n  char pad0[0x60];\n  u_int GsBaseTBP;\n  char pad1[0x9c];\n  u_long GsTex0;\n};\n\nextern nglDebugStruct nglDebug;\nextern u_int nglFrame;\nextern u_int nglFrameLock;\nextern volatile u_int nglVBlankCount;\nextern u_int nglLastVBlank;\nextern int nglDisplayWidth;\nextern int nglDisplayHeight;\nextern nglPerfInfoStruct nglPerfInfo;\nextern nglTexture nglFrontBufferTex;\nextern nglTexture nglBackBufferTex;\n\nextern u_int cycle;\nextern u_int lastcycle;\nextern u_int diffcycle;\n\nvoid nglVif1SafeWait();\nvoid nglScreenShot(const char *);\nvoid nglSetDisplayEnv(int, int);\n\n__asm__(\".equ nglDebug, 0x004AC9D8\");\n__asm__(\".equ nglFrame, 0x004BB804\");\n__asm__(\".equ nglFrameLock, 0x004AF460\");\n__asm__(\".equ nglVBlankCount, 0x004BBFBC\");\n__asm__(\".equ nglLastVBlank, 0x004BBFC0\");\n__asm__(\".equ nglDisplayWidth, 0x004BB820\");\n__asm__(\".equ nglDisplayHeight, 0x004BB824\");\n__asm__(\".equ nglPerfInfo, 0x004ACA18\");\n__asm__(\".equ nglFrontBufferTex, 0x004BBD28\");\n__asm__(\".equ nglBackBufferTex, 0x004BBE58\");\n__asm__(\".equ cycle, 0x0059B2C0\");\n__asm__(\".equ lastcycle, 0x0059B2C4\");\n__asm__(\".equ diffcycle, 0x0059B2C8\");\n__asm__(\".equ nglVif1SafeWait__Fv, 0x00397728\");\n__asm__(\".equ nglScreenShot__FPCc, 0x003A0F98\");\n__asm__(\".equ nglSetDisplayEnv__Fii, 0x00395F78\");\n\ninline u_int nglGetCPUCycle()\n{\n  u_int value;\n  __asm__ volatile(\"mfc0 %0,$9\" : \"=r\"(value));\n  return value;\n}\n\nvoid nglFlip()\n{\n  nglVif1SafeWait();\n\n  if ( nglDebug.ScreenShot )\n  {\n    nglScreenShot(0);\n    nglDebug.ScreenShot = 0;\n  }\n\n  nglFrame++;\n\n  if ( nglFrameLock != 0 )\n  {\n    u_int Start = nglVBlankCount;\n    while ( nglVBlankCount == Start || nglVBlankCount - nglLastVBlank < nglFrameLock ) {}\n    nglLastVBlank = nglVBlankCount;\n  }\n\n  nglPerfInfo.RenderMS = (float)( nglPerfInfo.RenderFinish - nglPerfInfo.RenderStart ) / 150000.0f;\n\n  const u_int frame1 = nglDisplayWidth * nglDisplayHeight / 64;\n  const u_int frame2 = frame1 * 2;\n  nglFrontBufferTex.GsBaseTBP = (nglFrame&0x1) ? frame2 : frame1;\n  nglBackBufferTex.GsBaseTBP  = (nglFrame&0x1) ? frame1 : frame2;\n  ( (sceGsTex0*)&nglFrontBufferTex.GsTex0 )->TBP0 = nglFrontBufferTex.GsBaseTBP;\n  ( (sceGsTex0*)&nglBackBufferTex.GsTex0 )->TBP0 = nglBackBufferTex.GsBaseTBP;\n\n  nglSetDisplayEnv( !(nglFrame & 0x1), 1 );\n\n  cycle = nglGetCPUCycle();\n  diffcycle = cycle - lastcycle;\n  lastcycle = cycle;\n  nglPerfInfo.FrameMS = diffcycle / 150000.0f;\n  nglPerfInfo.TotalMS += nglPerfInfo.FrameMS;\n  nglPerfInfo.FPS = ( 150000.0f * 1000.0f / diffcycle );\n  nglPerfInfo.TotalSeconds = nglPerfInfo.TotalMS / 1000.0f;\n}\n",
+      "status": "different",
+      "target_size": 684
+    }
+  ],
+  "raw_name": "nglFlip__Fv"
+}
