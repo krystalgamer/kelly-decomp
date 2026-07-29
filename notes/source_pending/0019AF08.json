@@ -1,0 +1,15 @@
+{
+  "address": "0x0019AF08",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2dee677d75d1330eac312e06f082b549247b1d9f",
+      "notes": "# FIRST PASS wave 134 lane A5\n\nExact released source tested once for `0x0019AF08 OnTriangle__16SaveLoadFrontEndi`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"/home/superconta/data/share/kelly/tmp/released-SaveLoadFrontEnd.cpp\"\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "OnTriangle__16SaveLoadFrontEndi"
+}
