@@ -1,0 +1,23 @@
+{
+  "address": "0x002A94A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3a04ea5b0c8ae601919b6c6ba2f49cd205b838df",
+      "candidate_size": 732,
+      "compared_bytes": 764,
+      "compared_instructions": 191,
+      "emitted_name": "wobble__19rocket_guidance_sys",
+      "instruction_score": 3.6649,
+      "matching_bytes": 148,
+      "matching_instructions": 7,
+      "notes": "# FIRST PASS wave 139 lane B3\n\nExact released source tested once for `0x002A94A8 wobble__19rocket_guidance_sys`. Attempts before: 0. Result `different`, byte score 19.3717% and instruction score 3.6649%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 19.3717,
+      "source": "typedef float rational_t;\n\nextern \"C\" float sqrtf(float);\n\nclass Random {\npublic:\n  unsigned int NextRand();\n  int rand(int end) {\n    unsigned int r = NextRand();\n    return r % end;\n  }\n  float randf(float begin, float end) {\n    unsigned int r = NextRand();\n    return r * (1.0f/32767)*(end-begin) + begin;\n  }\n};\n\nextern Random *g_random_ptr;\n\ninline int random(int end) {\n  int i = g_random_ptr->rand(end);\n  return i;\n}\n\ninline float random(float begin, float end) {\n  float r = g_random_ptr->randf(begin, end);\n  return r;\n}\n\n#define PLUS_MINUS_ONE (random(-1.0f, 1.0f))\n\nclass vector3d {\npublic:\n  rational_t x;\n  rational_t y;\n  rational_t z;\n\n  vector3d() {}\n  vector3d(rational_t _x, rational_t _y, rational_t _z)\n    : x(_x), y(_y), z(_z) {}\n\n  rational_t length2() const {\n    return x*x + y*y + z*z;\n  }\n\n  void normalize() {\n    rational_t l2 = length2();\n    if (l2 > 1.0e-10f) {\n      rational_t one_over_l = 1.0f / sqrtf(l2);\n      x *= one_over_l;\n      y *= one_over_l;\n      z *= one_over_l;\n    }\n  }\n};\n\ninline vector3d operator*(const vector3d& v, rational_t s) {\n  return vector3d(v.x*s, v.y*s, v.z*s);\n}\n\nclass physical_interface {\n  char base[8];\n  unsigned int flags;\n  rational_t mass;\n  rational_t volume;\n  vector3d velocity;\n  vector3d angular_velocity;\npublic:\n  void set_angular_velocity(const vector3d& v) {\n    angular_velocity = v;\n  }\n};\n\nclass guidance_system {\nprotected:\n  physical_interface *owner;\n  int flags;\npublic:\n  virtual ~guidance_system();\n};\n\nclass rocket_guidance_sys : public guidance_system {\nprotected:\n  vector3d target_pos;\n  void *target;\n  rational_t launch_force;\n  rational_t wobble_timer;\n  rational_t guidance_delay;\n  rational_t accel_delay;\n  rational_t guided_accuracy;\n  rational_t turn_factor;\n  rational_t accel_factor;\n  rational_t full_wobble_timer;\n  rational_t full_guidance_delay;\n  rational_t full_accel_delay;\n  rational_t wobble_timer_var;\n  rational_t guidance_delay_var;\n  rational_t accel_delay_var;\n\n  void wobble();\n\npublic:\n  rational_t get_turn_factor() const {\n    return turn_factor;\n  }\n\n  rational_t get_wobble_timer_with_var() const {\n    return full_wobble_timer + (PLUS_MINUS_ONE*wobble_timer_var);\n  }\n};\n\nvoid rocket_guidance_sys::wobble()\n{\n  vector3d axis = vector3d(PLUS_MINUS_ONE, PLUS_MINUS_ONE, PLUS_MINUS_ONE);\n  axis.normalize();\n\n  owner->set_angular_velocity(axis * (3.14159265358979323846f * get_turn_factor()) * ((random(2)) ? 1 : -1));\n  wobble_timer = get_wobble_timer_with_var();\n}\n",
+      "status": "different",
+      "target_size": 764
+    }
+  ],
+  "raw_name": "wobble__19rocket_guidance_sys"
+}
