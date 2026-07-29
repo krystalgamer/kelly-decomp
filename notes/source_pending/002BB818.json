@@ -1,0 +1,23 @@
+{
+  "address": "0x002BB818",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "84751aca0aecad80f0eadef84c01d2c455858a58",
+      "candidate_size": 540,
+      "compared_bytes": 540,
+      "compared_instructions": 135,
+      "emitted_name": "resize_timer__12timer_widget",
+      "instruction_score": 91.1111,
+      "matching_bytes": 503,
+      "matching_instructions": 123,
+      "notes": "# FIRST PASS wave 104 lane A3\n\nExact released `timer_widget::resize_timer` body tested once for `0x002BB818`. Attempts before: 0. LF-only candidate. Result `different`, byte score 93.1481%, instruction score 91.1111%. No retry, follow-up, chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 93.1481,
+      "source": "typedef float rational_t;\n\nclass bitmap_widget\n{\npublic:\n  void resize(rational_t width, rational_t height);\n  virtual void move_to(short x, short y);\n};\n\nstatic const rational_t timer_bitmap_size = 20.0f;\nstatic rational_t digit_bitmap_width = 190.0f;\nstatic rational_t digit_bitmap_height = 240.0f;\n\nclass timer_widget\n{\n  char padding0[0x120];\nprotected:\n  rational_t abs_S[2];\n  char padding1[0x1c];\n  bitmap_widget *digits[10];\n  bitmap_widget *colon1, *colon2, *point, *bg;\n\n  void resize_timer();\n};\n\nvoid timer_widget::resize_timer()\n{\n  for ( int i = 0; i < 10; ++i )\n  {\n    digits[i]->resize( digit_bitmap_width, digit_bitmap_height);\n  }\n\n  colon1->resize( timer_bitmap_size, timer_bitmap_size );\n  colon2->resize( timer_bitmap_size, timer_bitmap_size );\n  point->resize( timer_bitmap_size, timer_bitmap_size );\n\n  colon1->move_to( -155*abs_S[0], -54*abs_S[0] );\n  colon2->move_to( -155*abs_S[0], 37*abs_S[0] );\n  point->move_to( 140*abs_S[0], 70*abs_S[0] );\n\n//  bg->resize( 200, 75 );\n  bg->resize( 660, 240 );\n  bg->move_to( -330*abs_S[0], -117*abs_S[0] );\n}\n",
+      "status": "different",
+      "target_size": 540
+    }
+  ],
+  "raw_name": "resize_timer__12timer_widget"
+}
