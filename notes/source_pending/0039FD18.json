@@ -1,0 +1,23 @@
+{
+  "address": "0x0039FD18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "71fda867be26ee2ec9f7638921acd840735ff830",
+      "candidate_size": 760,
+      "compared_bytes": 760,
+      "compared_instructions": 190,
+      "emitted_name": "nglTim2Convert4to32__FiiPUcT2",
+      "instruction_score": 28.4211,
+      "matching_bytes": 167,
+      "matching_instructions": 54,
+      "notes": "# FIRST PASS wave 138 lane A4\n\nExact released source tested once for `0x0039FD18 nglTim2Convert4to32__FiiPUcT2`. Attempts before: 0. Result `different`, byte score 21.9737% and instruction score 28.4211%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 21.9737,
+      "source": "typedef unsigned char u_char;\n\nextern \"C\" void *memset(void *, int, unsigned int);\nextern \"C\" void *memcpy(void *, const void *, unsigned int);\nextern void nglFatal(const char *Format, ...);\nextern int PagePSMT4toPSMCT32(int width, int height, u_char *p_input, u_char *p_output);\n\n#define PSMCT32_PAGE_WIDTH   64\n#define PSMCT32_PAGE_HEIGHT  32\n#define PSMT4_PAGE_WIDTH    128\n#define PSMT4_PAGE_HEIGHT   128\n\nint nglTim2Convert4to32(int width, int height, u_char *p_input, u_char *p_output)\n{\n  int i, j, k;\n  int n_page_h, n_page_w, n_page4_width_byte, n_page32_width_byte;\n  u_char *pi0, *pi1, *po0, *po1;\n  int n_input_width_byte, n_output_width_byte, n_input_height, n_output_height;\n  u_char input_page[PSMT4_PAGE_WIDTH / 2 * PSMT4_PAGE_HEIGHT];\n  u_char output_page[PSMCT32_PAGE_WIDTH * 4 * PSMCT32_PAGE_HEIGHT];\n\n  // ----- check width -----\n  for(i = 0; i < 11; i++)\n  {\n    if( width == (0x400 >> i) )\n      break;\n  }\n  if(i == 11)\n  {\n    nglFatal(\"TM2 width is not power of 2.\\n\");\n    return -1;\n  }\n\n//  nglPrintf(\"input_page: %d\\n\", PSMT4_PAGE_WIDTH / 2 * PSMT4_PAGE_HEIGHT);\n//  nglPrintf(\"output_page: %d\\n\", PSMCT32_PAGE_WIDTH * 4 * PSMCT32_PAGE_HEIGHT);\n\n  memset(input_page, 0, PSMT4_PAGE_WIDTH / 2 * PSMT4_PAGE_HEIGHT);\n  memset(output_page, 0, PSMCT32_PAGE_WIDTH * 4 * PSMCT32_PAGE_HEIGHT);\n\n  // ----- check height -----\n  for(i = 0; i < 11; i++)\n  {\n    if(height == (0x400 >> i))\n      break;\n  }\n  if(i == 11)\n  {\n    nglFatal(\"TM2 height is not power of 2.\\n\");\n    return -1;\n  }\n\n  n_page_w = (width - 1) / PSMT4_PAGE_WIDTH + 1;\n  n_page_h = (height - 1) / PSMT4_PAGE_HEIGHT + 1;\n\n  n_page4_width_byte = PSMT4_PAGE_WIDTH / 2;\n  n_page32_width_byte = PSMCT32_PAGE_WIDTH * 4;\n\n//  nglPrintf(\"n_page_w : %d\\n\", n_page_w );\n//  nglPrintf(\"n_page_h : %d\\n\", n_page_h );\n\n//  nglPrintf(\"n_page4_width_byte : %d\\n\", n_page4_width_byte );\n//  nglPrintf(\"n_page32_width_byte : %d\\n\", n_page32_width_byte );\n\n\n  // --- set in/out buffer size (for image smaller than one page) ---\n  if(n_page_w == 1)\n  {\n    n_input_width_byte = width / 2;\n    n_output_height = width / 4;\n  }\n  else\n  {\n    n_input_width_byte = n_page4_width_byte;\n    n_output_height = PSMCT32_PAGE_HEIGHT;\n  }\n\n  if(n_page_h == 1)\n  {\n    n_input_height = height;\n    n_output_width_byte = height * 2;\n  }\n  else\n  {\n    n_input_height = PSMT4_PAGE_HEIGHT;\n    n_output_width_byte = n_page32_width_byte;\n  }\n\n\n  for(i = 0; i < n_page_h; i++)\n  {\n    for(j = 0; j < n_page_w; j++)\n    {\n      pi0 = p_input + (n_input_width_byte * PSMT4_PAGE_HEIGHT) * n_page_w * i\n        + n_input_width_byte * j;\n      pi1 = input_page;\n\n      for(k = 0; k < n_input_height; k++)\n      {\n        memcpy(pi1, pi0, n_input_width_byte);\n        pi0 += n_input_width_byte * n_page_w;\n        pi1 += n_page4_width_byte;\n      }\n\n      PagePSMT4toPSMCT32(PSMT4_PAGE_WIDTH, PSMT4_PAGE_HEIGHT, input_page, output_page);\n\n      po0 = p_output + (n_output_width_byte * PSMCT32_PAGE_HEIGHT) * n_page_w * i\n        + n_output_width_byte * j;\n      po1 = output_page;\n      for(k = 0; k < n_output_height; k++)\n      {\n        memcpy(po0, po1, n_output_width_byte);\n        po0 += n_output_width_byte * n_page_w;\n        po1 += n_page32_width_byte;\n      }\n    }\n  }\n\n  return 0;\n}\n",
+      "status": "different",
+      "target_size": 752
+    }
+  ],
+  "raw_name": "nglTim2Convert4to32__FiiPUcT2"
+}
