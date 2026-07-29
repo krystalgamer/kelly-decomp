@@ -1,0 +1,23 @@
+{
+  "address": "0x002AE9E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2c0aedfd15edbecb08c05b7b4a21e62238143611",
+      "candidate_size": 356,
+      "compared_bytes": 624,
+      "compared_instructions": 150,
+      "emitted_name": "insert_unique__t8_Rb_tree5ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZPQ2t13instance_bank1Z8vr_pmesh5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZQ2t13instance_bank1Z8vr_pmesh13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z8vr_pmesh5ref_t",
+      "instruction_score": 0.6667,
+      "matching_bytes": 67,
+      "matching_instructions": 1,
+      "notes": "# FIRST PASS wave 119 lane A4\n\nExact released body tested once for `0x002AE9E0 insert_unique__t8_Rb_tree5ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZPQ2t13instance_bank1Z8vr_pmesh5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZQ2t13instance_bank1Z8vr_pmesh13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z8vr_pmesh5ref_t`. Result `different`, score 10.7372%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 10.7372,
+      "source": "struct stringx\n{\n  int refs;\n  char *data;\n  int length;\n};\n\nstatic bool string_less(const stringx &a, const stringx &b)\n{\n  int n = a.length < b.length ? a.length : b.length;\n  for (int i = 0; i < n; ++i)\n  {\n    if (a.data[i] < b.data[i])\n      return true;\n    if (b.data[i] < a.data[i])\n      return false;\n  }\n  return a.length < b.length;\n}\n\nstruct ref_t\n{\n  stringx label;\n  void *ptr;\n  unsigned count;\n};\n\nstruct node\n{\n  int color;\n  node *parent;\n  node *left;\n  node *right;\n  ref_t *value;\n};\n\nstruct result\n{\n  node *position;\n  bool inserted;\n};\n\nstruct tree\n{\n  node *header;\n  unsigned count;\n  char compare;\n};\n\nextern \"C\" node *tree_insert(tree *, node *, node *, ref_t *const *)\n  __asm__(\"_M_insert__t8_Rb_tree5ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZPQ2t13instance_bank1Z8vr_pmesh5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZQ2t13instance_bank1Z8vr_pmesh13less_by_labelZt23__malloc_alloc_template1i0P18_Rb_tree_node_baseT1RCPQ2t13instance_bank1Z8vr_pmesh5ref_t\");\n\nresult *insert_unique(result *out, tree *self, ref_t *const *value)\n  __asm__(\"insert_unique__t8_Rb_tree5ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZPQ2t13instance_bank1Z8vr_pmesh5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZQ2t13instance_bank1Z8vr_pmesh13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z8vr_pmesh5ref_t\");\n\nresult *insert_unique(result *out, tree *self, ref_t *const *value)\n{\n  node *y = self->header;\n  node *x = y->parent;\n  bool comp = true;\n  while (x)\n  {\n    y = x;\n    comp = string_less((*value)->label, x->value->label);\n    x = comp ? x->left : x->right;\n  }\n  node *j = y;\n  if (comp)\n  {\n    if (j == self->header->left)\n    {\n      out->position = tree_insert(self, x, y, value);\n      out->inserted = true;\n      return out;\n    }\n    if (j->left)\n    {\n      j = j->left;\n      while (j->right)\n        j = j->right;\n    }\n    else\n    {\n      node *p = j->parent;\n      while (j == p->left)\n      {\n        j = p;\n        p = p->parent;\n      }\n      j = p;\n    }\n  }\n  if (string_less(j->value->label, (*value)->label))\n  {\n    out->position = tree_insert(self, x, y, value);\n    out->inserted = true;\n  }\n  else\n  {\n    out->position = j;\n    out->inserted = false;\n  }\n  return out;\n}\n",
+      "status": "different",
+      "target_size": 624
+    }
+  ],
+  "raw_name": "insert_unique__t8_Rb_tree5ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZPQ2t13instance_bank1Z8vr_pmesh5ref_tZt9_Identity1ZPQ2t13instance_bank1Z8vr_pmesh5ref_tZQ2t13instance_bank1Z8vr_pmesh13less_by_labelZt23__malloc_alloc_template1i0RCPQ2t13instance_bank1Z8vr_pmesh5ref_t"
+}
