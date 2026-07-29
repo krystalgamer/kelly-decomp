@@ -1,0 +1,15 @@
+{
+  "address": "0x001A31C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "479d37ba3d1981bfa8d02850ae684478dfee3b71",
+      "notes": "# FIRST PASS wave 147 lane A1\n\nExact released source tested once for `0x001A31C0 __16MCDetectFrontEndP12FEMenuSystemP9FEManagerG7stringxT3`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n\n#include \"MCDetectFrontEnd.h\"\n#include \"FEPAnel.h\"\n#include <time.h>\n#include \"FEMenu.h\"\n#if defined(TARGET_PS2)\n#include <libcdvd.h>\n#endif /* TARGET_XBOX JIV DEBUG */\n#include \"GameData.h\"\n#include \"FrontEndManager.h\"\n#include \"osGameSaver.h\"\n\nMCDetectFrontEnd::MCDetectFrontEnd(FEMenuSystem* s, FEManager* man, stringx p, stringx pq)\n{\n\tcons(s, man, p, pq);\n\tflags |= FEMENU_DONT_SHOW_DISABLED | FEMENU_HAS_COLOR_HIGH_ALT;\n\n\tcolor = manager->col_unselected;\n\tcolor_high = manager->col_highlight;\n\tcolor_high_alt = manager->col_highlight2;\n\tscale = scale_high = 1.2f;\n\n\tentries[MCContinue] = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_YES], this, false, &man->font_body);\n\tAdd(entries[MCContinue] );\n\tentries[MCRetry] = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_NO], this, false, &man->font_body);\n\tAdd(\tentries[MCRetry]);\n\t\n\tmc_state = MC_NONE;\n\tfree_blocks = -1;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__16MCDetectFrontEndP12FEMenuSystemP9FEManagerG7stringxT3"
+}
