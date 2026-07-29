@@ -1,0 +1,15 @@
+{
+  "address": "0x0029C140",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "db8d8a17d1e646e0dbb1a1a518cc126c6bbecc02",
+      "notes": "# FIRST PASS wave 104 lane A2\n\nExact released body tested once for `0x0029C140 check_po__FP6entity`. Result `compile_failed`, score 0.0000%. No retry, variant, diff chase, build, finalize, integration, git mutation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/global.h\"\n#include \"KS/SRC/entity.h\"\n\n// generate error message if entity has invalid po\nvoid check_po( entity* e )\n{\n\tif ( e->get_abs_po().has_nonuniform_scaling() )\n\t\twarning( e->get_id().get_val() + \": non-uniform scaling is not supported\" );\n\telse if ( e->get_colgeom() )\n\t{\n\t\trational_t s = e->get_abs_po().get_scale();\n\t\tif ( s<0.99f || s>1.01f )\n\t\t\twarning( e->get_id().get_val() + \": scaling is not supported on entities with collision geometry\" );\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "check_po__FP6entity"
+}
