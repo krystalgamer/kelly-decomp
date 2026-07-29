@@ -1,0 +1,16 @@
+{
+  "address": "0x002F9850",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d0c4006a3e77039e48503f70bfa6d2f40a3a19f3",
+      "error": "Candidate did not emit __as__t6vector2Z4vertZt23__malloc_alloc_template1i0RCt6vector2Z4vertZt23__malloc_alloc_template1i0; emitted functions: []",
+      "notes": "# FIRST PASS wave 150 lane A2\n\nExact released source tested once for `0x002F9850 __as__t6vector2Z4vertZt23__malloc_alloc_template1i0RCt6vector2Z4vertZt23__malloc_alloc_template1i0`. Attempts before: 0. Result `symbol_missing`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "// Target: 0x002F9850 __as__t6vector2Z4vertZt23__malloc_alloc_template1i0RCt6vector2Z4vertZt23__malloc_alloc_template1i0\n// Reference: \n// Replace this file with one self-contained candidate function.\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__as__t6vector2Z4vertZt23__malloc_alloc_template1i0RCt6vector2Z4vertZt23__malloc_alloc_template1i0"
+}
