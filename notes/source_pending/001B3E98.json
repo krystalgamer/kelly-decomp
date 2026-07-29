@@ -1,0 +1,15 @@
+{
+  "address": "0x001B3E98",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "31f3c258b2c6c6c4a981109b21dfaf7f9769e17b",
+      "notes": "# FIRST PASS wave 143 lane B3\n\nExact released source tested once for `0x001B3E98 startDraw__15PauseMenuSystemib`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"../../../kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp\"\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "startDraw__15PauseMenuSystemib"
+}
