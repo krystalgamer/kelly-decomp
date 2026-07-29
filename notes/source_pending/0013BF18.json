@@ -1,0 +1,23 @@
+{
+  "address": "0x0013BF18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "abf890d3c951846ad030a024473ed126812cf92f",
+      "candidate_size": 248,
+      "compared_bytes": 520,
+      "compared_instructions": 130,
+      "emitted_name": "read_animations__19animation_interfaceR10chunk_fileRC7stringx",
+      "instruction_score": 0.0,
+      "matching_bytes": 54,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 100 lane A1\n\nExact released `animation_interface::read_animations` body tested once for `0x0013BF18`. Attempts before: 0. LF-only candidate. Result `different`, byte score 10.3846%, instruction score 0.0%. No retry, chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 10.3846,
+      "source": "class stringx\n{\npublic:\n  int length() const;\n  const char *c_str() const;\n};\n\nbool operator!=(const stringx &, const stringx &);\nbool operator==(const stringx &, const char *);\n\nclass chunk_file\n{\npublic:\n  const stringx &get_filename() const;\n};\n\ntemplate<class T>\nvoid serial_in(chunk_file &, T *);\n\nextern const stringx chunkend_label;\nvoid error(const char *, ...);\n\nclass anim_info_id_map_type\n{\npublic:\n  void clear();\n};\n\nclass animation_interface\n{\n  anim_info_id_map_type anim_info_id_map;\n  void read_animations_chunk(chunk_file &, const stringx &);\n\npublic:\n  void read_animations(chunk_file &, const stringx &);\n};\n\nvoid animation_interface::read_animations(chunk_file &f, const stringx& anims_directory)\n{\n  anim_info_id_map.clear();\n\n  stringx in;\n  for( serial_in(f, &in); in != chunkend_label && in.length() > 0; serial_in(f, &in) )\n  {\n    if(in == \"animations:\")\n    {\n      read_animations_chunk(f, anims_directory);\n    }\n    else\n      error(\"Bad chunk ID '%s' in %s!\", in.c_str(), f.get_filename().c_str());\n  }\n}\n",
+      "status": "different",
+      "target_size": 520
+    }
+  ],
+  "raw_name": "read_animations__19animation_interfaceR10chunk_fileRC7stringx"
+}
