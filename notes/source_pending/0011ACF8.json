@@ -1,0 +1,23 @@
+{
+  "address": "0x0011ACF8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f1c9d73aa66664aae17a298a20c6ec899e5c81df",
+      "candidate_size": 700,
+      "compared_bytes": 800,
+      "compared_instructions": 200,
+      "emitted_name": "frame_advance__7po_animRC14anim_control_tR8vector3dR10quaternionRf",
+      "instruction_score": 6.0,
+      "matching_bytes": 162,
+      "matching_instructions": 12,
+      "notes": "# FIRST PASS wave 144 lane A2\n\nExact released source tested once for `0x0011ACF8 frame_advance__7po_animRC14anim_control_tR8vector3dR10quaternionRf`. Attempts before: 0. Result `different`, byte score 20.2500% and instruction score 6.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 20.25,
+      "source": "enum anim_flags_t { ANIM_RELATIVE_TO_START = 0x20, ANIM_WAS_LOOPED = 0x400 };\nclass anim_control_t { float current_time,time_delta,duration,timescale_factor,cntrl_tween_duration,tween_timer; unsigned flags; short loop_count; public: bool was_looped() const { return flags & ANIM_WAS_LOOPED; } };\nstruct vector3d { float x,y,z; vector3d() {} vector3d(float X,float Y,float Z):x(X),y(Y),z(Z){} vector3d& operator=(const vector3d& v){x=v.x;y=v.y;z=v.z;return *this;} };\ninline vector3d operator+(const vector3d&a,const vector3d&b){return vector3d(a.x+b.x,a.y+b.y,a.z+b.z);}\nstruct quaternion { float x,y,z,w; quaternion operator*(const quaternion&) const; quaternion& operator=(const quaternion&q){x=q.x;y=q.y;z=q.z;w=q.w;return *this;} };\ntemplate<class T> class anim { protected: unsigned short flags; public: virtual void set_flag(anim_flags_t); virtual void clear_flag(anim_flags_t); virtual void set_flag(anim_flags_t,bool); virtual void set_time(float); virtual void frame_advance(const anim_control_t&,T*); virtual void get_value(const anim_control_t&,T*)const; virtual void get_value(float,T*)const; bool is_valid()const{return flags&0x1000;} };\ninline vector3d anim_xform3d_1(const vector3d *rot, const vector3d &sv){vector3d res;res.x=rot[0].x*sv.x+rot[1].x*sv.y+rot[2].x*sv.z;res.y=rot[0].y*sv.x+rot[1].y*sv.y+rot[2].y*sv.z;res.z=rot[0].z*sv.x+rot[1].z*sv.y+rot[2].z*sv.z;return res;}\nclass po;\nclass po_anim:public anim<po>{anim<vector3d>*P;anim<quaternion>*R;anim<float>*S;vector3d P_start;quaternion R_start;float S_start;vector3d R_start_mat[3];public:bool has_P()const{return P&&P->is_valid();}bool has_R()const{return R&&R->is_valid();}bool has_S()const{return S&&S->is_valid();}bool is_relative_to_start()const{return flags&ANIM_RELATIVE_TO_START;}void reset_start_for_loop(const anim_control_t&);void frame_advance(const anim_control_t&,vector3d&,quaternion&,float&);};\nvoid po_anim::frame_advance( const anim_control_t& ac, vector3d &p, quaternion &r, float &s )\n{\n  if ( ac.was_looped() && is_relative_to_start() )\n  {\n    reset_start_for_loop( ac );\n  }\n  if ( has_P() )\n  {\n    P->frame_advance( ac, &p );\n    if ( is_relative_to_start() )\n    {\n      p = anim_xform3d_1(&R_start_mat[0],p) + P_start;\n    }\n  }\n  else\n    p = P_start;\n  if ( has_R() )\n  {\n    R->frame_advance( ac, &r );\n    if ( is_relative_to_start() )\n      r = r * R_start;\n  }\n  else\n    r = R_start;\n  if ( has_S() )\n  {\n    S->frame_advance( ac, &s );\n    if ( is_relative_to_start() )\n      s *= S_start;\n  }\n  else\n    s = S_start;\n}\n",
+      "status": "different",
+      "target_size": 800
+    }
+  ],
+  "raw_name": "frame_advance__7po_animRC14anim_control_tR8vector3dR10quaternionRf"
+}
