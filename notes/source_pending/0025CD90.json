@@ -1,0 +1,23 @@
+{
+  "address": "0x0025CD90",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "07c5f63e6a326f05771c4d74f1ebaf86d98d9350",
+      "candidate_size": 492,
+      "compared_bytes": 492,
+      "compared_instructions": 123,
+      "emitted_name": "playRain__9SFXEngine",
+      "instruction_score": 17.8862,
+      "matching_bytes": 130,
+      "matching_instructions": 22,
+      "notes": "# FIRST PASS wave91 B2 \u2014 playRain__9SFXEngine\n\n- Target: `0x0025CD90`, 492 bytes (`0x1EC`)\n- Object: `game/files_kellyslater`\n- Released source: `kelly-slaters-pro-surfer/KS/SRC/ks/SFXEngine.cpp`\n- Attempts before: `0`\n- Harness invocations: `1`\n- Candidate: exact released body with minimal faithful self-contained declarations, LF, and no headers\n- Result: `different`\n- Candidate size: 492 bytes\n- Byte score: 26.4228% (130/492)\n- Instruction score: 17.8862% (22/123)\n- Candidate SHA-1: `07c5f63e6a326f05771c4d74f1ebaf86d98d9350`\n\nNo alternatives, variants, retries, later attempts, assembly edits, diff chasing, finalization, integration, or build were performed. Tracked and reference files were not modified.",
+      "score": 26.4228,
+      "source": "typedef unsigned int big_int;\n\nclass string_buf\n{\npublic:\n  big_int *data;\n  int ref_count;\n  int char_length;\n  int block_length;\n  int max_blocks;\n\n  inline int compare(const char *str) const\n  {\n    const char *a = reinterpret_cast<const char *>(data);\n    int i;\n    for (i = 0; i < char_length; i++)\n    {\n      if (str[i] == '\\0')\n        return -1;\n      if (a[i] == str[i])\n        continue;\n      if (str[i] > a[i])\n        return 1;\n      if (str[i] < a[i])\n        return -1;\n    }\n    if (str[i] == '\\0')\n      return 0;\n    return 1;\n  }\n\n  inline bool is_equal(const char *str) const\n  {\n    return compare(str) == 0;\n  }\n};\n\nclass stringx\n{\n  friend inline bool operator==(const stringx& lhs, const char *rhs);\n\nprotected:\n  char *chars;\n  string_buf *my_buf;\n\npublic:\n  stringx();\n  ~stringx();\n  stringx &operator=(const char *str);\n\n  inline const char *c_str() const\n  {\n    return chars;\n  }\n};\n\ninline bool operator==(const stringx& lhs, const char *rhs)\n{\n  return lhs.my_buf->is_equal(rhs);\n}\n\nclass game\n{\npublic:\n  stringx get_beach_name(void);\n};\n\nextern game *g_game_ptr;\n\ntypedef int nslSourceId;\ntypedef int nslSoundId;\n\nenum\n{\n  NSL_INVALID_ID = -1\n};\n\nnslSourceId nslLoadSource(const char *soundSourceName);\nnslSoundId nslAddSound(nslSourceId soundSource);\nvoid nslPlaySound(nslSoundId soundToPlay);\n\nclass SFXEngine\n{\npublic:\n  void playRain();\n};\n\nvoid SFXEngine::playRain( )\n{\n  stringx name;\n\n  if ( g_game_ptr->get_beach_name( ) == \"CORTES BANK\" )\n    name = \"amb_rain01\";\n  else if ( g_game_ptr->get_beach_name( ) == \"JEFFERSON BAY\" )\n    name = \"amb_rain02\";\n  else\n    return;\n\n  nslSourceId rainSrc = nslLoadSource( name.c_str( ) );\n  if ( rainSrc != NSL_INVALID_ID )\n  {\n    nslSoundId rainSnd = nslAddSound( rainSrc );\n    if ( rainSnd != NSL_INVALID_ID )\n    {\n      nslPlaySound( rainSnd );\n    }\n  }\n\n}\n",
+      "status": "different",
+      "target_size": 492
+    }
+  ],
+  "raw_name": "playRain__9SFXEngine"
+}
