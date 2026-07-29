@@ -1,0 +1,15 @@
+{
+  "address": "0x00196BC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8a9c47c0a2d2d49b987e28d938e93ac3714071c2",
+      "notes": "# FIRST PASS wave 152 lane A4\n\nExact released source tested once for `0x00196BC8 OnActivate__17TrickBookFrontEnd`. Attempts before: 0. Result `compile_failed`, score 0.0000%. No retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n#include \"unlock_manager.h\"\n#include \"TrickBookFrontEnd.h\"\n\nextern SurferTrick GTrickList[TRICK_NUM];\n\nvoid TrickBookFrontEnd::OnActivate()\n{\n\tmanager->em->ToTrickBook();\n\n\t// Disable tricks that haven't been learned yet, or don't exist for current surfer;\n\t//  but only in the Realistic FE\n\tif(os_developer_options::inst()->is_flagged(os_developer_options::FLAG_REALISTIC_FE))\n\t{\n\t\tfor(int i=0; i<NUM_TYPES; i++)\n\t\t{\n\t\t\tFEMenuEntry* tmp = State2[i]->entries;\n\t\t\tint j=0;\n\t\t\twhile(tmp)\n\t\t\t{\n\t\t\t\tint id = tricks[i][j]->trick_id;\n\t\t\t\tbool not_learned = GTrickList[id].flags & SpecialFlag && !unlockManager.isSurferTrickUnlocked(id);\n\t\t\t\tbool not_avail = true;\n\n\t\t\t\tfor(int i=0; i<TRICKBOOK_SIZE; i++)\n\t\t\t\t\tif(id == SurferDataArray[manager->em->GetCurrentSurfer()].trickBook[i])\n\t\t\t\t\t{\n\t\t\t\t\t\tnot_avail = false;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\t}\n\n\t\t\t\ttmp->Disable(not_avail || not_learned);\n \t\t\t\tj++;\n\t\t\t\ttmp = tmp->next;\n\t\t\t}\n\t\t}\n\t}\n\n\tFEMultiMenu::OnActivate();\n\tChangeButtonText(tricks[highlighted->entry_num][0]);\n\tState2[highlighted->entry_num]->OnActivate();\n\twait_for_camera = true;\n\n\tmanager->helpbar->Reset();\n\tmanager->helpbar->AddArrowV();\n\tmanager->helpbar->AddArrowH(ksGlobalTextArray[GT_FE_MENU_SWITCH]);\n\tmanager->helpbar->SetXText(ksGlobalTextArray[GT_FE_MENU_PLAY]);\n\tmanager->helpbar->Reformat();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "OnActivate__17TrickBookFrontEnd"
+}
