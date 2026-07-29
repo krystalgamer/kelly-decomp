@@ -1,0 +1,15 @@
+{
+  "address": "0x0035A968",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c98cea276c575a6468af5f70b5bbf8c41a69b264",
+      "notes": "# First pass result\n\nExact GCC `stl_tree.h` `insert_unique` control flow was instantiated for `stringx -> unsigned short` with minimal self-contained declarations. The single LF candidate failed to compile because the GCC 2-era compiler does not accept C++11 braced return construction (`result{...}`). Per first-pass policy, no follow-up candidate was tested.",
+      "score": 0.0,
+      "source": "struct string_rep\n{\n  char *data;\n  int capacity;\n  int length;\n};\n\nstruct stringx\n{\n  int unused;\n  string_rep *rep;\n};\n\nstruct value_type\n{\n  stringx first;\n  unsigned short second;\n};\n\nstruct node\n{\n  int color;\n  node *parent;\n  node *left;\n  node *right;\n  value_type value;\n};\n\nstruct iterator\n{\n  node *position;\n};\n\nstruct result\n{\n  iterator first;\n  bool second;\n};\n\nstruct tree\n{\n  node *header;\n  unsigned count;\n  char compare;\n};\n\nstatic int string_compare(const stringx &a, const stringx &b)\n{\n  int n = a.rep->length < b.rep->length ? a.rep->length : b.rep->length;\n  for (int i = 0; i < n; ++i)\n  {\n    if (a.rep->data[i] < b.rep->data[i])\n      return -1;\n    if (b.rep->data[i] < a.rep->data[i])\n      return 1;\n  }\n  if (a.rep->length < b.rep->length)\n    return -1;\n  if (b.rep->length < a.rep->length)\n    return 1;\n  return 0;\n}\n\nextern \"C\" iterator tree_insert(tree *, node *, node *, const value_type &)\n  __asm__(\"_M_insert__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZUsZt10_Select1st1Zt4pair2ZC7stringxZUsZt4less1Z7stringxZt12my_allocator1ZUsP18_Rb_tree_node_baseT1RCt4pair2ZC7stringxZUs\");\n\nresult insert_unique(tree *self, const value_type &value)\n  __asm__(\"insert_unique__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZUsZt10_Select1st1Zt4pair2ZC7stringxZUsZt4less1Z7stringxZt12my_allocator1ZUsRCt4pair2ZC7stringxZUs\");\n\nresult insert_unique(tree *self, const value_type &value)\n{\n  node *y = self->header;\n  node *x = y->parent;\n  bool comp = true;\n  while (x != 0)\n  {\n    y = x;\n    comp = string_compare(value.first, x->value.first) < 0;\n    x = comp ? x->left : x->right;\n  }\n  iterator j;\n  j.position = y;\n  if (comp)\n  {\n    if (j.position == self->header->left)\n      return result{tree_insert(self, x, y, value), true};\n    if (j.position->left != 0)\n    {\n      j.position = j.position->left;\n      while (j.position->right != 0)\n        j.position = j.position->right;\n    }\n    else\n    {\n      node *p = j.position->parent;\n      while (j.position == p->left)\n      {\n        j.position = p;\n        p = p->parent;\n      }\n      j.position = p;\n    }\n  }\n  if (string_compare(j.position->value.first, value.first) < 0)\n    return result{tree_insert(self, x, y, value), true};\n  return result{j, false};\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "insert_unique__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZUsZt10_Select1st1Zt4pair2ZC7stringxZUsZt4less1Z7stringxZt12my_allocator1ZUsRCt4pair2ZC7stringxZUs"
+}
