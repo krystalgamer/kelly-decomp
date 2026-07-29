@@ -1,0 +1,15 @@
+{
+  "address": "0x0035CB50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5c5abc72ba807730e623b911dc5b36d2561825af",
+      "notes": "FIRST PASS wave 99 lane B2. Source-first candidate instantiates the released project's `my_allocator` with the GCC 2.95 STL `vector` implementation for `vm_executable *`.",
+      "score": 0.0,
+      "source": "#define __STL_DEFAULT_ALLOCATOR(_Tp) my_allocator<_Tp>\n#include \"../../../kelly-slaters-pro-surfer/KS/SRC/custom_stl.h\"\n#include <vector>\n\nclass vm_executable;\n\ntemplate class vector<vm_executable *, my_allocator<vm_executable *> >;\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2ZP13vm_executableZt12my_allocator1ZP13vm_executablePP13vm_executableRCP13vm_executable"
+}
