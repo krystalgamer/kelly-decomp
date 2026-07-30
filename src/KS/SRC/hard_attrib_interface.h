@@ -1,7 +1,7 @@
 #ifndef HARD_ATTRIB_INTERFACE_H
 #define HARD_ATTRIB_INTERFACE_H
 
-#include "KS/SRC/entity_interface_shared.h"
+#include "KS/SRC/entity_interface.h"
 
 class hard_attrib_interface : public entity_interface {
 public:

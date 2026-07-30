@@ -71,6 +71,7 @@ REVIEWED_INSTRUCTION_ASM = {
 
 IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/entity.h": "KS/SRC/entity_methods.cpp",
+    "KS/SRC/entity_interface.h": "KS/SRC/entity_interface.cpp",
     "KS/SRC/hard_attrib_interface.h": "KS/SRC/hard_attrib_interface.cpp",
     "KS/SRC/time_interface.h": "KS/SRC/time_interface.cpp",
 }

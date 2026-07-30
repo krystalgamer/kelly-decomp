@@ -1,7 +1,7 @@
 #ifndef TIME_INTERFACE_H
 #define TIME_INTERFACE_H
 
-#include "KS/SRC/entity_interface_shared.h"
+#include "KS/SRC/entity_interface.h"
 
 class time_interface : public entity_interface {
     float time_dilation;

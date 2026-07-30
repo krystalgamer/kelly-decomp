@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_LINK_INTERFACE_SHARED_H
 #define KELLY_DECOMP_LINK_INTERFACE_SHARED_H
 
-#include "KS/SRC/entity_interface_shared.h"
+#include "KS/SRC/entity_interface.h"
 
 class link_interface : public bone_interface {
     bone *my_parent;

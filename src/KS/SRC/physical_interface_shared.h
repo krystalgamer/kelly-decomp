@@ -3,7 +3,7 @@
 
 #pragma interface
 
-#include "KS/SRC/entity_interface_shared.h"
+#include "KS/SRC/entity_interface.h"
 
 typedef float rational_t;
 typedef float time_value_t;
