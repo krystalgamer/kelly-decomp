@@ -51,6 +51,7 @@ public:
     virtual unsigned int get_type() const = 0;
 
     inline bool is_valid() const { return valid; }
+    inline void invalidate() { valid = false; }
 
 protected:
     entity *owner;

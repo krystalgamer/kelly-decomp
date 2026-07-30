@@ -91,6 +91,10 @@ public:
     inline bool is_valid() const {
         return is_flagged(ANIM_VALID);
     }
+
+    inline bool is_attached() const {
+        return is_flagged(ANIM_ATTACHED);
+    }
 };
 
 template <class animatable_t, class key_t, class track_t>

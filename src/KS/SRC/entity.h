@@ -11,6 +11,8 @@
 #include "KS/SRC/vector3d_shared.h"
 #include "KS/SRC/visrep_shared.h"
 
+#pragma interface
+
 typedef short anim_id_t;
 typedef int entity_flavor_t;
 
@@ -20,8 +22,14 @@ class color32;
 class collision_capsule;
 class collision_geometry;
 class entity;
-class entity_id;
+class entity_anim;
+class entity_anim_tree;
+class entity_controller;
+class item;
 class nglMesh;
+class nglTexture;
+class nglVector;
+class motion_blur_info;
 class pstring;
 class region;
 class region_node;
@@ -32,6 +40,16 @@ class ai_interface;
 class hard_attrib_interface;
 class owner_interface;
 class slave_interface;
+struct container_info;
+
+class entity_id {
+    unsigned int value;
+
+public:
+    inline unsigned int get_numerical_val() const {
+        return value;
+    }
+};
 
 class anim_id_manager {
 public:
@@ -56,6 +74,7 @@ enum entity_flags {
     EFLAG_MISC_IN_USE = 0x00010000,
     EFLAG_ACTIVE = 0x00020000,
     EFLAG_PHYSENT_EXTERNALLY_CONTROLLED = 0x00100000,
+    EFLAG_MISC_NONSTATIC = 0x08000000,
     EFLAG_REGION_FORCED = 0x10000000
 };
 
@@ -77,6 +96,15 @@ protected:
 public:
     virtual ~destroyable_info();
     virtual void preload();
+    void apply_destruction_fx();
+    inline bool has_hit_points() const {
+        short value = flags;
+        __asm__ volatile("" : "+r"(value));
+        return value & 1;
+    }
+    inline int get_hit_points() const {
+        return hit_points;
+    }
 };
 
 class entity_color32 {
@@ -136,7 +164,7 @@ private:
     stringx fileName;
     unsigned int flags;
     entity_flavor_t flavor;
-    char entity_id_data[4];
+    entity_id id;
     stringx parsedName;
     void *my_animation;
     rational_t radius;
@@ -156,7 +184,12 @@ private:
     slave_interface *my_slave_interface;
     soft_attrib_interface *my_soft_attrib_interface;
     time_interface *my_time_interface;
-    char entity_data_after_interfaces[0x54];
+    char entity_data_before_anim_trees[0x14];
+    entity_anim_tree *anim_trees[10];
+    entity_anim *current_anim;
+    char entity_data_before_container_info[8];
+    container_info *coninfo;
+    char entity_data_after_container_info[8];
     visual_rep *my_visrep;
     nglMesh *shadow_mesh;
     nglMesh *lores_mesh;
@@ -166,7 +199,7 @@ private:
     bool force_hi_res;
     rational_t vis_xz_rad_rel_center;
     collision_geometry *colgeom;
-    char entity_data_before_movement_info[4];
+    motion_blur_info *mbi;
     movement_info *movement_info_data;
     char entity_data_before_entity_sector[4];
     sector *my_sector;
@@ -174,9 +207,15 @@ private:
     region_node_pset in_regions;
     char entity_data_before_last_po[4];
     po *last_po;
-    char entity_data_after_last_po[0x20];
-    time_value_t programmed_cell_death;
+    char entity_data_before_last_item_used[0x0c];
+    item *last_item_used;
+    bool suspended;
+    bool suspended_active_status;
+    entity_controller *my_controller;
     unsigned int max_lights;
+    time_value_t programmed_cell_death;
+    unsigned short bone_idx;
+    char entity_data_after_bone_idx[2];
     unsigned int ext_flags;
     destroyable_info *destroy_info;
     char entity_data_before_frame_time_info[0x2c];
@@ -430,6 +469,15 @@ public:
     time_value_t get_age() const;
     int get_hero_id();
     int get_max_polys() const;
+    void delete_visrep();
+    bool has_mesh();
+    int num_mesh_bones();
+    void set_max_lights(unsigned int maximum);
+    void set_mesh_distance(
+        nglVector &center,
+        float radius,
+        float force_distance = -1.0f);
+    void set_mesh_texture(nglTexture *texture);
     bool is_hero() const;
     inline const po &get_abs_po() const {
         return **(po * const *)((const char *)this + 0x50);
@@ -466,6 +514,45 @@ public:
     void _set_region_forced_status();
     void ifl_lock(int frame_index);
     void ifl_pause();
+    virtual void ifl_play();
+    void compute_visual_xz_radius_rel_center();
+    int get_random_ifl_frame_boost() const;
+    void set_age(time_value_t age);
+    void unload_anim(const stringx &filename) const;
+    void make_animateable(bool enabled = true);
+    entity_anim_tree *get_anim_tree(int slot) const;
+    void kill_anim(int slot);
+    virtual bool attach_anim(entity_anim *animation);
+    virtual void detach_anim();
+    virtual void apply_destruction_fx();
+    virtual bool is_destroyable() const;
+    virtual void create_destroy_info();
+    virtual void apply_damage(
+        int damage,
+        const vector3d &position,
+        const vector3d &normal,
+        int damage_type = 0,
+        entity *attacker = 0,
+        int damage_flags = 0);
+    void disgorge_items(entity *target = 0);
+    virtual void use_item(item *value);
+    virtual void copy_visrep(entity *other);
+    virtual bool allow_targeting() const;
+    virtual bool test_combat_target(
+        const vector3d &start,
+        const vector3d &end,
+        vector3d *impact_position,
+        vector3d *impact_normal,
+        rational_t radius = 1.0f,
+        bool rear_cull = true) const;
+    virtual void unsuspend();
+    virtual void suspend();
+    void set_controller(entity_controller *controller);
+    virtual bool is_alive() const;
+    virtual bool is_dying() const;
+    virtual bool possibly_aging() const;
+    item *find_like_item(item *target) const;
+    static void exec_preload_function(const stringx &script);
     void set_door(bool door);
     void set_door_closed(bool closed);
     inline bool has_ai_ifc() const {

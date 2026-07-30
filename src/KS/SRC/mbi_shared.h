@@ -23,6 +23,16 @@ public:
     int motion_trail_length;
     int buffer_size;
     qt *motion_trail_buffer;
+    vector3d motion_trail_head;
+    vector3d motion_trail_tail;
+    unsigned int trail_color;
+    int trail_min_alpha;
+    int trail_max_alpha;
+    int blur_min_alpha;
+    int blur_max_alpha;
+    int num_blur_images;
+    float blur_spread;
+    float last_motion_recording;
 };
 
 __asm__(".equ __builtin_delete, 0x002AC6B0");

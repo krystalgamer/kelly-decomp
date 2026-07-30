@@ -60,6 +60,11 @@ public:
         priority = value;
     }
 
+    inline int get_priority() const {
+        return priority;
+    }
+
+    void detach();
     void set_po_anim(po_anim *animation);
 
     static bool meminit;
