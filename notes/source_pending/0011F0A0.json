@@ -1,0 +1,23 @@
+{
+  "address": "0x0011F0A0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d1fec58fc9f8280189474f285e0b38621833ffcb",
+      "candidate_size": 232,
+      "compared_bytes": 1064,
+      "compared_instructions": 266,
+      "emitted_name": "_M_insert__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP17entity_track_treeZt10_Select1st1Zt4pair2ZC7stringxZP17entity_track_treeZt4less1Z7stringxZt12my_allocator1ZP17entity_track_treeP18_Rb_tree_node_baseT1RCt4pair2ZC7stringxZP17entity_track_tree",
+      "instruction_score": 0.0,
+      "matching_bytes": 41,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 169 lane B1\n\nExact GCC 2/libstdc++ `_Rb_tree::_M_insert` body from `C:/usr/local/sce/ee/gcc/include/g++-2/stl_tree.h` (released copy `tmp/source_first/0013F330/release/stl_tree.h:819-853`) tested with released `stringx` layout/comparison (`kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-244,480-483`) and `map<stringx,entity_track_tree*>` declaration (`kelly-slaters-pro-surfer/KS/SRC/scene_anim.h:21-26`). Attempts before: 0. Result `different`, byte score 3.8534% and instruction score 0.0000%. No alternate was tried; no retry, diff chase, build, finalize, integration, or tracked edit.",
+      "score": 3.8534,
+      "source": "// Target: 0x0011F0A0 _M_insert__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP17entity_track_treeZt10_Select1st1Zt4pair2ZC7stringxZP17entity_track_treeZt4less1Z7stringxZt12my_allocator1ZP17entity_track_treeP18_Rb_tree_node_baseT1RCt4pair2ZC7stringxZP17entity_track_tree\n// Reference: \n// Replace this file with one self-contained candidate function.\nclass string_buf;\nclass stringx {\nprotected:\n  char *chars;\n  string_buf *my_buf;\npublic:\n  friend bool operator<(const stringx &, const stringx &);\n};\nclass entity_track_tree;\n\ntemplate<class T> struct my_allocator {};\ntemplate<class T1, class T2> struct pair {\n  T1 first;\n  T2 second;\n};\ntypedef pair<const stringx, entity_track_tree *> value_type;\n\nstruct _Rb_tree_node_base {\n  int color;\n  _Rb_tree_node_base *parent;\n  _Rb_tree_node_base *left;\n  _Rb_tree_node_base *right;\n};\nstruct node : _Rb_tree_node_base { value_type value_field; };\n\nextern \"C\" void rebalance(_Rb_tree_node_base *, _Rb_tree_node_base *&)\n  __asm__(\"_Rb_tree_rebalance__FP18_Rb_tree_node_baseRP18_Rb_tree_node_base\");\nextern \"C\" node *create_node(void *, const value_type &)\n  __asm__(\"_M_create_node__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP17entity_track_treeZt10_Select1st1Zt4pair2ZC7stringxZP17entity_track_treeZt4less1Z7stringxZt12my_allocator1ZP17entity_track_treeRCt4pair2ZC7stringxZP17entity_track_tree\");\n\nstruct iterator {\n  _Rb_tree_node_base *_M_node;\n  iterator(_Rb_tree_node_base *x) : _M_node(x) {}\n};\n\nstruct tree {\n  _Rb_tree_node_base *_M_header;\n  unsigned int _M_node_count;\n};\n\nextern \"C\" iterator tree_insert(tree *, _Rb_tree_node_base *, _Rb_tree_node_base *, const value_type &)\n  __asm__(\"_M_insert__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP17entity_track_treeZt10_Select1st1Zt4pair2ZC7stringxZP17entity_track_treeZt4less1Z7stringxZt12my_allocator1ZP17entity_track_treeP18_Rb_tree_node_baseT1RCt4pair2ZC7stringxZP17entity_track_tree\");\n\niterator tree_insert(tree *self, _Rb_tree_node_base *x_, _Rb_tree_node_base *y_, const value_type& v) {\n  node *x = (node *)x_;\n  node *y = (node *)y_;\n  node *z;\n  if (y == (node *)self->_M_header || x != 0 || v.first < y->value_field.first) {\n    z = create_node(self, v);\n    y->left = z;\n    if (y == (node *)self->_M_header) {\n      self->_M_header->parent = z;\n      self->_M_header->right = z;\n    } else if (y == (node *)self->_M_header->left)\n      self->_M_header->left = z;\n  } else {\n    z = create_node(self, v);\n    y->right = z;\n    if (y == (node *)self->_M_header->right)\n      self->_M_header->right = z;\n  }\n  z->parent = y;\n  z->left = 0;\n  z->right = 0;\n  rebalance(z, self->_M_header->parent);\n  ++self->_M_node_count;\n  return iterator(z);\n}\n",
+      "status": "different",
+      "target_size": 1064
+    }
+  ],
+  "raw_name": "_M_insert__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP17entity_track_treeZt10_Select1st1Zt4pair2ZC7stringxZP17entity_track_treeZt4less1Z7stringxZt12my_allocator1ZP17entity_track_treeP18_Rb_tree_node_baseT1RCt4pair2ZC7stringxZP17entity_track_tree"
+}
