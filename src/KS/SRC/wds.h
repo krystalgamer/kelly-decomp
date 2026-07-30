@@ -2,6 +2,7 @@
 #define WDS_H
 
 class entity;
+class entity_maker;
 class entity_id;
 class ett_manager;
 class marker;
@@ -52,8 +53,16 @@ public:
         particle_generator *generator);
 };
 
+class entity_maker {
+public:
+    entity *create_entity(entity *value);
+};
+
 extern world_dynamics_system *g_world_ptr;
+extern entity_maker *g_entity_maker;
 
 __asm__(".equ g_world_ptr, 0x00431A8C");
+__asm__(".equ g_entity_maker, 0x004318C8");
+__asm__(".equ create_entity__12entity_makerP6entity, 0x0030AB70");
 
 #endif

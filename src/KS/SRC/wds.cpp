@@ -36,28 +36,28 @@ extern "C" void RadiusDamageStub() __asm__("apply_radius_damage__21world_dynamic
 void RadiusDamageStub() { error(radius_damage_error); KELLY_DECOMP_COMPILER_BARRIER(); }
 
 // 0x002A3408 add_marker__21world_dynamics_systemP6marker
-#include "KS/SRC/wds_add_entity_shared.h"
-marker *world_dynamics_system::add_marker(marker *value) { marker *result = (marker *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/wds.h"
+marker *world_dynamics_system::add_marker(marker *value) { marker *result = (marker *)g_entity_maker->create_entity((entity *)value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 
 // 0x002A3430 add_beam__21world_dynamics_systemP4beam
-#include "KS/SRC/wds_add_entity_shared.h"
-beam *world_dynamics_system::add_beam(beam *value) { beam *result = (beam *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/wds.h"
+beam *world_dynamics_system::add_beam(beam *value) { beam *result = (beam *)g_entity_maker->create_entity((entity *)value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 
 // 0x002A3458 add_camera__21world_dynamics_systemP6camera
-#include "KS/SRC/wds_add_entity_shared.h"
-camera *world_dynamics_system::add_camera(camera *value) { camera *result = (camera *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/wds.h"
+camera *world_dynamics_system::add_camera(camera *value) { camera *result = (camera *)g_entity_maker->create_entity((entity *)value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 
 // 0x002A3488 add_particle_generator__21world_dynamics_systemP18particle_generator
-#include "KS/SRC/wds_add_entity_shared.h"
-particle_generator *world_dynamics_system::add_particle_generator(particle_generator *value) { particle_generator *result = (particle_generator *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/wds.h"
+particle_generator *world_dynamics_system::add_particle_generator(particle_generator *value) { particle_generator *result = (particle_generator *)g_entity_maker->create_entity((entity *)value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 
 // 0x002A34B0 add_lensflare__21world_dynamics_systemP9lensflare
-#include "KS/SRC/wds_add_entity_shared.h"
-lensflare *world_dynamics_system::add_lensflare(lensflare *value) { lensflare *result = (lensflare *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/wds.h"
+lensflare *world_dynamics_system::add_lensflare(lensflare *value) { lensflare *result = (lensflare *)g_entity_maker->create_entity((entity *)value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 
 // 0x002A7418 add_sky__21world_dynamics_systemP3sky
-#include "KS/SRC/wds_add_entity_shared.h"
-sky *world_dynamics_system::add_sky(sky *value) { sky *result = (sky *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/wds.h"
+sky *world_dynamics_system::add_sky(sky *value) { sky *result = (sky *)g_entity_maker->create_entity((entity *)value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 
 // 0x002A39F0 set_ks_controller__21world_dynamics_systemiP22kellyslater_controller
 class kellyslater_controller { public: void set_player_num(int player); };
