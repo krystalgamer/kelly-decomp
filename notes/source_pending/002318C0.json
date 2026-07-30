@@ -1,0 +1,15 @@
+{
+  "address": "0x002318C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a2c3d08788f0dfb4b1e25d92441090733f66353e",
+      "notes": "# FIRST PASS wave 170 lane B2 \u2014 0x002318C0\n\n- Result: **compile_failed**\n- Attempts before: **0**\n- Attempt tested: **1 only**\n- Byte score: **0.0000%**\n- Instruction score: **0.0000%**\n- Candidate SHA-1: `a2c3d08788f0dfb4b1e25d92441090733f66353e`\n\nThe sole candidate included the exact released translation unit containing `flyby_camera::load()` from `kelly-slaters-pro-surfer/KS/SRC/ks/ks_camera.cpp:2621-2725`. Compilation failed because the released-source include path was unresolved from the copied attempt directory. Per the one-attempt constraint, no path correction, alternate candidate, retry, diff chase, tool change, finalization, build, commit, push, queue edit, or tracked-tree edit was performed.\n\n## Citations\n\n- `kelly-slaters-pro-surfer/KS/SRC/ks/ks_camera.cpp:2621-2725` \u2014 exact released function body.\n- `kelly-slaters-pro-surfer/KS/SRC/ks/ks_camera.h:359-375` \u2014 authentic released class declaration.\n- `tmp/functions/002318C0_load__12flyby_camera/attempt-1/compiler.stderr` \u2014 sole attempt failure.\n- `tmp/functions/002318C0_load__12flyby_camera/attempt-1/result.json` \u2014 sole isolated test result.",
+      "score": 0.0,
+      "source": "// Target: 0x002318C0 load__12flyby_camera\n// Exact released translation unit: kelly-slaters-pro-surfer/KS/SRC/ks/ks_camera.cpp\n#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/ks/ks_camera.cpp\"\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "load__12flyby_camera"
+}
