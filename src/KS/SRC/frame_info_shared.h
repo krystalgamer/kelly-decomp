@@ -10,6 +10,9 @@ class frame_info {
     static float ifl_frame_rate;
 
 public:
+    time_value_t get_age() const;
+    int get_ifl_frame_locked() const;
+    void set_ifl_frame_locked(int frame);
     int time_to_frame_locked(int period = 0) const;
     int time_to_frame(int period = 0) const;
 };

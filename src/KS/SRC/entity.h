@@ -3,6 +3,7 @@
 
 #include "KS/SRC/bone_shared.h"
 #include "KS/SRC/entity_interfaces_shared.h"
+#include "KS/SRC/frame_info_shared.h"
 #include "KS/SRC/hard_attrib_interface_shared.h"
 #include "KS/SRC/po_shared.h"
 #include "KS/SRC/stringx.h"
@@ -29,7 +30,8 @@ class terrain;
 class vector3d;
 class ai_interface;
 class hard_attrib_interface;
-class ownership_interface;
+class owner_interface;
+class slave_interface;
 
 class anim_id_manager {
 public:
@@ -147,11 +149,11 @@ private:
     ai_interface *my_ai_interface;
     animation_interface *my_animation_interface;
     hard_attrib_interface *my_hard_attrib_interface;
-    ownership_interface *my_ownership_interface;
+    owner_interface *my_owner_interface;
     physical_interface *my_physical_interface;
     render_interface *my_render_interface;
     skeleton_interface *my_skeleton_interface;
-    entity_interface *my_slave_interface;
+    slave_interface *my_slave_interface;
     soft_attrib_interface *my_soft_attrib_interface;
     time_interface *my_time_interface;
     char entity_data_after_interfaces[0x54];
@@ -167,22 +169,27 @@ private:
     char entity_data_before_movement_info[4];
     movement_info *movement_info_data;
     char entity_data_before_entity_sector[4];
-    sector *entity_sector;
+    sector *my_sector;
     region_node *center_region;
     region_node_pset in_regions;
-    char entity_data_after_regions[0x28];
+    char entity_data_before_last_po[4];
+    po *last_po;
+    char entity_data_after_last_po[0x20];
     time_value_t programmed_cell_death;
     unsigned int max_lights;
     unsigned int ext_flags;
     destroyable_info *destroy_info;
-    char entity_data_before_render_color[0x38];
+    char entity_data_before_frame_time_info[0x2c];
+    frame_info frame_time_info;
 
 protected:
     entity_color32 render_color;
 
 private:
     vector3d render_scale;
-    char entity_trailing_data[0x18];
+    char entity_data_before_which_hero[8];
+    int which_hero;
+    char entity_trailing_data[0x0c];
 
 public:
     virtual bool get_ifc_num(const pstring &attribute, rational_t &value);
@@ -224,6 +231,7 @@ public:
     virtual void set_created_entity_default_active_status();
     virtual void optimize();
     virtual signal_list *construct_signal_list();
+    static unsigned short get_signal_id(const char *name);
     virtual const char *get_signal_name(unsigned short index) const;
     virtual void set_radius(rational_t radius);
     virtual rational_t get_radius() const;
@@ -411,9 +419,16 @@ public:
         static void *mem_free_func;
         static void check_mem_init();
         static void mem_cleanup();
+        static void *operator new(unsigned int size);
+        static void *operator new(
+            unsigned int size,
+            unsigned int alignment,
+            const char *description,
+            int line);
     };
 
     time_value_t get_age() const;
+    int get_hero_id();
     int get_max_polys() const;
     bool is_hero() const;
     inline const po &get_abs_po() const {
@@ -445,12 +460,28 @@ public:
     }
     void region_update_poss_collide();
     void remove_from_regions();
+    void remove_from_terrain();
     void unforce_regions();
+    void force_current_region();
+    void _set_region_forced_status();
+    void ifl_lock(int frame_index);
+    void ifl_pause();
     void set_door(bool door);
     void set_door_closed(bool closed);
     inline bool has_ai_ifc() const {
         return my_ai_interface != 0;
     }
+    void destroy_ai_ifc();
+    void destroy_animation_ifc();
+    void destroy_hard_attrib_ifc();
+    void destroy_owner_ifc();
+    void destroy_physical_ifc();
+    void destroy_render_ifc();
+    void destroy_skeleton_ifc();
+    void destroy_slave_ifc();
+    void destroy_soft_attrib_ifc();
+    time_interface *create_time_ifc();
+    void destroy_time_ifc();
     inline entity_interface *ai_ifc() const {
         return (entity_interface *)my_ai_interface;
     }
@@ -487,6 +518,8 @@ public:
     region_node *get_primary_region() const
         __asm__("get_primary_region__C6entity");
     region_node *update_region(bool parent_computed = false);
+    const po &get_last_po();
+    void set_last_po(const po &value);
 };
 
 #endif

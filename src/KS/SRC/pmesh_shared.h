@@ -115,6 +115,7 @@ public:
         return num_faces;
     }
     inline int get_num_wedges() const { return num_wedges; }
+    void shrink_memory_footprint();
     void optimize();
     void mark_self_lit_verts();
     wedge_ref get_wedge_ref(face_ref faceid, int corner) const;
