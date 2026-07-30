@@ -3,7 +3,7 @@
 
 #include "KS/SRC/bone_shared.h"
 #include "KS/SRC/entity_interfaces_shared.h"
-#include "KS/SRC/frame_info_shared.h"
+#include "KS/SRC/frame_info.h"
 #include "KS/SRC/hard_attrib_interface_shared.h"
 #include "KS/SRC/po_shared.h"
 #include "KS/SRC/stringx.h"

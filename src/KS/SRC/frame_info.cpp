@@ -1,72 +1,43 @@
-// Matching decompilation blocks selected by generated build shims.
+// frame_info method definitions extracted by generated one-function shims.
 
+#include "KS/SRC/frame_info.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_00338638)
 // 0x00338638 __10frame_info
-class frame_info { float age; float frame_rate; int ifl_frame_locked; public: frame_info(); };
-frame_info::frame_info() { age = 0.0f; frame_rate = 0.0f; ifl_frame_locked = -1; }
-#endif
+frame_info::frame_info()
+{
+    age = 0.0f;
+    ifl_frame_boost = 0;
+    ifl_frame_locked = -1;
+}
 
-#if defined(KELLY_DECOMP_FUNCTION_00338650)
 // 0x00338650 get_ifl_frame_locked__C10frame_info
-class frame_info {
-    char padding[0x8];
-    int ifl_frame_locked;
-public:
-    int get_ifl_frame_locked() const;
-};
-
-int frame_info::get_ifl_frame_locked() const {
+int frame_info::get_ifl_frame_locked() const
+{
     return ifl_frame_locked;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00338658)
 // 0x00338658 set_ifl_frame_locked__10frame_infoi
-class frame_info {
-    char padding[0x8];
-    int ifl_frame_locked;
-public:
-    void set_ifl_frame_locked(int value);
-};
-
-void frame_info::set_ifl_frame_locked(int value) {
+void frame_info::set_ifl_frame_locked(int value)
+{
     ifl_frame_locked = value;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00338660)
 // 0x00338660 get_age__C10frame_info
-class frame_info {
-    float age;
-public:
-    float get_age() const;
-};
-
-float frame_info::get_age() const {
+float frame_info::get_age() const
+{
     return age;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00338678)
 // 0x00338678 __as__10frame_infoRC10frame_info
-extern float frame_info_ifl_frame_rate;
-__asm__(".equ frame_info_ifl_frame_rate, 0x0046B5A8");
-class frame_info { float age; int ifl_frame_boost; int ifl_frame_locked; public: void operator=(const frame_info &source); };
-void frame_info::operator=(const frame_info &source) { ifl_frame_locked = source.ifl_frame_locked; ifl_frame_boost = source.ifl_frame_boost; frame_info_ifl_frame_rate = frame_info_ifl_frame_rate; age = source.age; }
-#endif
+void frame_info::operator=(const frame_info &source)
+{
+    ifl_frame_locked = source.ifl_frame_locked;
+    ifl_frame_boost = source.ifl_frame_boost;
+    ifl_frame_rate = ifl_frame_rate;
+    age = source.age;
+}
 
-#if defined(KELLY_DECOMP_FUNCTION_003386A0)
 // 0x003386A0 time_to_frame_locked__C10frame_infoi
-class frame_info {
-    float age;
-    int ifl_frame_boost;
-    int ifl_frame_locked;
-public:
-    int time_to_frame_locked(int period) const;
-    int time_to_frame(int period) const;
-};
-__asm__(".equ time_to_frame__C10frame_infoi, 0x003386D8");
 int frame_info::time_to_frame_locked(int period) const
 {
     if (period == 1)
@@ -76,11 +47,8 @@ int frame_info::time_to_frame_locked(int period) const
     else
         return time_to_frame(period);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003386D8)
 // 0x003386D8 time_to_frame__C10frame_infoi
-#include "frame_info_shared.h"
 int frame_info::time_to_frame(int period) const
 {
     if (period == 1)
@@ -94,23 +62,8 @@ int frame_info::time_to_frame(int period) const
             return index % period;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00338728)
 // 0x00338728 compute_boost_for_play__10frame_infoi
-class frame_info
-{
-    float age;
-    int ifl_frame_boost;
-    int ifl_frame_locked;
-    static float ifl_frame_rate;
-
-public:
-    void compute_boost_for_play(int period);
-};
-
-__asm__(".equ _10frame_info$ifl_frame_rate, 0x0046B5A8");
-
 void frame_info::compute_boost_for_play(int period)
 {
     if (ifl_frame_locked >= 0)
@@ -123,4 +76,3 @@ void frame_info::compute_boost_for_play(int period)
         ifl_frame_locked = -1;
     }
 }
-#endif
