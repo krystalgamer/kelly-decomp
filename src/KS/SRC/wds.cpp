@@ -15,14 +15,7 @@ entity* add_box_trigger_stub() {
 
 #if defined(KELLY_DECOMP_FUNCTION_0029FD58)
 // 0x0029FD58 set_current_light_context__21world_dynamics_systemP15nglLightContext
-class nglLightContext;
-
-class world_dynamics_system {
-    char padding[0x360];
-    nglLightContext* current_light_context;
-public:
-    nglLightContext* set_current_light_context(nglLightContext* value);
-};
+#include "KS/SRC/wds_shared.h"
 
 nglLightContext* world_dynamics_system::set_current_light_context(nglLightContext* value) {
     nglLightContext* old = current_light_context;
@@ -33,14 +26,7 @@ nglLightContext* world_dynamics_system::set_current_light_context(nglLightContex
 
 #if defined(KELLY_DECOMP_FUNCTION_002A3770)
 // 0x002A3770 get_ett_manager__21world_dynamics_system
-class ett_manager;
-
-class world_dynamics_system {
-    char padding[0x60];
-    ett_manager* ett_mgr;
-public:
-    ett_manager* get_ett_manager();
-};
+#include "KS/SRC/wds_shared.h"
 
 ett_manager* world_dynamics_system::get_ett_manager() {
     return ett_mgr;
@@ -59,73 +45,37 @@ void RadiusDamageStub() { error(radius_damage_error); KELLY_DECOMP_COMPILER_BARR
 
 #if defined(KELLY_DECOMP_FUNCTION_002A3408)
 // 0x002A3408 add_marker__21world_dynamics_systemP6marker
-class entity {};
-class marker : public entity {};
-class entity_maker { public: entity *create_entity(entity *value); };
-extern entity_maker *g_entity_maker;
-__asm__(".equ g_entity_maker, 0x004318C8");
-__asm__(".equ create_entity__12entity_makerP6entity, 0x0030AB70");
-class world_dynamics_system { public: marker *add_marker(marker *value); };
+#include "KS/SRC/wds_add_entity_shared.h"
 marker *world_dynamics_system::add_marker(marker *value) { marker *result = (marker *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002A3430)
 // 0x002A3430 add_beam__21world_dynamics_systemP4beam
-class entity {};
-class beam : public entity {};
-class entity_maker { public: entity *create_entity(entity *value); };
-extern entity_maker *g_entity_maker;
-__asm__(".equ g_entity_maker, 0x004318C8");
-__asm__(".equ create_entity__12entity_makerP6entity, 0x0030AB70");
-class world_dynamics_system { public: beam *add_beam(beam *value); };
+#include "KS/SRC/wds_add_entity_shared.h"
 beam *world_dynamics_system::add_beam(beam *value) { beam *result = (beam *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002A3458)
 // 0x002A3458 add_camera__21world_dynamics_systemP6camera
-class entity {};
-class camera : public entity {};
-class entity_maker { public: entity *create_entity(entity *value); };
-extern entity_maker *g_entity_maker;
-__asm__(".equ g_entity_maker, 0x004318C8");
-__asm__(".equ create_entity__12entity_makerP6entity, 0x0030AB70");
-class world_dynamics_system { public: camera *add_camera(camera *value); };
+#include "KS/SRC/wds_add_entity_shared.h"
 camera *world_dynamics_system::add_camera(camera *value) { camera *result = (camera *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002A3488)
 // 0x002A3488 add_particle_generator__21world_dynamics_systemP18particle_generator
-class entity {};
-class particle_generator : public entity {};
-class entity_maker { public: entity *create_entity(entity *value); };
-extern entity_maker *g_entity_maker;
-__asm__(".equ g_entity_maker, 0x004318C8");
-__asm__(".equ create_entity__12entity_makerP6entity, 0x0030AB70");
-class world_dynamics_system { public: particle_generator *add_particle_generator(particle_generator *value); };
+#include "KS/SRC/wds_add_entity_shared.h"
 particle_generator *world_dynamics_system::add_particle_generator(particle_generator *value) { particle_generator *result = (particle_generator *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002A34B0)
 // 0x002A34B0 add_lensflare__21world_dynamics_systemP9lensflare
-class entity {};
-class lensflare : public entity {};
-class entity_maker { public: entity *create_entity(entity *value); };
-extern entity_maker *g_entity_maker;
-__asm__(".equ g_entity_maker, 0x004318C8");
-__asm__(".equ create_entity__12entity_makerP6entity, 0x0030AB70");
-class world_dynamics_system { public: lensflare *add_lensflare(lensflare *value); };
+#include "KS/SRC/wds_add_entity_shared.h"
 lensflare *world_dynamics_system::add_lensflare(lensflare *value) { lensflare *result = (lensflare *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002A7418)
 // 0x002A7418 add_sky__21world_dynamics_systemP3sky
-class entity {};
-class sky : public entity {};
-class entity_maker { public: entity *create_entity(entity *value); };
-extern entity_maker *g_entity_maker;
-__asm__(".equ g_entity_maker, 0x004318C8");
-__asm__(".equ create_entity__12entity_makerP6entity, 0x0030AB70");
-class world_dynamics_system { public: sky *add_sky(sky *value); };
+#include "KS/SRC/wds_add_entity_shared.h"
 sky *world_dynamics_system::add_sky(sky *value) { sky *result = (sky *)g_entity_maker->create_entity(value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 #endif
 
