@@ -1,5 +1,18 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00144FC8) || \
+    defined(KELLY_DECOMP_FUNCTION_00144FD0) || \
+    defined(KELLY_DECOMP_FUNCTION_00144FD8) || \
+    defined(KELLY_DECOMP_FUNCTION_00144FE0) || \
+    defined(KELLY_DECOMP_FUNCTION_00144FE8) || \
+    defined(KELLY_DECOMP_FUNCTION_00144FF0) || \
+    defined(KELLY_DECOMP_FUNCTION_00144FF8) || \
+    defined(KELLY_DECOMP_FUNCTION_00145000) || \
+    defined(KELLY_DECOMP_FUNCTION_00145008) || \
+    defined(KELLY_DECOMP_FUNCTION_00145010)
+#include "KS/SRC/entity_shared.h"
+#endif
+
 
 #if defined(KELLY_DECOMP_FUNCTION_00144B98)
 // 0x00144B98 set_radius__6entityf
@@ -454,11 +467,6 @@ entity_flavor_t entity::get_flavor() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144FC8)
 // 0x00144FC8 is_an_entity__C6entity
-class entity {
-public:
-    bool is_an_entity() const;
-};
-
 bool entity::is_an_entity() const {
     return true;
 }
@@ -466,11 +474,6 @@ bool entity::is_an_entity() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144FD0)
 // 0x00144FD0 is_a_beam__C6entity
-class entity {
-public:
-    bool is_a_beam() const;
-};
-
 bool entity::is_a_beam() const {
     return false;
 }
@@ -478,11 +481,6 @@ bool entity::is_a_beam() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144FD8)
 // 0x00144FD8 is_a_camera__C6entity
-class entity {
-public:
-    bool is_a_camera() const;
-};
-
 bool entity::is_a_camera() const {
     return false;
 }
@@ -490,11 +488,6 @@ bool entity::is_a_camera() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144FE0)
 // 0x00144FE0 is_a_station_camera__C6entity
-class entity {
-public:
-    bool is_a_station_camera() const;
-};
-
 bool entity::is_a_station_camera() const {
     return false;
 }
@@ -502,11 +495,6 @@ bool entity::is_a_station_camera() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144FE8)
 // 0x00144FE8 is_a_game_camera__C6entity
-class entity {
-public:
-    bool is_a_game_camera() const;
-};
-
 bool entity::is_a_game_camera() const {
     return false;
 }
@@ -514,11 +502,6 @@ bool entity::is_a_game_camera() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144FF0)
 // 0x00144FF0 is_a_marky_camera__C6entity
-class entity {
-public:
-    bool is_a_marky_camera() const;
-};
-
 bool entity::is_a_marky_camera() const {
     return false;
 }
@@ -526,11 +509,6 @@ bool entity::is_a_marky_camera() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144FF8)
 // 0x00144FF8 is_a_mouselook_camera__C6entity
-class entity {
-public:
-    bool is_a_mouselook_camera() const;
-};
-
 bool entity::is_a_mouselook_camera() const {
     return false;
 }
@@ -538,11 +516,6 @@ bool entity::is_a_mouselook_camera() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145000)
 // 0x00145000 is_a_sniper_camera__C6entity
-class entity {
-public:
-    bool is_a_sniper_camera() const;
-};
-
 bool entity::is_a_sniper_camera() const {
     return false;
 }
@@ -550,11 +523,6 @@ bool entity::is_a_sniper_camera() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145008)
 // 0x00145008 is_a_conglomerate__C6entity
-class entity {
-public:
-    bool is_a_conglomerate() const;
-};
-
 bool entity::is_a_conglomerate() const {
     return false;
 }
@@ -562,11 +530,6 @@ bool entity::is_a_conglomerate() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145010)
 // 0x00145010 is_a_turret__C6entity
-class entity {
-public:
-    bool is_a_turret() const;
-};
-
 bool entity::is_a_turret() const {
     return false;
 }
