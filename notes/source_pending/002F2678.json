@@ -1,0 +1,23 @@
+{
+  "address": "0x002F2678",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bde76540f69c1d2e8940b6d1231f3e262b86f94a",
+      "candidate_size": 904,
+      "compared_bytes": 1076,
+      "compared_instructions": 264,
+      "emitted_name": "__unguarded_partition__H2ZP20instance_render_infoZ20instance_render_info_X01X01X11_X01",
+      "instruction_score": 1.1364,
+      "matching_bytes": 221,
+      "matching_instructions": 3,
+      "notes": "# FIRST PASS wave 170 lane B5\n\nTested exactly once using the released GCC 2/libstdc++ `stl_algo.h`\n`__unguarded_partition` template body, instantiated for\n`instance_render_info*` and `instance_render_info`. The source-faithful\nscratch context follows released `KS/SRC/iri.h`: the 144-byte value layout,\ninline `operator<`, released assignment body, and `frame_info::operator=`.\nExisting algorithm prior art came from `src/NGL/ps2/ngl_ps2.cpp`.\n\nResult: `different`, 20.5390% bytes (221/1076) and 1.1364% instructions\n(3/264); candidate size 904 versus target 1076. Candidate SHA-1:\n`bde76540f69c1d2e8940b6d1231f3e262b86f94a`.\n\nNo alternate source, retry, diff chase, tooling change, finalization, build, commit, push, or tracked edit was performed.",
+      "score": 20.539,
+      "source": "typedef unsigned int uint32;\n\nstruct vector3d\n{\n    float x, y, z;\n};\n\nstruct vector4d\n{\n    float x, y, z, w;\n};\n\nstruct po\n{\n    vector4d data[4];\n};\n\nstruct color32\n{\n    uint32 value;\n};\n\nstruct frame_info\n{\n    char data[12];\n    frame_info& operator=(const frame_info&);\n};\n\n__asm__(\".equ __as__10frame_infoRC10frame_info,0x00338678\");\n\nclass instance_render_info\n{\npublic:\n    bool operator<(const instance_render_info& iri) const\n    {\n        return frame < iri.frame;\n    }\n\n    instance_render_info& operator=(const instance_render_info& new_guy)\n    {\n        if (&new_guy == this)\n            return *this;\n\n        number_of_faces_to_attempt = new_guy.number_of_faces_to_attempt;\n        local_to_world = new_guy.local_to_world;\n        force_flags = new_guy.force_flags;\n        color_scale = new_guy.color_scale;\n        camera_relative_rotation = new_guy.camera_relative_rotation;\n        frame_time_info = new_guy.frame_time_info;\n        my_region = new_guy.my_region;\n        particle_scale = new_guy.particle_scale;\n        my_light_set = new_guy.my_light_set;\n        alt_materials = new_guy.alt_materials;\n        frame = new_guy.frame;\n        render_scale = new_guy.render_scale;\n        return *this;\n    }\n\n    float number_of_faces_to_attempt;\n    po local_to_world;\n    uint32 force_flags;\n    color32 color_scale;\n    float camera_relative_rotation;\n    frame_info frame_time_info;\n    void* my_region;\n    float particle_scale;\n    void* my_light_set;\n    void* alt_materials;\n    int frame;\n    vector3d render_scale;\n};\n\ntemplate <class T>\ninline void swap(T& a, T& b)\n{\n    T tmp = a;\n    a = b;\n    b = tmp;\n}\n\ntemplate <class ForwardIterator1, class ForwardIterator2>\ninline void iter_swap(ForwardIterator1 a, ForwardIterator2 b)\n{\n    swap(*a, *b);\n}\n\nextern \"C\" instance_render_info* partition_instances(\n    instance_render_info* first,\n    instance_render_info* last,\n    const instance_render_info& pivot\n) __asm__(\n    \"__unguarded_partition__H2ZP20instance_render_info\"\n    \"Z20instance_render_info_X01X01X11_X01\"\n);\n\ninstance_render_info* partition_instances(\n    instance_render_info* first,\n    instance_render_info* last,\n    const instance_render_info& pivot\n)\n{\n    while (1) {\n        while (*first < pivot)\n            ++first;\n        --last;\n        while (pivot < *last)\n            --last;\n        if (!(first < last))\n            return first;\n        iter_swap(first, last);\n        ++first;\n    }\n}\n",
+      "status": "different",
+      "target_size": 1076
+    }
+  ],
+  "raw_name": "__unguarded_partition__H2ZP20instance_render_infoZ20instance_render_info_X01X01X11_X01"
+}
