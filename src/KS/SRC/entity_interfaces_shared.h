@@ -5,17 +5,8 @@
 #include "KS/SRC/entity_interface.h"
 #include "KS/SRC/physical_interface.h"
 #include "KS/SRC/render_interface.h"
+#include "KS/SRC/skeleton_interface.h"
 #include "KS/SRC/vector3d_shared.h"
-
-class skeleton_interface : public entity_interface {
-    void *abs_po;
-    void *handed_abs_po;
-    int po_count;
-
-public:
-    explicit inline skeleton_interface(entity *value) : entity_interface(value) {}
-    virtual ~skeleton_interface();
-};
 
 class soft_attrib_interface : public entity_interface {
 public:
