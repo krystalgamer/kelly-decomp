@@ -1,11 +1,15 @@
 #ifndef KELLY_DECOMP_PMESH_SHARED_H
 #define KELLY_DECOMP_PMESH_SHARED_H
 
+#include "KS/SRC/visrep_shared.h"
+
 typedef unsigned int face_ref;
 typedef unsigned short wedge_ref;
 typedef short material_ref;
 
 enum {
+    UNINITIALIZED_MATERIAL_REF = -1,
+    UNINITIALIZED_WEDGE_REF = 0xffff,
     TERFACE_SURFTYPE_MASK = 0x0070,
     TERFACE_COSMETIC = 0x0400,
 };
@@ -41,6 +45,13 @@ public:
     unsigned short level_of_detail;
     unsigned short flags;
 
+    reduced_face()
+        : my_material(UNINITIALIZED_MATERIAL_REF),
+          level_of_detail(0xffff),
+          flags(0)
+    {
+    }
+
     inline bool is_cosmetic() const { return flags & TERFACE_COSMETIC; }
     inline unsigned char get_surface_type() const
     {
@@ -65,10 +76,24 @@ public:
     inline bool empty() const { return first == last; }
 };
 
-class vr_pmesh {
-    char visual_rep_data[0x18];
+struct pmesh_map_node {
+    int color;
+    pmesh_map_node *parent;
+    pmesh_map_node *left;
+    pmesh_map_node *right;
+};
+
+class material_map {
+    pmesh_map_node *header;
+    unsigned int node_count;
+};
+
+class vr_pmesh : public visual_rep {
+    void *verts;
     hw_rasta_vert *xverts;
-    char fields_before_num_wedges[0xC];
+    void *wedges;
+    int min_faces;
+    int *xverts_for_lod;
     int num_wedges;
     face* faces;
     reduced_face* reduced_faces;
@@ -76,9 +101,21 @@ class vr_pmesh {
     material_vector materials;
     void* vert_refs_for_wedge_ref;
     wedge_ref* wedge_index_list;
+    short *wedge_lod_starts;
+    face_ref *original_face_for_face_slot;
+    material_map material_changes;
 
 public:
+    virtual int get_min_faces(time_value_t = 0) const
+    {
+        return min_faces;
+    }
+    virtual int get_max_faces(time_value_t = 0) const
+    {
+        return num_faces;
+    }
     inline int get_num_wedges() const { return num_wedges; }
+    void optimize();
     void mark_self_lit_verts();
     wedge_ref get_wedge_ref(face_ref faceid, int corner) const;
     unsigned char get_surface_type(face_ref faceid) const;
