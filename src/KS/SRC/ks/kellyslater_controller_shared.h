@@ -3,6 +3,7 @@
 
 #include "KS/SRC/game_shared.h"
 #include "KS/SRC/ks/trickdata.h"
+#include "KS/SRC/vector3d_shared.h"
 
 enum {
     SUPER_STATE_FLYBY = 1,
@@ -20,6 +21,9 @@ public:
 
 class SpecialMeter {
     char data[0x2C];
+
+public:
+    void Initialize(int player);
 };
 
 class camera;
@@ -71,6 +75,12 @@ public:
     void SetCompletedTrick();
     void SetCompletedTrick(int trick);
     void SetNewTrick(int trick);
+    void SetCurrentTrick();
+    void ResetTricks();
+    void StartGrind(const vector3d direction);
+    void StartCelebration();
+    void StartDisappointment();
+    void set_player_num(int player);
     int GetCurrentTrick();
     inline int get_super_state() const {
         return super_state;

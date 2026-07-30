@@ -87,6 +87,12 @@ void **kellyslater_controller_rtti()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0020D250) || \
+    defined(KELLY_DECOMP_FUNCTION_0020D2E8) || \
+    defined(KELLY_DECOMP_FUNCTION_0020D2F8) || \
+    defined(KELLY_DECOMP_FUNCTION_0020F570) || \
+    defined(KELLY_DECOMP_FUNCTION_002138B0) || \
+    defined(KELLY_DECOMP_FUNCTION_0021E448) || \
+    defined(KELLY_DECOMP_FUNCTION_0021E460) || \
     defined(KELLY_DECOMP_FUNCTION_0021E478) || \
     defined(KELLY_DECOMP_FUNCTION_0021F6E0)
 #include "KS/SRC/ks/kellyslater_controller_shared.h"
@@ -138,15 +144,6 @@ void kellyslater_controller::SetCompletedTrick()
 
 #if defined(KELLY_DECOMP_FUNCTION_0020D2E8)
 // 0x0020D2E8 SetCurrentTrick__22kellyslater_controller
-class kellyslater_controller {
-    char padding_to_current[0x18F4];
-    int currentTrick;
-    int completedTrick;
-    int newTrick;
-public:
-    void SetCurrentTrick();
-};
-
 void kellyslater_controller::SetCurrentTrick() {
     currentTrick = newTrick;
 }
@@ -154,31 +151,11 @@ void kellyslater_controller::SetCurrentTrick() {
 
 #if defined(KELLY_DECOMP_FUNCTION_0020D2F8)
 // 0x0020D2F8 ResetTricks__22kellyslater_controller
-class kellyslater_controller { char padding[0x18F4]; int currentTrick; int completedTrick; public: void ResetTricks(); };
 void kellyslater_controller::ResetTricks() { completedTrick = -1; currentTrick = -1; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002138B0)
 // 0x002138B0 StartGrind__22kellyslater_controllerG8vector3d
-class vector3d {
-public:
-    float x;
-    float y;
-    float z;
-
-    vector3d() {}
-    vector3d(const vector3d& value) {
-        x = value.x;
-        y = value.y;
-        z = value.z;
-    }
-};
-
-class kellyslater_controller {
-public:
-    void StartGrind(const vector3d direction);
-};
-
 void kellyslater_controller::StartGrind(const vector3d direction) {
 }
 #endif
@@ -217,13 +194,11 @@ void kellyslater_controller::end_secondary_cam()
 
 #if defined(KELLY_DECOMP_FUNCTION_0021E448)
 // 0x0021E448 StartCelebration__22kellyslater_controller
-class kellyslater_controller { char padding[0x30]; int state; char padding_to_super[0x4]; int super_state; public: void StartCelebration(); };
 void kellyslater_controller::StartCelebration() { super_state = 8; state = 90; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0021E460)
 // 0x0021E460 StartDisappointment__22kellyslater_controller
-class kellyslater_controller { char padding[0x30]; int state; char padding_to_super[0x4]; int super_state; public: void StartDisappointment(); };
 void kellyslater_controller::StartDisappointment() { super_state = 8; state = 91; }
 #endif
 
@@ -258,9 +233,7 @@ float kellyslater_controller::CtrlEvent(int control) { float result = input_mana
 
 #if defined(KELLY_DECOMP_FUNCTION_0020F570)
 // 0x0020F570 set_player_num__22kellyslater_controlleri
-class SpecialMeter { char storage[0x2c]; public: void Initialize(int player); };
 __asm__(".equ Initialize__12SpecialMeteri, 0x00250CA0");
-class kellyslater_controller { char padding[0x1648]; SpecialMeter specialMeter; int my_player_num; public: void set_player_num(int player); };
 void kellyslater_controller::set_player_num(int player) { my_player_num = player; specialMeter.Initialize(player); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
