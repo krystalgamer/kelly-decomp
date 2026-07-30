@@ -134,7 +134,17 @@ class entity : public bone {
     time_interface *my_time_interface;
     char entity_data_after_interfaces[0x54];
     visual_rep *my_visrep;
-    char entity_data_before_entity_sector[0x2c];
+    nglMesh *shadow_mesh;
+    nglMesh *lores_mesh;
+    nglMesh *my_mesh;
+    bool use_zbias;
+    float zbias;
+    bool force_hi_res;
+    rational_t vis_xz_rad_rel_center;
+    collision_geometry *colgeom;
+    char entity_data_before_movement_info[4];
+    void *movement_info_data;
+    char entity_data_before_entity_sector[4];
     sector *entity_sector;
     region_node *center_region;
     region_node_pset in_regions;

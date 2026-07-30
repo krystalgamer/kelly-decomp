@@ -36,6 +36,7 @@
     defined(KELLY_DECOMP_FUNCTION_00144C88) || \
     defined(KELLY_DECOMP_FUNCTION_00144E60) || \
     defined(KELLY_DECOMP_FUNCTION_00144E68) || \
+    defined(KELLY_DECOMP_FUNCTION_00144E58) || \
     defined(KELLY_DECOMP_FUNCTION_00144E70) || \
     defined(KELLY_DECOMP_FUNCTION_00144E80) || \
     defined(KELLY_DECOMP_FUNCTION_00144E90) || \
@@ -44,6 +45,11 @@
     defined(KELLY_DECOMP_FUNCTION_00144EE8) || \
     defined(KELLY_DECOMP_FUNCTION_00144EF8) || \
     defined(KELLY_DECOMP_FUNCTION_00144F00) || \
+    defined(KELLY_DECOMP_FUNCTION_00144F58) || \
+    defined(KELLY_DECOMP_FUNCTION_00144F60) || \
+    defined(KELLY_DECOMP_FUNCTION_00144F68) || \
+    defined(KELLY_DECOMP_FUNCTION_00144F70) || \
+    defined(KELLY_DECOMP_FUNCTION_00144F78) || \
     defined(KELLY_DECOMP_FUNCTION_00144F80) || \
     defined(KELLY_DECOMP_FUNCTION_00144F88) || \
     defined(KELLY_DECOMP_FUNCTION_00144F90) || \
@@ -190,16 +196,6 @@ bool entity::get_in_use() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144E58)
 // 0x00144E58 get_colgeom__C6entity
-class collision_geometry;
-
-class entity {
-    char padding[0x148];
-    collision_geometry *colgeom;
-
-public:
-    collision_geometry *get_colgeom() const;
-};
-
 collision_geometry *entity::get_colgeom() const {
     return colgeom;
 }
@@ -275,31 +271,13 @@ void entity::phys_render(float time, bool shadow) {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144F58)
 // 0x00144F58 get_visual_xz_radius_rel_center__C6entity
-class entity {
-    char padding[0x144];
-    float visual_xz_radius;
-
-public:
-    float get_visual_xz_radius_rel_center() const;
-};
-
 float entity::get_visual_xz_radius_rel_center() const {
-    return visual_xz_radius;
+    return vis_xz_rad_rel_center;
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144F60)
 // 0x00144F60 get_vrep__C6entity
-class visual_rep;
-
-class entity {
-    char padding[0x128];
-    visual_rep *my_visrep;
-
-public:
-    visual_rep *get_vrep() const;
-};
-
 visual_rep *entity::get_vrep() const {
     return my_visrep;
 }
@@ -307,16 +285,6 @@ visual_rep *entity::get_vrep() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144F68)
 // 0x00144F68 get_mesh__C6entity
-class nglMesh;
-
-class entity {
-    char padding[0x134];
-    nglMesh *my_mesh;
-
-public:
-    nglMesh *get_mesh() const;
-};
-
 nglMesh *entity::get_mesh() const {
     return my_mesh;
 }
@@ -324,16 +292,6 @@ nglMesh *entity::get_mesh() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144F70)
 // 0x00144F70 get_lores_mesh__C6entity
-class nglMesh;
-
-class entity {
-    char padding[0x130];
-    nglMesh *lores_mesh;
-
-public:
-    nglMesh *get_lores_mesh() const;
-};
-
 nglMesh *entity::get_lores_mesh() const {
     return lores_mesh;
 }
@@ -341,16 +299,6 @@ nglMesh *entity::get_lores_mesh() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144F78)
 // 0x00144F78 get_shadow_mesh__C6entity
-class nglMesh;
-
-class entity {
-    char padding[0x12C];
-    nglMesh *shadow_mesh;
-
-public:
-    nglMesh *get_shadow_mesh() const;
-};
-
 nglMesh *entity::get_shadow_mesh() const {
     return shadow_mesh;
 }
