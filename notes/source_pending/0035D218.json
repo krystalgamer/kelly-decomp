@@ -1,0 +1,23 @@
+{
+  "address": "0x0035D218",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c08d2050fa3f397a2e8e0d0daba98a7433e1fe72",
+      "candidate_size": 232,
+      "compared_bytes": 1064,
+      "compared_instructions": 266,
+      "emitted_name": "_M_insert__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP13script_objectZt10_Select1st1Zt4pair2ZC7stringxZP13script_objectZt4less1Z7stringxZt12my_allocator1ZP13script_objectP18_Rb_tree_node_baseT1RCt4pair2ZC7stringxZP13script_object",
+      "instruction_score": 0.0,
+      "matching_bytes": 41,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 170 lane A2\n\nExact GCC 2 `_Rb_tree::_M_insert` body tested once for `0x0035D218`, from `C:/usr/local/sce/ee/gcc/include/g++-2/stl_tree.h:819-853`, with source-faithful `stringx` layout/comparison from `kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-244,480-483`, the released `script_object` declaration from `kelly-slaters-pro-surfer/KS/SRC/script_object.h:27-115`, and the exact `map<stringx,script_object*>` alias from `kelly-slaters-pro-surfer/KS/SRC/script_object.h:215-216`. Attempts before: 0. Result `different`, byte score 3.8534% and instruction score 0.0000%. No alternate was tried.",
+      "score": 3.8534,
+      "source": "// Exact GCC 2 stl_tree.h _M_insert body with released stringx/script_object types.\nclass string_buf;\nclass stringx {\nprotected:\n  char *chars;\n  string_buf *my_buf;\npublic:\n  friend bool operator<(const stringx &, const stringx &);\n};\nclass script_object;\n\ntemplate<class T> struct my_allocator {};\ntemplate<class T1, class T2> struct pair {\n  T1 first;\n  T2 second;\n};\ntypedef pair<const stringx, script_object *> value_type;\n\nstruct _Rb_tree_node_base {\n  int color;\n  _Rb_tree_node_base *parent;\n  _Rb_tree_node_base *left;\n  _Rb_tree_node_base *right;\n};\nstruct rb_node : _Rb_tree_node_base { value_type value_field; };\n\nextern \"C\" void rebalance(_Rb_tree_node_base *, _Rb_tree_node_base *&)\n  __asm__(\"_Rb_tree_rebalance__FP18_Rb_tree_node_baseRP18_Rb_tree_node_base\");\nextern \"C\" rb_node *create_node(void *, const value_type &)\n  __asm__(\"_M_create_node__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP13script_objectZt10_Select1st1Zt4pair2ZC7stringxZP13script_objectZt4less1Z7stringxZt12my_allocator1ZP13script_objectRCt4pair2ZC7stringxZP13script_object\");\n\nstruct iterator {\n  _Rb_tree_node_base *_M_node;\n  iterator(_Rb_tree_node_base *x) : _M_node(x) {}\n};\nstruct tree {\n  _Rb_tree_node_base *_M_header;\n  unsigned int _M_node_count;\n};\n\nextern \"C\" iterator tree_insert(tree *, _Rb_tree_node_base *, _Rb_tree_node_base *, const value_type &)\n  __asm__(\"_M_insert__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP13script_objectZt10_Select1st1Zt4pair2ZC7stringxZP13script_objectZt4less1Z7stringxZt12my_allocator1ZP13script_objectP18_Rb_tree_node_baseT1RCt4pair2ZC7stringxZP13script_object\");\n\niterator tree_insert(tree *self, _Rb_tree_node_base *x_, _Rb_tree_node_base *y_, const value_type& v) {\n  rb_node *x = (rb_node *)x_;\n  rb_node *y = (rb_node *)y_;\n  rb_node *z;\n  if (y == (rb_node *)self->_M_header || x != 0 || v.first < y->value_field.first) {\n    z = create_node(self, v);\n    y->left = z;\n    if (y == (rb_node *)self->_M_header) {\n      self->_M_header->parent = z;\n      self->_M_header->right = z;\n    } else if (y == (rb_node *)self->_M_header->left)\n      self->_M_header->left = z;\n  } else {\n    z = create_node(self, v);\n    y->right = z;\n    if (y == (rb_node *)self->_M_header->right)\n      self->_M_header->right = z;\n  }\n  z->parent = y;\n  z->left = 0;\n  z->right = 0;\n  rebalance(z, self->_M_header->parent);\n  ++self->_M_node_count;\n  return iterator(z);\n}\n",
+      "status": "different",
+      "target_size": 1064
+    }
+  ],
+  "raw_name": "_M_insert__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP13script_objectZt10_Select1st1Zt4pair2ZC7stringxZP13script_objectZt4less1Z7stringxZt12my_allocator1ZP13script_objectP18_Rb_tree_node_baseT1RCt4pair2ZC7stringxZP13script_object"
+}
