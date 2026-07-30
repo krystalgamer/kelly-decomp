@@ -32,7 +32,26 @@
     defined(KELLY_DECOMP_FUNCTION_001450B0) || \
     defined(KELLY_DECOMP_FUNCTION_001450B8) || \
     defined(KELLY_DECOMP_FUNCTION_001450C0) || \
-    defined(KELLY_DECOMP_FUNCTION_001450C8)
+    defined(KELLY_DECOMP_FUNCTION_001450C8) || \
+    defined(KELLY_DECOMP_FUNCTION_00144C88) || \
+    defined(KELLY_DECOMP_FUNCTION_00144E60) || \
+    defined(KELLY_DECOMP_FUNCTION_00144E68) || \
+    defined(KELLY_DECOMP_FUNCTION_00144E70) || \
+    defined(KELLY_DECOMP_FUNCTION_00144E80) || \
+    defined(KELLY_DECOMP_FUNCTION_00144E90) || \
+    defined(KELLY_DECOMP_FUNCTION_00144EA0) || \
+    defined(KELLY_DECOMP_FUNCTION_00144EB0) || \
+    defined(KELLY_DECOMP_FUNCTION_00144EE8) || \
+    defined(KELLY_DECOMP_FUNCTION_00144EF8) || \
+    defined(KELLY_DECOMP_FUNCTION_00144F00) || \
+    defined(KELLY_DECOMP_FUNCTION_00144F80) || \
+    defined(KELLY_DECOMP_FUNCTION_00144F88) || \
+    defined(KELLY_DECOMP_FUNCTION_00144F90) || \
+    defined(KELLY_DECOMP_FUNCTION_00144FA0) || \
+    defined(KELLY_DECOMP_FUNCTION_00144FB0) || \
+    defined(KELLY_DECOMP_FUNCTION_001450D0) || \
+    defined(KELLY_DECOMP_FUNCTION_001450D8) || \
+    defined(KELLY_DECOMP_FUNCTION_00145120)
 #include "KS/SRC/entity_shared.h"
 #endif
 
@@ -96,16 +115,7 @@ bool entity::is_active() const { return (flags >> 17) & 1; }
 
 #if defined(KELLY_DECOMP_FUNCTION_00144C88)
 // 0x00144C88 get_forced_active__C6entity
-enum force_active_t {
-    FORCE_ACTIVE_NONE = 0
-};
-
-class entity {
-public:
-    force_active_t get_forced_active() const;
-};
-
-force_active_t entity::get_forced_active() const {
+entity::force_active_t entity::get_forced_active() const {
     return FORCE_ACTIVE_NONE;
 }
 #endif
@@ -197,13 +207,6 @@ collision_geometry *entity::get_colgeom() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144E60)
 // 0x00144E60 get_damage_capsule__6entity
-class collision_capsule;
-
-class entity {
-public:
-    collision_capsule *get_damage_capsule();
-};
-
 collision_capsule *entity::get_damage_capsule() {
     return 0;
 }
@@ -211,13 +214,6 @@ collision_capsule *entity::get_damage_capsule() {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144E68)
 // 0x00144E68 get_updated_damage_capsule__6entity
-class collision_capsule;
-
-class entity {
-public:
-    collision_capsule *get_updated_damage_capsule();
-};
-
 collision_capsule *entity::get_updated_damage_capsule() {
     return 0;
 }
@@ -225,23 +221,16 @@ collision_capsule *entity::get_updated_damage_capsule() {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144E70)
 // 0x00144E70 get_inter_capsule_radius_scale__6entity
-class entity { public: float get_inter_capsule_radius_scale(); };
 float entity::get_inter_capsule_radius_scale() { return 1.0f; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144E80)
 // 0x00144E80 get_water_dist__C6entity
-class entity { public: float get_water_dist() const; };
 float entity::get_water_dist() const { return 1000.0f; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144E90)
 // 0x00144E90 get_underwater_pct__C6entity
-class entity {
-public:
-    float get_underwater_pct() const;
-};
-
 float entity::get_underwater_pct() const {
     return 0.0f;
 }
@@ -249,19 +238,8 @@ float entity::get_underwater_pct() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144EA0)
 // 0x00144EA0 get_water_normal__C6entity
-class vector3d {
-    float x;
-    float y;
-    float z;
-};
-
 extern const vector3d entity_zero_vector;
 __asm__(".equ entity_zero_vector, 0x00513840");
-
-class entity {
-public:
-    const vector3d& get_water_normal() const;
-};
 
 const vector3d& entity::get_water_normal() const {
     return entity_zero_vector;
@@ -270,11 +248,6 @@ const vector3d& entity::get_water_normal() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144EB0)
 // 0x00144EB0 get_underwater_time__C6entity
-class entity {
-public:
-    float get_underwater_time() const;
-};
-
 float entity::get_underwater_time() const {
     return 0.0f;
 }
@@ -282,13 +255,6 @@ float entity::get_underwater_time() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144EE8)
 // 0x00144EE8 get_effective_collision_mass__C6entityRC8vector3dT1
-class vector3d;
-
-class entity {
-public:
-    float get_effective_collision_mass(const vector3d& location, const vector3d& direction) const;
-};
-
 float entity::get_effective_collision_mass(const vector3d& location, const vector3d& direction) const {
     return 0.0f;
 }
@@ -296,11 +262,6 @@ float entity::get_effective_collision_mass(const vector3d& location, const vecto
 
 #if defined(KELLY_DECOMP_FUNCTION_00144EF8)
 // 0x00144EF8 is_picked_up__6entity
-class entity {
-public:
-    bool is_picked_up();
-};
-
 bool entity::is_picked_up() {
     return false;
 }
@@ -308,11 +269,6 @@ bool entity::is_picked_up() {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144F00)
 // 0x00144F00 phys_render__6entityfb
-class entity {
-public:
-    void phys_render(float time, bool shadow);
-};
-
 void entity::phys_render(float time, bool shadow) {
 }
 #endif
@@ -402,22 +358,12 @@ nglMesh *entity::get_shadow_mesh() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144F80)
 // 0x00144F80 set_fade_away__6entityb
-class entity {
-public:
-    void set_fade_away(bool fade);
-};
-
 void entity::set_fade_away(bool fade) {
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144F88)
 // 0x00144F88 get_fade_away__C6entity
-class entity {
-public:
-    bool get_fade_away() const;
-};
-
 bool entity::get_fade_away() const {
     return false;
 }
@@ -425,15 +371,8 @@ bool entity::get_fade_away() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144F90)
 // 0x00144F90 get_filename__C6entity
-class stringx {};
-
 extern const stringx entity_empty_string;
 __asm__(".equ entity_empty_string, 0x0046DB30");
-
-class entity {
-public:
-    const stringx& get_filename() const;
-};
 
 const stringx& entity::get_filename() const {
     return entity_empty_string;
@@ -442,15 +381,8 @@ const stringx& entity::get_filename() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144FA0)
 // 0x00144FA0 get_dirname__C6entity
-class stringx {};
-
 extern const stringx entity_empty_string;
 __asm__(".equ entity_empty_string, 0x0046DB30");
-
-class entity {
-public:
-    const stringx& get_dirname() const;
-};
 
 const stringx& entity::get_dirname() const {
     return entity_empty_string;
@@ -459,11 +391,6 @@ const stringx& entity::get_dirname() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144FB0)
 // 0x00144FB0 has_dirname__C6entity
-class entity {
-public:
-    bool has_dirname() const;
-};
-
 bool entity::has_dirname() const {
     return false;
 }
@@ -721,24 +648,12 @@ bool entity::is_a_sky() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_001450D0)
 // 0x001450D0 frame_done__6entity
-class entity {
-public:
-    void frame_done();
-};
-
 void entity::frame_done() {
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001450D8)
 // 0x001450D8 add_position_increment__6entityR8vector3d
-class vector3d;
-
-class entity {
-public:
-    bool add_position_increment(vector3d &increment);
-};
-
 bool entity::add_position_increment(vector3d &increment) {
     return false;
 }
@@ -793,11 +708,6 @@ const po &entity::get_colgeom_root_po() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145120)
 // 0x00145120 get_colgeom_root__C6entity
-class entity {
-public:
-    const entity *get_colgeom_root() const;
-};
-
 const entity *entity::get_colgeom_root() const {
     return this;
 }
