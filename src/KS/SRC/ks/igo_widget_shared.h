@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_IGO_WIDGET_SHARED_H
 #define KELLY_DECOMP_IGO_WIDGET_SHARED_H
 
-#include "KS/SRC/color_shared.h"
+#include "KS/SRC/color.h"
 
 typedef float time_value_t;
 

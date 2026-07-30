@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_LIGHT_SHARED_H
 #define KELLY_DECOMP_LIGHT_SHARED_H
 
-#include "KS/SRC/color_shared.h"
+#include "KS/SRC/color.h"
 #include "KS/SRC/entity.h"
 #include "KS/SRC/sphere_shared.h"
 

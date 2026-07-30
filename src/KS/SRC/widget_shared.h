@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_WIDGET_SHARED_H
 #define KELLY_DECOMP_WIDGET_SHARED_H
 
-#include "KS/SRC/color_shared.h"
+#include "KS/SRC/color.h"
 #include "KS/SRC/stringx_shared.h"
 #include "g++-2/stl_list_shared.h"
 

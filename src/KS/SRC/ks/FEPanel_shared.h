@@ -3,7 +3,7 @@
 
 #pragma interface
 
-#include "KS/SRC/color_shared.h"
+#include "KS/SRC/color.h"
 #include "KS/SRC/stringx.h"
 #include "KS/SRC/vector3d_shared.h"
 

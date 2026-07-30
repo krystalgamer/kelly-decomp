@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_COLOR_SHARED_H
-#define KELLY_DECOMP_COLOR_SHARED_H
+#ifndef COLOR_H
+#define COLOR_H
 
 class color {
 public:
