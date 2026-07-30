@@ -74,6 +74,16 @@ public:
     FEMenuEntry *left;
     FEMenuEntry *right;
 
+#if defined(KELLY_DECOMP_LOGBOOK_CONSTRUCTORS)
+    FEMenuEntry(
+        stringx label,
+        FEMenu *owner,
+        bool floating = false,
+        Font *font = 0)
+    {
+        cons(label, owner, floating, font);
+    }
+#endif
     virtual ~FEMenuEntry();
     virtual void Load();
     virtual void OnSelect();
@@ -90,6 +100,15 @@ public:
     virtual float GetHighlightIntensity();
     virtual void SetPos(float x, float y);
     virtual void SetLocation3D(vector3d location);
+
+protected:
+#if defined(KELLY_DECOMP_LOGBOOK_CONSTRUCTORS)
+    void cons(
+        stringx label,
+        FEMenu *owner,
+        bool floating,
+        Font *font);
+#endif
 #endif
 };
 
@@ -129,6 +148,9 @@ public:
     FEMenu* next_sub;
 #if defined(KELLY_DECOMP_FEMENU_LAYOUT_PADDING)
     char layout_padding[8];
+#endif
+#if defined(KELLY_DECOMP_LOGBOOK_CONSTRUCTORS)
+    FEMenu();
 #endif
     virtual ~FEMenu();
     virtual void setBack(FEMenu*, int = 1);
@@ -299,7 +321,13 @@ public:
     virtual void Select(int entry_num);
     virtual void Update(time_value_t time_inc);
     virtual void OnActivate();
+#if defined(KELLY_DECOMP_LOGBOOK_CONSTRUCTORS)
+    virtual void Add(FEMenuEntry *entry) {
+        FEMenu::Add(entry);
+    }
+#else
     virtual void Add(FEMenuEntry*);
+#endif
     virtual void TurnOn(PanelQuad* quad, bool enabled);
     virtual void ToggleOn(PanelQuad* quad);
     virtual void ChangeFade(PanelQuad* quad, bool start, bool fade_in, float time)
@@ -335,11 +363,23 @@ public:
         bool animate = true);
 
 protected:
+#if defined(KELLY_DECOMP_LOGBOOK_CONSTRUCTORS)
+    virtual void cons(
+        FEMenuSystem *system,
+        FEManager *manager,
+        stringx path,
+        stringx panel_name)
+    {
+        FEGraphicalMenu::cons(system, manager, path, panel_name);
+        secondary_cursor = 0;
+    }
+#else
     virtual void cons(
         FEMenuSystem *system,
         FEManager *manager,
         stringx path,
         stringx panel_name);
+#endif
     virtual void Up();
     virtual void Down();
     virtual void Left();

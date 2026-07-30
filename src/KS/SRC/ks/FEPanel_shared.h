@@ -7,6 +7,19 @@
 
 class Font {
 public:
+#if defined(KELLY_DECOMP_LOGBOOK_CONSTRUCTORS)
+    enum HORIZJUST {
+        HORIZJUST_LEFT,
+        HORIZJUST_CENTER,
+        HORIZJUST_RIGHT
+    };
+
+    enum VERTJUST {
+        VERTJUST_TOP,
+        VERTJUST_CENTER,
+        VERTJUST_BOTTOM
+    };
+#else
     enum HORIZJUST {
         HORIZJUST_CENTER
     };
@@ -14,13 +27,43 @@ public:
     enum VERTJUST {
         VERTJUST_CENTER
     };
+#endif
 };
 
 #ifndef KELLY_DECOMP_COLOR32_DEFINED
 #define KELLY_DECOMP_COLOR32_DEFINED
+#if defined(KELLY_DECOMP_LOGBOOK_CONSTRUCTORS)
+class color32 {
+public:
+    union {
+        struct {
+            unsigned char b;
+            unsigned char g;
+            unsigned char r;
+            unsigned char a;
+        } channels;
+        unsigned int value;
+    };
+
+    color32(unsigned int packed = 0) : value(packed) {}
+
+    color32(
+        unsigned char red,
+        unsigned char green,
+        unsigned char blue,
+        unsigned char alpha = 255)
+    {
+        channels.b = blue;
+        channels.g = green;
+        channels.r = red;
+        channels.a = alpha;
+    }
+};
+#else
 struct color32 {
     unsigned int value;
 };
+#endif
 #endif
 
 class vector3d {
@@ -58,6 +101,33 @@ public:
     bool no_color;
     color32 color;
 
+#if defined(KELLY_DECOMP_LOGBOOK_CONSTRUCTORS)
+    TextString() {}
+
+    TextString(
+        Font *font,
+        stringx text,
+        float x,
+        float y,
+        int z,
+        float scale,
+        Font::HORIZJUST horizontal,
+        Font::VERTJUST vertical,
+        color32 color)
+    {
+        cons(
+            font,
+            text,
+            x,
+            y,
+            z,
+            scale,
+            horizontal,
+            vertical,
+            false,
+            color);
+    }
+#endif
     virtual inline ~TextString() {}
     virtual void Update(float time_inc);
     virtual void Draw();
@@ -92,6 +162,21 @@ public:
     virtual void SetBehaviorNF(float x, float y);
     virtual void SetBehavior(bool non_floating);
     static void MakeReplacements(stringx &value);
+
+protected:
+#if defined(KELLY_DECOMP_LOGBOOK_CONSTRUCTORS)
+    void cons(
+        Font *font,
+        stringx text,
+        float x,
+        float y,
+        int z,
+        float scale,
+        Font::HORIZJUST horizontal,
+        Font::VERTJUST vertical,
+        bool no_color,
+        color32 color);
+#endif
 };
 
 class MultiLineString : public TextString {
@@ -161,11 +246,52 @@ protected:
     int first_vis;
 
 public:
+#if defined(KELLY_DECOMP_LOGBOOK_CONSTRUCTORS)
+    BoxText(
+        Font *font,
+        stringx text,
+        float x,
+        float y,
+        int z,
+        float scale,
+        Font::HORIZJUST horizontal,
+        Font::VERTJUST vertical,
+        color32 color,
+        int max_box_strings = 5)
+    {
+        cons(
+            font,
+            text,
+            x,
+            y,
+            z,
+            scale,
+            horizontal,
+            vertical,
+            color,
+            max_box_strings);
+    }
+#endif
     virtual ~BoxText();
     virtual void Draw();
     virtual void UpdateInScene(bool ignore_scale = false);
     virtual void changeScale(float value);
     virtual void changePos(float x, float y);
+
+protected:
+#if defined(KELLY_DECOMP_LOGBOOK_CONSTRUCTORS)
+    void cons(
+        Font *font,
+        stringx text,
+        float x,
+        float y,
+        int z,
+        float scale,
+        Font::HORIZJUST horizontal,
+        Font::VERTJUST vertical,
+        color32 color,
+        int max_box_strings);
+#endif
 };
 
 class PanelAnim;
