@@ -7,7 +7,7 @@ class vector3d;
 
 typedef float time_value_t;
 typedef float rational_t;
-typedef int render_flavor_t;
+typedef unsigned int render_flavor_t;
 
 enum visrep_t {
     VISREP_PMESH = 0,
@@ -49,6 +49,9 @@ public:
     virtual void set_light_method(light_method_t);
     inline visrep_t get_type() const {
         return type;
+    }
+    inline bool is_instanced() const {
+        return instanced;
     }
     virtual void set_distance_fade_ok(bool);
     virtual bool get_distance_fade_ok() const;
