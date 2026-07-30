@@ -1,0 +1,15 @@
+{
+  "address": "0x002207B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2ccf09b58b51a21a859ac2c5d130126a6093757d",
+      "notes": "Exact released-source attempt only. Candidate references the unchanged released translation unit at `kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.cpp`; the exact function is at lines 7414-7506 (`kellyslater_controller::DoWipImpactSoundStuff`). The isolated compile failed because the candidate's released-source include path was not found by the Windows-hosted compiler. Per FIRST PASS wave 170 lane A3 instructions, no alternate candidate, path rewrite, declaration reconstruction, diff chasing, or second test was attempted.",
+      "score": 0.0,
+      "source": "#include \"../../../../kelly-slaters-pro-surfer/KS/SRC/ks/kellyslater_controller.cpp\"\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "DoWipImpactSoundStuff__22kellyslater_controller"
+}
