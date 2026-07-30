@@ -104,27 +104,48 @@ public:
     virtual void Disable();
     virtual void Activate();
     virtual void Deactivate();
+#if defined(KELLY_DECOMP_MENU_OUT_OF_LINE_DEFAULTS)
+    virtual void OnTick(float dtime);
+    virtual void OnMenuOpen(Menu *menu, MenuSystem *system);
+    virtual void OnMenuClose();
+    virtual void OnButtonPress(int buttonid);
+    virtual void OnButtonRelease(int buttonid);
+#else
     virtual void OnTick(float dtime) {}
     virtual void OnMenuOpen(Menu* menu, MenuSystem* system);
     virtual void OnMenuClose();
     virtual void OnButtonPress(int buttonid) {}
     virtual void OnButtonRelease(int buttonid) {}
+#endif
 
 protected:
+#if defined(KELLY_DECOMP_MENU_OUT_OF_LINE_DEFAULTS)
+    virtual void OnHide();
+    virtual void OnShow();
+    virtual void OnEnable();
+    virtual void OnDisable();
+    virtual void OnActivate();
+    virtual void OnDeactivate();
+#else
     virtual void OnHide() {}
     virtual void OnShow() {}
     virtual void OnEnable() {}
     virtual void OnDisable() {}
     virtual void OnActivate() {}
     virtual void OnDeactivate() {}
+#endif
 
 public:
+#if defined(KELLY_DECOMP_MENU_OUT_OF_LINE_DEFAULTS)
+    virtual int MenuText(char *text, int len);
+#else
     virtual int MenuText(char* text, int len)
     {
         if (len > 0)
             *text = 0;
         return 0;
     }
+#endif
 };
 
 class MenuEntryLabel : public MenuEntry {
@@ -145,8 +166,13 @@ public:
         Disable();
     }
     virtual ~MenuEntryTitle() {}
+#if defined(KELLY_DECOMP_MENU_OUT_OF_LINE_DEFAULTS)
+    virtual void Enable();
+    virtual void Disable();
+#else
     virtual void Enable() { MenuEntryLabel::Disable(); }
     virtual void Disable() { MenuEntryLabel::Disable(); }
+#endif
     virtual MenuColor GetColor();
 };
 
@@ -160,11 +186,15 @@ public:
         function = callback;
     }
     virtual ~MenuEntryFunction() {}
+#if defined(KELLY_DECOMP_MENU_OUT_OF_LINE_DEFAULTS)
+    virtual void OnButtonPress(int button_id);
+#else
     virtual void OnButtonPress(int button_id)
     {
         if (function)
             function(this, button_id);
     }
+#endif
 };
 
 class MenuEntryFunctionFloatEdit : public MenuEntryLabel {
@@ -185,11 +215,15 @@ public:
                                MenuEntryButtonFunctionPtr function,
                                float low, float high, float step, char *format);
     virtual ~MenuEntryFunctionFloatEdit() {}
+#if defined(KELLY_DECOMP_MENU_OUT_OF_LINE_DEFAULTS)
+    virtual void OnMenuOpen(Menu *menu, MenuSystem *system);
+#else
     virtual void OnMenuOpen(Menu *menu, MenuSystem *system)
     {
         MenuEntryLabel::OnMenuOpen(menu, system);
         FixValue();
     }
+#endif
     virtual int MenuText(char *text, int length);
     virtual void OnButtonPress(int button_id);
     void FixValue();
@@ -272,11 +306,15 @@ public:
     MenuEntryFloatEdit(char *text, float *target, float low, float high, float step);
     MenuEntryFloatEdit(char *text, float *target, float low, float high, float step, char *format);
     virtual ~MenuEntryFloatEdit() {}
+#if defined(KELLY_DECOMP_MENU_OUT_OF_LINE_DEFAULTS)
+    virtual void OnMenuOpen(Menu *menu, MenuSystem *system);
+#else
     virtual void OnMenuOpen(Menu *menu, MenuSystem *system)
     {
         MenuEntryLabel::OnMenuOpen(menu, system);
         FixValue();
     }
+#endif
     virtual int MenuText(char *text, int length);
     virtual void OnButtonPress(int button_id);
     void FixValue();
