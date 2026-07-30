@@ -337,6 +337,7 @@ public:
     virtual rational_t terrain_radius() const;
     virtual const po &get_colgeom_root_po() const;
     virtual const entity *get_colgeom_root() const;
+    virtual region_node *get_region() const;
     virtual void add_me_to_region(region *target);
     virtual void remove_me_from_region(region *target);
     virtual void compute_sector(

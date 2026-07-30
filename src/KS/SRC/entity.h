@@ -57,7 +57,10 @@
     defined(KELLY_DECOMP_FUNCTION_00144FB0) || \
     defined(KELLY_DECOMP_FUNCTION_001450D0) || \
     defined(KELLY_DECOMP_FUNCTION_001450D8) || \
-    defined(KELLY_DECOMP_FUNCTION_00145120)
+    defined(KELLY_DECOMP_FUNCTION_001450E0) || \
+    defined(KELLY_DECOMP_FUNCTION_00145118) || \
+    defined(KELLY_DECOMP_FUNCTION_00145120) || \
+    defined(KELLY_DECOMP_FUNCTION_00145130)
 #include "KS/SRC/entity_shared.h"
 #endif
 
@@ -609,46 +612,13 @@ bool entity::add_position_increment(vector3d &increment) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001450E0)
 // 0x001450E0 terrain_position__C6entity
-class vector3d {
-    float x;
-    float y;
-    float z;
-};
-
-struct entity_position_holder {
-    char padding[0x30];
-    vector3d position;
-};
-
-class entity {
-    char padding[0x50];
-    entity_position_holder* absolute;
-public:
-    const vector3d& terrain_position() const;
-};
-
 const vector3d& entity::terrain_position() const {
-    return absolute->position;
+    return get_abs_position();
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00145118)
 // 0x00145118 get_colgeom_root_po__C6entity
-class po {
-};
-
-class entity {
-    char padding[0x50];
-    po *absolute_po;
-
-    const po &get_abs_po() const {
-        return *absolute_po;
-    }
-
-public:
-    const po &get_colgeom_root_po() const;
-};
-
 const po &entity::get_colgeom_root_po() const {
     return get_abs_po();
 }
@@ -663,16 +633,6 @@ const entity *entity::get_colgeom_root() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145130)
 // 0x00145130 get_region__C6entity
-class region_node;
-
-class entity {
-    char padding[0x15C];
-    region_node *center_region;
-
-public:
-    region_node *get_region() const;
-};
-
 region_node *entity::get_region() const {
     return center_region;
 }
