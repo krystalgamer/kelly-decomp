@@ -1,0 +1,15 @@
+{
+  "address": "0x002B37F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9cce5ce4fd77ad13a5b7f39a311125b1114c547a",
+      "notes": "Exact GCC 2/libstdc++ `_Rb_tree::_M_insert` instantiation from `C:/usr/local/sce/ee/gcc/include/g++-2/stl_tree.h:819-853`, using released `stringx` layout (`kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-244`), the released scene-animation map declaration (`kelly-slaters-pro-surfer/KS/SRC/wds.h:554-556`), and the authentic pair/comparator/allocator tree context. The one-shot candidate compile-failed because `<map>` was unavailable to the scratch compiler. No alternate was tried.",
+      "score": 0.0,
+      "source": "#include <map>\n\nclass string_buf;\n\nclass stringx\n{\nprotected:\n  char *chars;\n  string_buf *my_buf;\n\npublic:\n  stringx();\n  stringx(const stringx &);\n  ~stringx();\n};\n\nbool operator<(const stringx &, const stringx &);\n\nclass scene_anim;\n\ntemplate <class T>\nstruct my_allocator : public allocator<T> {};\n\ntypedef pair<const stringx, scene_anim *> value_type;\ntypedef _Rb_tree<stringx, value_type, _Select1st<value_type>,\n                 less<stringx>, my_allocator<scene_anim *> > tree_type;\n\ntemplate tree_type::iterator tree_type::_M_insert(\n  _Rb_tree_node_base *, _Rb_tree_node_base *, const value_type &);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_M_insert__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP10scene_animZt10_Select1st1Zt4pair2ZC7stringxZP10scene_animZt4less1Z7stringxZt12my_allocator1ZP10scene_animP18_Rb_tree_node_baseT1RCt4pair2ZC7stringxZP10scene_anim"
+}
