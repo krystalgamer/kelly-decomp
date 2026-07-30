@@ -1,5 +1,7 @@
-#ifndef KELLY_DECOMP_GLOBALDATA_SHARED_H
-#define KELLY_DECOMP_GLOBALDATA_SHARED_H
+#ifndef GLOBAL_DATA_H
+#define GLOBAL_DATA_H
+
+#include "KS/SRC/ks/cheat_shared.h"
 
 enum {
     GLOBAL_DATA_LOCATION_COUNT = 17,
@@ -39,20 +41,11 @@ struct GlobalDataBeach {
     bool unlocked;
 };
 
-class GlobalDataCheat {
-    bool locked;
-    bool on;
-
-public:
-    bool getLockedState() const { return locked; }
-    void setLockedState(bool value) { locked = value; }
-};
-
 class GlobalDataClass {
     GlobalDataLocation globalLocations[GLOBAL_DATA_LOCATION_COUNT];
     GlobalDataSurfer globalSurfers[GLOBAL_DATA_SURFER_COUNT];
     GlobalDataBeach globalBeaches[GLOBAL_DATA_BEACH_COUNT];
-    GlobalDataCheat globalCheats[1];
+    Cheat globalCheats[CHEAT_LAST];
 
 public:
     void init();
@@ -91,19 +84,10 @@ extern CareerData CareerDataArray[LEVEL_LAST];
 
 extern GlobalDataClass globalCareerData;
 extern bool all_personality_cheat;
-extern GlobalDataCheat g_session_cheats[];
+extern Cheat g_session_cheats[CHEAT_LAST];
 
 __asm__(".equ globalCareerData, 0x004349B8");
-#if !defined(KELLY_DECOMP_FUNCTION_002EFF30)
-__asm__(".equ isSurferMovieUnlocked__C15GlobalDataClassi, 0x002EFF30");
-#endif
-#if !defined(KELLY_DECOMP_FUNCTION_002EFFC8)
-__asm__(".equ isCheatUnlocked__C15GlobalDataClassi, 0x002EFFC8");
-#endif
 __asm__(".equ CareerDataArray, 0x0042ECA0");
-#if !defined(KELLY_DECOMP_FUNCTION_002EFF78)
-__asm__(".equ unlockBeach__15GlobalDataClassi, 0x002EFF78");
-#endif
 __asm__(".equ all_personality_cheat, 0x0043BDB4");
 __asm__(".equ g_session_cheats, 0x0043BD48");
 

@@ -34,6 +34,8 @@ class Cheat {
     bool on;
 
 public:
+    inline bool getLockedState() const { return locked; }
+    inline void setLockedState(bool value) { locked = value; }
     inline bool isOn() const { return on; }
     static int checkCodeUnlock(stringx code);
 };

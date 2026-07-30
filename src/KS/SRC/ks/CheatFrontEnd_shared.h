@@ -12,7 +12,7 @@
 #undef KELLY_DECOMP_FULL_FEMENU_ENTRY
 #include "KS/SRC/ks/SoundScript_shared.h"
 #include "KS/SRC/ks/cheat_shared.h"
-#include "KS/SRC/ks/GlobalData_shared.h"
+#include "KS/SRC/ks/GlobalData.h"
 
 #define MAX_CHEATS_PER_SCREEN 2
 #define NUM_PHONE_NUM_GAPS 2
