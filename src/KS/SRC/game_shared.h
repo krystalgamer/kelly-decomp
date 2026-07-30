@@ -63,6 +63,12 @@ class game {
     int active_player;
 
 public:
+    void do_profiler_stuff();
+    void render_shadows();
+    void render_black_screen();
+    void clear_screen();
+    void draw_debug_labels();
+    void set_num_ai_players(int count);
     bool is_paused() const;
     bool was_start_pressed() const;
     bool was_A_pressed() const;

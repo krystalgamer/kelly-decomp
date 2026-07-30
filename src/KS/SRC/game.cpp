@@ -1,5 +1,14 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_002791D0) || \
+    defined(KELLY_DECOMP_FUNCTION_00279DF0) || \
+    defined(KELLY_DECOMP_FUNCTION_00279F30) || \
+    defined(KELLY_DECOMP_FUNCTION_00284628) || \
+    defined(KELLY_DECOMP_FUNCTION_00284E90) || \
+    defined(KELLY_DECOMP_FUNCTION_00284E98)
+#include "KS/SRC/game_shared.h"
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_00283910)
 // 0x00283910 retry_mode__4gameb
 #include "KS/SRC/game_retry_shared.h"
@@ -67,33 +76,18 @@ void nslNoErrors(const char* text) {
 
 #if defined(KELLY_DECOMP_FUNCTION_002791D0)
 // 0x002791D0 do_profiler_stuff__4game
-class game {
-public:
-    void do_profiler_stuff();
-};
-
 void game::do_profiler_stuff() {
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00279DF0)
 // 0x00279DF0 render_shadows__4game
-class game {
-public:
-    void render_shadows();
-};
-
 void game::render_shadows() {
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00279F30)
 // 0x00279F30 render_black_screen__4game
-class game {
-public:
-    void render_black_screen();
-};
-
 void game::render_black_screen() {
 }
 #endif
@@ -126,11 +120,6 @@ bool game::is_paused() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00284628)
 // 0x00284628 clear_screen__4game
-class game {
-public:
-    void clear_screen();
-};
-
 void game::clear_screen() {
 }
 #endif
@@ -143,24 +132,12 @@ void game::SetBoardIdx(int hero, int index) { boardIdx[hero] = index; }
 
 #if defined(KELLY_DECOMP_FUNCTION_00284E90)
 // 0x00284E90 draw_debug_labels__4game
-class game {
-public:
-    void draw_debug_labels();
-};
-
 void game::draw_debug_labels() {
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00284E98)
 // 0x00284E98 set_num_ai_players__4gamei
-class game {
-    char padding[0xB4];
-    int num_ai_players;
-public:
-    void set_num_ai_players(int count);
-};
-
 void game::set_num_ai_players(int count) {
     num_ai_players = count;
 }
