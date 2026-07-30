@@ -7,11 +7,13 @@
 #include "KS/SRC/po_shared.h"
 #include "KS/SRC/stringx.h"
 #include "KS/SRC/time_interface_shared.h"
+#include "KS/SRC/vector3d_shared.h"
 #include "KS/SRC/visrep_shared.h"
 
 #pragma interface
 
 typedef short anim_id_t;
+typedef int entity_flavor_t;
 
 class camera;
 class chunk_file;
@@ -43,9 +45,17 @@ enum entity_extended_flags {
 
 enum entity_flags {
     EFLAG_PHYSICS_COLLISIONS_ACTIVE = 0x00000002,
+    EFLAG_PHYSICS_MOVING = 0x00000004,
+    EFLAG_PHYSICS_WALKABLE = 0x00000008,
+    EFLAG_PHYSICS_STICKY = 0x00000040,
     EFLAG_GRAPHICS = 0x00000100,
+    EFLAG_GRAPHICS_VISIBLE = 0x00000200,
     EFLAG_GRAPHICS_MOTION_BLUR = 0x00000400,
     EFLAG_GRAPHICS_MOTION_TRAIL = 0x00000800,
+    EFLAG_MISC_REPULSION = 0x00001000,
+    EFLAG_MISC_IN_USE = 0x00010000,
+    EFLAG_ACTIVE = 0x00020000,
+    EFLAG_PHYSENT_EXTERNALLY_CONTROLLED = 0x00100000,
     EFLAG_REGION_FORCED = 0x10000000
 };
 
@@ -119,9 +129,23 @@ public:
 };
 
 class entity : public bone {
+public:
+    struct movement_info;
+
+private:
     stringx fileName;
     unsigned int flags;
-    char entity_data_before_interfaces[0x30];
+    entity_flavor_t flavor;
+    char entity_id_data[4];
+    stringx parsedName;
+    void *my_animation;
+    rational_t radius;
+    int MaterialMask;
+    int TextureFrame;
+    bool cull_entity;
+    bool use_uv_scrolling;
+    float scroll_u;
+    float scroll_v;
     ai_interface *my_ai_interface;
     animation_interface *my_animation_interface;
     hard_attrib_interface *my_hard_attrib_interface;
@@ -143,12 +167,14 @@ class entity : public bone {
     rational_t vis_xz_rad_rel_center;
     collision_geometry *colgeom;
     char entity_data_before_movement_info[4];
-    void *movement_info_data;
+    movement_info *movement_info_data;
     char entity_data_before_entity_sector[4];
     sector *entity_sector;
     region_node *center_region;
     region_node_pset in_regions;
-    char entity_data_after_regions[0x30];
+    char entity_data_after_regions[0x28];
+    time_value_t programmed_cell_death;
+    unsigned int max_lights;
     unsigned int ext_flags;
     destroyable_info *destroy_info;
     char entity_data_before_render_color[0x38];
@@ -157,7 +183,8 @@ protected:
     entity_color32 render_color;
 
 private:
-    char entity_trailing_data[0x24];
+    vector3d render_scale;
+    char entity_trailing_data[0x18];
 
 public:
     virtual bool get_ifc_num(const pstring &attribute, rational_t &value);
@@ -214,9 +241,7 @@ public:
     };
 
     virtual force_active_t get_forced_active() const;
-    virtual bool are_collisions_active() const {
-        return flags & EFLAG_PHYSICS_COLLISIONS_ACTIVE;
-    }
+    virtual bool are_collisions_active() const;
     virtual void set_collisions_active(
         bool active,
         bool update_region = true
@@ -297,6 +322,7 @@ public:
     virtual const stringx &get_dirname() const;
     virtual bool has_dirname() const;
     virtual void set_min_detail(int detail);
+    virtual entity_flavor_t get_flavor() const;
     virtual bool is_an_entity() const;
     virtual bool is_a_beam() const;
     virtual bool is_a_camera() const;
@@ -338,6 +364,35 @@ public:
     virtual const po &get_colgeom_root_po() const;
     virtual const entity *get_colgeom_root() const;
     virtual region_node *get_region() const;
+    virtual void camera_set_target(const vector3d &position);
+    virtual void camera_set_roll(rational_t angle);
+    virtual void camera_set_collide_with_world(bool collide);
+    virtual bool camera_slide_to(
+        const vector3d &position,
+        const vector3d &target,
+        rational_t roll,
+        rational_t speed);
+    virtual bool camera_slide_to_orbit(
+        const vector3d &center,
+        rational_t range,
+        rational_t theta,
+        rational_t psi,
+        rational_t speed);
+    virtual void camera_orbit(
+        const vector3d &center,
+        rational_t range,
+        rational_t theta,
+        rational_t psi);
+    virtual const po &get_frame_delta() const;
+    virtual bool is_frame_delta_valid() const;
+    virtual bool is_last_frame_delta_valid() const;
+    virtual time_value_t get_programmed_cell_death() const;
+    virtual rational_t get_hit_points() const;
+    virtual rational_t get_full_hit_points() const;
+    virtual bool has_destroy_info() const;
+    virtual destroyable_info *get_destroy_info() const;
+    virtual void set_render_scale(const vector3d &scale);
+    virtual vector3d get_detonate_position() const;
     virtual void add_me_to_region(region *target);
     virtual void remove_me_from_region(region *target);
     virtual void compute_sector(

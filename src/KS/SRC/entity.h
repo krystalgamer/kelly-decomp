@@ -1,6 +1,28 @@
 // Matching decompilation blocks selected by generated build shims.
 
 #if defined(KELLY_DECOMP_FUNCTION_00144FC8) || \
+    defined(KELLY_DECOMP_FUNCTION_00144B98) || \
+    defined(KELLY_DECOMP_FUNCTION_00144BA0) || \
+    defined(KELLY_DECOMP_FUNCTION_00144C30) || \
+    defined(KELLY_DECOMP_FUNCTION_00144C48) || \
+    defined(KELLY_DECOMP_FUNCTION_00144C78) || \
+    defined(KELLY_DECOMP_FUNCTION_00144C90) || \
+    defined(KELLY_DECOMP_FUNCTION_00144CA0) || \
+    defined(KELLY_DECOMP_FUNCTION_00144CB0) || \
+    defined(KELLY_DECOMP_FUNCTION_00144CE0) || \
+    defined(KELLY_DECOMP_FUNCTION_00144CF8) || \
+    defined(KELLY_DECOMP_FUNCTION_00144D28) || \
+    defined(KELLY_DECOMP_FUNCTION_00144D38) || \
+    defined(KELLY_DECOMP_FUNCTION_00144D68) || \
+    defined(KELLY_DECOMP_FUNCTION_00144D78) || \
+    defined(KELLY_DECOMP_FUNCTION_00144DA8) || \
+    defined(KELLY_DECOMP_FUNCTION_00144DE0) || \
+    defined(KELLY_DECOMP_FUNCTION_00144DF0) || \
+    defined(KELLY_DECOMP_FUNCTION_00144E00) || \
+    defined(KELLY_DECOMP_FUNCTION_00144E18) || \
+    defined(KELLY_DECOMP_FUNCTION_00144E28) || \
+    defined(KELLY_DECOMP_FUNCTION_00144AC0) || \
+    defined(KELLY_DECOMP_FUNCTION_00144FC0) || \
     defined(KELLY_DECOMP_FUNCTION_00144FD0) || \
     defined(KELLY_DECOMP_FUNCTION_00144FD8) || \
     defined(KELLY_DECOMP_FUNCTION_00144FE0) || \
@@ -60,21 +82,33 @@
     defined(KELLY_DECOMP_FUNCTION_001450E0) || \
     defined(KELLY_DECOMP_FUNCTION_00145118) || \
     defined(KELLY_DECOMP_FUNCTION_00145120) || \
-    defined(KELLY_DECOMP_FUNCTION_00145130)
+    defined(KELLY_DECOMP_FUNCTION_00145130) || \
+    defined(KELLY_DECOMP_FUNCTION_00145138) || \
+    defined(KELLY_DECOMP_FUNCTION_00145140) || \
+    defined(KELLY_DECOMP_FUNCTION_00145148) || \
+    defined(KELLY_DECOMP_FUNCTION_00145150) || \
+    defined(KELLY_DECOMP_FUNCTION_00145158) || \
+    defined(KELLY_DECOMP_FUNCTION_00145160) || \
+    defined(KELLY_DECOMP_FUNCTION_00145168) || \
+    defined(KELLY_DECOMP_FUNCTION_00145188) || \
+    defined(KELLY_DECOMP_FUNCTION_001451A8) || \
+    defined(KELLY_DECOMP_FUNCTION_001451B8) || \
+    defined(KELLY_DECOMP_FUNCTION_001451C0) || \
+    defined(KELLY_DECOMP_FUNCTION_001451D0) || \
+    defined(KELLY_DECOMP_FUNCTION_00145208) || \
+    defined(KELLY_DECOMP_FUNCTION_00145218) || \
+    defined(KELLY_DECOMP_FUNCTION_00145228) || \
+    defined(KELLY_DECOMP_FUNCTION_00145258) || \
+    defined(KELLY_DECOMP_FUNCTION_00144EC0) || \
+    defined(KELLY_DECOMP_FUNCTION_00144DB8) || \
+    defined(KELLY_DECOMP_FUNCTION_001450F0) || \
+    defined(KELLY_DECOMP_FUNCTION_00144F28)
 #include "KS/SRC/entity_shared.h"
 #endif
 
 
 #if defined(KELLY_DECOMP_FUNCTION_00144B98)
 // 0x00144B98 set_radius__6entityf
-class entity {
-    char padding[0x90];
-    float radius;
-
-public:
-    void set_radius(float value);
-};
-
 void entity::set_radius(float value) {
     radius = value;
 }
@@ -82,14 +116,6 @@ void entity::set_radius(float value) {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144BA0)
 // 0x00144BA0 get_radius__C6entity
-class entity {
-    char padding[0x90];
-    float radius;
-
-public:
-    float get_radius() const;
-};
-
 float entity::get_radius() const {
     return radius;
 }
@@ -97,11 +123,6 @@ float entity::get_radius() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144C30)
 // 0x00144C30 is_time_limited__C6entity
-class entity {
-public:
-    bool is_time_limited() const;
-};
-
 bool entity::is_time_limited() const {
     unsigned int masked;
     __asm__(
@@ -118,8 +139,7 @@ bool entity::is_time_limited() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144C78)
 // 0x00144C78 is_active__C6entity
-class entity { char padding[0x78]; int flags; public: bool is_active() const; };
-bool entity::is_active() const { return (flags >> 17) & 1; }
+bool entity::is_active() const { return flags & EFLAG_ACTIVE; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144C88)
@@ -131,65 +151,51 @@ entity::force_active_t entity::get_forced_active() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144C90)
 // 0x00144C90 are_collisions_active__C6entity
-class entity { char padding[0x78]; int flags; public: bool are_collisions_active() const; };
-bool entity::are_collisions_active() const { return (flags >> 1) & 1; }
+bool entity::are_collisions_active() const { return flags & EFLAG_PHYSICS_COLLISIONS_ACTIVE; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144CA0)
 // 0x00144CA0 is_sticky__C6entity
-class entity { char padding[0x78]; int flags; public: bool is_sticky() const; };
-bool entity::is_sticky() const { return (flags >> 6) & 1; }
+bool entity::is_sticky() const { return flags & EFLAG_PHYSICS_STICKY; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144CE0)
 // 0x00144CE0 is_stationary__C6entity
-class entity { char padding[0x78]; int flags; public: bool is_stationary() const; };
-bool entity::is_stationary() const { return !((flags >> 2) & 1); }
+bool entity::is_stationary() const { return !(flags & EFLAG_PHYSICS_MOVING); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144D28)
 // 0x00144D28 is_walkable__C6entity
-class entity { char padding[0x78]; int flags; public: bool is_walkable() const; };
-bool entity::is_walkable() const { return (flags >> 3) & 1; }
+bool entity::is_walkable() const { return flags & EFLAG_PHYSICS_WALKABLE; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144D68)
 // 0x00144D68 is_repulsion__C6entity
-class entity { char padding[0x78]; int flags; public: bool is_repulsion() const; };
-bool entity::is_repulsion() const { return (flags >> 12) & 1; }
+bool entity::is_repulsion() const { return flags & EFLAG_MISC_REPULSION; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144DA8)
 // 0x00144DA8 is_visible__C6entity
-class entity { char padding[0x78]; int flags; public: bool is_visible() const; };
-bool entity::is_visible() const { return (flags >> 9) & 1; }
+bool entity::is_visible() const { return flags & EFLAG_GRAPHICS_VISIBLE; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144DE0)
 // 0x00144DE0 is_motion_blurred__C6entity
-class entity { char padding[0x78]; int flags; public: bool is_motion_blurred() const; };
-bool entity::is_motion_blurred() const { return (flags >> 10) & 1; }
+bool entity::is_motion_blurred() const { return flags & EFLAG_GRAPHICS_MOTION_BLUR; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144DF0)
 // 0x00144DF0 is_motion_trailed__C6entity
-class entity { char padding[0x78]; int flags; public: bool is_motion_trailed() const; };
-bool entity::is_motion_trailed() const { return (flags >> 11) & 1; }
+bool entity::is_motion_trailed() const { return flags & EFLAG_GRAPHICS_MOTION_TRAIL; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144E00)
 // 0x00144E00 get_externally_controlled__C6entity
-class entity { char padding[0x78]; int flags; public: bool get_externally_controlled() const; };
-bool entity::get_externally_controlled() const { return (flags >> 20) & 1; }
+bool entity::get_externally_controlled() const { return flags & EFLAG_PHYSENT_EXTERNALLY_CONTROLLED; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144E18)
 // 0x00144E18 get_in_use__C6entity
-class entity {
-public:
-    bool get_in_use() const;
-};
-
 bool entity::get_in_use() const {
     short flags;
     __asm__("lh %0, 0x7A(%1)" : "=r"(flags) : "r"(this));
@@ -349,18 +355,6 @@ bool entity::has_dirname() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144FC0)
 // 0x00144FC0 get_flavor__C6entity
-enum entity_flavor_t {
-    ENTITY_FLAVOR_PLACEHOLDER
-};
-
-class entity {
-    char padding[0x7C];
-    entity_flavor_t flavor;
-
-public:
-    entity_flavor_t get_flavor() const;
-};
-
 entity_flavor_t entity::get_flavor() const {
     return flavor;
 }
@@ -640,53 +634,24 @@ region_node *entity::get_region() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145138)
 // 0x00145138 camera_set_target__6entityRC8vector3d
-class vector3d;
-
-class entity {
-public:
-    void camera_set_target(const vector3d &position);
-};
-
 void entity::camera_set_target(const vector3d &position) {
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00145140)
 // 0x00145140 camera_set_roll__6entityf
-class entity {
-public:
-    void camera_set_roll(float angle);
-};
-
 void entity::camera_set_roll(float angle) {
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00145148)
 // 0x00145148 camera_set_collide_with_world__6entityb
-class entity {
-public:
-    void camera_set_collide_with_world(bool collide);
-};
-
 void entity::camera_set_collide_with_world(bool collide) {
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00145150)
 // 0x00145150 camera_slide_to__6entityRC8vector3dT1ff
-class vector3d;
-
-class entity {
-public:
-    bool camera_slide_to(
-        const vector3d &position,
-        const vector3d &target,
-        float roll,
-        float speed
-    );
-};
-
 bool entity::camera_slide_to(
     const vector3d &position,
     const vector3d &target,
@@ -699,19 +664,6 @@ bool entity::camera_slide_to(
 
 #if defined(KELLY_DECOMP_FUNCTION_00145158)
 // 0x00145158 camera_slide_to_orbit__6entityRC8vector3dffff
-class vector3d;
-
-class entity {
-public:
-    bool camera_slide_to_orbit(
-        const vector3d &center,
-        float range,
-        float theta,
-        float psi,
-        float speed
-    );
-};
-
 bool entity::camera_slide_to_orbit(
     const vector3d &center,
     float range,
@@ -725,18 +677,6 @@ bool entity::camera_slide_to_orbit(
 
 #if defined(KELLY_DECOMP_FUNCTION_00145160)
 // 0x00145160 camera_orbit__6entityRC8vector3dfff
-class vector3d;
-
-class entity {
-public:
-    void camera_orbit(
-        const vector3d &center,
-        float range,
-        float theta,
-        float psi
-    );
-};
-
 void entity::camera_orbit(
     const vector3d &center,
     float range,
@@ -748,35 +688,13 @@ void entity::camera_orbit(
 
 #if defined(KELLY_DECOMP_FUNCTION_001451A8)
 // 0x001451A8 get_frame_delta__C6entity
-class po {};
-
-struct movement_info {
-    char padding[0x10];
-    po frame_delta;
-};
-
-class entity {
-    char padding[0x150];
-    movement_info* mi;
-public:
-    const po& get_frame_delta() const;
-};
-
 const po& entity::get_frame_delta() const {
-    return mi->frame_delta;
+    return get_movement_info()->frame_delta;
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001451B8)
 // 0x001451B8 get_programmed_cell_death__C6entity
-class entity {
-    char padding[0x190];
-    float programmed_cell_death;
-
-public:
-    float get_programmed_cell_death() const;
-};
-
 float entity::get_programmed_cell_death() const {
     return programmed_cell_death;
 }
@@ -784,27 +702,16 @@ float entity::get_programmed_cell_death() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_001451C0)
 // 0x001451C0 get_hit_points__C6entity
-class entity { public: float get_hit_points() const; };
 float entity::get_hit_points() const { return 1.0f; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001451D0)
 // 0x001451D0 get_full_hit_points__C6entity
-class entity { public: float get_full_hit_points() const; };
 float entity::get_full_hit_points() const { return 1.0f; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00145208)
 // 0x00145208 has_destroy_info__C6entity
-class destroyable_info;
-
-class entity {
-    char padding[0x19C];
-    destroyable_info* destroy_info;
-public:
-    bool has_destroy_info() const;
-};
-
 bool entity::has_destroy_info() const {
     return destroy_info != 0;
 }
@@ -812,16 +719,6 @@ bool entity::has_destroy_info() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145218)
 // 0x00145218 get_destroy_info__C6entity
-class destroyable_info;
-
-class entity {
-    char padding[0x19C];
-    destroyable_info *destroy_info;
-
-public:
-    destroyable_info *get_destroy_info() const;
-};
-
 destroyable_info *entity::get_destroy_info() const {
     return destroy_info;
 }
@@ -829,104 +726,73 @@ destroyable_info *entity::get_destroy_info() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145168)
 // 0x00145168 is_frame_delta_valid__C6entity
-struct movement_info { bool frame_delta_valid; bool last_frame_delta_valid; };
-class entity { char padding[0x150]; movement_info* mi; public: bool is_frame_delta_valid() const; };
-bool entity::is_frame_delta_valid() const { return mi && mi->frame_delta_valid; }
+bool entity::is_frame_delta_valid() const { return movement_info_data && movement_info_data->frame_delta_valid; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00145188)
 // 0x00145188 is_last_frame_delta_valid__C6entity
-struct movement_info { bool frame_delta_valid; bool last_frame_delta_valid; };
-class entity { char padding[0x150]; movement_info* mi; public: bool is_last_frame_delta_valid() const; };
-bool entity::is_last_frame_delta_valid() const { return mi && mi->last_frame_delta_valid; }
+bool entity::is_last_frame_delta_valid() const { return movement_info_data && movement_info_data->last_frame_delta_valid; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00145258)
 // 0x00145258 set_render_scale__6entityRC8vector3d
-struct vector3d { float x; float y; float z; vector3d &operator=(const vector3d &other) { x = other.x; y = other.y; z = other.z; return *this; } };
-class entity { char padding[0x1dc]; vector3d render_scale; public: void set_render_scale(const vector3d &value); };
 void entity::set_render_scale(const vector3d &value) { render_scale = value; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144AC0)
 // 0x00144AC0 set_ext_flag_recursive__6entityUib
-class entity { char padding[0x198]; unsigned int ext_flags; public: void set_ext_flag_recursive(unsigned int flag, bool enabled); };
 void entity::set_ext_flag_recursive(unsigned int flag, bool enabled) { if (enabled) ext_flags |= flag; else ext_flags &= ~flag; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144EC0)
 // 0x00144EC0 get_effective_collision_velocity__C6entityP8vector3dRC8vector3d
-struct vector3d { float x; float y; float z; vector3d &operator=(const vector3d &other) { x = other.x; y = other.y; z = other.z; return *this; } };
 extern const vector3d global_ZEROVEC;
 __asm__(".equ global_ZEROVEC, 0x00513840");
-class entity { public: void get_effective_collision_velocity(vector3d *target, const vector3d &location) const; };
 void entity::get_effective_collision_velocity(vector3d *target, const vector3d &location) const { *target = global_ZEROVEC; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144DB8)
 // 0x00144DB8 is_still_visible__C6entity
-struct EntityVisibleVTable { char padding[0x158]; short adjustment; short padding2; bool (*call)(void *self); };
-class entity { char padding[8]; EntityVisibleVTable *vtable; public: bool is_still_visible() const; };
-bool entity::is_still_visible() const { return vtable->call((char *)this + vtable->adjustment); }
+bool entity::is_still_visible() const { return is_visible(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001450F0)
 // 0x001450F0 terrain_radius__C6entity
-struct EntityRadiusVTable { char padding[0x260]; short adjustment; short padding2; float (*call)(void *self); };
-class entity { char padding[8]; EntityRadiusVTable *vtable; public: float terrain_radius() const; };
-float entity::terrain_radius() const { return vtable->call((char *)this + vtable->adjustment); }
+float entity::terrain_radius() const { return get_visual_radius(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00145228)
 // 0x00145228 get_detonate_position__C6entity
-struct vector3d { float x; float y; float z; vector3d(const vector3d &other) { x = other.x; y = other.y; z = other.z; } };
-struct position_holder { char padding[0x30]; vector3d position; };
-class entity { char padding[0x50]; position_holder *holder; public: vector3d get_detonate_position() const; };
-vector3d entity::get_detonate_position() const { return holder->position; }
+vector3d entity::get_detonate_position() const { return get_abs_position(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144CB0)
 // 0x00144CB0 set_sticky__6entityb
-class entity { char padding[0x78]; unsigned int flags; public: void set_sticky(bool value); };
 void entity::set_sticky(bool value) { if (value) flags |= 0x40; else flags &= ~0x40; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144CF8)
 // 0x00144CF8 set_stationary__6entityb
-class entity { char padding[0x78]; unsigned int flags; public: void set_stationary(bool value); };
 void entity::set_stationary(bool value) { if (!value) flags |= 0x04; else flags &= ~0x04; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144D38)
 // 0x00144D38 set_walkable__6entityb
-class entity { char padding[0x78]; unsigned int flags; public: void set_walkable(bool value); };
 void entity::set_walkable(bool value) { if (value) flags |= 0x08; else flags &= ~0x08; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144D78)
 // 0x00144D78 set_repulsion__6entityb
-class entity { char padding[0x78]; unsigned int flags; public: void set_repulsion(bool value); };
 void entity::set_repulsion(bool value) { if (value) flags |= 0x1000; else flags &= ~0x1000; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144F28)
 // 0x00144F28 get_visrep_ending_time__C6entity
-struct visrep_vtable { char padding[0x38]; short adjustment; short padding2; float (*get_ending_time)(void *self); };
-struct visrep { char padding[0x10]; visrep_vtable *vtable; };
-class entity { char padding[0x128]; visrep *my_visrep; public: float get_visrep_ending_time() const; };
-float entity::get_visrep_ending_time() const { visrep_vtable *table = my_visrep->vtable; return table->get_ending_time((char *)my_visrep + table->adjustment); }
+float entity::get_visrep_ending_time() const { return my_visrep->get_ending_time(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00144C48)
 // 0x00144C48 set_time_limited__6entityb
-class entity {
-    char padding[0x198];
-    unsigned int ext_flags;
-
-public:
-    void set_time_limited(bool enabled);
-};
-
 void entity::set_time_limited(bool enabled) {
     if (enabled) {
         ext_flags |= 0x10000;
@@ -938,14 +804,6 @@ void entity::set_time_limited(bool enabled) {
 
 #if defined(KELLY_DECOMP_FUNCTION_00144E28)
 // 0x00144E28 set_in_use__6entityb
-class entity {
-    char padding[0x78];
-    unsigned int flags;
-
-public:
-    void set_in_use(bool enabled);
-};
-
 void entity::set_in_use(bool enabled) {
     if (enabled) {
         flags |= 0x10000;
