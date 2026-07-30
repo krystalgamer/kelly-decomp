@@ -5,6 +5,8 @@
 #include "KS/SRC/pstring_shared.h"
 
 class stash_index_entry {
+    friend class stash;
+
     enum Flags {
         IS_VALID = 0x1,
         IS_STORED = 0x2,
@@ -25,6 +27,30 @@ class stash_index_entry {
     unsigned int padding4;
 
 public:
+    enum index_entry_t {
+        STASH_INDEX_ENTRY_UNUSED,
+        STASH_INDEX_ENTRY_RAW,
+        STASH_INDEX_ENTRY_PS2MESH,
+        STASH_INDEX_ENTRY_XBMESH,
+        STASH_INDEX_ENTRY_GCMESH,
+        STASH_INDEX_ENTRY_ANMX,
+        STASH_INDEX_ENTRY_TEX,
+        STASH_INDEX_ENTRY_SNMX,
+        STASH_INDEX_ENTRY_MISC
+    };
+
+    inline bool is_stored() {
+        return (flags & IS_STORED) == IS_STORED;
+    }
+
+    inline bool is_valid() {
+        return (flags & IS_VALID) == IS_VALID;
+    }
+
+    inline void set_offset(unsigned int new_offset) {
+        file_offset = new_offset;
+    }
+
     inline bool was_used() {
         return (flags & WAS_USED) == WAS_USED;
     }
@@ -75,7 +101,18 @@ enum StashID {
 
 class stash {
 public:
+    enum stash_section_t {
+        STASH_SECTION_STORED,
+        STASH_SECTION_TEMP,
+        STASH_SECTION_ARAM,
+        STASH_SECTION_INDEX
+    };
+
     static void release_stash_bufferspace();
+    static void write_tree(
+        class os_file &file,
+        AvlNode *node,
+        stash_section_t section);
     static unsigned int add_stored(
         class os_file &file,
         unsigned char *raw_data,
@@ -92,8 +129,22 @@ private:
 
 class os_file {
 public:
+    bool is_open();
     int write(void *data, int size);
 };
+
+extern const pstring ps2mesh_type;
+extern const pstring xbmesh_type;
+extern const pstring gcmesh_type;
+extern const pstring unused_type;
+extern const pstring raw_type;
+extern const pstring anmx_type;
+extern const pstring tex_type;
+extern const pstring snmx_type;
+extern const pstring misc_type;
+extern const pstring unknown_type;
+
+void debug_print(const char *format, ...);
 
 extern void *arch_memalign(
     unsigned int boundary,
@@ -106,5 +157,23 @@ __asm__(".equ _5stash$substash, 0x0046B7B8");
 __asm__(".equ _5stash$curstash, 0x0046D9C0");
 __asm__(".equ release_stash_bufferspace__10multistash, 0x003471B0");
 __asm__(".equ write__7os_filePvi, 0x001E0980");
+#if !defined(KELLY_DECOMP_FUNCTION_003471E0)
+__asm__(".equ add_stored__5stashR7os_filePUcUi, 0x003471E0");
+#endif
+#if !defined(KELLY_DECOMP_FUNCTION_00347230)
+__asm__(".equ add_temp__5stashR7os_filePUcUi, 0x00347230");
+#endif
+__asm__(".equ unpack_string__C7pstring, 0x00335648");
+__asm__(".equ debug_print__FPCce, 0x00120790");
+__asm__(".equ ps2mesh_type, 0x0058ACA8");
+__asm__(".equ xbmesh_type, 0x0058ACC8");
+__asm__(".equ gcmesh_type, 0x0058ACE8");
+__asm__(".equ unused_type, 0x0058AD08");
+__asm__(".equ raw_type, 0x0058AD28");
+__asm__(".equ anmx_type, 0x0058AD48");
+__asm__(".equ tex_type, 0x0058AD68");
+__asm__(".equ snmx_type, 0x0058AD88");
+__asm__(".equ misc_type, 0x0058ADA8");
+__asm__(".equ unknown_type, 0x0058ADC8");
 
 #endif
