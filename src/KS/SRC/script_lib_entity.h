@@ -11,7 +11,7 @@ void ScriptDtor_0031D938(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPI
 
 #if defined(KELLY_DECOMP_FUNCTION_0031D958)
 // 0x0031D958 __tf12slc_entity_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **SlcEntityBaseRtti() __asm__("__tf20script_library_class");
 extern "C" void *slc_entity_type[] __asm__("__ti12slc_entity_t");
 extern "C" const char slc_entity_name[];

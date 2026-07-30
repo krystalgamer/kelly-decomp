@@ -48,7 +48,7 @@ bool CompleteGoal4Button(MenuEntry *entry, int button) { if (beach_ptr) beach_pt
 
 #if defined(KELLY_DECOMP_FUNCTION_00302AD0)
 // 0x00302AD0 __tf9MenuCheat
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **MenuCheatBaseRtti() __asm__("__tf4Menu");
 extern "C" void *menu_cheat_type[] __asm__("__ti9MenuCheat");
 extern "C" const char menu_cheat_name[];

@@ -127,7 +127,7 @@ bool slf_anim_set_timescale_t::operator()(vm_stack &stack, entry_t entry) {
 
 #if defined(KELLY_DECOMP_FUNCTION_00324B10)
 // 0x00324B10 __tf16slf_anim_pause_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00324B10()
     __asm__("__tfQ220script_library_class8function");
@@ -154,7 +154,7 @@ void **Rtti_00324B10()
 
 #if defined(KELLY_DECOMP_FUNCTION_00324BC8)
 // 0x00324BC8 __tf24slf_anim_set_timescale_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00324BC8()
     __asm__("__tfQ220script_library_class8function");
@@ -181,7 +181,7 @@ void **Rtti_00324BC8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00324C80)
 // 0x00324C80 __tf19slf_anim_set_time_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00324C80()
     __asm__("__tfQ220script_library_class8function");
@@ -208,7 +208,7 @@ void **Rtti_00324C80()
 
 #if defined(KELLY_DECOMP_FUNCTION_00324D90)
 // 0x00324D90 __tf15slf_anim_play_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00324D90()
     __asm__("__tfQ220script_library_class8function");
@@ -235,7 +235,7 @@ void **Rtti_00324D90()
 
 #if defined(KELLY_DECOMP_FUNCTION_00324E58)
 // 0x00324E58 __tf24slf_anim_wait_finished_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00324E58()
     __asm__("__tfQ220script_library_class8function");
@@ -262,7 +262,7 @@ void **Rtti_00324E58()
 
 #if defined(KELLY_DECOMP_FUNCTION_00324F90)
 // 0x00324F90 __tf20slf_anim_kill_anim_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00324F90()
     __asm__("__tfQ220script_library_class8function");
@@ -289,7 +289,7 @@ void **Rtti_00324F90()
 
 #if defined(KELLY_DECOMP_FUNCTION_00325038)
 // 0x00325038 __tf15slf_load_anim_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00325038()
     __asm__("__tfQ220script_library_class8function");

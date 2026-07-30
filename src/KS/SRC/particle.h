@@ -3,7 +3,7 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_00300088)
 // 0x00300088 __tf18particle_generator
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **ParticleGeneratorBaseRtti() __asm__("__tf6entity");
 extern "C" void *particle_generator_type[] __asm__("__ti18particle_generator");
 extern "C" const char particle_generator_name[];

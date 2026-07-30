@@ -11,7 +11,7 @@ void ScriptDtor_0031DAA0(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPI
 
 #if defined(KELLY_DECOMP_FUNCTION_0031D9B0)
 // 0x0031D9B0 __tf10script_mfg
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **ScriptMfgBaseRtti() __asm__("__tf9signaller");
 extern "C" void *script_mfg_type[] __asm__("__ti10script_mfg");
 extern "C" const char script_mfg_name[];
@@ -33,7 +33,7 @@ void **ScriptMfgRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DAC0)
 // 0x0031DAC0 __tf9slc_mfg_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **SlcMfgBaseRtti() __asm__("__tf20script_library_class");
 extern "C" void *slc_mfg_type[] __asm__("__ti9slc_mfg_t");
 extern "C" const char slc_mfg_name[];

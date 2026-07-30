@@ -15,7 +15,7 @@ bool conglomerate::is_a_conglomerate() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00312F40)
 // 0x00312F40 __tf12conglomerate
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **ConglomerateBaseRtti() __asm__("__tf6entity");
 extern "C" void *conglomerate_type[] __asm__("__ti12conglomerate");
 extern "C" const char conglomerate_name[];

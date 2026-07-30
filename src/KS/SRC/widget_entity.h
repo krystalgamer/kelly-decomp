@@ -63,7 +63,7 @@ float entity_widget::get_height() {
 
 #if defined(KELLY_DECOMP_FUNCTION_002FEED8)
 // 0x002FEED8 __tf13entity_widget
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **EntityWidgetBaseRtti() __asm__("__tf6widget");
 extern "C" void *entity_widget_type[] __asm__("__ti13entity_widget");
 extern "C" const char entity_widget_name[];

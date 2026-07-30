@@ -3,7 +3,7 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_002FF8E0)
 // 0x002FF8E0 __tf12light_source
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **LightSourceBaseRtti() __asm__("__tf6entity");
 extern "C" void *light_source_type[] __asm__("__ti12light_source");
 extern "C" const char light_source_name[];

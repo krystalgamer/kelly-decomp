@@ -3,7 +3,7 @@
 
 #include "KS/SRC/anim_shared.h"
 #include "KS/SRC/po_shared.h"
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 struct quaternion {
     float value[4];

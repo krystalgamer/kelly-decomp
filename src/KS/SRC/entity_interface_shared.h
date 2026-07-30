@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_ENTITY_INTERFACE_SHARED_H
 #define KELLY_DECOMP_ENTITY_INTERFACE_SHARED_H
 
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 class entity;
 class bone;

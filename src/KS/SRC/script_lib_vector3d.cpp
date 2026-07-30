@@ -192,7 +192,7 @@ void ScriptDtor_0032B340(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_CO
 
 #if defined(KELLY_DECOMP_FUNCTION_003290F8)
 // 0x003290F8 __tf24slf_vector3d_construct_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003290F8()
     __asm__("__tfQ220script_library_class8function");
@@ -219,7 +219,7 @@ void **Rtti_003290F8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00329170)
 // 0x00329170 __tf18slf_vector3d_add_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00329170()
     __asm__("__tfQ220script_library_class8function");
@@ -246,7 +246,7 @@ void **Rtti_00329170()
 
 #if defined(KELLY_DECOMP_FUNCTION_00329368)
 // 0x00329368 __tf23slf_vector3d_subtract_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00329368()
     __asm__("__tfQ220script_library_class8function");
@@ -273,7 +273,7 @@ void **Rtti_00329368()
 
 #if defined(KELLY_DECOMP_FUNCTION_00329560)
 // 0x00329560 __tf25slf_vector3d_mul_scalar_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00329560()
     __asm__("__tfQ220script_library_class8function");
@@ -300,7 +300,7 @@ void **Rtti_00329560()
 
 #if defined(KELLY_DECOMP_FUNCTION_00329748)
 // 0x00329748 __tf25slf_vector3d_div_scalar_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00329748()
     __asm__("__tfQ220script_library_class8function");
@@ -327,7 +327,7 @@ void **Rtti_00329748()
 
 #if defined(KELLY_DECOMP_FUNCTION_00329940)
 // 0x00329940 __tf20slf_vector3d_equal_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00329940()
     __asm__("__tfQ220script_library_class8function");
@@ -354,7 +354,7 @@ void **Rtti_00329940()
 
 #if defined(KELLY_DECOMP_FUNCTION_00329B78)
 // 0x00329B78 __tf24slf_vector3d_not_equal_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00329B78()
     __asm__("__tfQ220script_library_class8function");
@@ -381,7 +381,7 @@ void **Rtti_00329B78()
 
 #if defined(KELLY_DECOMP_FUNCTION_00329DB8)
 // 0x00329DB8 __tf21slf_vector3d_length_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00329DB8()
     __asm__("__tfQ220script_library_class8function");
@@ -408,7 +408,7 @@ void **Rtti_00329DB8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00329FB8)
 // 0x00329FB8 __tf22slf_vector3d_length2_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00329FB8()
     __asm__("__tfQ220script_library_class8function");
@@ -435,7 +435,7 @@ void **Rtti_00329FB8()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032A198)
 // 0x0032A198 __tf22slf_vector3d_xy_norm_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032A198()
     __asm__("__tfQ220script_library_class8function");
@@ -462,7 +462,7 @@ void **Rtti_0032A198()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032A388)
 // 0x0032A388 __tf22slf_vector3d_xz_norm_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032A388()
     __asm__("__tfQ220script_library_class8function");
@@ -489,7 +489,7 @@ void **Rtti_0032A388()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032A578)
 // 0x0032A578 __tf16slf_vector3d_x_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032A578()
     __asm__("__tfQ220script_library_class8function");
@@ -516,7 +516,7 @@ void **Rtti_0032A578()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032A740)
 // 0x0032A740 __tf16slf_vector3d_y_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032A740()
     __asm__("__tfQ220script_library_class8function");
@@ -543,7 +543,7 @@ void **Rtti_0032A740()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032A908)
 // 0x0032A908 __tf16slf_vector3d_z_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032A908()
     __asm__("__tfQ220script_library_class8function");
@@ -570,7 +570,7 @@ void **Rtti_0032A908()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032AAD0)
 // 0x0032AAD0 __tf10slf_dot3_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032AAD0()
     __asm__("__tfQ220script_library_class8function");
@@ -597,7 +597,7 @@ void **Rtti_0032AAD0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032ACC0)
 // 0x0032ACC0 __tf12slf_cross3_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032ACC0()
     __asm__("__tfQ220script_library_class8function");
@@ -624,7 +624,7 @@ void **Rtti_0032ACC0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032AED8)
 // 0x0032AED8 __tf13slf_normal3_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032AED8()
     __asm__("__tfQ220script_library_class8function");
@@ -651,7 +651,7 @@ void **Rtti_0032AED8()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032B140)
 // 0x0032B140 __tf16slf_distance3d_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032B140()
     __asm__("__tfQ220script_library_class8function");
@@ -678,7 +678,7 @@ void **Rtti_0032B140()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032B360)
 // 0x0032B360 __tf20slf_angle_between3_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032B360()
     __asm__("__tfQ220script_library_class8function");

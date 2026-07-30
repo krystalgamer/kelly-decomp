@@ -107,7 +107,7 @@ bool slf_trigger_set_use_any_char_t::operator()(vm_stack &stack, entry_t entry)
 
 #if defined(KELLY_DECOMP_FUNCTION_00328640)
 // 0x00328640 __tf26slf_trigger_get_position_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00328640()
     __asm__("__tfQ220script_library_class8function");
@@ -134,7 +134,7 @@ void **Rtti_00328640()
 
 #if defined(KELLY_DECOMP_FUNCTION_00328830)
 // 0x00328830 __tf31slf_trigger_get_triggered_ent_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00328830()
     __asm__("__tfQ220script_library_class8function");
@@ -161,7 +161,7 @@ void **Rtti_00328830()
 
 #if defined(KELLY_DECOMP_FUNCTION_003289F8)
 // 0x003289F8 __tf24slf_trigger_set_active_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003289F8()
     __asm__("__tfQ220script_library_class8function");
@@ -188,7 +188,7 @@ void **Rtti_003289F8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00328AB8)
 // 0x00328AB8 __tf26slf_create_point_trigger_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00328AB8()
     __asm__("__tfQ220script_library_class8function");
@@ -215,7 +215,7 @@ void **Rtti_00328AB8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00328CA8)
 // 0x00328CA8 __tf24slf_create_box_trigger_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00328CA8()
     __asm__("__tfQ220script_library_class8function");
@@ -242,7 +242,7 @@ void **Rtti_00328CA8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00328E78)
 // 0x00328E78 __tf27slf_create_entity_trigger_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00328E78()
     __asm__("__tfQ220script_library_class8function");
@@ -269,7 +269,7 @@ void **Rtti_00328E78()
 
 #if defined(KELLY_DECOMP_FUNCTION_00329050)
 // 0x00329050 __tf30slf_trigger_set_use_any_char_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00329050()
     __asm__("__tfQ220script_library_class8function");

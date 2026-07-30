@@ -3,7 +3,7 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_00383E20)
 // 0x00383E20 __tf19MenuPerturbDuration
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00383E20()
     __asm__("__tf4Menu");

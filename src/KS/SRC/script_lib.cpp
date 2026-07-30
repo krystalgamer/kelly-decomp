@@ -3,7 +3,7 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DB40)
 // 0x0031DB40 __tf26slf_allow_suspend_thread_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **AllowSuspendBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *allow_suspend_type[] __asm__("__ti26slf_allow_suspend_thread_t");
 extern "C" const char allow_suspend_name[];
@@ -25,7 +25,7 @@ void **AllowSuspendRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DC00)
 // 0x0031DC00 __tf25slf_set_camera_priority_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **SetCameraPriorityBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *set_camera_priority_type[] __asm__("__ti25slf_set_camera_priority_t");
 extern "C" const char set_camera_priority_name[];
@@ -51,7 +51,7 @@ void **SetCameraPriorityRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DCA0)
 // 0x0031DCA0 __tf22slf_enable_marky_cam_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **EnableMarkyCamBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *enable_marky_cam_type[] __asm__("__ti22slf_enable_marky_cam_t");
 extern "C" const char enable_marky_cam_name[];
@@ -73,7 +73,7 @@ void **EnableMarkyCamRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DD70)
 // 0x0031DD70 __tf23slf_disable_marky_cam_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **DisableMarkyCamBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *disable_marky_cam_type[] __asm__("__ti23slf_disable_marky_cam_t");
 extern "C" const char disable_marky_cam_name[];
@@ -95,7 +95,7 @@ void **DisableMarkyCamRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DE40)
 // 0x0031DE40 __tf17slf_freeze_hero_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **FreezeHeroBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *freeze_hero_type[] __asm__("__ti17slf_freeze_hero_t");
 extern "C" const char freeze_hero_name[];
@@ -117,7 +117,7 @@ void **FreezeHeroRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DF08)
 // 0x0031DF08 __tf14slf_set_zoom_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **SetZoomBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *set_zoom_type[] __asm__("__ti14slf_set_zoom_t");
 extern "C" const char set_zoom_name[];
@@ -139,7 +139,7 @@ void **SetZoomRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DFB8)
 // 0x0031DFB8 __tf21slf_localize_thread_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **LocalizeThreadBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *localize_thread_type[] __asm__("__ti21slf_localize_thread_t");
 extern "C" const char localize_thread_name[];
@@ -161,7 +161,7 @@ void **LocalizeThreadRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E080)
 // 0x0031E080 __tf34slf_localize_thread_to_character_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **LocalizeThreadToCharacterBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *localize_thread_to_character_type[] __asm__("__ti34slf_localize_thread_to_character_t");
 extern "C" const char localize_thread_to_character_name[];
@@ -184,7 +184,7 @@ void **LocalizeThreadToCharacterRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E108)
 // 0x0031E108 __tf28slf_localize_thread_region_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **LocalizeThreadRegionBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *localize_thread_region_type[] __asm__("__ti28slf_localize_thread_region_t");
 extern "C" const char localize_thread_region_name[];
@@ -206,7 +206,7 @@ void **LocalizeThreadRegionRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E1F0)
 // 0x0031E1F0 __tf22slf_globalize_thread_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **GlobalizeThreadBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *globalize_thread_type[] __asm__("__ti22slf_globalize_thread_t");
 extern "C" const char globalize_thread_name[];
@@ -228,7 +228,7 @@ void **GlobalizeThreadRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E290)
 // 0x0031E290 __tf20slf_suspend_all_ai_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **SuspendAllAiBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *suspend_all_ai_type[] __asm__("__ti20slf_suspend_all_ai_t");
 extern "C" const char suspend_all_ai_name[];
@@ -250,7 +250,7 @@ void **SuspendAllAiRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E320)
 // 0x0031E320 __tf22slf_unsuspend_all_ai_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **UnsuspendAllAiBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *unsuspend_all_ai_type[] __asm__("__ti22slf_unsuspend_all_ai_t");
 extern "C" const char unsuspend_all_ai_name[];
@@ -272,7 +272,7 @@ void **UnsuspendAllAiRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E3B0)
 // 0x0031E3B0 __tf18slf_enable_pause_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **EnablePauseBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *enable_pause_type[] __asm__("__ti18slf_enable_pause_t");
 extern "C" const char enable_pause_name[];
@@ -294,7 +294,7 @@ void **EnablePauseRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E4A0)
 // 0x0031E4A0 __tf22slf_enable_interface_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **EnableInterfaceBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *enable_interface_type[] __asm__("__ti22slf_enable_interface_t");
 extern "C" const char enable_interface_name[];
@@ -316,7 +316,7 @@ void **EnableInterfaceRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E590)
 // 0x0031E590 __tf28slf_wait_animate_fog_color_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **WaitAnimateFogColorBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *wait_animate_fog_color_type[] __asm__("__ti28slf_wait_animate_fog_color_t");
 extern "C" const char wait_animate_fog_color_name[];
@@ -338,7 +338,7 @@ void **WaitAnimateFogColorRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E820)
 // 0x0031E820 __tf31slf_wait_animate_fog_distance_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **WaitAnimateFogDistanceBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *wait_animate_fog_distance_type[] __asm__("__ti31slf_wait_animate_fog_distance_t");
 extern "C" const char wait_animate_fog_distance_name[];
@@ -361,7 +361,7 @@ void **WaitAnimateFogDistanceRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E9A0)
 // 0x0031E9A0 __tf32slf_wait_animate_fog_distances_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **WaitAnimateFogDistancesBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *wait_animate_fog_distances_type[] __asm__("__ti32slf_wait_animate_fog_distances_t");
 extern "C" const char wait_animate_fog_distances_name[];
@@ -384,7 +384,7 @@ void **WaitAnimateFogDistancesRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031EB40)
 // 0x0031EB40 __tf16slf_wait_frame_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **WaitFrameBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *wait_frame_type[] __asm__("__ti16slf_wait_frame_t");
 extern "C" const char wait_frame_name[];
@@ -406,7 +406,7 @@ void **WaitFrameRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031EBB8)
 // 0x0031EBB8 __tf11slf_delay_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **DelayBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *delay_type[] __asm__("__ti11slf_delay_t");
 extern "C" const char delay_name[];
@@ -428,7 +428,7 @@ void **DelayRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031EC80)
 // 0x0031EC80 __tf15slf_abs_delay_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **AbsDelayBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *abs_delay_type[] __asm__("__ti15slf_abs_delay_t");
 extern "C" const char abs_delay_name[];
@@ -450,7 +450,7 @@ void **AbsDelayRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031ED90)
 // 0x0031ED90 __tf19slf_dilated_delay_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **DilatedDelayBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *dilated_delay_type[] __asm__("__ti19slf_dilated_delay_t");
 extern "C" const char dilated_delay_name[];
@@ -472,7 +472,7 @@ void **DilatedDelayRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031EE68)
 // 0x0031EE68 __tf14slf_vo_delay_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **VoDelayBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *vo_delay_type[] __asm__("__ti14slf_vo_delay_t");
 extern "C" const char vo_delay_name[];
@@ -494,7 +494,7 @@ void **VoDelayRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031EF38)
 // 0x0031EF38 __tf17slf_area_damage_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **AreaDamageBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *area_damage_type[] __asm__("__ti17slf_area_damage_t");
 extern "C" const char area_damage_name[];
@@ -558,7 +558,7 @@ bool slf_area_damage_t::operator()(vm_stack &stack, entry_t entry)
 
 #if defined(KELLY_DECOMP_FUNCTION_0031EFF8)
 // 0x0031EFF8 __tf19slf_post_message2_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **PostMessage2BaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *post_message2_type[] __asm__("__ti19slf_post_message2_t");
 extern "C" const char post_message2_name[];
@@ -580,7 +580,7 @@ void **PostMessage2Rtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F080)
 // 0x0031F080 __tf18slf_post_message_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **PostMessageBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *post_message_type[] __asm__("__ti18slf_post_message_t");
 extern "C" const char post_message_name[];
@@ -602,7 +602,7 @@ void **PostMessageRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F108)
 // 0x0031F108 __tf12slf_strcmp_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **StrcmpBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *strcmp_type[] __asm__("__ti12slf_strcmp_t");
 extern "C" const char strcmp_name[];
@@ -624,7 +624,7 @@ void **StrcmpRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F2E8)
 // 0x0031F2E8 __tf12slf_random_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **RandomBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *random_type[] __asm__("__ti12slf_random_t");
 extern "C" const char random_name[];
@@ -1726,7 +1726,7 @@ class stringx{public:char*chars;const char*c_str()const{return chars;}}; class g
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F4E0)
 // 0x0031F4E0 __tf19slf_get_elevation_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **GetElevationBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *get_elevation_type[] __asm__("__ti19slf_get_elevation_t");
 extern "C" const char get_elevation_name[];
@@ -1748,7 +1748,7 @@ void **GetElevationRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F6C0)
 // 0x0031F6C0 __tf22slf_add_debug_sphere_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **AddDebugSphereBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *add_debug_sphere_type[] __asm__("__ti22slf_add_debug_sphere_t");
 extern "C" const char add_debug_sphere_name[];
@@ -1770,7 +1770,7 @@ void **AddDebugSphereRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F748)
 // 0x0031F748 __tf25slf_clear_debug_spheres_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **ClearDebugSpheresBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *clear_debug_spheres_type[] __asm__("__ti25slf_clear_debug_spheres_t");
 extern "C" const char clear_debug_spheres_name[];
@@ -1792,7 +1792,7 @@ void **ClearDebugSpheresRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F7D0)
 // 0x0031F7D0 __tf18slf_get_time_inc_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **GetTimeIncBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *get_time_inc_type[] __asm__("__ti18slf_get_time_inc_t");
 extern "C" const char get_time_inc_name[];
@@ -1814,7 +1814,7 @@ void **GetTimeIncRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F990)
 // 0x0031F990 __tf16slf_text_width_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **TextWidthBaseRtti() __asm__("__tfQ220script_library_class8function");
 extern "C" void *text_width_type[] __asm__("__ti16slf_text_width_t");
 extern "C" const char text_width_name[];
@@ -1836,7 +1836,7 @@ void **TextWidthRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031FB90)
 // 0x0031FB90 __tf27slf_is_action_button_down_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **IsActionButtonDownBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -1868,7 +1868,7 @@ void **IsActionButtonDownRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031FDE8)
 // 0x0031FDE8 __tf22slf_get_cur_time_inc_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **GetCurTimeIncBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -1900,7 +1900,7 @@ void **GetCurTimeIncRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031FFA8)
 // 0x0031FFA8 __tf15slf_TARGET_PC_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **TargetPcBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -1926,7 +1926,7 @@ void **TargetPcRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00320160)
 // 0x00320160 __tf18slf_letterbox_on_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **LetterboxOnBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -1953,7 +1953,7 @@ void **LetterboxOnRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_003201D8)
 // 0x003201D8 __tf19slf_letterbox_off_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **LetterboxOffBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -1985,7 +1985,7 @@ void **LetterboxOffRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00320250)
 // 0x00320250 __tf20slf_letterbox_cout_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **LetterboxCoutBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2012,7 +2012,7 @@ void **LetterboxCoutRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_003202D8)
 // 0x003202D8 __tf14slf_fade_out_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **FadeOutBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2039,7 +2039,7 @@ void **FadeOutRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00320350)
 // 0x00320350 __tf13slf_fade_in_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **FadeInBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2066,7 +2066,7 @@ void **FadeInRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_003203C8)
 // 0x003203C8 __tf23slf_set_region_active_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **SetRegionActiveBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2093,7 +2093,7 @@ void **SetRegionActiveRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00320610)
 // 0x00320610 __tf25slf_set_fog_table_gamma_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **SetFogTableGammaBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2120,7 +2120,7 @@ void **SetFogTableGammaRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_003206B8)
 // 0x003206B8 __tf22slf_get_detail_level_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **GetDetailLevelBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2147,7 +2147,7 @@ void **GetDetailLevelRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00320878)
 // 0x00320878 __tf23slf_was_start_pressed_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **WasStartPressedBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2174,7 +2174,7 @@ void **WasStartPressedRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00320A70)
 // 0x00320A70 __tf19slf_was_A_pressed_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **WasAPressedBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2201,7 +2201,7 @@ void **WasAPressedRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00320C68)
 // 0x00320C68 __tf19slf_was_B_pressed_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **WasBPressedBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2228,7 +2228,7 @@ void **WasBPressedRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00320E60)
 // 0x00320E60 __tf25slf_get_control_trigger_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **GetControlTriggerBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2255,7 +2255,7 @@ void **GetControlTriggerRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00321040)
 // 0x00321040 __tf23slf_get_control_state_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **GetControlStateBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2282,7 +2282,7 @@ void **GetControlStateRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00321220)
 // 0x00321220 __tf19slf_wait_keypress_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **WaitKeypressBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2309,7 +2309,7 @@ void **WaitKeypressRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_003212E8)
 // 0x003212E8 __tf25slf_apply_radius_damage_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **ApplyRadiusDamageBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2336,7 +2336,7 @@ void **ApplyRadiusDamageRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_003213C8)
 // 0x003213C8 __tf15slf_los_check_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **LosCheckBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2363,7 +2363,7 @@ void **LosCheckRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_003215E0)
 // 0x003215E0 __tf16slf_str_append_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **StrAppendBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2390,7 +2390,7 @@ void **StrAppendRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00321868)
 // 0x00321868 __tf21slf_to_str_vector3d_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **ToStrVector3dBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2417,7 +2417,7 @@ void **ToStrVector3dRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00321AE0)
 // 0x00321AE0 __tf16slf_to_str_num_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **ToStrNumBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2444,7 +2444,7 @@ void **ToStrNumRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00321D00)
 // 0x00321D00 __tf16slf_to_str_int_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **ToStrIntBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2471,7 +2471,7 @@ void **ToStrIntRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00321F28)
 // 0x00321F28 __tf22slf_add_3d_debug_str_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **Add3dDebugStrBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2498,7 +2498,7 @@ void **Add3dDebugStrRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00322028)
 // 0x00322028 __tf22slf_add_2d_debug_str_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **Add2dDebugStrBaseRtti()
     __asm__("__tfQ220script_library_class8function");
@@ -2525,7 +2525,7 @@ void **Add2dDebugStrRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00322128)
 // 0x00322128 __tf15slf_bsp_check_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00322128()
     __asm__("__tfQ220script_library_class8function");
@@ -2552,7 +2552,7 @@ void **Rtti_00322128()
 
 #if defined(KELLY_DECOMP_FUNCTION_00322470)
 // 0x00322470 __tf27slf_get_bsp_check_hit_pos_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00322470()
     __asm__("__tfQ220script_library_class8function");
@@ -2579,7 +2579,7 @@ void **Rtti_00322470()
 
 #if defined(KELLY_DECOMP_FUNCTION_00322648)
 // 0x00322648 __tf28slf_get_bsp_check_hit_norm_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00322648()
     __asm__("__tfQ220script_library_class8function");
@@ -2606,7 +2606,7 @@ void **Rtti_00322648()
 
 #if defined(KELLY_DECOMP_FUNCTION_00322820)
 // 0x00322820 __tf27slf_get_bsp_check_hit_ent_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00322820()
     __asm__("__tfQ220script_library_class8function");
@@ -2633,7 +2633,7 @@ void **Rtti_00322820()
 
 #if defined(KELLY_DECOMP_FUNCTION_003229E0)
 // 0x003229E0 __tf22slf_entity_col_check_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003229E0()
     __asm__("__tfQ220script_library_class8function");
@@ -2660,7 +2660,7 @@ void **Rtti_003229E0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00322BF0)
 // 0x00322BF0 __tf20slf_play_sound_vol_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00322BF0()
     __asm__("__tfQ220script_library_class8function");
@@ -2687,7 +2687,7 @@ void **Rtti_00322BF0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00322C90)
 // 0x00322C90 __tf30slf_get_global_time_dilation_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00322C90()
     __asm__("__tfQ220script_library_class8function");
@@ -2714,7 +2714,7 @@ void **Rtti_00322C90()
 
 #if defined(KELLY_DECOMP_FUNCTION_00322E50)
 // 0x00322E50 __tf30slf_set_global_time_dilation_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00322E50()
     __asm__("__tfQ220script_library_class8function");
@@ -2741,7 +2741,7 @@ void **Rtti_00322E50()
 
 #if defined(KELLY_DECOMP_FUNCTION_00322EF8)
 // 0x00322EF8 __tf35slf_wait_set_global_time_dilation_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00322EF8()
     __asm__("__tfQ220script_library_class8function");
@@ -2768,7 +2768,7 @@ void **Rtti_00322EF8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00323050)
 // 0x00323050 __tf16slf_load_level_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00323050()
     __asm__("__tfQ220script_library_class8function");
@@ -2795,7 +2795,7 @@ void **Rtti_00323050()
 
 #if defined(KELLY_DECOMP_FUNCTION_003230F8)
 // 0x003230F8 __tf16slf_play_movie_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003230F8()
     __asm__("__tfQ220script_library_class8function");
@@ -2822,7 +2822,7 @@ void **Rtti_003230F8()
 
 #if defined(KELLY_DECOMP_FUNCTION_003231B0)
 // 0x003231B0 __tf23slf_set_game_info_num_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003231B0()
     __asm__("__tfQ220script_library_class8function");
@@ -2849,7 +2849,7 @@ void **Rtti_003231B0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00323278)
 // 0x00323278 __tf23slf_get_game_info_num_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00323278()
     __asm__("__tfQ220script_library_class8function");
@@ -2876,7 +2876,7 @@ void **Rtti_00323278()
 
 #if defined(KELLY_DECOMP_FUNCTION_00323468)
 // 0x00323468 __tf23slf_set_game_info_str_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00323468()
     __asm__("__tfQ220script_library_class8function");
@@ -2903,7 +2903,7 @@ void **Rtti_00323468()
 
 #if defined(KELLY_DECOMP_FUNCTION_00323530)
 // 0x00323530 __tf23slf_get_game_info_str_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00323530()
     __asm__("__tfQ220script_library_class8function");
@@ -2930,7 +2930,7 @@ void **Rtti_00323530()
 
 #if defined(KELLY_DECOMP_FUNCTION_00323738)
 // 0x00323738 __tf19slf_wait_fps_test_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00323738()
     __asm__("__tfQ220script_library_class8function");
@@ -2957,7 +2957,7 @@ void **Rtti_00323738()
 
 #if defined(KELLY_DECOMP_FUNCTION_00323978)
 // 0x00323978 __tf21slf_freeze_universe_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00323978()
     __asm__("__tfQ220script_library_class8function");
@@ -2984,7 +2984,7 @@ void **Rtti_00323978()
 
 #if defined(KELLY_DECOMP_FUNCTION_00323A00)
 // 0x00323A00 __tf19slf_get_fog_color_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00323A00()
     __asm__("__tfQ220script_library_class8function");
@@ -3011,7 +3011,7 @@ void **Rtti_00323A00()
 
 #if defined(KELLY_DECOMP_FUNCTION_00323C30)
 // 0x00323C30 __tf22slf_get_fog_distance_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00323C30()
     __asm__("__tfQ220script_library_class8function");
@@ -3038,7 +3038,7 @@ void **Rtti_00323C30()
 
 #if defined(KELLY_DECOMP_FUNCTION_00323DF0)
 // 0x00323DF0 __tf19slf_systime_month_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00323DF0()
     __asm__("__tfQ220script_library_class8function");
@@ -3065,7 +3065,7 @@ void **Rtti_00323DF0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00323FC0)
 // 0x00323FC0 __tf17slf_systime_day_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00323FC0()
     __asm__("__tfQ220script_library_class8function");
@@ -3092,7 +3092,7 @@ void **Rtti_00323FC0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00324190)
 // 0x00324190 __tf25slf_systime_day_of_week_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00324190()
     __asm__("__tfQ220script_library_class8function");
@@ -3119,7 +3119,7 @@ void **Rtti_00324190()
 
 #if defined(KELLY_DECOMP_FUNCTION_00324360)
 // 0x00324360 __tf18slf_systime_year_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00324360()
     __asm__("__tfQ220script_library_class8function");
@@ -3146,7 +3146,7 @@ void **Rtti_00324360()
 
 #if defined(KELLY_DECOMP_FUNCTION_00324530)
 // 0x00324530 __tf18slf_systime_hour_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00324530()
     __asm__("__tfQ220script_library_class8function");
@@ -3173,7 +3173,7 @@ void **Rtti_00324530()
 
 #if defined(KELLY_DECOMP_FUNCTION_00324700)
 // 0x00324700 __tf20slf_systime_minute_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00324700()
     __asm__("__tfQ220script_library_class8function");
@@ -3200,7 +3200,7 @@ void **Rtti_00324700()
 
 #if defined(KELLY_DECOMP_FUNCTION_003248D0)
 // 0x003248D0 __tf20slf_systime_second_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003248D0()
     __asm__("__tfQ220script_library_class8function");

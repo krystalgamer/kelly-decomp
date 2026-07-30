@@ -12,7 +12,7 @@ void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return
 
 #if defined(KELLY_DECOMP_FUNCTION_002FFD48)
 // 0x002FFD48 __tf10move_event
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **MoveEventBaseRtti() __asm__("__tf5event");
 extern "C" void *move_event_type[] __asm__("__ti10move_event");
 extern "C" const char move_event_name[];
@@ -34,7 +34,7 @@ void **MoveEventRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_002FFDA0)
 // 0x002FFDA0 __tf11color_event
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **ColorEventBaseRtti() __asm__("__tf5event");
 extern "C" void *color_event_type[] __asm__("__ti11color_event");
 extern "C" const char color_event_name[];
@@ -56,7 +56,7 @@ void **ColorEventRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_002FFDF0)
 // 0x002FFDF0 __tf12rotate_event
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **RotateEventBaseRtti() __asm__("__tf5event");
 extern "C" void *rotate_event_type[] __asm__("__ti12rotate_event");
 extern "C" const char rotate_event_name[];
@@ -78,7 +78,7 @@ void **RotateEventRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_002FFE40)
 // 0x002FFE40 __tf11scale_event
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **ScaleEventBaseRtti() __asm__("__tf5event");
 extern "C" void *scale_event_type[] __asm__("__ti11scale_event");
 extern "C" const char scale_event_name[];

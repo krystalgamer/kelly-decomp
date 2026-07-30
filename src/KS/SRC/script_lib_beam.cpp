@@ -418,7 +418,7 @@ bool slf_beam_set_uv_anim_t::operator()(vm_stack &stack, entry_t entry)
 
 #if defined(KELLY_DECOMP_FUNCTION_003252D8)
 // 0x003252D8 __tf20slf_beam_hit_world_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003252D8()
     __asm__("__tfQ220script_library_class8function");
@@ -445,7 +445,7 @@ void **Rtti_003252D8()
 
 #if defined(KELLY_DECOMP_FUNCTION_003254D8)
 // 0x003254D8 __tf19slf_beam_hit_hero_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003254D8()
     __asm__("__tfQ220script_library_class8function");
@@ -472,7 +472,7 @@ void **Rtti_003254D8()
 
 #if defined(KELLY_DECOMP_FUNCTION_003256D8)
 // 0x003256D8 __tf27slf_beam_get_impact_point_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003256D8()
     __asm__("__tfQ220script_library_class8function");
@@ -499,7 +499,7 @@ void **Rtti_003256D8()
 
 #if defined(KELLY_DECOMP_FUNCTION_003258B8)
 // 0x003258B8 __tf28slf_beam_get_impact_normal_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003258B8()
     __asm__("__tfQ220script_library_class8function");
@@ -526,7 +526,7 @@ void **Rtti_003258B8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00325A98)
 // 0x00325A98 __tf24slf_beam_set_thickness_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00325A98()
     __asm__("__tfQ220script_library_class8function");
@@ -553,7 +553,7 @@ void **Rtti_00325A98()
 
 #if defined(KELLY_DECOMP_FUNCTION_00325B38)
 // 0x00325B38 __tf25slf_beam_set_max_length_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00325B38()
     __asm__("__tfQ220script_library_class8function");
@@ -580,7 +580,7 @@ void **Rtti_00325B38()
 
 #if defined(KELLY_DECOMP_FUNCTION_00325BD8)
 // 0x00325BD8 __tf20slf_beam_set_color_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00325BD8()
     __asm__("__tfQ220script_library_class8function");
@@ -607,7 +607,7 @@ void **Rtti_00325BD8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00325CC8)
 // 0x00325CC8 __tf29slf_beam_set_detect_stealth_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00325CC8()
     __asm__("__tfQ220script_library_class8function");
@@ -695,7 +695,7 @@ bool slf_beam_set_detect_stealth_t::operator()(
 
 #if defined(KELLY_DECOMP_FUNCTION_00325D88)
 // 0x00325D88 __tf27slf_beam_set_collide_hero_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00325D88()
     __asm__("__tfQ220script_library_class8function");
@@ -759,7 +759,7 @@ bool slf_beam_set_collide_hero_t::operator()(vm_stack &stack, entry_t entry) {
 
 #if defined(KELLY_DECOMP_FUNCTION_00325E48)
 // 0x00325E48 __tf28slf_beam_set_collide_world_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00325E48()
     __asm__("__tfQ220script_library_class8function");
@@ -823,7 +823,7 @@ bool slf_beam_set_collide_world_t::operator()(vm_stack &stack, entry_t entry) {
 
 #if defined(KELLY_DECOMP_FUNCTION_00325F08)
 // 0x00325F08 __tf31slf_beam_set_collide_beamable_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00325F08()
     __asm__("__tfQ220script_library_class8function");
@@ -887,7 +887,7 @@ bool slf_beam_set_collide_beamable_t::operator()(vm_stack &stack, entry_t entry)
 
 #if defined(KELLY_DECOMP_FUNCTION_00325FC8)
 // 0x00325FC8 __tf27slf_beam_set_no_collision_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00325FC8()
     __asm__("__tfQ220script_library_class8function");
@@ -914,7 +914,7 @@ void **Rtti_00325FC8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00326060)
 // 0x00326060 __tf23slf_beam_set_additive_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00326060()
     __asm__("__tfQ220script_library_class8function");
@@ -941,7 +941,7 @@ void **Rtti_00326060()
 
 #if defined(KELLY_DECOMP_FUNCTION_00326108)
 // 0x00326108 __tf29slf_beam_set_point_to_point_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00326108()
     __asm__("__tfQ220script_library_class8function");
@@ -968,7 +968,7 @@ void **Rtti_00326108()
 
 #if defined(KELLY_DECOMP_FUNCTION_003261B0)
 // 0x003261B0 __tf22slf_beam_set_uv_anim_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003261B0()
     __asm__("__tfQ220script_library_class8function");
@@ -995,7 +995,7 @@ void **Rtti_003261B0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00326260)
 // 0x00326260 __tf30slf_beam_set_tiles_per_meter_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00326260()
     __asm__("__tfQ220script_library_class8function");
@@ -1022,7 +1022,7 @@ void **Rtti_00326260()
 
 #if defined(KELLY_DECOMP_FUNCTION_003262F0)
 // 0x003262F0 __tf23slf_beam_set_material_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003262F0()
     __asm__("__tfQ220script_library_class8function");
@@ -1049,7 +1049,7 @@ void **Rtti_003262F0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00326390)
 // 0x00326390 __tf27slf_beam_add_color_effect_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00326390()
     __asm__("__tfQ220script_library_class8function");
@@ -1076,7 +1076,7 @@ void **Rtti_00326390()
 
 #if defined(KELLY_DECOMP_FUNCTION_00326600)
 // 0x00326600 __tf27slf_beam_add_width_effect_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00326600()
     __asm__("__tfQ220script_library_class8function");
@@ -1103,7 +1103,7 @@ void **Rtti_00326600()
 
 #if defined(KELLY_DECOMP_FUNCTION_00326808)
 // 0x00326808 __tf27slf_beam_add_alpha_effect_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00326808()
     __asm__("__tfQ220script_library_class8function");
@@ -1130,7 +1130,7 @@ void **Rtti_00326808()
 
 #if defined(KELLY_DECOMP_FUNCTION_00326A20)
 // 0x00326A20 __tf22slf_beam_kill_effect_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00326A20()
     __asm__("__tfQ220script_library_class8function");
@@ -1157,7 +1157,7 @@ void **Rtti_00326A20()
 
 #if defined(KELLY_DECOMP_FUNCTION_00326AE8)
 // 0x00326AE8 __tf27slf_beam_kill_all_effects_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00326AE8()
     __asm__("__tfQ220script_library_class8function");
@@ -1184,7 +1184,7 @@ void **Rtti_00326AE8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00326BA8)
 // 0x00326BA8 __tf17slf_create_beam_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00326BA8()
     __asm__("__tfQ220script_library_class8function");
@@ -1211,7 +1211,7 @@ void **Rtti_00326BA8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00326D80)
 // 0x00326D80 __tf13slf_to_beam_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00326D80()
     __asm__("__tfQ220script_library_class8function");

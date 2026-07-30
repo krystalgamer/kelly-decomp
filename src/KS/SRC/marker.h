@@ -79,7 +79,7 @@ void RectangleMarkerDtor(void *self) { EntityDtor(self); KELLY_DECOMP_COMPILER_B
 
 #if defined(KELLY_DECOMP_FUNCTION_002B9170)
 // 0x002B9170 __tf6marker
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **MarkerBaseRtti() __asm__("__tf6entity");
 extern "C" void *marker_type[] __asm__("__ti6marker");
 extern "C" const char marker_name[];

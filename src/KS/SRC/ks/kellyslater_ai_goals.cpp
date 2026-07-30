@@ -1,7 +1,7 @@
 // Matching decompilation blocks selected by generated build shims.
 
 #if defined(KELLY_DECOMP_FUNCTION_00270EE0)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/ai_goals_shared.h"
 
 extern "C" void **surfer_ai_goal_base_rtti() __asm__("__tf7ai_goal");

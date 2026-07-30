@@ -106,7 +106,7 @@ void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = b
 
 #if defined(KELLY_DECOMP_FUNCTION_002FEC90)
 // 0x002FEC90 __tf6camera
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **CameraBaseRtti() __asm__("__tf6entity");
 extern "C" void *camera_type[] __asm__("__ti6camera");
 extern "C" const char camera_name[];

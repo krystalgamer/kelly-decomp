@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_RTTI_SHARED_H
-#define KELLY_DECOMP_RTTI_SHARED_H
+#ifndef RTTI_H
+#define RTTI_H
 
 extern "C" void __rtti_si(void **type, const char *name, void **base);
 

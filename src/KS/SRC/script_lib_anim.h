@@ -11,7 +11,7 @@ void ScriptDtor_00324A80(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPI
 
 #if defined(KELLY_DECOMP_FUNCTION_00324AA0)
 // 0x00324AA0 __tf10slc_anim_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00324AA0()
     __asm__("__tf20script_library_class");

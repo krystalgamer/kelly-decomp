@@ -78,7 +78,7 @@ void TargetDtor(void *self, int deleting) {
 
 #if defined(KELLY_DECOMP_FUNCTION_002FF0B8)
 // 0x002FF0B8 __tf17gravity_generator
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **GravityGeneratorBaseRtti() __asm__("__tf15force_generator");
 extern "C" void *gravity_generator_type[] __asm__("__ti17gravity_generator");
 extern "C" const char gravity_generator_name[];
@@ -100,7 +100,7 @@ void **GravityGeneratorRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_002FF138)
 // 0x002FF138 __tf22linear_force_generator
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **LinearForceGeneratorBaseRtti() __asm__("__tf15force_generator");
 extern "C" void *linear_force_generator_type[] __asm__("__ti22linear_force_generator");
 extern "C" const char linear_force_generator_name[];
@@ -126,7 +126,7 @@ void **LinearForceGeneratorRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00302B88)
 // 0x00302B88 __tf15force_generator
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **ForceGeneratorBaseRtti() __asm__("__tf13motion_object");
 extern "C" void *force_generator_rtti_type[] __asm__("__ti15force_generator");
 extern "C" const char force_generator_name[];

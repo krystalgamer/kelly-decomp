@@ -492,7 +492,7 @@ void **wevent_rtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00360168)
 // 0x00360168 __tf11move_wevent
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00360168()
     __asm__("__tf6wevent");
@@ -519,7 +519,7 @@ void **Rtti_00360168()
 
 #if defined(KELLY_DECOMP_FUNCTION_003601C0)
 // 0x003601C0 __tf12color_wevent
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003601C0()
     __asm__("__tf6wevent");
@@ -546,7 +546,7 @@ void **Rtti_003601C0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00360210)
 // 0x00360210 __tf13rotate_wevent
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00360210()
     __asm__("__tf6wevent");
@@ -573,7 +573,7 @@ void **Rtti_00360210()
 
 #if defined(KELLY_DECOMP_FUNCTION_00360260)
 // 0x00360260 __tf12scale_wevent
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00360260()
     __asm__("__tf6wevent");

@@ -360,7 +360,7 @@ float WAVE_GetHeight()
 
 #if defined(KELLY_DECOMP_FUNCTION_00384EC0)
 // 0x00384EC0 __tft20WavePerturbRushClass1i6
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00384EC0()
     __asm__("__tft20WavePushPerturbClass1i6");
@@ -392,7 +392,7 @@ void **Rtti_00384EC0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00384F98)
 // 0x00384F98 __tft21WavePerturbSurgeClass1i6
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00384F98() __asm__("__tft21WavePulsePerturbClass1i6");
 extern "C" void *rtti_type_00384F98[] __asm__("__tit21WavePerturbSurgeClass1i6");
@@ -416,7 +416,7 @@ void **Rtti_00384F98()
 
 #if defined(KELLY_DECOMP_FUNCTION_00385070)
 // 0x00385070 __tft22WavePerturbTongueClass1i6
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00385070() __asm__("__tft23WaveProfilePerturbClass1i6");
 extern "C" void *rtti_type_00385070[] __asm__("__tit22WavePerturbTongueClass1i6");
@@ -440,7 +440,7 @@ void **Rtti_00385070()
 
 #if defined(KELLY_DECOMP_FUNCTION_00385148)
 // 0x00385148 __tft25WavePerturbStairstepClass1i6
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00385148() __asm__("__tft21WavePulsePerturbClass1i6");
 extern "C" void *rtti_type_00385148[] __asm__("__tit25WavePerturbStairstepClass1i6");
@@ -464,7 +464,7 @@ void **Rtti_00385148()
 
 #if defined(KELLY_DECOMP_FUNCTION_00385198)
 // 0x00385198 __tft21WavePulsePerturbClass1i6
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00385198() __asm__("__tft16WavePerturbClass1i6");
 extern "C" void *rtti_type_00385198[] __asm__("__tit21WavePulsePerturbClass1i6");
@@ -488,7 +488,7 @@ void **Rtti_00385198()
 
 #if defined(KELLY_DECOMP_FUNCTION_003852F8)
 // 0x003852F8 __tft16WavePerturbClass1i6
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003852F8() __asm__("__tf20WaveBasePerturbClass");
 extern "C" void *rtti_type_003852F8[] __asm__("__tit16WavePerturbClass1i6");

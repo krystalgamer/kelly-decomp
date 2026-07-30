@@ -3,7 +3,7 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_00314100)
 // 0x00314100 __tf9TrickMenu
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **TrickMenuBaseRtti() __asm__("__tf4Menu");
 extern "C" void *trick_menu_type[] __asm__("__ti9TrickMenu");
 extern "C" const char trick_menu_name[];

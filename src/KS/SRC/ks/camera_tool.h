@@ -67,7 +67,7 @@ void TargetDtor(void *self, int deleting) {
 
 #if defined(KELLY_DECOMP_FUNCTION_003027A0)
 // 0x003027A0 __tf26ChangeCamMenuEntryFunction
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **ChangeCamMenuBaseRtti() __asm__("__tf14MenuEntryLabel");
 extern "C" void *change_cam_menu_type[] __asm__("__ti26ChangeCamMenuEntryFunction");
 extern "C" const char change_cam_menu_name[];
@@ -89,7 +89,7 @@ void **ChangeCamMenuRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00302840)
 // 0x00302840 __tf26DeleteCamMenuEntryFunction
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **DeleteCamMenuBaseRtti() __asm__("__tf14MenuEntryLabel");
 extern "C" void *delete_cam_menu_type[] __asm__("__ti26DeleteCamMenuEntryFunction");
 extern "C" const char delete_cam_menu_name[];

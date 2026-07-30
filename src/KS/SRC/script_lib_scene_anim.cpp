@@ -137,7 +137,7 @@ bool slf_load_scene_anim_t::operator()(
 
 #if defined(KELLY_DECOMP_FUNCTION_00328030)
 // 0x00328030 __tf26slf_scene_anim_kill_anim_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00328030()
     __asm__("__tfQ220script_library_class8function");
@@ -164,7 +164,7 @@ void **Rtti_00328030()
 
 #if defined(KELLY_DECOMP_FUNCTION_003280D8)
 // 0x003280D8 __tf21slf_load_scene_anim_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003280D8()
     __asm__("__tfQ220script_library_class8function");
@@ -191,7 +191,7 @@ void **Rtti_003280D8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00328180)
 // 0x00328180 __tf21slf_play_scene_anim_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00328180()
     __asm__("__tfQ220script_library_class8function");

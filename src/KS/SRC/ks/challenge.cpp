@@ -1,7 +1,7 @@
 // Matching decompilation blocks selected by generated build shims.
 
 #if defined(KELLY_DECOMP_FUNCTION_0026F7E0)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/ks/igolearn_new_trickmanager_shared.h"
 
 extern "C" void **challenge_base_rtti() __asm__("__tf14EventRecipient");

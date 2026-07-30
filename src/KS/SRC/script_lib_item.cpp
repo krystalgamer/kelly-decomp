@@ -56,7 +56,7 @@ void ScriptDtor_00327C98(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_CO
 
 #if defined(KELLY_DECOMP_FUNCTION_003275D0)
 // 0x003275D0 __tf20slf_item_set_count_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003275D0()
     __asm__("__tfQ220script_library_class8function");
@@ -83,7 +83,7 @@ void **Rtti_003275D0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00327688)
 // 0x00327688 __tf20slf_item_get_count_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00327688()
     __asm__("__tfQ220script_library_class8function");
@@ -110,7 +110,7 @@ void **Rtti_00327688()
 
 #if defined(KELLY_DECOMP_FUNCTION_00327870)
 // 0x00327870 __tf17slf_create_item_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00327870()
     __asm__("__tfQ220script_library_class8function");
@@ -137,7 +137,7 @@ void **Rtti_00327870()
 
 #if defined(KELLY_DECOMP_FUNCTION_00327CB8)
 // 0x00327CB8 __tf13slf_to_item_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00327CB8()
     __asm__("__tfQ220script_library_class8function");

@@ -25,7 +25,7 @@ bool item::is_an_item() const {
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002B8708)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/beam_shared.h"
 
 extern "C" void **visual_item_base_rtti() __asm__("__tf6entity");
@@ -158,7 +158,7 @@ class item { char padding[8]; item_vtable *vtable; public: bool is_usable() cons
 bool item::is_usable() const { item_vtable *table = vtable; return table->usable((char *)this + table->adjustment) > 0; }
 #endif
 #if defined(KELLY_DECOMP_FUNCTION_002B8550)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/script_lib_item_shared.h"
 
 extern "C" void **item_base_rtti() __asm__("__tf6entity");

@@ -113,7 +113,7 @@ bool MENUDRAW_AllOn(MenuEntry *, int buttonid)
 
 #if defined(KELLY_DECOMP_FUNCTION_00313E20)
 // 0x00313E20 __tf14MenuEntityDraw
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **MenuEntityDrawBaseRtti() __asm__("__tf4Menu");
 extern "C" void *menu_entity_draw_type[] __asm__("__ti14MenuEntityDraw");
 extern "C" const char menu_entity_draw_name[];
@@ -135,7 +135,7 @@ void **MenuEntityDrawRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00313ED8)
 // 0x00313ED8 __tf16MenuParticleDraw
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **MenuParticleDrawBaseRtti() __asm__("__tf4Menu");
 extern "C" void *menu_particle_draw_type[] __asm__("__ti16MenuParticleDraw");
 extern "C" const char menu_particle_draw_name[];
@@ -161,7 +161,7 @@ void **MenuParticleDrawRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00313F90)
 // 0x00313F90 __tf13MenuWaterDraw
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **MenuWaterDrawBaseRtti() __asm__("__tf4Menu");
 extern "C" void *menu_water_draw_type[] __asm__("__ti13MenuWaterDraw");
 extern "C" const char menu_water_draw_name[];
@@ -183,7 +183,7 @@ void **MenuWaterDrawRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00314048)
 // 0x00314048 __tf8MenuDraw
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **MenuDrawBaseRtti() __asm__("__tf4Menu");
 extern "C" void *menu_draw_type[] __asm__("__ti8MenuDraw");
 extern "C" const char menu_draw_name[];

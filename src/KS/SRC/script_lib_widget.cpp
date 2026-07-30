@@ -1102,7 +1102,7 @@ class script_library_class{public:class function{public:enum entry_t{FIRST_ENTRY
 
 #if defined(KELLY_DECOMP_FUNCTION_0032B8C8)
 // 0x0032B8C8 __tf17slf_widget_show_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032B8C8()
     __asm__("__tfQ220script_library_class8function");
@@ -1129,7 +1129,7 @@ void **Rtti_0032B8C8()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032B978)
 // 0x0032B978 __tf17slf_widget_hide_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032B978()
     __asm__("__tfQ220script_library_class8function");
@@ -1156,7 +1156,7 @@ void **Rtti_0032B978()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032BA28)
 // 0x0032BA28 __tf20slf_widget_move_to_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032BA28()
     __asm__("__tfQ220script_library_class8function");
@@ -1183,7 +1183,7 @@ void **Rtti_0032BA28()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032BB00)
 // 0x0032BB00 __tf21slf_widget_move_to2_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032BB00()
     __asm__("__tfQ220script_library_class8function");
@@ -1210,7 +1210,7 @@ void **Rtti_0032BB00()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032BBE0)
 // 0x0032BBE0 __tf22slf_widget_set_layer_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032BBE0()
     __asm__("__tfQ220script_library_class8function");
@@ -1237,7 +1237,7 @@ void **Rtti_0032BBE0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032BCB0)
 // 0x0032BCB0 __tf21slf_widget_scale_to_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032BCB0()
     __asm__("__tfQ220script_library_class8function");
@@ -1264,7 +1264,7 @@ void **Rtti_0032BCB0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032BD68)
 // 0x0032BD68 __tf22slf_widget_scale_to2_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032BD68()
     __asm__("__tfQ220script_library_class8function");
@@ -1291,7 +1291,7 @@ void **Rtti_0032BD68()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032BE28)
 // 0x0032BE28 __tf20slf_widget_fade_to_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032BE28()
     __asm__("__tfQ220script_library_class8function");
@@ -1318,7 +1318,7 @@ void **Rtti_0032BE28()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032BED8)
 // 0x0032BED8 __tf21slf_widget_fade_to2_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032BED8()
     __asm__("__tfQ220script_library_class8function");
@@ -1345,7 +1345,7 @@ void **Rtti_0032BED8()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032BF90)
 // 0x0032BF90 __tf25slf_create_timer_widget_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032BF90()
     __asm__("__tfQ220script_library_class8function");
@@ -1372,7 +1372,7 @@ void **Rtti_0032BF90()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032C158)
 // 0x0032C158 __tf32slf_timer_widget_get_time_left_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032C158()
     __asm__("__tfQ220script_library_class8function");
@@ -1399,7 +1399,7 @@ void **Rtti_0032C158()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032C320)
 // 0x0032C320 __tf32slf_timer_widget_set_time_left_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032C320()
     __asm__("__tfQ220script_library_class8function");
@@ -1426,7 +1426,7 @@ void **Rtti_0032C320()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032C3C0)
 // 0x0032C3C0 __tf25slf_timer_widget_freeze_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032C3C0()
     __asm__("__tfQ220script_library_class8function");
@@ -1453,7 +1453,7 @@ void **Rtti_0032C3C0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032C450)
 // 0x0032C450 __tf22slf_timer_widget_run_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032C450()
     __asm__("__tfQ220script_library_class8function");
@@ -1480,7 +1480,7 @@ void **Rtti_0032C450()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032C4E0)
 // 0x0032C4E0 __tf32slf_timer_widget_inc_time_left_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032C4E0()
     __asm__("__tfQ220script_library_class8function");
@@ -1507,7 +1507,7 @@ void **Rtti_0032C4E0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032C580)
 // 0x0032C580 __tf34slf_timer_widget_set_digit_color_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032C580()
     __asm__("__tfQ220script_library_class8function");
@@ -1534,7 +1534,7 @@ void **Rtti_0032C580()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032C648)
 // 0x0032C648 __tf31slf_timer_widget_set_bg_color_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032C648()
     __asm__("__tfQ220script_library_class8function");
@@ -1561,7 +1561,7 @@ void **Rtti_0032C648()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032C710)
 // 0x0032C710 __tf31slf_timer_widget_add_function_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032C710()
     __asm__("__tfQ220script_library_class8function");
@@ -1588,7 +1588,7 @@ void **Rtti_0032C710()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032C7B8)
 // 0x0032C7B8 __tf34slf_timer_widget_remove_function_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032C7B8()
     __asm__("__tfQ220script_library_class8function");
@@ -1615,7 +1615,7 @@ void **Rtti_0032C7B8()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032C860)
 // 0x0032C860 __tf34slf_timer_widget_clear_functions_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032C860()
     __asm__("__tfQ220script_library_class8function");
@@ -1642,7 +1642,7 @@ void **Rtti_0032C860()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032C910)
 // 0x0032C910 __tf30slf_create_text_block_widget_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032C910()
     __asm__("__tfQ220script_library_class8function");
@@ -1669,7 +1669,7 @@ void **Rtti_0032C910()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032CC18)
 // 0x0032CC18 __tf32slf_text_block_widget_set_text_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032CC18()
     __asm__("__tfQ220script_library_class8function");
@@ -1696,7 +1696,7 @@ void **Rtti_0032CC18()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032CCB8)
 // 0x0032CCB8 __tf33slf_text_block_widget_set_scale_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032CCB8()
     __asm__("__tfQ220script_library_class8function");
@@ -1723,7 +1723,7 @@ void **Rtti_0032CCB8()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032CD68)
 // 0x0032CD68 __tf37slf_text_block_widget_set_max_lines_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032CD68()
     __asm__("__tfQ220script_library_class8function");
@@ -1750,7 +1750,7 @@ void **Rtti_0032CD68()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032CEF8)
 // 0x0032CEF8 __tf40slf_text_block_widget_set_line_spacing_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032CEF8()
     __asm__("__tfQ220script_library_class8function");
@@ -1777,7 +1777,7 @@ void **Rtti_0032CEF8()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032CFA8)
 // 0x0032CFA8 __tf37slf_text_block_widget_set_max_width_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032CFA8()
     __asm__("__tfQ220script_library_class8function");
@@ -1804,7 +1804,7 @@ void **Rtti_0032CFA8()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032D138)
 // 0x0032D138 __tf33slf_text_block_widget_set_color_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032D138()
     __asm__("__tfQ220script_library_class8function");
@@ -1831,7 +1831,7 @@ void **Rtti_0032D138()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032D210)
 // 0x0032D210 __tf26slf_create_bitmap_widget_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032D210()
     __asm__("__tfQ220script_library_class8function");
@@ -1858,7 +1858,7 @@ void **Rtti_0032D210()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032D450)
 // 0x0032D450 __tf29slf_bitmap_widget_set_color_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032D450()
     __asm__("__tfQ220script_library_class8function");
@@ -1885,7 +1885,7 @@ void **Rtti_0032D450()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032D508)
 // 0x0032D508 __tf30slf_bitmap_widget_flip_horiz_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032D508()
     __asm__("__tfQ220script_library_class8function");
@@ -1912,7 +1912,7 @@ void **Rtti_0032D508()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032D5A8)
 // 0x0032D5A8 __tf29slf_bitmap_widget_flip_vert_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032D5A8()
     __asm__("__tfQ220script_library_class8function");
@@ -1939,7 +1939,7 @@ void **Rtti_0032D5A8()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032D648)
 // 0x0032D648 __tf26slf_bitmap_widget_resize_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032D648()
     __asm__("__tfQ220script_library_class8function");
@@ -1966,7 +1966,7 @@ void **Rtti_0032D648()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032D6F0)
 // 0x0032D6F0 __tf31slf_bitmap_widget_set_subrect_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032D6F0()
     __asm__("__tfQ220script_library_class8function");
@@ -1993,7 +1993,7 @@ void **Rtti_0032D6F0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032D7D0)
 // 0x0032D7D0 __tf29slf_bitmap_widget_get_width_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032D7D0()
     __asm__("__tfQ220script_library_class8function");
@@ -2020,7 +2020,7 @@ void **Rtti_0032D7D0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032D9A8)
 // 0x0032D9A8 __tf30slf_bitmap_widget_get_height_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032D9A8()
     __asm__("__tfQ220script_library_class8function");
@@ -2047,7 +2047,7 @@ void **Rtti_0032D9A8()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032DB80)
 // 0x0032DB80 __tf27slf_create_bitmap6_widget_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032DB80()
     __asm__("__tfQ220script_library_class8function");
@@ -2074,7 +2074,7 @@ void **Rtti_0032DB80()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032DDB0)
 // 0x0032DDB0 __tf29slf_create_fluid_bar_widget_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032DDB0()
     __asm__("__tfQ220script_library_class8function");
@@ -2101,7 +2101,7 @@ void **Rtti_0032DDB0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032E108)
 // 0x0032E108 __tf32slf_fluid_bar_widget_set_color_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032E108()
     __asm__("__tfQ220script_library_class8function");
@@ -2128,7 +2128,7 @@ void **Rtti_0032E108()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032E1C0)
 // 0x0032E1C0 __tf29slf_fluid_bar_widget_resize_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032E1C0()
     __asm__("__tfQ220script_library_class8function");
@@ -2155,7 +2155,7 @@ void **Rtti_0032E1C0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032E268)
 // 0x0032E268 __tf35slf_fluid_bar_widget_set_full_val_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032E268()
     __asm__("__tfQ220script_library_class8function");
@@ -2182,7 +2182,7 @@ void **Rtti_0032E268()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032E340)
 // 0x0032E340 __tf30slf_fluid_bar_widget_set_val_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032E340()
     __asm__("__tfQ220script_library_class8function");
@@ -2209,7 +2209,7 @@ void **Rtti_0032E340()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032E418)
 // 0x0032E418 __tf34slf_fluid_bar_widget_set_abs_val_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032E418()
     __asm__("__tfQ220script_library_class8function");
@@ -2236,7 +2236,7 @@ void **Rtti_0032E418()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032E548)
 // 0x0032E548 __tf36slf_fluid_bar_widget_set_fill_rate_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032E548()
     __asm__("__tfQ220script_library_class8function");
@@ -2263,7 +2263,7 @@ void **Rtti_0032E548()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032E5F0)
 // 0x0032E5F0 __tf37slf_fluid_bar_widget_set_empty_rate_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032E5F0()
     __asm__("__tfQ220script_library_class8function");
@@ -2290,7 +2290,7 @@ void **Rtti_0032E5F0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032E698)
 // 0x0032E698 __tf32slf_fluid_bar_widget_get_width_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032E698()
     __asm__("__tfQ220script_library_class8function");
@@ -2317,7 +2317,7 @@ void **Rtti_0032E698()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032E870)
 // 0x0032E870 __tf33slf_fluid_bar_widget_get_height_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032E870()
     __asm__("__tfQ220script_library_class8function");
@@ -2344,7 +2344,7 @@ void **Rtti_0032E870()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032EA48)
 // 0x0032EA48 __tf23slf_activate_boss_bar_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032EA48()
     __asm__("__tfQ220script_library_class8function");
@@ -2371,7 +2371,7 @@ void **Rtti_0032EA48()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032EAD0)
 // 0x0032EAD0 __tf19slf_hide_boss_bar_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032EAD0()
     __asm__("__tfQ220script_library_class8function");
@@ -2398,7 +2398,7 @@ void **Rtti_0032EAD0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032EB48)
 // 0x0032EB48 __tf21slf_give_color_clue_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032EB48()
     __asm__("__tfQ220script_library_class8function");
@@ -2425,7 +2425,7 @@ void **Rtti_0032EB48()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032EBD0)
 // 0x0032EBD0 __tf23slf_clear_color_clues_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032EBD0()
     __asm__("__tfQ220script_library_class8function");
@@ -2452,7 +2452,7 @@ void **Rtti_0032EBD0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032EC48)
 // 0x0032EC48 __tf34slf_show_clues_while_letterboxed_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032EC48()
     __asm__("__tfQ220script_library_class8function");
@@ -2479,7 +2479,7 @@ void **Rtti_0032EC48()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032ECC0)
 // 0x0032ECC0 __tf15slf_inc_score_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032ECC0()
     __asm__("__tfQ220script_library_class8function");
@@ -2506,7 +2506,7 @@ void **Rtti_0032ECC0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032ED48)
 // 0x0032ED48 __tf17slf_clear_score_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032ED48()
     __asm__("__tfQ220script_library_class8function");
@@ -2533,7 +2533,7 @@ void **Rtti_0032ED48()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032EDC0)
 // 0x0032EDC0 __tf22slf_hide_all_widgets_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032EDC0()
     __asm__("__tfQ220script_library_class8function");

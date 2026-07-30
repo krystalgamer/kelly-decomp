@@ -14,7 +14,7 @@ bool beam::is_a_beam() const {
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002B8050)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/beam_shared.h"
 
 extern "C" void **beam_effect_color_base_rtti()
@@ -48,7 +48,7 @@ void **beam_effect_color_rtti()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002B7DE0)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/beam_shared.h"
 
 extern "C" void **beam_effect_alpha_base_rtti()
@@ -82,7 +82,7 @@ void **beam_effect_alpha_rtti()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002B7C70)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/beam_shared.h"
 
 extern "C" void **beam_effect_width_base_rtti()
@@ -414,7 +414,7 @@ extern "C" void *GetTypeInfo() __asm__("__tf16beam_effect_type");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
 #if defined(KELLY_DECOMP_FUNCTION_002B7B38)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/beam_shared.h"
 
 extern "C" void **beam_base_rtti() __asm__("__tf6entity");

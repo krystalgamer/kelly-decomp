@@ -134,7 +134,7 @@ bool slf_signaller_clear_callback_t::operator()(vm_stack &stack, entry_t entry) 
 
 #if defined(KELLY_DECOMP_FUNCTION_00328358)
 // 0x00328358 __tf30slf_signaller_enable_signals_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00328358()
     __asm__("__tfQ220script_library_class8function");
@@ -161,7 +161,7 @@ void **Rtti_00328358()
 
 #if defined(KELLY_DECOMP_FUNCTION_003283F0)
 // 0x003283F0 __tf31slf_signaller_disable_signals_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003283F0()
     __asm__("__tfQ220script_library_class8function");
@@ -188,7 +188,7 @@ void **Rtti_003283F0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00328488)
 // 0x00328488 __tf31slf_signaller_clear_callbacks_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00328488()
     __asm__("__tfQ220script_library_class8function");
@@ -215,7 +215,7 @@ void **Rtti_00328488()
 
 #if defined(KELLY_DECOMP_FUNCTION_00328528)
 // 0x00328528 __tf30slf_signaller_clear_callback_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00328528()
     __asm__("__tfQ220script_library_class8function");

@@ -55,7 +55,7 @@ void *ScriptMfgCtor(void *self)
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F008)
 // 0x0032F008 __tf22slf_mfg_raise_signal_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032F008()
     __asm__("__tfQ220script_library_class8function");

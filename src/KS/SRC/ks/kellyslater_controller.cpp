@@ -53,7 +53,7 @@ float kellyslater_controller::Lip_Distance()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0026F6C8)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/ks/kellyslater_controller_shared.h"
 
 extern "C" void **kellyslater_controller_base_rtti()

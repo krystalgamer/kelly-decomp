@@ -3,7 +3,7 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_00314300)
 // 0x00314300 __tf15trigger_manager
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **TriggerManagerBaseRtti() __asm__("__tf9singleton");
 extern "C" void *trigger_manager_type[] __asm__("__ti15trigger_manager");
 extern "C" const char trigger_manager_name[];
@@ -95,7 +95,7 @@ const vector3d& trigger::get_abs_position() const {
 }
 #endif
 #if defined(KELLY_DECOMP_FUNCTION_002B8CB8)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/trigger_shared.h"
 
 extern "C" void **trigger_base_rtti() __asm__("__tf9signaller");

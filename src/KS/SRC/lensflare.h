@@ -3,7 +3,7 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_002FF880)
 // 0x002FF880 __tf9lensflare
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **LensflareBaseRtti() __asm__("__tf6entity");
 extern "C" void *lensflare_type[] __asm__("__ti9lensflare");
 extern "C" const char lensflare_name[];

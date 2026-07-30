@@ -81,7 +81,7 @@ class MenuEntry{public:int data;virtual~MenuEntry();};typedef bool(*pMenuEntryBu
 
 #if defined(KELLY_DECOMP_FUNCTION_003028E0)
 // 0x003028E0 __tf31SoundMenuEntryFunctionFloatEdit
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **SoundFloatEditBaseRtti() __asm__("__tf26MenuEntryFunctionFloatEdit");
 extern "C" void *sound_float_edit_type[] __asm__("__ti31SoundMenuEntryFunctionFloatEdit");
 extern "C" const char sound_float_edit_name[];
@@ -103,7 +103,7 @@ void **SoundFloatEditRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00302960)
 // 0x00302960 __tf13MenuSoundDraw
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **MenuSoundDrawBaseRtti() __asm__("__tf4Menu");
 extern "C" void *menu_sound_draw_type[] __asm__("__ti13MenuSoundDraw");
 extern "C" const char menu_sound_draw_name[];
@@ -125,7 +125,7 @@ void **MenuSoundDrawRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00302A18)
 // 0x00302A18 __tf9MenuSound
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **MenuSoundBaseRtti() __asm__("__tf4Menu");
 extern "C" void *menu_sound_type[] __asm__("__ti9MenuSound");
 extern "C" const char menu_sound_name[];

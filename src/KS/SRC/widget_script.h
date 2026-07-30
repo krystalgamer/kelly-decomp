@@ -25,7 +25,7 @@ void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = b
 
 #if defined(KELLY_DECOMP_FUNCTION_002FF730)
 // 0x002FF730 __tf11clue_widget
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **ClueWidgetBaseRtti() __asm__("__tf6widget");
 extern "C" void *clue_widget_type[] __asm__("__ti11clue_widget");
 extern "C" const char clue_widget_name[];
@@ -47,7 +47,7 @@ void **ClueWidgetRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_002FF7A8)
 // 0x002FF7A8 __tf12timer_widget
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **TimerWidgetBaseRtti() __asm__("__tf6widget");
 extern "C" void *timer_widget_type[] __asm__("__ti12timer_widget");
 extern "C" const char timer_widget_name[];
@@ -69,7 +69,7 @@ void **TimerWidgetRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_002FF800)
 // 0x002FF800 __tf22script_widget_holder_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **ScriptWidgetHolderBaseRtti() __asm__("__tf6widget");
 extern "C" void *script_widget_holder_type[] __asm__("__ti22script_widget_holder_t");
 extern "C" const char script_widget_holder_name[];

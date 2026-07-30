@@ -11,7 +11,7 @@ void ScriptDtor_00327FA0(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPI
 
 #if defined(KELLY_DECOMP_FUNCTION_00327FC0)
 // 0x00327FC0 __tf16slc_scene_anim_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00327FC0()
     __asm__("__tf20script_library_class");

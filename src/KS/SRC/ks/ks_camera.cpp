@@ -36,7 +36,7 @@ void auto_camera::Reset()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0026F0F8)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/ks/ks_camera_shared.h"
 
 extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
@@ -62,7 +62,7 @@ void **auto_camera_rtti()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0026F2C8)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/ks/ks_camera_shared.h"
 
 extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
@@ -92,7 +92,7 @@ void **big_wave_camera_rtti()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0026F368)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/ks/ks_camera_shared.h"
 
 extern "C" void **wipeout_camera_2_base_rtti() __asm__("__tf11game_camera");
@@ -122,7 +122,7 @@ void **wipeout_camera_2_rtti()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0026F3B8)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/ks/ks_camera_shared.h"
 
 extern "C" void **wipeout_camera_base_rtti() __asm__("__tf11game_camera");
@@ -152,7 +152,7 @@ void **wipeout_camera_rtti()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0026F410)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/ks/ks_camera_shared.h"
 
 extern "C" void **flyby_camera_base_rtti() __asm__("__tf11game_camera");
@@ -178,7 +178,7 @@ void **flyby_camera_rtti()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0026F460)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/ks/ks_camera_shared.h"
 
 extern "C" void **follow_camera_base_rtti() __asm__("__tf11game_camera");
@@ -204,7 +204,7 @@ void **follow_camera_rtti()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0026F4D8)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/ks/ks_camera_shared.h"
 
 extern "C" void **follow_close_camera_base_rtti() __asm__("__tf11game_camera");
@@ -234,7 +234,7 @@ void **follow_close_camera_rtti()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0026F550)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/ks/ks_camera_shared.h"
 
 extern "C" void **buoy_camera_base_rtti() __asm__("__tf11game_camera");
@@ -260,7 +260,7 @@ void **buoy_camera_rtti()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0026F5C8)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/ks/ks_camera_shared.h"
 
 extern "C" void **duckdive_camera_base_rtti() __asm__("__tf11game_camera");
@@ -290,7 +290,7 @@ void **duckdive_camera_rtti()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0026F678)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/ks/ks_camera_shared.h"
 
 extern "C" void **photo_camera_base_rtti() __asm__("__tf11game_camera");

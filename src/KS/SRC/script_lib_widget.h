@@ -51,7 +51,7 @@ void ScriptDtor_0032B838(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPI
 
 #if defined(KELLY_DECOMP_FUNCTION_0032B628)
 // 0x0032B628 __tf12slc_widget_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032B628()
     __asm__("__tf20script_library_class");
@@ -78,7 +78,7 @@ void **Rtti_0032B628()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032B698)
 // 0x0032B698 __tf18slc_timer_widget_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032B698()
     __asm__("__tf20script_library_class");
@@ -105,7 +105,7 @@ void **Rtti_0032B698()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032B708)
 // 0x0032B708 __tf23slc_text_block_widget_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032B708()
     __asm__("__tf20script_library_class");
@@ -132,7 +132,7 @@ void **Rtti_0032B708()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032B778)
 // 0x0032B778 __tf20slc_bitmap6_widget_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032B778()
     __asm__("__tf20script_library_class");
@@ -159,7 +159,7 @@ void **Rtti_0032B778()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032B7E8)
 // 0x0032B7E8 __tf19slc_bitmap_widget_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032B7E8()
     __asm__("__tf20script_library_class");
@@ -186,7 +186,7 @@ void **Rtti_0032B7E8()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032B858)
 // 0x0032B858 __tf22slc_fluid_bar_widget_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032B858()
     __asm__("__tf20script_library_class");

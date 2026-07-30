@@ -3,7 +3,7 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_003141E0)
 // 0x003141E0 __tf8hw_rasta
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **HwRastaBaseRtti() __asm__("__tf9singleton");
 extern "C" void *hw_rasta_type[] __asm__("__ti8hw_rasta");
 extern "C" const char hw_rasta_name[];

@@ -655,7 +655,7 @@ bool slf_destroy_str_list_t::operator()(
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F450)
 // 0x0032F450 __tf26slf_create_vector3d_list_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032F450()
     __asm__("__tfQ220script_library_class8function");
@@ -682,7 +682,7 @@ void **Rtti_0032F450()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F608)
 // 0x0032F608 __tf27slf_destroy_vector3d_list_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032F608()
     __asm__("__tfQ220script_library_class8function");
@@ -709,7 +709,7 @@ void **Rtti_0032F608()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F6A8)
 // 0x0032F6A8 __tf24slf_vector3d_list_size_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032F6A8()
     __asm__("__tfQ220script_library_class8function");
@@ -736,7 +736,7 @@ void **Rtti_0032F6A8()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F8C0)
 // 0x0032F8C0 __tf23slf_vector3d_list_add_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032F8C0()
     __asm__("__tfQ220script_library_class8function");
@@ -763,7 +763,7 @@ void **Rtti_0032F8C0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F9A0)
 // 0x0032F9A0 __tf25slf_vector3d_list_begin_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032F9A0()
     __asm__("__tfQ220script_library_class8function");
@@ -790,7 +790,7 @@ void **Rtti_0032F9A0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032FB68)
 // 0x0032FB68 __tf23slf_vector3d_list_end_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032FB68()
     __asm__("__tfQ220script_library_class8function");
@@ -817,7 +817,7 @@ void **Rtti_0032FB68()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032FD30)
 // 0x0032FD30 __tf26slf_vector3d_list_rbegin_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032FD30()
     __asm__("__tfQ220script_library_class8function");
@@ -844,7 +844,7 @@ void **Rtti_0032FD30()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032FF00)
 // 0x0032FF00 __tf24slf_vector3d_list_rend_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032FF00()
     __asm__("__tfQ220script_library_class8function");
@@ -871,7 +871,7 @@ void **Rtti_0032FF00()
 
 #if defined(KELLY_DECOMP_FUNCTION_003300D0)
 // 0x003300D0 __tf29slf_vector3d_list_get_index_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003300D0()
     __asm__("__tfQ220script_library_class8function");
@@ -898,7 +898,7 @@ void **Rtti_003300D0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00330360)
 // 0x00330360 __tf32slf_vector3d_list_iterator_inc_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00330360()
     __asm__("__tfQ220script_library_class8function");
@@ -925,7 +925,7 @@ void **Rtti_00330360()
 
 #if defined(KELLY_DECOMP_FUNCTION_00330530)
 // 0x00330530 __tf32slf_vector3d_list_iterator_dec_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00330530()
     __asm__("__tfQ220script_library_class8function");
@@ -952,7 +952,7 @@ void **Rtti_00330530()
 
 #if defined(KELLY_DECOMP_FUNCTION_00330700)
 // 0x00330700 __tf37slf_vector3d_list_iterator_is_equal_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00330700()
     __asm__("__tfQ220script_library_class8function");
@@ -979,7 +979,7 @@ void **Rtti_00330700()
 
 #if defined(KELLY_DECOMP_FUNCTION_003308E0)
 // 0x003308E0 __tf38slf_vector3d_list_iterator_not_equal_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003308E0()
     __asm__("__tfQ220script_library_class8function");
@@ -1006,7 +1006,7 @@ void **Rtti_003308E0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00330AC0)
 // 0x00330AC0 __tf41slf_vector3d_list_iterator_get_vector3d_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00330AC0()
     __asm__("__tfQ220script_library_class8function");
@@ -1033,7 +1033,7 @@ void **Rtti_00330AC0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00330CA0)
 // 0x00330CA0 __tf21slf_create_num_list_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00330CA0()
     __asm__("__tfQ220script_library_class8function");
@@ -1060,7 +1060,7 @@ void **Rtti_00330CA0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00330E58)
 // 0x00330E58 __tf22slf_destroy_num_list_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00330E58()
     __asm__("__tfQ220script_library_class8function");
@@ -1087,7 +1087,7 @@ void **Rtti_00330E58()
 
 #if defined(KELLY_DECOMP_FUNCTION_00330EF8)
 // 0x00330EF8 __tf19slf_num_list_size_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00330EF8()
     __asm__("__tfQ220script_library_class8function");
@@ -1114,7 +1114,7 @@ void **Rtti_00330EF8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00331100)
 // 0x00331100 __tf18slf_num_list_add_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00331100()
     __asm__("__tfQ220script_library_class8function");
@@ -1141,7 +1141,7 @@ void **Rtti_00331100()
 
 #if defined(KELLY_DECOMP_FUNCTION_003311D0)
 // 0x003311D0 __tf20slf_num_list_begin_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003311D0()
     __asm__("__tfQ220script_library_class8function");
@@ -1168,7 +1168,7 @@ void **Rtti_003311D0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00331398)
 // 0x00331398 __tf18slf_num_list_end_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00331398()
     __asm__("__tfQ220script_library_class8function");
@@ -1195,7 +1195,7 @@ void **Rtti_00331398()
 
 #if defined(KELLY_DECOMP_FUNCTION_00331560)
 // 0x00331560 __tf21slf_num_list_rbegin_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00331560()
     __asm__("__tfQ220script_library_class8function");
@@ -1222,7 +1222,7 @@ void **Rtti_00331560()
 
 #if defined(KELLY_DECOMP_FUNCTION_00331730)
 // 0x00331730 __tf19slf_num_list_rend_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00331730()
     __asm__("__tfQ220script_library_class8function");
@@ -1249,7 +1249,7 @@ void **Rtti_00331730()
 
 #if defined(KELLY_DECOMP_FUNCTION_00331900)
 // 0x00331900 __tf24slf_num_list_get_index_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00331900()
     __asm__("__tfQ220script_library_class8function");
@@ -1276,7 +1276,7 @@ void **Rtti_00331900()
 
 #if defined(KELLY_DECOMP_FUNCTION_00331B68)
 // 0x00331B68 __tf27slf_num_list_iterator_inc_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00331B68()
     __asm__("__tfQ220script_library_class8function");
@@ -1303,7 +1303,7 @@ void **Rtti_00331B68()
 
 #if defined(KELLY_DECOMP_FUNCTION_00331D38)
 // 0x00331D38 __tf27slf_num_list_iterator_dec_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00331D38()
     __asm__("__tfQ220script_library_class8function");
@@ -1330,7 +1330,7 @@ void **Rtti_00331D38()
 
 #if defined(KELLY_DECOMP_FUNCTION_00331F08)
 // 0x00331F08 __tf32slf_num_list_iterator_is_equal_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00331F08()
     __asm__("__tfQ220script_library_class8function");
@@ -1357,7 +1357,7 @@ void **Rtti_00331F08()
 
 #if defined(KELLY_DECOMP_FUNCTION_003320E8)
 // 0x003320E8 __tf33slf_num_list_iterator_not_equal_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003320E8()
     __asm__("__tfQ220script_library_class8function");
@@ -1384,7 +1384,7 @@ void **Rtti_003320E8()
 
 #if defined(KELLY_DECOMP_FUNCTION_003322C8)
 // 0x003322C8 __tf31slf_num_list_iterator_get_num_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003322C8()
     __asm__("__tfQ220script_library_class8function");
@@ -1411,7 +1411,7 @@ void **Rtti_003322C8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00332490)
 // 0x00332490 __tf24slf_create_entity_list_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00332490()
     __asm__("__tfQ220script_library_class8function");
@@ -1438,7 +1438,7 @@ void **Rtti_00332490()
 
 #if defined(KELLY_DECOMP_FUNCTION_00332648)
 // 0x00332648 __tf25slf_destroy_entity_list_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00332648()
     __asm__("__tfQ220script_library_class8function");
@@ -1465,7 +1465,7 @@ void **Rtti_00332648()
 
 #if defined(KELLY_DECOMP_FUNCTION_003326E8)
 // 0x003326E8 __tf22slf_entity_list_size_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003326E8()
     __asm__("__tfQ220script_library_class8function");
@@ -1492,7 +1492,7 @@ void **Rtti_003326E8()
 
 #if defined(KELLY_DECOMP_FUNCTION_003328F0)
 // 0x003328F0 __tf21slf_entity_list_add_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003328F0()
     __asm__("__tfQ220script_library_class8function");
@@ -1519,7 +1519,7 @@ void **Rtti_003328F0()
 
 #if defined(KELLY_DECOMP_FUNCTION_003329C0)
 // 0x003329C0 __tf23slf_entity_list_begin_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003329C0()
     __asm__("__tfQ220script_library_class8function");
@@ -1546,7 +1546,7 @@ void **Rtti_003329C0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00332B88)
 // 0x00332B88 __tf21slf_entity_list_end_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00332B88()
     __asm__("__tfQ220script_library_class8function");
@@ -1573,7 +1573,7 @@ void **Rtti_00332B88()
 
 #if defined(KELLY_DECOMP_FUNCTION_00332D50)
 // 0x00332D50 __tf24slf_entity_list_rbegin_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00332D50()
     __asm__("__tfQ220script_library_class8function");
@@ -1600,7 +1600,7 @@ void **Rtti_00332D50()
 
 #if defined(KELLY_DECOMP_FUNCTION_00332F20)
 // 0x00332F20 __tf22slf_entity_list_rend_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00332F20()
     __asm__("__tfQ220script_library_class8function");
@@ -1627,7 +1627,7 @@ void **Rtti_00332F20()
 
 #if defined(KELLY_DECOMP_FUNCTION_003330F0)
 // 0x003330F0 __tf27slf_entity_list_get_index_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003330F0()
     __asm__("__tfQ220script_library_class8function");
@@ -1654,7 +1654,7 @@ void **Rtti_003330F0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00333358)
 // 0x00333358 __tf30slf_entity_list_iterator_inc_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00333358()
     __asm__("__tfQ220script_library_class8function");
@@ -1681,7 +1681,7 @@ void **Rtti_00333358()
 
 #if defined(KELLY_DECOMP_FUNCTION_00333528)
 // 0x00333528 __tf30slf_entity_list_iterator_dec_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00333528()
     __asm__("__tfQ220script_library_class8function");
@@ -1708,7 +1708,7 @@ void **Rtti_00333528()
 
 #if defined(KELLY_DECOMP_FUNCTION_003336F8)
 // 0x003336F8 __tf35slf_entity_list_iterator_is_equal_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003336F8()
     __asm__("__tfQ220script_library_class8function");
@@ -1735,7 +1735,7 @@ void **Rtti_003336F8()
 
 #if defined(KELLY_DECOMP_FUNCTION_003338D8)
 // 0x003338D8 __tf36slf_entity_list_iterator_not_equal_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003338D8()
     __asm__("__tfQ220script_library_class8function");
@@ -1762,7 +1762,7 @@ void **Rtti_003338D8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00333AB8)
 // 0x00333AB8 __tf37slf_entity_list_iterator_get_entity_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00333AB8()
     __asm__("__tfQ220script_library_class8function");
@@ -1789,7 +1789,7 @@ void **Rtti_00333AB8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00333C80)
 // 0x00333C80 __tf21slf_create_str_list_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00333C80()
     __asm__("__tfQ220script_library_class8function");
@@ -1816,7 +1816,7 @@ void **Rtti_00333C80()
 
 #if defined(KELLY_DECOMP_FUNCTION_00333E38)
 // 0x00333E38 __tf22slf_destroy_str_list_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00333E38()
     __asm__("__tfQ220script_library_class8function");
@@ -1843,7 +1843,7 @@ void **Rtti_00333E38()
 
 #if defined(KELLY_DECOMP_FUNCTION_00333ED8)
 // 0x00333ED8 __tf19slf_str_list_size_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00333ED8()
     __asm__("__tfQ220script_library_class8function");
@@ -1870,7 +1870,7 @@ void **Rtti_00333ED8()
 
 #if defined(KELLY_DECOMP_FUNCTION_003340E0)
 // 0x003340E0 __tf18slf_str_list_add_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003340E0()
     __asm__("__tfQ220script_library_class8function");
@@ -1897,7 +1897,7 @@ void **Rtti_003340E0()
 
 #if defined(KELLY_DECOMP_FUNCTION_003341B8)
 // 0x003341B8 __tf20slf_str_list_begin_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003341B8()
     __asm__("__tfQ220script_library_class8function");
@@ -1924,7 +1924,7 @@ void **Rtti_003341B8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00334380)
 // 0x00334380 __tf18slf_str_list_end_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00334380()
     __asm__("__tfQ220script_library_class8function");
@@ -1951,7 +1951,7 @@ void **Rtti_00334380()
 
 #if defined(KELLY_DECOMP_FUNCTION_00334548)
 // 0x00334548 __tf21slf_str_list_rbegin_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00334548()
     __asm__("__tfQ220script_library_class8function");
@@ -1978,7 +1978,7 @@ void **Rtti_00334548()
 
 #if defined(KELLY_DECOMP_FUNCTION_00334718)
 // 0x00334718 __tf19slf_str_list_rend_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00334718()
     __asm__("__tfQ220script_library_class8function");
@@ -2005,7 +2005,7 @@ void **Rtti_00334718()
 
 #if defined(KELLY_DECOMP_FUNCTION_003348E8)
 // 0x003348E8 __tf24slf_str_list_get_index_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003348E8()
     __asm__("__tfQ220script_library_class8function");
@@ -2032,7 +2032,7 @@ void **Rtti_003348E8()
 
 #if defined(KELLY_DECOMP_FUNCTION_00334B50)
 // 0x00334B50 __tf27slf_str_list_iterator_inc_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00334B50()
     __asm__("__tfQ220script_library_class8function");
@@ -2059,7 +2059,7 @@ void **Rtti_00334B50()
 
 #if defined(KELLY_DECOMP_FUNCTION_00334D20)
 // 0x00334D20 __tf27slf_str_list_iterator_dec_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00334D20()
     __asm__("__tfQ220script_library_class8function");
@@ -2086,7 +2086,7 @@ void **Rtti_00334D20()
 
 #if defined(KELLY_DECOMP_FUNCTION_00334EF0)
 // 0x00334EF0 __tf32slf_str_list_iterator_is_equal_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00334EF0()
     __asm__("__tfQ220script_library_class8function");
@@ -2113,7 +2113,7 @@ void **Rtti_00334EF0()
 
 #if defined(KELLY_DECOMP_FUNCTION_003350D0)
 // 0x003350D0 __tf33slf_str_list_iterator_not_equal_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003350D0()
     __asm__("__tfQ220script_library_class8function");
@@ -2140,7 +2140,7 @@ void **Rtti_003350D0()
 
 #if defined(KELLY_DECOMP_FUNCTION_003352B0)
 // 0x003352B0 __tf31slf_str_list_iterator_get_str_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003352B0()
     __asm__("__tfQ220script_library_class8function");

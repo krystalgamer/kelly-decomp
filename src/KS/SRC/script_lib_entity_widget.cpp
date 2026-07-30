@@ -19,7 +19,7 @@ void ScriptDtor_003273E8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_CO
 
 #if defined(KELLY_DECOMP_FUNCTION_003271E0)
 // 0x003271E0 __tf26slf_create_entity_widget_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_003271E0()
     __asm__("__tfQ220script_library_class8function");
@@ -46,7 +46,7 @@ void **Rtti_003271E0()
 
 #if defined(KELLY_DECOMP_FUNCTION_00327408)
 // 0x00327408 __tf30slf_entity_widget_get_entity_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_00327408()
     __asm__("__tfQ220script_library_class8function");

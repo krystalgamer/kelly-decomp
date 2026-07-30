@@ -3,7 +3,7 @@
 
 #include "KS/SRC/anim_shared.h"
 #include "KS/SRC/mbi_shared.h"
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 template <class animatable_t>
 class linear_key {

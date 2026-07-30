@@ -12,7 +12,7 @@ extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_16interface_wi
 void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = base_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 #if defined(KELLY_DECOMP_FUNCTION_002B8BA0)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/interface_shared.h"
 
 extern "C" void **interface_widget_base_rtti() __asm__("__tf6widget");

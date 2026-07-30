@@ -67,7 +67,7 @@ void ScriptDtor_0032F3C0(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPI
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F0D0)
 // 0x0032F0D0 __tf19slc_vector3d_list_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032F0D0()
     __asm__("__tf20script_library_class");
@@ -94,7 +94,7 @@ void **Rtti_0032F0D0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F140)
 // 0x0032F140 __tf28slc_vector3d_list_iterator_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032F140()
     __asm__("__tf20script_library_class");
@@ -121,7 +121,7 @@ void **Rtti_0032F140()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F1B0)
 // 0x0032F1B0 __tf14slc_num_list_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032F1B0()
     __asm__("__tf20script_library_class");
@@ -148,7 +148,7 @@ void **Rtti_0032F1B0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F220)
 // 0x0032F220 __tf23slc_num_list_iterator_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032F220()
     __asm__("__tf20script_library_class");
@@ -175,7 +175,7 @@ void **Rtti_0032F220()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F290)
 // 0x0032F290 __tf17slc_entity_list_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032F290()
     __asm__("__tf20script_library_class");
@@ -202,7 +202,7 @@ void **Rtti_0032F290()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F300)
 // 0x0032F300 __tf26slc_entity_list_iterator_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032F300()
     __asm__("__tf20script_library_class");
@@ -229,7 +229,7 @@ void **Rtti_0032F300()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F370)
 // 0x0032F370 __tf14slc_str_list_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032F370()
     __asm__("__tf20script_library_class");
@@ -256,7 +256,7 @@ void **Rtti_0032F370()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F3E0)
 // 0x0032F3E0 __tf23slc_str_list_iterator_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032F3E0()
     __asm__("__tf20script_library_class");

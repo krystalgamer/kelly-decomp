@@ -27,7 +27,7 @@ void **hard_attrib_rtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_00313348)
 // 0x00313348 __tf31character_hard_attrib_interface
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **CharacterHardAttribBaseRtti() __asm__("__tf21hard_attrib_interface");
 extern "C" void *character_hard_attrib_type[] __asm__("__ti31character_hard_attrib_interface");
 extern "C" const char character_hard_attrib_name[];

@@ -23,7 +23,7 @@ void SkyDtor(void *self) { EntityDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 
 #if defined(KELLY_DECOMP_FUNCTION_002B9398)
 // 0x002B9398 __tf3sky
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 extern "C" void **SkyBaseRtti() __asm__("__tf6entity");
 extern "C" void *sky_type[] __asm__("__ti3sky");
 extern "C" const char sky_name[];

@@ -356,7 +356,7 @@ void TargetDtor(void *self, int deleting) {
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00270D60)
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 #include "KS/SRC/ks/menu_shared.h"
 
 extern "C" void **menu_entry_enum_base_rtti()

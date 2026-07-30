@@ -11,7 +11,7 @@ void ScriptDtor_0032EF70(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPI
 
 #if defined(KELLY_DECOMP_FUNCTION_0032EE80)
 // 0x0032EE80 __tf17script_controller
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032EE80()
     __asm__("__tf9signaller");
@@ -38,7 +38,7 @@ void **Rtti_0032EE80()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032EF90)
 // 0x0032EF90 __tf16slc_controller_t
-#include "KS/SRC/rtti_shared.h"
+#include "KS/SRC/rtti.h"
 
 extern "C" void **RttiBase_0032EF90()
     __asm__("__tf20script_library_class");
