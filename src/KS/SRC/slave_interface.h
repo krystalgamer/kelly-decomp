@@ -1,54 +1,25 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef SLAVE_INTERFACE_H
+#define SLAVE_INTERFACE_H
 
-#if defined(KELLY_DECOMP_FUNCTION_00145E18)
-#include "KS/SRC/ownership_interface_shared.h"
+#include "KS/SRC/entity_interface.h"
 
-extern "C" void **slave_base_rtti() __asm__("__tf16entity_interface");
-extern "C" void *slave_base_type[] __asm__("__ti16entity_interface");
-extern "C" void *slave_type[] __asm__("__ti15slave_interface");
-extern "C" const char slave_name[];
+class owner_interface;
 
-__asm__(".equ __tf16entity_interface, 0x00113200");
-__asm__(".equ __ti16entity_interface, 0x005A26A8");
-__asm__(".equ __ti15slave_interface, 0x005A2878");
-__asm__(".equ slave_name, 0x004CEBC8");
+class slave_interface : public entity_interface {
+    entity *my_owner;
+    entity *next_slave;
 
-// 0x00145E18 __tf15slave_interface
-extern "C" void **slave_rtti() __asm__("__tf15slave_interface");
-void **slave_rtti()
-{
-    if (!slave_type[0]) {
-        slave_base_rtti();
-        __rtti_si(slave_type, slave_name, slave_base_type);
-    }
-    return slave_type;
-}
-#endif
+    void set_owner(entity *owner);
+    void clear_owner();
+    inline void set_next_slave(entity *value) { next_slave = value; }
 
+public:
+    explicit inline slave_interface(entity *value)
+        : entity_interface(value), my_owner(0), next_slave(0) {}
+    inline const entity *get_owner() const { return my_owner; }
+    inline const entity *get_next_slave() const { return next_slave; }
 
-#if defined(KELLY_DECOMP_FUNCTION_00145DE0)
-// 0x00145DE0 _$_15slave_interface
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char generic_interface_vtable[];
-__asm__(".equ generic_interface_vtable, 0x004C85B8");
-
-struct interface_layout {
-    const void *vtable;
-    void *my_entity;
+    friend class owner_interface;
 };
 
-extern "C" void TargetDtor(void *self, int deleting)
-    __asm__("_$_15slave_interface");
-
-void TargetDtor(void *self, int deleting)
-{
-    interface_layout *interface = (interface_layout *)self;
-    interface->vtable = generic_interface_vtable;
-    interface->my_entity = 0;
-    if (deleting & 1)
-        BuiltinDelete(self);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
 #endif

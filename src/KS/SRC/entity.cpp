@@ -677,7 +677,7 @@ void entity::destroy_hard_attrib_ifc()
 
 
 // 0x001273C8 destroy_owner_ifc__6entity
-#include "KS/SRC/ownership_interface_shared.h"
+#include "KS/SRC/owner_interface.h"
 #include "KS/SRC/entity.h"
 
 void entity::destroy_owner_ifc()
@@ -718,7 +718,7 @@ void entity::destroy_skeleton_ifc()
 
 
 // 0x00127590 destroy_slave_ifc__6entity
-#include "KS/SRC/ownership_interface_shared.h"
+#include "KS/SRC/slave_interface.h"
 #include "KS/SRC/entity.h"
 
 void entity::destroy_slave_ifc()
