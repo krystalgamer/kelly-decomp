@@ -7,7 +7,7 @@
 #include "KS/SRC/hard_attrib_interface_shared.h"
 #include "KS/SRC/po_shared.h"
 #include "KS/SRC/stringx.h"
-#include "KS/SRC/time_interface_shared.h"
+#include "KS/SRC/time_interface.h"
 #include "KS/SRC/vector3d_shared.h"
 #include "KS/SRC/visrep_shared.h"
 
