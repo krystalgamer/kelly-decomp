@@ -1,0 +1,23 @@
+{
+  "address": "0x0014CC48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "391facdcf2400dbafbc3d5c5cdca9e302387b6c8",
+      "candidate_size": 1156,
+      "compared_bytes": 1156,
+      "compared_instructions": 289,
+      "emitted_name": "Init__9PanelQuadfffffffffffffG9matrix4x4",
+      "instruction_score": 0.0,
+      "matching_bytes": 181,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 168 lane A4\n\nExact released source tested once for `0x0014CC48 Init__9PanelQuadfffffffffffffG9matrix4x4`. Attempts before: 0. Result `different`, byte score 15.6574% and instruction score 0.0000%. Capacity-only child failures and Sol retries produced no attempts for some lanes; those lanes were remediated directly. No source retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 15.6574,
+      "source": "struct vector4d {\n    float x, y, z, w;\n};\n\nstruct vector3d {\n    float x, y, z;\n    vector3d(float ax, float ay, float az) : x(ax), y(ay), z(az) {}\n};\n\nstruct matrix4x4 {\n    vector4d x, y, z, w;\n};\n\nstruct nglQuad {\n    char data[0x7c];\n};\n\nextern \"C\" void adjustCoords(float &, float &)\n    __asm__(\"adjustCoords__H1Zf_RX01T0_v\");\nextern \"C\" void nglSetQuadRect(nglQuad *, float, float, float, float)\n    __asm__(\"nglSetQuadRect__FP7nglQuadffff\");\nextern \"C\" void nglSetQuadColor(nglQuad *, unsigned int)\n    __asm__(\"nglSetQuadColor__FP7nglQuadUi\");\nextern \"C\" void nglSetQuadUV(nglQuad *, float, float, float, float)\n    __asm__(\"nglSetQuadUV__FP7nglQuadffff\");\nextern \"C\" void nglSetQuadZ(nglQuad *, float)\n    __asm__(\"nglSetQuadZ__FP7nglQuadf\");\nextern \"C\" void nglSetQuadMapFlags(nglQuad *, unsigned int)\n    __asm__(\"nglSetQuadMapFlags__FP7nglQuadUi\");\n\ninline vector3d xform3d_1_homog(const matrix4x4 &m44, const vector3d &sv)\n{\n    float w;\n    w = m44.x.w * sv.x + m44.y.w * sv.y + m44.z.w * sv.z + m44.w.w;\n    if (w)\n        w = 1.0f / w;\n    vector3d result(0.0f, 0.0f, 0.0f);\n    result.x = (m44.x.x * sv.x + m44.y.x * sv.y + m44.z.x * sv.z + m44.w.x) * w;\n    result.y = (m44.x.y * sv.x + m44.y.y * sv.y + m44.z.y * sv.z + m44.w.y) * w;\n    result.z = (m44.x.z * sv.x + m44.y.z * sv.y + m44.z.z * sv.z + m44.w.z) * w;\n    return result;\n}\n\ninline int FTOI(float input)\n{\n    return (int)input;\n}\n\nclass PanelQuad {\n    char padding0[0x1c];\n    nglQuad quad;\n    float r, g, b, a;\n    float x1, y1, x2, y2;\n    float width, height;\n    float width_a, height_a;\n    char padding1[0x8];\n    matrix4x4 matrix;\n    char padding2[0x6c];\n    float z;\n    float u1, v1, u2, v2;\n\npublic:\n    virtual void Init(float xa, float ya, float xb, float yb,\n                      float r1, float g1, float b1, float a1,\n                      float ua, float va, float ub, float vb,\n                      float z1, matrix4x4 obj);\n};\n\nvoid PanelQuad::Init(float xa, float ya, float xb, float yb,\n                     float r1, float g1, float b1, float a1,\n                     float ua, float va, float ub, float vb,\n                     float z1, matrix4x4 obj)\n{\n    r = r1; g = g1; b = b1; a = a1;\n    u1 = ua; v1 = va; u2 = ub; v2 = vb;\n    matrix = obj;\n    vector3d vec1 = xform3d_1_homog(matrix, vector3d(xa, ya, z1));\n    vector3d vec2 = xform3d_1_homog(matrix, vector3d(xb, yb, z1));\n    x1 = vec1.x; x2 = vec2.x; y1 = vec1.y; y2 = vec2.y;\n    z = vec1.z;\n    width_a = x2-x1;\n    height_a = y2-y1;\n    adjustCoords(x1, y1);\n    adjustCoords(x2, y2);\n    width = x2-x1;\n    height = y2-y1;\n\n    nglSetQuadRect(&quad, x1, y1, x2, y2);\n    nglSetQuadColor(&quad,\n        ((FTOI(r*255.0f)+1)>>1) |\n        (((FTOI(g*256.0f)+1)>>1) << 8) |\n        (((FTOI(b*255.0f)+1)>>1) << 16) |\n        (((FTOI(a*255.0f)+1)>>1) << 24));\n    nglSetQuadUV(&quad, u1, v1, u2, v2);\n    nglSetQuadZ(&quad, z);\n    nglSetQuadMapFlags(&quad, 0x32);\n}\n",
+      "status": "different",
+      "target_size": 1052
+    }
+  ],
+  "raw_name": "Init__9PanelQuadfffffffffffffG9matrix4x4"
+}
