@@ -1,0 +1,15 @@
+{
+  "address": "0x0013E5D0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "17bb6eb37641f478a4ac05dd7eb5a59942f290cb",
+      "notes": "Exact released GCC 2/libstdc++ `_Rb_tree::_M_insert` template from `C:/usr/local/sce/ee/gcc/include/g++-2/stl_tree.h` (repository release copy `tmp/source_first/0013F330/release/stl_tree.h:819-851`), instantiated with released `stringx` layout (`kelly-slaters-pro-surfer/KS/SRC/stringx.h:230`), `pair<const stringx, signed short>`, `less<stringx>`, and released `my_allocator` declaration (`kelly-slaters-pro-surfer/KS/SRC/custom_stl.h:423`). The one source-faithful candidate compile failed because the isolated harness could not resolve the released standard headers. No alternate was tried.",
+      "score": 0.0,
+      "source": "#include <stddef.h>\n#include <stl_alloc.h>\n\nclass string_buf;\nclass stringx\n{\nprotected:\n  char *chars;\n  string_buf *my_buf;\n};\n\ntemplate <class _Tp>\nclass my_allocator\n{\n  typedef __default_alloc_template<false, 0> _Alloc;\npublic:\n  typedef size_t size_type;\n  typedef ptrdiff_t difference_type;\n  typedef _Tp *pointer;\n  typedef const _Tp *const_pointer;\n  typedef _Tp& reference;\n  typedef const _Tp& const_reference;\n  typedef _Tp value_type;\n\n  template <class _Tp1> struct rebind { typedef my_allocator<_Tp1> other; };\n\n  my_allocator() __STL_NOTHROW {}\n  my_allocator(const my_allocator&) __STL_NOTHROW {}\n  template <class _Tp1> my_allocator(const my_allocator<_Tp1>&) __STL_NOTHROW {}\n  ~my_allocator() __STL_NOTHROW {}\n\n  pointer address(reference __x) const { return &__x; }\n  const_pointer address(const_reference __x) const { return &__x; }\n  pointer allocate(size_type __n, const void * = 0)\n    { return __n ? static_cast<pointer>(_Alloc::allocate(__n * sizeof(_Tp))) : 0; }\n  void deallocate(pointer __p, size_type __n)\n    { _Alloc::deallocate(__p, __n * sizeof(_Tp)); }\n  size_type max_size() const __STL_NOTHROW { return size_t(-1) / sizeof(_Tp); }\n  void construct(pointer __p, const _Tp& __val) { new (__p) _Tp(__val); }\n  void destroy(pointer __p) { __p->~_Tp(); }\n};\n\n#include <stl_tree.h>\n\ntypedef pair<const stringx, signed short> value_type;\ntypedef _Rb_tree<stringx, value_type, _Select1st<value_type>,\n                 less<stringx>, my_allocator<signed short> > tree_type;\n\ntemplate tree_type::iterator tree_type::_M_insert(\n  tree_type::_Base_ptr, tree_type::_Base_ptr, const value_type&);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_M_insert__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZsZt10_Select1st1Zt4pair2ZC7stringxZsZt4less1Z7stringxZt12my_allocator1ZsP18_Rb_tree_node_baseT1RCt4pair2ZC7stringxZs"
+}
