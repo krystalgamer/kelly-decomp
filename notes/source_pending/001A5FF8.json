@@ -1,0 +1,15 @@
+{
+  "address": "0x001A5FF8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "618dec44f1c0f9aa4c4cff0063097243e08536c8",
+      "notes": "Exact released constructor body from kelly-slaters-pro-surfer/KS/SRC/ks/FrontEndMenus.cpp:281-298. The one-shot candidate failed compilation because its source-faithful scratch declaration header was not copied into the attempt directory. No alternate was tried.",
+      "score": 0.0,
+      "source": "#include \"FEMenu_source_shared.h\"\n\n#define NEW new\n\nenum { FEMENU_WRAP = 0x002, FEMENU_DONT_SHOW_DISABLED = 0x400 };\n\nenum {\n    GT_MENU_OPTIONS = 0,\n    GT_MENU_TRICKBOOK = 7,\n    GT_MENU_RETRY = 11,\n    GT_MENU_CONTINUE = 17,\n    GT_MENU_NEXT_TIP = 18,\n    GT_MENU_END_RUN = 26,\n    GT_FE_MENU_RETURN_FE = 288\n};\n\nextern stringx ksGlobalTextArray[];\n\nclass PauseMenuSystem;\n\nclass TutorialPauseMenuClass : public FEMenu\n{\npublic:\n    enum\n    {\n        NextTip,\n        Continue,\n        Retry,\n        Options,\n        TrickBook,\n        EndRun,\n        ReturnToFE,\n    };\n    PauseMenuSystem* sys;\n    FEMenuEntry *options;\n    FEMenuEntry *trickbook;\n\npublic:\n    TutorialPauseMenuClass(FEMenuSystem* m, int x, int y, color32 c, color32 ch, color32 cha);\n    virtual void OnActivate(void);\n    virtual void Select(int entry_index);\n    virtual void OnButtonRelease(int c, int b);\n    virtual void OnDown(int c);\n    virtual void OnUp(int c);\n    virtual void OnStart(int c);\n};\n\nTutorialPauseMenuClass::TutorialPauseMenuClass(FEMenuSystem* m, int x, int y, color32 c, color32 ch, color32 cha)\n{\n\tFEMenu::cons(m, x, y, c, ch, cha);\n\tsys = (PauseMenuSystem*) m;\n\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_NEXT_TIP], this));\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_CONTINUE], this));\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_RETRY], this));\n\toptions = NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_OPTIONS], this);\n\tAdd(options);\n\ttrickbook = NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_TRICKBOOK], this);\n\tAdd(trickbook);\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_END_RUN], this));\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_RETURN_FE], this));\n\n\tscale_high = 1.0f;\n\tflags |= FEMENU_WRAP | FEMENU_DONT_SHOW_DISABLED;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__22TutorialPauseMenuClassP12FEMenuSystemiiG7color32N24"
+}
