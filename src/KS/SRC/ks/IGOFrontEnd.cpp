@@ -1,5 +1,19 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_0017C1A8) || \
+    defined(KELLY_DECOMP_FUNCTION_0017CB40) || \
+    defined(KELLY_DECOMP_FUNCTION_0017CE18) || \
+    defined(KELLY_DECOMP_FUNCTION_0017CE40) || \
+    defined(KELLY_DECOMP_FUNCTION_0017CE68) || \
+    defined(KELLY_DECOMP_FUNCTION_0017CE88) || \
+    defined(KELLY_DECOMP_FUNCTION_0017CEB0) || \
+    defined(KELLY_DECOMP_FUNCTION_0017CED0) || \
+    defined(KELLY_DECOMP_FUNCTION_0017CF08) || \
+    defined(KELLY_DECOMP_FUNCTION_0017DF78) || \
+    defined(KELLY_DECOMP_FUNCTION_0017DF98)
+#include "KS/SRC/ks/IGOFrontEnd_shared.h"
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_0017CC88)
 // 0x0017CC88 ShowAccompBackground__11IGOFrontEndbii
 #include "KS/SRC/ks/IGOFrontEnd_shared.h"
@@ -35,26 +49,17 @@ void IGOPrintQueue::clear() { start = end = size = 0; }
 
 #if defined(KELLY_DECOMP_FUNCTION_0017C1A8)
 // 0x0017C1A8 OnScoreChange__11IGOFrontEndi
-class IGOFrontEnd {
-public:
-    void OnScoreChange(int player_index);
-};
-
 void IGOFrontEnd::OnScoreChange(int player_index) {
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0017CEB0)
 // 0x0017CEB0 IsPhotoShown__C11IGOFrontEnd
-class PhotoWidget { char padding[0x18]; int shown; public: bool IsShown() const { return shown; } };
-class IGOFrontEnd { char padding[0x5ac]; PhotoWidget *photoWidget; public: bool IsPhotoShown() const; };
 bool IGOFrontEnd::IsPhotoShown() const { return photoWidget && photoWidget->IsShown(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0017CE68)
 // 0x0017CE68 GetCameraReticleFade__C11IGOFrontEnd
-class CameraWidget { char padding[0x78]; float fade; public: float GetFade() const { return fade; } };
-class IGOFrontEnd { char padding[0x5a8]; CameraWidget *cameraWidget; public: float GetCameraReticleFade() const; };
 float IGOFrontEnd::GetCameraReticleFade() const { if (!cameraWidget) return 0.0f; return cameraWidget->GetFade(); }
 #endif
 
@@ -62,7 +67,6 @@ float IGOFrontEnd::GetCameraReticleFade() const { if (!cameraWidget) return 0.0f
 // 0x0017DF78 GetProceedButtonState__11IGOFrontEnd
 int getButtonState(int command);
 __asm__(".equ getButtonState__Fi, 0x00159150");
-class IGOFrontEnd { public: bool GetProceedButtonState(); };
 bool IGOFrontEnd::GetProceedButtonState() { return getButtonState(6); }
 #endif
 
@@ -70,108 +74,44 @@ bool IGOFrontEnd::GetProceedButtonState() { return getButtonState(6); }
 // 0x0017DF98 GetProceedButtonState__11IGOFrontEndi
 int getButtonState(int command, int controller);
 __asm__(".equ getButtonState__Fii, 0x00159270");
-class IGOFrontEnd { public: bool GetProceedButtonState(int controller); };
 bool IGOFrontEnd::GetProceedButtonState(int controller) { return getButtonState(6, controller); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0017CB40)
 // 0x0017CB40 OnSurferStandUp__11IGOFrontEnd
-class WaveIndicatorWidget { public: void Hide(bool immediate); };
 __asm__(".equ Hide__19WaveIndicatorWidgetb, 0x00168180");
-class IGOFrontEnd { char padding[0x5a0]; WaveIndicatorWidget *waveIndicatorWidget; public: void OnSurferStandUp(); };
 void IGOFrontEnd::OnSurferStandUp() { if (waveIndicatorWidget) { waveIndicatorWidget->Hide(true); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0017CE18)
 // 0x0017CE18 ShowCameraReticle__11IGOFrontEndf
-class CameraWidget { public: void Show(float time); };
 __asm__(".equ Show__12CameraWidgetf, 0x00169FC8");
-class IGOFrontEnd { char padding[0x5a8]; CameraWidget *cameraWidget; public: void ShowCameraReticle(float time); };
 void IGOFrontEnd::ShowCameraReticle(float time) { if (cameraWidget) { cameraWidget->Show(time); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0017CE40)
 // 0x0017CE40 HideCameraReticle__11IGOFrontEnd
-class CameraWidget { public: void Hide(); };
 __asm__(".equ Hide__12CameraWidget, 0x00169FF0");
-class IGOFrontEnd { char padding[0x5a8]; CameraWidget *cameraWidget; public: void HideCameraReticle(); };
 void IGOFrontEnd::HideCameraReticle() { if (cameraWidget) { cameraWidget->Hide(); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0017CE88)
 // 0x0017CE88 ShowPhoto__11IGOFrontEndP10nglTexturePii
-struct nglTexture;
-class PhotoWidget { public: void Show(nglTexture *texture, int *score, int photo); };
 __asm__(".equ Show__11PhotoWidgetP10nglTexturePii, 0x0016AE98");
-class IGOFrontEnd { char padding[0x5ac]; PhotoWidget *photoWidget; public: void ShowPhoto(nglTexture *texture, int *score, int photo); };
 void IGOFrontEnd::ShowPhoto(nglTexture *texture, int *score, int photo) { if (photoWidget) { photoWidget->Show(texture, score, photo); KELLY_DECOMP_COMPILER_BARRIER(); } }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0017CED0)
 // 0x0017CED0 ShowMenuBackground__11IGOFrontEndb
-struct widget_vtable {
-    char padding[0x38];
-    short adjustment;
-    short padding2;
-    void (*show)(void *self, bool enabled);
-};
-
-struct simple_widget_layout {
-    char padding[4];
-    widget_vtable *vtable;
-};
-
-class IGOFrontEnd {
-    char padding[0x584];
-    simple_widget_layout *menuBGWidget;
-
-public:
-    void ShowMenuBackground(bool enabled);
-};
-
 void IGOFrontEnd::ShowMenuBackground(bool enabled)
 {
-    simple_widget_layout *widget = menuBGWidget;
-    if (widget) {
-        widget_vtable *table = widget->vtable;
-        table->show((char *)widget + table->adjustment, enabled);
-    }
+    if (menuBGWidget)
+        menuBGWidget->Show(enabled);
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0017CF08)
 // 0x0017CF08 IsMenuBGShown__C11IGOFrontEnd
-class IGOWidget {
-    bool display;
-
-public:
-    virtual ~IGOWidget();
-    virtual void SetDisplay(bool);
-    virtual void Update(float);
-    virtual void Draw();
-    virtual bool GetDisplay() const;
-};
-
-class SimpleWidget : public IGOWidget {
-    int numPQs;
-    void **pqs;
-
-public:
-    virtual ~SimpleWidget();
-    virtual void Init(void *, const void *);
-    virtual void Draw();
-    virtual void Show(bool);
-    virtual bool IsShown() const;
-};
-
-class IGOFrontEnd {
-    char padding[0x584];
-    SimpleWidget *menuBGWidget;
-
-public:
-    bool IsMenuBGShown() const;
-};
-
 bool IGOFrontEnd::IsMenuBGShown(void) const
 {
     return menuBGWidget && menuBGWidget->IsShown();

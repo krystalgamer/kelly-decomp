@@ -41,6 +41,7 @@ public:
         int photo_num,
         float fade
     );
+    bool IsShown() const { return photoTexture != 0; }
 };
 
 #endif
