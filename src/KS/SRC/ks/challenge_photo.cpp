@@ -1,5 +1,20 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_00262668) || \
+    defined(KELLY_DECOMP_FUNCTION_00262680) || \
+    defined(KELLY_DECOMP_FUNCTION_00262698) || \
+    defined(KELLY_DECOMP_FUNCTION_002626B0) || \
+    defined(KELLY_DECOMP_FUNCTION_00262710) || \
+    defined(KELLY_DECOMP_FUNCTION_00262748) || \
+    defined(KELLY_DECOMP_FUNCTION_00262758) || \
+    defined(KELLY_DECOMP_FUNCTION_00262788) || \
+    defined(KELLY_DECOMP_FUNCTION_002627E8) || \
+    defined(KELLY_DECOMP_FUNCTION_00262800) || \
+    defined(KELLY_DECOMP_FUNCTION_00262818) || \
+    defined(KELLY_DECOMP_FUNCTION_002628B8)
+#include "KS/SRC/ks/challenge_photo_shared.h"
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_002626C8)
 #include "KS/SRC/ks/challenge_photo_shared.h"
 // 0x002626C8 _$_Q214PhotoChallenge5Photo
@@ -10,7 +25,7 @@ extern "C" void PhotoDtor(PhotoChallenge::Photo* self, int deleting)
 
 void PhotoDtor(PhotoChallenge::Photo* self, int deleting)
 {
-    nglDestroyTexture(self->texture);
+    nglDestroyTexture(self->GetTexture());
     if (deleting & 1) {
         builtin_delete(self);
         KELLY_DECOMP_COMPILER_BARRIER();
@@ -27,16 +42,6 @@ void PhotoChallenge::OnEvent(EVENT event, int param1, int param2) { if (event ==
 
 #if defined(KELLY_DECOMP_FUNCTION_00262668)
 // 0x00262668 GetPhotoScore__C14PhotoChallengei
-struct PhotoRecord {
-    void* texture;
-    int score;
-    bool special;
-
-    int* GetScore() {
-        return &score;
-    }
-};
-class PhotoChallenge { char padding[0x30]; PhotoRecord* photos; public: int* GetPhotoScore(int index) const; };
 int* PhotoChallenge::GetPhotoScore(int index) const {
     return photos[index].GetScore();
 }
@@ -44,37 +49,21 @@ int* PhotoChallenge::GetPhotoScore(int index) const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00262680)
 // 0x00262680 GetPhotoTexture__14PhotoChallengei
-struct PhotoRecord { void* texture; int score; bool special; void* GetTexture() { return texture; } };
-class PhotoChallenge { char padding[0x30]; PhotoRecord* photos; public: void* GetPhotoTexture(int index); };
-void* PhotoChallenge::GetPhotoTexture(int index) { return photos[index].GetTexture(); }
+nglTexture* PhotoChallenge::GetPhotoTexture(int index) { return photos[index].GetTexture(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00262698)
 // 0x00262698 GetPhotoIsOfSpecialTrick__14PhotoChallengei
-struct PhotoRecord { void* texture; int score; bool special; bool IsOfSpecialTrick() { return special; } };
-class PhotoChallenge { char padding[0x30]; PhotoRecord* photos; public: bool GetPhotoIsOfSpecialTrick(int index); };
 bool PhotoChallenge::GetPhotoIsOfSpecialTrick(int index) { return photos[index].IsOfSpecialTrick(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002626B0)
 // 0x002626B0 __Q214PhotoChallenge5Photo
-class PhotoChallenge { public: class Photo { void* texture; int score; bool isOfSpecialTrick; public: Photo(); }; };
 PhotoChallenge::Photo::Photo() { texture = 0; score = 0; isOfSpecialTrick = false; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00262748)
 // 0x00262748 Reset__Q214PhotoChallenge5Photo
-class PhotoChallenge {
-public:
-    class Photo {
-        char padding[0x4];
-        int score;
-        bool isOfSpecialTrick;
-    public:
-        void Reset();
-    };
-};
-
 void PhotoChallenge::Photo::Reset() {
     score = 0;
     isOfSpecialTrick = false;
@@ -83,48 +72,34 @@ void PhotoChallenge::Photo::Reset() {
 
 #if defined(KELLY_DECOMP_FUNCTION_002627E8)
 // 0x002627E8 __Q214PhotoChallenge9Cameraman
-class PhotoChallenge { public: class Cameraman { int state; void* ent; void* destPhoto; void* targetKsctrl; public: Cameraman(); }; };
 PhotoChallenge::Cameraman::Cameraman() {
     ent = 0;
-    targetKsctrl = 0;
+    state = CSTATE_NONE;
     destPhoto = 0;
-    state = 0;
+    targetKsctrl = 0;
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00262800)
 // 0x00262800 Init__Q214PhotoChallenge9CameramanP6entity
-class entity;
-class PhotoChallenge { public: class Cameraman { int state; entity* ent; void* destPhoto; void* targetKsctrl; public: void Init(entity* value); }; };
 void PhotoChallenge::Cameraman::Init(entity* value) {
     ent = value;
-    targetKsctrl = 0;
+    state = CSTATE_NONE;
     destPhoto = 0;
-    state = 0;
+    targetKsctrl = 0;
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00262818)
 // 0x00262818 Reset__Q214PhotoChallenge9Cameraman
-class PhotoChallenge {
-public:
-    class Cameraman {
-        char padding[0xC];
-        int state;
-    public:
-        void Reset();
-    };
-};
-
 void PhotoChallenge::Cameraman::Reset() {
-    state = 0;
+    state = CSTATE_NONE;
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00262758)
 // 0x00262758 Show__Q214PhotoChallenge5Photoi
 class IGOFrontEnd;
-struct nglTexture;
 
 extern "C" void ShowPhoto(
     IGOFrontEnd *self,
@@ -137,17 +112,6 @@ __asm__(".equ ShowPhoto__11IGOFrontEndP10nglTexturePii, 0x0017CE88");
 extern IGOFrontEnd *global_igo;
 __asm__(".equ global_igo, 0x003E7728");
 
-class PhotoChallenge {
-public:
-    class Photo {
-        nglTexture *texture;
-        int score;
-
-    public:
-        void Show(int label);
-    };
-};
-
 void PhotoChallenge::Photo::Show(int label) {
     ShowPhoto(global_igo, texture, &score, label);
     KELLY_DECOMP_COMPILER_BARRIER();
@@ -156,26 +120,12 @@ void PhotoChallenge::Photo::Show(int label) {
 
 #if defined(KELLY_DECOMP_FUNCTION_00262710)
 // 0x00262710 Init__Q214PhotoChallenge5Photoii
-class nglTexture;
-
 nglTexture *nglCreateTexture(
     unsigned int format,
     unsigned int width,
     unsigned int height
 );
 __asm__(".equ nglCreateTexture__FUiUiUi, 0x0039CB38");
-
-class PhotoChallenge {
-public:
-    class Photo {
-        nglTexture *texture;
-        int score;
-        bool isOfSpecialTrick;
-
-    public:
-        void Init(int width, int height);
-    };
-};
 
 void PhotoChallenge::Photo::Init(int width, int height)
 {
@@ -188,29 +138,16 @@ void PhotoChallenge::Photo::Init(int width, int height)
 #if defined(KELLY_DECOMP_FUNCTION_002628B8)
 // 0x002628B8 BeginTakingPicture__Q214PhotoChallenge9CameramanP22kellyslater_controllerPQ214PhotoChallenge5Photo
 struct IGOFrontEnd { void ShowCameraReticle(float time); };
-class kellyslater_controller;
 extern IGOFrontEnd *frontend_igo;
 __asm__(".equ frontend_igo, 0x003E7728");
 __asm__(".equ ShowCameraReticle__11IGOFrontEndf, 0x0017CE18");
-class PhotoChallenge {
-public:
-    class Photo;
-    class Cameraman {
-        kellyslater_controller *targetKsctrl;
-        void *ent;
-        Photo *destPhoto;
-        int state;
-    public:
-        void BeginTakingPicture(kellyslater_controller *target,Photo *photo);
-    };
-};
 void PhotoChallenge::Cameraman::BeginTakingPicture(
     kellyslater_controller *target,Photo *photo
 ) {
     frontend_igo->ShowCameraReticle(5.0f);
     destPhoto=photo;
     targetKsctrl=target;
-    state=1;
+    state=CSTATE_TAKING;
 }
 #endif
 
@@ -219,26 +156,15 @@ void PhotoChallenge::Cameraman::BeginTakingPicture(
 struct trick_data { char padding[0xc]; int flags; char tail[0x48]; };
 extern trick_data GTrickList[];
 __asm__(".equ GTrickList, 0x00427CA8");
-class kellyslater_controller { public: int GetCurrentTrick(); };
 __asm__(".equ GetCurrentTrick__22kellyslater_controller, 0x0021E478");
-class PhotoChallenge {
-public:
-    class Photo {
-        void *texture;
-        int score;
-        bool special;
-    public:
-        void CheckProperties(kellyslater_controller *subject);
-    };
-};
 void PhotoChallenge::Photo::CheckProperties(
     kellyslater_controller *subject
 ) {
-    special=false;
+    isOfSpecialTrick=false;
     if (subject) {
         int trick=subject->GetCurrentTrick();
         if (trick>=0 && (GTrickList[trick].flags&0x80))
-            special=true;
+            isOfSpecialTrick=true;
     }
 }
 #endif
