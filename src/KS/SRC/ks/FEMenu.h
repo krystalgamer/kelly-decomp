@@ -3,10 +3,9 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA4F0)
 // 0x001DA4F0 Load__11FEMenuEntry
-class FEMenuEntry {
-public:
-    void Load();
-};
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
 
 void FEMenuEntry::Load() {
 }
@@ -106,10 +105,9 @@ void FEMenuEntry::SetLocation3D(vector3d location) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA4F8)
 // 0x001DA4F8 OnSelect__11FEMenuEntry
-class FEMenuEntry {
-public:
-    void OnSelect();
-};
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
 
 void FEMenuEntry::OnSelect() {
 }
@@ -117,12 +115,9 @@ void FEMenuEntry::OnSelect() {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA500)
 // 0x001DA500 GetDisable__11FEMenuEntry
-class FEMenuEntry {
-    char padding[0x14];
-    bool disabled;
-public:
-    bool GetDisable();
-};
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
 
 bool FEMenuEntry::GetDisable() {
     return disabled;
@@ -131,10 +126,9 @@ bool FEMenuEntry::GetDisable() {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA508)
 // 0x001DA508 TurnOn__11FEMenuEntryb
-class FEMenuEntry {
-public:
-    void TurnOn(bool arg0);
-};
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
 
 void FEMenuEntry::TurnOn(bool arg0) {
 }
@@ -142,12 +136,9 @@ void FEMenuEntry::TurnOn(bool arg0) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA510)
 // 0x001DA510 SetNoFlash__11FEMenuEntryb
-class FEMenuEntry {
-    char padding[0x40];
-    bool no_flash;
-public:
-    void SetNoFlash(bool value);
-};
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
 
 void FEMenuEntry::SetNoFlash(bool value) {
     no_flash = value;
@@ -156,12 +147,9 @@ void FEMenuEntry::SetNoFlash(bool value) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA518)
 // 0x001DA518 GetHighlightIntensity__11FEMenuEntry
-class FEMenuEntry {
-    char padding[0x28];
-    float highlight_intensity;
-public:
-    float GetHighlightIntensity();
-};
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
 
 float FEMenuEntry::GetHighlightIntensity() {
     return highlight_intensity;
@@ -231,13 +219,7 @@ void FEMenuEntry::OnHighlight(bool arg0) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA9A8)
 // 0x001DA9A8 setBack__6FEMenuP6FEMenui
-class FEMenu {
-    char padding[0x54];
-    FEMenu* back;
-    int back_num;
-public:
-    void setBack(FEMenu* menu, int number);
-};
+#include "KS/SRC/ks/FEMenu_shared.h"
 
 void FEMenu::setBack(FEMenu* menu, int number) {
     back = menu;
@@ -247,10 +229,7 @@ void FEMenu::setBack(FEMenu* menu, int number) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA9B8)
 // 0x001DA9B8 Load__6FEMenub
-class FEMenu {
-public:
-    void Load(bool arg0);
-};
+#include "KS/SRC/ks/FEMenu_shared.h"
 
 void FEMenu::Load(bool arg0) {
 }
@@ -258,10 +237,7 @@ void FEMenu::Load(bool arg0) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA9F0)
 // 0x001DA9F0 DrawTop__6FEMenu
-class FEMenu {
-public:
-    void DrawTop();
-};
+#include "KS/SRC/ks/FEMenu_shared.h"
 
 void FEMenu::DrawTop() {
 }
@@ -269,10 +245,7 @@ void FEMenu::DrawTop() {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA9F8)
 // 0x001DA9F8 UpdateInScene__6FEMenu
-class FEMenu {
-public:
-    void UpdateInScene();
-};
+#include "KS/SRC/ks/FEMenu_shared.h"
 
 void FEMenu::UpdateInScene() {
 }
@@ -280,12 +253,7 @@ void FEMenu::UpdateInScene() {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DAA28)
 // 0x001DAA28 OnUnactivate__6FEMenuP6FEMenu
-class FEMenu;
-
-class FEMenu {
-public:
-    void OnUnactivate(FEMenu* arg0);
-};
+#include "KS/SRC/ks/FEMenu_shared.h"
 
 void FEMenu::OnUnactivate(FEMenu* arg0) {
 }
@@ -293,10 +261,7 @@ void FEMenu::OnUnactivate(FEMenu* arg0) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DAAD0)
 // 0x001DAAD0 OnLeft__6FEMenui
-class FEMenu {
-public:
-    void OnLeft(int arg0);
-};
+#include "KS/SRC/ks/FEMenu_shared.h"
 
 void FEMenu::OnLeft(int arg0) {
 }
@@ -304,10 +269,7 @@ void FEMenu::OnLeft(int arg0) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DAAD8)
 // 0x001DAAD8 OnRight__6FEMenui
-class FEMenu {
-public:
-    void OnRight(int arg0);
-};
+#include "KS/SRC/ks/FEMenu_shared.h"
 
 void FEMenu::OnRight(int arg0) {
 }
@@ -315,10 +277,7 @@ void FEMenu::OnRight(int arg0) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DAAE0)
 // 0x001DAAE0 OnSquare__6FEMenui
-class FEMenu {
-public:
-    void OnSquare(int arg0);
-};
+#include "KS/SRC/ks/FEMenu_shared.h"
 
 void FEMenu::OnSquare(int arg0) {
 }
@@ -326,10 +285,7 @@ void FEMenu::OnSquare(int arg0) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DAAE8)
 // 0x001DAAE8 OnCircle__6FEMenui
-class FEMenu {
-public:
-    void OnCircle(int arg0);
-};
+#include "KS/SRC/ks/FEMenu_shared.h"
 
 void FEMenu::OnCircle(int arg0) {
 }
@@ -337,10 +293,7 @@ void FEMenu::OnCircle(int arg0) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DAAF0)
 // 0x001DAAF0 OnL1__6FEMenui
-class FEMenu {
-public:
-    void OnL1(int arg0);
-};
+#include "KS/SRC/ks/FEMenu_shared.h"
 
 void FEMenu::OnL1(int arg0) {
 }
@@ -348,10 +301,7 @@ void FEMenu::OnL1(int arg0) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DAAF8)
 // 0x001DAAF8 OnR1__6FEMenui
-class FEMenu {
-public:
-    void OnR1(int arg0);
-};
+#include "KS/SRC/ks/FEMenu_shared.h"
 
 void FEMenu::OnR1(int arg0) {
 }
@@ -359,10 +309,7 @@ void FEMenu::OnR1(int arg0) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DAB00)
 // 0x001DAB00 OnL2__6FEMenui
-class FEMenu {
-public:
-    void OnL2(int arg0);
-};
+#include "KS/SRC/ks/FEMenu_shared.h"
 
 void FEMenu::OnL2(int arg0) {
 }
@@ -370,10 +317,7 @@ void FEMenu::OnL2(int arg0) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DAB08)
 // 0x001DAB08 OnR2__6FEMenui
-class FEMenu {
-public:
-    void OnR2(int arg0);
-};
+#include "KS/SRC/ks/FEMenu_shared.h"
 
 void FEMenu::OnR2(int arg0) {
 }
@@ -381,10 +325,7 @@ void FEMenu::OnR2(int arg0) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DAB10)
 // 0x001DAB10 OnAnyButtonPress__6FEMenuii
-class FEMenu {
-public:
-    void OnAnyButtonPress(int arg0, int arg1);
-};
+#include "KS/SRC/ks/FEMenu_shared.h"
 
 void FEMenu::OnAnyButtonPress(int arg0, int arg1) {
 }
@@ -392,10 +333,7 @@ void FEMenu::OnAnyButtonPress(int arg0, int arg1) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DAB18)
 // 0x001DAB18 OnButtonRelease__6FEMenuii
-class FEMenu {
-public:
-    void OnButtonRelease(int arg0, int arg1);
-};
+#include "KS/SRC/ks/FEMenu_shared.h"
 
 void FEMenu::OnButtonRelease(int arg0, int arg1) {
 }
@@ -417,10 +355,7 @@ FEMenu* FEMenu::GetActive() {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DAB28)
 // 0x001DAB28 Select__6FEMenui
-class FEMenu {
-public:
-    void Select(int arg0);
-};
+#include "KS/SRC/ks/FEMenu_shared.h"
 
 void FEMenu::Select(int arg0) {
 }
