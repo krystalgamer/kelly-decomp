@@ -505,45 +505,16 @@ struct anim_control_t{float current_time;float time_delta;float duration;};struc
 // 0x001211C8 get_value__Ct8key_anim3ZfZt10linear_key1ZfZt12linear_track1ZffPf
 #include "KS/SRC/linear_anim_shared.h"
 
-#define assert(condition) ((void)0)
-
 __asm__(
     ".equ interpolate__Ct10linear_key1ZfRCt10linear_key1Zff, "
     "0x001132F8"
 );
 
-template <>
-void key_anim<float, linear_key<float>, linear_track<float> >::get_value(
-    float t,
-    float* dest
-) const
-{
-    assert( track!=NULL && dest!=NULL );
-    linear_track<float>::iterator i0 = track->m_keys;
-    linear_track<float>::iterator i1 = i0;
-    linear_track<float>::iterator i_end = (track->m_keys + track->num_keys);
-    ++i1;
-    while ( i1!=i_end && t>=(*i1).get_time() )
-    {
-      ++i0;
-      ++i1;
-    }
-    const linear_key<float>& k0 = *i0;
-    const linear_key<float>& k1 = *i1;
-    if ( t<k0.get_time() || i1==i_end )
-    {
-      // off the front or back of the track
-      *dest = k0.get_value();
-    }
-    else
-    {
-      // in the track;
-      // interpolate between current key and the next
-      *dest = k0.get_value( t, k1 );
-    }
-}
-
-#undef assert
+template void key_anim<
+    float,
+    linear_key<float>,
+    linear_track<float>
+>::get_value(float, float *) const;
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001212D8)
