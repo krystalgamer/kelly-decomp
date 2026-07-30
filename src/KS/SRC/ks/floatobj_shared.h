@@ -134,11 +134,36 @@ public:
     virtual void spawn();
     virtual void despawn();
     virtual bool update(float);
+    virtual void collide(entity*, const vector3d&);
+    virtual void jumped_over(entity*);
+    virtual void sprayed(entity*);
 
 protected:
     color32 ren_col;
     float my_max_alpha;
     char water_data[0x28C];
+};
+
+class floating_object : public water_object {
+public:
+    floating_object(entity *, const stringx &);
+    virtual ~floating_object();
+    bool parse_params(char **arguments, int count);
+    virtual void get_settings(const floating_object &other);
+    void spawn();
+    bool update(float time_inc);
+    virtual void collide(entity *, const vector3d &);
+
+private:
+    float desired_dy;
+    float current_dy;
+    float max_dy;
+    float speed_dy;
+    float desired_angle;
+    float current_angle;
+    float max_angle;
+    float speed_angle;
+    float water_interaction;
 };
 
 class surfing_object : public water_object {
@@ -156,6 +181,32 @@ public:
 private:
     int mySound;
     generic_anim* my_anim_handler;
+    bool dummy_ai(vector3d &, vector3d &, float);
+    bool floating_ai(vector3d &, vector3d &, float);
+    bool boogie_ai(vector3d &, vector3d &, float);
+    bool surfer1_ai(vector3d &, vector3d &, float);
+    bool surfer2_ai(vector3d &, vector3d &, float);
+    bool kayaker_ai(vector3d &, vector3d &, float);
+    bool fatbastard_ai(vector3d &, vector3d &, float);
+    bool swimmer_ai(vector3d &, vector3d &, float);
+    bool cameraman_ai(vector3d &, vector3d &, float);
+    bool dolphin_ai(vector3d &, vector3d &, float);
+    bool greatwhite_ai(vector3d &, vector3d &, float);
+    bool seal_ai(vector3d &, vector3d &, float);
+    bool seagull_ai(vector3d &, vector3d &, float);
+    bool outrigger_ai(vector3d &, vector3d &, float);
+    bool humpback_ai(vector3d &, vector3d &, float);
+    bool windsurfer_ai(vector3d &, vector3d &, float);
+    bool hammerhead_ai(vector3d &, vector3d &, float);
+    bool mantaray_ai(vector3d &, vector3d &, float);
+    bool fisherman_ai(vector3d &, vector3d &, float);
+    bool turtle_ai(vector3d &, vector3d &, float);
+    bool jetskier_ai(vector3d &, vector3d &, float);
+    bool snorkeler_ai(vector3d &, vector3d &, float);
+    bool dingy_ai(vector3d &, vector3d &, float);
+    bool icepatch_ai(vector3d &, vector3d &, float);
+    bool kelp_ai(vector3d &, vector3d &, float);
+    bool helicopter_ai(vector3d &, vector3d &, float);
     bool (surfing_object::*ai_func)(vector3d &, vector3d &, float);
     int my_type;
     float timer;
