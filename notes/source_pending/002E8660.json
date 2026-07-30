@@ -1,0 +1,15 @@
+{
+  "address": "0x002E8660",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7b8a0d016a376e9b570f83c6f942b23d607d234d",
+      "notes": "Exact released reference: `kelly-slaters-pro-surfer/KS/SRC/terrain.cpp:103-116`.\n\nCandidate uses the source-faithful include block and exact released `terrain::~terrain()` body. The isolated harness could not resolve the released project headers or standard library include paths, so compilation failed before code generation. Per FIRST PASS constraints, no alternate declaration, ABI reconstruction, tooling change, or second attempt was made.",
+      "score": 0.0,
+      "source": "#include \"global.h\"\n\n#include \"terrain.h\"\n#include \"debug.h\"\n#include \"colmesh.h\"\n#include \"wds.h\"\n#include \"collide.h\"\n//P #include \"memorycontext.h\"\n#include \"osdevopts.h\"\n#include \"profiler.h\"\n#include \"oserrmsg.h\"\n#include <vector>\n#include <algorithm>\n#include \"bsp_tree.h\"\n#include \"osalloc.h\"\n#include \"iri.h\"\n#include \"bsp_tree.h\"\n\nterrain::~terrain()\n{\n  tree->clear();\n  delete tree;\n  for (int i=regions.size(); --i>=0; )\n  {\n    delete regions[i];\n  }\n  regions.resize(0);\n  sectors.resize(0);\n  portal_list::iterator pli;\n  for( pli = portals.begin(); pli != portals.end(); ++pli )\n    delete *pli;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_7terrain"
+}
