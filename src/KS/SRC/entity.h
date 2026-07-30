@@ -9,7 +9,30 @@
     defined(KELLY_DECOMP_FUNCTION_00144FF8) || \
     defined(KELLY_DECOMP_FUNCTION_00145000) || \
     defined(KELLY_DECOMP_FUNCTION_00145008) || \
-    defined(KELLY_DECOMP_FUNCTION_00145010)
+    defined(KELLY_DECOMP_FUNCTION_00145010) || \
+    defined(KELLY_DECOMP_FUNCTION_00145018) || \
+    defined(KELLY_DECOMP_FUNCTION_00145020) || \
+    defined(KELLY_DECOMP_FUNCTION_00145028) || \
+    defined(KELLY_DECOMP_FUNCTION_00145030) || \
+    defined(KELLY_DECOMP_FUNCTION_00145038) || \
+    defined(KELLY_DECOMP_FUNCTION_00145040) || \
+    defined(KELLY_DECOMP_FUNCTION_00145048) || \
+    defined(KELLY_DECOMP_FUNCTION_00145050) || \
+    defined(KELLY_DECOMP_FUNCTION_00145058) || \
+    defined(KELLY_DECOMP_FUNCTION_00145060) || \
+    defined(KELLY_DECOMP_FUNCTION_00145068) || \
+    defined(KELLY_DECOMP_FUNCTION_00145070) || \
+    defined(KELLY_DECOMP_FUNCTION_00145078) || \
+    defined(KELLY_DECOMP_FUNCTION_00145080) || \
+    defined(KELLY_DECOMP_FUNCTION_00145088) || \
+    defined(KELLY_DECOMP_FUNCTION_00145090) || \
+    defined(KELLY_DECOMP_FUNCTION_00145098) || \
+    defined(KELLY_DECOMP_FUNCTION_001450A0) || \
+    defined(KELLY_DECOMP_FUNCTION_001450A8) || \
+    defined(KELLY_DECOMP_FUNCTION_001450B0) || \
+    defined(KELLY_DECOMP_FUNCTION_001450B8) || \
+    defined(KELLY_DECOMP_FUNCTION_001450C0) || \
+    defined(KELLY_DECOMP_FUNCTION_001450C8)
 #include "KS/SRC/entity_shared.h"
 #endif
 
@@ -537,11 +560,6 @@ bool entity::is_a_turret() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145018)
 // 0x00145018 is_a_ladder__C6entity
-class entity {
-public:
-    bool is_a_ladder() const;
-};
-
 bool entity::is_a_ladder() const {
     return false;
 }
@@ -549,11 +567,6 @@ bool entity::is_a_ladder() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145020)
 // 0x00145020 is_a_light_source__C6entity
-class entity {
-public:
-    bool is_a_light_source() const;
-};
-
 bool entity::is_a_light_source() const {
     return false;
 }
@@ -561,11 +574,6 @@ bool entity::is_a_light_source() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145028)
 // 0x00145028 is_a_limb_body__C6entity
-class entity {
-public:
-    bool is_a_limb_body() const;
-};
-
 bool entity::is_a_limb_body() const {
     return false;
 }
@@ -573,11 +581,6 @@ bool entity::is_a_limb_body() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145030)
 // 0x00145030 is_a_marker__C6entity
-class entity {
-public:
-    bool is_a_marker() const;
-};
-
 bool entity::is_a_marker() const {
     return false;
 }
@@ -585,11 +588,6 @@ bool entity::is_a_marker() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145038)
 // 0x00145038 is_a_rectangle_marker__C6entity
-class entity {
-public:
-    bool is_a_rectangle_marker() const;
-};
-
 bool entity::is_a_rectangle_marker() const {
     return false;
 }
@@ -597,11 +595,6 @@ bool entity::is_a_rectangle_marker() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145040)
 // 0x00145040 is_a_cube_marker__C6entity
-class entity {
-public:
-    bool is_a_cube_marker() const;
-};
-
 bool entity::is_a_cube_marker() const {
     return false;
 }
@@ -609,11 +602,6 @@ bool entity::is_a_cube_marker() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145048)
 // 0x00145048 is_a_crawl_marker__C6entity
-class entity {
-public:
-    bool is_a_crawl_marker() const;
-};
-
 bool entity::is_a_crawl_marker() const {
     return false;
 }
@@ -621,11 +609,6 @@ bool entity::is_a_crawl_marker() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145050)
 // 0x00145050 is_a_particle_generator__C6entity
-class entity {
-public:
-    bool is_a_particle_generator() const;
-};
-
 bool entity::is_a_particle_generator() const {
     return false;
 }
@@ -633,11 +616,6 @@ bool entity::is_a_particle_generator() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145058)
 // 0x00145058 is_a_physical_entity__C6entity
-class entity {
-public:
-    bool is_a_physical_entity() const;
-};
-
 bool entity::is_a_physical_entity() const {
     return false;
 }
@@ -645,11 +623,6 @@ bool entity::is_a_physical_entity() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145060)
 // 0x00145060 is_a_crate__C6entity
-class entity {
-public:
-    bool is_a_crate() const;
-};
-
 bool entity::is_a_crate() const {
     return false;
 }
@@ -657,11 +630,6 @@ bool entity::is_a_crate() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145068)
 // 0x00145068 is_an_item__C6entity
-class entity {
-public:
-    bool is_an_item() const;
-};
-
 bool entity::is_an_item() const {
     return false;
 }
@@ -669,11 +637,6 @@ bool entity::is_an_item() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145070)
 // 0x00145070 is_a_visual_item__C6entity
-class entity {
-public:
-    bool is_a_visual_item() const;
-};
-
 bool entity::is_a_visual_item() const {
     return false;
 }
@@ -681,11 +644,6 @@ bool entity::is_a_visual_item() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145078)
 // 0x00145078 is_a_handheld_item__C6entity
-class entity {
-public:
-    bool is_a_handheld_item() const;
-};
-
 bool entity::is_a_handheld_item() const {
     return false;
 }
@@ -693,11 +651,6 @@ bool entity::is_a_handheld_item() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145080)
 // 0x00145080 is_a_gun__C6entity
-class entity {
-public:
-    bool is_a_gun() const;
-};
-
 bool entity::is_a_gun() const {
     return false;
 }
@@ -705,11 +658,6 @@ bool entity::is_a_gun() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145088)
 // 0x00145088 is_a_thrown_item__C6entity
-class entity {
-public:
-    bool is_a_thrown_item() const;
-};
-
 bool entity::is_a_thrown_item() const {
     return false;
 }
@@ -717,11 +665,6 @@ bool entity::is_a_thrown_item() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145090)
 // 0x00145090 is_a_melee_item__C6entity
-class entity {
-public:
-    bool is_a_melee_item() const;
-};
-
 bool entity::is_a_melee_item() const {
     return false;
 }
@@ -729,11 +672,6 @@ bool entity::is_a_melee_item() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00145098)
 // 0x00145098 is_a_morphable_item__C6entity
-class entity {
-public:
-    bool is_a_morphable_item() const;
-};
-
 bool entity::is_a_morphable_item() const {
     return false;
 }
@@ -741,11 +679,6 @@ bool entity::is_a_morphable_item() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_001450A0)
 // 0x001450A0 is_a_projectile__C6entity
-class entity {
-public:
-    bool is_a_projectile() const;
-};
-
 bool entity::is_a_projectile() const {
     return false;
 }
@@ -753,11 +686,6 @@ bool entity::is_a_projectile() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_001450A8)
 // 0x001450A8 is_a_rigid_body__C6entity
-class entity {
-public:
-    bool is_a_rigid_body() const;
-};
-
 bool entity::is_a_rigid_body() const {
     return false;
 }
@@ -765,11 +693,6 @@ bool entity::is_a_rigid_body() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_001450B0)
 // 0x001450B0 is_a_grenade__C6entity
-class entity {
-public:
-    bool is_a_grenade() const;
-};
-
 bool entity::is_a_grenade() const {
     return false;
 }
@@ -777,11 +700,6 @@ bool entity::is_a_grenade() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_001450B8)
 // 0x001450B8 is_a_rocket__C6entity
-class entity {
-public:
-    bool is_a_rocket() const;
-};
-
 bool entity::is_a_rocket() const {
     return false;
 }
@@ -789,11 +707,6 @@ bool entity::is_a_rocket() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_001450C0)
 // 0x001450C0 is_a_scanner__C6entity
-class entity {
-public:
-    bool is_a_scanner() const;
-};
-
 bool entity::is_a_scanner() const {
     return false;
 }
@@ -801,11 +714,6 @@ bool entity::is_a_scanner() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_001450C8)
 // 0x001450C8 is_a_sky__C6entity
-class entity {
-public:
-    bool is_a_sky() const;
-};
-
 bool entity::is_a_sky() const {
     return false;
 }
