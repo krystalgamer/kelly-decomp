@@ -1,5 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#include "KS/SRC/instance_render_info_shared.h"
 
 #if defined(KELLY_DECOMP_FUNCTION_002FBB48)
 // 0x002FBB48 __uninitialized_fill_n_aux__H3ZP6sectorZUiZ6sector_X01X11RCX21G12__false_type_X01
@@ -314,7 +315,7 @@ struct node{void*next_free;char p0[4];node*left,*right;};struct allocator{char p
 
 #if defined(KELLY_DECOMP_FUNCTION_002F36D8)
 // 0x002F36D8 __final_insertion_sort__H1ZP20instance_render_info_X01X01_v
-struct instance_render_info{char data[144];};extern "C" void insertion(instance_render_info*,instance_render_info*) __asm__("__insertion_sort__H1ZP20instance_render_info_X01X01_v");extern "C" void unguarded(instance_render_info*,instance_render_info*,int) __asm__("__unguarded_insertion_sort_aux__H2ZP20instance_render_infoZ20instance_render_info_X01X01PX11_v");__asm__(".equ __insertion_sort__H1ZP20instance_render_info_X01X01_v,0x002F2FD8");__asm__(".equ __unguarded_insertion_sort_aux__H2ZP20instance_render_infoZ20instance_render_info_X01X01PX11_v,0x002F3548");extern "C" void final_sort(instance_render_info*first,instance_render_info*last) __asm__("__final_insertion_sort__H1ZP20instance_render_info_X01X01_v");void final_sort(instance_render_info*first,instance_render_info*last){if(last-first>16){instance_render_info*middle=first+16;insertion(first,middle);unguarded(middle,last,0);}else insertion(first,last);int dead;__asm__("" : "=r"(dead));}
+extern "C" void insertion(instance_render_info*,instance_render_info*) __asm__("__insertion_sort__H1ZP20instance_render_info_X01X01_v");extern "C" void unguarded(instance_render_info*,instance_render_info*,int) __asm__("__unguarded_insertion_sort_aux__H2ZP20instance_render_infoZ20instance_render_info_X01X01PX11_v");__asm__(".equ __insertion_sort__H1ZP20instance_render_info_X01X01_v,0x002F2FD8");__asm__(".equ __unguarded_insertion_sort_aux__H2ZP20instance_render_infoZ20instance_render_info_X01X01PX11_v,0x002F3548");extern "C" void final_sort(instance_render_info*first,instance_render_info*last) __asm__("__final_insertion_sort__H1ZP20instance_render_info_X01X01_v");void final_sort(instance_render_info*first,instance_render_info*last){if(last-first>16){instance_render_info*middle=first+16;insertion(first,middle);unguarded(middle,last,0);}else insertion(first,last);int dead;__asm__("" : "=r"(dead));}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002FD018)
