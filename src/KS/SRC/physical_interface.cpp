@@ -1,8 +1,7 @@
 // Matching decompilation blocks selected by generated build shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_00125070)
 // 0x00125070 update_unused_velocity__18physical_interfacef
-#include "KS/SRC/entity_interfaces_shared.h"
+#include "KS/SRC/physical_interface.h"
 #include "KS/SRC/entity.h"
 
 extern const vector3d ZEROVEC;
@@ -28,72 +27,60 @@ void physical_interface::update_unused_velocity(float increment)
         }
     }
 }
-#endif
+
+// 0x00145E70 __tf18physical_interface
+#include "KS/SRC/physical_interface.h"
+
+extern "C" void **physical_base_rtti() __asm__("__tf16entity_interface");
+extern "C" void *physical_base_type[] __asm__("__ti16entity_interface");
+extern "C" void *physical_type[] __asm__("__ti18physical_interface");
+extern "C" const char physical_name[];
+
+__asm__(".equ __tf16entity_interface, 0x00113200");
+__asm__(".equ __ti16entity_interface, 0x005A26A8");
+__asm__(".equ __ti18physical_interface, 0x005A2888");
+__asm__(".equ physical_name, 0x004CEBE0");
+
+extern "C" void **physical_rtti() __asm__("__tf18physical_interface");
+void **physical_rtti()
+{
+    if (!physical_type[0]) {
+        physical_base_rtti();
+        __rtti_si(physical_type, physical_name, physical_base_type);
+    }
+    return physical_type;
+}
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00125228)
 // 0x00125228 set_last_collision_normal__18physical_interfaceRC8vector3d
-struct vector3d { float x; float y; float z; vector3d &operator=(const vector3d &other) { x = other.x; y = other.y; z = other.z; return *this; } };
-class physical_interface { char padding[0x50]; vector3d last_collision_normal; public: void set_last_collision_normal(const vector3d &value); };
+#include "KS/SRC/physical_interface.h"
+
 void physical_interface::set_last_collision_normal(const vector3d &value) { last_collision_normal = value; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00122CC8)
 // 0x00122CC8 using_velocity__C18physical_interface
-struct entity_vtable {
-    char padding[0x128];
-    short adjustment;
-    short padding2;
-    bool (*is_stationary)(void *self);
-};
-
-class entity {
-    char padding[8];
-
-public:
-    entity_vtable *vtable;
-};
-
-class physical_interface {
-    char padding[4];
-    entity *my_entity;
-
-public:
-    bool using_velocity() const;
-};
+#include "KS/SRC/entity.h"
+#include "KS/SRC/physical_interface.h"
 
 bool physical_interface::using_velocity() const {
-    entity_vtable *table = my_entity->vtable;
-    return !table->is_stationary(
-        (char *)my_entity + table->adjustment
-    );
+    return !my_entity->is_stationary();
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00125B18)
 // 0x00125B18 destroy_guidance_sys__18physical_interface
-class physical_interface;
+#include "KS/SRC/physical_interface.h"
+
 class guidance_system {
     physical_interface* owner;
     int flags;
 public:
     virtual ~guidance_system();
 };
-class physical_interface {
-    char padding[0x90];
-    guidance_system* guide_sys;
-public:
-    void destroy_guidance_sys();
-};
 void physical_interface::destroy_guidance_sys()
 {
     delete guide_sys;
     guide_sys = 0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00122C60)
 // 0x00122C60 _$_18physical_interface
 extern "C" void destroy_guidance(void *) __asm__("destroy_guidance_sys__18physical_interface");
 extern "C" void object_delete(void *) __asm__("__builtin_delete");
@@ -117,11 +104,9 @@ void destroy_physical(physical_layout *self, int deleting)
         __asm__ __volatile__("" : : : "memory");
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00125130)
 // 0x00125130 apply_force_increment__18physical_interfaceRC8vector3dQ218physical_interface10force_typeT1i
-#include "KS/SRC/physical_interface_shared.h"
+#include "KS/SRC/physical_interface.h"
 
 
 
@@ -139,4 +124,3 @@ void physical_interface::apply_force_increment( const vector3d& f,
 
   effectively_standing = false;
 }
-#endif

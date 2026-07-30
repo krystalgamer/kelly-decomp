@@ -3,6 +3,8 @@
 
 class vector3d {
 public:
+    typedef float T;
+
     float x;
     float y;
     float z;
@@ -16,10 +18,20 @@ public:
       : x(x_value), y(y_value), z(z_value)
     {
     }
+    explicit inline vector3d(float value)
+      : x(value), y(value), z(value)
+    {
+    }
     inline vector3d &operator=(const vector3d &other) {
         x = other.x;
         y = other.y;
         z = other.z;
+        return *this;
+    }
+    inline vector3d &operator+=(const vector3d &other) {
+        x += other.x;
+        y += other.y;
+        z += other.z;
         return *this;
     }
     inline float length2() const {
@@ -27,12 +39,33 @@ public:
     }
 };
 
+inline vector3d operator+(const vector3d &left, const vector3d &right)
+{
+    return vector3d(
+        left.x + right.x,
+        left.y + right.y,
+        left.z + right.z);
+}
+
 inline vector3d operator-(const vector3d &left, const vector3d &right)
 {
     return vector3d(
         left.x - right.x,
         left.y - right.y,
         left.z - right.z);
+}
+
+inline vector3d operator*(float scalar, const vector3d &value)
+{
+    return vector3d(
+        scalar * value.x,
+        scalar * value.y,
+        scalar * value.z);
+}
+
+inline vector3d operator*(const vector3d &value, float scalar)
+{
+    return scalar * value;
 }
 
 inline vector3d operator/(const vector3d &value, float divisor)
