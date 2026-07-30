@@ -133,6 +133,11 @@ private:
     }
 
 public:
+    bool empty() const
+    {
+        return _M_node->_M_next == _M_node;
+    }
+
     iterator begin()
     {
         return iterator(static_cast<node_type *>(_M_node->_M_next));

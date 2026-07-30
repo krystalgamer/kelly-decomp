@@ -139,6 +139,10 @@ public:
     virtual void update_scale();
     virtual void update_rot();
     virtual void update_col();
+    widget *get_first_child();
+    static rational_t get_next_rhw_2d_val();
+    static rhw_layer_e rhw_2d_layer;
+    static rational_t rhw_2d_val[NUM_RHW_LAYERS];
 
     inline bool is_shown() const { return flags & 1; }
     inline bool ignoring_parent() const { return flags & 4; }
@@ -208,6 +212,23 @@ public:
         unsigned int overflow = 0,
         rational_t parm0 = 0,
         rational_t parm1 = 0);
+};
+
+class text_widget : public widget {
+public:
+    virtual ~text_widget();
+    virtual void frame_advance(time_value_t time_inc);
+    virtual void flush();
+};
+
+class vrep_widget : public widget {
+public:
+    virtual ~vrep_widget();
+    virtual void update_pos();
+    virtual void update_scale();
+
+protected:
+    void update_mat();
 };
 
 enum wevent_type_e {

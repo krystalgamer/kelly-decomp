@@ -120,17 +120,15 @@ float menu_widget::get_height() { return 100.0f; }
 
 #if defined(KELLY_DECOMP_FUNCTION_003406E8)
 // 0x003406E8 frame_advance__11text_widgetf
-class widget { public: void frame_advance(float time); };
+#include "KS/SRC/widget_shared.h"
 __asm__(".equ frame_advance__6widgetf, 0x0033DF70");
-class text_widget : public widget { public: void frame_advance(float time); };
 void text_widget::frame_advance(float time) { widget::frame_advance(time); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003407F0)
 // 0x003407F0 flush__11text_widget
-class widget { public: void flush(); };
+#include "KS/SRC/widget_shared.h"
 __asm__(".equ flush__6widget, 0x0033E518");
-class text_widget : public widget { public: void flush(); };
 void text_widget::flush() { widget::flush(); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
@@ -145,45 +143,17 @@ widget *widget::get_first_child() { widget_node *sentinel = children; widget_nod
 
 #if defined(KELLY_DECOMP_FUNCTION_0033EDE8)
 // 0x0033EDE8 rotate_to__6widgetf
-struct widget_vtable {
-    char padding[0x118];
-    short adjustment;
-    short padding2;
-    void (*update_rot)(void *self);
-};
-
-class widget {
-    char padding0[0x3c];
-    float angle;
-    char padding1[0x100];
-    widget_vtable *vtable;
-
-public:
-    void rotate_to(float value);
-};
-
+#include "KS/SRC/widget_shared.h"
 void widget::rotate_to(float value) {
     angle = value;
-    widget_vtable *table = vtable;
-    table->update_rot((char *)this + table->adjustment);
+    update_rot();
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003419B0)
 // 0x003419B0 update_pos__11vrep_widget
-class widget {
-public:
-    void update_pos();
-};
-
+#include "KS/SRC/widget_shared.h"
 __asm__(".equ update_pos__6widget, 0x0033E650");
-
-class vrep_widget : public widget {
-public:
-    void update_pos();
-    void update_mat();
-};
-
 __asm__(".equ update_mat__11vrep_widget, 0x00341E60");
 
 void vrep_widget::update_pos() {
@@ -195,19 +165,8 @@ void vrep_widget::update_pos() {
 
 #if defined(KELLY_DECOMP_FUNCTION_003419E0)
 // 0x003419E0 update_scale__11vrep_widget
-class widget {
-public:
-    void update_scale();
-};
-
+#include "KS/SRC/widget_shared.h"
 __asm__(".equ update_scale__6widget, 0x0033E710");
-
-class vrep_widget : public widget {
-public:
-    void update_scale();
-    void update_mat();
-};
-
 __asm__(".equ update_mat__11vrep_widget, 0x00341E60");
 
 void vrep_widget::update_scale() {
@@ -219,58 +178,17 @@ void vrep_widget::update_scale() {
 
 #if defined(KELLY_DECOMP_FUNCTION_0033ED18)
 // 0x0033ED18 scale_to__6widgetff
-struct widget_vtable {
-    char padding[0x110];
-    short adjustment;
-    short padding2;
-    void (*update_scale)(void *self);
-};
-
-class widget {
-    char padding0[0x118];
-    float horizontal_scale;
-    float vertical_scale;
-    char padding1[0x20];
-    widget_vtable *vtable;
-
-public:
-    void scale_to(float horizontal, float vertical);
-};
-
+#include "KS/SRC/widget_shared.h"
 void widget::scale_to(float horizontal, float vertical) {
-    horizontal_scale = horizontal;
-    vertical_scale = vertical;
-    widget_vtable *table = vtable;
-    table->update_scale((char *)this + table->adjustment);
+    S[0] = horizontal;
+    S[1] = vertical;
+    update_scale();
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0033F298)
 // 0x0033F298 get_next_rhw_2d_val__6widget
-typedef float rational_t;
-
-class widget {
-public:
-    enum rhw_layer_e {
-        RHW0,
-        RHW1,
-        RHW2,
-        RHW3,
-        RHW4,
-        RHW5,
-        RHW6,
-        RHW7,
-        RHW8,
-        RHW9,
-        RHW_OVER_PFE1,
-        RHW_OVER_PFE2,
-        NUM_RHW_LAYERS
-    };
-
-    static rhw_layer_e rhw_2d_layer;
-    static rational_t rhw_2d_val[NUM_RHW_LAYERS];
-    static rational_t get_next_rhw_2d_val();
-};
+#include "KS/SRC/widget_shared.h"
 
 __asm__(".equ _6widget$rhw_2d_layer, 0x0046B730");
 __asm__(".equ _6widget$rhw_2d_val, 0x005A3EB0");
