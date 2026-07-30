@@ -1,0 +1,15 @@
+{
+  "address": "0x002F5590",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "af5bf3d9afa41a1739ccee64813a017d65214aa9",
+      "notes": "# FIRST PASS wave 167 lane B1\n\nExact released source tested once for `0x002F5590 _M_insert_aux__t6vector2Z14particle_forceZt12my_allocator1Z14particle_forceP14particle_forceRC14particle_force`. Attempts before: 0. Result `compile_failed`, score 0.0000%. Capacity-only child failures and Sol retries produced no attempts for four lanes; those lanes were remediated directly. No source retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/particle.h\"\n\ntemplate void vector<particle_force, my_allocator<particle_force> >::_M_insert_aux(\n  particle_force *, const particle_force&);\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2Z14particle_forceZt12my_allocator1Z14particle_forceP14particle_forceRC14particle_force"
+}
