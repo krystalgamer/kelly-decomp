@@ -27,7 +27,7 @@ SCRATCH_ROOT = ROOT / "tmp" / "functions"
 SOURCE_PENDING_ROOT = ROOT / "notes" / "source_pending"
 SOL_PENDING_ROOT = ROOT / "notes" / "sol_pending"
 TEXT_VRAM = 0x00100000
-MAX_ATTEMPTS = 5
+MAX_ATTEMPTS = 3
 INSTRUCTION_PATTERN = re.compile(
     r"^\s*([0-9a-fA-F]+):\s+([0-9a-fA-F]{8})\s+(.+)$"
 )
@@ -604,18 +604,6 @@ def main() -> int:
         raise SystemExit(
             f"{row['symbol_name']} is not eligible: {row['classification']}"
         )
-    if (
-        args.command in ("prepare", "test")
-        and row["status"] in ("source_pending", "sol_pending")
-        and any(
-            queued["status"] == "pending"
-            for queued in load_queue()
-        )
-    ):
-        raise SystemExit(
-            "Sol second-pass work cannot start while pending functions remain"
-        )
-
     if args.command == "prepare":
         prepare(row)
     elif args.command == "test":

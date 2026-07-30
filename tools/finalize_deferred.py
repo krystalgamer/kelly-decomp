@@ -22,16 +22,24 @@ parser.add_argument("--summary", required=True)
 parser.add_argument("--commit", required=True)
 args = parser.parse_args()
 
+if not args.commit.startswith("decomp: defer "):
+    raise RuntimeError("Deferred commits must use `decomp: defer ...`")
+
 with QUEUE_PATH.open(newline="", encoding="utf-8") as queue_file:
     rows = list(csv.DictReader(queue_file))
 row = next(
     row for row in rows if row["address"].lower() == args.address.lower()
 )
-next_pending = next(row for row in rows if row["status"] == "pending")
-if next_pending["address"].lower() != args.address.lower():
+status = row["status"]
+if status not in ("pending", "source_pending", "sol_pending"):
     raise RuntimeError(
-        f"Expected next pending {args.address}, got "
-        f"{next_pending['address']}"
+        f"{row['symbol_name']} cannot be deferred from {status}"
+    )
+next_row = next(candidate for candidate in rows if candidate["status"] == status)
+if next_row["address"].lower() != args.address.lower():
+    raise RuntimeError(
+        f"Expected next {status} {args.address}, got "
+        f"{next_row['address']}"
     )
 if subprocess.check_output(
     ["git", "status", "--porcelain"],
@@ -40,6 +48,7 @@ if subprocess.check_output(
 ).strip():
     raise RuntimeError("Working tree is not clean")
 
+run(str(PYTHON), "tools/function_test.py", "prepare", args.address)
 scratch = ROOT / "tmp" / "functions" / Path(row["notes_file"]).stem
 attempts = json.loads(
     (scratch / "attempts.json").read_text(encoding="utf-8")
@@ -48,7 +57,7 @@ if len(attempts) != 3 or any(
     attempt["status"] == "matched" for attempt in attempts
 ):
     raise RuntimeError(
-        "Sol handoff requires three exhausted non-matching Luna attempts"
+        "Deferral requires three exhausted non-matching Sol attempts"
     )
 for attempt in attempts:
     notes_path = scratch / f"attempt-{attempt['attempt']}" / "notes.md"
@@ -66,25 +75,24 @@ run(
     "finalize",
     args.address,
     "--status",
-    "sol_pending",
+    "deferred",
     "--summary",
     args.summary,
 )
 run(str(PYTHON), "tools/decomp.py", "check")
-run(
-    "git",
-    "add",
-    "notes/function_queue.csv",
-    row["notes_file"],
-    str(
-        (
-            ROOT
-            / "notes"
-            / "sol_pending"
-            / f"{int(row['address'], 0):08X}.json"
-        ).relative_to(ROOT)
-    ),
-)
+staged_paths = ["notes/function_queue.csv", row["notes_file"]]
+if status in ("source_pending", "sol_pending"):
+    staged_paths.append(
+        str(
+            (
+                ROOT
+                / "notes"
+                / status
+                / f"{int(row['address'], 0):08X}.json"
+            ).relative_to(ROOT)
+        )
+    )
+run("git", "add", "-A", "--", *staged_paths)
 run("git", "diff", "--cached", "--check")
 run(
     "git",

@@ -45,11 +45,14 @@ env/bin/python tools/function_test.py prepare FUNCTION
 env/bin/python tools/function_test.py test FUNCTION
 ```
 
-The first pass tests the exact released source and declarations once. A match
-is integrated and checksum-verified before its atomic commit; a miss is stored
-as `source_pending` with a durable notes-only handoff. After every eligible
-function has received that released-source attempt, Sol resumes the handoffs
-for attempts two through five.
+Each function gets at most three distinct Sol candidate compile/diff attempts.
+Attempt one uses the exact released source body and shared source-faithful
+declarations. Attempts two and three remain grounded in that source and the
+target diff. A match is integrated and checksum-verified before its atomic
+commit; an exhausted function receives a notes-only deferral commit.
+
+An interrupted function may be stored as `source_pending` after its released
+source attempt, then resumed for attempts two and three.
 
 All attempt artifacts belong under `tmp/`. Durable state belongs under
 `notes/`.

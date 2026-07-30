@@ -17,7 +17,8 @@ QUEUE_PATH = ROOT / "notes" / "function_queue.csv"
 SCRATCH_ROOT = ROOT / "tmp" / "functions"
 SOURCE_PENDING_ROOT = ROOT / "notes" / "source_pending"
 SOL_PENDING_ROOT = ROOT / "notes" / "sol_pending"
-MAX_ATTEMPTS = 5
+MAX_ATTEMPTS = 3
+LEGACY_MAX_ATTEMPTS = 5
 FINAL_STATUSES = {"matched", "deferred"}
 INTERIM_STATUSES = {"source_pending", "sol_pending"}
 TRACKED_STATUSES = FINAL_STATUSES | INTERIM_STATUSES
@@ -308,7 +309,7 @@ def validate_sol_pending_prefix(
     actual = attempts[: len(expected)]
     if actual != expected:
         raise SystemExit(
-            f"Sol attempts do not preserve the Luna prefix: "
+            f"Attempts do not preserve the legacy three-attempt prefix: "
             f"{row['symbol_name']}"
         )
     scratch = scratch_directory(row)
@@ -324,7 +325,8 @@ def validate_sol_pending_prefix(
             != record["candidate_sha1"]
         ):
             raise SystemExit(
-                f"Sol scratch source does not preserve the Luna prefix: "
+                f"Scratch source does not preserve the legacy "
+                f"three-attempt prefix: "
                 f"{row['symbol_name']}"
             )
 
@@ -399,18 +401,12 @@ def finalize(
         raise SystemExit(
             f"{row['symbol_name']} cannot return to {status}"
         )
-    if current_status in INTERIM_STATUSES and any(
-        queued["status"] == "pending" for queued in rows
-    ):
-        raise SystemExit(
-            "Sol second-pass work cannot start while pending functions remain"
-        )
 
     attempts = read_attempts(row)
     if not attempts:
         raise SystemExit("At least one attempt is required")
     if len(attempts) > MAX_ATTEMPTS:
-        raise SystemExit("Attempt history exceeds the five-attempt limit")
+        raise SystemExit("Attempt history exceeds the three-attempt limit")
     if current_status == "source_pending":
         validate_source_pending_prefix(row, attempts)
     if current_status == "sol_pending":
@@ -426,10 +422,6 @@ def finalize(
             raise SystemExit(
                 "A later-pass match must preserve the released-source attempt"
             )
-        if current_status == "sol_pending" and len(attempts) < 4:
-            raise SystemExit(
-                "A Sol match must preserve the three-attempt Luna prefix"
-            )
         run_checked(
             "sha1sum",
             "-c",
@@ -442,19 +434,12 @@ def finalize(
             )
         if matched_attempts:
             raise SystemExit("Cannot queue a matched function for later")
-    elif status == "sol_pending":
-        if len(attempts) != 3:
-            raise SystemExit(
-                "A sol_pending function must record exactly three attempts"
-            )
-        if matched_attempts:
-            raise SystemExit("Cannot queue a matched function for Sol")
     else:
         if matched_attempts:
             raise SystemExit("Cannot defer a matched function")
         if len(attempts) != MAX_ATTEMPTS:
             raise SystemExit(
-                "A deferred function must record exactly five attempts"
+                "A deferred function must record exactly three attempts"
             )
 
     run_checked("./env/bin/python", "tools/check_reference.py")
@@ -462,8 +447,6 @@ def finalize(
     remove_sol_handoff = current_status == "sol_pending"
     if status == "source_pending":
         write_source_pending_handoff(row, attempts)
-    if status == "sol_pending":
-        write_sol_pending_handoff(row, attempts)
 
     best_score = max(float(attempt.get("score", 0)) for attempt in attempts)
     row["status"] = status
@@ -526,7 +509,7 @@ def check_queue(rows: list[dict[str, str]]) -> None:
             continue
         if status not in TRACKED_STATUSES:
             raise SystemExit(f"Unknown status {status}: {row['symbol_name']}")
-        if not 1 <= attempts <= MAX_ATTEMPTS:
+        if not 1 <= attempts <= LEGACY_MAX_ATTEMPTS:
             raise SystemExit(
                 f"Invalid attempt count for {row['symbol_name']}: {attempts}"
             )
@@ -544,9 +527,13 @@ def check_queue(rows: list[dict[str, str]]) -> None:
             validate_source_pending_handoff(row)
         if status == "sol_pending":
             validate_sol_pending_handoff(row)
-        if status == "deferred" and attempts != MAX_ATTEMPTS:
+        if status == "deferred" and attempts not in (
+            MAX_ATTEMPTS,
+            LEGACY_MAX_ATTEMPTS,
+        ):
             raise SystemExit(
-                f"Deferred function lacks five attempts: {row['symbol_name']}"
+                f"Deferred function has an invalid attempt count: "
+                f"{row['symbol_name']}"
             )
         if row["commit"] != "SELF":
             raise SystemExit(
@@ -578,7 +565,7 @@ def main() -> int:
     finalize_parser.add_argument("function")
     finalize_parser.add_argument(
         "--status",
-        choices=("matched", "deferred", "source_pending", "sol_pending"),
+        choices=("matched", "deferred", "source_pending"),
         required=True,
     )
     finalize_parser.add_argument("--summary", required=True)
@@ -588,13 +575,6 @@ def main() -> int:
     args = parser.parse_args()
     fieldnames, rows = read_queue()
     if args.command == "next":
-        if args.status in INTERIM_STATUSES and any(
-            row["status"] == "pending" for row in rows
-        ):
-            raise SystemExit(
-                "Sol second-pass work cannot start while pending "
-                "functions remain"
-            )
         print_next(next_status(rows, args.status), args.json)
     elif args.command == "finalize":
         finalize(

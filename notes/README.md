@@ -6,12 +6,13 @@ ordered by `size_bytes`, then address.
 ## Statuses
 
 - `pending`: eligible and not attempted
-- `source_pending`: exact released source was attempted once; later Sol work
-  may continue with attempts two through five after the first pass completes
-- `sol_pending`: legacy three-attempt handoff awaiting Sol attempts four and
-  five after the first pass completes
+- `source_pending`: exact released source was attempted once; Sol may continue
+  with attempts two and three
+- `sol_pending`: legacy exhausted three-attempt handoff awaiting final
+  deferral under the current workflow
 - `matched`: integrated source passed the isolated bench and full ROM checksum
-- `deferred`: five candidates were attempted without a match
+- `deferred`: three candidates were attempted without a match; historical
+  five-attempt rows remain valid
 - `excluded_handwritten`: known handwritten PS2/VU assembly
 - `excluded_sdk_runtime`: Sony SDK, compiler runtime, or standard library code
 - `excluded_third_party`: third-party library code outside game/engine scope
@@ -24,7 +25,8 @@ An attempt is one distinct candidate source submitted to
 consume an attempt. Compiler/build infrastructure failures are fixed before
 continuing and are not disguised as successful candidates.
 
-No function may exceed five distinct candidates.
+New work may not exceed three distinct candidates. Historical matched and
+deferred rows retain their existing attempt histories.
 
 ## Atomic function cycle
 
@@ -32,13 +34,12 @@ No function may exceed five distinct candidates.
 2. Prepare its isolated scratch directory under `tmp/functions/`.
 3. Compile/diff the exact released body and declarations as attempt one.
 4. If matched, integrate only that function and verify the full ROM checksum.
-5. Otherwise finalize a durable `source_pending` handoff and continue.
-6. Commit the source plus note, or the handoff note alone.
-7. Continue immediately with the next queue row.
-
-When no `pending` rows remain, Sol resumes `source_pending` and legacy
-`sol_pending` handoffs. The combined history remains capped at five distinct
-source candidates before a final deferral.
+5. Otherwise use the target diff and released declarations for at most two
+   additional Sol attempts.
+6. Commit the matched source plus note, or defer the exhausted function with
+   a notes-only commit.
+7. Use `source_pending` only when work must stop after attempt one; resume it
+   without waiting for all untouched functions.
 
 Committed source mirrors the original reference tree below `src/`. Multiple
 matched functions from one original file live together in guarded blocks.

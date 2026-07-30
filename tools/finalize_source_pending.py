@@ -19,7 +19,7 @@ def run(*args: str) -> None:
 
 
 parser = argparse.ArgumentParser(
-    description="Commit one released-source miss for the later Sol pass."
+    description="Commit one released-source miss for later Sol attempts."
 )
 parser.add_argument("address")
 parser.add_argument("--summary", required=True)

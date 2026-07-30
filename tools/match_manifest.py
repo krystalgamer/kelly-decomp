@@ -63,13 +63,6 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
             flush=True,
         )
         return False
-    if expected_status in ("source_pending", "sol_pending") and any(
-        queued["status"] == "pending" for queued in rows
-    ):
-        raise RuntimeError(
-            "Sol second-pass work cannot start while pending functions remain"
-        )
-
     pending = next_status(rows, expected_status)
     if pending["address"].lower() != address:
         raise RuntimeError(
