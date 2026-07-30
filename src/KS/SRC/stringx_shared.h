@@ -10,6 +10,7 @@ class stringx {
 public:
     stringx();
     stringx(const stringx &other);
+    stringx &operator=(const char *text);
 };
 
 #endif
