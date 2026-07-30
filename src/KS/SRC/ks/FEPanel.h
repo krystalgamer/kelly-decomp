@@ -1,16 +1,30 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#if defined(KELLY_DECOMP_FUNCTION_001D86C0) || \
+    defined(KELLY_DECOMP_FUNCTION_001D86C8) || \
+    defined(KELLY_DECOMP_FUNCTION_001D86D0) || \
+    defined(KELLY_DECOMP_FUNCTION_001D86D8) || \
+    defined(KELLY_DECOMP_FUNCTION_001D86E0) || \
+    defined(KELLY_DECOMP_FUNCTION_001D86E8) || \
+    defined(KELLY_DECOMP_FUNCTION_001D86F8) || \
+    defined(KELLY_DECOMP_FUNCTION_001D8728) || \
+    defined(KELLY_DECOMP_FUNCTION_001D8730) || \
+    defined(KELLY_DECOMP_FUNCTION_001D8738) || \
+    defined(KELLY_DECOMP_FUNCTION_001D8740) || \
+    defined(KELLY_DECOMP_FUNCTION_001D8748) || \
+    defined(KELLY_DECOMP_FUNCTION_001D8750) || \
+    defined(KELLY_DECOMP_FUNCTION_001D8758) || \
+    defined(KELLY_DECOMP_FUNCTION_001D8760) || \
+    defined(KELLY_DECOMP_FUNCTION_001D8768) || \
+    defined(KELLY_DECOMP_FUNCTION_001D8770) || \
+    defined(KELLY_DECOMP_FUNCTION_001D8778) || \
+    defined(KELLY_DECOMP_FUNCTION_001D8790) || \
+    defined(KELLY_DECOMP_FUNCTION_001D8798)
+#include "KS/SRC/ks/FEPanel_shared.h"
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001D86C0)
 // 0x001D86C0 setFont__10TextStringP4Font
-class Font;
-
-class TextString {
-    Font* font;
-public:
-    void setFont(Font* f);
-};
-
 void TextString::setFont(Font* f) {
     font = f;
 }
@@ -18,13 +32,6 @@ void TextString::setFont(Font* f) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D86C8)
 // 0x001D86C8 setButtonScale__10TextStringf
-class TextString {
-    char padding[0x34];
-    float button_scale;
-public:
-    void setButtonScale(float bs);
-};
-
 void TextString::setButtonScale(float bs) {
     button_scale = bs;
 }
@@ -32,13 +39,6 @@ void TextString::setButtonScale(float bs) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D86D0)
 // 0x001D86D0 numberSpacing__10TextStringb
-class TextString {
-    char padding[0x20];
-    bool even_number_spacing;
-public:
-    void numberSpacing(bool on);
-};
-
 void TextString::numberSpacing(bool on) {
     even_number_spacing = on;
 }
@@ -46,13 +46,6 @@ void TextString::numberSpacing(bool on) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D86D8)
 // 0x001D86D8 changeScale__10TextStringf
-class TextString {
-    char padding[0x30];
-    float scale;
-public:
-    void changeScale(float s);
-};
-
 void TextString::changeScale(float s) {
     scale = s;
 }
@@ -60,13 +53,6 @@ void TextString::changeScale(float s) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D86E0)
 // 0x001D86E0 changeZ__10TextStringi
-class TextString {
-    char padding[0x14];
-    int z;
-public:
-    void changeZ(int value);
-};
-
 void TextString::changeZ(int value) {
     z = value;
 }
@@ -74,19 +60,11 @@ void TextString::changeZ(int value) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D86E8)
 // 0x001D86E8 SetFade__10TextStringf
-class TextString { char padding[0x24]; int fade; float fade_alpha; public: void SetFade(float amount); };
 void TextString::SetFade(float amount) { fade = 2; fade_alpha = amount; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001D8728)
 // 0x001D8728 GetScale__C10TextString
-class TextString {
-    char padding[0x30];
-    float scale;
-public:
-    float GetScale() const;
-};
-
 float TextString::GetScale() const {
     return scale;
 }
@@ -94,13 +72,6 @@ float TextString::GetScale() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D8730)
 // 0x001D8730 GetButtonScale__C10TextString
-class TextString {
-    char padding[0x34];
-    float button_scale;
-public:
-    float GetButtonScale() const;
-};
-
 float TextString::GetButtonScale() const {
     return button_scale;
 }
@@ -108,13 +79,6 @@ float TextString::GetButtonScale() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D8738)
 // 0x001D8738 GetNumberSpacing__C10TextString
-class TextString {
-    char padding[0x20];
-    bool even_number_spacing;
-public:
-    bool GetNumberSpacing() const;
-};
-
 bool TextString::GetNumberSpacing() const {
     return even_number_spacing;
 }
@@ -122,14 +86,6 @@ bool TextString::GetNumberSpacing() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D8740)
 // 0x001D8740 GetFont__10TextString
-class Font;
-
-class TextString {
-    Font* font;
-public:
-    Font* GetFont();
-};
-
 Font* TextString::GetFont() {
     return font;
 }
@@ -137,18 +93,6 @@ Font* TextString::GetFont() {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D8748)
 // 0x001D8748 GetHJustify__C10TextString
-class Font {
-public:
-    enum HORIZJUST { HORIZJUST_LEFT };
-};
-
-class TextString {
-    char padding[0x18];
-    Font::HORIZJUST hJustify;
-public:
-    Font::HORIZJUST GetHJustify() const;
-};
-
 Font::HORIZJUST TextString::GetHJustify() const {
     return hJustify;
 }
@@ -156,18 +100,6 @@ Font::HORIZJUST TextString::GetHJustify() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D8750)
 // 0x001D8750 GetVJustify__C10TextString
-class Font {
-public:
-    enum VERTJUST { VERTJUST_TOP };
-};
-
-class TextString {
-    char padding[0x1C];
-    Font::VERTJUST vJustify;
-public:
-    Font::VERTJUST GetVJustify() const;
-};
-
 Font::VERTJUST TextString::GetVJustify() const {
     return vJustify;
 }
@@ -175,87 +107,41 @@ Font::VERTJUST TextString::GetVJustify() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D8758)
 // 0x001D8758 setLineSpacing__10TextStringi
-class TextString {
-public:
-    void setLineSpacing(int new_spacing);
-};
-
 void TextString::setLineSpacing(int new_spacing) {
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001D8760)
 // 0x001D8760 resetLineSpacing__10TextString
-class TextString {
-public:
-    void resetLineSpacing();
-};
-
 void TextString::resetLineSpacing() {
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001D8768)
 // 0x001D8768 UpdateInScene__10TextStringb
-class TextString {
-public:
-    void UpdateInScene(bool ignore_scale);
-};
-
 void TextString::UpdateInScene(bool ignore_scale) {
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001D8770)
 // 0x001D8770 SetLocation3D__10TextStringG8vector3d
-class vector3d {
-public:
-    float x;
-    float y;
-    float z;
-
-    vector3d() {}
-    vector3d(const vector3d& value) {
-        x = value.x;
-        y = value.y;
-        z = value.z;
-    }
-};
-
-class TextString {
-public:
-    void SetLocation3D(vector3d loc);
-};
-
 void TextString::SetLocation3D(vector3d loc) {
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001D8778)
 // 0x001D8778 GetLocation3D__10TextString
-class vector3d { public: float x; float y; float z; vector3d(float ix, float iy, float iz) : x(ix), y(iy), z(iz) {} };
-class TextString { public: vector3d GetLocation3D(); };
 vector3d TextString::GetLocation3D() { return vector3d(0.0f, 0.0f, 0.0f); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001D8790)
 // 0x001D8790 SetBehaviorNF__10TextStringff
-class TextString {
-public:
-    void SetBehaviorNF(float r_x, float r_y);
-};
-
 void TextString::SetBehaviorNF(float r_x, float r_y) {
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001D8798)
 // 0x001D8798 SetBehavior__10TextStringb
-class TextString {
-public:
-    void SetBehavior(bool nfb);
-};
-
 void TextString::SetBehavior(bool nfb) {
 }
 #endif
@@ -771,9 +657,7 @@ void PanelQuad::SetZ(float value) { z = value; nglSetQuadZ((nglQuad *)((char *)t
 
 #if defined(KELLY_DECOMP_FUNCTION_001D86F8)
 // 0x001D86F8 getText__10TextString
-class stringx { int value; public: stringx(const stringx &other); };
 __asm__(".equ __7stringxRC7stringx, 0x0034D4D0");
-class TextString { int field0; stringx text; public: stringx getText(); };
 stringx TextString::getText() { return text; }
 #endif
 
