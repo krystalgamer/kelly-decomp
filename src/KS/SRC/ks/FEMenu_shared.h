@@ -2,6 +2,9 @@
 #define KELLY_DECOMP_FE_MENU_SHARED_H
 
 #include "KS/SRC/stringx.h"
+#if defined(KELLY_DECOMP_FULL_FEMENU_ENTRY)
+#include "KS/SRC/ks/FEPanel_shared.h"
+#endif
 
 #pragma interface
 
@@ -99,7 +102,34 @@ public:
     virtual void SetNoFlash(bool disabled);
     virtual float GetHighlightIntensity();
     virtual void SetPos(float x, float y);
+    virtual void SetZ(int z);
+    virtual void SetText(stringx text);
     virtual void SetLocation3D(vector3d location);
+    virtual void SetHJustify(Font::HORIZJUST horizontal);
+    virtual void SetVJustify(Font::VERTJUST vertical);
+    virtual void SetFade(
+        bool start,
+        bool fade_in,
+        float time = 2.0f)
+        __asm__("SetFade__11FEMenuEntrybT1f");
+    virtual void SetLineSpacing(int spacing);
+    virtual void SetFont(Font *font);
+    virtual void SetBehaviorNF(float x, float y);
+    virtual void SetBehavior(bool non_floating);
+    virtual void SetColor(color32 color);
+    virtual void SetScale(float scale);
+    virtual void UpdateInScene();
+    virtual stringx GetText();
+    virtual float GetX();
+    virtual float GetY();
+    virtual color32 GetColor();
+    virtual int getLineNum();
+    virtual float GetScale();
+    virtual void AddEntity(
+        entity *value,
+        color32 highlighted,
+        color32 normal);
+    virtual void AddFont(int index, Font *font);
 
 protected:
 #if defined(KELLY_DECOMP_LOGBOOK_CONSTRUCTORS)
@@ -109,6 +139,7 @@ protected:
         bool floating,
         Font *font);
 #endif
+    virtual void OnHighlight(bool animate = true);
 #endif
 };
 

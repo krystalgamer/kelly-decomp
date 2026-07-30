@@ -158,23 +158,9 @@ float FEMenuEntry::GetHighlightIntensity() {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA780)
 // 0x001DA780 SetColor__11FEMenuEntryG7color32
-class color32 {
-public:
-    unsigned int value;
-    color32(unsigned int initial = 0) : value(initial) {}
-};
-
-struct menu_text {
-    char padding[0x48];
-    color32 color;
-};
-
-class FEMenuEntry {
-    char padding[0x24];
-    menu_text* text;
-public:
-    void SetColor(color32 value);
-};
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
 
 void FEMenuEntry::SetColor(color32 value) {
     text->color = value;
@@ -183,23 +169,9 @@ void FEMenuEntry::SetColor(color32 value) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA8B0)
 // 0x001DA8B0 GetColor__11FEMenuEntry
-class color32 {
-public:
-    unsigned int value;
-    color32(unsigned int initial = 0) : value(initial) {}
-};
-
-struct menu_text {
-    char padding[0x48];
-    color32 color;
-};
-
-class FEMenuEntry {
-    char padding[0x24];
-    menu_text* text;
-public:
-    color32 GetColor();
-};
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
 
 color32 FEMenuEntry::GetColor() {
     return text->color;
@@ -208,10 +180,9 @@ color32 FEMenuEntry::GetColor() {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA950)
 // 0x001DA950 OnHighlight__11FEMenuEntryb
-class FEMenuEntry {
-public:
-    void OnHighlight(bool arg0);
-};
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
 
 void FEMenuEntry::OnHighlight(bool arg0) {
 }
@@ -586,102 +557,98 @@ void FEMultiMenu::OnRight(int command) { MenuVTable *table = vtable; table->call
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA520)
 // 0x001DA520 SetPos__11FEMenuEntryff
-struct text_vtable { char padding[0x58]; short adjustment; short padding2; void (*call)(void *, float, float); };
-struct menu_text { char padding[0x4c]; text_vtable *vtable; };
-class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetPos(float x, float y); };
-void FEMenuEntry::SetPos(float x, float y) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, x, y); }
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+void FEMenuEntry::SetPos(float x, float y) { text->changePos(x, y); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA550)
 // 0x001DA550 SetZ__11FEMenuEntryi
-struct text_vtable { char padding[0x70]; short adjustment; short padding2; void (*call)(void *, int); };
-struct menu_text { char padding[0x4c]; text_vtable *vtable; };
-class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetZ(int z); };
-void FEMenuEntry::SetZ(int z) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, z); }
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+void FEMenuEntry::SetZ(int z) { text->changeZ(z); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA630)
 // 0x001DA630 SetHJustify__11FEMenuEntryQ24Font9HORIZJUST
-class Font { public: enum HORIZJUST { HORIZJUST_LEFT }; };
-struct text_vtable { char padding[0x20]; short adjustment; short padding2; void (*call)(void *, Font::HORIZJUST); };
-struct menu_text { char padding[0x4c]; text_vtable *vtable; };
-class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetHJustify(Font::HORIZJUST value); };
-void FEMenuEntry::SetHJustify(Font::HORIZJUST value) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, value); }
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+void FEMenuEntry::SetHJustify(Font::HORIZJUST value) { text->setHJustify(value); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA660)
 // 0x001DA660 SetVJustify__11FEMenuEntryQ24Font8VERTJUST
-class Font { public: enum VERTJUST { VERTJUST_TOP }; };
-struct text_vtable { char padding[0x28]; short adjustment; short padding2; void (*call)(void *, Font::VERTJUST); };
-struct menu_text { char padding[0x4c]; text_vtable *vtable; };
-class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetVJustify(Font::VERTJUST value); };
-void FEMenuEntry::SetVJustify(Font::VERTJUST value) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, value); }
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+void FEMenuEntry::SetVJustify(Font::VERTJUST value) { text->setVJustify(value); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA690)
 // 0x001DA690 SetFade__11FEMenuEntrybT1f
-struct text_vtable { char padding[0x78]; short adjustment; short padding2; void (*call)(void *, bool, bool, float); };
-struct menu_text { char padding[0x4c]; text_vtable *vtable; };
-struct FEMenuEntry { char padding[0x24]; menu_text *text; };
-extern "C" void SetFadeAlias(FEMenuEntry *entry, bool start, bool fade_in, float time) __asm__("SetFade__11FEMenuEntrybT1f");
-void SetFadeAlias(FEMenuEntry *entry, bool start, bool fade_in, float time) { text_vtable *table = entry->text->vtable; table->call((char *)entry->text + table->adjustment, start, fade_in, time); }
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+void FEMenuEntry::SetFade(bool start, bool fade_in, float time) { text->ChangeFade(start, fade_in, time); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA6C0)
 // 0x001DA6C0 SetLineSpacing__11FEMenuEntryi
-struct text_vtable { char padding[0xd8]; short adjustment; short padding2; void (*call)(void *, int); };
-struct menu_text { char padding[0x4c]; text_vtable *vtable; };
-class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetLineSpacing(int spacing); };
-void FEMenuEntry::SetLineSpacing(int spacing) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, spacing); }
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+void FEMenuEntry::SetLineSpacing(int spacing) { text->setLineSpacing(spacing); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA6F0)
 // 0x001DA6F0 SetFont__11FEMenuEntryP4Font
-class Font;
-struct text_vtable { char padding[0x30]; short adjustment; short padding2; void (*call)(void *, Font *); };
-struct menu_text { char padding[0x4c]; text_vtable *vtable; };
-class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetFont(Font *font); };
-void FEMenuEntry::SetFont(Font *font) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, font); }
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+void FEMenuEntry::SetFont(Font *font) { text->setFont(font); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA720)
 // 0x001DA720 SetBehaviorNF__11FEMenuEntryff
-struct text_vtable { char padding[0x100]; short adjustment; short padding2; void (*call)(void *, float, float); };
-struct menu_text { char padding[0x4c]; text_vtable *vtable; };
-class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetBehaviorNF(float x, float y); };
-void FEMenuEntry::SetBehaviorNF(float x, float y) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, x, y); }
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+void FEMenuEntry::SetBehaviorNF(float x, float y) { text->SetBehaviorNF(x, y); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA750)
 // 0x001DA750 SetBehavior__11FEMenuEntryb
-struct text_vtable { char padding[0x108]; short adjustment; short padding2; void (*call)(void *, bool); };
-struct menu_text { char padding[0x4c]; text_vtable *vtable; };
-class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetBehavior(bool value); };
-void FEMenuEntry::SetBehavior(bool value) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, value); }
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+void FEMenuEntry::SetBehavior(bool value) { text->SetBehavior(value); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA790)
 // 0x001DA790 SetScale__11FEMenuEntryf
-struct text_vtable { char padding[0x50]; short adjustment; short padding2; void (*call)(void *, float); };
-struct menu_text { char padding[0x4c]; text_vtable *vtable; };
-class FEMenuEntry { char padding[0x24]; menu_text *text; public: void SetScale(float value); };
-void FEMenuEntry::SetScale(float value) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, value); }
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+void FEMenuEntry::SetScale(float value) { text->changeScale(value); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA850)
 // 0x001DA850 GetX__11FEMenuEntry
-struct text_vtable { char padding[0x88]; short adjustment; short padding2; float (*call)(void *); };
-struct menu_text { char padding[0x4c]; text_vtable *vtable; };
-class FEMenuEntry { char padding[0x24]; menu_text *text; public: float GetX(); };
-float FEMenuEntry::GetX() { text_vtable *table = text->vtable; return table->call((char *)text + table->adjustment); }
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+float FEMenuEntry::GetX() { return text->getX(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA880)
 // 0x001DA880 GetY__11FEMenuEntry
-struct text_vtable { char padding[0x90]; short adjustment; short padding2; float (*call)(void *); };
-struct menu_text { char padding[0x4c]; text_vtable *vtable; };
-class FEMenuEntry { char padding[0x24]; menu_text *text; public: float GetY(); };
-float FEMenuEntry::GetY() { text_vtable *table = text->vtable; return table->call((char *)text + table->adjustment); }
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+float FEMenuEntry::GetY() { return text->getY(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA8C0)
@@ -694,10 +661,10 @@ int FEMenuEntry::getLineNum() { text_vtable *table = text->vtable; return table-
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA8F0)
 // 0x001DA8F0 GetScale__11FEMenuEntry
-struct text_vtable { char padding[0xa8]; short adjustment; short padding2; float (*call)(void *); };
-struct menu_text { char padding[0x4c]; text_vtable *vtable; };
-class FEMenuEntry { char padding[0x24]; menu_text *text; public: float GetScale(); };
-float FEMenuEntry::GetScale() { text_vtable *table = text->vtable; return table->call((char *)text + table->adjustment); }
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+float FEMenuEntry::GetScale() { return text->GetScale(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA920)
@@ -725,33 +692,12 @@ void FEGraphicalMenu::Load() { frontend_vtable *table = vtable; table->call((cha
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA7C0)
 // 0x001DA7C0 UpdateInScene__11FEMenuEntry
-struct text_vtable {
-    char padding[0xe8];
-    short adjustment;
-    short padding2;
-    void (*update_in_scene)(void *self, bool ignore_scale);
-};
-
-class TextString {
-public:
-    char padding[0x4c];
-    text_vtable *vtable;
-};
-
-class FEMenuEntry {
-    char padding[0x24];
-    TextString *text;
-
-public:
-    void UpdateInScene();
-};
+#define KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu_shared.h"
+#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
 
 void FEMenuEntry::UpdateInScene() {
-    text_vtable *table = text->vtable;
-    table->update_in_scene(
-        (char *)text + table->adjustment,
-        false
-    );
+    text->UpdateInScene();
 }
 #endif
 
