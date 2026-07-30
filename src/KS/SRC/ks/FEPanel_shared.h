@@ -5,6 +5,7 @@
 
 #include "KS/SRC/color_shared.h"
 #include "KS/SRC/stringx.h"
+#include "KS/SRC/vector3d_shared.h"
 
 class Font {
 public:
@@ -66,18 +67,6 @@ struct color32 {
 };
 #endif
 #endif
-
-class vector3d {
-public:
-    float x;
-    float y;
-    float z;
-
-    inline vector3d() {}
-    inline vector3d(const vector3d &value) : x(value.x), y(value.y), z(value.z) {}
-    inline vector3d(float x_value, float y_value, float z_value)
-        : x(x_value), y(y_value), z(z_value) {}
-};
 
 class TextString {
 protected:

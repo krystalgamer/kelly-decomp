@@ -41,7 +41,7 @@ void entity::clear_anim(entity_anim_tree *animation)
 
 // 0x00134E20 update_region__6entityb
 #include "KS/SRC/entity.h"
-#include "KS/SRC/wds_shared.h"
+#include "KS/SRC/wds.h"
 
 __asm__(".equ get_primary_region__C6entity, 0x00134DE0");
 

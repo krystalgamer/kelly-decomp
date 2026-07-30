@@ -3,15 +3,6 @@
 
 #include "KS/SRC/entity.h"
 
-enum entity_flavor_t {
-    ENTITY_PARTICLE_GENERATOR = 5
-};
-
-enum particle_entity_flags {
-    EFLAG_MISC_RAW_NONSTATIC = 0x00800000,
-    EFLAG_MISC_NONSTATIC = 0x08000000
-};
-
 class particle_generator : public entity {
     char particle_generator_data[0x2D0 - sizeof(entity)];
 
@@ -20,7 +11,10 @@ public:
         const stringx &filename,
         const entity_id &id,
         entity_flavor_t flavor = ENTITY_PARTICLE_GENERATOR,
-        unsigned int flags = 0);
+        unsigned int flags = 0)
+        __asm__(
+            "__18particle_generatorRC7stringxRC9entity_id"
+            "15entity_flavor_tUi");
     virtual void set_visible(bool visible);
 };
 

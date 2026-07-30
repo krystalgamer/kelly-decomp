@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_WDS_ADD_ENTITY_SHARED_H
 
 #include "KS/SRC/entity.h"
-#include "KS/SRC/wds_shared.h"
+#include "KS/SRC/wds.h"
 
 class marker : public entity {};
 class beam : public entity {};

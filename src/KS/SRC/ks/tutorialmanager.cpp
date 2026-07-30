@@ -184,7 +184,7 @@ struct TextVtable{char pad[8];short adjust;short z;void(*destroy)(void*,int);};s
 // 0x00159720 Draw__18IGOTutorialManager
 #include "KS/SRC/ks/FEPanel_shared.h"
 #include "KS/SRC/ks/kellyslater_controller_shared.h"
-#include "KS/SRC/wds_shared.h"
+#include "KS/SRC/wds.h"
 #include "KS/SRC/ks/tutorialmanager.h"
 
 __asm__(".equ is_paused__C4game, 0x0027D968");

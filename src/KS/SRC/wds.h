@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_WDS_SHARED_H
-#define KELLY_DECOMP_WDS_SHARED_H
+#ifndef WDS_H
+#define WDS_H
 
 class entity;
 class entity_id;
@@ -55,8 +55,5 @@ public:
 extern world_dynamics_system *g_world_ptr;
 
 __asm__(".equ g_world_ptr, 0x00431A8C");
-#if !defined(KELLY_DECOMP_FUNCTION_002A3488)
-__asm__(".equ add_particle_generator__21world_dynamics_systemP18particle_generator, 0x002A3488");
-#endif
 
 #endif
