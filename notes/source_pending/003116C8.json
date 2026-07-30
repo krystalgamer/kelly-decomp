@@ -1,0 +1,23 @@
+{
+  "address": "0x003116C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5cc0ad4a3edfd25808f6644b045586e84592d9e2",
+      "candidate_size": 232,
+      "compared_bytes": 1064,
+      "compared_instructions": 266,
+      "emitted_name": "_M_insert__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP11entity_poolZt10_Select1st1Zt4pair2ZC7stringxZP11entity_poolZt4less1Z7stringxZt12my_allocator1ZP11entity_poolP18_Rb_tree_node_baseT1RCt4pair2ZC7stringxZP11entity_pool",
+      "instruction_score": 0.0,
+      "matching_bytes": 41,
+      "matching_instructions": 0,
+      "notes": "# FIRST PASS wave 169 lane B5\n\nExact released GCC 2 `_Rb_tree::_M_insert` source tested once for `0x003116C8`, from `C:/usr/local/sce/ee/gcc/include/g++-2/stl_tree.h:819-853`, with authentic `stringx` layout/comparison from `kelly-slaters-pro-surfer/KS/SRC/stringx.h:230-244,480-483` and the `map<stringx, entity_pool*>` declaration from `kelly-slaters-pro-surfer/KS/SRC/entity_maker.h:15-35`. Attempts before: 0. Result `different`, byte score 3.8534% and instruction score 0.0000%. No alternate was tried.",
+      "score": 3.8534,
+      "source": "// Target: 0x003116C8 _M_insert__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP11entity_poolZt10_Select1st1Zt4pair2ZC7stringxZP11entity_poolZt4less1Z7stringxZt12my_allocator1ZP11entity_poolP18_Rb_tree_node_baseT1RCt4pair2ZC7stringxZP11entity_pool\n// Reference: \n// Replace this file with one self-contained candidate function.\nclass string_buf;\nclass stringx {\nprotected:\n  char *chars;\n  string_buf *my_buf;\npublic:\n  friend bool operator<(const stringx &, const stringx &);\n};\nclass entity_pool;\n\ntemplate<class T> struct my_allocator {};\ntemplate<class T1, class T2> struct pair {\n  T1 first;\n  T2 second;\n};\ntypedef pair<const stringx, entity_pool *> value_type;\n\nstruct _Rb_tree_node_base {\n  int color;\n  _Rb_tree_node_base *parent;\n  _Rb_tree_node_base *left;\n  _Rb_tree_node_base *right;\n};\nstruct node : _Rb_tree_node_base { value_type value_field; };\n\nextern \"C\" void rebalance(_Rb_tree_node_base *, _Rb_tree_node_base *&)\n  __asm__(\"_Rb_tree_rebalance__FP18_Rb_tree_node_baseRP18_Rb_tree_node_base\");\nextern \"C\" node *create_node(void *, const value_type &)\n  __asm__(\"_M_create_node__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP11entity_poolZt10_Select1st1Zt4pair2ZC7stringxZP11entity_poolZt4less1Z7stringxZt12my_allocator1ZP11entity_poolRCt4pair2ZC7stringxZP11entity_pool\");\n\nstruct iterator {\n  _Rb_tree_node_base *_M_node;\n  iterator(_Rb_tree_node_base *x) : _M_node(x) {}\n};\n\nstruct tree {\n  _Rb_tree_node_base *_M_header;\n  unsigned int _M_node_count;\n};\n\nextern \"C\" iterator tree_insert(tree *, _Rb_tree_node_base *, _Rb_tree_node_base *, const value_type &)\n  __asm__(\"_M_insert__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP11entity_poolZt10_Select1st1Zt4pair2ZC7stringxZP11entity_poolZt4less1Z7stringxZt12my_allocator1ZP11entity_poolP18_Rb_tree_node_baseT1RCt4pair2ZC7stringxZP11entity_pool\");\n\niterator tree_insert(tree *self, _Rb_tree_node_base *x_, _Rb_tree_node_base *y_, const value_type& v) {\n  node *x = (node *)x_;\n  node *y = (node *)y_;\n  node *z;\n  if (y == (node *)self->_M_header || x != 0 || v.first < y->value_field.first) {\n    z = create_node(self, v);\n    y->left = z;\n    if (y == (node *)self->_M_header) {\n      self->_M_header->parent = z;\n      self->_M_header->right = z;\n    } else if (y == (node *)self->_M_header->left)\n      self->_M_header->left = z;\n  } else {\n    z = create_node(self, v);\n    y->right = z;\n    if (y == (node *)self->_M_header->right)\n      self->_M_header->right = z;\n  }\n  z->parent = y;\n  z->left = 0;\n  z->right = 0;\n  rebalance(z, self->_M_header->parent);\n  ++self->_M_node_count;\n  return iterator(z);\n}\n",
+      "status": "different",
+      "target_size": 1064
+    }
+  ],
+  "raw_name": "_M_insert__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP11entity_poolZt10_Select1st1Zt4pair2ZC7stringxZP11entity_poolZt4less1Z7stringxZt12my_allocator1ZP11entity_poolP18_Rb_tree_node_baseT1RCt4pair2ZC7stringxZP11entity_pool"
+}
