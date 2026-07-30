@@ -23,6 +23,27 @@
 #include "KS/SRC/ks/FEPanel_shared.h"
 #endif
 
+#if defined(KELLY_DECOMP_FUNCTION_001D9AB0) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9AC0) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9AC8) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9AE8) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9B28) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9B50) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9B90) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9B98) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9BA0) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9BA8) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9BB0) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9BB8) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9BC0) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9BE0) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9BF0) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9BF8) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9C00) || \
+    defined(KELLY_DECOMP_FUNCTION_001D9C08)
+#include "KS/SRC/ks/FEPanel_shared.h"
+#endif
+
 #if defined(KELLY_DECOMP_FUNCTION_001D86C0)
 // 0x001D86C0 setFont__10TextStringP4Font
 void TextString::setFont(Font* f) {
@@ -264,13 +285,6 @@ void FloatingText::SetBehavior(bool nfb) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9AB0)
 // 0x001D9AB0 TurnOn__9PanelQuadb
-class PanelQuad {
-    char padding[0x80];
-    bool drawOn;
-public:
-    void TurnOn(bool on);
-};
-
 void PanelQuad::TurnOn(bool on) {
     drawOn = on;
 }
@@ -278,13 +292,6 @@ void PanelQuad::TurnOn(bool on) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9AC0)
 // 0x001D9AC0 SetLayer__9PanelQuadi
-class PanelQuad {
-    char padding[0x94];
-    int layer;
-public:
-    void SetLayer(int value);
-};
-
 void PanelQuad::SetLayer(int value) {
     layer = value;
 }
@@ -292,25 +299,16 @@ void PanelQuad::SetLayer(int value) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9AC8)
 // 0x001D9AC8 Rotate__9PanelQuadf
-class PanelQuad { char padding[0x84]; int rotate; float rotation; public: void Rotate(float amount); };
 void PanelQuad::Rotate(float amount) { rotate = 1; rotation = amount; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9AE8)
 // 0x001D9AE8 SetColor__9PanelQuadffff
-class PanelQuad { char padding[0x98]; float r; float g; float b; float a; public: void SetColor(float red, float green, float blue, float alpha); };
 void PanelQuad::SetColor(float red, float green, float blue, float alpha) { r = red; g = green; b = blue; a = alpha; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9B90)
 // 0x001D9B90 IsOn__C9PanelQuad
-class PanelQuad {
-    char padding[0x80];
-    bool drawOn;
-public:
-    bool IsOn() const;
-};
-
 bool PanelQuad::IsOn() const {
     return drawOn;
 }
@@ -318,13 +316,6 @@ bool PanelQuad::IsOn() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9B98)
 // 0x001D9B98 GetWidth__9PanelQuad
-class PanelQuad {
-    char padding[0xB8];
-    float width;
-public:
-    float GetWidth();
-};
-
 float PanelQuad::GetWidth() {
     return width;
 }
@@ -332,13 +323,6 @@ float PanelQuad::GetWidth() {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9BA0)
 // 0x001D9BA0 GetHeight__9PanelQuad
-class PanelQuad {
-    char padding[0xBC];
-    float height;
-public:
-    float GetHeight();
-};
-
 float PanelQuad::GetHeight() {
     return height;
 }
@@ -346,13 +330,6 @@ float PanelQuad::GetHeight() {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9BA8)
 // 0x001D9BA8 GetWidthA__9PanelQuad
-class PanelQuad {
-    char padding[0xC0];
-    float width_a;
-public:
-    float GetWidthA();
-};
-
 float PanelQuad::GetWidthA() {
     return width_a;
 }
@@ -360,13 +337,6 @@ float PanelQuad::GetWidthA() {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9BB0)
 // 0x001D9BB0 GetHeightA__9PanelQuad
-class PanelQuad {
-    char padding[0xC4];
-    float height_a;
-public:
-    float GetHeightA();
-};
-
 float PanelQuad::GetHeightA() {
     return height_a;
 }
@@ -374,13 +344,6 @@ float PanelQuad::GetHeightA() {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9BB8)
 // 0x001D9BB8 SetAlpha__9PanelQuadf
-class PanelQuad {
-    char padding[0xA4];
-    float a;
-public:
-    void SetAlpha(float alpha);
-};
-
 void PanelQuad::SetAlpha(float alpha) {
     a = alpha;
 }
@@ -388,48 +351,24 @@ void PanelQuad::SetAlpha(float alpha) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9BE0)
 // 0x001D9BE0 SetFade__9PanelQuadiff
-class PanelQuad { char padding[0x4]; int fade; float fade_alpha; float fade_timer; public: void SetFade(int mode, float alpha, float timer); };
 void PanelQuad::SetFade(int mode, float alpha, float timer) { fade = mode; fade_alpha = alpha; fade_timer = timer; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9BF0)
 // 0x001D9BF0 GetTexture__9PanelQuad
-class nglTexture;
-
-class PanelQuad {
-    char padding[0x7C];
-    nglTexture* texture;
-public:
-    nglTexture* GetTexture();
-};
-
 nglTexture* PanelQuad::GetTexture() {
-    return texture;
+    return quad.Tex;
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9BF8)
 // 0x001D9BF8 SetUV__9PanelQuadffffffff
-class PanelQuad {
-public:
-    void SetUV(float u1, float u2, float u3, float u4, float v1, float v2, float v3, float v4);
-};
-
 void PanelQuad::SetUV(float u1, float u2, float u3, float u4, float v1, float v2, float v3, float v4) {
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9C00)
 // 0x001D9C00 getQuad__9PanelQuad
-struct nglQuad {};
-
-class PanelQuad {
-    char padding[0x1C];
-    nglQuad quad;
-public:
-    nglQuad* getQuad();
-};
-
 nglQuad* PanelQuad::getQuad() {
     return &quad;
 }
@@ -437,13 +376,6 @@ nglQuad* PanelQuad::getQuad() {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9C08)
 // 0x001D9C08 GetRotation__C9PanelQuad
-class PanelQuad {
-    char padding[0x88];
-    float rotation;
-public:
-    float GetRotation() const;
-};
-
 float PanelQuad::GetRotation() const {
     return rotation;
 }
@@ -573,7 +505,6 @@ PanelGeomKind PanelMovie::Kind() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9BC0)
 // 0x001D9BC0 GetFade__9PanelQuadRiRfT2
-class PanelQuad { char padding[4]; int fade; float fade_alpha; float fade_timer; public: void GetFade(int &f, float &alpha, float &timer); };
 void PanelQuad::GetFade(int &f, float &alpha, float &timer) { f = fade; alpha = fade_alpha, timer = fade_timer; }
 #endif
 
@@ -648,11 +579,9 @@ void GetPosAlias(FloatingPQ *self, float &x1, float &y1, float &x2, float &y2) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001D9B28)
 // 0x001D9B28 SetZ__9PanelQuadf
-struct nglQuad;
 void nglSetQuadZ(nglQuad *quad, float z);
 __asm__(".equ nglSetQuadZ__FP7nglQuadf, 0x003A6A90");
-class PanelQuad { char padding0[0x1c]; nglQuad *quad_address; char padding1[0x15c]; float z; public: void SetZ(float value); };
-void PanelQuad::SetZ(float value) { z = value; nglSetQuadZ((nglQuad *)((char *)this + 0x1c), value); KELLY_DECOMP_COMPILER_BARRIER(); }
+void PanelQuad::SetZ(float value) { z = value; nglSetQuadZ(&quad, value); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001D86F8)
@@ -773,10 +702,8 @@ void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return
 #if defined(KELLY_DECOMP_FUNCTION_001D9B50)
 // 0x001D9B50 SetUV__9PanelQuadffff
 #include "decomp_annotations.h"
-struct nglQuad { char data[0x164]; };
 extern void nglSetQuadUV(nglQuad *, float, float, float, float);
 asm(".equ nglSetQuadUV__FP7nglQuadffff, 0x003A69C0");
-class PanelQuad { char padding[0x1c]; nglQuad quad; float u1, v1, u2, v2; public: void SetUV(float, float, float, float); };
 void PanelQuad::SetUV(float ua, float va, float ub, float vb)
 {
     u1 = ua;

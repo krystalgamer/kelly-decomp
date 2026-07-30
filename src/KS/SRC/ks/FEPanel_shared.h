@@ -3,6 +3,7 @@
 
 #pragma interface
 
+#include "KS/SRC/color_shared.h"
 #include "KS/SRC/stringx.h"
 
 class Font {
@@ -298,8 +299,35 @@ class PanelAnim;
 class PanelQuad;
 class nglTexture;
 
+#ifndef KELLY_DECOMP_NGL_QUAD_DEFINED
+#define KELLY_DECOMP_NGL_QUAD_DEFINED
+struct nglQuadVertex {
+    float X;
+    float Y;
+    float U;
+    float V;
+    unsigned int Color;
+};
+
+struct nglQuad {
+    nglQuadVertex Verts[4];
+    float Z;
+    unsigned int MapFlags;
+    unsigned int BlendMode;
+    unsigned int BlendModeConstant;
+    nglTexture *Tex;
+};
+#endif
+
 class matrix4x4 {
     float values[16] __attribute__((aligned(16)));
+};
+
+class recti {
+    int x0;
+    int y0;
+    int x1;
+    int y1;
 };
 
 typedef float time_value_t;
@@ -432,11 +460,41 @@ protected:
     float mask;
     int maskType;
     PanelAnim *anim;
-    char quad[0x64];
+    nglQuad quad;
     bool drawOn;
-    char panel_quad_tail[0x19c - 0x84];
+    int rotate;
+    float rotation;
+    float rotate_x;
+    float rotate_y;
+    int layer;
+    float r;
+    float g;
+    float b;
+    float a;
+    float x1;
+    float y1;
+    float x2;
+    float y2;
+    float width;
+    float height;
+    float width_a;
+    float height_a;
+    matrix4x4 matrix;
+    bool on_menu;
+    bool clip;
+    recti clipping;
 
 public:
+    matrix4x4 Xform;
+    stringx name;
+    bool dont_draw;
+    float z;
+    float u1;
+    float v1;
+    float u2;
+    float v2;
+    PanelQuad *next;
+
     virtual inline ~PanelQuad() {}
     virtual void Init(
         float x1, float y1, float x2, float y2,
@@ -444,12 +502,48 @@ public:
         float u1, float v1, float u2, float v2,
         float z, char object_matrix[0x40]
     );
-    virtual inline void TurnOn(bool enabled) { drawOn = enabled; }
+    virtual void TurnOn(bool enabled);
     inline void ToggleOn() { drawOn = !drawOn; }
+    void SetFade(float amount);
     void ChangeFade(bool start, bool fade_in, float time = 2.0f)
         __asm__("ChangeFade__9PanelQuadbT1f");
     inline void Mask(float amount, int type = 1) { mask = amount; maskType = type; }
-    void SetPos(float x1, float y1, float x2, float y2);
+    virtual void SetLayer(int layer);
+    virtual void Rotate(float rotation);
+    virtual void Rotate(float x, float y, float rotation);
+    virtual void Update(time_value_t time_inc);
+    virtual void Draw(int layer = 0, float alpha = -1.0f);
+    virtual void SetColor(float red, float green, float blue, float alpha);
+    virtual void SetColor(color value);
+    virtual void SetZ(float value);
+    virtual void SetUV(float u1, float v1, float u2, float v2);
+    virtual bool IsOn() const;
+    virtual void SetPos(float x1, float y1, float x2, float y2);
+    virtual void SetPos(float x, float y);
+    virtual void SetPos(
+        float x1, float y1, float x2, float y2,
+        float x3, float y3, float x4, float y4);
+    virtual void GetPos(float &x1, float &y1, float &x2, float &y2);
+    virtual void SetCenterX(float x);
+    virtual void SetCenterY(float y);
+    virtual void SetCenterPos(float x, float y);
+    virtual void GetCenterPos(float &x, float &y);
+    virtual void SetCenterPosQuadOnly(float x, float y);
+    virtual float GetWidth();
+    virtual float GetHeight();
+    virtual float GetWidthA();
+    virtual float GetHeightA();
+    virtual void SetClip(bool enabled);
+    virtual void SetClip(const recti &bounds);
+    virtual void GetFade(int &mode, float &alpha, float &timer);
+    virtual void SetFade(int mode, float alpha, float timer);
+    virtual nglTexture *GetTexture();
+    virtual void SetUV(
+        float u1, float u2, float u3, float u4,
+        float v1, float v2, float v3, float v4);
+    virtual nglQuad *getQuad();
+    virtual float GetRotation() const;
+    void SetAlpha(float alpha);
 };
 
 class FloatingPQ : public PanelQuad {

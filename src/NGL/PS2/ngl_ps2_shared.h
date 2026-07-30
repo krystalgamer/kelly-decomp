@@ -101,6 +101,8 @@ enum {
     NGLMAP_CLAMP_V = 0x00000020
 };
 
+#ifndef KELLY_DECOMP_NGL_QUAD_DEFINED
+#define KELLY_DECOMP_NGL_QUAD_DEFINED
 struct nglQuadVertex {
     float X;
     float Y;
@@ -117,6 +119,7 @@ struct nglQuad {
     u_int BlendModeConstant;
     nglTexture *Tex;
 };
+#endif
 
 struct nglFont {
     nglTexture *Tex;
