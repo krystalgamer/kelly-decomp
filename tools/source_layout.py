@@ -23,6 +23,10 @@ MARKER_RE = re.compile(
     r"^#if defined\(KELLY_DECOMP_FUNCTION_([0-9A-F]{8})\)$",
     re.MULTILINE,
 )
+ADDRESS_MARKER_RE = re.compile(
+    r"^// 0x([0-9A-Fa-f]{8})\s+.+$",
+    re.MULTILINE,
+)
 EMPTY_COMPILER_BARRIER_RE = re.compile(
     r'__asm__\s+volatile\s*\(\s*""\s*\)'
 )
@@ -65,12 +69,17 @@ REVIEWED_INSTRUCTION_ASM = {
     0x0039A0B8: "documented list-traversal scheduling nop",
 }
 
+IMPLEMENTATION_OVERRIDES = {
+    "KS/SRC/entity.h": "KS/SRC/entity_methods.cpp",
+}
+
 
 @dataclass(frozen=True)
 class FunctionSource:
     address: int
     path: Path
     merged: bool
+    guarded: bool = True
 
 
 def selector_macro(address: int) -> str:
@@ -154,7 +163,14 @@ def hash_local_include(
 
 
 def shared_context_digest(path: Path, text: str) -> str:
-    marker = MARKER_RE.search(text)
+    guarded_marker = MARKER_RE.search(text)
+    address_marker = ADDRESS_MARKER_RE.search(text)
+    markers = [
+        marker
+        for marker in (guarded_marker, address_marker)
+        if marker is not None
+    ]
+    marker = min(markers, key=lambda match: match.start()) if markers else None
     preamble = text[: marker.start()] if marker is not None else text
     digest = hashlib.sha1()
     digest.update(preamble.encode())
@@ -175,6 +191,9 @@ def merged_source_path(row: dict[str, str]) -> Path:
             f"Function has no safe reference path: {row['address']} "
             f"{row['raw_name']}"
         )
+    override = IMPLEMENTATION_OVERRIDES.get(relative.as_posix())
+    if override is not None:
+        relative = PurePosixPath(override)
     return SOURCE_ROOT.joinpath(*relative.parts)
 
 
@@ -198,6 +217,10 @@ def discover_function_sources() -> dict[int, FunctionSource]:
 
         text = path.read_text(encoding="utf-8")
         matches = list(MARKER_RE.finditer(text))
+        guarded = True
+        if not matches:
+            matches = list(ADDRESS_MARKER_RE.finditer(text))
+            guarded = False
         for index, match in enumerate(matches):
             address = int(match.group(1), 16)
             if address in sources:
@@ -208,7 +231,12 @@ def discover_function_sources() -> dict[int, FunctionSource]:
                 else len(text)
             )
             validate_instruction_asm(address, text[match.start():end])
-            sources[address] = FunctionSource(address, path, True)
+            sources[address] = FunctionSource(
+                address,
+                path,
+                True,
+                guarded,
+            )
     return sources
 
 
@@ -217,10 +245,8 @@ def function_block(row: dict[str, str], source: str) -> str:
     validate_instruction_asm(address, source)
     source = normalize_matching_annotations(source)
     return (
-        f"#if defined({selector_macro(address)})\n"
         f"// {row['address']} {row['raw_name']}\n"
         f"{source.rstrip()}\n"
-        "#endif\n"
     )
 
 
@@ -228,15 +254,27 @@ def install_function_source(row: dict[str, str], source: str) -> Path:
     address = int(row["address"], 0)
     path = merged_source_path(row)
     existing = path.read_text(encoding="utf-8") if path.exists() else ""
-    if selector_macro(address) in existing:
+    if (
+        selector_macro(address) in existing
+        or re.search(
+            rf"^// 0x{address:08X}\s+",
+            existing,
+            re.MULTILINE,
+        )
+    ):
         raise RuntimeError(f"Source already exists for {row['address']}")
+    if MARKER_RE.search(existing):
+        raise RuntimeError(
+            f"{path.relative_to(ROOT)} still uses selector guards; "
+            "migrate it before adding another function"
+        )
 
     path.parent.mkdir(parents=True, exist_ok=True)
     prefix = existing.rstrip()
     if not prefix:
         prefix = (
-            "// Matching decompilation blocks selected by generated build "
-            "shims.\n"
+            "// Matching decompilation functions extracted by generated "
+            "build shims.\n"
         )
     path.write_text(
         prefix + "\n\n" + function_block(row, source),
@@ -251,7 +289,7 @@ def write_selector_shim(source: FunctionSource) -> Path:
     shim.parent.mkdir(parents=True, exist_ok=True)
     include_path = source.path.relative_to(ROOT).as_posix()
     lines = []
-    if source.merged:
+    if source.merged and source.guarded:
         lines.append(f"#define {selector_macro(source.address)} 1")
         text = source.path.read_text(encoding="utf-8")
         marker = f"#if defined({selector_macro(source.address)})"
@@ -266,11 +304,46 @@ def write_selector_shim(source: FunctionSource) -> Path:
             f"// shared-context-sha1: "
             f"{shared_context_digest(source.path, text)}"
         )
+        lines.append('#include "decomp_annotations.h"')
+        lines.append(f'#include "{include_path}"')
+    elif source.merged:
+        text = source.path.read_text(encoding="utf-8")
+        matches = list(ADDRESS_MARKER_RE.finditer(text))
+        selected_index = next(
+            index
+            for index, match in enumerate(matches)
+            if int(match.group(1), 16) == source.address
+        )
+        match = matches[selected_index]
+        end = (
+            matches[selected_index + 1].start()
+            if selected_index + 1 < len(matches)
+            else len(text)
+        )
+        block = text[match.start():end].rstrip()
+        preamble = text[: matches[0].start()].rstrip()
+        marker_line = text[: match.start()].count("\n") + 1
+        lines.append(
+            f"// source-block-sha1: "
+            f"{hashlib.sha1(block.encode()).hexdigest()}"
+        )
+        lines.append(
+            f"// shared-context-sha1: "
+            f"{shared_context_digest(source.path, text)}"
+        )
+        lines.append(
+            f'#line {marker_line} '
+            f'"{source.path.relative_to(ROOT).as_posix()}"'
+        )
+        lines.append('#include "decomp_annotations.h"')
+        if preamble:
+            lines.append(preamble)
+        lines.append(block)
     else:
         digest = hashlib.sha1(source.path.read_bytes()).hexdigest()
         lines.append(f"// source-file-sha1: {digest}")
-    lines.append('#include "decomp_annotations.h"')
-    lines.append(f'#include "{include_path}"')
+        lines.append('#include "decomp_annotations.h"')
+        lines.append(f'#include "{include_path}"')
     content = "\n".join(lines) + "\n"
     if not shim.exists() or shim.read_text(encoding="utf-8") != content:
         shim.write_text(content, encoding="utf-8")

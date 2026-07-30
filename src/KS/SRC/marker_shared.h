@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_MARKER_SHARED_H
 #define KELLY_DECOMP_MARKER_SHARED_H
 
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 
 class marker_po : public po {
 public:

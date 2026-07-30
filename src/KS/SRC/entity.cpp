@@ -1,6 +1,5 @@
-// Matching decompilation blocks selected by generated build shims.
+// Entity method definitions extracted by generated one-function shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_00130B68)
 // 0x00130B68 invalidate_frame_delta__6entity
 #include "KS/SRC/entity_frame_delta_shared.h"
 
@@ -14,9 +13,7 @@ void frame_delta_entity::invalidate_frame_delta()
         movement->frame_delta = po_identity_matrix;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001349E8)
 // 0x001349E8 clear_anim__6entityP16entity_anim_tree
 #include "KS/SRC/entity_anim_clear_shared.h"
 
@@ -41,11 +38,9 @@ void entity::clear_anim(entity_anim_tree *animation)
         }
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00134E20)
 // 0x00134E20 update_region__6entityb
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 #include "KS/SRC/wds_shared.h"
 
 __asm__(".equ get_primary_region__C6entity, 0x00134DE0");
@@ -69,9 +64,7 @@ region_node *entity::update_region(bool parent_computed)
     }
     return get_primary_region();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00131560)
 // 0x00131560 set_alternative_materials__6entityRC7stringx
 #include "KS/SRC/entity_alt_material_shared.h"
 
@@ -91,9 +84,7 @@ void alternative_material_entity::set_alternative_materials(
         __asm__ volatile("");
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00130EA8)
 // 0x00130EA8 create_light_set__6entity
 #include "KS/SRC/entity_light_shared.h"
 
@@ -107,12 +98,10 @@ void entity::create_light_set()
         my_light_mgr =
             new (0, entity_light_source_file, 0) light_manager();
 }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00139180)
-#include "KS/SRC/entity_shared.h"
 
 // 0x00139180 preload__6entity
+#include "KS/SRC/entity.h"
+
 void entity::preload()
 {
     if (!was_preloaded()) {
@@ -121,11 +110,9 @@ void entity::preload()
             destroy_info->preload();
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001396B0)
 // 0x001396B0 set_ifc_num__6entityRC7pstringf
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 
 #define IFC_DATA_SET_NUM(name) \
     if (has_##name##_ifc() && \
@@ -145,11 +132,9 @@ bool entity::set_ifc_num(
 }
 
 #undef IFC_DATA_SET_NUM
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00139798)
 // 0x00139798 get_ifc_vec__6entityRC7pstringR8vector3d
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 
 #define IFC_DATA_GET_VEC(name) \
     if (has_##name##_ifc() && \
@@ -169,11 +154,9 @@ bool entity::get_ifc_vec(
 }
 
 #undef IFC_DATA_GET_VEC
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00139940)
 // 0x00139940 get_ifc_str__6entityRC7pstringR7stringx
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 
 #define IFC_DATA_GET_STR(name) \
     if (has_##name##_ifc() && \
@@ -193,9 +176,8 @@ bool entity::get_ifc_str(
 }
 
 #undef IFC_DATA_GET_STR
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00135FF8)
+// 0x00135FF8 _$_16motion_blur_info
 #include "KS/SRC/mbi_shared.h"
 
 extern "C" void BuiltinVecDelete(void *memory) __asm__("__builtin_vec_delete");
@@ -203,7 +185,6 @@ extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
 extern "C" void MotionBlurDtor(void *self, int deleting)
     __asm__("_$_16motion_blur_info");
 
-// 0x00135FF8 _$_16motion_blur_info
 void MotionBlurDtor(void *self, int deleting)
 {
     motion_blur_info *info = static_cast<motion_blur_info *>(self);
@@ -215,14 +196,12 @@ void MotionBlurDtor(void *self, int deleting)
         KELLY_DECOMP_COMPILER_BARRIER();
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00131E20)
-#include "KS/SRC/entity_shared.h"
+// 0x00131E20 unforce_regions__6entity
+#include "KS/SRC/entity.h"
 
 __asm__(".equ remove_from_regions__6entity, 0x0012FE18");
 
-// 0x00131E20 unforce_regions__6entity
 void entity::unforce_regions()
 {
     if (flags & EFLAG_REGION_FORCED) {
@@ -230,16 +209,12 @@ void entity::unforce_regions()
         set_flag(EFLAG_REGION_FORCED, false);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00127870)
 // 0x00127870 __nw__Q26entity13movement_infoUiUiPCci
 class entity { public: class movement_info { public: static void* operator new(unsigned int size); static void* operator new(unsigned int size, unsigned int alignment, const char* file, int line); }; };
 __asm__(".equ __nw__Q26entity13movement_infoUi, 0x001277E8");
 void* entity::movement_info::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = entity::movement_info::operator new(size); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0012F728)
 // 0x0012F728 get_signal_name__C6entityUs
 extern const char entity_signal_name_literal[];
 __asm__(".equ entity_signal_name_literal, 0x004CA870");
@@ -252,21 +227,15 @@ public:
 const char* entity::get_signal_name(unsigned short index) const {
     return entity_signal_name_literal;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00132F58)
 // 0x00132F58 deactivate_motion_blur__6entity
 class entity { char padding[0x78]; int flags; public: void deactivate_motion_blur(); };
 void entity::deactivate_motion_blur() { flags &= -1025; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001334C0)
 // 0x001334C0 deactivate_motion_trail__6entity
 class entity { char padding[0x78]; int flags; public: void deactivate_motion_trail(); };
 void entity::deactivate_motion_trail() { flags &= -2049; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00133638)
 // 0x00133638 set_age__6entityf
 class frame_time_info_t {
 public:
@@ -288,9 +257,7 @@ public:
 void entity::set_age(float new_age) {
     frame_time_info.set_age(new_age);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00134B10)
 // 0x00134B10 detach_anim__6entity
 class entity_anim;
 
@@ -305,9 +272,7 @@ public:
 void entity::detach_anim() {
     current_anim = 0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00137988)
 // 0x00137988 apply_damage__6entityiRC8vector3dT2iP6entityi
 class vector3d;
 
@@ -332,9 +297,7 @@ void entity::apply_damage(
     int damage_flags
 ) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00137D90)
 // 0x00137D90 allow_targeting__C6entity
 class entity {
 public:
@@ -344,9 +307,7 @@ public:
 bool entity::allow_targeting() const {
     return true;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00138B98)
 // 0x00138B98 is_alive__C6entity
 class entity {
 public:
@@ -356,9 +317,7 @@ public:
 bool entity::is_alive() const {
     return true;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00138BA0)
 // 0x00138BA0 is_dying__C6entity
 class entity {
 public:
@@ -368,9 +327,7 @@ public:
 bool entity::is_dying() const {
     return false;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00139268)
 // 0x00139268 entity_signal_callback_footstep__FP9signallerPCc
 class signaller;
 
@@ -383,9 +340,7 @@ static void entity_signal_callback_footstep(
 __asm__(
     ".globl entity_signal_callback_footstep__FP9signallerPCc"
 );
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00139270)
 // 0x00139270 entity_signal_callback_attack__FP9signallerPCc
 class signaller;
 
@@ -398,9 +353,7 @@ static void entity_signal_callback_attack(
 __asm__(
     ".globl entity_signal_callback_attack__FP9signallerPCc"
 );
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00130DD0)
 // 0x00130DD0 get_last_po__6entity
 class po {};
 class entity {
@@ -424,16 +377,12 @@ const po& entity::get_last_po() {
         return *last_po;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00131DE0)
 // 0x00131DE0 force_current_region__6entity
 class entity { public: void _set_region_forced_status(); void force_current_region(); };
 __asm__(".equ _set_region_forced_status__6entity, 0x00131E00");
 void entity::force_current_region() { _set_region_forced_status(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00131E00)
 // 0x00131E00 _set_region_forced_status__6entity
 class entity {
     char padding_to_flags[0x78];
@@ -450,23 +399,17 @@ void entity::_set_region_forced_status() {
     my_sector = 0;
     center_region = 0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00133618)
 // 0x00133618 get_age__C6entity
 class frame_info { public: float get_age() const; };
 __asm__(".equ get_age__C10frame_info, 0x00338660");
 class entity { char padding[0x1CC]; frame_info frame_time_info; public: float get_age() const; };
 float entity::get_age() const { float result = frame_time_info.get_age(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001372F8)
 // 0x001372F8 reset__16destroyable_info
 class destroyable_info { unsigned short flags; float destroy_lifetime; public: void reset(); };
 void destroyable_info::reset() { flags &= 0xF008; destroy_lifetime = 1.0f; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00137C78)
 // 0x00137C78 disgorge_items__6entityP6entity
 class entity;
 extern const char disgorge_error[];
@@ -475,9 +418,7 @@ __asm__(".equ disgorge_error, 0x004CD020");
 __asm__(".equ error__FPCce, 0x001DFBD8");
 class entity { public: void disgorge_items(entity *target); };
 void entity::disgorge_items(entity *target) { error(disgorge_error); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00139D90)
 // 0x00139D90 set_mesh_texture__6entityP10nglTexture
 struct nglTexture;
 struct nglMaterial { char padding[4]; nglTexture *Map; };
@@ -485,74 +426,56 @@ struct nglMeshSection { nglMaterial *Material; };
 struct nglMesh { char padding[0x58]; nglMeshSection *Sections; };
 class entity { char padding[0x134]; nglMesh *my_mesh; public: void set_mesh_texture(nglTexture *texture); };
 void entity::set_mesh_texture(nglTexture *texture) { if (my_mesh) my_mesh->Sections[0].Material->Map = texture; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00146520)
 // 0x00146520 _GLOBAL_$I$g_time_dilation
 extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
 extern "C" void GlobalInit() __asm__("_GLOBAL_$I$g_time_dilation");
 __asm__(".equ __static_initialization_and_destruction_0, 0x00143C08");
 void GlobalInit() { StaticInit(1, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00146540)
 // 0x00146540 _GLOBAL_$D$g_time_dilation
 extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
 extern "C" void GlobalDestroy() __asm__("_GLOBAL_$D$g_time_dilation");
 __asm__(".equ __static_initialization_and_destruction_0, 0x00143C08");
 void GlobalDestroy() { StaticInit(0, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0012A1C8)
 // 0x0012A1C8 get_hero_id__6entity
 class game { public: char padding[0xbc]; int active_player; };
 extern game *g_game_ptr;
 __asm__(".equ g_game_ptr, 0x0046AC64");
 class entity { char padding[0x1f0]; int which_hero; public: int get_hero_id(); };
 int entity::get_hero_id() { if (which_hero == -1) return g_game_ptr->active_player; return which_hero; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0012FDC8)
 // 0x0012FDC8 add_me_to_region__6entityP6region
 class entity;
 class region { public: void add(entity *value); };
 __asm__(".equ add__6regionP6entity, 0x002E72F0");
 class entity { public: void add_me_to_region(region *value); };
 void entity::add_me_to_region(region *value) { value->add(this); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0012FDF0)
 // 0x0012FDF0 remove_me_from_region__6entityP6region
 class entity;
 class region { public: void remove(entity *value); };
 __asm__(".equ remove__6regionP6entity, 0x002E7678");
 class entity { public: void remove_me_from_region(region *value); };
 void entity::remove_me_from_region(region *value) { value->remove(this); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00135770)
 // 0x00135770 __tcf_0
 extern "C" void EntityDtor(void *self, int deleting) __asm__("_$_6entity");
 __asm__(".equ _$_6entity, 0x001298C8");
 extern "C" void EntityCleanupThunk() __asm__("__tcf_0_00135770");
 void EntityCleanupThunk() { register char *object __asm__("$4") = (char *)0x00510000; register int deleting __asm__("$5") = 2; __asm__ volatile("" : "+r"(object), "+r"(deleting)); object += 0x30a0; EntityDtor(object, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001289E0)
 // 0x001289E0 __9entity_idPCc
 class entity_id { public: entity_id(const char *name); void set_entity_id(const char *name); };
 __asm__(".equ set_entity_id__9entity_idPCc, 0x00128A08");
 entity_id::entity_id(const char *name) { set_entity_id(name); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0012FB18)
 // 0x0012FB18 get_angular_velocity__C6entityP8vector3d
 struct vector3d { float x; float y; float z; vector3d(float px, float py, float pz) : x(px), y(py), z(pz) {} vector3d &operator=(const vector3d &other) { z = other.z; KELLY_DECOMP_COMPILER_BARRIER(); x = other.x; KELLY_DECOMP_COMPILER_BARRIER(); y = other.y; return *this; } };
 class entity { public: void get_angular_velocity(vector3d *target) const; };
 void entity::get_angular_velocity(vector3d *target) const { *target = vector3d(0.0f, 0.0f, 0.0f); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00137D98)
 // 0x00137D98 test_combat_target__C6entityRC8vector3dT1P8vector3dT3fb
 struct vector3d;
 class entity;
@@ -560,23 +483,17 @@ bool collide_segment_entity(const vector3d &start, const vector3d &end, const en
 __asm__(".equ collide_segment_entity__FRC8vector3dT0PC6entityP8vector3dT3fb, 0x002DC680");
 class entity { public: bool test_combat_target(const vector3d &start, const vector3d &end, vector3d *impact_position, vector3d *impact_normal, float radius, bool rear_cull) const; };
 bool entity::test_combat_target(const vector3d &start, const vector3d &end, vector3d *impact_position, vector3d *impact_normal, float radius, bool rear_cull) const { bool result = collide_segment_entity(start, end, this, impact_position, impact_normal, radius, rear_cull); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0012FF48)
 // 0x0012FF48 remove_from_terrain__6entity
 class entity { char padding[0x158]; void *my_sector; void *center_region; public: void remove_from_terrain(); void remove_from_regions(); };
 __asm__(".equ remove_from_regions__6entity, 0x0012FE18");
 void entity::remove_from_terrain() { remove_from_regions(); center_region = 0; KELLY_DECOMP_COMPILER_BARRIER(); my_sector = 0; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00139AF8)
 // 0x00139AF8 has_mesh__6entity
 struct entity_vtable { char padding[0x278]; short adjustment; short padding2; void *(*get_mesh)(void *self); };
 class entity { char padding[8]; entity_vtable *vtable; public: bool has_mesh(); };
 bool entity::has_mesh() { entity_vtable *table = vtable; return table->get_mesh((char *)this + table->adjustment) != 0; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00134918)
 // 0x00134918 kill_anim__6entityi
 class entity_anim_tree;
 
@@ -605,9 +522,7 @@ void entity::kill_anim(int slot) {
     }
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001379F0)
 // 0x001379F0 is_destroyable__C6entity
 struct destruction_info {
     short flags;
@@ -638,9 +553,7 @@ bool entity::is_destroyable() const {
         && (!destroy_info->has_hit_points()
             || destroy_info->get_hit_points() > 0);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0012B5C0)
 // 0x0012B5C0 optimize__6entity
 enum visual_rep_type {
     VISREP_PMESH = 0
@@ -678,9 +591,7 @@ void entity::optimize()
         }
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00134590)
 // 0x00134590 make_animateable__6entityb
 class entity_anim_tree;
 
@@ -702,9 +613,7 @@ void entity::make_animateable(bool on)
         KELLY_DECOMP_COMPILER_BARRIER();
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00132370)
 // 0x00132370 delete_visrep__6entity
 class visual_rep;
 
@@ -726,9 +635,7 @@ void entity::delete_visrep()
         my_visrep = 0;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00133E28)
 // 0x00133E28 unload_anim__C6entityRC7stringx
 #include "decomp_annotations.h"
 
@@ -760,9 +667,7 @@ void entity::unload_anim(const stringx &filename) const
     g_world_ptr->get_ett_manager()->unload(filename);
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00134D48)
 // 0x00134D48 get_random_ifl_frame_boost__C6entity
 extern int g_iflrand_counter;
 extern int random_ifl_frame_boost_table[256];
@@ -782,9 +687,7 @@ int entity::get_random_ifl_frame_boost() const
     ++g_iflrand_counter;
     return random_ifl_frame_boost_table[0xFF & (id * 3)];
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001375B0)
 // 0x001375B0 preload__16destroyable_info
 #include "decomp_annotations.h"
 
@@ -819,9 +722,7 @@ void destroyable_info::preload()
         KELLY_DECOMP_COMPILER_BARRIER();
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00139278)
 // 0x00139278 entity_signal_callback_raiser__FP9signallerPCc
 class signaller;
 
@@ -840,9 +741,7 @@ void entity_signal_callback_raiser(
     entity->signals_raised[(id < 32 ? 1 : 0)] |=
         (0x80000000u >> (id < 32 ? id : (id - 32)));
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0012A3E8)
 // 0x0012A3E8 set_mesh__6entityP7nglMesh
 struct nglMesh;
 void FixupEntityMesh(nglMesh *mesh, int lit = 0);
@@ -858,9 +757,7 @@ void entity::set_mesh(nglMesh *mesh)
     FixupEntityMesh(mesh);
     my_mesh = mesh;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0012A428)
 // 0x0012A428 set_lores_mesh__6entityP7nglMesh
 struct nglMesh;
 void FixupEntityMesh(nglMesh *mesh, int lit = 0);
@@ -876,9 +773,7 @@ void entity::set_lores_mesh(nglMesh *mesh)
     FixupEntityMesh(mesh);
     lores_mesh = mesh;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00134DE0)
 // 0x00134DE0 get_primary_region__C6entity
 class region_node;
 struct region_tree_node {
@@ -908,9 +803,7 @@ region_node *entity::get_primary_region() const
         return in_regions.empty() ? 0 : in_regions.first();
     return center_region;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001348D8)
 // 0x001348D8 get_anim_tree__C6entityi
 class entity_anim_tree { unsigned short flags; public: unsigned short is_attached() const { return flags & 0x10; } };
 class entity { char padding[0xe8]; entity_anim_tree *anim_trees[4]; public: entity_anim_tree *get_anim_tree(int slot) const; };
@@ -925,10 +818,8 @@ entity_anim_tree *entity::get_anim_tree(int slot) const
     } else
         return 0;
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00126F20)
 // 0x00126F20 destroy_ai_ifc__6entity
 class ai_interface { public: virtual ~ai_interface(); };
 class entity {
@@ -942,10 +833,8 @@ void entity::destroy_ai_ifc()
     delete my_ai_interface;
     my_ai_interface = 0;
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00126FB0)
 // 0x00126FB0 destroy_animation_ifc__6entity
 class animation_interface { public: virtual ~animation_interface(); };
 class entity {
@@ -959,10 +848,8 @@ void entity::destroy_animation_ifc()
     delete my_animation_interface;
     my_animation_interface = 0;
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00127378)
 // 0x00127378 destroy_hard_attrib_ifc__6entity
 class hard_attrib_interface { public: virtual ~hard_attrib_interface(); };
 class entity {
@@ -976,10 +863,8 @@ void entity::destroy_hard_attrib_ifc()
     delete my_hard_attrib_interface;
     my_hard_attrib_interface = 0;
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_001273C8)
 // 0x001273C8 destroy_owner_ifc__6entity
 class owner_interface { public: virtual ~owner_interface(); };
 class entity {
@@ -993,10 +878,8 @@ void entity::destroy_owner_ifc()
     delete my_owner_interface;
     my_owner_interface = 0;
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00127458)
 // 0x00127458 destroy_physical_ifc__6entity
 class physical_interface { public: virtual ~physical_interface(); };
 class entity {
@@ -1010,10 +893,8 @@ void entity::destroy_physical_ifc()
     delete my_physical_interface;
     my_physical_interface = 0;
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_001274A0)
 // 0x001274A0 destroy_render_ifc__6entity
 class render_interface { public: virtual ~render_interface(); };
 class entity {
@@ -1027,10 +908,8 @@ void entity::destroy_render_ifc()
     delete my_render_interface;
     my_render_interface = 0;
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00127548)
 // 0x00127548 destroy_skeleton_ifc__6entity
 class skeleton_interface { public: virtual ~skeleton_interface(); };
 class entity {
@@ -1044,10 +923,8 @@ void entity::destroy_skeleton_ifc()
     delete my_skeleton_interface;
     my_skeleton_interface = 0;
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00127590)
 // 0x00127590 destroy_slave_ifc__6entity
 class slave_interface { public: virtual ~slave_interface(); };
 class entity {
@@ -1061,10 +938,8 @@ void entity::destroy_slave_ifc()
     delete my_slave_interface;
     my_slave_interface = 0;
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_001275E0)
 // 0x001275E0 destroy_soft_attrib_ifc__6entity
 class soft_attrib_interface { public: virtual ~soft_attrib_interface(); };
 class entity {
@@ -1078,10 +953,8 @@ void entity::destroy_soft_attrib_ifc()
     delete my_soft_attrib_interface;
     my_soft_attrib_interface = 0;
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00127688)
 // 0x00127688 destroy_time_ifc__6entity
 class time_interface { public: virtual ~time_interface(); };
 class entity {
@@ -1095,10 +968,8 @@ void entity::destroy_time_ifc()
     delete my_time_interface;
     my_time_interface = 0;
 }
-#endif
 // Matching decompilation blocks selected by generated build shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_00139B28)
 // 0x00139B28 num_mesh_bones__6entity
 __asm__(".equ has_mesh__6entity, 0x00139AF8");
 struct nglMesh { char padding[76]; int NBones; };
@@ -1135,11 +1006,9 @@ int entity::num_mesh_bones()
         return 0;
     return get_mesh()->NBones;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001310F0)
 // 0x001310F0 set_door__6entityb
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 #include "decomp_annotations.h"
 __asm__(".equ set_door_closed__6entityb, 0x00131140");
 void entity::set_door(bool d) {
@@ -1150,24 +1019,20 @@ void entity::set_door(bool d) {
     } else
         ext_flags &= ~EFLAG_EXT_IS_DOOR;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00132CD0)
 // 0x00132CD0 get_max_polys__C6entity
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 __asm__(".equ get_age__C6entity, 0x00133618");
 int entity::get_max_polys() const {
     return my_visrep->get_max_faces(get_age());
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00138E60)
 // 0x00138E60 set_collisions_active__6entitybT1
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 #include "decomp_annotations.h"
 __asm__(".equ region_update_poss_collide__6entity, 0x00139090");
 void entity::set_collisions_active(bool a, bool update_reg) {
-    if (entity::are_collisions_active() != a) {
+    if (((flags & EFLAG_PHYSICS_COLLISIONS_ACTIVE) != 0) != a) {
         if (a)
             flags |= EFLAG_PHYSICS_COLLISIONS_ACTIVE;
         else
@@ -1177,9 +1042,7 @@ void entity::set_collisions_active(bool a, bool update_reg) {
         KELLY_DECOMP_COMPILER_BARRIER();
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001335C0)
 // 0x001335C0 invalidate_colgeom__6entity
 class collision_geometry {
     char padding[4];
@@ -1221,9 +1084,7 @@ void entity::invalidate_colgeom()
     if (get_colgeom())
         get_colgeom()->invalidate();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00138930)
 // 0x00138930 create_destroy_info__6entity
 class entity;
 class destroyable_info;
@@ -1260,9 +1121,7 @@ void entity::create_destroy_info()
         destroy_info = DestroyableInfoCtor(memory, this);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00139C48)
 // 0x00139C48 SetEntityMeshFlags__FP7nglMeshi
 typedef unsigned int u_int;
 
@@ -1293,9 +1152,7 @@ void SetEntityMeshFlags(nglMesh *mesh, int flag)
         }
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00139CA0)
 // 0x00139CA0 ClearEntityMeshFlags__FP7nglMeshi
 typedef unsigned int u_int;
 
@@ -1326,9 +1183,7 @@ void ClearEntityMeshFlags(nglMesh *mesh, int flag)
         }
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00130968)
 // 0x00130968 force_region__6entityPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node
 struct entity_layout
 {
@@ -1368,9 +1223,7 @@ void ForceRegion(void *self, void *region)
     AddRegion(self, region);
     __asm__ __volatile__("" : : : "memory");
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00127788)
 // 0x00127788 mem_cleanup__Q26entity13movement_info
 extern int allocated; extern void *data_a; extern void *data_b; extern void (*cleanup)();
 void arch_free(void *memory);
@@ -1381,9 +1234,7 @@ class entity { public: struct movement_info { static void mem_cleanup(); }; };
 void entity::movement_info::mem_cleanup() {
     if (allocated) { arch_free(data_a); arch_free(data_b); allocated=0; if (cleanup) cleanup(); }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001317F0)
 // 0x001317F0 get_visual_radius__C6entity
 struct radius_slot {
     short adjustment;
@@ -1413,9 +1264,7 @@ has_rep:
         (char *)rep+slot->adjustment,get_age()
     );
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00134D80)
 // 0x00134D80 init_random_ifl_frame_boost_table__Fv
 class Random { public: int NextRand(); };
 extern Random *g_random_ptr;
@@ -1427,9 +1276,7 @@ void init_random_ifl_frame_boost_table() {
     for (int i=0;i<64;++i)
         random_ifl_frame_boost_table[i]=g_random_ptr->NextRand()&63;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00137990)
 // 0x00137990 apply_destruction_fx__6entity
 struct destroyable_info { void apply_destruction_fx(); };
 struct entity_vtable {
@@ -1454,9 +1301,7 @@ void entity::apply_destruction_fx() {
         vtable->set_active((char *)this+vtable->adjustment,false);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00137C98)
 // 0x00137C98 use_item__6entityP4item
 struct item_vtable {
     char padding[0x660]; short adjustment; short reserved;
@@ -1486,9 +1331,7 @@ void entity::use_item(item *value) {
         );
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00127628)
 // 0x00127628 create_time_ifc__6entity
 extern "C" void *object_new(
     unsigned int,unsigned int,const char *,int
@@ -1521,9 +1364,7 @@ time_layout *entity::create_time_ifc() {
     time->time_mode=0;
     return time;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00134AB0)
 // 0x00134AB0 attach_anim__6entityP11entity_anim
 class entity_anim {
     char padding[0x14];
@@ -1547,9 +1388,7 @@ bool entity::attach_anim(entity_anim *animation) {
     }
     return false;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00138E00)
 // 0x00138E00 set_visible__6entityb
 extern "C" void update_render(void *)
     __asm__("region_update_poss_render__6entity");
@@ -1577,9 +1416,7 @@ void entity::set_visible(bool visible) {
         __asm__ __volatile__("" : : : "memory");
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00139B70)
 // 0x00139B70 set_max_lights__6entityUi
 struct light_manager { char padding[64]; unsigned int max_lights; };
 struct entity_vtable { char padding[0x4c0]; short adjustment; short reserved; light_manager *(*get_light_set)(void *); };
@@ -1605,9 +1442,7 @@ void entity::set_max_lights(unsigned int value)
     if (manager)
         manager->max_lights = max_lights;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00139BD8)
 // 0x00139BD8 set_mesh_distance__6entityR9nglVectorff
 typedef unsigned int vec128_t __attribute__((mode(TI), aligned(16)));
 struct nglVector { vec128_t value; };
@@ -1646,9 +1481,7 @@ void entity::set_mesh_distance(nglVector &center, float radius, float forcedist)
     if (shadow_mesh)
         shadow_mesh->SphereRadius = radius;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00130F70)
 // 0x00130F70 ifl_lock__6entityi
 struct visrep_vtable { char padding[128]; short adjustment; short reserved; int (*get_anim_length)(void *); };
 struct visrep { char padding[16]; visrep_vtable *vtable; };
@@ -1667,9 +1500,7 @@ void entity::ifl_lock(int index)
         }
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00133458)
 // 0x00133458 activate_motion_trail__6entityiG7color32iiRC8vector3d
 struct vector3d { float x,y,z; };
 struct trail_info { int start,end,count; int length; char padding[8]; vector3d head; char padding2[12]; unsigned int color; int min_alpha; int max_alpha; };
@@ -1692,129 +1523,81 @@ void activate_trail(entity_layout *self, int length, unsigned int color, int min
     head->y=tip->y;
     head->z=tip->z;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00130CB0)
 // 0x00130CB0 set_created_entity_default_active_status__6entity
 struct entity_vtable{char padding[248];short adjustment;short reserved;void(*set_active)(void*,bool);};struct entity_layout{char p0[8];entity_vtable*vtable;char p1[112];int flavor;};extern "C" void set_default(entity_layout*self) __asm__("set_created_entity_default_active_status__6entity");void set_default(entity_layout*self){switch(self->flavor){case 1:case 2:case 3:case 4:case 10:{entity_vtable*t=self->vtable;t->set_active((char*)self+t->adjustment,false);break;}default:{entity_vtable*t=self->vtable;t->set_active((char*)self+t->adjustment,true);break;}}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00132300)
 // 0x00132300 delete_colgeom__6entity
 struct cg_vtable{char padding[8];short adjustment;short reserved;void(*destroy)(void*,int);};struct cg{char p0[8];cg_vtable*vtable;};struct entity_layout{char p0[120];unsigned flags;char p1[204];cg*colgeom;};extern "C" void bank_delete(void*,cg*) __asm__("delete_instance__t13instance_bank1Z7cg_meshP7cg_mesh");__asm__(".equ delete_instance__t13instance_bank1Z7cg_meshP7cg_mesh,0x0013F730");extern char cg_mesh_bank[];__asm__(".equ cg_mesh_bank,0x00434920");extern "C" void delete_colgeom(entity_layout*self) __asm__("delete_colgeom__6entity");void delete_colgeom(entity_layout*self){if(self->colgeom){if(self->flags&0x20000000)bank_delete(cg_mesh_bank,self->colgeom);else{cg*c=self->colgeom;cg_vtable*t=c->vtable;t->destroy((char*)c+t->adjustment,3);}self->colgeom=0;}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00138B28)
 // 0x00138B28 set_control_active__6entityb
 struct controller_vtable{char p0[24];short off_adjust;short x0;void(*off)(void*);short on_adjust;short x1;void(*on)(void*);};struct controller{int active;char p0[4];controller_vtable*vtable;};struct entity_layout{char p0[392];controller*my_controller;};extern "C" void set_control(entity_layout*self,bool a) __asm__("set_control_active__6entityb");void set_control(entity_layout*self,bool a){controller*c=self->my_controller;if(c){if(c->active){if(!a){controller_vtable*t=c->vtable;t->off((char*)c+t->off_adjust);}}else if(a){controller_vtable*t=c->vtable;t->on((char*)c+t->on_adjust);}}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00138D90)
 // 0x00138D90 set_active__6entityb
 struct entity_vtable{char p0[1496];short control_adjust;short x0;void(*set_control)(void*,bool);};struct entity_layout{char p0[8];entity_vtable*vtable;char p1[108];unsigned flags;char p2[268];void*controller;};extern "C" void set_active(entity_layout*self,bool a) __asm__("set_active__6entityb");void set_active(entity_layout*self,bool a){bool old=((int)self->flags>>17)&1;if(old!=a){if(a)self->flags|=0x20000;else self->flags&=~0x20000;if(self->controller){entity_vtable*t=self->vtable;t->set_control((char*)self+t->control_adjust,a);}}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00132068)
 // 0x00132068 has_entity_collision__C6entity
 struct cg_vtable{char p0[136];short adjustment;short x0;bool(*test)(void*);};struct cg{char p0[8];cg_vtable*vtable;};struct entity_vtable{char p0[264];short adjustment;short x0;bool(*active)(void*);};struct entity_layout{char p0[8];entity_vtable*vtable;char p1[316];cg*colgeom;};extern "C" bool pred(entity_layout*self) __asm__("has_entity_collision__C6entity");bool pred(entity_layout*self){register bool result __asm__("$17")=0;if(self->colgeom){entity_vtable*t=self->vtable;if(t->active((char*)self+t->adjustment)){cg*c=self->colgeom;cg_vtable*ct=c->vtable;int raw=ct->test((char*)c+ct->adjustment);result=raw!=0;}}return result;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001320D8)
 // 0x001320D8 has_camera_collision__C6entity
 struct cg_vtable{char p0[144];short adjustment;short x0;bool(*test)(void*);};struct cg{char p0[8];cg_vtable*vtable;};struct entity_vtable{char p0[264];short adjustment;short x0;bool(*active)(void*);};struct entity_layout{char p0[8];entity_vtable*vtable;char p1[316];cg*colgeom;};extern "C" bool pred(entity_layout*self) __asm__("has_camera_collision__C6entity");bool pred(entity_layout*self){register bool result __asm__("$17")=0;if(self->colgeom){entity_vtable*t=self->vtable;if(t->active((char*)self+t->adjustment)){cg*c=self->colgeom;cg_vtable*ct=c->vtable;int raw=ct->test((char*)c+ct->adjustment);result=raw!=0;}}return result;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00131070)
 // 0x00131070 ifl_play__6entity
 struct vis_vtable{char p0[128];short adjustment;short x0;int(*anim_length)(void*);};struct visrep{char p0[16];vis_vtable*vtable;};struct frame_info{char p0[1];};struct entity{char p0[296];visrep*vis;char p1[160];frame_info frame;};extern "C" void warning(const char*,...) __asm__("warning__FPCce");extern "C" void boost(frame_info*,int) __asm__("compute_boost_for_play__10frame_infoi");extern "C" void unlock(frame_info*,int) __asm__("set_ifl_frame_locked__10frame_infoi");__asm__(".equ warning__FPCce,0x001DFB58");__asm__(".equ compute_boost_for_play__10frame_infoi,0x00338728");__asm__(".equ set_ifl_frame_locked__10frame_infoi,0x00338658");extern const char warning_text[];__asm__(".equ warning_text,0x004CCA98");extern "C" void play_ifl(entity*self) __asm__("ifl_play__6entity");void play_ifl(entity*self){if(self->vis){visrep*v=self->vis;vis_vtable*t=v->vtable;int period=t->anim_length((char*)v+t->adjustment);if(period<0)warning(warning_text);else{boost(&self->frame,period);unlock(&self->frame,-1);}}int dead;__asm__("" : "=r"(dead));}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00131850)
 // 0x00131850 compute_visual_xz_radius_rel_center__6entity
 struct vis_vtable{char p0[80];short xz_adjust;short x0;float(*xz)(void*,void*);char p1[520];short radius_adjust;short x1;float(*radius)(void*);};struct visrep{char p0[16];vis_vtable*vtable;};struct entity_vtable{char p0[608];short adjustment;short x0;float(*visual_radius)(void*);};struct entity{char p0[8];entity_vtable*vtable;char p1[68];void*abs_po;char p2[36];unsigned flags;char p3[172];visrep*vis;char p4[24];float xz_radius;};extern "C" void compute(entity*self) __asm__("compute_visual_xz_radius_rel_center__6entity");void compute(entity*self){if(self->flags&0x08000000){entity_vtable*t=self->vtable;self->xz_radius=t->visual_radius((char*)self+t->adjustment);}else if(self->vis){visrep*v=self->vis;vis_vtable*t=v->vtable;self->xz_radius=t->xz((char*)v+t->xz_adjust,self->abs_po);}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00132408)
 // 0x00132408 frame_advance__6entityf
 struct sound_vtable{char p0[64];short adjustment;short x0;void(*advance)(void*,float);};struct sound_ifc{sound_vtable*vtable;char p0[4];unsigned flags;};struct entity{char p0[188];sound_ifc*sound;};extern "C" int hero_id(entity*) __asm__("get_hero_id__6entity");extern "C" void update_light(entity*,float,int) __asm__("updatelighting__6entityfi");__asm__(".equ get_hero_id__6entity,0x0012A1C8");__asm__(".equ updatelighting__6entityfi,0x00132480");extern "C" void advance(entity*self,float t) __asm__("frame_advance__6entityf");void advance(entity*self,float t){if(self->sound&&(self->sound->flags&1)&&!(self->sound->flags&2)){sound_ifc*s=self->sound;sound_vtable*v=s->vtable;v->advance((char*)s+v->adjustment,t);}int id=hero_id(self);update_light(self,t,id);int dead;__asm__("" : "=r"(dead));}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00138988)
 // 0x00138988 suspend__6entity
 struct ai_interface;struct controller_vtable{char p0[24];short adjustment;short x0;void(*deactivate)(void*);};struct controller{int active;char p0[4];controller_vtable*vtable;};struct entity{char p0[172];ai_interface*ai;char p1[208];int suspended,suspended_active;controller*control;};extern "C" void push_disable(ai_interface*) __asm__("push_disable__12ai_interface");__asm__(".equ push_disable__12ai_interface,0x00105528");extern "C" void suspend(entity*self) __asm__("suspend__6entity");void suspend(entity*self){if(!self->suspended){self->suspended=true;if(self->ai)push_disable(self->ai);register controller*c __asm__("$5")=self->control;if(c){self->suspended_active=c->active;if(c->active){controller_vtable*t=c->vtable;t->deactivate((char*)c+t->adjustment);}}}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00137BE0)
 // 0x00137BE0 find_like_item__C6entityP4item
 struct item;extern "C" bool same(const item*,const item&)__asm__("is_same_item__C4itemRC4item");__asm__(".equ is_same_item__C4itemRC4item,0x0028A128");struct item_vector{item**begin;item**end;item**capacity;};struct container_info{item_vector items;};struct entity{char pad[284];container_info*coninfo;};extern "C" item*find_like(const entity*self,item*target)__asm__("find_like_item__C6entityP4item");item*find_like(const entity*self,item*target){if(self->coninfo){item**it=self->coninfo->items.begin;item**last=self->coninfo->items.end;for(;it!=last;++it){item*lit=*it;if(lit&&same(lit,*target))return lit;}}return 0;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00138D10)
 // 0x00138D10 possibly_aging__C6entity
 struct vis_vtable{char pad[128];short anim_adjust;short anim_pad;int(*get_anim_length_fn)(void*);short uv_adjust;short uv_pad;bool(*is_uv_animated_fn)(void*);};struct visual_rep{char pad[16];vis_vtable*vtable;int get_anim_length(){vis_vtable*t=vtable;return t->get_anim_length_fn((char*)this+t->anim_adjust);}bool is_uv_animated(){vis_vtable*t=vtable;return t->is_uv_animated_fn((char*)this+t->uv_adjust);}};struct entity{char pad[296];visual_rep*my_visrep;};extern "C" bool possibly(const entity*self)__asm__("possibly_aging__C6entity");bool possibly(const entity*self){return self->my_visrep!=0&&((self->my_visrep->get_anim_length()>1)||(self->my_visrep->is_uv_animated()));}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001277E8)
 // 0x001277E8 __nw__Q26entity13movement_infoUi
 extern "C" void check()__asm__("check_alias");extern "C" void nglPrintf(const char*,...)__asm__("nglPrintf__FPCce");extern const char format_text[];extern const char class_text[];__asm__(".equ check_alias,0x001276D0");__asm__(".equ nglPrintf__FPCce,0x003AC050");__asm__(".equ format_text,0x004CB6B0");__asm__(".equ class_text,0x004CB6D8");extern "C" void*allocate(unsigned)__asm__("__nw__Q26entity13movement_infoUi");void*allocate(unsigned){check();register char*allocated_high asm("$7")=(char*)0x003e0000;register char*current_high asm("$8")=(char*)0x003e0000;register int one asm("$9")=1;register char*memory_high asm("$10")=(char*)0x003e0000;int i=0,offset=0;for(;i<16;i++,offset+=96){asm volatile("" : : : "memory");int*slots=*(int**)(allocated_high+0x5a70);if(!slots[i]){*(int*)(current_high+0x5a80)=i;slots[i]=one;char*memory=*(char**)(memory_high+0x5a74);return memory+offset;}}nglPrintf(format_text,class_text);return(void*)-1;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001360B8)
 // 0x001360B8 copy_instance_data__16destroyable_infoP16destroyable_info
 struct stringx{char data[8];stringx&operator=(const stringx&) __asm__("__as__7stringxRC7stringx");};struct visual_rep{};extern visual_rep*new_visrep_instance(visual_rep*) __asm__("new_visrep_instance__FP10visual_rep");
 class destroyable_info{public:short flags;short pad;float destroy_lifetime;stringx destroy_fx;stringx destroy_script;stringx destroyed_visrep;stringx preload_script;visual_rep*destroyed_mesh;int hit_points;void copy_instance_data(destroyable_info*) __asm__("copy_instance_data__16destroyable_infoP16destroyable_info");};
 __asm__(".equ __as__7stringxRC7stringx,0x0034E0B8");__asm__(".equ new_visrep_instance__FP10visual_rep,0x002D7388");
 void destroyable_info::copy_instance_data(destroyable_info*data){flags=data->flags;destroy_lifetime=data->destroy_lifetime;destroy_fx=data->destroy_fx;destroy_script=data->destroy_script;preload_script=data->preload_script;destroyed_visrep=data->destroyed_visrep;hit_points=data->hit_points;if(data->destroyed_mesh)destroyed_mesh=new_visrep_instance(data->destroyed_mesh);else destroyed_mesh=0;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00136230)
 // 0x00136230 _$_16destroyable_info
 struct stringx{char d[8];};struct visual_rep{};struct destroyable_info{char p0[8];stringx a,b,c,d;visual_rep*mesh;char p1[8];void*vtable;};extern "C" void unload(visual_rep*)__asm__("unload_visual_rep__FP10visual_rep");extern "C" void strd(void*,int)__asm__("_$_7stringx");extern "C" void del(void*)__asm__("__builtin_delete");extern void*vt;__asm__(".equ unload_visual_rep__FP10visual_rep,0x002D74C0");__asm__(".equ _$_7stringx,0x0034D6E0");__asm__(".equ __builtin_delete,0x002AC6B0");__asm__(".equ vt,0x004CE000");extern "C" void destroy(destroyable_info*,int)__asm__("_$_16destroyable_info");void destroy(destroyable_info*self,int flag){self->vtable=&vt;if(self->mesh){unload(self->mesh);self->mesh=0;}strd((char*)self+32,2);strd((char*)self+24,2);strd((char*)self+16,2);strd((char*)self+8,2);if(flag&1){del(self);asm volatile("");}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00138A98)
 // 0x00138A98 set_controller__6entityP17entity_controller
 struct ControllerVtable{char p0[24];short kill_adj;short z0;void(*kill)(void*);short resurrect_adj;short z1;void(*resurrect)(void*);};struct entity_controller{bool active;char p[4];ControllerVtable*vtable;void set_active(bool y){if(active){if(!y){ControllerVtable*v=vtable;v->kill((char*)this+v->kill_adj);}}else if(y){ControllerVtable*v=vtable;v->resurrect((char*)this+v->resurrect_adj);}}};struct EntityVtable{char p[240];short active_adj;short z;bool(*is_active)(void*);};class entity{public:char p0[8];EntityVtable*vtable;char p1[380];entity_controller*controller;void set_controller(entity_controller*)__asm__("set_controller__6entityP17entity_controller");};void entity::set_controller(entity_controller*c){controller=c;if(c){EntityVtable*v=vtable;c->set_active(v->is_active((char*)this+v->active_adj));}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00130FD8)
 // 0x00130FD8 ifl_pause__6entity
 struct frame_info{int get_ifl_frame_locked()const;int time_to_frame(int)const;};class VisRep;struct VisVtable{char p[128];short adj;short z;int(*get_anim_length)(void*);};struct VisRepLayout{char p[16];VisVtable*vtable;};struct EntityVtable{char p[1544];short adj;short z;void(*ifl_lock)(void*,int);};class entity{char p0[8];EntityVtable*vtable;char p1[284];VisRepLayout*my_visrep;char p2[160];frame_info frame_time_info;public:void ifl_pause() __asm__("ifl_pause__6entity");};extern const char warning_text[];extern "C" void warning(const char*,...) __asm__("warning__FPCce");asm(".equ get_ifl_frame_locked__C10frame_info,0x00338650");asm(".equ time_to_frame__C10frame_infoi,0x003386D8");asm(".equ warning__FPCce,0x001DFB58");asm(".equ warning_text,0x004CCA98");void entity::ifl_pause(){if(my_visrep){int locked=frame_time_info.get_ifl_frame_locked();if(locked<0){VisVtable*v=my_visrep->vtable;int period=v->get_anim_length((char*)my_visrep+v->adj);if(period<0){warning(warning_text);asm("" : : : "memory");}else{int current=frame_time_info.time_to_frame(period);EntityVtable*t=vtable;t->ifl_lock((char*)this+t->adj,current);}}}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00137CF8)
 // 0x00137CF8 copy_visrep__6entityP6entity
 struct EntityVtable{char p0[632];short mesh_adj;short z0;void*(*get_mesh)(void*);char p1[8];short lores_adj;short z1;void*(*get_lores)(void*);char p2[8];short shadow_adj;short z2;void*(*get_shadow)(void*);};class entity{char p0[8];EntityVtable*vtable;char p1[108];int flags;char p2[176];void*shadow_mesh;void*lores_mesh;void*my_mesh;void set_flag(int f,bool on){if(on)flags|=f;else flags&=~f;}public:void copy_visrep(entity*) __asm__("copy_visrep__6entityP6entity");};void entity::copy_visrep(entity*ent){register EntityVtable*v asm("$3")=ent->vtable;my_mesh=v->get_mesh((char*)ent+v->mesh_adj);v=ent->vtable;lores_mesh=v->get_lores((char*)ent+v->lores_adj);v=ent->vtable;shadow_mesh=v->get_shadow((char*)ent+v->shadow_adj);if(my_mesh)set_flag(0x100,true);else set_flag(0x100,false);}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00138A00)
 // 0x00138A00 unsuspend__6entity
 class ai_interface;extern "C" void pop_disable(ai_interface*) __asm__("pop_disable__12ai_interface");asm(".equ pop_disable__12ai_interface,0x00105570");struct ControllerVtable{char p[24];short kill_adj;short z0;void(*kill)(void*);short resurrect_adj;short z1;void(*resurrect)(void*);};struct controller{bool active;bool deactivate;ControllerVtable*vtable;void set_active(bool yorn){if(active){if(!yorn){ControllerVtable*v=vtable;v->kill((char*)this+v->kill_adj);}}else if(yorn){ControllerVtable*v=vtable;v->resurrect((char*)this+v->resurrect_adj);}}};class entity{char p0[172];ai_interface*ai;char p1[208];bool suspended;bool suspended_active_status;controller*my_controller;public:void unsuspend() __asm__("unsuspend__6entity");};void entity::unsuspend(){if(suspended){suspended=false;if(ai)pop_disable(ai);if(my_controller)my_controller->set_active(suspended_active_status);}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0012F0E0)
 // 0x0012F0E0 get_signal_id__6entityPCc
 extern const char*entity_signal_names[];extern "C" unsigned strlen(const char*);extern "C" int strcmp(const char*,const char*);asm(".equ entity_signal_names,0x003E5AF0");asm(".equ strlen,0x003D40E0");asm(".equ strcmp,0x003D3E88");class entity{public:static unsigned short get_signal_id(const char*);};unsigned short entity::get_signal_id(const char*name){unsigned idx;for(idx=0;idx<27;++idx){unsigned offset=strlen(entity_signal_names[idx])-strlen(name);if(offset>strlen(entity_signal_names[idx]))continue;if(!strcmp(name,&entity_signal_names[idx][offset]))return idx;}return 0xffff;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00131688)
 // 0x00131688 copy_flags__6entityRC6entity
 struct entity_layout;struct entity_vtable{char padding[320];short adjustment;short reserved;void(*set_walkable)(void*,bool);};struct entity_layout{char padding0[8];entity_vtable*vtable;char padding1[108];unsigned flags;char padding2[284];unsigned ext_flags;};extern "C" void copy_flags(entity_layout*,const entity_layout&)__asm__("copy_flags__6entityRC6entity");void copy_flags(entity_layout*self,const entity_layout&b){const unsigned COPY_MASK=0x20080300;const unsigned EXT_COPY_MASK=0xfff3f0ff;self->flags|=(b.flags&COPY_MASK);self->flags&=(b.flags|~COPY_MASK);self->ext_flags|=(b.ext_flags&EXT_COPY_MASK);self->ext_flags&=(b.ext_flags|~EXT_COPY_MASK);if(self->ext_flags&0x00100000){entity_vtable*v=self->vtable;v->set_walkable((char*)self+v->adjustment,true);}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00130D20)
 // 0x00130D20 set_last_po__6entityRC2po
 struct vector4d{float x,y,z,w;vector4d&operator=(const vector4d&o){x=o.x;y=o.y;z=o.z;w=o.w;return*this;}};struct po{vector4d m[4];po&operator=(const po&o){m[0]=o.m[0];m[1]=o.m[1];m[2]=o.m[2];m[3]=o.m[3];return*this;}};class entity{char padding[364];po*last_po;public:void set_last_po(const po&);};void entity::set_last_po(const po&the_po){if(last_po)*last_po=the_po;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00132EA8)
 // 0x00132EA8 activate_motion_blur__6entityiiif
 struct mbi_layout{int start,end,count;char padding[48];int min_alpha,max_alpha,num_images;float spread;};struct entity_vtable{char padding[368];short adjustment;short reserved;bool(*is_blurred)(void*);};class entity{char padding0[8];entity_vtable*vtable;char padding1[108];unsigned flags;char padding2[208];mbi_layout*mbi;public:void activate_motion_blur(int,int,int,float);};void entity::activate_motion_blur(int min_a,int max_a,int num,float spread){flags|=0x400;entity_vtable*v=vtable;if(v->is_blurred((char*)this+v->adjustment)){mbi->start=0;mbi->end=0;mbi->count=0;mbi->min_alpha=min_a;mbi->max_alpha=max_a;mbi->num_images=num;mbi->spread=spread;}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001276D0)
 // 0x001276D0 check_mem_init__Q26entity13movement_info
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 #include "KS/SRC/staticmem_shared.h"
 
 extern const char movement_info_mem_description[];
@@ -1848,11 +1631,9 @@ void entity::movement_info::check_mem_init(void)
 }
 
 #undef malloc
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00133640)
 // 0x00133640 render_passes_needed__C6entity
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 // Exact released implementation with the inherited virtual declaration order.
 
 render_flavor_t entity::render_passes_needed() const
@@ -1870,11 +1651,9 @@ render_flavor_t entity::render_passes_needed() const
   }
   return passes;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00131730)
 // 0x00131730 get_visual_center__C6entity
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 
 __asm__(".equ get_age__C6entity, 0x00133618");
 __asm__(".equ slow_xform__C2poRC8vector3d, 0x003482F8");
@@ -1887,9 +1666,7 @@ vector3d entity::get_visual_center() const
     vector3d center = my_visrep->get_center(get_age());
     return get_abs_po().fast_8byte_xform(center);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00139880)
 // 0x00139880 set_ifc_vec__6entityRC7pstringRC8vector3d
 #include "KS/SRC/entity_ifc_dispatch_shared.h"
 
@@ -1916,9 +1693,7 @@ bool entity::set_ifc_vec(
 
     return false;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00139A28)
 // 0x00139A28 set_ifc_str__6entityRC7pstringRC7stringx
 #include "KS/SRC/entity_ifc_dispatch_shared.h"
 
@@ -1945,12 +1720,10 @@ bool entity::set_ifc_str(
 
     return false;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00132148)
 // 0x00132148 get_updated_colgeom__6entityP2pof
 #include "KS/SRC/capsule_shared.h"
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 
 collision_geometry* entity::get_updated_colgeom(po * replacement_po, rational_t radius_scale)
 {
@@ -1962,9 +1735,7 @@ collision_geometry* entity::get_updated_colgeom(po * replacement_po, rational_t 
     get_colgeom()->apply_radius_scale(radius_scale);
   return get_colgeom();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00139598)
 // 0x00139598 get_ifc_num__6entityRC7pstringRf
 typedef float rational_t;
 
@@ -2011,4 +1782,3 @@ bool entity::get_ifc_num(const pstring &att, rational_t &val)
 
   return false;
 }
-#endif

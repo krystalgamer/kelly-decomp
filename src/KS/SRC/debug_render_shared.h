@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_DEBUG_RENDER_SHARED_H
 
 #include "KS/SRC/capsule_shared.h"
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 
 class color32 {
 public:

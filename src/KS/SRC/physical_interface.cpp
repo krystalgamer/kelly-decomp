@@ -3,7 +3,7 @@
 #if defined(KELLY_DECOMP_FUNCTION_00125070)
 // 0x00125070 update_unused_velocity__18physical_interfacef
 #include "KS/SRC/entity_interfaces_shared.h"
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 
 extern const vector3d ZEROVEC;
 __asm__(".equ ZEROVEC, 0x00513840");

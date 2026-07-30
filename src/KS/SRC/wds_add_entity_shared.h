@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_WDS_ADD_ENTITY_SHARED_H
 #define KELLY_DECOMP_WDS_ADD_ENTITY_SHARED_H
 
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 #include "KS/SRC/wds_shared.h"
 
 class marker : public entity {};

@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_PARTICLE_GENERATOR_CTOR_SHARED_H
 #define KELLY_DECOMP_PARTICLE_GENERATOR_CTOR_SHARED_H
 
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 
 enum entity_flavor_t {
     ENTITY_PARTICLE_GENERATOR = 5

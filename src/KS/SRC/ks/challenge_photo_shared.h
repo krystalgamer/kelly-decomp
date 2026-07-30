@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_CHALLENGE_PHOTO_SHARED_H
 #define KELLY_DECOMP_CHALLENGE_PHOTO_SHARED_H
 
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 
 struct nglTexture;
 void nglDestroyTexture(nglTexture* texture);

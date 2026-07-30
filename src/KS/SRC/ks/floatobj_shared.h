@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_FLOATOBJ_SHARED_H
 #define KELLY_DECOMP_FLOATOBJ_SHARED_H
 
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 #include "KS/SRC/stringx.h"
 #include "KS/SRC/vector3d_shared.h"
 #include "decomp_annotations.h"

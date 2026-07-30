@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_POLYTUBE_SHARED_H
 #define KELLY_DECOMP_POLYTUBE_SHARED_H
 
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 #include "KS/SRC/matfac_shared.h"
 
 #pragma interface

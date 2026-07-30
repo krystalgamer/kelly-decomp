@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_LIGHT_SHARED_H
 
 #include "KS/SRC/color_shared.h"
-#include "KS/SRC/entity_shared.h"
+#include "KS/SRC/entity.h"
 #include "KS/SRC/sphere_shared.h"
 
 enum light_flavor_t {
