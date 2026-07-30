@@ -4,16 +4,8 @@
 #include "KS/SRC/animation_interface.h"
 #include "KS/SRC/entity_interface.h"
 #include "KS/SRC/physical_interface.h"
+#include "KS/SRC/render_interface.h"
 #include "KS/SRC/vector3d_shared.h"
-
-class render_interface : public entity_interface {
-    int type;
-    void *mesh;
-    void *billboard;
-
-public:
-    explicit inline render_interface(entity *value) : entity_interface(value) {}
-};
 
 class skeleton_interface : public entity_interface {
     void *abs_po;
