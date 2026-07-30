@@ -1,0 +1,23 @@
+{
+  "address": "0x00169708",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "09dcc2412a5d0d4967d8785b3d8e96facb8e018d",
+      "candidate_size": 1028,
+      "compared_bytes": 1044,
+      "compared_instructions": 261,
+      "emitted_name": "SetSize__14FanMeterWidgetf",
+      "instruction_score": 6.8966,
+      "matching_bytes": 253,
+      "matching_instructions": 18,
+      "notes": "# FIRST PASS wave 167 lane B2\n\nExact released source tested once for `0x00169708 SetSize__14FanMeterWidgetf`. Attempts before: 0. Result `different`, byte score 24.2337% and instruction score 6.8966%. Capacity-only child failures and Sol retries produced no attempts for four lanes; those lanes were remediated directly. No source retry, follow-up, diff chase, build, finalize, integration, git operation, or tracked edit.",
+      "score": 24.2337,
+      "source": "struct PanelQuad4;\n\nstruct PanelQuad4VTable {\n    char padding0[24];\n    short turn_on_adjustment;\n    short turn_on_zero;\n    void (*turn_on)(void *, bool);\n    char padding1[16];\n    short rotate_adjustment;\n    short rotate_zero;\n    void (*rotate)(void *, float, float, float);\n    char padding2[48];\n    short is_on_adjustment;\n    short is_on_zero;\n    bool (*is_on)(void *);\n};\n\nstruct PanelQuad4 {\n    char padding[404];\n    PanelQuad4VTable *vtable;\n\n    void TurnOn(bool enabled)\n    {\n        vtable->turn_on((char *)this + vtable->turn_on_adjustment, enabled);\n    }\n\n    void Rotate(float x, float y, float rotation)\n    {\n        vtable->rotate(\n            (char *)this + vtable->rotate_adjustment,\n            x,\n            y,\n            rotation\n        );\n    }\n\n    bool IsOn()\n    {\n        return vtable->is_on((char *)this + vtable->is_on_adjustment);\n    }\n};\n\nclass FanMeterWidget {\npublic:\n    int display;\n    void *vtable;\n    int numSections;\n    PanelQuad4 **sectionPQs;\n    void *arrowPQ;\n    float size;\n    int centerX;\n    int centerY;\n\n    void SetSize(float f);\n};\n\nvoid FanMeterWidget::SetSize(const float f)\n{\n    float pos = 0.0, dt = 0.0f;\n    int numHoles;\n    int dest = (numSections % 2 == 0)\n        ? (numSections / 2 - 1)\n        : (numSections / 2);\n    int i, j;\n\n    for (i = 0; i < numSections; i++)\n        sectionPQs[i]->TurnOn(false);\n\n    if (f > 0.0f)\n        dt = 1.0f / f;\n\n    while (dt > 0.0f && int(pos) <= dest)\n    {\n        sectionPQs[int(pos)]->TurnOn(true);\n        pos += dt;\n    }\n    for (i = numSections - 1; i > dest; i--)\n    {\n        sectionPQs[i]->TurnOn(sectionPQs[numSections - 1 - i]->IsOn());\n    }\n\n    for (i = 0; i < numSections / 2; i++)\n    {\n        numHoles = 0;\n        for (j = i + 1; j < numSections / 2; j++)\n        {\n            if (!sectionPQs[j]->IsOn())\n                numHoles++;\n        }\n\n        sectionPQs[i]->Rotate(\n            centerX,\n            centerY,\n            float(numHoles) * (3.14159274101257324219f / float(numSections))\n        );\n    }\n\n    for (i = numSections - 1; i >= numSections / 2; i--)\n    {\n        numHoles = 0;\n        for (j = i - 1; j >= numSections / 2; j--)\n        {\n            if (!sectionPQs[j]->IsOn())\n                numHoles++;\n        }\n\n        sectionPQs[i]->Rotate(\n            centerX,\n            centerY,\n            float(numHoles) * (-3.14159274101257324219f / float(numSections))\n        );\n    }\n\n    size = f;\n}\n",
+      "status": "different",
+      "target_size": 1044
+    }
+  ],
+  "raw_name": "SetSize__14FanMeterWidgetf"
+}
