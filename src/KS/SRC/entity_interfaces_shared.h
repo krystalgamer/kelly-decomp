@@ -1,6 +1,7 @@
 #ifndef KELLY_DECOMP_ENTITY_INTERFACES_SHARED_H
 #define KELLY_DECOMP_ENTITY_INTERFACES_SHARED_H
 
+#include "KS/SRC/animation_interface.h"
 #include "KS/SRC/entity_interface.h"
 #include "KS/SRC/physical_interface.h"
 #include "KS/SRC/vector3d_shared.h"
@@ -28,14 +29,6 @@ class soft_attrib_interface : public entity_interface {
 public:
     explicit inline soft_attrib_interface(entity *value) : entity_interface(value) {}
     virtual ~soft_attrib_interface();
-};
-
-class animation_interface : public entity_interface {
-    unsigned int flags;
-
-public:
-    explicit inline animation_interface(entity *value) : entity_interface(value) {}
-    virtual ~animation_interface();
 };
 
 class script_data_interface : public entity_interface {

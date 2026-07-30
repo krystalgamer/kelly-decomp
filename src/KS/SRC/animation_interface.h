@@ -1,26 +1,29 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef ANIMATION_INTERFACE_H
+#define ANIMATION_INTERFACE_H
 
-#if defined(KELLY_DECOMP_FUNCTION_001462C8)
-#include "KS/SRC/entity_interfaces_shared.h"
+#include "KS/SRC/entity_interface.h"
 
-extern "C" void **animation_base_rtti() __asm__("__tf16entity_interface");
-extern "C" void *animation_base_type[] __asm__("__ti16entity_interface");
-extern "C" void *animation_type[] __asm__("__ti19animation_interface");
-extern "C" const char animation_name[];
+class animation_interface : public entity_interface {
+    unsigned int flags;
 
-__asm__(".equ __tf16entity_interface, 0x00113200");
-__asm__(".equ __ti16entity_interface, 0x005A26A8");
-__asm__(".equ __ti19animation_interface, 0x005A28D8");
-__asm__(".equ animation_name, 0x004CEC50");
+public:
+    enum {
+        ANIM_IFC_REVERSE = 0x00000001
+    };
 
-// 0x001462C8 __tf19animation_interface
-extern "C" void **animation_rtti() __asm__("__tf19animation_interface");
-void **animation_rtti()
-{
-    if (!animation_type[0]) {
-        animation_base_rtti();
-        __rtti_si(animation_type, animation_name, animation_base_type);
+    explicit inline animation_interface(entity *value)
+        : entity_interface(value), flags(0) {}
+    virtual ~animation_interface();
+
+    inline bool is_flagged(unsigned int flag) const {
+        return (flags & flag) != 0;
     }
-    return animation_type;
-}
+    inline void set_flag(unsigned int flag, bool enabled = true) {
+        if (enabled)
+            flags |= flag;
+        else
+            flags &= ~flag;
+    }
+};
+
 #endif
