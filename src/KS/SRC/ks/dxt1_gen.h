@@ -1,7 +1,7 @@
 #ifndef DXT1_GEN_H
 #define DXT1_GEN_H
 
-#include "KS/SRC/ks/dxt1_codebook_shared.h"
+#include "KS/SRC/ks/dxt1_codebook.h"
 
 class DXTCGen {
     CodeBook Vects;

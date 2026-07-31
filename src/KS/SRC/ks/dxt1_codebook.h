@@ -1,11 +1,51 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef DXT1_CODEBOOK_H
+#define DXT1_CODEBOOK_H
 
+template<class Type>
+class Table {
+    enum {
+        MAX_SIZE = 16
+    };
 
-#if defined(KELLY_DECOMP_FUNCTION_00270FB0)
-// 0x00270FB0 __tf8CodeBook
-extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
-extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
-asm(".equ typeinfo, 0x00512118"); asm(".equ type_name, 0x004E5208");
-extern "C" void *GetTypeInfo() __asm__("__tf8CodeBook");
-void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
+    Type data[MAX_SIZE];
+    int size;
+
+public:
+    virtual ~Table();
+
+    inline int Count() const {
+        return size;
+    }
+
+    Type &operator[](int index);
+};
+
+class cbVector {
+    unsigned char pData[4];
+
+public:
+    inline unsigned char &operator[](int index) {
+        return pData[index];
+    }
+
+    int DiffMag(const cbVector &vector) const;
+};
+
+class CodeBook {
+    Table<cbVector> VectList;
+    Table<int> usageCount;
+
+public:
+    virtual ~CodeBook();
+    int FindVectorSlow(const cbVector &vector);
+
+    inline int GetNumCodes() const {
+        return VectList.Count();
+    }
+
+    inline cbVector &operator[](int index) {
+        return VectList[index];
+    }
+};
+
 #endif
