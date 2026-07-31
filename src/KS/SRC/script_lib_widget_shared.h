@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_SCRIPT_LIB_WIDGET_SHARED_H
 
 #include "KS/SRC/script_library_class_shared.h"
-#include "KS/SRC/widget_shared.h"
+#include "KS/SRC/widget.h"
 
 class slf_widget_scale_to2_t : public script_library_class::function {
 public:

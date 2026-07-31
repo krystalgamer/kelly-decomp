@@ -1,6 +1,5 @@
-// Matching decompilation blocks selected by generated build shims.
+// widget definitions extracted by generated one-function shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_0033E7D0)
 // 0x0033E7D0 update_rot__6widget
 #include "KS/SRC/widget_rot_shared.h"
 
@@ -30,11 +29,9 @@ void widget::update_rot()
          ++child)
         (*child)->update_rot();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033E650)
 // 0x0033E650 update_pos__6widget
-#include "KS/SRC/widget_shared.h"
+#include "KS/SRC/widget.h"
 
 void widget::update_pos()
 {
@@ -53,11 +50,9 @@ void widget::update_pos()
         (*child)->update_pos();
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033E710)
 // 0x0033E710 update_scale__6widget
-#include "KS/SRC/widget_shared.h"
+#include "KS/SRC/widget.h"
 
 void widget::update_scale()
 {
@@ -76,11 +71,9 @@ void widget::update_scale()
         (*child)->update_scale();
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033F448)
 // 0x0033F448 show__11menu_widget
-#include "KS/SRC/widget_shared.h"
+#include "KS/SRC/widget.h"
 __asm__(".equ show__6widget, 0x0033DDD0");
 void menu_widget::show()
 {
@@ -91,68 +84,50 @@ void menu_widget::show()
         KELLY_DECOMP_COMPILER_BARRIER();
     }
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_0033F370)
 // 0x0033F370 get_width__16menu_item_widget
 class menu_item_widget { public: float get_width(); };
 float menu_item_widget::get_width() { return 100.0f; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033F380)
 // 0x0033F380 get_height__16menu_item_widget
 class menu_item_widget { public: float get_height(); };
 float menu_item_widget::get_height() { return 100.0f; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033F848)
 // 0x0033F848 get_width__11menu_widget
 class menu_widget { public: float get_width(); };
 float menu_widget::get_width() { return 100.0f; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033F858)
 // 0x0033F858 get_height__11menu_widget
 class menu_widget { public: float get_height(); };
 float menu_widget::get_height() { return 100.0f; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003406E8)
 // 0x003406E8 frame_advance__11text_widgetf
-#include "KS/SRC/widget_shared.h"
+#include "KS/SRC/widget.h"
 __asm__(".equ frame_advance__6widgetf, 0x0033DF70");
 void text_widget::frame_advance(float time) { widget::frame_advance(time); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003407F0)
 // 0x003407F0 flush__11text_widget
-#include "KS/SRC/widget_shared.h"
+#include "KS/SRC/widget.h"
 __asm__(".equ flush__6widget, 0x0033E518");
 void text_widget::flush() { widget::flush(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033EAD8)
 // 0x0033EAD8 get_first_child__6widget
 class widget;
 struct widget_node { widget_node *next; widget_node *previous; widget *value; };
 class widget_iterator { widget_node *node; public: widget_iterator(widget_node *value) : node(value) {} };
 class widget { char padding[0x10]; widget_node *children; public: widget *get_first_child(); };
 widget *widget::get_first_child() { widget_node *sentinel = children; widget_node *first = sentinel->next; if (first != sentinel) { volatile widget_iterator iterator(first); return first->value; } return 0; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033EDE8)
 // 0x0033EDE8 rotate_to__6widgetf
-#include "KS/SRC/widget_shared.h"
+#include "KS/SRC/widget.h"
 void widget::rotate_to(float value) {
     angle = value;
     update_rot();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003419B0)
 // 0x003419B0 update_pos__11vrep_widget
-#include "KS/SRC/widget_shared.h"
+#include "KS/SRC/widget.h"
 __asm__(".equ update_pos__6widget, 0x0033E650");
 __asm__(".equ update_mat__11vrep_widget, 0x00341E60");
 
@@ -161,11 +136,9 @@ void vrep_widget::update_pos() {
     update_mat();
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003419E0)
 // 0x003419E0 update_scale__11vrep_widget
-#include "KS/SRC/widget_shared.h"
+#include "KS/SRC/widget.h"
 __asm__(".equ update_scale__6widget, 0x0033E710");
 __asm__(".equ update_mat__11vrep_widget, 0x00341E60");
 
@@ -174,21 +147,17 @@ void vrep_widget::update_scale() {
     update_mat();
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033ED18)
 // 0x0033ED18 scale_to__6widgetff
-#include "KS/SRC/widget_shared.h"
+#include "KS/SRC/widget.h"
 void widget::scale_to(float horizontal, float vertical) {
     S[0] = horizontal;
     S[1] = vertical;
     update_scale();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033F298)
 // 0x0033F298 get_next_rhw_2d_val__6widget
-#include "KS/SRC/widget_shared.h"
+#include "KS/SRC/widget.h"
 
 __asm__(".equ _6widget$rhw_2d_layer, 0x0046B730");
 __asm__(".equ _6widget$rhw_2d_val, 0x005A3EB0");
@@ -199,9 +168,7 @@ rational_t widget::get_next_rhw_2d_val()
     rhw_2d_val[rhw_2d_layer] += 1.0f;
     return retval;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00340510)
 // 0x00340510 get_width__C11text_widget
 typedef float rational_t;
 
@@ -236,9 +203,7 @@ rational_t text_widget::get_width() const
     );
     return result;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00340540)
 // 0x00340540 get_height__C11text_widget
 typedef float rational_t;
 
@@ -273,9 +238,7 @@ rational_t text_widget::get_height() const
     );
     return result;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00340810)
 // 0x00340810 set_rhw__11text_widgetf
 class widget {
     char padding[0x158];
@@ -316,9 +279,7 @@ void text_widget::set_rhw(float value)
     rhw = value;
     widget::rhw_2d_val[rhw_2d_layer] -= 1.0f;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00341978)
 // 0x00341978 set_rotation__11vrep_widgetfff
 struct widget_vtable {
     char padding[0x118];
@@ -347,9 +308,7 @@ void vrep_widget::set_rotation(float x, float y, float z)
     widget_vtable *table = vtable;
     table->update_rot((char *)this + table->adjustment);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00341788)
 // 0x00341788 show__11vrep_widget
 extern "C" void WidgetShow(void *self) __asm__("show__6widget");
 __asm__(".equ show__6widget, 0x0033DDD0");
@@ -371,9 +330,7 @@ void vrep_widget::show()
     vrep_widget_vtable *table = vtable;
     table->update_rot((char *)this + table->adjustment);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033D898)
 // 0x0033D898 do_wevent__13rotate_weventf
 struct virtual_entry { short adjustment; short padding; void (*function)(void *, float); };
 class widget {
@@ -398,9 +355,7 @@ void rotate_wevent::do_wevent(float lerp)
     call->function((char *)owner + call->adjustment,
                    current + (angle - current) * lerp);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033F038)
 // 0x0033F038 set_color__6widgetfff
 struct color {
     float r, g, b, a;
@@ -422,9 +377,7 @@ void widget::set_color(float r, float g, float b)
     virtual_entry *call = (virtual_entry *)((char *)table + 0xA8);
     call->function((char *)this + call->adjustment, value);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00342DD0)
 // 0x00342DD0 resize__9fluid_barff
 class bitmap_widget { public: void resize(float width, float height); };
 __asm__(".equ resize__13bitmap_widgetff, 0x0033FBE0");
@@ -448,9 +401,7 @@ void fluid_bar::resize(float width, float height)
         update = true;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033F2C8)
 // 0x0033F2C8 get_pc_z__6widgetf
 typedef float rational_t;
 
@@ -493,9 +444,7 @@ rational_t widget::get_pc_z(rational_t rhw)
         0.999f - (((rhw - min_rhw) / (max_rhw - min_rhw)) * z_range);
     return z;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033D8D8)
 // 0x0033D8D8 do_wevent__12scale_weventf
 struct widget_vtable
 {
@@ -534,9 +483,7 @@ void scale_wevent::do_wevent(float lerp)
         owner->scale[1] + (sy - owner->scale[1]) * lerp
     );
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033FBE0)
 // 0x0033FBE0 resize__13bitmap_widgetff
 struct widget_vtable
 {
@@ -571,9 +518,7 @@ void bitmap_widget::resize(float new_width, float new_height)
         new_height / height
     );
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00341730)
 // 0x00341730 _$_11vrep_widget
 extern "C" void nglReleaseMeshFile(const void *name)
     __asm__("nglReleaseMeshFile__FRC14nglFixedString");
@@ -604,9 +549,7 @@ void VrepWidgetDtor(void *self, int deleting)
     WidgetDtor(self, deleting);
     __asm__ __volatile__("" : : : "memory");
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033F318)
 // 0x0033F318 select__16menu_item_widgetb
 struct item_vtable {
     char padding[0x130]; short adjustment; short reserved;
@@ -641,9 +584,7 @@ void menu_item_widget::select(bool initial) {
         }
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033EEA8)
 // 0x0033EEA8 set_color__6widgetG5color
 struct color { float r,g,b,a; };
 struct update_vtable { char padding[288]; short adjustment; short reserved; void (*update)(void *); };
@@ -661,9 +602,7 @@ void set_widget_color(widget_layout *self, const color *value)
     update_vtable *table=self->vtable;
     table->update((char *)self + table->adjustment);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00340570)
 // 0x00340570 init__11text_widgetR7stringx
 struct stringx;
 struct typeface_def;
@@ -688,46 +627,30 @@ void text_widget::init(stringx &typeface)
     load_typeface(text_font);
     __asm__ __volatile__("" : : : "memory");
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033EF10)
 // 0x0033EF10 set_color__6widgetP5color
 struct color{float r,g,b,a;inline color&operator=(const color&o){r=o.r;g=o.g;b=o.b;a=o.a;return *this;}};struct widget_vtable{char padding[288];short adjustment;short reserved;void(*update_col)(void*);};struct widget_layout{char padding[88];color col[4];char p2[168];widget_vtable*vtable;};extern "C" void set_colors(widget_layout*self,color*c) __asm__("set_color__6widgetP5color");void set_colors(widget_layout*self,color*c){for(int i=0;i<4;++i)self->col[i]=c[i];widget_vtable*t=self->vtable;t->update_col((char*)self+t->adjustment);}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003405D8)
 // 0x003405D8 _$_11text_widget
 extern "C" void unload(void*)__asm__("unload__12typeface_def");extern "C" void close_typeface(void*)__asm__("typeface_close__FP12typeface_def");extern "C" void string_dtor(void*,int)__asm__("_$_7stringx");extern "C" void widget_dtor(void*,int)__asm__("_$_6widget");extern const char text_vtable[];__asm__(".equ unload__12typeface_def,0x0033CAF0");__asm__(".equ typeface_close__FP12typeface_def,0x0033D458");__asm__(".equ _$_7stringx,0x0034D6E0");__asm__(".equ _$_6widget,0x0033DC68");__asm__(".equ text_vtable,0x00504900");struct text_widget_layout{char pad[320];const void*vtable;void*text_font;char prelocalized[8];char tout[8];};extern "C" void destroy(text_widget_layout*self,int deleting)__asm__("_$_11text_widget");void destroy(text_widget_layout*self,int deleting){self->vtable=text_vtable;if(self->text_font){unload(self->text_font);close_typeface(self->text_font);self->text_font=0;}string_dtor(self->tout,2);string_dtor(self->prelocalized,2);widget_dtor(self,deleting);KELLY_DECOMP_COMPILER_BARRIER();}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003414D0)
 // 0x003414D0 get_width__C17text_block_widget
 class widget;struct Node{Node*next;Node*prev;widget*value;};struct WidthVtable{char pad[296];short adjust;short zero;float(*get_width)(void*);};class widget{public:char pad0[16];Node*children;unsigned flags;char pad1[296];WidthVtable*vtable;};class text_block_widget:public widget{public:float get_width()const __asm__("get_width__C17text_block_widget");};float text_block_widget::get_width()const{register float widest asm("$f20")=0.0f;register Node*header asm("$2")=children;register Node*it asm("$16")=header->next;register Node*end asm("$17")=header;for(;it!=end;it=it->next){widget*w=it->value;WidthVtable*v=w->vtable;float width=v->get_width((char*)w+v->adjust);if(width>widest)widest=width;}return widest;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00340B48)
 // 0x00340B48 _$_17text_block_widget
 extern "C" void unload(void*)__asm__("unload__12typeface_def");extern "C" void close_typeface(void*)__asm__("typeface_close__FP12typeface_def");extern "C" void string_dtor(void*,int)__asm__("_$_7stringx");extern "C" void widget_dtor(void*,int)__asm__("_$_6widget");extern const char block_vtable[];__asm__(".equ unload__12typeface_def,0x0033CAF0");__asm__(".equ typeface_close__FP12typeface_def,0x0033D458");__asm__(".equ _$_7stringx,0x0034D6E0");__asm__(".equ _$_6widget,0x0033DC68");__asm__(".equ block_vtable,0x005047B0");struct text_block_layout{char pad0[320];const void*vtable;char pad1[8];char typeface[8];char pad2[8];char break_substring[8];char text[8];char pad3[24];void*text_font;};extern "C" void destroy(text_block_layout*self,int deleting)__asm__("_$_17text_block_widget");void destroy(text_block_layout*self,int deleting){self->vtable=block_vtable;if(self->text_font){unload(self->text_font);close_typeface(self->text_font);self->text_font=0;}string_dtor(self->text,2);string_dtor(self->break_substring,2);string_dtor(self->typeface,2);widget_dtor(self,deleting);asm volatile("");}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003417C0)
 // 0x003417C0 frame_advance__11vrep_widgetf
 extern "C" float fmodf(float,float);struct Vtable{char pad[280];short adjust;short z;void(*update_rot)(void*);};struct vrep_widget{char pad0[60];float angle;char pad1[256];Vtable*vtable;char pad2[32];float rps;void frame_advance(float)__asm__("frame_advance__11vrep_widgetf");};extern "C" void base_advance(vrep_widget*,float)__asm__("frame_advance__6widgetf");__asm__(".equ fmodf,0x003C68C8");__asm__(".equ frame_advance__6widgetf,0x0033DF70");void vrep_widget::frame_advance(float dt){if(rps){angle+=rps*dt;angle=fmodf(angle,6.2831855f);Vtable*v=vtable;v->update_rot((char*)this+v->adjust);}base_advance(this,dt);asm volatile("");}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033EE18)
 // 0x0033EE18 rotate_to__6widgetfff
 struct widget{};struct Event{int type;void*owner;float wait,duration;int field16;void*vtable;float angle;};extern "C" void*opnew(unsigned,unsigned,const char*,int)__asm__("__nw__FUiUiPCci");extern void*vtable;extern const char file[];extern "C" void add(widget*,Event*)__asm__("add_wevent__6widgetP6wevent");__asm__(".equ __nw__FUiUiPCci,0x002AC578");__asm__(".equ vtable,0x00504F68");__asm__(".equ file,0x00501EE8");__asm__(".equ add_wevent__6widgetP6wevent,0x0033E310");extern "C" void rotate(widget*,float,float,float)__asm__("rotate_to__6widgetfff");void rotate(widget*self,float wait,float duration,float angle){Event*e=(Event*)opnew(28,0,file,0);register int type asm("$3")=3;register void*vt asm("$6")=&vtable;register widget*out asm("$4")=self;asm volatile("" : "+r"(out));e->wait=wait;register Event*arg asm("$5")=e;asm volatile("" : "+r"(arg));e->duration=duration;e->angle=angle;e->owner=self;e->type=type;e->vtable=vt;e->field16=0;add(out,arg);asm volatile("");}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033ED48)
 // 0x0033ED48 scale_to__6widgetffff
 struct widget{};struct Event{int type;void*owner;float wait,duration;int field16;void*vtable;float hs,vs;};extern "C" void*opnew(unsigned,unsigned,const char*,int)__asm__("__nw__FUiUiPCci");extern void*vtable;extern const char file[];extern "C" void add(widget*,Event*)__asm__("add_wevent__6widgetP6wevent");asm(".equ __nw__FUiUiPCci,0x002AC578");asm(".equ vtable,0x00504F50");asm(".equ file,0x00501EB0");asm(".equ add_wevent__6widgetP6wevent,0x0033E310");extern "C" void scale(widget*,float,float,float,float)__asm__("scale_to__6widgetffff");void scale(widget*self,float wait,float duration,float hs,float vs){Event*e=(Event*)opnew(32,0,file,0);register int type asm("$3")=4;register void*vt asm("$6")=&vtable;register widget*out asm("$4")=self;asm volatile("" : "+r"(out));e->wait=wait;register Event*arg asm("$5")=e;asm volatile("" : "+r"(arg));e->duration=duration;e->hs=hs;e->vs=vs;e->owner=self;e->type=type;e->vtable=vt;e->field16=0;add(out,arg);asm volatile("");}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033E1A8)
 // 0x0033E1A8 message_handler__6widgetUiUiff
-#include "KS/SRC/widget_shared.h"
+#include "KS/SRC/widget.h"
 
 // Preserve the released GNU 2 list iterator copy ABI.
 // Normalize the shipped iterator stack-slot and loop scheduling in the EE shim.
@@ -746,11 +669,9 @@ void widget::message_handler(
             ++child;
         } while (child != children.end());
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003428E8)
 // 0x003428E8 __10bar_widgetPCcP6widgetssQ26widget12widget_dir_e
-#include "KS/SRC/widget_shared.h"
+#include "KS/SRC/widget.h"
 
 // Use the released bar-widget and base-widget declarations.
 bar_widget::bar_widget(
@@ -775,9 +696,7 @@ bar_widget::bar_widget(
     else if (dir == WDIR_Down)
         y_fac = -1;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0033D7A0)
 // 0x0033D7A0 do_wevent__12color_weventf
 #pragma interface
 
@@ -881,4 +800,3 @@ void color_wevent::do_wevent( rational_t lerp )
     owner->set_color( newcol );
   }
 }
-#endif

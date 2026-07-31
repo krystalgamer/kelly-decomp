@@ -103,6 +103,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/stringx.h": "KS/SRC/stringx_methods.cpp",
     "KS/SRC/time_interface.h": "KS/SRC/time_interface.cpp",
     "KS/SRC/visrep.h": "KS/SRC/visrep_rtti.cpp",
+    "KS/SRC/widget.h": "KS/SRC/widget_methods.cpp",
 }
 
 
