@@ -86,7 +86,7 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
     scratch = safe_scratch_directory(ROOT / "tmp" / "functions", row)
     candidate = scratch / "candidate.cpp"
     source = entry["source"]
-    if re.search(r'\bextern\s+"C"\b', source):
+    if re.search(r'\bextern\s+"C"', source):
         raise RuntimeError(
             f"Manifest candidate for {row['raw_name']} uses extern \"C\"; "
             "reconstruct its native C++ declaration instead"
