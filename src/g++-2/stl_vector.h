@@ -69,6 +69,16 @@ public:
         return _M_finish;
     }
 
+    T &operator[](unsigned int index)
+    {
+        return _M_start[index];
+    }
+
+    const T &operator[](unsigned int index) const
+    {
+        return _M_start[index];
+    }
+
     unsigned int size() const
     {
         return _M_finish - _M_start;

@@ -92,6 +92,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/FrontEndManager.h": "KS/SRC/ks/FrontEndManager_rtti.cpp",
     "KS/SRC/ks/GraphicalMenuSystem.h":
         "KS/SRC/ks/GraphicalMenuSystem_methods.cpp",
+    "KS/SRC/graph.h": "KS/SRC/graph_methods.cpp",
     "KS/SRC/ks/CheatFrontEnd.h": "KS/SRC/ks/CheatFrontEnd_methods.cpp",
     "KS/SRC/ks/SaveLoadFrontEnd.h":
         "KS/SRC/ks/SaveLoadFrontEnd_methods.cpp",
@@ -128,6 +129,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/physical_interface.h": "KS/SRC/physical_interface.cpp",
     "KS/SRC/pmesh.h": "KS/SRC/pmesh_methods.cpp",
     "KS/SRC/particle.h": "KS/SRC/particle_methods.cpp",
+    "KS/SRC/path.h": "KS/SRC/path_methods.cpp",
     "KS/SRC/polytube.h": "KS/SRC/polytube_methods.cpp",
     "KS/SRC/po_anim.h": "KS/SRC/po_anim_rtti.cpp",
     "KS/SRC/render_interface.h": "KS/SRC/render_interface.cpp",
