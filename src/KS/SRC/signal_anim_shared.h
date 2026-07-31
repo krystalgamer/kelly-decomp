@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_SIGNAL_ANIM_SHARED_H
 #define KELLY_DECOMP_SIGNAL_ANIM_SHARED_H
 
-#include "KS/SRC/anim_shared.h"
+#include "KS/SRC/anim.h"
 #include "KS/SRC/rtti.h"
 
 class signal_key {

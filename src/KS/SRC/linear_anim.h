@@ -1,7 +1,7 @@
 #ifndef LINEAR_ANIM_H
 #define LINEAR_ANIM_H
 
-#include "KS/SRC/anim_shared.h"
+#include "KS/SRC/anim.h"
 #include "KS/SRC/mbi.h"
 #include "KS/SRC/rtti.h"
 

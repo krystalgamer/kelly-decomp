@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_ENTITY_ANIM_SHARED_H
 #define KELLY_DECOMP_ENTITY_ANIM_SHARED_H
 
-#include "KS/SRC/anim_shared.h"
+#include "KS/SRC/anim.h"
 #include "KS/SRC/mbi.h"
 #include "KS/SRC/rtti.h"
 #include "KS/SRC/stringx.h"
