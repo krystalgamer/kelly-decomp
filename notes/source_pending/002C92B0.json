@@ -1,0 +1,15 @@
+{
+  "address": "0x002C92B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "dc8fe4e9c1457078c99dda03e8136ec39152539e",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/debug_render.h\"\n\nvoid render_marker(  camera* camera_link, vector3d pos, color32 col, rational_t scale)\n{\n  entity *target = g_world_ptr->get_entity(\"TOOL_MARKER\");\n  if(target)\n  {\n    po my_po = po_identity_matrix;\n    po tmp1 = po_identity_matrix;\n\n    my_po.set_position(pos);\n\n    tmp1 = po_identity_matrix;\n    tmp1.set_scale( vector3d(scale, scale, scale) );\n    my_po.add_increment( &tmp1 );\n\n    tmp1 = po_identity_matrix;\n    tmp1.set_rotate_y(DEG_TO_RAD(g_render_marker_y_angle));\n    my_po.add_increment( &tmp1 );\n\n    target->set_rel_po(my_po);\n\n    rational_t alpha = (rational_t)col.c.a * (1.0f / 255.0f);\n    col.c.a = 255;\n    target->set_render_color(col);\n\n    target->set_visible(true);\n    target->render(camera_link,target->get_max_polys(),RENDER_TRANSLUCENT_PORTION | ((target->get_flags()&EFLAG_MISC_NO_CLIP_NEEDED)?0:RENDER_CLIPPED_FULL_DETAIL), alpha);\n    target->set_visible(false);\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "render_marker__FP6cameraG8vector3dG7color32f"
+}
