@@ -1,0 +1,15 @@
+{
+  "address": "0x00340EB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "eaa2779ffe564b9665cc302380f6e14524adfc92",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/widget.h\"\n\nvoid text_block_widget::fill_lines()\n{\n  clear_lines();\n\n  stringx text = block_info.text;\n  int cur_pos = 0;\n\n  rational_t rhw_val = first_rhw;\n\n  while ( strlen( text.c_str() ) > 0 && num_lines_used < block_info.max_lines )\n  {\n    stringx line_text;\n    if ( block_info.break_substring != empty_string )\n    {\n      int break_pos = text.find( block_info.break_substring.c_str() );\n      if ( break_pos != stringx::npos )\n      {\n        line_text = text.substr( 0, break_pos );\n        cur_pos = break_pos + strlen( block_info.break_substring.c_str() );\n      }\n      else\n      {\n        line_text = text;\n        cur_pos = stringx::npos;\n      }\n    }\n    else\n    {\n      line_text = text;\n      cur_pos = stringx::npos;\n    }\n\n    if ( line_text != empty_string )\n    {\n      text_widget *tw = NEW text_widget( \"block text\", this, 0, num_lines_used * block_info.line_spacing,\n                          block_info.scale, 0, block_info.typeface );\n      tw->set_color( block_info.col );\n      tw->set_rhw( rhw_val );\n      rhw_val += WIDGET_RHW_INC;\n\n      if ( is_shown() )\n        tw->show();\n      tw->set_string( line_text );\n\n      // check width\n      bool done = false;\n      while ( block_info.max_width != -1 && !done && tw->get_width() > block_info.max_width )\n      {\n        int break_pos = line_text.rfind(' '); // line_text should begin at same point as text\n        if ( break_pos == stringx::npos )\n        {\n          done = true;\n        }\n        else\n        {\n          stringx temp = line_text.substr( 0, break_pos );\n          line_text = temp;\n          tw->set_string( line_text );\n          cur_pos = break_pos + 1;\n        }\n      }\n\n      ++num_lines_used;\n    }\n    stringx temp = text.substr( cur_pos, stringx::npos );\n    text = temp;\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "fill_lines__17text_block_widget"
+}
