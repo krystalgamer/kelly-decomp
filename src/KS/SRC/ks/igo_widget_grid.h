@@ -1,10 +1,31 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef INCLUDED_IGO_WIDGET_GRID_H
+#define INCLUDED_IGO_WIDGET_GRID_H
 
+#include "KS/SRC/ks/FEPanel.h"
+#include "KS/SRC/ks/igo_widget.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_001DC2E0)
-// 0x001DC2E0 _$_10GridWidget
-extern "C" void IGOWidgetDtor(void *self) __asm__("_$_9IGOWidget");
-extern "C" void GridWidgetDtor(void *self) __asm__("_$_10GridWidget");
-__asm__(".equ _$_9IGOWidget, 0x00164628");
-void GridWidgetDtor(void *self) { IGOWidgetDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+#pragma interface
+
+class PanelFile;
+
+class GridWidget : public IGOWidget {
+public:
+    enum {
+        NUM_H_LINES = 15,
+        NUM_V_LINES = 4
+    };
+
+private:
+    PanelQuad *hLinePQs[NUM_H_LINES];
+    PanelQuad *vLinePQs[NUM_V_LINES];
+
+public:
+    GridWidget();
+    virtual void Init(PanelFile &panel);
+    virtual void Draw();
+    virtual void ShowHLines(int flags);
+    virtual void ShowVLines(int flags);
+    virtual void Hide();
+};
+
 #endif

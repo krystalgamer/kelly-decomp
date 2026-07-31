@@ -1,8 +1,8 @@
 #ifndef KELLY_DECOMP_IGO_FRONT_END_SHARED_H
 #define KELLY_DECOMP_IGO_FRONT_END_SHARED_H
 
-#include "KS/SRC/ks/igo_widget_grid_shared.h"
-#include "KS/SRC/ks/igo_widget_photo_shared.h"
+#include "KS/SRC/ks/igo_widget_grid.h"
+#include "KS/SRC/ks/igo_widget_photo.h"
 
 class PanelFile;
 class stringx;
