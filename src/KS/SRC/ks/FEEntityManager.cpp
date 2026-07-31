@@ -15,7 +15,7 @@ void FEEntityManager::LoadSurferAnims(int surfer) { if (mm_anims_loaded) return;
 
 #if defined(KELLY_DECOMP_FUNCTION_001C9B30)
 // 0x001C9B30 PerformIK__15FEEntityManager
-#include "KS/SRC/ks/FEEntityManager_IK_shared.h"
+#include "KS/SRC/ks/FEEntityManager.h"
 #include "decomp_annotations.h"
 
 __asm__(".equ GTrickList, 0x00427CA8");
