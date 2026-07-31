@@ -64,7 +64,10 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
         )
         return False
     pending = next_status(rows, expected_status)
-    if pending["address"].lower() != address:
+    if (
+        expected_status != "deferred"
+        and pending["address"].lower() != address
+    ):
         raise RuntimeError(
             f"Manifest expects {row['address']} {row['raw_name']}, "
             f"but the next {expected_status} function is "
