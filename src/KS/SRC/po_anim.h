@@ -1,26 +1,38 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef PO_ANIM_H
+#define PO_ANIM_H
 
-#if defined(KELLY_DECOMP_FUNCTION_001207C8)
-#include "KS/SRC/po_anim_shared.h"
+#include "KS/SRC/anim.h"
+#include "KS/SRC/po.h"
+#include "KS/SRC/rtti.h"
 
-extern "C" void **po_base_rtti() __asm__("__tft4anim1Z2po");
-extern "C" void *po_base_type[] __asm__("__tit4anim1Z2po");
-extern "C" void *po_anim_type[] __asm__("__ti7po_anim");
-extern "C" const char po_anim_name[];
+struct quaternion {
+    float value[4];
+};
 
-__asm__(".equ __tft4anim1Z2po, 0x00121A98");
-__asm__(".equ __tit4anim1Z2po, 0x00511FC0");
-__asm__(".equ __ti7po_anim, 0x005A26B8");
-__asm__(".equ po_anim_name, 0x004CA448");
+class po_anim : public anim<po> {
+    anim<vector3d> *P;
+    anim<quaternion> *R;
+    anim<float> *S;
+    vector3d P_start;
+    quaternion R_start;
+    float S_start;
+    vector3d R_start_mat[3];
 
-// 0x001207C8 __tf7po_anim
-extern "C" void **po_anim_rtti() __asm__("__tf7po_anim");
-void **po_anim_rtti()
-{
-    if (!po_anim_type[0]) {
-        po_base_rtti();
-        __rtti_si(po_anim_type, po_anim_name, po_base_type);
-    }
-    return po_anim_type;
-}
+public:
+    virtual ~po_anim();
+    inline bool has_P() const { return P && P->is_valid(); }
+    inline bool has_R() const { return R && R->is_valid(); }
+    inline bool has_S() const { return S && S->is_valid(); }
+    void set_time(float time);
+
+    static bool meminit;
+    static bool *allocated;
+    static void *membuffer;
+    static int current_allocation;
+    static void *mem_init_func;
+    static void *mem_free_func;
+    static void check_mem_init();
+    static void mem_cleanup();
+};
+
 #endif

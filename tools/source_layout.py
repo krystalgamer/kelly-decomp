@@ -89,6 +89,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/owner_interface.h": "KS/SRC/owner_interface.cpp",
     "KS/SRC/physical_interface.h": "KS/SRC/physical_interface.cpp",
     "KS/SRC/polytube.h": "KS/SRC/polytube_methods.cpp",
+    "KS/SRC/po_anim.h": "KS/SRC/po_anim_rtti.cpp",
     "KS/SRC/render_interface.h": "KS/SRC/render_interface.cpp",
     "KS/SRC/skeleton_interface.h": "KS/SRC/skeleton_interface.cpp",
     "KS/SRC/singleton.h": "KS/SRC/singleton.cpp",
