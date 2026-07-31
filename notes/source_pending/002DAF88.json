@@ -1,0 +1,15 @@
+{
+  "address": "0x002DAF88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "90be08a799aa44cb4c29c4fab63610d058bff26e",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/colgeom.h\"\n\nvoid cg_mesh::build_raw_cface_data(const stringx & meshname, bool allow_warnings)\n{\n  for (int i=0;i<get_num_cfaces();++i)\n  {\n    const cface& f1 = get_cface(i);\n    const vector3d& v0 = (get_raw_vert(f1.get_vert_ref(0))).get_point();\n    const vector3d& v1 = (get_raw_vert(f1.get_vert_ref(1))).get_point();\n    const vector3d& v2 = (get_raw_vert(f1.get_vert_ref(2))).get_point();\n    vector3d c = (v0+v1+v2)/3;\n    rational_t r0 = (c-v0).length2();\n    rational_t r1 = (c-v1).length2();\n    rational_t r2 = (c-v2).length2();\n    rational_t r;\n\n    // r2 = maximum radius squared\n    if (r1>r0)\n      if (r2>r1)\n        r = r2;\n      else\n        r = r1;\n    else\n      if (r2>r0)\n        r = r2;\n      else\n        r = r0;\n    r = __fsqrt(r);\n\n    vector3d n = cross(v1-v0,v2-v0).normalize();\n    #ifdef DEBUG\n    if (n.length2()<0.96f && !(meshname==empty_string) && !get_flag(FLAG_GEOM_WARNING_GIVEN) &&\n        !os_developer_options::inst()->get_no_warnings() && allow_warnings)\n    {\n      stringx composite = \"Degenerate tri in \" + meshname;\n      warning(composite);\n      set_flag(FLAG_GEOM_WARNING_GIVEN,true);\n    }\n    #endif\n    cfaces[i].set_normal(n);\n    cfaces[i].set_raw_normal(n);\n    cfaces[i].set_center(c);\n    cfaces[i].set_raw_center(c);\n    cfaces[i].set_radius(r);\n  }\n  // now sort the faces along the local X-axis and set up the lookup tables\n  sort_cfaces();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "build_raw_cface_data__7cg_meshRC7stringxb"
+}
