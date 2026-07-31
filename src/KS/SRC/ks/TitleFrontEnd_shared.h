@@ -1,11 +1,7 @@
 #ifndef KELLY_DECOMP_TITLE_FRONT_END_SHARED_H
 #define KELLY_DECOMP_TITLE_FRONT_END_SHARED_H
 
-#define KELLY_DECOMP_FULL_FEMENU_ENTRY
-#define KELLY_DECOMP_BUILT_FEMENU_SELECT_PADDING
-#include "KS/SRC/ks/FEMenu_shared.h"
-#undef KELLY_DECOMP_BUILT_FEMENU_SELECT_PADDING
-#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu.h"
 
 #include "KS/SRC/ks/FrontEndManager_shared.h"
 #include "KS/SRC/ks/SoundScript_shared.h"

@@ -3,11 +3,7 @@
 
 #pragma interface
 
-#define KELLY_DECOMP_FULL_FEMENU_ENTRY
-#define KELLY_DECOMP_FULL_FEMULTI_MENU
-#include "KS/SRC/ks/FEMenu_shared.h"
-#undef KELLY_DECOMP_FULL_FEMULTI_MENU
-#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu.h"
 
 #include "KS/SRC/inputmgr_shared.h"
 #include "KS/SRC/ks/SoundScript_shared.h"

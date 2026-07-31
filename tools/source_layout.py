@@ -74,6 +74,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/entity.h": "KS/SRC/entity_methods.cpp",
     "KS/SRC/entity_interface.h": "KS/SRC/entity_interface.cpp",
     "KS/SRC/ks/FEPanel.h": "KS/SRC/ks/FEPanel_methods.cpp",
+    "KS/SRC/ks/FEMenu.h": "KS/SRC/ks/FEMenu_methods.cpp",
     "KS/SRC/hard_attrib_interface.h": "KS/SRC/hard_attrib_interface.cpp",
     "KS/SRC/link_interface.h": "KS/SRC/link_interface.cpp",
     "KS/SRC/owner_interface.h": "KS/SRC/owner_interface.cpp",

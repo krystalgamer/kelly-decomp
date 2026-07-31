@@ -1,11 +1,7 @@
 #ifndef KELLY_DECOMP_EXTRAS_FRONT_END_SHARED_H
 #define KELLY_DECOMP_EXTRAS_FRONT_END_SHARED_H
 
-#define KELLY_DECOMP_FULL_FEMENU_ENTRY
-#define KELLY_DECOMP_FULL_FEMULTI_MENU
 #include "KS/SRC/ks/GraphicalMenuSystem_shared.h"
-#undef KELLY_DECOMP_FULL_FEMULTI_MENU
-#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
 #include "KS/SRC/ks/FrontEndManager_shared.h"
 #include "KS/SRC/ks/SoundScript_shared.h"
 

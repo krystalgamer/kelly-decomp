@@ -3,7 +3,7 @@
 
 #pragma interface
 
-#include "KS/SRC/ks/FEMenu_shared.h"
+#include "KS/SRC/ks/FEMenu.h"
 
 class PausePlayerDisplay {
     char state[76];

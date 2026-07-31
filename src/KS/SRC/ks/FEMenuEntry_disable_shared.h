@@ -3,9 +3,7 @@
 
 #include "KS/SRC/ks/FEPanel.h"
 
-#define KELLY_DECOMP_FULL_FEMENU_ENTRY
-#include "KS/SRC/ks/FEMenu_shared.h"
-#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
+#include "KS/SRC/ks/FEMenu.h"
 
 #pragma interface
 

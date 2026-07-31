@@ -3,12 +3,8 @@
 
 #pragma interface
 
-#define KELLY_DECOMP_FULL_FEMENU_ENTRY
-#define KELLY_DECOMP_SAVELOAD_VTABLE
-#include "KS/SRC/ks/FEMenu_shared.h"
+#include "KS/SRC/ks/FEMenu.h"
 #include "KS/SRC/ks/igo_widget_shared.h"
-#undef KELLY_DECOMP_SAVELOAD_VTABLE
-#undef KELLY_DECOMP_FULL_FEMENU_ENTRY
 
 class FEManager {
     char manager_data[0x15644];

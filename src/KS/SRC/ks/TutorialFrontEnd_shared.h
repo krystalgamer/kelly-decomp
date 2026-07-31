@@ -3,9 +3,7 @@
 
 #pragma interface
 
-#define KELLY_DECOMP_FULL_FEMULTI_MENU
-#include "KS/SRC/ks/FEMenu_shared.h"
-#undef KELLY_DECOMP_FULL_FEMULTI_MENU
+#include "KS/SRC/ks/FEMenu.h"
 
 class IGOTutorialManager {
     char padding[0x28];

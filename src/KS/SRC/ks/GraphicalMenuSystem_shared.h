@@ -3,7 +3,7 @@
 
 #pragma interface
 
-#include "KS/SRC/ks/FEMenu_shared.h"
+#include "KS/SRC/ks/FEMenu.h"
 
 class GraphicalMenuSystem : public FEMenuSystem {
     char graphical_menu_data0[0xd4 - sizeof(FEMenuSystem)];
