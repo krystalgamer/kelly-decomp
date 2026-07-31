@@ -1,0 +1,15 @@
+{
+  "address": "0x00245AB8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f9277b43db743ff5805317b4d5df45c6142459b6",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "void ik_object::do_leg_IK (bool right_leg, const vector3d& foot_position, const vector3d& foot_direction)\n{\n\tentity *thigh, *calf, *foot;\n\tfloat thigh_ik_invc;\n\tfloat thigh_ik_c;\n\tfloat calf_ik_invc;\n\tfloat calf_ik_c;\n\n\tif (right_leg)\n\t{\n\t\tcalf = r_calf;\n\t\tthigh = r_thigh;\n\t\tfoot = r_foot;\n\t\tthigh_ik_invc = r_thigh_ik_invc;\n\t\tthigh_ik_c = r_thigh_ik_c;\n\t\tcalf_ik_invc = r_calf_ik_invc;\n\t\tcalf_ik_c = r_calf_ik_c;\n\t}\n\telse\n\t{\n\t\tcalf = l_calf;\n\t\tthigh = l_thigh;\n\t\tfoot = l_foot;\n\t\tthigh_ik_invc = l_thigh_ik_invc;\n\t\tthigh_ik_c = l_thigh_ik_c;\n\t\tcalf_ik_invc = l_calf_ik_invc;\n\t\tcalf_ik_c = l_calf_ik_c;\n\t}\n\n\tfloat su, cu, sl, cl;\n\tvector3d dir = foot_position - thigh->get_abs_position();\n\n\tfloat C, inv_C;\n\n\tC = dir.length();\n\tinv_C = 1.0f/C;\n\tdir *= inv_C;\n\n\tcu = thigh_ik_invc * inv_C + thigh_ik_c * C;\n\tcl = calf_ik_invc * inv_C + calf_ik_c * C;\n\n\tif (cu < -1.0f) cu=-1.0f;\n\telse if (cu > 1.0f) cu=1.0f;\n\tif (cl < -1.0f) cl=-1.0f;\n\telse if (cl > 1.0f) cl=1.0f;\n\n\tsu = __fsqrt(1-cu*cu);\n\tsl = __fsqrt(1-cl*cl);\n\n\tvector3d up, right;\n\n\tright = cross (dir, foot_direction);\n\tright.normalize ();\n\tup = cross (right, dir);\n\n\tpo parent_world, rot, mchg (dir, up, right, vector3d (0,0,0)), fix (1.0f, 0.0f, 0.0f,\t  0.0f, 0.0f, -1.0f,\t\t0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);\n\n\tcu = -cu;\n\tsu = -su;\n\tcl = -cl;\n\tsl = -sl;\n\n\t// thigh\n\trot = po (cu, su, 0, -su, cu, 0, 0,0,1, 0,0,0);\n\tparent_world = pelvis->get_abs_po ();\n\tparent_world.set_position (vector3d (0,0,0));\n\tparent_world = parent_world.inverse ();\n\tthigh->set_rel_orientation ((fix*rot * (mchg * parent_world)).get_orientation ());\n\n\t// calf\n\trot = po (cl, -sl, 0, sl, cl, 0, 0,0,1, 0,0,0);\n\tparent_world = thigh->get_abs_po ();\n\tparent_world.set_position (vector3d (0,0,0));\n\tparent_world = parent_world.inverse ();\n\tcalf->set_rel_orientation ((fix*rot * (mchg * parent_world)).get_orientation ());\n\n\t// foot\n\t/*up = cross (right, foot_direction);\n\trot = po (up, -right, -1*foot_direction, vector3d (0,0,0));\n\tparent_world = calf->get_abs_po ();\n\tparent_world.set_position (vector3d (0,0,0));\n\tparent_world = parent_world.inverse ();\n\tfoot->set_rel_orientation ((rot * parent_world).get_orientation ());*/\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "do_leg_IK__9ik_objectbRC8vector3dT2"
+}
