@@ -1,0 +1,15 @@
+{
+  "address": "0x002CBF50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b4b6b04d2c7b48ddb6ef3bf44d6bfb64e12a4d60",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "void geometry_manager::set_xform( xform_t xformtype, const matrix4x4& matrix )\n{\n  // these are derived matrices, you don't set them directly, they're computed\n  // based on the other matrices.\n  assert(xformtype!=XFORM_WORLD_TO_SCREEN && xformtype!=XFORM_VIEW_TO_SCREEN &&\n         xformtype!=XFORM_EFFECTIVE_WORLD_TO_VIEW && xformtype!=XFORM_WORLD_TO_PROJECTION &&\n         xformtype!=XFORM_VIEW_TO_WORLD);\n  \n  if ( xformtype == XFORM_WORLD_TO_VIEW )\n  {\n    xforms[XFORM_EFFECTIVE_WORLD_TO_VIEW] = scene_analyzer_enabled ? scene_analyzer : matrix;\n    po w2v( xforms[XFORM_EFFECTIVE_WORLD_TO_VIEW] );\n    xforms[XFORM_VIEW_TO_WORLD] = w2v.inverse().get_matrix();\n  }\n\n  xforms[xformtype] = matrix;\n\n  if (xformtype == XFORM_WORLD_TO_VIEW || xformtype == XFORM_VIEW_TO_PROJECTION || \n      xformtype == XFORM_PROJECTION_TO_SCREEN)\n  {\n    if (xformtype == XFORM_VIEW_TO_PROJECTION || xformtype == XFORM_PROJECTION_TO_SCREEN)\n      xforms[XFORM_VIEW_TO_SCREEN] = xforms[XFORM_VIEW_TO_PROJECTION] * xforms[XFORM_PROJECTION_TO_SCREEN];\n    xforms[XFORM_WORLD_TO_SCREEN] = xforms[XFORM_EFFECTIVE_WORLD_TO_VIEW] * xforms[XFORM_VIEW_TO_SCREEN];\n    xforms[XFORM_WORLD_TO_PROJECTION] = xforms[XFORM_EFFECTIVE_WORLD_TO_VIEW] * xforms[XFORM_VIEW_TO_PROJECTION]; \n  }\n\n#if defined(TARGET_PC)\n  switch( xformtype )\n  {\n    case XFORM_LOCAL_TO_WORLD:\n      hw_rasta::inst()->set_xform(D3DTRANSFORMSTATE_WORLD, matrix);\n      break;\n    case XFORM_WORLD_TO_VIEW:\n      hw_rasta::inst()->set_xform(D3DTRANSFORMSTATE_VIEW, xforms[XFORM_EFFECTIVE_WORLD_TO_VIEW]);\n      break;\n    case XFORM_PROJECTION_TO_SCREEN:\n    case XFORM_VIEW_TO_PROJECTION:\n    {\n      // this is tricky... we're supporting COP (center-of-projection) offsets\n      // but not through the viewport (this isn't allowed by D3D, as the viewport\n      // extent can't go off the edge of the back buffer surface), so instead\n      // we alter the projection matrix to account for the offset, which is \n      // extracted from the viewport matrix.  Fun stuff.  --Sean\n      matrix4x4 projm = xforms[XFORM_VIEW_TO_PROJECTION]; // make a copy\n      matrix4x4 viewm = xforms[XFORM_PROJECTION_TO_SCREEN]; // make a copy\n      viewm.w.x = (viewm.w.x / viewm.x.x - 1.0f);\n      viewm.w.y = (viewm.w.y / viewm.y.y + 1.0f);\n      viewm.x.x = 1.0f;\n      viewm.y.y = 1.0f;\n      viewm.z.z = 1.0f;\n      projm = projm * viewm;\n      hw_rasta::inst()->set_xform(D3DTRANSFORMSTATE_PROJECTION, projm);\n      break;\n    }\n  }\n#endif  \n\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "set_xform__16geometry_managerQ216geometry_manager7xform_tRC9matrix4x4"
+}
