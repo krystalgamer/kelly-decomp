@@ -4,6 +4,7 @@ import argparse
 import csv
 import json
 import re
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -189,8 +190,9 @@ def process(row: dict[str, str]) -> None:
         raise RuntimeError("Working tree is not clean")
 
     source = canonical_include(row) + extract_definition(row)
-    run(str(PYTHON), "tools/function_test.py", "prepare", row["address"])
     scratch = scratch_directory(SCRATCH_ROOT, row)
+    shutil.rmtree(scratch, ignore_errors=True)
+    run(str(PYTHON), "tools/function_test.py", "prepare", row["address"])
     candidate = scratch / "candidate.cpp"
     candidate.write_text(source, encoding="utf-8")
     run(str(PYTHON), "tools/function_test.py", "test", row["address"])
