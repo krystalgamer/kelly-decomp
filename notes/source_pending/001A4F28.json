@@ -1,0 +1,15 @@
+{
+  "address": "0x001A4F28",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b96234e295a8fb7557b5112cf4b79fec071544f5",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FrontEndMenus.h\"\n\nPauseMenuClass::PauseMenuClass(FEMenuSystem* m, int x, int y, color32 c, color32 ch, color32 cha)\n{\n\tFEMenu::cons(m, x, y, c, ch, cha);\n\tsys = (PauseMenuSystem*) m;\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_CONTINUE], this));\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_RETRY], this));\n\tgoals = NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_BEACH_GOALS], this);\n\tAdd(goals);\n\ttip = NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_TIP], this);\n\tAdd(tip);\n\toptions = NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_OPTIONS], this);\n\tAdd(options);\n\ttrickbook = NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_TRICKBOOK], this);\n\tAdd(trickbook);\n\tif (g_game_ptr->get_game_mode() == GAME_MODE_FREESURF_INFINITE)\n\t\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_BEACH_SELECT], this));\n\telse\n\t\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_END_RUN], this));\n\treturnFE = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_RETURN_FE], this);\n\tAdd(returnFE);\n\tscale_high = 1.0f;\n\n\t// to avoid showing Beach Goals option on freesurf\n\tflags |= FEMENU_WRAP | FEMENU_DONT_SHOW_DISABLED;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__14PauseMenuClassP12FEMenuSystemiiG7color32N24"
+}
