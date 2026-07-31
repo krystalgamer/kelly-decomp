@@ -1,43 +1,39 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef INTERFACE_H
+#define INTERFACE_H
 
+class widget {
+    char widget_data[0x140];
 
-#if defined(KELLY_DECOMP_FUNCTION_002B8BF0)
-// 0x002B8BF0 _$_16interface_widget
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6widget");
-extern const char base_vtable[];
-__asm__(".equ _$_6widget, 0x0033DC68");
-__asm__(".equ base_vtable, 0x004EB160");
-struct object_layout { char padding[0x140]; const void *vtable; };
-extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_16interface_widget");
-void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = base_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-#if defined(KELLY_DECOMP_FUNCTION_002B8BA0)
-#include "KS/SRC/rtti.h"
-#include "KS/SRC/interface_shared.h"
+public:
+    virtual ~widget();
+    virtual void show();
+    virtual void hide();
+    virtual void ignore_parent();
+    virtual void obey_parent();
+    virtual void ignore_parent_showing();
+    virtual void obey_parent_showing();
+    virtual void frame_advance(float time_inc);
+    virtual void render();
+};
 
-extern "C" void **interface_widget_base_rtti() __asm__("__tf6widget");
-extern "C" void *interface_widget_type[] __asm__("__ti16interface_widget");
-extern "C" const char interface_widget_name[];
-extern "C" void *interface_widget_base_type[] __asm__("__ti6widget");
+class bitmap_widget : public widget {
+};
 
-__asm__(".equ __tf6widget, 0x003602B8");
-__asm__(".equ __ti16interface_widget, 0x005A3E10");
-__asm__(".equ interface_widget_name, 0x004FE550");
-__asm__(".equ __ti6widget, 0x00512148");
+class status_widget;
 
-// 0x002B8BA0 __tf16interface_widget
-extern "C" void **interface_widget_rtti()
-    __asm__("__tf16interface_widget");
-void **interface_widget_rtti()
-{
-    if (!interface_widget_type[0]) {
-        interface_widget_base_rtti();
-        __rtti_si(
-            interface_widget_type,
-            interface_widget_name,
-            interface_widget_base_type
-        );
-    }
-    return interface_widget_type;
-}
+class interface_widget : public widget {
+protected:
+    bitmap_widget* cur_reticle;
+    status_widget* my_status_widget;
+
+public:
+    virtual ~interface_widget();
+    virtual void show();
+    virtual void frame_advance(float time_inc);
+    virtual void render();
+};
+
+__asm__(".equ show__6widget, 0x0033DDD0");
+__asm__(".equ render__6widget, 0x0033E128");
+
 #endif

@@ -1,12 +1,8 @@
-// Matching decompilation blocks selected by generated build shims.
+// interface_widget definitions extracted by generated one-function shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_00288A80) || \
-    defined(KELLY_DECOMP_FUNCTION_00288B08)
-#include "KS/SRC/interface_shared.h"
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00288B08)
 // 0x00288B08 render__16interface_widget
+#include "KS/SRC/interface.h"
+
 void interface_widget::render()
 {
     if (cur_reticle)
@@ -15,14 +11,12 @@ void interface_widget::render()
     widget::render();
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00288A80)
 // 0x00288A80 show__16interface_widget
-void interface_widget::show() { widget::show(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+#include "KS/SRC/interface.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_00288AA0)
+void interface_widget::show() { widget::show(); KELLY_DECOMP_COMPILER_BARRIER(); }
+
 // 0x00288AA0 frame_advance__16interface_widgetf
 extern "C" void frame_widget(void *, float) __asm__("frame_advance__6widgetf");
 __asm__(".equ frame_advance__6widgetf,0x0033DF70");
@@ -48,4 +42,3 @@ void interface_widget::frame_advance(float dt)
     frame_widget(this, dt);
     __asm__ __volatile__("" : : : "memory");
 }
-#endif
