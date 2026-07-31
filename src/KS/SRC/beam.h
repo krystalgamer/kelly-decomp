@@ -8,6 +8,7 @@
 
 class material;
 class beam;
+class beam_effect;
 
 template <class T>
 class instance_bank {

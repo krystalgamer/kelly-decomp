@@ -33,7 +33,7 @@ class kellyslater_controller {
     // canonicalized.
     char data_to_state[0x30];
     int state;
-    char data_to_super_state[4];
+    int last_state;
     int super_state;
     char data_to_score_manager[0x10BC];
     ScoringManagerStorage my_scoreManager;
@@ -103,6 +103,10 @@ public:
         float bank_velocity,
         float bank);
     void reset_state();
+    inline void set_state(int value) {
+        last_state = state;
+        state = value;
+    }
     void SetPlayerCamera(game_camera *camera);
     void start_secondary_cam(camera *current_camera);
     void end_secondary_cam();

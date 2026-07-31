@@ -36,6 +36,10 @@ public:
 
 class ScoringManager {
 public:
+    enum {
+        TRICK_NUM = 95
+    };
+
     struct LevelTrick {
         int numLandings;
     };
@@ -66,6 +70,17 @@ public:
         int flags;
         bool HasGap(int gapIdx) const;
     };
+
+private:
+    int score;
+    void *ksctrl;
+    int playerIdx;
+    void *specialMeter;
+    void *eventRecipientVtable;
+    LevelTrick levelTricks[TRICK_NUM];
+
+public:
+    int GetNumTrickLandings() const;
 };
 
 #endif

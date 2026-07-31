@@ -134,6 +134,7 @@ IMPLEMENTATION_OVERRIDES = {
         "KS/SRC/HWOSPS2/ps2_input_methods.cpp",
     "KS/SRC/ks/CheatFrontEnd.h": "KS/SRC/ks/CheatFrontEnd_methods.cpp",
     "KS/SRC/ks/career.h": "KS/SRC/ks/career.cpp",
+    "KS/SRC/ks/challenge_icon.h": "KS/SRC/ks/challenge_icon.cpp",
     "KS/SRC/ks/SaveLoadFrontEnd.h":
         "KS/SRC/ks/SaveLoadFrontEnd_methods.cpp",
     "KS/SRC/ks/SurferFrontEnd.h":

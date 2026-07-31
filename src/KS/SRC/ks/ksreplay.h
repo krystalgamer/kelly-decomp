@@ -52,6 +52,7 @@ public:
     float Playspeed();
     void Tick(bool running, float time_inc);
     void Pause(bool paused);
+    void Stop();
     void SaveFile(char *filename);
     bool IsPlaying();
     void SetWipeoutSplash(int player);
