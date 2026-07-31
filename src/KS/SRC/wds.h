@@ -2,6 +2,7 @@
 #define WDS_H
 
 class entity;
+class entity_anim_tree;
 class entity_maker;
 class entity_id;
 class ett_manager;
@@ -53,6 +54,7 @@ public:
         particle_generator *generator);
     void render_kelly_slater_stuff(int hero_index);
     void process_kelly_slater_stuff();
+    void kill_anim(entity_anim_tree *animation);
 };
 
 class entity_maker {
