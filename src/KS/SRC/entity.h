@@ -2,7 +2,7 @@
 #define ENTITY_H
 
 #include "KS/SRC/animation_interface.h"
-#include "KS/SRC/bone_shared.h"
+#include "KS/SRC/bone.h"
 #include "KS/SRC/frame_info.h"
 #include "KS/SRC/hard_attrib_interface.h"
 #include "KS/SRC/physical_interface.h"
