@@ -1,0 +1,15 @@
+{
+  "address": "0x001BAC18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "df7ac6dc233dda436da256a11d5e487e7bb60418",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/ExtrasFrontEnd.h\"\n\nvoid ExtrasFrontEnd::PlayMovie(int sbt)\n{\n\tstringx tmp;\n\tswitch(sbt)\n\t{\n\tcase 0:\n    // Play short movie if long movie hasn't been unlocked \n    if(unlockManager.isSurferMovieUnlocked(surfers->highlighted->entry_num))\n      tmp = stringx(\"SURFERS\\\\MOVIE_\")+SurferDataArray[surfers->highlighted->entry_num].abbr;\n    else\n      tmp = stringx(\"SURFERS\\\\SHORT_\")+SurferDataArray[surfers->highlighted->entry_num].abbr;\n    break;\n\tcase 1: tmp = stringx(\"BEACHES\\\\\")+BeachDataArray[beaches->highlighted->entry_num].stashfile; break;\n\tcase 2:\n    if(trailers->highlighted->entry_num == 0)\n      tmp = stringx(\"KSINTRO\");\n    else if(trailers->highlighted->entry_num == 1)\n      tmp = stringx(\"DROWNING\");\n    else if(trailers->highlighted->entry_num == 2)\n      tmp = stringx(\"ESPN\");\n    else\n      return;\n    break;\n\tdefault: return;\n\t}\n\n\t// play special surfer movie\n\tmanager->gms->killMovie();\n\tif(!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n\t{      \n\t\tMusicMan::inst()->stop();\n\t\tMusicMan::inst()->pause();\n\t}\n\tmanager->extras_movie = true;\n\tswitch(sbt)\n\t{\n\tcase 0: manager->extras_movie_sub_sub = surfers->highlighted->entry_num; break;\n\tcase 1: manager->extras_movie_sub_sub = beaches->highlighted->entry_num; break;\n\tcase 2: manager->extras_movie_sub_sub = trailers->highlighted->entry_num; break;\n\tdefault: return;\n  }\n  manager->extras_movie_sub = highlighted->entry_num;\n\n\n#if defined(TARGET_GC)\n\tif(!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n\t{\n\t\tmemcpy(&g_career->cfg, StoredConfigData::inst()->getGameConfig(), sizeof(ksConfigData));\n\t\tnslShutdown( );\n\t}\n\n\tg_game_ptr->play_movie( tmp.c_str( ), true );\n\n\tif(!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n\t{\n\t\tif (!nslInit())\n\t\t{\n#if defined(TARGET_XBOX) && defined(BUILD_FINAL)\n\t\t\t// Xbox requires a message on all disk read failures.  (dc 07/11/02)\n\t\t\tdisk_read_error();\n#endif\n\t\t}\n\t\tnslSetRootDir( \"SOUNDS\" );\n\t\tnslReset( \"FRONTEND\", NSL_LANGUAGE_ENGLISH );\n\t\tStoredConfigData::inst()->setGameConfig(&(g_career->cfg));\n\t}\n#elif defined(TARGET_PS2)\n\tmanager->gms->PrepareToExit(true);\n\tg_game_ptr->set_movie(tmp);\n\t\n#else\n\tg_game_ptr->play_movie(tmp.data(),true);\n#endif\n\t\n\tif(!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))\n\t{\n\t\tMusicMan::inst()->loadSources();\n\t\tMusicMan::inst()->unpause();\n\t\tMusicMan::inst()->playNext();\n\t}\n\tmanager->gms->restartMovie();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "PlayMovie__14ExtrasFrontEndi"
+}
