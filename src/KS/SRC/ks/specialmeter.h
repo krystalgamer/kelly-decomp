@@ -1,10 +1,7 @@
 #ifndef KELLY_DECOMP_SPECIALMETER_H
 #define KELLY_DECOMP_SPECIALMETER_H
 
-class EventRecipient {
-public:
-    virtual ~EventRecipient();
-};
+#include "KS/SRC/ks/eventmanager.h"
 
 class SpecialMeter : public EventRecipient {
 private:
