@@ -1,11 +1,15 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+#include "KS/SRC/animation_interface.h"
 #include "KS/SRC/bone_shared.h"
-#include "KS/SRC/entity_interfaces_shared.h"
 #include "KS/SRC/frame_info.h"
 #include "KS/SRC/hard_attrib_interface.h"
+#include "KS/SRC/physical_interface.h"
 #include "KS/SRC/po_shared.h"
+#include "KS/SRC/render_interface.h"
+#include "KS/SRC/skeleton_interface.h"
+#include "KS/SRC/soft_attrib_interface.h"
 #include "KS/SRC/stringx.h"
 #include "KS/SRC/time_interface.h"
 #include "KS/SRC/vector3d_shared.h"
