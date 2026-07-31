@@ -1,0 +1,15 @@
+{
+  "address": "0x00125B60",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4d3c66e967878e34964549703c33d57f94a3c3e3",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/physical_interface.h\"\n\nbool physical_interface::get_ifc_num(const pstring &att, rational_t &val)\n{\n  IFC_INTERNAL_GET_MACRO(\"MASS\", mass);\n  IFC_INTERNAL_GET_MACRO(\"VOLUME\", volume);\n  IFC_INTERNAL_GET_MACRO(\"SLIDE_FACTOR\", slide_factor);\n  IFC_INTERNAL_GET_MACRO(\"BOUNCE_FACTOR\", bounce_factor);\n  IFC_INTERNAL_GET_MACRO(\"STICKY_OFFSET\", sticky_offset);\n\n  IFC_INTERNAL_GET_MACRO(\"BOUNCY\", is_bouncy());\n  IFC_INTERNAL_GET_MACRO(\"STICKY\", is_sticky());\n  IFC_INTERNAL_GET_MACRO(\"ENABLED\", is_enabled());\n  IFC_INTERNAL_GET_MACRO(\"SUSPENDED\", is_suspended());\n  IFC_INTERNAL_GET_MACRO(\"GRAVITY\", is_gravity());\n  IFC_INTERNAL_GET_MACRO(\"GRAVITY_MULTIPLIER\", get_gravity_multiplier());\n  IFC_INTERNAL_GET_MACRO(\"HAS_BOUNCED\", has_bounced());\n  IFC_INTERNAL_GET_MACRO(\"IS_STUCK\", is_stuck());\n  IFC_INTERNAL_GET_MACRO(\"STICKY_ORIENT\", is_sticky_orient());\n\n  return(false);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "get_ifc_num__18physical_interfaceRC7pstringRf"
+}
