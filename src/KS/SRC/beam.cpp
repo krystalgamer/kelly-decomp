@@ -1,8 +1,7 @@
-// Matching decompilation blocks selected by generated build shims.
+// beam definitions extracted by generated one-function shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_00271748)
-#include "KS/SRC/beam_shared.h"
 // 0x00271748 release__4beam
+#include "KS/SRC/beam.h"
 void beam::release()
 {
     entity::release();
@@ -13,11 +12,9 @@ void beam::release()
         my_material = 0;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002721F8)
-#include "KS/SRC/beam_shared.h"
 // 0x002721F8 render_passes_needed__C4beam
+#include "KS/SRC/beam.h"
 render_flavor_t beam::render_passes_needed() const
 {
     render_flavor_t passes = entity::render_passes_needed();
@@ -25,9 +22,7 @@ render_flavor_t beam::render_passes_needed() const
         passes |= RENDER_TRANSLUCENT_PORTION;
     return passes;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00271790)
 // 0x00271790 set_thickness__4beamf
 class beam {
     char padding[0x200];
@@ -39,9 +34,7 @@ public:
 void beam::set_thickness(float value) {
     thickness = value;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00271798)
 // 0x00271798 set_max_length__4beamf
 class beam {
     char padding[0x204];
@@ -53,9 +46,7 @@ public:
 void beam::set_max_length(float value) {
     max_length = value;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002717A0)
 // 0x002717A0 set_beam_color__4beamRC7color32
 class color32 {
 public:
@@ -72,9 +63,7 @@ public:
 void beam::set_beam_color(const color32& value) {
     my_color = value;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002721E8)
 // 0x002721E8 set_texture__4beamRC7stringx
 class stringx;
 
@@ -85,9 +74,7 @@ public:
 
 void beam::set_texture(const stringx& file) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002721F0)
 // 0x002721F0 frame_advance__4beamf
 class beam {
 public:
@@ -96,9 +83,7 @@ public:
 
 void beam::frame_advance(float time) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00272240)
 // 0x00272240 render__4beamP6camerafUif
 class camera;
 
@@ -109,9 +94,7 @@ public:
 
 void beam::render(camera* camera_link, float detail, unsigned int flavor, float entity_translucency_pct) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00272670)
 // 0x00272670 set_visible__4beamb
 class beam {
 public:
@@ -120,9 +103,7 @@ public:
 
 void beam::set_visible(bool visible) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002727B0)
 // 0x002727B0 get_signal_name__C4beamUs
 __asm__(".equ signal_names, 0x00431870");
 __asm__(".equ get_signal_name__C6entityUs, 0x0012F728");
@@ -161,9 +142,7 @@ const char* beam::get_signal_name( unsigned short idx ) const
   else
     return entity::get_signal_name( idx );
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00274768)
 // 0x00274768 compute_sector__4beamR7terrainb
 class terrain;
 
@@ -174,9 +153,7 @@ public:
 
 void beam::compute_sector(terrain& value, bool use_high_res_intersect) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00272DE8)
 // 0x00272DE8 set_active__11beam_effect
 class beam_effect {
     char padding[0xa];
@@ -193,9 +170,7 @@ void beam_effect::set_active() {
         mode = -2;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00272E18)
 // 0x00272E18 set_delaying__11beam_effect
 class beam_effect {
     char padding[0xa];
@@ -212,9 +187,7 @@ void beam_effect::set_delaying() {
         mode = -1;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002727F8)
 // 0x002727F8 __11beam_effectP4beam
 class beam;
 class beam_effect_type;
@@ -243,15 +216,12 @@ beam_effect::beam_effect(beam *the_beam)
     effect = 0;
     id = (unsigned short)-1;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00272888)
 // 0x00272888 dump__11beam_effect
 class beam_effect_type { public: virtual ~beam_effect_type(); };
 class beam_effect { public: char pad[4]; beam_effect_type *effect; void dump(); };
 void beam_effect::dump() { if(effect != 0) { delete effect; effect = 0; } }
-#endif
-#if defined(KELLY_DECOMP_FUNCTION_00272838)
+// 0x00272838 _$_11beam_effect
 extern "C" void BeamEffectDump(void *self) __asm__("dump__11beam_effect");
 extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
 extern const char beam_effect_vtable[];
@@ -265,7 +235,6 @@ struct BeamEffectLayout {
     const void *vtable;
 };
 
-// 0x00272838 _$_11beam_effect
 extern "C" void BeamEffectDtor(void *self, int deleting)
     __asm__("_$_11beam_effect");
 void BeamEffectDtor(void *self, int deleting)
@@ -278,9 +247,7 @@ void BeamEffectDtor(void *self, int deleting)
         KELLY_DECOMP_COMPILER_BARRIER();
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002711F0)
 // 0x002711F0 _$_4beam
 struct material;
 
@@ -355,9 +322,7 @@ void destroy_beam(beam_layout *self, int deleting)
     destroy_entity(self, deleting);
     __asm__ volatile("" : : : "memory");
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00272E48)
 // 0x00272E48 kill__11beam_effectb
 class beam;
 
@@ -398,22 +363,15 @@ void beam_effect::kill(bool apply_target_vals)
         effect->apply_target_vals(my_beam);
     mode = EFFECT_DEAD;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00272608)
 // 0x00272608 kill_all_effects__4beamb
 struct effect_vtable { char padding[72]; short adjustment; short reserved; void(*kill)(void*,bool); }; struct beam_effect { char padding[24]; effect_vtable*vtable; }; struct beam_layout { char padding[524]; beam_effect**begin; beam_effect**end; };
 extern "C" void kill_all(beam_layout*self,bool apply) __asm__("kill_all_effects__4beamb");
 void kill_all(beam_layout*self,bool apply)
 {beam_effect**i=self->begin;beam_effect**end=self->end;for(;i!=end;++i){beam_effect*effect=*i;if(effect){effect_vtable*t=effect->vtable;t->kill((char*)effect+t->adjustment,apply);}}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00272708)
 // 0x00272708 get_signal_id__4beamPCc
 extern const char*signal_names[2];extern "C" unsigned strlen(const char*);extern "C" int strcmp(const char*,const char*);extern "C" unsigned short entity_get(const char*)__asm__("get_signal_id__6entityPCc");asm(".equ signal_names,0x00431870");asm(".equ strlen,0x003D40E0");asm(".equ strcmp,0x003D3E88");asm(".equ get_signal_id__6entityPCc,0x0012F0E0");class beam{public:static unsigned short get_signal_id(const char*);};unsigned short beam::get_signal_id(const char*name){unsigned idx;for(idx=0;idx<2;idx++){int offset=strlen(signal_names[idx])-strlen(name);if(offset>(int)strlen(signal_names[idx]))continue;if(!strcmp(name,&signal_names[idx][offset]))return idx+27;}return entity_get(name);}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00272EA0)
 // 0x00272EA0 make_instance__11beam_effectP4beam
 struct beam{};struct effect_vtable{char padding[48];short adjustment;short reserved;void*(*make_instance)(void*);};struct effect_type{effect_vtable*vtable;};struct beam_effect{beam*my_beam;effect_type*effect;unsigned short id;char mode;char pad;float timer,loop_delay,duration;beam_effect*make_instance(beam*);};extern "C" void*opnew(unsigned,unsigned,const char*,int)__asm__("__nw__FUiUiPCci");extern "C" beam_effect*construct(beam_effect*,beam*)__asm__("__11beam_effectP4beam");extern const char file_name[];asm(".equ __nw__FUiUiPCci,0x002AC578");asm(".equ __11beam_effectP4beam,0x002727F8");asm(".equ file_name,0x004E5E48");beam_effect*beam_effect::make_instance(beam*the_beam){beam_effect*eff=construct((beam_effect*)opnew(28,0,file_name,0),the_beam);if(effect){effect_vtable*v=effect->vtable;eff->effect=(effect_type*)v->make_instance((char*)effect+v->adjustment);}else eff->effect=0;eff->id=id;eff->mode=mode;eff->timer=timer;eff->loop_delay=loop_delay;eff->duration=duration;return eff;}
-#endif

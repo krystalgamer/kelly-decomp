@@ -26,7 +26,7 @@ bool item::is_an_item() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_002B8708)
 #include "KS/SRC/rtti.h"
-#include "KS/SRC/beam_shared.h"
+#include "KS/SRC/beam.h"
 
 extern "C" void **visual_item_base_rtti() __asm__("__tf6entity");
 extern "C" void *visual_item_type[] __asm__("__ti11visual_item");

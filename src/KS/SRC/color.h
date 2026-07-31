@@ -33,6 +33,15 @@ public:
         channels.r = red;
         channels.a = alpha;
     }
+
+    inline unsigned char get_red() const { return channels.r; }
+    inline unsigned char get_green() const { return channels.g; }
+    inline unsigned char get_blue() const { return channels.b; }
+    inline unsigned char get_alpha() const { return channels.a; }
+    inline void set_red(unsigned char value) { channels.r = value; }
+    inline void set_green(unsigned char value) { channels.g = value; }
+    inline void set_blue(unsigned char value) { channels.b = value; }
+    inline void set_alpha(unsigned char value) { channels.a = value; }
 };
 
 class color {

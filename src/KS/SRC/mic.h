@@ -10,7 +10,7 @@ void MicDtor(void *self) { EntityDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 #endif
 #if defined(KELLY_DECOMP_FUNCTION_002B8500)
 #include "KS/SRC/rtti.h"
-#include "KS/SRC/beam_shared.h"
+#include "KS/SRC/beam.h"
 
 extern "C" void **mic_base_rtti() __asm__("__tf6entity");
 extern "C" void *mic_type[] __asm__("__ti3mic");

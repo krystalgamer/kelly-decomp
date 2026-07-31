@@ -581,6 +581,7 @@ public:
     virtual bool is_alive() const;
     virtual bool is_dying() const;
     virtual bool possibly_aging() const;
+    void release();
     item *find_like_item(item *target) const;
     static void exec_preload_function(const stringx &script);
     void set_door(bool door);
