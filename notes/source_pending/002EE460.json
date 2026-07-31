@@ -1,0 +1,15 @@
+{
+  "address": "0x002EE460",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5ada60c3e28a61bb2e6ded9fb83f0bde73600a47",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/camera_tool.h\"\n\nvoid Read_Camera_List(void)\n{\n\n\t//printf(\"Hello I'm Read_Camera_List() and my memory allocation leaks\\n\");\n\t//printf(\"Hi Read_Camera_List()\\n\");\n\n\t// there is no ReleaseFile to match the following ReadFile\n\n\t#if 0\n\tioFileBuf File;\n\tif (mReadFile(\"camera_list.csv\", &File))\n\t#else\n\tnglFileBuf File;\n\tif (KSReadFile(\"camera_list.csv\", &File, 1))\n\t#endif\n\t{\n\t\tint n = 0;\n\t\tchar *s, *p = (char *) File.Buf;\n\t\ts = p;\n\t\twhile ((*p != ',') && (*p != '\\n') && (*p != '\\r'))  //  until semicolon, carriage return, or line feed\n\t\t{\n\t\t\tp++;\n\t\t\tn++;\n\t\t}\n\n\t\tint num_cams = 0;\n\t\tfor (int num = 0; num < n; num++, s++)\n\t\t{\n\t\t\tnum_cams += ((int)pow(10, n - num - 1))*(*s - '0');\n\t\t}\n\n\t\tif (num_cams <= 0)\n\t\t\treturn;\n\n\t\tCameraList->create_camera_list(num_cams);\n\n\t\tp++;\n\t\twhile ((*p == '\\n') || (*p == '\\r'))\n\t\t{\n\t\t\tp++;\n\t\t}\n\n\t\tfor (int cams = 0; cams < num_cams; cams++)\n\t\t{\n\t\t\tn = 0;\n\t\t\ts = p;\n\t\t\twhile (*p != ',')\n\t\t\t{\n\t\t\t\tp++;\n\t\t\t\tn++;\n\t\t\t}\n\n\t\t\tCameraList->CreateName(cams, n+1);\n\t\t\tfor (int i = 0; i < n; i++)\n\t\t\t{\n\t\t\t\t*(CameraList->GetName(cams) + i) = *s;\n\t\t\t\ts++;\n\t\t\t}\n\n\t\t\t*(CameraList->GetName(cams) + n) = 0;\n\t\t\tp++;\n\n\t\t\tCameraList->create_camera(cams, CameraList->GetName(cams));\n\n\t\t\ts = p;\n\t\t\tfloat x[] = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };\n\t\t\tfor (int i = 0; i < 6; i++, s = p)\n\t\t\t{\n\t\t\t\tn = 0;\n\t\t\t\tfloat pos = 1.0f;\n\t\t\t\tif (*s == '-')\n\t\t\t\t{\n\t\t\t\t\tpos = -1.0f;\n\t\t\t\t\ts++;\n\t\t\t\t\tp++;\n\t\t\t\t}\n\n\t\t\t\tbool decimal = false;\t// was uninitialized (dc 01/29/02)\n\t\t\t\tint dec_place = -1;\t// was uninitialized (dc 01/29/02)\n\t\t\t\twhile (*p != ',')\n\t\t\t\t{\n\t\t\t\t\tif (*p == '.')\n\t\t\t\t\t{\n\t\t\t\t\t\tdecimal = true;\n\t\t\t\t\t\tdec_place = n;\n\t\t\t\t\t}\n\t\t\t\t\tn++;\n\t\t\t\t\tp++;\n\t\t\t\t}\n\n\t\t\t\tfor (int num = 0; num < n; num++, s++)\n\t\t\t\t{\n\t\t\t\t\tif (decimal && (num == dec_place))\n\t\t\t\t\t\tcontinue;\n\t\t\t\t\telse if (!decimal || (num < dec_place))\n\t\t\t\t\t\tx[i] += pow(10.0f, (decimal?dec_place:n) - num - 1)*(*s - '0');\n\t\t\t\t\telse\n\t\t\t\t\t\tx[i] += pow(0.1f, num - dec_place)*(*s - '0');\n\t\t\t\t}\n\t\t\t\tx[i] *= pos;\n\t\t\t\tp++;\n\t\t\t}\n\n\t\t\twhile ((*p == '\\n') || (*p == '\\r'))\n\t\t\t{\n\t\t\t\tp++;\n\t\t\t}\n\t\t}\n\t\tKSReleaseFile(&File);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Read_Camera_List__Fv"
+}
