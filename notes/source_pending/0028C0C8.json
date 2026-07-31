@@ -1,0 +1,15 @@
+{
+  "address": "0x0028C0C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "fd8a5781cd1230a8e781cd7c5738ad725ae5da95",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/marker.h\"\n\nbool rectangle_marker::parse_instance( const stringx& pcf, chunk_file& fs )\n{\n  if ( pcf == stringx(\"rect_mkr\") )\n  {\n    stringx cf;\n    for ( serial_in(fs,&cf); cf!=chunkend_label; serial_in(fs,&cf) )\n    {\n      if ( cf == stringx(\"z_rad\") )\n      {\n        serial_in( fs, &z_rad );\n        z_rad = __fabs(z_rad);\n      }\n      else if ( cf == stringx(\"x_rad\") )\n      {\n        serial_in( fs, &x_rad );\n        x_rad = __fabs(x_rad);\n      }\n      else\n      {\n        error( get_id().get_val() + \": rectangle_marker::parse_instance(): bad keyword '\" + cf.c_str() + \"'\");\n        return(false);\n      }\n    }\n\n    return(true);\n  }\n  else\n    return(marker::parse_instance( pcf, fs ));\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "parse_instance__16rectangle_markerRC7stringxR10chunk_file"
+}
