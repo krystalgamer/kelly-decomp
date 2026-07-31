@@ -1,0 +1,15 @@
+{
+  "address": "0x001AE620",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ffa062703a91569f0521f4b30a1620f299da2de6",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FrontEndMenus.h\"\n\nvoid PauseMenuClass::OnUp(int c)\n{\n\tSoundScriptManager::inst()->unpause();\n\tif (hasPrevious(this))\n\t\tsys->navigationEvent=  SoundScriptManager::inst()->playEvent(SS_FE_UPDOWN);\n\telse\n\t\tsys->navigationEvent=  SoundScriptManager::inst()->playEvent(SS_FE_ERROR);\n\tSoundScriptManager::inst()->pause();\n\n\tFEMenu::OnUp(c);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "OnUp__17PlaylistMenuClassi"
+}
