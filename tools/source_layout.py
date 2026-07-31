@@ -94,6 +94,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/ksdbmenu.h": "KS/SRC/ks/ksdbmenu_methods.cpp",
     "KS/SRC/ks/ksreplay.h": "KS/SRC/ks/ksreplay_methods.cpp",
     "KS/SRC/ks/MainFrontEnd.h": "KS/SRC/ks/MainFrontEnd_methods.cpp",
+    "KS/SRC/ks/MCDetectFrontEnd.h": "KS/SRC/ks/MCDetectFrontEnd_rtti.cpp",
     "KS/SRC/ks/kellyslater_controller.h":
         "KS/SRC/ks/kellyslater_controller_methods.cpp",
     "KS/SRC/ks/menu.h": "KS/SRC/ks/menu_methods.cpp",
