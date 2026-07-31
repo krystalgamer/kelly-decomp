@@ -1,0 +1,15 @@
+{
+  "address": "0x00115918",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1896641d56e1fe6cca9045f42f8f2e94cf4e4153",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/entity_anim.h\"\n\nbool ett_manager::load(const stringx& filename)\n{\n  filespec spec( filename );\n  spec.ext = entity_track_tree::binary_extension();\n  spec.name.to_upper();\n   \n  ett_map_itr_t itr = ett_map.find( spec.name );\n  \n  if( itr != ett_map.end() )\n    return true;\n    \n\n  ett_node node;\n\n  node.ref = 0;\n  node.ett = NULL;  \n\n  if( stash::using_stash() )\n  {\n    stash anim_file;\n\n    pstring pname( spec.name + spec.ext );\n    stash_index_entry *anim_header = NULL;\n\n    unsigned char *temp_ptr;\n    int size;\n    bool b = anim_file.get_memory_image( pname, temp_ptr, size, anim_header );\n    node.ett = (entity_track_tree *) temp_ptr;\n    node.size = size;\n\n    if( b )\n    {\n#ifdef TARGET_GC\n      if( anim_header->in_aram() )\n      {\n        node.offset = (unsigned int) node.ett;\n        node.aram_id = anim_file.get_current_aram_id();\n        node.ett = NULL;\n        node.stored = false;\n      }\n      else\n#endif //TARGET_GC\n      {\n        node.stored = true;\n        node.offset = 0;\n        node.aram_id = INVALID_ARAM_ID;\n        entity_track_tree_from_binary( node.ett, spec.name.c_str() );\n      }\n      ett_map.insert( ett_map_t::value_type( spec.name, node ) );\n#ifdef ETT_BOOKKEEPING\n      debug_print( \"Loaded anim %s. offs=0x%08X, id = %d, ett = 0x%08X, stored = %d\",\n          spec.name.c_str(), node.offset, (uint32)node.aram_id, node.ett, (int)node.stored );\n#endif\n      return true;\n    }\n  }\n  else\n  {\n    stringx name = spec.fullname();\n    if( os_file::file_exists( name ) )\n\t\t{\n      os_file anim_file( name, os_file::FILE_READ );\n      int size = anim_file.get_size( );\n      ett_node node;\n      \n      node.ett = (entity_track_tree*) malloc( size );\n\n\t  assert( node.ett != NULL );\n\n      if( anim_file.read( (unsigned char*) node.ett, size ) != size )\n\t\t\t{\n        error( \"ANMX read failed for '%s'\", name.c_str( ) );\n        free( node.ett );\n        return false;\n      }\n\n      entity_track_tree_from_binary( node.ett, name.c_str( ) );\n      node.ref = 0;\n      node.stored = false;\n      node.offset = 0;\n      node.aram_id = INVALID_ARAM_ID;\n\n      ett_map.insert( ett_map_t::value_type( spec.name, node ) );\n      return true;\n    }\n  }\n#ifndef USER_MKV\n  debug_print( \"couldn't get memory image for animation file '%s'\", spec.name.c_str() );\n#endif\n  return false;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "load__11ett_managerRC7stringx"
+}
