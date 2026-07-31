@@ -1,0 +1,23 @@
+{
+  "address": "0x0033A838",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f7d42d8c283835d618c79aadec4804f07ab4678f",
+      "candidate_size": 1236,
+      "compared_bytes": 1244,
+      "compared_instructions": 311,
+      "emitted_name": "getColor__4FontcR7color32",
+      "instruction_score": 4.5016,
+      "matching_bytes": 388,
+      "matching_instructions": 14,
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 31.1897,
+      "source": "#include \"KS/SRC/text_font.h\"\n\nvoid Font::getColor(const char c, color32 & col)\n{\n\t// only return alpha=0 for failed or no color cases, because render()\n\t// will assume that the function failed and draw with the original color\n\n\t// NOTE: These color codes are really only needed when you want\n\t// a single TextString object to have multiple colors.\n\t// If the TextString is going to be all one color, just set the color parameter in its constructor.\n\tswitch (c)\n\t{\n\tcase 'r' : col = color32(255, 0, 0, col.c.a); break;\t\t// Red\n\tcase 'g' : col = color32(149, 251, 149, col.c.a); break;\t\t// Green\n\tcase 'u' : col = color32(0, 0, 255, col.c.a); break;\t\t// blUe\n\tcase 'a' : col = color32(0, 0, 0, col.c.a); break;\t\t\t// blAck\n\tcase 'w' : col = color32(255, 255, 255, col.c.a); break;\t// White\n\tcase 'y' : col = color32(255, 255, 0, col.c.a); break;\t\t// Yellow\n\tcase 'o' : col = color32(255, 127, 0, col.c.a); break;\t\t// Orange\n\n\tcase '0' : col = color32(255, 150, 0, col.c.a); break;\t\t// Gap tricks\n\n\t//case '1' : col = color32(255, 255, 127, col.c.a); break;\t// High danger tricks\n\tcase '1' : col = color32(255, 255, 102, col.c.a); break;\t// High danger tricks\n\t//case '2' : col = color32(255, 255, 255, col.c.a); break;\t// Med danger tricks\n\tcase '2' : col = color32(255, 255, 255, col.c.a); break;\t// Med danger tricks\n\t//case '3' : col = color32(140, 140, 140, col.c.a); break;\t// Low danger tricks\n\tcase '3' : col = color32(153, 163, 171, col.c.a); break;\t// Low danger tricks\n\n\tcase '4' : col = color32(2, 162, 255, col.c.a); break;\t\t// Sick meter low tricks\n\tcase '5' : col = color32(0, 216, 120, col.c.a); break;\t\t// Sick meter med tricks\n\tcase '6' : col = color32(236, 206, 74, col.c.a); break;\t\t// Sick meter high tricks\n\tcase '7' : col = color32(231, 101, 26, col.c.a); break;\t\t// Sick meter extreme tricks\n\n\tcase '8' : col = color32(255, 255, 102, col.c.a); break;\t// Statistics screen: info color\n\tcase '9' : col = color32(149, 251, 149, col.c.a); break;\t// Statistics screen: standard color\n\n\tcase 'B' : col = color32(10, 71, 102, col.c.a); break;\t\t// Bio color regular (blue)\n\tcase 'R' : col = color32(150, 0, 24, col.c.a); break;\t\t// Bio color highlight (red)\n\tcase 'G' : col = color32(149, 251, 149, col.c.a); break;\t\t// Description title color (green)\n\tcase 'W' : col = color32(255, 255, 255, col.c.a); break;\t// Description color (white)\n\n\tcase 'n' : col = color32(0, 0, 0, col.c.a); break;\t\t\t// No color\n\n\tcase 1   : col = color32(col.c.r, col.c.g, col.c.b, 255); break;\t// full alpha\n\tcase 2   : col = color32(col.c.r, col.c.g, col.c.b, 127); break;\t// half alpha\n\tcase 3   : col = color32(col.c.r, col.c.g, col.c.b, 63); break;\t\t// 1/4th alpha\n\tcase 4   : col = color32(col.c.r, col.c.g, col.c.b, 33); break;\t\t// 1/8th alpha\n\n\tdefault : col = color32(255, 255, 255, 255);\n\t}\n}\n",
+      "status": "different",
+      "target_size": 1244
+    }
+  ],
+  "raw_name": "getColor__4FontcR7color32"
+}
