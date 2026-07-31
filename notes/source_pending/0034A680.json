@@ -1,0 +1,15 @@
+{
+  "address": "0x0034A680",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "de5387ea92c55a08d5b055c56f242466a53f0a18",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/path.h\"\n\nvoid path_graph_edge::render( camera* camera_link, color32 col, rational_t thickness)\n{\n  assert(nodes[0] != NULL && nodes[1] != NULL);\n\n  render_beam(nodes[0]->pt, nodes[1]->pt, col, thickness);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "render__10path_graphP6cameraG7color32fc"
+}
