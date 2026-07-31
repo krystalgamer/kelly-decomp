@@ -1,0 +1,15 @@
+{
+  "address": "0x0036F040",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "33e6cf9dce7c408f459757dfe25d2d94b4148a91",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "static void WATER_ComputeScaledGrid(void)\n{\n\tu_int xstep, zstep;\n\tfloat xbase, zbase;\n\tconst float xcutlo = WAVE_MeshMinX - WATER_SeamSizeX;\n\tconst float xcuthi = WAVE_MeshMaxX + WATER_SeamSizeX;\n\tconst float zcutlo = WAVE_MeshMinZ - WATER_SeamSizeZ;\n\tconst float zcuthi = WAVE_MeshMaxZ + WATER_SeamSizeZ;\n\n\tif (WATER_MeshMinX > xcutlo)\n\t{\n\t\tWATER_MeshMinX = xcutlo;\n\t}\n\tif (WATER_MeshMaxX < xcuthi)\n\t{\n\t\tWATER_MeshMaxX = xcuthi;\n\t}\n\tif (WATER_MeshMinZ > zcutlo)\n\t{\n\t\tWATER_MeshMinZ = zcutlo;\n\t}\n\tif (WATER_MeshMaxZ < zcuthi)\n\t{\n\t\tWATER_MeshMaxZ = zcuthi;\n\t}\n\n//\tfloat xinc = ((float) WATER_MESH_WIDTH) / WATER_MESHIDEALSTEPX;\n//\tfloat zinc = ((float) WATER_MESH_DEPTH) / WATER_MESHIDEALSTEPZ;\n\n\tfloat xnext, znext;\n\tconst float xlo = WATER_MeshMinX;\n\tconst float xhi = WATER_MeshMaxX;\n\tconst float xmid = (WATER_MeshMinX + WATER_MeshMaxX) / 2;\n\tconst float zlo = WATER_MeshMinZ;\n\tconst float zhi = WATER_MeshMaxZ;\n\tconst float zmid = (WATER_MeshMinZ + WATER_MeshMaxZ) / 2;\n\n\tfloat plo, qlo;\n\tfloat phi, qhi;\n\tfloat pnext, qnext;\n\tfloat p, q;\n\tfloat pinc, qinc;\n\n\t// find the extents of the xz block in screen space.\n\tWATER_XZToScreen(xlo, zmid, plo, qlo);\n\tWATER_XZToScreen(xhi, zmid, phi, qhi);\n\n\tpinc = (phi - plo) / WATER_MESHIDEALSTEPX;\n\tqinc = (qhi - qlo) / WATER_MESHIDEALSTEPX;\n\n\tfor (\n\t\txstep = 0, p = plo, q = qlo, xbase = WATER_MeshMinX;\n\t\txstep <= WATER_MESHIDEALSTEPX;\n\t\t++xstep, p = pnext, q = qnext, xbase = xnext\n\t)\n\t{\n\t\tWATER_MeshGridX[xstep] = xbase;\n\t\tWATER_TextureCoordU(WATER_MeshGridX[xstep], WATER_MeshGridU[xstep]);\n\n\t\t// Find next x\n\t\tpnext = p + pinc;\n\t\tqnext = q + qinc;\n\t\tWATER_ScreenToXZ(pnext, qnext, xnext, znext);\n\t}\n\tWATER_MeshStepX = WATER_MESHIDEALSTEPX;\n\n\t// find the extents of the xz block in screen space.\n\tWATER_XZToScreen(xmid, zlo, plo, qlo);\n\tWATER_XZToScreen(xmid, zhi, phi, qhi);\n\n\tpinc = (phi - plo) / WATER_MESHIDEALSTEPZ;\n\tqinc = (qhi - qlo) / WATER_MESHIDEALSTEPZ;\n\n\tfor (\n\t\tzstep = 0, p = plo, q = qlo, zbase = WATER_MeshMinZ;\n\t\tzstep <= WATER_MESHIDEALSTEPZ;\n\t\t++zstep, p = pnext, q = qnext, zbase = znext\n\t)\n\t{\n\t\tWATER_MeshGridZ[zstep] = zbase;\n\t\tWATER_TextureCoordV(WATER_MeshGridZ[zstep], WATER_MeshGridV[zstep]);\n\n\t\t// Find next z\n\t\tpnext = p + pinc;\n\t\tqnext = q + qinc;\n\t\tWATER_ScreenToXZ(pnext, qnext, xnext, znext);\n\t}\n\tWATER_MeshStepZ = WATER_MESHIDEALSTEPZ;\n\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WATER_ComputeScaledGrid__Fv"
+}
