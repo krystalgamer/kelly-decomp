@@ -29,7 +29,7 @@ bool BoardFrontEnd::IsLevelBoardUnlocked(int location)
 #if defined(KELLY_DECOMP_FUNCTION_001B6F68)
 // 0x001B6F68 OnTriangle__13BoardFrontEndi
 #include "KS/SRC/ks/BoardFrontEnd_shared.h"
-#include "KS/SRC/ks/SoundScript_shared.h"
+#include "KS/SRC/ks/SoundScript.h"
 
 void nslFrameAdvance(float time);
 

@@ -6,7 +6,7 @@
 #include "KS/SRC/ks/FEMenu.h"
 
 #include "KS/SRC/inputmgr_shared.h"
-#include "KS/SRC/ks/SoundScript_shared.h"
+#include "KS/SRC/ks/SoundScript.h"
 
 class OptionsMenu;
 class MultiplayerMenu;

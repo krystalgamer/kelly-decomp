@@ -4,7 +4,7 @@
 #include "KS/SRC/ks/FEMenu.h"
 
 #include "KS/SRC/ks/FrontEndManager_shared.h"
-#include "KS/SRC/ks/SoundScript_shared.h"
+#include "KS/SRC/ks/SoundScript.h"
 
 class MCDetectFrontEnd;
 

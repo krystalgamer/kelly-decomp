@@ -316,7 +316,7 @@ extern void*surf_vtable;__asm__(".equ surf_vtable,0x004D5F30");extern "C" void d
 #if defined(KELLY_DECOMP_FUNCTION_002028F0)
 // 0x002028F0 despawn__14surfing_object
 #include "KS/SRC/ks/floatobj_shared.h"
-#include "KS/SRC/ks/SoundScript_shared.h"
+#include "KS/SRC/ks/SoundScript.h"
 #include "KS/SRC/ks/trail_shared.h"
 
 __asm__(".equ despawn__12water_object, 0x001FD540");

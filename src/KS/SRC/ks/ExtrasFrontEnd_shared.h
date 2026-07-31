@@ -3,7 +3,7 @@
 
 #include "KS/SRC/ks/GraphicalMenuSystem_shared.h"
 #include "KS/SRC/ks/FrontEndManager_shared.h"
-#include "KS/SRC/ks/SoundScript_shared.h"
+#include "KS/SRC/ks/SoundScript.h"
 
 #pragma interface
 

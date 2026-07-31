@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_SOUND_SCRIPT_SHARED_H
-#define KELLY_DECOMP_SOUND_SCRIPT_SHARED_H
+#ifndef SOUND_SCRIPT_H
+#define SOUND_SCRIPT_H
 
 #include "KS/SRC/singleton.h"
 
