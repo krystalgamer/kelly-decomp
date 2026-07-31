@@ -1,0 +1,15 @@
+{
+  "address": "0x0034F5C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0e5bb35c29f0eb021a591688229e729d6eccffaf",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/script_library_class.h\"\n\nvoid slc_manager::destroy( const stringx& n )\n{\n  script_library_class slc;\n  slc.name = n;\n  class_list::iterator cli = classes.find(&slc);\n  if ( cli != classes.end() )\n  {\n    delete *cli;\n    classes.erase( cli );\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "destroy__11slc_managerRC7stringx"
+}
