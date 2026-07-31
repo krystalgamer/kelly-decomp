@@ -1,0 +1,15 @@
+{
+  "address": "0x002E68F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bf5b40da3132e8b863c964859653ae9f6a010d3f",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "void region::x_sort_entities_by_bounding_box_info()\n{\n  entity_list::iterator ei, ej;\n  entity_list::const_iterator ei_end, ej_end;\n  // build list\n  int n = 0;\n  ei_end = entities.end();\n  for ( ei=entities.begin(); ei!=ei_end; ei++ )\n  {\n    entity* e = *ei;\n    if ( e && e->has_bounding_box() )\n      ++n;\n  }\n  x_sorted_entities.resize(0);\n  x_sorted_ent_lookup_low.resize(0);\n  x_sorted_ent_lookup_high.resize(0);\n  x_sorted_ent_max = -FLT_MAX;\n  if ( n )\n  {\n    if ( n > 0x00FF )\n      error( get_name() + \": region has more than 255 static entities.  You must be insane!\" );\n    x_sorted_entities.reserve( n );\n    for ( ei=entities.begin(); ei!=ei_end; ++ei )\n    {\n      entity* e = *ei;\n      if ( e && e->has_bounding_box() )\n      {\n        x_sorted_entities.push_back( e );\n        if ( e->get_bounding_box().vmax.x > x_sorted_ent_max )\n          x_sorted_ent_max = e->get_bounding_box().vmax.x;\n      }\n    }\n    // sort by min x\n    ei_end = x_sorted_entities.end() - 1;\n    ej_end = x_sorted_entities.end();\n    for ( ei=x_sorted_entities.begin(); ei!=ei_end; ++ei )\n    {\n      entity* e1 = *ei;\n      for ( ej=ei+1; ej!=ej_end; ++ej )\n      {\n        entity* e2 = *ej;\n        if ( e2->get_bounding_box().vmin.x < e1->get_bounding_box().vmin.x )\n        {\n          *ei = e2;\n          *ej = e1;\n          e1 = e2;\n        }\n      }\n    }\n    x_sorted_ent_min = x_sorted_entities[0]->get_bounding_box().vmin.x;\n    // build low lookup table (indexed by meters from minimum vmin.x value)\n    int i, j;\n    int i_end = (int)(x_sorted_ent_max - x_sorted_ent_min + 1);\n    int j_end = x_sorted_entities.size();\n    x_sorted_ent_lookup_low.reserve( i_end );\n    x_sorted_ent_lookup_high.reserve( i_end );\n    for ( i=j=0; i<i_end; ++i )\n    {\n      rational_t p = x_sorted_ent_min + i;\n      while ( j<j_end && x_sorted_entities[j]->get_bounding_box().vmax.x<p )\n        ++j;\n      x_sorted_ent_lookup_low.push_back( j );\n    }\n    // build high lookup table (indexed by meters from maximum vmax.x value)\n    j_end = -1;\n    for ( i=0,j=x_sorted_entities.size()-1; i<i_end; ++i )\n    {\n      rational_t p = x_sorted_ent_max - i;\n      while ( j>j_end && p<x_sorted_entities[j]->get_bounding_box().vmin.x )\n        --j;\n      x_sorted_ent_lookup_high.push_back( j );\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "x_sort_entities_by_bounding_box_info__6region"
+}
