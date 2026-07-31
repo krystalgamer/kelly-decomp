@@ -1,0 +1,15 @@
+{
+  "address": "0x002C8450",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f886a45a00ac22b3e5d34a83140b86cf121f7f09",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/debug_render.h\"\n\nvoid render_plane(const plane& pln, color32 front_color, color32 back_color, float size)\n{\n  vector3d norm = pln.get_unit_normal();\n  vector3d ctr = pln.closest_point(geometry_manager::inst()->get_camera_pos());\n  vector3d xvec, zvec;\n  if (__fabs(norm.z)>__fabs(norm.x))\n  {\n    zvec = cross(XVEC,norm);\n    zvec.normalize();\n    xvec = cross(norm,zvec);\n  }\n  else\n  {\n    xvec = cross(norm,ZVEC);\n    xvec.normalize();\n    zvec = cross(xvec,norm);\n  }\n  xvec *= size; // make it really big!\n  zvec *= size;\n  vector3d p0,p1,p2,p3;\n  p0 = ctr - xvec - zvec;\n  p1 = ctr - xvec + zvec;\n  p2 = ctr + xvec + zvec;\n  p3 = ctr + xvec - zvec;\n  //if (front_color!=color32(0,0,0,0))\n    render_quad(p0,p1,p2,p3, front_color);\n  //if (back_color!=color32(0,0,0,0))\n    render_quad(p0,p3,p2,p1, back_color);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "render_plane__FRC5planeG7color32T1f"
+}
