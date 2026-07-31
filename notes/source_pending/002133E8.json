@@ -1,0 +1,15 @@
+{
+  "address": "0x002133E8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ed96f7b8f08bbfe32698a6f751760b6186967156",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/kellyslater_controller.h\"\n\nvoid kellyslater_controller::StartFloat(const vector3d direction)\n{\n\n\tvector3d vel = my_board_controller.GetVelocity();\n\tcurrent = my_board_controller.GetWaveCurrent();\n\tvel -= WAVE_CURRENT_MOD*current;\n\tif (dot(XVEC, vel) >= 0.0f)\n\t\tgrind_vector = XVEC;\n\telse\n\t\tgrind_vector = -XVEC;\n\n\tvector3d forward_vec = my_board_controller.GetForwardDir();\n\tforward_vec.y = 0.0f;\n\tforward_vec.normalize();\n\tgrind_right = cross(YVEC, grind_vector);\n\n\tSetCompletedTrick(TRICK_FLOATER);\n\tcurrentTrick = TRICK_FLOATER;\n\tif (float_trick == -1)\n\t{\n\t\tfloat d = dot(forward_vec, grind_vector);\n\t\tfloat r = dot(forward_vec, grind_right);\n\t\tif (d > 0.707f)\n\t\t{\n\t\t\tfloat_trick = TRICK_FLOAT_FORWARD;\n\t\t\tfloat_anim = SURFER_ANIM_TRK_FLOAT_F_C_1;\n\t\t}\n\t\telse if (d < -0.707f)\n\t\t{\n\t\t\tfloat_trick = TRICK_FLOAT_BACK;\n\t\t\tfloat_anim = SURFER_ANIM_TRK_FLOAT_B_C_1;\n\t\t}\n\t\telse if (r > 0.707f)\n\t\t{\n\t\t\tfloat_trick = TRICK_FLOAT_RIGHT;\n\t\t\tif (!goofy)\n\t\t\t\tfloat_anim = SURFER_ANIM_TRK_FLOAT_R_C_1;\n\t\t\telse\n\t\t\t\tfloat_anim = SURFER_ANIM_TRK_FLOAT_L_C_1;\n\t\t}\n\t\telse\n\t\t{\n\t\t\tfloat_trick = TRICK_FLOAT_LEFT;\n\t\t\tif (!goofy)\n\t\t\t\tfloat_anim = SURFER_ANIM_TRK_FLOAT_L_C_1;\n\t\t\telse\n\t\t\t\tfloat_anim = SURFER_ANIM_TRK_FLOAT_R_C_1;\n\t\t}\n\t}\n\n\tfloat_time = vel.length()*(0.2f*float_time_max*dismount_percent) + 0.5f;\n\tif (float_time > float_time_max)\n\t\tfloat_time = float_time_max;\n\n\tstate = STATE_FLOAT;\n\tsuper_state = SUPER_STATE_NORMAL_SURF;\n\tmy_board_controller.SetBoardState(BOARD_FLOAT);\n\tAnim(SURFER_ANIM_TRK_INTO_FLOAT_1, BLEND_TIME, false);\n\tBoardAnim(BOARD_ANIM_TRK_INTO_FLOAT_1, BLEND_TIME, false);\n\tslide_dismount_timer = 0.0f;\n\ttween_timer = 0.0f;\n\ttween_time = 1.0f;\n\tIK_enabled = true;\n\n\tfloaterEvent = SoundScriptManager::inst()->startEvent(SS_FLOATER, my_board_model);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "StartFloat__22kellyslater_controllerG8vector3d"
+}
