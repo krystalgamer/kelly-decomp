@@ -1,0 +1,15 @@
+{
+  "address": "0x002DDA20",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c8422fa9451fc0595da21475aa2adf9e12432fc2",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "bool collide_mesh_mesh( const cg_mesh* m1, const cg_mesh* m2,\n                        vectorvector* hit_list,\n                        vectorvector* normal_list1,\n                        vectorvector* normal_list2,\n                        unsigned int ct,\n                        const vector3d& rel_vel,\n\t\t\t\t\t\tcface * hitFace)\n{\n  bool hit = false;\n  bool no_rear_cull = !(ct & PP_REAR_CULL);\n  vector3d m1pos = m1->get_abs_position();\n  rational_t m1rad = m1->get_radius();\n  vector<cface>::const_iterator cfi = m2->get_cfaces().begin();\n  vector<cface>::const_iterator cfi_end = m2->get_cfaces().end();\n  for ( ; cfi!=cfi_end; ++cfi )\n  {\n    const cface& f2 = *cfi;\n    rational_t r = m1rad + f2.get_radius();\n    if ( (no_rear_cull || dot(f2.get_normal(),rel_vel)<=0.0f) &&\n         (m1pos-f2.get_center()).length2() < r*r )\n    {\n      rational_t x2 = f2.get_center().x;\n      rational_t r2 = f2.get_radius();\n      int low = m1->get_low_index( x2 - r2 );\n      if ( low >= 0 )\n      {\n        int high = m1->get_high_index( x2 + r2 );\n        if ( low <= high )\n        {\n          vector3d hit_loc;\n          vector<cface>::const_iterator cfj = m1->get_cfaces().begin() + low;\n          vector<cface>::const_iterator cfj_end = m1->get_cfaces().begin() + high;\n          for ( ; cfj<=cfj_end; ++cfj )\n          {\n            const cface& f1 = *cfj;\n            if ( no_rear_cull || dot(f1.get_normal(),rel_vel)>=0.0f )\n            {\n              if ( collide_polygon_polygon( &f1, m1, &f2, m2, hit_loc ) )\n              {\n                hit = true;\n\t\t\t\t\t\t\t\tif (hitFace) *hitFace = (*cfi);\n                hit_list->push_back( hit_loc );\n                normal_list1->push_back( f1.get_normal() );\n                normal_list2->push_back( f2.get_normal() );\n                if ( ct & ONE_HIT_PER_MESH )\n\t\t\t\t\t\t\t\t\treturn hit;\n                if ( ct & ONE_HIT_PER_M2_POLY )\n                  break;\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n  return hit;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "collide_mesh_mesh__FPC7cg_meshT0Pt6vector2Z8vector3dZt12my_allocator1Z8vector3dN22UiRC8vector3dP5cface"
+}
