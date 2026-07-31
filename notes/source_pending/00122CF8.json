@@ -1,0 +1,15 @@
+{
+  "address": "0x00122CF8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "620b2e608a846c5c6960fb5f59830f00dece9721",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/physical_interface.h\"\n\nvoid physical_interface::frame_advance(time_value_t t)\n{\n  if(has_guidance_sys() && !is_stuck())\n    guidance_sys()->frame_advance(t);\n\n  set_flag(_PHYS_BOUNCED, false);\n\n  if(is_bouncy() || is_sticky())\n  {\n    if ( !is_stuck() )\n    {\n      region_node *old_region = my_entity->get_primary_region();\n      assert(old_region);\n\n      my_entity->update_abs_po_reverse();\n      vector3d old_pos = my_entity->get_abs_position();\n\n      do_physics(t);\n\n      vector3d new_pos = my_entity->get_abs_position();\n      vector3d delta = new_pos - old_pos;\n      delta.normalize();\n\n      entity *hit_entity = NULL;\n      vector3d hit, hitn;\n\n/*\n      if ( find_intersection( old_pos, new_pos + ((item_owner && item_owner->is_rocket()) ? get_abs_po().get_facing() : ZEROVEC),\n                              (use_owner_region && item_owner && item_owner->get_owner() != NULL) ? item_owner->get_owner()->get_primary_region() : get_primary_region(),\n                              FI_COLLIDE_WORLD|FI_COLLIDE_BEAMABLE,\n                              &vec, &hitn,\n                              NULL, &hit_entity))\n*/\n      // avoid colliding with myself....\n      bool collisions_active = my_entity->are_collisions_active();\n      my_entity->set_collisions_active(false, false);\n\n      if ( find_intersection( old_pos, new_pos + (delta * (my_entity->get_visual_radius() > 0.0f ? my_entity->get_visual_radius()*0.75f : 0.1f)),\n                              old_region,\n                              FI_COLLIDE_WORLD|FI_COLLIDE_BEAMABLE,\n                              &hit, &hitn,\n                              NULL, &hit_entity))\n      {\n        hitn.normalize();\n        bounce(hit, hitn, hit_entity);\n      }\n\n      my_entity->set_collisions_active(collisions_active, false);\n    }\n    else\n    {\n      if(my_entity->has_parent() && !((entity *)my_entity->link_ifc()->get_parent())->is_alive() && stuck_parent_was_alive_last_frame)\n      {\n        //stuck = false;\n        po the_po = my_entity->get_abs_po();\n        my_entity->link_ifc()->set_parent( NULL );\n        my_entity->set_rel_po_no_children(the_po);\n        set_velocity(ZEROVEC);\n        set_gravity(true);\n        set_angular_velocity(ZEROVEC);\n\n        set_flag(physical_interface::_PHYS_STUCK, false);\n      }\n\n      stuck_parent_was_alive_last_frame = my_entity->has_parent() ? ((entity *)my_entity->link_ifc()->get_parent())->is_alive() : true;\n    }\n  }\n  else\n    do_physics(t);\n\n/*\n  // this is not necessary i believe\n  my_entity->update_abs_po_reverse();\n*/\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "frame_advance__18physical_interfacef"
+}
