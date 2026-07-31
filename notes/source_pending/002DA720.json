@@ -1,0 +1,15 @@
+{
+  "address": "0x002DA720",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e474f39f666eada1a75b43f7f1ea876f7ec72cf9",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/colgeom.h\"\n\nvoid cg_mesh::split_xform(po const & po1, po const & po2, int second_po_start_idx)\n{\n  int i;\n  collision_geometry::xform(po1);\n  for (i=0; i<second_po_start_idx; ++i)\n  {\n    vert v(po1.slow_xform(get_raw_vert(i).get_point()));\n    set_vert(i,v);\n  }\n  for (i=second_po_start_idx; i<get_num_verts(); ++i)\n  {\n    vert v(po2.slow_xform(get_raw_vert(i).get_point()));\n    set_vert(i,v);\n  }\n  // Normals just get po2's orientation\n  for (i=0; i<get_num_cfaces(); ++i)\n  {\n    vector3d v = po2.non_affine_slow_xform(get_cface(i).get_raw_normal());\n    cfaces[i].set_normal(v);\n    v = po2.slow_xform(get_cface(i).get_raw_center());\n    cfaces[i].set_center(v);\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "split_xform__7cg_meshRC2poN21ii"
+}
