@@ -1,7 +1,7 @@
 #ifndef PLANE_H
 #define PLANE_H
 
-#include "KS/SRC/vector3d_shared.h"
+#include "KS/SRC/algebra.h"
 
 class plane {
 public:

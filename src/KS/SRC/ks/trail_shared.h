@@ -3,7 +3,7 @@
 
 #include "KS/SRC/game_shared.h"
 #include "KS/SRC/ks/wave_shared.h"
-#include "KS/SRC/vector3d_shared.h"
+#include "KS/SRC/algebra.h"
 
 typedef unsigned int u_int;
 

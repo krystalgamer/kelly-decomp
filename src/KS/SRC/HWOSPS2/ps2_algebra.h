@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_VECTOR3D_SHARED_H
-#define KELLY_DECOMP_VECTOR3D_SHARED_H
+#ifndef PS2_ALGEBRA_H
+#define PS2_ALGEBRA_H
 
 class vector3d {
 public:

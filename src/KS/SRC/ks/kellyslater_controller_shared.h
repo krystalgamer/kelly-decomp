@@ -3,7 +3,7 @@
 
 #include "KS/SRC/game_shared.h"
 #include "KS/SRC/ks/trickdata.h"
-#include "KS/SRC/vector3d_shared.h"
+#include "KS/SRC/algebra.h"
 
 enum {
     SUPER_STATE_FLYBY = 1,

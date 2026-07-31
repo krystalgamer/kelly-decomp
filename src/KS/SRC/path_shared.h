@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_PATH_SHARED_H
 
 #include "KS/SRC/stringx.h"
-#include "KS/SRC/vector3d_shared.h"
+#include "KS/SRC/algebra.h"
 #include "g++-2/stl_map_shared.h"
 
 class path_graph_edge;

@@ -5,7 +5,7 @@
 
 #include "KS/SRC/color.h"
 #include "KS/SRC/stringx.h"
-#include "KS/SRC/vector3d_shared.h"
+#include "KS/SRC/algebra.h"
 #include "NGL/PS2/ngl_ps2.h"
 
 class Font {

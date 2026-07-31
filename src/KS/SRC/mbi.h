@@ -1,7 +1,7 @@
 #ifndef MBI_H
 #define MBI_H
 
-#include "KS/SRC/vector3d_shared.h"
+#include "KS/SRC/algebra.h"
 
 struct quaternion {
     float value[4];

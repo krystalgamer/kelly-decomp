@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_AI_LOCOMOTION_SHARED_H
 #define KELLY_DECOMP_AI_LOCOMOTION_SHARED_H
 
-#include "KS/SRC/vector3d_shared.h"
+#include "KS/SRC/algebra.h"
 
 typedef float rational_t;
 typedef float time_value_t;

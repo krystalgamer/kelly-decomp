@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_ENTITY_LIGHT_SHARED_H
 
 #include "KS/SRC/stringx.h"
-#include "KS/SRC/vector3d_shared.h"
+#include "KS/SRC/algebra.h"
 
 class entity_id {
     stringx value;

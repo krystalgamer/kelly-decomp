@@ -520,7 +520,7 @@ template void key_anim<
 #if defined(KELLY_DECOMP_FUNCTION_001212D8)
 // 0x001212D8 get_value__Ct8key_anim3Z8vector3dZt10linear_key1Z8vector3dZt12linear_track1Z8vector3dRC14anim_control_tP8vector3d
 #include "KS/SRC/linear_anim_shared.h"
-#include "KS/SRC/vector3d_shared.h"
+#include "KS/SRC/algebra.h"
 
 __asm__(
     ".equ interpolate__Ct10linear_key1Z8vector3d"
@@ -553,7 +553,7 @@ template void key_anim<
 #if defined(KELLY_DECOMP_FUNCTION_00121540)
 // 0x00121540 get_value__Ct8key_anim3Z8vector3dZt10linear_key1Z8vector3dZt12linear_track1Z8vector3dfP8vector3d
 #include "KS/SRC/linear_anim_shared.h"
-#include "KS/SRC/vector3d_shared.h"
+#include "KS/SRC/algebra.h"
 
 __asm__(
     ".equ interpolate__Ct10linear_key1Z8vector3d"

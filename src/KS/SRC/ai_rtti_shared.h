@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_AI_RTTI_SHARED_H
 
 #include "KS/SRC/entity_interface.h"
-#include "KS/SRC/vector3d_shared.h"
+#include "KS/SRC/algebra.h"
 
 class input_device {
 protected:

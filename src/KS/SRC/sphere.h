@@ -1,7 +1,7 @@
 #ifndef SPHERE_H
 #define SPHERE_H
 
-#include "KS/SRC/vector3d_shared.h"
+#include "KS/SRC/algebra.h"
 
 class sphere {
     vector3d center;

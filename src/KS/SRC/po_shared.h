@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_PO_SHARED_H
 #define KELLY_DECOMP_PO_SHARED_H
 
-#include "KS/SRC/vector3d_shared.h"
+#include "KS/SRC/algebra.h"
 
 class vector4d {
 public:

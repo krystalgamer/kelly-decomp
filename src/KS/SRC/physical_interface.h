@@ -4,7 +4,7 @@
 #pragma interface
 
 #include "KS/SRC/entity_interface.h"
-#include "KS/SRC/vector3d_shared.h"
+#include "KS/SRC/algebra.h"
 
 typedef float rational_t;
 typedef float time_value_t;

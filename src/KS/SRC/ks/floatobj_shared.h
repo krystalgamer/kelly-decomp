@@ -3,7 +3,7 @@
 
 #include "KS/SRC/entity.h"
 #include "KS/SRC/stringx.h"
-#include "KS/SRC/vector3d_shared.h"
+#include "KS/SRC/algebra.h"
 #include "decomp_annotations.h"
 
 #if !defined(KELLY_DECOMP_FLOATOBJ_EMIT_VTABLES)

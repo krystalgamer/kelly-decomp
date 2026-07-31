@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_KELLYSLATER_LIP_SHARED_H
 
 #include "KS/SRC/game_shared.h"
-#include "KS/SRC/vector3d_shared.h"
+#include "KS/SRC/algebra.h"
 
 enum WaveMarkerEnum {
     WAVE_MarkerLipMark6 = 17
