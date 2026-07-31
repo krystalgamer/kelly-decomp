@@ -1,0 +1,15 @@
+{
+  "address": "0x0022E750",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f4bf4d1c20e80def445be9258b11c56ab2fc3eb4",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/ks_camera.h\"\n\nvector3d auto_camera::GetPosDifference(float t)\n{\n\tfloat reverse = 0.0f;\n\tfloat delta = 25.0f;\n\tvector3d pos = get_target_entity()->get_abs_position();\n\tfloat zoom_factor = 1.0f;\n\tfloat break_factor = 1.0f;\n\tfloat break_point;\n\tfloat break_angle_factor = 1.0f;\n\tint curbeach = g_game_ptr->get_beach_id();\n\tvector3d lip_vec = XVEC;\n\tif (BeachDataArray[curbeach].bdir)\n\t{\n\t\treverse = 1.0f;\n\t\tdelta = -delta;\n\t\tlip_vec = -XVEC;\n\t}\n\n\tconst vector3d *breakp = WAVE_GetMarker(WAVE_MarkerBreak);\n\tbreak_point = breakp->x;\n\tzoom_factor = 0.85f*BeachDataArray[curbeach].zoom_factor;\n\n\tfloat break_pos_x;\n\tFindNearestObject();\n\tif ((break_cam_state != BREAK_CAM_OFF) && !InLaunchState())\n\t{\n\t\tfloat sign = 1.0f;\n\t\tfloat new_delt = fabs(dot(lip_vec, *WAVE_GetMarker(WAVE_MarkerLipMark11p45) - *WAVE_GetMarker(WAVE_MarkerBreak)));\n\t\tif (reverse)\n\t\t{\n\t\t\tsign = -1.0f;\n\t\t\tnew_delt = -new_delt;\n\t\t}\n\n\t\tif (wave_info.type == WAVE_PerturbTypeBigTongue)\n\t\t{\n\t\t\tbreak_angle_factor = 1.45f;\n\t\t\tif (sign*pos.x < sign*(break_point + new_delt))\n\t\t\t{\n\t\t\t\tdelta = new_delt;\n\t\t\t\tzoom_factor *= ZOOM_MOD;\n\t\t\t\tbreak_factor = BREAK_MOD;\n\t\t\t}\n\t\t\telse\n\t\t\t\tdelta = sign*(fabs(new_delt) + 20.0f);\n\t\t}\n\t\tbreak_pos_x = break_point + delta;\n\t}\n\telse if (object_near && (dot(lip_vec, object_pos) > -2.0f))\n\t{\n\t\tbreak_pos_x = pos.x + 20.0f*(reverse?1.0f:-1.0f);\n\t\tbreak_angle_factor = 1.4f;\n\t}\n\telse\n\t\tbreak_pos_x = break_point + delta;\n\n\tfloat angle = break_factor*5.2f*(pos.x - break_pos_x);\n\tif (angle > break_angle_factor*(MAX_ANGLE + reverse*DELTA_ANGLE))\n\t\tangle = break_angle_factor*(MAX_ANGLE + reverse*DELTA_ANGLE);\n\telse if (angle < break_angle_factor*(-MAX_ANGLE - !reverse*DELTA_ANGLE))\n\t\tangle = -break_angle_factor*(MAX_ANGLE + !reverse*DELTA_ANGLE);\n\n\tfloat c = fast_cos(DEG_TO_RAD(angle));\n\tfloat s = fast_sin(DEG_TO_RAD(angle));\n\tfloat x = -s*7.0f;\n\tfloat z = -c*7.0f;\n\tvector3d diff = vector3d(x, BEACH_CAM_DES.y, z);\n\treturn zoom_factor*diff;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "GetPosDifference__12beach_cameraf"
+}
