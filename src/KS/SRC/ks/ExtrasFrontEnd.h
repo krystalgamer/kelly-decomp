@@ -1,110 +1,129 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef EXTRAS_FRONT_END_H
+#define EXTRAS_FRONT_END_H
 
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
+#include "KS/SRC/ks/FrontEndManager.h"
+#include "KS/SRC/ks/SoundScript.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_001DDE88)
-// 0x001DDE88 Select__15CreditsFrontEndi
-class CreditsFrontEnd {
-public:
-    void Select(int arg0);
+#pragma interface
+
+class BoxText;
+class PreformatText;
+class TextString;
+
+class CheatFrontEnd : public FEMultiMenu {
 };
 
-void CreditsFrontEnd::Select(int arg0) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001DDE90)
-// 0x001DDE90 OnUp__15CreditsFrontEndi
-class CreditsFrontEnd {
-    char padding[0x170];
-    bool up_pressed;
-public:
-    void OnUp(int controller);
+struct ExtrasSecondaryCursorVTable {
+    char padding[0x110];
+    short adjustment;
+    short reserved;
+    void (*set_secondary_cursor)(
+        void *self,
+        FEMenuEntry *entry,
+        bool animate);
 };
 
-void CreditsFrontEnd::OnUp(int controller) {
-    up_pressed = true;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001DDEA0)
-// 0x001DDEA0 OnDown__15CreditsFrontEndi
-class CreditsFrontEnd {
-    char padding[0x174];
-    bool down_pressed;
+class ExtrasFrontEnd : public FEMultiMenu {
 public:
-    void OnDown(int controller);
+    enum {
+        ExtrasBeachesEntry,
+        ExtrasSurfersEntry,
+        ExtrasTrailersEntry,
+        ExtrasHighScoreEntry,
+        ExtrasScrapbookEntry,
+        ExtrasCheatsEntry,
+        ExtrasCreditsEntry,
+        ExtrasWebsitesEntry,
+        ExtrasLogbookEntry,
+        ExtrasTHDemoEntry,
+        ExtrasDemoEntryYes,
+        ExtrasDemoEntryNo,
+        ExtrasEndEntry
+    };
+
+private:
+    int cur_index;
+    GraphicalMenuSystem *sys;
+    FEMenuEntry *entry[ExtrasEndEntry];
+    FEMenu *surfers;
+    FEMenu *beaches;
+    FEMenu *trailers;
+    TextString *extras;
+    BoxText *prompt;
+    BoxText *websites;
+    CheatFrontEnd *cheat_menu;
+    PanelQuad *videos[ExtrasEndEntry];
+    PanelQuad *website_box[9];
+    PanelQuad *arrows[2][2];
+    bool saveCareerPrompt;
+    int arrow_counter;
+    int arrow_num;
+
+public:
+    virtual void Select(int entry_index);
+
+private:
+    void SetBuiltSecondaryCursor(
+        FEMenuEntry *selected,
+        bool animate = true)
+    {
+        ExtrasSecondaryCursorVTable *table =
+            *(ExtrasSecondaryCursorVTable **)((char *)this + 0x74);
+        table->set_secondary_cursor(
+            (char *)this + table->adjustment,
+            selected,
+            animate);
+    }
+
+    void UpdateHelpbar();
+    void PlayMovie(int selection);
 };
 
-void CreditsFrontEnd::OnDown(int controller) {
-    down_pressed = true;
-}
-#endif
+class CreditsFrontEnd : public FEMultiMenu {
+    PreformatText *credits;
+    GraphicalMenuSystem *sys;
+    float first_line_y;
+    float x_all;
+    int up_pressed;
+    int down_pressed;
 
-#if defined(KELLY_DECOMP_FUNCTION_001DDEB0)
-// 0x001DDEB0 OnRight__15CreditsFrontEndi
-class CreditsFrontEnd {
 public:
-    void OnRight(int arg0);
+    void OnActivate();
 };
 
-void CreditsFrontEnd::OnRight(int arg0) {
-}
-#endif
+extern char *g_ksps_path;
+extern const char *g_thps4_path;
 
-#if defined(KELLY_DECOMP_FUNCTION_001DDEB8)
-// 0x001DDEB8 OnLeft__15CreditsFrontEndi
-class CreditsFrontEnd {
-public:
-    void OnLeft(int arg0);
-};
+void nslReleaseAllSounds();
+void nslFrameAdvance(float time_inc);
+void nslShutdown();
 
-void CreditsFrontEnd::OnLeft(int arg0) {
-}
-#endif
+extern "C" int scePcStart(int control, int counter0, int counter1);
+extern "C" int sceCdStop();
+extern "C" int sceCdStStop();
+extern "C" int sceCdSync(int mode);
+extern "C" int sceCdDiskReady(int mode);
+extern "C" void sceSifExitCmd();
+extern "C" int LoadExecPS2(
+    const char *path,
+    int argument_count,
+    char **arguments);
 
-#if defined(KELLY_DECOMP_FUNCTION_001DDCA8)
-// 0x001DDCA8 __tf14ExtrasFrontEnd
-extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
-extern "C" void **BaseRtti_001DDCA8() __asm__("__tf11FEMultiMenu");
-extern "C" void *type_001DDCA8[] __asm__("__ti14ExtrasFrontEnd");
-extern const char name_001DDCA8[];
-extern void *base_type_001DDCA8[];
-__asm__(".equ __rtti_class, 0x003CE2B0");
-__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
-__asm__(".equ __ti14ExtrasFrontEnd, 0x005A2E78");
-__asm__(".equ name_001DDCA8, 0x004DDFC0");
-__asm__(".equ base_type_001DDCA8, 0x004DDC48");
-extern "C" void **Rtti_001DDCA8() __asm__("__tf14ExtrasFrontEnd");
-void **Rtti_001DDCA8() { if (!type_001DDCA8[0]) { BaseRtti_001DDCA8(); __rtti_class(type_001DDCA8, name_001DDCA8, base_type_001DDCA8, 1); } return type_001DDCA8; }
-#endif
+// Compensate for the isolated assembler's missing %hi carry on negative lows.
+__asm__(".equ g_ksps_path, 0x0042EB40");
+__asm__(".equ g_thps4_path, 0x0042E4E8");
+__asm__(".equ PlayMovie__14ExtrasFrontEndi, 0x001BAC18");
+__asm__(".equ UpdateHelpbar__14ExtrasFrontEnd, 0x001BA428");
+__asm__(".equ nslReleaseAllSounds__Fv, 0x0038D3D0");
+__asm__(".equ nslShutdown__Fv, 0x0038FFE8");
+__asm__(".equ nslFrameAdvance__Ff, 0x00390068");
+__asm__(".equ sceCdSync, 0x003BD1C0");
+__asm__(".equ sceCdDiskReady, 0x003BD720");
+__asm__(".equ sceCdStop, 0x003BDBC0");
+__asm__(".equ sceCdStStop, 0x003BDE78");
+__asm__(".equ scePcStart, 0x003C5DD0");
+__asm__(".equ sceSifExitCmd, 0x003DD400");
+__asm__(".equ LoadExecPS2, 0x003E0088");
 
-#if defined(KELLY_DECOMP_FUNCTION_001DDD68)
-// 0x001DDD68 __tf15CreditsFrontEnd
-extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
-extern "C" void **BaseRtti_001DDD68() __asm__("__tf11FEMultiMenu");
-extern "C" void *type_001DDD68[] __asm__("__ti15CreditsFrontEnd");
-extern const char name_001DDD68[];
-extern void *base_type_001DDD68[];
-__asm__(".equ __rtti_class, 0x003CE2B0");
-__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
-__asm__(".equ __ti15CreditsFrontEnd, 0x005A2E88");
-__asm__(".equ name_001DDD68, 0x004DDFD8");
-__asm__(".equ base_type_001DDD68, 0x004DDC48");
-extern "C" void **Rtti_001DDD68() __asm__("__tf15CreditsFrontEnd");
-void **Rtti_001DDD68() { if (!type_001DDD68[0]) { BaseRtti_001DDD68(); __rtti_class(type_001DDD68, name_001DDD68, base_type_001DDD68, 1); } return type_001DDD68; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001DDD00)
-// 0x001DDD00 Update__14ExtrasFrontEndf
-struct active_vtable { char padding[96]; short adjustment; short reserved; void (*update)(void *,float); };
-struct active_menu { char padding[116]; active_vtable *vtable; };
-extern "C" void update_frontend(void*,float) __asm__("Update__8FrontEndf"); extern "C" void update_menu(void*,float) __asm__("Update__6FEMenuf");
-__asm__(".equ Update__8FrontEndf,0x00157B30"); __asm__(".equ Update__6FEMenuf,0x00156DC8");
-struct extras_layout { char padding[96]; active_menu *active; };
-extern "C" void update_extras(extras_layout *self,float dt) __asm__("Update__14ExtrasFrontEndf");
-void update_extras(extras_layout *self,float dt)
-{
-    if(self->active){active_vtable*t=self->active->vtable;t->update((char*)self->active+t->adjustment,dt);}
-    else {update_frontend((char*)self+128,dt);update_menu(self,dt);int dead;__asm__("" : "=r"(dead));}
-}
 #endif

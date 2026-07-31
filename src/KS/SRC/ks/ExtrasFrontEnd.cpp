@@ -57,7 +57,7 @@ void CreditsFrontEnd::OnTriangle(int controller)
 
 #if defined(KELLY_DECOMP_FUNCTION_001BB800)
 // 0x001BB800 OnActivate__15CreditsFrontEnd
-#include "KS/SRC/ks/ExtrasFrontEnd_shared.h"
+#include "KS/SRC/ks/ExtrasFrontEnd.h"
 __asm__(".equ OnActivate__15FEGraphicalMenu, 0x001581E8");
 
 void CreditsFrontEnd::OnActivate()

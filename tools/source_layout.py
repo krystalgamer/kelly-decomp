@@ -117,6 +117,8 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/entity_anim.h": "KS/SRC/entity_anim_methods.cpp",
     "KS/SRC/ks/eventmanager.h": "KS/SRC/ks/eventmanager_rtti.cpp",
     "KS/SRC/entity_interface.h": "KS/SRC/entity_interface.cpp",
+    "KS/SRC/ks/ExtrasFrontEnd.h":
+        "KS/SRC/ks/ExtrasFrontEnd_methods.cpp",
     "KS/SRC/ks/FEPanel.h": "KS/SRC/ks/FEPanel_methods.cpp",
     "KS/SRC/ks/FEMenu.h": "KS/SRC/ks/FEMenu_methods.cpp",
     "KS/SRC/ks/FrontEndMenus.h": "KS/SRC/ks/FrontEndMenus_methods.cpp",
