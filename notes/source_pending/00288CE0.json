@@ -1,0 +1,15 @@
+{
+  "address": "0x00288CE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0dc50e726664a7a959502f8b607f0bb9c875f9d5",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/item.h\"\n\nvoid item::read_item_data( chunk_file& fs, stringx& label )\n{\n  // Now the actual data\n\n  // get item name from filename\n  filespec spec( fs.get_name() );\n  name = spec.name;\n  name.to_upper();\n\n  stringx usage_type_name;\n  serial_in( fs, &usage_type_name );\n  if ( usage_type_name == \"INSTANT\" )\n    usage_type = INSTANT;\n  else if ( usage_type_name == \"INVENTORY\" )\n    usage_type = INVENTORY;\n  else if ( usage_type_name == \"UTILITY\" )\n    usage_type = UTILITY;\n  else if ( usage_type_name == \"PERMANENT\" )\n    usage_type = PERMANENT;\n  else if ( usage_type_name == \"GUN\" )\n    usage_type = GUN;\n  else if ( usage_type_name == \"MELEE\" )\n    usage_type = MELEE;\n  else if ( usage_type_name == \"THROWN\" )\n    usage_type = THROWN;\n  else if ( usage_type_name == \"AMMO\" )\n    usage_type = AMMO;\n  else if ( usage_type_name == \"HEALTH\" )\n    usage_type = HEALTH;\n  else if ( usage_type_name == \"ARMOR\" )\n    usage_type = ARMOR;\n  else if ( usage_type_name == \"ENERGY\" )\n    usage_type = ENERGY;\n  else\n    error( fs.get_name() + \": invalid usage type: \" + usage_type_name );\n\n  for ( serial_in(fs,&label); label!=chunkend_label; serial_in(fs,&label) )\n  {\n    if ( label == \"count\" )\n    {\n      serial_in( fs, &default_count );\n      count = default_count;\n\n      #if _ENABLE_WORLD_EDITOR\n        original_count = count;\n      #endif\n    }\n    else if ( label == \"max\" )\n    {\n      serial_in( fs, &max_num );\n    }\n    else if ( label == \"icon_scale\" )\n    {\n      serial_in( fs, &icon_scale );\n    }\n    else if ( label == \"interface_orientation\" )\n    {\n      serial_in( fs, &interface_orientation );\n    }\n/*\n    else if ( label == \"dread_net_cue\" )\n    {\n      stringx cue;\n      serial_in(fs, &cue);\n      cue.to_upper();\n\n      dread_net_use_cue = dread_net::get_cue_type(cue);\n    }\n*/\n    else\n    {\n      error( fs.get_filename() + \": unknown keyword '\" + label + \"' in item section\" );\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "read_item_data__4itemR10chunk_fileR7stringx"
+}
