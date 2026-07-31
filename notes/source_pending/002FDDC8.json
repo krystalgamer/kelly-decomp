@@ -1,0 +1,16 @@
+{
+  "address": "0x002FDDC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "93010902144788bed5251ae64780779844610732",
+      "error": "Candidate did not emit __static_initialization_and_destruction_0; emitted functions: []",
+      "notes": "The function is compiler-generated static initialization code and has no explicit released C++ function body.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/bp_tree.h\"\n\n/*\nThe function is compiler-generated static initialization code and has no explicit released C++ function body.\nThis first-pass candidate intentionally compiles only the available canonical source context.\n*/\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__static_initialization_and_destruction_0"
+}
