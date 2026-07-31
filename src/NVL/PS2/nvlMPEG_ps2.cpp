@@ -1,7 +1,7 @@
 // Matching decompilation blocks selected by generated build shims.
 
 #if defined(KELLY_DECOMP_FUNCTION_00389D68)
-#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+#include "NVL/PS2/nvlMPEG_ps2.h"
 
 __asm__(".equ sceSdRemote, 0x0038BAE0");
 
@@ -137,7 +137,7 @@ __asm__(".globl voBufIsEmpty__FP5VoBuf");
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003898C8)
-#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+#include "NVL/PS2/nvlMPEG_ps2.h"
 
 // 0x003898C8 audioDecIsPreset__FP8AudioDec
 static int audioDecIsPreset(AudioDec* decoder) { return decoder->totalBytesSent >= PRESET_VALUE(decoder->iopBuffSize); }
@@ -163,7 +163,7 @@ void videoDecEndPut(VideoDec *decoder, int size) { viBufEndPut(&decoder->vibuf, 
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00389730)
-#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+#include "NVL/PS2/nvlMPEG_ps2.h"
 
 // 0x00389730 audioDecStart__FP8AudioDec
 void audioDecResume(AudioDec *decoder);
@@ -172,7 +172,7 @@ void audioDecStart(AudioDec *decoder) { audioDecResume(decoder); KELLY_DECOMP_CO
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00389750)
-#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+#include "NVL/PS2/nvlMPEG_ps2.h"
 
 // 0x00389750 audioDecReset__FP8AudioDec
 void audioDecPause(AudioDec*);
@@ -454,7 +454,7 @@ extern "C" int sceSdRemote(int,int,int,unsigned) ;__asm__(".equ sceSdRemote,0x00
 
 #if defined(KELLY_DECOMP_FUNCTION_003896C0)
 // 0x003896C0 audioDecResume__FP8AudioDec
-#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+#include "NVL/PS2/nvlMPEG_ps2.h"
 extern "C" void change_input(unsigned) __asm__("changeInputVolume__FUi");extern "C" int remote(int,int,int,int,int,int,int) __asm__("sceSdRemote");__asm__(".equ changeInputVolume__FUi,0x00389D68");__asm__(".equ sceSdRemote,0x0038BAE0");extern "C" void resume(AudioDec*ad) __asm__("audioDecResume__FP8AudioDec");void resume(AudioDec*ad){change_input(0x7fff);int rounded=(ad->iopBuffSize/1024)*1024;__asm__("" : "+r"(rounded));int start=ad->iopBuff+ad->iopPausePos;remote(1,0x80e0,0,19,ad->iopBuff,rounded,start);ad->state=2;}
 #endif
 
@@ -465,19 +465,19 @@ extern "C" void disable_intr()__asm__("DIntr");extern "C" void enable_intr()__as
 
 #if defined(KELLY_DECOMP_FUNCTION_00389848)
 // 0x00389848 audioDecEndPut__FP8AudioDeci
-#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+#include "NVL/PS2/nvlMPEG_ps2.h"
 extern "C" void endput(AudioDec*ad,int size)__asm__("audioDecEndPut__FP8AudioDeci");void endput(AudioDec*ad,int size){if(ad->state==0){int remain=40-ad->hdrCount;int hdr_add=remain<size?remain:size;ad->hdrCount+=hdr_add;if(ad->hdrCount>=40)ad->state=1;size-=hdr_add;}ad->put=(ad->put+size)%ad->size;ad->count+=size;ad->totalBytes+=size;}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00389A90)
 // 0x00389A90 iopGetArea__FPiN30P8AudioDeci
-#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+#include "NVL/PS2/nvlMPEG_ps2.h"
 extern "C" void iopGetArea(int*,int*,int*,int*,AudioDec*,int)__asm__("iopGetArea__FPiN30P8AudioDeci");void iopGetArea(int*pd0,int*d0,int*pd1,int*d1,AudioDec*ad,int pos){int len=(pos+ad->iopBuffSize-ad->iopLastPos-1024)%ad->iopBuffSize;len=(len/1024)*1024;if(ad->iopBuffSize-ad->iopLastPos>=len){*pd0=ad->iopBuff+ad->iopLastPos;*d0=len;*pd1=0;*d1=0;}else{*pd0=ad->iopBuff+ad->iopLastPos;*d0=ad->iopBuffSize-ad->iopLastPos;*pd1=ad->iopBuff;*d1=len-(ad->iopBuffSize-ad->iopLastPos);}}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00389798)
 // 0x00389798 audioDecBeginPut__FP8AudioDecPPUcPiT1T2
-#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+#include "NVL/PS2/nvlMPEG_ps2.h"
 
 static void audioDecBeginPut( AudioDec* ad, u_char** ptr0, int* len0, u_char** ptr1, int* len1 )
 {

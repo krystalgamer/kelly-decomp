@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_NVLMPEG_PS2_SHARED_H
-#define KELLY_DECOMP_NVLMPEG_PS2_SHARED_H
+#ifndef NVL_MPEG_PS2_H
+#define NVL_MPEG_PS2_H
 
 typedef unsigned char u_char;
 

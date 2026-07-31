@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_NVLMPEG_AUDIO_SHARED_H
 #define KELLY_DECOMP_NVLMPEG_AUDIO_SHARED_H
 
-#include "NVL/PS2/nvlMPEG_ps2_shared.h"
+#include "NVL/PS2/nvlMPEG_ps2.h"
 
 #define ZERO_BUFF_SIZE 2048
 
