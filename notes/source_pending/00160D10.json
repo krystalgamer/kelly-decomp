@@ -1,0 +1,15 @@
+{
+  "address": "0x00160D10",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9c5d838e5f6e474e78c9f9330cefcf8e36ffbd69",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "void IGOIconManager::TrickChain(int trickIdx)\n{\n  if(prepareFailure)\n    return;\n\n  if(activeIcon >= numIcons)\n    return;\n\n  int region = g_world_ptr->get_ks_controller(0)->GetTrickRegion();\n\n\n\n  for(int tc=activeIcon; tc<numIcons; tc++)\n  {\n\t  #ifndef EVAN    // Evan is a lazy cheating bastard\n\t  if (trickIdx == icons[tc].resource->trickIdx ||\n       (icons[tc].resource->trickIdx == ICON_TRICK_GENERIC_AIR && region == TREGION_AIR) ||\n       (icons[tc].resource->trickIdx == ICON_TRICK_GENERIC_FACE && region == TREGION_FACE) ||\n       (icons[tc].resource->trickIdx == ICON_TRICK_GENERIC_TUBE && region == TREGION_TUBE))\n\t  #endif\n\t  {\n      if(tc > activeIcon)\n      {\n        if(prepMidPop[tc] == false)\n        {\n          prepMidPop[tc] = true;\n          midPopTime[tc] = 0.0f;\n          effectIcons[tc].state = ICON_STATE_GLOWING;\n        }\n        return;\n      }\n\n      if(prepPop && tsSize < 4)\n      {\n        trickStack[tsSize++] = trickIdx;\n        return;\n      }\n\n      spawnDelay *= spawnTimerMultiplier;\n      buttonTimer = 0.0f;\n\n      chainedIcons = true;\n\n      icons[activeIcon].resource->timesDisplayed++;\n\n      effectIcons[numEffectIcons] = icons[activeIcon];\n      numIcons--;\n      for(int i=0; i<numIcons; i++)\n        icons[i] = icons[i+1];\n      effectIcons[numEffectIcons].state = ICON_STATE_GLOWING;\n      effectIcons[numEffectIcons].colorInterp = 0.0f;\n      completedIcons++;\n      numEffectIcons++;\n      icons[activeIcon].state = ICON_STATE_ACTIVE;\n\n      if(activeIcon >= numIcons)\n      {\n        if(spawnTimer > maxTweenTime)\n          spawnTimer = maxTweenTime;\n      }\n      if(completedIcons >= iconSpawns[currentSpawn].bonusIcons)\n      {\n        //float bonus = (iconSpawns[currentSpawn].bonusMultiplier-1) * g_world_ptr->get_ks_controller(0)->my_scoreManager.chain.GetMultiplier();\n        //bonus += iconSpawns[currentSpawn].bonusAdder;\n        //g_world_ptr->get_ks_controller(0)->my_scoreManager.chain.AddMultAdder(bonus);\n\t\t\t  SoundScriptManager::inst()->playEvent(SS_ICON_TETRIS);\n \n        prepPop = true;\n        popTime = 0.0f;\n      }\n\t\t  else if (icons[activeIcon].vy != 0)\n\t\t  {\n\t\t\t  SoundScriptManager::inst()->playEvent(SS_ICON_DROP_COMPLETED);\n\t\t  }\n\t\t  else\n\t\t  {\n\t\t\t  SoundScriptManager::inst()->playEvent(SS_ICON_LAND_COMPLETED);\n\t\t  }\n\n      return;\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "TrickChain__14IGOIconManageri"
+}
