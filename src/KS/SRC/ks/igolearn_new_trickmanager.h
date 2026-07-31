@@ -70,6 +70,9 @@ public:
     void Reset();
     void PopFront(bool complete = false);
     void TrickChain(int trick_index);
+
+private:
+    IconResource *FindResource(int trick_index);
 };
 
 #endif

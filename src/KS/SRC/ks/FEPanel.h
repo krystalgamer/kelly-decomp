@@ -317,6 +317,8 @@ struct floating_geometry_manager {
 };
 
 extern floating_geometry_manager *floating_geometry;
+template<class T>
+void unadjustCoords(T &x, T &y);
 extern "C" void project_floating_point(float *output, float *input)
     __asm__("nglProjectPoint__FR9nglVectorT0");
 extern "C" void unadjust_floating_coords(float &x, float &y)
