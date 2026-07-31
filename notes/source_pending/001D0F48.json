@@ -1,0 +1,15 @@
+{
+  "address": "0x001D0F48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b4092558c58e7e99ac63396ed2dfeef8a0bc1522",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/CheatFrontEnd.h\"\n\nCheatFrontEnd::CheatFrontEnd(FEMenuSystem* s, FEManager* man, stringx p, stringx pf_name)\n{\n\tcons(s, man, p, pf_name);\n\tsys = (GraphicalMenuSystem*) s;\n\n\tflags |= FEMENU_USE_SCALE;\n\tflags &= ~FEMENU_NO_FLASHING;\n\tscale = scale_high = PHONE_TEXT_SIZE*1.18f;\n\n\tpq_indices_set = false; // the pq indices haven't been set yet\n\n\tcolor = PHONE_TEXT_COLOR;\n\tcolor_high = PHONE_TEXT_COLOR_HI;\n\tcolor_high_alt = PHONE_TEXT_COLOR;\n\n\t// Make the \"enter a new cheat code\" entry at the top of the menu\n\tnew_cheat_entry = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_ADD_NEW_CHEAT], this, false, &frontendmanager.font_bold_old);\n\tnew_cheat_entry->SetPos(PHONE_SCREEN_LEFT, PHONE_SCREEN_TOP);\n\tnew_cheat_entry->SetHJustify(Font::HORIZJUST_LEFT);\n\tnew_cheat_entry->SetVJustify(Font::VERTJUST_TOP);\n\tAdd(new_cheat_entry);\n\n\t// Make the \"toggle cheats\" menu entry but don't add it until there are unlocked cheats\n\t// This was a leak!  I put in a work around, but it isn't added (and not deleted) if the menu isn't\n\t// activated\n\t// KES \n\ttoggle_cheats_entry = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_TOGGLE_CHEAT], this, false, &frontendmanager.font_bold_old);\n\ttoggle_cheats_entry->SetPos(PHONE_SCREEN_LEFT, PHONE_SCREEN_TOP + PHONE_MAIN_MENU_VERT_SPACING);\n\ttoggle_cheats_entry->SetHJustify(Font::HORIZJUST_LEFT);\n\ttoggle_cheats_entry->SetVJustify(Font::VERTJUST_TOP);\n\ttoggle_cheats_entry->down = toggle_cheats_entry->up = new_cheat_entry;\n\ttoggle_cheats_entryAdded=false;\n\t// Create the cheat code listing sub-menu\n\tcode_menu  = NEW CheatCodeMenu(s, man, p, pf_name);\n\tenter_code = NEW EnterCheatMenu(s, man, p, pf_name);\n\tAddSubmenu(code_menu);\n\tAddSubmenu(enter_code);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__13CheatFrontEndP12FEMenuSystemP9FEManagerG7stringxT3"
+}
