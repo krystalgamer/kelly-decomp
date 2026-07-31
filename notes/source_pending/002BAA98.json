@@ -1,0 +1,15 @@
+{
+  "address": "0x002BAA98",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "806b6ed6b6ff7dd8b7d04db988a1624012c3efa6",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/widget_entity.h\"\n\nvoid entity_widget::update_entity_po()\n{\n  if ( ent )\n  {\n    matrix4x4 mat, S, T1; // , T0; // unused -- remove me?\n\n    S.make_scale( vector3d(abs_S[0], abs_S[0], abs_S[0]) );\n#ifdef TARGET_PC\n    T1.make_translate( vector3d(0.0f, 0.0f, z ) );\n#else\n    T1.make_translate( vector3d(0.0f, 0.0f, 0.1f - ent->get_radius()*abs_S[0]*0.7f ) );\n#endif\n    mat = S * rot_matrix * T1;\n    ent->set_rel_po( po(mat) );\n\n#ifdef TARGET_MKS\n    calc_largest_z( ent );\n#endif\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "update_entity_po__13entity_widget"
+}
