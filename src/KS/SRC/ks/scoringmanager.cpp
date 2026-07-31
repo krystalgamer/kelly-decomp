@@ -32,7 +32,7 @@ Trick &Trick::operator=(const Trick &other)
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00249AE0)
-#include "KS/SRC/ks/scoringmanager_shared.h"
+#include "KS/SRC/ks/scoringmanager.h"
 // 0x00249AE0 HasGap__CQ214ScoringManager6Seriesi
 bool ScoringManager::Series::HasGap(int gapIdx) const
 {
