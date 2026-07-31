@@ -1,0 +1,15 @@
+{
+  "address": "0x00360F88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b7d10e775db866ae0a37e9e3c22eb92cfe956c68",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/avltree.h\"\n\nvoid addHelper(TNode *node, TNode * &top, TNode *parent)\n  {\n\t  if(top == NULL)\n\t  {\n\t\t  node->p = parent;\n\t\t  top = node;\n\n\t\t  s++;\n\n\t\t  return;\n\t  }\n\n\t  int comp = node->compare(top);\n\n\t  if(comp < 0)\n\t  {\n\t\t  addHelper(node, top->l, top);\n\t\t  if(nodeHt(top->l) - nodeHt(top->r) == 2)\n\t\t  {\n\t\t\t  if(node->compare(top->l) < 0)//node->ID < top->left->ID)\n\t\t\t\t  singleRotateLeft(top);\n\t\t\t  else\n\t\t\t\t  doubleRotateLeft(top);\n\t\t  }\n\t\t  else\n\t\t\t  calcHeight(top);\n\t  }\n\t  else if(comp > 0)\n\t  {\n\t\t  addHelper(node, top->r, top);\n\n\t\t  if(nodeHt(top->r) - nodeHt(top->l) == 2)\n\t\t  {\n\t\t\t  if(node->compare(top->r) > 0)//node->ID > top->right->ID)\n\t\t\t\t  singleRotateRight(top);\n\t\t\t  else\n\t\t\t\t  doubleRotateRight(top);\n\t\t  }\n\t\t  else\n\t\t\t  calcHeight(top);\n\t  }\n  }\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "addHelper__t7AvlTree1Z17stash_index_entryPt8TreeNode1Z17stash_index_entryRPt8TreeNode1Z17stash_index_entryT1"
+}
