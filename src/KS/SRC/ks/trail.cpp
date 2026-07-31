@@ -1,7 +1,7 @@
 // trail definitions extracted by generated one-function shims.
 
 // 0x00361950 ks_fx_trail_create__FffbP22kellyslater_controller
-#include "KS/SRC/ks/trail_create_shared.h"
+#include "KS/SRC/ks/trail.h"
 
 trail *ks_fx_trail_create(
     float sample_rate,
