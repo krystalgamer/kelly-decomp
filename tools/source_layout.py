@@ -95,6 +95,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/skeleton_interface.h": "KS/SRC/skeleton_interface.cpp",
     "KS/SRC/singleton.h": "KS/SRC/singleton.cpp",
     "KS/SRC/signals.h": "KS/SRC/signals.cpp",
+    "KS/SRC/signal_anim.h": "KS/SRC/signal_anim_rtti.cpp",
     "KS/SRC/script_data_interface.h": "KS/SRC/script_data_interface.cpp",
     "KS/SRC/slave_interface.h": "KS/SRC/slave_interface.cpp",
     "KS/SRC/soft_attrib_interface.h": "KS/SRC/soft_attrib_interface.cpp",
