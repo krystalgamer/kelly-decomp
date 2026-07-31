@@ -143,7 +143,7 @@ struct geometry_manager{char padding[112];int enabled;};extern geometry_manager*
 struct vector3d{float x,y,z;};struct region_node{};struct entity;struct ent_vtable{char pad[1056];short adjustment;short zero;region_node*(*get_region)(void*);};struct entity{char pad[8];ent_vtable*vtable;};struct game{char pad[188];int active_player;};struct world{char pad[240];entity*heroes[4];};extern game*g_game;extern world*g_world;asm(".equ g_game,0x0046AC64");asm(".equ g_world,0x00431A8C");extern "C" bool find_intersection(const vector3d&,const vector3d&,region_node*,unsigned,vector3d*,vector3d*,region_node**,entity**)__asm__("find_intersection__FRC8vector3dT0PQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeUiP8vector3dT4PPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodePP6entity");asm(".equ find_intersection__FRC8vector3dT0PQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeUiP8vector3dT4PPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodePP6entity,0x002E1AE0");inline region_node*region(entity*e){ent_vtable*v=e->vtable;return v->get_region((char*)e+v->adjustment);}bool visibility_check(const vector3d&p1,const vector3d&p2,entity*ent);bool visibility_check(const vector3d&p1,const vector3d&p2,entity*ent){vector3d hitp,hitn;entity*hit_entity=0;bool ret=find_intersection(p1,p2,region(g_world->heroes[g_game->active_player]),5,&hitp,&hitn,0,&hit_entity);if(ret&&(ent==0||ent!=hit_entity))return false;else return true;}
 
 // 0x0029BFC8 add_particle_generator__21world_dynamics_systemRC7stringxbT2R9entity_id
-#include "KS/SRC/archalloc_shared.h"
+#include "KS/SRC/archalloc.h"
 #include "KS/SRC/particle_generator_ctor_shared.h"
 #include "KS/SRC/wds.h"
 

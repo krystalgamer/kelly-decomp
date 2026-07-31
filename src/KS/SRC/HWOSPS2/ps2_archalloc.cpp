@@ -82,7 +82,7 @@ extern "C" void*mem_malloc(unsigned,const char*,int,int) __asm__("mem_malloc__FU
 
 #if defined(KELLY_DECOMP_FUNCTION_002AC788)
 // 0x002AC788 mem_malloc__FUiPCcii
-#include "KS/SRC/archalloc_shared.h"
+#include "KS/SRC/archalloc.h"
 
 void* mem_malloc(
     unsigned int size,

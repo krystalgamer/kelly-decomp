@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_ARCHALLOC_SHARED_H
-#define KELLY_DECOMP_ARCHALLOC_SHARED_H
+#ifndef ARCHALLOC_H
+#define ARCHALLOC_H
 
 void *operator new(
     unsigned int size,

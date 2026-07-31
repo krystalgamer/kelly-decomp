@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_STL_LIST_SHARED_H
 #define KELLY_DECOMP_STL_LIST_SHARED_H
 
-#include "KS/SRC/archalloc_shared.h"
+#include "KS/SRC/archalloc.h"
 #include "g++-2/my_allocator_shared.h"
 
 template<class T>
