@@ -1,7 +1,7 @@
 #ifndef MUSTASH_H
 #define MUSTASH_H
 
-#include "KS/SRC/avltree_shared.h"
+#include "KS/SRC/avltree.h"
 #include "KS/SRC/pstring.h"
 
 class stash_index_entry {

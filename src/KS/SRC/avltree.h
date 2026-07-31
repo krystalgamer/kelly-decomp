@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_AVLTREE_SHARED_H
-#define KELLY_DECOMP_AVLTREE_SHARED_H
+#ifndef AVLTREE_H
+#define AVLTREE_H
 
 template<class T>
 class TreeNode {
