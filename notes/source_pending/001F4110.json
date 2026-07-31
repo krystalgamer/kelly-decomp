@@ -1,0 +1,15 @@
+{
+  "address": "0x001F4110",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "39d9798145650b66d4d1e1f45766d11bcdf6329e",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/board.h\"\n\nbool SurfBoardObjectClass::GoneOverLip(float dt)\n{\n\t//`return false;\n\tint state = ksctrl->get_current_state();\n\tint super_state = ksctrl->get_super_state();\n\tif (this->inAirFlag || (super_state == SUPER_STATE_LIE_ON_BOARD) || (super_state == SUPER_STATE_WIPEOUT)\n\t\t || (super_state == SUPER_STATE_FLYBY) || (state == STATE_FLOAT) || (state == STATE_DUCKDIVE)\n\t\t || (state == STATE_ON_ROOF) || (state == STATE_LIETOSTAND))\n\t\treturn false;\n\n\tif ((current_region != WAVE_REGIONLIP) && (current_region != WAVE_REGIONLIP2) && (current_region != WAVE_REGIONBACK))\n\t\treturn false;\n\n\tvector3d z_vec = ZVEC - dot(normal, ZVEC)*normal;\n\tz_vec.normalize();\n\tfloat infloat = dot(my_board->get_abs_position() - float_pos, z_vec);\n\tbool in_float_region = (infloat > lip_mag);\n\tbool in_back = (current_region == WAVE_REGIONBACK);\n\tif ((!g_go_over_back && (in_float_region || in_back)) ||\n\t\t((in_float_region || in_back) && ksctrl->IsDoingSpecialTrick()))\n\t{\n\t\tif (state != STATE_FLOAT)\n\t\t{\n\t\t\tvector3d pos = my_board->get_abs_position();\n\t\t\tvector3d error = float_pos - pos;\n\t\t\tif (dot(error, ZVEC) > 4.0f)\n\t\t\t\treturn false;\n\n\t\t\tfloat mag = 1.0f;\n\t\t\tif (in_back)\n\t\t\t\tmag = 4.0f;\n\n\t\t\tif ((infloat > 0.0f) && in_back)\n\t\t\t{\n\t\t\t\terror *= add_m*mag;\n\t\t\t\tmy_board->set_rel_position (pos + error);\n\t\t\t\tthis->rb->pos = pos + error;\n\t\t\t}\n\n\t\t\trb->linMom.z = -10.0f*fabs(dot(error, ZVEC));\n\t\t}\n\n\t\tif (current_region == WAVE_REGIONBACK)\n\t\t\tcurrent_region = last_region;\n\n\t\treturn true;\n\t}\n\n\treturn false;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "GoneOverLip__20SurfBoardObjectClassf"
+}
