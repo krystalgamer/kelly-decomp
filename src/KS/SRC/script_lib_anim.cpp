@@ -2,6 +2,8 @@
 
 #include "KS/SRC/script_lib_anim.h"
 
+#pragma interface
+
 // 0x00324AF0 _$_16slf_anim_pause_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00324AF0(void *self) __asm__("_$_16slf_anim_pause_t");

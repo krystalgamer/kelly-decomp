@@ -82,7 +82,7 @@ void destroy_function(function_layout *self,int flags) {
 struct layout{char data[32];void*vtable;void**start;void**finish;void**end;};extern char target_vtable;extern void*free_list[];extern "C" void purge(layout*) __asm__("purge__9slc_str_t");extern "C" void arch_free(void*) __asm__("arch_free__FPv");extern "C" void base_dtor(layout*,int) __asm__("_$_20script_library_class");asm(".equ target_vtable,0x005051D8");asm(".equ free_list,0x003E5628");asm(".equ purge__9slc_str_t,0x00350220");asm(".equ arch_free__FPv,0x002AC768");asm(".equ _$_20script_library_class,0x0034EE68");extern "C" void dtor(layout*,int)__asm__("_$_9slc_str_t");void dtor(layout*self,int deleting){self->vtable=&target_vtable;purge(self);void**p=self->start;unsigned n=self->end-p;if(n){unsigned bytes=n*4;if(bytes>128)arch_free(p);else{unsigned index=(bytes+7)/8-1;*p=free_list[index];free_list[index]=p;}}base_dtor(self,deleting);asm volatile("");}
 
 // 0x0034EDB0 __20script_library_class
-#include "KS/SRC/script_library_class_ctor_shared.h"
+#include "KS/SRC/script_library_class.h"
 
 script_library_class::script_library_class()
   : name(),

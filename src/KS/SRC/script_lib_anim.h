@@ -1,6 +1,8 @@
 #ifndef SCRIPT_LIB_ANIM_H
 #define SCRIPT_LIB_ANIM_H
 
+#pragma interface
+
 #include "KS/SRC/entity_anim.h"
 #include "KS/SRC/script_library_class.h"
 #include "KS/SRC/wds.h"

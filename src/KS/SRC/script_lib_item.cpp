@@ -2,6 +2,8 @@
 
 #include "KS/SRC/script_lib_item_shared.h"
 
+#pragma interface
+
 #if defined(KELLY_DECOMP_FUNCTION_003275B0)
 // 0x003275B0 _$_20slf_item_set_count_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
