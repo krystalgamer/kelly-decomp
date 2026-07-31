@@ -3,43 +3,9 @@
 
 #pragma interface
 
-class entity_id;
-class entity;
+#include "KS/SRC/camera.h"
+
 class kellyslater_controller;
-
-class camera {
-    char camera_data[8];
-
-public:
-    virtual bool get_ifc_num(const void *, float &);
-    virtual bool set_ifc_num(const void *, float);
-    virtual bool get_ifc_vec(const void *, void *);
-    virtual bool set_ifc_vec(const void *, const void *);
-    virtual bool get_ifc_str(const void *, void *);
-    virtual bool set_ifc_str(const void *, const void *);
-    virtual void render(void *, float, int, float);
-    virtual void rendershadow(void *, float, int, float, float);
-    virtual void initialize();
-    virtual void read_enx(void *);
-    virtual bool handle_enx_chunk(void *, void *);
-    virtual bool parse_instance(const void *, void *);
-    virtual entity *make_instance(
-        const entity_id &id,
-        unsigned int flags) const;
-    virtual ~camera();
-};
-
-class game_camera : public camera {
-    char camera_context[0x208];
-    kellyslater_controller *ksctrl;
-
-public:
-    game_camera(const entity_id &id, entity *target);
-    virtual ~game_camera();
-    inline void set_ks_controller(kellyslater_controller *controller) {
-        ksctrl = controller;
-    }
-};
 
 class big_wave_camera : public game_camera {
 public:

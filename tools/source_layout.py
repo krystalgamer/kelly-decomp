@@ -82,6 +82,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/BoardFrontEnd.h": "KS/SRC/ks/BoardFrontEnd_methods.cpp",
     "KS/SRC/bone.h": "KS/SRC/bone.cpp",
     "KS/SRC/capsule.h": "KS/SRC/capsule_methods.cpp",
+    "KS/SRC/camera.h": "KS/SRC/camera_methods.cpp",
     "KS/SRC/conglom.h": "KS/SRC/conglom_methods.cpp",
     "KS/SRC/entity.h": "KS/SRC/entity_methods.cpp",
     "KS/SRC/element.h": "KS/SRC/element_methods.cpp",

@@ -1,60 +1,36 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_002C6200)
 // 0x002C6200 camera_set_roll__12marky_cameraf
-class marky_camera {
-    char padding[0x2DC];
-    float roll;
-public:
-    void camera_set_roll(float angle);
-};
+#include "KS/SRC/camera.h"
 
 void marky_camera::camera_set_roll(float angle) {
     roll = angle;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002C69B0)
 // 0x002C69B0 camera_get_target__12marky_camera
-class vector3d { public: float x; float y; float z; vector3d(float ix, float iy, float iz) : x(ix), y(iy), z(iz) {} };
-class marky_camera { public: vector3d camera_get_target(); };
+#include "KS/SRC/camera.h"
 vector3d marky_camera::camera_get_target() { return vector3d(0.0f, 0.0f, 0.0f); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002C61E0)
 // 0x002C61E0 camera_set_target__12marky_cameraRC8vector3d
-struct vector3d { float x; float y; float z; vector3d &operator=(const vector3d &other) { x = other.x; y = other.y; z = other.z; return *this; } };
-class marky_camera { char padding[0x2d0]; vector3d target; public: void camera_set_target(const vector3d &position); };
+#include "KS/SRC/camera.h"
 void marky_camera::camera_set_target(const vector3d &position) { target = position; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002C61B0)
 // 0x002C61B0 sync__12marky_cameraR6camera
-class camera;
+#include "KS/SRC/camera.h"
 
 extern "C" void GameCameraSync(void *self, camera &other)
     __asm__("sync__11game_cameraR6camera");
 __asm__(".equ sync__11game_cameraR6camera, 0x002C41B0");
 
-class marky_camera {
-    char padding[0x78];
-    int flags;
-
-public:
-    void sync(camera &other);
-};
-
 void marky_camera::sync(camera &other) {
-    if ((flags >> 20) & 1) {
+    if (is_externally_controlled()) {
         return;
     }
     GameCameraSync(this, other);
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002C38A8)
 // 0x002C38A8 _$_6camera
 struct mic_vtable { char padding[8]; short adjustment; short reserved; void (*destroy)(void *, int); };
 struct mic { char padding[8]; mic_vtable *vtable; };
@@ -75,11 +51,13 @@ void destroy_camera(camera_layout *self, int deleting)
     destroy_entity(self, deleting);
     __asm__ __volatile__("" : : : "memory");
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002C41B0)
 // 0x002C41B0 sync__11game_cameraR6camera
-#include "KS/SRC/game_camera_sync_shared.h"
+#include "KS/SRC/camera.h"
+
+extern const po po_identity_matrix;
+__asm__(".equ sync__6cameraR6camera, 0x002C3910");
+__asm__(".equ po_identity_matrix, 0x00588930");
 
 void game_camera::sync(camera &other)
 {
@@ -92,4 +70,3 @@ void game_camera::sync(camera &other)
     crawl_mode = false;
     crawl_mode_firstperson = false;
 }
-#endif

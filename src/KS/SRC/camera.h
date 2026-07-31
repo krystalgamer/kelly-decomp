@@ -1,127 +1,88 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef CAMERA_H
+#define CAMERA_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_002FECE0)
-// 0x002FECE0 is_a_camera__C6camera
-class camera {
+#include "KS/SRC/entity.h"
+#include "KS/SRC/po.h"
+
+class kellyslater_controller;
+class mic;
+
+class camera : public entity {
+protected:
+    mic *microphone;
+
 public:
-    bool is_a_camera() const;
-};
-
-bool camera::is_a_camera() const {
-    return true;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FECE8)
-// 0x002FECE8 Reset__6camera
-class camera {
-public:
-    void Reset();
-};
-
-void camera::Reset() {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FEDA0)
-// 0x002FEDA0 init__11game_camera
-class game_camera {
-public:
-    void init();
-};
-
-void game_camera::init() {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FEDD0)
-// 0x002FEDD0 is_a_game_camera__C11game_camera
-class game_camera {
-public:
-    bool is_a_game_camera() const;
-};
-
-bool game_camera::is_a_game_camera() const {
-    return true;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FEEB8)
-// 0x002FEEB8 is_a_marky_camera__C12marky_camera
-class marky_camera {
-public:
-    bool is_a_marky_camera() const;
-};
-
-bool marky_camera::is_a_marky_camera() const {
-    return true;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FEEC0)
-// 0x002FEEC0 camera_set_collide_with_world__12marky_camerab
-class marky_camera {
-    char padding[0x2E0];
-    bool do_collide_with_world;
-public:
-    void camera_set_collide_with_world(bool value);
-};
-
-void marky_camera::camera_set_collide_with_world(bool value) {
-    do_collide_with_world = value;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FED78)
-// 0x002FED78 _$_11game_camera
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6camera");
-extern const char base_vtable[];
-__asm__(".equ _$_6camera, 0x002C38A8");
-__asm__(".equ base_vtable, 0x004F3AD0");
-struct object_layout { char padding[0x8]; const void *vtable; };
-extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_11game_camera");
-void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = base_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FEDA8)
-// 0x002FEDA8 GetStartPosition__11game_camera
-struct vector3d { float x; float y; float z; vector3d(const vector3d &other) { x = other.x; y = other.y; z = other.z; } };
-extern const vector3d ZEROVEC;
-__asm__(".equ ZEROVEC, 0x005887F0");
-class game_camera { public: vector3d GetStartPosition(); };
-vector3d game_camera::GetStartPosition() { return ZEROVEC; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FEE90)
-// 0x002FEE90 _$_12marky_camera
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6camera");
-extern const char base_vtable[];
-__asm__(".equ _$_6camera, 0x002C38A8");
-__asm__(".equ base_vtable, 0x004F3AD0");
-struct object_layout { char padding[0x8]; const void *vtable; };
-extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_12marky_camera");
-void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = base_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FEC90)
-// 0x002FEC90 __tf6camera
-#include "KS/SRC/rtti.h"
-extern "C" void **CameraBaseRtti() __asm__("__tf6entity");
-extern "C" void *camera_type[] __asm__("__ti6camera");
-extern "C" const char camera_name[];
-extern "C" void *camera_base_type[] __asm__("__ti6entity");
-__asm__(".equ __tf6entity, 0x001449C8");
-__asm__(".equ __ti6camera, 0x005A3EF0");
-__asm__(".equ camera_name, 0x004F4AF8");
-__asm__(".equ __ti6entity, 0x005A27C8");
-extern "C" void **CameraRtti() __asm__("__tf6camera");
-void **CameraRtti()
-{
-    if (!camera_type[0]) {
-        CameraBaseRtti();
-        __rtti_si(camera_type, camera_name, camera_base_type);
+    camera(
+        entity *parent,
+        const entity_id &id,
+        entity_flavor_t flavor = ENTITY_CAMERA);
+    virtual ~camera();
+    virtual bool is_a_camera() const;
+    virtual void sync(camera &other);
+    virtual void Reset();
+    inline bool is_externally_controlled() {
+        return (*(int *)((char *)this + 0x78) >> 20) & 1;
     }
-    return camera_type;
-}
+};
+
+class game_camera : public camera {
+public:
+    game_camera(
+        const entity_id &id,
+        entity *target = 0);
+    virtual ~game_camera();
+    virtual void sync(camera &other);
+    virtual void frame_advance(time_value_t time);
+    inline void set_ks_controller(
+        kellyslater_controller *controller)
+    {
+        ksctrl = controller;
+    }
+    virtual void init();
+    virtual vector3d GetStartPosition();
+    virtual bool is_a_game_camera() const;
+
+protected:
+    bool last_frame_valid;
+    kellyslater_controller *ksctrl;
+
+private:
+    entity *target_entity;
+    bool reset_old_elevation;
+    vector3d targ_ent_pos;
+    rational_t targ_ent_elev;
+    rational_t last_frame_target_elev;
+    rational_t last_frame_focus_y;
+    bool temporary_lock;
+    po ground_pitch_po;
+    po last_frame_po;
+    bool crawl_mode;
+    bool crawl_mode_firstperson;
+};
+
+class marky_camera : public game_camera {
+public:
+    explicit marky_camera(const entity_id &id);
+    virtual ~marky_camera();
+    virtual bool is_a_marky_camera() const;
+    virtual void frame_advance(time_value_t time);
+    virtual void sync(camera &other);
+    virtual void camera_set_target(const vector3d &position);
+    virtual vector3d camera_get_target();
+    virtual void camera_set_roll(rational_t angle);
+    virtual void camera_set_collide_with_world(bool value);
+    inline rational_t get_priority() const {
+        return current_priority;
+    }
+
+private:
+    vector3d target;
+    float roll;
+    bool do_collide_with_world;
+    vector3d last_frame_pos;
+    rational_t current_priority;
+};
+
 #endif
