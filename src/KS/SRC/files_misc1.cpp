@@ -98,3 +98,6 @@ class region; extern "C" region **fill_values(region **first,unsigned int count,
 
 // 0x002B0B58 fill_n__H3ZPP10controllerZUiZP10controller_X01X11RCX21_X01
 class controller; extern "C" controller **fill_values(controller **first,unsigned int count,controller *const &value)__asm__("fill_n__H3ZPP10controllerZUiZP10controller_X01X11RCX21_X01"); controller **fill_values(controller **first,unsigned int count,controller *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
+
+// 0x002B0E80 fill_n__H3ZPP15force_generatorZUiZP15force_generator_X01X11RCX21_X01
+class force_generator; extern "C" force_generator **fill_values(force_generator **first,unsigned int count,force_generator *const &value)__asm__("fill_n__H3ZPP15force_generatorZUiZP15force_generator_X01X11RCX21_X01"); force_generator **fill_values(force_generator **first,unsigned int count,force_generator *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
