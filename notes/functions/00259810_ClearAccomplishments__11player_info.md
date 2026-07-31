@@ -5,35 +5,28 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/player.cpp`
 - Reference source: `KS/SRC/ks/player.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 81.8182 | 44.4444 | `candidate.cpp` |
-| 2 | different | 25.0 | 22.2222 | `candidate.cpp` |
-| 3 | different | 77.2727 | 33.3333 | `candidate.cpp` |
-| 4 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | different | 56.8182 | 25.0 | `candidate.cpp` |
+| 3 | different | 75.0 | 33.3333 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
-The first faithful source shape exposed an isolated scheduling, layout, or sibling-call mismatch.
+Native C++ source-only retry; no extern-C wrapper, compiler barrier, or instruction assembly.
 
 ### Attempt 2 notes
 
-The second source shape improved part of the layout or call form but retained a distinct target scheduling mismatch.
+Native C++ source-only retry; no extern-C wrapper, compiler barrier, or instruction assembly.
 
 ### Attempt 3 notes
 
-The third source shape retained a distinct scheduling mismatch.
-
-### Attempt 4 notes
-
-The released helper clears all 20 accomplishment pointers and resets their count.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+Native C++ source-only retry; no extern-C wrapper, compiler barrier, or instruction assembly.
 
 ## Outcome
 
-The released accomplishment clear matched exactly.
+The exact released clear loop and two native C++ equivalents do not reproduce the shipped branch-delay scheduling. The previous matching barriers were invalid, so this row is deferred.

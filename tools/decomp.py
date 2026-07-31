@@ -391,8 +391,18 @@ def finalize(
     row: dict[str, str],
     status: str,
     summary: str,
+    demote_matched: bool = False,
 ) -> None:
     current_status = row["status"]
+    if current_status == "matched":
+        if not (demote_matched and status == "deferred"):
+            raise SystemExit(
+                f"{row['symbol_name']} is already matched"
+            )
+    elif demote_matched:
+        raise SystemExit(
+            f"{row['symbol_name']} is {current_status}, not matched"
+        )
     if current_status == "deferred" and status != "matched":
         raise SystemExit(
             f"{row['symbol_name']} can only leave deferred as matched"
@@ -402,6 +412,7 @@ def finalize(
         "source_pending",
         "sol_pending",
         "deferred",
+        "matched",
     ):
         raise SystemExit(
             f"{row['symbol_name']} is already {row['status']}"
@@ -578,6 +589,12 @@ def main() -> int:
         required=True,
     )
     finalize_parser.add_argument("--summary", required=True)
+    finalize_parser.add_argument(
+        "--demote-matched",
+        action="store_true",
+        help="Allow a matched row to return to deferred after three "
+        "nonmatching source-only attempts.",
+    )
 
     subparsers.add_parser("check")
 
@@ -592,6 +609,7 @@ def main() -> int:
             resolve(rows, args.function),
             args.status,
             args.summary,
+            args.demote_matched,
         )
     else:
         check_queue(rows)
