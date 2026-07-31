@@ -1,0 +1,15 @@
+{
+  "address": "0x0012AB18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "694b3c365f0444fcc3d68a2f925d85e0d09f638c",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/entity.h\"\n\nentity::entity( const entity_id& _id, unsigned int _flags )\n  : bone()\n{\n  _construct( _id, ENTITY_ENTITY, NO_ID, _flags );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__6entityR10chunk_fileRC9entity_id15entity_flavor_tUi"
+}
