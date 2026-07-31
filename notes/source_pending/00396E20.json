@@ -1,0 +1,15 @@
+{
+  "address": "0x00396E20",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "40829f3647a7e7300bd1b0055baa4e2684b76fc6",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"NGL/PS2/ngl_ps2.h\"\n\n// Call this before nglInit if you're using ProView for file transfers.\nvoid nglSetProViewPS2( bool UsingProView )\n{\n  nglUsingProView = UsingProView;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "nglInit__Fv"
+}
