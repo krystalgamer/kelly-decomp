@@ -1,0 +1,15 @@
+{
+  "address": "0x00319968",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "fc02434553829e5f04d9d4f9910eecd0a3dec3d1",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/script_lib_mfg.h\"\n\nvoid script_mfg::register_signals()\n{\n  // for descendant class, replace \"script_mfg\" with appropriate string\n  #define MAC(label,str)  signal_manager::inst()->insert( str, label );\n  #include \"script_mfg_signals.h\"\n  #undef MAC\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "register_signals__10script_mfg"
+}
