@@ -1,0 +1,15 @@
+{
+  "address": "0x002C3910",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f08197552f3304f98a3339f06301b736233a2956",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/camera.h\"\n\nvoid camera::sync( camera& b )\n{\n  if( is_externally_controlled() ) return;\n  if ( link_ifc()->get_parent() )\n  {\n    static po res;\n    fast_po_mul(res, b.get_abs_po(), link_ifc()->get_parent()->get_abs_po().inverse());\n//    set_rel_po( b.get_abs_po() * link_ifc()->get_parent()->get_abs_po().inverse() );\n    set_rel_po( res );\n  }\n  else\n    set_rel_po( b.get_abs_po() );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "sync__6cameraR6camera"
+}
