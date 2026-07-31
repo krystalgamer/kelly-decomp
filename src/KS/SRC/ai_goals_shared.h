@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_AI_GOALS_SHARED_H
 #define KELLY_DECOMP_AI_GOALS_SHARED_H
 
-#include "g++-2/stl_list_shared.h"
+#include "g++-2/stl_list.h"
 
 class ai_goal;
 

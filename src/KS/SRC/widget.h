@@ -3,7 +3,7 @@
 
 #include "KS/SRC/color.h"
 #include "KS/SRC/stringx.h"
-#include "g++-2/stl_list_shared.h"
+#include "g++-2/stl_list.h"
 
 typedef float rational_t;
 typedef float time_value_t;

@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_STL_LIST_SHARED_H
-#define KELLY_DECOMP_STL_LIST_SHARED_H
+#ifndef __SGI_STL_INTERNAL_LIST_H
+#define __SGI_STL_INTERNAL_LIST_H
 
 #include "KS/SRC/archalloc.h"
 #include "KS/SRC/custom_stl.h"

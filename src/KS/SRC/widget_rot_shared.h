@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_WIDGET_ROT_SHARED_H
 #define KELLY_DECOMP_WIDGET_ROT_SHARED_H
 
-#include "g++-2/stl_list_shared.h"
+#include "g++-2/stl_list.h"
 
 typedef float time_value_t;
 typedef float rational_t;

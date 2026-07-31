@@ -27,7 +27,7 @@ public:
     }
 };
 
-#include "g++-2/stl_list_shared.h"
+#include "g++-2/stl_list.h"
 
 struct BeachData {
     char name[32];
