@@ -152,7 +152,7 @@ struct SoundScriptManager;extern SoundScriptManager*sound_manager;extern "C" voi
 
 #if defined(KELLY_DECOMP_FUNCTION_001D0D18)
 // 0x001D0D18 OnButtonRelease__16TutorialFrontEndii
-#include "KS/SRC/ks/TutorialFrontEnd_shared.h"
+#include "KS/SRC/ks/TutorialFrontEnd.h"
 
 void TutorialFrontEnd::OnButtonRelease(int controller, int button)
 {

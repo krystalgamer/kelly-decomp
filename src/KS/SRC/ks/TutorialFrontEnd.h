@@ -1,14 +1,55 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef TUTORIAL_FRONT_END_H
+#define TUTORIAL_FRONT_END_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_001DE020)
-// 0x001DE020 __tf16TutorialFrontEnd
-extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
-extern "C" void **BaseRtti_001DE020() __asm__("__tf11FEMultiMenu");
-extern "C" void *type_001DE020[] __asm__("__ti16TutorialFrontEnd");
-extern const char name_001DE020[]; extern void *base_type_001DE020[];
-__asm__(".equ __rtti_class, 0x003CE2B0"); __asm__(".equ __tf11FEMultiMenu, 0x001D8138");
-__asm__(".equ __ti16TutorialFrontEnd, 0x005A2ED8"); __asm__(".equ name_001DE020, 0x004DE040"); __asm__(".equ base_type_001DE020, 0x004DDC48");
-extern "C" void **Rtti_001DE020() __asm__("__tf16TutorialFrontEnd");
-void **Rtti_001DE020() { if (!type_001DE020[0]) { BaseRtti_001DE020(); __rtti_class(type_001DE020, name_001DE020, base_type_001DE020, 1); } return type_001DE020; }
+#include "KS/SRC/ks/FEMenu.h"
+
+class IGOTutorialManager {
+    char padding[0x28];
+
+public:
+    int wave_indicator_type;
+    void StopCurrentVO();
+};
+
+class IGOFrontEnd {
+    char padding[0x480];
+
+public:
+    IGOTutorialManager *tutorial_manager;
+};
+
+class PauseMenuSystem : public FEMenuSystem {
+public:
+    bool drawing;
+};
+
+class WaveIndicatorWidget {
+public:
+    void Hide(bool fade_out = true);
+};
+
+struct TutorialFEManager {
+    IGOFrontEnd *IGO;
+    PauseMenuSystem *pms;
+};
+
+extern TutorialFEManager frontendmanager;
+
+class TutorialFrontEnd : public FEMultiMenu {
+    PanelQuad *bgPQs[9];
+    void *help_text;
+    void *pause_button_text;
+    WaveIndicatorWidget *waveIndicator;
+    bool ignore_next_release;
+
+public:
+    virtual void OnButtonRelease(int controller, int button);
+};
+
+__asm__(".equ frontendmanager, 0x003E7728");
+__asm__(".equ StopCurrentVO__18IGOTutorialManager, 0x0015A2C0");
+__asm__(".equ Hide__19WaveIndicatorWidgetb, 0x00168180");
+
 #endif
