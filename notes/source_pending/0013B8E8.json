@@ -1,0 +1,15 @@
+{
+  "address": "0x0013B8E8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "13bc75a0e3613bb723949d5ad86fbc7bbbb23f1b",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/animation_interface.h\"\n\nvoid animation_interface::read_anim_sub_chunk(chunk_file &fs, const stringx &anim_id, const stringx &anims_directory)\n{\n  stringx in;\n  rational_t percent = 0.0f;\n  stringx inanm = empty_string;\n  int damage = 0;\n  rational_t recover = -1.0f;\n  rational_t recover_var = -1.0f;\n  int flags = 0;\n\n  serial_in(fs, &percent);\n\n  for( serial_in(fs, &in); in != chunkend_label; serial_in(fs, &in) )\n  {\n    if(in == \"damage\")\n    {\n      serial_in(fs, &damage);\n    }\n    else if(in == \"recover_time\")\n    {\n      serial_in(fs, &recover);\n    }\n    else if(in == \"recover_var\")\n    {\n      serial_in(fs, &recover_var);\n    }\n    else if(in == \"reverse\")\n    {\n      flags |= ANIM_IFC_REVERSE;\n    }\n    else if(in == \"anim_file\")\n    {\n      serial_in(fs, &inanm);\n    }\n    else\n      error(\"Bad chunk ID '%s' in 'anim_set:' section (%s) of %s!\", in.c_str(), anim_id.c_str(), fs.get_filename().c_str());\n  }\n\n  if(inanm.length() > 0)\n  {\n    if (os_developer_options::inst()->is_flagged(os_developer_options::FLAG_STASH_ONLY))\n    {\n      inanm = inanm + entity_track_tree::extension( );\n      g_world_ptr->get_ett_manager()->load( inanm );\n    }\n    else\n    {\n      inanm = anims_directory + inanm + entity_track_tree::extension( );\n      my_entity->load_anim(inanm);\n    }\n  }\n\n  add_anim_info_id_map_entry( anim_id, percent, inanm, damage, recover, recover_var, flags );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "read_anim_sub_chunk__19animation_interfaceR10chunk_fileRC7stringxT2"
+}
