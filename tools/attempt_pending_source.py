@@ -182,10 +182,10 @@ def commit_source_pending(row: dict[str, str]) -> str:
     return run("git", "rev-parse", "--short", "HEAD").strip()
 
 
-def process(row: dict[str, str]) -> None:
+def process(row: dict[str, str]) -> str:
     if row["status"] != "pending":
         print(f"skip {row['address']} ({row['status']})")
-        return
+        return "skipped"
     if run("git", "status", "--porcelain").strip():
         raise RuntimeError("Working tree is not clean")
 
@@ -207,7 +207,7 @@ def process(row: dict[str, str]) -> None:
     )
     if attempt["status"] == "matched":
         print(f"{row['address']} matched; manual installation required")
-        return
+        return "matched"
 
     run(
         str(PYTHON),
@@ -226,18 +226,49 @@ def process(row: dict[str, str]) -> None:
         f"{attempt['status']} score={attempt.get('score', 0)} "
         f"committed={commit}"
     )
+    return "source_pending"
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Attempt exact released source for pending functions."
     )
-    parser.add_argument("addresses", nargs="+")
+    parser.add_argument("addresses", nargs="*")
+    parser.add_argument(
+        "--next-count",
+        type=int,
+        help="Process this many next pending rows in queue order.",
+    )
     args = parser.parse_args()
 
+    if args.next_count is not None:
+        if args.addresses:
+            raise RuntimeError(
+                "Explicit addresses cannot be combined with --next-count"
+            )
+        if args.next_count < 1:
+            raise RuntimeError("--next-count must be positive")
+        for _ in range(args.next_count):
+            rows = load_rows()
+            row = next(
+                (candidate for candidate in rows
+                 if candidate["status"] == "pending"),
+                None,
+            )
+            if row is None:
+                break
+            if process(row) == "matched":
+                break
+        return 0
+
+    if not args.addresses:
+        raise RuntimeError(
+            "Provide addresses or use --next-count"
+        )
     for address in args.addresses:
         rows = load_rows()
-        process(resolve(rows, address))
+        if process(resolve(rows, address)) == "matched":
+            break
     return 0
 
 
