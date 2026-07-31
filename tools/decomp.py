@@ -393,7 +393,16 @@ def finalize(
     summary: str,
 ) -> None:
     current_status = row["status"]
-    if current_status not in ("pending", "source_pending", "sol_pending"):
+    if current_status == "deferred" and status != "matched":
+        raise SystemExit(
+            f"{row['symbol_name']} can only leave deferred as matched"
+        )
+    if current_status not in (
+        "pending",
+        "source_pending",
+        "sol_pending",
+        "deferred",
+    ):
         raise SystemExit(
             f"{row['symbol_name']} is already {row['status']}"
         )
