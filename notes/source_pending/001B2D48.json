@@ -1,0 +1,15 @@
+{
+  "address": "0x001B2D48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0fbbf3edb9f84b942f126478f73dc02d88a9b17e",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FrontEndMenus.h\"\n\nvoid PauseMenuClass::OnActivate()\n{\n\tFEMenuEntry *\toldHigh;\n\t\n\tgoals->Disable(g_game_ptr->get_game_mode() != GAME_MODE_CAREER);\n\ttip->Disable(g_game_ptr->get_game_mode() != GAME_MODE_CAREER);\n\ttrickbook->Disable( sys->pause_player == -1 );\n\toptions->Disable( sys->pause_player == -1 );\n\treturnFE->Disable(g_game_ptr->get_game_mode() != GAME_MODE_FREESURF_INFINITE);\n\n\t// Reposition entries.\n\toldHigh = highlighted;\n\tInit();\n\tif (oldHigh && !oldHigh->GetDisable())\n\t\tsetHigh(oldHigh, false);\n\telse\n\t\tHighlightDefault();\n\n\t//FEMenu::OnActivate();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "OnActivate__23LostControllerMenuClass"
+}
