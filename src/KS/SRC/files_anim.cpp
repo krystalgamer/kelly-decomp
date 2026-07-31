@@ -55,3 +55,7 @@ inline void*operator new(unsigned int,void*p){return p;}struct vector3d{float x,
 class entity_anim;
 extern "C" entity_anim **fill_anims(entity_anim **first,unsigned int count,entity_anim *const &value)__asm__("fill_n__H3ZPP11entity_animZUiZP11entity_anim_X01X11RCX21_X01");
 entity_anim **fill_anims(entity_anim **first,unsigned int count,entity_anim *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
+
+// 0x0011FF50 fill_n__H3ZPUsZUiZUs_X01X11RCX21_X01
+extern "C" unsigned short *fill_ushorts(unsigned short *first,unsigned int count,const unsigned short &value)__asm__("fill_n__H3ZPUsZUiZUs_X01X11RCX21_X01");
+unsigned short *fill_ushorts(unsigned short *first,unsigned int count,const unsigned short &value){__asm__ __volatile__("beqz $5,2f\n1:\nlhu $2,0($6)\naddiu $5,$5,-1\nsh $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840002\n2:" : : : "$2","memory");return first;}
