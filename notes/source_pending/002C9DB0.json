@@ -1,0 +1,15 @@
+{
+  "address": "0x002C9DB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "36517b74b9633d12c54ca2ee0d7bb156058378de",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/debug_render.h\"\n\nvoid print_3d_text(const vector3d& wpos, color32 col, const char *format, ...)\n{\n//#if defined(TARGET_PC)\n  rational_t fontSize = 14;\n//#else\n//  rational_t fontSize = 18; // TV's make text very blurry, but the horizontal direction is far more important\n//#endif\n\n  camera* cam = app::inst()->get_game()->get_current_view_camera();\n\n  vector3d cam_face = cam->get_abs_po().get_facing();\n  vector3d cam_pos = cam->get_abs_position();\n  // if camera outside the world, disable visibility check\n  bool vis_check = g_camera_out_of_world;\n\n  vector3d dir = (wpos - cam_pos);\n  if(dir == ZEROVEC)\n    return;\n  dir.normalize();\n\n  if(dot(cam_face, dir) > 0.0f && (vis_check || visibility_check(cam_pos, wpos, NULL)))\n  {\n    vector3d pos = xform3d_1(geometry_manager::inst()->xforms[geometry_manager::XFORM_EFFECTIVE_WORLD_TO_VIEW],wpos);\n\n    if(pos.z > 0.0f)\n    {\n      pos = xform3d_1_homog(geometry_manager::inst()->xforms[geometry_manager::XFORM_VIEW_TO_SCREEN],pos);\n\n      char string[2048] = \"\";\n      va_list args;\n      va_start(args, format);\n      vsprintf(string, format, args);\n      va_end(args);\n\n      char *newline;\n      char *strptr = string;\n\n      // would be nice if this rendered the text centered\n      while((newline = strchr(strptr, '\\n')) != NULL)\n      {\n//        int len = newline - strptr; // unused -- remove me?\n        *newline = '\\0';\n\n        hw_rasta::inst()->print(strptr, vector2di(pos.x, pos.y), col);\n        pos.y += fontSize;\n\n        strptr = newline+1;\n      }\n\n      hw_rasta::inst()->print(strptr, vector2di(pos.x, pos.y), col);\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "print_3d_text__FRC8vector3dG7color32PCce"
+}
