@@ -1,0 +1,15 @@
+{
+  "address": "0x002898E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ab3aa6ecc9602a0fe3e6b5d44ab67553ffa4bdda",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/item.h\"\n\nbool item::handle_enx_chunk( chunk_file& fs, stringx& label )\n{\n  if(label == \"item:\")\n  {\n    read_item_data( fs, label );\n\n    return(true);\n  }\n  else if(label == \"linked_items:\")\n  {\n    for ( serial_in(fs,&label); label!=chunkend_label; serial_in(fs,&label) )\n    {\n      entity* itm;\n      stringx entity_name = get_fname_wo_ext( label );\n      entity_name.to_upper();\n      stringx entity_dir = get_dir( label );\n      itm = g_entity_maker->create_entity_or_subclass( entity_name,\n                                                    entity_id::make_unique_id(),\n                                                    po_identity_matrix,\n                                                    entity_dir,\n                                                    ACTIVE_FLAG | NONSTATIC_FLAG );\n\n      if ( !itm->is_an_item() )\n      {\n        error( get_name() + \" linked item: entity \" + entity_name + \" is not an item\" );\n      }\n      else\n      {\n        ((item *)itm)->set_linked(true);\n        add_item((item *)itm);\n      }\n    }\n\n    return true;\n  }\n  else\n    return entity::handle_enx_chunk(fs, label);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "handle_enx_chunk__4itemR10chunk_fileR7stringx"
+}
