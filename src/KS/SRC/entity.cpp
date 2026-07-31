@@ -102,16 +102,33 @@ void entity::set_alternative_materials(
 }
 
 // 0x00130EA8 create_light_set__6entity
-#include "KS/SRC/entity_light_shared.h"
+#include "KS/SRC/lightmgr.h"
 
 extern const char entity_light_source_file[];
 __asm__(".equ entity_light_source_file, 0x004CCA78");
 
-void entity::create_light_set()
+struct entity_light_layout {
+    // my_light_mgr is still represented by padding in the canonical entity.
+    char state_before_light_manager[0xe4];
+    light_manager *light_manager_data;
+};
+
+void *operator new(
+    unsigned int size,
+    unsigned int alignment,
+    const char *source_file,
+    int line);
+__asm__(".equ __nw__FUiUiPCci, 0x002AC578");
+
+extern "C" void create_entity_light_set(
+    entity_light_layout *self)
+    __asm__("create_light_set__6entity");
+
+void create_entity_light_set(entity_light_layout *self)
 {
     volatile char frame_padding[16];
-    if (!my_light_mgr)
-        my_light_mgr =
+    if (!self->light_manager_data)
+        self->light_manager_data =
             new (0, entity_light_source_file, 0) light_manager();
 }
 
@@ -1105,8 +1122,8 @@ void entity::set_visible(bool visible) {
 
 // 0x00139B70 set_max_lights__6entityUi
 #include "KS/SRC/entity.h"
+#include "KS/SRC/lightmgr.h"
 
-struct light_manager { char padding[64]; unsigned int max_lights; };
 struct entity_vtable { char padding[0x4c0]; short adjustment; short reserved; light_manager *(*get_light_set)(void *); };
 struct entity_layout {
     char padding[8];
