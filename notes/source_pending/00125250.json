@@ -1,0 +1,15 @@
+{
+  "address": "0x00125250",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a1e6e0d6bf3b6422f0f2efd26f7f39fbdeae1151",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/physical_interface.h\"\n\nvoid physical_interface::bounce(vector3d hit, vector3d hit_norm, entity *hit_entity)\n{\n  bounce_pos = hit;\n  bounce_norm = hit_norm;\n  bounce_ent = hit_entity;\n\n  if(is_sticky())\n  {\n    set_velocity(ZEROVEC);\n    set_gravity(false);\n    set_angular_velocity(ZEROVEC);\n\n    if(is_sticky_orient())\n    {\n      po my_po = po_identity_matrix;\n      my_po.set_facing(hit_norm);\n\n      vector3d new_pos = hit + (hit_norm*sticky_offset);\n      my_po.set_position(new_pos);\n\n      my_entity->set_rel_po_no_children(my_po);\n    }\n    else\n    {\n      vector3d new_pos = hit - (my_entity->get_abs_po().get_facing()*sticky_offset);\n      my_entity->set_rel_position_no_children(new_pos);\n    }\n\n    if(hit_entity != NULL && my_entity->has_link_ifc())\n    {\n      po relpo = my_entity->get_abs_po() * hit_entity->get_abs_po().inverse();\n      my_entity->link_ifc()->set_parent( hit_entity );\n      my_entity->set_rel_po_no_children( relpo );\n\n      stuck_parent_was_alive_last_frame = hit_entity->is_alive();\n    }\n\n    set_flag(_PHYS_STUCK, true);\n  }\n  else if(is_bouncy())\n  {\n    vector3d vel, dir;\n    vel = get_velocity();\n\n    rational_t vel_len = vel.length();\n\n    if(vel_len > 0.0f)\n    {\n      // reverse it\n      vel *= -1;\n\n      // calculate NEW bounce direction\n      rational_t inv_vel_len = 1.0f / vel_len;\n\n      dir.x = vel.x*inv_vel_len;\n      dir.y = vel.y*inv_vel_len;\n      dir.z = vel.z*inv_vel_len;\n\n      my_entity->set_rel_position_no_children(hit + (dir * (my_entity->get_visual_radius() > 0.0f ? my_entity->get_visual_radius()*0.75f : 0.1f)));\n\n/*\n      po the_po;\n      rational_t dot_prod = dot(dir, hit_norm);\n      vector3d cross_prod = cross(dir, hit_norm);\n\n      the_po.set_rot((cross_prod), -2.0f*fast_acos(dot_prod));\n      vel = the_po.non_affine_slow_xform(vel);\n*/\n/*\n\t    // Mirror code\n\t    vector3d y = ray to reflect;\n\t    vector3d u = normal to reflect by;\n\t    vector3d reflection = (u * (2.0f * (dot(y, u) / u.length2()))) - y;\n*/\n  \t  vel = ((hit_norm * (2.0f * (dot(dir, hit_norm) / hit_norm.length2()))) - dir)*vel_len;\n\n      // cheapo, better would be to make it multiply by bounce_factor in dir of normal and slide_factor in other 2 ortho dir's\n      vel.x *= slide_factor;\n      vel.y *= bounce_factor;\n      vel.z *= slide_factor;\n\n      set_velocity(vel);\n    }\n    else\n      my_entity->set_rel_position_no_children(hit + (hit_norm * (my_entity->get_visual_radius() > 0.0f ? my_entity->get_visual_radius()*0.75f : 0.1f)));\n  }\n\n  set_flag(_PHYS_BOUNCED, true);\n  my_entity->raise_signal(entity::BOUNCED);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "bounce__18physical_interfaceG8vector3dT1P6entity"
+}
