@@ -1,0 +1,15 @@
+{
+  "address": "0x00272F48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4a0487e68d8cabe01b43be499975b230e1393eb2",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/beam.h\"\n\nvoid beam_effect::read_width_chunk( chunk_file& fs )\n{\n  rational_t start_width = 0.02f;\n  rational_t end_width = 0.075f;\n  rational_t the_duration = 1.0f;\n  rational_t the_delay = 0.0f;\n  rational_t the_loop_delay = -1.0f;\n  bool invert_loop = false;\n\n  stringx label;\n  serial_in( fs, &label );\n\n  while(!(label == chunkend_label))\n  {\n    if(label == \"start\")\n    {\n      serial_in(fs, &start_width);\n    }\n    else if(label == \"end\")\n    {\n      serial_in(fs, &end_width);\n    }\n    else if(label == \"duration\")\n    {\n      serial_in(fs, &the_duration);\n    }\n    else if(label == \"delay\")\n    {\n      serial_in(fs, &the_delay);\n    }\n    else if(label == \"loop_delay\")\n    {\n      serial_in(fs, &the_loop_delay);\n    }\n    else if(label == \"invert_loop\")\n    {\n//      serial_in(fs, &invert_loop);\n      invert_loop = true;\n    }\n    else if(label == \"looping\")\n    {\n//      bool loop = false;\n//      serial_in(fs, &loop);\n\n      if(the_loop_delay < 0.0f)\n        the_loop_delay = 0.0f;\n      else\n        the_loop_delay = -1.0f;\n    }\n    else\n    {\n      error( fs.get_filename() + \": unknown keyword '\" + label + \"' in width section of beam_effect\" );\n    }\n\n    serial_in( fs, &label );\n  }\n\n    set_width_delta(start_width, end_width, the_duration, the_delay, the_loop_delay, invert_loop);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "read_width_chunk__11beam_effectR10chunk_file"
+}
