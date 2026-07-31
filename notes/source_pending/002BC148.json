@@ -1,0 +1,15 @@
+{
+  "address": "0x002BC148",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b6e715aa27386cc4ed46be07bfa759402a3f7ad4",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/widget_script.h\"\n\nvoid timer_widget::add_script_function(const stringx &func, time_value_t time)\n{\n  if(time >= time_left)\n  {\n    script_calls_made.push_back(timer_func(func, time));\n    script_calls_left.reserve(script_calls_made.size());\n  }\n  else if(time < time_left)\n  {\n    script_calls_left.push_back(timer_func(func, time));\n    script_calls_made.reserve(script_calls_left.size());\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "add_script_function__12timer_widgetRC7stringxf"
+}
