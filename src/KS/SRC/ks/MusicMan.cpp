@@ -2,7 +2,7 @@
 
 
 #if defined(KELLY_DECOMP_FUNCTION_002585B0)
-#include "KS/SRC/ks/MusicMan_shared.h"
+#include "KS/SRC/ks/MusicMan.h"
 // 0x002585B0 __5Track
 Track::Track() {
     paused = false;
@@ -10,13 +10,13 @@ Track::Track() {
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00258640)
-#include "KS/SRC/ks/MusicMan_shared.h"
+#include "KS/SRC/ks/MusicMan.h"
 // 0x00258640 IsPlaying__5Track
 bool Track::IsPlaying() { return nslGetSoundStatus(mySndId) != 0; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00258738)
-#include "KS/SRC/ks/MusicMan_shared.h"
+#include "KS/SRC/ks/MusicMan.h"
 // 0x00258738 Unpause__5Track
 void Track::Unpause()
 {
@@ -27,7 +27,7 @@ void Track::Unpause()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002586E8)
-#include "KS/SRC/ks/MusicMan_shared.h"
+#include "KS/SRC/ks/MusicMan.h"
 // 0x002586E8 Pause__5Track
 void Track::Pause()
 {
@@ -139,7 +139,7 @@ MusicMan::MusicMan()
 
 #if defined(KELLY_DECOMP_FUNCTION_002585E8)
 // 0x002585E8 Play__5Track
-#include "KS/SRC/ks/MusicMan_shared.h"
+#include "KS/SRC/ks/MusicMan.h"
 
 nslSoundId nslAddSound(nslSourceId source);
 void nslPlaySound(nslSoundId sound);

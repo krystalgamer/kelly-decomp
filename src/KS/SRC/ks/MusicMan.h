@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_MUSICMAN_SHARED_H
-#define KELLY_DECOMP_MUSICMAN_SHARED_H
+#ifndef MUSIC_MAN_H
+#define MUSIC_MAN_H
 
 typedef unsigned int nslSourceId;
 typedef unsigned int nslSoundId;
