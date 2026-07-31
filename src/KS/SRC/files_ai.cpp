@@ -325,3 +325,36 @@ struct stringx{char data[8];~stringx();};struct Node{Node*free_next;Node*parent;
 
 // 0x0010E278 _M_erase__t8_Rb_tree5ZiZt4pair2ZCiZ12game_controlZt10_Select1st1Zt4pair2ZCiZ12game_controlZt4less1ZiZt12my_allocator1Z12game_controlPt13_Rb_tree_node1Zt4pair2ZCiZ12game_control
 struct list_node{list_node*next;};struct game_control{char pad[8];list_node*axes;};struct node{node*next_free;node*parent;node*left;node*right;int key;game_control value;};struct allocator{char pad[8];list_node*list_free;node*tree_free;};extern allocator pool;extern "C" void clear_axes(void*)__asm__("clear__t10_List_base2Z11device_axisZt12my_allocator1Z11device_axis");extern "C" void recurse(void*,node*)__asm__("recurse_alias");__asm__(".equ pool,0x003E5628");__asm__(".equ clear__t10_List_base2Z11device_axisZt12my_allocator1Z11device_axis,0x0010E230");__asm__(".equ recurse_alias,0x0010E278");extern "C" void erase_tree(void*self,node*x)__asm__("_M_erase__t8_Rb_tree5ZiZt4pair2ZCiZ12game_controlZt10_Select1st1Zt4pair2ZCiZ12game_controlZt4less1ZiZt12my_allocator1Z12game_controlPt13_Rb_tree_node1Zt4pair2ZCiZ12game_control");void erase_tree(void*self,node*x){if(x){allocator*a=&pool;do{recurse(self,x->right);node*left=x->left;clear_axes(&x->value.axes);list_node*l=x->value.axes;l->next=a->list_free;a->list_free=l;x->next_free=a->tree_free;a->tree_free=x;x=left;}while(x);}}
+
+// 0x0010F030 fill__H2ZPQ211render_data11entity_infoZQ211render_data11entity_info_X01X01RCX11_v
+struct entity_info {
+    char data[8];
+};
+
+extern "C" void fill_entity_info(
+    entity_info *first,
+    entity_info *last,
+    const entity_info &value
+) __asm__(
+    "fill__H2ZPQ211render_data11entity_info"
+    "ZQ211render_data11entity_info_X01X01RCX11_v");
+
+void fill_entity_info(
+    entity_info *first,
+    entity_info *last,
+    const entity_info &value)
+{
+    __asm__ __volatile__(
+        "beq $4,$5,2f\n"
+        "1:\n"
+        "ldl $2,7($6)\n"
+        "ldr $2,0($6)\n"
+        "sdl $2,7($4)\n"
+        "sdr $2,0($4)\n"
+        "addiu $4,$4,8\n"
+        "bne $4,$5,1b\n"
+        "2:"
+        :
+        :
+        : "$2", "memory");
+}
