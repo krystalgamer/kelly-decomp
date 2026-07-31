@@ -2,9 +2,31 @@
 #define GAME_H
 
 #include "KS/SRC/commands.h"
-#include "KS/SRC/game_process_shared.h"
 #include "KS/SRC/inputmgr_shared.h"
 #include "KS/SRC/stringx.h"
+
+class game_process {
+    const char *name;
+    const int *flow;
+    int index;
+    int num_states;
+    float timer;
+    bool allow_override;
+
+public:
+    game_process();
+    game_process(
+        const char *process_name,
+        const int *state_flow,
+        int state_count);
+    ~game_process();
+
+    void reset_index();
+    inline void set_timer(float value) {
+        timer = value;
+    }
+};
+
 #include "g++-2/stl_list_shared.h"
 
 struct BeachData {
