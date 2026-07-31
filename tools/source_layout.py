@@ -88,6 +88,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/trail.h": "KS/SRC/ks/trail_rtti.cpp",
     "KS/SRC/ks/dxt1_codebook.h": "KS/SRC/ks/dxt1_codebook_rtti.cpp",
     "KS/SRC/ks/floatobj.h": "KS/SRC/ks/floatobj_methods.cpp",
+    "KS/SRC/ks/igo_widget.h": "KS/SRC/ks/igo_widget_rtti.cpp",
     "KS/SRC/light.h": "KS/SRC/light_methods.cpp",
     "KS/SRC/linear_anim.h": "KS/SRC/linear_anim_rtti.cpp",
     "KS/SRC/marker.h": "KS/SRC/marker_methods.cpp",

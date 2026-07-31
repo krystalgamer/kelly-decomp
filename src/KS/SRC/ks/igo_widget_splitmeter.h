@@ -1,10 +1,12 @@
 #ifndef KELLY_DECOMP_IGO_WIDGET_SPLITMETER_H
 #define KELLY_DECOMP_IGO_WIDGET_SPLITMETER_H
 
-#include "KS/SRC/ks/igo_widget_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
+#include "KS/SRC/ks/igo_widget.h"
 #include "KS/SRC/ks/specialmeter.h"
 
 class PanelFile;
+class PanelQuad;
 
 class SplitMeterWidget : public IGOWidget {
 private:

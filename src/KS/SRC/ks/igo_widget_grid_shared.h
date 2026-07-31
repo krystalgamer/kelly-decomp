@@ -1,7 +1,8 @@
 #ifndef KELLY_DECOMP_IGO_WIDGET_GRID_SHARED_H
 #define KELLY_DECOMP_IGO_WIDGET_GRID_SHARED_H
 
-#include "KS/SRC/ks/igo_widget_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
+#include "KS/SRC/ks/igo_widget.h"
 
 #pragma interface
 

@@ -1,7 +1,8 @@
 // Matching decompilation blocks selected by generated build shims.
 
 #if defined(KELLY_DECOMP_FUNCTION_00168D28)
-#include "KS/SRC/ks/igo_widget_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
+#include "KS/SRC/ks/igo_widget.h"
 
 #pragma interface
 

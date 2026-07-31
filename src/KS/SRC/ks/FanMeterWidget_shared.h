@@ -1,11 +1,13 @@
 #ifndef KELLY_DECOMP_FAN_METER_WIDGET_SHARED_H
 #define KELLY_DECOMP_FAN_METER_WIDGET_SHARED_H
 
-#include "KS/SRC/ks/igo_widget_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
+#include "KS/SRC/ks/igo_widget.h"
 
 #pragma interface
 
 class PanelFile;
+
 class FanMeterWidget : public IGOWidget {
     int numSections;
     PanelQuad **sectionPQs;

@@ -4,7 +4,7 @@
 #pragma interface
 
 #include "KS/SRC/ks/FEMenu.h"
-#include "KS/SRC/ks/igo_widget_shared.h"
+#include "KS/SRC/ks/igo_widget.h"
 
 class FEManager {
     char manager_data[0x15644];

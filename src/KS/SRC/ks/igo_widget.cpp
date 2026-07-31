@@ -1,74 +1,32 @@
-// Matching decompilation blocks selected by generated build shims.
+// IGOWidget definitions extracted by generated one-function shims.
 
+#include "KS/SRC/ks/igo_widget.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_00164658)
 // 0x00164658 SetDisplay__9IGOWidgetb
-class IGOWidget {
-    bool display;
-
-public:
-    void SetDisplay(bool visible);
-};
-
-void IGOWidget::SetDisplay(bool visible) {
-    display = visible;
+void IGOWidget::SetDisplay(const bool d) {
+    display = d;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00164660)
 // 0x00164660 Update__9IGOWidgetf
-class IGOWidget {
-public:
-    void Update(float delta_time);
-};
-
-void IGOWidget::Update(float delta_time) {
+void IGOWidget::Update(const float dt) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00164668)
 // 0x00164668 Draw__9IGOWidget
-class IGOWidget {
-public:
-    void Draw();
-};
-
-void IGOWidget::Draw() {
+void IGOWidget::Draw(void) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00164670)
 // 0x00164670 GetDisplay__C9IGOWidget
-class IGOWidget {
-    bool display;
-
-public:
-    bool GetDisplay() const;
-};
-
-bool IGOWidget::GetDisplay() const {
+bool IGOWidget::GetDisplay(void) const {
     return display;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00164608)
 // 0x00164608 __9IGOWidget
 __asm__(".equ _vt$9IGOWidget, 0x004DB668");
-
-class IGOWidget {
-    bool display;
-
-public:
-    IGOWidget();
-    virtual ~IGOWidget();
-};
 
 IGOWidget::IGOWidget() {
     display = true;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00164628)
 // 0x00164628 _$_9IGOWidget
 extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
 __asm__(".equ __builtin_delete, 0x002AC6B0");
@@ -91,4 +49,3 @@ void TargetDtor(void *self, int deleting) {
     }
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
