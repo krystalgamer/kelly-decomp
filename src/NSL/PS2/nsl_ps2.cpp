@@ -1,8 +1,7 @@
 // Matching decompilation blocks selected by generated build shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_00390B68)
 // 0x00390B68 nslSetSpeakerMode__F19_nslSpeakerModeEnum
-#include "NSL/PS2/nsl_ps2_shared.h"
+#include "NSL/PS2/nsl_ps2.h"
 
 extern const char nsl_speaker_not_initialized[];
 extern const char nsl_speaker_empty[];
@@ -36,56 +35,40 @@ void nslSetSpeakerMode(nslSpeakerModeEnum newMode)
                 0);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003915E0) || \
-    defined(KELLY_DECOMP_FUNCTION_00391628)
-#include "NSL/PS2/fifo_queue_shared.h"
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00390B30)
 // 0x00390B30 nslPreInitProviewModePS2__Fb
 struct nslState { char padding[0x15884]; bool proview; };
 extern nslState nsl;
 __asm__(".equ nsl, 0x0049B5F0");
 void nslPreInitProviewModePS2(bool value) { nsl.proview = value; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00390B48)
 // 0x00390B48 nslPreInitCdDvdModePS2__F15nslPs2CdDvdMode
 enum nslPs2CdDvdMode { NSL_MODE_ZERO };
 struct nslState { char padding[0x15870]; nslPs2CdDvdMode cd_mode; };
 extern nslState nsl;
 __asm__(".equ nsl, 0x0049B5F0");
 void nslPreInitCdDvdModePS2(nslPs2CdDvdMode value) { nsl.cd_mode = value; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00390C28)
 // 0x00390C28 nslGetSpeakerMode__Fv
 struct nslState { char padding[0x15864]; int speaker_mode; };
 extern nslState nsl;
 __asm__(".equ nsl, 0x0049B5F0");
 int nslGetSpeakerMode() { return nsl.speaker_mode; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00390DA8)
 // 0x00390DA8 _nslResetInternal__F18_nslClearBehaviour
 enum _nslClearBehaviour { NSL_CLEAR_DEFAULT };
 void _nslClearSystemData(_nslClearBehaviour behavior);
 __asm__(".equ _nslClearSystemData__F18_nslClearBehaviour, 0x00390DC8");
 void _nslResetInternal(_nslClearBehaviour behavior) { _nslClearSystemData(behavior); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003916F8)
 // 0x003916F8 _GLOBAL_$I$nsl
 extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
 extern "C" void GlobalInit() __asm__("_GLOBAL_$I$nsl");
 __asm__(".equ __static_initialization_and_destruction_0, 0x003916C0");
 void GlobalInit() { StaticInit(1, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003915E0)
 // 0x003915E0 clear__t10fifo_queue1ZUi
+#include "NSL/PS2/fifo_queue.h"
 template <class T>
 void fifo_queue<T>::clear() {
     int i;
@@ -97,10 +80,9 @@ void fifo_queue<T>::clear() {
 }
 
 template void fifo_queue<unsigned int>::clear();
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00391628)
 // 0x00391628 init__t10fifo_queue1ZUis
+#include "NSL/PS2/fifo_queue.h"
 __asm__(".equ __builtin_vec_new, 0x002AC640");
 __asm__(".equ clear__t10fifo_queue1ZUi, 0x003915E0");
 
@@ -112,18 +94,16 @@ void fifo_queue<unsigned int>::init(short size) {
     clear();
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003916C0)
 // 0x003916C0 __static_initialization_and_destruction_0
-struct nslSystem {
+struct nsl_static_init_layout {
     char padding0[0x1584c];
     int firstInit;
     int initialized;
     char padding1[0x2c];
     bool on;
 };
-extern nslSystem nsl;
+extern nsl_static_init_layout nsl;
 __asm__(".equ nsl, 0x0049B5F0");
 extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
 void StaticInit(int initialize, int priority)
@@ -134,22 +114,12 @@ void StaticInit(int initialize, int priority)
         nsl.initialized = 0;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00390228)
 // 0x00390228 _nslCheckAutoReleaseEmitters__FP10nslEmitterPv
+#include "NSL/PS2/fifo_queue.h"
 typedef unsigned int nslEmitterId;
 typedef unsigned int nslSoundId;
 typedef float nlVector3d[3];
-template<class T> class fifo_queue {
-    T *queue;
-    short queue_max;
-    short start;
-    short end;
-    short count;
-public:
-    int size() { return count; }
-};
 struct nslEmitter {
     bool used;
     bool autoRelease;
@@ -172,9 +142,7 @@ int _nslCheckAutoReleaseEmitters(nslEmitter *daEmmiter, void *userData)
     }
     return 0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00390C48)
 // 0x00390C48 nslSetSystemCallbacks__FP23nslSystemCallbackStruct
 struct nslSystemCallbackStruct {
     void *ReadFile;
@@ -196,9 +164,7 @@ void nslSetSystemCallbacks(nslSystemCallbackStruct *callbacks)
 {
     memcpy(&nslSystemCallbacks, callbacks, sizeof(nslSystemCallbackStruct));
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00390640)
 // 0x00390640 nslSetMasterVolume__Ff
 struct nsl_system {
     char padding[0x15850];
@@ -218,17 +184,15 @@ void nslSetMasterVolume(float volume) {
     if (nsl.initialized!=1) nsl_fatal(nsl_error);
     nsl.masterVolume=volume;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003906A0)
 // 0x003906A0 nslGetMasterVolume__Fv
-struct nslSystem {
+struct nsl_master_volume_layout {
     char padding0[0x15850];
     int initialized;
     char padding1[0x54];
     float masterVolume;
 };
-extern nslSystem nsl;
+extern nsl_master_volume_layout nsl;
 extern const char initialized_error[];
 void nslFatal(const char *, ...);
 __asm__(".equ nsl,0x0049B5F0");
@@ -242,14 +206,9 @@ float nslGetMasterVolume()
         nslFatal(initialized_error);
     return nsl.masterVolume;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00390978)
 // 0x00390978 nslSetListenerPosition__FRA2_Cf
 struct nsl_system{float listener[12];char p0[88144-48];int initialized;};extern nsl_system nsl;extern "C" void fatal(const char*,...) __asm__("nslFatal__FPCce");__asm__(".equ nsl,0x0049B5F0");__asm__(".equ nslFatal__FPCce,0x00391420");extern const char fatal_text[];__asm__(".equ fatal_text,0x0051C480");struct vec3{float x,y,z;};extern "C" void set_listener(const vec3&pos) __asm__("nslSetListenerPosition__FRA2_Cf");void set_listener(const vec3&pos){if(!nsl.initialized)return;if(nsl.initialized!=1)fatal(fatal_text);nsl.listener[3]=pos.x;nsl.listener[7]=pos.y;nsl.listener[11]=pos.z;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00390D20)
 // 0x00390D20 _nslSoundForEach__FPFP8nslSoundPv_iPv
-struct nslSound{bool isReady,used,inRange,isReallyReady,isPlaying,isReallyPlaying,looping,isQueuing;short left,right,old_left,old_right;unsigned gas;int pause,dampen;unsigned id,source,emitter;float vals[6];};struct nslSystem{char pad[0xc040];nslSound soundSlots[256];};typedef int(*callback)(nslSound*,void*);extern nslSystem nsl;extern nslSound sound_slots[];__asm__(".equ nsl,0x0049B5F0");__asm__(".equ sound_slots,0x00497630");extern "C" void for_each(callback cb,void*user)__asm__("_nslSoundForEach__FPFP8nslSoundPv_iPv");void for_each(callback cb,void*user){for(unsigned i=0;i<256;i++)if(nsl.soundSlots[i].used)cb(&sound_slots[i],user);}
-#endif
+struct nslSound{bool isReady,used,inRange,isReallyReady,isPlaying,isReallyPlaying,looping,isQueuing;short left,right,old_left,old_right;unsigned gas;int pause,dampen;unsigned id,source,emitter;float vals[6];};struct nsl_sound_system_layout{char pad[0xc040];nslSound soundSlots[256];};typedef int(*callback)(nslSound*,void*);extern nsl_sound_system_layout nsl;extern nslSound sound_slots[];__asm__(".equ nsl,0x0049B5F0");__asm__(".equ sound_slots,0x00497630");extern "C" void for_each(callback cb,void*user)__asm__("_nslSoundForEach__FPFP8nslSoundPv_iPv");void for_each(callback cb,void*user){for(unsigned i=0;i<256;i++)if(nsl.soundSlots[i].used)cb(&sound_slots[i],user);}

@@ -1,7 +1,7 @@
-#ifndef KELLY_DECOMP_NSL_PS2_SHARED_H
-#define KELLY_DECOMP_NSL_PS2_SHARED_H
+#ifndef NSL_PS2_HEADER
+#define NSL_PS2_HEADER
 
-#include "NSL/PS2/fifo_queue_shared.h"
+#include "NSL/PS2/fifo_queue.h"
 
 typedef unsigned int nlUint32;
 typedef unsigned int nslSourceId;
