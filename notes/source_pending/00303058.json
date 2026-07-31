@@ -1,0 +1,15 @@
+{
+  "address": "0x00303058",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0e34b62ba5a489a531e6e0ff6f671651efeec93e",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/conglom.h\"\n\nconglomerate::conglomerate( const entity_id& _id, unsigned int _flags )\n  : entity( _id, ENTITY_CONGLOMERATE, _flags )\n{\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__12conglomerateR10chunk_fileRC9entity_id15entity_flavor_tUi"
+}
