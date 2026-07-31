@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_SCRIPT_LIBRARY_CLASS_CTOR_SHARED_H
 
 #include "KS/SRC/stringx.h"
-#include "g++-2/stl_set_ctor_shared.h"
+#include "g++-2/stl_set.h"
 
 #pragma interface
 
@@ -15,7 +15,7 @@ public:
         inline function_cptr_less() : state(0) {}
     };
 
-    typedef set_ctor<const function *, function_cptr_less> function_list;
+    typedef set<const function *, function_cptr_less> function_list;
 
 protected:
     stringx name;

@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_STL_SET_CTOR_SHARED_H
-#define KELLY_DECOMP_STL_SET_CTOR_SHARED_H
+#ifndef __SGI_STL_INTERNAL_SET_H
+#define __SGI_STL_INTERNAL_SET_H
 
 #include "g++-2/stl_map.h"
 
@@ -41,12 +41,12 @@ public:
 };
 
 template<class Value, class Compare = set_less<Value> >
-class set_ctor : public _Set_ctor_base<Value> {
+class set : public _Set_ctor_base<Value> {
     unsigned int node_count;
     Compare compare;
 
 public:
-    inline set_ctor(const Compare &value = Compare())
+    inline set(const Compare &value = Compare())
       : _Set_ctor_base<Value>(), node_count(0), compare(value)
     {
         header->color = 0;
