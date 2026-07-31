@@ -1,33 +1,78 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef CAPSULE_H
+#define CAPSULE_H
 
+#include "KS/SRC/po.h"
+#include "KS/SRC/algebra.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_002FF4D8)
-// 0x002FF4D8 get_type__C17collision_capsule
-class collision_capsule {
+class entity;
+
+class capsule {
 public:
-    unsigned int get_type() const;
-};
-
-unsigned int collision_capsule::get_type() const {
-    return 1;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FF578)
-// 0x002FF578 get_core_radius__C17collision_capsule
-class collision_capsule {
-    char padding[0x40];
+    vector3d base;
+    vector3d end;
     float radius;
-public:
-    float get_core_radius() const;
 };
 
-float collision_capsule::get_core_radius() const {
-    return radius;
-}
-#endif
+class collision_geometry {
+public:
+    enum type_t {
+        NONE,
+        CAPSULE,
+        MESH
+    };
 
-#if defined(KELLY_DECOMP_FUNCTION_002FF4E0)
-// 0x002FF4E0 get_radius__C17collision_capsule
-extern "C" float sqrtf(float);asm(".equ sqrtf,0x003C7058");class vector3d{public:float x,y,z;vector3d(){}vector3d(float a,float b,float c):x(a),y(b),z(c){}vector3d operator-(const vector3d&v)const{return vector3d(x-v.x,y-v.y,z-v.z);}float length()const{return sqrtf(x*x+y*y+z*z);}};struct capsule{vector3d base,end;float radius;};class collision_capsule{char p[40];capsule abs_cap;public:float get_radius()const __asm__("get_radius__C17collision_capsule");};float collision_capsule::get_radius()const{return abs_cap.radius+(abs_cap.base-abs_cap.end).length();}
+    collision_geometry();
+    virtual ~collision_geometry();
+    virtual collision_geometry *make_instance(entity *owner) const = 0;
+    virtual void xform(const po &transform);
+    virtual void apply_radius_scale(float scale);
+    virtual void split_xform(
+        const po &first,
+        const po &second,
+        int second_start);
+    virtual void split_xform(
+        const po &first,
+        const po &second,
+        const po &third,
+        int second_start,
+        int third_start);
+    virtual float get_radius() const;
+    virtual float get_core_radius() const;
+    virtual const vector3d &get_abs_position() const;
+    virtual void estimate_physical_properties(
+        entity *body,
+        float density) = 0;
+    virtual void get_closest_point_along_dir(
+        vector3d *target,
+        const vector3d &axis) const = 0;
+    virtual void get_min_extent(vector3d *value) const;
+    virtual void get_max_extent(vector3d *value) const;
+    virtual const vector3d &get_pivot() const;
+    virtual unsigned int get_type() const = 0;
+
+    inline bool is_valid() const { return valid; }
+    inline void invalidate() { valid = false; }
+
+protected:
+    entity *owner;
+    bool valid;
+};
+
+class collision_capsule : public collision_geometry {
+    capsule relative_capsule;
+    capsule absolute_capsule;
+    vector3d lag_point;
+
+public:
+    collision_capsule(entity *owner);
+    virtual ~collision_capsule();
+    void compute_dimensions();
+    const capsule &get_abs_capsule() const {
+        return absolute_capsule;
+    }
+};
+
+class cg_mesh : public collision_geometry {
+};
+
 #endif

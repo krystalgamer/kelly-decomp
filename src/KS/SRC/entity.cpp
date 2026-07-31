@@ -797,7 +797,7 @@ void entity::set_collisions_active(bool a, bool update_reg) {
 }
 
 // 0x001335C0 invalidate_colgeom__6entity
-#include "KS/SRC/capsule_shared.h"
+#include "KS/SRC/capsule.h"
 #include "KS/SRC/entity.h"
 
 void entity::invalidate_colgeom()
@@ -1411,7 +1411,7 @@ bool entity::set_ifc_str(
 }
 
 // 0x00132148 get_updated_colgeom__6entityP2pof
-#include "KS/SRC/capsule_shared.h"
+#include "KS/SRC/capsule.h"
 #include "KS/SRC/entity.h"
 
 collision_geometry* entity::get_updated_colgeom(po * replacement_po, rational_t radius_scale)

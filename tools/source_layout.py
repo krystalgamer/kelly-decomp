@@ -72,6 +72,7 @@ REVIEWED_INSTRUCTION_ASM = {
 IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/animation_interface.h": "KS/SRC/animation_interface_rtti.cpp",
     "KS/SRC/bone.h": "KS/SRC/bone.cpp",
+    "KS/SRC/capsule.h": "KS/SRC/capsule_methods.cpp",
     "KS/SRC/entity.h": "KS/SRC/entity_methods.cpp",
     "KS/SRC/entity_interface.h": "KS/SRC/entity_interface.cpp",
     "KS/SRC/ks/FEPanel.h": "KS/SRC/ks/FEPanel_methods.cpp",

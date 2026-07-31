@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_DEBUG_RENDER_SHARED_H
 #define KELLY_DECOMP_DEBUG_RENDER_SHARED_H
 
-#include "KS/SRC/capsule_shared.h"
+#include "KS/SRC/capsule.h"
 #include "KS/SRC/entity.h"
 
 class color32 {
