@@ -23,6 +23,12 @@ from source_layout import (
 ROOT = Path(__file__).resolve().parents[1]
 QUEUE_PATH = ROOT / "notes" / "function_queue.csv"
 PYTHON = ROOT / "env" / "bin" / "python"
+MANUAL_VTABLE_RE = re.compile(
+    r"_vt\$"
+    r"|\b(?:struct|class)\s+\w*(?:VTable|vtable)\b"
+    r"|\bextern\s+(?:const\s+)?(?:char|void)\s*\*?\s*"
+    r"\w*(?:vtable|VTable)\b"
+)
 
 
 def run(*args: str) -> str:
@@ -90,6 +96,11 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
         raise RuntimeError(
             f"Manifest candidate for {row['raw_name']} uses extern \"C\"; "
             "reconstruct its native C++ declaration instead"
+        )
+    if MANUAL_VTABLE_RE.search(source):
+        raise RuntimeError(
+            f"Manifest candidate for {row['raw_name']} manually defines "
+            "vtable structure or symbols; use native virtual classes"
         )
     if uses_matching_compiler_barrier(source):
         raise RuntimeError(
