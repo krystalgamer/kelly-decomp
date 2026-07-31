@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_BONE_SHARED_H
 #define KELLY_DECOMP_BONE_SHARED_H
 
-#include "KS/SRC/link_interface_shared.h"
+#include "KS/SRC/link_interface.h"
 #include "KS/SRC/po_shared.h"
 #include "KS/SRC/signals_shared.h"
 

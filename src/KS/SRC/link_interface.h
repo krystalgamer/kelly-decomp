@@ -1,26 +1,23 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef LINK_INTERFACE_H
+#define LINK_INTERFACE_H
 
-#if defined(KELLY_DECOMP_FUNCTION_001446C0)
-#include "KS/SRC/link_interface_shared.h"
+#include "KS/SRC/entity_interface.h"
 
-extern "C" void **link_base_rtti() __asm__("__tf14bone_interface");
-extern "C" void *link_base_type[] __asm__("__ti14bone_interface");
-extern "C" void *link_type[] __asm__("__ti14link_interface");
-extern "C" const char link_name[];
+class link_interface : public bone_interface {
+    bone *my_parent;
+    bone *my_child;
+    bone *my_brother;
+    bool link_manages_abs_po;
 
-__asm__(".equ __tf14bone_interface, 0x00146490");
-__asm__(".equ __ti14bone_interface, 0x005A2908");
-__asm__(".equ __ti14link_interface, 0x005A27A8");
-__asm__(".equ link_name, 0x004CEA30");
+public:
+    explicit inline link_interface(bone *value) : bone_interface(value) {}
+    ~link_interface();
+    void clear_parent();
+    void remove_child(bone *child);
 
-// 0x001446C0 __tf14link_interface
-extern "C" void **link_rtti() __asm__("__tf14link_interface");
-void **link_rtti()
-{
-    if (!link_type[0]) {
-        link_base_rtti();
-        __rtti_si(link_type, link_name, link_base_type);
+    inline bone *get_parent() const {
+        return my_parent;
     }
-    return link_type;
-}
+};
+
 #endif
