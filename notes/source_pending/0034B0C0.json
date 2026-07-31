@@ -1,0 +1,15 @@
+{
+  "address": "0x0034B0C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "68820e2608f4d17a92bb556379dfcbdc2a1b7b5e",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/path.h\"\n\nvoid path_graph::read_data(chunk_file &fs, stringx &label)\n{\n  set_id(label);\n  id.to_upper();\n\n  vector3d pt;\n  int node1, node2;\n  unsigned short flags;\n  rational_t modifier;\n\n  for( serial_in(fs, &label); label != chunkend_label; serial_in(fs, &label) )\n  {\n//    label.to_lower();\n\n    if(label == \"node\" || label == \"NODE\")\n    {\n      serial_in(fs, &pt);\n      serial_in(fs, &flags);\n\n      add_node(pt, flags);\n    }\n    else if(label == \"edge\" || label == \"EDGE\")\n    {\n      serial_in(fs, &node1);\n      serial_in(fs, &node2);\n      serial_in(fs, &modifier);\n      serial_in(fs, &flags);\n\n      add_edge(node1, node2, flags, modifier);\n    }\n    else\n      error(\"Bad keyword '%s' in path '%s' section!\", label.c_str(), id.c_str());\n  }\n\n#if !defined(BUILD_BOOTABLE)\n  if(!valid())\n    warning(\"%s: Not a valid path graph!\", id.c_str());\n\n//  if(((rational_t)edges.size()) > (((rational_t)nodes.size())*_EDGE_TO_NODE_RATIO))\n//    warning(\"%s: Node to edge ratio exceeded (nodes: %d, edges: %d, max edges: %d)!\", id.c_str(), nodes.size(), edges.size(), (int)((((rational_t)nodes.size())*_EDGE_TO_NODE_RATIO) + 0.5f));\n\n  vector<path_graph_edge *> bad_patrol_edges;\n  bad_patrol_edges.reserve(edges.size());\n  bad_patrol_edges.resize(0);\n\n  vector<path_graph_edge *>::const_iterator i = edges.begin();\n  while(i != edges.end())\n  {\n    if(*i != NULL)\n    {\n      path_graph_edge *edge = *i;\n\n      if(edge->is_patrol() && !edge->has_patrol_id())\n        bad_patrol_edges.push_back(edge);\n    }\n\n    ++i;\n  }\n\n  if(!bad_patrol_edges.empty())\n  {\n    stringx error = id + \": The following patrol edges do not contain patrol ID's:\\n\\n\";\n\n    int counter = 0;\n    vector<path_graph_edge *>::const_iterator i = bad_patrol_edges.begin();\n    while(i != bad_patrol_edges.end())\n    {\n      if(*i != NULL)\n      {\n        path_graph_edge *edge = *i;\n\n        error += \"( \" + itos(get_node_id(edge->get_node(0))) + \" -> \" + itos(get_node_id(edge->get_node(1))) + \" ),   \";\n        counter++;\n\n        if(counter >= 5)\n        {\n          error += \"\\n\";\n          counter = 0;\n        }\n      }\n\n      ++i;\n    }\n\n    warning(error);\n  }\n\n#endif\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "read_data__10path_graphR10chunk_fileR7stringx"
+}
