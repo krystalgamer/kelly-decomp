@@ -1,8 +1,14 @@
-#ifndef KELLY_DECOMP_NVLSTREAM_PS2_SHARED_H
-#define KELLY_DECOMP_NVLSTREAM_PS2_SHARED_H
+#ifndef NVLSTREAM_PS2_H
+#define NVLSTREAM_PS2_H
 
 typedef int nvlMsg;
 typedef void (*callbackType)(int);
+typedef int nvlMutex;
+
+enum nvlMutexMode {
+    NVL_MUTEX_BLOCK,
+    NVL_MUTEX_NOBLOCK
+};
 
 struct nvlMsgQueue {
     int sema;
@@ -26,6 +32,11 @@ struct nvlStream {
     char *pStartOfData;
     int private_buffer;
     int bitrate;
+    unsigned int flags;
+    int available;
+    nvlMutex mtx;
+    int lp_skip;
+    int requireRewind;
 };
 
 struct ThreadParam {
@@ -88,13 +99,23 @@ extern nvlStreamSystemData_t nvlStreamSystemData;
 extern volatile nvlStream *nvlCurrentIOStream;
 
 void nvlSendMsg(nvlMsgQueue *queue, nvlMsg message, nvlStream *stream);
+void nvlInitMutex(nvlMutex *mutex);
+void nvlDestroyMutex(nvlMutex *mutex);
+int nvlLockMutex(nvlMutex *mutex, nvlMutexMode mode);
+void nvlUnlockMutex(nvlMutex *mutex);
+void nvlStreamUnlock(nvlStream *stream);
+void nvlStreamSetLoopSkip(
+    nvlStream *stream,
+    int loop_skip,
+    int rewind_required);
+void nvlStreamSetBitRate(nvlStream *stream, int bitrate);
+int nvlStreamReqSize(nvlStream *stream);
 
 extern "C" void __assert(const char *file, int line, const char *expression);
 extern const char nvlstream_source_file[];
 extern const char nvlstream_assert_stream[];
 
 __asm__(".equ nvlStreamSystemData, 0x00595E80");
-__asm__(".equ nvlSendMsg__FP11nvlMsgQueueiP9nvlStream, 0x003855A0");
 __asm__(".equ __assert, 0x003CF6B0");
 __asm__(".equ nvlstream_source_file, 0x0051AD40");
 __asm__(".equ nvlstream_assert_stream, 0x0051B120");
