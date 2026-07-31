@@ -1,27 +1,78 @@
 // Matching decompilation blocks selected by generated build shims.
 
 // 0x00283910 retry_mode__4gameb
-#include "KS/SRC/game_retry_shared.h"
-
-void game::retry_mode(const bool from_map)
+class ScoringManager {
+public:
+    void Reset();
+};
+struct retry_controller_layout {
+    char data_before_score_manager[0x10F8];
+    ScoringManager score_manager;
+};
+struct retry_world_layout {
+    char data_before_controllers[0xF8];
+    retry_controller_layout *controllers[2];
+};
+class TimeAttackMode {
+public:
+    void Reset();
+};
+class MeterAttackMode {
+public:
+    void Reset();
+};
+class HeadToHeadMode {
+public:
+    void Reset();
+};
+struct retry_play_mode_layout {
+    TimeAttackMode *timeAttack;
+    MeterAttackMode *meterAttack;
+    HeadToHeadMode *headToHead;
+    void *push;
+};
+struct retry_game_layout {
+    char data_before_world[0xC];
+    retry_world_layout *the_world;
+    char data_before_play_mode[0x68];
+    retry_play_mode_layout play_mode;
+};
+class RetryIGO {
+public:
+    void OnModeReset() __asm__("OnModeReset__11IGOFrontEnd");
+};
+extern RetryIGO *frontend_igo;
+extern "C" void retry_level(
+    retry_game_layout *self,
+    bool from_map) __asm__("retry_level__4gameb");
+__asm__(".equ Reset__14ScoringManager, 0x00246FE8");
+__asm__(".equ Reset__14TimeAttackMode, 0x002860D0");
+__asm__(".equ Reset__15MeterAttackMode, 0x00286580");
+__asm__(".equ Reset__14HeadToHeadMode, 0x00286900");
+__asm__(".equ retry_level__4gameb, 0x002839D0");
+__asm__(".equ OnModeReset__11IGOFrontEnd, 0x00175508");
+__asm__(".equ frontend_igo, 0x003E7728");
+extern "C" void retry_mode(
+    retry_game_layout *self,
+    bool from_map) __asm__("retry_mode__4gameb");
+void retry_mode(retry_game_layout *self, const bool from_map)
 {
     for (int player = 0; player < 2; player++)
     {
-        if (the_world->get_ks_controller(player))
-            the_world
-                ->get_ks_controller(player)
-                ->get_my_scoreManager()
-                .Reset();
+        retry_controller_layout *controller =
+            self->the_world->controllers[player];
+        if (controller)
+            controller->score_manager.Reset();
     }
 
-    if (play_mode.timeAttack)
-        play_mode.timeAttack->Reset();
-    if (play_mode.meterAttack)
-        play_mode.meterAttack->Reset();
-    if (play_mode.headToHead)
-        play_mode.headToHead->Reset();
+    if (self->play_mode.timeAttack)
+        self->play_mode.timeAttack->Reset();
+    if (self->play_mode.meterAttack)
+        self->play_mode.meterAttack->Reset();
+    if (self->play_mode.headToHead)
+        self->play_mode.headToHead->Reset();
 
-    retry_level(from_map);
+    retry_level(self, from_map);
     frontend_igo->OnModeReset();
     KELLY_DECOMP_COMPILER_BARRIER();
 }
