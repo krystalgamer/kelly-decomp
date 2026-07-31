@@ -145,7 +145,7 @@ void destroy_trail(trail_layout *self, int deleting)
 #if defined(KELLY_DECOMP_FUNCTION_003644F0)
 // 0x003644F0 spraypt_update__5trailP15spray_control_tUi
 #include "KS/SRC/ks/trail_shared.h"
-#include "KS/SRC/timer_shared.h"
+#include "KS/SRC/timer.h"
 
 void trail::spraypt_update (spray_control_t *SprayControlPts, u_int max)
 {

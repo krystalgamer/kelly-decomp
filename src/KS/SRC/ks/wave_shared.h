@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_WAVE_SHARED_H
 #define KELLY_DECOMP_WAVE_SHARED_H
 
-#include "KS/SRC/timer_shared.h"
+#include "KS/SRC/timer.h"
 
 enum WavePerturbTypeEnum {
     WAVE_PerturbTypeSurge,

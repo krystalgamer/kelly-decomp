@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_TIMER_SHARED_H
-#define KELLY_DECOMP_TIMER_SHARED_H
+#ifndef TIMER_H
+#define TIMER_H
 
 extern float TIMER_FrameSec;
 extern float TIMER_TotalSec;

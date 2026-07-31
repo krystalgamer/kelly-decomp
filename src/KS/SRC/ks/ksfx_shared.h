@@ -3,7 +3,7 @@
 
 #include "KS/SRC/game_shared.h"
 #include "KS/SRC/ks/ksreplay_shared.h"
-#include "KS/SRC/timer_shared.h"
+#include "KS/SRC/timer.h"
 
 #define MAX_WIPEOUT_SPLASHES 2
 
