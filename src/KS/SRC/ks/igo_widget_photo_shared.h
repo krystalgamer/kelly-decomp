@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_IGO_WIDGET_PHOTO_SHARED_H
 
 #include "KS/SRC/ks/igo_widget_shared.h"
-#include "NGL/PS2/ngl_ps2_shared.h"
+#include "NGL/PS2/ngl_ps2.h"
 
 #pragma interface
 

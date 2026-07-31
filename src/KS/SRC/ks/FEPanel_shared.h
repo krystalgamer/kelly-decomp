@@ -6,6 +6,7 @@
 #include "KS/SRC/color.h"
 #include "KS/SRC/stringx.h"
 #include "KS/SRC/vector3d_shared.h"
+#include "NGL/PS2/ngl_ps2.h"
 
 class Font {
 public:
@@ -176,8 +177,6 @@ struct nglFileBuf {
     unsigned int UserData;
 };
 
-typedef float nglVector[4] __attribute__((aligned(16)));
-
 class BoxText : public TextString {
 protected:
     int width;
@@ -250,27 +249,6 @@ protected:
 
 class PanelAnim;
 class PanelQuad;
-class nglTexture;
-
-#ifndef KELLY_DECOMP_NGL_QUAD_DEFINED
-#define KELLY_DECOMP_NGL_QUAD_DEFINED
-struct nglQuadVertex {
-    float X;
-    float Y;
-    float U;
-    float V;
-    unsigned int Color;
-};
-
-struct nglQuad {
-    nglQuadVertex Verts[4];
-    float Z;
-    unsigned int MapFlags;
-    unsigned int BlendMode;
-    unsigned int BlendModeConstant;
-    nglTexture *Tex;
-};
-#endif
 
 class matrix4x4 {
     float values[16] __attribute__((aligned(16)));

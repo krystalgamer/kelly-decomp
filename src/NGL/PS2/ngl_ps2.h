@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_NGL_PS2_SHARED_H
-#define KELLY_DECOMP_NGL_PS2_SHARED_H
+#ifndef NGL_PS2_H
+#define NGL_PS2_H
 
 typedef unsigned int u_int;
 
@@ -25,6 +25,10 @@ public:
     }
     inline operator float *() { return &x; }
     inline operator const float *() const { return &x; }
+    inline float &operator[](int index) { return (&x)[index]; }
+    inline const float &operator[](int index) const {
+        return (&x)[index];
+    }
 } __attribute__((aligned(16)));
 
 class nglMatrix {
@@ -101,8 +105,6 @@ enum {
     NGLMAP_CLAMP_V = 0x00000020
 };
 
-#ifndef KELLY_DECOMP_NGL_QUAD_DEFINED
-#define KELLY_DECOMP_NGL_QUAD_DEFINED
 struct nglQuadVertex {
     float X;
     float Y;
@@ -119,7 +121,6 @@ struct nglQuad {
     u_int BlendModeConstant;
     nglTexture *Tex;
 };
-#endif
 
 struct nglFont {
     nglTexture *Tex;

@@ -28,7 +28,7 @@ void nglRotateQuad(
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003A7008)
-#include "NGL/PS2/ngl_ps2_shared.h"
+#include "NGL/PS2/ngl_ps2.h"
 
 // 0x003A7008 nglReleaseFont__FP7nglFont
 void nglReleaseFont(nglFont *Font)
@@ -43,7 +43,7 @@ void nglReleaseFont(nglFont *Font)
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003A8C18)
-#include "NGL/PS2/ngl_ps2_shared.h"
+#include "NGL/PS2/ngl_ps2.h"
 
 // 0x003A8C18 nglVif1AddCommandListExec__FRPUiUiUi
 void nglVif1AddCommandListExec(u_int *&Packet, u_int VertBase, u_int Pass)
@@ -941,7 +941,7 @@ typedef unsigned int u_int;struct nglTexture{char pad0[12];u_int Hash;char pad1[
 
 #if defined(KELLY_DECOMP_FUNCTION_0039B2D0)
 // 0x0039B2D0 nglIsSphereVisible__FP10nglFrustumRC9nglVectorf
-#include "NGL/PS2/ngl_ps2_shared.h"
+#include "NGL/PS2/ngl_ps2.h"
 #include "decomp_annotations.h"
 
 bool nglIsSphereVisible(
@@ -977,7 +977,7 @@ bool nglIsSphereVisible(
 
 #if defined(KELLY_DECOMP_FUNCTION_003AA530)
 // 0x003AA530 nglMeshSetSphere__FR9nglVectorf
-#include "NGL/PS2/ngl_ps2_shared.h"
+#include "NGL/PS2/ngl_ps2.h"
 
 void nglMeshSetSphere( nglVector& Center, float Radius )
 {
