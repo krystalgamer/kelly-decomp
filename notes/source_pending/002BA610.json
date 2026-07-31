@@ -1,0 +1,15 @@
+{
+  "address": "0x002BA610",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "97477a8ecb6a48f9a23d0d13a312fbd6b7c9a6d9",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/widget_entity.h\"\n\nvoid entity_widget::update_rot()\n{\n  widget::update_rot();\n\n  matrix4x4 R, Rx, Ry, Rz;\n  R.make_rotate( axis, angle );\n  Rx.make_rotate( vector3d( 1, 0, 0 ), ax );\n  Ry.make_rotate( vector3d( 0, 1, 0 ), ay );\n  Rz.make_rotate( vector3d( 0, 0, 1 ), az );\n  rot_matrix = R * Rx * Ry * Rz;\n\n  update_entity_po();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "update_rot__13entity_widget"
+}
