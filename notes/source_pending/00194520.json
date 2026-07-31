@@ -1,0 +1,15 @@
+{
+  "address": "0x00194520",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cea64b0f24a2e7b7ac7059d9c0ad9fd72bd7cb69",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/BeachFrontEnd.h\"\n\nvoid BeachFrontEnd::SetDescription(bool on, bool update_beach)\n{\n\tin_description_mode = on;\n\n\tfor(int i=0; i<9; i++)\n\t{\n\t\tbox[i][0]->TurnOn(on);\n\t\tbox[i][1]->TurnOn(false);\n\t}\n\n\tline_across->TurnOn(!on);\n\tline_down->TurnOn(!on);\n\tcell_phone->TurnOn(on);\n\n\tif(on)\n\t{\n\t\tstringx tmp = LevelNameArray[current_level_index];\n\n\t\tif(ksGlobalTextLanguage == LANGUAGE_FRENCH)\n\t\t\ttmp += \"_fr\";\n\t\telse if(ksGlobalTextLanguage == LANGUAGE_GERMAN)\n\t\t\ttmp += \"_ge\";\n\n\t\tchar tmp2[100];\n\t\tstrcpy(tmp2, (stringx(\"interface\\\\map\\\\goals\\\\\" + tmp + \".txt\")).c_str());\n\n\t\tif(!file_finder_exists(tmp2, \"\"))\n\t\t\tdescription->changeText(\"\");\n\t\telse description->ReadFromFile(tmp2, false);\n\t\tdescription->makeBox(box_d_r_x - box_d_l_x - 45, box_d_b_y - box_d_t_y - 60);\n\n\t\tfor(int i=0; i<9; i++)\n\t\t{\n\t\t\tfloat x1 = (i%3 < 2) ? box_l_x[i%3] : box_r_x[i%3];\n\t\t\tfloat x2 = (i%3+1 < 2) ? box_l_x[i%3+1] : box_r_x[i%3+1];\n\t\t\tbox[i][0]->SetPos(x1, box_d_y[i/3], x2, box_d_y[i/3+1]);\n\t\t}\n\t}\n\telse\n\t{\n\t\t// reset box position back to normal\n\t\tfor(int i=0; i<9; i++)\n\t\t\tbox[i][0]->SetPos(box_l_x[i%3], box_y[i/3], box_l_x[i%3+1], box_y[i/3+1]);\n\n\t\tif(update_beach) UpdateBeach(false);\n\t}\n\n\tif(on)\n\t{\n\t\tmanager->helpbar->Reset();\n\t\tmanager->helpbar->RemoveArrowBoth();\n\t\tmanager->helpbar->Reformat();\n\t}\n\telse ResetHelpbar();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "SetDescription__13BeachFrontEndbT1"
+}
