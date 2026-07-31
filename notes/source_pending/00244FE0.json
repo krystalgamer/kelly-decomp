@@ -1,0 +1,15 @@
+{
+  "address": "0x00244FE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "77cd3aaac6d2e891cc9d8af6be5e02ccd149abbe",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "void ik_object::PerformIK(void)\n{\n\tassert(floor_obj != NULL);\n\n\t// Do the leg IK\n\tvector3d bpos =  floor_obj->get_abs_position();\n\tvector3d rfoot_pos;\n\tvector3d lfoot_pos;\n\tvector3d r_foot_dir;\n\tvector3d l_foot_dir;\n\n\tvector3d calf_vec, thigh_vec, thigh_foot_vec, cvec, cvec2, bone_vec;\n\tbone_vec = vector3d(1, 0, 0);\n\n\tlfoot_pos = floor_obj->get_abs_po().non_affine_inverse_xform(l_foot->get_abs_position() - bpos);\n\trfoot_pos = floor_obj->get_abs_po().non_affine_inverse_xform(r_foot->get_abs_position() - bpos);\n\n\tif (rfoot_pos.y < g_min_foot_height)\n\t\trfoot_pos.y = g_min_foot_height;\n\n\tif (lfoot_pos.y < g_min_foot_height)\n\t\tlfoot_pos.y = g_min_foot_height;\n\n\tlfoot_pos = bpos + floor_obj->get_abs_po().non_affine_slow_xform(lfoot_pos);\n\trfoot_pos = bpos + floor_obj->get_abs_po().non_affine_slow_xform(rfoot_pos);\n\n\n\tcalf_vec = l_foot->get_abs_position() - l_calf->get_abs_position();\n\tthigh_vec = l_calf->get_abs_position() - l_thigh->get_abs_position();\n\tthigh_foot_vec = l_foot->get_abs_position() - l_thigh->get_abs_position();\n\tcvec = cross(thigh_vec, calf_vec);\n\tcvec.normalize();\n\tcvec2 = cross(thigh_foot_vec, cvec);\n\tcvec2.normalize();\n\tl_foot_dir = l_foot->get_abs_po().non_affine_slow_xform(vector3d (0,0,-1));\n\tl_foot_dir -= cvec*dot(cvec, l_foot_dir);\n\tl_foot_dir.normalize();\n\tif (dot(l_foot_dir, cvec2) <= g_ik_delta)\n\t{\n\t\tl_foot_dir -= (cvec2*dot(cvec2, l_foot_dir) + g_ik_add*cvec2);\n\t}\n\n\tif (g_doik)\n\t\tdo_leg_IK (false, lfoot_pos, l_foot_dir);\n\n\tcalf_vec = r_foot->get_abs_position() - r_calf->get_abs_position();\n\tthigh_vec = r_calf->get_abs_position() - r_thigh->get_abs_position();\n\tthigh_foot_vec = r_foot->get_abs_position() - r_thigh->get_abs_position();\n\tcvec = cross(thigh_vec, calf_vec);\n\tcvec.normalize();\n\tcvec2 = cross(thigh_foot_vec, cvec);\n\tcvec2.normalize();\n\tr_foot_dir = r_foot->get_abs_po().non_affine_slow_xform(vector3d (0,0,-1));\n\tr_foot_dir -= cvec*dot(cvec, r_foot_dir);\n\tr_foot_dir.normalize();\n\tif (dot(r_foot_dir, cvec2) <= g_ik_delta)\n\t{\n\t\tr_foot_dir -= (cvec2*dot(cvec2, r_foot_dir) + g_ik_add*cvec2);\n\t}\n\n\tif (g_doik)\n\t\tdo_leg_IK (true, rfoot_pos, r_foot_dir);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "PerformIK__9ik_object"
+}
