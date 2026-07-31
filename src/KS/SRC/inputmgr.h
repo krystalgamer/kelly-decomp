@@ -1,87 +1,62 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef INPUTMGR_H
+#define INPUTMGR_H
 
+#include "KS/SRC/singleton.h"
+#include "g++-2/stl_map_shared.h"
+#include "g++-2/stl_vector_shared.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_0035FF10)
-// 0x0035FF10 is_connected__C12input_device
-class input_device {
-public:
-    bool is_connected() const;
+typedef float rational_t;
+typedef int control_id_t;
+typedef int axis_id_t;
+
+enum device_id_t {
+    INVALID_DEVICE_ID = -1,
+    JOYSTICK1_DEVICE = 1,
+    JOYSTICK2_DEVICE,
+    JOYSTICK3_DEVICE,
+    JOYSTICK4_DEVICE,
+    JOYSTICK5_DEVICE,
+    JOYSTICK6_DEVICE,
+    JOYSTICK7_DEVICE,
+    JOYSTICK8_DEVICE,
+    AI_JOYSTICK,
+    KEYBOARD1_DEVICE,
+    MOUSE1_DEVICE,
+    ANY_LOCAL_JOYSTICK,
 };
 
-bool input_device::is_connected() const {
-    return false;
-}
-#endif
+#define JOYSTICK_DEVICE JOYSTICK1_DEVICE
 
-#if defined(KELLY_DECOMP_FUNCTION_0035FF18)
-// 0x0035FF18 normalize__12input_devicei
-class input_device {
+const rational_t AXIS_MAX = 1.0f;
+const rational_t AXIS_MID = 0.0f;
+const rational_t AXIS_MIN = -1.0f;
+
+class input_mgr;
+class input_device;
+class game_control;
+class rumble_manager;
+extern input_mgr* input_manager;
+
+typedef vector<input_device *> device_map_t;
+typedef map<control_id_t, game_control> control_map_t;
+
+class input_mgr : public singleton {
+    rumble_manager *rumble_ptr;
+    device_map_t device_map;
+    control_map_t control_map;
+    int default_controller;
+    unsigned int flags;
+
 public:
-    unsigned char normalize(int raw);
+    static inline input_mgr* inst() { return input_manager; }
+    rational_t get_control_state(device_id_t dev_id, control_id_t control) const;
+    inline int GetDefaultController() { return default_controller; }
+    inline void SetDefaultController(int controller) {
+        default_controller = controller;
+    }
 };
 
-unsigned char input_device::normalize(int raw) {
-    return raw;
-}
-#endif
+__asm__(".equ input_manager, 0x0046B7B0");
+__asm__(".equ get_control_state__C9input_mgr11device_id_ti, 0x003441C8");
 
-#if defined(KELLY_DECOMP_FUNCTION_0035FF20)
-// 0x0035FF20 set_button_d__12input_deviceib
-class input_device {
-public:
-    void set_button_d(int button, bool state);
-};
-
-void input_device::set_button_d(int button, bool state) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0035FF28)
-// 0x0035FF28 set_button_a__12input_deviceii
-class input_device {
-public:
-    void set_button_a(int button, int state);
-};
-
-void input_device::set_button_a(int button, int state) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0035FF30)
-// 0x0035FF30 set_stick__12input_deviceiii
-class input_device {
-public:
-    void set_stick(int stick, int x, int y);
-};
-
-void input_device::set_stick(int stick, int x, int y) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0035FF38)
-// 0x0035FF38 clear_state__12input_device
-class input_device {
-public:
-    void clear_state();
-};
-
-void input_device::clear_state() {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0035FED0)
-// 0x0035FED0 __tf12input_device
-extern "C" void __rtti_user(void **type, const char *name);
-extern "C" void *rtti_0035FED0_type[] __asm__("__ti12input_device");
-extern "C" char rtti_0035FED0_name[] __asm__("rtti_0035FED0_type_name");
-__asm__(".equ __ti12input_device, 0x00511FB0");
-__asm__(".equ rtti_0035FED0_type_name, 0x00505728");
-__asm__(".equ __rtti_user, 0x003CE2F8");
-extern "C" void **rtti_0035FED0() __asm__("__tf12input_device");
-void **rtti_0035FED0()
-{
-    if (!rtti_0035FED0_type[0])
-        __rtti_user(rtti_0035FED0_type, rtti_0035FED0_name);
-    return rtti_0035FED0_type;
-}
 #endif

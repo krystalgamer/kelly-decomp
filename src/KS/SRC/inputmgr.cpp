@@ -1,15 +1,12 @@
-// Matching decompilation blocks selected by generated build shims.
+// input manager definitions extracted by generated one-function shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00343918)
 // 0x00343918 __12input_device
 enum device_id_t { INVALID_DEVICE_ID = -1 };
 class input_device { device_id_t device_id; public: input_device(); virtual ~input_device(); };
 __asm__(".equ _vt$12input_device, 0x00504FC8");
 input_device::input_device() { device_id = INVALID_DEVICE_ID; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00343938)
 // 0x00343938 _$_12input_device
 extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
 __asm__(".equ __builtin_delete, 0x002AC6B0");
@@ -32,9 +29,7 @@ void InputDeviceDtor(void *self, int deleting) {
     }
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00344168)
 // 0x00344168 poll_devices__9input_mgr
 struct poll_slot {
     char padding[0x50]; short adjustment; short reserved;
@@ -58,14 +53,9 @@ void input_mgr::poll_devices() {
         table->poll((char *)device+table->adjustment);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00344860)
 // 0x00344860 get_control_trigger__C9input_mgr11device_id_ti
 extern "C" float delta(void*,int,int) __asm__("get_control_delta__C9input_mgr11device_id_ti");extern "C" float state(void*,int,int) __asm__("get_control_state__C9input_mgr11device_id_ti");__asm__(".equ get_control_delta__C9input_mgr11device_id_ti,0x003444A0");__asm__(".equ get_control_state__C9input_mgr11device_id_ti,0x003441C8");extern "C" float trigger(void*self,int dev,int control) __asm__("get_control_trigger__C9input_mgr11device_id_ti");float trigger(void*self,int dev,int control){float d=delta(self,dev,control);if(d==state(self,dev,control))return d;__asm__ __volatile__("" : : : "memory");return 0.0f;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00343AD8)
 // 0x00343AD8 get_device_from_map__C9input_mgr11device_id_t
 struct device_vtable{char pad[24];short adjust;short reserved;int(*get_id)(void*);};struct input_device{char pad[4];device_vtable*vtable;};struct input_mgr{char pad[8];input_device**begin;input_device**end;};extern "C" input_device*get_device(const input_mgr*self,int id)__asm__("get_device_from_map__C9input_mgr11device_id_t");input_device*get_device(const input_mgr*self,int id){input_device**it=self->begin;input_device**it_end=self->end;while(it!=it_end){if((*it)){input_device*arg=*it;device_vtable*t=arg->vtable;if(t->get_id((char*)arg+t->adjust)==id)return(*it);}++it;}return 0;}
-#endif

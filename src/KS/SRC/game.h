@@ -2,7 +2,7 @@
 #define GAME_H
 
 #include "KS/SRC/commands.h"
-#include "KS/SRC/inputmgr_shared.h"
+#include "KS/SRC/inputmgr.h"
 #include "KS/SRC/stringx.h"
 
 class game_process {

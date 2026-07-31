@@ -5,7 +5,7 @@
 
 #include "KS/SRC/ks/FEMenu.h"
 
-#include "KS/SRC/inputmgr_shared.h"
+#include "KS/SRC/inputmgr.h"
 #include "KS/SRC/ks/SoundScript.h"
 
 class OptionsMenu;
