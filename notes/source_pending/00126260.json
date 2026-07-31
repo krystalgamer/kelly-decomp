@@ -1,0 +1,15 @@
+{
+  "address": "0x00126260",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "478f899eb9e9a0256b3b1676d03af8f14eafd576",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/physical_interface.h\"\n\nbool physical_interface::set_ifc_num(const pstring &att, rational_t val)\n{\n  IFC_INTERNAL_SET_MACRO(\"MASS\", mass);\n  IFC_INTERNAL_SET_MACRO(\"VOLUME\", volume);\n  IFC_INTERNAL_SET_MACRO(\"SLIDE_FACTOR\", slide_factor);\n  IFC_INTERNAL_SET_MACRO(\"BOUNCE_FACTOR\", bounce_factor);\n  IFC_INTERNAL_SET_MACRO(\"STICKY_OFFSET\", sticky_offset);\n\n  IFC_INTERNAL_FUNC_MACRO(\"BOUNCY\", set_bouncy(val != 0.0f));\n  IFC_INTERNAL_FUNC_MACRO(\"STICKY\", set_sticky(val != 0.0f));\n  IFC_INTERNAL_FUNC_MACRO(\"ENABLED\", enable(val != 0.0f));\n  IFC_INTERNAL_FUNC_MACRO(\"SUSPENDED\", suspend(val != 0.0f));\n  IFC_INTERNAL_FUNC_MACRO(\"GRAVITY\", set_gravity(val != 0.0f));\n  IFC_INTERNAL_FUNC_MACRO(\"GRAVITY_MULTIPLIER\", set_gravity_multiplier(val));\n  IFC_INTERNAL_FUNC_MACRO(\"STICKY_ORIENT\", set_sticky_orient(val != 0.0f));\n\n  return(false);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "set_ifc_num__18physical_interfaceRC7pstringf"
+}
