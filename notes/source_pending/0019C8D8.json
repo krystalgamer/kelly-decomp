@@ -1,0 +1,15 @@
+{
+  "address": "0x0019C8D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c716d2ece141e3d9fb4872139c85e4502af5b12f",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/SaveLoadFrontEnd.h\"\n\nDialogMenu::DialogMenu(FEMenuSystem* s, FEManager* man, stringx p, stringx pf)\n{\n\tcons(s, man, p, pf);\n\tcolor = frontendmanager.col_unselected;\n\tcolor_high = frontendmanager.col_highlight;\n\tcolor_high_alt = frontendmanager.col_highlight2;\n\tflags |= FEMENU_HAS_COLOR_HIGH_ALT;\n\tscale = scale_high = 1.1f; //0.5f;\n\n\tentry[DM_YES] = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_YES], this);\n\tentry[DM_NO] = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_NO], this);\n\tentry[DM_OK] = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_OK], this);\n\tentry[DM_FMT] = NEW FEMenuEntry(ksGlobalTextArray[GT_MC_FORMAT], this);\n\tentry[DM_CNL] = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_CANCEL], this);\n\tentry[DM_MNG] = NEW FEMenuEntry(ksGlobalTextArray[GT_MC_MANAGE], this);\n\tentry[DM_CNL2] = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_CANCEL], this);\n\n\tfor(int i=0; i<DM_NUM; i++)\n\t{\n\t\tAdd(entry[i]);\n\t\tentry[i]->SetFont(&manager->font_hand);\n\t}\n\tentry[DM_YES]->right = entry[DM_NO];\n\tentry[DM_NO]->left = entry[DM_YES];\n\n\tentry[DM_FMT]->right = entry[DM_CNL];\n\tentry[DM_CNL]->left = entry[DM_FMT];\n\n\tentry[DM_MNG]->right = entry[DM_CNL2];\n\tentry[DM_CNL2]->left = entry[DM_MNG];\n\t\n\t// center of box is 375, 206\n\tentry[DM_YES]->SetPos(340, 272);\n\tentry[DM_NO]->SetPos(410, 272);\n\tentry[DM_OK]->SetPos(375, 272);\n\tentry[DM_FMT]->SetPos( 320, 272 );\n\tentry[DM_CNL]->SetPos( 430, 272 );\n\tentry[DM_MNG]->SetPos( 320, 272 );\n\tentry[DM_CNL2]->SetPos( 430, 272 );\n\t\n\tfloat mess_sc = 0.7f; //0.67f;\n\tfloat prompt_sc = 0.9f;\t// 0.89f;\n\tmessage = NEW BoxText(&manager->font_info, \"\", 375, 165, 0, mess_sc, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, frontendmanager.col_info_b, 12);\n\tprompt  = NEW BoxText(&manager->font_info, \"\", 375, 200, 0, prompt_sc, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, frontendmanager.col_info_b, 10);\n\ttype = DM_TYPE_YES;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__10DialogMenuP12FEMenuSystemP9FEManagerG7stringxT3"
+}
