@@ -3,36 +3,6 @@
 
 #include "KS/SRC/algebra.h"
 
-class vector4d {
-public:
-    float x;
-    float y;
-    float z;
-    float w;
-
-    inline vector4d() {}
-    inline vector4d(const vector4d &other)
-      : x(other.x), y(other.y), z(other.z), w(other.w)
-    {
-    }
-    inline vector4d &operator=(const vector4d &other)
-    {
-        x = other.x;
-        y = other.y;
-        z = other.z;
-        w = other.w;
-        return *this;
-    }
-};
-
-class matrix4x4 {
-public:
-    vector4d x __attribute__((aligned(16)));
-    vector4d y;
-    vector4d z;
-    vector4d w;
-};
-
 class po {
     matrix4x4 m;
 

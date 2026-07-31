@@ -226,10 +226,6 @@ protected:
 class PanelAnim;
 class PanelQuad;
 
-class matrix4x4 {
-    float values[16] __attribute__((aligned(16)));
-};
-
 class recti {
     int x0;
     int y0;
