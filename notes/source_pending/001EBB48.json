@@ -1,0 +1,15 @@
+{
+  "address": "0x001EBB48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f9ed5810a901b82216302d5c1bec950e938bc43f",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/beach.h\"\n\nentity *beach::surfer_over_entity(vector3d c1, float r1) const\n{\n\tfloat r2;\n\tnglMesh *mesh;\n\tfor (beach_object *fobj = my_objects; fobj != NULL; fobj = fobj->next)\n\t{\n\t\tif (!fobj->is_active ())\n\t\t\tcontinue;\n\t\t\n\t\tif (!fobj->is_physical())\n\t\t\tcontinue;\n\t\t\n\t\tentity *e2 = ((water_object*)fobj)->get_entity ();\n\t\tvector3d c2 (e2->get_abs_position ());\n\t\t\n\t\tif (!e2->is_visible ())\n\t\t\tcontinue;\n\t\t\n\t\tr2 = e2->get_radius ();\n\t\t\n\t\tif (r2 < 0.01f)\n\t\t{\n\t\t\tif (e2->get_colgeom ())\n\t\t\t\tr2 = e2->get_colgeom ()->get_radius ();\n\t\t\t\n\t\t\tif (r2 < 0.01f)\n\t\t\t{\n\t\t\t\tmesh = e2->get_mesh ();\n\t\t\t\t\n\t\t\t\tif (mesh)\n\t\t\t\t{\n\t\t\t\t\tc2.x += mesh->SphereCenter[0];\n\t\t\t\t\tc2.y += mesh->SphereCenter[1];\n\t\t\t\t\tc2.z += mesh->SphereCenter[2];\n\t\t\t\t\tr2 = mesh->SphereRadius;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\tvector3d pc1 (c1), pc2 (c2);\n\t\tpc1.y = 0;\n\t\tpc2.y = 0;\n\n\t\t// sphere-sphere collision\n\t\tif ((pc1 - pc2).length2 () <= (r1 + r2) * (r1+ r2))\n\t\t{\n\t\t\t// pier is too big\n\t\t\tif (e2->get_parsed_name().find (\"sebastian_pier\") != stringx::npos)\n\t\t\t{\n\t\t\t\tvector3d box[2];\n\t\t\t\tcg_mesh *colgeom;\n\n\t\t\t\tcolgeom = (cg_mesh *) (e2->get_colgeom());\n\t\t\t\tcolgeom->get_min_extent (&box[0]);\n\t\t\t\tbox[0] = e2->get_abs_po ().slow_xform (box[0]);\n\t\t\t\tcolgeom->get_max_extent (&box[1]);\n\t\t\t\tbox[1] = e2->get_abs_po ().slow_xform (box[1]);\n\n\t\t\t\tif ((c1.y < box[1].y) || (c1.x < box[0].x) || (c1.x > box[1].x))\n\t\t\t\t\tcontinue;\n\t\t\t}\n\n\t\t\treturn e2;\n\t\t}\n\t}\n\t\n\treturn NULL;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "surfer_over_entity__C5beachG8vector3df"
+}
