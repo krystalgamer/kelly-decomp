@@ -1,0 +1,15 @@
+{
+  "address": "0x003372F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bfb32b72ba3b8dcc15b8f8bfe65f96102c320526",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/textfile.h\"\n\nvoid text_file::read(int* i)\n{\n  int ret=0;\n  bool negative;\n  bool found=false;\n\n  eat_whitespace();\n\n  negative=false;\n  if (peek_char()=='-') { negative=true; read_char(); }\n  else if (peek_char()=='+') { negative=false; read_char(); }\n\n  while (ISDIGIT(peek_char()) && !at_eof())\n  {\n    found=true;\n    ret=ret*10+(read_char()-'0');\n  }\n\n  if (!found)\n    error(\"Integer value expected.\");\n\n  *i=negative ? -ret : ret;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "read__9text_filePf"
+}
