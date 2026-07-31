@@ -178,7 +178,7 @@ bool entity::get_ifc_str(
 #undef IFC_DATA_GET_STR
 
 // 0x00135FF8 _$_16motion_blur_info
-#include "KS/SRC/mbi_shared.h"
+#include "KS/SRC/mbi.h"
 
 extern "C" void BuiltinVecDelete(void *memory) __asm__("__builtin_vec_delete");
 extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
@@ -1281,7 +1281,7 @@ void entity::set_last_po(const po&the_po){if(last_po)*last_po=the_po;}
 
 // 0x00132EA8 activate_motion_blur__6entityiiif
 #include "KS/SRC/entity.h"
-#include "KS/SRC/mbi_shared.h"
+#include "KS/SRC/mbi.h"
 
 void entity::activate_motion_blur(int min_a,int max_a,int num,float spread){set_flag(EFLAG_GRAPHICS_MOTION_BLUR,true);if(is_motion_blurred()){mbi->motion_trail_start=0;mbi->motion_trail_end=0;mbi->motion_trail_count=0;mbi->blur_min_alpha=min_a;mbi->blur_max_alpha=max_a;mbi->num_blur_images=num;mbi->blur_spread=spread;}}
 

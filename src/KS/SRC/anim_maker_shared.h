@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_ANIM_MAKER_SHARED_H
 
 #include "KS/SRC/anim_shared.h"
-#include "KS/SRC/mbi_shared.h"
+#include "KS/SRC/mbi.h"
 #include "KS/SRC/rtti.h"
 #include "KS/SRC/stringx.h"
 #include "g++-2/stl_vector_shared.h"

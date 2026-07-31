@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_LINEAR_ANIM_SHARED_H
 
 #include "KS/SRC/anim_shared.h"
-#include "KS/SRC/mbi_shared.h"
+#include "KS/SRC/mbi.h"
 #include "KS/SRC/rtti.h"
 
 template <class animatable_t>
