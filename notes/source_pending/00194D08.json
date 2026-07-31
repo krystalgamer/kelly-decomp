@@ -1,0 +1,15 @@
+{
+  "address": "0x00194D08",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "eeb8e0063fb4635b7f4f462061a9f9c3ab849d04",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/BeachFrontEnd.h\"\n\nvoid BeachFrontEnd::SetBeachBio(bool on)\n{\n\tif(on)\n\t{\n\t\tstringx tmp;\n\t\t// first check that the file exists (some beaches don't have bios)\n\t\t//   and return immediately if it doesn't\n\t\tif(!BeachBioExists(tmp)) return;\n\n\t\tchar tmp2[100];\n\t\tstrcpy(tmp2, (stringx(\"interface\\\\map\\\\beaches\\\\\" + tmp)).c_str());\n\t\tbeach_bio->ReadFromFile(tmp2, true);\n\t\tbio_total_lines = beach_bio->makeBox(194, 1000, false, -1, 18);\t// scrollable, so it may overrun\n\t\tbio_total_visible = 12;\n\t\tbeach_bio->SetScrollable(bio_total_visible);\n\t\tbio_title->changeText(BeachDataArray[highlighted->entry_num].fe_name);\n\t\tUpdateBeachBioScrollbar();\n\t}\n\n\tfor(int i=0; i<9; i++)\n\t{\n\t\tbox[i][0]->TurnOn(!on && !map.beaches[current_beach_index].desc_at_right);\n\t\tbox[i][1]->TurnOn(!on && map.beaches[current_beach_index].desc_at_right);\n\t}\n\tline_across->TurnOn(!on);\n\tline_down->TurnOn(!on);\n\n\tin_bio_mode = on;\n\tbio_book->TurnOn(on);\n\tbio_circle->TurnOn(false);\n\tbio_scr[0]->TurnOn(on);\n\tbio_scr[1]->TurnOn(on);\n\tbio_scr[2]->TurnOn(on);\n\tbio_scr_marker->TurnOn(on);\n\n//\tif(in_frontend)\n\t\tif(on)\n\t\t{\n\t\t\tmanager->helpbar->Reset();\n\t\t\tmanager->helpbar->AddArrowV(ksGlobalTextArray[GT_FE_MENU_SCROLL]);\n\t\t\tmanager->helpbar->RemoveX();\n\t\t\tmanager->helpbar->Reformat();\n\t\t}\n\t\telse ResetHelpbar();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "SetBeachBio__13BeachFrontEndb"
+}
