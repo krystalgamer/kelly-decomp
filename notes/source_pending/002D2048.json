@@ -1,0 +1,16 @@
+{
+  "address": "0x002D2048",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0a6189366565e04119894f02a7e3e6f84db39c57",
+      "error": "Candidate did not emit render__18particle_generatorP6camerafUif; emitted functions: ['render_passes_needed__C18particle_generator']",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/particle.h\"\n\nrender_flavor_t particle_generator::render_passes_needed() const\n{\n  //if (fade_in || fade_out)\n    return RENDER_TRANSLUCENT_PORTION;\n  //return my_visrep->render_passes_needed();\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "render__18particle_generatorP6camerafUif"
+}
