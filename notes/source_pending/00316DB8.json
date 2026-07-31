@@ -1,0 +1,15 @@
+{
+  "address": "0x00316DB8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bdd977f7b1385374f27440622d6a7c9f4cfde8da",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/script_lib_vector3d.h\"\n\nvoid register_vector3d_lib()\n{\n  // pointer to single instance of library class\n  slc_vector3d_t* slc_vector3d = NEW slc_vector3d_t(\"vector3d\",12);\n\n  NEW slf_vector3d_construct_t(slc_vector3d,\"vector3d(num,num,num)\");\n  NEW slf_vector3d_add_t(slc_vector3d,\"operator+(vector3d)\");\n  NEW slf_vector3d_subtract_t(slc_vector3d,\"operator-(vector3d)\");\n  NEW slf_vector3d_mul_scalar_t(slc_vector3d,\"operator*(num)\");\n  NEW slf_vector3d_div_scalar_t(slc_vector3d,\"operator/(num)\");\n  NEW slf_vector3d_equal_t(slc_vector3d,\"operator==(vector3d)\");\n  NEW slf_vector3d_not_equal_t(slc_vector3d,\"operator!=(vector3d)\");\n  NEW slf_vector3d_length_t(slc_vector3d,\"length()\");\n  NEW slf_vector3d_length2_t(slc_vector3d,\"length2()\");\n  NEW slf_vector3d_xy_norm_t(slc_vector3d,\"xy_norm()\");\n  NEW slf_vector3d_xz_norm_t(slc_vector3d,\"xz_norm()\");\n  NEW slf_vector3d_x_t(slc_vector3d,\"x()\");\n  NEW slf_vector3d_y_t(slc_vector3d,\"y()\");\n  NEW slf_vector3d_z_t(slc_vector3d,\"z()\");\n  NEW slf_dot3_t(\"dot(vector3d,vector3d)\");\n  NEW slf_cross3_t(\"cross(vector3d,vector3d)\");\n  NEW slf_normal3_t(\"normal(vector3d)\");\n  NEW slf_distance3d_t(\"distance3d(vector3d,vector3d)\");\n  NEW slf_angle_between3_t(\"angle_between(vector3d,vector3d)\");\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "register_vector3d_lib__Fv"
+}
