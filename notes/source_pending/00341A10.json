@@ -1,0 +1,15 @@
+{
+  "address": "0x00341A10",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e51fc4174d7c4c821653228f9941e14d0bdc9802",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/widget.h\"\n\nvoid widget::update_rot()\n{\n  if ( parent && !ignoring_parent() )\n  {\n    base_angle = parent->get_abs_angle();\n  }\n\n  abs_angle = angle + base_angle;\n\n  rational_t ct, st;\n  fast_sin_cos_approx( abs_angle, &st, &ct );\n\n  R[0][0] = ct;\n  R[0][1] = -st;\n  R[1][0] = st;\n  R[1][1] = ct;\n\n  // recurse through children\n  widget_list_t::iterator child;\n  for( child = children.begin(); child != children.end(); ++child )\n  {\n    (*child)->update_rot();\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "update_rot__11vrep_widget"
+}
