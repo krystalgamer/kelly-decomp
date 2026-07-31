@@ -143,9 +143,20 @@ public:
         return iterator(static_cast<node_type *>(_M_node->_M_next));
     }
 
+    const_iterator begin() const
+    {
+        return const_iterator(
+            static_cast<node_type *>(_M_node->_M_next));
+    }
+
     iterator end()
     {
         return iterator(_M_node);
+    }
+
+    const_iterator end() const
+    {
+        return const_iterator(_M_node);
     }
 
     T &front()

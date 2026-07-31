@@ -1,7 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00352A68)
 // 0x00352A68 run__14script_managerfb
 class script_manager {
 public:
@@ -10,16 +9,12 @@ public:
 
 void script_manager::run(float time, bool ignore_suspended) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00352598)
 // 0x00352598 clear__14script_manager
 class script_manager { public: void _destroy(); void clear(); };
 __asm__(".equ _destroy__14script_manager, 0x00352B40");
 void script_manager::clear() { _destroy(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00352B08)
 // 0x00352B08 add_string__14script_managerRC7stringx
 class stringx {};
 struct tree_iterator { char *node; };
@@ -42,9 +37,7 @@ const stringx *script_manager::add_string(const stringx &s)
 {
     return &(*(strings.insert(s).first));
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003525B8)
 // 0x003525B8 find_object__C14script_managerRC7stringx
 class stringx { char data[8]; };
 class script_object;
@@ -71,11 +64,9 @@ script_object* script_manager::find_object(const stringx& name) const
   else { KELLY_DECOMP_COMPILER_BARRIER();
     return (*i).second; }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00350F28)
 // 0x00350F28 find_func_by_address__C13script_objectPCUs
-struct vm_executable
+struct vm_executable_layout
 {
     char padding[0x2c];
     const unsigned short *start;
@@ -84,41 +75,52 @@ struct vm_executable
 
 struct executable_vector
 {
-    vm_executable **begin_value;
-    vm_executable **end_value;
-    vm_executable **capacity;
+    vm_executable_layout **begin_value;
+    vm_executable_layout **end_value;
+    vm_executable_layout **capacity;
 };
 
-class script_object
+struct script_object_layout
 {
     char padding[0x20];
     executable_vector funcs;
-
-public:
-    int find_func_by_address(const unsigned short *pc) const;
 };
 
-int script_object::find_func_by_address(
+extern "C" int find_script_function(
+    const script_object_layout *self,
     const unsigned short *pc
-) const
+) __asm__("find_func_by_address__C13script_objectPCUs");
+
+int find_script_function(
+    const script_object_layout *self,
+    const unsigned short *pc
+)
 {
     int i = 0;
-    vm_executable **current = funcs.begin_value;
-    vm_executable **end = funcs.end_value;
+    vm_executable_layout **current = self->funcs.begin_value;
+    vm_executable_layout **end = self->funcs.end_value;
     for (; current != end; ++current, ++i)
     {
-        vm_executable *executable = *current;
+        vm_executable_layout *executable = *current;
         if (pc >= executable->start &&
             pc < executable->start + executable->size)
             return i;
     }
     return -1;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00350AF8)
 // 0x00350AF8 dump_threads__CQ213script_object8instanceP7os_file
-#include "KS/SRC/script_object_dump_shared.h"
+#include "KS/SRC/script_object.h"
+#include "KS/SRC/vm_thread.h"
+
+extern const char thread_dump_format[];
+extern int host_fprintf(
+    host_system_file_handle,
+    const char *,
+    ...) __asm__("host_fprintf__FP7os_filePCce");
+__asm__(".equ thread_dump_format, 0x005036F8");
+__asm__(".equ host_fprintf__FP7os_filePCce, 0x001E1078");
+__asm__(".equ fptodp, 0x003CD278");
 
 void script_object::instance::dump_threads(
     host_system_file_handle outfile
@@ -142,4 +144,3 @@ void script_object::instance::dump_threads(
         }
     }
 }
-#endif

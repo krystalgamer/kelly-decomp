@@ -108,6 +108,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/TrickBookFrontEnd.h":
         "KS/SRC/ks/TrickBookFrontEnd_methods.cpp",
     "KS/SRC/ks/wave.h": "KS/SRC/ks/wave_methods.cpp",
+    "KS/SRC/vm_thread.h": "KS/SRC/vm_thread_methods.cpp",
     "KS/SRC/ks/dxt1_codebook.h": "KS/SRC/ks/dxt1_codebook_rtti.cpp",
     "KS/SRC/ks/floatobj.h": "KS/SRC/ks/floatobj_methods.cpp",
     "KS/SRC/ks/igo_widget.h": "KS/SRC/ks/igo_widget_rtti.cpp",

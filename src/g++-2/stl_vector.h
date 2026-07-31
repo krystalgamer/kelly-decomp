@@ -74,6 +74,26 @@ public:
         return _M_finish - _M_start;
     }
 
+    bool empty() const
+    {
+        return _M_start == _M_finish;
+    }
+
+    T &back()
+    {
+        return *(_M_finish - 1);
+    }
+
+    const T &back() const
+    {
+        return *(_M_finish - 1);
+    }
+
+    void pop_back()
+    {
+        --_M_finish;
+    }
+
     iterator erase(iterator first, iterator last)
     {
         memmove(first, last, (_M_finish - last) * sizeof(T));

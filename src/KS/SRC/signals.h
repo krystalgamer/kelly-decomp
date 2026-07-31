@@ -2,15 +2,79 @@
 #define SIGNALS_H
 
 #include "KS/SRC/singleton.h"
+#include "KS/SRC/script_object.h"
 #include "KS/SRC/stringx.h"
+#include "KS/SRC/vm_executable.h"
 #include "g++-2/stl_map.h"
 #include "g++-2/stl_vector.h"
 
 #pragma interface
 
+class signaller;
+
+class signal_callback {
+public:
+    inline signal_callback() {
+        disabled = one_shot = false;
+        id = id_counter++;
+    }
+    virtual ~signal_callback();
+    virtual void spawn(signaller *source = 0) = 0;
+    inline void disable() { disabled = true; }
+    inline void enable() { disabled = false; }
+    inline bool is_disabled() const { return disabled; }
+    inline void set_one_shot(bool value) {
+        one_shot = value;
+    }
+    inline bool is_one_shot() const { return one_shot; }
+    inline unsigned int get_id() const { return id; }
+    virtual inline bool is_code_callback() { return false; }
+    virtual inline bool is_script_callback() { return false; }
+
+protected:
+    char *parms;
+    bool disabled;
+    bool one_shot;
+    unsigned int id;
+    static unsigned int id_counter;
+};
+
+class script_callback : public signal_callback {
+    script_object::instance *inst;
+    const vm_executable *func;
+
+public:
+    script_callback(
+        script_object::instance *instance,
+        const vm_executable *function,
+        const char *parameters);
+    virtual ~script_callback();
+    virtual inline bool is_script_callback() { return true; }
+    const stringx &get_func_name();
+    virtual void spawn(signaller *source = 0);
+};
+
+class code_callback : public signal_callback {
+public:
+    code_callback(
+        void (*function)(signaller *, const char *),
+        const char *parameters);
+    virtual ~code_callback();
+    virtual void spawn(signaller *source = 0);
+    virtual inline bool is_code_callback() { return true; }
+
+private:
+    void (*func)(signaller *, const char *);
+};
+
 class signal {
 public:
     void raise();
+    unsigned int add_callback(
+        script_object::instance *instance,
+        vm_executable *function,
+        char *parameters,
+        bool one_shot = false);
 };
 
 class signal_list {

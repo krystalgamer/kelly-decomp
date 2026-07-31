@@ -1,9 +1,12 @@
 // Matching decompilation blocks selected by generated build shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_00356178)
-#include "KS/SRC/vm_thread_shared.h"
-
 // 0x00356178 create_static_event_callback__9vm_threadRCQ29vm_thread10argument_tb
+#include "KS/SRC/signals.h"
+#include "KS/SRC/vm_thread.h"
+__asm__(
+    ".equ add_callback__6signalPQ213script_object8instance"
+    "P13vm_executablePcb, 0x0034C548");
+
 void vm_thread::create_static_event_callback(
     const argument_t &arg,
     bool one_shot)
@@ -14,41 +17,23 @@ void vm_thread::create_static_event_callback(
     value->add_callback(inst, arg.sfr, parms, one_shot);
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00356640)
 // 0x00356640 set_camera_priority__9vm_threadf
-class vm_thread {
-    char padding[0x38];
-    float camera_priority;
-public:
-    void set_camera_priority(float value);
-};
+#include "KS/SRC/vm_thread.h"
 
 void vm_thread::set_camera_priority(float value) {
     camera_priority = value;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00356200)
 // 0x00356200 remove_from_local_region__9vm_thread
-class vm_thread;
-
+#include "KS/SRC/vm_thread.h"
 class region {
 public:
     void remove_local_thread(vm_thread *thread);
 };
 
 __asm__(".equ remove_local_thread__6regionP9vm_thread, 0x002E80E8");
-
-class vm_thread {
-    char padding[0x34];
-    region *local_region;
-
-public:
-    void remove_from_local_region();
-};
 
 void vm_thread::remove_from_local_region() {
     region *local = local_region;
@@ -58,62 +43,18 @@ void vm_thread::remove_from_local_region() {
     local->remove_local_thread(this);
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00354658)
 // 0x00354658 set_suspended__9vm_threadb
-class vm_thread {
-    char padding[8];
-    unsigned int flags;
-
-    enum flags_t {
-        SUSPENDED = 0x0001,
-        SUSPENDABLE = 0x0002
-    };
-
-public:
-    void set_flag(flags_t flag, bool value) {
-        flags = value ? (flags | flag) : (flags & ~flag);
-    }
-    bool is_flagged(flags_t flag) const { return flags & flag; }
-    bool is_suspendable() const { return is_flagged(SUSPENDABLE); }
-    void set_suspended(bool value);
-};
+#include "KS/SRC/vm_thread.h"
 
 void vm_thread::set_suspended(bool value)
 {
     if (!value || is_suspendable())
         set_flag(SUSPENDED, value);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003561C8)
 // 0x003561C8 pop_PC__9vm_thread
-struct pc_vector {
-    const unsigned short **begin_pointer;
-    const unsigned short **end_pointer;
-
-    bool empty() const {
-        return begin_pointer == end_pointer;
-    }
-
-    const unsigned short *back() const {
-        return end_pointer[-1];
-    }
-
-    void pop_back() {
-        --end_pointer;
-    }
-};
-
-class vm_thread {
-    char padding[0x1C];
-    const unsigned short *PC;
-    pc_vector PC_stack;
-
-public:
-    void pop_PC();
-};
+#include "KS/SRC/vm_thread.h"
 
 void vm_thread::pop_PC()
 {
@@ -124,17 +65,9 @@ void vm_thread::pop_PC()
         PC = 0;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00354688)
 // 0x00354688 set_suspendable__9vm_threadb
-class vm_thread {
-    char padding[8];
-    int flags;
-public:
-    void set_suspended(bool value);
-    void set_suspendable(bool value);
-};
+#include "KS/SRC/vm_thread.h"
 __asm__(".equ set_suspended__9vm_threadb, 0x00354658");
 void vm_thread::set_suspendable(bool value)
 {
@@ -142,17 +75,16 @@ void vm_thread::set_suspendable(bool value)
     if (value)
         result = flags | 2;
     else
-        result = flags & -3;
+        result = (int)flags & -3;
     flags = result;
     if (!value) {
         set_suspended(false);
         KELLY_DECOMP_COMPILER_BARRIER();
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00356230)
 // 0x00356230 remove_from_local_character__9vm_thread
+#include "KS/SRC/vm_thread.h"
 extern "C" void debug_print(const char *format, ...) __asm__("debug_print__FPCce");
 extern int once_flag;
 extern const char stub_format[];
@@ -161,7 +93,6 @@ __asm__(".equ debug_print__FPCce, 0x00120790");
 __asm__(".equ once_flag, 0x0046DC58");
 __asm__(".equ stub_format, 0x00503DD8");
 __asm__(".equ stub_name, 0x00503E08");
-class vm_thread { public: void remove_from_local_character(); };
 void vm_thread::remove_from_local_character()
 {
     if (once_flag) {
@@ -169,9 +100,6 @@ void vm_thread::remove_from_local_character()
         once_flag = 0;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00355B28)
 // 0x00355B28 call_script_library_function__9vm_threadRCQ29vm_thread10argument_tPCUs
-struct vm_stack{char pad[8];char*sp;};struct FunctionVtable{char pad[16];short adjust;short z;bool(*call)(void*,vm_stack&,int);};struct function{char pad[4];FunctionVtable*vtable;};struct argument_t{function*lfr;};struct vm_thread{char pad0[12];vm_stack dstack;char pad1[4];const unsigned short*PC;char pad2[12];int entry;bool call_script_library_function(const argument_t&,const unsigned short*)__asm__("call_script_library_function__9vm_threadRCQ29vm_thread10argument_tPCUs");};bool vm_thread::call_script_library_function(const argument_t&arg,const unsigned short*oldPC){vm_stack*stack=&dstack;char*oldSP=stack->sp;FunctionVtable*v=arg.lfr->vtable;if(v->call((char*)arg.lfr+v->adjust,*stack,entry)){entry=0;return true;}PC=oldPC;stack->sp=oldSP;entry=1;return false;}
-#endif
+struct vm_stack_layout{char pad[8];char*sp;};struct FunctionVtable{char pad[16];short adjust;short z;bool(*call)(void*,vm_stack_layout&,int);};struct function_layout{char pad[4];FunctionVtable*vtable;};struct argument_layout{function_layout*lfr;};struct vm_thread_call_layout{char pad0[12];vm_stack_layout dstack;char pad1[4];const unsigned short*PC;char pad2[12];int entry;};extern "C" bool call_script_function(vm_thread_call_layout*self,const argument_layout&arg,const unsigned short*oldPC)__asm__("call_script_library_function__9vm_threadRCQ29vm_thread10argument_tPCUs");bool call_script_function(vm_thread_call_layout*self,const argument_layout&arg,const unsigned short*oldPC){vm_stack_layout*stack=&self->dstack;char*oldSP=stack->sp;FunctionVtable*v=arg.lfr->vtable;if(v->call((char*)arg.lfr+v->adjust,*stack,self->entry)){self->entry=0;return true;}self->PC=oldPC;stack->sp=oldSP;self->entry=1;return false;}

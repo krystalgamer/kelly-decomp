@@ -4,33 +4,11 @@
 #pragma interface
 
 #include "KS/SRC/stringx.h"
+#include "KS/SRC/vm_stack.h"
 #include "g++-2/stl_set.h"
-
-typedef float vm_num_t;
 
 class chunk_file;
 class script_object;
-class vm_stack;
-
-class vm_thread {
-public:
-    void set_suspendable(bool value);
-};
-
-class vm_stack {
-public:
-    int salloc;
-    char *buffer;
-    char *SP;
-
-private:
-    vm_thread *my_thread;
-
-public:
-    inline char *get_SP() const { return SP; }
-    inline void pop(int count) { SP -= count; }
-    inline vm_thread *get_thread() const { return my_thread; }
-};
 
 extern "C" int strcmp(const char *left, const char *right);
 
