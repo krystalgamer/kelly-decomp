@@ -1,0 +1,15 @@
+{
+  "address": "0x002CB868",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "26bb63b4beb00c6c83837ef38fe65ba3216b6fb1",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "Name: set_look_at\n Desc: Given an eye point, a lookat point, and an up vector, this\n       function builds a 4x4 view matrix.\n-----------------------------------------------------------------------------*/\nvoid geometry_manager::set_look_at( matrix4x4* dest,\n                                    const vector3d& from, \n                                    const vector3d& look_at,\n                                    const vector3d& up )\n{\n  matrix4x4 viewmat;\n  // Get the z basis vector, which points straight ahead. This is the\n  // difference from the eyepoint to the lookat point.\n  vector3d vView = look_at - from;\n\n  rational_t fLength = vView.length();\n  \n  // If we're jammed up, just point down the Z axis.  This really shouldn't be happening though.\n  if ( fLength <= 1e-6f )\n  {\n  \tvView = ZVEC;\n  \tfLength = 1;\n  }\n\n  // Normalize the z basis vector\n  vView /= fLength;\n\n  // Get the dot product, and calculate the projection of the z basis\n  // vector onto the up vector. The projection is the y basis vector.\n  rational_t fDotProduct = dot( up, vView );\n\n  vector3d vUp = up - fDotProduct * vView;\n\n  // If this vector has near-zero length because the input specified a\n  // bogus up vector, let's try a default up vector\n  if (1e-6f > (fLength = vUp.length()))\n  {\n    vUp = vector3d( 0.0f, 1.0f, 0.0f ) - vView.y * vView;\n\n    // If we still have near-zero length, resort to a different axis.\n    if (1e-6f > (fLength = vUp.length()))\n    {\n      vUp = vector3d( 0.0f, 0.0f, 1.0f ) - vView.z * vView;\n      fLength = vUp.length();\n\n      assert( 1e-6f <= fLength );\n    }\n  }\n\n  // Normalize the y basis vector\n  vUp /= fLength;\n\n  // The x basis vector is found simply with the cross product of the y\n  // and z basis vectors\n  vector3d vRight = cross( vUp, vView );\n\n  // Start building the matrix. The first three rows contains the basis\n  // vectors used to rotate the view to point at the lookat point\n  viewmat = identity_matrix;\n  viewmat[0][0] = vRight.x;    viewmat[0][1] = vUp.x;    viewmat[0][2] = vView.x;\n  viewmat[1][0] = vRight.y;    viewmat[1][1] = vUp.y;    viewmat[1][2] = vView.y;\n  viewmat[2][0] = vRight.z;    viewmat[2][1] = vUp.z;    viewmat[2][2] = vView.z;\n\n  // Do the translation values (rotations are still about the eyepoint)\n  viewmat[3][0] = - dot( from, vRight );\n  viewmat[3][1] = - dot( from, vUp );\n  viewmat[3][2] = - dot( from, vView );\n\n  *dest = viewmat;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "set_look_at__16geometry_managerP9matrix4x4RC8vector3dN22"
+}
