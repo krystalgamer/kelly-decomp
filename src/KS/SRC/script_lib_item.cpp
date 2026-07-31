@@ -1,27 +1,41 @@
 // Matching decompilation blocks selected by generated build shims.
 
-#include "KS/SRC/script_lib_item_shared.h"
+#include "KS/SRC/item.h"
+#include "KS/SRC/script_library_class.h"
 
 #pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_003275B0)
 // 0x003275B0 _$_20slf_item_set_count_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_003275B0(void *self) __asm__("_$_20slf_item_set_count_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_003275B0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00327668)
 // 0x00327668 _$_20slf_item_get_count_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00327668(void *self) __asm__("_$_20slf_item_get_count_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00327668(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00327620)
 // 0x00327620 __cl__20slf_item_set_count_tR8vm_stackQ320script_library_class8function7entry_t
+struct item_set_count_vtable {
+    char padding[0x640];
+    short adjustment;
+    short padding2;
+    void (*set_count)(void *self, int count);
+};
+struct item_set_count_layout {
+    char padding[8];
+    item_set_count_vtable *vtable;
+};
+inline void set_script_item_count(item *value, int count) {
+    item_set_count_layout *layout =
+        (item_set_count_layout *)value;
+    item_set_count_vtable *table = layout->vtable;
+    table->set_count(
+        (char *)layout + table->adjustment,
+        count);
+}
 class slf_item_set_count_t :
     public script_library_class::function {
 public:
@@ -35,28 +49,22 @@ public:
 
 bool slf_item_set_count_t::operator()(vm_stack &stack, entry_t entry) {
     SLF_PARMS;
-    parms->me->set_count(parms->count);
+    set_script_item_count(parms->me, parms->count);
     SLF_DONE;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00327850)
 // 0x00327850 _$_17slf_create_item_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00327850(void *self) __asm__("_$_17slf_create_item_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00327850(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00327C98)
 // 0x00327C98 _$_13slf_to_item_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00327C98(void *self) __asm__("_$_13slf_to_item_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00327C98(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003275D0)
 // 0x003275D0 __tf20slf_item_set_count_t
 #include "KS/SRC/rtti.h"
 
@@ -81,9 +89,7 @@ void **Rtti_003275D0()
     }
     return rtti_type_003275D0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00327688)
 // 0x00327688 __tf20slf_item_get_count_t
 #include "KS/SRC/rtti.h"
 
@@ -108,9 +114,7 @@ void **Rtti_00327688()
     }
     return rtti_type_00327688;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00327870)
 // 0x00327870 __tf17slf_create_item_t
 #include "KS/SRC/rtti.h"
 
@@ -135,9 +139,7 @@ void **Rtti_00327870()
     }
     return rtti_type_00327870;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00327CB8)
 // 0x00327CB8 __tf13slf_to_item_t
 #include "KS/SRC/rtti.h"
 
@@ -162,4 +164,3 @@ void **Rtti_00327CB8()
     }
     return rtti_type_00327CB8;
 }
-#endif

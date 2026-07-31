@@ -1,184 +1,139 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef ITEM_H
+#define ITEM_H
 
-#if defined(KELLY_DECOMP_FUNCTION_002B85A0) || \
-    defined(KELLY_DECOMP_FUNCTION_002B85A8) || \
-    defined(KELLY_DECOMP_FUNCTION_002B85B0) || \
-    defined(KELLY_DECOMP_FUNCTION_002B85C0) || \
-    defined(KELLY_DECOMP_FUNCTION_002B85D0) || \
-    defined(KELLY_DECOMP_FUNCTION_002B8608) || \
-    defined(KELLY_DECOMP_FUNCTION_002B8610) || \
-    defined(KELLY_DECOMP_FUNCTION_002B8620) || \
-    defined(KELLY_DECOMP_FUNCTION_002B8630) || \
-    defined(KELLY_DECOMP_FUNCTION_002B8640) || \
-    defined(KELLY_DECOMP_FUNCTION_002B8648) || \
-    defined(KELLY_DECOMP_FUNCTION_002B8650) || \
-    defined(KELLY_DECOMP_FUNCTION_002B8658) || \
-    defined(KELLY_DECOMP_FUNCTION_002B8660)
-#include "KS/SRC/item_shared.h"
-#endif
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_002B85A0)
-// 0x002B85A0 is_an_item__C4item
-bool item::is_an_item() const {
-    return true;
-}
-#endif
+#include "KS/SRC/entity.h"
+#include "g++-2/stl_vector.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_002B8708)
-#include "KS/SRC/rtti.h"
-#include "KS/SRC/beam.h"
+class light_manager;
 
-extern "C" void **visual_item_base_rtti() __asm__("__tf6entity");
-extern "C" void *visual_item_type[] __asm__("__ti11visual_item");
-extern "C" const char visual_item_name[];
-extern "C" void *visual_item_base_type[] __asm__("__ti6entity");
-
-__asm__(".equ __tf6entity, 0x001449C8");
-__asm__(".equ __ti11visual_item, 0x005A3DC0");
-__asm__(".equ visual_item_name, 0x004FE498");
-__asm__(".equ __ti6entity, 0x005A27C8");
-
-// 0x002B8708 __tf11visual_item
-extern "C" void **visual_item_rtti() __asm__("__tf11visual_item");
-void **visual_item_rtti()
-{
-    if (!visual_item_type[0]) {
-        visual_item_base_rtti();
-        __rtti_si(visual_item_type, visual_item_name, visual_item_base_type);
-    }
-    return visual_item_type;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B85A8)
-// 0x002B85A8 get_count__C4item
-int item::get_count() const {
-    return count;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B85B0)
-// 0x002B85B0 inc_count__4item
-void item::inc_count() { ++count; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B85C0)
-// 0x002B85C0 dec_count__4item
-void item::dec_count() { --count; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B85D0)
-// 0x002B85D0 set_count__4itemi
-void item::set_count(int value) {
-    count = value;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B8608)
-// 0x002B8608 get_number__C4item
-int item::get_number() const {
-    return count;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B8610)
-// 0x002B8610 is_ammo__C4item
-bool item::is_ammo() const { return usage_type == AMMO; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B8620)
-// 0x002B8620 is_health__C4item
-bool item::is_health() const { return usage_type == HEALTH; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B8630)
-// 0x002B8630 is_armor__C4item
-bool item::is_armor() const { return usage_type == ARMOR; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B8640)
-// 0x002B8640 is_brain_weapon__C4item
-bool item::is_brain_weapon() const {
-    return false;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B8648)
-// 0x002B8648 holster__4itemb
-void item::holster(bool make_visible) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B8650)
-// 0x002B8650 draw__4itemb
-void item::draw(bool make_visible) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B8658)
-// 0x002B8658 hide__4item
-void item::hide() {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B8660)
-// 0x002B8660 show__4item
-void item::show() {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B8758)
-// 0x002B8758 is_a_visual_item__C11visual_item
-class visual_item {
+class item : public entity {
 public:
-    bool is_a_visual_item() const;
+    enum usage_t {
+        INVALID = -1,
+        INSTANT,
+        INVENTORY,
+        UTILITY,
+        GUN,
+        THROWN,
+        MELEE,
+        AMMO,
+        HEALTH,
+        ARMOR,
+        ENERGY,
+        PERMANENT
+    };
+
+    item(const entity_id &id, unsigned int flags);
+    item(
+        const entity_id &id,
+        entity_flavor_t flavor = ENTITY_ITEM,
+        unsigned int flags = 0);
+    virtual ~item();
+    virtual void initialize();
+    virtual bool is_an_item() const;
+    virtual bool handle_enx_chunk(
+        chunk_file &file,
+        stringx &label);
+    virtual entity *make_instance(
+        const entity_id &id,
+        unsigned int flags) const;
+
+protected:
+    virtual void copy_instance_data(const item &other);
+
+public:
+    inline usage_t get_usage_type() const {
+        return usage_type;
+    }
+    virtual int get_count() const;
+    virtual void inc_count();
+    virtual void dec_count();
+    virtual void set_count(int count);
+    virtual bool is_usable() const;
+    virtual int get_number() const;
+    virtual void frame_advance(time_value_t time);
+    virtual void render(
+        camera *camera_link,
+        rational_t detail,
+        render_flavor_t flavor,
+        rational_t translucency);
+    virtual bool give_to_entity(entity *target);
+    virtual void preload();
+    virtual void apply_effects(entity *target);
+    virtual bool is_ammo() const;
+    virtual bool is_health() const;
+    virtual bool is_armor() const;
+    virtual bool is_brain_weapon() const;
+    virtual void holster(bool make_visible = true);
+    virtual void draw(bool make_visible = true);
+    virtual void hide();
+    virtual void show();
+    virtual bool parse_instance(
+        const stringx &flavor,
+        chunk_file &file);
+    bool check_for_pickup();
+    bool is_picked_up();
+    void spawn_item_script();
+    void spawn_preload_script();
+    static unsigned short get_signal_id(const char *name);
+    virtual const char *get_signal_name(
+        unsigned short index) const;
+
+protected:
+    bool preload_script_called;
+    bool item_script_called;
+    bool linked;
+    usage_t usage_type;
+    stringx name;
+    int count;
+    int default_count;
+    bool picked_up;
+    rational_t pickup_timer;
+    rational_t icon_scale;
+    rational_t interface_orientation;
+    int max_num;
 };
 
-bool visual_item::is_a_visual_item() const {
-    return true;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B87E8)
-// 0x002B87E8 is_a_morphable_item__C14morphable_item
-class morphable_item {
+class visual_item : public entity {
 public:
-    bool is_a_morphable_item() const;
+    visual_item(const entity_id &id, unsigned int flags);
+    virtual ~visual_item();
+    virtual bool is_a_visual_item() const;
+    virtual light_manager *get_light_set();
+    virtual render_flavor_t render_passes_needed() const;
+    virtual void render(
+        camera *camera_link,
+        rational_t detail,
+        render_flavor_t flavor,
+        rational_t translucency);
+
+private:
+    entity *owner;
 };
 
-bool morphable_item::is_a_morphable_item() const {
-    return true;
-}
-#endif
+class morphable_item_range {
+    int low;
+    int high;
+    stringx vis_rep;
+    friend class morphable_item;
+};
 
-#if defined(KELLY_DECOMP_FUNCTION_002B85D8)
-// 0x002B85D8 is_usable__C4item
-struct item_vtable { char padding[0x628]; short adjustment; short padding2; int (*usable)(void *self); };
-class item { char padding[8]; item_vtable *vtable; public: bool is_usable() const; };
-bool item::is_usable() const { item_vtable *table = vtable; return table->usable((char *)this + table->adjustment) > 0; }
-#endif
-#if defined(KELLY_DECOMP_FUNCTION_002B8550)
-#include "KS/SRC/rtti.h"
-#include "KS/SRC/script_lib_item_shared.h"
+class morphable_item : public item {
+public:
+    morphable_item(
+        const entity_id &id,
+        unsigned int flags);
+    virtual ~morphable_item();
+    virtual bool is_a_morphable_item() const;
+    virtual void frame_advance(time_value_t time);
 
-extern "C" void **item_base_rtti() __asm__("__tf6entity");
-extern "C" void *item_type[] __asm__("__ti4item");
-extern "C" const char item_name[];
-extern "C" void *item_base_type[] __asm__("__ti6entity");
+protected:
+    vector<morphable_item_range *> ranges;
+    int old_count;
+    void set_range_visrep(int count);
+    void dump_ranges();
+};
 
-__asm__(".equ __tf6entity, 0x001449C8");
-__asm__(".equ __ti4item, 0x005A3DB0");
-__asm__(".equ item_name, 0x004FE490");
-__asm__(".equ __ti6entity, 0x005A27C8");
-
-// 0x002B8550 __tf4item
-extern "C" void **item_rtti() __asm__("__tf4item");
-void **item_rtti()
-{
-    if (!item_type[0]) {
-        item_base_rtti();
-        __rtti_si(item_type, item_name, item_base_type);
-    }
-    return item_type;
-}
 #endif

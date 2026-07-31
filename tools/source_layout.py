@@ -127,6 +127,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/hard_attrib_interface.h": "KS/SRC/hard_attrib_interface.cpp",
     "KS/SRC/inputmgr.h": "KS/SRC/inputmgr_methods.cpp",
     "KS/SRC/interface.h": "KS/SRC/interface_methods.cpp",
+    "KS/SRC/item.h": "KS/SRC/item_methods.cpp",
     "KS/SRC/link_interface.h": "KS/SRC/link_interface.cpp",
     "KS/SRC/owner_interface.h": "KS/SRC/owner_interface.cpp",
     "KS/SRC/physical_interface.h": "KS/SRC/physical_interface.cpp",
