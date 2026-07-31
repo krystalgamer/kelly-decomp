@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_WAVE_SOUND_NEW_WAVE_SHARED_H
-#define KELLY_DECOMP_WAVE_SOUND_NEW_WAVE_SHARED_H
+#ifndef WAVESOUND_H
+#define WAVESOUND_H
 
 struct WaveData {
     char built_fields[532];
@@ -21,7 +21,13 @@ struct WaveData {
 class WaveSound {
     char built_fields_before_last_tube[436];
     int lastTubePieces;
-    char built_fields_before_volumes[776];
+    char built_fields_before_initialized[0x2dc];
+    bool initialized;
+    bool is_paused;
+    bool crashed;
+    char built_fields_before_emitter[0x0c];
+    int behindTheCamera;
+    char built_fields_before_volumes[0x10];
     float faceVolume;
     float underWaterVolume;
     float tubeVolume;
@@ -40,6 +46,9 @@ class WaveSound {
 
 public:
     void OnNewWave();
+    void pause();
+    void unpause();
+    void shutdown();
 };
 
 extern WaveData WaveDataArray[];
