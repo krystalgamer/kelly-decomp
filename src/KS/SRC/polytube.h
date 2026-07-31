@@ -2,7 +2,7 @@
 #define POLYTUBE_H
 
 #include "KS/SRC/entity.h"
-#include "KS/SRC/matfac_shared.h"
+#include "KS/SRC/matfac.h"
 
 #pragma interface
 

@@ -3,7 +3,7 @@
 
 #include "KS/SRC/entity_anim_shared.h"
 #include "KS/SRC/ks/trickdata.h"
-#include "KS/SRC/matfac_shared.h"
+#include "KS/SRC/matfac.h"
 #include "KS/SRC/po.h"
 
 typedef int nslEmitterId;

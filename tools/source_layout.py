@@ -80,6 +80,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/dxt1_codebook.h": "KS/SRC/ks/dxt1_codebook_rtti.cpp",
     "KS/SRC/light.h": "KS/SRC/light_methods.cpp",
     "KS/SRC/marker.h": "KS/SRC/marker_methods.cpp",
+    "KS/SRC/matfac.h": "KS/SRC/matfac_rtti.cpp",
     "KS/SRC/hard_attrib_interface.h": "KS/SRC/hard_attrib_interface.cpp",
     "KS/SRC/link_interface.h": "KS/SRC/link_interface.cpp",
     "KS/SRC/owner_interface.h": "KS/SRC/owner_interface.cpp",
