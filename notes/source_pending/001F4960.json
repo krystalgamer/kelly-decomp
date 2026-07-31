@@ -1,0 +1,15 @@
+{
+  "address": "0x001F4960",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "48737e5322d997e04806b1d7c0c2ab068ce669fe",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/board.h\"\n\n// Moved from SurfBoardObjectClass::Update.  Previously it was possible for wiped_out to be\n\t// set to false without reverting to the game camera.  (dc 01/26/02)\n\tif ((wiped_out))\n\t{\n\t\t//  Put the camera back the way it was before the wipeout.\n\t\tif (!g_game_ptr->user_cam_is_on() && !ksctrl->IsAIPlayer())\n\t\t{\n\t\t\tksctrl->SetPlayerCamera(ksctrl->GetPlayerCam());\n\t\t\tg_game_ptr->set_current_camera(ksctrl->GetPlayerCam());\n\t\t}\n\n\t\twiped_out = false;\n\t}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Update__20SurfBoardObjectClassf"
+}
