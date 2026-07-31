@@ -1,0 +1,15 @@
+{
+  "address": "0x0013C2F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6975c31d8e151a0b6c9b3db80efb7733d8d549c7",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/animation_interface.h\"\n\nconst stringx& animation_interface::extract_random_anim_info_id_map_anim( const stringx& id, int *damage_value, rational_t *recover, rational_t *recover_var, int *flags )\n{\n  rational_t per_total = 0;\n\n  anim_info_id_map_anims_iterator bidmait = anim_info_id_map[id].begin();\n  while( bidmait != anim_info_id_map[id].end() )\n  {\n    per_total += (*bidmait).percent;\n    ++bidmait;\n  }\n\n  rational_t r1 = random();\n\n  rational_t roll = per_total * r1;\n\n  per_total = 0;\n  bidmait = anim_info_id_map[id].begin();\n  while( bidmait != anim_info_id_map[ id ].end() )\n  {\n    per_total += (*bidmait).percent;\n    if( per_total >= roll )\n    {\n      if( damage_value != NULL )  *damage_value  = (*bidmait).damage;\n      if( recover != NULL )       *recover       = (*bidmait).recover_time;\n      if( recover_var != NULL )   *recover_var   = (*bidmait).recover_var;\n      if( flags != NULL )         *flags         = (*bidmait).flags;\n\n      if( (*bidmait).anim.length() > 0 ) return( (*bidmait).anim );\n    }\n    ++bidmait;\n  }\n\n  //warning( \"extract_random_anim_info_id_map_anim(\" + id + \"): could not find a mapped anim corresponding to ROLL=\" + ftos(roll) );\n  return( empty_string );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "extract_random_anim_info_id_map_anim__19animation_interfaceRC7stringxPiPfT3T2"
+}
