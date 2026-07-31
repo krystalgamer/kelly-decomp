@@ -1,0 +1,15 @@
+{
+  "address": "0x0033AE18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ca7bd1930f494920d0adb4c25f22921f38bcb5ca",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/text_font.h\"\n\nvector2di text_font::render(const stringx& str, const vector2di& pos, color32 col, float depth, float size)\n{\n#ifdef NGL\n  col.set_alpha( 255 );\n/*\tReplaced by new API. (dc 05/30/02)\n  KSNGL_SetFontColor( col.to_ulong() );\n*/\n  nglListAddString( nglSysFont, pos.x, pos.y, 0, col.to_ulong(), (char *)str.c_str() );\n  return pos;\n#else\n\n  if (!col.c.a) return pos;\n  mat->send_context(0, MAP_DIFFUSE, FORCE_TRANSLUCENCY);\n\n  vector2di curpos=pos;\n\n  float rhw = 1.0f;\n  float z = geometry_manager::inst()->fix_z_coord(depth);\n\n  int strlen = str.length();\n\n  int nchars=0;\n  enum { BUFSIZE = 128 };\n  assert(strlen<=BUFSIZE);\n  surface_vert_ref text_font_indices[BUFSIZE][6];\n  vert_workspace_xformed.lock(BUFSIZE*4);\n  hw_rasta_vert_xformed * vert_it = vert_workspace_xformed.begin();\n  int i4=0;\n\n  for (int i=0; i<strlen; ++i)\n  {\n    char c=str[i];\n    glyph_info ginfo;\n    get_char_extent(c,ginfo);\n\n    if (c!=' ')\n    {\n      vert_it->reset();\n      vert_it->set_xyz_rhw(vector4d(curpos.x-0.5f,curpos.y-0.5f,z,rhw));\n      vert_it->tc[0] = texture_coord(ginfo.texoffset.x*itz.x,ginfo.texoffset.y*itz.y);\n      vert_it->diffuse = col;\n      ++vert_it;\n      vert_it->reset();\n      vert_it->set_xyz_rhw(vector4d(curpos.x+ginfo.cellsize.x-0.5f,curpos.y-0.5f,z,rhw));\n      vert_it->tc[0] = texture_coord((ginfo.texoffset.x+ginfo.cellsize.x)*itz.x,ginfo.texoffset.y*itz.y);\n      vert_it->diffuse = col;\n      ++vert_it;\n      vert_it->reset();\n      vert_it->set_xyz_rhw(vector4d(curpos.x-0.5f,curpos.y+ginfo.cellsize.y-0.5f,z,rhw));\n      vert_it->tc[0] = texture_coord(ginfo.texoffset.x*itz.x,(ginfo.texoffset.y+ginfo.cellsize.y)*itz.y);\n      vert_it->diffuse = col;\n      ++vert_it;\n      vert_it->reset();\n      vert_it->set_xyz_rhw(vector4d(curpos.x+ginfo.cellsize.x-0.5f,curpos.y+ginfo.cellsize.y-0.5f,z,rhw));\n      vert_it->tc[0] = texture_coord((ginfo.texoffset.x+ginfo.cellsize.x)*itz.x,(ginfo.texoffset.y+ginfo.cellsize.y)*itz.y);\n      vert_it->diffuse = col;\n      ++vert_it;\n\n      surface_vert_ref* idxs = text_font_indices[nchars];\n      idxs[0] = i4  ;\n      idxs[1] = i4+1;\n      idxs[2] = i4+2;\n      idxs[3] = i4+2;\n      idxs[4] = i4+1;\n      idxs[5] = i4+3;\n      i4+=4;\n      ++nchars;\n    }\n\n    curpos.x+=ginfo.cellsize.x;\n  }\n\n  vert_workspace_xformed.unlock();\n  // send batch to the card\n  hw_rasta::inst()->send_indexed_vertex_list(vert_workspace_xformed, i4,\n    text_font_indices[0], nchars*6,\n    hw_rasta::SEND_VERT_SKIP_CLIP);\n\n  return curpos;\n#endif\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "render__4FontRC7stringxG7color32bT3fffQ24Font9HORIZJUSTQ24Font8VERTJUSTT3ffPfT13_fT3"
+}
