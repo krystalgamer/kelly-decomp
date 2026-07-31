@@ -1,54 +1,42 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00100200)
 // 0x00100200 get_axis_count__C18AISurferController
-class AISurferController {
-public:
-    int get_axis_count() const;
-};
-
-int AISurferController::get_axis_count() const {
+extern "C" int ai_axis_count(const void *self)
+    __asm__("get_axis_count__C18AISurferController");
+int ai_axis_count(const void *self) {
     return 23;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00100330)
 // 0x00100330 get_axis_id__C18AISurferControlleri
-class AISurferController {
-public:
-    int get_axis_id(int axis) const;
-};
-
-int AISurferController::get_axis_id(int axis) const {
+extern "C" int ai_axis_id(const void *self, int axis)
+    __asm__("get_axis_id__C18AISurferControlleri");
+int ai_axis_id(const void *self, int axis) {
     return axis;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00100568)
 // 0x00100568 clearButtons__18AISurferController
-class AISurferController {
+struct ai_button_layout {
     char padding[0x9c];
     float X, Y, XRight, YRight;
     bool ButtonX, ButtonO, ButtonSq, ButtonTr;
     bool ButtonL1, ButtonL2, ButtonL3, ButtonR1, ButtonR2, ButtonR3;
     bool ButtonSelect, ButtonStart;
-public:
-    void clearButtons();
 };
-void AISurferController::clearButtons()
+extern "C" void clear_ai_buttons(ai_button_layout *self)
+    __asm__("clearButtons__18AISurferController");
+void clear_ai_buttons(ai_button_layout *self)
 {
-  X = Y = 0;
-  ButtonX = ButtonO = ButtonSq = ButtonTr = false;
-  ButtonL1 = ButtonL2 = ButtonL3 = false;
-  ButtonR1 = ButtonR2 = ButtonR3 = false;
-  ButtonStart = ButtonSelect = 0;
+  self->X = self->Y = 0;
+  self->ButtonX = self->ButtonO =
+      self->ButtonSq = self->ButtonTr = false;
+  self->ButtonL1 = self->ButtonL2 = self->ButtonL3 = false;
+  self->ButtonR1 = self->ButtonR2 = self->ButtonR3 = false;
+  self->ButtonStart = self->ButtonSelect = 0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00103ED0)
 // 0x00103ED0 buttonStatus__18AISurferControlleri
-#include "KS/SRC/ai_rtti_shared.h"
+#include "KS/SRC/AIController.h"
 
 enum {
     PAD_U = 1,
@@ -155,4 +143,3 @@ __asm__(
     ".equ .L00103FA0, buttonStatus__18AISurferControlleri + 0xD0\n"
     ".globl .L00103FA8\n"
     ".equ .L00103FA8, buttonStatus__18AISurferControlleri + 0xD8");
-#endif

@@ -1,54 +1,59 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00105570)
 // 0x00105570 pop_disable__12ai_interface
-class ai_interface { char padding[0x30]; int disable_count; public: void pop_disable(); };
-void ai_interface::pop_disable() { --disable_count; if (disable_count < 0) disable_count = 0; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00105A18)
-// 0x00105A18 render__12ai_interfacec
-class ai_interface {
-public:
-    void render(char level);
+struct ai_disable_layout {
+    char padding[0x30];
+    int disable_count;
 };
-
-void ai_interface::render(char level) {
+extern "C" void pop_ai_disable(ai_disable_layout *self)
+    __asm__("pop_disable__12ai_interface");
+void pop_ai_disable(ai_disable_layout *self) {
+    --self->disable_count;
+    if (self->disable_count < 0)
+        self->disable_count = 0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00105E00)
+// 0x00105A18 render__12ai_interfacec
+extern "C" void render_ai(void *self, char level)
+    __asm__("render__12ai_interfacec");
+void render_ai(void *self, char level) {
+}
+
 // 0x00105E00 get_ifc_str__12ai_interfaceRC7pstringR7stringx
 class pstring;
 class stringx;
 
-class ai_interface {
-public:
-    bool get_ifc_str(const pstring &att, stringx &val);
-};
-
-bool ai_interface::get_ifc_str(const pstring &att, stringx &val) {
+extern "C" bool get_ai_string(
+    void *self,
+    const pstring &attribute,
+    stringx &value
+) __asm__("get_ifc_str__12ai_interfaceRC7pstringR7stringx");
+bool get_ai_string(
+    void *self,
+    const pstring &attribute,
+    stringx &value
+) {
     return false;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00105E08)
 // 0x00105E08 set_ifc_str__12ai_interfaceRC7pstringRC7stringx
 class pstring;
 class stringx;
 
-class ai_interface {
-public:
-    bool set_ifc_str(const pstring &att, const stringx &val);
-};
-
-bool ai_interface::set_ifc_str(const pstring &att, const stringx &val) {
+extern "C" bool set_ai_string(
+    void *self,
+    const pstring &attribute,
+    const stringx &value
+) __asm__("set_ifc_str__12ai_interfaceRC7pstringRC7stringx");
+bool set_ai_string(
+    void *self,
+    const pstring &attribute,
+    const stringx &value
+) {
     return false;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001058A0)
 // 0x001058A0 set_current_path_graph__12ai_interfaceP10path_graph
 asm(".equ clear_path__13ai_locomotion, 0x00107FD8");
 class path_graph;
@@ -59,21 +64,21 @@ public:
     void clear_path();
     void set_current_path_graph(path_graph *g) { clear_path(); current_path_graph = g; }
 };
-class ai_interface {
+struct ai_locomotion_layout {
     char padding[0x14];
     ai_locomotion *locomotion;
-public:
-    void set_current_path_graph(path_graph *g);
 };
-void ai_interface::set_current_path_graph(path_graph *g)
+extern "C" void set_ai_path_graph(
+    ai_locomotion_layout *self,
+    path_graph *graph
+) __asm__("set_current_path_graph__12ai_interfaceP10path_graph");
+void set_ai_path_graph(ai_locomotion_layout *self, path_graph *graph)
 {
-    if (locomotion)
-        locomotion->set_current_path_graph(g);
+    if (self->locomotion)
+        self->locomotion->set_current_path_graph(graph);
 }
-#endif
 // Matching decompilation blocks selected by generated build shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_00105528)
 // 0x00105528 push_disable__12ai_interface
 __asm__(".equ goto_position__12ai_interfaceRC8vector3dfbbb, 0x00105688");
 struct vector3d { float x; float y; float z; };
@@ -83,19 +88,31 @@ struct entity {
     po* my_po;
     const vector3d& get_abs_position() const { return my_po->position; }
 };
-class ai_interface {
+struct ai_push_disable_layout {
     char padding0[4];
-    entity* my_entity;
+    entity *my_entity;
     char padding1[40];
     int disable_count;
-public:
-    void goto_position(const vector3d&, float, bool, bool, bool);
-    void push_disable();
 };
-void ai_interface::push_disable()
+extern "C" void goto_position(
+    void *self,
+    const vector3d &position,
+    float radius,
+    bool running,
+    bool path_find,
+    bool force_finish
+) __asm__("goto_position__12ai_interfaceRC8vector3dfbbb");
+extern "C" void push_ai_disable(ai_push_disable_layout *self)
+    __asm__("push_disable__12ai_interface");
+void push_ai_disable(ai_push_disable_layout *self)
 {
-    ++disable_count;
-    goto_position(my_entity->get_abs_position(), 25.0f, true, false, true);
+    ++self->disable_count;
+    goto_position(
+        self,
+        self->my_entity->get_abs_position(),
+        25.0f,
+        true,
+        false,
+        true);
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif

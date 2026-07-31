@@ -1,168 +1,130 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef AI_CONTROLLER_H
+#define AI_CONTROLLER_H
 
-#if defined(KELLY_DECOMP_FUNCTION_00112C90)
-#include "KS/SRC/ai_rtti_shared.h"
+#pragma interface
 
-extern "C" void **input_device_rtti() __asm__("__tf12input_device");
-extern "C" void *input_device_type[] __asm__("__ti12input_device");
-extern "C" void *aisurfer_type[] __asm__("__ti18AISurferController");
-extern "C" const char aisurfer_name[];
+#include "KS/SRC/algebra.h"
+#include "KS/SRC/inputmgr.h"
 
-__asm__(".equ __tf12input_device, 0x0035FED0");
-__asm__(".equ __ti12input_device, 0x00511FB0");
-__asm__(".equ __ti18AISurferController, 0x005A2668");
-__asm__(".equ aisurfer_name, 0x004C87E0");
+class kellyslater_controller;
 
-// 0x00112C90 __tf18AISurferController
-extern "C" void **aisurfer_rtti() __asm__("__tf18AISurferController");
-void **aisurfer_rtti()
-{
-    if (!aisurfer_type[0]) {
-        input_device_rtti();
-        __rtti_si(aisurfer_type, aisurfer_name, input_device_type);
-    }
-    return aisurfer_type;
-}
-#endif
-
-
-#if defined(KELLY_DECOMP_FUNCTION_00112D08)
-// 0x00112D08 vibrate__18AISurferControllerf
-class AISurferController {
+class AISurferController : public input_device {
 public:
-    void vibrate(float intensity);
+    AISurferController();
+    virtual ~AISurferController();
+    virtual void vibrate(float intensity);
+    virtual void vibrate(
+        int vibrator_flag,
+        int vibrator_power,
+        int vibrator_frequency,
+        int vibrator_increment);
+    virtual void stop_vibration();
+    virtual bool is_vibrator_present() const;
+    virtual bool is_connected() const;
+    virtual void poll();
+    virtual stringx get_name() const;
+    virtual stringx get_name(int axis) const;
+    virtual device_id_t get_id() const;
+    virtual int get_axis_count() const;
+    virtual axis_id_t get_axis_id(int axis) const;
+    virtual rational_t get_axis_state(
+        axis_id_t axis,
+        int control_axis) const;
+    virtual rational_t get_axis_old_state(
+        axis_id_t axis,
+        int control_axis) const;
+    virtual rational_t get_axis_delta(
+        axis_id_t axis,
+        int control_axis) const;
+
+private:
+    enum AI_SURFER_STATE {
+        STATE_STANDING,
+        STATE_CHASE,
+        STATE_DO_TRICK,
+        STATE_AVOID_SURFER,
+        STATE_BOUNCE_AROUND_WAVE,
+        STATE_LAST_STATE
+    };
+
+    enum AI_SURFER_SUBSTATE {
+        NO_SUBSTATE,
+        TRICK_APPROACH,
+        TRICK_LAUNCH,
+        TRICK_DOING_TRICK,
+        TRICK_LANDING,
+        TRICK_DONE,
+        STATE_LAST_SUBSTATE
+    };
+
+    vector3d target;
+    vector3d toTube;
+    vector3d right;
+    vector3d velocity;
+    vector3d dir;
+    vector3d paddleDirVec;
+    AI_SURFER_STATE myState;
+    AI_SURFER_SUBSTATE mySubstate;
+    float offdh;
+    float diffAngle;
+    float paddleAngle;
+    float toTargetDistance;
+    float lastToTargetDistance;
+    float relativeVelocityToTarget;
+    float lastRelativeVelocityToTarget;
+    float toTubeDist;
+    float last_toward_tube_velocity;
+    float this_toward_tube_velocity;
+    vector3d heading;
+    float acel;
+    float oldAcel;
+    kellyslater_controller *ksctl;
+    bool hitRegionPocket;
+    float X;
+    float Y;
+    float XRight;
+    float YRight;
+    bool ButtonX;
+    bool ButtonO;
+    bool ButtonSq;
+    bool ButtonTr;
+    bool ButtonL1;
+    bool ButtonL2;
+    bool ButtonL3;
+    bool ButtonR1;
+    bool ButtonR2;
+    bool ButtonR3;
+    bool ButtonSelect;
+    bool ButtonStart;
+    float oldX;
+    float oldY;
+    float oldXRight;
+    float oldYRight;
+    bool oldButtonX;
+    bool oldButtonO;
+    bool oldButtonSq;
+    bool oldButtonTr;
+    bool oldButtonL1;
+    bool oldButtonL2;
+    bool oldButtonL3;
+    bool oldButtonR1;
+    bool oldButtonR2;
+    bool oldButtonR3;
+    bool oldButtonSelect;
+    bool oldButtonStart;
+    int curTrick;
+
+    void checkCollisions();
+    int downWaveSign();
+    void setupStateVars();
+    bool doStandUp();
+    void moveToTarget();
+    void clearButtons();
+    bool doTrick();
+    void pressButton(int which);
+    void releaseButton(int which);
+    void pressDir(int which, float amount);
+    bool buttonStatus(int which);
 };
 
-void AISurferController::vibrate(float intensity) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00112D10)
-// 0x00112D10 vibrate__18AISurferControlleriiii
-class AISurferController {
-public:
-    void vibrate(int flag, int power, int frequency, int increment);
-};
-
-void AISurferController::vibrate(
-    int flag,
-    int power,
-    int frequency,
-    int increment
-) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00112D18)
-// 0x00112D18 stop_vibration__18AISurferController
-class AISurferController {
-public:
-    void stop_vibration();
-};
-
-void AISurferController::stop_vibration() {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00112D20)
-// 0x00112D20 is_vibrator_present__C18AISurferController
-class AISurferController {
-public:
-    bool is_vibrator_present() const;
-};
-
-bool AISurferController::is_vibrator_present() const {
-    return false;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00112D28)
-// 0x00112D28 is_connected__C18AISurferController
-class AISurferController {
-public:
-    bool is_connected() const;
-};
-
-bool AISurferController::is_connected() const {
-    return true;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00112DA0)
-// 0x00112DA0 get_id__C18AISurferController
-class AISurferController {
-    int device_id;
-
-public:
-    int get_id() const;
-};
-
-int AISurferController::get_id() const {
-    return device_id;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00112CE0)
-// 0x00112CE0 _$_18AISurferController
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_12input_device");
-extern const char derived_vtable[];
-__asm__(".equ _$_12input_device, 0x00343938");
-__asm__(".equ derived_vtable, 0x004B8508");
-struct AISurferLayout { int device_id; const void *vtable; };
-extern "C" void AISurferDtor(void *self, int deleting) __asm__("_$_18AISurferController");
-void AISurferDtor(void *self, int deleting) { ((AISurferLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00112D30)
-// 0x00112D30 get_name__C18AISurferController
-class stringx {
-    char *chars;
-    void *my_buf;
-
-public:
-    stringx(const char *text, int length = -1);
-    ~stringx();
-};
-
-__asm__(".equ __7stringxPCci, 0x0034D438");
-
-extern const char ai_controller_name[];
-__asm__(".equ ai_controller_name, 0x004B78E8");
-
-class AISurferController {
-public:
-    stringx get_name() const;
-};
-
-stringx AISurferController::get_name() const
-{
-    return stringx(ai_controller_name);
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00112D68)
-// 0x00112D68 get_name__C18AISurferControlleri
-class stringx {
-    char *chars;
-    void *my_buf;
-
-public:
-    stringx(const char *text, int length = -1);
-    ~stringx();
-};
-
-__asm__(".equ __7stringxPCci, 0x0034D438");
-
-extern const char ai_controller_axis_name[];
-__asm__(".equ ai_controller_axis_name, 0x004B78F8");
-
-class AISurferController {
-public:
-    stringx get_name(int axis) const;
-};
-
-stringx AISurferController::get_name(int axis) const
-{
-    return stringx(ai_controller_axis_name);
-}
 #endif

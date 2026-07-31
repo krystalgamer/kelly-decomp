@@ -646,7 +646,7 @@ entity_anim_tree *entity::get_anim_tree(int slot) const
 
 
 // 0x00126F20 destroy_ai_ifc__6entity
-#include "KS/SRC/ai_rtti_shared.h"
+#include "KS/SRC/ai_interface.h"
 #include "KS/SRC/entity.h"
 
 void entity::destroy_ai_ifc()
