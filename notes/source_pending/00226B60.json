@@ -1,0 +1,15 @@
+{
+  "address": "0x00226B60",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e5166cadebeac7846602644bd7f12982b8caa1ae",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/ks_camera.h\"\n\nvoid replay_camera::pickCam()\n{\n  ReplayCam last_rc = rc;\n\n  if(holdCamTimer > 0.0f)\n    return;\n\n  if(regionChange)\n  {\n    if(rcr == RCR_TUBE)\n      rc = RC_TUBE_DEFAULT;\n    else if(rcr == RCR_AIR)\n    {\n      switch(random(4))\n      {\n        case 0:\n          rc = RC_AIR_YOYO;\n          break;\n        case 1:\n          rc = RC_AIR_BIRD;\n          velocity = birdCamVel;\n          position = jumpMaxHeight + birdCam;\n          position -= ((regionChangeTime*velocity)*0.5f);\n          break;\n        case 2:\n          rc = RC_AIR_CIRCLE;\n          circleCamStartDist  = sqrtf(defaultCam.x*defaultCam.x + defaultCam.z*defaultCam.z);\n          break;\n        case 3:\n          rc = RC_AIR_LANDING;\n          WAVE_GlobalCurrent(&velocity);\n          velocity.y = velocity.z = 0.0f;\n          position  = ksreplay.mainEntityPO[regionChangeFrame/ksreplay.MainPOFrames()].KSPos + landingCamPos;\n          position -= velocity*regionChangeTime;\n          target    = position + landingCamDir;\n          break;\n        case 4:\n          rc = RC_AIR_TAKEOFF;\n          WAVE_GlobalCurrent(&velocity);\n          velocity.y = velocity.z = 0.0f;\n          position  = ksreplay.mainEntityPO[ksreplay.mainPOFrame].KSPos + takeoffCamPos;\n          target    = position + takeoffCamDir;\n          break;\n      }\n    }\n    else\n      rc = RC_DEFAULT;\n  }\n\n  if(rc != last_rc)\n    lastCamChange = 0.0f;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "pickCam__13replay_camera"
+}
