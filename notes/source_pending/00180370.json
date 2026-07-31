@@ -1,0 +1,15 @@
+{
+  "address": "0x00180370",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "95f00fd18f07a6f0d3380a2c5c7746906f335dd2",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/MainFrontEnd.h\"\n\nCareerMenu::CareerMenu(FEMenuSystem* s, int x, int y)\n{\n\tcons(s, x, y);\n\tscale = scale_high = 0.9f; //0.5f;\n\n\tsys = (GraphicalMenuSystem*) s;\n\tcolor = s->manager->col_unselected;\n\tcolor_high = s->manager->col_highlight;\n\tflags |= FEMENU_HAS_COLOR | FEMENU_HAS_COLOR_HIGH | FEMENU_HAS_COLOR_HIGH_ALT | FEMENU_WRAP;\n\tcolor_high_alt = s->manager->col_highlight2;\n\n\tfor(int i=0; i<NumEntries; i++)\n\t{\n\t\tstringx tmp = \"\";\n\t\tswitch(i)\n\t\t{\n\t\tcase ContinueEntry: tmp = ksGlobalTextArray[GT_FE_MENU_CONTINUE_CAREER]; break;\n\t\tcase NewEntry:\t\ttmp = ksGlobalTextArray[GT_FE_MENU_NEW_CAREER]; break;\n\t\tcase LoadEntry:\t\ttmp = ksGlobalTextArray[GT_FE_MENU_SAVE] + \" / \" + ksGlobalTextArray[GT_FE_MENU_LOAD]; break;\n\t\tcase SaveEntry:\t\ttmp = ksGlobalTextArray[GT_MENU_SAVE_CAREER]; break;\n\t\tcase OKEntry:\t\ttmp = ksGlobalTextArray[GT_FE_MENU_OK]; break;\n\t\tcase CancelEntry:\ttmp = ksGlobalTextArray[GT_FE_MENU_CANCEL]; break;\n\t\tdefault: assert(0);\n\t\t}\n\t\t\t\n\t\tentry[i] = NEW FEMenuEntry(tmp, this, false, &s->manager->font_hand);\n\t\tint y1 = y+(i-1)*spacing;\n\t\tif(i >= SaveEntry) y1 -= 30;\n\t\tentry[i]->SetPos(x, y1);\n\t\tAdd(entry[i]);\n\t}\n\n\tfor(int i=0; i<NumEntries; i++)\n\t{\n\t\tif(i != NumEntries-1) entry[i]->down = entry[i+1];\n\t\telse entry[i]->down = entry[0];\n\t\tif(i != 0) entry[i]->up = entry[i-1];\n\t\telse entry[i]->up = entry[NumEntries-1];\n\t}\n\n\tentry[ContinueEntry]->up = entry[NewEntry];\n\tentry[NewEntry]->down = entry[ContinueEntry];\n\tentry[SaveEntry]->up = entry[CancelEntry];\n\tentry[CancelEntry]->down = entry[SaveEntry];\n\n\twarning = NEW BoxText(&s->manager->font_info, ksGlobalTextArray[GT_FE_MENU_KILL_CAREER], 103, 180, 0, 1.0f, Font::HORIZJUST_LEFT, Font::VERTJUST_CENTER, frontendmanager.col_info_b, 7);\n\tint line_num = warning->makeBox(164, 100, false, -1, spacing);\n\tint height = 180 + (line_num+1)*spacing;\n\n\tfor(int i=SaveEntry; i<NumEntries; i++)\n\t\tentry[i]->SetPos(x, height+(i-SaveEntry)*spacing);\n\twarning_bottom = height+(NumEntries-SaveEntry)*spacing;\n\n\tSetHelpText(0);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__10CareerMenuP12FEMenuSystemii"
+}
