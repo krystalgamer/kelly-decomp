@@ -116,3 +116,29 @@ void destroy_surfboard(surfboard_layout *self,int flags) {
 
 // 0x001F9B38 CollideWithLip__20SurfBoardObjectClass
 struct vector3d{float x,y,z;vector3d(){}vector3d(float a,float b,float c):x(a),y(b),z(c){}vector3d(const vector3d&v){x=v.x;y=v.y;z=v.z;}vector3d operator-(const vector3d&v)const{return vector3d(x-v.x,y-v.y,z-v.z);}};inline float dot(const vector3d&a,const vector3d&b){return a.x*b.x+a.y*b.y+a.z*b.z;}struct Pose{char p[48];vector3d position;};struct Board{char p[80];Pose*pose;};class SurfBoardObjectClass{char p0[248];bool float_jump;char p1[2264];Board*my_board;char p2[204];vector3d float_pos;public:bool CollideWithLip() __asm__("CollideWithLip__20SurfBoardObjectClass");};bool SurfBoardObjectClass::CollideWithLip(){vector3d vec1=my_board->pose->position-float_pos;if(float_jump)vec1.y=0.0f;return dot(vec1,vec1)<0.4f;}
+
+// 0x001EE8E0 Load__20SurfBoardObjectClassPc
+class SurfBoardObjectClass {
+    char padding[0x24];
+    float x_extent;
+    float y_extent;
+    float z_extent;
+
+public:
+    int Load(char *name);
+};
+
+int SurfBoardObjectClass::Load(char *name)
+{
+    float min_x = 100000.0f;
+    float min_y = 100000.0f;
+    float min_z = 100000.0f;
+    float max_x = -100000.0f;
+    float max_y = -100000.0f;
+    float max_z = -100000.0f;
+
+    x_extent = __builtin_fabsf(max_x - min_x);
+    y_extent = __builtin_fabsf(max_y - min_y);
+    z_extent = __builtin_fabsf(max_z - min_z);
+    return 1;
+}
