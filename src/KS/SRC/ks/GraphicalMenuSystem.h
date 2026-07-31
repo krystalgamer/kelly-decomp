@@ -41,4 +41,36 @@ public:
     virtual void LoadAll();
 };
 
+class HelpbarFE : public FrontEnd {
+private:
+    enum {
+        ARROW_H,
+        ARROW_V,
+        ARROW_BOTH,
+        CROSS,
+        TRIANGLE,
+        CIRCLE,
+        SQUARE,
+        BTN_NUM
+    };
+
+    PanelQuad *buttons[BTN_NUM];
+    TextString *help_text[BTN_NUM];
+    bool has_text[BTN_NUM];
+    stringx default_text[BTN_NUM];
+    bool disabled;
+
+public:
+    HelpbarFE(FEManager *manager, stringx path, stringx panel_filename);
+    virtual ~HelpbarFE();
+    virtual void Update(time_value_t time_inc);
+    virtual void LoadPanel(bool floating = false);
+    virtual void ReloadPanel();
+    virtual void Draw();
+    void DisableHelpbar() { disabled = true; }
+
+protected:
+    virtual void SetPQIndices();
+};
+
 #endif

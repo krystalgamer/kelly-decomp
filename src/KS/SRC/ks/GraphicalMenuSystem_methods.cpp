@@ -56,12 +56,9 @@ void ControllerFrontEnd::Select(int arg0) {
 }
 
 // 0x001DE4D8 Update__9HelpbarFEf
-class HelpbarFE {
-public:
-    void Update(float arg0);
-};
-
-void HelpbarFE::Update(float arg0) {
+extern "C" void update_helpbar(void *self, float time_inc)
+    __asm__("Update__9HelpbarFEf");
+void update_helpbar(void *self, float time_inc) {
 }
 
 // 0x001DE5B0 Reload__19GraphicalMenuSystem
@@ -82,8 +79,16 @@ void FEDebugMenuDtor(void *self) { FEMenuDtor(self); KELLY_DECOMP_COMPILER_BARRI
 // 0x001DE4E0 ReloadPanel__9HelpbarFE
 class PanelFile { public: void Reload(); };
 __asm__(".equ Reload__9PanelFile, 0x00152838");
-class HelpbarFE { char padding[0x80]; PanelFile panel; public: void ReloadPanel(); };
-void HelpbarFE::ReloadPanel() { panel.Reload(); KELLY_DECOMP_COMPILER_BARRIER(); }
+struct helpbar_reload_layout {
+    char padding[0x80];
+    PanelFile panel;
+};
+extern "C" void reload_helpbar(helpbar_reload_layout *self)
+    __asm__("ReloadPanel__9HelpbarFE");
+void reload_helpbar(helpbar_reload_layout *self) {
+    self->panel.Reload();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
 
 // 0x001DE2E0 OnStart__13LegalFrontEndi
 struct frontend_vtable { char padding[0x128]; short adjustment; short padding2; void (*call)(void *, void *); };

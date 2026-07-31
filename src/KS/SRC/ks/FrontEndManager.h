@@ -5,7 +5,7 @@
 
 #include "KS/SRC/ks/FEEntityManager.h"
 #include "KS/SRC/ks/FEMenu.h"
-#include "KS/SRC/ks/HelpbarFE_shared.h"
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 
 class IGOFrontEnd;
 class PauseMenuSystem;

@@ -238,7 +238,7 @@ struct menu_vtable{char pad[296];short adjust;short reserved;void(*select)(void*
 struct menu_vtable{char pad[88];short adjust;short reserved;void(*update_scene)(void*);};struct Menu{char pad[116];menu_vtable*vtable;void UpdateInScene(){menu_vtable*t=vtable;t->update_scene((char*)this+t->adjust);}};struct System{char pad[116];Menu**menus;char gap[4];int active;};extern "C" void update(System*self)__asm__("UpdateInScene__19GraphicalMenuSystem");void update(System*self){self->menus[self->active]->UpdateInScene();if(self->active!=5&&self->active!=13)self->menus[5]->UpdateInScene();}
 
 // 0x001BD898 Draw__9HelpbarFE
-struct TextVtable{char pad[24];short adjust;short z;void(*draw)(void*);};struct Text{char pad[76];TextVtable*vtable;};struct HelpbarFE{char pad0[236];Text*help_text[7];int has_text[7];char pad1[56];int disabled;void Draw()__asm__("Draw__9HelpbarFE");};extern "C" void base_draw(HelpbarFE*)__asm__("Draw__8FrontEnd");__asm__(".equ Draw__8FrontEnd,0x00157B10");void HelpbarFE::Draw(){if(disabled)return;base_draw(this);for(int i=0;i<7;i++)if(has_text[i]){Text*t=help_text[i];TextVtable*v=t->vtable;v->draw((char*)t+v->adjust);}}
+struct TextVtable{char pad[24];short adjust;short z;void(*draw)(void*);};struct Text{char pad[76];TextVtable*vtable;};struct HelpbarLayout{char pad0[236];Text*help_text[7];int has_text[7];char pad1[56];int disabled;};extern "C" void base_draw(void*)__asm__("Draw__8FrontEnd");__asm__(".equ Draw__8FrontEnd,0x00157B10");extern "C" void draw_helpbar(HelpbarLayout*self)__asm__("Draw__9HelpbarFE");void draw_helpbar(HelpbarLayout*self){if(self->disabled)return;base_draw(self);for(int i=0;i<7;i++)if(self->has_text[i]){Text*t=self->help_text[i];TextVtable*v=t->vtable;v->draw((char*)t+v->adjust);}}
 
 // 0x001BEB00 Exit__19GraphicalMenuSystem
 struct Dev{char pad[72];int no_audio;};extern Dev*g_options;extern float ps2MovieVolume;extern "C" float master()__asm__("nslGetMasterVolume__Fv");extern "C" float volume(int)__asm__("nslGetVolume__F18_nslSourceTypeEnum");struct Manager{char pad[87660];int tmp_game_mode;void ReleaseFE()__asm__("ReleaseFE__9FEManager");};struct GraphicalMenuSystem{char pad[120];Manager*manager;void Exit()__asm__("Exit__19GraphicalMenuSystem");};struct game{void set_game_mode(int)__asm__("set_game_mode__4game11game_mode_t");};extern game*g_game_ptr;__asm__(".equ g_options,0x0046B180");__asm__(".equ ps2MovieVolume,0x0042E678");__asm__(".equ nslGetMasterVolume__Fv,0x003906A0");__asm__(".equ nslGetVolume__F18_nslSourceTypeEnum,0x00390820");__asm__(".equ g_game_ptr,0x0046AC64");__asm__(".equ set_game_mode__4game11game_mode_t,0x00284C98");__asm__(".equ ReleaseFE__9FEManager,0x00198F10");void GraphicalMenuSystem::Exit(){if(!g_options->no_audio)ps2MovieVolume=master()*volume(4);g_game_ptr->set_game_mode(manager->tmp_game_mode);manager->ReleaseFE();KELLY_DECOMP_COMPILER_BARRIER();}
@@ -279,7 +279,7 @@ void TitleFrontEnd::Select(int n)
 }
 
 // 0x001BD7E0 SetPQIndices__9HelpbarFE
-#include "KS/SRC/ks/HelpbarFE_shared.h"
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 
 extern const char helpbar_arrow_horizontal[];
 extern const char helpbar_arrow_vertical[];
