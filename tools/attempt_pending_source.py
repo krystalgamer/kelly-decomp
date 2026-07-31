@@ -18,6 +18,10 @@ SCRATCH_ROOT = ROOT / "tmp" / "functions"
 PYTHON = ROOT / "env" / "bin" / "python"
 
 
+class SourceExtractionError(RuntimeError):
+    pass
+
+
 def run(*args: str) -> str:
     result = subprocess.run(
         args,
@@ -127,7 +131,9 @@ def extract_definition(row: dict[str, str]) -> str:
     reference = row["reference_file"] or row["source_file"]
     source_path = RELEASED_ROOT / reference
     if not source_path.exists():
-        raise RuntimeError(f"Released source is missing: {reference}")
+        raise SourceExtractionError(
+            f"Released source is missing: {reference}"
+        )
     text = source_path.read_text(encoding="utf-8", errors="ignore")
 
     for needle in search_needles(row["raw_name"]):
@@ -143,7 +149,7 @@ def extract_definition(row: dict[str, str]) -> str:
                 end = find_body_end(text, opening)
                 return text[start:end].strip() + "\n"
             position = occurrence + len(needle)
-    raise RuntimeError(
+    raise SourceExtractionError(
         f"Could not locate released definition for {row['raw_name']}"
     )
 
@@ -248,16 +254,26 @@ def main() -> int:
             )
         if args.next_count < 1:
             raise RuntimeError("--next-count must be positive")
-        for _ in range(args.next_count):
+        completed = 0
+        skipped: set[str] = set()
+        while completed < args.next_count:
             rows = load_rows()
             row = next(
                 (candidate for candidate in rows
-                 if candidate["status"] == "pending"),
+                 if candidate["status"] == "pending"
+                 and candidate["address"] not in skipped),
                 None,
             )
             if row is None:
                 break
-            if process(row) == "matched":
+            try:
+                outcome = process(row)
+            except SourceExtractionError as error:
+                skipped.add(row["address"])
+                print(f"blocked {row['address']} {error}")
+                continue
+            completed += 1
+            if outcome == "matched":
                 break
         return 0
 
