@@ -2560,7 +2560,7 @@ void **Rtti_0032EDC0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032C5D0)
 // 0x0032C5D0 __cl__34slf_timer_widget_set_digit_color_tR8vm_stackQ320script_library_class8function7entry_t
-#include "KS/SRC/script_library_class_shared.h"
+#include "KS/SRC/script_library_class.h"
 
 struct color
 {
@@ -2608,7 +2608,7 @@ bool slf_timer_widget_set_digit_color_t::operator()(
 
 #if defined(KELLY_DECOMP_FUNCTION_0032C698)
 // 0x0032C698 __cl__31slf_timer_widget_set_bg_color_tR8vm_stackQ320script_library_class8function7entry_t
-#include "KS/SRC/script_library_class_shared.h"
+#include "KS/SRC/script_library_class.h"
 
 struct color
 {

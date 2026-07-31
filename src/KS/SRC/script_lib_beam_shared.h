@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_SCRIPT_LIB_BEAM_SHARED_H
 
 #include "beam_shared.h"
-#include "script_library_class_shared.h"
+#include "script_library_class.h"
 
 class slf_beam_kill_all_effects_t : public script_library_class::function {
 public:

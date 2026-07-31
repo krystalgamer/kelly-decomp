@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_SCRIPT_LIB_ANIM_SHARED_H
 #define KELLY_DECOMP_SCRIPT_LIB_ANIM_SHARED_H
 
-#include "KS/SRC/script_library_class_shared.h"
+#include "KS/SRC/script_library_class.h"
 
 typedef float rational_t;
 

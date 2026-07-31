@@ -1,108 +1,51 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef SCRIPT_LIBRARY_CLASS_H
+#define SCRIPT_LIBRARY_CLASS_H
 
+typedef float vm_num_t;
 
-#if defined(KELLY_DECOMP_FUNCTION_0035F6C0)
-// 0x0035F6C0 __cl__Q220script_library_class8functionR8vm_stackQ320script_library_class8function7entry_t
-class vm_stack;
+class vm_thread {
+public:
+    void set_suspendable(bool value);
+};
+
+class vm_stack {
+public:
+    int salloc;
+    char *buffer;
+    char *SP;
+
+private:
+    vm_thread *my_thread;
+
+public:
+    inline char *get_SP() const { return SP; }
+    inline void pop(int n) { SP -= n; }
+    inline vm_thread *get_thread() const { return my_thread; }
+};
 
 class script_library_class {
 public:
     class function {
     public:
-        enum entry_t { FIRST_ENTRY };
-        bool operator()(vm_stack& stack, entry_t entry);
+        enum entry_t {
+            FIRST_ENTRY,
+            RECALL_ENTRY
+        };
     };
 };
 
-bool script_library_class::function::operator()(vm_stack& stack, entry_t entry) {
-    return true;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0035F6E0)
-// 0x0035F6E0 find_instance__C20script_library_classRC7stringx
-class stringx;
-
-class script_library_class {
+class slf_allow_suspend_thread_t {
 public:
-    unsigned int find_instance(const stringx& name) const;
+    struct parms_t {
+        vm_num_t t;
+    };
+
+    bool operator()(vm_stack &stack, script_library_class::function::entry_t entry);
 };
 
-unsigned int script_library_class::find_instance(const stringx& name) const {
-    return 0;
-}
-#endif
+#define SLF_PARMS \
+    stack.pop(sizeof(parms_t)); \
+    parms_t *parms = (parms_t *)stack.get_SP()
+#define SLF_DONE return true
 
-#if defined(KELLY_DECOMP_FUNCTION_0035F6E8)
-// 0x0035F6E8 read_value__20script_library_classR10chunk_filePc
-class chunk_file;
-
-class script_library_class {
-public:
-    void read_value(chunk_file& file, char* buffer);
-};
-
-void script_library_class::read_value(chunk_file& file, char* buffer) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0035F6F0)
-// 0x0035F6F0 purge__20script_library_class
-class script_library_class {
-public:
-    void purge();
-};
-
-void script_library_class::purge() {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0035F790)
-// 0x0035F790 _$_19slc_script_object_t
-extern "C" void ScriptClassDtor(void *self) __asm__("_$_20script_library_class");
-extern "C" void ScriptObjectClassDtor(void *self) __asm__("_$_19slc_script_object_t");
-__asm__(".equ _$_20script_library_class, 0x0034EE68");
-void ScriptObjectClassDtor(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0035F828)
-// 0x0035F828 _$_9slc_num_t
-extern "C" void ScriptClassDtor(void *self) __asm__("_$_20script_library_class");
-extern "C" void ScriptNumClassDtor(void *self) __asm__("_$_9slc_num_t");
-__asm__(".equ _$_20script_library_class, 0x0034EE68");
-void ScriptNumClassDtor(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0035F640)
-// 0x0035F640 __tfQ220script_library_class8function
-extern "C" void __rtti_user(void **type, const char *name);
-extern "C" void *function_type[] __asm__("__tiQ220script_library_class8function");
-extern "C" char function_name[] __asm__("__tnQ220script_library_class8function");
-__asm__(".equ __tiQ220script_library_class8function, 0x005121B8");
-__asm__(".equ __tnQ220script_library_class8function, 0x00505608");
-__asm__(".equ __rtti_user, 0x003CE2F8");
-extern "C" void **function_rtti() __asm__("__tfQ220script_library_class8function");
-void **function_rtti()
-{
-    if (!function_type[0])
-        __rtti_user(function_type, function_name);
-    return function_type;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0035F680)
-// 0x0035F680 __tf20script_library_class
-extern "C" void __rtti_user(void **type, const char *name);
-extern "C" void *rtti_0035F680_type[] __asm__("__ti20script_library_class");
-extern "C" char rtti_0035F680_name[] __asm__("rtti_0035F680_type_name");
-__asm__(".equ __ti20script_library_class, 0x005121B0");
-__asm__(".equ rtti_0035F680_type_name, 0x00505630");
-__asm__(".equ __rtti_user, 0x003CE2F8");
-extern "C" void **rtti_0035F680() __asm__("__tf20script_library_class");
-void **rtti_0035F680()
-{
-    if (!rtti_0035F680_type[0])
-        __rtti_user(rtti_0035F680_type, rtti_0035F680_name);
-    return rtti_0035F680_type;
-}
 #endif

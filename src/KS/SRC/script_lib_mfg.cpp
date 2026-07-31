@@ -82,7 +82,7 @@ void **Rtti_0032F008()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F058)
 // 0x0032F058 __cl__22slf_mfg_raise_signal_tR8vm_stackQ320script_library_class8function7entry_t
-#include "KS/SRC/script_library_class_shared.h"
+#include "KS/SRC/script_library_class.h"
 
 struct signal_vtable
 {

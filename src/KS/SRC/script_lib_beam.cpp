@@ -1238,7 +1238,7 @@ void **Rtti_00326D80()
 
 #if defined(KELLY_DECOMP_FUNCTION_00326A70)
 // 0x00326A70 __cl__22slf_beam_kill_effect_tR8vm_stackQ320script_library_class8function7entry_t
-#include "KS/SRC/script_library_class_shared.h"
+#include "KS/SRC/script_library_class.h"
 class beam { public: void kill_effect(unsigned short id, bool apply); };
 __asm__(".equ kill_effect__4beamUsb, 0x00272568");
 class slf_beam_kill_effect_t {

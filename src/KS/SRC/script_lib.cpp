@@ -766,7 +766,7 @@ void ScriptDtor_0031DB20(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_CO
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DB90)
-#include "KS/SRC/script_library_class_shared.h"
+#include "KS/SRC/script_library_class.h"
 // 0x0031DB90 slf_allow_suspend_thread_t::operator()
 __asm__(".equ set_suspendable__9vm_threadb, 0x00354688");
 bool slf_allow_suspend_thread_t::operator()(
@@ -3227,7 +3227,7 @@ void **Rtti_003248D0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031EC08)
 // 0x0031EC08 __cl__11slf_delay_tR8vm_stackQ320script_library_class8function7entry_t
-#include "KS/SRC/script_library_class_shared.h"
+#include "KS/SRC/script_library_class.h"
 
 struct world_dynamics_system
 {
@@ -3277,7 +3277,7 @@ done:
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E008)
 // 0x0031E008 __cl__21slf_localize_thread_tR8vm_stackQ320script_library_class8function7entry_t
-#include "KS/SRC/script_library_class_shared.h"
+#include "KS/SRC/script_library_class.h"
 struct vector3d { float x,y,z; };
 struct region_node { char padding[4]; void *data; };
 struct sector { region_node *region; };
