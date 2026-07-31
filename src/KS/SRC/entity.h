@@ -532,6 +532,7 @@ public:
     }
     virtual render_flavor_t render_passes_needed() const;
     virtual void preload();
+    void acquire(unsigned int flags);
     inline void set_render_color(color32 color);
     inline void set_flag(entity_flags flag, bool enabled) {
         if (enabled)
@@ -585,6 +586,8 @@ public:
     virtual bool is_alive() const;
     virtual bool is_dying() const;
     virtual bool possibly_aging() const;
+    virtual bool possibly_active() const;
+    void region_update_poss_active();
     void release();
     item *find_like_item(item *target) const;
     static void exec_preload_function(const stringx &script);

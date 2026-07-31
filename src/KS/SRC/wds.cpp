@@ -144,7 +144,7 @@ struct vector3d{float x,y,z;};struct region_node{};struct entity;struct ent_vtab
 
 // 0x0029BFC8 add_particle_generator__21world_dynamics_systemRC7stringxbT2R9entity_id
 #include "KS/SRC/archalloc.h"
-#include "KS/SRC/particle_generator_ctor_shared.h"
+#include "KS/SRC/particle.h"
 #include "KS/SRC/wds.h"
 
 extern const char particle_generator_description[];

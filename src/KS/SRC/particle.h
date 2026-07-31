@@ -1,121 +1,157 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef PARTICLE_H
+#define PARTICLE_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_00300088)
-// 0x00300088 __tf18particle_generator
-#include "KS/SRC/rtti.h"
-extern "C" void **ParticleGeneratorBaseRtti() __asm__("__tf6entity");
-extern "C" void *particle_generator_type[] __asm__("__ti18particle_generator");
-extern "C" const char particle_generator_name[];
-extern "C" void *particle_generator_base_type[] __asm__("__ti6entity");
-__asm__(".equ __tf6entity, 0x001449C8");
-__asm__(".equ __ti18particle_generator, 0x005A4060");
-__asm__(".equ particle_generator_name, 0x004F4CE0");
-__asm__(".equ __ti6entity, 0x005A27C8");
-extern "C" void **ParticleGeneratorRtti() __asm__("__tf18particle_generator");
-void **ParticleGeneratorRtti()
-{
-    if (!particle_generator_type[0]) {
-        ParticleGeneratorBaseRtti();
-        __rtti_si(
-            particle_generator_type,
-            particle_generator_name,
-            particle_generator_base_type
-        );
-    }
-    return particle_generator_type;
-}
-#endif
+#include "KS/SRC/entity.h"
+#include "g++-2/stl_vector.h"
 
+class particle;
+class particle_generator;
 
-#if defined(KELLY_DECOMP_FUNCTION_003000D8)
-// 0x003000D8 is_a_particle_generator__C18particle_generator
-class particle_generator {
+class particle_force {
 public:
-    bool is_a_particle_generator() const;
+    enum force_flavor_t {
+        CONSTANT,
+        RESISTANCE,
+        TOWARDS_POINT
+    };
+
+    particle_force();
+    particle_force(
+        force_flavor_t flavor,
+        const vector3d &multipurpose,
+        rational_t delta_speed,
+        rational_t terminal_speed);
+    vector3d get_new_v(
+        const particle &particle,
+        particle_generator &generator,
+        time_value_t time_delta);
+
+    force_flavor_t flavor;
+    vector3d multipurpose;
+    vector3d utility;
+    rational_t delta_speed;
+    rational_t terminal_speed;
+    rational_t recip_terminal_speed;
 };
 
-bool particle_generator::is_a_particle_generator() const {
-    return true;
-}
-#endif
+class particle {
+    vector3d my_pos;
+    vector3d my_velocity;
+    vector3d rot_axis;
+    rational_t scale;
+    rational_t rotation;
+    rational_t rotation_speed;
+    time_value_t life_remaining;
+    time_value_t total_life;
 
-#if defined(KELLY_DECOMP_FUNCTION_003000E0)
-// 0x003000E0 get_distance_fade_ok__C18particle_generator
-class particle_generator {
+    friend class particle_generator;
+    friend class particle_force;
+};
+
+class particle_generator : public entity {
 public:
-    bool get_distance_fade_ok() const;
-};
+    bool always_render;
 
-bool particle_generator::get_distance_fade_ok() const {
-    return false;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00385388)
-// 0x00385388 _GLOBAL_$I$TRAIL_StaticInit__Fv
-extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
-extern "C" void GlobalInit() __asm__("_GLOBAL_$I$TRAIL_StaticInit__Fv");
-__asm__(".equ __static_initialization_and_destruction_0, 0x00382368");
-void GlobalInit() { StaticInit(1, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_003853A8)
-// 0x003853A8 _GLOBAL_$D$TRAIL_StaticInit__Fv
-extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
-extern "C" void GlobalDestroy() __asm__("_GLOBAL_$D$TRAIL_StaticInit__Fv");
-__asm__(".equ __static_initialization_and_destruction_0, 0x00382368");
-void GlobalDestroy() { StaticInit(0, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_003000E8)
-// 0x003000E8 is_active__C18particle_generator
-struct entity_vtable_layout { char padding[0x158]; short adjustment; short padding2; bool (*is_visible)(void *self); };
-class particle_generator { char padding[8]; entity_vtable_layout *vtable; public: bool is_active() const; };
-bool particle_generator::is_active() const { entity_vtable_layout *table = vtable; return table->is_visible((char *)this + table->adjustment); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00300148)
-// 0x00300148 frame_done__18particle_generator
-struct vector3d { float x; float y; float z; vector3d &operator=(const vector3d &other) { x = other.x; y = other.y; z = other.z; return *this; } };
-struct particle_source_layout { char padding[0x30]; vector3d position; };
-class particle_generator { char padding0[0x50]; particle_source_layout *source; char padding1[0x264]; vector3d last_position; public: void frame_done(); };
-void particle_generator::frame_done() { last_position = source->position; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00300170)
-// 0x00300170 possibly_active__C18particle_generator
-struct entity_vtable_layout { char padding[0x168]; short adjustment; short padding2; bool (*is_still_visible)(void *self); };
-class particle_generator { char padding[8]; entity_vtable_layout *vtable; public: bool possibly_active() const; };
-bool particle_generator::possibly_active() const { entity_vtable_layout *table = vtable; return table->is_still_visible((char *)this + table->adjustment); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00300198)
-// 0x00300198 possibly_aging__C18particle_generator
-struct entity_vtable_layout { char padding[0x168]; short adjustment; short padding2; bool (*is_still_visible)(void *self); };
-class particle_generator { char padding[8]; entity_vtable_layout *vtable; public: bool possibly_aging() const; };
-bool particle_generator::possibly_aging() const { entity_vtable_layout *table = vtable; return table->is_still_visible((char *)this + table->adjustment); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00300110)
-// 0x00300110 get_last_position__C18particle_generator
-struct vector3d {
-    float x, y, z;
-    vector3d(const vector3d& other) : x(other.x), y(other.y), z(other.z) {}
-};
-struct particle_source_layout { char padding[0x30]; vector3d position; };
-class particle_generator {
-    char padding0[0x50];
-    particle_source_layout* source;
-    char padding1[0x264];
+private:
+    bool disable_for_sony_booth;
+    stringx filename;
+    particle *particles;
+    int start_particle;
+    int end_particle;
+    int max_particles;
+    time_value_t particle_life_span;
+    rational_t life_variation;
+    int birthrate;
+    rational_t rate_variation;
+    rational_t base_speed;
+    rational_t speed_variation;
+    rational_t spread_off_axis;
+    rational_t spread_off_plane;
+    rational_t scale_variation;
+    time_value_t grow_for;
+    time_value_t shrink_for;
+    time_value_t fade_in;
+    time_value_t fade_out;
+    rational_t motion_inheritance;
+    rational_t generation_radius;
+    rational_t generation_height;
+    time_value_t rotation_period;
+    rational_t recip_rotation_period;
+    rational_t rotational_speed_variation;
+    rational_t rotational_start_variation;
+    time_value_t on_for;
+    time_value_t off_for;
+    unsigned int flags;
+    float time_to_next_particle;
+    rational_t rh_grow_for;
+    rational_t rh_shrink_for;
+    rational_t rh_fade_in;
+    rational_t rh_fade_out;
+    vector<particle_force> force_list;
+    vector3d abs_visual_center;
+    vector3d visual_center;
+    rational_t visual_radius;
     vector3d last_position;
     bool last_position_valid;
+
+    // The released class rounds to 0x2d0; the reconstructed vector3d does not.
+    char particle_trailing_data[8];
+
 public:
-    const vector3d& get_abs_position() const { return source->position; }
+    particle_generator(
+        const entity_id &id,
+        unsigned int flags);
+    particle_generator(
+        const entity_id &id,
+        entity_flavor_t flavor = ENTITY_PARTICLE_GENERATOR,
+        unsigned int flags = 0);
+    particle_generator(
+        const stringx &filename,
+        const entity_id &id,
+        entity_flavor_t flavor = ENTITY_PARTICLE_GENERATOR,
+        unsigned int flags = 0)
+        __asm__(
+            "__18particle_generatorRC7stringxRC9entity_id"
+            "15entity_flavor_tUi");
+    virtual ~particle_generator();
+
+    void initialize_variables();
+    void load();
+    virtual entity *make_instance(
+        const entity_id &id,
+        unsigned int flags) const;
+    void copy_instance_data(const particle_generator &other);
+    virtual bool is_a_particle_generator() const;
+    virtual bool get_distance_fade_ok() const;
+    virtual void acquire(unsigned int flags);
+    virtual void frame_advance(time_value_t time);
+    virtual void render(
+        camera *camera_link,
+        rational_t detail,
+        render_flavor_t flavor,
+        rational_t translucency);
+    virtual void set_created_entity_default_active_status();
+    virtual vector3d get_visual_center() const;
+    virtual rational_t get_visual_radius() const;
+    virtual rational_t get_visual_xz_radius_rel_center() const;
+    virtual void po_changed();
+    virtual void set_visible(bool visible);
+    virtual bool is_still_visible() const;
+    virtual render_flavor_t render_passes_needed() const;
+    virtual bool is_active() const;
+    virtual bool possibly_active() const;
+    virtual bool possibly_aging() const;
+    bool is_on() const;
+    void destroy_particles();
+    void frame_done();
     vector3d get_last_position() const;
+    rational_t get_base_visual_radius() const;
 };
-vector3d particle_generator::get_last_position() const
-{
-    return last_position_valid ? last_position : get_abs_position();
-}
+
+__asm__(
+    ".equ __18particle_generatorRC7stringxRC9entity_id"
+    "15entity_flavor_tUi, 0x002CF560");
+
 #endif

@@ -11,8 +11,10 @@ public:
         return *(const vector3d *)&m.w;
     }
 
-    vector3d fast_8byte_xform(const vector3d &value) const
-        __asm__("slow_xform__C2poRC8vector3d");
+    vector3d slow_xform(const vector3d &value) const;
+    inline vector3d fast_8byte_xform(const vector3d &value) const {
+        return slow_xform(value);
+    }
     void set_translate(const vector3d &translation);
     void set_scale(const vector3d &scale);
     void set_rotate_x(float radians);

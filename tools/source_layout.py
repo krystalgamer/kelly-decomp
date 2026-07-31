@@ -121,6 +121,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/owner_interface.h": "KS/SRC/owner_interface.cpp",
     "KS/SRC/physical_interface.h": "KS/SRC/physical_interface.cpp",
     "KS/SRC/pmesh.h": "KS/SRC/pmesh_methods.cpp",
+    "KS/SRC/particle.h": "KS/SRC/particle_methods.cpp",
     "KS/SRC/polytube.h": "KS/SRC/polytube_methods.cpp",
     "KS/SRC/po_anim.h": "KS/SRC/po_anim_rtti.cpp",
     "KS/SRC/render_interface.h": "KS/SRC/render_interface.cpp",
