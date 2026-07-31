@@ -4444,7 +4444,7 @@ insert__t6vector2ZP20morphable_item_rangeZt12my_allocator1ZP20morphable_item_ran
 _M_insert_aux__t6vector2ZP20morphable_item_rangeZt12my_allocator1ZP20morphable_item_rangePP20morphable_item_rangeRCP20morphable_item_range = 0x002AFBB0; // type:func size:0x204
 _M_erase__t8_Rb_tree5ZP6regionZP6regionZt9_Identity1ZP6regionZt4less1ZP6regionZt12my_allocator1ZP6regionPt13_Rb_tree_node1ZP6region = 0x002AFDC8; // type:func defined:true size:0x6C
 fill__H2ZPP6regionZP6region_X01X01RCX11_v = 0x002AFE38; // type:func size:0x34
-fill_n__H3ZPP6regionZUiZP6region_X01X11RCX21_X01 = 0x002AFE70; // type:func size:0x2C
+fill_n__H3ZPP6regionZUiZP6region_X01X11RCX21_X01 = 0x002AFE70; // type:func defined:true size:0x2C
 insert__t6vector2ZP6regionZt12my_allocator1ZP6regionPP6regionUiRCP6region = 0x002AFEA0; // type:func size:0x2C0
 _M_insert__t8_Rb_tree5ZP6regionZP6regionZt9_Identity1ZP6regionZt4less1ZP6regionZt12my_allocator1ZP6regionP18_Rb_tree_node_baseT1RCP6region = 0x002B0160; // type:func size:0x380
 insert_unique__t8_Rb_tree5ZP6regionZP6regionZt9_Identity1ZP6regionZt4less1ZP6regionZt12my_allocator1ZP6regionRCP6region = 0x002B04E0; // type:func size:0x158

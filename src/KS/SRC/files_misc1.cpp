@@ -92,3 +92,6 @@ class beam_effect; extern "C" beam_effect **fill_values(beam_effect **first,unsi
 
 // 0x002AF8C0 fill_n__H3ZPP20morphable_item_rangeZUiZP20morphable_item_range_X01X11RCX21_X01
 class morphable_item_range; extern "C" morphable_item_range **fill_values(morphable_item_range **first,unsigned int count,morphable_item_range *const &value)__asm__("fill_n__H3ZPP20morphable_item_rangeZUiZP20morphable_item_range_X01X11RCX21_X01"); morphable_item_range **fill_values(morphable_item_range **first,unsigned int count,morphable_item_range *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
+
+// 0x002AFE70 fill_n__H3ZPP6regionZUiZP6region_X01X11RCX21_X01
+class region; extern "C" region **fill_values(region **first,unsigned int count,region *const &value)__asm__("fill_n__H3ZPP6regionZUiZP6region_X01X11RCX21_X01"); region **fill_values(region **first,unsigned int count,region *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
