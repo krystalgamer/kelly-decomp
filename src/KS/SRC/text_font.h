@@ -6,6 +6,19 @@
 
 class nglTexture;
 
+class typeface_def {
+public:
+    struct inter_kern {
+        struct int_pair {
+            int first;
+            int second;
+        };
+
+        int_pair letter_pair;
+        int kern;
+    };
+};
+
 class Font {
 protected:
     struct glyph_info {

@@ -32,6 +32,8 @@ class stringx {
 protected:
     char *chars;
     string_buf *my_buf;
+    static string_buf strings[22100];
+    bool is_buffer_mine(string_buf *buffer) const;
 
 public:
     stringx();
