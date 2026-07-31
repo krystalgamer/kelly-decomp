@@ -1,0 +1,15 @@
+{
+  "address": "0x0018B5C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f18719af8d7ab4466bb6d26caf361bf2317a4b19",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "bool MapData::setPath(int to, int from)\n{\n\tchosen_path = NULL;\n\tPathData* p = paths;\n\tfor(int i=0; i<num_paths; i++)\n\t{\n\t\tif(p[i].beach2 == to && p[i].beach1 == from)\n\t\t{\n\t\t\tchosen_path = &p[i];\n\t\t\tbreak;\n\t\t}\n\t}\n\n\tif(chosen_path)\n\t{\n#ifndef MAP_DASHES\n\t\tfor(int i=0; i<chosen_path->num_points; i++)\n\t\t{\n\t\t\tarray[i].SetCenterX(chosen_path->points[i].x);\n\t\t\tarray[i].SetCenterY(chosen_path->points[i].y);\n\t\t\tarray[i].SetLayer(0);\n\t\t}\n#else MAP_DASHES\n\t\tfor(int i=0; i<chosen_path->num_points-2; i++)\n\t\t{\n\t\t\tarray[i].SetCenterX(chosen_path->points[i+1].x);\n\t\t\tarray[i].SetCenterY(chosen_path->points[i+1].y);\n\t\t\tarray[i].SetLayer(0);\n\n\t\t\tfloat alpha, beta, theta, gamma, omega;\n\t\t\tvector2d prev = vector2d(chosen_path->points[i].x, chosen_path->points[i].y);\n\t\t\tvector2d cur = vector2d(chosen_path->points[i+1].x, chosen_path->points[i+1].y);\n\t\t\tvector2d next = vector2d(chosen_path->points[i+2].x, chosen_path->points[i+2].y);\n\n\t\t\t// adjust for going from one edge of the map to the other\n\t\t\tif((cur.x - next.x > 200) || (next.x - cur.x > 200))\n\t\t\t{\n\t\t\t\tnext.x = 2*cur.x - prev.x;\n\t\t\t\tnext.y = 2*cur.y - prev.y;\n\t\t\t}\n\t\t\tif((cur.x - prev.x > 200) || (prev.x - cur.x > 200))\n\t\t\t{\n\t\t\t\tprev.x = 2*cur.x - next.x;\n\t\t\t\tprev.y = 2*cur.y - next.y;\n\t\t\t}\n\n\t\t\tvector2d qp = prev - cur;\n\t\t\tvector2d qr = next - cur;\n\n\t\t\tfloat dot_result = dot(vector2d(0, -1), qp) / qp.length();\n\t\t\tif(dot_result < -1.0f) dot_result = -1.0f;\n\t\t\tif(dot_result > 1.0f) dot_result = 1.0f;\n\t\t\tomega = acosf(dot_result);\n\n\t\t\tdot_result = dot(vector2d(0, -1), qr) / qr.length();\n\t\t\tif(dot_result < -1.0f) dot_result = -1.0f;\n\t\t\tif(dot_result > 1.0f) dot_result = 1.0f;\n\t\t\tgamma = acosf(dot_result);\n\n\t\t\tif(qp.x > 0) omega = -omega;\n\t\t\tif(qr.x < 0) gamma = -gamma;\n\t\t\talpha = gamma + omega;\n\t\t\tif(alpha < 0) alpha += 6.28f;\n\n\t\t\ttheta = (3.14f - alpha)/2.0f;\n\t\t\tbeta = gamma + theta;\n\n\t\t\tarray[i].RotateOnce(cur.x, cur.y, beta);\n\t\t}\n#endif\n\t}\n\telse nglPrintf(\"Missing Path from %d to %d\\n\", from, to);\n\treturn (chosen_path != NULL);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "setPath__7MapDataii"
+}
