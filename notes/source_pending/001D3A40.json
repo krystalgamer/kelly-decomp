@@ -1,0 +1,15 @@
+{
+  "address": "0x001D3A40",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3e8e11be1783d9425f745a8ac02e2eceaaa6441d",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/AccompFrontEnd.h\"\n\nAccompFrontEnd::AccompFrontEnd(FEMenuSystem* s, FEManager* man, stringx p, stringx pf_name)\n{\n\tcons(s, man, p, pf_name);\n\t\n\tcolor = manager->yel_dk;\n\tcolor_high = manager->yel_lt;\n#ifdef TARGET_XBOX\n\ttempTex[0] = nglCreateTexture(NGLTF_32BIT | NGLTF_LINEAR, CompressedPhoto::PHOTO_WIDTH,CompressedPhoto::PHOTO_HEIGHT);\n\ttempTex[1] = nglCreateTexture(NGLTF_32BIT | NGLTF_LINEAR, CompressedPhoto::PHOTO_WIDTH,CompressedPhoto::PHOTO_HEIGHT);\n#else\n\ttempTex[0] = nglCreateTexture(NGLTF_32BIT, CompressedPhoto::PHOTO_WIDTH,CompressedPhoto::PHOTO_HEIGHT);\n\ttempTex[1] = nglCreateTexture(NGLTF_32BIT, CompressedPhoto::PHOTO_WIDTH,CompressedPhoto::PHOTO_HEIGHT);\n#endif\n\tFEMenuEntry* feme = NEW FEMenuEntry(\"\", this);\n\tAdd(feme);\n\n\tfloat sc = 0.888f * 1.1875f;\n\tbeach[0] = NEW TextString(&manager->font_bold_old, \"\", 191, 356, 0, sc, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, manager->gray_dk);\n\tbeach[1] = NEW TextString(&manager->font_bold_old, \"\", 445, 356, 0, sc, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, manager->gray_dk);\n\n\tfor(int i=0; i<MAX_PAGES; i++)\n\t{\n\t\tpicture_exists[i] = false;\n\t\tbeach_index[i] = -1;\n\t\tlevel_index[i] = -1;\n\t}\n\tfor(int i=0; i<BEACH_LAST; i++)\n\t\tmag_cover_beach_index[i] = -1;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__14AccompFrontEndP12FEMenuSystemP9FEManagerG7stringxT3"
+}
