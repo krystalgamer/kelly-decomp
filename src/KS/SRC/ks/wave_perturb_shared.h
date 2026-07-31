@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_WAVE_PERTURB_SHARED_H
 #define KELLY_DECOMP_WAVE_PERTURB_SHARED_H
 
-#include "KS/SRC/ks/wave_shared.h"
+#include "KS/SRC/ks/wave.h"
 
 #define WAVE_PARTITIONMAX 32
 

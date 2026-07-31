@@ -2,7 +2,7 @@
 #define TRAIL_H
 
 #include "KS/SRC/game.h"
-#include "KS/SRC/ks/wave_shared.h"
+#include "KS/SRC/ks/wave.h"
 #include "KS/SRC/algebra.h"
 
 typedef unsigned int u_int;
