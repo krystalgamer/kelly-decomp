@@ -29,6 +29,9 @@ public:
     }
 
     pstring(const stringx &text);
+    explicit pstring(const char *text) {
+        pack_string(text);
+    }
 
     pstring &operator=(const pstring &other)
     {

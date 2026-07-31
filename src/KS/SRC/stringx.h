@@ -42,6 +42,7 @@ public:
     explicit stringx(unsigned int);
     ~stringx();
     stringx &operator=(const stringx &);
+    stringx &operator=(const char *);
     inline const char *c_str() const { return chars; }
     inline char *data() const { return chars; }
     int length() const;

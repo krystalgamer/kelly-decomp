@@ -2,6 +2,7 @@
 #define MUSTASH_H
 
 #include "KS/SRC/avltree.h"
+#include "KS/SRC/osfile.h"
 #include "KS/SRC/pstring.h"
 
 class stash_index_entry {
@@ -82,6 +83,7 @@ class multistash {
 public:
     void acquire_stash_bufferspace(int size);
     void release_stash_bufferspace();
+    void free_stored();
 };
 
 enum StashID {
@@ -108,6 +110,8 @@ public:
         STASH_SECTION_INDEX
     };
 
+    static void WaitForStashLoad();
+    static void free_stored(int stashid);
     static void release_stash_bufferspace();
     static void write_tree(
         class os_file &file,
@@ -118,19 +122,51 @@ public:
         unsigned char *raw_data,
         unsigned int data_size);
     static unsigned int add_temp(
-        class os_file &file,
+        os_file &file,
         unsigned char *raw_data,
         unsigned int data_size);
+
+    enum filepos_t {
+        FP_BEGIN,
+        FP_CURRENT,
+        FP_END
+    };
+
+    stash()
+      : index(0),
+        opened(false),
+        eof(false),
+        fp(0),
+        max_fp(0)
+    {
+    }
+    ~stash() {}
+    bool open(const pstring &name);
+    bool open(const char *name);
+    unsigned int read(void *data, int bytes);
+    unsigned int get_size();
+    void set_fp(int position, filepos_t base);
+    unsigned int get_fp();
+    inline void close() {
+        index = 0;
+        eof = false;
+        opened = false;
+        fp = 0;
+        max_fp = 0;
+    }
+    const pstring &get_name() const;
+    inline bool is_open() const { return opened; }
+    inline bool at_eof() const { return eof; }
 
 private:
     static int curstash;
     static multistash substash[STASH_LIMIT];
-};
-
-class os_file {
-public:
-    bool is_open();
-    int write(void *data, int size);
+    stash_index_entry *index;
+    bool opened;
+    bool eof;
+    unsigned int fp;
+    unsigned int max_fp;
+    pstring fullname;
 };
 
 extern const pstring ps2mesh_type;
