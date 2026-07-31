@@ -2,7 +2,40 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_003ACAD8)
 // 0x003ACAD8 ATENthTextureEntryHead__FPcRC14nglFixedStringi
-#include "NGL/PS2/ngl_ate_lookup_shared.h"
+struct nglFixedString {
+    char value[32];
+};
+
+typedef nglFixedString atestring;
+
+struct ATEFileHeader {
+    char built_fields[8];
+    unsigned int items;
+};
+
+struct ATEFileEntry {
+    atestring name;
+};
+
+ATEFileEntry *ATEEntryHead(char *file, int index);
+bool ATENameMatch(
+    const atestring &left,
+    const atestring &right);
+void ate_assert(
+    const char *file,
+    int line,
+    const char *condition)
+    __asm__("__assert");
+extern const char ate_source_file[];
+extern const char ate_assert_condition[];
+
+__asm__(".equ ATEEntryHead__FPci, 0x003ACA30");
+__asm__(
+    ".equ ATENameMatch__FRC14nglFixedStringT0, "
+    "0x003AC940");
+__asm__(".equ __assert, 0x003CF6B0");
+__asm__(".equ ate_source_file, 0x0051E780");
+__asm__(".equ ate_assert_condition, 0x0051E798");
 
 ATEFileEntry *ATENthTextureEntryHead(
     char *file,
