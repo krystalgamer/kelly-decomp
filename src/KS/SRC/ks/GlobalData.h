@@ -1,7 +1,7 @@
 #ifndef GLOBAL_DATA_H
 #define GLOBAL_DATA_H
 
-#include "KS/SRC/ks/cheat_shared.h"
+#include "KS/SRC/ks/cheat.h"
 
 enum {
     GLOBAL_DATA_LOCATION_COUNT = 17,

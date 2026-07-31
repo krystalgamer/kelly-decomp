@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_CHEAT_SHARED_H
-#define KELLY_DECOMP_CHEAT_SHARED_H
+#ifndef CHEAT_H
+#define CHEAT_H
 
 #include "KS/SRC/stringx.h"
 
