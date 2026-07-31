@@ -1,0 +1,15 @@
+{
+  "address": "0x00364C20",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "aa79e34d16b6c708af3d0e56f2168277e96b9fe6",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/trail.h\"\n\nbool trail::spray_object_internal (spray_control_t *SprayControlPts, int scp_index, entity *ent) const\n{\n\tint index;\n\tint backindex;\n  bool first;\n\tvector3d p2;\n\tint i;\n  u_int nodes_added = 0;\n  u_int nodes = 0;\n  vector3d c1 (ent->get_abs_position ());\n  float r1;\n\n  r1 = ent->get_radius ();\n\n  if (r1 < 0.01f)\n  {\n    if (ent->get_colgeom ())\n      r1 = ent->get_colgeom ()->get_radius ();\n\n    if (r1 < 0.01f)\n    {\n\t\t  nglMesh *mesh = ent->get_mesh ();\n\n      if (mesh)\n      {\n        c1.x += mesh->SphereCenter[0];\n        c1.y += mesh->SphereCenter[1];\n        c1.z += mesh->SphereCenter[2];\n        r1 = mesh->SphereRadius;\n      }\n    }\n  }\nstatic float spray_extra_radius = 2;\nr1 += spray_extra_radius;\n\n\tfor (first = true, index = scp_index, i = 0; i < MAX_SPRAY_PTS; i++)\n\t{\n\t\tbackindex = index;\n\t\tindex--;\n\n\t\tif (index < 0)\n\t\t\tindex = MAX_SPRAY_PTS - 1;\n\n\t\tif (index == scp_index)\n\t\t\tbreak;\n\n\t\tif (!SprayControlPts[index].valid || !SprayControlPts[backindex].valid)\n\t\t\tbreak;\n\n    if (!SprayControlPts[index].trail_node->valid || !SprayControlPts[backindex].trail_node->valid)\n    {\n      if (first && !nodes)\n        continue;\n      else\n\t\t\t  break;\n    }\n    first = false;\n\n    nodes++;\n\t}\n\n  for (first = true, index = scp_index, i = 0; i < MAX_SPRAY_PTS; i++)\n  {\n\t\tbackindex = index;\n\t\tindex--;\n\n\t\tif (index < 0)\n\t\t\tindex = MAX_SPRAY_PTS - 1;\n\n\t\tif (index == scp_index)\n\t\t\tbreak;\n\n\t\tif (!SprayControlPts[index].valid || !SprayControlPts[backindex].valid)\n\t\t\tbreak;\n\n\t\tif (!SprayControlPts[index].trail_node->valid || !SprayControlPts[backindex].trail_node->valid)\n\t\t{\n\t\t\tif (first && !nodes_added)\n\t\t\t\tcontinue;\n\t\t\telse\n\t\t\t\tbreak;\n\t\t}\n\t\tfirst = false;\n\n    if (SprayControlPts[backindex].vel.length2 () > spray_min_power)\n    {\n\t\t\tvector3d Grav (0, board_spray.grav, 0);\n\t\t\tvector3d vel (SprayControlPts[backindex].vel);\n\n\t\t\tvel *= 1 - max (SprayControlPts[backindex].age / spray_age, (float)i/nodes);\n\t\t\tGrav *= 1 - max (SprayControlPts[backindex].age / spray_age, (float)i/nodes);\n\n\t\t\tfloat age = SprayControlPts[backindex].age;\n\t\t\tp2 = SprayControlPts[backindex].start + (vel * age) + (Grav * (age * age * board_spray.curve));\n      nodes_added++;\n\t\t}\n\t\telse\n\t\t{\n\t\t\tp2 = SprayControlPts[backindex].start;\n\t\t}\n\n\t\tc1.y = p2.y = 0;\n\n    if ((c1 - p2).length2 () <= (r1 * r1))\n\t\t\treturn true;\n\t}\n\n\treturn false;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "spray_object_internal__C5trailP15spray_control_tiP6entity"
+}
