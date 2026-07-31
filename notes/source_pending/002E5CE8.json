@@ -1,0 +1,15 @@
+{
+  "address": "0x002E5CE8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e944658908999f89a2893c24bc6bb6731c6270b8",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "region::~region()\n{\n  local_thread_list.resize(0);\n#ifndef NGL\n  for (VisRepList::iterator vri=visreps.begin();\n       vri!=visreps.end();\n       ++vri)\n    if( (*vri) )\n      vr_pmesh_bank.delete_instance((vr_pmesh*)(*vri));\n#endif\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_6region"
+}
