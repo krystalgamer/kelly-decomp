@@ -1,0 +1,15 @@
+{
+  "address": "0x00263618",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a4a618e04f7093b5dd9c951271961106378b76d7",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/dxt1_gen.h\"\n\nint DXTCGen::Execute4(CodeBook &Source, CodeBook & Pixels, CodeBook &Dest)\n{\nint Count, i, j, c;\nint BestIndex[2], BestError;\nint Error, Start0, Start1, End0, End1;\ncbVector Best[2], Test[2];\n\n\tVects.SetCount(4);\n\tpVects = &Vects[0];\n\n\tBestIndex[0] = BestIndex[1] = 0;\n\tBestError = 1 << 30;\n\n\tCount = Source.GetNumCodes();\n\tfor(i=0; i<(Count-1); i++)\n\t{\n\t\tfor(j=i+1; j<Count; j++)\n\t\t{\n\t\t\tBuildCodes4(Source[i], Source[j]);\t\t// Build the interpolants\n\t\t\tError = ComputeError(Pixels);\t\t// Compute the RMS error for pixels\n\n\t\t\tif(Error < BestError)\n\t\t\t{\n\t\t\t\tBestError = Error;\n\t\t\t\tBestIndex[0] = i;\n\t\t\t\tBestIndex[1] = j;\n\t\t\t}\n\t\t}\n\t}\n\n\tBest[0] = Source[BestIndex[0]];\n\tBest[1] = Source[BestIndex[1]];\n\tTest[0] = Best[0];\n\tTest[1] = Best[1];\n\n\tfor(c=1; c<4; c++)\n\t{\n\t\tTest[0] = Best[0];\n\t\tTest[1] = Best[1];\n\t\tBuildCodes4(Test[0], Test[1]);\t\t\t\t// Build the full set of interpolants\n\n\t\tStart0 = (int)Test[0][c] - ScanRange/2;\n\t\tEnd0 = Start0 + ScanRange;\n\n\t\tStart0 = max(0, Start0);\n\t\tEnd0 = min(255, End0);\n\n\t\tStart1 = (int)Test[1][c] - ScanRange/2;\n\t\tEnd1 = Start1 + ScanRange;\n\n\t\tStart1 = max(0, Start1);\n\t\tEnd1 = min(255, End1);\n\n\t\tfor(i=Start0; i<=End0; i+=ScanStep)\n\t\t{\n\t\t\tTest[0][c] = (unsigned char)i;\n\t\t\tfor(j=Start1; j<=End1; j+=ScanStep)\n\t\t\t{\n\t\t\t\tTest[1][c] = (unsigned char)j;\n\t\t\t\tBuildCodes4(c, Test[0], Test[1]);\t// Build the channel interpolants\n\t\t\t\tError = ComputeError(Pixels);\t\t// Compute the RMS error for pixels\n\n\t\t\t\tif(Error < BestError)\n\t\t\t\t{\n\t\t\t\t\tBestError = Error;\n\t\t\t\t\tBest[0][c] = (unsigned char)i;\n\t\t\t\t\tBest[1][c] = (unsigned char)j;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\tBuildCodes4(Best[0], Best[1]);\n\n\tDest.SetCount(4);\n\tDest[0] = pVects[0];\n\tDest[1] = pVects[1];\n\tDest[2] = pVects[2];\n\tDest[3] = pVects[3];\n\n\treturn BestError;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Execute4__7DXTCGenR8CodeBookN21"
+}
