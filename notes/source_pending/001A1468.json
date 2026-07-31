@@ -1,0 +1,15 @@
+{
+  "address": "0x001A1468",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "aabe2cc0093a24d3590c3b18acdc6af692aca317",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/SaveLoadFrontEnd.h\"\n\nvoid SaveLoadFrontEnd::SetPQIndices()\n{\n\tNameMenu->SetPQIndices();\n\tdialogMenu->SetPQIndices();\n\tKeyMenu->SetPQIndices();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "SetPQIndices__12KeyboardMenu"
+}
