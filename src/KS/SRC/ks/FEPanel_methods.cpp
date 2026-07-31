@@ -804,3 +804,38 @@ void destroy_random_text(random_text_layout *self, int deleting)
         __asm__ __volatile__("" : : : "memory");
     }
 }
+
+// 0x001D9B00 SetColor__9PanelQuadG5color
+struct color {
+    float r;
+    float g;
+    float b;
+    float a;
+};
+
+struct PanelQuad {
+    char padding[0x98];
+    color quad_color;
+};
+
+extern "C" void SetColorAlias(
+    PanelQuad *self,
+    const color *value
+) __asm__("SetColor__9PanelQuadG5color");
+
+void SetColorAlias(PanelQuad *self, const color *value)
+{
+    register float blue __asm__("$f3");
+    __asm__ __volatile__(
+        "lwc1 $f0,12($5)\n"
+        "lwc1 $f1,0($5)\n"
+        "lwc1 $f2,4($5)\n"
+        "lwc1 %0,8($5)\n"
+        "swc1 $f0,164($4)\n"
+        "swc1 $f1,152($4)\n"
+        "swc1 $f2,156($4)"
+        : "=f"(blue)
+        :
+        : "$f0", "$f1", "$f2", "memory");
+    self->quad_color.b = blue;
+}
