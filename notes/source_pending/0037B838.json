@@ -1,0 +1,15 @@
+{
+  "address": "0x0037B838",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cb28ad0733a396524e806e1a241ec5007321b185",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/wave.h\"\n\nNOWARNING_UNUSED(WAVE_FindNearestStressTest)\nstatic void WAVE_FindNearestStressTest(void)\n{\n  // Should not make calls to rand() or srand() - rbroner\n\t//srand((int) WAVE_GetTotalSec());\n\n\tfloat x = ((float) (random_r(WAVE_MESHWIDTH * 100) + ((int) (WAVE_MeshMinX * 100)))) / 100;\n//\tfloat y;\n\tfloat z = ((float) (random_r(WAVE_MESHDEPTH * 100) + ((int) (WAVE_MeshMinZ * 100)))) / 100;\n\tWaveProfileCoeffs wpc;\n\n\tWAVE_ComputeProfileCoeffs(x, wpc);\n\n\tvector3d position_in, position_out;\n\n\tposition_in.x = x;\n\tposition_in.y = SPLINE_Evaluate(WAVE_ControlZ, wpc.y.a, wpc.y.b, wpc.y.c, wpc.y.d, WAVE_ControlPoints->numcontrol, z);\n//\tposition_in.y *= WAVE_ScaleSpatial;\n\tposition_in.z = SPLINE_Evaluate(WAVE_ControlZ, wpc.z.a, wpc.z.b, wpc.z.c, wpc.z.d, WAVE_ControlPoints->numcontrol, z);\n\n\tWavePositionHint hintin = {\n\t\tx,\n\t\tz + (WAVE_CONTROLDEPTH / 100) * random_r(-1.0f, 1.0f),\n\t\t0,\t// currently not used by WAVE_FindNearest\n\t};\n\n\tWaveTolerance tolerance;\n\n\n#if defined(TARGET_XBOX)\n\tWaveNearestArgs wna(\n\t\t(WaveQueryFlags) (WAVE_YGIVEN | WAVE_HINTGIVEN | WAVE_NEARMATCH),\n\t\tposition_in,\n\t\t&position_out,\n\t\tNULL,\n\t\tNULL,\n\t\tNULL,\n\t\thintin,\n\t\tNULL,\n\t\ttolerance );\n#else\n\tWaveNearestArgs wna = {\n\t\t(WaveQueryFlags) (WAVE_YGIVEN | WAVE_HINTGIVEN | WAVE_NEARMATCH),\n\t\tposition_in,\n\t\t&position_out,\n\t\tNULL,\n\t\tNULL,\n\t\tNULL,\n\t\thintin,\n\t\tNULL,\n\t\ttolerance,\n\t};\n#endif /* TARGET_XBOX JIV DEBUG */\n\tWAVE_FindNearest(wna);\n\tif (fabsf(position_out.z-position_in.z) > 0.001)\n\t{\n#ifndef EVAN\n\t\tdebug_print(\"WAVE_FindNearest failed! Trying to get (%.6f,%.6f,%.6f), but got (%.6f,%.6f,%.6f).\\n\",\n\t\t\tposition_in.x, position_in.y, position_in.z, position_in.x, position_in.y, position_in.z);\n#endif\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WAVE_FindNearest__FRC15WaveNearestArgs"
+}
