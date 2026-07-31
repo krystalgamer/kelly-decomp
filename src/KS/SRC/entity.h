@@ -556,6 +556,17 @@ public:
     void set_age(time_value_t age);
     void unload_anim(const stringx &filename) const;
     void make_animateable(bool enabled = true);
+    entity_anim_tree *play_anim(
+        const stringx &filename,
+        time_value_t start_time,
+        unsigned short anim_flags = 0,
+        short loop = -1);
+    entity_anim_tree *play_anim(
+        int slot,
+        const stringx &filename,
+        time_value_t start_time,
+        unsigned short anim_flags = 0,
+        short loop = -1);
     entity_anim_tree *get_anim_tree(int slot) const;
     void clear_anim(entity_anim_tree *animation);
     void kill_anim(int slot);
