@@ -1,0 +1,15 @@
+{
+  "address": "0x0028B798",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "133d4d38a6449cdceb937e3e0b3bd9757c0dc7f6",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/item.h\"\n\nvoid morphable_item::read_morph_ranges( chunk_file& fs, stringx& label )\n{\n  assert(label == \"morph_ranges:\");\n\n  serial_in( fs, &label );\n\n  while(!(label== chunkend_label))\n  {\n    if(label == \"range\")\n    {\n      morphable_item_range *range = NEW morphable_item_range();\n\n      serial_in( fs, &range->low );\n\n      serial_in( fs, &label );\n      if(label == \"-\")\n      {\n        serial_in( fs, &range->high );\n        serial_in( fs, &range->vis_rep );\n      }\n      else\n      {\n        range->vis_rep = label;\n      }\n\n      range->vis_rep = fs.get_dir() + range->vis_rep;\n\n      visual_rep* v = load_new_visual_rep( range->vis_rep, 0 );\n      if( v->get_type()==VISREP_PMESH )\n        static_cast<vr_pmesh*>(v)->shrink_memory_footprint();\n\n      ranges.push_back(range);\n    }\n    else\n    {\n      error( fs.get_filename() + \": unknown keyword '\" + label + \"' in morph_ranges section\" );\n    }\n\n    // get the next label\n    serial_in( fs, &label );\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "read_morph_ranges__14morphable_itemR10chunk_fileR7stringx"
+}
