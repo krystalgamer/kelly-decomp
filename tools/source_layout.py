@@ -49,7 +49,13 @@ LOCAL_INCLUDE_RE = re.compile(
 # permitted; these entries cover released inline assembly or previously
 # reviewed, narrowly scoped scheduling/conversion annotations.
 REVIEWED_INSTRUCTION_ASM = {
+    0x0010F030: "documented generated 8-byte fill loop schedule",
+    0x0010FA58: "documented generated 8-byte fill loop schedule",
+    0x00110C28: "documented generated pointer fill loop schedule",
+    0x00111AA0: "documented generated pointer fill loop schedule",
+    0x00111FD0: "documented generated pointer fill loop schedule",
     0x001185C8: "documented floating-point scheduling nop",
+    0x0011ECE0: "documented generated pointer fill loop schedule",
     0x00139DB0: "documented FPU hazard and independent-store schedule",
     0x0014C918: "documented integer-to-float conversion sequence",
     0x001556D8: "documented list-traversal scheduling nop",
