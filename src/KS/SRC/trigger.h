@@ -1,9 +1,13 @@
 #ifndef TRIGGER_H
 #define TRIGGER_H
 
+#pragma interface
+
 #include "KS/SRC/algebra.h"
 #include "KS/SRC/signals.h"
+#include "KS/SRC/singleton.h"
 #include "KS/SRC/stringx.h"
+#include "g++-2/stl_vector.h"
 
 class chunk_file;
 class entity;
@@ -39,12 +43,19 @@ protected:
     bool use_any_char;
 };
 
-class trigger_manager {
-    char singleton_and_regions[0x10];
-    trigger *list;
-
+class trigger_manager : public singleton {
 public:
+    trigger_manager();
     void update_regions();
+    void purge();
+
+    vector<region *> new_regions;
+
+protected:
+    void add(trigger *value);
+    void remove(trigger *value);
+
+    trigger *list;
 };
 
 #endif

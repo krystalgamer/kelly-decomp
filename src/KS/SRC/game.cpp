@@ -307,15 +307,7 @@ void enable_game_marky(
 }
 
 // 0x002778F0 __9game_info
-class stringx { char storage[8]; public: stringx(); };
-class game_info {
-    int difficulty;
-    stringx hero_name_0;
-    stringx hero_name_1;
-public:
-    game_info();
-    void reset();
-};
+#include "KS/SRC/game.h"
 asm(".equ __7stringx, 0x0034D3E0");
 asm(".equ reset__9game_info, 0x00277D58");
 game_info::game_info()

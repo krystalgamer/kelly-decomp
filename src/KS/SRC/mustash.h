@@ -191,7 +191,6 @@ extern const char acquire_stash_bufferspace_desc[];
 
 __asm__(".equ _5stash$substash, 0x0046B7B8");
 __asm__(".equ _5stash$curstash, 0x0046D9C0");
-__asm__(".equ release_stash_bufferspace__10multistash, 0x003471B0");
 __asm__(".equ write__7os_filePvi, 0x001E0980");
 __asm__(".equ unpack_string__C7pstring, 0x00335648");
 __asm__(".equ debug_print__FPCce, 0x00120790");

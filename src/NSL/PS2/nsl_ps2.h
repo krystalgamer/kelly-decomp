@@ -2,6 +2,7 @@
 #define NSL_PS2_HEADER
 
 #include "NSL/PS2/fifo_queue.h"
+#include "NSL/PS2/nl_ps2.h"
 
 typedef unsigned int nlUint32;
 typedef unsigned int nslSourceId;
@@ -78,7 +79,7 @@ struct nslSource
 
 struct nslSystem
 {
-    float listenerPo[4][4];
+    nlMatrix4x4 listenerPo;
     nslSource sourceSlots[NSL_NUM_SOURCES];
     char data_to_initialized[0x9810];
     int initialized;
@@ -100,6 +101,7 @@ extern const char nsl_not_initialized[];
 extern const char nsl_empty_string[];
 
 void nslFatal(const char *format, ...);
+void nslGetListenerPo(nlMatrix4x4 *destination);
 void nslReleaseAllSounds();
 void _nslClearEmitterSlot(
     nlUint32 slot,

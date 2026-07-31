@@ -12,7 +12,11 @@ enum EVENT {
     EVT_SCORING_CHAIN_END
 };
 
+const int MAX_EVENT_RECIPIENTS = 50;
+
 class EventRecipient {
+    friend class EventManager;
+
 public:
     EventRecipient();
     virtual ~EventRecipient();
@@ -21,5 +25,23 @@ public:
         int param1 = 0,
         int param2 = 0) = 0;
 };
+
+class EventManager {
+protected:
+    int numRecipients;
+    EventRecipient *recipients[MAX_EVENT_RECIPIENTS];
+
+public:
+    EventManager();
+    ~EventManager();
+    void RegisterRecipient(EventRecipient *recipient);
+    void UnregisterRecipient(EventRecipient *recipient);
+    void DispatchEvent(
+        EVENT event,
+        int param1 = 0,
+        int param2 = 0);
+};
+
+extern EventManager g_eventManager;
 
 #endif

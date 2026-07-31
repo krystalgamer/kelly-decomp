@@ -61,6 +61,39 @@ struct PlayMode {
     PushMode *push;
 };
 
+class game_info {
+protected:
+    friend class game;
+
+    int difficulty;
+    stringx hero_name_0;
+    stringx hero_name_1;
+
+public:
+    game_info();
+    void reset();
+
+    inline const int &get_difficulty() const {
+        return difficulty;
+    }
+    inline void set_difficulty(const int &value) {
+        difficulty = value;
+    }
+    inline const stringx &get_hero_name_0() const {
+        return hero_name_0;
+    }
+    inline void set_hero_name_0(const stringx &value) {
+        hero_name_0 = value;
+    }
+    inline const stringx &get_hero_name_1() const {
+        return hero_name_1;
+    }
+    inline void set_hero_name_1(const stringx &value) {
+        hero_name_1 = value;
+    }
+    const stringx &get_hero_name(int hero_num);
+};
+
 struct game_recti {
     int x0;
     int y0;
