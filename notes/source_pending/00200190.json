@@ -1,0 +1,16 @@
+{
+  "address": "0x00200190",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9e95062f8001cd64a455accfa33e17cdb30623c0",
+      "error": "Candidate did not emit spawn__14surfing_object; emitted functions: ['spawn__11beach_event']",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/floatobj.h\"\n\nvoid beach_event::spawn ()\n{\n  if (times_spawned == spawn_count)\n    return;\n\n  spawned = true;\n  times_spawned++;\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "spawn__14surfing_object"
+}
