@@ -1,0 +1,15 @@
+{
+  "address": "0x00372B20",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6c3c7a5d198c60962fe94a3ff7317b77b350d298",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "void WAVEMENU_StaticInit( void )\n{\n#if defined(DEBUG) && !defined(TARGET_GC)\n\tWAVE_MenuPerturb = NEW WaveMenuPerturb(NULL, 0, NULL);\n\tWAVE_SubmenuPerturb = NEW Submenu(\"Break Builder\", WAVE_MenuPerturb);\n\tWAVE_EntryDebugPerturb = NEW MenuEntryListEdit (\n\t\t\"Break\",\n\t\t& (int &) WAVE_DebugPerturbType,\n\t\tWAVE_PerturbTypeMax,\n\t\tWAVE_PerturbName\n\t\t);\n#endif\n\tWAVE_MenuDuration= NEW MenuPerturbDuration(NULL, 0, NULL);\n\tWAVE_SubmenuDuration = NEW Submenu(\"Break Duration\", WAVE_MenuDuration);\n\n#undef USEINFOYES\n#undef USEINFOINT\n#undef USEINFOFLOAT\n#define USEINFOYES(item, type, lo, hi, step, init) USEINFO##type(item, lo, hi, step)\n#define USEINFOINT(item, lo, hi, step)\t\t\t\t\t\t\t\\\n\tWAVE_MenuEntry##item =\t\t\t\t\t\t\t\t\t\\\n\tNEW MenuEntryIntEdit(#item, &WaveDebug.##item, lo, hi);\n#define USEINFOFLOAT(item, lo, hi, step)\t\t\t\t\t\t\\\n\tWAVE_MenuEntry##item =\t\t\t\t\t\t\t\t\t\\\n\tNEW MenuEntryFloatEdit(#item, &WaveDebug.##item, lo, hi, step);\n#include \"wavedebug.txt\"\n\t\n\tint index=0;\n\tWAVE_MenuEntries[index++] = WAVE_EntryDebugPerturb;\n#if defined(DEBUG) && !defined(TARGET_GC)\n\tWAVE_MenuEntries[index++] = WAVE_SubmenuPerturb;\n#endif\n\tWAVE_MenuEntries[index++] = WAVE_SubmenuDuration;\n#undef USEINFOYES\n#define USEINFOYES(item, type, lo, hi, step, init) WAVE_MenuEntries[index++] = WAVE_MenuEntry##item;\n#include \"wavedebug.txt\"\n\t\n\tWAVE_Menu = NEW Menu(NULL, countof(WAVE_MenuEntries), WAVE_MenuEntries);\n\tmenu_wave = NEW Submenu(\"Wave Geometry Menu\", WAVE_Menu);\n\t\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WAVEMENU_StaticInit__Fv"
+}
