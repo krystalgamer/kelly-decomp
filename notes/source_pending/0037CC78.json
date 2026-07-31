@@ -1,0 +1,15 @@
+{
+  "address": "0x0037CC78",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ee75cda8a84634ccf6a747009f4522f6075881f6",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/wave.h\"\n\nvoid WAVE_TrackFloaterOld(WaveFloaterArgs &wfa)\n{\n\tconst WaveQueryFlags &flags = wfa.flags;\n\tbool normalsought = (flags & WAVE_NORMALSOUGHT);\n\tbool regionsought = (flags & WAVE_REGIONSOUGHT);\n\tbool velocitygiven = (flags & WAVE_VELOCITYGIVEN);\n\tassert (flags & WAVE_HINTGIVEN);\t// required\n\tassert (flags & WAVE_HINTSOUGHT);\t// required\n\tassert (!(flags & WAVE_YGIVEN));\t// not supported\n\tassert (!(flags & WAVE_NEARMATCH));\t// not supported\n\tassert (!(flags & WAVE_CURRENTSOUGHT));\t// not supported\n\tfloat &x = wfa.hint->x, &z = wfa.hint->z;\n\tconst float zero = 0;\n\tconst float &vx = velocitygiven ? wfa.vhint.vx : zero;\n\tconst float &vz = velocitygiven ? wfa.vhint.vz : zero;\n\tu_int &zcell = wfa.hint->zcell;\n\tfloat &xx = wfa.position_out->x, &yy = wfa.position_out->y, &zz = wfa.position_out->z;\n\n\tfloat dzz_dz = SPLINE_EvaluateD(WAVE_ControlZ,\n\t\tWAVE_ControlToWorldCoeffs.a,\n\t\tWAVE_ControlToWorldCoeffs.b,\n\t\tWAVE_ControlToWorldCoeffs.c,\n\t\tWAVE_ControlToWorldCoeffs.d,\n\t\tWAVE_ControlPoints->numcontrol, z, zcell\n\t);\n\n\t// update position according to current (which might be off by a frame)\n\tx += (vx - WAVE_ShiftSpeedX) * WAVE_GetFrameSec();\n\tz += (vz - WAVE_ShiftSpeedZ / dzz_dz) * WAVE_GetFrameSec();\n\n\tWaveProfileCoeffs wpc;\n\tWAVE_ComputeProfileCoeffs(x, wpc);\n\n\t// update the precomputed z-interval, which usually won't change between calls\n\twhile (z < WAVE_ControlZ[zcell] && zcell >= 0) --zcell;\n\twhile (z > WAVE_ControlZ[zcell+1] && (zcell+1) < (WAVE_ControlPoints->numcontrol-1)) ++zcell;\n\n\txx = x;\n\tWAVE_Apply(wpc, z, zcell, yy, zz);\n\n\tif (normalsought)\n\t{\n\t\tfloat &nxx = wfa.normal->x, &nyy = wfa.normal->y, &nzz = wfa.normal->z;\n\t\tnglVector n;\n\n\t\tWAVE_Normal(wpc, zz, n[0], n[1], n[2]);\n\t\tnxx = n[0]; nyy = n[1]; nzz = n[2];\t// overcome alignment problem\n\t}\n\n\tif (regionsought)\n\t{\n\t\tconst WavePositionHint &hint = *wfa.hint;\n\t\tWaveRegionEnum &region = *wfa.region;\n\n\t\tregion = WAVE_FindRegion(hint);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WAVE_TrackFloater__FR15WaveFloaterArgs"
+}
