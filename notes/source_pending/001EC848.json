@@ -1,0 +1,15 @@
+{
+  "address": "0x001EC848",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8c6635cf73b5640d189d295ebb001e1bc534cd83",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/beach.h\"\n\nbool beach::check_spray_challenge (kellyslater_controller *ksctrl, int object_type, int object_count, int gt_partially_done, int gt_done)\n{\n\tentity *ent = ((conglomerate *)ksctrl->GetBoardModel())->get_member(\"BOARD\");\n\tvector3d c1 (ent->get_abs_position ());\n\tfloat r1, r2;\n\tnglMesh *mesh;\n\n\tr1 = ent->get_radius ();\n\n\tif (r1 < 0.01f)\n\t{\n\t\tif (ent->get_colgeom ())\n\t\t\tr1 = ent->get_colgeom ()->get_radius ();\n\t\t\n\t\tif (r1 < 0.01f)\n\t\t{\n\t\t\tmesh = ent->get_mesh ();\n\t\t\t\n\t\t\tif (mesh)\n\t\t\t{\n\t\t\t\tc1.x += mesh->SphereCenter[0];\n\t\t\t\tc1.y += mesh->SphereCenter[1];\n\t\t\t\tc1.z += mesh->SphereCenter[2];\n\t\t\t\tr1 = mesh->SphereRadius;\n\t\t\t}\n\t\t}\n\t}\n\n\tfor (beach_object *fobj = my_objects; fobj != NULL; fobj = fobj->next)\n\t{\n\t\tif (!fobj->is_active ())\n\t\t\tcontinue;\n\t\t\n\t\tif (!fobj->is_physical())\n\t\t\tcontinue;\n\t\t\n\t\tentity *ent = ((water_object*)fobj)->get_entity ();\n\t\t\n\t\tif (((water_object*)fobj)->get_type () != object_type)\n\t\t\tcontinue;\n\t\t\n\t\tif (!ent->is_visible ())\n\t\t\tcontinue;\n\n\t\tvector3d c2 (ent->get_abs_position ());\n\t\tr2 = ent->get_radius ();\n\t\t\n\t\tif (r2 < 0.01f)\n\t\t{\n\t\t\tif (ent->get_colgeom ())\n\t\t\t\tr2 = ent->get_colgeom ()->get_radius ();\n\t\t\t\n\t\t\tif (r2 < 0.01f)\n\t\t\t{\n\t\t\t\tmesh = ent->get_mesh ();\n\t\t\t\t\n\t\t\t\tif (mesh)\n\t\t\t\t{\n\t\t\t\t\tc2.x += mesh->SphereCenter[0];\n\t\t\t\t\tc2.y += mesh->SphereCenter[1];\n\t\t\t\t\tc2.z += mesh->SphereCenter[2];\n\t\t\t\t\tr2 = mesh->SphereRadius;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t// check if we're close to the object\n\t\tif ((c1 - c2).length2 () > 9)\n\t\t\tcontinue;\n\n\t\tif (ksctrl->my_trail->spray_object (ent))\n\t\t{\n\t\t\t// check if already sprayed\n\t\t\tif (!current_player_info.HasAccomplishment (ent))\n\t\t\t{\n\t\t\t\tchar buf[32];\n\t\t\t\t\n\t\t\t\tfind_object (ent)->sprayed (ksctrl->get_board_controller().my_board_model);\n\t\t\t\tsfx.sprayed(ent);\n\t\t\t\tcurrent_player_info.AddAccomplishment(ent);\n\t\t\t\t\n\t\t\t\tif (current_player_info.GetNumAccomplishments() < object_count)\n\t\t\t\t{\n\t\t\t\t\tsprintf (buf, ksGlobalTextArray[gt_partially_done].c_str(), current_player_info.GetNumAccomplishments(), object_count);\n\t\t\t\t\tfrontendmanager.IGO->Print(buf);\n\n\t\t\t\t}\n\t\t\t\telse if (current_player_info.GetNumAccomplishments() == object_count) //  Now check to see if we're done.\n\t\t\t\t\treturn true;\n\t\t\t}\n\t\t}\n\t}\n\t\n\treturn false;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "check_spray_challenge__5beachP22kellyslater_controlleriiiii"
+}
