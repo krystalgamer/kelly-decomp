@@ -72,22 +72,27 @@ void TrickMenuClass::OnCross(int controller) {
 }
 
 // 0x001B0310 OnCircle__17PlaylistMenuClassi
-class PlaylistMenuClass {
-public:
-    void OnCircle(int controller);
-};
-
-void PlaylistMenuClass::OnCircle(int controller) {
+extern "C" void playlist_circle(void *self, int controller)
+    __asm__("OnCircle__17PlaylistMenuClassi");
+void playlist_circle(void *self, int controller) {
 }
 
 // 0x001B0228 OnSquare__17PlaylistMenuClassi
-#include "KS/SRC/ks/PlaylistMenu_shared.h"
+#include "KS/SRC/ks/FrontEndMenus.h"
+#include "KS/SRC/ks/MusicMan.h"
+#include "KS/SRC/ks/SoundScript.h"
 #include "decomp_annotations.h"
+struct PlaylistDeveloperOptions {
+    char padding[0x48];
+    bool no_audio;
+};
+extern PlaylistDeveloperOptions *playlist_developer_options
+    __asm__("_20os_developer_options$instance");
+__asm__(".equ _20os_developer_options$instance, 0x0046B180");
 
 void PlaylistMenuClass::OnSquare(int controller)
 {
-    if (!os_developer_options::inst()->is_flagged(
-            os_developer_options::FLAG_NO_AUDIO))
+    if (!playlist_developer_options->no_audio)
     {
         SoundScriptManager::inst()->unpause();
         SoundScriptManager::inst()->playEvent(SS_FE_ONX);
@@ -522,14 +527,16 @@ void restart_pause_menu(pause_restart_layout *self)
 typedef void (*playlist_handler)(void *, int);
 struct playlist_slot { short adjustment; unsigned short padding; playlist_handler function; };
 struct playlist_vtable { char padding[0x98]; playlist_slot up; };
-class PlaylistMenuClass { char padding[0x74]; playlist_vtable *vtable; char padding2[0x70]; public: int active; void OnL1(int); };
-void PlaylistMenuClass::OnL1(int controller)
+struct PlaylistMenuLayout { char padding[0x74]; playlist_vtable *vtable; char padding2[0x70]; int active; };
+extern "C" void playlist_l1(PlaylistMenuLayout *self, int controller)
+    __asm__("OnL1__17PlaylistMenuClassi");
+void playlist_l1(PlaylistMenuLayout *self, int controller)
 {
-    active = true;
+    self->active = true;
     KELLY_DECOMP_COMPILER_BARRIER();
-    playlist_slot &slot = vtable->up;
-    slot.function((char *)this + slot.adjustment, controller);
-    active = false;
+    playlist_slot &slot = self->vtable->up;
+    slot.function((char *)self + slot.adjustment, controller);
+    self->active = false;
 }
 
 // 0x001B0358 OnR1__17PlaylistMenuClassi
@@ -537,14 +544,16 @@ void PlaylistMenuClass::OnL1(int controller)
 typedef void (*playlist_handler)(void *, int);
 struct playlist_slot { short adjustment; unsigned short padding; playlist_handler function; };
 struct playlist_vtable { char padding[0xa0]; playlist_slot down; };
-class PlaylistMenuClass { char padding[0x74]; playlist_vtable *vtable; char padding2[0x70]; public: int active; void OnR1(int); };
-void PlaylistMenuClass::OnR1(int controller)
+struct PlaylistMenuLayout { char padding[0x74]; playlist_vtable *vtable; char padding2[0x70]; int active; };
+extern "C" void playlist_r1(PlaylistMenuLayout *self, int controller)
+    __asm__("OnR1__17PlaylistMenuClassi");
+void playlist_r1(PlaylistMenuLayout *self, int controller)
 {
-    active = true;
+    self->active = true;
     KELLY_DECOMP_COMPILER_BARRIER();
-    playlist_slot &slot = vtable->down;
-    slot.function((char *)this + slot.adjustment, controller);
-    active = false;
+    playlist_slot &slot = self->vtable->down;
+    slot.function((char *)self + slot.adjustment, controller);
+    self->active = false;
 }
 
 // 0x001B2950 OnActivate__20QuitConfirmMenuClass
@@ -1244,14 +1253,23 @@ void activate_trick_menu(trick_menu_layout *self)
 }
 
 // 0x001AEC48 Select__17PlaylistMenuClassi
-#include "KS/SRC/ks/PlaylistMenu_shared.h"
+#include "KS/SRC/ks/FrontEndMenus.h"
+#include "KS/SRC/ks/MusicMan.h"
+#include "KS/SRC/ks/SoundScript.h"
+struct PlaylistDeveloperOptions {
+    char padding[0x48];
+    bool no_audio;
+};
+extern PlaylistDeveloperOptions *playlist_developer_options
+    __asm__("_20os_developer_options$instance");
+__asm__(".equ _20os_developer_options$instance, 0x0046B180");
 
 void PlaylistMenuClass::Select(int entry_index)
 {
     if (numSongs == 0)
         return;
 
-    if (!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_NO_AUDIO))
+    if (!playlist_developer_options->no_audio)
     {
         SoundScriptManager::inst()->unpause();
         MusicMan::inst()->stop();

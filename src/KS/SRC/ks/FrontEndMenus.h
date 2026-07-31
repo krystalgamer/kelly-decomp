@@ -98,6 +98,36 @@ public:
     virtual void OnButtonRelease(int controller, int button);
 };
 
+enum {
+    SONGS_PER_SCREEN = 6
+};
+
+class PlaylistMenuClass : public FEMenu {
+private:
+    PauseMenuSystem *sys;
+    stringx *song_names;
+    FEMenuEntry *songName[SONGS_PER_SCREEN];
+    TextString *upArrow;
+    TextString *downArrow;
+    TextString *helpText2;
+    TextString *lineNumbers[SONGS_PER_SCREEN];
+    TextString *onOff[SONGS_PER_SCREEN];
+    TextString *playing;
+    TextString *currentSong;
+    TextString *currentArtist;
+    int offset;
+    int pos;
+    int active;
+    int numSongs;
+    color32 col;
+    color32 colh;
+    bool tweaked;
+
+public:
+    virtual void OnSquare(int controller);
+    virtual void Select(int entry_index);
+};
+
 class PauseMenuSystem : public FEMenuSystem {
 public:
     bool draw;
