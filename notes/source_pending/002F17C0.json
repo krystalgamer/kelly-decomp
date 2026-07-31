@@ -1,0 +1,23 @@
+{
+  "address": "0x002F17C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0e2b6a9d6d327209173a7a286df750ef305b8321",
+      "candidate_size": 1016,
+      "compared_bytes": 1128,
+      "compared_instructions": 282,
+      "emitted_name": "__adjust_heap__H3ZP20instance_render_infoZiZ20instance_render_info_X01X11X11X21_v",
+      "instruction_score": 0.0,
+      "matching_bytes": 239,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 uses the exact GCC 2.95 __adjust_heap and __push_heap bodies with canonical instance_render_info.",
+      "score": 21.1879,
+      "source": "#include \"KS/SRC/iri.h\"\n\ntemplate<\n    class RandomAccessIterator,\n    class Distance,\n    class T>\nvoid __push_heap(\n    RandomAccessIterator first,\n    Distance hole_index,\n    Distance top_index,\n    T value)\n{\n    Distance parent = (hole_index - 1) / 2;\n    while (hole_index > top_index &&\n           *(first + parent) < value) {\n        *(first + hole_index) =\n            *(first + parent);\n        hole_index = parent;\n        parent = (hole_index - 1) / 2;\n    }\n    *(first + hole_index) = value;\n}\n\ntemplate<\n    class RandomAccessIterator,\n    class Distance,\n    class T>\nvoid __adjust_heap(\n    RandomAccessIterator first,\n    Distance hole_index,\n    Distance length,\n    T value)\n{\n    Distance top_index = hole_index;\n    Distance second_child =\n        2 * hole_index + 2;\n    while (second_child < length) {\n        if (*(first + second_child) <\n            *(first + (second_child - 1)))\n            second_child--;\n        *(first + hole_index) =\n            *(first + second_child);\n        hole_index = second_child;\n        second_child =\n            2 * (second_child + 1);\n    }\n    if (second_child == length) {\n        *(first + hole_index) =\n            *(first + (second_child - 1));\n        hole_index = second_child - 1;\n    }\n    __push_heap(\n        first,\n        hole_index,\n        top_index,\n        value);\n}\n\ntemplate void __adjust_heap(\n    instance_render_info *,\n    int,\n    int,\n    instance_render_info);\n",
+      "status": "different",
+      "target_size": 1128
+    }
+  ],
+  "raw_name": "__adjust_heap__H3ZP20instance_render_infoZiZ20instance_render_info_X01X11X11X21_v"
+}
