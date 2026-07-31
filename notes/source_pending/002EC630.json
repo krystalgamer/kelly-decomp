@@ -1,0 +1,15 @@
+{
+  "address": "0x002EC630",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "93fd64e30ec46216726b0c9505714ffb858bb915",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/terrain.h\"\n\nvoid terrain::optimize()\n{\n  for (int i=regions.size(); --i>=0; )\n  {\n    regions[i]->optimize();\n  }\n\n  // Causes some bp_tree memory to be preallocated.  (dc 03/27/02)\n  vector3d dummy;\n    // PLEASE don't use nan!\n  dummy.x=0.0f;\n  dummy.y=0.0f;\n  dummy.z=0.0f;\n  tree->in_world(dummy, 0, dummy, dummy, dummy);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "optimize__7terrain"
+}
