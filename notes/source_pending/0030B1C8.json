@@ -1,0 +1,15 @@
+{
+  "address": "0x0030B1C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "12e244c4559ce402fc4be71a0309a4691be4527b",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/entity_maker.h\"\n\nentity* entity_maker::acquire_entity( const stringx& name, unsigned int flags )\n{\n  return entity_cache.acquire( name, flags );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "acquire__11entity_poolUi"
+}
