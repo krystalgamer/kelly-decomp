@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_SPHERE_SHARED_H
-#define KELLY_DECOMP_SPHERE_SHARED_H
+#ifndef SPHERE_H
+#define SPHERE_H
 
 #include "KS/SRC/vector3d_shared.h"
 

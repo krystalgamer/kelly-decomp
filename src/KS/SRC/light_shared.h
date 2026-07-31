@@ -3,7 +3,7 @@
 
 #include "KS/SRC/color.h"
 #include "KS/SRC/entity.h"
-#include "KS/SRC/sphere_shared.h"
+#include "KS/SRC/sphere.h"
 
 enum light_flavor_t {
     LIGHT_FLAVOR_POINT,
