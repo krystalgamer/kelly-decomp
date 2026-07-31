@@ -1,0 +1,15 @@
+{
+  "address": "0x0021D988",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8d8b5b6d82b47a33ef680812af337e96e4ad9f46",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/kellyslater_controller.h\"\n\nvoid kellyslater_controller::OrientToWave(bool upVec, float dt, int flag)\n{\n\ttween_timer += dt;\n\tif (tween_timer > tween_time)\n\t\ttween_timer = tween_time;\n\n\tvector3d x_axis, y_axis, z_axis;\n\tif (upVec)\n\t\ty_axis = YVEC;\n\telse\n\t\ty_axis = my_board_controller.GetWaveNormal();\n\n\tpo new_po;\n\tif (flag & SET_RB_PO)\n\t{\n\t\tnew_po = my_board_controller.rb->my_po;\n\t\tz_axis = my_board_controller.rb->my_po.get_z_facing();\n\t}\n\telse if (flag & SET_OWNER_PO)\n\t{\n\t\tnew_po = get_owner()->get_rel_po();\n\t\tz_axis = get_owner()->get_abs_po().get_z_facing();\n\t}\n\n\tz_axis -= y_axis*dot(z_axis, y_axis);\n\tz_axis.normalize();\n\tx_axis = cross(y_axis, z_axis);\n\n\tif (!upVec)\n\t{\n\t\tfloat dot_p = dot(y_axis, wave_norm_lf);\n\t\tif (dot_p > 1.0f)\n\t\t\tdot_p = 1.0f;\n\t\telse if (dot_p < -1.0f)\n\t\t\tdot_p = -1.0f;\n\n\t\tif (dot_p < 0.991445f)  //  angle greater than 7.5 deg\n\t\t\ttween_timer = dt;\n\t}\n\n\tpo target(x_axis, y_axis, z_axis, vector3d(0.0f, 0.0f, 0.0f));\n\tquaternion up = target.get_quaternion();\n\tquaternion po_quat = new_po.get_quaternion();\n\tquaternion quat = slerp(po_quat, up, tween_timer/tween_time);\n\tquat.normalize();\n\n\tmatrix4x4 mat;\n\tquat.to_matrix(&mat);\n\n\tpo end_po(mat);\n\tif (flag & SET_RB_PO)\n\t\tmy_board_controller.rb->my_po = end_po;\n\n\tif (flag & SET_OWNER_PO)\n\t\tget_owner()->set_rel_po (end_po);\n\n\tif (flag & SET_BOARD_PO)\n\t\tmy_board->set_rel_po (my_board_controller.rb->my_po);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "OrientToWave__22kellyslater_controllerbfi"
+}
