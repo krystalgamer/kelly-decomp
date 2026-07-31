@@ -134,6 +134,8 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/ks_camera.h": "KS/SRC/ks/ks_camera_methods.cpp",
     "KS/SRC/ks/ksdbmenu.h": "KS/SRC/ks/ksdbmenu_methods.cpp",
     "KS/SRC/ks/ksreplay.h": "KS/SRC/ks/ksreplay_methods.cpp",
+    "KS/SRC/ks/LogbookFrontEnd.h":
+        "KS/SRC/ks/LogbookFrontEnd_rtti.cpp",
     "KS/SRC/ks/MainFrontEnd.h": "KS/SRC/ks/MainFrontEnd_methods.cpp",
     "KS/SRC/ks/MCDetectFrontEnd.h": "KS/SRC/ks/MCDetectFrontEnd_rtti.cpp",
     "KS/SRC/ks/kellyslater_controller.h":

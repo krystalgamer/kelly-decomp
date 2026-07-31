@@ -1,18 +1,76 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef LOGBOOK_FRONT_END_H
+#define LOGBOOK_FRONT_END_H
 
+#include "KS/SRC/ks/FEPanel.h"
+#include "KS/SRC/ks/FEMenu.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_001DE208)
-// 0x001DE208 Select__15LogbookFrontEndi
-class LogbookFrontEnd {
+class GraphicalMenuSystem;
+
+class FEManager {
+    char fields_before_font_body[0x10BBC];
+
 public:
-    void Select(int arg0);
+    Font font_body;
+
+private:
+    char fields_between_fonts[0x130E4 - 0x10BBC - sizeof(Font)];
+
+public:
+    Font font_bold_old;
 };
 
-void LogbookFrontEnd::Select(int arg0) {
-}
-#endif
+class LogbookFrontEnd : public FEMultiMenu {
+private:
+    enum {
+        max_notes = 32
+    };
 
-#if defined(KELLY_DECOMP_FUNCTION_001DE1B0)
-// 0x001DE1B0 __tf15LogbookFrontEnd
-extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base); extern "C" void **BaseRtti_001DE1B0() __asm__("__tf11FEMultiMenu"); extern "C" void *type_001DE1B0[] __asm__("__ti15LogbookFrontEnd"); extern const char name_001DE1B0[]; extern void *base_type_001DE1B0[]; __asm__(".equ __rtti_class, 0x003CE2B0"); __asm__(".equ __tf11FEMultiMenu, 0x001D8138"); __asm__(".equ __ti15LogbookFrontEnd, 0x005A2F18"); __asm__(".equ name_001DE1B0, 0x004DE098"); __asm__(".equ base_type_001DE1B0, 0x004DDC48"); extern "C" void **Rtti_001DE1B0() __asm__("__tf15LogbookFrontEnd"); void **Rtti_001DE1B0() { if (!type_001DE1B0[0]) { BaseRtti_001DE1B0(); __rtti_class(type_001DE1B0, name_001DE1B0, base_type_001DE1B0, 1); } return type_001DE1B0; }
+    GraphicalMenuSystem *sys;
+    BoxText *notes[max_notes];
+    TextString *dates[max_notes];
+    stringx note_body[max_notes];
+    int note_page_num[max_notes];
+    PanelQuad *book;
+    int cur_spread;
+    int max_spread;
+
+public:
+    LogbookFrontEnd(
+        FEMenuSystem *system,
+        FEManager *manager,
+        stringx path,
+        stringx panel_name);
+    virtual ~LogbookFrontEnd();
+    virtual void Load();
+    virtual void Select(int) {}
+    virtual void Draw();
+    virtual void OnActivate();
+    virtual void OnLeft(int);
+    virtual void OnRight(int);
+    virtual void OnTriangle(int);
+};
+
+void *operator new(
+    unsigned int size,
+    unsigned int heap,
+    const char *description,
+    int line);
+
+__asm__(
+    ".equ cons__15FEGraphicalMenuP12FEMenuSystemP9FEManagerG7stringxT3, "
+    "0x00157D38");
+__asm__(
+    ".equ cons__11FEMenuEntryG7stringxP6FEMenubP4Font, "
+    "0x001559B0");
+__asm__(".equ Add__6FEMenuP11FEMenuEntry, 0x001566B8");
+__asm__(
+    ".equ cons__7BoxTextP4FontG7stringxffif"
+    "Q24Font9HORIZJUSTQ24Font8VERTJUSTG7color32i, "
+    "0x00149638");
+__asm__(
+    ".equ cons__10TextStringP4FontG7stringxffif"
+    "Q24Font9HORIZJUSTQ24Font8VERTJUSTbG7color32, "
+    "0x00148150");
+__asm__(".equ __nw__FUiUiPCci, 0x002AC578");
+
 #endif
