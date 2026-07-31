@@ -1,225 +1,170 @@
 // Matching decompilation blocks selected by generated build shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_003252B8)
 // 0x003252B8 _$_20slf_beam_hit_world_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_003252B8(void *self) __asm__("_$_20slf_beam_hit_world_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_003252B8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003254B8)
 // 0x003254B8 _$_19slf_beam_hit_hero_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_003254B8(void *self) __asm__("_$_19slf_beam_hit_hero_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_003254B8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003256B8)
 // 0x003256B8 _$_27slf_beam_get_impact_point_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_003256B8(void *self) __asm__("_$_27slf_beam_get_impact_point_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_003256B8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325898)
 // 0x00325898 _$_28slf_beam_get_impact_normal_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00325898(void *self) __asm__("_$_28slf_beam_get_impact_normal_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00325898(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325A78)
 // 0x00325A78 _$_24slf_beam_set_thickness_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00325A78(void *self) __asm__("_$_24slf_beam_set_thickness_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00325A78(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325B18)
 // 0x00325B18 _$_25slf_beam_set_max_length_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00325B18(void *self) __asm__("_$_25slf_beam_set_max_length_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00325B18(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325BB8)
 // 0x00325BB8 _$_20slf_beam_set_color_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00325BB8(void *self) __asm__("_$_20slf_beam_set_color_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00325BB8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325CA8)
 // 0x00325CA8 _$_29slf_beam_set_detect_stealth_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00325CA8(void *self) __asm__("_$_29slf_beam_set_detect_stealth_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00325CA8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325D68)
 // 0x00325D68 _$_27slf_beam_set_collide_hero_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00325D68(void *self) __asm__("_$_27slf_beam_set_collide_hero_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00325D68(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325E28)
 // 0x00325E28 _$_28slf_beam_set_collide_world_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00325E28(void *self) __asm__("_$_28slf_beam_set_collide_world_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00325E28(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325EE8)
 // 0x00325EE8 _$_31slf_beam_set_collide_beamable_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00325EE8(void *self) __asm__("_$_31slf_beam_set_collide_beamable_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00325EE8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325FA8)
 // 0x00325FA8 _$_27slf_beam_set_no_collision_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00325FA8(void *self) __asm__("_$_27slf_beam_set_no_collision_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00325FA8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326040)
 // 0x00326040 _$_23slf_beam_set_additive_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00326040(void *self) __asm__("_$_23slf_beam_set_additive_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00326040(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003260E8)
 // 0x003260E8 _$_29slf_beam_set_point_to_point_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_003260E8(void *self) __asm__("_$_29slf_beam_set_point_to_point_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_003260E8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326190)
 // 0x00326190 _$_22slf_beam_set_uv_anim_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00326190(void *self) __asm__("_$_22slf_beam_set_uv_anim_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00326190(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326240)
 // 0x00326240 _$_30slf_beam_set_tiles_per_meter_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00326240(void *self) __asm__("_$_30slf_beam_set_tiles_per_meter_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00326240(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003262D0)
 // 0x003262D0 _$_23slf_beam_set_material_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_003262D0(void *self) __asm__("_$_23slf_beam_set_material_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_003262D0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326370)
 // 0x00326370 _$_27slf_beam_add_color_effect_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00326370(void *self) __asm__("_$_27slf_beam_add_color_effect_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00326370(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003265E0)
 // 0x003265E0 _$_27slf_beam_add_width_effect_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_003265E0(void *self) __asm__("_$_27slf_beam_add_width_effect_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_003265E0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003267E8)
 // 0x003267E8 _$_27slf_beam_add_alpha_effect_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_003267E8(void *self) __asm__("_$_27slf_beam_add_alpha_effect_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_003267E8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326A00)
 // 0x00326A00 _$_22slf_beam_kill_effect_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00326A00(void *self) __asm__("_$_22slf_beam_kill_effect_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00326A00(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326AC8)
 // 0x00326AC8 _$_27slf_beam_kill_all_effects_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00326AC8(void *self) __asm__("_$_27slf_beam_kill_all_effects_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00326AC8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326B38)
 // 0x00326B38 __cl__27slf_beam_kill_all_effects_tR8vm_stackQ320script_library_class8function7entry_t
-#include "script_lib_beam_shared.h"
+#include "KS/SRC/script_lib_beam.h"
 bool slf_beam_kill_all_effects_t::operator()(vm_stack &stack, entry_t entry)
 {
     SLF_PARMS;
     parms->me->kill_all_effects((bool)parms->apply_target_vals);
     SLF_DONE;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326B88)
 // 0x00326B88 _$_17slf_create_beam_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00326B88(void *self) __asm__("_$_17slf_create_beam_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00326B88(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326D60)
 // 0x00326D60 _$_13slf_to_beam_t
 extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
 extern "C" void ScriptDtor_00326D60(void *self) __asm__("_$_13slf_to_beam_t");
 __asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
 void ScriptDtor_00326D60(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003262B0)
 // 0x003262B0 __cl__30slf_beam_set_tiles_per_meter_tR8vm_stackQ320script_library_class8function7entry_t
 struct vm_stack_layout { char padding[8]; char *top; };
 struct beam_layout { char padding[0x2a4]; float tiles_per_meter; };
 extern "C" bool BeamTilesOp(void *self, vm_stack_layout *stack, int entry) __asm__("__cl__30slf_beam_set_tiles_per_meter_tR8vm_stackQ320script_library_class8function7entry_t");
 bool BeamTilesOp(void *self, vm_stack_layout *stack, int entry) { stack->top -= 8; beam_layout *beam = *(beam_layout **)stack->top; beam->tiles_per_meter = *(float *)(stack->top + 4); return true; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326018)
 // 0x00326018 __cl__27slf_beam_set_no_collision_tR8vm_stackQ320script_library_class8function7entry_t
 struct vm_stack_layout { char padding[8]; char *top; };
 struct beam_layout { char padding[0x218]; unsigned int flags; };
 extern "C" bool BeamNoCollisionOp(void *self, vm_stack_layout *stack, int entry) __asm__("__cl__27slf_beam_set_no_collision_tR8vm_stackQ320script_library_class8function7entry_t");
 bool BeamNoCollisionOp(void *self, vm_stack_layout *stack, int entry) { stack->top -= 4; beam_layout *beam = *(beam_layout **)stack->top; beam->flags |= 0xc8; return true; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325AE8)
 // 0x00325AE8 __cl__24slf_beam_set_thickness_tR8vm_stackQ320script_library_class8function7entry_t
 class beam {
 public:
@@ -246,9 +191,7 @@ bool slf_beam_set_thickness_t::operator()(vm_stack &stack, entry_t entry) {
     parms->me->set_thickness(parms->thickness);
     SLF_DONE;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325B88)
 // 0x00325B88 __cl__25slf_beam_set_max_length_tR8vm_stackQ320script_library_class8function7entry_t
 class beam {
 public:
@@ -275,9 +218,7 @@ bool slf_beam_set_max_length_t::operator()(vm_stack &stack, entry_t entry) {
     parms->me->set_max_length(parms->length);
     SLF_DONE;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326340)
 // 0x00326340 __cl__23slf_beam_set_material_tR8vm_stackQ320script_library_class8function7entry_t
 class stringx;
 class beam {
@@ -305,9 +246,7 @@ bool slf_beam_set_material_t::operator()(vm_stack &stack, entry_t entry) {
     parms->me->set_texture(*parms->material);
     SLF_DONE;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326158)
 // 0x00326158 __cl__29slf_beam_set_point_to_point_tR8vm_stackQ320script_library_class8function7entry_t
 struct vector3d {
     float x;
@@ -367,9 +306,7 @@ bool slf_beam_set_point_to_point_t::operator()(
     parms->me->set_point_to_point(parms->start, parms->end);
     SLF_DONE;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003260B0)
 // 0x003260B0 __cl__23slf_beam_set_additive_tR8vm_stackQ320script_library_class8function7entry_t
 class beam {
     char padding[0x2b0];
@@ -392,9 +329,7 @@ bool slf_beam_set_additive_t::operator()(vm_stack &stack, entry_t entry)
     parms->me->set_additive(parms->torf != 0.0f);
     SLF_DONE;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326200)
 // 0x00326200 __cl__22slf_beam_set_uv_anim_tR8vm_stackQ320script_library_class8function7entry_t
 class vector2d { public: float x, y; vector2d(float a, float b) : x(a), y(b) {} vector2d& operator=(const vector2d& value) { x = value.x; y = value.y; return *this; } };
 class beam { char padding[0x28c]; vector2d uv_anim; public: void set_uv_anim(const vector2d& value) { uv_anim = value; } };
@@ -414,9 +349,7 @@ bool slf_beam_set_uv_anim_t::operator()(vm_stack &stack, entry_t entry)
     parms->me->set_uv_anim(uv);
     SLF_DONE;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003252D8)
 // 0x003252D8 __tf20slf_beam_hit_world_t
 #include "KS/SRC/rtti.h"
 
@@ -441,9 +374,7 @@ void **Rtti_003252D8()
     }
     return rtti_type_003252D8;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003254D8)
 // 0x003254D8 __tf19slf_beam_hit_hero_t
 #include "KS/SRC/rtti.h"
 
@@ -468,9 +399,7 @@ void **Rtti_003254D8()
     }
     return rtti_type_003254D8;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003256D8)
 // 0x003256D8 __tf27slf_beam_get_impact_point_t
 #include "KS/SRC/rtti.h"
 
@@ -495,9 +424,7 @@ void **Rtti_003256D8()
     }
     return rtti_type_003256D8;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003258B8)
 // 0x003258B8 __tf28slf_beam_get_impact_normal_t
 #include "KS/SRC/rtti.h"
 
@@ -522,9 +449,7 @@ void **Rtti_003258B8()
     }
     return rtti_type_003258B8;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325A98)
 // 0x00325A98 __tf24slf_beam_set_thickness_t
 #include "KS/SRC/rtti.h"
 
@@ -549,9 +474,7 @@ void **Rtti_00325A98()
     }
     return rtti_type_00325A98;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325B38)
 // 0x00325B38 __tf25slf_beam_set_max_length_t
 #include "KS/SRC/rtti.h"
 
@@ -576,9 +499,7 @@ void **Rtti_00325B38()
     }
     return rtti_type_00325B38;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325BD8)
 // 0x00325BD8 __tf20slf_beam_set_color_t
 #include "KS/SRC/rtti.h"
 
@@ -603,9 +524,7 @@ void **Rtti_00325BD8()
     }
     return rtti_type_00325BD8;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325CC8)
 // 0x00325CC8 __tf29slf_beam_set_detect_stealth_t
 #include "KS/SRC/rtti.h"
 
@@ -630,9 +549,7 @@ void **Rtti_00325CC8()
     }
     return rtti_type_00325CC8;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325D18)
 // 0x00325D18 __cl__29slf_beam_set_detect_stealth_tR8vm_stackQ320script_library_class8function7entry_t
 class beam {
     char padding[0x218];
@@ -691,9 +608,7 @@ bool slf_beam_set_detect_stealth_t::operator()(
         parms->me->set_beam_flag(beam::DETECTS_STEALTH);
     SLF_DONE;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325D88)
 // 0x00325D88 __tf27slf_beam_set_collide_hero_t
 #include "KS/SRC/rtti.h"
 
@@ -718,9 +633,7 @@ void **Rtti_00325D88()
     }
     return rtti_type_00325D88;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325DD8)
 // 0x00325DD8 __cl__27slf_beam_set_collide_hero_tR8vm_stackQ320script_library_class8function7entry_t
 class beam {
     char padding[0x218];
@@ -755,9 +668,7 @@ bool slf_beam_set_collide_hero_t::operator()(vm_stack &stack, entry_t entry) {
         parms->me->set_beam_flag(beam::NO_CLIP_TO_HERO);
     SLF_DONE;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325E48)
 // 0x00325E48 __tf28slf_beam_set_collide_world_t
 #include "KS/SRC/rtti.h"
 
@@ -782,9 +693,7 @@ void **Rtti_00325E48()
     }
     return rtti_type_00325E48;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325E98)
 // 0x00325E98 __cl__28slf_beam_set_collide_world_tR8vm_stackQ320script_library_class8function7entry_t
 class beam {
     char padding[0x218];
@@ -819,9 +728,7 @@ bool slf_beam_set_collide_world_t::operator()(vm_stack &stack, entry_t entry) {
         parms->me->set_beam_flag(beam::NO_CLIP_TO_WORLD);
     SLF_DONE;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325F08)
 // 0x00325F08 __tf31slf_beam_set_collide_beamable_t
 #include "KS/SRC/rtti.h"
 
@@ -846,9 +753,7 @@ void **Rtti_00325F08()
     }
     return rtti_type_00325F08;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325F58)
 // 0x00325F58 __cl__31slf_beam_set_collide_beamable_tR8vm_stackQ320script_library_class8function7entry_t
 class beam {
     char padding[0x218];
@@ -883,9 +788,7 @@ bool slf_beam_set_collide_beamable_t::operator()(vm_stack &stack, entry_t entry)
         parms->me->set_beam_flag(beam::NO_CLIP_TO_BEAMABLE);
     SLF_DONE;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325FC8)
 // 0x00325FC8 __tf27slf_beam_set_no_collision_t
 #include "KS/SRC/rtti.h"
 
@@ -910,9 +813,7 @@ void **Rtti_00325FC8()
     }
     return rtti_type_00325FC8;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326060)
 // 0x00326060 __tf23slf_beam_set_additive_t
 #include "KS/SRC/rtti.h"
 
@@ -937,9 +838,7 @@ void **Rtti_00326060()
     }
     return rtti_type_00326060;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326108)
 // 0x00326108 __tf29slf_beam_set_point_to_point_t
 #include "KS/SRC/rtti.h"
 
@@ -964,9 +863,7 @@ void **Rtti_00326108()
     }
     return rtti_type_00326108;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003261B0)
 // 0x003261B0 __tf22slf_beam_set_uv_anim_t
 #include "KS/SRC/rtti.h"
 
@@ -991,9 +888,7 @@ void **Rtti_003261B0()
     }
     return rtti_type_003261B0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326260)
 // 0x00326260 __tf30slf_beam_set_tiles_per_meter_t
 #include "KS/SRC/rtti.h"
 
@@ -1018,9 +913,7 @@ void **Rtti_00326260()
     }
     return rtti_type_00326260;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003262F0)
 // 0x003262F0 __tf23slf_beam_set_material_t
 #include "KS/SRC/rtti.h"
 
@@ -1045,9 +938,7 @@ void **Rtti_003262F0()
     }
     return rtti_type_003262F0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326390)
 // 0x00326390 __tf27slf_beam_add_color_effect_t
 #include "KS/SRC/rtti.h"
 
@@ -1072,9 +963,7 @@ void **Rtti_00326390()
     }
     return rtti_type_00326390;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326600)
 // 0x00326600 __tf27slf_beam_add_width_effect_t
 #include "KS/SRC/rtti.h"
 
@@ -1099,9 +988,7 @@ void **Rtti_00326600()
     }
     return rtti_type_00326600;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326808)
 // 0x00326808 __tf27slf_beam_add_alpha_effect_t
 #include "KS/SRC/rtti.h"
 
@@ -1126,9 +1013,7 @@ void **Rtti_00326808()
     }
     return rtti_type_00326808;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326A20)
 // 0x00326A20 __tf22slf_beam_kill_effect_t
 #include "KS/SRC/rtti.h"
 
@@ -1153,9 +1038,7 @@ void **Rtti_00326A20()
     }
     return rtti_type_00326A20;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326AE8)
 // 0x00326AE8 __tf27slf_beam_kill_all_effects_t
 #include "KS/SRC/rtti.h"
 
@@ -1180,9 +1063,7 @@ void **Rtti_00326AE8()
     }
     return rtti_type_00326AE8;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326BA8)
 // 0x00326BA8 __tf17slf_create_beam_t
 #include "KS/SRC/rtti.h"
 
@@ -1207,9 +1088,7 @@ void **Rtti_00326BA8()
     }
     return rtti_type_00326BA8;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326D80)
 // 0x00326D80 __tf13slf_to_beam_t
 #include "KS/SRC/rtti.h"
 
@@ -1234,9 +1113,7 @@ void **Rtti_00326D80()
     }
     return rtti_type_00326D80;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00326A70)
 // 0x00326A70 __cl__22slf_beam_kill_effect_tR8vm_stackQ320script_library_class8function7entry_t
 #include "KS/SRC/script_library_class.h"
 class beam { public: void kill_effect(unsigned short id, bool apply); };
@@ -1256,9 +1133,6 @@ bool slf_beam_kill_effect_t::operator()(
     );
     SLF_DONE;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00325C28)
 // 0x00325C28 __cl__20slf_beam_set_color_tR8vm_stackQ320script_library_class8function7entry_t
 struct vm_stack{int alloc;char*buffer;char*SP;};struct color32{unsigned char b,g,r,a;color32(unsigned char R,unsigned char G,unsigned char B,unsigned char A){r=R;g=G;b=B;a=A;}};struct beam{void set_beam_color(const color32&);};__asm__(".equ set_beam_color__4beamRC7color32,0x002717A0");struct slf{struct parms_t{beam*me;float r,g,b,a;};bool call(vm_stack&,int)__asm__("__cl__20slf_beam_set_color_tR8vm_stackQ320script_library_class8function7entry_t");};bool slf::call(vm_stack&stack,int entry){stack.SP-=sizeof(parms_t);parms_t*p=(parms_t*)stack.SP;p->me->set_beam_color(color32((unsigned char)p->r,(unsigned char)p->g,(unsigned char)p->b,(unsigned char)p->a));return true;}
-#endif
