@@ -1,0 +1,15 @@
+{
+  "address": "0x002E07D8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6ebfc6249b7ea9539bd52e077534d2ef1ba73302",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "if ( collide_segment_capsule_accurate_result(p0, p1, *cc, impact_pos) )\n    {\n      impact_normal = p0 - impact_pos;\n      impact_normal.normalize();\n      return true;\n    }\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "collide_segment_capsule_accurate_result__FRC8vector3dN30fR8vector3d"
+}
