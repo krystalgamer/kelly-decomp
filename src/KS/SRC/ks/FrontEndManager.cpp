@@ -1,102 +1,86 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_001990D8)
 // 0x001990D8 FEInitialized__Fv
 struct FEManagerState { char padding[0x15674]; bool fe_init; };
 extern FEManagerState frontendmanager;
 __asm__(".equ frontendmanager, 0x003E7728");
 bool FEInitialized() { return frontendmanager.fe_init; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00199150)
 // 0x00199150 FEDone__Fv
 struct FEManagerState { char padding[0x15678]; bool fe_done; };
 extern FEManagerState frontendmanager;
 __asm__(".equ frontendmanager, 0x003E7728");
 bool FEDone() { return frontendmanager.fe_done; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00199168)
 // 0x00199168 FEDoneLoading__Fv
 struct FEManagerState { char padding[0x1567C]; bool fe_done_loading; };
 extern FEManagerState frontendmanager;
 __asm__(".equ frontendmanager, 0x003E7728");
 bool FEDoneLoading() { return frontendmanager.fe_done_loading; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00199210)
 // 0x00199210 IGOIsPaused__Fv
 struct PauseMenuSystem { char padding[0x90]; bool draw; };
 extern PauseMenuSystem* frontend_pause_system;
 __asm__(".equ frontend_pause_system, 0x003E772C");
 bool IGOIsPaused() { return frontend_pause_system->draw; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001990F0)
 // 0x001990F0 FEInit__Fv
-class FEManager { public: void InitFE(); };
-extern FEManager frontendmanager;
+extern char frontendmanager[];
+extern "C" void init_frontend(void *self)
+    __asm__("InitFE__9FEManager");
 __asm__(".equ frontendmanager, 0x003E7728");
 __asm__(".equ InitFE__9FEManager, 0x00198938");
-void FEInit() { frontendmanager.InitFE(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+void FEInit() { init_frontend(frontendmanager); KELLY_DECOMP_COMPILER_BARRIER(); }
 
-#if defined(KELLY_DECOMP_FUNCTION_00199110)
 // 0x00199110 FEUpdate__Ff
-class FEManager { public: void UpdateFE(float time); };
-extern FEManager frontendmanager;
+extern char frontendmanager[];
+extern "C" void update_frontend(void *self, float time)
+    __asm__("UpdateFE__9FEManagerf");
 __asm__(".equ frontendmanager, 0x003E7728");
 __asm__(".equ UpdateFE__9FEManagerf, 0x00198E18");
-void FEUpdate(float time) { frontendmanager.UpdateFE(time); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+void FEUpdate(float time) { update_frontend(frontendmanager, time); KELLY_DECOMP_COMPILER_BARRIER(); }
 
-#if defined(KELLY_DECOMP_FUNCTION_00199130)
 // 0x00199130 FEDraw__Fv
-class FEManager { public: void DrawFE(); };
-extern FEManager frontendmanager;
+extern char frontendmanager[];
+extern "C" void draw_frontend(void *self)
+    __asm__("DrawFE__9FEManager");
 __asm__(".equ frontendmanager, 0x003E7728");
 __asm__(".equ DrawFE__9FEManager, 0x00198BC0");
-void FEDraw() { frontendmanager.DrawFE(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+void FEDraw() { draw_frontend(frontendmanager); KELLY_DECOMP_COMPILER_BARRIER(); }
 
-#if defined(KELLY_DECOMP_FUNCTION_00199180)
 // 0x00199180 FERelease__Fv
-class FEManager { public: void ReleaseFE(); };
-extern FEManager frontendmanager;
+extern char frontendmanager[];
+extern "C" void release_frontend(void *self)
+    __asm__("ReleaseFE__9FEManager");
 __asm__(".equ frontendmanager, 0x003E7728");
 __asm__(".equ ReleaseFE__9FEManager, 0x00198F10");
-void FERelease() { frontendmanager.ReleaseFE(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+void FERelease() { release_frontend(frontendmanager); KELLY_DECOMP_COMPILER_BARRIER(); }
 
-#if defined(KELLY_DECOMP_FUNCTION_001991A0)
 // 0x001991A0 IGOUpdate__Ff
-class FEManager { public: void UpdateIGO(float time); };
-extern FEManager frontendmanager;
+extern char frontendmanager[];
+extern "C" void update_igo_call(void *self, float time)
+    __asm__("UpdateIGO__9FEManagerf");
 __asm__(".equ frontendmanager, 0x003E7728");
 __asm__(".equ UpdateIGO__9FEManagerf, 0x00198E68");
-void IGOUpdate(float time) { frontendmanager.UpdateIGO(time); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+void IGOUpdate(float time) { update_igo_call(frontendmanager, time); KELLY_DECOMP_COMPILER_BARRIER(); }
 
-#if defined(KELLY_DECOMP_FUNCTION_001991C0)
 // 0x001991C0 IGODraw__Fv
-class FEManager { public: void DrawIGO(); };
-extern FEManager frontendmanager;
+extern char frontendmanager[];
+extern "C" void draw_igo_call(void *self)
+    __asm__("DrawIGO__9FEManager");
 __asm__(".equ frontendmanager, 0x003E7728");
 __asm__(".equ DrawIGO__9FEManager, 0x00198CC8");
-void IGODraw() { frontendmanager.DrawIGO(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+void IGODraw() { draw_igo_call(frontendmanager); KELLY_DECOMP_COMPILER_BARRIER(); }
 
-#if defined(KELLY_DECOMP_FUNCTION_00199220)
 // 0x00199220 IGORelease__Fv
-class FEManager { public: void ReleaseIGO(); };
-extern FEManager frontendmanager;
+extern char frontendmanager[];
+extern "C" void release_igo_call(void *self)
+    __asm__("ReleaseIGO__9FEManager");
 __asm__(".equ frontendmanager, 0x003E7728");
 __asm__(".equ ReleaseIGO__9FEManager, 0x00199070");
-void IGORelease() { frontendmanager.ReleaseIGO(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+void IGORelease() { release_igo_call(frontendmanager); KELLY_DECOMP_COMPILER_BARRIER(); }
 
-#if defined(KELLY_DECOMP_FUNCTION_001991E0)
 // 0x001991E0 IGOStandUp__Fv
 class IGOFrontEnd { public: void OnSurferStandUp(); };
 __asm__(".equ OnSurferStandUp__11IGOFrontEnd, 0x0017CB40");
@@ -104,9 +88,7 @@ struct FEManagerLayout { IGOFrontEnd *IGO; };
 extern FEManagerLayout frontendmanager;
 __asm__(".equ frontendmanager, 0x003E7728");
 void IGOStandUp() { frontendmanager.IGO->OnSurferStandUp(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001988C8)
 // 0x001988C8 OnLevelLoaded__9FEManager
 struct frontend_vtable {
     char padding[0x1E0];
@@ -120,25 +102,22 @@ struct beach_frontend_layout {
     frontend_vtable *vtable;
 };
 
-class FEManager {
+struct manager_level_layout {
     char padding[0x156A0];
     beach_frontend_layout *map;
-
-public:
-    void OnLevelLoaded();
 };
 
-void FEManager::OnLevelLoaded()
+extern "C" void manager_level_loaded(manager_level_layout *self)
+    __asm__("OnLevelLoaded__9FEManager");
+void manager_level_loaded(manager_level_layout *self)
 {
-    beach_frontend_layout *frontend = map;
+    beach_frontend_layout *frontend = self->map;
     frontend_vtable *table = frontend->vtable;
     table->on_level_loaded(
         (char *)frontend + table->adjustment
     );
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00198900)
 // 0x00198900 OnLevelEnding__9FEManager
 struct frontend_vtable {
     char padding[0x1E8];
@@ -152,25 +131,22 @@ struct beach_frontend_layout {
     frontend_vtable *vtable;
 };
 
-class FEManager {
+struct manager_level_layout {
     char padding[0x156A0];
     beach_frontend_layout *map;
-
-public:
-    void OnLevelEnding();
 };
 
-void FEManager::OnLevelEnding()
+extern "C" void manager_level_ending(manager_level_layout *self)
+    __asm__("OnLevelEnding__9FEManager");
+void manager_level_ending(manager_level_layout *self)
 {
-    beach_frontend_layout *frontend = map;
+    beach_frontend_layout *frontend = self->map;
     frontend_vtable *table = frontend->vtable;
     table->on_level_ending(
         (char *)frontend + table->adjustment
     );
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00198ED8)
 // 0x00198ED8 UpdateIGOScene__9FEManager
 class FEMenu;
 class FEManager;
@@ -214,21 +190,19 @@ public:
     virtual void Select(int, int);
 };
 
-class FEManager {
+struct manager_update_scene_layout {
     void *IGO;
     PauseMenuSystem *pms;
-
-public:
-    void UpdateIGOScene();
 };
 
-void FEManager::UpdateIGOScene()
+extern "C" void update_igo_scene(manager_update_scene_layout *self)
+    __asm__("UpdateIGOScene__9FEManager");
+void update_igo_scene(manager_update_scene_layout *self)
 {
-    if(pms->draw) pms->UpdateInScene();
+    if(self->pms->draw)
+        self->pms->UpdateInScene();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00198CC8)
 // 0x00198CC8 DrawIGO__9FEManager
 extern int g_igo_enabled;
 __asm__(".equ g_igo_enabled, 0x003E7720");
@@ -237,53 +211,46 @@ struct draw_slot {
 };
 struct igo_layout { char padding[0xc0]; char *vtable; };
 struct pause_layout { char padding[0x8c]; char *vtable; };
-class FEManager {
+struct manager_draw_igo_layout {
     igo_layout *IGO;
     pause_layout *pms;
-public:
-    void DrawIGO();
 };
-void FEManager::DrawIGO() {
+extern "C" void draw_manager_igo(manager_draw_igo_layout *self)
+    __asm__("DrawIGO__9FEManager");
+void draw_manager_igo(manager_draw_igo_layout *self) {
     if (g_igo_enabled) {
-        draw_slot *igo_slot=(draw_slot *)(IGO->vtable+0x20);
-        igo_slot->function((char *)IGO+igo_slot->adjustment);
-        draw_slot *pause_slot=(draw_slot *)(pms->vtable+0x38);
-        pause_slot->function((char *)pms+pause_slot->adjustment);
+        draw_slot *igo_slot=(draw_slot *)(self->IGO->vtable+0x20);
+        igo_slot->function((char *)self->IGO+igo_slot->adjustment);
+        draw_slot *pause_slot=(draw_slot *)(self->pms->vtable+0x38);
+        pause_slot->function((char *)self->pms+pause_slot->adjustment);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00199070)
 // 0x00199070 ReleaseIGO__9FEManager
 struct igo_vtable { char padding[8]; short adjustment; short reserved; void (*destroy)(void *, int); };
 struct IGOFrontEnd { char padding[192]; igo_vtable *vtable; };
 struct PauseMenuSystem { char padding[140]; igo_vtable *vtable; };
-class FEManager {
+struct manager_release_igo_layout {
     IGOFrontEnd *IGO;
     PauseMenuSystem *pms;
-public:
-    void ReleaseIGO();
 };
-void FEManager::ReleaseIGO()
+extern "C" void release_manager_igo(manager_release_igo_layout *self)
+    __asm__("ReleaseIGO__9FEManager");
+void release_manager_igo(manager_release_igo_layout *self)
 {
-    if (IGO) {
-        igo_vtable *table = IGO->vtable;
-        table->destroy((char *)IGO + table->adjustment, 3);
+    if (self->IGO) {
+        igo_vtable *table = self->IGO->vtable;
+        table->destroy((char *)self->IGO + table->adjustment, 3);
     }
-    IGO = 0;
-    if (pms) {
-        igo_vtable *table = pms->vtable;
-        table->destroy((char *)pms + table->adjustment, 3);
+    self->IGO = 0;
+    if (self->pms) {
+        igo_vtable *table = self->pms->vtable;
+        table->destroy((char *)self->pms + table->adjustment, 3);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00198E68)
 // 0x00198E68 UpdateIGO__9FEManagerf
 struct igo_vtable{char p0[24];short adjustment;short x0;void(*update)(void*,float);};struct igo{char p0[192];igo_vtable*vtable;};struct pms_vtable{char p0[40];short adjustment;short x0;void(*update)(void*,float);};struct pms{char p0[140];pms_vtable*vtable;};struct manager{igo*IGO;pms*pause;char p0[87712];int igo_enabled;};extern "C" void update_igo(manager*self,float dt) __asm__("UpdateIGO__9FEManagerf");void update_igo(manager*self,float dt){if(self->igo_enabled){igo*i=self->IGO;igo_vtable*t=i->vtable;t->update((char*)i+t->adjustment,dt);}pms*p=self->pause;pms_vtable*t=p->vtable;t->update((char*)p+t->adjustment,dt);}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00198850)
 // 0x00198850 ReloadTextures__9FEManager
 struct map_vtable{char p0[400];short panel_adjust;short x0;void(*reload_panel)(void*);char p1[56];short map_adjust;short x1;void(*reload_map)(void*);};struct map{char p0[116];map_vtable*vtable;};struct help_vtable{char p0[72];short adjustment;short x0;void(*reload)(void*);};struct helpbar{char p0[192];help_vtable*vtable;};struct manager{char p0[87712];map*map_ptr;helpbar*help;};extern "C" void reload_fonts(manager*) __asm__("ReloadFontTextures__9FEManager");__asm__(".equ ReloadFontTextures__9FEManager,0x00198758");extern "C" void reload(manager*self) __asm__("ReloadTextures__9FEManager");void reload(manager*self){reload_fonts(self);register map*m __asm__("$5")=self->map_ptr;register map_vtable*t __asm__("$2")=m->vtable;register int adj __asm__("$4")=t->panel_adjust;register void(*fn)(void*) __asm__("$3")=t->reload_panel;fn((char*)m+adj);m=self->map_ptr;t=m->vtable;adj=t->map_adjust;fn=t->reload_map;fn((char*)m+adj);helpbar*h=self->help;help_vtable*u=h->vtable;u->reload((char*)h+u->adjustment);}
-#endif

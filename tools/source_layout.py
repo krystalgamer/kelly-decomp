@@ -83,6 +83,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/FEPanel.h": "KS/SRC/ks/FEPanel_methods.cpp",
     "KS/SRC/ks/FEMenu.h": "KS/SRC/ks/FEMenu_methods.cpp",
     "KS/SRC/ks/FrontEndMenus.h": "KS/SRC/ks/FrontEndMenus_methods.cpp",
+    "KS/SRC/ks/FrontEndManager.h": "KS/SRC/ks/FrontEndManager_rtti.cpp",
     "KS/SRC/ks/GraphicalMenuSystem.h":
         "KS/SRC/ks/GraphicalMenuSystem_methods.cpp",
     "KS/SRC/ks/CheatFrontEnd.h": "KS/SRC/ks/CheatFrontEnd_methods.cpp",

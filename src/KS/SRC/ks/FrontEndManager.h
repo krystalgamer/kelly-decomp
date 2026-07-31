@@ -1,11 +1,37 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef FEMANAGER_H
+#define FEMANAGER_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_001DE5F8)
-// 0x001DE5F8 __tf9FEManager
-extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
-extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
-asm(".equ typeinfo, 0x005120A0"); asm(".equ type_name, 0x004DE120");
-extern "C" void *GetTypeInfo() __asm__("__tf9FEManager");
-void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
+#include "KS/SRC/ks/FEEntityManager.h"
+#include "KS/SRC/ks/FEMenu.h"
+#include "KS/SRC/ks/HelpbarFE_shared.h"
+
+class IGOFrontEnd;
+class PauseMenuSystem;
+class GraphicalMenuSystem;
+class BeachFrontEnd;
+
+class FEManager {
+public:
+    IGOFrontEnd *IGO;
+    PauseMenuSystem *pms;
+    GraphicalMenuSystem *gms;
+    FEEntityManager *em;
+    char manager_context_before_loading[0x1567c - 0x10];
+    bool fe_done_loading;
+    char manager_context_after_loading[0x20];
+    BeachFrontEnd *map;
+    HelpbarFE *helpbar;
+
+    FEManager();
+    virtual ~FEManager();
+    void UpdateFE(time_value_t time_inc);
+};
+
+extern FEManager frontendmanager;
+
+__asm__(".equ frontendmanager, 0x003E7728");
+__asm__(".equ LoadAll__15FEEntityManager, 0x001C56E0");
+
 #endif

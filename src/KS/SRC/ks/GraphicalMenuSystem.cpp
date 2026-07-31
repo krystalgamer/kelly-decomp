@@ -310,7 +310,8 @@ void HelpbarFE::SetPQIndices()
 }
 
 // 0x001BE630 LoadAll__19GraphicalMenuSystem
-#include "KS/SRC/ks/FrontEndManager_shared.h"
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
+#include "KS/SRC/ks/FrontEndManager.h"
 
 void GraphicalMenuSystem::LoadAll()
 {
