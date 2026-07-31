@@ -1,0 +1,16 @@
+{
+  "address": "0x00287078",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "82bb7ebd207e5ec2f958f52100e3c4969a8ca529",
+      "error": "Candidate did not emit PlayAllUnlockedMovies__4game; emitted functions: []",
+      "notes": "The symbol has no directly extractable released definition under its linked spelling, or its preprocessor branches prevent a safe standalone extraction.",
+      "score": 0.0,
+      "source": "/*\nThe symbol has no directly extractable released definition under its linked spelling, or its preprocessor branches prevent a safe standalone extraction.\nThis first-pass candidate intentionally compiles only the available canonical source context.\n*/\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "PlayAllUnlockedMovies__4game"
+}
