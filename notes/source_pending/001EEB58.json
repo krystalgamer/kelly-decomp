@@ -1,0 +1,15 @@
+{
+  "address": "0x001EEB58",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0db21a5dc010741050775950e6714efd552a1c64",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/board.h\"\n\nbool SurfBoardObjectClass::check_entity_grind (entity *ent)\n{\n  entity *board = ((conglomerate *)my_board_model)->get_member(\"BOARD\");\n  cg_mesh *colgeom;\n  vector3d p1, p2;\n  cface hit_face;\n  int vert_idx, next_idx, half_idx;\n\n  colgeom = (cg_mesh *) (ent->get_colgeom());\n\n  if (colgeom == NULL)\n    return false;\n\n  hit_list.clear ();\n\n  if (!g_world_ptr->entity_entity_collision_check (board, ent, 0, &hit_face))\n    return false;\n\n  half_idx = colgeom->get_num_verts () / 2 - 1;\n\n  // see this function for some bad hacks and excuses... I mean... explanations\n  fing_grind_cface (colgeom, &hit_face);\n\n  if (hit_face.get_vert_ref (0) <= half_idx)\n  {\n    vert_idx = hit_face.get_vert_ref(0);\n\n    if (hit_face.get_vert_ref (1) <= half_idx)\n      next_idx = hit_face.get_vert_ref (1);\n    else\n      next_idx = hit_face.get_vert_ref (2);\n  }\n  else\n  {\n    vert_idx = hit_face.get_vert_ref (1);\n    next_idx = hit_face.get_vert_ref (2);\n  }\n\n  p1 = ent->get_abs_po ().slow_xform (colgeom->get_raw_vert_ptr (vert_idx)->get_point ());\n  p2 = ent->get_abs_po ().slow_xform (colgeom->get_raw_vert_ptr (next_idx)->get_point ());\n\n  grind_vector = p2 - p1;\n\n  if (dot (grind_vector, rb->linMom - current) < 0)\n  {\n    vector3d swap = p1;\n    int i = vert_idx;\n\n    p1 = p2;\n    p2 = swap;\n\n    vert_idx = next_idx;\n    next_idx = i;\n\n    grind_vector = p2 - p1;\n  }\n\n  grind_vector.normalize ();\n\n  grind_idx = vert_idx;\n  if (next_idx > vert_idx)\n    grind_forward = true;\n  else\n    grind_forward = false;\n\n  grind_percent = 0;\n  grind_speed = rb->linMom.length ();\n\n  if (grind_speed < 0.1)\n    grind_speed = 0.1;\n  else if (grind_speed > 0.8)\n    grind_speed = 0.8;\n\n  return true;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "check_entity_grind__20SurfBoardObjectClassP6entity"
+}
