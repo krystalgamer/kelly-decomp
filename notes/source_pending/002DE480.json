@@ -1,0 +1,15 @@
+{
+  "address": "0x002DE480",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "99ce28b46ed0b5c01b2625c94b7072ff48dd9243",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "if ( collide_sphere_polygon( p, r, &f, m, tp ) )\n          {\n            // use the closest one\n            rational_t d = ( p - tp ).length2();\n            if ( d < mind )\n            {\n              mind = d;\n              hit_loc = tp;\n              hit = true;\n            }\n          }\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "collide_sphere_polygon__FRC8vector3dfPC5cfacePC7cg_meshR8vector3d"
+}
