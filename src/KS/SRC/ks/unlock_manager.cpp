@@ -3,7 +3,7 @@
 #if defined(KELLY_DECOMP_FUNCTION_002F0620)
 #include "KS/SRC/ks/cheat_shared.h"
 #include "KS/SRC/ks/GlobalData.h"
-#include "KS/SRC/ks/unlock_manager_shared.h"
+#include "KS/SRC/ks/unlock_manager.h"
 // 0x002F0620 isSurferMovieUnlocked__C16UnlockingManageri
 bool UnlockingManager::isSurferMovieUnlocked(int surfer) const
 {

@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_UNLOCK_MANAGER_SHARED_H
-#define KELLY_DECOMP_UNLOCK_MANAGER_SHARED_H
+#ifndef UNLOCK_MANAGER_H
+#define UNLOCK_MANAGER_H
 
 class UnlockingManager {
 public:
