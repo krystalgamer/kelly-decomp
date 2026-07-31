@@ -33,7 +33,7 @@ struct TextVtable{char pad[8];short adjust;short z;void(*destroy)(void*,int);};s
 
 #if defined(KELLY_DECOMP_FUNCTION_001661E0)
 // 0x001661E0 Init__20SkillChallengeWidgetR9PanelFileP4FontT2RC7color32T4
-#include "KS/SRC/ks/igo_widget_skillchallenge_shared.h"
+#include "KS/SRC/ks/igo_widget_skillchallenge.h"
 
 void SkillChallengeWidget::Init(
     PanelFile &panel,

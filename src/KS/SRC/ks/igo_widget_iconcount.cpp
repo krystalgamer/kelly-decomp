@@ -33,7 +33,7 @@ struct TextVtable{char pad[8];short adjust;short z;void(*destroy)(void*,int);};s
 
 #if defined(KELLY_DECOMP_FUNCTION_0016D6D0)
 // 0x0016D6D0 Init__15IconCountWidgetR9PanelFileP4FontT2RC7color32T4
-#include "KS/SRC/ks/igo_widget_iconcount_shared.h"
+#include "KS/SRC/ks/igo_widget_iconcount.h"
 
 extern const char iconmeter_name[];
 __asm__(".equ iconmeter_name, 0x004C1460");

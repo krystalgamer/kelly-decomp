@@ -121,6 +121,10 @@ IMPLEMENTATION_OVERRIDES = {
         "KS/SRC/ks/ExtrasFrontEnd_methods.cpp",
     "KS/SRC/ks/FEPanel.h": "KS/SRC/ks/FEPanel_methods.cpp",
     "KS/SRC/ks/FEMenu.h": "KS/SRC/ks/FEMenu_methods.cpp",
+    "KS/SRC/ks/igo_widget_iconcount.h":
+        "KS/SRC/ks/igo_widget_iconcount.cpp",
+    "KS/SRC/ks/igo_widget_skillchallenge.h":
+        "KS/SRC/ks/igo_widget_skillchallenge.cpp",
     "KS/SRC/ks/FrontEndMenus.h": "KS/SRC/ks/FrontEndMenus_methods.cpp",
     "KS/SRC/ks/FrontEndManager.h": "KS/SRC/ks/FrontEndManager_rtti.cpp",
     "KS/SRC/ks/GraphicalMenuSystem.h":
