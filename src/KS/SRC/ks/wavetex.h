@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_WAVETEX_SHARED_H
-#define KELLY_DECOMP_WAVETEX_SHARED_H
+#ifndef WAVETEX_H
+#define WAVETEX_H
 
 bool mem_malloc_locked();
 void mem_lock_malloc(bool locked);

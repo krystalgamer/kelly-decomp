@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_MODE_TIMEATTACK_SHARED_H
-#define KELLY_DECOMP_MODE_TIMEATTACK_SHARED_H
+#ifndef MODE_TIMEATTACK_H
+#define MODE_TIMEATTACK_H
 
 class kellyslater_controller;
 
