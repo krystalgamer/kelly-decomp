@@ -1,0 +1,15 @@
+{
+  "address": "0x00263B88",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9146ca980cedf677aea85dbcf8cf58c5dadfe295",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/dxt1_imagedxt1.h\"\n\nvoid ImageDXTC::CompressDXT1(DXT1Color * imagePixels, const int imageWidth, const int imageHeight, unsigned short * destBlocks)\n{\n\tint\t\t\tx, y;\n\tunsigned short\t*pDest;\n\tDXT1Color\t\t*pSrc;\n\tCodeBook\t\tcb, cb2, dcb, dcb2;\n\tDXT1Color\t\t*pSrcPix, C, C2;\n\tint\t\t\txx, yy, AlphaCount;\n\tDXTCGen\t\t\tGQuant;\n\n\tXSize = imageWidth;\n\tYSize = imageHeight;\n\t\n\tcb.SetCount(16);\n\tcb2.SetSize(16);\n\n\tpSrc = imagePixels;\n\tpDest = destBlocks;\n\tfor(y=0; y<YSize; y+=4)\n\t{\n\t\tfor(x=0; x<XSize; x+=4)\n\t\t{\t\n\t\t\t// Compute a unique color list for the block\n\t\t\tcb2.SetCount(0);\n\t\t\tAlphaCount = 0;\n\t\t\tpSrcPix = pSrc;\n\t\t\tfor(yy=0; yy<4; yy++)\n\t\t\t{\n\t\t\t\tfor(xx=0; xx<4; xx++)\n\t\t\t\t{\n\t\t\t\t\tC.Col = pSrcPix[xx].Col & Mask0565;\n\t\t\t\t\t\n\t\t\t\t\tC.a = 0x00;\n\t\t\t\t\tcb[yy*4 + xx] = *(cbVector *)&C;\n\t\t\t\t\tcb2.AddVector( *(cbVector *)&C );\n\t\t\t\t}\n\t\t\t\tpSrcPix += XSize;\n\t\t\t}\n\t\t\t\n\t\t\tswitch(cb2.GetNumCodes())\n\t\t\t{\n\t\t\tcase 1:\n\t\t\t\tC.Col = *(int *)&cb2[0];\n\t\t\t\tEmit1ColorBlock(pDest, C);\n\t\t\t\tbreak;\n\t\t\t\t\n\t\t\tcase 2:\n\t\t\t\tC = *((DXT1Color *)&cb2[0]);\n\t\t\t\tC2 = *((DXT1Color *)&cb2[1]);\n\t\t\t\tEmit2ColorBlock(pDest, C, C2, pSrc);\n\t\t\t\tbreak;\n\t\t\t\t\n\t\t\tdefault:\n\t\t\t\tint e3, e4;\n\t\t\t\t\n\t\t\t\te3 = GQuant.Execute3(cb2, cb, dcb);\n\t\t\t\te4 = GQuant.Execute4(cb2, cb, dcb2);\n\t\t\t\t\n\t\t\t\tif(e3 < e4)\n\t\t\t\t\tEmitMultiColorBlock3(pDest, dcb, pSrc);\n\t\t\t\telse\n\t\t\t\t\tEmitMultiColorBlock4(pDest, dcb2, pSrc);\n\t\t\t\tbreak;\n\t\t\t}\n\t\t\t\n\t\t\tpDest += 4;\n\t\t\tpSrc += 4;\n\t\t}\n\t\tpSrc += XSize*3;\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "CompressDXT1__9ImageDXTCP9DXT1ColoriiPUs"
+}
