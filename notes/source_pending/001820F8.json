@@ -1,0 +1,15 @@
+{
+  "address": "0x001820F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e850df5545b77c69bbd62cf6de82cddc69572bae",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/MainFrontEnd.h\"\n\nvoid MainFrontEnd::OnActivate()\n{\n\tmanager->em->ToMainScreen();\n\tmanager->em->ResumeCameraRoll();\n\tOptions->setPQMain(false, true);\n\tFEMenu* ac_before = active;\n\n\t// if Freesurf or Multiplayer were the last active menus before another screen\n\t// was activated (SurferMenu) then re-activate them\n\tif(active && active != Options && active->menu_num != manager->gms->active)\n\t\tMakeActive((FEGraphicalMenu*) active);\n\telse\n\t{\n\t\tFEMultiMenu::OnActivate();\n\t\tif(sys->active == GraphicalMenuSystem::ExtrasMenu)\n\t\t\tsetHigh(entry_list[MainExtrasEntry]);\n\t\telse\n\t\t{\n\t\t\t// if previous active was Options, highlight options entry\n\t\t\tif(ac_before == Options)\n\t\t\t\tsetHigh(entry_list[MainOpEntry]);\n\t\t\telse if (returnToHighlighted != -1)\n\t\t\t{\n\t\t\t\thighlighted = entry_list[MainCareerEntry];\n\t\t\t\treturnToHighlighted = -1;\n\t\t\t}\n\t\t\telse\n\t\t\t{\n\t\t\t\tswitch(manager->tmp_game_mode)\n\t\t\t\t{\n\t\t\t\tcase GAME_MODE_CAREER: setHigh(entry_list[MainCareerEntry]); break;\n\t\t\t\tcase GAME_MODE_FREESURF_INFINITE:\n\t\t\t\tcase GAME_MODE_FREESURF_HIGHSCORE:\n\t\t\t\tcase GAME_MODE_FREESURF_ICON:\tsetHigh(entry_list[MainFreeEntry]); break;\n\t\t\t\tcase GAME_MODE_TIME_ATTACK:\n\t\t\t\tcase GAME_MODE_HEAD_TO_HEAD:\n\t\t\t\tcase GAME_MODE_PUSH: setHigh(entry_list[MainMultiEntry]); break;\n\t\t\t\tdefault: break;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tUpdateHighlight();\n\n\t\t// if we go all the way back to main screen, then the mode might change, so \n\t\t// we'll need to re-find the proper beach\n\t\t((BeachFrontEnd*) sys->menus[GraphicalMenuSystem::BeachMenu])->ResetFirstTime();\n\t}\n\n\tentry_list[MainFreeEntry]->SetNoFlash(true);\n\tentry_list[MainMultiEntry]->SetNoFlash(true);\n\tentry_list[MainCareerEntry]->SetNoFlash(true);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "OnActivate__11OptionsMenu"
+}
