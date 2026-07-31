@@ -1,0 +1,15 @@
+{
+  "address": "0x0037F490",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b51469992a18756f43e5d140a7ae58beb3e9b6e8",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/wavetex.h\"\n\nvoid WAVETEX_UpdateSunCamPos( void )\n{\n\t//nglVector &SunPos=WAVETEX_GetSunPos();\n\tentity* ent;\n\tvector3d look_at;\n\tvector3d from;\n\n\tent= ((conglomerate *)g_world_ptr->get_ks_controller(g_game_ptr->get_active_player())->GetBoardModel())->get_member(\"BOARD\");\n\tlook_at=ent->get_obj_pos();\n\tfrom=ent->get_obj_pos(); //vector3d(WAVETEX_SunPos[0],WAVETEX_SunPos[1],WAVETEX_SunPos[2]);\n\tfrom += WAVETEX_ProjectShadowOff;\n\n\n\tent = g_world_ptr->get_ks_controller(g_game_ptr->get_active_player())->get_owner();\n\tvector3d look_at2;\n\tlook_at2=ent->get_obj_pos();\n\tlook_at=(look_at + look_at2 ) / 2.0f;\n\tfrom=ent->get_obj_pos(); //vector3d(WAVETEX_SunPos[0],WAVETEX_SunPos[1],WAVETEX_SunPos[2]);\n\tfrom += WAVETEX_ProjectShadowOff;\n\tWAVETEX_suntoent[3][0]=from[0];\n\tWAVETEX_suntoent[3][1]=from[1];\n\tWAVETEX_suntoent[3][2]=from[2];\n\tWAVETEX_suntoent[3][3]=1.0f;\n\tgeometry_manager::inst()->set_look_at( &WAVETEX_suntoent, from, look_at, WAVETEX_up );\n\n\tent= ((conglomerate *)g_world_ptr->get_ks_controller(g_game_ptr->get_active_player())->GetBoardModel())->get_member(\"BOARD\");\n\tlook_at=ent->get_obj_pos();\n\tfrom=ent->get_obj_pos(); //vector3d(WAVETEX_SunPos[0],WAVETEX_SunPos[1],WAVETEX_SunPos[2]);\n\tfrom += WAVETEX_ProjectShadowOff;\n\tWAVETEX_suntobrd[3][0]=from[0];\n\tWAVETEX_suntobrd[3][1]=from[1];\n\tWAVETEX_suntobrd[3][2]=from[2];\n\tWAVETEX_suntobrd[3][3]=1.0f;\n\tgeometry_manager::inst()->set_look_at( &WAVETEX_suntobrd, from, look_at, WAVETEX_up );\n\n\tif (presetfov)\n\t{\n  \tshadowfov=proj_field_of_view_in_degrees();\n\t}\n\tif ( presetsize )\n\t{\n\t\tif ( presetsize32 )\n\t\t{\n\t\t\tperspsw=shadowtexw/2;\n\t\t\tperspsh=shadowtexh/2;\n\t\t}\n\t\telse\n\t\t{\n\t\t\tperspsw=nglGetScreenWidth()/2;\n\t\t\tperspsh=nglGetScreenHeight()/2;\n\t\t}\n\t}\n\n\tmemcpy(&WAVETEX_suntolit,&WAVETEX_suntobrd,sizeof(WAVETEX_suntobrd));\n\tif ( shadowwtf )\n\t{\n\t\tWAVETEX_suntolit[3][0]=from[0];\n\t\tWAVETEX_suntolit[3][1]=from[1];\n\t\tWAVETEX_suntolit[3][2]=from[2];\n\t}\n\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WAVETEX_UpdateSunCamPos__Fv"
+}
