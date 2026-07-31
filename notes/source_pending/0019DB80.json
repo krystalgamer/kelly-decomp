@@ -1,0 +1,15 @@
+{
+  "address": "0x0019DB80",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cb7ead2c3cb658397b011035df9bbbdd6f42f534",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/SaveLoadFrontEnd.h\"\n\nNamesMenu::NamesMenu(FEMenuSystem* s, FEManager* man, stringx p, stringx pf)\n{\n\tcons(s, man, p, pf);\n\tdy = 25;  // down from normal 28 in FEMenu\n\tcolor = frontendmanager.col_unselected;\n\tcolor_high = frontendmanager.col_highlight;\n\tcolor_high_alt = frontendmanager.col_highlight2;\n\tflags |= FEMENU_HAS_COLOR_HIGH_ALT | FEMENU_SCROLLING;\n\tscale = scale_high = 1.0f;\t//0.78f;\n\tFont* f = &system->manager->font_info;\n\tmax_vis_entries = 10;\n\n\tcardSide = true;\n\tfreeSpace = NEW BoxText(&system->manager->font_bold, \"\", 235, 285, 300, .666, Font::HORIZJUST_RIGHT, Font::VERTJUST_CENTER, frontendmanager.col_info_b, 10);\n\tMakeSpaceFreeMessage(0);\n\n\tblank_name = \"- \"+ksGlobalTextArray[GT_FE_MENU_BLANK]+\" -\";\n\tblank_name.to_lower();\n\n\tcenter_x = 260;\n\tcenter_y = 165;\n\tdy = 18;\n\n\t// first <num> entries are the saved games\n\tfor(int i=0; i<num; i++)\n\t{\n\t\tentry[i] = NEW FEMenuEntry(blank_name, this);\n\t\tentry[i]->SetZ(440);\n\t\tentry[i]->SetFont(f);\n\t\tentry[i]->SetPos(center_x, center_y+dy*i);\n\t\tentry[i]->SetHJustify(Font::HORIZJUST_LEFT);\n\t\tempty[i] = true;\n\t\tAdd(entry[i]);\n\t}\n\n\t// beyond that entries represent all the supported memory cards\n\tfor(int i=0; i<NUMCARDS; i++)\n\t{\n\t\tint active = NamesMenu::FindActive(i);\n\n\t\tentry[i+num] = NEW FEMenuEntry(MakeCardName(active), this);\n\t\tentry[i+num]->SetLineSpacing(f->getGlyph('A')->cell_height);\n\t\tentry[i+num]->SetFont(&manager->font_thin);\n\t\tentry[i+num]->SetPos(375, 132);\n\t\tentry[i+num]->SetSpecialScale(0.78f, 0.78f);\n\t\tAdd(entry[i+num]);\n\t\tcards[i].exists = false;\n\t\tcards[i].changed = false;\n\t\tcards[i].available = true;\n\t\tcards[i].saved_games = false;\n\t\tcards[i].status = GSErrorOther;\n\t}\n\n\n\tfor(int i=0; i<num; i++)\n\t{\n\t\tif(i == 0)\t\tentry[i]->up = entry[num-1];\n\t\telse\t\t\tentry[i]->up = entry[i-1];\n\t\tif(i == num-1)\tentry[i]->down = entry[0];\n\t\telse\t\t\tentry[i]->down = entry[i+1];\n\t}\n\tfor(int i=num; i<NUMCARDS+num; i++)\n\t{\n\t\tif(i == num)\tentry[i]->left = entry[num+NUMCARDS-1];\n\t\telse\t\t\tentry[i]->left = entry[i-1];\n\t\tif(i == num+NUMCARDS-1)\tentry[i]->right = entry[num];\n\t\telse\t\t\tentry[i]->right = entry[i+1];\n\t}\n\t\n\tcheck_cards_counter = 0;\n\tarrow_counter = -5;\n\tmessage = NEW BoxText(&system->manager->font_info, \"\", 260, 185, 300, scale, Font::HORIZJUST_LEFT, Font::VERTJUST_CENTER, frontendmanager.col_info_b, 10);\n\tResetCardFormat();\n\tdraw_message = false;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__9NamesMenuP12FEMenuSystemP9FEManagerG7stringxT3"
+}
