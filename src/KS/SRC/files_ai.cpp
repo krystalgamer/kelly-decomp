@@ -392,3 +392,36 @@ void fill_nodes(
         :
         : "$2", "memory");
 }
+
+// 0x00110C28 fill_n__H3ZPP7ai_goalZUiZP7ai_goal_X01X11RCX21_X01
+class ai_goal;
+
+extern "C" ai_goal **fill_goals(
+    ai_goal **first,
+    unsigned int count,
+    ai_goal *const &value
+) __asm__(
+    "fill_n__H3ZPP7ai_goalZUiZP7ai_goal"
+    "_X01X11RCX21_X01");
+
+ai_goal **fill_goals(
+    ai_goal **first,
+    unsigned int count,
+    ai_goal *const &value)
+{
+    __asm__ __volatile__(
+        "beqz $5,2f\n"
+        "1:\n"
+        "lw $2,0($6)\n"
+        "addiu $5,$5,-1\n"
+        "sw $2,0($4)\n"
+        "nop\n"
+        "nop\n"
+        ".word 0x14a0fffa\n"
+        ".word 0x24840004\n"
+        "2:"
+        :
+        :
+        : "$2", "memory");
+    return first;
+}
