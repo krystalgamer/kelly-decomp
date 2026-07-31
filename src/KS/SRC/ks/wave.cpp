@@ -1,7 +1,7 @@
 // Matching decompilation blocks selected by generated build shims.
 
 // 0x00373328 Save__12KSWaterState
-#include "KS/SRC/ks/KSWaterState_shared.h"
+#include "KS/SRC/ks/wave.h"
 
 void KSWaterState::Save()
 {
