@@ -1,0 +1,15 @@
+{
+  "address": "0x0018E788",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "90351eb60bed9557f79c72900a6d4ca065be4759",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/BeachFrontEnd.h\"\n\nvoid BeachFrontEnd::UpdateInScene()\n{\n\tif(in_frontend && manager->em->OKtoDrawBeachSelect() && !offset_set)\n\t\tSetOffset();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Update__13BeachFrontEndf"
+}
