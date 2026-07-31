@@ -1,0 +1,15 @@
+{
+  "address": "0x0025E508",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "299c1c2db03db80ab3c49357fa6d14e08ed142d9",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/trickdata.h\"\n\nvoid TRICKDATA_LoadButtons(void)\n{\n\n    button_map buttons[19];\n\n    buttons[0].str=\"PAD_U\"; buttons[0].button=PAD_U;\n    buttons[1].str=\"PAD_D\"; buttons[1].button=PAD_D;\n    buttons[2].str=\"PAD_L\"; buttons[2].button=PAD_L;\n    buttons[3].str=\"PAD_R\"; buttons[3].button=PAD_R;\n    buttons[4].str=\"PAD_UL\"; buttons[4].button=PAD_UL;\n    buttons[5].str=\"PAD_UR\"; buttons[5].button=PAD_UR;\n    buttons[6].str=\"PAD_DL\"; buttons[6].button=PAD_DL;\n    buttons[7].str=\"PAD_DR\"; buttons[7].button=PAD_DR;\n    buttons[8].str=\"PAD_CIRCLE\"; buttons[8].button=PAD_CIRCLE;\n    buttons[9].str=\"PAD_CROSS\"; buttons[9].button=PAD_CROSS;\n    buttons[10].str=\"PAD_TRIANGLE\"; buttons[10].button=PAD_TRIANGLE;\n    buttons[11].str=\"PAD_SQUARE\"; buttons[11].button=PAD_SQUARE;\n    buttons[12].str=\"PAD_L1\"; buttons[12].button=PAD_L1;\n    buttons[13].str=\"PAD_L2\"; buttons[13].button=PAD_L2;\n    buttons[14].str=\"PAD_R1\"; buttons[14].button=PAD_R1;\n    buttons[15].str=\"PAD_R2\"; buttons[15].button=PAD_R2;\n    buttons[16].str=\"PAD_NONE\"; buttons[16].button=PAD_NONE;\n    buttons[17].str=\"PAD_RELEASE\"; buttons[17].button=PAD_RELEASE;\n    buttons[18].str=\"PAD_LAUNCH\"; buttons[18].button=PAD_LAUNCH;\n\n    for (int n = 0; n < TRICK_NUM; n++)\n    {\n         for (int m = 0; m < ((signed) countof(buttons)); m++)\n         {\n              if (GTrickList[n].button1_string == buttons[m].str)\n                   GTrickList[n].button1 = buttons[m].button;\n\n              if (GTrickList[n].button2_string == buttons[m].str)\n                   GTrickList[n].button2 = buttons[m].button;\n\n              if (GTrickList[n].button3_string == buttons[m].str)\n                   GTrickList[n].button3 = buttons[m].button;\n         }\n    }\n\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "TRICKDATA_LoadButtons__Fv"
+}
