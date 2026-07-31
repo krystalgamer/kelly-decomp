@@ -1,0 +1,15 @@
+{
+  "address": "0x001CE2A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bdee7e8177184adffdd81510577146d833c23967",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/PhotoFrontEnd.h\"\n\nPhotoSelectMenu::PhotoSelectMenu(FEMenuSystem* s, FEManager* man)\n{\n\tFont *\t\t\tfont;\n\tFEMenuEntry *\tphoto1, *photo2, *photo3;\n\t\n\tcons(s, man, \"\", \"\");\n\t//flags |= FEMENU_1_ENTRY_SHOWN | FEMENU_DONT_SKIP_DISABLED;\n\tfont = &manager->font_info;\n\n\tarrowPQs[0][0] = NULL;\n\tarrowPQs[0][1] = NULL;\n\tarrowPQs[1][0] = NULL;\n\tarrowPQs[1][1] = NULL;\n\thighlightPQs[0] = NULL;\n\thighlightPQs[1] = NULL;\n\thighlightPQs[2] = NULL;\n\ttitle = NULL;\n\n\t// Create first photo entry.\n\tphoto1 = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_PHOTO_PICK], this, false, font);\n\tphoto1->SetPos(170, 320);\n\tAdd(photo1);\n\n\t// Create second photo entry.\n\tphoto2 = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_PHOTO_PICK], this, false, font);\n\tphoto2->SetPos(320, 320);\n\tAdd(photo2);\n\n\t// Create third photo entry.\n\tphoto3 = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_PHOTO_PICK], this, false, font);\n\tphoto3->SetPos(470, 320);\n\tAdd(photo3);\n\n\tphoto1->left = photo3;\n\tphoto1->right = photo2;\n\tphoto1->up = photo1;\n\tphoto1->down = photo1;\n\tphoto2->left = photo1;\n\tphoto2->right = photo3;\n\tphoto2->up = photo2;\n\tphoto2->down = photo2;\n\tphoto3->left = photo2;\n\tphoto3->right = photo1;\n\tphoto3->up = photo3;\n\tphoto3->down = photo3;\n\n\t// Create title text.\n\ttitle = NEW TextString(&manager->font_bold, ksGlobalTextArray[GT_FE_MENU_PHOTO_TITLE_SELECT], 320, 75, 100, 1.0f, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, man->col_highlight2);\n\n\tSetHelpText(HF_LEFT | HF_RIGHT | HF_SELECT);\n\thelpText->changePos(320, 424);\n\n\tarrowHiTimer = 0.0f;\n\tleftArrowIdx = 0;\n\trightArrowIdx = 0;\n\thighlightedIdx = 0;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__15PhotoSelectMenuP12FEMenuSystemP9FEManager"
+}
