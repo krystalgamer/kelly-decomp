@@ -129,6 +129,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/signal_anim.h": "KS/SRC/signal_anim_rtti.cpp",
     "KS/SRC/script_data_interface.h": "KS/SRC/script_data_interface.cpp",
     "KS/SRC/script_library_class.h": "KS/SRC/script_library_class_methods.cpp",
+    "KS/SRC/script_lib_trigger.h": "KS/SRC/script_lib_trigger_methods.cpp",
     "KS/SRC/slave_interface.h": "KS/SRC/slave_interface.cpp",
     "KS/SRC/soft_attrib_interface.h": "KS/SRC/soft_attrib_interface.cpp",
     "KS/SRC/stringx.h": "KS/SRC/stringx_methods.cpp",
