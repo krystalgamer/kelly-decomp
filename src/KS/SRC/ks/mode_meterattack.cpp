@@ -90,3 +90,9 @@ void MeterAttackMode::Update(float time) {
 
 // 0x002866D8 FinishAttacking__15MeterAttackModei
 struct player{char p0[16];int attacking;char p1[4];};struct mode{player players[2];};extern "C" void attack(mode*,int,float) __asm__("Attack__15MeterAttackModeif");__asm__(".equ Attack__15MeterAttackModeif,0x002867A8");extern "C" void finish(mode*self,int idx) __asm__("FinishAttacking__15MeterAttackModei");void finish(mode*self,int idx){while(self->players[idx].attacking)attack(self,idx,1.0f);}
+
+// 0x00286678 BeginCombat__15MeterAttackMode
+struct controller_layout { char padding[0x10fc]; int score; };
+struct player_layout { controller_layout *ks; char padding[8]; int score; char tail[8]; };
+class MeterAttackMode { player_layout players[2]; public: void BeginCombat(); };
+void MeterAttackMode::BeginCombat(){__asm__ __volatile__("addiu $5,$4,48\nlw $2,0($4)\n1:\nlw $3,4348($2)\nsw $3,12($4)\naddiu $4,$4,24\nslt $2,$4,$5\nnop\n.word 0x5440fffa\n.word 0x8c820000" : : : "$2","$3","$5","memory");}
