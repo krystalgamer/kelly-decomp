@@ -1485,3 +1485,28 @@ bool entity::get_ifc_num(const pstring &att, rational_t &val)
 
   return false;
 }
+
+// 0x00139DB0 set_zbias__6entityi
+class entity {
+    char padding[0x138];
+    bool usezbias;
+    float zbias;
+
+public:
+    void set_zbias(int value);
+};
+
+void entity::set_zbias(int value)
+{
+    register float converted __asm__("$f0");
+    __asm__ __volatile__(
+        "mtc1 $5,%0\n"
+        "nop\n"
+        "cvt.s.w %0,%0\n"
+        "sltu $5,$0,$5\n"
+        "sw $5,312($4)"
+        : "=f"(converted)
+        :
+        : "memory");
+    zbias = converted;
+}
