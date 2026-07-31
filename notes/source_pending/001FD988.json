@@ -1,0 +1,16 @@
+{
+  "address": "0x001FD988",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "92c2f421a91d875e3e67497293252b0e31f3631f",
+      "error": "Candidate did not emit update__15floating_objectf; emitted functions: ['update__11beach_eventf']",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/floatobj.h\"\n\nbool beach_event::update (float dt)\n{\n  return my_func (dt, &my_func_data);\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "update__15floating_objectf"
+}
