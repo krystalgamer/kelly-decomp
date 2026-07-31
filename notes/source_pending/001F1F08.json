@@ -1,0 +1,15 @@
+{
+  "address": "0x001F1F08",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "47ba70264e2a354095e18686d3a29a541c31f26f",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/board.h\"\n\nvoid SurfBoardObjectClass::DoWipeOut (int wip_type, bool keep_cam)\n{\n\twipeout_type = wip_type;\n\n\t//  Competitions need to count the number of wipeouts.\n\tif (g_game_ptr->is_competition_level() &&\n\t    g_game_ptr->get_game_mode() == GAME_MODE_CAREER)\n\t\tg_beach_ptr->judges.IncPlayerWipeouts();\n\n\twiped_out = true;\n\tmax_wipeout_time = 50.0f;  // absurdly high number\n\tksctrl->set_wave_hint(wave_center_hint);\n\t//\tfrontendmanager.IGO->TurnOnTubeTimer(ksctrl->get_player_num(), false);\n\tksctrl->get_special_meter()->SetFillage(0.0f);\n\t//ksctrl->big_wave_meter.End();\n\tksctrl->tube_meter.End();\n\t//ksctrl->float_meter.End();\n\tksctrl->ResetJumpedEntities();\n\tksctrl->ClearTricks();\n\tksctrl->InitWipeout(wipeout_type);\n\t// Is this the ai player?\n\tif (g_game_ptr->get_num_ai_players())\n\t{\n\t\tif (ksctrl->get_player_num())\n\t\t\treturn;\n\t}\n\n\tif (!(GWipeoutData[wipeout_type].input_vel & DISMOUNT_NO_AIR_FLAG))\n\t\tSetWipeoutPhysics();\n\n\tif(!keep_cam)\n\t{\n\t  camera *cur_cam = g_game_ptr->get_player_camera(ksctrl->get_player_num());\n\t  if (!g_game_ptr->user_cam_is_on() && (cur_cam != ksctrl->get_wipeout_cam2_ptr()) && (cur_cam != ksctrl->get_debug_cam_ptr()))\n\t  {\n\t\t  po temp = cur_cam->get_abs_po();\n\t\t  //ksctrl->SetPlayerCamera(ksctrl->get_wipeout_cam_ptr());\n\t\t  ksctrl->SetPlayerCamera(ksctrl->get_wipeout_cam2_ptr());\n\n\t\t  //  Set up the camera.\n\t\t  //(ksctrl->get_wipeout_cam_ptr())->init(temp, cur_cam);\n\t\t  (ksctrl->get_wipeout_cam2_ptr())->init(temp, cur_cam);\n\t  }\n\t}\n\n\n\t// Apply wipeout time penalty.\n\tif (g_game_ptr->get_num_active_players() == 1)\n\t\tTIMER_SetLevelSec(TIMER_GetLevelSec()+CLOCKTIME_WIPEOUT);\n\n\t// Let other objects know the surfer wiped out.\n\tg_eventManager.DispatchEvent(EVT_SURFER_WIPEOUT, ksctrl->get_player_num(), 0);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "DoWipeOut__20SurfBoardObjectClassib"
+}
