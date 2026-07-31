@@ -1,0 +1,15 @@
+{
+  "address": "0x001185F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "301ccdf571d926c364864d5aee51ea2714076b6d",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/entity_anim.h\"\n\nvoid entity_anim_tree::debug_print_PRS_to_file(void)\n{\n\thost_system_file_handle outfile = host_fopen( \"animation.txt\", HOST_WRITE );\n    host_fprintf( outfile, \"Animation Data\\n\\n\" );\n\tif ( is_valid() )\n\t{\n\t\tpentity_anim_vector::iterator i = anims.begin();\n\t\tpentity_anim_vector::iterator i_end = anims.end();\n\t\tfor ( ; i!=i_end; ++i )\n\t\t{\n\t\t\tentity_anim* a = *i;\n\t\t\tif ( a->is_valid() && a->is_attached() )\n\t\t\t{\n\t\t\t\trational_t start_scale, scale = 1.0f;\n\t\t\t\tvector3d start_pos, pos = ZEROVEC;\n\t\t\t\tquaternion start_quat, quat;\n\t\t\t\tpo value(po_identity_matrix);\n\t\t\t\tif (a->has_po_anim())\n\t\t\t\t{\n\t\t\t\t\tentity_id eid = a->get_entity()->get_id();\n\t\t\t\t\tstringx cname = eid.get_val();\n\t\t\t\t\tpo_anim *po_anim_ptr = a->get_po_anim();\n\t\t\t\t\t/*if (!strcmp(eid.get_val().c_str(), \"HERO\") || !strcmp(eid.get_val().c_str(), \"HERO_BIP01 PELVIS\"))\n\t\t\t\t\t\tint f = 0;\n\t\t\t\t\telse\n\t\t\t\t\t\tpo_anim_ptr->reset_start_vals();*/\n\n\t\t\t\t\t/*po_anim_ptr->get_unadjusted_value(control, &scale);\n\t\t\t\t\tpo_anim_ptr->get_unadjusted_value(control, &pos);\n\t\t\t\t\tpo_anim_ptr->get_unadjusted_value(control, &quat);*/\n\t\t\t\t\tpo_anim_ptr->get_value(control, &value);\n\t\t\t\t\tquat = value.get_quaternion();\n\t\t\t\t\tstart_quat = po_anim_ptr->get_R_start();\n\t\t\t\t\tstart_pos = po_anim_ptr->get_P_start();\n\t\t\t\t\tstart_scale = po_anim_ptr->get_S_start();\n\t\t\t\t\tpos = value.get_position();\n\t\t\t\t\tscale = value.get_scale();\n\t\t\t\t\thost_fprintf( outfile, \"entity_id: %s\\n----------------\\n\", eid.get_val().c_str());\n\t\t\t\t\thost_fprintf( outfile, \"quaternion: %f %f %f %f\\n---------------\\n\", quat.a, quat.b, quat.c, quat.d );\n\t\t\t\t\thost_fprintf( outfile, \"start_quaternion: %f %f %f %f\\n---------------\\n\", start_quat.a, start_quat.b, start_quat.c, start_quat.d );\n\t\t\t\t\thost_fprintf( outfile, \"position: %f %f %f\\n---------------\\n\", pos.x, pos.y, pos.z );\n\t\t\t\t\thost_fprintf( outfile, \"start_position: %f %f %f\\n---------------\\n\", start_pos.x, start_pos.y, start_pos.z );\n\t\t\t\t\thost_fprintf( outfile, \"scale: %f\\n---------------\\n\", scale );\n\t\t\t\t\thost_fprintf( outfile, \"start_scale: %f\\n---------------\\n\", start_scale );\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\thost_fclose( outfile );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "debug_print_PRS_to_file__16entity_anim_tree"
+}
