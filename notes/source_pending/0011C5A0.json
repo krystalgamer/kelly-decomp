@@ -1,0 +1,15 @@
+{
+  "address": "0x0011C5A0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "64f86ce9c7ac1e3d42d083591b5944c298f32b3b",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "void scene_anim::binary_load_from_stash( const stringx& filename )\n{\n  filespec spec( filename );\n  pstring p( spec.name.c_str( ) );\n  p.concatinate( spec.ext.c_str( ) );\n\n  stash snmx_file;\n  unsigned char* snmx = NULL;\n  int size = 0;\n  stash_index_entry* stash_header = NULL;\n\n  bool b = snmx_file.get_memory_image( p, snmx, size, stash_header );\n\n  if( !b ) {\n    error( \"couldn't get memory image for \" + filename );\n    return;\n  }\n\n  // fun time!\n  snmx_header* header = (snmx_header*) snmx;\n\n\t#ifdef TARGET_GC\n\tfixupuint32(&header->child_count);\n\t#endif\n\n  if( header->tag != SNMX_TAG ) {\n    error( \"supposed SNMX file \" + filename + \" has invalid header tag\" );\n  }\n\n  if( header->version != SNMX_VERSION ) {\n    error( \"unsupported SNMX version in %s (%d)\", filename.c_str( ), header->version );\n  }\n\n  // advance buffer\n  snmx += sizeof( snmx_header );\n\n  for( int i = 0 ; i < (int) header->child_count; i++ ) {\n\t\t#ifdef TARGET_GC\n\t\tunsigned char *idptr=(unsigned char *) snmx;\n\t\tfor ( int j=0; j<(sizeof(pstring)/sizeof(int64)); j++ )\n\t\t{\n\t\t\tfixup(idptr,sizeof(int64));\n\t\t\tidptr += sizeof(int64);\n\t\t}\n\t\t#endif\n    pstring* p = (pstring*) snmx;\n    snmx += sizeof( pstring );\n    uint32 size;\n    size = *( (uint32*) snmx );\n\t\t#ifdef TARGET_GC\n\t\tfixupuint32(&size);\n\t\t#endif\n    snmx += sizeof( uint32 );\n    uint32 pad;\n    pad = *( (uint32*) snmx );\n    snmx += sizeof( uint32 );\n    entity_track_tree* et = (entity_track_tree*) snmx;\n    entity_track_tree_from_binary( et, filename.c_str( ) );\n    stringx s( p->c_str( ) );\n    track_tree_map[s] = et;\n    snmx += size;\n  }\n\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "binary_load_from_stash__10scene_animRC7stringx"
+}
