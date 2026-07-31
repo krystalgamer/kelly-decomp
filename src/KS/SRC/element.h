@@ -1,113 +1,165 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef ELEMENT_H
+#define ELEMENT_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_002FFE98)
-// 0x002FFE98 __tf7element
-extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
-extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
-asm(".equ typeinfo, 0x00512178"); asm(".equ type_name, 0x004F4CC0");
-extern "C" void *GetTypeInfo() __asm__("__tf7element");
-void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
-#endif
+#include "KS/SRC/color.h"
+#include "KS/SRC/rect.h"
+#include "g++-2/stl_list.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_002FFD48)
-// 0x002FFD48 __tf10move_event
-#include "KS/SRC/rtti.h"
-extern "C" void **MoveEventBaseRtti() __asm__("__tf5event");
-extern "C" void *move_event_type[] __asm__("__ti10move_event");
-extern "C" const char move_event_name[];
-extern "C" void *move_event_base_type[] __asm__("__ti5event");
-__asm__(".equ __tf5event, 0x00302BD8");
-__asm__(".equ __ti10move_event, 0x005A4010");
-__asm__(".equ move_event_name, 0x004F4C80");
-__asm__(".equ __ti5event, 0x00512188");
-extern "C" void **MoveEventRtti() __asm__("__tf10move_event");
-void **MoveEventRtti()
-{
-    if (!move_event_type[0]) {
-        MoveEventBaseRtti();
-        __rtti_si(move_event_type, move_event_name, move_event_base_type);
+typedef float time_value_t;
+
+enum element_type_e {
+    ELEMENT_Container,
+    ELEMENT_Text
+};
+
+enum event_type_e {
+    EVENT_None,
+    EVENT_Color,
+    EVENT_Move,
+    EVENT_Rotate,
+    EVENT_Scale
+};
+
+class element;
+class event;
+
+typedef list<element *> element_list_t;
+typedef list<event *> event_list_t;
+
+class event {
+public:
+    event(
+        event_type_e type_value,
+        element *owner_value,
+        time_value_t wait,
+        time_value_t event_duration)
+      : type(type_value),
+        owner(owner_value),
+        wait_time(wait),
+        duration(event_duration),
+        elapsed(0.0f)
+    {
     }
-    return move_event_type;
-}
-#endif
+    virtual void do_event(const float &lerp) = 0;
 
-#if defined(KELLY_DECOMP_FUNCTION_002FFDA0)
-// 0x002FFDA0 __tf11color_event
-#include "KS/SRC/rtti.h"
-extern "C" void **ColorEventBaseRtti() __asm__("__tf5event");
-extern "C" void *color_event_type[] __asm__("__ti11color_event");
-extern "C" const char color_event_name[];
-extern "C" void *color_event_base_type[] __asm__("__ti5event");
-__asm__(".equ __tf5event, 0x00302BD8");
-__asm__(".equ __ti11color_event, 0x005A4020");
-__asm__(".equ color_event_name, 0x004F4C90");
-__asm__(".equ __ti5event, 0x00512188");
-extern "C" void **ColorEventRtti() __asm__("__tf11color_event");
-void **ColorEventRtti()
-{
-    if (!color_event_type[0]) {
-        ColorEventBaseRtti();
-        __rtti_si(color_event_type, color_event_name, color_event_base_type);
+protected:
+    event_type_e type;
+    element *owner;
+    time_value_t wait_time;
+    time_value_t duration;
+    time_value_t elapsed;
+};
+
+class move_event : public event {
+public:
+    move_event(
+        element *owner,
+        time_value_t wait,
+        time_value_t duration,
+        int x_value,
+        int y_value)
+      : event(EVENT_Move, owner, wait, duration),
+        x((float)x_value),
+        y((float)y_value)
+    {
     }
-    return color_event_type;
-}
-#endif
+    virtual void do_event(const float &lerp);
 
-#if defined(KELLY_DECOMP_FUNCTION_002FFDF0)
-// 0x002FFDF0 __tf12rotate_event
-#include "KS/SRC/rtti.h"
-extern "C" void **RotateEventBaseRtti() __asm__("__tf5event");
-extern "C" void *rotate_event_type[] __asm__("__ti12rotate_event");
-extern "C" const char rotate_event_name[];
-extern "C" void *rotate_event_base_type[] __asm__("__ti5event");
-__asm__(".equ __tf5event, 0x00302BD8");
-__asm__(".equ __ti12rotate_event, 0x005A4030");
-__asm__(".equ rotate_event_name, 0x004F4CA0");
-__asm__(".equ __ti5event, 0x00512188");
-extern "C" void **RotateEventRtti() __asm__("__tf12rotate_event");
-void **RotateEventRtti()
-{
-    if (!rotate_event_type[0]) {
-        RotateEventBaseRtti();
-        __rtti_si(rotate_event_type, rotate_event_name, rotate_event_base_type);
+protected:
+    float x;
+    float y;
+};
+
+class color_event : public event {
+public:
+    color_event(
+        element *owner,
+        time_value_t wait,
+        time_value_t duration,
+        color value)
+      : event(EVENT_Color, owner, wait, duration),
+        mycolor(value)
+    {
     }
-    return rotate_event_type;
-}
-#endif
+    virtual void do_event(const float &lerp);
 
-#if defined(KELLY_DECOMP_FUNCTION_002FFE40)
-// 0x002FFE40 __tf11scale_event
-#include "KS/SRC/rtti.h"
-extern "C" void **ScaleEventBaseRtti() __asm__("__tf5event");
-extern "C" void *scale_event_type[] __asm__("__ti11scale_event");
-extern "C" const char scale_event_name[];
-extern "C" void *scale_event_base_type[] __asm__("__ti5event");
-__asm__(".equ __tf5event, 0x00302BD8");
-__asm__(".equ __ti11scale_event, 0x005A4040");
-__asm__(".equ scale_event_name, 0x004F4CB0");
-__asm__(".equ __ti5event, 0x00512188");
-extern "C" void **ScaleEventRtti() __asm__("__tf11scale_event");
-void **ScaleEventRtti()
-{
-    if (!scale_event_type[0]) {
-        ScaleEventBaseRtti();
-        __rtti_si(scale_event_type, scale_event_name, scale_event_base_type);
+protected:
+    color mycolor;
+};
+
+class rotate_event : public event {
+public:
+    rotate_event(
+        element *owner,
+        time_value_t wait,
+        time_value_t duration,
+        float value)
+      : event(EVENT_Rotate, owner, wait, duration),
+        angle(value)
+    {
     }
-    return scale_event_type;
-}
-#endif
+    virtual void do_event(const float &lerp);
 
-#if defined(KELLY_DECOMP_FUNCTION_00302BD8)
-// 0x00302BD8 __tf5event
-extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
-extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
-asm(".equ typeinfo, 0x00512188"); asm(".equ type_name, 0x004F4E38");
-extern "C" void *GetTypeInfo() __asm__("__tf5event");
-void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
-#endif
+protected:
+    float angle;
+};
 
-#if defined(KELLY_DECOMP_FUNCTION_002FFEE8)
-// 0x002FFEE8 rotate_to__7elementfff
-struct element{};struct Event{int type;void*owner;float wait,duration;int field16;void*vtable;float angle;};extern "C" void*opnew(unsigned,unsigned,const char*,int)__asm__("__nw__FUiUiPCci");extern void*vtable;extern const char file[];extern "C" void add(element*,Event*)__asm__("add_event__7elementP5event");__asm__(".equ __nw__FUiUiPCci,0x002AC578");__asm__(".equ vtable,0x004F1E20");__asm__(".equ file,0x004FFAD8");__asm__(".equ add_event__7elementP5event,0x002CA780");extern "C" void rotate(element*,float,float,float)__asm__("rotate_to__7elementfff");void rotate(element*self,float wait,float duration,float angle){Event*e=(Event*)opnew(28,0,file,0);register int type asm("$3")=3;register void*vt asm("$6")=&vtable;register element*out asm("$4")=self;asm volatile("" : "+r"(out));e->wait=wait;register Event*arg asm("$5")=e;asm volatile("" : "+r"(arg));e->duration=duration;e->angle=angle;e->owner=self;e->type=type;e->vtable=vt;e->field16=0;add(out,arg);asm volatile("");}
+class scale_event : public event {
+public:
+    scale_event(
+        element *owner,
+        time_value_t wait,
+        time_value_t duration,
+        float x_value,
+        float y_value)
+      : event(EVENT_Scale, owner, wait, duration),
+        sx(x_value),
+        sy(y_value)
+    {
+    }
+    virtual void do_event(const float &lerp);
+
+protected:
+    float sx;
+    float sy;
+};
+
+class element {
+public:
+    element(element *parent);
+    virtual ~element();
+    virtual void rotate_to(
+        time_value_t wait,
+        time_value_t duration,
+        float angle);
+    virtual void set_subrect(int x0, int y0, int x1, int y1);
+    virtual void transform(float value[2], color &result, int index);
+    virtual void render() = 0;
+    void add_event(event *value);
+
+    friend class event;
+    friend class move_event;
+    friend class color_event;
+    friend class rotate_event;
+    friend class scale_event;
+
+protected:
+    element *parent;
+    element_type_e type;
+    unsigned int flags;
+    element_list_t subelements;
+    rectf subrect;
+    float R[2][2];
+    float T[2];
+    float S[2];
+    float S_Override[2];
+    float O[2];
+    float angle;
+    color mycolor[4];
+    event_list_t event_run_list;
+    bool linear_animation;
+};
+
 #endif
