@@ -1,0 +1,16 @@
+{
+  "address": "0x0028B350",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "658644eed30bdd03c35e22221d46b5d55f11ac98",
+      "error": "Candidate did not emit __14morphable_itemRC7stringxRC9entity_id15entity_flavor_tbT4; emitted functions: ['__14morphable_itemRC9entity_idUi']",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/item.h\"\n\nmorphable_item::morphable_item( const entity_id& _id, unsigned int _flags )\n  :   item( _id, _flags )\n{\n  ranges.resize(0);\n  old_count = -1;\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__14morphable_itemRC7stringxRC9entity_id15entity_flavor_tbT4"
+}
