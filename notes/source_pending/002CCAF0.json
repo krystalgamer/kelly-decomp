@@ -1,0 +1,15 @@
+{
+  "address": "0x002CCAF0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6d7d70f1b8c31d417f1d10a3cf244a6cbce59ed6",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/light.h\"\n\nvoid serial_in( chunk_file& fs, light_properties* lp )\n{\n  chunk_flavor cf;\n  for ( serial_in(fs,&cf); cf!=CHUNK_END; serial_in(fs,&cf) )\n  {\n    if ( chunk_flavor(\"type\") == cf )\n    {\n      unsigned short flav;\n      serial_in( fs, &flav );\n      lp->flavor = (light_flavor_t)flav;\n    }\n    else if ( chunk_flavor(\"color\") == cf )\n    {\n      serial_in( fs, &lp->diffuse_color );\n    }\n    else if ( chunk_flavor(\"addcolor\") == cf )\n    {\n      serial_in( fs, &lp->additive_color );\n    }\n    /*else if ( chunk_flavor(\"kattn\") == cf )\n    {\n      float garbage;\n      serial_in( fs, &garbage );\n    }\n    else if ( chunk_flavor(\"lattn\") == cf )\n    {\n      float garbage;\n      serial_in( fs, &garbage );\n    }\n    else if ( chunk_flavor(\"qattn\") == cf )\n    {\n      float garbage;\n      serial_in( fs, &garbage );\n    }\n    else if ( chunk_flavor(\"range\") == cf )\n    {\n      // old format light\n      serial_in( fs, &lp->near_range );\n      lp->cutoff_range = lp->near_range*CUTOFF_FACTOR;\n      recompute_range();\n      //lp->recip_range = 1.0f / lp->near_range;\n      //lp->cutoff_squared = lp->cutoff_range*lp->cutoff_range;\n    }*/\n    else if ( chunk_flavor(\"nearr\") == cf )\n    {\n      serial_in( fs, &lp->near_range );\n      lp->cutoff_range = lp->near_range*CUTOFF_FACTOR;\n      if (lp->near_range * 1.001f >= lp->cutoff_range)\n        lp->cutoff_range = lp->near_range * 1.001f;\n      lp->recompute_range();\n      //lp->recip_range = 1.0f / lp->near_range;\n      //lp->cutoff_squared = lp->cutoff_range*lp->cutoff_range;\n    }\n    else if ( chunk_flavor(\"cutoff\") == cf )\n    {\n      //float garbage;\n      serial_in( fs, &lp->cutoff_range );\n      if (lp->near_range * 1.001f >= lp->cutoff_range)\n        lp->near_range = lp->near_range / 1.001f;\n      //lp->cutoff_squared = lp->cutoff_range*lp->cutoff_range;\n      lp->recompute_range();\n    }\n    else if ( chunk_flavor(\"flags\") == cf )\n    {\n      serial_in( fs, &lp->flags );\n    }\n    else\n    {\n      stringx composite = stringx(\"Unknown chunk type \") + cf.to_stringx() + (\" in \")+fs.get_name();\n      error(composite.c_str());\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "serial_in__FR10chunk_fileP16light_properties"
+}
