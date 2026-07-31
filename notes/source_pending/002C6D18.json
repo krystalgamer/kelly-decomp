@@ -1,0 +1,15 @@
+{
+  "address": "0x002C6D18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "123ada296969416d98ef1a5610cbf5caac7153d4",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/debug_render.h\"\n\nvoid render_capsule(const vector3d &base, const vector3d &end, rational_t radius, color32 col)\n{\n#ifndef BUILD_BOOTABLE\n  if (radius < 0.05f) radius = 0.05f;\n\n  vector3d p0 = base;\n  vector3d p1 = end;\n  po m_base,m_mid,m_end;\n\n  vector3d xvec, yvec, zvec;\n  yvec = p1-p0;\n  rational_t r = radius;\n  rational_t yvec_len = yvec.length();\n  yvec.normalize();\n  if (__fabs(yvec.z)>__fabs(yvec.x))\n  {\n    zvec = cross(XVEC,yvec);\n    zvec.normalize();\n    xvec = cross(yvec,zvec);\n  }\n  else\n  {\n    xvec = cross(yvec,ZVEC);\n    xvec.normalize();\n    zvec = cross(xvec,yvec);\n  }\n  m_base = po(xvec*r,yvec*r,zvec*r,p0);\n  m_mid = po(xvec*r,yvec*yvec_len,zvec*r,p0);\n  m_end = po(xvec*r,yvec*r,zvec*r,p1);\n\n  instance_render_info iri_base (global_cap_base->get_max_faces(), m_base, 0, app::inst()->get_game()->get_current_view_camera()->get_region(), 0, col, FORCE_TRANSLUCENCY );\n  global_cap_base->render_instance(RENDER_TRANSLUCENT_PORTION|RENDER_CLIPPED_FULL_DETAIL|RENDER_REAL_POINT_LIGHTS, &iri_base);\n\n  instance_render_info iri_mid (global_cap_mid->get_max_faces(), m_mid, 0, app::inst()->get_game()->get_current_view_camera()->get_region(), 0, col, FORCE_TRANSLUCENCY );\n  global_cap_mid->render_instance(RENDER_TRANSLUCENT_PORTION|RENDER_CLIPPED_FULL_DETAIL|RENDER_REAL_POINT_LIGHTS, &iri_mid);\n\n  instance_render_info iri_end (global_cap_end->get_max_faces(), m_end, 0, app::inst()->get_game()->get_current_view_camera()->get_region(), 0, col, FORCE_TRANSLUCENCY );\n  global_cap_end->render_instance(RENDER_TRANSLUCENT_PORTION|RENDER_CLIPPED_FULL_DETAIL|RENDER_REAL_POINT_LIGHTS, &iri_end);\n#endif\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "render_capsule__FRC8vector3dT0fG7color32"
+}
