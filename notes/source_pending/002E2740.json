@@ -1,0 +1,15 @@
+{
+  "address": "0x002E2740",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "faec9fe9a11dd58d375d1ed42049b098bb5bdb68",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/joint.h\"\n\nvoid joint::frame_advance(time_value_t time_inc)\n  {\n  }\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "frame_advance__12linear_jointf"
+}
