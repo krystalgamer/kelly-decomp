@@ -1,16 +1,19 @@
 // Entity method definitions extracted by generated one-function shims.
 
 // 0x00130B68 invalidate_frame_delta__6entity
-#include "KS/SRC/entity_frame_delta_shared.h"
+#include "KS/SRC/entity.h"
 
-void frame_delta_entity::invalidate_frame_delta()
+extern const po po_identity_matrix;
+__asm__(".equ po_identity_matrix, 0x00513890");
+
+void entity::invalidate_frame_delta()
 {
-    if (movement)
+    if (movement_info_data)
     {
-        movement->last_frame_delta_valid =
-            movement->frame_delta_valid;
-        movement->frame_delta_valid = false;
-        movement->frame_delta = po_identity_matrix;
+        movement_info_data->last_frame_delta_valid =
+            movement_info_data->frame_delta_valid;
+        movement_info_data->frame_delta_valid = false;
+        movement_info_data->frame_delta = po_identity_matrix;
     }
 }
 

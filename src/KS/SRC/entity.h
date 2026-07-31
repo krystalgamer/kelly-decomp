@@ -469,6 +469,7 @@ public:
     virtual const po &get_frame_delta() const;
     virtual bool is_frame_delta_valid() const;
     virtual bool is_last_frame_delta_valid() const;
+    void invalidate_frame_delta();
     virtual time_value_t get_programmed_cell_death() const;
     virtual rational_t get_hit_points() const;
     virtual rational_t get_full_hit_points() const;
