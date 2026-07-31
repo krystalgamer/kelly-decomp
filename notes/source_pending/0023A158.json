@@ -1,0 +1,15 @@
+{
+  "address": "0x0023A158",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bc695eebe31174f320e07f9535d8abcb64186c2f",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/ksreplay.h\"\n\nvoid KSEntityPO::Restore( int player )\n{\n#ifdef USE_POS\n  g_world_ptr->get_ks_controller(player)->set_owner_po(KSPo);\n  g_world_ptr->get_board_ptr(player)->set_rel_po(KSBPo);\n#else\n  po KSPo(KSPos, KSRot, 1.0f);\n  po KSBPo(KSBPos, KSBRot, 1.0f);\n\n  g_world_ptr->get_ks_controller(player)->set_owner_po(KSPo);\n  g_world_ptr->get_board_ptr(player)->set_rel_po(KSBPo);\n\n  g_world_ptr->get_ks_controller(player)->get_board_controller().current   = BoardCurrent;\n  g_world_ptr->get_ks_controller(player)->get_board_controller().rb->linMom = BoardMomentum;\n#endif\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Restore__10KSEntityPOi"
+}
