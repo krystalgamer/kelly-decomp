@@ -1,0 +1,15 @@
+{
+  "address": "0x0020D328",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6fc0628161820407cdcaf5ec714fc5af78ffd011",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/kellyslater_controller.h\"\n\nvoid kellyslater_controller::AlignSurferWithBoard(float dt)\n{\n  if (!IK_enabled && g_IK_enabled  )\n    last_offset = 0;\n\n\tpo owner_po = my_parent_node->get_abs_po();\n\tpo trans( po_identity_matrix );\n\trational_t pos = get_floor_offset();// - last_offset;\n\n  last_offset += owner_po.get_position ().y - last_position;\n  last_position = owner_po.get_position ().y;\n\n  if (__fabs (last_offset) < 0.01f)\n    last_offset = 0.0f;\n  else if (last_offset > 0)\n    last_offset -= 0.5f * dt;\n  else\n    last_offset += 0.5f * dt;\n\n  if (last_offset > g_shake_offset_max)\n    last_offset = g_shake_offset_max;\n  else if (last_offset < -g_shake_offset_max)\n    last_offset = -g_shake_offset_max;\n\n  trans.set_position(vector3d(0, pos, 0));\n\ttrans = trans*owner_po;\n\tget_owner()->set_rel_po(trans);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "AlignSurferWithBoard__22kellyslater_controllerf"
+}
