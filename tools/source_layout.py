@@ -85,6 +85,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/ks_camera.h": "KS/SRC/ks/ks_camera_methods.cpp",
     "KS/SRC/ks/ksreplay.h": "KS/SRC/ks/ksreplay_methods.cpp",
     "KS/SRC/ks/menu.h": "KS/SRC/ks/menu_methods.cpp",
+    "KS/SRC/ks/trail.h": "KS/SRC/ks/trail_rtti.cpp",
     "KS/SRC/ks/dxt1_codebook.h": "KS/SRC/ks/dxt1_codebook_rtti.cpp",
     "KS/SRC/ks/floatobj.h": "KS/SRC/ks/floatobj_methods.cpp",
     "KS/SRC/light.h": "KS/SRC/light_methods.cpp",
