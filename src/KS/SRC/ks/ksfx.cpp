@@ -263,7 +263,7 @@ void param_translate(float h_angle, float v_angle, float mag, vector3d *output)
 
 #if defined(KELLY_DECOMP_FUNCTION_0036B120)
 // 0x0036B120 ks_fx_start_wipeout_splash__Fi
-#include "KS/SRC/ks/ksfx_shared.h"
+#include "KS/SRC/ks/ksfx.h"
 
 void ks_fx_start_wipeout_splash(int index)
 {

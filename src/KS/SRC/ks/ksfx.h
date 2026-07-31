@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_KSFX_SHARED_H
-#define KELLY_DECOMP_KSFX_SHARED_H
+#ifndef KSFX_H
+#define KSFX_H
 
 #include "KS/SRC/game_shared.h"
 #include "KS/SRC/ks/ksreplay_shared.h"
