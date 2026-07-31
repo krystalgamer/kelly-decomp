@@ -1,0 +1,15 @@
+{
+  "address": "0x00210FA8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2d7559ce8493973c8bf2f78051c74d424c5464e1",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/kellyslater_controller.h\"\n\nvoid kellyslater_controller::CalcTransform(vector3d &rot, vector3d &pos)\n{\n/*\n\t// compute a transform from Euler rotation, translation\n\tmat44\tunit;\n\tmat44\ttmp;\n\tmat44\tmaxFix;\n\n\tircVu0RotMatrixZ ( &tmp, &unit, rot.z );\n\tircVu0RotMatrixX ( &tmp, &tmp, rot.x );\n\tircVu0RotMatrixY ( &tmp, &tmp, rot.y );\n\n\tircVu0RotMatrixZ ( &maxFix, &unit, 0 );\n\tircVu0RotMatrixX ( &maxFix, &maxFix,  M_PI_div2 );\n\tircVu0RotMatrixY ( &maxFix, &maxFix, 0 );\n\n\tircVu0MulMatrix (&tmp, &tmp, &maxFix);\n\n\ttmp.Scale(1.0f/12.0f);\n\n\tircVu0TransMatrix(&tm, &tmp, &pos);\n  */\n\n  po r1,r2,r3,result;\n\n  r1.set_rotate_x(rot.x);\n  r2.set_rotate_y(-rot.y);\n  r3.set_rotate_z(rot.z);\n\n  result = r2*r1*r3;\n\n  vector3d pos3;\n  pos3.x = pos.x;\n  pos3.y = pos.y;\n  pos3.z = pos.z;\n  result.set_position(pos3/12);\n\n  get_owner()->set_rel_po(result);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "CalcTransform__22kellyslater_controllerR8vector3dT1"
+}
