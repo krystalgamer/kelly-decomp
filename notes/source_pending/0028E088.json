@@ -1,0 +1,15 @@
+{
+  "address": "0x0028E088",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1177ac4c6ac204a33d81cb12f6f090a57522ff36",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/trigger.h\"\n\nvoid point_trigger::_update_regions()\n{\n  trig_region_pset::iterator i,j;\n  for ( i=in_regions.begin(); i!=in_regions.end(); )\n  {\n    region* r = *i;\n    if ( find( trigger_manager::inst()->new_regions.begin(), trigger_manager::inst()->new_regions.end(), r )\n         == trigger_manager::inst()->new_regions.end() )\n    {\n      r->remove( this );\n      j = i;\n      ++j;\n      in_regions.erase( i );\n      i = j;\n    }\n    else\n      ++i;\n  }\n  vector<region*>::iterator k;\n  for ( k=trigger_manager::inst()->new_regions.begin(); k!=trigger_manager::inst()->new_regions.end(); ++k )\n    add_region( *k );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_update_regions__13point_trigger"
+}
