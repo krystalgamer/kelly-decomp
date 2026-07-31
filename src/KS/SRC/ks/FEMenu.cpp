@@ -1,7 +1,8 @@
 // Matching decompilation blocks selected by generated build shims.
 
 // 0x00155E68 Disable__11FEMenuEntryb
-#include "KS/SRC/ks/FEMenuEntry_disable_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
+#include "KS/SRC/ks/FEMenu.h"
 
 void FEMenuEntry::Disable(bool value)
 {
