@@ -50,6 +50,7 @@ LOCAL_INCLUDE_RE = re.compile(
 # reviewed, narrowly scoped scheduling/conversion annotations.
 REVIEWED_INSTRUCTION_ASM = {
     0x001185C8: "documented floating-point scheduling nop",
+    0x00139DB0: "documented FPU hazard and independent-store schedule",
     0x0014C918: "documented integer-to-float conversion sequence",
     0x001556D8: "documented list-traversal scheduling nop",
     0x001E3340: "released FTOI conversion inline assembly",
