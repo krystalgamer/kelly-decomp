@@ -1,0 +1,15 @@
+{
+  "address": "0x00261558",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0d604ad95705ff8ddaa760d11e8f6e0531f2ac4a",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/challenge_icon.h\"\n\nvoid IconChallenge::Update(const float dt)\n{\n\tint\ti;\n\t\n\tarrangement.Update(ksctrl, dt);\n\n\tfor (i = 0; i < numIcons; i++)\n\t{\n\t\ticons[i].Update(dt);\n\t\t//icons[i].Spawn();\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Update__Q213IconChallenge4Iconf"
+}
