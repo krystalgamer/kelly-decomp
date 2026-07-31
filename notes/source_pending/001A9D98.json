@@ -1,0 +1,15 @@
+{
+  "address": "0x001A9D98",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "84ca09f233e7bda7407e59239045309a594a4951",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FrontEndMenus.h\"\n\nSoundMenuClass::SoundMenuClass(FEMenuSystem* m, int x, int y, color32 c, color32 ch, color32 cha)\n{\n\tFEMenu::cons(m, x, y, c, ch, cha);\n\tsys = (PauseMenuSystem*) m;\n\n\t// Adding all sound options\n\t// always start with it unmuted\n\tsound_mute = NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_SOUND_ON], this);\n\tmuted = false;\n\tAdd(sound_mute);\n\n\tstringx tmp;\n\tswitch(nslGetSpeakerMode())\n\t{\n\tcase NSL_SPEAKER_MONO:\t\tsoundType = 2; tmp = ksGlobalTextArray[GT_MENU_SOUND_MONO]; break;\n\tcase NSL_SPEAKER_STEREO:\tsoundType = 0; tmp = ksGlobalTextArray[GT_MENU_SOUND_STEREO]; break;\n\tcase NSL_SPEAKER_PROLOGIC:\tsoundType = 1; tmp = ksGlobalTextArray[GT_MENU_SOUND_PROLOGIC]; break;\n\tdefault: assert(0);\n\t}\n\tsound_type = NEW FEMenuEntry(tmp, this);\n\tthis->flags |= FEMENU_DONT_SHOW_DISABLED;\n\tAdd(sound_type);\n\n#ifdef TARGET_XBOX\n\tsound_type->Disable(true);\n#endif\n\t\n\tsounds[0] = (int)(nslGetMasterVolume() * MAX_VOL);\n\tsounds[1] = (int)(nslGetVolume(NSL_SOURCETYPE_AMBIENT) * MAX_VOL);\n\tsounds[2] = (int)(nslGetVolume(NSL_SOURCETYPE_SFX) * MAX_VOL);\n\tsounds[3] = (int)(nslGetVolume(NSL_SOURCETYPE_VOICE) * MAX_VOL);\n\tsounds[4] = (int)(nslGetVolume(NSL_SOURCETYPE_MUSIC) * MAX_VOL);\n\n\tfor(int i=0; i<5; i++)\n\t{\n\t\tsound_levels[i] = NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_SOUND_MASTER+i]+stringx(\" \")+stringx(sounds[i]), this);\n\t\tAdd(sound_levels[i]);\n\t}\n\n\tsetBack(sys->menus[PauseMenuSystem::OptionsMenu]);\n\n\tscale_high = 1.0f;\n\tflags |= FEMENU_WRAP;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__14SoundMenuClassP12FEMenuSystemiiG7color32N24"
+}
