@@ -1,0 +1,15 @@
+{
+  "address": "0x001279C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "435a24ac7f67af2daf52dd83816971fb57a95522",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/entity.h\"\n\nanim_id_manager::anim_id_manager() : NO_ID_label( \"NO_ID\" )\n//  : labels()\n{\n  // pre-defined anim ids\n  #define MAC(a) anim_id( #a );\n  #include \"anim_ids.h\"\n  #undef MAC\n  // NEW biped anim ids\n  #define MAC(a,b) anim_id( #a, b );\n  #include \"biped_ids.h\"\n  #undef MAC\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__15anim_id_manager"
+}
