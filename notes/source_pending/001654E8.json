@@ -1,0 +1,15 @@
+{
+  "address": "0x001654E8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "053d66c8a928d109b9786eaf972e078cc765c2d1",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/igo_widget_analogclock.h\"\n\nvoid AnalogClockWidget::Update(const float dt)\n{\n\tfloat\td = 60.0f/(float) MAX_TIME_SEGMENTS;\n\tint\t\ti;\n\n\tIGOWidget::Update(dt);\n\n\t// Notice time change.\n\tclockSec = TIMER_IsInfiniteDuration() ? 0 : TIMER_GetRemainingLevelSec();\n\tif (clockSec < 0.0f) clockSec = 0.0f;\n\tclockMin = (int) (clockSec/60);\n\tclockSec -= clockMin * 60;\n\n\t// Show minute digit.\n\tnum1PQ->TurnOn(display && clockMin == 1);\n\tnum2PQ->TurnOn(display && clockMin == 2);\n\tnum3PQ->TurnOn(display && clockMin == 3);\n\tnum4PQ->TurnOn(display && clockMin == 4);\n\tnum5PQ->TurnOn(display && clockMin == 5);\n\n\t// Move clock hand back to its default position then rotate it.\n\tclockHandPQ->SetCenterPos(handCenterX, handCenterY);\n\tclockHandPQ->Rotate(CLOCK_CENTER_X, CLOCK_CENTER_Y, -clockSec*PI/30.0f);\n\n\tfor (i = 0; i < MAX_TIME_SEGMENTS; i++)\n\t{\n\t\t// Make clock flash when there is only ten seconds left.\n\t\tif (clockMin == 0 && clockSec <= 10)\n\t\t{\n\t\t\ttimeSegs[i]->TurnOn(true);\n\t\t\tif (!(clockSec >= i*d + d/2.0f))\n\t\t\t{\n\t\t\t\ttimeSegs[i]->SetColor(COLOR_FLASH);\n\t\t\t\tif (((int)(clockSec*4))%2 == 0)\n\t\t\t\t\ttimeSegs[i]->TurnOn(false);\n\t\t\t}\n\t\t}\n\t\telse\n\t\t{\n\t\t\t// Show normal clock.\n\t\t\tif (elapsedInterval == 0.0f)\n\t\t\t{\n\t\t\t\ttimeSegs[i]->TurnOn(clockSec >= i*d + d/2.0f);\n\t\t\t\ttimeSegs[i]->SetColor(COLOR_CLOCK);\n\t\t\t}\n\t\t\t// Show clock with an elapsed time interval.\n\t\t\telse\n\t\t\t{\n\t\t\t\tif (clockSec >= i*d + d/2.0f)\n\t\t\t\t{\n\t\t\t\t\ttimeSegs[i]->TurnOn(true);\n\t\t\t\t\ttimeSegs[i]->SetColor(COLOR_CLOCK);\n\t\t\t\t}\n\t\t\t\telse if (clockSec+elapsedInterval >= i*d + d/2.0f)\n\t\t\t\t{\n\t\t\t\t\ttimeSegs[i]->TurnOn(true);\n\t\t\t\t\ttimeSegs[i]->SetColor(COLOR_ELAPSED);\n\t\t\t\t}\n\t\t\t\telse\n\t\t\t\t\ttimeSegs[i]->TurnOn(false);\n\t\t\t}\n\t\t}\n\t}\n\n\tfor (i=0; i<MAX_TIME_SEGMENTS; i++)\n\t\ttimeSegs[i]->Update(dt);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Update__17AnalogClockWidgetf"
+}
