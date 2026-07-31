@@ -1357,7 +1357,10 @@ vector3d entity::get_visual_center() const
 }
 
 // 0x00139880 set_ifc_vec__6entityRC7pstringRC8vector3d
-#include "KS/SRC/entity_ifc_dispatch_shared.h"
+#include "KS/SRC/ai_interface.h"
+#include "KS/SRC/entity.h"
+#include "KS/SRC/physical_interface.h"
+#include "KS/SRC/soft_attrib_interface.h"
 
 bool entity::set_ifc_vec(
     const pstring &attribute,
@@ -1384,7 +1387,10 @@ bool entity::set_ifc_vec(
 }
 
 // 0x00139A28 set_ifc_str__6entityRC7pstringRC7stringx
-#include "KS/SRC/entity_ifc_dispatch_shared.h"
+#include "KS/SRC/ai_interface.h"
+#include "KS/SRC/entity.h"
+#include "KS/SRC/physical_interface.h"
+#include "KS/SRC/soft_attrib_interface.h"
 
 bool entity::set_ifc_str(
     const pstring &attribute,
