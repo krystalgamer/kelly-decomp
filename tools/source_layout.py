@@ -53,6 +53,7 @@ REVIEWED_INSTRUCTION_ASM = {
     0x00139DB0: "documented FPU hazard and independent-store schedule",
     0x0014C918: "documented integer-to-float conversion sequence",
     0x001556D8: "documented list-traversal scheduling nop",
+    0x001D9B00: "documented aggregate color load/store schedule",
     0x001E3340: "released FTOI conversion inline assembly",
     0x001EAD68: "documented list-traversal scheduling nop",
     0x001F9B18: "documented floating-point scheduling nop",
