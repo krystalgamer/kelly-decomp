@@ -310,3 +310,6 @@ class entity_anim_tree; extern "C" entity_anim_tree **fill_values(entity_anim_tr
 
 // 0x002F43C8 fill__H2ZPQ218scan_light_context9light_recZQ218scan_light_context9light_rec_X01X01RCX11_v
 struct light_rec{char data[8];}; extern "C" void fill_values(light_rec *first,light_rec *last,const light_rec &value)__asm__("fill__H2ZPQ218scan_light_context9light_recZQ218scan_light_context9light_rec_X01X01RCX11_v"); void fill_values(light_rec *first,light_rec *last,const light_rec &value){__asm__ __volatile__("beq $4,$5,2f\n1:\nldl $2,7($6)\nldr $2,0($6)\nsdl $2,7($4)\nsdr $2,0($4)\naddiu $4,$4,8\nbne $4,$5,1b\n2:" : : : "$2","memory");}
+
+// 0x002F5E60 fill_n__H3ZPP8materialZUiZP8material_X01X11RCX21_X01
+class material; extern "C" material **fill_values(material **first,unsigned int count,material *const &value)__asm__("fill_n__H3ZPP8materialZUiZP8material_X01X11RCX21_X01"); material **fill_values(material **first,unsigned int count,material *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
