@@ -1,0 +1,15 @@
+{
+  "address": "0x0011A248",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ae8da125c2aeaf0499267ac2d39fee4692d904dc",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/po_anim.h\"\n\nvoid po_anim::construct( const po& initial,\n                         const PRS_track& track,\n                         unsigned short anim_flags )\n{\n  anim<po>::construct( anim_flags );\n\n  flags |= (track.get_flags() & FLAGS_INHERITED_FROM_TRACK);\n\n  unsigned short subanim_flags = flags & FLAGS_PASSED_TO_SUBANIMS;\n\n  P_start = initial.get_position();\n  R_start = initial.get_quaternion();\n  S_start = initial.get_scale();\n\n  if ( track.get_P() != NULL )\n  {\n    // position track found\n    if ( P == NULL )\n      P = NEW linear_anim<vector3d>;\n    linear_track<vector3d>* Pt = (linear_track<vector3d>*)track.get_P();\n    ((linear_anim<vector3d>*)P)->construct( Pt, subanim_flags );\n  }\n  else if ( has_P() )\n    P->set_valid( false );\n\n  if ( track.get_R() != NULL )\n  {\n    if ( R == NULL )\n      R = NEW linear_anim<quaternion>;\n    linear_track<quaternion>* Rt = (linear_track<quaternion>*)track.get_R();\n    ((linear_anim<quaternion>*)R)->construct( Rt,\n                                              subanim_flags );\n  }\n  else if ( has_R() )\n    R->set_valid( false );\n\n  if ( track.get_S() != NULL )\n  {\n    if ( S == NULL )\n      S = NEW linear_anim<rational_t>;\n    linear_track<rational_t>* St = (linear_track<rational_t>*)track.get_S();\n    ((linear_anim<rational_t>*)S)->construct( St,\n                                              subanim_flags );\n  }\n  else if ( has_S() )\n    S->set_valid( false );\n\n  // in reverse start-relative anim, start values must be adjusted to correspond to bottom end of track\n  if ( is_relative_to_start() && (anim_flags&ANIM_REVERSE) )\n  {\n    if ( has_S() )\n    {\n      rational_t s;\n      S->get_value( track.get_S()->get_duration(), &s );\n      S_start /= s;\n    }\n    if ( has_R() )\n    {\n      quaternion r;\n      R->get_value( track.get_R()->get_duration(), &r );\n      R_start = r.get_conjugate() * R_start;\n    }\n\n    anim_create_rot_vectors(&R_start_mat[0], R_start);\n\n    if ( has_P() )\n    {\n      // the rel-position must be transformed by R_start and then subtracted from P_start\n      vector3d p;\n      P->get_value( track.get_P()->get_duration(), &p );\n//      matrix4x4 rot;\n//      R_start.to_matrix( &rot );\n      P_start -= anim_xform3d_1( &R_start_mat[0], p );\n    }\n  }\n  else\n  {\n    anim_create_rot_vectors(&R_start_mat[0], R_start);\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "construct__7po_animRC2poRC9PRS_trackUs"
+}
