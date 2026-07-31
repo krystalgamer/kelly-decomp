@@ -1,0 +1,15 @@
+{
+  "address": "0x00273CC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9f4d17a3fb2273d1ffb16dd730c5361f4c0ad132",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/beam.h\"\n\nvoid beam_effect::read_color_chunk( chunk_file& fs )\n{\n  int start_r = 255;\n  int start_g = 0;\n  int start_b = 0;\n\n  int end_r = 0;\n  int end_g = 255;\n  int end_b = 0;\n\n  rational_t the_duration = 1.0f;\n  rational_t the_delay = 0.0f;\n  rational_t the_loop_delay = -1.0f;\n  bool invert_loop = false;\n\n  stringx label;\n  serial_in( fs, &label );\n\n  while(!(label == chunkend_label))\n  {\n    if(label == \"start\")\n    {\n      serial_in(fs, &start_r);\n      serial_in(fs, &start_g);\n      serial_in(fs, &start_b);\n    }\n    else if(label == \"end\")\n    {\n      serial_in(fs, &end_r);\n      serial_in(fs, &end_g);\n      serial_in(fs, &end_b);\n    }\n    else if(label == \"duration\")\n    {\n      serial_in(fs, &the_duration);\n    }\n    else if(label == \"delay\")\n    {\n      serial_in(fs, &the_delay);\n    }\n    else if(label == \"loop_delay\")\n    {\n      serial_in(fs, &the_loop_delay);\n    }\n    else if(label == \"invert_loop\")\n    {\n//      serial_in(fs, &invert_loop);\n      invert_loop = true;\n    }\n    else if(label == \"looping\")\n    {\n//      bool loop = false;\n//      serial_in(fs, &loop);\n\n      if(the_loop_delay < 0.0f)\n        the_loop_delay = 0.0f;\n      else\n        the_loop_delay = -1.0f;\n    }\n    else\n    {\n      error( fs.get_filename() + \": unknown keyword '\" + label + \"' in color section of beam_effect\" );\n    }\n\n    serial_in( fs, &label );\n  }\n\n    set_color_delta(color32((uint8)start_r, (uint8)start_g, (uint8)start_b, 255), color32((uint8)end_r, (uint8)end_g, (uint8)end_b, 255), the_duration, the_delay, the_loop_delay, invert_loop);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "read_color_chunk__11beam_effectR10chunk_file"
+}
