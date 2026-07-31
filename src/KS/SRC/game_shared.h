@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_GAME_SHARED_H
 #define KELLY_DECOMP_GAME_SHARED_H
 
-#include "KS/SRC/commands_shared.h"
+#include "KS/SRC/commands.h"
 #include "KS/SRC/game_process_shared.h"
 #include "KS/SRC/inputmgr_shared.h"
 #include "KS/SRC/stringx.h"
