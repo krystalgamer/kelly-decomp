@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_GAME_MODE_SHARED_H
-#define KELLY_DECOMP_GAME_MODE_SHARED_H
+#ifndef MODE_H
+#define MODE_H
 
 enum game_mode_t {
     GAME_MODE_CAREER,

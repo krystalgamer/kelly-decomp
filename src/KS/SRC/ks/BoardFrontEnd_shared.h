@@ -5,7 +5,7 @@
 
 #include "KS/SRC/ks/FEMenu.h"
 #include "KS/SRC/ks/GraphicalMenuSystem.h"
-#include "KS/SRC/ks/game_mode_shared.h"
+#include "KS/SRC/ks/mode.h"
 
 class IGOFrontEnd;
 class PauseMenuSystem;
