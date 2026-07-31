@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_PMESH_SHARED_H
 #define KELLY_DECOMP_PMESH_SHARED_H
 
-#include "KS/SRC/visrep_shared.h"
+#include "KS/SRC/visrep.h"
 
 typedef unsigned int face_ref;
 typedef unsigned short wedge_ref;

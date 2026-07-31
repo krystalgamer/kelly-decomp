@@ -13,7 +13,7 @@
 #include "KS/SRC/stringx.h"
 #include "KS/SRC/time_interface.h"
 #include "KS/SRC/algebra.h"
-#include "KS/SRC/visrep_shared.h"
+#include "KS/SRC/visrep.h"
 
 #pragma interface
 

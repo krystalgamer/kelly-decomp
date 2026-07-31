@@ -1,36 +1,63 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef VISREP_H
+#define VISREP_H
 
+class instance_render_info;
+class po;
+class vector3d;
 
-#if defined(KELLY_DECOMP_FUNCTION_002FEAA0)
-// 0x002FEAA0 _$_10visual_rep
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
+typedef float time_value_t;
+typedef float rational_t;
+typedef unsigned int render_flavor_t;
 
-extern const char target_vtable[];
-__asm__(".equ target_vtable, 0x004F4820");
-
-struct target_layout {
-    char padding[0x10];
-    const void *vtable;
+enum visrep_t {
+    VISREP_PMESH = 0,
+    VISREP_BILLBOARD,
+    VISREP_DROPSHADOW,
+    VISREP_HIGHLIGHT = VISREP_DROPSHADOW,
+    VISREP_KRMESH
 };
 
-extern "C" void TargetDtor(void *self, int deleting)
-    __asm__("_$_10visual_rep");
+enum light_method_t {
+    LIGHT_METHOD_DIFFUSE = 0,
+    LIGHT_METHOD_ADDITIVE_DYNAMIC_ONLY = 1
+};
 
-void TargetDtor(void *self, int deleting) {
-    ((target_layout *)self)->vtable = target_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
+enum {
+    RENDER_OPAQUE_PORTION = 0x001,
+    RENDER_TRANSLUCENT_PORTION = 0x002
+};
+
+class visual_rep {
+    visrep_t type;
+    rational_t min_detail_dist;
+    rational_t max_detail_dist;
+    bool instanced;
+
+public:
+    virtual inline ~visual_rep() {}
+    virtual void render_instance(render_flavor_t, instance_render_info *, short * = 0) = 0;
+    virtual void render_batch(render_flavor_t, instance_render_info *, int);
+    virtual void render_skin(render_flavor_t, const instance_render_info *, const po *, int);
+    virtual int get_min_faces(time_value_t = 0) const;
+    virtual int get_max_faces(time_value_t = 0) const;
+    virtual time_value_t get_ending_time() const;
+    virtual float time_value_to_frame(time_value_t);
+    virtual rational_t get_radius(time_value_t = 0) const = 0;
+    virtual rational_t compute_xz_radius_rel_center(const po &xform);
+    virtual const vector3d &get_center(time_value_t = 0) const = 0;
+    virtual bool kill_me();
+    virtual void set_light_method(light_method_t);
+    inline visrep_t get_type() const {
+        return type;
     }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
+    inline bool is_instanced() const {
+        return instanced;
+    }
+    virtual void set_distance_fade_ok(bool);
+    virtual bool get_distance_fade_ok() const;
+    virtual int get_anim_length() const;
+    virtual bool is_uv_animated() const;
+    virtual render_flavor_t render_passes_needed() const;
+};
 
-#if defined(KELLY_DECOMP_FUNCTION_002FEA60)
-// 0x002FEA60 __tf10visual_rep
-extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
-extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
-asm(".equ typeinfo, 0x00512158"); asm(".equ type_name, 0x004F4AC8");
-extern "C" void *GetTypeInfo() __asm__("__tf10visual_rep");
-void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
