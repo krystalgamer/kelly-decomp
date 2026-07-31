@@ -1,0 +1,15 @@
+{
+  "address": "0x002C2100",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "16c268910375d69c13f314c9b3e4d606b94dcf31",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/lensflare.h\"\n\nlensflare::lensflare( const entity_id& _id, unsigned int _flags )\n: entity( _id, ENTITY_LENSFLARE, _flags )\n{\n  init();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__9lensflareR10chunk_fileRC9entity_id15entity_flavor_tUi"
+}
