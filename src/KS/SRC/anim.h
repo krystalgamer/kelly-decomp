@@ -1,7 +1,7 @@
 // Matching decompilation blocks selected by generated build shims.
 
 #if defined(KELLY_DECOMP_FUNCTION_00121B58)
-#include "KS/SRC/linear_anim_shared.h"
+#include "KS/SRC/linear_anim.h"
 
 extern "C" void **key_quat_base_rtti() __asm__("__tft4anim1Z10quaternion");
 extern "C" void *key_quat_base_type[] __asm__("__tit4anim1Z10quaternion");
@@ -28,7 +28,7 @@ void **key_quat_rtti()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00121BF8)
-#include "KS/SRC/linear_anim_shared.h"
+#include "KS/SRC/linear_anim.h"
 
 extern "C" void **key_float_base_rtti() __asm__("__tft4anim1Zf");
 extern "C" void *key_float_base_type[] __asm__("__tit4anim1Zf");
@@ -55,7 +55,7 @@ void **key_float_rtti()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00121BA8)
-#include "KS/SRC/linear_anim_shared.h"
+#include "KS/SRC/linear_anim.h"
 
 extern "C" void **key_vec_base_rtti() __asm__("__tft4anim1Z8vector3d");
 extern "C" void *key_vec_base_type[] __asm__("__tit4anim1Z8vector3d");
@@ -503,7 +503,7 @@ struct anim_control_t{float current_time;float time_delta;float duration;};struc
 
 #if defined(KELLY_DECOMP_FUNCTION_001211C8)
 // 0x001211C8 get_value__Ct8key_anim3ZfZt10linear_key1ZfZt12linear_track1ZffPf
-#include "KS/SRC/linear_anim_shared.h"
+#include "KS/SRC/linear_anim.h"
 
 __asm__(
     ".equ interpolate__Ct10linear_key1ZfRCt10linear_key1Zff, "
@@ -519,7 +519,7 @@ template void key_anim<
 
 #if defined(KELLY_DECOMP_FUNCTION_001212D8)
 // 0x001212D8 get_value__Ct8key_anim3Z8vector3dZt10linear_key1Z8vector3dZt12linear_track1Z8vector3dRC14anim_control_tP8vector3d
-#include "KS/SRC/linear_anim_shared.h"
+#include "KS/SRC/linear_anim.h"
 #include "KS/SRC/algebra.h"
 
 __asm__(
@@ -536,7 +536,7 @@ template void key_anim<
 
 #if defined(KELLY_DECOMP_FUNCTION_001216B8)
 // 0x001216B8 get_value__Ct8key_anim3Z10quaternionZt10linear_key1Z10quaternionZt12linear_track1Z10quaternionRC14anim_control_tP10quaternion
-#include "KS/SRC/linear_anim_shared.h"
+#include "KS/SRC/linear_anim.h"
 
 __asm__(
     ".equ interpolate__Ct10linear_key1Z10quaternion"
@@ -552,7 +552,7 @@ template void key_anim<
 
 #if defined(KELLY_DECOMP_FUNCTION_00121540)
 // 0x00121540 get_value__Ct8key_anim3Z8vector3dZt10linear_key1Z8vector3dZt12linear_track1Z8vector3dfP8vector3d
-#include "KS/SRC/linear_anim_shared.h"
+#include "KS/SRC/linear_anim.h"
 #include "KS/SRC/algebra.h"
 
 __asm__(
