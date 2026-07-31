@@ -587,7 +587,137 @@ struct WavePartition{unsigned N;float*guide;float*guidestep;float*weight;};exter
 struct pulse_vtable{char padding[24];short adjustment;short reserved;float(*world_to_pulse)(void*,float);};class WavePulsePerturbClass6{public:char padding[432];pulse_vtable*vtable;public:float WorldToProfile(float);};extern int WAVE_PerturbStage;extern float WAVE_PerturbProgress;asm(".equ WAVE_PerturbStage,0x00585C44");asm(".equ WAVE_PerturbProgress,0x00585C6C");inline float pulse(WavePulsePerturbClass6*self,float x){pulse_vtable*v=self->vtable;return v->world_to_pulse((char*)self+v->adjustment,x);}extern "C" float WorldToProfile(WavePulsePerturbClass6*self,float worldx)__asm__("WorldToProfile__t21WavePulsePerturbClass1i6f");float WorldToProfile(WavePulsePerturbClass6*self,float worldx){float profilex;switch(WAVE_PerturbStage){case 1:case 2:case 3:case 4:profilex=pulse(self,worldx);break;case 5:{float p=pulse(self,worldx);float q=1.0f-WAVE_PerturbProgress;profilex=worldx+(p-worldx)*(q*q);break;}default:profilex=worldx;break;}return profilex;}
 
 // 0x00384DE0 WorldToProfile__t20WavePushPerturbClass1i6f
-#include "KS/SRC/ks/wave_perturb_shared.h"
+#include "KS/SRC/ks/wave.h"
+
+#define WAVE_PARTITIONMAX 32
+
+struct WavePartition {
+    WavePartition(
+        unsigned int count,
+        float *guide_values,
+        float *guide_steps,
+        float *weights)
+        : N(count),
+          guide(guide_values),
+          guidestep(guide_steps),
+          weight(weights)
+    {
+    }
+
+    unsigned int N;
+    float *guide;
+    float *guidestep;
+    float *weight;
+};
+
+class WaveBasePerturbClass {
+public:
+    WaveBasePerturbClass(
+        float (&stage_duration)[WAVE_PerturbStageMax],
+        const int &is_enabled)
+        : duration(stage_duration),
+          partition(WAVE_PARTITIONMAX, guide, guidestep, weight),
+          enabled(is_enabled)
+    {
+    }
+
+    float (&duration)[WAVE_PerturbStageMax];
+    float start[WAVE_PerturbStageMax];
+    WavePartition partition;
+
+    bool Enabled() { return enabled; }
+
+    virtual void Init() = 0;
+    virtual float WorldToProfile(float worldx) = 0;
+
+protected:
+    const int &enabled;
+
+private:
+    float guide[WAVE_PARTITIONMAX];
+    float guidestep[WAVE_PARTITIONMAX];
+    float weight[WAVE_PARTITIONMAX];
+};
+
+template <int count>
+class WavePerturbClass : public WaveBasePerturbClass {
+public:
+    WavePerturbClass(
+        float (&stage_duration)[WAVE_PerturbStageMax],
+        const int &is_enabled)
+        : WaveBasePerturbClass(stage_duration, is_enabled)
+    {
+    }
+
+    const static unsigned int num;
+
+    virtual void Init() = 0;
+    virtual float WorldToProfile(float worldx) = 0;
+};
+
+template <int count>
+const unsigned int WavePerturbClass<count>::num = count;
+
+template <int count>
+class WavePulsePerturbClass : public WavePerturbClass<count> {
+public:
+    WavePulsePerturbClass(
+        float (&stage_duration)[WAVE_PerturbStageMax],
+        const int &is_enabled,
+        float (&pulse_values)[count],
+        float profile_low,
+        float profile_high)
+        : WavePerturbClass<count>(stage_duration, is_enabled),
+          pulse(pulse_values),
+          profilelo(profile_low),
+          profilehi(profile_high),
+          offset(0)
+    {
+    }
+
+    const float (&pulse)[count];
+    float profilelo;
+    float profilehi;
+    float pulsex[count];
+    float pulsexx[count];
+    SplineCoeffs<count> pulsecoeffs;
+    float offset;
+
+    virtual void Init();
+    virtual float WorldToProfile(float worldx);
+    virtual float WorldToPulse(float worldx);
+};
+
+template <int count>
+class WavePushPerturbClass : public WavePulsePerturbClass<count> {
+public:
+    WavePushPerturbClass(
+        float (&stage_duration)[WAVE_PerturbStageMax],
+        const int &is_enabled,
+        float (&pulse_values)[count],
+        float profile_low,
+        float profile_high)
+        : WavePulsePerturbClass<count>(
+              stage_duration,
+              is_enabled,
+              pulse_values,
+              profile_low,
+              profile_high)
+    {
+    }
+
+    virtual float WorldToProfile(float worldx);
+    virtual float WorldToPulse(float worldx);
+};
+
+template <class T>
+inline T sqr(const T &value)
+{
+    return value * value;
+}
+
+extern WavePerturbStageEnum WAVE_PerturbStage;
+extern float WAVE_PerturbProgress;
 
 __asm__(".equ WAVE_PerturbStage, 0x00585C44");
 __asm__(".equ WAVE_PerturbProgress, 0x00585C6C");

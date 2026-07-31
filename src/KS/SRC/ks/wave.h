@@ -252,7 +252,7 @@ extern float WAVE_ShiftZ;
 extern float WAVE_ShiftSpeedU;
 extern float WAVE_ShiftSpeedV;
 extern int WAVE_Stage;
-extern int WAVE_PerturbStage;
+extern WavePerturbStageEnum WAVE_PerturbStage;
 extern float WAVE_ScheduleTimeStart;
 extern float WAVE_ScheduleTimeEnd;
 extern float WAVE_TotalSec;
