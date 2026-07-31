@@ -1,0 +1,15 @@
+{
+  "address": "0x00189AF8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "2209a59a7b3fee9a18dc26ef019158f516ec2ce4",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/SurferFrontEnd.h\"\n\nSurferBioFrontEnd::SurferBioFrontEnd(FEMenuSystem* s, FEManager* man, stringx p, stringx pf, SurferFrontEnd* sfe)\n{\n\tcons(s, man, p, pf);\n\tsys = (GraphicalMenuSystem*) s;\n\tbio_parent = sfe;\n\tparent = bio_parent;\n\n\tfloat sc_lg = 0.888f*1.18f;\n\tfloat sc_sm = 0.666f*1.5f;\n\tcolor32 c = manager->gray_dk;\n\n\tfor(int i=0; i<SURFER_LAST; i++)\n\t\tbios[i] = NEW PreformatText(&manager->font_body, \"\", 336, 148, 0, sc_sm, Font::HORIZJUST_LEFT, Font::VERTJUST_CENTER, c);\n\n\tcolor32 name_col = color32(29, 53, 74, 255);\n\tfirstname = NEW TextString(&manager->font_bold_old, \"\", 336, 92, 0, sc_lg, Font::HORIZJUST_LEFT, Font::VERTJUST_CENTER, name_col);\n\tlastname = NEW TextString(&manager->font_bold_old, \"\", 336, 116, 0, sc_lg, Font::HORIZJUST_LEFT, Font::VERTJUST_CENTER, name_col);\n\n\t// allow up to 7 lines for the intro\n\tintro = NEW BoxText(&manager->font_body, \"\", 124, 288, 0, 0.6f*1.5f, Font::HORIZJUST_LEFT, Font::VERTJUST_CENTER, c, 7);\n\tcounter = 0;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__17SurferBioFrontEndP12FEMenuSystemP9FEManagerG7stringxT3P14SurferFrontEnd"
+}
