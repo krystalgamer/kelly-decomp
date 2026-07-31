@@ -1,0 +1,15 @@
+{
+  "address": "0x001CD2F0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c2fc10ceea01496847209d174299e62dc2a9b96d",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/HighScoreFrontEnd.h\"\n\nvoid HighScoreFrontEnd::SetPQIndices()\n{\n\tarrows[0][0] = GetPointer(\"hs_button_off_01\");\n\tarrows[0][1] = GetPointer(\"hs_button_on_01\");\n\tarrows[1][0] = GetPointer(\"hs_button_off_02\");\n\tarrows[1][1] = GetPointer(\"hs_button_on_02\");\n\n\tstatic const int arrow_offset = 50;\n\tfloat x, y;\n\tarrows[0][0]->GetCenterPos(x, y);\n\tarrows[0][0]->SetCenterPos(x-arrow_offset, y);\n\tarrows[0][1]->GetCenterPos(x, y);\n\tarrows[0][1]->SetCenterPos(x-arrow_offset, y);\n\tarrows[1][0]->GetCenterPos(x, y);\n\tarrows[1][0]->SetCenterPos(x+arrow_offset, y);\n\tarrows[1][1]->GetCenterPos(x, y);\n\tarrows[1][1]->SetCenterPos(x+arrow_offset, y);\n\n\tarrows[0][1]->TurnOn(false);\n\tarrows[1][1]->TurnOn(false);\n\tarrows[0][0]->TurnOn(!in_game);\n\tarrows[1][0]->TurnOn(!in_game);\n\n\tline = GetPointer(\"hs_line_19\");\n\n\tif(in_game)\n\t{\n\t\tfor(int i=0; i<19; i++)\n\t\t\tif(i < 9) lines[i] = GetPointer((\"hs_line_0\"+stringx(i+1)).data());\n\t\t\telse lines[i] = GetPointer((\"hs_line_\"+stringx(i+1)).data());\n\t\tfade = GetPointer(\"hs_fade\");\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "SetPQIndices__13NameEntryMenu"
+}
