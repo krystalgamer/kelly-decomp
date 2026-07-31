@@ -1,0 +1,15 @@
+{
+  "address": "0x00152AB8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9fe82cbc70377cc8ea39a3e0794926cec477847f",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEPanel.h\"\n\nvoid PanelFile::ReadPanelMaterial(PanelMaterial& mat, unsigned char* buffer, int& index)\n{\n\tmat.name = ReadString(buffer, index);\n\tif (mat.name.size() > 2 && mat.name[0] == 'w' && mat.name[1] == 'i')\n\t{\n\t\tint i;\n\t\ti = 2;\n\t}\n\tmat.color = ReadLong(buffer, index);\n\tmat.emissive = ReadFloat(buffer, index);\n\tmat.shininess = ReadFloat(buffer, index);\n\tmat.shinestr = ReadFloat(buffer, index);\n\tmat.additive = ReadChar(buffer, index);\n\tmat.hasmap = ReadChar(buffer, index);\n\n#if defined(TARGET_XBOX)\n#define TEXMAP_EXT      \".dds\"\n#define TEXMAP_EXT_CAPS \".DDS\"\n#elif defined(TARGET_GC)\n#define TEXMAP_EXT      \".gct\"\n#define TEXMAP_EXT_CAPS \".GCT\"\n#elif defined(TARGET_PS2)\n#define TEXMAP_EXT      \".tm2\"\n#define TEXMAP_EXT_CAPS \".TM2\"\n#endif\n\n\tif(mat.hasmap)\n\t{\n    mat.filename = ReadString(buffer, index);\n\t\tif(file_finder_exists(texture_path + mat.filename, TEXMAP_EXT) ||\n\t\t   file_finder_exists(texture_path + mat.filename, TEXMAP_EXT_CAPS))\n    {\n\t\t\tmat.texture = nglLoadTextureA(mat.filename.data());\n    }\n\t\telse\n\t\t\tif(file_finder_exists(common_path + mat.filename, TEXMAP_EXT) ||\n\t\t\t   file_finder_exists(common_path + mat.filename, TEXMAP_EXT_CAPS))\n      {\n\t\t\t\tnglSetTexturePath(common_path.data());\n\t\t\t\tmat.texture = nglLoadTextureA(mat.filename.data());\n\t\t\t\tnglSetTexturePath(texture_path.data());\n\t\t\t}\n\t\t\telse\n\t\t\t{\n\t\t\t\tnglPrintf(\"BETH: file %s not found in normal or common paths\\n\", mat.filename.data());\n#ifdef BETH\n\t\t\t\tnglPrintf(\"BETH: texture path = %s, common path = %s\\n\", texture_path.data(), common_path.data());\n#endif\n\t\t\t}\n\n\t\tmat.bilinearfilter = ReadChar(buffer, index);\n\t\tmat.wrapu = ReadChar(buffer, index);\n\t\tmat.wrapv = ReadChar(buffer, index);\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "ReadPanelMaterial__9PanelFileR13PanelMaterialPUcRi"
+}
