@@ -21,25 +21,9 @@ void FEMenu::OnDown(int command) {
 // 0x001DB258 Mask__15FEGraphicalMenuP9PanelQuadf
 #include "KS/SRC/ks/FEPanel.h"
 #include "KS/SRC/ks/FEMenu.h"
-struct BuiltMaskVTable {
-    char padding[0x180];
-    short adjustment;
-    short reserved;
-    void (*mask)(void *self, PanelQuad *quad, float amount);
-};
-struct BuiltMaskMenu {
-    char padding[0x74];
-    BuiltMaskVTable *vtable;
-};
 void FEGraphicalMenu::Mask(PanelQuad *quad, float amount) {
-    if (parent) {
-        BuiltMaskMenu *menu = (BuiltMaskMenu *)parent;
-        BuiltMaskVTable *table = menu->vtable;
-        table->mask(
-            (char *)parent + table->adjustment,
-            quad,
-            amount);
-    }
+    if (parent)
+        ((FEGraphicalMenu *)parent)->Mask(quad, amount);
     else
         FrontEnd::Mask(quad, amount);
 }
@@ -47,21 +31,6 @@ void FEGraphicalMenu::Mask(PanelQuad *quad, float amount) {
 // 0x001DB208 ChangeFade__15FEGraphicalMenuP9PanelQuadbT2f
 #include "KS/SRC/ks/FEPanel.h"
 #include "KS/SRC/ks/FEMenu.h"
-struct BuiltChangeFadeVTable {
-    char padding[0x178];
-    short adjustment;
-    short reserved;
-    void (*change_fade)(
-        void *self,
-        PanelQuad *quad,
-        bool start,
-        bool fade_in,
-        float time);
-};
-struct BuiltChangeFadeMenu {
-    char padding[0x74];
-    BuiltChangeFadeVTable *vtable;
-};
 __asm__(".equ ChangeFade__9PanelQuadbT1f, 0x0014D078");
 void FEGraphicalMenu::ChangeFade(
     PanelQuad *quad,
@@ -69,17 +38,12 @@ void FEGraphicalMenu::ChangeFade(
     bool fade_in,
     float time
 ) {
-    if (parent) {
-        BuiltChangeFadeMenu *menu =
-            (BuiltChangeFadeMenu *)parent;
-        BuiltChangeFadeVTable *table = menu->vtable;
-        table->change_fade(
-            (char *)parent + table->adjustment,
+    if (parent)
+        ((FEGraphicalMenu *)parent)->ChangeFade(
             quad,
             start,
             fade_in,
             time);
-    }
     else if (quad) {
         quad->ChangeFade(start, fade_in, time);
         KELLY_DECOMP_COMPILER_BARRIER();
@@ -89,24 +53,9 @@ void FEGraphicalMenu::ChangeFade(
 // 0x001DB1B8 ToggleOn__15FEGraphicalMenuP9PanelQuad
 #include "KS/SRC/ks/FEPanel.h"
 #include "KS/SRC/ks/FEMenu.h"
-struct BuiltToggleOnVTable {
-    char padding[0x170];
-    short adjustment;
-    short reserved;
-    void (*toggle_on)(void *self, PanelQuad *quad);
-};
-struct BuiltToggleOnMenu {
-    char padding[0x74];
-    BuiltToggleOnVTable *vtable;
-};
 void FEGraphicalMenu::ToggleOn(PanelQuad *quad) {
-    if (parent) {
-        BuiltToggleOnMenu *menu = (BuiltToggleOnMenu *)parent;
-        BuiltToggleOnVTable *table = menu->vtable;
-        table->toggle_on(
-            (char *)parent + table->adjustment,
-            quad);
-    }
+    if (parent)
+        ((FEGraphicalMenu *)parent)->ToggleOn(quad);
     else
         FrontEnd::ToggleOn(quad);
 }

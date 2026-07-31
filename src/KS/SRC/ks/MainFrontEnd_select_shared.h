@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_MAIN_FRONT_END_SELECT_SHARED_H
 
 #include "KS/SRC/ks/MainFrontEnd_shared.h"
-#include "KS/SRC/ks/GraphicalMenuSystem_shared.h"
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 #include "KS/SRC/ks/game_mode_shared.h"
 
 class FEManager {

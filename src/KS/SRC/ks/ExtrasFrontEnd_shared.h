@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_EXTRAS_FRONT_END_SHARED_H
 #define KELLY_DECOMP_EXTRAS_FRONT_END_SHARED_H
 
-#include "KS/SRC/ks/GraphicalMenuSystem_shared.h"
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 #include "KS/SRC/ks/FrontEndManager_shared.h"
 #include "KS/SRC/ks/SoundScript.h"
 

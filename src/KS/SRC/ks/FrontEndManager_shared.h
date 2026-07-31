@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_FRONT_END_MANAGER_SHARED_H
 #define KELLY_DECOMP_FRONT_END_MANAGER_SHARED_H
 
-#include "KS/SRC/ks/GraphicalMenuSystem_shared.h"
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 #include "KS/SRC/ks/HelpbarFE_shared.h"
 
 class IGOFrontEnd;

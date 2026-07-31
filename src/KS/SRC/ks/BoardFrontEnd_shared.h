@@ -4,7 +4,7 @@
 #pragma interface
 
 #include "KS/SRC/ks/FEMenu.h"
-#include "KS/SRC/ks/GraphicalMenuSystem_shared.h"
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 #include "KS/SRC/ks/game_mode_shared.h"
 
 class IGOFrontEnd;

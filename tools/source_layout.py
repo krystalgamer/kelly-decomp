@@ -80,6 +80,8 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/entity_interface.h": "KS/SRC/entity_interface.cpp",
     "KS/SRC/ks/FEPanel.h": "KS/SRC/ks/FEPanel_methods.cpp",
     "KS/SRC/ks/FEMenu.h": "KS/SRC/ks/FEMenu_methods.cpp",
+    "KS/SRC/ks/GraphicalMenuSystem.h":
+        "KS/SRC/ks/GraphicalMenuSystem_methods.cpp",
     "KS/SRC/ks/ks_camera.h": "KS/SRC/ks/ks_camera_methods.cpp",
     "KS/SRC/ks/ksreplay.h": "KS/SRC/ks/ksreplay_methods.cpp",
     "KS/SRC/ks/menu.h": "KS/SRC/ks/menu_methods.cpp",

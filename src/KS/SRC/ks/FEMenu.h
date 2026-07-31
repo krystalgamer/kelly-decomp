@@ -198,6 +198,8 @@ public:
     virtual void SetAllScale(float);
     virtual void MakeActive(FEMenu*, bool = true);
     virtual void SetHelpText(int);
+    // Present in the shipped vtable but absent from the released header.
+    virtual void BuiltSelectReserved0();
     virtual void Select(int);
 
 protected:
