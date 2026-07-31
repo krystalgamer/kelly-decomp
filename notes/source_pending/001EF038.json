@@ -1,0 +1,15 @@
+{
+  "address": "0x001EF038",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "88885c3ebd1b9f38a52b14f5719864d23fa310fd",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/board.h\"\n\nbool SurfBoardObjectClass::do_grinding_stuff (float dt)\n{\n  cg_mesh *colgeom;\n  vector3d p1, p2;\n  int half_idx;\n\n  if (ksctrl->CtrlEvent(PAD_GRIND) && (grind_entity == NULL))\n  {\n    check_for_grinding ();\n\n\t  // Begin grind.\n    if (grind_entity != NULL)\n      get_ks_controller()->StartGrind (grind_vector);\n  }\n\n  if (grind_entity == NULL)\n    return false;\n\n  colgeom = (cg_mesh *) (grind_entity->get_colgeom());\n  half_idx = colgeom->get_num_verts () / 2 - 1;\n\n  // do the grinding physics (if you could call it physics)\n  p1 = grind_entity->get_abs_po ().slow_xform (colgeom->get_raw_vert_ptr (grind_idx)->get_point ());\n  if (grind_forward)\n    p2 = grind_entity->get_abs_po ().slow_xform (colgeom->get_raw_vert_ptr (grind_idx + 1)->get_point ());\n  else\n    p2 = grind_entity->get_abs_po ().slow_xform (colgeom->get_raw_vert_ptr (grind_idx - 1)->get_point ());\n\n  grind_vector = p2 - p1;\n  rb->linMom = ZEROVEC;\n  rb->pos = p1 + grind_vector * grind_percent;\n  my_board->set_rel_po (rb->my_po);\n  my_board->set_rel_position (rb->pos);\n\n  grind_percent += grind_speed / grind_vector.length ();\n\n  bool end = false;\n\n  CollideCallStruct collide (my_board->get_abs_position (), NULL, NULL, NULL, NULL);\n  WAVE_CheckCollision (collide, false, false, false);\n\n  if (collide.position.y > my_board->get_abs_position ().y)\n  {\n    end = true;\n  }\n\n  while (grind_percent > 1)\n  {\n    grind_percent -= 1;\n\n    if (grind_forward)\n      grind_idx++;\n    else\n      grind_idx--;\n\n    if (((grind_idx == 0) && !grind_forward) || ((grind_idx == half_idx) && grind_forward))\n    {\n      end = true;\n      break;\n    }\n  }\n\n  if (end)\n  {\n    // fun ends here, go back to regular surfing.\n    ksctrl->set_state (STATE_FREEFALL);\n    ksctrl->set_super_state (SUPER_STATE_AIR);\n    state = BOARD_NONE;\n    grind_entity = NULL;\n    grind_object = NULL;\n    //get_ks_controller ()->float_meter.End ();\n  }\n\n  return true;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "do_grinding_stuff__20SurfBoardObjectClassf"
+}
