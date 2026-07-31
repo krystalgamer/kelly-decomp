@@ -1,0 +1,15 @@
+{
+  "address": "0x002C8BD8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e1460d3bd1b27d1351d1360b00a804dd8fd32299",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/debug_render.h\"\n\nvoid render_frustum(const camera& cam, const color32& col)\n{\n  if (!frustum_pmesh) return;\n  const po& view2world = cam.get_abs_po();\n\n  // compute basis for camera-oriented XZ space.  we want the basis for the scene camera,\n  // which isn't necessarily the current_view camera, if we happen to be using the scene_analyzer\n  // cam.\n  static rational_t near_adj = PROJ_FAR_PLANE_D/PROJ_NEAR_PLANE_D;\n  rational_t tanfovx = tan(PROJ_FOV_ZOOM_HALF)*PROJ_NEAR_PLANE_D;\n\n  vector3d p0 = vector3d(-tanfovx,-tanfovx*PROJ_ASPECT,PROJ_NEAR_PLANE_D);\n  vector3d p1 = vector3d(-tanfovx, tanfovx*PROJ_ASPECT,PROJ_NEAR_PLANE_D);\n  vector3d p2 = vector3d( tanfovx, tanfovx*PROJ_ASPECT,PROJ_NEAR_PLANE_D);\n  vector3d p3 = vector3d( tanfovx,-tanfovx*PROJ_ASPECT,PROJ_NEAR_PLANE_D);\n  vector3d p4 = p0*near_adj;\n  vector3d p5 = p1*near_adj;\n  vector3d p6 = p2*near_adj;\n  vector3d p7 = p3*near_adj;\n\n  frustum_pmesh->set_xvert_unxform_pos(0,p0);\n  frustum_pmesh->set_xvert_unxform_pos(1,p1);\n  frustum_pmesh->set_xvert_unxform_pos(2,p2);\n  frustum_pmesh->set_xvert_unxform_pos(3,p3);\n  frustum_pmesh->set_xvert_unxform_pos(4,p4);\n  frustum_pmesh->set_xvert_unxform_pos(5,p5);\n  frustum_pmesh->set_xvert_unxform_pos(6,p6);\n  frustum_pmesh->set_xvert_unxform_pos(7,p7);\n\n  instance_render_info firi(frustum_pmesh->get_max_faces(), view2world, 0, NULL, 0,\n                            col, FORCE_TRANSLUCENCY );\n\n  frustum_pmesh->render_instance(RENDER_OPAQUE_PORTION\n\t\t\t  | RENDER_TRANSLUCENT_PORTION\n\t\t\t  | RENDER_NO_LIGHTS\n\t\t\t  | RENDER_CLIPPED_FULL_DETAIL, &firi);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "render_frustum__FRC6cameraRC7color32"
+}
