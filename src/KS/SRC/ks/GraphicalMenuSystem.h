@@ -73,4 +73,26 @@ protected:
     virtual void SetPQIndices();
 };
 
+class MCDetectFrontEnd;
+
+class TitleFrontEnd : public FEGraphicalMenu {
+    PanelQuad *bkg;
+    PanelQuad *box[9];
+    TextString *loading;
+    int loading_draw_counter;
+    MCDetectFrontEnd *mc;
+
+public:
+    virtual ~TitleFrontEnd();
+    virtual void Update(time_value_t time_inc);
+    virtual void Draw();
+    virtual void Load();
+    virtual void OnLeft(int controller);
+    virtual void OnRight(int controller);
+    virtual void OnStart(int controller);
+    virtual void OnCross(int controller);
+    virtual void Select(int entry);
+    virtual void SetSystem(FEMenuSystem *system);
+};
+
 #endif

@@ -72,17 +72,18 @@ struct menu_layout {
     menu_vtable *vtable;
 };
 
-class TitleFrontEnd {
+struct title_direction_layout {
     char padding[0x60];
     menu_layout *active;
-
-public:
-    void OnLeft(int controller);
 };
 
-void TitleFrontEnd::OnLeft(int controller)
+extern "C" void title_left(
+    title_direction_layout *self,
+    int controller
+) __asm__("OnLeft__13TitleFrontEndi");
+void title_left(title_direction_layout *self, int controller)
 {
-    menu_layout *menu = active;
+    menu_layout *menu = self->active;
     if (menu) {
         menu_vtable *table = menu->vtable;
         table->on_left((char *)menu + table->adjustment, controller);
@@ -102,17 +103,18 @@ struct menu_layout {
     menu_vtable *vtable;
 };
 
-class TitleFrontEnd {
+struct title_direction_layout {
     char padding[0x60];
     menu_layout *active;
-
-public:
-    void OnRight(int controller);
 };
 
-void TitleFrontEnd::OnRight(int controller)
+extern "C" void title_right(
+    title_direction_layout *self,
+    int controller
+) __asm__("OnRight__13TitleFrontEndi");
+void title_right(title_direction_layout *self, int controller)
 {
-    menu_layout *menu = active;
+    menu_layout *menu = self->active;
     if (menu) {
         menu_vtable *table = menu->vtable;
         table->on_right((char *)menu + table->adjustment, controller);
@@ -134,20 +136,23 @@ struct mc_frontend_layout {
     menu_vtable *vtable;
 };
 
-class TitleFrontEnd {
+struct title_system_layout {
     char padding0[0x50];
     FEMenuSystem *system;
     char padding1[0x12C];
     mc_frontend_layout *mc;
-
-public:
-    void SetSystem(FEMenuSystem *new_system);
 };
 
-void TitleFrontEnd::SetSystem(FEMenuSystem *new_system)
+extern "C" void set_title_system(
+    title_system_layout *self,
+    FEMenuSystem *new_system
+) __asm__("SetSystem__13TitleFrontEndP12FEMenuSystem");
+void set_title_system(
+    title_system_layout *self,
+    FEMenuSystem *new_system)
 {
-    system = new_system;
-    mc_frontend_layout *frontend = mc;
+    self->system = new_system;
+    mc_frontend_layout *frontend = self->mc;
     menu_vtable *table = frontend->vtable;
     table->set_system(
         (char *)frontend + table->adjustment,
@@ -253,10 +258,14 @@ struct stringx{char d[8];};struct TextVtable{char p[136];short adj;short z;void(
 enum device_id_t{ANY_LOCAL_JOYSTICK=12};class input_mgr{public:float get_control_state(device_id_t,int)const;};extern input_mgr*input_manager;asm(".equ input_manager,0x0046B7B0");asm(".equ get_control_state__C9input_mgr11device_id_ti,0x003441C8");class GraphicalMenuSystem{public:bool get_one_button_down(int&)const;};bool GraphicalMenuSystem::get_one_button_down(int&btn)const{input_mgr*inputmgr=input_manager;btn=-1;for(int i=184;i<=197;i++){if(inputmgr->get_control_state(ANY_LOCAL_JOYSTICK,i)!=0.0f){if(btn!=-1)return false;else btn=i;}}return true;}
 
 // 0x001BC908 Update__13TitleFrontEndf
-struct active_vtable{char padding[96];short adjustment;short reserved;void(*update)(void*,float);};struct ActiveMenu{char padding[116];active_vtable*vtable;};struct sys_vtable{char padding[144];short adjustment;short reserved;void(*load_all)(void*);};struct MenuSystem{char padding[140];sys_vtable*vtable;};struct EntityManager{char padding[576];int state;};struct Manager{char padding[12];EntityManager*em;};class TitleFrontEnd{char padding0[80];MenuSystem*system;char padding1[12];ActiveMenu*active;char padding2[28];char frontend_base[188];Manager*manager;char padding3[60];int loading_draw_counter;public:void Update(float);};extern "C" void update_front(void*,float)__asm__("Update__8FrontEndf");extern "C" void update_menu(TitleFrontEnd*,float)__asm__("Update__6FEMenuf");asm(".equ Update__8FrontEndf,0x00157B30");asm(".equ Update__6FEMenuf,0x00156DC8");void TitleFrontEnd::Update(float dt){if(active){active_vtable*v=active->vtable;v->update((char*)active+v->adjustment,dt);}else{if(loading_draw_counter>4){manager->em->state=7;sys_vtable*v=system->vtable;v->load_all((char*)system+v->adjustment);loading_draw_counter=-1;}update_front((char*)this+128,dt);update_menu(this,dt);asm volatile("");}}
+struct active_vtable{char padding[96];short adjustment;short reserved;void(*update)(void*,float);};struct ActiveMenu{char padding[116];active_vtable*vtable;};struct sys_vtable{char padding[144];short adjustment;short reserved;void(*load_all)(void*);};struct MenuSystem{char padding[140];sys_vtable*vtable;};struct EntityManager{char padding[576];int state;};struct Manager{char padding[12];EntityManager*em;};struct TitleFrontEndLayout{char padding0[80];MenuSystem*system;char padding1[12];ActiveMenu*active;char padding2[28];char frontend_base[188];Manager*manager;char padding3[60];int loading_draw_counter;};extern "C" void update_front(void*,float)__asm__("Update__8FrontEndf");extern "C" void update_menu(TitleFrontEndLayout*,float)__asm__("Update__6FEMenuf");asm(".equ Update__8FrontEndf,0x00157B30");asm(".equ Update__6FEMenuf,0x00156DC8");extern "C" void update_title(TitleFrontEndLayout*self,float dt)__asm__("Update__13TitleFrontEndf");void update_title(TitleFrontEndLayout*self,float dt){if(self->active){active_vtable*v=self->active->vtable;v->update((char*)self->active+v->adjustment,dt);}else{if(self->loading_draw_counter>4){self->manager->em->state=7;sys_vtable*v=self->system->vtable;v->load_all((char*)self->system+v->adjustment);self->loading_draw_counter=-1;}update_front((char*)self+128,dt);update_menu(self,dt);asm volatile("");}}
 
 // 0x001BCCD8 Select__13TitleFrontEndi
-#include "KS/SRC/ks/TitleFrontEnd_shared.h"
+#include "KS/SRC/ks/FrontEndManager.h"
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
+#include "KS/SRC/ks/SoundScript.h"
+void nslFrameAdvance(float time_elapsed);
+__asm__(".equ nslFrameAdvance__Ff, 0x00390068");
 
 void TitleFrontEnd::Select(int n)
 {
