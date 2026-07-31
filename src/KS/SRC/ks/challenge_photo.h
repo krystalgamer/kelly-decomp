@@ -1,41 +1,27 @@
-#ifndef KELLY_DECOMP_CHALLENGE_PHOTO_SHARED_H
-#define KELLY_DECOMP_CHALLENGE_PHOTO_SHARED_H
+#ifndef INCLUDED_CHALLENGE_PHOTO_H
+#define INCLUDED_CHALLENGE_PHOTO_H
 
 #include "KS/SRC/entity.h"
+#include "KS/SRC/ks/challenge.h"
 
 struct nglTexture;
-void nglDestroyTexture(nglTexture* texture);
+class kellyslater_controller;
 
-class Challenge {
-public:
-    Challenge();
-    virtual ~Challenge();
-};
-
-class board : public entity {
-};
-
-class board_controller {
-public:
-    board *my_board;
-};
-
-class kellyslater_controller {
-    char data_before_board_controller[0xd50];
-    board_controller my_board_controller;
-
-public:
-    board_controller &get_board_controller() {
-        return my_board_controller;
-    }
-    int GetCurrentTrick();
-};
+void nglDestroyTexture(nglTexture *texture);
 
 class PhotoChallenge : public Challenge {
+private:
+    enum STATE {
+        STATE_NONE,
+        STATE_RETICLE,
+        STATE_TAKE,
+        STATE_SHOW
+    };
+
 public:
     class Photo {
     private:
-        nglTexture* texture;
+        nglTexture *texture;
         int score;
         bool isOfSpecialTrick;
 
@@ -73,14 +59,14 @@ public:
             kellyslater_controller *target,
             Photo *photo);
         bool IsCloseToSurfer(
-            kellyslater_controller *ksctrl) const;
+            kellyslater_controller *controller) const;
     };
 
 private:
     kellyslater_controller *ksctrl;
     int goal;
     int requiredScore;
-    int state;
+    STATE state;
     bool recordChain;
     float specialPhotoTimer;
     int numCameramen;
@@ -91,6 +77,9 @@ private:
     Photo *photos;
 
 public:
+    PhotoChallenge();
+    virtual ~PhotoChallenge();
+    void Retry();
     int *GetPhotoScore(int index) const;
     nglTexture *GetPhotoTexture(int index);
     bool GetPhotoIsOfSpecialTrick(int index);
