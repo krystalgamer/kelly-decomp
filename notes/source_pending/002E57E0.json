@@ -1,0 +1,15 @@
+{
+  "address": "0x002E57E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "95631f8e0b4ba8dbadcc72b5fb3f97514e103109",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "region::region( const stringx& region_name )\n  : name( region_name ),\n    ambient( 1.0f, 1.0f, 1.0f, 1.0f ),\n    region_ambient_sound_volume( 1.0f )\n{\n  my_cg_mesh = NULL;\n  flags = 0;\n  set_active(false);\n\n  num_affect_terrain_lights = 0;\n\n  // stl prealloc-ish\n  possible_render_ents.resize(64);\n  possible_render_ents.resize(0);\n  possible_active_ents.resize(64);\n  possible_active_ents.resize(0);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__6regionRC7stringx"
+}
