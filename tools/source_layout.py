@@ -56,6 +56,8 @@ REVIEWED_INSTRUCTION_ASM = {
     0x00111FD0: "documented generated pointer fill loop schedule",
     0x001185C8: "documented floating-point scheduling nop",
     0x0011ECE0: "documented generated pointer fill loop schedule",
+    0x0011FF50: "documented generated ushort fill loop schedule",
+    0x00142300: "documented generated pointer fill loop schedule",
     0x00139DB0: "documented FPU hazard and independent-store schedule",
     0x0014C918: "documented integer-to-float conversion sequence",
     0x001556D8: "documented list-traversal scheduling nop",
