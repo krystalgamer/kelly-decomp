@@ -1,0 +1,15 @@
+{
+  "address": "0x00118B30",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6995e6df0c8b26fdad40b915d43c5466112db5c7",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/po_anim.h\"\n\nvoid PRS_track::internal_serial_in( chunk_file& fs )\n{\n  chunk_flavor cf;\n  anim_track_flavor_t flavor;\n  for ( serial_in(fs,&cf); cf!=CHUNK_END; serial_in(fs,&cf) )\n  {\n    if ( cf == chunk_flavor(\"P\") )\n    {\n      // position track\n      serial_in( fs, &flavor );\n      switch ( flavor )\n      {\n        case LIN_VEC3_TRACK:\n          P = NEW linear_track<vector3d>;\n          break;\n        default:\n          error( fs.get_name() + \": bad position track flavor in PRS_track\" );\n      }\n      P->internal_serial_in( fs );\n    }\n    else if ( cf == chunk_flavor(\"R\") )\n    {\n      // rotation track\n      serial_in( fs, &flavor );\n      switch ( flavor )\n      {\n        case LIN_QUAT_TRACK:\n          R = NEW linear_track<quaternion>;\n          break;\n        default:\n          error( fs.get_name() + \": bad rotation track flavor in PRS_track\" );\n      }\n      R->internal_serial_in( fs );\n    }\n    else if ( cf == chunk_flavor(\"S\") )\n    {\n      // scale track\n      serial_in( fs, &flavor );\n      switch ( flavor )\n      {\n        case LIN_FLOAT_TRACK:\n          S = NEW linear_track<rational_t>;\n          break;\n        default:\n          error( fs.get_name() + \": bad scale track flavor in PRS_track\" );\n      }\n      S->internal_serial_in( fs );\n    }\n    else if ( cf == chunk_flavor(\"flags\") )\n    {\n      // PRS track flags\n      serial_in( fs, &flags );\n    }\n    else\n      error( fs.get_name() + \": unknown chunk found in PRS_track\" );\n  }\n  _compute_duration();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "internal_serial_in__9PRS_trackR10chunk_file"
+}
