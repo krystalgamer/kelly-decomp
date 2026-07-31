@@ -1,0 +1,15 @@
+{
+  "address": "0x001A7DF8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "11812dec05931515fa4c5353a7d0d15a4db572db",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FrontEndMenus.h\"\n\nHeatMidMenuClass::HeatMidMenuClass(FEMenuSystem* m, int x, int y, color32 c, color32 ch, color32 cha)\n{\n\tcons(m, x, y, c, ch, cha);\n\tsys = (PauseMenuSystem*) m;\n\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_CONTINUE], this));\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_RESTART_COMP], this));\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_BEACH_GOALS], this));\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_TIP], this));\n\toptions = NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_OPTIONS], this);\n\tAdd(options);\n\ttrickbook = NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_TRICKBOOK], this);\n\tAdd(trickbook);\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_END_RUN], this));\n\tAdd(NEW FEMenuEntry(ksGlobalTextArray[GT_MENU_END_COMP], this));\n\n\tscale_high = 1.0f;\n\tflags |= FEMENU_WRAP | FEMENU_DONT_SHOW_DISABLED;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__16HeatMidMenuClassP12FEMenuSystemiiG7color32N24"
+}
