@@ -1,0 +1,15 @@
+{
+  "address": "0x00341E60",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "14f95c7c40cf7edac6d708f85426031101f8369f",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/widget.h\"\n\nvoid vrep_widget::update_mat()\n{\n  // Okay, I think I have this code duplicated to work in NGL, but what does it do?\n#ifdef NGL\n  if ( !mesh )\n    return;\n  vector3d center( mesh->SphereCenter[0], mesh->SphereCenter[1],\n    mesh->SphereCenter[2] );\n  float radius = mesh->SphereRadius;\n#else\n  if ( !vrep )\n    return;\n  vector3d center = -vrep->get_center(0);\n  float radius = vrep->get_radius(0);\n#endif\n\n  matrix4x4 S1, T0, T1;\n  rational_t s, fSin, fCos;\n\n  const rational_t SPECIAL_NEAR_DIST = PROJ_NEAR_PLANE_D;\n\n  fast_sin_cos_approx( (PROJ_FIELD_OF_VIEW * 0.5f), &fSin, &fCos );\n  s = ((screen_radius / 320.0f) * (SPECIAL_NEAR_DIST) * fSin) / (radius * fCos);\n\n  s *= g_scale_factor;\n\n#ifndef NGL\n  // TODO : Scaling support in NGL.\n  S1.make_scale(vector3d(s * abs_S[0], s * abs_S[0], s * abs_S[0]));\n#else\n  S1.make_scale(vector3d(s * abs_S[0], s * abs_S[0], s * abs_S[0]));\n//  S1 = identity_matrix;\n#endif\n\n  T0.make_translate(-center);\n//#pragma todo(\"This is probably not the ideal solution. (GT--4/3/01)\")\n  float kludged_z = z;\n#ifdef NGL\n  kludged_z *= VREPWIDGET_MAX_Z;\n#endif\n  T1.make_translate(vector3d(0.0f, 0.0f, kludged_z ));\n  mat = T0 * rot_matrix * S1 * T1;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "update_mat__11vrep_widget"
+}
