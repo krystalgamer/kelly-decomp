@@ -1,0 +1,15 @@
+{
+  "address": "0x0011B768",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "da921492eb6004702fef706fd2c18b0ae136fc7c",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/po_anim.h\"\n\nvoid po_anim::reset_start_for_loop( const anim_control_t& ac )\n{\n  assert( is_relative_to_start() );\n  if ( ac.is_reverse() )\n  {\n    if ( has_S() )\n    {\n      rational_t s;\n      S->get_value( ac.get_duration(), &s );\n      S_start /= s;\n    }\n    if ( has_R() )\n    {\n      quaternion r;\n      R->get_value( ac.get_duration(), &r );\n      R_start *= r.get_conjugate() * R_start;\n    }\n\n    anim_create_rot_vectors(&R_start_mat[0], R_start);\n\n    if ( has_P() )\n    {\n      vector3d p;\n      P->get_value( ac.get_duration(), &p );\n      // rel-position must be transformed by R_start and then subtracted from P_start\n//      matrix4x4 rot;\n//      R_start.to_matrix( &rot );\n      P_start -= anim_xform3d_1( &R_start_mat[0], p );\n    }\n  }\n  else\n  {\n    if ( has_S() )\n    {\n      rational_t s;\n      S->get_value( ac.get_duration(), &s );\n      S_start *= s;\n    }\n\n    if ( has_R() )\n    {\n      quaternion r;\n      R->get_value( ac.get_duration(), &r );\n      R_start = r * R_start;\n    }\n\n    anim_create_rot_vectors(&R_start_mat[0], R_start);\n\n    if ( has_P() )\n    {\n      vector3d p;\n      P->get_value( ac.get_duration(), &p );\n      // rel-position must be transformed by R_start and then added to P_start\n//      matrix4x4 rot;\n//      R_start.to_matrix( &rot );\n      P_start += anim_xform3d_1( &R_start_mat[0], p );\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "reset_start_for_loop__7po_animRC14anim_control_t"
+}
