@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_PO_ANIM_SHARED_H
 
 #include "KS/SRC/anim_shared.h"
-#include "KS/SRC/po_shared.h"
+#include "KS/SRC/po.h"
 #include "KS/SRC/rtti.h"
 
 struct quaternion {

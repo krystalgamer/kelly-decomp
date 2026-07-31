@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_CAPSULE_SHARED_H
 #define KELLY_DECOMP_CAPSULE_SHARED_H
 
-#include "KS/SRC/po_shared.h"
+#include "KS/SRC/po.h"
 #include "KS/SRC/algebra.h"
 
 class entity;

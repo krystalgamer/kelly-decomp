@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_BONE_SHARED_H
 
 #include "KS/SRC/link_interface.h"
-#include "KS/SRC/po_shared.h"
+#include "KS/SRC/po.h"
 #include "KS/SRC/signals_shared.h"
 
 class sector;

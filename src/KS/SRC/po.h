@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_PO_SHARED_H
-#define KELLY_DECOMP_PO_SHARED_H
+#ifndef PO_H
+#define PO_H
 
 #include "KS/SRC/algebra.h"
 

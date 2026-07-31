@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_GAME_CAMERA_SYNC_SHARED_H
 #define KELLY_DECOMP_GAME_CAMERA_SYNC_SHARED_H
 
-#include "KS/SRC/po_shared.h"
+#include "KS/SRC/po.h"
 
 class camera {
 protected:
