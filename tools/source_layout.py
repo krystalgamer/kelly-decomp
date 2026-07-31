@@ -67,6 +67,7 @@ REVIEWED_INSTRUCTION_ASM = {
     0x001F9B18: "documented floating-point scheduling nop",
     0x00229F68: "documented filter-loop scheduling nop",
     0x002510F8: "documented floating-point comparison nop",
+    0x00286678: "documented generated two-player combat loop schedule",
     0x002B8490: "documented floating-point comparison nop",
     0x002FBB48: "documented generated-loop scheduling nop",
     0x00340510: "documented integer-to-float conversion sequence",
