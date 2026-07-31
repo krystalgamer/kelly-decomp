@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_IGO_WIDGET_SKILLCHALLENGE_SHARED_H
 #define KELLY_DECOMP_IGO_WIDGET_SKILLCHALLENGE_SHARED_H
 
-#include "KS/SRC/ks/FEPanel_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
 
 class IGOWidget {
 protected:

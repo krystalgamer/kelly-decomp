@@ -1,8 +1,7 @@
 // Matching decompilation blocks selected by generated build shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_00148080)
 // 0x00148080 __as__10StringListRC10StringList
-#include "KS/SRC/ks/FEPanel_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
 
 __asm__(".equ __as__7stringxRC7stringx, 0x0034E0B8");
 
@@ -34,11 +33,9 @@ StringList &StringList::operator=(
 
     return *this;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014CA48)
 // 0x0014CA48 UpdateInScene__12FloatingTextb
-#include "KS/SRC/ks/FEPanel_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
 
 void FloatingText::UpdateInScene(bool ignore_scale)
 {
@@ -61,11 +58,9 @@ void FloatingText::UpdateInScene(bool ignore_scale)
         scale = real_scale / distance;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001516A8)
 // 0x001516A8 Reload__11PanelObject
-#include "KS/SRC/ks/FEPanel_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
 
 extern nglTexture *nglLoadTextureA(const char *name);
 __asm__(".equ nglLoadTextureA__FPCc, 0x0039C1C8");
@@ -88,12 +83,10 @@ void PanelObject::Reload()
     PanelGeom::Reload();
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001524C0)
-#include "KS/SRC/ks/FEPanel_shared.h"
 
 // 0x001524C0 FindQuad__9PanelFileRC7stringx
+#include "KS/SRC/ks/FEPanel.h"
+
 PanelQuad *PanelFile::FindQuad(const stringx &search_name)
 {
     PanelGeom *obj = FindObject(search_name);
@@ -103,9 +96,7 @@ PanelQuad *PanelFile::FindQuad(const stringx &search_name)
     }
     return 0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00148270)
 // 0x00148270 setHJustify__10TextStringQ24Font9HORIZJUST
 class Font {
 public:
@@ -125,9 +116,7 @@ public:
 void TextString::setHJustify(Font::HORIZJUST justify) {
     hJustify = justify;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00151368)
 // 0x00151368 eq_to_tolerance__10PanelBatchfff
 class PanelBatch {
 public:
@@ -139,9 +128,7 @@ bool PanelBatch::eq_to_tolerance(float a, float b, float tolerance)
         return (a - b) < tolerance;
     return (b - a) < tolerance;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00148278)
 // 0x00148278 setVJustify__10TextStringQ24Font8VERTJUST
 class Font {
 public:
@@ -161,9 +148,7 @@ public:
 void TextString::setVJustify(Font::VERTJUST justify) {
     vJustify = justify;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001482F0)
 // 0x001482F0 getZ__10TextString
 class TextString {
     char padding[0x14];
@@ -176,34 +161,24 @@ public:
 int TextString::getZ() {
     return z;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00148AC0)
 // 0x00148AC0 addFont__15MultiLineStringiP4Font
 class Font;
 class MultiLineString { char padding[0x58]; Font* fonts[20]; public: void addFont(int index, Font* font); };
 void MultiLineString::addFont(int index, Font* font) { fonts[index] = font; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00149108)
 // 0x00149108 Bounce__12BouncingTextff
 class BouncingText { char padding_to_scale[0x30]; float scale; char padding_to_target[0x1C]; float targetScale; float speed; public: void Bounce(float bounceScale, float bounceTime); };
 void BouncingText::Bounce(float bounceScale, float bounceTime) { targetScale = bounceScale; speed = targetScale / bounceTime; scale = 0.0f; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014CB90)
 // 0x0014CB90 SetBehaviorNF__12FloatingTextff
 class FloatingText { char padding[0xD4]; float real_x; float real_y; bool non_floating_behavior; public: void SetBehaviorNF(float x, float y); };
 void FloatingText::SetBehaviorNF(float x, float y) { non_floating_behavior = true; real_x = x; real_y = y; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014D068)
 // 0x0014D068 SetFade__9PanelQuadf
 class PanelQuad { char padding[0x4]; int fade; float fade_alpha; public: void SetFade(float amount); };
 void PanelQuad::SetFade(float amount) { fade = 2; fade_alpha = amount; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014DEC8)
 // 0x0014DEC8 SetClip__9PanelQuadb
 class PanelQuad {
     char padding[0x114];
@@ -216,9 +191,7 @@ public:
 void PanelQuad::SetClip(bool enabled) {
     clip = enabled;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014FAB8)
 // 0x0014FAB8 cons__9PanelGeom
 class PanelGeom { char padding[0x6C]; PanelGeom* children; PanelGeom* next; PanelGeom* parent; public: void cons(); };
 void PanelGeom::cons() {
@@ -226,9 +199,7 @@ void PanelGeom::cons() {
     next = 0;
     parent = 0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001521F0)
 // 0x001521F0 Draw__9PanelTextf
 class PanelText {
 public:
@@ -237,18 +208,14 @@ public:
 
 void PanelText::Draw(float alpha) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001533F8)
 // 0x001533F8 ReadChar__FPUcRi
 unsigned char ReadChar(unsigned char* buffer, int& index) {
     unsigned char result = buffer[index];
     ++index;
     return result;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00151768)
 // 0x00151768 GetQuad__11PanelObject
 class PanelQuad;
 struct PanelBatch { char padding[0x48]; PanelQuad* pq; };
@@ -258,78 +225,58 @@ PanelQuad* PanelObject::GetQuad() {
         return 0;
     return batches[0].pq;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00148458)
 // 0x00148458 changeX__10TextStringf
 extern "C" void AdjustCoords(float &x, float &y) __asm__("adjustCoords__H1Zf_RX01T0_v");
 __asm__(".equ adjustCoords__H1Zf_RX01T0_v, 0x001D6B60");
 class TextString { char padding[0xc]; float x; float y; public: void changeX(float position); };
 void TextString::changeX(float position) { float other; x = position; AdjustCoords(x, other); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00148480)
 // 0x00148480 changeY__10TextStringf
 extern "C" void AdjustCoords(float &x, float &y) __asm__("adjustCoords__H1Zf_RX01T0_v");
 __asm__(".equ adjustCoords__H1Zf_RX01T0_v, 0x001D6B60");
 class TextString { char padding[0xc]; float x; float y; public: void changeY(float position); };
 void TextString::changeY(float position) { float other; y = position; AdjustCoords(other, y); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00148430)
 // 0x00148430 changePos__10TextStringff
 extern "C" void AdjustCoords(float &x, float &y) __asm__("adjustCoords__H1Zf_RX01T0_v");
 __asm__(".equ adjustCoords__H1Zf_RX01T0_v, 0x001D6B60");
 class TextString { char padding[0xc]; float x; float y; public: void changePos(float px, float py); };
 void TextString::changePos(float px, float py) { x = px; y = py; AdjustCoords(x, y); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014A788)
 // 0x0014A788 SetLocation3D__7BoxTextG8vector3d
 struct vector3d { float x; float y; float z; };
 class BoxText { public: char padding[0x90]; float location_3d[4]; };
 extern "C" void SetLocationAlias(BoxText *self, const vector3d *location) __asm__("SetLocation3D__7BoxTextG8vector3d");
 void SetLocationAlias(BoxText *self, const vector3d *location) { self->location_3d[0] = location->x; self->location_3d[1] = location->y; self->location_3d[2] = location->z; self->location_3d[3] = 1.0f; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014C918)
 // 0x0014C918 getPercentage__13PreformatText
 class PreformatText { char padding[0x54]; int start_line; int num_vis_lines; char padding2[4]; int actual_lines; public: float getPercentage(); };
 float PreformatText::getPercentage() { register int actual __asm__("$2") = actual_lines; __asm__ volatile("" : "+r"(actual)); register float numerator __asm__("$f1") = (float)start_line; __asm__ volatile("" : "+f"(numerator)); int total_lines = actual - num_vis_lines; register float denominator __asm__("$f0"); __asm__ volatile("mtc1 %1,$f0
 	nop
 	cvt.s.w $f0,$f0" : "=f"(denominator) : "r"(total_lines)); return numerator / denominator; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014CA20)
 // 0x0014CA20 SetLocation3D__12FloatingTextG8vector3d
 struct vector3d { float x; float y; float z; };
 class FloatingText { public: char padding[0xb0]; float location_3d[4]; };
 extern "C" void SetLocationAlias(FloatingText *self, const vector3d *location) __asm__("SetLocation3D__12FloatingTextG8vector3d");
 void SetLocationAlias(FloatingText *self, const vector3d *location) { self->location_3d[0] = location->x; self->location_3d[1] = location->y; self->location_3d[2] = location->z; self->location_3d[3] = 1.0f; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014F730)
 // 0x0014F730 SetLocation3D__10FloatingPQG8vector3d
 struct vector3d { float x; float y; float z; };
 class FloatingPQ { public: char padding[0x1a0]; float location_3d[4]; };
 extern "C" void SetLocationAlias(FloatingPQ *self, const vector3d *location) __asm__("SetLocation3D__10FloatingPQG8vector3d");
 void SetLocationAlias(FloatingPQ *self, const vector3d *location) { self->location_3d[0] = location->x; self->location_3d[1] = location->y; self->location_3d[2] = location->z; self->location_3d[3] = 1.0f; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001512C8)
 // 0x001512C8 Update__10PanelBatchf
 struct panel_material_vtable { char padding[0x38]; short adjustment; short padding2; void (*update)(void *self, float dt); };
 struct panel_material { char padding[0x194]; panel_material_vtable *vtable; };
 class PanelBatch { char padding[0x48]; panel_material *material; public: void Update(float dt); };
 void PanelBatch::Update(float dt) { panel_material_vtable *table = material->vtable; table->update((char *)material + table->adjustment, dt); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00153450)
 // 0x00153450 ReadShort__FPUcRi
 short ReadShort(unsigned char *buffer, int &index) { short result; result = buffer[index] | (buffer[index + 1] << 8); index += 2; return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014DAF8)
 // 0x0014DAF8 SetPos__9PanelQuadffffffff
 struct panel_quad_vtable {
     char padding[0x70];
@@ -380,9 +327,7 @@ void PanelQuad::SetPos(
         yc
     );
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014F700)
 // 0x0014F700 SetBehavior__10FloatingPQb
 extern "C" void PanelQuadSetPos(
     void *self,
@@ -418,9 +363,7 @@ void FloatingPQ::SetBehavior(bool enabled) {
     }
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014C5D0)
 // 0x0014C5D0 DrawLine__13PreformatTextiff
 struct stringx {
     void *chars;
@@ -453,9 +396,7 @@ void PreformatText::DrawLine(int line_num, float x, float y)
         y
     );
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014FC78)
 // 0x0014FC78 Reload__9PanelGeom
 struct panel_geom_vtable {
     char padding[0x20];
@@ -485,9 +426,7 @@ void PanelGeom::Reload()
         table->reload((char *)child + table->adjustment);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00150030)
 // 0x00150030 Update__9PanelGeomf
 struct panel_geom_vtable {
     char padding[0x48];
@@ -517,9 +456,7 @@ void PanelGeom::Update(float time)
         table->update((char *)child + table->adjustment, time);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00150068)
 // 0x00150068 Slide__9PanelGeomf
 struct panel_geom_vtable {
     char padding[0x50];
@@ -549,9 +486,7 @@ void PanelGeom::Slide(float offset)
         table->slide((char *)child + table->adjustment, offset);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001533B8)
 // 0x001533B8 ReadLong__FPUcRi
 typedef unsigned int uint32;
 uint32 ReadLong(unsigned char *buffer, int &index)
@@ -563,9 +498,7 @@ uint32 ReadLong(unsigned char *buffer, int &index)
     index += 4;
     return ret;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001495B0)
 // 0x001495B0 makeRand__10RandomText
 class StringList { public: void MakeRand(); };
 asm(".equ MakeRand__10StringList, 0x00147CD0");
@@ -577,9 +510,7 @@ void RandomText::makeRand()
     checkTime = true;
     isRand = true;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00153410)
 // 0x00153410 ReadFloat__FPUcRi
 typedef unsigned int uint32;
 float ReadFloat(unsigned char *buffer, int &index)
@@ -593,10 +524,8 @@ float ReadFloat(unsigned char *buffer, int &index)
     index += 4;
     return ret;
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00148BC0)
 // 0x00148BC0 setLineSpacing__15MultiLineStringi
 struct Glyph { char padding[16]; int cell_height; };
 class Font { public: Glyph* getGlyph(char); };
@@ -614,10 +543,8 @@ void MultiLineString::setLineSpacing(const int new_spacing)
     else
         vSpacing = new_spacing;
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00149470)
 // 0x00149470 Update__10RandomTextf
 typedef float time_value_t;
 class TextString { char padding[0x50]; public: void Update(time_value_t); };
@@ -639,10 +566,8 @@ void RandomText::Update(time_value_t time_inc)
         KELLY_DECOMP_COMPILER_BARRIER();
     }
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_0014F5A8)
 // 0x0014F5A8 SetConstantScale__10FloatingPQf
 class PanelQuad {
     char padding[0x194];
@@ -701,10 +626,8 @@ void FloatingPQ::SetConstantScale(float s)
     height_f = height_f*s;
     SetScale(s);
 }
-#endif
 // Matching decompilation blocks selected by generated build shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_001495F0)
 // 0x001495F0 Break__10RandomText
 __asm__(".equ Break__10StringList, 0x00147EE0");
 struct StringList { char padding[1]; void Break(); };
@@ -732,9 +655,7 @@ void RandomText::Break()
     rand_string.Break();
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001484A8)
 // 0x001484A8 ChangeFade__10TextStringbT1f
 struct TextString
 {
@@ -776,9 +697,7 @@ void ChangeFade(
     else
         self->fade = 0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001494B8)
 // 0x001494B8 changeText__10RandomTextG7stringx
 class stringx
 {
@@ -835,9 +754,7 @@ void RandomText::changeText(stringx value)
     BaseChangeText(this, argument);
     random_data = text;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014DE08)
 // 0x0014DE08 GetCenterPos__9PanelQuadRfT1
 extern "C" void UnadjustCoords(float &x, float &y)
     __asm__("unadjustCoords__H1Zf_RX01T0_v");
@@ -864,9 +781,7 @@ void PanelQuad::GetCenterPos(float &center_x, float &center_y)
     UnadjustCoords(center_x, center_y);
     __asm__ __volatile__("" : : : "memory");
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014E9F8)
 // 0x0014E9F8 GetCenterPos__10PanelQuad4RfT1
 extern "C" void UnadjustCoords(float &x, float &y)
     __asm__("unadjustCoords__H1Zf_RX01T0_v");
@@ -892,9 +807,7 @@ void PanelQuad4::GetCenterPos(float &center_x, float &center_y)
     UnadjustCoords(center_x, center_y);
     __asm__ __volatile__("" : : : "memory");
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00152468)
 // 0x00152468 FindObject__9PanelFilePCc
 class stringx
 {
@@ -936,9 +849,7 @@ PanelGeom *PanelFile::FindObject(const char *name)
         (char *)this + table->adjustment, temporary
     );
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001530B8)
 // 0x001530B8 Draw__9PanelFilei
 struct draw_slot {
     short adjustment; short reserved;
@@ -963,9 +874,7 @@ void PanelFile::Draw(int layer) {
         tmp=tmp->next;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014BF00)
 // 0x0014BF00 __9BurstText
 extern "C" void construct_string(void *) __asm__("__7stringx");
 extern const char text_string_vtable[];
@@ -999,9 +908,7 @@ burst_text_layout *construct_burst_text(burst_text_layout *self)
     self->override_alpha = true;
     return self;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014DE60)
 // 0x0014DE60 SetClip__9PanelQuadRC5recti
 struct pointi { int x; int y; };
 struct recti { pointi tl; pointi br; };
@@ -1028,9 +935,7 @@ void PanelQuad::SetClip(const recti &bounds)
     adjust_coords(&clipping.br.x, &clipping.br.y);
     __asm__ __volatile__("" : : : "memory");
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00153050)
 // 0x00153050 Init__9PanelFileb
 class PanelQuad;
 struct panel_geom_vtable { char padding[56]; short adjustment; short reserved; void (*init)(void *, PanelQuad **, bool); };
@@ -1060,9 +965,7 @@ void PanelFile::Init(bool floating)
         tmp = tmp->next;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00149120)
 // 0x00149120 Update__12BouncingTextf
 extern "C" void update_text(void *, float) __asm__("Update__10TextStringf");
 __asm__(".equ Update__10TextStringf,0x001482F8");
@@ -1076,9 +979,7 @@ void BouncingText::Update(float dt)
             scale=targetScale;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014BF68)
 // 0x0014BF68 Update__9BurstTextf
 extern "C" void update_text(void *, float) __asm__("Update__10TextStringf");
 __asm__(".equ Update__10TextStringf,0x001482F8");
@@ -1092,9 +993,7 @@ void BurstText::Update(float dt)
             scale=targetScale;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014D078)
 // 0x0014D078 ChangeFade__9PanelQuadbT1f
 struct panel_layout { char padding[4]; int fade; float fade_alpha; float fade_timer; char padding2[112]; int drawOn; };
 extern "C" void change_fade(panel_layout *self, bool start, bool fade_in, float time) __asm__("ChangeFade__9PanelQuadbT1f");
@@ -1111,44 +1010,28 @@ void change_fade(panel_layout *self, bool start, bool fade_in, float time)
         }
     } else self->fade=0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014DA80)
 // 0x0014DA80 SetPos__9PanelQuadffff
 struct quad{char p0[140];};struct PanelQuad{char p0[28];quad q;float x1,y1,x2,y2,width,height;};extern "C" void adjust(float&,float&) __asm__("adjustCoords__H1Zf_RX01T0_v");extern "C" void set_rect(quad*,float,float,float,float) __asm__("nglSetQuadRect__FP7nglQuadffff");__asm__(".equ adjustCoords__H1Zf_RX01T0_v,0x001D6B60");__asm__(".equ nglSetQuadRect__FP7nglQuadffff,0x003A6A68");extern "C" void set_pos(PanelQuad*self,float xa,float ya,float xb,float yb) __asm__("SetPos__9PanelQuadffff");void set_pos(PanelQuad*self,float xa,float ya,float xb,float yb){self->x1=xa;self->y1=ya;self->x2=xb;self->y2=yb;adjust(self->x1,self->y1);adjust(self->x2,self->y2);self->width=self->x2-self->x1;self->height=self->y2-self->y1;set_rect(&self->q,self->x1,self->y1,self->x2,self->y2);int dead;__asm__("" : "=r"(dead));}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014DD20)
 // 0x0014DD20 SetCenterPosQuadOnly__9PanelQuadff
 struct nglQuad{char data[140];};extern "C" void adjust(float&,float&)__asm__("adjustCoords__H1Zf_RX01T0_v");extern "C" void set_rect(nglQuad*,float,float,float,float)__asm__("nglSetQuadRect__FP7nglQuadffff");__asm__(".equ adjustCoords__H1Zf_RX01T0_v,0x001D6B60");__asm__(".equ nglSetQuadRect__FP7nglQuadffff,0x003A6A68");struct PanelQuad{char pad[28];nglQuad quad;float x1,y1,x2,y2,width,height;};extern "C" void center(PanelQuad*self,float cx,float cy)__asm__("SetCenterPosQuadOnly__9PanelQuadff");void center(PanelQuad*self,float cx,float cy){adjust(cx,cy);float xa,ya,xb,yb;xa=cx-((self->x2-self->x1)/2.0f);ya=cy-((self->y2-self->y1)/2.0f);xb=cx+((self->x2-self->x1)/2.0f);yb=cy+((self->y2-self->y1)/2.0f);set_rect(&self->quad,xa,ya,xb,yb);}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001523E8)
 // 0x001523E8 FindObject__9PanelFileRC7stringx
 struct stringx{void*data;char pad[4];};struct PanelGeom;struct PanelVtable{char pad[40];short adjust;short zero;PanelGeom*(*find)(void*,const stringx&);};struct PanelGeom{char pad0[112];PanelGeom*next;char pad1[4];PanelVtable*vtable;};struct PanelFile{char pad[24];PanelGeom*obs;PanelGeom*FindObject(const stringx&)__asm__("FindObject__9PanelFileRC7stringx");};extern "C" void debug_print(const char*,...)__asm__("debug_print__FPCce");extern const char fail_format[];__asm__(".equ debug_print__FPCce,0x00120790");__asm__(".equ fail_format,0x004CF868");PanelGeom*PanelFile::FindObject(const stringx&name){PanelGeom*temp=0;PanelGeom*tmp=obs;while(tmp){PanelVtable*v=tmp->vtable;temp=v->find((char*)tmp+v->adjust,name);tmp=tmp->next;}if(temp==0)debug_print(fail_format,name.data);return temp;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014A7B0)
 // 0x0014A7B0 Update__12TrickBoxTextf
 struct StringList{char data[3016];void Update(float)__asm__("Update__10StringListf");};extern "C" void base_update(void*,float)__asm__("Update__10RandomTextf");__asm__(".equ Update__10RandomTextf,0x00149470");__asm__(".equ Update__10StringListf,0x00147B98");struct TrickBoxText{char pad0[80];int isRand;char pad1[3040];StringList box_strings[10];int box_str_count;void Update(float)__asm__("Update__12TrickBoxTextf");};void TrickBoxText::Update(float dt){base_update(this,dt);if(isRand){for(int i=0;i<box_str_count;i++)box_strings[i].Update(dt);}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014BDE8)
 // 0x0014BDE8 makeRand__12TrickBoxText
 struct StringList{char data[3016];void MakeRand();};__asm__(".equ MakeRand__10StringList,0x00147CD0");struct TrickBoxText{char pad0[60];bool checkTime;float time;char pad1[12];bool isRand;char pad2[3040];StringList box_strings[10];int box_str_count;void makeRand()__asm__("makeRand__12TrickBoxText");};void TrickBoxText::makeRand(){for(int i=0;i<box_str_count;i++)box_strings[i].MakeRand();time=2.0f;checkTime=true;isRand=true;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00152360)
 // 0x00152360 SetFilename__9PanelFileG7stringx
 struct stringx{char data[8];};struct GeomVtable{char pad[8];short adjust;short z;void(*destroy)(void*,int);};struct PanelGeom{char pad[112];PanelGeom*next;char pad2[4];GeomVtable*vtable;};struct PanelFile{char pad[16];stringx filename;PanelGeom*obs;char pad2[12];void*pquads;};extern "C" void assign(stringx*,const stringx*)__asm__("__as__7stringxRC7stringx");extern "C" void string_dtor(stringx*,int)__asm__("_$_7stringx");__asm__(".equ __as__7stringxRC7stringx,0x0034E0B8");__asm__(".equ _$_7stringx,0x0034D6E0");extern "C" extern "C" void set_filename(PanelFile*,stringx*)__asm__("SetFilename__9PanelFileG7stringx");void set_filename(PanelFile*self,stringx*p){assign(&self->filename,p);PanelGeom*tmp=self->obs;PanelGeom*tmp2;while(tmp){tmp2=tmp->next;if(tmp){GeomVtable*v=tmp->vtable;v->destroy((char*)tmp+v->adjust,3);}tmp=tmp2;}self->obs=0;self->pquads=0;string_dtor(p,2);asm volatile("");}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00152A30)
 // 0x00152A30 ReadHeader__9PanelFilePUcRi
 extern "C" unsigned char ReadChar(unsigned char*,int&)__asm__("ReadChar__FPUcRi");__asm__(".equ ReadChar__FPUcRi,0x001533F8");extern "C" bool read_header(unsigned char*buffer,int&index)__asm__("ReadHeader__9PanelFilePUcRi");bool read_header(unsigned char*buffer,int&index){if(ReadChar(buffer,index)==80&&ReadChar(buffer,index)==110&&ReadChar(buffer,index)==108&&ReadChar(buffer,index)==0)return true;else return false;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014BE70)
 // 0x0014BE70 Break__12TrickBoxText
 struct stringx{char d[8];};struct vector3d{float x,y,z;};struct Font{};struct StringList{char data[3016];void Break() __asm__("Break__10StringList");};
 class TextString{protected:char fields[76];public:virtual ~TextString();virtual void Update(float);virtual void Draw();virtual void setHJustify(int);virtual void setVJustify(int);virtual void setFont(Font*);virtual void setButtonScale(float);virtual void numberSpacing(int);virtual void changeText(stringx);virtual void changeScale(float);virtual void changePos(float,float);virtual void changeX(float);virtual void changeY(float);virtual void changeZ(int);virtual void ChangeFade(int,int,float);virtual void SetFade(float);virtual float getX();virtual float getY();virtual int getZ();virtual stringx getText();virtual float GetScale()const;virtual float GetButtonScale()const;virtual int GetNumberSpacing()const;virtual Font*GetFont();virtual int GetHJustify()const;virtual int GetVJustify()const;virtual void setLineSpacing(int);virtual void resetLineSpacing();virtual void UpdateInScene(int);virtual void SetLocation3D(vector3d);virtual vector3d GetLocation3D();virtual void SetBehaviorNF(float,float);virtual void SetBehavior(int);protected:virtual void Render();virtual void Render(stringx*,float,float);virtual void Render(stringx*,float,float,float*,float*,int);virtual void cons(Font*,stringx,float,float,int,float,int,int,int,unsigned);};
@@ -1156,36 +1039,24 @@ class RandomText:public TextString{protected:int isRand;int noFade;StringList ra
 class TrickBoxText:public RandomText{protected:int numLines,lineHeight,width,height;int reverse;StringList box_strings[10];int box_str_count;public:void Break() __asm__("Break__12TrickBoxText");};
 __asm__(".equ Break__10StringList,0x00147EE0");
 void TrickBoxText::Break(){if(!isRand)makeRand();for(int i=0;i<box_str_count;i++)box_strings[i].Break();}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001482F8)
 // 0x001482F8 Update__10TextStringf
 class TextString{public:char p[36];int fade;float fade_alpha,fade_timer;char p2[16];float time;void Update(float)__asm__("Update__10TextStringf");};void TextString::Update(float dt){if(fade==1){fade_alpha+=dt/fade_timer;if(fade_alpha>=1.0f){fade=0;fade_alpha=1.0f;}}else if(fade==-1){fade_alpha-=dt/fade_timer;if(fade_alpha<=0.0f){fade=0;fade_alpha=0.0f;}}time-=dt;if(time<0.0f)time=0.0f;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00151CA0)
 // 0x00151CA0 Update__11PanelObjectf
 struct ChildVtable{char p[72];short adj;short z;void(*call)(void*,float);};struct Child{char p[108];Child*children;char p2[8];ChildVtable*vtable;};struct Batch{char d[100];void Update(float)__asm__("Update__10PanelBatchf");};class PanelObject{public:char p[108];Child*children;char p2[22];unsigned short nbatches;Batch*batches;void Update(float)__asm__("Update__11PanelObjectf");};__asm__(".equ Update__10PanelBatchf,0x001512C8");void PanelObject::Update(float dt){for(int i=0;i<nbatches;i++)batches[i].Update(dt);if(children){ChildVtable*v=children->vtable;v->call((char*)children+v->adj,dt);}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00151D30)
 // 0x00151D30 Slide__11PanelObjectf
 struct ChildVtable{char p[80];short adj;short z;void(*call)(void*,float);};struct Child{char p[108];Child*children;char p2[8];ChildVtable*vtable;};struct Batch{char d[100];void Slide(float)__asm__("Slide__10PanelBatchf");};class PanelObject{public:char p[108];Child*children;char p2[22];unsigned short nbatches;Batch*batches;void Slide(float)__asm__("Slide__11PanelObjectf");};__asm__(".equ Slide__10PanelBatchf,0x001512F8");void PanelObject::Slide(float dt){for(int i=0;i<nbatches;i++)batches[i].Slide(dt);if(children){ChildVtable*v=children->vtable;v->call((char*)children+v->adj,dt);}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00153318)
 // 0x00153318 StartSlide__9PanelFilebf
 struct VTable{char p0[72];short update_adj;short p1;void(*update)(void*,float);short slide_adj;short p2;void(*slide)(void*,float);};struct PanelGeom{char p[112];PanelGeom*next;char gap[4];VTable*vt;void Update(float t){VTable*v=vt;v->update((char*)this+v->update_adj,t);}void Slide(float x){VTable*v=vt;v->slide((char*)this+v->slide_adj,x);}};class PanelFile{int slide_state;float slide_offset;float slide_timer;float slide_max_time;char filename[8];public:PanelGeom*obs;void ForceDoneSlide(bool);void StartSlide(bool,float);bool IsSliding()const{return slide_state==1||slide_state==2;}};void PanelFile::StartSlide(bool in,float max_time){if(IsSliding())return;slide_max_time=max_time;slide_state=in?1:2;slide_timer=0.0f;slide_offset=in?640:0;PanelGeom*tmp=obs;while(tmp){tmp->Slide(slide_offset);tmp=tmp->next;}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014CBA8)
 // 0x0014CBA8 cons__9PanelQuadG7stringx
 struct stringx{char*p;void*buf;};extern "C" void assign_string(stringx*,const stringx&) __asm__("__as__7stringxRC7stringx");extern "C" void destroy_string(stringx*,int) __asm__("_$_7stringx");extern void nglInitQuad(void*) __asm__("nglInitQuad__FP7nglQuad");asm(".equ __as__7stringxRC7stringx,0x0034E0B8");asm(".equ _$_7stringx,0x0034D6E0");asm(".equ nglInitQuad__FP7nglQuad,0x003A6920");extern "C" void cons_fn(char*,stringx*) __asm__("cons__9PanelQuadG7stringx");void cons_fn(char*self,stringx*n){assign_string((stringx*)(self+368),*n);*(int*)(self+0)=0;*(int*)(self+376)=0;*(int*)(self+4)=0;*(int*)(self+148)=0;*(int*)(self+20)=0;*(int*)(self+400)=0;*(int*)(self+272)=0;*(int*)(self+132)=0;*(int*)(self+184)=0;*(int*)(self+188)=0;*(int*)(self+276)=0;*(int*)(self+280)=0;*(int*)(self+284)=0;*(int*)(self+128)=1;*(float*)(self+16)=1.0f;*(int*)(self+288)=639;*(int*)(self+292)=479;nglInitQuad(self+28);destroy_string(n,2);asm volatile("");}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00149898)
 // 0x00149898 changePos__7BoxTextff
-#include "KS/SRC/ks/FEPanel_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
 
 extern "C" void adjustCoords(float &x, float &y)
     __asm__("adjustCoords__H1Zf_RX01T0_v");
@@ -1220,9 +1091,7 @@ void BoxText::changePos(float posx, float posy)
 		box_strings[i].y += dif_y;
 	}
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0014FDC8)
 // 0x0014FDC8 Init__9PanelGeomPP9PanelQuadb
 class PanelQuad;
 
@@ -1286,4 +1155,3 @@ void PanelGeom::Init(PanelQuad **quads, bool floating)
     int dead;
     __asm__("" : "=r"(dead));
 }
-#endif

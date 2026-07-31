@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_IGO_HINT_MANAGER_SHARED_H
 
 #include "KS/SRC/game_shared.h"
-#include "KS/SRC/ks/FEPanel_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
 
 class IGOHintManager {
     stringx hint_text;

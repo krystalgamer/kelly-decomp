@@ -26,7 +26,7 @@ void FEMenu::OnDown(int command) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DB258)
 // 0x001DB258 Mask__15FEGraphicalMenuP9PanelQuadf
-#include "KS/SRC/ks/FEPanel_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
 #define KELLY_DECOMP_BUILT_FEMENU_VTABLE_TAIL
 #define KELLY_DECOMP_FULL_FE_PANEL_HELPERS
 #include "KS/SRC/ks/FEMenu_shared.h"
@@ -42,7 +42,7 @@ void FEGraphicalMenu::Mask(PanelQuad *quad, float amount) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DB208)
 // 0x001DB208 ChangeFade__15FEGraphicalMenuP9PanelQuadbT2f
-#include "KS/SRC/ks/FEPanel_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
 #define KELLY_DECOMP_BUILT_FEMENU_VTABLE_TAIL
 #define KELLY_DECOMP_FULL_FE_PANEL_HELPERS
 #include "KS/SRC/ks/FEMenu_shared.h"
@@ -66,7 +66,7 @@ void FEGraphicalMenu::ChangeFade(
 
 #if defined(KELLY_DECOMP_FUNCTION_001DB1B8)
 // 0x001DB1B8 ToggleOn__15FEGraphicalMenuP9PanelQuad
-#include "KS/SRC/ks/FEPanel_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
 #define KELLY_DECOMP_BUILT_FEMENU_VTABLE_TAIL
 #define KELLY_DECOMP_FULL_FE_PANEL_HELPERS
 #include "KS/SRC/ks/FEMenu_shared.h"
@@ -93,7 +93,7 @@ void FrontEnd::SetPanel(stringx panel_path) {
 
 #if defined(KELLY_DECOMP_FUNCTION_001DA5E0)
 // 0x001DA5E0 SetLocation3D__11FEMenuEntryG8vector3d
-#include "KS/SRC/ks/FEPanel_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
 #define KELLY_DECOMP_FULL_FEMENU_ENTRY
 #include "KS/SRC/ks/FEMenu_shared.h"
 #undef KELLY_DECOMP_FULL_FEMENU_ENTRY

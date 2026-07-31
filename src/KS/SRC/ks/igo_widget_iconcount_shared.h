@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_IGO_WIDGET_ICONCOUNT_SHARED_H
 #define KELLY_DECOMP_IGO_WIDGET_ICONCOUNT_SHARED_H
 
-#include "KS/SRC/ks/FEPanel_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
 #include "KS/SRC/ks/igo_widget.h"
 
 class IconCountWidget : public IGOWidget {

@@ -4,7 +4,7 @@
 #include "KS/SRC/color.h"
 #include "KS/SRC/stringx.h"
 #if defined(KELLY_DECOMP_FULL_FEMENU_ENTRY)
-#include "KS/SRC/ks/FEPanel_shared.h"
+#include "KS/SRC/ks/FEPanel.h"
 #endif
 
 #pragma interface
@@ -277,7 +277,7 @@ class __attribute__((aligned(16))) PanelAnimManager {
     char data[0x80];
 };
 
-#if !defined(KELLY_DECOMP_FE_PANEL_SHARED_H)
+#if !defined(FE_PANEL_H)
 class PanelFile {
     char data[0x30];
 
