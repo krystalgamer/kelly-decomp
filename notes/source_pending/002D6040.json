@@ -1,0 +1,15 @@
+{
+  "address": "0x002D6040",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1dfdf57211db68eaacf64c7bba80a857b4e0d1ef",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/pmesh.h\"\n\nvoid vr_pmesh::make_rectangle()\n{\n  pivot = ZEROVEC;\n  pivot_valid = false;\n  max_detail = 0;\n  min_detail = INT_MAX;\n\n  // 4 verts\n  int nverts = 4;\n  delete verts;\n  verts = NEW vector<vert>(nverts);\n  delete[] xverts_for_lod;\n  xverts_for_lod = NEW int[nverts+1];\n\n  // 4 wedges\n  num_wedges = 4;\n  os_free( wedges );\n  wedges = (wedge*)os_malloc( num_wedges*sizeof(wedge) );  //  hope we get wedge to multiple of 32...\n  os_free( xverts );\n  xverts = (hw_rasta_vert*)os_malloc( num_wedges*sizeof(hw_rasta_vert) );//NEW hw_rasta_vert[nwedges];\n  os_free( vert_refs_for_wedge_ref );\n  vert_refs_for_wedge_ref = (vert_ref*)os_malloc( num_wedges*sizeof(vert_ref) );\n  os_free( wedge_lod_starts );\n  wedge_lod_starts = NULL;\n  wedge w;\n  hw_rasta_vert my_vert_info;\n  my_vert_info.xyz.x=my_vert_info.xyz.y=my_vert_info.xyz.z=0.0F;\n  vector3d my_normal( 1, 0, 0 );\n  my_vert_info.boneid() = 0;\n  my_vert_info.diffuse = color32(255,255,255,255);\n  w.lower_detail = UNINITIALIZED_WEDGE_REF;\n  w.level_of_detail = 0;\n  int i;\n  for ( i=0; i<4; ++i )\n  {\n    vert_refs_for_wedge_ref[i] = i;\n    wedges[i] = w;\n    xverts[i] = my_vert_info;\n    xverts[i].set_normal(my_normal);\n  }\n\n  // look right, but may not be.....\n  xverts[0].tc[0] = texture_coord(0,0);\n  xverts[1].tc[0] = texture_coord(0,1);\n  xverts[2].tc[0] = texture_coord(1,1);\n  xverts[3].tc[0] = texture_coord(1,0);\n\n  // 2 faces\n  num_faces = 2;\n  os_free( faces );\n  faces = (face*)os_malloc( num_faces*sizeof(face) );  //vector<face>(nfaces);\n  face* f = faces;\n  f->wedge_refs[0] = 0;\n  f->wedge_refs[1] = 1;\n  f->wedge_refs[2] = 2;\n  f->my_material = 0;\n  f->level_of_detail = 0;\n  f->flags = 0;\n  ++f;\n  f->wedge_refs[0] = 2;\n  f->wedge_refs[1] = 3;\n  f->wedge_refs[2] = 0;\n  f->my_material = 0;\n  f->level_of_detail = 0;\n  f->flags = 0;\n\n  // 1 material\n#ifndef TARGET_PS2\n/*\n  for (i=materials.size(); --i>=0; )\n    delete materials[i];\n  material_changes.resize(0);\n*/\n\n  if(materials.empty())\n    materials.push_back( NEW material( *app::inst()->get_game()->get_blank_material() ) );\n#endif\n\n  xverts_for_lod[0] = 4;\n  min_faces = 2;\n  optimize();  // deferred until later, because collision geometry needs it unsorted  <<<< why?\n  mark_self_lit_verts();\n  compute_info();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "make_rectangle__8vr_pmesh"
+}
