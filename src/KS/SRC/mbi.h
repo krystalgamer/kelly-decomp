@@ -3,10 +3,6 @@
 
 #include "KS/SRC/algebra.h"
 
-struct quaternion {
-    float value[4];
-};
-
 struct qt {
     quaternion q;
     vector3d t;

@@ -106,6 +106,9 @@ public:
 
     void clear_anims();
     void clear_anims_b();
+    void deconstruct();
+    void detach();
+    void attach();
     void set_priority(int value);
 
     inline bool was_blended() const {

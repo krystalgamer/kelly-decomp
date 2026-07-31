@@ -551,6 +551,7 @@ public:
     void unload_anim(const stringx &filename) const;
     void make_animateable(bool enabled = true);
     entity_anim_tree *get_anim_tree(int slot) const;
+    void clear_anim(entity_anim_tree *animation);
     void kill_anim(int slot);
     virtual bool attach_anim(entity_anim *animation);
     virtual void detach_anim();

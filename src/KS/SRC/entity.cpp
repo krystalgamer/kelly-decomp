@@ -15,7 +15,11 @@ void frame_delta_entity::invalidate_frame_delta()
 }
 
 // 0x001349E8 clear_anim__6entityP16entity_anim_tree
-#include "KS/SRC/entity_anim_clear_shared.h"
+#include "KS/SRC/entity.h"
+#include "KS/SRC/entity_anim.h"
+__asm__(".equ deconstruct__16entity_anim_tree, 0x00117670");
+__asm__(".equ detach__16entity_anim_tree, 0x00117640");
+__asm__(".equ attach__16entity_anim_tree, 0x00117538");
 
 void entity::clear_anim(entity_anim_tree *animation)
 {
