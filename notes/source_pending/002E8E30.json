@@ -1,0 +1,15 @@
+{
+  "address": "0x002E8E30",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b3fe67ac9ab3ac67b4be0382284e7bb274bb1543",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/terrain.h\"\n\nbool terrain::in_world(const vector3d &p, const rational_t r, const vector3d &v, vector3d &n, vector3d &pi)\n{\n\treturn tree->in_world(p, r, v, n, pi);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "in_world__7terrainRC8vector3dfT1R8vector3dT4"
+}
