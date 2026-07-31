@@ -1,0 +1,15 @@
+{
+  "address": "0x002A8360",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b6e8e1596e7af5cf658d66d39037c3d730344dd8",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/wds.h\"\n\nvoid world_dynamics_system::malor_next()\n{\n\t// find next malor marker\n\tint n = entities.size();\n\tunsigned idx = current_malor_marker;\n\twhile (n)\n\t{\n\t\t--n;\n\t\t++idx;\n\t\tif (idx == entities.size())\n\t\t\tidx = 0;\n\t\tif (entities[idx])\n\t\t\tif (stringx(\"MALOR\")==entities[idx]->get_id().get_val().substr(0,5))\n\t\t\t{\n\t\t\t\tcurrent_malor_marker = idx;\n\t\t\t\tbreak;\n\t\t\t}\n\t}\n\t// perform malor\n\tif (current_malor_marker != -1)\n\t{\n\t\tif (get_hero_ptr(g_game_ptr->get_active_player()))\n\t\t{\n#if _CONSOLE_ENABLE\n\t\t\tconsole_log(\"Maloring to: %s\", entities[current_malor_marker]->get_name().c_str());\n#endif\n\n\t\t\tpo the_po = get_hero_ptr(g_game_ptr->get_active_player())->get_abs_po();\n\t\t\tthe_po.set_position(entities[current_malor_marker]->get_abs_position());\n\t\t\tif(get_hero_ptr(g_game_ptr->get_active_player())->has_parent())\n\t\t\t\tfast_po_mul(the_po, the_po, get_hero_ptr(g_game_ptr->get_active_player())->link_ifc()->get_parent()->get_abs_po().inverse());\n\t\t\tget_hero_ptr(g_game_ptr->get_active_player())->set_rel_po(the_po);\n\n\t\t\t// BIGCULL chase_cam_ptr->set_rel_position(hero_ptr->get_abs_po().fast_8byte_xform(vector3d(0,1,-2)));\n\t\t\t// BIGCULL chase_cam_ptr->invalidate();\n\t\t}\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "malor_next__21world_dynamics_system"
+}
