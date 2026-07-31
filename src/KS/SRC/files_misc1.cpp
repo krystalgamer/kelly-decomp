@@ -1,7 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_002B4518)
 // 0x002B4518 __uninitialized_copy_aux__H2ZPQ221world_dynamics_system14ent_time_limitZPQ221world_dynamics_system14ent_time_limit_X01X01X11G12__false_type_X11
 inline void *operator new(unsigned int, void *place) {
     return place;
@@ -32,9 +31,7 @@ value8 *UninitializedCopy(
     }
     return result;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002B6DC0)
 // 0x002B6DC0 __uninitialized_fill_n_aux__H3ZP11wedge_splitZUiZ11wedge_split_X01X11RCX21G12__false_type_X01
 struct wedge_split { char data[16]; };
 extern "C" void copy_wedge(wedge_split *,const wedge_split *)
@@ -52,9 +49,7 @@ wedge_split *fill_wedges(
     }
     return result;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002B6E20)
 // 0x002B6E20 __uninitialized_copy_aux__H2ZPC11wedge_splitZP11wedge_split_X01X01X11G12__false_type_X11
 struct wedge_split { char data[16]; };
 extern "C" void copy_wedge(wedge_split *,const wedge_split *)
@@ -72,35 +67,22 @@ wedge_split *copy_wedges(
     }
     return result;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002AFDC8)
 // 0x002AFDC8 _M_erase__t8_Rb_tree5ZP6regionZP6regionZt9_Identity1ZP6regionZt4less1ZP6regionZt12my_allocator1ZP6regionPt13_Rb_tree_node1ZP6region
 struct node{void*next_free;char p0[4];node*left,*right;};struct allocator{char padding[8];node*free_list;};extern "C" void erase_again(void*,node*) __asm__("erase_again_abs");__asm__(".equ erase_again_abs,0x002AFDC8");extern "C" void erase_tree(void*self,node*x) __asm__("_M_erase__t8_Rb_tree5ZP6regionZP6regionZt9_Identity1ZP6regionZt4less1ZP6regionZt12my_allocator1ZP6regionPt13_Rb_tree_node1ZP6region");void erase_tree(void*self,node*x){if(x){register char*high __asm__("$2")=(char*)0x003e0000;__asm__ __volatile__("" : "+r"(high));register allocator*alloc __asm__("$17")=(allocator*)(high+22056);do{erase_again(self,x->right);node*left=x->left;x->next_free=alloc->free_list;alloc->free_list=x;x=left;}while(x);}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002B09A0)
 // 0x002B09A0 _M_erase__t8_Rb_tree5ZiZt4pair2ZCiZPQ221world_dynamics_system17surface_type_infoZt10_Select1st1Zt4pair2ZCiZPQ221world_dynamics_system17surface_type_infoZt4less1ZiZt12my_allocator1ZPQ221world_dynamics_system17surface_type_infoPt13_Rb_tree_node1Zt4pair2ZCiZPQ221world_dynamics_system17surface_type_info
 struct node{void*next_free;char p0[4];node*left,*right;};struct allocator{char padding[8];node*free_list;};extern "C" void erase_again(void*,node*) __asm__("erase_again_abs");__asm__(".equ erase_again_abs,0x002B09A0");extern "C" void erase_tree(void*self,node*x) __asm__("_M_erase__t8_Rb_tree5ZiZt4pair2ZCiZPQ221world_dynamics_system17surface_type_infoZt10_Select1st1Zt4pair2ZCiZPQ221world_dynamics_system17surface_type_infoZt4less1ZiZt12my_allocator1ZPQ221world_dynamics_system17surface_type_infoPt13_Rb_tree_node1Zt4pair2ZCiZPQ221world_dynamics_system17surface_type_info");void erase_tree(void*self,node*x){if(x){register char*high __asm__("$2")=(char*)0x003e0000;__asm__ __volatile__("" : "+r"(high));register allocator*alloc __asm__("$17")=(allocator*)(high+22056);do{erase_again(self,x->right);node*left=x->left;x->next_free=alloc->free_list;alloc->free_list=x;x=left;}while(x);}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002B6590)
 // 0x002B6590 __uninitialized_copy_aux__H2ZPQ221world_dynamics_system19entity_preload_pairZPQ221world_dynamics_system19entity_preload_pair_X01X01X11G12__false_type_X11
 __asm__(".equ __7stringx,0x0034D3E0");__asm__(".equ __as__7stringxRC7stringx,0x0034E0B8");
 struct stringx{char data[8];stringx();stringx&operator=(const stringx&);};struct entity;struct entity_preload_pair{entity*ent;stringx name;entity_preload_pair(const entity_preload_pair&b){ent=b.ent;name=b.name;}};inline void*operator new(unsigned int,void*p){return p;}extern "C" entity_preload_pair*copy_aux(entity_preload_pair*first,entity_preload_pair*last,entity_preload_pair*result)__asm__("__uninitialized_copy_aux__H2ZPQ221world_dynamics_system19entity_preload_pairZPQ221world_dynamics_system19entity_preload_pair_X01X01X11G12__false_type_X11");entity_preload_pair*copy_aux(entity_preload_pair*first,entity_preload_pair*last,entity_preload_pair*result){for(;first!=last;++first,++result)if(result)new((void*)result)entity_preload_pair(*first);return result;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002B0A10)
 // 0x002B0A10 _M_erase__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP6entityZt10_Select1st1Zt4pair2ZC7stringxZP6entityZt4less1Z7stringxZt12my_allocator1ZP6entityPt13_Rb_tree_node1Zt4pair2ZC7stringxZP6entity
 struct stringx{char data[8];~stringx();};struct Node{Node*free_next;Node*parent;Node*left;Node*right;stringx key;char value[4];};struct AllocatorState{char pad[12];Node*head;};extern AllocatorState allocator_state;__asm__(".equ allocator_state,0x003E5628");__asm__(".equ _$_7stringx,0x0034D6E0");struct Tree;extern "C" void recurse(Tree*,Node*)__asm__("recurse_alias");__asm__(".equ recurse_alias,0x002B0A10");struct Tree{void erase(Node*x)__asm__("_M_erase__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP6entityZt10_Select1st1Zt4pair2ZC7stringxZP6entityZt4less1Z7stringxZt12my_allocator1ZP6entityPt13_Rb_tree_node1Zt4pair2ZC7stringxZP6entity");};void Tree::erase(Node*x){if(!x)return;AllocatorState*alloc=&allocator_state;while(x){recurse(this,x->right);Node*y=x->left;x->key.~stringx();x->free_next=alloc->head;alloc->head=x;x=y;}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002B0A90)
 // 0x002B0A90 _M_erase__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP10scene_animZt10_Select1st1Zt4pair2ZC7stringxZP10scene_animZt4less1Z7stringxZt12my_allocator1ZP10scene_animPt13_Rb_tree_node1Zt4pair2ZC7stringxZP10scene_anim
 struct stringx{char data[8];~stringx();};struct Node{Node*free_next;Node*parent;Node*left;Node*right;stringx key;char value[4];};struct AllocatorState{char pad[12];Node*head;};extern AllocatorState allocator_state;__asm__(".equ allocator_state,0x003E5628");__asm__(".equ _$_7stringx,0x0034D6E0");struct Tree;extern "C" void recurse(Tree*,Node*)__asm__("recurse_alias");__asm__(".equ recurse_alias,0x002B0A90");struct Tree{void erase(Node*x)__asm__("_M_erase__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZP10scene_animZt10_Select1st1Zt4pair2ZC7stringxZP10scene_animZt4less1Z7stringxZt12my_allocator1ZP10scene_animPt13_Rb_tree_node1Zt4pair2ZC7stringxZP10scene_anim");};void Tree::erase(Node*x){if(!x)return;AllocatorState*alloc=&allocator_state;while(x){recurse(this,x->right);Node*y=x->left;x->key.~stringx();x->free_next=alloc->head;alloc->head=x;x=y;}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002AF598)
 // 0x002AF598 clear__t10_List_base2Z12game_processZt12my_allocator1Z12game_process
 struct game_process{char d[24];};struct Node{Node*next,*prev;game_process value;};struct ListBase{Node*head;void clear()__asm__("clear__t10_List_base2Z12game_processZt12my_allocator1Z12game_process");};extern "C" void destroy(game_process*,int)__asm__("_$_12game_process");extern Node*free_lists[];__asm__(".equ _$_12game_process,0x00286950");__asm__(".equ free_lists,0x003E5628");void ListBase::clear(){Node*n=head->next;if(n!=head){Node**pool=free_lists;do{Node*cur=n;n=n->next;destroy(&cur->value,2);cur->next=pool[3];pool[3]=cur;}while(n!=head);}asm volatile("" : : : "memory");head->next=head;head->prev=head;}
-#endif
