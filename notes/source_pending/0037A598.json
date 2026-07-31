@@ -1,0 +1,16 @@
+{
+  "address": "0x0037A598",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b94f1bed8bf09a3c4c9591681b4085e340b1e209",
+      "error": "Candidate did not emit WAVE_ComputeMesh__Fv; emitted functions: []",
+      "notes": "The symbol has no directly extractable released definition under its linked spelling, or its preprocessor branches prevent a safe standalone extraction.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/wave.h\"\n\n/*\nThe symbol has no directly extractable released definition under its linked spelling, or its preprocessor branches prevent a safe standalone extraction.\nThis first-pass candidate intentionally compiles only the available canonical source context.\n*/\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "WAVE_ComputeMesh__Fv"
+}
