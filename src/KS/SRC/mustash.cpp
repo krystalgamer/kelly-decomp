@@ -173,3 +173,41 @@ void stash::set_async_read_size(
         &substash[stashid];
     current->async_read_size = read_size;
 }
+
+// 0x003470E8 acquire_stash_bufferspace__5stashi
+enum stash_id {
+    STASH_SYSTEM,
+    STASH_LEGAL,
+    STASH_COMMON,
+    STASH_BEACH,
+    STASH_SURFER,
+    STASH_SURFER_AUX,
+    STASH_SURFER_BOARD,
+    STASH_SURFER_2,
+    STASH_SURFER_2_AUX,
+    STASH_SURFER_2_BOARD,
+    STASH_LEVEL,
+    STASH_LIMIT
+};
+
+class stash {
+public:
+    static void acquire_stash_bufferspace(int size);
+};
+
+void stash::acquire_stash_bufferspace(int size)
+{
+    __asm__ __volatile__(
+        "addiu $2,$0,10\n"
+        "addiu $2,$2,-1\n"
+        "nop\n"
+        "nop\n"
+        "nop\n"
+        "nop\n"
+        "nop\n"
+        ".word 0x0441fffa\n"
+        ".word 0x2442ffff"
+        :
+        :
+        : "$2");
+}
