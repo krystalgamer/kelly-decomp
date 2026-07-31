@@ -1,16 +1,43 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef PS2_INPUT_H
+#define PS2_INPUT_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_001E9728)
-// 0x001E9728 is_connected__C17ps2_joypad_device
-class ps2_joypad_device {
-    char padding[0x6C];
-    int disconnected;
+extern "C" void* memset(void*, int, unsigned int);
+
+#define RDATA_SIZE 32
+#define PS2_JOYPAD_DUALSHOCK2 (char)0x79
+
+class input_device {
+protected:
+    int device_id;
+
 public:
-    bool is_connected() const;
+    virtual ~input_device();
 };
 
-bool ps2_joypad_device::is_connected() const {
-    return disconnected == 0;
-}
+class ps2_joypad_device : public input_device {
+public:
+    void clear_state();
+    bool is_connected() const;
+
+private:
+    int pad_id;
+    int term_id;
+    int g_error_count;
+    int phase;
+    int state;
+    unsigned char rdata1[RDATA_SIZE];
+    unsigned char rdata2[RDATA_SIZE];
+    unsigned char* curr_rdata;
+    unsigned char* prev_rdata;
+    static unsigned char rdata[RDATA_SIZE];
+    char port_id;
+    char slot_id;
+    char pad_type;
+    bool port_opened;
+    int disconnected;
+    int was_disconnected;
+};
+
 #endif

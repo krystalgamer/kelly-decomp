@@ -63,7 +63,7 @@ void **joypad_rtti()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001E25D0)
-#include "KS/SRC/HWOSPS2/ps2_input_shared.h"
+#include "KS/SRC/HWOSPS2/ps2_input.h"
 asm(".equ _17ps2_joypad_device$rdata, 0x005A39C0");
 asm(".equ memset, 0x003D18D0");
 

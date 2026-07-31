@@ -124,6 +124,8 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/GraphicalMenuSystem.h":
         "KS/SRC/ks/GraphicalMenuSystem_methods.cpp",
     "KS/SRC/graph.h": "KS/SRC/graph_methods.cpp",
+    "KS/SRC/HWOSPS2/ps2_input.h":
+        "KS/SRC/HWOSPS2/ps2_input_methods.cpp",
     "KS/SRC/ks/CheatFrontEnd.h": "KS/SRC/ks/CheatFrontEnd_methods.cpp",
     "KS/SRC/ks/SaveLoadFrontEnd.h":
         "KS/SRC/ks/SaveLoadFrontEnd_methods.cpp",
