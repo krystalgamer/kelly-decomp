@@ -1,11 +1,66 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef KSREPLAY_H
+#define KSREPLAY_H
 
+typedef unsigned int uint32;
 
-#if defined(KELLY_DECOMP_FUNCTION_002700D0)
-// 0x002700D0 __tf8KSReplay
-extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
-extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
-asm(".equ typeinfo, 0x005120E0"); asm(".equ type_name, 0x004E5048");
-extern "C" void *GetTypeInfo() __asm__("__tf8KSReplay");
-void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
+class KSEntityState {
+    friend class KSReplay;
+
+    uint32 KSState : 7;
+    uint32 KSSuperState : 4;
+    uint32 KSAnim : 10;
+    uint32 KSBAnim : 8;
+    uint32 KSBlend : 7;
+    uint32 KSBBlend : 7;
+    uint32 KSCurTrick : 7;
+    uint32 KSAnimCall : 1;
+    uint32 KSBAnimCall : 1;
+    uint32 KSLoop : 1;
+    uint32 KSBLoop : 1;
+    uint32 KSWipedOut : 1;
+    uint32 KSInAir : 1;
+    uint32 KSInTube : 1;
+    uint32 KSDry : 1;
+    uint32 KSIKValid : 1;
+    uint32 KSWipeoutSplash : 1;
+    uint32 EndWave : 1;
+    uint32 padding : 3;
+};
+
+class KSReplay {
+    int bch;
+    int sfr;
+    int brd;
+    uint32 seed;
+    int status;
+    float playtime;
+    float lastPlaytime;
+    bool slomo;
+    bool fastforward;
+    bool prepareSlomo;
+    bool prepareNormal;
+    int slomospeed;
+    int ffspeed;
+    char data_to_num_frames[0x54 - 0x34];
+    unsigned int numFrames;
+    char data_to_main_entity_state[0xC];
+    KSEntityState* mainEntityState;
+    char data_to_max_frames[0xC];
+    unsigned int maxFrames;
+
+public:
+    float Playspeed();
+    void Tick(bool running, float time_inc);
+    void Pause(bool paused);
+    void SaveFile(char *filename);
+    bool IsPlaying();
+    void SetWipeoutSplash(int player);
+    void SetEndWave();
+};
+
+extern KSReplay ksreplay;
+
+__asm__(".equ ksreplay, 0x004252A8");
+__asm__(".equ Tick__8KSReplaybf, 0x0023BD08");
+
 #endif

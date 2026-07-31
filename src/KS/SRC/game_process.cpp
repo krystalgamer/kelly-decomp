@@ -2,7 +2,7 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_00287930)
 #include "KS/SRC/game.h"
-#include "KS/SRC/ks/ksreplay_shared.h"
+#include "KS/SRC/ks/ksreplay.h"
 // 0x00287930 advance_state_paused__4gamef
 void game::advance_state_paused(float time_inc)
 {

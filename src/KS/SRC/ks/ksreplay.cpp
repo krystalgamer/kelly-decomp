@@ -1,11 +1,6 @@
-// Matching decompilation blocks selected by generated build shims.
+// KSReplay definitions extracted by generated one-function shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_0023BFF0) || \
-    defined(KELLY_DECOMP_FUNCTION_0023C038)
-#include "KS/SRC/ks/ksreplay_shared.h"
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0023ABC0)
+// 0x0023ABC0 SetKSAnimInfo__13KSEntityStatefbf
 class KSEntityState {
     char padding[4];
     int anim_info;
@@ -23,9 +18,8 @@ void KSEntityState::SetKSAnimInfo(float speed, bool mirrored, float)
     value |= 0x200000;
     anim_info = value;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023AD38)
+// 0x0023AD38 _$_8KSReplay
 struct KSReplay {
     char padding[216];
     const char *term_message;
@@ -49,11 +43,9 @@ void KSReplayDtor(void *self, int deleting)
         __asm__ volatile("");
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023CA88)
 // 0x0023CA88 Playspeed__8KSReplay
-#include "KS/SRC/ks/ksreplay_shared.h"
+#include "KS/SRC/ks/ksreplay.h"
 float KSReplay::Playspeed() {
     if (slomo)
         return 1.0f / slomospeed;
@@ -61,9 +53,7 @@ float KSReplay::Playspeed() {
         return 1.0f;
     return (float)ffspeed;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023A998)
 // 0x0023A998 __13KSEntityState
 class KSEntityState {
 public:
@@ -72,9 +62,7 @@ public:
 
 KSEntityState::KSEntityState() {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023AC68)
 // 0x0023AC68 __13KSReplayFrame
 class KSReplayFrame {
 public:
@@ -83,21 +71,15 @@ public:
 
 KSReplayFrame::KSReplayFrame() {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023B2D0)
 // 0x0023B2D0 Clear__8KSReplayUi
 class KSReplay { char padding[0xC]; unsigned int seed; int status; char padding_to_frames[0x40]; unsigned int numFrames; char padding_to_current_collision[0x74]; int current_collision; int num_collisions; public: void Clear(unsigned int value); };
 void KSReplay::Clear(unsigned int value) { seed = value; numFrames = 0; num_collisions = 0; current_collision = 0; status = 0; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023BE08)
 // 0x0023BE08 IsPlaying__8KSReplay
 class KSReplay { char padding[0x10]; int status; public: bool IsPlaying(); };
 bool KSReplay::IsPlaying() { return status == 2; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023C690)
 // 0x0023C690 Record__8KSReplay
 class KSReplay {
     char padding[0x10];
@@ -109,21 +91,15 @@ public:
 void KSReplay::Record() {
     status = 1;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023CA78)
 // 0x0023CA78 SpeedFast__8KSReplay
 class KSReplay { char padding[0x1C]; bool slomo; bool fastforward; public: void SpeedFast(); };
 void KSReplay::SpeedFast() { fastforward = true; slomo = false; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023CAD8)
 // 0x0023CAD8 Done__8KSReplay
 class KSReplay { char padding_to_play[0x34]; unsigned int playframe; char padding_to_num[0x1C]; unsigned int numFrames; public: bool Done(); };
 bool KSReplay::Done() { return playframe >= numFrames; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023CAF0)
 // 0x0023CAF0 NoDraw__8KSReplay
 class KSReplay {
     char padding[0x78];
@@ -135,9 +111,7 @@ public:
 bool KSReplay::NoDraw() {
     return noDraw;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023CAF8)
 // 0x0023CAF8 MainPOFrames__8KSReplay
 class KSReplay {
 public:
@@ -147,21 +121,15 @@ public:
 int KSReplay::MainPOFrames() {
     return 4;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023CA38)
 // 0x0023CA38 SpeedSlow__8KSReplay
 class KSReplay { char padding[0x1c]; bool slomo; bool fastforward; bool prepareSlomo; bool prepareNormal; public: void SpeedSlow(); };
 void KSReplay::SpeedSlow() { if (fastforward) { fastforward = false; slomo = true; } else { prepareSlomo = true; } }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023CA58)
 // 0x0023CA58 SpeedNormal__8KSReplay
 class KSReplay { char padding[0x1c]; bool slomo; bool fastforward; bool prepareSlomo; bool prepareNormal; public: void SpeedNormal(); };
 void KSReplay::SpeedNormal() { if (fastforward) { slomo = false; KELLY_DECOMP_COMPILER_BARRIER(); fastforward = false; } else { prepareNormal = true; } }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023AC70)
 // 0x0023AC70 Save__13KSReplayFrame
 extern float WAVE_ShiftX;
 extern float TIMER_LevelSec;
@@ -171,16 +139,12 @@ __asm__(".equ TIMER_LevelSec, 0x0046B284");
 __asm__(".equ TIMER_TotalSec, 0x0046B27C");
 class KSReplayFrame { float wave_shiftx; float levelTime; float totalTime; public: void Save(); };
 void KSReplayFrame::Save() { wave_shiftx = WAVE_ShiftX; levelTime = TIMER_LevelSec; totalTime = TIMER_TotalSec; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023C978)
 // 0x0023C978 Restart__8KSReplay
 class KSReplay { char padding[0xd4]; int firstFrame; public: void Restart(); void Play(); };
 __asm__(".equ Play__8KSReplay, 0x0023C6A0");
 void KSReplay::Restart() { Play(); firstFrame = 1; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00239EB0)
 // 0x00239EB0 __10KSEntityPO
 struct vector3d {
     float x;
@@ -218,10 +182,10 @@ public:
 KSEntityPO::KSEntityPO()
 {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023BFF0)
 // 0x0023BFF0 SetWipeoutSplash__8KSReplayi
+#include "KS/SRC/ks/ksreplay.h"
+
 void KSReplay::SetWipeoutSplash(int player)
 {
     if (mainEntityState == 0 || numFrames >= maxFrames)
@@ -230,18 +194,16 @@ void KSReplay::SetWipeoutSplash(int player)
     if (player == 0)
         mainEntityState[numFrames].KSWipeoutSplash = true;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023C038)
 // 0x0023C038 SetEndWave__8KSReplay
+#include "KS/SRC/ks/ksreplay.h"
+
 void KSReplay::SetEndWave()
 {
     if (mainEntityState && numFrames < maxFrames)
         mainEntityState[numFrames].EndWave = true;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023AC10)
 // 0x0023AC10 SetKSBAnimInfo__13KSEntityStatefbf
 typedef unsigned int uint32;
 
@@ -276,9 +238,7 @@ void KSEntityState::SetKSBAnimInfo(float blend, bool loop, float frame)
     KSBLoop = loop;
     KSBAnimCall = true;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023C9E0)
 // 0x0023C9E0 Pause__8KSReplayb
 class KSReplay
 {
@@ -314,9 +274,7 @@ void KSReplay::Pause(bool paused)
             status = REPLAY_PLAYBACK;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023A9A0)
 // 0x0023A9A0 Reset__13KSEntityState
 struct KSEntityState { unsigned int padding; unsigned int flags; void Reset(); };
 void KSEntityState::Reset()
@@ -353,14 +311,9 @@ void KSEntityState::Reset()
     value &= mask8;
     flags = value;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023BF50)
 // 0x0023BF50 SetCollisionInfo__8KSReplayP12beach_objectP6entityRC8vector3d
 class beach_object;class entity;struct vector3d{float x,y,z;vector3d&operator=(const vector3d&o){x=o.x;y=o.y;z=o.z;return *this;}};struct Collision{beach_object*obj;entity*ent;vector3d dir;float timeStamp;};class KSReplay{char p[200];Collision*collisions;int current_collision;int num_collisions;public:void SetCollisionInfo(beach_object*,entity*,const vector3d&);};extern float level_seconds;asm(".equ level_seconds,0x0046B284");void KSReplay::SetCollisionInfo(beach_object*obj,entity*ent,const vector3d&dir){if(collisions==0||(unsigned)num_collisions>=100)return;collisions[num_collisions].obj=obj;collisions[num_collisions].ent=ent;collisions[num_collisions].dir=dir;collisions[num_collisions].timeStamp=level_seconds;num_collisions++;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0023B2E8)
 // 0x0023B2E8 Term__8KSReplay
 class KSReplay{char padding0[96];void*frame;void*mainEntityState;void*aiEntityState;void*mainEntityPO;void*aiEntityPO;int maxframes;char padding1[80];void*collisions;int num_collisions;int current_collision;public:void Term();};extern "C" void vec_delete(void*)__asm__("__builtin_vec_delete");asm(".equ __builtin_vec_delete,0x002AC6D0");void KSReplay::Term(){if(collisions)vec_delete(collisions);collisions=0;current_collision=0;num_collisions=0;if(frame)vec_delete(frame);frame=0;if(mainEntityState)vec_delete(mainEntityState);mainEntityState=0;if(mainEntityPO)vec_delete(mainEntityPO);mainEntityPO=0;if(aiEntityState)vec_delete(aiEntityState);aiEntityState=0;if(aiEntityPO)vec_delete(aiEntityPO);aiEntityPO=0;maxframes=0;}
-#endif

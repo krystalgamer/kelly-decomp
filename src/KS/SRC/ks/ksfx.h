@@ -2,7 +2,7 @@
 #define KSFX_H
 
 #include "KS/SRC/game.h"
-#include "KS/SRC/ks/ksreplay_shared.h"
+#include "KS/SRC/ks/ksreplay.h"
 #include "KS/SRC/timer.h"
 
 #define MAX_WIPEOUT_SPLASHES 2
