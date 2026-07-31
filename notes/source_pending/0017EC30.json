@@ -1,0 +1,15 @@
+{
+  "address": "0x0017EC30",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6cc83e275b7058c09297024416eb0526076140c3",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/MainFrontEnd.h\"\n\nvoid MainFrontEnd::SetPQIndices()\n{\n\tstringx tmp[MainEnd];\n\ttmp[MainFreeEntry] = \"freesurf\";\n\ttmp[MainCareerEntry] = \"career\";\n\ttmp[MainMultiEntry] = \"multi\";\n\ttmp[MainExtrasEntry] = \"extras\";\n\ttmp[MainOpEntry] = \"option\";\n\n\tfor(int i=0; i<MainEnd; i++)\n\t{\n\t\tfor(int j=0; j<num_boxes; j++)\n\t\t\tboxes[i][j] = GetPointer((tmp[i]+\"_box_0\"+stringx(j+1)).data());\n\t\tfor(int j=0; j<num_circles; j++)\n\t\t\tcircles[i][j] = GetPointer((tmp[i]+\"_circle_0\"+stringx(j+1)).data());\n\t\tlines[i][0] = GetPointer((tmp[i]+\"_line_a\").data());\n\t\tlines[i][1] = GetPointer((tmp[i]+\"_line_b\").data());\n\t\tlines[i][2] = GetPointer((tmp[i]+\"_line_c\").data());\n\t\tif(lines[i][2] == frontendmanager.GetDefaultPQ()) lines[i][2] = NULL;\n\n\t\tif(i == MainCareerEntry)\n\t\t{\n\t\t\tfloat xa, ya, xb, yb;\n\t\t\tboxes[i][4]->GetPos(xa, ya, xb, yb);\n\t\t\tcareer_menu->SetBoxBottom((int) yb);\n\t\t}\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "SetPQIndices__12MainFrontEnd"
+}
