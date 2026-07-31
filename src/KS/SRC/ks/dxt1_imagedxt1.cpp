@@ -1,8 +1,7 @@
-// Matching decompilation blocks selected by generated build shims.
+// ImageDXT1 definitions extracted by generated one-function shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_00264348)
-#include "KS/SRC/ks/dxt1_imagedxt1_shared.h"
 // 0x00264348 Emit1ColorBlock__9ImageDXTCPUsG9DXT1Color
+#include "KS/SRC/ks/dxt1_imagedxt1.h"
 void ImageDXTC::Emit1ColorBlock(unsigned short* pDest, DXT1Color c)
 {
     pDest[0] = Make565(c);
@@ -10,15 +9,11 @@ void ImageDXTC::Emit1ColorBlock(unsigned short* pDest, DXT1Color c)
     pDest[2] = 0;
     pDest[3] = 0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00263B18)
 // 0x00263B18 __9ImageDXTC
 class ImageDXTC { int XSize; int YSize; public: ImageDXTC(); };
 ImageDXTC::ImageDXTC() { XSize = YSize = 0; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00263B70)
 // 0x00263B70 ReleaseAll__9ImageDXTC
 class ImageDXTC {
     int XSize;
@@ -30,11 +25,9 @@ public:
 void ImageDXTC::ReleaseAll() {
     XSize = YSize = 0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00264390)
 // 0x00264390 Emit2ColorBlock__9ImageDXTCPUsG9DXT1ColorT2P9DXT1Color
-#include "KS/SRC/ks/dxt1_imagedxt1_shared.h"
+#include "KS/SRC/ks/dxt1_imagedxt1.h"
 
 void ImageDXTC::Emit2ColorBlock(unsigned short *pDest, DXT1Color c1, DXT1Color c2, DXT1Color *pSrc)
 {
@@ -65,4 +58,3 @@ unsigned short Index;
 		pcDest ++;
 	}
 }
-#endif
