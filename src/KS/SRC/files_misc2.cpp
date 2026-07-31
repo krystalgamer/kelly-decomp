@@ -313,3 +313,6 @@ struct light_rec{char data[8];}; extern "C" void fill_values(light_rec *first,li
 
 // 0x002F5E60 fill_n__H3ZPP8materialZUiZP8material_X01X11RCX21_X01
 class material; extern "C" material **fill_values(material **first,unsigned int count,material *const &value)__asm__("fill_n__H3ZPP8materialZUiZP8material_X01X11RCX21_X01"); material **fill_values(material **first,unsigned int count,material *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
+
+// 0x002FA938 fill_n__H3ZPiZUiZi_X01X11RCX21_X01
+extern "C" int *fill_values(int *first,unsigned int count,const int &value)__asm__("fill_n__H3ZPiZUiZi_X01X11RCX21_X01"); int *fill_values(int *first,unsigned int count,const int &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
