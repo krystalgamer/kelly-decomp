@@ -146,3 +146,30 @@ void Print_Stash_Node( os_file &output_file, AvlNode *curr)
 		KELLY_DECOMP_COMPILER_BARRIER();
 	}
 }
+
+// 0x00346ED0 set_async_read_size__5stashiUi
+struct multistash {
+    char padding[0x280];
+    unsigned int async_read_size;
+    char tail[0x94];
+};
+
+class stash {
+    static multistash substash[12];
+
+public:
+    static void set_async_read_size(
+        int stashid,
+        unsigned int read_size);
+};
+
+__asm__(".equ _5stash$substash, 0x0046B7B8");
+
+void stash::set_async_read_size(
+    int stashid,
+    unsigned int read_size)
+{
+    register multistash *current __asm__("$4") =
+        &substash[stashid];
+    current->async_read_size = read_size;
+}
