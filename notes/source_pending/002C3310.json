@@ -1,0 +1,15 @@
+{
+  "address": "0x002C3310",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ec2b9b99b4620ec78e38798a6c0691f0f75b6f85",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/lensflare.h\"\n\nvoid lensflare::render( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct )\n{\n//  print_3d_text( get_abs_position(), color32_white, \"flare: %f - %f\", amount, target );\n  if (( amount <= 0.0f)\n//\t  || WAVE_CameraUnderwater() // should no longer be necessary. (dc 07/06/02)\n\t  )\n    return;\n\n  vector3d eyep = geometry_manager::inst()->get_camera_pos();\n  vector3d eyen = geometry_manager::inst()->get_camera_dir();\n  vector3d fpos = get_abs_position();\n  vector3d f2eye = fpos - eyep;\n\n  float angledot=dot(f2eye, eyen);\n  angledot/=eyen.length();\n  angledot/=(fpos-eyep).length();\n  float myscale = 0;\n  if (angledot > .5f)\n    myscale = (powf(11.0f, (angledot-.5f)/.5f) - 1)/5;\n\n  float d = dot(eyen, f2eye);\n  if (d <= PROJ_NEAR_PLANE_D )\n    return;\n  // could instead use the viewer pos to compute influence, then multiply by 2.0!\n  //float atten = 1.0f-d/min(3.0F*brightness,PROJ_FAR_PLANE_D+1.0f);\n  float atten = 1.0f-sqr(d)/sqr(farrange+1.0f);\n  if (atten <= 0)\n    return;\n  atten *= amount;//*0.3f;\n\n//  float ang=PI*0.5F*(eyen.x+eyen.y);\n\n\n  float sclz=(PROJ_NEAR_PLANE_D+1e-3f)/d;\n\n  for ( int i = 0; i < nflares; i++ )\n  {\n    billboard* bb = &lensflare_bbs[i];\n\n/*\tThis doesn't seem to be doing what's intended.  (dc 10/17/01)\n    color fade = flares[i].col*atten*farrange;\n    fade.rescale();\n    bb->c = fade.to_color32();\n*/\n    vector3d flarepos=lerp(fpos,eyep+eyen*d,flares[i].offset);\n    flarepos=lerp(eyep,flarepos,sclz); // move to front plane\n    bb->pos = flarepos;\n\n    //float scale=min(atten*brightness*brightness*0.009F,3.0F*nearz);\n    bb->w = bb->h = flares[i].size * sclz * myscale*(flares[i].offset + 1);\n\n    bb->angle = cosf(angledot);\n\n\t// The regular attentuation didn't work right.  The flares would not become \n\t// translucent even when they became very small.  Replaced with simpler \n\t// system.  (dc 07/11/02)\n\tstatic float lensflare_attenfactor = 4;\n\tatten = 1 - lensflare_attenfactor * (1 - angledot);\n\tif (atten < 0) atten = 0;\n    color fade = flares[i].col * atten;\n    bb->c = fade.to_color32();\n\n    render_billboards( 1, bb, flares[i].texture );\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "render__9lensflareP6camerafUif"
+}
