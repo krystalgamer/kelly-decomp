@@ -47,6 +47,7 @@ public:
         Location();
         void Reset();
         void UnlockMovie();
+        void UnlockBoard();
         void SetMovieShown();
         bool CheckShowMovie();
     };
@@ -76,6 +77,9 @@ public:
     void OnGoalReDone(int level, int goal);
     bool IsBoardUnlocked(int board) const;
     stringx GetInitials();
+    void SetInitials(stringx initials);
+    void EarnNextTrick();
+    void UnlockTrick(int trick);
     bool WasNewGoalPassed(int goalIdx = -1);
     bool WasAnyGoalPassed(int goalIdx = -1);
 };

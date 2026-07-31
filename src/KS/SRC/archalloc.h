@@ -19,6 +19,16 @@ __asm__(".equ __nw__FUiUiPCci, 0x002AC578");
 
 #define NEW new(0, __PRETTY_FUNCTION__, 0)
 
+enum KSHeapIDs {
+    SYSTEM_HEAP,
+    DEBUG_HEAP,
+    COMMON_HEAP,
+    BEACH_HEAP,
+    SURFER_HEAP,
+    SURFER_HEAP2,
+    NUMBER_OF_HEAPS
+};
+
 class Heap {
 public:
     void *Allocate(
@@ -34,6 +44,8 @@ extern Heap *currentheap;
 extern unsigned long mem_malloc_counter;
 
 void mem_check_heap_init();
+void mem_summarize_heap(int heap);
+void mem_summarize_all_heaps();
 void mem_error(
     unsigned int size,
     bool array,
