@@ -425,3 +425,8 @@ ai_goal **fill_goals(
         : "$2", "memory");
     return first;
 }
+
+// 0x00111AA0 fill_n__H3ZPP16ai_polypath_cellZUiZP16ai_polypath_cell_X01X11RCX21_X01
+class ai_polypath_cell;
+extern "C" ai_polypath_cell **fill_cells(ai_polypath_cell **first,unsigned int count,ai_polypath_cell *const &value)__asm__("fill_n__H3ZPP16ai_polypath_cellZUiZP16ai_polypath_cell_X01X11RCX21_X01");
+ai_polypath_cell **fill_cells(ai_polypath_cell **first,unsigned int count,ai_polypath_cell *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
