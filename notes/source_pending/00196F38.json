@@ -1,0 +1,15 @@
+{
+  "address": "0x00196F38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ac821150b397a506b5d86cde9dd5a7644c1ac3d2",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/TrickBookFrontEnd.h\"\n\nvoid TrickBookFrontEnd::ChangeButtonText(SurferTrick* st)\n{\n\tstringx tmp = \"\";\n\tif(st->button1 != PAD_NONE)\n\t{\n\t\t// One-button tricks.\n\t\tif (st->button2 == PAD_NONE)\n\t\t\ttmp = ksGlobalButtonArray[st->button1-1];\n\t\t// Two-button tricks.\n\t\telse if (st->button3 == PAD_NONE)\n\t\t{\n\t\t\t// Hack: don't show the \"+\" for floater trick.\n\t\t\tif (st->trick_id == TRICK_FLOATER)\n\t\t\t\ttmp = ksGlobalButtonArray[st->button1-1] + \" \" + ksGlobalButtonArray[st->button2-1];\n\t\t\telse if (st->trickbook_type == TRICKBOOKTYPE_FACETRICK)\n\t\t\t\ttmp = ksGlobalButtonArray[st->button1-1] + \" , \" + ksGlobalButtonArray[st->button2-1];\n\t\t\telse\n\t\t\t\ttmp = ksGlobalButtonArray[st->button1-1] + \" + \" + ksGlobalButtonArray[st->button2-1];\n\t\t}\n\t\t// Three-button tricks.\n\t\telse\n\t\t\ttmp = ksGlobalButtonArray[st->button1-1] + \", \" + ksGlobalButtonArray[st->button2-1] + \", \" + ksGlobalButtonArray[st->button3-1];\n\t}\n\tbuttons->changeText(tmp);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "ChangeButtonText__17TrickBookFrontEndP11SurferTrick"
+}
