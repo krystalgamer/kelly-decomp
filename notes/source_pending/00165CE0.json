@@ -1,0 +1,15 @@
+{
+  "address": "0x00165CE0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "47f34d98e78ce66db67904ae427b890a569ab3d2",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/igo_widget_skillchallenge.h\"\n\nSkillChallengeWidget::SkillChallengeWidget(int type)\n{\n\tobjectRoot = NULL;\n\n\tskillText = NEW TextString(NULL, \"ICON\", 119, 62, 10, 0.72f, Font::HORIZJUST_RIGHT, Font::VERTJUST_BOTTOM, color32(255, 255, 255, 255));\n\tpointText = NEW TextString(NULL, \"0\", 222, 62, 10, 0.9f, Font::HORIZJUST_RIGHT, Font::VERTJUST_BOTTOM, color32(255, 255, 255, 255));\n\n\tfade = 1.0f;\n\tfadeDir = 1;\n\n\tfloat photo_x = 128;\n\tif (type == GOAL_SKILL_FACE)\n\t{\n\t\tskillText->changeText(\"FACE\");\n\t\tstate = STATE_FACE;\n\t}\n\telse if (type == GOAL_SKILL_FACE_SCORE)\n\t{\n\t\tskillText->changeText(\"FACE\");\n\t\tstate = STATE_FACE_SCORE;\n\t}\n\telse if (type == GOAL_SKILL_AIR)\n\t{\n\t\tskillText->changeText(\"AIR\");\n\t\tstate = STATE_AIR;\n\t}\n\telse if (type == GOAL_SKILL_AIR_SCORE)\n\t{\n\t\tskillText->changeText(\"AIR\");\n\t\tstate = STATE_AIR_SCORE;\n\t}\n\telse if (type == GOAL_SKILL_TUBE)\n\t{\n\t\tskillText->changeText(\"TUBE\");\n\t\tstate = STATE_TUBE;\n\t}\n\telse if (type == GOAL_SKILL_TUBE_SCORE)\n\t{\n\t\tskillText->changeText(\"TUBE\");\n\t\tstate = STATE_TUBE_SCORE;\n\t}\n\telse if (type == GOAL_PHOTO_1)\n\t{\n\t\tskillText->changeText(\"PHOTO\");\n\t\tstate = STATE_PHOTO1;\n\t\tskillText->changePos(photo_x, 62);\n\t}\n\telse if (type == GOAL_PHOTO_2)\n\t{\n\t\tskillText->changeText(\"PHOTO\");\n\t\tstate = STATE_PHOTO2;\n\t\tskillText->changePos(photo_x, 62);\n\t}\n\telse if (type == GOAL_PHOTO_3)\n\t{\n\t\tskillText->changeText(\"PHOTO\");\n\t\tstate = STATE_PHOTO3;\n\t\tskillText->changePos(photo_x, 62);\n\t}\n\telse\n\t\tstate = STATE_NONE;\n\t\n\tdisplay = false;\n\tnum_photos_taken = 0;\n\ttimer = -1.0f;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__20SkillChallengeWidgeti"
+}
