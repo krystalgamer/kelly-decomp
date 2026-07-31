@@ -1,0 +1,15 @@
+{
+  "address": "0x00353A00",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cd95f03f4180822267cf9789732f5849d5562b26",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/vm_executable.h\"\n\nvoid serial_in(chunk_file& io,vm_executable* x)\n  {\n  x->_clear();\n\n  chunk_flavor cf;\n  int i;\n\n  // header\n  serial_in(io,&cf);\n  assert(cf == CHUNK_VM_EXECUTABLE);\n  serial_in(io,&x->name);\n\n  // parameters (optional)\n  serial_in(io,&cf);\n  int psize = 0;\n  if (cf == CHUNK_PARAMETERS)\n    {\n    serial_in(io,&i);\n    x->parameters.reserve(i);\n    for (; i; i--)\n      {\n      stringx s;\n      serial_in(io,&s);\n      script_library_class* slc = slc_manager::inst()->find(s);\n      if (!slc)\n        {\n        stringx err;\n        err=\"library class \"+s+\" not found.\";\n        error(err.c_str());\n        }\n      x->parameters.push_back(slc);\n      psize += slc->get_size();\n      }\n    serial_in(io,&cf);\n    }\n\n  // parameters stacksize\n  assert(cf == CHUNK_PARMS_STACKSIZE);\n  serial_in(io,&x->parms_stacksize);\n\n  // function is static iff the given stacksize matches the total size of all\n  // parameters\n  if ( x->parms_stacksize == psize )\n    x->static_func = true;\n\n  // store full version of function name\n  x->_build_fullname();\n\n  // string list\n  serial_in(io,&cf);\n  assert(cf == CHUNK_NUM_STRINGS);\n  serial_in(io,&i);\n  if ( i )\n    x->strings.reserve( i );\n  for (; i; i--)\n    {\n    stringx s;\n    serial_in(io,&s);\n    stringx const * sptr = g_world_ptr->get_script_manager()->add_string(s);\n    x->strings.push_back(sptr);\n    }\n\n  // executable code\n  serial_in(io,&cf);\n  assert(cf == CHUNK_CODESIZE);\n  int len;\n  serial_in(io,&len);\n  x->buffer_len = len / 2;\n  serial_in(io,&cf);\n  assert(cf == CHUNK_CODE);\n  x->buffer = NEW unsigned short[x->buffer_len];\n  unsigned short* bp = x->buffer;\n  for (i=x->buffer_len; i; i--,bp++)\n    serial_in(io,bp);\n  }\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "serial_in__FR10chunk_fileP13vm_executable"
+}
