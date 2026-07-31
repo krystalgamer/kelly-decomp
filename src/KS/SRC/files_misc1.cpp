@@ -86,3 +86,6 @@ struct stringx{char data[8];~stringx();};struct Node{Node*free_next;Node*parent;
 
 // 0x002AF598 clear__t10_List_base2Z12game_processZt12my_allocator1Z12game_process
 struct game_process{char d[24];};struct Node{Node*next,*prev;game_process value;};struct ListBase{Node*head;void clear()__asm__("clear__t10_List_base2Z12game_processZt12my_allocator1Z12game_process");};extern "C" void destroy(game_process*,int)__asm__("_$_12game_process");extern Node*free_lists[];__asm__(".equ _$_12game_process,0x00286950");__asm__(".equ free_lists,0x003E5628");void ListBase::clear(){Node*n=head->next;if(n!=head){Node**pool=free_lists;do{Node*cur=n;n=n->next;destroy(&cur->value,2);cur->next=pool[3];pool[3]=cur;}while(n!=head);}asm volatile("" : : : "memory");head->next=head;head->prev=head;}
+
+// 0x002AE0F0 fill_n__H3ZPP11beam_effectZUiZP11beam_effect_X01X11RCX21_X01
+class beam_effect; extern "C" beam_effect **fill_values(beam_effect **first,unsigned int count,beam_effect *const &value)__asm__("fill_n__H3ZPP11beam_effectZUiZP11beam_effect_X01X11RCX21_X01"); beam_effect **fill_values(beam_effect **first,unsigned int count,beam_effect *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
