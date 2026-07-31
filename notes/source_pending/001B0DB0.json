@@ -1,0 +1,15 @@
+{
+  "address": "0x001B0DB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "60ec721396ac7f77b7fdb88a541809ce3cee55d9",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FrontEndMenus.h\"\n\nGoalsMenuClass::GoalsMenuClass(FEMenuSystem* m, int x, int y, color32 c, color32 ch, color32 cha)\n{\n\tstringx\ts;\n\t\n\tFEMenu::cons(m, x, y, c, ch, cha);\n\tsys = (PauseMenuSystem *) m;\n\n\t// Allocate text.\n\ts.printf(ksGlobalTextArray[GT_GOALS_TITLE].c_str(), BeachDataArray[g_game_ptr->get_beach_id()].fe_name);\n\ttitle = NEW TextString(&sys->manager->font_bold, s, 320, 75, 800, 1.0f, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, sys->manager->col_highlight2);\n\n\tint extra_lines = 0;\n\tint spacing = 55;\n\tfor (int g = 0; g < MAX_GOALS_PER_LEVEL; g++)\n\t{\n\t\tg_career->GetGoalText(g_game_ptr->get_level_id(), g, s);\n\t\tint y = IGOFrontEnd::POS_GOALS_TOP + (g*spacing) + extra_lines*20;\n\t\tnames[g] = NEW BoxText(sys->font, s, 320, y, 800, 1.0f, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, sys->manager->col_info_g);\n\t\textra_lines += names[g]->makeBox(502, 200) - 1;\n\t\ty = IGOFrontEnd::POS_GOALS_TOP + (g*spacing) + (extra_lines+1)*20;\n\t\tstatus[g] = NEW TextString(sys->font, \"\", 320, y, 800, 1.0f, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, sys->manager->col_info_g);\n\t}\n\n\tscale_high = 1.0f;\n\thelpText->changePos(320, 424);\n\n\ttip = NEW BoxText(&frontendmanager.font_bold_old, \"\", 148, 355, 0, 0.666f*1.18f, Font::HORIZJUST_LEFT, Font::VERTJUST_CENTER, c);\n\ttip->makeBox(344, 100);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__14GoalsMenuClassP12FEMenuSystemiiG7color32N24"
+}
