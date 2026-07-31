@@ -3,6 +3,20 @@
 
 typedef float rational_t;
 
+class vector2d {
+public:
+    float x;
+    float y;
+
+    inline vector2d() {}
+    inline vector2d(float x, float y) : x(x), y(y) {}
+    inline vector2d &operator=(const vector2d &other) {
+        x = other.x;
+        y = other.y;
+        return *this;
+    }
+};
+
 class vector3d {
 public:
     typedef float T;

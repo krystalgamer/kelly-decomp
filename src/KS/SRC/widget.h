@@ -2,6 +2,7 @@
 #define WIDGET_H
 
 #include "KS/SRC/color.h"
+#include "KS/SRC/rect.h"
 #include "KS/SRC/stringx.h"
 #include "g++-2/stl_list.h"
 
@@ -13,18 +14,6 @@ class wevent;
 
 typedef list<widget *> widget_list_t;
 typedef list<wevent *> wevent_list_t;
-
-class vector2d {
-public:
-    rational_t x;
-    rational_t y;
-};
-
-class rectf {
-public:
-    vector2d tl;
-    vector2d br;
-};
 
 class widget {
 public:
