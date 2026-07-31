@@ -1,0 +1,15 @@
+{
+  "address": "0x001CF240",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "7cd1b0e12234a94cd8bbc990341a7d2c0873d49b",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/PhotoFrontEnd.h\"\n\nPhotoSaveMenu::PhotoSaveMenu(FEMenuSystem* s, FEManager* man)\n{\n\tFont *\t\t\tfont;\n\tFEMenuEntry *\tphoto1, *photo2;\n\tstringx\t\t\tstr;\n\t\n\tcons(s, man, \"\", \"\");\n\tflags |= FEMENU_1_ENTRY_SHOWN | FEMENU_DONT_SKIP_DISABLED;\n\tfont = &manager->font_info;\n\n\tarrowPQs[0][0] = NULL;\n\tarrowPQs[0][1] = NULL;\n\tarrowPQs[1][0] = NULL;\n\tarrowPQs[1][1] = NULL;\n\thighlightPQs[0] = NULL;\n\thighlightPQs[1] = NULL;\n\ttitle = NULL;\n\n\t// Create first photo entry.\n\tphoto1 = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_PHOTO_SAVE_NEW], this, false, font);\n\tphoto1->SetPos(245, 320);\n\tAdd(photo1);\n\n\t// Create second photo entry.\n\tphoto2 = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_PHOTO_KEEP_OLD], this, false, font);\n\tphoto2->SetPos(395, 320);\n\tAdd(photo2);\n\n\tphoto1->left = photo2;\n\tphoto1->right = photo2;\n\tphoto1->up = photo1;\n\tphoto1->down = photo1;\n\tphoto2->left = photo1;\n\tphoto2->right = photo1;\n\tphoto2->up = photo2;\n\tphoto2->down = photo2;\n\n\t// Create title text.\n\tstr.printf(ksGlobalTextArray[GT_FE_MENU_PHOTO_TITLE_SAVE].c_str(), BeachDataArray[g_game_ptr->get_beach_id()].fe_name);\n\ttitle = NEW BoxText(&manager->font_bold, str, 320, 75, 100, 0.8f, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, man->col_highlight2);\n\ttitle->makeBox(500, 200);\n\n\t// Initialize help text at bottom of screen.\n\tSetHelpText(HF_LEFT | HF_RIGHT | HF_SELECT);\n\thelpText->changePos(320, 424);\n\n\tarrowHiTimer = 0.0f;\n\tleftArrowIdx = 0;\n\trightArrowIdx = 0;\n\tprevMenuPhotoIdx = NULL;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__13PhotoSaveMenuP12FEMenuSystemP9FEManager"
+}
