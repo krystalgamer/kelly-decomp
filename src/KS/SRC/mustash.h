@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_MUSTASH_SHARED_H
-#define KELLY_DECOMP_MUSTASH_SHARED_H
+#ifndef MUSTASH_H
+#define MUSTASH_H
 
 #include "KS/SRC/avltree_shared.h"
 #include "KS/SRC/pstring.h"
@@ -157,12 +157,6 @@ __asm__(".equ _5stash$substash, 0x0046B7B8");
 __asm__(".equ _5stash$curstash, 0x0046D9C0");
 __asm__(".equ release_stash_bufferspace__10multistash, 0x003471B0");
 __asm__(".equ write__7os_filePvi, 0x001E0980");
-#if !defined(KELLY_DECOMP_FUNCTION_003471E0)
-__asm__(".equ add_stored__5stashR7os_filePUcUi, 0x003471E0");
-#endif
-#if !defined(KELLY_DECOMP_FUNCTION_00347230)
-__asm__(".equ add_temp__5stashR7os_filePUcUi, 0x00347230");
-#endif
 __asm__(".equ unpack_string__C7pstring, 0x00335648");
 __asm__(".equ debug_print__FPCce, 0x00120790");
 __asm__(".equ ps2mesh_type, 0x0058ACA8");

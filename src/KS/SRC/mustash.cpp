@@ -1,23 +1,20 @@
-// Matching decompilation blocks selected by generated build shims.
+// stash definitions extracted by generated one-function shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_00347118)
-#include "KS/SRC/mustash_shared.h"
+// 0x00347118 acquire_stash_bufferspace__10multistashi
+#include "KS/SRC/mustash.h"
 
 __asm__(".equ arch_memalign__FUiUiPCci, 0x002AC740");
 __asm__(".equ acquire_stash_bufferspace_desc, 0x00502808");
 
-// 0x00347118 acquire_stash_bufferspace__10multistashi
 void multistash::acquire_stash_bufferspace(int size) {
     big_ass_buffer = (unsigned char *)arch_memalign(
         128, size, acquire_stash_bufferspace_desc, 0);
     big_ass_buffer_max = size;
 }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00347230)
-#include "KS/SRC/mustash_shared.h"
 
 // 0x00347230 add_temp__5stashR7os_filePUcUi
+#include "KS/SRC/mustash.h"
+
 unsigned int stash::add_temp(
     os_file &the_file,
     unsigned char *raw_data,
@@ -29,12 +26,10 @@ unsigned int stash::add_temp(
     current.temp_buf_end += data_size;
     return ret_val;
 }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_003471E0)
-#include "KS/SRC/mustash_shared.h"
 
 // 0x003471E0 add_stored__5stashR7os_filePUcUi
+#include "KS/SRC/mustash.h"
+
 unsigned int stash::add_stored(
     os_file &the_file,
     unsigned char *raw_data,
@@ -46,9 +41,7 @@ unsigned int stash::add_stored(
     current.stored_buf_end += data_size;
     return ret_val;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003480D0)
 // 0x003480D0 get_name__C5stash
 class pstring {};
 
@@ -62,16 +55,12 @@ public:
 const pstring& stash::get_name() const {
     return fullname;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003480E8)
 // 0x003480E8 get_size__5stash
 struct stash_index { char padding[0x24]; int size; };
 class stash { stash_index* index; public: int get_size(); };
 int stash::get_size() { return index->size; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00346FC0)
 // 0x00346FC0 free_stored__5stashi
 class multistash {
     char storage[0x318];
@@ -94,9 +83,7 @@ void stash::free_stored(int stashid) {
     substash[stashid].free_stored();
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00345BC0)
 // 0x00345BC0 WaitForStashLoad__5stash
 extern int LoadNewStashSema;
 __asm__(".equ LoadNewStashSema, 0x0046ABCC");
@@ -117,9 +104,7 @@ void stash::WaitForStashLoad()
     SignalSema(LoadNewStashSema);
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00347CE0)
 // 0x00347CE0 open__5stashPCc
 class pstring {
     char data[0x20];
@@ -144,9 +129,7 @@ bool stash::open(const char *name)
     packed.pack_string(name);
     return open(packed);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00346F80)
 // 0x00346F80 close_stash__10multistash
 extern "C" void arch_free(void *pointer) __asm__("arch_free__FPv");
 __asm__(".equ arch_free__FPv, 0x002AC768");
@@ -168,11 +151,9 @@ void multistash::close_stash()
     stash_file_is_open = false;
     pre_opened = false;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00345998)
 // 0x00345998 Print_Stash_Node__FR7os_filePt8TreeNode1Z17stash_index_entry
-#include "KS/SRC/mustash_shared.h"
+#include "KS/SRC/mustash.h"
 #include "decomp_annotations.h"
 
 extern "C" unsigned int strlen(const char *text);
@@ -204,4 +185,3 @@ void Print_Stash_Node( os_file &output_file, AvlNode *curr)
 		KELLY_DECOMP_COMPILER_BARRIER();
 	}
 }
-#endif
