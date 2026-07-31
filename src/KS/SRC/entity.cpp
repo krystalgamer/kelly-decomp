@@ -473,7 +473,7 @@ bool entity::is_destroyable() const {
 
 // 0x0012B5C0 optimize__6entity
 #include "KS/SRC/entity.h"
-#include "KS/SRC/pmesh_shared.h"
+#include "KS/SRC/pmesh.h"
 
 __asm__(".equ shrink_memory_footprint__8vr_pmesh, 0x002D6528");
 
