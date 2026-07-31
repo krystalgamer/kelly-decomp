@@ -1,0 +1,15 @@
+{
+  "address": "0x0012FF78",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "56a15bf03f3ab08c721dd889bcf9d2b9a59b7458",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/entity.h\"\n\nvoid entity::_update_regions()\n{\n#ifndef REGIONCULL\n  region_node_pset::iterator i,j;\n  for ( i=in_regions.begin(); i!=in_regions.end(); )\n  {\n    region* r = (*i)->get_data();\n    if ( !r->already_visited() )\n    {\n      remove_me_from_region( r );\n      j = i;\n      ++j;\n      in_regions.erase( i );\n      i = j;\n    }\n    else\n      ++i;\n  }\n  vector<region_node*>::iterator k;\n  for ( k=new_regions.begin(); k!=new_regions.end(); k++ )\n    add_region( *k );\n#endif\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_update_regions__6entity"
+}
