@@ -1,0 +1,15 @@
+{
+  "address": "0x0010BC00",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f713f2a4f1bc00bd3f2d84ef5e0729fa3f93410d",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ai_polypath.h\"\n\nvoid serial_in(chunk_file &fs, ai_polypath *path)\n{\n  bool warned = false;\n\n  static vector<vector3d> pts;\n  pts.resize(0);\n\n  path->clear();\n\n  stringx label;\n  for(serial_in(fs, &label); label != chunkend_label && label.size() > 0; serial_in(fs, &label))\n  {\n    if(label == \"pt\")\n    {\n      vector3d pt;\n      serial_in(fs, &pt);\n      pts.push_back(pt);\n    }\n    else if(label == \"tri\")\n    {\n      int index[3];\n      for(int i=0; i<3; ++i)\n        serial_in(fs, &index[i]);\n\n      if(index[0] < (int) pts.size() && index[1] < (int) pts.size() && index[2] < (int) pts.size() && index[0] != index[1] && index[1] != index[2] && index[2] != index[0])\n      {\n        vector3d ptA = (pts[index[1]] - pts[index[0]]);\n        vector3d ptB = (pts[index[2]] - pts[index[0]]);\n        vector3d norm = cross(ptA,ptB);\n\n        if(norm.y < 0.0f)\n        {\n          if(!warned)\n            warning(\"PolyPath '%s' has bad data, please re-export!\", fs.get_filename().c_str());\n\n          warned = true;\n          int temp = index[1];\n          index[1] = index[2];\n          index[2] = temp;\n        }\n\n        path->add_cell(pts[index[0]], pts[index[1]], pts[index[2]]);\n      }\n    }\n  }\n\n  path->link();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "serial_in__FR10chunk_fileP11ai_polypath"
+}
