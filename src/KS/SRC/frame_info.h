@@ -14,6 +14,9 @@ public:
     time_value_t get_age() const;
     inline void set_age(time_value_t value) { age = value; }
     int get_ifl_frame_boost() const;
+    inline void set_ifl_frame_boost(int boost) {
+        ifl_frame_boost = boost;
+    }
     int get_ifl_frame_locked() const;
     void set_ifl_frame_locked(int frame);
     void operator=(const frame_info &source);

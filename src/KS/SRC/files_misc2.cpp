@@ -1,6 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
-#include "KS/SRC/instance_render_info_shared.h"
+#include "KS/SRC/iri.h"
 
 #if defined(KELLY_DECOMP_FUNCTION_002FBB48)
 // 0x002FBB48 __uninitialized_fill_n_aux__H3ZP6sectorZUiZ6sector_X01X11RCX21G12__false_type_X01
