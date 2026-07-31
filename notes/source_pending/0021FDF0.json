@@ -1,0 +1,15 @@
+{
+  "address": "0x0021FDF0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9b472a76dab6c9a5db399c515fccc580a7724343",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/kellyslater_controller.h\"\n\nvoid kellyslater_controller::downdate(float dt)\n{\n\t//  how far the surfer is into his wipeout determines how much of a programatic affect we want to have on him.\n\tfloat wipeout_timing = my_board_controller.get_wipeout_time();\n\tif (wipeout_timing <= start_wip_time)\n\t\twipeout_timing = 0;\n\telse\n\t{\n\t\twipeout_timing -= start_wip_time;\n\t\twipeout_timing /= (WIPEOUT_RESET_TIME - start_wip_time);\n\t}\n\n  if (my_board_controller.WipedOut() && (last_super_state == SUPER_STATE_WIPEOUT))\n  {\n\t  DoWipeoutPhysics(dt);\n  }\n  else\n  {\n\n    AlignSurferWithBoard(dt);\n\n    my_board_controller.GetVelocity (velocity);\n\n    WAVE_GlobalCurrent (&current);\n    velocity -= current;\n\n    if (state == STATE_LIEONBOARD)\n    {\n      left_hand_dry = false;\n      right_hand_dry = false;\n    }\n    else if (state == STATE_PADDLE)\n    {\n      vector3d pos, n (my_board->get_abs_po ().get_y_facing ());\n\n\t\t\tconst float paddle_offset = -0.75f;\n\n      pos = ((conglomerate*) owner)->get_member(\"BIP01 L HAND\")->get_handed_abs_position ();\n      if (dot (n, pos - my_board->get_abs_position ()) > 0)\n        left_hand_dry = true;\n      else if (left_hand_dry)\n      {\n        vector3d handpos = pos + paddle_offset * owner->get_abs_po().get_x_facing();\n        sfx.paddle(false, handpos.x, handpos.y, handpos.z, .5);\n        ks_fx_create_paddle_splash (pos);\n\n        left_hand_dry = false;\n      }\n\n      pos = ((conglomerate*) owner)->get_member(\"BIP01 R HAND\")->get_handed_abs_position ();\n      if (dot (n, pos - my_board->get_abs_position ()) > 0)\n        right_hand_dry = true;\n      else if (right_hand_dry)\n      {\n        vector3d handpos = pos + paddle_offset * owner->get_abs_po().get_x_facing();\n        sfx.paddle(true, handpos.x, handpos.y, handpos.z, .5);\n        ks_fx_create_paddle_splash (pos);\n        right_hand_dry = false;\n      }\n    }\n  }\n  \n/*\n  // Add water effects if the board is on the water\n  // This is being called in the player update over the board update\n  // because this is the only function that works in replay\n  if (!my_board_controller.inAirFlag)\n    ks_fx_board_update(this, dt);\n  else\n    ks_fx_board_update_air(this, dt);\n    */\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "downdate__22kellyslater_controllerf"
+}
