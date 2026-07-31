@@ -1,0 +1,15 @@
+{
+  "address": "0x002717B0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ae44a29dc7a3f26ba4077b0adb493a6c30acadb4",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/beam.h\"\n\nvoid beam::set_point_to_point(const vector3d &pt1, const vector3d &pt2)\n{\n  // point1 to point2\n  vector3d vec = pt2 - pt1;\n\n  // length of beam\n  rational_t len = vec.length();\n  set_max_length(len);\n\n  if(len > 0)\n  {\n    if(vec.x == 0.0f && vec.y == 0.0f)\n    {\n      if(vec.z > 0.0f)\n      {\n        set_rel_orientation(po_identity_matrix.get_orientation());\n      }\n      else if(vec.z < 0.0f)\n      {\n        po the_po;\n        the_po.set_rot(YVEC, PI);\n        set_rel_orientation(the_po.get_orientation());\n      }\n\n      set_rel_position(pt1);\n    }\n    else\n    {\n      // normalize the vec\n      len = (1.0f / len);\n      vec.x *= len;\n      vec.y *= len;\n      vec.z *= len;\n\n      // set the orientation\n      po the_po;\n      rational_t dot_prod = dot(vec, ZVEC);\n      vector3d cross_prod = cross(vec, ZVEC);\n\n      if (dot_prod < -1)\n      {\nnglPrintf(\"Woah, bad dot product, man.  dot %g, vec (%g %g %g), %g\\n\", dot_prod, vec.x, vec.y, vec.z, len);\n        dot_prod = -1;\n      }\n      if (dot_prod > 1)\n      {\nnglPrintf(\"Woah, bad dot product, man.  dot %g, vec (%g %g %g), %g\\n\", dot_prod, vec.x, vec.y, vec.z, len);\n        dot_prod = 1;\n      }\n\n      the_po.set_rot((cross_prod), fast_acos(dot_prod));\n      set_rel_orientation(the_po.get_orientation());\n\n      // set the position\n      set_rel_position(pt1);\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "set_point_to_point__4beamRC8vector3dT1"
+}
