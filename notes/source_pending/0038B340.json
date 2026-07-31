@@ -1,0 +1,15 @@
+{
+  "address": "0x0038B340",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a55364ff022eb9bb992369713edda2a543813844",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "nvlMovie *nvlAddMovie( nvlMovieSource* src )\n{\n  nvlMovie  *rv;\n  nvlStream *s;\n\n  assert( nvlSystemInitialized );\n  assert( src && src->filename );\n  s = nvlStreamCreate( src->filename, src->bufsize, src->buf );\n  if( s )\n  {\n    int   i, size;\n    char  *pchar;\n    short *pshort;\n    int   *pint;\n\n    if( nvlAllocFunc )\n    {\n      rv = (nvlMovie*)(*nvlAllocFunc)( 1, sizeof(nvlMovie) );\n    }\n    else\n    {\n      rv = (nvlMovie*)malloc( sizeof(nvlMovie) );\n    }\n    assert( rv );\n    memset( rv, 0, sizeof(nvlMovie) );\n    rv->src = src;\n    src->refs++;\n    rv->s = s;\n\n    // Check if the header is correct\n    size = 4;\n    pchar = (char*)nvlStreamGet( s, &size );\n    assert( size == 4 && pchar[0] == 'i' && pchar[1] == 'p' && pchar[2] == 'u' && pchar[3] == 'm' );\n\n    // Get the data size\n    size = 4;\n    pint = (int*)nvlStreamGet( s, &size );\n    assert( size == 4 && *pint > 0 );\n    rv->dataSize = *pint;\n\n    // Get width\n    size = 2;\n    pshort = (short*)nvlStreamGet( s, &size );\n    assert( size == 2 && *pshort >= NVL_MOVIE_MIN_WIDTH && *pshort <= NVL_MOVIE_MAX_WIDTH && !(*pshort & 0xf) );\n    rv->width = *pshort;\n\n    // Get height\n    size = 2;\n    pshort = (short*)nvlStreamGet( s, &size );\n    assert( size == 2 && *pshort >= NVL_MOVIE_MIN_HEIGHT && *pshort <= NVL_MOVIE_MAX_HEIGHT && !(*pshort & 0xf) );\n    rv->height = *pshort;\n\n    // Get number of frames\n    size = 4;\n    pint = (int*)nvlStreamGet( s, &size );\n    assert( size == 4 && *pint > 0 );\n    rv->framesTotal = *pint;\n\n    // 2nd parameter should be multiplied by framerate but the framerate is the same for all movies.\n    nvlStreamSetBitRate ( s, rv->dataSize / rv->framesTotal );\n\n    if( nvlAllocFunc )\n    {\n      rv->decodeBuffer = (*nvlAllocFunc)( 64, rv->width * rv->height << 2 );\n      rv->tagBuffer = (*nvlAllocFunc)( 64, NVL_TAG_BUFFER_SIZE );\n    }\n    else\n    {\n      rv->decodeBuffer = memalign( 64, rv->width * rv->height << 2 );\n      rv->tagBuffer = memalign( 64, NVL_TAG_BUFFER_SIZE );\n    }\n    assert( rv->decodeBuffer );\n    assert( rv->tagBuffer );\n\n    rv->dmaToIpuSize = ~0xf & NVL_MIN( NVL_MAX_DMA_CHUNK_SIZE, nvlStreamReqSize(rv->s) );\n\n    for( i = 0; i < NVL_MAX_MOVIE_NUM; i++ )\n    {\n      if( nvlSystemData.pMovies[i] == NULL )\n      {\n        break;\n      }\n    }\n    assert( i < NVL_MAX_MOVIE_NUM );\n    nvlSystemData.pMovies[i] = rv;\n  }\n  return rv;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "nvlAddMovie__FP14nvlMovieSource"
+}
