@@ -1,0 +1,15 @@
+{
+  "address": "0x00135A60",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0ec9d7131e4eb9bd45185388bcf18ea52da6b3ad",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/entity.h\"\n\nvoid entity_manager::deregister_entity(entity* e)\n{\n  if( !(e->get_id() == ANONYMOUS) )\n  {\n    iterator it = find( e->get_id() );\n    entity_id::delete_entity_id(e->get_id());\n    erase(it);\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "deregister_entity__14entity_managerP6entity"
+}
