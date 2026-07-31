@@ -137,6 +137,7 @@ public:
     inline bool ignoring_parent() const { return flags & 4; }
     inline short get_abs_x() const { return abs_x; }
     inline short get_abs_y() const { return abs_y; }
+    inline rational_t get_abs_angle() const { return abs_angle; }
     inline rational_t get_abs_scale(int index) const {
         return abs_S[index];
     }

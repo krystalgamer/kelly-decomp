@@ -1,7 +1,14 @@
 // widget definitions extracted by generated one-function shims.
 
 // 0x0033E7D0 update_rot__6widget
-#include "KS/SRC/widget_rot_shared.h"
+#include "KS/SRC/widget.h"
+
+extern "C" void fast_sin_cos_approx(
+    float angle,
+    float *sine,
+    float *cosine)
+    __asm__("fast_sin_cos_approx__FfPfT1");
+__asm__(".equ fast_sin_cos_approx__FfPfT1, 0x001E2EC8");
 
 void widget::update_rot()
 {
@@ -18,12 +25,12 @@ void widget::update_rot()
     float sine;
     fast_sin_cos_approx(abs_angle, &sine, &cosine);
 
-    rotation[0][0] = cosine;
-    rotation[0][1] = -sine;
-    rotation[1][0] = sine;
-    rotation[1][1] = cosine;
+    R[0][0] = cosine;
+    R[0][1] = -sine;
+    R[1][0] = sine;
+    R[1][1] = cosine;
 
-    list<widget *, my_allocator<widget *> >::iterator child;
+    widget_list_t::iterator child;
     for (child = children.begin();
          child != children.end();
          ++child)
