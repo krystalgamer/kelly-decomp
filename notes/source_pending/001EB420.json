@@ -1,0 +1,16 @@
+{
+  "address": "0x001EB420",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e055710809f7de425c3c33b4ae5938a3e49367b4",
+      "error": "Candidate did not emit check_environmental_gaps__5beachP22kellyslater_controller; emitted functions: []",
+      "notes": "The symbol has no directly extractable released definition under its linked spelling, or its preprocessor branches prevent a safe standalone extraction.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/beach.h\"\n\n/*\nThe symbol has no directly extractable released definition under its linked spelling, or its preprocessor branches prevent a safe standalone extraction.\nThis first-pass candidate intentionally compiles only the available canonical source context.\n*/\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "check_environmental_gaps__5beachP22kellyslater_controller"
+}
