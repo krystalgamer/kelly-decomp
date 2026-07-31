@@ -1,0 +1,15 @@
+{
+  "address": "0x001D43C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "cc68bb30917b80e75512b7e6e851bd3402c2da65",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/AccompFrontEnd.h\"\n\nvoid AccompFrontEnd::SetPQIndices()\n{\n\t// arrows not needed\n\tGetPointer(\"button_off_01\")->TurnOn(false);\n\tGetPointer(\"button_on_01\")->TurnOn(false);\n\tGetPointer(\"button_off_02\")->TurnOn(false);\n\tGetPointer(\"button_on_02\")->TurnOn(false);\n\n\tfor(int i=0; i<8; i++)\n\t{\n\t\tstringx tmp = stringx(i+1);\n\t\tmag_covers[i][0] = GetPointer((\"sb_mag_0\"+tmp+\"a\").data());\n\t\tmag_covers[i][1] = GetPointer((\"sb_mag_0\"+tmp+\"b\").data());\n\t\tmag_corners[i%4][i/4] = GetPointer((\"sb_corner_0\"+tmp).data());\n\t\tpol_corners[i%4][i/4] = GetPointer((\"sb_corner_0\"+tmp+\"_polaroid\").data());\n\t}\n\n\tmag_photos[0] = GetPointer(\"sb_image_blank01\");\n\tmag_photos[1] = GetPointer(\"sb_image_blank02\");\n\tmag_bright_cover[0] = GetPointer(\"sb_texture_bright_1\");\n\tmag_bright_cover[1] = GetPointer(\"sb_texture_bright_2\");\n\tmag_dark_cover[0] = GetPointer(\"sb_texture_dark_1\");\n\tmag_dark_cover[1] = GetPointer(\"sb_texture_dark_2\");\n\tmag_shadow[0] = GetPointer(\"sb_mag_shadow_left\");\n\tmag_shadow[1] = GetPointer(\"sb_mag_shadow_right\");\n\tpol_covers[0] = GetPointer(\"sb_polaroid_left\");\n\tpol_covers[1] = GetPointer(\"sb_polaroid_right\");\n\tpol_photos[0] = GetPointer(\"sb_polaroid_left_blank\");\n\tpol_photos[1] = GetPointer(\"sb_polaroid_right_blank\");\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "SetPQIndices__14AccompFrontEnd"
+}
