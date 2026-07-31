@@ -1,0 +1,15 @@
+{
+  "address": "0x0015D1A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f101fa20604a80dfded8deccd6ef6b2af39913d8",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "IGOIconManager::~IGOIconManager()\n{\n\tdelete [] airIconResources;\n\tdelete [] faceIconResources;\n\tdelete [] tubeIconResources;\n\tdelete [] specialAirIconResources;\n\tdelete [] specialFaceIconResources;\n\tdelete [] specialTubeIconResources;\n\tdelete [] airTricklist;\n\tdelete [] faceTricklist;\n\tdelete [] tubeTricklist;\n\tdelete [] specialAirTricklist;\n\tdelete [] specialFaceTricklist;\n\tdelete [] specialTubeTricklist;\n  delete [] genericIconResources;\n\tdelete [] icons;\n  delete scoreText;\n  delete scoreTextEffect;\n  delete timerText;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "_$_14IGOIconManager"
+}
