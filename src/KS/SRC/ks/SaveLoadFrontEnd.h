@@ -1,120 +1,155 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef SAVELOADFRONTEND_H
+#define SAVELOADFRONTEND_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_001DCDF0)
-// 0x001DCDF0 OnTriangle__10DialogMenui
-class DialogMenu {
-public:
-    void OnTriangle(int arg0);
+#include "KS/SRC/ks/FEMenu.h"
+#include "KS/SRC/ks/igo_widget.h"
+
+enum SaveErrors {
+    SE_NO_MEMORY_CARDS,
+    SE_UNFORMAT,
+    SE_NOT_ENOUGH_SPACE,
+    SE_SAVE_ERROR,
+    SE_LOAD_ERROR,
+    SE_FORM_ERROR
 };
 
-void DialogMenu::OnTriangle(int arg0) {
-}
-#endif
+struct MemCard {
+    int free;
+    bool exists;
+    bool changed;
+    bool available;
+    bool ask_format;
+    bool saved_games;
+    int status;
+};
 
-#if defined(KELLY_DECOMP_FUNCTION_001DCDF8)
-// 0x001DCDF8 OnUnactivate__10DialogMenuP6FEMenu
-class FEMenu;
-class DialogMenu { public: void TurnPQ(bool value); void OnUnactivate(FEMenu *menu); };
-__asm__(".equ TurnPQ__10DialogMenub, 0x0019DA00");
-void DialogMenu::OnUnactivate(FEMenu *menu) { TurnPQ(false); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+class SaveLoadFrontEnd;
 
-#if defined(KELLY_DECOMP_FUNCTION_001DCE70)
-// 0x001DCE70 OnTriangle__12KeyboardMenui
-class KeyboardMenu { public: void go_to_previous_menu(); void OnTriangle(int command); };
-__asm__(".equ go_to_previous_menu__12KeyboardMenu, 0x001A2420");
-void KeyboardMenu::OnTriangle(int command) { go_to_previous_menu(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+class NamesMenu : public FEMultiMenu {
+    char names_menu_data0[0x170 - sizeof(FEMultiMenu)];
+    SaveLoadFrontEnd *sl_parent;
+    char names_menu_data1[0x1bc - 0x174];
+    MemCard cards[2];
+    stringx blank_name;
+    int active_card;
+    int adjusted_active_card;
 
-#if defined(KELLY_DECOMP_FUNCTION_001DCCE8)
-// 0x001DCCE8 __tf16SaveLoadFrontEnd
-extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
-extern "C" void **BaseRtti_001DCCE8() __asm__("__tf11FEMultiMenu");
-extern "C" void *type_001DCCE8[] __asm__("__ti16SaveLoadFrontEnd");
-extern const char name_001DCCE8[];
-extern void *base_type_001DCCE8[];
-__asm__(".equ __rtti_class, 0x003CE2B0");
-__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
-__asm__(".equ __ti16SaveLoadFrontEnd, 0x005A2CA8");
-__asm__(".equ name_001DCCE8, 0x004DDD28");
-__asm__(".equ base_type_001DCCE8, 0x004DDC48");
-extern "C" void **Rtti_001DCCE8() __asm__("__tf16SaveLoadFrontEnd");
-void **Rtti_001DCCE8()
-{
-    if (!type_001DCCE8[0]) {
-        BaseRtti_001DCCE8();
-        __rtti_class(type_001DCCE8, name_001DCCE8, base_type_001DCCE8, 1);
-    }
-    return type_001DCCE8;
-}
-#endif
+public:
+    virtual void OnUnactivate(FEMenu *menu);
+    void RefreshDisplay();
+    void TurnPQ(bool enabled);
+    void Format();
+    int ActiveCard() { return active_card; }
+    static int FindAdjusted(int active);
 
-#if defined(KELLY_DECOMP_FUNCTION_001DCD40)
-// 0x001DCD40 __tf9NamesMenu
-extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
-extern "C" void **BaseRtti_001DCD40() __asm__("__tf11FEMultiMenu");
-extern "C" void *type_001DCD40[] __asm__("__ti9NamesMenu");
-extern const char name_001DCD40[];
-extern void *base_type_001DCD40[];
-__asm__(".equ __rtti_class, 0x003CE2B0");
-__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
-__asm__(".equ __ti9NamesMenu, 0x005A2CB8");
-__asm__(".equ name_001DCD40, 0x004DDD40");
-__asm__(".equ base_type_001DCD40, 0x004DDC48");
-extern "C" void **Rtti_001DCD40() __asm__("__tf9NamesMenu");
-void **Rtti_001DCD40()
-{
-    if (!type_001DCD40[0]) {
-        BaseRtti_001DCD40();
-        __rtti_class(type_001DCD40, name_001DCD40, base_type_001DCD40, 1);
-    }
-    return type_001DCD40;
-}
-#endif
+private:
+    void GetFileList(int active, int adjusted);
+    void UpdateMessage();
+};
 
-#if defined(KELLY_DECOMP_FUNCTION_001DCD98)
-// 0x001DCD98 __tf10DialogMenu
-extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
-extern "C" void **BaseRtti_001DCD98() __asm__("__tf11FEMultiMenu");
-extern "C" void *type_001DCD98[] __asm__("__ti10DialogMenu");
-extern const char name_001DCD98[];
-extern void *base_type_001DCD98[];
-__asm__(".equ __rtti_class, 0x003CE2B0");
-__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
-__asm__(".equ __ti10DialogMenu, 0x005A2CC8");
-__asm__(".equ name_001DCD98, 0x004DDD50");
-__asm__(".equ base_type_001DCD98, 0x004DDC48");
-extern "C" void **Rtti_001DCD98() __asm__("__tf10DialogMenu");
-void **Rtti_001DCD98()
-{
-    if (!type_001DCD98[0]) {
-        BaseRtti_001DCD98();
-        __rtti_class(type_001DCD98, name_001DCD98, base_type_001DCD98, 1);
-    }
-    return type_001DCD98;
-}
-#endif
+class SaveLoadFrontEnd : public FEMultiMenu {
+    char save_load_front_end_data[0x32b8 - sizeof(FEMultiMenu)];
 
-#if defined(KELLY_DECOMP_FUNCTION_001DCE18)
-// 0x001DCE18 __tf12KeyboardMenu
-extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
-extern "C" void **BaseRtti_001DCE18() __asm__("__tf11FEMultiMenu");
-extern "C" void *type_001DCE18[] __asm__("__ti12KeyboardMenu");
-extern const char name_001DCE18[];
-extern void *base_type_001DCE18[];
-__asm__(".equ __rtti_class, 0x003CE2B0");
-__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
-__asm__(".equ __ti12KeyboardMenu, 0x005A2CD8");
-__asm__(".equ name_001DCE18, 0x004DDD60");
-__asm__(".equ base_type_001DCE18, 0x004DDC48");
-extern "C" void **Rtti_001DCE18() __asm__("__tf12KeyboardMenu");
-void **Rtti_001DCE18()
-{
-    if (!type_001DCE18[0]) {
-        BaseRtti_001DCE18();
-        __rtti_class(type_001DCE18, name_001DCE18, base_type_001DCE18, 1);
-    }
-    return type_001DCE18;
-}
+public:
+    enum disp_states {
+        DSTATE_LSD,
+        DSTATE_LOAD,
+        DSTATE_LOAD_PICK,
+        DSTATE_LOAD_GLOBAL,
+        DSTATE_LOADING_GLOBAL,
+        DSTATE_LOADING,
+        DSTATE_LOAD_DONE,
+        DSTATE_SAVE
+    };
+
+    int post_format_state;
+
+    virtual void Select();
+    virtual void OnCross(int controller);
+    void StartError(int id);
+    void SetDState(
+        int state,
+        bool activate = true,
+        bool end_error = false)
+        __asm__("SetDState__16SaveLoadFrontEndibT2");
+};
+
+class BoxText;
+
+class DialogMenu : public FEMultiMenu {
+public:
+    enum {
+        DM_TYPE_MNG,
+        DM_TYPE_FMT,
+        DM_TYPE_YES,
+        DM_TYPE_OK,
+        DM_TYPE_PROGRESS,
+        DM_TYPE_EMPTY
+    };
+
+private:
+    enum {
+        DM_YES,
+        DM_NO,
+        DM_OK,
+        DM_FMT,
+        DM_CNL,
+        DM_MNG,
+        DM_CNL2,
+        DM_NUM
+    };
+
+    BoxText *message;
+    BoxText *prompt;
+    int type;
+    // The shipped layout places the panel fields after two entry pointers.
+    FEMenuEntry *entry[2];
+    PanelQuad *bar[4];
+    PanelQuad *box;
+    int draw_count;
+
+public:
+    virtual void OnTriangle(int command);
+    virtual void OnUnactivate(FEMenu *menu);
+    void TurnPQ(bool enabled);
+};
+
+class KeyboardMenu : public FEMultiMenu {
+private:
+    enum {
+        num = 40,
+        space_idx = 36,
+        back_idx = 37,
+        enter_idx = 38,
+        cancel_idx = 39,
+        row_size = 8,
+        name_size = 10
+    };
+
+    FEMenuEntry *ent[num];
+    TextString *filename;
+    TextString *enter_text;
+    TextString *name_text;
+    SaveLoadFrontEnd *sl_parent;
+    PanelQuad *keys[num][3];
+    PanelQuad *name_box[3];
+    stringx name;
+    bool default_cleared;
+
+public:
+    virtual void Init();
+    virtual void OnTriangle(int command);
+    virtual void OnUnactivate(FEMenu *menu);
+    void TurnPQ(bool enabled);
+    void Switch(FEMenuEntry *before, FEMenuEntry *after);
+
+private:
+    void go_to_previous_menu();
+    void KeyOn(int index, bool enabled);
+};
+
+__asm__(".equ KeyOn__12KeyboardMenuib, 0x001A28B8");
+
 #endif
