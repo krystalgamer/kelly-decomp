@@ -1,0 +1,15 @@
+{
+  "address": "0x00153750",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c152628befef05c5431a4faa907d494ff34e0c94",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEPanel.h\"\n\nvoid make_euler(matrix4x4& m, const vector3d& angles, bool is_fe_cam)\n{\n\tif(is_fe_cam)\n\t{\n\t\tmatrix4x4 rotx, roty, rotz;//, trans;\n\t\tstatic matrix4x4 fudge(\n\t\t\t-1, 0, 0, 0,\n\t\t\t0, 0, -1, 0,\n\t\t\t0, -1, 0, 0,\n\t\t\t0, 0, 0, 1 );\n\t\trotx.make_rotate(vector3d(1, 0, 0), angles.x);\n\t\troty.make_rotate(vector3d(0, 1, 0), angles.z);\n\t\trotz.make_rotate(vector3d(0, 0, 1), angles.y);\n\t\tm = fudge * rotx * roty * rotz;\n\t}\n\telse\n\t{\n\t\tfloat s0,c0,s1,c1,s2,c2;\n\t\tfast_sin_cos_approx(angles.x, &s0, &c0);\n\t\tfast_sin_cos_approx(angles.y, &s1, &c1);\n\t\tfast_sin_cos_approx(angles.z, &s2, &c2);\n\n\t\tm.x = vector4d(s1*s0*s2+c1*c2, c0*s2, c1*s0*s2-s1*c2, 0.0F);\n\t\tm.y = vector4d(s1*s0*c2-c1*s2, c0*c2, c1*s0*c2+s1*s2, 0.0F);\n\t\tm.z = vector4d(    s1*c0, -s0, c1*c0, 0.0F);\n\t\tm.w = vector4d(    0.0F,0.0F,0.0F,1.0F);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "make_euler__FR9matrix4x4RC8vector3db"
+}
