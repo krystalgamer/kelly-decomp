@@ -7,10 +7,13 @@ void *operator new(
     const char *description,
     int line);
 
+#ifndef PLACEMENT_NEW_DEFINED
+#define PLACEMENT_NEW_DEFINED
 inline void *operator new(unsigned int, void *memory)
 {
     return memory;
 }
+#endif
 
 __asm__(".equ __nw__FUiUiPCci, 0x002AC578");
 

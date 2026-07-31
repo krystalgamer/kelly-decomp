@@ -1,13 +1,12 @@
 #ifndef AI_POLYPATH_CELL_H
 #define AI_POLYPATH_CELL_H
 
+#include "KS/SRC/path.h"
 #include "KS/SRC/plane.h"
-#include "KS/SRC/render_data.h"
 #include "g++-2/stl_vector.h"
 
 class ai_polypath;
 class ai_polypath_heap;
-class region_node;
 class sphere;
 class terrain;
 

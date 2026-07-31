@@ -5,6 +5,7 @@
 #include "KS/SRC/bone.h"
 #include "KS/SRC/frame_info.h"
 #include "KS/SRC/hard_attrib_interface.h"
+#include "KS/SRC/path.h"
 #include "KS/SRC/physical_interface.h"
 #include "KS/SRC/po.h"
 #include "KS/SRC/render_interface.h"
@@ -62,7 +63,6 @@ class nglVector;
 class motion_blur_info;
 class pstring;
 class region;
-class region_node;
 class sector;
 class terrain;
 class vector3d;
