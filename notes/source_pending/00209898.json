@@ -1,0 +1,15 @@
+{
+  "address": "0x00209898",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d63a12dae6af4ed8ec612984b8a6cac931d4b19c",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/floatobj.h\"\n\nbool surfing_object::dingy_ai (vector3d& position, vector3d& normal, float dt)\n{\n  bool ret = floating_ai (position, normal, dt);\n\n\tif (my_board_entity)\n\t{\n\t  my_board_entity->set_rel_po (my_entity->get_rel_po ());\n\t  my_board_entity->set_rel_position (position);\n\t}\n\n\tif (my_third_entity)\n\t{\n\t  my_third_entity->set_rel_po (my_entity->get_rel_po ());\n\t  my_third_entity->set_rel_position (position);\n\t}\n\n\treturn ret;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "dingy_ai__14surfing_objectR8vector3dT1f"
+}
