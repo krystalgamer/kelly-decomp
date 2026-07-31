@@ -1,0 +1,15 @@
+{
+  "address": "0x00197540",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ad5917780921a32b20754a1ee32e41c52989b5d0",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FrontEndManager.h\"\n\nFEManager::FEManager()\n{\n#ifdef TARGET_GC\n\t\t// GameCube doesn't like functions with >32K of local data\n\tGCConstructorKludge1();\n\tGCConstructorKludge2();\n#else\n\ttrick_font.unset = true;\n\tnumberFont.unset = true;\n\t//clockFont.unset = true;\n\n\tbio_scale = 0.7f;\n\tfe_init = false;\n\tfe_done = false;\n\tfe_done_loading = false;\n\tin_game_map_up = false;\n\tscore_display = true;\n\tgms_skip_legal = false;\n\tstart_on = false;\n#endif\n\n\tmap_loading_screen = false;\n\tdefault_pq = NULL;\n\tnew_photo = false;\n\ttmp_game_mode = NUMBER_OF_GAME_MODES;\t// set it to something invalid\n\tfontsLoaded = false;\n\tunsaved_career = false;\n\n\tfont_hand.unset = true;\n\tfont_thin.unset = true;\n\tfont_bold.unset = true;\n\tfont_info.unset = true;\n\tfont_bold_old.unset = true;\n\tfont_body.unset = true;\n\n\t// slowly weeding these out...\n\tyel_lt = color32(255, 255, 102, 255);\n\tyel_dk = color32(204, 170, 0, 255);\n\tgreen = color32(149, 251, 149, 255);\n\tgreen_br = color32(0, 255, 0, 255);\n\tblue = color32(0, 255, 255, 255);\n\twhite = color32(255, 255, 255, 255);\n\tgray_dk = color32(20, 20, 20, 255);\n\tred_dk = color32(120, 50, 50, 255);\n\tblue_dk = color32(29, 53, 74, 255);\n\n\t// ... in favor of these\n\t//col_unselected = color32(153, 163, 171, 255);\n\tcol_unselected = color32(255, 255, 255, 255);\n\tcol_highlight = color32(255, 255, 102, 255);\n\tcol_highlight2 = color32(204, 170, 0, 255);\n\tcol_menu_header = color32(204, 170, 0, 255);\n\tcol_help_bar = color32(153, 163, 171, 255);\n\tcol_info_b = color32(0, 255, 255, 255);\n\tcol_info_g = color32(149, 251, 149, 255);\n\tcol_bio = color32(20, 20, 20, 255);\n\tcol_bad = color32(235, 53, 8, 255);\n\n\textras_movie          = false;\n\textras_movie_sub      = -1;\n\textras_movie_sub_sub  = -1;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__9FEManager"
+}
