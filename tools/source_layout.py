@@ -110,6 +110,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/soft_attrib_interface.h": "KS/SRC/soft_attrib_interface.cpp",
     "KS/SRC/stringx.h": "KS/SRC/stringx_methods.cpp",
     "KS/SRC/time_interface.h": "KS/SRC/time_interface.cpp",
+    "KS/SRC/trigger.h": "KS/SRC/trigger_methods.cpp",
     "KS/SRC/visrep.h": "KS/SRC/visrep_rtti.cpp",
     "KS/SRC/widget.h": "KS/SRC/widget_methods.cpp",
 }

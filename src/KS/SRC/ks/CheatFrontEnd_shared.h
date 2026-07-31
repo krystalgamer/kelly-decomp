@@ -5,7 +5,7 @@
 
 #include "KS/SRC/ks/FEMenu.h"
 #include "KS/SRC/ks/SoundScript.h"
-#include "KS/SRC/ks/cheat_shared.h"
+#include "KS/SRC/ks/cheat.h"
 #include "KS/SRC/ks/GlobalData.h"
 
 #define MAX_CHEATS_PER_SCREEN 2

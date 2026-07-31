@@ -1,7 +1,6 @@
-// Matching decompilation blocks selected by generated build shims.
+// trigger definitions extracted by generated one-function shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_0028D610)
 // 0x0028D610 new_box_trigger__15trigger_managerP6entity
 class entity;
 class trigger;
@@ -14,28 +13,22 @@ public:
 trigger* trigger_manager::new_box_trigger(entity* value) {
     return 0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0028D618)
 // 0x0028D618 add__15trigger_managerP7trigger
 struct trigger { char padding[0x18]; trigger* next; };
 class trigger_manager { char padding[0x10]; trigger* head; public: void add(trigger* value); };
 void trigger_manager::add(trigger* value) { value->next = head; head = value; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0028D760)
-#include "KS/SRC/trigger_shared.h"
 // 0x0028D760 update_regions__15trigger_manager
+#include "KS/SRC/trigger.h"
 void trigger_manager::update_regions()
 {
     for (trigger *current = list; current; current = current->next)
         current->update_region();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0028DD00)
-#include "KS/SRC/trigger_shared.h"
 // 0x0028DD00 set_active__7triggerb
+#include "KS/SRC/trigger.h"
 void trigger::set_active(bool enabled)
 {
     active = enabled;
@@ -45,9 +38,7 @@ void trigger::set_active(bool enabled)
         occupied = false;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0028DEE0)
 // 0x0028DEE0 get_abs_position__C13point_trigger
 class vector3d {
     float x;
@@ -65,9 +56,7 @@ public:
 const vector3d& point_trigger::get_abs_position() const {
     return position;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0028E948)
 // 0x0028E948 update_region__14region_trigger
 class region_trigger {
 public:
@@ -76,18 +65,14 @@ public:
 
 void region_trigger::update_region() {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0028EB18)
 // 0x0028EB18 get_abs_position__C14entity_trigger
 class vector3d { float x; float y; float z; };
 struct entity_position_holder { char padding[0x30]; vector3d position; };
 struct entity { char padding[0x50]; entity_position_holder* absolute; };
 class entity_trigger { char padding[0x38]; entity* ent; public: const vector3d& get_abs_position() const; };
 const vector3d& entity_trigger::get_abs_position() const { return ent->absolute->position; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0028EB28)
 // 0x0028EB28 update_region__14entity_trigger
 class entity_trigger {
 public:
@@ -96,9 +81,7 @@ public:
 
 void entity_trigger::update_region() {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0028DD50)
 // 0x0028DD50 __13point_triggerRC7stringx
 class stringx;
 
@@ -123,9 +106,7 @@ void *PointTriggerCtor(void *self, const stringx &id)
     ((point_trigger_layout *)self)->vtable = point_trigger_vtable;
     return self;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0028E7C0)
 // 0x0028E7C0 __14region_triggerRC7stringx
 class stringx;
 
@@ -150,9 +131,7 @@ void *RegionTriggerCtor(void *self, const stringx &id)
     ((region_trigger_layout *)self)->vtable = region_trigger_vtable;
     return self;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0028E950)
 // 0x0028E950 __14entity_triggerRC7stringx
 class stringx;
 class trigger { char padding[8]; protected: void *vtable; char padding2[0x34]; public: trigger(const stringx &); };
@@ -166,9 +145,7 @@ entity_trigger::entity_trigger(const stringx &id)
 {
     vtable = &entity_trigger_vtable;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0028E8F0)
 // 0x0028E8F0 triggered__14region_triggerP6entity
 class region;
 struct region_node { char padding[4]; region *data; };
@@ -212,9 +189,7 @@ not_found:
 done:
     return result;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0028DDF8)
 // 0x0028DDF8 read__13point_triggerR10chunk_file
 class chunk_file;
 extern "C" void serial_float(chunk_file &,float *)
@@ -234,9 +209,7 @@ void point_trigger::read(chunk_file &file) {
     serial_float(file,&radius);
     __asm__ __volatile__("" : : : "memory");
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0028E990)
 // 0x0028E990 __14entity_triggerRC7stringxP6entityf
 class stringx;
 struct entity;
@@ -266,9 +239,7 @@ trigger_layout *construct_entity_trigger(
     self->hash=float_max;
     return self;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0028DC98)
 // 0x0028DC98 add_region__7triggerP6region
 struct region;
 struct insert_result { void *iterator; int inserted; };
@@ -294,14 +265,9 @@ bool trigger::add_region(region *value)
     }
     return false;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0028DD88)
 // 0x0028DD88 __13point_triggerRC7stringxRC8vector3df
 struct stringx;extern "C" void trigger_ctor(void*,const stringx&) __asm__("__7triggerRC7stringx");__asm__(".equ __7triggerRC7stringx,0x0028D838");extern const char point_vtable[];__asm__(".equ point_vtable,0x004FB0A0");struct vector3d{float x,y,z;vector3d(){}vector3d&operator=(const vector3d&o){x=o.x;y=o.y;z=o.z;return *this;}};class point_trigger{char p0[8];const void*vtable;char p1[44];vector3d position;float radius;public:point_trigger(const stringx&,const vector3d&,float);};point_trigger::point_trigger(const stringx&id,const vector3d&p,float r){trigger_ctor(this,id);vtable=point_vtable;position=p;radius=r;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0028DE58)
 // 0x0028DE58 triggered__13point_triggerP6entity
 struct vector3d{float x,y,z;vector3d(){}vector3d(float X,float Y,float Z):x(X),y(Y),z(Z){}vector3d&operator=(const vector3d&o){x=o.x;y=o.y;z=o.z;return*this;}float length2()const{return x*x+y*y+z*z;}};inline vector3d operator-(const vector3d&a,const vector3d&b){return vector3d(a.x-b.x,a.y-b.y,a.z-b.z);}struct holder{char pad[48];vector3d position;};struct entity{char pad[80];holder*absolute;const vector3d&get_abs_position()const{return absolute->position;}};class point_trigger{char pad[56];vector3d position;float radius;public:bool triggered(entity*)__asm__("triggered__13point_triggerP6entity");};bool point_trigger::triggered(entity*e){vector3d v;v=e->get_abs_position()-position;return v.length2()<radius*radius;}
-#endif
