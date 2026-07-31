@@ -157,12 +157,6 @@ public:
     StringList &operator=(const StringList &other);
 };
 
-struct nglFileBuf {
-    unsigned char *Buf;
-    unsigned int Size;
-    unsigned int UserData;
-};
-
 class BoxText : public TextString {
 protected:
     int width;

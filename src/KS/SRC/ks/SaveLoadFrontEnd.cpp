@@ -28,7 +28,7 @@ void KeyboardMenu::Switch(FEMenuEntry *before, FEMenuEntry *after)
 }
 
 // 0x001A06D0 Format__9NamesMenu
-#include "KS/SRC/HWOSPS2/GenericGameSaver_shared.h"
+#include "KS/SRC/HWOSPS2/ps2_gamesaver.h"
 #include "KS/SRC/ks/SaveLoadFrontEnd.h"
 
 enum {

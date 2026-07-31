@@ -3,6 +3,12 @@
 
 typedef unsigned int u_int;
 
+struct nglFileBuf {
+    unsigned char *Buf;
+    unsigned int Size;
+    unsigned int UserData;
+};
+
 struct nglScene {
     nglScene *Parent;
 };

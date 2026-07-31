@@ -28,7 +28,7 @@ void MCDetectFrontEnd::OnActivate()
 
 #if defined(KELLY_DECOMP_FUNCTION_001A47B8)
 // 0x001A47B8 findGlobalData__16MCDetectFrontEndRiT1
-#include "KS/SRC/HWOSPS2/GenericGameSaver_shared.h"
+#include "KS/SRC/HWOSPS2/ps2_gamesaver.h"
 #include "KS/SRC/ks/MCDetectFrontEnd_shared.h"
 
 enum {
