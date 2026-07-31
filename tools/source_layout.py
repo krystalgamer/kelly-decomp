@@ -215,6 +215,14 @@ def uses_instruction_emitting_inline_asm(source: str) -> bool:
     return False
 
 
+def uses_released_instruction_asm(address: int, source: str) -> bool:
+    reason = REVIEWED_INSTRUCTION_ASM.get(address, "")
+    return (
+        reason.startswith("released ")
+        and uses_instruction_emitting_inline_asm(source)
+    )
+
+
 def validate_instruction_asm(address: int, source: str) -> None:
     if ".set noreorder" in source:
         raise RuntimeError(

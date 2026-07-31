@@ -4,6 +4,7 @@ import argparse
 import csv
 import hashlib
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -13,7 +14,9 @@ from function_paths import scratch_directory as safe_scratch_directory
 
 from source_layout import (
     install_function_source,
+    uses_instruction_emitting_inline_asm,
     uses_matching_compiler_barrier,
+    uses_released_instruction_asm,
 )
 
 
@@ -83,6 +86,24 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
     scratch = safe_scratch_directory(ROOT / "tmp" / "functions", row)
     candidate = scratch / "candidate.cpp"
     source = entry["source"]
+    if re.search(r'\bextern\s+"C"\b', source):
+        raise RuntimeError(
+            f"Manifest candidate for {row['raw_name']} uses extern \"C\"; "
+            "reconstruct its native C++ declaration instead"
+        )
+    if uses_matching_compiler_barrier(source):
+        raise RuntimeError(
+            f"Manifest candidate for {row['raw_name']} uses a "
+            "matching-only compiler barrier"
+        )
+    if (
+        uses_instruction_emitting_inline_asm(source)
+        and not uses_released_instruction_asm(int(row["address"], 0), source)
+    ):
+        raise RuntimeError(
+            f"Manifest candidate for {row['raw_name']} uses "
+            "non-released instruction-emitting inline assembly"
+        )
     if not source.endswith("\n"):
         source += "\n"
     candidate_prefix = entry.get("candidate_prefix", "")
@@ -107,13 +128,6 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
             f"{attempt['score']:.2f}%"
         )
     attempt_note = entry["attempt_note"].rstrip()
-    if uses_matching_compiler_barrier(source):
-        attempt_note += (
-            "\n\n`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only "
-            "annotation that emits no target instruction. It prevents EE GCC "
-            "from applying the sibling/tail-call or scheduling transformation "
-            "described above."
-        )
     (scratch / f"attempt-{attempt['attempt']}" / "notes.md").write_text(
         attempt_note + "\n",
         encoding="utf-8",
