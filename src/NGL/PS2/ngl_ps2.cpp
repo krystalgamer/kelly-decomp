@@ -2,7 +2,13 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_003A6AE0)
 // 0x003A6AE0 nglRotateQuad__FP7nglQuadfff
-#include "NGL/PS2/ngl_quad_rotate_shared.h"
+#include "NGL/PS2/ngl_ps2.h"
+
+extern "C" float cosf(float value);
+extern "C" float sinf(float value);
+
+__asm__(".equ cosf, 0x003C6340");
+__asm__(".equ sinf, 0x003C6530");
 
 void nglRotateQuad(
     nglQuad *quad,
