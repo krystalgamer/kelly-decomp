@@ -1,0 +1,15 @@
+{
+  "address": "0x0010A158",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "95f21b30dba08342ebc678daa11205b86b3c84f7",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ai_polypath.h\"\n\nvector3d ai_polypath::snap_to_cell(ai_polypath_cell* cell, const vector3d& pt)\n{\n\tvector3d res = pt;\n\n\tif (!cell->is_point_in_cell_collumn(res))\n\t\tcell->force_to_cell_collumn(res);\n\n\tcell->map_vector_height_to_cell(res);\n\n\treturn (res);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "snap_to_cell__11ai_polypathP16ai_polypath_cellRC8vector3d"
+}
