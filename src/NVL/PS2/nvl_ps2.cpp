@@ -166,3 +166,35 @@ void nvlReleaseMovieSource(nvlMovieSource *source)
         __asm__ __volatile__("");
     }
 }
+
+// 0x0038B9F8 nvlMovieStatus__FPC8nvlMovie
+enum nvlResult {
+    NVL_RESULT_ERROR = -1,
+    NVL_RESULT_PLAYING = 2,
+    NVL_RESULT_PAUSED = 3
+};
+
+enum {
+    NVL_FLAG_PAUSED = 0x1,
+    NVL_FLAG_PLAYING = 0x2,
+    NVL_FLAG_STARTING = 0x8
+};
+
+struct nvlMovie {
+    char padding[0x2c];
+    int flags;
+};
+
+nvlResult nvlMovieStatus(const nvlMovie *movie)
+{
+    int flags = movie->flags;
+    if (!(flags & (NVL_FLAG_PLAYING | NVL_FLAG_STARTING))) {
+        register int result __asm__("$2") = NVL_RESULT_ERROR;
+        register int paused_result __asm__("$3") =
+            NVL_RESULT_PAUSED;
+        if (flags & NVL_FLAG_PAUSED)
+            result = paused_result;
+        return (nvlResult)result;
+    }
+    return NVL_RESULT_PLAYING;
+}
