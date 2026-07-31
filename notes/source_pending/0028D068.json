@@ -1,0 +1,15 @@
+{
+  "address": "0x0028D068",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d143a5c36e68cbd2fc269f1ac285d09c649aefd4",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/trigger.h\"\n\ntrigger *trigger_manager::new_trigger(stringx id, stringx type, chunk_file &fs)\n{\n\ttrigger *t = 0;\n\n\tif (type == stringx(\"point\"))\n\t\tt = NEW point_trigger(id);\n\telse if (type == stringx(\"region\"))\n\t\tt = NEW region_trigger(id);\n\telse if (type == stringx(\"entity\"))\n\t\tt = NEW entity_trigger(id);\n\telse\n\t\terror(\"Unknown trigger type \\\"\" + type + \"\\\" on trigger \\\"\" + id + \"\\\"\");\n\n  t->read(fs);\n\n  // add NEW trigger to managed list\n  add( t );\n\treturn t;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "new_trigger__15trigger_managerG7stringxT1R10chunk_file"
+}
