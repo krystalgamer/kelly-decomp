@@ -174,7 +174,7 @@ extern "C" void check()__asm__("check_alias");extern "C" void nglPrintf(const ch
 #if defined(KELLY_DECOMP_FUNCTION_00119A58)
 // 0x00119A58 check_mem_init__t11linear_anim1Z10quaternion
 #include "KS/SRC/linear_anim_shared.h"
-#include "KS/SRC/staticmem_shared.h"
+#include "KS/SRC/staticmem.h"
 
 extern const char linear_quaternion_mem_description[];
 
@@ -212,7 +212,7 @@ void linear_anim<quaternion>::check_mem_init(void)
 #if defined(KELLY_DECOMP_FUNCTION_00119C98)
 // 0x00119C98 check_mem_init__t11linear_anim1Z8vector3d
 #include "KS/SRC/linear_anim_shared.h"
-#include "KS/SRC/staticmem_shared.h"
+#include "KS/SRC/staticmem.h"
 
 extern const char linear_vector_mem_description[];
 
@@ -250,7 +250,7 @@ void linear_anim<vector3d>::check_mem_init(void)
 #if defined(KELLY_DECOMP_FUNCTION_00119ED8)
 // 0x00119ED8 check_mem_init__t11linear_anim1Zf
 #include "KS/SRC/linear_anim_shared.h"
-#include "KS/SRC/staticmem_shared.h"
+#include "KS/SRC/staticmem.h"
 
 extern const char linear_float_mem_description[];
 
@@ -352,7 +352,7 @@ void destroy_prs_track(PRS_track_layout *self, int deleting)
 #if defined(KELLY_DECOMP_FUNCTION_00119810)
 // 0x00119810 check_mem_init__7po_anim
 #include "KS/SRC/po_anim_shared.h"
-#include "KS/SRC/staticmem_shared.h"
+#include "KS/SRC/staticmem.h"
 
 extern const char po_anim_mem_description[];
 

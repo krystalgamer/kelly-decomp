@@ -314,7 +314,7 @@ struct anim_control_t{char p[32];};struct entity_anim{unsigned short flags;void 
 #if defined(KELLY_DECOMP_FUNCTION_001133D8)
 // 0x001133D8 check_mem_init__11entity_anim
 #include "KS/SRC/entity_anim_shared.h"
-#include "KS/SRC/staticmem_shared.h"
+#include "KS/SRC/staticmem.h"
 
 extern const char entity_anim_mem_description[];
 
@@ -381,7 +381,7 @@ void entity_anim_tree::clear_anims()
 #if defined(KELLY_DECOMP_FUNCTION_00113618)
 // 0x00113618 check_mem_init__16entity_anim_tree
 #include "KS/SRC/entity_anim_shared.h"
-#include "KS/SRC/staticmem_shared.h"
+#include "KS/SRC/staticmem.h"
 
 extern const char entity_anim_tree_mem_description[];
 

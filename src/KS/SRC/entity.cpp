@@ -1287,7 +1287,7 @@ void entity::activate_motion_blur(int min_a,int max_a,int num,float spread){set_
 
 // 0x001276D0 check_mem_init__Q26entity13movement_info
 #include "KS/SRC/entity.h"
-#include "KS/SRC/staticmem_shared.h"
+#include "KS/SRC/staticmem.h"
 
 extern const char movement_info_mem_description[];
 
