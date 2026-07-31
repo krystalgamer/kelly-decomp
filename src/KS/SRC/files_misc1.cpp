@@ -110,3 +110,6 @@ class motion_control_system; extern "C" motion_control_system **fill_values(moti
 
 // 0x002B17F8 fill_n__H3ZPP4itemZUiZP4item_X01X11RCX21_X01
 class item; extern "C" item **fill_values(item **first,unsigned int count,item *const &value)__asm__("fill_n__H3ZPP4itemZUiZP4item_X01X11RCX21_X01"); item **fill_values(item **first,unsigned int count,item *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
+
+// 0x002B1B20 fill_n__H3ZPP12light_sourceZUiZP12light_source_X01X11RCX21_X01
+class light_source; extern "C" light_source **fill_values(light_source **first,unsigned int count,light_source *const &value)__asm__("fill_n__H3ZPP12light_sourceZUiZP12light_source_X01X11RCX21_X01"); light_source **fill_values(light_source **first,unsigned int count,light_source *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
