@@ -13,7 +13,7 @@
     defined(KELLY_DECOMP_FUNCTION_0025C478) || \
     defined(KELLY_DECOMP_FUNCTION_0025C4A0) || \
     defined(KELLY_DECOMP_FUNCTION_0025C5E8)
-#include "KS/SRC/ks/career_shared.h"
+#include "KS/SRC/ks/career.h"
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0025A7C0)

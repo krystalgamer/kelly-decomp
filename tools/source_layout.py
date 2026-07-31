@@ -129,6 +129,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/HWOSPS2/ps2_input.h":
         "KS/SRC/HWOSPS2/ps2_input_methods.cpp",
     "KS/SRC/ks/CheatFrontEnd.h": "KS/SRC/ks/CheatFrontEnd_methods.cpp",
+    "KS/SRC/ks/career.h": "KS/SRC/ks/career.cpp",
     "KS/SRC/ks/SaveLoadFrontEnd.h":
         "KS/SRC/ks/SaveLoadFrontEnd_methods.cpp",
     "KS/SRC/ks/ks_camera.h": "KS/SRC/ks/ks_camera_methods.cpp",
