@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_MUSTASH_SHARED_H
 
 #include "KS/SRC/avltree_shared.h"
-#include "KS/SRC/pstring_shared.h"
+#include "KS/SRC/pstring.h"
 
 class stash_index_entry {
     friend class stash;

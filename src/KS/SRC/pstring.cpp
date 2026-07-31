@@ -1,33 +1,18 @@
-// Matching decompilation blocks selected by generated build shims.
+// pstring definitions extracted by generated one-function shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00335498)
 // 0x00335498 __7pstringRC7stringx
-class stringx {
-    const char *text;
-
-public:
-    const char *c_str() const {
-        return text;
-    }
-};
-
-class pstring {
-public:
-    pstring(const stringx &target_string);
-    void pack_string(const char *text);
-};
+#include "KS/SRC/pstring.h"
+#include "KS/SRC/stringx.h"
 
 __asm__(".equ pack_string__7pstringPCc, 0x003354D0");
 
 pstring::pstring(const stringx &target_string) {
     pack_string(target_string.c_str());
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00335648)
 // 0x00335648 unpack_string__C7pstring
-#include "KS/SRC/pstring_shared.h"
+#include "KS/SRC/pstring.h"
 
 __asm__(".equ _7pstring$output_index, 0x0046B510");
 __asm__(".equ _7pstring$output_cache, 0x005A5470");
@@ -61,4 +46,3 @@ const char *pstring::unpack_string() const
         output_index = 0;
     return result;
 }
-#endif

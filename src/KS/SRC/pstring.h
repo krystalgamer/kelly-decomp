@@ -1,7 +1,9 @@
-#ifndef KELLY_DECOMP_PSTRING_SHARED_H
-#define KELLY_DECOMP_PSTRING_SHARED_H
+#ifndef PSTRING_H
+#define PSTRING_H
 
 typedef unsigned long uint64;
+
+class stringx;
 
 class pstring {
     static char output_cache[12][41];
@@ -11,6 +13,7 @@ class pstring {
     uint64 pchunk[4];
 
     const char *unpack_string() const;
+    void pack_string(const char *text);
 
 public:
     pstring()
@@ -24,6 +27,8 @@ public:
         for (unsigned int i = 0; i < 4; ++i)
             pchunk[i] = other.pchunk[i];
     }
+
+    pstring(const stringx &text);
 
     pstring &operator=(const pstring &other)
     {
