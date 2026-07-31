@@ -1,13 +1,28 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef POLYTUBE_H
+#define POLYTUBE_H
 
+#include "KS/SRC/entity.h"
+#include "KS/SRC/matfac_shared.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_00146428)
-// 0x00146428 frame_advance__8polytubef
-class polytube {
-public:
-    void frame_advance(float time);
+#pragma interface
+
+class b_spline {
+    char spline_data[36];
 };
 
-void polytube::frame_advance(float time) {
-}
+class polytube : public entity {
+    bool use_spline;
+    b_spline spline;
+    mat_fac *my_material;
+    rational_t tube_radius;
+    int num_sides;
+    rational_t tiles_per_meter;
+    rational_t max_length;
+
+public:
+    void init();
+    virtual void frame_advance(time_value_t time);
+    render_flavor_t render_passes_needed() const;
+};
+
 #endif
