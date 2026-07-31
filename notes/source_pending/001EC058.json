@@ -1,0 +1,15 @@
+{
+  "address": "0x001EC058",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "218badc0086d789590d9d68279943cd106cc68a7",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/beach.h\"\n\nbool beach::get_nearest_object_pos(vector3d surfer_pos, vector3d &object_pos, vector3d lip_norm)\n{\n\tobject_pos = ZEROVEC;\n\tfloat sq_mag = 0.0f;\n\tbool object_found = false;\n\tbool first_time = true;\n\tfor (beach_object *fobj = my_objects; fobj != NULL; fobj = fobj->next)\n\t{\n        if (!fobj->is_active ())\n\t\t\tcontinue;\n\t\t\n\t\tif (!fobj->is_physical())\n\t\t\tcontinue;\n\t\t\n\t\tentity *e2 = ((water_object*)fobj)->get_entity ();\n\t\tif (!e2->is_visible ())\n\t\t\tcontinue;\n\t\t\n\t\tif ((e2->get_parsed_name() ==  \"dolphin\") || (e2->get_parsed_name() == \"greatwhite\")\n\t\t\t\t|| (e2->get_parsed_name() == \"cameraman\") || (e2->get_parsed_name() == \"misc_surfer1\")\n\t\t\t\t|| (e2->get_parsed_name() == \"misc_surfer2\"))\n\t\t\tcontinue;\n\t\t\n\t\tbool in_front_of_wave = false;\n\t\tvector3d obj_pos = e2->get_abs_position();\n\t\tvector3d start_point = *WAVE_GetMarker(WAVE_MarkerLipMark11);\n\t\tvector3d object_vec = obj_pos - start_point;\n\t\tif (dot(object_vec, lip_norm) < g_past_lip_dist)\n\t\t\tin_front_of_wave = true;\n\t\t\t\n\t\tvector3d new_vec = e2->get_abs_position() - surfer_pos;\n\t\tfloat smag = dot(new_vec, new_vec);\n\t\tif (in_front_of_wave)\n\t\t{\n\t\t\tif (first_time || (smag < sq_mag))\n\t\t\t{\n\t\t\t\tobject_found = true;\n\t\t\t\tsq_mag = smag;\n\t\t\t\tobject_pos = new_vec;\n\t\t\t\tfirst_time = false;\n\t\t\t}\n\t\t}\n\t}\n\t\n\treturn object_found;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "get_nearest_object_pos__5beachG8vector3dR8vector3dT1"
+}
