@@ -1,0 +1,15 @@
+{
+  "address": "0x001C3DC8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6bd7b5cbbfedda6cba8ed7661e4d9bf47e54a5da",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEEntityManager.h\"\n\nvoid FEEntityManager::ToTrickBook2()\n{\n\tfloat scale = 0.5f;\n\tif (SurferDataArray[current_surfer_index].goofy && board && surfer_ent)\n\t{\n\t\tboard->set_handed_axis(2);\n\t\tsurfer_ent->set_handed_axis(2);\n\t\tscale = -0.5f;\n\t}\n\n\tpo trans( po_identity_matrix );\n\ttrans.set_rotate_y(scale*PI);\n\tsurfer_trick_po = po(1, 0, 0,   0, 1, 0,   0, 0, 1,   0.0f, 0.0f, 0.0f);\n\tsurfer_trick_po = trans*surfer_trick_po;\n\tsurfer_trick_po.set_position(vector3d(-3.6, 2.3, -9));\n\tboard_trick_po = surfer_trick_po;\n\tboard_trick_po.set_position(surfer_trick_po.get_position() + vector3d(0, -.6, 0));\n\n\tmy_board->set_rel_po(board_trick_po);\n\tif(surfer_ent)\n\t{\n\t\tsurfer_ent->set_render_scale(vector3d(1, 1, 1));\n\t}\n\n\tcur_anim = SA_TRICK;\n\tcur_b_anim = 0;\n\tBoardPlay(BA_TRICK, 0);\n\tSurferPlay(SA_TRICK, 0, -1);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "ToTrickBook2__15FEEntityManager"
+}
