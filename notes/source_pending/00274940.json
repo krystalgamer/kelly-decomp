@@ -1,0 +1,15 @@
+{
+  "address": "0x00274940",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c439292dbce1d1d75fa70c7df4f7f4352842ac7b",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/beam.h\"\n\nbool beam_effect::handle_enx_chunk( chunk_file& fs, stringx& label )\n{\n  if(label == \"alpha:\")\n    read_alpha_chunk(fs);\n  else if(label == \"width:\")\n    read_width_chunk(fs);\n  else if(label == \"color:\")\n    read_color_chunk(fs);\n  else\n    error( fs.get_filename() + \": unknown beam_effect type '\" + label + \"'\" );\n\n  return(true);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "handle_enx_chunk__4beamR10chunk_fileR7stringx"
+}
