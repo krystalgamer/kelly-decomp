@@ -282,7 +282,7 @@ vector3d *UninitializedCopy(
 
 #if defined(KELLY_DECOMP_FUNCTION_00110468)
 // 0x00110468 __uninitialized_fill_n_aux__H3ZP5planeZUiZ5plane_X01X11RCX21G12__false_type_X01
-#include "KS/SRC/plane_shared.h"
+#include "KS/SRC/plane.h"
 template<class ForwardIterator, class Size, class T>
 ForwardIterator __uninitialized_fill_n_aux(ForwardIterator first, Size n, const T &value, __false_type) {
     ForwardIterator result = first;

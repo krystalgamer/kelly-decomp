@@ -1,15 +1,7 @@
-#ifndef KELLY_DECOMP_PLANE_SHARED_H
-#define KELLY_DECOMP_PLANE_SHARED_H
+#ifndef PLANE_H
+#define PLANE_H
 
-class vector3d {
-public:
-    float x;
-    float y;
-    float z;
-
-    inline vector3d(const vector3d &other)
-        : x(other.x), y(other.y), z(other.z) {}
-};
+#include "KS/SRC/vector3d_shared.h"
 
 class plane {
 public:

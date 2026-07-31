@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_AI_POLYPATH_CELL_SHARED_H
 #define KELLY_DECOMP_AI_POLYPATH_CELL_SHARED_H
 
-#include "KS/SRC/plane_shared.h"
+#include "KS/SRC/plane.h"
 #include "KS/SRC/render_data_shared.h"
 #include "g++-2/stl_vector_shared.h"
 
