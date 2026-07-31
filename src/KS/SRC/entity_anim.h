@@ -55,6 +55,10 @@ public:
     void operator delete(void *memory);
     entity_track_node *get_root();
     entity_track_node *insert_root();
+    void _compute_duration();
+    void _recursive_compute_duration(
+        const entity_track_node *node,
+        time_value_t &duration) const;
     inline const entity_track_node *get_root_nodes() const {
         return root_nodes;
     }

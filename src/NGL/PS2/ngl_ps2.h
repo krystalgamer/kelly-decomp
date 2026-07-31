@@ -101,9 +101,26 @@ struct nglMesh {
 };
 
 struct nglTexture {
-    char padding[0x40];
+    char texture_stream_position[8];
+    unsigned short Width;
+    unsigned short Height;
+    unsigned int Hash;
+    unsigned char Type;
+    unsigned char TW;
+    unsigned char TH;
+    unsigned char flag_padding;
+    struct {
+        unsigned int LoadedInPlace : 1;
+        unsigned int Locked : 1;
+        unsigned int VRAMOnly : 1;
+        unsigned int System : 1;
+        unsigned int RenderTarget : 1;
+    } Flags;
+    char data_to_file_name[0x40 - 0x18];
     nglFixedString FileName;
-};
+} __attribute__((aligned(16)));
+
+void nglRelockAllTexturesPS2();
 
 enum {
     NGLMAP_BILINEAR_FILTER = 0x00000002,
