@@ -107,3 +107,6 @@ class force_control_system; extern "C" force_control_system **fill_values(force_
 
 // 0x002B14D0 fill_n__H3ZPP21motion_control_systemZUiZP21motion_control_system_X01X11RCX21_X01
 class motion_control_system; extern "C" motion_control_system **fill_values(motion_control_system **first,unsigned int count,motion_control_system *const &value)__asm__("fill_n__H3ZPP21motion_control_systemZUiZP21motion_control_system_X01X11RCX21_X01"); motion_control_system **fill_values(motion_control_system **first,unsigned int count,motion_control_system *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
+
+// 0x002B17F8 fill_n__H3ZPP4itemZUiZP4item_X01X11RCX21_X01
+class item; extern "C" item **fill_values(item **first,unsigned int count,item *const &value)__asm__("fill_n__H3ZPP4itemZUiZP4item_X01X11RCX21_X01"); item **fill_values(item **first,unsigned int count,item *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
