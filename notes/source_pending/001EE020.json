@@ -1,0 +1,15 @@
+{
+  "address": "0x001EE020",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "567f073c65035922d1f91947fd533b9296ff8e71",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/board.h\"\n\nvoid SurfBoardObjectClass::InitConstants()\n{\n\t// load constants\n\textern float water_friction;\n\textern float skag_friction;\n\textern float stick_factor;\n\textern float speed_factor;\n\textern float carving_factor;\n\n\tint curbeach = g_game_ptr->get_beach_id ();\n\twater_friction = BeachDataArray[curbeach].water_friction;\n\tskag_friction = BeachDataArray[curbeach].skag_friction;\n\tstick_factor = BeachDataArray[curbeach].stick_force;\n\tspeed_factor = BeachDataArray[curbeach].board_speed;\n\tcarving_factor = BeachDataArray[curbeach].board_carving;\n\n\t// hack to allow artists to load a model and play animations\n\tstringx play_model = os_developer_options::inst()->get_string (os_developer_options::STRING_PLAY_MODEL);\n\tstringx play_anim = os_developer_options::inst()->get_string (os_developer_options::STRING_PLAY_ANIM);\n\n\tif ((play_model != \"\") && (play_anim != \"\"))\n\t{\n\t\tfilespec spec(play_model);\n\t\tstringx mesh_path = spec.path;\n\t\tnglSetMeshPath( (char *)mesh_path.c_str() );\n\t\tstringx texture_path = spec.path;\n\t\t// trim \"entities\" off of path\n\t\ttexture_path.to_lower();\n\t\tif( texture_path.find( \"entities\" ) != stringx::npos )\n\t\t{\n\t\t\tstringx::size_type last_slash        = texture_path.rfind( '\\\\' );\n\t\t\tstringx::size_type penultimate_slash = texture_path.rfind( '\\\\', last_slash-1 );\n\t\t\ttexture_path = texture_path.substr( 0, penultimate_slash+1 );\n\t\t}\n\t\tstringx anim_path = texture_path;\n\t\tanim_path += \"\\\\ANIMATIONS\\\\\";\n\t\ttexture_path += os_developer_options::inst()->get_string(os_developer_options::STRING_TEXTURE_DIR);\n\t\ttexture_path += \"\\\\\";\n\t\tnglSetTexturePath( (char *)texture_path.c_str() );\n\n\t\tentity *ent = g_entity_maker->create_entity_or_subclass (play_model, entity_id::make_unique_id (), po_identity_matrix, empty_string, entity::ACTIVE, NULL);\n\t\tent->set_rel_position (vector3d (0, 5, -10));\n\t\tent->set_visible (true);\n\n\t\tstringx anim = anim_path + play_anim;\n\n\t\tif (file_finder_exists (anim, entity_track_tree::extension ()))\n\t\t{\n\t\t\tanim += entity_track_tree::extension ();\n\t\t\tent->load_anim (anim);\n\t\t}\n\t\telse\n\t\t{\n\t\t\tnglPrintf (\"Missing animation: %s\", anim.c_str());\n\t\t\tassert (false);\n\t\t}\n\n\t\tif (ent->has_physical_ifc ())\n\t\t\tent->physical_ifc ()->disable ();\n\n\t\tent->play_anim (ANIM_PRIMARY, play_anim, 0.3f, ANIM_LOOPING | ANIM_TWEEN | ANIM_NONCOSMETIC);\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "InitConstants__20SurfBoardObjectClass"
+}
