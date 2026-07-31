@@ -3,8 +3,11 @@
 
 #pragma interface
 
+#include "KS/SRC/algebra.h"
 #include "KS/SRC/color.h"
 #include "KS/SRC/rect.h"
+#include "KS/SRC/singleton.h"
+#include "KS/SRC/stringx.h"
 #include "g++-2/stl_list.h"
 
 typedef float time_value_t;
@@ -27,6 +30,44 @@ class event;
 
 typedef list<element *> element_list_t;
 typedef list<event *> event_list_t;
+
+class element_manager : public singleton {
+public:
+    stringx interface_font_name;
+
+    element_manager();
+    virtual ~element_manager();
+    void purge();
+    void create_default_elements();
+    void restore_default_elements();
+    inline void enable() { enabled = true; }
+    inline void disable() { enabled = false; }
+    void push_context(const stringx &name);
+    void pop_context();
+    void frame_advance(time_value_t time);
+    void render();
+
+    matrix4x4 projection_matrix;
+
+protected:
+    class context : public element_list_t {
+    public:
+        explicit context(const stringx &value)
+          : name(value)
+        {
+        }
+        inline const stringx &get_name() const {
+            return name;
+        }
+
+    protected:
+        stringx name;
+    };
+
+    list<context *> context_stack;
+    int next_id;
+    bool enabled;
+};
 
 class event {
 public:
