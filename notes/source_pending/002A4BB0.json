@@ -1,0 +1,15 @@
+{
+  "address": "0x002A4BB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "37a0ccc58d9ddbdeb4e6ebee9447cf9f79400dc9",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/wds.h\"\n\nvoid world_dynamics_system::add_material_set( material_set *mset )\n{\n\tmaterial_set_list::iterator msi;\n\tfor( msi = material_sets.begin(); msi != material_sets.end(); ++msi )\n\t\tif( *msi == mset )\n\t\t\treturn;\n\t\tmaterial_sets.push_back( mset );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "add_material_set__21world_dynamics_systemRC7stringx"
+}
