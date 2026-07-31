@@ -1,0 +1,15 @@
+{
+  "address": "0x0030DF18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d9008f71063ee45689550f8452101250124b46b8",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/menudraw.h\"\n\nvoid MENUDRAW_StaticInit( void )\n{\n\tMENUDRAW_MenuEntities=NEW MenuEntityDraw(NULL, 0, NULL);\n\tMENUDRAW_SubmenuEntities = NEW Submenu(\"Entities\", MENUDRAW_MenuEntities);\n\n\t#undef USEINFO\n\t#define USEINFO(type)\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n\tMENUDRAW_ParticleEntry##type = NEW MenuEntryIntEdit \t\t\t\t\t\t\\\n\t(#type, MENUDRAW_ParticleFlags + MENUDRAW_ParticleType##type, 0, 1);\n\t#include \"menudrawparticle.txt\"\n\n\tint index=0;\n\tMENUDRAW_ParticleEntries[index++] = &MENUDRAW_ParticleEntryAllOff;\n\tMENUDRAW_ParticleEntries[index++] = &MENUDRAW_ParticleEntryAllOn;\n\t#undef USEINFO\n\t#define USEINFO(type) MENUDRAW_ParticleEntries[index++] = MENUDRAW_ParticleEntry##type;\n\t#include \"menudrawparticle.txt\"\n\n\tMENUDRAW_MenuParticle = NEW MenuParticleDraw(NULL, countof(MENUDRAW_ParticleEntries), MENUDRAW_ParticleEntries);\n\tMENUDRAW_SubmenuParticle = NEW Submenu(\"Particle\", MENUDRAW_MenuParticle);\n\n\t#undef USEINFO\n\t#define USEINFO(type)\t\t\t\t\t\t\t\t\t\t\t\t\t\\\n\tMENUDRAW_WaterEntry##type\t=\t\t\t\t\t\\\n\tNEW MenuEntryIntEdit(#type, MENUDRAW_WaterFlags + MENUDRAW_WaterType##type, 0, 1);\n\t#include \"menudrawwater.txt\"\n\n\tindex=0;\n\tMENUDRAW_WaterEntries[index++]=&MENUDRAW_WaterEntryAllOff;\n\tMENUDRAW_WaterEntries[index++]=&MENUDRAW_WaterEntryAllOn;\n\t#undef USEINFO\n\t#define USEINFO(type) MENUDRAW_WaterEntries[index++]=MENUDRAW_WaterEntry##type;\n\t#include \"menudrawwater.txt\"\n\n\tMENUDRAW_MenuWater = NEW MenuWaterDraw(NULL, countof(MENUDRAW_WaterEntries), MENUDRAW_WaterEntries);\n\tMENUDRAW_SubmenuWater = NEW Submenu(\"Water\", MENUDRAW_MenuWater);\n\n\tMENUDRAW_EntryAllOff = NEW MenuEntryFunction(\"All Objects Off\", MENUDRAW_AllOff);\n\tMENUDRAW_EntryAllOn  = NEW MenuEntryFunction(\"All Objects On\", MENUDRAW_AllOn);\n\n\t#undef USEINFO\n\t#define USEINFO(type)\t\t\t\t\t\t\t\t\t\t\t\t\\\n\tMENUDRAW_Entry##type\t=\tNEW MenuEntryIntEdit(#type, MENUDRAW_Flags + MENUDRAW_Type##type, 0, 1);\n\t#include \"menudrawmisc.txt\"\n\n\tMENUDRAW_Shadows = NEW MenuEntryIntEdit(\"Player Shadows\", &WavetexDebug_ShadowPass, 0, 1, 1);\n\n\tindex=0;\n\tMENUDRAW_Entries[index++]=MENUDRAW_EntryAllOff    ;\n\tMENUDRAW_Entries[index++]=MENUDRAW_EntryAllOn     ;\n\tMENUDRAW_Entries[index++]=MENUDRAW_SubmenuEntities;\n\tMENUDRAW_Entries[index++]=MENUDRAW_SubmenuParticle;\n\tMENUDRAW_Entries[index++]=MENUDRAW_SubmenuWater   ;\n\n\t#undef USEINFO\n\t#define USEINFO(type) MENUDRAW_Entries[index++]=\tMENUDRAW_Entry##type;\n\t#include \"menudrawmisc.txt\"\n\n\tMENUDRAW_Menu = NEW MenuDraw(NULL, countof(MENUDRAW_Entries), MENUDRAW_Entries);\n\tmenu_draw = NEW Submenu(\"Draw Menu\", MENUDRAW_Menu);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "MENUDRAW_StaticInit__Fv"
+}
