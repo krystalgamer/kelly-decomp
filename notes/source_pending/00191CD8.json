@@ -1,0 +1,15 @@
+{
+  "address": "0x00191CD8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5e9c60ba7cf214b65a7868906bd0e3749a498a75",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/BeachFrontEnd.h\"\n\nint BeachFrontEnd::UpdateChallenges(int cn, int offset, bool right)\n{\n\tint new_offset = offset;\n\tint current_chall = locations[current_location_index].levels[cn];\n\n\tif(current_chall != -1 && (!levels[current_chall].locked || !Realistic(false)))\n\t{\n\t\t// the -6 is to adjust for the vertical-top justification\n\t\tchall_text[cn]->SetPos(right ? beach_r_l_x : beach_l_l_x, new_offset-6);\n\t\tstringx t = CareerDataArray[current_chall].challenge_name;\n\t\tt.to_lower();\n\t\tchall_text[cn]->SetText(t);\n\t\tcolor32 col = chall_text[cn]->GetColor();\n\t\tcol.set_alpha(255);\n\t\tchall_text[cn]->SetColor(col);\n\t\tchall_text[cn]->Disable(false);\n\t\tchall_text[cn]->SetNoFlash(false);\n\t\tnew_offset += 18*chall_text[cn]->getLineNum();\n\n\t\tgoals_completed[cn]->changePos(right ? beach_r_l_x : beach_l_l_x, new_offset);\n\t\tnew_offset += 18;\n\n\t\tCareerData* level = &CareerDataArray[current_chall];\n\t\tgoal_num[cn] = 0;\n\t\tint completed_goals = 0;\n\t\tfor(int i=0; i<MAX_GOALS_PER_LEVEL; i++)\n\t\t{\n\t\t\tif(level->goal[i] != GOAL_NOTHING)\n\t\t\t{\n\t\t\t\tbool completed = g_career->levels[current_chall].IsGoalDone(i);\n\t\t\t\tif(completed) completed_goals++;\n\t\t\t\tgoal_num[cn]++;\n\t\t\t}\n\t\t\telse\n\t\t\t{\n\t\t\t\tcompleted_lights[cn][i][0]->TurnOn(false);\n\t\t\t\tcompleted_lights[cn][i][1]->TurnOn(false);\n\t\t\t}\n\t\t}\n\n\t\t// text is changed here to await completed goal count\n\t\tstringx t1 = stringx(completed_goals)+\" \"+ksGlobalTextArray[GT_FE_MENU_OF]+\" \"+stringx(goal_num[cn]);\n\t\tt1.to_lower();\n\t\tgoals_completed[cn]->changeText(t1);\n\t}\n\telse\n\t{\n\t\tfor(int i=0; i<MAX_GOALS_PER_LEVEL; i++)\n\t\t\tfor(int j=0; j<2; j++)\n\t\t\t\tcompleted_lights[cn][i][j]->TurnOn(false);\n\t\tgoal_num[cn] = 0;\n\t}\n\treturn new_offset;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "UpdateChallenges__13BeachFrontEndiib"
+}
