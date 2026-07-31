@@ -1,0 +1,15 @@
+{
+  "address": "0x001C9690",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "aa40fce703d6a342d3f33943d1eb220d86faf826",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEEntityManager.h\"\n\nvoid FEEntityManager::AlignSurferWithBoard(void)\n{\n\tpo owner_po = my_parent_node->get_abs_po();\n\tpo trans( po_identity_matrix );\n\trational_t pos = get_floor_offset();// - last_offset;\n\ttrans.set_position(vector3d(0, pos, 0));\n\ttrans = trans*owner_po;\n\tsurfer_ent->set_rel_po(trans);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "AlignSurferWithBoard__15FEEntityManager"
+}
