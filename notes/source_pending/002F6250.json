@@ -1,0 +1,16 @@
+{
+  "address": "0x002F6250",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "176110d8c58b17bb55ce83cd3fd632898c5ee131",
+      "error": "Candidate did not emit _M_insert_aux__t6vector2ZQ28vr_pmesh4boneZt12my_allocator1ZQ28vr_pmesh4bonePQ28vr_pmesh4boneRCQ28vr_pmesh4bone; emitted functions: []",
+      "notes": "The function is a compiler-library specialization whose historical GCC 2 source header is external to the released game source drop.",
+      "score": 0.0,
+      "source": "/*\nThe function is a compiler-library specialization whose historical GCC 2 source header is external to the released game source drop.\nThis first-pass candidate intentionally compiles only the available canonical source context.\n*/\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "_M_insert_aux__t6vector2ZQ28vr_pmesh4boneZt12my_allocator1ZQ28vr_pmesh4bonePQ28vr_pmesh4boneRCQ28vr_pmesh4bone"
+}
