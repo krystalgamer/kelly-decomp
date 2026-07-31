@@ -132,6 +132,8 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/graph.h": "KS/SRC/graph_methods.cpp",
     "KS/SRC/HWOSPS2/ps2_input.h":
         "KS/SRC/HWOSPS2/ps2_input_methods.cpp",
+    "KS/SRC/HWOSPS2/ps2_rasterize.h":
+        "KS/SRC/HWOSPS2/ps2_rasterize_rtti.cpp",
     "KS/SRC/ks/CheatFrontEnd.h": "KS/SRC/ks/CheatFrontEnd_methods.cpp",
     "KS/SRC/ks/career.h": "KS/SRC/ks/career.cpp",
     "KS/SRC/ks/challenge_icon.h": "KS/SRC/ks/challenge_icon.cpp",
