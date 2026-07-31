@@ -1,0 +1,22 @@
+# load_this_level__4game
+
+- Address: `0x0027AF30`
+- Size: `0x179C` (6044 bytes)
+- Object: `game/files_misc1`
+- Debug source: `C:/KS/SRC/game.cpp`
+- Reference source: `KS/SRC/game.cpp`
+- Result: **source_pending**
+
+## Attempts
+
+| # | Status | Byte score | Instruction score | Candidate |
+| ---: | --- | ---: | ---: | --- |
+| 1 | compile_failed | 0.0 | 0 | `candidate.cpp` |
+
+### Attempt 1 notes
+
+Attempt 1 uses the exact released function definition and the matching canonical header when available.
+
+## Outcome
+
+The exact released source was attempted first. Further native C++ declaration or scheduling work remains.
