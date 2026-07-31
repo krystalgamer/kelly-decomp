@@ -1,0 +1,15 @@
+{
+  "address": "0x001AE0E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6d2bcb4d42f271fa9b886816d82acece287e8cf8",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FrontEndMenus.h\"\n\nvoid PauseMenuClass::OnDown(int c)\n{\n\tSoundScriptManager::inst()->unpause();\n\t//if (hasNext(this))\n\t\tsys->navigationEvent=SoundScriptManager::inst()->playEvent(SS_FE_UPDOWN);\n\t/*else\n\t\tsys->navigationEvent=SoundScriptManager::inst()->playEvent(SS_FE_ERROR);*/\n\tSoundScriptManager::inst()->pause();\n\n\tFEMenu::OnDown(c);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "OnDown__17PlaylistMenuClassi"
+}
