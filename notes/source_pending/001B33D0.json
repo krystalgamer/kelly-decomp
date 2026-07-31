@@ -1,0 +1,15 @@
+{
+  "address": "0x001B33D0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "82aca25b655f9d2635aa2e67b084f6a38215c07e",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FrontEndMenus.h\"\n\nPauseMenuSystem::PauseMenuSystem(FEManager* man, Font* f)\n{\n\tcons(NumMenus, man, f);\n\tint x = 320;\n\tint y = 240;\n\tcolor32 col = man->col_unselected;\n\tcolor32 colh = man->col_highlight;\n\tcolor32 colha = man->col_highlight2;\n\n\told_device_flags = 0;\n\tpause_controller = -1;\n\tpause_player = -1;\n\t\n\tAdd(NEW PauseMenuClass(this, x, y, col, colh, colha));\n\tAdd(NEW TimeAttackPauseMenuClass(this, x, y, col, colh, colha));\n\tAdd(NEW TutorialPauseMenuClass(this, x, y, col, colh, colha));\n\tAdd(NEW EndRunMenuClass(this, x, y, col, colh, colha));\n\tAdd(NEW HeatMidMenuClass(this, x, y, col, colh, colha));\n\tAdd(NEW HeatEndMenuClass(this, x, y, col, colh, colha));\n\tAdd(NEW CompEndMenuClass(this, x, y, col, colh, colha));\n\tAdd(NEW OptionsMenuClass(this, x, y, col, colh, colha));\n\tAdd(NEW GoalsMenuClass(this, x, y, col, colh, colha));\n\tAdd(NEW LostControllerMenuClass(this, x, y, col));\n\t\n\tSoundMenuClass* sound = NEW SoundMenuClass(this, x, y, col, colh, colha);\n\tAdd(sound);\n\tAdd(NEW CameraMenuClass(this, x, y, col, colh, colha));\n\tAdd(NEW TrickTypeMenuClass(this, x, y, col, colh, colha));\n\tPlaylistMenuClass* musiclist = NEW PlaylistMenuClass(this, x, y, col, colh, colha);\n\tmusiclist->AddSongsToList();\n\tAdd(musiclist);\n\tAdd(NEW ReplayMenuClass(this, x, y, col, colh, colha));\n\tAdd(man->map);\n\tAdd(NEW HighScoreFrontEnd(this, man, \"interface\\\\igo\\\\\", \"high_score.PANEL\", true));\n\tAdd(NEW PhotoFrontEnd(this, man, \"challenges\\\\photo\\\\\", \"photo.panel\"));\n\tAdd(NEW TutorialFrontEnd(this, man));\n\tAdd(NEW SaveLoadFrontEnd(this, man, \"levels\\\\frontend\\\\overlays\\\\\", \"save_load.PANEL\", false));\n\tAdd(NEW SaveCareerPromptClass(this, x, y, col, colh, colha));\n\tAdd(NEW TipMenuClass(this, x, y, col, colh, colha));\n\tAdd(NEW QuitConfirmMenuClass(this, x, y, col, colh, colha));\n\tMakeActive(PauseMenu);\n\tdraw = false;\n\treplay_mode = false;\n\tend_level = false;\n\tInitAll();\n\tpopupEvent = -1;\n\tnavigationEvent = -1;\n\tcontroller_disconnected = false;\n\n\tplayer = NEW TextString(&manager->font_bold, \"\", 320, 75, 0, 1.2f, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, col);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__15PauseMenuSystemP9FEManagerP4Font"
+}
