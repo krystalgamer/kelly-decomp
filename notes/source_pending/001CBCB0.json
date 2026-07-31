@@ -1,0 +1,16 @@
+{
+  "address": "0x001CBCB0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6b2a6e92d3c4a423ff471ff3cfb382740bb78f9c",
+      "error": "Candidate did not emit SwitchIconBeach__17HighScoreFrontEndb; emitted functions: []",
+      "notes": "The symbol has no directly extractable released definition under its linked spelling, or its preprocessor branches prevent a safe standalone extraction.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/HighScoreFrontEnd.h\"\n\n/*\nThe symbol has no directly extractable released definition under its linked spelling, or its preprocessor branches prevent a safe standalone extraction.\nThis first-pass candidate intentionally compiles only the available canonical source context.\n*/\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "SwitchIconBeach__17HighScoreFrontEndb"
+}
