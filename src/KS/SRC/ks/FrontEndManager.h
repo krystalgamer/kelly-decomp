@@ -6,6 +6,7 @@
 #include "KS/SRC/ks/FEEntityManager.h"
 #include "KS/SRC/ks/FEMenu.h"
 #include "KS/SRC/ks/GraphicalMenuSystem.h"
+#include "KS/SRC/ks/mode.h"
 
 class IGOFrontEnd;
 class PauseMenuSystem;
@@ -18,7 +19,9 @@ public:
     PauseMenuSystem *pms;
     GraphicalMenuSystem *gms;
     FEEntityManager *em;
-    char manager_context_before_loading[0x1567c - 0x10];
+    char manager_context_before_game_mode[0x1566c - 0x10];
+    game_mode_t tmp_game_mode;
+    char manager_context_before_loading[0x0c];
     bool fe_done_loading;
     char manager_context_after_loading[0x20];
     BeachFrontEnd *map;
