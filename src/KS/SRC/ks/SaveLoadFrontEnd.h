@@ -41,6 +41,7 @@ public:
     void RefreshDisplay();
     void TurnPQ(bool enabled);
     void Format();
+    void ResetCardFormat();
     int ActiveCard() { return active_card; }
     static int FindAdjusted(int active);
 
