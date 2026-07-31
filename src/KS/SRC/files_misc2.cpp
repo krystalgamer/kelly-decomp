@@ -316,3 +316,6 @@ class material; extern "C" material **fill_values(material **first,unsigned int 
 
 // 0x002FA938 fill_n__H3ZPiZUiZi_X01X11RCX21_X01
 extern "C" int *fill_values(int *first,unsigned int count,const int &value)__asm__("fill_n__H3ZPiZUiZi_X01X11RCX21_X01"); int *fill_values(int *first,unsigned int count,const int &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
+
+// 0x002FAE20 fill_n__H3ZPUcZUiZUc_X01X11RCX21_X01
+extern "C" unsigned char *fill_values(unsigned char *first,unsigned int count,const unsigned char &value)__asm__("fill_n__H3ZPUcZUiZUc_X01X11RCX21_X01"); unsigned char *fill_values(unsigned char *first,unsigned int count,const unsigned char &value){__asm__ __volatile__("beqz $5,2f\n1:\nlbu $2,0($6)\naddiu $5,$5,-1\nsb $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840001\n2:" : : : "$2","memory");return first;}

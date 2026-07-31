@@ -5169,7 +5169,7 @@ insert__t4list2ZP9vm_threadZt12my_allocator1ZP9vm_threadGt14_List_iterator3ZP9vm
 resize__t4list2ZP9vm_threadZt12my_allocator1ZP9vm_threadUiRCP9vm_thread = 0x002FAB48; // type:func size:0x98
 _M_insert_aux__t6vector2ZP7nglMeshZt12my_allocator1ZP7nglMeshPP7nglMeshRCP7nglMesh = 0x002FABE0; // type:func size:0x204
 fill__H2ZPUcZUc_X01X01RCX11_v = 0x002FADE8; // type:func size:0x34
-fill_n__H3ZPUcZUiZUc_X01X11RCX21_X01 = 0x002FAE20; // type:func size:0x2C
+fill_n__H3ZPUcZUiZUc_X01X11RCX21_X01 = 0x002FAE20; // type:func defined:true size:0x2C
 insert__t6vector2ZUcZt12my_allocator1ZUcPUcUiRCUc = 0x002FAE50; // type:func size:0x278
 _M_insert_aux__t6vector2ZUcZt12my_allocator1ZUcPUcRCUc = 0x002FB0D0; // type:func size:0x1D8
 fill__H2ZPiZi_X01X01RCX11_v = 0x002FB2B0; // type:func size:0x34
