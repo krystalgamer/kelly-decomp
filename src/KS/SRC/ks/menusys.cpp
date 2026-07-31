@@ -30,7 +30,7 @@ void MenuSystemOpenMenu(MenuSystem *self, Menu *menu)
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00240F88)
-#include "KS/SRC/ks/menusys_shared.h"
+#include "KS/SRC/ks/menusys.h"
 // 0x00240F88 InitButtonStates__9MenuInput
 void MenuInput::InitButtonStates()
 {
