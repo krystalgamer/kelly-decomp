@@ -629,7 +629,7 @@ region_node *entity::get_primary_region() const
 }
 
 // 0x001348D8 get_anim_tree__C6entityi
-#include "KS/SRC/entity_anim_shared.h"
+#include "KS/SRC/entity_anim.h"
 #include "KS/SRC/entity.h"
 
 entity_anim_tree *entity::get_anim_tree(int slot) const
@@ -1051,7 +1051,7 @@ time_interface *entity::create_time_ifc()
 }
 
 // 0x00134AB0 attach_anim__6entityP11entity_anim
-#include "KS/SRC/entity_anim_shared.h"
+#include "KS/SRC/entity_anim.h"
 #include "KS/SRC/entity.h"
 
 __asm__(".equ detach__11entity_anim, 0x00113A50");

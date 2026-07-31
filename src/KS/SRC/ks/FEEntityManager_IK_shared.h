@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_FE_ENTITY_MANAGER_IK_SHARED_H
 #define KELLY_DECOMP_FE_ENTITY_MANAGER_IK_SHARED_H
 
-#include "KS/SRC/entity_anim_shared.h"
+#include "KS/SRC/entity_anim.h"
 #include "KS/SRC/ks/trickdata.h"
 #include "KS/SRC/matfac.h"
 #include "KS/SRC/po.h"
