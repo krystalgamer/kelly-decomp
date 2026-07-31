@@ -1,0 +1,16 @@
+{
+  "address": "0x0031D1B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a98d39c79a8f81a112c9f780b3f0a523b10b5173",
+      "error": "Candidate did not emit __static_initialization_and_destruction_0; emitted functions: []",
+      "notes": "The function is compiler-generated static initialization code and has no explicit released C++ function body.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/script_lib_list.h\"\n\n/*\nThe function is compiler-generated static initialization code and has no explicit released C++ function body.\nThis first-pass candidate intentionally compiles only the available canonical source context.\n*/\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "__static_initialization_and_destruction_0"
+}
