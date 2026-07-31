@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_MENUDRAW_SHARED_H
 #define KELLY_DECOMP_MENUDRAW_SHARED_H
 
-#include "KS/SRC/ks/menu_shared.h"
+#include "KS/SRC/ks/menu.h"
 
 typedef void (*MenudrawSetter)(bool);
 

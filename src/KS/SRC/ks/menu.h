@@ -1,554 +1,313 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef MENU_H
+#define MENU_H
 
-#if defined(KELLY_DECOMP_FUNCTION_002704F8) || \
-    defined(KELLY_DECOMP_FUNCTION_00270500) || \
-    defined(KELLY_DECOMP_FUNCTION_00270508) || \
-    defined(KELLY_DECOMP_FUNCTION_00270510) || \
-    defined(KELLY_DECOMP_FUNCTION_00270518) || \
-    defined(KELLY_DECOMP_FUNCTION_00270520) || \
-    defined(KELLY_DECOMP_FUNCTION_00270528) || \
-    defined(KELLY_DECOMP_FUNCTION_00270530) || \
-    defined(KELLY_DECOMP_FUNCTION_00270538) || \
-    defined(KELLY_DECOMP_FUNCTION_00270540) || \
-    defined(KELLY_DECOMP_FUNCTION_002706D0) || \
-    defined(KELLY_DECOMP_FUNCTION_002706F0) || \
-    defined(KELLY_DECOMP_FUNCTION_002707E8) || \
-    defined(KELLY_DECOMP_FUNCTION_002708E8) || \
-    defined(KELLY_DECOMP_FUNCTION_00270B50) || \
-    defined(KELLY_DECOMP_FUNCTION_00270CA8)
-#define KELLY_DECOMP_MENU_OUT_OF_LINE_DEFAULTS
-#include "KS/SRC/ks/menu_shared.h"
-#undef KELLY_DECOMP_MENU_OUT_OF_LINE_DEFAULTS
-#endif
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_002704F8)
-// 0x002704F8 OnTick__9MenuEntryf
-void MenuEntry::OnTick(float arg0) {
-}
-#endif
+class Menu;
+class MenuEntry;
+class MenuSystem;
+class stringx;
 
-#if defined(KELLY_DECOMP_FUNCTION_00270500)
-// 0x00270500 OnButtonPress__9MenuEntryi
-void MenuEntry::OnButtonPress(int arg0) {
-}
-#endif
+typedef bool MenuEntryButtonFunction(MenuEntry *entry, int button_id);
+typedef MenuEntryButtonFunction *MenuEntryButtonFunctionPtr;
 
-#if defined(KELLY_DECOMP_FUNCTION_00270508)
-// 0x00270508 OnButtonRelease__9MenuEntryi
-void MenuEntry::OnButtonRelease(int arg0) {
-}
-#endif
+struct MenuColor {
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char a;
+};
 
-#if defined(KELLY_DECOMP_FUNCTION_00270510)
-// 0x00270510 OnHide__9MenuEntry
-void MenuEntry::OnHide() {
-}
-#endif
+enum MenuEntryFlags {
+    MENTRY_VISIBLE = 1 << 0,
+    MENTRY_ENABLED = 1 << 1,
+    MENTRY_ACTIVE = 1 << 2,
+};
 
-#if defined(KELLY_DECOMP_FUNCTION_00270518)
-// 0x00270518 OnShow__9MenuEntry
-void MenuEntry::OnShow() {
-}
-#endif
+class Menu {
+    Menu *parent;
+    int entries;
+    MenuEntry **entry;
+    int activeentry;
+    bool isopen;
+    Menu *closeto;
+    MenuSystem *control;
 
-#if defined(KELLY_DECOMP_FUNCTION_00270520)
-// 0x00270520 OnEnable__9MenuEntry
-void MenuEntry::OnEnable() {
-}
-#endif
+    bool Resize(int size);
 
-#if defined(KELLY_DECOMP_FUNCTION_00270528)
-// 0x00270528 OnDisable__9MenuEntry
-void MenuEntry::OnDisable() {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00270530)
-// 0x00270530 OnActivate__9MenuEntry
-void MenuEntry::OnActivate() {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00270538)
-// 0x00270538 OnDeactivate__9MenuEntry
-void MenuEntry::OnDeactivate() {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00270540)
-// 0x00270540 MenuText__9MenuEntryPci
-int MenuEntry::MenuText(char* text, int length) { if (length > 0) *text = 0; return 0; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00270918)
-// 0x00270918 SetValue__26MenuEntryFunctionFloatEditf
-class MenuEntryFunctionFloatEdit {
-    char padding[0xC];
-    float* tfloat;
 public:
-    void SetValue(float value);
-};
+    Menu(Menu *parent);
+    Menu(Menu *parent, int entries, MenuEntry **entry);
+    virtual ~Menu();
+    void ClearMenu();
+    void AddEntry(MenuEntry *entry);
+    void AddEntries(int entries, MenuEntry **entry);
+    void DelEntry(MenuEntry *entry);
+    bool IsOpen() { return isopen; }
+    void Open(Menu *close_to, MenuSystem *control);
+    void Close(bool to_parent = true);
+    virtual void CloseAll();
 
-void MenuEntryFunctionFloatEdit::SetValue(float value) {
-    *tfloat = value;
-}
-#endif
+protected:
+    void ActivateEntry(int entry);
+    void FindActivateEntry(int direction);
+    MenuEntry *GetEntry(int entry)
+    {
+        return entry >= 0 && entry < entries ? this->entry[entry] : 0;
+    }
 
-#if defined(KELLY_DECOMP_FUNCTION_00270928)
-// 0x00270928 GetValue__26MenuEntryFunctionFloatEdit
-class MenuEntryFunctionFloatEdit { char padding[0xC]; float* value; public: float GetValue(); };
-float MenuEntryFunctionFloatEdit::GetValue() { return value ? *value : 0.0f; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00270A68)
-// 0x00270A68 OnMenuClose__7Submenu
-class Submenu {
-    char padding[0x10];
-    void* parent;
-    void* system;
 public:
-    void OnMenuClose();
+    void ButtonPress(int button_info);
+    void ButtonRelease(int button_info);
+    int NumEntries() { return entries; }
+    int GetActiveEntry() { return activeentry; }
+    unsigned int GetElementFlags(int entry);
+    void GetElementText(int entry, char *text, int length);
+    MenuColor GetElementColor(int entry);
+    virtual void OnTick(float delta_time);
+    virtual void OnButtonPress(int button_id);
+    virtual void OnButtonRelease(int button_id);
+
+protected:
+    virtual void OnOpen(Menu *close_to, MenuSystem *control);
+    virtual void OnClose(bool to_parent);
 };
 
-void Submenu::OnMenuClose() {
-    parent = 0;
-    system = 0;
-}
-#endif
+class MenuEntry {
+    friend class Menu;
 
-#if defined(KELLY_DECOMP_FUNCTION_00270BB8)
-// 0x00270BB8 GetValue__16MenuEntryIntEdit
-class MenuEntryIntEdit { char padding[0xC]; int* value; public: int GetValue(); };
-int MenuEntryIntEdit::GetValue() { return value ? *value : 0; }
-#endif
+    unsigned int flags;
 
-#if defined(KELLY_DECOMP_FUNCTION_00270CD8)
-// 0x00270CD8 SetValue__18MenuEntryFloatEditf
-class MenuEntryFloatEdit {
-    char padding[0xC];
-    float* tfloat;
 public:
-    void SetValue(float value);
+    MenuEntry() { flags = MENTRY_VISIBLE | MENTRY_ENABLED; }
+    virtual ~MenuEntry() {}
+
+protected:
+    bool GetFlag(unsigned int flag) { return (flags & flag) != 0; }
+    void SetFlag(unsigned int flag, bool onOff)
+    {
+        if (onOff)
+            flags |= flag;
+        else
+            flags &= ~flag;
+    }
+
+public:
+    bool IsVisible() { return GetFlag(MENTRY_VISIBLE); }
+    bool IsEnabled() { return IsVisible() && GetFlag(MENTRY_ENABLED); }
+    bool IsActive() { return GetFlag(MENTRY_ACTIVE); }
+    unsigned int GetState() { return flags; }
+    virtual MenuColor GetColor();
+    virtual void Show();
+    virtual void Hide();
+    virtual void Enable();
+    virtual void Disable();
+    virtual void Activate();
+    virtual void Deactivate();
+    virtual void OnTick(float dtime);
+    virtual void OnMenuOpen(Menu *menu, MenuSystem *system);
+    virtual void OnMenuClose();
+    virtual void OnButtonPress(int buttonid);
+    virtual void OnButtonRelease(int buttonid);
+
+protected:
+    virtual void OnHide();
+    virtual void OnShow();
+    virtual void OnEnable();
+    virtual void OnDisable();
+    virtual void OnActivate();
+    virtual void OnDeactivate();
+
+public:
+    virtual int MenuText(char *text, int len);
 };
 
-void MenuEntryFloatEdit::SetValue(float value) {
-    *tfloat = value;
-}
-#endif
+class MenuEntryLabel : public MenuEntry {
+protected:
+    const char *label;
 
-#if defined(KELLY_DECOMP_FUNCTION_00270CE8)
-// 0x00270CE8 GetValue__18MenuEntryFloatEdit
-class MenuEntryFloatEdit { char padding[0xC]; float* value; public: float GetValue(); };
-float MenuEntryFloatEdit::GetValue() { return value ? *value : 0.0f; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002706D0)
-// 0x002706D0 Enable__14MenuEntryTitle
-__asm__(".equ Disable__9MenuEntry, 0x0023EE50");
-void MenuEntryTitle::Enable() { MenuEntry::Disable(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002706F0)
-// 0x002706F0 Disable__14MenuEntryTitle
-__asm__(".equ Disable__9MenuEntry, 0x0023EE50");
-void MenuEntryTitle::Disable() { MenuEntry::Disable(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002707E8)
-// 0x002707E8 OnButtonPress__17MenuEntryFunctioni
-void MenuEntryFunction::OnButtonPress(int button) { if (function) (*function)(this, button); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002708E8)
-// 0x002708E8 OnMenuOpen__26MenuEntryFunctionFloatEditP4MenuP10MenuSystem
-__asm__(".equ OnMenuOpen__9MenuEntryP4MenuP10MenuSystem, 0x0023EF90");
-__asm__(".equ FixValue__26MenuEntryFunctionFloatEdit, 0x0023FF48");
-void MenuEntryFunctionFloatEdit::OnMenuOpen(Menu *menu, MenuSystem *system) { MenuEntry::OnMenuOpen(menu, system); FixValue(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00270B50)
-// 0x00270B50 OnMenuOpen__16MenuEntryIntEditP4MenuP10MenuSystem
-__asm__(".equ OnMenuOpen__9MenuEntryP4MenuP10MenuSystem, 0x0023EF90");
-__asm__(".equ FixValue__16MenuEntryIntEdit, 0x0023F4D8");
-void MenuEntryIntEdit::OnMenuOpen(Menu *menu, MenuSystem *system) { MenuEntry::OnMenuOpen(menu, system); FixValue(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00270CA8)
-// 0x00270CA8 OnMenuOpen__18MenuEntryFloatEditP4MenuP10MenuSystem
-__asm__(".equ OnMenuOpen__9MenuEntryP4MenuP10MenuSystem, 0x0023EF90");
-__asm__(".equ FixValue__18MenuEntryFloatEdit, 0x0023FB98");
-void MenuEntryFloatEdit::OnMenuOpen(Menu *menu, MenuSystem *system) { MenuEntry::OnMenuOpen(menu, system); FixValue(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002704B8)
-// 0x002704B8 _$_9MenuEntry
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char target_vtable[];
-__asm__(".equ target_vtable, 0x004D5C98");
-
-struct target_layout {
-    char padding[0x4];
-    const void *vtable;
+public:
+    MenuEntryLabel(const char *text) { label = text; }
+    virtual ~MenuEntryLabel() {}
+    virtual int MenuText(char *text, int length);
 };
 
-extern "C" void TargetDtor(void *self, int deleting)
-    __asm__("_$_9MenuEntry");
-
-void TargetDtor(void *self, int deleting) {
-    ((target_layout *)self)->vtable = target_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
+class MenuEntryTitle : public MenuEntryLabel {
+public:
+    MenuEntryTitle(char *text)
+        : MenuEntryLabel(text)
+    {
+        Disable();
     }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002705C8)
-// 0x002705C8 _$_14MenuEntryLabel
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char target_vtable[];
-__asm__(".equ target_vtable, 0x004D5C98");
-
-struct target_layout {
-    char padding[0x4];
-    const void *vtable;
+    virtual ~MenuEntryTitle() {}
+    virtual void Enable();
+    virtual void Disable();
+    virtual MenuColor GetColor();
 };
 
-extern "C" void TargetDtor(void *self, int deleting)
-    __asm__("_$_14MenuEntryLabel");
+class MenuEntryFunction : public MenuEntryLabel {
+    MenuEntryButtonFunctionPtr function;
 
-void TargetDtor(void *self, int deleting) {
-    ((target_layout *)self)->vtable = target_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
+public:
+    MenuEntryFunction(char *text, MenuEntryButtonFunctionPtr callback)
+        : MenuEntryLabel(text)
+    {
+        function = callback;
     }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002706A0)
-// 0x002706A0 _$_14MenuEntryTitle
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char target_vtable[];
-__asm__(".equ target_vtable, 0x004D5C98");
-
-struct target_layout {
-    char padding[0x4];
-    const void *vtable;
+    virtual ~MenuEntryFunction() {}
+    virtual void OnButtonPress(int button_id);
 };
 
-extern "C" void TargetDtor(void *self, int deleting)
-    __asm__("_$_14MenuEntryTitle");
+class MenuEntryFunctionFloatEdit : public MenuEntryLabel {
+    float *target;
 
-void TargetDtor(void *self, int deleting) {
-    ((target_layout *)self)->vtable = target_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
-    }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
+protected:
+    float low;
+    float high;
+    float step;
+    char *format;
+    MenuEntryButtonFunctionPtr function;
 
-#if defined(KELLY_DECOMP_FUNCTION_002707B8)
-// 0x002707B8 _$_17MenuEntryFunction
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char target_vtable[];
-__asm__(".equ target_vtable, 0x004D5C98");
-
-struct target_layout {
-    char padding[0x4];
-    const void *vtable;
+public:
+    MenuEntryFunctionFloatEdit(char *text, float *target,
+                               MenuEntryButtonFunctionPtr function,
+                               float low, float high, float step);
+    MenuEntryFunctionFloatEdit(char *text, float *target,
+                               MenuEntryButtonFunctionPtr function,
+                               float low, float high, float step, char *format);
+    virtual ~MenuEntryFunctionFloatEdit() {}
+    virtual void OnMenuOpen(Menu *menu, MenuSystem *system);
+    virtual int MenuText(char *text, int length);
+    virtual void OnButtonPress(int button_id);
+    void FixValue();
+    virtual void SetValue(float value) { *target = value; }
+    virtual float GetValue() { return target ? *target : 0; }
 };
 
-extern "C" void TargetDtor(void *self, int deleting)
-    __asm__("_$_17MenuEntryFunction");
+class Submenu : public MenuEntryLabel {
+    Menu *menuopen;
+    Menu *parent;
+    MenuSystem *system;
 
-void TargetDtor(void *self, int deleting) {
-    ((target_layout *)self)->vtable = target_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
+public:
+    Submenu(char *text, Menu *menu)
+        : MenuEntryLabel(text)
+    {
+        menuopen = menu;
+        parent = 0;
+        system = 0;
     }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002708B8)
-// 0x002708B8 _$_26MenuEntryFunctionFloatEdit
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char target_vtable[];
-__asm__(".equ target_vtable, 0x004D5C98");
-
-struct target_layout {
-    char padding[0x4];
-    const void *vtable;
+    virtual ~Submenu() {}
+    virtual void OnButtonPress(int button_id);
+    virtual void OnMenuOpen(Menu *menu, MenuSystem *system)
+    {
+        MenuEntryLabel::OnMenuOpen(menu, system);
+        parent = menu;
+        this->system = system;
+    }
+    virtual void OnMenuClose()
+    {
+        parent = 0;
+        system = 0;
+    }
+    Menu *GetMenu() { return menuopen; }
 };
 
-extern "C" void TargetDtor(void *self, int deleting)
-    __asm__("_$_26MenuEntryFunctionFloatEdit");
-
-void TargetDtor(void *self, int deleting) {
-    ((target_layout *)self)->vtable = target_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
-    }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002709F0)
-// 0x002709F0 _$_7Submenu
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char target_vtable[];
-__asm__(".equ target_vtable, 0x004D5C98");
-
-struct target_layout {
-    char padding[0x4];
-    const void *vtable;
-};
-
-extern "C" void TargetDtor(void *self, int deleting)
-    __asm__("_$_7Submenu");
-
-void TargetDtor(void *self, int deleting) {
-    ((target_layout *)self)->vtable = target_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
-    }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00270B20)
-// 0x00270B20 _$_16MenuEntryIntEdit
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char target_vtable[];
-__asm__(".equ target_vtable, 0x004D5C98");
-
-struct target_layout {
-    char padding[0x4];
-    const void *vtable;
-};
-
-extern "C" void TargetDtor(void *self, int deleting)
-    __asm__("_$_16MenuEntryIntEdit");
-
-void TargetDtor(void *self, int deleting) {
-    ((target_layout *)self)->vtable = target_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
-    }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00270D60)
-#include "KS/SRC/rtti.h"
-#include "KS/SRC/ks/menu_shared.h"
-
-extern "C" void **menu_entry_enum_base_rtti()
-    __asm__("__tf17MenuEntryListEdit");
-extern "C" void *menu_entry_enum_type[]
-    __asm__("__ti17MenuEntryEnumEdit");
-extern "C" const char menu_entry_enum_name[];
-extern "C" void *menu_entry_enum_base_type[]
-    __asm__("__ti17MenuEntryListEdit");
-
-__asm__(".equ __tf17MenuEntryListEdit, 0x0026E800");
-__asm__(".equ __ti17MenuEntryEnumEdit, 0x005A3D10");
-__asm__(".equ menu_entry_enum_name, 0x004E51A0");
-__asm__(".equ __ti17MenuEntryListEdit, 0x005A3CF0");
-
-// 0x00270D60 __tf17MenuEntryEnumEdit
-extern "C" void **menu_entry_enum_rtti()
-    __asm__("__tf17MenuEntryEnumEdit");
-void **menu_entry_enum_rtti()
-{
-    if (!menu_entry_enum_type[0]) {
-        menu_entry_enum_base_rtti();
-        __rtti_si(
-            menu_entry_enum_type,
-            menu_entry_enum_name,
-            menu_entry_enum_base_type
-        );
-    }
-    return menu_entry_enum_type;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00270C78)
-// 0x00270C78 _$_18MenuEntryFloatEdit
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char target_vtable[];
-__asm__(".equ target_vtable, 0x004D5C98");
-
-struct target_layout {
-    char padding[0x4];
-    const void *vtable;
-};
-
-extern "C" void TargetDtor(void *self, int deleting)
-    __asm__("_$_18MenuEntryFloatEdit");
-
-void TargetDtor(void *self, int deleting) {
-    ((target_layout *)self)->vtable = target_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
-    }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00270D00)
-// 0x00270D00 _$_17MenuEntryListEdit
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char target_vtable[];
-__asm__(".equ target_vtable, 0x004D5C98");
-
-struct target_layout {
-    char padding[0x4];
-    const void *vtable;
-};
-
-extern "C" void TargetDtor(void *self, int deleting)
-    __asm__("_$_17MenuEntryListEdit");
-
-void TargetDtor(void *self, int deleting) {
-    ((target_layout *)self)->vtable = target_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
-    }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00270D30)
-// 0x00270D30 _$_24MenuEntryStringxListEdit
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char target_vtable[];
-__asm__(".equ target_vtable, 0x004D5C98");
-
-struct target_layout {
-    char padding[0x4];
-    const void *vtable;
-};
-
-extern "C" void TargetDtor(void *self, int deleting)
-    __asm__("_$_24MenuEntryStringxListEdit");
-
-void TargetDtor(void *self, int deleting) {
-    ((target_layout *)self)->vtable = target_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
-    }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00270DB0)
-// 0x00270DB0 _$_17MenuEntryEnumEdit
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char target_vtable[];
-__asm__(".equ target_vtable, 0x004D5C98");
-
-struct target_layout {
-    char padding[0x4];
-    const void *vtable;
-};
-
-extern "C" void TargetDtor(void *self, int deleting)
-    __asm__("_$_17MenuEntryEnumEdit");
-
-void TargetDtor(void *self, int deleting) {
-    ((target_layout *)self)->vtable = target_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
-    }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00270B80)
-// 0x00270B80 SetValue__16MenuEntryIntEditi
-class MenuEntryIntEdit {
-    char padding[0x0C];
+class MenuEntryIntEdit : public MenuEntryLabel {
     int *tint;
+
+protected:
     int lo;
     int hi;
+    int delta;
+    char *format;
 
 public:
-    void SetValue(int value);
+    MenuEntryIntEdit(const char *text, int *target, int low, int high);
+    MenuEntryIntEdit(const char *text, int *target, int low, int high, char *format);
+    MenuEntryIntEdit(const char *text, int *target, int low, int high, int delta);
+    MenuEntryIntEdit(const char *text, int *target, int low, int high, int delta, char *format);
+    virtual ~MenuEntryIntEdit() {}
+    virtual void OnMenuOpen(Menu *menu, MenuSystem *system);
+    virtual int MenuText(char *text, int length);
+    virtual void OnButtonPress(int button_id);
+    void FixValue();
+    virtual void DecValue();
+    virtual void IncValue();
+    virtual void DecValueByTen();
+    virtual void IncValueByTen();
+    virtual void DecValueByFifty();
+    virtual void IncValueByFifty();
+    virtual void SetValue(int value)
+    {
+        if (tint && value >= lo && value <= hi)
+            *tint = value;
+    }
+    virtual int GetValue() { return tint ? *tint : 0; }
 };
 
-void MenuEntryIntEdit::SetValue(int value)
-{
-    if (tint && value >= lo && value <= hi)
-        *tint = value;
-}
-#endif
+class MenuEntryFloatEdit : public MenuEntryLabel {
+    float *target;
 
-#if defined(KELLY_DECOMP_FUNCTION_002703D0)
-// 0x002703D0 __tf4Menu
-extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
-extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
-asm(".equ typeinfo, 0x005120F8"); asm(".equ type_name, 0x004E50A8");
-extern "C" void *GetTypeInfo() __asm__("__tf4Menu");
-void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
-#endif
+protected:
+    float low;
+    float high;
+    float step;
+    char *format;
 
-#if defined(KELLY_DECOMP_FUNCTION_00270470)
-// 0x00270470 __tf9MenuEntry
-extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
-extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
-asm(".equ typeinfo, 0x00512100"); asm(".equ type_name, 0x004E50B0");
-extern "C" void *GetTypeInfo() __asm__("__tf9MenuEntry");
-void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
-#endif
+public:
+    MenuEntryFloatEdit(char *text, float *target, float low, float high, float step);
+    MenuEntryFloatEdit(char *text, float *target, float low, float high, float step, char *format);
+    virtual ~MenuEntryFloatEdit() {}
+    virtual void OnMenuOpen(Menu *menu, MenuSystem *system);
+    virtual int MenuText(char *text, int length);
+    virtual void OnButtonPress(int button_id);
+    void FixValue();
+    virtual void SetValue(float value) { *target = value; }
+    virtual float GetValue() { return target ? *target : 0; }
+};
 
-#if defined(KELLY_DECOMP_FUNCTION_00270410)
-// 0x00270410 _$_4Menu
-extern "C" void close_menu(void *,bool)
-    __asm__("Close__4Menub");
-extern "C" void resize_menu(void *,int)
-    __asm__("Resize__4Menui");
-extern "C" void object_delete(void *)
-    __asm__("__builtin_delete");
-extern const char menu_vtable[];
-__asm__(".equ Close__4Menub, 0x0023E470");
-__asm__(".equ Resize__4Menui, 0x0023E2B0");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-__asm__(".equ menu_vtable, 0x004D5D48");
-struct menu_layout { char padding[0x1c]; const void *vtable; };
-extern "C" void destroy_menu(menu_layout *self,int flags)
-    __asm__("_$_4Menu");
-void destroy_menu(menu_layout *self,int flags) {
-    self->vtable=menu_vtable;
-    close_menu(self,true);
-    resize_menu(self,0);
-    if (flags&1) {
-        object_delete(self);
-        __asm__ __volatile__("" : : : "memory");
-    }
-}
+class MenuEntryListEdit : public MenuEntryIntEdit {
+    char **label;
+
+public:
+    MenuEntryListEdit(char *text, int *target, int count, char **labels);
+    MenuEntryListEdit(char *text, int *target, int count, char **labels, char *format);
+    virtual ~MenuEntryListEdit() {}
+    virtual int MenuText(char *text, int length);
+};
+
+class MenuEntryStringxListEdit : public MenuEntryIntEdit {
+    stringx *label;
+
+public:
+    MenuEntryStringxListEdit(char *text, int *target, int count, stringx *labels);
+    MenuEntryStringxListEdit(char *text, int *target, int count, stringx *labels, char *format);
+    virtual ~MenuEntryStringxListEdit() {}
+    virtual int MenuText(char *text, int length);
+};
+
+class MenuEntryEnumEdit : public MenuEntryListEdit {
+    int *vals;
+
+public:
+    MenuEntryEnumEdit(char *text, int *target, int count, char **labels, int *values);
+    MenuEntryEnumEdit(char *text, int *target, int count, char **labels, int *values, char *format);
+    virtual ~MenuEntryEnumEdit() {}
+    virtual void SetValue(int value);
+    virtual int GetValue();
+};
+
+class MenuSystem {
+    char menu_system_context[0x458];
+
+public:
+    virtual ~MenuSystem();
+    virtual void OpenMenu(Menu *menu);
+    virtual void CloseMenu();
+    void CloseAllMenus();
+    virtual void ButtonPress(int button);
+    virtual void ButtonRelease(int button);
+};
+
 #endif

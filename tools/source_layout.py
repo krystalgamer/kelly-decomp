@@ -80,6 +80,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/FEPanel.h": "KS/SRC/ks/FEPanel_methods.cpp",
     "KS/SRC/ks/FEMenu.h": "KS/SRC/ks/FEMenu_methods.cpp",
     "KS/SRC/ks/ks_camera.h": "KS/SRC/ks/ks_camera_methods.cpp",
+    "KS/SRC/ks/menu.h": "KS/SRC/ks/menu_methods.cpp",
     "KS/SRC/ks/dxt1_codebook.h": "KS/SRC/ks/dxt1_codebook_rtti.cpp",
     "KS/SRC/light.h": "KS/SRC/light_methods.cpp",
     "KS/SRC/linear_anim.h": "KS/SRC/linear_anim_rtti.cpp",
