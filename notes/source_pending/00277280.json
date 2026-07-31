@@ -1,0 +1,15 @@
+{
+  "address": "0x00277280",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "4ebb65645f75e0cabff385f2891567b58ed9a585",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/file_finder.h\"\n\nbool file_finder::exists( const stringx& filename, const stringx& extension, stringx* found_name )\n{\n  assert ( !os_developer_options::inst()->is_flagged(os_developer_options::FLAG_STASH_ONLY) );\n\n  bool found = false;\n  filespec spec(filename);\n  stringx fname = spec.path + spec.name;\n  stringx ext = extension.length() ? extension : spec.ext;\n  fname += ext;\n\n  if ( os_file::file_exists( fname ) )\n    found = true;\n  else\n  {\n    vector<stringx>::const_iterator i = path_list.begin();\n    vector<stringx>::const_iterator i_end = path_list.end();\n\t  for ( ; i!=i_end; ++i )\n    {\n      fname = *i + spec.name + ext;\n\t  if ( os_file::file_exists( fname ) )\n      {\n        found = true;\n        break;\n\t    }\n/*      fname = *i + \"entities\\\\\" + spec.name + ext;\n\t\t  if ( os_file::file_exists( fname ) )\n      {\n        found = true;\n        break;\n\t    }*/\n      fname = *i + os_developer_options::inst()->get_string(os_developer_options::STRING_TEXTURE_DIR) + \"\\\\\" + spec.name + ext;\n\t\t  if ( os_file::file_exists( fname ) )\n      {\n        found = true;\n        break;\n\t    }\n/*      fname = *i + spec.name + \"\\\\\" + spec.name + ext;\n\t\t  if ( os_file::file_exists( fname ) )\n      {\n        found = true;\n        break;\n\t    }*/\n    }\n/*    if ( !found )\n    {\n      fname = \"fx\\\\\" + spec.name + ext;\n\t\t  if ( os_file::file_exists( fname ) )\n        found = true;\n    }*/\n\t}\n  if ( found )\n  {\n    if ( found_name )\n      *found_name = fname;\n    return true;\n  }\n  return false;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "exists__11file_finderRC7stringxT1P7stringx"
+}
