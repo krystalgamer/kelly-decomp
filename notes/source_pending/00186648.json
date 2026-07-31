@@ -1,0 +1,15 @@
+{
+  "address": "0x00186648",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "07983dc8457efe4a61c0932cb0ca8b0e2032c057",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/SurferFrontEnd.h\"\n\nvoid SurferFrontEnd::SetPQIndices()\n{\n\tfor(int i=0; i<9; i++)\n\t\tss_box[i] = GetPointer((\"box_0\"+stringx(i+1)).data());\n\n\tgauges[0][0] = GetPointer(\"gauge_spin_a\");\n\tgauges[0][1] = GetPointer(\"gauge_spin_b\");\n\tgauges[0][1]->SetColor(0, 0, 1, 1);\n\tgauges[0][2] = GetPointer(\"gauge_spin_c\");\n\tgauges[1][0] = GetPointer(\"gauge_speed_a\");\n\tgauges[1][1] = GetPointer(\"gauge_speed_b\");\n\tgauges[1][1]->SetColor(0, 0, 1, 1);\n\tgauges[1][2] = GetPointer(\"gauge_speed_c\");\n\tgauges[2][0] = GetPointer(\"gauge_air_a\");\n\tgauges[2][1] = GetPointer(\"gauge_air_b\");\n\tgauges[2][1]->SetColor(0, 0, 1, 1);\n\tgauges[2][2] = GetPointer(\"gauge_air_c\");\n\tgauges[3][0] = GetPointer(\"gauge_balance_a\");\n\tgauges[3][1] = GetPointer(\"gauge_balance_b\");\n\tgauges[3][1]->SetColor(0, 0, 1, 1);\n\tgauges[3][2] = GetPointer(\"gauge_balance_c\");\n\n\tfor(int i=0; i<4; i++)\n\t{\n\t\tred_gauges[i] = NEW PanelQuad(*gauges[i][1]);\n\t\tred_gauges[i]->SetColor(2, 0, 0, 1);\n\t\tred_gauges[i]->SetZ(gauges[i][1]->z + 20);\n\t}\n\n\thoriz_arrows[0][0] = GetPointer(\"button_off_left\");\n\thoriz_arrows[0][1] = GetPointer(\"button_on_left\");\n\thoriz_arrows[1][0] = GetPointer(\"button_off_right\");\n\thoriz_arrows[1][1] = GetPointer(\"button_on_right\");\n\n\thoriz_arrows[0][1]->TurnOn(false);\n\thoriz_arrows[1][1]->TurnOn(false);\n\n\tss_lines[0] = GetPointer(\"line_a\");\n\tss_lines[1] = GetPointer(\"line_b\");\n\tss_lines[2] = GetPointer(\"line_c\");\n\n\thcap_gauge = GetPointer(\"ss_handicap_gauge\");\t\t// static stuff\n\thcap_slider = GetPointer(\"ss_handicap_indicator\");\t// slider\n\thcap_color[0] = GetPointer(\"ss_handicap_minus\");\t// colored bar\n\thcap_color[1] = GetPointer(\"ss_handicap_plus\");\t\t// colored bar\n\thcap_color[0]->SetColor(0.0f, 1.0f, 0.0f, 1.0f);\n//\thcap_color[1]->SetColor(1.0f, 0.5f, 0.5f, 1.0f);\n\thcap_color[1]->SetColor(1.0f, 0.0f, 1.0f, 1.0f);\n\thcap_color[2] = NEW PanelQuad(*hcap_color[1]);\n\thcap_color[2]->SetZ(hcap_color[1]->z + 60);\n\thcap_color[2]->SetColor(0.5f, 0.5f, 0.5f, 1.0f);\n\n\t// reset handicap here\n\tAdjustHandicapAbso(0);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "SetPQIndices__14SurferFrontEnd"
+}
