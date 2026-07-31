@@ -146,7 +146,12 @@ def extract_definition(row: dict[str, str]) -> str:
             semicolon = text.find(";", occurrence)
             if opening >= 0 and (semicolon < 0 or opening < semicolon):
                 start = find_definition_start(text, occurrence)
-                end = find_body_end(text, opening)
+                try:
+                    end = find_body_end(text, opening)
+                except RuntimeError as error:
+                    raise SourceExtractionError(
+                        f"{row['raw_name']}: {error}"
+                    ) from error
                 return text[start:end].strip() + "\n"
             position = occurrence + len(needle)
     raise SourceExtractionError(
