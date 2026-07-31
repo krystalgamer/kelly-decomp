@@ -72,7 +72,7 @@ void VOEngine::stopVO()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00258558)
-#include "KS/SRC/ks/VOEngine_shared.h"
+#include "KS/SRC/ks/VOEngine.h"
 // 0x00258558 setCurrentLevel__8VOEnginei
 int nslGetSoundStatus(unsigned int sound);
 void nslStopSound(unsigned int sound);

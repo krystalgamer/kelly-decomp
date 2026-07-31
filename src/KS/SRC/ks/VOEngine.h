@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_VOENGINE_SHARED_H
-#define KELLY_DECOMP_VOENGINE_SHARED_H
+#ifndef VO_ENGINE_H
+#define VO_ENGINE_H
 
 typedef unsigned int nslSourceId;
 typedef unsigned int nslSoundId;
