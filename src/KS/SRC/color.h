@@ -1,6 +1,40 @@
 #ifndef COLOR_H
 #define COLOR_H
 
+class color32 {
+public:
+    union {
+        struct {
+            unsigned char b;
+            unsigned char g;
+            unsigned char r;
+            unsigned char a;
+        } channels;
+        struct {
+            unsigned char b;
+            unsigned char g;
+            unsigned char r;
+            unsigned char a;
+        } c;
+        unsigned int value;
+        unsigned int i;
+    };
+
+    color32(unsigned int packed = 0) : value(packed) {}
+
+    color32(
+        unsigned char red,
+        unsigned char green,
+        unsigned char blue,
+        unsigned char alpha = 255)
+    {
+        channels.b = blue;
+        channels.g = green;
+        channels.r = red;
+        channels.a = alpha;
+    }
+};
+
 class color {
 public:
     float r;

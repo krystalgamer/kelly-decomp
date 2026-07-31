@@ -32,42 +32,6 @@ public:
 #endif
 };
 
-#ifndef KELLY_DECOMP_COLOR32_DEFINED
-#define KELLY_DECOMP_COLOR32_DEFINED
-#if defined(KELLY_DECOMP_LOGBOOK_CONSTRUCTORS)
-class color32 {
-public:
-    union {
-        struct {
-            unsigned char b;
-            unsigned char g;
-            unsigned char r;
-            unsigned char a;
-        } channels;
-        unsigned int value;
-    };
-
-    color32(unsigned int packed = 0) : value(packed) {}
-
-    color32(
-        unsigned char red,
-        unsigned char green,
-        unsigned char blue,
-        unsigned char alpha = 255)
-    {
-        channels.b = blue;
-        channels.g = green;
-        channels.r = red;
-        channels.a = alpha;
-    }
-};
-#else
-struct color32 {
-    unsigned int value;
-};
-#endif
-#endif
-
 class TextString {
 protected:
     Font *font;

@@ -1,6 +1,7 @@
 #ifndef KELLY_DECOMP_FE_MENU_SHARED_H
 #define KELLY_DECOMP_FE_MENU_SHARED_H
 
+#include "KS/SRC/color.h"
 #include "KS/SRC/stringx.h"
 #if defined(KELLY_DECOMP_FULL_FEMENU_ENTRY)
 #include "KS/SRC/ks/FEPanel_shared.h"
@@ -18,14 +19,6 @@ class PanelQuad;
 class entity;
 class MultiLineString;
 class vector3d;
-
-#ifndef KELLY_DECOMP_COLOR32_DEFINED
-#define KELLY_DECOMP_COLOR32_DEFINED
-class color32 {
-public:
-    unsigned int value;
-};
-#endif
 
 class FEMenu;
 
