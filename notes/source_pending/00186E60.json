@@ -1,0 +1,15 @@
+{
+  "address": "0x00186E60",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bb45c06d8d813b38ffeae3340c1e08971313007f",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/SurferFrontEnd.h\"\n\nvoid SurferFrontEnd::SetDisplay(int d_state)\n{\n\tif(disp_state == d_state) return;\n\n\tScrapBook->Disable(d_state != DISP_STATS);\n\tContinue->Disable(d_state != DISP_STATS);\n\tHandicap->Disable(d_state != DISP_HANDICAP);\n/*\n\tFEMenuEntry *tmp=first;\n\tint i=0;\n\twhile(tmp && tmp != Bio)\n\t{\n\t\ttmp->Disable(d_state == DISP_STATS);\n\t\ttmp = tmp->next;\n\t\ti++;\n\t}\n*/\n\tss_lines[2]->TurnOn(d_state == DISP_HANDICAP);\n\thoriz_arrows[0][0]->TurnOn(d_state != DISP_STATS);\n\thoriz_arrows[1][0]->TurnOn(d_state != DISP_STATS);\n\n\thcap_gauge->TurnOn(d_state == DISP_HANDICAP);\n\thcap_slider->TurnOn(d_state == DISP_HANDICAP);\n\thcap_color[0]->TurnOn(d_state == DISP_HANDICAP);\n\thcap_color[1]->TurnOn(d_state == DISP_HANDICAP);\n\n\tif(d_state == DISP_STATS)\n\t\tsurfer_select->changeText(ksGlobalTextArray[GT_FE_MENU_SURFER_STAT]);\n\telse surfer_select->changeText(ksGlobalTextArray[GT_FE_MENU_SURFER_SELECT]);\n\n\tswitch(d_state)\n\t{\n\tcase DISP_SELECT:\n\t\tBio->SetPos(365, 244);\n\t\tTrick->SetPos(365, 262);\n\t\tPersonality->SetPos(365, 280);\n\t\tBio->up = current_surfer;\n\t\tcurrent_surfer->down = Bio;\n\t\tsetHigh(current_surfer);\n\t\tbreak;\n\tcase DISP_HANDICAP:\n\t\tBio->SetPos(365, 319);\n\t\tTrick->SetPos(365, 337);\n\t\tPersonality->SetPos(365, 355);\n\t\tHandicap->SetPos(365, 244);\n\t\tHandicap->up = current_surfer;\n\t\tHandicap->down = Bio;\n\t\tBio->up = Handicap;\n\t\tcurrent_surfer->down = Handicap;\n\t\tcurrent_surfer->up = Personality;\n\t\tPersonality->down = current_surfer;\n\t\tsetHigh(current_surfer);\n\t\thcap = 0;\n\t\tbreak;\n\tcase DISP_STATS:\n\t\tContinue->SetPos(365, 244);\n\t\tScrapBook->SetPos(365, 262);\n\t\tBio->SetPos(365, 280);\n\t\tTrick->SetPos(365, 298);\n\t\tPersonality->SetPos(365, 316);\n\t\tContinue->up = Personality;\n\t\tPersonality->down = Continue;\n\t\tScrapBook->up = Continue;\n\t\tContinue->down = ScrapBook;\n\t\tBio->up = ScrapBook;\n\t\tScrapBook->down = Bio;\n\t\tsetHigh(Continue);\n\t\tbreak;\n\tdefault: assert(0); break;\n\t}\n\n\tdisp_state = d_state;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "SetDisplay__14SurferFrontEndi"
+}
