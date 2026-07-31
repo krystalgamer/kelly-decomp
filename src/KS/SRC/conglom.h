@@ -1,36 +1,53 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef CONGLOM_H
+#define CONGLOM_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_00312F90)
-// 0x00312F90 is_a_conglomerate__C12conglomerate
-class conglomerate {
+#include "KS/SRC/entity.h"
+#include "KS/SRC/lightmgr.h"
+#include "KS/SRC/refptr.h"
+#include "g++-2/stl_vector.h"
+
+typedef vector<entity *> pentity_vector;
+
+class conglomerate : public entity {
+private:
+    pentity_vector members;
+    vector<stringx> names;
+    vector<char> parents;
+    refptr<light_manager> lightmgr;
+
 public:
-    bool is_a_conglomerate() const;
+    virtual void apply_destruction_fx();
+    conglomerate(
+        const entity_id &id,
+        unsigned int flags);
+    conglomerate(
+        const entity_id &id,
+        entity_flavor_t flavor = ENTITY_CONGLOMERATE,
+        unsigned int flags = 0);
+    virtual ~conglomerate();
+    virtual bool is_a_conglomerate() const;
+    virtual void ifl_lock(int frame);
+    virtual void ifl_pause();
+    virtual void ifl_play();
+    virtual void set_visible(bool visible);
+    virtual bool is_still_visible() const;
+    virtual rational_t terrain_radius() const;
+    virtual void force_region(region_node *region);
+    virtual void force_current_region();
+    virtual void unforce_regions();
+    virtual void frame_advance(time_value_t time);
+    virtual light_manager *get_light_set() const;
+    virtual void compute_sector(
+        terrain &terrain_data,
+        bool high_resolution = false);
+    virtual void frame_done_including_members();
+    virtual void acquire(unsigned int flags);
+    virtual void release();
+    virtual void set_ext_flag_recursive(
+        unsigned int flag,
+        bool enabled);
 };
 
-bool conglomerate::is_a_conglomerate() const {
-    return true;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00312F40)
-// 0x00312F40 __tf12conglomerate
-#include "KS/SRC/rtti.h"
-extern "C" void **ConglomerateBaseRtti() __asm__("__tf6entity");
-extern "C" void *conglomerate_type[] __asm__("__ti12conglomerate");
-extern "C" const char conglomerate_name[];
-extern "C" void *conglomerate_base_type[] __asm__("__ti6entity");
-__asm__(".equ __tf6entity, 0x001449C8");
-__asm__(".equ __ti12conglomerate, 0x005A4140");
-__asm__(".equ conglomerate_name, 0x00508848");
-__asm__(".equ __ti6entity, 0x005A27C8");
-extern "C" void **ConglomerateRtti() __asm__("__tf12conglomerate");
-void **ConglomerateRtti()
-{
-    if (!conglomerate_type[0]) {
-        ConglomerateBaseRtti();
-        __rtti_si(conglomerate_type, conglomerate_name, conglomerate_base_type);
-    }
-    return conglomerate_type;
-}
 #endif

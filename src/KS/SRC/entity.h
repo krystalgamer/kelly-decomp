@@ -245,7 +245,7 @@ private:
     entity_controller *my_controller;
     unsigned int max_lights;
     time_value_t programmed_cell_death;
-    unsigned short bone_idx;
+    short bone_idx;
     char entity_data_after_bone_idx[2];
     unsigned int ext_flags;
     destroyable_info *destroy_info;
@@ -502,6 +502,7 @@ public:
 
     time_value_t get_age() const;
     int get_hero_id();
+    inline short get_bone_idx() const { return bone_idx; }
     int get_max_polys() const;
     void delete_visrep();
     bool has_mesh();
