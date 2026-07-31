@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_DEMO_MODE_SHARED_H
-#define KELLY_DECOMP_DEMO_MODE_SHARED_H
+#ifndef DEMO_MODE_H
+#define DEMO_MODE_H
 
 struct DemoReplayFile {
     unsigned char *Buf;
