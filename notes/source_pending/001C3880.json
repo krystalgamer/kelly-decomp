@@ -1,0 +1,15 @@
+{
+  "address": "0x001C3880",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9b4bd1ebca30fcd741b48b0f06bb5baef054a45a",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEEntityManager.h\"\n\nvoid FEEntityManager::ToBoardSelect(int bd, int tail_type, int size)\n{\n#ifdef REAL_ASYNC_LOAD\n\tstash::WaitForStashLoad();\n#endif\n\t\n\tbool pers = SurferFrontEnd::getPersonalityUp();\n\tint csi = current_surfer_index;\n\tstringx abbr = SurferFrontEnd::getAbbr(csi);\n\tstringx hero_filename;\n\n\tif(pers) hero_filename = \"PERSONALITY\"+abbr;\n\telse hero_filename = SurferFrontEnd::getName(csi);\n\n\tif(pers) abbr = abbr+\"_P\";\n\tUnloadCurrentSurfer();\n\tLoadAuxStash();\t\n\tCameraAnim(CAM_POS_WALL_3_CLOSET);\n\tif ((frontendmanager.gms->multiplayer && frontendmanager.gms->multi_1) || !frontendmanager.gms->multiplayer)\n\t\tLoadBoard(0, bd);\n\telse\n\t\tLoadBoard(1, bd);\n\n\tmoveClosetDoor(true, true);\n\tcurrent_board_index = bd;\n\tcur_state = STATE_BOARD;\n\tmy_board->set_rel_po(board_select_po);\n\tSetConglomScale(board, vector3d(1, 1, 1));\n\tboard->set_visible(true);\n\n\tUpdateBoardIndex(current_board_index, tail_type, size, true);\n\tif(board_tree)\n\t\tBoardPlay(BA_SPIN, 0, board_tree->get_time());\n\telse BoardPlay(BA_SPIN);\n\n\top_ext = false;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "ToBoardSelect__15FEEntityManageriii"
+}
