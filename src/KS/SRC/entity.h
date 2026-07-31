@@ -55,6 +55,7 @@ class entity_anim;
 class entity_anim_tree;
 class entity_controller;
 class item;
+class material_set;
 class nglMesh;
 class nglTexture;
 class nglVector;
@@ -273,6 +274,8 @@ public:
         const pstring &attribute,
         const stringx &value
     );
+    void set_alternative_materials(material_set *materials);
+    void set_alternative_materials(const stringx &name);
     virtual void frame_advance(time_value_t time);
     virtual void render(
         camera *camera_link,

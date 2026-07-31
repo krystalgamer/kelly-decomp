@@ -70,9 +70,18 @@ region_node *entity::update_region(bool parent_computed)
 }
 
 // 0x00131560 set_alternative_materials__6entityRC7stringx
-#include "KS/SRC/entity_alt_material_shared.h"
+#include "KS/SRC/entity.h"
+#include "KS/SRC/wds.h"
+extern const char no_alternative_material[];
+__asm__(".equ no_alternative_material, 0x004CC728");
+__asm__(
+    ".equ set_alternative_materials__6entityP12material_set, "
+    "0x001311B0");
+__asm__(
+    ".equ get_material_set__21world_dynamics_systemRC7stringx, "
+    "0x002A5200");
 
-void alternative_material_entity::set_alternative_materials(
+void entity::set_alternative_materials(
     const stringx &name)
 {
     if (name.size() == 0 ||

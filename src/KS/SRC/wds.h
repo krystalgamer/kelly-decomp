@@ -7,6 +7,7 @@ class entity_maker;
 class entity_id;
 class ett_manager;
 class marker;
+class material_set;
 class beam;
 class camera;
 class kellyslater_controller;
@@ -40,6 +41,7 @@ public:
         return ks_controller[index];
     }
     marker *add_marker(marker *value);
+    material_set *get_material_set(const stringx &name);
     beam *add_beam(beam *value);
     camera *add_camera(camera *value);
     lensflare *add_lensflare(lensflare *value);
