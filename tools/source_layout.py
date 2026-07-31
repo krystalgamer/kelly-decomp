@@ -85,6 +85,8 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/CheatFrontEnd.h": "KS/SRC/ks/CheatFrontEnd_methods.cpp",
     "KS/SRC/ks/ks_camera.h": "KS/SRC/ks/ks_camera_methods.cpp",
     "KS/SRC/ks/ksreplay.h": "KS/SRC/ks/ksreplay_methods.cpp",
+    "KS/SRC/ks/kellyslater_controller.h":
+        "KS/SRC/ks/kellyslater_controller_methods.cpp",
     "KS/SRC/ks/menu.h": "KS/SRC/ks/menu_methods.cpp",
     "KS/SRC/ks/trail.h": "KS/SRC/ks/trail_rtti.cpp",
     "KS/SRC/ks/dxt1_codebook.h": "KS/SRC/ks/dxt1_codebook_rtti.cpp",

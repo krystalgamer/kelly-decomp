@@ -183,7 +183,7 @@ struct TextVtable{char pad[8];short adjust;short z;void(*destroy)(void*,int);};s
 #if defined(KELLY_DECOMP_FUNCTION_00159720)
 // 0x00159720 Draw__18IGOTutorialManager
 #include "KS/SRC/ks/FEPanel.h"
-#include "KS/SRC/ks/kellyslater_controller_shared.h"
+#include "KS/SRC/ks/kellyslater_controller.h"
 #include "KS/SRC/wds.h"
 #include "KS/SRC/ks/tutorialmanager.h"
 

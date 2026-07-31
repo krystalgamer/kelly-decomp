@@ -1,36 +1,124 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef _KELLYSLATER_CONTROLLER_H_
+#define _KELLYSLATER_CONTROLLER_H_
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_0026F7A0)
-// 0x0026F7A0 ResetPierEntities__22kellyslater_controller
-class entity;
-class kellyslater_controller { char padding[0x1b00]; entity *pier_entities[3]; int num_pier_entities; public: void ResetPierEntities(); };
-void kellyslater_controller::ResetPierEntities() { int index = 2; entity **entry = &pier_entities[2]; loop: *entry = 0; --index; KELLY_DECOMP_COMPILER_BARRIER(); KELLY_DECOMP_COMPILER_BARRIER(); if (index >= 0) { --entry; goto loop; } --entry; num_pier_entities = 0; }
-#endif
+#include "KS/SRC/algebra.h"
+#include "KS/SRC/game.h"
+#include "KS/SRC/ks/trickdata.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_0026F750)
-// 0x0026F750 OnNewWave__22kellyslater_controller
-class SurfBoardObjectClass {
-public:
-    void OnNewWave();
+enum {
+    SUPER_STATE_FLYBY = 1,
+    SUPER_STATE_IN_TUBE = 7,
+    STATE_TUBE_RAILGRAB = 78,
+    TRICK_TUBE_RAIL_GRAB = 20
 };
 
-__asm__(".equ OnNewWave__20SurfBoardObjectClass, 0x001EE648");
+struct ScoringManagerStorage {
+    char data[0x550];
+};
+
+struct SpecialMeterStorage {
+    char data[0x2C];
+};
+
+class camera;
+class entity;
+class game_camera;
+class turn_data;
 
 class kellyslater_controller {
-    char padding[0x37c];
-    SurfBoardObjectClass my_board_controller;
+    // Known members retain their released names and order. The remaining
+    // intervals cover source fields whose dependent declarations are not yet
+    // canonicalized.
+    char data_to_state[0x30];
+    int state;
+    char data_to_super_state[4];
+    int super_state;
+    char data_to_score_manager[0x10BC];
+    ScoringManagerStorage my_scoreManager;
+    SpecialMeterStorage specialMeter;
+    int my_player_num;
+    char data_to_current_trick[0x27C];
+    int currentTrick;
+    int completedTrick;
+    int newTrick;
+    int airIKtrick;
+    bool trick_complete;
+    bool manual;
+    bool current_trick_type;
+    bool trick_queued;
+    bool bDoingTrick;
+    char data_to_tube_trick[0x154];
+    int tube_trick;
+    char data_to_last_tube_trick[0x18];
+    int last_tube_trick;
+    char data_to_player_cam[0xA8];
+    game_camera *player_cam;
+    char data_to_look_back_cam[0x10];
+    camera *look_back_cam_ptr;
 
 public:
+    void Anim(
+        int animation,
+        float blend_time,
+        bool loop = true,
+        float start_time = 0.0f,
+        bool reverse = false
+    ) __asm__("Anim__22kellyslater_controllerifbfT3");
+    void BoardAnim(
+        int animation,
+        float blend_time,
+        bool loop = true,
+        float start_time = 0.0f
+    );
+    void debug_mode_play_anim();
+    void SetCompletedTrick();
+    void SetCompletedTrick(int trick);
+    void SetNewTrick(int trick);
+    void SetCurrentTrick();
+    void ResetTricks();
+    void ClearTricks();
+    void StartGrind(const vector3d direction);
+    void StartCelebration();
+    void StartDisappointment();
+    void SetTubeTrick(int trick, int anim, int board_anim);
+    void set_player_num(int player);
+    int GetCurrentTrick();
+    int get_super_state() const { return super_state; }
+    float CtrlEvent(int control);
+    bool IsAIPlayer();
+    void TurnDegree();
+    bool Z_Within_Tube();
+    void EndTube();
+    void CalculateStats();
+    void SetConglomTexture(entity *conglomerate, int texture);
+    void CalcTurnStats(turn_data *data, int heading);
+    int IsTubeHandInWater();
+    void SetTurnStat(
+        int table,
+        int heading,
+        float turn_velocity,
+        float bank_acceleration,
+        float bank_velocity,
+        float bank);
+    void reset_state();
+    void SetPlayerCamera(game_camera *camera);
+    void start_secondary_cam(camera *current_camera);
+    void end_secondary_cam();
+    void ResetPierEntities();
     void OnNewWave();
-    void Reset();
+    bool IsDoingSomething();
+    float Lip_Distance();
 };
 
-__asm__(".equ Reset__22kellyslater_controller, 0x00211538");
+extern const int ManualFlag;
+extern int anim_num;
+extern int anim_num_last;
 
-void kellyslater_controller::OnNewWave() {
-    my_board_controller.OnNewWave();
-    Reset();
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
+__asm__(".equ anim_num, 0x00424B5C");
+__asm__(".equ anim_num_last, 0x00424B60");
+__asm__(".equ Anim__22kellyslater_controllerifbfT3, 0x00212660");
+__asm__(".equ BoardAnim__22kellyslater_controllerifbf, 0x002128B0");
+
 #endif
