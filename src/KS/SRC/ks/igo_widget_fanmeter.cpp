@@ -1,8 +1,7 @@
 // Matching decompilation blocks selected by generated build shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_001695A8)
 // 0x001695A8 Show__14FanMeterWidgetb
-#include "KS/SRC/ks/FanMeterWidget_shared.h"
+#include "KS/SRC/ks/igo_widget_fanmeter.h"
 
 void FanMeterWidget::Show(bool shown)
 {
@@ -20,25 +19,29 @@ void FanMeterWidget::Show(bool shown)
         arrowPQ->TurnOn(false);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00168E70)
 // 0x00168E70 SetDisplay__14FanMeterWidgetb
-class IGOWidget { public: void SetDisplay(bool value); };
+extern "C" void set_igo_display(void *self, bool value)
+    __asm__("SetDisplay__9IGOWidgetb");
 __asm__(".equ SetDisplay__9IGOWidgetb, 0x00164658");
-class FanMeterWidget : public IGOWidget { public: void SetDisplay(bool value); };
-void FanMeterWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+extern "C" void set_fan_display(void *self, bool value)
+    __asm__("SetDisplay__14FanMeterWidgetb");
+void set_fan_display(void *self, bool value) {
+    set_igo_display(self, value);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
 
-#if defined(KELLY_DECOMP_FUNCTION_001694D8)
 // 0x001694D8 Update__14FanMeterWidgetf
-class IGOWidget { public: void Update(float time); };
+extern "C" void update_igo(void *self, float time)
+    __asm__("Update__9IGOWidgetf");
 __asm__(".equ Update__9IGOWidgetf, 0x00164660");
-class FanMeterWidget : public IGOWidget { public: void Update(float time); };
-void FanMeterWidget::Update(float time) { IGOWidget::Update(time); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+extern "C" void update_fan(void *self, float time)
+    __asm__("Update__14FanMeterWidgetf");
+void update_fan(void *self, float time) {
+    update_igo(self, time);
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
 
-#if defined(KELLY_DECOMP_FUNCTION_00168E18)
 // 0x00168E18 _$_14FanMeterWidget
 #include "decomp_annotations.h"
 
@@ -72,9 +75,6 @@ void FanMeterWidgetDtor(void *self, int deleting)
     IGOWidgetDtor(widget, deleting);
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001694F8)
 // 0x001694F8 Draw__14FanMeterWidget
-struct pq_vtable{char pad[64];short adjustment;short zero;void(*draw)(void*,float,bool);};struct PanelQuad{char pad[404];pq_vtable*vtable;};struct PanelQuad4{char pad[404];pq_vtable*vtable;};class FanMeterWidget;extern "C" void base_draw(FanMeterWidget*)__asm__("Draw__9IGOWidget");asm(".equ Draw__9IGOWidget,0x00164668");class FanMeterWidget{public:int display;void*vtable;int numSections;PanelQuad4**sectionPQs;PanelQuad*arrowPQ;void Draw();};inline void draw_quad(void*q,pq_vtable*v){v->draw((char*)q+v->adjustment,-1.0f,false);}void FanMeterWidget::Draw(){base_draw(this);if(!display)return;for(int i=0;i<numSections;i++)draw_quad(sectionPQs[i],sectionPQs[i]->vtable);draw_quad(arrowPQ,arrowPQ->vtable);}
-#endif
+struct pq_vtable{char pad[64];short adjustment;short zero;void(*draw)(void*,float,bool);};struct PanelQuad{char pad[404];pq_vtable*vtable;};struct PanelQuad4{char pad[404];pq_vtable*vtable;};struct FanMeterLayout{int display;void*vtable;int numSections;PanelQuad4**sectionPQs;PanelQuad*arrowPQ;};extern "C" void base_draw(void*)__asm__("Draw__9IGOWidget");asm(".equ Draw__9IGOWidget,0x00164668");inline void draw_quad(void*q,pq_vtable*v){v->draw((char*)q+v->adjustment,-1.0f,false);}extern "C" void draw_fan(FanMeterLayout*self)__asm__("Draw__14FanMeterWidget");void draw_fan(FanMeterLayout*self){base_draw(self);if(!self->display)return;for(int i=0;i<self->numSections;i++)draw_quad(self->sectionPQs[i],self->sectionPQs[i]->vtable);draw_quad(self->arrowPQ,self->arrowPQ->vtable);}

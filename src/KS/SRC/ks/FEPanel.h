@@ -449,6 +449,25 @@ public:
     void SetAlpha(float alpha);
 };
 
+class PanelQuad4 : public PanelQuad {
+    float x[4];
+    float y[4];
+    float u[4];
+    float v[4];
+
+public:
+    virtual void Update(time_value_t time_inc);
+    virtual void Draw(int layer = 0, float alpha = -1.0f);
+    virtual void SetUV(
+        float u1, float u2, float u3, float u4,
+        float v1, float v2, float v3, float v4);
+    virtual void SetPos(
+        float x1, float y1, float x2, float y2,
+        float x3, float y3, float x4, float y4);
+    virtual void SetCenterPos(float x, float y);
+    virtual void GetCenterPos(float &x, float &y);
+};
+
 class FloatingPQ : public PanelQuad {
     float location_3d[4];
     float location_2d[4];
