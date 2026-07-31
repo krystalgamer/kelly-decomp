@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_STL_MAP_SHARED_H
-#define KELLY_DECOMP_STL_MAP_SHARED_H
+#ifndef __SGI_STL_INTERNAL_MAP_H
+#define __SGI_STL_INTERNAL_MAP_H
 
 extern void *__default_alloc_free_list[16];
 extern "C" void *__default_alloc_refill(

@@ -3,7 +3,7 @@
 
 #include "KS/SRC/stringx.h"
 #include "KS/SRC/algebra.h"
-#include "g++-2/stl_map_shared.h"
+#include "g++-2/stl_map.h"
 
 class path_graph_edge;
 class region;

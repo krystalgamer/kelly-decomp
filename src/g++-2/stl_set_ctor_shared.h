@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_STL_SET_CTOR_SHARED_H
 #define KELLY_DECOMP_STL_SET_CTOR_SHARED_H
 
-#include "g++-2/stl_map_shared.h"
+#include "g++-2/stl_map.h"
 
 template<class T>
 struct set_less {

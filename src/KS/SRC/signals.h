@@ -3,7 +3,7 @@
 
 #include "KS/SRC/singleton.h"
 #include "KS/SRC/stringx.h"
-#include "g++-2/stl_map_shared.h"
+#include "g++-2/stl_map.h"
 #include "g++-2/stl_vector.h"
 
 #pragma interface

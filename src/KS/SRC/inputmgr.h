@@ -2,7 +2,7 @@
 #define INPUTMGR_H
 
 #include "KS/SRC/singleton.h"
-#include "g++-2/stl_map_shared.h"
+#include "g++-2/stl_map.h"
 #include "g++-2/stl_vector.h"
 
 typedef float rational_t;
