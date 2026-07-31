@@ -1,0 +1,15 @@
+{
+  "address": "0x0010C9B8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "1cb598805e08ba54b32765384fb3deb1ad52da15",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ai_polypath_cell.h\"\n\nai_polypath_cell::ePathResult ai_polypath_cell::classify_path_to_cell(const ai_polypath_line& motion_path, ai_polypath_cell** next_cell, eCellSide& side, vector2d* intersect)const\n{\n\tint interior_cnt = 0;\n\n\t// Check our motion_path against each of the three cell walls\n\tfor (int i=0; i<3; ++i)\n\t{\n\t\tif (m_Side[i].classify_point(motion_path.b) != ai_polypath_line::RIGHT_SIDE)\n\t\t{\n\t\t\tif (m_Side[i].classify_point(motion_path.a) != ai_polypath_line::LEFT_SIDE)\n\t\t\t{\n\t\t\t\tai_polypath_line::eLineClassification res = motion_path.intersection(m_Side[i], intersect);\n\n\t\t\t\tif (res == ai_polypath_line::SEGMENTS_INTERSECT || res == ai_polypath_line::A_BISECTS_B)\n\t\t\t\t{\n\t\t\t\t\t*next_cell = m_Link[i];\n\t\t\t\t\tside = (eCellSide)i;\n\t\t\t\t\treturn (EXITING_CELL);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\telse\n\t\t\tinterior_cnt++;\n\t}\n\n  return((interior_cnt == 3) ? ENDING_CELL : NO_RELATIONSHIP);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "classify_path_to_cell__C16ai_polypath_cellRC16ai_polypath_linePP16ai_polypath_cellRQ216ai_polypath_cell9eCellSideP8vector2d"
+}
