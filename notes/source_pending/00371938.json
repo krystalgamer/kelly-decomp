@@ -1,0 +1,15 @@
+{
+  "address": "0x00371938",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "a96eeba594ab2b60d2f5b9c4b79b37267c3ef841",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "static bool WATER_InInit = false;\t// hack for first call to WATER_FillInHorizonMesh\n\nvoid WATER_Init(void)\n{\n\tWATER_InInit = true;\n\n\tWAVE_Init();\n\n#ifdef TARGET_XBOX\n\t// Needed for calls to WATER_FillIn****Mesh (dc 05/27/02)\n\tWATER_ScaleToWave();\n\n\tif (WaterDebug.UniformGrid)\n\t{\n\t\tWATER_ComputeUniformGrid();\t// must be done even if not drawing near mesh\n\t}\n\telse\n\t{\n\t\tWATER_ComputeScaledGrid();\t// must be done even if not drawing near mesh\n\t}\n\n#endif\n\n\tSeamWaterMeshID = WAVETEX_InitWaveMesh(SeamMeshNumVert, WAVETEX_MATSEAM, WATER_FillInSeamMesh);\n/*\n\tNearWaterMeshID = WAVETEX_InitWaveMesh(NearMeshNumVert, WAVETEX_MATNEAR, WATER_FillInNearMesh);\n*/\n\tFarWaterMeshID = WAVETEX_InitWaveMesh(FarMeshNumVert, WAVETEX_MATFAR, WATER_FillInFarMesh);\n\tHorizonWaterMeshID = WAVETEX_InitWaveMesh(HorizonMeshNumVert, WAVETEX_MATHORIZON, WATER_FillInHorizonMesh);\n\n\tWATER_InInit = false;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WATER_FillInHorizonMesh__Fv"
+}
