@@ -6,7 +6,7 @@
     defined(KELLY_DECOMP_FUNCTION_00284628) || \
     defined(KELLY_DECOMP_FUNCTION_00284E90) || \
     defined(KELLY_DECOMP_FUNCTION_00284E98)
-#include "KS/SRC/game_shared.h"
+#include "KS/SRC/game.h"
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00283910)
@@ -45,7 +45,7 @@ void clear_zbuffer() {
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002854C8)
-#include "KS/SRC/game_shared.h"
+#include "KS/SRC/game.h"
 
 __asm__(".equ GetPlayerShare__C8PushModei, 0x00285B70");
 
@@ -243,7 +243,7 @@ game_info::game_info()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00285570)
-#include "KS/SRC/game_shared.h"
+#include "KS/SRC/game.h"
 // 0x00285570 get_beach_location_name__4game
 __asm__(".equ get_first_beach__4game, 0x00285518");
 __asm__(".equ __7stringxPCci, 0x0034D438");
@@ -254,7 +254,7 @@ stringx game::get_beach_location_name()
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00285640)
-#include "KS/SRC/game_shared.h"
+#include "KS/SRC/game.h"
 // 0x00285640 get_first_surfer_index__4game
 int game::get_first_surfer_index()
 {
@@ -273,7 +273,7 @@ int game::get_first_surfer_index()
 }
 #endif
 #if defined(KELLY_DECOMP_FUNCTION_0027A490)
-#include "KS/SRC/game_shared.h"
+#include "KS/SRC/game.h"
 
 class entity;
 

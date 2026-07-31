@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_GAME_SHARED_H
-#define KELLY_DECOMP_GAME_SHARED_H
+#ifndef GAME_H
+#define GAME_H
 
 #include "KS/SRC/commands.h"
 #include "KS/SRC/game_process_shared.h"

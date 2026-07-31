@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_IGO_HINT_MANAGER_SHARED_H
 #define KELLY_DECOMP_IGO_HINT_MANAGER_SHARED_H
 
-#include "KS/SRC/game_shared.h"
+#include "KS/SRC/game.h"
 #include "KS/SRC/ks/FEPanel.h"
 
 class IGOHintManager {

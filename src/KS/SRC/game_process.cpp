@@ -1,7 +1,7 @@
 // Matching decompilation blocks selected by generated build shims.
 
 #if defined(KELLY_DECOMP_FUNCTION_00287930)
-#include "KS/SRC/game_shared.h"
+#include "KS/SRC/game.h"
 #include "KS/SRC/ks/ksreplay_shared.h"
 // 0x00287930 advance_state_paused__4gamef
 void game::advance_state_paused(float time_inc)
@@ -14,7 +14,7 @@ void game::advance_state_paused(float time_inc)
 
 #if defined(KELLY_DECOMP_FUNCTION_00286990)
 // 0x00286990 push_process__4gameR12game_process
-#include "KS/SRC/game_shared.h"
+#include "KS/SRC/game.h"
 
 __asm__(".equ reset_index__12game_process, 0x00286988");
 

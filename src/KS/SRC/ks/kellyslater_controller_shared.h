@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_KELLYSLATER_CONTROLLER_SHARED_H
 #define KELLY_DECOMP_KELLYSLATER_CONTROLLER_SHARED_H
 
-#include "KS/SRC/game_shared.h"
+#include "KS/SRC/game.h"
 #include "KS/SRC/ks/trickdata.h"
 #include "KS/SRC/algebra.h"
 
