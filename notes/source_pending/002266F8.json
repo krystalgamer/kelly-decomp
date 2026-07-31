@@ -1,0 +1,15 @@
+{
+  "address": "0x002266F8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "0159310f050d30caed4cc59de5b7fda029b46e86",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/ks_camera.h\"\n\nreplay_camera::replay_camera (const entity_id& _id, entity* _target_entity)\n  : game_camera (_id, _target_entity)\n{\n  rc                    = RC_NONE;\n  rcr                   = RCR_NONE;\n\n  regionChangeTime      = 0.0f;\n  regionChangeFrame     = 0;\n\n  ent                   = NULL;\n\n  waveDir               = BeachDataArray[g_game_ptr->get_beach_id()].bdir;\n\n  defaultCam            = vector3d(0, 1, -5);\n  tubeCam               = waveDir ? vector3d(-5, 1, 0) : vector3d(5, 1, 0);\n  yoyoCam               = vector3d(0.05f, 1.4f, -0.2f);\n  birdCam               = vector3d(0, -0.2f, 1.2f);\n  birdCamVel            = vector3d(10.0f, 0.0f, 0.0f);\n  circleCamCloseDist    = 1.5f;\n\n  takeoffCamPos         = vector3d(0, 1, 0);\n  takeoffCamDir         = waveDir ? vector3d(-1, 0, 0) : vector3d(1, 0, 0);\n  landingCamPos         = vector3d(0, 1, 0);\n  landingCamDir         = waveDir ? vector3d(1, 0, 0) : vector3d(-1, 0, 0);\n\n  holdCamTimer          = 0.0f;\n\n  keepFaceThreshhold    = 0.8f;\n  keepTubeThreshhold    = 1.5f;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__13replay_cameraRC9entity_idP6entity"
+}
