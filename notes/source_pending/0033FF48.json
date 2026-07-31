@@ -1,0 +1,16 @@
+{
+  "address": "0x0033FF48",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f0e1e2e86a1b295ab53333af564d6634cc1ef9a1",
+      "error": "Candidate did not emit render__13bitmap_widget; emitted functions: ['render__6widget']",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/widget.h\"\n\nvoid widget::render()\n{\n  /*\n  if ( !parent )\n  {\n    prepare_to_render();\n  }\n  */\n\n  //if ( use_proj_matrix )\n  //{\n  //  geometry_manager::inst()->set_xform(geometry_manager::XFORM_VIEW_TO_PROJECTION, g_projection_matrix);\n  //}\n\n  // children\n  widget_list_t::iterator child;\n  for( child = children.begin(); child != children.end(); ++child )\n  {\n    if ( (*child)->is_shown() )\n    {\n      (*child)->render();\n    }\n  }\n\n  //if ( use_proj_matrix )\n  //{\n  //  geometry_manager::inst()->set_xform(geometry_manager::XFORM_VIEW_TO_PROJECTION, identity_matrix);\n  //}\n\n  /*\n  if ( !parent )\n  {\n    finish_render();\n  }\n  */\n}\n",
+      "status": "symbol_missing"
+    }
+  ],
+  "raw_name": "render__13bitmap_widget"
+}
