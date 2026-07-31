@@ -1,0 +1,15 @@
+{
+  "address": "0x001A08E0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "8a77103b7fd92de27caa7471fcb17978c1f30d41",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/SaveLoadFrontEnd.h\"\n\nKeyboardMenu::KeyboardMenu(FEMenuSystem* s, FEManager* man, stringx p, stringx pf)\n{\n\tcons(s, man, p, pf);\n\tcolor = frontendmanager.col_unselected;\n\tcolor_high = frontendmanager.col_highlight;\n\tcolor_high_alt = frontendmanager.col_highlight2;\n\tflags |= FEMENU_HAS_COLOR_HIGH_ALT;\n\tscale = scale_high = 0.9f;\t//0.67f;\n\tFont* f = &manager->font_bold_old;\n\n\tchar name[2];\n\tname[1] = '\\0';\n\tfor(int i=0; i<36; i++)\n\t{\n\t\tif(i < 26) name[0] = 'A'+i;\n\t\telse if(i < 36) name[0] = '0'+i-26;\n\t\tent[i] = NEW FEMenuEntry(name, this);\n\t\tent[i]->SetPos(271+30*(i%row_size), 142+30*(i/row_size));\n\t}\n\tent[space_idx] = NEW FEMenuEntry(\"_\", this);\n\tent[space_idx]->SetPos(391, 257);\n\tent[back_idx] = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_BACK], this);\n\tent[back_idx]->SetPos(451, 262);\n\tent[enter_idx] = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_ENTER], this);\n\tent[enter_idx]->SetPos(321, 322);\n\tent[enter_idx]->SetFont(&manager->font_hand);\n\tent[cancel_idx] = NEW FEMenuEntry(ksGlobalTextArray[GT_FE_MENU_CANCEL], this);\n\tent[cancel_idx]->SetPos(421, 322);\n\tent[cancel_idx]->SetFont(&manager->font_hand);\n\tfirst = ent[0];\n\n\tfor(int i=0; i<num; i++)\n\t{\n\t\tAdd(ent[i]);\n\t\tent[i]->SetZ(300);\n\t\tent[i]->SetFont(f);\n\n\t\tif(i == num-1)\t\t\tent[i]->right = ent[0];\n\t\telse\t\t\t\t\tent[i]->right = ent[i+1];\n\t\tif(i == 0)\t\t\t\tent[i]->left = ent[num-1];\n\t\telse\t\t\t\t\tent[i]->left = ent[i-1];\n\t\tif(i < row_size/2)\t\tent[i]->up = ent[enter_idx];\n\t\telse if(i < row_size)\tent[i]->up = ent[cancel_idx];\n\t\telse if(i < enter_idx)\tent[i]->up = ent[i-row_size];\n\t\telse if(i == enter_idx) ent[i]->up = ent[i-4];\n\t\telse\t\t\t\t\tent[i]->up = ent[i-2];\n\t\tif(i < enter_idx-8)\t\tent[i]->down = ent[i+8];\n\t\telse if(i < enter_idx-6)ent[i]->down = ent[back_idx];\n\t\telse if(i < enter_idx-2)ent[i]->down = ent[enter_idx];\n\t\telse if(i < enter_idx)\tent[i]->down = ent[cancel_idx];\n\t\telse\t\t\t\t\tent[i]->down = ent[0];\n\t}\n\n\tfilename = NEW TextString(f, \"\", 375, 293, 300, scale, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, frontendmanager.col_bio);\n\tenter_text = NEW TextString(&system->manager->font_bold, ksGlobalTextArray[GT_FE_MENU_ENTER_NAME1], 235, 203, 300, 0.8f, Font::HORIZJUST_RIGHT, Font::VERTJUST_CENTER, manager->col_info_b);\n\tname_text = NEW TextString(&system->manager->font_bold, ksGlobalTextArray[GT_FE_MENU_ENTER_NAME2], 235, 227, 300, 0.8f, Font::HORIZJUST_RIGHT, Font::VERTJUST_CENTER, manager->col_info_b);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__12KeyboardMenuP12FEMenuSystemP9FEManagerG7stringxT3"
+}
