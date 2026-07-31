@@ -1,0 +1,15 @@
+{
+  "address": "0x0010C198",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e67c768c6270dd093e14c4dd4025f1710a61e3f9",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ai_polypath_cell.h\"\n\nvoid ai_polypath_cell::compute_cell_data()\n{\n  static rational_t inv_3 = 1.0f / 3.0f;\n\n\t// create 2D versions of our verticies\n\tvector2d Point1(m_Vertex[VERT_A].x, m_Vertex[VERT_A].z);\n\tvector2d Point2(m_Vertex[VERT_B].x, m_Vertex[VERT_B].z);\n\tvector2d Point3(m_Vertex[VERT_C].x, m_Vertex[VERT_C].z);\n\n\t// innitialize our sides\n\tm_Side[SIDE_AB].set_points(Point1, Point2);\t// line AB\n\tm_Side[SIDE_BC].set_points(Point2, Point3);\t// line BC\n\tm_Side[SIDE_CA].set_points(Point3, Point1);\t// line CA\n\n\tm_CellPlane.set(m_Vertex[VERT_A], m_Vertex[VERT_B], m_Vertex[VERT_C]);\n\n\t// compute midpoint as centroid of polygon\n\tm_CenterPoint.x = ((m_Vertex[VERT_A].x + m_Vertex[VERT_B].x + m_Vertex[VERT_C].x)*inv_3);\n\tm_CenterPoint.y = ((m_Vertex[VERT_A].y + m_Vertex[VERT_B].y + m_Vertex[VERT_C].y)*inv_3);\n\tm_CenterPoint.z = ((m_Vertex[VERT_A].z + m_Vertex[VERT_B].z + m_Vertex[VERT_C].z)*inv_3);\n\n\t// compute the midpoint of each cell wall\n\tm_WallMidpoint[0].x = (m_Vertex[VERT_A].x + m_Vertex[VERT_B].x)*0.5f;\n\tm_WallMidpoint[0].y = (m_Vertex[VERT_A].y + m_Vertex[VERT_B].y)*0.5f;\n\tm_WallMidpoint[0].z = (m_Vertex[VERT_A].z + m_Vertex[VERT_B].z)*0.5f;\n\n\tm_WallMidpoint[1].x = (m_Vertex[VERT_C].x + m_Vertex[VERT_B].x)*0.5f;\n\tm_WallMidpoint[1].y = (m_Vertex[VERT_C].y + m_Vertex[VERT_B].y)*0.5f;\n\tm_WallMidpoint[1].z = (m_Vertex[VERT_C].z + m_Vertex[VERT_B].z)*0.5f;\n\n\tm_WallMidpoint[2].x = (m_Vertex[VERT_C].x + m_Vertex[VERT_A].x)*0.5f;\n\tm_WallMidpoint[2].y = (m_Vertex[VERT_C].y + m_Vertex[VERT_A].y)*0.5f;\n\tm_WallMidpoint[2].z = (m_Vertex[VERT_C].z + m_Vertex[VERT_A].z)*0.5f;\n\n\t// compute the distances between the wall midpoints\n\tvector3d WallVector;\n\tWallVector = m_WallMidpoint[0] - m_WallMidpoint[1];\n\tm_WallDistance[0] = WallVector.length();\n\n\tWallVector = m_WallMidpoint[1] - m_WallMidpoint[2];\n\tm_WallDistance[1] = WallVector.length();\n\n\tWallVector = m_WallMidpoint[2] - m_WallMidpoint[0];\n\tm_WallDistance[2] = WallVector.length();\n\n  radius = 0.0f;\n  for(int i=0; i<3; ++i)\n  {\n\t  rational_t len = (m_Vertex[0] - m_CenterPoint).length2();\n    if(len > radius)\n      radius = len;\n  }\n  if(radius > 0.0f)\n    radius = __fsqrt(radius);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "compute_cell_data__16ai_polypath_cell"
+}
