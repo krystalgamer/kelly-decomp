@@ -2,7 +2,6 @@
 
 #include "KS/SRC/iri.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_002FBB48)
 // 0x002FBB48 __uninitialized_fill_n_aux__H3ZP6sectorZUiZ6sector_X01X11RCX21G12__false_type_X01
 inline void *operator new(unsigned int, void *place) {
     return place;
@@ -33,9 +32,7 @@ sector *UninitializedFill(
     }
     return first;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002FD088)
 // 0x002FD088 __uninitialized_copy_aux__H2ZP6sectorZP6sector_X01X01X11G12__false_type_X11
 inline void *operator new(unsigned int, void *place) {
     return place;
@@ -65,9 +62,7 @@ sector *UninitializedCopy(
     }
     return result;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002F43F8)
 // 0x002F43F8 __uninitialized_fill_n_aux__H3ZPQ218scan_light_context9light_recZUiZQ218scan_light_context9light_rec_X01X11RCX21G12__false_type_X01
 inline void *operator new(unsigned int, void *place) {
     return place;
@@ -98,9 +93,7 @@ value8 *UninitializedFill(
     }
     return first;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002F9BB0)
 // 0x002F9BB0 __uninitialized_fill_n_aux__H3ZP5wedgeZUiZ5wedge_X01X11RCX21G12__false_type_X01
 inline void *operator new(unsigned int, void *place) {
     return place;
@@ -130,9 +123,7 @@ wedge *UninitializedFill(
     }
     return first;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002F9F80)
 // 0x002F9F80 __uninitialized_fill_n_aux__H3ZP4faceZUiZ4face_X01X11RCX21G12__false_type_X01
 #include "KS/SRC/pmesh.h"
 inline void *operator new(unsigned int, void *place) {
@@ -159,9 +150,7 @@ face *UninitializedFillFaces(
     }
     return first;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002F4390)
 // 0x002F4390 __uninitialized_copy_aux__H2ZPQ218scan_light_context9light_recZPQ218scan_light_context9light_rec_X01X01X11G12__false_type_X11
 inline void *operator new(unsigned int, void *place) {
     return place;
@@ -192,9 +181,7 @@ value8 *UninitializedCopy(
     }
     return result;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002FA750)
 // 0x002FA750 __uninitialized_copy_aux__H2ZPC5wedgeZP5wedge_X01X01X11G12__false_type_X11
 inline void *operator new(unsigned int, void *place) {
     return place;
@@ -223,9 +210,7 @@ wedge *UninitializedCopy(
     }
     return result;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002FBE88)
 // 0x002FBE88 __uninitialized_copy_aux__H2ZPQ2t7bp_tree2Z10partition3Z8vector3d6branchZPQ2t7bp_tree2Z10partition3Z8vector3d6branch_X01X01X11G12__false_type_X11
 inline void *operator new(unsigned int, void *place) {
     return place;
@@ -259,9 +244,7 @@ branch *UninitializedCopy(
     }
     return result;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002F9FD0)
 // 0x002F9FD0 __uninitialized_copy_aux__H2ZPC4faceZP4face_X01X01X11G12__false_type_X11
 typedef unsigned int size_t;
 inline void *operator new(size_t, void *place) { return place; }
@@ -306,29 +289,18 @@ face *uninitialized_copy_aux(
     }
     return result;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002F5DB8)
 // 0x002F5DB8 _M_erase__t8_Rb_tree5ZsZt4pair2ZCsZUiZt10_Select1st1Zt4pair2ZCsZUiZt4less1ZsZt12my_allocator1ZUiPt13_Rb_tree_node1Zt4pair2ZCsZUi
 struct node{void*next_free;char p0[4];node*left,*right;};struct allocator{char padding[8];node*free_list;};extern "C" void erase_again(void*,node*) __asm__("erase_again_abs");__asm__(".equ erase_again_abs,0x002F5DB8");extern "C" void erase_tree(void*self,node*x) __asm__("_M_erase__t8_Rb_tree5ZsZt4pair2ZCsZUiZt10_Select1st1Zt4pair2ZCsZUiZt4less1ZsZt12my_allocator1ZUiPt13_Rb_tree_node1Zt4pair2ZCsZUi");void erase_tree(void*self,node*x){if(x){register char*high __asm__("$2")=(char*)0x003e0000;__asm__ __volatile__("" : "+r"(high));register allocator*alloc __asm__("$17")=(allocator*)(high+22056);do{erase_again(self,x->right);node*left=x->left;x->next_free=alloc->free_list;alloc->free_list=x;x=left;}while(x);}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002F36D8)
 // 0x002F36D8 __final_insertion_sort__H1ZP20instance_render_info_X01X01_v
 extern "C" void insertion(instance_render_info*,instance_render_info*) __asm__("__insertion_sort__H1ZP20instance_render_info_X01X01_v");extern "C" void unguarded(instance_render_info*,instance_render_info*,int) __asm__("__unguarded_insertion_sort_aux__H2ZP20instance_render_infoZ20instance_render_info_X01X01PX11_v");__asm__(".equ __insertion_sort__H1ZP20instance_render_info_X01X01_v,0x002F2FD8");__asm__(".equ __unguarded_insertion_sort_aux__H2ZP20instance_render_infoZ20instance_render_info_X01X01PX11_v,0x002F3548");extern "C" void final_sort(instance_render_info*first,instance_render_info*last) __asm__("__final_insertion_sort__H1ZP20instance_render_info_X01X01_v");void final_sort(instance_render_info*first,instance_render_info*last){if(last-first>16){instance_render_info*middle=first+16;insertion(first,middle);unguarded(middle,last,0);}else insertion(first,last);int dead;__asm__("" : "=r"(dead));}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002FD018)
 // 0x002FD018 __uninitialized_copy_aux__H2ZPt16binary_tree_node1Z10partition3ZPt16binary_tree_node1Z10partition3_X01X01X11G12__false_type_X11
 struct partition3{char p0[20];};struct node{void*a,*b;partition3 value;};extern "C" void partition_copy(partition3*,const partition3*) __asm__("__10partition3RC10partition3");__asm__(".equ __10partition3RC10partition3,0x002E81D8");extern "C" node*copy_nodes(node*first,node*last,node*result) __asm__("__uninitialized_copy_aux__H2ZPt16binary_tree_node1Z10partition3ZPt16binary_tree_node1Z10partition3_X01X01X11G12__false_type_X11");node*copy_nodes(node*first,node*last,node*result){for(;first!=last;++first,++result){if(result){result->a=first->a;result->b=first->b;partition_copy(&result->value,&first->value);}}return result;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002F0D38)
 // 0x002F0D38 __uninitialized_fill_n_aux__H3ZPQ212timer_widget10timer_funcZUiZQ212timer_widget10timer_func_X01X11RCX21G12__false_type_X01
 __asm__(".equ __7stringx,0x0034D3E0");__asm__(".equ __as__7stringxRC7stringx,0x0034E0B8");struct stringx{char data[8];stringx();stringx&operator=(const stringx&);};struct timer_func{float time;stringx function;timer_func(const timer_func&b){time=b.time;function=b.function;}};inline void*operator new(unsigned int,void*p){return p;}extern "C" timer_func*fill(timer_func*first,unsigned int n,const timer_func&value)__asm__("__uninitialized_fill_n_aux__H3ZPQ212timer_widget10timer_funcZUiZQ212timer_widget10timer_func_X01X11RCX21G12__false_type_X01");timer_func*fill(timer_func*first,unsigned int n,const timer_func&value){for(;n>0;--n,++first)if(first)new((void*)first)timer_func(value);return first;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002F1430)
 // 0x002F1430 __uninitialized_copy_aux__H2ZPQ212timer_widget10timer_funcZPQ212timer_widget10timer_func_X01X01X11G12__false_type_X11
 __asm__(".equ __7stringx,0x0034D3E0");__asm__(".equ __as__7stringxRC7stringx,0x0034E0B8");struct stringx{char data[8];stringx();stringx&operator=(const stringx&);};struct timer_func{float time;stringx function;timer_func(const timer_func&b){time=b.time;function=b.function;}};inline void*operator new(unsigned int,void*p){return p;}extern "C" timer_func*copy(timer_func*first,timer_func*last,timer_func*result)__asm__("__uninitialized_copy_aux__H2ZPQ212timer_widget10timer_funcZPQ212timer_widget10timer_func_X01X01X11G12__false_type_X11");timer_func*copy(timer_func*first,timer_func*last,timer_func*result){for(;first!=last;++first,++result)if(result)new((void*)result)timer_func(*first);return result;}
-#endif
