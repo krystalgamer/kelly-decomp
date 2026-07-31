@@ -1,0 +1,15 @@
+{
+  "address": "0x00351E80",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9a1c36c77680faaf20ad1ffd8f3cce059266057f",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/script_object.h\"\n\nvoid serial_in(chunk_file& io,script_object* so)\n  {\n  so->_clear();\n\n  chunk_flavor cf;\n  int i;\n\n  // global object?\n  serial_in(io,&cf);\n  if (cf == CHUNK_GLOBAL)\n    so->global_object = true;\n\n  // static symbols (optional)\n  serial_in(io,&cf);\n  if (cf == CHUNK_STATIC_SYMBOLS)\n    {\n    serial_in(io,&i);\n    for (; i; i--)\n      {\n      vm_symbol s;\n      serial_in(io,&s);\n#ifndef _RELEASE\n      so->static_symbols.push_back(s);\n#endif\n      }\n    serial_in(io,&cf);\n    }\n\n  // static data blocksize\n  assert(cf == CHUNK_STATIC_BLOCKSIZE);\n  int static_blocksize;\n  serial_in(io,&static_blocksize);\n  so->static_data.init(static_blocksize);\n\n  // non-static symbols (optional)\n  serial_in(io,&cf);\n  if (cf == CHUNK_DATA_SYMBOLS)\n    {\n    serial_in(io,&i);\n    for (; i; i--)\n      {\n      vm_symbol s;\n      serial_in(io,&s);\n#ifndef _RELEASE\n      so->symbols.push_back(s);\n#endif\n      }\n    serial_in(io,&cf);\n    }\n\n  // non-static data blocksize\n  assert(cf == CHUNK_DATA_BLOCKSIZE);\n  serial_in(io,&so->data_blocksize);\n\n  // functions\n  serial_in(io,&cf);\n  assert(cf == CHUNK_FUNCS);\n  serial_in(io,&i);\n\n  so->funcs.reserve(i);\n  for (; i; i--)\n    {\n    vm_executable* x = NEW vm_executable( so );\n    serial_in( io, x );\n    so->funcs.push_back( x );\n    }\n\n  // A global script object automatically creates a thread to run its own\n  // default constructor (if any).\n  if ( so->is_global_object() )\n    so->create_auto_instance();\n  }\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "serial_in__FR10chunk_fileP13script_object"
+}
