@@ -1,72 +1,149 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef __CHEATFRONTEND_H_
+#define __CHEATFRONTEND_H_
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_001DDC80)
-// 0x001DDC80 OnCross__14EnterCheatMenui
-struct MenuVTable { char padding[0x158]; short adjustment; short padding2; void (*call)(void *self); };
-class EnterCheatMenu { char padding[0x74]; MenuVTable *vtable; public: void OnCross(int command); };
-void EnterCheatMenu::OnCross(int command) { MenuVTable *table = vtable; table->call((char *)this + table->adjustment); }
-#endif
+#include "KS/SRC/ks/FEMenu.h"
+#include "KS/SRC/ks/GlobalData.h"
+#include "KS/SRC/ks/SoundScript.h"
+#include "KS/SRC/ks/cheat.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_001DDB10)
-// 0x001DDB10 __tf13CheatFrontEnd
-extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
-extern "C" void **BaseRtti_001DDB10() __asm__("__tf11FEMultiMenu");
-extern "C" void *type_001DDB10[] __asm__("__ti13CheatFrontEnd");
-extern const char name_001DDB10[];
-extern void *base_type_001DDB10[];
-__asm__(".equ __rtti_class, 0x003CE2B0");
-__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
-__asm__(".equ __ti13CheatFrontEnd, 0x005A2E48");
-__asm__(".equ name_001DDB10, 0x004DDF88");
-__asm__(".equ base_type_001DDB10, 0x004DDC48");
-extern "C" void **Rtti_001DDB10() __asm__("__tf13CheatFrontEnd");
-void **Rtti_001DDB10() { if (!type_001DDB10[0]) { BaseRtti_001DDB10(); __rtti_class(type_001DDB10, name_001DDB10, base_type_001DDB10, 1); } return type_001DDB10; }
-#endif
+#define MAX_CHEATS_PER_SCREEN 2
+#define NUM_PHONE_NUM_GAPS 2
+#define CHEAT_CODE_MESSAGE_DURATION 1.0f
 
-#if defined(KELLY_DECOMP_FUNCTION_001DDBD0)
-// 0x001DDBD0 __tf13CheatCodeMenu
-extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
-extern "C" void **BaseRtti_001DDBD0() __asm__("__tf11FEMultiMenu");
-extern "C" void *type_001DDBD0[] __asm__("__ti13CheatCodeMenu");
-extern const char name_001DDBD0[];
-extern void *base_type_001DDBD0[];
-__asm__(".equ __rtti_class, 0x003CE2B0");
-__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
-__asm__(".equ __ti13CheatCodeMenu, 0x005A2E58");
-__asm__(".equ name_001DDBD0, 0x004DDF98");
-__asm__(".equ base_type_001DDBD0, 0x004DDC48");
-extern "C" void **Rtti_001DDBD0() __asm__("__tf13CheatCodeMenu");
-void **Rtti_001DDBD0() { if (!type_001DDBD0[0]) { BaseRtti_001DDBD0(); __rtti_class(type_001DDBD0, name_001DDBD0, base_type_001DDBD0, 1); } return type_001DDBD0; }
-#endif
+class GraphicalMenuSystem;
+class CheatCodeMenu;
+class EnterCheatMenu;
 
-#if defined(KELLY_DECOMP_FUNCTION_001DDC28)
-// 0x001DDC28 __tf14EnterCheatMenu
-extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
-extern "C" void **BaseRtti_001DDC28() __asm__("__tf11FEMultiMenu");
-extern "C" void *type_001DDC28[] __asm__("__ti14EnterCheatMenu");
-extern const char name_001DDC28[];
-extern void *base_type_001DDC28[];
-__asm__(".equ __rtti_class, 0x003CE2B0");
-__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
-__asm__(".equ __ti14EnterCheatMenu, 0x005A2E68");
-__asm__(".equ name_001DDC28, 0x004DDFA8");
-__asm__(".equ base_type_001DDC28, 0x004DDC48");
-extern "C" void **Rtti_001DDC28() __asm__("__tf14EnterCheatMenu");
-void **Rtti_001DDC28() { if (!type_001DDC28[0]) { BaseRtti_001DDC28(); __rtti_class(type_001DDC28, name_001DDC28, base_type_001DDC28, 1); } return type_001DDC28; }
-#endif
+class CheatFrontEnd : public FEMultiMenu {
+private:
+    enum {
+        CHEAT_MENU_ENTER_CODE,
+        CHEAT_MENU_TOGGLE_CHEAT
+    };
 
-#if defined(KELLY_DECOMP_FUNCTION_001DDB68)
-// 0x001DDB68 Update__13CheatFrontEndf
-struct active_vtable { char padding[96]; short adjustment; short reserved; void (*update)(void *,float); };
-struct active_menu { char padding[116]; active_vtable *vtable; };
-extern "C" void update_frontend(void*,float) __asm__("Update__8FrontEndf"); extern "C" void update_menu(void*,float) __asm__("Update__6FEMenuf");
-__asm__(".equ Update__8FrontEndf,0x00157B30"); __asm__(".equ Update__6FEMenuf,0x00156DC8");
-struct cheat_layout { char padding[96]; active_menu *active; };
-extern "C" void update_cheat(cheat_layout *self,float dt) __asm__("Update__13CheatFrontEndf");
-void update_cheat(cheat_layout *self,float dt)
-{
-    if(self->active){active_vtable*t=self->active->vtable;t->update((char*)self->active+t->adjustment,dt);}
-    else {update_frontend((char*)self+128,dt);update_menu(self,dt);int dead;__asm__("" : "=r"(dead));}
-}
+    GraphicalMenuSystem *sys;
+    bool pq_indices_set;
+    PanelQuad *arrow_up[2];
+    PanelQuad *arrow_down[2];
+    PanelQuad *cellphone;
+    PanelQuad *numbers[10];
+    PanelQuad *numbers_hi[10];
+    CheatCodeMenu *code_menu;
+    EnterCheatMenu *enter_code;
+    FEMenuEntry *new_cheat_entry;
+    FEMenuEntry *toggle_cheats_entry;
+
+public:
+    CheatFrontEnd(
+        FEMenuSystem *system,
+        FEManager *manager,
+        stringx path,
+        stringx panel_filename);
+    virtual ~CheatFrontEnd();
+
+    virtual void Update(time_value_t time_inc);
+    virtual void Load();
+    virtual void Draw();
+    virtual void Select(int entry_index);
+    virtual void Select();
+    virtual void OnActivate();
+    virtual void OnUp(int command);
+    virtual void OnDown(int command);
+    virtual void OnRight(int command);
+    virtual void OnLeft(int command);
+    virtual void OnTriangle(int command);
+
+    void TurnOnPhone(bool enabled);
+
+private:
+    void SetPQIndices();
+};
+
+class CheatCodeMenu : public FEMultiMenu {
+private:
+    FEMenuEntry *cheats[MAX_CHEATS_PER_SCREEN];
+    int menu_entry_cheat_index[MAX_CHEATS_PER_SCREEN];
+    GraphicalMenuSystem *sys;
+    int next_down;
+    int next_up;
+    TextString *toggle_state[MAX_CHEATS_PER_SCREEN];
+    PanelQuad *arrow_up;
+    PanelQuad *arrow_down;
+
+public:
+    CheatCodeMenu(
+        FEMenuSystem *system,
+        FEManager *manager,
+        stringx path,
+        stringx panel_filename);
+    virtual ~CheatCodeMenu();
+
+    virtual void Draw();
+    virtual void Load();
+    virtual void Select(int entry_index);
+    virtual void Select();
+    virtual void OnTriangle(int command);
+    virtual void OnActivate();
+    virtual void OnUp(int command);
+    virtual void OnDown(int command);
+
+private:
+    void SetPQIndices();
+    void ReOrderEntries(int start);
+    void ResetToggles();
+    void ResetUpDownArrows();
+};
+
+class EnterCheatMenu : public FEMultiMenu {
+private:
+    GraphicalMenuSystem *sys;
+    stringx current_code;
+    MultiLineString *code_display;
+    TextString *cursor;
+    int current_button;
+    PanelQuad *numbers_hi[10];
+    bool pq_indices_set;
+    static const int phone_num_gap[NUM_PHONE_NUM_GAPS];
+    bool closing;
+    // The shipped layout retains one word not present in the released header.
+    int closing_layout_padding;
+    float closing_timer;
+    int cheat_unlocked;
+
+public:
+    EnterCheatMenu(
+        FEMenuSystem *system,
+        FEManager *manager,
+        stringx path,
+        stringx panel_filename);
+    virtual ~EnterCheatMenu();
+
+    virtual void Update(time_value_t time_inc);
+    virtual void Load();
+    virtual void Select(int entry_index);
+    virtual void Select();
+    virtual void OnActivate();
+    virtual void OnUp(int command);
+    virtual void OnDown(int command);
+    virtual void OnRight(int command);
+    virtual void OnLeft(int command);
+    virtual void OnCross(int command);
+    virtual void OnTriangle(int command);
+    virtual void Draw();
+
+private:
+    void ChangeButton(int new_button);
+    void SetPQIndices();
+    void ExitMenu(float delay);
+};
+
+__asm__(".equ ReOrderEntries__13CheatCodeMenui, 0x001D2518");
+__asm__(".equ TurnOnPhone__13CheatFrontEndb, 0x001D1BC8");
+__asm__(".equ OnActivate__15FEGraphicalMenu, 0x001581E8");
+
+extern bool toggle_cheats_entryAdded;
+__asm__(".equ toggle_cheats_entryAdded, 0x0040CE40");
+
 #endif
