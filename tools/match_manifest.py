@@ -134,7 +134,7 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
         )
     run(str(PYTHON), "tools/elf_inventory.py")
     run(str(PYTHON), "tools/fast_configure.py")
-    run("ninja")
+    run("ninja", "-j1")
     if not finalized_before_build:
         run(
             str(PYTHON),
