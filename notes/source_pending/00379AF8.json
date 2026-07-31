@@ -1,0 +1,15 @@
+{
+  "address": "0x00379AF8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "715efac60fd5023ea1028d60c346e2b5e606e09e",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/wave.h\"\n\nswitch (WAVE_Stage)\t// these are linked to the subdivision methods in WAVE_ComputeGrid\n\t{\n\tcase WAVE_StageBuilding:\n/*\n\t\t// Old method\n\t\ta = 1 - (1 - a) * WAVE_StageProgress;\n*/\n\t\t// New method\n\t\ta = min(1.f, a + 1 - WAVE_StageProgress);\n\t\tbreak;\n\tcase WAVE_StageSubsiding:\n/*\n\t\t// Old method\n\t\ta = a * (1 - WAVE_StageProgress);\n*/\n\t\t// New method\n\t\ta = max(0.f, a - WAVE_StageProgress);\n\t\tbreak;\n\tdefault:\n\t\tbreak;\n\t}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WAVE_ComputeGrid__Fv"
+}
