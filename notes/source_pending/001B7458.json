@@ -1,0 +1,15 @@
+{
+  "address": "0x001B7458",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ac249ceb2fd31d879adf5daf74a5315ebe798791",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/BoardFrontEnd.h\"\n\nvoid BoardFrontEnd::SetPQIndices()\n{\n\tarrows[0][0] = GetPointer(\"button_left_off\");\n\tarrows[0][1] = GetPointer(\"button_left_on\");\n\tarrows[1][0] = GetPointer(\"button_right_off\");\n\tarrows[1][1] = GetPointer(\"button_right_on\");\n\n\tarrows[0][1]->TurnOn(false);\n\tarrows[1][1]->TurnOn(false);\n\n\tstringx types[] = { \"spin\", \"speed\", \"air\", \"balance\" };\n\tstringx abc[] = { \"a\", \"b\", \"c\", \"hilite\" };\n\tfor(int i=0; i<4; i++)\n\t{\n\t\tfor(int j=0; j<4; j++)\n\t\t{\n\t\t\tgauges[i][j] = GetPointer((\"gauge_\"+types[i]+\"_\"+abc[j]).data());\n\t\t\ttop_gauges[i][j] = GetPointer((\"gauge_\"+types[i]+\"_\"+abc[j]+\"_top\").data());\n\t\t}\n\n\t\tgauges[i][1]->SetColor(0, 0, 1, 1);\n\t\ttop_gauges[i][1]->SetColor(1, 0, 0, 1);\n\t\tred_gauges[i] = NEW PanelQuad(*gauges[i][1]);\n\t\tred_gauges[i]->SetColor(1, 0, 0, 1);\n\t\tred_gauges[i]->SetZ(285);\n\t}\n\n\tline_a = GetPointer(\"line_3\");\n\tline_b = GetPointer(\"line_2\");\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "SetPQIndices__13BoardFrontEnd"
+}
