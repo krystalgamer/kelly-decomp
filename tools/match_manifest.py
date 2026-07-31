@@ -117,20 +117,32 @@ def process_entry(entry: dict[str, str], dry_run: bool) -> bool:
     )
 
     source_path = install_function_source(row, source)
-
+    finalized_before_build = expected_status == "deferred"
+    if finalized_before_build:
+        run(
+            str(PYTHON),
+            "tools/decomp.py",
+            "finalize",
+            row["address"],
+            "--status",
+            "matched",
+            "--summary",
+            entry["summary"],
+        )
     run(str(PYTHON), "tools/elf_inventory.py")
     run(str(PYTHON), "tools/fast_configure.py")
     run("ninja")
-    run(
-        str(PYTHON),
-        "tools/decomp.py",
-        "finalize",
-        row["address"],
-        "--status",
-        "matched",
-        "--summary",
-        entry["summary"],
-    )
+    if not finalized_before_build:
+        run(
+            str(PYTHON),
+            "tools/decomp.py",
+            "finalize",
+            row["address"],
+            "--status",
+            "matched",
+            "--summary",
+            entry["summary"],
+        )
     run(str(PYTHON), "tools/decomp.py", "check")
 
     note_path = ROOT / safe_notes_file(row)
