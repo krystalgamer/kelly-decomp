@@ -1,0 +1,15 @@
+{
+  "address": "0x00156E20",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3a619fe6c9bab5663f2563627a5db06260cce930",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEMenu.h\"\n\nvoid FEMenu::SetHelpText(const int hFlags)\n{\n\tstringx\t\thelpStr;\n\tstringx\t\tspacingStr(\" \");\n\tbool\t\tchooseText = false;\n\tint\t\t\tnumSections = 0;\t\t// number of commas required\n\tint\t\t\ti = 0;\n\t\n\thelpFlags = hFlags;\n\n\t// Count the number of commas required.\n\tif ((helpFlags & HF_UP) || (helpFlags & HF_DOWN) || (helpFlags & HF_LEFT) || (helpFlags & HF_RIGHT))\n\t{\n\t\tnumSections++;\n\t\tchooseText = true;\n\t}\n\tif (helpFlags & HF_SELECT) numSections++;\n\tif (helpFlags & HF_BACK) numSections++;\n//#if !defined(TARGET_XBOX)\n\tif (helpFlags & HF_RESUME) numSections++;\n//#endif\n\tif (helpFlags & HF_CONTINUE) numSections++;\n\tif (helpFlags & HF_SWITCH) numSections++;\n\n\t// Add text for resuming.\n//#if !defined(TARGET_XBOX)\n\tif (helpFlags & HF_RESUME)\n\t{\n\t\thelpStr += ksGlobalButtonArray[GT_PadStart] + ksGlobalTextArray[GT_MENU_CONTINUE];\n\t\tif (++i < numSections)\n\t\t\thelpStr += spacingStr;\n\t}\n//#endif\n\t\t\n\t// Add text for movement.\n\tif (helpFlags & HF_UP)\n\t\thelpStr += ksGlobalButtonArray[GT_PadU];\n\tif (helpFlags & HF_DOWN)\n\t\thelpStr += ksGlobalButtonArray[GT_PadD];\n\tif (helpFlags & HF_LEFT)\n\t\thelpStr += ksGlobalButtonArray[GT_PadL];\n\tif (helpFlags & HF_RIGHT)\n\t\thelpStr += ksGlobalButtonArray[GT_PadR];\n\tif (chooseText)\n\t{\n\t\thelpStr += stringx(\" \") + ksGlobalTextArray[GT_MENU_MOVE];\n\t\tif (++i < numSections)\n\t\t\thelpStr += spacingStr;\n\t}\n\n\t// Add text for switching.\n\tif (helpFlags & HF_SWITCH)\n\t{\n\t\thelpStr += ksGlobalButtonArray[GT_PadL] + ksGlobalButtonArray[GT_PadR] + stringx(\" \") + ksGlobalTextArray[GT_FE_MENU_SWITCH];\n\t\tif (++i < numSections)\n\t\t\thelpStr += spacingStr;\n\t}\n\n\t// Add text for selecting.\n\tif (helpFlags & HF_SELECT)\n\t{\n\t\thelpStr += ksGlobalButtonArray[GT_PadCross] + stringx(\" \") + ksGlobalTextArray[GT_MENU_SELECT];\n\t\tif (++i < numSections)\n\t\t\thelpStr += spacingStr;\n\t}\n\n\t// Add text for going back.\n\tif (helpFlags & HF_BACK)\n\t{\n\t\thelpStr += ksGlobalButtonArray[GT_PadBack] + stringx(\" \") + ksGlobalTextArray[GT_MENU_BACK];\n\t\tif (++i < numSections)\n\t\t\thelpStr += spacingStr;\n\t}\n\n\t// Add text continuing.\n\tif (helpFlags & HF_CONTINUE)\n\t{\n\t\thelpStr += ksGlobalButtonArray[GT_PadCross] + ksGlobalTextArray[GT_MENU_CONTINUE];\n\t\tif (++i < numSections)\n\t\t\thelpStr += spacingStr;\n\t}\n\t\n\thelpText->changeText(helpStr);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "SetHelpText__6FEMenui"
+}
