@@ -1,66 +1,82 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef AI_ACTIONS_H
+#define AI_ACTIONS_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_00113070)
-// 0x00113070 _$_9ai_action
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
+#include "KS/SRC/algebra.h"
+#include "KS/SRC/stringx.h"
 
-extern const char ai_action_vtable[];
-__asm__(".equ ai_action_vtable, 0x004C8370");
+typedef float rational_t;
+typedef float time_value_t;
 
-struct ai_action_layout {
-    char padding[0xc];
-    const void *vtable;
+class ai_goal;
+class ai_interface;
+class entity;
+
+class ai_action {
+public:
+    enum {
+        IN_SERVICE = 0x00000001
+    };
+
+    explicit ai_action(ai_goal *owner);
+    virtual ~ai_action();
+    virtual bool frame_advance(time_value_t time) = 0;
+    virtual void going_out_of_service();
+    virtual void going_into_service();
+
+    inline bool is_flagged(int flag) const {
+        return (flags & flag) != 0;
+    }
+    inline void set_flag(int flag, bool enabled = true) {
+        if (enabled)
+            flags |= flag;
+        else
+            flags &= ~flag;
+    }
+    inline bool is_in_service() const {
+        return is_flagged(IN_SERVICE);
+    }
+    inline ai_goal *get_ai_goal() const {
+        return owner;
+    }
+    ai_interface *get_ai_interface() const;
+    entity *get_my_entity() const;
+    inline unsigned int get_id() const {
+        return id;
+    }
+
+protected:
+    ai_goal *owner;
+    int flags;
+    unsigned int id;
+
+private:
+    static unsigned int action_id_counter;
 };
 
-extern "C" void AIActionDtor(void *self, int deleting)
-    __asm__("_$_9ai_action");
+class anim_ai_action : public ai_action {
+public:
+    explicit anim_ai_action(ai_goal *owner);
+    virtual ~anim_ai_action();
+    virtual bool frame_advance(time_value_t time);
+    virtual void going_out_of_service();
+    virtual void going_into_service();
 
-void AIActionDtor(void *self, int deleting) {
-    ((ai_action_layout *)self)->vtable = ai_action_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
-    }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00113030)
-// 0x00113030 __tf9ai_action
-extern "C" void __rtti_user(void *info, const char *name); asm(".equ __rtti_user, 0x003CE2F8");
-extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
-asm(".equ typeinfo, 0x00511FA8"); asm(".equ type_name, 0x004C8828");
-extern "C" void *GetTypeInfo() __asm__("__tf9ai_action");
-void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001130B0)
-// 0x001130B0 _$_14anim_ai_action
-extern "C" void destroy_string(void *,int)
-    __asm__("_$_7stringx");
-extern "C" void object_delete(void *)
-    __asm__("__builtin_delete");
-extern const char action_vtable[];
-__asm__(".equ _$_7stringx, 0x0034D6E0");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-__asm__(".equ action_vtable, 0x004C8370");
-struct action_layout {
-    char padding[0xc];
-    const void *vtable;
-    char first_string[8];
-    char second_string[8];
+protected:
+    stringx anim_to_find;
+    stringx sound_grp;
+    int anim_slot;
+    bool looping;
+    bool reverse;
+    bool non_cosmetic;
+    bool tween;
+    int anim_damage_value;
+    rational_t anim_recover;
+    rational_t anim_recover_var;
+    int anim_flags;
+    vector3d safe_pos;
+    bool safety_checks;
 };
-extern "C" void destroy_action(
-    action_layout *self,int flags
-) __asm__("_$_14anim_ai_action");
-void destroy_action(action_layout *self,int flags) {
-    destroy_string(self->second_string,2);
-    destroy_string(self->first_string,2);
-    self->vtable=action_vtable;
-    if (flags&1) {
-        object_delete(self);
-        __asm__ __volatile__("" : : : "memory");
-    }
-}
+
 #endif
