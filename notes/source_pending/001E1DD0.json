@@ -1,0 +1,15 @@
+{
+  "address": "0x001E1DD0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9292ba6facf6105de5c5eb2875a9bdf79c3d4521",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/HWOSPS2/ps2_input.h\"\n\nvoid ps2_keyboard_device::poll()\n{\n\tint ret;\n\tUSBKBINFO_t info;\n\t\n\tret = sceUsbKbGetInfo(&info);\n\tif( ret != USBKB_OK )\n\t{\n\t\t\t\t\t\t  debug_print( \"sceUsbKbGetInfo failed\" );\n\t\t\t\t\t\t  return;\n\t}\n\t\n\tsceUsbKbSync( USBKB_WAIT, &ret );\n\t\n\tif( ret == USBKB_OK )\n\t{\n\t\tif( info.status[keyb_id] == 0 ) return;\n\t}\n\t\n\tret = sceUsbKbRead( keyb_id, &kdata );\n\t\n\tif( ret != USBKB_OK )\n\t{\n\t\tdebug_print( \"sceUsbKbRead failed\" );\n\t\treturn;\n\t}\n\t\n\tsceUsbKbSync( USBKB_WAIT, &ret );\n\t\n\tif( ret != USBKB_OK )\n\t{\n\t\tdebug_print( \"sceUsbKbWait failed\" );\n\t\treturn;\n\t}\n\t\n\tif( kdata.len == 0 ) return;\n\t\n\tfor( int i = 0; i < kdata.len; i++ )\n\t{\n\t\tint kcode = kdata.keycode[i];\n\t\t\n\t\tdebug_print( \"0x%X\", kcode );\n\t\tif( kcode & USBKB_RAWDAT )\n\t\t{\n\t\t\tif( ( kcode&~USBKB_RAWDAT ) < NUM_KEYS )\n\t\t\t\tKB_post_event_callback(kePress, USBKB_to_KB[kcode&~USBKB_RAWDAT]);\n\t\t\tdebug_print( \"Arch: %d\", USBKB_to_KB[kcode&~USBKB_RAWDAT]);\n\t\t}\n\t\telse\n\t\t{\n\t\t\tkcode &= 0x00ff;\n\t\t\t\n\t\t\tswitch( kcode )\n\t\t\t{\n\t\t\tcase 0x0a:\n\t\t\t\tKB_post_event_callback(kePress, KB_RETURN);\n\t\t\t\tbreak;\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\tcase 0x08:\n\t\t\t\t\t\t\t\t\t\t\t\t\tKB_post_event_callback(kePress, KB_BACKSPACE);\n\t\t\t\t\t\t\t\t\t\t\t\t\tbreak;\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\tcase 0x09:\n\t\t\t\t\t\t\t\t\t\t\t\t\tKB_post_event_callback(kePress, KB_TAB);\n\t\t\t\t\t\t\t\t\t\t\t\t\tbreak;\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\tcase 0x60:\n\t\t\t\t\t\t\t\t\t\t\t\t\tKB_post_event_callback(kePress, KB_TILDE);\n\t\t\t\t\t\t\t\t\t\t\t\t\tbreak;\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\tcase 0x7e:\n\t\t\t\t\t\t\t\t\t\t\t\t\tKB_post_char_callback( 0x5f );\n\t\t\t\t\t\t\t\t\t\t\t\t\tbreak;\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\tdefault:\n\t\t\t\t\t\t\t\t\t\t\t\t\tif( kcode <= 127 && kcode > 0 )\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tKB_post_char_callback( (char)(kcode&0x00ff) );\n\t\t\t}\n\t\t}\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "poll__17ps2_joypad_device"
+}
