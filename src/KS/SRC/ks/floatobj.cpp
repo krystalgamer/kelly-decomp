@@ -1,37 +1,13 @@
-// Matching decompilation blocks selected by generated build shims.
+// floatobj definitions extracted by generated one-function shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_001FAFF0) || \
-    defined(KELLY_DECOMP_FUNCTION_001FB320) || \
-    defined(KELLY_DECOMP_FUNCTION_001FB3C8) || \
-    defined(KELLY_DECOMP_FUNCTION_001FC5E0) || \
-    defined(KELLY_DECOMP_FUNCTION_001FD7A0) || \
-    defined(KELLY_DECOMP_FUNCTION_001FE758) || \
-    defined(KELLY_DECOMP_FUNCTION_002073D8) || \
-    defined(KELLY_DECOMP_FUNCTION_002073F8) || \
-    defined(KELLY_DECOMP_FUNCTION_00207418) || \
-    defined(KELLY_DECOMP_FUNCTION_00207438) || \
-    defined(KELLY_DECOMP_FUNCTION_00207458) || \
-    defined(KELLY_DECOMP_FUNCTION_00207558) || \
-    defined(KELLY_DECOMP_FUNCTION_00207578) || \
-    defined(KELLY_DECOMP_FUNCTION_00207598) || \
-    defined(KELLY_DECOMP_FUNCTION_002075B8) || \
-    defined(KELLY_DECOMP_FUNCTION_002075E0) || \
-    defined(KELLY_DECOMP_FUNCTION_00207600) || \
-    defined(KELLY_DECOMP_FUNCTION_00207620) || \
-    defined(KELLY_DECOMP_FUNCTION_00209540) || \
-    defined(KELLY_DECOMP_FUNCTION_00209FA8) || \
-    defined(KELLY_DECOMP_FUNCTION_00209FF0)
-#include "KS/SRC/ks/floatobj_shared.h"
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FB320)
 // 0x001FB320 collide__12beach_objectP6entityRC8vector3d
+#include "KS/SRC/ks/floatobj.h"
+
 void beach_object::collide(entity* other, const vector3d& direction) {
     set_target_active(true);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FB330)
 // 0x001FB330 jumped_over__12beach_objectP6entity
 class entity;
 
@@ -45,9 +21,7 @@ public:
 void beach_object::jumped_over(entity* other) {
     active = true;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FB340)
 // 0x001FB340 sprayed__12beach_objectP6entity
 class entity;
 
@@ -61,16 +35,14 @@ public:
 void beach_object::sprayed(entity* other) {
     active = true;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FD7A0)
 // 0x001FD7A0 collide__12water_objectP6entityRC8vector3d
+#include "KS/SRC/ks/floatobj.h"
+
 void water_object::collide(entity* other, const vector3d& direction) {
     set_target_active(true);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FD7B0)
 // 0x001FD7B0 jumped_over__12water_objectP6entity
 class entity;
 
@@ -84,9 +56,7 @@ public:
 void water_object::jumped_over(entity* other) {
     active = true;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FD7C0)
 // 0x001FD7C0 sprayed__12water_objectP6entity
 class entity;
 
@@ -100,126 +70,120 @@ public:
 void water_object::sprayed(entity* other) {
     active = true;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FE758)
 // 0x001FE758 collide__15floating_objectP6entityRC8vector3d
+#include "KS/SRC/ks/floatobj.h"
+
 void floating_object::collide(entity* other, const vector3d& direction) {
     set_target_active(true);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00209FA8)
 // 0x00209FA8 jumped_over__14surfing_objectP6entity
+#include "KS/SRC/ks/floatobj.h"
+
 void surfing_object::jumped_over(entity* ent)
 {
     set_target_active(true);
     if (my_anim_handler != 0)
         my_anim_handler->update(false, true, false, &my_max_alpha);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00209FF0)
 // 0x00209FF0 sprayed__14surfing_objectP6entity
+#include "KS/SRC/ks/floatobj.h"
+
 void surfing_object::sprayed(entity* ent)
 {
     set_target_active(true);
     if (my_anim_handler != 0)
         my_anim_handler->update(false, false, true, &my_max_alpha);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002073D8)
 // 0x002073D8 icepatch_ai__14surfing_objectR8vector3dT1f
+#include "KS/SRC/ks/floatobj.h"
+
 __asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
 bool surfing_object::icepatch_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002073F8)
 // 0x002073F8 kelp_ai__14surfing_objectR8vector3dT1f
+#include "KS/SRC/ks/floatobj.h"
+
 __asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
 bool surfing_object::kelp_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00207418)
 // 0x00207418 fatbastard_ai__14surfing_objectR8vector3dT1f
+#include "KS/SRC/ks/floatobj.h"
+
 __asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
 bool surfing_object::fatbastard_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00207438)
 // 0x00207438 swimmer_ai__14surfing_objectR8vector3dT1f
+#include "KS/SRC/ks/floatobj.h"
+
 __asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
 bool surfing_object::swimmer_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00207458)
 // 0x00207458 snorkeler_ai__14surfing_objectR8vector3dT1f
+#include "KS/SRC/ks/floatobj.h"
+
 __asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
 bool surfing_object::snorkeler_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00207558)
 // 0x00207558 dolphin_ai__14surfing_objectR8vector3dT1f
+#include "KS/SRC/ks/floatobj.h"
+
 __asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
 bool surfing_object::dolphin_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00207578)
 // 0x00207578 greatwhite_ai__14surfing_objectR8vector3dT1f
+#include "KS/SRC/ks/floatobj.h"
+
 __asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
 bool surfing_object::greatwhite_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00207598)
 // 0x00207598 seal_ai__14surfing_objectR8vector3dT1f
+#include "KS/SRC/ks/floatobj.h"
+
 __asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
 bool surfing_object::seal_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002075B8)
 // 0x002075B8 seagull_ai__14surfing_objectR8vector3dT1f
+#include "KS/SRC/ks/floatobj.h"
+
 __asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
 bool surfing_object::seagull_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002075E0)
 // 0x002075E0 humpback_ai__14surfing_objectR8vector3dT1f
+#include "KS/SRC/ks/floatobj.h"
+
 __asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
 bool surfing_object::humpback_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00207600)
 // 0x00207600 helicopter_ai__14surfing_objectR8vector3dT1f
+#include "KS/SRC/ks/floatobj.h"
+
 __asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
 bool surfing_object::helicopter_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00207620)
 // 0x00207620 hammerhead_ai__14surfing_objectR8vector3dT1f
+#include "KS/SRC/ks/floatobj.h"
+
 __asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
 bool surfing_object::hammerhead_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00209540)
 // 0x00209540 mantaray_ai__14surfing_objectR8vector3dT1f
+#include "KS/SRC/ks/floatobj.h"
+
 __asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
 bool surfing_object::mantaray_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FB300)
 // 0x001FB300 update__11beach_eventf
 class beach_event { char padding[0x3c]; bool (*my_func)(float time, void **data); void *my_func_data; public: bool update(float time); };
 bool beach_event::update(float time) { return my_func(time, &my_func_data); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FB298)
 // 0x001FB298 spawn__11beach_event
 class beach_event { char padding0[0xc]; int times_spawned; bool spawned; char padding1[0x10]; void *my_func_data; char padding2[4]; int spawn_count; public: void spawn(); };
 void beach_event::spawn() { if (times_spawned == spawn_count) return; my_func_data = 0; spawned = true; times_spawned++; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FD850)
 // 0x001FD850 _$_15floating_object
 extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_12water_object");
 extern const char derived_vtable[];
@@ -228,9 +192,7 @@ __asm__(".equ derived_vtable, 0x004D6060");
 struct WaterObjectLayout { char padding[0x38]; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_15floating_object");
 void DerivedDtor(void *self, int deleting) { ((WaterObjectLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FE958)
 // 0x001FE958 _$_13static_object
 extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_12water_object");
 extern const char derived_vtable[];
@@ -239,9 +201,7 @@ __asm__(".equ derived_vtable, 0x004D5EC0");
 struct WaterObjectLayout { char padding[0x38]; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_13static_object");
 void DerivedDtor(void *self, int deleting) { ((WaterObjectLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FD948)
 // 0x001FD948 spawn__15floating_object
 asm(".equ spawn__12water_object, 0x001FD1B8");
 class water_object { public: void spawn(); };
@@ -270,9 +230,7 @@ void floating_object::spawn()
     water_object::spawn();
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FAAA8)
 // 0x001FAAA8 _$_12beach_object
 extern "C" void StringDtor(void *self, int deleting) __asm__("_$_7stringx");
 extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
@@ -287,9 +245,7 @@ void BeachObjectDtor(void *self, int deleting) {
     StringDtor((char *)self+0x30,2);
     if (deleting&1) { BuiltinDelete(self); __asm__ __volatile__("" : : : "memory"); }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FD878)
 // 0x001FD878 parse_params__15floating_objectPPci
 extern "C" bool water_parse(void*,char**,int) __asm__("parse_params__12water_objectPPci"); extern "C" bool read_float(void*,char**,int,const char*,float*) __asm__("read_float_param__C12beach_objectPPciPCcPf"); extern const char water_text[];
 __asm__(".equ parse_params__12water_objectPPci,0x001FCD38"); __asm__(".equ read_float_param__C12beach_objectPPciPCcPf,0x001FAD50"); __asm__(".equ water_text,0x004D0CE8");
@@ -297,25 +253,19 @@ struct floating_layout { char padding[752]; float water_interaction; };
 extern "C" bool parse_floating(floating_layout*self,char**argp,int argc) __asm__("parse_params__15floating_objectPPci");
 bool parse_floating(floating_layout*self,char**argp,int argc)
 {bool result;if(water_parse(self,argp,argc)){read_float(self,argp,argc,water_text,&self->water_interaction);result=true;}else result=false;return result;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FD8E0)
 // 0x001FD8E0 get_settings__15floating_objectRC15floating_object
 extern "C" void water_settings(void*,const void*) __asm__("get_settings__12water_objectRC12water_object"); __asm__(".equ get_settings__12water_objectRC12water_object,0x001FD5A8");
 struct floating_layout { char padding[720]; float desired_dy,current_dy,max_dy,speed_dy,desired_angle,current_angle,max_angle,speed_angle,water_interaction; };
 extern "C" void get_floating(floating_layout*self,const floating_layout&obj) __asm__("get_settings__15floating_objectRC15floating_object");
 void get_floating(floating_layout*self,const floating_layout&obj)
 {self->desired_dy=obj.desired_dy;self->current_dy=obj.current_dy;self->max_dy=obj.max_dy;self->speed_dy=obj.speed_dy;self->desired_angle=obj.desired_angle;self->current_angle=obj.current_angle;self->max_angle=obj.max_angle;self->speed_angle=obj.speed_angle;self->water_interaction=obj.water_interaction;water_settings(self,&obj);int dead;__asm__("" : "=r"(dead));}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00200088)
 // 0x00200088 _$_14surfing_object
 extern void*surf_vtable;__asm__(".equ surf_vtable,0x004D5F30");extern "C" void despawn(void*) __asm__("despawn__14surfing_object");extern "C" void string_dtor(void*,int) __asm__("_$_7stringx");extern "C" void water_dtor(void*,int) __asm__("_$_12water_object");__asm__(".equ despawn__14surfing_object,0x002028F0");__asm__(".equ _$_7stringx,0x0034D6E0");__asm__(".equ _$_12water_object,0x001FC5E0");struct handler_vtable{char p0[8];short adjustment;short x0;void(*destroy)(void*,int);};struct handler{char p0[28];handler_vtable*vtable;};struct surfing{char p0[56];void*vtable;char p1[664];handler*anim_handler;char p2[64];char anim_name[8];};extern "C" void destroy_surf(surfing*self,int deleting) __asm__("_$_14surfing_object");void destroy_surf(surfing*self,int deleting){self->vtable=&surf_vtable;despawn(self);if(self->anim_handler){handler*h=self->anim_handler;handler_vtable*t=h->vtable;t->destroy((char*)h+t->adjustment,3);}string_dtor(self->anim_name,2);water_dtor(self,deleting);int dead;__asm__("" : "=r"(dead));}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002028F0)
 // 0x002028F0 despawn__14surfing_object
-#include "KS/SRC/ks/floatobj_shared.h"
+#include "KS/SRC/ks/floatobj.h"
 #include "KS/SRC/ks/SoundScript.h"
 #include "KS/SRC/ks/trail_shared.h"
 
@@ -349,18 +299,14 @@ void surfing_object::despawn()
     water_object::despawn();
     KELLY_DECOMP_COMPILER_BARRIER();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FAC30)
 // 0x001FAC30 find_param__C12beach_objectPPciPCc
-#include "KS/SRC/ks/floatobj_shared.h"
+#include "KS/SRC/ks/floatobj.h"
 extern "C" int cstrcmp(const char*,const char*) __asm__("strcmp");
 __asm__(".equ strcmp,0x003D3E88");
 extern "C" bool find_param(const beach_object*,char**,int,const char*) __asm__("find_param__C12beach_objectPPciPCc");
 bool find_param(const beach_object*,char**argp,int argc,const char*name){for(int i=0;i<argc;i++)if(!cstrcmp(argp[i],name))return true;return false;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FB350)
 // 0x001FB350 __15beach_billboardP6entityRC7stringx
 #include "KS/SRC/stringx.h"
 class entity;struct vector3d{float x,y,z;vector3d&operator=(const vector3d&o){x=o.x;y=o.y;z=o.z;return *this;}};struct po{char data[72];};
@@ -368,31 +314,21 @@ class beach_object{public:beach_object(entity*,const stringx&);virtual~beach_obj
 class beach_billboard:public beach_object{public:beach_billboard(entity*,const stringx&);virtual~beach_billboard();void spawn();void despawn();bool update(float);protected:vector3d my_velocity;po my_initial_po;bool rotate;float my_age;float my_life;};
 extern const vector3d zero_vec;__asm__(".equ zero_vec,0x00554478");__asm__(".equ __12beach_objectP6entityRC7stringx,0x001FAA10");__asm__(".equ _vt$15beach_billboard,0x004D6148");
 beach_billboard::beach_billboard(entity*ent,const stringx&path):beach_object(ent,path){my_entity=ent;my_velocity=zero_vec;rotate=true;my_life=0;physical=false;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FAB00)
 // 0x001FAB00 get_settings__12beach_objectRC12beach_object
 struct stringx{char data[8];stringx&operator=(const stringx&);};__asm__(".equ __as__7stringxRC7stringx,0x0034E0B8");struct beach_object{char pad0[4];float spawn_time;int timer_type;int times_spawned;int spawned;int smashable;int active;int never_despawn;int physical;char pad1[8];int spawn_count;stringx my_path;void get_settings(const beach_object&)__asm__("get_settings__12beach_objectRC12beach_object");};void beach_object::get_settings(const beach_object&o){__asm__ volatile ("" : : : "memory");my_path=o.my_path;spawn_time=o.spawn_time;timer_type=o.timer_type;spawned=o.spawned;spawn_count=o.spawn_count;times_spawned=o.times_spawned;smashable=o.smashable;active=o.active;physical=o.physical;never_despawn=o.never_despawn;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FD7D0)
 // 0x001FD7D0 __15floating_objectP6entityRC7stringx
 struct entity;struct stringx{char data[8];};struct floating_object{char pad0[56];void*vptr;char pad1[668];float max_dy,speed_dy;char pad2[8];float max_angle,speed_angle,water_interaction;};extern "C" void base_ctor(floating_object*,entity*,const stringx&)__asm__("__12water_objectP6entityRC7stringx");extern void*floating_vtable[];extern float g_max_dy,g_speed_dy,g_max_angle,g_speed_angle;__asm__(".equ __12water_objectP6entityRC7stringx,0x001FC560");__asm__(".equ floating_vtable,0x004D6060");__asm__(".equ g_max_dy,0x004308A4");__asm__(".equ g_speed_dy,0x004308A8");__asm__(".equ g_max_angle,0x004308AC");__asm__(".equ g_speed_angle,0x004308B0");extern "C" floating_object*ctor(floating_object*self,entity*ent,const stringx&path)__asm__("__15floating_objectP6entityRC7stringx");floating_object*ctor(floating_object*self,entity*ent,const stringx&path){base_ctor(self,ent,path);self->vptr=floating_vtable;self->max_dy=0.25f;self->speed_dy=1.0f;self->max_angle=20.0f;self->speed_angle=1.0f;self->water_interaction=1.0f;g_max_dy=self->max_dy;g_speed_dy=self->speed_dy;g_max_angle=self->max_angle;g_speed_angle=self->speed_angle;return self;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00200100)
 // 0x00200100 parse_params__14surfing_objectPPci
 struct AnimHandler{char p[16];bool dummy;};struct __attribute__((packed)) MemberPtr{unsigned a,b;};extern MemberPtr dummy_ai_ptr;extern const char dummy_name[];extern "C" bool water_parse(void*,char**,int)__asm__("parse_params__12water_objectPPci");extern "C" bool find(void*,char**,int,const char*)__asm__("find_param__C12beach_objectPPciPCc");class surfing_object{public:char p[724];AnimHandler*handler;MemberPtr ai_func;bool parse_params(char**,int)__asm__("parse_params__14surfing_objectPPci");};__asm__(".equ dummy_ai_ptr,0x004D1078");__asm__(".equ dummy_name,0x004D1118");__asm__(".equ parse_params__12water_objectPPci,0x001FCD38");__asm__(".equ find_param__C12beach_objectPPciPCc,0x001FAC30");bool surfing_object::parse_params(char**args,int argc){if(!water_parse(this,args,argc))return false;if(find(this,args,argc,dummy_name)){ai_func=dummy_ai_ptr;if(handler)handler->dummy=true;}return true;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FAB80)
 // 0x001FAB80 parse_params__12beach_objectPPci
 extern const char spawn_count_name[],never_despawn_name[],smashable_name[],time_name[];asm(".equ spawn_count_name,0x004D08F8");asm(".equ never_despawn_name,0x004D0908");asm(".equ smashable_name,0x004D0918");asm(".equ time_name,0x004D0928");class beach_object{void*vtable;float spawn_time;char pad0[12];int smashable;char pad1[4];int never_despawn;char pad2[12];int spawn_count;public:bool parse_params(char**,int);bool find_param(char**,int,const char*)const;bool read_int_param(char**,int,const char*,int*)const;bool read_float_param(char**,int,const char*,float*)const;};asm(".equ find_param__C12beach_objectPPciPCc,0x001FAC30");asm(".equ read_int_param__C12beach_objectPPciPCcPi,0x001FACA8");asm(".equ read_float_param__C12beach_objectPPciPCcPf,0x001FAD50");bool beach_object::parse_params(char**argp,int argc){read_int_param(argp,argc,spawn_count_name,&spawn_count);if(find_param(argp,argc,never_despawn_name))never_despawn=true;if(find_param(argp,argc,smashable_name))smashable=true;return read_float_param(argp,argc,time_name,&spawn_time);}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0020A4B0)
 // 0x0020A4B0 __17generic_anim_miscPP6entityRC7stringxT2PPCci
-#include "KS/SRC/ks/floatobj_shared.h"
+#include "KS/SRC/ks/floatobj.h"
 
 // Preserve the released constructor prologue normalized by the EE compiler shim.
 generic_anim_misc::generic_anim_misc (
@@ -405,9 +341,7 @@ generic_anim_misc::generic_anim_misc (
 {
 	construct (entities, path, name, prefixes, count);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00209560)
 // 0x00209560 turtle_ai__14surfing_objectR8vector3dT1f
 class vector3d
 {
@@ -455,4 +389,3 @@ bool surfing_object::turtle_ai (vector3d& position, vector3d& normal, float dt)
 
   return ret;
 }
-#endif

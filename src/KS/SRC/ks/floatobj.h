@@ -1,211 +1,235 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef FLOATOBJ_H
+#define FLOATOBJ_H
 
+#include "KS/SRC/color.h"
+#include "KS/SRC/entity.h"
+#include "KS/SRC/stringx.h"
+#include "KS/SRC/algebra.h"
+#include "decomp_annotations.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_0026F900)
-// 0x0026F900 is_surfing_object__12beach_object
+#pragma interface
+
+inline void entity::set_render_color(color32 color)
+{
+    *(unsigned int *)&render_color = color.value;
+}
+
+class trail;
+
+class generic_anim {
+public:
+    inline generic_anim() {}
+    inline generic_anim(const stringx &path, const stringx &name)
+    {
+        my_base_name = name;
+        dummy = false;
+        cur_state = cur_anim = 0;
+        left_down = right_down = false;
+    }
+    virtual ~generic_anim();
+    virtual void update(bool collide, bool jump, bool spray, float* alpha) = 0;
+    virtual void spawn() = 0;
+    virtual void switch_anims() = 0;
+
+protected:
+    stringx my_base_name;
+    int cur_state;
+    int cur_anim;
+    bool dummy;
+    bool left_down;
+    bool right_down;
+};
+
+class generic_anim_misc : public generic_anim {
+    static const char *generic_anim_names[];
+    int generic_anims[5];
+    int generic_anim_state;
+    int items_count;
+    stringx *items_prefixes;
+    entity **my_entities;
+
+public:
+    generic_anim_misc(
+        entity **entities,
+        const stringx &path,
+        const stringx &name,
+        const char **prefixes,
+        int count);
+    virtual ~generic_anim_misc();
+    void construct(
+        entity **entities,
+        const stringx &path,
+        const stringx &name,
+        const char **prefixes,
+        int count);
+    void update(bool collide, bool jump, bool spray, float *alpha);
+    void spawn();
+    void switch_anims();
+};
+
 class beach_object {
 public:
-    bool is_surfing_object();
+    beach_object(entity*, const stringx&);
+    virtual ~beach_object();
+    virtual void spawn() = 0;
+    virtual void despawn() = 0;
+    virtual bool update(float) = 0;
+    virtual bool parse_params(char**, int);
+    virtual void get_settings(const beach_object&);
+    virtual void collide(entity*, const vector3d&);
+    virtual void jumped_over(entity*);
+    virtual void sprayed(entity*);
+    virtual bool is_surfing_object();
+
+    beach_object* next;
+    float spawn_time;
+    int timer_type;
+    int times_spawned;
+    bool spawned;
+    bool smashable;
+    bool active;
+    bool never_despawn;
+
+protected:
+    void set_target_active(bool value) { *(bool*)((char*)this + 0x24) = value; }
+    bool physical;
+    entity* my_entity;
+    int spawn_count;
+    stringx my_path;
+    char abi_padding[4];
 };
 
-bool beach_object::is_surfing_object() {
-    return false;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0026FA70)
-// 0x0026FA70 get_type__C12water_object
-class water_object {
+class beach_event : public beach_object {
 public:
-    int get_type() const;
-};
-
-int water_object::get_type() const {
-    return -1;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0026FD10)
-// 0x0026FD10 spawn__17generic_anim_misc
-class generic_anim_misc {
-    char padding[0x34];
-    int state;
-public:
+    beach_event(bool (*)(float, void**));
+    virtual ~beach_event();
     void spawn();
+    void despawn();
+    bool update(float);
+
+protected:
+    bool (*my_func)(float, void**);
+    void* my_func_data;
 };
 
-void generic_anim_misc::spawn() {
-    state = 5;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0026FDF0)
-// 0x0026FDF0 spawn__19generic_anim_animal
-class generic_anim_animal {
-    char padding[0x28];
-    int state;
+class beach_billboard : public beach_object {
 public:
+    beach_billboard(entity*, const stringx&);
+    virtual ~beach_billboard();
     void spawn();
+    void despawn();
+    bool update(float);
 };
 
-void generic_anim_animal::spawn() {
-    state = 2;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0026FED0)
-// 0x0026FED0 spawn__16generic_anim_ice
-class generic_anim_ice {
-    char padding[0x2C];
-    int state;
+class water_object : public beach_object {
 public:
+    water_object(entity*, const stringx&);
+    virtual ~water_object();
+    virtual void spawn();
+    virtual void despawn();
+    virtual bool update(float);
+    virtual void collide(entity*, const vector3d&);
+    virtual void jumped_over(entity*);
+    virtual void sprayed(entity*);
+
+protected:
+    color32 ren_col;
+    float my_max_alpha;
+    char water_data[0x28C];
+};
+
+class floating_object : public water_object {
+public:
+    floating_object(entity *, const stringx &);
+    virtual ~floating_object();
+    bool parse_params(char **arguments, int count);
+    virtual void get_settings(const floating_object &other);
     void spawn();
+    bool update(float time_inc);
+    virtual void collide(entity *, const vector3d &);
+
+private:
+    float desired_dy;
+    float current_dy;
+    float max_dy;
+    float speed_dy;
+    float desired_angle;
+    float current_angle;
+    float max_angle;
+    float speed_angle;
+    float water_interaction;
 };
 
-void generic_anim_ice::spawn() {
-    state = 3;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0026FF88)
-// 0x0026FF88 is_surfing_object__14surfing_object
-class surfing_object {
+class surfing_object : public water_object {
 public:
-    bool is_surfing_object();
-};
+    surfing_object(entity*, const stringx&, const stringx&);
+    virtual ~surfing_object();
+    virtual void spawn();
+    virtual void despawn();
+    virtual bool update(float);
+    virtual void collide(entity*, const vector3d&);
+    virtual void jumped_over(entity*);
+    virtual void sprayed(entity*);
+    virtual bool is_surfing_object();
 
-bool surfing_object::is_surfing_object() {
-    return true;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0026FF90)
-// 0x0026FF90 get_type__C14surfing_object
-class surfing_object {
-    char padding[0x2E0];
+private:
+    int mySound;
+    generic_anim* my_anim_handler;
+    bool dummy_ai(vector3d &, vector3d &, float);
+    bool floating_ai(vector3d &, vector3d &, float);
+    bool boogie_ai(vector3d &, vector3d &, float);
+    bool surfer1_ai(vector3d &, vector3d &, float);
+    bool surfer2_ai(vector3d &, vector3d &, float);
+    bool kayaker_ai(vector3d &, vector3d &, float);
+    bool fatbastard_ai(vector3d &, vector3d &, float);
+    bool swimmer_ai(vector3d &, vector3d &, float);
+    bool cameraman_ai(vector3d &, vector3d &, float);
+    bool dolphin_ai(vector3d &, vector3d &, float);
+    bool greatwhite_ai(vector3d &, vector3d &, float);
+    bool seal_ai(vector3d &, vector3d &, float);
+    bool seagull_ai(vector3d &, vector3d &, float);
+    bool outrigger_ai(vector3d &, vector3d &, float);
+    bool humpback_ai(vector3d &, vector3d &, float);
+    bool windsurfer_ai(vector3d &, vector3d &, float);
+    bool hammerhead_ai(vector3d &, vector3d &, float);
+    bool mantaray_ai(vector3d &, vector3d &, float);
+    bool fisherman_ai(vector3d &, vector3d &, float);
+    bool turtle_ai(vector3d &, vector3d &, float);
+    bool jetskier_ai(vector3d &, vector3d &, float);
+    bool snorkeler_ai(vector3d &, vector3d &, float);
+    bool dingy_ai(vector3d &, vector3d &, float);
+    bool icepatch_ai(vector3d &, vector3d &, float);
+    bool kelp_ai(vector3d &, vector3d &, float);
+    bool helicopter_ai(vector3d &, vector3d &, float);
+    bool (surfing_object::*ai_func)(vector3d &, vector3d &, float);
     int my_type;
-public:
-    int get_type() const;
+    float timer;
+    float timer2;
+    float turn_amount;
+    float turn_rate;
+    float lean_amount;
+    float my_idle_delay;
+    float tilt_amount;
+    vector3d velocity;
+    trail *my_trail;
+    entity *my_board_entity;
+    entity *my_third_entity;
+    stringx my_base_name;
+    int my_state;
+    int my_previous_state;
+    stringx *my_name_anims;
+    int my_num_anims;
+    stringx *my_board_name_anims;
+    int my_board_num_anims;
+    vector3d offset;
+    float extra_turn;
+    float total_extra_turn;
 };
 
-int surfing_object::get_type() const {
-    return my_type;
-}
-#endif
+__asm__(".equ __7stringx, 0x0034D3E0");
+__asm__(".equ __as__7stringxRC7stringx, 0x0034E0B8");
+__asm__(".equ _vt$12generic_anim, 0x004D6030");
+__asm__(".equ _vt$17generic_anim_misc, 0x004D6000");
+__asm__(".equ construct__17generic_anim_miscPP6entityRC7stringxT2PPCci, 0x0020A568");
 
-#if defined(KELLY_DECOMP_FUNCTION_0026F8C0)
-// 0x0026F8C0 __tf12beach_object
-extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
-extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
-asm(".equ typeinfo, 0x005120D0"); asm(".equ type_name, 0x004E4F50");
-extern "C" void *GetTypeInfo() __asm__("__tf12beach_object");
-void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0026FB30)
-// 0x0026FB30 __tf12generic_anim
-extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
-extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
-asm(".equ typeinfo, 0x005120D8"); asm(".equ type_name, 0x004E4FB0");
-extern "C" void *GetTypeInfo() __asm__("__tf12generic_anim");
-void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0026FB70)
-// 0x0026FB70 _$_12generic_anim
-extern "C" void StringDtor(void *self, int deleting)
-    __asm__("_$_7stringx");
-extern "C" void BuiltinDelete(void *memory)
-    __asm__("__builtin_delete");
-extern const char generic_anim_vtable[];
-
-__asm__(".equ _$_7stringx, 0x0034D6E0");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-__asm__(".equ generic_anim_vtable, 0x004D6030");
-
-struct generic_anim_layout
-{
-    char string_and_fields[0x1c];
-    const void *vtable;
-};
-
-extern "C" void GenericAnimDtor(void *self, int deleting)
-    __asm__("_$_12generic_anim");
-
-void GenericAnimDtor(void *self, int deleting)
-{
-    ((generic_anim_layout *)self)->vtable = generic_anim_vtable;
-    StringDtor(self, 2);
-    if (deleting & 1)
-    {
-        BuiltinDelete(self);
-        __asm__ __volatile__("" : : : "memory");
-    }
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0026FD98)
-// 0x0026FD98 _$_19generic_anim_animal
-extern "C" void StringDtor(void *self, int deleting)
-    __asm__("_$_7stringx");
-extern "C" void BuiltinDelete(void *memory)
-    __asm__("__builtin_delete");
-extern const char generic_anim_vtable[];
-
-__asm__(".equ _$_7stringx, 0x0034D6E0");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-__asm__(".equ generic_anim_vtable, 0x004D6030");
-
-struct generic_anim_layout
-{
-    char string_and_fields[0x1c];
-    const void *vtable;
-};
-
-extern "C" void GenericAnimAnimalDtor(void *self, int deleting)
-    __asm__("_$_19generic_anim_animal");
-
-void GenericAnimAnimalDtor(void *self, int deleting)
-{
-    ((generic_anim_layout *)self)->vtable = generic_anim_vtable;
-    StringDtor(self, 2);
-    if (deleting & 1)
-    {
-        BuiltinDelete(self);
-        __asm__ __volatile__("" : : : "memory");
-    }
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0026FE78)
-// 0x0026FE78 _$_16generic_anim_ice
-extern "C" void StringDtor(void *self, int deleting)
-    __asm__("_$_7stringx");
-extern "C" void BuiltinDelete(void *memory)
-    __asm__("__builtin_delete");
-extern const char generic_anim_vtable[];
-
-__asm__(".equ _$_7stringx, 0x0034D6E0");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-__asm__(".equ generic_anim_vtable, 0x004D6030");
-
-struct generic_anim_layout
-{
-    char string_and_fields[0x1c];
-    const void *vtable;
-};
-
-extern "C" void GenericAnimIceDtor(void *self, int deleting)
-    __asm__("_$_16generic_anim_ice");
-
-void GenericAnimIceDtor(void *self, int deleting)
-{
-    ((generic_anim_layout *)self)->vtable = generic_anim_vtable;
-    StringDtor(self, 2);
-    if (deleting & 1)
-    {
-        BuiltinDelete(self);
-        __asm__ __volatile__("" : : : "memory");
-    }
-}
 #endif
