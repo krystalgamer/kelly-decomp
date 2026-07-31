@@ -1,0 +1,15 @@
+{
+  "address": "0x0028EBD0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c73ef0086ad3947af63f8e2c696369d753244d3b",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/wds.h\"\n\nworld_dynamics_system::world_dynamics_system()\n{\n\tpath_graph_system_construct();\n\n\tloading_from_scn_file = false;\n\n\tt_inc = T_INC_INVALID;\n\tcur_time_inc = T_INC_INVALID;\n\n\tfor(int i=0;i<MAX_PLAYERS;i++)\n\t{\n\t\thero_ptr[i] = NULL;\n\t\tks_controller[i] = NULL;\n\t}\n\n\tworld_path = NULL;\n\n\tusercam = NULL;\n\tusercam_orient_mcs = NULL;\n\tusercam_move_mcs = NULL;\n\tusercam_controller = NULL;\n\n\n\tscene_analyzer_move_mcs = NULL;\n\tscene_analyzer_orient_mcs = NULL;\n\tscene_analyzer_controller = NULL;\n\tscene_analyzer_cam = NULL;\n\n\tcurrent_malor_marker = -1;\n\n\torigin_entity = NEW entity;\n\torigin_entity->set_rel_po(po_identity_matrix);\n\n\tsetup_time = 4;\n\tg_level_time = 0;\n\tthe_terrain = 0;\n\n\tmarky_cam = 0;\n\tmarky_cam_enabled = false;\n\n\tcur_global_so = NULL;\n\tcur_global_so_inst = NULL;\n\n\tlast_snm_handle = 0;\n\n\tcollision_dummy=NEW entity(ANONYMOUS,EFLAG_PHYSICS_MOVING|EFLAG_PHYSICS,po_identity_matrix);\n\n\t//  dread_network = NULL;\n\t// BIGCULL   ai_cue_mgr = NULL;\n\n\t/*\n\tm_pLipSync = NULL;\n\tm_pLipSync = NEW LipSyncMngr;\n\t*/\n\n\n\t// THE STL SUCKS FIX\n\t// This is to ensure that STL will free these\n\t// since STL doesn't free anything < 128 bytes\n\tcollision_entities.reserve(100);\n\tcollision_entities.resize(0);\n\tactive_entities.reserve( 100 );\n\tactive_entities.resize(0);\n\n\tparented_entities.reserve( 100 );\n\tparented_entities.resize(0);\n\n\tdead_ents.reserve( 100 );\n\tdead_ents.resize(0);\n\tett_mgr = NEW ett_manager();\n\n\tcurrent_light_context = NULL;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__21world_dynamics_system"
+}
