@@ -1,0 +1,15 @@
+{
+  "address": "0x0025FD78",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "af7d3ce865a966cad531aaffdb20b6a6c0df97d7",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "void BOARD_LoadMesh(entity *board, int hero_num)\n{\n  if (!g_game_ptr->GetUsingPersonalitySuit(hero_num))\n  {\n\t\t\n    if (g_game_ptr->GetBoardIdx(hero_num) < MAX_BOARDS && stricmp(SurferDataArray[g_game_ptr->GetSurferIdx(hero_num)].board_ent_name, \"BOARD\") != 0)\n    {\n\t\t\tboard->fileName = SurferDataArray[g_game_ptr->GetSurferIdx(hero_num)].board_ent_name;\n      stringx meshpath = stringx(\"CHARACTERS\\\\\") + stringx(SurferDataArray[g_game_ptr->GetSurferIdx(hero_num)].name) + stringx(\"\\\\ENTITIES\\\\\");;\n\t\t\tstringx texpath  =  stringx(\"BOARDS\\\\\") + stringx(SurferDataArray[g_game_ptr->GetSurferIdx(hero_num)].name) + stringx(\"\\\\TEXTURES\\\\\");\n      nglSetMeshPath(meshpath.c_str());\n\t\t\tnglSetTexturePath(texpath.c_str());\n    }\n    else\n    {\n\t\t\tboard->fileName = \"BOARD\";\n      nglSetMeshPath(\"ITEMS\\\\BOARD\\\\ENTITIES\\\\\");\n\t\t\tnglSetTexturePath(\"ITEMS\\\\BOARD\\\\TEXTURES\\\\\");\n    }\n  }\n  else\n  {\n\n\n    if (g_game_ptr->GetBoardIdx(hero_num) < MAX_BOARDS && stricmp(SurferDataArray[g_game_ptr->GetSurferIdx(hero_num)].p_board_name, \"BOARD\") != 0)\n    {\n\t\t\tboard->fileName = SurferDataArray[g_game_ptr->GetSurferIdx(hero_num)].p_board_name;\n      nglSetMeshPath((stringx(\"CHARACTERS\\\\PERSONALITY\") + SurferDataArray[g_game_ptr->GetSurferIdx(hero_num)].abbr + \"\\\\ENTITIES\\\\\").c_str());\n\t\t\tnglSetTexturePath((stringx(\"BOARDS\\\\PERSONALITY\") + SurferDataArray[g_game_ptr->GetSurferIdx(hero_num)].abbr + \"\\\\TEXTURES\\\\\").c_str());\n    }\n    else\n    {\n\t\t\tboard->fileName = \"BOARD\";\n      nglSetMeshPath(\"ITEMS\\\\BOARD\\\\ENTITIES\\\\\");\n\t\t\tnglSetMeshPath(\"ITEMS\\\\BOARD\\\\TEXTURES\\\\\");\n    }\n  }\n  nglLoadMeshFile((board->fileName + stringx(\"_lo\")).c_str());\n  ((conglomerate*)board)->get_member(\"BOARD\")->set_lores_mesh(nglGetFirstMeshInFile((board->fileName + stringx(\"_lo\")).c_str()));\n\t\n  nglLoadMeshFile((board->fileName).c_str());\n  ((conglomerate*)board)->get_member(\"BOARD\")->set_mesh(nglGetFirstMeshInFile(board->fileName.c_str()));\n\n\n\t// I don't know why this is done here, it's also in kellyslater_controller::kellyslater_controller() but I need to disable this for personality suits - leo\n\t// This is changed so that now we only have the entries for the two sets of boards\n  if (!g_game_ptr->GetUsingPersonalitySuit(hero_num) || !stricmp(SurferDataArray[g_game_ptr->GetSurferIdx(hero_num)].p_board_name, \"board\"))\n\t  ((conglomerate*)board)->get_member(\"BOARD\")->SetTextureFrame(hero_num);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "BOARD_LoadMesh__FP6entityi"
+}
