@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_SOUND_SCRIPT_SHARED_H
 #define KELLY_DECOMP_SOUND_SCRIPT_SHARED_H
 
-#include "KS/SRC/singleton_shared.h"
+#include "KS/SRC/singleton.h"
 
 enum EventType {
     SS_FE_ONX = 24,

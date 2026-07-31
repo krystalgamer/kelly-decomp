@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_SIGNAL_MANAGER_SHARED_H
 #define KELLY_DECOMP_SIGNAL_MANAGER_SHARED_H
 
-#include "KS/SRC/singleton_shared.h"
+#include "KS/SRC/singleton.h"
 #include "KS/SRC/stringx_shared.h"
 #include "g++-2/stl_map_shared.h"
 #include "g++-2/stl_vector_shared.h"

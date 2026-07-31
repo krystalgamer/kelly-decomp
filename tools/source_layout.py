@@ -78,6 +78,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/physical_interface.h": "KS/SRC/physical_interface.cpp",
     "KS/SRC/render_interface.h": "KS/SRC/render_interface.cpp",
     "KS/SRC/skeleton_interface.h": "KS/SRC/skeleton_interface.cpp",
+    "KS/SRC/singleton.h": "KS/SRC/singleton.cpp",
     "KS/SRC/script_data_interface.h": "KS/SRC/script_data_interface.cpp",
     "KS/SRC/slave_interface.h": "KS/SRC/slave_interface.cpp",
     "KS/SRC/soft_attrib_interface.h": "KS/SRC/soft_attrib_interface.cpp",
