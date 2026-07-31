@@ -1,6 +1,13 @@
 #ifndef SIGNALS_H
 #define SIGNALS_H
 
+#include "KS/SRC/singleton.h"
+#include "KS/SRC/stringx.h"
+#include "g++-2/stl_map_shared.h"
+#include "g++-2/stl_vector_shared.h"
+
+#pragma interface
+
 class signal {
 public:
     void raise();
@@ -36,6 +43,20 @@ public:
     virtual const char *get_signal_name(unsigned short index) const;
 };
 
+class signal_manager : public singleton {
+public:
+    typedef map<stringx, unsigned short> signal_id_map_t;
+    typedef vector<signal *> managed_signal_list;
+
+private:
+    signal_id_map_t signal_id_map;
+    managed_signal_list refresh_list;
+
+public:
+    signal_manager();
+};
+
 __asm__(".equ raise__6signal, 0x0034C428");
+__asm__(".equ _vt$14signal_manager, 0x00505098");
 
 #endif

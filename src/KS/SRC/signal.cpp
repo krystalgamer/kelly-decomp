@@ -289,7 +289,7 @@ script_callback::script_callback( script_object::instance* _inst, const vm_execu
 
 #if defined(KELLY_DECOMP_FUNCTION_0034CEC0)
 // 0x0034CEC0 __14signal_manager
-#include "KS/SRC/signal_manager_shared.h"
+#include "KS/SRC/signals.h"
 
 // The released constructor default-initializes both containers.
 // Shared GNU 2 tree declarations retain the allocator base construction order.
