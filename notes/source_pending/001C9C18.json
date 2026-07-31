@@ -1,0 +1,15 @@
+{
+  "address": "0x001C9C18",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "d470a06c833823e4418ae0db47136fd6918cec12",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/HighScoreFrontEnd.h\"\n\nHighScoreFrontEnd::HighScoreFrontEnd(FEMenuSystem* s, FEManager* man, stringx p, stringx pf_name, bool i_g)\n{\n\tcons(s, man, p, pf_name);\n\tin_game = i_g;\n\n\tfloat sc_lg = 0.888f*1.18f;\n\tfloat sc_sm = 0.666f*1.18f;\n\tscale = scale_high = sc_lg;\n\tcolor = color_high = manager->col_highlight2;\n\tlabelColor = manager->col_menu_header;\n\n\tFont * font = &manager->font_bold_old;\n\n\tfor(int i=0; i<BEACH_LAST*2; i++)\n\t{\n\t\tint bn = i;\n\t\tif(i >= BEACH_LAST) bn -= BEACH_LAST;\n\t\tstringx tmp = BeachDataArray[bn].fe_name;\n\n\t\tif(i >= BEACH_LAST) tmp = tmp + \" \" + ksGlobalTextArray[GT_FE_MENU_ICON];\n\t\tall_beaches[i] = NEW FEMenuEntry(tmp, this, false, font);\n\t\tAdd(all_beaches[i]);\n\t\tall_beaches[i]->SetPos(320, 74);\n\t}\n\n\tFEMenuEntry* tmp = entries;\n\twhile(tmp)\n\t{\n\t\ttmp->left = tmp->previous;\n\t\ttmp->right = tmp->next;\n\t\tif(tmp->next == NULL) tmp->right = entries;\n\t\ttmp = tmp->next;\n\t}\n\n\tint col_centers[NUM_COLUMNS] = { 102, 159, 308, 466, 535 };\n\n\tfor(int i=0; i<NUM_COLUMNS; i++)\n\t{\n\t\tcolumn_labels[i] = NEW TextString(font, ksGlobalTextArray[GT_FE_MENU_RANK+i], col_centers[i], 101, 0, sc_sm, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, labelColor);\n\t\tfor(int j=0; j<NUM_ROWS; j++)\n\t\t{\n\t\t\tstringx str = i == 0 ? stringx(j+1) : stringx(\"\");\n\t\t\tcolor32 col = (i == 1 || i == 3) ? manager->col_info_b : manager->col_info_g;\n\t\t\tinfo[j][i] = NEW TextString(font, str, col_centers[i], 121 + j*20, 0, sc_sm, Font::HORIZJUST_CENTER, Font::VERTJUST_CENTER, col);\n\t\t}\n\t}\n\n\tif(!in_game) sys = (GraphicalMenuSystem*) s;\n\tarrow_counter = -5;\n\tfirst_line = -1;\n\tsecond_line = -1;\n\tflash_timer = 0;\n\n\t// Initialize help text at bottom of screen.\n\tif(in_game)\n\t{\n\t\tSetHelpText(HF_CONTINUE);\n\t\thelpText->changePos(320, 424);\n\t}\n\telse SetHelpText(0);\n\n\tnem = NEW NameEntryMenu(s, man, in_game);\n\tAddSubmenu(nem);\n\tnem->ClearName();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "__17HighScoreFrontEndP12FEMenuSystemP9FEManagerG7stringxT3b"
+}
