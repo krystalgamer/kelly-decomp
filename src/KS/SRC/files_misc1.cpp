@@ -101,3 +101,6 @@ class controller; extern "C" controller **fill_values(controller **first,unsigne
 
 // 0x002B0E80 fill_n__H3ZPP15force_generatorZUiZP15force_generator_X01X11RCX21_X01
 class force_generator; extern "C" force_generator **fill_values(force_generator **first,unsigned int count,force_generator *const &value)__asm__("fill_n__H3ZPP15force_generatorZUiZP15force_generator_X01X11RCX21_X01"); force_generator **fill_values(force_generator **first,unsigned int count,force_generator *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
+
+// 0x002B11A8 fill_n__H3ZPP20force_control_systemZUiZP20force_control_system_X01X11RCX21_X01
+class force_control_system; extern "C" force_control_system **fill_values(force_control_system **first,unsigned int count,force_control_system *const &value)__asm__("fill_n__H3ZPP20force_control_systemZUiZP20force_control_system_X01X11RCX21_X01"); force_control_system **fill_values(force_control_system **first,unsigned int count,force_control_system *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
