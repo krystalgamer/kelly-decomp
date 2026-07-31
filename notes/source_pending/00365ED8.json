@@ -1,0 +1,15 @@
+{
+  "address": "0x00365ED8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5dd7fbe05a39638ce57167dc76204117cb9bbfab",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/trail.h\"\n\nfloat trail::comp_part_bspray (vector3d *Vec, vector3d *Pos, float dt, float scale)\n{\n  SurfBoardObjectClass& board = my_owner->get_board_controller();\n  vector3d edge_u;\n  vector3d vel;\n  vector3d lastvel_u;\n  float dmag;\n  float dangle;\n  vector3d vel_u;\n  float power;\n\n  if (board.WipedOut ())\n    return 0;\n\n  edge_u =  *Vec;\n\n  lastvel_u = my_spray->last_vec;\n\n  vel = board.rb->linMom - board.current;\n\n  vel_u = vel;\n  vel_u.normalize();\n\n  lastvel_u.normalize();\n\n  dmag = (vel.length() - my_spray->last_vec.length());\n  if (dmag > 0)\n    dmag = 0;\n  else\n    dmag *= -1.0f;\n\n//\tdangle = dot(lastvel_u, vel_u);\n\n  {\n    vector3d v1 = lastvel_u;\n    v1.y = 0;\n    vel_u.y = 0;\n    vel_u.normalize();\n    v1.normalize();\n\n  \tdangle = dot(v1, vel_u);\n  }\n\n  if (dangle > 0)\n\t  dangle = 1 - dangle;\n  else\n\t  dangle= 0;\n\n\tdangle /= dt;\n\tdmag /= dt;\n\n  power = 0;\n  if (dot (edge_u, lastvel_u) > 0)\n  {\n    power = dangle * board_spray.angle_scale + dmag * board_spray.vel_scale * dangle;\n    power *= scale;\n\n    if ((board.GetTurnType () == CARVE_TURN) && (my_owner->CtrlEvent(PAD_CARVE)))\n    {\n      static float carve_scale = 5;\n      power *= carve_scale;\n    }\n\n    if (((board.GetTurnType () == TAILSLIDE_TURN) || (board.GetTurnType () == GRABSLIDE_TURN)) && (my_owner->CtrlEvent(PAD_SLIDE)))\n    {\n      static float slide_scale = 5;\n      power *= slide_scale;\n    }\n\n    if ((board.GetTurnType () == SNAP_TURN) && (my_owner->CtrlEvent(PAD_SNAP)))\n    {\nstatic float snap_scale = 25;\n      power *= snap_scale;\n    }\n  }\n\n//  power *= dt;\n\n  if (power > FXD.Spray_Max_Thresh)\n\t  power = FXD.Spray_Max_Thresh;\n\n  if (power < FXD.Spray_Min_Thresh)\n\t  power = FXD.Spray_Min_Thresh;\n\n  return(power);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "comp_part_bspray__5trailP8vector3dT1ff"
+}
