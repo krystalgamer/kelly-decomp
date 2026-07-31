@@ -1,0 +1,15 @@
+{
+  "address": "0x003A9298",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "3ee6107d1ad95c6ec51c9faca54ff7e8283f5b67",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"NGL/PS2/ngl_ps2.h\"\n\n// Figure out the maximum batch size for nglCreateMeshDMA after reserving space for the bones and clip buffer.\nvoid nglComputeBatchSize(u_int flags, u_int nBones, u_int nVerts, u_int * MaxVerts, u_int * nBatches, u_int * BufSize)\n{\n  u_int BufferEnd = NGLMEM_END;\n  if ( flags & NGLMESH_PERFECT_TRICLIP )\n    BufferEnd = NGLMEM_CLIP_BUF;\n  BufferEnd -= nBones * 4;\n  *MaxVerts = ( ( BufferEnd - NGLMEM_BUFFER0 - 3 ) / 3 ) / 5;\n  *BufSize = ( BufferEnd - NGLMEM_BUFFER0 ) / 3;\n  *MaxVerts -= 4;  // Account for maximum of 3 vert VU code overrun.\n  *MaxVerts -= 2;  // Account for the 2 starting verts (continuation of the previous batch present in all but the first batch).\n\n  // For small meshes, don't bother trying to triple buffer anything.\n  if ( nVerts < *MaxVerts / 2 )\n    *nBatches = 1;\n  else\n  if ( nVerts < *MaxVerts )\n    *nBatches = 2;\n  else\n  {\n    // Find the largest multiple of 3 batches that fits the mesh.\n    int n = nVerts / ( *MaxVerts * 3 ) + 1;\n    *nBatches = (int)n * 3;\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "nglCreateMeshDMA__FRPUiP7nglMeshP14nglMeshSection"
+}
