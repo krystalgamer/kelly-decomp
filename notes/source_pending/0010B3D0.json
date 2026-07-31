@@ -1,0 +1,15 @@
+{
+  "address": "0x0010B3D0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6eb6a1f4210c56d7734dd2a9c60a9e8ff661bba7",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ai_polypath.h\"\n\nbool ai_polypath::find_path(ai_path& path, ai_polypath_cell* start_cell, const vector3d& start_pos, ai_polypath_cell* end_cell, const vector3d& end_pos)\n{\n\tbool found_path = false;\n\n\t// Increment our path finding session ID\n\t// This Identifies each pathfinding session\n\t// so we do not need to clear out old data\n\t// in the cells from previous sessions.\n\t++session_id;\n\n\t// load our data into the NavigationHeap object\n\t// to prepare it for use.\n\tnav_heap.setup(session_id, start_pos);\n\n\t// We are doing a reverse search, from end_cell to start_cell.\n\t// Push our end_cell onto the Heap at the first cell to be processed\n\tend_cell->query_for_path(&nav_heap, 0, 0);\n\n\t// process the heap until empty, or a path is found\n\twhile(nav_heap.not_empty() && !found_path)\n\t{\n\t\tai_polypath_node node;\n\n\t\t// pop the top cell (the open cell with the lowest cost) off the Heap\n\t\tnav_heap.get_top(node);\n\n\t\t// if this cell is our start_cell, we are done\n\t\tif(node.cell == start_cell)\n\t\t\tfound_path = true;\n\t\telse\n\t\t{\n\t\t\t// Process the Cell, Adding it's neighbors to the Heap as needed\n\t\t\tnode.cell->process_cell(&nav_heap);\n\t\t}\n\t}\n\n\t// if we found a path, build a waypoint list\n\t// out of the cells on the path\n\tif (found_path)\n\t{\n\t\tai_polypath_cell* test_cell = start_cell;\n\t\tvector3d new_way_pt;\n\n\t\t// Setup the Path object, clearing out any old data\n\t\tpath.setup(this, start_pos, start_cell, end_pos, end_cell);\n\n\t\t// Step through each cell linked by our A* algorythm\n\t\t// from start_cell to end_cell\n\t\twhile (test_cell && test_cell != end_cell)\n\t\t{\n\t\t\t// add the link point of the cell as a way point (the exit wall's center)\n\t\t\tint link_wall = test_cell->arrival_wall();\n\n\t\t\tnew_way_pt = test_cell->wall_midpoint(link_wall);\n\t\t\tnew_way_pt = snap_to_cell(test_cell, new_way_pt); // just to be sure\n\n\t\t\tpath.add_waypoint(new_way_pt, test_cell);\n\n\t\t\t// and on to the next cell\n\t\t\ttest_cell = test_cell->link(link_wall);\n\t\t}\n\n\t\t// cap the end of the path.\n\t\tpath.end_path();\n\n\t\treturn(true);\n\t}\n\treturn(false);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "find_path__11ai_polypathR7ai_pathP16ai_polypath_cellRC8vector3dT2T3"
+}
