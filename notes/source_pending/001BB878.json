@@ -1,0 +1,15 @@
+{
+  "address": "0x001BB878",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "ebf1fcae1879288e94ecc9ca5b6bdc9c73516fa8",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/GraphicalMenuSystem.h\"\n\nvoid FEDebugMenu::AddAll()\n{\n\tAdd(NEW FEMenuEntry(\"Surfer\", this));\n\tAdd(NEW FEMenuEntry(\"Board\", this));\n\tAdd(NEW FEMenuEntry(\"Room\", this));\n\tAdd(NEW FEMenuEntry(\"Overlays\", this));\n\tAdd(NEW FEMenuEntry(\"Language\", this));\n\tAdd(NEW FEMenuEntry(\"User Cam\", this));\n\tAdd(NEW FEMenuEntry(\"Normal Cam\", this));\n\tInit();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "AddAll__11FEDebugMenu"
+}
