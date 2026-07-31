@@ -1,0 +1,15 @@
+{
+  "address": "0x00375868",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "359865f04ee654fbb51b365cfeed893f46796722",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/wave.h\"\n\nstatic void WAVE_EmitterInitWarnings(void)\n{\n\tWaveProfileCoeffs wpc;\n\tWaveEmitter we;\n\tfloat xmesh, xslice;\n\tbool started;\n\n\tWaveBasePerturbClass * const OldPerturb = WAVE_Perturb;\n\tWavePerturbTypeEnum OldPerturbType = WAVE_PerturbType;\n\tWavePerturbStageEnum OldPerturbStage = WAVE_PerturbStage;\n\tWaveStageEnum OldStage = WAVE_Stage;\n\tWaveBreakInfoStruct OldBreakInfo = WAVE_BreakInfo;\n\n\tWAVE_BreakInfo.onoff = false;\n\tWAVE_BreakInfo.time = 1000000;\n\tWAVE_EmitterUpdate();\n\n  #if defined(TARGET_XBOX) || defined(TARGET_GC)\n\tfor (WavePerturbTypeEnum type = (WavePerturbTypeEnum) 0;\n       type < WAVE_PerturbTypeMax;\n       type = WavePerturbTypeEnum(type+1))\n#else\n\tfor (WavePerturbTypeEnum type = (WavePerturbTypeEnum) 0; type < WAVE_PerturbTypeMax; ++ (int &) type)\n#endif /* TARGET_XBOX JIV DEBUG */\n\t{\n\t\t// faked being in the middle of a break effect\n\t\tWAVE_Perturb = WAVE_PerturbArray[type];\n\t\tWAVE_PerturbType = type;\n\t\tWAVE_PerturbStage = WAVE_PerturbStageHold;\n\t\tWAVE_Stage = WAVE_StageStable;\n\n\t\tWAVE_ComputeSlices();\n\n\t\tvector3d start(WAVE_MeshMaxX, 0, 0), stop(WAVE_MeshMaxX, 0, 0);\n\t\tstarted = false;\n\t\tfor (int xstep = WAVE_MeshStepX; xstep >= 0; --xstep)\n\t\t{\n\t\t\tif (WAVE_LeftBreaker)\n\t\t\t{\n\t\t\t\txmesh = WAVE_MeshGridX[WAVE_MeshStepX-xstep];\n\t\t\t\txslice = WAVE_SliceGridX[WAVE_MeshStepX-xstep];\n\t\t\t}\n\t\t\telse\n\t\t\t{\n\t\t\t\txmesh = WAVE_MeshGridX[xstep];\n\t\t\t\txslice = WAVE_SliceGridX[xstep];\n\t\t\t}\n\n\t\t\tWAVE_ComputeProfileCoeffs(xmesh, xslice, wpc);\n\n\t\t\tWAVE_CheckForEmitter(wpc, xmesh, xslice, &we);\n\n\t\t\tif (!started)\n\t\t\t{\n\t\t\t\tif (we.type != WAVE_EM_NONE && we.type != WAVE_EM_CREST)\n\t\t\t\t{\n\t\t\t\t\tstart.x = we.x;\n\t\t\t\t\tstart.y = we.y;\n\t\t\t\t\tstart.z = we.z;\n\t\t\t\t\tstarted = true;\n\t\t\t\t}\n\t\t\t}\n\t\t\telse\n\t\t\t{\n\t\t\t\tif (we.type == WAVE_EM_NONE || we.type == WAVE_EM_CREST)\n\t\t\t\t{\n\t\t\t\t\tstop.x = we.x;\n\t\t\t\t\tstop.y = we.y;\n\t\t\t\t\tstop.z = we.z;\n\t\t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\tif (WAVE_LeftBreaker)\n\t\t{\n\t\t\tWAVE_EmitterWarningLine[type].start = start;\n\t\t\tWAVE_EmitterWarningLine[type].stop = stop;\n\t\t}\n\t\telse\n\t\t{\n\t\t\tWAVE_EmitterWarningLine[type].start = stop;\n\t\t\tWAVE_EmitterWarningLine[type].stop = start;\n\t\t}\n\t}\n\n\t// put stuff back the way we found it\n\tWAVE_Perturb = OldPerturb;\n\tWAVE_PerturbType = OldPerturbType;\n\tWAVE_PerturbStage = OldPerturbStage;\n\tWAVE_Stage = OldStage;\n\tWAVE_BreakInfo = OldBreakInfo;\n\tWAVE_EmitterUpdate();\n\n\tWAVE_ComputeSlices();\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "WAVE_EmitterInit__Fv"
+}
