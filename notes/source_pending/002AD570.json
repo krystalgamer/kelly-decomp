@@ -1,0 +1,15 @@
+{
+  "address": "0x002AD570",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "db2a28e5b02a2172aeb3e7175a7dc950960a5fc6",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/instance.h\"\n\ntemplate <class T>\nvoid instance_bank<T>::delete_instance( T* ptr )\n{\n  if ( ptr )\n  {\n    ref_t ptr_ref = ptr;\n    pref_set::iterator pi = refs_by_ptr.find( &ptr_ref );\n    assert( pi != refs_by_ptr.end() );\n    if ( (*pi)->count > 1 )\n      --(*pi)->count;\n    else\n    {\n      lref_set::iterator li = refs_by_label.find( *pi );\n      assert( li != refs_by_label.end() );\n      delete (*pi)->ptr;\n      delete *pi;\n      refs_by_label.erase( li );\n      refs_by_ptr.erase( pi );\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "delete_instance__t13instance_bank1Z8materialP8material"
+}
