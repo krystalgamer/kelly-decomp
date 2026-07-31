@@ -1,0 +1,15 @@
+{
+  "address": "0x00128BC0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "045c0d0f160972178efb69b165352dbababf414d",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/entity.h\"\n\nvoid entity_id::delete_entity_id(entity_id id)\n{\n  name_to_number_map::iterator found;\n\n  name_to_number_map& name_to_number = entity_manager::inst()->name_to_number;\n  for (found = name_to_number.begin(); found != name_to_number.end(); ++found)\n  {\n    if ((*found).second == id.val)\n    {\n      delete[] (*found).first.str;\n      name_to_number.erase(found);\n      return;\n    }\n  }\n  error(\"Tried to delete unrecognized entity_id: \" + itos(id.val)); // obviously it isn't in the list, so we can't get the name\n  //error(\"Tried to delete unrecognized entity_id: \" + id.get_val());\n  assert(false);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "delete_entity_id__9entity_idT0"
+}
