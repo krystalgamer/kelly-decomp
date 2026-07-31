@@ -1,0 +1,15 @@
+{
+  "address": "0x00342E50",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "b9aa66b65827c352f87a32e46c3c32753a55bb00",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/widget.h\"\n\nvoid wevent::frame_advance( time_value_t time_inc )\n{\n  elapsed += time_inc;\n\n  do_wevent( get_lerp( time_inc ) );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "frame_advance__13layout_widgetf"
+}
