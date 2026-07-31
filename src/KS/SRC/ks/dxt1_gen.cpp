@@ -23,7 +23,7 @@ int cbVector::DiffMag(const cbVector &other) const
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00262FA8)
-#include "KS/SRC/ks/dxt1_gen_shared.h"
+#include "KS/SRC/ks/dxt1_gen.h"
 // 0x00262FA8 BuildCodes3__7DXTCGeniR8cbVectorT2
 void DXTCGen::BuildCodes3(int Channel, cbVector& v1, cbVector& v2)
 {
@@ -46,7 +46,7 @@ class cbVector{unsigned char pData[4];public:unsigned char&operator[](int i){ret
 
 #if defined(KELLY_DECOMP_FUNCTION_00263078)
 // 0x00263078 ComputeError__7DXTCGenR8CodeBook
-#include "KS/SRC/ks/dxt1_gen_shared.h"
+#include "KS/SRC/ks/dxt1_gen.h"
 
 __asm__(".equ __vc__t5Table1Z8cbVectori, 0x00265570");
 __asm__(".equ FindVectorSlow__8CodeBookRC8cbVector, 0x00262CB0");
