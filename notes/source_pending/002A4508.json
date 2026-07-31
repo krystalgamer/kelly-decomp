@@ -1,0 +1,15 @@
+{
+  "address": "0x002A4508",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "c8e7e174f2b34aafad64dc33266531cb0f49d5d1",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/wds.h\"\n\nvoid world_dynamics_system::dump_frame_info()\n{\n\tstatic unsigned dump_frame_info_counter = ~0;\n\tstatic hires_clock_t xTPS;\n\n\tif(dump_frame_info_counter == (unsigned)~0)\n\t{\n\t\tdump_frame_info_counter = 0;\n\t\txTPS.reset();\n\t}\n\telse\n\t{\n\t\ttime_value_t delta = xTPS.elapsed_and_reset();\n\t\tdump_frame_info_counter += (unsigned)(delta*1000.0f);\n\t}\n\n\tif(dump_frame_info_counter > 3000)\n\t{\n\t\tunsigned i;\n\t\thost_system_file_handle outfile = host_fopen( \"frameinfo.txt\", HOST_WRITE );\n\t\thost_fprintf( outfile, \"Render Data\\n\" );\n\n\t\thost_fprintf( outfile, \"  Regions\\n\" );\n\t\tfor (i=0;i<to_render.regions.size();++i)\n\t\t{\n\t\t\thost_fprintf( outfile, \"    %s\\n\", to_render.regions[i].reg->get_data()->get_name().c_str());\n\t\t}\n\n\t\thost_fprintf( outfile, \"  Entities\\n\" );\n\t\tfor (i=0;i<to_render.entities.size();++i)\n\t\t{\n\t\t\tentity * e = to_render.entities[i].ent;\n\t\t\thost_fprintf( outfile, \"    (%s) %s : %s\\n\",\n\t\t\t\te->get_region()?e->get_region()->get_data()->get_name().c_str():\n\t\t\t\"\",entity_flavor_names[e->get_flavor()], e->get_id().get_val().c_str() );\n\t\t}\n\t\thost_fprintf( outfile, \"\\n\" );\n\n\t\thost_fprintf( outfile, \"Active entities\\n\" );\n\t\tvector<entity *>::const_iterator en;\n\t\tfor (en = (get_active_entities()).begin(); en!=(get_active_entities()).end(); ++en)\n\t\t{\n\t\t\tentity * e  = (*en);\n\t\t\thost_fprintf( outfile, \"  %s : %s \\n\", entity_flavor_names[e->get_flavor()],\n\t\t\t\te->get_id().get_val().c_str());\n\t\t}\n\n\t\thost_fprintf( outfile, \"\\nActive animations\\n\" );\n\n\t\tpentity_anim_tree_vector::iterator ani;\n\t\tfor ( ani=anims.begin(); ani!=anims.end(); ++ani )\n\t\t{\n\t\t\tif ( (*ani) )\n\t\t\t\tif( (!(*ani)->get_entity()->has_valid_sector()) || (*ani)->get_entity()->is_in_active_region() ||\n\t\t\t\t\t((*ani)->get_flags()&ANIM_COMPUTE_SECTOR))\n\t\t\t\t\tif (!(*ani)->is_suspended() && !(*ani)->is_finished() )\n\t\t\t\t\t{\n\t\t\t\t\t\tentity * e = (*ani)->get_entity();\n\t\t\t\t\t\thost_fprintf( outfile, \"  Anim : %s \\n\",  e->get_id().get_val().c_str()); //(*ani)->get_name().c_str(),\n\t\t\t\t\t}\n\t\t}\n\n\t\thost_fprintf( outfile, \"\\n\" );\n\n#ifdef PROFILING_ON\n\t\tprofiler::inst()->write_to_host_file(outfile);\n#endif\n\n\t\thost_fclose( outfile );\n\n\t\tg_debug.dump_frame_info = false;\n\t\tdump_frame_info_counter = ~0;\n\t}\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "dump_frame_info__21world_dynamics_system"
+}
