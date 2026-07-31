@@ -1,0 +1,15 @@
+{
+  "address": "0x001152A8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "98b4ff9d4631bed258cda12b5e79c2d1730e15bc",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/entity_anim.h\"\n\nbool ett_manager::unload(const stringx& filename)\n{\n  filespec spec( filename );\n  spec.name.to_upper();\n \n  ett_map_itr_t itr = ett_map.find( spec.name );\n  \n  if( itr == ett_map.end() )\n  {\n    debug_print( \"Couldn't unload anim %s\", spec.name.c_str() );\n    return false;\n  }\n\n  ett_node& node = (*itr).second;\n\n  if( node.ett )\n  {\n    node.ref = 1;\n    release( node.ett );\n\n    if( !node.stored && node.ett )\n      free( node.ett );\n  }\n\n  ett_map.erase( itr );\n\n  return true;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "unload__11ett_managerRC7stringx"
+}
