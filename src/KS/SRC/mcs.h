@@ -1,24 +1,54 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef MCS_H
+#define MCS_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_003005F0)
-// 0x003005F0 _$_17theta_and_psi_mcs
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_21motion_control_system");
-extern const char base_vtable[];
-__asm__(".equ _$_21motion_control_system, 0x002E3158");
-__asm__(".equ base_vtable, 0x004F15E8");
-struct object_layout { char padding[0x8]; const void *vtable; };
-extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_17theta_and_psi_mcs");
-void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = base_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+#include "KS/SRC/mobject.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_003006C0)
-// 0x003006C0 _$_20dolly_and_strafe_mcs
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_21motion_control_system");
-extern const char base_vtable[];
-__asm__(".equ _$_21motion_control_system, 0x002E3158");
-__asm__(".equ base_vtable, 0x004F15B8");
-struct object_layout { char padding[0x8]; const void *vtable; };
-extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_20dolly_and_strafe_mcs");
-void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = base_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+typedef float rational_t;
+typedef float time_value_t;
+
+class entity;
+
+class motion_control_system : public motion_object {
+public:
+    motion_control_system();
+    virtual ~motion_control_system();
+    virtual void frame_advance(time_value_t time_inc) = 0;
+
+protected:
+    entity *ent;
+};
+
+class theta_and_psi_mcs : public motion_control_system {
+public:
+    theta_and_psi_mcs(
+        entity *owner,
+        rational_t theta = 0,
+        rational_t psi = 0);
+    virtual ~theta_and_psi_mcs();
+    virtual void frame_advance(time_value_t time_inc);
+
+private:
+    rational_t theta;
+    rational_t psi;
+    rational_t d_theta_for_next_frame;
+    rational_t d_psi_for_next_frame;
+};
+
+class dolly_and_strafe_mcs : public motion_control_system {
+public:
+    explicit dolly_and_strafe_mcs(entity *owner);
+    virtual ~dolly_and_strafe_mcs();
+    virtual void frame_advance(time_value_t time_inc);
+
+private:
+    rational_t dolly;
+    rational_t strafe;
+    rational_t lift;
+    void do_dolly(rational_t distance);
+    void do_lift(rational_t distance);
+    void do_strafe(rational_t distance);
+};
+
 #endif

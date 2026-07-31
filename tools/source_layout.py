@@ -109,6 +109,8 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/light.h": "KS/SRC/light_methods.cpp",
     "KS/SRC/linear_anim.h": "KS/SRC/linear_anim_rtti.cpp",
     "KS/SRC/marker.h": "KS/SRC/marker_methods.cpp",
+    "KS/SRC/mobject.h": "KS/SRC/mobject_methods.cpp",
+    "KS/SRC/mcs.h": "KS/SRC/mcs_methods.cpp",
     "KS/SRC/matfac.h": "KS/SRC/matfac_rtti.cpp",
     "KS/SRC/hard_attrib_interface.h": "KS/SRC/hard_attrib_interface.cpp",
     "KS/SRC/inputmgr.h": "KS/SRC/inputmgr_methods.cpp",
