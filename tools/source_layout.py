@@ -79,6 +79,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/render_interface.h": "KS/SRC/render_interface.cpp",
     "KS/SRC/skeleton_interface.h": "KS/SRC/skeleton_interface.cpp",
     "KS/SRC/slave_interface.h": "KS/SRC/slave_interface.cpp",
+    "KS/SRC/soft_attrib_interface.h": "KS/SRC/soft_attrib_interface.cpp",
     "KS/SRC/time_interface.h": "KS/SRC/time_interface.cpp",
 }
 
