@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_INI_PARSER_SHARED_H
 #define KELLY_DECOMP_INI_PARSER_SHARED_H
 
-#include "KS/SRC/stringx_shared.h"
+#include "KS/SRC/stringx.h"
 
 #define assert(condition) ((void)0)
 #define free(pointer) arch_free(pointer)

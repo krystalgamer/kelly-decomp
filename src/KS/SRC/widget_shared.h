@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_WIDGET_SHARED_H
 
 #include "KS/SRC/color.h"
-#include "KS/SRC/stringx_shared.h"
+#include "KS/SRC/stringx.h"
 #include "g++-2/stl_list_shared.h"
 
 typedef float rational_t;

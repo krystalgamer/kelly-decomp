@@ -1,7 +1,7 @@
 #ifndef KELLY_DECOMP_VM_SYMBOL_SHARED_H
 #define KELLY_DECOMP_VM_SYMBOL_SHARED_H
 
-#include "KS/SRC/stringx_shared.h"
+#include "KS/SRC/stringx.h"
 
 class chunk_file;
 class vm_symbol;

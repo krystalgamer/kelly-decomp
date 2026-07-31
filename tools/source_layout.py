@@ -82,6 +82,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/script_data_interface.h": "KS/SRC/script_data_interface.cpp",
     "KS/SRC/slave_interface.h": "KS/SRC/slave_interface.cpp",
     "KS/SRC/soft_attrib_interface.h": "KS/SRC/soft_attrib_interface.cpp",
+    "KS/SRC/stringx.h": "KS/SRC/stringx_methods.cpp",
     "KS/SRC/time_interface.h": "KS/SRC/time_interface.cpp",
 }
 
