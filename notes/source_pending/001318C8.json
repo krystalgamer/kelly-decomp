@@ -1,0 +1,15 @@
+{
+  "address": "0x001318C8",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "06c53e1a8f55cdffe70e1952a1593001bd428925",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/entity.h\"\n\nvoid entity::look_at( const vector3d& abs_pos )\n{\n  // compute orientation matrix;\n  // z-basis is normalized vector from my position to dest position\n  vector3d bz = abs_pos - get_abs_position();\n  rational_t bzl = bz.length();\n  if ( bzl > 0.001f )\n    bz *= 1.0f / bzl;\n  else\n    bz = ZVEC;\n  // x-basis is always on the right\n  vector3d bx( bz.z, 0, -bz.x );\n  rational_t bxl = bx.length();\n  if ( bxl > 0.00001f )\n    bx /= bxl;\n  else\n    bx = XVEC;\n  // y-basis is z cross x\n  vector3d by = cross( bz, bx );\n  // build NEW po\n  po newpo( bx, by, bz, ZEROVEC );\n//  entity* parent = get_parent();\n  if ( has_parent() )\n  {\n    fast_po_mul(newpo, newpo, link_ifc()->get_parent()->get_abs_po().inverse());\n//    newpo = newpo * link_ifc()->get_parent()->get_abs_po().inverse();\n  }\n  newpo.fixup();\n  newpo.set_position( get_rel_position() );\n  // set NEW po\n  set_rel_po( newpo );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "look_at__6entityRC8vector3d"
+}
