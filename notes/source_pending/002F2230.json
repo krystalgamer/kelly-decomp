@@ -1,0 +1,23 @@
+{
+  "address": "0x002F2230",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bc6cc544ea05ab97016155306de82c4d9bb6ecd7",
+      "candidate_size": 360,
+      "compared_bytes": 1096,
+      "compared_instructions": 274,
+      "emitted_name": "__partial_sort__H2ZP20instance_render_infoZ20instance_render_info_X01X01X01PX11_v",
+      "instruction_score": 0.0,
+      "matching_bytes": 41,
+      "matching_instructions": 0,
+      "notes": "Attempt 1 uses the exact GCC 2.95 __partial_sort body with canonical instance_render_info; helper templates remain declarations pending canonical stl_heap reconstruction.",
+      "score": 3.7409,
+      "source": "#include \"KS/SRC/iri.h\"\n\ntemplate<class RandomAccessIterator>\nvoid make_heap(\n    RandomAccessIterator first,\n    RandomAccessIterator last);\n\ntemplate<\n    class RandomAccessIterator,\n    class T,\n    class Distance>\nvoid __pop_heap(\n    RandomAccessIterator first,\n    RandomAccessIterator last,\n    RandomAccessIterator result,\n    T value,\n    Distance *);\n\ntemplate<class RandomAccessIterator>\nvoid sort_heap(\n    RandomAccessIterator first,\n    RandomAccessIterator last);\n\ntemplate<class RandomAccessIterator, class T>\nvoid __partial_sort(\n    RandomAccessIterator first,\n    RandomAccessIterator middle,\n    RandomAccessIterator last,\n    T *)\n{\n    make_heap(first, middle);\n    for (RandomAccessIterator iterator = middle;\n         iterator < last;\n         ++iterator) {\n        if (*iterator < *first) {\n            __pop_heap(\n                first,\n                middle,\n                iterator,\n                T(*iterator),\n                (int *)0);\n        }\n    }\n    sort_heap(first, middle);\n}\n\ntemplate void __partial_sort(\n    instance_render_info *,\n    instance_render_info *,\n    instance_render_info *,\n    instance_render_info *);\n",
+      "status": "different",
+      "target_size": 1096
+    }
+  ],
+  "raw_name": "__partial_sort__H2ZP20instance_render_infoZ20instance_render_info_X01X01X01PX11_v"
+}
