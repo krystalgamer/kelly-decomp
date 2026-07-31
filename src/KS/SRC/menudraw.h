@@ -1,5 +1,7 @@
-#ifndef KELLY_DECOMP_MENUDRAW_SHARED_H
-#define KELLY_DECOMP_MENUDRAW_SHARED_H
+#ifndef MENUDRAW_H
+#define MENUDRAW_H
+
+#pragma interface
 
 #include "KS/SRC/ks/menu.h"
 
@@ -17,34 +19,54 @@ extern int MENUDRAW_EntityFlags[32];
 
 class MenuEntityDraw : public Menu {
 public:
-    MenuEntityDraw(Menu *parent, int entries, MenuEntry **entry);
+    MenuEntityDraw(
+        Menu *parent,
+        int entries,
+        MenuEntry **entry);
     virtual ~MenuEntityDraw();
-    virtual void OnOpen(Menu *close_to, MenuSystem *control);
+    virtual void OnOpen(
+        Menu *close_to,
+        MenuSystem *control);
     virtual void OnClose(bool to_parent);
     virtual void OnTick(float delta_time);
 };
 
 class MenuParticleDraw : public Menu {
 public:
-    MenuParticleDraw(Menu *parent, int entries, MenuEntry **entry);
+    MenuParticleDraw(
+        Menu *parent,
+        int entries,
+        MenuEntry **entry);
     virtual ~MenuParticleDraw();
-    virtual void OnOpen(Menu *close_to, MenuSystem *control);
+    virtual void OnOpen(
+        Menu *close_to,
+        MenuSystem *control);
     virtual void OnTick(float delta_time);
 };
 
 class MenuWaterDraw : public Menu {
 public:
-    MenuWaterDraw(Menu *parent, int entries, MenuEntry **entry);
+    MenuWaterDraw(
+        Menu *parent,
+        int entries,
+        MenuEntry **entry);
     virtual ~MenuWaterDraw();
-    virtual void OnOpen(Menu *close_to, MenuSystem *control);
+    virtual void OnOpen(
+        Menu *close_to,
+        MenuSystem *control);
     virtual void OnTick(float delta_time);
 };
 
 class MenuDraw : public Menu {
 public:
-    MenuDraw(Menu *parent, int entries, MenuEntry **entry);
+    MenuDraw(
+        Menu *parent,
+        int entries,
+        MenuEntry **entry);
     virtual ~MenuDraw();
-    virtual void OnOpen(Menu *close_to, MenuSystem *control);
+    virtual void OnOpen(
+        Menu *close_to,
+        MenuSystem *control);
     virtual void OnTick(float delta_time);
 };
 

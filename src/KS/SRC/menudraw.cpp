@@ -1,83 +1,62 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_0030F400)
 // 0x0030F400 MENUDRAW_GetDrawIGO__Fv
 extern bool menu_draw_igo;
 __asm__(".equ menu_draw_igo, 0x003E7720");
 bool MENUDRAW_GetDrawIGO() { return menu_draw_igo; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0030F410)
 // 0x0030F410 MENUDRAW_SetDrawIGO__Fb
 extern bool menu_draw_igo;
 __asm__(".equ menu_draw_igo, 0x003E7720");
 void MENUDRAW_SetDrawIGO(bool value) { menu_draw_igo = value; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0030F420)
 // 0x0030F420 MENUDRAW_GetDrawShadow__Fv
 extern bool menu_draw_shadow;
 __asm__(".equ menu_draw_shadow, 0x00484FC0");
 bool MENUDRAW_GetDrawShadow() { return menu_draw_shadow != 0; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0030F430)
 // 0x0030F430 MENUDRAW_SetDrawShadow__Fb
 extern bool menu_draw_shadow;
 __asm__(".equ menu_draw_shadow, 0x00484FC0");
 void MENUDRAW_SetDrawShadow(bool value) { menu_draw_shadow = value; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0030EE00)
 // 0x0030EE00 MENUDRAW_AllEntitiesOff__FP9MenuEntryi
 class MenuEntry;
 void Setter(bool value) __asm__("MENUDRAW_SetAllEntities__Fb");
 __asm__(".equ MENUDRAW_SetAllEntities__Fb, 0x0030EDB0");
 bool MENUDRAW_AllEntitiesOff(MenuEntry *entry, int button) { if (button == 7) Setter(false); return true; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0030EE28)
 // 0x0030EE28 MENUDRAW_AllEntitiesOn__FP9MenuEntryi
 class MenuEntry;
 void Setter(bool value) __asm__("MENUDRAW_SetAllEntities__Fb");
 __asm__(".equ MENUDRAW_SetAllEntities__Fb, 0x0030EDB0");
 bool MENUDRAW_AllEntitiesOn(MenuEntry *entry, int button) { if (button == 7) Setter(true); return true; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0030EF90)
 // 0x0030EF90 MENUDRAW_AllWaterOff__FP9MenuEntryi
 class MenuEntry;
 void Setter(bool value) __asm__("MENUDRAW_SetAllWater__Fb");
 __asm__(".equ MENUDRAW_SetAllWater__Fb, 0x0030EF58");
 bool MENUDRAW_AllWaterOff(MenuEntry *entry, int button) { if (button == 7) Setter(false); return true; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0030EFB8)
 // 0x0030EFB8 MENUDRAW_AllWaterOn__FP9MenuEntryi
 class MenuEntry;
 void Setter(bool value) __asm__("MENUDRAW_SetAllWater__Fb");
 __asm__(".equ MENUDRAW_SetAllWater__Fb, 0x0030EF58");
 bool MENUDRAW_AllWaterOn(MenuEntry *entry, int button) { if (button == 7) Setter(true); return true; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0030F120)
 // 0x0030F120 MENUDRAW_AllParticleOff__FP9MenuEntryi
 class MenuEntry;
 void Setter(bool value) __asm__("MENUDRAW_SetAllParticle__Fb");
 __asm__(".equ MENUDRAW_SetAllParticle__Fb, 0x0030F0E8");
 bool MENUDRAW_AllParticleOff(MenuEntry *entry, int button) { if (button == 7) Setter(false); return true; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0030F148)
 // 0x0030F148 MENUDRAW_AllParticleOn__FP9MenuEntryi
 class MenuEntry;
 void Setter(bool value) __asm__("MENUDRAW_SetAllParticle__Fb");
 __asm__(".equ MENUDRAW_SetAllParticle__Fb, 0x0030F0E8");
 bool MENUDRAW_AllParticleOn(MenuEntry *entry, int button) { if (button == 7) Setter(true); return true; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0030F380)
 // 0x0030F380 MENUDRAW_AllOff__FP9MenuEntryi
 class MenuEntry;
 extern void MENUDRAW_SetAll(bool); extern void MENUDRAW_SetAllEntities(bool); extern void MENUDRAW_SetAllParticle(bool); extern void MENUDRAW_SetAllWater(bool);
@@ -92,9 +71,7 @@ bool MENUDRAW_AllOff(MenuEntry *, int buttonid)
     }
     return true;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0030F3C0)
 // 0x0030F3C0 MENUDRAW_AllOn__FP9MenuEntryi
 class MenuEntry;
 extern void MENUDRAW_SetAll(bool); extern void MENUDRAW_SetAllEntities(bool); extern void MENUDRAW_SetAllParticle(bool); extern void MENUDRAW_SetAllWater(bool);
@@ -109,9 +86,7 @@ bool MENUDRAW_AllOn(MenuEntry *, int buttonid)
     }
     return true;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00313E20)
 // 0x00313E20 __tf14MenuEntityDraw
 #include "KS/SRC/rtti.h"
 extern "C" void **MenuEntityDrawBaseRtti() __asm__("__tf4Menu");
@@ -131,9 +106,7 @@ void **MenuEntityDrawRtti()
     }
     return menu_entity_draw_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00313ED8)
 // 0x00313ED8 __tf16MenuParticleDraw
 #include "KS/SRC/rtti.h"
 extern "C" void **MenuParticleDrawBaseRtti() __asm__("__tf4Menu");
@@ -157,9 +130,7 @@ void **MenuParticleDrawRtti()
     }
     return menu_particle_draw_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00313F90)
 // 0x00313F90 __tf13MenuWaterDraw
 #include "KS/SRC/rtti.h"
 extern "C" void **MenuWaterDrawBaseRtti() __asm__("__tf4Menu");
@@ -179,9 +150,7 @@ void **MenuWaterDrawRtti()
     }
     return menu_water_draw_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00314048)
 // 0x00314048 __tf8MenuDraw
 #include "KS/SRC/rtti.h"
 extern "C" void **MenuDrawBaseRtti() __asm__("__tf4Menu");
@@ -201,9 +170,7 @@ void **MenuDrawRtti()
     }
     return menu_draw_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00313E78)
 // 0x00313E78 _$_14MenuEntityDraw
 extern "C" void close_menu(void *,bool) __asm__("Close__4Menub");
 extern "C" void resize_menu(void *,int) __asm__("Resize__4Menui");
@@ -214,9 +181,7 @@ __asm__(".equ __builtin_delete,0x002AC6B0"); __asm__(".equ menu_vtable,0x004D5D4
 struct M{char p[0x1c];const void*v;};
 extern "C" void d(M*s,int f) __asm__("_$_14MenuEntityDraw");
 void d(M*s,int f){s->v=menu_vtable;close_menu(s,true);resize_menu(s,0);if(f&1){object_delete(s);__asm__ __volatile__("" : : : "memory");}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00313F30)
 // 0x00313F30 _$_16MenuParticleDraw
 extern "C" void close_menu(void *,bool) __asm__("Close__4Menub");
 extern "C" void resize_menu(void *,int) __asm__("Resize__4Menui");
@@ -227,9 +192,7 @@ __asm__(".equ __builtin_delete,0x002AC6B0"); __asm__(".equ menu_vtable,0x004D5D4
 struct M{char p[0x1c];const void*v;};
 extern "C" void d(M*s,int f) __asm__("_$_16MenuParticleDraw");
 void d(M*s,int f){s->v=menu_vtable;close_menu(s,true);resize_menu(s,0);if(f&1){object_delete(s);__asm__ __volatile__("" : : : "memory");}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00313FE8)
 // 0x00313FE8 _$_13MenuWaterDraw
 extern "C" void close_menu(void *,bool) __asm__("Close__4Menub");
 extern "C" void resize_menu(void *,int) __asm__("Resize__4Menui");
@@ -240,9 +203,7 @@ __asm__(".equ __builtin_delete,0x002AC6B0"); __asm__(".equ menu_vtable,0x004D5D4
 struct M{char p[0x1c];const void*v;};
 extern "C" void d(M*s,int f) __asm__("_$_13MenuWaterDraw");
 void d(M*s,int f){s->v=menu_vtable;close_menu(s,true);resize_menu(s,0);if(f&1){object_delete(s);__asm__ __volatile__("" : : : "memory");}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003140A0)
 // 0x003140A0 _$_8MenuDraw
 extern "C" void close_menu(void *,bool) __asm__("Close__4Menub");
 extern "C" void resize_menu(void *,int) __asm__("Resize__4Menui");
@@ -253,31 +214,25 @@ __asm__(".equ __builtin_delete,0x002AC6B0"); __asm__(".equ menu_vtable,0x004D5D4
 struct M{char p[0x1c];const void*v;};
 extern "C" void d(M*s,int f) __asm__("_$_8MenuDraw");
 void d(M*s,int f){s->v=menu_vtable;close_menu(s,true);resize_menu(s,0);if(f&1){object_delete(s);__asm__ __volatile__("" : : : "memory");}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0030EEE8)
 // 0x0030EEE8 OnTick__13MenuWaterDrawf
-typedef void(*setter)(bool);extern setter water_set[];extern int water_flags[];__asm__(".equ water_set,0x0046B230");__asm__(".equ water_flags,0x0058A410");extern "C" void water_tick(void*,float) __asm__("OnTick__13MenuWaterDrawf");void water_tick(void*,float){for(unsigned i=0;i<4;i++)water_set[i](water_flags[i]);}
-#endif
+#include "KS/SRC/menudraw.h"
+typedef void(*setter)(bool);extern setter water_set[];extern int water_flags[];__asm__(".equ water_set,0x0046B230");__asm__(".equ water_flags,0x0058A410");void MenuWaterDraw::OnTick(float){for(unsigned i=0;i<4;i++)water_set[i](water_flags[i]);}
 
-#if defined(KELLY_DECOMP_FUNCTION_0030F078)
 // 0x0030F078 OnTick__16MenuParticleDrawf
-typedef void(*setter)(bool);extern setter particle_set[];extern int particle_flags[];__asm__(".equ particle_set,0x0046B1E8");__asm__(".equ particle_flags,0x0058A3C8");extern "C" void particle_tick(void*,float) __asm__("OnTick__16MenuParticleDrawf");void particle_tick(void*,float){for(unsigned i=0;i<8;i++)particle_set[i](particle_flags[i]);}
-#endif
+#include "KS/SRC/menudraw.h"
+typedef void(*setter)(bool);extern setter particle_set[];extern int particle_flags[];__asm__(".equ particle_set,0x0046B1E8");__asm__(".equ particle_flags,0x0058A3C8");void MenuParticleDraw::OnTick(float){for(unsigned i=0;i<8;i++)particle_set[i](particle_flags[i]);}
 
-#if defined(KELLY_DECOMP_FUNCTION_0030EE50)
 // 0x0030EE50 OnOpen__13MenuWaterDrawP4MenuP10MenuSystem
-class MenuSystem;class Menu{public:void OnOpen(Menu*,MenuSystem*);};asm(".equ OnOpen__4MenuP4MenuP10MenuSystem,0x0023EAE0");extern int draw_flags[4];extern bool(*draw_get[4])();asm(".equ draw_flags,0x0058A410");asm(".equ draw_get,0x0046B220");class MenuWaterDraw:public Menu{public:void OnOpen(Menu*,MenuSystem*) __asm__("OnOpen__13MenuWaterDrawP4MenuP10MenuSystem");};void MenuWaterDraw::OnOpen(Menu*cto,MenuSystem*c){for(unsigned i=0;i<4;++i)draw_flags[i]=draw_get[i]();Menu::OnOpen(cto,c);asm("" : : : "memory");}
-#endif
+#include "KS/SRC/menudraw.h"
+asm(".equ OnOpen__4MenuP4MenuP10MenuSystem,0x0023EAE0");extern int draw_flags[4];extern bool(*draw_get[4])();asm(".equ draw_flags,0x0058A410");asm(".equ draw_get,0x0046B220");void MenuWaterDraw::OnOpen(Menu*cto,MenuSystem*c){for(unsigned i=0;i<4;++i)draw_flags[i]=draw_get[i]();Menu::OnOpen(cto,c);asm("" : : : "memory");}
 
-#if defined(KELLY_DECOMP_FUNCTION_0030EFE0)
 // 0x0030EFE0 OnOpen__16MenuParticleDrawP4MenuP10MenuSystem
-class MenuSystem;class Menu{public:void OnOpen(Menu*,MenuSystem*);};asm(".equ OnOpen__4MenuP4MenuP10MenuSystem,0x0023EAE0");extern int draw_flags[8];extern bool(*draw_get[8])();asm(".equ draw_flags,0x0058A3C8");asm(".equ draw_get,0x0046B1C8");class MenuParticleDraw:public Menu{public:void OnOpen(Menu*,MenuSystem*) __asm__("OnOpen__16MenuParticleDrawP4MenuP10MenuSystem");};void MenuParticleDraw::OnOpen(Menu*cto,MenuSystem*c){for(unsigned i=0;i<8;++i)draw_flags[i]=draw_get[i]();Menu::OnOpen(cto,c);asm("" : : : "memory");}
-#endif
+#include "KS/SRC/menudraw.h"
+asm(".equ OnOpen__4MenuP4MenuP10MenuSystem,0x0023EAE0");extern int draw_flags[8];extern bool(*draw_get[8])();asm(".equ draw_flags,0x0058A3C8");asm(".equ draw_get,0x0046B1C8");void MenuParticleDraw::OnOpen(Menu*cto,MenuSystem*c){for(unsigned i=0;i<8;++i)draw_flags[i]=draw_get[i]();Menu::OnOpen(cto,c);asm("" : : : "memory");}
 
-#if defined(KELLY_DECOMP_FUNCTION_0030F270)
 // 0x0030F270 OnTick__8MenuDrawf
-#include "KS/SRC/menudraw_shared.h"
+#include "KS/SRC/menudraw.h"
 
 void MenuDraw::OnTick(float dtime)
 {
@@ -289,4 +244,3 @@ void MenuDraw::OnTick(float dtime)
     MENUDRAW_MenuParticle->OnTick(dtime);
     MENUDRAW_MenuWater->OnTick(dtime);
 }
-#endif
