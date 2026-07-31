@@ -1,8 +1,7 @@
-// Matching decompilation blocks selected by generated build shims.
+// ks_camera definitions extracted by generated one-function shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_0022C808)
 // 0x0022C808 Reset__11auto_camera
-#include "KS/SRC/ks/ks_camera_shared.h"
+#include "KS/SRC/ks/ks_camera.h"
 
 void auto_camera::Reset()
 {
@@ -33,11 +32,10 @@ void auto_camera::Reset()
     initialize_filter = true;
     frame_advance(0.0f);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026F0F8)
+// 0x0026F0F8 __tf11auto_camera
 #include "KS/SRC/rtti.h"
-#include "KS/SRC/ks/ks_camera_shared.h"
+#include "KS/SRC/ks/ks_camera.h"
 
 extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
 extern "C" void *auto_camera_type[] __asm__("__ti11auto_camera");
@@ -49,7 +47,6 @@ __asm__(".equ __ti11auto_camera, 0x005A3AE0");
 __asm__(".equ auto_camera_name, 0x004E4E38");
 __asm__(".equ __ti11game_camera, 0x005A3D40");
 
-// 0x0026F0F8 __tf11auto_camera
 extern "C" void **auto_camera_rtti() __asm__("__tf11auto_camera");
 void **auto_camera_rtti()
 {
@@ -59,11 +56,10 @@ void **auto_camera_rtti()
     }
     return auto_camera_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026F2C8)
+// 0x0026F2C8 __tf15big_wave_camera
 #include "KS/SRC/rtti.h"
-#include "KS/SRC/ks/ks_camera_shared.h"
+#include "KS/SRC/ks/ks_camera.h"
 
 extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
 extern "C" void *big_wave_camera_type[] __asm__("__ti15big_wave_camera");
@@ -75,7 +71,6 @@ __asm__(".equ __ti15big_wave_camera, 0x005A3B00");
 __asm__(".equ big_wave_camera_name, 0x004E4E58");
 __asm__(".equ __ti11game_camera, 0x005A3D40");
 
-// 0x0026F2C8 __tf15big_wave_camera
 extern "C" void **big_wave_camera_rtti() __asm__("__tf15big_wave_camera");
 void **big_wave_camera_rtti()
 {
@@ -89,11 +84,10 @@ void **big_wave_camera_rtti()
     }
     return big_wave_camera_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026F368)
+// 0x0026F368 __tf16wipeout_camera_2
 #include "KS/SRC/rtti.h"
-#include "KS/SRC/ks/ks_camera_shared.h"
+#include "KS/SRC/ks/ks_camera.h"
 
 extern "C" void **wipeout_camera_2_base_rtti() __asm__("__tf11game_camera");
 extern "C" void *wipeout_camera_2_type[] __asm__("__ti16wipeout_camera_2");
@@ -105,7 +99,6 @@ __asm__(".equ __ti16wipeout_camera_2, 0x005A3B10");
 __asm__(".equ wipeout_camera_2_name, 0x004E4E70");
 __asm__(".equ __ti11game_camera, 0x005A3D40");
 
-// 0x0026F368 __tf16wipeout_camera_2
 extern "C" void **wipeout_camera_2_rtti() __asm__("__tf16wipeout_camera_2");
 void **wipeout_camera_2_rtti()
 {
@@ -119,11 +112,10 @@ void **wipeout_camera_2_rtti()
     }
     return wipeout_camera_2_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026F3B8)
+// 0x0026F3B8 __tf14wipeout_camera
 #include "KS/SRC/rtti.h"
-#include "KS/SRC/ks/ks_camera_shared.h"
+#include "KS/SRC/ks/ks_camera.h"
 
 extern "C" void **wipeout_camera_base_rtti() __asm__("__tf11game_camera");
 extern "C" void *wipeout_camera_type[] __asm__("__ti14wipeout_camera");
@@ -135,7 +127,6 @@ __asm__(".equ __ti14wipeout_camera, 0x005A3B20");
 __asm__(".equ wipeout_camera_name, 0x004E4E88");
 __asm__(".equ __ti11game_camera, 0x005A3D40");
 
-// 0x0026F3B8 __tf14wipeout_camera
 extern "C" void **wipeout_camera_rtti() __asm__("__tf14wipeout_camera");
 void **wipeout_camera_rtti()
 {
@@ -149,11 +140,10 @@ void **wipeout_camera_rtti()
     }
     return wipeout_camera_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026F410)
+// 0x0026F410 __tf12flyby_camera
 #include "KS/SRC/rtti.h"
-#include "KS/SRC/ks/ks_camera_shared.h"
+#include "KS/SRC/ks/ks_camera.h"
 
 extern "C" void **flyby_camera_base_rtti() __asm__("__tf11game_camera");
 extern "C" void *flyby_camera_type[] __asm__("__ti12flyby_camera");
@@ -165,7 +155,6 @@ __asm__(".equ __ti12flyby_camera, 0x005A3B30");
 __asm__(".equ flyby_camera_name, 0x004E4EA0");
 __asm__(".equ __ti11game_camera, 0x005A3D40");
 
-// 0x0026F410 __tf12flyby_camera
 extern "C" void **flyby_camera_rtti() __asm__("__tf12flyby_camera");
 void **flyby_camera_rtti()
 {
@@ -175,11 +164,10 @@ void **flyby_camera_rtti()
     }
     return flyby_camera_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026F460)
+// 0x0026F460 __tf13follow_camera
 #include "KS/SRC/rtti.h"
-#include "KS/SRC/ks/ks_camera_shared.h"
+#include "KS/SRC/ks/ks_camera.h"
 
 extern "C" void **follow_camera_base_rtti() __asm__("__tf11game_camera");
 extern "C" void *follow_camera_type[] __asm__("__ti13follow_camera");
@@ -191,7 +179,6 @@ __asm__(".equ __ti13follow_camera, 0x005A3B40");
 __asm__(".equ follow_camera_name, 0x004E4EB0");
 __asm__(".equ __ti11game_camera, 0x005A3D40");
 
-// 0x0026F460 __tf13follow_camera
 extern "C" void **follow_camera_rtti() __asm__("__tf13follow_camera");
 void **follow_camera_rtti()
 {
@@ -201,11 +188,10 @@ void **follow_camera_rtti()
     }
     return follow_camera_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026F4D8)
+// 0x0026F4D8 __tf19follow_close_camera
 #include "KS/SRC/rtti.h"
-#include "KS/SRC/ks/ks_camera_shared.h"
+#include "KS/SRC/ks/ks_camera.h"
 
 extern "C" void **follow_close_camera_base_rtti() __asm__("__tf11game_camera");
 extern "C" void *follow_close_camera_type[] __asm__("__ti19follow_close_camera");
@@ -217,7 +203,6 @@ __asm__(".equ __ti19follow_close_camera, 0x005A3B50");
 __asm__(".equ follow_close_camera_name, 0x004E4EC0");
 __asm__(".equ __ti11game_camera, 0x005A3D40");
 
-// 0x0026F4D8 __tf19follow_close_camera
 extern "C" void **follow_close_camera_rtti() __asm__("__tf19follow_close_camera");
 void **follow_close_camera_rtti()
 {
@@ -231,11 +216,10 @@ void **follow_close_camera_rtti()
     }
     return follow_close_camera_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026F550)
+// 0x0026F550 __tf11buoy_camera
 #include "KS/SRC/rtti.h"
-#include "KS/SRC/ks/ks_camera_shared.h"
+#include "KS/SRC/ks/ks_camera.h"
 
 extern "C" void **buoy_camera_base_rtti() __asm__("__tf11game_camera");
 extern "C" void *buoy_camera_type[] __asm__("__ti11buoy_camera");
@@ -247,7 +231,6 @@ __asm__(".equ __ti11buoy_camera, 0x005A3B60");
 __asm__(".equ buoy_camera_name, 0x004E4ED8");
 __asm__(".equ __ti11game_camera, 0x005A3D40");
 
-// 0x0026F550 __tf11buoy_camera
 extern "C" void **buoy_camera_rtti() __asm__("__tf11buoy_camera");
 void **buoy_camera_rtti()
 {
@@ -257,11 +240,10 @@ void **buoy_camera_rtti()
     }
     return buoy_camera_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026F5C8)
+// 0x0026F5C8 __tf15duckdive_camera
 #include "KS/SRC/rtti.h"
-#include "KS/SRC/ks/ks_camera_shared.h"
+#include "KS/SRC/ks/ks_camera.h"
 
 extern "C" void **duckdive_camera_base_rtti() __asm__("__tf11game_camera");
 extern "C" void *duckdive_camera_type[] __asm__("__ti15duckdive_camera");
@@ -273,7 +255,6 @@ __asm__(".equ __ti15duckdive_camera, 0x005A3B70");
 __asm__(".equ duckdive_camera_name, 0x004E4EE8");
 __asm__(".equ __ti11game_camera, 0x005A3D40");
 
-// 0x0026F5C8 __tf15duckdive_camera
 extern "C" void **duckdive_camera_rtti() __asm__("__tf15duckdive_camera");
 void **duckdive_camera_rtti()
 {
@@ -287,11 +268,10 @@ void **duckdive_camera_rtti()
     }
     return duckdive_camera_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026F678)
+// 0x0026F678 __tf12photo_camera
 #include "KS/SRC/rtti.h"
-#include "KS/SRC/ks/ks_camera_shared.h"
+#include "KS/SRC/ks/ks_camera.h"
 
 extern "C" void **photo_camera_base_rtti() __asm__("__tf11game_camera");
 extern "C" void *photo_camera_type[] __asm__("__ti12photo_camera");
@@ -303,7 +283,6 @@ __asm__(".equ __ti12photo_camera, 0x005A3B80");
 __asm__(".equ photo_camera_name, 0x004E4F00");
 __asm__(".equ __ti11game_camera, 0x005A3D40");
 
-// 0x0026F678 __tf12photo_camera
 extern "C" void **photo_camera_rtti() __asm__("__tf12photo_camera");
 void **photo_camera_rtti()
 {
@@ -313,9 +292,8 @@ void **photo_camera_rtti()
     }
     return photo_camera_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026EDB8)
+// 0x0026EDB8 __tf12debug_camera
 extern "C" void __rtti_si(void **type, const char *name, void **base);
 __asm__(".equ __rtti_si, 0x003CE2D8");
 extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
@@ -336,9 +314,8 @@ void **debug_rtti()
     }
     return debug_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026EE30)
+// 0x0026EE30 __tf16look_back_camera
 extern "C" void __rtti_si(void **type, const char *name, void **base);
 __asm__(".equ __rtti_si, 0x003CE2D8");
 extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
@@ -359,9 +336,8 @@ void **look_back_rtti()
     }
     return look_back_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026EEA8)
+// 0x0026EEA8 __tf13replay_camera
 extern "C" void __rtti_si(void **type, const char *name, void **base);
 __asm__(".equ __rtti_si, 0x003CE2D8");
 extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
@@ -382,9 +358,8 @@ void **replay_rtti()
     }
     return replay_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026EF20)
+// 0x0026EF20 __tf19old_shoulder_camera
 extern "C" void __rtti_si(void **type, const char *name, void **base);
 __asm__(".equ __rtti_si, 0x003CE2D8");
 extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
@@ -405,9 +380,8 @@ void **old_shoulder_rtti()
     }
     return old_shoulder_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026EF70)
+// 0x0026EF70 __tf15shoulder_camera
 extern "C" void __rtti_si(void **type, const char *name, void **base);
 __asm__(".equ __rtti_si, 0x003CE2D8");
 extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
@@ -428,9 +402,8 @@ void **shoulder_rtti()
     }
     return shoulder_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026EFC0)
+// 0x0026EFC0 __tf10fps_camera
 extern "C" void __rtti_si(void **type, const char *name, void **base);
 __asm__(".equ __rtti_si, 0x003CE2D8");
 extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
@@ -451,9 +424,8 @@ void **fps_rtti()
     }
     return fps_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0026F038)
+// 0x0026F038 __tf17stationary_camera
 extern "C" void __rtti_si(void **type, const char *name, void **base);
 __asm__(".equ __rtti_si, 0x003CE2D8");
 extern "C" void **game_camera_rtti() __asm__("__tf11game_camera");
@@ -474,10 +446,8 @@ void **stationary_rtti()
     }
     return stationary_type;
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00225340)
 // 0x00225340 sync__12debug_cameraR6camera
 class camera;
 
@@ -488,11 +458,9 @@ public:
 
 void debug_camera::sync(camera& other) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002351D8)
 // 0x002351D8 __12photo_cameraRC9entity_idP6entityP22kellyslater_controller
-#include "KS/SRC/ks/ks_camera_shared.h"
+#include "KS/SRC/ks/ks_camera.h"
 __asm__(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
 __asm__(".equ _vt$12photo_camera, 0x004D6360");
 __asm__(".equ init__12photo_camera, 0x00235228");
@@ -504,11 +472,9 @@ photo_camera::photo_camera(
     set_ks_controller(controller);
     init();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0022F510)
 // 0x0022F510 __15big_wave_cameraRC9entity_idP6entityP22kellyslater_controller
-#include "KS/SRC/ks/ks_camera_shared.h"
+#include "KS/SRC/ks/ks_camera.h"
 __asm__(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
 __asm__(".equ _vt$15big_wave_camera, 0x004E95A0");
 __asm__(".equ Reset__15big_wave_camera, 0x0022F560");
@@ -520,9 +486,7 @@ big_wave_camera::big_wave_camera(
     set_ks_controller(controller);
     Reset();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00225E70)
 // 0x00225E70 init__16look_back_camera
 class look_back_camera {
     char padding[0x30C];
@@ -534,9 +498,7 @@ public:
 void look_back_camera::init() {
     first_time = true;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00225E80)
 // 0x00225E80 sync__16look_back_cameraR6camera
 class camera;
 
@@ -547,9 +509,7 @@ public:
 
 void look_back_camera::sync(camera& other) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00226B58)
 // 0x00226B58 sync__13replay_cameraR6camera
 class camera;
 
@@ -560,9 +520,7 @@ public:
 
 void replay_camera::sync(camera& other) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0022BCE0)
 // 0x0022BCE0 sync__17stationary_cameraR6camera
 class camera;
 
@@ -573,9 +531,7 @@ public:
 
 void stationary_camera::sync(camera& other) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0022C250)
 // 0x0022C250 sync__10fps_cameraR6camera
 class camera;
 
@@ -586,9 +542,7 @@ public:
 
 void fps_camera::sync(camera& other) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0022C208)
 // 0x0022C208 __10fps_cameraRC9entity_idP6entityP22kellyslater_controller
 class entity_id;
 class entity;
@@ -629,9 +583,7 @@ fps_camera::fps_camera(const entity_id &id, entity *target, kellyslater_controll
 {
     set_ks_controller(controller);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0022C8D0)
 // 0x0022C8D0 sync__11auto_cameraR6camera
 class camera;
 
@@ -642,9 +594,7 @@ public:
 
 void auto_camera::sync(camera& other) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00231CF0)
 // 0x00231CF0 start__12flyby_camera
 class flyby_camera {
     char padding[0x2D4];
@@ -656,15 +606,11 @@ public:
 void flyby_camera::start() {
     is_playing = true;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00231D68)
 // 0x00231D68 init__13follow_camera
 class follow_camera { char padding_to_first[0x2D0]; bool first_time; char padding_to_jump[0x30]; float jump_time_elapsed; public: void init(); };
 void follow_camera::init() { first_time = true; jump_time_elapsed = 0; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00232A68)
 // 0x00232A68 init__19follow_close_camera
 struct follow_close_camera_vtable {
     char padding[0x78];
@@ -700,9 +646,7 @@ void follow_close_camera::init()
     if (ksctrl)
         frame_advance(0.0f);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00234648)
 // 0x00234648 __15duckdive_cameraRC9entity_idP6entityP22kellyslater_controller
 class entity_id;
 class entity;
@@ -737,40 +681,28 @@ duckdive_camera::duckdive_camera(const entity_id &id, entity *target, kellyslate
     ((duckdive_camera_layout *)this)->ksctrl = controller;
     ((duckdive_camera_layout *)this)->vtable = _vt$15duckdive_camera;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00233BB0)
 // 0x00233BB0 init__11buoy_camera
 class buoy_camera { char padding_to_first[0x2D0]; bool first_time; char padding_to_jump[0x30]; float jump_time_elapsed; public: void init(); };
 void buoy_camera::init() { first_time = true; jump_time_elapsed = 0; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00235228)
 // 0x00235228 init__12photo_camera
 class photo_camera { char padding_to_first[0x2D0]; bool first_time; char padding_to_jump[0x30]; float jump_time_elapsed; public: void init(); };
 void photo_camera::init() { first_time = true; jump_time_elapsed = 0; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00229B88)
 // 0x00229B88 interpolate_float__Ffff
 float interpolate_float(float first_float, float second_float, float difference) { return (first_float * (1.0f - difference)) + (second_float * difference); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00226B38)
 // 0x00226B38 reset__13replay_camera
 class replay_camera { char padding0[0x2d0]; int rc; int rcr; char padding1[0x1c]; float regionChangeTime; int regionChangeFrame; char padding2[0x13c]; float holdCamTimer; public: void reset(); };
 void replay_camera::reset() { rc = 13; rcr = 6; regionChangeTime = 0.0f; regionChangeFrame = 0; holdCamTimer = 0.0f; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002351B0)
 // 0x002351B0 SetReset__15duckdive_camera
 void WAVE_EndWave(bool advance);
 __asm__(".equ WAVE_EndWave__Fb, 0x00377B38");
 class duckdive_camera { char padding[0x2d0]; bool do_reset; public: void SetReset(); };
 void duckdive_camera::SetReset() { do_reset = true; WAVE_EndWave(true); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00228D38)
 // 0x00228D38 _$_19old_shoulder_camera
 extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6camera");
 extern const char camera_vtable[];
@@ -779,9 +711,7 @@ __asm__(".equ camera_vtable, 0x004F3AD0");
 struct CameraLayout { char padding[8]; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_19old_shoulder_camera");
 void DerivedDtor(void *self, int deleting) { ((CameraLayout *)self)->vtable = camera_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0022A158)
 // 0x0022A158 _$_15shoulder_camera
 extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6camera");
 extern const char camera_vtable[];
@@ -790,9 +720,7 @@ __asm__(".equ camera_vtable, 0x004F3AD0");
 struct CameraLayout { char padding[8]; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_15shoulder_camera");
 void DerivedDtor(void *self, int deleting) { ((CameraLayout *)self)->vtable = camera_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0022FDB8)
 // 0x0022FDB8 _$_16wipeout_camera_2
 extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6camera");
 extern const char camera_vtable[];
@@ -801,9 +729,7 @@ __asm__(".equ camera_vtable, 0x004F3AD0");
 struct CameraLayout { char padding[8]; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_16wipeout_camera_2");
 void DerivedDtor(void *self, int deleting) { ((CameraLayout *)self)->vtable = camera_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00230870)
 // 0x00230870 _$_14wipeout_camera
 extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6camera");
 extern const char camera_vtable[];
@@ -812,22 +738,16 @@ __asm__(".equ camera_vtable, 0x004F3AD0");
 struct CameraLayout { char padding[8]; const void *vtable; };
 extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_14wipeout_camera");
 void DerivedDtor(void *self, int deleting) { ((CameraLayout *)self)->vtable = camera_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00231D00)
 // 0x00231D00 is_finished__12flyby_camera
 struct camera_animation { char padding[4]; float totalseconds; };
 class flyby_camera { char padding0[0x2d0]; camera_animation *animation; char padding1[4]; float current_anim_time; public: bool is_finished(); };
 bool flyby_camera::is_finished() { return current_anim_time >= animation->totalseconds; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00229F68)
 // 0x00229F68 Init_Filter__12float_filterf
 class float_filter { float Pos[2]; float err[2]; public: void Init_Filter(float start); };
 void float_filter::Init_Filter(float start) { float *value = Pos; int index = 1; __asm__ volatile("nop"); loop: value[0] = start; --index; value[2] = 0.0f; KELLY_DECOMP_COMPILER_BARRIER(); KELLY_DECOMP_COMPILER_BARRIER(); if (index >= 0) { ++value; goto loop; } ++value; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0022E718)
 // 0x0022E718 __12beach_cameraRC9entity_idP6entityP22kellyslater_controller
 class entity_id;
 class entity;
@@ -867,9 +787,7 @@ void *BeachCameraCtor(
     ((beach_camera_layout *)self)->vtable = beach_camera_vtable;
     return self;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00225E30)
 // 0x00225E30 __16look_back_cameraRC9entity_idP6entity
 class entity_id;
 class entity;
@@ -893,9 +811,7 @@ look_back_camera::look_back_camera(const entity_id &id, entity *target)
 {
     init();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0022A118)
 // 0x0022A118 __15shoulder_cameraRC9entity_idP6entity
 class entity_id;
 class entity;
@@ -920,9 +836,7 @@ shoulder_camera::shoulder_camera(const entity_id &id, entity *target)
 {
     init();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0022C258)
 // 0x0022C258 init__10fps_camera
 struct camera_vtable {
     char padding[0x78];
@@ -947,9 +861,7 @@ void fps_camera::init()
     if (ksctrl)
         camera_set_roll(0.0f);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0022FD78)
 // 0x0022FD78 __16wipeout_camera_2RC9entity_idP6entity
 class entity_id;
 class entity;
@@ -977,9 +889,7 @@ wipeout_camera_2::wipeout_camera_2(const entity_id &id, entity *target)
     previous_camera = 0;
     wave_hint_valid = false;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00230830)
 // 0x00230830 __14wipeout_cameraRC9entity_idP6entity
 class entity_id;
 class entity;
@@ -1006,9 +916,7 @@ wipeout_camera::wipeout_camera(const entity_id &id, entity *target)
     collision_object = 0;
     previous_camera = 0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00231D28)
 // 0x00231D28 __13follow_cameraRC9entity_idP6entity
 class entity_id;
 class entity;
@@ -1033,9 +941,7 @@ follow_camera::follow_camera(const entity_id &id, entity *target)
 {
     init();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00232A28)
 // 0x00232A28 __19follow_close_cameraRC9entity_idP6entity
 class entity_id;
 class entity;
@@ -1060,9 +966,7 @@ follow_close_camera::follow_close_camera(const entity_id &id, entity *target)
 {
     init();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00233B70)
 // 0x00233B70 __11buoy_cameraRC9entity_idP6entity
 class entity_id;
 class entity;
@@ -1087,9 +991,7 @@ buoy_camera::buoy_camera(const entity_id &id, entity *target)
 {
     init();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00229D18)
 // 0x00229D18 Init_Filter__13vector_filterG8vector3d
 struct vector3d { float x, y, z; };
 class vector_filter { float xwPos[2], ywPos[2], zwPos[2], xerr[2], yerr[2], zerr[2]; public: void Init_Filter(const vector3d &) __asm__("Init_Filter__13vector_filterG8vector3d"); };
@@ -1105,9 +1007,7 @@ void vector_filter::Init_Filter(const vector3d &start_vec)
         values[10] = 0.0f;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002252E0)
 // 0x002252E0 __12debug_cameraRC9entity_idP6entity
 class entity_id;
 class entity;
@@ -1137,28 +1037,19 @@ camera_layout *construct_debug_camera(
     self->third=2.5f;
     return self;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0022C7A0)
 // 0x0022C7A0 __11auto_cameraRC9entity_idP6entityP22kellyslater_controller
 struct entity_id; struct entity; struct kellyslater_controller; extern "C" void game_camera_ctor(void*,const entity_id&,entity*) __asm__("__11game_cameraRC9entity_idP6entity"); __asm__(".equ __11game_cameraRC9entity_idP6entity,0x002C40A8"); extern const char auto_vtable[]; __asm__(".equ auto_vtable,0x004EA248");
 struct vector3d { float x,y,z; vector3d(){} vector3d(float a,float b,float c):x(a),y(b),z(c){} vector3d& operator=(const vector3d&o){x=o.x;y=o.y;z=o.z;return *this;} };
 class auto_camera { char p0[8]; const void*vtable; char p1[520]; kellyslater_controller*ksctrl; char p2[320]; vector3d delta_vec; public:auto_camera(const entity_id&,entity*,kellyslater_controller*); void set_ks_controller(kellyslater_controller*p){ksctrl=p;} };
 auto_camera::auto_camera(const entity_id&id,entity*target,kellyslater_controller*controller)
 {game_camera_ctor(this,id,target);vtable=auto_vtable;delta_vec=vector3d(0,0,0);set_ks_controller(controller);}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00227CC0)
 // 0x00227CC0 PointOnLine__FR8vector3dRC8vector3dT1f
 struct vector3d{float x,y,z;};extern "C" void point_on_line(vector3d&result,const vector3d&a,const vector3d&b,float x) __asm__("PointOnLine__FR8vector3dRC8vector3dT1f");void point_on_line(vector3d&result,const vector3d&a,const vector3d&b,float x){register float ax __asm__("$f3")=a.x;register float bx __asm__("$f1")=b.x;if(ax==bx){result.x=ax;result.y=a.y;result.z=a.z;}else{result.x=x;float ratio=(x-ax)/(bx-ax);result.y=a.y+ratio*(b.y-a.y);result.z=a.z+ratio*(b.z-a.z);}}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002312D8)
 // 0x002312D8 __12flyby_cameraRC9entity_idP6entity
 struct entity_id;struct entity;struct terrain;struct world{char p0[236];terrain*the_terrain;};extern world*g_world_ptr;extern "C" void game_camera_ctor(void*,const entity_id&,entity*) __asm__("__11game_cameraRC9entity_idP6entity");extern "C" void compute_sector(void*,terrain&,bool) __asm__("compute_sector__6entityR7terrainb");extern "C" void*builtin_new(unsigned) __asm__("__builtin_new");__asm__(".equ g_world_ptr,0x00431A8C");__asm__(".equ __11game_cameraRC9entity_idP6entity,0x002C40A8");__asm__(".equ compute_sector__6entityR7terrainb,0x0012FB40");__asm__(".equ __builtin_new,0x002AC618");extern void*flyby_vtable;extern void*panel_anim_vtable;__asm__(".equ flyby_vtable,0x004E82C8");__asm__(".equ panel_anim_vtable,0x004DC178");struct panel_anim_file{void*obs;float totalseconds;void*vtable;};struct flyby{char p0[8];void*vtable;char p1[708];panel_anim_file*animation;};extern "C" flyby*flyby_ctor(flyby*self,const entity_id&id,entity*target) __asm__("__12flyby_cameraRC9entity_idP6entity");flyby*flyby_ctor(flyby*self,const entity_id&id,entity*target){game_camera_ctor(self,id,target);register world*w __asm__("$7")=g_world_ptr;register void**flyby_vtable_address __asm__("$3")=&flyby_vtable;self->vtable=flyby_vtable_address;compute_sector(self,*w->the_terrain,false);register panel_anim_file*p __asm__("$4")=(panel_anim_file*)builtin_new(sizeof(panel_anim_file));self->animation=p;register void*panel_vtable __asm__("$3")=&panel_anim_vtable;p->vtable=panel_vtable;p->totalseconds=0.0f;p->obs=0;return self;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00231348)
 // 0x00231348 _$_12flyby_camera
 extern void*flyby_vtable;extern void*game_camera_vtable;__asm__(".equ flyby_vtable,0x004E82C8");__asm__(".equ game_camera_vtable,0x004F3AD0");extern "C" void camera_dtor(void*,int) __asm__("_$_6camera");__asm__(".equ _$_6camera,0x002C38A8");struct dtor_vtable{char p0[8];short adjustment;short x0;void(*destroy)(void*,int);};struct panel_anim_file{char p0[8];dtor_vtable*vtable;};struct flyby{char p0[8];void*vtable;char p1[708];panel_anim_file*animation;};extern "C" void flyby_dtor(flyby*self,int deleting) __asm__("_$_12flyby_camera");void flyby_dtor(flyby*self,int deleting){self->vtable=&flyby_vtable;if(self->animation){panel_anim_file*p=self->animation;dtor_vtable*t=p->vtable;t->destroy((char*)p+t->adjustment,3);}self->vtable=&game_camera_vtable;camera_dtor(self,deleting);int dead;__asm__("" : "=r"(dead));}
-#endif
