@@ -116,3 +116,6 @@ class light_source; extern "C" light_source **fill_values(light_source **first,u
 
 // 0x002B1E48 fill_n__H3ZPP10path_graphZUiZP10path_graph_X01X11RCX21_X01
 class path_graph; extern "C" path_graph **fill_values(path_graph **first,unsigned int count,path_graph *const &value)__asm__("fill_n__H3ZPP10path_graphZUiZP10path_graph_X01X11RCX21_X01"); path_graph **fill_values(path_graph **first,unsigned int count,path_graph *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
+
+// 0x002B22F8 fill_n__H3ZPP12material_setZUiZP12material_set_X01X11RCX21_X01
+class material_set; extern "C" material_set **fill_values(material_set **first,unsigned int count,material_set *const &value)__asm__("fill_n__H3ZPP12material_setZUiZP12material_set_X01X11RCX21_X01"); material_set **fill_values(material_set **first,unsigned int count,material_set *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
