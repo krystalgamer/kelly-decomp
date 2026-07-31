@@ -1,137 +1,141 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef SURFER_FRONT_END_H
+#define SURFER_FRONT_END_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_001DCC20)
-// 0x001DCC20 Select__17SurferBioFrontEndi
-class SurferBioFrontEnd {
-public:
-    void Select(int arg0);
+#include "KS/SRC/ks/FEMenu.h"
+
+enum {
+    SURFER_LAST = 14,
+    MAX_HANDICAP = 6
 };
 
-void SurferBioFrontEnd::Select(int arg0) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001DCC48)
-// 0x001DCC48 OnLeft__17SurferBioFrontEndi
-class SurferBioFrontEnd {
-public:
-    void OnLeft(int arg0);
-};
-
-void SurferBioFrontEnd::OnLeft(int arg0) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001DCC50)
-// 0x001DCC50 OnRight__17SurferBioFrontEndi
-class SurferBioFrontEnd {
-public:
-    void OnRight(int arg0);
-};
-
-void SurferBioFrontEnd::OnRight(int arg0) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001DCC58)
-// 0x001DCC58 OnCross__17SurferBioFrontEndi
-class SurferBioFrontEnd {
-public:
-    void OnCross(int arg0);
-};
-
-void SurferBioFrontEnd::OnCross(int arg0) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001DCC28)
-// 0x001DCC28 GetPointer__17SurferBioFrontEndPCc
+class BoxText;
+class entity;
+class FEManager;
+class GraphicalMenuSystem;
 class PanelQuad;
-class PanelFile { public: PanelQuad *GetPointer(const char *name); };
-__asm__(".equ GetPointer__9PanelFilePCc, 0x00152F88");
-class SurferBioFrontEnd { char padding[0x100]; PanelFile panel; public: PanelQuad *GetPointer(const char *name); };
-PanelQuad *SurferBioFrontEnd::GetPointer(const char *name) { PanelQuad *result = panel.GetPointer(name); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
+class PreformatText;
+class TextString;
 
-#if defined(KELLY_DECOMP_FUNCTION_001DCB88)
-// 0x001DCB88 OnButtonRelease__14SurferFrontEndii
-struct menu_vtable {
-    char padding[0x100];
-    short adjustment;
-    short padding2;
-    void (*on_button_release)(void *self, int controller, int button);
-};
+class SurferBioFrontEnd;
 
-struct menu_layout {
-    char padding[0x74];
-    menu_vtable *vtable;
-};
+class SurferFrontEnd : public FEMultiMenu {
+public:
+    enum {
+        ACT_SURFER = 1,
+        ACT_CAREER = 2,
+        ACT_TUTORIAL = 3
+    };
 
-class SurferFrontEnd {
-    char padding[0x60];
-    menu_layout *active;
+private:
+    int disp_state;
+    int state;
+    int availability[SURFER_LAST];
+    bool personality_unlocked[SURFER_LAST];
+    GraphicalMenuSystem *sys;
+    bool first_time_through;
+    FEMenuEntry *current_surfer;
+    FEMenuEntry *ks;
+    FEMenuEntry *Bio;
+    FEMenuEntry *Trick;
+    FEMenuEntry *Personality;
+    FEMenuEntry *Continue;
+    FEMenuEntry *ScrapBook;
+    FEMenuEntry *Handicap;
+    TextString *players[2];
+    TextString *surfer_select;
+    TextString *firstname;
+    TextString *gauge_labels[4];
+    PanelQuad *gauges[4][3];
+    PanelQuad *red_gauges[4];
+    PanelQuad *horiz_arrows[2][2];
+    PanelQuad *ss_lines[3];
+    PanelQuad *ss_box[9];
+    PanelQuad *hcap_gauge;
+    PanelQuad *hcap_slider;
+    PanelQuad *hcap_color[3];
+    entity *ents[3];
+    FEManager *manager;
+    bool wait_for_camera;
+    int hcap;
+    int arrow_counter;
+    int arrow_num;
+    SurferBioFrontEnd *bio_menu;
+    bool in_tb_or_bio;
+    float progressval;
+    int most_recent_controller;
 
 public:
-    void OnButtonRelease(int controller, int button);
+    int current_surfer_index;
+    static bool personality_up;
+
+    SurferFrontEnd(
+        FEMenuSystem *system,
+        FEManager *manager,
+        stringx path,
+        stringx panel_name);
+    virtual ~SurferFrontEnd();
+    virtual void Load();
+    virtual void Select(int entry_index);
+    virtual void Update(time_value_t time_inc);
+    virtual void Draw();
+    virtual void OnActivate();
+    virtual void OnUp(int controller);
+    virtual void OnDown(int controller);
+    virtual void OnLeft(int controller);
+    virtual void OnRight(int controller);
+    virtual void OnTriangle(int controller);
+    virtual void OnCross(int controller);
+    virtual void OnAnyButtonPress(int controller, int button);
+    virtual void OnButtonRelease(int controller, int button);
+
+    static stringx getName(int index);
+    static stringx getAbbr(int index);
+    static bool getPersonalityUp() {
+        return personality_up;
+    }
+    void TurnPQ(bool enabled);
 };
 
-void SurferFrontEnd::OnButtonRelease(int controller, int button)
-{
-    menu_layout *menu = active;
-    if (menu) {
-        menu_vtable *table = menu->vtable;
-        table->on_button_release(
-            (char *)menu + table->adjustment,
-            controller,
-            button
-        );
-    }
-}
-#endif
+class SurferBioFrontEnd : public FEMultiMenu {
+    PreformatText *bios[SURFER_LAST];
+    GraphicalMenuSystem *sys;
+    SurferFrontEnd *bio_parent;
+    TextString *firstname;
+    TextString *lastname;
+    BoxText *intro;
+    PanelQuad *images[SURFER_LAST];
+    PanelQuad *scroll_marker;
+    bool wait_for_camera;
+    bool up_pressed;
+    bool down_pressed;
+    int counter;
+    float scroll_marker_x;
+    float scroll_marker_y_t;
+    float scroll_marker_y_b;
 
-#if defined(KELLY_DECOMP_FUNCTION_001DCB30)
-// 0x001DCB30 __tf14SurferFrontEnd
-extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
-extern "C" void **BaseRtti_001DCB30() __asm__("__tf11FEMultiMenu");
-extern "C" void *type_001DCB30[] __asm__("__ti14SurferFrontEnd");
-extern const char name_001DCB30[];
-extern void *base_type_001DCB30[];
-__asm__(".equ __rtti_class, 0x003CE2B0");
-__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
-__asm__(".equ __ti14SurferFrontEnd, 0x005A2C78");
-__asm__(".equ name_001DCB30, 0x004DDCE8");
-__asm__(".equ base_type_001DCB30, 0x004DDC48");
-extern "C" void **Rtti_001DCB30() __asm__("__tf14SurferFrontEnd");
-void **Rtti_001DCB30()
-{
-    if (!type_001DCB30[0]) {
-        BaseRtti_001DCB30();
-        __rtti_class(type_001DCB30, name_001DCB30, base_type_001DCB30, 1);
-    }
-    return type_001DCB30;
-}
-#endif
+public:
+    SurferBioFrontEnd(
+        FEMenuSystem *system,
+        FEManager *manager,
+        stringx path,
+        stringx panel_name,
+        SurferFrontEnd *parent);
+    virtual ~SurferBioFrontEnd();
+    virtual void Load();
+    virtual void Update(time_value_t time_inc);
+    virtual void Select(int entry_index);
+    virtual PanelQuad *GetPointer(const char *name);
+    virtual void Draw();
+    virtual void OnActivate();
+    virtual void OnUp(int controller);
+    virtual void OnDown(int controller);
+    virtual void OnLeft(int controller);
+    virtual void OnRight(int controller);
+    virtual void OnCross(int controller);
+    virtual void OnTriangle(int controller);
+    virtual void OnButtonRelease(int controller, int button);
+};
 
-#if defined(KELLY_DECOMP_FUNCTION_001DCBC8)
-// 0x001DCBC8 __tf17SurferBioFrontEnd
-extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
-extern "C" void **BaseRtti_001DCBC8() __asm__("__tf11FEMultiMenu");
-extern "C" void *type_001DCBC8[] __asm__("__ti17SurferBioFrontEnd");
-extern const char name_001DCBC8[];
-extern void *base_type_001DCBC8[];
-__asm__(".equ __rtti_class, 0x003CE2B0");
-__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
-__asm__(".equ __ti17SurferBioFrontEnd, 0x005A2C88");
-__asm__(".equ name_001DCBC8, 0x004DDD00");
-__asm__(".equ base_type_001DCBC8, 0x004DDC48");
-extern "C" void **Rtti_001DCBC8() __asm__("__tf17SurferBioFrontEnd");
-void **Rtti_001DCBC8()
-{
-    if (!type_001DCBC8[0]) {
-        BaseRtti_001DCBC8();
-        __rtti_class(type_001DCBC8, name_001DCBC8, base_type_001DCBC8, 1);
-    }
-    return type_001DCBC8;
-}
 #endif

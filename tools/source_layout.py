@@ -136,6 +136,8 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/career.h": "KS/SRC/ks/career.cpp",
     "KS/SRC/ks/SaveLoadFrontEnd.h":
         "KS/SRC/ks/SaveLoadFrontEnd_methods.cpp",
+    "KS/SRC/ks/SurferFrontEnd.h":
+        "KS/SRC/ks/SurferFrontEnd_methods.cpp",
     "KS/SRC/ks/ks_camera.h": "KS/SRC/ks/ks_camera_methods.cpp",
     "KS/SRC/ks/ksdbmenu.h": "KS/SRC/ks/ksdbmenu_methods.cpp",
     "KS/SRC/ks/ksreplay.h": "KS/SRC/ks/ksreplay_methods.cpp",
