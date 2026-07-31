@@ -1,0 +1,15 @@
+{
+  "address": "0x00150688",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "e6d0d59d20b1b70a3a558e4fc7da56cfac8e2735",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/FEPanel.h\"\n\nvoid PanelQuad::Init(float xa, float ya, float xb, float yb,\n\t\t\t\t\t float r1, float g1, float b1, float a1,\n\t\t\t\t\t float ua, float va, float ub, float vb,\n\t\t\t\t\t float z1, matrix4x4 obj)\n{\n\tr = r1; g = g1; b = b1; a = a1;\n\tu1 = ua; v1 = va; u2 = ub; v2 = vb;\n\tmatrix = obj;\n\tvector3d vec1 = xform3d_1_homog(matrix, vector3d(xa, ya, z1));\n\tvector3d vec2 = xform3d_1_homog(matrix, vector3d(xb, yb, z1));\n\tx1 = vec1.x; x2 = vec2.x; y1 = vec1.y; y2 = vec2.y;\n\tz = vec1.z;\n\twidth_a = x2-x1;\n\theight_a = y2-y1;\n\tadjustCoords(x1, y1);\n\tadjustCoords(x2, y2);\n\twidth = x2-x1;\n\theight = y2-y1;\n\n\tnglSetQuadRect(&quad, x1, y1, x2, y2);\n\tnglSetQuadColor(&quad, NGL_RGBA32(FTOI(r*255.0f), FTOI(g*256.0f), FTOI(b*255.0f), FTOI(a*255.0f)));\n\tnglSetQuadUV(&quad, u1, v1, u2, v2);\n\tnglSetQuadZ(&quad, z);\n\tnglSetQuadMapFlags(&quad, NGLMAP_CLAMP_U | NGLMAP_CLAMP_V | NGLMAP_BILINEAR_FILTER);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Init__10PanelBatchPP9PanelQuadG7stringxG9matrix4x4b"
+}
