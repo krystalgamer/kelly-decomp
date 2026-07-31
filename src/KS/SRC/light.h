@@ -1,169 +1,54 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef LIGHT_H
+#define LIGHT_H
 
+#include "KS/SRC/color.h"
+#include "KS/SRC/entity.h"
+#include "KS/SRC/sphere.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_002FF8E0)
-// 0x002FF8E0 __tf12light_source
-#include "KS/SRC/rtti.h"
-extern "C" void **LightSourceBaseRtti() __asm__("__tf6entity");
-extern "C" void *light_source_type[] __asm__("__ti12light_source");
-extern "C" const char light_source_name[];
-extern "C" void *light_source_base_type[] __asm__("__ti6entity");
-__asm__(".equ __tf6entity, 0x001449C8");
-__asm__(".equ __ti12light_source, 0x005A3FD0");
-__asm__(".equ light_source_name, 0x004F4C40");
-__asm__(".equ __ti6entity, 0x005A27C8");
-extern "C" void **LightSourceRtti() __asm__("__tf12light_source");
-void **LightSourceRtti()
-{
-    if (!light_source_type[0]) {
-        LightSourceBaseRtti();
-        __rtti_si(light_source_type, light_source_name, light_source_base_type);
-    }
-    return light_source_type;
-}
-#endif
+enum light_flavor_t {
+    LIGHT_FLAVOR_POINT,
+    LIGHT_FLAVOR_SPOT,
+    LIGHT_FLAVOR_DIRECTIONAL,
+    LIGHT_FLAVOR_PARALLELPOINT,
+    NUM_LIGHT_FLAVORS
+};
 
-
-#if defined(KELLY_DECOMP_FUNCTION_002FF930)
-// 0x002FF930 is_a_light_source__C12light_source
-class light_source {
+class light_properties {
 public:
-    bool is_a_light_source() const;
-};
+    light_properties();
+    inline light_flavor_t get_flavor() const { return flavor; }
 
-bool light_source::is_a_light_source() const {
-    return true;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FF940)
-// 0x002FF940 get_color__C12light_source
-class color {};
-struct light_properties { char padding[0x4]; color diffuse_color; };
-class light_source { char padding[0x200]; light_properties* properties; public: const color& get_color() const; };
-const color& light_source::get_color() const { return properties->diffuse_color; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FF980)
-// 0x002FF980 get_additive_color__C12light_source
-class color {};
-struct light_properties { char padding[0x14]; color additive_color; };
-class light_source { char padding[0x200]; light_properties* properties; public: const color& get_additive_color() const; };
-const color& light_source::get_additive_color() const { return properties->additive_color; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FF9C0)
-// 0x002FF9C0 get_near_range__C12light_source
-struct light_properties { char padding[0x24]; float near_range; };
-class light_source { char padding[0x200]; light_properties* properties; public: float get_near_range() const; };
-float light_source::get_near_range() const { return properties->near_range; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FF9F0)
-// 0x002FF9F0 get_lightcat__C12light_source
-struct light_properties { char padding[0x30]; unsigned int lightcat; };
-class light_source { char padding[0x200]; light_properties* properties; public: unsigned int get_lightcat() const; };
-unsigned int light_source::get_lightcat() const { return properties->lightcat; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FFA00)
-// 0x002FFA00 set_lightcat__12light_sourceUi
-struct light_properties { char padding[0x30]; unsigned int lightcat; };
-class light_source { char padding[0x200]; light_properties* properties; public: void set_lightcat(unsigned int value); };
-void light_source::set_lightcat(unsigned int value) { properties->lightcat = value; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FFA10)
-// 0x002FFA10 get_cutoff_range__C12light_source
-struct light_properties { char padding[0x28]; float cutoff_range; };
-class light_source { char padding[0x200]; light_properties* properties; public: float get_cutoff_range() const; };
-float light_source::get_cutoff_range() const { return properties->cutoff_range; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FF9D0)
-// 0x002FF9D0 set_near_range__12light_sourcef
-class light_properties { public: void set_near_range(float range); };
-__asm__(".equ set_near_range__16light_propertiesf, 0x002CC968");
-class light_source { char padding[0x200]; light_properties *properties; public: void set_near_range(float range); };
-void light_source::set_near_range(float range) { properties->set_near_range(range); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FFA20)
-// 0x002FFA20 set_cutoff_range__12light_sourcef
-class light_properties { public: void set_cutoff_range(float range); };
-__asm__(".equ set_cutoff_range__16light_propertiesf, 0x002CC9C0");
-class light_source { char padding[0x200]; light_properties *properties; public: void set_cutoff_range(float range); };
-void light_source::set_cutoff_range(float range) { properties->set_cutoff_range(range); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FF950)
-// 0x002FF950 set_color__12light_sourceRC5color
-struct color {
-    float r;
-    float g;
-    float b;
-    float a;
-
-    color &operator=(const color &value) {
-        r = value.r;
-        g = value.g;
-        b = value.b;
-        a = value.a;
-        return *this;
-    }
-};
-
-struct light_properties {
-    int flavor;
+protected:
+    light_flavor_t flavor;
     color diffuse_color;
     color additive_color;
+    float near_range;
+    float cutoff_range;
+    float recip_cutoff_minus_near;
+    unsigned int lightcat;
+    unsigned int flags;
+
+    inline void recompute_range()
+    {
+        if (cutoff_range <= near_range * 1.001f)
+            recip_cutoff_minus_near = 1e10f;
+        else
+            recip_cutoff_minus_near =
+                1.0f / (cutoff_range - near_range);
+    }
 };
 
-class light_source {
-    char padding[0x200];
+class light_source : public entity {
     light_properties *properties;
 
 public:
-    void set_color(const color &value);
-};
-
-void light_source::set_color(const color &value) {
-    properties->diffuse_color = value;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FF990)
-// 0x002FF990 set_additive_color__12light_sourceRC5color
-struct color {
-    float r;
-    float g;
-    float b;
-    float a;
-
-    color &operator=(const color &value) {
-        r = value.r;
-        g = value.g;
-        b = value.b;
-        a = value.a;
-        return *this;
+    float get_dist(const sphere &bounds) const;
+    inline const light_properties &get_properties() const {
+        return *properties;
     }
 };
 
-struct light_properties {
-    int flavor;
-    color diffuse_color;
-    color additive_color;
-};
+extern "C" float sqrtf(float value);
+__asm__(".equ sqrtf, 0x003C7058");
 
-class light_source {
-    char padding[0x200];
-    light_properties *properties;
-
-public:
-    void set_additive_color(const color &value);
-};
-
-void light_source::set_additive_color(const color &value) {
-    properties->additive_color = value;
-}
 #endif

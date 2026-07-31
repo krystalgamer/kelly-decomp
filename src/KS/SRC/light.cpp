@@ -1,14 +1,11 @@
-// Matching decompilation blocks selected by generated build shims.
+// light definitions extracted by generated one-function shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_002CDD80)
 // 0x002CDD80 terrain_radius__C12light_source
 struct light_properties { char padding[0x28]; float cutoff_range; };
 class light_source { char padding[0x200]; light_properties* properties; public: float terrain_radius() const; };
 float light_source::terrain_radius() const { return properties->cutoff_range * 0.5f; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002CDEE8)
 // 0x002CDEE8 frame_advance__12light_sourcef
 class light_source {
 public:
@@ -17,27 +14,21 @@ public:
 
 void light_source::frame_advance(float time) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002CDD30)
 // 0x002CDD30 add_me_to_region__12light_sourceP6region
 class light_source;
 class region { public: void add(light_source *value); };
 __asm__(".equ add__6regionP12light_source, 0x002E7C40");
 class light_source { public: void add_me_to_region(region *value); };
 void light_source::add_me_to_region(region *value) { value->add(this); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002CDD58)
 // 0x002CDD58 remove_me_from_region__12light_sourceP6region
 class light_source;
 class region { public: void remove(light_source *value); };
 __asm__(".equ remove__6regionP12light_source, 0x002E7D20");
 class light_source { public: void remove_me_from_region(region *value); };
 void light_source::remove_me_from_region(region *value) { value->remove(this); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002CD0C8)
 // 0x002CD0C8 _$_12light_source
 extern "C" void remove_terrain(void *)
     __asm__("remove_from_terrain__6entity");
@@ -66,11 +57,9 @@ void destroy_light(light_layout *self,int flags) {
     destroy_entity(self,flags);
     __asm__ __volatile__("" : : : "memory");
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002CC8B0)
 // 0x002CC8B0 __16light_properties
-#include "KS/SRC/light_shared.h"
+#include "KS/SRC/light.h"
 
 light_properties::light_properties()
   : flavor(LIGHT_FLAVOR_POINT),
@@ -82,11 +71,9 @@ light_properties::light_properties()
     recompute_range();
     flags = 0;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002CDE30)
 // 0x002CDE30 get_dist__C12light_sourceRC6sphere
-#include "KS/SRC/light_shared.h"
+#include "KS/SRC/light.h"
 
 float light_source::get_dist(const sphere& abound) const
 {
@@ -98,4 +85,3 @@ float light_source::get_dist(const sphere& abound) const
     }
     return 0.0f;
 }
-#endif
