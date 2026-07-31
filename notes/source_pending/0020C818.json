@@ -1,0 +1,15 @@
+{
+  "address": "0x0020C818",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "5f12b3f0676f67909308e5e4cb50ac2ca6035986",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/kellyslater_controller.h\"\n\nvoid register_kellyslater_inputs()\n{\n  input_mgr* inputmgr = input_mgr::inst();\n  inputmgr->register_control( game_control(PAD_SPRAY, CT_BOOLEAN) );\n  inputmgr->register_control( game_control(PAD_GRAB, CT_BOOLEAN) );\n  inputmgr->register_control( game_control(PAD_SNAP, CT_BOOLEAN) );\n  inputmgr->register_control( game_control(PAD_CARVE, CT_BOOLEAN) );\n  inputmgr->register_control( game_control(PAD_LSTICK_H, CT_RATIONAL) );\n  inputmgr->register_control( game_control(PAD_LSTICK_V, CT_RATIONAL) );\n  inputmgr->register_control( game_control(PAD_SLIDE, CT_BOOLEAN) );\n  inputmgr->register_control( game_control(PAD_GRIND, CT_BOOLEAN) );\n  inputmgr->register_control( game_control(PAD_SPEED_PUMP, CT_BOOLEAN) );\n  inputmgr->register_control( game_control(PAD_EASY_TRICK, CT_BOOLEAN) );\n  inputmgr->register_control( game_control(PAD_OLLIE, CT_BOOLEAN) );\n  inputmgr->register_control( game_control(PAD_HARD_LEFT, CT_BOOLEAN) );\n  inputmgr->register_control( game_control(PAD_HARD_RIGHT, CT_BOOLEAN) );\n  inputmgr->register_control( game_control(PAD_LOOK_BACK, CT_BOOLEAN) );\n  inputmgr->register_control( game_control(PAD_SWITCH_CAMERA, CT_BOOLEAN) );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "register_kellyslater_inputs__Fv"
+}
