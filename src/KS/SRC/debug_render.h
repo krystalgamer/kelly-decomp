@@ -1,13 +1,9 @@
-#ifndef KELLY_DECOMP_DEBUG_RENDER_SHARED_H
-#define KELLY_DECOMP_DEBUG_RENDER_SHARED_H
+#ifndef DEBUG_RENDER_H
+#define DEBUG_RENDER_H
 
 #include "KS/SRC/capsule.h"
+#include "KS/SRC/color.h"
 #include "KS/SRC/entity.h"
-
-class color32 {
-public:
-    unsigned int value;
-};
 
 void render_capsule(
     const vector3d &base,
