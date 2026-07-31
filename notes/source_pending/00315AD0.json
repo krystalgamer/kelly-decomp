@@ -1,0 +1,15 @@
+{
+  "address": "0x00315AD0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "500675a3f955bea4cb72e7d12099e577837b8b97",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/script_lib_beam.h\"\n\nvoid register_beam_lib()\n{\n  slc_beam_t* slc_beam = NEW slc_beam_t(\"beam\",4,\"entity\");\n\n  NEW slf_beam_hit_world_t(slc_beam,\"hit_world()\");\n  NEW slf_beam_hit_hero_t(slc_beam,\"hit_hero()\");\n  NEW slf_beam_get_impact_point_t(slc_beam,\"get_impact_point()\");\n  NEW slf_beam_get_impact_normal_t(slc_beam,\"get_impact_normal()\");\n  NEW slf_beam_set_thickness_t(slc_beam,\"set_thickness(num)\");\n  NEW slf_beam_set_max_length_t(slc_beam,\"set_max_length(num)\");\n  NEW slf_beam_set_color_t(slc_beam,\"set_color(num,num,num,num)\");\n  NEW slf_beam_set_detect_stealth_t(slc_beam,\"set_detect_stealth(num)\");\n  NEW slf_beam_set_collide_hero_t(slc_beam,\"set_collide_hero(num)\");\n  NEW slf_beam_set_collide_world_t(slc_beam,\"set_collide_world(num)\");\n  NEW slf_beam_set_collide_beamable_t(slc_beam,\"set_collide_beamable(num)\");\n  NEW slf_beam_set_no_collision_t(slc_beam,\"set_no_collision()\");\n  NEW slf_beam_set_additive_t(slc_beam,\"set_additive(num)\");\n  NEW slf_beam_set_point_to_point_t(slc_beam,\"set_point_to_point(vector3d,vector3d)\");\n\n  NEW slf_beam_set_uv_anim_t(slc_beam,\"set_uv_anim(num,num)\");\n  NEW slf_beam_set_tiles_per_meter_t(slc_beam,\"set_tiles_per_meter(num)\");\n  NEW slf_beam_set_material_t(slc_beam,\"set_material(str)\");\n\n\n  NEW slf_beam_add_color_effect_t(slc_beam,\"add_color_effect(num,num,num,num,num,num,num,num,num,num)\");\n  NEW slf_beam_add_width_effect_t(slc_beam,\"add_width_effect(num,num,num,num,num,num)\");\n  NEW slf_beam_add_alpha_effect_t(slc_beam,\"add_alpha_effect(num,num,num,num,num,num)\");\n  NEW slf_beam_kill_effect_t(slc_beam,\"kill_effect(num,num)\");\n  NEW slf_beam_kill_all_effects_t(slc_beam,\"kill_all_effects(num)\");\n  NEW slf_create_beam_t(\"create_beam()\");\n  NEW slf_to_beam_t(\"to_beam(entity)\");\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "register_beam_lib__Fv"
+}
