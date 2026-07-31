@@ -1,5 +1,5 @@
-#ifndef KELLY_DECOMP_VM_SYMBOL_SHARED_H
-#define KELLY_DECOMP_VM_SYMBOL_SHARED_H
+#ifndef VM_SYMBOL_H
+#define VM_SYMBOL_H
 
 #include "KS/SRC/stringx.h"
 
