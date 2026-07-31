@@ -430,3 +430,8 @@ ai_goal **fill_goals(
 class ai_polypath_cell;
 extern "C" ai_polypath_cell **fill_cells(ai_polypath_cell **first,unsigned int count,ai_polypath_cell *const &value)__asm__("fill_n__H3ZPP16ai_polypath_cellZUiZP16ai_polypath_cell_X01X11RCX21_X01");
 ai_polypath_cell **fill_cells(ai_polypath_cell **first,unsigned int count,ai_polypath_cell *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
+
+// 0x00111FD0 fill_n__H3ZPPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZUiZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node_X01X11RCX21_X01
+class region_node;
+extern "C" region_node **fill_regions(region_node **first,unsigned int count,region_node *const &value)__asm__("fill_n__H3ZPPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZUiZPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node_X01X11RCX21_X01");
+region_node **fill_regions(region_node **first,unsigned int count,region_node *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
