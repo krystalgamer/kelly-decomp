@@ -50,3 +50,8 @@ struct stringx{char data[8];~stringx();};struct Node{Node*free_next;Node*parent;
 
 // 0x0011FAE0 __uninitialized_copy_aux__H2ZP16scene_anims_infoZP16scene_anims_info_X01X01X11G12__false_type_X11
 inline void*operator new(unsigned int,void*p){return p;}struct vector3d{float x,y,z;vector3d(const vector3d&v){x=v.x;y=v.y;z=v.z;}};class stringx{char data[8];public:stringx(const stringx&);};asm(".equ __7stringxRC7stringx,0x0034D4D0");class scene_anims_info{public:void*ent;vector3d entity_up_vec;unsigned int handle;stringx name;void*anim_tree;scene_anims_info(const scene_anims_info&v):ent(v.ent),entity_up_vec(v.entity_up_vec),handle(v.handle),name(v.name),anim_tree(v.anim_tree){}};extern "C" scene_anims_info*copy(scene_anims_info*first,scene_anims_info*last,scene_anims_info*result)__asm__("__uninitialized_copy_aux__H2ZP16scene_anims_infoZP16scene_anims_info_X01X01X11G12__false_type_X11");scene_anims_info*copy(scene_anims_info*first,scene_anims_info*last,scene_anims_info*result){for(;first!=last;++first,++result)if(result)new((void*)result)scene_anims_info(*first);return result;}
+
+// 0x0011ECE0 fill_n__H3ZPP11entity_animZUiZP11entity_anim_X01X11RCX21_X01
+class entity_anim;
+extern "C" entity_anim **fill_anims(entity_anim **first,unsigned int count,entity_anim *const &value)__asm__("fill_n__H3ZPP11entity_animZUiZP11entity_anim_X01X11RCX21_X01");
+entity_anim **fill_anims(entity_anim **first,unsigned int count,entity_anim *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
