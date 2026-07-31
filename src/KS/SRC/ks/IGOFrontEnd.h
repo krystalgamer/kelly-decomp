@@ -1,45 +1,11 @@
-#ifndef KELLY_DECOMP_IGO_FRONT_END_SHARED_H
-#define KELLY_DECOMP_IGO_FRONT_END_SHARED_H
+#ifndef IGO_FRONT_END_H
+#define IGO_FRONT_END_H
 
+#include "KS/SRC/ks/igo_widget_camera.h"
 #include "KS/SRC/ks/igo_widget_grid.h"
 #include "KS/SRC/ks/igo_widget_photo.h"
-
-class PanelFile;
-class stringx;
-
-class WaveIndicatorWidget {
-public:
-    void Hide(bool immediate);
-};
-
-class CameraWidget : public IGOWidget {
-    enum {
-        NUM_RETICLE_PQS = 28
-    };
-
-    PanelQuad *reticlePQs[NUM_RETICLE_PQS];
-    float fade;
-    float showTimer;
-    float showTime;
-
-public:
-    void Show(float time);
-    void Hide();
-    float GetFade() const { return fade; }
-};
-
-class SimpleWidget : public IGOWidget {
-    int numPQs;
-    PanelQuad **pqs;
-
-public:
-    explicit SimpleWidget(int size);
-    virtual ~SimpleWidget();
-    virtual void Init(PanelFile &panel, const stringx *names);
-    virtual void Draw();
-    virtual void Show(bool enabled = true);
-    virtual bool IsShown() const;
-};
+#include "KS/SRC/ks/igo_widget_simple.h"
+#include "KS/SRC/ks/igo_widget_waveindicator.h"
 
 class IGOFrontEnd {
     char data_before_menu_background[0x584];

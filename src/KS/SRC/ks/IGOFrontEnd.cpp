@@ -1,22 +1,7 @@
 // Matching decompilation blocks selected by generated build shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_0017C1A8) || \
-    defined(KELLY_DECOMP_FUNCTION_0017CB40) || \
-    defined(KELLY_DECOMP_FUNCTION_0017CE18) || \
-    defined(KELLY_DECOMP_FUNCTION_0017CE40) || \
-    defined(KELLY_DECOMP_FUNCTION_0017CE68) || \
-    defined(KELLY_DECOMP_FUNCTION_0017CE88) || \
-    defined(KELLY_DECOMP_FUNCTION_0017CEB0) || \
-    defined(KELLY_DECOMP_FUNCTION_0017CED0) || \
-    defined(KELLY_DECOMP_FUNCTION_0017CF08) || \
-    defined(KELLY_DECOMP_FUNCTION_0017DF78) || \
-    defined(KELLY_DECOMP_FUNCTION_0017DF98)
-#include "KS/SRC/ks/IGOFrontEnd_shared.h"
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0017CC88)
 // 0x0017CC88 ShowAccompBackground__11IGOFrontEndbii
-#include "KS/SRC/ks/IGOFrontEnd_shared.h"
+#include "KS/SRC/ks/IGOFrontEnd.h"
 
 void IGOFrontEnd::ShowAccompBackground(
     const bool background_enabled,
@@ -38,87 +23,72 @@ void IGOFrontEnd::ShowAccompBackground(
         }
     }
 }
-#endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_0016EE38)
 // 0x0016EE38 clear__13IGOPrintQueue
 class IGOPrintQueue { char padding[0xC0]; int start; int end; unsigned char size; public: void clear(); };
 void IGOPrintQueue::clear() { start = end = size = 0; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017C1A8)
 // 0x0017C1A8 OnScoreChange__11IGOFrontEndi
+#include "KS/SRC/ks/IGOFrontEnd.h"
 void IGOFrontEnd::OnScoreChange(int player_index) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017CEB0)
 // 0x0017CEB0 IsPhotoShown__C11IGOFrontEnd
+#include "KS/SRC/ks/IGOFrontEnd.h"
 bool IGOFrontEnd::IsPhotoShown() const { return photoWidget && photoWidget->IsShown(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017CE68)
 // 0x0017CE68 GetCameraReticleFade__C11IGOFrontEnd
+#include "KS/SRC/ks/IGOFrontEnd.h"
 float IGOFrontEnd::GetCameraReticleFade() const { if (!cameraWidget) return 0.0f; return cameraWidget->GetFade(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017DF78)
 // 0x0017DF78 GetProceedButtonState__11IGOFrontEnd
+#include "KS/SRC/ks/IGOFrontEnd.h"
 int getButtonState(int command);
 __asm__(".equ getButtonState__Fi, 0x00159150");
 bool IGOFrontEnd::GetProceedButtonState() { return getButtonState(6); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017DF98)
 // 0x0017DF98 GetProceedButtonState__11IGOFrontEndi
+#include "KS/SRC/ks/IGOFrontEnd.h"
 int getButtonState(int command, int controller);
 __asm__(".equ getButtonState__Fii, 0x00159270");
 bool IGOFrontEnd::GetProceedButtonState(int controller) { return getButtonState(6, controller); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017CB40)
 // 0x0017CB40 OnSurferStandUp__11IGOFrontEnd
+#include "KS/SRC/ks/IGOFrontEnd.h"
 __asm__(".equ Hide__19WaveIndicatorWidgetb, 0x00168180");
 void IGOFrontEnd::OnSurferStandUp() { if (waveIndicatorWidget) { waveIndicatorWidget->Hide(true); KELLY_DECOMP_COMPILER_BARRIER(); } }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017CE18)
 // 0x0017CE18 ShowCameraReticle__11IGOFrontEndf
+#include "KS/SRC/ks/IGOFrontEnd.h"
 __asm__(".equ Show__12CameraWidgetf, 0x00169FC8");
 void IGOFrontEnd::ShowCameraReticle(float time) { if (cameraWidget) { cameraWidget->Show(time); KELLY_DECOMP_COMPILER_BARRIER(); } }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017CE40)
 // 0x0017CE40 HideCameraReticle__11IGOFrontEnd
+#include "KS/SRC/ks/IGOFrontEnd.h"
 __asm__(".equ Hide__12CameraWidget, 0x00169FF0");
 void IGOFrontEnd::HideCameraReticle() { if (cameraWidget) { cameraWidget->Hide(); KELLY_DECOMP_COMPILER_BARRIER(); } }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017CE88)
 // 0x0017CE88 ShowPhoto__11IGOFrontEndP10nglTexturePii
+#include "KS/SRC/ks/IGOFrontEnd.h"
 __asm__(".equ Show__11PhotoWidgetP10nglTexturePii, 0x0016AE98");
 void IGOFrontEnd::ShowPhoto(nglTexture *texture, int *score, int photo) { if (photoWidget) { photoWidget->Show(texture, score, photo); KELLY_DECOMP_COMPILER_BARRIER(); } }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017CED0)
 // 0x0017CED0 ShowMenuBackground__11IGOFrontEndb
+#include "KS/SRC/ks/IGOFrontEnd.h"
 void IGOFrontEnd::ShowMenuBackground(bool enabled)
 {
     if (menuBGWidget)
         menuBGWidget->Show(enabled);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017CF08)
 // 0x0017CF08 IsMenuBGShown__C11IGOFrontEnd
+#include "KS/SRC/ks/IGOFrontEnd.h"
 bool IGOFrontEnd::IsMenuBGShown(void) const
 {
     return menuBGWidget && menuBGWidget->IsShown();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0016ECF8)
 // 0x0016ECF8 pop__13IGOPrintQueue
 struct soundMessageObject {
     char data[12];
@@ -153,9 +123,7 @@ soundMessageObject *IGOPrintQueue::pop()
 
     return &messages[return_idx];
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017CB68)
 // 0x0017CB68 TurnBalanceMeterOn__11IGOFrontEndibT2
 class game {
     char padding[0xB4];
@@ -205,9 +173,7 @@ void TurnBalanceMeterOn(
     if (self->players[playerIdx].horizBalanceWidget)
         self->players[playerIdx].horizBalanceWidget->Show(enabled);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017CBC0)
 // 0x0017CBC0 SetBalanceMeter__11IGOFrontEndibf
 class game {
     char padding[0xB4];
@@ -232,29 +198,30 @@ struct igo_player {
     char tail[0x24];
 };
 
-class IGOFrontEnd {
+struct igo_balance_layout {
     char padding[0x124];
     igo_player *players;
-
-public:
-    void SetBalanceMeter(int playerIdx, bool vertical, float value);
 };
 
-void IGOFrontEnd::SetBalanceMeter(
+extern "C" void set_balance_meter(
+    igo_balance_layout *self,
     int playerIdx,
     bool vertical,
     float value
-)
+) __asm__("SetBalanceMeter__11IGOFrontEndibf");
+void set_balance_meter(
+    igo_balance_layout *self,
+    int playerIdx,
+    bool vertical,
+    float value)
 {
     if (playerIdx && g_game_ptr->get_num_ai_players())
         return;
 
-    if (players[playerIdx].horizBalanceWidget)
-        players[playerIdx].horizBalanceWidget->SetArrow(value);
+    if (self->players[playerIdx].horizBalanceWidget)
+        self->players[playerIdx].horizBalanceWidget->SetArrow(value);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017CC18)
 // 0x0017CC18 SetTubeDepthMeter__11IGOFrontEndif
 class game {
     char padding[0xB4];
@@ -279,25 +246,28 @@ struct igo_player {
     char tail[0x24];
 };
 
-class IGOFrontEnd {
+struct igo_balance_layout {
     char padding[0x124];
     igo_player *players;
-
-public:
-    void SetTubeDepthMeter(int playerIdx, float value);
 };
 
-void IGOFrontEnd::SetTubeDepthMeter(int playerIdx, float value)
+extern "C" void set_tube_depth(
+    igo_balance_layout *self,
+    int playerIdx,
+    float value
+) __asm__("SetTubeDepthMeter__11IGOFrontEndif");
+void set_tube_depth(
+    igo_balance_layout *self,
+    int playerIdx,
+    float value)
 {
     if (playerIdx && g_game_ptr->get_num_ai_players())
         return;
 
-    if (players[playerIdx].horizBalanceWidget)
-        players[playerIdx].horizBalanceWidget->SetFillage(value);
+    if (self->players[playerIdx].horizBalanceWidget)
+        self->players[playerIdx].horizBalanceWidget->SetFillage(value);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017CDB8)
 // 0x0017CDB8 TurnOnTubeIndicator__11IGOFrontEndib
 struct TextString { char padding[0x48]; unsigned int color; };
 struct player_info { char padding[0x34]; TextString *tubeTimer; char tail[4]; };
@@ -306,50 +276,51 @@ extern game_layout *g_game_ptr;
 extern unsigned int COLOR_POINTS_MAIN;
 __asm__(".equ g_game_ptr, 0x0046AC64");
 __asm__(".equ COLOR_POINTS_MAIN, 0x003E76E8");
-class IGOFrontEnd {
+struct igo_indicator_layout {
     char padding[0x124];
     player_info *players;
     char padding2[0x448];
     unsigned int COLOR_STANDARD;
-public:
-    void TurnOnTubeIndicator(int player,bool on);
 };
-void IGOFrontEnd::TurnOnTubeIndicator(int player,bool on) {
+extern "C" void turn_tube_indicator(
+    igo_indicator_layout *self,
+    int player,
+    bool on
+) __asm__("TurnOnTubeIndicator__11IGOFrontEndib");
+void turn_tube_indicator(igo_indicator_layout *self,int player,bool on) {
     if (player && g_game_ptr->num_ai_players) return;
-    TextString *timer=players[player].tubeTimer;
+    TextString *timer=self->players[player].tubeTimer;
     if (timer) {
         if (on) timer->color=COLOR_POINTS_MAIN;
-        else timer->color=COLOR_STANDARD;
+        else timer->color=self->COLOR_STANDARD;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017BCA0)
 // 0x0017BCA0 SetReplayText__11IGOFrontEndRC7stringx
 struct stringx { char *data; void *buffer; };
 extern "C" void copy_string(stringx *, const stringx *) __asm__("__7stringxRC7stringx");
 __asm__(".equ __7stringxRC7stringx,0x0034D4D0");
 struct text_vtable { char padding[72]; short adjustment; short reserved; void (*change_text)(void *, stringx *); };
 struct TextString { char padding[60]; int checkTime; char padding2[12]; text_vtable *vtable; };
-class IGOFrontEnd {
+struct igo_replay_text_layout {
     char padding[1368];
     TextString *replayText;
-public:
-    void SetReplayText(const stringx &text);
 };
-void IGOFrontEnd::SetReplayText(const stringx &text)
+extern "C" void set_replay_text(
+    igo_replay_text_layout *self,
+    const stringx &text
+) __asm__("SetReplayText__11IGOFrontEndRC7stringx");
+void set_replay_text(igo_replay_text_layout *self,const stringx &text)
 {
-    if (text.data[0] != 0 && replayText) {
+    if (text.data[0] != 0 && self->replayText) {
         stringx temporary;
         copy_string(&temporary, &text);
-        text_vtable *table = replayText->vtable;
-        table->change_text((char *)replayText + table->adjustment, &temporary);
-        replayText->checkTime = false;
+        text_vtable *table = self->replayText->vtable;
+        table->change_text((char *)self->replayText + table->adjustment, &temporary);
+        self->replayText->checkTime = false;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0017CD48)
 // 0x0017CD48 TurnOnTubeTimer__11IGOFrontEndib
 struct game { char padding[180]; int num_ai_players; }; extern game *g_game_ptr; __asm__(".equ g_game_ptr,0x0046AC64");
 struct TextString { char padding[68]; int no_color; unsigned int color; };
@@ -365,14 +336,9 @@ void turn_tube_timer(igo_layout *self,int player,bool on)
         self->players[player].tubeTimer->color=self->standard_color;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00175508)
 // 0x00175508 OnModeReset__11IGOFrontEnd
-struct game{char pad[116];int mode;};extern game*g_game_ptr;struct PhotoWidget{void Reset();};struct CameraWidget{void Reset();};__asm__(".equ g_game_ptr,0x0046AC64");__asm__(".equ Reset__11PhotoWidget,0x0016AB70");__asm__(".equ Reset__12CameraWidget,0x00169EA0");struct IGOFrontEnd{char pad0[256];bool firstTimeAttackState;bool firstMeterAttackState;char pad1[32];int runState;char pad2[1148];CameraWidget*cameraWidget;PhotoWidget*photoWidget;void OnModeReset()__asm__("OnModeReset__11IGOFrontEnd");};void IGOFrontEnd::OnModeReset(){int mode=g_game_ptr->mode;if(mode==5){firstTimeAttackState=true;runState=11;}else if(mode==6){firstMeterAttackState=true;runState=12;}if(photoWidget)photoWidget->Reset();if(cameraWidget){cameraWidget->Reset();asm volatile("");}}
-#endif
+struct game{char pad[116];int mode;};extern game*g_game_ptr;struct PhotoWidget{void Reset();};struct CameraWidget{void Reset();};__asm__(".equ g_game_ptr,0x0046AC64");__asm__(".equ Reset__11PhotoWidget,0x0016AB70");__asm__(".equ Reset__12CameraWidget,0x00169EA0");struct IGOFrontEndLayout{char pad0[256];bool firstTimeAttackState;bool firstMeterAttackState;char pad1[32];int runState;char pad2[1148];CameraWidget*cameraWidget;PhotoWidget*photoWidget;};extern "C" void reset_igo_mode(IGOFrontEndLayout*self)__asm__("OnModeReset__11IGOFrontEnd");void reset_igo_mode(IGOFrontEndLayout*self){int mode=g_game_ptr->mode;if(mode==5){self->firstTimeAttackState=true;self->runState=11;}else if(mode==6){self->firstMeterAttackState=true;self->runState=12;}if(self->photoWidget)self->photoWidget->Reset();if(self->cameraWidget){self->cameraWidget->Reset();asm volatile("");}}
 
-#if defined(KELLY_DECOMP_FUNCTION_0017A528)
 // 0x0017A528 OnEvent__11IGOFrontEnd5EVENTii
-enum EVENT{EVT_SURFER_LAND,EVT_SURFER_WIPEOUT,EVT_SURFER_DUCK_DIVE};struct clock_vtable{char padding[64];short adjustment;short reserved;void(*show)(void*,float);};struct AnalogClockWidget{char padding[4];clock_vtable*vtable;};struct ObjectAlertWidget{};extern "C" void hide_alert(ObjectAlertWidget*,bool)__asm__("Hide__17ObjectAlertWidgetb");extern const float wipeout_time,duck_time;asm(".equ Hide__17ObjectAlertWidgetb,0x0016A6D0");asm(".equ wipeout_time,0x004D06D8");asm(".equ duck_time,0x004D14B4");class IGOFrontEnd{char padding0[1428];AnalogClockWidget*analogClockWidget;char padding1[52];ObjectAlertWidget*objectAlertWidget;public:void OnEvent(EVENT,int,int);};inline void show_time(AnalogClockWidget*w,float t){clock_vtable*v=w->vtable;v->show((char*)w+v->adjustment,t);}void IGOFrontEnd::OnEvent(const EVENT event,const int param1,const int param2){if(event==EVT_SURFER_WIPEOUT){if(analogClockWidget&&param2==0)show_time(analogClockWidget,wipeout_time);if(objectAlertWidget){hide_alert(objectAlertWidget,false);asm volatile("");}}else if(event==EVT_SURFER_DUCK_DIVE){if(analogClockWidget)show_time(analogClockWidget,duck_time);}}
-#endif
+enum EVENT{EVT_SURFER_LAND,EVT_SURFER_WIPEOUT,EVT_SURFER_DUCK_DIVE};struct clock_vtable{char padding[64];short adjustment;short reserved;void(*show)(void*,float);};struct AnalogClockWidget{char padding[4];clock_vtable*vtable;};struct ObjectAlertWidget{};extern "C" void hide_alert(ObjectAlertWidget*,bool)__asm__("Hide__17ObjectAlertWidgetb");extern const float wipeout_time,duck_time;asm(".equ Hide__17ObjectAlertWidgetb,0x0016A6D0");asm(".equ wipeout_time,0x004D06D8");asm(".equ duck_time,0x004D14B4");struct IGOFrontEndEventLayout{char padding0[1428];AnalogClockWidget*analogClockWidget;char padding1[52];ObjectAlertWidget*objectAlertWidget;};inline void show_time(AnalogClockWidget*w,float t){clock_vtable*v=w->vtable;v->show((char*)w+v->adjustment,t);}extern "C" void igo_event(IGOFrontEndEventLayout*self,EVENT event,int param1,int param2)__asm__("OnEvent__11IGOFrontEnd5EVENTii");void igo_event(IGOFrontEndEventLayout*self,const EVENT event,const int param1,const int param2){if(event==EVT_SURFER_WIPEOUT){if(self->analogClockWidget&&param2==0)show_time(self->analogClockWidget,wipeout_time);if(self->objectAlertWidget){hide_alert(self->objectAlertWidget,false);asm volatile("");}}else if(event==EVT_SURFER_DUCK_DIVE){if(self->analogClockWidget)show_time(self->analogClockWidget,duck_time);}}
