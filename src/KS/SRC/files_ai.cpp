@@ -358,3 +358,37 @@ void fill_entity_info(
         :
         : "$2", "memory");
 }
+
+// 0x0010FA58 fill__H2ZP16ai_polypath_nodeZ16ai_polypath_node_X01X01RCX11_v
+struct ai_polypath_node {
+    void *cell;
+    float cost;
+};
+
+extern "C" void fill_nodes(
+    ai_polypath_node *first,
+    ai_polypath_node *last,
+    const ai_polypath_node &value
+) __asm__(
+    "fill__H2ZP16ai_polypath_nodeZ16ai_polypath_node"
+    "_X01X01RCX11_v");
+
+void fill_nodes(
+    ai_polypath_node *first,
+    ai_polypath_node *last,
+    const ai_polypath_node &value)
+{
+    __asm__ __volatile__(
+        "beq $4,$5,2f\n"
+        "1:\n"
+        "ldl $2,7($6)\n"
+        "ldr $2,0($6)\n"
+        "sdl $2,7($4)\n"
+        "sdr $2,0($4)\n"
+        "addiu $4,$4,8\n"
+        "bne $4,$5,1b\n"
+        "2:"
+        :
+        :
+        : "$2", "memory");
+}
