@@ -1,0 +1,15 @@
+{
+  "address": "0x002A3D80",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "67c186556cf4a74a499342b6f407b4cef7c54823",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/wds.h\"\n\nvoid world_dynamics_system::remove_entity_from_world_processing( entity *e )\n{\n\te->remove_from_terrain();\n\te->force_region( NULL );  // this effectively removes the entity from the world\n\te->set_active( false );\n\te->set_rel_position( vector3d(-9000.0f,-9000.0f,-9000.0f) );\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "remove_entity__21world_dynamics_systemP6entity"
+}
