@@ -1,0 +1,15 @@
+{
+  "address": "0x0012F180",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "bc733388da553f6b0804cd6cc67e4bf086b29dbd",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/entity.h\"\n\nvoid entity::register_signals()\n{\n  // for descendant class, replace \"entity\" with appropriate string\n  #define MAC(label,str)  signal_manager::inst()->insert( str, label );\n  #include \"entity_signals.h\"\n  #undef MAC\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "register_signals__6entity"
+}
