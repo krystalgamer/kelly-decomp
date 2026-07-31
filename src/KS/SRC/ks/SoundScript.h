@@ -67,7 +67,6 @@ public:
     void createAllMappings();
 };
 
-__asm__(".equ clear__12EventMapType, 0x0031BE38");
 __asm__(".equ _18SoundScriptManager$instance, 0x0046B4A0");
 __asm__(".equ unpause__18SoundScriptManager, 0x0031BFA8");
 __asm__(".equ pause__18SoundScriptManager, 0x0031BF98");

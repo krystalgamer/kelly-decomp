@@ -235,6 +235,7 @@ __asm__(".equ _vt$10bar_widget, 0x005042E0");
 class wevent {
 public:
     time_value_t active_time_elapsed();
+    time_value_t total_time_left();
 
 protected:
     wevent_type_e type;
