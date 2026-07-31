@@ -1,0 +1,15 @@
+{
+  "address": "0x002567C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "9d89accb54a8e3f78f5c6376233b4ac0fe3d2c2d",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/VOEngine.h\"\n\nvoid RandomVO::init()\n{\n  // Setup a RandomVO\n  probability = .5;\n  valid = true;\n  for (int i=0; i < MAX_RANDOM_SOURCES; i++) {\n    sources[i] = sourcesUsed[i] = sourcesUnused[i] = NSL_INVALID_ID;\n  }\n  numUsedSources=0;\n  numUnusedSources=0;\n  totalSources=0;\n  lastSource = NSL_INVALID_ID;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "init__8VOEngine"
+}
