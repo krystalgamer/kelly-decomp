@@ -1,0 +1,15 @@
+{
+  "address": "0x0030D7C0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "99ed59cbe6aac824e7c142bceffc992288b1988e",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "bool file_manager::write_cache()\n{\n  os_file fp;\n  bool ret_val = false;\n\n  stringx cache_filename(root_dir);\n  cache_filename += level_dir;\n  cache_filename += level_context.c_str();\n  cache_filename += STASH_FILE_LIST_EXTENSION;\n  fp.open( cache_filename, os_file::FILE_READ );\n  if (fp.is_open() == false)\n  {\n    // no existing sfl, so just create a NEW one\n    fp.open( cache_filename, os_file::FILE_WRITE );\n    assert(fp.is_open());\n  }\n  else\n  {\n    int buf_size = fp.get_size();\n    char *buf = (char *)malloc(buf_size);\n    assert(buf != NULL);\n    fp.read(buf, buf_size);\n    fp.close();\n    cache_filename += \".out\";  // for debugging\n    fp.open( cache_filename, os_file::FILE_WRITE );\n\n    char buf2[1024];\n    unsigned last_pos = 0;\n\n    // process all of the entries in the list file\n    for (int pos = 0; pos < buf_size; ++pos)\n    {\n      if (buf[pos] != '\\n')\n        continue;\n\n      // we have a full line of text, copy the line to buf2\n      int amount = pos - last_pos;\n      assert(amount < 1024);\n      strncpy((char *)buf2, (char *)(buf + last_pos), amount);\n      buf2[amount] = '\\0';\n      last_pos = pos + 1;\n\n      filespec spec((char *)buf2);\n\n      stash_index_entry find_me;\n      pstring pname(spec.name.c_str());\n      pname.concatinate(spec.ext.c_str());\n      find_me.set_name(pname);\n\n//debug_print(\"Processing %s \", pname.c_str());\n\n      // determine if this file was used\n      stash_index_entry *found = my_stash.get_index_tree().findData(&find_me);\n      if (found != NULL)\n      {\n        if (found->was_used())\n        {\n          // write it out to the NEW sfl file\n          strcat(buf2, \"\\r\\n\");\n          fp.write(buf2, strlen(buf2));\n        }\n      }\n    }\n    // free the list file buffer before returning\n    free(buf);\n  }\n  write_level_cache(fp);\n  fp.close();\n  ret_val = true;\n\n  return ret_val;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "write_cache__12file_manager"
+}
