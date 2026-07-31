@@ -1,0 +1,15 @@
+{
+  "address": "0x002CD450",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "43260605a4fe91f7c50a3ae9258c6bcd915736e2",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/light.h\"\n\nvoid light_source::load( const stringx& filename )\n{\n  if (!properties)\n    properties = NEW light_properties;\n  light_properties* lp = properties;\n  chunk_file fs;\n  fs.open(filename);\n  chunk_flavor cf;\n  serial_in( fs, &cf );\n  assert( cf == chunk_flavor(\"LIGHT\"));\n  for(;;)\n  {\n    serial_in( fs, &cf );\n    if( cf == chunk_flavor(\"flavor\"))\n    {\n      stringx flavor_name;\n      serial_in( fs, &flavor_name );\n      if(flavor_name==\"POINT\")\n        lp->flavor=LIGHT_FLAVOR_POINT;\n      else if(flavor_name==\"DIRECTIONAL\")\n        lp->flavor=LIGHT_FLAVOR_DIRECTIONAL;\n      else\n      {\n        stringx composite = stringx(\"Unknown light flavor in file\")+fs.get_name();\n        error(composite.c_str());\n      }\n    }\n    else if( cf == chunk_flavor(\"color\"))\n    {\n      serial_in( fs, &lp->diffuse_color );\n    }\n    else if ( chunk_flavor(\"addcolor\") == cf )\n    {\n      serial_in( fs, &lp->additive_color );\n    }\n    /*else if( cf == chunk_flavor(\"kattn\"))\n    {\n      float garbage;\n      serial_in( fs, &garbage );\n    }\n    else if( cf == chunk_flavor(\"lattn\"))\n    {\n      float garbage;\n      serial_in( fs, &garbage );\n    }\n    else if( cf == chunk_flavor(\"qattn\"))\n    {\n      float garbage;\n      serial_in( fs, &garbage );\n    }\n    else if( cf == chunk_flavor(\"range\"))\n    {\n      serial_in( fs, &lp->near_range );\n      lp->cutoff_range = lp->near_range*CUTOFF_FACTOR;\n      lp->recompute_range();\n      //lp->recip_range = 1 / lp->near_range;\n      //lp->cutoff_squared = lp->cutoff_range*lp->cutoff_range;\n    }*/\n    else if( cf == chunk_flavor(\"nearr\"))\n    {\n      serial_in( fs, &lp->near_range );\n      if (lp->near_range * 1.001f >= lp->cutoff_range)\n        lp->cutoff_range = lp->near_range * 1.001f;\n      lp->recompute_range();\n      //lp->recip_range = 1 / lp->near_range;\n    }\n    else if( cf == chunk_flavor(\"cutoff\"))\n    {\n      serial_in( fs, &lp->cutoff_range );\n      if (lp->near_range * 1.001f >= lp->cutoff_range)\n        lp->near_range = lp->cutoff_range / 1.001f;\n      lp->recompute_range();\n      //lp->cutoff_squared = lp->cutoff_range*lp->cutoff_range;\n    }\n    else if( cf == chunk_flavor(\"flags\"))\n    {\n      stringx flagstr;\n      serial_in( fs, &flagstr );\n      if( flagstr.find( \"AFFECTS_TERRAIN\" )!=stringx::npos )\n        lp->flags |= light_properties::AFFECTS_TERRAIN;\n    }\n    else if( cf == CHUNK_END )\n    {\n      break;\n    }\n    else\n    {\n      stringx composite = stringx(\"Unknown chunk type\")+cf.to_stringx() +(\" in \")+fs.get_name();\n      error(composite.c_str());\n    }\n  }\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "load__12light_sourceRC7stringx"
+}
