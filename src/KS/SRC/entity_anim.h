@@ -7,6 +7,9 @@
 #include "KS/SRC/stringx.h"
 #include "g++-2/stl_vector.h"
 
+typedef float rational_t;
+typedef float time_value_t;
+
 class PRS_track;
 class signal_track;
 class entity;
@@ -31,7 +34,39 @@ class entity_track_node {
 
 public:
     entity_track_node();
+    ~entity_track_node();
     void add_child(entity_track_node *good_kid);
+};
+
+class entity_track_tree {
+    char file_header[4];
+    unsigned int version;
+    int num_root_nodes;
+    rational_t floor_offset;
+    time_value_t duration;
+    int total_nodes;
+    int pad[2];
+    entity_track_node root_nodes[4];
+
+public:
+    entity_track_tree();
+    ~entity_track_tree();
+    void *operator new(unsigned int size);
+    void operator delete(void *memory);
+    entity_track_node *get_root();
+    entity_track_node *insert_root();
+    inline const entity_track_node *get_root_nodes() const {
+        return root_nodes;
+    }
+    inline int get_num_root_nodes() const {
+        return num_root_nodes;
+    }
+    inline time_value_t get_duration() const {
+        return duration;
+    }
+    inline rational_t get_floor_offset() const {
+        return floor_offset;
+    }
 };
 
 class entity_anim : public anim<entity *> {
@@ -93,6 +128,25 @@ class entity_anim_tree : public entity_anim {
     anim_control_t control_b;
 
 public:
+    entity_anim_tree(
+        const stringx &name,
+        entity *entity,
+        const entity_track_tree &track,
+        unsigned short flags = 0,
+        time_value_t start_time = 0,
+        int priority = 0,
+        short loop = -1);
+    entity_anim_tree(
+        const stringx &name,
+        entity *entity,
+        const entity_track_tree &first_track,
+        const entity_track_tree &second_track,
+        rational_t first_blend,
+        rational_t second_blend,
+        unsigned short flags = 0,
+        time_value_t start_time = 0,
+        int priority = 0,
+        short loop = -1);
     virtual ~entity_anim_tree();
 
     static bool meminit;
@@ -112,6 +166,29 @@ public:
     virtual void set_flag(int flag);
     void set_timescale_factor(float factor);
     void set_priority(int value);
+    void construct(
+        const stringx &name,
+        const entity_track_tree &track,
+        unsigned short flags,
+        time_value_t start_time,
+        int priority,
+        short loop);
+    void construct(
+        const stringx &name,
+        const entity_track_tree &first_track,
+        const entity_track_tree &second_track,
+        rational_t first_blend,
+        rational_t second_blend,
+        unsigned short flags,
+        time_value_t start_time,
+        int priority,
+        short loop);
+    void *operator new(
+        unsigned int size,
+        unsigned int flags,
+        const char *description,
+        int line);
+    void operator delete(void *memory);
 
     inline bool was_blended() const {
         return !control.is_tween() ||

@@ -75,6 +75,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ai_goals.h": "KS/SRC/ai_goals_methods.cpp",
     "KS/SRC/ai_locomotion.h": "KS/SRC/ai_locomotion_methods.cpp",
     "KS/SRC/anim.h": "KS/SRC/anim_methods.cpp",
+    "KS/SRC/anim_maker.h": "KS/SRC/anim_maker_methods.cpp",
     "KS/SRC/animation_interface.h": "KS/SRC/animation_interface_rtti.cpp",
     "KS/SRC/ai_interface.h": "KS/SRC/ai_interface_rtti.cpp",
     "KS/SRC/beam.h": "KS/SRC/beam_methods.cpp",

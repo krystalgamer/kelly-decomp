@@ -56,6 +56,7 @@ public:
         particle_generator *generator);
     void render_kelly_slater_stuff(int hero_index);
     void process_kelly_slater_stuff();
+    void add_anim(entity_anim_tree *animation);
     void kill_anim(entity_anim_tree *animation);
 };
 
