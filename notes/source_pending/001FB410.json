@@ -1,0 +1,15 @@
+{
+  "address": "0x001FB410",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "f9cfe68fbd7d3dba3572612465a10a775f1fd77b",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/floatobj.h\"\n\nbeach_event* beach_event::create_from_file (text_parser& parser, int timer_relative)\n{\n  beach_event *event = NULL;\n  char *argp[32];\n  int argc = 0;\n  char type[64];\n\n  // event type\n  parser.get_token (false, false);\n  strcpy (type, parser.token);\n\n  // store all parameters for later use\n  while (parser.get_token (false, true))\n  {\n    // Evan, why can't I use strdup ?\n//    argp[argc++] = strdup (parser.token);\n    argp[argc] = (char*)malloc (strlen (parser.token) + 1);\n    strcpy (argp[argc], parser.token);\n    argc++;\n  }\n\n  if (!strcmp (type, \"tube_spit\"))\n    event = NEW beach_event (&ks_fx_create_tube_spit);\n  else if (!stricmp (type, \"lightning_l\"))\n\t  event = NEW beach_event (&ks_fx_create_lightning_l);\n  else if (!stricmp (type, \"lightning_r\"))\n\t  event = NEW beach_event (&ks_fx_create_lightning_r);\n  else if (!stricmp (type, \"photo\"))\n\t  event = NEW beach_event (&TakePhoto);\n  else\n  {\n    nglPrintf (\"Unknown event type: %s\\n\", type);\n  }\n\n  if (event)\n  {\n    event->timer_type = timer_relative;\n    if (!event->parse_params (argp, argc))\n    {\n      nglPrintf (\"Cannot parse params for %s, ignoring event.\\n\", type);\n      delete event;\n      event = NULL;\n    }\n  }\n\n  while (argc)\n    free (argp[--argc]);\n\n  return event;\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "create_from_file__15beach_billboardR11text_parseri"
+}
