@@ -3,7 +3,7 @@
 
 #include "KS/SRC/plane.h"
 #include "KS/SRC/render_data_shared.h"
-#include "g++-2/stl_vector_shared.h"
+#include "g++-2/stl_vector.h"
 
 typedef float rational_t;
 

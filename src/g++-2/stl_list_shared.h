@@ -2,7 +2,7 @@
 #define KELLY_DECOMP_STL_LIST_SHARED_H
 
 #include "KS/SRC/archalloc.h"
-#include "g++-2/my_allocator_shared.h"
+#include "KS/SRC/custom_stl.h"
 
 template<class T>
 struct _List_node {

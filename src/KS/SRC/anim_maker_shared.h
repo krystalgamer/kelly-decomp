@@ -5,7 +5,7 @@
 #include "KS/SRC/mbi.h"
 #include "KS/SRC/rtti.h"
 #include "KS/SRC/stringx.h"
-#include "g++-2/stl_vector_shared.h"
+#include "g++-2/stl_vector.h"
 
 typedef float rational_t;
 typedef float time_value_t;

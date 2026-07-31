@@ -1,7 +1,7 @@
-#ifndef KELLY_DECOMP_STL_VECTOR_SHARED_H
-#define KELLY_DECOMP_STL_VECTOR_SHARED_H
+#ifndef __SGI_STL_INTERNAL_VECTOR_H
+#define __SGI_STL_INTERNAL_VECTOR_H
 
-#include "g++-2/my_allocator_shared.h"
+#include "KS/SRC/custom_stl.h"
 
 extern "C" void *memmove(
     void *destination,
