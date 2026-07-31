@@ -51,6 +51,8 @@ public:
         __asm__("add_particle_generator__21world_dynamics_systemRC7stringxbT2R9entity_id");
     particle_generator *add_particle_generator(
         particle_generator *generator);
+    void render_kelly_slater_stuff(int hero_index);
+    void process_kelly_slater_stuff();
 };
 
 class entity_maker {

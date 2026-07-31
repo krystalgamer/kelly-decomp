@@ -2,7 +2,7 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_00225288) || \
     defined(KELLY_DECOMP_FUNCTION_002252D0)
-#include "KS/SRC/ks/kellyslater_main_shared.h"
+#include "KS/SRC/ks/kellyslater_main.h"
 #endif
 
 #include "decomp_annotations.h"
