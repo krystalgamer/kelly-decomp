@@ -1,0 +1,15 @@
+{
+  "address": "0x0016DE38",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "6c35269fad48cdd0afe18debd537971fd9a26cf6",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "void IconRadarWidget::Init(PanelFile & panel, IconChallenge * chall)\n{\n\tchallenge = chall;\n\t\n\tellipsePQ = panel.GetPointer(\"radar_ellipse\");\n\tellipsePQ->TurnOn(true);\n\t\n\tnglSetTexturePath(\"challenges\\\\ghosticon\\\\textures\\\\\");\n\ticonTextures[IconChallenge::Task::TYPE_AIR_FLIP] = nglGetTexture(\"Flip\");\n\ticonTextures[IconChallenge::Task::TYPE_AIR_GRAB] = nglGetTexture(\"Grab\");\n\ticonTextures[IconChallenge::Task::TYPE_AIR_SPIN] = nglGetTexture(\"Spin\");\n\ticonTextures[IconChallenge::Task::TYPE_AIR_POINTS_1000] = nglGetTexture(\"Points\");\n\ticonTextures[IconChallenge::Task::TYPE_AIR_POINTS_2000] = nglGetTexture(\"Points\");\n\ticonTextures[IconChallenge::Task::TYPE_AIR_POINTS_5000] = nglGetTexture(\"Points\");\n\ticonTextures[IconChallenge::Task::TYPE_AIR_SPECIAL] = nglGetTexture(\"Special\");\n\ticonTextures[IconChallenge::Task::TYPE_FACE_SPIN] = nglGetTexture(\"Spin\");\n\ticonTextures[IconChallenge::Task::TYPE_TUBE_TIME_10] = nglGetTexture(\"Time\");\n\ticonTextures[IconChallenge::Task::TYPE_TUBE_TIME_15] = nglGetTexture(\"Time\");\n\ticonTextures[IconChallenge::Task::TYPE_TUBE_TIME_30] = nglGetTexture(\"Time\");\n\ticonTextures[IconChallenge::Task::TYPE_TUBE_TRICK] = nglGetTexture(\"icon_Trick\");\n\n\tSetDisplay(true);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "Init__15IconRadarWidgetR9PanelFileP13IconChallenge"
+}
