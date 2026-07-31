@@ -1,0 +1,15 @@
+{
+  "address": "0x001F8DF0",
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate_file": "candidate.cpp",
+      "candidate_sha1": "25c4f7ee9b0360a4f171fa25755680cc92c9a5fa",
+      "notes": "Attempt 1 uses the exact released function definition and the matching canonical header when available.",
+      "score": 0.0,
+      "source": "#include \"KS/SRC/ks/board.h\"\n\nvoid SurfBoardObjectClass::BoardInAir(const float time_step)\n{\n\tvector3d normal, position (rb->pos);\n\tCollideCallStruct collide (rb->pos, &normal, &current, &current_region, &wave_center_hint);\n\tcenter_hint_valid = WAVE_CheckCollision (collide, !inAirFlag && center_hint_valid, !inAirFlag, !inAirFlag && center_hint_valid);\n\tfront_hint_valid = false;\n\n\tfloat height = position.y - collide.position.y;\n\n\tfloat grav = 15.0f;\n\trb->linMom -= grav*time_step*YVEC*rb->mass;\n\n\tvector3d tube_bottom = *WAVE_GetMarker(WAVE_MarkerTubeBottom);\n\tfloat height2 = position.y - tube_bottom.y;\n\n\tif ((current_region == WAVE_REGIONCEILING) || (current_region == WAVE_REGIONSHOULDER))\n\t{\n\t\tcenter_hint_valid = false;\n\t\theight = 2.0f;  // set greater than zero, ignore collision\n\t}\n\n\tif ((rb->linMom.y <= 0.0f) && (((height < 0.0f) && (normal.y > 0.0f) && (dot(rb->linMom, normal) < 0.0f)\n\t\t\t&& (current_region != WAVE_REGIONCEILING)) || (height2 < 0.0f)))\n\t{\n\t\tif ((height2 > 0.0f) && (current_region == WAVE_REGIONROOF)\n\t\t\t\t&& (dot(rb->linMom, rb->linMom) > 0.5f))\n\t\t{\n\t\t\tvector3d vel = normal*dot(normal, rb->linMom);\n\t\t\trb->linMom -= 1.5f*vel;\n\t\t}\n\t\telse\n\t\t{\n\t\t\tthis->SetBoardState(BOARD_NONE);\n\t\t\tthis->inAirFlag = false;\n\t\t\t//wave_front_hint = wave_center_hint;\n\t\t\t//front_hint_valid = true;\n\n\t\t\tif (height > 0.0f)\n\t\t\t\tcollide.position.y = tube_bottom.y;\n\t\t}\n\n\t\tposition = collide.position;\n\t}\n\n\tmy_board->set_rel_po (rb->my_po);\n\tmy_board->set_rel_position (position);\n\n\tthis->rb->pos = position;\n\n\tpo lean;\n\tfloat desiredLeanAngle = 0;\n\tfloat deltaLeanAngle;\n\n\tdeltaLeanAngle = desiredLeanAngle - this->curLeanAngle;\n\tthis->curLeanAngle += deltaLeanAngle * this->leanEaseIn * time_step;\n\tlean.set_position (vector3d (0, 0, 0));\n\tlean.set_rot (this->forwardDir, this->curLeanAngle);\n\tmy_board->set_rel_po (lean * my_board->get_rel_po());\n\n\tksctrl->OrientToWave(false, time_step, SET_RB_PO);\n}\n",
+      "status": "compile_failed"
+    }
+  ],
+  "raw_name": "BoardInAir__20SurfBoardObjectClassf"
+}
