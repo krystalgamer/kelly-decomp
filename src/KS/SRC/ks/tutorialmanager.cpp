@@ -1,8 +1,13 @@
 // Matching decompilation blocks selected by generated build shims.
 
-#include "tutorialmanager.h"
+#include "KS/SRC/ks/tutorialmanager.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_001DC3C8)
+unsigned int nslGetSoundStatus(unsigned int sound);
+void nslStopSound(unsigned int sound);
+__asm__(".equ nslGetSoundStatus__FUi, 0x0038DBA0");
+__asm__(".equ nslStopSound__FUi, 0x0038D288");
+
+// 0x001DC3C8 __tf18IGOTutorialManager
 extern "C" void __rtti_si(void **type, const char *name, void **base);
 __asm__(".equ __rtti_si, 0x003CE2D8");
 extern "C" void **event_recipient_rtti() __asm__("__tf14EventRecipient");
@@ -23,29 +28,18 @@ void **tutorial_rtti()
     }
     return tutorial_type;
 }
-#endif
 
-unsigned int nslGetSoundStatus(unsigned int sound);
-void nslStopSound(unsigned int sound);
-__asm__(".equ nslGetSoundStatus__FUi, 0x0038DBA0");
-__asm__(".equ nslStopSound__FUi, 0x0038D288");
-
-#if defined(KELLY_DECOMP_FUNCTION_0015A060)
 // 0x0015A060 EndChain__18IGOTutorialManager
 void IGOTutorialManager::EndChain() {
     air_trick_in_chain = false;
     face_trick_in_chain = false;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0015A0B8)
 // 0x0015A0B8 SetCurrentGap__18IGOTutorialManageri
 void IGOTutorialManager::SetCurrentGap(int gap) {
     current_gap = gap;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0015A2C0)
 // 0x0015A2C0 StopCurrentVO__18IGOTutorialManager
 void IGOTutorialManager::StopCurrentVO()
 {
@@ -54,9 +48,7 @@ void IGOTutorialManager::StopCurrentVO()
         KELLY_DECOMP_COMPILER_BARRIER();
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0015A070)
 // 0x0015A070 SetCurrentTrick__18IGOTutorialManageri
 __asm__(".equ GTrickList, 0x00427CA8");
 
@@ -73,9 +65,7 @@ void IGOTutorialManager::SetCurrentTrick(int trick_num)
         face_trick_in_chain = true;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001596D0)
 // 0x001596D0 SetTutorialSection__18IGOTutorialManageri
 #include "KS/SRC/ks/tutorialmanager.h"
 enum { LEVEL_INDOOR_1, LEVEL_INDOOR_2 };
@@ -95,9 +85,7 @@ void IGOTutorialManager::SetTutorialSection(int tutorial_level) {
         last_step = Tutorial_Step_Num;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00159668)
 // 0x00159668 Reset__18IGOTutorialManager
 struct game { char padding[548]; int level_id; };
 extern game *g_game_ptr;
@@ -143,9 +131,7 @@ void reset_tutorial(tutorial_layout *self)
     set_section(object, current_game->level_id);
     __asm__ __volatile__("" : : : "memory");
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0015A2F8)
 // 0x0015A2F8 OnEvent__18IGOTutorialManager5EVENTii
 struct tutorial_step { char padding[84]; int kind; char padding2[12]; };
 extern int perfect_landing_flag; extern tutorial_step tutorial_steps[];
@@ -168,19 +154,13 @@ void tutorial_event(tutorial_layout *self, int event, int param1, int param2)
         self->step_flag = 0;
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0015A0C0)
 // 0x0015A0C0 play_sound__18IGOTutorialManagerPCc
 struct DevOptions{char pad[72];int no_audio;};extern DevOptions*g_options;extern "C" unsigned load(const char*)__asm__("nslLoadSource__FPCc");extern "C" unsigned add(unsigned)__asm__("nslAddSound__FUi");extern "C" void play(unsigned)__asm__("nslPlaySound__FUi");extern "C" void debug_print(const char*,...)__asm__("debug_print__FPCce");extern const char missing[];__asm__(".equ g_options,0x0046B180");__asm__(".equ nslLoadSource__FPCc,0x0038C130");__asm__(".equ nslAddSound__FUi,0x0038CAF8");__asm__(".equ nslPlaySound__FUi,0x0038CB20");__asm__(".equ debug_print__FPCce,0x00120790");__asm__(".equ missing,0x004CFB48");unsigned IGOTutorialManager::play_sound(const char*name){unsigned snd=0;if(!g_options->no_audio){unsigned s=load(name);if(s!=0){snd=add(s);if(snd!=0)play(snd);}else debug_print(missing,name);}return snd;}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001595E0)
 // 0x001595E0 _$_18IGOTutorialManager
 struct TextVtable{char pad[8];short adjust;short z;void(*destroy)(void*,int);};struct BoxText{char pad[76];TextVtable*vtable;};extern "C" void string_dtor(void*,int)__asm__("_$_7stringx");extern "C" void base_dtor(void*,int)__asm__("_$_14EventRecipient");extern const char tutorial_vtable[];__asm__(".equ _$_7stringx,0x0034D6E0");__asm__(".equ _$_14EventRecipient,0x00349B98");__asm__(".equ tutorial_vtable,0x004DB0A0");struct Tutorial{const void*vtable;char pad0[84];char ins[8],help[8],button[8];BoxText*instruction;};extern "C" void destroy(Tutorial*self,int deleting)__asm__("_$_18IGOTutorialManager");void destroy(Tutorial*self,int deleting){self->vtable=tutorial_vtable;if(self->instruction){TextVtable*v=self->instruction->vtable;v->destroy((char*)self->instruction+v->adjust,3);}string_dtor(self->button,2);string_dtor(self->help,2);string_dtor(self->ins,2);base_dtor(self,deleting);asm volatile("");}
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00159720)
 // 0x00159720 Draw__18IGOTutorialManager
 #include "KS/SRC/ks/FEPanel.h"
 #include "KS/SRC/ks/kellyslater_controller.h"
@@ -196,4 +176,3 @@ void IGOTutorialManager::Draw(void)
 		(g_world_ptr->get_ks_controller(g_game_ptr->get_active_player()))->get_super_state() != SUPER_STATE_FLYBY)
 		instruction_text->Draw();
 }
-#endif
