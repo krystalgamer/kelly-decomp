@@ -93,6 +93,11 @@ inline vector3d operator/(const vector3d &value, float divisor)
         value.z * reciprocal);
 }
 
+inline float dot(const vector3d &left, const vector3d &right)
+{
+    return left.x * right.x + left.y * right.y + left.z * right.z;
+}
+
 class vector4d {
 public:
     float x;

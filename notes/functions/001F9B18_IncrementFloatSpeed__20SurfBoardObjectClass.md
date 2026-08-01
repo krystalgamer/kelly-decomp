@@ -5,21 +5,16 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/board.cpp`
 - Reference source: `KS/SRC/ks/board.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 53.5714 | 42.8571 | `candidate.cpp` |
-| 2 | different | 57.1429 | 57.1429 | `increment_float_speed_2.cpp` |
-| 3 | matched | 100.0 | 100.0 | `increment_float_speed_3.cpp` |
-| 4 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 4 notes
-
-The direct expression omitted the target's `mtc1` hazard nop. Pinning the loaded member before constant materialization and spelling the hazard nop reproduces the released schedule.
+| 1 | different | 53.5714 | 42.8571 | `increment-float-speed-1.cpp` |
+| 2 | different | 53.5714 | 42.8571 | `increment-float-speed-2.cpp` |
+| 3 | different | 53.5714 | 42.8571 | `increment-float-speed-3.cpp` |
 
 ## Outcome
 
-`SurfBoardObjectClass::IncrementFloatSpeed` matched exactly after preserving load order and the target FPU hazard nop.
+Three ordinary forms of the released float increment omit the target scheduling nop; the instruction-emitting assembly workaround was removed.

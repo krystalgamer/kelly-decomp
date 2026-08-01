@@ -5,18 +5,16 @@
 - Object: `game/files_kellyslater`
 - Debug source: `ks/board.h`
 - Reference source: `KS/SRC/ks/board.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The standard lazy RTTI initialization matches exactly.
+| 1 | symbol_missing | 0.0 | 0 | `type-info-1.cpp` |
+| 2 | symbol_missing | 0.0 | 0 | `type-info-2.cpp` |
+| 3 | symbol_missing | 0.0 | 0 | `type-info-3.cpp` |
 
 ## Outcome
 
-The standard lazy SurfBoardObjectClass RTTI initialization matches exactly.
+Three native C++ type-info forms could not emit the legacy compiler helper symbol; the hand-written extern-C RTTI wrapper was removed from board.h.
