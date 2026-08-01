@@ -42,7 +42,7 @@ public:
         stringx panel_name);
     virtual ~LogbookFrontEnd();
     virtual void Load();
-    virtual void Select(int) {}
+    virtual void Select(int);
     virtual void Draw();
     virtual void OnActivate();
     virtual void OnLeft(int);
