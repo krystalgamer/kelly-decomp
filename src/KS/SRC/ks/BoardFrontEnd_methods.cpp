@@ -2,15 +2,15 @@
 
 
 // 0x001DDB00 OnUp__13BoardFrontEndi
-extern "C" void board_up(void *self, int controller)
-    __asm__("OnUp__13BoardFrontEndi");
-void board_up(void *self, int controller) {
+#include "KS/SRC/ks/BoardFrontEnd.h"
+
+void BoardFrontEnd::OnUp(int controller) {
 }
 
 // 0x001DDB08 OnDown__13BoardFrontEndi
-extern "C" void board_down(void *self, int controller)
-    __asm__("OnDown__13BoardFrontEndi");
-void board_down(void *self, int controller) {
+#include "KS/SRC/ks/BoardFrontEnd.h"
+
+void BoardFrontEnd::OnDown(int controller) {
 }
 
 // 0x001DDAD8 Select__13BoardFrontEndi
