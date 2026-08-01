@@ -98,20 +98,7 @@ PanelQuad *PanelFile::FindQuad(const stringx &search_name)
 }
 
 // 0x00148270 setHJustify__10TextStringQ24Font9HORIZJUST
-class Font {
-public:
-    enum HORIZJUST {
-        HORIZJUST_PLACEHOLDER
-    };
-};
-
-class TextString {
-    char padding[0x18];
-    Font::HORIZJUST hJustify;
-
-public:
-    void setHJustify(Font::HORIZJUST justify);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void TextString::setHJustify(Font::HORIZJUST justify) {
     hJustify = justify;
@@ -130,33 +117,14 @@ bool PanelBatch::eq_to_tolerance(float a, float b, float tolerance)
 }
 
 // 0x00148278 setVJustify__10TextStringQ24Font8VERTJUST
-class Font {
-public:
-    enum VERTJUST {
-        VERTJUST_PLACEHOLDER
-    };
-};
-
-class TextString {
-    char padding[0x1C];
-    Font::VERTJUST vJustify;
-
-public:
-    void setVJustify(Font::VERTJUST justify);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void TextString::setVJustify(Font::VERTJUST justify) {
     vJustify = justify;
 }
 
 // 0x001482F0 getZ__10TextString
-class TextString {
-    char padding[0x14];
-    int z;
-
-public:
-    int getZ();
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 int TextString::getZ() {
     return z;
@@ -180,13 +148,7 @@ class PanelQuad { char padding[0x4]; int fade; float fade_alpha; public: void Se
 void PanelQuad::SetFade(float amount) { fade = 2; fade_alpha = amount; }
 
 // 0x0014DEC8 SetClip__9PanelQuadb
-class PanelQuad {
-    char padding[0x114];
-    bool clip;
-
-public:
-    void SetClip(bool enabled);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void PanelQuad::SetClip(bool enabled) {
     clip = enabled;
@@ -201,10 +163,7 @@ void PanelGeom::cons() {
 }
 
 // 0x001521F0 Draw__9PanelTextf
-class PanelText {
-public:
-    void Draw(float alpha);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void PanelText::Draw(float alpha) {
 }

@@ -237,7 +237,8 @@ typedef float time_value_t;
 typedef unsigned int uint32;
 
 enum PanelGeomKind {
-    PanelGeomObject
+    PanelGeomObject,
+    PanelGeomText
 };
 
 class PanelGeom {
@@ -296,6 +297,39 @@ public:
 
     virtual ~PanelBatch();
     void Reload(PanelMaterial *materials);
+};
+
+class PanelText : public PanelGeom {
+public:
+    enum JustKind {
+        Left = 0,
+        HCenter = 1,
+        HStretch = 2,
+        Right = 3,
+        HMask = 0x3,
+        Top = 0,
+        VCenter = 4,
+        VStretch = 8,
+        Bottom = 12,
+        VMask = 0xC
+    };
+
+    stringx fontname;
+    color32 color;
+    unsigned char justification;
+    float linespacing;
+    uint32 numtextlines;
+    stringx text;
+    nglQuad quad;
+
+    PanelText() {}
+    virtual PanelGeomKind Kind() const {
+        return PanelGeomText;
+    }
+    virtual bool Load(unsigned char *buffer, int &index);
+    virtual void Init(PanelQuad **pquads);
+    virtual void Init(PanelQuad **pquads, matrix4x4 matrix);
+    virtual void Draw(float alpha = 1.0f);
 };
 
 class PanelObject : public PanelGeom {
