@@ -53,52 +53,6 @@ class ScoringManager { char padding[0x8]; kellyslater_controller* ksctrl; int pl
 void ScoringManager::SetKsctrl(kellyslater_controller* value) { ksctrl = value; playerIdx = value->player_num; specialMeter = &value->special_meter; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00248718)
-// 0x00248718 SetMouthDist__14ScoringManagerf
-class ScoringManager {
-    char padding[0x1D4];
-    float mouthDist;
-public:
-    void SetMouthDist(float dist);
-};
-
-void ScoringManager::SetMouthDist(float dist) {
-    mouthDist = dist;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002495C8)
-// 0x002495C8 SetMultAdder__Q214ScoringManager5Chainf
-class ScoringManager {
-public:
-    class Chain {
-        char padding[0x4];
-        float multAdder;
-    public:
-        void SetMultAdder(float value);
-    };
-};
-
-void ScoringManager::Chain::SetMultAdder(float value) {
-    multAdder = value;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0024A0E0)
-// 0x0024A0E0 IsInteresting__CQ214ScoringManager5Trick
-class ScoringManager {
-public:
-    class Trick {
-    public:
-        bool IsInteresting() const;
-    };
-};
-
-bool ScoringManager::Trick::IsInteresting() const {
-    return true;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_002490C0)
 // 0x002490C0 GetSickness__CQ214ScoringManager5Chain
 class ScoringManager { public: class Chain { public: float GetRawSickness() const; float GetSickness() const; }; };

@@ -56,6 +56,8 @@ public:
         float mouthDist;
         float lipDist;
         int repetitions;
+
+        bool IsInteresting() const;
     };
 
     typedef list<Trick> TrickList;
@@ -71,6 +73,17 @@ public:
         bool HasGap(int gapIdx) const;
     };
 
+    typedef list<Series> SeriesList;
+
+    class Chain {
+        LevelTrick *levelTricks;
+        float multAdder;
+
+    public:
+        SeriesList series;
+        void SetMultAdder(float value);
+    };
+
 private:
     int score;
     void *ksctrl;
@@ -78,9 +91,12 @@ private:
     void *specialMeter;
     void *eventRecipientVtable;
     LevelTrick levelTricks[TRICK_NUM];
+    char data_to_mouth_dist[0x44];
+    float mouthDist;
 
 public:
     int GetNumTrickLandings() const;
+    void SetMouthDist(float distance);
 };
 
 #endif
