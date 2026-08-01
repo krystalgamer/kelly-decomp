@@ -17,6 +17,18 @@ enum FEMENUCMD {
 
 class PauseMenuSystem;
 
+class SoundMenuClass : public FEMenu {
+public:
+    virtual void Select(int entry_index);
+};
+
+class TrickMenuClass : public FEMenu {
+public:
+    virtual void Select(int entry_index);
+    virtual void OnActivate();
+    virtual void OnCross(int controller);
+};
+
 class PauseMenuClass : public FEMenu {
 public:
     enum {

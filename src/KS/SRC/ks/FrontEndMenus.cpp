@@ -45,19 +45,13 @@ void PauseMenuClass::OnButtonRelease(int controller, int button)
 }
 
 // 0x001AA2E8 Select__14SoundMenuClassi
-class SoundMenuClass {
-public:
-    void Select(int entry_index);
-};
+#include "KS/SRC/ks/FrontEndMenus.h"
 
 void SoundMenuClass::Select(int entry_index) {
 }
 
 // 0x001ACBF0 Select__14TrickMenuClassi
-class TrickMenuClass {
-public:
-    void Select(int controller);
-};
+#include "KS/SRC/ks/FrontEndMenus.h"
 
 void TrickMenuClass::Select(int controller) {
 }
