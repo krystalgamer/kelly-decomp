@@ -268,8 +268,13 @@ typedef float time_value_t;
 typedef unsigned int uint32;
 
 enum PanelGeomKind {
-    PanelGeomObject,
-    PanelGeomText
+    PanelGeomObject = 0x91,
+    PanelGeomInstance = 0x92,
+    PanelGeomGroup = 0x93,
+    PanelGeomText = 0x94,
+    PanelGeomSkater = 0x95,
+    PanelGeomObjectView = 0x96,
+    PanelGeomMovie = 0x97
 };
 
 class PanelGeom {
@@ -354,9 +359,7 @@ public:
     nglQuad quad;
 
     PanelText() {}
-    virtual PanelGeomKind Kind() const {
-        return PanelGeomText;
-    }
+    virtual PanelGeomKind Kind() const;
     virtual bool Load(unsigned char *buffer, int &index);
     virtual void Init(PanelQuad **pquads);
     virtual void Init(PanelQuad **pquads, matrix4x4 matrix);
@@ -533,6 +536,21 @@ public:
         float x3, float y3, float x4, float y4);
     virtual void SetCenterPos(float x, float y);
     virtual void GetCenterPos(float &x, float &y);
+};
+
+class PanelSkaterModel : public PanelGeom {
+public:
+    virtual PanelGeomKind Kind() const;
+};
+
+class PanelObjectModel : public PanelGeom {
+public:
+    virtual PanelGeomKind Kind() const;
+};
+
+class PanelMovie : public PanelGeom {
+public:
+    virtual PanelGeomKind Kind() const;
 };
 
 class FloatingPQ : public PanelQuad {

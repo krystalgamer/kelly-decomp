@@ -302,82 +302,42 @@ void FloatingPQ::SetHeight(float value) {
 }
 
 // 0x001D9E60 GetQuad__9PanelGeom
-class PanelQuad;
-
-class PanelGeom {
-public:
-    PanelQuad* GetQuad();
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 PanelQuad* PanelGeom::GetQuad() {
     return 0;
 }
 
 // 0x001D9F28 Kind__C11PanelObject
-enum PanelGeomKind {
-    PanelGeomObject = 0x91
-};
-
-class PanelObject {
-public:
-    PanelGeomKind Kind() const;
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 PanelGeomKind PanelObject::Kind() const {
     return PanelGeomObject;
 }
 
 // 0x001DA000 Kind__C9PanelText
-enum PanelGeomKind {
-    PanelGeomText = 0x94
-};
-
-class PanelText {
-public:
-    PanelGeomKind Kind() const;
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 PanelGeomKind PanelText::Kind() const {
     return PanelGeomText;
 }
 
 // 0x001DA108 Kind__C16PanelSkaterModel
-enum PanelGeomKind {
-    PanelGeomSkater = 0x95
-};
-
-class PanelSkaterModel {
-public:
-    PanelGeomKind Kind() const;
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 PanelGeomKind PanelSkaterModel::Kind() const {
     return PanelGeomSkater;
 }
 
 // 0x001DA1C8 Kind__C16PanelObjectModel
-enum PanelGeomKind {
-    PanelGeomObjectView = 0x96
-};
-
-class PanelObjectModel {
-public:
-    PanelGeomKind Kind() const;
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 PanelGeomKind PanelObjectModel::Kind() const {
     return PanelGeomObjectView;
 }
 
 // 0x001DA288 Kind__C10PanelMovie
-enum PanelGeomKind {
-    PanelGeomMovie = 0x97
-};
-
-class PanelMovie {
-public:
-    PanelGeomKind Kind() const;
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 PanelGeomKind PanelMovie::Kind() const {
     return PanelGeomMovie;
