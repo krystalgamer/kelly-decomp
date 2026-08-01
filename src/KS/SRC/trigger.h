@@ -59,4 +59,38 @@ protected:
     trigger *list;
 };
 
+class point_trigger : public trigger {
+    vector3d position;
+    float radius;
+
+public:
+    point_trigger(const stringx &id);
+    point_trigger(
+        const stringx &id,
+        const vector3d &position,
+        float radius);
+    virtual const vector3d &get_abs_position() const;
+};
+
+class region_trigger : public trigger {
+public:
+    region_trigger(const stringx &id);
+    virtual void update_region();
+};
+
+class entity_trigger : public trigger {
+    entity *ent;
+    float radius;
+    float last_compute_sector_position_hash;
+
+public:
+    entity_trigger(const stringx &id);
+    entity_trigger(
+        const stringx &id,
+        entity *target,
+        float radius);
+    virtual const vector3d &get_abs_position() const;
+    virtual void update_region();
+};
+
 #endif

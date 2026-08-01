@@ -34,28 +34,14 @@ void trigger::set_active(bool enabled)
 }
 
 // 0x0028DEE0 get_abs_position__C13point_trigger
-class vector3d {
-    float x;
-    float y;
-    float z;
-};
-
-class point_trigger {
-    char padding[0x38];
-    vector3d position;
-public:
-    const vector3d& get_abs_position() const;
-};
+#include "KS/SRC/trigger.h"
 
 const vector3d& point_trigger::get_abs_position() const {
     return position;
 }
 
 // 0x0028E948 update_region__14region_trigger
-class region_trigger {
-public:
-    void update_region();
-};
+#include "KS/SRC/trigger.h"
 
 void region_trigger::update_region() {
 }
@@ -68,10 +54,7 @@ class entity_trigger { char padding[0x38]; entity* ent; public: const vector3d& 
 const vector3d& entity_trigger::get_abs_position() const { return ent->absolute->position; }
 
 // 0x0028EB28 update_region__14entity_trigger
-class entity_trigger {
-public:
-    void update_region();
-};
+#include "KS/SRC/trigger.h"
 
 void entity_trigger::update_region() {
 }
