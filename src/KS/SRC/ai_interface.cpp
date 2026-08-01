@@ -15,42 +15,26 @@ void pop_ai_disable(ai_disable_layout *self) {
 }
 
 // 0x00105A18 render__12ai_interfacec
-extern "C" void render_ai(void *self, char level)
-    __asm__("render__12ai_interfacec");
-void render_ai(void *self, char level) {
+#include "KS/SRC/ai_interface.h"
+
+void ai_interface::render(char level) {
 }
 
 // 0x00105E00 get_ifc_str__12ai_interfaceRC7pstringR7stringx
-class pstring;
-class stringx;
+#include "KS/SRC/ai_interface.h"
 
-extern "C" bool get_ai_string(
-    void *self,
+bool ai_interface::get_ifc_str(
     const pstring &attribute,
-    stringx &value
-) __asm__("get_ifc_str__12ai_interfaceRC7pstringR7stringx");
-bool get_ai_string(
-    void *self,
-    const pstring &attribute,
-    stringx &value
-) {
+    stringx &value) {
     return false;
 }
 
 // 0x00105E08 set_ifc_str__12ai_interfaceRC7pstringRC7stringx
-class pstring;
-class stringx;
+#include "KS/SRC/ai_interface.h"
 
-extern "C" bool set_ai_string(
-    void *self,
+bool ai_interface::set_ifc_str(
     const pstring &attribute,
-    const stringx &value
-) __asm__("set_ifc_str__12ai_interfaceRC7pstringRC7stringx");
-bool set_ai_string(
-    void *self,
-    const pstring &attribute,
-    const stringx &value
-) {
+    const stringx &value) {
     return false;
 }
 
