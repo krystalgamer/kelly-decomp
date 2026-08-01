@@ -162,48 +162,28 @@ void BoxText::changeScale(float s) {
 }
 
 // 0x001D8C80 SetBehavior__7BoxTextb
-class BoxText {
-    char padding[0x74];
-    bool non_floating_behavior;
-public:
-    void SetBehavior(bool nfb);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void BoxText::SetBehavior(bool nfb) {
     non_floating_behavior = nfb;
 }
 
 // 0x001D8DF8 unmakeRand__12TrickBoxText
-class TrickBoxText {
-    char padding[0x50];
-    bool isRand;
-public:
-    void unmakeRand();
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void TrickBoxText::unmakeRand() {
     isRand = false;
 }
 
 // 0x001D91D0 changeScale__12FloatingTextf
-class FloatingText {
-    char padding[0xD0];
-    float real_scale;
-public:
-    void changeScale(float s);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void FloatingText::changeScale(float s) {
     real_scale = s;
 }
 
 // 0x001D91F8 SetBehavior__12FloatingTextb
-class FloatingText {
-    char padding[0xDC];
-    bool non_floating_behavior;
-public:
-    void SetBehavior(bool nfb);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void FloatingText::SetBehavior(bool nfb) {
     non_floating_behavior = nfb;

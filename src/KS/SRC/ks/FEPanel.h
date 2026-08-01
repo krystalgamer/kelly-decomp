@@ -141,6 +141,8 @@ class FloatingText : public MultiLineString {
 
 public:
     virtual void UpdateInScene(bool ignore_scale = false);
+    virtual void changeScale(float scale);
+    virtual void SetBehavior(bool non_floating);
 };
 
 class StringList {
@@ -171,6 +173,20 @@ public:
     void unmakeRand();
 };
 
+class TrickBoxText : public RandomText {
+protected:
+    int numLines;
+    int lineHeight;
+    int width;
+    int height;
+    bool reverse;
+    StringList box_strings[10];
+    int box_str_count;
+
+public:
+    void unmakeRand();
+};
+
 class BoxText : public TextString {
 protected:
     int width;
@@ -193,6 +209,7 @@ protected:
     int first_vis;
 
 public:
+    virtual void SetBehavior(bool non_floating);
     BoxText(
         Font *font,
         stringx text,
