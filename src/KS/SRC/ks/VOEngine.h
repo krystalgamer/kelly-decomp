@@ -4,6 +4,28 @@
 typedef unsigned int nslSourceId;
 typedef unsigned int nslSoundId;
 
+class RandomVO {
+    float probability;
+    nslSoundId thisSound;
+    int totalSources;
+    int numUsedSources;
+    int numUnusedSources;
+    bool valid;
+    int lastSource;
+    int probability_state;
+    unsigned int position;
+    nslSourceId sources[50];
+    nslSourceId sourcesUsed[50];
+    nslSourceId sourcesUnused[50];
+
+public:
+    int getLastSourcePlayed();
+    void setProbability(float value);
+    bool isPlaying();
+    void stop();
+    bool addSource(nslSourceId source);
+};
+
 class VOEngine {
 public:
     void init();
