@@ -108,6 +108,8 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ai_interface.h": "KS/SRC/ai_interface_rtti.cpp",
     "KS/SRC/beam.h": "KS/SRC/beam_methods.cpp",
     "KS/SRC/ks/BoardFrontEnd.h": "KS/SRC/ks/BoardFrontEnd_methods.cpp",
+    "KS/SRC/ks/BeachFrontEnd.h":
+        "KS/SRC/ks/BeachFrontEnd_methods.cpp",
     "KS/SRC/bone.h": "KS/SRC/bone.cpp",
     "KS/SRC/capsule.h": "KS/SRC/capsule_methods.cpp",
     "KS/SRC/camera.h": "KS/SRC/camera_methods.cpp",
