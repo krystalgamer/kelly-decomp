@@ -69,6 +69,7 @@ public:
     collision_capsule(entity *owner);
     virtual ~collision_capsule();
     void compute_dimensions();
+    void render() const;
     virtual void estimate_physical_properties(
         entity *body,
         float density);
@@ -78,6 +79,13 @@ public:
 };
 
 class cg_mesh : public collision_geometry {
+public:
+    virtual unsigned int get_type() const;
+};
+
+class cg_none : public collision_geometry {
+public:
+    virtual unsigned int get_type() const;
 };
 
 #endif

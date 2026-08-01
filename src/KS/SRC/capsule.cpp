@@ -23,10 +23,7 @@ collision_capsule::collision_capsule(entity *new_owner)
 }
 
 // 0x002D7F48 render__C17collision_capsule
-class collision_capsule {
-public:
-    void render() const;
-};
+#include "KS/SRC/capsule.h"
 
 void collision_capsule::render() const {
 }
