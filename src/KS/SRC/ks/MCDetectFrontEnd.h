@@ -18,6 +18,7 @@ class MCDetectFrontEnd : public FEMultiMenu {
 public:
     void tryToLoadMostRecent();
     bool findGlobalData(int &foundPort, int &foundSlot);
+    bool drawMenu();
     virtual void OnActivate();
     virtual void OnTriangle(int controller);
     virtual void OnRight(int controller);

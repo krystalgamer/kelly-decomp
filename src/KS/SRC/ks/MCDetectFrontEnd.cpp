@@ -81,31 +81,22 @@ bool MCDetectFrontEnd::findGlobalData(
 }
 
 // 0x001A34F8 OnTriangle__16MCDetectFrontEndi
-extern "C" void mc_triangle(void *self, int controller)
-    __asm__("OnTriangle__16MCDetectFrontEndi");
-void mc_triangle(void *self, int controller) {
+#include "KS/SRC/ks/MCDetectFrontEnd.h"
+
+void MCDetectFrontEnd::OnTriangle(int controller) {
 }
 
 // 0x001A36E8 SetSystem__16MCDetectFrontEndP12FEMenuSystem
-class FEMenuSystem;
+#include "KS/SRC/ks/MCDetectFrontEnd.h"
 
-struct mc_system_layout {
-    char padding[0x50];
-    FEMenuSystem *system;
-};
-
-extern "C" void set_mc_system(
-    mc_system_layout *self,
-    FEMenuSystem *new_system
-) __asm__("SetSystem__16MCDetectFrontEndP12FEMenuSystem");
-void set_mc_system(mc_system_layout *self, FEMenuSystem *new_system) {
-    self->system = new_system;
+void MCDetectFrontEnd::SetSystem(FEMenuSystem *new_system) {
+    system = new_system;
 }
 
 // 0x001A4260 drawMenu__16MCDetectFrontEnd
-extern "C" bool should_draw_mc(void *self)
-    __asm__("drawMenu__16MCDetectFrontEnd");
-bool should_draw_mc(void *self) {
+#include "KS/SRC/ks/MCDetectFrontEnd.h"
+
+bool MCDetectFrontEnd::drawMenu() {
     return true;
 }
 
