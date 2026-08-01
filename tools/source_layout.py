@@ -151,6 +151,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/MainFrontEnd.h": "KS/SRC/ks/MainFrontEnd_methods.cpp",
     "KS/SRC/ks/Map.h": "KS/SRC/ks/Map.cpp",
     "KS/SRC/ks/MCDetectFrontEnd.h": "KS/SRC/ks/MCDetectFrontEnd_rtti.cpp",
+    "KS/SRC/ks/PhotoFrontEnd.h": "KS/SRC/ks/PhotoFrontEnd_rtti.cpp",
     "KS/SRC/ks/kellyslater_controller.h":
         "KS/SRC/ks/kellyslater_controller_methods.cpp",
     "KS/SRC/ks/menu.h": "KS/SRC/ks/menu_methods.cpp",

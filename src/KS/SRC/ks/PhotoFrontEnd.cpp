@@ -1,18 +1,12 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_001CE0E8)
 // 0x001CE0E8 OnTriangle__13PhotoFrontEndi
-class PhotoFrontEnd {
-public:
-    void OnTriangle(int controller);
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 void PhotoFrontEnd::OnTriangle(int controller) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001CF0A0)
 // 0x001CF0A0 OnTriangle__15PhotoSelectMenui
 class PhotoSelectMenu {
 public:
@@ -21,9 +15,7 @@ public:
 
 void PhotoSelectMenu::OnTriangle(int controller) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001CFDF0)
 // 0x001CFDF0 OnTriangle__13PhotoSaveMenui
 class PhotoSaveMenu {
 public:
@@ -32,9 +24,7 @@ public:
 
 void PhotoSaveMenu::OnTriangle(int controller) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001D0548)
 // 0x001D0548 OnTriangle__16PhotoDevelopMenui
 class PhotoDevelopMenu {
 public:
@@ -43,9 +33,7 @@ public:
 
 void PhotoDevelopMenu::OnTriangle(int controller) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001D0550)
 // 0x001D0550 OnCross__16PhotoDevelopMenui
 class PhotoDevelopMenu {
 public:
@@ -54,9 +42,7 @@ public:
 
 void PhotoDevelopMenu::OnCross(int controller) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001D0558)
 // 0x001D0558 OnStart__16PhotoDevelopMenui
 class PhotoDevelopMenu {
 public:
@@ -65,9 +51,7 @@ public:
 
 void PhotoDevelopMenu::OnStart(int controller) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001D0560)
 // 0x001D0560 OnLeft__16PhotoDevelopMenui
 class PhotoDevelopMenu {
 public:
@@ -76,9 +60,7 @@ public:
 
 void PhotoDevelopMenu::OnLeft(int controller) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001D0568)
 // 0x001D0568 OnRight__16PhotoDevelopMenui
 class PhotoDevelopMenu {
 public:
@@ -87,9 +69,7 @@ public:
 
 void PhotoDevelopMenu::OnRight(int controller) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001D0570)
 // 0x001D0570 OnUp__16PhotoDevelopMenui
 class PhotoDevelopMenu {
 public:
@@ -98,9 +78,7 @@ public:
 
 void PhotoDevelopMenu::OnUp(int controller) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001D0578)
 // 0x001D0578 OnDown__16PhotoDevelopMenui
 class PhotoDevelopMenu {
 public:
@@ -109,9 +87,7 @@ public:
 
 void PhotoDevelopMenu::OnDown(int controller) {
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001CF0A8)
 // 0x001CF0A8 OnCross__15PhotoSelectMenui
 struct menu_vtable {
     char padding[0x128];
@@ -141,9 +117,7 @@ void PhotoSelectMenu::OnCross(int controller) {
         highlighted->entry_num
     );
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001CF1D8)
 // 0x001CF1D8 OnStart__15PhotoSelectMenui
 struct menu_vtable {
     char padding[0x128];
@@ -173,9 +147,7 @@ void PhotoSelectMenu::OnStart(int controller) {
         highlighted->entry_num
     );
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001CDF90)
 // 0x001CDF90 Draw__13PhotoFrontEnd
 struct menu_vtable {
     char padding[0x48];
@@ -205,9 +177,7 @@ void PhotoFrontEnd::Draw()
         table->draw((char *)menu + table->adjustment);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001CE0F0)
 // 0x001CE0F0 OnLeft__13PhotoFrontEndi
 struct menu_vtable {
     char padding[0xA8];
@@ -237,9 +207,7 @@ void PhotoFrontEnd::OnLeft(int controller)
         table->onLeft((char *)menu + table->adjustment, controller);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001CE128)
 // 0x001CE128 OnRight__13PhotoFrontEndi
 struct menu_vtable {
     char padding[0xB0];
@@ -269,9 +237,7 @@ void PhotoFrontEnd::OnRight(int controller)
         table->onRight((char *)menu + table->adjustment, controller);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001CE160)
 // 0x001CE160 OnUp__13PhotoFrontEndi
 struct menu_vtable {
     char padding[0x98];
@@ -301,9 +267,7 @@ void PhotoFrontEnd::OnUp(int controller)
         table->onUp((char *)menu + table->adjustment, controller);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001CE198)
 // 0x001CE198 OnDown__13PhotoFrontEndi
 struct menu_vtable {
     char padding[0xA0];
@@ -333,9 +297,7 @@ void PhotoFrontEnd::OnDown(int controller)
         table->onDown((char *)menu + table->adjustment, controller);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001CF208)
 // 0x001CF208 setHigh__15PhotoSelectMenuP11FEMenuEntryb
 struct FEMenuEntry {
     int entry_num;
@@ -369,9 +331,7 @@ void PhotoSelectMenu::setHigh(FEMenuEntry *menu, bool animate)
     else
         highlightedIdx = -1;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001CFC00)
 // 0x001CFC00 Select__13PhotoSaveMenui
 struct menu_vtable {
     char padding[0x110]; short adjustment; short reserved;
@@ -404,9 +364,7 @@ void PhotoSaveMenu::Select(int entry) {
         table->end_draw((char *)system+table->adjustment,false);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001CDF30)
 // 0x001CDF30 Update__13PhotoFrontEndf
 struct active_vtable {
     char padding[0x60]; short adjustment; short reserved;
@@ -432,9 +390,7 @@ void PhotoFrontEnd::Update(float time) {
         table->update((char *)active+table->adjustment,time);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001D03A0)
 // 0x001D03A0 Draw__16PhotoDevelopMenu
 extern "C" void draw_photo(void *) __asm__("Draw__11PhotoWidget");
 __asm__(".equ Draw__11PhotoWidget,0x0016ACD0");
@@ -461,9 +417,7 @@ void draw_photo_menu(photo_menu_layout *self)
     draw = table->draw;
     draw((char *)element + table->adjustment);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001CE1D0)
 // 0x001CE1D0 OnEndRun__13PhotoFrontEnd
 struct entry; struct menu_vtable { char padding[24]; short adjustment; short reserved; void (*set_high)(void *,entry *,bool); };
 struct photo_menu { char padding[64]; entry *entries; char padding2[48]; menu_vtable *vtable; };
@@ -474,9 +428,6 @@ void end_run(photo_frontend *self)
     if(self->select){photo_menu*m=self->select;menu_vtable*t=m->vtable;t->set_high((char*)m+t->adjustment,m->entries,true);}
     if(self->save){photo_menu*m=self->save;menu_vtable*t=m->vtable;t->set_high((char*)m+t->adjustment,m->entries,true);}
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001CE238)
 // 0x001CE238 GetSelectedPhotoIdx__C13PhotoFrontEnd
 struct game_layout{char p0[116];int game_mode;int get_game_mode()const{return game_mode;}};extern game_layout*g_game_ptr;__asm__(".equ g_game_ptr,0x0046AC64");struct photo_challenge{char p0[40];int numTaken;int GetNumTaken()const{return numTaken;}};struct challenges{char p0[728];photo_challenge*photo;};extern challenges*g_beach_ptr;__asm__(".equ g_beach_ptr,0x0043F710");struct entry{int entry_num;};struct menu{char p0[76];entry*highlighted;};struct photo_front{char p0[352];menu*selectMenu;char p1[4];menu*saveMenu;};extern "C" int selected_photo(const photo_front*self) __asm__("GetSelectedPhotoIdx__C13PhotoFrontEnd");int selected_photo(const photo_front*self){if(g_game_ptr->get_game_mode()==0&&g_beach_ptr->photo&&self->saveMenu->highlighted&&self->saveMenu->highlighted->entry_num==0){if(self->selectMenu->highlighted->entry_num<g_beach_ptr->photo->GetNumTaken())return self->selectMenu->highlighted->entry_num;else return -1;}else return -1;}
-#endif
