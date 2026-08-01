@@ -26,38 +26,31 @@ void **aisurfer_rtti()
 
 
 // 0x00112D08 vibrate__18AISurferControllerf
-extern "C" void ai_vibrate_float(void *self, float intensity)
-    __asm__("vibrate__18AISurferControllerf");
-void ai_vibrate_float(void *self, float intensity) {
+#include "KS/SRC/AIController.h"
+
+void AISurferController::vibrate(float intensity) {
 }
 
 // 0x00112D10 vibrate__18AISurferControlleriiii
-extern "C" void ai_vibrate_int(
-    void *self,
+#include "KS/SRC/AIController.h"
+
+void AISurferController::vibrate(
     int flag,
     int power,
     int frequency,
-    int increment
-) __asm__("vibrate__18AISurferControlleriiii");
-void ai_vibrate_int(
-    void *self,
-    int flag,
-    int power,
-    int frequency,
-    int increment
-) {
+    int increment) {
 }
 
 // 0x00112D18 stop_vibration__18AISurferController
-extern "C" void ai_stop_vibration(void *self)
-    __asm__("stop_vibration__18AISurferController");
-void ai_stop_vibration(void *self) {
+#include "KS/SRC/AIController.h"
+
+void AISurferController::stop_vibration() {
 }
 
 // 0x00112D20 is_vibrator_present__C18AISurferController
-extern "C" bool ai_has_vibrator(const void *self)
-    __asm__("is_vibrator_present__C18AISurferController");
-bool ai_has_vibrator(const void *self) {
+#include "KS/SRC/AIController.h"
+
+bool AISurferController::is_vibrator_present() const {
     return false;
 }
 
