@@ -44,28 +44,19 @@ void PhotoDevelopMenu::OnLeft(int controller) {
 }
 
 // 0x001D0568 OnRight__16PhotoDevelopMenui
-class PhotoDevelopMenu {
-public:
-    void OnRight(int controller);
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 void PhotoDevelopMenu::OnRight(int controller) {
 }
 
 // 0x001D0570 OnUp__16PhotoDevelopMenui
-class PhotoDevelopMenu {
-public:
-    void OnUp(int controller);
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 void PhotoDevelopMenu::OnUp(int controller) {
 }
 
 // 0x001D0578 OnDown__16PhotoDevelopMenui
-class PhotoDevelopMenu {
-public:
-    void OnDown(int controller);
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 void PhotoDevelopMenu::OnDown(int controller) {
 }
