@@ -331,17 +331,13 @@ static void entity_signal_callback_footstep(
 }
 
 // 0x00139270 entity_signal_callback_attack__FP9signallerPCc
-class signaller;
+#include "KS/SRC/signals.h"
 
 static void entity_signal_callback_attack(
     signaller *signal,
     const char *data
 ) {
 }
-
-__asm__(
-    ".globl entity_signal_callback_attack__FP9signallerPCc"
-);
 
 // 0x00130DD0 get_last_po__6entity
 #include "KS/SRC/entity.h"
