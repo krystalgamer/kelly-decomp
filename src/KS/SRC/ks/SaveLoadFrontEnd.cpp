@@ -112,9 +112,9 @@ void init_names_menu(names_menu_init_layout *self) {
 }
 
 // 0x001A0808 FindAdjusted__9NamesMenui
-extern "C" int find_adjusted(int active)
-    __asm__("FindAdjusted__9NamesMenui");
-int find_adjusted(int active) {
+#include "KS/SRC/ks/SaveLoadFrontEnd.h"
+
+int NamesMenu::FindAdjusted(int active) {
     return active;
 }
 
