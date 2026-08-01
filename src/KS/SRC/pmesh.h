@@ -1,6 +1,8 @@
 #ifndef PMESH_H
 #define PMESH_H
 
+#pragma interface
+
 #include "KS/SRC/visrep.h"
 
 typedef unsigned int face_ref;
@@ -106,14 +108,12 @@ class vr_pmesh : public visual_rep {
     material_map material_changes;
 
 public:
-    virtual int get_min_faces(time_value_t = 0) const
-    {
-        return min_faces;
-    }
-    virtual int get_max_faces(time_value_t = 0) const
-    {
-        return num_faces;
-    }
+    virtual void render_instance(
+        unsigned int flavor,
+        instance_render_info *info,
+        short *bones);
+    virtual int get_min_faces(time_value_t = 0) const;
+    virtual int get_max_faces(time_value_t = 0) const;
     inline int get_num_wedges() const { return num_wedges; }
     void shrink_memory_footprint();
     void optimize();
