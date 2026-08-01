@@ -2,19 +2,13 @@
 
 
 // 0x001DE430 Draw__18ControllerFrontEnd
-class ControllerFrontEnd {
-public:
-    void Draw();
-};
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 
 void ControllerFrontEnd::Draw() {
 }
 
 // 0x001DE438 OnLeft__18ControllerFrontEndi
-class ControllerFrontEnd {
-public:
-    void OnLeft(int arg0);
-};
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 
 void ControllerFrontEnd::OnLeft(int arg0) {
 }

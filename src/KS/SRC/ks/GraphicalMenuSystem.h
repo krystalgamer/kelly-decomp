@@ -49,6 +49,15 @@ public:
     virtual void SetSystem(FEMenuSystem *system);
 };
 
+class ControllerFrontEnd {
+public:
+    void Draw();
+    void OnLeft(int controller);
+    void OnRight(int controller);
+    void OnUp(int controller);
+    void OnDown(int controller);
+};
+
 class HelpbarFE : public FrontEnd {
 private:
     enum {
