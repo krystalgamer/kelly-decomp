@@ -1,45 +1,46 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef FEANIM_H
+#define FEANIM_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_001DA3A0)
-// 0x001DA3A0 Kind__C17PanelAnimInstance
+#include "KS/SRC/ks/FEPanel.h"
+
 enum PanelAnimKind {
-    AnimInstance = 0xA1
+    AnimInstance = 0xA1,
+    AnimSpecial = 0xA2
 };
 
-class PanelAnimInstance {
+class PanelAnimKeyframe {
 public:
-    PanelAnimKind Kind() const;
+    float idx;
+    vector3d translation;
+    vector3d euler;
+    vector3d scale;
+    stringx event;
+    float vis;
 };
 
-PanelAnimKind PanelAnimInstance::Kind() const {
-    return AnimInstance;
-}
-#endif
+class PanelAnim {
+public:
+    stringx name;
+    stringx properties;
+    PanelAnim *parent;
+    matrix4x4 matrix;
+    unsigned int numkeyframes;
+    PanelAnimKeyframe *keyframes;
+    PanelAnim *children;
+    PanelAnim *next;
+    PanelQuad *quad;
 
-#if defined(KELLY_DECOMP_FUNCTION_001DA298)
-// 0x001DA298 __tf9PanelAnim
-extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
-extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
-asm(".equ typeinfo, 0x00512060"); asm(".equ type_name, 0x004DD920");
-extern "C" void *GetTypeInfo() __asm__("__tf9PanelAnim");
-void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
-#endif
+    virtual ~PanelAnim();
+    virtual PanelAnimKind Kind() const = 0;
+};
 
-#if defined(KELLY_DECOMP_FUNCTION_001DA3A8)
-// 0x001DA3A8 __tf13PanelAnimFile
-extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
-extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
-asm(".equ typeinfo, 0x00512068"); asm(".equ type_name, 0x004DD948");
-extern "C" void *GetTypeInfo() __asm__("__tf13PanelAnimFile");
-void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
-#endif
+class PanelAnimInstance : public PanelAnim {
+public:
+    stringx filename;
 
-#if defined(KELLY_DECOMP_FUNCTION_001DA3F0)
-// 0x001DA3F0 __tf16PanelAnimManager
-extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
-extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
-asm(".equ typeinfo, 0x00512070"); asm(".equ type_name, 0x004DD958");
-extern "C" void *GetTypeInfo() __asm__("__tf16PanelAnimManager");
-void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
+    virtual PanelAnimKind Kind() const;
+};
+
 #endif
