@@ -167,89 +167,44 @@ template void anim<signal_key>::frame_advance(
     signal_key *destination);
 
 // 0x00121A70 frame_advance__t4anim1ZP6entityRC14anim_control_tPP6entity
-class anim_control_t;
-class entity;
+#include "KS/SRC/anim.h"
+#include "KS/SRC/entity.h"
 
-template <class T>
-class anim {
-public:
-    virtual void frame_advance(const anim_control_t &control, T *destination);
-};
-
-template <>
-void anim<entity *>::frame_advance(
+template void anim<entity *>::frame_advance(
     const anim_control_t &control,
-    entity **destination
-) {
-}
+    entity **destination);
 
 // 0x00121A78 get_value__Ct4anim1ZP6entityRC14anim_control_tPP6entity
-class anim_control_t;
-class entity;
+#include "KS/SRC/anim.h"
+#include "KS/SRC/entity.h"
 
-template <class T>
-class anim {
-public:
-    virtual void get_value(
-        const anim_control_t &control,
-        T *destination
-    ) const;
-};
-
-template <>
-void anim<entity *>::get_value(
+template void anim<entity *>::get_value(
     const anim_control_t &control,
-    entity **destination
-) const {
-}
+    entity **destination) const;
 
 // 0x00121A80 get_value__Ct4anim1ZP6entityfPP6entity
-class entity;
+#include "KS/SRC/anim.h"
+#include "KS/SRC/entity.h"
 
-template <class T>
-class anim {
-public:
-    virtual void get_value(float time, T *destination) const;
-};
-
-template <>
-void anim<entity *>::get_value(float time, entity **destination) const {
-}
+template void anim<entity *>::get_value(
+    float time,
+    entity **destination) const;
 
 // 0x00121A88 get_value__Ct4anim1Z10signal_keyRC14anim_control_tP10signal_key
-class anim_control_t;
-class signal_key {
-};
+#include "KS/SRC/anim.h"
+#include "KS/SRC/signal_anim.h"
 
-template <class T>
-class anim {
-public:
-    virtual void get_value(
-        const anim_control_t &control,
-        T *destination
-    ) const;
-};
-
-template <>
-void anim<signal_key>::get_value(
+template void anim<signal_key>::get_value(
     const anim_control_t &control,
-    signal_key *destination
-) const {
-}
+    signal_key *destination) const;
 
 // 0x00121A90 get_value__Ct4anim1Z10signal_keyfP10signal_key
-class signal_key {
-};
+#include "KS/SRC/anim.h"
+#include "KS/SRC/signal_anim.h"
 
-template <class T>
-class anim {
-public:
-    virtual void get_value(float time, T *destination) const;
-};
-
-template <>
-void anim<signal_key>::get_value(float time, signal_key *destination) const {
-}
+template void anim<signal_key>::get_value(
+    float time,
+    signal_key *destination) const;
 
 // 0x00121A98 __tft4anim1Z2po
 extern "C" void __rtti_user(void *info, const char *name); asm(".equ __rtti_user, 0x003CE2F8");
