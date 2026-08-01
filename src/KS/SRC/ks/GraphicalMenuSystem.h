@@ -56,6 +56,7 @@ public:
     void OnRight(int controller);
     void OnUp(int controller);
     void OnDown(int controller);
+    void Select(int controller);
 };
 
 class HelpbarFE : public FrontEnd {

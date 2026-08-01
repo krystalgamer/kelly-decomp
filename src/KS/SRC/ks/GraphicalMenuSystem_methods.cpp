@@ -14,45 +14,33 @@ void ControllerFrontEnd::OnLeft(int arg0) {
 }
 
 // 0x001DE440 OnRight__18ControllerFrontEndi
-class ControllerFrontEnd {
-public:
-    void OnRight(int arg0);
-};
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 
 void ControllerFrontEnd::OnRight(int arg0) {
 }
 
 // 0x001DE448 OnUp__18ControllerFrontEndi
-class ControllerFrontEnd {
-public:
-    void OnUp(int arg0);
-};
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 
 void ControllerFrontEnd::OnUp(int arg0) {
 }
 
 // 0x001DE450 OnDown__18ControllerFrontEndi
-class ControllerFrontEnd {
-public:
-    void OnDown(int arg0);
-};
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 
 void ControllerFrontEnd::OnDown(int arg0) {
 }
 
 // 0x001DE458 Select__18ControllerFrontEndi
-class ControllerFrontEnd {
-public:
-    void Select(int arg0);
-};
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 
 void ControllerFrontEnd::Select(int arg0) {
 }
 
 // 0x001DE4D8 Update__9HelpbarFEf
-extern "C" void update_helpbar(void *self, float time_inc)
-    __asm__("Update__9HelpbarFEf");
-void update_helpbar(void *self, float time_inc) {
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
+
+void HelpbarFE::Update(float time_inc) {
 }
 
 // 0x001DE5B0 Reload__19GraphicalMenuSystem
