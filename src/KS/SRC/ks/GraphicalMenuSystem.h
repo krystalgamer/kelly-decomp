@@ -39,6 +39,14 @@ public:
 
     void DrawTop();
     virtual void LoadAll();
+    void restartMovie();
+    void killMovie();
+    void DrawMovie();
+};
+
+class LegalFrontEnd : public FEGraphicalMenu {
+public:
+    virtual void SetSystem(FEMenuSystem *system);
 };
 
 class HelpbarFE : public FrontEnd {

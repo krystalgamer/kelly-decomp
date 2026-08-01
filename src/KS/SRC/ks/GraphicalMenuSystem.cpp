@@ -2,43 +2,26 @@
 
 
 // 0x001BC490 SetSystem__13LegalFrontEndP12FEMenuSystem
-class FEMenuSystem;
-
-class LegalFrontEnd {
-    char padding[0x50];
-    FEMenuSystem* system;
-
-public:
-    void SetSystem(FEMenuSystem* s);
-};
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 
 void LegalFrontEnd::SetSystem(FEMenuSystem* s) {
     system = s;
 }
 
 // 0x001BE6E8 restartMovie__19GraphicalMenuSystem
-class GraphicalMenuSystem {
-public:
-    void restartMovie();
-};
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 
 void GraphicalMenuSystem::restartMovie() {
 }
 
 // 0x001BE6F0 killMovie__19GraphicalMenuSystem
-class GraphicalMenuSystem {
-public:
-    void killMovie();
-};
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 
 void GraphicalMenuSystem::killMovie() {
 }
 
 // 0x001BE9E0 DrawMovie__19GraphicalMenuSystem
-class GraphicalMenuSystem {
-public:
-    void DrawMovie();
-};
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 
 void GraphicalMenuSystem::DrawMovie() {
 }
