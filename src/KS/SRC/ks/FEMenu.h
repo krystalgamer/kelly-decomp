@@ -201,6 +201,7 @@ public:
     // Present in the shipped vtable but absent from the released header.
     virtual void BuiltSelectReserved0();
     virtual void Select(int);
+    FEMenu *GetActive();
 
 protected:
     virtual void cons(FEMenuSystem*, int, int, int = 8);

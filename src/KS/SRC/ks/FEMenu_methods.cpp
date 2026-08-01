@@ -223,12 +223,7 @@ void FEMenu::OnButtonRelease(int arg0, int arg1) {
 }
 
 // 0x001DAB20 GetActive__6FEMenu
-class FEMenu {
-    char padding[0x60];
-    FEMenu* active;
-public:
-    FEMenu* GetActive();
-};
+#include "KS/SRC/ks/FEMenu.h"
 
 FEMenu* FEMenu::GetActive() {
     return active;
