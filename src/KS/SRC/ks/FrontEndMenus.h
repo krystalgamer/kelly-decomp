@@ -29,6 +29,13 @@ public:
     virtual void OnCross(int controller);
 };
 
+class GoalsMenuClass : public FEMenu {
+public:
+    virtual void OnUp(int controller);
+    virtual void OnDown(int controller);
+    virtual void OnCross(int controller);
+};
+
 class PauseMenuClass : public FEMenu {
 public:
     enum {
@@ -138,6 +145,7 @@ private:
 public:
     virtual void OnSquare(int controller);
     virtual void Select(int entry_index);
+    virtual void OnCircle(int controller);
 };
 
 class PauseMenuSystem : public FEMenuSystem {
@@ -176,6 +184,8 @@ private:
 
 public:
     virtual void OnStart(int controller);
+    virtual void OnL2(int controller);
+    virtual void OnCircle(int controller);
 };
 
 class SaveCareerPromptClass : public FEMenu {

@@ -57,18 +57,15 @@ void TrickMenuClass::Select(int controller) {
 }
 
 // 0x001ACBF8 OnCross__14TrickMenuClassi
-class TrickMenuClass {
-public:
-    void OnCross(int controller);
-};
+#include "KS/SRC/ks/FrontEndMenus.h"
 
 void TrickMenuClass::OnCross(int controller) {
 }
 
 // 0x001B0310 OnCircle__17PlaylistMenuClassi
-extern "C" void playlist_circle(void *self, int controller)
-    __asm__("OnCircle__17PlaylistMenuClassi");
-void playlist_circle(void *self, int controller) {
+#include "KS/SRC/ks/FrontEndMenus.h"
+
+void PlaylistMenuClass::OnCircle(int controller) {
 }
 
 // 0x001B0228 OnSquare__17PlaylistMenuClassi
@@ -110,31 +107,25 @@ void PlaylistMenuClass::OnSquare(int controller)
 }
 
 // 0x001B0730 OnL2__15ReplayMenuClassi
-extern "C" void replay_on_l2(void *self, int controller)
-    __asm__("OnL2__15ReplayMenuClassi");
-void replay_on_l2(void *self, int controller) {
+#include "KS/SRC/ks/FrontEndMenus.h"
+
+void ReplayMenuClass::OnL2(int controller) {
 }
 
 // 0x001B0A20 OnCircle__15ReplayMenuClassi
-extern "C" void replay_on_circle(void *self, int controller)
-    __asm__("OnCircle__15ReplayMenuClassi");
-void replay_on_circle(void *self, int controller) {
+#include "KS/SRC/ks/FrontEndMenus.h"
+
+void ReplayMenuClass::OnCircle(int controller) {
 }
 
 // 0x001B1C08 OnUp__14GoalsMenuClassi
-class GoalsMenuClass {
-public:
-    void OnUp(int controller);
-};
+#include "KS/SRC/ks/FrontEndMenus.h"
 
 void GoalsMenuClass::OnUp(int controller) {
 }
 
 // 0x001B1C10 OnDown__14GoalsMenuClassi
-class GoalsMenuClass {
-public:
-    void OnDown(int controller);
-};
+#include "KS/SRC/ks/FrontEndMenus.h"
 
 void GoalsMenuClass::OnDown(int controller) {
 }
