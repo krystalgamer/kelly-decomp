@@ -44,6 +44,7 @@ public:
     void ResetCardFormat();
     int ActiveCard() { return active_card; }
     static int FindAdjusted(int active);
+    static int FindActive(int adjusted);
 
 private:
     void GetFileList(int active, int adjusted);

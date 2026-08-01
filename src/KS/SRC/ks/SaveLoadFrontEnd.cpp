@@ -119,9 +119,9 @@ int NamesMenu::FindAdjusted(int active) {
 }
 
 // 0x001A0810 FindActive__9NamesMenui
-extern "C" int find_active(int adjusted)
-    __asm__("FindActive__9NamesMenui");
-int find_active(int adjusted) {
+#include "KS/SRC/ks/SaveLoadFrontEnd.h"
+
+int NamesMenu::FindActive(int adjusted) {
     return adjusted;
 }
 
