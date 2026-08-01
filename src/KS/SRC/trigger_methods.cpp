@@ -23,42 +23,26 @@ void **TriggerManagerRtti()
 
 
 // 0x002B8D08 read__7triggerR10chunk_file
-class chunk_file;
-
-class trigger {
-public:
-    void read(chunk_file& file);
-};
+#include "KS/SRC/trigger.h"
 
 void trigger::read(chunk_file& file) {
 }
 
 // 0x002B8D10 triggered__7triggerP6entity
-class entity;
-
-class trigger {
-public:
-    bool triggered(entity* value);
-};
+#include "KS/SRC/trigger.h"
 
 bool trigger::triggered(entity* value) {
     return false;
 }
 
 // 0x002B8D18 update_region__7trigger
-class trigger {
-public:
-    void update_region();
-};
+#include "KS/SRC/trigger.h"
 
 void trigger::update_region() {
 }
 
 // 0x002B8D20 is_a_trigger__C7trigger
-class trigger {
-public:
-    bool is_a_trigger() const;
-};
+#include "KS/SRC/trigger.h"
 
 bool trigger::is_a_trigger() const {
     return true;

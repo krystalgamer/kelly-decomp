@@ -23,11 +23,11 @@ public:
     };
 
     trigger(const stringx &id);
-    virtual inline void read(chunk_file &file) {}
-    virtual inline bool triggered(entity *) { return false; }
+    virtual void read(chunk_file &file);
+    virtual bool triggered(entity *);
     void update();
-    virtual inline void update_region() {}
-    virtual inline bool is_a_trigger() const { return true; }
+    virtual void update_region();
+    virtual bool is_a_trigger() const;
     virtual const vector3d &get_abs_position() const;
     inline bool is_active() const { return active; }
     void set_active(bool active);
