@@ -27,6 +27,7 @@ class beam : public entity {
     bool additive;
 
 public:
+    virtual bool is_a_beam() const;
     void kill_all_effects(bool apply_target_vals = false);
     void purge_effects();
     void release();
@@ -69,6 +70,23 @@ protected:
     float delta[3];
     float curr[3];
     virtual beam_effect_type *make_instance();
+};
+
+class beam_effect {
+    beam *my_beam;
+    beam_effect_type *effect;
+    unsigned short id;
+    char mode;
+    char mode_padding;
+    float timer;
+    float loop_delay;
+    float duration;
+
+public:
+    beam_effect(beam *the_beam);
+    virtual ~beam_effect();
+    virtual unsigned short get_id() const;
+    virtual void set_id(unsigned short value);
 };
 
 extern instance_bank<material> material_bank;

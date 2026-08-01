@@ -2,10 +2,7 @@
 
 
 // 0x002B7B88 is_a_beam__C4beam
-class beam {
-public:
-    bool is_a_beam() const;
-};
+#include "KS/SRC/beam.h"
 
 bool beam::is_a_beam() const {
     return true;
@@ -136,24 +133,14 @@ class beam_effect { char padding[0xA]; unsigned char mode; public: bool is_inver
 bool beam_effect::is_inverted() const { return (unsigned char)(mode + 2) < 2; }
 
 // 0x002B84D0 get_id__C11beam_effect
-class beam_effect {
-    char padding[0x8];
-    unsigned short id;
-public:
-    unsigned short get_id() const;
-};
+#include "KS/SRC/beam.h"
 
 unsigned short beam_effect::get_id() const {
     return id;
 }
 
 // 0x002B84D8 set_id__11beam_effectUs
-class beam_effect {
-    char padding[0x8];
-    unsigned short id;
-public:
-    void set_id(unsigned short value);
-};
+#include "KS/SRC/beam.h"
 
 void beam_effect::set_id(unsigned short value) {
     id = value;
