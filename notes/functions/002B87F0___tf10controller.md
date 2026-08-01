@@ -5,18 +5,16 @@
 - Object: `game/files_misc1`
 - Debug source: `controller.h`
 - Reference source: `KS/SRC/controller.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The standard lazy RTTI initialization matches exactly.
+| 1 | symbol_missing | 0.0 | 0 | `controller-type-1.cpp` |
+| 2 | symbol_missing | 0.0 | 0 | `controller-type-2.cpp` |
+| 3 | symbol_missing | 0.0 | 0 | `controller-type-3.cpp` |
 
 ## Outcome
 
-The standard lazy controller RTTI initialization matches exactly.
+Three native C++ type-info forms could not emit the legacy controller compiler helper; the manual RTTI wrapper was removed.
