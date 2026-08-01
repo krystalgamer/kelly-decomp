@@ -20,16 +20,7 @@ __asm__(".equ __nw__16entity_anim_treeUi, 0x00113738");
 void* entity_anim_tree::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = entity_anim_tree::operator new(size); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
 
 // 0x00114968 get_root__17entity_track_tree
-class entity_track_node {
-};
-
-class entity_track_tree {
-    char padding[0x20];
-    entity_track_node root_nodes[1];
-
-public:
-    entity_track_node *get_root();
-};
+#include "KS/SRC/entity_anim.h"
 
 entity_track_node *entity_track_tree::get_root() {
     return root_nodes;
