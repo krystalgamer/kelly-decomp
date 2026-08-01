@@ -8,28 +8,19 @@ void SurferBioFrontEnd::Select(int arg0) {
 }
 
 // 0x001DCC48 OnLeft__17SurferBioFrontEndi
-class SurferBioFrontEnd {
-public:
-    void OnLeft(int arg0);
-};
+#include "KS/SRC/ks/SurferFrontEnd.h"
 
 void SurferBioFrontEnd::OnLeft(int arg0) {
 }
 
 // 0x001DCC50 OnRight__17SurferBioFrontEndi
-class SurferBioFrontEnd {
-public:
-    void OnRight(int arg0);
-};
+#include "KS/SRC/ks/SurferFrontEnd.h"
 
 void SurferBioFrontEnd::OnRight(int arg0) {
 }
 
 // 0x001DCC58 OnCross__17SurferBioFrontEndi
-class SurferBioFrontEnd {
-public:
-    void OnCross(int arg0);
-};
+#include "KS/SRC/ks/SurferFrontEnd.h"
 
 void SurferBioFrontEnd::OnCross(int arg0) {
 }
