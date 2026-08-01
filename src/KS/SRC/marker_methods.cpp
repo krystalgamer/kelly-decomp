@@ -23,20 +23,14 @@ bool marker::possibly_aging() const {
 }
 
 // 0x002B9288 is_a_rectangle_marker__C16rectangle_marker
-class rectangle_marker {
-public:
-    bool is_a_rectangle_marker() const;
-};
+#include "KS/SRC/marker.h"
 
 bool rectangle_marker::is_a_rectangle_marker() const {
     return true;
 }
 
 // 0x002B9370 is_a_cube_marker__C11cube_marker
-class cube_marker {
-public:
-    bool is_a_cube_marker() const;
-};
+#include "KS/SRC/marker.h"
 
 bool cube_marker::is_a_cube_marker() const {
     return true;
