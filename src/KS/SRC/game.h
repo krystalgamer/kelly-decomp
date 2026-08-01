@@ -49,8 +49,19 @@ class TimeAttackMode;
 class MeterAttackMode;
 class HeadToHeadMode;
 
+struct PushPlayer {
+    float share;
+    char remaining_data[0x1C];
+};
+
 class PushMode {
+    PushPlayer players[2];
+    float attackTimer;
+    int scoreRequired;
+
 public:
+    ~PushMode();
+    void SetDifficulty(int points);
     float GetPlayerShare(int player) const;
 };
 
