@@ -1,18 +1,6 @@
 // pmesh definitions extracted by generated one-function shims.
 
 
-// 0x002D3340 render_skin__8vr_pmeshUiPC20instance_render_infoPC2poi
-class instance_render_info;
-class po;
-
-class vr_pmesh {
-public:
-    void render_skin(unsigned int flavor, const instance_render_info* info, const po* bones, int count);
-};
-
-void vr_pmesh::render_skin(unsigned int flavor, const instance_render_info* info, const po* bones, int count) {
-}
-
 // 0x002D3F98 serial_in__FR10chunk_fileP8vr_pmesh
 class chunk_file;
 class vr_pmesh { public: void internal_serial_in(chunk_file &file); };

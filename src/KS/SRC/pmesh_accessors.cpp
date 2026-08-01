@@ -8,6 +8,15 @@ void vr_pmesh::render_instance(
 {
 }
 
+// 0x002D3340 render_skin__8vr_pmeshUiPC20instance_render_infoPC2poi
+void vr_pmesh::render_skin(
+    unsigned int flavor,
+    const instance_render_info *info,
+    const po *bones,
+    int count)
+{
+}
+
 // 0x002D6F30 get_wedge_ref__C8vr_pmeshUii
 wedge_ref vr_pmesh::get_wedge_ref(face_ref face_id, int corner) const
 {

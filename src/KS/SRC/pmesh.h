@@ -112,6 +112,11 @@ public:
         unsigned int flavor,
         instance_render_info *info,
         short *bones);
+    virtual void render_skin(
+        unsigned int flavor,
+        const instance_render_info *info,
+        const po *bones,
+        int count);
     virtual int get_min_faces(time_value_t = 0) const;
     virtual int get_max_faces(time_value_t = 0) const;
     inline int get_num_wedges() const { return num_wedges; }
