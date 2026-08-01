@@ -2,10 +2,7 @@
 
 
 // 0x001DC668 Select__11OptionsMenu
-class OptionsMenu {
-public:
-    void Select();
-};
+#include "KS/SRC/ks/MainFrontEnd.h"
 
 void OptionsMenu::Select() {
 }

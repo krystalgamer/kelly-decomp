@@ -7,7 +7,10 @@
 #include "KS/SRC/ks/FEMenu.h"
 #include "KS/SRC/ks/SoundScript.h"
 
-class OptionsMenu;
+class OptionsMenu : public FEGraphicalMenu {
+public:
+    virtual void Select();
+};
 class MultiplayerMenu;
 class FreesurfMenu;
 class CareerMenu;
