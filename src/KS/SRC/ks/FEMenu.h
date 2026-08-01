@@ -265,6 +265,15 @@ public:
 };
 #endif
 
+class FETextMultiMenu : public FEMenu {
+public:
+    FEMenuEntry *first;
+    FEMenuEntry *last;
+
+    virtual void setVis(FEMenuEntry *entry);
+    virtual void Init();
+};
+
 class FrontEnd {
 public:
     PanelAnimManager pam;

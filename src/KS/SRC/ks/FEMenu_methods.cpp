@@ -236,24 +236,14 @@ void FEMenu::Select(int arg0) {
 }
 
 // 0x001DADD8 GetPanel__8FrontEnd
-struct PanelFile {};
-
-class FrontEnd {
-    char padding[0x80];
-    PanelFile panel;
-public:
-    PanelFile* GetPanel();
-};
+#include "KS/SRC/ks/FEMenu.h"
 
 PanelFile* FrontEnd::GetPanel() {
     return &panel;
 }
 
 // 0x001DAE50 SetPQIndices__8FrontEnd
-class FrontEnd {
-public:
-    void SetPQIndices();
-};
+#include "KS/SRC/ks/FEMenu.h"
 
 void FrontEnd::SetPQIndices() {
 }
@@ -291,39 +281,25 @@ void FEGraphicalMenuEntry::SetPQHigh(PanelQuad* value) {
 }
 
 // 0x001DB528 setVis__15FETextMultiMenuP11FEMenuEntry
-class FEMenuEntry;
-
-class FETextMultiMenu {
-public:
-    void setVis(FEMenuEntry* arg0);
-};
+#include "KS/SRC/ks/FEMenu.h"
 
 void FETextMultiMenu::setVis(FEMenuEntry* arg0) {
 }
 
 // 0x001DB530 Init__15FETextMultiMenu
-class FETextMultiMenu {
-public:
-    void Init();
-};
+#include "KS/SRC/ks/FEMenu.h"
 
 void FETextMultiMenu::Init() {
 }
 
 // 0x001DB970 Exit__12FEMenuSystem
-class FEMenuSystem {
-public:
-    void Exit();
-};
+#include "KS/SRC/ks/FEMenu.h"
 
 void FEMenuSystem::Exit() {
 }
 
 // 0x001DB978 startDraw__12FEMenuSystemib
-class FEMenuSystem {
-public:
-    void startDraw(int arg0, bool arg1);
-};
+#include "KS/SRC/ks/FEMenu.h"
 
 void FEMenuSystem::startDraw(int arg0, bool arg1) {
 }
