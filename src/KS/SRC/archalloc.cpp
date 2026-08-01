@@ -21,24 +21,6 @@ int mem_set_checkpoint() {
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002AC570)
-// 0x002AC570 mem_check_leaks_since_checkpoint__FiUi
-void mem_check_leaks_since_checkpoint(int checkpoint, unsigned int flags) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002ACC50)
-// 0x002ACC50 mem_dump_heap__Fi
-void mem_dump_heap(int heapid) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002ACC58)
-// 0x002ACC58 mem_summarize_heap__Fi
-void mem_summarize_heap(int heapid) {
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_002AC4D8)
 // 0x002AC4D8 mem_init_checkpoint__Fb
 int mem_set_checkpoint();
