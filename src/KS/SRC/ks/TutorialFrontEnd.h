@@ -45,6 +45,7 @@ class TutorialFrontEnd : public FEMultiMenu {
     bool ignore_next_release;
 
 public:
+    virtual void Load();
     virtual void OnButtonRelease(int controller, int button);
 };
 
