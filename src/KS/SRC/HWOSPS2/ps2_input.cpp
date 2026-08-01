@@ -1,6 +1,5 @@
 // Matching decompilation blocks selected by generated build shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_001E1558)
 // 0x001E1558 vibrate__17ps2_joypad_deviceiiii
 class os_developer_options {
     char built_fields[0x4c];
@@ -74,9 +73,8 @@ void ps2_joypad_device::vibrate(
         }
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E96D0)
+// 0x001E96D0 __tf17ps2_joypad_device
 extern "C" void __rtti_si(void **type, const char *name, void **base);
 __asm__(".equ __rtti_si, 0x003CE2D8");
 extern "C" void **input_device_rtti() __asm__("__tf12input_device");
@@ -97,14 +95,12 @@ void **joypad_rtti()
     }
     return joypad_type;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E25D0)
+// 0x001E25D0 clear_state__17ps2_joypad_device
 #include "KS/SRC/HWOSPS2/ps2_input.h"
 asm(".equ _17ps2_joypad_device$rdata, 0x005A39C0");
 asm(".equ memset, 0x003D18D0");
 
-// 0x001E25D0 clear_state__17ps2_joypad_device
 void ps2_joypad_device::clear_state()
 {
     memset(rdata, 0xFF, RDATA_SIZE);
@@ -112,63 +108,41 @@ void ps2_joypad_device::clear_state()
     rdata[6] = 127;
     rdata[7] = 127;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E14D8)
 // 0x001E14D8 get_id__C17ps2_joypad_device
-class ps2_joypad_device {
-    int device_id;
-public:
-    int get_id() const;
-};
+#include "KS/SRC/HWOSPS2/ps2_input.h"
 
-int ps2_joypad_device::get_id() const {
+device_id_t ps2_joypad_device::get_id() const {
     return device_id;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E16C0)
 // 0x001E16C0 get_axis_count__C17ps2_joypad_device
-class ps2_joypad_device {
-public:
-    int get_axis_count() const;
-};
+#include "KS/SRC/HWOSPS2/ps2_input.h"
 
 int ps2_joypad_device::get_axis_count() const {
     return 23;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E16C8)
 // 0x001E16C8 get_axis_id__C17ps2_joypad_devicei
-class ps2_joypad_device {
-public:
-    int get_axis_id(int axis) const;
-};
+#include "KS/SRC/HWOSPS2/ps2_input.h"
 
-int ps2_joypad_device::get_axis_id(int axis) const {
+axis_id_t ps2_joypad_device::get_axis_id(int axis) const {
     return axis;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E2288)
 // 0x001E2288 set_stick__17ps2_joypad_deviceiii
 extern unsigned char ps2_rdata[];
 __asm__(".equ ps2_rdata, 0x005A39C0");
 class ps2_joypad_device { public: void set_stick(int stick, int x, int y); };
 void ps2_joypad_device::set_stick(int stick, int x, int y) { if (stick == 0) { ps2_rdata[6] = x; ps2_rdata[7] = y; } else { ps2_rdata[4] = x; ps2_rdata[5] = y; } }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E1690)
 // 0x001E1690 is_vibrator_present__C17ps2_joypad_device
 struct developer_options { char padding[0x4c]; int no_rumble; };
 extern developer_options *developer_options_ptr;
 __asm__(".equ developer_options_ptr, 0x0046B180");
 class ps2_joypad_device { char padding[0x66]; signed char pad_type; public: bool is_vibrator_present() const; };
 bool ps2_joypad_device::is_vibrator_present() const { if (developer_options_ptr->no_rumble) return false; return pad_type == 0x79; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E2258)
 // 0x001E2258 set_button_a__17ps2_joypad_deviceii
 struct joypad_vtable {
     char padding[0x88];
@@ -193,9 +167,7 @@ void ps2_joypad_device::set_button_a(int button, int state) {
         state > 127
     );
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E1468)
 // 0x001E1468 get_name__C17ps2_joypad_device
 class stringx {
     char *chars;
@@ -220,9 +192,7 @@ stringx ps2_joypad_device::get_name() const
 {
     return stringx(joypad_name);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E14A0)
 // 0x001E14A0 get_name__C17ps2_joypad_devicei
 class stringx {
     char *chars;
@@ -247,9 +217,7 @@ stringx ps2_joypad_device::get_name(int axis) const
 {
     return stringx(joypad_name);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E1BB8)
 // 0x001E1BB8 record_demo_stop__17ps2_joypad_device
 asm(".equ close__7os_file, 0x001E03A0");
 class os_file {
@@ -273,9 +241,7 @@ void ps2_joypad_device::record_demo_stop()
         demo_log.close();
     recording_demo = false;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E2218)
 // 0x001E2218 set_button_d__17ps2_joypad_deviceib
 extern unsigned char rdata[];
 asm(".equ rdata, 0x005A39C0");
@@ -292,25 +258,19 @@ void ps2_joypad_device::set_button_d(int button_num, bool state)
     }
     rdata[rdata_index] &= ~(1 << button_num);
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E16D0)
 // 0x001E16D0 get_axis_old_state__C17ps2_joypad_deviceii
 __asm__(".equ get_axis_state__C17ps2_joypad_deviceiPUc, 0x001E17D8");
 typedef float rational_t; typedef int axis_id_t;
 class ps2_joypad_device { public: char data[0x5c]; unsigned char *curr_rdata; unsigned char *prev_rdata; char data2[8]; int disconnected; int was_disconnected; rational_t get_axis_state(axis_id_t axis, int control_axis) const; rational_t get_axis_old_state(axis_id_t axis, int control_axis) const; rational_t get_axis_state(axis_id_t axis, unsigned char *rdata) const; };
 rational_t ps2_joypad_device::get_axis_old_state(axis_id_t axis, int control_axis) const { if (axis != 22) return get_axis_state(axis, prev_rdata); rational_t result = 1.0f; if (was_disconnected != 1) result = 0.0f; return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E1790)
 // 0x001E1790 get_axis_state__C17ps2_joypad_deviceii
 __asm__(".equ get_axis_state__C17ps2_joypad_deviceiPUc, 0x001E17D8");
 typedef float rational_t; typedef int axis_id_t;
 class ps2_joypad_device { public: char data[0x5c]; unsigned char *curr_rdata; unsigned char *prev_rdata; char data2[8]; int disconnected; int was_disconnected; rational_t get_axis_state(axis_id_t axis, int control_axis) const; rational_t get_axis_state(axis_id_t axis, unsigned char *rdata) const; };
 rational_t ps2_joypad_device::get_axis_state(axis_id_t axis, int control_axis) const { if (axis != 22) return get_axis_state(axis, curr_rdata); rational_t result = 1.0f; if (disconnected != 1) result = 0.0f; return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E1628)
 // 0x001E1628 stop_vibration__17ps2_joypad_device
 extern "C" void *memset(void *, int, unsigned int);
 extern "C" int scePadSetActDirect(int, int, const unsigned char *);
@@ -336,9 +296,6 @@ void ps2_joypad_device::stop_vibration()
         scePadSetActDirect(port_id, 0, motors);
     }
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E14E0)
 // 0x001E14E0 vibrate__17ps2_joypad_devicef
 struct options{char p0[76];int no_rumble;};extern options*developer_options;extern "C" int pad_direct(int,int,unsigned char*) __asm__("scePadSetActDirect");__asm__(".equ developer_options,0x0046B180");__asm__(".equ scePadSetActDirect,0x003BBC68");struct pad{char p0[100];signed char port_id,p1,pad_type;};extern "C" void vibrate(pad*self,float intensity) __asm__("vibrate__17ps2_joypad_devicef");void vibrate(pad*self,float intensity){if(!developer_options->no_rumble){if(self->pad_type!=121)return;unsigned char motors[]={1,(unsigned char)(intensity*255.0f),0,0,0,0};pad_direct(self->port_id,0,motors);}}
-#endif

@@ -3,23 +3,20 @@
 
 #pragma interface
 
+#include "KS/SRC/inputmgr.h"
+
 extern "C" void* memset(void*, int, unsigned int);
 
 #define RDATA_SIZE 32
 #define PS2_JOYPAD_DUALSHOCK2 (char)0x79
 
-class input_device {
-protected:
-    int device_id;
-
-public:
-    virtual ~input_device();
-};
-
 class ps2_joypad_device : public input_device {
 public:
     void clear_state();
     bool is_connected() const;
+    device_id_t get_id() const;
+    int get_axis_count() const;
+    axis_id_t get_axis_id(int axis) const;
 
 private:
     int pad_id;
