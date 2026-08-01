@@ -2,20 +2,14 @@
 
 
 // 0x0026F200 GetCameraType__11auto_camera
-class auto_camera {
-public:
-    int GetCameraType();
-};
+#include "KS/SRC/ks/ks_camera.h"
 
 int auto_camera::GetCameraType() {
     return 0;
 }
 
 // 0x0026F2C0 GetCameraType__12beach_camera
-class beach_camera {
-public:
-    int GetCameraType();
-};
+#include "KS/SRC/ks/ks_camera.h"
 
 int beach_camera::GetCameraType() {
     return 1;

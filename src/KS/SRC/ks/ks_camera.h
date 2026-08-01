@@ -87,6 +87,20 @@ public:
     void Reset();
     virtual void sync(camera &other);
     virtual void frame_advance(float time_inc);
+
+protected:
+    virtual int GetCameraType();
+};
+
+class beach_camera : public auto_camera {
+public:
+    beach_camera(
+        const entity_id &id,
+        entity *target,
+        kellyslater_controller *controller);
+
+private:
+    virtual int GetCameraType();
 };
 
 struct beach_camera_data {
