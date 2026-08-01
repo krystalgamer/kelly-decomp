@@ -2,10 +2,7 @@
 
 
 // 0x002BD170 get_anim_length__C7mat_fac
-class mat_fac {
-public:
-    int get_anim_length() const;
-};
+#include "KS/SRC/matfac.h"
 
 int mat_fac::get_anim_length() const {
     return 1;
