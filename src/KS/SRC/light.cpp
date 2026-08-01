@@ -7,10 +7,7 @@ class light_source { char padding[0x200]; light_properties* properties; public: 
 float light_source::terrain_radius() const { return properties->cutoff_range * 0.5f; }
 
 // 0x002CDEE8 frame_advance__12light_sourcef
-class light_source {
-public:
-    void frame_advance(float time);
-};
+#include "KS/SRC/light.h"
 
 void light_source::frame_advance(float time) {
 }

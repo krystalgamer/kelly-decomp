@@ -1,6 +1,8 @@
 #ifndef LIGHT_H
 #define LIGHT_H
 
+#pragma interface
+
 #include "KS/SRC/color.h"
 #include "KS/SRC/entity.h"
 #include "KS/SRC/sphere.h"
@@ -42,6 +44,7 @@ class light_source : public entity {
     light_properties *properties;
 
 public:
+    virtual void frame_advance(float time_inc);
     float get_dist(const sphere &bounds) const;
     inline const light_properties &get_properties() const {
         return *properties;
