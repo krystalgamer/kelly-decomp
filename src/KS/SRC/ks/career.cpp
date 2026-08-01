@@ -16,13 +16,6 @@
 #include "KS/SRC/ks/career.h"
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0025A7C0)
-// 0x0025A7C0 GetSurferIdx__6Career
-int Career::GetSurferIdx() {
-    return my_id;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0025AED0)
 // 0x0025AED0 OnGoalReDone__6Careerii
 void Career::OnGoalReDone(int level, int goal) { goal_passed[goal] = true; }
