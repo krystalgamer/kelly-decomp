@@ -32,8 +32,12 @@ public:
     inline bool at_eof() const { return eof; }
     inline bool operator!() const { return false; }
     inline bool is_from_cd() const { return from_cd; }
+    static inline void system_lock() { system_locked = true; }
+    static inline void system_unlock() { system_locked = false; }
+    static inline bool is_system_locked() { return system_locked; }
 
 private:
+    static bool system_locked;
     stringx name;
     int flags;
     bool opened;

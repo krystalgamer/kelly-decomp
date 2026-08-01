@@ -29,6 +29,13 @@ class world_dynamics_system {
     nglLightContext *current_light_context;
 
 public:
+    static bool wds_readfile(
+        const char *name,
+        unsigned char **buffer,
+        unsigned int *length,
+        int alignment,
+        int extra_bytes = 1);
+    static bool wds_releasefile(unsigned char **buffer);
     ett_manager *get_ett_manager();
     nglLightContext *set_current_light_context(nglLightContext *context);
     inline terrain &get_the_terrain() {

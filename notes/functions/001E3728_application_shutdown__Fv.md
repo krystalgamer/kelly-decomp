@@ -5,21 +5,16 @@
 - Object: `game/files_hwosps2`
 - Debug source: `C:/KS/SRC/ps2main.cpp`
 - Reference source: `KS/SRC/ps2main.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 18.3824 | 8.8235 | `candidate.cpp` |
-| 2 | different | 82.3529 | 70.5882 | `candidate.cpp` |
-| 3 | different | 97.7941 | 100.0 | `candidate.cpp` |
-| 4 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 4 notes
-
-The released application shutdown matched after correcting singleton virtual-destructor slots and exact os_alloc_shutdown linkage.
+| 1 | different | 71.3235 | 82.3529 | `application-shutdown-1.cpp` |
+| 2 | different | 71.3235 | 82.3529 | `application-shutdown-2.cpp` |
+| 3 | different | 71.3235 | 82.3529 | `application-shutdown-3.cpp` |
 
 ## Outcome
 
-The released application shutdown matched exactly on the fourth attempt.
+Released singleton shutdown was restored with native declarations, but three source forms differed because the format literal is not yet canonically placed; the manual vtable implementation was removed.

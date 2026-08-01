@@ -118,6 +118,7 @@ struct nglTexture {
     } Flags;
     char data_to_file_name[0x40 - 0x18];
     nglFixedString FileName;
+    char remaining_data[0x130 - 0x60];
 } __attribute__((aligned(16)));
 
 void nglRelockAllTexturesPS2();

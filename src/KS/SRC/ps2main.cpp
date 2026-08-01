@@ -1,163 +1,64 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#include "KS/SRC/kshooks.h"
+#include "KS/SRC/osfile.h"
+#include "KS/SRC/wds.h"
+#include "NGL/PS2/ngl_ps2.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_001E3890)
-// 0x001E3890 system_idle__Fv
-void system_idle() {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001E3898)
-// 0x001E3898 register_exception_handlers__Fv
-void register_exception_handlers() {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001E3280)
-// 0x001E3280 KSMemFree__FPv
-void arch_free(void *pointer);
-__asm__(".equ arch_free__FPv, 0x002AC768");
-void KSMemFree(void *pointer) { arch_free(pointer); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001E3168)
-// 0x001E3168 KSMemAllocate__FUiUiPCci
-void *arch_memalign(unsigned int alignment, unsigned int size, const char *file, int line);
-__asm__(".equ arch_memalign__FUiUiPCci, 0x002AC740");
-void *KSMemAllocate(unsigned int size, unsigned int alignment, const char *file, int line) { void *result = arch_memalign(alignment, size, file, line); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001E3190)
-// 0x001E3190 KSMemAlloc__FUiUi
-void *KSMemAllocate(unsigned int size, unsigned int alignment, const char *file, int line);
-__asm__(".equ KSMemAllocate__FUiUiPCci, 0x001E3168");
-void *KSMemAlloc(unsigned int size, unsigned int alignment) { register const char *file __asm__("$6") = (const char *)0x004D0000; __asm__ volatile("" : "+r"(file)); file -= 0x10e0; void *result = KSMemAllocate(size, alignment, file, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001E3228)
-// 0x001E3228 KSMemAllocNSL__FUiUi
-void *KSMemAllocate(unsigned int size, unsigned int alignment, const char *file, int line);
-__asm__(".equ KSMemAllocate__FUiUiPCci, 0x001E3168");
-void *KSMemAllocNSL(unsigned int size, unsigned int alignment) { register const char *file __asm__("$6") = (const char *)0x004D0000; __asm__ volatile("" : "+r"(file)); file -= 0x1080; void *result = KSMemAllocate(size, alignment, file, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001E3340)
-// 0x001E3340 fptoui
-__asm__(".equ dptofp, 0x003CC8C8");
-
-inline int FTOI(float input) {
-    register float output;
-    __asm__ volatile("cvt.w.s %0, %1" : "=f"(output) : "f"(input));
-    return (int &)output;
-}
-
-extern "C" unsigned int fptoui(double value);
-
-unsigned int fptoui(double value) {
-    return FTOI(value);
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001E3100)
-// 0x001E3100 KSCriticalError__FPCc
-void onscreenerror(const char *format, ...);
-void error(const char *format, ...);
-__asm__(".equ onscreenerror__FPCce, 0x001DFAD8");
-__asm__(".equ error__FPCce, 0x001DFBD8");
-void KSCriticalError(const char *text) { onscreenerror(text); error(text); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001E3300)
-// 0x001E3300 KSReleaseFile__FP10nglFileBuf
-struct nglFileBuf {
-    unsigned char *Buf;
-    unsigned int Size;
-    unsigned int UserData;
-};
-
-class world_dynamics_system {
-public:
-    static void wds_releasefile(unsigned char **buffer);
-};
-
-__asm__(".equ wds_releasefile__21world_dynamics_systemPPUc, 0x00294CF0");
-
-extern "C" void *memset(void *destination, int value, unsigned int size);
-__asm__(".equ memset, 0x003D18D0");
-
-void KSReleaseFile(nglFileBuf *file)
-{
-    world_dynamics_system::wds_releasefile(&file->Buf);
-    memset(file, 0, sizeof(nglFileBuf));
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001E3130)
-// 0x001E3130 KSDebugPrint__FPCc
-extern int nglUsingProView;
-__asm__(".equ nglUsingProView, 0x004BB794");
-
-extern "C" void snputs(const char *text);
-extern "C" int scePrintf(const char *text, ...);
-__asm__(".equ snputs, 0x003C5E40");
-__asm__(".equ scePrintf, 0x003DD0C8");
-
-void KSDebugPrint(const char *text)
-{
-    if (nglUsingProView) {
-        snputs(text);
-        KELLY_DECOMP_COMPILER_BARRIER();
-        return;
-    }
-    scePrintf(text);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001E30C0)
-// 0x001E30C0 KSHeapError__FPCc
+void *arch_memalign(
+    unsigned int alignment,
+    unsigned int size,
+    const char *file,
+    int line);
 void onscreenerror(const char *text, ...);
 void error(const char *text, ...);
-asm(".equ onscreenerror__FPCce, 0x001DFAD8");
-asm(".equ error__FPCce, 0x001DFBD8");
+
+// 0x001E30C0 KSHeapError__FPCc
 void KSHeapError(const char *text)
 {
     onscreenerror(text);
     error(text);
-    for (;;) ;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001E32A0)
-// 0x001E32A0 KSReadFile__FPCcP10nglFileBufUi
-struct nglFileBuf { unsigned char *Buf; unsigned int Size; };
-extern int system_locked;
-extern "C" bool read_world_file(
-    const char *,unsigned char **,unsigned int *,unsigned int,int
-) __asm__("wds_readfile__21world_dynamics_systemPCcPPUcPUiii");
-__asm__(".equ system_locked, 0x0040E3A0");
-__asm__(".equ wds_readfile__21world_dynamics_systemPCcPPUcPUiii, 0x00294AC8");
-bool KSReadFile(const char *filename,nglFileBuf *file,unsigned int align) {
-    bool was_locked=false;
-    if (system_locked) {
-        system_locked=false;
-        was_locked=true;
+    for (;;) {
     }
-    bool result=read_world_file(
-        filename,&file->Buf,&file->Size,align,1
-    );
-    if (was_locked) system_locked=true;
+}
+
+// 0x001E3168 KSMemAllocate__FUiUiPCci
+void *KSMemAllocate(
+    unsigned int size,
+    unsigned int alignment,
+    const char *file,
+    int line)
+{
+    return arch_memalign(alignment, size, file, line);
+}
+
+// 0x001E32A0 KSReadFile__FPCcP10nglFileBufUi
+bool KSReadFile(
+    const char *filename,
+    nglFileBuf *file,
+    unsigned int alignment)
+{
+    bool was_locked = false;
+    if (os_file::is_system_locked()) {
+        os_file::system_unlock();
+        was_locked = true;
+    }
+    bool result = world_dynamics_system::wds_readfile(
+        filename,
+        &file->Buf,
+        &file->Size,
+        alignment);
+    if (was_locked)
+        os_file::system_lock();
     return result;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001E31B8)
-// 0x001E31B8 KSMemAllocNGL__FUiUi
-typedef unsigned int u_int;extern "C" void*allocate(u_int,u_int,const char*,int) __asm__("KSMemAllocate__FUiUiPCci");__asm__(".equ KSMemAllocate__FUiUiPCci,0x001E3168");extern const char mesh_name[],texture_name[],ngl_name[];__asm__(".equ mesh_name,0x004DEF30");__asm__(".equ texture_name,0x004DEF50");__asm__(".equ ngl_name,0x004DEF70");extern "C" void*alloc_ngl(u_int Size,u_int Align) __asm__("KSMemAllocNGL__FUiUi");void*alloc_ngl(u_int Size,u_int Align){Align=Align>16?Align:16;if(Size==96)return allocate(96,Align,mesh_name,0);if(Size!=304)return allocate(Size,Align,ngl_name,0);return allocate(304,Align,texture_name,0);}
-#endif
+// 0x001E3890 system_idle__Fv
+void system_idle()
+{
+}
 
-#if defined(KELLY_DECOMP_FUNCTION_001E3728)
-// 0x001E3728 application_shutdown__Fv
-struct DtorVtable{char pad[8];short adjust;short z;void(*destroy)(void*,int);};struct Obj{DtorVtable*vtable;};extern const char shutdown_text[];extern const char*application_name;extern Obj*app_instance;extern Obj*options_instance;extern "C" void nglPrintf(const char*,...)__asm__("nglPrintf__FPCce");extern "C" void os_alloc_shutdown()__asm__("os_alloc_shutdown__Fv");__asm__(".equ shutdown_text,0x004DF070");__asm__(".equ application_name,0x0042E4E4");__asm__(".equ app_instance,0x0046AC18");__asm__(".equ options_instance,0x0046B180");__asm__(".equ nglPrintf__FPCce,0x003AC050");__asm__(".equ os_alloc_shutdown__Fv,0x001DF9C0");extern "C" void application_shutdown()__asm__("application_shutdown__Fv");void application_shutdown(){nglPrintf(shutdown_text,application_name);Obj*o=app_instance;if(o){DtorVtable*v=o->vtable;v->destroy((char*)o+v->adjust,3);app_instance=0;}o=options_instance;if(o){DtorVtable*v=o->vtable;v->destroy((char*)o+v->adjust,3);options_instance=0;}os_alloc_shutdown();asm volatile("");}
-#endif
+// 0x001E3898 register_exception_handlers__Fv
+void register_exception_handlers()
+{
+}

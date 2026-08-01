@@ -5,25 +5,16 @@
 - Object: `game/files_hwosps2`
 - Debug source: `C:/KS/SRC/ps2main.cpp`
 - Reference source: `KS/SRC/ps2main.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 50.0 | 46.1538 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-Used the released world-dynamics file release followed by clearing the 12-byte nglFileBuf. EE GCC converted the final memset into a sibling tail jump, moving the epilogue ahead of the call and producing 48 bytes.
-
-### Attempt 2 notes
-
-The released file-buffer release and 12-byte clear matched exactly. The trailing empty barrier prevents EE GCC from replacing memset with a sibling tail jump.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 48.0769 | 46.1538 | `release-file-1.cpp` |
+| 2 | different | 46.1538 | 38.4615 | `release-file-2.cpp` |
+| 3 | different | 46.1538 | 38.4615 | `release-file-3.cpp` |
 
 ## Outcome
 
-The released KS file-release wrapper matched exactly.
+Released release-file body tail-calls memset under isolated native compilation; three ordinary C++ clearing forms did not reproduce the target.

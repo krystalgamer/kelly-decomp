@@ -6,8 +6,19 @@
 #include "KS/SRC/stringx.h"
 
 class os_developer_options : public singleton {
+private:
+    static singleton_ptr<os_developer_options> instance;
+
 public:
     os_developer_options();
+    static inline os_developer_options *inst() { return instance; }
+    static inline void delete_inst()
+    {
+        if (instance) {
+            delete instance;
+            instance = 0;
+        }
+    }
 
     enum flags_t {
         NUM_FLAGS = 105

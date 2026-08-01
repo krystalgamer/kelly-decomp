@@ -5,19 +5,16 @@
 - Object: `game/files_hwosps2`
 - Debug source: `C:/KS/SRC/ps2main.cpp`
 - Reference source: `KS/SRC/ps2main.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 77.6786 | 71.4286 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 2 notes
-
-Read the released NGL allocation wrapper, minimum alignment, exact mesh/texture sizes, and diagnostic strings. Expressing the final size branch in the target layout matched on attempt 2.
+| 1 | different | 70.5357 | 75.0 | `mem-alloc-ngl-1.cpp` |
+| 2 | different | 43.75 | 39.2857 | `mem-alloc-ngl-2.cpp` |
+| 3 | different | 70.5357 | 75.0 | `mem-alloc-ngl-3.cpp` |
 
 ## Outcome
 
-Matched NGL memory allocator
+Released NGL allocator logic was retried with canonical 96-byte mesh and 304-byte texture layouts; three forms still differed because isolated literals are not at released addresses.
