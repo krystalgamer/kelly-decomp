@@ -2,10 +2,7 @@
 
 
 // 0x00146428 frame_advance__8polytubef
-class polytube {
-public:
-    void frame_advance(float time);
-};
+#include "KS/SRC/polytube.h"
 
-void polytube::frame_advance(float time) {
+void polytube::frame_advance(time_value_t time) {
 }
