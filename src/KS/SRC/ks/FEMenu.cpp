@@ -51,10 +51,7 @@ class FEMenu { char padding_to_submenus[0x5C]; FEMenu* submenus; char padding_to
 void FEMenu::AddSubmenu(FEMenu* sub) { sub->next_sub = submenus; submenus = sub; sub->parent = this; }
 
 // 0x001577B0 OnSelect__6FEMenui
-class FEMenu {
-public:
-    void OnSelect(int controller);
-};
+#include "KS/SRC/ks/FEMenu.h"
 
 void FEMenu::OnSelect(int controller) {
 }
