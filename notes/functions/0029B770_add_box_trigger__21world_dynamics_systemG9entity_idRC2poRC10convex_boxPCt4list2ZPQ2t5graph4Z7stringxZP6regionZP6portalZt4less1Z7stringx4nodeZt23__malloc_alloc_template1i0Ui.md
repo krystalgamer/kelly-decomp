@@ -5,18 +5,16 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/wds.cpp`
 - Reference source: `KS/SRC/wds.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-With `ECULL` disabled, the released method returns `NULL`. A GNU asm label preserves the authoritative long STL-derived symbol without reconstructing unrelated `region_node_list` template internals in this isolated source unit.
+| 1 | symbol_missing | 0.0 | 0 | `box-1.cpp` |
+| 2 | symbol_missing | 0.0 | 0 | `box-2.cpp` |
+| 3 | symbol_missing | 0.0 | 0 | `box-3.cpp` |
 
 ## Outcome
 
-The configuration-reduced null `world_dynamics_system::add_box_trigger` factory matched exactly on the first attempt; its authoritative symbol is retained through a documented asm-label bridge.
+Three native released-signature approximations could not emit the legacy nested graph/list mangling without reconstructing missing canonical container types; the asm-named stub was removed.
