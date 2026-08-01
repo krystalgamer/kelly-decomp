@@ -1,6 +1,8 @@
 #ifndef CAPSULE_H
 #define CAPSULE_H
 
+#pragma interface
+
 #include "KS/SRC/po.h"
 #include "KS/SRC/algebra.h"
 
@@ -67,6 +69,9 @@ public:
     collision_capsule(entity *owner);
     virtual ~collision_capsule();
     void compute_dimensions();
+    virtual void estimate_physical_properties(
+        entity *body,
+        float density);
     const capsule &get_abs_capsule() const {
         return absolute_capsule;
     }
