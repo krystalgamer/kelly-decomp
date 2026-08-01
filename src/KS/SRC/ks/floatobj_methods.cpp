@@ -2,20 +2,14 @@
 
 
 // 0x0026F900 is_surfing_object__12beach_object
-class beach_object {
-public:
-    bool is_surfing_object();
-};
+#include "KS/SRC/ks/floatobj.h"
 
 bool beach_object::is_surfing_object() {
     return false;
 }
 
 // 0x0026FA70 get_type__C12water_object
-class water_object {
-public:
-    int get_type() const;
-};
+#include "KS/SRC/ks/floatobj.h"
 
 int water_object::get_type() const {
     return -1;
@@ -58,22 +52,14 @@ void generic_anim_ice::spawn() {
 }
 
 // 0x0026FF88 is_surfing_object__14surfing_object
-class surfing_object {
-public:
-    bool is_surfing_object();
-};
+#include "KS/SRC/ks/floatobj.h"
 
 bool surfing_object::is_surfing_object() {
     return true;
 }
 
 // 0x0026FF90 get_type__C14surfing_object
-class surfing_object {
-    char padding[0x2E0];
-    int my_type;
-public:
-    int get_type() const;
-};
+#include "KS/SRC/ks/floatobj.h"
 
 int surfing_object::get_type() const {
     return my_type;

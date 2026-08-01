@@ -131,6 +131,7 @@ public:
     virtual void collide(entity*, const vector3d&);
     virtual void jumped_over(entity*);
     virtual void sprayed(entity*);
+    virtual int get_type() const;
 
 protected:
     color32 ren_col;
@@ -171,6 +172,7 @@ public:
     virtual void jumped_over(entity*);
     virtual void sprayed(entity*);
     virtual bool is_surfing_object();
+    virtual int get_type() const;
 
 private:
     int mySound;
