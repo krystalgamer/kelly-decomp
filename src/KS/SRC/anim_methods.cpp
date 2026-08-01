@@ -159,22 +159,12 @@ template <class Type> void anim<Type>::clear_flag(anim_flags_t flag) { flags &= 
 template void anim<float>::clear_flag(anim_flags_t flag);
 
 // 0x00120EF0 frame_advance__t4anim1Z10signal_keyRC14anim_control_tP10signal_key
-class anim_control_t;
-class signal_key {
-};
+#include "KS/SRC/anim.h"
+#include "KS/SRC/signal_anim.h"
 
-template <class T>
-class anim {
-public:
-    virtual void frame_advance(const anim_control_t &control, T *destination);
-};
-
-template <>
-void anim<signal_key>::frame_advance(
+template void anim<signal_key>::frame_advance(
     const anim_control_t &control,
-    signal_key *destination
-) {
-}
+    signal_key *destination);
 
 // 0x00121A70 frame_advance__t4anim1ZP6entityRC14anim_control_tPP6entity
 class anim_control_t;
