@@ -39,7 +39,7 @@ class rumble_manager;
 class input_device {
 protected:
     friend class input_mgr;
-    int device_id;
+    device_id_t device_id;
 
 public:
     input_device();

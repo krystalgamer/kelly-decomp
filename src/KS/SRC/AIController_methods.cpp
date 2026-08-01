@@ -55,21 +55,17 @@ bool AISurferController::is_vibrator_present() const {
 }
 
 // 0x00112D28 is_connected__C18AISurferController
-extern "C" bool ai_is_connected(const void *self)
-    __asm__("is_connected__C18AISurferController");
-bool ai_is_connected(const void *self) {
+#include "KS/SRC/AIController.h"
+
+bool AISurferController::is_connected() const {
     return true;
 }
 
 // 0x00112DA0 get_id__C18AISurferController
-struct ai_device_layout {
-    int device_id;
-};
+#include "KS/SRC/AIController.h"
 
-extern "C" int ai_get_id(const ai_device_layout *self)
-    __asm__("get_id__C18AISurferController");
-int ai_get_id(const ai_device_layout *self) {
-    return self->device_id;
+device_id_t AISurferController::get_id() const {
+    return device_id;
 }
 
 // 0x00112CE0 _$_18AISurferController
