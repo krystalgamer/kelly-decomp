@@ -125,6 +125,8 @@ IMPLEMENTATION_OVERRIDES = {
         "KS/SRC/ks/igo_widget_iconcount.cpp",
     "KS/SRC/ks/igo_widget_skillchallenge.h":
         "KS/SRC/ks/igo_widget_skillchallenge.cpp",
+    "KS/SRC/ks/igoiconmanager.h":
+        "KS/SRC/ks/igoiconmanager.cpp",
     "KS/SRC/ks/FrontEndMenus.h": "KS/SRC/ks/FrontEndMenus_methods.cpp",
     "KS/SRC/ks/FrontEndManager.h": "KS/SRC/ks/FrontEndManager_rtti.cpp",
     "KS/SRC/ks/GraphicalMenuSystem.h":
