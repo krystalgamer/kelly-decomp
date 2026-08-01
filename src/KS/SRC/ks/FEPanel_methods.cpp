@@ -125,12 +125,7 @@ void TextString::SetBehavior(bool nfb) {
 }
 
 // 0x001D88B0 getLineNum__15MultiLineString
-class MultiLineString {
-    char padding[0x54];
-    int line_num;
-public:
-    int getLineNum();
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 int MultiLineString::getLineNum() {
     return line_num;
@@ -153,24 +148,14 @@ void MultiLineString::setFont(Font* value) {
 }
 
 // 0x001D8B80 unmakeRand__10RandomText
-class RandomText {
-    char padding[0x50];
-    bool isRand;
-public:
-    void unmakeRand();
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void RandomText::unmakeRand() {
     isRand = false;
 }
 
 // 0x001D8C78 changeScale__7BoxTextf
-class BoxText {
-    char padding[0xA0];
-    float real_scale;
-public:
-    void changeScale(float s);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void BoxText::changeScale(float s) {
     real_scale = s;

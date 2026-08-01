@@ -125,6 +125,10 @@ protected:
     int vSpacing;
     int line_num;
     Font *fonts[20];
+
+public:
+    int getLineNum();
+    void setFont(Font *font);
 };
 
 class FloatingText : public MultiLineString {
@@ -155,6 +159,16 @@ public:
     float delta_y[MAX_STRING_SIZE];
 
     StringList &operator=(const StringList &other);
+};
+
+class RandomText : public TextString {
+protected:
+    bool isRand;
+    bool noFade;
+    StringList rand_string;
+
+public:
+    void unmakeRand();
 };
 
 class BoxText : public TextString {
