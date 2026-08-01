@@ -5,18 +5,16 @@
 - Object: `game/files_kellyslater`
 - Debug source: `ks/ode.h`
 - Reference source: `KS/SRC/ks/ode.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-Read the exact released RungeKuttaClass destructor, derived/base vtable offsets, Terminate call, and deleting-mode behavior. The source-faithful generated sequence matched byte-exactly.
+| 1 | different | 27.2727 | 22.7273 | `runge-dtor-1.cpp` |
+| 2 | different | 27.2727 | 22.7273 | `runge-dtor-2.cpp` |
+| 3 | different | 27.2727 | 22.7273 | `runge-dtor-3.cpp` |
 
 ## Outcome
 
-Matched generated RungeKuttaClass destructor
+Three released-source RungeKutta destructor forms generated a different virtual cleanup sequence; the manual vtable/destructor wrapper was removed.
