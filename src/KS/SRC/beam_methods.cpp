@@ -147,52 +147,31 @@ void beam_effect::set_id(unsigned short value) {
 }
 
 // 0x002B9610 apply_start_vals__16beam_effect_typeP4beam
-class beam;
-
-class beam_effect_type {
-public:
-    void apply_start_vals(beam* value);
-};
+#include "KS/SRC/beam.h"
 
 void beam_effect_type::apply_start_vals(beam* value) {
 }
 
 // 0x002B9618 apply_target_vals__16beam_effect_typeP4beam
-class beam;
-
-class beam_effect_type {
-public:
-    void apply_target_vals(beam* value);
-};
+#include "KS/SRC/beam.h"
 
 void beam_effect_type::apply_target_vals(beam* value) {
 }
 
 // 0x002B9620 apply_delta_vals__16beam_effect_typeP4beamf
-class beam;
-
-class beam_effect_type {
-public:
-    void apply_delta_vals(beam* value, float time);
-};
+#include "KS/SRC/beam.h"
 
 void beam_effect_type::apply_delta_vals(beam* value, float time) {
 }
 
 // 0x002B9628 reverse__16beam_effect_type
-class beam_effect_type {
-public:
-    void reverse();
-};
+#include "KS/SRC/beam.h"
 
 void beam_effect_type::reverse() {
 }
 
 // 0x002B9630 make_instance__16beam_effect_type
-class beam_effect_type {
-public:
-    beam_effect_type* make_instance();
-};
+#include "KS/SRC/beam.h"
 
 beam_effect_type* beam_effect_type::make_instance() {
     return 0;
