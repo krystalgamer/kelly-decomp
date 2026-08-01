@@ -44,10 +44,7 @@ void HelpbarFE::Update(float time_inc) {
 }
 
 // 0x001DE5B0 Reload__19GraphicalMenuSystem
-class GraphicalMenuSystem {
-public:
-    void Reload();
-};
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 
 void GraphicalMenuSystem::Reload() {
 }

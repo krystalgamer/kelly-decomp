@@ -42,6 +42,7 @@ public:
     void restartMovie();
     void killMovie();
     void DrawMovie();
+    void Reload();
 };
 
 class LegalFrontEnd : public FEGraphicalMenu {
