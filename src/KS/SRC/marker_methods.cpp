@@ -2,30 +2,21 @@
 
 
 // 0x002B91C8 is_a_marker__C6marker
-class marker {
-public:
-    bool is_a_marker() const;
-};
+#include "KS/SRC/marker.h"
 
 bool marker::is_a_marker() const {
     return true;
 }
 
 // 0x002B91D0 possibly_active__C6marker
-class marker {
-public:
-    bool possibly_active() const;
-};
+#include "KS/SRC/marker.h"
 
 bool marker::possibly_active() const {
     return false;
 }
 
 // 0x002B91D8 possibly_aging__C6marker
-class marker {
-public:
-    bool possibly_aging() const;
-};
+#include "KS/SRC/marker.h"
 
 bool marker::possibly_aging() const {
     return false;

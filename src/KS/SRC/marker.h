@@ -16,11 +16,6 @@ public:
     }
 };
 
-inline float dot(const vector3d &a, const vector3d &b)
-{
-    return a.x * b.x + a.y * b.y + a.z * b.z;
-}
-
 class marker : public entity {
 public:
     virtual entity *make_instance(
