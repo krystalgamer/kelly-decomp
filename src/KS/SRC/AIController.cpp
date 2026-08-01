@@ -2,16 +2,17 @@
 
 
 // 0x00100200 get_axis_count__C18AISurferController
-extern "C" int ai_axis_count(const void *self)
-    __asm__("get_axis_count__C18AISurferController");
-int ai_axis_count(const void *self) {
-    return 23;
+#include "KS/SRC/AIController.h"
+#include "KS/SRC/joystick.h"
+
+int AISurferController::get_axis_count() const {
+    return JOY_PS2_NUM_AXES;
 }
 
 // 0x00100330 get_axis_id__C18AISurferControlleri
-extern "C" int ai_axis_id(const void *self, int axis)
-    __asm__("get_axis_id__C18AISurferControlleri");
-int ai_axis_id(const void *self, int axis) {
+#include "KS/SRC/AIController.h"
+
+axis_id_t AISurferController::get_axis_id(int axis) const {
     return axis;
 }
 

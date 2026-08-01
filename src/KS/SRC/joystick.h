@@ -1,0 +1,31 @@
+#ifndef JOYSTICK_H
+#define JOYSTICK_H
+
+enum PS2_Axes {
+    JOY_PS2_DX,
+    JOY_PS2_DY,
+    JOY_PS2_X,
+    JOY_PS2_Y,
+    JOY_PS2_LX,
+    JOY_PS2_LY,
+    JOY_PS2_BTNL3,
+    JOY_PS2_RX,
+    JOY_PS2_RY,
+    JOY_PS2_BTNR3,
+    JOY_PS2_BTNX,
+    JOY_PS2_BTNO,
+    JOY_PS2_DUMMMY1,
+    JOY_PS2_BTNSQ,
+    JOY_PS2_BTNTR,
+    JOY_PS2_DUMMMY2,
+    JOY_PS2_BTNL1,
+    JOY_PS2_BTNR1,
+    JOY_PS2_BTNL2,
+    JOY_PS2_BTNR2,
+    JOY_PS2_START,
+    JOY_PS2_SELECT,
+    JOY_PS2_DISCONNECT,
+    JOY_PS2_NUM_AXES
+};
+
+#endif
