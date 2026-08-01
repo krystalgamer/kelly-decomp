@@ -9,6 +9,8 @@
 class material;
 class beam;
 class beam_effect;
+class camera;
+class terrain;
 
 template <class T>
 class instance_bank {
@@ -33,6 +35,17 @@ public:
     void set_thickness(float value);
     void set_max_length(float value);
     void set_beam_color(const color32 &color);
+    void set_texture(const stringx &filename);
+    virtual void frame_advance(float time_inc);
+    virtual void render(
+        camera *camera_link,
+        float detail,
+        render_flavor_t flavor,
+        float translucency);
+    virtual void set_visible(bool visible);
+    virtual void compute_sector(
+        terrain &terrain_value,
+        bool use_high_res_intersect);
 };
 
 class beam_effect_type {

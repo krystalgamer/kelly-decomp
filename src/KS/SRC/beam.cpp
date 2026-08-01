@@ -55,41 +55,25 @@ void beam::set_beam_color(const color32& value) {
 }
 
 // 0x002721E8 set_texture__4beamRC7stringx
-class stringx;
+#include "KS/SRC/beam.h"
 
-class beam {
-public:
-    void set_texture(const stringx& file);
-};
-
-void beam::set_texture(const stringx& file) {
+void beam::set_texture(const stringx &file) {
 }
 
 // 0x002721F0 frame_advance__4beamf
-class beam {
-public:
-    void frame_advance(float time);
-};
+#include "KS/SRC/beam.h"
 
 void beam::frame_advance(float time) {
 }
 
 // 0x00272240 render__4beamP6camerafUif
-class camera;
+#include "KS/SRC/beam.h"
 
-class beam {
-public:
-    void render(camera* camera_link, float detail, unsigned int flavor, float entity_translucency_pct);
-};
-
-void beam::render(camera* camera_link, float detail, unsigned int flavor, float entity_translucency_pct) {
+void beam::render(camera* camera_link, float detail, render_flavor_t flavor, float entity_translucency_pct) {
 }
 
 // 0x00272670 set_visible__4beamb
-class beam {
-public:
-    void set_visible(bool visible);
-};
+#include "KS/SRC/beam.h"
 
 void beam::set_visible(bool visible) {
 }
@@ -134,14 +118,9 @@ const char* beam::get_signal_name( unsigned short idx ) const
 }
 
 // 0x00274768 compute_sector__4beamR7terrainb
-class terrain;
+#include "KS/SRC/beam.h"
 
-class beam {
-public:
-    void compute_sector(terrain& value, bool use_high_res_intersect);
-};
-
-void beam::compute_sector(terrain& value, bool use_high_res_intersect) {
+void beam::compute_sector(terrain &value, bool use_high_res_intersect) {
 }
 
 // 0x00272DE8 set_active__11beam_effect
