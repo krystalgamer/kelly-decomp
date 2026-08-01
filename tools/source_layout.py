@@ -149,6 +149,7 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/LogbookFrontEnd.h":
         "KS/SRC/ks/LogbookFrontEnd_rtti.cpp",
     "KS/SRC/ks/MainFrontEnd.h": "KS/SRC/ks/MainFrontEnd_methods.cpp",
+    "KS/SRC/ks/Map.h": "KS/SRC/ks/Map.cpp",
     "KS/SRC/ks/MCDetectFrontEnd.h": "KS/SRC/ks/MCDetectFrontEnd_rtti.cpp",
     "KS/SRC/ks/kellyslater_controller.h":
         "KS/SRC/ks/kellyslater_controller_methods.cpp",
