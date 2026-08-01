@@ -305,10 +305,7 @@ void FEMenuSystem::startDraw(int arg0, bool arg1) {
 }
 
 // 0x001DB980 endDraw__12FEMenuSystemb
-class FEMenuSystem {
-public:
-    void endDraw(bool arg0);
-};
+#include "KS/SRC/ks/FEMenu.h"
 
 void FEMenuSystem::endDraw(bool arg0) {
 }
