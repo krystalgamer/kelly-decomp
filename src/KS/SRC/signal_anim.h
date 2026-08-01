@@ -10,6 +10,7 @@ class signal_key {
 class signal_anim : public anim<signal_key> {
 public:
     virtual ~signal_anim();
+    virtual void set_time(float time);
 };
 
 #endif
