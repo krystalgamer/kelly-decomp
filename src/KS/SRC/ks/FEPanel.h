@@ -548,6 +548,8 @@ class FloatingPQ : public PanelQuad {
     float y2_const;
 
 public:
+    virtual void SetWidth(float width);
+    virtual void SetHeight(float height);
     void SetPos(float x1, float y1, float x2, float y2);
 };
 

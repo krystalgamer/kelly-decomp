@@ -288,24 +288,14 @@ float PanelQuad::GetRotation() const {
 }
 
 // 0x001D9DC0 SetWidth__10FloatingPQf
-class FloatingPQ {
-    char padding[0xB8];
-    float width;
-public:
-    void SetWidth(float value);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void FloatingPQ::SetWidth(float value) {
     width = value;
 }
 
 // 0x001D9DC8 SetHeight__10FloatingPQf
-class FloatingPQ {
-    char padding[0xBC];
-    float height;
-public:
-    void SetHeight(float value);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void FloatingPQ::SetHeight(float value) {
     height = value;
