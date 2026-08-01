@@ -2,13 +2,7 @@
 
 
 // 0x0028D610 new_box_trigger__15trigger_managerP6entity
-class entity;
-class trigger;
-
-class trigger_manager {
-public:
-    trigger* new_box_trigger(entity* value);
-};
+#include "KS/SRC/trigger.h"
 
 trigger* trigger_manager::new_box_trigger(entity* value) {
     return 0;

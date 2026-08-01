@@ -46,6 +46,7 @@ protected:
 class trigger_manager : public singleton {
 public:
     trigger_manager();
+    trigger *new_box_trigger(entity *value);
     void update_regions();
     void purge();
 
