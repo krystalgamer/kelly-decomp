@@ -126,6 +126,8 @@ IMPLEMENTATION_OVERRIDES = {
         "KS/SRC/ks/igo_widget_iconcount.cpp",
     "KS/SRC/ks/igo_widget_skillchallenge.h":
         "KS/SRC/ks/igo_widget_skillchallenge.cpp",
+    "KS/SRC/ks/igo_widget_replay.h":
+        "KS/SRC/ks/igo_widget_replay_methods.cpp",
     "KS/SRC/ks/igoiconmanager.h":
         "KS/SRC/ks/igoiconmanager.cpp",
     "KS/SRC/ks/FrontEndMenus.h": "KS/SRC/ks/FrontEndMenus_methods.cpp",
@@ -149,6 +151,8 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/ksreplay.h": "KS/SRC/ks/ksreplay_methods.cpp",
     "KS/SRC/ks/LogbookFrontEnd.h":
         "KS/SRC/ks/LogbookFrontEnd_rtti.cpp",
+    "KS/SRC/ks/HighScoreFrontEnd.h":
+        "KS/SRC/ks/HighScoreFrontEnd_rtti.cpp",
     "KS/SRC/ks/MainFrontEnd.h": "KS/SRC/ks/MainFrontEnd_methods.cpp",
     "KS/SRC/ks/Map.h": "KS/SRC/ks/Map.cpp",
     "KS/SRC/ks/MCDetectFrontEnd.h": "KS/SRC/ks/MCDetectFrontEnd_rtti.cpp",

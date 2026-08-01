@@ -1,30 +1,41 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef IGO_WIDGET_REPLAY_H
+#define IGO_WIDGET_REPLAY_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_001DBE98)
-// 0x001DBE98 GetButton__12ReplayWidget
-class ReplayWidget {
-    char padding[0x8];
+#include "KS/SRC/ks/igo_widget.h"
+
+class PanelQuad;
+class TextString;
+
+class ReplayWidget : public IGOWidget {
     int vcrButton;
-public:
-    int GetButton();
-};
-
-int ReplayWidget::GetButton() {
-    return vcrButton;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_001DBEA0)
-// 0x001DBEA0 GetHighlight__12ReplayWidget
-class ReplayWidget {
-    char padding[0xC];
     int vcrButtonHL;
+    PanelQuad *vcrPQ;
+    PanelQuad *vcrHLPQ;
+    PanelQuad *vcrBGPQ;
+    PanelQuad *restartPQ;
+    PanelQuad *restartOffPQ;
+    PanelQuad *restartHLPQ;
+    PanelQuad *pausePQ;
+    PanelQuad *pauseOffPQ;
+    PanelQuad *pauseHLPQ;
+    PanelQuad *playPQ;
+    PanelQuad *playOffPQ;
+    PanelQuad *playHLPQ;
+    PanelQuad *slowPQ;
+    PanelQuad *slowOffPQ;
+    PanelQuad *slowHLPQ;
+    PanelQuad *fastforwardPQ;
+    PanelQuad *fastforwardOffPQ;
+    PanelQuad *fastforwardHLPQ;
+    TextString *pauseText;
+    float highlight_intensity;
+    float highlight_timer;
+
 public:
-    int GetHighlight();
+    virtual int GetButton();
+    virtual int GetHighlight();
 };
 
-int ReplayWidget::GetHighlight() {
-    return vcrButtonHL;
-}
 #endif
