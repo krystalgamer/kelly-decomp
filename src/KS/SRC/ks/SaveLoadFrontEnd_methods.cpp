@@ -2,9 +2,9 @@
 
 
 // 0x001DCDF0 OnTriangle__10DialogMenui
-extern "C" void dialog_triangle(void *self, int command)
-    __asm__("OnTriangle__10DialogMenui");
-void dialog_triangle(void *self, int command) {
+#include "KS/SRC/ks/SaveLoadFrontEnd.h"
+
+void DialogMenu::OnTriangle(int command) {
 }
 
 // 0x001DCDF8 OnUnactivate__10DialogMenuP6FEMenu
