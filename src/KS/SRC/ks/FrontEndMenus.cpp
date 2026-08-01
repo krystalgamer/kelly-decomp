@@ -131,10 +131,7 @@ void GoalsMenuClass::OnDown(int controller) {
 }
 
 // 0x001B1C18 OnCross__14GoalsMenuClassi
-class GoalsMenuClass {
-public:
-    void OnCross(int controller);
-};
+#include "KS/SRC/ks/FrontEndMenus.h"
 
 void GoalsMenuClass::OnCross(int controller) {
 }
