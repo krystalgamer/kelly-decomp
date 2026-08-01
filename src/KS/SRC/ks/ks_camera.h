@@ -7,6 +7,48 @@
 
 class kellyslater_controller;
 
+class debug_camera : public game_camera {
+public:
+    debug_camera(const entity_id &id, entity *target = 0);
+    virtual ~debug_camera();
+    virtual void sync(camera &other);
+};
+
+class look_back_camera : public game_camera {
+    char camera_state[0x30C - sizeof(game_camera)];
+    bool first_time;
+
+public:
+    look_back_camera(const entity_id &id, entity *target = 0);
+    virtual ~look_back_camera();
+    virtual void init();
+    virtual void sync(camera &other);
+};
+
+class replay_camera : public game_camera {
+public:
+    replay_camera(const entity_id &id, entity *target = 0);
+    virtual ~replay_camera();
+    virtual void sync(camera &other);
+};
+
+class stationary_camera : public game_camera {
+public:
+    stationary_camera(const entity_id &id, entity *target = 0);
+    virtual ~stationary_camera();
+    virtual void sync(camera &other);
+};
+
+class fps_camera : public game_camera {
+public:
+    fps_camera(
+        const entity_id &id,
+        entity *target,
+        kellyslater_controller *controller);
+    virtual ~fps_camera();
+    virtual void sync(camera &other);
+};
+
 class big_wave_camera : public game_camera {
 public:
     big_wave_camera(
@@ -43,6 +85,7 @@ public:
         entity *target,
         kellyslater_controller *controller);
     void Reset();
+    virtual void sync(camera &other);
     virtual void frame_advance(float time_inc);
 };
 

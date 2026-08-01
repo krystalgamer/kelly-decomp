@@ -5,23 +5,16 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/kellyslater_main.cpp`
 - Reference source: `KS/SRC/ks/kellyslater_main.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 65.7895 | 57.8947 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-Attempt 1 used the exact released rendering body and new shared world declarations; GCC tail-called the final particle draw.
-
-### Attempt 2 notes
-
-Attempt 2 added a normalized barrier inside the particle branch, preventing that demonstrated sibling-call optimization and matching exactly.
+| 1 | different | 55.2632 | 57.8947 | `render-1.cpp` |
+| 2 | different | 55.2632 | 57.8947 | `render-2.cpp` |
+| 3 | different | 16.3462 | 0.0 | `render-3.cpp` |
 
 ## Outcome
 
-The Kelly Slater rendering helper matches released behavior with one documented optimizer barrier.
+Three native forms of the released water/particle render sequence produced a different call schedule and size; the compiler barrier and absolute aliases were removed.

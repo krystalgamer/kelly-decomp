@@ -1,31 +1,26 @@
 // Matching decompilation blocks selected by generated build shims.
 
-
-#if defined(KELLY_DECOMP_FUNCTION_001FA978)
-// 0x001FA978 inDemoMode__15DemoModeManager
 #include "KS/SRC/ks/DemoMode.h"
 
-bool DemoModeManager::inDemoMode() {
+// 0x001FA978 inDemoMode__15DemoModeManager
+bool DemoModeManager::inDemoMode()
+{
     return inDemo;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001FA980)
 // 0x001FA980 ReturnFromDemoToTitle__15DemoModeManager
-#include "KS/SRC/ks/DemoMode.h"
-bool DemoModeManager::ReturnFromDemoToTitle() { return wasInDemo && wasInTitle; }
-#endif
+bool DemoModeManager::ReturnFromDemoToTitle()
+{
+    return wasInDemo && wasInTitle;
+}
 
-#if defined(KELLY_DECOMP_FUNCTION_001FA9A0)
 // 0x001FA9A0 ReturnFromDemoToMain__15DemoModeManager
-#include "KS/SRC/ks/DemoMode.h"
-bool DemoModeManager::ReturnFromDemoToMain() { return wasInDemo && !wasInTitle; }
-#endif
+bool DemoModeManager::ReturnFromDemoToMain()
+{
+    return wasInDemo && !wasInTitle;
+}
 
-#if defined(KELLY_DECOMP_FUNCTION_001F9FB0)
 // 0x001F9FB0 __15DemoModeManager
-#include "KS/SRC/ks/DemoMode.h"
-
 DemoModeManager::DemoModeManager()
 {
     replayFile.UserData = 1;
@@ -36,4 +31,3 @@ DemoModeManager::DemoModeManager()
     demoDuration = 0.0f;
     demoStarted = false;
 }
-#endif

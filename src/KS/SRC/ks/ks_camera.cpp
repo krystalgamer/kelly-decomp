@@ -449,14 +449,9 @@ void **stationary_rtti()
 
 
 // 0x00225340 sync__12debug_cameraR6camera
-class camera;
+#include "KS/SRC/ks/ks_camera.h"
 
-class debug_camera {
-public:
-    void sync(camera& other);
-};
-
-void debug_camera::sync(camera& other) {
+void debug_camera::sync(camera &other) {
 }
 
 // 0x002351D8 __12photo_cameraRC9entity_idP6entityP22kellyslater_controller
@@ -488,59 +483,34 @@ big_wave_camera::big_wave_camera(
 }
 
 // 0x00225E70 init__16look_back_camera
-class look_back_camera {
-    char padding[0x30C];
-    bool first_time;
-public:
-    void init();
-};
+#include "KS/SRC/ks/ks_camera.h"
 
 void look_back_camera::init() {
     first_time = true;
 }
 
 // 0x00225E80 sync__16look_back_cameraR6camera
-class camera;
+#include "KS/SRC/ks/ks_camera.h"
 
-class look_back_camera {
-public:
-    void sync(camera& other);
-};
-
-void look_back_camera::sync(camera& other) {
+void look_back_camera::sync(camera &other) {
 }
 
 // 0x00226B58 sync__13replay_cameraR6camera
-class camera;
+#include "KS/SRC/ks/ks_camera.h"
 
-class replay_camera {
-public:
-    void sync(camera& other);
-};
-
-void replay_camera::sync(camera& other) {
+void replay_camera::sync(camera &other) {
 }
 
 // 0x0022BCE0 sync__17stationary_cameraR6camera
-class camera;
+#include "KS/SRC/ks/ks_camera.h"
 
-class stationary_camera {
-public:
-    void sync(camera& other);
-};
-
-void stationary_camera::sync(camera& other) {
+void stationary_camera::sync(camera &other) {
 }
 
 // 0x0022C250 sync__10fps_cameraR6camera
-class camera;
+#include "KS/SRC/ks/ks_camera.h"
 
-class fps_camera {
-public:
-    void sync(camera& other);
-};
-
-void fps_camera::sync(camera& other) {
+void fps_camera::sync(camera &other) {
 }
 
 // 0x0022C208 __10fps_cameraRC9entity_idP6entityP22kellyslater_controller
@@ -585,14 +555,9 @@ fps_camera::fps_camera(const entity_id &id, entity *target, kellyslater_controll
 }
 
 // 0x0022C8D0 sync__11auto_cameraR6camera
-class camera;
+#include "KS/SRC/ks/ks_camera.h"
 
-class auto_camera {
-public:
-    void sync(camera& other);
-};
-
-void auto_camera::sync(camera& other) {
+void auto_camera::sync(camera &other) {
 }
 
 // 0x00231CF0 start__12flyby_camera
