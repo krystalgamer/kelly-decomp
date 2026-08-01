@@ -25,6 +25,18 @@ class KSEntityState {
     uint32 KSWipeoutSplash : 1;
     uint32 EndWave : 1;
     uint32 padding : 3;
+
+public:
+    KSEntityState();
+};
+
+class KSReplayFrame {
+    float wave_shiftx;
+    float levelTime;
+    float totalTime;
+
+public:
+    KSReplayFrame();
 };
 
 class KSReplay {
@@ -47,6 +59,7 @@ class KSReplay {
     KSEntityState* mainEntityState;
     char data_to_max_frames[0xC];
     unsigned int maxFrames;
+    bool noDraw;
 
 public:
     float Playspeed();
@@ -57,6 +70,8 @@ public:
     bool IsPlaying();
     void SetWipeoutSplash(int player);
     void SetEndWave();
+    bool NoDraw();
+    int MainPOFrames();
 };
 
 extern KSReplay ksreplay;

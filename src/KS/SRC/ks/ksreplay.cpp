@@ -55,19 +55,13 @@ float KSReplay::Playspeed() {
 }
 
 // 0x0023A998 __13KSEntityState
-class KSEntityState {
-public:
-    KSEntityState();
-};
+#include "KS/SRC/ks/ksreplay.h"
 
 KSEntityState::KSEntityState() {
 }
 
 // 0x0023AC68 __13KSReplayFrame
-class KSReplayFrame {
-public:
-    KSReplayFrame();
-};
+#include "KS/SRC/ks/ksreplay.h"
 
 KSReplayFrame::KSReplayFrame() {
 }
@@ -101,22 +95,14 @@ class KSReplay { char padding_to_play[0x34]; unsigned int playframe; char paddin
 bool KSReplay::Done() { return playframe >= numFrames; }
 
 // 0x0023CAF0 NoDraw__8KSReplay
-class KSReplay {
-    char padding[0x78];
-    bool noDraw;
-public:
-    bool NoDraw();
-};
+#include "KS/SRC/ks/ksreplay.h"
 
 bool KSReplay::NoDraw() {
     return noDraw;
 }
 
 // 0x0023CAF8 MainPOFrames__8KSReplay
-class KSReplay {
-public:
-    int MainPOFrames();
-};
+#include "KS/SRC/ks/ksreplay.h"
 
 int KSReplay::MainPOFrames() {
     return 4;
