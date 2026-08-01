@@ -8,55 +8,37 @@ void PhotoFrontEnd::OnTriangle(int controller) {
 }
 
 // 0x001CF0A0 OnTriangle__15PhotoSelectMenui
-class PhotoSelectMenu {
-public:
-    void OnTriangle(int controller);
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 void PhotoSelectMenu::OnTriangle(int controller) {
 }
 
 // 0x001CFDF0 OnTriangle__13PhotoSaveMenui
-class PhotoSaveMenu {
-public:
-    void OnTriangle(int controller);
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 void PhotoSaveMenu::OnTriangle(int controller) {
 }
 
 // 0x001D0548 OnTriangle__16PhotoDevelopMenui
-class PhotoDevelopMenu {
-public:
-    void OnTriangle(int controller);
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 void PhotoDevelopMenu::OnTriangle(int controller) {
 }
 
 // 0x001D0550 OnCross__16PhotoDevelopMenui
-class PhotoDevelopMenu {
-public:
-    void OnCross(int controller);
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 void PhotoDevelopMenu::OnCross(int controller) {
 }
 
 // 0x001D0558 OnStart__16PhotoDevelopMenui
-class PhotoDevelopMenu {
-public:
-    void OnStart(int controller);
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 void PhotoDevelopMenu::OnStart(int controller) {
 }
 
 // 0x001D0560 OnLeft__16PhotoDevelopMenui
-class PhotoDevelopMenu {
-public:
-    void OnLeft(int controller);
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 void PhotoDevelopMenu::OnLeft(int controller) {
 }

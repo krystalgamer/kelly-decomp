@@ -21,6 +21,14 @@ public:
 };
 
 class PhotoDevelopMenu : public FEMultiMenu {
+public:
+    virtual void OnTriangle(int controller);
+    virtual void OnCross(int controller);
+    virtual void OnStart(int controller);
+    virtual void OnLeft(int controller);
+    virtual void OnRight(int controller);
+    virtual void OnUp(int controller);
+    virtual void OnDown(int controller);
 };
 
 #endif
