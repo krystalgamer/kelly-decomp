@@ -30,6 +30,8 @@ public:
     void release();
     render_flavor_t render_passes_needed() const;
     inline color32 get_beam_color() const { return my_color; }
+    void set_thickness(float value);
+    void set_max_length(float value);
     void set_beam_color(const color32 &color);
 };
 

@@ -24,24 +24,14 @@ render_flavor_t beam::render_passes_needed() const
 }
 
 // 0x00271790 set_thickness__4beamf
-class beam {
-    char padding[0x200];
-    float thickness;
-public:
-    void set_thickness(float value);
-};
+#include "KS/SRC/beam.h"
 
 void beam::set_thickness(float value) {
     thickness = value;
 }
 
 // 0x00271798 set_max_length__4beamf
-class beam {
-    char padding[0x204];
-    float max_length;
-public:
-    void set_max_length(float value);
-};
+#include "KS/SRC/beam.h"
 
 void beam::set_max_length(float value) {
     max_length = value;
