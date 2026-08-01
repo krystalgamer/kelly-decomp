@@ -1,61 +1,58 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef JOINT_H
+#define JOINT_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_003003F8)
-// 0x003003F8 _$_5joint
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
+#include "KS/SRC/algebra.h"
 
-extern const char target_vtable[];
-__asm__(".equ target_vtable, 0x004F1668");
+class entity;
 
-struct target_layout {
-    char padding[0x48];
-    const void *vtable;
+class joint {
+protected:
+    entity *a;
+    float min;
+    float max;
+    vector3d axis_a;
+    vector3d axis_b;
+    vector3d loc_a;
+    vector3d loc_b;
+    int dim;
+    float friction;
+    bool kill_me;
+
+public:
+    joint() {}
+    joint(
+        entity *first,
+        float minimum,
+        float maximum,
+        const vector3d &first_axis,
+        const vector3d &second_axis,
+        const vector3d &first_location,
+        const vector3d &second_location,
+        int dimension,
+        float friction);
+    virtual ~joint();
+    virtual void frame_advance(float time_inc);
 };
 
-extern "C" void TargetDtor(void *self, int deleting)
-    __asm__("_$_5joint");
+class linear_joint : public joint {
+    bool one_sided;
 
-void TargetDtor(void *self, int deleting) {
-    ((target_layout *)self)->vtable = target_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
-    }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_003004A0)
-// 0x003004A0 _$_12linear_joint
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char target_vtable[];
-__asm__(".equ target_vtable, 0x004F1668");
-
-struct target_layout {
-    char padding[0x48];
-    const void *vtable;
+public:
+    linear_joint(
+        entity *first,
+        float minimum,
+        float maximum,
+        const vector3d &first_axis,
+        const vector3d &second_axis,
+        const vector3d &first_location,
+        const vector3d &second_location,
+        int dimension,
+        float friction,
+        bool one_sided);
+    virtual ~linear_joint();
+    virtual void frame_advance(float time_inc);
 };
 
-extern "C" void TargetDtor(void *self, int deleting)
-    __asm__("_$_12linear_joint");
-
-void TargetDtor(void *self, int deleting) {
-    ((target_layout *)self)->vtable = target_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
-    }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_003003B0)
-// 0x003003B0 __tf5joint
-extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
-extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
-asm(".equ typeinfo, 0x00512180"); asm(".equ type_name, 0x004F4D28");
-extern "C" void *GetTypeInfo() __asm__("__tf5joint");
-void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif
