@@ -50,21 +50,21 @@ bool UserCamButton(MenuEntry *entry, int button) {
 }
 
 // 0x00235E40 particles_test__FP9MenuEntryi
-class MenuEntry;
+#include "KS/SRC/ks/menu.h"
 
 bool particles_test(MenuEntry* entry, int buttonid) {
     return true;
 }
 
 // 0x00236688 ReplayFwdButton__FP9MenuEntryi
-class MenuEntry;
+#include "KS/SRC/ks/menu.h"
 
 bool ReplayFwdButton(MenuEntry* entry, int buttonid) {
     return true;
 }
 
 // 0x00236690 ReplayRewButton__FP9MenuEntryi
-class MenuEntry;
+#include "KS/SRC/ks/menu.h"
 
 bool ReplayRewButton(MenuEntry* entry, int buttonid) {
     return true;
