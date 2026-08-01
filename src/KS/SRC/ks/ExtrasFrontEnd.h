@@ -90,6 +90,9 @@ class CreditsFrontEnd : public FEMultiMenu {
 
 public:
     void OnActivate();
+    virtual void Select(int entry_index);
+    virtual void OnRight(int controller);
+    virtual void OnLeft(int controller);
 };
 
 extern char *g_ksps_path;
