@@ -1,74 +1,55 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef GUIDANCE_SYS_H
+#define GUIDANCE_SYS_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_002B9480)
-// 0x002B9480 get_type__15guidance_system
+#include "KS/SRC/algebra.h"
+
+class entity;
+class physical_interface;
+
 class guidance_system {
-public:
-    int get_type();
-};
-
-int guidance_system::get_type() {
-    return 0;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B9488)
-// 0x002B9488 frame_advance__15guidance_systemf
-class guidance_system {
-public:
-    void frame_advance(float time);
-};
-
-void guidance_system::frame_advance(float time) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B9508)
-// 0x002B9508 get_type__19rocket_guidance_sys
-class rocket_guidance_sys {
-public:
-    int get_type();
-};
-
-int rocket_guidance_sys::get_type() {
-    return 1;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002B9440)
-// 0x002B9440 _$_15guidance_system
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char guidance_vtable[];
-__asm__(".equ guidance_vtable, 0x004F9700");
-
-struct guidance_layout {
-    void *owner;
+protected:
+    physical_interface *owner;
     int flags;
-    const void *vtable;
+
+public:
+    enum eGuidanceSysType {
+        GUIDANCE_GENERIC,
+        GUIDANCE_ROCKET,
+        GUIDANCE_UNKNOWN
+    };
+
+    guidance_system(physical_interface *owner);
+    virtual ~guidance_system();
+    virtual eGuidanceSysType get_type();
+    virtual void frame_advance(float time_inc);
+    virtual void launch(const vector3d &direction, float force);
 };
 
-extern "C" void GuidanceDtor(void *self, int deleting)
-    __asm__("_$_15guidance_system");
+class rocket_guidance_sys : public guidance_system {
+    vector3d target_pos;
+    entity *target;
+    float launch_force;
+    float wobble_timer;
+    float guidance_delay;
+    float accel_delay;
+    float guided_accuracy;
+    float turn_factor;
+    float accel_factor;
+    float full_wobble_timer;
+    float full_guidance_delay;
+    float full_accel_delay;
+    float wobble_timer_var;
+    float guidance_delay_var;
+    float accel_delay_var;
 
-void GuidanceDtor(void *self, int deleting)
-{
-    guidance_layout *guidance = (guidance_layout *)self;
-    guidance->vtable = guidance_vtable;
-    guidance->owner = 0;
-    if (deleting & 1)
-        BuiltinDelete(self);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
+public:
+    rocket_guidance_sys(physical_interface *owner);
+    virtual ~rocket_guidance_sys();
+    virtual eGuidanceSysType get_type();
+    virtual void frame_advance(float time_inc);
+    virtual void launch(const vector3d &direction, float force);
+};
 
-#if defined(KELLY_DECOMP_FUNCTION_002B93F8)
-// 0x002B93F8 __tf15guidance_system
-extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
-extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
-asm(".equ typeinfo, 0x00512138"); asm(".equ type_name, 0x004FE5F0");
-extern "C" void *GetTypeInfo() __asm__("__tf15guidance_system");
-void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 #endif

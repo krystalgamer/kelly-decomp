@@ -5,18 +5,16 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/guidance_sys.h`
 - Reference source: `KS/SRC/guidance_sys.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The standard lazy RTTI initialization matches exactly.
+| 1 | symbol_missing | 0.0 | 0 | `guidance-type-1.cpp` |
+| 2 | symbol_missing | 0.0 | 0 | `guidance-type-2.cpp` |
+| 3 | symbol_missing | 0.0 | 0 | `guidance-type-3.cpp` |
 
 ## Outcome
 
-The standard lazy guidance_system RTTI initialization matches exactly.
+Three native C++ type-info forms could not emit the legacy guidance-system compiler helper; the manual RTTI wrapper was removed.

@@ -5,20 +5,16 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/guidance_sys.h`
 - Reference source: `KS/SRC/guidance_sys.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released virtual destructor matched through its vtable restore at offset 0x8, owner clear, and conditional delete. The adjusted vtable alias reproduces the HI16 carry, and the trailing empty barrier preserves the framed call.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 30.7692 | 15.3846 | `guidance-dtor-1.cpp` |
+| 2 | different | 30.7692 | 15.3846 | `guidance-dtor-2.cpp` |
+| 3 | different | 30.7692 | 15.3846 | `guidance-dtor-3.cpp` |
 
 ## Outcome
 
-The released guidance-system destructor matched exactly on the first attempt.
+Three released guidance-system destructor forms generated a different vtable/delete sequence; the manual wrapper was removed.
