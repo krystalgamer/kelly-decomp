@@ -2,25 +2,17 @@
 
 
 // 0x002FF4D8 get_type__C17collision_capsule
-class collision_capsule {
-public:
-    unsigned int get_type() const;
-};
+#include "KS/SRC/capsule.h"
 
 unsigned int collision_capsule::get_type() const {
     return 1;
 }
 
 // 0x002FF578 get_core_radius__C17collision_capsule
-class collision_capsule {
-    char padding[0x40];
-    float radius;
-public:
-    float get_core_radius() const;
-};
+#include "KS/SRC/capsule.h"
 
 float collision_capsule::get_core_radius() const {
-    return radius;
+    return absolute_capsule.radius;
 }
 
 // 0x002FF4E0 get_radius__C17collision_capsule
