@@ -132,6 +132,16 @@ public:
     void addFont(int index, Font *font);
 };
 
+class BouncingText : public TextString {
+protected:
+    float targetScale;
+    float speed;
+
+public:
+    BouncingText();
+    void Bounce(float bounceScale, float bounceTime);
+};
+
 class FloatingText : public MultiLineString {
     float location_3d[4] __attribute__((aligned(16)));
     float location_2d[4];
@@ -143,6 +153,7 @@ class FloatingText : public MultiLineString {
 public:
     virtual void UpdateInScene(bool ignore_scale = false);
     virtual void changeScale(float scale);
+    virtual void SetBehaviorNF(float x, float y);
     virtual void SetBehavior(bool non_floating);
 };
 

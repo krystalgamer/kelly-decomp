@@ -136,11 +136,13 @@ int TextString::getZ() {
 void MultiLineString::addFont(int index, Font* font) { fonts[index] = font; }
 
 // 0x00149108 Bounce__12BouncingTextff
-class BouncingText { char padding_to_scale[0x30]; float scale; char padding_to_target[0x1C]; float targetScale; float speed; public: void Bounce(float bounceScale, float bounceTime); };
+#include "KS/SRC/ks/FEPanel.h"
+
 void BouncingText::Bounce(float bounceScale, float bounceTime) { targetScale = bounceScale; speed = targetScale / bounceTime; scale = 0.0f; }
 
 // 0x0014CB90 SetBehaviorNF__12FloatingTextff
-class FloatingText { char padding[0xD4]; float real_x; float real_y; bool non_floating_behavior; public: void SetBehaviorNF(float x, float y); };
+#include "KS/SRC/ks/FEPanel.h"
+
 void FloatingText::SetBehaviorNF(float x, float y) { non_floating_behavior = true; real_x = x; real_y = y; }
 
 // 0x0014D068 SetFade__9PanelQuadf

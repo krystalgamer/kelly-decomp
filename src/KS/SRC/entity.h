@@ -88,7 +88,8 @@ public:
 };
 
 enum entity_extended_flags {
-    EFLAG_EXT_IS_DOOR = 0x00000040
+    EFLAG_EXT_IS_DOOR = 0x00000040,
+    EFLAG_EXT_TIME_LIMITED = 0x00010000
 };
 
 enum entity_flags {
@@ -401,6 +402,9 @@ public:
     virtual bool has_dirname() const;
     virtual void set_min_detail(int detail);
     entity_flavor_t get_flavor() const;
+    inline bool is_ext_flagged(unsigned int flag) const {
+        return ext_flags & flag;
+    }
     virtual bool is_an_entity() const;
     virtual bool is_a_beam() const;
     virtual bool is_a_camera() const;

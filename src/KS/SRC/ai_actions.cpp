@@ -1,11 +1,12 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00105E40)
 // 0x00105E40 going_out_of_service__9ai_action
-class ai_action { char padding[0x4]; int flags; public: void going_out_of_service(); };
-void ai_action::going_out_of_service() { flags &= -2; }
-#endif
+#include "KS/SRC/ai_actions.h"
+
+void ai_action::going_out_of_service() {
+    set_flag(IN_SERVICE, false);
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_00105E78)
 // 0x00105E78 get_my_entity__C9ai_action

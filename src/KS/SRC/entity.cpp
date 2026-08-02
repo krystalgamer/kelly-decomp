@@ -1518,16 +1518,7 @@ float entity::get_radius() const {
 // 0x00144C30 is_time_limited__C6entity
 #include "KS/SRC/entity.h"
 bool entity::is_time_limited() const {
-    unsigned int masked;
-    __asm__(
-        "lw %0, 0x198(%1)\n\t"
-        "lui $3, 0x1\n\t"
-        "and %0, %0, $3"
-        : "=&r"(masked)
-        : "r"(this)
-        : "$3"
-    );
-    return masked != 0;
+    return is_ext_flagged(EFLAG_EXT_TIME_LIMITED);
 }
 
 // 0x00144C78 is_active__C6entity
