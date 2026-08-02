@@ -47,59 +47,11 @@ static void readBufCreate(ReadBuf* buffer) { buffer->put = buffer->count = 0; bu
 __asm__(".globl readBufCreate__FP7ReadBuf");
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00388998)
-// 0x00388998 readBufDelete__FP7ReadBuf
-struct ReadBuf;
-
-static void readBufDelete(ReadBuf* buffer) {
-}
-
-__asm__(".globl readBufDelete__FP7ReadBuf");
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00388BE8)
-// 0x00388BE8 videoDecReset__FP8VideoDec
-struct VideoDec {
-    char padding[0xA8];
-    unsigned int state;
-};
-
-static void videoDecReset(VideoDec* decoder) {
-    decoder->state = 0;
-}
-
-__asm__(".globl videoDecReset__FP8VideoDec");
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00388C28)
-// 0x00388C28 videoDecGetState__FP8VideoDec
-struct VideoDec {
-    char padding[0xA8];
-    unsigned int state;
-};
-
-static unsigned int videoDecGetState(VideoDec* decoder) {
-    return decoder->state;
-}
-
-__asm__(".globl videoDecGetState__FP8VideoDec");
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00388C30)
 // 0x00388C30 videoDecSetState__FP8VideoDecUi
 struct VideoDec { char padding[0xA8]; unsigned int state; };
 static unsigned int videoDecSetState(VideoDec* decoder, unsigned int state) { unsigned int old = decoder->state; decoder->state = state; return old; }
 __asm__(".globl videoDecSetState__FP8VideoDecUi");
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00389020)
-// 0x00389020 voBufDelete__FP5VoBuf
-struct VoBuf;
-
-static void voBufDelete(VoBuf* buffer) {
-}
-
-__asm__(".globl voBufDelete__FP5VoBuf");
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00389028)
