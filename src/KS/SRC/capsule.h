@@ -78,8 +78,19 @@ public:
 };
 
 class cg_mesh : public collision_geometry {
+    char data_to_pivot[0x4C];
+    vector3d pivot;
+    int flags;
+    char data_to_radius[0x4];
+    float radius;
+
 public:
+    virtual float get_radius() const;
+    virtual const vector3d &get_pivot() const;
     virtual unsigned int get_type() const;
+    virtual bool is_pivot_valid() const;
+    virtual bool is_entity_collision() const;
+    virtual bool is_camera_collision() const;
 };
 
 class cg_none : public collision_geometry {
