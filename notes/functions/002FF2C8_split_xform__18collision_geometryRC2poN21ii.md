@@ -5,19 +5,16 @@
 - Object: `game/files_misc2`
 - Debug source: `C:/KS/SRC/colgeom.h`
 - Reference source: `KS/SRC/colgeom.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | symbol_missing | 0.0 | 0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 2 notes
-
-The released base overload contains only an assertion, removed in the final build. The compiler emitted repeated `T1` backreferences for the isolated declaration, so a GNU asm label preserves the target's equivalent compact `N21` type-backreference spelling.
+| 1 | symbol_missing | 0.0 | 0 | `split-1.cpp` |
+| 2 | symbol_missing | 0.0 | 0 | `split-2.cpp` |
+| 3 | symbol_missing | 0.0 | 0 | `split-3.cpp` |
 
 ## Outcome
 
-The final-build empty three-transform `collision_geometry::split_xform` overload matched on the second attempt using a documented asm-label bridge for the target's old-GCC `N21` type-backreference spelling.
+Three native declarations emitted the current compiler T1T1 mangling instead of the target N21 form; the asm-named wrapper was removed.

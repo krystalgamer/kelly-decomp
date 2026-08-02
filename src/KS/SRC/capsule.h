@@ -32,12 +32,6 @@ public:
         const po &first,
         const po &second,
         int second_start);
-    virtual void split_xform(
-        const po &first,
-        const po &second,
-        const po &third,
-        int second_start,
-        int third_start);
     virtual float get_radius() const;
     virtual float get_core_radius() const;
     virtual const vector3d &get_abs_position() const;
@@ -51,6 +45,9 @@ public:
     virtual void get_max_extent(vector3d *value) const;
     virtual const vector3d &get_pivot() const;
     virtual unsigned int get_type() const = 0;
+    virtual bool is_pivot_valid() const;
+    virtual bool is_entity_collision() const;
+    virtual bool is_camera_collision() const;
 
     inline bool is_valid() const { return valid; }
     inline void invalidate() { valid = false; }
