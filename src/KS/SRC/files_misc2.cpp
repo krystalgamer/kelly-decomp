@@ -322,3 +322,52 @@ extern "C" unsigned char *fill_values(unsigned char *first,unsigned int count,co
 
 // 0x002FB9E0 fill_n__H3ZPP10partition3ZUiZP10partition3_X01X11RCX21_X01
 class partition3; extern "C" partition3 **fill_values(partition3 **first,unsigned int count,partition3 *const &value)__asm__("fill_n__H3ZPP10partition3ZUiZP10partition3_X01X11RCX21_X01"); partition3 **fill_values(partition3 **first,unsigned int count,partition3 *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
+
+// Source implementation boundary.
+// 0x002FFC10 __Q2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeRCQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node
+struct EdgeNode{EdgeNode*next;EdgeNode*prev;char data[8];};struct Node{EdgeNode*sentinel;void*data;};struct AllocState{void*free8;EdgeNode*free16;};struct Iter{EdgeNode*node;};struct Locals{char p0[16];Iter first;char p1[12];Iter position;char p2[12];};extern AllocState alloc_state;extern "C" void*refill(unsigned) __asm__("_S_refill__t27__my_default_alloc_template2b0i0Ui");extern "C" void insert_dispatch(Node*,Iter*,EdgeNode*,EdgeNode*,int);asm(".equ alloc_state,0x003E5628");asm(".equ _S_refill__t27__my_default_alloc_template2b0i0Ui,0x0010DAE0");asm(".equ insert_dispatch,0x002FC8B8");extern "C" Node*copy_node(Node*,const Node*) __asm__("__Q2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeRCQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node");Node*copy_node(Node*self,const Node*src){Locals l;EdgeNode*n=alloc_state.free16;if(!n)n=(EdgeNode*)refill(16);else alloc_state.free16=n->next;self->sentinel=n;n->next=n;((volatile EdgeNode*)self->sentinel)->prev=self->sentinel;register EdgeNode*here asm("$9")=self->sentinel->next;register EdgeNode*source_end asm("$2")=src->sentinel;l.first.node=here;register EdgeNode*source_begin asm("$6")=source_end->next;asm("" : "+r"(source_begin) : : "memory");l.position.node=here;insert_dispatch(self,&l.position,source_begin,source_end,0);self->data=src->data;return self;}
+
+// Source implementation boundary.
+// 0x002FF0A8 is_active__C13motion_object
+#include "KS/SRC/mobject.h"
+
+bool motion_object::is_active() const {
+    return active;
+}
+
+// 0x002FF0B0 set_active__13motion_objectb
+#include "KS/SRC/mobject.h"
+
+void motion_object::set_active(bool value) {
+    active = value;
+}
+
+// 0x002FF078 _$_13motion_object
+extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
+__asm__(".equ __builtin_delete, 0x002AC6B0");
+
+extern const char target_vtable[];
+__asm__(".equ target_vtable, 0x004F3318");
+
+struct target_layout {
+    char padding[0x8];
+    const void *vtable;
+};
+
+extern "C" void TargetDtor(void *self, int deleting)
+    __asm__("_$_13motion_object");
+
+void TargetDtor(void *self, int deleting) {
+    ((target_layout *)self)->vtable = target_vtable;
+    if (deleting & 1) {
+        BuiltinDelete(self);
+    }
+    KELLY_DECOMP_COMPILER_BARRIER();
+}
+
+// 0x002FF038 __tf13motion_object
+extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
+extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
+asm(".equ typeinfo, 0x00512168"); asm(".equ type_name, 0x004F4B30");
+extern "C" void *GetTypeInfo() __asm__("__tf13motion_object");
+void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }

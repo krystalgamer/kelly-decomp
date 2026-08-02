@@ -1016,3 +1016,141 @@ struct entity_id;struct entity;struct terrain;struct world{char p0[236];terrain*
 
 // 0x00231348 _$_12flyby_camera
 extern void*flyby_vtable;extern void*game_camera_vtable;__asm__(".equ flyby_vtable,0x004E82C8");__asm__(".equ game_camera_vtable,0x004F3AD0");extern "C" void camera_dtor(void*,int) __asm__("_$_6camera");__asm__(".equ _$_6camera,0x002C38A8");struct dtor_vtable{char p0[8];short adjustment;short x0;void(*destroy)(void*,int);};struct panel_anim_file{char p0[8];dtor_vtable*vtable;};struct flyby{char p0[8];void*vtable;char p1[708];panel_anim_file*animation;};extern "C" void flyby_dtor(flyby*self,int deleting) __asm__("_$_12flyby_camera");void flyby_dtor(flyby*self,int deleting){self->vtable=&flyby_vtable;if(self->animation){panel_anim_file*p=self->animation;dtor_vtable*t=p->vtable;t->destroy((char*)p+t->adjustment,3);}self->vtable=&game_camera_vtable;camera_dtor(self,deleting);int dead;__asm__("" : "=r"(dead));}
+
+// Source implementation boundary.
+// 0x0026F200 GetCameraType__11auto_camera
+#include "KS/SRC/ks/ks_camera.h"
+
+int auto_camera::GetCameraType() {
+    return 0;
+}
+
+// 0x0026F2C0 GetCameraType__12beach_camera
+#include "KS/SRC/ks/ks_camera.h"
+
+int beach_camera::GetCameraType() {
+    return 1;
+}
+
+// 0x0026EE08 _$_12debug_camera
+extern "C" void CameraDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char camera_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ camera_vtable, 0x004F3AD0");
+struct camera_layout { char padding[8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_12debug_camera");
+void DerivedDtor(void *self, int deleting) { ((camera_layout *)self)->vtable = camera_vtable; CameraDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+
+// 0x0026EE80 _$_16look_back_camera
+extern "C" void CameraDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char camera_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ camera_vtable, 0x004F3AD0");
+struct camera_layout { char padding[8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_16look_back_camera");
+void DerivedDtor(void *self, int deleting) { ((camera_layout *)self)->vtable = camera_vtable; CameraDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+
+// 0x0026EEF8 _$_13replay_camera
+extern "C" void CameraDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char camera_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ camera_vtable, 0x004F3AD0");
+struct camera_layout { char padding[8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_13replay_camera");
+void DerivedDtor(void *self, int deleting) { ((camera_layout *)self)->vtable = camera_vtable; CameraDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+
+// 0x0026F010 _$_10fps_camera
+extern "C" void CameraDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char camera_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ camera_vtable, 0x004F3AD0");
+struct camera_layout { char padding[8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_10fps_camera");
+void DerivedDtor(void *self, int deleting) { ((camera_layout *)self)->vtable = camera_vtable; CameraDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+
+// 0x0026F148 _$_11auto_camera
+extern "C" void CameraDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char camera_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ camera_vtable, 0x004F3AD0");
+struct camera_layout { char padding[8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_11auto_camera");
+void DerivedDtor(void *self, int deleting) { ((camera_layout *)self)->vtable = camera_vtable; CameraDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+
+// 0x0026F170 init__11auto_camera
+struct camera_vtable_layout { char padding[0x628]; short adjustment; short padding2; void (*reset)(void *self); };
+class auto_camera { char padding[8]; camera_vtable_layout *vtable; public: void init(); };
+void auto_camera::init() { camera_vtable_layout *table = vtable; table->reset((char *)this + table->adjustment); }
+
+// 0x0026F1D8 OnNewWave__11auto_camera
+struct camera_vtable_layout { char padding[0x628]; short adjustment; short padding2; void (*reset)(void *self); };
+class auto_camera { char padding[8]; camera_vtable_layout *vtable; public: void OnNewWave(); };
+void auto_camera::OnNewWave() { camera_vtable_layout *table = vtable; table->reset((char *)this + table->adjustment); }
+
+// 0x0026F210 _$_12beach_camera
+extern "C" void CameraDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char camera_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ camera_vtable, 0x004F3AD0");
+struct camera_layout { char padding[8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_12beach_camera");
+void DerivedDtor(void *self, int deleting) { ((camera_layout *)self)->vtable = camera_vtable; CameraDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+
+// 0x0026F318 _$_15big_wave_camera
+extern "C" void CameraDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char camera_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ camera_vtable, 0x004F3AD0");
+struct camera_layout { char padding[8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_15big_wave_camera");
+void DerivedDtor(void *self, int deleting) { ((camera_layout *)self)->vtable = camera_vtable; CameraDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+
+// 0x0026F340 init__15big_wave_camera
+struct camera_vtable_layout { char padding[0x628]; short adjustment; short padding2; void (*reset)(void *self); };
+class big_wave_camera { char padding[8]; camera_vtable_layout *vtable; public: void init(); };
+void big_wave_camera::init() { camera_vtable_layout *table = vtable; table->reset((char *)this + table->adjustment); }
+
+// 0x0026F4B0 _$_13follow_camera
+extern "C" void CameraDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char camera_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ camera_vtable, 0x004F3AD0");
+struct camera_layout { char padding[8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_13follow_camera");
+void DerivedDtor(void *self, int deleting) { ((camera_layout *)self)->vtable = camera_vtable; CameraDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+
+// 0x0026F528 _$_19follow_close_camera
+extern "C" void CameraDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char camera_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ camera_vtable, 0x004F3AD0");
+struct camera_layout { char padding[8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_19follow_close_camera");
+void DerivedDtor(void *self, int deleting) { ((camera_layout *)self)->vtable = camera_vtable; CameraDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+
+// 0x0026F5A0 _$_11buoy_camera
+extern "C" void CameraDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char camera_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ camera_vtable, 0x004F3AD0");
+struct camera_layout { char padding[8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_11buoy_camera");
+void DerivedDtor(void *self, int deleting) { ((camera_layout *)self)->vtable = camera_vtable; CameraDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+
+// 0x0026F618 _$_15duckdive_camera
+extern "C" void CameraDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char camera_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ camera_vtable, 0x004F3AD0");
+struct camera_layout { char padding[8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_15duckdive_camera");
+void DerivedDtor(void *self, int deleting) { ((camera_layout *)self)->vtable = camera_vtable; CameraDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+
+// 0x0026F650 _$_12photo_camera
+extern "C" void CameraDtor(void *self, int deleting) __asm__("_$_6camera");
+extern const char camera_vtable[];
+__asm__(".equ _$_6camera, 0x002C38A8");
+__asm__(".equ camera_vtable, 0x004F3AD0");
+struct camera_layout { char padding[8]; const void *vtable; };
+extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_12photo_camera");
+void DerivedDtor(void *self, int deleting) { ((camera_layout *)self)->vtable = camera_vtable; CameraDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }

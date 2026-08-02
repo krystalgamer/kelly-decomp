@@ -61,3 +61,33 @@ struct EntityVTable{char p0[216];short radius_adj;short g0;float(*radius)(void*)
 
 // 0x00307F20 set_ext_flag_recursive__12conglomerateUib
 struct EntityVTable{char p[184];short flag_adj;short gap;void(*setflag)(void*,unsigned,bool);};struct entity_layout{char p0[8];EntityVTable*vt;};struct conglomerate_flag_layout{char p[408];unsigned ext_flags;char gap[100];entity_layout**members_start;entity_layout**members_finish;};extern "C" void set_conglomerate_flags(conglomerate_flag_layout*self,register unsigned f,register bool set)__asm__("set_ext_flag_recursive__12conglomerateUib");void set_conglomerate_flags(conglomerate_flag_layout*self,register unsigned f,register bool set){if(set)self->ext_flags|=f;else self->ext_flags&=~f;entity_layout**i=self->members_start;entity_layout**i_end=self->members_finish;for(;i!=i_end;++i){EntityVTable*v=(*i)->vt;v->setflag((char*)(*i)+v->flag_adj,f,set);}}
+
+// Source implementation boundary.
+// 0x00312F90 is_a_conglomerate__C12conglomerate
+#include "KS/SRC/conglom.h"
+bool conglomerate::is_a_conglomerate() const {
+    return true;
+}
+
+// 0x00312F40 __tf12conglomerate
+#include "KS/SRC/rtti.h"
+extern "C" void **ConglomerateBaseRtti() __asm__("__tf6entity");
+extern "C" void *conglomerate_type[] __asm__("__ti12conglomerate");
+extern "C" const char conglomerate_name[];
+extern "C" void *conglomerate_base_type[] __asm__("__ti6entity");
+__asm__(".equ __tf6entity, 0x001449C8");
+__asm__(".equ __ti12conglomerate, 0x005A4140");
+__asm__(".equ conglomerate_name, 0x00508848");
+__asm__(".equ __ti6entity, 0x005A27C8");
+extern "C" void **ConglomerateRtti() __asm__("__tf12conglomerate");
+void **ConglomerateRtti()
+{
+    if (!conglomerate_type[0]) {
+        ConglomerateBaseRtti();
+        __rtti_si(
+            conglomerate_type,
+            conglomerate_name,
+            conglomerate_base_type);
+    }
+    return conglomerate_type;
+}

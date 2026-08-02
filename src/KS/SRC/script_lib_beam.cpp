@@ -1136,3 +1136,35 @@ bool slf_beam_kill_effect_t::operator()(
 
 // 0x00325C28 __cl__20slf_beam_set_color_tR8vm_stackQ320script_library_class8function7entry_t
 struct vm_stack{int alloc;char*buffer;char*SP;};struct color32{unsigned char b,g,r,a;color32(unsigned char R,unsigned char G,unsigned char B,unsigned char A){r=R;g=G;b=B;a=A;}};struct beam{void set_beam_color(const color32&);};__asm__(".equ set_beam_color__4beamRC7color32,0x002717A0");struct slf{struct parms_t{beam*me;float r,g,b,a;};bool call(vm_stack&,int)__asm__("__cl__20slf_beam_set_color_tR8vm_stackQ320script_library_class8function7entry_t");};bool slf::call(vm_stack&stack,int entry){stack.SP-=sizeof(parms_t);parms_t*p=(parms_t*)stack.SP;p->me->set_beam_color(color32((unsigned char)p->r,(unsigned char)p->g,(unsigned char)p->b,(unsigned char)p->a));return true;}
+
+// Source implementation boundary.
+// 0x003251C8 _$_10slc_beam_t
+extern "C" void ScriptClassDtor(void *self) __asm__("_$_20script_library_class");
+extern "C" void ScriptDtor_003251C8(void *self) __asm__("_$_10slc_beam_t");
+__asm__(".equ _$_20script_library_class, 0x0034EE68");
+void ScriptDtor_003251C8(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+
+// 0x003251E8 __tf10slc_beam_t
+#include "KS/SRC/rtti.h"
+
+extern "C" void **RttiBase_003251E8()
+    __asm__("__tf20script_library_class");
+extern "C" void *rtti_type_003251E8[]
+    __asm__("__ti10slc_beam_t");
+extern "C" const char rtti_name_003251E8[];
+extern "C" void *rtti_base_type_003251E8[]
+    __asm__("__ti20script_library_class");
+__asm__(".equ __tf20script_library_class, 0x0035F680");
+__asm__(".equ __ti10slc_beam_t, 0x005A4820");
+__asm__(".equ rtti_name_003251E8, 0x0050F2B8");
+__asm__(".equ __ti20script_library_class, 0x005121B0");
+extern "C" void **Rtti_003251E8() __asm__("__tf10slc_beam_t");
+
+void **Rtti_003251E8()
+{
+    if (!rtti_type_003251E8[0]) {
+        RttiBase_003251E8();
+        __rtti_si(rtti_type_003251E8, rtti_name_003251E8, rtti_base_type_003251E8);
+    }
+    return rtti_type_003251E8;
+}

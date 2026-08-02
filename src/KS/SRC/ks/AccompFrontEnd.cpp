@@ -52,3 +52,25 @@ struct PanelQuad;class AccompFrontEnd{char p[584];PanelQuad*mag_covers[8][2];pub
 #endif
 asm(".equ UpdatePage__14AccompFrontEndb,0x001D4B38");void AccompFrontEnd::UpdatePhotos(){PanelQuad**row=&mag_covers[0][1];for(int i=0;i<8;i++){((PanelQuadLayout*)row[-1])->TurnOn(false);((PanelQuadLayout*)row[0])->TurnOn(false);row+=2;}UpdatePage(true);UpdatePage(false);asm volatile("");}
 #endif
+
+// Source implementation boundary.
+// 0x001DE0D0 Select__14AccompFrontEndi
+#include "KS/SRC/ks/AccompFrontEnd.h"
+
+void AccompFrontEnd::Select(int arg0) {
+}
+
+// 0x001DE0D8 OnUp__14AccompFrontEndi
+#include "KS/SRC/ks/AccompFrontEnd.h"
+
+void AccompFrontEnd::OnUp(int arg0) {
+}
+
+// 0x001DE0E0 OnDown__14AccompFrontEndi
+#include "KS/SRC/ks/AccompFrontEnd.h"
+
+void AccompFrontEnd::OnDown(int arg0) {
+}
+
+// 0x001DE078 __tf14AccompFrontEnd
+extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base); extern "C" void **BaseRtti_001DE078() __asm__("__tf11FEMultiMenu"); extern "C" void *type_001DE078[] __asm__("__ti14AccompFrontEnd"); extern const char name_001DE078[]; extern void *base_type_001DE078[]; __asm__(".equ __rtti_class, 0x003CE2B0"); __asm__(".equ __tf11FEMultiMenu, 0x001D8138"); __asm__(".equ __ti14AccompFrontEnd, 0x005A2EE8"); __asm__(".equ name_001DE078, 0x004DE058"); __asm__(".equ base_type_001DE078, 0x004DDC48"); extern "C" void **Rtti_001DE078() __asm__("__tf14AccompFrontEnd"); void **Rtti_001DE078() { if (!type_001DE078[0]) { BaseRtti_001DE078(); __rtti_class(type_001DE078, name_001DE078, base_type_001DE078, 1); } return type_001DE078; }

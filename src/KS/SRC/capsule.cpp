@@ -42,3 +42,21 @@ struct vector3d{float x,y,z;};struct collision_capsule{char pad[40];vector3d bas
 
 // 0x002D7EB8 get_max_extent__C17collision_capsuleP8vector3d
 struct vector3d{float x,y,z;};struct collision_capsule{char pad[40];vector3d base;vector3d end;float radius;void extent(vector3d*v)const __asm__("get_max_extent__C17collision_capsuleP8vector3d");};void collision_capsule::extent(vector3d*v)const{if(base.x>end.x)v->x=base.x+radius;else v->x=end.x+radius;if(base.y>end.y)v->y=base.y+radius;else v->y=end.y+radius;if(base.z>end.z)v->z=base.z+radius;else v->z=end.z+radius;}
+
+// Source implementation boundary.
+// 0x002FF4D8 get_type__C17collision_capsule
+#include "KS/SRC/capsule.h"
+
+unsigned int collision_capsule::get_type() const {
+    return 1;
+}
+
+// 0x002FF578 get_core_radius__C17collision_capsule
+#include "KS/SRC/capsule.h"
+
+float collision_capsule::get_core_radius() const {
+    return absolute_capsule.radius;
+}
+
+// 0x002FF4E0 get_radius__C17collision_capsule
+extern "C" float sqrtf(float);asm(".equ sqrtf,0x003C7058");class vector3d{public:float x,y,z;vector3d(){}vector3d(float a,float b,float c):x(a),y(b),z(c){}vector3d operator-(const vector3d&v)const{return vector3d(x-v.x,y-v.y,z-v.z);}float length()const{return sqrtf(x*x+y*y+z*z);}};struct capsule{vector3d base,end;float radius;};class collision_capsule{char p[40];capsule abs_cap;public:float get_radius()const __asm__("get_radius__C17collision_capsule");};float collision_capsule::get_radius()const{return abs_cap.radius+(abs_cap.base-abs_cap.end).length();}

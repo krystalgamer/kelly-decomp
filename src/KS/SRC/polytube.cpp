@@ -35,3 +35,10 @@ struct vec{char p0[12];};struct color32{unsigned value;};struct material{unsigne
 
 // 0x0013ADB0 set_material__8polytubeP7mat_fac
 extern const char source_file[];asm(".equ source_file,0x004CD190");void*operator new(unsigned,unsigned,const char*,int);class mat_fac{char p[264];public:virtual~mat_fac();mat_fac(const mat_fac&);mat_fac&operator=(const mat_fac&);} __attribute__((aligned(8)));class polytube{char p[552];mat_fac*my_material;public:void set_material(mat_fac*) __asm__("set_material__8polytubeP7mat_fac");};asm(".equ __nw__FUiUiPCci,0x002AC578");asm(".equ __7mat_facRC7mat_fac,0x002BC948");asm(".equ __as__7mat_facRC7mat_fac,0x002BC9F8");void polytube::set_material(mat_fac*mat){if(mat){if(!my_material)my_material=new(0,source_file,0) mat_fac(*mat);else{*my_material=*mat;int dead;asm("" : "=r"(dead));}}else if(my_material){delete my_material;my_material=0;}}
+
+// Source implementation boundary.
+// 0x00146428 frame_advance__8polytubef
+#include "KS/SRC/polytube.h"
+
+void polytube::frame_advance(time_value_t time) {
+}

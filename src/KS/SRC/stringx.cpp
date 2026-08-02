@@ -244,3 +244,22 @@ struct string_buf{void*data;};extern int stringx_initialized;extern const char n
 // 0x0034EA00 remove_leading__7stringxPCc
 class stringx{char*chars;struct buf{void*data;int ref;int length;}*my_buf;public:stringx();~stringx();stringx substr(int,int)const;void copy(stringx&);void remove_leading(const char*);inline int length()const{return my_buf->length;}inline stringx slice(int start,int end)const{if(start<0)start+=length();if(end<0)end+=length();return substr(start,end-start);}};extern "C" char*find_char(const char*,int)__asm__("strchr");asm(".equ strchr,0x003D3CF8");asm(".equ substr__C7stringxii,0x0034E910");asm(".equ copy__7stringxR7stringx,0x0034E300");asm(".equ _$_7stringx,0x0034D6E0");void stringx::remove_leading(const char*remove){int start;for(start=0;start<length()&&find_char(remove,chars[start])!=0;start++)continue;register buf*b asm("$5")=my_buf;stringx result=slice(start,b->length);copy(result);}
 #endif
+
+// Source implementation boundary.
+// 0x00144388 length__C7stringx
+#include "KS/SRC/stringx.h"
+int stringx::length() const {
+    return my_buf->char_length;
+}
+
+// 0x001D84D0 lock__7stringx
+#include "KS/SRC/stringx.h"
+__asm__(".equ fork_data__7stringxi, 0x0034DF70");
+
+void stringx::lock() {
+    if (my_buf->ref_count < 2) {
+        return;
+    }
+    fork_data();
+    KELLY_DECOMP_COMPILER_BARRIER();
+}

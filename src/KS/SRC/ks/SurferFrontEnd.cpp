@@ -165,3 +165,111 @@ struct vtable{char pad[512];};struct active_vtable{char pad[160];short adjust;sh
 // 0x0018A3A0 Draw__17SurferBioFrontEnd
 struct draw_vtable{char padding[24];short adjustment;short reserved;void(*draw)(void*);};struct Drawable{char padding[76];draw_vtable*vtable;};struct BioParent{char padding[740];int current_surfer_index;};class SurferBioFrontEnd{char padding0[256];char panel[96];Drawable*bios[15];char padding1[0];BioParent*bio_parent;Drawable*firstname;Drawable*lastname;Drawable*intro;char padding2[60];int wait_for_camera;public:void Draw();};extern "C" void draw_panel(void*,int)__asm__("Draw__9PanelFilei");asm(".equ Draw__9PanelFilei,0x001530B8");inline void draw_obj(Drawable*d){draw_vtable*v=d->vtable;v->draw((char*)d+v->adjustment);}void SurferBioFrontEnd::Draw(){if(wait_for_camera)return;register int layer asm("$5")=0;asm volatile("" : "+r"(layer));draw_panel((char*)this+256,layer);draw_obj(bios[bio_parent->current_surfer_index]);draw_obj(firstname);draw_obj(lastname);draw_obj(intro);}
 #endif
+
+// Source implementation boundary.
+// 0x001DCC20 Select__17SurferBioFrontEndi
+#include "KS/SRC/ks/SurferFrontEnd.h"
+
+void SurferBioFrontEnd::Select(int arg0) {
+}
+
+// 0x001DCC48 OnLeft__17SurferBioFrontEndi
+#include "KS/SRC/ks/SurferFrontEnd.h"
+
+void SurferBioFrontEnd::OnLeft(int arg0) {
+}
+
+// 0x001DCC50 OnRight__17SurferBioFrontEndi
+#include "KS/SRC/ks/SurferFrontEnd.h"
+
+void SurferBioFrontEnd::OnRight(int arg0) {
+}
+
+// 0x001DCC58 OnCross__17SurferBioFrontEndi
+#include "KS/SRC/ks/SurferFrontEnd.h"
+
+void SurferBioFrontEnd::OnCross(int arg0) {
+}
+
+// 0x001DCC28 GetPointer__17SurferBioFrontEndPCc
+class PanelQuad;
+class PanelFile { public: PanelQuad *GetPointer(const char *name); };
+__asm__(".equ GetPointer__9PanelFilePCc, 0x00152F88");
+class SurferBioFrontEnd { char padding[0x100]; PanelFile panel; public: PanelQuad *GetPointer(const char *name); };
+PanelQuad *SurferBioFrontEnd::GetPointer(const char *name) { PanelQuad *result = panel.GetPointer(name); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+
+// 0x001DCB88 OnButtonRelease__14SurferFrontEndii
+struct menu_vtable {
+    char padding[0x100];
+    short adjustment;
+    short padding2;
+    void (*on_button_release)(void *self, int controller, int button);
+};
+
+struct menu_layout {
+    char padding[0x74];
+    menu_vtable *vtable;
+};
+
+class SurferFrontEnd {
+    char padding[0x60];
+    menu_layout *active;
+
+public:
+    void OnButtonRelease(int controller, int button);
+};
+
+void SurferFrontEnd::OnButtonRelease(int controller, int button)
+{
+    menu_layout *menu = active;
+    if (menu) {
+        menu_vtable *table = menu->vtable;
+        table->on_button_release(
+            (char *)menu + table->adjustment,
+            controller,
+            button
+        );
+    }
+}
+
+// 0x001DCB30 __tf14SurferFrontEnd
+extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
+extern "C" void **BaseRtti_001DCB30() __asm__("__tf11FEMultiMenu");
+extern "C" void *type_001DCB30[] __asm__("__ti14SurferFrontEnd");
+extern const char name_001DCB30[];
+extern void *base_type_001DCB30[];
+__asm__(".equ __rtti_class, 0x003CE2B0");
+__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
+__asm__(".equ __ti14SurferFrontEnd, 0x005A2C78");
+__asm__(".equ name_001DCB30, 0x004DDCE8");
+__asm__(".equ base_type_001DCB30, 0x004DDC48");
+extern "C" void **Rtti_001DCB30() __asm__("__tf14SurferFrontEnd");
+void **Rtti_001DCB30()
+{
+    if (!type_001DCB30[0]) {
+        BaseRtti_001DCB30();
+        __rtti_class(type_001DCB30, name_001DCB30, base_type_001DCB30, 1);
+    }
+    return type_001DCB30;
+}
+
+// 0x001DCBC8 __tf17SurferBioFrontEnd
+extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
+extern "C" void **BaseRtti_001DCBC8() __asm__("__tf11FEMultiMenu");
+extern "C" void *type_001DCBC8[] __asm__("__ti17SurferBioFrontEnd");
+extern const char name_001DCBC8[];
+extern void *base_type_001DCBC8[];
+__asm__(".equ __rtti_class, 0x003CE2B0");
+__asm__(".equ __tf11FEMultiMenu, 0x001D8138");
+__asm__(".equ __ti17SurferBioFrontEnd, 0x005A2C88");
+__asm__(".equ name_001DCBC8, 0x004DDD00");
+__asm__(".equ base_type_001DCBC8, 0x004DDC48");
+extern "C" void **Rtti_001DCBC8() __asm__("__tf17SurferBioFrontEnd");
+void **Rtti_001DCBC8()
+{
+    if (!type_001DCBC8[0]) {
+        BaseRtti_001DCBC8();
+        __rtti_class(type_001DCBC8, name_001DCBC8, base_type_001DCBC8, 1);
+    }
+    return type_001DCBC8;
+}

@@ -280,3 +280,10 @@ typedef unsigned int nslSourceId;extern "C" void set_info(void*,const char*,cons
 // 0x002592E8 init__8MusicMan
 struct MusicMan{char pad0[4];float volume;int inited;bool paused;char pad1[3616];int order[50];bool enabled[50];void shutdown()__asm__("shutdown__8MusicMan");};__asm__(".equ shutdown__8MusicMan,0x00259628");extern "C" void init(MusicMan*self)__asm__("init__8MusicMan");void init(MusicMan*self){if(self->inited)self->shutdown();for(int i=0;i<50;i++){KELLY_DECOMP_COMPILER_BARRIER();self->enabled[i]=true;self->order[i]=i;}self->volume=1.0f;self->inited=1;self->paused=false;}
 #endif
+
+// Source implementation boundary.
+// 0x002585B0 __5Track
+#include "KS/SRC/ks/MusicMan.h"
+Track::Track() {
+    paused = false;
+}

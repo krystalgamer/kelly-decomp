@@ -1,5 +1,6 @@
-// Light manager definitions extracted by generated one-function shims.
 
+
+// Source implementation boundary.
 // 0x001DE640 _GLOBAL_$I$ksGlobalTextArray
 extern "C" void StaticInit(int initialize, int priority)
     __asm__("__static_initialization_and_destruction_0");

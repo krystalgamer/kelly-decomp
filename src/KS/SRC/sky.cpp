@@ -82,3 +82,11 @@ sky::sky(const entity_id &id, entity_flavor_t flavor)
     vtable = sky_vtable;
 }
 #endif
+
+// Source implementation boundary.
+// 0x002B93F0 is_a_sky__C3sky
+#include "KS/SRC/sky.h"
+bool sky::is_a_sky() const
+{
+    return true;
+}

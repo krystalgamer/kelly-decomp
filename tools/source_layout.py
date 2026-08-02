@@ -27,6 +27,10 @@ ADDRESS_MARKER_RE = re.compile(
     r"^// 0x([0-9A-Fa-f]{8})\s+.+$",
     re.MULTILINE,
 )
+SOURCE_BOUNDARY_RE = re.compile(
+    r"^// Source implementation boundary\.$",
+    re.MULTILINE,
+)
 EMPTY_COMPILER_BARRIER_RE = re.compile(
     r'__asm__\s+volatile\s*\(\s*""\s*\)'
 )
@@ -98,75 +102,75 @@ REVIEWED_INSTRUCTION_ASM = {
 }
 
 IMPLEMENTATION_OVERRIDES = {
-    "KS/SRC/AIController.h": "KS/SRC/AIController_methods.cpp",
-    "KS/SRC/ai_actions.h": "KS/SRC/ai_actions_methods.cpp",
-    "KS/SRC/ai_goals.h": "KS/SRC/ai_goals_methods.cpp",
-    "KS/SRC/ai_locomotion.h": "KS/SRC/ai_locomotion_methods.cpp",
-    "KS/SRC/anim.h": "KS/SRC/anim_methods.cpp",
-    "KS/SRC/anim_maker.h": "KS/SRC/anim_maker_methods.cpp",
+    "KS/SRC/AIController.h": "KS/SRC/AIController.cpp",
+    "KS/SRC/ai_actions.h": "KS/SRC/ai_actions.cpp",
+    "KS/SRC/ai_goals.h": "KS/SRC/ai_goals.cpp",
+    "KS/SRC/ai_locomotion.h": "KS/SRC/ai_locomotion.cpp",
+    "KS/SRC/anim.h": "KS/SRC/files_anim.cpp",
+    "KS/SRC/anim_maker.h": "KS/SRC/anim_maker.cpp",
     "KS/SRC/animation_interface.h": "KS/SRC/animation_interface_rtti.cpp",
     "KS/SRC/ai_interface.h": "KS/SRC/ai_interface_rtti.cpp",
-    "KS/SRC/beam.h": "KS/SRC/beam_methods.cpp",
-    "KS/SRC/ks/BoardFrontEnd.h": "KS/SRC/ks/BoardFrontEnd_methods.cpp",
+    "KS/SRC/beam.h": "KS/SRC/beam.cpp",
+    "KS/SRC/ks/BoardFrontEnd.h": "KS/SRC/ks/BoardFrontEnd.cpp",
     "KS/SRC/ks/AccompFrontEnd.h":
-        "KS/SRC/ks/AccompFrontEnd_methods.cpp",
+        "KS/SRC/ks/AccompFrontEnd.cpp",
     "KS/SRC/ks/BeachFrontEnd.h":
-        "KS/SRC/ks/BeachFrontEnd_methods.cpp",
+        "KS/SRC/ks/BeachFrontEnd.cpp",
     "KS/SRC/bone.h": "KS/SRC/bone.cpp",
-    "KS/SRC/capsule.h": "KS/SRC/capsule_methods.cpp",
-    "KS/SRC/camera.h": "KS/SRC/camera_methods.cpp",
-    "KS/SRC/conglom.h": "KS/SRC/conglom_methods.cpp",
-    "KS/SRC/entity.h": "KS/SRC/entity_methods.cpp",
-    "KS/SRC/element.h": "KS/SRC/element_methods.cpp",
-    "KS/SRC/entity_anim.h": "KS/SRC/entity_anim_methods.cpp",
+    "KS/SRC/capsule.h": "KS/SRC/capsule.cpp",
+    "KS/SRC/camera.h": "KS/SRC/camera.cpp",
+    "KS/SRC/conglom.h": "KS/SRC/conglom.cpp",
+    "KS/SRC/entity.h": "KS/SRC/entity.cpp",
+    "KS/SRC/element.h": "KS/SRC/element.cpp",
+    "KS/SRC/entity_anim.h": "KS/SRC/entity_anim.cpp",
     "KS/SRC/ks/eventmanager.h": "KS/SRC/ks/eventmanager_rtti.cpp",
     "KS/SRC/entity_interface.h": "KS/SRC/entity_interface.cpp",
     "KS/SRC/ks/ExtrasFrontEnd.h":
-        "KS/SRC/ks/ExtrasFrontEnd_methods.cpp",
-    "KS/SRC/ks/FEPanel.h": "KS/SRC/ks/FEPanel_methods.cpp",
-    "KS/SRC/ks/FEAnim.h": "KS/SRC/ks/FEAnim_methods.cpp",
-    "KS/SRC/ks/FEMenu.h": "KS/SRC/ks/FEMenu_methods.cpp",
+        "KS/SRC/ks/ExtrasFrontEnd.cpp",
+    "KS/SRC/ks/FEPanel.h": "KS/SRC/ks/FEPanel.cpp",
+    "KS/SRC/ks/FEAnim.h": "KS/SRC/ks/FEAnim.cpp",
+    "KS/SRC/ks/FEMenu.h": "KS/SRC/ks/FEMenu.cpp",
     "KS/SRC/ks/igo_widget_iconcount.h":
         "KS/SRC/ks/igo_widget_iconcount.cpp",
     "KS/SRC/ks/igo_widget_skillchallenge.h":
         "KS/SRC/ks/igo_widget_skillchallenge.cpp",
     "KS/SRC/ks/igo_widget_replay.h":
-        "KS/SRC/ks/igo_widget_replay_methods.cpp",
+        "KS/SRC/ks/igo_widget_replay.cpp",
     "KS/SRC/ks/igoiconmanager.h":
         "KS/SRC/ks/igoiconmanager.cpp",
-    "KS/SRC/ks/FrontEndMenus.h": "KS/SRC/ks/FrontEndMenus_methods.cpp",
+    "KS/SRC/ks/FrontEndMenus.h": "KS/SRC/ks/FrontEndMenus.cpp",
     "KS/SRC/ks/FrontEndManager.h": "KS/SRC/ks/FrontEndManager_rtti.cpp",
     "KS/SRC/ks/GraphicalMenuSystem.h":
-        "KS/SRC/ks/GraphicalMenuSystem_methods.cpp",
-    "KS/SRC/graph.h": "KS/SRC/graph_methods.cpp",
+        "KS/SRC/ks/GraphicalMenuSystem.cpp",
+    "KS/SRC/graph.h": "KS/SRC/files_misc2.cpp",
     "KS/SRC/HWOSPS2/ps2_input.h":
-        "KS/SRC/HWOSPS2/ps2_input_methods.cpp",
+        "KS/SRC/HWOSPS2/ps2_input.cpp",
     "KS/SRC/HWOSPS2/ps2_rasterize.h":
         "KS/SRC/HWOSPS2/ps2_rasterize_rtti.cpp",
-    "KS/SRC/ks/CheatFrontEnd.h": "KS/SRC/ks/CheatFrontEnd_methods.cpp",
+    "KS/SRC/ks/CheatFrontEnd.h": "KS/SRC/ks/CheatFrontEnd.cpp",
     "KS/SRC/ks/career.h": "KS/SRC/ks/career.cpp",
     "KS/SRC/ks/challenge_icon.h": "KS/SRC/ks/challenge_icon.cpp",
     "KS/SRC/ks/SaveLoadFrontEnd.h":
-        "KS/SRC/ks/SaveLoadFrontEnd_methods.cpp",
+        "KS/SRC/ks/SaveLoadFrontEnd.cpp",
     "KS/SRC/ks/SurferFrontEnd.h":
-        "KS/SRC/ks/SurferFrontEnd_methods.cpp",
-    "KS/SRC/ks/ks_camera.h": "KS/SRC/ks/ks_camera_methods.cpp",
-    "KS/SRC/ks/ksdbmenu.h": "KS/SRC/ks/ksdbmenu_methods.cpp",
-    "KS/SRC/ks/ksreplay.h": "KS/SRC/ks/ksreplay_methods.cpp",
+        "KS/SRC/ks/SurferFrontEnd.cpp",
+    "KS/SRC/ks/ks_camera.h": "KS/SRC/ks/ks_camera.cpp",
+    "KS/SRC/ks/ksdbmenu.h": "KS/SRC/ks/ksdbmenu.cpp",
+    "KS/SRC/ks/ksreplay.h": "KS/SRC/ks/ksreplay.cpp",
     "KS/SRC/ks/LogbookFrontEnd.h":
         "KS/SRC/ks/LogbookFrontEnd_rtti.cpp",
     "KS/SRC/ks/HighScoreFrontEnd.h":
         "KS/SRC/ks/HighScoreFrontEnd_rtti.cpp",
-    "KS/SRC/ks/MainFrontEnd.h": "KS/SRC/ks/MainFrontEnd_methods.cpp",
+    "KS/SRC/ks/MainFrontEnd.h": "KS/SRC/ks/MainFrontEnd.cpp",
     "KS/SRC/ks/Map.h": "KS/SRC/ks/Map.cpp",
     "KS/SRC/ks/MCDetectFrontEnd.h": "KS/SRC/ks/MCDetectFrontEnd_rtti.cpp",
     "KS/SRC/ks/PhotoFrontEnd.h": "KS/SRC/ks/PhotoFrontEnd_rtti.cpp",
     "KS/SRC/ks/PAL60FrontEnd.h":
-        "KS/SRC/ks/PAL60FrontEnd_methods.cpp",
+        "KS/SRC/ks/PAL60FrontEnd.cpp",
     "KS/SRC/ks/kellyslater_controller.h":
-        "KS/SRC/ks/kellyslater_controller_methods.cpp",
-    "KS/SRC/ks/menu.h": "KS/SRC/ks/menu_methods.cpp",
-    "KS/SRC/ks/menu_scoring.h": "KS/SRC/ks/menu_scoring_methods.cpp",
+        "KS/SRC/ks/kellyslater_controller.cpp",
+    "KS/SRC/ks/menu.h": "KS/SRC/ks/menu.cpp",
+    "KS/SRC/ks/menu_scoring.h": "KS/SRC/ks/menu_scoring.cpp",
     "KS/SRC/ks/menusys.h": "KS/SRC/ks/menusys_rtti.cpp",
     "KS/SRC/ks/scoringmanager.h":
         "KS/SRC/ks/scoringmanager_rtti.cpp",
@@ -174,31 +178,31 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/ks/TutorialFrontEnd.h":
         "KS/SRC/ks/TutorialFrontEnd_rtti.cpp",
     "KS/SRC/ks/TrickBookFrontEnd.h":
-        "KS/SRC/ks/TrickBookFrontEnd_methods.cpp",
-    "KS/SRC/ks/wave.h": "KS/SRC/ks/wave_methods.cpp",
-    "KS/SRC/vm_thread.h": "KS/SRC/vm_thread_methods.cpp",
+        "KS/SRC/ks/TrickBookFrontEnd.cpp",
+    "KS/SRC/ks/wave.h": "KS/SRC/ks/wave.cpp",
+    "KS/SRC/vm_thread.h": "KS/SRC/vm_thread.cpp",
     "KS/SRC/ks/dxt1_codebook.h": "KS/SRC/ks/dxt1_codebook_rtti.cpp",
-    "KS/SRC/ks/floatobj.h": "KS/SRC/ks/floatobj_methods.cpp",
+    "KS/SRC/ks/floatobj.h": "KS/SRC/ks/floatobj.cpp",
     "KS/SRC/ks/igo_widget.h": "KS/SRC/ks/igo_widget_rtti.cpp",
-    "KS/SRC/ks/igo_widget_grid.h": "KS/SRC/ks/igo_widget_grid_methods.cpp",
-    "KS/SRC/light.h": "KS/SRC/light_methods.cpp",
-    "KS/SRC/lightmgr.h": "KS/SRC/lightmgr_methods.cpp",
+    "KS/SRC/ks/igo_widget_grid.h": "KS/SRC/ks/igo_widget_grid.cpp",
+    "KS/SRC/light.h": "KS/SRC/light.cpp",
+    "KS/SRC/lightmgr.h": "KS/SRC/lightmgr.cpp",
     "KS/SRC/linear_anim.h": "KS/SRC/linear_anim_rtti.cpp",
-    "KS/SRC/marker.h": "KS/SRC/marker_methods.cpp",
-    "KS/SRC/mobject.h": "KS/SRC/mobject_methods.cpp",
-    "KS/SRC/mcs.h": "KS/SRC/mcs_methods.cpp",
+    "KS/SRC/marker.h": "KS/SRC/marker.cpp",
+    "KS/SRC/mobject.h": "KS/SRC/files_misc2.cpp",
+    "KS/SRC/mcs.h": "KS/SRC/mcs.cpp",
     "KS/SRC/matfac.h": "KS/SRC/matfac_rtti.cpp",
     "KS/SRC/hard_attrib_interface.h": "KS/SRC/hard_attrib_interface.cpp",
-    "KS/SRC/inputmgr.h": "KS/SRC/inputmgr_methods.cpp",
-    "KS/SRC/interface.h": "KS/SRC/interface_methods.cpp",
-    "KS/SRC/item.h": "KS/SRC/item_methods.cpp",
+    "KS/SRC/inputmgr.h": "KS/SRC/inputmgr.cpp",
+    "KS/SRC/interface.h": "KS/SRC/interface.cpp",
+    "KS/SRC/item.h": "KS/SRC/item.cpp",
     "KS/SRC/link_interface.h": "KS/SRC/link_interface.cpp",
     "KS/SRC/owner_interface.h": "KS/SRC/owner_interface.cpp",
     "KS/SRC/physical_interface.h": "KS/SRC/physical_interface.cpp",
-    "KS/SRC/pmesh.h": "KS/SRC/pmesh_methods.cpp",
-    "KS/SRC/particle.h": "KS/SRC/particle_methods.cpp",
-    "KS/SRC/path.h": "KS/SRC/path_methods.cpp",
-    "KS/SRC/polytube.h": "KS/SRC/polytube_methods.cpp",
+    "KS/SRC/pmesh.h": "KS/SRC/pmesh.cpp",
+    "KS/SRC/particle.h": "KS/SRC/particle.cpp",
+    "KS/SRC/path.h": "KS/SRC/path.cpp",
+    "KS/SRC/polytube.h": "KS/SRC/polytube.cpp",
     "KS/SRC/po_anim.h": "KS/SRC/po_anim_rtti.cpp",
     "KS/SRC/render_interface.h": "KS/SRC/render_interface.cpp",
     "KS/SRC/skeleton_interface.h": "KS/SRC/skeleton_interface.cpp",
@@ -206,17 +210,17 @@ IMPLEMENTATION_OVERRIDES = {
     "KS/SRC/signals.h": "KS/SRC/signals.cpp",
     "KS/SRC/signal_anim.h": "KS/SRC/signal_anim_rtti.cpp",
     "KS/SRC/script_data_interface.h": "KS/SRC/script_data_interface.cpp",
-    "KS/SRC/script_library_class.h": "KS/SRC/script_library_class_methods.cpp",
-    "KS/SRC/script_lib_trigger.h": "KS/SRC/script_lib_trigger_methods.cpp",
-    "KS/SRC/script_lib_beam.h": "KS/SRC/script_lib_beam_methods.cpp",
-    "KS/SRC/script_lib_anim.h": "KS/SRC/script_lib_anim_methods.cpp",
+    "KS/SRC/script_library_class.h": "KS/SRC/script_library_class.cpp",
+    "KS/SRC/script_lib_trigger.h": "KS/SRC/script_lib_trigger.cpp",
+    "KS/SRC/script_lib_beam.h": "KS/SRC/script_lib_beam.cpp",
+    "KS/SRC/script_lib_anim.h": "KS/SRC/script_lib_anim.cpp",
     "KS/SRC/slave_interface.h": "KS/SRC/slave_interface.cpp",
     "KS/SRC/soft_attrib_interface.h": "KS/SRC/soft_attrib_interface.cpp",
-    "KS/SRC/stringx.h": "KS/SRC/stringx_methods.cpp",
+    "KS/SRC/stringx.h": "KS/SRC/stringx.cpp",
     "KS/SRC/time_interface.h": "KS/SRC/time_interface.cpp",
-    "KS/SRC/trigger.h": "KS/SRC/trigger_methods.cpp",
+    "KS/SRC/trigger.h": "KS/SRC/trigger.cpp",
     "KS/SRC/visrep.h": "KS/SRC/visrep_rtti.cpp",
-    "KS/SRC/widget.h": "KS/SRC/widget_methods.cpp",
+    "KS/SRC/widget.h": "KS/SRC/widget.cpp",
 }
 
 
@@ -226,6 +230,85 @@ class FunctionSource:
     path: Path
     merged: bool
     guarded: bool = True
+
+
+@dataclass(frozen=True)
+class SourceBlock:
+    address: int
+    start: int
+    end: int
+    guarded: bool
+
+
+PREPROCESSOR_RE = re.compile(
+    r"^\s*#\s*(if|ifdef|ifndef|endif)\b.*$",
+    re.MULTILINE,
+)
+
+
+def guarded_block_end(text: str, marker: re.Match[str]) -> int:
+    depth = 1
+    for directive in PREPROCESSOR_RE.finditer(text, marker.end()):
+        kind = directive.group(1)
+        if kind in ("if", "ifdef", "ifndef"):
+            depth += 1
+        else:
+            depth -= 1
+            if depth == 0:
+                line_end = text.find("\n", directive.end())
+                return len(text) if line_end < 0 else line_end + 1
+    raise RuntimeError(
+        f"Unterminated selector block for "
+        f"0x{int(marker.group(1), 16):08X}"
+    )
+
+
+def parse_source_blocks(text: str) -> list[SourceBlock]:
+    guarded_blocks = [
+        SourceBlock(
+            int(marker.group(1), 16),
+            marker.start(),
+            guarded_block_end(text, marker),
+            True,
+        )
+        for marker in MARKER_RE.finditer(text)
+    ]
+
+    plain_markers = [
+        marker
+        for marker in ADDRESS_MARKER_RE.finditer(text)
+        if not any(
+            block.start <= marker.start() < block.end
+            for block in guarded_blocks
+        )
+    ]
+    starts = sorted(
+        [block.start for block in guarded_blocks]
+        + [marker.start() for marker in plain_markers]
+        + [
+            marker.start()
+            for marker in SOURCE_BOUNDARY_RE.finditer(text)
+        ]
+    )
+    plain_blocks = []
+    for marker in plain_markers:
+        end = next(
+            (start for start in starts if start > marker.start()),
+            len(text),
+        )
+        plain_blocks.append(
+            SourceBlock(
+                int(marker.group(1), 16),
+                marker.start(),
+                end,
+                False,
+            )
+        )
+
+    return sorted(
+        guarded_blocks + plain_blocks,
+        key=lambda block: block.start,
+    )
 
 
 def selector_macro(address: int) -> str:
@@ -317,15 +400,8 @@ def hash_local_include(
 
 
 def shared_context_digest(path: Path, text: str) -> str:
-    guarded_marker = MARKER_RE.search(text)
-    address_marker = ADDRESS_MARKER_RE.search(text)
-    markers = [
-        marker
-        for marker in (guarded_marker, address_marker)
-        if marker is not None
-    ]
-    marker = min(markers, key=lambda match: match.start()) if markers else None
-    preamble = text[: marker.start()] if marker is not None else text
+    blocks = parse_source_blocks(text)
+    preamble = text[: blocks[0].start] if blocks else text
     digest = hashlib.sha1()
     digest.update(preamble.encode())
     for include in LOCAL_INCLUDE_RE.findall(preamble):
@@ -370,26 +446,19 @@ def discover_function_sources() -> dict[int, FunctionSource]:
             continue
 
         text = path.read_text(encoding="utf-8")
-        matches = list(MARKER_RE.finditer(text))
-        guarded = True
-        if not matches:
-            matches = list(ADDRESS_MARKER_RE.finditer(text))
-            guarded = False
-        for index, match in enumerate(matches):
-            address = int(match.group(1), 16)
+        for block in parse_source_blocks(text):
+            address = block.address
             if address in sources:
                 raise RuntimeError(f"Duplicate source for 0x{address:08X}")
-            end = (
-                matches[index + 1].start()
-                if index + 1 < len(matches)
-                else len(text)
+            validate_instruction_asm(
+                address,
+                text[block.start:block.end],
             )
-            validate_instruction_asm(address, text[match.start():end])
             sources[address] = FunctionSource(
                 address,
                 path,
                 True,
-                guarded,
+                block.guarded,
             )
     return sources
 
@@ -444,39 +513,79 @@ def write_selector_shim(source: FunctionSource) -> Path:
     include_path = source.path.relative_to(ROOT).as_posix()
     lines = []
     if source.merged and source.guarded:
-        lines.append(f"#define {selector_macro(source.address)} 1")
         text = source.path.read_text(encoding="utf-8")
-        marker = f"#if defined({selector_macro(source.address)})"
-        start = text.index(marker)
-        following = MARKER_RE.search(text, start + len(marker))
-        end = following.start() if following else len(text)
-        block = text[start:end].rstrip().encode()
-        lines.append(
-            f"// source-block-sha1: {hashlib.sha1(block).hexdigest()}"
+        blocks = parse_source_blocks(text)
+        mixed = (
+            any(block.guarded for block in blocks)
+            and any(not block.guarded for block in blocks)
         )
-        lines.append(
-            f"// shared-context-sha1: "
-            f"{shared_context_digest(source.path, text)}"
-        )
-        lines.append('#include "decomp_annotations.h"')
-        lines.append(f'#include "{include_path}"')
+        if not mixed:
+            lines.append(
+                f"#define {selector_macro(source.address)} 1"
+            )
+            marker = (
+                f"#if defined({selector_macro(source.address)})"
+            )
+            start = text.index(marker)
+            following = MARKER_RE.search(
+                text,
+                start + len(marker),
+            )
+            end = following.start() if following else len(text)
+            block = text[start:end].rstrip().encode()
+            lines.append(
+                f"// source-block-sha1: "
+                f"{hashlib.sha1(block).hexdigest()}"
+            )
+            lines.append(
+                f"// shared-context-sha1: "
+                f"{shared_context_digest(source.path, text)}"
+            )
+            lines.append('#include "decomp_annotations.h"')
+            lines.append(f'#include "{include_path}"')
+        else:
+            selected = next(
+                block
+                for block in blocks
+                if block.address == source.address
+            )
+            block = text[selected.start:selected.end].rstrip()
+            preamble = text[: blocks[0].start].rstrip()
+            marker_line = text[: selected.start].count("\n") + 1
+            lines.append(
+                f"#define {selector_macro(source.address)} 1"
+            )
+            lines.append(
+                f"// source-block-sha1: "
+                f"{hashlib.sha1(block.encode()).hexdigest()}"
+            )
+            lines.append(
+                f"// shared-context-sha1: "
+                f"{shared_context_digest(source.path, text)}"
+            )
+            lines.append(
+                f'#line {marker_line} '
+                f'"{source.path.relative_to(ROOT).as_posix()}"'
+            )
+            lines.append('#include "decomp_annotations.h"')
+            if preamble:
+                lines.append(preamble)
+            lines.append(block)
     elif source.merged:
         text = source.path.read_text(encoding="utf-8")
-        matches = list(ADDRESS_MARKER_RE.finditer(text))
-        selected_index = next(
-            index
-            for index, match in enumerate(matches)
-            if int(match.group(1), 16) == source.address
+        blocks = parse_source_blocks(text)
+        selected = next(
+            block
+            for block in blocks
+            if block.address == source.address
         )
-        match = matches[selected_index]
-        end = (
-            matches[selected_index + 1].start()
-            if selected_index + 1 < len(matches)
-            else len(text)
-        )
-        block = text[match.start():end].rstrip()
-        preamble = text[: matches[0].start()].rstrip()
-        marker_line = text[: match.start()].count("\n") + 1
+        block = text[selected.start:selected.end].rstrip()
+        preamble = text[: blocks[0].start].rstrip()
+        marker_line = text[: selected.start].count("\n") + 1
+        if selected.guarded:
+            lines.append(
+                f"#define {selector_macro(source.address)} 1"
+            )
         lines.append(
             f"// source-block-sha1: "
             f"{hashlib.sha1(block.encode()).hexdigest()}"

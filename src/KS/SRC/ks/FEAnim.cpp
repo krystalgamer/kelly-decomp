@@ -69,3 +69,32 @@ PanelAnim *PanelAnim::FindObject(char *object_name)
 // 0x00155370 ReadHeader__13PanelAnimFilePUcRi
 extern "C" unsigned char ReadChar(unsigned char*,int&)__asm__("ReadChar__FPUcRi");__asm__(".equ ReadChar__FPUcRi,0x001533F8");extern "C" bool read_header(unsigned char*buffer,int&index)__asm__("ReadHeader__13PanelAnimFilePUcRi");bool read_header(unsigned char*buffer,int&index){if(ReadChar(buffer,index)==65&&ReadChar(buffer,index)==110&&ReadChar(buffer,index)==109&&ReadChar(buffer,index)==0)return true;else return false;}
 #endif
+
+// Source implementation boundary.
+// 0x001DA3A0 Kind__C17PanelAnimInstance
+#include "KS/SRC/ks/FEAnim.h"
+
+PanelAnimKind PanelAnimInstance::Kind() const {
+    return AnimInstance;
+}
+
+// 0x001DA298 __tf9PanelAnim
+extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
+extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
+asm(".equ typeinfo, 0x00512060"); asm(".equ type_name, 0x004DD920");
+extern "C" void *GetTypeInfo() __asm__("__tf9PanelAnim");
+void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
+
+// 0x001DA3A8 __tf13PanelAnimFile
+extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
+extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
+asm(".equ typeinfo, 0x00512068"); asm(".equ type_name, 0x004DD948");
+extern "C" void *GetTypeInfo() __asm__("__tf13PanelAnimFile");
+void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
+
+// 0x001DA3F0 __tf16PanelAnimManager
+extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");
+extern unsigned int typeinfo[] __asm__("typeinfo"); extern const char type_name[] __asm__("type_name");
+asm(".equ typeinfo, 0x00512070"); asm(".equ type_name, 0x004DD958");
+extern "C" void *GetTypeInfo() __asm__("__tf16PanelAnimManager");
+void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }

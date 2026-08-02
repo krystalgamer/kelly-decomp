@@ -120,3 +120,10 @@ bool terrain::find_intersection(
     );
 }
 #endif
+
+// Source implementation boundary.
+// 0x002E81C8 __10partition3
+#include "KS/SRC/terrain.h"
+partition3::partition3() {
+    my_sector = 0;
+}

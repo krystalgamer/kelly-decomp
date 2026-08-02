@@ -712,6 +712,7 @@ void ScriptDtor_0031DB20(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_CO
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DB90)
 #include "KS/SRC/script_library_class.h"
+#include "KS/SRC/vm_thread.h"
 // 0x0031DB90 slf_allow_suspend_thread_t::operator()
 __asm__(".equ set_suspendable__9vm_threadb, 0x00354688");
 bool slf_allow_suspend_thread_t::operator()(

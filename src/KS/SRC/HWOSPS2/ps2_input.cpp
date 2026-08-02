@@ -299,3 +299,11 @@ void ps2_joypad_device::stop_vibration()
 
 // 0x001E14E0 vibrate__17ps2_joypad_devicef
 struct options{char p0[76];int no_rumble;};extern options*developer_options;extern "C" int pad_direct(int,int,unsigned char*) __asm__("scePadSetActDirect");__asm__(".equ developer_options,0x0046B180");__asm__(".equ scePadSetActDirect,0x003BBC68");struct pad{char p0[100];signed char port_id,p1,pad_type;};extern "C" void vibrate(pad*self,float intensity) __asm__("vibrate__17ps2_joypad_devicef");void vibrate(pad*self,float intensity){if(!developer_options->no_rumble){if(self->pad_type!=121)return;unsigned char motors[]={1,(unsigned char)(intensity*255.0f),0,0,0,0};pad_direct(self->port_id,0,motors);}}
+
+// Source implementation boundary.
+// 0x001E9728 is_connected__C17ps2_joypad_device
+#include "KS/SRC/HWOSPS2/ps2_input.h"
+
+bool ps2_joypad_device::is_connected() const {
+    return disconnected == 0;
+}

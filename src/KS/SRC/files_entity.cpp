@@ -70,3 +70,20 @@ inline void*operator new(unsigned int,void*p){return p;}struct stringx{char data
 class entity;
 extern "C" entity **fill_entities(entity **first,unsigned int count,entity *const &value)__asm__("fill_n__H3ZPP6entityZUiZP6entity_X01X11RCX21_X01");
 entity **fill_entities(entity **first,unsigned int count,entity *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
+
+// Source implementation boundary.
+// 0x00146460 get_class_name__Ct15basic_attribute1Zi
+#include "KS/SRC/attribute_template.h"
+template const pstring &basic_attribute<int>::get_class_name() const;
+
+// 0x00146470 get_class_name__Ct15basic_attribute1Z7pstring
+#include "KS/SRC/attribute_template.h"
+template const pstring &basic_attribute<pstring>::get_class_name() const;
+
+// 0x00146480 get_class_name__Ct15basic_attribute1Zf
+#include "KS/SRC/attribute_template.h"
+template const pstring &basic_attribute<float>::get_class_name() const;
+
+// 0x003141B8 get_class_name__Ct17bounded_attribute1Zi
+#include "KS/SRC/attribute_template.h"
+template const pstring &bounded_attribute<int>::get_class_name() const;
