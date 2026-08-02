@@ -1,20 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_0037E728)
-// 0x0037E728 WAVETEX_SetPlayer__Fi
-extern int wavetex_player;
-__asm__(".equ wavetex_player, 0x00484EC0");
-void WAVETEX_SetPlayer(int value) { wavetex_player = value; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0037E738)
-// 0x0037E738 WAVETEX_GetPlayer__Fv
-extern int wavetex_player;
-__asm__(".equ wavetex_player, 0x00484EC0");
-int WAVETEX_GetPlayer() { return wavetex_player; }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_003818D8)
 // 0x003818D8 WAVETEX_StaticInit__Fv
 void WAVETEXMENU_StaticInit();

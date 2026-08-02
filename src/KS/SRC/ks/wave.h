@@ -130,6 +130,7 @@ struct WaveDebugStruct {
 extern WavePerturbTypeEnum WAVE_PerturbType;
 extern WaveBreakStruct *WAVE_BreakNext;
 extern float WAVE_TotalSec;
+extern int WAVE_ScheduleIndex;
 extern float WAVE_TexAnimFrame;
 extern float WAVE_TexAnimSpeed;
 extern WaveDebugStruct WaveDebug;

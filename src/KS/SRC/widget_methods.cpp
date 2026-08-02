@@ -18,14 +18,12 @@ class widget { char padding[0x14]; int flags; public: void obey_parent_showing()
 void widget::obey_parent_showing() { flags &= -9; }
 
 // 0x00360438 set_origin__6widgetss
-class widget {
-    char padding[0x38];
-    short origin_x;
-    short origin_y;
-public:
-    void set_origin(short x, short y);
-};
-void widget::set_origin(short x, short y) { origin_x = x; origin_y = y; }
+#include "KS/SRC/widget.h"
+
+void widget::set_origin(short x, short y) {
+    orig_x = x;
+    orig_y = y;
+}
 
 // 0x00360450 get_width__6widget
 class widget { public: float get_width(); };

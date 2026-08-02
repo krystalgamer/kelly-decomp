@@ -1,11 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_0036EE80)
-// 0x0036EE80 WATER_Altitude__Fff
-float WATER_Altitude(float x, float z) { return 0.0f; }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0036EE90)
 // 0x0036EE90 WATER_Normal__FffRfN22
 void WATER_Normal(
