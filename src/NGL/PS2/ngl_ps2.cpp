@@ -80,60 +80,40 @@ void nglScaleQuad(nglQuad* Quad, float cx, float cy, float sx, float sy)
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00398578)
 // 0x00398578 nglSetClearFlags__FUi
-struct nglScene { char padding[0x420]; unsigned int ClearFlags; };
-extern nglScene* nglCurScene;
-__asm__(".equ nglCurScene, 0x004BBD04");
+#include "NGL/PS2/ngl_ps2.h"
+
 void nglSetClearFlags(unsigned int value) { nglCurScene->ClearFlags = value; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003985F0)
 // 0x003985F0 nglSetClearZ__Ff
-struct nglScene { char padding[0x424]; float ClearZ; };
-extern nglScene* nglCurScene;
-__asm__(".equ nglCurScene, 0x004BBD04");
+#include "NGL/PS2/ngl_ps2.h"
+
 void nglSetClearZ(float value) { nglCurScene->ClearZ = value; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00398600)
 // 0x00398600 nglSetFBWriteMask__FUi
-struct nglScene { char padding[0x440]; unsigned int FBWriteMask; };
-extern nglScene* nglCurScene;
-__asm__(".equ nglCurScene, 0x004BBD04");
+#include "NGL/PS2/ngl_ps2.h"
+
 void nglSetFBWriteMask(unsigned int value) { nglCurScene->FBWriteMask = value; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00398610)
 // 0x00398610 nglSetZWriteEnable__Fb
-struct nglScene { char padding[0x444]; bool ZWriteEnable; };
-extern nglScene* nglCurScene;
-__asm__(".equ nglCurScene, 0x004BBD04");
+#include "NGL/PS2/ngl_ps2.h"
+
 void nglSetZWriteEnable(bool value) { nglCurScene->ZWriteEnable = value; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00398620)
 // 0x00398620 nglSetZTestEnable__Fb
-struct nglScene { char padding[0x448]; bool ZTestEnable; };
-extern nglScene* nglCurScene;
-__asm__(".equ nglCurScene, 0x004BBD04");
+#include "NGL/PS2/ngl_ps2.h"
+
 void nglSetZTestEnable(bool value) { nglCurScene->ZTestEnable = value; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00398658)
 // 0x00398658 nglSetAnimTime__Ff
-struct nglScene { char padding[0x49C]; float AnimTime; };
-extern nglScene* nglCurScene;
-__asm__(".equ nglCurScene, 0x004BBD04");
-void nglSetAnimTime(float value) { nglCurScene->AnimTime = value; }
-#endif
+#include "NGL/PS2/ngl_ps2.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_0039F8A0)
+void nglSetAnimTime(float value) { nglCurScene->AnimTime = value; }
+
 // 0x0039F8A0 nglTim2GetClut__FP10nglTexture
-struct TIM2_PICTUREHEADER { char padding[0xC]; unsigned short HeaderSize; };
-struct nglTexture { char padding[0x18]; TIM2_PICTUREHEADER* ph; };
+#include "NGL/PS2/ngl_ps2.h"
+
 void* nglTim2GetClut(nglTexture* texture) { return (char*)texture->ph + texture->ph->HeaderSize; }
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003A69E8)
 // 0x003A69E8 nglSetQuadColor__FP7nglQuadUi

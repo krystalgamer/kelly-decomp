@@ -11,6 +11,15 @@ struct nglFileBuf {
 
 struct nglScene {
     nglScene *Parent;
+    char data_to_clear_flags[0x41C];
+    u_int ClearFlags;
+    float ClearZ;
+    char data_to_fb_write_mask[0x18];
+    u_int FBWriteMask;
+    bool ZWriteEnable;
+    bool ZTestEnable;
+    char data_to_anim_time[0x50];
+    float AnimTime;
 };
 
 struct nglFixedString {
@@ -103,6 +112,11 @@ struct nglMesh {
     u_int Pad;
 };
 
+struct TIM2_PICTUREHEADER {
+    char data_to_header_size[0xC];
+    unsigned short HeaderSize;
+};
+
 struct nglTexture {
     char texture_stream_position[8];
     unsigned short Width;
@@ -119,7 +133,8 @@ struct nglTexture {
         unsigned int System : 1;
         unsigned int RenderTarget : 1;
     } Flags;
-    char data_to_file_name[0x40 - 0x18];
+    struct TIM2_PICTUREHEADER *ph;
+    char data_to_file_name[0x40 - 0x1C];
     nglFixedString FileName;
     char remaining_data[0x130 - 0x60];
 } __attribute__((aligned(16)));
@@ -185,6 +200,8 @@ public:
 
     static InstanceAlloc SetAllocFunc(InstanceAlloc allocator);
     static InstanceFree SetFreeFunc(InstanceFree allocator);
+    static InstanceAlloc AllocFunc;
+    static InstanceFree FreeFunc;
 
     Instance *NIL;
     Instance *Head;
@@ -222,6 +239,13 @@ u_int nglGetTVMode();
 nglTexture *nglGetFrontBufferTex();
 nglTexture *nglGetBackBufferTex();
 void nglSetIFLSpeed(float frames_per_second);
+void nglSetClearFlags(u_int flags);
+void nglSetClearZ(float value);
+void nglSetFBWriteMask(u_int mask);
+void nglSetZWriteEnable(bool enabled);
+void nglSetZTestEnable(bool enabled);
+void nglSetAnimTime(float time);
+void *nglTim2GetClut(nglTexture *texture);
 void nglSetQuadMapFlags(nglQuad *quad, u_int flags);
 void nglSetQuadTex(nglQuad *quad, nglTexture *texture);
 void nglSetQuadBlend(

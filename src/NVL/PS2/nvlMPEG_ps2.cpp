@@ -31,12 +31,13 @@ static void readBufCreate(ReadBuf* buffer) { buffer->put = buffer->count = 0; bu
 __asm__(".globl readBufCreate__FP7ReadBuf");
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00389028)
 // 0x00389028 voBufReset__FP5VoBuf
-struct VoBuf { char padding[0x8]; volatile int write; volatile int count; };
-static void voBufReset(VoBuf* buffer) { buffer->count = 0; buffer->write = 0; }
-__asm__(".globl voBufReset__FP5VoBuf");
-#endif
+#include "NVL/PS2/nvlMPEG_ps2.h"
+
+static void voBufReset(VoBuf* buffer) {
+    buffer->count = 0;
+    buffer->write = 0;
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_00389038)
 // 0x00389038 voBufIsFull__FP5VoBuf

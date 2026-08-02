@@ -82,14 +82,14 @@ float WAVE_GetScheduleRemainingSec() {
 int WAVE_GetStage() { return WAVE_Stage; }
 
 // 0x0037DC10 WAVE_IsStatic__Fv
-extern bool wave_static;
-__asm__(".equ wave_static, 0x004848FC");
-bool WAVE_IsStatic() { return wave_static != 0; }
+#include "KS/SRC/ks/wave.h"
+
+bool WAVE_IsStatic() { return WaveDebug.StaticWave; }
 
 // 0x0037DC20 WAVE_GetDraw__Fv
-extern bool wave_draw;
-__asm__(".equ wave_draw, 0x00484894");
-bool WAVE_GetDraw() { return wave_draw != 0; }
+#include "KS/SRC/ks/wave.h"
+
+bool WAVE_GetDraw() { return WaveDebug.DrawWaveMesh; }
 
 // 0x0037DC30 WAVE_SetDraw__Fb
 #include "KS/SRC/ks/wave.h"
