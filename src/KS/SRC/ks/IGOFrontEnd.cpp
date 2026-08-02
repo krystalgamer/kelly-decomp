@@ -26,7 +26,8 @@ void IGOFrontEnd::ShowAccompBackground(
 
 
 // 0x0016EE38 clear__13IGOPrintQueue
-class IGOPrintQueue { char padding[0xC0]; int start; int end; unsigned char size; public: void clear(); };
+#include "KS/SRC/ks/IGOFrontEnd.h"
+
 void IGOPrintQueue::clear() { start = end = size = 0; }
 
 // 0x0017C1A8 OnScoreChange__11IGOFrontEndi

@@ -77,10 +77,9 @@ void **key_vec_rtti()
 
 
 // 0x00120A30 set_flag__t4anim1ZP6entity12anim_flags_t
+#include "KS/SRC/anim.h"
+
 class entity;
-enum anim_flags_t { ANIM_FLAG_ZERO = 0 };
-template <class Type> class anim { unsigned short flags; public: void set_flag(anim_flags_t flag); };
-template <class Type> void anim<Type>::set_flag(anim_flags_t flag) { flags |= flag; }
 template void anim<entity*>::set_flag(anim_flags_t flag);
 
 // 0x00120A70 clear_flag__t4anim1ZP6entity12anim_flags_t
@@ -91,10 +90,9 @@ template <class Type> void anim<Type>::clear_flag(anim_flags_t flag) { flags &= 
 template void anim<entity*>::clear_flag(anim_flags_t flag);
 
 // 0x00120BA8 set_flag__t4anim1Z2po12anim_flags_t
+#include "KS/SRC/anim.h"
+
 class po;
-enum anim_flags_t { ANIM_FLAG_ZERO = 0 };
-template <class Type> class anim { unsigned short flags; public: void set_flag(anim_flags_t flag); };
-template <class Type> void anim<Type>::set_flag(anim_flags_t flag) { flags |= flag; }
 template void anim<po>::set_flag(anim_flags_t flag);
 
 // 0x00120BB8 clear_flag__t4anim1Z2po12anim_flags_t
@@ -105,10 +103,9 @@ template <class Type> void anim<Type>::clear_flag(anim_flags_t flag) { flags &= 
 template void anim<po>::clear_flag(anim_flags_t flag);
 
 // 0x00120C20 set_flag__t4anim1Z10signal_key12anim_flags_t
+#include "KS/SRC/anim.h"
+
 class signal_key;
-enum anim_flags_t { ANIM_FLAG_ZERO = 0 };
-template <class Type> class anim { unsigned short flags; public: void set_flag(anim_flags_t flag); };
-template <class Type> void anim<Type>::set_flag(anim_flags_t flag) { flags |= flag; }
 template void anim<signal_key>::set_flag(anim_flags_t flag);
 
 // 0x00120C30 clear_flag__t4anim1Z10signal_key12anim_flags_t
@@ -119,10 +116,9 @@ template <class Type> void anim<Type>::clear_flag(anim_flags_t flag) { flags &= 
 template void anim<signal_key>::clear_flag(anim_flags_t flag);
 
 // 0x00120D88 set_flag__t4anim1Z8vector3d12anim_flags_t
+#include "KS/SRC/anim.h"
+
 class vector3d;
-enum anim_flags_t { ANIM_FLAG_ZERO = 0 };
-template <class Type> class anim { unsigned short flags; public: void set_flag(anim_flags_t flag); };
-template <class Type> void anim<Type>::set_flag(anim_flags_t flag) { flags |= flag; }
 template void anim<vector3d>::set_flag(anim_flags_t flag);
 
 // 0x00120D98 clear_flag__t4anim1Z8vector3d12anim_flags_t
@@ -133,10 +129,9 @@ template <class Type> void anim<Type>::clear_flag(anim_flags_t flag) { flags &= 
 template void anim<vector3d>::clear_flag(anim_flags_t flag);
 
 // 0x00120E00 set_flag__t4anim1Z10quaternion12anim_flags_t
+#include "KS/SRC/anim.h"
+
 class quaternion;
-enum anim_flags_t { ANIM_FLAG_ZERO = 0 };
-template <class Type> class anim { unsigned short flags; public: void set_flag(anim_flags_t flag); };
-template <class Type> void anim<Type>::set_flag(anim_flags_t flag) { flags |= flag; }
 template void anim<quaternion>::set_flag(anim_flags_t flag);
 
 // 0x00120E10 clear_flag__t4anim1Z10quaternion12anim_flags_t
@@ -147,9 +142,8 @@ template <class Type> void anim<Type>::clear_flag(anim_flags_t flag) { flags &= 
 template void anim<quaternion>::clear_flag(anim_flags_t flag);
 
 // 0x00120E78 set_flag__t4anim1Zf12anim_flags_t
-enum anim_flags_t { ANIM_FLAG_ZERO = 0 };
-template <class Type> class anim { unsigned short flags; public: void set_flag(anim_flags_t flag); };
-template <class Type> void anim<Type>::set_flag(anim_flags_t flag) { flags |= flag; }
+#include "KS/SRC/anim.h"
+
 template void anim<float>::set_flag(anim_flags_t flag);
 
 // 0x00120E88 clear_flag__t4anim1Zf12anim_flags_t

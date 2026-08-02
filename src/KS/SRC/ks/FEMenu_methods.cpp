@@ -249,32 +249,16 @@ void FrontEnd::SetPQIndices() {
 }
 
 // 0x001DAF50 SetPQ__20FEGraphicalMenuEntryP9PanelQuad
-class PanelQuad {
-    char padding[0x110];
-    bool on_menu;
+#include "KS/SRC/ks/FEMenu.h"
 
-public:
-    void AddedToMenu() {
-        on_menu = true;
-    }
-};
-class FEGraphicalMenuEntry { char padding[0x64]; PanelQuad* pq; public: void SetPQ(PanelQuad* value); };
 void FEGraphicalMenuEntry::SetPQ(PanelQuad* value) {
     pq = value;
     value->AddedToMenu();
 }
 
 // 0x001DAF60 SetPQHigh__20FEGraphicalMenuEntryP9PanelQuad
-class PanelQuad {
-    char padding[0x110];
-    bool on_menu;
+#include "KS/SRC/ks/FEMenu.h"
 
-public:
-    void AddedToMenu() {
-        on_menu = true;
-    }
-};
-class FEGraphicalMenuEntry { char padding[0x68]; PanelQuad* pq_high; public: void SetPQHigh(PanelQuad* value); };
 void FEGraphicalMenuEntry::SetPQHigh(PanelQuad* value) {
     pq_high = value;
     value->AddedToMenu();

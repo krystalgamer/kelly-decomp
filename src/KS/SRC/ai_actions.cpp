@@ -7,17 +7,6 @@ class ai_action { char padding[0x4]; int flags; public: void going_out_of_servic
 void ai_action::going_out_of_service() { flags &= -2; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00105E58)
-// 0x00105E58 going_into_service__9ai_action
-class ai_action {
-    char padding[0x4];
-    unsigned int flags;
-public:
-    void going_into_service();
-};
-void ai_action::going_into_service() { flags |= 1; }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00105E78)
 // 0x00105E78 get_my_entity__C9ai_action
 class entity;

@@ -20,10 +20,10 @@ __asm__(".equ frontendmanager, 0x003E7728");
 bool FEDoneLoading() { return frontendmanager.fe_done_loading; }
 
 // 0x00199210 IGOIsPaused__Fv
-struct PauseMenuSystem { char padding[0x90]; bool draw; };
-extern PauseMenuSystem* frontend_pause_system;
-__asm__(".equ frontend_pause_system, 0x003E772C");
-bool IGOIsPaused() { return frontend_pause_system->draw; }
+#include "KS/SRC/ks/FrontEndManager.h"
+#include "KS/SRC/ks/FrontEndMenus.h"
+
+bool IGOIsPaused() { return frontendmanager.pms->draw; }
 
 // 0x001990F0 FEInit__Fv
 extern char frontendmanager[];

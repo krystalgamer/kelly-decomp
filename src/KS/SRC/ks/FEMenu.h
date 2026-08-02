@@ -17,6 +17,8 @@ class PanelQuad;
 class entity;
 class MultiLineString;
 class vector3d;
+class PanelAnimFile;
+class PanelAnimManager;
 
 class FEMenu;
 
@@ -67,6 +69,7 @@ public:
     FEMenuEntry *left;
     FEMenuEntry *right;
 
+    FEMenuEntry() : ent(0) {}
     FEMenuEntry(
         stringx label,
         FEMenu *owner,
@@ -126,6 +129,19 @@ protected:
         bool floating,
         Font *font);
     virtual void OnHighlight(bool animate = true);
+};
+
+class FEGraphicalMenuEntry : public FEMenuEntry {
+    PanelQuad *pq;
+    PanelQuad *pq_high;
+    PanelAnimFile *highlight_paf;
+    PanelAnimManager *pam;
+    bool already_playing;
+
+public:
+    FEGraphicalMenuEntry() {}
+    virtual void SetPQ(PanelQuad *quad);
+    virtual void SetPQHigh(PanelQuad *quad);
 };
 
 class FEMenu {

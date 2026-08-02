@@ -34,7 +34,6 @@ public:
 
 extern FEManager frontendmanager;
 
-__asm__(".equ frontendmanager, 0x003E7728");
 __asm__(".equ LoadAll__15FEEntityManager, 0x001C56E0");
 
 #endif

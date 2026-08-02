@@ -129,6 +129,7 @@ protected:
 public:
     int getLineNum();
     void setFont(Font *font);
+    void addFont(int index, Font *font);
 };
 
 class FloatingText : public MultiLineString {
@@ -299,6 +300,7 @@ public:
     virtual void Init(PanelQuad **pquads, matrix4x4 matrix, bool floating = false);
     virtual void Update(time_value_t time_inc);
     virtual void Slide(float offset);
+    void cons();
 };
 
 struct PanelMaterial {
@@ -469,6 +471,7 @@ public:
     PanelQuad *next;
 
     virtual inline ~PanelQuad() {}
+    inline void AddedToMenu() { on_menu = true; }
     virtual void Init(
         float x1, float y1, float x2, float y2,
         float r, float g, float b, float a,

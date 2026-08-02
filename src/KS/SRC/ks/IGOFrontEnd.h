@@ -1,11 +1,32 @@
 #ifndef IGO_FRONT_END_H
 #define IGO_FRONT_END_H
 
+#include "KS/SRC/ks/SoundScript.h"
+#include "KS/SRC/stringx.h"
 #include "KS/SRC/ks/igo_widget_camera.h"
 #include "KS/SRC/ks/igo_widget_grid.h"
 #include "KS/SRC/ks/igo_widget_photo.h"
 #include "KS/SRC/ks/igo_widget_simple.h"
 #include "KS/SRC/ks/igo_widget_waveindicator.h"
+
+enum {
+    MAX_IGO_PRINT_QUEUE_SIZE = 16
+};
+
+struct soundMessageObject {
+    stringx str;
+    EventType event;
+};
+
+class IGOPrintQueue {
+    soundMessageObject strings[MAX_IGO_PRINT_QUEUE_SIZE];
+    int start;
+    int end;
+    unsigned char size;
+
+public:
+    void clear();
+};
 
 class IGOFrontEnd {
     char data_before_menu_background[0x584];

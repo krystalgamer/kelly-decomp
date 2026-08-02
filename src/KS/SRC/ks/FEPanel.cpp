@@ -131,8 +131,8 @@ int TextString::getZ() {
 }
 
 // 0x00148AC0 addFont__15MultiLineStringiP4Font
-class Font;
-class MultiLineString { char padding[0x58]; Font* fonts[20]; public: void addFont(int index, Font* font); };
+#include "KS/SRC/ks/FEPanel.h"
+
 void MultiLineString::addFont(int index, Font* font) { fonts[index] = font; }
 
 // 0x00149108 Bounce__12BouncingTextff
@@ -144,7 +144,8 @@ class FloatingText { char padding[0xD4]; float real_x; float real_y; bool non_fl
 void FloatingText::SetBehaviorNF(float x, float y) { non_floating_behavior = true; real_x = x; real_y = y; }
 
 // 0x0014D068 SetFade__9PanelQuadf
-class PanelQuad { char padding[0x4]; int fade; float fade_alpha; public: void SetFade(float amount); };
+#include "KS/SRC/ks/FEPanel.h"
+
 void PanelQuad::SetFade(float amount) { fade = 2; fade_alpha = amount; }
 
 // 0x0014DEC8 SetClip__9PanelQuadb
@@ -155,7 +156,8 @@ void PanelQuad::SetClip(bool enabled) {
 }
 
 // 0x0014FAB8 cons__9PanelGeom
-class PanelGeom { char padding[0x6C]; PanelGeom* children; PanelGeom* next; PanelGeom* parent; public: void cons(); };
+#include "KS/SRC/ks/FEPanel.h"
+
 void PanelGeom::cons() {
     children = 0;
     next = 0;
