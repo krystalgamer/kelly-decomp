@@ -67,20 +67,10 @@ void NamesMenu::Format()
 
 
 // 0x0019B668 getActiveCard__16SaveLoadFrontEnd
-struct names_menu_active_card_layout {
-    char padding[0x1FC];
-    int active_card;
-};
+#include "KS/SRC/ks/SaveLoadFrontEnd.h"
 
-struct save_load_active_card_layout {
-    char padding[0x32F4];
-    names_menu_active_card_layout *NameMenu;
-};
-
-extern "C" int get_active_card(save_load_active_card_layout *self)
-    __asm__("getActiveCard__16SaveLoadFrontEnd");
-int get_active_card(save_load_active_card_layout *self) {
-    return self->NameMenu->active_card;
+int SaveLoadFrontEnd::getActiveCard() {
+    return NameMenu->ActiveCard();
 }
 
 // 0x0019BF38 DialogActive__16SaveLoadFrontEnd
@@ -98,17 +88,10 @@ bool dialog_active(save_load_dialog_layout *self) {
 }
 
 // 0x0019EDD8 Init__9NamesMenu
-struct names_menu_init_layout {
-    char padding_to_parent[0x64];
-    void *parent;
-    char padding_to_sl_parent[0x108];
-    void *sl_parent;
-};
+#include "KS/SRC/ks/SaveLoadFrontEnd.h"
 
-extern "C" void init_names_menu(names_menu_init_layout *self)
-    __asm__("Init__9NamesMenu");
-void init_names_menu(names_menu_init_layout *self) {
-    self->sl_parent = self->parent;
+void NamesMenu::Init() {
+    sl_parent = (SaveLoadFrontEnd *)parent;
 }
 
 // 0x001A0808 FindAdjusted__9NamesMenui
@@ -126,17 +109,10 @@ int NamesMenu::FindActive(int adjusted) {
 }
 
 // 0x001A1CF8 Init__12KeyboardMenu
-struct keyboard_menu_init_layout {
-    char padding_to_parent[0x64];
-    void *parent;
-    char padding_to_sl_parent[0x1A4];
-    void *sl_parent;
-};
+#include "KS/SRC/ks/SaveLoadFrontEnd.h"
 
-extern "C" void init_keyboard_menu(keyboard_menu_init_layout *self)
-    __asm__("Init__12KeyboardMenu");
-void init_keyboard_menu(keyboard_menu_init_layout *self) {
-    self->sl_parent = self->parent;
+void KeyboardMenu::Init() {
+    sl_parent = (SaveLoadFrontEnd *)parent;
 }
 
 // 0x001A07B0 ActiveFile__9NamesMenu

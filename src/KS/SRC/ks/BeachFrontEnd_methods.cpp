@@ -1,5 +1,11 @@
 // Matching decompilation blocks selected by generated build shims.
 
+// 0x0018F548 OnLevelEnding__13BeachFrontEnd
+#include "KS/SRC/ks/BeachFrontEnd.h"
+
+void BeachFrontEnd::OnLevelEnding() {
+    sliding_in = true;
+}
 
 // 0x001DCCD8 OnUnactivate__13BeachFrontEnd
 #include "KS/SRC/ks/BeachFrontEnd.h"

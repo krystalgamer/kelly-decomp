@@ -26,6 +26,8 @@ struct MemCard {
 };
 
 class SaveLoadFrontEnd;
+class KeyboardMenu;
+class DialogMenu;
 
 class NamesMenu : public FEMultiMenu {
     char names_menu_data0[0x170 - sizeof(FEMultiMenu)];
@@ -37,6 +39,7 @@ class NamesMenu : public FEMultiMenu {
     int adjusted_active_card;
 
 public:
+    virtual void Init();
     virtual void OnUnactivate(FEMenu *menu);
     void RefreshDisplay();
     void TurnPQ(bool enabled);
@@ -67,9 +70,16 @@ public:
     };
 
     int post_format_state;
+    char save_load_front_end_data_after_post_format[
+        0x32f4 - 0x32bc];
+    NamesMenu *NameMenu;
+    KeyboardMenu *KeyMenu;
+    DialogMenu *dialogMenu;
 
+    virtual void Init();
     virtual void Select();
     virtual void OnCross(int controller);
+    int getActiveCard();
     void StartError(int id);
     void SetDState(
         int state,
