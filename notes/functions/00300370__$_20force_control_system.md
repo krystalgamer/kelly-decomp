@@ -5,20 +5,16 @@
 - Object: `game/files_misc2`
 - Debug source: `C:/KS/SRC/fcs.h`
 - Reference source: `KS/SRC/fcs.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released generated destructor restores its vtable at offset 0x8 and conditionally calls `__builtin_delete`; the carried vtable alias and trailing barrier preserve the target frame.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 6.25 | 0.0 | `dtor-1.cpp` |
+| 2 | different | 6.25 | 0.0 | `dtor-2.cpp` |
+| 3 | different | 8.3333 | 0.0 | `dtor-3.cpp` |
 
 ## Outcome
 
-The released `_$_20force_control_system` destructor matched exactly on the first attempt.
+Three native force-control-system destructor forms did not reproduce the legacy deleting-destructor sequence; the manual vtable wrapper was removed.
