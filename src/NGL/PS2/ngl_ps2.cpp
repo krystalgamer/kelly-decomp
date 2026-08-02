@@ -122,19 +122,6 @@ __asm__(".equ nglTVMode, 0x004BB81C");
 unsigned int nglGetTVMode() { return nglTVMode; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00395F68)
-// 0x00395F68 nglSetDebugFlag__FPCcb
-void nglSetDebugFlag(const char* flag, bool value) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00395F70)
-// 0x00395F70 nglGetDebugFlag__FPCc
-bool nglGetDebugFlag(const char* flag) {
-    return false;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_003969F8)
 // 0x003969F8 nglGetFrontBufferTex__Fv
 struct nglTexture {};
