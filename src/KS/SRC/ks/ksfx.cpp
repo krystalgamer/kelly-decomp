@@ -23,12 +23,6 @@ void SFXEngine::shutdown()
 #endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_0036C618)
-// 0x0036C618 ks_fx_destroy_all__Fv
-void ks_fx_destroy_all() {
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0036D2A8)
 // 0x0036D2A8 ks_fx_GetDrawCrash__Fv
 extern bool value;
