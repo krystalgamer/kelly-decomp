@@ -2,57 +2,39 @@
 
 
 // 0x0035FF10 is_connected__C12input_device
-class input_device {
-public:
-    bool is_connected() const;
-};
+#include "KS/SRC/inputmgr.h"
 
 bool input_device::is_connected() const {
     return false;
 }
 
 // 0x0035FF18 normalize__12input_devicei
-class input_device {
-public:
-    unsigned char normalize(int raw);
-};
+#include "KS/SRC/inputmgr.h"
 
 unsigned char input_device::normalize(int raw) {
     return raw;
 }
 
 // 0x0035FF20 set_button_d__12input_deviceib
-class input_device {
-public:
-    void set_button_d(int button, bool state);
-};
+#include "KS/SRC/inputmgr.h"
 
 void input_device::set_button_d(int button, bool state) {
 }
 
 // 0x0035FF28 set_button_a__12input_deviceii
-class input_device {
-public:
-    void set_button_a(int button, int state);
-};
+#include "KS/SRC/inputmgr.h"
 
 void input_device::set_button_a(int button, int state) {
 }
 
 // 0x0035FF30 set_stick__12input_deviceiii
-class input_device {
-public:
-    void set_stick(int stick, int x, int y);
-};
+#include "KS/SRC/inputmgr.h"
 
 void input_device::set_stick(int stick, int x, int y) {
 }
 
 // 0x0035FF38 clear_state__12input_device
-class input_device {
-public:
-    void clear_state();
-};
+#include "KS/SRC/inputmgr.h"
 
 void input_device::clear_state() {
 }

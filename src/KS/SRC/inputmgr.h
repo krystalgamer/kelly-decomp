@@ -1,6 +1,8 @@
 #ifndef INPUTMGR_H
 #define INPUTMGR_H
 
+#pragma interface
+
 #include "KS/SRC/singleton.h"
 #include "KS/SRC/stringx.h"
 #include "g++-2/stl_map.h"
