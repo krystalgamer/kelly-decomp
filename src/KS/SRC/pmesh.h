@@ -3,6 +3,7 @@
 
 #pragma interface
 
+#include "KS/SRC/algebra.h"
 #include "KS/SRC/visrep.h"
 
 typedef unsigned int face_ref;
@@ -106,6 +107,18 @@ class vr_pmesh : public visual_rep {
     short *wedge_lod_starts;
     face_ref *original_face_for_face_slot;
     material_map material_changes;
+    char data_to_translucent_verts[0x10];
+    bool has_translucent_verts;
+    bool progressive;
+    int uvanim_update_frame;
+    vector3d center;
+    float radius;
+    vector3d pivot;
+    int pivot_valid;
+    char filename[8];
+    char data_to_max_detail[4];
+    int max_detail;
+    int min_detail;
 
 public:
     virtual void render_instance(
@@ -119,6 +132,10 @@ public:
         int count);
     virtual int get_min_faces(time_value_t = 0) const;
     virtual int get_max_faces(time_value_t = 0) const;
+    virtual const vector3d &get_center(time_value_t = 0) const;
+    virtual float get_radius(time_value_t = 0) const;
+    virtual int get_max_detail() const;
+    virtual bool get_distance_fade_ok() const;
     inline int get_num_wedges() const { return num_wedges; }
     void shrink_memory_footprint();
     void optimize();
