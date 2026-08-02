@@ -98,48 +98,28 @@ float vrep_widget::get_height() {
 }
 
 // 0x00360B68 get_width__10box_widget
-class box_widget {
-    char padding[0x164];
-    float width;
-public:
-    float get_width();
-};
+#include "KS/SRC/widget.h"
 
 float box_widget::get_width() {
     return width;
 }
 
 // 0x00360B70 get_height__10box_widget
-class box_widget {
-    char padding[0x168];
-    float height;
-public:
-    float get_height();
-};
+#include "KS/SRC/widget.h"
 
 float box_widget::get_height() {
     return height;
 }
 
 // 0x00360D40 get_width__9fluid_bar
-class fluid_bar {
-    char padding[0x160];
-    float width;
-public:
-    float get_width();
-};
+#include "KS/SRC/widget.h"
 
 float fluid_bar::get_width() {
     return width;
 }
 
 // 0x00360D48 get_height__9fluid_bar
-class fluid_bar {
-    char padding[0x164];
-    float height;
-public:
-    float get_height();
-};
+#include "KS/SRC/widget.h"
 
 float fluid_bar::get_height() {
     return height;

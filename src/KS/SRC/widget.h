@@ -245,6 +245,40 @@ public:
     virtual rational_t get_height();
 };
 
+class box_widget : public widget {
+    bitmap_widget *corner[4];
+    bitmap_widget *side[4];
+    rational_t width;
+    rational_t height;
+    rational_t width_thickness;
+    rational_t height_thickness;
+
+public:
+    virtual rational_t get_width();
+    virtual rational_t get_height();
+};
+
+class fluid_bar : public bar_widget {
+    bitmap_widget *bar_map;
+    stringx name;
+    rational_t width;
+    rational_t height;
+
+public:
+    fluid_bar(
+        const char *widget_name,
+        widget *parent,
+        short x,
+        short y,
+        widget_dir_e direction,
+        rational_t width,
+        rational_t height,
+        const stringx &name);
+    virtual ~fluid_bar();
+    virtual rational_t get_width();
+    virtual rational_t get_height();
+};
+
 class vrep_widget : public widget {
     void *vrep;
     rational_t screen_radius;
