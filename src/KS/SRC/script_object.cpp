@@ -2,10 +2,7 @@
 
 
 // 0x00352A68 run__14script_managerfb
-class script_manager {
-public:
-    void run(float time, bool ignore_suspended);
-};
+#include "KS/SRC/script_object.h"
 
 void script_manager::run(float time, bool ignore_suspended) {
 }

@@ -10,6 +10,11 @@ class script_callback;
 class vm_executable;
 class vm_thread;
 
+class script_manager {
+public:
+    void run(float time_inc, bool ignore_suspended);
+};
+
 class script_object {
 public:
     class instance {
