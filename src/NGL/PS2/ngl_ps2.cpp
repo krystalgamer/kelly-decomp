@@ -115,11 +115,15 @@ void nglSetAnimTime(float value) { nglCurScene->AnimTime = value; }
 
 void* nglTim2GetClut(nglTexture* texture) { return (char*)texture->ph + texture->ph->HeaderSize; }
 
-#if defined(KELLY_DECOMP_FUNCTION_003A69E8)
 // 0x003A69E8 nglSetQuadColor__FP7nglQuadUi
-struct nglQuad { char padding0[0x10]; unsigned int Color1; char padding1[0x10]; unsigned int Color2; char padding2[0x10]; unsigned int Color3; char padding3[0x10]; unsigned int Color4; };
-void nglSetQuadColor(nglQuad* quad, unsigned int color) { quad->Color1 = color; quad->Color2 = color; quad->Color3 = color; quad->Color4 = color; }
-#endif
+#include "NGL/PS2/ngl_ps2.h"
+
+void nglSetQuadColor(nglQuad* quad, unsigned int color) {
+    quad->Verts[0].Color = color;
+    quad->Verts[1].Color = color;
+    quad->Verts[2].Color = color;
+    quad->Verts[3].Color = color;
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_00395F08)
 // 0x00395F08 nglIdentityMatrix__FR9nglMatrix

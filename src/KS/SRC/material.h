@@ -7,6 +7,15 @@ enum map_e {
     MAP_DIFFUSE
 };
 
+class anim_texture {
+    char data_to_frames[8];
+    void **frame_begin;
+    void **frame_end;
+
+public:
+    int get_anim_length() const;
+};
+
 class material {
     static material *last_context_material;
 

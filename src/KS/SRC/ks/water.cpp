@@ -24,26 +24,20 @@ void WATER_Normal(
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00372870)
 // 0x00372870 WATER_GetDrawFar__Fv
-extern int water_flags;
-__asm__(".equ water_flags, 0x00484618");
-bool WATER_GetDrawFar() { return (water_flags >> 6) & 1; }
-#endif
+#include "KS/SRC/ks/water.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_003728B0)
+bool WATER_GetDrawFar() { return (WaterDebug >> 6) & 1; }
+
 // 0x003728B0 WATER_GetDrawHorizon__Fv
-extern int water_flags;
-__asm__(".equ water_flags, 0x00484618");
-bool WATER_GetDrawHorizon() { return (water_flags >> 9) & 1; }
-#endif
+#include "KS/SRC/ks/water.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_00372900)
+bool WATER_GetDrawHorizon() { return (WaterDebug >> 9) & 1; }
+
 // 0x00372900 WATER_GetDrawSeam__Fv
-extern int water_flags;
-__asm__(".equ water_flags, 0x00484618");
-bool WATER_GetDrawSeam() { return (water_flags >> 3) & 1; }
-#endif
+#include "KS/SRC/ks/water.h"
+
+bool WATER_GetDrawSeam() { return (WaterDebug >> 3) & 1; }
 
 #if defined(KELLY_DECOMP_FUNCTION_00372940)
 // 0x00372940 WATER_GetDrawWave__Fv

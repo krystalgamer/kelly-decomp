@@ -37,11 +37,9 @@ void KSWaterState::Save()
 void WAVE_ResetTimer() { WAVE_TotalSec = 0.0f; }
 
 // 0x0037D7E8 WAVE_GetMarker__F14WaveMarkerEnum
-enum WaveMarkerEnum { WAVE_MARKER_ZERO };
-struct WaveMarker { char data[32]; };
-extern WaveMarker wave_markers[];
-__asm__(".equ wave_markers, 0x0058BC70");
-WaveMarker* WAVE_GetMarker(WaveMarkerEnum marker) { return &wave_markers[marker]; }
+#include "KS/SRC/ks/wave.h"
+
+WaveMarker* WAVE_GetMarker(WaveMarkerEnum marker) { return &WAVE_Markers[marker]; }
 
 // 0x0037D8B8 WAVE_GetScheduleIndex__Fv
 #include "KS/SRC/ks/wave.h"

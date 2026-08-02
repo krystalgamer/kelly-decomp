@@ -1,23 +1,15 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_003108B0)
 // 0x003108B0 TIMER_Reset__Fv
-extern float timer_total;
-extern float timer_level;
-__asm__(".equ timer_total, 0x0046B27C");
-__asm__(".equ timer_level, 0x0046B284");
-void TIMER_Reset() { timer_total = 0.0f; timer_level = 0.0f; }
-#endif
+#include "KS/SRC/timer.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_00310A78)
+void TIMER_Reset() { TIMER_TotalSec = 0.0f; TIMER_LevelSec = 0.0f; }
+
 // 0x00310A78 TIMER_SetTotalSec__Fff
-extern float timer_total;
-extern float timer_other;
-__asm__(".equ timer_total, 0x0046B27C");
-__asm__(".equ timer_other, 0x0046B280");
-void TIMER_SetTotalSec(float total, float other) { timer_total = total; timer_other = other; }
-#endif
+#include "KS/SRC/timer.h"
+
+void TIMER_SetTotalSec(float total, float frame) { TIMER_TotalSec = total; TIMER_FrameSec = frame; }
 
 #if defined(KELLY_DECOMP_FUNCTION_003109B0)
 // 0x003109B0 TIMER_Init__Ff

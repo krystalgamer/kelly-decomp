@@ -96,6 +96,7 @@ public:
     virtual void set_id(unsigned short value);
     virtual bool is_dead() const;
     virtual bool is_alive() const;
+    virtual bool is_inverted() const;
 };
 
 extern instance_bank<material> material_bank;

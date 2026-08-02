@@ -1,6 +1,5 @@
 // Matching decompilation blocks selected by generated build shims.
 
-
 #if defined(KELLY_DECOMP_FUNCTION_0031DB40)
 // 0x0031DB40 __tf26slf_allow_suspend_thread_t
 #include "KS/SRC/rtti.h"
@@ -645,62 +644,41 @@ void **RandomRtti()
 #endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_0031E0D0)
 // 0x0031E0D0 __cl__34slf_localize_thread_to_character_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack { char padding[0x8]; char* stack_ptr; };
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
-class slf_localize_thread_to_character_t { public: bool operator()(vm_stack&, script_library_class::function::entry_t); };
-bool slf_localize_thread_to_character_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.stack_ptr -= 1; return true; }
-#endif
+#include "KS/SRC/script_library_class.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_0031F048)
+bool slf_localize_thread_to_character_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.pop(1); return true; }
+
 // 0x0031F048 __cl__19slf_post_message2_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack { char padding[0x8]; char* stack_ptr; };
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
-class slf_post_message2_t { public: bool operator()(vm_stack&, script_library_class::function::entry_t); };
-bool slf_post_message2_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.stack_ptr -= 8; return true; }
-#endif
+#include "KS/SRC/script_library_class.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_0031F0D0)
+bool slf_post_message2_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.pop(8); return true; }
+
 // 0x0031F0D0 __cl__18slf_post_message_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack { char padding[0x8]; char* stack_ptr; };
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
-class slf_post_message_t { public: bool operator()(vm_stack&, script_library_class::function::entry_t); };
-bool slf_post_message_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.stack_ptr -= 8; return true; }
-#endif
+#include "KS/SRC/script_library_class.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_0031F710)
+bool slf_post_message_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.pop(8); return true; }
+
 // 0x0031F710 __cl__22slf_add_debug_sphere_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack { char padding[0x8]; char* stack_ptr; };
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
-class slf_add_debug_sphere_t { public: bool operator()(vm_stack&, script_library_class::function::entry_t); };
-bool slf_add_debug_sphere_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.stack_ptr -= 16; return true; }
-#endif
+#include "KS/SRC/script_library_class.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_0031F798)
+bool slf_add_debug_sphere_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.pop(16); return true; }
+
 // 0x0031F798 __cl__25slf_clear_debug_spheres_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack { char padding[0x8]; char* stack_ptr; };
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
-class slf_clear_debug_spheres_t { public: bool operator()(vm_stack&, script_library_class::function::entry_t); };
-bool slf_clear_debug_spheres_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.stack_ptr -= 16; return true; }
-#endif
+#include "KS/SRC/script_library_class.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_003202A0)
+bool slf_clear_debug_spheres_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.pop(16); return true; }
+
 // 0x003202A0 __cl__20slf_letterbox_cout_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack { char padding[0x8]; char* stack_ptr; };
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
-class slf_letterbox_cout_t { public: bool operator()(vm_stack&, script_library_class::function::entry_t); };
-bool slf_letterbox_cout_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.stack_ptr -= 4; return true; }
-#endif
+#include "KS/SRC/script_library_class.h"
+
+bool slf_letterbox_cout_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.pop(4); return true; }
 
 
-#if defined(KELLY_DECOMP_FUNCTION_003239C8)
 // 0x003239C8 __cl__21slf_freeze_universe_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack { char padding[0x8]; char* stack_ptr; };
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
-class slf_freeze_universe_t { public: bool operator()(vm_stack&, script_library_class::function::entry_t); };
-bool slf_freeze_universe_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.stack_ptr -= 4; return true; }
-#endif
+#include "KS/SRC/script_library_class.h"
+
+bool slf_freeze_universe_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.pop(4); return true; }
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DB20)
 // 0x0031DB20 _$_26slf_allow_suspend_thread_t

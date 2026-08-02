@@ -103,6 +103,27 @@ public:
         script_library_class::function::entry_t entry);
 };
 
+#define DECLARE_SCRIPT_LIBRARY_STUB(name) \
+    class name { \
+    public: \
+        bool operator()( \
+            vm_stack &stack, \
+            script_library_class::function::entry_t entry); \
+    }
+
+DECLARE_SCRIPT_LIBRARY_STUB(slf_localize_thread_to_character_t);
+DECLARE_SCRIPT_LIBRARY_STUB(slf_post_message2_t);
+DECLARE_SCRIPT_LIBRARY_STUB(slf_post_message_t);
+DECLARE_SCRIPT_LIBRARY_STUB(slf_add_debug_sphere_t);
+DECLARE_SCRIPT_LIBRARY_STUB(slf_clear_debug_spheres_t);
+DECLARE_SCRIPT_LIBRARY_STUB(slf_letterbox_cout_t);
+DECLARE_SCRIPT_LIBRARY_STUB(slf_freeze_universe_t);
+DECLARE_SCRIPT_LIBRARY_STUB(slf_activate_boss_bar_t);
+DECLARE_SCRIPT_LIBRARY_STUB(slf_give_color_clue_t);
+DECLARE_SCRIPT_LIBRARY_STUB(slf_inc_score_t);
+
+#undef DECLARE_SCRIPT_LIBRARY_STUB
+
 #define SLF_PARMS \
     stack.pop(sizeof(parms_t)); \
     parms_t *parms = (parms_t *)stack.get_SP()

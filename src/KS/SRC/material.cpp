@@ -1,21 +1,12 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00339CA8)
 // 0x00339CA8 get_anim_length__C12anim_texture
-class anim_texture {
-    char padding[0x8];
-    void** frame_begin;
-    void** frame_end;
-
-public:
-    int get_anim_length() const;
-};
+#include "KS/SRC/material.h"
 
 int anim_texture::get_anim_length() const {
     return frame_end - frame_begin;
 }
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003397B8)
 // 0x003397B8 get_anim_length__C8materiali

@@ -72,6 +72,7 @@ public:
         kellyslater_controller *owner);
     void draw();
     void reset();
+    void destroy();
     inline bool is_valid() const {
         return valid;
     }

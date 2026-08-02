@@ -48,6 +48,14 @@ struct WaveBreakInfoStruct {
     float stageprogress;
 };
 
+enum WaveMarkerEnum {
+    WAVE_MARKER_ZERO
+};
+
+struct WaveMarker {
+    char data[32];
+};
+
 struct WaveDebugStruct {
     int AnimateBottom;
     int AnimateFoam;
@@ -130,6 +138,7 @@ struct WaveDebugStruct {
 extern WavePerturbTypeEnum WAVE_PerturbType;
 extern WaveBreakStruct *WAVE_BreakNext;
 extern float WAVE_TotalSec;
+extern WaveMarker WAVE_Markers[];
 extern int WAVE_ScheduleIndex;
 extern float WAVE_TexAnimFrame;
 extern float WAVE_TexAnimSpeed;
@@ -253,6 +262,7 @@ extern float WAVE_ShiftZ;
 extern float WAVE_ShiftSpeedU;
 extern float WAVE_ShiftSpeedV;
 extern int WAVE_Stage;
+WaveMarker *WAVE_GetMarker(WaveMarkerEnum marker);
 extern WavePerturbStageEnum WAVE_PerturbStage;
 extern float WAVE_ScheduleTimeStart;
 extern float WAVE_ScheduleTimeEnd;

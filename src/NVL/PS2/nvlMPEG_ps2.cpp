@@ -14,15 +14,10 @@ static void changeInputVolume(unsigned int val) {
 __asm__(".globl changeInputVolume__FUi");
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00388968)
 // 0x00388968 endDisplay__Fv
-extern int display_file;
-extern int display_flag;
-__asm__(".equ display_file, 0x0049AFFC");
-__asm__(".equ display_flag, 0x00596F9C");
-static void endDisplay() { display_file = 0; display_flag = 0; }
-__asm__(".globl endDisplay__Fv");
-#endif
+#include "NVL/PS2/nvlMPEG_ps2.h"
+
+static void endDisplay() { isCountVblank = 0; frd = 0; }
 
 #if defined(KELLY_DECOMP_FUNCTION_00388980)
 // 0x00388980 readBufCreate__FP7ReadBuf
@@ -39,12 +34,10 @@ static void voBufReset(VoBuf* buffer) {
     buffer->write = 0;
 }
 
-#if defined(KELLY_DECOMP_FUNCTION_00389038)
 // 0x00389038 voBufIsFull__FP5VoBuf
-struct VoBuf { char padding[0xC]; int count; int size; };
+#include "NVL/PS2/nvlMPEG_ps2.h"
+
 static int voBufIsFull(VoBuf* buffer) { return buffer->count == buffer->size; }
-__asm__(".globl voBufIsFull__FP5VoBuf");
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003890C8)
 // 0x003890C8 voBufGetData__FP5VoBuf
@@ -59,13 +52,10 @@ static VoData* voBufGetData(VoBuf* buffer)
 __asm__(".globl voBufGetData__FP5VoBuf");
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003898C8)
+// 0x003898C8 audioDecIsPreset__FP8AudioDec
 #include "NVL/PS2/nvlMPEG_ps2.h"
 
-// 0x003898C8 audioDecIsPreset__FP8AudioDec
 static int audioDecIsPreset(AudioDec* decoder) { return decoder->totalBytesSent >= PRESET_VALUE(decoder->iopBuffSize); }
-__asm__(".globl audioDecIsPreset__FP8AudioDec");
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00388BA8)
 // 0x00388BA8 videoDecBeginPut__FP8VideoDecPPUcPiT1T2

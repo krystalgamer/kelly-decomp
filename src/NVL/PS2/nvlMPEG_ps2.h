@@ -85,6 +85,8 @@ struct VoBuf {
 extern ReadBuf *readBuf;
 extern VoBuf voBuf;
 extern volatile int isFrameEnd;
+extern int isCountVblank;
+extern int frd;
 extern nvlAllocCallback nvlMPEGAllocFunc;
 extern nvlFreeCallback nvlMPEGFreeFunc;
 

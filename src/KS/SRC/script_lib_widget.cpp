@@ -1,29 +1,19 @@
 // Matching decompilation blocks selected by generated build shims.
 
-
-#if defined(KELLY_DECOMP_FUNCTION_0032EA98)
 // 0x0032EA98 __cl__23slf_activate_boss_bar_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack { char padding[0x8]; char* stack_ptr; };
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
-class slf_activate_boss_bar_t { public: bool operator()(vm_stack&, script_library_class::function::entry_t); };
-bool slf_activate_boss_bar_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.stack_ptr -= 1; return true; }
-#endif
+#include "KS/SRC/script_library_class.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_0032EB98)
+bool slf_activate_boss_bar_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.pop(1); return true; }
+
 // 0x0032EB98 __cl__21slf_give_color_clue_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack { char padding[0x8]; char* stack_ptr; };
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
-class slf_give_color_clue_t { public: bool operator()(vm_stack&, script_library_class::function::entry_t); };
-bool slf_give_color_clue_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.stack_ptr -= 8; return true; }
-#endif
+#include "KS/SRC/script_library_class.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_0032ED10)
+bool slf_give_color_clue_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.pop(8); return true; }
+
 // 0x0032ED10 __cl__15slf_inc_score_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack { char padding[0x8]; char* stack_ptr; };
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
-class slf_inc_score_t { public: bool operator()(vm_stack&, script_library_class::function::entry_t); };
-bool slf_inc_score_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.stack_ptr -= 4; return true; }
-#endif
+#include "KS/SRC/script_library_class.h"
+
+bool slf_inc_score_t::operator()(vm_stack& stack, script_library_class::function::entry_t entry) { stack.pop(4); return true; }
 
 #if defined(KELLY_DECOMP_FUNCTION_0032B8A8)
 // 0x0032B8A8 _$_17slf_widget_show_t

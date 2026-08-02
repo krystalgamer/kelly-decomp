@@ -252,6 +252,7 @@ void nglSetQuadBlend(
     nglQuad *quad,
     u_int blend,
     u_int constant);
+void nglSetQuadColor(nglQuad *quad, u_int color);
 void nglMeshWriteStrip(u_int length);
 float nglDistanceToPlane(
     const nglVector &plane,

@@ -60,8 +60,12 @@ void ks_fx_trail_draw(const int heroIdx)
 
 
 // 0x00361DA0 destroy__5trail
-class trail { void* resource; public: void destroy(); };
-void trail::destroy() { if (resource) resource = 0; }
+#include "KS/SRC/ks/trail.h"
+
+void trail::destroy() {
+    if (valid)
+        valid = false;
+}
 
 // 0x00361A20 ks_fx_trail_destroy__FP5trail
 class trail { public: void destroy(); };

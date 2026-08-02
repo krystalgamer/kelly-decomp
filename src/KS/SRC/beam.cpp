@@ -454,8 +454,12 @@ bool beam_effect::is_alive() const {
 }
 
 // 0x002B84B8 is_inverted__C11beam_effect
-class beam_effect { char padding[0xA]; unsigned char mode; public: bool is_inverted() const; };
-bool beam_effect::is_inverted() const { return (unsigned char)(mode + 2) < 2; }
+#include "KS/SRC/beam.h"
+
+bool beam_effect::is_inverted() const {
+    return mode == EFFECT_INVERTED_DELAY ||
+        mode == EFFECT_INVERTED_ACTIVE;
+}
 
 // 0x002B84D0 get_id__C11beam_effect
 #include "KS/SRC/beam.h"

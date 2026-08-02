@@ -72,10 +72,8 @@ ATEFileEntry *ATENthTextureEntryHead(
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003ACA30)
 // 0x003ACA30 ATEEntryHead__FPci
 char* ATEEntryHead(char* base, int index) { return base + 16 + index * 48; }
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003ACD60)
 // 0x003ACD60 _GLOBAL_$I$ATENameMatch__FRC14nglFixedStringT0
