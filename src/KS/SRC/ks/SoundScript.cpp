@@ -1,11 +1,10 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_0031BBB8)
 // 0x0031BBB8 __17CurrentSoundEvent
-class CurrentSoundEvent { int event; int sound; char padding[0x10]; int extra; public: CurrentSoundEvent(); };
-CurrentSoundEvent::CurrentSoundEvent() { extra = 0; event = 105; sound = 0; }
-#endif
+#include "KS/SRC/ks/SoundScript.h"
+
+CurrentSoundEvent::CurrentSoundEvent() { emitter = 0; event = SS_LAST; sound = 0; }
 
 #if defined(KELLY_DECOMP_FUNCTION_0031C360)
 // 0x0031C360 startEvent__18SoundScriptManager9EventTypeP6entityf

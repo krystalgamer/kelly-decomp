@@ -1,8 +1,9 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_0036EE90)
 // 0x0036EE90 WATER_Normal__FffRfN22
+#include "KS/SRC/ks/water.h"
+
 void WATER_Normal(
     float x,
     float z,
@@ -22,7 +23,6 @@ void WATER_Normal(
     ny = 1.0f;
     nz = 0.0f;
 }
-#endif
 
 // 0x00372870 WATER_GetDrawFar__Fv
 #include "KS/SRC/ks/water.h"

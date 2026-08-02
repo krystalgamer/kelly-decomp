@@ -100,6 +100,9 @@ extern nslSystem nsl;
 extern const char nsl_not_initialized[];
 extern const char nsl_empty_string[];
 
+void nslPreInitProviewModePS2(bool enabled);
+void nslPreInitCdDvdModePS2(nslPs2CdDvdMode mode);
+nslSpeakerModeEnum nslGetSpeakerMode();
 void nslFatal(const char *format, ...);
 void nslGetListenerPo(nlMatrix4x4 *destination);
 void nslReleaseAllSounds();
@@ -123,7 +126,6 @@ inline __attribute__((always_inline)) void _nslInitialized()
         nslFatal(nsl_not_initialized);
 }
 
-__asm__(".equ nsl, 0x0049B5F0");
 __asm__(".equ nsl_not_initialized, 0x0051BDC8");
 __asm__(".equ nsl_empty_string, 0x0051BDF8");
 __asm__(".equ nslFatal__FPCce, 0x00391420");

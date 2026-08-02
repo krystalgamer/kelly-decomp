@@ -44,6 +44,9 @@ class CurrentSoundEvent {
     float fadeOutTime;
     bool fadingOut;
     unsigned int emitter;
+
+public:
+    CurrentSoundEvent();
 };
 
 class SoundScriptManager : public singleton {

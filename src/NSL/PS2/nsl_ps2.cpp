@@ -37,23 +37,19 @@ void nslSetSpeakerMode(nslSpeakerModeEnum newMode)
 }
 
 // 0x00390B30 nslPreInitProviewModePS2__Fb
-struct nslState { char padding[0x15884]; bool proview; };
-extern nslState nsl;
-__asm__(".equ nsl, 0x0049B5F0");
+#include "NSL/PS2/nsl_ps2.h"
+
 void nslPreInitProviewModePS2(bool value) { nsl.proview = value; }
 
 // 0x00390B48 nslPreInitCdDvdModePS2__F15nslPs2CdDvdMode
-enum nslPs2CdDvdMode { NSL_MODE_ZERO };
-struct nslState { char padding[0x15870]; nslPs2CdDvdMode cd_mode; };
-extern nslState nsl;
-__asm__(".equ nsl, 0x0049B5F0");
-void nslPreInitCdDvdModePS2(nslPs2CdDvdMode value) { nsl.cd_mode = value; }
+#include "NSL/PS2/nsl_ps2.h"
+
+void nslPreInitCdDvdModePS2(nslPs2CdDvdMode value) { nsl.cdDvdMode = value; }
 
 // 0x00390C28 nslGetSpeakerMode__Fv
-struct nslState { char padding[0x15864]; int speaker_mode; };
-extern nslState nsl;
-__asm__(".equ nsl, 0x0049B5F0");
-int nslGetSpeakerMode() { return nsl.speaker_mode; }
+#include "NSL/PS2/nsl_ps2.h"
+
+nslSpeakerModeEnum nslGetSpeakerMode() { return nsl.speakerMode; }
 
 // 0x00390DA8 _nslResetInternal__F18_nslClearBehaviour
 enum _nslClearBehaviour { NSL_CLEAR_DEFAULT };

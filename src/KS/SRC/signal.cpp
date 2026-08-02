@@ -6,8 +6,9 @@
 const stringx& script_callback::get_func_name() { return func->get_fullname(); }
 
 // 0x0034C530 refresh__6signal
-class signal { char padding[0x4]; unsigned int flags; public: void refresh(); };
-void signal::refresh() { flags &= 0xFFFFFFFCu; }
+#include "KS/SRC/signals.h"
+
+void signal::refresh() { flags &= ~(RAISED | NEEDS_REFRESH); }
 
 // 0x0034C510 raise_input__6signalP6signalP9signaller
 class signaller;

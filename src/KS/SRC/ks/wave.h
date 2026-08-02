@@ -138,6 +138,9 @@ struct WaveDebugStruct {
 extern WavePerturbTypeEnum WAVE_PerturbType;
 extern WaveBreakStruct *WAVE_BreakNext;
 extern float WAVE_TotalSec;
+extern float WAVE_ScheduleTimeStart;
+extern float WAVE_ScheduleTimeEnd;
+extern float WaveHeightFudgeFactorArray[];
 extern WaveMarker WAVE_Markers[];
 extern int WAVE_ScheduleIndex;
 extern float WAVE_TexAnimFrame;
@@ -262,7 +265,12 @@ extern float WAVE_ShiftZ;
 extern float WAVE_ShiftSpeedU;
 extern float WAVE_ShiftSpeedV;
 extern int WAVE_Stage;
+inline float WAVE_GetTotalSec() { return WAVE_TotalSec; }
 WaveMarker *WAVE_GetMarker(WaveMarkerEnum marker);
+float WAVE_GetScheduleSec();
+float WAVE_GetScheduleRemainingSec();
+void WAVE_AddHeightFudge(int index, float value);
+float WAVE_GetHeightFudgeFactor(int index);
 extern WavePerturbStageEnum WAVE_PerturbStage;
 extern float WAVE_ScheduleTimeStart;
 extern float WAVE_ScheduleTimeEnd;

@@ -61,6 +61,7 @@ public:
     virtual unsigned int get_lightcat() const;
     virtual void set_lightcat(unsigned int value);
     virtual float get_cutoff_range() const;
+    float terrain_radius() const;
     inline const light_properties &get_properties() const {
         return *properties;
     }

@@ -69,7 +69,26 @@ private:
 
 class signal {
 public:
+    enum flavor_t {
+        SIGNAL,
+        GATED_SIGNAL
+    };
+    enum flags_t {
+        RAISED = 0x0001,
+        NEEDS_REFRESH = 0x0002,
+        DISABLED = 0x0004,
+        CALLBACKS_DISABLED = 0x0008
+    };
+
+protected:
+    flavor_t flavor;
+
+private:
+    unsigned int flags;
+
+public:
     void raise();
+    void refresh();
     unsigned int add_callback(
         script_object::instance *instance,
         vm_executable *function,

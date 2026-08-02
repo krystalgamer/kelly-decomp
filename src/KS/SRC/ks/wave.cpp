@@ -47,31 +47,17 @@ WaveMarker* WAVE_GetMarker(WaveMarkerEnum marker) { return &WAVE_Markers[marker]
 int WAVE_GetScheduleIndex() { return WAVE_ScheduleIndex; }
 
 // 0x0037D920 WAVE_GetScheduleSec__Fv
-extern float wave_timer;
-extern float wave_schedule_start;
-__asm__(".equ wave_timer, 0x0048517C");
-__asm__(".equ wave_schedule_start, 0x004846DC");
-
-static inline float WAVE_GetTotalSec() {
-    return wave_timer;
-}
+#include "KS/SRC/ks/wave.h"
 
 float WAVE_GetScheduleSec() {
-    return WAVE_GetTotalSec() - wave_schedule_start;
+    return WAVE_TotalSec - WAVE_ScheduleTimeStart;
 }
 
 // 0x0037D938 WAVE_GetScheduleRemainingSec__Fv
-extern float wave_timer;
-extern float wave_schedule_remaining;
-__asm__(".equ wave_timer, 0x0048517C");
-__asm__(".equ wave_schedule_remaining, 0x004846E0");
-
-static inline float WAVE_GetTotalSec() {
-    return wave_timer;
-}
+#include "KS/SRC/ks/wave.h"
 
 float WAVE_GetScheduleRemainingSec() {
-    return wave_schedule_remaining - WAVE_GetTotalSec();
+    return WAVE_ScheduleTimeEnd - WAVE_GetTotalSec();
 }
 
 // 0x0037D950 WAVE_GetStage__Fv
@@ -95,14 +81,14 @@ bool WAVE_GetDraw() { return WaveDebug.DrawWaveMesh; }
 void WAVE_SetDraw(bool value) { WaveDebug.DrawWaveMesh = value; }
 
 // 0x0037DCD0 WAVE_AddHeightFudge__Fif
-extern float wave_height_fudge[];
-__asm__(".equ wave_height_fudge, 0x0058ECE8");
-void WAVE_AddHeightFudge(int index, float value) { wave_height_fudge[index] = value; }
+#include "KS/SRC/ks/wave.h"
+
+void WAVE_AddHeightFudge(int index, float value) { WaveHeightFudgeFactorArray[index] = value; }
 
 // 0x0037DCE8 WAVE_GetHeightFudgeFactor__Fi
-extern float wave_height_fudge[];
-__asm__(".equ wave_height_fudge, 0x0058ECE8");
-float WAVE_GetHeightFudgeFactor(int index) { return wave_height_fudge[index]; }
+#include "KS/SRC/ks/wave.h"
+
+float WAVE_GetHeightFudgeFactor(int index) { return WaveHeightFudgeFactorArray[index]; }
 
 // 0x003732C0 WAVE_StaticInit__Fv
 void WAVEMENU_StaticInit();

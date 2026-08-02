@@ -19,12 +19,10 @@ __asm__(".globl changeInputVolume__FUi");
 
 static void endDisplay() { isCountVblank = 0; frd = 0; }
 
-#if defined(KELLY_DECOMP_FUNCTION_00388980)
 // 0x00388980 readBufCreate__FP7ReadBuf
-struct ReadBuf { char data[0x50000]; int put; int count; int size; };
+#include "NVL/PS2/nvlMPEG_ps2.h"
+
 static void readBufCreate(ReadBuf* buffer) { buffer->put = buffer->count = 0; buffer->size = 0x50000; }
-__asm__(".globl readBufCreate__FP7ReadBuf");
-#endif
 
 // 0x00389028 voBufReset__FP5VoBuf
 #include "NVL/PS2/nvlMPEG_ps2.h"

@@ -2,9 +2,9 @@
 
 
 // 0x002CDD80 terrain_radius__C12light_source
-struct light_properties { char padding[0x28]; float cutoff_range; };
-class light_source { char padding[0x200]; light_properties* properties; public: float terrain_radius() const; };
-float light_source::terrain_radius() const { return properties->cutoff_range * 0.5f; }
+#include "KS/SRC/light.h"
+
+float light_source::terrain_radius() const { return properties->get_cutoff_range() * 0.5f; }
 
 // 0x002CDEE8 frame_advance__12light_sourcef
 #include "KS/SRC/light.h"

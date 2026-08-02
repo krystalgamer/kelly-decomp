@@ -12,8 +12,8 @@ Font::Font()
 }
 
 // 0x0033C1E8 get_char_info__C8font_defc
-struct char_info { char data[24]; };
-class font_def { char_info characters[256]; public: char_info* get_char_info(char value) const; };
+#include "KS/SRC/text_font.h"
+
 char_info* font_def::get_char_info(char value) const { return (char_info*)&characters[(int)value]; }
 
 // 0x0033A080 unload__4Font
