@@ -1,17 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_003AC118)
-// 0x003AC118 __15nglInstanceBank
-class nglInstanceBank {
-public:
-    nglInstanceBank();
-};
-
-nglInstanceBank::nglInstanceBank() {
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_003AC1A8)
 // 0x003AC1A8 SetAllocFunc__15nglInstanceBankPFUiUi_Pv
 typedef void* (*InstanceAlloc)(unsigned int size, unsigned int alignment);

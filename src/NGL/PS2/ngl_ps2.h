@@ -169,7 +169,30 @@ struct nglFont {
     void *GlyphInfo;
 };
 
-struct nglInstanceBank {
+class nglInstanceBank {
+public:
+    struct Instance {
+        nglFixedString Key;
+        void *Value;
+        int RefCount;
+        Instance *Forward[1];
+    };
+
+    typedef void *(*InstanceAlloc)(
+        unsigned int size,
+        unsigned int alignment);
+    typedef void (*InstanceFree)(void *pointer);
+
+    static InstanceAlloc SetAllocFunc(InstanceAlloc allocator);
+    static InstanceFree SetFreeFunc(InstanceFree allocator);
+
+    Instance *NIL;
+    Instance *Head;
+    int RandomsLeft;
+    int RandomBits;
+    int Level;
+
+    nglInstanceBank();
     bool Delete(const nglFixedString &name);
 };
 
