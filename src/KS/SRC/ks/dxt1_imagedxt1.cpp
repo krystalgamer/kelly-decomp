@@ -11,16 +11,12 @@ void ImageDXTC::Emit1ColorBlock(unsigned short* pDest, DXT1Color c)
 }
 
 // 0x00263B18 __9ImageDXTC
-class ImageDXTC { int XSize; int YSize; public: ImageDXTC(); };
+#include "KS/SRC/ks/dxt1_imagedxt1.h"
+
 ImageDXTC::ImageDXTC() { XSize = YSize = 0; }
 
 // 0x00263B70 ReleaseAll__9ImageDXTC
-class ImageDXTC {
-    int XSize;
-    int YSize;
-public:
-    void ReleaseAll();
-};
+#include "KS/SRC/ks/dxt1_imagedxt1.h"
 
 void ImageDXTC::ReleaseAll() {
     XSize = YSize = 0;

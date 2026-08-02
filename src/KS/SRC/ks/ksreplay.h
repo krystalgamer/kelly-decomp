@@ -40,6 +40,15 @@ public:
 };
 
 class KSReplay {
+public:
+    enum KSReplayStatus {
+        REPLAY_IGNORE,
+        REPLAY_RECORD,
+        REPLAY_PLAYBACK,
+        REPLAY_PAUSED
+    };
+
+private:
     int bch;
     int sfr;
     int brd;
@@ -68,6 +77,7 @@ public:
     void Stop();
     void SaveFile(char *filename);
     bool IsPlaying();
+    void Record();
     void SetWipeoutSplash(int player);
     void SetEndWave();
     bool NoDraw();

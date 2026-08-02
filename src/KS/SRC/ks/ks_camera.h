@@ -6,6 +6,8 @@
 #include "KS/SRC/camera.h"
 
 class kellyslater_controller;
+class PanelAnimFile;
+class PanelAnim;
 
 class debug_camera : public game_camera {
 public:
@@ -101,6 +103,22 @@ public:
 
 private:
     virtual int GetCameraType();
+};
+
+class flyby_camera : public game_camera {
+    PanelAnimFile *animation;
+    bool is_playing;
+    float current_anim_time;
+    PanelAnim *camera;
+    PanelAnim *target;
+
+public:
+    flyby_camera(const entity_id &id, entity *target = 0);
+    virtual ~flyby_camera();
+    virtual void frame_advance(float time_inc);
+    bool load();
+    void start();
+    bool is_finished();
 };
 
 struct beach_camera_data {

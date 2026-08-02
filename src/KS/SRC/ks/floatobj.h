@@ -41,6 +41,15 @@ protected:
 };
 
 class generic_anim_misc : public generic_anim {
+    enum {
+        GA_IDLE,
+        GA_COLLIDE,
+        GA_AFTER_COLLIDE,
+        GA_JUMP,
+        GA_SPRAY,
+        GA_SPAWN
+    };
+
     static const char *generic_anim_names[];
     int generic_anims[5];
     int generic_anim_state;

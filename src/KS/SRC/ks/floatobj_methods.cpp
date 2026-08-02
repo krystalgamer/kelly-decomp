@@ -16,15 +16,10 @@ int water_object::get_type() const {
 }
 
 // 0x0026FD10 spawn__17generic_anim_misc
-class generic_anim_misc {
-    char padding[0x34];
-    int state;
-public:
-    void spawn();
-};
+#include "KS/SRC/ks/floatobj.h"
 
 void generic_anim_misc::spawn() {
-    state = 5;
+    generic_anim_state = GA_SPAWN;
 }
 
 // 0x0026FDF0 spawn__19generic_anim_animal

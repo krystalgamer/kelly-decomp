@@ -21,20 +21,6 @@
 void Career::OnGoalReDone(int level, int goal) { goal_passed[goal] = true; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0025AF20)
-// 0x0025AF20 UnlockMovie__Q26Career8Location
-void Career::Location::UnlockMovie() {
-    movie_unlocked = true;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0025AF30)
-// 0x0025AF30 SetMovieShown__Q26Career8Location
-void Career::Location::SetMovieShown() {
-    movie_shown = true;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0025B918)
 // 0x0025B918 Reset__Q26Career8Location
 void Career::Location::Reset() { movie_unlocked = false; movie_shown = false; board_unlocked = false; }
@@ -43,14 +29,6 @@ void Career::Location::Reset() { movie_unlocked = false; movie_shown = false; bo
 #if defined(KELLY_DECOMP_FUNCTION_0025C418)
 // 0x0025C418 IsGoalDone__CQ26Career5Leveli
 bool Career::Level::IsGoalDone(int index) const { return goals[index]; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0025C4A0)
-// 0x0025C4A0 Reset__Q26Career5Beach
-void Career::Beach::Reset() {
-    unlocked = false;
-    shown = false;
-}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0025C5E8)

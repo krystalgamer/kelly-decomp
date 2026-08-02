@@ -561,12 +561,7 @@ void auto_camera::sync(camera &other) {
 }
 
 // 0x00231CF0 start__12flyby_camera
-class flyby_camera {
-    char padding[0x2D4];
-    bool is_playing;
-public:
-    void start();
-};
+#include "KS/SRC/ks/ks_camera.h"
 
 void flyby_camera::start() {
     is_playing = true;

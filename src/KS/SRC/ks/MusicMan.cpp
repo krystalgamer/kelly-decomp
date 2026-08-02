@@ -1,14 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_002585B0)
-#include "KS/SRC/ks/MusicMan.h"
-// 0x002585B0 __5Track
-Track::Track() {
-    paused = false;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00258640)
 #include "KS/SRC/ks/MusicMan.h"
 // 0x00258640 IsPlaying__5Track

@@ -16,6 +16,9 @@ class ImageDXTC {
     unsigned char AlphaValue;
 
 public:
+    ImageDXTC();
+    ~ImageDXTC();
+    void ReleaseAll();
     void Emit1ColorBlock(unsigned short* pDest, DXT1Color c);
     void Emit2ColorBlock(
         unsigned short *destination,

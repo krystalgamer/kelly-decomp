@@ -75,15 +75,10 @@ class KSReplay { char padding[0x10]; int status; public: bool IsPlaying(); };
 bool KSReplay::IsPlaying() { return status == 2; }
 
 // 0x0023C690 Record__8KSReplay
-class KSReplay {
-    char padding[0x10];
-    int status;
-public:
-    void Record();
-};
+#include "KS/SRC/ks/ksreplay.h"
 
 void KSReplay::Record() {
-    status = 1;
+    status = REPLAY_RECORD;
 }
 
 // 0x0023CA78 SpeedFast__8KSReplay
