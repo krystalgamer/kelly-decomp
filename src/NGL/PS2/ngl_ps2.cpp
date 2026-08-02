@@ -219,18 +219,6 @@ __asm__(".equ nglScratchStripVertIdx, 0x004BB7C0");
 void nglMeshWriteStrip(unsigned int length) { nglScratchStripVertIdx = 0; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003AAAD8)
-// 0x003AAAD8 nglSceneDumpStart__Fv
-void nglSceneDumpStart() {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_003AAAE0)
-// 0x003AAAE0 nglSceneDumpEnd__Fv
-void nglSceneDumpEnd() {
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00395F08)
 // 0x00395F08 nglIdentityMatrix__FR9nglMatrix
 class nglMatrix { float data[16]; public: operator float *() { return data; } };

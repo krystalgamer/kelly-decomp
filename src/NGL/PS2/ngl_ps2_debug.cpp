@@ -10,3 +10,13 @@ bool nglGetDebugFlag(const char *flag)
 {
     return false;
 }
+
+// 0x003AAAD8 nglSceneDumpStart__Fv
+void nglSceneDumpStart()
+{
+}
+
+// 0x003AAAE0 nglSceneDumpEnd__Fv
+void nglSceneDumpEnd()
+{
+}
