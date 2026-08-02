@@ -78,6 +78,7 @@ public:
     void SaveFile(char *filename);
     bool IsPlaying();
     void Record();
+    void SpeedFast();
     void SetWipeoutSplash(int player);
     void SetEndWave();
     bool NoDraw();

@@ -8,6 +8,7 @@ class beach {
     beach_object *my_objects;
 
 public:
+    void add_object(beach_object *object);
     beach_object *get_object(int index) const;
 };
 

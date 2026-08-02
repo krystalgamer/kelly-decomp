@@ -71,8 +71,9 @@ class KSReplay { char padding[0xC]; unsigned int seed; int status; char padding_
 void KSReplay::Clear(unsigned int value) { seed = value; numFrames = 0; num_collisions = 0; current_collision = 0; status = 0; }
 
 // 0x0023BE08 IsPlaying__8KSReplay
-class KSReplay { char padding[0x10]; int status; public: bool IsPlaying(); };
-bool KSReplay::IsPlaying() { return status == 2; }
+#include "KS/SRC/ks/ksreplay.h"
+
+bool KSReplay::IsPlaying() { return status == REPLAY_PLAYBACK; }
 
 // 0x0023C690 Record__8KSReplay
 #include "KS/SRC/ks/ksreplay.h"
@@ -82,7 +83,8 @@ void KSReplay::Record() {
 }
 
 // 0x0023CA78 SpeedFast__8KSReplay
-class KSReplay { char padding[0x1C]; bool slomo; bool fastforward; public: void SpeedFast(); };
+#include "KS/SRC/ks/ksreplay.h"
+
 void KSReplay::SpeedFast() { fastforward = true; slomo = false; }
 
 // 0x0023CAD8 Done__8KSReplay

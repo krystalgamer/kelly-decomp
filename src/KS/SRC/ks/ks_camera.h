@@ -65,6 +65,10 @@ public:
 };
 
 class photo_camera : public game_camera {
+    bool first_time;
+    char photo_state_to_jump_time[0x30];
+    float jump_time_elapsed;
+
 public:
     photo_camera(
         const entity_id &id,
@@ -72,6 +76,30 @@ public:
         kellyslater_controller *controller
     );
     virtual void init();
+};
+
+class follow_camera : public game_camera {
+    bool first_time;
+    char follow_state_to_jump_time[0x30];
+    float jump_time_elapsed;
+
+public:
+    follow_camera(const entity_id &id, entity *target = 0);
+    virtual ~follow_camera();
+    virtual void frame_advance(float time_inc);
+    void init();
+};
+
+class buoy_camera : public game_camera {
+    bool first_time;
+    char buoy_state_to_jump_time[0x30];
+    float jump_time_elapsed;
+
+public:
+    buoy_camera(const entity_id &id, entity *target = 0);
+    virtual ~buoy_camera();
+    virtual void frame_advance(float time_inc);
+    void init();
 };
 
 class auto_camera : public game_camera {

@@ -21,21 +21,6 @@
 void Career::OnGoalReDone(int level, int goal) { goal_passed[goal] = true; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0025B918)
-// 0x0025B918 Reset__Q26Career8Location
-void Career::Location::Reset() { movie_unlocked = false; movie_shown = false; board_unlocked = false; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0025C418)
-// 0x0025C418 IsGoalDone__CQ26Career5Leveli
-bool Career::Level::IsGoalDone(int index) const { return goals[index]; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0025C5E8)
-// 0x0025C5E8 IsBoardUnlocked__C6Careeri
-bool Career::IsBoardUnlocked(int index) const { return boards[index]; }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0025B8F0)
 // 0x0025B8F0 __Q26Career8Location
 __asm__(".equ Reset__Q26Career8Location, 0x0025B918");

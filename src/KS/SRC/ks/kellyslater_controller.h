@@ -27,6 +27,18 @@ class entity;
 class game_camera;
 class turn_data;
 
+class BalanceMeter {
+    float current_balance;
+    float balance_acc;
+    float total_balance_time;
+    float time_to_full_acc;
+    bool vert_meter;
+    int player_num;
+
+public:
+    BalanceMeter();
+};
+
 class kellyslater_controller {
     // Known members retain their released names and order. The remaining
     // intervals cover source fields whose dependent declarations are not yet

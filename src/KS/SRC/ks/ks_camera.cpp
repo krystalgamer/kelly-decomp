@@ -568,7 +568,8 @@ void flyby_camera::start() {
 }
 
 // 0x00231D68 init__13follow_camera
-class follow_camera { char padding_to_first[0x2D0]; bool first_time; char padding_to_jump[0x30]; float jump_time_elapsed; public: void init(); };
+#include "KS/SRC/ks/ks_camera.h"
+
 void follow_camera::init() { first_time = true; jump_time_elapsed = 0; }
 
 // 0x00232A68 init__19follow_close_camera
@@ -643,11 +644,13 @@ duckdive_camera::duckdive_camera(const entity_id &id, entity *target, kellyslate
 }
 
 // 0x00233BB0 init__11buoy_camera
-class buoy_camera { char padding_to_first[0x2D0]; bool first_time; char padding_to_jump[0x30]; float jump_time_elapsed; public: void init(); };
+#include "KS/SRC/ks/ks_camera.h"
+
 void buoy_camera::init() { first_time = true; jump_time_elapsed = 0; }
 
 // 0x00235228 init__12photo_camera
-class photo_camera { char padding_to_first[0x2D0]; bool first_time; char padding_to_jump[0x30]; float jump_time_elapsed; public: void init(); };
+#include "KS/SRC/ks/ks_camera.h"
+
 void photo_camera::init() { first_time = true; jump_time_elapsed = 0; }
 
 // 0x00229B88 interpolate_float__Ffff

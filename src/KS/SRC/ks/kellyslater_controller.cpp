@@ -277,7 +277,8 @@ void kellyslater_controller::StartCelebration() { super_state = 8; state = 90; }
 void kellyslater_controller::StartDisappointment() { super_state = 8; state = 91; }
 
 // 0x00224F20 __12BalanceMeter
-class BalanceMeter { char padding[0x14]; int player_num; public: BalanceMeter(); };
+#include "KS/SRC/ks/kellyslater_controller.h"
+
 BalanceMeter::BalanceMeter() { player_num = -1; }
 
 // 0x0020D308 ClearTricks__22kellyslater_controller

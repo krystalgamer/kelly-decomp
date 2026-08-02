@@ -21,3 +21,20 @@ void Career::Beach::Reset() {
     unlocked = false;
     shown = false;
 }
+
+// 0x0025B918 Reset__Q26Career8Location
+void Career::Location::Reset() {
+    movie_unlocked = false;
+    movie_shown = false;
+    board_unlocked = false;
+}
+
+// 0x0025C418 IsGoalDone__CQ26Career5Leveli
+bool Career::Level::IsGoalDone(int index) const {
+    return goals[index];
+}
+
+// 0x0025C5E8 IsBoardUnlocked__C6Careeri
+bool Career::IsBoardUnlocked(int index) const {
+    return boards[index];
+}
