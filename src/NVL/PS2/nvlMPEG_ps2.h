@@ -2,6 +2,8 @@
 #define NVL_MPEG_PS2_H
 
 typedef unsigned char u_char;
+typedef void *(*nvlAllocCallback)(int alignment, int size);
+typedef void (*nvlFreeCallback)(void *pointer);
 
 #ifndef NULL
 #define NULL 0
@@ -58,6 +60,11 @@ struct ReadBuf {
     int size;
 };
 
+struct VideoDec {
+    char data_to_state[0xA8];
+    unsigned int state;
+};
+
 struct VoData {
     unsigned char v[0x195000];
 };
@@ -78,8 +85,12 @@ struct VoBuf {
 extern ReadBuf *readBuf;
 extern VoBuf voBuf;
 extern volatile int isFrameEnd;
+extern nvlAllocCallback nvlMPEGAllocFunc;
+extern nvlFreeCallback nvlMPEGFreeFunc;
 
 void voBufDecCount(VoBuf *buffer);
+void nvlMPEGSetMemoryAllocCallback(nvlAllocCallback callback);
+void nvlMPEGSetMemoryFreeCallback(nvlFreeCallback callback);
 extern "C" int sceSdRemote(int command, int function, ...);
 
 #endif

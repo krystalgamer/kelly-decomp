@@ -14,22 +14,6 @@ static void changeInputVolume(unsigned int val) {
 __asm__(".globl changeInputVolume__FUi");
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00388338)
-// 0x00388338 nvlMPEGSetMemoryAllocCallback__FPFii_Pv
-typedef void* (*nvlAllocCallback)(int alignment, int size);
-extern nvlAllocCallback nvlMPEGAllocFunc;
-__asm__(".equ nvlMPEGAllocFunc, 0x00596F84");
-void nvlMPEGSetMemoryAllocCallback(nvlAllocCallback callback) { nvlMPEGAllocFunc = callback; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00388348)
-// 0x00388348 nvlMPEGSetMemoryFreeCallback__FPFPv_v
-typedef void (*nvlFreeCallback)(void* pointer);
-extern nvlFreeCallback nvlMPEGFreeFunc;
-__asm__(".equ nvlMPEGFreeFunc, 0x00596F88");
-void nvlMPEGSetMemoryFreeCallback(nvlFreeCallback callback) { nvlMPEGFreeFunc = callback; }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00388968)
 // 0x00388968 endDisplay__Fv
 extern int display_file;
@@ -45,13 +29,6 @@ __asm__(".globl endDisplay__Fv");
 struct ReadBuf { char data[0x50000]; int put; int count; int size; };
 static void readBufCreate(ReadBuf* buffer) { buffer->put = buffer->count = 0; buffer->size = 0x50000; }
 __asm__(".globl readBufCreate__FP7ReadBuf");
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00388C30)
-// 0x00388C30 videoDecSetState__FP8VideoDecUi
-struct VideoDec { char padding[0xA8]; unsigned int state; };
-static unsigned int videoDecSetState(VideoDec* decoder, unsigned int state) { unsigned int old = decoder->state; decoder->state = state; return old; }
-__asm__(".globl videoDecSetState__FP8VideoDecUi");
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00389028)
@@ -79,13 +56,6 @@ static VoData* voBufGetData(VoBuf* buffer)
     return voBufIsFull(buffer) ? (VoData*)0 : buffer->data + buffer->write;
 }
 __asm__(".globl voBufGetData__FP5VoBuf");
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00389110)
-// 0x00389110 voBufIsEmpty__FP5VoBuf
-struct VoBuf { char padding[0xC]; int count; };
-static int voBufIsEmpty(VoBuf* buffer) { return buffer->count == 0; }
-__asm__(".globl voBufIsEmpty__FP5VoBuf");
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003898C8)

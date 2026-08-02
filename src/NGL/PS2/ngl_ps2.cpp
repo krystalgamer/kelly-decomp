@@ -63,13 +63,6 @@ void nglVif1AddCommandListExec(u_int *&Packet, u_int VertBase, u_int Pass)
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00395D88)
-// 0x00395D88 nglGetScreenWidth__Fv
-extern int nglDisplayWidth;
-__asm__(".equ nglDisplayWidth, 0x004BB820");
-int nglGetScreenWidth() { return nglDisplayWidth; }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_003A6BB0)
 // 0x003A6BB0 nglScaleQuad__FP7nglQuadffff
 typedef unsigned int u_int;
@@ -85,64 +78,6 @@ void nglScaleQuad(nglQuad* Quad, float cx, float cy, float sx, float sy)
         Vert->Y = y * sy + cy;
     }
 }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00395D98)
-// 0x00395D98 nglGetScreenHeight__Fv
-extern int nglDisplayHeight;
-__asm__(".equ nglDisplayHeight, 0x004BB824");
-int nglGetScreenHeight() { return nglDisplayHeight; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00395E18)
-// 0x00395E18 nglGetMeshPath__Fv
-extern const char nglMeshPath[];
-__asm__(".equ nglMeshPath, 0x004BF058");
-const char* nglGetMeshPath() { return nglMeshPath; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00395E28)
-// 0x00395E28 nglGetTexturePath__Fv
-extern const char nglTexturePath[];
-__asm__(".equ nglTexturePath, 0x004BF158");
-const char* nglGetTexturePath() { return nglTexturePath; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00395E38)
-// 0x00395E38 nglSetProViewPS2__Fb
-extern bool nglUsingProView;
-__asm__(".equ nglUsingProView, 0x004BB794");
-void nglSetProViewPS2(bool value) { nglUsingProView = value; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00395EF0)
-// 0x00395EF0 nglGetTVMode__Fv
-extern unsigned int nglTVMode;
-__asm__(".equ nglTVMode, 0x004BB81C");
-unsigned int nglGetTVMode() { return nglTVMode; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_003969F8)
-// 0x003969F8 nglGetFrontBufferTex__Fv
-struct nglTexture {};
-extern nglTexture nglFrontBufferTex;
-__asm__(".equ nglFrontBufferTex, 0x004BBD28");
-nglTexture* nglGetFrontBufferTex() { return &nglFrontBufferTex; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00396A08)
-// 0x00396A08 nglGetBackBufferTex__Fv
-struct nglTexture {};
-extern nglTexture nglBackBufferTex;
-__asm__(".equ nglBackBufferTex, 0x004BBE58");
-nglTexture* nglGetBackBufferTex() { return &nglBackBufferTex; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00397568)
-// 0x00397568 nglSetIFLSpeed__Ff
-extern float nglIFLSpeed;
-__asm__(".equ nglIFLSpeed, 0x004BB808");
-void nglSetIFLSpeed(float value) { nglIFLSpeed = value; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00398578)
@@ -200,23 +135,10 @@ struct nglTexture { char padding[0x18]; TIM2_PICTUREHEADER* ph; };
 void* nglTim2GetClut(nglTexture* texture) { return (char*)texture->ph + texture->ph->HeaderSize; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003A69B0)
-// 0x003A69B0 nglSetQuadBlend__FP7nglQuadUiUi
-struct nglQuad { char padding[0x58]; unsigned int BlendMode; unsigned int BlendModeConstant; };
-void nglSetQuadBlend(nglQuad* quad, unsigned int blend, unsigned int constant) { quad->BlendMode = blend; quad->BlendModeConstant = constant; }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_003A69E8)
 // 0x003A69E8 nglSetQuadColor__FP7nglQuadUi
 struct nglQuad { char padding0[0x10]; unsigned int Color1; char padding1[0x10]; unsigned int Color2; char padding2[0x10]; unsigned int Color3; char padding3[0x10]; unsigned int Color4; };
 void nglSetQuadColor(nglQuad* quad, unsigned int color) { quad->Color1 = color; quad->Color2 = color; quad->Color3 = color; quad->Color4 = color; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_003AA1A8)
-// 0x003AA1A8 nglMeshWriteStrip__FUi
-extern unsigned int nglScratchStripVertIdx;
-__asm__(".equ nglScratchStripVertIdx, 0x004BB7C0");
-void nglMeshWriteStrip(unsigned int length) { nglScratchStripVertIdx = 0; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00395F08)

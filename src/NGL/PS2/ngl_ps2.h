@@ -200,11 +200,35 @@ extern nglScene *nglCurScene;
 extern nglScene nglDefaultScene;
 extern nglInstanceBank nglFontBank;
 extern nglMesh *nglScratch;
+extern int nglDisplayWidth;
+extern int nglDisplayHeight;
+extern char nglMeshPath[256];
+extern char nglTexturePath[256];
+extern bool nglUsingProView;
+extern u_int nglTVMode;
+extern nglTexture nglFrontBufferTex;
+extern nglTexture nglBackBufferTex;
+extern float nglIFLSpeed;
+extern u_int nglScratchStripVertIdx;
 
 void nglFatal(const char *format, ...);
 void nglMemFree(void *memory);
+int nglGetScreenWidth();
+int nglGetScreenHeight();
+const char *nglGetMeshPath();
+const char *nglGetTexturePath();
+void nglSetProViewPS2(bool using_pro_view);
+u_int nglGetTVMode();
+nglTexture *nglGetFrontBufferTex();
+nglTexture *nglGetBackBufferTex();
+void nglSetIFLSpeed(float frames_per_second);
 void nglSetQuadMapFlags(nglQuad *quad, u_int flags);
 void nglSetQuadTex(nglQuad *quad, nglTexture *texture);
+void nglSetQuadBlend(
+    nglQuad *quad,
+    u_int blend,
+    u_int constant);
+void nglMeshWriteStrip(u_int length);
 float nglDistanceToPlane(
     const nglVector &plane,
     const nglVector &point);
