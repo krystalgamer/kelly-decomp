@@ -18,27 +18,6 @@ public:
 void ai_action::going_into_service() { flags |= 1; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00105E68)
-// 0x00105E68 get_ai_interface__C9ai_action
-class ai_interface {
-    ai_interface* self;
-public:
-    ai_interface* get_ai_interface() {
-        return self;
-    }
-};
-
-class ai_action {
-    ai_interface* owner;
-public:
-    ai_interface* get_ai_interface() const;
-};
-
-ai_interface* ai_action::get_ai_interface() const {
-    return owner->get_ai_interface();
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00105E78)
 // 0x00105E78 get_my_entity__C9ai_action
 class entity;
