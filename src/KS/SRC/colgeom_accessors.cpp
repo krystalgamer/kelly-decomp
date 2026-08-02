@@ -1,5 +1,11 @@
 #include "KS/SRC/capsule.h"
 
+// 0x002D89C0 xform__18collision_geometryRC2po
+void collision_geometry::xform(const po &transform)
+{
+    valid = true;
+}
+
 // 0x002FF2B8 apply_radius_scale__18collision_geometryf
 void collision_geometry::apply_radius_scale(float scale)
 {
@@ -29,6 +35,14 @@ bool collision_geometry::is_entity_collision() const
 bool collision_geometry::is_camera_collision() const
 {
     return false;
+}
+
+// 0x002FF388 get_pivot__C18collision_geometry
+extern const vector3d ZEROVEC_005787F0;
+
+const vector3d &collision_geometry::get_pivot() const
+{
+    return ZEROVEC_005787F0;
 }
 
 // 0x002D9FA8 get_type__C7cg_mesh

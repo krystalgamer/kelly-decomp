@@ -2,7 +2,12 @@
 #define MATFAC_H
 
 class nglMaterial {
-    char fields[0x108];
+public:
+    unsigned int Flags;
+    void *Map;
+
+private:
+    char fields[0x100];
 
 public:
     nglMaterial();
@@ -16,6 +21,7 @@ public:
     mat_fac &operator=(const mat_fac &other);
     int get_anim_length() const;
     bool is_translucent() const;
+    bool has_texture() const;
 
 private:
     nglMaterial material;

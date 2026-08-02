@@ -19,6 +19,14 @@ class light_properties {
 public:
     light_properties();
     inline light_flavor_t get_flavor() const { return flavor; }
+    inline const color &get_color() const { return diffuse_color; }
+    inline const color &get_additive_color() const {
+        return additive_color;
+    }
+    inline float get_near_range() const { return near_range; }
+    inline float get_cutoff_range() const { return cutoff_range; }
+    inline unsigned int get_lightcat() const { return lightcat; }
+    inline void set_lightcat(unsigned int value) { lightcat = value; }
 
 protected:
     light_flavor_t flavor;
@@ -47,6 +55,12 @@ public:
     virtual bool is_a_light_source() const;
     virtual void frame_advance(float time_inc);
     float get_dist(const sphere &bounds) const;
+    virtual const color &get_color() const;
+    virtual const color &get_additive_color() const;
+    virtual float get_near_range() const;
+    virtual unsigned int get_lightcat() const;
+    virtual void set_lightcat(unsigned int value);
+    virtual float get_cutoff_range() const;
     inline const light_properties &get_properties() const {
         return *properties;
     }

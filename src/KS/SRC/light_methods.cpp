@@ -30,36 +30,46 @@ bool light_source::is_a_light_source() const {
 }
 
 // 0x002FF940 get_color__C12light_source
-class color {};
-struct light_properties { char padding[0x4]; color diffuse_color; };
-class light_source { char padding[0x200]; light_properties* properties; public: const color& get_color() const; };
-const color& light_source::get_color() const { return properties->diffuse_color; }
+#include "KS/SRC/light.h"
+
+const color& light_source::get_color() const {
+    return properties->get_color();
+}
 
 // 0x002FF980 get_additive_color__C12light_source
-class color {};
-struct light_properties { char padding[0x14]; color additive_color; };
-class light_source { char padding[0x200]; light_properties* properties; public: const color& get_additive_color() const; };
-const color& light_source::get_additive_color() const { return properties->additive_color; }
+#include "KS/SRC/light.h"
+
+const color& light_source::get_additive_color() const {
+    return properties->get_additive_color();
+}
 
 // 0x002FF9C0 get_near_range__C12light_source
-struct light_properties { char padding[0x24]; float near_range; };
-class light_source { char padding[0x200]; light_properties* properties; public: float get_near_range() const; };
-float light_source::get_near_range() const { return properties->near_range; }
+#include "KS/SRC/light.h"
+
+float light_source::get_near_range() const {
+    return properties->get_near_range();
+}
 
 // 0x002FF9F0 get_lightcat__C12light_source
-struct light_properties { char padding[0x30]; unsigned int lightcat; };
-class light_source { char padding[0x200]; light_properties* properties; public: unsigned int get_lightcat() const; };
-unsigned int light_source::get_lightcat() const { return properties->lightcat; }
+#include "KS/SRC/light.h"
+
+unsigned int light_source::get_lightcat() const {
+    return properties->get_lightcat();
+}
 
 // 0x002FFA00 set_lightcat__12light_sourceUi
-struct light_properties { char padding[0x30]; unsigned int lightcat; };
-class light_source { char padding[0x200]; light_properties* properties; public: void set_lightcat(unsigned int value); };
-void light_source::set_lightcat(unsigned int value) { properties->lightcat = value; }
+#include "KS/SRC/light.h"
+
+void light_source::set_lightcat(unsigned int value) {
+    properties->set_lightcat(value);
+}
 
 // 0x002FFA10 get_cutoff_range__C12light_source
-struct light_properties { char padding[0x28]; float cutoff_range; };
-class light_source { char padding[0x200]; light_properties* properties; public: float get_cutoff_range() const; };
-float light_source::get_cutoff_range() const { return properties->cutoff_range; }
+#include "KS/SRC/light.h"
+
+float light_source::get_cutoff_range() const {
+    return properties->get_cutoff_range();
+}
 
 // 0x002FF9D0 set_near_range__12light_sourcef
 class light_properties { public: void set_near_range(float range); };

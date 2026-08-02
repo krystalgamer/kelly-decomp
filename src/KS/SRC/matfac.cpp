@@ -13,17 +13,10 @@ class mat_fac { char padding[0x38]; int blend_mode; public: bool is_translucent(
 bool mat_fac::is_translucent() const { return blend_mode != 0 && blend_mode != 1; }
 
 // 0x002BD188 has_texture__C7mat_fac
-class material;
-
-class mat_fac {
-    char padding[0x4];
-    material* m_pcmat;
-public:
-    bool has_texture() const;
-};
+#include "KS/SRC/matfac.h"
 
 bool mat_fac::has_texture() const {
-    return m_pcmat != 0;
+    return material.Map != 0;
 }
 
 // 0x002BD198 get_original_width__C7mat_faci5map_e

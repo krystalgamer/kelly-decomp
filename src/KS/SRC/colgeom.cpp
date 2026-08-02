@@ -9,22 +9,6 @@ class collision_geometry { char padding[0x4]; void* owner; void* vptr; public: c
 collision_geometry::collision_geometry() { owner = 0; vptr = &collision_geometry_vtable; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002D89C0)
-// 0x002D89C0 xform__18collision_geometryRC2po
-class po;
-
-class collision_geometry {
-    char padding[0x4];
-    bool valid;
-public:
-    void xform(const po& transform);
-};
-
-void collision_geometry::xform(const po& transform) {
-    valid = true;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_002DC2B8)
 // 0x002DC2B8 xform__7cg_noneRC2po
 class po;

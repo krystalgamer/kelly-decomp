@@ -10,22 +10,6 @@ class collision_geometry { entity* owner; public: const vector3d& get_abs_positi
 const vector3d& collision_geometry::get_abs_position() const { return owner->absolute->position; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002FF388)
-// 0x002FF388 get_pivot__C18collision_geometry
-class vector3d { float x; float y; float z; };
-extern const vector3d collision_zero_pivot;
-__asm__(".equ collision_zero_pivot, 0x005887F0");
-
-class collision_geometry {
-public:
-    const vector3d& get_pivot() const;
-};
-
-const vector3d& collision_geometry::get_pivot() const {
-    return collision_zero_pivot;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_002FF430)
 // 0x002FF430 get_closest_point_along_dir__C7cg_noneP8vector3dRC8vector3d
 struct vector3d { float x; float y; float z; vector3d &operator=(const vector3d &other) { x = other.x; y = other.y; z = other.z; return *this; } };

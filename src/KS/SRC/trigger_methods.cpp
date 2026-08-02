@@ -49,22 +49,12 @@ bool trigger::is_a_trigger() const {
 }
 
 // 0x002B8D28 get_abs_position__C7trigger
-class vector3d {
-    float x;
-    float y;
-    float z;
-};
+#include "KS/SRC/trigger.h"
 
-extern const vector3d trigger_zero_vector;
-__asm__(".equ trigger_zero_vector, 0x00570198");
-
-class trigger {
-public:
-    const vector3d& get_abs_position() const;
-};
+extern const vector3d ZEROVEC_00570198;
 
 const vector3d& trigger::get_abs_position() const {
-    return trigger_zero_vector;
+    return ZEROVEC_00570198;
 }
 // 0x002B8CB8 __tf7trigger
 #include "KS/SRC/rtti.h"

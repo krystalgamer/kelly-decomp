@@ -1,22 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_002C1020)
-// 0x002C1020 get_center__C12vr_billboardf
-class vector3d { float x; float y; float z; };
-extern const vector3d billboard_center;
-__asm__(".equ billboard_center, 0x004318B8");
-
-class vr_billboard {
-public:
-    const vector3d& get_center(float delta_t) const;
-};
-
-const vector3d& vr_billboard::get_center(float delta_t) const {
-    return billboard_center;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_002C1030)
 // 0x002C1030 get_radius__C12vr_billboardf
 class vr_billboard { char padding[0x134]; float width; float height; public: float get_radius(float delta_t) const; };
