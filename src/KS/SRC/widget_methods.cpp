@@ -63,60 +63,35 @@ menu_item_widget* menu_widget::get_sel_item() const {
 }
 
 // 0x00360640 get_num_items__C11menu_widget
-class menu_widget {
-    char padding[0x144];
-    int num_items;
-public:
-    int get_num_items() const;
-};
+#include "KS/SRC/widget.h"
 
 int menu_widget::get_num_items() const {
     return num_items;
 }
 
 // 0x003607B0 get_width__13bitmap_widget
-class bitmap_widget {
-    char padding[0x144];
-    float width;
-public:
-    float get_width();
-};
+#include "KS/SRC/widget.h"
 
 float bitmap_widget::get_width() {
     return width;
 }
 
 // 0x003607B8 get_height__13bitmap_widget
-class bitmap_widget {
-    char padding[0x148];
-    float height;
-public:
-    float get_height();
-};
+#include "KS/SRC/widget.h"
 
 float bitmap_widget::get_height() {
     return height;
 }
 
 // 0x00360A18 get_width__11vrep_widget
-class vrep_widget {
-    char padding[0x148];
-    float screen_radius;
-public:
-    float get_width();
-};
+#include "KS/SRC/widget.h"
 
 float vrep_widget::get_width() {
     return screen_radius;
 }
 
 // 0x00360A20 get_height__11vrep_widget
-class vrep_widget {
-    char padding[0x148];
-    float screen_radius;
-public:
-    float get_height();
-};
+#include "KS/SRC/widget.h"
 
 float vrep_widget::get_height() {
     return screen_radius;

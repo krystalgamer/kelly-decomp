@@ -214,6 +214,7 @@ public:
         rational_t parm0 = 0,
         rational_t parm1 = 0);
     virtual menu_item_widget *get_sel_item() const;
+    virtual int get_num_items() const;
 };
 
 class menu_item_widget : public widget {
@@ -235,9 +236,23 @@ public:
     virtual void flush();
 };
 
+class bitmap_widget : public widget {
+    rational_t width;
+    rational_t height;
+
+public:
+    virtual rational_t get_width();
+    virtual rational_t get_height();
+};
+
 class vrep_widget : public widget {
+    void *vrep;
+    rational_t screen_radius;
+
 public:
     virtual ~vrep_widget();
+    virtual rational_t get_width();
+    virtual rational_t get_height();
     virtual void update_pos();
     virtual void update_scale();
 
