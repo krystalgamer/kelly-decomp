@@ -85,12 +85,14 @@ class CreditsFrontEnd : public FEMultiMenu {
     GraphicalMenuSystem *sys;
     float first_line_y;
     float x_all;
-    int up_pressed;
-    int down_pressed;
+    bool up_pressed;
+    bool down_pressed;
 
 public:
     void OnActivate();
     virtual void Select(int entry_index);
+    virtual void OnUp(int controller);
+    virtual void OnDown(int controller);
     virtual void OnRight(int controller);
     virtual void OnLeft(int controller);
 };

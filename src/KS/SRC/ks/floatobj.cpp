@@ -9,31 +9,17 @@ void beach_object::collide(entity* other, const vector3d& direction) {
 }
 
 // 0x001FB330 jumped_over__12beach_objectP6entity
-class entity;
-
-class beach_object {
-    char padding[0x24];
-    bool active;
-public:
-    void jumped_over(entity* other);
-};
+#include "KS/SRC/ks/floatobj.h"
 
 void beach_object::jumped_over(entity* other) {
-    active = true;
+    set_target_active(true);
 }
 
 // 0x001FB340 sprayed__12beach_objectP6entity
-class entity;
-
-class beach_object {
-    char padding[0x24];
-    bool active;
-public:
-    void sprayed(entity* other);
-};
+#include "KS/SRC/ks/floatobj.h"
 
 void beach_object::sprayed(entity* other) {
-    active = true;
+    set_target_active(true);
 }
 
 // 0x001FD7A0 collide__12water_objectP6entityRC8vector3d
@@ -44,31 +30,17 @@ void water_object::collide(entity* other, const vector3d& direction) {
 }
 
 // 0x001FD7B0 jumped_over__12water_objectP6entity
-class entity;
-
-class water_object {
-    char padding[0x24];
-    bool active;
-public:
-    void jumped_over(entity* other);
-};
+#include "KS/SRC/ks/floatobj.h"
 
 void water_object::jumped_over(entity* other) {
-    active = true;
+    set_target_active(true);
 }
 
 // 0x001FD7C0 sprayed__12water_objectP6entity
-class entity;
-
-class water_object {
-    char padding[0x24];
-    bool active;
-public:
-    void sprayed(entity* other);
-};
+#include "KS/SRC/ks/floatobj.h"
 
 void water_object::sprayed(entity* other) {
-    active = true;
+    set_target_active(true);
 }
 
 // 0x001FE758 collide__15floating_objectP6entityRC8vector3d

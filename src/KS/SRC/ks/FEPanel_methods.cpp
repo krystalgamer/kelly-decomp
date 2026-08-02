@@ -132,15 +132,7 @@ int MultiLineString::getLineNum() {
 }
 
 // 0x001D88E8 setFont__15MultiLineStringP4Font
-class Font;
-
-class MultiLineString {
-    Font* font;
-    char padding[0x54];
-    Font* fonts[1];
-public:
-    void setFont(Font* value);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void MultiLineString::setFont(Font* value) {
     fonts[0] = value;

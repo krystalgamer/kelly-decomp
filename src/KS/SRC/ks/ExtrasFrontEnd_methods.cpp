@@ -8,24 +8,14 @@ void CreditsFrontEnd::Select(int arg0) {
 }
 
 // 0x001DDE90 OnUp__15CreditsFrontEndi
-class CreditsFrontEnd {
-    char padding[0x170];
-    bool up_pressed;
-public:
-    void OnUp(int controller);
-};
+#include "KS/SRC/ks/ExtrasFrontEnd.h"
 
 void CreditsFrontEnd::OnUp(int controller) {
     up_pressed = true;
 }
 
 // 0x001DDEA0 OnDown__15CreditsFrontEndi
-class CreditsFrontEnd {
-    char padding[0x174];
-    bool down_pressed;
-public:
-    void OnDown(int controller);
-};
+#include "KS/SRC/ks/ExtrasFrontEnd.h"
 
 void CreditsFrontEnd::OnDown(int controller) {
     down_pressed = true;
