@@ -5,14 +5,16 @@
 - Object: `game/files_misc2`
 - Debug source: `C:/KS/SRC/lensflare.h`
 - Reference source: `KS/SRC/lensflare.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | symbol_missing | 0.0 | 0 | `type-1.cpp` |
+| 2 | symbol_missing | 0.0 | 0 | `type-2.cpp` |
+| 3 | symbol_missing | 0.0 | 0 | `type-3.cpp` |
 
 ## Outcome
 
-Matched immutable lensflare RTTI inheritance on Sol attempt 1.
+Three native C++ type-info forms could not emit the legacy lensflare compiler helper; the hand-written RTTI wrapper was removed.

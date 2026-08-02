@@ -1,49 +1,32 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef LENSFLARE_H
+#define LENSFLARE_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_002FF880)
-// 0x002FF880 __tf9lensflare
-#include "KS/SRC/rtti.h"
-extern "C" void **LensflareBaseRtti() __asm__("__tf6entity");
-extern "C" void *lensflare_type[] __asm__("__ti9lensflare");
-extern "C" const char lensflare_name[];
-extern "C" void *lensflare_base_type[] __asm__("__ti6entity");
-__asm__(".equ __tf6entity, 0x001449C8");
-__asm__(".equ __ti9lensflare, 0x005A3FC0");
-__asm__(".equ lensflare_name, 0x004F4C30");
-__asm__(".equ __ti6entity, 0x005A27C8");
-extern "C" void **LensflareRtti() __asm__("__tf9lensflare");
-void **LensflareRtti()
-{
-    if (!lensflare_type[0]) {
-        LensflareBaseRtti();
-        __rtti_si(lensflare_type, lensflare_name, lensflare_base_type);
-    }
-    return lensflare_type;
-}
-#endif
+#include "KS/SRC/entity.h"
 
-
-#if defined(KELLY_DECOMP_FUNCTION_002FF8D0)
-// 0x002FF8D0 render_passes_needed__C9lensflare
-class lensflare {
+class lensflare : public entity {
 public:
-    unsigned int render_passes_needed() const;
+    lensflare(
+        const entity_id &id,
+        unsigned int flags = 0);
+    lensflare(
+        chunk_file &file,
+        const entity_id &id,
+        entity_flavor_t flavor = ENTITY_LENSFLARE,
+        unsigned int flags = 0);
+    virtual ~lensflare();
+    virtual entity *make_instance(
+        const entity_id &id,
+        unsigned int flags) const;
+    virtual void frame_advance(time_value_t time_inc);
+    virtual void render(
+        camera *camera_link,
+        rational_t detail,
+        render_flavor_t flavor,
+        rational_t translucency);
+    virtual render_flavor_t render_passes_needed() const;
+    virtual bool possibly_active() const;
 };
 
-unsigned int lensflare::render_passes_needed() const {
-    return 2;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FF8D8)
-// 0x002FF8D8 possibly_active__C9lensflare
-class lensflare {
-public:
-    bool possibly_active() const;
-};
-
-bool lensflare::possibly_active() const {
-    return true;
-}
 #endif
