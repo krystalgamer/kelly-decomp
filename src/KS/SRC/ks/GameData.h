@@ -1,4 +1,19 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef GAME_DATA_H
+#define GAME_DATA_H
+
+#pragma interface
+
+#include "KS/SRC/singleton.h"
+
+class StoredConfigData : public singleton {
+    char data_to_camera[0x30 - sizeof(singleton)];
+    char camera[4][20];
+
+public:
+    char *getLastCamera(int hero);
+};
+
+#endif
 
 
 #if defined(KELLY_DECOMP_FUNCTION_002B8B18)

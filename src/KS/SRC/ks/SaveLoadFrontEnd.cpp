@@ -74,17 +74,10 @@ int SaveLoadFrontEnd::getActiveCard() {
 }
 
 // 0x0019BF38 DialogActive__16SaveLoadFrontEnd
-class FEMenu;
-struct save_load_dialog_layout {
-    char padding_to_active[0x60];
-    FEMenu *active;
-    char padding_to_dialog[0x3298];
-    FEMenu *dialogMenu;
-};
-extern "C" bool dialog_active(save_load_dialog_layout *self)
-    __asm__("DialogActive__16SaveLoadFrontEnd");
-bool dialog_active(save_load_dialog_layout *self) {
-    return self->active == self->dialogMenu;
+#include "KS/SRC/ks/SaveLoadFrontEnd.h"
+
+bool SaveLoadFrontEnd::DialogActive() {
+    return active == dialogMenu;
 }
 
 // 0x0019EDD8 Init__9NamesMenu

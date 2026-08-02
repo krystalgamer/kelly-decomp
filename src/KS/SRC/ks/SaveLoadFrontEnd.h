@@ -80,6 +80,7 @@ public:
     virtual void Select();
     virtual void OnCross(int controller);
     int getActiveCard();
+    bool DialogActive();
     void StartError(int id);
     void SetDState(
         int state,

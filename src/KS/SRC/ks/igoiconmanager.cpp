@@ -6,7 +6,8 @@ class IGOIconManager { public: class IconResource { void* texture; int trickIdx;
 IGOIconManager::IconResource::IconResource() { texture = 0; trickIdx = -1; timesDisplayed = 0; }
 
 // 0x00163C78 __Q214IGOIconManager4Icon
-class IGOIconManager { public: class Icon { char padding[0x64]; void* resource; char padding_to_show[0x10]; bool show; public: Icon(); }; };
+#include "KS/SRC/ks/igoiconmanager.h"
+
 IGOIconManager::Icon::Icon() { show = true; resource = 0; }
 
 // 0x00163D60 SetShow__Q214IGOIconManager4Iconb

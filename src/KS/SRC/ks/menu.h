@@ -295,7 +295,8 @@ public:
 };
 
 class MenuSystem {
-    char menu_system_context[0x458];
+    char menu_system_context[0x470];
+    Menu *curmenu;
 
 public:
     virtual ~MenuSystem();
@@ -304,6 +305,9 @@ public:
     void CloseAllMenus();
     virtual void ButtonPress(int button);
     virtual void ButtonRelease(int button);
+    bool IsActive() const { return curmenu != 0; }
 };
+
+extern MenuSystem *menus;
 
 #endif

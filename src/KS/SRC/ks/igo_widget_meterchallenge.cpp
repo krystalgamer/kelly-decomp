@@ -1,11 +1,10 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00164E20)
 // 0x00164E20 Hide__20MeterChallengeWidgetb
-class MeterChallengeWidget { char padding[0x18]; int fadeDir; public: void Hide(bool fadeOut); };
+#include "KS/SRC/ks/igo_widget_meterchallenge.h"
+
 void MeterChallengeWidget::Hide(bool fadeOut) { if (fadeOut) fadeDir = -1; }
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00164AC8)
 // 0x00164AC8 SetDisplay__20MeterChallengeWidgetb

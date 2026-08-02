@@ -137,10 +137,9 @@ void GoalsMenuClass::OnCross(int controller) {
 }
 
 // 0x001B4BD8 IsDebugMenuDisplayed__Fv
-struct MenuSystem { char padding[0x470]; bool active; };
-extern MenuSystem* menus;
-__asm__(".equ menus, 0x00424EE8");
-bool IsDebugMenuDisplayed() { return menus->active != 0; }
+#include "KS/SRC/ks/menu.h"
+
+bool IsDebugMenuDisplayed() { return menus->IsActive(); }
 
 // 0x001A5880 OnStart__14PauseMenuClassi
 extern "C" void menu_on_start(void *self, int command)
