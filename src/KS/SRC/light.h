@@ -44,6 +44,7 @@ class light_source : public entity {
     light_properties *properties;
 
 public:
+    virtual bool is_a_light_source() const;
     virtual void frame_advance(float time_inc);
     float get_dist(const sphere &bounds) const;
     inline const light_properties &get_properties() const {

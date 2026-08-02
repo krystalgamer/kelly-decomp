@@ -23,10 +23,7 @@ void **LightSourceRtti()
 
 
 // 0x002FF930 is_a_light_source__C12light_source
-class light_source {
-public:
-    bool is_a_light_source() const;
-};
+#include "KS/SRC/light.h"
 
 bool light_source::is_a_light_source() const {
     return true;
