@@ -27,14 +27,9 @@ entity_track_node *entity_track_tree::get_root() {
 }
 
 // 0x00114E60 binary_extension__17entity_track_tree
+#include "KS/SRC/entity_anim.h"
+
 extern const char binary_extension_literal[];
-
-__asm__(".equ binary_extension_literal, 0x004C92A8");
-
-class entity_track_tree {
-public:
-    static const char* binary_extension();
-};
 
 const char* entity_track_tree::binary_extension() {
     return binary_extension_literal;
@@ -52,25 +47,7 @@ class ett_manager { public: void ett_free(void* pointer); };
 void ett_manager::ett_free(void* pointer) { mem_free(pointer); KELLY_DECOMP_COMPILER_BARRIER(); }
 
 // 0x001177D0 set_timescale_factor__16entity_anim_treef
-class anim_control {
-    char padding[0x18];
-    float timescale;
-    char trailing_padding[0x20];
-
-public:
-    void set_timescale_factor(float value) {
-        timescale = value;
-    }
-};
-
-class entity_anim_tree {
-    char padding[0x3C];
-    anim_control control;
-    anim_control control_b;
-
-public:
-    void set_timescale_factor(float value);
-};
+#include "KS/SRC/entity_anim.h"
 
 void entity_anim_tree::set_timescale_factor(float value) {
     control.set_timescale_factor(value);

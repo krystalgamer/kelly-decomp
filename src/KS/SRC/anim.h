@@ -41,6 +41,10 @@ public:
         return timescale_factor;
     }
 
+    inline void set_timescale_factor(float factor) {
+        timescale_factor = factor;
+    }
+
     inline bool is_flagged(anim_flags_t flag) const {
         return flags & flag;
     }

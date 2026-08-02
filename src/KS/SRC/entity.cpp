@@ -253,7 +253,6 @@ void* entity::movement_info::operator new(unsigned int size, unsigned int alignm
 #include "KS/SRC/entity.h"
 
 extern const char entity_signal_name_literal[];
-__asm__(".equ entity_signal_name_literal, 0x004CA870");
 
 const char* entity::get_signal_name(unsigned short index) const {
     return entity_signal_name_literal;

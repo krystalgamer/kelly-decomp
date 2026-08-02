@@ -57,4 +57,7 @@ public:
     }
 };
 
+extern stringx empty_string;
+extern stringx sendl;
+
 #endif

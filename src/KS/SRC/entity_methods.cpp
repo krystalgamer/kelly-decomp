@@ -64,9 +64,7 @@ bool entity::get_externally_controlled() const { return flags & EFLAG_PHYSENT_EX
 
 // 0x00144E18 get_in_use__C6entity
 bool entity::get_in_use() const {
-    short flags;
-    __asm__("lh %0, 0x7A(%1)" : "=r"(flags) : "r"(this));
-    return flags & 1;
+    return flags & EFLAG_MISC_IN_USE;
 }
 
 // 0x00144E58 get_colgeom__C6entity
@@ -96,11 +94,10 @@ float entity::get_underwater_pct() const {
 }
 
 // 0x00144EA0 get_water_normal__C6entity
-extern const vector3d entity_zero_vector;
-__asm__(".equ entity_zero_vector, 0x00513840");
+extern const vector3d ZEROVEC_00513840;
 
 const vector3d& entity::get_water_normal() const {
-    return entity_zero_vector;
+    return ZEROVEC_00513840;
 }
 
 // 0x00144EB0 get_underwater_time__C6entity
@@ -157,19 +154,13 @@ bool entity::get_fade_away() const {
 }
 
 // 0x00144F90 get_filename__C6entity
-extern const stringx entity_empty_string;
-__asm__(".equ entity_empty_string, 0x0046DB30");
-
 const stringx& entity::get_filename() const {
-    return entity_empty_string;
+    return sendl;
 }
 
 // 0x00144FA0 get_dirname__C6entity
-extern const stringx entity_empty_string;
-__asm__(".equ entity_empty_string, 0x0046DB30");
-
 const stringx& entity::get_dirname() const {
-    return entity_empty_string;
+    return sendl;
 }
 
 // 0x00144FB0 has_dirname__C6entity

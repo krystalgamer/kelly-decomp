@@ -53,6 +53,7 @@ public:
     ~entity_track_tree();
     void *operator new(unsigned int size);
     void operator delete(void *memory);
+    static const char *binary_extension();
     entity_track_node *get_root();
     entity_track_node *insert_root();
     void _compute_duration();
