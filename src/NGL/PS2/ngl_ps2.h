@@ -64,8 +64,11 @@ struct nglMaterial;
 struct nglMeshFile;
 struct nglMeshLODInfo;
 struct nglMeshBatchInfo;
+struct nglQuad;
 
-typedef void (*nglCustomNodeFn)(void *);
+typedef void (*nglCustomNodeFn)(
+    unsigned int *&packet,
+    void *data);
 
 struct nglMeshSection {
     nglMaterial *Material;
@@ -122,6 +125,21 @@ struct nglTexture {
 } __attribute__((aligned(16)));
 
 void nglRelockAllTexturesPS2();
+void nglExportTextureTGA(
+    nglTexture *texture,
+    const char *filename);
+void nglSetSectionRenderer(
+    nglMeshSection *section,
+    nglCustomNodeFn renderer);
+void nglSetQuadTex(
+    nglQuad *quad,
+    nglTexture *texture);
+void nglSetQuadMapFlags(
+    nglQuad *quad,
+    unsigned int flags);
+void nglSetQuadZ(
+    nglQuad *quad,
+    float value);
 
 enum {
     NGLMAP_BILINEAR_FILTER = 0x00000002,

@@ -200,53 +200,6 @@ struct nglTexture { char padding[0x18]; TIM2_PICTUREHEADER* ph; };
 void* nglTim2GetClut(nglTexture* texture) { return (char*)texture->ph + texture->ph->HeaderSize; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003A0E70)
-// 0x003A0E70 nglExportTextureTGA__FP10nglTexturePCc
-struct nglTexture;
-
-void nglExportTextureTGA(nglTexture* texture, const char* filename) {
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_003A5810)
-// 0x003A5810 nglSetSectionRenderer__FP14nglMeshSectionPFRPUiPv_v
-typedef void (*nglCustomNodeFn)(unsigned int*& packet, void* data);
-
-struct nglMeshSection {
-    char padding[0x3C];
-    nglCustomNodeFn RenderFn;
-};
-
-void nglSetSectionRenderer(nglMeshSection* section, nglCustomNodeFn render) {
-    section->RenderFn = render;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_003A69A0)
-// 0x003A69A0 nglSetQuadTex__FP7nglQuadP10nglTexture
-struct nglTexture;
-struct nglQuad {
-    char padding[0x60];
-    nglTexture* Tex;
-};
-
-void nglSetQuadTex(nglQuad* quad, nglTexture* texture) {
-    quad->Tex = texture;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_003A69A8)
-// 0x003A69A8 nglSetQuadMapFlags__FP7nglQuadUi
-struct nglQuad {
-    char padding[0x54];
-    unsigned int MapFlags;
-};
-
-void nglSetQuadMapFlags(nglQuad* quad, unsigned int flags) {
-    quad->MapFlags = flags;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_003A69B0)
 // 0x003A69B0 nglSetQuadBlend__FP7nglQuadUiUi
 struct nglQuad { char padding[0x58]; unsigned int BlendMode; unsigned int BlendModeConstant; };
@@ -257,18 +210,6 @@ void nglSetQuadBlend(nglQuad* quad, unsigned int blend, unsigned int constant) {
 // 0x003A69E8 nglSetQuadColor__FP7nglQuadUi
 struct nglQuad { char padding0[0x10]; unsigned int Color1; char padding1[0x10]; unsigned int Color2; char padding2[0x10]; unsigned int Color3; char padding3[0x10]; unsigned int Color4; };
 void nglSetQuadColor(nglQuad* quad, unsigned int color) { quad->Color1 = color; quad->Color2 = color; quad->Color3 = color; quad->Color4 = color; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_003A6A90)
-// 0x003A6A90 nglSetQuadZ__FP7nglQuadf
-struct nglQuad {
-    char padding[0x50];
-    float Z;
-};
-
-void nglSetQuadZ(nglQuad* quad, float value) {
-    quad->Z = value;
-}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003AA1A8)
