@@ -18,60 +18,42 @@ void signaller::raise_signal(unsigned int index) const
 
 
 // 0x0035F9A8 is_code_callback__15signal_callback
-class signal_callback {
-public:
-    bool is_code_callback();
-};
+#include "KS/SRC/signals.h"
 
 bool signal_callback::is_code_callback() {
     return false;
 }
 
 // 0x0035F9B0 is_script_callback__15signal_callback
-class signal_callback {
-public:
-    bool is_script_callback();
-};
+#include "KS/SRC/signals.h"
 
 bool signal_callback::is_script_callback() {
     return false;
 }
 
 // 0x0035FA30 is_script_callback__15script_callback
-class script_callback {
-public:
-    bool is_script_callback();
-};
+#include "KS/SRC/signals.h"
 
 bool script_callback::is_script_callback() {
     return true;
 }
 
 // 0x0035FAB0 is_code_callback__13code_callback
-class code_callback {
-public:
-    bool is_code_callback();
-};
+#include "KS/SRC/signals.h"
 
 bool code_callback::is_code_callback() {
     return true;
 }
 
 // 0x0035FBF0 is_an_entity__C9signaller
-class signaller {
-public:
-    bool is_an_entity() const;
-};
+#include "KS/SRC/signals.h"
 
 bool signaller::is_an_entity() const {
     return false;
 }
 
 // 0x0035FBF8 is_a_trigger__C9signaller
-class signaller {
-public:
-    bool is_a_trigger() const;
-};
+#include "KS/SRC/signals.h"
 
 bool signaller::is_a_trigger() const {
     return false;

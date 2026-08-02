@@ -28,8 +28,8 @@ public:
     }
     inline bool is_one_shot() const { return one_shot; }
     inline unsigned int get_id() const { return id; }
-    virtual inline bool is_code_callback() { return false; }
-    virtual inline bool is_script_callback() { return false; }
+    virtual bool is_code_callback();
+    virtual bool is_script_callback();
 
 protected:
     char *parms;
@@ -49,7 +49,7 @@ public:
         const vm_executable *function,
         const char *parameters);
     virtual ~script_callback();
-    virtual inline bool is_script_callback() { return true; }
+    virtual bool is_script_callback();
     const stringx &get_func_name();
     virtual void spawn(signaller *source = 0);
 };
@@ -61,7 +61,7 @@ public:
         const char *parameters);
     virtual ~code_callback();
     virtual void spawn(signaller *source = 0);
-    virtual inline bool is_code_callback() { return true; }
+    virtual bool is_code_callback();
 
 private:
     void (*func)(signaller *, const char *);
@@ -100,8 +100,8 @@ protected:
 public:
     virtual ~signaller();
     inline bool is_flagged(flags_t value) const { return flags & value; }
-    virtual inline bool is_an_entity() const { return false; }
-    virtual inline bool is_a_trigger() const { return false; }
+    virtual bool is_an_entity() const;
+    virtual bool is_a_trigger() const;
     virtual void raise_signal(unsigned int index) const;
     virtual signal_list *construct_signal_list();
     virtual const char *get_signal_name(unsigned short index) const;
