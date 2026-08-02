@@ -4,7 +4,6 @@
 // 0x00235E28 ProfButton__FP9MenuEntryi
 class MenuEntry;
 extern unsigned char profiler_enabled;
-__asm__(".equ profiler_enabled, 0x00431AFF");
 bool ProfButton(MenuEntry* entry, int button) { profiler_enabled = 1; return true; }
 
 // 0x002367F0 ReplaySaveButton__FP9MenuEntryi

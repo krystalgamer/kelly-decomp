@@ -16,10 +16,10 @@
 #include "KS/SRC/ks/career.h"
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0025AED0)
 // 0x0025AED0 OnGoalReDone__6Careerii
+#include "KS/SRC/ks/career.h"
+
 void Career::OnGoalReDone(int level, int goal) { goal_passed[goal] = true; }
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0025B8F0)
 // 0x0025B8F0 __Q26Career8Location

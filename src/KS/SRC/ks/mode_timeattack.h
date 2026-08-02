@@ -25,6 +25,11 @@ protected:
 public:
     TimeAttackMode();
     ~TimeAttackMode();
+    void SetDifficulty(int points);
+    int GetScore(int player_index) const;
+    float GetLevelDuration(int player_index) const;
+    float GetRemainingTime(int player_index) const;
+    bool IsAttacking(int player_index) const;
     bool IsDoneAttacking(int player_index) const;
 };
 

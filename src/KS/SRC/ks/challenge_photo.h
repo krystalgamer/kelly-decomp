@@ -79,6 +79,10 @@ private:
 public:
     PhotoChallenge();
     virtual ~PhotoChallenge();
+    virtual void OnEvent(
+        EVENT event,
+        int param1 = 0,
+        int param2 = 0);
     void Retry();
     int *GetPhotoScore(int index) const;
     nglTexture *GetPhotoTexture(int index);

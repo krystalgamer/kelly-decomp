@@ -88,7 +88,8 @@ void KSReplay::Record() {
 void KSReplay::SpeedFast() { fastforward = true; slomo = false; }
 
 // 0x0023CAD8 Done__8KSReplay
-class KSReplay { char padding_to_play[0x34]; unsigned int playframe; char padding_to_num[0x1C]; unsigned int numFrames; public: bool Done(); };
+#include "KS/SRC/ks/ksreplay.h"
+
 bool KSReplay::Done() { return playframe >= numFrames; }
 
 // 0x0023CAF0 NoDraw__8KSReplay

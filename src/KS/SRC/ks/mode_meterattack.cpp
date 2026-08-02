@@ -2,32 +2,24 @@
 
 
 // 0x00286748 GetScore__C15MeterAttackModei
-struct AttackPlayer { void* controller; float time; int previous_score; int score; bool attacking; char trailing[4]; };
-struct MeterAttackLayout { AttackPlayer players[2]; };
-extern "C" int get_meter_score(const MeterAttackLayout *self, int index)
-    __asm__("GetScore__C15MeterAttackModei");
-int get_meter_score(const MeterAttackLayout *self, int index) { return self->players[index].score; }
+#include "KS/SRC/ks/mode_meterattack.h"
+
+int MeterAttackMode::GetScore(int index) const { return players[index].score; }
 
 // 0x00286760 GetLevelDuration__C15MeterAttackModei
-struct AttackPlayer { void* controller; float time; int previous_score; int score; bool attacking; char trailing[4]; };
-struct MeterAttackLayout { AttackPlayer players[2]; };
-extern "C" float get_meter_duration(const MeterAttackLayout *self, int index)
-    __asm__("GetLevelDuration__C15MeterAttackModei");
-float get_meter_duration(const MeterAttackLayout *self, int index) { return self->players[index].time; }
+#include "KS/SRC/ks/mode_meterattack.h"
+
+float MeterAttackMode::GetLevelDuration(int index) const { return players[index].time; }
 
 // 0x00286778 GetRemainingTime__C15MeterAttackModei
-struct AttackPlayer { void* controller; float time; int previous_score; int score; bool attacking; char trailing[4]; };
-struct MeterAttackLayout { AttackPlayer players[2]; };
-extern "C" float get_meter_remaining(const MeterAttackLayout *self, int index)
-    __asm__("GetRemainingTime__C15MeterAttackModei");
-float get_meter_remaining(const MeterAttackLayout *self, int index) { return self->players[index].time; }
+#include "KS/SRC/ks/mode_meterattack.h"
+
+float MeterAttackMode::GetRemainingTime(int index) const { return players[index].time; }
 
 // 0x00286790 IsAttacking__C15MeterAttackModei
-struct AttackPlayer { void* controller; float time; int previous_score; int score; bool attacking; char trailing[4]; };
-struct MeterAttackLayout { AttackPlayer players[2]; };
-extern "C" bool meter_is_attacking(const MeterAttackLayout *self, int index)
-    __asm__("IsAttacking__C15MeterAttackModei");
-bool meter_is_attacking(const MeterAttackLayout *self, int index) { return self->players[index].attacking; }
+#include "KS/SRC/ks/mode_meterattack.h"
+
+bool MeterAttackMode::IsAttacking(int index) const { return players[index].attacking; }
 
 // 0x00286518 _$_15MeterAttackMode
 extern "C" void builtin_delete(void *pointer) __asm__("__builtin_delete");

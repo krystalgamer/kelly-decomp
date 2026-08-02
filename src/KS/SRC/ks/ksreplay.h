@@ -62,7 +62,8 @@ private:
     bool prepareNormal;
     int slomospeed;
     int ffspeed;
-    char data_to_num_frames[0x54 - 0x34];
+    unsigned int playframe;
+    char data_to_num_frames[0x1C];
     unsigned int numFrames;
     char data_to_main_entity_state[0xC];
     KSEntityState* mainEntityState;
@@ -79,6 +80,7 @@ public:
     bool IsPlaying();
     void Record();
     void SpeedFast();
+    bool Done();
     void SetWipeoutSplash(int player);
     void SetEndWave();
     bool NoDraw();

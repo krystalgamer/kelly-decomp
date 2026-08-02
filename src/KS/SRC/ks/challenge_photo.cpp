@@ -17,25 +17,15 @@ void PhotoDtor(PhotoChallenge::Photo* self, int deleting)
 }
 
 // 0x00262518 OnEvent__14PhotoChallenge5EVENTii
-enum EVENT { EVT_SCORING_CHAIN_END = 7 };
-struct photo_event_layout {
-    char padding[0x14];
-    bool recordChain;
-};
-extern "C" void photo_event(
-    photo_event_layout *self,
-    EVENT event,
-    int param1,
-    int param2
-) __asm__("OnEvent__14PhotoChallenge5EVENTii");
-void photo_event(
-    photo_event_layout *self,
+#include "KS/SRC/ks/challenge_photo.h"
+
+void PhotoChallenge::OnEvent(
     EVENT event,
     int param1,
     int param2
 ) {
     if (event == EVT_SCORING_CHAIN_END)
-        self->recordChain = false;
+        recordChain = false;
 }
 
 // 0x00262668 GetPhotoScore__C14PhotoChallengei

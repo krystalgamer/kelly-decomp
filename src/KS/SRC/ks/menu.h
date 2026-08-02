@@ -294,8 +294,21 @@ public:
     virtual int GetValue();
 };
 
-class MenuSystem {
-    char menu_system_context[0x470];
+class MenuRender {
+    char render_context[0x458];
+
+public:
+    virtual ~MenuRender();
+};
+
+class MenuInput {
+    char input_context[0x10];
+
+public:
+    virtual ~MenuInput();
+};
+
+class MenuSystem : public MenuRender, public MenuInput {
     Menu *curmenu;
 
 public:

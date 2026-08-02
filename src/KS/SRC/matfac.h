@@ -9,7 +9,7 @@ public:
     int MapBlendMode;
 
 private:
-    char fields[0xD4];
+    char fields[0xCC];
 
 public:
     nglMaterial();
@@ -27,6 +27,7 @@ public:
 
 private:
     nglMaterial material;
+    char material_abi_padding[8];
 };
 
 #endif
