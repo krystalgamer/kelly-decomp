@@ -13,20 +13,6 @@ public:
 void fog_manager::set_fog_distance(float start, float end) { fog_start_distance = start; fog_end_distance = end; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00338630)
-// 0x00338630 set_fog_table_gamma__11fog_managerf
-class fog_manager {
-    char padding[0x1C];
-    float specified_fog_table_gamma;
-public:
-    void set_fog_table_gamma(float value);
-};
-
-void fog_manager::set_fog_table_gamma(float value) {
-    specified_fog_table_gamma = value;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00338458)
 // 0x00338458 _$_11fog_manager
 extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
