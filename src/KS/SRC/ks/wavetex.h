@@ -2,6 +2,7 @@
 #define WAVETEX_H
 
 extern int wavetex_playerid;
+extern int WavetexDebug_ShadowPass;
 
 bool mem_malloc_locked();
 void mem_lock_malloc(bool locked);

@@ -9,9 +9,12 @@ trigger* trigger_manager::new_box_trigger(entity* value) {
 }
 
 // 0x0028D618 add__15trigger_managerP7trigger
-struct trigger { char padding[0x18]; trigger* next; };
-class trigger_manager { char padding[0x10]; trigger* head; public: void add(trigger* value); };
-void trigger_manager::add(trigger* value) { value->next = head; head = value; }
+#include "KS/SRC/trigger.h"
+
+void trigger_manager::add(trigger* value) {
+    value->next = list;
+    list = value;
+}
 
 // 0x0028D760 update_regions__15trigger_manager
 #include "KS/SRC/trigger.h"
@@ -47,11 +50,12 @@ void region_trigger::update_region() {
 }
 
 // 0x0028EB18 get_abs_position__C14entity_trigger
-class vector3d { float x; float y; float z; };
-struct entity_position_holder { char padding[0x30]; vector3d position; };
-struct entity { char padding[0x50]; entity_position_holder* absolute; };
-class entity_trigger { char padding[0x38]; entity* ent; public: const vector3d& get_abs_position() const; };
-const vector3d& entity_trigger::get_abs_position() const { return ent->absolute->position; }
+#include "KS/SRC/entity.h"
+#include "KS/SRC/trigger.h"
+
+const vector3d& entity_trigger::get_abs_position() const {
+    return ent->get_abs_position();
+}
 
 // 0x0028EB28 update_region__14entity_trigger
 #include "KS/SRC/trigger.h"

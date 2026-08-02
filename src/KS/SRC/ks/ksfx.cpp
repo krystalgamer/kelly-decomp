@@ -23,62 +23,6 @@ void SFXEngine::shutdown()
 #endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_0036D2A8)
-// 0x0036D2A8 ks_fx_GetDrawCrash__Fv
-extern bool value;
-__asm__(".equ value, 0x00485A50");
-bool ks_fx_GetDrawCrash() { return value != 0; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0036D2C8)
-// 0x0036D2C8 ks_fx_GetDrawTrailGeom__Fv
-extern bool value;
-__asm__(".equ value, 0x00485A54");
-bool ks_fx_GetDrawTrailGeom() { return value != 0; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0036D2E8)
-// 0x0036D2E8 ks_fx_GetDrawSpray__Fv
-extern bool value;
-__asm__(".equ value, 0x00485A58");
-bool ks_fx_GetDrawSpray() { return value != 0; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0036D308)
-// 0x0036D308 ks_fx_GetDrawSprayGeom__Fv
-extern bool value;
-__asm__(".equ value, 0x00485A5C");
-bool ks_fx_GetDrawSprayGeom() { return value != 0; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0036D328)
-// 0x0036D328 ks_fx_GetDrawLoose__Fv
-extern bool value;
-__asm__(".equ value, 0x00485A60");
-bool ks_fx_GetDrawLoose() { return value != 0; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0036D348)
-// 0x0036D348 ks_fx_GetDrawWeather__Fv
-extern bool value;
-__asm__(".equ value, 0x00485A64");
-bool ks_fx_GetDrawWeather() { return value != 0; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0036D368)
-// 0x0036D368 ks_fx_GetDrawUnderwater__Fv
-extern bool value;
-__asm__(".equ value, 0x00485A68");
-bool ks_fx_GetDrawUnderwater() { return value != 0; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0036D388)
-// 0x0036D388 ks_fx_GetDrawSplashes__Fv
-extern bool value;
-__asm__(".equ value, 0x00485A6C");
-bool ks_fx_GetDrawSplashes() { return value != 0; }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0036C4B0)
 // 0x0036C4B0 ks_fx_OnNewWave__Fv
 void ks_fx_reset();

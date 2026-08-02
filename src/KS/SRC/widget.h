@@ -68,6 +68,12 @@ public:
         short x,
         short y);
     virtual ~widget();
+    inline void set_flag(unsigned int flag, bool enabled) {
+        if (enabled)
+            flags |= flag;
+        else
+            flags &= ~flag;
+    }
     virtual void show();
     virtual void hide();
     virtual void ignore_parent();
@@ -215,6 +221,8 @@ public:
         rational_t parm1 = 0);
     virtual menu_item_widget *get_sel_item() const;
     virtual int get_num_items() const;
+    virtual rational_t get_width();
+    virtual rational_t get_height();
 };
 
 class menu_item_widget : public widget {
@@ -227,6 +235,8 @@ class menu_item_widget : public widget {
 public:
     virtual void deselect(bool initial);
     virtual void set_skip(bool value);
+    virtual rational_t get_width();
+    virtual rational_t get_height();
 };
 
 class text_widget : public widget {

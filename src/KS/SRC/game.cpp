@@ -122,22 +122,12 @@ void game::render_black_screen() {
 }
 
 // 0x0027A830 set_beach__4gamei
-class game { char padding[0x224]; int levelid; int beachid; public: void set_beach(int beach); };
+#include "KS/SRC/game.h"
+
 void game::set_beach(int beach) { levelid = 31; beachid = beach; }
 
 // 0x0027D968 is_paused__C4game
-struct game_flags {
-    unsigned long long padding : 44;
-    unsigned long long game_paused : 1;
-};
-
-class game {
-    char padding[0xC8];
-    game_flags flag;
-
-public:
-    bool is_paused() const;
-};
+#include "KS/SRC/game.h"
 
 bool game::is_paused() const {
     return flag.game_paused;
@@ -149,7 +139,8 @@ void game::clear_screen() {
 }
 
 // 0x00284B80 SetBoardIdx__4gameii
-class game { char padding[0x250]; int boardIdx[2]; public: void SetBoardIdx(int hero, int index); };
+#include "KS/SRC/game.h"
+
 void game::SetBoardIdx(int hero, int index) { boardIdx[hero] = index; }
 
 // 0x00284E90 draw_debug_labels__4game
@@ -164,7 +155,8 @@ void game::set_num_ai_players(int count) {
 }
 
 // 0x00284EE0 LoadingStateReset__4game
-class game { char padding[0x290]; int current_loading_state; char padding_to_progress[0x4]; float loading_progress; float last_loading_progress; public: void LoadingStateReset(); };
+#include "KS/SRC/game.h"
+
 void game::LoadingStateReset() { current_loading_state = 0; loading_progress = 0; last_loading_progress = 0; }
 
 // 0x0027A808 set_level__4gamei

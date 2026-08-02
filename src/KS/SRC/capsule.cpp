@@ -8,8 +8,11 @@ void collision_capsule::estimate_physical_properties(entity* body, float density
 }
 
 // 0x002D7F38 apply_radius_scale__17collision_capsulef
-class collision_capsule { char padding_to_rel[0x24]; float rel_radius; char padding_to_abs[0x18]; float abs_radius; public: void apply_radius_scale(float scale); };
-void collision_capsule::apply_radius_scale(float scale) { abs_radius = rel_radius * scale; }
+#include "KS/SRC/capsule.h"
+
+void collision_capsule::apply_radius_scale(float scale) {
+    absolute_capsule.radius = relative_capsule.radius * scale;
+}
 
 // 0x002D7688 __17collision_capsuleP6entity
 #include "KS/SRC/capsule.h"

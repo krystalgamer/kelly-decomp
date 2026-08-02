@@ -67,6 +67,7 @@ public:
     virtual ~collision_capsule();
     void compute_dimensions();
     void render() const;
+    virtual void apply_radius_scale(float scale);
     virtual float get_core_radius() const;
     virtual unsigned int get_type() const;
     virtual void estimate_physical_properties(

@@ -1,4 +1,11 @@
 #include "KS/SRC/capsule.h"
+#include "KS/SRC/entity.h"
+
+// 0x002FF328 get_abs_position__C18collision_geometry
+const vector3d &collision_geometry::get_abs_position() const
+{
+    return owner->get_abs_position();
+}
 
 // 0x002D89C0 xform__18collision_geometryRC2po
 void collision_geometry::xform(const po &transform)

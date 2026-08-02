@@ -21,6 +21,7 @@ public:
         int state_count);
     ~game_process();
 
+    void go_next_state();
     void reset_index();
     inline void set_timer(float value) {
         timer = value;
@@ -49,9 +50,18 @@ class TimeAttackMode;
 class MeterAttackMode;
 class HeadToHeadMode;
 
+struct game_recti {
+    int x0;
+    int y0;
+    int x1;
+    int y1;
+};
+
 struct PushPlayer {
     float share;
-    char remaining_data[0x1C];
+    char data_to_viewport[4];
+    game_recti viewport;
+    char remaining_data[8];
 };
 
 class PushMode {
@@ -63,6 +73,7 @@ public:
     ~PushMode();
     void SetDifficulty(int points);
     float GetPlayerShare(int player) const;
+    const game_recti &GetPlayerViewport(int player) const;
 };
 
 struct PlayMode {
@@ -105,13 +116,6 @@ public:
     const stringx &get_hero_name(int hero_num);
 };
 
-struct game_recti {
-    int x0;
-    int y0;
-    int x1;
-    int y1;
-};
-
 class game {
     char data_before_process_stack[0x5c];
     list<game_process> process_stack;
@@ -127,6 +131,21 @@ class game {
     int num_ai_players;
     int num_active_players;
     int active_player;
+    char data_to_flags[4];
+    struct {
+        unsigned long long padding : 44;
+        unsigned long long game_paused : 1;
+    } flag;
+    char data_to_level_id[0x154];
+    int levelid;
+    int beachid;
+    char data_to_board_index[0x24];
+    int boardIdx[2];
+    char data_to_loading_state[0x38];
+    int current_loading_state;
+    char data_to_loading_progress[4];
+    float loading_progress;
+    float last_loading_progress;
 
 public:
     void do_profiler_stuff();
@@ -135,6 +154,9 @@ public:
     void clear_screen();
     void draw_debug_labels();
     void set_num_ai_players(int count);
+    void set_beach(int beach);
+    void SetBoardIdx(int hero, int index);
+    void LoadingStateReset();
     bool is_paused() const;
     bool was_start_pressed() const;
     bool was_A_pressed() const;

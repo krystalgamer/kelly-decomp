@@ -94,19 +94,23 @@ void menu_widget::show()
 
 
 // 0x0033F370 get_width__16menu_item_widget
-class menu_item_widget { public: float get_width(); };
+#include "KS/SRC/widget.h"
+
 float menu_item_widget::get_width() { return 100.0f; }
 
 // 0x0033F380 get_height__16menu_item_widget
-class menu_item_widget { public: float get_height(); };
+#include "KS/SRC/widget.h"
+
 float menu_item_widget::get_height() { return 100.0f; }
 
 // 0x0033F848 get_width__11menu_widget
-class menu_widget { public: float get_width(); };
+#include "KS/SRC/widget.h"
+
 float menu_widget::get_width() { return 100.0f; }
 
 // 0x0033F858 get_height__11menu_widget
-class menu_widget { public: float get_height(); };
+#include "KS/SRC/widget.h"
+
 float menu_widget::get_height() { return 100.0f; }
 
 // 0x003406E8 frame_advance__11text_widgetf
@@ -810,20 +814,24 @@ void color_wevent::do_wevent( rational_t lerp )
 
 // Source implementation boundary.
 // 0x00360300 ignore_parent__6widget
-class widget { char padding[0x14]; unsigned int flags; public: void ignore_parent(); };
-void widget::ignore_parent() { flags |= 4; }
+#include "KS/SRC/widget.h"
+
+void widget::ignore_parent() { set_flag(4, true); }
 
 // 0x00360310 obey_parent__6widget
-class widget { char padding[0x14]; int flags; public: void obey_parent(); };
-void widget::obey_parent() { flags &= -5; }
+#include "KS/SRC/widget.h"
+
+void widget::obey_parent() { set_flag(4, false); }
 
 // 0x00360328 ignore_parent_showing__6widget
-class widget { char padding[0x14]; unsigned int flags; public: void ignore_parent_showing(); };
-void widget::ignore_parent_showing() { flags |= 8; }
+#include "KS/SRC/widget.h"
+
+void widget::ignore_parent_showing() { set_flag(8, true); }
 
 // 0x00360338 obey_parent_showing__6widget
-class widget { char padding[0x14]; int flags; public: void obey_parent_showing(); };
-void widget::obey_parent_showing() { flags &= -9; }
+#include "KS/SRC/widget.h"
+
+void widget::obey_parent_showing() { set_flag(8, false); }
 
 // 0x00360438 set_origin__6widgetss
 #include "KS/SRC/widget.h"
@@ -834,11 +842,13 @@ void widget::set_origin(short x, short y) {
 }
 
 // 0x00360450 get_width__6widget
-class widget { public: float get_width(); };
+#include "KS/SRC/widget.h"
+
 float widget::get_width() { return 1.0f; }
 
 // 0x00360460 get_height__6widget
-class widget { public: float get_height(); };
+#include "KS/SRC/widget.h"
+
 float widget::get_height() { return 1.0f; }
 
 // 0x00360470 set_layer__6widgetQ26widget11rhw_layer_e

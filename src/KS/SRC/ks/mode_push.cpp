@@ -1,21 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00285B70)
-// 0x00285B70 GetPlayerShare__C8PushModei
-struct PushPlayer { float share; char padding[0x1C]; };
-class PushMode { PushPlayer players[2]; public: float GetPlayerShare(int index) const; };
-float PushMode::GetPlayerShare(int index) const { return players[index].share; }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00285B80)
-// 0x00285B80 GetPlayerViewport__C8PushModei
-class recti { int values[4]; };
-struct PushPlayer { float share; char padding[0x4]; recti viewport; char trailing[0x8]; };
-class PushMode { PushPlayer players[2]; public: const recti& GetPlayerViewport(int index) const; };
-const recti& PushMode::GetPlayerViewport(int index) const { return players[index].viewport; }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00285B90)
 // 0x00285B90 InCombat__C8PushMode
 struct push_player {

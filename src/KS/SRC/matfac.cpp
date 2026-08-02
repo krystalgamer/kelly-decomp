@@ -9,8 +9,12 @@ int mat_fac::get_anim_length() const {
 }
 
 // 0x002BD178 is_translucent__C7mat_fac
-class mat_fac { char padding[0x38]; int blend_mode; public: bool is_translucent() const; };
-bool mat_fac::is_translucent() const { return blend_mode != 0 && blend_mode != 1; }
+#include "KS/SRC/matfac.h"
+
+bool mat_fac::is_translucent() const {
+    return material.MapBlendMode != 0 &&
+        material.MapBlendMode != 1;
+}
 
 // 0x002BD188 has_texture__C7mat_fac
 #include "KS/SRC/matfac.h"

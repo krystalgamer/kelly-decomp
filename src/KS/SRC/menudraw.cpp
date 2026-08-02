@@ -10,9 +10,11 @@ extern bool g_igo_enabled;
 void MENUDRAW_SetDrawIGO(bool value) { g_igo_enabled = value; }
 
 // 0x0030F420 MENUDRAW_GetDrawShadow__Fv
-extern bool menu_draw_shadow;
-__asm__(".equ menu_draw_shadow, 0x00484FC0");
-bool MENUDRAW_GetDrawShadow() { return menu_draw_shadow != 0; }
+#include "KS/SRC/ks/wavetex.h"
+
+bool MENUDRAW_GetDrawShadow() {
+    return WavetexDebug_ShadowPass;
+}
 
 // 0x0030F430 MENUDRAW_SetDrawShadow__Fb
 extern bool WavetexDebug_ShadowPass;
