@@ -152,6 +152,7 @@ public:
     void PerformIK();
     void Update(time_value_t time_inc);
     void LoadAll();
+    void LoadSurferAnims(int surfer);
     void JumpTo(int position);
     void ExitState();
     bool CamIsMoving() const { return !cam_stopped; }

@@ -1,11 +1,10 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00261060)
 // 0x00261060 Reset__Q213IconChallenge4Task
-class IconChallenge { public: class Task { void* icon; bool completed; int type; bool watchChain; public: void Reset(); }; };
-void IconChallenge::Task::Reset() { icon = 0; completed = false; type = 13; watchChain = false; }
-#endif
+#include "KS/SRC/ks/challenge_icon.h"
+
+void IconChallenge::Task::Reset() { icon = 0; completed = false; type = TYPE_NONE; watchChain = false; }
 
 // 0x00261078 Init__Q213IconChallenge4TaskPQ213IconChallenge4IconQ313IconChallenge4Task4TYPE
 #include "KS/SRC/ks/challenge_icon.h"

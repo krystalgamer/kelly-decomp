@@ -731,8 +731,8 @@ void FEMenuSystem::endDraw(bool arg0) {
 }
 
 // 0x001DB988 GetActiveMenu__12FEMenuSystem
-class FEMenu;
-class FEMenuSystem { char padding[0x74]; FEMenu** menus; char padding_to_active[0x4]; int active; public: FEMenu* GetActiveMenu(); };
+#include "KS/SRC/ks/FEMenu.h"
+
 FEMenu* FEMenuSystem::GetActiveMenu() { return menus[active]; }
 
 // 0x001DA830 GetWidth__11FEMenuEntry

@@ -2,21 +2,18 @@
 
 
 // 0x001990D8 FEInitialized__Fv
-struct FEManagerState { char padding[0x15674]; bool fe_init; };
-extern FEManagerState frontendmanager;
-__asm__(".equ frontendmanager, 0x003E7728");
-bool FEInitialized() { return frontendmanager.fe_init; }
+#include "KS/SRC/ks/FrontEndManager.h"
+
+bool FEInitialized() { return frontendmanager.fe_initialized; }
 
 // 0x00199150 FEDone__Fv
-struct FEManagerState { char padding[0x15678]; bool fe_done; };
-extern FEManagerState frontendmanager;
-__asm__(".equ frontendmanager, 0x003E7728");
+#include "KS/SRC/ks/FrontEndManager.h"
+
 bool FEDone() { return frontendmanager.fe_done; }
 
 // 0x00199168 FEDoneLoading__Fv
-struct FEManagerState { char padding[0x1567C]; bool fe_done_loading; };
-extern FEManagerState frontendmanager;
-__asm__(".equ frontendmanager, 0x003E7728");
+#include "KS/SRC/ks/FrontEndManager.h"
+
 bool FEDoneLoading() { return frontendmanager.fe_done_loading; }
 
 // 0x00199210 IGOIsPaused__Fv

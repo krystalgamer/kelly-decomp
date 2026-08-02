@@ -21,7 +21,9 @@ public:
     FEEntityManager *em;
     char manager_context_before_game_mode[0x1566c - 0x10];
     game_mode_t tmp_game_mode;
-    char manager_context_before_loading[0x0c];
+    char manager_context_after_game_mode[4];
+    bool fe_initialized;
+    bool fe_done;
     bool fe_done_loading;
     char manager_context_after_loading[0x20];
     BeachFrontEnd *map;

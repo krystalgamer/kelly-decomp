@@ -67,7 +67,8 @@ KSReplayFrame::KSReplayFrame() {
 }
 
 // 0x0023B2D0 Clear__8KSReplayUi
-class KSReplay { char padding[0xC]; unsigned int seed; int status; char padding_to_frames[0x40]; unsigned int numFrames; char padding_to_current_collision[0x74]; int current_collision; int num_collisions; public: void Clear(unsigned int value); };
+#include "KS/SRC/ks/ksreplay.h"
+
 void KSReplay::Clear(unsigned int value) { seed = value; numFrames = 0; num_collisions = 0; current_collision = 0; status = 0; }
 
 // 0x0023BE08 IsPlaying__8KSReplay

@@ -5,7 +5,17 @@
 
 class IGOIconManager {
 public:
-    class IconResource;
+    class IconResource {
+    public:
+        nglTexture *texture;
+        int trickIdx;
+        unsigned int bitmask;
+        unsigned char timesDisplayed;
+        unsigned char iconType;
+        bool avail;
+
+        IconResource();
+    };
 
     class Icon {
         nglQuad quad;

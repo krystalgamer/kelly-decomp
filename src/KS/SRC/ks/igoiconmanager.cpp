@@ -2,7 +2,8 @@
 
 
 // 0x00163AC0 __Q214IGOIconManager12IconResource
-class IGOIconManager { public: class IconResource { void* texture; int trickIdx; char padding[0x4]; unsigned char timesDisplayed; public: IconResource(); }; };
+#include "KS/SRC/ks/igoiconmanager.h"
+
 IGOIconManager::IconResource::IconResource() { texture = 0; trickIdx = -1; timesDisplayed = 0; }
 
 // 0x00163C78 __Q214IGOIconManager4Icon

@@ -37,7 +37,7 @@ Trick &Trick::operator=(const Trick &other)
 bool ScoringManager::Series::HasGap(int gapIdx) const
 {
     for (TrickList::const_iterator i = tricks.begin(); i != tricks.end(); ++i) {
-        if (i->type == Trick::TYPE_GAP && i->index == gapIdx)
+        if ((*i).type == Trick::TYPE_GAP && (*i).index == gapIdx)
             return true;
     }
 
@@ -46,12 +46,11 @@ bool ScoringManager::Series::HasGap(int gapIdx) const
 #endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00246FD0)
 // 0x00246FD0 SetKsctrl__14ScoringManagerP22kellyslater_controller
-struct kellyslater_controller { char padding_to_meter[0x1648]; char special_meter; char padding_to_player[0x2B]; int player_num; };
-class ScoringManager { char padding[0x8]; kellyslater_controller* ksctrl; int playerIdx; void* specialMeter; public: void SetKsctrl(kellyslater_controller* value); };
-void ScoringManager::SetKsctrl(kellyslater_controller* value) { ksctrl = value; playerIdx = value->player_num; specialMeter = &value->special_meter; }
-#endif
+#include "KS/SRC/ks/scoringmanager.h"
+#include "KS/SRC/ks/kellyslater_controller.h"
+
+void ScoringManager::SetKsctrl(kellyslater_controller* value) { ksctrl = value; playerIdx = value->get_player_num(); specialMeter = value->get_special_meter(); }
 
 #if defined(KELLY_DECOMP_FUNCTION_002490C0)
 // 0x002490C0 GetSickness__CQ214ScoringManager5Chain

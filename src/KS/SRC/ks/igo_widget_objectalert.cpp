@@ -15,10 +15,10 @@ ObjectAlertWidget::ObjectAlertWidget()
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0016A6D0)
 // 0x0016A6D0 Hide__17ObjectAlertWidgetb
+#include "KS/SRC/ks/igo_widget_objectalert.h"
+
 void ObjectAlertWidget::Hide(bool fadeOut) { fadeDir = -1; if (!fadeOut) fade = 0.0f; }
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0016A428)
 // 0x0016A428 _$_17ObjectAlertWidget

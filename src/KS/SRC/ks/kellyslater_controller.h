@@ -97,6 +97,7 @@ public:
     void SetTubeTrick(int trick, int anim, int board_anim);
     void set_player_num(int player);
     inline int get_player_num() const { return my_player_num; }
+    inline void *get_special_meter() { return &specialMeter; }
     int GetCurrentTrick();
     int get_super_state() const { return super_state; }
     float CtrlEvent(int control);

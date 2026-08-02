@@ -314,8 +314,9 @@ void MenuEntryFunctionFloatEdit::SetValue(float value) {
 }
 
 // 0x00270928 GetValue__26MenuEntryFunctionFloatEdit
-class MenuEntryFunctionFloatEdit { char padding[0xC]; float* value; public: float GetValue(); };
-float MenuEntryFunctionFloatEdit::GetValue() { return value ? *value : 0.0f; }
+#include "KS/SRC/ks/menu.h"
+
+float MenuEntryFunctionFloatEdit::GetValue() { return target ? *target : 0.0f; }
 
 // 0x00270A68 OnMenuClose__7Submenu
 #include "KS/SRC/ks/menu.h"
@@ -326,8 +327,9 @@ void Submenu::OnMenuClose() {
 }
 
 // 0x00270BB8 GetValue__16MenuEntryIntEdit
-class MenuEntryIntEdit { char padding[0xC]; int* value; public: int GetValue(); };
-int MenuEntryIntEdit::GetValue() { return value ? *value : 0; }
+#include "KS/SRC/ks/menu.h"
+
+int MenuEntryIntEdit::GetValue() { return tint ? *tint : 0; }
 
 // 0x00270CD8 SetValue__18MenuEntryFloatEditf
 #include "KS/SRC/ks/menu.h"
@@ -337,8 +339,9 @@ void MenuEntryFloatEdit::SetValue(float value) {
 }
 
 // 0x00270CE8 GetValue__18MenuEntryFloatEdit
-class MenuEntryFloatEdit { char padding[0xC]; float* value; public: float GetValue(); };
-float MenuEntryFloatEdit::GetValue() { return value ? *value : 0.0f; }
+#include "KS/SRC/ks/menu.h"
+
+float MenuEntryFloatEdit::GetValue() { return target ? *target : 0.0f; }
 
 // 0x002706D0 Enable__14MenuEntryTitle
 #include "KS/SRC/ks/menu.h"

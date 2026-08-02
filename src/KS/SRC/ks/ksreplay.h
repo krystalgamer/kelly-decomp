@@ -70,6 +70,9 @@ private:
     char data_to_max_frames[0xC];
     unsigned int maxFrames;
     bool noDraw;
+    char data_to_current_collision[0x50];
+    int current_collision;
+    int num_collisions;
 
 public:
     float Playspeed();
@@ -81,6 +84,7 @@ public:
     void Record();
     void SpeedFast();
     bool Done();
+    void Clear(unsigned int seed_value);
     void SetWipeoutSplash(int player);
     void SetEndWave();
     bool NoDraw();

@@ -181,7 +181,7 @@ public:
     virtual void OnButtonPress(int button_id);
     void FixValue();
     virtual void SetValue(float value);
-    virtual float GetValue() { return target ? *target : 0; }
+    virtual float GetValue();
 };
 
 class Submenu : public MenuEntryLabel {
@@ -239,7 +239,7 @@ public:
         if (tint && value >= lo && value <= hi)
             *tint = value;
     }
-    virtual int GetValue() { return tint ? *tint : 0; }
+    virtual int GetValue();
 };
 
 class MenuEntryFloatEdit : public MenuEntryLabel {
@@ -260,7 +260,7 @@ public:
     virtual void OnButtonPress(int button_id);
     void FixValue();
     virtual void SetValue(float value);
-    virtual float GetValue() { return target ? *target : 0; }
+    virtual float GetValue();
 };
 
 class MenuEntryListEdit : public MenuEntryIntEdit {
