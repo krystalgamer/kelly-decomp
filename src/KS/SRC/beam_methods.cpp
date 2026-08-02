@@ -105,27 +105,17 @@ void **beam_effect_width_rtti()
 }
 
 // 0x002B8420 is_dead__C11beam_effect
-class beam_effect {
-    char padding[0xA];
-    signed char mode;
-public:
-    bool is_dead() const;
-};
+#include "KS/SRC/beam.h"
 
 bool beam_effect::is_dead() const {
-    return mode == 0;
+    return mode == EFFECT_DEAD;
 }
 
 // 0x002B8430 is_alive__C11beam_effect
-class beam_effect {
-    char padding[0xA];
-    signed char mode;
-public:
-    bool is_alive() const;
-};
+#include "KS/SRC/beam.h"
 
 bool beam_effect::is_alive() const {
-    return mode != 0;
+    return mode != EFFECT_DEAD;
 }
 
 // 0x002B84B8 is_inverted__C11beam_effect

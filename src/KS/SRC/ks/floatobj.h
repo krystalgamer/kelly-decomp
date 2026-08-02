@@ -76,6 +76,54 @@ public:
     void switch_anims();
 };
 
+class generic_anim_animal : public generic_anim {
+    enum {
+        AA_IDLE,
+        AA_DIVE,
+        AA_SPAWN
+    };
+
+    static const char *generic_anim_names[];
+    int generic_anims[2];
+    int generic_anim_state;
+    entity *my_entity;
+
+public:
+    generic_anim_animal(
+        entity *entity_value,
+        const stringx &path,
+        const stringx &name);
+    virtual ~generic_anim_animal();
+    void update(bool collide, bool jump, bool spray, float *alpha);
+    void spawn();
+    void switch_anims();
+    bool is_diving() const { return generic_anim_state == AA_DIVE; }
+};
+
+class generic_anim_ice : public generic_anim {
+    enum {
+        IA_IDLE,
+        IA_COLLIDE,
+        IA_COLLIDEI,
+        IA_SPAWN
+    };
+
+    static const char *generic_anim_names[];
+    int generic_anims[3];
+    int generic_anim_state;
+    entity *my_entity;
+
+public:
+    generic_anim_ice(
+        entity *entity_value,
+        const stringx &path,
+        const stringx &name);
+    virtual ~generic_anim_ice();
+    void update(bool collide, bool jump, bool spray, float *alpha);
+    void spawn();
+    void switch_anims();
+};
+
 class beach_object {
 public:
     beach_object(entity*, const stringx&);

@@ -180,7 +180,7 @@ public:
     virtual int MenuText(char *text, int length);
     virtual void OnButtonPress(int button_id);
     void FixValue();
-    virtual void SetValue(float value) { *target = value; }
+    virtual void SetValue(float value);
     virtual float GetValue() { return target ? *target : 0; }
 };
 
@@ -205,11 +205,7 @@ public:
         parent = menu;
         this->system = system;
     }
-    virtual void OnMenuClose()
-    {
-        parent = 0;
-        system = 0;
-    }
+    virtual void OnMenuClose();
     Menu *GetMenu() { return menuopen; }
 };
 
@@ -263,7 +259,7 @@ public:
     virtual int MenuText(char *text, int length);
     virtual void OnButtonPress(int button_id);
     void FixValue();
-    virtual void SetValue(float value) { *target = value; }
+    virtual void SetValue(float value);
     virtual float GetValue() { return target ? *target : 0; }
 };
 

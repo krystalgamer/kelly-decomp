@@ -1,26 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_002AC4B8)
-// 0x002AC4B8 mem_malloc_locked__Fv
-extern bool malloc_locked;
-__asm__(".equ malloc_locked, 0x004322D4");
-
-bool mem_malloc_locked() {
-    return malloc_locked;
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002AC4F8)
-// 0x002AC4F8 mem_set_checkpoint__Fv
-extern int memory_checkpoint;
-__asm__(".equ memory_checkpoint, 0x00570554");
-
-int mem_set_checkpoint() {
-    return memory_checkpoint;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_002AC4D8)
 // 0x002AC4D8 mem_init_checkpoint__Fb
 int mem_set_checkpoint();

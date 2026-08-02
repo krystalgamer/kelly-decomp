@@ -23,27 +23,17 @@ void generic_anim_misc::spawn() {
 }
 
 // 0x0026FDF0 spawn__19generic_anim_animal
-class generic_anim_animal {
-    char padding[0x28];
-    int state;
-public:
-    void spawn();
-};
+#include "KS/SRC/ks/floatobj.h"
 
 void generic_anim_animal::spawn() {
-    state = 2;
+    generic_anim_state = AA_SPAWN;
 }
 
 // 0x0026FED0 spawn__16generic_anim_ice
-class generic_anim_ice {
-    char padding[0x2C];
-    int state;
-public:
-    void spawn();
-};
+#include "KS/SRC/ks/floatobj.h"
 
 void generic_anim_ice::spawn() {
-    state = 3;
+    generic_anim_state = IA_SPAWN;
 }
 
 // 0x0026FF88 is_surfing_object__14surfing_object

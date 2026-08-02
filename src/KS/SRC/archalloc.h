@@ -30,6 +30,35 @@ enum KSHeapIDs {
 };
 
 class Heap {
+    void *fullhead;
+    void *fulltail;
+    void *usedhead;
+    void *usedtail;
+    void *freehead;
+    void *freetail;
+    unsigned int heapsize;
+    void *heapstart;
+    unsigned int allocatedblocks;
+    unsigned int minalloc;
+    unsigned int minalign;
+    unsigned int lastalloc;
+    unsigned int heapid;
+    void *loblock;
+    void *hiblock;
+    bool locked;
+    bool statsuptodate;
+    unsigned int numblocks;
+    unsigned int numfree;
+    unsigned int numused;
+    unsigned int memblocks;
+    unsigned int memfree;
+    unsigned int memused;
+    unsigned int ovrblocks;
+    unsigned int ovrfree;
+    unsigned int ovrused;
+    unsigned int largestfree;
+    char heap_abi_padding[0xC];
+
 public:
     void *Allocate(
         unsigned int size,
@@ -37,9 +66,12 @@ public:
         unsigned int flags,
         const char *description,
         int line);
+    unsigned int GetCurrentMemMarker() { return lastalloc; }
 };
 
 extern int AllocMemorySema;
+extern bool malloc_locked;
+extern Heap heaps[NUMBER_OF_HEAPS];
 extern Heap *currentheap;
 extern unsigned long mem_malloc_counter;
 

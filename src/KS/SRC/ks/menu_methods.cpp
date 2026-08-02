@@ -61,15 +61,10 @@ void MenuEntry::OnDeactivate() {
 int MenuEntry::MenuText(char* text, int length) { if (length > 0) *text = 0; return 0; }
 
 // 0x00270918 SetValue__26MenuEntryFunctionFloatEditf
-class MenuEntryFunctionFloatEdit {
-    char padding[0xC];
-    float* tfloat;
-public:
-    void SetValue(float value);
-};
+#include "KS/SRC/ks/menu.h"
 
 void MenuEntryFunctionFloatEdit::SetValue(float value) {
-    *tfloat = value;
+    *target = value;
 }
 
 // 0x00270928 GetValue__26MenuEntryFunctionFloatEdit
@@ -77,13 +72,7 @@ class MenuEntryFunctionFloatEdit { char padding[0xC]; float* value; public: floa
 float MenuEntryFunctionFloatEdit::GetValue() { return value ? *value : 0.0f; }
 
 // 0x00270A68 OnMenuClose__7Submenu
-class Submenu {
-    char padding[0x10];
-    void* parent;
-    void* system;
-public:
-    void OnMenuClose();
-};
+#include "KS/SRC/ks/menu.h"
 
 void Submenu::OnMenuClose() {
     parent = 0;
@@ -95,15 +84,10 @@ class MenuEntryIntEdit { char padding[0xC]; int* value; public: int GetValue(); 
 int MenuEntryIntEdit::GetValue() { return value ? *value : 0; }
 
 // 0x00270CD8 SetValue__18MenuEntryFloatEditf
-class MenuEntryFloatEdit {
-    char padding[0xC];
-    float* tfloat;
-public:
-    void SetValue(float value);
-};
+#include "KS/SRC/ks/menu.h"
 
 void MenuEntryFloatEdit::SetValue(float value) {
-    *tfloat = value;
+    *target = value;
 }
 
 // 0x00270CE8 GetValue__18MenuEntryFloatEdit

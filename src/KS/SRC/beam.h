@@ -73,11 +73,18 @@ protected:
 };
 
 class beam_effect {
+    enum effect_mode {
+        EFFECT_DEAD = 0,
+        EFFECT_DELAY = 1,
+        EFFECT_ACTIVE = 2,
+        EFFECT_INVERTED_DELAY = -1,
+        EFFECT_INVERTED_ACTIVE = -2
+    };
+
     beam *my_beam;
     beam_effect_type *effect;
     unsigned short id;
     char mode;
-    char mode_padding;
     float timer;
     float loop_delay;
     float duration;
@@ -87,6 +94,8 @@ public:
     virtual ~beam_effect();
     virtual unsigned short get_id() const;
     virtual void set_id(unsigned short value);
+    virtual bool is_dead() const;
+    virtual bool is_alive() const;
 };
 
 extern instance_bank<material> material_bank;
@@ -97,6 +106,5 @@ __asm__(".equ purge_effects__4beam, 0x002712B0");
 __asm__(".equ kill_all_effects__4beamb, 0x00272608");
 __asm__(".equ delete_instance__t13instance_bank1Z8materialP8material, 0x002AD570");
 __asm__(".equ material_bank, 0x0046B650");
-__asm__(".equ set_beam_color__4beamRC7color32, 0x002717A0");
 
 #endif
