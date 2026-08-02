@@ -4,6 +4,7 @@
 class UnlockingManager {
 public:
     bool isSurferMovieUnlocked(int surfer) const;
+    bool isEspnMovieUnlocked() const;
 };
 
 #endif

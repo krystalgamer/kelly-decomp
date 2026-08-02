@@ -12,18 +12,6 @@ bool UnlockingManager::isSurferMovieUnlocked(int surfer) const
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002F0900)
-// 0x002F0900 isEspnMovieUnlocked__C16UnlockingManager
-class UnlockingManager {
-public:
-    bool isEspnMovieUnlocked() const;
-};
-
-bool UnlockingManager::isEspnMovieUnlocked() const {
-    return true;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_002F0880)
 // 0x002F0880 isLocationMovieUnlocked__C16UnlockingManageri
 extern int mega_cheat_on;
