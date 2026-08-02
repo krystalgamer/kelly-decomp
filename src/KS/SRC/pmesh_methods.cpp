@@ -2,24 +2,14 @@
 
 
 // 0x002FF640 get_min_faces__C8vr_pmeshf
-class vr_pmesh {
-    char padding[0x20];
-    int min_faces;
-public:
-    int get_min_faces(float delta_t) const;
-};
+#include "KS/SRC/pmesh.h"
 
 int vr_pmesh::get_min_faces(float delta_t) const {
     return min_faces;
 }
 
 // 0x002FF648 get_max_faces__C8vr_pmeshf
-class vr_pmesh {
-    char padding[0x34];
-    int num_faces;
-public:
-    int get_max_faces(float delta_t) const;
-};
+#include "KS/SRC/pmesh.h"
 
 int vr_pmesh::get_max_faces(float delta_t) const {
     return num_faces;
