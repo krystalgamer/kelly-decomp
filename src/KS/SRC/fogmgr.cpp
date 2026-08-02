@@ -1,18 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00338518)
-// 0x00338518 set_fog_distance__11fog_managerff
-class fog_manager {
-    char padding[0x14];
-    float fog_start_distance;
-    float fog_end_distance;
-public:
-    void set_fog_distance(float start, float end);
-};
-void fog_manager::set_fog_distance(float start, float end) { fog_start_distance = start; fog_end_distance = end; }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00338458)
 // 0x00338458 _$_11fog_manager
 extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");

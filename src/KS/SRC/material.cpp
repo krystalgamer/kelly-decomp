@@ -1,14 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_003397E0)
-// 0x003397E0 flush_last_context__8material
-extern void* last_context_material;
-__asm__(".equ last_context_material, 0x0046B668");
-class material { public: static void flush_last_context(); };
-void material::flush_last_context() { last_context_material = 0; }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00339CA8)
 // 0x00339CA8 get_anim_length__C12anim_texture
 class anim_texture {

@@ -3,6 +3,7 @@
 
 extern float TIMER_FrameSec;
 extern float TIMER_TotalSec;
+extern float TIMER_LevelSec;
 
 inline float TIMER_GetFrameSec()
 {
@@ -14,7 +15,7 @@ inline float TIMER_GetTotalSec()
     return TIMER_TotalSec;
 }
 
-__asm__(".equ TIMER_FrameSec, 0x0046B280");
-__asm__(".equ TIMER_TotalSec, 0x0046B27C");
+void TIMER_NoTick();
+void TIMER_SetLevelSec(float seconds);
 
 #endif

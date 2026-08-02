@@ -68,7 +68,6 @@ public:
 };
 
 __asm__(".equ _18SoundScriptManager$instance, 0x0046B4A0");
-__asm__(".equ pause__18SoundScriptManager, 0x0031BF98");
 __asm__(".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380");
 __asm__(".equ playSound__18SoundScriptManager9EventTypeP6entity, 0x0031BF28");
 __asm__(".equ endEvent__18SoundScriptManagerif, 0x0031C2F0");

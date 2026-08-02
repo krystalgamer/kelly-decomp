@@ -60,10 +60,13 @@ bool signaller::is_a_trigger() const {
 }
 
 // 0x0035FD08 get_signal_name__C9signallerUs
-extern const char signaller_signal_name[];
-__asm__(".equ signaller_signal_name, 0x00500D28");
-class signaller { public: const char* get_signal_name(unsigned short index) const; };
-const char* signaller::get_signal_name(unsigned short index) const { return signaller_signal_name; }
+#include "KS/SRC/signals.h"
+
+extern const char signaller_signal_name_literal[];
+
+const char* signaller::get_signal_name(unsigned short index) const {
+    return signaller_signal_name_literal;
+}
 
 // 0x0035FB08 _$_12gated_signal
 extern "C" void SignalDtor(void *self) __asm__("_$_6signal");

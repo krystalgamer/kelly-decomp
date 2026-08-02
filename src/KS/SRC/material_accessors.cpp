@@ -1,5 +1,11 @@
 #include "KS/SRC/material.h"
 
+// 0x003397E0 flush_last_context__8material
+void material::flush_last_context()
+{
+    last_context_material = 0;
+}
+
 // 0x003397B0 send_context__8materiali5map_eUiG7color32
 void material::send_context(
     int frame,

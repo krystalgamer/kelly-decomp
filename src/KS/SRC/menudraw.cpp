@@ -2,14 +2,12 @@
 
 
 // 0x0030F400 MENUDRAW_GetDrawIGO__Fv
-extern bool menu_draw_igo;
-__asm__(".equ menu_draw_igo, 0x003E7720");
-bool MENUDRAW_GetDrawIGO() { return menu_draw_igo; }
+extern bool g_igo_enabled;
+bool MENUDRAW_GetDrawIGO() { return g_igo_enabled; }
 
 // 0x0030F410 MENUDRAW_SetDrawIGO__Fb
-extern bool menu_draw_igo;
-__asm__(".equ menu_draw_igo, 0x003E7720");
-void MENUDRAW_SetDrawIGO(bool value) { menu_draw_igo = value; }
+extern bool g_igo_enabled;
+void MENUDRAW_SetDrawIGO(bool value) { g_igo_enabled = value; }
 
 // 0x0030F420 MENUDRAW_GetDrawShadow__Fv
 extern bool menu_draw_shadow;
@@ -17,9 +15,10 @@ __asm__(".equ menu_draw_shadow, 0x00484FC0");
 bool MENUDRAW_GetDrawShadow() { return menu_draw_shadow != 0; }
 
 // 0x0030F430 MENUDRAW_SetDrawShadow__Fb
-extern bool menu_draw_shadow;
-__asm__(".equ menu_draw_shadow, 0x00484FC0");
-void MENUDRAW_SetDrawShadow(bool value) { menu_draw_shadow = value; }
+extern bool WavetexDebug_ShadowPass;
+void MENUDRAW_SetDrawShadow(bool value) {
+    WavetexDebug_ShadowPass = value;
+}
 
 // 0x0030EE00 MENUDRAW_AllEntitiesOff__FP9MenuEntryi
 class MenuEntry;

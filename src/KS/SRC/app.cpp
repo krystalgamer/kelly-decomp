@@ -1,14 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_0030BC50)
-// 0x0030BC50 get_signal_name__C3appUi
-extern const char app_signal_name[];
-__asm__(".equ app_signal_name, 0x004F5030");
-class app { public: const char* get_signal_name(unsigned int index) const; };
-const char* app::get_signal_name(unsigned int index) const { return app_signal_name; }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0030C458)
 // 0x0030C458 cleanup_stl_memory_dregs__3app
 class anim_id_manager { public: void stl_dealloc(); };

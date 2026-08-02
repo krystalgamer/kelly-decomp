@@ -7,12 +7,6 @@ class CurrentSoundEvent { int event; int sound; char padding[0x10]; int extra; p
 CurrentSoundEvent::CurrentSoundEvent() { extra = 0; event = 105; sound = 0; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0031BF98)
-// 0x0031BF98 pause__18SoundScriptManager
-class SoundScriptManager { char padding[0x45B8]; bool paused; public: void pause(); };
-void SoundScriptManager::pause() { paused = true; }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0031C360)
 // 0x0031C360 startEvent__18SoundScriptManager9EventTypeP6entityf
 class entity;

@@ -8,10 +8,13 @@ enum map_e {
 };
 
 class material {
+    static material *last_context_material;
+
     char data_to_flags[0x100];
     unsigned int mat_flags;
 
 public:
+    static void flush_last_context();
     void send_context(
         int frame,
         map_e map,

@@ -1,4 +1,21 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef SCRIPT_LIB_CONTROLLER_H
+#define SCRIPT_LIB_CONTROLLER_H
+
+#pragma interface
+
+#include "KS/SRC/signals.h"
+
+class script_controller : public signaller {
+public:
+    script_controller();
+    virtual ~script_controller();
+    virtual void update();
+
+protected:
+    virtual const char *get_signal_name(unsigned short index) const;
+};
+
+#endif
 
 
 #if defined(KELLY_DECOMP_FUNCTION_0032EF70)

@@ -11,3 +11,11 @@ void app::set_viri(instance_render_info *value)
 {
     viri = value;
 }
+
+// 0x0030BC50 get_signal_name__C3appUi
+extern const char app_signal_name_literal[];
+
+const char *app::get_signal_name(unsigned int index) const
+{
+    return app_signal_name_literal;
+}
