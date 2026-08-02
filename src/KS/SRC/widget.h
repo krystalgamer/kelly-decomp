@@ -1,6 +1,8 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#pragma interface
+
 #include "KS/SRC/color.h"
 #include "KS/SRC/rect.h"
 #include "KS/SRC/stringx.h"
@@ -192,7 +194,16 @@ public:
     virtual ~bar_widget();
 };
 
+class menu_item_widget;
+
 class menu_widget : public widget {
+    int num_items;
+    menu_item_widget *sel_item;
+    int default_sel_index;
+    unsigned int to_prev;
+    unsigned int to_next;
+    bool change_made;
+
 public:
     virtual void init();
     virtual void add_child(widget *child);
@@ -202,6 +213,19 @@ public:
         unsigned int overflow = 0,
         rational_t parm0 = 0,
         rational_t parm1 = 0);
+    virtual menu_item_widget *get_sel_item() const;
+};
+
+class menu_item_widget : public widget {
+    int index;
+    stringx item_desc;
+    bool selected;
+    bool skip;
+    unsigned char subtype;
+
+public:
+    virtual void deselect(bool initial);
+    virtual void set_skip(bool value);
 };
 
 class text_widget : public widget {

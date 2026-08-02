@@ -36,48 +36,27 @@ class widget { public: float get_height(); };
 float widget::get_height() { return 1.0f; }
 
 // 0x00360470 set_layer__6widgetQ26widget11rhw_layer_e
-class widget {
-public:
-    enum rhw_layer_e { RHW_LAYER_DEFAULT };
-    void set_layer(rhw_layer_e layer);
-};
+#include "KS/SRC/widget.h"
 
 void widget::set_layer(rhw_layer_e layer) {
 }
 
 // 0x00360558 deselect__16menu_item_widgetb
-class menu_item_widget {
-    char padding[0x150];
-    bool selected;
-public:
-    void deselect(bool initial);
-};
+#include "KS/SRC/widget.h"
 
 void menu_item_widget::deselect(bool initial) {
     selected = false;
 }
 
 // 0x00360560 set_skip__16menu_item_widgetb
-class menu_item_widget {
-    char padding[0x154];
-    bool skip;
-public:
-    void set_skip(bool value);
-};
+#include "KS/SRC/widget.h"
 
 void menu_item_widget::set_skip(bool value) {
     skip = value;
 }
 
 // 0x00360638 get_sel_item__C11menu_widget
-class menu_item_widget;
-
-class menu_widget {
-    char padding[0x148];
-    menu_item_widget* sel_item;
-public:
-    menu_item_widget* get_sel_item() const;
-};
+#include "KS/SRC/widget.h"
 
 menu_item_widget* menu_widget::get_sel_item() const {
     return sel_item;
