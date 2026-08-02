@@ -13,20 +13,6 @@ class SoundScriptManager { char padding[0x45B8]; bool paused; public: void pause
 void SoundScriptManager::pause() { paused = true; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0031BFA8)
-// 0x0031BFA8 unpause__18SoundScriptManager
-class SoundScriptManager {
-    char padding[0x45B8];
-    bool paused;
-public:
-    void unpause();
-};
-
-void SoundScriptManager::unpause() {
-    paused = false;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0031C360)
 // 0x0031C360 startEvent__18SoundScriptManager9EventTypeP6entityf
 class entity;
