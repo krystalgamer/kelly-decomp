@@ -15,7 +15,8 @@
 
 ### Attempt 1 notes
 
-The released debug allocation overload delegates to the one-argument class allocator; a compiler barrier preserves the wrapper.
+The released debug allocation overload delegates directly to the canonical
+one-argument class allocator and naturally emits the target call frame.
 
 ## Outcome
 

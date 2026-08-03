@@ -5,26 +5,19 @@
 - Object: `game/files_anim`
 - Debug source: `C:/KS/SRC/entity_anim.cpp`
 - Reference source: `KS/SRC/entity_anim.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 89.2857 | 85.7143 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 2 notes
-
-The released nonstatic manager hook forwards its pointer argument to `mem_free`; correcting the method shape produced the target argument move on attempt two.
+| 1 | different | 0.0 | 0.0 | `native_ett_free_probe_1.cpp` |
+| 2 | different | 0.0 | 0.0 | `native_ett_free_probe_2.cpp` |
+| 3 | different | 0.0 | 0.0 | `native_ett_free_probe_3.cpp` |
 
 ## Outcome
 
-The released `ett_manager::ett_free` wrapper matched on attempt two with the nonstatic method signature.
-
-## Matching-only annotation
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is not recovered original source and emits
-no instruction. The source-faithful wrapper was otherwise eligible for EE GCC
-sibling-call or scheduling changes; the annotation preserves the target's
-normal call/return ordering.
+The released direct call, an inline native helper, and a void return-expression
+form all compile as eight-byte sibling calls. The target preserves a 28-byte
+call frame, so the former barrier-dependent match was removed and the function
+was deferred.

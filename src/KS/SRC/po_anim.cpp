@@ -1,5 +1,18 @@
 // po_anim definitions extracted by generated one-function shims.
 
+#include "KS/SRC/algebra.h"
+#include "KS/SRC/linear_anim.h"
+
+template <class Type>
+void* linear_anim<Type>::operator new(
+    unsigned int size,
+    unsigned int alignment,
+    const char* file,
+    int line)
+{
+    return linear_anim<Type>::operator new(size);
+}
+
 // 0x0011A860 set_time__7po_animf
 #include "KS/SRC/po_anim.h"
 
@@ -14,31 +27,13 @@ void po_anim::set_time(float time)
 }
 
 // 0x001199B8 __nw__7po_animUiUiPCci
-class po_anim { public: static void* operator new(unsigned int size); static void* operator new(unsigned int size, unsigned int alignment, const char* file, int line); };
-__asm__(".equ __nw__7po_animUi, 0x00119930");
-void* po_anim::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = po_anim::operator new(size); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/po_anim.h"
+
+void* po_anim::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { return po_anim::operator new(size); }
 
 // 0x0011C170 get_unadjusted_value__C7po_animfP8vector3d
-struct anim_control_t {};
-struct vector3d { float x; float y; float z; };
-struct track_flags { unsigned short flags; unsigned short padding; };
-class po_track : public track_flags {
-public:
-    virtual void reserved0();
-    virtual void reserved1();
-    virtual void reserved2();
-    virtual void reserved3();
-    virtual void reserved4();
-    virtual void get_value(const anim_control_t&, vector3d*) const;
-    virtual void get_value(float, vector3d*) const;
-};
-class po_anim {
-    char padding[8];
-    po_track* P;
-public:
-    bool has_P() const { return P && (P->flags & 0x1000) != 0; }
-    void get_unadjusted_value(float, vector3d*) const;
-};
+#include "KS/SRC/po_anim.h"
+
 void po_anim::get_unadjusted_value(float time, vector3d* destination) const
 {
     if (has_P())
@@ -46,47 +41,18 @@ void po_anim::get_unadjusted_value(float time, vector3d* destination) const
 }
 
 // 0x00119BF8 __nw__t11linear_anim1Z10quaternionUiUiPCci
-class quaternion;
-template <class Type> class linear_anim { public: static void* operator new(unsigned int size); static void* operator new(unsigned int size, unsigned int alignment, const char* file, int line); };
-__asm__(".equ __nw__t11linear_anim1Z10quaternionUi, 0x00119B70");
-template <class Type> void* linear_anim<Type>::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = linear_anim<Type>::operator new(size); __asm__(""); return result; }
 template void* linear_anim<quaternion>::operator new(unsigned int, unsigned int, const char*, int);
 
 // 0x00119E38 __nw__t11linear_anim1Z8vector3dUiUiPCci
-class vector3d;
-template <class Type> class linear_anim { public: static void* operator new(unsigned int size); static void* operator new(unsigned int size, unsigned int alignment, const char* file, int line); };
-__asm__(".equ __nw__t11linear_anim1Z8vector3dUi, 0x00119DB0");
-template <class Type> void* linear_anim<Type>::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = linear_anim<Type>::operator new(size); __asm__(""); return result; }
 template void* linear_anim<vector3d>::operator new(unsigned int, unsigned int, const char*, int);
 
 // 0x0011A078 __nw__t11linear_anim1ZfUiUiPCci
-template <class Type> class linear_anim { public: static void* operator new(unsigned int size); static void* operator new(unsigned int size, unsigned int alignment, const char* file, int line); };
-__asm__(".equ __nw__t11linear_anim1ZfUi, 0x00119FF0");
-template <class Type> void* linear_anim<Type>::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = linear_anim<Type>::operator new(size); __asm__(""); return result; }
 template void* linear_anim<float>::operator new(unsigned int, unsigned int, const char*, int);
 // Matching decompilation blocks selected by generated build shims.
 
 // 0x0011C128 get_unadjusted_value__C7po_animRC14anim_control_tP8vector3d
-struct anim_control_t {};
-struct vector3d { float x; float y; float z; };
-struct track_flags { unsigned short flags; unsigned short padding; };
-class po_track : public track_flags {
-public:
-    virtual void reserved0();
-    virtual void reserved1();
-    virtual void reserved2();
-    virtual void reserved3();
-    virtual void reserved4();
-    virtual void get_value(const anim_control_t&, vector3d*) const;
-    virtual void get_value(float, vector3d*) const;
-};
-class po_anim {
-    char padding[8];
-    po_track* P;
-public:
-    bool has_P() const { return P && (P->flags & 0x1000) != 0; }
-    void get_unadjusted_value(const anim_control_t&, vector3d*) const;
-};
+#include "KS/SRC/po_anim.h"
+
 void po_anim::get_unadjusted_value(const anim_control_t& control, vector3d* destination) const
 {
     if (has_P())
@@ -105,38 +71,69 @@ void po_anim::mem_cleanup() {
 }
 
 // 0x00119B10 mem_cleanup__t11linear_anim1Z10quaternion
-class quaternion;
-extern int allocated; extern void *data_a; extern void *data_b; extern void (*cleanup)();
 void arch_free(void *memory);
-__asm__(".equ allocated, 0x003E57AC"); __asm__(".equ data_a, 0x003E57B4");
-__asm__(".equ data_b, 0x003E57B0"); __asm__(".equ cleanup, 0x003E57BC");
+__asm__(".equ _t11linear_anim1Z10quaternion$meminit, 0x003E57AC");
+__asm__(".equ _t11linear_anim1Z10quaternion$allocated, 0x003E57B0");
+__asm__(".equ _t11linear_anim1Z10quaternion$membuffer, 0x003E57B4");
+__asm__(".equ _t11linear_anim1Z10quaternion$mem_free_func, 0x003E57BC");
 __asm__(".equ arch_free__FPv, 0x002AC768");
-template <class T> class linear_anim { public: static void mem_cleanup(); };
-template <> void linear_anim<quaternion>::mem_cleanup() {
-    if (allocated) { arch_free(data_a); arch_free(data_b); allocated=0; if (cleanup) cleanup(); }
+template <> void linear_anim<quaternion>::mem_cleanup()
+{
+    if (meminit)
+    {
+        arch_free(membuffer);
+        arch_free(allocated);
+        meminit = false;
+        if (mem_free_func)
+        {
+            void (*function)() = (void (*)())mem_free_func;
+            (*function)();
+        }
+    }
 }
 
 // 0x00119D50 mem_cleanup__t11linear_anim1Z8vector3d
-class vector3d;
-extern int allocated; extern void *data_a; extern void *data_b; extern void (*cleanup)();
 void arch_free(void *memory);
-__asm__(".equ allocated, 0x003E57C4"); __asm__(".equ data_a, 0x003E57CC");
-__asm__(".equ data_b, 0x003E57C8"); __asm__(".equ cleanup, 0x003E57D4");
+__asm__(".equ _t11linear_anim1Z8vector3d$meminit, 0x003E57C4");
+__asm__(".equ _t11linear_anim1Z8vector3d$allocated, 0x003E57C8");
+__asm__(".equ _t11linear_anim1Z8vector3d$membuffer, 0x003E57CC");
+__asm__(".equ _t11linear_anim1Z8vector3d$mem_free_func, 0x003E57D4");
 __asm__(".equ arch_free__FPv, 0x002AC768");
-template <class T> class linear_anim { public: static void mem_cleanup(); };
-template <> void linear_anim<vector3d>::mem_cleanup() {
-    if (allocated) { arch_free(data_a); arch_free(data_b); allocated=0; if (cleanup) cleanup(); }
+template <> void linear_anim<vector3d>::mem_cleanup()
+{
+    if (meminit)
+    {
+        arch_free(membuffer);
+        arch_free(allocated);
+        meminit = false;
+        if (mem_free_func)
+        {
+            void (*function)() = (void (*)())mem_free_func;
+            (*function)();
+        }
+    }
 }
 
 // 0x00119F90 mem_cleanup__t11linear_anim1Zf
-extern int allocated; extern void *data_a; extern void *data_b; extern void (*cleanup)();
 void arch_free(void *memory);
-__asm__(".equ allocated, 0x003E57DC"); __asm__(".equ data_a, 0x003E57E4");
-__asm__(".equ data_b, 0x003E57E0"); __asm__(".equ cleanup, 0x003E57EC");
+__asm__(".equ _t11linear_anim1Zf$meminit, 0x003E57DC");
+__asm__(".equ _t11linear_anim1Zf$allocated, 0x003E57E0");
+__asm__(".equ _t11linear_anim1Zf$membuffer, 0x003E57E4");
+__asm__(".equ _t11linear_anim1Zf$mem_free_func, 0x003E57EC");
 __asm__(".equ arch_free__FPv, 0x002AC768");
-template <class T> class linear_anim { public: static void mem_cleanup(); };
-template <> void linear_anim<float>::mem_cleanup() {
-    if (allocated) { arch_free(data_a); arch_free(data_b); allocated=0; if (cleanup) cleanup(); }
+template <> void linear_anim<float>::mem_cleanup()
+{
+    if (meminit)
+    {
+        arch_free(membuffer);
+        arch_free(allocated);
+        meminit = false;
+        if (mem_free_func)
+        {
+            void (*function)() = (void (*)())mem_free_func;
+            (*function)();
+        }
+    }
 }
 
 // 0x0011A1C0 _$_7po_anim

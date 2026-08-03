@@ -16,7 +16,9 @@
 
 ### Attempt 2 notes
 
-The released quaternion animation allocation overload delegates to its one-argument allocator. Using template-compatible empty asm syntax matched on attempt two.
+The released quaternion animation allocation overload delegates to its
+one-argument allocator through the shared canonical template definition. It
+matches without inline assembly or compiler barriers.
 
 ## Outcome
 

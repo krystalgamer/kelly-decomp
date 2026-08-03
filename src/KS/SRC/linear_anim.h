@@ -61,6 +61,12 @@ public:
     static void *mem_free_func;
     static void check_mem_init();
     static void mem_cleanup();
+    static void *operator new(unsigned int size);
+    static void *operator new(
+        unsigned int size,
+        unsigned int alignment,
+        const char *file,
+        int line);
 };
 
 #endif

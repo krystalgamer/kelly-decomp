@@ -15,7 +15,8 @@
 
 ### Attempt 1 notes
 
-The released extension helper delegates to the matched binary-extension function; a compiler barrier preserves the call wrapper.
+The released extension helper delegates directly to the canonical
+binary-extension method and naturally emits the target call frame.
 
 ## Outcome
 

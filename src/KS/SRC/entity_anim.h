@@ -3,6 +3,7 @@
 
 #include "KS/SRC/anim.h"
 #include "KS/SRC/mbi.h"
+#include "KS/SRC/po_anim.h"
 #include "KS/SRC/rtti.h"
 #include "KS/SRC/stringx.h"
 #include "g++-2/stl_vector.h"
@@ -16,11 +17,6 @@ class entity;
 class entity_track_tree;
 class po;
 class signal_anim;
-
-class po_anim : public anim<po> {
-public:
-    virtual ~po_anim();
-};
 
 class entity_track_node {
     int id;
@@ -54,6 +50,7 @@ public:
     void *operator new(unsigned int size);
     void operator delete(void *memory);
     static const char *binary_extension();
+    static const char *extension();
     entity_track_node *get_root();
     entity_track_node *insert_root();
     void _compute_duration();
@@ -115,6 +112,12 @@ public:
     static void *mem_free_func;
     static void check_mem_init();
     static void mem_cleanup();
+    static void *operator new(unsigned int size);
+    static void *operator new(
+        unsigned int size,
+        unsigned int alignment,
+        const char *file,
+        int line);
 };
 
 typedef vector<entity_anim *, my_allocator<entity_anim *> >
@@ -193,6 +196,7 @@ public:
         unsigned int flags,
         const char *description,
         int line);
+    void *operator new(unsigned int size);
     void operator delete(void *memory);
 
     inline bool was_blended() const {

@@ -10,14 +10,14 @@ void entity_anim::set_po_anim(po_anim *pp)
 }
 
 // 0x00113578 __nw__11entity_animUiUiPCci
-class entity_anim { public: static void* operator new(unsigned int size); static void* operator new(unsigned int size, unsigned int alignment, const char* file, int line); };
-__asm__(".equ __nw__11entity_animUi, 0x001134F0");
-void* entity_anim::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = entity_anim::operator new(size); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/entity_anim.h"
+
+void* entity_anim::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { return entity_anim::operator new(size); }
 
 // 0x001137C0 __nw__16entity_anim_treeUiUiPCci
-class entity_anim_tree { public: static void* operator new(unsigned int size); static void* operator new(unsigned int size, unsigned int alignment, const char* file, int line); };
-__asm__(".equ __nw__16entity_anim_treeUi, 0x00113738");
-void* entity_anim_tree::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = entity_anim_tree::operator new(size); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/entity_anim.h"
+
+void* entity_anim_tree::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { return entity_anim_tree::operator new(size); }
 
 // 0x00114968 get_root__17entity_track_tree
 #include "KS/SRC/entity_anim.h"
@@ -36,15 +36,9 @@ const char* entity_track_tree::binary_extension() {
 }
 
 // 0x00114E78 extension__17entity_track_tree
-class entity_track_tree { public: static const char* binary_extension(); static const char* extension(); };
-__asm__(".equ binary_extension__17entity_track_tree, 0x00114E60");
-const char* entity_track_tree::extension() { const char* result = binary_extension(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/entity_anim.h"
 
-// 0x00115DB0 ett_free__11ett_managerPv
-void mem_free(void* pointer);
-__asm__(".equ mem_free__FPv, 0x002AC768");
-class ett_manager { public: void ett_free(void* pointer); };
-void ett_manager::ett_free(void* pointer) { mem_free(pointer); KELLY_DECOMP_COMPILER_BARRIER(); }
+const char* entity_track_tree::extension() { return binary_extension(); }
 
 // 0x001177D0 set_timescale_factor__16entity_anim_treef
 #include "KS/SRC/entity_anim.h"
