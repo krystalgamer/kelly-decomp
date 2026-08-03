@@ -8,15 +8,11 @@ void ai_action::going_out_of_service() {
     set_flag(IN_SERVICE, false);
 }
 
-#if defined(KELLY_DECOMP_FUNCTION_00105E78)
 // 0x00105E78 get_my_entity__C9ai_action
-class entity;
-// Keep the owner call out of line to preserve the released wrapper.
-class ai_goal { public: entity* get_my_entity() const; };
-__asm__(".equ get_my_entity__C7ai_goal, 0x00106608");
-class ai_action { ai_goal* owner; public: entity* get_my_entity() const; };
+#include "KS/SRC/ai_actions.h"
+#include "KS/SRC/ai_goals.h"
+
 entity* ai_action::get_my_entity() const { return owner->get_my_entity(); }
-#endif
 // Matching decompilation blocks selected by generated build shims.
 
 #if defined(KELLY_DECOMP_FUNCTION_001061E8)

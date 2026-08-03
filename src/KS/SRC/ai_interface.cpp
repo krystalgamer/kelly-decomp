@@ -2,16 +2,12 @@
 
 
 // 0x00105570 pop_disable__12ai_interface
-struct ai_disable_layout {
-    char padding[0x30];
-    int disable_count;
-};
-extern "C" void pop_ai_disable(ai_disable_layout *self)
-    __asm__("pop_disable__12ai_interface");
-void pop_ai_disable(ai_disable_layout *self) {
-    --self->disable_count;
-    if (self->disable_count < 0)
-        self->disable_count = 0;
+#include "KS/SRC/ai_interface.h"
+
+void ai_interface::pop_disable() {
+    --disable_count;
+    if (disable_count < 0)
+        disable_count = 0;
 }
 
 // 0x00105A18 render__12ai_interfacec

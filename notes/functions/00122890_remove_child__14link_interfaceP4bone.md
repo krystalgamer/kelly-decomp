@@ -5,18 +5,16 @@
 - Object: `game/files_entity`
 - Debug source: `C:/KS/SRC/link_interface.cpp`
 - Reference source: `KS/SRC/link_interface.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-With assertions removed, the released method loads the child's link interface at offset `0x68` and calls `clear_parent`; a barrier preserves the wrapper.
+| 1 | different | 3.5714 | 0.0 | `candidate.cpp` |
+| 2 | different | 3.5714 | 0.0 | `candidate.cpp` |
+| 3 | different | 3.5714 | 0.0 | `candidate.cpp` |
 
 ## Outcome
 
-The released `link_interface::remove_child` call wrapper matched exactly on the first attempt.
+Three ordinary C++ forms all tail-call clear_parent into 8 bytes; target preserves a 28-byte call frame, so deferred without barriers.

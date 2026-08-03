@@ -128,6 +128,7 @@ protected:
 public:
     virtual ~destroyable_info();
     virtual void preload();
+    void reset();
     void apply_destruction_fx();
     inline bool has_hit_points() const {
         short value = flags;
@@ -394,6 +395,7 @@ public:
     virtual void set_mesh(nglMesh *mesh);
     virtual nglMesh *get_lores_mesh() const;
     virtual void set_lores_mesh(nglMesh *mesh);
+    void set_zbias(int value);
     virtual nglMesh *get_shadow_mesh() const;
     virtual void set_fade_away(bool enabled);
     virtual bool get_fade_away() const;

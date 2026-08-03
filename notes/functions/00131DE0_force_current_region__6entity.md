@@ -5,18 +5,16 @@
 - Object: `game/files_entity`
 - Debug source: `C:/KS/SRC/entity.cpp`
 - Reference source: `KS/SRC/entity.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released method delegates to `_set_region_forced_status`; a compiler barrier preserves the non-tail call wrapper.
+| 1 | different | 7.1429 | 0.0 | `candidate.cpp` |
+| 2 | different | 7.1429 | 0.0 | `candidate.cpp` |
+| 3 | different | 7.1429 | 0.0 | `candidate.cpp` |
 
 ## Outcome
 
-The released entity::force_current_region delegates to _set_region_forced_status. The first candidate matched exactly with a non-tail-call barrier and preserved the byte-identical integrated ROM.
+Three ordinary C++ calls all tail-call into 8 bytes; target preserves a 28-byte call frame, so deferred without barriers.

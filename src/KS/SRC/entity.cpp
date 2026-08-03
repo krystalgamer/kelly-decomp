@@ -342,20 +342,10 @@ static void entity_signal_callback_attack(
 #include "KS/SRC/entity.h"
 
 const po& entity::get_last_po() {
-    if (!last_po) {
-        KELLY_DECOMP_COMPILER_BARRIER();
+    if (!last_po)
         return get_abs_po();
-    } else {
-        KELLY_DECOMP_COMPILER_BARRIER();
-        return *last_po;
-    }
+    return *last_po;
 }
-
-// 0x00131DE0 force_current_region__6entity
-#include "KS/SRC/entity.h"
-
-__asm__(".equ _set_region_forced_status__6entity, 0x00131E00");
-void entity::force_current_region() { _set_region_forced_status(); KELLY_DECOMP_COMPILER_BARRIER(); }
 
 // 0x00131E00 _set_region_forced_status__6entity
 #include "KS/SRC/entity.h"
@@ -369,10 +359,11 @@ void entity::_set_region_forced_status() {
 // 0x00133618 get_age__C6entity
 #include "KS/SRC/entity.h"
 
-float entity::get_age() const { float result = frame_time_info.get_age(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+float entity::get_age() const { return frame_time_info.get_age(); }
 
 // 0x001372F8 reset__16destroyable_info
-class destroyable_info { unsigned short flags; float destroy_lifetime; public: void reset(); };
+#include "KS/SRC/entity.h"
+
 void destroyable_info::reset() { flags &= 0xF008; destroy_lifetime = 1.0f; }
 
 // 0x00137C78 disgorge_items__6entityP6entity
@@ -1475,31 +1466,6 @@ bool entity::get_ifc_num(const pstring &att, rational_t &val)
     return true;
 
   return false;
-}
-
-// 0x00139DB0 set_zbias__6entityi
-class entity {
-    char padding[0x138];
-    bool usezbias;
-    float zbias;
-
-public:
-    void set_zbias(int value);
-};
-
-void entity::set_zbias(int value)
-{
-    register float converted __asm__("$f0");
-    __asm__ __volatile__(
-        "mtc1 $5,%0\n"
-        "nop\n"
-        "cvt.s.w %0,%0\n"
-        "sltu $5,$0,$5\n"
-        "sw $5,312($4)"
-        : "=f"(converted)
-        :
-        : "memory");
-    zbias = converted;
 }
 
 // Source implementation boundary.

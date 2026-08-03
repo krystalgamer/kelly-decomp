@@ -1,12 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-// 0x00122890 remove_child__14link_interfaceP4bone
-#include "KS/SRC/link_interface.h"
-
-__asm__(".equ clear_parent__14link_interface, 0x001228B0");
-class bone { char padding[0x68]; public: link_interface* link; };
-void link_interface::remove_child(bone* child) { child->link->clear_parent(); KELLY_DECOMP_COMPILER_BARRIER(); }
 
 // 0x001446C0 __tf14link_interface
 #include "KS/SRC/link_interface.h"
