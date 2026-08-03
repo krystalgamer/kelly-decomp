@@ -6,15 +6,6 @@
 
 char* StoredConfigData::getLastCamera(int hero) { return camera[hero]; }
 
-#if defined(KELLY_DECOMP_FUNCTION_001A2C10)
-// 0x001A2C10 init__16StoredConfigData
-struct ksConfigData { int value; };
-void initKSConfigStruct(ksConfigData *config);
-__asm__(".equ initKSConfigStruct__FP12ksConfigData, 0x001A2B50");
-class StoredConfigData { char padding[4]; ksConfigData cData; public: void init(); };
-void StoredConfigData::init() { initKSConfigStruct(&cData); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_001A3178)
 // 0x001A3178 setLastCamera__16StoredConfigDataiPCc
 extern "C" char *strcpy(char *destination, const char *source);

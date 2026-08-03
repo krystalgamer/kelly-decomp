@@ -109,32 +109,13 @@ void KeyboardMenu::Init() {
 }
 
 // 0x001A07B0 ActiveFile__9NamesMenu
-struct FEMenuEntry { int entry_num; };
-struct names_menu_active_file_layout {
-    char padding0[0x4c];
-    FEMenuEntry *highlighted;
-    char padding1[0x108];
-    FEMenuEntry *secondary_cursor;
-};
-extern "C" int active_file(names_menu_active_file_layout *self)
-    __asm__("ActiveFile__9NamesMenu");
-int active_file(names_menu_active_file_layout *self) {
-    if (!self->highlighted)
+#include "KS/SRC/ks/SaveLoadFrontEnd.h"
+
+int NamesMenu::ActiveFile() {
+    if (!highlighted)
         return -1;
     else
-        return self->secondary_cursor->entry_num;
-}
-
-// 0x001A2B30 OnUnactivate__12KeyboardMenuP6FEMenu
-class FEMenu;
-extern "C" void turn_keyboard_pq(void *self, bool value)
-    __asm__("TurnPQ__12KeyboardMenub");
-extern "C" void unactivate_keyboard(void *self, FEMenu *menu)
-    __asm__("OnUnactivate__12KeyboardMenuP6FEMenu");
-__asm__(".equ TurnPQ__12KeyboardMenub, 0x001A1C10");
-void unactivate_keyboard(void *self, FEMenu *menu) {
-    turn_keyboard_pq(self, false);
-    KELLY_DECOMP_COMPILER_BARRIER();
+        return secondary_cursor->entry_num;
 }
 
 // 0x0019B738 ReadyToAccess__16SaveLoadFrontEndii

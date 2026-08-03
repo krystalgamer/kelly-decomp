@@ -45,6 +45,7 @@ public:
     void TurnPQ(bool enabled);
     void Format();
     void ResetCardFormat();
+    int ActiveFile();
     int ActiveCard() { return active_card; }
     static int FindAdjusted(int active);
     static int FindActive(int adjusted);

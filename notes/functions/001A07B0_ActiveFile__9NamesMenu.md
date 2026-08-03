@@ -18,7 +18,9 @@
 
 ### Attempt 4 notes
 
-The released positive-form condition first produced a longer ordinary branch. Reversing it to an explicit null early return generated the target branch-likely schedule.
+The canonical `NamesMenu` declaration now supplies both inherited menu
+pointers. Expressing the null case as an explicit early return generates the
+target branch-likely schedule.
 
 ## Outcome
 

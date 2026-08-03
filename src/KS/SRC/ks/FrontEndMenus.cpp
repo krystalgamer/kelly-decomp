@@ -141,17 +141,6 @@ void GoalsMenuClass::OnCross(int controller) {
 
 bool IsDebugMenuDisplayed() { return menus->IsActive(); }
 
-// 0x001A5880 OnStart__14PauseMenuClassi
-extern "C" void menu_on_start(void *self, int command)
-    __asm__("OnStart__6FEMenui");
-extern "C" void pause_menu_on_start(void *self, int command)
-    __asm__("OnStart__14PauseMenuClassi");
-__asm__(".equ OnStart__6FEMenui, 0x001577B8");
-void pause_menu_on_start(void *self, int command) {
-    menu_on_start(self, command);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x001A5F90 OnButtonRelease__24TimeAttackPauseMenuClassii
 #include "decomp_annotations.h"
 #include "KS/SRC/ks/FrontEndMenus.h"
@@ -159,28 +148,6 @@ void TimeAttackPauseMenuClass::OnButtonRelease(int c, int b)
 {
     if (b == FEMENUCMD_CROSS && highlighted->entry_num == Continue)
         sys->endDraw();
-}
-
-// 0x001A5FD8 OnStart__24TimeAttackPauseMenuClassi
-extern "C" void menu_on_start(void *self, int command)
-    __asm__("OnStart__6FEMenui");
-extern "C" void time_attack_on_start(void *self, int command)
-    __asm__("OnStart__24TimeAttackPauseMenuClassi");
-__asm__(".equ OnStart__6FEMenui, 0x001577B8");
-void time_attack_on_start(void *self, int command) {
-    menu_on_start(self, command);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
-// 0x001A6780 OnStart__22TutorialPauseMenuClassi
-extern "C" void menu_on_start(void *self, int command)
-    __asm__("OnStart__6FEMenui");
-extern "C" void tutorial_on_start(void *self, int command)
-    __asm__("OnStart__22TutorialPauseMenuClassi");
-__asm__(".equ OnStart__6FEMenui, 0x001577B8");
-void tutorial_on_start(void *self, int command) {
-    menu_on_start(self, command);
-    KELLY_DECOMP_COMPILER_BARRIER();
 }
 
 // 0x001A85A0 OnButtonRelease__16HeatMidMenuClassii
@@ -191,23 +158,6 @@ void HeatMidMenuClass::OnButtonRelease(int c, int b)
     if (b == FEMENUCMD_CROSS && highlighted->entry_num == Continue)
         sys->endDraw();
 }
-
-// 0x001A85E8 OnStart__16HeatMidMenuClassi
-extern "C" void menu_on_start(void *self, int command)
-    __asm__("OnStart__6FEMenui");
-extern "C" void heat_mid_on_start(void *self, int command)
-    __asm__("OnStart__16HeatMidMenuClassi");
-__asm__(".equ OnStart__6FEMenui, 0x001577B8");
-void heat_mid_on_start(void *self, int command) {
-    menu_on_start(self, command);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
-// 0x001AB160 Draw__15CameraMenuClass
-class FEMenu { public: void Draw(); };
-__asm__(".equ Draw__6FEMenu, 0x00156C88");
-class CameraMenuClass : public FEMenu { public: void Draw(); };
-void CameraMenuClass::Draw() { FEMenu::Draw(); KELLY_DECOMP_COMPILER_BARRIER(); }
 
 // 0x001AAA78 OnLeft__14SoundMenuClassi
 struct FEMenuEntryLayout { int entry_num; };

@@ -5,18 +5,18 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/FrontEndMenus.cpp`
 - Reference source: `KS/SRC/ks/FrontEndMenus.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The active released body only invokes the base `FEMenu::OnStart`; a barrier prevents tail-call formation.
+| 1 | different | 7.1429 | 0.0 | `native_frontend_forward_probe_1.cpp` |
+| 2 | different | 7.1429 | 0.0 | `native_frontend_forward_probe_2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `native_frontend_forward_probe_3.cpp` |
 
 ## Outcome
 
-The released `PauseMenuClass::OnStart` forwarding wrapper matched exactly on the first attempt.
+Three ordinary C++ forms all compile as eight-byte sibling calls. The target
+preserves a 28-byte call frame, so the former barrier-dependent match was
+removed and the function was deferred.
