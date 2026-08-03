@@ -5,18 +5,18 @@
 - Object: `game/files_hwosps2`
 - Debug source: `C:/KS/SRC/hwosps2/ps2_file.cpp`
 - Reference source: `KS/SRC/HWOSPS2/ps2_file.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-With assertions compiled out, the released body is a direct call to `os_file::close`; a barrier preserves the wrapper.
+| 1 | different | 7.1429 | 0.0 | `native_platform_forward_probe_1.cpp` |
+| 2 | different | 7.1429 | 0.0 | `native_platform_forward_probe_2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `native_platform_forward_probe_3.cpp` |
 
 ## Outcome
 
-The released `host_fclose` wrapper matched exactly on the first attempt.
+Three ordinary C++ forms all compile as eight-byte sibling calls. The target
+preserves a 28-byte call frame, so the former barrier-dependent match was
+removed and the function was deferred.

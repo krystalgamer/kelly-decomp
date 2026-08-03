@@ -9,16 +9,6 @@ void os_alloc_init() {
 void os_alloc_shutdown() {
 }
 
-// 0x001DF9F0 os_free__FPv
-void arch_free(void *pointer);
-__asm__(".equ arch_free__FPv, 0x002AC768");
-void os_free(void *pointer) { arch_free(pointer); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x001DFA38 os_free32__FPv
-void arch_free(void *pointer);
-__asm__(".equ arch_free__FPv, 0x002AC768");
-void os_free32(void *pointer) { arch_free(pointer); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x001DF9C8 os_malloc__Fi
 void *arch_malloc(unsigned int size, const char *file, int line);
 __asm__(".equ arch_malloc__FUiPCci, 0x002AC6F0");

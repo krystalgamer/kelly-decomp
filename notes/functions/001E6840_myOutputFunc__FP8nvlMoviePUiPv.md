@@ -15,7 +15,9 @@
 
 ### Attempt 1 notes
 
-A minimal NGL texture layout preserves the halfword width/height fields at offsets 8 and 10 and the data pointer at 0x20.
+The released shared `nglTexture` declaration now supplies the halfword
+dimensions at offsets 8 and 10 and the pixel-data pointer at `0x20`; the
+callback remains a genuine source-local static function.
 
 ## Outcome
 

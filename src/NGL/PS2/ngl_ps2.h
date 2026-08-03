@@ -134,9 +134,14 @@ struct nglTexture {
         unsigned int RenderTarget : 1;
     } Flags;
     struct TIM2_PICTUREHEADER *ph;
-    char data_to_file_name[0x40 - 0x1C];
+    unsigned int Format;
+    unsigned int *Data;
+    unsigned int NFrames;
+    nglTexture **Frames;
+    unsigned int SrcDataSize;
+    nglFileBuf FileBuf;
     nglFixedString FileName;
-    char remaining_data[0x130 - 0x60];
+    char remaining_data[0x130 - 0x5C];
 } __attribute__((aligned(16)));
 
 void nglRelockAllTexturesPS2();
