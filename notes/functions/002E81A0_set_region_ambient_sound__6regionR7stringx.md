@@ -5,25 +5,18 @@
 - Object: `game/files_misc2`
 - Debug source: `C:/KS/SRC/region.cpp`
 - Reference source: `KS/SRC/region.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The old-sound block is empty in the released build, leaving only assignment to the string member at offset 0x124.
+| 1 | different | 0.0 | 0.0 | `remaining_wrappers_1.cpp` |
+| 2 | different | 0.0 | 0.0 | `remaining_wrappers_2.cpp` |
+| 3 | different | 0.0 | 0.0 | `remaining_wrappers_3.cpp` |
 
 ## Outcome
 
-The released `region::set_region_ambient_sound` assignment wrapper matched exactly on the first attempt.
-
-## Matching-only annotation
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is not recovered original source and emits
-no instruction. The source-faithful wrapper was otherwise eligible for EE GCC
-sibling-call or scheduling changes; the annotation preserves the target's
-normal call/return ordering.
+With the released inline `stringx::length`, all three forms reduce to an
+eight-byte tail call to `stringx::operator=` with the member adjustment in the
+delay slot. The target retains a 28-byte frame, so the wrapper was deferred.

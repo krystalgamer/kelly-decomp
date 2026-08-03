@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-With disabled helper code removed, the released method returns the base entity result; a barrier preserves the wrapper.
+With disabled helper code removed, the released method directly returns the
+base `entity` result and naturally retains the target call frame.
 
 ## Outcome
 
-The released `visual_item::render_passes_needed` wrapper matched exactly on the first attempt.
+The released wrapper matches natively through the canonical `item.h` hierarchy.

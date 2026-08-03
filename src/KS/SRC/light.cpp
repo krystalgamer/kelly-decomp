@@ -154,18 +154,6 @@ float light_source::get_cutoff_range() const {
     return properties->get_cutoff_range();
 }
 
-// 0x002FF9D0 set_near_range__12light_sourcef
-class light_properties { public: void set_near_range(float range); };
-__asm__(".equ set_near_range__16light_propertiesf, 0x002CC968");
-class light_source { char padding[0x200]; light_properties *properties; public: void set_near_range(float range); };
-void light_source::set_near_range(float range) { properties->set_near_range(range); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x002FFA20 set_cutoff_range__12light_sourcef
-class light_properties { public: void set_cutoff_range(float range); };
-__asm__(".equ set_cutoff_range__16light_propertiesf, 0x002CC9C0");
-class light_source { char padding[0x200]; light_properties *properties; public: void set_cutoff_range(float range); };
-void light_source::set_cutoff_range(float range) { properties->set_cutoff_range(range); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x002FF950 set_color__12light_sourceRC5color
 struct color {
     float r;

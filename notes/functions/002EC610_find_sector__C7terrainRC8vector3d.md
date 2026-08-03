@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-A minimal layout places `tree` at offset 0x34; retaining the result across a barrier preserves the wrapper.
+The shared `terrain` declaration places `tree` at offset 0x34. Returning
+`tree->find_sector` naturally emits the target call frame.
 
 ## Outcome
 
-The released `terrain::find_sector` wrapper matched exactly on the first attempt.
+The exact released wrapper matches without a local class or compiler barrier.

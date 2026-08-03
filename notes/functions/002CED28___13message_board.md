@@ -5,20 +5,18 @@
 - Object: `game/files_misc2`
 - Debug source: `C:/KS/SRC/msgboard.cpp`
 - Reference source: `KS/SRC/msgboard.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 32.1429 | 14.2857 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `message_board_2.cpp` |
-| 3 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 3 notes
-
-The inlined three-pointer vector constructor produced the stores but omitted the target frame. A volatile constructor local preserves the released 16-byte frame without adding instructions.
+| 1 | different | 32.1429 | 14.2857 | `msgboard.cpp` |
+| 2 | different | 32.1429 | 14.2857 | `message_board_2.cpp` |
+| 3 | different | 32.1429 | 14.2857 | `message_board_3.cpp` |
 
 ## Outcome
 
-`message_board`'s constructor matched exactly after preserving its otherwise-empty stack frame.
+The exact empty constructor, an explicit member initializer, and an explicit
+return all emit the three vector stores without the target stack frame. The
+volatile-local workaround was removed and the constructor was deferred.

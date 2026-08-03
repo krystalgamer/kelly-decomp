@@ -46,18 +46,6 @@ bool cube_marker::is_a_cube_marker() const {
     return true;
 }
 
-// 0x002B9150 _$_6marker
-extern "C" void EntityDtor(void *self) __asm__("_$_6entity");
-extern "C" void MarkerDtor(void *self) __asm__("_$_6marker");
-__asm__(".equ _$_6entity, 0x001298C8");
-void MarkerDtor(void *self) { EntityDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x002B91E0 _$_16rectangle_marker
-extern "C" void EntityDtor(void *self) __asm__("_$_6entity");
-extern "C" void RectangleMarkerDtor(void *self) __asm__("_$_16rectangle_marker");
-__asm__(".equ _$_6entity, 0x001298C8");
-void RectangleMarkerDtor(void *self) { EntityDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x002B9170 __tf6marker
 #include "KS/SRC/rtti.h"
 extern "C" void **MarkerBaseRtti() __asm__("__tf6entity");
@@ -77,9 +65,3 @@ void **MarkerRtti()
     }
     return marker_type;
 }
-
-// 0x002B9290 _$_11cube_marker
-extern "C" void EntityDtor(void *self) __asm__("_$_6entity");
-extern "C" void CubeMarkerDtor(void *self) __asm__("_$_11cube_marker");
-__asm__(".equ _$_6entity, 0x001298C8");
-void CubeMarkerDtor(void *self) { EntityDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }

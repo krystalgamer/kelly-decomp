@@ -18,6 +18,7 @@ public:
 
 class marker : public entity {
 public:
+    virtual ~marker();
     virtual entity *make_instance(
         const entity_id &id,
         unsigned int flags) const;
@@ -35,6 +36,7 @@ public:
 
 class rectangle_marker : public marker {
 public:
+    virtual ~rectangle_marker();
     float x_rad;
     float z_rad;
 
@@ -50,6 +52,7 @@ public:
 
 class cube_marker : public rectangle_marker {
 public:
+    virtual ~cube_marker();
     float y_rad;
 
     virtual entity *make_instance(

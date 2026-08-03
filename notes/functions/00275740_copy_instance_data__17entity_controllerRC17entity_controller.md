@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-A minimal flattened layout preserves the copied controller fields at offsets 0, 4, and 0x10.
+The released body uses the shared `controller` and `entity_controller`
+declarations; the inlined base copy naturally accesses offsets 0, 4, and 0x10.
 
 ## Outcome
 
-The released `entity_controller::copy_instance_data` field copy matched exactly on the first attempt.
+The exact released body matches natively without a flattened local class.

@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-A minimal layout places `my_material` at offset 0x18; retaining the result across a barrier preserves the wrapper.
+The canonical billboard layout preserves the released eight-byte alignment of
+`my_material` at offset 0x18, and the return wrapper naturally keeps its frame.
 
 ## Outcome
 
-The released `vr_billboard::get_anim_length` wrapper matched exactly on the first attempt.
+The exact released wrapper matches without a local class or compiler barrier.

@@ -59,6 +59,13 @@ bool controller::is_entity_controller() const
     return false;
 }
 
+// 0x00275740 copy_instance_data__17entity_controllerRC17entity_controller
+void entity_controller::copy_instance_data(const entity_controller &other)
+{
+    controller::copy_instance_data(other);
+    state = other.state;
+}
+
 // 0x002B8918 is_mouselook_controller__C20mouselook_controller
 bool mouselook_controller::is_mouselook_controller() const
 {

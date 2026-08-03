@@ -5,18 +5,17 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/item.cpp`
 - Reference source: `KS/SRC/item.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The active released initialization body invokes `spawn_item_script`; a barrier preserves the wrapper.
+| 1 | different | 7.1429 | 0.0 | `item_initialize_1.cpp` |
+| 2 | different | 7.1429 | 0.0 | `item_initialize_2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `item_initialize_3.cpp` |
 
 ## Outcome
 
-The released `item::initialize` wrapper matched exactly on the first attempt.
+Three ordinary released-source forms all tail-call `spawn_item_script`. The
+target retains a normal 28-byte call frame, so the function was deferred.

@@ -5,25 +5,17 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/item.cpp`
 - Reference source: `KS/SRC/item.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-With debug and disabled owner code removed, the released method forwards all arguments to `entity::render`.
+| 1 | different | 7.1429 | 0.0 | `visual_render_1.cpp` |
+| 2 | different | 7.1429 | 0.0 | `visual_render_2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `visual_render_3.cpp` |
 
 ## Outcome
 
-The released `visual_item::render` forwarding wrapper matched exactly on the first attempt.
-
-## Matching-only annotation
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is not recovered original source and emits
-no instruction. The source-faithful wrapper was otherwise eligible for EE GCC
-sibling-call or scheduling changes; the annotation preserves the target's
-normal call/return ordering.
+All three ordinary forms become an eight-byte sibling call to `entity::render`.
+The target uses a normal 28-byte call frame, so the artificial match was removed.

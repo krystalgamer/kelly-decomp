@@ -5,7 +5,10 @@
 // 0x002AC4D8 mem_init_checkpoint__Fb
 int mem_set_checkpoint();
 __asm__(".equ mem_set_checkpoint__Fv, 0x002AC4F8");
-int mem_init_checkpoint(bool enabled) { int result = mem_set_checkpoint(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+int mem_init_checkpoint(bool enabled)
+{
+    return mem_set_checkpoint();
+}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002ACBF0)

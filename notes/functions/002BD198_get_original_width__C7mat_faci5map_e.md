@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The active NGL path only tests the material map pointer; spelling the null early return preserves the target branch direction.
+The shared `mat_fac` and PS2 `nglTexture` declarations place `Map` and `Width`
+at their released offsets; spelling the null early return preserves branch direction.
 
 ## Outcome
 
-The released `mat_fac::get_original_width` NGL accessor matched exactly on the first attempt.
+The released NGL accessor matches natively through the canonical material layout.

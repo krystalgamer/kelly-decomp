@@ -5,18 +5,17 @@
 - Object: `game/files_misc2`
 - Debug source: `C:/KS/SRC/geomgr.cpp`
 - Reference source: `KS/SRC/geomgr.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released restore method delegates to `rebuild_view_frame`; a barrier preserves the wrapper.
+| 1 | different | 7.1429 | 0.0 | `remaining_wrappers_1.cpp` |
+| 2 | different | 7.1429 | 0.0 | `remaining_wrappers_2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `remaining_wrappers_3.cpp` |
 
 ## Outcome
 
-The released `geometry_manager::restore` wrapper matched exactly on the first attempt.
+All three ordinary forms become an eight-byte sibling call. The target retains
+a normal 28-byte frame, so the barrier-dependent wrapper was deferred.

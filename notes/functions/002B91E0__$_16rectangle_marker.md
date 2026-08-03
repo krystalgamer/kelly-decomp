@@ -5,22 +5,18 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/marker.h`
 - Reference source: `KS/SRC/marker.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A symbol-preserving wrapper reproduces the generated destructor's non-tail call to `entity::~entity`.
+| 1 | different | 10.7143 | 0.0 | `remaining_wrappers_1.cpp` |
+| 2 | different | 10.7143 | 0.0 | `remaining_wrappers_2.cpp` |
+| 3 | different | 10.7143 | 0.0 | `remaining_wrappers_3.cpp` |
 
 ## Outcome
 
-`rectangle_marker`'s generated destructor wrapper matched exactly on the first attempt.
-
-## Matching-only annotation
-
-`KELLY_DECOMP_COMPILER_BARRIER()` emits no target instruction. It keeps EE GCC from replacing the required normal call/return wrapper described above with a sibling or tail call.
+The compiler-generated forms set the derived vptr and tail-call
+`marker::~marker` in 20 bytes. The target directly calls `entity::~entity`
+through a 28-byte frame, so the manual wrapper was removed.

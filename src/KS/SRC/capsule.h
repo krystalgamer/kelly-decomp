@@ -96,6 +96,7 @@ public:
 
 class cg_none : public collision_geometry {
 public:
+    virtual void xform(const po &transform);
     virtual unsigned int get_type() const;
 };
 

@@ -15,20 +15,13 @@ bool item::is_picked_up() {
     return picked_up;
 }
 
-// 0x0028A108 initialize__4item
-#include "KS/SRC/item.h"
-__asm__(".equ spawn_item_script__4item, 0x0028A520");
-void item::initialize() { spawn_item_script(); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x0028B1C8 render_passes_needed__C11visual_item
 #include "KS/SRC/item.h"
 __asm__(".equ render_passes_needed__C6entity, 0x00133640");
-render_flavor_t visual_item::render_passes_needed() const { render_flavor_t result = entity::render_passes_needed(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-
-// 0x0028B1E8 render__11visual_itemP6camerafUif
-#include "KS/SRC/item.h"
-__asm__(".equ render__6entityP6camerafUif, 0x001324E0");
-void visual_item::render(camera *camera_link, float detail, render_flavor_t flavor, float translucency) { entity::render(camera_link, detail, flavor, translucency); KELLY_DECOMP_COMPILER_BARRIER(); }
+render_flavor_t visual_item::render_passes_needed() const
+{
+    return entity::render_passes_needed();
+}
 
 // 0x0028A1B8 render__4itemP6camerafUif
 #include "KS/SRC/item.h"

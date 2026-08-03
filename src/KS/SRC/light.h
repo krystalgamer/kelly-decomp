@@ -26,6 +26,8 @@ public:
     inline float get_near_range() const { return near_range; }
     inline float get_cutoff_range() const { return cutoff_range; }
     inline unsigned int get_lightcat() const { return lightcat; }
+    void set_near_range(float range);
+    void set_cutoff_range(float range);
     inline void set_lightcat(unsigned int value) { lightcat = value; }
 
 protected:
@@ -58,9 +60,11 @@ public:
     virtual const color &get_color() const;
     virtual const color &get_additive_color() const;
     virtual float get_near_range() const;
+    virtual void set_near_range(float range);
     virtual unsigned int get_lightcat() const;
     virtual void set_lightcat(unsigned int value);
     virtual float get_cutoff_range() const;
+    virtual void set_cutoff_range(float range);
     float terrain_radius() const;
     inline const light_properties &get_properties() const {
         return *properties;

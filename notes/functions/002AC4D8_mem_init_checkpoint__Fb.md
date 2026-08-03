@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released build ignores the toggle and returns `mem_set_checkpoint`; retaining the result across a barrier preserves the wrapper.
+The released build ignores the toggle and directly returns
+`mem_set_checkpoint`; EE GCC naturally emits the target call frame.
 
 ## Outcome
 
-The released `mem_init_checkpoint` wrapper matched exactly on the first attempt.
+The exact released wrapper matches without a compiler barrier.

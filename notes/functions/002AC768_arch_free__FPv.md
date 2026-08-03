@@ -5,25 +5,17 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/hwosps2/ps2_archalloc.cpp`
 - Reference source: `KS/SRC/HWOSPS2/ps2_archalloc.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-With allocator locking disabled, the released platform free wrapper delegates directly to `mem_free`.
+| 1 | different | 7.1429 | 0.0 | `remaining_wrappers_1.cpp` |
+| 2 | different | 7.1429 | 0.0 | `remaining_wrappers_2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `remaining_wrappers_3.cpp` |
 
 ## Outcome
 
-The released `arch_free` wrapper matched exactly on the first attempt.
-
-## Matching-only annotation
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is not recovered original source and emits
-no instruction. The source-faithful wrapper was otherwise eligible for EE GCC
-sibling-call or scheduling changes; the annotation preserves the target's
-normal call/return ordering.
+All three released-source forms tail-call `mem_free`. The target preserves a
+normal 28-byte call frame, so the barrier-dependent wrapper was deferred.

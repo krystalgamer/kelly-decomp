@@ -12,6 +12,11 @@ class theta_and_psi_mcs;
 
 class controller {
 protected:
+    void copy_instance_data(const controller &other) {
+        active = other.active;
+        deactivate = other.deactivate;
+    }
+
     bool active;
     bool deactivate;
 
@@ -82,6 +87,8 @@ public:
     };
 
 protected:
+    void copy_instance_data(const entity_controller &other);
+
     entity *owner;
     eControllerState state;
 

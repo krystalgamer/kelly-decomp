@@ -5,25 +5,17 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/hwosps2/ps2_archalloc.cpp`
 - Reference source: `KS/SRC/HWOSPS2/ps2_archalloc.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A symbol-preserving runtime wrapper captures the target's reduced vector-delete path to `mem_free`.
+| 1 | different | 7.1429 | 0.0 | `remaining_wrappers_1.cpp` |
+| 2 | different | 7.1429 | 0.0 | `remaining_wrappers_2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `remaining_wrappers_3.cpp` |
 
 ## Outcome
 
-The target `__builtin_vec_delete` runtime wrapper matched exactly on the first attempt.
-
-## Matching-only annotation
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is not recovered original source and emits
-no instruction. The source-faithful wrapper was otherwise eligible for EE GCC
-sibling-call or scheduling changes; the annotation preserves the target's
-normal call/return ordering.
+Each native runtime wrapper tail-calls `mem_free` in eight bytes. The target
+retains a 28-byte frame, so the symbol-preserving artificial wrapper was removed.

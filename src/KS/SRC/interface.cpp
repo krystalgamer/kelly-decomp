@@ -12,11 +12,6 @@ void interface_widget::render()
     KELLY_DECOMP_COMPILER_BARRIER();
 }
 
-// 0x00288A80 show__16interface_widget
-#include "KS/SRC/interface.h"
-
-void interface_widget::show() { widget::show(); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00288AA0 frame_advance__16interface_widgetf
 extern "C" void frame_widget(void *, float) __asm__("frame_advance__6widgetf");
 __asm__(".equ frame_advance__6widgetf,0x0033DF70");

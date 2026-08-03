@@ -5,25 +5,18 @@
 - Object: `game/files_misc2`
 - Debug source: `C:/KS/SRC/light.h`
 - Reference source: `KS/SRC/light.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal layout places `properties` at offset 0x200 and preserves the released inline delegation.
+| 1 | different | 3.5714 | 0.0 | `remaining_wrappers_1.cpp` |
+| 2 | different | 3.5714 | 0.0 | `remaining_wrappers_2.cpp` |
+| 3 | different | 3.5714 | 0.0 | `remaining_wrappers_3.cpp` |
 
 ## Outcome
 
-The inline `light_source::set_near_range` wrapper matched exactly on the first attempt.
-
-## Matching-only annotation
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is not recovered original source and emits
-no instruction. The source-faithful wrapper was otherwise eligible for EE GCC
-sibling-call or scheduling changes; the annotation preserves the target's
-normal call/return ordering.
+All three shared-layout forms tail-call `light_properties::set_near_range`
+with the property load in the delay slot. The target retains a 28-byte frame,
+so the artificial wrapper was removed.

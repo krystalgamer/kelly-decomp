@@ -8,6 +8,7 @@
 #include "KS/SRC/visrep.h"
 
 class vr_billboard : public visual_rep {
+    char material_alignment_padding[4];
     mat_fac my_material;
     vector3d axis_lock;
     float width;
