@@ -17,7 +17,9 @@
 
 ### Attempt 3 notes
 
-The released accessor returns `batches[0].pq` at batch offset `0x48` when halfword `size` at `0x84` is nonzero. Inverting the source guard reproduced the target branch-likely layout on attempt three.
+The released accessor uses the canonical `PanelObject` and `PanelBatch`
+declarations. Inverting the source guard reproduced the target branch-likely
+layout on attempt three.
 
 ## Outcome
 

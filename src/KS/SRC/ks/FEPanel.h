@@ -390,6 +390,7 @@ public:
     virtual PanelGeomKind Kind() const;
     virtual bool Load(unsigned char *buffer, int &index);
     virtual void Reload();
+    virtual PanelQuad *GetQuad();
 };
 
 struct floating_geometry_manager {

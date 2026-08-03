@@ -180,9 +180,8 @@ unsigned char ReadChar(unsigned char* buffer, int& index) {
 }
 
 // 0x00151768 GetQuad__11PanelObject
-class PanelQuad;
-struct PanelBatch { char padding[0x48]; PanelQuad* pq; };
-class PanelObject { char padding[0x84]; unsigned short size; unsigned short nbatches; PanelBatch* batches; public: PanelQuad* GetQuad(); };
+#include "KS/SRC/ks/FEPanel.h"
+
 PanelQuad* PanelObject::GetQuad() {
     if (size == 0)
         return 0;
