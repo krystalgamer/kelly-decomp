@@ -5,25 +5,19 @@
 - Object: `game/files_ai`
 - Debug source: `C:/KS/SRC/ai_locomotion_direct.cpp`
 - Reference source: `KS/SRC/ai_locomotion_direct.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released derived chunk handler delegates directly to the base implementation.
+| 1 | different | 7.1429 | 0.0 | `native_ai_chunk_probe_1.cpp` |
+| 2 | different | 7.1429 | 0.0 | `native_ai_chunk_probe_2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `native_ai_chunk_probe_3.cpp` |
 
 ## Outcome
 
-The released `ai_locomotion_direct::handle_chunk` call wrapper matched exactly on the first attempt.
-
-## Matching-only annotation
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is not recovered original source and emits
-no instruction. The source-faithful wrapper was otherwise eligible for EE GCC
-sibling-call or scheduling changes; the annotation preserves the target's
-normal call/return ordering.
+The released direct base call, named reference aliases, and a void
+return-expression form all compile as eight-byte sibling calls. The target
+preserves a 28-byte call frame, so the former barrier-dependent match was
+removed and the function was deferred.

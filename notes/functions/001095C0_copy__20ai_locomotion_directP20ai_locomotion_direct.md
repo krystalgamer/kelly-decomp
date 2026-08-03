@@ -5,19 +5,19 @@
 - Object: `game/files_ai`
 - Debug source: `C:/KS/SRC/ai_locomotion_direct.cpp`
 - Reference source: `KS/SRC/ai_locomotion_direct.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 7.1429 | 0.0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 2 notes
-
-The released derived copy delegates to the matched base copy. An empty compiler barrier prevents this compiler's tail-call optimization and preserves the target wrapper on attempt two.
+| 1 | different | 7.1429 | 0.0 | `native_ai_copy_probe_1.cpp` |
+| 2 | different | 7.1429 | 0.0 | `native_ai_copy_probe_2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `native_ai_copy_probe_3.cpp` |
 
 ## Outcome
 
-The released `ai_locomotion_direct::copy` call wrapper matched on attempt two with a tail-call barrier.
+The released direct base call, a named base-pointer form, and a void
+return-expression form all compile as eight-byte sibling calls. The target
+preserves a 28-byte call frame, so the former barrier-dependent match was
+removed and the function was deferred.

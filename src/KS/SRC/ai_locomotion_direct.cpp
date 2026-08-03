@@ -1,14 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-// 0x001095C0 copy__20ai_locomotion_directP20ai_locomotion_direct
-#include "KS/SRC/ai_locomotion.h"
-__asm__(".equ copy__13ai_locomotionP13ai_locomotion, 0x00106F18");
-void ai_locomotion_direct::copy(ai_locomotion_direct* other) {
-    ai_locomotion::copy((ai_locomotion*)other);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x001095E0 set_destination__20ai_locomotion_directRC8vector3dfbN23
 #include "KS/SRC/ai_locomotion.h"
 
@@ -54,14 +46,6 @@ bool ai_locomotion_direct::set_destination(
     }
     else
         return false;
-}
-
-// 0x00109D88 handle_chunk__20ai_locomotion_directR10chunk_fileR7stringx
-#include "KS/SRC/ai_locomotion.h"
-__asm__(".equ handle_chunk__13ai_locomotionR10chunk_fileR7stringx, 0x00108158");
-void ai_locomotion_direct::handle_chunk(chunk_file& file, stringx& label) {
-    ai_locomotion::handle_chunk(file, label);
-    KELLY_DECOMP_COMPILER_BARRIER();
 }
 
 // 0x00109530 _$_20ai_locomotion_direct
