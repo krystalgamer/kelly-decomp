@@ -322,29 +322,6 @@ void DialogMenu::TurnPQ(bool on)
 void DialogMenu::OnTriangle(int command) {
 }
 
-// 0x001DCDF8 OnUnactivate__10DialogMenuP6FEMenu
-class FEMenu;
-extern "C" void turn_dialog_pq(void *self, bool value)
-    __asm__("TurnPQ__10DialogMenub");
-extern "C" void unactivate_dialog(void *self, FEMenu *menu)
-    __asm__("OnUnactivate__10DialogMenuP6FEMenu");
-__asm__(".equ TurnPQ__10DialogMenub, 0x0019DA00");
-void unactivate_dialog(void *self, FEMenu *menu) {
-    turn_dialog_pq(self, false);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
-// 0x001DCE70 OnTriangle__12KeyboardMenui
-extern "C" void previous_keyboard_menu(void *self)
-    __asm__("go_to_previous_menu__12KeyboardMenu");
-extern "C" void keyboard_triangle(void *self, int command)
-    __asm__("OnTriangle__12KeyboardMenui");
-__asm__(".equ go_to_previous_menu__12KeyboardMenu, 0x001A2420");
-void keyboard_triangle(void *self, int command) {
-    previous_keyboard_menu(self);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x001DCCE8 __tf16SaveLoadFrontEnd
 extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
 extern "C" void **BaseRtti_001DCCE8() __asm__("__tf11FEMultiMenu");

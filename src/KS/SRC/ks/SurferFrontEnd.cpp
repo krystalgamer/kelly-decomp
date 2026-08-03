@@ -190,11 +190,9 @@ void SurferBioFrontEnd::OnCross(int arg0) {
 }
 
 // 0x001DCC28 GetPointer__17SurferBioFrontEndPCc
-class PanelQuad;
-class PanelFile { public: PanelQuad *GetPointer(const char *name); };
-__asm__(".equ GetPointer__9PanelFilePCc, 0x00152F88");
-class SurferBioFrontEnd { char padding[0x100]; PanelFile panel; public: PanelQuad *GetPointer(const char *name); };
-PanelQuad *SurferBioFrontEnd::GetPointer(const char *name) { PanelQuad *result = panel.GetPointer(name); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/ks/SurferFrontEnd.h"
+
+PanelQuad *SurferBioFrontEnd::GetPointer(const char *name) { return FrontEnd::GetPointer(name); }
 
 // 0x001DCB88 OnButtonRelease__14SurferFrontEndii
 struct menu_vtable {

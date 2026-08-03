@@ -5,22 +5,19 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/FrontEndMenus.h`
 - Reference source: `KS/SRC/ks/FrontEndMenus.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A symbol-preserving wrapper reproduces the generated destructor's non-tail call to `FEMenu::~FEMenu`.
+| 1 | different | 17.8571 | 0.0 | `native_frontend_header_probe_1.cpp` |
+| 2 | different | 17.8571 | 0.0 | `native_frontend_header_probe_2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `native_frontend_header_probe_3.cpp` |
 
 ## Outcome
 
-`HeatEndMenuClass`'s generated destructor wrapper matched exactly on the first attempt.
-
-## Matching-only annotation
-
-`KELLY_DECOMP_COMPILER_BARRIER()` emits no target instruction. It keeps EE GCC from replacing the required normal call/return wrapper described above with a sibling or tail call.
+Virtual destructor forms emit a 20-byte vptr-setting tail call, while the
+nonvirtual form emits an eight-byte tail call. The target is a 28-byte normal
+base-destructor call, so the manual wrapper was removed and the function was
+deferred.

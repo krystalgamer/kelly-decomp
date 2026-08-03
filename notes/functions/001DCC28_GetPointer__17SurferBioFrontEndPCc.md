@@ -15,7 +15,8 @@
 
 ### Attempt 1 notes
 
-A minimal layout places the inherited frontend panel at offset 0x100; retaining the result across a barrier preserves the wrapper.
+The released inline body now uses the canonical `FrontEnd::GetPointer`
+inherited through `FEMultiMenu`, naturally emitting the target call frame.
 
 ## Outcome
 

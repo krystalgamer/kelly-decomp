@@ -10,6 +10,7 @@
 class OptionsMenu : public FEGraphicalMenu {
 public:
     virtual void Select();
+    virtual PanelQuad *GetPointer(const char *name);
 };
 class MultiplayerMenu;
 class FreesurfMenu;

@@ -27,18 +27,6 @@ struct QuadVtable{char pad0[24];short turn_adjust;short z0;void(*turn)(void*,boo
 #define DRAW_QUAD(q) ((q)->vtable->draw((char*)(q)+(q)->vtable->draw_adjust,0,-1.0f))
 extern "C" void draw_trickbook(TrickBookFrontEndLayout*self)__asm__("Draw__17TrickBookFrontEnd");void draw_trickbook(TrickBookFrontEndLayout*self){if(self->wait_for_camera)return;TURN_QUAD(self->bkg,true);DRAW_QUAD(self->bkg);TURN_QUAD(self->bkg,false);}
 
-// Source implementation boundary.
-// 0x001DCEE8 OnCross__17TrickBookFrontEndi
-extern "C" void menu_cross(void *self, int command)
-    __asm__("OnCross__6FEMenui");
-__asm__(".equ OnCross__6FEMenui, 0x00157860");
-extern "C" void trickbook_cross(void *self, int command)
-    __asm__("OnCross__17TrickBookFrontEndi");
-void trickbook_cross(void *self, int command) {
-    menu_cross(self, command);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x001DCE90 __tf17TrickBookFrontEnd
 extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
 extern "C" void **BaseRtti_001DCE90() __asm__("__tf11FEMultiMenu");

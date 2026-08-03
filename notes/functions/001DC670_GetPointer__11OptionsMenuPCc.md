@@ -15,7 +15,9 @@
 
 ### Attempt 1 notes
 
-A minimal layout places the inherited panel at offset 0x100; retaining the result across a barrier preserves the wrapper.
+The canonical `OptionsMenu` inheritance supplies the `FrontEnd::panel`
+subobject at offset `0x100`; returning `PanelFile::GetPointer` directly
+naturally emits the target call frame.
 
 ## Outcome
 

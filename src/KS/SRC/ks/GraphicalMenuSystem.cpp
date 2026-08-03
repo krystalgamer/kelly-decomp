@@ -369,25 +369,6 @@ void HelpbarFE::Update(float time_inc) {
 void GraphicalMenuSystem::Reload() {
 }
 
-// 0x001DE210 _$_11FEDebugMenu
-extern "C" void FEMenuDtor(void *self) __asm__("_$_6FEMenu");
-extern "C" void FEDebugMenuDtor(void *self) __asm__("_$_11FEDebugMenu");
-__asm__(".equ _$_6FEMenu, 0x00156580");
-void FEDebugMenuDtor(void *self) { FEMenuDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x001DE4E0 ReloadPanel__9HelpbarFE
-class PanelFile { public: void Reload(); };
-__asm__(".equ Reload__9PanelFile, 0x00152838");
-struct helpbar_reload_layout {
-    char padding[0x80];
-    PanelFile panel;
-};
-extern "C" void reload_helpbar(helpbar_reload_layout *self)
-    __asm__("ReloadPanel__9HelpbarFE");
-void reload_helpbar(helpbar_reload_layout *self) {
-    self->panel.Reload();
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
 
 // 0x001DE2E0 OnStart__13LegalFrontEndi
 struct frontend_vtable { char padding[0x128]; short adjustment; short padding2; void (*call)(void *, void *); };
