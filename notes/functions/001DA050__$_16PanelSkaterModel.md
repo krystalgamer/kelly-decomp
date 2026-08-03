@@ -5,22 +5,19 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/FEPanel.h`
 - Reference source: `KS/SRC/ks/FEPanel.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 7.1429 | 0.0 | `panel_skater_dtor.cpp` |
-| 2 | different | 7.1429 | 0.0 | `panel_skater_dtor.cpp` |
-| 3 | different | 14.2857 | 0.0 | `panel_skater_dtor.cpp` |
-| 4 | matched | 100.0 | 100.0 | `panel_skater_dtor.cpp` |
-| 5 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 5 notes
-
-An ordinary derived destructor was tail-called in isolation. A symbol-preserving destructor wrapper plus a post-call barrier reproduces the target's implicit base-destructor call frame.
+| 1 | different | 17.8571 | 0.0 | `native_header_wrapper_probe_1.cpp` |
+| 2 | different | 17.8571 | 0.0 | `native_header_destructor_probe_2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `native_header_destructor_probe_3.cpp` |
 
 ## Outcome
 
-`PanelSkaterModel`'s generated destructor matched exactly using the recovered non-tail base-destructor wrapper.
+Virtual destructor forms emit a 20-byte vptr-setting tail call, while the
+nonvirtual form emits an eight-byte tail call. The target is a 28-byte normal
+base-destructor call, so the manual wrapper was removed and the function was
+deferred.

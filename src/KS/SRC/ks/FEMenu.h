@@ -116,6 +116,7 @@ public:
     virtual color32 GetColor();
     virtual int getLineNum();
     virtual float GetScale();
+    float GetWidth();
     virtual void AddEntity(
         entity *value,
         color32 highlighted,

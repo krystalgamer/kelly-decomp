@@ -15,7 +15,9 @@
 
 ### Attempt 1 notes
 
-The released inline override delegates to `PanelGeom::Load`; retaining the result across a barrier prevents a sibling call.
+The released inline override delegates directly to `PanelGeom::Load` through
+the canonical `PanelSkaterModel` declaration and naturally emits the target
+call frame.
 
 ## Outcome
 

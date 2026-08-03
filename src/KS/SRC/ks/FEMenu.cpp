@@ -736,29 +736,9 @@ void FEMenuSystem::endDraw(bool arg0) {
 FEMenu* FEMenuSystem::GetActiveMenu() { return menus[active]; }
 
 // 0x001DA830 GetWidth__11FEMenuEntry
-class MultiLineString { public: float getWidth(); };
-__asm__(".equ getWidth__15MultiLineString, 0x00148C08");
-class FEMenuEntry { char padding[0x24]; MultiLineString *text; public: float GetWidth(); };
-float FEMenuEntry::GetWidth() { float result = text->getWidth(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/ks/FEMenu.h"
 
-// 0x001DADB8 LoadPanel__8FrontEndb
-class PanelFile { public: void Load(bool floating); };
-__asm__(".equ Load__9PanelFileb, 0x00152510");
-class FrontEnd { char padding[0x80]; PanelFile panel; public: void LoadPanel(bool floating); };
-void FrontEnd::LoadPanel(bool floating) { panel.Load(floating); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x001DB140 Add__15FEGraphicalMenuP11FEMenuEntry
-class FEMenuEntry;
-class FEMenu { public: void Add(FEMenuEntry *entry); };
-__asm__(".equ Add__6FEMenuP11FEMenuEntry, 0x001566B8");
-class FEGraphicalMenu : public FEMenu { public: void Add(FEMenuEntry *entry); };
-void FEGraphicalMenu::Add(FEMenuEntry *entry) { FEMenu::Add(entry); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x001DB470 _$_15FETextMultiMenu
-extern "C" void FEMenuDtor(void *self) __asm__("_$_6FEMenu");
-extern "C" void FETextMultiMenuDtor(void *self) __asm__("_$_15FETextMultiMenu");
-__asm__(".equ _$_6FEMenu, 0x00156580");
-void FETextMultiMenuDtor(void *self) { FEMenuDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+float FEMenuEntry::GetWidth() { return text->getWidth(); }
 
 // 0x001DAA00 OnActivate__6FEMenui
 struct MenuVTable { char padding[0x70]; short adjustment; short padding2; void (*OnActivate)(void *self); };

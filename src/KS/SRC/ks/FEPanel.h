@@ -127,6 +127,7 @@ protected:
     Font *fonts[20];
 
 public:
+    float getWidth();
     int getLineNum();
     void setFont(Font *font);
     void addFont(int index, Font *font);
@@ -555,16 +556,19 @@ public:
 
 class PanelSkaterModel : public PanelGeom {
 public:
+    virtual bool Load(unsigned char *buffer, int &index);
     virtual PanelGeomKind Kind() const;
 };
 
 class PanelObjectModel : public PanelGeom {
 public:
+    virtual bool Load(unsigned char *buffer, int &index);
     virtual PanelGeomKind Kind() const;
 };
 
 class PanelMovie : public PanelGeom {
 public:
+    virtual bool Load(unsigned char *buffer, int &index);
     virtual PanelGeomKind Kind() const;
 };
 

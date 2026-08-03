@@ -1458,41 +1458,20 @@ PanelGeomKind PanelMovie::Kind() const {
 
 void PanelQuad::GetFade(int &f, float &alpha, float &timer) { f = fade; alpha = fade_alpha, timer = fade_timer; }
 
-// 0x001DA050 _$_16PanelSkaterModel
-extern "C" void PanelGeomDtor(void *self) __asm__("_$_9PanelGeom");
-extern "C" void PanelSkaterModelDtor(void *self) __asm__("_$_16PanelSkaterModel");
-__asm__(".equ _$_9PanelGeom, 0x0014FAC8");
-void PanelSkaterModelDtor(void *self) { PanelGeomDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x001DA0E8 Load__16PanelSkaterModelPUcRi
-class PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
-__asm__(".equ Load__9PanelGeomPUcRi, 0x0014FB68");
-class PanelSkaterModel : public PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
-bool PanelSkaterModel::Load(unsigned char *buffer, int &index) { bool result = PanelGeom::Load(buffer, index); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/ks/FEPanel.h"
 
-// 0x001DA110 _$_16PanelObjectModel
-extern "C" void PanelGeomDtor(void *self) __asm__("_$_9PanelGeom");
-extern "C" void PanelObjectModelDtor(void *self) __asm__("_$_16PanelObjectModel");
-__asm__(".equ _$_9PanelGeom, 0x0014FAC8");
-void PanelObjectModelDtor(void *self) { PanelGeomDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+bool PanelSkaterModel::Load(unsigned char *buffer, int &index) { return PanelGeom::Load(buffer, index); }
 
 // 0x001DA1A8 Load__16PanelObjectModelPUcRi
-class PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
-__asm__(".equ Load__9PanelGeomPUcRi, 0x0014FB68");
-class PanelObjectModel : public PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
-bool PanelObjectModel::Load(unsigned char *buffer, int &index) { bool result = PanelGeom::Load(buffer, index); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/ks/FEPanel.h"
 
-// 0x001DA1D0 _$_10PanelMovie
-extern "C" void PanelGeomDtor(void *self) __asm__("_$_9PanelGeom");
-extern "C" void PanelMovieDtor(void *self) __asm__("_$_10PanelMovie");
-__asm__(".equ _$_9PanelGeom, 0x0014FAC8");
-void PanelMovieDtor(void *self) { PanelGeomDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
+bool PanelObjectModel::Load(unsigned char *buffer, int &index) { return PanelGeom::Load(buffer, index); }
 
 // 0x001DA268 Load__10PanelMoviePUcRi
-class PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
-__asm__(".equ Load__9PanelGeomPUcRi, 0x0014FB68");
-class PanelMovie : public PanelGeom { public: bool Load(unsigned char *buffer, int &index); };
-bool PanelMovie::Load(unsigned char *buffer, int &index) { bool result = PanelGeom::Load(buffer, index); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/ks/FEPanel.h"
+
+bool PanelMovie::Load(unsigned char *buffer, int &index) { return PanelGeom::Load(buffer, index); }
 
 // 0x001D91D8 GetLocation3D__12FloatingText
 struct vector3d { float x; float y; float z; vector3d(float px, float py, float pz) : x(px), y(py), z(pz) {} };

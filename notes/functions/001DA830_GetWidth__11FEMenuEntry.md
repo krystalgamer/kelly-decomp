@@ -15,7 +15,9 @@
 
 ### Attempt 1 notes
 
-A minimal layout places the text object pointer at offset 0x24; retaining the float result across a barrier preserves the call wrapper.
+The canonical `FEMenuEntry` declaration places the text object pointer at
+offset `0x24`; returning `MultiLineString::getWidth()` directly naturally
+emits the target call frame.
 
 ## Outcome
 
