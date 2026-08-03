@@ -12,6 +12,17 @@ public:
         TRICK_NUM = 95
     };
 
+    struct CHAININFO {
+        int points;
+        int facePoints;
+        int airPoints;
+        int tubePoints;
+        int numTricks;
+        bool multiLocation;
+
+        void Reset();
+    };
+
     struct LevelTrick {
         int numLandings;
     };
@@ -54,6 +65,8 @@ public:
     public:
         SeriesList series;
         void SetMultAdder(float value);
+        float GetSickness() const;
+        float GetRawSickness() const;
     };
 
 private:

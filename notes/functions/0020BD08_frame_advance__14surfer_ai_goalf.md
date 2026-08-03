@@ -15,7 +15,8 @@
 
 ### Attempt 1 notes
 
-The released goal method forwards to `ai_goal::frame_advance`; retaining the float result across a barrier preserves the wrapper.
+The released goal method returns `ai_goal::frame_advance` directly through the
+canonical inheritance declaration and naturally emits the target call frame.
 
 ## Outcome
 

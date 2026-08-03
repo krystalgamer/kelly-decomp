@@ -69,17 +69,6 @@ bool ReplayRewButton(MenuEntry* entry, int buttonid) {
     return true;
 }
 
-// 0x00235B90 OnClose__10KSMainMenub
-extern "C" void close_menu(void *self, bool to_parent)
-    __asm__("OnClose__4Menub");
-__asm__(".equ OnClose__4Menub, 0x0023EB70");
-extern "C" void close_main_menu(void *self, bool to_parent)
-    __asm__("OnClose__10KSMainMenub");
-void close_main_menu(void *self, bool to_parent) {
-    close_menu(self, to_parent);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x00235B70 OnOpen__10KSMainMenuP4MenuP10MenuSystem
 class MenuSystem;
 class Menu;

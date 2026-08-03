@@ -5,18 +5,18 @@
 - Object: `game/files_kellyslater`
 - Debug source: `ks/menu.h`
 - Reference source: `KS/SRC/ks/menu.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The title's disable override delegates to the inherited implementation; a barrier preserves the wrapper.
+| 1 | different | 7.1429 | 0.0 | `native_gameplay_wrapper_probe_1.cpp` |
+| 2 | different | 7.1429 | 0.0 | `native_gameplay_wrapper_probe_2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `native_gameplay_wrapper_probe_3.cpp` |
 
 ## Outcome
 
-The inline `MenuEntryTitle::Disable` wrapper matched exactly on the first attempt.
+Three ordinary C++ forms all compile as eight-byte sibling calls. The target
+preserves a 28-byte call frame, so the former barrier-dependent match was
+removed and the function was deferred.

@@ -54,9 +54,9 @@ void ScoringManager::SetKsctrl(kellyslater_controller* value) { ksctrl = value; 
 
 #if defined(KELLY_DECOMP_FUNCTION_002490C0)
 // 0x002490C0 GetSickness__CQ214ScoringManager5Chain
-class ScoringManager { public: class Chain { public: float GetRawSickness() const; float GetSickness() const; }; };
-__asm__(".equ GetRawSickness__CQ214ScoringManager5Chain, 0x00249200");
-float ScoringManager::Chain::GetSickness() const { float result = GetRawSickness(); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/ks/scoringmanager.h"
+
+float ScoringManager::Chain::GetSickness() const { return GetRawSickness(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00247F98)

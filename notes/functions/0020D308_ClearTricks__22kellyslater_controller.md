@@ -5,21 +5,18 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/kellyslater_controller.cpp`
 - Reference source: `KS/SRC/ks/kellyslater_controller.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 89.2857 | 57.1429 | `candidate.cpp` |
-| 2 | different | 37.5 | 37.5 | `clear_tricks_2.cpp` |
-| 3 | matched | 100.0 | 100.0 | `clear_tricks_3.cpp` |
-| 4 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 4 notes
-
-The direct reset produced an equivalent rotation of the three `-1` stores. Register and memory constraints preserve the target's materialization and store schedule.
+| 1 | different | 89.2857 | 57.1429 | `native_clear_tricks_probe_1.cpp` |
+| 2 | different | 89.2857 | 57.1429 | `native_clear_tricks_probe_2.cpp` |
+| 3 | different | 78.5714 | 71.4286 | `native_clear_tricks_probe_3.cpp` |
 
 ## Outcome
 
-`kellyslater_controller::ClearTricks` matched exactly after constraining the released reset store order.
+Three ordinary field-order variants remain instruction-equivalent but do not
+reproduce the target store schedule. The former constrained/barrier-dependent
+match was removed and the function was deferred.

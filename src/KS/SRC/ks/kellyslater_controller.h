@@ -51,10 +51,12 @@ class kellyslater_controller {
     ScoringManagerStorage my_scoreManager;
     SpecialMeterStorage specialMeter;
     int my_player_num;
-    char data_to_current_trick[0x27C];
-    int currentTrick;
+    char data_to_special_trick[0x3C];
+    bool bSpecialTrick;
+    char data_to_completed_trick[0x238];
     int completedTrick;
     int newTrick;
+    int currentTrick;
     int airIKtrick;
     bool trick_complete;
     bool manual;

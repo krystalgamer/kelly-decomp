@@ -34,18 +34,7 @@ float surfer_ai_goal::calculate_priority(float time) { priority = 1.0f; return p
 
 // 0x0020BD08 frame_advance__14surfer_ai_goalf
 #include "KS/SRC/ks/kellyslater_ai_goals.h"
-__asm__(".equ frame_advance__7ai_goalf, 0x00106500");
-float surfer_ai_goal::frame_advance(float time) { float result = ai_goal::frame_advance(time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-
-// 0x0020BD38 going_into_service__14surfer_ai_goal
-#include "KS/SRC/ks/kellyslater_ai_goals.h"
-__asm__(".equ going_into_service__7ai_goal, 0x00106618");
-void surfer_ai_goal::going_into_service() { ai_goal::going_into_service(); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x0020BD58 going_out_of_service__14surfer_ai_goal
-#include "KS/SRC/ks/kellyslater_ai_goals.h"
-__asm__(".equ going_out_of_service__7ai_goal, 0x001069C8");
-void surfer_ai_goal::going_out_of_service() { ai_goal::going_out_of_service(); KELLY_DECOMP_COMPILER_BARRIER(); }
+float surfer_ai_goal::frame_advance(float time) { return ai_goal::frame_advance(time); }
 
 // 0x0020BC98 _$_14surfer_ai_goal
 extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_7ai_goal");

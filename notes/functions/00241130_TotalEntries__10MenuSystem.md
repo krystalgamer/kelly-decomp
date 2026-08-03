@@ -17,7 +17,9 @@
 
 ### Attempt 3 notes
 
-The released positive condition generated the opposite equivalent branch in isolation. Expressing the null case as an early return reproduces the target branch direction.
+The canonical `MenuSystem` and `Menu` declarations now supply `curmenu` and
+`NumEntries`; expressing the null case as an early return reproduces the target
+branch direction.
 
 ## Outcome
 

@@ -299,6 +299,9 @@ class MenuRender {
 
 public:
     virtual ~MenuRender();
+
+protected:
+    void Clear();
 };
 
 class MenuInput {
@@ -316,9 +319,13 @@ public:
     virtual void OpenMenu(Menu *menu);
     virtual void CloseMenu();
     void CloseAllMenus();
+    void Opening(Menu *menu);
     virtual void ButtonPress(int button);
     virtual void ButtonRelease(int button);
     bool IsActive() const { return curmenu != 0; }
+
+protected:
+    virtual int TotalEntries();
 };
 
 extern MenuSystem *menus;

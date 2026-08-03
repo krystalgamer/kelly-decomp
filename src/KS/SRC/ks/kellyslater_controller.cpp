@@ -281,33 +281,6 @@ void kellyslater_controller::StartDisappointment() { super_state = 8; state = 91
 
 BalanceMeter::BalanceMeter() { player_num = -1; }
 
-// 0x0020D308 ClearTricks__22kellyslater_controller
-struct controller_clear_tricks_layout {
-    char padding0[0x16b8];
-    bool bSpecialTrick;
-    char padding1[0x238];
-    int completedTrick;
-    int newTrick;
-    int currentTrick;
-    char padding2[0x10];
-    bool trick_queued;
-};
-extern "C" void clear_tricks(controller_clear_tricks_layout *self)
-    __asm__("ClearTricks__22kellyslater_controller");
-void clear_tricks(controller_clear_tricks_layout *self) {
-    int value = -1;
-    __asm__ volatile("" : : "r"(value));
-    self->bSpecialTrick = false;
-    __asm__ volatile("" : : : "memory");
-    self->newTrick = value;
-    __asm__ volatile("" : : : "memory");
-    self->trick_queued = false;
-    __asm__ volatile("" : : : "memory");
-    self->currentTrick = value;
-    __asm__ volatile("" : : : "memory");
-    self->completedTrick = value;
-}
-
 // 0x00223958 SetTubeTrick__22kellyslater_controlleriii
 struct controller_tube_trick_layout {
     char padding0[0x1a6c];

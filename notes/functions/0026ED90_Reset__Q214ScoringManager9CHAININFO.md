@@ -15,7 +15,8 @@
 
 ### Attempt 1 notes
 
-The released field order and reset statement order reproduce the target's scheduled six zero stores.
+The canonical released `CHAININFO` declaration and reset statement order
+reproduce the target's scheduled six zero stores.
 
 ## Outcome
 

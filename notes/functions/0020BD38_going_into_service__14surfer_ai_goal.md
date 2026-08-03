@@ -5,18 +5,18 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/kellyslater_ai_goals.cpp`
 - Reference source: `KS/SRC/ks/kellyslater_ai_goals.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released lifecycle hook forwards to the base goal implementation; a barrier prevents a sibling call.
+| 1 | different | 7.1429 | 0.0 | `native_gameplay_wrapper_probe_1.cpp` |
+| 2 | different | 7.1429 | 0.0 | `native_gameplay_wrapper_probe_2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `native_gameplay_wrapper_probe_3.cpp` |
 
 ## Outcome
 
-The released `surfer_ai_goal::going_into_service` wrapper matched exactly on the first attempt.
+Three ordinary C++ forms all compile as eight-byte sibling calls. The target
+preserves a 28-byte call frame, so the former barrier-dependent match was
+removed and the function was deferred.

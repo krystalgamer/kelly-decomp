@@ -15,7 +15,8 @@
 
 ### Attempt 1 notes
 
-The released method returns `GetRawSickness` directly; retaining the float across a barrier preserves the wrapper.
+The released method returns `GetRawSickness` directly through the canonical
+`ScoringManager::Chain` declaration and naturally emits the target call frame.
 
 ## Outcome
 

@@ -1,10 +1,5 @@
 // menu definitions extracted by generated one-function shims.
 
-// 0x0023E538 ClearMenu__4Menu
-class Menu { public: void Resize(int size); void ClearMenu(); };
-__asm__(".equ Resize__4Menui, 0x0023E2B0");
-void Menu::ClearMenu() { Resize(0); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x0023EA30 ButtonRelease__4Menui
 struct MenuVTable { char padding[0x28]; short adjustment; short padding2; void (*release)(void *self, int button); };
 class Menu { char padding[0x1c]; MenuVTable *vtable; public: void ButtonRelease(int button); };
@@ -342,18 +337,6 @@ void MenuEntryFloatEdit::SetValue(float value) {
 #include "KS/SRC/ks/menu.h"
 
 float MenuEntryFloatEdit::GetValue() { return target ? *target : 0.0f; }
-
-// 0x002706D0 Enable__14MenuEntryTitle
-#include "KS/SRC/ks/menu.h"
-
-__asm__(".equ Disable__9MenuEntry, 0x0023EE50");
-void MenuEntryTitle::Enable() { MenuEntry::Disable(); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x002706F0 Disable__14MenuEntryTitle
-#include "KS/SRC/ks/menu.h"
-
-__asm__(".equ Disable__9MenuEntry, 0x0023EE50");
-void MenuEntryTitle::Disable() { MenuEntry::Disable(); KELLY_DECOMP_COMPILER_BARRIER(); }
 
 // 0x002707E8 OnButtonPress__17MenuEntryFunctioni
 #include "KS/SRC/ks/menu.h"
