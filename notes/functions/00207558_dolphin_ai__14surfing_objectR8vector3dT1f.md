@@ -15,7 +15,8 @@
 
 ### Attempt 1 notes
 
-The released species-specific AI delegates directly to `floating_ai`; retaining the result across a barrier preserves the wrapper.
+The released species-specific AI returns `floating_ai` directly through the
+canonical `surfing_object` declaration and naturally emits the target frame.
 
 ## Outcome
 

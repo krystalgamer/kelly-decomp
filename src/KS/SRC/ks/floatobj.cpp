@@ -73,80 +73,67 @@ void surfing_object::sprayed(entity* ent)
 // 0x002073D8 icepatch_ai__14surfing_objectR8vector3dT1f
 #include "KS/SRC/ks/floatobj.h"
 
-__asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
-bool surfing_object::icepatch_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+bool surfing_object::icepatch_ai(vector3d &position, vector3d &normal, float time) { return floating_ai(position, normal, time); }
 
 // 0x002073F8 kelp_ai__14surfing_objectR8vector3dT1f
 #include "KS/SRC/ks/floatobj.h"
 
-__asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
-bool surfing_object::kelp_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+bool surfing_object::kelp_ai(vector3d &position, vector3d &normal, float time) { return floating_ai(position, normal, time); }
 
 // 0x00207418 fatbastard_ai__14surfing_objectR8vector3dT1f
 #include "KS/SRC/ks/floatobj.h"
 
-__asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
-bool surfing_object::fatbastard_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+bool surfing_object::fatbastard_ai(vector3d &position, vector3d &normal, float time) { return floating_ai(position, normal, time); }
 
 // 0x00207438 swimmer_ai__14surfing_objectR8vector3dT1f
 #include "KS/SRC/ks/floatobj.h"
 
-__asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
-bool surfing_object::swimmer_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+bool surfing_object::swimmer_ai(vector3d &position, vector3d &normal, float time) { return floating_ai(position, normal, time); }
 
 // 0x00207458 snorkeler_ai__14surfing_objectR8vector3dT1f
 #include "KS/SRC/ks/floatobj.h"
 
-__asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
-bool surfing_object::snorkeler_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+bool surfing_object::snorkeler_ai(vector3d &position, vector3d &normal, float time) { return floating_ai(position, normal, time); }
 
 // 0x00207558 dolphin_ai__14surfing_objectR8vector3dT1f
 #include "KS/SRC/ks/floatobj.h"
 
-__asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
-bool surfing_object::dolphin_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+bool surfing_object::dolphin_ai(vector3d &position, vector3d &normal, float time) { return floating_ai(position, normal, time); }
 
 // 0x00207578 greatwhite_ai__14surfing_objectR8vector3dT1f
 #include "KS/SRC/ks/floatobj.h"
 
-__asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
-bool surfing_object::greatwhite_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+bool surfing_object::greatwhite_ai(vector3d &position, vector3d &normal, float time) { return floating_ai(position, normal, time); }
 
 // 0x00207598 seal_ai__14surfing_objectR8vector3dT1f
 #include "KS/SRC/ks/floatobj.h"
 
-__asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
-bool surfing_object::seal_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+bool surfing_object::seal_ai(vector3d &position, vector3d &normal, float time) { return floating_ai(position, normal, time); }
 
 // 0x002075B8 seagull_ai__14surfing_objectR8vector3dT1f
 #include "KS/SRC/ks/floatobj.h"
 
-__asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
-bool surfing_object::seagull_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+bool surfing_object::seagull_ai(vector3d &position, vector3d &normal, float time) { return floating_ai(position, normal, time); }
 
 // 0x002075E0 humpback_ai__14surfing_objectR8vector3dT1f
 #include "KS/SRC/ks/floatobj.h"
 
-__asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
-bool surfing_object::humpback_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+bool surfing_object::humpback_ai(vector3d &position, vector3d &normal, float time) { return floating_ai(position, normal, time); }
 
 // 0x00207600 helicopter_ai__14surfing_objectR8vector3dT1f
 #include "KS/SRC/ks/floatobj.h"
 
-__asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
-bool surfing_object::helicopter_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+bool surfing_object::helicopter_ai(vector3d &position, vector3d &normal, float time) { return floating_ai(position, normal, time); }
 
 // 0x00207620 hammerhead_ai__14surfing_objectR8vector3dT1f
 #include "KS/SRC/ks/floatobj.h"
 
-__asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
-bool surfing_object::hammerhead_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+bool surfing_object::hammerhead_ai(vector3d &position, vector3d &normal, float time) { return floating_ai(position, normal, time); }
 
 // 0x00209540 mantaray_ai__14surfing_objectR8vector3dT1f
 #include "KS/SRC/ks/floatobj.h"
 
-__asm__(".equ floating_ai__14surfing_objectR8vector3dT1f, 0x00203A80");
-bool surfing_object::mantaray_ai(vector3d &position, vector3d &normal, float time) { bool result = floating_ai(position, normal, time); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+bool surfing_object::mantaray_ai(vector3d &position, vector3d &normal, float time) { return floating_ai(position, normal, time); }
 
 // 0x001FB300 update__11beach_eventf
 class beach_event { char padding[0x3c]; bool (*my_func)(float time, void **data); void *my_func_data; public: bool update(float time); };
