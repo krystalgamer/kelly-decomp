@@ -15,15 +15,9 @@
 
 ### Attempt 1 notes
 
-The released movement-info allocation overload delegates to its one-argument allocator.
+The released movement-info allocation overload delegates directly to the
+canonical one-argument allocator and naturally emits the target call frame.
 
 ## Outcome
 
 The released `entity::movement_info::operator new` wrapper matched exactly on the first attempt.
-
-## Matching-only annotation
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is not recovered original source and emits
-no instruction. The source-faithful wrapper was otherwise eligible for EE GCC
-sibling-call or scheduling changes; the annotation preserves the target's
-normal call/return ordering.

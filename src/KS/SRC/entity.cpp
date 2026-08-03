@@ -246,8 +246,7 @@ void entity::unforce_regions()
 // 0x00127870 __nw__Q26entity13movement_infoUiUiPCci
 #include "KS/SRC/entity.h"
 
-__asm__(".equ __nw__Q26entity13movement_infoUi, 0x001277E8");
-void* entity::movement_info::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { void* result = entity::movement_info::operator new(size); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+void* entity::movement_info::operator new(unsigned int size, unsigned int alignment, const char* file, int line) { return entity::movement_info::operator new(size); }
 
 // 0x0012F728 get_signal_name__C6entityUs
 #include "KS/SRC/entity.h"

@@ -7,6 +7,7 @@ __nw__16entity_anim_treeUi = 0x113738;
 __nw__t11linear_anim1Z10quaternionUi = 0x119B70;
 __nw__t11linear_anim1Z8vector3dUi = 0x119DB0;
 __nw__t11linear_anim1ZfUi = 0x119FF0;
+__nw__Q26entity13movement_infoUi = 0x1277E8;
 wds_readfile__21world_dynamics_systemPCcPPUcPUiii = 0x294AC8;
 func_003BC5F8 = 0x3BC5F8;
 func_003BC6A0 = 0x3BC6A0;
