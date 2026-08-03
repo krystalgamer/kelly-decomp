@@ -1,13 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00308010)
-// 0x00308010 BLUR_Init__Fv
-void BLUR_TurnOff();
-__asm__(".equ BLUR_TurnOff__Fv, 0x00308260");
-void BLUR_Init() { BLUR_TurnOff(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00308240)
 // 0x00308240 BLUR_TurnOn__Fv
 extern float TIMER_TotalSec;

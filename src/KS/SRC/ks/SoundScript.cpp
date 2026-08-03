@@ -8,11 +8,15 @@ CurrentSoundEvent::CurrentSoundEvent() { emitter = 0; event = SS_LAST; sound = 0
 
 #if defined(KELLY_DECOMP_FUNCTION_0031C360)
 // 0x0031C360 startEvent__18SoundScriptManager9EventTypeP6entityf
-class entity;
-enum EventType { EVENT_DEFAULT };
-class SoundScriptManager { public: int playEvent(EventType type, entity *source, float fade); int startEvent(EventType type, entity *source, float fade); };
-__asm__(".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380");
-int SoundScriptManager::startEvent(EventType type, entity *source, float fade) { int result = playEvent(type, source, fade); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+#include "KS/SRC/ks/SoundScript.h"
+
+int SoundScriptManager::startEvent(
+    EventType type,
+    entity *source,
+    float fade_in_time)
+{
+    return playEvent(type, source, fade_in_time);
+}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031BB98)

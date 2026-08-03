@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-A minimal layout places `entity_cache` at offset four; retaining the result across a barrier preserves the wrapper.
+The shared `entity_maker` declaration places the released `entity_cache`
+member at offset four. Returning the cache result naturally retains the frame.
 
 ## Outcome
 
-The released `entity_maker::acquire_beam` cache wrapper matched exactly on the first attempt.
+The exact released wrapper matches without a local class or compiler barrier.

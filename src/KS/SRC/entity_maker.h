@@ -1,3 +1,53 @@
+#ifndef ENTITY_MAKER_H
+#define ENTITY_MAKER_H
+
+#include "KS/SRC/stringx.h"
+#include "g++-2/stl_list.h"
+#include "g++-2/stl_map.h"
+
+class entity;
+class entity_widget;
+
+class entity_pool {
+    list<entity *> entities;
+    unsigned int avail;
+
+public:
+    entity_pool();
+    ~entity_pool();
+    int size() const;
+    void add(entity *value);
+    entity *acquire(unsigned int flags);
+    void release(entity *value);
+};
+
+class entity_pool_set {
+    map<stringx, entity_pool *> entity_pools;
+    list<entity_pool *> aux_entity_pools;
+
+public:
+    entity_pool_set();
+    ~entity_pool_set();
+    entity *acquire(
+        const stringx &name,
+        unsigned int flags);
+    entity *acquire_beam(unsigned int flags);
+    void purge();
+};
+
+class entity_maker {
+    entity_widget *owning_widget;
+    entity_pool_set entity_cache;
+
+public:
+    entity_maker();
+    virtual ~entity_maker();
+    entity *acquire_beam(unsigned int flags);
+    void purge_entity_cache();
+};
+
+#endif
+
 // Matching decompilation blocks selected by generated build shims.
 
 

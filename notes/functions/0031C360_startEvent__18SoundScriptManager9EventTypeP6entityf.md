@@ -17,15 +17,10 @@
 
 ### Attempt 3 notes
 
-Declaring `EventType` as nested produced the wrong qualified mangling. The global enum shape matches the ELF symbol and preserves the forwarding wrapper.
+The canonical `SoundScript.h` global `EventType` produces the ELF mangling.
+Returning `playEvent` directly naturally preserves the target call frame.
 
 ## Outcome
 
-`SoundScriptManager::startEvent` matched exactly after recovering the global `EventType` ABI.
-
-## Matching-only annotation
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is not recovered original source and emits
-no instruction. The source-faithful wrapper was otherwise eligible for EE GCC
-sibling-call or scheduling changes; the annotation preserves the target's
-normal call/return ordering.
+`SoundScriptManager::startEvent` now matches through the shared declaration
+without a local class or compiler barrier.

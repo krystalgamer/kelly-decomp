@@ -5,25 +5,18 @@
 - Object: `game/files_misfits`
 - Debug source: `C:/KS/SRC/entity_maker.cpp`
 - Reference source: `KS/SRC/entity_maker.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal layout places `entity_cache` at offset four and preserves the released purge delegation.
+| 1 | different | 3.5714 | 0.0 | `size28-block2-probes-1.cpp` |
+| 2 | different | 3.5714 | 0.0 | `size28-block2-probes-2.cpp` |
+| 3 | different | 3.5714 | 0.0 | `size28-block2-probes-3.cpp` |
 
 ## Outcome
 
-The released `entity_maker::purge_entity_cache` wrapper matched exactly on the first attempt.
-
-## Matching-only annotation
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is not recovered original source and emits
-no instruction. The source-faithful wrapper was otherwise eligible for EE GCC
-sibling-call or scheduling changes; the annotation preserves the target's
-normal call/return ordering.
+All three shared-layout forms tail-call `entity_pool_set::purge` with the
+member adjustment in the delay slot. The target retains a 28-byte frame, so
+the artificial wrapper was removed.

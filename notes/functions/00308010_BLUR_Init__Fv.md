@@ -5,18 +5,18 @@
 - Object: `game/files_misfits`
 - Debug source: `ks/blur.cpp`
 - Reference source: `KS/SRC/ks/blur.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released initialization delegates to `BLUR_TurnOff`; a barrier preserves the wrapper.
+| 1 | different | 7.1429 | 0.0 | `size28-block2-probes-1.cpp` |
+| 2 | different | 7.1429 | 0.0 | `size28-block2-probes-2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `size28-block2-probes-3.cpp` |
 
 ## Outcome
 
-The released `BLUR_Init` wrapper matched exactly on the first attempt.
+All three direct-call forms tail-call `BLUR_TurnOff`. A function-pointer
+rewrite can inhibit that optimization, but it is not released source and was
+rejected; the direct wrapper was deferred.

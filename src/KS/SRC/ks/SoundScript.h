@@ -64,6 +64,10 @@ public:
     void pause();
     void unpause();
     void clearEvents();
+    int startEvent(
+        EventType type,
+        entity *source = 0,
+        float fade_in_time = 0.0f);
     int playEvent(EventType type, entity* source = 0, float fade_in_time = 0.0f);
     unsigned int playSound(EventType type, entity *source = 0);
     void endEvent(int event, float fade_out_time = 0.0f);
