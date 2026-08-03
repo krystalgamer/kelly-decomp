@@ -15,7 +15,8 @@
 
 ### Attempt 1 notes
 
-Modeling the preceding fields as padding places `vcrButtonHL` at offset 0x0c; the released decrement-and-clamp body is otherwise direct.
+The canonical released declaration places `vcrButtonHL` after the base widget
+and active button, and the body clamps it to the shared `VCR_RESTART` enum.
 
 ## Outcome
 

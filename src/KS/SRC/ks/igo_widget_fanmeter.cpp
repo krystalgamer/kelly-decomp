@@ -20,28 +20,6 @@ void FanMeterWidget::Show(bool shown)
     }
 }
 
-// 0x00168E70 SetDisplay__14FanMeterWidgetb
-extern "C" void set_igo_display(void *self, bool value)
-    __asm__("SetDisplay__9IGOWidgetb");
-__asm__(".equ SetDisplay__9IGOWidgetb, 0x00164658");
-extern "C" void set_fan_display(void *self, bool value)
-    __asm__("SetDisplay__14FanMeterWidgetb");
-void set_fan_display(void *self, bool value) {
-    set_igo_display(self, value);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
-// 0x001694D8 Update__14FanMeterWidgetf
-extern "C" void update_igo(void *self, float time)
-    __asm__("Update__9IGOWidgetf");
-__asm__(".equ Update__9IGOWidgetf, 0x00164660");
-extern "C" void update_fan(void *self, float time)
-    __asm__("Update__14FanMeterWidgetf");
-void update_fan(void *self, float time) {
-    update_igo(self, time);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x00168E18 _$_14FanMeterWidget
 #include "decomp_annotations.h"
 

@@ -7,8 +7,20 @@
 
 class PanelQuad;
 class TextString;
+class PanelFile;
+class Font;
 
 class ReplayWidget : public IGOWidget {
+public:
+    enum VCRButtonState {
+        VCR_RESTART,
+        VCR_PAUSE,
+        VCR_PLAY,
+        VCR_SLOW,
+        VCR_FASTFORWARD
+    };
+
+private:
     int vcrButton;
     int vcrButtonHL;
     PanelQuad *vcrPQ;
@@ -34,6 +46,16 @@ class ReplayWidget : public IGOWidget {
     float highlight_timer;
 
 public:
+    ReplayWidget();
+    virtual ~ReplayWidget();
+    virtual void SetDisplay(const bool value = true);
+    virtual void Init(PanelFile &panel, Font *font);
+    virtual void Update(const float time);
+    virtual void Draw();
+    virtual void Select(int button);
+    virtual void SelectHighlight(int highlight);
+    virtual void HighlightLeft();
+    virtual void HighlightRight();
     virtual int GetButton();
     virtual int GetHighlight();
 };

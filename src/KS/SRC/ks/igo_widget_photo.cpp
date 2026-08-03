@@ -1,17 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-// 0x0016AA78 SetDisplay__11PhotoWidgetb
-extern "C" void set_igo_display(void *self, bool value)
-    __asm__("SetDisplay__9IGOWidgetb");
-__asm__(".equ SetDisplay__9IGOWidgetb, 0x00164658");
-extern "C" void set_photo_display(void *self, bool value)
-    __asm__("SetDisplay__11PhotoWidgetb");
-void set_photo_display(void *self, bool value) {
-    set_igo_display(self, value);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x0016AB70 Reset__11PhotoWidget
 struct photo_reset_layout {
     char padding0[0x18];

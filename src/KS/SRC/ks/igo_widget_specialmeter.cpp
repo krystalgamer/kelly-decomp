@@ -6,14 +6,6 @@
 
 void SpecialMeterWidget::SetFillage(float amount) { colorPQ->Mask(amount, true); }
 
-#if defined(KELLY_DECOMP_FUNCTION_00166B30)
-// 0x00166B30 SetDisplay__18SpecialMeterWidgetb
-class IGOWidget { public: void SetDisplay(bool value); };
-__asm__(".equ SetDisplay__9IGOWidgetb, 0x00164658");
-class SpecialMeterWidget : public IGOWidget { public: void SetDisplay(bool value); };
-void SpecialMeterWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00166B08)
 // 0x00166B08 _$_18SpecialMeterWidget
 extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_9IGOWidget");

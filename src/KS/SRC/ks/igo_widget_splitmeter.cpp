@@ -13,12 +13,6 @@ void SplitMeterWidget::Update(float time)
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0016BE20)
-// 0x0016BE20 SetDisplay__16SplitMeterWidgetb
-__asm__(".equ SetDisplay__9IGOWidgetb, 0x00164658");
-void SplitMeterWidget::SetDisplay(bool value) { IGOWidget::SetDisplay(value); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0016BDF8)
 // 0x0016BDF8 _$_16SplitMeterWidget
 extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_9IGOWidget");
