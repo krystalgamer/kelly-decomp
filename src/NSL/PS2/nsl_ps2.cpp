@@ -51,12 +51,6 @@ void nslPreInitCdDvdModePS2(nslPs2CdDvdMode value) { nsl.cdDvdMode = value; }
 
 nslSpeakerModeEnum nslGetSpeakerMode() { return nsl.speakerMode; }
 
-// 0x003916F8 _GLOBAL_$I$nsl
-extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
-extern "C" void GlobalInit() __asm__("_GLOBAL_$I$nsl");
-__asm__(".equ __static_initialization_and_destruction_0, 0x003916C0");
-void GlobalInit() { StaticInit(1, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x003915E0 clear__t10fifo_queue1ZUi
 #include "NSL/PS2/fifo_queue.h"
 template <class T>

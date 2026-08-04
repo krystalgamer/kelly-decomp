@@ -20,8 +20,9 @@ The non-volatile count allowed GCC to reuse the condition load, while the target
 
 ### Attempt 2 notes
 
-A minimal buffer layout places `count` at offset 0x0c; a global bridge preserves the local helper's split-object linkage.
+The shared `VoBuf` layout places volatile `count` at offset 0x0c and preserves
+the target reload before decrementing.
 
 ## Outcome
 
-The local `voBufDecCount` implementation matched exactly.
+The genuine source-local helper matches without an artificial `.globl` bridge.

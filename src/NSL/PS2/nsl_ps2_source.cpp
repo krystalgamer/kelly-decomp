@@ -5,7 +5,7 @@
 struct nslStreamInfo;
 unsigned int _nslLoadSource(const char *name, const char *stream_name, const nslStreamInfo *info);
 __asm__(".equ _nslLoadSource__FPCcT0PC13nslStreamInfo, 0x0038BDC0");
-unsigned int nslLoadSource(const char *name) { unsigned int result = _nslLoadSource(name, 0, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+unsigned int nslLoadSource(const char *name) { return _nslLoadSource(name, 0, 0); }
 
 // 0x0038C158 nslGetSourceByIndex__Fi
 #include "NSL/PS2/nsl_ps2.h"

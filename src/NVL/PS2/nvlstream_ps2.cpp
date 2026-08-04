@@ -114,7 +114,7 @@ int nvlStreamReqSize(nvlStream* stream) { return stream->bufsize >> 2; }
 
 // 0x00386DD8 nvlStreamSetLoopSkip__FP9nvlStreamii
 #include "NVL/PS2/nvlstream_ps2.h"
-void nvlStreamSetLoopSkip(nvlStream *stream, int loop_skip, int rewind_required) { if (loop_skip >= 0) stream->flags |= 4; stream->requireRewind = rewind_required; KELLY_DECOMP_COMPILER_BARRIER(); stream->lp_skip = loop_skip; }
+void nvlStreamSetLoopSkip(nvlStream *stream, int loop_skip, int rewind_required) { if (loop_skip >= 0) stream->flags |= 4; stream->lp_skip = loop_skip; stream->requireRewind = rewind_required; }
 
 // 0x00385650 nvlWaitForVB__Fv
 #include "NVL/PS2/nvlstream_ps2.h"

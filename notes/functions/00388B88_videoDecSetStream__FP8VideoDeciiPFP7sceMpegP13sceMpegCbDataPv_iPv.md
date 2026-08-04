@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released local helper forwards the MPEG object and callback parameters to the SDK, then returns success; a global bridge preserves split-object linkage.
+The shared `VideoDec` prefix forwards the MPEG object and callback parameters
+to the SDK, then returns success.
 
 ## Outcome
 
-The local `videoDecSetStream` wrapper matched exactly.
+The genuine source-local helper matches without an artificial `.globl` bridge.

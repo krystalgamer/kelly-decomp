@@ -60,8 +60,19 @@ struct ReadBuf {
     int size;
 };
 
+struct sceMpeg {
+    char data[1];
+};
+
+struct sceMpegCbData;
+typedef int (*sceMpegCallback)(
+    sceMpeg *mpeg,
+    sceMpegCbData *data,
+    void *user_data);
+
 struct VideoDec {
-    char data_to_state[0xA8];
+    sceMpeg mpeg;
+    char data_to_state[0xA7];
     unsigned int state;
 };
 
@@ -90,7 +101,6 @@ extern int frd;
 extern nvlAllocCallback nvlMPEGAllocFunc;
 extern nvlFreeCallback nvlMPEGFreeFunc;
 
-void voBufDecCount(VoBuf *buffer);
 void nvlMPEGSetMemoryAllocCallback(nvlAllocCallback callback);
 void nvlMPEGSetMemoryFreeCallback(nvlFreeCallback callback);
 extern "C" int sceSdRemote(int command, int function, ...);

@@ -78,20 +78,17 @@ __asm__(".globl audioDecReset__FP8AudioDec");
 
 #if defined(KELLY_DECOMP_FUNCTION_00388B88)
 // 0x00388B88 videoDecSetStream__FP8VideoDeciiPFP7sceMpegP13sceMpegCbDataPv_iPv
-struct sceMpeg { char data[1]; };
-struct sceMpegCbData;
-typedef int (*sceMpegCallback)(sceMpeg *, sceMpegCbData *, void *);
-struct VideoDec { sceMpeg mpeg; };
+#include "NVL/PS2/nvlMPEG_ps2.h"
+
 extern "C" int sceMpegAddStrCallback(sceMpeg *mpeg, int type, int channel, sceMpegCallback callback, void *data);
 __asm__(".equ sceMpegAddStrCallback, 0x003BE530");
-__asm__(".globl videoDecSetStream__FP8VideoDeciiPFP7sceMpegP13sceMpegCbDataPv_iPv");
 static int videoDecSetStream(VideoDec *decoder, int type, int channel, sceMpegCallback callback, void *data) { sceMpegAddStrCallback(&decoder->mpeg, type, channel, callback, data); return 1; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00389188)
 // 0x00389188 voBufDecCount__FP5VoBuf
-struct VoBuf { char padding[0xc]; volatile int count; };
-__asm__(".globl voBufDecCount__FP5VoBuf");
+#include "NVL/PS2/nvlMPEG_ps2.h"
+
 static void voBufDecCount(VoBuf *buffer) { if (buffer->count > 0) buffer->count--; }
 #endif
 
