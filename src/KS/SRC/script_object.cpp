@@ -7,11 +7,6 @@
 void script_manager::run(float time, bool ignore_suspended) {
 }
 
-// 0x00352598 clear__14script_manager
-class script_manager { public: void _destroy(); void clear(); };
-__asm__(".equ _destroy__14script_manager, 0x00352B40");
-void script_manager::clear() { _destroy(); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00352B08 add_string__14script_managerRC7stringx
 class stringx {};
 struct tree_iterator { char *node; };

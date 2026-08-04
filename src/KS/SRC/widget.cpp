@@ -113,16 +113,6 @@ float menu_widget::get_width() { return 100.0f; }
 
 float menu_widget::get_height() { return 100.0f; }
 
-// 0x003406E8 frame_advance__11text_widgetf
-#include "KS/SRC/widget.h"
-__asm__(".equ frame_advance__6widgetf, 0x0033DF70");
-void text_widget::frame_advance(float time) { widget::frame_advance(time); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x003407F0 flush__11text_widget
-#include "KS/SRC/widget.h"
-__asm__(".equ flush__6widget, 0x0033E518");
-void text_widget::flush() { widget::flush(); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x0033EAD8 get_first_child__6widget
 class widget;
 struct widget_node { widget_node *next; widget_node *previous; widget *value; };

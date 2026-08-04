@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released constructor clears flags/signals and installs the signaller vtable at offset eight.
+The shared `signals.h` declaration clears flags/signals and lets the compiler
+install the signaller vtable at offset eight.
 
 ## Outcome
 
-The released `signaller` constructor matched exactly.
+The exact released constructor matches without a local class or manual vtable.

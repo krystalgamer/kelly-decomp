@@ -5,20 +5,17 @@
 - Object: `game/files_vsim`
 - Debug source: `C:/KS/SRC/widget.cpp`
 - Reference source: `KS/SRC/widget.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released text flush forwards to `widget::flush`; a barrier prevents a sibling call.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 7.1429 | 0.0 | `size28-final1-probes-1.cpp` |
+| 2 | different | 7.1429 | 0.0 | `size28-final1-probes-2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `size28-final1-probes-3.cpp` |
 
 ## Outcome
 
-The released `text_widget::flush` wrapper matched exactly.
+All three direct forms become an eight-byte sibling call to `widget::flush`.
+The target retains a normal frame, so the wrapper was deferred.

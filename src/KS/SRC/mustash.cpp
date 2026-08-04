@@ -148,22 +148,7 @@ void Print_Stash_Node( os_file &output_file, AvlNode *curr)
 }
 
 // 0x00346ED0 set_async_read_size__5stashiUi
-struct multistash {
-    char padding[0x280];
-    unsigned int async_read_size;
-    char tail[0x94];
-};
-
-class stash {
-    static multistash substash[12];
-
-public:
-    static void set_async_read_size(
-        int stashid,
-        unsigned int read_size);
-};
-
-__asm__(".equ _5stash$substash, 0x0046B7B8");
+#include "KS/SRC/mustash.h"
 
 void stash::set_async_read_size(
     int stashid,

@@ -78,7 +78,9 @@ class multistash {
     unsigned char *temp_buf;
     unsigned int temp_buf_end;
     unsigned int temp_buf_max;
-    char remaining_stash_state[0xA0];
+    char data_before_async_read_size[8];
+    unsigned int async_read_size;
+    char remaining_stash_state[0x94];
 
 public:
     void acquire_stash_bufferspace(int size);
@@ -111,6 +113,9 @@ public:
     };
 
     static void WaitForStashLoad();
+    static void set_async_read_size(
+        int stashid,
+        unsigned int read_size);
     static void free_stored(int stashid);
     static void release_stash_bufferspace();
     static void write_tree(

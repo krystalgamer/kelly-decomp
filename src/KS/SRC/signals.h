@@ -87,7 +87,11 @@ private:
     unsigned int flags;
 
 public:
+    virtual ~signal();
     void raise();
+    virtual void raise_input(
+        signal *input,
+        signaller *source = 0);
     void refresh();
     unsigned int add_callback(
         script_object::instance *instance,
@@ -117,6 +121,7 @@ protected:
     signal_list *signals;
 
 public:
+    signaller();
     virtual ~signaller();
     inline bool is_flagged(flags_t value) const { return flags & value; }
     virtual bool is_an_entity() const;

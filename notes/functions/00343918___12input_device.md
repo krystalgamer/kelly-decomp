@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released constructor initializes the invalid device id and installs the abstract input-device vtable.
+The shared `inputmgr.h` declaration initializes the invalid device id and lets
+the compiler install the abstract input-device vtable at offset four.
 
 ## Outcome
 
-The released `input_device` constructor matched exactly.
+The exact released constructor matches without a local class or manual vtable.

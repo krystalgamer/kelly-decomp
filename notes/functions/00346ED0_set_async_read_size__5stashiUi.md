@@ -16,8 +16,9 @@
 
 ### Attempt 2 notes
 
-The released indexed `substash` assignment is preserved. Binding the selected entry to the incoming `$4` stash-id register reproduces EE GCC's destructive index update and exact absolute-address schedule.
+The shared `mustash.h` layout gives `multistash` its released 0x318-byte size
+and places `async_read_size` at offset 0x280, naturally reproducing the index.
 
 ## Outcome
 
-Matched stash asynchronous read-size setter.
+The exact released assignment now matches without a local layout shell.

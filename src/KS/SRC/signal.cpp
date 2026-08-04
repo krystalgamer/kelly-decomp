@@ -10,15 +10,9 @@ const stringx& script_callback::get_func_name() { return func->get_fullname(); }
 
 void signal::refresh() { flags &= ~(RAISED | NEEDS_REFRESH); }
 
-// 0x0034C510 raise_input__6signalP6signalP9signaller
-class signaller;
-class signal { public: void raise(); void raise_input(signal *input, signaller *source); };
-__asm__(".equ raise__6signal, 0x0034C428");
-void signal::raise_input(signal *input, signaller *source) { raise(); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x0034CC70 __9signaller
-class signaller { unsigned int flags; void *signals; public: signaller(); virtual ~signaller(); };
-__asm__(".equ _vt$9signaller, 0x005050B0");
+#include "KS/SRC/signals.h"
+
 signaller::signaller() : flags(0), signals(0) {}
 
 // 0x0034CC48 refresh__12gated_signal
