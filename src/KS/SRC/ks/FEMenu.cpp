@@ -57,12 +57,6 @@ void FEMenu::AddSubmenu(FEMenu* sub) { sub->next_sub = submenus; submenus = sub;
 void FEMenu::OnSelect(int controller) {
 }
 
-// 0x00157B10 Draw__8FrontEnd
-class PanelFile { public: void Draw(int layer); };
-__asm__(".equ Draw__9PanelFilei, 0x001530B8");
-class FrontEnd { char padding[0x80]; PanelFile panel; public: void Draw(); };
-void FrontEnd::Draw() { panel.Draw(0); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00156258 AddEntity__11FEMenuEntryP6entityG7color32T2
 struct color32 { unsigned int value; };
 struct entity { char padding[0x1d8]; color32 render_color; };

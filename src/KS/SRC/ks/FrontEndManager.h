@@ -31,7 +31,13 @@ public:
 
     FEManager();
     virtual ~FEManager();
+    void InitFE();
     void UpdateFE(time_value_t time_inc);
+    void DrawFE();
+    void ReleaseFE();
+    void UpdateIGO(time_value_t time_inc);
+    void DrawIGO();
+    void ReleaseIGO();
 };
 
 extern FEManager frontendmanager;

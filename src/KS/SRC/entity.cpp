@@ -372,18 +372,6 @@ void destroyable_info::reset() { flags &= 0xF008; destroy_lifetime = 1.0f; }
 
 void entity::set_mesh_texture(nglTexture *texture) { if (my_mesh) my_mesh->Sections[0].Material->Map = texture; }
 
-// 0x00146520 _GLOBAL_$I$g_time_dilation
-extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
-extern "C" void GlobalInit() __asm__("_GLOBAL_$I$g_time_dilation");
-__asm__(".equ __static_initialization_and_destruction_0, 0x00143C08");
-void GlobalInit() { StaticInit(1, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00146540 _GLOBAL_$D$g_time_dilation
-extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
-extern "C" void GlobalDestroy() __asm__("_GLOBAL_$D$g_time_dilation");
-__asm__(".equ __static_initialization_and_destruction_0, 0x00143C08");
-void GlobalDestroy() { StaticInit(0, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x0012A1C8 get_hero_id__6entity
 #include "KS/SRC/entity.h"
 

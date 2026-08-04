@@ -437,6 +437,7 @@ public:
     PanelQuad *GetPointer(const char *search_name);
     virtual void SetFilename(stringx path);
     bool Load(bool floating = false);
+    void Draw(int layer);
 };
 
 class PanelQuad {

@@ -22,62 +22,6 @@ bool FEDoneLoading() { return frontendmanager.fe_done_loading; }
 
 bool IGOIsPaused() { return frontendmanager.pms->draw; }
 
-// 0x001990F0 FEInit__Fv
-extern char frontendmanager[];
-extern "C" void init_frontend(void *self)
-    __asm__("InitFE__9FEManager");
-__asm__(".equ frontendmanager, 0x003E7728");
-__asm__(".equ InitFE__9FEManager, 0x00198938");
-void FEInit() { init_frontend(frontendmanager); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00199110 FEUpdate__Ff
-extern char frontendmanager[];
-extern "C" void update_frontend(void *self, float time)
-    __asm__("UpdateFE__9FEManagerf");
-__asm__(".equ frontendmanager, 0x003E7728");
-__asm__(".equ UpdateFE__9FEManagerf, 0x00198E18");
-void FEUpdate(float time) { update_frontend(frontendmanager, time); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00199130 FEDraw__Fv
-extern char frontendmanager[];
-extern "C" void draw_frontend(void *self)
-    __asm__("DrawFE__9FEManager");
-__asm__(".equ frontendmanager, 0x003E7728");
-__asm__(".equ DrawFE__9FEManager, 0x00198BC0");
-void FEDraw() { draw_frontend(frontendmanager); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00199180 FERelease__Fv
-extern char frontendmanager[];
-extern "C" void release_frontend(void *self)
-    __asm__("ReleaseFE__9FEManager");
-__asm__(".equ frontendmanager, 0x003E7728");
-__asm__(".equ ReleaseFE__9FEManager, 0x00198F10");
-void FERelease() { release_frontend(frontendmanager); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x001991A0 IGOUpdate__Ff
-extern char frontendmanager[];
-extern "C" void update_igo_call(void *self, float time)
-    __asm__("UpdateIGO__9FEManagerf");
-__asm__(".equ frontendmanager, 0x003E7728");
-__asm__(".equ UpdateIGO__9FEManagerf, 0x00198E68");
-void IGOUpdate(float time) { update_igo_call(frontendmanager, time); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x001991C0 IGODraw__Fv
-extern char frontendmanager[];
-extern "C" void draw_igo_call(void *self)
-    __asm__("DrawIGO__9FEManager");
-__asm__(".equ frontendmanager, 0x003E7728");
-__asm__(".equ DrawIGO__9FEManager, 0x00198CC8");
-void IGODraw() { draw_igo_call(frontendmanager); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00199220 IGORelease__Fv
-extern char frontendmanager[];
-extern "C" void release_igo_call(void *self)
-    __asm__("ReleaseIGO__9FEManager");
-__asm__(".equ frontendmanager, 0x003E7728");
-__asm__(".equ ReleaseIGO__9FEManager, 0x00199070");
-void IGORelease() { release_igo_call(frontendmanager); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x001991E0 IGOStandUp__Fv
 class IGOFrontEnd { public: void OnSurferStandUp(); };
 __asm__(".equ OnSurferStandUp__11IGOFrontEnd, 0x0017CB40");
