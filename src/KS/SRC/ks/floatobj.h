@@ -9,10 +9,7 @@
 
 #pragma interface
 
-inline void entity::set_render_color(color32 color)
-{
-    *(unsigned int *)&render_color = color.value;
-}
+
 
 class trail;
 

@@ -541,7 +541,9 @@ public:
     virtual render_flavor_t render_passes_needed() const;
     virtual void preload();
     void acquire(unsigned int flags);
-    inline void set_render_color(color32 color);
+    inline void set_render_color(color32 color) {
+        *(unsigned int *)&render_color = color.value;
+    }
     inline void set_flag(entity_flags flag, bool enabled) {
         if (enabled)
             flags |= flag;

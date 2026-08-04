@@ -15,7 +15,7 @@
 
 ### Attempt 1 notes
 
-Minimal layouts preserve the two panel pointers and their inlined `AddedToMenu` flags.
+The canonical `FEGraphicalMenuEntry` and `PanelQuad` declarations preserve both panel pointers and the inlined `AddedToMenu` flag stores.
 
 ## Outcome
 

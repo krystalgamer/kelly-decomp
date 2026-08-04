@@ -15,6 +15,7 @@ public:
         bool avail;
 
         IconResource();
+        ~IconResource();
     };
 
     class Icon {

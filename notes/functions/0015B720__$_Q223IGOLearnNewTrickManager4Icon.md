@@ -5,20 +5,18 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/igolearn_new_trickmanager.cpp`
 - Reference source: `KS/SRC/ks/igolearn_new_trickmanager.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A symbol-preserving trivial deleting destructor applies the low-bit delete guard.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 19.4444 | 0.0 | `size36-icon-destructors-1.cpp` |
+| 2 | different | 19.4444 | 0.0 | `size36-icon-destructors-2.cpp` |
+| 3 | different | 19.4444 | 0.0 | `size36-icon-destructors-3.cpp` |
 
 ## Outcome
 
-The learn-new-trick `Icon` deleting destructor matched exactly.
+All three ordinary compiler-generated destructor bodies emit a 28-byte
+null-guarded tail call to `__builtin_delete`. The target retains a 36-byte
+call frame, so the manual destructor wrapper was removed.

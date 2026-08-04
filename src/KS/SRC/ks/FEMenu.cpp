@@ -58,21 +58,19 @@ void FEMenu::OnSelect(int controller) {
 }
 
 // 0x00156258 AddEntity__11FEMenuEntryP6entityG7color32T2
-struct color32 { unsigned int value; };
-struct entity { char padding[0x1d8]; color32 render_color; };
-class FEMenuEntry { char padding0[0x10]; void *text; char padding1[4]; entity *attached_entity; color32 highlight_color; color32 normal_color; public: void AddEntity(entity *value, color32 highlighted, color32 normal); };
-void FEMenuEntry::AddEntity(entity *value, color32 highlighted, color32 normal) { attached_entity = value; highlight_color = highlighted; normal_color = normal; if (text) value->render_color = highlighted; else value->render_color = normal; }
+#include "KS/SRC/ks/FEMenu.h"
+#include "KS/SRC/entity.h"
+
+void FEMenuEntry::AddEntity(entity *value, color32 highlighted, color32 normal) { ent = value; high_ent_color = highlighted; norm_ent_color = normal; if (highlight) ent->set_render_color(high_ent_color); else ent->set_render_color(norm_ent_color); }
 
 // 0x00157B78 Load__20FEGraphicalMenuEntryP9PanelQuadT1
-class PanelQuad { char padding[0x110]; bool added; public: void AddedToMenu() { added = true; } };
-class FEGraphicalMenuEntry { char padding[0x64]; PanelQuad *pq; PanelQuad *pq_high; public: void Load(PanelQuad *normal, PanelQuad *highlighted); };
+#include "KS/SRC/ks/FEMenu.h"
+
 void FEGraphicalMenuEntry::Load(PanelQuad *normal, PanelQuad *highlighted) { pq = normal; pq_high = highlighted; pq->AddedToMenu(); if (pq_high) pq_high->AddedToMenu(); }
 
 // 0x00157BA0 Load__20FEGraphicalMenuEntryP9PanelQuadP13PanelAnimFileP16PanelAnimManagerT1
-class PanelQuad { char padding[0x110]; bool added; public: void AddedToMenu() { added = true; } };
-class PanelAnimFile;
-class PanelAnimManager;
-class FEGraphicalMenuEntry { char padding[0x64]; PanelQuad *pq; PanelQuad *pq_high; PanelAnimFile *highlight_paf; PanelAnimManager *pam; public: void Load(PanelQuad *normal, PanelAnimFile *animation, PanelAnimManager *manager, PanelQuad *highlighted); };
+#include "KS/SRC/ks/FEMenu.h"
+
 void FEGraphicalMenuEntry::Load(PanelQuad *normal, PanelAnimFile *animation, PanelAnimManager *manager, PanelQuad *highlighted) { pq = normal; pq->AddedToMenu(); pq_high = highlighted; if (pq_high) pq_high->AddedToMenu(); highlight_paf = animation; pam = manager; }
 
 // 0x001577B8 OnStart__6FEMenui

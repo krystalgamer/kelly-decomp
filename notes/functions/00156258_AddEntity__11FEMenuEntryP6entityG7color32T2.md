@@ -20,7 +20,7 @@ The first candidate exposed an access, aggregate-copy, bool-normalization, or sc
 
 ### Attempt 2 notes
 
-Minimal layouts preserve the menu entry fields and the entity render-color destination at offset 0x1d8.
+The canonical `FEMenuEntry` and `entity` declarations preserve the released field accesses and inline render-color store.
 
 ## Outcome
 

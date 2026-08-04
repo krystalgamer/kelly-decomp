@@ -15,7 +15,7 @@
 
 ### Attempt 1 notes
 
-Minimal layouts preserve all four graphical menu resources and the inlined panel-added flags.
+The canonical `FEGraphicalMenuEntry` declaration preserves all four resources and the inlined panel-added flag stores.
 
 ## Outcome
 
