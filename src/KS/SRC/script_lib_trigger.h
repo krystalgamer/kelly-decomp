@@ -1,6 +1,8 @@
 #ifndef SCRIPT_LIB_TRIGGER_H
 #define SCRIPT_LIB_TRIGGER_H
 
+#pragma interface
+
 #include "KS/SRC/script_library_class.h"
 #include "KS/SRC/trigger.h"
 

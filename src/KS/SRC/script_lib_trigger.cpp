@@ -1,24 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-// 0x00328620 _$_26slf_trigger_get_position_t
-extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
-extern "C" void ScriptDtor_00328620(void *self) __asm__("_$_26slf_trigger_get_position_t");
-__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00328620(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00328810 _$_31slf_trigger_get_triggered_ent_t
-extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
-extern "C" void ScriptDtor_00328810(void *self) __asm__("_$_31slf_trigger_get_triggered_ent_t");
-__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00328810(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x003289D8 _$_24slf_trigger_set_active_t
-extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
-extern "C" void ScriptDtor_003289D8(void *self) __asm__("_$_24slf_trigger_set_active_t");
-__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_003289D8(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00328A48 __cl__24slf_trigger_set_active_tR8vm_stackQ320script_library_class8function7entry_t
 #include "KS/SRC/script_lib_trigger.h"
 bool slf_trigger_set_active_t::operator()(vm_stack &stack, entry_t entry)
@@ -27,30 +9,6 @@ bool slf_trigger_set_active_t::operator()(vm_stack &stack, entry_t entry)
     parms->me->set_active(parms->torf != 0);
     SLF_DONE;
 }
-
-// 0x00328A98 _$_26slf_create_point_trigger_t
-extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
-extern "C" void ScriptDtor_00328A98(void *self) __asm__("_$_26slf_create_point_trigger_t");
-__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00328A98(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00328C88 _$_24slf_create_box_trigger_t
-extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
-extern "C" void ScriptDtor_00328C88(void *self) __asm__("_$_24slf_create_box_trigger_t");
-__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00328C88(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00328E58 _$_27slf_create_entity_trigger_t
-extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
-extern "C" void ScriptDtor_00328E58(void *self) __asm__("_$_27slf_create_entity_trigger_t");
-__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00328E58(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00329030 _$_30slf_trigger_set_use_any_char_t
-extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
-extern "C" void ScriptDtor_00329030(void *self) __asm__("_$_30slf_trigger_set_use_any_char_t");
-__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00329030(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 
 // 0x00316B50 find_instance__C13slc_trigger_tRC7stringx
 class stringx;
@@ -261,12 +219,6 @@ void **Rtti_00329050()
 }
 
 // Source implementation boundary.
-// 0x003285A8 _$_13slc_trigger_t
-extern "C" void ScriptClassDtor(void *self) __asm__("_$_20script_library_class");
-extern "C" void ScriptDtor_003285A8(void *self) __asm__("_$_13slc_trigger_t");
-__asm__(".equ _$_20script_library_class, 0x0034EE68");
-void ScriptDtor_003285A8(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x003285C8 __tf13slc_trigger_t
 #include "KS/SRC/rtti.h"
 

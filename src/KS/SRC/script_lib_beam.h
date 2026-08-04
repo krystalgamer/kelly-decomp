@@ -1,6 +1,8 @@
 #ifndef SCRIPT_LIB_BEAM_H
 #define SCRIPT_LIB_BEAM_H
 
+#pragma interface
+
 #include "KS/SRC/beam.h"
 #include "KS/SRC/script_library_class.h"
 

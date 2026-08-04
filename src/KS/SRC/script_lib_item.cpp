@@ -5,18 +5,6 @@
 
 #pragma interface
 
-// 0x003275B0 _$_20slf_item_set_count_t
-extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
-extern "C" void ScriptDtor_003275B0(void *self) __asm__("_$_20slf_item_set_count_t");
-__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_003275B0(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00327668 _$_20slf_item_get_count_t
-extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
-extern "C" void ScriptDtor_00327668(void *self) __asm__("_$_20slf_item_get_count_t");
-__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00327668(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00327620 __cl__20slf_item_set_count_tR8vm_stackQ320script_library_class8function7entry_t
 struct item_set_count_vtable {
     char padding[0x640];
@@ -52,18 +40,6 @@ bool slf_item_set_count_t::operator()(vm_stack &stack, entry_t entry) {
     set_script_item_count(parms->me, parms->count);
     SLF_DONE;
 }
-
-// 0x00327850 _$_17slf_create_item_t
-extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
-extern "C" void ScriptDtor_00327850(void *self) __asm__("_$_17slf_create_item_t");
-__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00327850(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00327C98 _$_13slf_to_item_t
-extern "C" void ScriptFunctionDtor(void *self) __asm__("_$_Q220script_library_class8function");
-extern "C" void ScriptDtor_00327C98(void *self) __asm__("_$_13slf_to_item_t");
-__asm__(".equ _$_Q220script_library_class8function, 0x0034F178");
-void ScriptDtor_00327C98(void *self) { ScriptFunctionDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
 
 // 0x003275D0 __tf20slf_item_set_count_t
 #include "KS/SRC/rtti.h"
