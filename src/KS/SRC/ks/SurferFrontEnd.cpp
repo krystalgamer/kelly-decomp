@@ -11,11 +11,11 @@ void SurferBioFrontEnd::OnUp(int controller) { up_pressed = true; counter = 3; }
 
 void SurferBioFrontEnd::OnDown(int controller) { down_pressed = true; counter = 3; }
 
-#if defined(KELLY_DECOMP_FUNCTION_0018AAF0)
 // 0x0018AAF0 OnButtonRelease__17SurferBioFrontEndii
-class SurferBioFrontEnd { char padding[0x1ec]; bool up_pressed; bool down_pressed; public: void OnButtonRelease(int controller, int button); };
-void SurferBioFrontEnd::OnButtonRelease(int controller, int button) { if (button == 2) up_pressed = false; else if (button == 3) down_pressed = false; }
-#endif
+#include "KS/SRC/ks/SurferFrontEnd.h"
+#include "KS/SRC/ks/FrontEndMenus.h"
+
+void SurferBioFrontEnd::OnButtonRelease(int controller, int button) { if (button == FEMENUCMD_UP) up_pressed = false; else if (button == FEMENUCMD_DOWN) down_pressed = false; }
 
 #if defined(KELLY_DECOMP_FUNCTION_00189270)
 // 0x00189270 AdjustHandicap__14SurferFrontEndb

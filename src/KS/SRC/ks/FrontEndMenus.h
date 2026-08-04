@@ -164,6 +164,7 @@ public:
     virtual void UpdateInScene();
     virtual void endDraw(bool unpause = true);
     void RestartComp();
+    void PrepareToEndLevel() { end_level = true; }
 };
 
 class ReplayMenuClass : public FEMenu {

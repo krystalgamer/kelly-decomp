@@ -1,15 +1,12 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_0018F6C0)
 // 0x0018F6C0 ReturnToFE__13BeachFrontEnd
-struct FEManagerLayout { char padding[0x15684]; bool return_to_fe; };
-extern FEManagerLayout frontendmanager;
-__asm__(".equ frontendmanager, 0x003E7728");
-struct PauseMenuSystem { char padding[0x98]; bool prepare_to_end; };
-class BeachFrontEnd { char padding[0x50]; PauseMenuSystem *system; public: void ReturnToFE(); };
-void BeachFrontEnd::ReturnToFE() { frontendmanager.return_to_fe = true; system->prepare_to_end = true; }
-#endif
+#include "KS/SRC/ks/BeachFrontEnd.h"
+#include "KS/SRC/ks/FrontEndManager.h"
+#include "KS/SRC/ks/FrontEndMenus.h"
+
+void BeachFrontEnd::ReturnToFE() { frontendmanager.return_to_fe = true; ((PauseMenuSystem *)system)->PrepareToEndLevel(); }
 
 #if defined(KELLY_DECOMP_FUNCTION_00190850)
 // 0x00190850 OnButtonRelease__13BeachFrontEndii

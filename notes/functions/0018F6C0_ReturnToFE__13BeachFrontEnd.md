@@ -15,7 +15,7 @@
 
 ### Attempt 1 notes
 
-Minimal global and pause-system layouts preserve both released return-to-frontend flag stores.
+The canonical `FEManager`, `BeachFrontEnd`, and `PauseMenuSystem` declarations preserve both released return-to-frontend state updates.
 
 ## Outcome
 

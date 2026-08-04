@@ -15,7 +15,7 @@
 
 ### Attempt 1 notes
 
-A minimal layout preserves the highlighted VCR button at offset 0x0c and the released increment-and-clamp logic.
+The canonical `ReplayWidget` declaration preserves the highlighted VCR button and released increment-and-clamp logic.
 
 ## Outcome
 

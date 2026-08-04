@@ -22,14 +22,6 @@ bool FEDoneLoading() { return frontendmanager.fe_done_loading; }
 
 bool IGOIsPaused() { return frontendmanager.pms->draw; }
 
-// 0x001991E0 IGOStandUp__Fv
-class IGOFrontEnd { public: void OnSurferStandUp(); };
-__asm__(".equ OnSurferStandUp__11IGOFrontEnd, 0x0017CB40");
-struct FEManagerLayout { IGOFrontEnd *IGO; };
-extern FEManagerLayout frontendmanager;
-__asm__(".equ frontendmanager, 0x003E7728");
-void IGOStandUp() { frontendmanager.IGO->OnSurferStandUp(); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x001988C8 OnLevelLoaded__9FEManager
 struct frontend_vtable {
     char padding[0x1E0];

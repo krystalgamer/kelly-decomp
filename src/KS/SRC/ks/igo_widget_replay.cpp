@@ -13,11 +13,10 @@ void ReplayWidget::HighlightLeft()
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0016BD70)
 // 0x0016BD70 HighlightRight__12ReplayWidget
-class ReplayWidget { int padding[3]; int vcrButtonHL; public: void HighlightRight(); };
-void ReplayWidget::HighlightRight() { vcrButtonHL++; if (vcrButtonHL > 4) vcrButtonHL = 4; }
-#endif
+#include "KS/SRC/ks/igo_widget_replay.h"
+
+void ReplayWidget::HighlightRight() { vcrButtonHL++; if (vcrButtonHL > VCR_FASTFORWARD) vcrButtonHL = VCR_FASTFORWARD; }
 
 #if defined(KELLY_DECOMP_FUNCTION_0016BD00)
 // 0x0016BD00 Select__12ReplayWidgeti

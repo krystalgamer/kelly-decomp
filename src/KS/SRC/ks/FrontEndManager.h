@@ -25,7 +25,9 @@ public:
     bool fe_initialized;
     bool fe_done;
     bool fe_done_loading;
-    char manager_context_after_loading[0x20];
+    bool in_game_map_up;
+    bool return_to_fe;
+    char manager_context_after_return_to_fe[0x18];
     BeachFrontEnd *map;
     HelpbarFE *helpbar;
 

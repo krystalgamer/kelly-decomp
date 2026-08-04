@@ -15,6 +15,8 @@ private:
     float showTimer;
     float showTime;
 
+    void FadeReticle();
+
 public:
     void Show(float time);
     void Hide();

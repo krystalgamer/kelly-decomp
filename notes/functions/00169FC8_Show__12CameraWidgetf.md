@@ -5,30 +5,28 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/igo_widget_camera.cpp`
 - Reference source: `KS/SRC/ks/igo_widget_camera.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 94.4444 | 77.7778 | `candidate.cpp` |
-| 2 | different | 22.2222 | 11.1111 | `candidate.cpp` |
-| 3 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 8.3333 | 0.0 | `size36-camera-show-1.cpp` |
+| 2 | different | 11.1111 | 11.1111 | `size36-camera-show-2.cpp` |
+| 3 | different | 8.3333 | 0.0 | `size36-camera-show-3.cpp` |
 
 ### Attempt 1 notes
 
-The released assignment order was correct, but EE GCC reversed the independent show-time stores around the call.
+The exact released body compiles as a 16-byte sibling call instead of the target 36-byte retained call frame.
 
 ### Attempt 2 notes
 
-The store barrier fixed assignment order but let GCC write through a0 directly, removing the target v0 self copy.
+Reversing the two identical-value assignments reproduces the target store order but still emits a 16-byte sibling call.
 
 ### Attempt 3 notes
 
-A minimal layout preserves the show-time fields at 0x7c/0x80 and the released fade update call.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+Copying `this` to a local before the released assignments also emits the same 16-byte sibling-call shape.
 
 ## Outcome
 
-The released `CameraWidget::Show` implementation matched exactly.
+The barrier- and fixed-register-dependent body was removed and the original target function was deferred.
