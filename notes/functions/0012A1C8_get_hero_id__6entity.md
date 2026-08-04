@@ -25,8 +25,9 @@ The previous source shape retained a branch, call-delay, or bool-normalization m
 
 ### Attempt 3 notes
 
-A minimal layout preserves `which_hero` at 0x1f0 and the active-player fallback at game offset 0xbc.
+The shared entity/game declarations preserve `which_hero` at 0x1f0 and the
+active-player fallback at game offset 0xbc.
 
 ## Outcome
 
-The released `entity::get_hero_id` accessor matched exactly.
+The exact accessor matches without a local game layout.

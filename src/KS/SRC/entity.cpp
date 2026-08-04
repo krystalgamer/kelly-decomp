@@ -374,31 +374,11 @@ void entity::set_mesh_texture(nglTexture *texture) { if (my_mesh) my_mesh->Secti
 
 // 0x0012A1C8 get_hero_id__6entity
 #include "KS/SRC/entity.h"
+#include "KS/SRC/game.h"
 
-class game { public: char padding[0xbc]; int active_player; };
 extern game *g_game_ptr;
 __asm__(".equ g_game_ptr, 0x0046AC64");
-int entity::get_hero_id() { if (which_hero == -1) return g_game_ptr->active_player; return which_hero; }
-
-// 0x0012FDC8 add_me_to_region__6entityP6region
-#include "KS/SRC/entity.h"
-
-class region { public: void add(entity *value); };
-__asm__(".equ add__6regionP6entity, 0x002E72F0");
-void entity::add_me_to_region(region *value) { value->add(this); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x0012FDF0 remove_me_from_region__6entityP6region
-#include "KS/SRC/entity.h"
-
-class region { public: void remove(entity *value); };
-__asm__(".equ remove__6regionP6entity, 0x002E7678");
-void entity::remove_me_from_region(region *value) { value->remove(this); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00135770 __tcf_0
-extern "C" void EntityDtor(void *self, int deleting) __asm__("_$_6entity");
-__asm__(".equ _$_6entity, 0x001298C8");
-extern "C" void EntityCleanupThunk() __asm__("__tcf_0_00135770");
-void EntityCleanupThunk() { register char *object __asm__("$4") = (char *)0x00510000; register int deleting __asm__("$5") = 2; __asm__ volatile("" : "+r"(object), "+r"(deleting)); object += 0x30a0; EntityDtor(object, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+int entity::get_hero_id() { if (which_hero == -1) return g_game_ptr->get_active_player(); return which_hero; }
 
 // 0x001289E0 __9entity_idPCc
 class entity_id { public: entity_id(const char *name); void set_entity_id(const char *name); };

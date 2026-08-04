@@ -5,20 +5,16 @@
 - Object: `game/files_entity`
 - Debug source: `C:/KS/SRC/entity.cpp`
 - Reference source: `KS/SRC/entity.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released virtual hook reverses the receiver/argument registers and delegates to `region::add`.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 11.1111 | 0.0 | `size36-first-probes-1.cpp` |
+| 2 | different | 11.1111 | 0.0 | `size36-first-probes-2.cpp` |
+| 3 | different | 11.1111 | 0.0 | `size36-first-probes-3.cpp` |
 
 ## Outcome
 
-The released `entity::add_me_to_region` wrapper matched exactly.
+All three shared-declaration forms swap `this` and the region argument, then tail-call `region::add` in 16 bytes. The target retains a 36-byte frame, so the wrapper was deferred.

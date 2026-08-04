@@ -20,10 +20,9 @@ The direct absolute alias produced the correct address but scheduled its low-hal
 
 ### Attempt 2 notes
 
-The class allocator forwards size, the target source-file string, and line zero to `arch_malloc`.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The class allocator forwards size, the linker-bound released source-file
+literal, and line zero to `arch_malloc`.
 
 ## Outcome
 
-The released `entity_track_tree::operator new` wrapper matched exactly.
+The exact allocator matches without pointer synthesis or a compiler barrier.

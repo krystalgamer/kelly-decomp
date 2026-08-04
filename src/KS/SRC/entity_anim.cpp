@@ -49,10 +49,12 @@ void entity_anim_tree::set_timescale_factor(float value) {
 }
 
 // 0x00114DD8 __nw__17entity_track_treeUi
+#include "KS/SRC/entity_anim.h"
+
 void *arch_malloc(unsigned int size, const char *file, int line);
+extern const char entity_track_tree_source_file[];
 __asm__(".equ arch_malloc__FUiPCci, 0x002AC6F0");
-class entity_track_tree { public: static void *operator new(unsigned int size); };
-void *entity_track_tree::operator new(unsigned int size) { const char *file = (const char *)0x004C0000; __asm__ volatile("" : "+r"(file)); file -= 0x6d98; void *result = arch_malloc(size, file, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+void *entity_track_tree::operator new(unsigned int size) { return arch_malloc(size, entity_track_tree_source_file, 0); }
 
 // 0x00114128 __17entity_track_node
 class entity_track_node { int field0; int field4; char padding[0x18]; int field20; int field24; int field28; int field2c; public: entity_track_node(); };
