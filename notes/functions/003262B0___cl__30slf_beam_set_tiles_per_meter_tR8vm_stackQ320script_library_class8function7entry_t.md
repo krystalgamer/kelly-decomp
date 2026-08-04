@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-A symbol-preserving operator wrapper reconstructs the eight-byte parameter pop and direct beam field setter.
+The shared beam and script-function declarations reconstruct the eight-byte
+parameter pop and released `set_tiles_per_meter` call.
 
 ## Outcome
 
-The beam tiles-per-meter script operator matched exactly.
+The exact operator matches without local stack or beam layout shells.

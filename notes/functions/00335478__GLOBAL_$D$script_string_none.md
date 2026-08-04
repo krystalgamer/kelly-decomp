@@ -5,20 +5,18 @@
 - Object: `game/files_script`
 - Debug source: `C:/KS/SRC/script_lib_list.cpp`
 - Reference source: `KS/SRC/script_lib_list.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A symbol-preserving wrapper reconstructs the compiler-generated script-string destruction thunk.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 0.0 | 0.0 | `size32-script-thunks-1.cpp` |
+| 2 | different | 0.0 | 0.0 | `size32-script-thunks-2.cpp` |
+| 3 | different | 0.0 | 0.0 | `size32-script-thunks-3.cpp` |
 
 ## Outcome
 
-The script-string global destruction thunk matched exactly.
+Three direct forms collapse the generated destruction thunk to a 12-byte sibling
+call. The manual generated-symbol wrapper was removed and the target returned
+to raw text.

@@ -32,8 +32,11 @@ public:
 class ScheduledSoundEvent {
     float time;
     EventType event;
-    unsigned int sound;
-    void* entity;
+    unsigned int snd;
+    void *myEntity;
+
+public:
+    void clear();
 };
 
 class CurrentSoundEvent {

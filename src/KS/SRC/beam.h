@@ -3,6 +3,7 @@
 
 #include "KS/SRC/color.h"
 #include "KS/SRC/entity.h"
+#include "g++-2/stl_vector.h"
 
 #pragma interface
 
@@ -22,7 +23,18 @@ class beam : public entity {
     float thickness;
     float max_length;
     color32 my_color;
-    char beam_data_to_material[0xA0];
+    vector<beam_effect *> effects;
+    unsigned int beam_flags;
+    po last_po;
+    vector3d static_endpoint;
+    float static_len;
+    float curr_len;
+    vector3d impact_point;
+    vector3d impact_normal;
+    vector2d uv_anim;
+    vector2d uv_coords[2];
+    float tiles_per_meter;
+    unsigned short effect_id_counter;
     material* my_material;
     bool additive;
 
@@ -37,6 +49,10 @@ public:
     void set_max_length(float value);
     void set_beam_color(const color32 &color);
     void set_texture(const stringx &filename);
+    inline float get_tiles_per_meter() const { return tiles_per_meter; }
+    inline void set_tiles_per_meter(float value) {
+        tiles_per_meter = value;
+    }
     virtual void frame_advance(float time_inc);
     virtual void render(
         camera *camera_link,

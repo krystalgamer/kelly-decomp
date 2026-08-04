@@ -21,8 +21,9 @@ int SoundScriptManager::startEvent(
 
 #if defined(KELLY_DECOMP_FUNCTION_0031BB98)
 // 0x0031BB98 clear__19ScheduledSoundEvent
-class ScheduledSoundEvent { float time; int event; unsigned int snd; void *myEntity; public: void clear(); };
-void ScheduledSoundEvent::clear() { snd = 0; myEntity = 0; time = -1.0f; event = 105; }
+#include "KS/SRC/ks/SoundScript.h"
+
+void ScheduledSoundEvent::clear() { snd = 0; myEntity = 0; time = -1.0f; event = SS_LAST; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031BF28)

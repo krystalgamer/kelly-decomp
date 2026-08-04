@@ -20,6 +20,20 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_timer_widget_run_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        timer_widget *me;
+    };
+
+    slf_timer_widget_run_t(
+        script_library_class *owner,
+        const char *name);
+    virtual ~slf_timer_widget_run_t();
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 #endif
 
 // Matching decompilation blocks selected by generated build shims.

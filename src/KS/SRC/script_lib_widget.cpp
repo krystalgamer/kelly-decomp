@@ -33,10 +33,16 @@ bool slf_timer_widget_freeze_t::operator()(
 
 #if defined(KELLY_DECOMP_FUNCTION_0032C4A0)
 // 0x0032C4A0 __cl__22slf_timer_widget_run_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack_layout { char padding[8]; char *top; };
-struct timer_widget_layout { char padding[0x190]; bool running; };
-extern "C" bool TimerRunOp(void *self, vm_stack_layout *stack, int entry) __asm__("__cl__22slf_timer_widget_run_tR8vm_stackQ320script_library_class8function7entry_t");
-bool TimerRunOp(void *self, vm_stack_layout *stack, int entry) { stack->top -= 4; timer_widget_layout *timer = *(timer_widget_layout **)stack->top; timer->running = true; return true; }
+#include "KS/SRC/script_lib_widget.h"
+
+bool slf_timer_widget_run_t::operator()(
+    vm_stack &stack,
+    entry_t entry)
+{
+    SLF_PARMS;
+    parms->me->run();
+    SLF_DONE;
+}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0032D558)

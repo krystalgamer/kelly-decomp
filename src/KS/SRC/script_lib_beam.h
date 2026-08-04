@@ -17,4 +17,19 @@ public:
     bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_beam_set_tiles_per_meter_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        beam *me;
+        vm_num_t value;
+    };
+
+    slf_beam_set_tiles_per_meter_t(
+        script_library_class *owner,
+        const char *name);
+    virtual ~slf_beam_set_tiles_per_meter_t();
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 #endif

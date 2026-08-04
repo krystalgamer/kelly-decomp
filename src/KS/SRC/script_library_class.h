@@ -103,6 +103,20 @@ public:
         script_library_class::function::entry_t entry);
 };
 
+class slf_suspend_all_ai_t : public script_library_class::function {
+public:
+    slf_suspend_all_ai_t(const char *name);
+    virtual ~slf_suspend_all_ai_t();
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+class slf_unsuspend_all_ai_t : public script_library_class::function {
+public:
+    slf_unsuspend_all_ai_t(const char *name);
+    virtual ~slf_unsuspend_all_ai_t();
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 #define DECLARE_SCRIPT_LIBRARY_STUB(name) \
     class name { \
     public: \

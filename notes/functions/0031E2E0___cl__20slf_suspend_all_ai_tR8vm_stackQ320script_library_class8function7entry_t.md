@@ -20,8 +20,9 @@ The first wrapper declared the helper as a free function, leaving a relocation a
 
 ### Attempt 2 notes
 
-A symbol-preserving script operator uses the released `SLF_DONE` form after calling the static AI disable-stack helper.
+The shared script-function and `ai_interface` declarations use the released
+`SLF_DONE` form after calling the static disable-stack helper.
 
 ## Outcome
 
-The suspend-all-AI script operator matched exactly.
+The exact script operator matches without a C-style symbol wrapper.

@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-A symbol-preserving operator wrapper reconstructs the four-byte parameter pop and timer running flag setter.
+The shared timer-widget and script-function declarations reconstruct the
+four-byte parameter pop and released `run()` call.
 
 ## Outcome
 
-The timer-widget run script operator matched exactly.
+The exact operator matches without local stack or timer layout shells.

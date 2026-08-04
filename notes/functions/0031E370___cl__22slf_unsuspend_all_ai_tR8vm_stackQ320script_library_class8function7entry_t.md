@@ -20,8 +20,9 @@ The first candidate exposed a helper-symbol, independent-store, or call-delay sc
 
 ### Attempt 2 notes
 
-A symbol-preserving script operator uses the released `SLF_DONE` form after calling the static AI disable-stack pop helper.
+The shared script-function and `ai_interface` declarations use the released
+`SLF_DONE` form after calling the static disable-stack pop helper.
 
 ## Outcome
 
-The unsuspend-all-AI script operator matched exactly.
+The exact script operator matches without a C-style symbol wrapper.

@@ -11,6 +11,8 @@ class ai_interface : public entity_interface {
     int disable_count;
 
 public:
+    static void push_disable_all(bool value);
+    static void pop_disable_all(bool value);
     virtual ~ai_interface();
     inline entity *get_my_entity() const { return my_entity; }
     void render(char level);

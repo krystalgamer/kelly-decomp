@@ -10,10 +10,16 @@ bool slf_beam_kill_all_effects_t::operator()(vm_stack &stack, entry_t entry)
 }
 
 // 0x003262B0 __cl__30slf_beam_set_tiles_per_meter_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack_layout { char padding[8]; char *top; };
-struct beam_layout { char padding[0x2a4]; float tiles_per_meter; };
-extern "C" bool BeamTilesOp(void *self, vm_stack_layout *stack, int entry) __asm__("__cl__30slf_beam_set_tiles_per_meter_tR8vm_stackQ320script_library_class8function7entry_t");
-bool BeamTilesOp(void *self, vm_stack_layout *stack, int entry) { stack->top -= 8; beam_layout *beam = *(beam_layout **)stack->top; beam->tiles_per_meter = *(float *)(stack->top + 4); return true; }
+#include "KS/SRC/script_lib_beam.h"
+
+bool slf_beam_set_tiles_per_meter_t::operator()(
+    vm_stack &stack,
+    entry_t entry)
+{
+    SLF_PARMS;
+    parms->me->set_tiles_per_meter(parms->value);
+    SLF_DONE;
+}
 
 // 0x00326018 __cl__27slf_beam_set_no_collision_tR8vm_stackQ320script_library_class8function7entry_t
 struct vm_stack_layout { char padding[8]; char *top; };
