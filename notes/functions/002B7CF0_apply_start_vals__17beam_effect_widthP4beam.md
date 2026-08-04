@@ -5,20 +5,16 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/beam.h`
 - Reference source: `KS/SRC/beam.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released effect forwards its start width at offset four to `beam::set_thickness`.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 0.0 | 0.0 | `size32-beam-probes-1.cpp` |
+| 2 | different | 0.0 | 0.0 | `size32-beam-probes-2.cpp` |
+| 3 | different | 0.0 | 0.0 | `size32-beam-probes-3.cpp` |
 
 ## Outcome
 
-The inline beam width start-value applicator matched exactly.
+All three shared-declaration forms load `start`, adjust to the beam, and tail-call `beam::set_thickness` in 12 bytes. The target retains a 32-byte frame, so the wrapper was deferred.

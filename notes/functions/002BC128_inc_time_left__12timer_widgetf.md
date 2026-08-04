@@ -5,20 +5,16 @@
 - Object: `game/files_misc2`
 - Debug source: `C:/KS/SRC/widget_script.cpp`
 - Reference source: `KS/SRC/widget_script.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal layout places `time_left` at offset 0x18c and preserves the released add-and-forward wrapper.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 0.0 | 0.0 | `size32-beam-probes-1.cpp` |
+| 2 | different | 0.0 | 0.0 | `size32-beam-probes-2.cpp` |
+| 3 | different | 0.0 | 0.0 | `size32-beam-probes-3.cpp` |
 
 ## Outcome
 
-The released `timer_widget::inc_time_left` wrapper matched exactly.
+All three shared-declaration forms compute the new time and tail-call `timer_widget::set_time_left` in 12 bytes. The target retains a 32-byte frame, so the wrapper was deferred.

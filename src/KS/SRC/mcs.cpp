@@ -3,7 +3,6 @@
 
 // 0x002E3138 __21motion_control_system
 #include "KS/SRC/mcs.h"
-__asm__(".equ _vt$21motion_control_system, 0x004F1618");
 motion_control_system::motion_control_system() : motion_object() {}
 
 // 0x002E3158 _$_21motion_control_system

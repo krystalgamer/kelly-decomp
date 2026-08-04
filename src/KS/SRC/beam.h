@@ -72,6 +72,37 @@ protected:
     virtual beam_effect_type *make_instance();
 };
 
+class beam_effect_width : public beam_effect_type {
+protected:
+    beam_effect_width() {}
+    virtual ~beam_effect_width() {}
+    virtual void apply_start_vals(beam *the_beam);
+    virtual void apply_target_vals(beam *the_beam);
+    virtual void apply_delta_vals(beam *the_beam, float time);
+    virtual void reverse();
+    float start;
+    float target;
+    float delta;
+    virtual beam_effect_type *make_instance();
+    friend class beam_effect;
+};
+
+class beam_effect_alpha : public beam_effect_type {
+protected:
+    beam_effect_alpha() {}
+    virtual ~beam_effect_alpha() {}
+    virtual void apply_start_vals(beam *the_beam);
+    virtual void apply_target_vals(beam *the_beam);
+    virtual void apply_delta_vals(beam *the_beam, float time);
+    virtual void reverse();
+    unsigned char start;
+    unsigned char target;
+    float delta;
+    float curr;
+    virtual beam_effect_type *make_instance();
+    friend class beam_effect;
+};
+
 class beam_effect {
     enum effect_mode {
         EFFECT_DEAD = 0,
