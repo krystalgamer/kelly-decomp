@@ -57,7 +57,6 @@ class Heap {
     unsigned int ovrfree;
     unsigned int ovrused;
     unsigned int largestfree;
-    char heap_abi_padding[0xC];
 
 public:
     void *Allocate(

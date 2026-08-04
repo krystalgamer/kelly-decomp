@@ -108,12 +108,14 @@ int KSReplay::MainPOFrames() {
 }
 
 // 0x0023CA38 SpeedSlow__8KSReplay
-class KSReplay { char padding[0x1c]; bool slomo; bool fastforward; bool prepareSlomo; bool prepareNormal; public: void SpeedSlow(); };
+#include "KS/SRC/ks/ksreplay.h"
+
 void KSReplay::SpeedSlow() { if (fastforward) { fastforward = false; slomo = true; } else { prepareSlomo = true; } }
 
 // 0x0023CA58 SpeedNormal__8KSReplay
-class KSReplay { char padding[0x1c]; bool slomo; bool fastforward; bool prepareSlomo; bool prepareNormal; public: void SpeedNormal(); };
-void KSReplay::SpeedNormal() { if (fastforward) { slomo = false; KELLY_DECOMP_COMPILER_BARRIER(); fastforward = false; } else { prepareNormal = true; } }
+#include "KS/SRC/ks/ksreplay.h"
+
+void KSReplay::SpeedNormal() { if (fastforward) { fastforward = false; slomo = false; } else { prepareNormal = true; } }
 
 // 0x0023AC70 Save__13KSReplayFrame
 extern float WAVE_ShiftX;

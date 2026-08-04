@@ -281,40 +281,6 @@ void kellyslater_controller::StartDisappointment() { super_state = 8; state = 91
 
 BalanceMeter::BalanceMeter() { player_num = -1; }
 
-// 0x00223958 SetTubeTrick__22kellyslater_controlleriii
-struct controller_tube_trick_layout {
-    char padding0[0x1a6c];
-    int tube_trick;
-    int tube_anim;
-    char padding1[0x10];
-    int tube_board_anim;
-    int last_tube_trick;
-    char padding2[0xc];
-    float current_trick_time;
-    char padding3[0x38];
-    bool left_stick_pressed;
-};
-extern "C" void set_tube_trick(
-    controller_tube_trick_layout *self,
-    int trick,
-    int anim,
-    int board_anim
-) __asm__("SetTubeTrick__22kellyslater_controlleriii");
-void set_tube_trick(
-    controller_tube_trick_layout *self,
-    int trick,
-    int anim,
-    int board_anim
-) {
-    self->tube_trick = trick;
-    self->tube_anim = anim;
-    self->tube_board_anim = board_anim;
-    self->last_tube_trick = -1;
-    self->left_stick_pressed = false;
-    KELLY_DECOMP_COMPILER_BARRIER();
-    self->current_trick_time = 0.0f;
-}
-
 // 0x0020CFA0 CtrlEvent__22kellyslater_controlleri
 enum device_id_t { DEVICE_NONE };
 class input_mgr { public: float get_control_state(device_id_t device, int control) const; };

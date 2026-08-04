@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-Minimal padding preserves the released replay-camera state fields and recovered enum values.
+The shared replay-camera declaration preserves the released state fields and
+recovered enum values.
 
 ## Outcome
 
-The released `replay_camera::reset` implementation matched exactly.
+The exact reset implementation matches without a local class shell.

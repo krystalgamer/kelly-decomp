@@ -5,20 +5,16 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/hwosps2/ps2_archalloc.cpp`
 - Reference source: `KS/SRC/HWOSPS2/ps2_archalloc.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A symbol-preserving runtime wrapper reconstructs the null-guarded scalar delete path to `mem_free`.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 12.5 | 0.0 | `size32-gameplay-probes-1.cpp` |
+| 2 | different | 12.5 | 0.0 | `size32-gameplay-probes-2.cpp` |
+| 3 | different | 12.5 | 0.0 | `size32-gameplay-probes-3.cpp` |
 
 ## Outcome
 
-The target `__builtin_delete` runtime wrapper matched exactly.
+All three null-guarded C++ forms emit a 24-byte scalar-delete helper that tail-calls `mem_free`. The target is 32 bytes, so the manual runtime wrapper was removed.

@@ -28,10 +28,20 @@ public:
 };
 
 class replay_camera : public game_camera {
+    char data_to_replay_mode[0x2D0 - sizeof(game_camera)];
+    int rc;
+    int rcr;
+    char data_to_region_change_time[0x1C];
+    float regionChangeTime;
+    int regionChangeFrame;
+    char data_to_hold_cam_timer[0x13C];
+    float holdCamTimer;
+
 public:
     replay_camera(const entity_id &id, entity *target = 0);
     virtual ~replay_camera();
     virtual void sync(camera &other);
+    void reset();
 };
 
 class stationary_camera : public game_camera {

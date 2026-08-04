@@ -5,25 +5,16 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/wds.cpp`
 - Reference source: `KS/SRC/wds.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 26.7857 | 7.1429 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The source-shaped by-value vector signature forced an unused ABI copy to the stack; the disabled target body contains only the diagnostic call.
-
-### Attempt 2 notes
-
-The disabled damage path leaves only the released diagnostic call using the target string address.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 0.0 | 0.0 | `size32-gameplay-probes-1.cpp` |
+| 2 | different | 0.0 | 0.0 | `size32-gameplay-probes-2.cpp` |
+| 3 | different | 0.0 | 0.0 | `size32-gameplay-probes-3.cpp` |
 
 ## Outcome
 
-The released radius-damage diagnostic stub matched exactly.
+All three diagnostic-call forms tail-call `error` in 12 bytes after loading the released string. The target retains a 32-byte frame, so the unsupported stub was deferred.

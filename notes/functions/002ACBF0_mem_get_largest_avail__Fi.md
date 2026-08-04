@@ -15,10 +15,9 @@
 
 ### Attempt 1 notes
 
-The released accessor subtracts the reserved 128-byte header/footer allowance from the raw result.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released accessor subtracts the reserved 128-byte header/footer allowance
+from the raw result and naturally retains the target call frame.
 
 ## Outcome
 
-The released `mem_get_largest_avail` wrapper matched exactly.
+The exact released wrapper matches without a compiler barrier.

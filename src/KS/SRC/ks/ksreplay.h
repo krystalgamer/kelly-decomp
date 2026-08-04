@@ -82,6 +82,8 @@ public:
     void SaveFile(char *filename);
     bool IsPlaying();
     void Record();
+    void SpeedSlow();
+    void SpeedNormal();
     void SpeedFast();
     bool Done();
     void Clear(unsigned int seed_value);

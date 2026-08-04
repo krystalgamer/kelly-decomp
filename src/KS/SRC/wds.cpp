@@ -17,14 +17,6 @@ ett_manager* world_dynamics_system::get_ett_manager() {
     return ett_mgr;
 }
 
-// 0x002A8DA8 apply_radius_damage__21world_dynamics_systemG8vector3dfii
-extern const char radius_damage_error[];
-void error(const char *format, ...);
-__asm__(".equ radius_damage_error, 0x004F8EB0");
-__asm__(".equ error__FPCce, 0x001DFBD8");
-extern "C" void RadiusDamageStub() __asm__("apply_radius_damage__21world_dynamics_systemG8vector3dfii");
-void RadiusDamageStub() { error(radius_damage_error); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x002A3408 add_marker__21world_dynamics_systemP6marker
 #include "KS/SRC/wds.h"
 marker *world_dynamics_system::add_marker(marker *value) { marker *result = (marker *)g_entity_maker->create_entity((entity *)value); KELLY_DECOMP_COMPILER_BARRIER(); return result; }

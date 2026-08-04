@@ -69,28 +69,6 @@ bool ReplayRewButton(MenuEntry* entry, int buttonid) {
     return true;
 }
 
-// 0x00235B70 OnOpen__10KSMainMenuP4MenuP10MenuSystem
-class MenuSystem;
-class Menu;
-extern "C" void open_menu(
-    void *self,
-    Menu *previous,
-    MenuSystem *system
-) __asm__("OnOpen__4MenuP4MenuP10MenuSystem");
-__asm__(".equ OnOpen__4MenuP4MenuP10MenuSystem, 0x0023EAE0");
-extern "C" void open_main_menu(
-    void *self,
-    Menu *previous,
-    MenuSystem *system
-) __asm__("OnOpen__10KSMainMenuP4MenuP10MenuSystem");
-void open_main_menu(void *self, Menu *previous, MenuSystem *system) {
-    register char *globals __asm__("$2") = (char *)0x00420000;
-    __asm__ volatile("" : "+r"(globals));
-    *(int *)(globals + 0x4ed8) = 0;
-    open_menu(self, previous, system);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x00236630 ToggleShowRumble__FP9MenuEntryi
 struct rumble_manager_layout { char padding[0x10]; bool draw_state; };
 extern rumble_manager_layout rumbleMan;

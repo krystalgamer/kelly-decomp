@@ -5,9 +5,13 @@
 #include "KS/SRC/inputmgr.h"
 #include "KS/SRC/stringx.h"
 
+enum game_state_e {
+    GAME_STATE_NONE
+};
+
 class game_process {
     const char *name;
-    const int *flow;
+    const game_state_e *flow;
     int index;
     int num_states;
     float timer;
@@ -17,7 +21,7 @@ public:
     game_process();
     game_process(
         const char *process_name,
-        const int *state_flow,
+        const game_state_e *state_flow,
         int state_count);
     ~game_process();
 
