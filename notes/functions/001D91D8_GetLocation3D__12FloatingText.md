@@ -20,8 +20,9 @@ Returning a POD member used a 64-bit aggregate copy; the released inline accesso
 
 ### Attempt 2 notes
 
-A minimal layout places the three-component location at offset 0xb0 and preserves the by-value copy.
+The shared `FloatingText` declaration places the three-component location at
+offset 0xb0 and preserves the scalar by-value construction.
 
 ## Outcome
 
-The inline `FloatingText::GetLocation3D` accessor matched exactly.
+The exact accessor matches without a local class shell.

@@ -154,6 +154,7 @@ class FloatingText : public MultiLineString {
 public:
     virtual void UpdateInScene(bool ignore_scale = false);
     virtual void changeScale(float scale);
+    virtual vector3d GetLocation3D();
     virtual void SetBehaviorNF(float x, float y);
     virtual void SetBehavior(bool non_floating);
 };
@@ -589,6 +590,7 @@ public:
     virtual void SetWidth(float width);
     virtual void SetHeight(float height);
     void SetPos(float x1, float y1, float x2, float y2);
+    virtual vector3d GetLocation3D();
 };
 
 #endif

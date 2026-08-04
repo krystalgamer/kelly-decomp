@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-A minimal layout places the callback at 0x3c and its data slot at 0x40, preserving the indirect call ABI.
+The shared `beach_event` declaration places the callback and data slot at
+0x3c and 0x40, preserving the indirect call ABI.
 
 ## Outcome
 
-The released `beach_event::update` callback wrapper matched exactly.
+The exact released callback wrapper matches without a local class shell.

@@ -20,8 +20,9 @@ The first candidate exposed an aggregate-copy, constant-folding, store-order, or
 
 ### Attempt 2 notes
 
-A minimal layout places the three-component location at offset 0x1a0 and preserves the by-value copy.
+The shared `FloatingPQ` declaration places the three-component location at
+offset 0x1a0 and preserves the scalar by-value construction.
 
 ## Outcome
 
-The inline `FloatingPQ::GetLocation3D` accessor matched exactly.
+The exact accessor matches without a local class shell.

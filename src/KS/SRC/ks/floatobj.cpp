@@ -136,7 +136,8 @@ bool surfing_object::hammerhead_ai(vector3d &position, vector3d &normal, float t
 bool surfing_object::mantaray_ai(vector3d &position, vector3d &normal, float time) { return floating_ai(position, normal, time); }
 
 // 0x001FB300 update__11beach_eventf
-class beach_event { char padding[0x3c]; bool (*my_func)(float time, void **data); void *my_func_data; public: bool update(float time); };
+#include "KS/SRC/ks/floatobj.h"
+
 bool beach_event::update(float time) { return my_func(time, &my_func_data); }
 
 // 0x001FB298 spawn__11beach_event

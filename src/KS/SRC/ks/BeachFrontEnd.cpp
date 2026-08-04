@@ -110,13 +110,6 @@ void BeachFrontEnd::OnUnactivate() {
     exitingWithoutSelect = false;
 }
 
-// 0x001DCCB8 ReloadMap__13BeachFrontEnd
-class PanelQuad;
-class MapData { public: void Reload(PanelQuad *path); };
-__asm__(".equ Reload__7MapDataP9PanelQuad, 0x0018B5C0");
-class BeachFrontEnd { char padding0[0xe94]; PanelQuad *path_pq; char padding1[0x4c]; MapData map; public: void ReloadMap(); };
-void BeachFrontEnd::ReloadMap() { map.Reload(path_pq); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x001DCC60 __tf13BeachFrontEnd
 extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);
 extern "C" void **BaseRtti_001DCC60() __asm__("__tf11FEMultiMenu");

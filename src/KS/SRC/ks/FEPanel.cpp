@@ -1474,13 +1474,13 @@ bool PanelObjectModel::Load(unsigned char *buffer, int &index) { return PanelGeo
 bool PanelMovie::Load(unsigned char *buffer, int &index) { return PanelGeom::Load(buffer, index); }
 
 // 0x001D91D8 GetLocation3D__12FloatingText
-struct vector3d { float x; float y; float z; vector3d(float px, float py, float pz) : x(px), y(py), z(pz) {} };
-class FloatingText { char padding[0xb0]; float location_3d[3]; public: vector3d GetLocation3D(); };
+#include "KS/SRC/ks/FEPanel.h"
+
 vector3d FloatingText::GetLocation3D() { return vector3d(location_3d[0], location_3d[1], location_3d[2]); }
 
 // 0x001D9DF8 GetLocation3D__10FloatingPQ
-struct vector3d { float x; float y; float z; vector3d(float px, float py, float pz) : x(px), y(py), z(pz) {} };
-class FloatingPQ { char padding[0x1a0]; float location_3d[3]; public: vector3d GetLocation3D(); };
+#include "KS/SRC/ks/FEPanel.h"
+
 vector3d FloatingPQ::GetLocation3D() { return vector3d(location_3d[0], location_3d[1], location_3d[2]); }
 
 // 0x001D9DD0 GetPos__10FloatingPQRfN31
