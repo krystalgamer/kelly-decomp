@@ -18,8 +18,20 @@ enum FEMENUCMD {
 class PauseMenuSystem;
 
 class SoundMenuClass : public FEMenu {
+    PauseMenuSystem *sys;
+    int soundType;
+    int sounds[5];
+    bool muted;
+    FEMenuEntry *sound_mute;
+    FEMenuEntry *sound_type;
+    FEMenuEntry *sound_levels[5];
+
+    void Change(int index, bool increase);
+
 public:
     virtual void Select(int entry_index);
+    virtual void OnLeft(int controller);
+    virtual void OnRight(int controller);
 };
 
 class TrickMenuClass : public FEMenu {

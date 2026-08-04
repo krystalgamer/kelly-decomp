@@ -118,17 +118,6 @@ int NamesMenu::ActiveFile() {
         return secondary_cursor->entry_num;
 }
 
-// 0x0019B738 ReadyToAccess__16SaveLoadFrontEndii
-extern "C" void set_dstate(void *self, int state, bool ready, bool failed)
-    __asm__("SetDState__16SaveLoadFrontEndibb");
-extern "C" void ready_to_access(void *self, int ignored, int state)
-    __asm__("ReadyToAccess__16SaveLoadFrontEndii");
-__asm__(".equ SetDState__16SaveLoadFrontEndibb, 0x0019B760");
-void ready_to_access(void *self, int ignored, int state) {
-    set_dstate(self, state, true, false);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x0019BF50 SetOverwrite__16SaveLoadFrontEndPCc
 extern "C" char *strcpy(char *destination, const char *source);
 __asm__(".equ strcpy, 0x003D3FCC");

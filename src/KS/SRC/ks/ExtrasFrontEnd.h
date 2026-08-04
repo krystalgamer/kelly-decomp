@@ -95,6 +95,7 @@ public:
     virtual void OnDown(int controller);
     virtual void OnRight(int controller);
     virtual void OnLeft(int controller);
+    virtual void OnButtonRelease(int controller, int button);
 };
 
 extern char *g_ksps_path;

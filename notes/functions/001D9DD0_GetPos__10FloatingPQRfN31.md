@@ -20,7 +20,7 @@ The first candidate exposed an emitted-symbol or aggregate-copy mismatch.
 
 ### Attempt 2 notes
 
-A minimal layout preserves the four stored coordinates and the released reference-assignment order.
+The canonical `FloatingPQ` declaration preserves the four stored coordinates and released reference-assignment order; a C++ symbol binding retains the shipped repeated-argument mangling.
 
 ## Outcome
 

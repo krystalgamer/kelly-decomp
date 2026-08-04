@@ -5,20 +5,28 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/FrontEndMenus.cpp`
 - Reference source: `KS/SRC/ks/FrontEndMenus.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 16.6667 | 11.1111 | `size36-sound-left-1.cpp` |
+| 2 | different | 16.6667 | 11.1111 | `size36-sound-left-2.cpp` |
+| 3 | different | 16.6667 | 11.1111 | `size36-sound-left-3.cpp` |
 
 ### Attempt 1 notes
 
-A minimal layout preserves `highlighted` at 0x4c and forwards its entry number with a false direction flag.
+The direct released expression compiles as a 16-byte sibling call instead of the target retained frame.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+Loading the canonical highlighted entry through a local pointer emits the same sibling call.
+
+### Attempt 3 notes
+
+Loading the entry number into a local before calling `Change` also emits the same sibling call.
 
 ## Outcome
 
-The released `SoundMenuClass::OnLeft` wrapper matched exactly.
+The barrier-dependent wrapper was removed and the original target function was deferred.

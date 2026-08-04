@@ -15,7 +15,7 @@
 
 ### Attempt 1 notes
 
-Minimal padding preserves the two word-sized button flags and the released up/down command values.
+The canonical `CreditsFrontEnd` declaration and frontend command constants preserve the released button-flag updates.
 
 ## Outcome
 

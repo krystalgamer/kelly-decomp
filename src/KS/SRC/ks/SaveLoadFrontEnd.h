@@ -88,6 +88,7 @@ public:
         bool activate = true,
         bool end_error = false)
         __asm__("SetDState__16SaveLoadFrontEndibT2");
+    void ReadyToAccess(int ignored, int state);
 };
 
 class BoxText;

@@ -5,25 +5,28 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/SaveLoadFrontEnd.cpp`
 - Reference source: `KS/SRC/ks/SaveLoadFrontEnd.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 91.6667 | 100.0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 16.6667 | 11.1111 | `size36-ready-access-1.cpp` |
+| 2 | different | 16.6667 | 11.1111 | `size36-ready-access-2.cpp` |
+| 3 | different | 16.6667 | 11.1111 | `size36-ready-access-3.cpp` |
 
 ### Attempt 1 notes
 
-The first candidate exposed an emitted-symbol or aggregate-copy mismatch.
+The direct recovered call compiles as a 16-byte sibling call instead of the target 36-byte retained call frame.
 
 ### Attempt 2 notes
 
-The recovered wrapper ignores its first integer and forwards state with ready=true and failed=false.
+An explicitly qualified member call emits the same 16-byte sibling call.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 3 notes
+
+Forwarding through a local state value and explicit bool constructions also emits the same 16-byte sibling call.
 
 ## Outcome
 
-The released `SaveLoadFrontEnd::ReadyToAccess` wrapper matched exactly.
+The barrier-dependent wrapper was removed and the original target function was deferred.

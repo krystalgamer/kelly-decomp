@@ -159,18 +159,6 @@ void HeatMidMenuClass::OnButtonRelease(int c, int b)
         sys->endDraw();
 }
 
-// 0x001AAA78 OnLeft__14SoundMenuClassi
-struct FEMenuEntryLayout { int entry_num; };
-class SoundMenuClass { char padding[0x4c]; FEMenuEntryLayout *highlighted; public: void Change(int entry, bool increase); void OnLeft(int command); };
-__asm__(".equ Change__14SoundMenuClassib, 0x001AA430");
-void SoundMenuClass::OnLeft(int command) { Change(highlighted->entry_num, false); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x001AAAA0 OnRight__14SoundMenuClassi
-struct FEMenuEntryLayout { int entry_num; };
-class SoundMenuClass { char padding[0x4c]; FEMenuEntryLayout *highlighted; public: void Change(int entry, bool increase); void OnRight(int command); };
-__asm__(".equ Change__14SoundMenuClassib, 0x001AA430");
-void SoundMenuClass::OnRight(int command) { Change(highlighted->entry_num, true); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x001A8978 OnActivate__16HeatEndMenuClass
 class IGOFrontEnd { public: void ShowMenuBackground(bool visible); };
 __asm__(".equ ShowMenuBackground__11IGOFrontEndb, 0x0017CED0");

@@ -1488,9 +1488,9 @@ vector3d FloatingText::GetLocation3D() { return vector3d(location_3d[0], locatio
 vector3d FloatingPQ::GetLocation3D() { return vector3d(location_3d[0], location_3d[1], location_3d[2]); }
 
 // 0x001D9DD0 GetPos__10FloatingPQRfN31
-class FloatingPQ { public: char padding[0x1d0]; float x1_const; float x2_const; float y1_const; float y2_const; };
-extern "C" void GetPosAlias(FloatingPQ *self, float &x1, float &y1, float &x2, float &y2) __asm__("GetPos__10FloatingPQRfN31");
-void GetPosAlias(FloatingPQ *self, float &x1, float &y1, float &x2, float &y2) { x1 = self->x1_const; x2 = self->x2_const; y1 = self->y1_const; y2 = self->y2_const; }
+#include "KS/SRC/ks/FEPanel.h"
+
+void FloatingPQ::GetPos(float &x1, float &y1, float &x2, float &y2) { x1 = x1_const; x2 = x2_const; y1 = y1_const; y2 = y2_const; }
 
 // 0x001D9B28 SetZ__9PanelQuadf
 #include "KS/SRC/ks/FEPanel.h"
@@ -1811,39 +1811,4 @@ void destroy_random_text(random_text_layout *self, int deleting)
         object_delete(self);
         __asm__ __volatile__("" : : : "memory");
     }
-}
-
-// 0x001D9B00 SetColor__9PanelQuadG5color
-struct color {
-    float r;
-    float g;
-    float b;
-    float a;
-};
-
-struct PanelQuad {
-    char padding[0x98];
-    color quad_color;
-};
-
-extern "C" void SetColorAlias(
-    PanelQuad *self,
-    const color *value
-) __asm__("SetColor__9PanelQuadG5color");
-
-void SetColorAlias(PanelQuad *self, const color *value)
-{
-    register float blue __asm__("$f3");
-    __asm__ __volatile__(
-        "lwc1 $f0,12($5)\n"
-        "lwc1 $f1,0($5)\n"
-        "lwc1 $f2,4($5)\n"
-        "lwc1 %0,8($5)\n"
-        "swc1 $f0,164($4)\n"
-        "swc1 $f1,152($4)\n"
-        "swc1 $f2,156($4)"
-        : "=f"(blue)
-        :
-        : "$f0", "$f1", "$f2", "memory");
-    self->quad_color.b = blue;
 }

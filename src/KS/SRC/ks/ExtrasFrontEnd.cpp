@@ -1,11 +1,11 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_001BB850)
 // 0x001BB850 OnButtonRelease__15CreditsFrontEndii
-class CreditsFrontEnd { char padding[0x170]; bool up_pressed; bool down_pressed; public: void OnButtonRelease(int controller, int button); };
-void CreditsFrontEnd::OnButtonRelease(int controller, int button) { if (button == 2) up_pressed = false; else if (button == 3) down_pressed = false; }
-#endif
+#include "KS/SRC/ks/ExtrasFrontEnd.h"
+#include "KS/SRC/ks/FrontEndMenus.h"
+
+void CreditsFrontEnd::OnButtonRelease(int controller, int button) { if (button == FEMENUCMD_UP) up_pressed = false; else if (button == FEMENUCMD_DOWN) down_pressed = false; }
 
 #if defined(KELLY_DECOMP_FUNCTION_001BB7B0)
 // 0x001BB7B0 OnCross__15CreditsFrontEndi
