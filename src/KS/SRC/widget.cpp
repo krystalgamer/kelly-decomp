@@ -931,30 +931,6 @@ float fluid_bar::get_height() {
     return height;
 }
 
-// 0x003606C0 scale_to__13bitmap_widgetffff
-class widget { public: void scale_to(float wait, float duration, float horizontal, float vertical); };
-__asm__(".equ scale_to__6widgetffff, 0x0033ED48");
-class bitmap_widget : public widget { public: void scale_to(float wait, float duration, float horizontal, float vertical); };
-void bitmap_widget::scale_to(float wait, float duration, float horizontal, float vertical) { widget::scale_to(wait, duration, horizontal, vertical); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00360710 scale_to__13bitmap_widgetfff
-class widget { public: void scale_to(float wait, float duration, float horizontal, float vertical); };
-__asm__(".equ scale_to__6widgetffff, 0x0033ED48");
-class bitmap_widget : public widget { public: void scale_to(float wait, float duration, float scale); };
-void bitmap_widget::scale_to(float wait, float duration, float scale) { widget::scale_to(wait, duration, scale, scale); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00360838 show__11text_widget
-class widget { public: void show(); };
-__asm__(".equ show__6widget, 0x0033DDD0");
-class text_widget : public widget { public: void show(); };
-void text_widget::show() { widget::show(); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00360858 hide__11text_widget
-class widget { public: void hide(); };
-__asm__(".equ hide__6widget, 0x0033DEA0");
-class text_widget : public widget { public: void hide(); };
-void text_widget::hide() { widget::hide(); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00121D08 _GLOBAL_$I$anim_track_flavors
 extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
 extern "C" void GlobalInit() __asm__("_GLOBAL_$I$anim_track_flavors");

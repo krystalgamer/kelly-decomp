@@ -67,11 +67,6 @@ void trail::destroy() {
         valid = false;
 }
 
-// 0x00361A20 ks_fx_trail_destroy__FP5trail
-class trail { public: void destroy(); };
-__asm__(".equ destroy__5trail, 0x00361DA0");
-void ks_fx_trail_destroy(trail *dead) { dead->destroy(); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00364450 create_chophop_splash__5trailR8vector3d
 struct vector3d;
 void ks_fx_add_splash(unsigned int type, const vector3d &position, float scale);

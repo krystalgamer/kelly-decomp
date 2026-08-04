@@ -5,20 +5,16 @@
 - Object: `game/files_vsim`
 - Debug source: `C:/KS/SRC/widget.h`
 - Reference source: `KS/SRC/widget.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released uniform-scale overload forwards the final float in both horizontal and vertical argument registers.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 0.0 | 0.0 | `size28-gameplay-probes-1.cpp` |
+| 2 | different | 0.0 | 0.0 | `size28-gameplay-probes-2.cpp` |
+| 3 | different | 0.0 | 0.0 | `size28-gameplay-probes-3.cpp` |
 
 ## Outcome
 
-The three-argument `bitmap_widget::scale_to` wrapper matched exactly.
+All three direct forms copy the scale into the fourth float argument and tail-call `widget::scale_to`. The target retains a 28-byte frame, so the wrapper was deferred.

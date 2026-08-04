@@ -1,13 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_003818D8)
-// 0x003818D8 WAVETEX_StaticInit__Fv
-void WAVETEXMENU_StaticInit();
-__asm__(".equ WAVETEXMENU_StaticInit__Fv, 0x00381240");
-void WAVETEX_StaticInit() { WAVETEXMENU_StaticInit(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0037F2F8)
 // 0x0037F2F8 WAVETEX_SetShadowScale__Ff
 extern float WAVETEX_ShadowScale;

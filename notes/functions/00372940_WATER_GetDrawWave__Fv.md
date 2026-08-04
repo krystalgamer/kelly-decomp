@@ -15,10 +15,9 @@
 
 ### Attempt 1 notes
 
-The water compatibility accessor returns the wave draw flag; retaining the result preserves the wrapper.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The water compatibility accessor directly returns the wave draw flag and
+naturally retains the target call frame.
 
 ## Outcome
 
-The released `WATER_GetDrawWave` wrapper matched exactly.
+The exact released wrapper matches without a compiler barrier.

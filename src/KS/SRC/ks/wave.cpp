@@ -90,19 +90,8 @@ void WAVE_AddHeightFudge(int index, float value) { WaveHeightFudgeFactorArray[in
 
 float WAVE_GetHeightFudgeFactor(int index) { return WaveHeightFudgeFactorArray[index]; }
 
-// 0x003732C0 WAVE_StaticInit__Fv
-void WAVEMENU_StaticInit();
-__asm__(".equ WAVEMENU_StaticInit__Fv, 0x00372B20");
-void WAVE_StaticInit() { WAVEMENU_StaticInit(); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00374460 WAVE_OnFlybyStart__Fv
-void WAVE_StageAdvance();
-__asm__(".equ WAVE_StageAdvance__Fv, 0x00377B00");
-void WAVE_OnFlybyStart() { WAVE_StageAdvance(); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00374D20 WAVE_RegionIsFoamy__F14WaveRegionEnum
 enum WaveRegionEnum { WAVE_REGIONCEILING = 1, WAVE_REGIONTUBE = 9 };
-__asm__(".globl WAVE_RegionIsFoamy__F14WaveRegionEnum");
 static bool WAVE_RegionIsFoamy(WaveRegionEnum region) { if (region != WAVE_REGIONTUBE) return region == WAVE_REGIONCEILING; return true; }
 
 // 0x00377900 WAVE_ResetSchedule__Fv

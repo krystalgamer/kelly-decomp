@@ -20,8 +20,9 @@ The source-faithful pair of positive tests caused EE GCC to make the tube case f
 
 ### Attempt 2 notes
 
-The recovered enum values 9 and 1 preserve the released two-region predicate.
+The recovered enum values 9 and 1 preserve the released two-region predicate
+as a genuine source-local static helper.
 
 ## Outcome
 
-The local `WAVE_RegionIsFoamy` predicate matched exactly.
+The local predicate matches without an artificial `.globl` directive.
