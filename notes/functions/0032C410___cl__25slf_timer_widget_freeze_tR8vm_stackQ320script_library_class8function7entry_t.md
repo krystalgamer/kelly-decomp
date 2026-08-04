@@ -20,8 +20,9 @@ The generated 28-byte manifest misclassified this operator body as a destructor 
 
 ### Attempt 2 notes
 
-The released `SLF_PARMS` and `SLF_DONE` forms pop the timer-widget parameter, clear its word-sized `running` field at 0x190, and return completion.
+The canonical `script_lib_widget.h`, `widget_script.h`, and `vm_stack`
+declarations preserve the released parameter pop and `running` field at 0x190.
 
 ## Outcome
 
-The released `slf_timer_widget_freeze_t` execution body matched exactly.
+The exact released body matches without local class or stack-layout shells.

@@ -18,13 +18,16 @@ bool slf_inc_score_t::operator()(vm_stack& stack, script_library_class::function
 
 #if defined(KELLY_DECOMP_FUNCTION_0032C410)
 // 0x0032C410 __cl__25slf_timer_widget_freeze_tR8vm_stackQ320script_library_class8function7entry_t
-class timer_widget { char padding[0x190]; int running; public: void freeze() { running = 0; } };
-class vm_stack { char padding[8]; char *top; public: void pop(unsigned int size) { top -= size; } void *get_SP() { return top; } };
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
-#define SLF_PARMS stack.pop(sizeof(parms_t)); parms_t *parms = (parms_t *)stack.get_SP()
-#define SLF_DONE return true
-class slf_timer_widget_freeze_t : public script_library_class::function { public: struct parms_t { timer_widget *me; }; bool operator()(vm_stack &stack, entry_t entry); };
-bool slf_timer_widget_freeze_t::operator()(vm_stack &stack, entry_t entry) { SLF_PARMS; parms->me->freeze(); SLF_DONE; }
+#include "KS/SRC/script_lib_widget.h"
+
+bool slf_timer_widget_freeze_t::operator()(
+    vm_stack &stack,
+    entry_t entry)
+{
+    SLF_PARMS;
+    parms->me->freeze();
+    SLF_DONE;
+}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0032C430)

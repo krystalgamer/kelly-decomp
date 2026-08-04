@@ -1,3 +1,56 @@
+#ifndef WIDGET_SCRIPT_H
+#define WIDGET_SCRIPT_H
+
+#pragma interface
+
+#include "KS/SRC/widget.h"
+#include "g++-2/stl_vector.h"
+
+class timer_widget : public widget {
+public:
+    class timer_func {
+    public:
+        time_value_t time;
+        stringx function;
+    };
+
+    timer_widget(
+        const char *widget_name,
+        widget *parent,
+        short x,
+        short y);
+    virtual ~timer_widget();
+    virtual void show();
+    virtual void frame_advance(time_value_t time_inc);
+    virtual void update_scale();
+    virtual void render();
+    virtual void set_layer(rhw_layer_e layer);
+    void set_time_left(rational_t time);
+    rational_t get_time_left() const { return time_left; }
+    void freeze() { running = false; }
+    void run() { running = true; }
+    void inc_time_left(rational_t delta);
+
+protected:
+    void resize_timer();
+    bitmap_widget *digits[10];
+    bitmap_widget *colon1;
+    bitmap_widget *colon2;
+    bitmap_widget *point;
+    bitmap_widget *bg;
+    int minutes;
+    int seconds1;
+    int seconds2;
+    int tenths;
+    rational_t time_left;
+    bool running;
+    bool updated;
+    vector<timer_func> script_calls_left;
+    vector<timer_func> script_calls_made;
+};
+
+#endif
+
 // Matching decompilation blocks selected by generated build shims.
 
 

@@ -1,3 +1,27 @@
+#ifndef SCRIPT_LIB_WIDGET_H
+#define SCRIPT_LIB_WIDGET_H
+
+#pragma interface
+
+#include "KS/SRC/script_library_class.h"
+#include "KS/SRC/widget_script.h"
+
+class slf_timer_widget_freeze_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        timer_widget *me;
+    };
+
+    slf_timer_widget_freeze_t(
+        script_library_class *owner,
+        const char *name);
+    virtual ~slf_timer_widget_freeze_t();
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+#endif
+
 // Matching decompilation blocks selected by generated build shims.
 
 
