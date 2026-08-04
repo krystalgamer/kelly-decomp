@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-Minimal mesh, section, and material layouts preserve the released pointer chain and map field.
+The shared entity, NGL mesh/section, and material declarations preserve the
+released pointer chain and texture-map field.
 
 ## Outcome
 
-The released `entity::set_mesh_texture` implementation matched exactly.
+The exact released implementation matches without local layout shells.

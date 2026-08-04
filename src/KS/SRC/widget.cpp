@@ -931,18 +931,6 @@ float fluid_bar::get_height() {
     return height;
 }
 
-// 0x00121D08 _GLOBAL_$I$anim_track_flavors
-extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
-extern "C" void GlobalInit() __asm__("_GLOBAL_$I$anim_track_flavors");
-__asm__(".equ __static_initialization_and_destruction_0, 0x001202D8");
-void GlobalInit() { StaticInit(1, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00121D28 _GLOBAL_$D$anim_track_flavors
-extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
-extern "C" void GlobalDestroy() __asm__("_GLOBAL_$D$anim_track_flavors");
-__asm__(".equ __static_initialization_and_destruction_0, 0x001202D8");
-void GlobalDestroy() { StaticInit(0, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00271108 _GLOBAL_$I$__5beach
 extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
 extern "C" void GlobalInit() __asm__("_GLOBAL_$I$__5beach");

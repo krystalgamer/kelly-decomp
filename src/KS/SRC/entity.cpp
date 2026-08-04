@@ -365,22 +365,11 @@ float entity::get_age() const { return frame_time_info.get_age(); }
 
 void destroyable_info::reset() { flags &= 0xF008; destroy_lifetime = 1.0f; }
 
-// 0x00137C78 disgorge_items__6entityP6entity
-#include "KS/SRC/entity.h"
-
-extern const char disgorge_error[];
-void error(const char *format, ...);
-__asm__(".equ disgorge_error, 0x004CD020");
-__asm__(".equ error__FPCce, 0x001DFBD8");
-void entity::disgorge_items(entity *target) { error(disgorge_error); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00139D90 set_mesh_texture__6entityP10nglTexture
 #include "KS/SRC/entity.h"
+#include "KS/SRC/matfac.h"
+#include "NGL/PS2/ngl_ps2.h"
 
-struct nglTexture;
-struct nglMaterial { char padding[4]; nglTexture *Map; };
-struct nglMeshSection { nglMaterial *Material; };
-struct nglMesh { char padding[0x58]; nglMeshSection *Sections; };
 void entity::set_mesh_texture(nglTexture *texture) { if (my_mesh) my_mesh->Sections[0].Material->Map = texture; }
 
 // 0x00146520 _GLOBAL_$I$g_time_dilation

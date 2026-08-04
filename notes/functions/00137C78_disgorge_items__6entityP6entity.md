@@ -5,25 +5,16 @@
 - Object: `game/files_entity`
 - Debug source: `C:/KS/SRC/entity.cpp`
 - Reference source: `KS/SRC/entity.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 96.875 | 87.5 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The first candidate used the effective string address without the `%hi` carry required by its negative low half.
-
-### Attempt 2 notes
-
-The disabled inventory path leaves only the released diagnostic call using the target string address.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 0.0 | 0.0 | `size32-first-probes-1.cpp` |
+| 2 | different | 0.0 | 0.0 | `size32-first-probes-2.cpp` |
+| 3 | different | 0.0 | 0.0 | `size32-first-probes-3.cpp` |
 
 ## Outcome
 
-The released `entity::disgorge_items` diagnostic stub matched exactly.
+All three ordinary diagnostic-call forms tail-call `error` in 12 bytes after loading the released string address. The target retains a 32-byte frame, so the barrier-dependent stub was deferred.

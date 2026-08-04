@@ -1,18 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-// 0x00113250 _GLOBAL_$I$get_axis_count__C18AISurferController
-extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
-extern "C" void GlobalInit() __asm__("_GLOBAL_$I$get_axis_count__C18AISurferController");
-__asm__(".equ __static_initialization_and_destruction_0, 0x00112510");
-void GlobalInit() { StaticInit(1, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00113270 _GLOBAL_$D$get_axis_count__C18AISurferController
-extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
-extern "C" void GlobalDestroy() __asm__("_GLOBAL_$D$get_axis_count__C18AISurferController");
-__asm__(".equ __static_initialization_and_destruction_0, 0x00112510");
-void GlobalDestroy() { StaticInit(0, 65535); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x0010D258 compute_heuristic__16ai_polypath_cellRC8vector3d
 #include "KS/SRC/ai_polypath_cell.h"
 template<class T>inline const T&maxv(const T&a,const T&b){return a<b?b:a;}void ai_polypath_cell::compute_heuristic(const vector3d&goal){float XDelta=__builtin_fabsf(goal.x-m_CenterPoint.x);float YDelta=__builtin_fabsf(goal.y-m_CenterPoint.y);float ZDelta=__builtin_fabsf(goal.z-m_CenterPoint.z);m_Heuristic=maxv(maxv(XDelta,YDelta),ZDelta);}
