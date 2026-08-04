@@ -68,12 +68,6 @@ const char* signaller::get_signal_name(unsigned short index) const {
     return signaller_signal_name_literal;
 }
 
-// 0x0035FB08 _$_12gated_signal
-extern "C" void SignalDtor(void *self) __asm__("_$_6signal");
-extern "C" void GatedSignalDtor(void *self) __asm__("_$_12gated_signal");
-__asm__(".equ _$_6signal, 0x0034C048");
-void GatedSignalDtor(void *self) { SignalDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x0035F978 _$_15signal_callback
 extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
 __asm__(".equ __builtin_delete, 0x002AC6B0");

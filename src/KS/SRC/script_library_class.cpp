@@ -123,18 +123,6 @@ void script_library_class::read_value(chunk_file& file, char* buffer) {
 void script_library_class::purge() {
 }
 
-// 0x0035F790 _$_19slc_script_object_t
-extern "C" void ScriptClassDtor(void *self) __asm__("_$_20script_library_class");
-extern "C" void ScriptObjectClassDtor(void *self) __asm__("_$_19slc_script_object_t");
-__asm__(".equ _$_20script_library_class, 0x0034EE68");
-void ScriptObjectClassDtor(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x0035F828 _$_9slc_num_t
-extern "C" void ScriptClassDtor(void *self) __asm__("_$_20script_library_class");
-extern "C" void ScriptNumClassDtor(void *self) __asm__("_$_9slc_num_t");
-__asm__(".equ _$_20script_library_class, 0x0034EE68");
-void ScriptNumClassDtor(void *self) { ScriptClassDtor(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x0035F640 __tfQ220script_library_class8function
 extern "C" void __rtti_user(void **type, const char *name);
 extern "C" void *function_type[] __asm__("__tiQ220script_library_class8function");
