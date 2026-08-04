@@ -5,25 +5,16 @@
 - Object: `game/files_wave`
 - Debug source: `C:/KS/SRC/ks/wave.cpp`
 - Reference source: `KS/SRC/ks/wave.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 11.1111 | 0.0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The first candidate exposed a helper-symbol, independent-store, or call-delay scheduling mismatch.
-
-### Attempt 2 notes
-
-The released reset clears the global schedule index and calls the synchronization helper, with the store filling the delay slot.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 0.0 | 0.0 | `size32-final-probes-1.cpp` |
+| 2 | different | 0.0 | 0.0 | `size32-final-probes-2.cpp` |
+| 3 | different | 0.0 | 0.0 | `size32-final-probes-3.cpp` |
 
 ## Outcome
 
-The released `WAVE_ResetSchedule` wrapper matched exactly.
+All three direct forms clear `WAVE_ScheduleIndex` and tail-call `WAVE_ScheduleSync` in 12 bytes. The target retains a 32-byte frame, so the wrapper was deferred.

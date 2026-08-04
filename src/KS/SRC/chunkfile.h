@@ -6,6 +6,7 @@ class chunk_flavor {
 
 public:
     const char *c_str() const;
+    bool operator==(const chunk_flavor &other) const;
 };
 
 #endif

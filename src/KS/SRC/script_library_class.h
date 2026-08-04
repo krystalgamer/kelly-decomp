@@ -117,6 +117,12 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slc_num_t : public script_library_class {
+public:
+    slc_num_t(const char *name, int size, const char *parent);
+    virtual void read_value(chunk_file &file, char *buffer);
+};
+
 #define DECLARE_SCRIPT_LIBRARY_STUB(name) \
     class name { \
     public: \

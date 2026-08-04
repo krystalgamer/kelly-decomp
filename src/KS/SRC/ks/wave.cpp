@@ -94,11 +94,6 @@ float WAVE_GetHeightFudgeFactor(int index) { return WaveHeightFudgeFactorArray[i
 enum WaveRegionEnum { WAVE_REGIONCEILING = 1, WAVE_REGIONTUBE = 9 };
 static bool WAVE_RegionIsFoamy(WaveRegionEnum region) { if (region != WAVE_REGIONTUBE) return region == WAVE_REGIONCEILING; return true; }
 
-// 0x00377900 WAVE_ResetSchedule__Fv
-void WAVE_ScheduleSync();
-__asm__(".equ WAVE_ScheduleSync__Fv, 0x003779B0");
-void WAVE_ResetSchedule() { register char *wave_globals __asm__("$2") = (char *)0x00480000; __asm__ volatile("" : "+r"(wave_globals)); *(int *)(wave_globals + 0x46d4) = 0; WAVE_ScheduleSync(); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00373758 WAVE_Cleanup__Fv
 extern unsigned int WAVE_MeshID;
 void WAVETEX_FreeWaveMesh(unsigned int id);

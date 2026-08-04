@@ -20,8 +20,9 @@ The first candidate exposed a helper-symbol, independent-store, or call-delay sc
 
 ### Attempt 2 notes
 
-A symbol-preserving constructor layout reconstructs the empty script name and function vtable pointers.
+The shared script-function declaration uses the released empty name and lets
+the compiler install the function vtable.
 
 ## Outcome
 
-The integer `script_library_class::function` constructor matched exactly.
+The exact constructor matches without a manual vtable assignment.

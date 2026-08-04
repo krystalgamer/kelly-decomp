@@ -13,7 +13,7 @@ bool path_graph_edge::is_patrol_id(int id) const { return is_flagged((unsigned s
 #include "KS/SRC/path.h"
 void render_beam(const vector3d &start, const vector3d &end, color32 color, float thickness);
 __asm__(".equ render_beam__FRC8vector3dT0G7color32f, 0x002C88E0");
-void path_graph_edge::render(camera *camera_link, color32 color, float thickness) { render_beam(nodes[0]->pt, nodes[1]->pt, color, thickness); KELLY_DECOMP_COMPILER_BARRIER(); }
+void path_graph_edge::render(camera *camera_link, color32 color, float thickness) { render_beam(nodes[0]->pt, nodes[1]->pt, color, thickness); }
 
 // 0x0034AB30 node_in_graph__C10path_graphRC8vector3d
 #include "KS/SRC/path.h"

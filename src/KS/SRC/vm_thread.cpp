@@ -103,32 +103,3 @@ void vm_thread::remove_from_local_character()
 
 // 0x00355B28 call_script_library_function__9vm_threadRCQ29vm_thread10argument_tPCUs
 struct vm_stack_layout{char pad[8];char*sp;};struct FunctionVtable{char pad[16];short adjust;short z;bool(*call)(void*,vm_stack_layout&,int);};struct function_layout{char pad[4];FunctionVtable*vtable;};struct argument_layout{function_layout*lfr;};struct vm_thread_call_layout{char pad0[12];vm_stack_layout dstack;char pad1[4];const unsigned short*PC;char pad2[12];int entry;};extern "C" bool call_script_function(vm_thread_call_layout*self,const argument_layout&arg,const unsigned short*oldPC)__asm__("call_script_library_function__9vm_threadRCQ29vm_thread10argument_tPCUs");bool call_script_function(vm_thread_call_layout*self,const argument_layout&arg,const unsigned short*oldPC){vm_stack_layout*stack=&self->dstack;char*oldSP=stack->sp;FunctionVtable*v=arg.lfr->vtable;if(v->call((char*)arg.lfr+v->adjust,*stack,self->entry)){self->entry=0;return true;}self->PC=oldPC;stack->sp=oldSP;self->entry=1;return false;}
-
-// Source implementation boundary.
-// 0x00361808 _GLOBAL_$I$_7pstring$output_index
-extern "C" void StaticInit(int initialize, int priority)
-    __asm__("__static_initialization_and_destruction_0");
-extern "C" void GlobalInit()
-    __asm__("_GLOBAL_$I$_7pstring$output_index");
-__asm__(
-    ".equ __static_initialization_and_destruction_0, "
-    "0x0035E998");
-void GlobalInit()
-{
-    StaticInit(1, 65535);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
-// 0x00361828 _GLOBAL_$D$_7pstring$output_index
-extern "C" void StaticInit(int initialize, int priority)
-    __asm__("__static_initialization_and_destruction_0");
-extern "C" void GlobalDestroy()
-    __asm__("_GLOBAL_$D$_7pstring$output_index");
-__asm__(
-    ".equ __static_initialization_and_destruction_0, "
-    "0x0035E998");
-void GlobalDestroy()
-{
-    StaticInit(0, 65535);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
