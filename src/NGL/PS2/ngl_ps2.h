@@ -11,14 +11,22 @@ struct nglFileBuf {
 
 struct nglScene {
     nglScene *Parent;
-    char data_to_clear_flags[0x41C];
+    char data_to_viewport[0x40C];
+    u_int ViewX1;
+    u_int ViewY1;
+    u_int ViewX2;
+    u_int ViewY2;
     u_int ClearFlags;
     float ClearZ;
     char data_to_fb_write_mask[0x18];
     u_int FBWriteMask;
     bool ZWriteEnable;
     bool ZTestEnable;
-    char data_to_anim_time[0x50];
+    float FogNear;
+    float FogFar;
+    float FogMin;
+    float FogMax;
+    char data_to_anim_time[0x40];
     float AnimTime;
 };
 

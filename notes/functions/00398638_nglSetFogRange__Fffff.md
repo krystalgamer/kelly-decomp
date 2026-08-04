@@ -20,8 +20,9 @@ The first candidate used the effective global address without the `%hi` carry re
 
 ### Attempt 2 notes
 
-A minimal scene layout preserves the four fog range fields at offsets 0x44c through 0x458.
+The shared `nglScene` declaration preserves the four fog fields at offsets
+0x44c through 0x458.
 
 ## Outcome
 
-The released `nglSetFogRange` field setter matched exactly.
+The exact released setter matches through the canonical NGL scene layout.

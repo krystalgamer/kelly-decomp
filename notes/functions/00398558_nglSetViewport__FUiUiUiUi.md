@@ -20,8 +20,9 @@ The first candidate used the effective global address without the `%hi` carry re
 
 ### Attempt 2 notes
 
-A minimal scene layout preserves the four viewport fields at offsets 0x410 through 0x41c.
+The shared `nglScene` declaration preserves the four viewport fields at
+offsets 0x410 through 0x41c.
 
 ## Outcome
 
-The released `nglSetViewport` field setter matched exactly.
+The exact released setter matches through the canonical NGL scene layout.

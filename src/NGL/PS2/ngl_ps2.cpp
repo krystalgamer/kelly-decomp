@@ -125,22 +125,6 @@ void nglSetQuadColor(nglQuad* quad, unsigned int color) {
     quad->Verts[3].Color = color;
 }
 
-#if defined(KELLY_DECOMP_FUNCTION_00395F08)
-// 0x00395F08 nglIdentityMatrix__FR9nglMatrix
-class nglMatrix { float data[16]; public: operator float *() { return data; } };
-extern "C" void sceVu0UnitMatrix(float *matrix);
-__asm__(".equ sceVu0UnitMatrix, 0x003BC528");
-void nglIdentityMatrix(nglMatrix &matrix) { sceVu0UnitMatrix(matrix); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00395F28)
-// 0x00395F28 nglMulMatrix__FR9nglMatrixRC9nglMatrixT1
-class nglMatrix { float data[16]; public: operator float *() { return data; } operator const float *() const { return data; } };
-extern "C" void sceVu0MulMatrix(float *dst, const float *lhs, const float *rhs);
-__asm__(".equ sceVu0MulMatrix, 0x003BC350");
-void nglMulMatrix(nglMatrix &dst, const nglMatrix &lhs, const nglMatrix &rhs) { sceVu0MulMatrix(dst, lhs, rhs); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00395D10)
 // 0x00395D10 nglMemAlloc__FUiUi
 typedef unsigned int u_int;
@@ -202,50 +186,32 @@ void nglVif1StartQuads(u_int *&Packet)
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00395F48)
-// 0x00395F48 nglApplyMatrix__FR9nglVectorR9nglMatrixT0
-class nglVector { float data[4]; public: operator float *() { return data; } };
-class nglMatrix { float data[16]; public: operator float *() { return data; } };
-extern "C" void sceVu0ApplyMatrix(float *dst, float *matrix, float *source);
-__asm__(".equ sceVu0ApplyMatrix, 0x003BC320");
-void nglApplyMatrix(nglVector &dst, nglMatrix &matrix, nglVector &source) { sceVu0ApplyMatrix(dst, matrix, source); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00398558)
 // 0x00398558 nglSetViewport__FUiUiUiUi
-struct nglScene { char padding[0x410]; unsigned int ViewX1; unsigned int ViewY1; unsigned int ViewX2; unsigned int ViewY2; };
-extern nglScene *nglCurScene;
-__asm__(".equ nglCurScene, 0x004BBD04");
+#include "NGL/PS2/ngl_ps2.h"
+
 void nglSetViewport(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2) { nglCurScene->ViewX1 = x1; nglCurScene->ViewY1 = y1; nglCurScene->ViewX2 = x2; nglCurScene->ViewY2 = y2; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00398638)
 // 0x00398638 nglSetFogRange__Fffff
-struct nglScene { char padding[0x44c]; float FogNear; float FogFar; float FogMin; float FogMax; };
-extern nglScene *nglCurScene;
-__asm__(".equ nglCurScene, 0x004BBD04");
+#include "NGL/PS2/ngl_ps2.h"
+
 void nglSetFogRange(float near_value, float far_value, float minimum, float maximum) { nglCurScene->FogNear = near_value; nglCurScene->FogFar = far_value; nglCurScene->FogMin = minimum; nglCurScene->FogMax = maximum; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003A6A98)
 // 0x003A6A98 nglSetQuadVPos__FP7nglQuadiff
-struct nglQuadVertex { float X; float Y; float U; float V; unsigned int Color; };
-struct nglQuad { nglQuadVertex Verts[4]; };
+#include "NGL/PS2/ngl_ps2.h"
+
 void nglSetQuadVPos(nglQuad *quad, int index, float x, float y) { quad->Verts[index].X = x; quad->Verts[index].Y = y; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003A6AB8)
 // 0x003A6AB8 nglSetQuadVUV__FP7nglQuadiff
-struct nglQuadVertex { float X; float Y; float U; float V; unsigned int Color; };
-struct nglQuad { nglQuadVertex Verts[4]; };
-void nglSetQuadVUV(nglQuad *quad, int index, float u, float v) { quad->Verts[index].U = u; quad->Verts[index].V = v; }
-#endif
+#include "NGL/PS2/ngl_ps2.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_003AAAB8)
-// 0x003AAAB8 nglHostClose__FUi
-extern "C" int sceClose(int file);
-__asm__(".equ sceClose, 0x003DEC00");
-void nglHostClose(unsigned int file) { sceClose(file); KELLY_DECOMP_COMPILER_BARRIER(); }
+void nglSetQuadVUV(nglQuad *quad, int index, float u, float v) { quad->Verts[index].U = u; quad->Verts[index].V = v; }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00396D90)

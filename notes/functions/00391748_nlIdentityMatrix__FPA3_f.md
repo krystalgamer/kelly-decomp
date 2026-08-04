@@ -5,20 +5,16 @@
 - Object: `nsl/nl_ps2`
 - Debug source: `C:/NSL/PS2/nl_ps2.cpp`
 - Reference source: `NSL/PS2/nl_ps2.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released matrix helper forwards the decayed 4x4 array to the NSL VU0 unit-matrix routine.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 7.1429 | 0.0 | `size28-platform-probes-1.cpp` |
+| 2 | different | 7.1429 | 0.0 | `size28-platform-probes-2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `size28-platform-probes-3.cpp` |
 
 ## Outcome
 
-The released `nlIdentityMatrix` wrapper matched exactly.
+All three direct forms tail-call `nslSceVu0UnitMatrix` in eight bytes. The target retains a 28-byte frame, so the wrapper was deferred.

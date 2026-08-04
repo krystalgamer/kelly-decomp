@@ -15,8 +15,8 @@
 
 ### Attempt 1 notes
 
-The reconstructed 20-byte quad vertex layout places X/Y at offsets zero and four.
+The shared 20-byte `nglQuadVertex` layout places X/Y at offsets zero and four.
 
 ## Outcome
 
-The released `nglSetQuadVPos` indexed setter matched exactly.
+The released indexed setter matches through the canonical NGL quad layout.

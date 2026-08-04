@@ -5,20 +5,16 @@
 - Object: `nsl/nsl_ps2`
 - Debug source: `C:/NSL/PS2/nsl_ps2.cpp`
 - Reference source: `NSL/PS2/nsl_ps2.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released reset helper forwards its clear behavior to `_nslClearSystemData`.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 7.1429 | 0.0 | `size28-platform-probes-1.cpp` |
+| 2 | different | 7.1429 | 0.0 | `size28-platform-probes-2.cpp` |
+| 3 | different | 7.1429 | 0.0 | `size28-platform-probes-3.cpp` |
 
 ## Outcome
 
-The released `_nslResetInternal` wrapper matched exactly.
+All three direct forms tail-call `_nslClearSystemData` in eight bytes. The target retains a 28-byte frame, so the wrapper was deferred.

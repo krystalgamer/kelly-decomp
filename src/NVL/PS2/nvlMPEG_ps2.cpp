@@ -55,33 +55,6 @@ __asm__(".globl voBufGetData__FP5VoBuf");
 
 static int audioDecIsPreset(AudioDec* decoder) { return decoder->totalBytesSent >= PRESET_VALUE(decoder->iopBuffSize); }
 
-#if defined(KELLY_DECOMP_FUNCTION_00388BA8)
-// 0x00388BA8 videoDecBeginPut__FP8VideoDecPPUcPiT1T2
-struct ViBuf { char data[1]; };
-struct VideoDec { char padding[0x48]; ViBuf vibuf; };
-void viBufBeginPut(ViBuf *buffer, unsigned char **ptr0, int *len0, unsigned char **ptr1, int *len1);
-__asm__(".equ viBufBeginPut__FP5ViBufPPUcPiT1T2, 0x0038A0D8");
-void videoDecBeginPut(VideoDec *decoder, unsigned char **ptr0, int *len0, unsigned char **ptr1, int *len1) { viBufBeginPut(&decoder->vibuf, ptr0, len0, ptr1, len1); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00388BC8)
-// 0x00388BC8 videoDecEndPut__FP8VideoDeci
-struct ViBuf { char data[1]; };
-struct VideoDec { char padding[0x48]; ViBuf vibuf; };
-void viBufEndPut(ViBuf *buffer, int size);
-__asm__(".equ viBufEndPut__FP5ViBufi, 0x0038A1D0");
-void videoDecEndPut(VideoDec *decoder, int size) { viBufEndPut(&decoder->vibuf, size); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00389730)
-#include "NVL/PS2/nvlMPEG_ps2.h"
-
-// 0x00389730 audioDecStart__FP8AudioDec
-void audioDecResume(AudioDec *decoder);
-__asm__(".equ audioDecResume__FP8AudioDec, 0x003896C0");
-void audioDecStart(AudioDec *decoder) { audioDecResume(decoder); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00389750)
 #include "NVL/PS2/nvlMPEG_ps2.h"
 
