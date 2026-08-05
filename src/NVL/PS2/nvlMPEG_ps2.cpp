@@ -92,48 +92,27 @@ static int videoDecSetStream(VideoDec *decoder, int type, int channel, sceMpegCa
 static void voBufDecCount(VoBuf *buffer) { if (buffer->count > 0) buffer->count--; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00387818)
-// 0x00387818 defMain__FPv
-extern "C" void RotateThreadReadyQueue(int count);
-__asm__(".equ RotateThreadReadyQueue, 0x003DB5B0");
-void defMain(void *argument) { for (;;) { RotateThreadReadyQueue(1); __asm__ volatile("nop\n\tnop\n\tnop\n\tnop"); } }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00388A60)
 // 0x00388A60 readBufEndGet__FP7ReadBufi
-struct ReadBuf { char padding[0x50004]; int count; };
-int readBufEndGet(ReadBuf *buffer, int size) { register int selected __asm__("$2") = buffer->count; register int remaining __asm__("$6") = selected; register int use_size __asm__("$3") = size < selected; if (use_size) selected = size; remaining -= selected; buffer->count = remaining; return selected; }
-#endif
+#include "NVL/PS2/nvlMPEG_ps2.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_00388F38)
+static int readBufEndGet(ReadBuf *buffer, int size) { int selected = buffer->count; if (size < selected) selected = size; buffer->count -= selected; return selected; }
+
 // 0x00388F38 mpegStopDMA__FP7sceMpegP13sceMpegCbDataPv
-struct ViBuf;
-struct sceMpeg;
-struct sceMpegCbData;
-extern ViBuf global_vi_buffer;
+#include "NVL/PS2/nvlMPEG_ps2.h"
+
 void viBufStopDMA(ViBuf *buffer);
-__asm__(".equ global_vi_buffer, 0x00597020");
-__asm__(".equ viBufStopDMA__FP5ViBuf, 0x0038A430");
-int mpegStopDMA(sceMpeg *mpeg, sceMpegCbData *data, void *user) { viBufStopDMA(&global_vi_buffer); KELLY_DECOMP_COMPILER_BARRIER(); return 1; }
-#endif
+static int mpegStopDMA(sceMpeg *mpeg, sceMpegCbData *data, void *user) { viBufStopDMA(&video_dec_vibuf); return 1; }
 
-#if defined(KELLY_DECOMP_FUNCTION_00388F60)
 // 0x00388F60 mpegRestartDMA__FP7sceMpegP13sceMpegCbDataPv
-struct ViBuf;
-struct sceMpeg;
-struct sceMpegCbData;
-extern ViBuf global_vi_buffer;
-void viBufRestartDMA(ViBuf *buffer);
-__asm__(".equ global_vi_buffer, 0x00597020");
-__asm__(".equ viBufRestartDMA__FP5ViBuf, 0x0038A540");
-int mpegRestartDMA(sceMpeg *mpeg, sceMpegCbData *data, void *user) { viBufRestartDMA(&global_vi_buffer); KELLY_DECOMP_COMPILER_BARRIER(); return 1; }
-#endif
+#include "NVL/PS2/nvlMPEG_ps2.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_00389ED8)
+void viBufRestartDMA(ViBuf *buffer);
+static int mpegRestartDMA(sceMpeg *mpeg, sceMpegCbData *data, void *user) { viBufRestartDMA(&video_dec_vibuf); return 1; }
+
 // 0x00389ED8 scTag2__FP5QWORDPvUiUi
-struct QWORD { unsigned long long value; };
-void scTag2(QWORD *tag, void *address, unsigned int qwc, unsigned int id) { tag->value = ((unsigned long long)(unsigned int)address << 32) | ((unsigned long long)qwc << 28) | (unsigned int)id; }
-#endif
+#include "NVL/PS2/nvlMPEG_ps2.h"
+
+static void scTag2(QWORD *tag, void *address, unsigned int id, unsigned int qwc) { tag->values[0] = ((unsigned long)(unsigned int)address << 32) | ((unsigned long)id << 28) | (unsigned long)qwc; }
 
 #if defined(KELLY_DECOMP_FUNCTION_00389DB0)
 // 0x00389DB0 getFIFOindex__FP5ViBufPv

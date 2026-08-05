@@ -65,6 +65,12 @@ struct sceMpeg {
 };
 
 struct sceMpegCbData;
+struct ViBuf;
+
+struct QWORD {
+    unsigned long values[2];
+};
+
 typedef int (*sceMpegCallback)(
     sceMpeg *mpeg,
     sceMpegCbData *data,
@@ -98,6 +104,7 @@ extern VoBuf voBuf;
 extern volatile int isFrameEnd;
 extern int isCountVblank;
 extern int frd;
+extern ViBuf video_dec_vibuf;
 extern nvlAllocCallback nvlMPEGAllocFunc;
 extern nvlFreeCallback nvlMPEGFreeFunc;
 

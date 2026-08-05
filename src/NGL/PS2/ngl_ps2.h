@@ -3,6 +3,16 @@
 
 typedef unsigned int u_int;
 
+inline int nglFTOI(float input)
+{
+    register float output;
+    __asm__ volatile(
+        "cvt.w.s %0, %1"
+        : "=f"(output)
+        : "f"(input));
+    return *(int *)&output;
+}
+
 struct nglFileBuf {
     unsigned char *Buf;
     unsigned int Size;
@@ -172,7 +182,9 @@ void nglSetQuadZ(
 enum {
     NGLMAP_BILINEAR_FILTER = 0x00000002,
     NGLMAP_CLAMP_U = 0x00000010,
-    NGLMAP_CLAMP_V = 0x00000020
+    NGLMAP_CLAMP_V = 0x00000020,
+    NGLMESH_TEMP = 0x00001000,
+    NGLMESH_SCRATCH_MESH = 0x00400000
 };
 
 struct nglQuadVertex {
@@ -230,6 +242,7 @@ extern nglScene *nglCurScene;
 extern nglScene nglDefaultScene;
 extern nglInstanceBank nglFontBank;
 extern nglMesh *nglScratch;
+extern int nglFrameLock;
 extern int nglDisplayWidth;
 extern int nglDisplayHeight;
 extern char nglMeshPath[256];
@@ -242,6 +255,17 @@ extern float nglIFLSpeed;
 extern u_int nglScratchStripVertIdx;
 
 void nglFatal(const char *format, ...);
+void nglExit();
+void nglSetFrameLock(float frames_per_second);
+void nglSetQuadUV(
+    nglQuad *quad,
+    float u1, float v1,
+    float u2, float v2);
+void nglSetQuadRect(
+    nglQuad *quad,
+    float x1, float y1,
+    float x2, float y2);
+void nglSetMeshFlags(u_int flags);
 void nglMemFree(void *memory);
 int nglGetScreenWidth();
 int nglGetScreenHeight();

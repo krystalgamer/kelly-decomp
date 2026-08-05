@@ -11,13 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 58.3333 | 55.5556 | `size36-ngl-exit-1.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size36-ngl-exit-2.cpp` |
+| 3 | different | 17.3077 | 0.0 | `size36-ngl-exit-3.cpp` |
 
 ### Attempt 1 notes
 
-The released shutdown disables VBlank and VIF1 interrupts in order.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released shutdown order is retained; an ordinary local pointer for the final SDK call prevents sibling-call folding without a barrier.
 
 ## Outcome
 

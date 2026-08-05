@@ -14,7 +14,7 @@
 | 1 | different | 50.0 | 33.3333 | `candidate.cpp` |
 | 2 | different | 52.7778 | 44.4444 | `candidate.cpp` |
 | 3 | different | 63.8889 | 55.5556 | `candidate.cpp` |
-| 4 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 4 | matched | 100.0 | 100.0 | `size36-ngl-frame-lock-2.cpp` |
 
 ### Attempt 1 notes
 
@@ -30,7 +30,7 @@ The explicit conversion mnemonic assembled to a different COP1 function code and
 
 ### Attempt 4 notes
 
-The released setter converts frames per second to the integer VBlank divisor stored globally.
+The released `nglFTOI` inline assembly is restored as a shared helper; taking the frame-lock address before conversion reproduces the target schedule.
 
 ## Outcome
 

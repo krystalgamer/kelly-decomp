@@ -11,13 +11,11 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size36-nvl.cpp` |
 
 ### Attempt 1 notes
 
-The released callback ignores its MPEG arguments, stops DMA on the global video buffer, and returns success.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The shared NVL callback ignores its MPEG arguments, stops DMA on the linker-bound video buffer, and returns success naturally.
 
 ## Outcome
 

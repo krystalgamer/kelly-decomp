@@ -11,11 +11,11 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size36-nvl.cpp` |
 
 ### Attempt 1 notes
 
-The released helper packs the address, QWC, and id fields into the first 64-bit DMA tag word.
+The shared `QWORD` helper packs the address, id, and QWC fields into the first 64-bit DMA tag word in released parameter order.
 
 ## Outcome
 

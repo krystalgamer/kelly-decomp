@@ -15,7 +15,7 @@
 
 ### Attempt 1 notes
 
-The reconstructed 20-byte vertex layout preserves the released four-corner rectangle assignment.
+The canonical NGL 20-byte vertex layout preserves the released four-corner rectangle assignment.
 
 ## Outcome
 

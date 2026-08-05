@@ -221,37 +221,29 @@ __asm__(".equ nglVBlankCount, 0x004BBFBC");
 int nglVBlankInterrupt(int parameter) { nglVBlankCount++; __asm__ volatile("sync\n\tei"); return 0; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003974E8)
 // 0x003974E8 nglExit__Fv
 extern "C" int DisableIntc(int interrupt);
-__asm__(".equ DisableIntc, 0x003DBD60");
-void nglExit() { DisableIntc(5); DisableIntc(2); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+void nglExit() { DisableIntc(5); int (*disable)(int) = DisableIntc; disable(2); }
 
-#if defined(KELLY_DECOMP_FUNCTION_00397540)
 // 0x00397540 nglSetFrameLock__Ff
-void nglSetFrameLock(float frames_per_second) { register float value __asm__("$f0") = 60.0f; register char *globals __asm__("$3") = (char *)0x004B0000; __asm__ volatile("" : "+f"(value), "+r"(globals)); value /= frames_per_second; register int divisor __asm__("$4"); __asm__ volatile(".word 0x46000024\n\tmfc1 $4,$f0" : "+f"(value), "=r"(divisor)); register int stored __asm__("$2") = divisor; __asm__ volatile("" : "+r"(stored)); *(int *)(globals - 0xba0) = stored; }
-#endif
+#include "NGL/PS2/ngl_ps2.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_003A69C0)
+void nglSetFrameLock(float frames_per_second) { int *frame_lock = &nglFrameLock; int value = nglFTOI(60.0f / frames_per_second); *frame_lock = value; }
+
 // 0x003A69C0 nglSetQuadUV__FP7nglQuadffff
-struct nglQuadVertex { float X; float Y; float U; float V; unsigned int Color; };
-struct nglQuad { nglQuadVertex Verts[4]; };
+#include "NGL/PS2/ngl_ps2.h"
+
 void nglSetQuadUV(nglQuad *quad, float u1, float v1, float u2, float v2) { quad->Verts[0].U = u1; quad->Verts[0].V = v1; quad->Verts[1].U = u2; quad->Verts[1].V = v1; quad->Verts[2].U = u1; quad->Verts[2].V = v2; quad->Verts[3].U = u2; quad->Verts[3].V = v2; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003A6A68)
 // 0x003A6A68 nglSetQuadRect__FP7nglQuadffff
-struct nglQuadVertex { float X; float Y; float U; float V; unsigned int Color; };
-struct nglQuad { nglQuadVertex Verts[4]; };
-void nglSetQuadRect(nglQuad *quad, float x1, float y1, float x2, float y2) { quad->Verts[0].X = x1; quad->Verts[0].Y = y1; quad->Verts[1].X = x2; quad->Verts[1].Y = y1; quad->Verts[2].X = x1; quad->Verts[2].Y = y2; quad->Verts[3].X = x2; quad->Verts[3].Y = y2; }
-#endif
+#include "NGL/PS2/ngl_ps2.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_003AA9B0)
+void nglSetQuadRect(nglQuad *quad, float x1, float y1, float x2, float y2) { quad->Verts[0].X = x1; quad->Verts[0].Y = y1; quad->Verts[1].X = x2; quad->Verts[1].Y = y1; quad->Verts[2].X = x1; quad->Verts[2].Y = y2; quad->Verts[3].X = x2; quad->Verts[3].Y = y2; }
+
 // 0x003AA9B0 nglSetMeshFlags__FUi
-struct nglMesh { unsigned int flags; };
-void nglSetMeshFlags(unsigned int flags) { register char *globals __asm__("$3") = (char *)0x004B0000; register unsigned int required __asm__("$6") = 0x400000; __asm__ volatile("" : "+r"(globals), "+r"(required)); register nglMesh *mesh __asm__("$5") = *(nglMesh **)(globals - 0x4850); unsigned int preserved = mesh->flags & 0x1000; preserved |= required; mesh->flags = flags | preserved; }
-#endif
+#include "NGL/PS2/ngl_ps2.h"
+
+void nglSetMeshFlags(unsigned int flags) { nglScratch->Flags = flags | NGLMESH_SCRATCH_MESH | (nglScratch->Flags & NGLMESH_TEMP); }
 
 #if defined(KELLY_DECOMP_FUNCTION_00398528)
 // 0x00398528 nglSetRenderTarget__FP10nglTextureb

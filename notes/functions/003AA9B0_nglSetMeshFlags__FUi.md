@@ -30,7 +30,7 @@ Register shaping fixed the OR chain but materialized the scratch-mesh global in 
 
 ### Attempt 4 notes
 
-The released setter combines requested flags with the preserved 0x1000 bit and required 0x400000 scratch-mesh flag.
+The shared `nglMesh` declaration and named NGL mesh flags reproduce the released scratch-mesh update.
 
 ## Outcome
 

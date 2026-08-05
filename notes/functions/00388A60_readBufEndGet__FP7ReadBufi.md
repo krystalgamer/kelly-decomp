@@ -13,7 +13,7 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 72.2222 | 33.3333 | `candidate.cpp` |
 | 2 | different | 75.0 | 70.0 | `candidate.cpp` |
-| 3 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | matched | 100.0 | 100.0 | `size36-nvl-variants-2.cpp` |
 
 ### Attempt 1 notes
 
@@ -25,7 +25,7 @@ The second candidate isolated the remaining return, conversion, or register-allo
 
 ### Attempt 3 notes
 
-A minimal layout preserves the count at offset 0x50004 and the released saturating decrement.
+The shared `ReadBuf` declaration and ordinary conditional minimum reproduce the released count update.
 
 ## Outcome
 
