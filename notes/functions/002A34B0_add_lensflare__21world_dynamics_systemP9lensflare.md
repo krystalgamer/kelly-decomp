@@ -5,20 +5,18 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/wds.cpp`
 - Reference source: `KS/SRC/wds.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released add helper forwards the derived pointer through the global entity maker.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 22.2222 | 22.2222 | `size36-wds-add-1.cpp` |
+| 2 | different | 22.2222 | 22.2222 | `size36-wds-add-2.cpp` |
+| 3 | different | 22.2222 | 22.2222 | `size36-wds-add-3.cpp` |
 
 ## Outcome
 
-The released lensflare add wrapper matched exactly.
+All three ordinary forms of the released void forward compile as 12-byte
+sibling calls instead of the target 36-byte retained call frame. The
+return-type and barrier matching shim was removed, and the target was deferred.

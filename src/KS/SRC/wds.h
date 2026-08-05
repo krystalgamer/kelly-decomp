@@ -47,20 +47,19 @@ public:
     inline kellyslater_controller *get_ks_controller(int index) {
         return ks_controller[index];
     }
-    marker *add_marker(marker *value);
+    void add_marker(marker *value);
     material_set *get_material_set(const stringx &name);
-    beam *add_beam(beam *value);
-    camera *add_camera(camera *value);
-    lensflare *add_lensflare(lensflare *value);
-    sky *add_sky(sky *value);
+    void add_beam(beam *value);
+    void add_camera(camera *value);
+    void add_lensflare(lensflare *value);
+    void add_sky(sky *value);
     particle_generator *add_particle_generator(
         const stringx &filename,
         bool invisible,
         bool nonstatic,
         entity_id &id)
         __asm__("add_particle_generator__21world_dynamics_systemRC7stringxbT2R9entity_id");
-    particle_generator *add_particle_generator(
-        particle_generator *generator);
+    void add_particle_generator(particle_generator *generator);
     void render_kelly_slater_stuff(int hero_index);
     void process_kelly_slater_stuff();
     void add_anim(entity_anim_tree *animation);
