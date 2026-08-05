@@ -3,10 +3,14 @@
 
 // 0x003073D8 get_light_set__C12conglomerate
 #include "KS/SRC/conglom.h"
-extern "C" light_manager *base_light_set(const entity *self)
-    __asm__("get_light_set__C6entity");
 __asm__(".equ get_light_set__C6entity, 0x00130E48");
-light_manager *conglomerate::get_light_set() const { if (lightmgr) return lightmgr; light_manager *result = base_light_set(this); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+
+light_manager *conglomerate::get_light_set() const
+{
+    if (lightmgr)
+        return lightmgr;
+    return entity::get_light_set();
+}
 
 // 0x00306088 compute_sector__12conglomerateR7terrainb
 #include "KS/SRC/conglom.h"

@@ -55,7 +55,10 @@ class entity;
 class entity_anim;
 class entity_anim_tree;
 class entity_controller;
+class entity_pool;
+class entity_widget;
 class item;
+class light_manager;
 class material_set;
 class nglMesh;
 class nglTexture;
@@ -408,6 +411,7 @@ public:
     virtual const stringx &get_dirname() const;
     virtual bool has_dirname() const;
     virtual void set_min_detail(int detail);
+    virtual light_manager *get_light_set() const;
     entity_flavor_t get_flavor() const;
     inline bool is_ext_flagged(unsigned int flag) const {
         return ext_flags & flag;
@@ -671,6 +675,20 @@ public:
     region_node *update_region(bool parent_computed = false);
     const po &get_last_po();
     void set_last_po(const po &value);
+    void set_owning_widget(entity_widget *widget) {
+        *(entity_widget **)((char *)this + 0x114) = widget;
+    }
+    entity_widget *get_owning_widget() const {
+        return *(entity_widget *const *)(
+            (const char *)this + 0x114);
+    }
+    void set_entity_pool(entity_pool *pool) {
+        *(entity_pool **)((char *)this + 0x118) = pool;
+    }
+    entity_pool *get_entity_pool() const {
+        return *(entity_pool *const *)(
+            (const char *)this + 0x118);
+    }
 };
 
 #endif

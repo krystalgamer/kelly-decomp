@@ -11,14 +11,20 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 17.5 | 10.0 | `size40-engine-menu.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size40-release-entity-2.cpp` |
 
 ### Attempt 1 notes
 
-A minimal entity layout places its optional pool at 0x118 and conditionally forwards the release.
+The exact released body uses the shared pool accessor but collapses the
+conditional release to a 28-byte sibling call.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+An ordinary local pool-release pointer retains the released conditional call
+and target call frame.
 
 ## Outcome
 
-The released `entity_maker::release_entity` implementation matched exactly.
+The shared entity-pool accessor and local release call match without a compiler
+barrier.

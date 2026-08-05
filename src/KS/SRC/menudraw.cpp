@@ -23,40 +23,46 @@ void MENUDRAW_SetDrawShadow(bool value) {
 }
 
 // 0x0030EE00 MENUDRAW_AllEntitiesOff__FP9MenuEntryi
-class MenuEntry;
-void Setter(bool value) __asm__("MENUDRAW_SetAllEntities__Fb");
+#include "KS/SRC/menudraw.h"
+
+void MENUDRAW_SetAllEntities(bool value);
 __asm__(".equ MENUDRAW_SetAllEntities__Fb, 0x0030EDB0");
-bool MENUDRAW_AllEntitiesOff(MenuEntry *entry, int button) { if (button == 7) Setter(false); return true; }
+bool MENUDRAW_AllEntitiesOff(MenuEntry *, int button) { if (button == 7) MENUDRAW_SetAllEntities(false); return true; }
 
 // 0x0030EE28 MENUDRAW_AllEntitiesOn__FP9MenuEntryi
-class MenuEntry;
-void Setter(bool value) __asm__("MENUDRAW_SetAllEntities__Fb");
+#include "KS/SRC/menudraw.h"
+
+void MENUDRAW_SetAllEntities(bool value);
 __asm__(".equ MENUDRAW_SetAllEntities__Fb, 0x0030EDB0");
-bool MENUDRAW_AllEntitiesOn(MenuEntry *entry, int button) { if (button == 7) Setter(true); return true; }
+bool MENUDRAW_AllEntitiesOn(MenuEntry *, int button) { if (button == 7) MENUDRAW_SetAllEntities(true); return true; }
 
 // 0x0030EF90 MENUDRAW_AllWaterOff__FP9MenuEntryi
-class MenuEntry;
-void Setter(bool value) __asm__("MENUDRAW_SetAllWater__Fb");
+#include "KS/SRC/menudraw.h"
+
+void MENUDRAW_SetAllWater(bool value);
 __asm__(".equ MENUDRAW_SetAllWater__Fb, 0x0030EF58");
-bool MENUDRAW_AllWaterOff(MenuEntry *entry, int button) { if (button == 7) Setter(false); return true; }
+bool MENUDRAW_AllWaterOff(MenuEntry *, int button) { if (button == 7) MENUDRAW_SetAllWater(false); return true; }
 
 // 0x0030EFB8 MENUDRAW_AllWaterOn__FP9MenuEntryi
-class MenuEntry;
-void Setter(bool value) __asm__("MENUDRAW_SetAllWater__Fb");
+#include "KS/SRC/menudraw.h"
+
+void MENUDRAW_SetAllWater(bool value);
 __asm__(".equ MENUDRAW_SetAllWater__Fb, 0x0030EF58");
-bool MENUDRAW_AllWaterOn(MenuEntry *entry, int button) { if (button == 7) Setter(true); return true; }
+bool MENUDRAW_AllWaterOn(MenuEntry *, int button) { if (button == 7) MENUDRAW_SetAllWater(true); return true; }
 
 // 0x0030F120 MENUDRAW_AllParticleOff__FP9MenuEntryi
-class MenuEntry;
-void Setter(bool value) __asm__("MENUDRAW_SetAllParticle__Fb");
+#include "KS/SRC/menudraw.h"
+
+void MENUDRAW_SetAllParticle(bool value);
 __asm__(".equ MENUDRAW_SetAllParticle__Fb, 0x0030F0E8");
-bool MENUDRAW_AllParticleOff(MenuEntry *entry, int button) { if (button == 7) Setter(false); return true; }
+bool MENUDRAW_AllParticleOff(MenuEntry *, int button) { if (button == 7) MENUDRAW_SetAllParticle(false); return true; }
 
 // 0x0030F148 MENUDRAW_AllParticleOn__FP9MenuEntryi
-class MenuEntry;
-void Setter(bool value) __asm__("MENUDRAW_SetAllParticle__Fb");
+#include "KS/SRC/menudraw.h"
+
+void MENUDRAW_SetAllParticle(bool value);
 __asm__(".equ MENUDRAW_SetAllParticle__Fb, 0x0030F0E8");
-bool MENUDRAW_AllParticleOn(MenuEntry *entry, int button) { if (button == 7) Setter(true); return true; }
+bool MENUDRAW_AllParticleOn(MenuEntry *, int button) { if (button == 7) MENUDRAW_SetAllParticle(true); return true; }
 
 // 0x0030F380 MENUDRAW_AllOff__FP9MenuEntryi
 class MenuEntry;

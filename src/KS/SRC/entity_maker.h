@@ -43,6 +43,7 @@ public:
     entity_maker();
     virtual ~entity_maker();
     entity *acquire_beam(unsigned int flags);
+    void release_entity(entity *value);
     void purge_entity_cache();
 };
 

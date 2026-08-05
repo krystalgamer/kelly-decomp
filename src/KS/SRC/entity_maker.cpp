@@ -12,15 +12,22 @@ entity *entity_maker::acquire_beam(unsigned int flags)
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0030B0C8)
 // 0x0030B0C8 release_entity__12entity_makerP6entity
-class entity;
-class entity_pool { public: void release(entity *value); };
+#include "KS/SRC/entity.h"
+#include "KS/SRC/entity_maker.h"
+
+void release_to_pool(entity_pool *pool, entity *value)
+    __asm__("release__11entity_poolP6entity");
 __asm__(".equ release__11entity_poolP6entity, 0x0030B6C8");
-class entity { char padding[0x118]; entity_pool *pool; friend class entity_maker; };
-class entity_maker { public: void release_entity(entity *value); };
-void entity_maker::release_entity(entity *value) { if (value->pool) { value->pool->release(value); KELLY_DECOMP_COMPILER_BARRIER(); } }
-#endif
+
+void entity_maker::release_entity(entity *value)
+{
+    entity_pool *pool = value->get_entity_pool();
+    if (pool) {
+        void (*release)(entity_pool *, entity *) = release_to_pool;
+        release(pool, value);
+    }
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_00308270)
 // 0x00308270 __12entity_maker
