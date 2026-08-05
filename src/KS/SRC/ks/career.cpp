@@ -21,23 +21,23 @@
 
 void Career::OnGoalReDone(int level, int goal) { goal_passed[goal] = true; }
 
-#if defined(KELLY_DECOMP_FUNCTION_0025B8F0)
 // 0x0025B8F0 __Q26Career8Location
+#include "KS/SRC/ks/career.h"
+
 __asm__(".equ Reset__Q26Career8Location, 0x0025B918");
 Career::Location::Location() { Reset(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0025C318)
 // 0x0025C318 __Q26Career5Level
+#include "KS/SRC/ks/career.h"
+
 __asm__(".equ Reset__Q26Career5Level, 0x0025C340");
 Career::Level::Level() { Reset(); }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0025C478)
 // 0x0025C478 __Q26Career5Beach
+#include "KS/SRC/ks/career.h"
+
 __asm__(".equ Reset__Q26Career5Beach, 0x0025C4A0");
 Career::Beach::Beach() { Reset(); }
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0025B928)
 // 0x0025B928 CheckShowMovie__Q26Career8Location

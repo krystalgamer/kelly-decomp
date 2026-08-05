@@ -11,14 +11,11 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released task checks its icon pointer before forwarding the spawn request.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 22.5 | 10.0 | `size40-challenge-core.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size40-challenge-tasks-2.cpp` |
+| 3 | different | 22.5 | 10.0 | `size40-challenge-tasks-3.cpp` |
 
 ## Outcome
 
-The released `IconChallenge::Task::Spawn` implementation matched exactly.
+The shared challenge task uses an ordinary local call pointer to preserve the
+released conditional call frame without barriers or local class shells.

@@ -11,27 +11,29 @@ void IconChallenge::Task::Reset() { icon = 0; completed = false; type = TYPE_NON
 
 void IconChallenge::Task::Init(Icon* value, TYPE task_type) { icon = value; type = task_type; completed = false; watchChain = false; }
 
-#if defined(KELLY_DECOMP_FUNCTION_00261090)
 // 0x00261090 Update__Q213IconChallenge4TaskP22kellyslater_controllerf
-class kellyslater_controller;
-class IconChallenge { public: class Task { void *icon; int completed; public: void Update(kellyslater_controller *controller, float dt); void CheckForCompletion(kellyslater_controller *controller); }; };
+#include "KS/SRC/ks/challenge_icon.h"
+
+void check_task(IconChallenge::Task *task, kellyslater_controller *controller)
+    __asm__("CheckForCompletion__Q213IconChallenge4TaskP22kellyslater_controller");
 __asm__(".equ CheckForCompletion__Q213IconChallenge4TaskP22kellyslater_controller, 0x00261108");
-void IconChallenge::Task::Update(kellyslater_controller *controller, float dt) { if (!completed) { CheckForCompletion(controller); KELLY_DECOMP_COMPILER_BARRIER(); } }
-#endif
+void IconChallenge::Task::Update(kellyslater_controller *controller, float dt) { if (!completed) { void (*check)(IconChallenge::Task *, kellyslater_controller *) = check_task; check(this, controller); } }
 
-#if defined(KELLY_DECOMP_FUNCTION_002610B8)
 // 0x002610B8 Spawn__Q213IconChallenge4Task
-class IconChallenge { public: class Icon { public: void Spawn(); }; class Task { Icon *icon; public: void Spawn(); }; };
-__asm__(".equ Spawn__Q213IconChallenge4Icon, 0x00261BB0");
-void IconChallenge::Task::Spawn() { if (icon) { icon->Spawn(); KELLY_DECOMP_COMPILER_BARRIER(); } }
-#endif
+#include "KS/SRC/ks/challenge_icon.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_002610E0)
+void spawn_icon(IconChallenge::Icon *icon)
+    __asm__("Spawn__Q213IconChallenge4Icon");
+__asm__(".equ Spawn__Q213IconChallenge4Icon, 0x00261BB0");
+void IconChallenge::Task::Spawn() { if (icon) { void (*spawn)(IconChallenge::Icon *) = spawn_icon; spawn(icon); } }
+
 // 0x002610E0 Despawn__Q213IconChallenge4Task
-class IconChallenge { public: class Icon { public: void Despawn(); }; class Task { Icon *icon; public: void Despawn(); }; };
+#include "KS/SRC/ks/challenge_icon.h"
+
+void despawn_icon(IconChallenge::Icon *icon)
+    __asm__("Despawn__Q213IconChallenge4Icon");
 __asm__(".equ Despawn__Q213IconChallenge4Icon, 0x00261C10");
-void IconChallenge::Task::Despawn() { if (icon) { icon->Despawn(); KELLY_DECOMP_COMPILER_BARRIER(); } }
-#endif
+void IconChallenge::Task::Despawn() { if (icon) { void (*despawn)(IconChallenge::Icon *) = despawn_icon; despawn(icon); } }
 
 #if defined(KELLY_DECOMP_FUNCTION_00260C90)
 // 0x00260C90 Spawn__Q213IconChallenge11Arrangement

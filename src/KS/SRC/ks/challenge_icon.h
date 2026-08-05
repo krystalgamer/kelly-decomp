@@ -13,6 +13,8 @@ public:
     class Icon {
     public:
         ~Icon();
+        void Spawn();
+        void Despawn();
     };
 
     class Task {
@@ -35,6 +37,7 @@ public:
         };
 
     private:
+        void CheckForCompletion(kellyslater_controller *controller);
         Icon *icon;
         bool completed;
         TYPE type;

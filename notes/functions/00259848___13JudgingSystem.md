@@ -11,12 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released default constructor immediately resets the competition state.
+| 1 | matched | 100.0 | 100.0 | `size40-challenge-core.cpp` |
 
 ## Outcome
 
-The released `JudgingSystem` constructor matched exactly.
+The shared released declaration naturally emits the constructor's reset call frame.

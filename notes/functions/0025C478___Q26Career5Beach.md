@@ -11,12 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released nested `Beach` constructor delegates all initialization to `Reset`.
+| 1 | matched | 100.0 | 100.0 | `size40-challenge-core.cpp` |
 
 ## Outcome
 
-The released `Career::Beach` constructor matched exactly.
+The shared released declaration naturally emits the constructor's reset call frame.

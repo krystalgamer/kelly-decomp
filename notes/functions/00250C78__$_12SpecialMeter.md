@@ -5,25 +5,18 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/specialmeter.cpp`
 - Reference source: `KS/SRC/ks/specialmeter.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 97.5 | 90.0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The destructor fixup already applies the negative-low %hi carry; the first alias pre-carried it and overshot the target high half.
-
-### Attempt 2 notes
-
-A symbol-preserving destructor restores the `SpecialMeter` vtable before delegating to `EventRecipient`; the generalized destructor fixup supplies the negative-low `%hi` carry.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 5.0 | 0.0 | `size40-challenge-dtors.cpp` |
+| 2 | different | 5.0 | 0.0 | `size40-challenge-dtors-2.cpp` |
+| 3 | different | 5.0 | 0.0 | `size40-challenge-dtors-3.cpp` |
 
 ## Outcome
 
-The released `SpecialMeter` destructor matched exactly.
+All three native empty destructors emit 20-byte vptr-setting tail calls rather
+than the target 40-byte base-destructor frame. The manual-vtable body was
+removed and the target function was deferred.

@@ -29,17 +29,6 @@ void **special_rtti()
 
 void SpecialMeter::Reset() { fillage = 0.0f; isEnabled = false; trickRegion = 0; isDoingTrick = false; faceLinkTimer = 0.0f; faceLink = 0; specialTime = 0.0f; numPerfects = 0; }
 
-#if defined(KELLY_DECOMP_FUNCTION_00250C78)
-// 0x00250C78 _$_12SpecialMeter
-extern "C" void EventRecipientDtor(void *self, int deleting) __asm__("_$_14EventRecipient");
-extern const char special_meter_vtable[];
-__asm__(".equ _$_14EventRecipient, 0x00349B98");
-__asm__(".equ special_meter_vtable, 0x004DD4C8");
-struct special_meter_layout { const void *vtable; };
-extern "C" void SpecialMeterDtor(void *self, int deleting) __asm__("_$_12SpecialMeter");
-void SpecialMeterDtor(void *self, int deleting) { ((special_meter_layout *)self)->vtable = special_meter_vtable; EventRecipientDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_002510F8)
 // 0x002510F8 CanFaceLink__C12SpecialMeter
 class SpecialMeter {
