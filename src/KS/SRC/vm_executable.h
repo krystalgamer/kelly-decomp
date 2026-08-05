@@ -22,6 +22,7 @@ protected:
     unsigned short *buffer;
     int buffer_len;
     vector<const stringx *> strings;
+    void _destroy();
 
 public:
     explicit vm_executable(script_object *owner);

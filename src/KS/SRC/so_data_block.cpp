@@ -33,9 +33,18 @@ void so_data_block::clear() { _destroy(); blocksize = 0; }
 
 // 0x00352F60 _destroy__13so_data_block
 #include "KS/SRC/so_data_block.h"
-extern "C" void builtin_vec_delete(void *pointer) __asm__("__builtin_vec_delete");
+
+void delete_buffer(void *pointer)
+    __asm__("__builtin_vec_delete");
 __asm__(".equ __builtin_vec_delete, 0x002AC6D0");
-void so_data_block::_destroy() { if (buffer) { builtin_vec_delete(buffer); KELLY_DECOMP_COMPILER_BARRIER(); } }
+
+void so_data_block::_destroy()
+{
+    if (buffer) {
+        void (*destroy)(void *) = delete_buffer;
+        destroy(buffer);
+    }
+}
 
 // 0x00352EF8 init__13so_data_blocki
 #include "KS/SRC/so_data_block.h"

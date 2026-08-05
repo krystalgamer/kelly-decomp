@@ -11,14 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size40-so-data-block.cpp` |
 
 ### Attempt 1 notes
 
-The released destroy helper conditionally deletes the allocated byte array.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The shared block layout and an ordinary local delete-function pointer retain
+the released conditional call frame.
 
 ## Outcome
 
-The released `so_data_block::_destroy` implementation matched exactly.
+The released destroy helper matches without a compiler barrier.
