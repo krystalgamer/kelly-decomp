@@ -37,6 +37,7 @@ class KSReplayFrame {
 
 public:
     KSReplayFrame();
+    void Save();
 };
 
 class KSReplay {

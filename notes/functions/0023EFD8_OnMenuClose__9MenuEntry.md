@@ -11,12 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal old-GCC vtable layout preserves the Deactivate adjustment/function slots.
+| 1 | matched | 100.0 | 100.0 | `size40-camera-menu-core.cpp` |
 
 ## Outcome
 
-The released `MenuEntry::OnMenuClose` virtual thunk matched exactly.
+The shared released class declarations reproduce the target implementation directly in C++.

@@ -11,14 +11,10 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal layout preserves `curmenu` at 0x470 and returns zero or the delegated element flags.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 56.25 | 50.0 | `size40-camera-menu-core.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size40-menu-system-2.cpp` |
+| 3 | matched | 100.0 | 100.0 | `size40-menu-system-3.cpp` |
 
 ## Outcome
 
-The released `MenuSystem::GetElementState` wrapper matched exactly.
+The shared `MenuSystem` method uses a null-initialized result and canonical `Menu::GetElementFlags` call.

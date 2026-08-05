@@ -1,9 +1,9 @@
 // menu definitions extracted by generated one-function shims.
 
 // 0x0023EA30 ButtonRelease__4Menui
-struct MenuVTable { char padding[0x28]; short adjustment; short padding2; void (*release)(void *self, int button); };
-class Menu { char padding[0x1c]; MenuVTable *vtable; public: void ButtonRelease(int button); };
-void Menu::ButtonRelease(int button) { MenuVTable *table = vtable; table->release((char *)this + table->adjustment, button); }
+#include "KS/SRC/ks/menu.h"
+
+void Menu::ButtonRelease(int button) { OnButtonRelease(button); }
 
 // 0x0023ED30 Show__9MenuEntry
 #include "KS/SRC/ks/menu.h"
@@ -28,9 +28,9 @@ void MenuEntry::Enable()
 }
 
 // 0x0023EFD8 OnMenuClose__9MenuEntry
-struct EntryVTable { char padding[0x40]; short adjustment; short padding2; void (*deactivate)(void *self); };
-class MenuEntry { int field0; EntryVTable *vtable; public: void OnMenuClose(); };
-void MenuEntry::OnMenuClose() { EntryVTable *table = vtable; table->deactivate((char *)this + table->adjustment); }
+#include "KS/SRC/ks/menu.h"
+
+void MenuEntry::OnMenuClose() { Deactivate(); }
 
 // 0x00240298 SetValue__17MenuEntryEnumEditi
 #include "KS/SRC/ks/menu.h"

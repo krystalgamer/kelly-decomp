@@ -48,38 +48,31 @@ void MenuInput::InitButtonStates()
 int MenuSystem::TotalEntries() { if (!curmenu) return 0; return curmenu->NumEntries(); }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00241098)
 // 0x00241098 ButtonPress__10MenuSystemi
-class Menu { public: void ButtonPress(int button); };
+#include "KS/SRC/ks/menu.h"
+
+void menu_button_press(Menu *menu, int button) __asm__("ButtonPress__4Menui");
 __asm__(".equ ButtonPress__4Menui, 0x0023E9F0");
-class MenuSystem { char padding[0x470]; Menu *curmenu; public: void ButtonPress(int button); };
-void MenuSystem::ButtonPress(int button) { if (curmenu) { curmenu->ButtonPress(button); KELLY_DECOMP_COMPILER_BARRIER(); } }
-#endif
+void MenuSystem::ButtonPress(int button) { if (curmenu) { void (*press)(Menu *, int) = menu_button_press; press(curmenu, button); } }
 
-#if defined(KELLY_DECOMP_FUNCTION_002410C0)
 // 0x002410C0 ButtonRelease__10MenuSystemi
-class Menu { public: void ButtonRelease(int button); };
+#include "KS/SRC/ks/menu.h"
+
+void menu_button_release(Menu *menu, int button) __asm__("ButtonRelease__4Menui");
 __asm__(".equ ButtonRelease__4Menui, 0x0023EA30");
-class MenuSystem { char padding[0x470]; Menu *curmenu; public: void ButtonRelease(int button); };
-void MenuSystem::ButtonRelease(int button) { if (curmenu) { curmenu->ButtonRelease(button); KELLY_DECOMP_COMPILER_BARRIER(); } }
-#endif
+void MenuSystem::ButtonRelease(int button) { if (curmenu) { void (*release)(Menu *, int) = menu_button_release; release(curmenu, button); } }
 
-#if defined(KELLY_DECOMP_FUNCTION_00241108)
 // 0x00241108 Closing__10MenuSystemP4Menu
-extern "C" void MenuRenderClear(void *self) __asm__("Clear__10MenuRender");
-__asm__(".equ Clear__10MenuRender, 0x002408B0");
-class Menu;
-class MenuSystem { char padding[0x470]; Menu *curmenu; public: void Closing(Menu *menu); };
-void MenuSystem::Closing(Menu *menu) { MenuRenderClear(this); curmenu = 0; KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+#include "KS/SRC/ks/menu.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_00241150)
+__asm__(".equ Clear__10MenuRender, 0x002408B0");
+void MenuSystem::Closing(Menu *menu) { Clear(); curmenu = 0; }
+
 // 0x00241150 GetElementState__10MenuSystemi
-class Menu { public: unsigned int GetElementFlags(int index); };
+#include "KS/SRC/ks/menu.h"
+
 __asm__(".equ GetElementFlags__4Menui, 0x0023E688");
-class MenuSystem { char padding[0x470]; Menu *curmenu; public: unsigned int GetElementState(int index); };
-unsigned int MenuSystem::GetElementState(int index) { if (!curmenu) return 0; unsigned int result = curmenu->GetElementFlags(index); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
+unsigned int MenuSystem::GetElementState(int index) { unsigned int result = 0; if (curmenu) result = curmenu->GetElementFlags(index); return result; }
 
 #if defined(KELLY_DECOMP_FUNCTION_002408B0)
 // 0x002408B0 Clear__10MenuRender

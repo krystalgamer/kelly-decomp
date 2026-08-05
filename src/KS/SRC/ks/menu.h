@@ -320,8 +320,10 @@ public:
     virtual void CloseMenu();
     void CloseAllMenus();
     void Opening(Menu *menu);
+    void Closing(Menu *menu);
     virtual void ButtonPress(int button);
     virtual void ButtonRelease(int button);
+    virtual unsigned int GetElementState(int entry);
     bool IsActive() const { return curmenu != 0; }
 
 protected:

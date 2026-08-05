@@ -118,14 +118,11 @@ void KSReplay::SpeedSlow() { if (fastforward) { fastforward = false; slomo = tru
 void KSReplay::SpeedNormal() { if (fastforward) { fastforward = false; slomo = false; } else { prepareNormal = true; } }
 
 // 0x0023AC70 Save__13KSReplayFrame
-extern float WAVE_ShiftX;
-extern float TIMER_LevelSec;
-extern float TIMER_TotalSec;
-__asm__(".equ WAVE_ShiftX, 0x004852DC");
-__asm__(".equ TIMER_LevelSec, 0x0046B284");
-__asm__(".equ TIMER_TotalSec, 0x0046B27C");
-class KSReplayFrame { float wave_shiftx; float levelTime; float totalTime; public: void Save(); };
-void KSReplayFrame::Save() { wave_shiftx = WAVE_ShiftX; levelTime = TIMER_LevelSec; totalTime = TIMER_TotalSec; }
+#include "KS/SRC/ks/ksreplay.h"
+#include "KS/SRC/ks/wave.h"
+#include "KS/SRC/timer.h"
+
+void KSReplayFrame::Save() { wave_shiftx = WAVE_ShiftX; levelTime = TIMER_GetLevelSec(); totalTime = TIMER_GetTotalSec(); }
 
 // 0x0023C978 Restart__8KSReplay
 class KSReplay { char padding[0xd4]; int firstFrame; public: void Restart(); void Play(); };

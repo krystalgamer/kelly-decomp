@@ -661,45 +661,10 @@ float interpolate_float(float first_float, float second_float, float difference)
 
 void replay_camera::reset() { rc = 13; rcr = 6; regionChangeTime = 0.0f; regionChangeFrame = 0; holdCamTimer = 0.0f; }
 
-// 0x00228D38 _$_19old_shoulder_camera
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6camera");
-extern const char camera_vtable[];
-__asm__(".equ _$_6camera, 0x002C38A8");
-__asm__(".equ camera_vtable, 0x004F3AD0");
-struct CameraLayout { char padding[8]; const void *vtable; };
-extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_19old_shoulder_camera");
-void DerivedDtor(void *self, int deleting) { ((CameraLayout *)self)->vtable = camera_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x0022A158 _$_15shoulder_camera
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6camera");
-extern const char camera_vtable[];
-__asm__(".equ _$_6camera, 0x002C38A8");
-__asm__(".equ camera_vtable, 0x004F3AD0");
-struct CameraLayout { char padding[8]; const void *vtable; };
-extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_15shoulder_camera");
-void DerivedDtor(void *self, int deleting) { ((CameraLayout *)self)->vtable = camera_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x0022FDB8 _$_16wipeout_camera_2
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6camera");
-extern const char camera_vtable[];
-__asm__(".equ _$_6camera, 0x002C38A8");
-__asm__(".equ camera_vtable, 0x004F3AD0");
-struct CameraLayout { char padding[8]; const void *vtable; };
-extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_16wipeout_camera_2");
-void DerivedDtor(void *self, int deleting) { ((CameraLayout *)self)->vtable = camera_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00230870 _$_14wipeout_camera
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6camera");
-extern const char camera_vtable[];
-__asm__(".equ _$_6camera, 0x002C38A8");
-__asm__(".equ camera_vtable, 0x004F3AD0");
-struct CameraLayout { char padding[8]; const void *vtable; };
-extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_14wipeout_camera");
-void DerivedDtor(void *self, int deleting) { ((CameraLayout *)self)->vtable = camera_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00231D00 is_finished__12flyby_camera
-struct camera_animation { char padding[4]; float totalseconds; };
-class flyby_camera { char padding0[0x2d0]; camera_animation *animation; char padding1[4]; float current_anim_time; public: bool is_finished(); };
+#include "KS/SRC/ks/FEAnim.h"
+#include "KS/SRC/ks/ks_camera.h"
+
 bool flyby_camera::is_finished() { return current_anim_time >= animation->totalseconds; }
 
 // 0x00229F68 Init_Filter__12float_filterf

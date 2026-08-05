@@ -11,12 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-Minimal layouts preserve the animation pointer, total duration, and current animation time used by the released comparison.
+| 1 | matched | 100.0 | 100.0 | `size40-camera-menu-core.cpp` |
 
 ## Outcome
 
-The released `flyby_camera::is_finished` predicate matched exactly.
+The shared released class declarations reproduce the target implementation directly in C++.

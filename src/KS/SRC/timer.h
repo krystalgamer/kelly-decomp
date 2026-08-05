@@ -15,6 +15,11 @@ inline float TIMER_GetTotalSec()
     return TIMER_TotalSec;
 }
 
+inline float TIMER_GetLevelSec()
+{
+    return TIMER_LevelSec;
+}
+
 void TIMER_NoTick();
 void TIMER_Reset();
 void TIMER_SetTotalSec(float total_seconds, float frame_seconds);

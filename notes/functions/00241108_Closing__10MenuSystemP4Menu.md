@@ -11,14 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released close helper clears the renderer, then nulls `curmenu` while retaining `this` across the call.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | matched | 100.0 | 100.0 | `size40-camera-menu-core.cpp` |
 
 ## Outcome
 
-The released `MenuSystem::Closing` wrapper matched exactly.
+The shared released class declarations reproduce the target implementation directly in C++.

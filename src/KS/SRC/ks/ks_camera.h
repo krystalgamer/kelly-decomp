@@ -16,6 +16,30 @@ public:
     virtual void sync(camera &other);
 };
 
+class old_shoulder_camera : public game_camera {
+public:
+    old_shoulder_camera(const entity_id &id, entity *target = 0);
+    virtual ~old_shoulder_camera();
+};
+
+class shoulder_camera : public game_camera {
+public:
+    shoulder_camera(const entity_id &id, entity *target = 0);
+    virtual ~shoulder_camera();
+};
+
+class wipeout_camera_2 : public game_camera {
+public:
+    wipeout_camera_2(const entity_id &id, entity *target = 0);
+    virtual ~wipeout_camera_2();
+};
+
+class wipeout_camera : public game_camera {
+public:
+    wipeout_camera(const entity_id &id, entity *target = 0);
+    virtual ~wipeout_camera();
+};
+
 class look_back_camera : public game_camera {
     char camera_state[0x30C - sizeof(game_camera)];
     bool first_time;

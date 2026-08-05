@@ -11,14 +11,10 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal layout preserves `curmenu` at 0x470 and conditionally forwards the button press.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 20.0 | 10.0 | `size40-camera-menu-core.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size40-menu-system-2.cpp` |
+| 3 | different | 20.0 | 10.0 | `size40-menu-system-3.cpp` |
 
 ## Outcome
 
-The released `MenuSystem::ButtonPress` wrapper matched exactly.
+An ordinary local call pointer preserves the conditional menu forwarding frame without a barrier.

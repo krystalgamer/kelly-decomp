@@ -11,13 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 95.0 | 80.0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 2 notes
-
-The released save operation snapshots the three target timing globals into the frame. The timer `.equ` values use carried `0x0046...` aliases so their negative low halves still address the real `0x0045B284` and `0x0045B27C` globals while reproducing target `%hi`.
+| 1 | matched | 100.0 | 100.0 | `size40-camera-menu-core.cpp` |
 
 ## Outcome
 
-The released `KSReplayFrame::Save` implementation matched exactly.
+The shared released class declarations reproduce the target implementation directly in C++.

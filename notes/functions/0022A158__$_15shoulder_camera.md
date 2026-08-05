@@ -5,20 +5,18 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/ks_camera.cpp`
 - Reference source: `KS/SRC/ks/ks_camera.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A symbol-preserving destructor restores the camera vtable at offset eight before delegating to `camera`.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 5.0 | 0.0 | `size40-camera-dtors.cpp` |
+| 2 | different | 5.0 | 0.0 | `size40-camera-dtors-2.cpp` |
+| 3 | different | 5.0 | 0.0 | `size40-camera-dtors-3.cpp` |
 
 ## Outcome
 
-The `shoulder_camera` destructor matched exactly.
+All three native empty destructors emit 20-byte vptr-setting tail calls instead
+of the target 40-byte direct base-destructor frame. The manual-vtable body was
+removed and the target function was deferred.
