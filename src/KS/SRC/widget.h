@@ -211,6 +211,14 @@ class menu_widget : public widget {
     bool change_made;
 
 public:
+    menu_widget(
+        const char *widget_name,
+        widget *parent,
+        short x,
+        short y,
+        unsigned int to_prev,
+        unsigned int to_next);
+    virtual ~menu_widget();
     virtual void init();
     virtual void add_child(widget *child);
     virtual void show();
@@ -275,8 +283,60 @@ class box_widget : public widget {
     rational_t height_thickness;
 
 public:
+    box_widget(
+        const char *widget_name,
+        widget *parent,
+        short x,
+        short y,
+        rational_t width,
+        rational_t height,
+        const stringx &corner_name,
+        const stringx &side_name,
+        rational_t width_thickness,
+        rational_t height_thickness);
+    virtual ~box_widget();
+    virtual void resize(
+        rational_t width,
+        rational_t height,
+        rational_t width_thickness = 2.0f,
+        rational_t height_thickness = 2.0f);
     virtual rational_t get_width();
     virtual rational_t get_height();
+};
+
+class background_widget : public widget {
+public:
+    background_widget(
+        const char *widget_name,
+        widget *parent,
+        short x,
+        short y,
+        const stringx &file_prefix);
+    virtual ~background_widget();
+};
+
+class layout_widget : public widget {
+public:
+    layout_widget(
+        const char *widget_name,
+        widget *parent,
+        short x,
+        short y);
+    virtual ~layout_widget();
+    virtual void frame_advance(time_value_t time_inc);
+
+protected:
+    void update_text();
+    void update_position(short x, short y);
+    void update_rotation(short x, short y, short z);
+    bitmap_widget *bg;
+    text_widget *name;
+    text_widget *pos;
+    text_widget *abs_pos;
+    text_widget *x_angle;
+    text_widget *y_angle;
+    text_widget *z_angle;
+    widget *cur_widget;
 };
 
 class fluid_bar : public bar_widget {
