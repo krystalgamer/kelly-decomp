@@ -25,17 +25,10 @@ render_flavor_t visual_item::render_passes_needed() const
 
 // 0x0028A1B8 render__4itemP6camerafUif
 #include "KS/SRC/item.h"
-__asm__(".equ render__6entityP6camerafUif, 0x001324E0");
-void item::render(camera *camera_link, float detail, render_flavor_t flavor, float translucency) { if (count > 0) { entity::render(camera_link, detail, flavor, translucency); KELLY_DECOMP_COMPILER_BARRIER(); } }
 
-// 0x0028AEC0 _$_11visual_item
-extern "C" void EntityDtor(void *self, int deleting) __asm__("_$_6entity");
-extern const char visual_item_vtable[];
-__asm__(".equ _$_6entity, 0x001298C8");
-__asm__(".equ visual_item_vtable, 0x004EBB78");
-struct visual_item_layout { char padding[8]; const void *vtable; };
-extern "C" void VisualItemDtor(void *self, int deleting) __asm__("_$_11visual_item");
-void VisualItemDtor(void *self, int deleting) { ((visual_item_layout *)self)->vtable = visual_item_vtable; EntityDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+void render_entity(entity *value, camera *camera_link, float detail, render_flavor_t flavor, float translucency) __asm__("render__6entityP6camerafUif");
+__asm__(".equ render__6entityP6camerafUif, 0x001324E0");
+void item::render(camera *camera_link, float detail, render_flavor_t flavor, float translucency) { if (count > 0) { void (*render)(entity *, camera *, float, render_flavor_t, float) = render_entity; render(this, camera_link, detail, flavor, translucency); } }
 
 // 0x0028A648 preload__4item
 #include "KS/SRC/item.h"

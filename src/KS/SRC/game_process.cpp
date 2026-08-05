@@ -46,24 +46,12 @@ game_process::game_process(const char *new_name, const game_state_e *new_flow, i
 
 int game::get_cur_state() const { return process_stack.front().get_cur_state(); }
 
-#if defined(KELLY_DECOMP_FUNCTION_00286B10)
 // 0x00286B10 go_next_state__4game
-class game_process { public: void go_next_state(); };
-__asm__(".equ go_next_state__12game_process, 0x00286978");
-struct game_process_node { game_process_node *next; game_process_node *previous; game_process value; };
-class game_process_iterator { game_process_node *node; public: game_process_iterator(game_process_node *value) : node(value) {} };
-class game_process_stack { public: game_process_node *sentinel; };
-class game { char padding[0x5c]; game_process_stack process_stack; public: void go_next_state(); };
-void game::go_next_state() { game_process_node *node = process_stack.sentinel->next; volatile game_process_iterator iterator(node); node->value.go_next_state(); }
-#endif
+#include "KS/SRC/game.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_00286B38)
+void game::go_next_state() { process_stack.front().go_next_state(); }
+
 // 0x00286B38 reset_index__4game
-class game_process { public: void reset_index(); };
-__asm__(".equ reset_index__12game_process, 0x00286988");
-struct game_process_node { game_process_node *next; game_process_node *previous; game_process value; };
-class game_process_iterator { game_process_node *node; public: game_process_iterator(game_process_node *value) : node(value) {} };
-class game_process_stack { public: game_process_node *sentinel; };
-class game { char padding[0x5c]; game_process_stack process_stack; public: void reset_index(); };
-void game::reset_index() { game_process_node *node = process_stack.sentinel->next; volatile game_process_iterator iterator(node); node->value.reset_index(); }
-#endif
+#include "KS/SRC/game.h"
+
+void game::reset_index() { process_stack.front().reset_index(); }

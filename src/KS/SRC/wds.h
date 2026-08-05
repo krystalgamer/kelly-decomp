@@ -47,6 +47,9 @@ public:
     inline kellyslater_controller *get_ks_controller(int index) {
         return ks_controller[index];
     }
+    void set_ks_controller(
+        int player,
+        kellyslater_controller *controller);
     void add_marker(marker *value);
     material_set *get_material_set(const stringx &name);
     void add_beam(beam *value);

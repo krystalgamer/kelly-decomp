@@ -196,6 +196,8 @@ public:
         return player_cam[player];
     }
     void push_process(game_process &process);
+    void go_next_state();
+    void reset_index();
 };
 
 extern game *g_game_ptr;

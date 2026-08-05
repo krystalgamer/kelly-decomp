@@ -17,12 +17,6 @@ ett_manager* world_dynamics_system::get_ett_manager() {
     return ett_mgr;
 }
 
-// 0x002A39F0 set_ks_controller__21world_dynamics_systemiP22kellyslater_controller
-class kellyslater_controller { public: void set_player_num(int player); };
-__asm__(".equ set_player_num__22kellyslater_controlleri, 0x0020F570");
-class world_dynamics_system { char padding[0xf8]; kellyslater_controller *ks_controller[2]; public: void set_ks_controller(int player, kellyslater_controller *controller); };
-void world_dynamics_system::set_ks_controller(int player, kellyslater_controller *controller) { world_dynamics_system *base = this; int offset = player * 4; KELLY_DECOMP_COMPILER_BARRIER(); base = (world_dynamics_system *)((char *)base + offset); base->ks_controller[0] = controller; controller->set_player_num(player); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00294CF0 wds_releasefile__21world_dynamics_systemPPUc
 __asm__(".equ KSMemFree__FPv, 0x001E3280"); __asm__(".equ _20os_developer_options$instance, 0x0046B180");
 void KSMemFree(void*); class os_developer_options { public: int pad; int flags; static os_developer_options *instance; static os_developer_options *inst(){return instance;} bool is_flagged(int) const { return flags!=0; } enum { FLAG_STASH_ONLY=1 }; };
