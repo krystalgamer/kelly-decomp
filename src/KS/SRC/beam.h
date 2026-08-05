@@ -39,6 +39,10 @@ class beam : public entity {
     bool additive;
 
 public:
+    enum {
+        NO_CLIPPING = 0xC8
+    };
+
     virtual bool is_a_beam() const;
     void kill_all_effects(bool apply_target_vals = false);
     void purge_effects();
@@ -49,6 +53,9 @@ public:
     void set_max_length(float value);
     void set_beam_color(const color32 &color);
     void set_texture(const stringx &filename);
+    inline void set_beam_flag(unsigned int value) {
+        beam_flags |= value;
+    }
     inline float get_tiles_per_meter() const { return tiles_per_meter; }
     inline void set_tiles_per_meter(float value) {
         tiles_per_meter = value;

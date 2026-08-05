@@ -40,6 +40,7 @@ app_signal_name_literal = 0x004F5030;
 script_signal_name_literal = 0x004F8DE8;
 signaller_signal_name_literal = 0x00500D28;
 profiler_enabled = 0x00431AFF;
+g_trigger_manager = 0x00431A88;
 StlSmallAllocPtr = 0x004322FC;
 mem_leak_checkpoint = 0x004322D8;
 WAVE_Markers = 0x0057BC70;

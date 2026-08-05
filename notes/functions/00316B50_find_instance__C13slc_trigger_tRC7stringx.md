@@ -12,7 +12,7 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 91.6667 | 100.0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size36-script-ops.cpp` |
 
 ### Attempt 1 notes
 
@@ -20,9 +20,7 @@ The first lookup declared the trigger-manager method const, leaving a relocation
 
 ### Attempt 2 notes
 
-The released script-library lookup delegates to the global trigger manager and returns the pointer value.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The shared script-library and trigger-manager declarations directly return the released instance pointer.
 
 ## Outcome
 

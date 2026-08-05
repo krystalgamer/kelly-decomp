@@ -25,7 +25,7 @@ Register binding fixed the final address calculation but still loaded the buffer
 
 ### Attempt 3 notes
 
-A minimal layout preserves the buffer, index, and pushed-character fields used by the released branch-likely accessor.
+The exact released local-character form with the shared `text_file` declaration naturally emits the target branch-likely accessor.
 
 ## Outcome
 

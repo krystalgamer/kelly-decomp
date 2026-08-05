@@ -5,20 +5,18 @@
 - Object: `game/files_vsim`
 - Debug source: `ks/eventmanager.cpp`
 - Reference source: `KS/SRC/ks/eventmanager.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A symbol-preserving trivial deleting destructor applies the low-bit delete guard.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 19.4444 | 0.0 | `size36-event-dtor-1.cpp` |
+| 2 | different | 19.4444 | 0.0 | `size36-event-dtor-2.cpp` |
+| 3 | different | 19.4444 | 0.0 | `size36-event-dtor-3.cpp` |
 
 ## Outcome
 
-The `EventManager` deleting destructor matched exactly.
+Three ordinary native definitions failed to reproduce the target 36-byte call
+frame; the closest form emits 28 bytes. The matching-only body was removed
+and the original target function was deferred.

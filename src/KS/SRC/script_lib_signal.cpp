@@ -1,13 +1,10 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00328440)
 // 0x00328440 __cl__31slf_signaller_disable_signals_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack_layout { char padding[8]; char *top; };
-struct signaller_layout { unsigned int flags; };
-extern "C" bool DisableSignalsOp(void *self, vm_stack_layout *stack, int entry) __asm__("__cl__31slf_signaller_disable_signals_tR8vm_stackQ320script_library_class8function7entry_t");
-bool DisableSignalsOp(void *self, vm_stack_layout *stack, int entry) { stack->top -= 4; signaller_layout *signaller = *(signaller_layout **)stack->top; signaller->flags |= 1; return true; }
-#endif
+#include "KS/SRC/script_lib_signal.h"
+
+bool slf_signaller_disable_signals_t::operator()(vm_stack &stack, entry_t entry) { SLF_PARMS; parms->me->disable(); SLF_DONE; }
 
 #if defined(KELLY_DECOMP_FUNCTION_003283A8)
 // 0x003283A8 __cl__30slf_signaller_enable_signals_tR8vm_stackQ320script_library_class8function7entry_t

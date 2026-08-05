@@ -5,20 +5,18 @@
 - Object: `game/files_wave`
 - Debug source: `C:/KS/SRC/ks/trail.cpp`
 - Reference source: `KS/SRC/ks/trail.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released helper forwards splash type 13, the supplied position, and unit scale.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 2.7778 | 0.0 | `size36-trail-splash-1.cpp` |
+| 2 | different | 2.7778 | 0.0 | `size36-trail-splash-2.cpp` |
+| 3 | different | 2.7778 | 0.0 | `size36-trail-splash-3.cpp` |
 
 ## Outcome
 
-The released trail chophop splash wrapper matched exactly.
+Three ordinary native definitions failed to reproduce the target 36-byte call
+frame; the closest form emits 16 bytes. The matching-only body was removed
+and the original target function was deferred.

@@ -15,7 +15,7 @@
 
 ### Attempt 1 notes
 
-The released default constructor clears all seven word-sized aggregate buffer fields.
+The shared aggregate-buffer and `refptr` declarations reproduce the released initializer list and all seven zero stores.
 
 ## Outcome
 

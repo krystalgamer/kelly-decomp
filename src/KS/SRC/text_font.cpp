@@ -16,12 +16,6 @@ Font::Font()
 
 char_info* font_def::get_char_info(char value) const { return (char_info*)&characters[(int)value]; }
 
-// 0x0033A0A8 clear_glyph_info__4Font
-#include "KS/SRC/text_font.h"
-extern "C" void *memset(void *destination, int value, unsigned int size);
-__asm__(".equ memset, 0x003D18D0");
-void Font::clear_glyph_info() { memset(m_chars, 0, sizeof(m_chars)); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x0033BDB0 getIndex__4Fontc
 #include "KS/SRC/text_font.h"
 int Font::getIndex(char c)

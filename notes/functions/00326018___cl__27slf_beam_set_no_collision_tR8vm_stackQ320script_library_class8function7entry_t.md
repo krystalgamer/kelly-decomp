@@ -11,11 +11,11 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size36-script-ops.cpp` |
 
 ### Attempt 1 notes
 
-A symbol-preserving operator wrapper reconstructs the parameter pop and combined no-collision flag update.
+The canonical script parameter block and `beam::set_beam_flag(NO_CLIPPING)` helper emit the released stack pop and flag update.
 
 ## Outcome
 

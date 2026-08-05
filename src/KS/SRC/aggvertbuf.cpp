@@ -1,11 +1,10 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_003381B0)
 // 0x003381B0 __18aggregate_vert_buf
-class aggregate_vert_buf { int fields[7]; public: aggregate_vert_buf(); };
-aggregate_vert_buf::aggregate_vert_buf() { fields[0] = 0; fields[1] = 0; fields[2] = 0; fields[3] = 0; fields[4] = 0; fields[5] = 0; fields[6] = 0; }
-#endif
+#include "KS/SRC/aggvertbuf.h"
+
+aggregate_vert_buf::aggregate_vert_buf() : mat(0), frame(0), force_flags(0), nquads(0), vertbuf(), send_flags(0), locked(false) {}
 
 #if defined(KELLY_DECOMP_FUNCTION_003382B0)
 // 0x003382B0 unlock__18aggregate_vert_buf

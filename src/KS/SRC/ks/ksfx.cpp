@@ -23,15 +23,6 @@ void SFXEngine::shutdown()
 #endif
 
 
-#if defined(KELLY_DECOMP_FUNCTION_0036C4B0)
-// 0x0036C4B0 ks_fx_OnNewWave__Fv
-void ks_fx_reset();
-void ks_fx_init_wave();
-__asm__(".equ ks_fx_reset__Fv, 0x0036C4D8");
-__asm__(".equ ks_fx_init_wave__Fv, 0x00368160");
-void ks_fx_OnNewWave() { ks_fx_reset(); ks_fx_init_wave(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0036B1D8)
 // 0x0036B1D8 ks_fx_create_big_splash__FG8vector3d
  #include "decomp_annotations.h"

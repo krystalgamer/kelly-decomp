@@ -11,11 +11,11 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size36-script-ops.cpp` |
 
 ### Attempt 1 notes
 
-A symbol-preserving operator wrapper reconstructs the parameter pop and signaller disabled-flag update.
+The canonical script parameter block and `signaller::disable()` helper emit the released stack pop and disabled-flag update.
 
 ## Outcome
 

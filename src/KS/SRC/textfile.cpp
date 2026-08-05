@@ -16,7 +16,7 @@ void text_file::read(stringx *s) {
 
 // 0x00338110 peek_char__9text_file
 #include "KS/SRC/textfile.h"
-char text_file::peek_char() { if (pushbackdata >= 0) return (signed char)pushbackdata; register int saved_index __asm__("$3") = bufpos; __asm__ volatile("" : "+r"(saved_index)); register char *saved_buffer __asm__("$2") = buf; return (signed char)saved_buffer[saved_index]; }
+char text_file::peek_char() { char value; if (pushbackdata >= 0) value = pushbackdata; else value = buf[bufpos]; return value; }
 
 // 0x00337170 close__9text_file
 #include "KS/SRC/textfile.h"

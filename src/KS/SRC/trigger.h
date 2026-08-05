@@ -46,6 +46,7 @@ protected:
 class trigger_manager : public singleton {
 public:
     trigger_manager();
+    trigger *find_instance(const stringx &name);
     trigger *new_box_trigger(entity *value);
     void update_regions();
     void purge();
@@ -58,6 +59,8 @@ protected:
 
     trigger *list;
 };
+
+extern trigger_manager *g_trigger_manager;
 
 class point_trigger : public trigger {
     vector3d position;

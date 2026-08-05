@@ -17,6 +17,16 @@ public:
     bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_beam_set_no_collision_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        beam *me;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 class slf_beam_set_tiles_per_meter_t :
     public script_library_class::function {
 public:

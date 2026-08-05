@@ -1,5 +1,24 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#ifndef SCRIPT_LIB_SIGNAL_DECLARATIONS_H
+#define SCRIPT_LIB_SIGNAL_DECLARATIONS_H
+
+#pragma interface
+
+#include "KS/SRC/script_library_class.h"
+#include "KS/SRC/signals.h"
+
+class slf_signaller_disable_signals_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        signaller *me;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00327088)
 // 0x00327088 __tf15slc_signaller_t

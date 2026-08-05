@@ -73,6 +73,7 @@ public:
     void draw();
     void reset();
     void destroy();
+    void create_chophop_splash(vector3d &position);
     inline bool is_valid() const {
         return valid;
     }
