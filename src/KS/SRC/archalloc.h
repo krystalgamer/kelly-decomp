@@ -6,6 +6,10 @@ void *operator new(
     unsigned int alignment,
     const char *description,
     int line);
+void *arch_malloc(
+    unsigned int size,
+    const char *description,
+    int line = 0);
 
 #ifndef PLACEMENT_NEW_DEFINED
 #define PLACEMENT_NEW_DEFINED

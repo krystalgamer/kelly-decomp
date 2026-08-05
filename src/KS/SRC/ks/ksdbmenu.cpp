@@ -70,11 +70,11 @@ bool ReplayRewButton(MenuEntry* entry, int buttonid) {
 }
 
 // 0x00236630 ToggleShowRumble__FP9MenuEntryi
-struct rumble_manager_layout { char padding[0x10]; bool draw_state; };
-extern rumble_manager_layout rumbleMan;
-__asm__(".equ rumbleMan, 0x004253C0");
-class MenuEntry;
-bool ToggleShowRumble(MenuEntry *entry, int button) { if (button == 7) rumbleMan.draw_state = !rumbleMan.draw_state; return true; }
+#include "KS/SRC/ks/ksdbmenu.h"
+#include "KS/SRC/ks/menu.h"
+#include "KS/SRC/ks/rumbleManager.h"
+
+bool ToggleShowRumble(MenuEntry *entry, int button) { if (button == MENUCMD_CROSS) rumbleMan.toggleDrawState(); return true; }
 
 // 0x00236600 WriteRumbleButton__FP9MenuEntryi
 class MenuEntry;

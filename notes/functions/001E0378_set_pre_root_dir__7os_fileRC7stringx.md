@@ -5,25 +5,28 @@
 - Object: `game/files_hwosps2`
 - Debug source: `C:/KS/SRC/hwosps2/ps2_file.cpp`
 - Reference source: `KS/SRC/HWOSPS2/ps2_file.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 75.0 | 55.5556 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 2.7778 | 0.0 | `size36-file-dirs-1.cpp` |
+| 2 | different | 2.7778 | 0.0 | `size36-file-dirs-2.cpp` |
+| 3 | different | 2.7778 | 0.0 | `size36-file-dirs-3.cpp` |
 
 ### Attempt 1 notes
 
-The first candidate exposed an address-register, inner-symbol, or independent-store scheduling mismatch.
+The exact released `strcpy(pre_root_dir, directory.c_str())` expression compiles as a 16-byte sibling call.
 
 ### Attempt 2 notes
 
-The released setter copies the string data into the target static pre-root-directory buffer.
+Loading the source through a local emits the same sibling call.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 3 notes
+
+Loading the destination through a local also emits the same sibling call.
 
 ## Outcome
 
-The released `os_file::set_pre_root_dir` wrapper matched exactly.
+The barrier-dependent wrapper was removed and the original target function was deferred.

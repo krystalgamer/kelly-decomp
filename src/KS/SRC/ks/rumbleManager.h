@@ -31,6 +31,7 @@ public:
     float rumbleVarAmplitudes[RUMBLE_STATE_END];
     float rumbleFreqs[RUMBLE_STATE_END];
 
+    void toggleDrawState() { drawState = !drawState; }
     bool isOn(int controller);
     void turnOn(bool enabled, int controller);
 
@@ -47,5 +48,7 @@ private:
     int currentRegion[2];
     int lastRegion[2];
 };
+
+extern rumbleManager rumbleMan;
 
 #endif

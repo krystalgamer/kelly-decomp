@@ -11,13 +11,11 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size36-os-alloc.cpp` |
 
 ### Attempt 1 notes
 
-The aligned platform wrapper forwards size, its target source label, and line zero to `arch_malloc`.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The canonical aligned wrapper directly returns `arch_malloc(size, description, 0)`. The released pretty-function literal is linker-bound at its original address.
 
 ## Outcome
 

@@ -5,20 +5,28 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/ks_camera.cpp`
 - Reference source: `KS/SRC/ks/ks_camera.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 0.0 | 0.0 | `size36-duck-reset-1.cpp` |
+| 2 | different | 0.0 | 0.0 | `size36-duck-reset-2.cpp` |
+| 3 | different | 0.0 | 0.0 | `size36-duck-reset-3.cpp` |
 
 ### Attempt 1 notes
 
-A minimal layout preserves the reset flag at 0x2d0 and the released default-true wave ending call.
+The exact released body compiles as a 16-byte sibling call instead of the target retained frame.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+Explicit `this` access and bool construction emit the same sibling call.
+
+### Attempt 3 notes
+
+Accessing the canonical camera through a local pointer also emits the same sibling call.
 
 ## Outcome
 
-The released `duckdive_camera::SetReset` wrapper matched exactly.
+The barrier-dependent wrapper was removed and the original target function was deferred.

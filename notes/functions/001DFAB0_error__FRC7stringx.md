@@ -5,25 +5,28 @@
 - Object: `game/files_hwosps2`
 - Debug source: `C:/KS/SRC/hwosps2/ps2_errmsg.cpp`
 - Reference source: `KS/SRC/HWOSPS2/ps2_errmsg.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 75.0 | 55.5556 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 2.7778 | 0.0 | `size36-errmsg-1.cpp` |
+| 2 | different | 2.7778 | 0.0 | `size36-errmsg-2.cpp` |
+| 3 | different | 2.7778 | 0.0 | `size36-errmsg-3.cpp` |
 
 ### Attempt 1 notes
 
-The first candidate exposed an address-register, inner-symbol, or independent-store scheduling mismatch.
+With assertions compiled out, the exact released `nglPrintf` expression becomes a 16-byte sibling call.
 
 ### Attempt 2 notes
 
-Assertions compile out, leaving the string data forwarded through the shared `%s\n` NGL format.
+Loading the string data through a local emits the same sibling call.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 3 notes
+
+Loading the shared format through a local also emits the same sibling call.
 
 ## Outcome
 
-The released stringx `error` overload matched exactly.
+The barrier-dependent wrapper was removed and the original target function was deferred.

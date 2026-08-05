@@ -112,6 +112,21 @@ public:
     void init();
 };
 
+class duckdive_camera : public game_camera {
+public:
+    duckdive_camera(
+        const entity_id &id,
+        entity *target,
+        kellyslater_controller *controller);
+    virtual ~duckdive_camera();
+    virtual void frame_advance(time_value_t time_inc);
+    void Reset();
+    void SetExitTransition();
+    void SetReset();
+
+    bool do_reset;
+};
+
 class auto_camera : public game_camera {
     char auto_state_to_break_mode[
         720 - sizeof(game_camera)];

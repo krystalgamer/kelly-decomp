@@ -15,7 +15,7 @@
 
 ### Attempt 1 notes
 
-The released callback toggles the global rumble draw flag only for command seven and always returns true.
+The canonical callback uses `MENUCMD_CROSS` and the released inline `rumbleManager::toggleDrawState` helper.
 
 ## Outcome
 

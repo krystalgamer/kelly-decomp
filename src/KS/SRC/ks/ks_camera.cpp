@@ -661,12 +661,6 @@ float interpolate_float(float first_float, float second_float, float difference)
 
 void replay_camera::reset() { rc = 13; rcr = 6; regionChangeTime = 0.0f; regionChangeFrame = 0; holdCamTimer = 0.0f; }
 
-// 0x002351B0 SetReset__15duckdive_camera
-void WAVE_EndWave(bool advance);
-__asm__(".equ WAVE_EndWave__Fb, 0x00377B38");
-class duckdive_camera { char padding[0x2d0]; bool do_reset; public: void SetReset(); };
-void duckdive_camera::SetReset() { do_reset = true; WAVE_EndWave(true); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00228D38 _$_19old_shoulder_camera
 extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6camera");
 extern const char camera_vtable[];

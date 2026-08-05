@@ -12,7 +12,7 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 77.7778 | 77.7778 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size36-os-alloc.cpp` |
 
 ### Attempt 1 notes
 
@@ -20,9 +20,7 @@ The direct absolute alias scheduled its low-half add before the target RA save.
 
 ### Attempt 2 notes
 
-The platform wrapper forwards size, its target source label, and line zero to `arch_malloc`.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The canonical wrapper directly returns `arch_malloc(size, description, 0)`. The released pretty-function literal is linker-bound at its original address.
 
 ## Outcome
 
