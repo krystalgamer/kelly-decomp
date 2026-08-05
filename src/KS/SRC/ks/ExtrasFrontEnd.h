@@ -11,8 +11,7 @@ class BoxText;
 class PreformatText;
 class TextString;
 
-class CheatFrontEnd : public FEMultiMenu {
-};
+class CheatFrontEnd;
 
 struct ExtrasSecondaryCursorVTable {
     char padding[0x110];
@@ -95,6 +94,8 @@ public:
     virtual void OnDown(int controller);
     virtual void OnRight(int controller);
     virtual void OnLeft(int controller);
+    virtual void OnCross(int controller);
+    virtual void OnStart(int controller);
     virtual void OnButtonRelease(int controller, int button);
 };
 

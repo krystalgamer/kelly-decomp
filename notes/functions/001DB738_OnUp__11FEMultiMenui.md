@@ -11,12 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released wrapper ignores `command`; a minimal old-GCC vtable layout preserves the zero-argument OnUp adjustment/function slots.
+| 1 | matched | 100.0 | 100.0 | `size40-menu-virtuals.cpp` |
 
 ## Outcome
 
-The released `FEMultiMenu::OnUp` virtual thunk matched exactly.
+The shared menu hierarchy and shipped virtual slots reproduce the released member dispatch directly in C++.

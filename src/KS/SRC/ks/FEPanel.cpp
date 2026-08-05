@@ -1489,7 +1489,7 @@ void FloatingPQ::GetPos(float &x1, float &y1, float &x2, float &y2) { x1 = x1_co
 
 void nglSetQuadZ(nglQuad *quad, float z);
 __asm__(".equ nglSetQuadZ__FP7nglQuadf, 0x003A6A90");
-void PanelQuad::SetZ(float value) { z = value; nglSetQuadZ(&quad, value); KELLY_DECOMP_COMPILER_BARRIER(); }
+void PanelQuad::SetZ(float value) { z = value; void (*set_z)(nglQuad *, float) = nglSetQuadZ; set_z(&quad, value); }
 
 // 0x001D86F8 getText__10TextString
 #include "KS/SRC/ks/FEPanel.h"

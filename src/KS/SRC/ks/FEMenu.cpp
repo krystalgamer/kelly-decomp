@@ -733,49 +733,49 @@ FEMenu* FEMenuSystem::GetActiveMenu() { return menus[active]; }
 float FEMenuEntry::GetWidth() { return text->getWidth(); }
 
 // 0x001DAA00 OnActivate__6FEMenui
-struct MenuVTable { char padding[0x70]; short adjustment; short padding2; void (*OnActivate)(void *self); };
-class FEMenu { char padding[0x74]; MenuVTable *vtable; public: void OnActivate(int submenu); };
-void FEMenu::OnActivate(int submenu) { MenuVTable *table = vtable; table->OnActivate((char *)this + table->adjustment); }
+#include "KS/SRC/ks/FEMenu.h"
+
+void FEMenu::OnActivate(int submenu) { OnActivate(); }
 
 // 0x001DB538 OnUp__15FETextMultiMenui
-struct MenuVTable { char padding[0x180]; short adjustment; short padding2; void (*call)(void *self); };
-class FETextMultiMenu { char padding[0x74]; MenuVTable *vtable; public: void OnUp(int command); };
-void FETextMultiMenu::OnUp(int command) { MenuVTable *table = vtable; table->call((char *)this + table->adjustment); }
+#include "KS/SRC/ks/FEMenu.h"
+
+void FETextMultiMenu::OnUp(int command) { Up(); }
 
 // 0x001DB560 OnDown__15FETextMultiMenui
-struct MenuVTable { char padding[0x188]; short adjustment; short padding2; void (*call)(void *self); };
-class FETextMultiMenu { char padding[0x74]; MenuVTable *vtable; public: void OnDown(int command); };
-void FETextMultiMenu::OnDown(int command) { MenuVTable *table = vtable; table->call((char *)this + table->adjustment); }
+#include "KS/SRC/ks/FEMenu.h"
+
+void FETextMultiMenu::OnDown(int command) { Down(); }
 
 // 0x001DB588 OnLeft__15FETextMultiMenui
-struct MenuVTable { char padding[0x190]; short adjustment; short padding2; void (*call)(void *self); };
-class FETextMultiMenu { char padding[0x74]; MenuVTable *vtable; public: void OnLeft(int command); };
-void FETextMultiMenu::OnLeft(int command) { MenuVTable *table = vtable; table->call((char *)this + table->adjustment); }
+#include "KS/SRC/ks/FEMenu.h"
+
+void FETextMultiMenu::OnLeft(int command) { Left(); }
 
 // 0x001DB5B0 OnRight__15FETextMultiMenui
-struct MenuVTable { char padding[0x198]; short adjustment; short padding2; void (*call)(void *self); };
-class FETextMultiMenu { char padding[0x74]; MenuVTable *vtable; public: void OnRight(int command); };
-void FETextMultiMenu::OnRight(int command) { MenuVTable *table = vtable; table->call((char *)this + table->adjustment); }
+#include "KS/SRC/ks/FEMenu.h"
+
+void FETextMultiMenu::OnRight(int command) { Right(); }
 
 // 0x001DB738 OnUp__11FEMultiMenui
-struct MenuVTable { char padding[0x1b0]; short adjustment; short padding2; void (*call)(void *self); };
-class FEMultiMenu { char padding[0x74]; MenuVTable *vtable; public: void OnUp(int command); };
-void FEMultiMenu::OnUp(int command) { MenuVTable *table = vtable; table->call((char *)this + table->adjustment); }
+#include "KS/SRC/ks/FEMenu.h"
+
+void FEMultiMenu::OnUp(int command) { Up(); }
 
 // 0x001DB760 OnDown__11FEMultiMenui
-struct MenuVTable { char padding[0x1b8]; short adjustment; short padding2; void (*call)(void *self); };
-class FEMultiMenu { char padding[0x74]; MenuVTable *vtable; public: void OnDown(int command); };
-void FEMultiMenu::OnDown(int command) { MenuVTable *table = vtable; table->call((char *)this + table->adjustment); }
+#include "KS/SRC/ks/FEMenu.h"
+
+void FEMultiMenu::OnDown(int command) { Down(); }
 
 // 0x001DB788 OnLeft__11FEMultiMenui
-struct MenuVTable { char padding[0x1c0]; short adjustment; short padding2; void (*call)(void *self); };
-class FEMultiMenu { char padding[0x74]; MenuVTable *vtable; public: void OnLeft(int command); };
-void FEMultiMenu::OnLeft(int command) { MenuVTable *table = vtable; table->call((char *)this + table->adjustment); }
+#include "KS/SRC/ks/FEMenu.h"
+
+void FEMultiMenu::OnLeft(int command) { Left(); }
 
 // 0x001DB7B0 OnRight__11FEMultiMenui
-struct MenuVTable { char padding[0x1c8]; short adjustment; short padding2; void (*call)(void *self); };
-class FEMultiMenu { char padding[0x74]; MenuVTable *vtable; public: void OnRight(int command); };
-void FEMultiMenu::OnRight(int command) { MenuVTable *table = vtable; table->call((char *)this + table->adjustment); }
+#include "KS/SRC/ks/FEMenu.h"
+
+void FEMultiMenu::OnRight(int command) { Right(); }
 
 // 0x001DA520 SetPos__11FEMenuEntryff
 #include "KS/SRC/ks/FEMenu.h"

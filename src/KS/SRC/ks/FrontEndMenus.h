@@ -146,6 +146,7 @@ class HeatEndMenuClass : public FEMenu {
     FEMenuEntry *optionsEntry;
 
 public:
+    virtual void Select(int entry_index);
     virtual void OnActivate();
 };
 
@@ -217,12 +218,14 @@ public:
     PauseMenuSystem *sys;
 
 private:
+    virtual void BuiltReplayReserved0();
     virtual void ReplayStart();
     virtual void ReplayEnd();
     virtual void ReplayChange(ReplayType option);
     int replayEvent;
 
 public:
+    virtual void Select(int entry_index);
     virtual void OnActivate();
     virtual void OnStart(int controller);
     virtual void OnL2(int controller);

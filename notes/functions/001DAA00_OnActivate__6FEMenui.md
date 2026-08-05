@@ -11,13 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 95.0 | 80.0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 2 notes
-
-The released overload ignores `submenu`; a minimal old-GCC vtable layout preserves the zero-argument OnActivate adjustment/function slots.
+| 1 | matched | 100.0 | 100.0 | `size40-menu-virtuals.cpp` |
 
 ## Outcome
 
-The released `FEMenu::OnActivate(int)` virtual thunk matched exactly.
+The shared menu hierarchy and shipped virtual slots reproduce the released member dispatch directly in C++.

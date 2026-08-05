@@ -11,14 +11,10 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal layout preserves the in-game flag at 0x2dc and the released conditional base call.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 17.5 | 10.0 | `size40-name-start.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size40-name-start-2.cpp` |
+| 3 | different | 12.5 | 0.0 | `size40-name-start-3.cpp` |
 
 ## Outcome
 
-The released `NameEntryMenu::OnStart` wrapper matched exactly.
+The shared `NameEntryMenu` layout preserves `in_game` at 0x2dc; an ordinary local base-call pointer retains the conditional call frame.

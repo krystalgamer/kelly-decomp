@@ -90,17 +90,9 @@ void BoardFrontEnd::OnDown(int controller) {
 }
 
 // 0x001DDAD8 Select__13BoardFrontEndi
-struct MenuVTable { char padding[0x158]; short adjustment; short padding2; void (*call)(void *self); };
-struct board_select_layout {
-    char padding[0x74];
-    MenuVTable *vtable;
-};
-extern "C" void select_board(board_select_layout *self, int entry)
-    __asm__("Select__13BoardFrontEndi");
-void select_board(board_select_layout *self, int entry) {
-    MenuVTable *table = self->vtable;
-    table->call((char *)self + table->adjustment);
-}
+#include "KS/SRC/ks/BoardFrontEnd.h"
+
+void BoardFrontEnd::Select(int entry) { Select(); }
 
 // 0x001DDA80 __tf13BoardFrontEnd
 extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);

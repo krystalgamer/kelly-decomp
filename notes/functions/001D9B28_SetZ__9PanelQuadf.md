@@ -11,19 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-| 2 | different | 80.0 | 80.0 | `candidate.cpp` |
-| 3 | different | 31.8182 | 27.2727 | `candidate.cpp` |
-| 4 | different | 15.0 | 10.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released setter stores Z at 0x17c and forwards the inline quad at offset
-0x1c to NGL. The trailing empty compiler barrier prevents EE GCC from replacing
-the released call frame with a sibling call.
-
-Re-evaluating the identical first candidate after the exact forwarding-schedule compiler fixup now produces an exact match; this infrastructure recheck does not consume a fifth source attempt.
+| 1 | different | 2.5 | 0.0 | `size40-menu-virtuals.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size40-panel-set-z.cpp` |
 
 ## Outcome
 
-The released inline PanelQuad::SetZ wrapper matched exactly after correcting the isolated compiler save schedule.
+The shared `PanelQuad` layout stores Z and uses an ordinary local NGL function pointer to retain the released call frame.

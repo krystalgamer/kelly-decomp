@@ -7,19 +7,15 @@
 
 void CreditsFrontEnd::OnButtonRelease(int controller, int button) { if (button == FEMENUCMD_UP) up_pressed = false; else if (button == FEMENUCMD_DOWN) down_pressed = false; }
 
-#if defined(KELLY_DECOMP_FUNCTION_001BB7B0)
 // 0x001BB7B0 OnCross__15CreditsFrontEndi
-struct CreditsVTable { char padding[0xc0]; short adjustment; short padding2; void (*OnTriangle)(void *self, int command); };
-class CreditsFrontEnd { char padding[0x74]; CreditsVTable *vtable; public: void OnCross(int command); };
-void CreditsFrontEnd::OnCross(int command) { CreditsVTable *table = vtable; table->OnTriangle((char *)this + table->adjustment, command); }
-#endif
+#include "KS/SRC/ks/ExtrasFrontEnd.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_001BB7D8)
+void CreditsFrontEnd::OnCross(int command) { OnTriangle(command); }
+
 // 0x001BB7D8 OnStart__15CreditsFrontEndi
-struct CreditsVTable { char padding[0xc0]; short adjustment; short padding2; void (*OnTriangle)(void *self, int command); };
-class CreditsFrontEnd { char padding[0x74]; CreditsVTable *vtable; public: void OnStart(int command); };
-void CreditsFrontEnd::OnStart(int command) { CreditsVTable *table = vtable; table->OnTriangle((char *)this + table->adjustment, command); }
-#endif
+#include "KS/SRC/ks/ExtrasFrontEnd.h"
+
+void CreditsFrontEnd::OnStart(int command) { OnTriangle(command); }
 
 #if defined(KELLY_DECOMP_FUNCTION_001BB778)
 // 0x001BB778 OnTriangle__15CreditsFrontEndi

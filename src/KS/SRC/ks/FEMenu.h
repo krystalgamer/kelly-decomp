@@ -245,7 +245,6 @@ protected:
     virtual void Previous();
     virtual void Select();
     virtual void AddSubmenu(FEMenu*);
-    virtual void BuiltSelectReserved1();
 };
 
 class FEMenuSystem {
@@ -296,6 +295,25 @@ public:
 
     virtual void setVis(FEMenuEntry *entry);
     virtual void Init();
+    virtual void OnUp(int controller);
+    virtual void OnDown(int controller);
+    virtual void OnLeft(int controller);
+    virtual void OnRight(int controller);
+
+protected:
+    virtual void cons(FEMenuSystem *system);
+    virtual void cons(FEMenuSystem *system, color32 highlighted);
+    virtual void cons(
+        FEMenuSystem *system,
+        color32 normal,
+        color32 highlighted,
+        float scale = 1.0f,
+        float highlighted_scale = 1.2f,
+        int flags = 0);
+    virtual void Up();
+    virtual void Down();
+    virtual void Left();
+    virtual void Right();
 };
 
 class FrontEnd {
@@ -375,10 +393,10 @@ public:
     FEMenuEntry *first;
     FEMenuEntry *last;
     FEMenuEntry *secondary_cursor;
-    virtual inline void OnUp(int) { Up(); }
-    virtual inline void OnDown(int) { Down(); }
-    virtual inline void OnLeft(int) { Left(); }
-    virtual inline void OnRight(int) { Right(); }
+    virtual void OnUp(int controller);
+    virtual void OnDown(int controller);
+    virtual void OnLeft(int controller);
+    virtual void OnRight(int controller);
     virtual void SetSecondaryCursor(
         FEMenuEntry *entry,
         bool animate = true);

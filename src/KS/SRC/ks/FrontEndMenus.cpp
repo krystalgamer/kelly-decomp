@@ -1262,17 +1262,9 @@ void destroy_goals(goals_layout *self, int deleting)
 }
 
 // 0x001DD770 Select__15ReplayMenuClassi
-struct MenuVTable { char padding[0x170]; short adjustment; short padding2; void (*call)(void *self); };
-struct replay_select_layout {
-    char padding[0x74];
-    MenuVTable *vtable;
-};
-extern "C" void select_replay(replay_select_layout *self, int entry)
-    __asm__("Select__15ReplayMenuClassi");
-void select_replay(replay_select_layout *self, int entry) {
-    MenuVTable *table = self->vtable;
-    table->call((char *)self + table->adjustment);
-}
+#include "KS/SRC/ks/FrontEndMenus.h"
+
+void ReplayMenuClass::Select(int entry) { ReplayStart(); }
 
 // 0x001DD900 _$_20QuitConfirmMenuClass
 struct text_vtable { char padding[8]; short adjustment; short reserved; void (*destroy)(void *, int); };

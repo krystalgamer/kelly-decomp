@@ -582,16 +582,9 @@ void CheatCodeMenu::OnDown(int controller)
 
 // Source implementation boundary.
 // 0x001DDC80 OnCross__14EnterCheatMenui
-struct MenuVTable { char padding[0x158]; short adjustment; short padding2; void (*call)(void *self); };
-struct EnterCheatMenuCrossLayout { char padding[0x74]; MenuVTable *vtable; };
-extern "C" void EnterCheatMenuOnCross(
-    EnterCheatMenuCrossLayout *self,
-    int command
-) __asm__("OnCross__14EnterCheatMenui");
-void EnterCheatMenuOnCross(EnterCheatMenuCrossLayout *self, int command) {
-    MenuVTable *table = self->vtable;
-    table->call((char *)self + table->adjustment);
-}
+#include "KS/SRC/ks/CheatFrontEnd.h"
+
+void EnterCheatMenu::OnCross(int command) { Select(); }
 
 // 0x001DDB10 __tf13CheatFrontEnd
 extern "C" void __rtti_class(void **type, const char *name, void **base, int public_base);

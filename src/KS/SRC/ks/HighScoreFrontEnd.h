@@ -6,8 +6,15 @@
 #include "KS/SRC/ks/FEMenu.h"
 
 class NameEntryMenu : public FEMultiMenu {
+    PanelQuad *box[9];
+    PanelQuad *line;
+    PanelQuad *name_box[3];
+    PanelQuad *keys[41][2];
+    bool in_game;
+
 public:
     virtual void OnTriangle(int controller);
+    virtual void OnStart(int controller);
 };
 
 #endif
