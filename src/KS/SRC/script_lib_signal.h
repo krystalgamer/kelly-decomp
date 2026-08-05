@@ -8,6 +8,16 @@
 #include "KS/SRC/script_library_class.h"
 #include "KS/SRC/signals.h"
 
+class slf_signaller_enable_signals_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        signaller *me;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 class slf_signaller_disable_signals_t :
     public script_library_class::function {
 public:

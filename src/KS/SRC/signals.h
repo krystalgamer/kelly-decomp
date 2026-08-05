@@ -123,8 +123,10 @@ protected:
 public:
     signaller();
     virtual ~signaller();
-    inline void disable() { flags |= DISABLED; }
-    inline void enable() { flags &= ~DISABLED; }
+    inline void set_flag(flags_t value) { flags |= value; }
+    inline void clear_flag(flags_t value) { flags &= ~value; }
+    inline void disable() { set_flag(DISABLED); }
+    inline void enable() { clear_flag(DISABLED); }
     inline bool is_flagged(flags_t value) const { return flags & value; }
     virtual bool is_an_entity() const;
     virtual bool is_a_trigger() const;

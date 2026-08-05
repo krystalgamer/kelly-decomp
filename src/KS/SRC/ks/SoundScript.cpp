@@ -26,15 +26,17 @@ int SoundScriptManager::startEvent(
 void ScheduledSoundEvent::clear() { snd = 0; myEntity = 0; time = -1.0f; event = SS_LAST; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0031BF28)
 // 0x0031BF28 playSound__18SoundScriptManager9EventTypeP6entity
-class entity;
-enum EventType { EVENT_DUMMY };
-class EventMapType { char storage[0x80]; public: int playEvent(entity *value); };
+#include "KS/SRC/ks/SoundScript.h"
+
 __asm__(".equ playEvent__12EventMapTypeP6entity, 0x0031BD38");
-class SoundScriptManager { char padding[4]; EventMapType eventMap[1]; public: int playSound(EventType type, entity *value); };
-int SoundScriptManager::playSound(EventType type, entity *value) { int offset = type * 0x80 + 4; register entity *argument __asm__("$5") = value; __asm__ volatile("" : "+r"(argument) : "r"(offset)); int result = ((EventMapType *)((char *)this + offset))->playEvent(argument); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
+
+unsigned int SoundScriptManager::playSound(
+    EventType type,
+    entity *source)
+{
+    return eventMap[type].playEvent(source);
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_0031BFB0)
 // 0x0031BFB0 getSoundId__18SoundScriptManageri

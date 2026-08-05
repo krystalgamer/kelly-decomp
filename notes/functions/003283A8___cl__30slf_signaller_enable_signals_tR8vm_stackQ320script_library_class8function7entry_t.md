@@ -11,17 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | symbol_missing | 0.0 | 0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The first candidate used an integer typedef for `entry_t`, so the emitted symbol did not preserve the released nested enum type in its mangling.
-
-### Attempt 2 notes
-
-The released `SLF_PARMS` and `SLF_DONE` forms pop the signaller parameter, clear its disabled flag, and return completion.
+| 1 | matched | 100.0 | 100.0 | `size40-script-core.cpp` |
 
 ## Outcome
 
-The released `slf_signaller_enable_signals_t` execution body matched exactly.
+The shared nested `entry_t`, stack macros, and source-faithful signaller flag
+helpers naturally emit the target body.
