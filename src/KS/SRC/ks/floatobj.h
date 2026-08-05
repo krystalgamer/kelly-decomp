@@ -215,6 +215,12 @@ private:
     float water_interaction;
 };
 
+class static_object : public water_object {
+public:
+    static_object(entity *value, const stringx &path);
+    virtual ~static_object();
+};
+
 class surfing_object : public water_object {
 public:
     surfing_object(entity*, const stringx&, const stringx&);

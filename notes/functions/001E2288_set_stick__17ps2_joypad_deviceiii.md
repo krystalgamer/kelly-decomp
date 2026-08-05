@@ -11,12 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released implementation writes the selected stick bytes in the target global pad-data buffer.
+| 1 | matched | 100.0 | 100.0 | `size40-gameplay-core.cpp` |
 
 ## Outcome
 
-The released PS2 joypad stick setter matched exactly.
+The shared PS2 joypad declaration updates its released static raw-data bytes.

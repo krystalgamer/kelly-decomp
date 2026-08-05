@@ -11,13 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | compile_failed | 0.0 | 0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 2 notes
-
-Minimal public layouts preserve the global AI-player count and controller player number used by the released predicate. The `.equ` uses the carried `0x0046AC64` alias so the negative low half still addresses the real `0x0045AC64` global while reproducing target `%hi`.
+| 1 | matched | 100.0 | 100.0 | `size40-gameplay-core.cpp` |
 
 ## Outcome
 
-The released `kellyslater_controller::IsAIPlayer` predicate matched exactly.
+The shared game/controller layouts reproduce the released AI-player predicate.

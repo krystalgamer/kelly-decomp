@@ -17,6 +17,7 @@ public:
     device_id_t get_id() const;
     int get_axis_count() const;
     axis_id_t get_axis_id(int axis) const;
+    virtual void set_stick(int stick, int x, int y);
 
 private:
     int pad_id;

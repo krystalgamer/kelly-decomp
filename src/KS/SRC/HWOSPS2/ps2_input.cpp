@@ -131,10 +131,9 @@ axis_id_t ps2_joypad_device::get_axis_id(int axis) const {
 }
 
 // 0x001E2288 set_stick__17ps2_joypad_deviceiii
-extern unsigned char ps2_rdata[];
-__asm__(".equ ps2_rdata, 0x005A39C0");
-class ps2_joypad_device { public: void set_stick(int stick, int x, int y); };
-void ps2_joypad_device::set_stick(int stick, int x, int y) { if (stick == 0) { ps2_rdata[6] = x; ps2_rdata[7] = y; } else { ps2_rdata[4] = x; ps2_rdata[5] = y; } }
+#include "KS/SRC/HWOSPS2/ps2_input.h"
+
+void ps2_joypad_device::set_stick(int stick, int x, int y) { if (stick == 0) { rdata[6] = x; rdata[7] = y; } else { rdata[4] = x; rdata[5] = y; } }
 
 // 0x001E1690 is_vibrator_present__C17ps2_joypad_device
 struct developer_options { char padding[0x4c]; int no_rumble; };

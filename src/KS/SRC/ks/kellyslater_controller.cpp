@@ -282,49 +282,27 @@ void kellyslater_controller::StartDisappointment() { super_state = 8; state = 91
 BalanceMeter::BalanceMeter() { player_num = -1; }
 
 // 0x0020CFA0 CtrlEvent__22kellyslater_controlleri
-enum device_id_t { DEVICE_NONE };
-class input_mgr { public: float get_control_state(device_id_t device, int control) const; };
-extern input_mgr *input_manager;
-__asm__(".equ input_manager, 0x0046B7B0");
-__asm__(".equ get_control_state__C9input_mgr11device_id_ti, 0x003441C8");
-struct controller_input_layout {
-    char padding[0x1b10];
-    device_id_t joystick_num;
-};
-extern "C" float controller_event(controller_input_layout *self, int control)
-    __asm__("CtrlEvent__22kellyslater_controlleri");
-float controller_event(controller_input_layout *self, int control) {
-    float result = input_manager->get_control_state(
-        self->joystick_num,
-        control);
-    KELLY_DECOMP_COMPILER_BARRIER();
-    return result;
-}
+#include "KS/SRC/ks/kellyslater_controller.h"
+
+float kellyslater_controller::CtrlEvent(int control) { input_mgr *manager = input_mgr::inst(); return manager->get_control_state(joystick_num, control); }
 
 // 0x0020F570 set_player_num__22kellyslater_controlleri
 #include "KS/SRC/ks/kellyslater_controller.h"
-__asm__(".equ Initialize__12SpecialMeteri, 0x00250CA0");
-extern "C" void initialize_special_meter(void *meter, int player)
+#include "KS/SRC/ks/kellyslater_controller.h"
+
+void initialize_special_meter(SpecialMeter *meter, int player)
     __asm__("Initialize__12SpecialMeteri");
+__asm__(".equ Initialize__12SpecialMeteri, 0x00250CA0");
 void kellyslater_controller::set_player_num(int player) {
     my_player_num = player;
-    initialize_special_meter(&specialMeter, player);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*initialize)(SpecialMeter *, int) = initialize_special_meter;
+    initialize(&specialMeter, player);
 }
 
 // 0x00224D78 IsAIPlayer__22kellyslater_controller
-struct game { char padding[0xb4]; int num_ai_players; };
-extern game *g_game_ptr;
-__asm__(".equ g_game_ptr, 0x0046AC64");
-struct controller_ai_layout {
-    char padding[0x1674];
-    int my_player_num;
-};
-extern "C" bool controller_is_ai(controller_ai_layout *self)
-    __asm__("IsAIPlayer__22kellyslater_controller");
-bool controller_is_ai(controller_ai_layout *self) {
-    return g_game_ptr->num_ai_players && self->my_player_num == 1;
-}
+#include "KS/SRC/ks/kellyslater_controller.h"
+
+bool kellyslater_controller::IsAIPlayer() { return g_game_ptr->get_num_ai_players() && my_player_num == 1; }
 
 // 0x00225240 End__12BalanceMeter
 class IGOFrontEnd;

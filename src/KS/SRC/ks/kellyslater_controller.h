@@ -5,6 +5,7 @@
 
 #include "KS/SRC/algebra.h"
 #include "KS/SRC/game.h"
+#include "KS/SRC/ks/specialmeter.h"
 #include "KS/SRC/ks/trickdata.h"
 
 enum {
@@ -16,10 +17,6 @@ enum {
 
 struct ScoringManagerStorage {
     char data[0x550];
-};
-
-struct SpecialMeterStorage {
-    char data[0x2C];
 };
 
 class camera;
@@ -49,7 +46,7 @@ class kellyslater_controller {
     int super_state;
     char data_to_score_manager[0x10BC];
     ScoringManagerStorage my_scoreManager;
-    SpecialMeterStorage specialMeter;
+    SpecialMeter specialMeter;
     int my_player_num;
     char data_to_special_trick[0x3C];
     bool bSpecialTrick;
@@ -73,7 +70,9 @@ class kellyslater_controller {
     float current_trick_time;
     char data_to_left_stick_pressed[0x38];
     bool left_stick_pressed;
-    char data_to_player_cam[0x5C];
+    char data_to_joystick_num[0x38];
+    device_id_t joystick_num;
+    char data_to_player_cam[0x20];
     game_camera *player_cam;
     char data_to_look_back_cam[0x10];
     camera *look_back_cam_ptr;
@@ -105,7 +104,7 @@ public:
     void SetTubeTrick(int trick, int anim, int board_anim);
     void set_player_num(int player);
     inline int get_player_num() const { return my_player_num; }
-    inline void *get_special_meter() { return &specialMeter; }
+    inline SpecialMeter *get_special_meter() { return &specialMeter; }
     int GetCurrentTrick();
     int get_super_state() const { return super_state; }
     float CtrlEvent(int control);

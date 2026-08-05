@@ -11,18 +11,10 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-| 2 | different | 80.0 | 80.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released setter stores the player number at 0x1674 and initializes the
-embedded SpecialMeter at 0x1648 with the same value. The trailing empty
-compiler barrier prevents EE GCC from replacing the released call frame with a
-sibling call.
-
-Re-evaluating the identical first candidate after the exact setter-schedule compiler fixup now produces an exact match; this infrastructure recheck does not consume a third source attempt.
+| 1 | different | 7.5 | 0.0 | `size40-gameplay-core.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size40-gameplay-core-2.cpp` |
+| 3 | different | 7.5 | 0.0 | `size40-gameplay-core-3.cpp` |
 
 ## Outcome
 
-The released kellyslater_controller::set_player_num wrapper matched exactly after correcting the isolated compiler save schedule.
+The shared controller embeds the canonical `SpecialMeter`; an ordinary local initializer pointer retains the target call frame.

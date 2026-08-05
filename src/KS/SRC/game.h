@@ -180,6 +180,9 @@ public:
     inline int get_num_players() const {
         return num_players;
     }
+    inline int get_num_ai_players() const {
+        return num_ai_players;
+    }
     inline int get_num_active_players() {
         return num_active_players;
     }

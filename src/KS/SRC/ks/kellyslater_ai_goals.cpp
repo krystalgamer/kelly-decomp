@@ -35,12 +35,3 @@ float surfer_ai_goal::calculate_priority(float time) { priority = 1.0f; return p
 // 0x0020BD08 frame_advance__14surfer_ai_goalf
 #include "KS/SRC/ks/kellyslater_ai_goals.h"
 float surfer_ai_goal::frame_advance(float time) { return ai_goal::frame_advance(time); }
-
-// 0x0020BC98 _$_14surfer_ai_goal
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_7ai_goal");
-extern const char derived_vtable[];
-__asm__(".equ _$_7ai_goal, 0x00106498");
-__asm__(".equ derived_vtable, 0x004D53C0");
-struct AIGoalLayout { char padding[0x38]; const void *vtable; };
-extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_14surfer_ai_goal");
-void DerivedDtor(void *self, int deleting) { ((AIGoalLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
