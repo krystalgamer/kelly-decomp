@@ -1,11 +1,18 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_003918A8)
 // 0x003918A8 nlScaleVect3d__FRA2_fRA2_Cff
-typedef float nlVector3d[3];
-void nlScaleVect3d(nlVector3d &result, const nlVector3d &vector, float factor) { result[0] = vector[0] * factor; result[1] = vector[1] * factor; result[2] = vector[2] * factor; }
-#endif
+#include "NSL/PS2/nl_ps2.h"
+
+void nlScaleVect3d(
+    nlVector3d &result,
+    const nlVector3d &vector,
+    float factor)
+{
+    result[0] = vector[0] * factor;
+    result[1] = vector[1] * factor;
+    result[2] = vector[2] * factor;
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_00391718)
 // 0x00391718 nslSceVu0UnitMatrix__FPA3_f

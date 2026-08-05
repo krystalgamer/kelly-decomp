@@ -5,14 +5,21 @@
 extern float WAVETEX_camerahowfar;
 void WAVETEX_SetShadowScale(float scale) { const int shadowtexw = 128; WAVETEX_camerahowfar = 15.0f * scale / ((float)shadowtexw / 64.0f); }
 
-#if defined(KELLY_DECOMP_FUNCTION_0037F100)
 // 0x0037F100 WAVETEX_CheckClearShadows__Fv
-extern int newshadowbuf;
-void WAVETEX_ClearShadows();
+#include "KS/SRC/ks/wavetex.h"
+
+void clear_shadows() __asm__("WAVETEX_ClearShadows__Fv");
 __asm__(".equ newshadowbuf, 0x00484EC4");
 __asm__(".equ WAVETEX_ClearShadows__Fv, 0x0037F930");
-void WAVETEX_CheckClearShadows() { if (newshadowbuf) { newshadowbuf = 0; WAVETEX_ClearShadows(); KELLY_DECOMP_COMPILER_BARRIER(); } }
-#endif
+
+void WAVETEX_CheckClearShadows()
+{
+    if (newshadowbuf) {
+        newshadowbuf = 0;
+        void (*clear)() = clear_shadows;
+        clear();
+    }
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_00380C38)
 // 0x00380C38 WAVETEX_SetMatZSorted__Fbi

@@ -141,12 +141,19 @@ void **perturb_rtti()
 }
 
 // 0x0037CC50 WAVE_GlobalCurrent__FP8vector3d
-struct vector3d { float x; float y; float z; };
+#include "KS/SRC/ks/wave.h"
+
 extern float WAVE_ShiftSpeedX;
 extern float WAVE_ShiftSpeedZ;
 __asm__(".equ WAVE_ShiftSpeedX, 0x0058EA50");
 __asm__(".equ WAVE_ShiftSpeedZ, 0x0058EA54");
-void WAVE_GlobalCurrent(vector3d *current) { current->x = -WAVE_ShiftSpeedX; current->y = 0.0f; current->z = -WAVE_ShiftSpeedZ; }
+
+void WAVE_GlobalCurrent(vector3d *current)
+{
+    current->x = -WAVE_ShiftSpeedX;
+    current->y = 0.0f;
+    current->z = -WAVE_ShiftSpeedZ;
+}
 
 // 0x0037D8C8 WAVE_GetNextScheduleIndex__Fv
 extern unsigned int WAVE_ScheduleIndex;

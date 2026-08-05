@@ -11,12 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-Minimal scene/texture layouts preserve the render-target fields and the 64-bit PS2 render-target flag.
+| 1 | matched | 100.0 | 100.0 | `size40-platform-final.cpp` |
 
 ## Outcome
 
-The released `nglSetRenderTarget` implementation matched exactly.
+The shared released scene and texture layouts naturally emit the target
+assignment and 64-bit render-target flag update.

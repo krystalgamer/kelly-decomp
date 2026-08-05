@@ -11,14 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 52.5 | 40.0 | `candidate.cpp` |
-| 2 | different | 87.5 | 70.0 | `candidate.cpp` |
-| 3 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 3 notes
-
-The released flag tests are preserved. Binding the paused and error results to `$3` and `$2` reproduces the shipped `movn` selection without inline assembly.
+| 1 | matched | 100.0 | 100.0 | `size40-platform-final.cpp` |
 
 ## Outcome
 
-Matched NVL movie status query.
+The released flag tests and ordinary register variables reproduce the shipped
+conditional result selection without instruction assembly.

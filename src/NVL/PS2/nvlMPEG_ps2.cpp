@@ -128,16 +128,22 @@ static int getFIFOindex(ViBuf* buffer, void* address)
 __asm__(".globl getFIFOindex__FP5ViBufPv");
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00388EE0)
 // 0x00388EE0 mpegError__FP7sceMpegP18sceMpegCbDataErrorPv
-struct sceMpeg;
-struct sceMpegCbDataError { int field0; const char *errMessage; };
+#include "NVL/PS2/nvlMPEG_ps2.h"
+
 int nvlPrintf(const char *format, ...);
 extern const char mpeg_error_format[];
 __asm__(".equ nvlPrintf__FPCce, 0x0038AD50");
 __asm__(".equ mpeg_error_format, 0x0051B718");
-int mpegError(sceMpeg *mpeg, sceMpegCbDataError *error, void *data) { nvlPrintf(mpeg_error_format, error->errMessage); return 1; }
-#endif
+
+int mpegError(
+    sceMpeg *,
+    sceMpegCbDataError *error,
+    void *)
+{
+    nvlPrintf(mpeg_error_format, error->errMessage);
+    return 1;
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_00388F08)
 // 0x00388F08 mpegNodata__FP7sceMpegP13sceMpegCbDataPv

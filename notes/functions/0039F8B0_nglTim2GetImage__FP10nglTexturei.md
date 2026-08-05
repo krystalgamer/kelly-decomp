@@ -11,17 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 55.0 | 50.0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-Spelling the invalid mip level as the early return caused EE GCC to invert the target branch; the valid case must be the fallthrough path.
-
-### Attempt 2 notes
-
-Minimal TIM2 and texture layouts preserve the mip-count byte, 16-byte image entries, and data pointer at 0x90.
+| 1 | matched | 100.0 | 100.0 | `size40-platform-final.cpp` |
 
 ## Outcome
 
-The released `nglTim2GetImage` implementation matched exactly.
+The shared TIM2 and texture layouts naturally preserve the mip-count byte,
+16-byte image entries, and data pointer at 0x90.

@@ -65,6 +65,10 @@ struct sceMpeg {
 };
 
 struct sceMpegCbData;
+struct sceMpegCbDataError {
+    int field0;
+    const char *errMessage;
+};
 struct ViBuf;
 
 struct QWORD {

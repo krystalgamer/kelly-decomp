@@ -19,9 +19,14 @@ struct nglFileBuf {
     unsigned int UserData;
 };
 
+struct nglTexture;
+
 struct nglScene {
     nglScene *Parent;
-    char data_to_viewport[0x40C];
+    char data_to_render_target[0xC];
+    nglTexture *RenderTarget;
+    int Download;
+    char data_to_viewport[0x3F8];
     u_int ViewX1;
     u_int ViewY1;
     u_int ViewX2;
@@ -133,6 +138,13 @@ struct nglMesh {
 struct TIM2_PICTUREHEADER {
     char data_to_header_size[0xC];
     unsigned short HeaderSize;
+    char data_to_mipmap_textures[3];
+    unsigned char MipMapTextures;
+};
+
+struct nglGsImage {
+    void *Data;
+    char padding[12];
 };
 
 struct nglTexture {
@@ -140,17 +152,7 @@ struct nglTexture {
     unsigned short Width;
     unsigned short Height;
     unsigned int Hash;
-    unsigned char Type;
-    unsigned char TW;
-    unsigned char TH;
-    unsigned char flag_padding;
-    struct {
-        unsigned int LoadedInPlace : 1;
-        unsigned int Locked : 1;
-        unsigned int VRAMOnly : 1;
-        unsigned int System : 1;
-        unsigned int RenderTarget : 1;
-    } Flags;
+    unsigned long long Flags;
     struct TIM2_PICTUREHEADER *ph;
     unsigned int Format;
     unsigned int *Data;
@@ -159,7 +161,8 @@ struct nglTexture {
     unsigned int SrcDataSize;
     nglFileBuf FileBuf;
     nglFixedString FileName;
-    char remaining_data[0x130 - 0x5C];
+    char remaining_data[0x34];
+    nglGsImage GsImage[10];
 } __attribute__((aligned(16)));
 
 void nglRelockAllTexturesPS2();

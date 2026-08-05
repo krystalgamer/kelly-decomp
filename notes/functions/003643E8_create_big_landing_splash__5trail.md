@@ -11,12 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal large layout preserves the spray pointer and writes both landing-splash power slots from the global amount.
+| 1 | matched | 100.0 | 100.0 | `size40-wave-final.cpp` |
 
 ## Outcome
 
-The released trail big-landing splash helper matched exactly.
+The shared released trail and spray layouts naturally emit both splash-power
+writes.

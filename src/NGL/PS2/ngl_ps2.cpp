@@ -245,22 +245,16 @@ void nglSetQuadRect(nglQuad *quad, float x1, float y1, float x2, float y2) { qua
 
 void nglSetMeshFlags(unsigned int flags) { nglScratch->Flags = flags | NGLMESH_SCRATCH_MESH | (nglScratch->Flags & NGLMESH_TEMP); }
 
-#if defined(KELLY_DECOMP_FUNCTION_00398528)
 // 0x00398528 nglSetRenderTarget__FP10nglTextureb
-struct nglScene { char padding[0x10]; void *RenderTarget; int Download; };
-extern nglScene *nglCurScene;
-__asm__(".equ nglCurScene, 0x004BBD04");
-struct nglTexture { char padding[0x10]; unsigned long long Flags; };
-void nglSetRenderTarget(nglTexture *texture, bool download) { nglCurScene->RenderTarget = texture; nglCurScene->Download = download; texture->Flags |= (1ULL << 36); }
-#endif
+#include "NGL/PS2/ngl_ps2.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_0039F8B0)
+__asm__(".equ nglCurScene, 0x004BBD04");
+void nglSetRenderTarget(nglTexture *texture, bool download) { nglCurScene->RenderTarget = texture; nglCurScene->Download = download; texture->Flags |= (1ULL << 36); }
+
 // 0x0039F8B0 nglTim2GetImage__FP10nglTexturei
-struct TIM2_PICTUREHEADER { char padding[0x11]; unsigned char MipMapTextures; };
-struct nglGsImage { void *Data; char padding[12]; };
-struct nglTexture { char padding0[0x18]; TIM2_PICTUREHEADER *ph; char padding1[0x74]; nglGsImage GsImage[1]; };
+#include "NGL/PS2/ngl_ps2.h"
+
 void *nglTim2GetImage(nglTexture *texture, int mipmap) { if (mipmap < texture->ph->MipMapTextures) return texture->GsImage[mipmap].Data; return 0; }
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00397510)
 // 0x00397510 nglResetDisplay__Fv

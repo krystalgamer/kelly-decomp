@@ -11,19 +11,18 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 17.5 | 10.0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 17.5 | 10.0 | `size40-wave-final.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size40-wavetex-clear-2.cpp` |
 
 ### Attempt 1 notes
 
-The direct conditional call became a sibling jump; a zero-instruction compiler barrier is required after the shadow clear.
+The exact released conditional call collapses to a 32-byte sibling call.
 
 ### Attempt 2 notes
 
-The released helper clears the one-shot shadow-buffer flag in the call delay slot before rebuilding shadows.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+An ordinary local clear-function pointer retains the target call frame and
+delay-slot flag store.
 
 ## Outcome
 
-The released shadow-clear check matched exactly.
+The released shadow-clear check matches without a compiler barrier.
