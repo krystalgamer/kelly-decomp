@@ -11,12 +11,10 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-Minimal layouts preserve the selected controller, pause-system destination, and global controller-widget reset.
+| 1 | matched | 100.0 | 100.0 | `size40-controller-unactivate.cpp` |
 
 ## Outcome
 
-The released controller frontend unactivation state update matched exactly.
+The shared controller-menu layout places `selected_controller` at 0x17c.
+The released method stores it through `FEMenuSystem::SetDeviceFlags` and
+re-enables the shared helpbar without local layout shells.

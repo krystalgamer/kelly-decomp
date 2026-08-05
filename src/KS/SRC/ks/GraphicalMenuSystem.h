@@ -50,7 +50,10 @@ public:
     virtual void SetSystem(FEMenuSystem *system);
 };
 
-class ControllerFrontEnd {
+class ControllerFrontEnd : public FEMultiMenu {
+    char data_to_selected_controller[0x17c - sizeof(FEMultiMenu)];
+    int selected_controller;
+
 public:
     void Draw();
     void OnLeft(int controller);
@@ -58,6 +61,7 @@ public:
     void OnUp(int controller);
     void OnDown(int controller);
     void Select(int controller);
+    virtual void OnUnactivate(FEMenu *menu);
 };
 
 class HelpbarFE : public FrontEnd {
@@ -87,6 +91,7 @@ public:
     virtual void ReloadPanel();
     virtual void Draw();
     void DisableHelpbar() { disabled = true; }
+    void EnableHelpbar() { disabled = false; }
 
 protected:
     virtual void SetPQIndices();

@@ -27,14 +27,10 @@ void GraphicalMenuSystem::DrawMovie() {
 }
 
 // 0x001BD0B0 OnUnactivate__18ControllerFrontEndP6FEMenu
-struct PauseMenuSystemLayout { char padding[0x70]; int controller; };
-struct ControllerWidgetLayout { char padding[0x15c]; int active; };
-struct FEManagerLayout { char padding[0x156a4]; ControllerWidgetLayout *controller_widget; };
-extern FEManagerLayout frontendmanager;
-__asm__(".equ frontendmanager, 0x003E7728");
-class FEMenu;
-class ControllerFrontEnd { char padding0[0x50]; PauseMenuSystemLayout *system; char padding1[0x128]; int selected_controller; public: void OnUnactivate(FEMenu *menu); };
-void ControllerFrontEnd::OnUnactivate(FEMenu *menu) { system->controller = selected_controller; frontendmanager.controller_widget->active = 0; }
+#include "KS/SRC/ks/FrontEndManager.h"
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
+
+void ControllerFrontEnd::OnUnactivate(FEMenu *menu) { system->SetDeviceFlags(selected_controller); frontendmanager.helpbar->EnableHelpbar(); }
 
 // 0x001BC258 Draw__13LegalFrontEnd
 struct legal_widget_vtable { char padding[0x18]; short adjustment; short padding2; void (*draw)(void *self); };

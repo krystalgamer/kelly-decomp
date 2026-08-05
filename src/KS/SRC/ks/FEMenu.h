@@ -259,6 +259,7 @@ public:
     int size;
     int count;
     Font* font;
+    inline void SetDeviceFlags(int flags) { device_flags = flags; }
     virtual ~FEMenuSystem();
     virtual void InitAll();
     virtual void Add(FEMenu*);
