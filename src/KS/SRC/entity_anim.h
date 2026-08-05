@@ -18,6 +18,12 @@ class entity_track_tree;
 class po;
 class signal_anim;
 
+enum {
+    BORROWS_DATA,
+    OWNS_DATA,
+    NO_ID = -1
+};
+
 class entity_track_node {
     int id;
     int owner;
@@ -136,6 +142,7 @@ class entity_anim_tree : public entity_anim {
     anim_control_t control_b;
 
 public:
+    void set_blend(float first, float second);
     entity_anim_tree(
         const stringx &name,
         entity *entity,

@@ -214,15 +214,6 @@ device_id_t AISurferController::get_id() const {
     return device_id;
 }
 
-// 0x00112CE0 _$_18AISurferController
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_12input_device");
-extern const char derived_vtable[];
-__asm__(".equ _$_12input_device, 0x00343938");
-__asm__(".equ derived_vtable, 0x004B8508");
-struct AISurferLayout { int device_id; const void *vtable; };
-extern "C" void AISurferDtor(void *self, int deleting) __asm__("_$_18AISurferController");
-void AISurferDtor(void *self, int deleting) { ((AISurferLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00112D30 get_name__C18AISurferController
 class stringx {
     char *chars;

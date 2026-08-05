@@ -11,11 +11,11 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `entity_track_node_candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size40-entity-core.cpp` |
 
 ### Attempt 1 notes
 
-A minimal layout preserves the released sentinel, active flag, and four cleared tail fields.
+The shared `entity_track_node` declaration preserves the released sentinel, ownership flag, and four cleared pointers.
 
 ## Outcome
 

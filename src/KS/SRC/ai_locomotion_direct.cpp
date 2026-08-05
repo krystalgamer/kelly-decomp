@@ -48,15 +48,6 @@ bool ai_locomotion_direct::set_destination(
         return false;
 }
 
-// 0x00109530 _$_20ai_locomotion_direct
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_13ai_locomotion");
-extern const char derived_vtable[];
-__asm__(".equ _$_13ai_locomotion, 0x00106E28");
-__asm__(".equ derived_vtable, 0x004B82B8");
-struct LocomotionLayout { char padding[0x144]; const void *vtable; };
-extern "C" void DirectDtor(void *self, int deleting) __asm__("_$_20ai_locomotion_direct");
-void DirectDtor(void *self, int deleting) { ((LocomotionLayout *)self)->vtable = derived_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00109CC8 going_out_of_service__20ai_locomotion_direct
 #include "KS/SRC/ai_locomotion.h"
 #include "KS/SRC/entity.h"

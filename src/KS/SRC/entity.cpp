@@ -381,9 +381,10 @@ __asm__(".equ g_game_ptr, 0x0046AC64");
 int entity::get_hero_id() { if (which_hero == -1) return g_game_ptr->get_active_player(); return which_hero; }
 
 // 0x001289E0 __9entity_idPCc
-class entity_id { public: entity_id(const char *name); void set_entity_id(const char *name); };
+#include "KS/SRC/entity.h"
+
 __asm__(".equ set_entity_id__9entity_idPCc, 0x00128A08");
-entity_id::entity_id(const char *name) { set_entity_id(name); KELLY_DECOMP_COMPILER_BARRIER(); }
+entity_id::entity_id(const char *name) { set_entity_id(name); }
 
 // 0x0012FB18 get_angular_velocity__C6entityP8vector3d
 #include "KS/SRC/entity.h"
@@ -397,7 +398,7 @@ void entity::get_angular_velocity(vector3d *target) const {
 
 bool collide_segment_entity(const vector3d &start, const vector3d &end, const entity *target, vector3d *impact_position, vector3d *impact_normal, float radius, bool rear_cull);
 __asm__(".equ collide_segment_entity__FRC8vector3dT0PC6entityP8vector3dT3fb, 0x002DC680");
-bool entity::test_combat_target(const vector3d &start, const vector3d &end, vector3d *impact_position, vector3d *impact_normal, float radius, bool rear_cull) const { bool result = collide_segment_entity(start, end, this, impact_position, impact_normal, radius, rear_cull); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
+bool entity::test_combat_target(const vector3d &start, const vector3d &end, vector3d *impact_position, vector3d *impact_normal, float radius, bool rear_cull) const { return collide_segment_entity(start, end, this, impact_position, impact_normal, radius, rear_cull); }
 
 // 0x0012FF48 remove_from_terrain__6entity
 #include "KS/SRC/entity.h"

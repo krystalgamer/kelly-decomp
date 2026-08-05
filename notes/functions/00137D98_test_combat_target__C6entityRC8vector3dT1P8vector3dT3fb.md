@@ -11,13 +11,11 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size40-entity-core.cpp` |
 
 ### Attempt 1 notes
 
-The released method reorders its first arguments and forwards the complete collision query to the global helper.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The canonical `entity` method directly forwards the complete collision query and naturally retains the return-value call frame.
 
 ## Outcome
 

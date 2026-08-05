@@ -76,6 +76,8 @@ class entity_id {
     unsigned int value;
 
 public:
+    explicit entity_id(const char *name);
+    void set_entity_id(const char *name);
     inline unsigned int get_numerical_val() const {
         return value;
     }

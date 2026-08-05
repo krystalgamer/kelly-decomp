@@ -11,13 +11,11 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size40-entity-core.cpp` |
 
 ### Attempt 1 notes
 
-The released constructor delegates to `set_entity_id` while preserving the constructor return value.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The shared constructor directly delegates to `set_entity_id`; the constructor ABI naturally preserves the returned object pointer.
 
 ## Outcome
 

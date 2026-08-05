@@ -54,6 +54,8 @@ class light_source : public entity {
     light_properties *properties;
 
 public:
+    light_source(const entity_id &id, unsigned int flags);
+    virtual ~light_source();
     virtual void add_me_to_region(region *value);
     virtual void remove_me_from_region(region *value);
     virtual bool is_a_light_source() const;

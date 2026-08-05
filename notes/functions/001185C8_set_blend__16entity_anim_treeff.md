@@ -5,23 +5,18 @@
 - Object: `game/files_anim`
 - Debug source: `C:/KS/SRC/entity_anim.cpp`
 - Reference source: `KS/SRC/entity_anim.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 45.0 | 30.0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The faithful arithmetic omitted the target EE FPU hazard nop between `mtc1` and `div.s`.
-
-### Attempt 2 notes
-
-A minimal layout preserves the blend fields at 0x44 and 0x74 and the released normalization.
+| 1 | different | 45.0 | 0.0 | `size40-entity-core.cpp` |
+| 2 | different | 45.0 | 0.0 | `size40-blend-2.cpp` |
+| 3 | different | 45.0 | 0.0 | `size40-blend-3.cpp` |
 
 ## Outcome
 
-The released `entity_anim_tree::set_blend` implementation matched exactly.
+Across three ordinary native definitions, the released arithmetic emits no pipeline NOP between the constant load and division. The closest candidate is
+36 bytes rather than the target 40 bytes, so the matching-only body was
+removed and the target function was deferred.
