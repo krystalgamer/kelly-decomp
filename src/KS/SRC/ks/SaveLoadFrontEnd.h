@@ -56,7 +56,9 @@ private:
 };
 
 class SaveLoadFrontEnd : public FEMultiMenu {
-    char save_load_front_end_data[0x32b8 - sizeof(FEMultiMenu)];
+    char save_load_front_end_data[0x3230 - sizeof(FEMultiMenu)];
+    char desc[100];
+    char save_load_data_to_post_format_state[0x32b8 - 0x3294];
 
 public:
     enum disp_states {
@@ -71,8 +73,9 @@ public:
     };
 
     int post_format_state;
-    char save_load_front_end_data_after_post_format[
-        0x32f4 - 0x32bc];
+    char save_load_data_to_overwrite[0x32e0 - 0x32bc];
+    bool overwrite;
+    char save_load_data_after_overwrite[0x32f4 - 0x32e4];
     NamesMenu *NameMenu;
     KeyboardMenu *KeyMenu;
     DialogMenu *dialogMenu;
@@ -83,6 +86,7 @@ public:
     int getActiveCard();
     bool DialogActive();
     void StartError(int id);
+    void SetOverwrite(const char *filename);
     void SetDState(
         int state,
         bool activate = true,

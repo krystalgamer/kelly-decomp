@@ -55,26 +55,6 @@ int getButtonState(int command, int controller);
 __asm__(".equ getButtonState__Fii, 0x00159270");
 bool IGOFrontEnd::GetProceedButtonState(int controller) { return getButtonState(6, controller); }
 
-// 0x0017CB40 OnSurferStandUp__11IGOFrontEnd
-#include "KS/SRC/ks/IGOFrontEnd.h"
-__asm__(".equ Hide__19WaveIndicatorWidgetb, 0x00168180");
-void IGOFrontEnd::OnSurferStandUp() { if (waveIndicatorWidget) { waveIndicatorWidget->Hide(true); KELLY_DECOMP_COMPILER_BARRIER(); } }
-
-// 0x0017CE18 ShowCameraReticle__11IGOFrontEndf
-#include "KS/SRC/ks/IGOFrontEnd.h"
-__asm__(".equ Show__12CameraWidgetf, 0x00169FC8");
-void IGOFrontEnd::ShowCameraReticle(float time) { if (cameraWidget) { cameraWidget->Show(time); KELLY_DECOMP_COMPILER_BARRIER(); } }
-
-// 0x0017CE40 HideCameraReticle__11IGOFrontEnd
-#include "KS/SRC/ks/IGOFrontEnd.h"
-__asm__(".equ Hide__12CameraWidget, 0x00169FF0");
-void IGOFrontEnd::HideCameraReticle() { if (cameraWidget) { cameraWidget->Hide(); KELLY_DECOMP_COMPILER_BARRIER(); } }
-
-// 0x0017CE88 ShowPhoto__11IGOFrontEndP10nglTexturePii
-#include "KS/SRC/ks/IGOFrontEnd.h"
-__asm__(".equ Show__11PhotoWidgetP10nglTexturePii, 0x0016AE98");
-void IGOFrontEnd::ShowPhoto(nglTexture *texture, int *score, int photo) { if (photoWidget) { photoWidget->Show(texture, score, photo); KELLY_DECOMP_COMPILER_BARRIER(); } }
-
 // 0x0017CED0 ShowMenuBackground__11IGOFrontEndb
 #include "KS/SRC/ks/IGOFrontEnd.h"
 void IGOFrontEnd::ShowMenuBackground(bool enabled)

@@ -11,11 +11,11 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size40-frontend-actions.cpp` |
 
 ### Attempt 1 notes
 
-A minimal layout preserves the highlighted VCR button at offset 0x0c and clamps it to the released range 0..4.
+The shared `ReplayWidget` declaration preserves the highlighted button and released enum clamp.
 
 ## Outcome
 

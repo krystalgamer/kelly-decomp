@@ -11,13 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 5.0 | 0.0 | `size40-frontend-actions.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size40-frontend-actions-2.cpp` |
+| 3 | different | 5.0 | 0.0 | `size40-frontend-actions-3.cpp` |
 
 ### Attempt 1 notes
 
-Minimal padding preserves the description buffer at 0x3230 and overwrite flag at 0x32e0.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The shared save/load layout preserves `desc` at 0x3230 and `overwrite` at 0x32e0; an ordinary local `strcpy` pointer retains the conditional call frame.
 
 ## Outcome
 

@@ -34,6 +34,18 @@ public:
     virtual void OnRight(int controller);
 };
 
+class CameraMenuClass : public FEMenu {
+public:
+    PauseMenuSystem *sys;
+
+private:
+    FEMenuEntry *menu_item[3];
+    bool multiplayer;
+
+public:
+    virtual ~CameraMenuClass();
+};
+
 class TrickMenuClass : public FEMenu {
 public:
     virtual void Select(int entry_index);
@@ -129,6 +141,21 @@ public:
     virtual void OnButtonRelease(int controller, int button);
 };
 
+class HeatEndMenuClass : public FEMenu {
+    PauseMenuSystem *sys;
+    FEMenuEntry *optionsEntry;
+
+public:
+    virtual void OnActivate();
+};
+
+class CompEndMenuClass : public FEMenu {
+public:
+    PauseMenuSystem *sys;
+    FEMenuEntry *optionsEntry;
+    virtual void OnActivate();
+};
+
 enum {
     SONGS_PER_SCREEN = 6
 };
@@ -196,6 +223,7 @@ private:
     int replayEvent;
 
 public:
+    virtual void OnActivate();
     virtual void OnStart(int controller);
     virtual void OnL2(int controller);
     virtual void OnCircle(int controller);

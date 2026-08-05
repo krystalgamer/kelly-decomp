@@ -11,11 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `replay_onactivate_candidate.cpp` |
+| 1 | different | 95.0 | 80.0 | `size40-frontend-actions.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size40-frontend-actions-2.cpp` |
+| 3 | matched | 100.0 | 100.0 | `size40-frontend-actions-3.cpp` |
 
 ### Attempt 1 notes
 
-A minimal old-GCC vtable layout preserves the ReplayStart adjustment/function slots.
+Restoring the second shipped reserved `FEMenu` vtable slot places `ReplayStart` at the target adjustment/function offsets.
 
 ## Outcome
 

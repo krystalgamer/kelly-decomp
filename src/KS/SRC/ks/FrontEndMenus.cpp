@@ -159,56 +159,10 @@ void HeatMidMenuClass::OnButtonRelease(int c, int b)
         sys->endDraw();
 }
 
-// 0x001A8978 OnActivate__16HeatEndMenuClass
-class IGOFrontEnd { public: void ShowMenuBackground(bool visible); };
-__asm__(".equ ShowMenuBackground__11IGOFrontEndb, 0x0017CED0");
-struct FEManagerLayout { IGOFrontEnd *IGO; };
-struct PauseMenuSystemLayout { char padding[0x78]; FEManagerLayout *manager; };
-class HeatEndMenuClass { char padding[0x50]; PauseMenuSystemLayout *system; public: void OnActivate(); };
-void HeatEndMenuClass::OnActivate() { system->manager->IGO->ShowMenuBackground(true); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x001A8FF8 OnActivate__16CompEndMenuClass
-class IGOFrontEnd { public: void ShowMenuBackground(bool visible); };
-__asm__(".equ ShowMenuBackground__11IGOFrontEndb, 0x0017CED0");
-struct FEManagerLayout { IGOFrontEnd *IGO; };
-struct PauseMenuSystemLayout { char padding[0x78]; FEManagerLayout *manager; };
-class CompEndMenuClass { char padding[0x78]; PauseMenuSystemLayout *system; public: void OnActivate(); };
-void CompEndMenuClass::OnActivate() { system->manager->IGO->ShowMenuBackground(true); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x001AABE8 _$_15CameraMenuClass
-extern "C" void BaseDtor(void *self, int deleting)
-    __asm__("_$_6FEMenu");
-extern const char derived_vtable[];
-
-__asm__(".equ _$_6FEMenu, 0x00156580");
-__asm__(".equ derived_vtable, 0x004C7F30");
-
-struct CameraMenuLayout {
-    char padding[0x74];
-    const void *vtable;
-};
-
-extern "C" void CameraMenuDtor(void *self, int deleting)
-    __asm__("_$_15CameraMenuClass");
-
-void CameraMenuDtor(void *self, int deleting) {
-    ((CameraMenuLayout *)self)->vtable = derived_vtable;
-    BaseDtor(self, deleting);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x001B05B0 OnActivate__15ReplayMenuClass
-struct ReplayVTable { char padding[0x170]; short adjustment; short padding2; void (*ReplayStart)(void *self); };
-struct replay_activate_layout {
-    char padding[0x74];
-    ReplayVTable *vtable;
-};
-extern "C" void activate_replay(replay_activate_layout *self)
-    __asm__("OnActivate__15ReplayMenuClass");
-void activate_replay(replay_activate_layout *self) {
-    ReplayVTable *table = self->vtable;
-    table->ReplayStart((char *)self + table->adjustment);
-}
+#include "KS/SRC/ks/FrontEndMenus.h"
+
+void ReplayMenuClass::OnActivate() { ReplayStart(); }
 
 // 0x001B0A78 OnTriangle__15ReplayMenuClassi
 extern "C" void menu_triangle(void *self, int controller)

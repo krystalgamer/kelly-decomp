@@ -18,17 +18,15 @@ void ReplayWidget::HighlightLeft()
 
 void ReplayWidget::HighlightRight() { vcrButtonHL++; if (vcrButtonHL > VCR_FASTFORWARD) vcrButtonHL = VCR_FASTFORWARD; }
 
-#if defined(KELLY_DECOMP_FUNCTION_0016BD00)
 // 0x0016BD00 Select__12ReplayWidgeti
-class ReplayWidget { char padding[8]; int vcrButton; public: void Select(int button); };
-void ReplayWidget::Select(int button) { vcrButton = button; if (vcrButton < 0) vcrButton = 0; if (vcrButton > 4) vcrButton = 4; }
-#endif
+#include "KS/SRC/ks/igo_widget_replay.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_0016BD28)
+void ReplayWidget::Select(int button) { vcrButton = button; if (vcrButton < VCR_RESTART) vcrButton = VCR_RESTART; if (vcrButton > VCR_FASTFORWARD) vcrButton = VCR_FASTFORWARD; }
+
 // 0x0016BD28 SelectHighlight__12ReplayWidgeti
-class ReplayWidget { char padding[0xc]; int vcrButtonHL; public: void SelectHighlight(int button); };
-void ReplayWidget::SelectHighlight(int button) { vcrButtonHL = button; if (vcrButtonHL < 0) vcrButtonHL = 0; if (vcrButtonHL > 4) vcrButtonHL = 4; }
-#endif
+#include "KS/SRC/ks/igo_widget_replay.h"
+
+void ReplayWidget::SelectHighlight(int button) { vcrButtonHL = button; if (vcrButtonHL < VCR_RESTART) vcrButtonHL = VCR_RESTART; if (vcrButtonHL > VCR_FASTFORWARD) vcrButtonHL = VCR_FASTFORWARD; }
 
 #if defined(KELLY_DECOMP_FUNCTION_0016B600)
 // 0x0016B600 _$_12ReplayWidget

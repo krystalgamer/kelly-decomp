@@ -5,20 +5,18 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/IGOFrontEnd.cpp`
 - Reference source: `KS/SRC/ks/IGOFrontEnd.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal layout preserves the camera-widget pointer at 0x5a8 and forwards the fade time when present.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 17.5 | 10.0 | `size40-frontend-actions.cpp` |
+| 2 | different | 11.5385 | 0.0 | `size40-frontend-actions-2.cpp` |
+| 3 | different | 17.5 | 10.0 | `size40-frontend-actions-3.cpp` |
 
 ## Outcome
 
-The released camera-reticle show wrapper matched exactly.
+Across three native forms, the ordinary conditional forwarding forms do not retain the target call frame. The closest ordinary candidate is
+28 bytes rather than the target 40 bytes, so the matching-only body was
+removed and the target function was deferred.

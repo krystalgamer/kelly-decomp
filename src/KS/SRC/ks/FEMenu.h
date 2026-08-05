@@ -245,6 +245,7 @@ protected:
     virtual void Previous();
     virtual void Select();
     virtual void AddSubmenu(FEMenu*);
+    virtual void BuiltSelectReserved1();
 };
 
 class FEMenuSystem {

@@ -119,26 +119,11 @@ int NamesMenu::ActiveFile() {
 }
 
 // 0x0019BF50 SetOverwrite__16SaveLoadFrontEndPCc
+#include "KS/SRC/ks/SaveLoadFrontEnd.h"
+
 extern "C" char *strcpy(char *destination, const char *source);
 __asm__(".equ strcpy, 0x003D3FCC");
-struct save_load_overwrite_layout {
-    char padding0[0x3230];
-    char desc[0xb0];
-    bool overwrite;
-};
-extern "C" void set_overwrite(
-    save_load_overwrite_layout *self,
-    const char *filename
-) __asm__("SetOverwrite__16SaveLoadFrontEndPCc");
-void set_overwrite(
-    save_load_overwrite_layout *self,
-    const char *filename
-) {
-    self->overwrite = filename == 0;
-    if (!self->overwrite)
-        strcpy(self->desc, filename);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
+void SaveLoadFrontEnd::SetOverwrite(const char *filename) { overwrite = filename == 0; if (!overwrite) { char *(*copy)(char *, const char *) = strcpy; copy(desc, filename); } }
 
 // 0x0019F0B8 DrawHeader__9NamesMenu
 struct menu_entry_vtable { char padding[0x38]; short adjustment; short padding2; void (*draw)(void *self); };
