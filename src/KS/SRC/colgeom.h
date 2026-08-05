@@ -7,26 +7,29 @@
 extern const vector3d colgeom_zero_vector;
 void cg_none::get_closest_point_along_dir(vector3d *target, const vector3d &direction) const { *target = colgeom_zero_vector; }
 
-#if defined(KELLY_DECOMP_FUNCTION_002FF300)
 // 0x002FF300 get_core_radius__C18collision_geometry
-struct collision_vtable_layout { char padding[0x38]; short adjustment; short padding2; float (*get_radius)(void *self); };
-class collision_geometry { char padding[8]; collision_vtable_layout *vtable; public: float get_core_radius() const; };
-float collision_geometry::get_core_radius() const { collision_vtable_layout *table = vtable; return table->get_radius((char *)this + table->adjustment); }
-#endif
+#include "KS/SRC/capsule.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_002FF338)
+float collision_geometry::get_core_radius() const
+{
+    return get_radius();
+}
+
 // 0x002FF338 get_min_extent__C18collision_geometryP8vector3d
-class vector3d { public: float x; float y; float z; vector3d(float px, float py, float pz) : x(px), y(py), z(pz) {} vector3d &operator=(const vector3d &other) { z = other.z; KELLY_DECOMP_COMPILER_BARRIER(); x = other.x; KELLY_DECOMP_COMPILER_BARRIER(); y = other.y; return *this; } };
-class collision_geometry { public: void get_min_extent(vector3d *value) const; };
-void collision_geometry::get_min_extent(vector3d *value) const { *value = vector3d(0.0f, 0.0f, 0.0f); }
-#endif
+#include "KS/SRC/capsule.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_002FF360)
+void collision_geometry::get_min_extent(vector3d *value) const
+{
+    *value = vector3d(0.0f, 0.0f, 0.0f);
+}
+
 // 0x002FF360 get_max_extent__C18collision_geometryP8vector3d
-class vector3d { public: float x; float y; float z; vector3d(float px, float py, float pz) : x(px), y(py), z(pz) {} vector3d &operator=(const vector3d &other) { z = other.z; KELLY_DECOMP_COMPILER_BARRIER(); x = other.x; KELLY_DECOMP_COMPILER_BARRIER(); y = other.y; return *this; } };
-class collision_geometry { public: void get_max_extent(vector3d *value) const; };
-void collision_geometry::get_max_extent(vector3d *value) const { *value = vector3d(0.0f, 0.0f, 0.0f); }
-#endif
+#include "KS/SRC/capsule.h"
+
+void collision_geometry::get_max_extent(vector3d *value) const
+{
+    *value = vector3d(0.0f, 0.0f, 0.0f);
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_002FF2D0)
 // 0x002FF2D0 get_radius__C18collision_geometry

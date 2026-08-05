@@ -11,12 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal old-GCC vtable layout preserves the virtual radius adjustment and function slots.
+| 1 | matched | 100.0 | 100.0 | `size40-colgeom-accessors.cpp` |
 
 ## Outcome
 
-The released `collision_geometry::get_core_radius` wrapper matched exactly.
+The complete released virtual declaration order naturally emits the target
+`get_radius` dispatch.

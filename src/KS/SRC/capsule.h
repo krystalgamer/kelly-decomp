@@ -32,6 +32,12 @@ public:
         const po &first,
         const po &second,
         int second_start);
+    virtual void split_xform(
+        const po &first,
+        const po &second,
+        const po &third,
+        int second_start,
+        int third_start);
     virtual float get_radius() const;
     virtual float get_core_radius() const;
     virtual const vector3d &get_abs_position() const;
