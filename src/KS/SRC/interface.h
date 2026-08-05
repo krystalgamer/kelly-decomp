@@ -1,23 +1,7 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
-class widget {
-    char widget_data[0x140];
-
-public:
-    virtual ~widget();
-    virtual void show();
-    virtual void hide();
-    virtual void ignore_parent();
-    virtual void obey_parent();
-    virtual void ignore_parent_showing();
-    virtual void obey_parent_showing();
-    virtual void frame_advance(float time_inc);
-    virtual void render();
-};
-
-class bitmap_widget : public widget {
-};
+#include "KS/SRC/widget.h"
 
 class status_widget;
 
@@ -27,6 +11,11 @@ protected:
     status_widget* my_status_widget;
 
 public:
+    interface_widget(
+        const char *widget_name,
+        widget *parent,
+        short x,
+        short y);
     virtual ~interface_widget();
     virtual void show();
     virtual void frame_advance(float time_inc);

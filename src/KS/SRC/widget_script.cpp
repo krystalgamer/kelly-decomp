@@ -1,13 +1,20 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_002BC8C0)
 // 0x002BC8C0 frame_advance__22script_widget_holder_tf
-class widget { public: void frame_advance(float time_inc); };
+#include "KS/SRC/widget_script.h"
+
+void frame_widget(widget *value, time_value_t time_inc)
+    __asm__("frame_advance__6widgetf");
 __asm__(".equ frame_advance__6widgetf, 0x0033DF70");
-class script_widget_holder_t : public widget { char padding[0x144]; int running; public: void frame_advance(float time_inc); };
-void script_widget_holder_t::frame_advance(float time_inc) { if (running) { widget::frame_advance(time_inc); KELLY_DECOMP_COMPILER_BARRIER(); } }
-#endif
+
+void script_widget_holder_t::frame_advance(time_value_t time_inc)
+{
+    if (running) {
+        void (*advance)(widget *, time_value_t) = frame_widget;
+        advance(this, time_inc);
+    }
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_002BB7E8)
 // 0x002BB7E8 update_scale__12timer_widget

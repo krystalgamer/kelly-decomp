@@ -5,20 +5,31 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/interface.h`
 - Reference source: `KS/SRC/interface.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 5.0 | 0.0 | `size40-widget-core.cpp` |
+| 2 | different | 5.0 | 0.0 | `size40-widget-core-2.cpp` |
+| 3 | different | 5.0 | 0.0 | `size40-interface-dtor-3.cpp` |
 
 ### Attempt 1 notes
 
-A symbol-preserving destructor restores the parent vtable before delegating the `interface_widget` object to its base.
+The native empty destructor collapses to a 20-byte vptr-setting tail call.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+Referencing the released reticle member is optimized away and leaves the same
+20-byte destructor.
+
+### Attempt 3 notes
+
+An explicit empty return also leaves the same native tail-call form.
 
 ## Outcome
 
-The released `interface_widget` destructor matched exactly.
+Across three ordinary forms, the native destructor does not retain the target
+call frame. The manual-vtable implementation was removed and the function was
+deferred.

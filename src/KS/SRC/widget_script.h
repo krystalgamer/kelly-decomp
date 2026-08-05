@@ -49,6 +49,26 @@ protected:
     vector<timer_func> script_calls_made;
 };
 
+class script_widget_holder_t : public widget {
+public:
+    script_widget_holder_t(
+        const char *widget_name,
+        widget *parent,
+        short x,
+        short y);
+    virtual ~script_widget_holder_t();
+    void frame_advance(time_value_t time_inc);
+    void freeze() { running = false; }
+    void run() { running = true; }
+    timer_widget *get_timer_widget() const {
+        return my_timer_widget;
+    }
+
+protected:
+    timer_widget *my_timer_widget;
+    bool running;
+};
+
 #endif
 
 // Matching decompilation blocks selected by generated build shims.

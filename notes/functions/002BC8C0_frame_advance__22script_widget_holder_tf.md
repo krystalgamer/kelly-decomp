@@ -11,14 +11,20 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 17.5 | 10.0 | `size40-widget-core.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size40-widget-core-2.cpp` |
 
 ### Attempt 1 notes
 
-A minimal layout places the word-sized `running` flag at 0x148 and conditionally forwards to `widget`.
+The exact released body collapses the conditional base call to a 28-byte
+sibling call.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+An ordinary local base-frame pointer retains the released conditional call and
+the target call frame.
 
 ## Outcome
 
-The released `script_widget_holder_t::frame_advance` implementation matched exactly.
+The shared released class and local base-call form match without a compiler
+barrier.

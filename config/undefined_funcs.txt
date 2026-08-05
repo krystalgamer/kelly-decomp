@@ -47,6 +47,7 @@ _$_12photo_camera = 0x26F650;
 _$_11visual_item = 0x28AEC0;
 set_ks_controller__21world_dynamics_systemiP22kellyslater_controller = 0x2A39F0;
 is_looping__C11beam_effect = 0x2B8490;
+_$_16interface_widget = 0x2B8BF0;
 __builtin_vec_delete = 0x2AC6D0;
 __nw__11entity_animUi = 0x1134F0;
 __nw__16entity_anim_treeUi = 0x113738;
