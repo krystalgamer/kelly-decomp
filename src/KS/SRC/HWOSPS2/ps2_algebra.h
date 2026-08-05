@@ -44,6 +44,9 @@ public:
         z = other.z;
         return *this;
     }
+    inline vector3d operator-() const {
+        return vector3d(-x, -y, -z);
+    }
     inline vector3d &operator+=(const vector3d &other) {
         x += other.x;
         y += other.y;

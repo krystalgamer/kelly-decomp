@@ -1,13 +1,52 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef PORTAL_H
+#define PORTAL_H
 
+#include "KS/SRC/pmesh.h"
+#include "KS/SRC/sphere.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_002FFBD8)
-// 0x002FFBD8 _$_6portal
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_8vr_pmesh");
-extern const char base_vtable[];
-__asm__(".equ _$_8vr_pmesh, 0x002D3B90");
-__asm__(".equ base_vtable, 0x004F1E80");
-struct object_layout { char padding[0x10]; const void *vtable; };
-extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_6portal");
-void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = base_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
+class region_node;
+
+class portal : public vr_pmesh {
+public:
+    portal();
+    portal(region_node *front, region_node *back);
+    virtual ~portal();
+
+    region_node *get_front() const { return front; }
+    region_node *get_back() const { return back; }
+    const vector3d &get_effective_center() const {
+        return bound.get_center();
+    }
+    float get_effective_radius() const {
+        return bound.get_radius();
+    }
+    const sphere &get_bound_sphere() const { return bound; }
+    const vector3d &get_cylinder_normal() const {
+        return normal;
+    }
+    float get_cylinder_depth() const { return cylinder_depth; }
+    vector3d get_normal(bool use_front) const {
+        return use_front ? normal : -normal;
+    }
+    float get_non_planar_fudge_factor() const {
+        return nonplanarfudgefactor;
+    }
+    bool touches_sphere(const sphere &value) const;
+    bool touches_segment(
+        const vector3d &first,
+        const vector3d &second) const;
+    bool is_active() const { return !inactive; }
+    void set_active(bool active) { inactive = !active; }
+
+protected:
+    virtual void compute_info();
+    sphere bound;
+    float cylinder_depth;
+    vector3d normal;
+    float nonplanarfudgefactor;
+    region_node *front;
+    region_node *back;
+    bool inactive;
+};
+
 #endif

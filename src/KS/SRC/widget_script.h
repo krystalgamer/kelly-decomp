@@ -6,6 +6,41 @@
 #include "KS/SRC/widget.h"
 #include "g++-2/stl_vector.h"
 
+enum clue_col_e {
+    CLUE_Default,
+    CLUE_Red,
+    CLUE_Green,
+    CLUE_Blue,
+    CLUE_Total
+};
+
+class clue_widget : public widget {
+public:
+    clue_widget(
+        const char *widget_name,
+        widget *parent,
+        short x,
+        short y);
+    virtual ~clue_widget();
+    void set_clue_col(int panel, clue_col_e color);
+    void clear_clues();
+    const clue_col_e &get_clue_col(int panel) {
+        return clue_col[panel];
+    }
+    void set_show_while_letterboxed(bool show) {
+        show_while_letterboxed = show;
+    }
+    bool get_show_while_letterboxed() const {
+        return show_while_letterboxed;
+    }
+
+protected:
+    bool show_while_letterboxed;
+    bitmap_widget *clue_bar;
+    bitmap_widget *clue[3];
+    clue_col_e clue_col[3];
+};
+
 class timer_widget : public widget {
 public:
     class timer_func {
@@ -73,28 +108,6 @@ protected:
 
 // Matching decompilation blocks selected by generated build shims.
 
-
-#if defined(KELLY_DECOMP_FUNCTION_002FF780)
-// 0x002FF780 _$_11clue_widget
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6widget");
-extern const char base_vtable[];
-__asm__(".equ _$_6widget, 0x0033DC68");
-__asm__(".equ base_vtable, 0x004F2EA8");
-struct object_layout { char padding[0x140]; const void *vtable; };
-extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_11clue_widget");
-void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = base_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_002FF850)
-// 0x002FF850 _$_22script_widget_holder_t
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6widget");
-extern const char base_vtable[];
-__asm__(".equ _$_6widget, 0x0033DC68");
-__asm__(".equ base_vtable, 0x004F2C48");
-struct object_layout { char padding[0x140]; const void *vtable; };
-extern "C" void DerivedDtor(void *self, int deleting) __asm__("_$_22script_widget_holder_t");
-void DerivedDtor(void *self, int deleting) { ((object_layout *)self)->vtable = base_vtable; BaseDtor(self, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002FF730)
 // 0x002FF730 __tf11clue_widget

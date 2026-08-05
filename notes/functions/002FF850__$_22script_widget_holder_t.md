@@ -5,20 +5,29 @@
 - Object: `game/files_misc2`
 - Debug source: `C:/KS/SRC/widget_script.h`
 - Reference source: `KS/SRC/widget_script.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 5.0 | 0.0 | `size40-native-dtors.cpp` |
+| 2 | different | 5.0 | 0.0 | `size40-native-dtors-2.cpp` |
+| 3 | different | 5.0 | 0.0 | `size40-native-dtors-3.cpp` |
 
 ### Attempt 1 notes
 
-A symbol-preserving destructor restores the parent vtable before delegating the `script_widget_holder_t` object to its base.
+The native empty destructor collapses to a 20-byte vptr-setting tail call.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+An explicit empty return produces the same native form.
+
+### Attempt 3 notes
+
+An explicit self reference is optimized away and produces the same form.
 
 ## Outcome
 
-The released `script_widget_holder_t` destructor matched exactly.
+The manual-vtable implementation was removed after three native forms failed
+to retain the target call frame.
