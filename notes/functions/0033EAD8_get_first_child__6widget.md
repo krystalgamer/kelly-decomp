@@ -11,17 +11,24 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 62.5 | 50.0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 62.5 | 50.0 | `size40-utilities.cpp` |
+| 2 | different | 20.4545 | 9.0909 | `size40-widget-child-2.cpp` |
+| 3 | matched | 100.0 | 100.0 | `size40-widget-child-3.cpp` |
 
 ### Attempt 1 notes
 
-The empty-first source branch was inverted by EE GCC; spelling the nonempty case first is needed for the target branch direction.
+The exact released `empty`/`begin` form uses the opposite branch direction.
 
 ### Attempt 2 notes
 
-A minimal list layout and volatile trivial iterator reproduce the old container spill before returning the first child.
+A named iterator introduces extra iterator/end temporaries and expands the
+function to 44 bytes.
+
+### Attempt 3 notes
+
+Using the shared list node type and retaining the released iterator temporary
+reproduces the target stack spill.
 
 ## Outcome
 
-The released `widget::get_first_child` implementation matched exactly.
+The shared STL list declaration matches without recreating its node layout.

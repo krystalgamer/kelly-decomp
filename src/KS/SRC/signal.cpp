@@ -16,10 +16,15 @@ void signal::refresh() { flags &= ~(RAISED | NEEDS_REFRESH); }
 signaller::signaller() : flags(0), signals(0) {}
 
 // 0x0034CC48 refresh__12gated_signal
-extern "C" void SignalRefresh(void *self) __asm__("refresh__6signal");
+#include "KS/SRC/signals.h"
+
 __asm__(".equ refresh__6signal, 0x0034C530");
-class gated_signal { char padding[0x1e]; unsigned short flags; public: void refresh(); };
-void gated_signal::refresh() { SignalRefresh(this); flags = 0; }
+
+void gated_signal::refresh()
+{
+    signal::refresh();
+    flags = 0;
+}
 
 // 0x0034CC18 match__C12gated_signalQ212gated_signal6type_tPC6signal
 class signal;

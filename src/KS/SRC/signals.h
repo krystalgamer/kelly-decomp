@@ -85,6 +85,7 @@ protected:
 
 private:
     unsigned int flags;
+    char signal_runtime_data[0x10];
 
 public:
     virtual ~signal();
@@ -108,6 +109,40 @@ class signal_list {
 
 public:
     inline signal *&operator[](unsigned int index) { return start[index]; }
+};
+
+class gated_signal : public signal {
+public:
+    enum type_t {
+        AND,
+        OR
+    };
+    enum flags_t {
+        RAISED_A = 0x0001,
+        RAISED_B = 0x0002
+    };
+
+private:
+    unsigned short type;
+    unsigned short flags;
+    signal *input_a;
+    signal *input_b;
+
+public:
+    gated_signal(
+        type_t type,
+        signal *input_a,
+        signal *input_b);
+    inline void set_flag(flags_t value) { flags |= value; }
+    inline void clear_flag(flags_t value) { flags &= ~value; }
+    inline bool is_flagged(flags_t value) const {
+        return flags & value;
+    }
+    bool match(type_t type, const signal *input) const;
+    virtual void refresh();
+
+private:
+    virtual void raise_input(signal *input);
 };
 
 class signaller {

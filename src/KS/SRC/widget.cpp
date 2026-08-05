@@ -114,11 +114,19 @@ float menu_widget::get_width() { return 100.0f; }
 float menu_widget::get_height() { return 100.0f; }
 
 // 0x0033EAD8 get_first_child__6widget
-class widget;
-struct widget_node { widget_node *next; widget_node *previous; widget *value; };
-class widget_iterator { widget_node *node; public: widget_iterator(widget_node *value) : node(value) {} };
-class widget { char padding[0x10]; widget_node *children; public: widget *get_first_child(); };
-widget *widget::get_first_child() { widget_node *sentinel = children; widget_node *first = sentinel->next; if (first != sentinel) { volatile widget_iterator iterator(first); return first->value; } return 0; }
+#include "KS/SRC/widget.h"
+
+widget *widget::get_first_child()
+{
+    widget_list_t::node_type *sentinel = children._M_node;
+    widget_list_t::node_type *first =
+        (widget_list_t::node_type *)sentinel->_M_next;
+    if (first != sentinel) {
+        volatile widget_list_t::iterator retained(first);
+        return first->_M_data;
+    }
+    return 0;
+}
 
 // 0x0033EDE8 rotate_to__6widgetf
 #include "KS/SRC/widget.h"

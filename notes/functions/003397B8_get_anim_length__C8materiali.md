@@ -11,14 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal layout places 0x30-byte animated textures at offset 0x28 and forwards the selected map.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | matched | 100.0 | 100.0 | `size40-utilities.cpp` |
 
 ## Outcome
 
-The released `material::get_anim_length` implementation matched exactly.
+The shared released material and animated-texture layouts naturally emit the
+selected map call.

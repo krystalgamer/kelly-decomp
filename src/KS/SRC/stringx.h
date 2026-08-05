@@ -26,6 +26,7 @@ struct string_buf {
         }
         return text[index] == 0 ? 0 : 1;
     }
+    void clear();
 };
 
 class stringx {
@@ -45,12 +46,14 @@ public:
     ~stringx();
     stringx &operator=(const stringx &);
     stringx &operator=(const char *);
+    stringx &operator+=(const stringx &other);
     inline const char *c_str() const { return chars; }
     inline char *data() const { return chars; }
     int length() const;
     int find(const char *text) const;
     void lock();
     void fork_data(int new_length = -1);
+    void append(const stringx &other);
     inline int size() const { return my_buf->char_length; }
     inline bool operator==(const char *text) const {
         return my_buf->compare(text) == 0;

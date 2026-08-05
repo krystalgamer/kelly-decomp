@@ -11,11 +11,12 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size40-utilities.cpp` |
 
 ### Attempt 1 notes
 
-The released override refreshes the base signal and clears its per-frame gate flags at offset 0x1e.
+The shared released signal hierarchy naturally refreshes the base and clears
+the per-frame gate flags.
 
 ## Outcome
 
