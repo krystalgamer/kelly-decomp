@@ -27,17 +27,17 @@ void WATER_Normal(
 // 0x00372870 WATER_GetDrawFar__Fv
 #include "KS/SRC/ks/water.h"
 
-bool WATER_GetDrawFar() { return (WaterDebug >> 6) & 1; }
+bool WATER_GetDrawFar() { return (*(int *)&WaterDebug >> 6) & 1; }
 
 // 0x003728B0 WATER_GetDrawHorizon__Fv
 #include "KS/SRC/ks/water.h"
 
-bool WATER_GetDrawHorizon() { return (WaterDebug >> 9) & 1; }
+bool WATER_GetDrawHorizon() { return (*(int *)&WaterDebug >> 9) & 1; }
 
 // 0x00372900 WATER_GetDrawSeam__Fv
 #include "KS/SRC/ks/water.h"
 
-bool WATER_GetDrawSeam() { return (WaterDebug >> 3) & 1; }
+bool WATER_GetDrawSeam() { return (*(int *)&WaterDebug >> 3) & 1; }
 
 #if defined(KELLY_DECOMP_FUNCTION_00372940)
 // 0x00372940 WATER_GetDrawWave__Fv
@@ -48,26 +48,20 @@ __asm__(".equ WAVE_GetDraw__Fv, 0x0037DC20");
 bool WATER_GetDrawWave() { return WAVE_GetDraw(); }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00372888)
 // 0x00372888 WATER_SetDrawFar__Fb
-extern unsigned long long WaterDebugFlags;
-__asm__(".equ WaterDebugFlags, 0x00484618");
-void WATER_SetDrawFar(bool enabled) { WaterDebugFlags = (WaterDebugFlags & ~(1ULL << 6)) | ((unsigned long long)(enabled & 1) << 6); }
-#endif
+#include "KS/SRC/ks/water.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_003728C8)
+void WATER_SetDrawFar(bool enabled) { WaterDebug.DrawFarMesh = enabled; }
+
 // 0x003728C8 WATER_SetDrawHorizon__Fb
-extern unsigned long long WaterDebugFlags;
-__asm__(".equ WaterDebugFlags, 0x00484618");
-void WATER_SetDrawHorizon(bool enabled) { WaterDebugFlags = (WaterDebugFlags & ~(1ULL << 9)) | ((unsigned long long)(enabled & 1) << 9); }
-#endif
+#include "KS/SRC/ks/water.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_00372918)
+void WATER_SetDrawHorizon(bool enabled) { WaterDebug.DrawHorizonMesh = enabled; }
+
 // 0x00372918 WATER_SetDrawSeam__Fb
-extern unsigned long long WaterDebugFlags;
-__asm__(".equ WaterDebugFlags, 0x00484618");
-void WATER_SetDrawSeam(bool enabled) { WaterDebugFlags = (WaterDebugFlags & ~(1ULL << 3)) | ((unsigned long long)(enabled & 1) << 3); }
-#endif
+#include "KS/SRC/ks/water.h"
+
+void WATER_SetDrawSeam(bool enabled) { WaterDebug.DrawSeamMesh = enabled; }
 
 #if defined(KELLY_DECOMP_FUNCTION_0036E888)
 // 0x0036E888 WATER_Cleanup__Fv

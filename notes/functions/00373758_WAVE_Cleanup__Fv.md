@@ -5,25 +5,18 @@
 - Object: `game/files_wave`
 - Debug source: `C:/KS/SRC/ks/wave.cpp`
 - Reference source: `KS/SRC/ks/wave.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 97.2222 | 88.8889 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The first candidate used the effective mesh-id address without the `%hi` carry required by its negative low half.
-
-### Attempt 2 notes
-
-The released cleanup forwards the global wave mesh id to the texture mesh free helper.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 22.2222 | 22.2222 | `size36-wave-cleanup-1.cpp` |
+| 2 | different | 22.2222 | 22.2222 | `size36-wave-cleanup-2.cpp` |
+| 3 | different | 22.2222 | 22.2222 | `size36-wave-cleanup-3.cpp` |
 
 ## Outcome
 
-The released `WAVE_Cleanup` wrapper matched exactly.
+All three ordinary native forms emit 12 bytes instead of the target
+36-byte retained call frame. The matching-only body was removed and the
+original target function was deferred.

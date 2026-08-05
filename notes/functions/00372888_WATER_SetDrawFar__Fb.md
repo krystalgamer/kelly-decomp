@@ -11,11 +11,11 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size36-water-debug.cpp` |
 
 ### Attempt 1 notes
 
-The released setter updates bit six of the first 64-bit WaterDebug word.
+The shared released `WaterDebugStruct` bitfield updates bit six of its 64-bit storage unit.
 
 ## Outcome
 

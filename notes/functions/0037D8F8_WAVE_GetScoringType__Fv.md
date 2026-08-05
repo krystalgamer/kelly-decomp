@@ -20,7 +20,7 @@ The first candidate exposed a negative-low absolute-address or cleanup-call sche
 
 ### Attempt 2 notes
 
-The reconstructed schedule entry is 20 bytes with scoring type at offset zero.
+The shared released schedule entry is 20 bytes with scoring type at offset zero.
 
 ## Outcome
 

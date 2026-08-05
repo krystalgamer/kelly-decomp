@@ -56,6 +56,14 @@ struct WaveMarker {
     char data[32];
 };
 
+struct WaveScheduleStruct {
+    char id;
+    float duration;
+    unsigned int type;
+    unsigned int wave_data_type;
+    unsigned int break_type;
+};
+
 struct WaveDebugStruct {
     int AnimateBottom;
     int AnimateFoam;
@@ -142,7 +150,8 @@ extern float WAVE_ScheduleTimeStart;
 extern float WAVE_ScheduleTimeEnd;
 extern float WaveHeightFudgeFactorArray[];
 extern WaveMarker WAVE_Markers[];
-extern int WAVE_ScheduleIndex;
+extern unsigned int WAVE_ScheduleIndex;
+extern WaveScheduleStruct WAVE_ScheduleArray[];
 extern float WAVE_TexAnimFrame;
 extern float WAVE_TexAnimSpeed;
 extern WaveDebugStruct WaveDebug;
@@ -164,6 +173,8 @@ void WAVE_SoundUpdate();
 void UNDERWATER_ScrollBottom();
 void WAVE_ComputeFoamAlphas();
 void WAVE_GetBreakInfo(WaveBreakInfoStruct *info);
+int WAVE_GetIndex();
+char WAVE_GetScoringType();
 
 template <int count>
 struct SplineCoeffs {

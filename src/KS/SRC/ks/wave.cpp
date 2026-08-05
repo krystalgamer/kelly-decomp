@@ -94,41 +94,21 @@ float WAVE_GetHeightFudgeFactor(int index) { return WaveHeightFudgeFactorArray[i
 enum WaveRegionEnum { WAVE_REGIONCEILING = 1, WAVE_REGIONTUBE = 9 };
 static bool WAVE_RegionIsFoamy(WaveRegionEnum region) { if (region != WAVE_REGIONTUBE) return region == WAVE_REGIONCEILING; return true; }
 
-// 0x00373758 WAVE_Cleanup__Fv
-extern unsigned int WAVE_MeshID;
-void WAVETEX_FreeWaveMesh(unsigned int id);
-__asm__(".equ WAVE_MeshID, 0x0058EA60");
-__asm__(".equ WAVETEX_FreeWaveMesh__FUi, 0x00380EA0");
-void WAVE_Cleanup() { WAVETEX_FreeWaveMesh(WAVE_MeshID); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x00373780 __tcf_0
-extern "C" void StringDtor(void *self, int deleting) __asm__("_$_7stringx");
-__asm__(".equ _$_7stringx, 0x0034D6E0");
-extern "C" void WaveCleanupThunk() __asm__("__tcf_0_00373780");
-void WaveCleanupThunk() { register char *object __asm__("$4") = (char *)0x00580000; register int deleting __asm__("$5") = 2; __asm__ volatile("" : "+r"(object), "+r"(deleting)); object -= 0x5108; StringDtor(object, deleting); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x00374480 WAVE_Unload__Fv
-void WAVETEX_UnloadTextureAnims();
-void WATER_Cleanup();
-__asm__(".equ WAVETEX_UnloadTextureAnims__Fv, 0x0037F128");
-__asm__(".equ WATER_Cleanup__Fv, 0x0036E888");
-void WAVE_Unload() { WAVETEX_UnloadTextureAnims(); WATER_Cleanup(); KELLY_DECOMP_COMPILER_BARRIER(); }
+#include "KS/SRC/ks/water.h"
+#include "KS/SRC/ks/wavetex.h"
+
+void WAVE_Unload() { WAVETEX_UnloadTextureAnims(); void (*cleanup)() = WATER_Cleanup; cleanup(); }
 
 // 0x0037D890 WAVE_GetIndex__Fv
-struct WaveScheduleEntry { char scoring_type; char padding0[11]; int wave_index; char padding1[4]; };
-extern int WAVE_ScheduleIndex;
-extern WaveScheduleEntry WAVE_ScheduleArray[];
-__asm__(".equ WAVE_ScheduleIndex, 0x004846D4");
-__asm__(".equ WAVE_ScheduleArray, 0x0058EA68");
-int WAVE_GetIndex() { return WAVE_ScheduleArray[WAVE_ScheduleIndex].wave_index; }
+#include "KS/SRC/ks/wave.h"
+
+int WAVE_GetIndex() { return WAVE_ScheduleArray[WAVE_ScheduleIndex].wave_data_type; }
 
 // 0x0037D8F8 WAVE_GetScoringType__Fv
-struct WaveScheduleEntry { char scoring_type; char padding[19]; };
-extern int WAVE_ScheduleIndex;
-extern WaveScheduleEntry WAVE_ScheduleArray[];
-__asm__(".equ WAVE_ScheduleIndex, 0x004846D4");
-__asm__(".equ WAVE_ScheduleArray, 0x0058EA68");
-char WAVE_GetScoringType() { return WAVE_ScheduleArray[WAVE_ScheduleIndex].scoring_type; }
+#include "KS/SRC/ks/wave.h"
+
+char WAVE_GetScoringType() { return WAVE_ScheduleArray[WAVE_ScheduleIndex].id; }
 
 // 0x00383DB0 __tf15WaveScratchBase
 extern "C" void __rtti_user(void **type, const char *name);

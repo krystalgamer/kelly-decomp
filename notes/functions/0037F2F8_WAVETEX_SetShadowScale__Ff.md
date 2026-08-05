@@ -11,11 +11,11 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size36-wave-shadow.cpp` |
 
 ### Attempt 1 notes
 
-The released setter converts the supplied scale by the fixed 15-by-0.5 factor and stores the global result.
+The exact released expression folds `shadowtexw` to 128 and stores the scaled result in `WAVETEX_camerahowfar`.
 
 ## Outcome
 

@@ -1,12 +1,9 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_0037F2F8)
 // 0x0037F2F8 WAVETEX_SetShadowScale__Ff
-extern float WAVETEX_ShadowScale;
-__asm__(".equ WAVETEX_ShadowScale, 0x00484ED4");
-void WAVETEX_SetShadowScale(float scale) { WAVETEX_ShadowScale = scale * 15.0f * 0.5f; }
-#endif
+extern float WAVETEX_camerahowfar;
+void WAVETEX_SetShadowScale(float scale) { const int shadowtexw = 128; WAVETEX_camerahowfar = 15.0f * scale / ((float)shadowtexw / 64.0f); }
 
 #if defined(KELLY_DECOMP_FUNCTION_0037F100)
 // 0x0037F100 WAVETEX_CheckClearShadows__Fv
