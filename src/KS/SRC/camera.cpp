@@ -98,48 +98,12 @@ void marky_camera::camera_set_collide_with_world(bool value) {
     do_collide_with_world = value;
 }
 
-// 0x002FED78 _$_11game_camera
-extern "C" void BaseDtor(void *self, int deleting) __asm__("_$_6camera");
-extern const char base_vtable[];
-__asm__(".equ _$_6camera, 0x002C38A8");
-__asm__(".equ base_vtable, 0x004F3AD0");
-struct game_camera_destruction_layout {
-    char padding[0x8];
-    const void *vtable;
-};
-extern "C" void GameCameraDtor(void *self, int deleting)
-    __asm__("_$_11game_camera");
-void GameCameraDtor(void *self, int deleting) {
-    ((game_camera_destruction_layout *)self)->vtable = base_vtable;
-    BaseDtor(self, deleting);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x002FEDA8 GetStartPosition__11game_camera
 #include "KS/SRC/camera.h"
 extern const vector3d ZEROVEC;
 __asm__(".equ ZEROVEC, 0x005887F0");
 vector3d game_camera::GetStartPosition() {
     return ZEROVEC;
-}
-
-// 0x002FEE90 _$_12marky_camera
-extern "C" void MarkyBaseDtor(void *self, int deleting)
-    __asm__("_$_6camera");
-extern const char marky_base_vtable[];
-__asm__(".equ _$_6camera, 0x002C38A8");
-__asm__(".equ marky_base_vtable, 0x004F3AD0");
-struct marky_camera_destruction_layout {
-    char padding[0x8];
-    const void *vtable;
-};
-extern "C" void MarkyCameraDtor(void *self, int deleting)
-    __asm__("_$_12marky_camera");
-void MarkyCameraDtor(void *self, int deleting) {
-    ((marky_camera_destruction_layout *)self)->vtable =
-        marky_base_vtable;
-    MarkyBaseDtor(self, deleting);
-    KELLY_DECOMP_COMPILER_BARRIER();
 }
 
 // 0x002FEC90 __tf6camera
