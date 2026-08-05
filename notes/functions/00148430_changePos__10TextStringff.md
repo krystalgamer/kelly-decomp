@@ -11,13 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 15.0 | 10.0 | `size40-frontend-core.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size40-frontend-variants-2.cpp` |
+| 3 | different | 15.0 | 10.0 | `size40-frontend-variants-3.cpp` |
 
 ### Attempt 1 notes
 
-The released method stores both coordinates and forwards their references to the shared adjuster.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released stores are retained; routing the final adjuster through an ordinary local function pointer preserves the target call frame without a barrier.
 
 ## Outcome
 

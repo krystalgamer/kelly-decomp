@@ -31,6 +31,7 @@ public:
     public:
         Icon();
         ~Icon();
+        void Draw();
         void SetShow(bool visible = true);
     };
 };

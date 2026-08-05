@@ -205,34 +205,26 @@ __asm__(".equ adjustCoords__H1Zf_RX01T0_v, 0x001D6B60");
 void TextString::changeY(float position) { float other; y = position; adjustCoords(other, y); }
 
 // 0x00148430 changePos__10TextStringff
-extern "C" void AdjustCoords(float &x, float &y) __asm__("adjustCoords__H1Zf_RX01T0_v");
+#include "KS/SRC/ks/FEPanel.h"
+
+void AdjustCoords(float &x, float &y) __asm__("adjustCoords__H1Zf_RX01T0_v");
 __asm__(".equ adjustCoords__H1Zf_RX01T0_v, 0x001D6B60");
-class TextString { char padding[0xc]; float x; float y; public: void changePos(float px, float py); };
-void TextString::changePos(float px, float py) { x = px; y = py; AdjustCoords(x, y); KELLY_DECOMP_COMPILER_BARRIER(); }
+void TextString::changePos(float px, float py) { x = px; y = py; void (*adjust)(float &, float &) = AdjustCoords; adjust(x, y); }
 
 // 0x0014A788 SetLocation3D__7BoxTextG8vector3d
-struct vector3d { float x; float y; float z; };
-class BoxText { public: char padding[0x90]; float location_3d[4]; };
-extern "C" void SetLocationAlias(BoxText *self, const vector3d *location) __asm__("SetLocation3D__7BoxTextG8vector3d");
-void SetLocationAlias(BoxText *self, const vector3d *location) { self->location_3d[0] = location->x; self->location_3d[1] = location->y; self->location_3d[2] = location->z; self->location_3d[3] = 1.0f; }
+#include "KS/SRC/ks/FEPanel.h"
 
-// 0x0014C918 getPercentage__13PreformatText
-class PreformatText { char padding[0x54]; int start_line; int num_vis_lines; char padding2[4]; int actual_lines; public: float getPercentage(); };
-float PreformatText::getPercentage() { register int actual __asm__("$2") = actual_lines; __asm__ volatile("" : "+r"(actual)); register float numerator __asm__("$f1") = (float)start_line; __asm__ volatile("" : "+f"(numerator)); int total_lines = actual - num_vis_lines; register float denominator __asm__("$f0"); __asm__ volatile("mtc1 %1,$f0
-	nop
-	cvt.s.w $f0,$f0" : "=f"(denominator) : "r"(total_lines)); return numerator / denominator; }
+void BoxText::SetLocation3D(vector3d location) { location_3d[0] = location.x; location_3d[1] = location.y; location_3d[2] = location.z; location_3d[3] = 1.0f; }
 
 // 0x0014CA20 SetLocation3D__12FloatingTextG8vector3d
-struct vector3d { float x; float y; float z; };
-class FloatingText { public: char padding[0xb0]; float location_3d[4]; };
-extern "C" void SetLocationAlias(FloatingText *self, const vector3d *location) __asm__("SetLocation3D__12FloatingTextG8vector3d");
-void SetLocationAlias(FloatingText *self, const vector3d *location) { self->location_3d[0] = location->x; self->location_3d[1] = location->y; self->location_3d[2] = location->z; self->location_3d[3] = 1.0f; }
+#include "KS/SRC/ks/FEPanel.h"
+
+void FloatingText::SetLocation3D(vector3d location) { location_3d[0] = location.x; location_3d[1] = location.y; location_3d[2] = location.z; location_3d[3] = 1.0f; }
 
 // 0x0014F730 SetLocation3D__10FloatingPQG8vector3d
-struct vector3d { float x; float y; float z; };
-class FloatingPQ { public: char padding[0x1a0]; float location_3d[4]; };
-extern "C" void SetLocationAlias(FloatingPQ *self, const vector3d *location) __asm__("SetLocation3D__10FloatingPQG8vector3d");
-void SetLocationAlias(FloatingPQ *self, const vector3d *location) { self->location_3d[0] = location->x; self->location_3d[1] = location->y; self->location_3d[2] = location->z; self->location_3d[3] = 1.0f; }
+#include "KS/SRC/ks/FEPanel.h"
+
+void FloatingPQ::SetLocation3D(vector3d location) { location_3d[0] = location.x; location_3d[1] = location.y; location_3d[2] = location.z; location_3d[3] = 1.0f; }
 
 // 0x001512C8 Update__10PanelBatchf
 struct panel_material_vtable { char padding[0x38]; short adjustment; short padding2; void (*update)(void *self, float dt); };

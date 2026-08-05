@@ -20,7 +20,7 @@ The first candidate exposed a by-value aggregate-copy or FPU hazard scheduling m
 
 ### Attempt 2 notes
 
-A minimal layout places the four-component location at offset 0xb0 and preserves the homogeneous W value.
+The shared `FloatingText` layout places the four-component location at offset 0xb0 and preserves the homogeneous W value.
 
 ## Outcome
 

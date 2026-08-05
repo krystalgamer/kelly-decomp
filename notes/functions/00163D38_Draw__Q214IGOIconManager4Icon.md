@@ -11,8 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 92.5 | 80.0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 20.0 | 10.0 | `size40-frontend-core.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size40-frontend-variants-2.cpp` |
+| 3 | different | 20.0 | 10.0 | `size40-frontend-variants-3.cpp` |
 
 ### Attempt 1 notes
 
@@ -20,9 +21,7 @@ Placing the compiler barrier after the conditional merged both returns; the targ
 
 ### Attempt 2 notes
 
-The released icon stores its quad at object offset zero and submits it only when the show flag at 0x78 is set.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The shared icon layout submits its quad only when `show` is set; an ordinary local function pointer preserves the two released return paths.
 
 ## Outcome
 

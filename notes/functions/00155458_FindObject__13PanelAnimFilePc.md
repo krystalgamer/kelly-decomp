@@ -11,13 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `find_object_candidate.cpp` |
+| 1 | different | 62.5 | 50.0 | `size40-frontend-core.cpp` |
+| 2 | different | 62.5 | 50.0 | `size40-frontend-variants-2.cpp` |
+| 3 | matched | 100.0 | 100.0 | `size40-frontend-variants-3.cpp` |
 
 ### Attempt 1 notes
 
-The released lookup returns null without a root animation and otherwise delegates to `PanelAnim::FindObject`.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The shared animation declarations use a local result initialized to null, reproducing the released single return path without a barrier.
 
 ## Outcome
 

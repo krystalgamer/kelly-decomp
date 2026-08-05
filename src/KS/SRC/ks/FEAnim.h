@@ -34,6 +34,7 @@ public:
 
     virtual ~PanelAnim();
     virtual PanelAnimKind Kind() const = 0;
+    PanelAnim *FindObject(char *name);
 };
 
 class PanelAnimInstance : public PanelAnim {
@@ -41,6 +42,15 @@ public:
     stringx filename;
 
     virtual PanelAnimKind Kind() const;
+};
+
+class PanelAnimFile {
+public:
+    PanelAnim *obs;
+    float totalseconds;
+
+    virtual ~PanelAnimFile();
+    PanelAnim *FindObject(char *name);
 };
 
 #endif

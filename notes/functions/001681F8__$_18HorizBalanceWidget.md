@@ -5,20 +5,18 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/igo_widget_balance.cpp`
 - Reference source: `KS/SRC/ks/igo_widget_balance.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A symbol-preserving destructor restores the derived vtable at offset four before delegating to `IGOWidget`.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 5.0 | 0.0 | `size40-widget-dtors.cpp` |
+| 2 | different | 5.0 | 0.0 | `size40-widget-dtors-2.cpp` |
+| 3 | different | 5.0 | 0.0 | `size40-widget-dtors-3.cpp` |
 
 ## Outcome
 
-The `HorizBalanceWidget` destructor matched exactly.
+Across three native forms, the compiler-generated derived destructor becomes a vptr-setting tail call. The closest candidate is 20 bytes
+rather than the target 40 bytes, so the matching-only implementation was
+removed and the target function was deferred.

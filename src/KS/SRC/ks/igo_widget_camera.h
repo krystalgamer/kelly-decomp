@@ -18,6 +18,8 @@ private:
     void FadeReticle();
 
 public:
+    CameraWidget();
+    ~CameraWidget();
     void Show(float time);
     void Hide();
     void Reset();

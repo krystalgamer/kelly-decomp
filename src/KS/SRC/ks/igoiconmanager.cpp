@@ -19,11 +19,11 @@ void IGOIconManager::Icon::SetShow(bool visible) {
 }
 
 // 0x00163D38 Draw__Q214IGOIconManager4Icon
-struct nglQuad;
+#include "KS/SRC/ks/igoiconmanager.h"
+
 void nglListAddQuad(nglQuad *quad);
 __asm__(".equ nglListAddQuad__FP7nglQuad, 0x003A67F0");
-class IGOIconManager { public: class Icon { nglQuad *quad_address; char padding[0x74]; bool show; public: void Draw(); }; };
-void IGOIconManager::Icon::Draw() { if (show) { nglListAddQuad((nglQuad *)this); KELLY_DECOMP_COMPILER_BARRIER(); } }
+void IGOIconManager::Icon::Draw() { if (show) { void (*add)(nglQuad *) = nglListAddQuad; add(&quad); } }
 
 // 0x00160650 FirstTimeGettingThisMany__14IGOIconManagerib
 class IGOIconManager {

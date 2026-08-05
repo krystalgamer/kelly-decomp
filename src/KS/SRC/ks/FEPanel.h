@@ -152,11 +152,23 @@ class FloatingText : public MultiLineString {
     bool non_floating_behavior;
 
 public:
+    virtual void SetLocation3D(vector3d location);
     virtual void UpdateInScene(bool ignore_scale = false);
     virtual void changeScale(float scale);
     virtual vector3d GetLocation3D();
     virtual void SetBehaviorNF(float x, float y);
     virtual void SetBehavior(bool non_floating);
+};
+
+class PreformatText : public TextString {
+    stringx *file_head;
+    int start_line;
+    int num_vis_lines;
+    int max_lines;
+    int actual_lines;
+
+public:
+    float getPercentage();
 };
 
 class StringList {
@@ -223,6 +235,7 @@ protected:
     int first_vis;
 
 public:
+    virtual void SetLocation3D(vector3d location);
     virtual void SetBehavior(bool non_floating);
     BoxText(
         Font *font,
@@ -587,6 +600,7 @@ class FloatingPQ : public PanelQuad {
     float y2_const;
 
 public:
+    virtual void SetLocation3D(vector3d location);
     virtual void SetWidth(float width);
     virtual void SetHeight(float height);
     void SetPos(float x1, float y1, float x2, float y2);
