@@ -10,37 +10,75 @@ void *mem_malloc(unsigned int size, const char *file, int line, int flags);
 __asm__(".equ mem_malloc__FUiPCcii, 0x002AC788");
 void *operator new(unsigned int size, unsigned int alignment, const char *file, int line) { return mem_malloc(size, file, line, 0); }
 
-#if defined(KELLY_DECOMP_FUNCTION_002AC618)
 // 0x002AC618 __builtin_new
-void *mem_malloc(unsigned int size, const char *description, int line, int flags);
-__asm__(".equ mem_malloc__FUiPCcii, 0x002AC788");
-void *operator new(unsigned int size) { const char *description = (const char *)0x004F0000; __asm__ volatile("" : "+r"(description)); description -= 0x6b68; void *result = mem_malloc(size, description, 0, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
+#include "KS/SRC/archalloc.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_002AC6F0)
+extern const char operator_new_description[];
+__asm__(".equ mem_malloc__FUiPCcii, 0x002AC788");
+__asm__(".equ operator_new_description, 0x004F9498");
+
+void *operator new(unsigned int size)
+{
+    void *allocation = mem_malloc(
+        size,
+        operator_new_description,
+        0);
+    return allocation;
+}
+
 // 0x002AC6F0 arch_malloc__FUiPCci
-void *mem_malloc(unsigned int size, const char *description, int line, int flags);
+#include "KS/SRC/archalloc.h"
+
 extern const char arch_malloc_description[];
 __asm__(".equ mem_malloc__FUiPCcii, 0x002AC788");
 __asm__(".equ arch_malloc_description, 0x004F94B8");
-void *arch_malloc(unsigned int size, const char *description, int line) { void *result = mem_malloc(size, description ? description : arch_malloc_description, line, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002AC718)
+void *arch_malloc(
+    unsigned int size,
+    const char *description,
+    int line)
+{
+    return mem_malloc(
+        size,
+        description ? description : arch_malloc_description,
+        line);
+}
+
 // 0x002AC718 arch_mallochigh__FUi
-void *mem_malloc(unsigned int size, const char *description, int line, int flags);
-__asm__(".equ mem_malloc__FUiPCcii, 0x002AC788");
-void *arch_mallochigh(unsigned int size) { const char *description = (const char *)0x004F0000; __asm__ volatile("" : "+r"(description)); description -= 0x6b48; void *result = mem_malloc(size, description, 0, 1); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
+#include "KS/SRC/archalloc.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_002AC740)
+extern const char arch_malloc_description[];
+__asm__(".equ mem_malloc__FUiPCcii, 0x002AC788");
+__asm__(".equ arch_malloc_description, 0x004F94B8");
+
+void *arch_mallochigh(unsigned int size)
+{
+    return mem_malloc(
+        size,
+        arch_malloc_description,
+        0,
+        mafHigh);
+}
+
 // 0x002AC740 arch_memalign__FUiUiPCci
-void *mem_memalign(unsigned int boundary, unsigned int size, const char *description, int line, int flags);
+#include "KS/SRC/archalloc.h"
+
 extern const char arch_memalign_description[];
 __asm__(".equ mem_memalign__FUiUiPCcii, 0x002AC848");
 __asm__(".equ arch_memalign_description, 0x004F94D8");
-void *arch_memalign(unsigned int boundary, unsigned int size, const char *description, int line) { void *result = mem_memalign(boundary, size, description ? description : arch_memalign_description, line, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
+
+void *arch_memalign(
+    unsigned int boundary,
+    unsigned int size,
+    const char *description,
+    int line)
+{
+    return mem_memalign(
+        boundary,
+        size,
+        description ? description : arch_memalign_description,
+        line);
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_002AC640)
 // 0x002AC640 __builtin_vec_new

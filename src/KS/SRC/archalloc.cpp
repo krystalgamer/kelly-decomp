@@ -30,14 +30,19 @@ void mem_set_current_heap(int heap) { currentheap = &heaps[heap]; }
 
 void mem_leak_prep() { mem_leak_checkpoint = mem_set_checkpoint(); }
 
-#if defined(KELLY_DECOMP_FUNCTION_002ACCC8)
 // 0x002ACCC8 mem_push_current_heap__Fi
+#include "KS/SRC/archalloc.h"
+
 extern int heapstackptr;
-void mem_set_current_heap(int heap);
 __asm__(".equ heapstackptr, 0x00432300");
 __asm__(".equ mem_set_current_heap__Fi, 0x002ACCA0");
-void mem_push_current_heap(int heap) { ++heapstackptr; mem_set_current_heap(heap); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+
+void mem_push_current_heap(int heap)
+{
+    ++heapstackptr;
+    void (*set_current_heap)(int) = mem_set_current_heap;
+    set_current_heap(heap);
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_002ACCF0)
 // 0x002ACCF0 mem_pop_current_heap__Fv

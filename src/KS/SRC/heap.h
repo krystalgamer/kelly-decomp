@@ -115,6 +115,7 @@ public:
     bool IsThisYours(Pointer pointer) const;
     void CheckConsistency() const;
     void CheckStackCollision() const;
+    MemSize GetCurrentMemMarker() { return lastalloc; }
 
 protected:
     inline MemBlockInfo *PtrToBlock(Pointer pointer) const {

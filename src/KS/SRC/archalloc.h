@@ -1,6 +1,9 @@
 #ifndef ARCHALLOC_H
 #define ARCHALLOC_H
 
+#include "KS/SRC/heap.h"
+
+void *operator new(unsigned int size);
 void *operator new(
     unsigned int size,
     unsigned int alignment,
@@ -10,6 +13,25 @@ void *arch_malloc(
     unsigned int size,
     const char *description,
     int line = 0);
+void *arch_mallochigh(unsigned int size);
+void *arch_memalign(
+    unsigned int boundary,
+    unsigned int size,
+    const char *description = 0,
+    int line = 0);
+void *mem_malloc(
+    unsigned int size,
+    const char *description,
+    int line,
+    int flags = mafNone);
+void *mem_memalign(
+    unsigned int boundary,
+    unsigned int size,
+    const char *description,
+    int line,
+    int flags = mafNone);
+void mem_set_current_heap(int heap);
+void mem_push_current_heap(int heap);
 
 #ifndef PLACEMENT_NEW_DEFINED
 #define PLACEMENT_NEW_DEFINED
@@ -31,45 +53,6 @@ enum KSHeapIDs {
     SURFER_HEAP,
     SURFER_HEAP2,
     NUMBER_OF_HEAPS
-};
-
-class Heap {
-    void *fullhead;
-    void *fulltail;
-    void *usedhead;
-    void *usedtail;
-    void *freehead;
-    void *freetail;
-    unsigned int heapsize;
-    void *heapstart;
-    unsigned int allocatedblocks;
-    unsigned int minalloc;
-    unsigned int minalign;
-    unsigned int lastalloc;
-    unsigned int heapid;
-    void *loblock;
-    void *hiblock;
-    bool locked;
-    bool statsuptodate;
-    unsigned int numblocks;
-    unsigned int numfree;
-    unsigned int numused;
-    unsigned int memblocks;
-    unsigned int memfree;
-    unsigned int memused;
-    unsigned int ovrblocks;
-    unsigned int ovrfree;
-    unsigned int ovrused;
-    unsigned int largestfree;
-
-public:
-    void *Allocate(
-        unsigned int size,
-        unsigned int alignment,
-        unsigned int flags,
-        const char *description,
-        int line);
-    unsigned int GetCurrentMemMarker() { return lastalloc; }
 };
 
 extern int AllocMemorySema;
