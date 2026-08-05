@@ -18,6 +18,7 @@ private:
 
 public:
     void Initialize(int player_index);
+    void Reset();
     void SetUpSpecialTimer();
     float GetFillage() const { return fillage; }
     bool CanRegionLink() const;

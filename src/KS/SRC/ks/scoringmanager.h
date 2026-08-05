@@ -9,7 +9,7 @@ class kellyslater_controller;
 class ScoringManager : public EventRecipient {
 public:
     enum {
-        TRICK_NUM = 95
+        TRICK_NUM = 96
     };
 
     struct CHAININFO {
@@ -70,15 +70,29 @@ public:
     };
 
 private:
-    int score;
     kellyslater_controller *ksctrl;
     int playerIdx;
     void *specialMeter;
     LevelTrick levelTricks[TRICK_NUM];
-    char data_to_mouth_dist[0x44];
+    Chain bestChain;
+    int bestChainScore;
+    float longestTubeRide;
+    float longestFloater;
+    float longestAir;
+    Chain chain;
+    int facePoints;
+    int airPoints;
+    int tubePoints;
+    int num360spins;
+    int num540spins;
+    int prevTrickRegion;
+    float lipDist;
     float mouthDist;
+    int specialTrick;
+    CHAININFO lastChainInfo;
 
 public:
+    bool HasGap(int gap) const;
     void SetKsctrl(kellyslater_controller *controller);
     int GetNumTrickLandings() const;
     void SetMouthDist(float distance);

@@ -164,6 +164,16 @@ public:
         return *begin();
     }
 
+    const T &front() const
+    {
+        return *begin();
+    }
+
+    const T &back() const
+    {
+        return static_cast<node_type *>(_M_node->_M_prev)->_M_data;
+    }
+
     void push_front(const T &value)
     {
         __my_default_alloc_template *pool = &allocator_pool;

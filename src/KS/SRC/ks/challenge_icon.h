@@ -11,6 +11,8 @@ public:
     };
 
     class Icon {
+    public:
+        ~Icon();
     };
 
     class Task {

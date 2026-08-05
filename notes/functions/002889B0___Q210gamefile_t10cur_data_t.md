@@ -15,7 +15,7 @@
 
 ### Attempt 1 notes
 
-The released constructor sets version 1001, clears both hero-name initials, and applies the inlined initialization fields.
+The shared `cur_data_t` declaration sets version 1001, clears both hero-name initials, and inlines the released `init()` fields.
 
 ## Outcome
 

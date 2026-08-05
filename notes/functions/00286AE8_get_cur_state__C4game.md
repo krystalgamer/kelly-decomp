@@ -15,7 +15,7 @@
 
 ### Attempt 1 notes
 
-The reconstructed process-stack front node contains the game process at offset eight; the current state indexes its flow array.
+The canonical `list::front()` and `game_process::get_cur_state()` accessors reproduce the released process-stack lookup.
 
 ## Outcome
 

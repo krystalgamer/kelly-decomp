@@ -21,12 +21,6 @@ float MeterAttackMode::GetRemainingTime(int index) const { return players[index]
 
 bool MeterAttackMode::IsAttacking(int index) const { return players[index].attacking; }
 
-// 0x00286518 _$_15MeterAttackMode
-extern "C" void builtin_delete(void *pointer) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-extern "C" void MeterAttackModeDtor(void *self, int deleting) __asm__("_$_15MeterAttackMode");
-void MeterAttackModeDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x002866A8 BeginAttacking__15MeterAttackModei
 struct attack_controller { char padding[0x10fc]; int state; };
 struct attack_player { attack_controller *controller; char padding[8]; int state; int attacking; char padding2[4]; };

@@ -29,14 +29,6 @@ void Track::Pause()
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002585C0)
-// 0x002585C0 _$_5Track
-extern "C" void builtin_delete(void *pointer) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-extern "C" void TrackDtor(void *self, int deleting) __asm__("_$_5Track");
-void TrackDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00259628)
 // 0x00259628 shutdown__8MusicMan
 class MusicListing { public: void shutdown(); };

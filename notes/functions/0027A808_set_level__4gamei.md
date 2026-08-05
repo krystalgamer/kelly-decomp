@@ -20,7 +20,7 @@ The first candidate used the effective career-data address without the `%hi` car
 
 ### Attempt 2 notes
 
-The reconstructed career-data stride is 0xdc with beach at offset zero; game level/beach fields are at 0x224/0x228.
+The shared `game` and `CareerData` declarations preserve the 0xdc career-data stride and level/beach fields at 0x224/0x228.
 
 ## Outcome
 

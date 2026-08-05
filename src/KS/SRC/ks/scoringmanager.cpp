@@ -59,23 +59,17 @@ void ScoringManager::SetKsctrl(kellyslater_controller* value) { ksctrl = value; 
 float ScoringManager::Chain::GetSickness() const { return GetRawSickness(); }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00247F98)
 // 0x00247F98 HasGap__C14ScoringManageri
-class Series { public: bool HasGap(int gap) const; };
-__asm__(".equ HasGap__C6Seriesi, 0x00249AE0");
-struct SeriesContainer { char padding[4]; char *finish; };
-class ScoringManager { char padding[0x1b4]; SeriesContainer *series; public: bool HasGap(int gap) const; };
-bool ScoringManager::HasGap(int gap) const { bool result = ((Series *)(series->finish + 8))->HasGap(gap); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
+#include "KS/SRC/ks/scoringmanager.h"
 
-#if defined(KELLY_DECOMP_FUNCTION_0024A538)
+bool ScoringManager::HasGap(int gap) const { return chain.series.back().HasGap(gap); }
+
 // 0x0024A538 sceWrite__FiRC7stringx
-struct stringx_info { char padding[8]; int size; };
-class stringx { public: char *data; stringx_info *info; };
+#include "KS/SRC/stringx.h"
+
 extern "C" int sceWrite(int file, const void *data, int size);
 __asm__(".equ sceWrite, 0x003DF228");
-int sceWrite(int file, const stringx &text) { int result = sceWrite(file, text.data, text.info->size); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
+int sceWrite(int file, const stringx &text) { return sceWrite(file, text.c_str(), text.size()); }
 
 #if defined(KELLY_DECOMP_FUNCTION_00249CC8)
 // 0x00249CC8 __Q214ScoringManager5Trick

@@ -27,6 +27,9 @@ public:
 
     void go_next_state();
     void reset_index();
+    inline int get_cur_state() const {
+        return flow[index];
+    }
     inline void set_timer(float value) {
         timer = value;
     }
@@ -158,6 +161,7 @@ public:
     void clear_screen();
     void draw_debug_labels();
     void set_num_ai_players(int count);
+    void set_level(int level);
     void set_beach(int beach);
     void SetBoardIdx(int hero, int index);
     void LoadingStateReset();
@@ -172,6 +176,7 @@ public:
     int get_first_surfer_index();
     void take_snapshot(nglTexture *destination);
     float get_player_share(int player) const;
+    int get_cur_state() const;
     inline int get_num_players() const {
         return num_players;
     }

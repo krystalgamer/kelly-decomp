@@ -5,20 +5,18 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/challenge_icon.cpp`
 - Reference source: `KS/SRC/ks/challenge_icon.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A symbol-preserving trivial deleting destructor applies the low-bit delete guard.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 19.4444 | 0.0 | `size36-empty-destructors.cpp` |
+| 2 | different | 19.4444 | 0.0 | `size36-empty-destructors-2.cpp` |
+| 3 | different | 19.4444 | 0.0 | `size36-empty-destructors-3.cpp` |
 
 ## Outcome
 
-The icon-challenge `Icon` deleting destructor matched exactly.
+All three ordinary empty destructor definitions emit a 28-byte null-guarded
+tail call to `__builtin_delete`. The target retains a 36-byte deleting-flag
+call frame, so the hand-written destructor thunk was removed.

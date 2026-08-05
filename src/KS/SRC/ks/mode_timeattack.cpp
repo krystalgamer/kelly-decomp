@@ -26,14 +26,6 @@ float TimeAttackMode::GetRemainingTime(int index) const { return players[index].
 
 bool TimeAttackMode::IsAttacking(int index) const { return players[index].attacking; }
 
-#if defined(KELLY_DECOMP_FUNCTION_00286050)
-// 0x00286050 _$_14TimeAttackMode
-extern "C" void builtin_delete(void *pointer) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-extern "C" void TimeAttackModeDtor(void *self, int deleting) __asm__("_$_14TimeAttackMode");
-void TimeAttackModeDtor(void *self, int deleting) { if (deleting & 1) builtin_delete(self); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_002861F8)
 // 0x002861F8 BeginAttacking__14TimeAttackModei
 struct attack_controller { char padding[0x10fc]; int state; };

@@ -12,7 +12,7 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 91.6667 | 100.0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size36-scoring-has-gap-96.cpp` |
 
 ### Attempt 1 notes
 
@@ -20,9 +20,7 @@ The first candidate exposed an address-register, inner-symbol, or independent-st
 
 ### Attempt 2 notes
 
-The released accessor reaches the final series object through the container finish pointer and forwards the gap id.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+Restoring the 96-entry trick array places `chain.series` at 0x1b4. The canonical `list::back()` expression emits the released final-series lookup.
 
 ## Outcome
 
