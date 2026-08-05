@@ -517,21 +517,28 @@ void beam_effect_width::reverse() { float temporary = start; start = target; tar
 void beam_effect_alpha::reverse() { unsigned char temporary = start; start = target; target = temporary; delta = -delta; }
 
 // 0x002B7BA0 possibly_active__C4beam
-struct entity_vtable_layout { char padding[0x158]; short adjustment; short padding2; bool (*is_visible)(void *self); };
-class beam { char padding[8]; entity_vtable_layout *vtable; public: bool possibly_active() const; };
-bool beam::possibly_active() const { entity_vtable_layout *table = vtable; return table->is_visible((char *)this + table->adjustment); }
+#include "KS/SRC/beam.h"
+
+bool beam::possibly_active() const
+{
+    return is_visible();
+}
 
 // 0x002B8440 is_delaying__C11beam_effect
-class beam_effect { char padding0[10]; signed char mode; public: bool is_delaying() const; };
-bool beam_effect::is_delaying() const { return mode == 1 || mode == -1; }
+#include "KS/SRC/beam.h"
+
+bool beam_effect::is_delaying() const
+{
+    return mode == EFFECT_DELAY || mode == EFFECT_INVERTED_DELAY;
+}
 
 // 0x002B8468 is_active__C11beam_effect
-class beam_effect { char padding0[10]; signed char mode; public: bool is_active() const; };
-bool beam_effect::is_active() const { return mode == 2 || mode == -2; }
+#include "KS/SRC/beam.h"
 
-// 0x002B8490 is_looping__C11beam_effect
-class beam_effect { char padding0[16]; float loop_delay; public: bool is_looping() const; };
-bool beam_effect::is_looping() const { float delay = loop_delay; float zero = 0.0f; __asm__ volatile("nop"); return zero <= delay; }
+bool beam_effect::is_active() const
+{
+    return mode == EFFECT_ACTIVE || mode == EFFECT_INVERTED_ACTIVE;
+}
 
 // 0x002B7D30 apply_delta_vals__17beam_effect_widthP4beamf
 class beam { public: char padding[0x200]; float thickness; void set_thickness(float value); };

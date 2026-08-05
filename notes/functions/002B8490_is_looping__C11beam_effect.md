@@ -5,28 +5,32 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/beam.h`
 - Reference source: `KS/SRC/beam.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 32.5 | 20.0 | `candidate.cpp` |
-| 2 | different | 72.5 | 60.0 | `candidate.cpp` |
-| 3 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 32.5 | 20.0 | `size40-beam-core.cpp` |
+| 2 | different | 32.5 | 20.0 | `size40-beam-loop-2.cpp` |
+| 3 | different | 32.5 | 20.0 | `size40-beam-loop-3.cpp` |
 
 ### Attempt 1 notes
 
-The faithful float comparison lacked the target EE hazard nop between `mtc1` and `c.le.s`, producing a 36-byte function.
+The exact released comparison produces a 36-byte function without the target
+EE hazard slot between `mtc1` and `c.le.s`.
 
 ### Attempt 2 notes
 
-The explicit hazard nop produced the right length, but declaring zero first reversed the target field-load/zero-materialization order and swapped FPU registers.
+A local delay and zero preserve the same optimized 36-byte comparison.
 
 ### Attempt 3 notes
 
-The released predicate treats every nonnegative loop delay as looping. A documented matching-only `nop` preserves the target EE FPU hazard slot between `mtc1` and the comparison.
+Expressing the predicate as the negation of a negative-delay comparison still
+produces 36 bytes and changes the comparison opcode.
 
 ## Outcome
 
-The released `beam_effect::is_looping` predicate matched exactly.
+Across three ordinary released-source forms, the compiler omits the target
+FPU hazard nop. The instruction-assembly implementation was removed and the
+function was deferred.

@@ -11,12 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal old-GCC vtable layout preserves the virtual `is_visible` adjustment and function slots.
+| 1 | matched | 100.0 | 100.0 | `size40-beam-core.cpp` |
 
 ## Outcome
 
-The released `beam::possibly_active` wrapper matched exactly.
+The shared released hierarchy naturally emits the virtual `is_visible` call.

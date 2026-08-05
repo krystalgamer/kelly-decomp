@@ -43,7 +43,13 @@ public:
         NO_CLIPPING = 0xC8
     };
 
+    beam(
+        const entity_id &id,
+        unsigned int flags = 0,
+        entity_flavor_t flavor = ENTITY_BEAM);
+    virtual ~beam();
     virtual bool is_a_beam() const;
+    virtual bool possibly_active() const;
     void kill_all_effects(bool apply_target_vals = false);
     void purge_effects();
     void release();
@@ -150,6 +156,9 @@ public:
     virtual void set_id(unsigned short value);
     virtual bool is_dead() const;
     virtual bool is_alive() const;
+    virtual bool is_delaying() const;
+    virtual bool is_active() const;
+    virtual bool is_looping() const;
     virtual bool is_inverted() const;
 };
 

@@ -11,12 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The signed byte mode at offset 0x0a identifies normal and inverted active states.
+| 1 | matched | 100.0 | 100.0 | `size40-beam-core.cpp` |
 
 ## Outcome
 
-The released `beam_effect::is_active` predicate matched exactly.
+The shared released `effect_mode` declaration naturally emits the target
+active-state predicate.
