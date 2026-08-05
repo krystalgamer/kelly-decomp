@@ -17,6 +17,8 @@ enum {
     TERFACE_COSMETIC = 0x0400,
 };
 
+class chunk_file;
+
 class face {
 public:
     wedge_ref wedge_refs[3];
@@ -121,6 +123,7 @@ class vr_pmesh : public visual_rep {
     int min_detail;
 
 public:
+    void internal_serial_in(chunk_file &file);
     virtual void render_instance(
         unsigned int flavor,
         instance_render_info *info,
@@ -144,5 +147,7 @@ public:
     unsigned char get_surface_type(face_ref faceid) const;
     bool is_cosmetic(face_ref faceid) const;
 };
+
+void serial_in(chunk_file &file, vr_pmesh *mesh);
 
 #endif

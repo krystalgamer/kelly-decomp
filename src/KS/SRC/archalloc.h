@@ -77,7 +77,10 @@ extern bool malloc_locked;
 extern Heap heaps[NUMBER_OF_HEAPS];
 extern Heap *currentheap;
 extern unsigned long mem_malloc_counter;
+extern int mem_leak_checkpoint;
 
+int mem_set_checkpoint();
+void mem_leak_prep();
 void mem_check_heap_init();
 void mem_summarize_heap(int heap);
 void mem_summarize_all_heaps();

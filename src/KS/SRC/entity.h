@@ -83,8 +83,11 @@ public:
 
 class anim_id_manager {
 public:
+    static anim_id_manager *instance;
+    static inline anim_id_manager *inst() { return instance; }
     anim_id_t anim_id(const char *label);
     anim_id_t anim_id(const stringx &label);
+    void stl_dealloc();
 };
 
 enum entity_extended_flags {

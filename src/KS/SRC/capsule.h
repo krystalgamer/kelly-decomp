@@ -98,6 +98,9 @@ class cg_none : public collision_geometry {
 public:
     virtual void xform(const po &transform);
     virtual unsigned int get_type() const;
+    virtual void get_closest_point_along_dir(
+        vector3d *target,
+        const vector3d &direction) const;
 };
 
 #endif

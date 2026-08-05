@@ -20,7 +20,7 @@ The first candidate combined an uncarried negative-low global address with a 64-
 
 ### Attempt 2 notes
 
-The no-collision implementation ignores direction and copies its target global zero vector.
+The shared `cg_none` and `vector3d` declarations preserve the released zero-vector copy without a local class shell.
 
 ## Outcome
 

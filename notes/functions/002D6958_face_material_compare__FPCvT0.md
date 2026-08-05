@@ -20,7 +20,7 @@ Spelling the equal-material case first produced a normal bne and the opposite fa
 
 ### Attempt 2 notes
 
-A minimal face layout preserves material at offset six and LOD at offset eight; a global bridge preserves split-object linkage.
+The canonical `face` declaration preserves material at offset six and LOD at offset eight; the released comparator remains source-local without a `.globl` bridge.
 
 ## Outcome
 

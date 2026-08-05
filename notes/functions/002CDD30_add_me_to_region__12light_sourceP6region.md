@@ -5,20 +5,18 @@
 - Object: `game/files_misc2`
 - Debug source: `C:/KS/SRC/light.cpp`
 - Reference source: `KS/SRC/light.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The released virtual hook reverses receiver/argument registers and delegates to the light-specific region add.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 11.1111 | 11.1111 | `size36-light-region-1.cpp` |
+| 2 | different | 11.1111 | 11.1111 | `size36-light-region-2.cpp` |
+| 3 | different | 11.1111 | 11.1111 | `size36-light-region-3.cpp` |
 
 ## Outcome
 
-The released light-source add-to-region wrapper matched exactly.
+All three ordinary forms compile as 16-byte sibling calls instead of the
+target 36-byte retained call frame. The barrier-dependent matching body was
+removed and the original target function was deferred.

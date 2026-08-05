@@ -5,12 +5,10 @@
 extern char* StlSmallAllocPtr;
 void* StlSmallAlloc(unsigned int bytes) { char* result = StlSmallAllocPtr; StlSmallAllocPtr += bytes; return result; }
 
-#if defined(KELLY_DECOMP_FUNCTION_002AC578)
 // 0x002AC578 __nw__FUiUiPCci
 void *mem_malloc(unsigned int size, const char *file, int line, int flags);
 __asm__(".equ mem_malloc__FUiPCcii, 0x002AC788");
-void *operator new(unsigned int size, unsigned int alignment, const char *file, int line) { void *result = mem_malloc(size, file, line, 0); KELLY_DECOMP_COMPILER_BARRIER(); return result; }
-#endif
+void *operator new(unsigned int size, unsigned int alignment, const char *file, int line) { return mem_malloc(size, file, line, 0); }
 
 #if defined(KELLY_DECOMP_FUNCTION_002AC618)
 // 0x002AC618 __builtin_new

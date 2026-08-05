@@ -1,14 +1,11 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_002FF430)
 // 0x002FF430 get_closest_point_along_dir__C7cg_noneP8vector3dRC8vector3d
-struct vector3d { float x; float y; float z; vector3d &operator=(const vector3d &other) { x = other.x; y = other.y; z = other.z; return *this; } };
-extern const vector3d global_ZEROVEC;
-__asm__(".equ global_ZEROVEC, 0x005887F0");
-class cg_none { public: void get_closest_point_along_dir(vector3d *target, const vector3d &direction) const; };
-void cg_none::get_closest_point_along_dir(vector3d *target, const vector3d &direction) const { *target = global_ZEROVEC; }
-#endif
+#include "KS/SRC/capsule.h"
+
+extern const vector3d colgeom_zero_vector;
+void cg_none::get_closest_point_along_dir(vector3d *target, const vector3d &direction) const { *target = colgeom_zero_vector; }
 
 #if defined(KELLY_DECOMP_FUNCTION_002FF300)
 // 0x002FF300 get_core_radius__C18collision_geometry

@@ -25,14 +25,10 @@ int mem_get_largest_avail(int heap) { return mem_raw_largest_avail(heap) - 128; 
 void mem_set_current_heap(int heap) { currentheap = &heaps[heap]; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002AC508)
 // 0x002AC508 mem_leak_prep__Fv
-int mem_set_checkpoint();
-extern int mem_leak_checkpoint;
-__asm__(".equ mem_set_checkpoint__Fv, 0x002AC4F8");
-__asm__(".equ mem_leak_checkpoint, 0x004322D8");
-void mem_leak_prep() { int checkpoint = mem_set_checkpoint(); KELLY_DECOMP_COMPILER_BARRIER(); mem_leak_checkpoint = checkpoint; }
-#endif
+#include "KS/SRC/archalloc.h"
+
+void mem_leak_prep() { mem_leak_checkpoint = mem_set_checkpoint(); }
 
 #if defined(KELLY_DECOMP_FUNCTION_002ACCC8)
 // 0x002ACCC8 mem_push_current_heap__Fi

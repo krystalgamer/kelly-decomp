@@ -20,6 +20,7 @@ public:
     vr_billboard();
     virtual ~vr_billboard();
     virtual const vector3d &get_center(float delta_t) const;
+    void flush();
     virtual float get_radius(float delta_t) const;
     virtual float compute_xz_radius_rel_center(const po &transform);
     virtual float get_ending_time() const;

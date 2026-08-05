@@ -11,13 +11,11 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size36-memory.cpp` |
 
 ### Attempt 1 notes
 
-The released placement-like allocation overload ignores alignment and forwards size/file/line with zero flags.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released placement-like overload directly returns `mem_malloc(size, description, line, 0)` and naturally retains the target call frame.
 
 ## Outcome
 

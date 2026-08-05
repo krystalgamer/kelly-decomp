@@ -12,7 +12,7 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 77.7778 | 77.7778 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size36-memory.cpp` |
 
 ### Attempt 1 notes
 
@@ -20,9 +20,7 @@ The direct assignment stored the checkpoint before the target early RA restore.
 
 ### Attempt 2 notes
 
-The released helper stores the new checkpoint id in the target leak-tracking global.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The exact released assignment to the shared leak checkpoint naturally emits the target call and store schedule.
 
 ## Outcome
 

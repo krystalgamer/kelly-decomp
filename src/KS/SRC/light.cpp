@@ -12,20 +12,6 @@ float light_source::terrain_radius() const { return properties->get_cutoff_range
 void light_source::frame_advance(float time) {
 }
 
-// 0x002CDD30 add_me_to_region__12light_sourceP6region
-class light_source;
-class region { public: void add(light_source *value); };
-__asm__(".equ add__6regionP12light_source, 0x002E7C40");
-class light_source { public: void add_me_to_region(region *value); };
-void light_source::add_me_to_region(region *value) { value->add(this); KELLY_DECOMP_COMPILER_BARRIER(); }
-
-// 0x002CDD58 remove_me_from_region__12light_sourceP6region
-class light_source;
-class region { public: void remove(light_source *value); };
-__asm__(".equ remove__6regionP12light_source, 0x002E7D20");
-class light_source { public: void remove_me_from_region(region *value); };
-void light_source::remove_me_from_region(region *value) { value->remove(this); KELLY_DECOMP_COMPILER_BARRIER(); }
-
 // 0x002CD0C8 _$_12light_source
 extern "C" void remove_terrain(void *)
     __asm__("remove_from_terrain__6entity");

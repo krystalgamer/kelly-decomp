@@ -1,15 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_002EEA80)
-// 0x002EEA80 DestroyCameraList__Fv
-class camera_list { public: void DestroyCameraList(); };
-extern camera_list *CameraList;
-__asm__(".equ CameraList, 0x00434960");
-__asm__(".equ DestroyCameraList__11camera_list, 0x002EE2C0");
-void DestroyCameraList() { CameraList->DestroyCameraList(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_002EDD98)
 // 0x002EDD98 ChangePOButton__26ChangeCamMenuEntryFunctioni
 struct MenuSystemVTable { char padding[0x18]; short adjustment; short padding2; void (*close_menu)(void *self); };
