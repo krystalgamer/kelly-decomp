@@ -5,20 +5,18 @@
 - Object: `game/files_kellyslater`
 - Debug source: `ks/ks_camera.h`
 - Reference source: `KS/SRC/ks/ks_camera.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A symbol-preserving destructor restores the base camera vtable before delegating the photo_camera object to `camera`.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | different | 5.0 | 0.0 | `size40-camera-family.cpp` |
+| 2 | different | 5.0 | 0.0 | `size40-camera-family-2.cpp` |
+| 3 | different | 5.0 | 0.0 | `size40-camera-family-3.cpp` |
 
 ## Outcome
 
-The released `photo_camera` destructor matched exactly.
+Across three native definitions, the compiler-generated empty destructor collapses to a 20-byte vptr-setting tail call. The manual-vtable implementation
+was removed and the target function was deferred until the shared base camera
+hierarchy can generate it naturally.

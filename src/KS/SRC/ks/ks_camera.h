@@ -109,6 +109,7 @@ public:
         entity *target,
         kellyslater_controller *controller
     );
+    virtual ~photo_camera();
     virtual void init();
 };
 
@@ -120,6 +121,14 @@ class follow_camera : public game_camera {
 public:
     follow_camera(const entity_id &id, entity *target = 0);
     virtual ~follow_camera();
+    virtual void frame_advance(float time_inc);
+    void init();
+};
+
+class follow_close_camera : public game_camera {
+public:
+    follow_close_camera(const entity_id &id, entity *target = 0);
+    virtual ~follow_close_camera();
     virtual void frame_advance(float time_inc);
     void init();
 };
@@ -163,6 +172,9 @@ public:
         const entity_id &id,
         entity *target,
         kellyslater_controller *controller);
+    virtual ~auto_camera();
+    virtual void init();
+    virtual void OnNewWave();
     void Reset();
     virtual void sync(camera &other);
     virtual void frame_advance(float time_inc);
@@ -177,6 +189,7 @@ public:
         const entity_id &id,
         entity *target,
         kellyslater_controller *controller);
+    virtual ~beach_camera();
 
 private:
     virtual int GetCameraType();
