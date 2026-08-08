@@ -404,7 +404,7 @@ bool entity::test_combat_target(const vector3d &start, const vector3d &end, vect
 #include "KS/SRC/entity.h"
 
 __asm__(".equ remove_from_regions__6entity, 0x0012FE18");
-void entity::remove_from_terrain() { remove_from_regions(); center_region = 0; KELLY_DECOMP_COMPILER_BARRIER(); my_sector = 0; }
+void entity::remove_from_terrain() { remove_from_regions(); my_sector = 0; center_region = 0; }
 
 // 0x00139AF8 has_mesh__6entity
 #include "KS/SRC/entity.h"

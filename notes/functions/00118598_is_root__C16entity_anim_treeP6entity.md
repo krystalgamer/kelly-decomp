@@ -11,12 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal vector layout preserves the begin/end pointers and root animation entity at offset eight.
+| 1 | matched | 100.0 | 100.0 | `size44-entity-core.cpp` |
 
 ## Outcome
 
-The released `entity_anim_tree::is_root` implementation matched exactly.
+The shared released vector and friend declarations naturally emit the root
+animation check.

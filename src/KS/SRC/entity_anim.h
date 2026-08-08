@@ -79,6 +79,8 @@ public:
 
 class entity_anim : public anim<entity *> {
 protected:
+    friend class entity_anim_tree;
+
     entity *ent;
     po_anim *po_anim_ptr;
     signal_anim *signal_anim_ptr;
@@ -105,6 +107,9 @@ public:
 
     inline int get_priority() const {
         return priority;
+    }
+    inline entity *get_entity() const {
+        return ent;
     }
 
     void detach();
@@ -205,6 +210,7 @@ public:
         int line);
     void *operator new(unsigned int size);
     void operator delete(void *memory);
+    bool is_root(entity *value) const;
 
     inline bool was_blended() const {
         return !control.is_tween() ||

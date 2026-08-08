@@ -5,19 +5,30 @@
 - Object: `game/files_anim`
 - Debug source: `C:/usr/local/sce/ee/gcc/include/g++-2/stl_algobase.h`
 - Reference source: ``
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 86.3636 | 45.4545 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 23.0769 | 0.0 | `size44-fill-native-anim-1.cpp` |
+| 2 | different | 86.3636 | 41.6667 | `size44-fill-native-anim-2.cpp` |
+| 3 | different | 17.3077 | 8.3333 | `size44-fill-native-anim-3.cpp` |
+
+### Attempt 1 notes
+
+The post-decrement while form expands to 52 bytes and changes the loop shape.
 
 ### Attempt 2 notes
 
-The generated ushort fill semantics are preserved. Reviewed asm retains the generated nops and encodes the two-byte pointer increment in the branch delay slot.
+The source-faithful for-loop keeps the 44-byte size but omits the target's two
+generated scheduling nops.
+
+### Attempt 3 notes
+
+Converting the count to an end pointer expands the loop to 52 bytes.
 
 ## Outcome
 
-Matched generated unsigned-short fill loop.
+No native form reproduced the target scheduler output. The hand-encoded
+backedge and nop sequence was removed and the function was deferred.

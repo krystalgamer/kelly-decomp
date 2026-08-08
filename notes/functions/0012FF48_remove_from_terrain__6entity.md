@@ -11,19 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 95.4545 | 81.8182 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-EE GCC reordered the two independent null stores; the target clears `center_region` before `my_sector`.
-
-### Attempt 2 notes
-
-A minimal layout preserves the sector/center-region pointers and the released clear order after region removal.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+| 1 | matched | 100.0 | 100.0 | `size44-entity-core.cpp` |
 
 ## Outcome
 
-The released `entity::remove_from_terrain` implementation matched exactly.
+The exact released source order naturally schedules the center-region clear
+before the sector clear.

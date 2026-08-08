@@ -66,11 +66,6 @@ inline void*operator new(unsigned int,void*p){return p;}struct stringx{char data
 // 0x001437C0 __uninitialized_copy_aux__H2ZPQ219animation_interface9anim_infoZPQ219animation_interface9anim_info_X01X01X11G12__false_type_X11
 inline void*operator new(unsigned int,void*p){return p;}struct stringx{char data[8];stringx(const stringx&);};__asm__(".equ __7stringxRC7stringx,0x0034D4D0");struct anim_info{float percent;stringx anim;int damage;float recover_time;float recover_var;int flags;anim_info(const anim_info&o):percent(o.percent),anim(o.anim),damage(o.damage),recover_time(o.recover_time),recover_var(o.recover_var),flags(o.flags){}};extern "C" anim_info*copy(anim_info*first,anim_info*last,anim_info*result)__asm__("__uninitialized_copy_aux__H2ZPQ219animation_interface9anim_infoZPQ219animation_interface9anim_info_X01X01X11G12__false_type_X11");anim_info*copy(anim_info*first,anim_info*last,anim_info*result){for(;first!=last;++first,++result)if(result)new((void*)result)anim_info(*first);return result;}
 
-// 0x00142300 fill_n__H3ZPP6entityZUiZP6entity_X01X11RCX21_X01
-class entity;
-extern "C" entity **fill_entities(entity **first,unsigned int count,entity *const &value)__asm__("fill_n__H3ZPP6entityZUiZP6entity_X01X11RCX21_X01");
-entity **fill_entities(entity **first,unsigned int count,entity *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
-
 // Source implementation boundary.
 // 0x00146460 get_class_name__Ct15basic_attribute1Zi
 #include "KS/SRC/attribute_template.h"

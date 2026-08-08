@@ -62,11 +62,12 @@ void *entity_track_tree::operator new(unsigned int size) { return arch_malloc(si
 entity_track_node::entity_track_node() : id(NO_ID), m_child(0), m_sibling(0), m_prs_track(0), m_signal_track(0) { owner = OWNS_DATA; }
 
 // 0x00118598 is_root__C16entity_anim_treeP6entity
-class entity;
-struct entity_anim { char padding[8]; entity *ent; };
-struct anim_vector { entity_anim **begin; entity_anim **end; };
-class entity_anim_tree { char padding[0x68]; anim_vector *anims; public: bool is_root(entity *value) const; };
-bool entity_anim_tree::is_root(entity *value) const { return anims->begin != anims->end && (*anims->begin)->ent == value; }
+#include "KS/SRC/entity_anim.h"
+
+bool entity_anim_tree::is_root(entity *value) const
+{
+    return !anims.empty() && (*anims.begin())->ent == value;
+}
 
 // 0x00117640 detach__16entity_anim_tree
 struct anim_tree_vtable {
