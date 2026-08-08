@@ -5,19 +5,31 @@
 - Object: `game/files_ai`
 - Debug source: `C:/usr/local/sce/ee/gcc/include/g++-2/stl_algobase.h`
 - Reference source: ``
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 67.3077 | 81.8182 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 67.3077 | 75.0 | `size44-fill-native-1.cpp` |
+| 2 | different | 67.3077 | 75.0 | `size44-fill-native-2.cpp` |
+| 3 | different | 67.3077 | 75.0 | `size44-fill-native-3.cpp` |
+
+### Attempt 1 notes
+
+The released while-loop form emits a 52-byte loop with two extra scheduling
+nops after the aggregate copy.
 
 ### Attempt 2 notes
 
-The released generated fill loop is preserved semantically. Reviewed inline assembly removes the isolated compiler's two extra post-copy nops and reproduces the original backedge.
+The equivalent for-loop produces the same 52-byte schedule.
+
+### Attempt 3 notes
+
+The guarded do-while form also produces the same 52-byte schedule.
 
 ## Outcome
 
-Matched generated polygon-path node fill loop.
+Three native STL-equivalent forms retain compiler scheduling instructions that
+are absent from the target. The instruction-assembly implementation was
+removed and the function was deferred.
