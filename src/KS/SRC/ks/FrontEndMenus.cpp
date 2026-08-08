@@ -165,22 +165,16 @@ void HeatMidMenuClass::OnButtonRelease(int c, int b)
 void ReplayMenuClass::OnActivate() { ReplayStart(); }
 
 // 0x001B0A78 OnTriangle__15ReplayMenuClassi
-extern "C" void menu_triangle(void *self, int controller)
+#include "KS/SRC/ks/FrontEndMenus.h"
+
+void menu_triangle(FEMenu *menu, int controller)
     __asm__("OnTriangle__6FEMenui");
 __asm__(".equ OnTriangle__6FEMenui, 0x001577F0");
-struct replay_system { char padding[0x94]; int replaying; };
-struct replay_triangle_layout {
-    char padding[0x78];
-    replay_system *system;
-};
-extern "C" void replay_triangle(
-    replay_triangle_layout *self,
-    int controller
-) __asm__("OnTriangle__15ReplayMenuClassi");
-void replay_triangle(replay_triangle_layout *self, int controller) {
-    if (!self->system->replaying) {
-        menu_triangle(self, controller);
-        KELLY_DECOMP_COMPILER_BARRIER();
+
+void ReplayMenuClass::OnTriangle(int controller) {
+    if (!sys->replay_mode) {
+        void (*triangle)(FEMenu *, int) = menu_triangle;
+        triangle(this, controller);
     }
 }
 

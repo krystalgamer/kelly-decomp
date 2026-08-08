@@ -11,12 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal layout preserves bio mode and the word-sized up/down pressed flags.
+| 1 | matched | 100.0 | 100.0 | `size44-menu-core.cpp` |
 
 ## Outcome
 
-The released `BeachFrontEnd::OnButtonRelease` implementation matched exactly.
+The shared released frontend layout naturally emits the bio-button clears.

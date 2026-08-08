@@ -42,6 +42,7 @@ public:
     virtual void Init();
     virtual void OnUnactivate(FEMenu *menu);
     void RefreshDisplay();
+    void DrawHeader();
     void TurnPQ(bool enabled);
     void Format();
     void ResetCardFormat();

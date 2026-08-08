@@ -11,14 +11,17 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 20.4545 | 9.0909 | `size44-menu-core.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size44-menu-core-2.cpp` |
 
 ### Attempt 1 notes
 
-A minimal replay-system layout gates the released base triangle handler on the replaying flag.
+The exact released conditional base call collapses to a 32-byte sibling call.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+An ordinary local base-handler pointer retains the target call frame.
 
 ## Outcome
 
-The released `ReplayMenuClass::OnTriangle` implementation matched exactly.
+The shared replay menu layout matches without a compiler barrier.

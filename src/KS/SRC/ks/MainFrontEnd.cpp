@@ -139,18 +139,17 @@ void CareerMenu::EndWarning() {
 }
 
 // 0x00183C58 Update__15MultiplayerMenuf
-extern "C" void update_menu(void *self, float dt)
-    __asm__("Update__6FEMenuf");
+#include "KS/SRC/ks/MainFrontEnd.h"
+
 __asm__(".equ Update__6FEMenuf, 0x00156DC8");
-extern "C" void update_disable(void *self)
+void update_disable(MultiplayerMenu *menu)
     __asm__("UpdateDisable__15MultiplayerMenu");
 __asm__(".equ UpdateDisable__15MultiplayerMenu, 0x00183DC8");
-extern "C" void update_multiplayer(void *self, float dt)
-    __asm__("Update__15MultiplayerMenuf");
-void update_multiplayer(void *self, float dt) {
-    update_menu(self, dt);
-    update_disable(self);
-    KELLY_DECOMP_COMPILER_BARRIER();
+
+void MultiplayerMenu::Update(float dt) {
+    FEMenu::Update(dt);
+    void (*update)(MultiplayerMenu *) = update_disable;
+    update(this);
 }
 
 // 0x0017F7A8 UpdateInScene__12MainFrontEnd

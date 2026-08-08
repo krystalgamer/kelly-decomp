@@ -228,6 +228,7 @@ public:
     virtual void Select(int entry_index);
     virtual void OnActivate();
     virtual void OnStart(int controller);
+    virtual void OnTriangle(int controller);
     virtual void OnL2(int controller);
     virtual void OnCircle(int controller);
 };

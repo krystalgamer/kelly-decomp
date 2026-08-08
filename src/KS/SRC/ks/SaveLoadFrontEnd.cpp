@@ -126,19 +126,9 @@ __asm__(".equ strcpy, 0x003D3FCC");
 void SaveLoadFrontEnd::SetOverwrite(const char *filename) { overwrite = filename == 0; if (!overwrite) { char *(*copy)(char *, const char *) = strcpy; copy(desc, filename); } }
 
 // 0x0019F0B8 DrawHeader__9NamesMenu
-struct menu_entry_vtable { char padding[0x38]; short adjustment; short padding2; void (*draw)(void *self); };
-struct menu_entry { char padding[0x60]; menu_entry_vtable *vtable; };
-struct names_menu_draw_header_layout {
-    char padding[0x4c];
-    menu_entry *highlighted;
-};
-extern "C" void draw_names_header(names_menu_draw_header_layout *self)
-    __asm__("DrawHeader__9NamesMenu");
-void draw_names_header(names_menu_draw_header_layout *self) {
-    menu_entry_vtable *table = self->highlighted->vtable;
-    table->draw(
-        (char *)self->highlighted + table->adjustment);
-}
+#include "KS/SRC/ks/SaveLoadFrontEnd.h"
+
+void NamesMenu::DrawHeader() { highlighted->Draw(); }
 
 // 0x0019BF00 CancelDialog__16SaveLoadFrontEnd
 extern "C" bool dialog_active_call(void *self)

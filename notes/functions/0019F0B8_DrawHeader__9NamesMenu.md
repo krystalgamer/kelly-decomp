@@ -11,12 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal highlighted-entry layout preserves the virtual draw slots.
+| 1 | matched | 100.0 | 100.0 | `size44-menu-core.cpp` |
 
 ## Outcome
 
-The released `NamesMenu::DrawHeader` wrapper matched exactly.
+The shared released menu hierarchy naturally emits the highlighted entry draw.

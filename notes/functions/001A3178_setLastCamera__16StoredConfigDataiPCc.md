@@ -11,14 +11,17 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 13.6364 | 9.0909 | `size44-menu-core.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size44-menu-core-2.cpp` |
 
 ### Attempt 1 notes
 
-A minimal layout places 20-byte camera names at offset 0x30 and forwards to `strcpy`.
+The exact released call collapses to a 24-byte sibling jump.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+An ordinary local `strcpy` pointer retains the target call frame.
 
 ## Outcome
 
-The released stored-camera setter matched exactly.
+The shared stored-config layout matches without a compiler barrier.

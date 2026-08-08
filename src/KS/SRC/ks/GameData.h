@@ -11,6 +11,7 @@ class StoredConfigData : public singleton {
 
 public:
     char *getLastCamera(int hero);
+    void setLastCamera(int hero, const char *name);
 };
 
 #endif

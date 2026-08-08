@@ -11,19 +11,17 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 52.2727 | 45.4545 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 52.2727 | 45.4545 | `size44-menu-core.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size44-menu-core-2.cpp` |
 
 ### Attempt 1 notes
 
-The second call was formed as a sibling jump; a zero-instruction compiler barrier is required after `UpdateDisable`.
+The exact released body turns `UpdateDisable` into a sibling jump.
 
 ### Attempt 2 notes
 
-The released update runs the base menu update before refreshing disabled entries.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+An ordinary local update-function pointer retains the target second call.
 
 ## Outcome
 
-The released `MultiplayerMenu::Update` implementation matched exactly.
+The released update matches without a compiler barrier.

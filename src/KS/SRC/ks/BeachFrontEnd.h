@@ -10,13 +10,20 @@ public:
     FEMenuSystem *sys;
 
 private:
-    char data_to_sliding_in[0xF18 - sizeof(FEMultiMenu) - sizeof(FEMenuSystem *)];
+    char data_to_bio_mode[
+        0x924 - sizeof(FEMultiMenu) - sizeof(FEMenuSystem *)];
+    int in_bio_mode;
+    char data_to_bio_buttons[0xEC4 - 0x928];
+    int bio_up_pressed;
+    int bio_down_pressed;
+    char data_to_sliding_in[0xF18 - 0xECC];
     bool sliding_in;
     char data_to_exiting_without_select[0xF20 - 0xF1C];
     bool exitingWithoutSelect;
 
 public:
     void ReturnToFE();
+    void OnButtonRelease(int controller, int button);
     virtual void OnLevelEnding();
     void OnUnactivate();
 };
