@@ -131,19 +131,11 @@ void FreesurfMenu::OnActivate()
 }
 
 // 0x001810E8 EndWarning__10CareerMenu
-struct career_menu_vtable { char padding[0x70]; short adjustment; short padding2; void (*on_activate)(void *self); };
-struct career_warning_layout {
-    char padding0[0x74];
-    career_menu_vtable *vtable;
-    char padding1[0x1c];
-    int warning_up;
-};
-extern "C" void end_warning(career_warning_layout *self)
-    __asm__("EndWarning__10CareerMenu");
-void end_warning(career_warning_layout *self) {
-    self->warning_up = 0;
-    career_menu_vtable *table = self->vtable;
-    table->on_activate((char *)self + table->adjustment);
+#include "KS/SRC/ks/MainFrontEnd.h"
+
+void CareerMenu::EndWarning() {
+    warning_up = false;
+    OnActivate();
 }
 
 // 0x00183C58 Update__15MultiplayerMenuf

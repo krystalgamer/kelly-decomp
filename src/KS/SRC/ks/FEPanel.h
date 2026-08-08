@@ -360,6 +360,7 @@ public:
     unsigned short *didxs;
 
     virtual ~PanelBatch();
+    void Update(time_value_t time_inc);
     void Reload(PanelMaterial *materials);
 };
 

@@ -38,6 +38,7 @@ public:
     int regular_bottom;
 
     virtual void Draw();
+    void EndWarning();
 };
 
 class MultiplayerMenu : public FEMenu {

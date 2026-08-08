@@ -11,12 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal layout clears `warning_up` at 0x94 and preserves the virtual activation slots.
+| 1 | matched | 100.0 | 100.0 | `size44-wrapper-core.cpp` |
 
 ## Outcome
 
-The released `CareerMenu::EndWarning` implementation matched exactly.
+The shared released menu hierarchy naturally clears the warning and dispatches
+`OnActivate`.

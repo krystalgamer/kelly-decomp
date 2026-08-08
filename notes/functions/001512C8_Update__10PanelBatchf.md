@@ -11,12 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal material layout preserves the virtual update adjustment/function slots.
+| 1 | matched | 100.0 | 100.0 | `size44-wrapper-core.cpp` |
 
 ## Outcome
 
-The released `PanelBatch::Update` wrapper matched exactly.
+The shared released panel hierarchy naturally emits the virtual quad update.

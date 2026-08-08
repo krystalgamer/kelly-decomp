@@ -227,10 +227,9 @@ void FloatingText::SetLocation3D(vector3d location) { location_3d[0] = location.
 void FloatingPQ::SetLocation3D(vector3d location) { location_3d[0] = location.x; location_3d[1] = location.y; location_3d[2] = location.z; location_3d[3] = 1.0f; }
 
 // 0x001512C8 Update__10PanelBatchf
-struct panel_material_vtable { char padding[0x38]; short adjustment; short padding2; void (*update)(void *self, float dt); };
-struct panel_material { char padding[0x194]; panel_material_vtable *vtable; };
-class PanelBatch { char padding[0x48]; panel_material *material; public: void Update(float dt); };
-void PanelBatch::Update(float dt) { panel_material_vtable *table = material->vtable; table->update((char *)material + table->adjustment, dt); }
+#include "KS/SRC/ks/FEPanel.h"
+
+void PanelBatch::Update(float dt) { pq->Update(dt); }
 
 // 0x00153450 ReadShort__FPUcRi
 short ReadShort(unsigned char *buffer, int &index) { short result; result = buffer[index] | (buffer[index + 1] << 8); index += 2; return result; }

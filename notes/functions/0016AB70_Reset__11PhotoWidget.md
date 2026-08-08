@@ -11,12 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal layout follows the released reset of photo, score, timing, and fade state.
+| 1 | matched | 100.0 | 100.0 | `size44-wrapper-core.cpp` |
 
 ## Outcome
 
-The released `PhotoWidget::Reset` implementation matched exactly.
+The shared released widget layout naturally emits the photo, score, timing,
+and fade resets.

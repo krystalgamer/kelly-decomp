@@ -2,30 +2,17 @@
 
 
 // 0x0016AB70 Reset__11PhotoWidget
-struct photo_reset_layout {
-    char padding0[0x18];
-    void *photoTexture;
-    char padding1[0xc8];
-    float darkFade;
-    float fadeOutAlpha;
-    float shownTimer;
-    int timed;
-    int photoNum;
-    void *pointText;
-    int score;
-    int *scorePtr;
-};
-extern "C" void reset_photo_widget(photo_reset_layout *self)
-    __asm__("Reset__11PhotoWidget");
-void reset_photo_widget(photo_reset_layout *self) {
-    self->photoTexture = 0;
-    self->scorePtr = 0;
-    self->score = 0;
-    self->photoNum = 0;
-    self->shownTimer = 0.0f;
-    self->darkFade = 1.0f;
-    self->fadeOutAlpha = 1.0f;
-    self->timed = 0;
+#include "KS/SRC/ks/igo_widget_photo.h"
+
+void PhotoWidget::Reset() {
+    photoTexture = 0;
+    scorePtr = 0;
+    score = 0;
+    photoNum = 0;
+    shownTimer = 0.0f;
+    darkFade = 1.0f;
+    fadeOutAlpha = 1.0f;
+    timed = false;
 }
 
 // 0x0016AA10 _$_11PhotoWidget

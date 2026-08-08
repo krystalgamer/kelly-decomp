@@ -11,12 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-The minimal board-data layout follows the released field assignment order.
+| 1 | matched | 100.0 | 100.0 | `size44-wrapper-core.cpp` |
 
 ## Outcome
 
-The released `setBoardData` helper matched exactly.
+The shared released `BoardData` declaration follows the target assignment
+order.
