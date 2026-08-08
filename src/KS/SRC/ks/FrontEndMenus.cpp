@@ -179,10 +179,16 @@ void ReplayMenuClass::OnTriangle(int controller) {
 }
 
 // 0x001B2D18 Init__23LostControllerMenuClass
-class FEMenu { public: void Init(); };
+#include "KS/SRC/ks/FrontEndMenus.h"
+
+void init_menu(FEMenu *menu) __asm__("Init__6FEMenu");
 __asm__(".equ Init__6FEMenu, 0x00156AE0");
-class LostControllerMenuClass : public FEMenu { char padding[0x38]; int flags; public: void Init(); };
-void LostControllerMenuClass::Init() { flags &= ~0x80; FEMenu::Init(); KELLY_DECOMP_COMPILER_BARRIER(); }
+
+void LostControllerMenuClass::Init() {
+    flags &= ~0x80;
+    void (*init)(FEMenu *) = init_menu;
+    init(this);
+}
 
 // 0x001A4EF8 hasPrevious__FP6FEMenu
 struct FEMenuEntry {

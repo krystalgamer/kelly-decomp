@@ -11,12 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal vtable layout preserves the line-spacing slot and released reset value of -1.
+| 1 | matched | 100.0 | 100.0 | `size44-fe-text-core.cpp` |
 
 ## Outcome
 
-The released multiline spacing reset matched exactly.
+The shared released text hierarchy naturally dispatches `setLineSpacing(-1)`.

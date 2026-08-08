@@ -46,7 +46,11 @@ public:
 };
 
 class LegalFrontEnd : public FEGraphicalMenu {
+    BoxText *legal_babble;
+    float timer;
+
 public:
+    virtual void Draw();
     virtual void SetSystem(FEMenuSystem *system);
 };
 

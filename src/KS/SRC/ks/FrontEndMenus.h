@@ -233,6 +233,20 @@ public:
     virtual void OnCircle(int controller);
 };
 
+class LostControllerMenuClass : public FEMenu {
+public:
+    PauseMenuSystem *sys;
+
+    LostControllerMenuClass(
+        FEMenuSystem *system,
+        int x,
+        int y,
+        color32 color);
+    virtual void Init();
+    virtual void OnActivate();
+    virtual void Update();
+};
+
 class SaveCareerPromptClass : public FEMenu {
 public:
     PauseMenuSystem *sys;

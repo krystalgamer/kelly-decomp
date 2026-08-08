@@ -50,22 +50,9 @@ void CheatFrontEnd::Select(int entry_index)
 }
 
 // 0x001D3510 Select__14EnterCheatMenu
-struct cheat_vtable { char padding[0x128]; short adjustment; short padding2; void (*select)(void *self, void *entry); };
-struct enter_cheat_select_layout {
-    char padding0[0x74];
-    cheat_vtable *vtable;
-    char padding1[0xfc];
-    void *selected;
-};
-extern "C" void select_enter_cheat(enter_cheat_select_layout *self)
-    __asm__("Select__14EnterCheatMenu");
-void select_enter_cheat(enter_cheat_select_layout *self) {
-    cheat_vtable *table = self->vtable;
-    table->select(
-        (char *)self + table->adjustment,
-        self->selected
-    );
-}
+#include "KS/SRC/ks/CheatFrontEnd.h"
+
+void EnterCheatMenu::Select() { Select(current_button); }
 
 // 0x001D16C0 Select__13CheatFrontEnd
 struct menu_vtable {
@@ -526,58 +513,6 @@ void cheat_frontend_down(CheatFrontEndNavigationLayout *self, int c) {
     }
     sound_manager->playEvent(ERROR_EVENT);
     asm volatile("");
-}
-
-// 0x001D2340 OnUp__13CheatCodeMenui
-#include "KS/SRC/ks/CheatFrontEnd.h"
-#include "decomp_annotations.h"
-
-// Reuse the complete released FEGraphicalMenu and FEMultiMenu virtual order.
-// The shipped base also retains its source-version slot before Select.
-// Preserve the released shared-epilogue scheduling across the sound branches.
-void CheatCodeMenu::OnUp(int c)
-{
-	FEMenuEntry *old_highlighted = highlighted;
-	int old_next_up = next_up;
-
-	if(highlighted == cheats[0] && old_next_up != -1)
-		ReOrderEntries(old_next_up);
-	else
-		FEMultiMenu::OnUp(c);
-
-	if (highlighted == old_highlighted && old_next_up == -1)
-		SoundScriptManager::inst()->playEvent(SS_FE_ERROR);
-	else
-		SoundScriptManager::inst()->playEvent(SS_FE_UPDOWN);
-	KELLY_DECOMP_COMPILER_BARRIER();
-}
-
-// 0x001D23F8 OnDown__13CheatCodeMenui
-#include "KS/SRC/ks/CheatFrontEnd.h"
-#include "decomp_annotations.h"
-
-void CheatCodeMenu::OnDown(int controller)
-{
-    FEMenuEntry *old_highlighted = highlighted;
-    int old_next_down = next_down;
-
-    if (
-        old_highlighted == cheats[MAX_CHEATS_PER_SCREEN - 1] &&
-        old_next_down != -1
-    )
-        ReOrderEntries(menu_entry_cheat_index[0] + 1);
-    else
-        FEMultiMenu::OnDown(controller);
-
-    if (
-        highlighted == old_highlighted &&
-        old_next_down == -1
-    )
-        SoundScriptManager::inst()->playEvent(SS_FE_ERROR);
-    else
-        SoundScriptManager::inst()->playEvent(SS_FE_UPDOWN);
-
-    KELLY_DECOMP_COMPILER_BARRIER();
 }
 
 // Source implementation boundary.

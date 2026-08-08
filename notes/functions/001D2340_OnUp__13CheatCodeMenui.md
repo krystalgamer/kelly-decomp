@@ -5,22 +5,33 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/CheatFrontEnd.cpp`
 - Reference source: `KS/SRC/ks/CheatFrontEnd.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 52.1739 | 41.3043 | `candidate.cpp` |
-| 2 | different | 96.7391 | 91.3043 | `candidate.cpp` |
-| 3 | different | 96.7391 | 91.3043 | `candidate.cpp` |
-| 4 | different | 97.8261 | 95.6522 | `candidate.cpp` |
-| 5 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 52.1739 | 41.3043 | `cheat-nav-native-1.cpp` |
+| 2 | different | 69.7917 | 58.3333 | `cheat-nav-native-2.cpp` |
+| 3 | different | 57.0652 | 50.0 | `cheat-nav-native-3.cpp` |
 
-### Attempt 5 notes
+### Attempt 1 notes
 
-The shipped handler matched after restoring the complete shared FEGraphicalMenu/FEMultiMenu virtual order, the built FEMenu source-version slot, and the released cheat-menu layout. A narrowly exact EE normalization restores the shared return-address load in the two sound branches; the full 3,855-function ROM rebuild passed.
+The released qualified base call compiles to a direct call and a 180-byte
+function under the canonical headers.
+
+### Attempt 2 notes
+
+Virtual base dispatch preserves the broad control flow but uses different
+vtable slots and expands to 192 bytes.
+
+### Attempt 3 notes
+
+A local sound-call pointer changes the branch and epilogue layout and shrinks
+the function to 156 bytes.
 
 ## Outcome
 
-Matched the shipped cheat-code up handler with shared front-end inheritance and precise EE epilogue scheduling.
+The prior match depended on a compiler normalization tied to the older
+incomplete header layout. It was removed rather than replaced with manual
+vtable code, and the function was deferred.

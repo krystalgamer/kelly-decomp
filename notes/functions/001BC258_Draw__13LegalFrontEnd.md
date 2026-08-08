@@ -11,12 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal legal-widget layout preserves the virtual draw adjustment/function slots.
+| 1 | matched | 100.0 | 100.0 | `size44-fe-text-core.cpp` |
 
 ## Outcome
 
-The released `LegalFrontEnd::Draw` wrapper matched exactly.
+The shared released legal frontend naturally emits the virtual text draw.

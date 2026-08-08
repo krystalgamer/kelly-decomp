@@ -11,12 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal layout places the stored string at offset four and returns it through the released copy constructor.
+| 1 | matched | 100.0 | 100.0 | `size44-fe-text-core.cpp` |
 
 ## Outcome
 
-The released `TextString::getText` implementation matched exactly.
+The shared released `TextString` layout naturally emits the string copy.

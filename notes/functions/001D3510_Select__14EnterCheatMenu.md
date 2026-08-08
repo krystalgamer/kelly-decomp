@@ -11,12 +11,19 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 7.5 | 0.0 | `size44-fe-text-core.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size44-fe-text-core-2.cpp` |
 
 ### Attempt 1 notes
 
-A minimal menu layout preserves the selected entry at 0x174 and virtual select slots.
+The released source includes the frontend sound event and expands to 80 bytes;
+the shipped function contains only the selected-entry dispatch.
+
+### Attempt 2 notes
+
+The shared released menu layout and selected-button dispatch match the shipped
+body.
 
 ## Outcome
 
-The released `EnterCheatMenu::Select` wrapper matched exactly.
+The synthetic vtable layout was removed in favor of the shared class.

@@ -11,19 +11,18 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 33.3333 | 25.0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 2.2727 | 0.0 | `size44-fe-text-core.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size44-fe-text-core-2.cpp` |
 
 ### Attempt 1 notes
 
-An unsigned flags field forced a full 32-bit mask instead of the target sign-extended -129 immediate.
+The exact released body collapses the base initializer to a 24-byte sibling
+call.
 
 ### Attempt 2 notes
 
-The released initializer clears the 0x80 menu flag before calling the base initializer.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+An ordinary local base-initializer pointer retains the target call frame.
 
 ## Outcome
 
-The released lost-controller menu initializer matched exactly.
+The shared menu layout matches without a compiler barrier.

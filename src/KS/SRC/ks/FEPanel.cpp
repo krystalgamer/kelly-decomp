@@ -1497,9 +1497,14 @@ __asm__(".equ __7stringxRC7stringx, 0x0034D4D0");
 stringx TextString::getText() { return text; }
 
 // 0x001D88B8 resetLineSpacing__15MultiLineString
-struct multiline_vtable { char padding[0xd8]; short adjustment; short padding2; void (*set_line_spacing)(void *self, int spacing); };
-class MultiLineString { char padding[0x4c]; multiline_vtable *vtable; public: void resetLineSpacing(); };
-void MultiLineString::resetLineSpacing() { multiline_vtable *table = vtable; table->set_line_spacing((char *)this + table->adjustment, -1); }
+#include "KS/SRC/ks/FEPanel.h"
+
+void reset_line_spacing(MultiLineString *text)
+    __asm__("resetLineSpacing__15MultiLineString");
+
+void reset_line_spacing(MultiLineString *text) {
+    text->setLineSpacing(-1);
+}
 
 // 0x001D8C18 OnDown__7BoxTexti
 struct box_text_vtable {
