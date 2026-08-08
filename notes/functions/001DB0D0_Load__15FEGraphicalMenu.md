@@ -11,12 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal frontend vtable layout preserves the virtual graphical menu load adjustment/function slots and null forwarded argument.
+| 1 | matched | 100.0 | 100.0 | `size44-menu-load-core.cpp` |
 
 ## Outcome
 
-The released `FEGraphicalMenu::Load` wrapper matched exactly.
+The shared released graphical-menu hierarchy naturally dispatches
+`Load(false)`.

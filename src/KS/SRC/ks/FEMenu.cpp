@@ -826,31 +826,28 @@ float FEMenuEntry::GetX() { return text->getX(); }
 float FEMenuEntry::GetY() { return text->getY(); }
 
 // 0x001DA8C0 getLineNum__11FEMenuEntry
-struct text_vtable { char padding[0x130]; short adjustment; short padding2; int (*call)(void *); };
-struct menu_text { char padding[0x4c]; text_vtable *vtable; };
-class FEMenuEntry { char padding[0x24]; menu_text *text; public: int getLineNum(); };
-int FEMenuEntry::getLineNum() { text_vtable *table = text->vtable; return table->call((char *)text + table->adjustment); }
+#include "KS/SRC/ks/FEMenu.h"
+
+int FEMenuEntry::getLineNum() { return text->getLineNum(); }
 
 // 0x001DA8F0 GetScale__11FEMenuEntry
 #include "KS/SRC/ks/FEMenu.h"
 float FEMenuEntry::GetScale() { return text->GetScale(); }
 
 // 0x001DA920 AddFont__11FEMenuEntryiP4Font
-class Font;
-struct text_vtable { char padding[0x138]; short adjustment; short padding2; void (*call)(void *, int, Font *); };
-struct menu_text { char padding[0x4c]; text_vtable *vtable; };
-class FEMenuEntry { char padding[0x24]; menu_text *text; public: void AddFont(int index, Font *font); };
-void FEMenuEntry::AddFont(int index, Font *font) { text_vtable *table = text->vtable; table->call((char *)text + table->adjustment, index, font); }
+#include "KS/SRC/ks/FEMenu.h"
+
+void FEMenuEntry::AddFont(int index, Font *font) { text->addFont(index, font); }
 
 // 0x001DA9C0 Load__6FEMenu
-struct frontend_vtable { char padding[0x38]; short adjustment; short padding2; void (*call)(void *, void *); };
-class FEMenu { char padding[0x74]; frontend_vtable *vtable; public: void Load(); };
-void FEMenu::Load() { frontend_vtable *table = vtable; table->call((char *)this + table->adjustment, 0); }
+#include "KS/SRC/ks/FEMenu.h"
+
+void FEMenu::Load() { Load(false); }
 
 // 0x001DB0D0 Load__15FEGraphicalMenu
-struct frontend_vtable { char padding[0x38]; short adjustment; short padding2; void (*call)(void *, void *); };
-class FEGraphicalMenu { char padding[0x74]; frontend_vtable *vtable; public: void Load(); };
-void FEGraphicalMenu::Load() { frontend_vtable *table = vtable; table->call((char *)this + table->adjustment, 0); }
+#include "KS/SRC/ks/FEMenu.h"
+
+void FEGraphicalMenu::Load() { Load(false); }
 
 // 0x001DA7C0 UpdateInScene__11FEMenuEntry
 #include "KS/SRC/ks/FEMenu.h"

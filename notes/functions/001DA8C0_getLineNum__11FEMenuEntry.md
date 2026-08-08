@@ -11,12 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal text/vtable layout preserves the virtual line number getter adjustment/function slots.
+| 1 | matched | 100.0 | 100.0 | `size44-menu-load-core.cpp` |
 
 ## Outcome
 
-The released `FEMenuEntry::getLineNum` wrapper matched exactly.
+The complete released `TextString` virtual order naturally emits the
+multiline line-number dispatch.

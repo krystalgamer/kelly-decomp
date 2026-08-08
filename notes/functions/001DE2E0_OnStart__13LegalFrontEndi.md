@@ -11,12 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal frontend vtable layout preserves the virtual legal start adjustment/function slots and null forwarded argument.
+| 1 | matched | 100.0 | 100.0 | `size44-menu-load-core.cpp` |
 
 ## Outcome
 
-The released `LegalFrontEnd::OnStart` wrapper matched exactly.
+The shared released frontend hierarchy naturally dispatches `Select(0)`.

@@ -51,6 +51,8 @@ class LegalFrontEnd : public FEGraphicalMenu {
 
 public:
     virtual void Draw();
+    virtual void OnStart(int controller);
+    virtual void OnCross(int controller);
     virtual void SetSystem(FEMenuSystem *system);
 };
 

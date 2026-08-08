@@ -107,7 +107,16 @@ public:
     static void MakeReplacements(stringx &value);
 
 protected:
-    void cons(
+    virtual void Render();
+    virtual void Render(stringx *text, float x, float y);
+    virtual void Render(
+        stringx *text,
+        float x,
+        float y,
+        float *xs,
+        float *ys,
+        bool random_text_fade = true);
+    virtual void cons(
         Font *font,
         stringx text,
         float x,
@@ -128,9 +137,9 @@ protected:
 
 public:
     float getWidth();
-    int getLineNum();
+    virtual int getLineNum();
     void setFont(Font *font);
-    void addFont(int index, Font *font);
+    virtual void addFont(int index, Font *font);
 };
 
 class BouncingText : public TextString {
