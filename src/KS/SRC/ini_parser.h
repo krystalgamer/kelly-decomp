@@ -21,6 +21,7 @@ public:
     }
 
     enum flags_t {
+        FLAG_NO_RUMBLE = 18,
         NUM_FLAGS = 105
     };
     enum strings_t {
@@ -29,6 +30,9 @@ public:
     enum ints_t {
         NUM_INTS = 26
     };
+    inline bool is_flagged(flags_t flag) const {
+        return flags[flag];
+    }
 
 private:
     bool flags[NUM_FLAGS];

@@ -11,12 +11,8 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-A minimal frontend vtable layout preserves the virtual title cross adjustment/function slots and null forwarded argument.
+| 1 | matched | 100.0 | 100.0 | `size44-platform-menu-core.cpp` |
 
 ## Outcome
 
-The released `TitleFrontEnd::OnCross` wrapper matched exactly.
+The shared released frontend hierarchy naturally dispatches `Select(0)`.

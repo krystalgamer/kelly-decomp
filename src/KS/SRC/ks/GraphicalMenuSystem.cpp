@@ -371,21 +371,19 @@ void GraphicalMenuSystem::Reload() {
 void LegalFrontEnd::OnStart(int controller) { Select(0); }
 
 // 0x001DE310 OnCross__13LegalFrontEndi
-struct frontend_vtable { char padding[0x128]; short adjustment; short padding2; void (*call)(void *, void *); };
-class LegalFrontEnd { char padding[0x74]; frontend_vtable *vtable; public: void OnCross(int controller); };
-void LegalFrontEnd::OnCross(int controller) { frontend_vtable *table = vtable; table->call((char *)this + table->adjustment, 0); }
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
+
+void LegalFrontEnd::OnCross(int controller) { Select(0); }
 
 // 0x001DE340 OnStart__13TitleFrontEndi
-struct frontend_vtable { char padding[0x128]; short adjustment; short padding2; void (*call)(void *, void *); };
-struct TitleFrontEndLayout { char padding[0x74]; frontend_vtable *vtable; };
-extern "C" void title_start(TitleFrontEndLayout *self,int controller)__asm__("OnStart__13TitleFrontEndi");
-void title_start(TitleFrontEndLayout *self,int controller) { frontend_vtable *table = self->vtable; table->call((char *)self + table->adjustment, 0); }
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
+
+void TitleFrontEnd::OnStart(int controller) { Select(0); }
 
 // 0x001DE370 OnCross__13TitleFrontEndi
-struct frontend_vtable { char padding[0x128]; short adjustment; short padding2; void (*call)(void *, void *); };
-struct TitleFrontEndLayout { char padding[0x74]; frontend_vtable *vtable; };
-extern "C" void title_cross(TitleFrontEndLayout *self,int controller)__asm__("OnCross__13TitleFrontEndi");
-void title_cross(TitleFrontEndLayout *self,int controller) { frontend_vtable *table = self->vtable; table->call((char *)self + table->adjustment, 0); }
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
+
+void TitleFrontEnd::OnCross(int controller) { Select(0); }
 
 // 0x001DE2B0 OnCross__11FEDebugMenui
 struct menu_vtable {

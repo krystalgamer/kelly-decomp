@@ -11,29 +11,25 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 29.5455 | 18.1818 | `candidate.cpp` |
-| 2 | different | 79.5455 | 63.6364 | `candidate.cpp` |
-| 3 | different | 41.6667 | 33.3333 | `candidate.cpp` |
-| 4 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 47.7273 | 45.4545 | `size44-platform-menu-core.cpp` |
+| 2 | different | 88.6364 | 81.8182 | `size44-onscreenerror-3.cpp` |
+| 3 | matched | 100.0 | 100.0 | `size44-onscreenerror-4.cpp` |
 
 ### Attempt 1 notes
 
-The first faithful source shape exposed an isolated scheduling, layout, or sibling-call mismatch.
+The direct released call becomes a 36-byte sibling jump to the final flush.
 
 ### Attempt 2 notes
 
-The second source shape improved part of the layout or call form but retained a distinct target scheduling mismatch.
+An ordinary local flush pointer retains the call frame, but a raw format
+address is materialized with `lui`/`ori` instead of the target carried
+`lui`/`addiu`.
 
 ### Attempt 3 notes
 
-The third source shape retained a distinct scheduling mismatch.
-
-### Attempt 4 notes
-
-A minimal string layout forwards its character pointer to the console format, then flushes.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The shared string layout, local flush pointer, and relocatable named format
+symbol produce the target after link.
 
 ## Outcome
 
-The released string `onscreenerror` implementation matched exactly.
+The pointer/register constraints and compiler barrier were removed.

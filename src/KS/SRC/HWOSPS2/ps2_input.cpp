@@ -136,11 +136,17 @@ axis_id_t ps2_joypad_device::get_axis_id(int axis) const {
 void ps2_joypad_device::set_stick(int stick, int x, int y) { if (stick == 0) { rdata[6] = x; rdata[7] = y; } else { rdata[4] = x; rdata[5] = y; } }
 
 // 0x001E1690 is_vibrator_present__C17ps2_joypad_device
-struct developer_options { char padding[0x4c]; int no_rumble; };
-extern developer_options *developer_options_ptr;
-__asm__(".equ developer_options_ptr, 0x0046B180");
-class ps2_joypad_device { char padding[0x66]; signed char pad_type; public: bool is_vibrator_present() const; };
-bool ps2_joypad_device::is_vibrator_present() const { if (developer_options_ptr->no_rumble) return false; return pad_type == 0x79; }
+#include "KS/SRC/HWOSPS2/ps2_input.h"
+#include "KS/SRC/ini_parser.h"
+
+__asm__(".equ _20os_developer_options$instance, 0x0046B180");
+
+bool ps2_joypad_device::is_vibrator_present() const {
+    if (os_developer_options::inst()->is_flagged(
+            os_developer_options::FLAG_NO_RUMBLE))
+        return false;
+    return pad_type == PS2_JOYPAD_DUALSHOCK2;
+}
 
 // 0x001E2258 set_button_a__17ps2_joypad_deviceii
 struct joypad_vtable {

@@ -11,12 +11,9 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 1 notes
-
-Minimal layouts preserve the global no-rumble flag and signed pad type at 0x66.
+| 1 | matched | 100.0 | 100.0 | `size44-platform-menu-core.cpp` |
 
 ## Outcome
 
-The released PS2 vibrator-presence predicate matched exactly.
+The shared released developer-options and joypad layouts naturally emit the
+no-rumble and DualShock checks.
