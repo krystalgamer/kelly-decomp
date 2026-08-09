@@ -5,20 +5,23 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/controller.cpp`
 - Reference source: `KS/SRC/controller.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 6.25 | 0.0 | `candidate.cpp` |
+| 2 | different | 6.25 | 0.0 | `candidate.cpp` |
+| 3 | different | 6.25 | 0.0 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
-The released generated destructor restores its vtable at offset 0x8 and conditionally calls `__builtin_delete`; the carried vtable alias and trailing barrier preserve the target frame.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released empty destructor and two equivalent native forms collapse to a
+20-byte vtable-setting tail call to the `controller` destructor.
 
 ## Outcome
 
-The released `_$_17entity_controller` destructor matched exactly on the first attempt.
+The target's 48-byte direct-delete frame required manual vtable restoration and
+a compiler barrier. Those matching-only constructs were removed and the
+destructor was deferred.

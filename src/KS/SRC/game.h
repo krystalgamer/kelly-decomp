@@ -66,7 +66,7 @@ struct game_recti {
 
 struct PushPlayer {
     float share;
-    char data_to_viewport[4];
+    int extraShare;
     game_recti viewport;
     char remaining_data[8];
 };
@@ -81,6 +81,7 @@ public:
     void SetDifficulty(int points);
     float GetPlayerShare(int player) const;
     const game_recti &GetPlayerViewport(int player) const;
+    bool InCombat() const;
 };
 
 struct PlayMode {

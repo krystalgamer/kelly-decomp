@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released predicate scans two 0x20-byte player records and returns true when the `extraShare` field at offset 4 is positive.
+The released predicate scans the two players in the shared `PushMode` layout
+and returns true when either `extraShare` value is positive.
 
 ## Outcome
 
-The released `PushMode::InCombat` predicate matched exactly on the first attempt.
+The local player-record layout was removed; the released predicate still
+matches exactly through the canonical game declaration.

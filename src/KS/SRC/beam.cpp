@@ -114,36 +114,24 @@ void beam::compute_sector(terrain &value, bool use_high_res_intersect) {
 }
 
 // 0x00272DE8 set_active__11beam_effect
-class beam_effect {
-    char padding[0xa];
-    signed char mode;
-
-public:
-    void set_active();
-};
+#include "KS/SRC/beam.h"
 
 void beam_effect::set_active() {
-    if (mode == 1) {
-        mode = 2;
-    } else if (mode == -1) {
-        mode = -2;
+    if (mode == EFFECT_DELAY) {
+        mode = EFFECT_ACTIVE;
+    } else if (mode == EFFECT_INVERTED_DELAY) {
+        mode = EFFECT_INVERTED_ACTIVE;
     }
 }
 
 // 0x00272E18 set_delaying__11beam_effect
-class beam_effect {
-    char padding[0xa];
-    signed char mode;
-
-public:
-    void set_delaying();
-};
+#include "KS/SRC/beam.h"
 
 void beam_effect::set_delaying() {
-    if (mode == 2) {
-        mode = 1;
-    } else if (mode == -2) {
-        mode = -1;
+    if (mode == EFFECT_ACTIVE) {
+        mode = EFFECT_DELAY;
+    } else if (mode == EFFECT_INVERTED_ACTIVE) {
+        mode = EFFECT_INVERTED_DELAY;
     }
 }
 

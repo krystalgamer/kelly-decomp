@@ -11,6 +11,7 @@ class material;
 class beam;
 class beam_effect;
 class camera;
+class chunk_file;
 class terrain;
 
 template <class T>
@@ -150,17 +151,49 @@ class beam_effect {
     float loop_delay;
     float duration;
 
+    virtual void dump();
+    virtual void set_active();
+    virtual void set_delaying();
+
 public:
     beam_effect(beam *the_beam);
     virtual ~beam_effect();
-    virtual unsigned short get_id() const;
-    virtual void set_id(unsigned short value);
+    virtual void set_color_delta(
+        const color32 &start_color,
+        const color32 &end_color,
+        float duration,
+        float delay = 0.0f,
+        float loop_delay = -1.0f,
+        bool invert_loop = false);
+    virtual void set_width_delta(
+        float start_width,
+        float end_width,
+        float duration,
+        float delay = 0.0f,
+        float loop_delay = -1.0f,
+        bool invert_loop = false);
+    virtual void set_alpha_delta(
+        unsigned char start_alpha,
+        unsigned char end_alpha,
+        float duration,
+        float delay = 0.0f,
+        float loop_delay = -1.0f,
+        bool invert_loop = false);
+    virtual void frame_advance(float time);
+    virtual void kill(bool apply_target_vals = false);
     virtual bool is_dead() const;
     virtual bool is_alive() const;
     virtual bool is_delaying() const;
     virtual bool is_active() const;
     virtual bool is_looping() const;
     virtual bool is_inverted() const;
+    virtual unsigned short get_id() const;
+    virtual void set_id(unsigned short value);
+    virtual beam_effect *make_instance(beam *the_beam);
+    virtual void read_width_chunk(chunk_file &file);
+    virtual void read_alpha_chunk(chunk_file &file);
+    virtual void read_color_chunk(chunk_file &file);
+    virtual void handle_enx_chunk(chunk_file &file, stringx &label);
 };
 
 extern instance_bank<material> material_bank;

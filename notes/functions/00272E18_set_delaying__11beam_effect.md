@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released setter transitions signed-byte active states 2/-2 to delay states 1/-1 at offset 0xa.
+The released setter uses the shared `beam_effect` declaration and transitions
+active states to their delay equivalents.
 
 ## Outcome
 
-The released `beam_effect::set_delaying` implementation matched exactly on the first attempt.
+The local offset-only class was removed; the released implementation still
+matches exactly through the canonical beam layout.

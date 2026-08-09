@@ -106,6 +106,7 @@ _$_18MenuEntryFloatEdit = 0x270C78;
 _$_17MenuEntryListEdit = 0x270D00;
 _$_24MenuEntryStringxListEdit = 0x270D30;
 _$_17MenuEntryEnumEdit = 0x270DB0;
+_$_17entity_controller = 0x2755D8;
 BeginCombat__15MeterAttackMode = 0x286678;
 fill_n__H3ZPP11beam_effectZUiZP11beam_effect_X01X11RCX21_X01 = 0x2AE0F0;
 fill_n__H3ZPP20morphable_item_rangeZUiZP20morphable_item_range_X01X11RCX21_X01 = 0x2AF8C0;

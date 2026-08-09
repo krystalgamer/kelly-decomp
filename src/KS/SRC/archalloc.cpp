@@ -46,12 +46,10 @@ void mem_push_current_heap(int heap)
 
 #if defined(KELLY_DECOMP_FUNCTION_002ACCF0)
 // 0x002ACCF0 mem_pop_current_heap__Fv
-extern int heapstackptr;
-extern int heapstack[];
-extern int currentheap;
+#include "KS/SRC/archalloc.h"
+
 __asm__(".equ heapstackptr, 0x00432300");
 __asm__(".equ heapstack, 0x00432688");
-__asm__(".equ currentheap, 0x004322CC");
 
 void mem_pop_current_heap() {
     --heapstackptr;

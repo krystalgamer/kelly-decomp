@@ -32,6 +32,7 @@ void *mem_memalign(
     int flags = mafNone);
 void mem_set_current_heap(int heap);
 void mem_push_current_heap(int heap);
+void mem_pop_current_heap();
 
 #ifndef PLACEMENT_NEW_DEFINED
 #define PLACEMENT_NEW_DEFINED
@@ -59,6 +60,8 @@ extern int AllocMemorySema;
 extern bool malloc_locked;
 extern Heap heaps[NUMBER_OF_HEAPS];
 extern Heap *currentheap;
+extern Heap *heapstack[];
+extern int heapstackptr;
 extern unsigned long mem_malloc_counter;
 extern int mem_leak_checkpoint;
 

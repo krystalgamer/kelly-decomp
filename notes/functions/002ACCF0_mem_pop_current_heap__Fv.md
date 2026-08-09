@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released helper decrements `heapstackptr`, reads the indexed heap stack entry, and stores it into `currentheap` at the recovered globals.
+The released helper decrements `heapstackptr` and restores `currentheap` from
+the shared allocator stack declaration.
 
 ## Outcome
 
-The released heap-pop helper matched exactly on the first attempt.
+The local integer stand-ins were removed; the released pointer-typed allocator
+implementation still matches exactly.
