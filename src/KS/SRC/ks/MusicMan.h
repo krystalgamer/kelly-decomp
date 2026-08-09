@@ -54,6 +54,7 @@ public:
     nslSoundId playNext();
     nslSoundId play();
     void stop();
+    void shutdown();
     int order[50];
     bool enabled[50];
 };
@@ -73,6 +74,7 @@ public:
     }
     nslSoundId play();
     void stop();
+    void shutdown();
     nslSoundId playNext();
     void disable(int which, bool disabled) {
         musicTrack.disable(which, disabled);

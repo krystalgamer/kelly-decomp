@@ -39,11 +39,11 @@ Career::Level::Level() { Reset(); }
 __asm__(".equ Reset__Q26Career5Beach, 0x0025C4A0");
 Career::Beach::Beach() { Reset(); }
 
-#if defined(KELLY_DECOMP_FUNCTION_0025B928)
 // 0x0025B928 CheckShowMovie__Q26Career8Location
+#include "KS/SRC/ks/career.h"
+
 __asm__(".equ SetMovieShown__Q26Career8Location, 0x0025AF30");
 bool Career::Location::CheckShowMovie() { if (movie_shown) return false; SetMovieShown(); return true; }
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0025C378)
 // 0x0025C378 ResetGoals__Q26Career5Level

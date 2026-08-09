@@ -125,7 +125,8 @@ void KSReplay::SpeedNormal() { if (fastforward) { fastforward = false; slomo = f
 void KSReplayFrame::Save() { wave_shiftx = WAVE_ShiftX; levelTime = TIMER_GetLevelSec(); totalTime = TIMER_GetTotalSec(); }
 
 // 0x0023C978 Restart__8KSReplay
-class KSReplay { char padding[0xd4]; int firstFrame; public: void Restart(); void Play(); };
+#include "KS/SRC/ks/ksreplay.h"
+
 __asm__(".equ Play__8KSReplay, 0x0023C6A0");
 void KSReplay::Restart() { Play(); firstFrame = 1; }
 

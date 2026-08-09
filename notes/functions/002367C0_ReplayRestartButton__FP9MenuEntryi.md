@@ -11,11 +11,11 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-replay-menu-core.cpp` |
 
 ### Attempt 1 notes
 
-The released callback invokes replay restart on the target global object only for the cross-button command.
+The shared replay declaration naturally emits the cross-button restart call.
 
 ## Outcome
 

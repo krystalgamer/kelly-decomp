@@ -29,14 +29,18 @@ void Track::Pause()
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00259628)
 // 0x00259628 shutdown__8MusicMan
-class MusicListing { public: void shutdown(); };
+#include "KS/SRC/ks/MusicMan.h"
+
 __asm__(".equ shutdown__12MusicListing, 0x00258C40");
-class MusicMan { char padding[0x10]; MusicListing musicTrack; public: void shutdown(); void stop(); };
 __asm__(".equ stop__8MusicMan, 0x002595F0");
-void MusicMan::shutdown() { stop(); musicTrack.shutdown(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+void shutdown_music_listing(MusicListing *listing)
+    __asm__("shutdown__12MusicListing");
+void MusicMan::shutdown() {
+    stop();
+    void (*shutdown_listing)(MusicListing *) = shutdown_music_listing;
+    shutdown_listing(&musicTrack);
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_00258A60)
 // 0x00258A60 stop__12MusicListing

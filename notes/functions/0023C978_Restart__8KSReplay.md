@@ -11,11 +11,12 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-replay-menu-core.cpp` |
 
 ### Attempt 1 notes
 
-The released restart begins playback and marks the first frame.
+The shared replay layout places `firstFrame` at 0xd4 and preserves the
+released playback call.
 
 ## Outcome
 

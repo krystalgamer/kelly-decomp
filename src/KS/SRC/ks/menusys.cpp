@@ -74,13 +74,15 @@ void MenuSystem::Closing(Menu *menu) { Clear(); curmenu = 0; }
 __asm__(".equ GetElementFlags__4Menui, 0x0023E688");
 unsigned int MenuSystem::GetElementState(int index) { unsigned int result = 0; if (curmenu) result = curmenu->GetElementFlags(index); return result; }
 
-#if defined(KELLY_DECOMP_FUNCTION_002408B0)
 // 0x002408B0 Clear__10MenuRender
+#include "KS/SRC/ks/menusys.h"
+
 void MENU_ClearRect(int x0, int y0, int x1, int y1);
 __asm__(".equ MENU_ClearRect__Fiiii, 0x00240488");
-class MenuRender { unsigned short x0; unsigned short y0; unsigned short x1; unsigned short y1; public: void Clear(); };
-void MenuRender::Clear() { MENU_ClearRect(x0, y0, x1, y1); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+void MenuRender::Clear() {
+    void (*clear_rect)(int, int, int, int) = MENU_ClearRect;
+    clear_rect(limit.x0, limit.y0, limit.x1, limit.y1);
+}
 
 
 #if defined(KELLY_DECOMP_FUNCTION_00241060)

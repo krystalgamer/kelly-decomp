@@ -11,11 +11,12 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-replay-menu-core.cpp` |
 
 ### Attempt 1 notes
 
-A word-sized movie-shown flag gates the released one-time setter and boolean result.
+The shared career location layout preserves the word-sized shown flag and
+one-time setter.
 
 ## Outcome
 
