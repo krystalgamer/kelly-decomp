@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released lookup bounds the index, checks the source slot used flag, and returns its ID or NSL_INVALID_ID. The recovered NSL header, 96-byte slot stride, and member offsets match exactly.
+The released lookup uses the shared NSL system and 96-byte source slots to
+check the index and return the source ID.
 
 ## Outcome
 
-The original bounded NSL source-slot lookup matches exactly with the recovered system and source layouts.
+The released lookup was already canonical and remains exact.

@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released function computes the normalized plane dot product plus its distance term. Preserving nglVector indexing and the original expression matches the load and floating-point schedule exactly.
+The released function uses shared `nglVector` indexing to compute the
+normalized plane dot product and distance term.
 
 ## Outcome
 
-The original normalized-plane distance expression matches exactly with authentic nglVector indexing.
+The local vector declaration was removed.

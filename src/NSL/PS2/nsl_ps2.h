@@ -81,7 +81,8 @@ struct nslSystem
 {
     nlMatrix4x4 listenerPo;
     nslSource sourceSlots[NSL_NUM_SOURCES];
-    char data_to_initialized[0x9810];
+    char data_to_first_init[0x980C];
+    int firstInit;
     int initialized;
     nlUint32 numBanks;
     fifo_queue<nslSoundId> queuedSounds;

@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released function searches the texture instance bank by FileName and increments the found instance reference count. Recovered texture, bank, and instance offsets match exactly.
+The released function uses the shared texture and instance-bank declarations
+to search by `FileName` and increment the reference count.
 
 ## Outcome
 
-The original texture-bank lookup and conditional reference-count increment match exactly.
+The local texture, fixed-string, and bank declarations were removed.

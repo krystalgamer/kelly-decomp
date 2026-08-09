@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released setter copies at most 256 bytes into the global mesh path and force-terminates the final byte. The original expression and recovered buffer address match exactly.
+The released setter uses the shared 256-byte mesh-path buffer, performs the
+bounded copy, and force-terminates the final byte.
 
 ## Outcome
 
-The original bounded NGL mesh-path copy and forced terminator match exactly.
+The local path declaration was removed.

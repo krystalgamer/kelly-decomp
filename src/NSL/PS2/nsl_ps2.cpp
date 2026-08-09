@@ -80,14 +80,8 @@ void fifo_queue<unsigned int>::init(short size) {
 }
 
 // 0x003916C0 __static_initialization_and_destruction_0
-struct nsl_static_init_layout {
-    char padding0[0x1584c];
-    int firstInit;
-    int initialized;
-    char padding1[0x2c];
-    bool on;
-};
-extern nsl_static_init_layout nsl;
+#include "NSL/PS2/nsl_ps2.h"
+
 __asm__(".equ nsl, 0x0049B5F0");
 extern "C" void StaticInit(int initialize, int priority) __asm__("__static_initialization_and_destruction_0");
 void StaticInit(int initialize, int priority)

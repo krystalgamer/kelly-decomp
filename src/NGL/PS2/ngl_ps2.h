@@ -2,6 +2,12 @@
 #define NGL_PS2_H
 
 typedef unsigned int u_int;
+typedef void (*nglMemFreeCallback)(void *pointer);
+
+struct nglSystemCallbackStruct {
+    char data_before_mem_free[0x14];
+    nglMemFreeCallback MemFree;
+};
 
 inline int nglFTOI(float input)
 {
@@ -248,6 +254,7 @@ public:
 
 extern nglScene *nglCurScene;
 extern nglScene nglDefaultScene;
+extern nglSystemCallbackStruct nglSystemCallbacks;
 extern nglInstanceBank nglFontBank;
 extern nglInstanceBank nglTextureBank;
 extern nglInstanceBank nglMeshFileBank;
@@ -277,6 +284,9 @@ void nglSetQuadRect(
     float x2, float y2);
 void nglSetMeshFlags(u_int flags);
 void nglMemFree(void *memory);
+void nglSetMeshPath(const char *path);
+void nglSetTexturePath(const char *path);
+void nglAddTextureRef(nglTexture *texture);
 int nglGetScreenWidth();
 int nglGetScreenHeight();
 const char *nglGetMeshPath();
@@ -315,10 +325,14 @@ __asm__(".equ nglFatal__FPCce, 0x003AC0C0");
 __asm__(".equ nglFontBank, 0x004BC010");
 __asm__(".equ nglScratch, 0x004BB7B0");
 __asm__(".equ Delete__15nglInstanceBankRC14nglFixedString, 0x003AC440");
+#if !defined(KELLY_DECOMP_FUNCTION_00395D50)
 __asm__(".equ nglMemFree__FPv, 0x00395D50");
+#endif
+#if !defined(KELLY_DECOMP_FUNCTION_0039B298)
 __asm__(
     ".equ nglDistanceToPlane__FRC9nglVectorT0, "
     "0x0039B298");
+#endif
 __asm__(".equ sceVu0CopyVector, 0x003BC4F0");
 
 #endif

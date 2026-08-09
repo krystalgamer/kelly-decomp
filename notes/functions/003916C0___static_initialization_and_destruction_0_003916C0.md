@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-Reconstructed the generated static initialization guard and the released nslSystem constructor effects: firstInit true, on false, and initialized false at their recovered offsets.
+The generated static initialization guard uses the shared `nslSystem` fields
+for `firstInit`, `on`, and `initialized`.
 
 ## Outcome
 
-The generated NSL static initializer matches exactly with the released nslSystem constructor state and guard.
+The local static-initialization layout was removed.

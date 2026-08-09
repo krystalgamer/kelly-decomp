@@ -357,27 +357,27 @@ nglCustomNodeFn nglGetMeshSectionFunction(
 
 #if defined(KELLY_DECOMP_FUNCTION_00395D50)
 // 0x00395D50 nglMemFree__FPv
-typedef void (*nglMemFreeCallback)(void *pointer);
-struct nglSystemCallbackStruct { char padding[0x14]; nglMemFreeCallback MemFree; };
-extern nglSystemCallbackStruct nglSystemCallbacks;
+#include "NGL/PS2/ngl_ps2.h"
+
 __asm__(".equ nglSystemCallbacks, 0x004BBF98");
 extern "C" void free(void *pointer);
 __asm__(".equ free, 0x003D0BC8");
 void nglMemFree(void *pointer)
 {
     if (nglSystemCallbacks.MemFree) {
-        nglSystemCallbacks.MemFree(pointer);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        nglMemFreeCallback release = nglSystemCallbacks.MemFree;
+        release(pointer);
     } else {
-        free(pointer);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*release)(void *) = free;
+        release(pointer);
     }
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00395DA8)
 // 0x00395DA8 nglSetMeshPath__FPCc
-extern char nglMeshPath[256];
+#include "NGL/PS2/ngl_ps2.h"
+
 __asm__(".equ nglMeshPath, 0x004BF058");
 extern "C" char *strncpy(char *destination, const char *source, unsigned int count);
 __asm__(".equ strncpy, 0x003D4508");
@@ -390,7 +390,8 @@ void nglSetMeshPath(const char *path)
 
 #if defined(KELLY_DECOMP_FUNCTION_00395DE0)
 // 0x00395DE0 nglSetTexturePath__FPCc
-extern char nglTexturePath[256];
+#include "NGL/PS2/ngl_ps2.h"
+
 __asm__(".equ nglTexturePath, 0x004BF158");
 extern "C" char *strncpy(char *destination, const char *source, unsigned int count);
 __asm__(".equ strncpy, 0x003D4508");
@@ -403,11 +404,8 @@ void nglSetTexturePath(const char *path)
 
 #if defined(KELLY_DECOMP_FUNCTION_0039B298)
 // 0x0039B298 nglDistanceToPlane__FRC9nglVectorT0
-class nglVector {
-    float values[4];
-public:
-    float operator[](int index) const { return values[index]; }
-};
+#include "NGL/PS2/ngl_ps2.h"
+
 float nglDistanceToPlane(const nglVector &plane, const nglVector &point)
 {
     float distance = plane[0] * point[0] + plane[1] * point[1] + plane[2] * point[2] + plane[3];
@@ -417,14 +415,8 @@ float nglDistanceToPlane(const nglVector &plane, const nglVector &point)
 
 #if defined(KELLY_DECOMP_FUNCTION_0039C710)
 // 0x0039C710 nglAddTextureRef__FP10nglTexture
-class nglFixedString {};
-struct nglTexture { char padding[0x40]; nglFixedString FileName; };
-class nglInstanceBank {
-public:
-    struct Instance { char padding[0x24]; int RefCount; };
-    Instance *Search(const nglFixedString &name);
-};
-extern nglInstanceBank nglTextureBank;
+#include "NGL/PS2/ngl_ps2.h"
+
 __asm__(".equ nglTextureBank, 0x004BBFF8");
 __asm__(".equ Search__15nglInstanceBankRC14nglFixedString, 0x003AC608");
 void nglAddTextureRef(nglTexture *texture)

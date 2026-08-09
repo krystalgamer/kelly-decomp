@@ -64,6 +64,11 @@ struct WaveScheduleStruct {
     unsigned int break_type;
 };
 
+struct WaveScheduleTypeStruct {
+    char data_before_height[12];
+    float height;
+};
+
 struct WaveDebugStruct {
     int AnimateBottom;
     int AnimateFoam;
@@ -153,6 +158,7 @@ extern WaveMarker WAVE_Markers[];
 extern unsigned int WAVE_ScheduleIndex;
 extern unsigned int WAVE_ScheduleLength;
 extern WaveScheduleStruct WAVE_ScheduleArray[];
+extern WaveScheduleTypeStruct WAVE_ScheduleType[];
 extern float WAVE_TexAnimFrame;
 extern float WAVE_TexAnimSpeed;
 extern WaveDebugStruct WaveDebug;
@@ -284,6 +290,7 @@ float WAVE_GetScheduleSec();
 float WAVE_GetScheduleRemainingSec();
 void WAVE_AddHeightFudge(int index, float value);
 float WAVE_GetHeightFudgeFactor(int index);
+float WAVE_GetHeight();
 extern WavePerturbStageEnum WAVE_PerturbStage;
 extern float WAVE_ScheduleTimeStart;
 extern float WAVE_ScheduleTimeEnd;

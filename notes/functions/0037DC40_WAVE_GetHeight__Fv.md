@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released getter indexes the 20-byte active schedule entry, then the 16-byte schedule type, and returns its height field. Recovered globals, strides, and offsets match exactly.
+The released getter uses the shared 20-byte schedule entry and 16-byte
+schedule-type declarations to return the active height.
 
 ## Outcome
 
-The original active-wave height lookup matches exactly with the recovered schedule and type table layouts.
+The local wave schedule layouts were removed.
