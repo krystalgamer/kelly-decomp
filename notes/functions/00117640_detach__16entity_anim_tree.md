@@ -12,11 +12,15 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size48-anim-core.cpp` |
 
 ### Attempt 1 notes
 
-A minimal old-GCC vtable layout preserves the released virtual `set_flag(ANIM_ATTACHED, false)` call with flag value 16.
+### Attempt 2 notes
+
+The shared animation hierarchy preserves the inherited virtual
+`set_flag(ANIM_ATTACHED, false)` dispatch.
 
 ## Outcome
 
-The released `entity_anim_tree::detach` implementation matched exactly on the first attempt.
+The manual vtable layout was removed.

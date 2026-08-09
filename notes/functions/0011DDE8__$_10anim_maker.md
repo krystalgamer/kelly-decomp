@@ -5,20 +5,29 @@
 - Object: `game/files_anim`
 - Debug source: `C:/KS/SRC/anim_maker.cpp`
 - Reference source: `KS/SRC/anim_maker.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 33.3333 | 25.0 | `candidate.cpp` |
+| 2 | different | 33.3333 | 25.0 | `candidate.cpp` |
+| 3 | different | 33.3333 | 25.0 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
-The released empty destructor restores its vtable and conditionally calls `__builtin_delete`; the carried vtable alias and trailing barrier reproduce the generated frame exactly.
+The released empty destructor collapses to a 36-byte sibling delete form.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+An explicitly defaulted out-of-line destructor produces the same form.
+
+### Attempt 3 notes
+
+A qualified empty body retains the same sibling delete schedule.
 
 ## Outcome
 
-The released `anim_maker` destructor matched exactly on the first attempt.
+The prior match manually restored the vtable and used a compiler barrier. It
+was removed and the destructor was deferred.

@@ -53,6 +53,13 @@ public:
         return is_flagged(ANIM_TWEEN);
     }
 
+    inline void set_flag(anim_flags_t flag, bool enabled) {
+        if (enabled)
+            flags |= flag;
+        else
+            flags &= ~flag;
+    }
+
     inline float get_tween_timer() const {
         return tween_timer;
     }

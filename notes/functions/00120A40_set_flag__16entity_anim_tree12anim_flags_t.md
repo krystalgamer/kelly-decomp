@@ -13,11 +13,17 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 27.0833 | 8.3333 | `candidate.cpp` |
 | 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | matched | 100.0 | 100.0 | `size48-anim-core.cpp` |
 
 ### Attempt 2 notes
 
 Restoring the released nested `anim_control::set_flag(..., true)` calls keeps the two subobject pointers at 0x48/0x84 and then updates the base 16-bit flag word.
 
+### Attempt 3 notes
+
+The shared animation declarations preserve both nested control updates and
+the base flag word.
+
 ## Outcome
 
-The released one-argument `entity_anim_tree::set_flag` implementation matched exactly on attempt two.
+The local animation layouts were removed.

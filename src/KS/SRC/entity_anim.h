@@ -183,7 +183,7 @@ public:
     void deconstruct();
     void detach();
     void attach();
-    virtual void set_flag(int flag);
+    virtual void set_flag(anim_flags_t flag);
     void set_timescale_factor(float factor);
     void set_priority(int value);
     void construct(

@@ -13,13 +13,17 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 57.6923 | 46.1538 | `candidate.cpp` |
 | 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | matched | 100.0 | 100.0 | `size48-anim-core.cpp` |
 
 ### Attempt 2 notes
 
 The released method gets the requested animation tree and conditionally forwards it to the global world system. The trailing empty compiler barrier prevents the conditional call from becoming a sibling jump.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 3 notes
+
+The shared world declaration and a local function pointer preserve the
+conditional normal call without a compiler barrier.
 
 ## Outcome
 
-The released `entity::kill_anim` implementation matched exactly on attempt two.
+The compiler barrier and local world declaration were removed.

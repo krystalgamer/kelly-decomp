@@ -413,25 +413,24 @@ bool entity::has_mesh() { return get_mesh() != 0; }
 
 // 0x00134918 kill_anim__6entityi
 #include "KS/SRC/entity.h"
-
-class world_dynamics_system {
-public:
-    void kill_anim(entity_anim_tree *animation);
-};
+#include "KS/SRC/wds.h"
 
 __asm__(".equ kill_anim__21world_dynamics_systemP16entity_anim_tree, 0x002A3710");
-
-extern world_dynamics_system *g_world_ptr;
-__asm__(".equ g_world_ptr, 0x00431A8C");
+void kill_world_anim(
+    world_dynamics_system *world,
+    entity_anim_tree *animation)
+    __asm__("kill_anim__21world_dynamics_systemP16entity_anim_tree");
 
 __asm__(".equ get_anim_tree__C6entityi, 0x001348D8");
 
 void entity::kill_anim(int slot) {
     entity_anim_tree *animation = get_anim_tree(slot);
     if (animation) {
-        g_world_ptr->kill_anim(animation);
+        void (*kill_animation)(
+            world_dynamics_system *,
+            entity_anim_tree *) = kill_world_anim;
+        kill_animation(g_world_ptr, animation);
     }
-    KELLY_DECOMP_COMPILER_BARRIER();
 }
 
 // 0x001379F0 is_destroyable__C6entity

@@ -5,28 +5,6 @@
 #include "KS/SRC/anim_maker.h"
 anim_maker::anim_maker() {}
 
-// 0x0011DDE8 _$_10anim_maker
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char anim_maker_vtable[];
-__asm__(".equ anim_maker_vtable, 0x004CA030");
-
-struct anim_maker_layout {
-    const void *vtable;
-};
-
-extern "C" void AnimMakerDtor(void *self, int deleting)
-    __asm__("_$_10anim_maker");
-
-void AnimMakerDtor(void *self, int deleting) {
-    ((anim_maker_layout *)self)->vtable = anim_maker_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
-    }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x0011E0D0 create_anim__10anim_makerP16entity_anim_treeRC7stringxRC17entity_track_treeT3ffUsfisP13entity_widget
 #include "KS/SRC/anim_maker.h"
 __asm__(".equ construct__16entity_anim_treeRC7stringxRC17entity_track_treeT2ffUsfis,0x001167D8");__asm__(".equ add_anim__13entity_widgetP16entity_anim_tree,0x002B9B50");__asm__(".equ add_anim__21world_dynamics_systemP16entity_anim_tree,0x002A3688");void anim_maker::create_anim(entity_anim_tree*cached,const stringx&name,const entity_track_tree&a,const entity_track_tree&b,float ba,float bb,unsigned short flags,float start,int priority,short loop,entity_widget*owner){if(flags&2)start=a.get_duration()-start;cached->construct(name,a,b,ba,bb,flags,start,priority,loop);if(!owner){g_world_ptr->add_anim(cached);asm volatile("");}else{owner->add_anim(cached);asm volatile("");}}
