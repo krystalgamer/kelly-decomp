@@ -12,7 +12,7 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | symbol_missing | 0.0 | 0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size44-collision-cheat-core.cpp` |
 
 ### Attempt 1 notes
 
@@ -20,8 +20,9 @@ The first candidate failed due to an access or exact signature-mangling mismatch
 
 ### Attempt 2 notes
 
-A minimal world layout forwards the segment endpoints and output vectors to terrain intersection.
+The shared world and terrain declarations forward the segment endpoints and
+output vectors to terrain intersection.
 
 ## Outcome
 
-The released segment-region collision wrapper matched exactly.
+The local world layout was removed.

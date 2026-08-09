@@ -36,6 +36,11 @@ class terrain {
 
 public:
     sector *find_sector(const vector3d &position) const;
+    bool find_intersection(
+        const vector3d &start,
+        const vector3d &end,
+        vector3d &hit,
+        vector3d &normal);
     void optimize();
 };
 

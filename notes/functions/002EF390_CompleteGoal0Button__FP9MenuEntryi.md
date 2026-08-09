@@ -11,11 +11,12 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-collision-cheat-core.cpp` |
 
 ### Attempt 1 notes
 
-The released cheat callback completes goal 0 when the global beach exists and always reports success.
+The shared beach declaration completes goal 0 when the global beach exists
+and always reports success.
 
 ## Outcome
 
