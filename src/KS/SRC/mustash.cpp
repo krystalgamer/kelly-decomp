@@ -77,8 +77,8 @@ __asm__(".equ SignalSema, 0x003DB680");
 void stash::WaitForStashLoad()
 {
     WaitSema(LoadNewStashSema);
-    SignalSema(LoadNewStashSema);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    int (*release_semaphore)(int) = SignalSema;
+    release_semaphore(LoadNewStashSema);
 }
 
 // 0x00347CE0 open__5stashPCc

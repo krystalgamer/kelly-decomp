@@ -5,7 +5,7 @@
 - Object: `game/files_vsim`
 - Debug source: `C:/KS/SRC/inputmgr.cpp`
 - Reference source: `KS/SRC/inputmgr.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -13,7 +13,7 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | compile_failed | 0.0 | 0 | `candidate.cpp` |
 | 2 | different | 14.5833 | 8.3333 | `candidate.cpp` |
-| 3 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | different | 14.5833 | 8.3333 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
@@ -25,10 +25,10 @@ Modeled the vtable slot explicitly in a nonvirtual class destructor. The compile
 
 ### Attempt 3 notes
 
-The released generated destructor restores the input-device vtable at offset 0x4 and conditionally invokes `__builtin_delete`. The ABI-shaped wrapper avoids re-emitting the vtable, and the trailing empty barrier preserves the target call frame instead of allowing a sibling tail call.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+Ordinary native forms either re-emit the key-function vtable or collapse to a
+sibling delete without the target frame.
 
 ## Outcome
 
-The released empty input-device virtual destructor matched exactly through its generated vtable restore and conditional delete.
+The prior exact form manually restored the vtable and used a compiler barrier.
+Those matching-only constructs were removed.

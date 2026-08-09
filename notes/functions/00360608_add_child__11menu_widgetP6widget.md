@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released base `widget::add_child` call followed by incrementing `num_items` matched exactly with the base layout size of 0x144.
+The released base `widget::add_child` call followed by incrementing `num_items`
+uses the shared widget hierarchy.
 
 ## Outcome
 
-The released menu-widget child insertion override matched exactly on the first attempt.
+The local 0x144-byte layout was removed; the released override remains exact.

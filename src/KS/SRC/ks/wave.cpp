@@ -165,28 +165,6 @@ int WAVE_GetNextScheduleIndex() {
     return (WAVE_ScheduleIndex + 1) % WAVE_ScheduleLength;
 }
 
-// 0x00383DF0 _$_15WaveScratchBase
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char wave_scratch_vtable[];
-__asm__(".equ wave_scratch_vtable, 0x0051A728");
-
-struct wave_scratch_layout {
-    const void *vtable;
-};
-
-extern "C" void WaveScratchBaseDtor(void *self, int deleting)
-    __asm__("_$_15WaveScratchBase");
-
-void WaveScratchBaseDtor(void *self, int deleting) {
-    ((wave_scratch_layout *)self)->vtable = wave_scratch_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
-    }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x003732F0 __12KSWaterState
 class KSWaterState {
     float StageStart[3];

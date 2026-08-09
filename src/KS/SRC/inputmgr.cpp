@@ -9,29 +9,6 @@ input_device::input_device()
     device_id = INVALID_DEVICE_ID;
 }
 
-// 0x00343938 _$_12input_device
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char input_device_vtable[];
-__asm__(".equ input_device_vtable, 0x00504FC8");
-
-struct input_device_layout {
-    int device_id;
-    const void *vtable;
-};
-
-extern "C" void InputDeviceDtor(void *self, int deleting)
-    __asm__("_$_12input_device");
-
-void InputDeviceDtor(void *self, int deleting) {
-    ((input_device_layout *)self)->vtable = input_device_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
-    }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x00344168 poll_devices__9input_mgr
 struct poll_slot {
     char padding[0x50]; short adjustment; short reserved;

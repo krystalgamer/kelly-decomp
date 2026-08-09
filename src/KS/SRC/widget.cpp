@@ -896,21 +896,9 @@ void bitmap_widget::scale_to(float scale) {
 }
 
 // 0x00360608 add_child__11menu_widgetP6widget
-class widget {
-    char padding[0x144];
-
-public:
-    void add_child(widget *child);
-};
+#include "KS/SRC/widget.h"
 
 __asm__(".equ add_child__6widgetP6widget, 0x0033E270");
-
-class menu_widget : public widget {
-    int num_items;
-
-public:
-    void add_child(widget *child);
-};
 
 void menu_widget::add_child(widget *child)
 {

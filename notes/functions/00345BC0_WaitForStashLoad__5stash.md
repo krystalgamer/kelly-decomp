@@ -20,10 +20,10 @@ Used the released semaphore wait followed by semaphore release. The compiler con
 
 ### Attempt 2 notes
 
-The released PS2 semaphore wait/release sequence matched. The semaphore alias uses `0x0046ABCC` so isolated absolute assembly reproduces the target's HI16 relocation carry while the signed LO16 still addresses the real `0x0045ABCC` object; the trailing empty barrier prevents a sibling tail call to `SignalSema`.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released PS2 semaphore wait/release sequence uses the recovered semaphore
+alias and a local release-function pointer.
 
 ## Outcome
 
-The released stash-load wait matched exactly with its PS2 semaphore acquire/release sequence.
+The compiler barrier was removed while preserving the normal `SignalSema`
+call.

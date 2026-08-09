@@ -5,20 +5,22 @@
 - Object: `game/files_vsim`
 - Debug source: `C:/KS/SRC/signals.h`
 - Reference source: `KS/SRC/signals.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 20.8333 | 8.3333 | `candidate.cpp` |
+| 2 | different | 20.8333 | 8.3333 | `candidate.cpp` |
+| 3 | different | 20.8333 | 8.3333 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
-The released empty virtual destructor matched through its generated vtable restore at offset 0x10 and conditional `__builtin_delete`. The ABI-shaped wrapper avoids emitting unrelated vtable/RTTI data, and the trailing empty barrier preserves the framed call.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+Three native empty-destructor forms collapse to a 36-byte sibling-delete
+sequence.
 
 ## Outcome
 
-The released signal-callback destructor matched exactly through its generated vtable restore and conditional delete.
+The target frame required manual vtable restoration and a compiler barrier.
+Those matching-only constructs were removed.
