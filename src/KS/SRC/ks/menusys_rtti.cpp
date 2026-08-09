@@ -1,35 +1,5 @@
 // Matching decompilation blocks selected by generated build shims.
 
-#if defined(KELLY_DECOMP_FUNCTION_00270210)
-extern "C" void MENU_TermMenus() __asm__("MENU_TermMenus__Fv");
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-extern const char menu_render_vtable[];
-
-__asm__(".equ MENU_TermMenus__Fv, 0x00240388");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-__asm__(".equ menu_render_vtable, 0x004D5E28");
-
-struct MenuRenderLayout {
-    char data[0x458];
-    const void *vtable;
-};
-
-// 0x00270210 _$_10MenuRender
-extern "C" void MenuRenderDtor(void *self, int deleting)
-    __asm__("_$_10MenuRender");
-void MenuRenderDtor(void *self, int deleting)
-{
-    ((MenuRenderLayout *)self)->vtable = menu_render_vtable;
-    MENU_TermMenus();
-    if (deleting & 1) {
-        BuiltinDelete(self);
-        // Prevent the demonstrated operator-delete tail call in this generated destructor.
-        KELLY_DECOMP_COMPILER_BARRIER();
-    }
-}
-#endif
-
-
 #if defined(KELLY_DECOMP_FUNCTION_002701D0)
 // 0x002701D0 __tf10MenuRender
 extern "C" void __rtti_user(void *, const char *); asm(".equ __rtti_user, 0x003CE2F8");

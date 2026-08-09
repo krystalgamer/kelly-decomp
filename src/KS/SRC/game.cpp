@@ -313,23 +313,7 @@ int game::get_first_surfer_index()
 }
 // 0x0027A490 take_snapshot__4gameP10nglTexture
 #include "KS/SRC/game.h"
-
-class entity;
-
-enum EventType {
-    SS_CAMERA_SNAPSHOT = 19
-};
-
-class SoundScriptManager {
-public:
-    int playEvent(
-        EventType type,
-        entity *source = 0,
-        float fade_in_time = 0.0f
-    );
-};
-
-extern SoundScriptManager *sound_script_manager;
+#include "KS/SRC/ks/SoundScript.h"
 
 __asm__(".equ sound_script_manager, 0x0046B4A0");
 __asm__(
@@ -341,7 +325,7 @@ void game::take_snapshot(nglTexture *destination)
     destSnapshot = destination;
 
     if (snapshotState == 0) {
-        sound_script_manager->playEvent(SS_CAMERA_SNAPSHOT);
+        SoundScriptManager::inst()->playEvent(SS_CAMERA_SNAPSHOT);
         snapshotState = 1;
     }
 }

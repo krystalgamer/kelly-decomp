@@ -132,33 +132,6 @@ beam_effect::beam_effect(beam *the_beam)
 #include "KS/SRC/beam.h"
 
 void beam_effect::dump() { if(effect != 0) { delete effect; effect = 0; } }
-// 0x00272838 _$_11beam_effect
-extern "C" void BeamEffectDump(void *self) __asm__("dump__11beam_effect");
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-extern const char beam_effect_vtable[];
-
-__asm__(".equ dump__11beam_effect, 0x00272888");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-__asm__(".equ beam_effect_vtable, 0x004FCE88");
-
-struct BeamEffectLayout {
-    char data[0x18];
-    const void *vtable;
-};
-
-extern "C" void BeamEffectDtor(void *self, int deleting)
-    __asm__("_$_11beam_effect");
-void BeamEffectDtor(void *self, int deleting)
-{
-    ((BeamEffectLayout *)self)->vtable = beam_effect_vtable;
-    BeamEffectDump(self);
-    if (deleting & 1) {
-        BuiltinDelete(self);
-        // Prevent the demonstrated operator-delete tail call in this generated destructor.
-        KELLY_DECOMP_COMPILER_BARRIER();
-    }
-}
-
 // 0x002711F0 _$_4beam
 struct material;
 

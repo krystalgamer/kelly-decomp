@@ -4,6 +4,7 @@
 #include "KS/SRC/singleton.h"
 
 enum EventType {
+    SS_CAMERA_SNAPSHOT = 19,
     SS_FE_ONX = 24,
     SS_FE_UPDOWN = 25,
     SS_FE_BACK = 27,
