@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released current-menu close and base MenuRender close match exactly; the reviewed empty barrier narrowly prevents the demonstrated final base-call tail optimization.
+The released current-menu close uses the shared menu hierarchy. A local base
+renderer-close pointer preserves the final framed call.
 
 ## Outcome
 
-The released current-menu close and base renderer close match exactly with one reviewed barrier preventing a demonstrated tail optimization.
+The local menu layouts and compiler barrier were removed.

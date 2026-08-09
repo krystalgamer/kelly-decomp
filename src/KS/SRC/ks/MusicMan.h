@@ -69,6 +69,8 @@ public:
     static singleton_ptr<MusicMan> instance;
     static MusicMan *inst() { return instance; }
 
+    MusicMan();
+    virtual ~MusicMan();
     MusicListing musicTrack;
     void setCurrent(int current) {
         musicTrack.setCurrent(current);

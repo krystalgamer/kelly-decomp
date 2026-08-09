@@ -25,8 +25,9 @@ A hand-spelled empty barrier used unsupported old-compiler syntax and failed to 
 
 ### Attempt 3 notes
 
-The released three ClearMenu calls match exactly when the narrow reviewed KELLY_DECOMP_COMPILER_BARRIER() suppresses the demonstrated third-call tail optimization.
+The shared debug-menu declarations and a local final-clear pointer preserve
+all three framed `ClearMenu` calls.
 
 ## Outcome
 
-The released three-menu cleanup matches exactly with one reviewed empty barrier preventing a demonstrated final-call tail optimization.
+The local menu declarations and compiler barrier were removed.

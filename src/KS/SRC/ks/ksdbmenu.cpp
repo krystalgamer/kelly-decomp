@@ -155,16 +155,10 @@ bool MemoryDump(MenuEntry *entry, int button)
 }
 
 // 0x00236980 ExitLevel__FP9MenuEntryi
-class MenuEntry;
-class MenuSystem { public: void CloseAllMenus(); };
-class game { public: void end_level(); };
-class app {
-    char padding[0x10];
-    game *the_game;
-public:
-    game *get_game() { return the_game; }
-};
-extern MenuSystem *menus;
+#include "KS/SRC/app.h"
+#include "KS/SRC/game.h"
+#include "KS/SRC/ks/ksdbmenu.h"
+
 extern app *application;
 asm(".equ menus, 0x00424EE8");
 asm(".equ application, 0x0046AC18");
@@ -180,20 +174,21 @@ bool ExitLevel(MenuEntry *entry, int buttonid)
 }
 
 // 0x00236A50 KSDBMENU_KillMainMenu__Fv
-class Menu { public: void ClearMenu(); };
-extern Menu *menu_main;
-extern Menu *menu_inner_cam;
-extern Menu *menu_inner_camtool;
+#include "KS/SRC/ks/ksdbmenu.h"
+
 asm(".equ menu_main, 0x004252A4");
 asm(".equ menu_inner_cam, 0x00424F70");
 asm(".equ menu_inner_camtool, 0x00434978");
 asm(".equ ClearMenu__4Menu, 0x0023E538");
+extern "C" void clear_menu(Menu *menu)
+    __asm__("ClearMenu__4Menu");
+
 void KSDBMENU_KillMainMenu()
 {
     menu_main->ClearMenu();
     menu_inner_cam->ClearMenu();
-    menu_inner_camtool->ClearMenu();
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*clear)(Menu *) = clear_menu;
+    clear(menu_inner_camtool);
 }
 
 // 0x00235D90 FreezeButton__FP9MenuEntryi

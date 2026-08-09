@@ -29,6 +29,7 @@ public:
     }
 
     static void cleanup_stl_memory_dregs();
+    game *get_game() { return the_game; }
     instance_render_info *get_viri();
     void set_viri(instance_render_info *value);
     virtual const char *get_signal_name(unsigned int index) const;

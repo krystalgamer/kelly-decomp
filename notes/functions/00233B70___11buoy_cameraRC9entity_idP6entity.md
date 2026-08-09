@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released base game_camera construction, compiler-generated buoy_camera vtable install, and virtual init call matched all 60 bytes with the recovered old-GCC vtable symbol.
+The released constructor uses the shared camera hierarchy, carried old-GCC
+vtable alias, and derived `init` call.
 
 ## Outcome
 
-The released buoy camera constructor exactly matches base construction, old-GCC vtable installation, and initialization.
+The local camera declarations were removed.

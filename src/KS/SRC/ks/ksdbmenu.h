@@ -29,6 +29,8 @@ protected:
 
 extern MenuSystem *menus;
 extern KSMainMenu *menu_main;
+extern Menu *menu_inner_cam;
+extern Menu *menu_inner_camtool;
 extern Menu *fakefrontend;
 
 bool UserCamButton(MenuEntry *entry, int button);

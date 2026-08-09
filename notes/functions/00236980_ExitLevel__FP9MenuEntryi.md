@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released cross-button check, menu closure, singleton game lookup, end-level call, and true return matched exactly with recovered globals and app layout.
+The released callback uses the shared menu, app, and game declarations for
+the cross-button guard, menu closure, and level exit.
 
 ## Outcome
 
-The released exit-level callback exactly matches its cross-button guard, menu closure, game lookup, and end-level call.
+The local menu, app, and game layouts were removed.

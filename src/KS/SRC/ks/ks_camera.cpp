@@ -731,24 +731,12 @@ wipeout_camera::wipeout_camera(const entity_id &id, entity *target)
 }
 
 // 0x00231D28 __13follow_cameraRC9entity_idP6entity
-class entity_id;
-class entity;
+#include "KS/SRC/ks/ks_camera.h"
+
 asm(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
 asm(".equ init__13follow_camera, 0x00231D68");
 asm(".equ _vt$13follow_camera, 0x004D7C80");
-class game_camera {
-    char padding[8];
-public:
-    game_camera(const entity_id &id, entity *target);
-    virtual ~game_camera();
-};
-class follow_camera : public game_camera {
-public:
-    follow_camera(const entity_id &id, entity *target);
-    virtual ~follow_camera();
-    virtual void frame_advance(float time_step);
-    virtual void init();
-};
+
 follow_camera::follow_camera(const entity_id &id, entity *target)
     : game_camera(id, target)
 {
@@ -756,24 +744,12 @@ follow_camera::follow_camera(const entity_id &id, entity *target)
 }
 
 // 0x00232A28 __19follow_close_cameraRC9entity_idP6entity
-class entity_id;
-class entity;
+#include "KS/SRC/ks/ks_camera.h"
+
 asm(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
 asm(".equ init__19follow_close_camera, 0x00232A68");
 asm(".equ _vt$19follow_close_camera, 0x004D7638");
-class game_camera {
-    char padding[8];
-public:
-    game_camera(const entity_id &id, entity *target);
-    virtual ~game_camera();
-};
-class follow_close_camera : public game_camera {
-public:
-    follow_close_camera(const entity_id &id, entity *target);
-    virtual ~follow_close_camera();
-    virtual void frame_advance(float time_step);
-    virtual void init();
-};
+
 follow_close_camera::follow_close_camera(const entity_id &id, entity *target)
     : game_camera(id, target)
 {
@@ -781,24 +757,12 @@ follow_close_camera::follow_close_camera(const entity_id &id, entity *target)
 }
 
 // 0x00233B70 __11buoy_cameraRC9entity_idP6entity
-class entity_id;
-class entity;
+#include "KS/SRC/ks/ks_camera.h"
+
 asm(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
 asm(".equ init__11buoy_camera, 0x00233BB0");
 asm(".equ _vt$11buoy_camera, 0x004D6FF0");
-class game_camera {
-    char padding[8];
-public:
-    game_camera(const entity_id &id, entity *target);
-    virtual ~game_camera();
-};
-class buoy_camera : public game_camera {
-public:
-    buoy_camera(const entity_id &id, entity *target);
-    virtual ~buoy_camera();
-    virtual void frame_advance(float time_step);
-    virtual void init();
-};
+
 buoy_camera::buoy_camera(const entity_id &id, entity *target)
     : game_camera(id, target)
 {

@@ -295,6 +295,7 @@ class MenuRender {
 
 public:
     virtual ~MenuRender();
+    void CloseMenu();
 
 protected:
     void Clear();

@@ -55,14 +55,8 @@ Menu::Menu(Menu *parent_menu)
 }
 
 // 0x0023E688 GetElementFlags__4Menui
-class MenuEntry { public: unsigned int state; unsigned int GetState() { return state; } };
-class Menu {
-    void *vtable;
-    int entries;
-    MenuEntry **entry;
-public:
-    unsigned int GetElementFlags(int i);
-};
+#include "KS/SRC/ks/menu.h"
+
 unsigned int Menu::GetElementFlags(int i)
 {
     if (i >= 0 && i < entries && entry[i])

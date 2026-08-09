@@ -77,21 +77,8 @@ void MusicMan::stop()
 
 #if defined(KELLY_DECOMP_FUNCTION_00258780)
 // 0x00258780 __8MusicMan
-class singleton {
-protected:
-    singleton() {}
-    virtual ~singleton() {}
-};
-class MusicListing { public: MusicListing(); };
-class MusicMan : public singleton {
-    float volume;
-    int inited;
-    bool paused;
-public:
-    MusicMan();
-    ~MusicMan();
-    MusicListing musicTrack;
-};
+#include "KS/SRC/ks/MusicMan.h"
+
 asm(".equ __12MusicListing, 0x00258820");
 asm(".equ _vt$8MusicMan, 0x004D5E70");
 MusicMan::MusicMan()

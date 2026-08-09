@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released bounds checks, entry-null check, and inline GetState load match exactly with the original Menu and MenuEntry layouts.
+The released bounds checks, null guard, and inline state load use the shared
+`Menu` and `MenuEntry` declarations.
 
 ## Outcome
 
-The released menu element bounds/null checks and inline state load match exactly.
+The local menu and entry layouts were removed.
