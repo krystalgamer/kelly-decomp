@@ -39,6 +39,7 @@ Load__15FEGraphicalMenub = 0x1DB098;
 OnActivate__16HeatEndMenuClass = 0x1A8978;
 OnActivate__16CompEndMenuClass = 0x1A8FF8;
 Update__18TrickTypeMenuClassf = 0x1AC7B8;
+OnStart__15ReplayMenuClassi = 0x1B0A28;
 OnL1__17PlaylistMenuClassi = 0x1B0318;
 OnR1__17PlaylistMenuClassi = 0x1B0358;
 _$_15CameraMenuClass = 0x1AABE8;

@@ -301,33 +301,6 @@ void QuitConfirmMenuClass::OnActivate()
 }
 
 
-// 0x001B0A28 OnStart__15ReplayMenuClassi
-#include "KS/SRC/ks/FrontEndMenus.h"
-#include "decomp_annotations.h"
-struct ReplayMenuVTableLayout {
-    char entries_before_replay_end[0x178];
-    short replay_end_adjustment;
-    short replay_end_padding;
-    void (*replay_end)(void *self);
-};
-struct ReplayMenuClassLayout {
-    char menu_data[0x74];
-    ReplayMenuVTableLayout *vtable;
-    PauseMenuSystem *sys;
-};
-extern "C" void FEMenuOnStart(FEMenu *menu, int controller) __asm__("OnStart__6FEMenui");
-__asm__(".equ OnStart__6FEMenui, 0x001577B8");
-extern "C" void ReplayOnStart(ReplayMenuClassLayout *self, int controller) __asm__("OnStart__15ReplayMenuClassi");
-void ReplayOnStart(ReplayMenuClassLayout *self, int controller) {
-    if (self->sys->replay_mode) {
-        ReplayMenuVTableLayout *table = self->vtable;
-        table->replay_end((char *)self + table->replay_end_adjustment);
-    } else {
-        FEMenuOnStart((FEMenu *)self, controller);
-        KELLY_DECOMP_COMPILER_BARRIER();
-    }
-}
-
 // 0x001B1FA0 Init__12TipMenuClass
 #include "KS/SRC/ks/FrontEndMenus.h"
 __asm__(".equ Init__6FEMenu, 0x00156AE0");

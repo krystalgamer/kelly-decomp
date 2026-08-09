@@ -147,12 +147,8 @@ void SaveLoadFrontEnd::CancelDialog()
 }
 
 // 0x0019FF08 OnUnactivate__9NamesMenuP6FEMenu
+#include "KS/SRC/ks/FrontEndManager.h"
 #include "KS/SRC/ks/SaveLoadFrontEnd.h"
-struct SaveLoadFEManagerLayout {
-    char manager_data[0x15644];
-    color32 col_info_b;
-};
-extern SaveLoadFEManagerLayout frontendmanager;
 __asm__(".equ frontendmanager, 0x003F7728");
 __asm__(".equ TurnPQ__9NamesMenub, 0x0019EC78");
 void NamesMenu::OnUnactivate(FEMenu *menu) {
@@ -162,14 +158,16 @@ void NamesMenu::OnUnactivate(FEMenu *menu) {
 
 // 0x0019FF58 RefreshDisplay__9NamesMenu
 #include "KS/SRC/ks/SaveLoadFrontEnd.h"
-#include "decomp_annotations.h"
 __asm__(".equ GetFileList__9NamesMenuii, 0x0019FFA8");
 __asm__(".equ UpdateMessage__9NamesMenu, 0x0019FDD0");
+extern "C" void update_names_message(NamesMenu *menu)
+    __asm__("UpdateMessage__9NamesMenu");
+
 void NamesMenu::RefreshDisplay() {
     if (cards[adjusted_active_card].exists)
         GetFileList(active_card, adjusted_active_card);
-    UpdateMessage();
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*update_message)(NamesMenu *) = update_names_message;
+    update_message(this);
 }
 
 // 0x0019B1E0 OnCross__16SaveLoadFrontEndi

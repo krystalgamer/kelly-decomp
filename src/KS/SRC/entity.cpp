@@ -725,17 +725,20 @@ int entity::get_max_polys() const {
 
 // 0x00138E60 set_collisions_active__6entitybT1
 #include "KS/SRC/entity.h"
-#include "decomp_annotations.h"
 __asm__(".equ region_update_poss_collide__6entity, 0x00139090");
+extern "C" void update_possible_collisions(entity *value)
+    __asm__("region_update_poss_collide__6entity");
+
 void entity::set_collisions_active(bool a, bool update_reg) {
     if (((flags & EFLAG_PHYSICS_COLLISIONS_ACTIVE) != 0) != a) {
         if (a)
             flags |= EFLAG_PHYSICS_COLLISIONS_ACTIVE;
         else
             flags &= ~EFLAG_PHYSICS_COLLISIONS_ACTIVE;
-        if (update_reg)
-            region_update_poss_collide();
-        KELLY_DECOMP_COMPILER_BARRIER();
+        if (update_reg) {
+            void (*update)(entity *) = update_possible_collisions;
+            update(this);
+        }
     }
 }
 

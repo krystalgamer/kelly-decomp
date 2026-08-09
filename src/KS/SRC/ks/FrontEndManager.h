@@ -19,7 +19,9 @@ public:
     PauseMenuSystem *pms;
     GraphicalMenuSystem *gms;
     FEEntityManager *em;
-    char manager_context_before_game_mode[0x1566c - 0x10];
+    char manager_context_before_col_info_b[0x15644 - 0x10];
+    color32 col_info_b;
+    char manager_context_before_game_mode[0x1566c - 0x15648];
     game_mode_t tmp_game_mode;
     char manager_context_after_game_mode[4];
     bool fe_initialized;

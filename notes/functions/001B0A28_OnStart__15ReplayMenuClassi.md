@@ -5,7 +5,7 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/FrontEndMenus.cpp`
 - Reference source: `KS/SRC/ks/FrontEndMenus.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -39,4 +39,6 @@ As a documented last resort after the shared original-like hierarchy remained tw
 
 ## Outcome
 
-Matched replay menu start behavior using shared front-end declarations and a documented last-resort historical vtable layout fallback.
+The historical raw vtable-slot fallback and branch-local barrier were removed.
+The shared hierarchy still lacks the exact ReplayEnd slot placement, so this
+wrapper was deferred.
