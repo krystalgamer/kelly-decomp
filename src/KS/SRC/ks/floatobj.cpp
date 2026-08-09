@@ -141,22 +141,12 @@ bool surfing_object::mantaray_ai(vector3d &position, vector3d &normal, float tim
 bool beach_event::update(float time) { return my_func(time, &my_func_data); }
 
 // 0x001FD948 spawn__15floating_object
+#include "KS/SRC/ks/floatobj.h"
+
 asm(".equ spawn__12water_object, 0x001FD1B8");
-class water_object { public: void spawn(); };
-class floating_object : public water_object {
-    char padding_to_times[8];
-    int times_spawned;
-    char padding_to_spawn_count[0x1C];
-    int spawn_count;
-    char padding_to_dy[0x2A0];
-    float desired_dy;
-    float current_dy;
-    char padding_to_angle[8];
-    float desired_angle;
-    float current_angle;
-public:
-    void spawn();
-};
+extern "C" void spawn_water_object(water_object *object)
+    __asm__("spawn__12water_object");
+
 void floating_object::spawn()
 {
     if (times_spawned == spawn_count)
@@ -165,8 +155,8 @@ void floating_object::spawn()
     current_dy = 0;
     desired_angle = 0;
     current_angle = 0;
-    water_object::spawn();
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*spawn_base)(water_object *) = spawn_water_object;
+    spawn_base(this);
 }
 
 // 0x001FAAA8 _$_12beach_object

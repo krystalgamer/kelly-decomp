@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released base construction, previous-camera/wave-hint initialization, and compiler-generated wipeout_camera_2 vtable install matched exactly with recovered field offsets and old-GCC vtable symbol.
+The released constructor uses the shared wipeout-camera hierarchy and carried
+vtable alias to initialize the previous camera and wave-hint state.
 
 ## Outcome
 
-The released wipeout_camera_2 constructor exactly matches base construction, old-GCC vtable installation, and member initialization.
+The local camera and member layouts were removed.

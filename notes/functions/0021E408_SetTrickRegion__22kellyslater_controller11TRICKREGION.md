@@ -20,8 +20,9 @@ The released region update and conditional event dispatch were reconstructed wit
 
 ### Attempt 2 notes
 
-Added a narrowly scoped empty barrier after the conditional dispatch to prevent only the demonstrated sibling-call optimization. It emits no instructions and restored the exact 60-byte framed function; integration normalizes it to `KELLY_DECOMP_COMPILER_BARRIER()`.
+The shared controller and event-manager declarations plus a local dispatch
+pointer preserve the framed conditional event call.
 
 ## Outcome
 
-The released trick-region setter exactly matches the previous/current update and conditional event dispatch; a documented empty barrier prevents only sibling-call conversion.
+The local controller/event layouts and compiler barrier were removed.

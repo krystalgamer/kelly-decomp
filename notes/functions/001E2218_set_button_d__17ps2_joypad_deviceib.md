@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released digital-button bit clear matched exactly with the original rdata index split and recovered absolute rdata buffer address; the unused state parameter is preserved.
+The released digital-button bit clear uses the shared joypad declaration and
+its static `rdata` buffer; the unused state parameter is preserved.
 
 ## Outcome
 
-The released digital button setter exactly matches the rdata byte selection and requested-bit clear with the recovered buffer address.
+The local joypad declaration was removed.

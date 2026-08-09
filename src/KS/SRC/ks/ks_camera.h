@@ -40,15 +40,28 @@ class shoulder_camera : public game_camera {
 public:
     shoulder_camera(const entity_id &id, entity *target = 0);
     virtual ~shoulder_camera();
+    virtual void frame_advance(float time_step);
+    virtual void init();
 };
 
 class wipeout_camera_2 : public game_camera {
+    char data_to_previous_camera[
+        0x314 - sizeof(game_camera)];
+    camera *previous_camera;
+    char data_to_wave_hint_valid[0x234];
+    int wave_hint_valid;
+
 public:
     wipeout_camera_2(const entity_id &id, entity *target = 0);
     virtual ~wipeout_camera_2();
 };
 
 class wipeout_camera : public game_camera {
+    char data_to_previous_camera[
+        0x340 - sizeof(game_camera)];
+    camera *previous_camera;
+    entity *collision_object;
+
 public:
     wipeout_camera(const entity_id &id, entity *target = 0);
     virtual ~wipeout_camera();
@@ -96,6 +109,7 @@ public:
         entity *target,
         kellyslater_controller *controller);
     virtual ~fps_camera();
+    virtual void init();
     virtual void sync(camera &other);
 };
 

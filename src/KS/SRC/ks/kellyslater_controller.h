@@ -29,6 +29,10 @@ class game_camera;
 class SurfBoardObjectClass;
 class turn_data;
 
+enum TRICKREGION {
+    TREGION_FACE
+};
+
 class BalanceMeter {
     float current_balance;
     float balance_acc;
@@ -50,7 +54,10 @@ class kellyslater_controller {
     int state;
     int last_state;
     int super_state;
-    char data_to_score_manager[0x10BC];
+    char data_to_trick_region[0xC0];
+    TRICKREGION trickRegion;
+    TRICKREGION prevTrickRegion;
+    char data_to_score_manager[0xFF4];
     ScoringManagerStorage my_scoreManager;
     SpecialMeter specialMeter;
     int my_player_num;
@@ -108,6 +115,7 @@ public:
     void SetCompletedTrick(int trick);
     void SetNewTrick(int trick);
     void SetCurrentTrick();
+    void SetTrickRegion(TRICKREGION region);
     void ResetTricks();
     void ClearTricks();
     void StartGrind(const vector3d direction);

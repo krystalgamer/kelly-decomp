@@ -54,6 +54,7 @@ _$_13replay_camera = 0x26EEF8;
 _$_10fps_camera = 0x26F010;
 _$_11auto_camera = 0x26F148;
 init__11auto_camera = 0x26F170;
+init__10fps_camera = 0x22C258;
 OnNewWave__11auto_camera = 0x26F1D8;
 _$_12beach_camera = 0x26F210;
 _$_15big_wave_camera = 0x26F318;

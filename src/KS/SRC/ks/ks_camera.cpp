@@ -679,23 +679,12 @@ beach_camera::beach_camera(
 ) : auto_camera(id, target, controller) {}
 
 // 0x00225E30 __16look_back_cameraRC9entity_idP6entity
-class entity_id;
-class entity;
+#include "KS/SRC/ks/ks_camera.h"
+
 asm(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
 asm(".equ init__16look_back_camera, 0x00225E70");
 asm(".equ _vt$16look_back_camera, 0x004EC818");
-class game_camera {
-    char padding[8];
-public:
-    game_camera(const entity_id &id, entity *target);
-    virtual ~game_camera();
-};
-class look_back_camera : public game_camera {
-public:
-    look_back_camera(const entity_id &id, entity *target);
-    virtual ~look_back_camera();
-    void init();
-};
+
 look_back_camera::look_back_camera(const entity_id &id, entity *target)
     : game_camera(id, target)
 {
@@ -703,76 +692,24 @@ look_back_camera::look_back_camera(const entity_id &id, entity *target)
 }
 
 // 0x0022A118 __15shoulder_cameraRC9entity_idP6entity
-class entity_id;
-class entity;
+#include "KS/SRC/ks/ks_camera.h"
+
 asm(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
 asm(".equ init__15shoulder_camera, 0x0022A180");
 asm(".equ _vt$15shoulder_camera, 0x004EB538");
-class game_camera {
-    char padding[8];
-public:
-    game_camera(const entity_id &id, entity *target);
-    virtual ~game_camera();
-};
-class shoulder_camera : public game_camera {
-public:
-    shoulder_camera(const entity_id &id, entity *target);
-    virtual ~shoulder_camera();
-    virtual void frame_advance(float time_step);
-    virtual void init();
-};
+
 shoulder_camera::shoulder_camera(const entity_id &id, entity *target)
     : game_camera(id, target)
 {
     init();
 }
 
-// 0x0022C258 init__10fps_camera
-struct camera_vtable {
-    char padding[0x78];
-    short adjustment;
-    short unused;
-    void (*set_roll)(void *self, float angle);
-};
-class fps_camera {
-    char padding_to_vtable[8];
-    camera_vtable *vtable;
-    char padding_to_controller[0x208];
-    void *ksctrl;
-public:
-    void camera_set_roll(float angle) {
-        camera_vtable *table = vtable;
-        table->set_roll((char *)this + table->adjustment, angle);
-    }
-    void init();
-};
-void fps_camera::init()
-{
-    if (ksctrl)
-        camera_set_roll(0.0f);
-}
-
 // 0x0022FD78 __16wipeout_camera_2RC9entity_idP6entity
-class entity_id;
-class entity;
-class camera;
+#include "KS/SRC/ks/ks_camera.h"
+
 asm(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
 asm(".equ _vt$16wipeout_camera_2, 0x004E8F58");
-class game_camera {
-    char padding[8];
-public:
-    game_camera(const entity_id &id, entity *target);
-    virtual ~game_camera();
-};
-class wipeout_camera_2 : public game_camera {
-    char padding_to_previous[0x308];
-    camera *previous_camera;
-    char padding_to_hint[0x234];
-    int wave_hint_valid;
-public:
-    wipeout_camera_2(const entity_id &id, entity *target);
-    virtual ~wipeout_camera_2();
-};
+
 wipeout_camera_2::wipeout_camera_2(const entity_id &id, entity *target)
     : game_camera(id, target)
 {
@@ -781,25 +718,11 @@ wipeout_camera_2::wipeout_camera_2(const entity_id &id, entity *target)
 }
 
 // 0x00230830 __14wipeout_cameraRC9entity_idP6entity
-class entity_id;
-class entity;
-class camera;
+#include "KS/SRC/ks/ks_camera.h"
+
 asm(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
 asm(".equ _vt$14wipeout_camera, 0x004E8910");
-class game_camera {
-    char padding[8];
-public:
-    game_camera(const entity_id &id, entity *target);
-    virtual ~game_camera();
-};
-class wipeout_camera : public game_camera {
-    char padding_to_previous[0x334];
-    camera *previous_camera;
-    entity *collision_object;
-public:
-    wipeout_camera(const entity_id &id, entity *target);
-    virtual ~wipeout_camera();
-};
+
 wipeout_camera::wipeout_camera(const entity_id &id, entity *target)
     : game_camera(id, target)
 {

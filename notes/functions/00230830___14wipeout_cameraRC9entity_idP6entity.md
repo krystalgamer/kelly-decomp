@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released base construction, collision/previous camera initialization, and compiler-generated wipeout_camera vtable install matched exactly with recovered member offsets and old-GCC vtable symbol.
+The released constructor uses the shared wipeout-camera hierarchy and carried
+vtable alias to clear its collision and previous-camera members.
 
 ## Outcome
 
-The released wipeout_camera constructor exactly matches base construction, old-GCC vtable installation, and collision/previous camera initialization.
+The local camera and member layouts were removed.

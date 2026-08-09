@@ -148,9 +148,9 @@ protected:
     void set_target_active(bool value) { *(bool*)((char*)this + 0x24) = value; }
     bool physical;
     entity* my_entity;
+    char abi_padding[4];
     int spawn_count;
     stringx my_path;
-    char abi_padding[4];
 };
 
 class beach_event : public beach_object {

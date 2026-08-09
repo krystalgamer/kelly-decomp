@@ -194,12 +194,10 @@ void ps2_joypad_device::record_demo_stop()
 }
 
 // 0x001E2218 set_button_d__17ps2_joypad_deviceib
-extern unsigned char rdata[];
-asm(".equ rdata, 0x005A39C0");
-class ps2_joypad_device {
-public:
-    void set_button_d(int button_num, bool state);
-};
+#include "KS/SRC/HWOSPS2/ps2_input.h"
+
+asm(".equ _17ps2_joypad_device$rdata, 0x005A39C0");
+
 void ps2_joypad_device::set_button_d(int button_num, bool state)
 {
     int rdata_index = 2;

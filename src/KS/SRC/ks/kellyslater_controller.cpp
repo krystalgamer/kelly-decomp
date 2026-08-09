@@ -338,36 +338,31 @@ void kellyslater_controller::TurnDegree()
 }
 
 // 0x0021E408 SetTrickRegion__22kellyslater_controller11TRICKREGION
-enum TRICKREGION { TREGION_FACE };
-enum EVENT { EVT_TRICK_REGION_CHANGE = 3 };
-class EventManager { public: void DispatchEvent(EVENT event, int player, int param = 0); };
-extern EventManager g_eventManager;
+#include "KS/SRC/ks/eventmanager.h"
+#include "KS/SRC/ks/kellyslater_controller.h"
+
 asm(".equ g_eventManager, 0x0046DA20");
 asm(".equ DispatchEvent__12EventManager5EVENTii, 0x00349AB0");
-struct controller_trick_region_layout {
-    char padding_to_region[0xFC];
-    TRICKREGION trickRegion;
-    TRICKREGION prevTrickRegion;
-    char padding_to_player[0x1570];
-    int my_player_num;
-};
-extern "C" void set_trick_region(
-    controller_trick_region_layout *self,
-    const TRICKREGION region
-) __asm__("SetTrickRegion__22kellyslater_controller11TRICKREGION");
-void set_trick_region(
-    controller_trick_region_layout *self,
-    const TRICKREGION region
-)
+extern "C" void dispatch_event(
+    EventManager *manager,
+    EVENT event,
+    int param1,
+    int param2
+) __asm__("DispatchEvent__12EventManager5EVENTii");
+
+void kellyslater_controller::SetTrickRegion(TRICKREGION region)
 {
-    self->prevTrickRegion = self->trickRegion;
-    self->trickRegion = region;
-    if (self->prevTrickRegion != self->trickRegion)
+    prevTrickRegion = trickRegion;
+    trickRegion = region;
+    if (prevTrickRegion != trickRegion)
     {
-        g_eventManager.DispatchEvent(
+        void (*dispatch)(EventManager *, EVENT, int, int) =
+            dispatch_event;
+        dispatch(
+            &g_eventManager,
             EVT_TRICK_REGION_CHANGE,
-            self->my_player_num);
-        KELLY_DECOMP_COMPILER_BARRIER();
+            my_player_num,
+            0);
     }
 }
 

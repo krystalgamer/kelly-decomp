@@ -20,8 +20,9 @@ The released field checks/resets and base spawn call were reconstructed with exa
 
 ### Attempt 2 notes
 
-Added a narrowly scoped empty barrier after the base spawn call to prevent only the demonstrated sibling-call optimization. It emits no instructions and restored the exact 60-byte framed form; integration normalizes it to `KELLY_DECOMP_COMPILER_BARRIER()`.
+The shared floating-object layout and a local base-spawn pointer preserve the
+framed call after the state resets.
 
 ## Outcome
 
-The released floating-object spawn exactly matches the spawn-limit check, state resets, and base spawn call; a documented empty barrier prevents only sibling-call conversion.
+The local object layout and compiler barrier were removed.
