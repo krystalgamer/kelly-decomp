@@ -86,30 +86,3 @@ struct stringx{char data[8];~stringx();};struct Node{Node*free_next;Node*parent;
 
 // 0x002AF598 clear__t10_List_base2Z12game_processZt12my_allocator1Z12game_process
 struct game_process{char d[24];};struct Node{Node*next,*prev;game_process value;};struct ListBase{Node*head;void clear()__asm__("clear__t10_List_base2Z12game_processZt12my_allocator1Z12game_process");};extern "C" void destroy(game_process*,int)__asm__("_$_12game_process");extern Node*free_lists[];__asm__(".equ _$_12game_process,0x00286950");__asm__(".equ free_lists,0x003E5628");void ListBase::clear(){Node*n=head->next;if(n!=head){Node**pool=free_lists;do{Node*cur=n;n=n->next;destroy(&cur->value,2);cur->next=pool[3];pool[3]=cur;}while(n!=head);}asm volatile("" : : : "memory");head->next=head;head->prev=head;}
-
-// 0x002AFE70 fill_n__H3ZPP6regionZUiZP6region_X01X11RCX21_X01
-class region; extern "C" region **fill_values(region **first,unsigned int count,region *const &value)__asm__("fill_n__H3ZPP6regionZUiZP6region_X01X11RCX21_X01"); region **fill_values(region **first,unsigned int count,region *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
-
-// 0x002B0B58 fill_n__H3ZPP10controllerZUiZP10controller_X01X11RCX21_X01
-class controller; extern "C" controller **fill_values(controller **first,unsigned int count,controller *const &value)__asm__("fill_n__H3ZPP10controllerZUiZP10controller_X01X11RCX21_X01"); controller **fill_values(controller **first,unsigned int count,controller *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
-
-// 0x002B0E80 fill_n__H3ZPP15force_generatorZUiZP15force_generator_X01X11RCX21_X01
-class force_generator; extern "C" force_generator **fill_values(force_generator **first,unsigned int count,force_generator *const &value)__asm__("fill_n__H3ZPP15force_generatorZUiZP15force_generator_X01X11RCX21_X01"); force_generator **fill_values(force_generator **first,unsigned int count,force_generator *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
-
-// 0x002B11A8 fill_n__H3ZPP20force_control_systemZUiZP20force_control_system_X01X11RCX21_X01
-class force_control_system; extern "C" force_control_system **fill_values(force_control_system **first,unsigned int count,force_control_system *const &value)__asm__("fill_n__H3ZPP20force_control_systemZUiZP20force_control_system_X01X11RCX21_X01"); force_control_system **fill_values(force_control_system **first,unsigned int count,force_control_system *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
-
-// 0x002B14D0 fill_n__H3ZPP21motion_control_systemZUiZP21motion_control_system_X01X11RCX21_X01
-class motion_control_system; extern "C" motion_control_system **fill_values(motion_control_system **first,unsigned int count,motion_control_system *const &value)__asm__("fill_n__H3ZPP21motion_control_systemZUiZP21motion_control_system_X01X11RCX21_X01"); motion_control_system **fill_values(motion_control_system **first,unsigned int count,motion_control_system *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
-
-// 0x002B17F8 fill_n__H3ZPP4itemZUiZP4item_X01X11RCX21_X01
-class item; extern "C" item **fill_values(item **first,unsigned int count,item *const &value)__asm__("fill_n__H3ZPP4itemZUiZP4item_X01X11RCX21_X01"); item **fill_values(item **first,unsigned int count,item *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
-
-// 0x002B1B20 fill_n__H3ZPP12light_sourceZUiZP12light_source_X01X11RCX21_X01
-class light_source; extern "C" light_source **fill_values(light_source **first,unsigned int count,light_source *const &value)__asm__("fill_n__H3ZPP12light_sourceZUiZP12light_source_X01X11RCX21_X01"); light_source **fill_values(light_source **first,unsigned int count,light_source *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
-
-// 0x002B1E48 fill_n__H3ZPP10path_graphZUiZP10path_graph_X01X11RCX21_X01
-class path_graph; extern "C" path_graph **fill_values(path_graph **first,unsigned int count,path_graph *const &value)__asm__("fill_n__H3ZPP10path_graphZUiZP10path_graph_X01X11RCX21_X01"); path_graph **fill_values(path_graph **first,unsigned int count,path_graph *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
-
-// 0x002B22F8 fill_n__H3ZPP12material_setZUiZP12material_set_X01X11RCX21_X01
-class material_set; extern "C" material_set **fill_values(material_set **first,unsigned int count,material_set *const &value)__asm__("fill_n__H3ZPP12material_setZUiZP12material_set_X01X11RCX21_X01"); material_set **fill_values(material_set **first,unsigned int count,material_set *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
