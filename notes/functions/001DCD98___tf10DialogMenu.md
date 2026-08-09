@@ -19,4 +19,4 @@ Read the exact released DialogMenu declaration and FEMultiMenu inheritance. Reco
 
 ## Outcome
 
-Matched released DialogMenu RTTI body
+The released RTTI helper was already canonical and remains exact.

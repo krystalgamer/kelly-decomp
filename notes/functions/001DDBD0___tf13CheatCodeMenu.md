@@ -19,4 +19,4 @@ Read the exact released CheatCodeMenu declaration and FEMultiMenu inheritance. R
 
 ## Outcome
 
-Matched released CheatCodeMenu RTTI body
+The released RTTI helper was already canonical and remains exact.

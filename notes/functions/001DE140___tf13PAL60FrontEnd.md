@@ -19,4 +19,4 @@ Read the exact released PAL60FrontEnd declaration and FEMultiMenu inheritance. R
 
 ## Outcome
 
-Matched released PAL60FrontEnd RTTI body
+The released RTTI helper was already canonical and remains exact.

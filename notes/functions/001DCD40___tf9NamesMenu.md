@@ -19,4 +19,4 @@ Read the exact released NamesMenu declaration and FEMultiMenu inheritance. Recon
 
 ## Outcome
 
-Matched released NamesMenu RTTI body
+The released RTTI helper was already canonical and remains exact.

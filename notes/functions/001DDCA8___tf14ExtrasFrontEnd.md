@@ -19,4 +19,4 @@ Read the exact released ExtrasFrontEnd declaration and FEMultiMenu inheritance. 
 
 ## Outcome
 
-Matched released ExtrasFrontEnd RTTI body
+The released RTTI helper was already canonical and remains exact.

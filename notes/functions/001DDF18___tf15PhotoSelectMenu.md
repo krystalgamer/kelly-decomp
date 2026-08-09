@@ -19,4 +19,4 @@ Read the exact released PhotoSelectMenu declaration and FEMultiMenu inheritance.
 
 ## Outcome
 
-Matched released PhotoSelectMenu RTTI body
+The released RTTI helper was already canonical and remains exact.

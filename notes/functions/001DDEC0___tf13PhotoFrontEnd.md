@@ -19,4 +19,4 @@ Read the exact released PhotoFrontEnd declaration and FEMultiMenu inheritance. R
 
 ## Outcome
 
-Matched released PhotoFrontEnd RTTI body
+The released RTTI helper was already canonical and remains exact.

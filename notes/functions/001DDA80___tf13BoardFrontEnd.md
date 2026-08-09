@@ -19,4 +19,4 @@ Read the exact released BoardFrontEnd declaration and FEMultiMenu inheritance. R
 
 ## Outcome
 
-Matched released BoardFrontEnd RTTI body
+The released RTTI helper was already canonical and remains exact.

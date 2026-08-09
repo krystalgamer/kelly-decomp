@@ -19,4 +19,4 @@ Read the exact released TutorialFrontEnd declaration and FEMultiMenu inheritance
 
 ## Outcome
 
-Matched released TutorialFrontEnd RTTI body
+The released RTTI helper was already canonical and remains exact.

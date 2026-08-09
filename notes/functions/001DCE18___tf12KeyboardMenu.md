@@ -19,4 +19,4 @@ Read the exact released KeyboardMenu declaration and FEMultiMenu inheritance. Re
 
 ## Outcome
 
-Matched released KeyboardMenu RTTI body
+The released RTTI helper was already canonical and remains exact.

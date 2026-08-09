@@ -19,4 +19,4 @@ Read the exact released PhotoDevelopMenu declaration and FEMultiMenu inheritance
 
 ## Outcome
 
-Matched released PhotoDevelopMenu RTTI body
+The released RTTI helper was already canonical and remains exact.

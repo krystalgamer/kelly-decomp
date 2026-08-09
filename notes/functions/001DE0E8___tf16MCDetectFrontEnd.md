@@ -19,4 +19,4 @@ Read the exact released MCDetectFrontEnd declaration and FEMultiMenu inheritance
 
 ## Outcome
 
-Matched released MCDetectFrontEnd RTTI body
+The released RTTI helper was already canonical and remains exact.

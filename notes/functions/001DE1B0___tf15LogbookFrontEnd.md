@@ -19,4 +19,4 @@ Read the exact released LogbookFrontEnd declaration and FEMultiMenu inheritance.
 
 ## Outcome
 
-Matched released LogbookFrontEnd RTTI body
+The released RTTI helper was already canonical and remains exact.

@@ -19,4 +19,4 @@ Read the exact released AccompFrontEnd declaration and FEMultiMenu inheritance. 
 
 ## Outcome
 
-Matched released AccompFrontEnd RTTI body
+The released RTTI helper was already canonical and remains exact.

@@ -19,4 +19,4 @@ Read the exact released PhotoSaveMenu declaration and FEMultiMenu inheritance. R
 
 ## Outcome
 
-Matched released PhotoSaveMenu RTTI body
+The released RTTI helper was already canonical and remains exact.
