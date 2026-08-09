@@ -3,29 +3,21 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_00316D68)
 // 0x00316D68 read_value__14slc_vector3d_tR10chunk_filePc
-class chunk_file;
-struct vector3d {
-    float x;
-    float y;
-    float z;
-};
+#include "KS/SRC/algebra.h"
+#include "KS/SRC/script_lib_vector3d_decl.h"
 
 extern void serial_in(chunk_file &, float *);
 __asm__(".equ serial_in__FR10chunk_filePf, 0x00336998");
-
-class slc_vector3d_t {
-public:
-    void read_value(chunk_file &fs, char *buf);
-};
+extern "C" void read_float(chunk_file &file, float *value)
+    __asm__("serial_in__FR10chunk_filePf");
 
 void slc_vector3d_t::read_value(chunk_file &fs, char *buf)
 {
     vector3d *value = (vector3d *)buf;
     serial_in(fs, &value->x);
     serial_in(fs, &value->y);
-    serial_in(fs, &value->z);
-    // Preserve the released non-tail call after the inlined vector overload.
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*read_last)(chunk_file &, float *) = read_float;
+    read_last(fs, &value->z);
 }
 #endif
 

@@ -19,6 +19,7 @@ void TIMER_Reset();
 __asm__(".equ TIMER_LevelDuration, 0x0046B288");
 __asm__(".equ TIMER_InfiniteDuration, 0x0046B28C");
 __asm__(".equ TIMER_Reset__Fv, 0x003108B0");
+extern "C" void reset_timer() __asm__("TIMER_Reset__Fv");
 
 void TIMER_Init(const float duration)
 {
@@ -30,8 +31,7 @@ void TIMER_Init(const float duration)
         TIMER_InfiniteDuration = false;
     }
 
-    TIMER_Reset();
-    // Prevent GCC 2.95 from tail-calling the released reset call.
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*reset)() = reset_timer;
+    reset();
 }
 #endif
