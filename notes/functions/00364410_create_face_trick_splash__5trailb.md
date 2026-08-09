@@ -16,8 +16,9 @@
 
 ### Attempt 2 notes
 
-The released side-selective face-trick splash power update matches exactly.
+The released side-selective splash update uses the shared trail and spray
+declarations.
 
 ## Outcome
 
-The released side-selective face-trick splash power update matches exactly.
+The local trail and spray layouts were removed.

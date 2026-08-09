@@ -83,18 +83,11 @@ void trail::create_big_landing_splash()
 }
 
 // 0x00364410 create_face_trick_splash__5trailb
+#include "KS/SRC/ks/trail.h"
+
 extern float extra_splash_power_amount;
 __asm__(".equ extra_splash_power_amount, 0x0047ED84");
-struct spray {
-    char padding[0xCA8];
-    float extra_splash_power[2];
-};
-class trail {
-    char padding[0xCD78];
-    spray *my_spray;
-public:
-    void create_face_trick_splash(bool left);
-};
+
 void trail::create_face_trick_splash(bool left)
 {
     if (left)

@@ -74,6 +74,7 @@ public:
     void reset();
     void destroy();
     void create_big_landing_splash();
+    void create_face_trick_splash(bool left);
     void create_chophop_splash(vector3d &position);
     inline bool is_valid() const {
         return valid;
