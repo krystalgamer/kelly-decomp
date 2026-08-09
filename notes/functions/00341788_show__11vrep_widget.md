@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released override calls widget::show and then dispatches update_rot through the vrep widget vtable. The recovered object and vtable offsets match exactly.
+The released override calls the shared `widget::show` and then dispatches the
+shared virtual `update_rot`.
 
 ## Outcome
 
-The original vrep-widget show override matches exactly with its base show call and virtual rotation update.
+The manual vrep-widget vtable and object layouts were removed.

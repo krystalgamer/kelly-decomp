@@ -32,10 +32,24 @@ void path_graph_edge::clear() { nodes[0] = nodes[1] = 0; flags = 0; distance = 0
 // 0x0034AD68 add_edge__10path_graphiiUsf
 #include "KS/SRC/path.h"
 __asm__(".equ add_edge__10path_graphP15path_graph_nodeT1Usf, 0x0034ADA0");
+extern "C" void add_path_graph_edge(
+    path_graph *graph,
+    path_graph_node *first,
+    path_graph_node *second,
+    unsigned short flags,
+    float modifier
+) __asm__("add_edge__10path_graphP15path_graph_nodeT1Usf");
+
 void path_graph::add_edge(int node1, int node2, unsigned short flags, float modifier)
 {
-    add_edge(nodes[node1], nodes[node2], flags, modifier);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*add)(
+        path_graph *,
+        path_graph_node *,
+        path_graph_node *,
+        unsigned short,
+        float
+    ) = add_path_graph_edge;
+    add(this, nodes[node1], nodes[node2], flags, modifier);
 }
 
 // 0x00349F88 sort_edges_weight__15path_graph_node

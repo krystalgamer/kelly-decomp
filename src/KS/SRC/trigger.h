@@ -31,6 +31,9 @@ public:
     virtual const vector3d &get_abs_position() const;
     inline bool is_active() const { return active; }
     void set_active(bool active);
+    inline void set_use_any_char(bool value) {
+        use_any_char = value;
+    }
 
 protected:
     entity *whodunnit;

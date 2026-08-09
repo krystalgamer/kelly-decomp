@@ -67,6 +67,28 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_fluid_bar_widget_set_fill_rate_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        fluid_bar *me;
+        vm_num_t value;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+class slf_fluid_bar_widget_set_empty_rate_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        fluid_bar *me;
+        vm_num_t value;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 class slf_bitmap_widget_flip_horiz_t :
     public script_library_class::function {
 public:

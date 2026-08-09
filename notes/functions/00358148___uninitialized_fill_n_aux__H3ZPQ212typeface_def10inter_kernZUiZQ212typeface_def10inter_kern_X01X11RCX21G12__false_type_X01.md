@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-Reconstructed the generated old-STL uninitialized fill loop for the 12-byte typeface inter-kern record, preserving placement construction, null guarding, and iterator advancement.
+The generated old-STL loop uses the shared 12-byte
+`typeface_def::inter_kern` record and shared placement new.
 
 ## Outcome
 
-The generated old-STL uninitialized fill helper matches exactly for the 12-byte typeface inter-kern record.
+The local placement-new and inter-kern declarations were removed.

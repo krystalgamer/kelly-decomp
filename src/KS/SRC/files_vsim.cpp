@@ -3,15 +3,24 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_00358148)
 // 0x00358148 __uninitialized_fill_n_aux__H3ZPQ212typeface_def10inter_kernZUiZQ212typeface_def10inter_kern_X01X11RCX21G12__false_type_X01
-inline void *operator new(unsigned int, void *place) { return place; }
-struct inter_kern { int first_letter; int second_letter; int kern; };
-extern "C" inter_kern *UninitializedFill(inter_kern *first, unsigned int count, const inter_kern &value)
+#include "KS/SRC/archalloc.h"
+#include "KS/SRC/text_font.h"
+
+extern "C" typeface_def::inter_kern *UninitializedFill(
+    typeface_def::inter_kern *first,
+    unsigned int count,
+    const typeface_def::inter_kern &value
+)
     __asm__("__uninitialized_fill_n_aux__H3ZPQ212typeface_def10inter_kernZUiZQ212typeface_def10inter_kern_X01X11RCX21G12__false_type_X01");
-inter_kern *UninitializedFill(inter_kern *first, unsigned int count, const inter_kern &value)
+typeface_def::inter_kern *UninitializedFill(
+    typeface_def::inter_kern *first,
+    unsigned int count,
+    const typeface_def::inter_kern &value
+)
 {
     while (count) {
         if (first)
-            new (first) inter_kern(value);
+            new (first) typeface_def::inter_kern(value);
         --count;
         ++first;
     }

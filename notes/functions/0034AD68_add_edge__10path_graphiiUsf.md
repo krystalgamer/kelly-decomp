@@ -27,10 +27,9 @@ Made the right-hand node index calculation explicit and pinned it with an empty 
 
 ### Attempt 3 notes
 
-Restored the original vector operator[] abstraction rather than direct pointer arithmetic. This tests whether the released inlining context recovers the target right-to-left evaluation schedule.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents the final forwarding call from becoming a sibling call.
+The shared node vector preserves the target right-to-left index evaluation. A
+local pointer to the pointer-overload preserves the ordinary forwarding call.
 
 ## Outcome
 
-The original indexed path-edge overload matches exactly with the authentic vector operator and a narrow empty sibling-call barrier.
+The compiler barrier was removed; the shared indexed forwarding remains exact.

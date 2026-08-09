@@ -22,4 +22,15 @@ public:
     bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_trigger_set_use_any_char_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        trigger *me;
+        vm_num_t value;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 #endif

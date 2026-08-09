@@ -358,6 +358,17 @@ class fluid_bar : public bar_widget {
     stringx name;
     rational_t width;
     rational_t height;
+    rational_t full_val;
+    rational_t to_val;
+    rational_t cur_val;
+    rational_t fill_rate;
+    rational_t empty_rate;
+    char fluid_data_before_old_to_val[8];
+    rational_t old_to_val;
+    char fluid_data_before_old_fill_rate[4];
+    rational_t old_fill_rate;
+    rational_t old_empty_rate;
+    bool update;
 
 public:
     fluid_bar(
@@ -372,6 +383,16 @@ public:
     virtual ~fluid_bar();
     virtual rational_t get_width();
     virtual rational_t get_height();
+    inline void set_fill_rate(rational_t value) {
+        fill_rate = value;
+        if (fill_rate != old_fill_rate)
+            update = true;
+    }
+    inline void set_empty_rate(rational_t value) {
+        empty_rate = value;
+        if (empty_rate != old_empty_rate)
+            update = true;
+    }
 };
 
 class vrep_widget : public widget {
@@ -385,6 +406,7 @@ class vrep_widget : public widget {
 
 public:
     virtual ~vrep_widget();
+    virtual void show();
     virtual rational_t get_width();
     virtual rational_t get_height();
     virtual void update_pos();

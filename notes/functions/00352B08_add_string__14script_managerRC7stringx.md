@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-Reconstructed the released string set insertion with distinct tree/set iterator pairs and the iterator node's 16-byte value offset. The original insert-and-dereference expression is preserved.
+The released string-set insertion uses shared tree/set iterator records and
+the iterator node's 16-byte value offset.
 
 ## Outcome
 
-The original script string-set insertion and iterator dereference match exactly with the recovered old-STL pair conversion.
+The local string, iterator, set, and manager declarations were removed.

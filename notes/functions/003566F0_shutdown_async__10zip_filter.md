@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released shutdown passes the static zlib stream to inflateEnd and returns its total_out count as int. The recovered stream address, 64-bit field, and offset match exactly.
+The released shutdown uses the shared zip-filter stream declaration, passes
+the static stream to `inflateEnd`, and returns `total_out`.
 
 ## Outcome
 
-The original asynchronous zip shutdown matches exactly, including inflateEnd and the static stream total-out return.
+The local zlib stream and filter declarations were removed.

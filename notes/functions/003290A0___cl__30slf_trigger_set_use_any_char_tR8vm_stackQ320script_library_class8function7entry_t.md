@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released SLF pops its trigger and numeric argument, converts the number to a boolean, and uses the inline set_use_any_char setter. The original SLF macros and recovered member offset match exactly.
+The released SLF uses the shared trigger and script-function declarations to
+pop its arguments, convert the number, and call the inline setter.
 
 ## Outcome
 
-The original trigger use-any-character SLF matches exactly while preserving SLF_PARMS/SLF_DONE and the inline setter.
+The local trigger, VM stack, and script wrapper declarations were removed.

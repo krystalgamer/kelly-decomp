@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released SLF preserves SLF_PARMS/SLF_DONE and inlines fluid_bar::set_fill_rate, storing the requested rate and marking the widget stale only when it differs from the prior rate. Recovered offsets match exactly.
+The released SLF uses the shared fluid-bar and script declarations while
+inlining `set_fill_rate` and its stale-state update.
 
 ## Outcome
 
-The original fluid-bar fill-rate SLF matches exactly with preserved SLF macros and the authentic inline stale-state update.
+The local fluid-bar, VM stack, and script wrapper declarations were removed.
