@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released generic placement-copy loop and refptr copy constructor match exactly.
+The released generic placement-copy loop uses the shared `refptr<hw_texture>`
+copy constructor and placement new.
 
 ## Outcome
 
-The released generic placement-copy loop and texture refptr copy constructor match exactly.
+The local texture/refptr declarations were removed.

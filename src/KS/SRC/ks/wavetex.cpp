@@ -23,9 +23,8 @@ void WAVETEX_CheckClearShadows()
 
 #if defined(KELLY_DECOMP_FUNCTION_00380C38)
 // 0x00380C38 WAVETEX_SetMatZSorted__Fbi
-struct nglMaterial { unsigned int Flags; char padding[260]; };
-extern nglMaterial WaveTexLMat[][5] __asm__("WaveTexLMat");
-extern int wavetex_currentmat __asm__("wavetex_currentmat");
+#include "KS/SRC/ks/wavetex.h"
+
 asm(".equ WaveTexLMat, 0x0058DE98");
 asm(".equ wavetex_currentmat, 0x00595CC8");
 void WAVETEX_SetMatZSorted(bool onOff, int matid)

@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released player-count dispatch matches exactly with a narrow barrier preventing the demonstrated final tail call.
+The released player-count dispatch uses the shared game layout and a local
+final-scroll pointer.
 
 ## Outcome
 
-The released player-count bottom-scroll dispatch matches with a narrow barrier preventing a demonstrated final tail call.
+The local game layout and compiler barrier were removed.

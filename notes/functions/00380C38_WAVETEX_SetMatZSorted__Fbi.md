@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released material indexing and force-Z-write flag update match exactly.
+The released material indexing and force-Z-write flag update use the shared
+NGL material and wave-texture declarations.
 
 ## Outcome
 
-The released material indexing and force-Z-write flag update match exactly.
+The local material declaration was removed.

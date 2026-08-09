@@ -45,15 +45,3 @@ void so_data_block::_destroy()
         destroy(buffer);
     }
 }
-
-// 0x00352EF8 init__13so_data_blocki
-#include "KS/SRC/so_data_block.h"
-asm(".equ _destroy__13so_data_block, 0x00352F60");
-asm(".equ _init__13so_data_blocki, 0x00352F88");
-void so_data_block::init(int size)
-{
-    _destroy();
-    KELLY_DECOMP_COMPILER_BARRIER();
-    _init(size);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}

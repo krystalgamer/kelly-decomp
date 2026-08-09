@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released generic placement-copy loop for the 12-byte kerning record matches exactly.
+The released generic placement-copy loop uses the shared 12-byte
+`typeface_def::inter_kern` record and placement new.
 
 ## Outcome
 
-The released generic placement-copy loop for the 12-byte kerning record matches exactly.
+The local kerning-record declaration was removed.

@@ -10,17 +10,20 @@ void UNDERWATER_CameraReset() {
 
 #if defined(KELLY_DECOMP_FUNCTION_0036E5E0)
 // 0x0036E5E0 UNDERWATER_ScrollBottom__Fv
-struct game { char padding[0xb0]; int num_players; int get_num_players() const { return num_players; } };
-extern game *g_game_ptr __asm__("g_game_ptr");
+#include "KS/SRC/game.h"
+
 asm(".equ g_game_ptr, 0x0046AC64");
 void UNDERWATER_ScrollPlayerBottom(int player);
 asm(".equ UNDERWATER_ScrollPlayerBottom__Fi, 0x0036E378");
+extern "C" void scroll_player_bottom(int player)
+    __asm__("UNDERWATER_ScrollPlayerBottom__Fi");
+
 void UNDERWATER_ScrollBottom()
 {
     if (g_game_ptr->get_num_players() > 1)
         UNDERWATER_ScrollPlayerBottom(1);
-    UNDERWATER_ScrollPlayerBottom(0);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*scroll)(int) = scroll_player_bottom;
+    scroll(0);
 }
 #endif
 

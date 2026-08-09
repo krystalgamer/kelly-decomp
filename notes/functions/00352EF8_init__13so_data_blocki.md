@@ -5,7 +5,7 @@
 - Object: `game/files_vsim`
 - Debug source: `C:/KS/SRC/so_data_block.cpp`
 - Reference source: `KS/SRC/so_data_block.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -35,8 +35,11 @@ The exact released source tail-called _init and emitted 56 bytes.
 
 ### Attempt 5 notes
 
-Narrow barriers between the calls and after _init prevent demonstrated scheduling and tail-call optimizations; the source matches exactly.
+Narrow barriers between the calls and after `_init` force the target saved
+register schedule and prevent the tail call, but they are matching-only
+controls.
 
 ## Outcome
 
-The released destroy/init sequence matches with narrow barriers preventing demonstrated call scheduling and tail-call optimizations.
+The compiler barriers were removed. Clean direct and local-pointer forms alter
+the prologue schedule or tail-call `_init`, so the wrapper was deferred.
