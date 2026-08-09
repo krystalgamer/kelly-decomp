@@ -47,7 +47,7 @@ struct nglScene {
 
 struct nglFixedString {
     char data[32];
-};
+} __attribute__((aligned(8)));
 
 class nglVector {
 public:

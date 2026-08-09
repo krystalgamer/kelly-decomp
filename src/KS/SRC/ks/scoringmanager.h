@@ -8,8 +8,10 @@ class kellyslater_controller;
 
 class ScoringManager : public EventRecipient {
 public:
+    int score;
+
     enum {
-        TRICK_NUM = 96
+        TRICK_NUM = 95
     };
 
     struct CHAININFO {

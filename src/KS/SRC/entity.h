@@ -48,6 +48,7 @@ enum entity_flavor_t {
 
 class camera;
 class chunk_file;
+class color;
 class color32;
 class collision_capsule;
 class collision_geometry;
@@ -411,7 +412,6 @@ public:
     virtual const stringx &get_dirname() const;
     virtual bool has_dirname() const;
     virtual void set_min_detail(int detail);
-    virtual light_manager *get_light_set() const;
     entity_flavor_t get_flavor() const;
     inline bool is_ext_flagged(unsigned int flag) const {
         return ext_flags & flag;
@@ -462,6 +462,11 @@ public:
         terrain &terrain_data,
         bool high_resolution = false);
     virtual region_node *get_region() const;
+    virtual void force_region(region_node *target);
+    virtual void force_current_region();
+    virtual void unforce_regions();
+    virtual void force_regions(entity *other);
+    virtual void record_motion();
     virtual void camera_set_target(const vector3d &position);
     virtual void camera_set_roll(rational_t angle);
     virtual void camera_set_collide_with_world(bool collide);
@@ -481,17 +486,74 @@ public:
         rational_t range,
         rational_t theta,
         rational_t psi);
-    virtual const po &get_frame_delta() const;
+    virtual const color &get_color() const;
+    virtual void set_color(const color &value);
+    virtual const color &get_additive_color() const;
+    virtual void set_additive_color(const color &value);
+    virtual rational_t get_near_range() const;
+    virtual void set_near_range(rational_t range);
+    virtual rational_t get_cutoff_range() const;
+    virtual void set_cutoff_range(rational_t range);
+    virtual light_manager *get_light_set() const;
+    virtual void create_light_set();
     virtual bool is_frame_delta_valid() const;
     virtual bool is_last_frame_delta_valid() const;
-    void invalidate_frame_delta();
+    virtual const po &get_frame_delta() const;
+    virtual void set_frame_delta(
+        const po &frame_delta,
+        time_value_t time);
+    virtual void set_frame_delta_trans(
+        const vector3d &translation,
+        time_value_t time);
+    virtual void invalidate_frame_delta();
+    virtual render_flavor_t render_passes_needed() const;
     virtual time_value_t get_programmed_cell_death() const;
+    virtual bool attach_anim(entity_anim *animation);
+    virtual void detach_anim();
+    virtual void acquire(unsigned int flags);
+    virtual void release();
     virtual rational_t get_hit_points() const;
     virtual rational_t get_full_hit_points() const;
+    virtual bool add_item(item *value);
+    virtual void use_item(item *value);
+    virtual void compute_bounding_box();
+    virtual void apply_destruction_fx();
     virtual bool has_destroy_info() const;
+    virtual bool is_destroyable() const;
     virtual destroyable_info *get_destroy_info() const;
-    virtual void set_render_scale(const vector3d &scale);
+    virtual void create_destroy_info();
+    virtual void apply_damage(
+        int damage,
+        const vector3d &position,
+        const vector3d &normal,
+        int damage_type = 0,
+        entity *attacker = 0,
+        int damage_flags = 0);
+    virtual void copy_visrep(entity *other);
+    virtual bool allow_targeting() const;
+    virtual bool test_combat_target(
+        const vector3d &start,
+        const vector3d &end,
+        vector3d *impact_position,
+        vector3d *impact_normal,
+        rational_t radius = 1.0f,
+        bool rear_cull = true) const;
     virtual vector3d get_detonate_position() const;
+    virtual void add_signal_callbacks();
+    virtual bool get_distance_fade_ok() const;
+    virtual void suspend();
+    virtual void unsuspend();
+    virtual bool possibly_active() const;
+    virtual bool possibly_aging() const;
+    virtual void set_control_active(bool active);
+    virtual bool is_alive() const;
+    virtual bool is_dying() const;
+    virtual bool is_alive_or_dying() const;
+    virtual void preload();
+    virtual void ifl_play();
+    virtual void ifl_lock(int frame_index);
+    virtual void ifl_pause();
+    virtual void set_render_scale(const vector3d &scale);
 
     struct movement_info {
         bool frame_delta_valid;
@@ -547,9 +609,6 @@ public:
         else
             ext_flags &= ~0x00080000;
     }
-    virtual render_flavor_t render_passes_needed() const;
-    virtual void preload();
-    void acquire(unsigned int flags);
     inline void set_render_color(color32 color) {
         *(unsigned int *)&render_color = color.value;
     }
@@ -562,12 +621,7 @@ public:
     void region_update_poss_collide();
     void remove_from_regions();
     void remove_from_terrain();
-    void unforce_regions();
-    void force_current_region();
     void _set_region_forced_status();
-    void ifl_lock(int frame_index);
-    void ifl_pause();
-    virtual void ifl_play();
     void compute_visual_xz_radius_rel_center();
     int get_random_ifl_frame_boost() const;
     void set_age(time_value_t age);
@@ -587,38 +641,9 @@ public:
     entity_anim_tree *get_anim_tree(int slot) const;
     void clear_anim(entity_anim_tree *animation);
     void kill_anim(int slot);
-    virtual bool attach_anim(entity_anim *animation);
-    virtual void detach_anim();
-    virtual void apply_destruction_fx();
-    virtual bool is_destroyable() const;
-    virtual void create_destroy_info();
-    virtual void apply_damage(
-        int damage,
-        const vector3d &position,
-        const vector3d &normal,
-        int damage_type = 0,
-        entity *attacker = 0,
-        int damage_flags = 0);
     void disgorge_items(entity *target = 0);
-    virtual void use_item(item *value);
-    virtual void copy_visrep(entity *other);
-    virtual bool allow_targeting() const;
-    virtual bool test_combat_target(
-        const vector3d &start,
-        const vector3d &end,
-        vector3d *impact_position,
-        vector3d *impact_normal,
-        rational_t radius = 1.0f,
-        bool rear_cull = true) const;
-    virtual void unsuspend();
-    virtual void suspend();
     void set_controller(entity_controller *controller);
-    virtual bool is_alive() const;
-    virtual bool is_dying() const;
-    virtual bool possibly_aging() const;
-    virtual bool possibly_active() const;
     void region_update_poss_active();
-    void release();
     item *find_like_item(item *target) const;
     static void exec_preload_function(const stringx &script);
     void set_door(bool door);

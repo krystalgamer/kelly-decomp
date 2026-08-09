@@ -11,6 +11,9 @@ class b_spline {
 };
 
 class polytube : public entity {
+protected:
+    void copy_instance_data(const polytube &other);
+
     bool use_spline;
     b_spline spline;
     mat_fac *my_material;
@@ -20,6 +23,13 @@ class polytube : public entity {
     rational_t max_length;
 
 public:
+    polytube(const entity_id &id, unsigned int flags);
+    polytube(
+        chunk_file &file,
+        const entity_id &id,
+        entity_flavor_t flavor,
+        unsigned int flags);
+    virtual ~polytube();
     void init();
     virtual void frame_advance(time_value_t time);
     render_flavor_t render_passes_needed() const;
