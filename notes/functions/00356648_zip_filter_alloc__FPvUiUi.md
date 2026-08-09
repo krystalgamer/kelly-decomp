@@ -12,13 +12,17 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size44-vm-widget-core.cpp` |
 
 ### Attempt 1 notes
 
 The released `malloc(items * size)` macro expands to `arch_malloc` with source-file pointer `0x00503E50` and line zero. The trailing empty compiler barrier preserves the target normal call frame.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+A local allocator function pointer preserves the normal call frame without a
+compiler barrier.
 
 ## Outcome
 
-The released zip-filter allocator matched exactly on the first attempt.
+The compiler barrier was removed.

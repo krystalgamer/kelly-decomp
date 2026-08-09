@@ -27,21 +27,20 @@ void vm_thread::set_camera_priority(float value) {
 }
 
 // 0x00356200 remove_from_local_region__9vm_thread
+#include "KS/SRC/region.h"
 #include "KS/SRC/vm_thread.h"
-class region {
-public:
-    void remove_local_thread(vm_thread *thread);
-};
 
 __asm__(".equ remove_local_thread__6regionP9vm_thread, 0x002E80E8");
+void remove_region_thread(region *local, vm_thread *thread)
+    __asm__("remove_local_thread__6regionP9vm_thread");
 
 void vm_thread::remove_from_local_region() {
     region *local = local_region;
     if (!local) {
         return;
     }
-    local->remove_local_thread(this);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*remove_thread)(region *, vm_thread *) = remove_region_thread;
+    remove_thread(local, this);
 }
 
 // 0x00354658 set_suspended__9vm_threadb

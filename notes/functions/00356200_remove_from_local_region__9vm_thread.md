@@ -13,14 +13,13 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 18.1818 | 9.0909 | `candidate.cpp` |
 | 2 | different | 93.1818 | 81.8182 | `candidate.cpp` |
-| 3 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | matched | 100.0 | 100.0 | `size44-vm-widget-core.cpp` |
 
 ### Attempt 3 notes
 
-An explicit null early return reproduces the target's RA restore in the branch delay slot. The trailing empty compiler barrier preserves the normal `jal` path instead of a sibling call.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The shared VM-thread and region declarations, explicit null return, and local
+function pointer preserve the normal remove-thread call.
 
 ## Outcome
 
-The released `vm_thread::remove_from_local_region` implementation matched exactly on attempt three.
+The compiler barrier and local region declaration were removed.

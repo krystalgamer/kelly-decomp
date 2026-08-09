@@ -5,6 +5,7 @@
 
 class entity;
 class light_source;
+class vm_thread;
 
 class region {
     char data_before_region_ambient_sound[0x124];
@@ -15,6 +16,7 @@ public:
     void remove(entity *value);
     void add(light_source *value);
     void remove(light_source *value);
+    void remove_local_thread(vm_thread *thread);
     void sort_entities();
     void set_region_ambient_sound(stringx &sound_name);
     void optimize();

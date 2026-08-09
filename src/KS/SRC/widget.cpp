@@ -945,78 +945,24 @@ float fluid_bar::get_height() {
 
 
 // 0x00360368 scale_to__6widgetf
-struct widget_vtable {
-    char padding[0x78];
-    short adjustment;
-    short padding2;
-    void (*scale_to)(void *self, float horizontal, float vertical);
-};
-
-class widget {
-    char padding[0x140];
-    widget_vtable *vtable;
-
-public:
-    void scale_to(float scale);
-};
+#include "KS/SRC/widget.h"
 
 void widget::scale_to(float scale) {
-    widget_vtable *table = vtable;
-    table->scale_to((char *)this + table->adjustment, scale, scale);
+    scale_to(scale, scale);
 }
 
 // 0x00360398 scale_to__6widgetfff
-struct widget_vtable {
-    char padding[0x80];
-    short adjustment;
-    short padding2;
-    void (*scale_to)(
-        void *self,
-        float wait,
-        float duration,
-        float horizontal,
-        float vertical
-    );
-};
-
-class widget {
-    char padding[0x140];
-    widget_vtable *vtable;
-
-public:
-    void scale_to(float wait, float duration, float scale);
-};
+#include "KS/SRC/widget.h"
 
 void widget::scale_to(float wait, float duration, float scale) {
-    widget_vtable *table = vtable;
-    table->scale_to(
-        (char *)this + table->adjustment,
-        wait,
-        duration,
-        scale,
-        scale
-    );
+    scale_to(wait, duration, scale, scale);
 }
 
 // 0x003606E0 scale_to__13bitmap_widgetf
-struct widget_vtable {
-    char padding[0x78];
-    short adjustment;
-    short padding2;
-    void (*scale_to)(void *self, float horizontal, float vertical);
-};
-
-class bitmap_widget {
-    char padding[0x140];
-    widget_vtable *vtable;
-
-public:
-    void scale_to(float scale);
-};
+#include "KS/SRC/widget.h"
 
 void bitmap_widget::scale_to(float scale) {
-    widget_vtable *table = vtable;
-    table->scale_to((char *)this + table->adjustment, scale, scale);
+    scale_to(scale, scale);
 }
 
 // 0x00360608 add_child__11menu_widgetP6widget

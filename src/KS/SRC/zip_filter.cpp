@@ -1,7 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00356648)
 // 0x00356648 zip_filter_alloc__FPvUiUi
 void *arch_malloc(unsigned int size, const char *file, int line);
 __asm__(".equ arch_malloc__FUiPCci, 0x002AC6F0");
@@ -14,11 +13,9 @@ void *zip_filter_alloc(
     unsigned int items,
     unsigned int size
 ) {
-    void *result = arch_malloc(items * size, zip_filter_source_file, 0);
-    KELLY_DECOMP_COMPILER_BARRIER();
-    return result;
+    void *(*allocate)(unsigned int, const char *, int) = arch_malloc;
+    return allocate(items * size, zip_filter_source_file, 0);
 }
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003566F0)
 // 0x003566F0 shutdown_async__10zip_filter

@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-vm-widget-core.cpp` |
 
 ### Attempt 1 notes
 
-A minimal old-GCC vtable layout preserves the released timed overload's duplicated scale value and four-argument virtual dispatch at slot 0x80.
+The shared widget declaration preserves the timed overload's duplicated scale
+value and four-argument virtual dispatch.
 
 ## Outcome
 
-The released timed uniform `widget::scale_to` overload matched exactly on the first attempt.
+The manual vtable layout was removed.

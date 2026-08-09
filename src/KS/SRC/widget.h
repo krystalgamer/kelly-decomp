@@ -262,6 +262,10 @@ class bitmap_widget : public widget {
 
 public:
     virtual void scale_to(
+        rational_t horizontal,
+        rational_t vertical);
+    virtual void scale_to(rational_t scale);
+    virtual void scale_to(
         time_value_t wait,
         time_value_t duration,
         rational_t horizontal,

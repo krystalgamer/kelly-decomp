@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-vm-widget-core.cpp` |
 
 ### Attempt 1 notes
 
-A minimal old-GCC vtable layout preserves the released one-argument overload's duplicated scale value and virtual two-argument dispatch at slot 0x78.
+The shared widget declaration preserves the one-argument overload's duplicated
+scale value and virtual two-argument dispatch.
 
 ## Outcome
 
-The released `widget::scale_to(float)` overload matched exactly on the first attempt.
+The manual vtable layout was removed.
