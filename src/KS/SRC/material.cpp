@@ -20,20 +20,11 @@ int material::get_anim_length(int map) const
 
 #if defined(KELLY_DECOMP_FUNCTION_00339BF0)
 // 0x00339BF0 get_texture__C12anim_texturei
-class hw_texture;
-
-class anim_texture {
-    char padding[8];
-    hw_texture **begin;
-    hw_texture **end;
-
-public:
-    hw_texture *get_texture(int frame) const;
-};
+#include "KS/SRC/material.h"
 
 hw_texture *anim_texture::get_texture(int frame) const {
-    hw_texture **texture = begin;
-    unsigned int count = end - texture;
+    hw_texture **texture = frame_begin;
+    unsigned int count = frame_end - texture;
     frame = (unsigned int)frame % count;
     texture += frame;
     return *texture;

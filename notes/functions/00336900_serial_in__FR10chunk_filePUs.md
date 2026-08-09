@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released overload deserializes through the signed-int implementation into a stack local, then narrows it to `unsigned short`.
+The released overload uses the shared chunk-file declarations, deserializes
+through the signed-int implementation, then narrows to `unsigned short`.
 
 ## Outcome
 
-The released unsigned-short `serial_in` overload matched exactly on the first attempt.
+The local forward declarations were removed; the released overload remains
+exact.

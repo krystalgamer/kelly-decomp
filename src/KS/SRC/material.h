@@ -12,11 +12,13 @@ enum map_e {
     MAPS_PER_MATERIAL
 };
 
+class hw_texture;
+
 class anim_texture {
     stringx filename;
-    void **frame_begin;
-    void **frame_end;
-    void **frame_capacity;
+    hw_texture **frame_begin;
+    hw_texture **frame_end;
+    hw_texture **frame_capacity;
     char vertex_contexts[12];
     unsigned int tex_flags;
     unsigned int blend_mode;
@@ -24,6 +26,7 @@ class anim_texture {
     color32 diffuse_color;
 
 public:
+    hw_texture *get_texture(int frame) const;
     int get_anim_length() const;
 };
 

@@ -25,8 +25,10 @@ Bound both widget static members with matching-only absolute symbol aliases. The
 
 ### Attempt 3 notes
 
-The released method matched exactly. The static-member `.equ` declarations are matching-only address annotations; the layer alias uses `0x0046B730` so isolated absolute assembly reproduces the target's HI16 relocation carry while the signed LO16 still addresses the real `0x0045B730` object. They emit no instructions.
+The released method uses the shared widget static members. Their linker aliases
+preserve the original HI16 relocation carry without changing the source logic.
 
 ## Outcome
 
-The released widget RHW allocator matched exactly after preserving the original float update and reproducing the static-member address relocation.
+The released widget RHW allocator remains exact through the canonical widget
+declaration.

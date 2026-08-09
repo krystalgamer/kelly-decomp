@@ -5,7 +5,7 @@
 - Object: `game/files_vsim`
 - Debug source: `C:/KS/SRC/widget.cpp`
 - Reference source: `KS/SRC/widget.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -13,8 +13,7 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 66.6667 | 58.3333 | `candidate.cpp` |
 | 2 | different | 66.6667 | 58.3333 | `candidate.cpp` |
-| 3 | different | 91.6667 | 83.3333 | `candidate.cpp` |
-| 4 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | different | 66.6667 | 58.3333 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
@@ -28,10 +27,12 @@ Stored the integer result and added an empty compiler scheduling barrier before 
 
 Added an explicit nop after the source-level call result. The compiler placed it before `mtc1`, while the target nop is specifically between `mtc1` and `cvt.s.w`.
 
-### Attempt 4 notes
+### Attempt 3 notes
 
-The released width call and recovered member offsets matched. Instruction-emitting inline assembly is narrowly limited to the integer-to-float conversion because the available EE GCC otherwise removes or misplaces the target's required `nop` between `mtc1 v0,$f0` and `cvt.s.w $f0,$f0`; it reproduces precisely those three target instructions and no other logic.
+Three native forms emit a 44-byte conversion sequence without the target's FPU
+hazard `nop`.
 
 ## Outcome
 
-The released text widget width implementation matched exactly with the original member offsets and explicit target conversion hazard sequence.
+The prior exact form used non-released inline assembly to force the missing
+`nop`. That assembly was removed and the accessor was deferred.

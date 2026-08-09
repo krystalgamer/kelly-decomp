@@ -16,8 +16,10 @@
 
 ### Attempt 2 notes
 
-Advancing the local texture pointer after unsigned modulo preserves target `$a2` reuse for the final indexed load.
+Advancing the shared frame-list pointer after unsigned modulo preserves target
+register reuse for the final indexed load.
 
 ## Outcome
 
-The released `anim_texture::get_texture` implementation matched exactly on attempt two.
+The local vector layout was removed; the released material declaration remains
+exact.

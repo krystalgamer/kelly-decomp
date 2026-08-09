@@ -22,8 +22,8 @@ stringx chunk_flavor::to_stringx() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_00336900)
 // 0x00336900 serial_in__FR10chunk_filePUs
-class chunk_file;
-void serial_in(chunk_file &file, int *value);
+#include "KS/SRC/chunkfile.h"
+
 __asm__(".equ serial_in__FR10chunk_filePi, 0x003368A0");
 
 void serial_in(chunk_file &file, unsigned short *value) {
@@ -35,8 +35,8 @@ void serial_in(chunk_file &file, unsigned short *value) {
 
 #if defined(KELLY_DECOMP_FUNCTION_00336930)
 // 0x00336930 serial_in__FR10chunk_filePUi
-class chunk_file;
-void serial_in(chunk_file &file, int *value);
+#include "KS/SRC/chunkfile.h"
+
 __asm__(".equ serial_in__FR10chunk_filePi, 0x003368A0");
 
 void serial_in(chunk_file &file, unsigned int *value) {

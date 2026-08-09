@@ -5,18 +5,22 @@
 - Object: `game/files_vsim`
 - Debug source: `C:/KS/SRC/widget.cpp`
 - Reference source: `KS/SRC/widget.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 66.6667 | 58.3333 | `candidate.cpp` |
+| 2 | different | 66.6667 | 58.3333 | `candidate.cpp` |
+| 3 | different | 66.6667 | 58.3333 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
-The released height call and recovered member offsets matched on the first attempt. Instruction-emitting inline assembly is narrowly limited to the integer-to-float conversion because the available EE GCC otherwise omits the target's required `nop` between `mtc1 v0,$f0` and `cvt.s.w $f0,$f0`; it reproduces precisely those three target instructions and no other logic.
+Three native forms emit a 44-byte conversion sequence without the target's FPU
+hazard `nop`.
 
 ## Outcome
 
-The released text widget height implementation matched exactly with the original member offsets and explicit target conversion hazard sequence.
+The prior exact form used non-released inline assembly to force the missing
+`nop`. That assembly was removed and the accessor was deferred.
