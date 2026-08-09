@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released iterator search and null replacement match exactly.
+The released iterator search and null replacement use the shared region
+camera-collision range.
 
 ## Outcome
 
-The released camera-collision iterator search and null replacement match exactly.
+The local region layout was removed.

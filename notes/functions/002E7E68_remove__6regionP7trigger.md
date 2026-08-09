@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released iterator search and null replacement match exactly.
+The released iterator search and null replacement use the shared region
+trigger range.
 
 ## Outcome
 
-The released trigger iterator search and null replacement match exactly.
+The local region layout was removed.
