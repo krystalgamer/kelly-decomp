@@ -5,7 +5,7 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/menusys.cpp`
 - Reference source: `KS/SRC/ks/menusys.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -16,4 +16,6 @@
 
 ## Outcome
 
-Immutable MenuSystem::OpenMenu packet reproduced the exact MenuRender base open, Menu::Open(NULL,this), Refresh, and InitButtonStates order.
+The raw multiple-inheritance offset wrapper was removed. Adding the missing
+base declarations shifts existing menu virtual dispatch, so this function was
+deferred pending a complete shared menu hierarchy.

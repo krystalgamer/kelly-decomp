@@ -23,6 +23,7 @@ public:
     void setProbability(float value);
     bool isPlaying();
     void stop();
+    void shutdown();
     bool addSource(nslSourceId source);
 };
 

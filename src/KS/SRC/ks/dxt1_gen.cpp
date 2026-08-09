@@ -1,23 +1,18 @@
 // Matching decompilation blocks selected by generated build shims.
 
 #if defined(KELLY_DECOMP_FUNCTION_00262C60)
-class cbVector {
-    unsigned char data[4];
-public:
-    int DiffMag(const cbVector &other) const
-        __asm__("DiffMag__C8cbVectorRC8cbVector");
-};
+#include "KS/SRC/ks/dxt1_codebook.h"
 
 int cbVector::DiffMag(const cbVector &other) const
 {
-    int result = (data[0] - other.data[0]) *
-        (data[0] - other.data[0]);
-    result += (data[1] - other.data[1]) *
-        (data[1] - other.data[1]);
-    result += (data[2] - other.data[2]) *
-        (data[2] - other.data[2]);
-    result += (data[3] - other.data[3]) *
-        (data[3] - other.data[3]);
+    int result = (pData[0] - other.pData[0]) *
+        (pData[0] - other.pData[0]);
+    result += (pData[1] - other.pData[1]) *
+        (pData[1] - other.pData[1]);
+    result += (pData[2] - other.pData[2]) *
+        (pData[2] - other.pData[2]);
+    result += (pData[3] - other.pData[3]) *
+        (pData[3] - other.pData[3]);
     return result;
 }
 #endif

@@ -1,31 +1,19 @@
 // Matching decompilation blocks selected by generated build shims.
 
 #if defined(KELLY_DECOMP_FUNCTION_0024A4E8)
-class Trick {
-    int field0;
-    int field1;
-    int field2;
-    float field3;
-    int field4;
-    float field5;
-    float field6;
-    int field7;
-public:
-    Trick &operator=(const Trick &other)
-        __asm__("__as__Q214ScoringManager5TrickRCQ214ScoringManager5Trick");
-};
+#include "KS/SRC/ks/scoringmanager.h"
 
-Trick &Trick::operator=(const Trick &other)
+ScoringManager::Trick &ScoringManager::Trick::operator=(const Trick &other)
 {
     if (this != &other) {
-        field0 = other.field0;
-        field1 = other.field1;
-        field2 = other.field2;
-        field3 = other.field3;
-        field4 = other.field4;
-        field5 = other.field5;
-        field6 = other.field6;
-        field7 = other.field7;
+        type = other.type;
+        index = other.index;
+        flags = other.flags;
+        time = other.time;
+        numSpins = other.numSpins;
+        mouthDist = other.mouthDist;
+        lipDist = other.lipDist;
+        repetitions = other.repetitions;
     }
     return *this;
 }

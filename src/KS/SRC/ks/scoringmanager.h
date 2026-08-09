@@ -43,6 +43,7 @@ public:
         int repetitions;
 
         Trick();
+        Trick &operator=(const Trick &other);
         bool IsInteresting() const;
     };
 

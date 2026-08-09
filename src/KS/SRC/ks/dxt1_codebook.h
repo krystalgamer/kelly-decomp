@@ -27,6 +27,9 @@ public:
     inline unsigned char &operator[](int index) {
         return pData[index];
     }
+    inline unsigned char operator[](int index) const {
+        return pData[index];
+    }
 
     int DiffMag(const cbVector &vector) const;
 };
