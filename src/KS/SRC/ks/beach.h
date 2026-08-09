@@ -1,10 +1,17 @@
 #ifndef BEACH_H
 #define BEACH_H
 
+#include "KS/SRC/algebra.h"
+#include "KS/SRC/ks/judge.h"
+
 class beach_object;
 
 class beach {
-    char data_before_objects[0x2C4];
+public:
+    JudgingSystem judges;
+    vector3d travel_distance;
+
+private:
     beach_object *my_objects;
 
 public:

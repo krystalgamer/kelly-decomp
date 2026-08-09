@@ -185,6 +185,7 @@ public:
     int get_first_surfer_index();
     void take_snapshot(nglTexture *destination);
     void retry_mode(bool reload);
+    void retry_level(bool reload = false);
     void end_level();
     float get_player_share(int player) const;
     int get_cur_state() const;

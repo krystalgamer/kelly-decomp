@@ -254,33 +254,23 @@ void PauseMenuSystem::Select(int menu_index, int entry_index)
 }
 
 // 0x001B4A58 RestartComp__15PauseMenuSystem
-#include "decomp_annotations.h"
+#include "KS/SRC/game.h"
+#include "KS/SRC/ks/beach.h"
 #include "KS/SRC/ks/FrontEndMenus.h"
-class game {
-public:
-    void retry_level(bool reload = false);
-};
-class JudgingSystem {
-public:
-    void OnCompetitionReset();
-};
-class beach {
-public:
-    JudgingSystem judges;
-};
-extern game *g_game_ptr;
-extern beach *g_beach_ptr;
+
 asm(".equ g_game_ptr, 0x0046AC64");
 asm(".equ g_beach_ptr, 0x0043F710");
 asm(".equ retry_level__4gameb, 0x002839D0");
 asm(".equ OnCompetitionReset__13JudgingSystem, 0x00259898");
+extern "C" void reset_competition(JudgingSystem *judges)
+    __asm__("OnCompetitionReset__13JudgingSystem");
 
 void PauseMenuSystem::RestartComp()
 {
     endDraw();
     g_game_ptr->retry_level();
-    g_beach_ptr->judges.OnCompetitionReset();
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*reset)(JudgingSystem *) = reset_competition;
+    reset(&g_beach_ptr->judges);
 }
 
 // 0x001B4AF8 Restart__15PauseMenuSystem
