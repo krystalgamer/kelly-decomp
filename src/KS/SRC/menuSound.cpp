@@ -1,31 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_00302930)
-// 0x00302930 _$_31SoundMenuEntryFunctionFloatEdit
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-extern const char target_vtable[];
-__asm__(".equ target_vtable, 0x004D5C98");
-
-struct target_layout {
-    char padding[0x4];
-    const void *vtable;
-};
-
-extern "C" void TargetDtor(void *self, int deleting)
-    __asm__("_$_31SoundMenuEntryFunctionFloatEdit");
-
-void TargetDtor(void *self, int deleting) {
-    ((target_layout *)self)->vtable = target_vtable;
-    if (deleting & 1) {
-        BuiltinDelete(self);
-    }
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_002EED28)
 // 0x002EED28 __31SoundMenuEntryFunctionFloatEditPcPfPFP9MenuEntryi_bUifff
 #pragma interface

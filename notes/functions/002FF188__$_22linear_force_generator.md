@@ -5,20 +5,22 @@
 - Object: `game/files_misc2`
 - Debug source: `C:/KS/SRC/generator.h`
 - Reference source: `KS/SRC/generator.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 6.25 | 0.0 | `candidate.cpp` |
+| 2 | different | 6.25 | 0.0 | `candidate.cpp` |
+| 3 | different | 6.25 | 0.0 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
-The released generated destructor restores its vtable at offset 0x8 and conditionally calls `__builtin_delete`; the carried vtable alias and trailing barrier preserve the target frame.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+Three native empty-destructor forms collapse to a 20-byte base-destructor tail
+call.
 
 ## Outcome
 
-The released `_$_22linear_force_generator` destructor matched exactly on the first attempt.
+The target's direct-delete frame required manual vtable restoration and a
+compiler barrier. Those matching-only constructs were removed.
