@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released `SLF_PARMS`/`SLF_DONE` body pops a text-block widget and string pointer, dereferences the string, and calls `set_text`.
+The shared widget SLF declaration pops a text-block widget and string pointer,
+dereferences the string, and calls `set_text`.
 
 ## Outcome
 
-The released text-block set-text SLF matched exactly on the first attempt.
+The local stack and widget declarations were removed; the released wrapper
+remains exact.

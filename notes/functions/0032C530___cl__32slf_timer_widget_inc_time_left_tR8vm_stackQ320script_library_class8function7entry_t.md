@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released `SLF_PARMS`/`SLF_DONE` body pops a timer widget and float, then calls `inc_time_left`.
+The shared widget SLF declaration pops a timer widget and float, then calls
+`inc_time_left`.
 
 ## Outcome
 
-The released timer increment-time-left SLF matched exactly on the first attempt.
+The local stack and widget declarations were removed; the released wrapper
+remains exact.

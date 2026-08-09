@@ -84,6 +84,11 @@ protected:
     vector<timer_func> script_calls_made;
 };
 
+class text_block_widget : public widget {
+public:
+    void set_text(const stringx &text);
+};
+
 class script_widget_holder_t : public widget {
 public:
     script_widget_holder_t(

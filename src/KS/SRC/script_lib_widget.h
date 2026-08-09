@@ -34,6 +34,39 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_timer_widget_set_time_left_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        timer_widget *me;
+        vm_num_t value;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+class slf_timer_widget_inc_time_left_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        timer_widget *me;
+        vm_num_t value;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+class slf_text_block_widget_set_text_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        text_block_widget *me;
+        vm_str_t text;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 class slf_bitmap_widget_flip_horiz_t :
     public script_library_class::function {
 public:

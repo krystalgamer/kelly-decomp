@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released `SLF_PARMS`/`SLF_DONE` body pops a signaller and string pointer, dereferences the name, and calls `clear_script_callback`.
+The shared signal SLF declaration pops a signaller and string pointer,
+dereferences the name, and calls `clear_script_callback`.
 
 ## Outcome
 
-The released signaller clear-callback SLF matched exactly on the first attempt.
+The local stack and signaller declarations were removed; the released wrapper
+remains exact.

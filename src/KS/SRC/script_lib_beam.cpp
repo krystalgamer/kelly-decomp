@@ -27,26 +27,10 @@ bool slf_beam_set_tiles_per_meter_t::operator()(
 bool slf_beam_set_no_collision_t::operator()(vm_stack &stack, entry_t entry) { SLF_PARMS; parms->me->set_beam_flag(beam::NO_CLIPPING); SLF_DONE; }
 
 // 0x00325AE8 __cl__24slf_beam_set_thickness_tR8vm_stackQ320script_library_class8function7entry_t
-class beam {
-public:
-    void set_thickness(float value);
-};
+#include "KS/SRC/script_lib_beam.h"
+
 __asm__(".equ set_thickness__4beamf, 0x00271790");
 
-class vm_stack {
-    char padding[8];
-    char *top;
-public:
-    void *pop(unsigned int size) { top -= size; return top; }
-};
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
-#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
-#define SLF_DONE return true
-class slf_beam_set_thickness_t : public script_library_class::function {
-public:
-    struct parms_t { beam *me; float thickness; };
-    bool operator()(vm_stack &stack, entry_t entry);
-};
 bool slf_beam_set_thickness_t::operator()(vm_stack &stack, entry_t entry) {
     SLF_PARMS;
     parms->me->set_thickness(parms->thickness);
@@ -54,26 +38,10 @@ bool slf_beam_set_thickness_t::operator()(vm_stack &stack, entry_t entry) {
 }
 
 // 0x00325B88 __cl__25slf_beam_set_max_length_tR8vm_stackQ320script_library_class8function7entry_t
-class beam {
-public:
-    void set_max_length(float value);
-};
+#include "KS/SRC/script_lib_beam.h"
+
 __asm__(".equ set_max_length__4beamf, 0x00271798");
 
-class vm_stack {
-    char padding[8];
-    char *top;
-public:
-    void *pop(unsigned int size) { top -= size; return top; }
-};
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
-#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
-#define SLF_DONE return true
-class slf_beam_set_max_length_t : public script_library_class::function {
-public:
-    struct parms_t { beam *me; float length; };
-    bool operator()(vm_stack &stack, entry_t entry);
-};
 bool slf_beam_set_max_length_t::operator()(vm_stack &stack, entry_t entry) {
     SLF_PARMS;
     parms->me->set_max_length(parms->length);
@@ -81,27 +49,10 @@ bool slf_beam_set_max_length_t::operator()(vm_stack &stack, entry_t entry) {
 }
 
 // 0x00326340 __cl__23slf_beam_set_material_tR8vm_stackQ320script_library_class8function7entry_t
-class stringx;
-class beam {
-public:
-    void set_texture(const stringx &material);
-};
+#include "KS/SRC/script_lib_beam.h"
+
 __asm__(".equ set_texture__4beamRC7stringx, 0x002721E8");
 
-class vm_stack {
-    char padding[8];
-    char *top;
-public:
-    void *pop(unsigned int size) { top -= size; return top; }
-};
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
-#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
-#define SLF_DONE return true
-class slf_beam_set_material_t : public script_library_class::function {
-public:
-    struct parms_t { beam *me; stringx *material; };
-    bool operator()(vm_stack &stack, entry_t entry);
-};
 bool slf_beam_set_material_t::operator()(vm_stack &stack, entry_t entry) {
     SLF_PARMS;
     parms->me->set_texture(*parms->material);

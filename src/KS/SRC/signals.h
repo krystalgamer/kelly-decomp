@@ -169,6 +169,7 @@ public:
     virtual signal_list *construct_signal_list();
     virtual const char *get_signal_name(unsigned short index) const;
     void clear_script_callbacks();
+    void clear_script_callback(const stringx &name);
 };
 
 class signal_manager : public singleton {

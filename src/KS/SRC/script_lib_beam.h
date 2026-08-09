@@ -27,6 +27,39 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_beam_set_thickness_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        beam *me;
+        vm_num_t thickness;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+class slf_beam_set_max_length_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        beam *me;
+        vm_num_t length;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+class slf_beam_set_material_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        beam *me;
+        vm_str_t material;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 class slf_beam_set_tiles_per_meter_t :
     public script_library_class::function {
 public:

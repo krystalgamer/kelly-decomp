@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released `SLF_PARMS`/`SLF_DONE` body pops a beam and string pointer, dereferences the material string, and calls `set_texture`.
+The shared beam SLF declaration pops a beam and string pointer, dereferences the
+material string, and calls `set_texture`.
 
 ## Outcome
 
-The released beam-material SLF matched exactly on the first attempt.
+The local stack and beam declarations were removed; the released wrapper
+remains exact.

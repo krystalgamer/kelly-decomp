@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released `SLF_PARMS`/`SLF_DONE` body pops a beam pointer and float, then calls `set_thickness`.
+The shared beam SLF declaration pops a beam pointer and float, then calls
+`set_thickness`.
 
 ## Outcome
 
-The released beam-thickness SLF matched exactly on the first attempt.
+The local stack and beam declarations were removed; the released wrapper
+remains exact.
