@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released three-component multiply-and-sum expression matched exactly.
+The released three-component multiply-and-sum expression uses the shared NSL
+vector declaration.
 
 ## Outcome
 
-The released NL 3D dot product matched exactly on the first attempt.
+The local typedef was removed; the released dot product remains exact.

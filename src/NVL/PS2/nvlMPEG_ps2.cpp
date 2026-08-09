@@ -165,12 +165,7 @@ int mpegNodata(
 
 #if defined(KELLY_DECOMP_FUNCTION_003889A0)
 // 0x003889A0 readBufBeginPut__FP7ReadBufPPUc
-struct ReadBuf {
-    unsigned char data[0x50000];
-    int put;
-    int count;
-    int size;
-};
+#include "NVL/PS2/nvlMPEG_ps2.h"
 
 static int readBufBeginPut(ReadBuf *buffer, unsigned char **pointer)
 {

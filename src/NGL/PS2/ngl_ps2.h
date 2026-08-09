@@ -238,12 +238,14 @@ public:
     int Level;
 
     nglInstanceBank();
+    Instance *Search(const nglFixedString &name);
     bool Delete(const nglFixedString &name);
 };
 
 extern nglScene *nglCurScene;
 extern nglScene nglDefaultScene;
 extern nglInstanceBank nglFontBank;
+extern nglInstanceBank nglTextureBank;
 extern nglMesh *nglScratch;
 extern int nglFrameLock;
 extern int nglDisplayWidth;

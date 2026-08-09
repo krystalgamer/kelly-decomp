@@ -25,8 +25,10 @@ Introduced a zero-initialized result variable and assigned it when the instance 
 
 ### Attempt 3 notes
 
-The released texture-bank lookup matched exactly when expressed as the equivalent null guard, preserving the target `bnezl` value-load schedule. The bank alias uses `0x004BBFF8` so isolated absolute assembly reproduces the target's HI16 relocation carry while the signed LO16 addresses the real `0x004ABFF8` object.
+The released texture-bank lookup uses the shared NGL instance-bank declaration.
+The bank alias preserves the target's HI16 relocation carry.
 
 ## Outcome
 
-The released NGL texture-bank lookup matched exactly with the recovered instance value offset.
+The local bank and instance layouts were removed; the released lookup remains
+exact.

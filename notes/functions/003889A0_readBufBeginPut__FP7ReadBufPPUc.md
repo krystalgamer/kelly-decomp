@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released circular-buffer free-space calculation and put-pointer update matched exactly with the recovered 0x50000-byte data area.
+The released circular-buffer free-space calculation uses the shared NVL
+`ReadBuf` declaration and its 0x50000-byte data area.
 
 ## Outcome
 
-The released NVL read-buffer begin-put helper matched exactly on the first attempt.
+The local buffer layout was removed; the released helper remains exact.

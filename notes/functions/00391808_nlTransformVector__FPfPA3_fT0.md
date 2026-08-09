@@ -5,7 +5,7 @@
 - Object: `nsl/nl_ps2`
 - Debug source: `C:/NSL/PS2/nl_ps2.cpp`
 - Reference source: `NSL/PS2/nl_ps2.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -13,7 +13,7 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | compile_failed | 0.0 | 0 | `candidate.cpp` |
 | 2 | different | 79.1667 | 75.0 | `candidate.cpp` |
-| 3 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | different | 79.1667 | 75.0 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
@@ -25,8 +25,10 @@ Used the exact released legacy assembler spelling (`ACC`, `vf4`, `vf8`). All ten
 
 ### Attempt 3 notes
 
-This preserves the released local `sceVu0ApplyMatrix` VU0 inline assembly exactly. The final explicit nop is instruction-emitting matching scaffolding required to keep the target's `sqc2` before `jr ra` rather than allowing EE GCC to move that store into the return delay slot.
+Equivalent native wrappers retain the released VU0 sequence, but EE GCC moves
+the final `sqc2` into the return delay slot and emits 44 bytes.
 
 ## Outcome
 
-The released NL vector transform matched exactly with its inlined VU0 matrix-apply sequence.
+The prior exact form appended a non-released instruction-emitting `nop`.
+That scaffolding was removed and the function was deferred.

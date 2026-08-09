@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released DMA PCR bitfield assignments matched exactly. The pointer alias uses `0x004BF488` so isolated absolute assembly reproduces the target's HI16 relocation carry while the signed LO16 addresses the real `0x004AF488` global.
+The released DMA PCR bitfield assignments use the shared NGL DMA declaration.
+The pointer alias preserves the target's HI16 relocation carry.
 
 ## Outcome
 
-The released NGL DMA GIF-wait PCR setup matched exactly on the first attempt.
+The local PCR layout was removed; the released setup remains exact.

@@ -3,17 +3,8 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_003AC748)
 // 0x003AC748 _nglDmaSetWaitGif__Fv
-struct tD_PCR {
-    unsigned int CPC0 : 1;
-    unsigned int CPC1 : 1;
-    unsigned int CPC2 : 1;
-    unsigned int padding0 : 5;
-    unsigned int CPC8 : 1;
-    unsigned int CPC9 : 1;
-    unsigned int padding1 : 22;
-};
+#include "NGL/PS2/ngl_dma.h"
 
-extern tD_PCR *_nglDmaPCR;
 __asm__(".equ _nglDmaPCR, 0x004BF488");
 
 void _nglDmaSetWaitGif()

@@ -299,22 +299,9 @@ void nglDestroyMesh(nglMesh *mesh) {
 
 #if defined(KELLY_DECOMP_FUNCTION_0039C750)
 // 0x0039C750 nglGetTexture__FRC14nglFixedString
-class nglFixedString {};
-class nglTexture;
-
-class nglInstanceBank {
-public:
-    struct Instance {
-        char padding[0x20];
-        void *Value;
-    };
-
-    Instance *Search(const nglFixedString &name);
-};
+#include "NGL/PS2/ngl_ps2.h"
 
 __asm__(".equ Search__15nglInstanceBankRC14nglFixedString, 0x003AC608");
-
-extern nglInstanceBank nglTextureBank;
 __asm__(".equ nglTextureBank, 0x004BBFF8");
 
 nglTexture *nglGetTexture(const nglFixedString &fileName)
