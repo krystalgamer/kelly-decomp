@@ -47,8 +47,15 @@ public:
         N_SIGNALS
     };
 
-    enum {
-        NO_CLIPPING = 0xC8
+    enum flags_t {
+        NO_CLIP_TO_HERO = 0x00000008,
+        NO_CLIP_TO_BEAMABLE = 0x00000040,
+        NO_CLIP_TO_WORLD = 0x00000080,
+        NO_CLIPPING =
+            NO_CLIP_TO_HERO |
+            NO_CLIP_TO_BEAMABLE |
+            NO_CLIP_TO_WORLD,
+        DETECTS_STEALTH = 0x00000100
     };
 
     beam(
@@ -73,6 +80,9 @@ public:
         const vector3d &end);
     inline void set_beam_flag(unsigned int value) {
         beam_flags |= value;
+    }
+    inline void clear_beam_flag(unsigned int value) {
+        beam_flags &= ~value;
     }
     inline float get_tiles_per_meter() const { return tiles_per_meter; }
     inline void set_tiles_per_meter(float value) {

@@ -295,51 +295,7 @@ void **Rtti_00325CC8()
 }
 
 // 0x00325D18 __cl__29slf_beam_set_detect_stealth_tR8vm_stackQ320script_library_class8function7entry_t
-class beam {
-    char padding[0x218];
-    unsigned int beam_flags;
-
-public:
-    enum flags_t {
-        DETECTS_STEALTH = 0x00000100
-    };
-
-    void set_beam_flag(flags_t flag) { beam_flags |= flag; }
-    void clear_beam_flag(flags_t flag) { beam_flags &= ~flag; }
-};
-
-class vm_stack {
-    char padding[8];
-    char *top;
-
-public:
-    void *pop(unsigned int size) {
-        top -= size;
-        return top;
-    }
-};
-
-class script_library_class {
-public:
-    class function {
-    public:
-        enum entry_t { FIRST_ENTRY };
-    };
-};
-
-#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
-#define SLF_DONE return true
-
-class slf_beam_set_detect_stealth_t :
-    public script_library_class::function {
-public:
-    struct parms_t {
-        beam *me;
-        float torf;
-    };
-
-    bool operator()(vm_stack &stack, entry_t entry);
-};
+#include "KS/SRC/script_lib_beam_decl.h"
 
 bool slf_beam_set_detect_stealth_t::operator()(
     vm_stack &stack,
@@ -379,31 +335,7 @@ void **Rtti_00325D88()
 }
 
 // 0x00325DD8 __cl__27slf_beam_set_collide_hero_tR8vm_stackQ320script_library_class8function7entry_t
-class beam {
-    char padding[0x218];
-    unsigned int beam_flags;
-public:
-    enum flags_t { NO_CLIP_TO_HERO = 0x00000008 };
-    void set_beam_flag(flags_t flag) { beam_flags |= flag; }
-    void clear_beam_flag(flags_t flag) { beam_flags &= ~flag; }
-};
-class vm_stack {
-    char padding[8];
-    char *top;
-public:
-    void *pop(unsigned int size) { top -= size; return top; }
-};
-class script_library_class {
-public:
-    class function { public: enum entry_t { FIRST_ENTRY }; };
-};
-#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
-#define SLF_DONE return true
-class slf_beam_set_collide_hero_t : public script_library_class::function {
-public:
-    struct parms_t { beam *me; float torf; };
-    bool operator()(vm_stack &stack, entry_t entry);
-};
+#include "KS/SRC/script_lib_beam_decl.h"
 bool slf_beam_set_collide_hero_t::operator()(vm_stack &stack, entry_t entry) {
     SLF_PARMS;
     if (parms->torf != 0.0f)
@@ -439,31 +371,7 @@ void **Rtti_00325E48()
 }
 
 // 0x00325E98 __cl__28slf_beam_set_collide_world_tR8vm_stackQ320script_library_class8function7entry_t
-class beam {
-    char padding[0x218];
-    unsigned int beam_flags;
-public:
-    enum flags_t { NO_CLIP_TO_WORLD = 0x00000080 };
-    void set_beam_flag(flags_t flag) { beam_flags |= flag; }
-    void clear_beam_flag(flags_t flag) { beam_flags &= ~flag; }
-};
-class vm_stack {
-    char padding[8];
-    char *top;
-public:
-    void *pop(unsigned int size) { top -= size; return top; }
-};
-class script_library_class {
-public:
-    class function { public: enum entry_t { FIRST_ENTRY }; };
-};
-#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
-#define SLF_DONE return true
-class slf_beam_set_collide_world_t : public script_library_class::function {
-public:
-    struct parms_t { beam *me; float torf; };
-    bool operator()(vm_stack &stack, entry_t entry);
-};
+#include "KS/SRC/script_lib_beam_decl.h"
 bool slf_beam_set_collide_world_t::operator()(vm_stack &stack, entry_t entry) {
     SLF_PARMS;
     if (parms->torf != 0.0f)
@@ -499,31 +407,7 @@ void **Rtti_00325F08()
 }
 
 // 0x00325F58 __cl__31slf_beam_set_collide_beamable_tR8vm_stackQ320script_library_class8function7entry_t
-class beam {
-    char padding[0x218];
-    unsigned int beam_flags;
-public:
-    enum flags_t { NO_CLIP_TO_BEAMABLE = 0x00000040 };
-    void set_beam_flag(flags_t flag) { beam_flags |= flag; }
-    void clear_beam_flag(flags_t flag) { beam_flags &= ~flag; }
-};
-class vm_stack {
-    char padding[8];
-    char *top;
-public:
-    void *pop(unsigned int size) { top -= size; return top; }
-};
-class script_library_class {
-public:
-    class function { public: enum entry_t { FIRST_ENTRY }; };
-};
-#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
-#define SLF_DONE return true
-class slf_beam_set_collide_beamable_t : public script_library_class::function {
-public:
-    struct parms_t { beam *me; float torf; };
-    bool operator()(vm_stack &stack, entry_t entry);
-};
+#include "KS/SRC/script_lib_beam_decl.h"
 bool slf_beam_set_collide_beamable_t::operator()(vm_stack &stack, entry_t entry) {
     SLF_PARMS;
     if (parms->torf != 0.0f)
