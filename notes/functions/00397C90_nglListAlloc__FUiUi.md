@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released alignment arithmetic and work-pointer update match exactly.
+The released alignment arithmetic and work-pointer update use the shared NGL
+work-pointer declaration.
 
 ## Outcome
 
-The released alignment arithmetic and render-list work-pointer update match exactly.
+The local type and work-pointer declarations were removed.

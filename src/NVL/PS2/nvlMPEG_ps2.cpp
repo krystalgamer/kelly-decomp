@@ -218,8 +218,9 @@ __asm__(".globl videoDecDelete__FP8VideoDec");
 
 #if defined(KELLY_DECOMP_FUNCTION_00389500)
 // 0x00389500 strFileRead__FP7StrFilePvi
+#include "NVL/PS2/nvlMPEG_ps2.h"
+
 typedef unsigned int u_int;
-struct StrFile { int isOnCD; char padding[44]; int fd; };
 extern "C" int sceCdStRead(unsigned int sectors, unsigned int *buffer, unsigned int mode, unsigned int *error);
 extern "C" int sceRead(int fd, void *buffer, int size);
 asm(".equ sceCdStRead, 0x003BDEB0");

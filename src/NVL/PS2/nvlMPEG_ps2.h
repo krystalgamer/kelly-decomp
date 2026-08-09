@@ -60,6 +60,14 @@ struct ReadBuf {
     int size;
 };
 
+struct StrFile {
+    int isOnCD;
+    int size;
+    char fp[0x24];
+    unsigned char *iopBuf;
+    int fd;
+};
+
 struct sceMpeg {
     char data[0x48];
 };

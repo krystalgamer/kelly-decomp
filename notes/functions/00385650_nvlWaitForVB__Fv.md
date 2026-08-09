@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released semaphore sequence matches exactly with a narrow barrier preventing the demonstrated final tail call.
+The released semaphore sequence uses the shared stream-system declaration and
+a local final wait-function pointer.
 
 ## Outcome
 
-The released semaphore sequence matches with a narrow barrier preventing a demonstrated final tail call.
+The compiler barrier was removed.

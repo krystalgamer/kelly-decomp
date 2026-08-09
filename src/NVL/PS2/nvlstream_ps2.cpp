@@ -129,8 +129,8 @@ void nvlWaitForVB()
 {
   SignalSema(nvlStreamSystemData.vblankSema);
   PollSema(nvlStreamSystemData.vblankSema);
-  WaitSema(nvlStreamSystemData.vblankSema);
-  KELLY_DECOMP_COMPILER_BARRIER();
+  int (*wait)(int) = WaitSema;
+  wait(nvlStreamSystemData.vblankSema);
 }
 
 // 0x003853C8 nvlDestroyMsgQueue__FP11nvlMsgQueue

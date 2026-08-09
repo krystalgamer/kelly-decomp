@@ -270,6 +270,7 @@ extern nglTexture nglFrontBufferTex;
 extern nglTexture nglBackBufferTex;
 extern float nglIFLSpeed;
 extern u_int nglScratchStripVertIdx;
+extern unsigned char *nglListWorkPos;
 
 void nglFatal(const char *format, ...);
 void nglExit();
@@ -311,6 +312,7 @@ void nglSetQuadBlend(
     u_int constant);
 void nglSetQuadColor(nglQuad *quad, u_int color);
 void nglMeshWriteStrip(u_int length);
+void *nglListAlloc(u_int bytes, u_int alignment);
 float nglDistanceToPlane(
     const nglVector &plane,
     const nglVector &point);

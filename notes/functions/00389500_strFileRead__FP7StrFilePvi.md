@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released CD/host read dispatch and sector-byte conversion match exactly.
+The released CD/host read dispatch and sector-byte conversion use the shared
+`StrFile` declaration.
 
 ## Outcome
 
-The released CD/host read dispatch and sector-byte conversion match exactly.
+The local stream-file layout was removed.

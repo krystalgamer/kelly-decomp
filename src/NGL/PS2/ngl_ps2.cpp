@@ -429,8 +429,8 @@ void nglAddTextureRef(nglTexture *texture)
 
 #if defined(KELLY_DECOMP_FUNCTION_00397C90)
 // 0x00397C90 nglListAlloc__FUiUi
-typedef unsigned int u_int;
-extern unsigned char *nglListWorkPos __asm__("nglListWorkPos");
+#include "NGL/PS2/ngl_ps2.h"
+
 asm(".equ nglListWorkPos, 0x004BB7D0");
 void *nglListAlloc(u_int Bytes, u_int Alignment)
 {
