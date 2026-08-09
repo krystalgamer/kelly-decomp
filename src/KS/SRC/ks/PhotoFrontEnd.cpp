@@ -76,153 +76,48 @@ void PhotoSelectMenu::OnStart(int controller) {
 }
 
 // 0x001CDF90 Draw__13PhotoFrontEnd
-struct menu_vtable {
-    char padding[0x48];
-    short adjustment;
-    short padding2;
-    void (*draw)(void *self);
-};
-
-struct menu_layout {
-    char padding[0x74];
-    menu_vtable *vtable;
-};
-
-class PhotoFrontEnd {
-    char padding[0x60];
-    menu_layout *active;
-
-public:
-    void Draw();
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 void PhotoFrontEnd::Draw()
 {
-    menu_layout *menu = active;
-    if (menu) {
-        menu_vtable *table = menu->vtable;
-        table->draw((char *)menu + table->adjustment);
-    }
+    if (active)
+        active->Draw();
 }
 
 // 0x001CE0F0 OnLeft__13PhotoFrontEndi
-struct menu_vtable {
-    char padding[0xA8];
-    short adjustment;
-    short padding2;
-    void (*onLeft)(void *self, int controller);
-};
-
-struct menu_layout {
-    char padding[0x74];
-    menu_vtable *vtable;
-};
-
-class PhotoFrontEnd {
-    char padding[0x60];
-    menu_layout *active;
-
-public:
-    void OnLeft(int controller);
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 void PhotoFrontEnd::OnLeft(int controller)
 {
-    menu_layout *menu = active;
-    if (menu) {
-        menu_vtable *table = menu->vtable;
-        table->onLeft((char *)menu + table->adjustment, controller);
-    }
+    if (active)
+        active->OnLeft(controller);
 }
 
 // 0x001CE128 OnRight__13PhotoFrontEndi
-struct menu_vtable {
-    char padding[0xB0];
-    short adjustment;
-    short padding2;
-    void (*onRight)(void *self, int controller);
-};
-
-struct menu_layout {
-    char padding[0x74];
-    menu_vtable *vtable;
-};
-
-class PhotoFrontEnd {
-    char padding[0x60];
-    menu_layout *active;
-
-public:
-    void OnRight(int controller);
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 void PhotoFrontEnd::OnRight(int controller)
 {
-    menu_layout *menu = active;
-    if (menu) {
-        menu_vtable *table = menu->vtable;
-        table->onRight((char *)menu + table->adjustment, controller);
-    }
+    if (active)
+        active->OnRight(controller);
 }
 
 // 0x001CE160 OnUp__13PhotoFrontEndi
-struct menu_vtable {
-    char padding[0x98];
-    short adjustment;
-    short padding2;
-    void (*onUp)(void *self, int controller);
-};
-
-struct menu_layout {
-    char padding[0x74];
-    menu_vtable *vtable;
-};
-
-class PhotoFrontEnd {
-    char padding[0x60];
-    menu_layout *active;
-
-public:
-    void OnUp(int controller);
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 void PhotoFrontEnd::OnUp(int controller)
 {
-    menu_layout *menu = active;
-    if (menu) {
-        menu_vtable *table = menu->vtable;
-        table->onUp((char *)menu + table->adjustment, controller);
-    }
+    if (active)
+        active->OnUp(controller);
 }
 
 // 0x001CE198 OnDown__13PhotoFrontEndi
-struct menu_vtable {
-    char padding[0xA0];
-    short adjustment;
-    short padding2;
-    void (*onDown)(void *self, int controller);
-};
-
-struct menu_layout {
-    char padding[0x74];
-    menu_vtable *vtable;
-};
-
-class PhotoFrontEnd {
-    char padding[0x60];
-    menu_layout *active;
-
-public:
-    void OnDown(int controller);
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 void PhotoFrontEnd::OnDown(int controller)
 {
-    menu_layout *menu = active;
-    if (menu) {
-        menu_vtable *table = menu->vtable;
-        table->onDown((char *)menu + table->adjustment, controller);
-    }
+    if (active)
+        active->OnDown(controller);
 }
 
 // 0x001CF208 setHigh__15PhotoSelectMenuP11FEMenuEntryb

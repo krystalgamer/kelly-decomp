@@ -7,6 +7,11 @@
 
 class PhotoFrontEnd : public FEMultiMenu {
 public:
+    virtual void Draw();
+    virtual void OnLeft(int controller);
+    virtual void OnRight(int controller);
+    virtual void OnUp(int controller);
+    virtual void OnDown(int controller);
     virtual void OnTriangle(int controller);
 };
 

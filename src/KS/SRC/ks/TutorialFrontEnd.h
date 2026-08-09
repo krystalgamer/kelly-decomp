@@ -46,6 +46,10 @@ class TutorialFrontEnd : public FEMultiMenu {
 
 public:
     virtual void Load();
+    virtual void OnLeft(int controller);
+    virtual void OnRight(int controller);
+    virtual void OnUp(int controller);
+    virtual void OnDown(int controller);
     virtual void OnButtonRelease(int controller, int button);
 };
 

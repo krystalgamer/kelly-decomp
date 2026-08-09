@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released active-menu null guard and virtual Draw forwarding matched exactly with `active` at offset 0x60 and Draw at virtual slot 0x4c.
+The released active-menu null guard and virtual `Draw` forwarding use the
+shared photo/menu hierarchy.
 
 ## Outcome
 
-The released photo-frontend draw forwarding matched exactly on the first attempt.
+The manual menu/vtable layout was removed; the released forwarding remains
+exact.

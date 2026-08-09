@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released active-menu null guard and virtual OnDown forwarding matched exactly with `active` at offset 0x60 and OnDown at virtual slot 0xa4.
+The released active-menu null guard and virtual `OnDown` forwarding use the
+shared photo/menu hierarchy.
 
 ## Outcome
 
-The released photo-frontend OnDown forwarding matched exactly on the first attempt.
+The manual menu/vtable layout was removed; the released forwarding remains
+exact.
