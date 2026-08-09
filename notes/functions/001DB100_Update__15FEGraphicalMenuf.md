@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released FrontEnd/FEMenu updates match with the established narrow barrier preventing tail-call optimization.
+The shared multiple-inheritance layout and a local final menu-update pointer
+preserve both base calls.
 
 ## Outcome
 
-The released FrontEnd and FEMenu updates match with a narrow barrier preventing demonstrated tail-call optimization.
+The local base layouts and compiler barrier were removed.

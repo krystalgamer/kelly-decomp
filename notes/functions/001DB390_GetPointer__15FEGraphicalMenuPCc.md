@@ -20,8 +20,9 @@ The direct released condition selected the virtual parent path as fallthrough an
 
 ### Attempt 2 notes
 
-The logically equivalent null-parent guard preserves the released behavior and reproduces the target branch-likely layout exactly.
+The shared graphical-menu hierarchy and null-parent guard preserve the local
+panel lookup and virtual parent delegation.
 
 ## Outcome
 
-The released parent delegation and local panel lookup match exactly with the equivalent null-parent guard.
+The manual parent vtable and local panel layouts were removed.

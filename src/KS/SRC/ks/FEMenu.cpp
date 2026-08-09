@@ -818,33 +818,29 @@ extern "C" void *GetTypeInfo() __asm__("__tf8FrontEnd");
 void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return typeinfo; }
 
 // 0x001DB100 Update__15FEGraphicalMenuf
-#include "decomp_annotations.h"
-class FrontEnd { public: void Update(float); };
-class FEMenu { char padding[0x80]; public: void Update(float); };
-class FEGraphicalMenu : public FEMenu { FrontEnd frontend; public: void Update(float); };
+#include "KS/SRC/ks/FEMenu.h"
+
 asm(".equ Update__8FrontEndf, 0x00157B30");
 asm(".equ Update__6FEMenuf, 0x00156DC8");
+extern "C" void update_graphical_menu_base(FEMenu *menu, float time)
+    __asm__("Update__6FEMenuf");
+
 void FEGraphicalMenu::Update(float time_inc)
 {
-    frontend.Update(time_inc);
-    FEMenu::Update(time_inc);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    FrontEnd::Update(time_inc);
+    void (*update)(FEMenu *, float) = update_graphical_menu_base;
+    update(this, time_inc);
 }
 
 // 0x001DB390 GetPointer__15FEGraphicalMenuPCc
-class PanelFile { public: void *GetPointer(const char *); };
-typedef void *(*get_pointer_handler)(void *, const char *);
-struct get_pointer_slot { short adjustment; unsigned short padding; get_pointer_handler function; };
-struct menu_vtable { char padding[0x198]; get_pointer_slot get_pointer; };
-struct ParentMenu { char padding[0x74]; menu_vtable *vtable; };
-class FEGraphicalMenu { char padding[0x64]; ParentMenu *parent; char padding2[0x98]; PanelFile panel; public: void *GetPointer(const char *); };
+#include "KS/SRC/ks/FEMenu.h"
+
 asm(".equ GetPointer__9PanelFilePCc, 0x00152F88");
-void *FEGraphicalMenu::GetPointer(const char *name)
+PanelQuad *FEGraphicalMenu::GetPointer(const char *name)
 {
     if (!parent)
         return panel.GetPointer(name);
-    get_pointer_slot &slot = parent->vtable->get_pointer;
-    return slot.function((char *)parent + slot.adjustment, name);
+    return ((FEGraphicalMenu *)parent)->GetPointer(name);
 }
 
 // 0x001DB880 __tf12FEMenuSystem
