@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-item-fill-core.cpp` |
 
 ### Attempt 1 notes
 
-A minimal vtable layout preserves the virtual effect slot and released effect ID 28.
+The shared signal hierarchy preserves the virtual `raise_signal(USE)` call and
+released signal ID 28.
 
 ## Outcome
 
-The released `item::apply_effects` wrapper matched exactly.
+The manual vtable layout was removed.

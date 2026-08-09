@@ -12,13 +12,17 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size44-item-fill-core.cpp` |
 
 ### Attempt 1 notes
 
-A minimal heap layout conditionally forwards the low/high stack bounds when collision checking is enabled.
+The initial isolated layout conditionally forwarded the low/high stack bounds.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+The shared heap declaration and a local function pointer preserve the normal
+call frame without a compiler barrier.
 
 ## Outcome
 
-The released heap stack-collision check matched exactly.
+The local layout and compiler barrier were removed.

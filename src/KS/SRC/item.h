@@ -25,6 +25,14 @@ public:
         PERMANENT
     };
 
+    enum signal_id_t {
+        PICKUP = 27,
+        USE,
+        SCHWING,
+        DETONATE,
+        ARMED
+    };
+
     item(const entity_id &id, unsigned int flags);
     item(
         const entity_id &id,

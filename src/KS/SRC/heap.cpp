@@ -49,7 +49,14 @@ bool Heap::IsThisMine(const MemBlockInfo *block) const { return block->flags.hea
 // 0x002AB7F8 CheckStackCollision__C4Heap
 #include "KS/SRC/heap.h"
 __asm__(".equ CheckLoHi__C4HeapPvT1, 0x002AB670");
-void Heap::CheckStackCollision() const { if (heapstart) { CheckLoHi(loblock, hiblock); KELLY_DECOMP_COMPILER_BARRIER(); } }
+void check_heap_bounds(const Heap *heap, void *low, void *high)
+    __asm__("CheckLoHi__C4HeapPvT1");
+void Heap::CheckStackCollision() const {
+    if (heapstart) {
+        void (*check)(const Heap *, void *, void *) = check_heap_bounds;
+        check(this, loblock, hiblock);
+    }
+}
 
 // 0x002AB6F0 DoYouContain__C4HeapPv
 #include "KS/SRC/heap.h"

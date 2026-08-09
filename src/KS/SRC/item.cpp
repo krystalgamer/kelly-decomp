@@ -34,13 +34,16 @@ void item::render(camera *camera_link, float detail, render_flavor_t flavor, flo
 #include "KS/SRC/item.h"
 __asm__(".equ preload__6entity, 0x00139180");
 __asm__(".equ spawn_preload_script__4item, 0x0028A410");
-void item::preload() { entity::preload(); spawn_preload_script(); KELLY_DECOMP_COMPILER_BARRIER(); }
+void spawn_item_preload(item *self) __asm__("spawn_preload_script__4item");
+void item::preload() {
+    entity::preload();
+    void (*spawn_script)(item *) = spawn_item_preload;
+    spawn_script(this);
+}
 
 // 0x0028AA58 apply_effects__4itemP6entity
 #include "KS/SRC/item.h"
-struct item_vtable { char padding[0x20]; short adjustment; short padding2; void (*apply)(void *self, int effect); };
-struct item_dispatch_layout { char padding[8]; item_vtable *vtable; };
-void item::apply_effects(entity *target) { item_vtable *table = ((item_dispatch_layout *)this)->vtable; table->apply((char *)this + table->adjustment, 28); }
+void item::apply_effects(entity *target) { raise_signal(USE); }
 
 // 0x0028BE88 frame_advance__14morphable_itemf
 #include "KS/SRC/item.h"
