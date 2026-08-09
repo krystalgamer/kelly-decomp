@@ -327,22 +327,14 @@ void BalanceMeter::End() {
 }
 
 // 0x002138B8 TurnDegree__22kellyslater_controller
-struct controller_turn_degree_layout {
-    char padding[0x16A8];
-    float stick;
-    float degree;
-};
+#include "KS/SRC/ks/kellyslater_controller.h"
 
-extern "C" float get_stick(void *, int)
-    __asm__("GetStick__22kellyslater_controlleri");
-extern "C" void turn_degree(controller_turn_degree_layout *self)
-    __asm__("TurnDegree__22kellyslater_controller");
 __asm__(".equ GetStick__22kellyslater_controlleri, 0x0020D010");
 
-void turn_degree(controller_turn_degree_layout *self)
+void kellyslater_controller::TurnDegree()
 {
-    self->stick = get_stick(self, 203);
-    self->degree = __builtin_fabsf(1.0f * self->stick);
+    stick = GetStick(203);
+    degree = __builtin_fabsf(1.0f * stick);
 }
 
 // 0x0021E408 SetTrickRegion__22kellyslater_controller11TRICKREGION

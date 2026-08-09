@@ -12,6 +12,8 @@ extern "C" void* memset(void*, int, unsigned int);
 
 class ps2_joypad_device : public input_device {
 public:
+    virtual stringx get_name() const;
+    virtual stringx get_name(int axis) const;
     void clear_state();
     bool is_connected() const;
     device_id_t get_id() const;

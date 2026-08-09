@@ -195,37 +195,12 @@ void SurferBioFrontEnd::OnCross(int arg0) {
 PanelQuad *SurferBioFrontEnd::GetPointer(const char *name) { return FrontEnd::GetPointer(name); }
 
 // 0x001DCB88 OnButtonRelease__14SurferFrontEndii
-struct menu_vtable {
-    char padding[0x100];
-    short adjustment;
-    short padding2;
-    void (*on_button_release)(void *self, int controller, int button);
-};
-
-struct menu_layout {
-    char padding[0x74];
-    menu_vtable *vtable;
-};
-
-class SurferFrontEnd {
-    char padding[0x60];
-    menu_layout *active;
-
-public:
-    void OnButtonRelease(int controller, int button);
-};
+#include "KS/SRC/ks/SurferFrontEnd.h"
 
 void SurferFrontEnd::OnButtonRelease(int controller, int button)
 {
-    menu_layout *menu = active;
-    if (menu) {
-        menu_vtable *table = menu->vtable;
-        table->on_button_release(
-            (char *)menu + table->adjustment,
-            controller,
-            button
-        );
-    }
+    if (active)
+        active->OnButtonRelease(controller, button);
 }
 
 // 0x001DCB30 __tf14SurferFrontEnd

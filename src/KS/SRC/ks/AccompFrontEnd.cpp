@@ -3,17 +3,11 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_001D4F30)
 // 0x001D4F30 SwitchPages__14AccompFrontEndb
-class AccompFrontEnd {
-    char padding[0x168];
-    int cur_page;
-
-    void UpdatePhotos();
-
-public:
-    void SwitchPages(bool right);
-};
+#include "KS/SRC/ks/AccompFrontEnd.h"
 
 __asm__(".equ UpdatePhotos__14AccompFrontEnd, 0x001D4A98");
+void update_photos(AccompFrontEnd *frontend)
+    __asm__("UpdatePhotos__14AccompFrontEnd");
 
 void AccompFrontEnd::SwitchPages(bool right)
 {
@@ -21,8 +15,8 @@ void AccompFrontEnd::SwitchPages(bool right)
         ++cur_page;
     else
         --cur_page;
-    UpdatePhotos();
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*update)(AccompFrontEnd *) = update_photos;
+    update(this);
 }
 #endif
 

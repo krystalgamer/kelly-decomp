@@ -5,14 +5,15 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/beach.cpp`
 - Reference source: `KS/SRC/ks/beach.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 33.9286 | 21.4286 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | different | 33.9286 | 21.4286 | `candidate.cpp` |
+| 3 | different | 33.9286 | 21.4286 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
@@ -20,8 +21,10 @@ Used a for-loop spelling with the target scheduling nop in the body. This placed
 
 ### Attempt 2 notes
 
-The released linked-list search matched with `my_objects` at offset 0x2c4, `next` at 0, and the entity pointer at 0x28. The explicit instruction-emitting nop reproduces the target load-to-branch scheduling gap after advancing to the next object.
+Native linked-list search forms omit the target's load-to-branch scheduling
+`nop`.
 
 ## Outcome
 
-The released beach object lookup matched exactly with the recovered list layout.
+The prior exact form inserted a non-released instruction-emitting `nop`.
+That scaffolding was removed and the lookup was deferred.

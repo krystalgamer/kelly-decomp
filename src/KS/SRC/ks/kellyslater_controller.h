@@ -54,7 +54,10 @@ class kellyslater_controller {
     ScoringManagerStorage my_scoreManager;
     SpecialMeter specialMeter;
     int my_player_num;
-    char data_to_special_trick[0x3C];
+    char data_to_turn_degree[0x30];
+    float stick;
+    float degree;
+    char data_after_turn_degree[0x4];
     bool bSpecialTrick;
     char data_to_current_trick[0x23C];
     int currentTrick;
@@ -117,6 +120,7 @@ public:
     int GetCurrentTrick();
     int get_super_state() const { return super_state; }
     float CtrlEvent(int control);
+    float GetStick(int control);
     bool IsAIPlayer();
     SurfBoardObjectClass *get_board_controller() {
         return (SurfBoardObjectClass *)((char *)this + 0x37C);

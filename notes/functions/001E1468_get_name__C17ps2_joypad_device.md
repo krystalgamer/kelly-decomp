@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released getter matched exactly with the real two-pointer `stringx` hidden-return ABI. The literal alias uses the HI16-adjusted address required to reference the original `ps2 input device` text at 0x004ce760.
+The released getter uses the shared PS2 input device and `stringx`
+declarations. The literal alias preserves the original text address.
 
 ## Outcome
 
-The released PS2 joypad name getter matched exactly on the first attempt.
+The local ABI model was removed; the released getter remains exact.

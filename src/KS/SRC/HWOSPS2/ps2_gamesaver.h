@@ -14,6 +14,7 @@ enum {
 };
 
 enum {
+    GT_FE_MENU_OVERWRITE = 258,
     GT_MEMORY_CARD_PS2 = 554,
     GT_MEMORY_SLOT_PS2
 };

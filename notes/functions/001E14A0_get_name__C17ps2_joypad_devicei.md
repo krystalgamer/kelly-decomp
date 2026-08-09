@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released axis-name getter matched exactly with the real two-pointer `stringx` hidden-return ABI and the original `ps2 input device` literal.
+The released axis-name getter uses the shared PS2 input device and `stringx`
+declarations.
 
 ## Outcome
 
-The released PS2 joypad axis-name getter matched exactly on the first attempt.
+The local ABI model was removed; the released getter remains exact.

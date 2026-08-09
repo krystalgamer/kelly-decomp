@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released global-text `c_str()` return matched exactly with the two-pointer `stringx` hidden-return ABI. `overwrite_text` aliases the chars field of the GT_FE_MENU_OVERWRITE entry at 0x003e6860.
+The released global-text `c_str()` return uses the shared game-saver and
+`stringx` declarations.
 
 ## Outcome
 
-The released game-saver overwrite string getter matched exactly on the first attempt.
+The local ABI model and symbol wrapper were removed; the released getter
+remains exact.

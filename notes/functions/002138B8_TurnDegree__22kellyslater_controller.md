@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released left-stick read and absolute-value calculation matched exactly with `stick`/`degree` at offsets 0x16a8/0x16ac and PAD_LSTICK_H value 203.
+The released left-stick read and absolute-value calculation use the shared
+controller fields at their recovered offsets.
 
 ## Outcome
 
-The released controller turn-degree update matched exactly on the first attempt.
+The local 0x16a8-byte layout and symbol wrapper were removed; the released
+update remains exact.

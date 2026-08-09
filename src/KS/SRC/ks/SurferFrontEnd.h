@@ -51,6 +51,7 @@ private:
     PanelQuad *red_gauges[4];
     PanelQuad *horiz_arrows[2][2];
     PanelQuad *ss_lines[3];
+
     PanelQuad *ss_box[9];
     PanelQuad *hcap_gauge;
     PanelQuad *hcap_slider;

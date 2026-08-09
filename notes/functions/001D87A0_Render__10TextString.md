@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released no-argument Render wrapper matched exactly with `text` at offset 0x4, x/y at 0xc/0x10, the vtable at 0x4c, and the text-render overload at virtual slot 0x11c.
+The released no-argument `Render` wrapper uses the shared text hierarchy and
+calls the text overload directly.
 
 ## Outcome
 
-The released TextString render wrapper matched exactly on the first attempt.
+The manual object/vtable layout was removed; the released wrapper remains
+exact.

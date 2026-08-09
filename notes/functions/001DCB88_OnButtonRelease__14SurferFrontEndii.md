@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released active-menu null guard and virtual OnButtonRelease forwarding matched exactly with `active` at offset 0x60 and OnButtonRelease at virtual slot 0x104.
+The released active-menu null guard and virtual `OnButtonRelease` forwarding
+use the shared surfer/menu hierarchy.
 
 ## Outcome
 
-The released surfer-frontend button-release forwarding matched exactly on the first attempt.
+The manual menu/vtable layout was removed; the released forwarding remains
+exact.

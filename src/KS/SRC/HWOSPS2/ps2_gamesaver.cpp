@@ -74,28 +74,14 @@ stringx GenericGameSaver::getShortCardString(int port, int slot)
 }
 
 // 0x001E6780 getOverwriteString__16GenericGameSaverii
-class stringx {
-    char *chars;
-    void *my_buf;
-
-public:
-    stringx(const char *text, int length = -1);
-    ~stringx();
-};
+#include "KS/SRC/HWOSPS2/ps2_gamesaver.h"
 
 __asm__(".equ __7stringxPCci, 0x0034D438");
+__asm__(".equ ksGlobalTextArray, 0x003E6050");
 
-extern const char *overwrite_text;
-__asm__(".equ overwrite_text, 0x003E6860");
-
-extern "C" stringx get_overwrite_string(
-    void *self,
-    int port,
-    int slot
-) __asm__("getOverwriteString__16GenericGameSaverii");
-stringx get_overwrite_string(void *self, int port, int slot)
+stringx GenericGameSaver::getOverwriteString(int port, int slot)
 {
-    return stringx(overwrite_text);
+    return stringx(ksGlobalTextArray[GT_FE_MENU_OVERWRITE].c_str());
 }
 
 // 0x001E5C98 releaseIconData__16GenericGameSaver

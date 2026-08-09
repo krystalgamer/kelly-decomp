@@ -20,10 +20,10 @@ Used the released page increment/decrement and UpdatePhotos call. EE GCC convert
 
 ### Attempt 2 notes
 
-The released page adjustment and UpdatePhotos call matched exactly with `cur_page` at offset 0x168. The trailing empty barrier prevents EE GCC from replacing UpdatePhotos with a sibling tail jump.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released page adjustment uses the shared accomplishments layout. A local
+`UpdatePhotos` pointer preserves the normal call.
 
 ## Outcome
 
-The released accomplishments page switch matched exactly.
+The compiler barrier and local layout were removed; the released switch remains
+exact.

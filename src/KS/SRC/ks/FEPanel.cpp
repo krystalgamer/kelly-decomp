@@ -1389,39 +1389,11 @@ void BoxText::OnUp(int controller) {
 }
 
 // 0x001D87A0 Render__10TextString
-struct stringx {
-    void *chars;
-    void *buffer;
-};
-
-struct text_vtable {
-    char padding[0x118];
-    short adjustment;
-    short padding2;
-    void (*render)(void *self, stringx *text, float x, float y);
-};
-
-class TextString {
-    char padding0[4];
-    stringx text;
-    float x;
-    float y;
-    char padding1[0x38];
-    text_vtable *vtable;
-
-public:
-    void Render();
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void TextString::Render()
 {
-    text_vtable *table = vtable;
-    table->render(
-        (char *)this + table->adjustment,
-        &text,
-        x,
-        y
-    );
+    Render(&text, x, y);
 }
 
 // 0x001D8618 __tf10TextString
