@@ -15,4 +15,5 @@
 
 ## Outcome
 
-matched exact immutable NGL VIF command packet write order
+The size-76 audit confirmed this already uses the shared NGL declarations and
+needs no matching-only scaffolding.

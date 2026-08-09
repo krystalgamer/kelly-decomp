@@ -15,4 +15,5 @@
 
 ## Outcome
 
-matched exact immutable NGL font bank release body
+The size-76 audit confirmed this already uses the shared NGL declarations and
+needs no matching-only scaffolding.
