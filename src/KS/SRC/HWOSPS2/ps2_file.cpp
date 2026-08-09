@@ -3,9 +3,8 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_001DFC58)
 // 0x001DFC58 __7os_file
-__asm__(".equ __7stringx, 0x0034D3E0");
-class stringx { public: stringx(); int data[2]; };
-class os_file { public: os_file(); stringx name; int flags; bool opened; bool eof; bool from_cd; char data[0x24]; int curr_fp; };
+#include "KS/SRC/osfile.h"
+
 os_file::os_file() { flags = 0; opened = false; eof = true; from_cd = false; curr_fp = -1; }
 #endif
 

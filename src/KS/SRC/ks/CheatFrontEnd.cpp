@@ -69,34 +69,6 @@ void CheatCodeMenu::Select() {
 }
 
 
-// 0x001D15B8 Draw__13CheatFrontEnd
-class ActiveMenu { char padding[0x74]; public:
-    virtual void d0();
-    virtual void d1();
-    virtual void d2();
-    virtual void d3();
-    virtual void d4();
-    virtual void d5();
-    virtual void d6();
-    virtual void d7();
-    virtual void Draw();
-};
-struct cheat_frontend_draw_layout { char padding[0x60]; ActiveMenu* active; };
-extern void base_call(void*) __asm__("Draw__15FEGraphicalMenu");
-__asm__(".equ Draw__15FEGraphicalMenu, 0x001580D8");
-extern "C" void draw_cheat_frontend(cheat_frontend_draw_layout *self)
-    __asm__("Draw__13CheatFrontEnd");
-void draw_cheat_frontend(cheat_frontend_draw_layout *self) {
-    if (self->active) {
-        self->active->Draw();
-        KELLY_DECOMP_COMPILER_BARRIER();
-    } else {
-        base_call(self);
-        KELLY_DECOMP_COMPILER_BARRIER();
-    }
-}
-
-
 // 0x001D22F8 OnActivate__13CheatCodeMenu
 #include "KS/SRC/ks/CheatFrontEnd.h"
 void CheatCodeMenu::OnActivate() {

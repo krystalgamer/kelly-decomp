@@ -5,7 +5,7 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/BoardFrontEnd.cpp`
 - Reference source: `KS/SRC/ks/BoardFrontEnd.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -29,4 +29,6 @@ Restored the released camera-moving predicate representation; the body matched e
 
 ## Outcome
 
-The exact released camera-moving guard and Select virtual dispatch match with the released layouts.
+The matching-only post-call barrier was removed. A clean shared direct call is
+tail-called, while a local function pointer changes scheduling, so this wrapper
+was deferred.

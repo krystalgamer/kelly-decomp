@@ -47,16 +47,6 @@ void BoardFrontEnd::OnTriangle(int controller)
 }
 
 
-// 0x001B7058 OnCross__13BoardFrontEndi
-#include "KS/SRC/ks/BoardFrontEnd.h"
-#include "KS/SRC/ks/FrontEndManager.h"
-void BoardFrontEnd::OnCross(int controller) {
-    if (manager->em->CamIsMoving())
-        return;
-    Select();
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x001B7408 OnAnyButtonPress__13BoardFrontEndii
 #include "KS/SRC/ks/BoardFrontEnd.h"
 #include "KS/SRC/ks/FrontEndManager.h"

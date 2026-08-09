@@ -5,7 +5,7 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/CheatFrontEnd.cpp`
 - Reference source: `KS/SRC/ks/CheatFrontEnd.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -29,4 +29,6 @@ Restored the released void Draw signature and virtual slot, with narrow branch-l
 
 ## Outcome
 
-The released active-menu/base draw fallback matches with narrow branch-local barriers preventing tail calls.
+The matching-only branch barriers and abbreviated virtual layout were removed.
+The shared released body tail-calls both branch targets, so this wrapper was
+deferred rather than retaining compiler-control scaffolding.
