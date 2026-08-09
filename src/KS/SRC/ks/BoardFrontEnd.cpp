@@ -2,19 +2,14 @@
 
 
 // 0x001B7250 IsLevelBoardUnlocked__13BoardFrontEndi
-class UnlockingManager {
-public:
-    bool isLocationBoardUnlocked(int location) const;
-};
+#include "KS/SRC/ks/BoardFrontEnd.h"
+#include "KS/SRC/ks/unlock_manager.h"
 
 __asm__(".equ isLocationBoardUnlocked__C16UnlockingManageri, 0x002F07E8");
 
-extern UnlockingManager unlockManager;
 __asm__(".equ unlockManager, 0x0044A820");
 
-extern "C" bool is_level_board_unlocked(void *self, int location)
-    __asm__("IsLevelBoardUnlocked__13BoardFrontEndi");
-bool is_level_board_unlocked(void *self, int location)
+bool BoardFrontEnd::IsLevelBoardUnlocked(int location)
 {
     if (location == 0 || location == 13)
         return false;

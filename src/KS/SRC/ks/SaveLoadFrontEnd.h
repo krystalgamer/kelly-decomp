@@ -86,6 +86,8 @@ public:
     virtual void OnCross(int controller);
     int getActiveCard();
     bool DialogActive();
+    void DialogNoPressed();
+    void CancelDialog();
     void StartError(int id);
     void SetOverwrite(const char *filename);
     void SetDState(

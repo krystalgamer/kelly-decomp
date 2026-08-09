@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released system assignment and memory-card frontend forwarding matched exactly with `system` at offset 0x50, `mc` at 0x180, and SetSystem at virtual slot 0x1d4.
+The released system assignment and memory-card frontend forwarding use the
+shared title and MC-detection declarations.
 
 ## Outcome
 
-The released title-frontend system setter matched exactly on the first attempt.
+The manual object/vtable layout and symbol wrapper were removed; the released
+setter remains exact.

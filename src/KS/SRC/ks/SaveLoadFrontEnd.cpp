@@ -131,21 +131,19 @@ void SaveLoadFrontEnd::SetOverwrite(const char *filename) { overwrite = filename
 void NamesMenu::DrawHeader() { highlighted->Draw(); }
 
 // 0x0019BF00 CancelDialog__16SaveLoadFrontEnd
-extern "C" bool dialog_active_call(void *self)
-    __asm__("DialogActive__16SaveLoadFrontEnd");
-extern "C" void dialog_no_pressed(void *self)
+#include "KS/SRC/ks/SaveLoadFrontEnd.h"
+
+extern "C" void dialog_no_pressed(SaveLoadFrontEnd *self)
     __asm__("DialogNoPressed__16SaveLoadFrontEnd");
-extern "C" void cancel_dialog(void *self)
-    __asm__("CancelDialog__16SaveLoadFrontEnd");
 __asm__(".equ DialogActive__16SaveLoadFrontEnd, 0x0019BF38");
 __asm__(".equ DialogNoPressed__16SaveLoadFrontEnd, 0x0019BE10");
 
-void cancel_dialog(void *self)
+void SaveLoadFrontEnd::CancelDialog()
 {
-    if (!dialog_active_call(self))
+    if (!DialogActive())
         return;
-    dialog_no_pressed(self);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*no_pressed)(SaveLoadFrontEnd *) = dialog_no_pressed;
+    no_pressed(this);
 }
 
 // 0x0019FF08 OnUnactivate__9NamesMenuP6FEMenu

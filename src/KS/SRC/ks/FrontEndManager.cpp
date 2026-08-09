@@ -23,61 +23,21 @@ bool FEDoneLoading() { return frontendmanager.fe_done_loading; }
 bool IGOIsPaused() { return frontendmanager.pms->draw; }
 
 // 0x001988C8 OnLevelLoaded__9FEManager
-struct frontend_vtable {
-    char padding[0x1E0];
-    short adjustment;
-    short padding2;
-    void (*on_level_loaded)(void *self);
-};
+#include "KS/SRC/ks/BeachFrontEnd.h"
+#include "KS/SRC/ks/FrontEndManager.h"
 
-struct beach_frontend_layout {
-    char padding[0x74];
-    frontend_vtable *vtable;
-};
-
-struct manager_level_layout {
-    char padding[0x156A0];
-    beach_frontend_layout *map;
-};
-
-extern "C" void manager_level_loaded(manager_level_layout *self)
-    __asm__("OnLevelLoaded__9FEManager");
-void manager_level_loaded(manager_level_layout *self)
+void FEManager::OnLevelLoaded()
 {
-    beach_frontend_layout *frontend = self->map;
-    frontend_vtable *table = frontend->vtable;
-    table->on_level_loaded(
-        (char *)frontend + table->adjustment
-    );
+    map->OnLevelLoaded();
 }
 
 // 0x00198900 OnLevelEnding__9FEManager
-struct frontend_vtable {
-    char padding[0x1E8];
-    short adjustment;
-    short padding2;
-    void (*on_level_ending)(void *self);
-};
+#include "KS/SRC/ks/BeachFrontEnd.h"
+#include "KS/SRC/ks/FrontEndManager.h"
 
-struct beach_frontend_layout {
-    char padding[0x74];
-    frontend_vtable *vtable;
-};
-
-struct manager_level_layout {
-    char padding[0x156A0];
-    beach_frontend_layout *map;
-};
-
-extern "C" void manager_level_ending(manager_level_layout *self)
-    __asm__("OnLevelEnding__9FEManager");
-void manager_level_ending(manager_level_layout *self)
+void FEManager::OnLevelEnding()
 {
-    beach_frontend_layout *frontend = self->map;
-    frontend_vtable *table = frontend->vtable;
-    table->on_level_ending(
-        (char *)frontend + table->adjustment
-    );
+    map->OnLevelEnding();
 }
 
 // 0x00198ED8 UpdateIGOScene__9FEManager

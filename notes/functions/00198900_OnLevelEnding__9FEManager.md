@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released map forwarding matched exactly with `map` at offset 0x156a0, the frontend vtable at 0x74, and OnLevelEnding at virtual slot 0x1ec.
+The released map forwarding uses the shared FE manager and beach frontend
+declarations.
 
 ## Outcome
 
-The released FE manager level-ending forwarding matched exactly on the first attempt.
+The manual manager/vtable layout and symbol wrapper were removed; the released
+forwarding remains exact.

@@ -24,6 +24,9 @@ private:
 public:
     void ReturnToFE();
     void OnButtonRelease(int controller, int button);
+    virtual void ReloadMap();
+    virtual void DrawMap(float loading_progress);
+    virtual void OnLevelLoaded();
     virtual void OnLevelEnding();
     void OnUnactivate();
 };

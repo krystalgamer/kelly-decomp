@@ -20,10 +20,10 @@ Used the released DialogActive guard followed by DialogNoPressed. EE GCC convert
 
 ### Attempt 2 notes
 
-The released dialog-active guard and no-button action matched exactly. The trailing empty barrier prevents EE GCC from replacing DialogNoPressed with a sibling tail jump.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released dialog-active guard uses the shared save/load declaration. A local
+no-button function pointer preserves the normal call.
 
 ## Outcome
 
-The released save-load dialog cancellation matched exactly.
+The compiler barrier and symbol wrapper were removed; the released cancellation
+remains exact.

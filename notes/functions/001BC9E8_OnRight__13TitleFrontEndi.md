@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released active-menu null guard and virtual OnRight forwarding matched exactly with `active` at offset 0x60 and OnRight at virtual slot 0xb4.
+The released active-menu null guard and virtual `OnRight` forwarding use the
+shared menu hierarchy.
 
 ## Outcome
 
-The released title-frontend right handler matched exactly on the first attempt.
+The manual menu/vtable layout and symbol wrapper were removed; the released
+handler remains exact.

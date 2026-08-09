@@ -40,6 +40,8 @@ public:
     void UpdateIGO(time_value_t time_inc);
     void DrawIGO();
     void ReleaseIGO();
+    void OnLevelLoaded();
+    void OnLevelEnding();
 };
 
 extern FEManager frontendmanager;

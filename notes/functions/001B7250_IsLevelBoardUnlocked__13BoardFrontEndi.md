@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released NOWHERE/INDOOR rejection and UnlockingManager query matched exactly. The manager alias uses the HI16-adjusted address required to reproduce the target access to the real 0x0043a820 global.
+The released NOWHERE/INDOOR rejection and shared `UnlockingManager` query retain
+the recovered manager alias.
 
 ## Outcome
 
-The released level-board unlock query matched exactly on the first attempt.
+The local manager and symbol wrapper were removed; the released query remains
+exact.

@@ -38,104 +38,31 @@ void ControllerFrontEnd::OnUnactivate(FEMenu *menu) { system->SetDeviceFlags(sel
 void LegalFrontEnd::Draw() { legal_babble->Draw(); }
 
 // 0x001BC9B0 OnLeft__13TitleFrontEndi
-struct menu_vtable {
-    char padding[0xA8];
-    short adjustment;
-    short padding2;
-    void (*on_left)(void *self, int controller);
-};
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 
-struct menu_layout {
-    char padding[0x74];
-    menu_vtable *vtable;
-};
-
-struct title_direction_layout {
-    char padding[0x60];
-    menu_layout *active;
-};
-
-extern "C" void title_left(
-    title_direction_layout *self,
-    int controller
-) __asm__("OnLeft__13TitleFrontEndi");
-void title_left(title_direction_layout *self, int controller)
+void TitleFrontEnd::OnLeft(int controller)
 {
-    menu_layout *menu = self->active;
-    if (menu) {
-        menu_vtable *table = menu->vtable;
-        table->on_left((char *)menu + table->adjustment, controller);
-    }
+    if (active)
+        active->OnLeft(controller);
 }
 
 // 0x001BC9E8 OnRight__13TitleFrontEndi
-struct menu_vtable {
-    char padding[0xB0];
-    short adjustment;
-    short padding2;
-    void (*on_right)(void *self, int controller);
-};
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 
-struct menu_layout {
-    char padding[0x74];
-    menu_vtable *vtable;
-};
-
-struct title_direction_layout {
-    char padding[0x60];
-    menu_layout *active;
-};
-
-extern "C" void title_right(
-    title_direction_layout *self,
-    int controller
-) __asm__("OnRight__13TitleFrontEndi");
-void title_right(title_direction_layout *self, int controller)
+void TitleFrontEnd::OnRight(int controller)
 {
-    menu_layout *menu = self->active;
-    if (menu) {
-        menu_vtable *table = menu->vtable;
-        table->on_right((char *)menu + table->adjustment, controller);
-    }
+    if (active)
+        active->OnRight(controller);
 }
 
 // 0x001BCD90 SetSystem__13TitleFrontEndP12FEMenuSystem
-class FEMenuSystem;
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
+#include "KS/SRC/ks/MCDetectFrontEnd.h"
 
-struct menu_vtable {
-    char padding[0x1D0];
-    short adjustment;
-    short padding2;
-    void (*set_system)(void *self, FEMenuSystem *system);
-};
-
-struct mc_frontend_layout {
-    char padding[0x74];
-    menu_vtable *vtable;
-};
-
-struct title_system_layout {
-    char padding0[0x50];
-    FEMenuSystem *system;
-    char padding1[0x12C];
-    mc_frontend_layout *mc;
-};
-
-extern "C" void set_title_system(
-    title_system_layout *self,
-    FEMenuSystem *new_system
-) __asm__("SetSystem__13TitleFrontEndP12FEMenuSystem");
-void set_title_system(
-    title_system_layout *self,
-    FEMenuSystem *new_system)
+void TitleFrontEnd::SetSystem(FEMenuSystem *new_system)
 {
-    self->system = new_system;
-    mc_frontend_layout *frontend = self->mc;
-    menu_vtable *table = frontend->vtable;
-    table->set_system(
-        (char *)frontend + table->adjustment,
-        new_system
-    );
+    system = new_system;
+    mc->SetSystem(new_system);
 }
 
 // 0x001BE9E8 DrawTop__19GraphicalMenuSystem

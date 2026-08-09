@@ -162,75 +162,19 @@ void MainFrontEnd::UpdateInScene()
 }
 
 // 0x00183FE8 OnTriangle__15MultiplayerMenui
-struct menu_vtable {
-    char padding[0x110];
-    short adjustment;
-    short padding2;
-    void (*make_active)(void *self, void *menu, bool notify);
-};
+#include "KS/SRC/ks/MainFrontEnd.h"
 
-struct main_frontend_layout {
-    char padding[0x74];
-    menu_vtable *vtable;
-};
-
-struct multiplayer_triangle_layout {
-    char padding[0x64];
-    main_frontend_layout *parent;
-};
-
-extern "C" void multiplayer_triangle(
-    multiplayer_triangle_layout *self,
-    int controller
-) __asm__("OnTriangle__15MultiplayerMenui");
-void multiplayer_triangle(
-    multiplayer_triangle_layout *self,
-    int controller
-)
+void MultiplayerMenu::OnTriangle(int controller)
 {
-    main_frontend_layout *frontend = self->parent;
-    menu_vtable *table = frontend->vtable;
-    table->make_active(
-        (char *)frontend + table->adjustment,
-        0,
-        true
-    );
+    parent->MakeActive(0);
 }
 
 // 0x00185580 OnTriangle__12FreesurfMenui
-struct menu_vtable {
-    char padding[0x110];
-    short adjustment;
-    short padding2;
-    void (*make_active)(void *self, void *menu, bool notify);
-};
+#include "KS/SRC/ks/MainFrontEnd.h"
 
-struct main_frontend_layout {
-    char padding[0x74];
-    menu_vtable *vtable;
-};
-
-struct freesurf_triangle_layout {
-    char padding[0x64];
-    main_frontend_layout *parent;
-};
-
-extern "C" void freesurf_triangle(
-    freesurf_triangle_layout *self,
-    int controller
-) __asm__("OnTriangle__12FreesurfMenui");
-void freesurf_triangle(
-    freesurf_triangle_layout *self,
-    int controller
-)
+void FreesurfMenu::OnTriangle(int controller)
 {
-    main_frontend_layout *frontend = self->parent;
-    menu_vtable *table = frontend->vtable;
-    table->make_active(
-        (char *)frontend + table->adjustment,
-        0,
-        true
-    );
+    parent->MakeActive(0);
 }
 
 // 0x00184618 Draw__12MultiSubMenu

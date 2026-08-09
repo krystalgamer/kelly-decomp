@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released parent `MakeActive(NULL)` call matched exactly with `parent` at offset 0x64 and MakeActive at virtual slot 0x114.
+The released parent `MakeActive(NULL)` call uses the shared menu hierarchy.
 
 ## Outcome
 
-The released multiplayer-menu triangle handler matched exactly on the first attempt.
+The manual parent/vtable layout and symbol wrapper were removed; the released
+handler remains exact.
