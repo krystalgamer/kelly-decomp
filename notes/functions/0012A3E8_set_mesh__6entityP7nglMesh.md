@@ -20,8 +20,9 @@ The reconstructed target body matched all 60 function bytes, but declaring the i
 
 ### Attempt 2 notes
 
-Kept the same authentic body but omitted `virtual` from the self-contained declaration so the isolated block does not synthesize unrelated vtable data. The function remains byte-exact and the integrated ROM is exact.
+The authentic body uses the shared entity declaration, calls
+`FixupEntityMesh`, and assigns `my_mesh`.
 
 ## Outcome
 
-The entity mesh setter exactly matches as a source-level FixupEntityMesh call followed by assignment; the standalone declaration avoids unrelated synthetic vtable data.
+The standalone mesh declaration was removed.

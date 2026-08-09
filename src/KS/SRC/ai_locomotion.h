@@ -98,6 +98,10 @@ public:
     explicit ai_locomotion(ai_interface *owner);
     virtual ~ai_locomotion();
     void clear_path();
+    inline void set_current_path_graph(path_graph *graph) {
+        clear_path();
+        current_path_graph = graph;
+    }
     entity *get_my_entity() const;
     virtual bool frame_advance(time_value_t time);
     virtual bool process_movement(time_value_t time);

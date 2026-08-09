@@ -20,8 +20,9 @@ Reconstructed the released base draw followed by virtual difficulty text draw. T
 
 ### Attempt 2 notes
 
-Recovered the empty-base size adjustment so `difficulty` is at 0x88 and restored TextString's destructor and Update entries before Draw. The released base call and third-slot virtual dispatch then matched all 60 bytes.
+The shared menu and `TextString` hierarchies preserve the base draw and
+third-slot difficulty-text dispatch.
 
 ## Outcome
 
-The released MultiSubMenu draw matches exactly with the FEMenu base call, recovered difficulty offset, and authentic third-slot TextString Draw dispatch.
+The local menu, text, and draw-layout declarations were removed.

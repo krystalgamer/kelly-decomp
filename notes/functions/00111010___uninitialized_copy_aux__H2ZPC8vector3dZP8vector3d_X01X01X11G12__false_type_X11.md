@@ -20,8 +20,9 @@ Used the canonical old-STL placement-copy loop with a trivial 12-byte vector. Th
 
 ### Attempt 2 notes
 
-Restored vector3d's memberwise float copy constructor within the canonical old-STL placement-copy loop. This reproduced the released scalar floating load/store sequence and matched all 60 bytes.
+The canonical old-STL placement-copy loop uses the shared `vector3d`
+memberwise copy constructor.
 
 ## Outcome
 
-The canonical old-STL uninitialized-copy loop matches exactly when vector3d uses its authentic memberwise floating copy constructor.
+The local vector and placement-new declarations were removed.

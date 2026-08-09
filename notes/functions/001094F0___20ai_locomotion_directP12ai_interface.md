@@ -20,8 +20,9 @@ The released base-constructor delegation, type assignment, and compiler-generate
 
 ### Attempt 2 notes
 
-Bound the compiler-emitted `_vt$20ai_locomotion_direct` symbol with the established carried absolute alias. The released constructor then matched all 60 bytes exactly.
+The shared locomotion hierarchy and established carried vtable alias preserve
+the released base construction and type assignment.
 
 ## Outcome
 
-The released derived constructor exactly matches with the authentic base construction, locomotion type assignment, and compiler-generated old-GCC vtable install.
+The released constructor was already canonical and remains exact.

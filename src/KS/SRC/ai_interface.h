@@ -5,9 +5,15 @@
 
 #include "KS/SRC/entity_interface.h"
 
+class ai_locomotion;
+class path_graph;
+
 class ai_interface : public entity_interface {
+    char data_to_locomotion[
+        0x14 - sizeof(entity_interface)];
+    ai_locomotion *locomotion;
     char data_to_disable_count[
-        0x30 - sizeof(entity_interface)];
+        0x30 - 0x18];
     int disable_count;
 
 public:
@@ -22,6 +28,7 @@ public:
     bool set_ifc_str(
         const pstring &attribute,
         const stringx &value);
+    void set_current_path_graph(path_graph *graph);
     void pop_disable();
 };
 

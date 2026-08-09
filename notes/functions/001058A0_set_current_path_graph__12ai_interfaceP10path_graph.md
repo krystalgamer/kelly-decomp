@@ -25,8 +25,10 @@ Added a non-emitting absolute `.equ` after the reconstructed function. The assem
 
 ### Attempt 3 notes
 
-Moved the non-emitting absolute alias before the released source reconstruction so the isolated assembler resolved the direct method call. The authentic inline clear-then-store behavior matched all 60 bytes.
+The shared AI interface and locomotion declarations preserve the inline
+clear-then-store behavior. The absolute `clear_path` alias resolves the
+isolated direct call.
 
 ## Outcome
 
-The released ai_interface wrapper and inline ai_locomotion clear-then-store setter match exactly with recovered member offsets and a non-emitting absolute call alias for isolated assembly.
+The local AI layouts were removed.

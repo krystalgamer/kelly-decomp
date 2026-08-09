@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-Reconstructed the target's source-level low-resolution mesh setup: call `FixupEntityMesh(mesh, 0)` and assign the recovered `lores_mesh` field at offset 0x130. All 60 bytes matched.
+The released low-resolution setup uses the shared entity declaration, calls
+`FixupEntityMesh`, and assigns `lores_mesh`.
 
 ## Outcome
 
-The low-resolution entity mesh setter exactly matches as FixupEntityMesh followed by assignment to the recovered lores_mesh field.
+The standalone mesh declaration was removed.

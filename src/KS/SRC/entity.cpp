@@ -540,7 +540,6 @@ void entity_signal_callback_raiser(
 // 0x0012A3E8 set_mesh__6entityP7nglMesh
 #include "KS/SRC/entity.h"
 
-struct nglMesh;
 void FixupEntityMesh(nglMesh *mesh, int lit = 0);
 asm(".equ FixupEntityMesh__FP7nglMeshi, 0x0012A1F0");
 void entity::set_mesh(nglMesh *mesh)
@@ -552,7 +551,6 @@ void entity::set_mesh(nglMesh *mesh)
 // 0x0012A428 set_lores_mesh__6entityP7nglMesh
 #include "KS/SRC/entity.h"
 
-struct nglMesh;
 void FixupEntityMesh(nglMesh *mesh, int lit = 0);
 asm(".equ FixupEntityMesh__FP7nglMeshi, 0x0012A1F0");
 void entity::set_lores_mesh(nglMesh *mesh)

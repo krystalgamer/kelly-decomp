@@ -35,27 +35,15 @@ bool ai_interface::set_ifc_str(
 }
 
 // 0x001058A0 set_current_path_graph__12ai_interfaceP10path_graph
+#include "KS/SRC/ai_interface.h"
+#include "KS/SRC/ai_locomotion.h"
+
 asm(".equ clear_path__13ai_locomotion, 0x00107FD8");
-class path_graph;
-class ai_locomotion {
-    char padding[0x64];
-    path_graph *current_path_graph;
-public:
-    void clear_path();
-    void set_current_path_graph(path_graph *g) { clear_path(); current_path_graph = g; }
-};
-struct ai_locomotion_layout {
-    char padding[0x14];
-    ai_locomotion *locomotion;
-};
-extern "C" void set_ai_path_graph(
-    ai_locomotion_layout *self,
-    path_graph *graph
-) __asm__("set_current_path_graph__12ai_interfaceP10path_graph");
-void set_ai_path_graph(ai_locomotion_layout *self, path_graph *graph)
+
+void ai_interface::set_current_path_graph(path_graph *graph)
 {
-    if (self->locomotion)
-        self->locomotion->set_current_path_graph(graph);
+    if (locomotion)
+        locomotion->set_current_path_graph(graph);
 }
 // Matching decompilation blocks selected by generated build shims.
 

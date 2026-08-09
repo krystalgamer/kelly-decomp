@@ -102,12 +102,17 @@ public:
     int push[SubEnd];
     int time[SubEnd];
 
+    virtual void Draw();
     virtual void Select(int entry_index);
     virtual void OnCross(int controller);
 };
 
 class MultiControllerMenu : public FEMenu {
+    char multi_controller_data[0x84 - sizeof(FEMenu)];
+    TextString *title;
+
 public:
+    virtual void Draw();
     virtual void Select(int entry_index);
     virtual void OnCross(int controller);
 };

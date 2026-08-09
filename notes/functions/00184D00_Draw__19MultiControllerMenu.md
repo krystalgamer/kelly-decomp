@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-Reconstructed the controller menu draw as the FEMenu base draw followed by the stored TextString's authentic third-slot virtual Draw dispatch. The recovered member offset 0x84 matched all 60 bytes.
+The shared menu and `TextString` hierarchies preserve the base draw and
+third-slot title dispatch.
 
 ## Outcome
 
-The controller menu draw exactly matches the FEMenu base call and third-slot TextString Draw dispatch with the recovered member offset.
+The local menu and text declarations were removed.

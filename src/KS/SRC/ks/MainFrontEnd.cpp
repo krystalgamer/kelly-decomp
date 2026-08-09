@@ -178,47 +178,21 @@ void FreesurfMenu::OnTriangle(int controller)
 }
 
 // 0x00184618 Draw__12MultiSubMenu
+#include "KS/SRC/ks/MainFrontEnd.h"
+
 asm(".equ Draw__6FEMenu, 0x00156C88");
-class FEMenu {
-public:
-    void Draw();
-};
-class TextString {
-    char padding[0x4C];
-public:
-    virtual ~TextString();
-    virtual void Update(float time_inc);
-    virtual void Draw();
-};
-struct multi_sub_draw_layout {
-    char padding[0x88];
-    TextString *difficulty;
-};
-extern "C" void draw_multi_sub(multi_sub_draw_layout *self)
-    __asm__("Draw__12MultiSubMenu");
-void draw_multi_sub(multi_sub_draw_layout *self)
+
+void MultiSubMenu::Draw()
 {
-    extern void draw_menu(void *) __asm__("Draw__6FEMenu");
-    draw_menu(self);
-    self->difficulty->Draw();
+    FEMenu::Draw();
+    difficulty->Draw();
 }
 
 // 0x00184D00 Draw__19MultiControllerMenu
+#include "KS/SRC/ks/MainFrontEnd.h"
+
 asm(".equ Draw__6FEMenu, 0x00156C88");
-class FEMenu { public: void Draw(); };
-class TextString {
-    char padding[0x4C];
-public:
-    virtual ~TextString();
-    virtual void Update(float time_inc);
-    virtual void Draw();
-};
-class MultiControllerMenu : public FEMenu {
-    char padding[0x80];
-    TextString *title;
-public:
-    void Draw();
-};
+
 void MultiControllerMenu::Draw()
 {
     FEMenu::Draw();

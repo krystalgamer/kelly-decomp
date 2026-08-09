@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The canonical old-STL placement-copy loop with vector3d's memberwise floating copy constructor matched the mutable-pointer instantiation exactly on the first attempt.
+The canonical old-STL placement-copy loop uses the shared `vector3d`
+memberwise copy constructor.
 
 ## Outcome
 
-The mutable-pointer old-STL uninitialized-copy instantiation matches exactly with the authentic memberwise vector3d copy constructor.
+The local vector and placement-new declarations were removed.
