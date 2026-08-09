@@ -5,7 +5,7 @@
 - Object: `game/files_vsim`
 - Debug source: `C:/KS/SRC/widget.cpp`
 - Reference source: `KS/SRC/widget.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -14,12 +14,9 @@
 | 1 | different | 7.5 | 0.0 | `candidate.cpp` |
 | 2 | compile_failed | 0.0 | 0 | `candidate.cpp` |
 | 3 | different | 56.25 | 37.5 | `candidate.cpp` |
-| 4 | matched | 100.0 | 100.0 | `candidate.cpp` |
-
-### Attempt 4 notes
-
-The original color temporary and virtual color dispatch match exactly.
 
 ## Outcome
 
-The original color temporary and virtual color dispatch match exactly.
+The manual widget vtable and local color declaration were removed. Shared
+const-reference ABI forms still reorder the vtable load and stack-color setup,
+so the overload was deferred.

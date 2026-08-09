@@ -80,9 +80,14 @@ class multistash {
     unsigned int temp_buf_max;
     char data_before_async_read_size[8];
     unsigned int async_read_size;
-    char remaining_stash_state[0x94];
+    char data_before_pre_opened[0x40];
+    bool pre_opened;
+    char data_before_stash_file_is_open[0x18];
+    bool stash_file_is_open;
+    char remaining_stash_state[0x34];
 
 public:
+    void close_stash();
     void acquire_stash_bufferspace(int size);
     void release_stash_bufferspace();
     void free_stored();

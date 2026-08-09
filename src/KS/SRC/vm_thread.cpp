@@ -68,6 +68,9 @@ void vm_thread::pop_PC()
 // 0x00354688 set_suspendable__9vm_threadb
 #include "KS/SRC/vm_thread.h"
 __asm__(".equ set_suspended__9vm_threadb, 0x00354658");
+extern "C" void set_thread_suspended(vm_thread *thread, bool value)
+    __asm__("set_suspended__9vm_threadb");
+
 void vm_thread::set_suspendable(bool value)
 {
     int result;
@@ -77,8 +80,8 @@ void vm_thread::set_suspendable(bool value)
         result = (int)flags & -3;
     flags = result;
     if (!value) {
-        set_suspended(false);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*suspend)(vm_thread *, bool) = set_thread_suspended;
+        suspend(this, false);
     }
 }
 

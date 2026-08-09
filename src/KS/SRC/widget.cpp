@@ -216,72 +216,24 @@ void vrep_widget::show()
 }
 
 // 0x0033D898 do_wevent__13rotate_weventf
-struct virtual_entry { short adjustment; short padding; void (*function)(void *, float); };
-class widget {
-    char padding0[0x3C];
-    float angle;
-    char padding1[0x100];
-    virtual_entry *table;
-    friend class rotate_wevent;
-};
-class rotate_wevent {
-    char padding0[4];
-    widget *owner;
-    char padding1[0x10];
-    float angle;
-public:
-    void do_wevent(float lerp);
-};
+#include "KS/SRC/widget.h"
+
 void rotate_wevent::do_wevent(float lerp)
 {
     float current = owner->angle;
-    virtual_entry *call = (virtual_entry *)((char *)owner->table + 0x98);
-    call->function((char *)owner + call->adjustment,
-                   current + (angle - current) * lerp);
-}
-
-// 0x0033F038 set_color__6widgetfff
-struct color {
-    float r, g, b, a;
-    color(float red, float green, float blue, float alpha)
-        : r(red), g(green), b(blue), a(alpha) {}
-};
-struct virtual_entry { short adjustment; short padding; void (*function)(void *, const color &); };
-class widget {
-    char padding0[0x64];
-    float alpha;
-    char padding1[0xD8];
-    virtual_entry *table;
-public:
-    void set_color(float r, float g, float b);
-};
-void widget::set_color(float r, float g, float b)
-{
-    color value(r, g, b, alpha);
-    virtual_entry *call = (virtual_entry *)((char *)table + 0xA8);
-    call->function((char *)this + call->adjustment, value);
+    owner->rotate_to(current + (angle - current) * lerp);
 }
 
 // 0x00342DD0 resize__9fluid_barff
-class bitmap_widget { public: void resize(float width, float height); };
+#include "KS/SRC/widget.h"
+
 __asm__(".equ resize__13bitmap_widgetff, 0x0033FBE0");
-class fluid_bar {
-    char padding0[0x154];
-    bitmap_widget *bar_map;
-    char padding1[8];
-    float w;
-    float h;
-    char padding2[0x2C];
-    bool update;
-public:
-    void resize(float width, float height);
-};
 void fluid_bar::resize(float width, float height)
 {
-    w = width;
-    h = height;
+    this->width = width;
+    this->height = height;
     if (bar_map) {
-        bar_map->resize(w, h);
+        bar_map->resize(this->width, this->height);
         update = true;
     }
 }

@@ -17,8 +17,9 @@
 
 ### Attempt 3 notes
 
-The original recipient vtable initialization and manager registration match exactly.
+The shared EventRecipient/EventManager hierarchy and scoped interface pragma
+preserve vtable initialization and registration.
 
 ## Outcome
 
-The original recipient vtable initialization and manager registration match exactly.
+The local recipient, manager, and vtable declarations were removed.

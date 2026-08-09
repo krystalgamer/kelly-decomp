@@ -3,21 +3,14 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_00349B58)
 // 0x00349B58 __14EventRecipient
-class EventRecipient;
-class EventManager { public: void RegisterRecipient(EventRecipient *recipient); };
-extern EventManager g_eventManager;
-extern const char EventRecipient_vtable[];
+#pragma interface
+#include "KS/SRC/ks/eventmanager.h"
+
 __asm__(".equ g_eventManager, 0x0046DA20");
-__asm__(".equ EventRecipient_vtable, 0x00505078");
+__asm__(".equ _vt$14EventRecipient, 0x00505078");
 __asm__(".equ RegisterRecipient__12EventManagerP14EventRecipient, 0x003499C8");
-class EventRecipient {
-    const void *vtable;
-public:
-    EventRecipient();
-};
 EventRecipient::EventRecipient()
 {
-    vtable = EventRecipient_vtable;
     g_eventManager.RegisterRecipient(this);
 }
 #endif

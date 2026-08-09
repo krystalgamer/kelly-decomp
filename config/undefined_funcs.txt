@@ -148,6 +148,7 @@ _$_8hw_rasta = 0x314230;
 _$_11fog_manager = 0x338458;
 get_width__C11text_widget = 0x340510;
 get_height__C11text_widget = 0x340540;
+set_color__6widgetfff = 0x33F038;
 _$_12input_device = 0x343938;
 _$_13code_callback = 0x34BEB8;
 _$_15signal_callback = 0x35F978;
@@ -157,6 +158,7 @@ __cl__31slf_timer_widget_add_function_tR8vm_stackQ320script_library_class8functi
 __cl__34slf_timer_widget_remove_function_tR8vm_stackQ320script_library_class8function7entry_t = 0x32C808;
 __cl__26slf_bitmap_widget_resize_tR8vm_stackQ320script_library_class8function7entry_t = 0x32D698;
 __cl__33slf_text_block_widget_set_scale_tR8vm_stackQ320script_library_class8function7entry_t = 0x32CD08;
+__cl__40slf_text_block_widget_set_line_spacing_tR8vm_stackQ320script_library_class8function7entry_t = 0x32CF48;
 __cl__29slf_fluid_bar_widget_resize_tR8vm_stackQ320script_library_class8function7entry_t = 0x32E210;
 nlTransformVector__FPfPA3_fT0 = 0x391808;
 fill_n__H3ZPP11beam_effectZUiZP11beam_effect_X01X11RCX21_X01 = 0x2AE0F0;

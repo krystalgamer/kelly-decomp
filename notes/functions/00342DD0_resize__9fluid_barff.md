@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released fluid-bar dimensions, bitmap resize, and update flag match exactly.
+The released dimensions, bitmap resize, and update flag use the shared
+fluid-bar and bitmap-widget declarations.
 
 ## Outcome
 
-The released fluid-bar dimensions, bitmap resize, and update flag match exactly.
+The local fluid-bar layout was removed.

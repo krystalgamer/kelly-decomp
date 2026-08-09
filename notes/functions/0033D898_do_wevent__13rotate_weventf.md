@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released angle interpolation and virtual rotate dispatch match exactly.
+The released angle interpolation and virtual rotate dispatch use the shared
+widget/event hierarchy.
 
 ## Outcome
 
-The released angle interpolation and virtual rotate dispatch match exactly.
+The manual widget vtable and local event layouts were removed.

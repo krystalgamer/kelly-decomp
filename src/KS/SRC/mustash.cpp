@@ -94,18 +94,10 @@ bool stash::open(const char *name)
 }
 
 // 0x00346F80 close_stash__10multistash
+#include "KS/SRC/mustash.h"
+
 extern "C" void arch_free(void *pointer) __asm__("arch_free__FPv");
 __asm__(".equ arch_free__FPv, 0x002AC768");
-class multistash {
-    char padding0[0x26C];
-    void *temp_buf;
-    char padding1[0x54];
-    int pre_opened;
-    char padding2[0x18];
-    int stash_file_is_open;
-public:
-    void close_stash();
-};
 void multistash::close_stash()
 {
     if (temp_buf != 0)

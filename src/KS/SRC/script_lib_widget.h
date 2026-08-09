@@ -110,6 +110,17 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_text_block_widget_set_line_spacing_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        text_block_widget *me;
+        vm_num_t value;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 class slf_text_block_widget_set_text_t :
     public script_library_class::function {
 public:

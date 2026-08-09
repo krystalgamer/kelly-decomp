@@ -17,8 +17,9 @@
 
 ### Attempt 3 notes
 
-The released suspendable flag update matches exactly; a narrow empty barrier prevents the demonstrated tail-call optimization.
+The shared VM-thread layout and a local suspend-call pointer preserve the flag
+update and conditional framed call.
 
 ## Outcome
 
-The released suspendable flag update matches exactly; a narrow empty barrier prevents the demonstrated tail-call optimization.
+The compiler barrier was removed.

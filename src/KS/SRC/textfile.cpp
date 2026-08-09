@@ -21,13 +21,16 @@ char text_file::peek_char() { char value; if (pushbackdata >= 0) value = pushbac
 // 0x00337170 close__9text_file
 #include "KS/SRC/textfile.h"
 __asm__(".equ close__7os_file, 0x001E03A0");
+extern "C" void close_os_file(os_file *file)
+    __asm__("close__7os_file");
+
 void text_file::close()
 {
     if (use_stash)
         the_stash.close();
     else {
-        io.close();
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*close_file)(os_file *) = close_os_file;
+        close_file(&io);
     }
 }
 

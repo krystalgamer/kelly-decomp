@@ -13,6 +13,7 @@ typedef float time_value_t;
 
 class widget;
 class wevent;
+class rotate_wevent;
 class typeface_def;
 
 typedef list<widget *> widget_list_t;
@@ -112,7 +113,8 @@ public:
         time_value_t wait,
         time_value_t duration,
         rational_t angle);
-    virtual void set_color(color value);
+    virtual void set_color(const color &value)
+        __asm__("set_color__6widgetG5color");
     virtual void set_color(color value[4]);
     virtual void set_color(
         time_value_t wait,
@@ -152,6 +154,7 @@ public:
     }
 
 protected:
+    friend class rotate_wevent;
     stringx widget_name;
     widget_type_e type;
     widget *parent;
@@ -269,6 +272,7 @@ class bitmap_widget : public widget {
     rational_t height;
 
 public:
+    void resize(rational_t width, rational_t height);
     virtual void scale_to(
         rational_t horizontal,
         rational_t vertical);
@@ -383,6 +387,7 @@ public:
     virtual ~fluid_bar();
     virtual rational_t get_width();
     virtual rational_t get_height();
+    void resize(rational_t width, rational_t height);
     inline void set_fill_rate(rational_t value) {
         fill_rate = value;
         if (fill_rate != old_fill_rate)
@@ -443,6 +448,13 @@ protected:
 
 public:
     virtual void do_wevent(rational_t lerp) = 0;
+};
+
+class rotate_wevent : public wevent {
+    rational_t angle;
+
+public:
+    virtual void do_wevent(rational_t lerp);
 };
 
 #endif

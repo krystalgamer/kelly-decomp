@@ -185,31 +185,6 @@ bool slf_widget_fade_to_t::operator()(vm_stack &stack, entry_t entry)
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0032CF48)
-// 0x0032CF48 __cl__40slf_text_block_widget_set_line_spacing_tR8vm_stackQ320script_library_class8function7entry_t
-class vm_stack {
-    char padding[8];
-    unsigned char *top;
-public:
-    void *pop(int size) { top -= size; return top; }
-};
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY }; }; };
-struct virtual_entry { short adjustment; short padding; void (*function)(void *, float); };
-class text_block_widget { char padding[0x140]; virtual_entry *table; friend class slf_text_block_widget_set_line_spacing_t; };
-class slf_text_block_widget_set_line_spacing_t : public script_library_class::function {
-public:
-    struct parms_t { text_block_widget *me; float val; };
-    bool operator()(vm_stack &stack, entry_t entry);
-};
-bool slf_text_block_widget_set_line_spacing_t::operator()(vm_stack &stack, entry_t entry)
-{
-    parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t));
-    virtual_entry *call = (virtual_entry *)((char *)parms->me->table + 0x130);
-    call->function((char *)parms->me + call->adjustment, parms->val);
-    return true;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0032BD00)
 // 0x0032BD00 __cl__21slf_widget_scale_to_tR8vm_stackQ320script_library_class8function7entry_t
 class script_library_class{public:class function{public:enum entry_t{FIRST_ENTRY};};};typedef script_library_class::function::entry_t entry_t;class widget{public:char p[320];virtual void d0();virtual void d1();virtual void d2();virtual void d3();virtual void d4();virtual void d5();virtual void d6();virtual void d7();virtual void d8();virtual void d9();virtual void d10();virtual void d11();virtual void d12();virtual void d13();virtual void scale_to(float,float);};struct vm_stack{char p[8];char*top;};class slf_widget_scale_to_t{public:struct parms_t{widget*me;float val;};bool operator()(vm_stack&,entry_t);};bool slf_widget_scale_to_t::operator()(vm_stack&stack,entry_t){stack.top-=sizeof(parms_t);parms_t*parms=(parms_t*)stack.top;parms->me->scale_to(parms->val,parms->val);return true;}

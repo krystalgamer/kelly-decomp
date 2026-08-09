@@ -17,8 +17,9 @@
 
 ### Attempt 3 notes
 
-The released stash reset and os_file close paths match exactly; a narrow compiler barrier prevents an otherwise demonstrated tail call.
+The shared text-file/stash declarations and a local `os_file::close` pointer
+preserve both cleanup paths and the framed close call.
 
 ## Outcome
 
-The released stash reset and os_file close paths match exactly; a narrow compiler barrier prevents an otherwise demonstrated tail call.
+The compiler barrier was removed.

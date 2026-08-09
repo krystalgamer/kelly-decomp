@@ -18,8 +18,9 @@
 
 ### Attempt 4 notes
 
-The released temporary-buffer free and stash-state clears match exactly.
+The released temporary-buffer free and state clears use the shared
+`multistash` declaration.
 
 ## Outcome
 
-The released temporary-buffer free and stash-state clears match exactly.
+The local stash layout was removed.
