@@ -87,33 +87,12 @@ void MenuRender::Clear() {
 
 #if defined(KELLY_DECOMP_FUNCTION_00241060)
 // 0x00241060 CloseAllMenus__10MenuSystem
-struct menu_vtable {
-    char padding[0x10];
-    short adjustment;
-    short padding2;
-    void (*close_all)(void *self);
-};
-
-struct menu_layout {
-    char padding[0x1C];
-    menu_vtable *vtable;
-};
-
-class MenuSystem {
-    char padding[0x470];
-    menu_layout *curmenu;
-
-public:
-    void CloseAllMenus();
-};
+#include "KS/SRC/ks/menu.h"
 
 void MenuSystem::CloseAllMenus()
 {
-    menu_layout *menu = curmenu;
-    if (menu) {
-        menu_vtable *table = menu->vtable;
-        table->close_all((char *)menu + table->adjustment);
-    }
+    if (curmenu)
+        curmenu->CloseAll();
 }
 #endif
 

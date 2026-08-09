@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released default field initialization matched exactly across the 0x20-byte Trick layout.
+The released default field initialization uses the shared scoring `Trick`
+declaration.
 
 ## Outcome
 
-The released scoring Trick constructor matched exactly on the first attempt.
+The local duplicate layout was removed; the released constructor remains exact.

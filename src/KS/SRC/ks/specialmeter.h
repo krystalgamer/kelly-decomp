@@ -23,6 +23,9 @@ public:
     virtual ~SpecialMeter();
     void Initialize(int player_index);
     void Reset();
+    void Increase(float value);
+    void Decrease(float value);
+    void SetFillage(float value);
     virtual void OnEvent(
         EVENT event,
         int param1 = 0,

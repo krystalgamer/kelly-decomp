@@ -73,26 +73,11 @@ int sceWrite(int file, const stringx &text) { return sceWrite(file, text.c_str()
 
 #if defined(KELLY_DECOMP_FUNCTION_00249CC8)
 // 0x00249CC8 __Q214ScoringManager5Trick
-class ScoringManager {
-public:
-    class Trick {
-        int type;
-        int index;
-        int flags;
-        float time;
-        int numSpins;
-        float mouthDist;
-        float lipDist;
-        int repetitions;
-
-    public:
-        Trick();
-    };
-};
+#include "KS/SRC/ks/scoringmanager.h"
 
 ScoringManager::Trick::Trick()
 {
-    type = 0;
+    type = TYPE_TRICK;
     index = -1;
     flags = 0;
     time = 0.0f;

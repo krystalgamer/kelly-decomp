@@ -106,21 +106,9 @@ __asm__(".equ Restart__8KSReplay, 0x0023C978");
 bool ReplayRestartButton(MenuEntry *entry, int button) { if (button == 7) ksreplay.Restart(); return true; }
 
 // 0x00236948 MemoryScreen__FP9MenuEntryi
-class MenuEntry;
+#include "KS/SRC/game_info.h"
+#include "KS/SRC/ks/menu.h"
 
-struct debug_flags {
-    bool flag0 : 1;
-    bool flag1 : 1;
-    bool flag2 : 1;
-    bool flag3 : 1;
-    bool flag4 : 1;
-    bool flag5 : 1;
-    bool flag6 : 1;
-    bool flag7 : 1;
-    bool mem_free_screen : 1;
-};
-
-extern debug_flags g_debug;
 __asm__(".equ g_debug, 0x00431898");
 
 bool MemoryScreen(MenuEntry *entry, int button)

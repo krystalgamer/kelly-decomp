@@ -20,10 +20,10 @@ Used the released positive-value guard and SetFillage call. EE GCC converted the
 
 ### Attempt 2 notes
 
-The released positive-value guard and fillage addition matched exactly with `fillage` at offset 0x8. The trailing empty barrier prevents EE GCC from replacing SetFillage with a sibling tail jump.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released positive-value guard uses the shared meter layout. A local
+`SetFillage` pointer preserves the normal call.
 
 ## Outcome
 
-The released special-meter increase matched exactly.
+The compiler barrier and local layout were removed; the released increase
+remains exact.

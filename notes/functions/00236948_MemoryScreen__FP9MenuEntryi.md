@@ -20,8 +20,8 @@ Modeled the debug word with unsigned bitfields. EE GCC tested bit 8 directly wit
 
 ### Attempt 2 notes
 
-The released CROSS-button toggle matched exactly after preserving the original bool-bitfield representation of `g_debug.mem_free_screen` at bit 8.
+The released CROSS-button toggle uses the shared debug bitfield declaration.
 
 ## Outcome
 
-The released memory-screen toggle handler matched exactly.
+The local bitfield layout was removed; the released handler remains exact.

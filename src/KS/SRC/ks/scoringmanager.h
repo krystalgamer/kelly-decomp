@@ -42,6 +42,7 @@ public:
         float lipDist;
         int repetitions;
 
+        Trick();
         bool IsInteresting() const;
     };
 

@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released derived constructor matched exactly through the auto-camera base construction and beach-camera vtable install at offset 0x8. The adjusted vtable alias reproduces the HI16 carry for the real 0x004d9be8 table.
+The released derived constructor uses the shared camera hierarchy and native
+auto-camera base construction.
 
 ## Outcome
 
-The released beach-camera constructor matched exactly on the first attempt.
+The manual vtable install and symbol wrapper were removed; the released
+constructor remains exact.

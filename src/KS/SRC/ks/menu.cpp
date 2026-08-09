@@ -41,28 +41,9 @@ void MenuEntryEnumEdit::SetValue(int value)
 }
 
 // 0x0023E218 __4MenuP4Menu
-class MenuEntry;
-class MenuSystem;
-
-extern const char menu_vtable[];
-__asm__(".equ menu_vtable, 0x004D5D48");
-
-class Menu {
-    Menu *parent;
-    int entries;
-    MenuEntry **entry;
-    int activeentry;
-    bool isopen;
-    Menu *closeto;
-    MenuSystem *control;
-    const void *vtable;
-
-public:
-    Menu(Menu *parent_menu);
-};
+#include "KS/SRC/ks/menu.h"
 
 Menu::Menu(Menu *parent_menu)
-    : vtable(menu_vtable)
 {
     parent = parent_menu;
     activeentry = -1;

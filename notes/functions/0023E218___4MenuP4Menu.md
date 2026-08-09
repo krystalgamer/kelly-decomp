@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released constructor matched exactly with the seven menu fields at offsets 0x0-0x18 and the old-ABI vtable pointer at offset 0x1c.
+The released constructor uses the shared old-ABI menu declaration.
 
 ## Outcome
 
-The released Menu parent constructor matched exactly on the first attempt.
+The manual vtable field and alias were removed; the released constructor
+remains exact.

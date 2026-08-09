@@ -32,44 +32,34 @@ void SpecialMeter::Reset() { fillage = 0.0f; isEnabled = false; trickRegion = 0;
 
 #if defined(KELLY_DECOMP_FUNCTION_00250FB8)
 // 0x00250FB8 Increase__12SpecialMeterf
-class SpecialMeter {
-    char padding[8];
-    float fillage;
-
-public:
-    void SetFillage(float value);
-    void Increase(float value);
-};
+#include "KS/SRC/ks/specialmeter.h"
 
 __asm__(".equ SetFillage__12SpecialMeterf, 0x00251028");
+void set_special_fillage(SpecialMeter *meter, float value)
+    __asm__("SetFillage__12SpecialMeterf");
 
 void SpecialMeter::Increase(float value)
 {
     if (value > 0.0f) {
-        SetFillage(fillage + value);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*set_fillage)(SpecialMeter *, float) = set_special_fillage;
+        set_fillage(this, fillage + value);
     }
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00250FF0)
 // 0x00250FF0 Decrease__12SpecialMeterf
-class SpecialMeter {
-    char padding[8];
-    float fillage;
-
-public:
-    void SetFillage(float value);
-    void Decrease(float value);
-};
+#include "KS/SRC/ks/specialmeter.h"
 
 __asm__(".equ SetFillage__12SpecialMeterf, 0x00251028");
+void set_special_fillage(SpecialMeter *meter, float value)
+    __asm__("SetFillage__12SpecialMeterf");
 
 void SpecialMeter::Decrease(float value)
 {
     if (value > 0.0f) {
-        SetFillage(fillage - value);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*set_fillage)(SpecialMeter *, float) = set_special_fillage;
+        set_fillage(this, fillage - value);
     }
 }
 #endif

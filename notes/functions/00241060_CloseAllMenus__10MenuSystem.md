@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released current-menu null guard and virtual CloseAll dispatch matched exactly with `curmenu` at offset 0x470, the menu vtable at 0x1c, and CloseAll at virtual slot 0x14.
+The released current-menu null guard and virtual `CloseAll` dispatch use the
+shared menu-system hierarchy.
 
 ## Outcome
 
-The released menu-system close-all helper matched exactly on the first attempt.
+The manual menu/vtable layout was removed; the released helper remains exact.
