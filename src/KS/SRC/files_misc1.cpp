@@ -2,29 +2,23 @@
 
 
 // 0x002B4518 __uninitialized_copy_aux__H2ZPQ221world_dynamics_system14ent_time_limitZPQ221world_dynamics_system14ent_time_limit_X01X01X11G12__false_type_X11
-inline void *operator new(unsigned int, void *place) {
-    return place;
-}
+#include "KS/SRC/archalloc.h"
+#include "KS/SRC/wds.h"
 
-struct value8 {
-    int first;
-    int second;
-};
-
-extern "C" value8 *UninitializedCopy(
-    value8 *first,
-    value8 *last,
-    value8 *result
+extern "C" world_dynamics_system::ent_time_limit *UninitializedCopy(
+    world_dynamics_system::ent_time_limit *first,
+    world_dynamics_system::ent_time_limit *last,
+    world_dynamics_system::ent_time_limit *result
 ) __asm__("__uninitialized_copy_aux__H2ZPQ221world_dynamics_system14ent_time_limitZPQ221world_dynamics_system14ent_time_limit_X01X01X11G12__false_type_X11");
 
-value8 *UninitializedCopy(
-    value8 *first,
-    value8 *last,
-    value8 *result
+world_dynamics_system::ent_time_limit *UninitializedCopy(
+    world_dynamics_system::ent_time_limit *first,
+    world_dynamics_system::ent_time_limit *last,
+    world_dynamics_system::ent_time_limit *result
 ) {
     while (first != last) {
         if (result) {
-            new (result) value8(*first);
+            new (result) world_dynamics_system::ent_time_limit(*first);
         }
         ++first;
         ++result;

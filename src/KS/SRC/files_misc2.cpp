@@ -116,29 +116,23 @@ face *UninitializedFillFaces(
 }
 
 // 0x002F4390 __uninitialized_copy_aux__H2ZPQ218scan_light_context9light_recZPQ218scan_light_context9light_rec_X01X01X11G12__false_type_X11
-inline void *operator new(unsigned int, void *place) {
-    return place;
-}
+#include "KS/SRC/archalloc.h"
+#include "KS/SRC/scan_light_context.h"
 
-struct value8 {
-    int first;
-    int second;
-};
-
-extern "C" value8 *UninitializedCopy(
-    value8 *first,
-    value8 *last,
-    value8 *result
+extern "C" scan_light_context::light_rec *UninitializedCopy(
+    scan_light_context::light_rec *first,
+    scan_light_context::light_rec *last,
+    scan_light_context::light_rec *result
 ) __asm__("__uninitialized_copy_aux__H2ZPQ218scan_light_context9light_recZPQ218scan_light_context9light_rec_X01X01X11G12__false_type_X11");
 
-value8 *UninitializedCopy(
-    value8 *first,
-    value8 *last,
-    value8 *result
+scan_light_context::light_rec *UninitializedCopy(
+    scan_light_context::light_rec *first,
+    scan_light_context::light_rec *last,
+    scan_light_context::light_rec *result
 ) {
     while (first != last) {
         if (result) {
-            new (result) value8(*first);
+            new (result) scan_light_context::light_rec(*first);
         }
         ++first;
         ++result;
@@ -147,13 +141,8 @@ value8 *UninitializedCopy(
 }
 
 // 0x002FA750 __uninitialized_copy_aux__H2ZPC5wedgeZP5wedge_X01X01X11G12__false_type_X11
-inline void *operator new(unsigned int, void *place) {
-    return place;
-}
-
-struct wedge {
-    char bytes[4];
-};
+#include "KS/SRC/archalloc.h"
+#include "KS/SRC/wedge.h"
 
 extern "C" wedge *UninitializedCopy(
     const wedge *first,
@@ -176,33 +165,26 @@ wedge *UninitializedCopy(
 }
 
 // 0x002FBE88 __uninitialized_copy_aux__H2ZPQ2t7bp_tree2Z10partition3Z8vector3d6branchZPQ2t7bp_tree2Z10partition3Z8vector3d6branch_X01X01X11G12__false_type_X11
-inline void *operator new(unsigned int, void *place) {
-    return place;
-}
+#include "KS/SRC/archalloc.h"
+#include "KS/SRC/bp_tree.h"
+#include "KS/SRC/terrain.h"
 
-struct branch {
-    int omitted;
-    int left;
-    int right;
+typedef bp_tree<partition3, vector3d>::branch partition_branch;
 
-    branch(const branch &other)
-        : left(other.left), right(other.right) {}
-};
-
-extern "C" branch *UninitializedCopy(
-    branch *first,
-    branch *last,
-    branch *result
+extern "C" partition_branch *UninitializedCopy(
+    partition_branch *first,
+    partition_branch *last,
+    partition_branch *result
 ) __asm__("__uninitialized_copy_aux__H2ZPQ2t7bp_tree2Z10partition3Z8vector3d6branchZPQ2t7bp_tree2Z10partition3Z8vector3d6branch_X01X01X11G12__false_type_X11");
 
-branch *UninitializedCopy(
-    branch *first,
-    branch *last,
-    branch *result
+partition_branch *UninitializedCopy(
+    partition_branch *first,
+    partition_branch *last,
+    partition_branch *result
 ) {
     while (first != last) {
         if (result)
-            new (result) branch(*first);
+            new (result) partition_branch(*first);
         ++first;
         ++result;
     }

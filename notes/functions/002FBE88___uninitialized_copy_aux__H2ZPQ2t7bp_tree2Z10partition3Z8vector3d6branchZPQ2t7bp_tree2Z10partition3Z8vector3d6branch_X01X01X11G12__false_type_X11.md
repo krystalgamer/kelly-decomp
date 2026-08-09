@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The canonical old-STL placement-copy loop matched exactly with 12-byte branch records whose copy constructor transfers the two pointer fields at offsets 0x4 and 0x8.
+The canonical old-STL placement-copy loop uses the shared partition-tree branch
+declaration and its released copy constructor.
 
 ## Outcome
 
-The released partition-branch uninitialized-copy helper matched exactly on the first attempt.
+The local branch layout was removed; the released helper remains exact.

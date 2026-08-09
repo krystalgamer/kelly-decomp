@@ -33,7 +33,11 @@ class visual_rep {
     rational_t max_detail_dist;
     bool instanced;
 
+protected:
+    inline visual_rep() {}
+
 public:
+    visual_rep(visrep_t type, bool instanced);
     virtual inline ~visual_rep() {}
     virtual void render_instance(render_flavor_t, instance_render_info *, short * = 0) = 0;
     virtual void render_batch(render_flavor_t, instance_render_info *, int);

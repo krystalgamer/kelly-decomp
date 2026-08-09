@@ -15,10 +15,10 @@
 
 ### Attempt 1 notes
 
-The released system/debug heap consistency checks matched exactly with 0x6c-byte Heap records. The trailing empty barrier prevents a sibling tail jump for the second check.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released system/debug heap consistency checks use the shared allocator
+declaration. A local second-call pointer preserves the normal call.
 
 ## Outcome
 
-The released heap consistency checker matched exactly on the first attempt.
+The local heap layout and compiler barrier were removed; the released checker
+remains exact.

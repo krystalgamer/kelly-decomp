@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released map blend-mode store and NGLMAT_ALPHA toggle matched exactly with Flags at offset 0 and MapBlendMode at 0x38.
+The released map blend-mode store and alpha toggle use the shared material
+declaration.
 
 ## Outcome
 
-The released material blend-mode setter matched exactly on the first attempt.
+The local material layout was removed; the released setter remains exact.

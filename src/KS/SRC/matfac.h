@@ -33,6 +33,7 @@ public:
     int get_original_height(
         int frame,
         map_e map = MAP_DIFFUSE) const;
+    void set_blend_mode(unsigned int mode, int map);
 
 private:
     nglMaterial material;

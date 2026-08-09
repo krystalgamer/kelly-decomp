@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released Euler-angle stores and virtual update_rot dispatch matched exactly with vtable at 0x140, angles at 0x160-0x168, and update_rot at virtual slot 0x11c.
+The released Euler-angle stores and virtual `update_rot` dispatch use the shared
+entity-widget declaration.
 
 ## Outcome
 
-The released entity-widget rotation setter matched exactly on the first attempt.
+The manual object/vtable layout was removed; the released setter remains exact.

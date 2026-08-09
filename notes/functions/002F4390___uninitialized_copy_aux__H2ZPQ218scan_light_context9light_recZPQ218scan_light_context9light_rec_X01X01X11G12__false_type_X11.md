@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The canonical old-STL null-guarded placement-copy loop reproduces the target eight-byte `ldl`/`ldr` and `sdl`/`sdr` record transfer exactly.
+The canonical old-STL placement-copy loop uses the shared nested light-record
+declaration.
 
 ## Outcome
 
-The released `__uninitialized_copy_aux__H2ZPQ218scan_light_context9light_recZPQ218scan_light_context9light_rec_X01X01X11G12__false_type_X11` helper matched exactly on the first attempt.
+The integer stand-in was removed; the released helper remains exact.

@@ -29,6 +29,11 @@ class world_dynamics_system {
     nglLightContext *current_light_context;
 
 public:
+    struct ent_time_limit {
+        entity *ent;
+        float time;
+    };
+
     static bool wds_readfile(
         const char *name,
         unsigned char **buffer,

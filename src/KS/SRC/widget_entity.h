@@ -4,16 +4,26 @@
 #pragma interface
 
 #include "KS/SRC/widget.h"
+#include "g++-2/stl_vector.h"
 
 class entity;
+class entity_anim_tree;
 
 class entity_widget : public widget {
 protected:
     entity *ent;
+    vector<entity_anim_tree *> anims;
+    vector3d axis;
+    rational_t ax;
+    rational_t ay;
+    rational_t az;
+    rational_t rps;
 
 public:
     virtual void update_pos();
     virtual void update_scale();
+    virtual void update_rot();
+    void set_rotation(float x, float y, float z);
     void update_entity_po();
     virtual rational_t get_width();
     virtual rational_t get_height();

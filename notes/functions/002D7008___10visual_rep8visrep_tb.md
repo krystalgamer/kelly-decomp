@@ -20,8 +20,10 @@ Modeled all members through a C++ initializer list. With an explicit trailing vt
 
 ### Attempt 2 notes
 
-The released constructor matched exactly when the explicit isolated vtable model is assigned before the source members, reproducing the implicit virtual-class initialization order. Fields occupy offsets 0-0x10.
+The shared virtual class declaration naturally emits the vtable initialization
+before the released member initializers.
 
 ## Outcome
 
-The released visual-representation constructor matched exactly.
+The explicit vtable field and manual assignment were removed; the released
+constructor remains exact.

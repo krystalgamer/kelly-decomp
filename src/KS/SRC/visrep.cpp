@@ -84,31 +84,14 @@ bool visual_rep::is_uv_animated() const {
 }
 
 // 0x002D7008 __10visual_rep8visrep_tb
-enum visrep_t {
-    VISREP_PMESH = 0
-};
-
-extern const char visual_rep_vtable[];
-__asm__(".equ visual_rep_vtable, 0x004F4820");
-
-class visual_rep {
-    visrep_t type;
-    float min_detail_dist;
-    float max_detail_dist;
-    bool instanced;
-    const void *vtable;
-
-public:
-    visual_rep(visrep_t type, bool instanced);
-};
+#include "KS/SRC/visrep.h"
 
 visual_rep::visual_rep(visrep_t new_type, bool is_instanced)
+  : type(new_type),
+    min_detail_dist(12.0f),
+    max_detail_dist(1.0f),
+    instanced(is_instanced)
 {
-    vtable = visual_rep_vtable;
-    type = new_type;
-    min_detail_dist = 12.0f;
-    max_detail_dist = 1.0f;
-    instanced = is_instanced;
 }
 
 // 0x002D7388 new_visrep_instance__FP10visual_rep

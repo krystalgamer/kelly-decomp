@@ -28,32 +28,14 @@ void entity_widget::update_scale() {
 
 #if defined(KELLY_DECOMP_FUNCTION_002BAA60)
 // 0x002BAA60 set_rotation__13entity_widgetfff
-struct widget_vtable {
-    char padding[0x118];
-    short adjustment;
-    short padding2;
-    void (*update_rot)(void *self);
-};
-
-class entity_widget {
-    char padding0[0x140];
-    widget_vtable *vtable;
-    char padding1[0x1C];
-    float ax;
-    float ay;
-    float az;
-
-public:
-    void set_rotation(float x, float y, float z);
-};
+#include "KS/SRC/widget_entity.h"
 
 void entity_widget::set_rotation(float x, float y, float z)
 {
     ax = x;
     ay = y;
     az = z;
-    widget_vtable *table = vtable;
-    table->update_rot((char *)this + table->adjustment);
+    update_rot();
 }
 #endif
 
