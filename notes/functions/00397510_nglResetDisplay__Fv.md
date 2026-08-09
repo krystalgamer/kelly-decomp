@@ -12,13 +12,17 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size44-platform-final.cpp` |
 
 ### Attempt 1 notes
 
 The target reset re-enables interrupts 5 and 2 before calling `_nglSetDisplay`. The trailing empty compiler barrier prevents a sibling call.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+A local function pointer preserves the normal display call without a compiler
+barrier.
 
 ## Outcome
 
-The released NGL display reset wrapper matched exactly on the first attempt.
+The compiler barrier was removed.

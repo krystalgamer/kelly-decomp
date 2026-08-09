@@ -156,8 +156,8 @@ void WAVE_GlobalCurrent(vector3d *current)
 }
 
 // 0x0037D8C8 WAVE_GetNextScheduleIndex__Fv
-extern unsigned int WAVE_ScheduleIndex;
-extern unsigned int WAVE_ScheduleLength;
+#include "KS/SRC/ks/wave.h"
+
 __asm__(".equ WAVE_ScheduleIndex, 0x004846D4");
 __asm__(".equ WAVE_ScheduleLength, 0x004846D0");
 

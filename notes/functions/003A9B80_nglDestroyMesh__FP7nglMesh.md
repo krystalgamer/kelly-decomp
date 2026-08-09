@@ -12,13 +12,17 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size44-platform-final.cpp` |
 
 ### Attempt 1 notes
 
 The released helper waits for VIF1 before freeing the mesh. The trailing empty compiler barrier preserves the normal second call and return frame.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+A local function pointer preserves the normal free call without a compiler
+barrier.
 
 ## Outcome
 
-The released NGL mesh destroy helper matched exactly on the first attempt.
+The compiler barrier was removed.

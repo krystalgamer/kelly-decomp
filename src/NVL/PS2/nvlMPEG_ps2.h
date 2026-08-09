@@ -70,6 +70,7 @@ struct sceMpegCbDataError {
     const char *errMessage;
 };
 struct ViBuf;
+void viBufAddDMA(ViBuf *buffer);
 
 struct QWORD {
     unsigned long values[2];

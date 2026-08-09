@@ -12,11 +12,12 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 97.7273 | 90.9091 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size44-platform-final.cpp` |
 
 ### Attempt 2 notes
 
-The released schedule globals are `u_int`; restoring their unsigned type reproduces the target `divu` modulo sequence.
+The shared wave declarations keep both schedule globals unsigned and preserve
+the target `divu` modulo sequence.
 
 ## Outcome
 

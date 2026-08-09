@@ -13,13 +13,17 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 18.1818 | 18.1818 | `candidate.cpp` |
 | 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | matched | 100.0 | 100.0 | `size44-platform-final.cpp` |
 
 ### Attempt 2 notes
 
 The released wrapper supplies default Z range 0..1 and zero render dimensions to the full NGL perspective call. The trailing empty compiler barrier prevents a sibling call.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 3 notes
+
+A local function pointer preserves the normal NGL call without a compiler
+barrier.
 
 ## Outcome
 
-The released KS NGL perspective wrapper matched exactly on attempt two.
+The compiler barrier was removed.

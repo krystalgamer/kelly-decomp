@@ -145,20 +145,13 @@ int mpegError(
     return 1;
 }
 
-#if defined(KELLY_DECOMP_FUNCTION_00388F08)
 // 0x00388F08 mpegNodata__FP7sceMpegP13sceMpegCbDataPv
-struct sceMpeg;
-struct sceMpegCbData;
-struct ViBuf;
+#include "NVL/PS2/nvlMPEG_ps2.h"
 
 extern "C" void RotateThreadReadyQueue(int priority);
 __asm__(".equ RotateThreadReadyQueue, 0x003DB5B0");
 
-void viBufAddDMA(ViBuf *buffer);
 __asm__(".equ viBufAddDMA__FP5ViBuf, 0x0038A228");
-
-extern ViBuf videoDec_vibuf;
-__asm__(".equ videoDec_vibuf, 0x00597020");
 
 int mpegNodata(
     sceMpeg *mpeg,
@@ -166,10 +159,9 @@ int mpegNodata(
     void *user_data
 ) {
     RotateThreadReadyQueue(1);
-    viBufAddDMA(&videoDec_vibuf);
+    viBufAddDMA(&video_dec_vibuf);
     return 1;
 }
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003889A0)
 // 0x003889A0 readBufBeginPut__FP7ReadBufPPUc

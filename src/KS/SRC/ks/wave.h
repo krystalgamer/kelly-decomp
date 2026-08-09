@@ -151,6 +151,7 @@ extern float WAVE_ScheduleTimeEnd;
 extern float WaveHeightFudgeFactorArray[];
 extern WaveMarker WAVE_Markers[];
 extern unsigned int WAVE_ScheduleIndex;
+extern unsigned int WAVE_ScheduleLength;
 extern WaveScheduleStruct WAVE_ScheduleArray[];
 extern float WAVE_TexAnimFrame;
 extern float WAVE_TexAnimSpeed;

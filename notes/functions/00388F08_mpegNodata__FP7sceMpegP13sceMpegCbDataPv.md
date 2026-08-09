@@ -11,11 +11,12 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-platform-final.cpp` |
 
 ### Attempt 1 notes
 
-The released callback rotates the ready queue at priority 1, restarts DMA on the global video decoder buffer, and reports success.
+The shared NVL declarations rotate the ready queue, restart DMA on the global
+video decoder buffer, and report success.
 
 ## Outcome
 

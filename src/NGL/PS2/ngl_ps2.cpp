@@ -256,64 +256,21 @@ void nglSetRenderTarget(nglTexture *texture, bool download) { nglCurScene->Rende
 
 void *nglTim2GetImage(nglTexture *texture, int mipmap) { if (mipmap < texture->ph->MipMapTextures) return texture->GsImage[mipmap].Data; return 0; }
 
-#if defined(KELLY_DECOMP_FUNCTION_00397510)
 // 0x00397510 nglResetDisplay__Fv
 extern "C" int EnableIntc(int interrupt);
 __asm__(".equ EnableIntc, 0x003DBDC8");
 
 void _nglSetDisplay();
 __asm__(".equ _nglSetDisplay__Fv, 0x00396DB0");
+void set_display() __asm__("_nglSetDisplay__Fv");
 
 void nglResetDisplay() {
     EnableIntc(5);
     EnableIntc(2);
-    _nglSetDisplay();
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*reset_display)() = set_display;
+    reset_display();
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0039A0B8)
-// 0x0039A0B8 nglOpenRenderList__FPt4pair2ZP11nglListNodeZUiP11nglListNodeUi
-struct nglListNode {
-    nglListNode *Next;
-    char padding[8];
-    unsigned int Hash;
-};
-
-struct node_pair {
-    nglListNode *first;
-    unsigned int second;
-};
-
-extern "C" void OpenRenderList(
-    node_pair *table,
-    nglListNode *list,
-    unsigned int size
-) __asm__("nglOpenRenderList__FPt4pair2ZP11nglListNodeZUiP11nglListNodeUi");
-
-void OpenRenderList(
-    node_pair *table,
-    nglListNode *list,
-    unsigned int size
-) {
-    node_pair *entry = table;
-    if (!list) {
-        return;
-    }
-
-loop:
-    entry->first = list;
-    entry->second = list->Hash;
-    list = list->Next;
-    __asm__ volatile("nop");
-    if (list) {
-        ++entry;
-        goto loop;
-    }
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_003A8C68)
 // 0x003A8C68 nglVif1AddBatchSetup__FRPUiUii
 void nglVif1AddBatchSetup(
     unsigned int *&packet,
@@ -324,23 +281,21 @@ void nglVif1AddBatchSetup(
     packet[1] = vertex_count | 0x8000;
     packet += 2;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003A9B80)
 // 0x003A9B80 nglDestroyMesh__FP7nglMesh
-struct nglMesh;
+#include "NGL/PS2/ngl_ps2.h"
 
 void nglVif1SafeWait();
 void nglMemFree(void *memory);
 __asm__(".equ nglVif1SafeWait__Fv, 0x00397728");
 __asm__(".equ nglMemFree__FPv, 0x00395D50");
+void free_ngl_memory(void *memory) __asm__("nglMemFree__FPv");
 
 void nglDestroyMesh(nglMesh *mesh) {
     nglVif1SafeWait();
-    nglMemFree(mesh);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*free_mesh)(void *) = free_ngl_memory;
+    free_mesh(mesh);
 }
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0039C750)
 // 0x0039C750 nglGetTexture__FRC14nglFixedString
