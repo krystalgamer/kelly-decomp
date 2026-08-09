@@ -234,11 +234,7 @@ public:
     virtual void IncValueByTen();
     virtual void DecValueByFifty();
     virtual void IncValueByFifty();
-    virtual void SetValue(int value)
-    {
-        if (tint && value >= lo && value <= hi)
-            *tint = value;
-    }
+    virtual void SetValue(int value);
     virtual int GetValue();
 };
 

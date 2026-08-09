@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released derived constructor matched exactly through trigger base construction and the region-trigger vtable install at offset 0x8. The adjusted vtable alias reproduces the HI16 carry for the real 0x004eb040 table.
+The released derived constructor uses the shared trigger hierarchy and native
+base construction.
 
 ## Outcome
 
-The released region-trigger constructor matched exactly on the first attempt.
+The manual vtable install and symbol wrapper were removed; the released
+constructor remains exact.

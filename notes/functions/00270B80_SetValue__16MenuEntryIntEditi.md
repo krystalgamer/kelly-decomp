@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released pointer and inclusive bounds checks matched exactly with `tint`, `lo`, and `hi` at offsets 0xc, 0x10, and 0x14.
+The released pointer and inclusive bounds checks use the shared menu entry
+declaration.
 
 ## Outcome
 
-The released menu integer value setter matched exactly on the first attempt.
+The local entry layout was removed; the released setter remains exact.

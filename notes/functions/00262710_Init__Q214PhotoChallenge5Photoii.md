@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released 32-bit texture creation and photo-state clears matched exactly with texture/score/special fields at offsets 0/4/8.
+The released texture creation and photo-state clears use the shared photo
+challenge declaration.
 
 ## Outcome
 
-The released challenge-photo initialization matched exactly on the first attempt.
+The released initialization remains exact through the shared declaration.

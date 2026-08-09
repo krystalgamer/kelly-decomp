@@ -398,15 +398,7 @@ void **menu_entry_enum_rtti()
 }
 
 // 0x00270B80 SetValue__16MenuEntryIntEditi
-class MenuEntryIntEdit {
-    char padding[0x0C];
-    int *tint;
-    int lo;
-    int hi;
-
-public:
-    void SetValue(int value);
-};
+#include "KS/SRC/ks/menu.h"
 
 void MenuEntryIntEdit::SetValue(int value)
 {

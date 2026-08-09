@@ -301,6 +301,11 @@ public:
         rational_t translucency,
         rational_t scale
     );
+    entity(
+        chunk_file &file,
+        const entity_id &id,
+        entity_flavor_t flavor,
+        unsigned int flags);
     virtual ~entity();
     virtual void initialize();
     virtual void read_enx(chunk_file &file);

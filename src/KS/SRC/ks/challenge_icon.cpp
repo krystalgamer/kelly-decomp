@@ -48,21 +48,7 @@ void IconChallenge::Arrangement::Spawn() {
 
 #if defined(KELLY_DECOMP_FUNCTION_00260D58)
 // 0x00260D58 GetCurrentSequence__CQ213IconChallenge11Arrangement
-class IconChallenge {
-public:
-    struct Sequence {
-        char data[0xA8];
-    };
-
-    class Arrangement {
-        int numSequences;
-        int currSequenceIdx;
-        Sequence sequences[1];
-
-    public:
-        const Sequence *GetCurrentSequence() const;
-    };
-};
+#include "KS/SRC/ks/challenge_icon.h"
 
 const IconChallenge::Sequence *
 IconChallenge::Arrangement::GetCurrentSequence() const

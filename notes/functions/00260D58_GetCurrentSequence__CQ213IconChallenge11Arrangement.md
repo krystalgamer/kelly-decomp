@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released bounds check and sequence address calculation matched exactly with 0xa8-byte Sequence records beginning at offset 0x8.
+The released bounds check and sequence address calculation use the shared icon
+challenge declaration.
 
 ## Outcome
 
-The released current icon-sequence getter matched exactly on the first attempt.
+The local sequence/arrangement layouts were removed; the released getter
+remains exact.

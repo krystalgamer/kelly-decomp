@@ -179,34 +179,6 @@ void game::render_fe() {
     render_overlay(this);
 }
 
-// 0x0027AA70 set_movie__4gameG7stringx
-class stringx {
-    char *chars;
-    void *my_buf;
-
-public:
-    ~stringx();
-    stringx &operator=(const stringx &other);
-};
-
-__asm__(".equ __as__7stringxRC7stringx, 0x0034E0B8");
-__asm__(".equ _$_7stringx, 0x0034D6E0");
-
-extern "C" void StringAssign(stringx *self, const stringx &other)
-    __asm__("__as__7stringxRC7stringx");
-extern "C" void StringDtor(stringx *self, int deleting)
-    __asm__("_$_7stringx");
-
-extern "C" void SetMovie(void *self, stringx *name)
-    __asm__("set_movie__4gameG7stringx");
-
-void SetMovie(void *self, stringx *name)
-{
-    StringAssign((stringx *)((char *)self + 0x22C), *name);
-    StringDtor(name, 2);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x0027D9C0 enable_marky_cam__4gamebT1f
 #include "KS/SRC/camera.h"
 

@@ -5,7 +5,7 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/game.cpp`
 - Reference source: `KS/SRC/game.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -13,7 +13,7 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 59.6154 | 53.8462 | `candidate.cpp` |
 | 2 | different | 59.6154 | 53.8462 | `candidate.cpp` |
-| 3 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | different | 59.6154 | 53.8462 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
@@ -25,10 +25,10 @@ Added an empty barrier after the source-level assignment. Because the by-value p
 
 ### Attempt 3 notes
 
-The ABI-shaped wrapper preserves the released assignment to `movie_name` at offset 0x22c and destruction of the by-value string parameter. The trailing empty barrier prevents a sibling tail jump to the destructor.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+All native by-value forms tail-jump to the generated string destructor and emit
+48 bytes.
 
 ## Outcome
 
-The released game movie-name setter matched exactly.
+The prior exact ABI wrapper used a compiler barrier and manual member offset.
+Those matching-only constructs were removed and the setter was deferred.
