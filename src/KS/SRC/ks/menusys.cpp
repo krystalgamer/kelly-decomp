@@ -98,29 +98,25 @@ void MenuSystem::CloseAllMenus()
 
 #if defined(KELLY_DECOMP_FUNCTION_00241178)
 // 0x00241178 GetElementText__10MenuSystemiPci
+#include "KS/SRC/ks/menu.h"
+
 extern const char empty_string[];
 __asm__(".equ empty_string, 0x004DFC30");
 
-class Menu {
-public:
-    void GetElementText(int index, char *text, int length);
-};
-
 __asm__(".equ GetElementText__4MenuiPci, 0x0023E6C8");
-
-class MenuSystem {
-    char padding[0x470];
-    Menu *curmenu;
-
-public:
-    void GetElementText(int index, char *text, int length);
-};
+extern "C" void get_menu_element_text(
+    Menu *menu,
+    int index,
+    char *text,
+    int length
+) __asm__("GetElementText__4MenuiPci");
 
 void MenuSystem::GetElementText(int index, char *text, int length)
 {
     if (curmenu) {
-        curmenu->GetElementText(index, text, length);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*get_text)(Menu *, int, char *, int) =
+            get_menu_element_text;
+        get_text(curmenu, index, text, length);
     } else {
         text[0] = empty_string[0];
     }

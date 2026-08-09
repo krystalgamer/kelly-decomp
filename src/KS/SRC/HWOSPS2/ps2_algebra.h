@@ -155,7 +155,10 @@ public:
     float c;
     float d;
 
-    inline quaternion() : a(1.0f), b(0.0f), c(0.0f), d(0.0f) {}
+    inline quaternion() {
+        a = 1.0f;
+        b = c = d = 0.0f;
+    }
     inline quaternion(float a, float b, float c, float d)
         : a(a), b(b), c(c), d(d)
     {

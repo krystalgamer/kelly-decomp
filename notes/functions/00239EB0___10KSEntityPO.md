@@ -16,8 +16,10 @@
 
 ### Attempt 2 notes
 
-The released constructor body is empty; its code comes from the two default quaternion members. Reconstructing the released quaternion assignment spelling (`a = 1.0f; b = c = d = 0.0f`) preserves the target store order exactly.
+The released constructor body is empty; its code comes from the two shared
+default quaternion members. The canonical quaternion assignment spelling
+preserves the target store order.
 
 ## Outcome
 
-The replay entity-PO constructor matches through its source-authentic default quaternion initialization.
+The local vector, quaternion, and replay-PO declarations were removed.

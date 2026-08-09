@@ -12,24 +12,18 @@ bool RandomVO::isPlaying() { return nslGetSoundStatus(thisSound) != 0; }
 
 #if defined(KELLY_DECOMP_FUNCTION_00258520)
 // 0x00258520 stopVO__8VOEngine
+#include "KS/SRC/ks/VOEngine.h"
+
 int nslGetSoundStatus(unsigned int sound);
 void nslStopSound(unsigned int sound);
 __asm__(".equ nslGetSoundStatus__FUi, 0x0038DBA0");
 __asm__(".equ nslStopSound__FUi, 0x0038D288");
 
-class VOEngine {
-    char padding[0x17c];
-    unsigned int currentSound;
-
-public:
-    void stopVO();
-};
-
 void VOEngine::stopVO()
 {
     if (nslGetSoundStatus(currentSound) != 0) {
-        nslStopSound(currentSound);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*stop_sound)(unsigned int) = nslStopSound;
+        stop_sound(currentSound);
     }
 }
 #endif

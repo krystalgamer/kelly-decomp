@@ -19,35 +19,11 @@ void CreditsFrontEnd::OnStart(int command) { OnTriangle(command); }
 
 #if defined(KELLY_DECOMP_FUNCTION_001BB778)
 // 0x001BB778 OnTriangle__15CreditsFrontEndi
-struct menu_system_vtable {
-    char padding[0x20];
-    short adjustment;
-    short padding2;
-    void (*make_active)(void *self, int menu, int submenu, bool notify);
-};
-
-struct graphical_menu_system {
-    char padding[0x8c];
-    menu_system_vtable *vtable;
-};
-
-class CreditsFrontEnd {
-    char padding[0x164];
-    graphical_menu_system *sys;
-
-public:
-    void OnTriangle(int controller);
-};
+#include "KS/SRC/ks/ExtrasFrontEnd.h"
 
 void CreditsFrontEnd::OnTriangle(int controller)
 {
-    menu_system_vtable *table = sys->vtable;
-    table->make_active(
-        (char *)sys + table->adjustment,
-        1,
-        1,
-        true
-    );
+    sys->MakeActive(GraphicalMenuSystem::ExtrasMenu, 1, true);
 }
 #endif
 

@@ -320,6 +320,7 @@ public:
     virtual void ButtonPress(int button);
     virtual void ButtonRelease(int button);
     virtual unsigned int GetElementState(int entry);
+    void GetElementText(int entry, char *text, int length);
     bool IsActive() const { return curmenu != 0; }
 
 protected:

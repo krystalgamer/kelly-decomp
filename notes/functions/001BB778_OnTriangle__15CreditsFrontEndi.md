@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released handler activates `GraphicalMenuSystem::ExtrasMenu`. The ELF symbol records the built `FEMenuSystem::MakeActive(int, int, bool)` signature, and the recovered old-GCC vtable layout reproduces the virtual call and default arguments exactly.
+The released handler activates `GraphicalMenuSystem::ExtrasMenu` through the
+shared credits and menu-system hierarchy.
 
 ## Outcome
 
-The credits-screen triangle handler matches with the source-level Extras-menu virtual call.
+The manual menu-system vtable and object layouts were removed.

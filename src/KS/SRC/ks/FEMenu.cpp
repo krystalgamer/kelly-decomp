@@ -783,36 +783,6 @@ void FEMenuEntry::UpdateInScene() {
     text->UpdateInScene();
 }
 
-// 0x001DB098 Load__15FEGraphicalMenub
-struct frontend_vtable {
-    char padding[0x28];
-    short adjustment;
-    short padding2;
-    void (*load_panel)(void *self, bool floating);
-};
-
-class FEGraphicalMenu {
-    char padding0[0x64];
-    void *parent;
-    char padding1[0xd8];
-    frontend_vtable *vtable;
-
-public:
-    void Load(bool floating);
-};
-
-void FEGraphicalMenu::Load(bool floating)
-{
-    if (parent)
-        return;
-
-    frontend_vtable *table = vtable;
-    char *frontend = (char *)this + 0x80;
-    short adjustment = table->adjustment;
-    void (*load_panel)(void *, bool) = table->load_panel;
-    load_panel(frontend + adjustment, floating);
-}
-
 // 0x001DB930 Draw__12FEMenuSystem
 struct menu_vtable {
     char padding[0x48];

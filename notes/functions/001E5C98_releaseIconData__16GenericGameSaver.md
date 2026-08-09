@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released implementation conditionally releases the icon file buffer and always clears its `Buf` member. The recovered `icon` offset and `nglFileBuf` layout reproduce the branch-likely and call exactly.
+The released implementation conditionally releases the icon file buffer and
+always clears its `Buf` member through the shared game-saver declaration.
 
 ## Outcome
 
-The game-saver icon-data release matches with its released conditional file release and buffer clear.
+The released icon-data cleanup was already canonical and remains exact.

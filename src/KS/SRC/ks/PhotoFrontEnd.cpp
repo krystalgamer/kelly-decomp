@@ -121,33 +121,15 @@ void PhotoFrontEnd::OnDown(int controller)
 }
 
 // 0x001CF208 setHigh__15PhotoSelectMenuP11FEMenuEntryb
-struct FEMenuEntry {
-    int entry_num;
-};
-
-extern "C" void BaseSetHigh(
-    void *self,
-    FEMenuEntry *menu,
-    bool animate
-) __asm__("setHigh__6FEMenuP11FEMenuEntryb");
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 __asm__(
     ".equ setHigh__6FEMenuP11FEMenuEntryb, 0x00156638"
 );
 
-class PhotoSelectMenu {
-    char padding0[0x4c];
-    FEMenuEntry *highlighted;
-    char padding1[0x448];
-    int highlightedIdx;
-
-public:
-    void setHigh(FEMenuEntry *menu, bool animate);
-};
-
 void PhotoSelectMenu::setHigh(FEMenuEntry *menu, bool animate)
 {
-    BaseSetHigh(this, menu, animate);
+    FEMenu::setHigh(menu, animate);
     if (highlighted)
         highlightedIdx = highlighted->entry_num;
     else

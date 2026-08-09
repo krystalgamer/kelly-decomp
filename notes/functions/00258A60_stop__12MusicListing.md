@@ -16,10 +16,10 @@
 
 ### Attempt 2 notes
 
-The released function stops the track selected by `order[current]`. Recovering the 72-byte `Track` stride and member layout reproduces the indexed address calculation; the empty matching barrier prevents the final call from becoming a sibling tail call.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released function uses the shared 72-byte `Track` records and stops the
+track selected by `order[current]`. A local stop-function pointer preserves
+the non-tail call.
 
 ## Outcome
 
-The music-listing stop helper matches with its released ordered-track lookup and stop call.
+The local music layouts and compiler barrier were removed.

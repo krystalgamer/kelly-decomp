@@ -44,31 +44,16 @@ void MusicMan::shutdown() {
 
 #if defined(KELLY_DECOMP_FUNCTION_00258A60)
 // 0x00258A60 stop__12MusicListing
-class Track {
-    char data[72];
-
-public:
-    void Stop();
-};
+#include "KS/SRC/ks/MusicMan.h"
 
 __asm__(".equ Stop__5Track, 0x00258660");
-
-class MusicListing {
-    int totalSources;
-    int current;
-    Track sources[50];
-    unsigned int currentSoundId;
-    bool successfulLastPlay;
-    int order[50];
-
-public:
-    void stop();
-};
+extern "C" void stop_track(Track *track)
+    __asm__("Stop__5Track");
 
 void MusicListing::stop()
 {
-    sources[order[current]].Stop();
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*stop)(Track *) = stop_track;
+    stop(&sources[order[current]]);
 }
 #endif
 

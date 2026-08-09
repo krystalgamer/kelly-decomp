@@ -90,6 +90,7 @@ class CreditsFrontEnd : public FEMultiMenu {
 public:
     void OnActivate();
     virtual void Select(int entry_index);
+    virtual void OnTriangle(int controller);
     virtual void OnUp(int controller);
     virtual void OnDown(int controller);
     virtual void OnRight(int controller);

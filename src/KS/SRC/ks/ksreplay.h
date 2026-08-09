@@ -1,7 +1,21 @@
 #ifndef KSREPLAY_H
 #define KSREPLAY_H
 
+#include "KS/SRC/algebra.h"
+
 typedef unsigned int uint32;
+
+class KSEntityPO {
+    vector3d KSPos;
+    vector3d KSBPos;
+    quaternion KSRot;
+    quaternion KSBRot;
+    vector3d BoardCurrent;
+    vector3d BoardMomentum;
+
+public:
+    KSEntityPO();
+};
 
 class KSEntityState {
     friend class KSReplay;

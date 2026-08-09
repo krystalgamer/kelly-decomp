@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released override calls the base `FEMenu::setHigh`, then mirrors the highlighted entry number or `-1` into `highlightedIdx`. The recovered offsets and ABI-named base call reproduce the target directly.
+The released override calls the shared `FEMenu::setHigh`, then mirrors the
+highlighted entry number or `-1` into the shared photo-selection state.
 
 ## Outcome
 
-The photo-selection highlight override matches with its source-level base call and highlighted-index update.
+The local menu and entry layouts were removed.

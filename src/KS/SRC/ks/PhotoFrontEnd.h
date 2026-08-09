@@ -16,7 +16,11 @@ public:
 };
 
 class PhotoSelectMenu : public FEMultiMenu {
+    char photo_select_data[0x498 - sizeof(FEMultiMenu)];
+    int highlightedIdx;
+
 public:
+    virtual void setHigh(FEMenuEntry *entry, bool animate = true);
     void Select(int entry);
     virtual void OnTriangle(int controller);
     virtual void OnCross(int controller);

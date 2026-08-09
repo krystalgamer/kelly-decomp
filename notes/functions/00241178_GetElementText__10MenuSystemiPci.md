@@ -16,10 +16,10 @@
 
 ### Attempt 2 notes
 
-The released function forwards to the active menu or copies the empty string. Reducing the known empty-string copy to its terminating-byte store reproduces the target literal load, while the empty matching barrier prevents the forwarding path from becoming a sibling tail call.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released function uses the shared menu hierarchy to forward to the active
+menu or copy the empty terminator. A local forwarding pointer preserves the
+non-tail call.
 
 ## Outcome
 
-The menu-system element-text getter matches with its released active-menu forwarding and empty fallback.
+The local menu layout and compiler barrier were removed.

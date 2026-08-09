@@ -34,6 +34,7 @@ OnSurferStandUp__11IGOFrontEnd = 0x17CB40;
 ShowCameraReticle__11IGOFrontEndf = 0x17CE18;
 HideCameraReticle__11IGOFrontEnd = 0x17CE40;
 ShowPhoto__11IGOFrontEndP10nglTexturePii = 0x17CE88;
+Load__15FEGraphicalMenub = 0x1DB098;
 OnActivate__16HeatEndMenuClass = 0x1A8978;
 OnActivate__16CompEndMenuClass = 0x1A8FF8;
 _$_15CameraMenuClass = 0x1AABE8;
