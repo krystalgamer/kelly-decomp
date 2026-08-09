@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-Caching TIME_INITIAL and iterating the released PLAYER layout from each attackScore member reproduces the original five field resets and exact common-base countdown loop.
+The released reset uses the shared `MeterAttackMode::PLAYER` layout and
+common-tail induction pointer.
 
 ## Outcome
 
-The released two-player field resets and counters match exactly using a common PLAYER-tail induction pointer.
+The released reset was already canonical and remains exact.

@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released heap-array lookup and inline GetLargestFree check/field return match exactly with the 108-byte Heap layout.
+The released heap-array lookup uses the shared 108-byte `Heap` declaration and
+inline `GetLargestFree`.
 
 ## Outcome
 
-The released heap lookup and inline largest-free query match exactly.
+The local heap declaration was removed.

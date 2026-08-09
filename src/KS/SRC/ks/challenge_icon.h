@@ -1,6 +1,8 @@
 #ifndef CHALLENGE_ICON_H
 #define CHALLENGE_ICON_H
 
+#include "KS/SRC/ks/eventmanager.h"
+
 class kellyslater_controller;
 
 class IconChallenge {
@@ -85,9 +87,22 @@ public:
             float time_inc);
         void Spawn();
         void Despawn();
+        void OnEvent(
+            EVENT event,
+            kellyslater_controller *controller,
+            int param);
         bool IsCompleted() const { return completed; }
         const Sequence *GetCurrentSequence() const;
     };
+
+private:
+    void *challenge_data0;
+    kellyslater_controller *ksctrl;
+    char challenge_data_before_arrangement[8];
+    Arrangement arrangement;
+
+public:
+    void OnEvent(EVENT event, int param1, int param2);
 };
 
 #endif

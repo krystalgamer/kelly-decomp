@@ -49,12 +49,18 @@ void item::apply_effects(entity *target) { raise_signal(USE); }
 #include "KS/SRC/item.h"
 asm(".equ frame_advance__4itemf, 0x0028A680");
 asm(".equ set_range_visrep__14morphable_itemi, 0x0028BEC8");
+extern "C" void set_morphable_range(
+    morphable_item *item,
+    int count
+) __asm__("set_range_visrep__14morphable_itemi");
+
 void morphable_item::frame_advance(float time)
 {
     item::frame_advance(time);
     if (count != old_count) {
-        set_range_visrep(count);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*set_range)(morphable_item *, int) =
+            set_morphable_range;
+        set_range(this, count);
     }
 }
 

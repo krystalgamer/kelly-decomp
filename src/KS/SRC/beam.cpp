@@ -136,21 +136,8 @@ void beam_effect::set_delaying() {
 }
 
 // 0x002727F8 __11beam_effectP4beam
-class beam;
-class beam_effect_type;
-class beam_effect {
-    beam *my_beam;
-    beam_effect_type *effect;
-    unsigned short id;
-    char mode;
-    float timer;
-    float loop_delay;
-    float duration;
-    virtual void dump();
-public:
-    beam_effect(beam *the_beam);
-    virtual ~beam_effect();
-};
+#include "KS/SRC/beam.h"
+
 asm(".equ _vt$11beam_effect, 0x004FCE88");
 beam_effect::beam_effect(beam *the_beam)
 {

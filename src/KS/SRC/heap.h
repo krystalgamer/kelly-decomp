@@ -116,6 +116,10 @@ public:
     void CheckConsistency() const;
     void CheckStackCollision() const;
     MemSize GetCurrentMemMarker() { return lastalloc; }
+    MemSize GetLargestFree() {
+        CheckHeapStats();
+        return largestfree;
+    }
 
 protected:
     inline MemBlockInfo *PtrToBlock(Pointer pointer) const {

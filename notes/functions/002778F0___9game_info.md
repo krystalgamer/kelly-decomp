@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released two stringx member constructions followed by reset match exactly with the game_info variable layout.
+The released constructor uses the shared `game_info` and `stringx`
+declarations before calling `reset`.
 
 ## Outcome
 
-The released game_info string members and reset call match exactly.
+The released constructor was already canonical and remains exact.

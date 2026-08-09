@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released player-number guard and scoring-series-end dispatch into Arrangement match exactly with recovered object offsets.
+The released player-number guard and scoring-series-end dispatch use the
+shared icon challenge, controller, and event declarations.
 
 ## Outcome
 
-The released player guard and scoring-series-end arrangement dispatch match exactly.
+The local challenge and controller layouts were removed.

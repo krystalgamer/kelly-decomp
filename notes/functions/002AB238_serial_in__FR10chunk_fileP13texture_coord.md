@@ -20,8 +20,9 @@ The released two float deserializations compiled the second call as a tail call 
 
 ### Attempt 2 notes
 
-The reviewed empty barrier narrowly prevents the demonstrated second-call tail optimization and matches exactly.
+The shared texture-coordinate record and a local float-reader pointer preserve
+the second framed deserialization call.
 
 ## Outcome
 
-The released texture-coordinate float deserializations match exactly with one reviewed barrier preventing a demonstrated tail optimization.
+The local record and compiler barrier were removed.

@@ -20,8 +20,9 @@ The released base advance and count-change check compiled the conditional set_ra
 
 ### Attempt 2 notes
 
-The reviewed empty barrier narrowly prevents the demonstrated conditional tail optimization and yields the exact released control flow.
+The shared morphable-item layout and a local range-update pointer preserve the
+conditional framed call.
 
 ## Outcome
 
-The released base frame advance and range update match exactly with one reviewed barrier preventing a demonstrated conditional tail optimization.
+The compiler barrier was removed.

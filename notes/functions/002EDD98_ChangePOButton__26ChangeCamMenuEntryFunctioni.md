@@ -20,8 +20,9 @@ The initial ABI layout candidate failed because the isolated vtable field was de
 
 ### Attempt 2 notes
 
-Exposing the recovered MenuSystem layout for the virtual CloseMenu dispatch reproduces the released cross-button callback exactly.
+The shared camera-tool callback and menu-system hierarchy reproduce the
+cross-button virtual `CloseMenu` dispatch.
 
 ## Outcome
 
-The released cross-button guard and virtual MenuSystem close dispatch match exactly.
+The manual menu-system vtable layout was removed.

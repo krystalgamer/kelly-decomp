@@ -20,8 +20,9 @@ The released constructor matched all instructions except the high half of the ne
 
 ### Attempt 2 notes
 
-Using the standard carried isolated alias for the real 0x004ECE88 vtable recovered the exact constructor bytes.
+The shared beam-effect declaration and standard carried vtable alias preserve
+the released constructor.
 
 ## Outcome
 
-The released beam-effect field initialization and virtual layout match exactly with the standard carried vtable alias.
+The local beam-effect declaration was removed.
