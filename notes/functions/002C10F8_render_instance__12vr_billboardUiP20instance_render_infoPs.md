@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-A minimal old-GCC vtable layout preserves the released flavor overload's virtual `render_batch` call through slot 0xa8 and inserted constant 1.
+The shared `vr_billboard` declaration preserves the released flavor overload's
+virtual `render_batch` call and inserted instance count of one.
 
 ## Outcome
 
-The released flavor `vr_billboard::render_instance` overload matched exactly on the first attempt.
+The manual vtable-slot layout was removed; the released wrapper still matches
+exactly through the canonical billboard hierarchy.

@@ -27,8 +27,8 @@ void marky_camera::sync(camera &other) {
     if (is_externally_controlled()) {
         return;
     }
-    GameCameraSync(this, other);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*sync_camera)(void *, camera &) = GameCameraSync;
+    sync_camera(this, other);
 }
 
 // 0x002C38A8 _$_6camera

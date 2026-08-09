@@ -24,100 +24,29 @@ render_flavor_t vr_billboard::render_passes_needed() const {
 
 #if defined(KELLY_DECOMP_FUNCTION_002C10C8)
 // 0x002C10C8 render_instance__12vr_billboardP7nglMeshPiUiP20instance_render_infoPs
-struct nglMesh;
-struct instance_render_info;
-
-struct billboard_vtable {
-    char padding[0xa0];
-    short adjustment;
-    short padding2;
-    void (*render_batch)(
-        void *self,
-        nglMesh *mesh,
-        int *num_quads,
-        unsigned int flavor,
-        instance_render_info *info,
-        int enabled,
-        short *lookup
-    );
-};
-
-class vr_billboard {
-    char padding[0x10];
-    billboard_vtable *vtable;
-
-public:
-    void render_instance(
-        nglMesh *mesh,
-        int *num_quads,
-        unsigned int flavor,
-        instance_render_info *info,
-        short *lookup
-    );
-};
+#include "KS/SRC/billboard.h"
 
 void vr_billboard::render_instance(
     nglMesh *mesh,
     int *num_quads,
-    unsigned int flavor,
+    render_flavor_t flavor,
     instance_render_info *info,
     short *lookup
 ) {
-    billboard_vtable *table = vtable;
-    table->render_batch(
-        (char *)this + table->adjustment,
-        mesh,
-        num_quads,
-        flavor,
-        info,
-        1,
-        lookup
-    );
+    render_batch(mesh, num_quads, flavor, info, 1, lookup);
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002C10F8)
 // 0x002C10F8 render_instance__12vr_billboardUiP20instance_render_infoPs
-struct instance_render_info;
-
-struct billboard_vtable {
-    char padding[0xa8];
-    short adjustment;
-    short padding2;
-    void (*render_batch)(
-        void *self,
-        unsigned int flavor,
-        instance_render_info *info,
-        int enabled,
-        short *lookup
-    );
-};
-
-class vr_billboard {
-    char padding[0x10];
-    billboard_vtable *vtable;
-
-public:
-    void render_instance(
-        unsigned int flavor,
-        instance_render_info *info,
-        short *lookup
-    );
-};
+#include "KS/SRC/billboard.h"
 
 void vr_billboard::render_instance(
-    unsigned int flavor,
+    render_flavor_t flavor,
     instance_render_info *info,
     short *lookup
 ) {
-    billboard_vtable *table = vtable;
-    table->render_batch(
-        (char *)this + table->adjustment,
-        flavor,
-        info,
-        1,
-        lookup
-    );
+    render_batch(flavor, info, 1, lookup);
 }
 #endif
 
