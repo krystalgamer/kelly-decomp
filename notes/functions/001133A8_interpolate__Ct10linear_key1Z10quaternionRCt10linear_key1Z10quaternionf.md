@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size48-ai-core.cpp` |
 
 ### Attempt 1 notes
 
-A symbol-preserving explicit hidden-return bridge passes each key's quaternion at offset 0x4 to the released `slerp` helper and returns the output object.
+The shared linear-key and quaternion declarations pass both key values to the
+released `slerp` helper and preserve the hidden return.
 
 ## Outcome
 
-The released quaternion linear-key interpolation matched exactly on the first attempt.
+The local hidden-return bridge was removed.

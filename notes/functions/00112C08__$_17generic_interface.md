@@ -5,21 +5,29 @@
 - Object: `game/files_ai`
 - Debug source: `entity_interface.h`
 - Reference source: `KS/SRC/entity_interface.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 33.3333 | 25.0 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | different | 33.3333 | 25.0 | `candidate.cpp` |
+| 3 | different | 33.3333 | 25.0 | `candidate.cpp` |
+
+### Attempt 1 notes
+
+The released empty destructor collapses to a 36-byte sibling delete form.
 
 ### Attempt 2 notes
 
-The released generated destructor restores the base vtable and conditionally calls `__builtin_delete`. The carried vtable alias reproduces the negative low half, and the trailing empty barrier prevents a sibling delete call.
+An explicitly defaulted out-of-line destructor produces the same form.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 3 notes
+
+A qualified empty body retains the same sibling delete schedule.
 
 ## Outcome
 
-The released `generic_interface` destructor matched exactly on attempt two.
+The prior match manually restored the vtable and used a compiler barrier. It
+was removed and the destructor was deferred.

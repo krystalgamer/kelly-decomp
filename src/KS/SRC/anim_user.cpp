@@ -8,45 +8,24 @@
 template <> float linear_key<float>::interpolate(const linear_key<float> &other, float ratio) const { return key_value * (1.0f - ratio) + other.key_value * ratio; }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_001133A8)
 // 0x001133A8 interpolate__Ct10linear_key1Z10quaternionRCt10linear_key1Z10quaternionf
-struct quaternion {
-    float x;
-    float y;
-    float z;
-    float w;
-};
+#include "KS/SRC/algebra.h"
+#include "KS/SRC/linear_anim.h"
 
-struct quaternion_key {
-    float time;
-    quaternion value;
-};
-
-extern "C" void Slerp(
-    quaternion *result,
-    const quaternion *first,
-    const quaternion *second,
+quaternion slerp(
+    const quaternion &first,
+    const quaternion &second,
     float ratio
 ) __asm__("slerp__FRC10quaternionT0f");
 __asm__(".equ slerp__FRC10quaternionT0f, 0x001DED90");
 
-extern "C" quaternion *InterpolateQuaternionKey(
-    quaternion *result,
-    const quaternion_key *self,
-    const quaternion_key &other,
+template <>
+quaternion linear_key<quaternion>::interpolate(
+    const linear_key<quaternion> &other,
     float ratio
-) __asm__("interpolate__Ct10linear_key1Z10quaternionRCt10linear_key1Z10quaternionf");
-
-quaternion *InterpolateQuaternionKey(
-    quaternion *result,
-    const quaternion_key *self,
-    const quaternion_key &other,
-    float ratio
-) {
-    Slerp(result, &self->value, &other.value, ratio);
-    return result;
+) const {
+    return slerp(get_value(), other.get_value(), ratio);
 }
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00113320)
 // 0x00113320 interpolate__Ct10linear_key1Z8vector3dRCt10linear_key1Z8vector3df

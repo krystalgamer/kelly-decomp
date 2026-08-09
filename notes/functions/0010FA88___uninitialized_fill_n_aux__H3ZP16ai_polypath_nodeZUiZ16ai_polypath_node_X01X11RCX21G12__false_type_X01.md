@@ -11,11 +11,12 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size48-ai-core.cpp` |
 
 ### Attempt 1 notes
 
-The canonical old-STL null-guarded placement-fill loop reproduces the target 8-byte `ldl`/`ldr` and `sdl`/`sdr` record copy exactly.
+The shared AI polypath node and canonical null-guarded placement-fill loop
+reproduce the target eight-byte copy.
 
 ## Outcome
 

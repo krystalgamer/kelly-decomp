@@ -2,29 +2,22 @@
 
 
 // 0x0010F060 __uninitialized_fill_n_aux__H3ZPQ211render_data11entity_infoZUiZQ211render_data11entity_info_X01X11RCX21G12__false_type_X01
-inline void *operator new(unsigned int, void *place) {
-    return place;
-}
+#include "KS/SRC/render_data.h"
 
-struct value8 {
-    int first;
-    int second;
-};
-
-extern "C" value8 *UninitializedFill(
-    value8 *first,
+extern "C" render_data::entity_info *UninitializedFill(
+    render_data::entity_info *first,
     unsigned int count,
-    const value8 &value
+    const render_data::entity_info &value
 ) __asm__("__uninitialized_fill_n_aux__H3ZPQ211render_data11entity_infoZUiZQ211render_data11entity_info_X01X11RCX21G12__false_type_X01");
 
-value8 *UninitializedFill(
-    value8 *first,
+render_data::entity_info *UninitializedFill(
+    render_data::entity_info *first,
     unsigned int count,
-    const value8 &value
+    const render_data::entity_info &value
 ) {
     while (count) {
         if (first) {
-            new (first) value8(value);
+            new (first) render_data::entity_info(value);
         }
         --count;
         ++first;
@@ -33,29 +26,22 @@ value8 *UninitializedFill(
 }
 
 // 0x0010FA88 __uninitialized_fill_n_aux__H3ZP16ai_polypath_nodeZUiZ16ai_polypath_node_X01X11RCX21G12__false_type_X01
-inline void *operator new(unsigned int, void *place) {
-    return place;
-}
+#include "KS/SRC/ai_polypath_cell.h"
 
-struct value8 {
-    int first;
-    int second;
-};
-
-extern "C" value8 *UninitializedFill(
-    value8 *first,
+extern "C" ai_polypath_node *UninitializedFill(
+    ai_polypath_node *first,
     unsigned int count,
-    const value8 &value
+    const ai_polypath_node &value
 ) __asm__("__uninitialized_fill_n_aux__H3ZP16ai_polypath_nodeZUiZ16ai_polypath_node_X01X11RCX21G12__false_type_X01");
 
-value8 *UninitializedFill(
-    value8 *first,
+ai_polypath_node *UninitializedFill(
+    ai_polypath_node *first,
     unsigned int count,
-    const value8 &value
+    const ai_polypath_node &value
 ) {
     while (count) {
         if (first) {
-            new (first) value8(value);
+            new (first) ai_polypath_node(value);
         }
         --count;
         ++first;
