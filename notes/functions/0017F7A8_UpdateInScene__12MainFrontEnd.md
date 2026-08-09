@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released active-menu null guard and virtual UpdateInScene dispatch matched exactly with `active` at offset 0x60 and UpdateInScene at virtual slot 0x5c.
+The released active-menu null guard and virtual `UpdateInScene` dispatch use the
+shared frontend hierarchy.
 
 ## Outcome
 
-The released main-frontend scene-update forwarding matched exactly on the first attempt.
+The manual menu/vtable layout and symbol wrapper were removed; the released
+forwarding remains exact.

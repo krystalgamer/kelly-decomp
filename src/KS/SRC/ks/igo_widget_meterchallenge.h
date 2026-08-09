@@ -4,6 +4,8 @@
 #include "KS/SRC/ks/FEPanel.h"
 #include "KS/SRC/ks/igo_widget.h"
 
+#pragma interface
+
 class MeterChallengeWidget : public IGOWidget {
     PanelQuad *objectRoot;
     TextString *Text;
@@ -12,6 +14,7 @@ class MeterChallengeWidget : public IGOWidget {
     int fadeDir;
 
 public:
+    void SetDisplay(bool value = true);
     void Hide(bool fade_out = true);
 };
 

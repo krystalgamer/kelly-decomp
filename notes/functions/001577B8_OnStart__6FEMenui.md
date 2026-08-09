@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released active-submenu null guard and virtual OnStart dispatch matched exactly with `active` at offset 0x60, the submenu vtable at 0x74, and OnStart at virtual slot 0x94.
+The released active-submenu null guard and virtual `OnStart` dispatch use the
+shared menu hierarchy.
 
 ## Outcome
 
-The released FE menu start-button forwarding matched exactly on the first attempt.
+The manual menu/vtable layout was removed; the released forwarding remains
+exact.

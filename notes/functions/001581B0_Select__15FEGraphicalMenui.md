@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released active-submenu branch matched exactly with `active` at offset 0x60 and Select at virtual slot 0x12c. The empty base fallback emits no target instructions in this build.
+The released active-submenu branch uses the shared menu hierarchy. The empty
+base fallback emits no target instructions in this build.
 
 ## Outcome
 
-The released graphical-menu selection forwarding matched exactly on the first attempt.
+The manual menu/vtable layout was removed; the released forwarding remains
+exact.

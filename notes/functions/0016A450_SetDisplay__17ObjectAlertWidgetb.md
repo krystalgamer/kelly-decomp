@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released base SetDisplay call followed by the inherited display assignment matched exactly.
+The released base `SetDisplay` call followed by the inherited display
+assignment uses the shared IGO widget hierarchy.
 
 ## Outcome
 
-The released object-alert display setter matched exactly on the first attempt.
+The released object-alert display setter remains exact through the shared
+declaration.

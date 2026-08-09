@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released base SetDisplay call followed by the inherited display assignment matched exactly.
+The released base `SetDisplay` call and inherited display assignment use the
+shared IGO widget hierarchy.
 
 ## Outcome
 
-The released meter-challenge display setter matched exactly on the first attempt.
+The local base-class layout was removed; the released setter remains exact.

@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released child null guard and virtual Slide dispatch matched exactly with `children` at offset 0x6c, the child vtable at 0x78, and Slide at virtual slot 0x54.
+The released child null guard and virtual `Slide` dispatch use the shared panel
+geometry hierarchy.
 
 ## Outcome
 
-The released panel-geometry slide propagation matched exactly on the first attempt.
+The manual child/vtable layout was removed; the released propagation remains
+exact.

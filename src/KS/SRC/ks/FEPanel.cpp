@@ -295,63 +295,21 @@ void PanelGeom::Reload()
 }
 
 // 0x00150030 Update__9PanelGeomf
-struct panel_geom_vtable {
-    char padding[0x48];
-    short adjustment;
-    short padding2;
-    void (*update)(void *self, float time);
-};
-
-struct panel_geom_child {
-    char padding[0x78];
-    panel_geom_vtable *vtable;
-};
-
-class PanelGeom {
-    char padding[0x6C];
-    panel_geom_child *children;
-
-public:
-    void Update(float time);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void PanelGeom::Update(float time)
 {
-    panel_geom_child *child = children;
-    if (child) {
-        panel_geom_vtable *table = child->vtable;
-        table->update((char *)child + table->adjustment, time);
-    }
+    if (children)
+        children->Update(time);
 }
 
 // 0x00150068 Slide__9PanelGeomf
-struct panel_geom_vtable {
-    char padding[0x50];
-    short adjustment;
-    short padding2;
-    void (*slide)(void *self, float offset);
-};
-
-struct panel_geom_child {
-    char padding[0x78];
-    panel_geom_vtable *vtable;
-};
-
-class PanelGeom {
-    char padding[0x6C];
-    panel_geom_child *children;
-
-public:
-    void Slide(float offset);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void PanelGeom::Slide(float offset)
 {
-    panel_geom_child *child = children;
-    if (child) {
-        panel_geom_vtable *table = child->vtable;
-        table->slide((char *)child + table->adjustment, offset);
-    }
+    if (children)
+        children->Slide(offset);
 }
 
 // 0x001533B8 ReadLong__FPUcRi

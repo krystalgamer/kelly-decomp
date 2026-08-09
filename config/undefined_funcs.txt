@@ -16,6 +16,7 @@ _$_14time_interface = 0x144458;
 _$_15owner_interface = 0x145D58;
 _$_15slave_interface = 0x145DE0;
 _$_16render_interface = 0x145F98;
+Find__16PanelAnimManagerR13PanelAnimFile = 0x1556D8;
 set_blend__16entity_anim_treeff = 0x1185C8;
 getPercentage__13PreformatText = 0x14C918;
 _$_18SpecialMeterWidget = 0x166B08;

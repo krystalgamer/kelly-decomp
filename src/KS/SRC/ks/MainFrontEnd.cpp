@@ -153,32 +153,12 @@ void MultiplayerMenu::Update(float dt) {
 }
 
 // 0x0017F7A8 UpdateInScene__12MainFrontEnd
-struct menu_vtable {
-    char padding[0x58];
-    short adjustment;
-    short padding2;
-    void (*update_in_scene)(void *self);
-};
+#include "KS/SRC/ks/MainFrontEnd.h"
 
-struct menu_layout {
-    char padding[0x74];
-    menu_vtable *vtable;
-};
-
-struct main_update_scene_layout {
-    char padding[0x60];
-    menu_layout *active;
-};
-
-extern "C" void update_main_scene(main_update_scene_layout *self)
-    __asm__("UpdateInScene__12MainFrontEnd");
-void update_main_scene(main_update_scene_layout *self)
+void MainFrontEnd::UpdateInScene()
 {
-    menu_layout *menu = self->active;
-    if (menu) {
-        menu_vtable *table = menu->vtable;
-        table->update_in_scene((char *)menu + table->adjustment);
-    }
+    if (active)
+        active->UpdateInScene();
 }
 
 // 0x00183FE8 OnTriangle__15MultiplayerMenui

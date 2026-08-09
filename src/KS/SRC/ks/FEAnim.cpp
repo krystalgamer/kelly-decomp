@@ -7,37 +7,6 @@
 __asm__(".equ FindObject__9PanelAnimPc, 0x00155108");
 PanelAnim *PanelAnimFile::FindObject(char *name) { PanelAnim *result = 0; if (obs) result = obs->FindObject(name); return result; }
 
-#if defined(KELLY_DECOMP_FUNCTION_001556D8)
-// 0x001556D8 Find__16PanelAnimManagerR13PanelAnimFile
-class PanelAnimFile;
-
-struct PanelAnimEvent {
-    char padding0[0x0C];
-    PanelAnimEvent *next;
-    char padding1[0x54];
-    PanelAnimFile *animation;
-};
-
-class PanelAnimManager {
-    PanelAnimEvent eventlist;
-
-public:
-    PanelAnimEvent *Find(PanelAnimFile &animation);
-};
-
-PanelAnimEvent *PanelAnimManager::Find(PanelAnimFile &animation)
-{
-    PanelAnimEvent *current_event = eventlist.next;
-    while (current_event) {
-        if (current_event->animation == &animation)
-            return current_event;
-        current_event = current_event->next;
-        __asm__ volatile("nop");
-    }
-    return 0;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00155108)
 // 0x00155108 FindObject__9PanelAnimPc
 extern "C" int strcmp(const char *left, const char *right);

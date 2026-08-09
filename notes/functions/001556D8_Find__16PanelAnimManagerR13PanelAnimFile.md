@@ -5,14 +5,15 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/FEAnim.cpp`
 - Reference source: `KS/SRC/ks/FEAnim.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 61.5385 | 53.8462 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | different | 61.5385 | 53.8462 | `candidate.cpp` |
+| 3 | different | 61.5385 | 53.8462 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
@@ -20,8 +21,10 @@ Used the released linked-list search with recovered `next` and `animation` offse
 
 ### Attempt 2 notes
 
-The released linked-list search matched with `next` at offset 0x0c and `animation` at 0x64. The explicit instruction-emitting nop reproduces the target load-to-branch scheduling gap after advancing to the next event; it emits precisely the otherwise-missing target instruction.
+Native linked-list search forms emit 48 bytes and omit the target's
+load-to-branch scheduling `nop`.
 
 ## Outcome
 
-The released panel-animation event lookup matched exactly with the original list layout.
+The prior exact form inserted a non-released instruction-emitting `nop`.
+That scaffolding was removed and the lookup was deferred.

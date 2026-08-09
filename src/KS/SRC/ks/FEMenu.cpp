@@ -74,63 +74,21 @@ void FEGraphicalMenuEntry::Load(PanelQuad *normal, PanelQuad *highlighted) { pq 
 void FEGraphicalMenuEntry::Load(PanelQuad *normal, PanelAnimFile *animation, PanelAnimManager *manager, PanelQuad *highlighted) { pq = normal; pq->AddedToMenu(); pq_high = highlighted; if (pq_high) pq_high->AddedToMenu(); highlight_paf = animation; pam = manager; }
 
 // 0x001577B8 OnStart__6FEMenui
-struct menu_vtable {
-    char padding[0x90];
-    short adjustment;
-    short padding2;
-    void (*on_start)(void *self, int controller);
-};
-
-struct menu_layout {
-    char padding[0x74];
-    menu_vtable *vtable;
-};
-
-class FEMenu {
-    char padding[0x60];
-    menu_layout *active;
-
-public:
-    void OnStart(int controller);
-};
+#include "KS/SRC/ks/FEMenu.h"
 
 void FEMenu::OnStart(int controller)
 {
-    menu_layout *menu = active;
-    if (menu) {
-        menu_vtable *table = menu->vtable;
-        table->on_start((char *)menu + table->adjustment, controller);
-    }
+    if (active)
+        active->OnStart(controller);
 }
 
 // 0x001581B0 Select__15FEGraphicalMenui
-struct menu_vtable {
-    char padding[0x128];
-    short adjustment;
-    short padding2;
-    void (*select)(void *self, int entry);
-};
-
-struct menu_layout {
-    char padding[0x74];
-    menu_vtable *vtable;
-};
-
-class FEGraphicalMenu {
-    char padding[0x60];
-    menu_layout *active;
-
-public:
-    void Select(int entry);
-};
+#include "KS/SRC/ks/FEMenu.h"
 
 void FEGraphicalMenu::Select(int entry)
 {
-    menu_layout *menu = active;
-    if (menu) {
-        menu_vtable *table = menu->vtable;
-        table->select((char *)menu + table->adjustment, entry);
-    }
+    if (active)
+        active->Select(entry);
 }
 
 // 0x001569B0 Select__6FEMenu
