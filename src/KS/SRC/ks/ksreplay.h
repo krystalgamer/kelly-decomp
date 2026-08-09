@@ -79,6 +79,7 @@ public:
     float Playspeed();
     void Tick(bool running, float time_inc);
     void Pause(bool paused);
+    void Play();
     void Stop();
     void SaveFile(char *filename);
     bool IsPlaying();

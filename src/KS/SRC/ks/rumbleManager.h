@@ -32,6 +32,7 @@ public:
     float rumbleFreqs[RUMBLE_STATE_END];
 
     void toggleDrawState() { drawState = !drawState; }
+    void writeLevels();
     bool isOn(int controller);
     void turnOn(bool enabled, int controller);
 

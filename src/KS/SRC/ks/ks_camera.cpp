@@ -667,10 +667,6 @@ void replay_camera::reset() { rc = 13; rcr = 6; regionChangeTime = 0.0f; regionC
 
 bool flyby_camera::is_finished() { return current_anim_time >= animation->totalseconds; }
 
-// 0x00229F68 Init_Filter__12float_filterf
-class float_filter { float Pos[2]; float err[2]; public: void Init_Filter(float start); };
-void float_filter::Init_Filter(float start) { float *value = Pos; int index = 1; __asm__ volatile("nop"); loop: value[0] = start; --index; value[2] = 0.0f; KELLY_DECOMP_COMPILER_BARRIER(); KELLY_DECOMP_COMPILER_BARRIER(); if (index >= 0) { ++value; goto loop; } ++value; }
-
 // 0x0022E718 __12beach_cameraRC9entity_idP6entityP22kellyslater_controller
 class entity_id;
 class entity;

@@ -9,6 +9,20 @@ class kellyslater_controller;
 class PanelAnimFile;
 class PanelAnim;
 
+class float_filter {
+public:
+    void Filter_Float(
+        float &filtered_float,
+        float time_step,
+        float filter_speed_r,
+        float filter_speed_i = 1000000.0f);
+    void Init_Filter(float start);
+
+private:
+    float Pos[2];
+    float err[2];
+};
+
 class debug_camera : public game_camera {
 public:
     debug_camera(const entity_id &id, entity *target = 0);

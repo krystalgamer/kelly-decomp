@@ -11,11 +11,11 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-movie-menu-core.cpp` |
 
 ### Attempt 1 notes
 
-The released callback invokes rumble levels on the target global object only for the cross-button command.
+The shared rumble manager declaration naturally emits the cross-button call.
 
 ## Outcome
 

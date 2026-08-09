@@ -77,28 +77,26 @@ bool ReplayRewButton(MenuEntry* entry, int buttonid) {
 bool ToggleShowRumble(MenuEntry *entry, int button) { if (button == MENUCMD_CROSS) rumbleMan.toggleDrawState(); return true; }
 
 // 0x00236600 WriteRumbleButton__FP9MenuEntryi
-class MenuEntry;
-extern char callback_object[];
-void CallbackMethod(void *self) __asm__("writeLevels__13rumbleManager");
-__asm__(".equ callback_object, 0x004253C0");
+#include "KS/SRC/ks/ksdbmenu.h"
+#include "KS/SRC/ks/rumbleManager.h"
+
+__asm__(".equ rumbleMan, 0x004253C0");
 __asm__(".equ writeLevels__13rumbleManager, 0x00242810");
-bool WriteRumbleButton(MenuEntry *entry, int button) { if (button == 7) CallbackMethod(callback_object); return true; }
+bool WriteRumbleButton(MenuEntry *entry, int button) { if (button == 7) rumbleMan.writeLevels(); return true; }
 
 // 0x00236658 ReplayPlayButton__FP9MenuEntryi
-class MenuEntry;
-extern char callback_object[];
-void CallbackMethod(void *self) __asm__("Play__8KSReplay");
-__asm__(".equ callback_object, 0x004252A8");
+#include "KS/SRC/ks/ksdbmenu.h"
+#include "KS/SRC/ks/ksreplay.h"
+
 __asm__(".equ Play__8KSReplay, 0x0023C6A0");
-bool ReplayPlayButton(MenuEntry *entry, int button) { if (button == 7) CallbackMethod(callback_object); return true; }
+bool ReplayPlayButton(MenuEntry *entry, int button) { if (button == 7) ksreplay.Play(); return true; }
 
 // 0x00236698 ReplaySlowButton__FP9MenuEntryi
-class MenuEntry;
-extern char callback_object[];
-void CallbackMethod(void *self) __asm__("SpeedSlow__8KSReplay");
-__asm__(".equ callback_object, 0x004252A8");
+#include "KS/SRC/ks/ksdbmenu.h"
+#include "KS/SRC/ks/ksreplay.h"
+
 __asm__(".equ SpeedSlow__8KSReplay, 0x0023CA38");
-bool ReplaySlowButton(MenuEntry *entry, int button) { if (button == 7) CallbackMethod(callback_object); return true; }
+bool ReplaySlowButton(MenuEntry *entry, int button) { if (button == 7) ksreplay.SpeedSlow(); return true; }
 
 // 0x002367C0 ReplayRestartButton__FP9MenuEntryi
 class MenuEntry;
