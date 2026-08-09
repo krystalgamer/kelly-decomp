@@ -105,10 +105,8 @@ void TextString::setHJustify(Font::HORIZJUST justify) {
 }
 
 // 0x00151368 eq_to_tolerance__10PanelBatchfff
-class PanelBatch {
-public:
-    bool eq_to_tolerance(float, float, float);
-};
+#include "KS/SRC/ks/FEPanel.h"
+
 bool PanelBatch::eq_to_tolerance(float a, float b, float tolerance)
 {
     if (a >= b)
@@ -396,31 +394,18 @@ void FloatingPQ::SetConstantScale(float s)
 // Matching decompilation blocks selected by generated build shims.
 
 // 0x001495F0 Break__10RandomText
+#include "KS/SRC/ks/FEPanel.h"
+
 __asm__(".equ Break__10StringList, 0x00147EE0");
-struct StringList { char padding[1]; void Break(); };
-struct RandomTextVTable {
-    char padding[304];
-    short adjustment;
-    short reserved;
-    void (*make_rand)(void*);
-};
-class RandomText {
-    char padding0[76];
-    RandomTextVTable* vtable;
-    int isRand;
-    char padding1[4];
-    StringList rand_string;
-public:
-    void Break();
-};
+extern "C" void break_random_string(StringList *list)
+    __asm__("Break__10StringList");
+
 void RandomText::Break()
 {
-    if (!isRand) {
-        void* self = (char*)this + vtable->adjustment;
-        vtable->make_rand(self);
-    }
-    rand_string.Break();
-    KELLY_DECOMP_COMPILER_BARRIER();
+    if (!isRand)
+        makeRand();
+    void (*break_string)(StringList *) = break_random_string;
+    break_string(&rand_string);
 }
 
 // 0x001484A8 ChangeFade__10TextStringbT1f

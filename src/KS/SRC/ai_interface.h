@@ -29,6 +29,13 @@ public:
         const pstring &attribute,
         const stringx &value);
     void set_current_path_graph(path_graph *graph);
+    void goto_position(
+        const vector3d &position,
+        float radius,
+        bool running,
+        bool path_find,
+        bool force_finish);
+    void push_disable();
     void pop_disable();
 };
 

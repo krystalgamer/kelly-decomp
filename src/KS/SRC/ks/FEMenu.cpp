@@ -118,29 +118,12 @@ void FrontEnd::Update(float time)
 // Matching decompilation blocks selected by generated build shims.
 
 // 0x00158090 Init__15FEGraphicalMenu
-struct FEMenuEntry {};
-struct FEGraphicalMenuVTable {
-    char padding[24];
-    short adjustment;
-    short reserved;
-    void (*setHigh)(void*, FEMenuEntry*, bool);
-};
-class FEGraphicalMenu {
-    char padding0[24];
-    int init;
-    char padding1[36];
-    FEMenuEntry* entries;
-    char padding2[48];
-    FEGraphicalMenuVTable* vtable;
-public:
-    void Init();
-};
+#include "KS/SRC/ks/FEMenu.h"
+
 void FEGraphicalMenu::Init()
 {
-    if (entries) {
-        void* self = (char*)this + vtable->adjustment;
-        vtable->setHigh(self, entries, true);
-    }
+    if (entries)
+        setHigh(entries, true);
     init = true;
 }
 

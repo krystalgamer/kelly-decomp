@@ -691,9 +691,9 @@ void entity::destroy_time_ifc()
 
 // 0x00139B28 num_mesh_bones__6entity
 #include "KS/SRC/entity.h"
+#include "NGL/PS2/ngl_ps2.h"
 
 __asm__(".equ has_mesh__6entity, 0x00139AF8");
-struct nglMesh { char padding[76]; int NBones; };
 int entity::num_mesh_bones()
 {
     if (!has_mesh())

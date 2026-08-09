@@ -226,6 +226,7 @@ public:
 
     void MakeRand();
     void Update(float time_inc);
+    void Break();
     StringList &operator=(const StringList &other);
 };
 
@@ -237,8 +238,9 @@ protected:
 
 public:
     virtual void Update(float time_inc);
-    void makeRand();
-    void unmakeRand();
+    virtual void makeRand();
+    virtual void unmakeRand();
+    void Break();
 };
 
 class TrickBoxText : public RandomText {
@@ -407,6 +409,9 @@ public:
     virtual ~PanelBatch();
     void Update(time_value_t time_inc);
     void Reload(PanelMaterial *materials);
+
+private:
+    bool eq_to_tolerance(float a, float b, float tolerance);
 };
 
 class PanelText : public PanelGeom {
