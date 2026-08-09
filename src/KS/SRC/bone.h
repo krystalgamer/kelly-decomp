@@ -8,6 +8,8 @@
 class sector;
 
 class bone : public signaller {
+    friend class skeleton_interface;
+
 protected:
     po my_rel_po;
     po *my_abs_po;
@@ -23,6 +25,9 @@ public:
     virtual int get_bone_idx();
     virtual void po_changed();
     link_interface *create_link_ifc();
+    inline void set_part_of_skeleton(bool value) {
+        is_part_of_skeleton = value;
+    }
     void destroy_link_ifc();
 
     inline bool has_link_ifc() const {

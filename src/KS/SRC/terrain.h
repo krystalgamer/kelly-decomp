@@ -18,6 +18,30 @@ public:
 };
 
 class partition3 : public hyperplane<vector3d> {
+public:
+    class faceref {
+        unsigned short region_idx;
+        unsigned short face_idx;
+
+    public:
+        faceref()
+          : region_idx((unsigned short)-1)
+        {
+        }
+        faceref(unsigned short region, unsigned short face)
+          : region_idx(region),
+            face_idx(face)
+        {
+        }
+        inline bool valid() const {
+            return region_idx != (unsigned short)-1;
+        }
+        inline unsigned short get_face_ref() const {
+            return face_idx;
+        }
+    };
+
+private:
     sector *my_sector;
 
 public:

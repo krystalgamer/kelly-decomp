@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released null guard and virtual `po_anim::set_time` dispatch matched exactly with `po_anim_ptr` at offset 0x0c and the virtual slot at 0x24.
+The released null guard and virtual `po_anim::set_time` dispatch use the shared
+animation hierarchy.
 
 ## Outcome
 
-The released entity-animation time setter matched exactly on the first attempt.
+The manual vtable-slot layout was removed; the released setter remains exact.

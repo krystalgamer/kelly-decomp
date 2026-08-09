@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released bone connection matched exactly with 0x40-byte poses, skeleton pose arrays at offsets 0x8/0xc, bone pose pointers at 0x50/0x54, and the skeleton-membership flag at 0x64.
+The released bone connection uses the shared skeleton, bone, and pose
+declarations.
 
 ## Outcome
 
-The released skeleton bone absolute-pose connector matched exactly on the first attempt.
+The local bone and pose layouts were removed; the released connector remains
+exact.

@@ -50,29 +50,22 @@ ai_polypath_node *UninitializedFill(
 }
 
 // 0x0010EBB8 __uninitialized_copy_aux__H2ZPQ211render_data11entity_infoZPQ211render_data11entity_info_X01X01X11G12__false_type_X11
-inline void *operator new(unsigned int, void *place) {
-    return place;
-}
+#include "KS/SRC/render_data.h"
 
-struct entity_info {
-    int first;
-    int second;
-};
-
-extern "C" entity_info *UninitializedCopy(
-    entity_info *first,
-    entity_info *last,
-    entity_info *result
+extern "C" render_data::entity_info *UninitializedCopy(
+    render_data::entity_info *first,
+    render_data::entity_info *last,
+    render_data::entity_info *result
 ) __asm__("__uninitialized_copy_aux__H2ZPQ211render_data11entity_infoZPQ211render_data11entity_info_X01X01X11G12__false_type_X11");
 
-entity_info *UninitializedCopy(
-    entity_info *first,
-    entity_info *last,
-    entity_info *result
+render_data::entity_info *UninitializedCopy(
+    render_data::entity_info *first,
+    render_data::entity_info *last,
+    render_data::entity_info *result
 ) {
     while (first != last) {
         if (result) {
-            new (result) entity_info(*first);
+            new (result) render_data::entity_info(*first);
         }
         ++first;
         ++result;
@@ -81,29 +74,22 @@ entity_info *UninitializedCopy(
 }
 
 // 0x0010FA20 __uninitialized_copy_aux__H2ZP16ai_polypath_nodeZP16ai_polypath_node_X01X01X11G12__false_type_X11
-inline void *operator new(unsigned int, void *place) {
-    return place;
-}
+#include "KS/SRC/ai_polypath_cell.h"
 
-struct value8 {
-    int first;
-    int second;
-};
-
-extern "C" value8 *UninitializedCopy(
-    value8 *first,
-    value8 *last,
-    value8 *result
+extern "C" ai_polypath_node *UninitializedCopy(
+    ai_polypath_node *first,
+    ai_polypath_node *last,
+    ai_polypath_node *result
 ) __asm__("__uninitialized_copy_aux__H2ZP16ai_polypath_nodeZP16ai_polypath_node_X01X01X11G12__false_type_X11");
 
-value8 *UninitializedCopy(
-    value8 *first,
-    value8 *last,
-    value8 *result
+ai_polypath_node *UninitializedCopy(
+    ai_polypath_node *first,
+    ai_polypath_node *last,
+    ai_polypath_node *result
 ) {
     while (first != last) {
         if (result) {
-            new (result) value8(*first);
+            new (result) ai_polypath_node(*first);
         }
         ++first;
         ++result;
@@ -112,28 +98,23 @@ value8 *UninitializedCopy(
 }
 
 // 0x001107F0 __uninitialized_copy_aux__H2ZPQ210partition37facerefZPQ210partition37faceref_X01X01X11G12__false_type_X11
-inline void *operator new(unsigned int, void *place) {
-    return place;
-}
+#include "KS/SRC/archalloc.h"
+#include "KS/SRC/terrain.h"
 
-struct faceref {
-    char bytes[4];
-};
-
-extern "C" faceref *UninitializedCopy(
-    faceref *first,
-    faceref *last,
-    faceref *result
+extern "C" partition3::faceref *UninitializedCopy(
+    partition3::faceref *first,
+    partition3::faceref *last,
+    partition3::faceref *result
 ) __asm__("__uninitialized_copy_aux__H2ZPQ210partition37facerefZPQ210partition37faceref_X01X01X11G12__false_type_X11");
 
-faceref *UninitializedCopy(
-    faceref *first,
-    faceref *last,
-    faceref *result
+partition3::faceref *UninitializedCopy(
+    partition3::faceref *first,
+    partition3::faceref *last,
+    partition3::faceref *result
 ) {
     while (first != last) {
         if (result) {
-            new (result) faceref(*first);
+            new (result) partition3::faceref(*first);
         }
         ++first;
         ++result;

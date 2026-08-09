@@ -215,45 +215,27 @@ device_id_t AISurferController::get_id() const {
 }
 
 // 0x00112D30 get_name__C18AISurferController
-class stringx {
-    char *chars;
-    void *my_buf;
-
-public:
-    stringx(const char *text, int length = -1);
-    ~stringx();
-};
+#include "KS/SRC/AIController.h"
 
 __asm__(".equ __7stringxPCci, 0x0034D438");
 
 extern const char ai_controller_name[];
 __asm__(".equ ai_controller_name, 0x004B78E8");
 
-extern "C" stringx ai_get_name(const void *self)
-    __asm__("get_name__C18AISurferController");
-stringx ai_get_name(const void *self)
+stringx AISurferController::get_name() const
 {
     return stringx(ai_controller_name);
 }
 
 // 0x00112D68 get_name__C18AISurferControlleri
-class stringx {
-    char *chars;
-    void *my_buf;
-
-public:
-    stringx(const char *text, int length = -1);
-    ~stringx();
-};
+#include "KS/SRC/AIController.h"
 
 __asm__(".equ __7stringxPCci, 0x0034D438");
 
 extern const char ai_controller_axis_name[];
 __asm__(".equ ai_controller_axis_name, 0x004B78F8");
 
-extern "C" stringx ai_get_axis_name(const void *self, int axis)
-    __asm__("get_name__C18AISurferControlleri");
-stringx ai_get_axis_name(const void *self, int axis)
+stringx AISurferController::get_name(int axis) const
 {
     return stringx(ai_controller_axis_name);
 }

@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released clear operation matched exactly across both animation-control flag words and the base entity-animation halfword.
+The released clear operation uses the shared animation controls and base
+animation flag method.
 
 ## Outcome
 
-The released entity-animation-tree flag clearer matched exactly on the first attempt.
+The local offset layouts were removed; the released flag clearer remains
+exact.

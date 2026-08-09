@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The canonical old-STL null-guarded placement-copy loop reproduces the packed four-byte `lwl`/`lwr` and `swl`/`swr` faceref transfer exactly.
+The canonical old-STL placement-copy loop uses the shared
+`partition3::faceref` declaration.
 
 ## Outcome
 
-The released partition faceref uninitialized-copy helper matched exactly on the first attempt.
+The packed byte stand-in was removed; the released helper remains exact.

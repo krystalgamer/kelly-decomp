@@ -114,6 +114,7 @@ public:
 
     void detach();
     void set_po_anim(po_anim *animation);
+    virtual void set_time(float time);
 
     static bool meminit;
     static bool *allocated;
@@ -184,6 +185,7 @@ public:
     void detach();
     void attach();
     virtual void set_flag(anim_flags_t flag);
+    virtual void clear_flag(anim_flags_t flag);
     void set_timescale_factor(float factor);
     void set_priority(int value);
     void construct(

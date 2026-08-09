@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released inline axis-name getter matched exactly with the real two-pointer `stringx` hidden-return ABI and the original `ai_player_ctlr_axis` literal address.
+The released member getter uses the shared AI controller and `stringx`
+declarations with the original axis-name literal.
 
 ## Outcome
 
-The released AI controller axis-name getter matched exactly on the first attempt.
+The local ABI model and symbol wrapper were removed; the released getter
+remains exact.

@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The canonical old-STL null-guarded placement-copy loop reproduces the target eight-byte `ldl`/`ldr` and `sdl`/`sdr` record transfer exactly.
+The canonical old-STL placement-copy loop uses the shared
+`render_data::entity_info` declaration.
 
 ## Outcome
 
-The released entity-info uninitialized-copy helper matched exactly on the first attempt.
+The integer stand-in was removed; the released helper remains exact.

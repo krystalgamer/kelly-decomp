@@ -25,8 +25,10 @@ Added one pointer field and the nontrivial destructor. The four-byte aggregate s
 
 ### Attempt 3 notes
 
-The released inline getter matched exactly after preserving the real two-pointer `stringx` layout, which makes EE GCC construct directly into the hidden return object. The literal alias carries the original `ai_player_ctlr` address.
+The released member getter uses the shared AI controller and two-pointer
+`stringx` declarations, constructing directly into the hidden return object.
 
 ## Outcome
 
-The released AI controller name getter matched exactly with the recovered stringx return ABI.
+The local ABI model and symbol wrapper were removed; the released getter
+remains exact.
