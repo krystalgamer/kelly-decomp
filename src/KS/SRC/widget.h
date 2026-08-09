@@ -13,6 +13,7 @@ typedef float time_value_t;
 
 class widget;
 class wevent;
+class typeface_def;
 
 typedef list<widget *> widget_list_t;
 typedef list<wevent *> wevent_list_t;
@@ -248,12 +249,19 @@ public:
 };
 
 class text_widget : public widget {
+    typeface_def *text_font;
+    stringx m_tout;
+    stringx prelocalized_text;
+    rational_t rhw;
+    rational_t z;
+
 public:
     virtual ~text_widget();
     virtual void show();
     virtual void hide();
     virtual void frame_advance(time_value_t time_inc);
     virtual void flush();
+    void set_rhw(rational_t value);
 };
 
 class bitmap_widget : public widget {
@@ -369,6 +377,11 @@ public:
 class vrep_widget : public widget {
     void *vrep;
     rational_t screen_radius;
+    vector3d axis;
+    rational_t ax;
+    rational_t ay;
+    rational_t az;
+    rational_t rps;
 
 public:
     virtual ~vrep_widget();
@@ -376,6 +389,8 @@ public:
     virtual rational_t get_height();
     virtual void update_pos();
     virtual void update_scale();
+    virtual void update_rot();
+    void set_rotation(float x, float y, float z);
 
 protected:
     void update_mat();

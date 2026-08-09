@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released integer deserialization followed by bool normalization matched exactly with the EE compiler's four-byte bool representation.
+The released integer deserialization and bool normalization use the shared
+chunk-file declarations.
 
 ## Outcome
 
-The released bool serial input helper matched exactly on the first attempt.
+The local forward declarations were removed; the released helper remains exact.

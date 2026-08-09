@@ -20,8 +20,9 @@ Modeled widget as an empty base and placed 0x158 bytes of padding in text_widget
 
 ### Attempt 2 notes
 
-The released RHW assignment and active-layer counter decrement matched exactly with the 0x158-byte widget base layout. The layer alias is HI16-adjusted for the real 0x0045b730 global.
+The released RHW assignment and active-layer counter decrement use the shared
+text-widget layout and layer alias.
 
 ## Outcome
 
-The released text-widget RHW setter matched exactly.
+The local padded base layout was removed; the released setter remains exact.

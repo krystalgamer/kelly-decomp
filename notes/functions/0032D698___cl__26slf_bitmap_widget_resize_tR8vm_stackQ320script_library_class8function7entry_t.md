@@ -5,20 +5,22 @@
 - Object: `game/files_script`
 - Debug source: `C:/KS/SRC/script_lib_widget.cpp`
 - Reference source: `KS/SRC/script_lib_widget.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 80.7692 | 76.9231 | `candidate.cpp` |
+| 2 | different | 80.7692 | 76.9231 | `candidate.cpp` |
+| 3 | different | 80.7692 | 76.9231 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
-The released 12-byte SLF_PARMS pop and bitmap resize call matched while preserving SLF macros. Two empty matching barriers enforce the target height/width/widget load order and emit no target instructions.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+Native forms preserve the released resize call but load widget/width/height in
+a different scheduler order.
 
 ## Outcome
 
-The released bitmap_widget::resize script function matched exactly on the first attempt.
+The prior exact form required fixed-register declarations and compiler
+barriers. Those matching-only constructs were removed.

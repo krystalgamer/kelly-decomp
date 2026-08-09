@@ -183,39 +183,10 @@ rational_t widget::get_next_rhw_2d_val()
 }
 
 // 0x00340810 set_rhw__11text_widgetf
-class widget {
-    char padding[0x158];
-
-public:
-    enum rhw_layer_e {
-        RHW0,
-        RHW1,
-        RHW2,
-        RHW3,
-        RHW4,
-        RHW5,
-        RHW6,
-        RHW7,
-        RHW8,
-        RHW9,
-        RHW_OVER_PFE1,
-        RHW_OVER_PFE2,
-        NUM_RHW_LAYERS
-    };
-
-    static rhw_layer_e rhw_2d_layer;
-    static float rhw_2d_val[NUM_RHW_LAYERS];
-};
+#include "KS/SRC/widget.h"
 
 __asm__(".equ _6widget$rhw_2d_layer, 0x0046B730");
 __asm__(".equ _6widget$rhw_2d_val, 0x005A3EB0");
-
-class text_widget : public widget {
-    float rhw;
-
-public:
-    void set_rhw(float value);
-};
 
 void text_widget::set_rhw(float value)
 {
@@ -224,32 +195,14 @@ void text_widget::set_rhw(float value)
 }
 
 // 0x00341978 set_rotation__11vrep_widgetfff
-struct widget_vtable {
-    char padding[0x118];
-    short adjustment;
-    short padding2;
-    void (*update_rot)(void *self);
-};
-
-class vrep_widget {
-    char padding0[0x140];
-    widget_vtable *vtable;
-    char padding1[0x14];
-    float ax;
-    float ay;
-    float az;
-
-public:
-    void set_rotation(float x, float y, float z);
-};
+#include "KS/SRC/widget.h"
 
 void vrep_widget::set_rotation(float x, float y, float z)
 {
     ax = x;
     ay = y;
     az = z;
-    widget_vtable *table = vtable;
-    table->update_rot((char *)this + table->adjustment);
+    update_rot();
 }
 
 // 0x00341788 show__11vrep_widget

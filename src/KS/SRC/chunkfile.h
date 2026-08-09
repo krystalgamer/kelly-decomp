@@ -7,6 +7,7 @@ class chunk_file;
 void serial_in(chunk_file &file, int *value);
 void serial_in(chunk_file &file, unsigned short *value);
 void serial_in(chunk_file &file, unsigned int *value);
+void serial_in(chunk_file &file, bool *value);
 
 class chunk_flavor {
     char flavor[1];

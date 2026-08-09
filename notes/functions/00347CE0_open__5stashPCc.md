@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released local pstring construction (inlined as pack_string) and pstring overload call matched exactly with the recovered 0x20-byte pstring layout.
+The released local `pstring` construction and overload call use the shared stash
+declaration.
 
 ## Outcome
 
-The released stash C-string open wrapper matched exactly on the first attempt.
+The released stash C-string open wrapper remains exact through the shared
+layout.
