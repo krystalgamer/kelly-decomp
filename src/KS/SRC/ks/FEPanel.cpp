@@ -278,66 +278,20 @@ void FloatingPQ::SetBehavior(bool enabled) {
 }
 
 // 0x0014C5D0 DrawLine__13PreformatTextiff
-struct stringx {
-    void *chars;
-    void *buffer;
-};
-
-struct text_vtable {
-    char padding[0x118];
-    short adjustment;
-    short padding2;
-    void (*render)(void *self, stringx *text, float x, float y);
-};
-
-class PreformatText {
-    char padding[0x4C];
-    text_vtable *vtable;
-    stringx *file_head;
-
-public:
-    void DrawLine(int line_num, float x, float y);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void PreformatText::DrawLine(int line_num, float x, float y)
 {
-    text_vtable *table = vtable;
-    table->render(
-        (char *)this + table->adjustment,
-        &file_head[line_num],
-        x,
-        y
-    );
+    Render(&file_head[line_num], x, y);
 }
 
 // 0x0014FC78 Reload__9PanelGeom
-struct panel_geom_vtable {
-    char padding[0x20];
-    short adjustment;
-    short padding2;
-    void (*reload)(void *self);
-};
-
-struct panel_geom_child {
-    char padding[0x78];
-    panel_geom_vtable *vtable;
-};
-
-class PanelGeom {
-    char padding[0x6C];
-    panel_geom_child *children;
-
-public:
-    void Reload();
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void PanelGeom::Reload()
 {
-    panel_geom_child *child = children;
-    if (child) {
-        panel_geom_vtable *table = child->vtable;
-        table->reload((char *)child + table->adjustment);
-    }
+    if (children)
+        children->Reload();
 }
 
 // 0x00150030 Update__9PanelGeomf

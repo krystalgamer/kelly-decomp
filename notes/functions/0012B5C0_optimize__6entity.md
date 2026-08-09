@@ -20,10 +20,9 @@ Used the released visual-representation null/type checks and pmesh shrink call. 
 
 ### Attempt 2 notes
 
-The released pmesh-only optimization matched exactly with `my_visrep` at offset 0x128. The trailing empty barrier prevents EE GCC from replacing `shrink_memory_footprint` with a sibling tail jump.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released pmesh-only optimization uses the shared entity and pmesh
+declarations. A local shrink-function pointer preserves the normal call.
 
 ## Outcome
 
-The released entity optimization method matched exactly with the pmesh shrink call.
+The compiler barrier was removed; the released method remains exact.

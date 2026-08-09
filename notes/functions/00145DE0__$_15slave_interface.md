@@ -5,20 +5,22 @@
 - Object: `game/files_entity`
 - Debug source: `C:/KS/SRC/slave_interface.h`
 - Reference source: `KS/SRC/slave_interface.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 5.7692 | 0.0 | `candidate.cpp` |
+| 2 | different | 5.7692 | 0.0 | `candidate.cpp` |
+| 3 | different | 5.7692 | 0.0 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
-The released empty derived destructor matched through its inlined base cleanup: restoring the generic-interface vtable, clearing `my_entity`, and conditionally deleting. The adjusted vtable alias reproduces the HI16 carry, and the trailing empty barrier preserves the framed call.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+Three native empty-destructor forms collapse to a 20-byte entity-interface
+tail call.
 
 ## Outcome
 
-The released slave-interface destructor matched exactly on the first attempt.
+The target's inlined base cleanup required manual vtable restoration and a
+compiler barrier. Those matching-only constructs were removed.

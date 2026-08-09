@@ -177,6 +177,7 @@ class PreformatText : public TextString {
     int actual_lines;
 
 public:
+    void DrawLine(int line_num, float x, float y);
     float getPercentage();
 };
 

@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released child null guard and virtual Reload dispatch matched exactly with `children` at offset 0x6c, the child vtable at 0x78, and Reload at virtual slot 0x24.
+The released child null guard and virtual `Reload` dispatch use the shared panel
+geometry hierarchy.
 
 ## Outcome
 
-The released panel-geometry reload propagation matched exactly on the first attempt.
+The manual child/vtable layout was removed; the released propagation remains
+exact.

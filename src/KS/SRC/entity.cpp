@@ -447,14 +447,16 @@ bool entity::is_destroyable() const {
 #include "KS/SRC/pmesh.h"
 
 __asm__(".equ shrink_memory_footprint__8vr_pmesh, 0x002D6528");
+void shrink_mesh(vr_pmesh *mesh)
+    __asm__("shrink_memory_footprint__8vr_pmesh");
 
 void entity::optimize()
 {
     if (my_visrep) {
         if (my_visrep->get_type() == VISREP_PMESH) {
             vr_pmesh *mesh = static_cast<vr_pmesh *>(my_visrep);
-            mesh->shrink_memory_footprint();
-            KELLY_DECOMP_COMPILER_BARRIER();
+            void (*shrink)(vr_pmesh *) = shrink_mesh;
+            shrink(mesh);
         }
     }
 }
@@ -468,8 +470,8 @@ __asm__(".equ memset, 0x003D18D0");
 void entity::make_animateable(bool on)
 {
     if (on && anim_trees == 0) {
-        memset(anim_trees, 0, sizeof(anim_trees));
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void *(*clear)(void *, int, unsigned int) = memset;
+        clear(anim_trees, 0, sizeof(anim_trees));
     }
 }
 

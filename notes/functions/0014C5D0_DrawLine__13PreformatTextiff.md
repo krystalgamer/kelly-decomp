@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released line lookup and virtual Render dispatch matched exactly with eight-byte `stringx` records, `file_head` at offset 0x50, and the Render virtual slot at 0x11c.
+The released line lookup and virtual `Render` dispatch use the shared frontend
+text hierarchy.
 
 ## Outcome
 
-The released preformatted-text line draw helper matched exactly on the first attempt.
+The manual vtable-slot layout was removed; the released helper remains exact.
