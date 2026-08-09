@@ -9,6 +9,7 @@ class text_parser {
 public:
     text_parser();
     ~text_parser();
+    void cleanup();
 
     char token[MAXTOKEN];
 

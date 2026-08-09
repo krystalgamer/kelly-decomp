@@ -19,4 +19,4 @@ The standard lazy RTTI initialization matches exactly.
 
 ## Outcome
 
-The standard lazy KSReplay RTTI initialization matches exactly.
+The released RTTI helper was already canonical and remains exact.

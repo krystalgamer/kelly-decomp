@@ -25,8 +25,9 @@ Using the effective reference ABI removed the copy, but independent array pointe
 
 ### Attempt 3 notes
 
-Walking the contiguous released filter arrays from xwPos reproduces the compact two-iteration initialization exactly.
+The shared `vector_filter` declaration preserves the contiguous six-array
+walk and compact two-iteration initialization.
 
 ## Outcome
 
-The contiguous six-array filter initialization matches exactly using the effective vector reference ABI.
+The local vector and filter declarations were removed.

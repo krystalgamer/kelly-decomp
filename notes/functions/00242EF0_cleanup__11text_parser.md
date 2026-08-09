@@ -20,8 +20,9 @@ The released cleanup behavior matched all instructions, but the initial helper d
 
 ### Attempt 2 notes
 
-Binding the helper declaration to the released world-dynamics symbol matches exactly.
+The shared text-parser declaration and released world-dynamics file-release
+symbol preserve the cleanup.
 
 ## Outcome
 
-The released last-value restoration, file release, and script reset match exactly.
+The local parser layout was removed.

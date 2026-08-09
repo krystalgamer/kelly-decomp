@@ -770,8 +770,8 @@ buoy_camera::buoy_camera(const entity_id &id, entity *target)
 }
 
 // 0x00229D18 Init_Filter__13vector_filterG8vector3d
-struct vector3d { float x, y, z; };
-class vector_filter { float xwPos[2], ywPos[2], zwPos[2], xerr[2], yerr[2], zerr[2]; public: void Init_Filter(const vector3d &) __asm__("Init_Filter__13vector_filterG8vector3d"); };
+#include "KS/SRC/vector_filter.h"
+
 void vector_filter::Init_Filter(const vector3d &start_vec)
 {
     float *values = xwPos;
