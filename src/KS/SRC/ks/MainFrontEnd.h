@@ -101,6 +101,15 @@ public:
     TextString *difficulty;
     int push[SubEnd];
     int time[SubEnd];
+
+    virtual void Select(int entry_index);
+    virtual void OnCross(int controller);
+};
+
+class MultiControllerMenu : public FEMenu {
+public:
+    virtual void Select(int entry_index);
+    virtual void OnCross(int controller);
 };
 
 class MainFrontEnd : public FEMultiMenu {

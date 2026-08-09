@@ -604,96 +604,24 @@ void MultiplayerMenu::OnCross(int controller) {
 }
 
 // 0x001DC838 OnCross__12MultiSubMenui
-struct menu_vtable {
-    char padding[0x128];
-    short adjustment;
-    short padding2;
-    void (*select)(void *self, int entry);
-};
+#include "KS/SRC/ks/MainFrontEnd.h"
 
-struct menu_entry {
-    int entry_num;
-};
-
-struct menu_layout {
-    char padding0[0x4c];
-    menu_entry *highlighted;
-    char padding1[0x24];
-    menu_vtable *vtable;
-};
-
-extern "C" void HighlightSelector(void *self, int unused)
-    __asm__("OnCross__12MultiSubMenui");
-
-void HighlightSelector(void *self, int unused) {
-    menu_layout *menu = (menu_layout *)self;
-    menu_vtable *table = menu->vtable;
-    table->select(
-        (char *)self + table->adjustment,
-        menu->highlighted->entry_num
-    );
+void MultiSubMenu::OnCross(int controller) {
+    Select(highlighted->entry_num);
 }
 
 // 0x001DC948 OnCross__19MultiControllerMenui
-struct menu_vtable {
-    char padding[0x128];
-    short adjustment;
-    short padding2;
-    void (*select)(void *self, int entry);
-};
+#include "KS/SRC/ks/MainFrontEnd.h"
 
-struct menu_entry {
-    int entry_num;
-};
-
-struct menu_layout {
-    char padding0[0x4c];
-    menu_entry *highlighted;
-    char padding1[0x24];
-    menu_vtable *vtable;
-};
-
-extern "C" void HighlightSelector(void *self, int unused)
-    __asm__("OnCross__19MultiControllerMenui");
-
-void HighlightSelector(void *self, int unused) {
-    menu_layout *menu = (menu_layout *)self;
-    menu_vtable *table = menu->vtable;
-    table->select(
-        (char *)self + table->adjustment,
-        menu->highlighted->entry_num
-    );
+void MultiControllerMenu::OnCross(int controller) {
+    Select(highlighted->entry_num);
 }
 
 // 0x001DCA10 OnCross__12FreesurfMenui
-struct menu_vtable {
-    char padding[0x128];
-    short adjustment;
-    short padding2;
-    void (*select)(void *self, int entry);
-};
+#include "KS/SRC/ks/MainFrontEnd.h"
 
-struct menu_entry {
-    int entry_num;
-};
-
-struct menu_layout {
-    char padding0[0x4c];
-    menu_entry *highlighted;
-    char padding1[0x24];
-    menu_vtable *vtable;
-};
-
-extern "C" void HighlightSelector(void *self, int unused)
-    __asm__("OnCross__12FreesurfMenui");
-
-void HighlightSelector(void *self, int unused) {
-    menu_layout *menu = (menu_layout *)self;
-    menu_vtable *table = menu->vtable;
-    table->select(
-        (char *)self + table->adjustment,
-        menu->highlighted->entry_num
-    );
+void FreesurfMenu::OnCross(int controller) {
+    Select(highlighted->entry_num);
 }
 
 // 0x001DC4C8 __tf12MainFrontEnd

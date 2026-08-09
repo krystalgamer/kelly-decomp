@@ -14,6 +14,8 @@ class NameEntryMenu : public FEMultiMenu {
 
 public:
     virtual void OnTriangle(int controller);
+    virtual void Select(int entry_index);
+    virtual void OnCross(int controller);
     virtual void OnStart(int controller);
 };
 

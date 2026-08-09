@@ -386,34 +386,10 @@ void TitleFrontEnd::OnStart(int controller) { Select(0); }
 void TitleFrontEnd::OnCross(int controller) { Select(0); }
 
 // 0x001DE2B0 OnCross__11FEDebugMenui
-struct menu_vtable {
-    char padding[0x128];
-    short adjustment;
-    short padding2;
-    void (*select)(void *self, int entry);
-};
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
 
-struct menu_entry {
-    int entry_num;
-};
-
-struct menu_layout {
-    char padding0[0x4c];
-    menu_entry *highlighted;
-    char padding1[0x24];
-    menu_vtable *vtable;
-};
-
-extern "C" void HighlightSelector(void *self, int unused)
-    __asm__("OnCross__11FEDebugMenui");
-
-void HighlightSelector(void *self, int unused) {
-    menu_layout *menu = (menu_layout *)self;
-    menu_vtable *table = menu->vtable;
-    table->select(
-        (char *)self + table->adjustment,
-        menu->highlighted->entry_num
-    );
+void FEDebugMenu::OnCross(int controller) {
+    Select(highlighted->entry_num);
 }
 
 // 0x001DE5B8 Select__19GraphicalMenuSystemii

@@ -56,6 +56,12 @@ public:
     virtual void SetSystem(FEMenuSystem *system);
 };
 
+class FEDebugMenu : public FEMultiMenu {
+public:
+    virtual void Select(int entry);
+    virtual void OnCross(int controller);
+};
+
 class ControllerFrontEnd : public FEMultiMenu {
     char data_to_selected_controller[0x17c - sizeof(FEMultiMenu)];
     int selected_controller;
