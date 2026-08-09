@@ -18,7 +18,7 @@
 
 ### Attempt 4 notes
 
-The original RTTI lazy-registration helper matches exactly.
+The released RTTI helper was already canonical and remains exact.
 
 ## Outcome
 

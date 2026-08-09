@@ -15,7 +15,8 @@
 
 ### Attempt 1 notes
 
-The released cross-button dispatch and four enable calls match exactly.
+The released cross-button dispatch and four enable calls were already
+canonical and remain exact.
 
 ## Outcome
 

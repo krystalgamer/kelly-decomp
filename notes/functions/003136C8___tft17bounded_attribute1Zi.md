@@ -18,7 +18,7 @@
 
 ### Attempt 4 notes
 
-The original bounded-attribute RTTI lazy-registration helper matches exactly.
+The released template RTTI helper was already canonical and remains exact.
 
 ## Outcome
 

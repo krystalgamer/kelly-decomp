@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released SLF parameter pop and virtual fade dispatch match exactly.
+The released SLF uses the shared widget and script-function declarations for
+the parameter pop and virtual `fade_to` dispatch.
 
 ## Outcome
 
-The released SLF parameter pop and virtual fade dispatch match exactly.
+The manual widget vtable and local wrapper declarations were removed.
