@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released done-before/override check matched exactly with iconCounter at offset 0xb5c and the four-byte bool at offset 0x1698.
+The released done-before/override check uses the shared `IGOIconManager`
+fields.
 
 ## Outcome
 
-The released first-time icon milestone check matched exactly on the first attempt.
+The local manager layout was removed; the milestone check remains exact.

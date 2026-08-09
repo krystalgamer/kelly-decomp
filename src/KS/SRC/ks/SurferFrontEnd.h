@@ -96,6 +96,8 @@ public:
     static bool getPersonalityUp() {
         return personality_up;
     }
+    void AdjustHandicap(bool left);
+    void AdjustHandicapAbso(int absolute);
     void TurnPQ(bool enabled);
 };
 

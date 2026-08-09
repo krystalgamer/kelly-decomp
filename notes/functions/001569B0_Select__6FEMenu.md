@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released menu-system virtual Select dispatch matched exactly with menu_num at 0x14, highlighted/system at 0x4c/0x50, and Select at virtual slot 0x44.
+The released menu-system virtual `Select` dispatch uses the shared `FEMenu`
+and `FEMenuSystem` hierarchy.
 
 ## Outcome
 
-The released FE menu selection handler matched exactly on the first attempt.
+The manual menu, entry, and vtable layouts were removed.

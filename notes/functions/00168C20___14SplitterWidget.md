@@ -16,8 +16,10 @@
 
 ### Attempt 2 notes
 
-The released constructor matched with the IGOWidget base, barPQ at offset 8, and the old-GCC vtable symbol. The isolated absolute symbol uses the established +0x10000 signed-LO16 alias so relocation carry reproduces the linked address; no instructions are replaced.
+The released constructor uses the shared `IGOWidget` and `SplitterWidget`
+declarations. The isolated vtable symbol retains the established `+0x10000`
+signed-LO16 alias so relocation carry reproduces the linked address.
 
 ## Outcome
 
-The released SplitterWidget constructor matched exactly on the second attempt.
+The duplicate widget classes were removed; the constructor remains exact.

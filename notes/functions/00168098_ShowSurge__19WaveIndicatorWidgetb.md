@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released fade selection and overlay-state initialization matched exactly with the recovered WaveIndicatorWidget field offsets.
+The released fade selection and overlay-state initialization use the shared
+`WaveIndicatorWidget` declaration.
 
 ## Outcome
 
-The released wave surge display method matched exactly on the first attempt.
+The local widget layout was removed; the surge display remains exact.

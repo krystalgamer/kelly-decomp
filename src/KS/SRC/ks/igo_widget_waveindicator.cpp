@@ -8,18 +8,7 @@ void WaveIndicatorWidget::Hide(bool fadeOut) { if (fadeOut) fadeDir = -1; else s
 
 #if defined(KELLY_DECOMP_FUNCTION_00168098)
 // 0x00168098 ShowSurge__19WaveIndicatorWidgetb
-class WaveIndicatorWidget {
-    char padding[0x88];
-    float waveIdx;
-    float tongueIdx;
-    float hiliteTime;
-    float fade;
-    int fadeDir;
-    int state;
-
-public:
-    void ShowSurge(bool fadeIn);
-};
+#include "KS/SRC/ks/igo_widget_waveindicator.h"
 
 void WaveIndicatorWidget::ShowSurge(const bool fadeIn)
 {
@@ -42,18 +31,7 @@ void WaveIndicatorWidget::ShowSurge(const bool fadeIn)
 
 #if defined(KELLY_DECOMP_FUNCTION_001680D0)
 // 0x001680D0 ShowTongue__19WaveIndicatorWidgetb
-class WaveIndicatorWidget {
-    char padding[0x88];
-    float waveIdx;
-    float tongueIdx;
-    float hiliteTime;
-    float fade;
-    int fadeDir;
-    int state;
-
-public:
-    void ShowTongue(bool fadeIn);
-};
+#include "KS/SRC/ks/igo_widget_waveindicator.h"
 
 void WaveIndicatorWidget::ShowTongue(const bool fadeIn)
 {

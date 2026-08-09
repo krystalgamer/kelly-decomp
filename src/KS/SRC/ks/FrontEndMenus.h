@@ -200,6 +200,7 @@ public:
     int popupEvent;
     int navigationEvent;
 
+    virtual void Load();
     virtual void Draw();
     virtual void UpdateInScene();
     virtual void endDraw(bool unpause = true);

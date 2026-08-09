@@ -272,6 +272,10 @@ public:
     virtual void startDraw(int = -1, bool = true);
     virtual void endDraw(bool = true);
     virtual FEMenu* GetActiveMenu();
+
+protected:
+    virtual void cons(int, FEManager*, Font*);
+    virtual void OnButtonPress(int, int);
 };
 
 class __attribute__((aligned(16))) PanelAnimManager {

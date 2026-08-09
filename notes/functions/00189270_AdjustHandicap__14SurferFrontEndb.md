@@ -17,10 +17,10 @@
 
 ### Attempt 3 notes
 
-The released left/right handicap dispatch matched with hcap at offset 0x2c8. Branch-local KELLY_DECOMP_COMPILER_BARRIER() annotations emit no instructions and preserve the original non-tail calls and duplicated epilogue schedule.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released left/right handicap dispatch uses the shared surfer frontend
+layout. Branch-local function pointers preserve the non-tail calls and
+duplicated epilogue schedule.
 
 ## Outcome
 
-The released handicap adjustment dispatcher matched exactly on the third attempt.
+The local layout and compiler barriers were removed.

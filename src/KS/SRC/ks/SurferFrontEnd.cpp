@@ -19,29 +19,25 @@ void SurferBioFrontEnd::OnButtonRelease(int controller, int button) { if (button
 
 #if defined(KELLY_DECOMP_FUNCTION_00189270)
 // 0x00189270 AdjustHandicap__14SurferFrontEndb
-// Matching-only empty barrier preserves the released non-tail call shape.
-#include "decomp_annotations.h"
-
-class SurferFrontEnd {
-    char padding[0x2c8];
-    int hcap;
-
-public:
-    void AdjustHandicap(bool left);
-    void AdjustHandicapAbso(int absolute);
-};
+#include "KS/SRC/ks/SurferFrontEnd.h"
 
 __asm__(".equ AdjustHandicapAbso__14SurferFrontEndi, 0x001892A8");
+extern "C" void adjust_handicap_absolute(
+    SurferFrontEnd *self,
+    int absolute
+) __asm__("AdjustHandicapAbso__14SurferFrontEndi");
 
 void SurferFrontEnd::AdjustHandicap(bool left)
 {
     if(left) {
-        AdjustHandicapAbso(hcap-1);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*adjust)(SurferFrontEnd *, int) =
+            adjust_handicap_absolute;
+        adjust(this, hcap - 1);
     }
     else {
-        AdjustHandicapAbso(hcap+1);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*adjust)(SurferFrontEnd *, int) =
+            adjust_handicap_absolute;
+        adjust(this, hcap + 1);
     }
 }
 #endif

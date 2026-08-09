@@ -34,6 +34,15 @@ public:
         void Draw();
         void SetShow(bool visible = true);
     };
+
+private:
+    char icon_manager_data_before_icon_counter[0xb5c];
+    int iconCounter;
+    char icon_manager_data_before_done[0x1698 - 0xb60];
+    bool done_before;
+
+public:
+    bool FirstTimeGettingThisMany(int goal, bool ignore_previous);
 };
 
 #endif

@@ -29,24 +29,10 @@ void SplitterWidget::Draw()
 
 #if defined(KELLY_DECOMP_FUNCTION_00168C20)
 // 0x00168C20 __14SplitterWidget
+#include "KS/SRC/ks/igo_widget_splitter.h"
+
 __asm__(".equ __9IGOWidget, 0x00164608");
 __asm__(".equ _vt$14SplitterWidget, 0x004DB4C0");
-
-class IGOWidget {
-    bool display;
-
-public:
-    IGOWidget();
-    virtual ~IGOWidget();
-};
-
-class SplitterWidget : public IGOWidget {
-    void *barPQ;
-
-public:
-    SplitterWidget();
-    virtual ~SplitterWidget();
-};
 
 SplitterWidget::SplitterWidget()
 {

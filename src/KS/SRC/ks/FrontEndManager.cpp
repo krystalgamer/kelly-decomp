@@ -41,59 +41,13 @@ void FEManager::OnLevelEnding()
 }
 
 // 0x00198ED8 UpdateIGOScene__9FEManager
-class FEMenu;
-class FEManager;
+#include "KS/SRC/ks/FrontEndManager.h"
+#include "KS/SRC/ks/FrontEndMenus.h"
 
-class FEMenuSystem {
-    char data[0x8c];
-
-public:
-    virtual ~FEMenuSystem();
-    virtual void InitAll();
-    virtual void Add(FEMenu *);
-    virtual void MakeActive(int, int);
-    virtual void Update(float);
-    virtual void UpdateButtonDown();
-    virtual void Draw();
-    virtual void Select(int, int) = 0;
-    virtual void Exit();
-    virtual void startDraw(int, bool);
-    virtual void endDraw(bool);
-    virtual FEMenu *GetActiveMenu();
-
-protected:
-    virtual void cons(int, FEManager *, void *);
-    virtual void OnButtonPress(int, int);
-};
-
-class PauseMenuSystem : public FEMenuSystem {
-public:
-    bool draw;
-
-    virtual ~PauseMenuSystem();
-    virtual void InitAll();
-    virtual void Load();
-    virtual void startDraw(int, bool);
-    virtual void endDraw(bool);
-    virtual void Update(float);
-    virtual void UpdateInScene();
-    virtual void Draw();
-    virtual void OnButtonPress(int, int);
-    virtual void MakeActive(int, int);
-    virtual void Select(int, int);
-};
-
-struct manager_update_scene_layout {
-    void *IGO;
-    PauseMenuSystem *pms;
-};
-
-extern "C" void update_igo_scene(manager_update_scene_layout *self)
-    __asm__("UpdateIGOScene__9FEManager");
-void update_igo_scene(manager_update_scene_layout *self)
+void FEManager::UpdateIGOScene()
 {
-    if(self->pms->draw)
-        self->pms->UpdateInScene();
+    if(pms->draw)
+        pms->UpdateInScene();
 }
 
 // 0x00198CC8 DrawIGO__9FEManager

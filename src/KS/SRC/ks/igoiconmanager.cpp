@@ -26,15 +26,7 @@ __asm__(".equ nglListAddQuad__FP7nglQuad, 0x003A67F0");
 void IGOIconManager::Icon::Draw() { if (show) { void (*add)(nglQuad *) = nglListAddQuad; add(&quad); } }
 
 // 0x00160650 FirstTimeGettingThisMany__14IGOIconManagerib
-class IGOIconManager {
-    char padding0[0xb5c];
-    int iconCounter;
-    char padding1[0x1698 - 0xb60];
-    bool done_before;
-
-public:
-    bool FirstTimeGettingThisMany(int goal, bool ignore_previous);
-};
+#include "KS/SRC/ks/igoiconmanager.h"
 
 bool IGOIconManager::FirstTimeGettingThisMany(int goal, bool ignore_previous)
 {

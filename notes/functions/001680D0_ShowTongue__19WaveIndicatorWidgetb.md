@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released fade selection and tongue overlay-state initialization matched exactly with the recovered WaveIndicatorWidget field offsets.
+The released fade selection and tongue overlay-state initialization use the
+shared `WaveIndicatorWidget` declaration.
 
 ## Outcome
 
-The released wave tongue display method matched exactly on the first attempt.
+The local widget layout was removed; the tongue display remains exact.

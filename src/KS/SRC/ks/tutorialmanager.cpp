@@ -44,8 +44,8 @@ void IGOTutorialManager::SetCurrentGap(int gap) {
 void IGOTutorialManager::StopCurrentVO()
 {
     if (nslGetSoundStatus(current_VO) != 0) {
-        nslStopSound(current_VO);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*stop_sound)(unsigned int) = nslStopSound;
+        stop_sound(current_VO);
     }
 }
 

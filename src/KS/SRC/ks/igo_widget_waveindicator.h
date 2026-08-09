@@ -23,6 +23,8 @@ class WaveIndicatorWidget : public IGOWidget {
     int state;
 
 public:
+    void ShowSurge(bool fade_in);
+    void ShowTongue(bool fade_in);
     void Hide(bool fade_out = true);
 };
 
