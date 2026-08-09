@@ -20,8 +20,9 @@ The released endDraw(true) dispatch and global retry_mode(false) call were recon
 
 ### Attempt 2 notes
 
-Added a narrowly scoped empty post-call barrier to prevent the demonstrated sibling-call optimization. It emits no instructions and restored the target framed call and exact 60-byte schedule; integration normalizes it to `KELLY_DECOMP_COMPILER_BARRIER()`.
+The shared pause-system dispatch and a local retry-function pointer preserve
+the framed `retry_mode(false)` call.
 
 ## Outcome
 
-The released restart exactly matches the endDraw(true) virtual dispatch and game retry_mode(false); a documented empty compiler barrier prevents only an otherwise generated sibling tail call.
+The manual vtable layout and compiler barrier were removed.

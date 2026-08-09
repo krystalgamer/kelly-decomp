@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released FEMenu base draw followed by the tip BoxText's third-slot virtual Draw dispatch matched exactly with the recovered tip offset 0x78.
+The shared menu and `BoxText` hierarchies preserve the base draw and
+third-slot tip dispatch.
 
 ## Outcome
 
-The released tip menu draw exactly matches the FEMenu base call and authentic BoxText Draw dispatch at the recovered member offset.
+The local text and draw-layout declarations were removed.

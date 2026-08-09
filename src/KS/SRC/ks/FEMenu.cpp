@@ -784,29 +784,8 @@ void FEMenuEntry::UpdateInScene() {
 }
 
 // 0x001DB930 Draw__12FEMenuSystem
-struct menu_vtable {
-    char padding[0x48];
-    short adjustment;
-    short unused;
-    void (*draw)(void *self);
-};
-class FEMenu {
-    char padding[0x74];
-    menu_vtable *vtable;
-public:
-    void Draw() {
-        menu_vtable *table = vtable;
-        table->draw((char *)this + table->adjustment);
-    }
-};
-class FEMenuSystem {
-    char padding[0x74];
-    FEMenu **menus;
-    void *manager;
-    int active;
-public:
-    void Draw();
-};
+#include "KS/SRC/ks/FEMenu.h"
+
 void FEMenuSystem::Draw()
 {
     menus[active]->Draw();

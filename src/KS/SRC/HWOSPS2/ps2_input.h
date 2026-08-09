@@ -4,6 +4,7 @@
 #pragma interface
 
 #include "KS/SRC/inputmgr.h"
+#include "KS/SRC/osfile.h"
 
 extern "C" void* memset(void*, int, unsigned int);
 
@@ -41,6 +42,13 @@ private:
     bool port_opened;
     int disconnected;
     int was_disconnected;
+    char data_before_recording_demo[4];
+    int recording_demo;
+    char data_before_demo_log[0x10];
+    os_file demo_log;
+
+public:
+    void record_demo_stop();
 };
 
 #endif

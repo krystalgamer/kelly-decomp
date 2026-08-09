@@ -1,6 +1,9 @@
 #ifndef IGO_FRONT_END_H
 #define IGO_FRONT_END_H
 
+#pragma interface
+
+#include "KS/SRC/ks/FEMenu.h"
 #include "KS/SRC/ks/SoundScript.h"
 #include "KS/SRC/stringx.h"
 #include "KS/SRC/ks/igo_widget_camera.h"
@@ -28,8 +31,9 @@ public:
     void clear();
 };
 
-class IGOFrontEnd {
-    char data_before_menu_background[0x584];
+class IGOFrontEnd : public FrontEnd {
+    char data_before_menu_background[
+        0x584 - sizeof(FrontEnd)];
     SimpleWidget *menuBGWidget;
     SimpleWidget *accompWidget;
     char data_before_wave_indicator[0x14];

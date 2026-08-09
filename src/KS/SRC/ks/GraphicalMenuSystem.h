@@ -37,6 +37,7 @@ public:
         OptionsMenu
     };
 
+    virtual void Select(int menu_index, int entry_index);
     void DrawTop();
     virtual void LoadAll();
     void restartMovie();

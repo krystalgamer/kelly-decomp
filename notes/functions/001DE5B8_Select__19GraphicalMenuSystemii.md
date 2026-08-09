@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released inline indexed menu lookup and virtual Select dispatch matched exactly with recovered menus, FEMenu vtable, and Select-slot layouts.
+The released indexed lookup and virtual `Select` dispatch use the shared
+graphical menu hierarchy.
 
 ## Outcome
 
-The released GraphicalMenuSystem selection exactly matches the indexed FEMenu lookup and authentic virtual Select dispatch.
+The manual menu and vtable layouts were removed.

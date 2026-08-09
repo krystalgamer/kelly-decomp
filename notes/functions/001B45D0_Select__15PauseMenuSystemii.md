@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-Reconstructed the released indexed menu lookup and virtual Select dispatch with recovered menus, FEMenu vtable, and Select-slot layouts. All 60 bytes matched on the first attempt.
+The released indexed lookup and virtual `Select` dispatch use the shared pause
+system and menu hierarchy.
 
 ## Outcome
 
-The released PauseMenuSystem selection exactly matches the indexed FEMenu lookup and authentic virtual Select dispatch.
+The manual menu and vtable layouts were removed.

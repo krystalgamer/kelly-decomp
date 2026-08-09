@@ -55,6 +55,7 @@ public:
 
 class GoalsMenuClass : public FEMenu {
 public:
+    virtual void Load(PanelFile *panel);
     virtual void OnUp(int controller);
     virtual void OnDown(int controller);
     virtual void OnCross(int controller);
@@ -203,8 +204,10 @@ public:
     virtual void Load();
     virtual void Draw();
     virtual void UpdateInScene();
+    virtual void Select(int menu_index, int entry_index);
     virtual void endDraw(bool unpause = true);
     void RestartComp();
+    void Restart();
     void PrepareToEndLevel() { end_level = true; }
 };
 
@@ -269,6 +272,15 @@ public:
     PauseMenuSystem *sys;
 
     virtual void Init();
+    virtual void Draw();
+};
+
+class QuitConfirmMenuClass : public FEMenu {
+    PauseMenuSystem *sys;
+    BoxText *question;
+
+public:
+    virtual void Draw();
 };
 
 #endif

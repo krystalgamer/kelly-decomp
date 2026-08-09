@@ -205,45 +205,20 @@ bool hasPrevious(FEMenu *menu) {
 }
 
 // 0x001B25E8 Draw__12TipMenuClass
+#include "KS/SRC/ks/FrontEndMenus.h"
+
 asm(".equ Draw__6FEMenu, 0x00156C88");
-extern "C" void draw_menu(void *self) __asm__("Draw__6FEMenu");
-class BoxText {
-    char padding[0x4C];
-public:
-    virtual ~BoxText();
-    virtual void Update(float time_inc);
-    virtual void Draw();
-};
-struct tip_draw_layout {
-    char padding[0x78];
-    BoxText *tip;
-};
-extern "C" void draw_tip_menu(tip_draw_layout *self)
-    __asm__("Draw__12TipMenuClass");
-void draw_tip_menu(tip_draw_layout *self)
+void TipMenuClass::Draw()
 {
-    draw_menu(self);
-    self->tip->Draw();
+    FEMenu::Draw();
+    tip->Draw();
 }
 
 // 0x001B2990 Draw__20QuitConfirmMenuClass
+#include "KS/SRC/ks/FrontEndMenus.h"
+
 asm(".equ Draw__6FEMenu, 0x00156C88");
-class FEMenu { public: void Draw(); };
-class PauseMenuSystem;
-class BoxText {
-    char padding[0x4C];
-public:
-    virtual ~BoxText();
-    virtual void Update(float time_inc);
-    virtual void Draw();
-};
-class QuitConfirmMenuClass : public FEMenu {
-    char padding[0x74];
-    PauseMenuSystem *sys;
-    BoxText *question;
-public:
-    void Draw();
-};
+
 void QuitConfirmMenuClass::Draw()
 {
     FEMenu::Draw();
@@ -251,34 +226,13 @@ void QuitConfirmMenuClass::Draw()
 }
 
 // 0x001B3DE8 Load__15PauseMenuSystem
-struct Panel {};
-struct goals_vtable {
-    char padding[0x168];
-    short adjustment;
-    short unused;
-    void (*load)(void *self, Panel *panel);
-};
-class GoalsMenuClass {
-    char padding[0x74];
-    goals_vtable *vtable;
-public:
-    void Load(Panel *panel) {
-        goals_vtable *table = vtable;
-        table->load((char *)this + table->adjustment, panel);
-    }
-};
-struct IGOFrontEnd { char padding[0x80]; Panel panel; };
-struct FEManager { IGOFrontEnd *IGO; };
-struct pause_load_layout {
-    char padding[0x74];
-    GoalsMenuClass **menus;
-    FEManager *manager;
-};
-extern "C" void load_pause_menu(pause_load_layout *self)
-    __asm__("Load__15PauseMenuSystem");
-void load_pause_menu(pause_load_layout *self)
+#include "KS/SRC/ks/FrontEndManager.h"
+#include "KS/SRC/ks/FrontEndMenus.h"
+#include "KS/SRC/ks/IGOFrontEnd.h"
+
+void PauseMenuSystem::Load()
 {
-    self->menus[8]->Load(&self->manager->IGO->panel);
+    ((GoalsMenuClass *)menus[8])->Load(&manager->IGO->panel);
 }
 
 // 0x001B4398 UpdateInScene__15PauseMenuSystem
@@ -292,37 +246,11 @@ void PauseMenuSystem::UpdateInScene()
 }
 
 // 0x001B45D0 Select__15PauseMenuSystemii
-struct menu_vtable {
-    char padding[0x128];
-    short adjustment;
-    short unused;
-    void (*select)(void *self, int entry_index);
-};
-class FEMenu {
-    char padding[0x74];
-    menu_vtable *vtable;
-public:
-    void Select(int entry_index) {
-        menu_vtable *table = vtable;
-        table->select((char *)this + table->adjustment, entry_index);
-    }
-};
-struct pause_select_layout {
-    char padding[0x74];
-    FEMenu **menus;
-};
-extern "C" void select_pause_menu(
-    pause_select_layout *self,
-    int menu_index,
-    int entry_index
-) __asm__("Select__15PauseMenuSystemii");
-void select_pause_menu(
-    pause_select_layout *self,
-    int menu_index,
-    int entry_index
-)
+#include "KS/SRC/ks/FrontEndMenus.h"
+
+void PauseMenuSystem::Select(int menu_index, int entry_index)
 {
-    self->menus[menu_index]->Select(entry_index);
+    menus[menu_index]->Select(entry_index);
 }
 
 // 0x001B4A58 RestartComp__15PauseMenuSystem
@@ -356,32 +284,19 @@ void PauseMenuSystem::RestartComp()
 }
 
 // 0x001B4AF8 Restart__15PauseMenuSystem
-struct system_vtable {
-    char padding[0x58];
-    short adjustment;
-    short unused;
-    void (*end_draw)(void *self, bool pause);
-};
-struct pause_restart_layout {
-    char padding[0x8C];
-    system_vtable *vtable;
+#include "KS/SRC/game.h"
+#include "KS/SRC/ks/FrontEndMenus.h"
 
-    void endDraw(bool pause = true) {
-        system_vtable *table = vtable;
-        table->end_draw((char *)this + table->adjustment, pause);
-    }
-};
-class game { public: void retry_mode(bool reload); };
-extern game *g_game_ptr;
 asm(".equ g_game_ptr, 0x0046AC64");
 asm(".equ retry_mode__4gameb, 0x00283910");
-extern "C" void restart_pause_menu(pause_restart_layout *self)
-    __asm__("Restart__15PauseMenuSystem");
-void restart_pause_menu(pause_restart_layout *self)
+extern "C" void retry_game_mode(game *self, bool reload)
+    __asm__("retry_mode__4gameb");
+
+void PauseMenuSystem::Restart()
 {
-    self->endDraw();
-    g_game_ptr->retry_mode(false);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    endDraw();
+    void (*retry)(game *, bool) = retry_game_mode;
+    retry(g_game_ptr, false);
 }
 
 // 0x001B0318 OnL1__17PlaylistMenuClassi

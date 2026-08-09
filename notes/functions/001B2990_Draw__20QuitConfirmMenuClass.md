@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released FEMenu base draw followed by the question BoxText's third-slot virtual Draw dispatch matched exactly with the recovered question offset 0x7c.
+The shared quit-menu and `BoxText` hierarchies preserve the base draw and
+third-slot question dispatch.
 
 ## Outcome
 
-The released quit-confirmation draw exactly matches the FEMenu base call and authentic question BoxText Draw dispatch.
+The local menu and text declarations were removed.

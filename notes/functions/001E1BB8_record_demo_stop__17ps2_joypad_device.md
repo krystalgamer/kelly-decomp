@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released demo-log open check, conditional os_file close, and recording flag clear matched exactly with recovered ps2_joypad_device and os_file offsets.
+The released demo-log open check, conditional close, and recording flag clear
+use the shared joypad and `os_file` declarations.
 
 ## Outcome
 
-The released demo recording stop exactly matches the open check, conditional file close, and recording flag clear with recovered layouts.
+The local joypad and file layouts were removed.

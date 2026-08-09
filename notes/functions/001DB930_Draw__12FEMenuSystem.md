@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-Reconstructed the released active-menu lookup and virtual Draw dispatch with recovered FEMenuSystem and FEMenu vtable layouts. All 60 bytes matched on the first attempt.
+The released active-menu lookup and virtual `Draw` dispatch use the shared
+menu-system hierarchy.
 
 ## Outcome
 
-The released FEMenuSystem draw exactly matches the active-menu array lookup and authentic virtual FEMenu Draw dispatch.
+The manual menu and vtable layouts were removed.

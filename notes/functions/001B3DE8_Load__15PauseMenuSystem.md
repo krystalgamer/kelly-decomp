@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-Reconstructed the released GoalsMenu lookup and virtual Load call with recovered PauseMenuSystem, manager/IGO panel, object-vtable, and Load-slot layouts. All 60 bytes matched on the first attempt.
+The released GoalsMenu lookup and virtual `Load` call use the shared pause
+system, frontend manager, IGO frontend, and panel declarations.
 
 ## Outcome
 
-The released PauseMenuSystem load exactly matches the GoalsMenu lookup and virtual load of the IGO panel with recovered layouts.
+The manual manager, panel, and goals-menu vtable layouts were removed.
