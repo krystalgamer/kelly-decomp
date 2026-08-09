@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size48-frontend-core.cpp` |
 
 ### Attempt 1 notes
 
-A minimal old-GCC vtable layout preserves the released overload's ignored second/fourth pairs and virtual forwarding of `(xa, ya, xc, yc)` through slot 0x70.
+The shared panel declaration preserves the released overload's ignored
+second/fourth pairs and virtual forwarding of `(xa, ya, xc, yc)`.
 
 ## Outcome
 
-The released eight-coordinate `PanelQuad::SetPos` overload matched exactly on the first attempt.
+The manual vtable layout was removed.

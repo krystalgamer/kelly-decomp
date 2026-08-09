@@ -235,35 +235,7 @@ void PanelBatch::Update(float dt) { pq->Update(dt); }
 short ReadShort(unsigned char *buffer, int &index) { short result; result = buffer[index] | (buffer[index + 1] << 8); index += 2; return result; }
 
 // 0x0014DAF8 SetPos__9PanelQuadffffffff
-struct panel_quad_vtable {
-    char padding[0x70];
-    short adjustment;
-    short padding2;
-    void (*set_pos)(
-        void *self,
-        float x1,
-        float y1,
-        float x2,
-        float y2
-    );
-};
-
-class PanelQuad {
-    char padding[0x194];
-    panel_quad_vtable *vtable;
-
-public:
-    void SetPos(
-        float xa,
-        float ya,
-        float xb,
-        float yb,
-        float xc,
-        float yc,
-        float xd,
-        float yd
-    );
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void PanelQuad::SetPos(
     float xa,
@@ -275,17 +247,12 @@ void PanelQuad::SetPos(
     float xd,
     float yd
 ) {
-    panel_quad_vtable *table = vtable;
-    table->set_pos(
-        (char *)this + table->adjustment,
-        xa,
-        ya,
-        xc,
-        yc
-    );
+    SetPos(xa, ya, xc, yc);
 }
 
 // 0x0014F700 SetBehavior__10FloatingPQb
+#include "KS/SRC/ks/FEPanel.h"
+
 extern "C" void PanelQuadSetPos(
     void *self,
     float x1,
@@ -295,22 +262,12 @@ extern "C" void PanelQuadSetPos(
 ) __asm__("SetPos__9PanelQuadffff");
 __asm__(".equ SetPos__9PanelQuadffff, 0x0014DA80");
 
-class FloatingPQ {
-    char padding[0x1d0];
-    float x1_const;
-    float x2_const;
-    float y1_const;
-    float y2_const;
-    bool non_floating_behavior;
-
-public:
-    void SetBehavior(bool enabled);
-};
-
 void FloatingPQ::SetBehavior(bool enabled) {
     non_floating_behavior = enabled;
     if (enabled) {
-        PanelQuadSetPos(
+        void (*set_position)(void *, float, float, float, float) =
+            PanelQuadSetPos;
+        set_position(
             this,
             x1_const,
             y1_const,
@@ -318,7 +275,6 @@ void FloatingPQ::SetBehavior(bool enabled) {
             y2_const
         );
     }
-    KELLY_DECOMP_COMPILER_BARRIER();
 }
 
 // 0x0014C5D0 DrawLine__13PreformatTextiff

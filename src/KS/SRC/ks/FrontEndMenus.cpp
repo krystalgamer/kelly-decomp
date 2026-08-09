@@ -191,18 +191,7 @@ void LostControllerMenuClass::Init() {
 }
 
 // 0x001A4EF8 hasPrevious__FP6FEMenu
-struct FEMenuEntry {
-    char padding[8];
-    FEMenuEntry *previous;
-};
-
-struct FEMenu {
-    char padding0[0x3c];
-    unsigned int flags;
-    FEMenuEntry *entries;
-    char padding1[8];
-    FEMenuEntry *highlighted;
-};
+#include "KS/SRC/ks/FEMenu.h"
 
 bool hasPrevious(FEMenu *menu) {
     FEMenuEntry *highlighted = menu->highlighted;

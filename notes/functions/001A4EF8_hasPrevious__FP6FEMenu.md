@@ -12,11 +12,12 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 44.2308 | 23.0769 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size48-frontend-core.cpp` |
 
 ### Attempt 2 notes
 
-Hoisting the highlighted entry preserves the released branch-delay load, wrap flag bit 2 check, entries comparison, and previous-pointer test.
+The shared frontend menu declarations preserve the highlighted-entry load,
+wrap flag check, entries comparison, and previous-pointer test.
 
 ## Outcome
 

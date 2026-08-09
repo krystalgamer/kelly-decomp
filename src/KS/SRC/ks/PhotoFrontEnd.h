@@ -12,7 +12,10 @@ public:
 
 class PhotoSelectMenu : public FEMultiMenu {
 public:
+    void Select(int entry);
     virtual void OnTriangle(int controller);
+    virtual void OnCross(int controller);
+    virtual void OnStart(int controller);
 };
 
 class PhotoSaveMenu : public FEMultiMenu {

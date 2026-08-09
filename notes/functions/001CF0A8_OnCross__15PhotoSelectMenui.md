@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size48-frontend-core.cpp` |
 
 ### Attempt 1 notes
 
-A minimal old-GCC menu vtable layout preserves the released virtual `Select(highlighted->entry_num)` call through slot 0x128.
+The shared photo-menu declaration preserves the virtual
+`Select(highlighted->entry_num)` call.
 
 ## Outcome
 
-The released `PhotoSelectMenu::OnCross` handler matched exactly on the first attempt.
+The manual vtable layout was removed.

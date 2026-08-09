@@ -608,12 +608,15 @@ class FloatingPQ : public PanelQuad {
     float x2_const;
     float y1_const;
     float y2_const;
+    bool non_floating_behavior;
 
 public:
     virtual void SetLocation3D(vector3d location);
     virtual void SetWidth(float width);
     virtual void SetHeight(float height);
     void SetPos(float x1, float y1, float x2, float y2);
+    void SetBehaviorNF(float x, float y);
+    void SetBehavior(bool enabled);
     virtual void GetPos(float &x1, float &y1, float &x2, float &y2)
         __asm__("GetPos__10FloatingPQRfN31");
     virtual vector3d GetLocation3D();

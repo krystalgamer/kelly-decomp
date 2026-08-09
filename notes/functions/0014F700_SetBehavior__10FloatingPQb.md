@@ -12,13 +12,17 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size48-frontend-core.cpp` |
 
 ### Attempt 1 notes
 
 The released setter stores the word-sized behavior flag at 0x1e0 and conditionally forwards the saved rectangle to base `PanelQuad::SetPos`. The trailing barrier preserves the normal call frame.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+The shared floating-panel declaration and a local function pointer preserve
+the conditional normal call without a compiler barrier.
 
 ## Outcome
 
-The released `FloatingPQ::SetBehavior` implementation matched exactly on the first attempt.
+The local layout and compiler barrier were removed.

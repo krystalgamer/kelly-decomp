@@ -62,33 +62,10 @@ void PhotoDevelopMenu::OnDown(int controller) {
 }
 
 // 0x001CF0A8 OnCross__15PhotoSelectMenui
-struct menu_vtable {
-    char padding[0x128];
-    short adjustment;
-    short padding2;
-    void (*select)(void *self, int entry);
-};
-
-struct menu_entry {
-    int entry_num;
-};
-
-class PhotoSelectMenu {
-    char padding0[0x4c];
-    menu_entry *highlighted;
-    char padding1[0x24];
-    menu_vtable *vtable;
-
-public:
-    void OnCross(int controller);
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
 
 void PhotoSelectMenu::OnCross(int controller) {
-    menu_vtable *table = vtable;
-    table->select(
-        (char *)this + table->adjustment,
-        highlighted->entry_num
-    );
+    Select(highlighted->entry_num);
 }
 
 // 0x001CF1D8 OnStart__15PhotoSelectMenui
