@@ -141,69 +141,15 @@ float light_source::get_cutoff_range() const {
 }
 
 // 0x002FF950 set_color__12light_sourceRC5color
-struct color {
-    float r;
-    float g;
-    float b;
-    float a;
-
-    color &operator=(const color &value) {
-        r = value.r;
-        g = value.g;
-        b = value.b;
-        a = value.a;
-        return *this;
-    }
-};
-
-struct light_properties {
-    int flavor;
-    color diffuse_color;
-    color additive_color;
-};
-
-class light_source {
-    char padding[0x200];
-    light_properties *properties;
-
-public:
-    void set_color(const color &value);
-};
+#include "KS/SRC/light.h"
 
 void light_source::set_color(const color &value) {
-    properties->diffuse_color = value;
+    properties->set_color(value);
 }
 
 // 0x002FF990 set_additive_color__12light_sourceRC5color
-struct color {
-    float r;
-    float g;
-    float b;
-    float a;
-
-    color &operator=(const color &value) {
-        r = value.r;
-        g = value.g;
-        b = value.b;
-        a = value.a;
-        return *this;
-    }
-};
-
-struct light_properties {
-    int flavor;
-    color diffuse_color;
-    color additive_color;
-};
-
-class light_source {
-    char padding[0x200];
-    light_properties *properties;
-
-public:
-    void set_additive_color(const color &value);
-};
+#include "KS/SRC/light.h"
 
 void light_source::set_additive_color(const color &value) {
-    properties->additive_color = value;
+    properties->set_additive_color(value);
 }

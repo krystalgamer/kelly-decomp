@@ -12,12 +12,13 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 36.3636 | 9.0909 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size44-shared-accessors.cpp` |
 
 ### Attempt 2 notes
 
-The released `color::operator=` performs four scalar float copies; restoring it avoids the isolated compiler's aggregate `ldl`/`ldr` copy and reproduces the additive-color stores at offset 0x14.
+The shared color and light-property declarations preserve the four scalar
+copies into additive color at offset 0x14.
 
 ## Outcome
 
-The released `light_source::set_additive_color` implementation matched exactly on attempt two.
+The local light layouts were removed.

@@ -33,30 +33,11 @@ void collision_geometry::get_max_extent(vector3d *value) const
 
 #if defined(KELLY_DECOMP_FUNCTION_002FF2D0)
 // 0x002FF2D0 get_radius__C18collision_geometry
-struct entity_vtable {
-    char padding[0xd8];
-    short adjustment;
-    short padding2;
-    float (*get_radius)(void *self);
-};
-
-class entity {
-    char padding[8];
-
-public:
-    entity_vtable *vtable;
-};
-
-class collision_geometry {
-    entity *owner;
-
-public:
-    float get_radius() const;
-};
+#include "KS/SRC/capsule.h"
+#include "KS/SRC/entity.h"
 
 float collision_geometry::get_radius() const {
-    entity_vtable *table = owner->vtable;
-    return table->get_radius((char *)owner + table->adjustment);
+    return owner->get_radius();
 }
 #endif
 

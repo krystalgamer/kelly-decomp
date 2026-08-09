@@ -23,6 +23,12 @@ public:
     inline const color &get_additive_color() const {
         return additive_color;
     }
+    inline void set_color(const color &value) {
+        diffuse_color = value;
+    }
+    inline void set_additive_color(const color &value) {
+        additive_color = value;
+    }
     inline float get_near_range() const { return near_range; }
     inline float get_cutoff_range() const { return cutoff_range; }
     inline unsigned int get_lightcat() const { return lightcat; }
@@ -62,7 +68,9 @@ public:
     virtual void frame_advance(float time_inc);
     float get_dist(const sphere &bounds) const;
     virtual const color &get_color() const;
+    virtual void set_color(const color &value);
     virtual const color &get_additive_color() const;
+    virtual void set_additive_color(const color &value);
     virtual float get_near_range() const;
     virtual void set_near_range(float range);
     virtual unsigned int get_lightcat() const;

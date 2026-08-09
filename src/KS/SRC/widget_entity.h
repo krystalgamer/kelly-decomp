@@ -1,63 +1,42 @@
-// Matching decompilation blocks selected by generated build shims.
+#ifndef WIDGET_ENTITY_H
+#define WIDGET_ENTITY_H
 
+#pragma interface
 
-#if defined(KELLY_DECOMP_FUNCTION_002FEFD8)
-// 0x002FEFD8 get_width__13entity_widget
-struct entity_vtable {
-    char padding[0xd8];
-    short adjustment;
-    short padding2;
-    float (*get_radius)(void *self);
-};
+#include "KS/SRC/widget.h"
 
-class entity {
-    char padding[8];
+class entity;
 
-public:
-    entity_vtable *vtable;
-};
-
-class entity_widget {
-    char padding[0x144];
+class entity_widget : public widget {
+protected:
     entity *ent;
 
 public:
-    float get_width();
+    virtual void update_pos();
+    virtual void update_scale();
+    void update_entity_po();
+    virtual rational_t get_width();
+    virtual rational_t get_height();
+    entity *get_ent() const { return ent; }
 };
 
-float entity_widget::get_width() {
-    entity_vtable *table = ent->vtable;
-    return table->get_radius((char *)ent + table->adjustment);
+#endif
+
+#if defined(KELLY_DECOMP_FUNCTION_002FEFD8)
+// 0x002FEFD8 get_width__13entity_widget
+#include "KS/SRC/entity.h"
+
+rational_t entity_widget::get_width() {
+    return get_ent()->get_radius();
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002FF008)
 // 0x002FF008 get_height__13entity_widget
-struct entity_vtable {
-    char padding[0xd8];
-    short adjustment;
-    short padding2;
-    float (*get_radius)(void *self);
-};
+#include "KS/SRC/entity.h"
 
-class entity {
-    char padding[8];
-
-public:
-    entity_vtable *vtable;
-};
-
-class entity_widget {
-    char padding[0x144];
-    entity *ent;
-
-public:
-    float get_height();
-};
-
-float entity_widget::get_height() {
-    entity_vtable *table = ent->vtable;
-    return table->get_radius((char *)ent + table->adjustment);
+rational_t entity_widget::get_height() {
+    return get_ent()->get_radius();
 }
 #endif
 

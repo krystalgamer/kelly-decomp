@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-shared-accessors.cpp` |
 
 ### Attempt 1 notes
 
-A minimal old-GCC vtable layout preserves the released inline call from the widget's entity pointer at 0x144 to `entity::get_radius()`.
+The shared `entity_widget` and entity declarations preserve the entity pointer
+at 0x144 and the virtual `get_radius` call.
 
 ## Outcome
 
-The released `entity_widget::get_height` thunk matched exactly on the first attempt.
+The manual vtable layout was removed.

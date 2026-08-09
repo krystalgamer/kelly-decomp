@@ -1,37 +1,29 @@
 // Matching decompilation blocks selected by generated build shims.
 
 // 0x002BA5B0 update_pos__13entity_widget
-class entity_widget;
+#include "KS/SRC/widget_entity.h"
 
 __asm__(".equ update_pos__6widget, 0x0033E650");
 __asm__(".equ update_entity_po__13entity_widget, 0x002BAA98");
-void update_widget_pos(entity_widget *self)
-    __asm__("update_pos__6widget");
 void update_entity_transform(entity_widget *self)
     __asm__("update_entity_po__13entity_widget");
-extern "C" void update_entity_widget_pos(entity_widget *self)
-    __asm__("update_pos__13entity_widget");
-void update_entity_widget_pos(entity_widget *self) {
-    update_widget_pos(self);
+void entity_widget::update_pos() {
+    widget::update_pos();
     void (*update_transform)(entity_widget *) = update_entity_transform;
-    update_transform(self);
+    update_transform(this);
 }
 
 // 0x002BA5E0 update_scale__13entity_widget
-class entity_widget;
+#include "KS/SRC/widget_entity.h"
 
 __asm__(".equ update_scale__6widget, 0x0033E710");
 __asm__(".equ update_entity_po__13entity_widget, 0x002BAA98");
-void update_widget_scale(entity_widget *self)
-    __asm__("update_scale__6widget");
 void update_entity_transform(entity_widget *self)
     __asm__("update_entity_po__13entity_widget");
-extern "C" void update_entity_widget_scale(entity_widget *self)
-    __asm__("update_scale__13entity_widget");
-void update_entity_widget_scale(entity_widget *self) {
-    update_widget_scale(self);
+void entity_widget::update_scale() {
+    widget::update_scale();
     void (*update_transform)(entity_widget *) = update_entity_transform;
-    update_transform(self);
+    update_transform(this);
 }
 
 #if defined(KELLY_DECOMP_FUNCTION_002BAA60)

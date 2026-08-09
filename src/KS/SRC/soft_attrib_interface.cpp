@@ -32,22 +32,8 @@ __asm__(".equ pack_string__7pstringPCc, 0x003354D0");
 const pstring soft_attrib_interface::get_soft_attrib_str(pstring &name) const { return pstring(0); }
 
 // 0x00313A78 get_soft_attrib_str__C31character_soft_attrib_interfaceR7pstring
+#include "KS/SRC/pstring.h"
 #include "KS/SRC/soft_attrib_interface.h"
-
-class pstring {
-    int value;
-
-public:
-    pstring(const char *text) {
-        pack_string(text);
-    }
-
-    pstring(const pstring &other) {
-        value = other.value;
-    }
-
-    void pack_string(const char *text);
-};
 
 __asm__(".equ pack_string__7pstringPCc, 0x003354D0");
 

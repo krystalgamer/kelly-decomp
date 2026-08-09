@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-shared-accessors.cpp` |
 
 ### Attempt 1 notes
 
-A minimal owner and old-GCC entity-vtable layout preserves the released inline call to `owner->get_radius()`.
+The shared collision and entity declarations preserve the released virtual
+call to `owner->get_radius()`.
 
 ## Outcome
 
-The released `collision_geometry::get_radius` thunk matched exactly on the first attempt.
+The manual vtable layout was removed.

@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-shared-accessors.cpp` |
 
 ### Attempt 1 notes
 
-With no configured string attribute, the released character interface constructs the hidden return `pstring` from null. The explicit one-word copy constructor preserves the old-GCC hidden-return schedule.
+With no configured string attribute, the shared character interface and
+`pstring` declaration construct the hidden return from null.
 
 ## Outcome
 
-The released character soft-attribute string fallback matched exactly on the first attempt.
+The local one-word `pstring` declaration was removed.
