@@ -3,19 +3,9 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_002EEAA8)
 // 0x002EEAA8 CreateAllSemaphores__Fv
-struct SemaParam {
-    int currentCount;
-    int maxCount;
-    int initCount;
-    int numWaitThreads;
-    unsigned int attr;
-    unsigned int option;
-};
+#include "KS/SRC/semaphores.h"
 
 extern "C" int CreateSema(SemaParam *);
-extern int LoadNewStashSema;
-extern int AllocMemorySema;
-extern int StallSurferLoadSema;
 __asm__(".equ CreateSema, 0x003DB660");
 __asm__(".equ LoadNewStashSema, 0x0046ABCC");
 __asm__(".equ AllocMemorySema, 0x0046ABD0");
