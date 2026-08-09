@@ -12,40 +12,15 @@ script_library_class::function::function(int dummy)
 }
 
 // 0x00350038 __9slc_num_tPCciT1
-extern "C" void ScriptLibraryClassCtor(
-    void *self,
-    const char *name,
-    int size,
-    const char *parent
-) __asm__("__20script_library_classPCciT1");
+#include "KS/SRC/script_library_class.h"
 
 __asm__(".equ __20script_library_classPCciT1, 0x0034ECD0");
 
-extern const char slc_num_vtable[];
-__asm__(".equ slc_num_vtable, 0x00505208");
-
-struct slc_num_layout {
-    char padding[0x20];
-    const void *vtable;
-};
-
-extern "C" void *SlcNumCtor(
-    void *self,
+slc_num_t::slc_num_t(
     const char *name,
     int size,
     const char *parent
-) __asm__("__9slc_num_tPCciT1");
-
-void *SlcNumCtor(
-    void *self,
-    const char *name,
-    int size,
-    const char *parent
-) {
-    ScriptLibraryClassCtor(self, name, size, parent);
-    ((slc_num_layout *)self)->vtable = slc_num_vtable;
-    return self;
-}
+) : script_library_class(name, size, parent) {}
 
 // 0x0034F178 _$_Q220script_library_class8function
 extern "C" void vector_delete(void *)

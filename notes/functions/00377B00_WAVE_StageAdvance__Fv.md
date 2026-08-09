@@ -5,7 +5,7 @@
 - Object: `game/files_wave`
 - Debug source: `C:/KS/SRC/ks/wave.cpp`
 - Reference source: `KS/SRC/ks/wave.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -13,8 +13,7 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 23.0769 | 0.0 | `candidate.cpp` |
 | 2 | different | 23.0769 | 0.0 | `candidate.cpp` |
-| 3 | different | 78.5714 | 78.5714 | `candidate.cpp` |
-| 4 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | different | 23.0769 | 0.0 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
@@ -28,10 +27,12 @@ Expanded the operation into explicit stage and wrapped locals. The optimizer sti
 
 Made both stage globals volatile. This preserved the target operations and ordering, but forced the final stage store before the return instead of into its delay slot, growing the function to 56 bytes.
 
-### Attempt 4 notes
+### Attempt 3 notes
 
-The released increment/modulo/progress reset matched exactly. Matching-only volatile stores preserve the observable intermediate stage/progress writes while allowing the final normal stage store to occupy the return delay slot; they add no instructions beyond the target.
+Native forms optimize away the intermediate stage store and reorder the
+progress reset.
 
 ## Outcome
 
-The released wave-stage advance matched exactly.
+The prior exact form used matching-only volatile stores. Those annotations were
+removed and the helper was deferred.

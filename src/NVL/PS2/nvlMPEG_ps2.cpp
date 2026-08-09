@@ -199,16 +199,7 @@ __asm__(".globl readBufEndPut__FP7ReadBufi");
 
 #if defined(KELLY_DECOMP_FUNCTION_00388BF0)
 // 0x00388BF0 videoDecDelete__FP8VideoDec
-struct sceMpeg {
-    char data[0x48];
-};
-
-struct ViBuf;
-
-struct VideoDec {
-    sceMpeg mpeg;
-    ViBuf *vibuf_marker;
-};
+#include "NVL/PS2/nvlMPEG_ps2.h"
 
 int viBufDelete(ViBuf *buffer);
 extern "C" int sceMpegDelete(sceMpeg *mpeg);
@@ -217,7 +208,7 @@ __asm__(".equ sceMpegDelete, 0x003BF040");
 
 static int videoDecDelete(VideoDec *decoder)
 {
-    viBufDelete((ViBuf *)((char *)decoder + 0x48));
+    viBufDelete(&decoder->vibuf);
     sceMpegDelete(&decoder->mpeg);
     return 1;
 }

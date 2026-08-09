@@ -143,6 +143,7 @@ _$_12input_device = 0x343938;
 _$_13code_callback = 0x34BEB8;
 _$_15signal_callback = 0x35F978;
 _$_15WaveScratchBase = 0x383DF0;
+WAVE_StageAdvance__Fv = 0x377B00;
 __cl__31slf_timer_widget_add_function_tR8vm_stackQ320script_library_class8function7entry_t = 0x32C760;
 __cl__34slf_timer_widget_remove_function_tR8vm_stackQ320script_library_class8function7entry_t = 0x32C808;
 __cl__26slf_bitmap_widget_resize_tR8vm_stackQ320script_library_class8function7entry_t = 0x32D698;

@@ -15,8 +15,8 @@
 
 ### Attempt 1 notes
 
-The released ViBuf deletion at offset 0x48, MPEG deletion at offset 0, and success return matched exactly.
+The released ViBuf and MPEG deletions use the shared NVL decoder declaration.
 
 ## Outcome
 
-The released NVL video decoder deletion matched exactly on the first attempt.
+The local decoder layout was removed; the released helper remains exact.

@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released derived constructor matched exactly through script_library_class base construction and the slc_num_t vtable install at offset 0x20.
+The released derived constructor uses the shared script-library hierarchy and
+native base construction.
 
 ## Outcome
 
-The released slc_num_t constructor matched exactly on the first attempt.
+The manual vtable install and symbol wrapper were removed; the released
+constructor remains exact.

@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released two stringx default constructions and zero offset initialization matched exactly with the 0x14-byte vm_symbol layout.
+The released two `stringx` default constructions and zero offset initialization
+use the shared VM symbol declaration.
 
 ## Outcome
 
-The released vm_symbol constructor matched exactly on the first attempt.
+The released constructor remains exact through the shared declaration.

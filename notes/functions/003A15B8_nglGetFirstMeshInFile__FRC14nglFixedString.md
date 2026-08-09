@@ -20,8 +20,9 @@ Used an explicit negative null guard. EE GCC emitted a bnezl success branch plus
 
 ### Attempt 2 notes
 
-The released mesh-file bank search and first-mesh return matched exactly with Instance::Value at 0x20 and nglMeshFile::FirstMesh at 0x130. The bank alias is HI16-adjusted for the real 0x004abfe0 global.
+The released mesh-file bank search uses the shared NGL instance and mesh-file
+declarations. The bank alias preserves the target relocation.
 
 ## Outcome
 
-The released first-mesh-in-file lookup matched exactly.
+The local bank/file layouts were removed; the released lookup remains exact.

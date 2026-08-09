@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released scalar state initialization matched exactly with three-entry stage arrays and TotalSec at offset 0x48.
+The released scalar state initialization uses the shared `KSWaterState`
+declaration.
 
 ## Outcome
 
-The released KSWaterState constructor matched exactly on the first attempt.
+The local duplicate layout was removed; the released constructor remains exact.

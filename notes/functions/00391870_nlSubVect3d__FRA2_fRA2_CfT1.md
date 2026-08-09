@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released three-component vector subtraction matched exactly.
+The released three-component vector subtraction uses the shared NSL vector
+type.
 
 ## Outcome
 
-The released NL vector subtraction matched exactly on the first attempt.
+The local typedef was removed; the released subtraction remains exact.

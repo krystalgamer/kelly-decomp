@@ -166,26 +166,7 @@ int WAVE_GetNextScheduleIndex() {
 }
 
 // 0x003732F0 __12KSWaterState
-class KSWaterState {
-    float StageStart[3];
-    float StageDuration[3];
-    float ScaleU;
-    float ScaleV;
-    float ShiftU;
-    float ShiftV;
-    float ShiftX;
-    float ShiftZ;
-    float ShiftSpeedU;
-    float ShiftSpeedV;
-    int Stage;
-    int PerturbStage;
-    float ScheduleTimeStart;
-    float ScheduleTimeEnd;
-    float TotalSec;
-
-public:
-    KSWaterState();
-};
+#include "KS/SRC/ks/wave.h"
 
 KSWaterState::KSWaterState()
 {
@@ -201,23 +182,6 @@ KSWaterState::KSWaterState()
     Stage = 0;
     PerturbStage = 0;
 }
-
-// 0x00377B00 WAVE_StageAdvance__Fv
-extern int WAVE_Stage;
-extern float WAVE_StageProgress;
-__asm__(".equ WAVE_Stage, 0x00585AD0");
-__asm__(".equ WAVE_StageProgress, 0x00585AD8");
-
-static void WAVE_StageAdvance()
-{
-    int stage = WAVE_Stage + 1;
-    *(volatile int *)&WAVE_Stage = stage;
-    int wrapped = stage % 3;
-    *(volatile float *)&WAVE_StageProgress = 0.0f;
-    WAVE_Stage = wrapped;
-}
-
-__asm__(".globl WAVE_StageAdvance__Fv");
 
 // 0x0037DC40 WAVE_GetHeight__Fv
 struct WaveScheduleEntry { char padding0[8]; int type; char padding1[8]; };

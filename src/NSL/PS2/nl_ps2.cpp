@@ -26,7 +26,7 @@ float nlDotProduct3d(nlVector3d v0, nlVector3d v1)
 
 #if defined(KELLY_DECOMP_FUNCTION_00391838)
 // 0x00391838 nlAddVect3d__FRA2_fRA2_CfT1
-typedef float nlVector3d[3];
+#include "NSL/PS2/nl_ps2.h"
 
 void nlAddVect3d(
     nlVector3d &result,
@@ -41,7 +41,7 @@ void nlAddVect3d(
 
 #if defined(KELLY_DECOMP_FUNCTION_00391870)
 // 0x00391870 nlSubVect3d__FRA2_fRA2_CfT1
-typedef float nlVector3d[3];
+#include "NSL/PS2/nl_ps2.h"
 
 void nlSubVect3d(
     nlVector3d &result,

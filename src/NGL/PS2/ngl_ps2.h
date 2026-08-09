@@ -93,7 +93,11 @@ struct nglFrustum {
 };
 
 struct nglMaterial;
-struct nglMeshFile;
+struct nglMesh;
+struct nglMeshFile {
+    char data_to_first_mesh[0x130];
+    nglMesh *FirstMesh;
+};
 struct nglMeshLODInfo;
 struct nglMeshBatchInfo;
 struct nglQuad;
@@ -246,6 +250,7 @@ extern nglScene *nglCurScene;
 extern nglScene nglDefaultScene;
 extern nglInstanceBank nglFontBank;
 extern nglInstanceBank nglTextureBank;
+extern nglInstanceBank nglMeshFileBank;
 extern nglMesh *nglScratch;
 extern int nglFrameLock;
 extern int nglDisplayWidth;

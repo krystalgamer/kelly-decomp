@@ -61,7 +61,7 @@ struct ReadBuf {
 };
 
 struct sceMpeg {
-    char data[1];
+    char data[0x48];
 };
 
 struct sceMpegCbData;
@@ -69,7 +69,9 @@ struct sceMpegCbDataError {
     int field0;
     const char *errMessage;
 };
-struct ViBuf;
+struct ViBuf {
+    char data[0x60];
+};
 void viBufAddDMA(ViBuf *buffer);
 
 struct QWORD {
@@ -83,7 +85,7 @@ typedef int (*sceMpegCallback)(
 
 struct VideoDec {
     sceMpeg mpeg;
-    char data_to_state[0xA7];
+    ViBuf vibuf;
     unsigned int state;
 };
 

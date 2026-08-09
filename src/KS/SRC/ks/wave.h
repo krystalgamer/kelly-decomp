@@ -263,6 +263,7 @@ class KSWaterState {
     float TotalSec;
 
 public:
+    KSWaterState();
     void Save();
 };
 

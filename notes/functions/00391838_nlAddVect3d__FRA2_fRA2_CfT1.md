@@ -15,8 +15,8 @@
 
 ### Attempt 1 notes
 
-The released three-component vector addition matched exactly.
+The released three-component vector addition uses the shared NSL vector type.
 
 ## Outcome
 
-The released NL vector addition matched exactly on the first attempt.
+The local typedef was removed; the released addition remains exact.

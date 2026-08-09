@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released material/parameter masks and simple/full renderer selection matched exactly.
+The released material/parameter masks and renderer selection use the shared NGL
+callback type.
 
 ## Outcome
 
-The released mesh-section function selector matched exactly on the first attempt.
+The local callback typedef was removed; the released selector remains exact.
