@@ -1,42 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-#if defined(KELLY_DECOMP_FUNCTION_002EEB18)
-// 0x002EEB18 OnTick__9MenuSoundf
-struct menu_vtable {
-    char padding[0x18];
-    short adjustment;
-    short padding2;
-    void (*on_tick)(void *self, float delta);
-};
-
-class Menu {
-    char padding[0x1c];
-
-public:
-    menu_vtable *vtable;
-};
-
-extern Menu *menu_sources;
-__asm__(".equ menu_sources, 0x00434980");
-
-class MenuSound {
-public:
-    void OnTick(float delta);
-};
-
-void MenuSound::OnTick(float delta) {
-    register Menu **address __asm__("$3") = (Menu **)0x00430000;
-    __asm__ volatile("" : "+r"(address));
-    Menu *sources = *(Menu **)((char *)address + 0x4980);
-    menu_vtable *table = sources->vtable;
-    table->on_tick(
-        (char *)sources + table->adjustment,
-        delta
-    );
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00302930)
 // 0x00302930 _$_31SoundMenuEntryFunctionFloatEdit
 extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");

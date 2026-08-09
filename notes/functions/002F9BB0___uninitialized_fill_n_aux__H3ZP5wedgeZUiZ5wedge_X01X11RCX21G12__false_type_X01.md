@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The canonical old-STL null-guarded placement fill with a packed four-byte wedge reproduces the target `lwl`/`lwr` and `swl`/`swr` copy.
+The canonical old-STL null-guarded placement fill uses the released four-byte
+`wedge` declaration and reproduces the target unaligned copy.
 
 ## Outcome
 
-The released wedge uninitialized-fill helper matched exactly on the first attempt.
+The packed integer stand-in was removed; the released wedge fields still match
+exactly.

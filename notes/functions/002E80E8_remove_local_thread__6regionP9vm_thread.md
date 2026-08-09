@@ -16,10 +16,10 @@
 
 ### Attempt 2 notes
 
-The volatile local preserves the released stack reference passed to STL `remove` and reload for `set_suspended(false)`, avoiding the isolated compiler's `s0` lifetime. The trailing barrier preserves the normal second call.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The volatile local preserves the released stack reference passed to the shared
+STL list's `remove` method and the reload for `set_suspended(false)`.
 
 ## Outcome
 
-The released `region::remove_local_thread` implementation matched exactly on attempt two.
+The manual region offset and compiler barrier were removed. A local
+`set_suspended` call pointer preserves the normal second call.

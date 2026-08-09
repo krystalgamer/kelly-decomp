@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The canonical old-STL null-guarded placement-fill loop reproduces the target 8-byte `ldl`/`ldr` and `sdl`/`sdr` record copy exactly.
+The canonical old-STL null-guarded placement-fill loop uses the released
+`scan_light_context::light_rec` declaration and reproduces the 8-byte copy.
 
 ## Outcome
 
-The released `__uninitialized_fill_n_aux__H3ZPQ218scan_light_context9light_recZUiZQ218scan_light_context9light_rec_X01X11RCX21G12__false_type_X01` helper matched exactly on the first attempt.
+The integer stand-in was removed; the released nested light record still
+matches exactly.

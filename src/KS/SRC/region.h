@@ -2,13 +2,18 @@
 #define REGION_H
 
 #include "KS/SRC/stringx.h"
+#include "g++-2/stl_list.h"
 
 class entity;
 class light_source;
 class vm_thread;
 
 class region {
-    char data_before_region_ambient_sound[0x124];
+    char data_before_local_thread_list[0x24];
+    list<vm_thread *> local_thread_list;
+    char data_before_region_ambient_sound[
+        0x124 - 0x24 - sizeof(list<vm_thread *>)
+    ];
     stringx region_ambient_sound_name;
 
 public:

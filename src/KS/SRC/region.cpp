@@ -3,35 +3,22 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_002E80E8)
 // 0x002E80E8 remove_local_thread__6regionP9vm_thread
-class vm_thread {
-public:
-    void set_suspended(bool suspended);
-};
+#include "KS/SRC/region.h"
+#include "KS/SRC/vm_thread.h"
 
+extern "C" void SetThreadSuspended(vm_thread *, bool)
+    __asm__("set_suspended__9vm_threadb");
 __asm__(".equ set_suspended__9vm_threadb, 0x00354658");
-
-extern "C" void RemoveThreadFromList(
-    void *list,
-    vm_thread *const &thread
-) __asm__("remove__t4list2ZP9vm_threadZt12my_allocator1ZP9vm_threadRCP9vm_thread");
-__asm__(".equ remove__t4list2ZP9vm_threadZt12my_allocator1ZP9vm_threadRCP9vm_thread, 0x002FB960");
-
-class region {
-    char padding[0x24];
-    char local_thread_list[1];
-
-public:
-    void remove_local_thread(vm_thread *thread);
-};
+__asm__(
+    ".equ remove__t4list2ZP9vm_threadZt12my_allocator1ZP9vm_threadRCP9vm_thread, "
+    "0x002FB960"
+);
 
 void region::remove_local_thread(vm_thread *thread) {
     vm_thread *volatile value = thread;
-    RemoveThreadFromList(
-        local_thread_list,
-        (vm_thread *const &)value
-    );
-    ((vm_thread *)value)->set_suspended(false);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    local_thread_list.remove((vm_thread *const &)value);
+    void (*resume)(vm_thread *, bool) = SetThreadSuspended;
+    resume((vm_thread *)value, false);
 }
 #endif
 

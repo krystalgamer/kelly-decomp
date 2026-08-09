@@ -33,29 +33,26 @@ sector *UninitializedCopy(
 }
 
 // 0x002F43F8 __uninitialized_fill_n_aux__H3ZPQ218scan_light_context9light_recZUiZQ218scan_light_context9light_rec_X01X11RCX21G12__false_type_X01
+#include "KS/SRC/scan_light_context.h"
+
 inline void *operator new(unsigned int, void *place) {
     return place;
 }
 
-struct value8 {
-    int first;
-    int second;
-};
-
-extern "C" value8 *UninitializedFill(
-    value8 *first,
+extern "C" scan_light_context::light_rec *UninitializedFill(
+    scan_light_context::light_rec *first,
     unsigned int count,
-    const value8 &value
+    const scan_light_context::light_rec &value
 ) __asm__("__uninitialized_fill_n_aux__H3ZPQ218scan_light_context9light_recZUiZQ218scan_light_context9light_rec_X01X11RCX21G12__false_type_X01");
 
-value8 *UninitializedFill(
-    value8 *first,
+scan_light_context::light_rec *UninitializedFill(
+    scan_light_context::light_rec *first,
     unsigned int count,
-    const value8 &value
+    const scan_light_context::light_rec &value
 ) {
     while (count) {
         if (first) {
-            new (first) value8(value);
+            new (first) scan_light_context::light_rec(value);
         }
         --count;
         ++first;
@@ -64,13 +61,11 @@ value8 *UninitializedFill(
 }
 
 // 0x002F9BB0 __uninitialized_fill_n_aux__H3ZP5wedgeZUiZ5wedge_X01X11RCX21G12__false_type_X01
+#include "KS/SRC/wedge.h"
+
 inline void *operator new(unsigned int, void *place) {
     return place;
 }
-
-struct __attribute__((packed)) wedge {
-    int value;
-};
 
 extern "C" wedge *UninitializedFill(
     wedge *first,

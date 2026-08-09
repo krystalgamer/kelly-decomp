@@ -196,6 +196,8 @@ public:
         }
         while (count != 0);
     }
+
+    void remove(const T &value);
 };
 
 #endif
