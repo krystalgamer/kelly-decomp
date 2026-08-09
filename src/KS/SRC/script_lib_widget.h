@@ -34,6 +34,32 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_bitmap_widget_flip_horiz_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        bitmap_widget *me;
+    };
+
+    slf_bitmap_widget_flip_horiz_t(
+        script_library_class *owner,
+        const char *name);
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+class slf_bitmap_widget_flip_vert_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        bitmap_widget *me;
+    };
+
+    slf_bitmap_widget_flip_vert_t(
+        script_library_class *owner,
+        const char *name);
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 #endif
 
 // Matching decompilation blocks selected by generated build shims.

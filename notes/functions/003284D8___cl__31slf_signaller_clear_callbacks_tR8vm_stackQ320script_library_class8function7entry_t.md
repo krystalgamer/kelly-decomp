@@ -11,11 +11,12 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-script-wrapper-core.cpp` |
 
 ### Attempt 1 notes
 
-The released `SLF_PARMS` and `SLF_DONE` forms pop the signaller parameter, call `clear_script_callbacks`, and return completion.
+The shared VM stack, script-function, and signaller declarations preserve the
+released parameter pop and callback clear.
 
 ## Outcome
 

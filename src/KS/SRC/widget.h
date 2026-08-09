@@ -270,6 +270,8 @@ public:
         time_value_t wait,
         time_value_t duration,
         rational_t scale);
+    void flip_horiz();
+    void flip_vert();
     virtual rational_t get_width();
     virtual rational_t get_height();
 };

@@ -1,5 +1,36 @@
 // Matching decompilation blocks selected by generated build shims.
 
+#ifndef SCRIPT_LIB_LIST_DECLARATIONS_H
+#define SCRIPT_LIB_LIST_DECLARATIONS_H
+
+#pragma interface
+
+#include "KS/SRC/script_library_class.h"
+
+#define DECLARE_DESTROY_LIST_SLF(name, field) \
+class name : public script_library_class::function { \
+public: \
+    struct parms_t { void *field; }; \
+    explicit name(const char *function_name); \
+    virtual bool operator()(vm_stack &stack, entry_t entry); \
+}
+
+DECLARE_DESTROY_LIST_SLF(
+    slf_destroy_vector3d_list_t,
+    the_vector3d_list);
+DECLARE_DESTROY_LIST_SLF(
+    slf_destroy_num_list_t,
+    the_num_list);
+DECLARE_DESTROY_LIST_SLF(
+    slf_destroy_entity_list_t,
+    the_entity_list);
+DECLARE_DESTROY_LIST_SLF(
+    slf_destroy_str_list_t,
+    the_str_list);
+
+#undef DECLARE_DESTROY_LIST_SLF
+
+#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F0D0)
 // 0x0032F0D0 __tf19slc_vector3d_list_t

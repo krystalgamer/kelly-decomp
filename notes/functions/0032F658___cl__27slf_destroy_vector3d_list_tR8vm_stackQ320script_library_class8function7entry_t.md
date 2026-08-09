@@ -11,11 +11,12 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-script-wrapper-core.cpp` |
 
 ### Attempt 1 notes
 
-The released `SLF_PARMS` and `SLF_DONE` body pops the four-byte vector3d-list handle and calls the symbol-preserved destroy helper.
+The shared VM stack and script-function declarations preserve the four-byte
+vector-list handle and destroy helper.
 
 ## Outcome
 

@@ -28,6 +28,19 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_signaller_clear_callbacks_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        signaller *me;
+    };
+
+    slf_signaller_clear_callbacks_t(
+        script_library_class *owner,
+        const char *name);
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00327088)

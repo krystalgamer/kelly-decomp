@@ -11,11 +11,12 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-script-wrapper-core.cpp` |
 
 ### Attempt 1 notes
 
-The released `SLF_PARMS` and `SLF_DONE` forms pop the bitmap widget, call `flip_vert`, and return completion.
+The shared VM stack, script-function, and bitmap-widget declarations preserve
+the vertical flip wrapper.
 
 ## Outcome
 
