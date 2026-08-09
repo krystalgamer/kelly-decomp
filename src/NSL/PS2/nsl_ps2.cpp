@@ -96,16 +96,7 @@ int _nslCheckAutoReleaseEmitters(nslEmitter *daEmmiter, void *userData)
 }
 
 // 0x00390C48 nslSetSystemCallbacks__FP23nslSystemCallbackStruct
-struct nslSystemCallbackStruct {
-    void *ReadFile;
-    void *ReleaseFile;
-    void *CriticalError;
-    void *Error;
-    void *Warning;
-    void *DebugPrint;
-    void *MemAlloc;
-    void *MemFree;
-};
+#include "NSL/PS2/nsl_ps2.h"
 
 extern nslSystemCallbackStruct nslSystemCallbacks;
 __asm__(".equ nslSystemCallbacks, 0x004A0F48");

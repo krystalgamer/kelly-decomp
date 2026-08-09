@@ -7,6 +7,17 @@
 typedef unsigned int nlUint32;
 typedef unsigned int nslSourceId;
 typedef unsigned int nslSoundId;
+
+struct nslSystemCallbackStruct {
+    void *ReadFile;
+    void *ReleaseFile;
+    void *CriticalError;
+    void *Error;
+    void *Warning;
+    void *DebugPrint;
+    void *MemAlloc;
+    void *MemFree;
+};
 typedef unsigned int nslEmitterId;
 
 #define NSL_NUM_SOURCES 512

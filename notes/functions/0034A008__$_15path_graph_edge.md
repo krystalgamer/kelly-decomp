@@ -5,7 +5,7 @@
 - Object: `game/files_vsim`
 - Debug source: `C:/KS/SRC/path.cpp`
 - Reference source: `KS/SRC/path.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -21,4 +21,5 @@ Read the exact released destructor body and path_graph_edge declaration, then re
 
 ## Outcome
 
-Matched released path_graph_edge destructor
+The handwritten compiler-generated destructor wrapper was removed. The shared
+class cannot yet reproduce its exact deleting form, so it was deferred.

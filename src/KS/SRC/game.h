@@ -135,8 +135,9 @@ class game {
     PlayMode play_mode;
     camera *player_cam[2];
     game_recti player_viewports[2];
-    int num_players;
+    char data_before_num_ai_players[4];
     int num_ai_players;
+    int num_players;
     int num_active_players;
     int active_player;
     char data_to_flags[4];

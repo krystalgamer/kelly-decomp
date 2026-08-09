@@ -2,15 +2,7 @@
 
 
 // 0x0038B200 nvlMovieGetWidth__FPC8nvlMovie
-struct nvlMovie {
-    void *src;
-    void *stream;
-    int dataSize;
-    int width;
-    int height;
-    volatile int currentFrame;
-    int framesTotal;
-};
+#include "NVL/PS2/nvl_ps2.h"
 
 extern int nvlSystemInitialized;
 extern "C" void __assert(const char *file, int line, const char *expression);
@@ -30,15 +22,7 @@ int nvlMovieGetWidth(const nvlMovie *movie)
 }
 
 // 0x0038B250 nvlMovieGetHeight__FPC8nvlMovie
-struct nvlMovie {
-    void *src;
-    void *stream;
-    int dataSize;
-    int width;
-    int height;
-    volatile int currentFrame;
-    int framesTotal;
-};
+#include "NVL/PS2/nvl_ps2.h"
 
 extern int nvlSystemInitialized;
 extern "C" void __assert(const char *file, int line, const char *expression);
@@ -58,15 +42,7 @@ int nvlMovieGetHeight(const nvlMovie *movie)
 }
 
 // 0x0038B2A0 nvlMovieGetFrameNum__FPC8nvlMovie
-struct nvlMovie {
-    void *src;
-    void *stream;
-    int dataSize;
-    int width;
-    int height;
-    volatile int currentFrame;
-    int framesTotal;
-};
+#include "NVL/PS2/nvl_ps2.h"
 
 extern int nvlSystemInitialized;
 extern "C" void __assert(const char *file, int line, const char *expression);
@@ -86,15 +62,7 @@ int nvlMovieGetFrameNum(const nvlMovie *movie)
 }
 
 // 0x0038B2F0 nvlMovieGetFrame__FPC8nvlMovie
-struct nvlMovie {
-    void *src;
-    void *stream;
-    int dataSize;
-    int width;
-    int height;
-    volatile int currentFrame;
-    int framesTotal;
-};
+#include "NVL/PS2/nvl_ps2.h"
 
 extern int nvlSystemInitialized;
 extern "C" void __assert(const char *file, int line, const char *expression);

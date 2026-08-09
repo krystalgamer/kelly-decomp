@@ -241,13 +241,7 @@ int strFileRead(StrFile *file, void *buff, int size)
 
 #if defined(KELLY_DECOMP_FUNCTION_003894B0)
 // 0x003894B0 strFileClose__FP7StrFile
-struct StrFile {
-    int isOnCD;
-    int size;
-    char fp[0x24];
-    unsigned char *iopBuf;
-    int fd;
-};
+#include "NVL/PS2/nvlMPEG_ps2.h"
 
 extern "C" int sceCdStStop();
 extern "C" int sceSifFreeIopHeap(void *address);

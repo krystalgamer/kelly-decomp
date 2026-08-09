@@ -21,20 +21,8 @@ void SFXEngine::shutdown()
 
 #if defined(KELLY_DECOMP_FUNCTION_0036B1D8)
 // 0x0036B1D8 ks_fx_create_big_splash__FG8vector3d
- #include "decomp_annotations.h"
-
-struct vector3d {
-    float x;
-    float y;
-    float z;
-
-    vector3d(const vector3d &other)
-    {
-        x = other.x;
-        y = other.y;
-        z = other.z;
-    }
-};
+#include "KS/SRC/algebra.h"
+#include "KS/SRC/game.h"
 
 void ks_fx_add_splash(
     unsigned int fxindex,
@@ -44,18 +32,12 @@ void ks_fx_add_splash(
 
 __asm__(".equ ks_fx_add_splash__FUiRC8vector3df, 0x0036C3D0");
 
-class game {
-    char padding[0xB4];
-    int num_ai_players;
-    int num_players;
-
-public:
-    int get_num_players() const { return num_players; }
-    int get_num_ai_players() const { return num_ai_players; }
-};
-
-extern game *g_game_ptr;
 __asm__(".equ g_game_ptr, 0x0046AC64");
+extern "C" void add_big_splash(
+    unsigned int index,
+    const vector3d &position,
+    float power)
+    __asm__("ks_fx_add_splash__FUiRC8vector3df");
 
 void ks_fx_create_big_splash(vector3d position)
 {
@@ -64,8 +46,11 @@ void ks_fx_create_big_splash(vector3d position)
         skip = g_game_ptr->get_num_ai_players() == 0;
 
     if (!skip) {
-        ks_fx_add_splash(7, position, 1.0f);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*add_splash)(
+            unsigned int,
+            const vector3d &,
+            float) = add_big_splash;
+        add_splash(7, position, 1.0f);
     }
 }
 #endif

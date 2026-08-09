@@ -100,23 +100,8 @@ nglFixedString& ATETextureName(char* atefile, const nglFixedString& texname, int
 
 #if defined(KELLY_DECOMP_FUNCTION_003ACBF0)
 // 0x003ACBF0 ATETextureHeader__FPcRC14nglFixedStringi
-struct nglFixedString {
-    char text[32];
-};
+#include "NGL/PS2/ngl_ate.h"
 
-struct ATEFileEntry {
-    nglFixedString name;
-    unsigned int hoff;
-    unsigned int ioff;
-    unsigned int poff;
-    unsigned int pad;
-};
-
-ATEFileEntry *ATENthTextureEntryHead(
-    char *atefile,
-    const nglFixedString &texture_name,
-    int index
-);
 extern "C" void __assert(const char *file, int line, const char *expression);
 extern const char ate_file[];
 extern const char ate_assert[];
@@ -136,7 +121,7 @@ char *ATETextureHeader(
         ATENthTextureEntryHead(atefile, texture_name, index);
     unsigned int offset;
     if (entry) {
-        offset = entry->hoff;
+        offset = entry->header_offset;
         goto found;
     }
     __assert(ate_file, 106, ate_assert);
@@ -149,23 +134,8 @@ found:
 
 #if defined(KELLY_DECOMP_FUNCTION_003ACC40)
 // 0x003ACC40 ATETextureImage__FPcRC14nglFixedStringi
-struct nglFixedString {
-    char text[32];
-};
+#include "NGL/PS2/ngl_ate.h"
 
-struct ATEFileEntry {
-    nglFixedString name;
-    unsigned int hoff;
-    unsigned int ioff;
-    unsigned int poff;
-    unsigned int pad;
-};
-
-ATEFileEntry *ATENthTextureEntryHead(
-    char *atefile,
-    const nglFixedString &texture_name,
-    int index
-);
 extern "C" void __assert(const char *file, int line, const char *expression);
 extern const char ate_file[];
 extern const char ate_assert[];
@@ -185,7 +155,7 @@ char *ATETextureImage(
         ATENthTextureEntryHead(atefile, texture_name, index);
     unsigned int offset;
     if (entry) {
-        offset = entry->ioff;
+        offset = entry->image_offset;
         goto found;
     }
     __assert(ate_file, 114, ate_assert);
@@ -198,23 +168,8 @@ found:
 
 #if defined(KELLY_DECOMP_FUNCTION_003ACC90)
 // 0x003ACC90 ATETexturePalette__FPcRC14nglFixedStringi
-struct nglFixedString {
-    char text[32];
-};
+#include "NGL/PS2/ngl_ate.h"
 
-struct ATEFileEntry {
-    nglFixedString name;
-    unsigned int hoff;
-    unsigned int ioff;
-    unsigned int poff;
-    unsigned int pad;
-};
-
-ATEFileEntry *ATENthTextureEntryHead(
-    char *atefile,
-    const nglFixedString &texture_name,
-    int index
-);
 extern "C" void __assert(const char *file, int line, const char *expression);
 extern const char ate_file[];
 extern const char ate_assert[];
@@ -234,7 +189,7 @@ char *ATETexturePalette(
         ATENthTextureEntryHead(atefile, texture_name, index);
     unsigned int offset;
     if (entry) {
-        offset = entry->poff;
+        offset = entry->palette_offset;
         goto found;
     }
     __assert(ate_file, 122, ate_assert);

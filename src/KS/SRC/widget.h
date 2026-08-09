@@ -141,6 +141,8 @@ public:
     virtual void update_col();
     widget *get_first_child();
     static rational_t get_next_rhw_2d_val();
+    static rational_t get_pc_z(rational_t rhw);
+    static const rational_t rhw_layer_ranges[NUM_RHW_LAYERS][2];
     static rhw_layer_e rhw_2d_layer;
     static rational_t rhw_2d_val[NUM_RHW_LAYERS];
 
