@@ -2,37 +2,6 @@
 
 #include "KS/SRC/iri.h"
 
-// 0x002FBB48 __uninitialized_fill_n_aux__H3ZP6sectorZUiZ6sector_X01X11RCX21G12__false_type_X01
-inline void *operator new(unsigned int, void *place) {
-    return place;
-}
-
-struct sector {
-    int value;
-};
-
-extern "C" sector *UninitializedFill(
-    sector *first,
-    unsigned int count,
-    const sector &value
-) __asm__("__uninitialized_fill_n_aux__H3ZP6sectorZUiZ6sector_X01X11RCX21G12__false_type_X01");
-
-sector *UninitializedFill(
-    sector *first,
-    unsigned int count,
-    const sector &value
-) {
-    while (count) {
-        if (first) {
-            new (first) sector(value);
-        }
-        --count;
-        __asm__ volatile("nop");
-        ++first;
-    }
-    return first;
-}
-
 // 0x002FD088 __uninitialized_copy_aux__H2ZP6sectorZP6sector_X01X01X11G12__false_type_X11
 inline void *operator new(unsigned int, void *place) {
     return place;
@@ -304,24 +273,6 @@ __asm__(".equ __7stringx,0x0034D3E0");__asm__(".equ __as__7stringxRC7stringx,0x0
 
 // 0x002F1430 __uninitialized_copy_aux__H2ZPQ212timer_widget10timer_funcZPQ212timer_widget10timer_func_X01X01X11G12__false_type_X11
 __asm__(".equ __7stringx,0x0034D3E0");__asm__(".equ __as__7stringxRC7stringx,0x0034E0B8");struct stringx{char data[8];stringx();stringx&operator=(const stringx&);};struct timer_func{float time;stringx function;timer_func(const timer_func&b){time=b.time;function=b.function;}};inline void*operator new(unsigned int,void*p){return p;}extern "C" timer_func*copy(timer_func*first,timer_func*last,timer_func*result)__asm__("__uninitialized_copy_aux__H2ZPQ212timer_widget10timer_funcZPQ212timer_widget10timer_func_X01X01X11G12__false_type_X11");timer_func*copy(timer_func*first,timer_func*last,timer_func*result){for(;first!=last;++first,++result)if(result)new((void*)result)timer_func(*first);return result;}
-
-// 0x002F09E0 fill_n__H3ZPP16entity_anim_treeZUiZP16entity_anim_tree_X01X11RCX21_X01
-class entity_anim_tree; extern "C" entity_anim_tree **fill_values(entity_anim_tree **first,unsigned int count,entity_anim_tree *const &value)__asm__("fill_n__H3ZPP16entity_anim_treeZUiZP16entity_anim_tree_X01X11RCX21_X01"); entity_anim_tree **fill_values(entity_anim_tree **first,unsigned int count,entity_anim_tree *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
-
-// 0x002F43C8 fill__H2ZPQ218scan_light_context9light_recZQ218scan_light_context9light_rec_X01X01RCX11_v
-struct light_rec{char data[8];}; extern "C" void fill_values(light_rec *first,light_rec *last,const light_rec &value)__asm__("fill__H2ZPQ218scan_light_context9light_recZQ218scan_light_context9light_rec_X01X01RCX11_v"); void fill_values(light_rec *first,light_rec *last,const light_rec &value){__asm__ __volatile__("beq $4,$5,2f\n1:\nldl $2,7($6)\nldr $2,0($6)\nsdl $2,7($4)\nsdr $2,0($4)\naddiu $4,$4,8\nbne $4,$5,1b\n2:" : : : "$2","memory");}
-
-// 0x002F5E60 fill_n__H3ZPP8materialZUiZP8material_X01X11RCX21_X01
-class material; extern "C" material **fill_values(material **first,unsigned int count,material *const &value)__asm__("fill_n__H3ZPP8materialZUiZP8material_X01X11RCX21_X01"); material **fill_values(material **first,unsigned int count,material *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
-
-// 0x002FA938 fill_n__H3ZPiZUiZi_X01X11RCX21_X01
-extern "C" int *fill_values(int *first,unsigned int count,const int &value)__asm__("fill_n__H3ZPiZUiZi_X01X11RCX21_X01"); int *fill_values(int *first,unsigned int count,const int &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
-
-// 0x002FAE20 fill_n__H3ZPUcZUiZUc_X01X11RCX21_X01
-extern "C" unsigned char *fill_values(unsigned char *first,unsigned int count,const unsigned char &value)__asm__("fill_n__H3ZPUcZUiZUc_X01X11RCX21_X01"); unsigned char *fill_values(unsigned char *first,unsigned int count,const unsigned char &value){__asm__ __volatile__("beqz $5,2f\n1:\nlbu $2,0($6)\naddiu $5,$5,-1\nsb $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840001\n2:" : : : "$2","memory");return first;}
-
-// 0x002FB9E0 fill_n__H3ZPP10partition3ZUiZP10partition3_X01X11RCX21_X01
-class partition3; extern "C" partition3 **fill_values(partition3 **first,unsigned int count,partition3 *const &value)__asm__("fill_n__H3ZPP10partition3ZUiZP10partition3_X01X11RCX21_X01"); partition3 **fill_values(partition3 **first,unsigned int count,partition3 *const &value){__asm__ __volatile__("beqz $5,2f\n1:\nlw $2,0($6)\naddiu $5,$5,-1\nsw $2,0($4)\nnop\nnop\n.word 0x14a0fffa\n.word 0x24840004\n2:" : : : "$2","memory");return first;}
 
 // Source implementation boundary.
 // 0x002FFC10 __Q2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeRCQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node

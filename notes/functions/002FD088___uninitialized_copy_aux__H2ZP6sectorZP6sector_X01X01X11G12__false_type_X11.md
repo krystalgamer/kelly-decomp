@@ -11,11 +11,12 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-generated-copy-core.cpp` |
 
 ### Attempt 1 notes
 
-The released STL helper performs a null-guarded placement copy of each four-byte `sector`; the canonical loop reproduces the branch-likely null path and both iterator increments exactly.
+The canonical null-guarded placement-copy loop reproduces the branch-likely
+path and both iterator increments without annotations.
 
 ## Outcome
 
