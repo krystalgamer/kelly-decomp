@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-widget-render-core.cpp` |
 
 ### Attempt 1 notes
 
-A minimal layout places the material factory at 0x18 and maps translucency to the released render-pass count.
+The shared billboard and material declarations place the material factory at
+0x18 and map translucency to the released render-pass count.
 
 ## Outcome
 
-The released billboard render-pass predicate matched exactly.
+The local layouts were removed.

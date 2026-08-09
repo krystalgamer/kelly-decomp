@@ -12,13 +12,15 @@ int vr_billboard::get_anim_length() const
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_002C1050)
 // 0x002C1050 render_passes_needed__C12vr_billboard
-class mat_fac { public: bool is_translucent() const; };
+#include "KS/SRC/billboard.h"
+
 __asm__(".equ is_translucent__C7mat_fac, 0x002BD178");
-class vr_billboard { char padding[0x18]; mat_fac material; public: int render_passes_needed() const; };
-int vr_billboard::render_passes_needed() const { return material.is_translucent() ? 2 : 1; }
-#endif
+render_flavor_t vr_billboard::render_passes_needed() const {
+    return my_material.is_translucent()
+        ? RENDER_TRANSLUCENT_PORTION
+        : RENDER_OPAQUE_PORTION;
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_002C10C8)
 // 0x002C10C8 render_instance__12vr_billboardP7nglMeshPiUiP20instance_render_infoPs

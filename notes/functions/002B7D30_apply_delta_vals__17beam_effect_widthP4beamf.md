@@ -13,6 +13,7 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | compile_failed | 0.0 | 0 | `candidate.cpp` |
 | 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | matched | 100.0 | 100.0 | `size44-widget-render-core.cpp` |
 
 ### Attempt 1 notes
 
@@ -22,8 +23,11 @@ The first candidate failed due to an access or exact signature-mangling mismatch
 
 Minimal layouts preserve the width delta and beam thickness used by the released update.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 3 notes
+
+The shared beam declarations and a local function pointer preserve the normal
+setter call without a compiler barrier.
 
 ## Outcome
 
-The released beam width delta application matched exactly.
+The local layouts and compiler barrier were removed.

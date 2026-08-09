@@ -11,14 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-widget-render-core.cpp` |
 
 ### Attempt 1 notes
 
-The released timer widget scale update runs the base widget update before its derived refresh.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The shared timer-widget declaration and a local function pointer preserve the
+base update followed by the normal resize call.
 
 ## Outcome
 
-The released `timer_widget::update_scale` implementation matched exactly.
+The compiler barrier was removed.

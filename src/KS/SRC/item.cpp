@@ -108,26 +108,6 @@ void item::dec_count() { --count; }
 #include "KS/SRC/item.h"
 void item::set_count(int value) { count = value; }
 
-// 0x002B85D8 is_usable__C4item
-struct item_usable_vtable {
-    char padding[0x628];
-    short adjustment;
-    short padding2;
-    int (*get_count)(void *self);
-};
-struct item_usable_layout {
-    char padding[8];
-    item_usable_vtable *vtable;
-};
-extern "C" bool item_is_usable(
-    const item_usable_layout *self)
-    __asm__("is_usable__C4item");
-bool item_is_usable(const item_usable_layout *self) {
-    item_usable_vtable *table = self->vtable;
-    return table->get_count(
-        (char *)self + table->adjustment) > 0;
-}
-
 // 0x002B8608 get_number__C4item
 #include "KS/SRC/item.h"
 int item::get_number() const { return count; }

@@ -1,23 +1,38 @@
 // Matching decompilation blocks selected by generated build shims.
 
-
-#if defined(KELLY_DECOMP_FUNCTION_002BA5B0)
 // 0x002BA5B0 update_pos__13entity_widget
-class widget { public: void update_pos(); };
-__asm__(".equ update_pos__6widget, 0x0033E650");
-class entity_widget : public widget { public: void update_pos(); void update_entity_po(); };
-__asm__(".equ update_entity_po__13entity_widget, 0x002BAA98");
-void entity_widget::update_pos() { widget::update_pos(); update_entity_po(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+class entity_widget;
 
-#if defined(KELLY_DECOMP_FUNCTION_002BA5E0)
-// 0x002BA5E0 update_scale__13entity_widget
-class widget { public: void update_scale(); };
-__asm__(".equ update_scale__6widget, 0x0033E710");
-class entity_widget : public widget { public: void update_scale(); void update_entity_po(); };
+__asm__(".equ update_pos__6widget, 0x0033E650");
 __asm__(".equ update_entity_po__13entity_widget, 0x002BAA98");
-void entity_widget::update_scale() { widget::update_scale(); update_entity_po(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+void update_widget_pos(entity_widget *self)
+    __asm__("update_pos__6widget");
+void update_entity_transform(entity_widget *self)
+    __asm__("update_entity_po__13entity_widget");
+extern "C" void update_entity_widget_pos(entity_widget *self)
+    __asm__("update_pos__13entity_widget");
+void update_entity_widget_pos(entity_widget *self) {
+    update_widget_pos(self);
+    void (*update_transform)(entity_widget *) = update_entity_transform;
+    update_transform(self);
+}
+
+// 0x002BA5E0 update_scale__13entity_widget
+class entity_widget;
+
+__asm__(".equ update_scale__6widget, 0x0033E710");
+__asm__(".equ update_entity_po__13entity_widget, 0x002BAA98");
+void update_widget_scale(entity_widget *self)
+    __asm__("update_scale__6widget");
+void update_entity_transform(entity_widget *self)
+    __asm__("update_entity_po__13entity_widget");
+extern "C" void update_entity_widget_scale(entity_widget *self)
+    __asm__("update_scale__13entity_widget");
+void update_entity_widget_scale(entity_widget *self) {
+    update_widget_scale(self);
+    void (*update_transform)(entity_widget *) = update_entity_transform;
+    update_transform(self);
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_002BAA60)
 // 0x002BAA60 set_rotation__13entity_widgetfff

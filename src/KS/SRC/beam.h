@@ -54,6 +54,7 @@ public:
     void purge_effects();
     void release();
     render_flavor_t render_passes_needed() const;
+    inline float get_thickness() const { return thickness; }
     inline color32 get_beam_color() const { return my_color; }
     void set_thickness(float value);
     void set_max_length(float value);

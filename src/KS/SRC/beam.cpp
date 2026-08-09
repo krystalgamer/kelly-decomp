@@ -541,10 +541,15 @@ bool beam_effect::is_active() const
 }
 
 // 0x002B7D30 apply_delta_vals__17beam_effect_widthP4beamf
-class beam { public: char padding[0x200]; float thickness; void set_thickness(float value); };
+#include "KS/SRC/beam.h"
+
 __asm__(".equ set_thickness__4beamf, 0x00271790");
-class beam_effect_width { char padding[0x0c]; float delta; public: void apply_delta_vals(beam *value, float time); };
-void beam_effect_width::apply_delta_vals(beam *value, float time) { value->set_thickness(value->thickness + delta * time); KELLY_DECOMP_COMPILER_BARRIER(); }
+void set_beam_thickness(beam *value, float thickness)
+    __asm__("set_thickness__4beamf");
+void beam_effect_width::apply_delta_vals(beam *value, float time) {
+    void (*set_thickness)(beam *, float) = set_beam_thickness;
+    set_thickness(value, value->get_thickness() + delta * time);
+}
 
 // 0x002B7CC0 _$_17beam_effect_width
 extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");

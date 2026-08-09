@@ -16,14 +16,18 @@ void script_widget_holder_t::frame_advance(time_value_t time_inc)
     }
 }
 
-#if defined(KELLY_DECOMP_FUNCTION_002BB7E8)
 // 0x002BB7E8 update_scale__12timer_widget
-class widget { public: void update_scale(); };
+#include "KS/SRC/widget_script.h"
+
 __asm__(".equ update_scale__6widget, 0x0033E710");
-class timer_widget : public widget { public: void update_scale(); void resize_timer(); };
 __asm__(".equ resize_timer__12timer_widget, 0x002BB818");
-void timer_widget::update_scale() { widget::update_scale(); resize_timer(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+void resize_timer_widget(timer_widget *self)
+    __asm__("resize_timer__12timer_widget");
+void timer_widget::update_scale() {
+    widget::update_scale();
+    void (*resize)(timer_widget *) = resize_timer_widget;
+    resize(this);
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_002BBA38)
 // 0x002BBA38 show__12timer_widget
