@@ -764,26 +764,18 @@ void kellyslater_controller::debug_mode_play_anim()
 }
 
 // 0x0026F750 OnNewWave__22kellyslater_controller
-class SurfBoardObjectClass {
-public:
-    void OnNewWave();
-};
+#include "KS/SRC/ks/board.h"
+#include "KS/SRC/ks/kellyslater_controller.h"
 
 __asm__(".equ OnNewWave__20SurfBoardObjectClass, 0x001EE648");
-
-struct controller_new_wave_layout {
-    char padding[0x37c];
-    SurfBoardObjectClass my_board_controller;
-};
-
-extern "C" void reset_controller(void *)
+void board_on_new_wave(SurfBoardObjectClass *board)
+    __asm__("OnNewWave__20SurfBoardObjectClass");
+void reset_controller(kellyslater_controller *controller)
     __asm__("Reset__22kellyslater_controller");
-extern "C" void controller_on_new_wave(controller_new_wave_layout *self)
-    __asm__("OnNewWave__22kellyslater_controller");
 __asm__(".equ Reset__22kellyslater_controller, 0x00211538");
 
-void controller_on_new_wave(controller_new_wave_layout *self) {
-    self->my_board_controller.OnNewWave();
-    reset_controller(self);
-    KELLY_DECOMP_COMPILER_BARRIER();
+void kellyslater_controller::OnNewWave() {
+    board_on_new_wave(get_board_controller());
+    void (*reset)(kellyslater_controller *) = reset_controller;
+    reset(this);
 }

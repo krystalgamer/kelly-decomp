@@ -26,6 +26,7 @@ struct ScoringManagerStorage {
 class camera;
 class entity;
 class game_camera;
+class SurfBoardObjectClass;
 class turn_data;
 
 class BalanceMeter {
@@ -117,6 +118,9 @@ public:
     int get_super_state() const { return super_state; }
     float CtrlEvent(int control);
     bool IsAIPlayer();
+    SurfBoardObjectClass *get_board_controller() {
+        return (SurfBoardObjectClass *)((char *)this + 0x37C);
+    }
     void TurnDegree();
     bool Z_Within_Tube();
     void EndTube();

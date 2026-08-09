@@ -12,13 +12,17 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size48-menu-destructor-core.cpp` |
 
 ### Attempt 1 notes
 
 The released inline handler calls the embedded board controller at offset 0x37c, then `Reset`. The trailing empty barrier preserves the target second call and return frame.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+The shared controller and board declarations plus a local reset pointer
+preserve both normal calls without a compiler barrier.
 
 ## Outcome
 
-The released `kellyslater_controller::OnNewWave` wrapper matched exactly on the first attempt.
+The local controller layout and compiler barrier were removed.
