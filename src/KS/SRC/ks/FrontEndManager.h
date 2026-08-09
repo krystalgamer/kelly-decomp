@@ -29,7 +29,8 @@ public:
     bool fe_done_loading;
     bool in_game_map_up;
     bool return_to_fe;
-    char manager_context_after_return_to_fe[0x18];
+    bool map_loading_screen;
+    char manager_context_after_map_loading_screen[0x14];
     BeachFrontEnd *map;
     HelpbarFE *helpbar;
 

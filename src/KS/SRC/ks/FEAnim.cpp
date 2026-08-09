@@ -9,21 +9,14 @@ PanelAnim *PanelAnimFile::FindObject(char *name) { PanelAnim *result = 0; if (ob
 
 #if defined(KELLY_DECOMP_FUNCTION_00155108)
 // 0x00155108 FindObject__9PanelAnimPc
+#include "KS/SRC/ks/FEAnim.h"
+
 extern "C" int strcmp(const char *left, const char *right);
 __asm__(".equ strcmp, 0x003D3E88");
 
-class PanelAnim {
-    char *name;
-    char padding[0x68];
-    PanelAnim *next;
-
-public:
-    PanelAnim *FindObject(char *object_name);
-};
-
 PanelAnim *PanelAnim::FindObject(char *object_name)
 {
-    if (!strcmp(name, object_name))
+    if (!strcmp(name.c_str(), object_name))
         return this;
     else if (next != 0)
         return next->FindObject(object_name);

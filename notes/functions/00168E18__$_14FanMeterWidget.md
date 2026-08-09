@@ -5,7 +5,7 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/igo_widget_fanmeter.cpp`
 - Reference source: `KS/SRC/ks/igo_widget_fanmeter.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -21,4 +21,5 @@ Read the exact released FanMeterWidget destructor and class declaration. Reused 
 
 ## Outcome
 
-Matched released FanMeterWidget destructor
+The handwritten compiler-generated destructor wrapper was removed. The shared
+class cannot yet reproduce its exact deleting form, so it was deferred.

@@ -11,42 +11,6 @@ bool SimpleWidget::IsShown(void) const
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00164708)
-// 0x00164708 _$_12SimpleWidget
-#include "decomp_annotations.h"
-
-extern "C" void BuiltinVecDelete(void *memory)
-    __asm__("__builtin_vec_delete");
-extern "C" void IGOWidgetDtor(void *self, int deleting)
-    __asm__("_$_9IGOWidget");
-
-__asm__(".equ __builtin_vec_delete, 0x002AC6D0");
-__asm__(".equ _$_9IGOWidget, 0x00164628");
-
-extern const char simple_widget_vtable[];
-__asm__(".equ simple_widget_vtable, 0x004DB618");
-
-struct simple_widget_layout {
-    char padding[4];
-    const void *vtable;
-    int numPQs;
-    void *pqs;
-};
-
-extern "C" void SimpleWidgetDtor(void *self, int deleting)
-    __asm__("_$_12SimpleWidget");
-
-void SimpleWidgetDtor(void *self, int deleting)
-{
-    simple_widget_layout *widget = (simple_widget_layout *)self;
-    widget->vtable = simple_widget_vtable;
-    if (widget->pqs)
-        BuiltinVecDelete(widget->pqs);
-    IGOWidgetDtor(widget, deleting);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00164888)
 // 0x00164888 Show__12SimpleWidgetb
 struct QuadVtable{char pad[24];short adjust;short z;void(*turn_on)(void*,bool);};struct PanelQuad{char pad[404];QuadVtable*vtable;};struct SimpleWidget{char pad[8];int numPQs;PanelQuad**pqs;void Show(bool)__asm__("Show__12SimpleWidgetb");};void SimpleWidget::Show(bool on){for(int i=0;i<numPQs;i++){PanelQuad*q=pqs[i];QuadVtable*v=q->vtable;v->turn_on((char*)q+v->adjust,on);}}

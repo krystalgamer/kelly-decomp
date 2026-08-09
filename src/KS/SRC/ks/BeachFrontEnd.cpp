@@ -38,57 +38,6 @@ bool BeachFrontEnd::Realistic(bool press_build_only)
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0018F4F0)
-// 0x0018F4F0 OnLevelLoaded__13BeachFrontEnd
-struct pause_menu_vtable {
-    char padding[0x50];
-    short start_draw_adjust;
-    short reserved;
-    void (*start_draw)(void *self, int menu, bool pause_game);
-};
-
-struct PauseMenuSystem {
-    char padding[0x8C];
-    pause_menu_vtable *vtable;
-
-    void startDraw(int menu, bool pause_game)
-    {
-        vtable->start_draw(
-            (char *)this + vtable->start_draw_adjust,
-            menu,
-            pause_game
-        );
-    }
-};
-
-struct frontend_manager_layout {
-    char padding[0x15688];
-    int map_loading_screen;
-};
-
-extern frontend_manager_layout frontendmanager;
-__asm__(".equ frontendmanager, 0x003E7728");
-
-class BeachFrontEnd {
-    char padding[0x50];
-    PauseMenuSystem *system;
-    char state_padding[0xEC4];
-    int sliding_in;
-    int ignore_controller;
-
-public:
-    void OnLevelLoaded();
-};
-
-void BeachFrontEnd::OnLevelLoaded()
-{
-    sliding_in = false;
-    ignore_controller = true;
-    system->startDraw(15, true);
-    frontendmanager.map_loading_screen = false;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0018E710)
 // 0x0018E710 UpdateInScene__13BeachFrontEnd
 struct em{char p0[16];int draw_enabled;char p1[428];int state,substate;char p2[60];int blocked;};struct manager{char p0[12];em*entity_manager;};struct beach{char p0[316];manager*manager_ptr;char p1[2180];int offset_set;char p2[1344];int in_frontend;};extern "C" void set_offset(beach*) __asm__("SetOffset__13BeachFrontEnd");__asm__(".equ SetOffset__13BeachFrontEnd,0x00194160");extern "C" void update_scene(beach*self) __asm__("UpdateInScene__13BeachFrontEnd");void update_scene(beach*self){if(self->in_frontend){em*e=self->manager_ptr->entity_manager;bool ok=e->state&&e->substate==3&&!e->blocked&&e->draw_enabled==1;if(ok&&!self->offset_set)set_offset(self);int dead;__asm__("" : "=r"(dead));}}

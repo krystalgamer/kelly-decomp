@@ -18,7 +18,7 @@ private:
     int bio_down_pressed;
     char data_to_sliding_in[0xF18 - 0xECC];
     bool sliding_in;
-    char data_to_exiting_without_select[0xF20 - 0xF1C];
+    bool ignore_controller;
     bool exitingWithoutSelect;
 
 public:

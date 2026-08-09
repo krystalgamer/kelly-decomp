@@ -16,6 +16,8 @@ enum {
     MAX_IGO_PRINT_QUEUE_SIZE = 16
 };
 
+class HorizBalanceWidget;
+
 struct soundMessageObject {
     stringx str;
     EventType event;
@@ -29,11 +31,22 @@ class IGOPrintQueue {
 
 public:
     void clear();
+    soundMessageObject *pop();
 };
 
 class IGOFrontEnd : public FrontEnd {
-    char data_before_menu_background[
-        0x584 - sizeof(FrontEnd)];
+public:
+    struct PLAYER {
+        char data_before_horiz_balance[0x14];
+        HorizBalanceWidget *horizBalanceWidget;
+        char remaining_data[0x24];
+    };
+
+private:
+    char data_before_players[
+        0x124 - sizeof(FrontEnd)];
+    PLAYER *players;
+    char data_before_menu_background[0x584 - 0x128];
     SimpleWidget *menuBGWidget;
     SimpleWidget *accompWidget;
     char data_before_wave_indicator[0x14];
@@ -59,6 +72,15 @@ public:
     bool IsMenuBGShown() const;
     bool GetProceedButtonState();
     bool GetProceedButtonState(int controller);
+    void TurnBalanceMeterOn(
+        int player,
+        bool vertical,
+        bool enabled);
+    void SetBalanceMeter(
+        int player,
+        bool vertical,
+        float value);
+    void SetTubeDepthMeter(int player, float value);
     void ShowAccompBackground(
         bool background_enabled,
         int horizontal_flags,

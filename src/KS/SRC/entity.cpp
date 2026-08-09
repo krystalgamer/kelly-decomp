@@ -780,22 +780,7 @@ void entity::create_destroy_info()
 }
 
 // 0x00139C48 SetEntityMeshFlags__FP7nglMeshi
-typedef unsigned int u_int;
-
-struct nglMaterial {
-    u_int Flags;
-};
-
-struct nglMeshSection {
-    nglMaterial *Material;
-    char padding[0x3C];
-};
-
-struct nglMesh {
-    char padding[0x54];
-    u_int NSections;
-    nglMeshSection *Sections;
-};
+#include "NGL/PS2/ngl_ps2.h"
 
 void SetEntityMeshFlags(nglMesh *mesh, int flag)
 {
@@ -811,22 +796,7 @@ void SetEntityMeshFlags(nglMesh *mesh, int flag)
 }
 
 // 0x00139CA0 ClearEntityMeshFlags__FP7nglMeshi
-typedef unsigned int u_int;
-
-struct nglMaterial {
-    u_int Flags;
-};
-
-struct nglMeshSection {
-    nglMaterial *Material;
-    char padding[0x3C];
-};
-
-struct nglMesh {
-    char padding[0x54];
-    u_int NSections;
-    nglMeshSection *Sections;
-};
+#include "NGL/PS2/ngl_ps2.h"
 
 void ClearEntityMeshFlags(nglMesh *mesh, int flag)
 {

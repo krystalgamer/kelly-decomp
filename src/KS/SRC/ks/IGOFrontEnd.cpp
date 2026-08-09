@@ -71,19 +71,7 @@ bool IGOFrontEnd::IsMenuBGShown(void) const
 }
 
 // 0x0016ECF8 pop__13IGOPrintQueue
-struct soundMessageObject {
-    char data[12];
-};
-
-class IGOPrintQueue {
-    soundMessageObject messages[16];
-    int start;
-    int end;
-    unsigned char size;
-
-public:
-    soundMessageObject *pop();
-};
+#include "KS/SRC/ks/IGOFrontEnd.h"
 
 soundMessageObject *IGOPrintQueue::pop()
 {
@@ -102,19 +90,13 @@ soundMessageObject *IGOPrintQueue::pop()
     else
         start = end = 0;
 
-    return &messages[return_idx];
+    return &strings[return_idx];
 }
 
 // 0x0017CB68 TurnBalanceMeterOn__11IGOFrontEndibT2
-class game {
-    char padding[0xB4];
-    int num_ai_players;
+#include "KS/SRC/game.h"
+#include "KS/SRC/ks/IGOFrontEnd.h"
 
-public:
-    int get_num_ai_players() const { return num_ai_players; }
-};
-
-extern game *g_game_ptr;
 __asm__(".equ g_game_ptr, 0x0046AC64");
 
 class HorizBalanceWidget {
@@ -123,26 +105,7 @@ public:
 };
 __asm__(".equ Show__18HorizBalanceWidgetb, 0x001685D8");
 
-struct igo_player {
-    char padding[0x14];
-    HorizBalanceWidget *horizBalanceWidget;
-    char tail[0x24];
-};
-
-struct igo_front_end_layout {
-    char padding[0x124];
-    igo_player *players;
-};
-
-extern "C" void TurnBalanceMeterOn(
-    igo_front_end_layout *self,
-    int playerIdx,
-    bool vertical,
-    bool enabled
-) __asm__("TurnBalanceMeterOn__11IGOFrontEndibT2");
-
-void TurnBalanceMeterOn(
-    igo_front_end_layout *self,
+void IGOFrontEnd::TurnBalanceMeterOn(
     int playerIdx,
     bool vertical,
     bool enabled
@@ -151,20 +114,14 @@ void TurnBalanceMeterOn(
     if (playerIdx && g_game_ptr->get_num_ai_players())
         return;
 
-    if (self->players[playerIdx].horizBalanceWidget)
-        self->players[playerIdx].horizBalanceWidget->Show(enabled);
+    if (players[playerIdx].horizBalanceWidget)
+        players[playerIdx].horizBalanceWidget->Show(enabled);
 }
 
 // 0x0017CBC0 SetBalanceMeter__11IGOFrontEndibf
-class game {
-    char padding[0xB4];
-    int num_ai_players;
+#include "KS/SRC/game.h"
+#include "KS/SRC/ks/IGOFrontEnd.h"
 
-public:
-    int get_num_ai_players() const { return num_ai_players; }
-};
-
-extern game *g_game_ptr;
 __asm__(".equ g_game_ptr, 0x0046AC64");
 
 class HorizBalanceWidget {
@@ -173,25 +130,7 @@ public:
 };
 __asm__(".equ SetArrow__18HorizBalanceWidgetf, 0x001686E0");
 
-struct igo_player {
-    char padding[0x14];
-    HorizBalanceWidget *horizBalanceWidget;
-    char tail[0x24];
-};
-
-struct igo_balance_layout {
-    char padding[0x124];
-    igo_player *players;
-};
-
-extern "C" void set_balance_meter(
-    igo_balance_layout *self,
-    int playerIdx,
-    bool vertical,
-    float value
-) __asm__("SetBalanceMeter__11IGOFrontEndibf");
-void set_balance_meter(
-    igo_balance_layout *self,
+void IGOFrontEnd::SetBalanceMeter(
     int playerIdx,
     bool vertical,
     float value)
@@ -199,20 +138,14 @@ void set_balance_meter(
     if (playerIdx && g_game_ptr->get_num_ai_players())
         return;
 
-    if (self->players[playerIdx].horizBalanceWidget)
-        self->players[playerIdx].horizBalanceWidget->SetArrow(value);
+    if (players[playerIdx].horizBalanceWidget)
+        players[playerIdx].horizBalanceWidget->SetArrow(value);
 }
 
 // 0x0017CC18 SetTubeDepthMeter__11IGOFrontEndif
-class game {
-    char padding[0xB4];
-    int num_ai_players;
+#include "KS/SRC/game.h"
+#include "KS/SRC/ks/IGOFrontEnd.h"
 
-public:
-    int get_num_ai_players() const { return num_ai_players; }
-};
-
-extern game *g_game_ptr;
 __asm__(".equ g_game_ptr, 0x0046AC64");
 
 class HorizBalanceWidget {
@@ -221,32 +154,15 @@ public:
 };
 __asm__(".equ SetFillage__18HorizBalanceWidgetf, 0x001688B8");
 
-struct igo_player {
-    char padding[0x14];
-    HorizBalanceWidget *horizBalanceWidget;
-    char tail[0x24];
-};
-
-struct igo_balance_layout {
-    char padding[0x124];
-    igo_player *players;
-};
-
-extern "C" void set_tube_depth(
-    igo_balance_layout *self,
-    int playerIdx,
-    float value
-) __asm__("SetTubeDepthMeter__11IGOFrontEndif");
-void set_tube_depth(
-    igo_balance_layout *self,
+void IGOFrontEnd::SetTubeDepthMeter(
     int playerIdx,
     float value)
 {
     if (playerIdx && g_game_ptr->get_num_ai_players())
         return;
 
-    if (self->players[playerIdx].horizBalanceWidget)
-        self->players[playerIdx].horizBalanceWidget->SetFillage(value);
+    if (players[playerIdx].horizBalanceWidget)
+        players[playerIdx].horizBalanceWidget->SetFillage(value);
 }
 
 // 0x0017CDB8 TurnOnTubeIndicator__11IGOFrontEndib
