@@ -25,8 +25,10 @@ Explicit components used floating-point copies but retained large this-relative 
 
 ### Attempt 3 notes
 
-Explicit source/destination vector pointers reproduce the released position copy and base frame advance exactly.
+The shared mic/entity hierarchy and explicit source/destination vector
+pointers preserve the released position copy. A local base-advance pointer
+keeps the framed call.
 
 ## Outcome
 
-The released last-position component copy and base entity frame advance match exactly.
+The local entity, position-source, and mic layouts were removed.

@@ -78,18 +78,15 @@ __asm__(".equ __7triggerRC7stringx, 0x0028D838");
 region_trigger::region_trigger(const stringx &id) : trigger(id) {}
 
 // 0x0028E950 __14entity_triggerRC7stringx
-class stringx;
-class trigger { char padding[8]; protected: void *vtable; char padding2[0x34]; public: trigger(const stringx &); };
-extern char entity_trigger_vtable __asm__("entity_trigger_vtable");
+#include "KS/SRC/trigger.h"
+
 extern const float maximum_float __asm__("maximum_float");
-asm(".equ entity_trigger_vtable, 0x004FAFE0"); asm(".equ maximum_float, 0x004E7980");
+asm(".equ _vt$14entity_trigger, 0x004FAFE0"); asm(".equ maximum_float, 0x004E7980");
 asm(".equ __7triggerRC7stringx, 0x0028D838");
-class entity_trigger : public trigger { float last_hash; public: entity_trigger(const stringx &); };
 entity_trigger::entity_trigger(const stringx &id)
-    : trigger(id), last_hash(maximum_float)
-{
-    vtable = &entity_trigger_vtable;
-}
+    : trigger(id),
+      last_compute_sector_position_hash(maximum_float)
+{}
 
 // 0x0028E8F0 triggered__14region_triggerP6entity
 class region;

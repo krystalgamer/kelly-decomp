@@ -20,8 +20,9 @@ The released checks and flags matched, but the isolated compiler tail-called the
 
 ### Attempt 2 notes
 
-A narrow post-call barrier prevents the demonstrated tail call and matches exactly.
+The released heap check and a local leak-check pointer preserve the
+conditional framed call.
 
 ## Outcome
 
-The released heap check and conditional leak check match with a narrow barrier preventing demonstrated tail-call optimization.
+The compiler barrier was removed.

@@ -20,8 +20,9 @@ The constructor behavior matched except the signed-low vtable address required i
 
 ### Attempt 2 notes
 
-Using the carried vtable alias reproduces the base construction, vtable replacement, and FLT_MAX initialization exactly.
+The shared trigger hierarchy and carried vtable alias preserve the base
+construction and `FLT_MAX` hash initialization.
 
 ## Outcome
 
-The released base construction, vtable replacement, and FLT_MAX hash initialization match exactly.
+The local trigger and entity-trigger layouts were removed.
