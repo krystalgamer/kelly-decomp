@@ -12,14 +12,13 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 52.2727 | 45.4545 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size44-utility-wrapper-core.cpp` |
 
 ### Attempt 2 notes
 
-The released method calls the base scale update and then `update_mat`. The trailing empty compiler barrier prevents EE GCC from replacing the target's second `jal`/return frame with a sibling call.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The shared widget declaration and a local function pointer preserve the base
+scale update followed by the normal `update_mat` call.
 
 ## Outcome
 
-The released `vrep_widget::update_scale` implementation matched exactly on attempt two.
+The compiler barrier was removed.

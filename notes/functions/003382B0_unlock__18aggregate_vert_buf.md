@@ -11,15 +11,15 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-utility-wrapper-core.cpp` |
 
 ### Attempt 1 notes
 
-The released wrapper unlocks the vertex buffer at 0x10 and clears the
-word-sized locked flag at 0x18.
+The shared aggregate and refptr declarations unlock the vertex buffer at
+0x10 and clear the word-sized locked flag at 0x18.
 
 Re-evaluating the identical first candidate after the exact wrapper-save compiler fixup now produces an exact match; this infrastructure recheck does not consume a second source attempt.
 
 ## Outcome
 
-The released aggregate_vert_buf::unlock wrapper matched exactly after correcting the isolated compiler save order.
+The local aggregate layout was removed.

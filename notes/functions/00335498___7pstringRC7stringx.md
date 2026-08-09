@@ -11,16 +11,16 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-utility-wrapper-core.cpp` |
 | 2 | different | 90.9091 | 81.8182 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
-The released constructor forwards `target_string.c_str()` directly to
-`pack_string`; a one-word `stringx` layout preserves the delay-slot data load.
+The shared `pstring` and `stringx` declarations forward
+`target_string.c_str()` directly to `pack_string`.
 
 Re-evaluating the identical first candidate after the exact constructor-save compiler fixup now produces an exact match; this infrastructure recheck does not consume a third source attempt.
 
 ## Outcome
 
-The released pstring(stringx const&) constructor matched exactly after correcting the isolated compiler save order.
+The released constructor remains exact with the shared declarations.

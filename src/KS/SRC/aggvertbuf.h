@@ -20,6 +20,7 @@ public:
     bool locked;
 
     aggregate_vert_buf();
+    void unlock();
     void flush();
 };
 

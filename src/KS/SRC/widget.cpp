@@ -142,8 +142,10 @@ __asm__(".equ update_mat__11vrep_widget, 0x00341E60");
 
 void vrep_widget::update_pos() {
     widget::update_pos();
-    update_mat();
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void update_vrep_matrix(vrep_widget *self)
+        __asm__("update_mat__11vrep_widget");
+    void (*update_matrix)(vrep_widget *) = update_vrep_matrix;
+    update_matrix(this);
 }
 
 // 0x003419E0 update_scale__11vrep_widget
@@ -153,8 +155,10 @@ __asm__(".equ update_mat__11vrep_widget, 0x00341E60");
 
 void vrep_widget::update_scale() {
     widget::update_scale();
-    update_mat();
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void update_vrep_matrix(vrep_widget *self)
+        __asm__("update_mat__11vrep_widget");
+    void (*update_matrix)(vrep_widget *) = update_vrep_matrix;
+    update_matrix(this);
 }
 
 // 0x0033ED18 scale_to__6widgetff

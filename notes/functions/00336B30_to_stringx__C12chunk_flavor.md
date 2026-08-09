@@ -12,12 +12,13 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 38.6364 | 27.2727 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size44-utility-wrapper-core.cpp` |
 
 ### Attempt 2 notes
 
-The released body constructs `stringx(flavor)` with the default `-1` length. Restoring the one-word `stringx` copy constructor preserves the hidden return object instead of returning a scalar temporary.
+The shared chunk and `stringx` declarations construct `stringx(flavor)` with
+the default `-1` length.
 
 ## Outcome
 
-The released `chunk_flavor::to_stringx` implementation matched exactly on attempt two.
+The local string declarations were removed.
