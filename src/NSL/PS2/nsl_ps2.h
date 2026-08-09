@@ -7,6 +7,7 @@
 typedef unsigned int nlUint32;
 typedef unsigned int nslSourceId;
 typedef unsigned int nslSoundId;
+typedef unsigned int nslEmitterId;
 
 #define NSL_NUM_SOURCES 512
 #define NSL_NUM_EMITTERS 256
@@ -75,6 +76,17 @@ struct nslSource
     float pitch;
     float minDist;
     float maxDist;
+};
+
+struct nslEmitter {
+    bool used;
+    bool autoRelease;
+    bool isALineEmitter;
+    nslEmitterId myId;
+    nlVector3d startPosition;
+    nlVector3d endPosition;
+    nlVector3d position;
+    fifo_queue<nslSoundId> emittedSounds;
 };
 
 struct nslSystem

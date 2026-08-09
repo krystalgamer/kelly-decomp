@@ -33,12 +33,17 @@ struct WaterDebugStruct {
 };
 
 extern WaterDebugStruct WaterDebug;
+extern unsigned int SeamWaterMeshID;
+extern unsigned int FarWaterMeshID;
+extern unsigned int HorizonWaterMeshID;
 
 bool WATER_GetDrawFar();
 bool WATER_GetDrawHorizon();
 bool WATER_GetDrawSeam();
 bool WATER_GetDrawWave();
 void WATER_Cleanup();
+void WAVE_Cleanup();
+void WAVETEX_FreeWaveMesh(unsigned int id);
 void WATER_SetDrawFar(bool enabled);
 void WATER_SetDrawHorizon(bool enabled);
 void WATER_SetDrawSeam(bool enabled);

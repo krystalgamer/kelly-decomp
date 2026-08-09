@@ -65,20 +65,22 @@ void WATER_SetDrawSeam(bool enabled) { WaterDebug.DrawSeamMesh = enabled; }
 
 #if defined(KELLY_DECOMP_FUNCTION_0036E888)
 // 0x0036E888 WATER_Cleanup__Fv
-extern void WAVE_Cleanup();
-extern void WAVETEX_FreeWaveMesh(unsigned id);
-extern unsigned SeamWaterMeshID, FarWaterMeshID, HorizonWaterMeshID;
+#include "KS/SRC/ks/water.h"
+
 __asm__(".equ WAVE_Cleanup__Fv, 0x00373758");
 __asm__(".equ WAVETEX_FreeWaveMesh__FUi, 0x00380EA0");
 __asm__(".equ SeamWaterMeshID, 0x0058EA34");
 __asm__(".equ FarWaterMeshID, 0x0058EA38");
 __asm__(".equ HorizonWaterMeshID, 0x0058EA3C");
+extern "C" void free_wave_mesh(unsigned int id)
+    __asm__("WAVETEX_FreeWaveMesh__FUi");
+
 void WATER_Cleanup()
 {
     WAVE_Cleanup();
     WAVETEX_FreeWaveMesh(SeamWaterMeshID);
     WAVETEX_FreeWaveMesh(FarWaterMeshID);
-    WAVETEX_FreeWaveMesh(HorizonWaterMeshID);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*free_mesh)(unsigned int) = free_wave_mesh;
+    free_mesh(HorizonWaterMeshID);
 }
 #endif

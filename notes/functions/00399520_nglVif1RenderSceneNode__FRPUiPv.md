@@ -16,4 +16,5 @@
 
 ## Outcome
 
-The released scene-node renderer matches with a narrow compiler barrier after the final call to prevent the demonstrated tail-call optimization.
+The shared scene declaration and a local setup-function pointer preserve the
+final framed call without a compiler barrier.

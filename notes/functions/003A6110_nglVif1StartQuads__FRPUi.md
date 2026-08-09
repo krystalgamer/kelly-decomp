@@ -16,4 +16,5 @@
 
 ## Outcome
 
-The released quad setup and nglDmaStartTag helper match after applying the isolated-shim linker alias carry for nglDmaTagPtr.
+The released quad setup uses the shared DMA-tag pointer and flush declaration,
+including the isolated-shim carry alias.

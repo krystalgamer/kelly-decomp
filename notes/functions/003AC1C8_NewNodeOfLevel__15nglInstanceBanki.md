@@ -16,4 +16,5 @@
 
 ## Outcome
 
-The released instance-bank allocation behavior and class layout match after expressing the equivalent branch orientation.
+The released allocation behavior uses the shared instance-bank layout,
+unaligned fixed-string ABI, and equivalent branch orientation.

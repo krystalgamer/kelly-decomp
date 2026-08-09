@@ -16,8 +16,9 @@
 
 ### Attempt 2 notes
 
-The released wave cleanup and three wave-mesh frees match exactly; a narrow empty barrier prevents the demonstrated final tail call.
+The shared water declarations and a local final mesh-free pointer preserve the
+wave cleanup and three framed frees.
 
 ## Outcome
 
-The released wave cleanup and three wave-mesh frees match exactly; a narrow empty barrier prevents the demonstrated final tail call.
+The compiler barrier was removed.

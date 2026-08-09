@@ -127,16 +127,8 @@ void nglSetQuadColor(nglQuad* quad, unsigned int color) {
 
 #if defined(KELLY_DECOMP_FUNCTION_00395D10)
 // 0x00395D10 nglMemAlloc__FUiUi
-typedef unsigned int u_int;
-struct nglSystemCallbackStruct {
-    void *ReadFile;
-    void *ReleaseFile;
-    void *CriticalError;
-    void *DebugPrint;
-    void *(*MemAlloc)(u_int Size, u_int Align);
-    void *MemFree;
-};
-extern nglSystemCallbackStruct nglSystemCallbacks;
+#include "NGL/PS2/ngl_ps2.h"
+
 extern "C" void *memalign(u_int Align, u_int Size);
 __asm__(".equ nglSystemCallbacks, 0x004BBF98");
 __asm__(".equ memalign, 0x003D09A0");
@@ -151,32 +143,34 @@ void* nglMemAlloc(u_int Size, u_int Align)
 
 #if defined(KELLY_DECOMP_FUNCTION_00399520)
 // 0x00399520 nglVif1RenderSceneNode__FRPUiPv
-typedef unsigned int u_int;
-struct nglScene { nglScene *Parent; };
-extern void nglVif1RenderScene(u_int *&Packet, nglScene *Scene);
-extern void nglVif1SetupScene(u_int *&Packet, nglScene *Scene, bool ClearEnable);
+#include "NGL/PS2/ngl_ps2.h"
+
 __asm__(".equ nglVif1RenderScene__FRPUiP8nglScene, 0x0039A4E0");
 __asm__(".equ nglVif1SetupScene__FRPUiP8nglSceneb, 0x0039A128");
+extern "C" void setup_scene(
+    u_int *&packet,
+    nglScene *scene,
+    bool clear_enabled
+) __asm__("nglVif1SetupScene__FRPUiP8nglSceneb");
+
 void nglVif1RenderSceneNode(u_int *&Packet, void *Param)
 {
     nglScene *Scene = (nglScene *)Param;
     nglVif1RenderScene(Packet, Scene);
-    nglVif1SetupScene(Packet, Scene->Parent, false);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*setup)(u_int *&, nglScene *, bool) = setup_scene;
+    setup(Packet, Scene->Parent, false);
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_003A6110)
 // 0x003A6110 nglVif1StartQuads__FRPUi
-typedef unsigned int u_int;
-typedef unsigned long long u_long;
-extern u_long *nglDmaTagPtr;
-extern void nglVif1FlushSPAD(u_int *&Packet, bool Force);
+#include "NGL/PS2/ngl_ps2.h"
+
 __asm__(".equ nglDmaTagPtr, 0x004BB7E8");
 __asm__(".equ nglVif1FlushSPAD__FRPUib, 0x003996B8");
 inline void nglDmaStartTag(u_int *&Packet)
 {
-    nglDmaTagPtr = (u_long *)Packet;
+    nglDmaTagPtr = (unsigned long long *)Packet;
     Packet += 4;
 }
 void nglVif1StartQuads(u_int *&Packet)

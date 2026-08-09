@@ -15,4 +15,4 @@
 
 ## Outcome
 
-The released auto-release callback and emitter/queue declarations match exactly.
+The local emitter declaration was removed in favor of the shared NSL layout.

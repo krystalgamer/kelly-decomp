@@ -15,4 +15,4 @@
 
 ## Outcome
 
-The compiler-generated RTTI accessor pattern from the released wave translation unit matches exactly.
+The released RTTI helper was already canonical and remains exact.

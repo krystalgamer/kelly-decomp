@@ -2,10 +2,14 @@
 #define NGL_PS2_H
 
 typedef unsigned int u_int;
+typedef void *(*nglMemAllocCallback)(
+    u_int size,
+    u_int alignment);
 typedef void (*nglMemFreeCallback)(void *pointer);
 
 struct nglSystemCallbackStruct {
-    char data_before_mem_free[0x14];
+    char data_before_mem_alloc[0x10];
+    nglMemAllocCallback MemAlloc;
     nglMemFreeCallback MemFree;
 };
 
@@ -53,7 +57,7 @@ struct nglScene {
 
 struct nglFixedString {
     char data[32];
-} __attribute__((aligned(8)));
+};
 
 class nglVector {
 public:
@@ -170,8 +174,9 @@ struct nglTexture {
     nglTexture **Frames;
     unsigned int SrcDataSize;
     nglFileBuf FileBuf;
+    char alignment_before_file_name[4];
     nglFixedString FileName;
-    char remaining_data[0x34];
+    char remaining_data[0x30];
     nglGsImage GsImage[10];
 } __attribute__((aligned(16)));
 
@@ -248,6 +253,7 @@ public:
     int Level;
 
     nglInstanceBank();
+    Instance *NewNodeOfLevel(int level);
     Instance *Search(const nglFixedString &name);
     bool Delete(const nglFixedString &name);
 };
@@ -271,6 +277,7 @@ extern nglTexture nglBackBufferTex;
 extern float nglIFLSpeed;
 extern u_int nglScratchStripVertIdx;
 extern unsigned char *nglListWorkPos;
+extern unsigned long long *nglDmaTagPtr;
 
 void nglFatal(const char *format, ...);
 void nglExit();
@@ -313,6 +320,12 @@ void nglSetQuadBlend(
 void nglSetQuadColor(nglQuad *quad, u_int color);
 void nglMeshWriteStrip(u_int length);
 void *nglListAlloc(u_int bytes, u_int alignment);
+void nglVif1RenderScene(u_int *&packet, nglScene *scene);
+void nglVif1SetupScene(
+    u_int *&packet,
+    nglScene *scene,
+    bool clear_enabled);
+void nglVif1FlushSPAD(u_int *&packet, bool force);
 float nglDistanceToPlane(
     const nglVector &plane,
     const nglVector &point);

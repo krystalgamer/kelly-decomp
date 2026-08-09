@@ -94,20 +94,8 @@ void StaticInit(int initialize, int priority)
 }
 
 // 0x00390228 _nslCheckAutoReleaseEmitters__FP10nslEmitterPv
-#include "NSL/PS2/fifo_queue.h"
-typedef unsigned int nslEmitterId;
-typedef unsigned int nslSoundId;
-typedef float nlVector3d[3];
-struct nslEmitter {
-    bool used;
-    bool autoRelease;
-    bool isALineEmitter;
-    nslEmitterId myId;
-    nlVector3d startPosition;
-    nlVector3d endPosition;
-    nlVector3d position;
-    fifo_queue<nslSoundId> emittedSounds;
-};
+#include "NSL/PS2/nsl_ps2.h"
+
 extern void nslReleaseEmitter(nslEmitterId emitterToRelease);
 __asm__(".equ nslReleaseEmitter__FUi, 0x0038F2C8");
 int _nslCheckAutoReleaseEmitters(nslEmitter *daEmmiter, void *userData)

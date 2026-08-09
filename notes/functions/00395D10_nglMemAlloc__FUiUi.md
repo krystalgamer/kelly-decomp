@@ -16,4 +16,5 @@
 
 ## Outcome
 
-The released allocator callback behavior matches after expressing the equivalent branch orientation and the linker alias carry required by the isolated source shim.
+The released allocator callback uses the shared NGL callback table and
+equivalent branch orientation.
