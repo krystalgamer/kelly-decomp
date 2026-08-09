@@ -275,6 +275,9 @@ public:
     virtual void UpdateInScene(bool ignore_scale = false);
     virtual void changeScale(float value);
     virtual void changePos(float x, float y);
+    virtual void OnDown(int controller);
+    virtual void OnUp(int controller);
+    virtual bool scroll(bool up, int lines);
 
 protected:
     void cons(

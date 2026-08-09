@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size48-navigation-core.cpp` |
 
 ### Attempt 1 notes
 
-A minimal old-GCC vtable layout preserves the released virtual `scroll(false, 1)` call through slot 0x140.
+The shared BoxText declaration preserves the released virtual
+`scroll(false, 1)` call.
 
 ## Outcome
 
-The released `BoxText::OnDown` handler matched exactly on the first attempt.
+The manual vtable layout was removed.

@@ -1463,45 +1463,17 @@ void reset_line_spacing(MultiLineString *text) {
 }
 
 // 0x001D8C18 OnDown__7BoxTexti
-struct box_text_vtable {
-    char padding[0x140];
-    short adjustment;
-    short padding2;
-    bool (*scroll)(void *self, bool up, int lines);
-};
-
-class BoxText {
-    char padding[0x4c];
-    box_text_vtable *vtable;
-
-public:
-    void OnDown(int controller);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void BoxText::OnDown(int controller) {
-    box_text_vtable *table = vtable;
-    table->scroll((char *)this + table->adjustment, false, 1);
+    scroll(false, 1);
 }
 
 // 0x001D8C48 OnUp__7BoxTexti
-struct box_text_vtable {
-    char padding[0x140];
-    short adjustment;
-    short padding2;
-    bool (*scroll)(void *self, bool up, int lines);
-};
-
-class BoxText {
-    char padding[0x4c];
-    box_text_vtable *vtable;
-
-public:
-    void OnUp(int controller);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void BoxText::OnUp(int controller) {
-    box_text_vtable *table = vtable;
-    table->scroll((char *)this + table->adjustment, true, 1);
+    scroll(true, 1);
 }
 
 // 0x001D87A0 Render__10TextString

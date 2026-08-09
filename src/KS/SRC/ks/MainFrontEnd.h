@@ -38,6 +38,8 @@ public:
     int regular_bottom;
 
     virtual void Draw();
+    virtual void Select(int entry_index);
+    virtual void OnCross(int controller);
     void EndWarning();
 };
 
