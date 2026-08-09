@@ -153,6 +153,7 @@ _$_11fog_manager = 0x338458;
 get_width__C11text_widget = 0x340510;
 get_height__C11text_widget = 0x340540;
 set_color__6widgetfff = 0x33F038;
+init__t10fifo_queue1ZUis = 0x391628;
 _$_12input_device = 0x343938;
 _$_13code_callback = 0x34BEB8;
 _$_15signal_callback = 0x35F978;

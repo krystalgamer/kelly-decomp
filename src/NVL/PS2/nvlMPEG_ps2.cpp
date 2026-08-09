@@ -6,10 +6,13 @@
 __asm__(".equ sceSdRemote, 0x0038BAE0");
 
 // 0x00389D68 changeInputVolume__FUi
+extern "C" int set_input_volume(int command, int function, ...)
+    __asm__("sceSdRemote");
+
 static void changeInputVolume(unsigned int val) {
     sceSdRemote(1, 0x8010, 0x0F80, val);
-    sceSdRemote(1, 0x8010, 0x1080, val);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    int (*set_volume)(int, int, ...) = set_input_volume;
+    set_volume(1, 0x8010, 0x1080, val);
 }
 __asm__(".globl changeInputVolume__FUi");
 #endif

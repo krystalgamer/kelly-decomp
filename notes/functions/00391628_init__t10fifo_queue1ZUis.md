@@ -5,7 +5,7 @@
 - Object: `nsl/nsl_ps2`
 - Debug source: `C:/NSL/PS2/nsl_ps2.cpp`
 - Reference source: `NSL/PS2/nsl_ps2.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -39,4 +39,6 @@ Expressed the same released instantiation as an explicit specialization so both 
 
 ## Outcome
 
-The released unsigned FIFO initialization matches exactly as a shared explicit specialization with documented empty barriers for prologue scheduling and final-call tail merging.
+The two matching-only barriers were removed. A local pointer can prevent the
+final `clear` tail call, but the target prologue still requires an entry
+scheduling barrier, so this specialization was deferred.

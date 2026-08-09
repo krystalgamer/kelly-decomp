@@ -65,20 +65,6 @@ void fifo_queue<T>::clear() {
 
 template void fifo_queue<unsigned int>::clear();
 
-// 0x00391628 init__t10fifo_queue1ZUis
-#include "NSL/PS2/fifo_queue.h"
-__asm__(".equ __builtin_vec_new, 0x002AC640");
-__asm__(".equ clear__t10fifo_queue1ZUi, 0x003915E0");
-
-template <>
-void fifo_queue<unsigned int>::init(short size) {
-    KELLY_DECOMP_COMPILER_BARRIER();
-    queue = (unsigned int *)new unsigned int[size];
-    queue_max = size;
-    clear();
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x003916C0 __static_initialization_and_destruction_0
 #include "NSL/PS2/nsl_ps2.h"
 
