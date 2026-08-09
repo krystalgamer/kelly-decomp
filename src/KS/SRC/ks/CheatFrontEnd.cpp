@@ -55,61 +55,17 @@ void CheatFrontEnd::Select(int entry_index)
 void EnterCheatMenu::Select() { Select(current_button); }
 
 // 0x001D16C0 Select__13CheatFrontEnd
-struct menu_vtable {
-    char padding[0x128];
-    short adjustment;
-    short padding2;
-    void (*select)(void *self, int entry);
-};
+#include "KS/SRC/ks/CheatFrontEnd.h"
 
-struct menu_entry {
-    int entry_num;
-};
-
-struct cheat_frontend_select_layout {
-    char padding0[0x4c];
-    menu_entry *highlighted;
-    char padding1[0x24];
-    menu_vtable *vtable;
-};
-
-extern "C" void select_cheat_frontend(cheat_frontend_select_layout *self)
-    __asm__("Select__13CheatFrontEnd");
-void select_cheat_frontend(cheat_frontend_select_layout *self) {
-    menu_vtable *table = self->vtable;
-    table->select(
-        (char *)self + table->adjustment,
-        self->highlighted->entry_num
-    );
+void CheatFrontEnd::Select() {
+    Select(highlighted->entry_num);
 }
 
 // 0x001D22C8 Select__13CheatCodeMenu
-struct menu_vtable {
-    char padding[0x128];
-    short adjustment;
-    short padding2;
-    void (*select)(void *self, int entry);
-};
+#include "KS/SRC/ks/CheatFrontEnd.h"
 
-struct menu_entry {
-    int entry_num;
-};
-
-struct cheat_code_select_layout {
-    char padding0[0x4c];
-    menu_entry *highlighted;
-    char padding1[0x24];
-    menu_vtable *vtable;
-};
-
-extern "C" void select_cheat_code(cheat_code_select_layout *self)
-    __asm__("Select__13CheatCodeMenu");
-void select_cheat_code(cheat_code_select_layout *self) {
-    menu_vtable *table = self->vtable;
-    table->select(
-        (char *)self + table->adjustment,
-        self->highlighted->entry_num
-    );
+void CheatCodeMenu::Select() {
+    Select(highlighted->entry_num);
 }
 
 

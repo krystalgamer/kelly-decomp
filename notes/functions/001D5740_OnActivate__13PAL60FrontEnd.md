@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size48-frontend-selectors.cpp` |
 
 ### Attempt 1 notes
 
-A minimal old-GCC menu vtable layout preserves the released virtual `setHigh(yes, true)` call with `yes` at 0x168 and slot 0x18.
+The shared PAL frontend declaration preserves the released virtual
+`setHigh(yes, true)` call and `yes` member offset.
 
 ## Outcome
 
-The released `PAL60FrontEnd::OnActivate` thunk matched exactly on the first attempt.
+The manual vtable layout was removed.

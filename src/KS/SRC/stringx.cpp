@@ -241,11 +241,13 @@ int stringx::length() const {
 // 0x001D84D0 lock__7stringx
 #include "KS/SRC/stringx.h"
 __asm__(".equ fork_data__7stringxi, 0x0034DF70");
+void fork_string_data(stringx *value, int length)
+    __asm__("fork_data__7stringxi");
 
 void stringx::lock() {
     if (my_buf->ref_count < 2) {
         return;
     }
-    fork_data();
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*fork)(stringx *, int) = fork_string_data;
+    fork(this, -1);
 }

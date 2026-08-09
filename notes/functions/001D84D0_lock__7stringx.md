@@ -12,13 +12,17 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size48-frontend-selectors.cpp` |
 
 ### Attempt 1 notes
 
 The explicit early return for reference counts below two reproduces the target RA restore in the branch delay slot; the trailing barrier preserves the normal `fork_data(-1)` call.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+A local function pointer preserves the normal `fork_data(-1)` call without a
+compiler barrier.
 
 ## Outcome
 
-The released `stringx::lock` implementation matched exactly on the first attempt.
+The compiler barrier was removed.

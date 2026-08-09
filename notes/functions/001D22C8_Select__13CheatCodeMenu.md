@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size48-frontend-selectors.cpp` |
 
 ### Attempt 1 notes
 
-A minimal old-GCC menu vtable layout preserves the released no-argument selector's virtual forwarding of `highlighted->entry_num` through slot 0x128.
+The shared cheat-code menu declaration preserves the no-argument selector's
+virtual forwarding of `highlighted->entry_num`.
 
 ## Outcome
 
-The released `CheatCodeMenu::Select()` thunk matched exactly on the first attempt.
+The manual vtable layout was removed.
