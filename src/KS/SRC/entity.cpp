@@ -224,9 +224,8 @@ void MotionBlurDtor(void *self, int deleting)
     if (info->motion_trail_buffer)
         BuiltinVecDelete(info->motion_trail_buffer);
     if (deleting & 1) {
-        BuiltinDelete(info);
-        // Prevent the compiler from tail-calling the deleting operator.
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*delete_info)(void *) = BuiltinDelete;
+        delete_info(info);
     }
 }
 
