@@ -19,4 +19,4 @@ The lazy template RTTI initialization matches exactly.
 
 ## Outcome
 
-The lazy basic_attribute<float> RTTI initialization matches exactly.
+The released template RTTI helper was already canonical and remains exact.

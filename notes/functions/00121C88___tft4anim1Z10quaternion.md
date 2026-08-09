@@ -19,4 +19,4 @@ The lazy template RTTI initialization matches exactly.
 
 ## Outcome
 
-The lazy anim<quaternion> RTTI initialization matches exactly.
+The released template RTTI helper was already canonical and remains exact.
