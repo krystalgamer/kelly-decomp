@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released `SLF_PARMS_UNUSED` body pops the 8-byte parameter block, emits the unavailable-function warning at the recovered string address, and returns completion.
+The shared `SLF_PARMS_UNUSED` body pops the 8-byte parameter block, emits the
+unavailable-function warning, and returns completion.
 
 ## Outcome
 
-The released sound-volume SLF matched exactly on the first attempt.
+The local stack and function declarations were removed; the released wrapper
+remains exact.

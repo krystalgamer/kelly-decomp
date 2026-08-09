@@ -103,6 +103,39 @@ public:
         script_library_class::function::entry_t entry);
 };
 
+class slf_set_camera_priority_t
+  : public script_library_class::function {
+public:
+    struct parms_t {
+        vm_num_t t;
+    };
+
+    virtual bool operator()(
+        vm_stack &stack,
+        entry_t entry);
+};
+
+class slf_globalize_thread_t
+  : public script_library_class::function {
+public:
+    virtual bool operator()(
+        vm_stack &stack,
+        entry_t entry);
+};
+
+class slf_play_sound_vol_t
+  : public script_library_class::function {
+public:
+    struct parms_t {
+        vm_str_t snd;
+        vm_num_t vol;
+    };
+
+    virtual bool operator()(
+        vm_stack &stack,
+        entry_t entry);
+};
+
 class slf_suspend_all_ai_t : public script_library_class::function {
 public:
     slf_suspend_all_ai_t(const char *name);
@@ -147,6 +180,7 @@ DECLARE_SCRIPT_LIBRARY_STUB(slf_inc_score_t);
 #define SLF_PARMS \
     stack.pop(sizeof(parms_t)); \
     parms_t *parms = (parms_t *)stack.get_SP()
+#define SLF_PARMS_UNUSED stack.pop(sizeof(parms_t))
 #define SLF_DONE return true
 
 #endif

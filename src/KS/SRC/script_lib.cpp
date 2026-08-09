@@ -725,110 +725,40 @@ bool slf_unsuspend_all_ai_t::operator()(vm_stack &stack, entry_t entry)
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DC50)
 // 0x0031DC50 __cl__25slf_set_camera_priority_tR8vm_stackQ320script_library_class8function7entry_t
-class vm_thread {
-public:
-    void set_camera_priority(float priority);
-};
+#include "KS/SRC/script_library_class.h"
+#include "KS/SRC/vm_thread.h"
 
 __asm__(".equ set_camera_priority__9vm_threadf, 0x00356640");
-
-class vm_stack {
-    char padding[8];
-    char *top;
-    vm_thread *thread;
-
-public:
-    void *pop(unsigned int size) {
-        top -= size;
-        return top;
-    }
-
-    vm_thread *get_thread() {
-        return thread;
-    }
-};
-
-class script_library_class {
-public:
-    class function {
-    public:
-        enum entry_t { FIRST_ENTRY };
-    };
-};
-
-#define SLF_PARMS parms_t *parms = (parms_t *)stack.pop(sizeof(parms_t))
-#define SLF_DONE return true
-
-class slf_set_camera_priority_t : public script_library_class::function {
-public:
-    struct parms_t {
-        float priority;
-    };
-
-    bool operator()(vm_stack &stack, entry_t entry);
-};
 
 bool slf_set_camera_priority_t::operator()(
     vm_stack &stack,
     entry_t entry
 ) {
     SLF_PARMS;
-    stack.get_thread()->set_camera_priority(parms->priority);
+    stack.get_thread()->set_camera_priority(parms->t);
     SLF_DONE;
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031E240)
 // 0x0031E240 __cl__22slf_globalize_thread_tR8vm_stackQ320script_library_class8function7entry_t
-class vm_thread;
+#include "KS/SRC/region.h"
+#include "KS/SRC/script_library_class.h"
+#include "KS/SRC/vm_thread.h"
 
-class region {
-public:
-    void remove_local_thread(vm_thread *thread);
-};
-
+extern "C" void RemoveLocalThread(region *, vm_thread *)
+    __asm__("remove_local_thread__6regionP9vm_thread");
 __asm__(".equ remove_local_thread__6regionP9vm_thread, 0x002E80E8");
-
-class vm_thread {
-public:
-    char padding[0x34];
-    region *local_region;
-};
-
-class vm_stack {
-    char padding[0xc];
-    vm_thread *thread;
-
-public:
-    vm_thread *get_thread() {
-        return thread;
-    }
-};
-
-class script_library_class {
-public:
-    class function {
-    public:
-        enum entry_t { FIRST_ENTRY };
-    };
-};
-
-#define SLF_DONE return true
-
-class slf_globalize_thread_t : public script_library_class::function {
-public:
-    bool operator()(vm_stack &stack, entry_t entry);
-};
 
 bool slf_globalize_thread_t::operator()(
     vm_stack &stack,
     entry_t entry
 ) {
     vm_thread *thread = stack.get_thread();
-    region *local = thread->local_region;
+    region *local = thread->get_local_region();
     if (local) {
-        local->remove_local_thread(thread);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*remove_thread)(region *, vm_thread *) = RemoveLocalThread;
+        remove_thread(local, thread);
     }
     SLF_DONE;
 }
@@ -836,42 +766,13 @@ bool slf_globalize_thread_t::operator()(
 
 #if defined(KELLY_DECOMP_FUNCTION_00322C40)
 // 0x00322C40 __cl__20slf_play_sound_vol_tR8vm_stackQ320script_library_class8function7entry_t
+#include "KS/SRC/script_library_class.h"
+
 void warning(const char *format, ...);
 __asm__(".equ warning__FPCce, 0x001DFB58");
 
 extern char warning_text[];
 __asm__(".equ warning_text, 0x00509660");
-
-class vm_stack {
-    char padding[8];
-    char *top;
-
-public:
-    void *pop(unsigned int size) {
-        top -= size;
-        return top;
-    }
-};
-
-class script_library_class {
-public:
-    class function {
-    public:
-        enum entry_t { FIRST_ENTRY };
-    };
-};
-
-#define SLF_PARMS_UNUSED stack.pop(sizeof(parms_t))
-#define SLF_DONE return true
-
-class slf_play_sound_vol_t : public script_library_class::function {
-public:
-    struct parms_t {
-        char storage[8];
-    };
-
-    bool operator()(vm_stack &stack, entry_t entry);
-};
 
 bool slf_play_sound_vol_t::operator()(
     vm_stack &stack,

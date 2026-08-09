@@ -40,25 +40,13 @@ unsigned int SoundScriptManager::playSound(
 
 #if defined(KELLY_DECOMP_FUNCTION_0031BFB0)
 // 0x0031BFB0 getSoundId__18SoundScriptManageri
-struct playing_event {
-    int event;
-    unsigned int sound_id;
-    char padding[0x14];
-};
-
-class SoundScriptManager {
-    char padding[0x3ac4];
-    playing_event playingEvents[1];
-
-public:
-    unsigned int getSoundId(int event);
-};
+#include "KS/SRC/ks/SoundScript.h"
 
 unsigned int SoundScriptManager::getSoundId(int event) {
     if (playingEvents[event].event == 105) {
         goto invalid;
     }
-    return playingEvents[event].sound_id;
+    return playingEvents[event].sound;
 
 invalid:
     return 0;

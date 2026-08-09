@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released `SLF_PARMS`/`SLF_DONE` body pops one numeric parameter, fetches the thread at stack offset 0xc, and calls `set_camera_priority`.
+The shared `SLF_PARMS` body pops one numeric parameter, fetches the thread from
+the canonical VM stack, and calls `set_camera_priority`.
 
 ## Outcome
 
-The released camera-priority SLF matched exactly on the first attempt.
+The local stack/thread layouts were removed; the released wrapper remains
+exact.

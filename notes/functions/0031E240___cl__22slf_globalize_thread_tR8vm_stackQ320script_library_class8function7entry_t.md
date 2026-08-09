@@ -16,10 +16,10 @@
 
 ### Attempt 2 notes
 
-The released body optionally removes the current thread from its local region, then executes one shared `SLF_DONE`. The empty barrier preserves the normal optional call path.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released body reads the current thread and local region through shared VM
+declarations, then optionally removes the thread.
 
 ## Outcome
 
-The released globalize-thread SLF matched exactly on attempt two.
+A local `remove_local_thread` call pointer preserves the optional normal call
+without a compiler barrier.

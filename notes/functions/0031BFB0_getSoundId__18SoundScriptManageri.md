@@ -17,8 +17,10 @@
 
 ### Attempt 3 notes
 
-The explicit invalid label preserves the target equality branch while the original indexed expressions keep the base-plus-index pointer and branch-delay reuse.
+The explicit invalid label and shared `SoundScriptManager` event layout preserve
+the target branch and indexed record reuse.
 
 ## Outcome
 
-The released `SoundScriptManager::getSoundId` implementation matched exactly on attempt three.
+The local 0x3ac4-byte stand-in was removed; the released manager declaration
+still matches exactly.

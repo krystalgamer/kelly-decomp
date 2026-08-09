@@ -41,6 +41,8 @@ public:
 };
 
 class CurrentSoundEvent {
+    friend class SoundScriptManager;
+
     EventType event;
     unsigned int sound;
     void* entity;
@@ -74,6 +76,7 @@ public:
         float fade_in_time = 0.0f);
     int playEvent(EventType type, entity* source = 0, float fade_in_time = 0.0f);
     unsigned int playSound(EventType type, entity *source = 0);
+    unsigned int getSoundId(int event);
     void endEvent(int event, float fade_out_time = 0.0f);
     void createAllMappings();
 };
