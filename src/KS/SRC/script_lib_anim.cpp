@@ -20,33 +20,9 @@ bool slf_anim_kill_anim_t::operator()(
 }
 
 // 0x00324B60 __cl__16slf_anim_pause_tR8vm_stackQ320script_library_class8function7entry_t
-class slf_anim_pause_t :
-    public script_library_class::function {
-public:
-    struct parms_t {
-        entity_anim_tree *me;
-    };
-
-    bool operator()(vm_stack &stack, entry_t entry);
-};
-
 bool slf_anim_pause_t::operator()(vm_stack &stack, entry_t entry) {
     SLF_PARMS;
-    struct pause_vtable {
-        char padding[8];
-        short adjustment;
-        short reserved;
-        void (*set_flag)(void *self, int flag);
-    };
-    struct pause_layout {
-        int field0;
-        pause_vtable *vtable;
-    };
-    pause_layout *animation = (pause_layout *)parms->me;
-    pause_vtable *table = animation->vtable;
-    table->set_flag(
-        (char *)animation + table->adjustment,
-        0x40);
+    parms->me->set_flag(ANIM_PAUSED);
     SLF_DONE;
 }
 

@@ -16,4 +16,13 @@ public:
     bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_anim_pause_t : public script_library_class::function {
+public:
+    struct parms_t {
+        entity_anim_tree *me;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 #endif

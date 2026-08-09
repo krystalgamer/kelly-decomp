@@ -3,6 +3,7 @@
 
 #include "KS/SRC/color.h"
 #include "KS/SRC/stringx.h"
+#include "g++-2/stl_list.h"
 
 class nglTexture;
 
@@ -18,6 +19,8 @@ public:
 };
 
 class typeface_def {
+    char data_before_usercount[5152];
+
 public:
     struct inter_kern {
         struct int_pair {
@@ -28,7 +31,13 @@ public:
         int_pair letter_pair;
         int kern;
     };
+
+    int usercount;
+    ~typeface_def();
 };
+
+extern list<typeface_def *> typeface_list;
+void typeface_close(typeface_def *typeface);
 
 class Font {
 protected:

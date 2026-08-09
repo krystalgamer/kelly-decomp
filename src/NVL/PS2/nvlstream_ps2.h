@@ -99,6 +99,7 @@ extern nvlStreamSystemData_t nvlStreamSystemData;
 extern volatile nvlStream *nvlCurrentIOStream;
 
 void nvlSendMsg(nvlMsgQueue *queue, nvlMsg message, nvlStream *stream);
+void nvlDestroyMsgQueue(nvlMsgQueue *queue);
 void nvlInitMutex(nvlMutex *mutex);
 void nvlDestroyMutex(nvlMutex *mutex);
 int nvlLockMutex(nvlMutex *mutex, nvlMutexMode mode);

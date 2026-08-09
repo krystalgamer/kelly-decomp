@@ -169,6 +169,11 @@ public:
     void SetBoardIdx(int hero, int index);
     void LoadingStateReset();
     void load_new_level(const stringx &name);
+    bool play_movie(
+        const char *name,
+        bool play_video,
+        int width = 720,
+        int height = 480);
     bool is_paused() const;
     bool was_start_pressed() const;
     bool was_A_pressed() const;

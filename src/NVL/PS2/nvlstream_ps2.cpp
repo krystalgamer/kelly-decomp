@@ -146,11 +146,13 @@ void nvlDestroyMsgQueue(nvlMsgQueue* q)
 {
   if (!q)
     __assert(&_nvl_file, 146, &_nvl_expr);
-  int res = DeleteSema(q->sema);
-  KELLY_DECOMP_COMPILER_BARRIER();
+  int (*delete_semaphore)(int) = DeleteSema;
+  delete_semaphore(q->sema);
 }
 
 // 0x003873A0 nvlDestroyMutex__FPi
+#include "NVL/PS2/nvlstream_ps2.h"
+
 __asm__(".equ __assert, 0x003CF6B0");
 __asm__(".equ DeleteSema, 0x003DB670");
 __asm__(".equ _nvl_file, 0x0051AD40");
@@ -162,11 +164,13 @@ void nvlDestroyMutex(int* mtx)
 {
   if (!mtx)
     __assert(&_nvl_file, 1516, &_nvl_expr);
-  int res = DeleteSema(*mtx);
-  KELLY_DECOMP_COMPILER_BARRIER();
+  int (*delete_semaphore)(int) = DeleteSema;
+  delete_semaphore(*mtx);
 }
 
 // 0x00387480 nvlUnlockMutex__FPi
+#include "NVL/PS2/nvlstream_ps2.h"
+
 __asm__(".equ __assert, 0x003CF6B0");
 __asm__(".equ SignalSema, 0x003DB680");
 __asm__(".equ _nvl_file, 0x0051AD40");
@@ -178,8 +182,8 @@ void nvlUnlockMutex(int* mtx)
 {
   if (!mtx)
     __assert(&_nvl_file, 1549, &_nvl_expr);
-  int res = SignalSema(*mtx);
-  KELLY_DECOMP_COMPILER_BARRIER();
+  int (*signal_semaphore)(int) = SignalSema;
+  signal_semaphore(*mtx);
 }
 
 // 0x00387330 nvlInitMutex__FPi

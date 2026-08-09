@@ -823,9 +823,18 @@ bool slf_load_level_t::operator()(
 
 #if defined(KELLY_DECOMP_FUNCTION_00323148)
 // 0x00323148 __cl__16slf_play_movie_tR8vm_stackQ320script_library_class8function7entry_t
-class script_library_class{public:class function{public:enum entry_t{FIRST_ENTRY};};}; typedef script_library_class::function::entry_t entry_t;
-__asm__(".equ _$g_game_ptr, 0x0046AC64"); __asm__(".equ play_movie__4gamePCcbii, 0x00284630");
-class stringx{public:char*chars;const char*c_str()const{return chars;}}; class game{public:bool play_movie(const char*,bool,int=720,int=480);}; extern game *g_game_ptr asm("_$g_game_ptr"); struct vm_stack{char p[8];char*top;}; class slf_play_movie_t{public:struct parms_t{stringx*movie_name;float continue_level;};bool operator()(vm_stack&,entry_t);}; bool slf_play_movie_t::operator()(vm_stack&stack,entry_t){stack.top-=sizeof(parms_t);parms_t*parms=(parms_t*)stack.top;g_game_ptr->play_movie(parms->movie_name->c_str(),true);return true;}
+#include "KS/SRC/game.h"
+#include "KS/SRC/script_lib_core.h"
+
+__asm__(".equ g_game_ptr, 0x0046AC64");
+__asm__(".equ play_movie__4gamePCcbii, 0x00284630");
+
+bool slf_play_movie_t::operator()(vm_stack &stack, entry_t entry)
+{
+    SLF_PARMS;
+    g_game_ptr->play_movie(parms->movie_name->c_str(), true);
+    SLF_DONE;
+}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031F4E0)
