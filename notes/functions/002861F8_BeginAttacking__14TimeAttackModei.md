@@ -11,11 +11,12 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-attack-wrapper-core.cpp` |
 
 ### Attempt 1 notes
 
-A minimal player layout refreshes the selected time attack state and marks it attacking.
+The shared mode and controller declarations read the embedded scoring-manager
+score and mark the selected player attacking.
 
 ## Outcome
 

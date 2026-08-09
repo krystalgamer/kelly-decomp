@@ -31,6 +31,7 @@ public:
     float GetRemainingTime(int player_index) const;
     bool IsAttacking(int player_index) const;
     bool IsDoneAttacking(int player_index) const;
+    void BeginAttacking(int player_index);
 };
 
 #endif

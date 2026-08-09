@@ -158,6 +158,8 @@ public:
     void do_profiler_stuff();
     void render_shadows();
     void render_black_screen();
+    void render_fe();
+    void render_mem_free_screen();
     void clear_screen();
     void draw_debug_labels();
     void set_num_ai_players(int count);

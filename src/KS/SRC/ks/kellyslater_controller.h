@@ -16,7 +16,11 @@ enum {
 };
 
 struct ScoringManagerStorage {
-    char data[0x550];
+    char data_before_score[4];
+    int score;
+    char data_after_score[0x548];
+
+    int GetScore() const { return score; }
 };
 
 class camera;
@@ -78,6 +82,9 @@ class kellyslater_controller {
     camera *look_back_cam_ptr;
 
 public:
+    ScoringManagerStorage &get_my_scoreManager() {
+        return my_scoreManager;
+    }
     void Anim(
         int animation,
         float blend_time,

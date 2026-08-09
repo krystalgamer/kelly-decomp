@@ -28,6 +28,7 @@ public:
     ~MeterAttackMode();
     void Update(float time_inc);
     void Reset();
+    void BeginCombat();
     void BeginAttacking(int player_index);
     void FinishAttacking(int player_index);
     float GetLevelDuration(int player_index) const;

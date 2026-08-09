@@ -26,13 +26,15 @@ float TimeAttackMode::GetRemainingTime(int index) const { return players[index].
 
 bool TimeAttackMode::IsAttacking(int index) const { return players[index].attacking; }
 
-#if defined(KELLY_DECOMP_FUNCTION_002861F8)
 // 0x002861F8 BeginAttacking__14TimeAttackModei
-struct attack_controller { char padding[0x10fc]; int state; };
-struct attack_player { attack_controller *controller; char padding[8]; int state; int attacking; char padding2[4]; };
-class TimeAttackMode { attack_player players[2]; public: void BeginAttacking(int player); };
-void TimeAttackMode::BeginAttacking(int player) { players[player].state = players[player].controller->state; players[player].attacking = 1; }
-#endif
+#include "KS/SRC/ks/kellyslater_controller.h"
+#include "KS/SRC/ks/mode_timeattack.h"
+
+void TimeAttackMode::BeginAttacking(int player) {
+    players[player].score =
+        players[player].controller->get_my_scoreManager().GetScore();
+    players[player].attacking = true;
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_00285FF0)
 // 0x00285FF0 __14TimeAttackMode

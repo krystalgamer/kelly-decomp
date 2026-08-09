@@ -73,6 +73,7 @@ OnDown__13CheatCodeMenui = 0x1D23F8;
 Init_Filter__12float_filterf = 0x229F68;
 ResetGoals__Q26Career5Level = 0x25C378;
 ResetPierEntities__22kellyslater_controller = 0x26F7A0;
+BeginCombat__15MeterAttackMode = 0x286678;
 _$_11menu_widget = 0x3605E0;
 _$_17background_widget = 0x360AA0;
 _$_10box_widget = 0x360B40;

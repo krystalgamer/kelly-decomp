@@ -13,7 +13,7 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 52.2727 | 45.4545 | `candidate.cpp` |
 | 2 | compile_failed | 0.0 | 0 | `candidate.cpp` |
-| 3 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | matched | 100.0 | 100.0 | `size44-attack-wrapper-core.cpp` |
 
 ### Attempt 1 notes
 
@@ -25,10 +25,9 @@ The second attempt either exposed a candidate-generation syntax error or retaine
 
 ### Attempt 3 notes
 
-The released frontend render runs `FEDraw` before the memory-free overlay.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The shared game declaration and a local function pointer preserve `FEDraw`
+followed by the normal overlay call.
 
 ## Outcome
 
-The released `game::render_fe` implementation matched exactly.
+The compiler barrier and local class were removed.

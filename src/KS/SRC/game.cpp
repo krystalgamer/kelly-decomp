@@ -166,11 +166,18 @@ void game::LoadingStateReset() { current_loading_state = 0; loading_progress = 0
 void game::set_level(int level) { levelid = level; beachid = CareerDataArray[levelid].beach; }
 
 // 0x002791D8 render_fe__4game
+#include "KS/SRC/game.h"
+
 void FEDraw();
 __asm__(".equ FEDraw__Fv, 0x00199130");
-class game { public: void render_fe(); void render_mem_free_screen(); };
 __asm__(".equ render_mem_free_screen__4game, 0x00278FF0");
-void game::render_fe() { FEDraw(); render_mem_free_screen(); KELLY_DECOMP_COMPILER_BARRIER(); }
+void render_memory_screen(game *self)
+    __asm__("render_mem_free_screen__4game");
+void game::render_fe() {
+    FEDraw();
+    void (*render_overlay)(game *) = render_memory_screen;
+    render_overlay(this);
+}
 
 // 0x0027AA70 set_movie__4gameG7stringx
 class stringx {

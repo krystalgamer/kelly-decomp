@@ -22,12 +22,14 @@ float MeterAttackMode::GetRemainingTime(int index) const { return players[index]
 bool MeterAttackMode::IsAttacking(int index) const { return players[index].attacking; }
 
 // 0x002866A8 BeginAttacking__15MeterAttackModei
-struct attack_controller { char padding[0x10fc]; int state; };
-struct attack_player { attack_controller *controller; char padding[8]; int state; int attacking; char padding2[4]; };
-struct MeterAttackLayout { attack_player players[2]; };
-extern "C" void begin_meter_attack(MeterAttackLayout *self, int player)
-    __asm__("BeginAttacking__15MeterAttackModei");
-void begin_meter_attack(MeterAttackLayout *self, int player) { self->players[player].state = self->players[player].controller->state; self->players[player].attacking = 1; }
+#include "KS/SRC/ks/kellyslater_controller.h"
+#include "KS/SRC/ks/mode_meterattack.h"
+
+void MeterAttackMode::BeginAttacking(int player) {
+    players[player].score =
+        players[player].ks->get_my_scoreManager().GetScore();
+    players[player].attacking = true;
+}
 
 // 0x00286580 Reset__15MeterAttackMode
 #include "KS/SRC/ks/mode_meterattack.h"
@@ -76,9 +78,3 @@ void MeterAttackMode::Update(float time) {
 
 // 0x002866D8 FinishAttacking__15MeterAttackModei
 struct player{char p0[16];int attacking;char p1[4];};struct mode{player players[2];};extern "C" void attack(mode*,int,float) __asm__("Attack__15MeterAttackModeif");__asm__(".equ Attack__15MeterAttackModeif,0x002867A8");extern "C" void finish(mode*self,int idx) __asm__("FinishAttacking__15MeterAttackModei");void finish(mode*self,int idx){while(self->players[idx].attacking)attack(self,idx,1.0f);}
-
-// 0x00286678 BeginCombat__15MeterAttackMode
-struct controller_layout { char padding[0x10fc]; int score; };
-struct player_layout { controller_layout *ks; char padding[8]; int score; char tail[8]; };
-class MeterAttackMode { player_layout players[2]; public: void BeginCombat(); };
-void MeterAttackMode::BeginCombat(){__asm__ __volatile__("addiu $5,$4,48\nlw $2,0($4)\n1:\nlw $3,4348($2)\nsw $3,12($4)\naddiu $4,$4,24\nslt $2,$4,$5\nnop\n.word 0x5440fffa\n.word 0x8c820000" : : : "$2","$3","$5","memory");}

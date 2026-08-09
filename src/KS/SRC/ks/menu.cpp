@@ -375,7 +375,13 @@ void MenuEntryIntEdit::OnMenuOpen(Menu *menu, MenuSystem *system) {
 
 __asm__(".equ OnMenuOpen__9MenuEntryP4MenuP10MenuSystem, 0x0023EF90");
 __asm__(".equ FixValue__18MenuEntryFloatEdit, 0x0023FB98");
-void MenuEntryFloatEdit::OnMenuOpen(Menu *menu, MenuSystem *system) { MenuEntry::OnMenuOpen(menu, system); FixValue(); KELLY_DECOMP_COMPILER_BARRIER(); }
+void fix_float_value(MenuEntryFloatEdit *entry)
+    __asm__("FixValue__18MenuEntryFloatEdit");
+void MenuEntryFloatEdit::OnMenuOpen(Menu *menu, MenuSystem *system) {
+    MenuEntry::OnMenuOpen(menu, system);
+    void (*fix_value)(MenuEntryFloatEdit *) = fix_float_value;
+    fix_value(this);
+}
 
 // 0x002704B8 _$_9MenuEntry
 extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
