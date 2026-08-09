@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released in-game/active guard and virtual up dispatch match exactly.
+The released in-game/active guard and virtual up dispatch use the shared
+high-score frontend hierarchy.
 
 ## Outcome
 
-The released in-game/active guard and virtual up dispatch match exactly.
+The manual active-menu vtable and local layout were removed.

@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released developer-option selection matches exactly.
+The released developer-option selection uses the shared beach frontend and
+developer-options declarations.
 
 ## Outcome
 
-The released developer-option selection for realistic front-end mode matches exactly.
+The local developer-options layout was removed.

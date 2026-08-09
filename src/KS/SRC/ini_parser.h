@@ -22,6 +22,8 @@ public:
 
     enum flags_t {
         FLAG_NO_RUMBLE = 18,
+        FLAG_E3_BUILD = 100,
+        FLAG_REALISTIC_FE = 102,
         NUM_FLAGS = 105
     };
     enum strings_t {

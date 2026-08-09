@@ -299,52 +299,15 @@ void PauseMenuSystem::Restart()
     retry(g_game_ptr, false);
 }
 
-// 0x001B0318 OnL1__17PlaylistMenuClassi
-#include "decomp_annotations.h"
-typedef void (*playlist_handler)(void *, int);
-struct playlist_slot { short adjustment; unsigned short padding; playlist_handler function; };
-struct playlist_vtable { char padding[0x98]; playlist_slot up; };
-struct PlaylistMenuLayout { char padding[0x74]; playlist_vtable *vtable; char padding2[0x70]; int active; };
-extern "C" void playlist_l1(PlaylistMenuLayout *self, int controller)
-    __asm__("OnL1__17PlaylistMenuClassi");
-void playlist_l1(PlaylistMenuLayout *self, int controller)
-{
-    self->active = true;
-    KELLY_DECOMP_COMPILER_BARRIER();
-    playlist_slot &slot = self->vtable->up;
-    slot.function((char *)self + slot.adjustment, controller);
-    self->active = false;
-}
-
-// 0x001B0358 OnR1__17PlaylistMenuClassi
-#include "decomp_annotations.h"
-typedef void (*playlist_handler)(void *, int);
-struct playlist_slot { short adjustment; unsigned short padding; playlist_handler function; };
-struct playlist_vtable { char padding[0xa0]; playlist_slot down; };
-struct PlaylistMenuLayout { char padding[0x74]; playlist_vtable *vtable; char padding2[0x70]; int active; };
-extern "C" void playlist_r1(PlaylistMenuLayout *self, int controller)
-    __asm__("OnR1__17PlaylistMenuClassi");
-void playlist_r1(PlaylistMenuLayout *self, int controller)
-{
-    self->active = true;
-    KELLY_DECOMP_COMPILER_BARRIER();
-    playlist_slot &slot = self->vtable->down;
-    slot.function((char *)self + slot.adjustment, controller);
-    self->active = false;
-}
-
 // 0x001B2950 OnActivate__20QuitConfirmMenuClass
-typedef void (*menu_set_high_handler)(void *, void *, bool);
-struct menu_slot { short adjustment; unsigned short padding; menu_set_high_handler function; };
-struct menu_vtable { char padding[0x18]; menu_slot set_high; };
-class FEMenu { char padding[0x74]; protected: menu_vtable *vtable; public: void OnActivate(); };
-class QuitConfirmMenuClass : public FEMenu { void *system; void *question; void *yesEntry; void *noEntry; public: void OnActivate(); };
+#include "KS/SRC/ks/FrontEndMenus.h"
+
 asm(".equ OnActivate__6FEMenu, 0x00157728");
+
 void QuitConfirmMenuClass::OnActivate()
 {
     FEMenu::OnActivate();
-    menu_slot &slot = vtable->set_high;
-    slot.function((char *)this + slot.adjustment, noEntry, false);
+    setHigh(noEntry, false);
 }
 
 

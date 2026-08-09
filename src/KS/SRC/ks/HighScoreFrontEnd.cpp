@@ -10,65 +10,51 @@ void NameEntryMenu::OnStart(int command) { if (!in_game) { void (*start)(FEMenu 
 
 #if defined(KELLY_DECOMP_FUNCTION_001CB0F0)
 // 0x001CB0F0 OnUp__17HighScoreFrontEndi
-typedef void (*score_handler)(void *, int);
-struct score_slot { short adjustment; unsigned short padding; score_handler function; };
-struct score_vtable { char padding[0x98]; score_slot up; };
-struct ScoreMenu { char padding[0x74]; score_vtable *vtable; };
-class HighScoreFrontEnd { char padding[0x60]; ScoreMenu *active; char padding2[0x228]; int in_game; public: void OnUp(int); };
+#include "KS/SRC/ks/HighScoreFrontEnd.h"
+
 void HighScoreFrontEnd::OnUp(int controller)
 {
-    if (in_game && active) {
-        score_slot &slot = active->vtable->up;
-        slot.function((char *)active + slot.adjustment, controller);
-    }
+    if (in_game && active)
+        active->OnUp(controller);
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001CB130)
 // 0x001CB130 OnDown__17HighScoreFrontEndi
-typedef void (*score_handler)(void *, int);
-struct score_slot { short adjustment; unsigned short padding; score_handler function; };
-struct score_vtable { char padding[0xa0]; score_slot down; };
-struct ScoreMenu { char padding[0x74]; score_vtable *vtable; };
-class HighScoreFrontEnd { char padding[0x60]; ScoreMenu *active; char padding2[0x228]; int in_game; public: void OnDown(int); };
+#include "KS/SRC/ks/HighScoreFrontEnd.h"
+
 void HighScoreFrontEnd::OnDown(int controller)
 {
-    if (in_game && active) {
-        score_slot &slot = active->vtable->down;
-        slot.function((char *)active + slot.adjustment, controller);
-    }
+    if (in_game && active)
+        active->OnDown(controller);
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001CB310)
 // 0x001CB310 OnStart__17HighScoreFrontEndi
-typedef void (*score_handler)(void *, int);
-struct score_slot { short adjustment; unsigned short padding; score_handler function; };
-struct score_vtable { char padding[0x90]; score_slot start; };
-struct ScoreMenu { char padding[0x74]; score_vtable *vtable; };
-class HighScoreFrontEnd { char padding[0x60]; ScoreMenu *active; char padding2[0x228]; int in_game; public: void OnStart(int); };
+#include "KS/SRC/ks/HighScoreFrontEnd.h"
+
 void HighScoreFrontEnd::OnStart(int controller)
 {
-    if (in_game && active) {
-        score_slot &slot = active->vtable->start;
-        slot.function((char *)active + slot.adjustment, controller);
-    }
+    if (in_game && active)
+        active->OnStart(controller);
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_001CCCC0)
 // 0x001CCCC0 Update__13NameEntryMenuf
-#include "decomp_annotations.h"
-class FrontEnd { public: void Update(float); };
-class FEMenu { char padding[0x80]; public: void Update(float); };
-class NameEntryMenu : public FEMenu { FrontEnd frontend; public: void Update(float); };
+#include "KS/SRC/ks/HighScoreFrontEnd.h"
+
 asm(".equ Update__8FrontEndf, 0x00157B30");
 asm(".equ Update__6FEMenuf, 0x00156DC8");
+extern "C" void update_menu_base(FEMenu *menu, float time)
+    __asm__("Update__6FEMenuf");
+
 void NameEntryMenu::Update(float time_inc)
 {
-    frontend.Update(time_inc);
-    FEMenu::Update(time_inc);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    FrontEnd::Update(time_inc);
+    void (*update)(FEMenu *, float) = update_menu_base;
+    update(this, time_inc);
 }
 #endif
 

@@ -22,6 +22,7 @@ private:
     bool exitingWithoutSelect;
 
 public:
+    bool Realistic(bool press_build_only);
     void ReturnToFE();
     void OnButtonRelease(int controller, int button);
     virtual void ReloadMap();

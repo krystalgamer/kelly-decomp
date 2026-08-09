@@ -20,8 +20,9 @@ The initial base layout placed the embedded FrontEnd one byte late and optimized
 
 ### Attempt 2 notes
 
-Restoring the released base size and a narrow post-call barrier prevents the demonstrated tail-call optimization and matches exactly.
+The shared multiple-inheritance frontend layout and a local menu-update pointer
+preserve both base calls.
 
 ## Outcome
 
-The released FrontEnd and FEMenu updates match with a narrow barrier preventing a demonstrated tail-call optimization.
+The local base layouts and compiler barrier were removed.

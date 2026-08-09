@@ -20,8 +20,9 @@ The first authentic layout omitted the released question field, placing noEntry 
 
 ### Attempt 2 notes
 
-Restoring the released question field reproduces the base activation and virtual setHigh dispatch exactly.
+The shared quit-confirm menu declaration preserves the question/no-entry
+layout, base activation, and virtual `setHigh` dispatch.
 
 ## Outcome
 
-The released base activation followed by virtual setHigh on noEntry matches exactly.
+The manual menu vtable and local class layout were removed.

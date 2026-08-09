@@ -5,7 +5,7 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/FrontEndMenus.cpp`
 - Reference source: `KS/SRC/ks/FrontEndMenus.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -14,7 +14,6 @@
 | 1 | different | 87.5 | 87.5 | `candidate.cpp` |
 | 2 | compile_failed | 0.0 | 0 | `candidate.cpp` |
 | 3 | different | 70.3125 | 50.0 | `candidate.cpp` |
-| 4 | matched | 100.0 | 100.0 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
@@ -28,10 +27,8 @@ A raw inline barrier spelling was rejected by the legacy compiler; no target ass
 
 A normalized entry barrier over-constrained scheduling and differed.
 
-### Attempt 4 notes
-
-A narrow normalized barrier after setting active preserves the released call behavior and prevents the demonstrated prologue scheduling change.
-
 ## Outcome
 
-The released active-state wrapper and virtual up dispatch match with a narrow compiler barrier preventing demonstrated prologue rescheduling.
+The matching-only scheduling barrier and manual vtable layout were removed.
+Clean shared forms move the `this` copy before the return-address save, so the
+wrapper was deferred.

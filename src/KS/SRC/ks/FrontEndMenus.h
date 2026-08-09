@@ -184,6 +184,8 @@ private:
     bool tweaked;
 
 public:
+    virtual void OnL1(int controller);
+    virtual void OnR1(int controller);
     virtual void OnSquare(int controller);
     virtual void Select(int entry_index);
     virtual void OnCircle(int controller);
@@ -278,9 +280,12 @@ public:
 class QuitConfirmMenuClass : public FEMenu {
     PauseMenuSystem *sys;
     BoxText *question;
+    FEMenuEntry *yesEntry;
+    FEMenuEntry *noEntry;
 
 public:
     virtual void Draw();
+    virtual void OnActivate();
 };
 
 #endif
