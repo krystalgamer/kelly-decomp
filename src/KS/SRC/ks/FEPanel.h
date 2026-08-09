@@ -9,6 +9,15 @@
 #include "NGL/PS2/ngl_ps2.h"
 
 class Font {
+protected:
+    struct glyph_info {
+        unsigned char ascii;
+        unsigned int cell_x;
+        unsigned int cell_y;
+        unsigned int cell_width;
+        int cell_height;
+    };
+
 public:
     enum HORIZJUST {
         HORIZJUST_LEFT,
@@ -21,6 +30,8 @@ public:
         VERTJUST_CENTER,
         VERTJUST_BOTTOM
     };
+
+    glyph_info *getGlyph(char value);
 };
 
 class TextString {
@@ -138,8 +149,25 @@ protected:
 public:
     float getWidth();
     virtual int getLineNum();
-    void setFont(Font *font);
+    virtual void changeText(stringx text);
+    virtual void setLineSpacing(int spacing);
+    virtual void resetLineSpacing();
     virtual void addFont(int index, Font *font);
+    virtual void setFont(Font *font);
+
+protected:
+    virtual void Render(stringx *text, float x, float y);
+    virtual void cons(
+        Font *font,
+        stringx text,
+        float x,
+        float y,
+        int z,
+        float scale,
+        Font::HORIZJUST horizontal,
+        Font::VERTJUST vertical,
+        bool no_color,
+        color32 color);
 };
 
 class BouncingText : public TextString {
@@ -197,6 +225,7 @@ public:
     float delta_y[MAX_STRING_SIZE];
 
     void MakeRand();
+    void Update(float time_inc);
     StringList &operator=(const StringList &other);
 };
 
@@ -207,6 +236,7 @@ protected:
     StringList rand_string;
 
 public:
+    virtual void Update(float time_inc);
     void makeRand();
     void unmakeRand();
 };
@@ -618,15 +648,24 @@ class FloatingPQ : public PanelQuad {
     bool non_floating_behavior;
 
 public:
+    virtual void Init(
+        float x1, float y1, float x2, float y2,
+        float r, float g, float b, float a,
+        float u1, float v1, float u2, float v2,
+        float z, matrix4x4 object_matrix);
+    virtual void UpdateInScene();
+    virtual void Draw(int layer = 0, float alpha = -1.0f);
     virtual void SetLocation3D(vector3d location);
     virtual void SetWidth(float width);
     virtual void SetHeight(float height);
-    void SetPos(float x1, float y1, float x2, float y2);
-    void SetBehaviorNF(float x, float y);
-    void SetBehavior(bool enabled);
+    virtual void SetConstantScale(float value);
+    virtual void SetScale(float value);
+    virtual void SetPos(float x1, float y1, float x2, float y2);
     virtual void GetPos(float &x1, float &y1, float &x2, float &y2)
         __asm__("GetPos__10FloatingPQRfN31");
     virtual vector3d GetLocation3D();
+    virtual void SetBehaviorNF(float x, float y);
+    virtual void SetBehavior(bool enabled);
 };
 
 #endif

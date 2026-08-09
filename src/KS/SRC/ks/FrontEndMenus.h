@@ -46,6 +46,33 @@ public:
     virtual ~CameraMenuClass();
 };
 
+class TrickTypeMenuClass : public FEMenu {
+public:
+    PauseMenuSystem *sys;
+
+private:
+    enum {
+        NUM_TYPES = 5,
+        MAX_ENTRIES = 50
+    };
+
+    FEMenu *sub_menus[NUM_TYPES];
+    FEMenuEntry *entry[NUM_TYPES];
+    int trick_list_index[NUM_TYPES][MAX_ENTRIES];
+
+public:
+    virtual ~TrickTypeMenuClass();
+    virtual void Init();
+    virtual void Select(int entry_index);
+    virtual void HighlightDefault();
+    virtual void OnActivate();
+    virtual void Update(float time_inc);
+    virtual void OnTriangle(int controller);
+    virtual void OnCross(int controller);
+    virtual void OnUp(int controller);
+    virtual void OnDown(int controller);
+};
+
 class TrickMenuClass : public FEMenu {
 public:
     virtual void Select(int entry_index);

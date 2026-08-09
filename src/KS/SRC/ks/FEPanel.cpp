@@ -353,14 +353,8 @@ float ReadFloat(unsigned char *buffer, int &index)
 
 
 // 0x00148BC0 setLineSpacing__15MultiLineStringi
-struct Glyph { char padding[16]; int cell_height; };
-class Font { public: Glyph* getGlyph(char); };
-class MultiLineString {
-    Font* font;
-    char padding[0x4c];
-    int vSpacing;
-public: void setLineSpacing(const int new_spacing);
-};
+#include "KS/SRC/ks/FEPanel.h"
+
 __asm__(".equ getGlyph__4Fontc, 0x0033BD68");
 void MultiLineString::setLineSpacing(const int new_spacing)
 {
@@ -372,80 +366,27 @@ void MultiLineString::setLineSpacing(const int new_spacing)
 
 
 // 0x00149470 Update__10RandomTextf
-typedef float time_value_t;
-class TextString { char padding[0x50]; public: void Update(time_value_t); };
-class StringList { public: void Update(time_value_t); };
-class RandomText : public TextString {
-    bool isRand;
-    char padding2[4];
-    StringList rand_string;
-public: void Update(time_value_t);
-};
+#include "KS/SRC/ks/FEPanel.h"
+
 __asm__(".equ Update__10TextStringf, 0x001482F8");
 __asm__(".equ Update__10StringListf, 0x00147B98");
+extern "C" void update_random_strings(StringList *list, float time)
+    __asm__("Update__10StringListf");
+
 void RandomText::Update(time_value_t time_inc)
 {
     TextString::Update(time_inc);
     if (isRand)
     {
-        rand_string.Update(time_inc);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*update)(StringList *, float) = update_random_strings;
+        update(&rand_string, time_inc);
     }
 }
 
 
 // 0x0014F5A8 SetConstantScale__10FloatingPQf
-class PanelQuad {
-    char padding[0x194];
-public:
-    virtual void d0();
-    virtual void d1();
-    virtual void d2();
-    virtual void d3();
-    virtual void d4();
-    virtual void d5();
-    virtual void d6();
-    virtual void d7();
-    virtual void d8();
-    virtual void d9();
-    virtual void d10();
-    virtual void d11();
-    virtual void d12();
-    virtual void d13();
-    virtual void d14();
-    virtual void d15();
-    virtual void d16();
-    virtual void d17();
-    virtual void d18();
-    virtual void d19();
-    virtual void d20();
-    virtual void d21();
-    virtual void d22();
-    virtual void d23();
-    virtual void d24();
-    virtual void d25();
-    virtual void d26();
-    virtual void d27();
-    virtual void d28();
-    virtual void d29();
-    virtual void d30();
-    virtual void d31();
-    virtual void d32();
-    virtual void d33();
-    virtual void d34();
-    virtual void d35();
-    virtual void d36();
-    virtual void d37();
-    virtual void d38();
-    virtual void d39();
-    virtual void SetScale(float);
-};
-class FloatingPQ : public PanelQuad {
-    char padding2[0x30];
-    float width_f;
-    float height_f;
-public: void SetConstantScale(float);
-};
+#include "KS/SRC/ks/FEPanel.h"
+
 void FloatingPQ::SetConstantScale(float s)
 {
     width_f = width_f*s;

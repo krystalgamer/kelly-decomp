@@ -5,7 +5,7 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/MainFrontEnd.cpp`
 - Reference source: `KS/SRC/ks/MainFrontEnd.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -29,4 +29,6 @@ Kept the released branch body and used narrow barriers in each branch to prevent
 
 ## Outcome
 
-The released active-menu/base fallback behavior matches with narrow branch-local barriers preventing demonstrated tail calls.
+The matching-only branch barriers and abbreviated virtual layout were removed.
+The shared released body tail-calls both branch targets, so this wrapper was
+deferred rather than retaining compiler-control scaffolding.

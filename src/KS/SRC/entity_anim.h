@@ -111,8 +111,12 @@ public:
     inline entity *get_entity() const {
         return ent;
     }
+    inline bool has_po_anim() const {
+        return po_anim_ptr != 0 && po_anim_ptr->is_valid();
+    }
 
     void detach();
+    void reset_start(const anim_control_t &control);
     void set_po_anim(po_anim *animation);
     virtual void set_time(float time);
 

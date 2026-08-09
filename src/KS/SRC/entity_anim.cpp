@@ -78,35 +78,23 @@ void entity_anim_tree::detach() {
 
 
 // 0x00114090 reset_start__11entity_animRC14anim_control_t
-struct anim_control_t {};
-struct po {};
-class po_anim {
-    unsigned short flags;
-public:
-    bool is_flagged(int f) const { return (flags & f); }
-    bool is_valid() const { return is_flagged(0x1000); }
-    void reset_start(const anim_control_t&, const po&);
-};
-class entity {
-    char padding[16];
-public:
-    const po& get_rel_po() const { return *(const po*)((const char*)this + 16); }
-};
-class entity_anim {
-    char padding[8];
-    entity* ent;
-    po_anim* po_anim_ptr;
-public:
-    bool has_po_anim() const { return po_anim_ptr != 0 && po_anim_ptr->is_valid(); }
-    void reset_start(const anim_control_t& ac);
-};
+#include "KS/SRC/entity.h"
+#include "KS/SRC/entity_anim.h"
+
 __asm__(".equ reset_start__7po_animRC14anim_control_tRC2po, 0x0011BD80");
+extern "C" void reset_po_animation(
+    po_anim *animation,
+    const anim_control_t &control,
+    const po &position
+) __asm__("reset_start__7po_animRC14anim_control_tRC2po");
+
 void entity_anim::reset_start(const anim_control_t& ac)
 {
     if (has_po_anim())
     {
-        po_anim_ptr->reset_start(ac, ent->get_rel_po());
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*reset)(po_anim *, const anim_control_t &, const po &) =
+            reset_po_animation;
+        reset(po_anim_ptr, ac, ent->get_rel_po());
     }
 }
 

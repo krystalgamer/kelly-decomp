@@ -25,6 +25,9 @@ public:
     virtual int get_bone_idx();
     virtual void po_changed();
     link_interface *create_link_ifc();
+    inline const po &get_rel_po() const {
+        return my_rel_po;
+    }
     inline void set_part_of_skeleton(bool value) {
         is_part_of_skeleton = value;
     }

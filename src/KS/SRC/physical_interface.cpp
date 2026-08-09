@@ -68,13 +68,8 @@ bool physical_interface::using_velocity() const {
 
 // 0x00125B18 destroy_guidance_sys__18physical_interface
 #include "KS/SRC/physical_interface.h"
+#include "KS/SRC/guidance_sys.h"
 
-class guidance_system {
-    physical_interface* owner;
-    int flags;
-public:
-    virtual ~guidance_system();
-};
 void physical_interface::destroy_guidance_sys()
 {
     delete guide_sys;
