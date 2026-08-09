@@ -15,4 +15,13 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_area_damage_t : public script_library_class::function {
+public:
+    struct parms_t {
+        char storage[20];
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 #endif

@@ -515,18 +515,8 @@ void **AreaDamageRtti()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031EF88)
 // 0x0031EF88 slf_area_damage_t::operator()
-struct vm_stack {
-    char padding[8];
-    char *top;
-    void *pop(unsigned size) { top -= size; return top; }
-};
-class script_library_class {
-public:
-    class function {
-    public:
-        enum entry_t { FIRST_ENTRY };
-    };
-};
+#include "KS/SRC/script_lib_core.h"
+
 extern int once_slf_area_damage_t;
 extern const char area_damage_stub_warning[];
 extern const char area_damage_stub_name[];
@@ -535,22 +525,14 @@ __asm__(".equ once_slf_area_damage_t, 0x0046B334");
 __asm__(".equ area_damage_stub_warning, 0x005095B0");
 __asm__(".equ area_damage_stub_name, 0x005095E0");
 __asm__(".equ debug_print__FPCce, 0x00120790");
-#define SLF_PARMS_UNUSED stack.pop(sizeof(parms_t))
-#define STUBBED(stub, str) \
-    if (once_slf_area_damage_t) { \
-        debug_print(area_damage_stub_warning, area_damage_stub_name); \
-        once_slf_area_damage_t = false; \
-    }
-#define SLF_DONE return true
-class slf_area_damage_t : public script_library_class::function {
-public:
-    struct parms_t { char storage[20]; };
-    bool operator()(vm_stack &, entry_t);
-};
+
 bool slf_area_damage_t::operator()(vm_stack &stack, entry_t entry)
 {
     SLF_PARMS_UNUSED;
-    STUBBED(slf_area_damage_t, "script_lib slf_area_damage_t");
+    if (once_slf_area_damage_t) {
+        debug_print(area_damage_stub_warning, area_damage_stub_name);
+        once_slf_area_damage_t = false;
+    }
     SLF_DONE;
 }
 #endif
