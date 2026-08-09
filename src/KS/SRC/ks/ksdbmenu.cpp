@@ -123,33 +123,33 @@ bool MemoryScreen(MenuEntry *entry, int button)
 }
 
 // 0x002368B8 MemoryDump__FP9MenuEntryi
-class MenuEntry;
+#include "KS/SRC/archalloc.h"
+#include "KS/SRC/ks/ksdbmenu.h"
 
-struct MenuSystemVTable {
-    char padding[0x18];
-    short adjustment;
-    short padding2;
-    void (*close_menu)(void *self);
-};
-
-class MenuSystem {
-public:
-    char padding[0x458];
-    MenuSystemVTable *vtable;
-};
-
-extern MenuSystem *menus;
 __asm__(".equ menus, 0x00424EE8");
-
-void mem_dump_heap(int heapid);
 __asm__(".equ mem_dump_heap__Fi, 0x002ACC50");
 
 bool MemoryDump(MenuEntry *entry, int button)
 {
-    if (button == 7) {
+    if (button == MENUCMD_CROSS) {
         mem_dump_heap(0);
-        MenuSystemVTable *table = menus->vtable;
-        table->close_menu((char *)menus + table->adjustment);
+        menus->CloseMenu();
+    }
+    return true;
+}
+
+// 0x00236900 MemoryLeakDump__FP9MenuEntryi
+#include "KS/SRC/archalloc.h"
+#include "KS/SRC/ks/ksdbmenu.h"
+
+__asm__(".equ menus, 0x00424EE8");
+__asm__(".equ mem_leak_test__Fb, 0x002AC530");
+
+bool MemoryLeakDump(MenuEntry *entry, int button)
+{
+    if (button == MENUCMD_CROSS) {
+        mem_leak_test(false);
+        menus->CloseMenu();
     }
     return true;
 }

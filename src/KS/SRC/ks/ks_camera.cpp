@@ -514,39 +514,9 @@ void fps_camera::sync(camera &other) {
 }
 
 // 0x0022C208 __10fps_cameraRC9entity_idP6entityP22kellyslater_controller
-class entity_id;
-class entity;
-class camera;
-class kellyslater_controller;
+#include "KS/SRC/ks/ks_camera.h"
 
 __asm__(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
-__asm__(".equ _vt$10fps_camera, 0x004EAEF0");
-
-class camera_layout {
-    char padding_to_vtable[8];
-public:
-    virtual ~camera_layout();
-};
-
-class game_camera : public camera_layout {
-    char padding_to_controller[0x208];
-    kellyslater_controller *ksctrl;
-public:
-    game_camera(const entity_id &id, entity *target);
-    virtual ~game_camera();
-    void set_ks_controller(kellyslater_controller *controller) {
-        ksctrl = controller;
-    }
-};
-
-class fps_camera : public game_camera {
-public:
-    fps_camera(const entity_id &id, entity *target, kellyslater_controller *controller);
-    virtual ~fps_camera();
-    virtual void sync(camera &other);
-    virtual void init();
-    virtual void frame_advance(float time);
-};
 
 fps_camera::fps_camera(const entity_id &id, entity *target, kellyslater_controller *controller)
     : game_camera(id, target)
@@ -573,32 +543,7 @@ void flyby_camera::start() {
 void follow_camera::init() { first_time = true; jump_time_elapsed = 0; }
 
 // 0x00232A68 init__19follow_close_camera
-struct follow_close_camera_vtable {
-    char padding[0x78];
-    short adjustment;
-    short unused;
-    void (*frame_advance)(void *self, float time_step);
-};
-
-class follow_close_camera {
-    char padding_to_vtable[8];
-    follow_close_camera_vtable *vtable;
-    char padding_to_controller[0x208];
-    void *ksctrl;
-    char padding_to_first[0xB8];
-    bool first_time;
-    char padding_to_jump[0x30];
-    float jump_time_elapsed;
-public:
-    void frame_advance(float time_step) {
-        follow_close_camera_vtable *table = vtable;
-        table->frame_advance(
-            (char *)this + table->adjustment,
-            time_step
-        );
-    }
-    void init();
-};
+#include "KS/SRC/ks/ks_camera.h"
 
 void follow_close_camera::init()
 {
@@ -609,38 +554,14 @@ void follow_close_camera::init()
 }
 
 // 0x00234648 __15duckdive_cameraRC9entity_idP6entityP22kellyslater_controller
-class entity_id;
-class entity;
-class kellyslater_controller;
+#include "KS/SRC/ks/ks_camera.h"
 
 __asm__(".equ __11game_cameraRC9entity_idP6entity, 0x002C40A8");
-__asm__(".equ _vt$15duckdive_camera, 0x004D69A8");
-
-class game_camera {
-    char padding[8];
-public:
-    game_camera(const entity_id &id, entity *target);
-    virtual ~game_camera();
-};
-
-struct duckdive_camera_layout {
-    char padding_to_vtable[8];
-    const void *vtable;
-    char padding_to_controller[0x208];
-    kellyslater_controller *ksctrl;
-};
-
-class duckdive_camera : public game_camera {
-public:
-    duckdive_camera(const entity_id &id, entity *target, kellyslater_controller *controller);
-    virtual ~duckdive_camera();
-};
 
 duckdive_camera::duckdive_camera(const entity_id &id, entity *target, kellyslater_controller *controller)
     : game_camera(id, target)
 {
-    ((duckdive_camera_layout *)this)->ksctrl = controller;
-    ((duckdive_camera_layout *)this)->vtable = _vt$15duckdive_camera;
+    set_ks_controller(controller);
 }
 
 // 0x00233BB0 init__11buoy_camera

@@ -9,6 +9,7 @@ class PhysicsObjectClass {
 public:
     PhysicsObjectClass();
     ~PhysicsObjectClass();
+    void GetState(float *state);
 
     float mass;
     float inverseMass;

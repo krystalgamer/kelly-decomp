@@ -4,6 +4,7 @@
 #pragma interface
 
 #include "KS/SRC/camera.h"
+#include "KS/SRC/vector_filter.h"
 
 class kellyslater_controller;
 class PanelAnimFile;
@@ -111,6 +112,7 @@ public:
     virtual ~fps_camera();
     virtual void init();
     virtual void sync(camera &other);
+    virtual void frame_advance(float time_inc);
 };
 
 class big_wave_camera : public game_camera {
@@ -154,6 +156,15 @@ public:
 };
 
 class follow_close_camera : public game_camera {
+    bool first_time;
+    vector_filter cam_pos_filter;
+    float jump_time_elapsed;
+    vector3d last_cam_vec;
+    vector3d in_air_cam;
+    float_filter distance_filter;
+    float_filter above_head_filter;
+    vector_filter facing_offset_filter;
+
 public:
     follow_close_camera(const entity_id &id, entity *target = 0);
     virtual ~follow_close_camera();

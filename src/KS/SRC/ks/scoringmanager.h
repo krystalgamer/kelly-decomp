@@ -57,6 +57,7 @@ public:
         int landing;
         int flags;
         bool HasGap(int gapIdx) const;
+        int GetTrickCount(int trickIdx) const;
     };
 
     typedef list<Series> SeriesList;

@@ -67,7 +67,12 @@ extern int mem_leak_checkpoint;
 
 int mem_set_checkpoint();
 void mem_leak_prep();
+void mem_leak_test(bool strict = false);
 void mem_check_heap_init();
+int mem_get_total_alloced(int heap = SYSTEM_HEAP);
+int mem_get_total_avail(int heap = SYSTEM_HEAP);
+int mem_get_total_mem(int heap = SYSTEM_HEAP);
+void mem_dump_heap(int heap = SYSTEM_HEAP);
 void mem_summarize_heap(int heap);
 void mem_summarize_all_heaps();
 void mem_error(
