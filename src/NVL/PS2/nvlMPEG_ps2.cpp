@@ -39,8 +39,8 @@ static int voBufIsFull(VoBuf* buffer) { return buffer->count == buffer->size; }
 
 #if defined(KELLY_DECOMP_FUNCTION_003890C8)
 // 0x003890C8 voBufGetData__FP5VoBuf
-struct VoData { unsigned char v[0x195000]; };
-struct VoBuf { VoData* data; void* tag; volatile int write; volatile int count; int size; };
+#include "NVL/PS2/nvlMPEG_ps2.h"
+
 int voBufIsFull(VoBuf*);
 __asm__(".equ voBufIsFull__FP5VoBuf, 0x00389038");
 static VoData* voBufGetData(VoBuf* buffer)
@@ -116,8 +116,8 @@ static void scTag2(QWORD *tag, void *address, unsigned int id, unsigned int qwc)
 
 #if defined(KELLY_DECOMP_FUNCTION_00389DB0)
 // 0x00389DB0 getFIFOindex__FP5ViBufPv
-typedef unsigned int u_int;
-struct ViBuf { void* data; void* tag; int n; };
+#include "NVL/PS2/nvlMPEG_ps2.h"
+
 static inline void* DmaAddr(void* value) { return (void*)((u_int)value & 0x0fffffff); }
 static int getFIFOindex(ViBuf* buffer, void* address)
 {
@@ -180,16 +180,13 @@ __asm__(".globl readBufBeginPut__FP7ReadBufPPUc");
 
 #if defined(KELLY_DECOMP_FUNCTION_003889D0)
 // 0x003889D0 readBufEndPut__FP7ReadBufi
-struct ReadBuf {
-    unsigned char data[0x50000];
-    int put;
-    int count;
-    int size;
-};
-inline int min(int a, int b) { if (b < a) a = b; return a; }
+#include "NVL/PS2/nvlMPEG_ps2.h"
+
 static int readBufEndPut(ReadBuf* buffer, int size)
 {
-    int size_ok = min(buffer->size - buffer->count, size);
+    int size_ok = buffer->size - buffer->count;
+    if (size < size_ok)
+        size_ok = size;
     buffer->put = (buffer->put + size_ok) % buffer->size;
     buffer->count += size_ok;
     return size_ok;

@@ -2,6 +2,7 @@
 #define NVL_MPEG_PS2_H
 
 typedef unsigned char u_char;
+typedef unsigned int u_int;
 typedef void *(*nvlAllocCallback)(int alignment, int size);
 typedef void (*nvlFreeCallback)(void *pointer);
 
@@ -78,7 +79,10 @@ struct sceMpegCbDataError {
     const char *errMessage;
 };
 struct ViBuf {
-    char data[0x60];
+    void *data;
+    void *tag;
+    int n;
+    char data_after_n[0x54];
 };
 void viBufAddDMA(ViBuf *buffer);
 

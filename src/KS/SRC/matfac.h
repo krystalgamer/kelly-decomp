@@ -4,20 +4,6 @@
 #include "KS/SRC/material.h"
 #include "NGL/PS2/ngl_ps2.h"
 
-class nglMaterial {
-public:
-    unsigned int Flags;
-    nglTexture *Map;
-    char fields_to_map_blend_mode[0x30];
-    int MapBlendMode;
-
-private:
-    char fields[0xCC];
-
-public:
-    nglMaterial();
-};
-
 class __attribute__((aligned(8))) mat_fac {
 public:
     mat_fac();

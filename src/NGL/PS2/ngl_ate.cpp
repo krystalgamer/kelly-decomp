@@ -77,17 +77,16 @@ char* ATEEntryHead(char* base, int index) { return base + 16 + index * 48; }
 
 #if defined(KELLY_DECOMP_FUNCTION_003ACBA8)
 // 0x003ACBA8 ATETextureName__FPcRC14nglFixedStringi
+#include "NGL/PS2/ngl_ate.h"
+
 __asm__(".equ ATENthTextureEntryHead__FPcRC14nglFixedStringi, 0x003ACAD8");
 __asm__(".equ __assert, 0x003CF6B0");
 __asm__(".equ _ate_file, 0x0051E780");
 __asm__(".equ _ate_expr, 0x0051E798");
 __asm__(".equ baditem, 0x005AC9A0");
-class nglFixedString {};
-struct ATEFileEntry { nglFixedString name; };
 extern nglFixedString baditem;
 extern char ate_file __asm__("_ate_file");
 extern char ate_expr __asm__("_ate_expr");
-ATEFileEntry* ATENthTextureEntryHead(char*, const nglFixedString&, int);
 extern "C" void __assert(const char*, int, const char*);
 nglFixedString& ATETextureName(char* atefile, const nglFixedString& texname, int i)
 {

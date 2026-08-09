@@ -102,7 +102,45 @@ struct nglFrustum {
     nglPlane Planes[6];
 };
 
-struct nglMaterial;
+struct nglMaterialInfo;
+struct nglMaterial {
+    u_int Flags;
+    nglTexture *Map;
+    nglTexture *LightMap;
+    nglTexture *DetailMap;
+    nglTexture *EnvironmentMap;
+    u_int Pad0;
+    nglFixedString MapName;
+    int MapBlendMode;
+    int MapBlendModeConstant;
+    nglFixedString LightMapName;
+    int LightMapBlendMode;
+    int LightMapBlendModeConstant;
+    nglFixedString DetailMapName;
+    int DetailMapBlendMode;
+    int DetailMapBlendModeConstant;
+    float DetailMapUScale;
+    float DetailMapVScale;
+    float DetailMapRange;
+    float DetailMapAlphaClamp;
+    nglFixedString EnvironmentMapName;
+    int EnvironmentMapBlendMode;
+    int EnvironmentMapBlendModeConstant;
+    u_int SpecularColor;
+    float SpecularPower;
+    float SpecularIntensity;
+    u_int Color;
+    u_int MaterialID;
+    float AlphaFalloff;
+    float ForcedSortDistance;
+    float ScrollU;
+    float ScrollV;
+    nglMaterialInfo *Info;
+    float MapMipRatio;
+    float LightMapMipRatio;
+    u_int UserFlags;
+    u_int Pad[2];
+} __attribute__((aligned(8)));
 struct nglMesh;
 struct nglMeshFile {
     char data_to_first_mesh[0x130];

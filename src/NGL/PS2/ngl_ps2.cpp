@@ -65,9 +65,8 @@ void nglVif1AddCommandListExec(u_int *&Packet, u_int VertBase, u_int Pass)
 
 #if defined(KELLY_DECOMP_FUNCTION_003A6BB0)
 // 0x003A6BB0 nglScaleQuad__FP7nglQuadffff
-typedef unsigned int u_int;
-struct nglQuadVertex { float X; float Y; float U; float V; u_int Color; };
-struct nglQuad { nglQuadVertex Verts[4]; };
+#include "NGL/PS2/ngl_ps2.h"
+
 void nglScaleQuad(nglQuad* Quad, float cx, float cy, float sx, float sy)
 {
     for (int i = 0; i < 4; i++) {
@@ -441,10 +440,8 @@ void *nglListAlloc(u_int Bytes, u_int Alignment)
 
 #if defined(KELLY_DECOMP_FUNCTION_003A1CA8)
 // 0x003A1CA8 nglGetMaterialIdx__FP7nglMeshUi
-typedef unsigned int u_int;
-struct nglMaterial { char padding[216]; u_int MaterialID; };
-struct nglMeshSection { nglMaterial* Material; char padding[60]; };
-struct nglMesh { char padding[84]; u_int NSections; nglMeshSection* Sections; };
+#include "NGL/PS2/ngl_ps2.h"
+
 int nglGetMaterialIdx(nglMesh* Mesh, u_int MaterialID)
 {
     u_int i = 0;
