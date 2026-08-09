@@ -120,6 +120,18 @@ public:
         CheckHeapStats();
         return largestfree;
     }
+    MemSize GetTotalFree() {
+        CheckHeapStats();
+        return memfree + ovrfree;
+    }
+    MemSize GetTotalUsed() {
+        CheckHeapStats();
+        return memused + ovrused;
+    }
+    MemSize GetTotalSize() {
+        CheckHeapStats();
+        return memblocks + ovrblocks;
+    }
 
 protected:
     inline MemBlockInfo *PtrToBlock(Pointer pointer) const {
@@ -165,5 +177,7 @@ protected:
 inline MemSize RoundUp(MemSize size, MemSize alignment) {
     return (size + (alignment - 1)) & ~(alignment - 1);
 }
+
+__asm__(".equ CheckHeapStats__4Heap, 0x002AC0A8");
 
 #endif

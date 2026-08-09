@@ -131,23 +131,23 @@ void mem_leak_test(bool strict)
 
 #if defined(KELLY_DECOMP_FUNCTION_002ACAD8)
 // 0x002ACAD8 mem_get_total_alloced__Fi
-__asm__(".equ heaps, 0x00570528"); __asm__(".equ CheckHeapStats__4Heap, 0x002AC0A8");
-class Heap { public: char data[108]; void CheckHeapStats(); }; extern Heap heaps[];
-int mem_get_total_alloced(int heapindex) { Heap *h=&heaps[heapindex]; h->CheckHeapStats(); return *(int*)((char*)h+0x58)+*(int*)((char*)h+0x64); }
+#include "KS/SRC/archalloc.h"
+
+int mem_get_total_alloced(int heapindex) { return heaps[heapindex].GetTotalUsed(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002ACB20)
 // 0x002ACB20 mem_get_total_mem__Fi
-__asm__(".equ heaps, 0x00570528"); __asm__(".equ CheckHeapStats__4Heap, 0x002AC0A8");
-class Heap { public: char data[108]; void CheckHeapStats(); }; extern Heap heaps[];
-int mem_get_total_mem(int heapindex) { Heap *h=&heaps[heapindex]; h->CheckHeapStats(); return *(int*)((char*)h+0x50)+*(int*)((char*)h+0x5c); }
+#include "KS/SRC/archalloc.h"
+
+int mem_get_total_mem(int heapindex) { return heaps[heapindex].GetTotalSize(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002ACB68)
 // 0x002ACB68 mem_get_total_avail__Fi
-__asm__(".equ heaps, 0x00570528"); __asm__(".equ CheckHeapStats__4Heap, 0x002AC0A8");
-class Heap { public: char data[108]; void CheckHeapStats(); }; extern Heap heaps[];
-int mem_get_total_avail(int heapindex) { Heap *h=&heaps[heapindex]; h->CheckHeapStats(); return *(int*)((char*)h+0x54)+*(int*)((char*)h+0x60); }
+#include "KS/SRC/archalloc.h"
+
+int mem_get_total_avail(int heapindex) { return heaps[heapindex].GetTotalFree(); }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002ACF08)

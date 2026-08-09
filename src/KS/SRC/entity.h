@@ -327,6 +327,9 @@ public:
     virtual void set_created_entity_default_active_status();
     virtual void optimize();
     virtual signal_list *construct_signal_list();
+    enum {
+        N_SIGNALS = 27
+    };
     static unsigned short get_signal_id(const char *name);
     virtual const char *get_signal_name(unsigned short index) const;
     virtual void set_radius(rational_t radius);

@@ -21,6 +21,7 @@ public:
     }
 
     enum flags_t {
+        FLAG_STASH_ONLY = 0,
         FLAG_NO_RUMBLE = 18,
         FLAG_E3_BUILD = 100,
         FLAG_REALISTIC_FE = 102,

@@ -18,9 +18,13 @@ ett_manager* world_dynamics_system::get_ett_manager() {
 }
 
 // 0x00294CF0 wds_releasefile__21world_dynamics_systemPPUc
-__asm__(".equ KSMemFree__FPv, 0x001E3280"); __asm__(".equ _20os_developer_options$instance, 0x0046B180");
-void KSMemFree(void*); class os_developer_options { public: int pad; int flags; static os_developer_options *instance; static os_developer_options *inst(){return instance;} bool is_flagged(int) const { return flags!=0; } enum { FLAG_STASH_ONLY=1 }; };
-class world_dynamics_system { public: static bool wds_releasefile(unsigned char **); };
+#include "KS/SRC/ini_parser.h"
+#include "KS/SRC/kshooks.h"
+#include "KS/SRC/wds.h"
+
+__asm__(".equ KSMemFree__FPv, 0x001E3280");
+__asm__(".equ _20os_developer_options$instance, 0x0046B180");
+
 bool world_dynamics_system::wds_releasefile(unsigned char **buf) { if(!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_STASH_ONLY)) KSMemFree(*buf); *buf=0; return true; }
 
 // 0x0029B540 unload_scene__21world_dynamics_system

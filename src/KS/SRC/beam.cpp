@@ -69,33 +69,10 @@ void beam::set_visible(bool visible) {
 }
 
 // 0x002727B0 get_signal_name__C4beamUs
+#include "KS/SRC/beam.h"
+
 __asm__(".equ signal_names, 0x00431870");
 __asm__(".equ get_signal_name__C6entityUs, 0x0012F728");
-
-class entity
-{
-public:
-  enum
-  {
-    N_SIGNALS = 27
-  };
-
-  const char* get_signal_name( unsigned short idx ) const;
-};
-
-class beam : public entity
-{
-public:
-  enum signal_id_t
-  {
-    PARENT_SYNC_DUMMY = entity::N_SIGNALS - 1,
-    ENTER,
-    LEAVE,
-    N_SIGNALS
-  };
-
-  const char* get_signal_name( unsigned short idx ) const;
-};
 
 extern const char* signal_names[];
 
@@ -152,8 +129,8 @@ beam_effect::beam_effect(beam *the_beam)
 }
 
 // 0x00272888 dump__11beam_effect
-class beam_effect_type { public: virtual ~beam_effect_type(); };
-class beam_effect { public: char pad[4]; beam_effect_type *effect; void dump(); };
+#include "KS/SRC/beam.h"
+
 void beam_effect::dump() { if(effect != 0) { delete effect; effect = 0; } }
 // 0x00272838 _$_11beam_effect
 extern "C" void BeamEffectDump(void *self) __asm__("dump__11beam_effect");

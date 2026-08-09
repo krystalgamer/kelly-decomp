@@ -40,6 +40,13 @@ class beam : public entity {
     bool additive;
 
 public:
+    enum signal_id_t {
+        PARENT_SYNC_DUMMY = entity::N_SIGNALS - 1,
+        ENTER,
+        LEAVE,
+        N_SIGNALS
+    };
+
     enum {
         NO_CLIPPING = 0xC8
     };
@@ -84,6 +91,7 @@ public:
         render_flavor_t flavor,
         float translucency);
     virtual void set_visible(bool visible);
+    virtual const char *get_signal_name(unsigned short index) const;
     virtual void compute_sector(
         terrain &terrain_value,
         bool use_high_res_intersect);
@@ -97,6 +105,7 @@ protected:
     virtual void apply_delta_vals(beam *the_beam, float time);
     virtual void reverse();
     virtual beam_effect_type *make_instance();
+    friend class beam_effect;
 };
 
 class beam_effect_color : public beam_effect_type {
