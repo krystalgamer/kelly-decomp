@@ -4,11 +4,14 @@
 #include "KS/SRC/game.h"
 #include "KS/SRC/ks/ksreplay.h"
 // 0x00287930 advance_state_paused__4gamef
+extern "C" void advance_game_overlays(game *state, float time_inc)
+    __asm__("frame_advance_game_overlays__4gamef");
+
 void game::advance_state_paused(float time_inc)
 {
     ksreplay.Tick(false, time_inc);
-    frame_advance_game_overlays(time_inc);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*advance)(game *, float) = advance_game_overlays;
+    advance(this, time_inc);
 }
 #endif
 

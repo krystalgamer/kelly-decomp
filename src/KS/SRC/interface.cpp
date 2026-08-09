@@ -3,13 +3,17 @@
 // 0x00288B08 render__16interface_widget
 #include "KS/SRC/interface.h"
 
+extern "C" void render_widget(widget *value)
+    __asm__("render__6widget");
+__asm__(".equ render__6widget, 0x0033E128");
+
 void interface_widget::render()
 {
     if (cur_reticle)
         cur_reticle->render();
 
-    widget::render();
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*render_base)(widget *) = render_widget;
+    render_base(this);
 }
 
 // 0x00288AA0 frame_advance__16interface_widgetf

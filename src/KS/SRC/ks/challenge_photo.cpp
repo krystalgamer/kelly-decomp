@@ -11,8 +11,8 @@ void PhotoDtor(PhotoChallenge::Photo* self, int deleting)
 {
     nglDestroyTexture(self->GetTexture());
     if (deleting & 1) {
-        builtin_delete(self);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*delete_photo)(void *) = builtin_delete;
+        delete_photo(self);
     }
 }
 

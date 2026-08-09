@@ -258,13 +258,20 @@ asm(".equ g_game_ptr, 0x0046AC64");
 asm(".equ SetPlayerCamera__22kellyslater_controllerP11game_camera, 0x002125B0");
 
 #include "KS/SRC/ks/kellyslater_controller.h"
+extern "C" void set_player_camera(
+    kellyslater_controller *controller,
+    game_camera *camera)
+    __asm__("SetPlayerCamera__22kellyslater_controllerP11game_camera");
+
 void kellyslater_controller::end_secondary_cam()
 {
     camera* secondary_cam = look_back_cam_ptr;
     if (g_game_ptr->get_player_camera(my_player_num) == secondary_cam)
     {
-        SetPlayerCamera(player_cam);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*set_camera)(
+            kellyslater_controller *,
+            game_camera *) = set_player_camera;
+        set_camera(this, player_cam);
     }
 }
 
