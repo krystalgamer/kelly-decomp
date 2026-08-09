@@ -20,8 +20,9 @@ The released SLF body and stack temporary were recovered, but an implicit vector
 
 ### Attempt 2 notes
 
-The released vector2d fieldwise assignment semantics preserve SLF_PARMS/SLF_DONE and reproduce both UV float stores exactly.
+The shared `vector2d`, beam, and script-wrapper declarations preserve the
+fieldwise UV assignment.
 
 ## Outcome
 
-The released SLF parameter pop, vector2d construction, and beam UV field assignment match exactly.
+The local vector, beam, VM stack, and wrapper declarations were removed.

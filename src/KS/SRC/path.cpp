@@ -61,8 +61,9 @@ void path_graph_node::sort_edges_weight()
     if (!is_weight_sorted()) {
         set_flag(4, false);
         set_flag(2, true);
-        sort_edges_by_weight(edges);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*sort)(vector<path_graph_edge *> &) =
+            sort_edges_by_weight;
+        sort(edges);
     }
 }
 

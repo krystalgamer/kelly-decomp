@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released SLF parameter pop and widget virtual show dispatch match exactly with the recovered widget vtable location and slot.
+The released SLF uses the shared widget and script-function declarations for
+the parameter pop and virtual `show` dispatch.
 
 ## Outcome
 
-The released SLF pop and widget show dispatch match exactly.
+The manual widget vtable and local wrapper declarations were removed.

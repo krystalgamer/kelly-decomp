@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released virtual layout, entity_pool_set member construction, and owning_widget reset match exactly.
+The released constructor uses the shared `entity_maker` and `entity_pool_set`
+declarations with the carried vtable alias.
 
 ## Outcome
 
-The released entity_maker virtual layout, pool construction, and owner reset match exactly.
+The local maker and pool declarations were removed.

@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released mega-cheat short circuit and 12-byte location unlock lookup match exactly with the carried cheat alias.
+The released mega-cheat short circuit and 12-byte location lookup use the
+shared cheat, global-data, and unlocking-manager declarations.
 
 ## Outcome
 
-The released mega-cheat short circuit and location movie lookup match exactly.
+The local career and location layouts were removed.

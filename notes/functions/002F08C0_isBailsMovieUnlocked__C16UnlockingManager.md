@@ -20,8 +20,9 @@ Indexing from the released g_session_cheats array matched behavior but selected 
 
 ### Attempt 2 notes
 
-Representing the same two released Cheat records from the mega-cheat object recovers the target common base, both short circuits, and global bails flag exactly.
+The shared `Cheat` declaration and a common mega-cheat-relative pointer
+preserve both short circuits and the persistent bails flag lookup.
 
 ## Outcome
 
-The released mega/bails cheat short circuits and persistent bails flag lookup match exactly.
+The local cheat record declaration was removed.

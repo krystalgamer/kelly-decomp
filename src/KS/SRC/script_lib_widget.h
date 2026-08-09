@@ -56,6 +56,38 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_timer_widget_clear_functions_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        timer_widget *me;
+        vm_num_t start;
+        vm_num_t end;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+class slf_widget_show_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        widget *me;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+class slf_widget_hide_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        widget *me;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 class slf_text_block_widget_set_text_t :
     public script_library_class::function {
 public:

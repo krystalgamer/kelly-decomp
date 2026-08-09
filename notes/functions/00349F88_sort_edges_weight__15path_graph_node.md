@@ -20,8 +20,9 @@ The initial source used a synthetic vector symbol, normalized the flag to bool, 
 
 ### Attempt 2 notes
 
-The released vector symbol and raw flag mask match exactly; the reviewed barrier narrowly prevents the demonstrated sorter tail call.
+The shared edge vector and raw flag masks remain exact. A local sorter pointer
+preserves the framed call.
 
 ## Outcome
 
-The released sorted flags and edge-weight sort call match exactly with one reviewed barrier preventing a demonstrated tail optimization.
+The compiler barrier was removed.

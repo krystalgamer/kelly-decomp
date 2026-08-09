@@ -61,6 +61,7 @@ public:
     virtual void render();
     virtual void set_layer(rhw_layer_e layer);
     void set_time_left(rational_t time);
+    void remove_script_function(float start, float end);
     rational_t get_time_left() const { return time_left; }
     void freeze() { running = false; }
     void run() { running = true; }

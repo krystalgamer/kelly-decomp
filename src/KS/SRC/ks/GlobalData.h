@@ -61,6 +61,9 @@ public:
     bool isBeachUnlocked(int beach) const;
     void unlockBeach(int beach);
     bool isLocationBoardUnlocked(int location) const;
+    bool isLocationMovieUnlocked(int location) const {
+        return globalLocations[location].movieUnlocked;
+    }
     void unlockLocationBoard(int location);
     bool isCheatUnlocked(int cheat) const;
     void unlockCheat(int cheat);

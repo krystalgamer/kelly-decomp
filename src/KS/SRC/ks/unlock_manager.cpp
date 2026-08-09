@@ -14,30 +14,33 @@ bool UnlockingManager::isSurferMovieUnlocked(int surfer) const
 
 #if defined(KELLY_DECOMP_FUNCTION_002F0880)
 // 0x002F0880 isLocationMovieUnlocked__C16UnlockingManageri
-extern int mega_cheat_on;
-asm(".equ mega_cheat_on, 0x0043BDF4");
-struct LocationUnlock { int movie_unlocked; int board_unlocked; int shown; };
-struct GlobalDataClass { LocationUnlock locations[1]; };
-extern GlobalDataClass globalCareerData;
-asm(".equ globalCareerData, 0x004349B8");
-class UnlockingManager { public: bool isLocationMovieUnlocked(int locationIdx) const; };
+#include "KS/SRC/ks/cheat.h"
+#include "KS/SRC/ks/GlobalData.h"
+#include "KS/SRC/ks/unlock_manager.h"
+
 bool UnlockingManager::isLocationMovieUnlocked(int locationIdx) const
 {
-    return mega_cheat_on || globalCareerData.locations[locationIdx].movie_unlocked;
+    return g_session_cheats[CHEAT_MEGA_CHEAT].isOn() ||
+        globalCareerData.isLocationMovieUnlocked(locationIdx);
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002F08C0)
 // 0x002F08C0 isBailsMovieUnlocked__C16UnlockingManager
-struct Cheat { int locked; int on; };
+#include "KS/SRC/ks/cheat.h"
+#include "KS/SRC/ks/unlock_manager.h"
+
 extern Cheat session_cheats_from_mega[];
 asm(".equ session_cheats_from_mega, 0x0043BDF0");
 extern int bails_movie_unlocked;
 asm(".equ bails_movie_unlocked, 0x0044A818");
-class UnlockingManager { public: bool isBailsMovieUnlocked() const; };
+
 bool UnlockingManager::isBailsMovieUnlocked() const
 {
-    return session_cheats_from_mega[0].on || session_cheats_from_mega[-7].on || bails_movie_unlocked;
+    const Cheat *cheats = session_cheats_from_mega;
+    return cheats[0].isOn() ||
+        cheats[-7].isOn() ||
+        bails_movie_unlocked;
 }
 #endif
 

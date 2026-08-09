@@ -74,6 +74,9 @@ public:
     inline void set_additive(bool value) {
         additive = value;
     }
+    inline void set_uv_anim(const vector2d &value) {
+        uv_anim = value;
+    }
     virtual void frame_advance(float time_inc);
     virtual void render(
         camera *camera_link,

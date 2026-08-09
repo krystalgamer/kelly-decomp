@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released SLF pop and timer remove_script_function call with -1 and FLT_MAX match exactly using the recovered constant location.
+The released SLF uses the shared timer and script-wrapper declarations for
+the `remove_script_function(-1, FLT_MAX)` call.
 
 ## Outcome
 
-The released SLF pop and timer-function range removal match exactly.
+The local timer, VM stack, and wrapper declarations were removed.
