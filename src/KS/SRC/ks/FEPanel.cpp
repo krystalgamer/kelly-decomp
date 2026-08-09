@@ -1414,17 +1414,25 @@ void *GetTypeInfo() { if (!typeinfo[0]) __rtti_user(typeinfo, type_name); return
 // 0x001D9B50 SetUV__9PanelQuadffff
 #include "KS/SRC/ks/FEPanel.h"
 
-#include "decomp_annotations.h"
 extern void nglSetQuadUV(nglQuad *, float, float, float, float);
 asm(".equ nglSetQuadUV__FP7nglQuadffff, 0x003A69C0");
+extern "C" void set_quad_uv(
+    nglQuad *quad,
+    float u1,
+    float v1,
+    float u2,
+    float v2
+) __asm__("nglSetQuadUV__FP7nglQuadffff");
+
 void PanelQuad::SetUV(float ua, float va, float ub, float vb)
 {
     u1 = ua;
     u2 = ub;
     v1 = va;
     v2 = vb;
-    nglSetQuadUV(&quad, u1, v1, u2, v2);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*set_uv)(nglQuad *, float, float, float, float) =
+        set_quad_uv;
+    set_uv(&quad, u1, v1, u2, v2);
 }
 
 // 0x001D9E18 __tf9PanelGeom

@@ -20,8 +20,9 @@ The released assignments and ngl call matched but the isolated compiler converte
 
 ### Attempt 2 notes
 
-A narrow post-call barrier prevents the demonstrated tail-call optimization and matches exactly.
+The shared panel layout and a local `nglSetQuadUV` pointer preserve the framed
+NGL update.
 
 ## Outcome
 
-The released UV assignments and ngl update match with a narrow barrier preventing a demonstrated tail-call optimization.
+The compiler barrier was removed.
