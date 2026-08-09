@@ -123,18 +123,7 @@ partition3::faceref *UninitializedCopy(
 }
 
 // 0x00111358 fill__H2ZP8vector3dZ8vector3d_X01X01RCX11_v
-struct vector3d {
-    float x;
-    float y;
-    float z;
-
-    vector3d &operator=(const vector3d &other) {
-        x = other.x;
-        y = other.y;
-        z = other.z;
-        return *this;
-    }
-};
+#include "KS/SRC/algebra.h"
 
 extern "C" void Fill(
     vector3d *first,
@@ -154,18 +143,8 @@ void Fill(
 }
 
 // 0x00111390 __uninitialized_fill_n_aux__H3ZP8vector3dZUiZ8vector3d_X01X11RCX21G12__false_type_X01
-inline void *operator new(unsigned int, void *place) {
-    return place;
-}
-
-struct vector3d {
-    float x;
-    float y;
-    float z;
-
-    vector3d(const vector3d &other)
-        : x(other.x), y(other.y), z(other.z) {}
-};
+#include "KS/SRC/algebra.h"
+#include "KS/SRC/archalloc.h"
 
 extern "C" vector3d *UninitializedFill(
     vector3d *first,

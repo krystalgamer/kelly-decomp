@@ -20,8 +20,8 @@ Modeled vector3d as a plain aggregate. EE GCC block-copied each record as an una
 
 ### Attempt 2 notes
 
-The canonical STL fill loop matched exactly after preserving vector3d's memberwise assignment semantics, reproducing the three float loads/stores.
+The canonical STL fill loop uses the shared `vector3d` memberwise assignment.
 
 ## Outcome
 
-The released vector3d range-fill helper matched exactly.
+The local vector declaration was removed; the released helper remains exact.

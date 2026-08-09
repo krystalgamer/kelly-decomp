@@ -5,7 +5,7 @@
 - Object: `game/files_ai`
 - Debug source: `C:/KS/SRC/ai_locomotion_direct.cpp`
 - Reference source: `KS/SRC/ai_locomotion_direct.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -25,10 +25,12 @@ Called kill_anim through an ABI-named free-function declaration. Argument schedu
 
 ### Attempt 3 notes
 
-The released locomotion animation kill and base going_out_of_service calls matched exactly. The first empty matching barrier enforces target a0-before-a1 argument scheduling; the trailing barrier prevents a sibling tail call. Both emit no target instructions.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+Fixed-register arguments and empty compiler barriers reproduce the target
+instruction scheduling exactly, but are matching-only controls rather than
+released source.
 
 ## Outcome
 
-The released ai_locomotion_direct service-exit method matched exactly.
+The matching-only register and barrier controls were removed. Native calls
+schedule the animation-slot argument one instruction too early, so the method
+was deferred.

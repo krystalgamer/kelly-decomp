@@ -48,27 +48,6 @@ bool ai_locomotion_direct::set_destination(
         return false;
 }
 
-// 0x00109CC8 going_out_of_service__20ai_locomotion_direct
-#include "KS/SRC/ai_locomotion.h"
-#include "KS/SRC/entity.h"
-
-extern "C" void KillAnim(entity *self, int slot)
-    __asm__("kill_anim__6entityi");
-
-__asm__(".equ get_my_entity__C13ai_locomotion, 0x00106EA0");
-__asm__(".equ going_out_of_service__13ai_locomotion, 0x00109278");
-__asm__(".equ kill_anim__6entityi, 0x00134918");
-
-void ai_locomotion_direct::going_out_of_service()
-{
-    register entity *target __asm__("$4") = get_my_entity();
-    KELLY_DECOMP_COMPILER_BARRIER();
-    register int slot __asm__("$5") = 1;
-    KillAnim(target, slot);
-    ai_locomotion::going_out_of_service();
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x001094F0 __20ai_locomotion_directP12ai_interface
 #include "KS/SRC/ai_locomotion.h"
 asm(".equ __13ai_locomotionP12ai_interface, 0x00106C90");

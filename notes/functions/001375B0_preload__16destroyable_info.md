@@ -35,10 +35,9 @@ Used a direct signed-short flag expression with only the trailing barrier. The c
 
 ### Attempt 5 notes
 
-The released preload-run flag test/set and script invocation matched exactly. Explicit signed/unsigned locals preserve the target signed test load and unsigned update reload; KELLY_DECOMP_COMPILER_BARRIER() prevents a sibling tail call and emits no target instruction.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released signed/unsigned flag locals and shared destroyable-info layout
+preserve the target reloads. A local execution pointer preserves the call.
 
 ## Outcome
 
-The released destroyable-info preload matched exactly.
+The compiler barrier was removed; the released preload remains exact.

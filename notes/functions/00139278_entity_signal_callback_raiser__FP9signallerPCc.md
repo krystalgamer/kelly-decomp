@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released signal-ID truncation, signal-word selection, and bit raise matched exactly with signals_raised at offset 0xd4.
+The released signal-ID truncation, word selection, and bit raise use the shared
+entity signal fields.
 
 ## Outcome
 
-The released entity signal raiser callback matched exactly on the first attempt.
+The local 0xd4-byte layout was removed; the released callback remains exact.

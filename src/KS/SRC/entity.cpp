@@ -489,32 +489,6 @@ void entity::delete_visrep()
     }
 }
 
-// 0x00133E28 unload_anim__C6entityRC7stringx
-#include "decomp_annotations.h"
-#include "KS/SRC/entity.h"
-
-class ett_manager {
-public:
-    void unload(const stringx &filename);
-};
-
-class world_dynamics_system {
-public:
-    ett_manager *get_ett_manager();
-};
-
-__asm__(".equ get_ett_manager__21world_dynamics_system, 0x002A3770");
-__asm__(".equ unload__11ett_managerRC7stringx, 0x001152A8");
-
-extern world_dynamics_system *g_world_ptr;
-__asm__(".equ g_world_ptr, 0x00431A8C");
-
-void entity::unload_anim(const stringx &filename) const
-{
-    g_world_ptr->get_ett_manager()->unload(filename);
-    KELLY_DECOMP_COMPILER_BARRIER();
-}
-
 // 0x00134D48 get_random_ifl_frame_boost__C6entity
 #include "KS/SRC/entity.h"
 
@@ -543,18 +517,14 @@ void destroyable_info::preload()
         unsigned short updated_flags =
             (unsigned short)flags | 0x200;
         flags = (short)updated_flags;
-        entity::exec_preload_function(preload_script);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*execute)(const stringx &) =
+            entity::exec_preload_function;
+        execute(preload_script);
     }
 }
 
 // 0x00139278 entity_signal_callback_raiser__FP9signallerPCc
-class signaller;
-
-struct entity_layout {
-    char padding[0xD4];
-    unsigned int signals_raised[2];
-};
+#include "KS/SRC/entity.h"
 
 void entity_signal_callback_raiser(
     signaller *signal,
@@ -562,8 +532,8 @@ void entity_signal_callback_raiser(
 ) {
     unsigned short id =
         (unsigned short)(unsigned int)signal_id;
-    entity_layout *entity = (entity_layout *)signal;
-    entity->signals_raised[(id < 32 ? 1 : 0)] |=
+    entity *target = (entity *)signal;
+    target->signals_raised[(id < 32 ? 1 : 0)] |=
         (0x80000000u >> (id < 32 ? id : (id - 32)));
 }
 

@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The canonical old-STL null-guarded placement-fill loop matched exactly after preserving vector3d's memberwise copy-construction semantics.
+The canonical old-STL placement-fill loop uses the shared `vector3d` copy
+constructor.
 
 ## Outcome
 
-The released vector3d uninitialized-fill helper matched exactly on the first attempt.
+The local vector declaration was removed; the released helper remains exact.

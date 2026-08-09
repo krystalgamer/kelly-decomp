@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released counter increment and masked three-times-entity-ID table lookup matched exactly with the entity ID at offset 0x80.
+The released counter increment and masked entity-ID table lookup use the shared
+entity declaration.
 
 ## Outcome
 
-The released random IFL frame boost getter matched exactly on the first attempt.
+The released getter remains exact through the shared layout.

@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released visual-representation null guard, unload call, and pointer clear matched exactly with my_visrep at offset 0x128.
+The released visual-representation null guard, unload call, and pointer clear
+use the shared entity declaration.
 
 ## Outcome
 
-The released entity visual-representation deletion matched exactly on the first attempt.
+The released deletion remains exact through the shared layout.

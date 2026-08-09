@@ -5,20 +5,32 @@
 - Object: `game/files_entity`
 - Debug source: `C:/KS/SRC/entity.cpp`
 - Reference source: `KS/SRC/entity.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | different | 58.9286 | 57.1429 | `size56-unload-clean.cpp` |
+| 3 | different | 58.9286 | 57.1429 | `size56-unload-local.cpp` |
 
 ### Attempt 1 notes
 
-The released world/ETT-manager forwarding matched exactly. KELLY_DECOMP_COMPILER_BARRIER() narrowly prevents a sibling tail call to unload and emits no target instruction.
+An empty trailing compiler barrier prevents the unload call from becoming a
+sibling tail call and reproduces the target exactly.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+The clean world/ETT-manager forwarding omits the barrier. EE GCC emits a
+52-byte sibling-call form instead of the target 56-byte frame.
+
+### Attempt 3 notes
+
+Naming the ETT manager as an explicit local retains the same 52-byte
+sibling-call form.
 
 ## Outcome
 
-The released entity animation unload matched exactly on the first attempt.
+The matching-only compiler barrier was removed and the forwarding method was
+deferred.

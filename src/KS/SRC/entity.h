@@ -226,7 +226,11 @@ private:
     slave_interface *my_slave_interface;
     soft_attrib_interface *my_soft_attrib_interface;
     time_interface *my_time_interface;
-    char entity_data_before_anim_trees[0x14];
+    friend void entity_signal_callback_raiser(
+        signaller *signal,
+        const char *signal_id);
+    unsigned int signals_raised[2];
+    char entity_data_before_anim_trees[0x0C];
     entity_anim_tree *anim_trees[10];
     entity_anim *current_anim;
     char entity_data_before_container_info[8];
