@@ -6,6 +6,15 @@
 __asm__(
     ".equ add_callback__6signalPQ213script_object8instance"
     "P13vm_executablePcb, 0x0034C548");
+extern "C" unsigned int add_static_callback(
+    signal *value,
+    script_object::instance *instance,
+    vm_executable *function,
+    char *parameters,
+    bool one_shot)
+    __asm__(
+        "add_callback__6signalPQ213script_object8instance"
+        "P13vm_executablePcb");
 
 void vm_thread::create_static_event_callback(
     const argument_t &arg,
@@ -14,8 +23,13 @@ void vm_thread::create_static_event_callback(
     dstack.pop(arg.sfr->get_parms_stacksize());
     char *parms = dstack.get_SP();
     vm_signal_t value = dstack.pop_signal();
-    value->add_callback(inst, arg.sfr, parms, one_shot);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    unsigned int (*add_callback)(
+        signal *,
+        script_object::instance *,
+        vm_executable *,
+        char *,
+        bool) = add_static_callback;
+    add_callback(value, inst, arg.sfr, parms, one_shot);
 }
 
 

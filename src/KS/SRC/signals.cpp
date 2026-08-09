@@ -3,6 +3,10 @@
 // 0x0035FC18 raise_signal__C9signallerUi
 #include "KS/SRC/signals.h"
 
+extern "C" void raise_one_signal(signal *value)
+    __asm__("raise__6signal");
+__asm__(".equ raise__6signal, 0x0034C428");
+
 void signaller::raise_signal(unsigned int index) const
 {
     if (signals && !is_flagged(DISABLED))
@@ -10,8 +14,8 @@ void signaller::raise_signal(unsigned int index) const
         signal_list &list = *signals;
         if (list[index])
         {
-            list[index]->raise();
-            KELLY_DECOMP_COMPILER_BARRIER();
+            void (*raise_value)(signal *) = raise_one_signal;
+            raise_value(list[index]);
         }
     }
 }

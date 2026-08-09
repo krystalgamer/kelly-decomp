@@ -82,13 +82,16 @@ void widget::update_scale()
 // 0x0033F448 show__11menu_widget
 #include "KS/SRC/widget.h"
 __asm__(".equ show__6widget, 0x0033DDD0");
+extern "C" void show_widget_base(widget *value)
+    __asm__("show__6widget");
+
 void menu_widget::show()
 {
     if (!is_shown())
     {
         init();
-        widget::show();
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*show_base)(widget *) = show_widget_base;
+        show_base(this);
     }
 }
 
