@@ -15,7 +15,7 @@
 
 ### Attempt 1 notes
 
-The original signal RTTI lazy-registration helper matches exactly.
+The released RTTI helper was already canonical and remains exact.
 
 ## Outcome
 

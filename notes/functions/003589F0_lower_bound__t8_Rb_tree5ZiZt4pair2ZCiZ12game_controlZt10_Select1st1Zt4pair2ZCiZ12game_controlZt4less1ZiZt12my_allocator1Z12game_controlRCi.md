@@ -17,8 +17,9 @@
 
 ### Attempt 3 notes
 
-The released red-black-tree lower_bound traversal and iterator result match exactly.
+The released red-black-tree traversal uses shared game-control node, tree, and
+iterator records.
 
 ## Outcome
 
-The released red-black-tree lower_bound traversal and iterator result match exactly.
+The local generated-tree layouts were removed.

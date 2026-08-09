@@ -20,4 +20,4 @@ The original one-shot STUBBED diagnostic matches exactly.
 
 ## Outcome
 
-The original one-shot STUBBED diagnostic matches exactly.
+The released one-shot diagnostic was already canonical and remains exact.

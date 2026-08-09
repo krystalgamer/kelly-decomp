@@ -106,29 +106,20 @@ typeface_def::inter_kern *UninitializedCopy(
 
 #if defined(KELLY_DECOMP_FUNCTION_003589F0)
 // 0x003589F0 lower_bound__t8_Rb_tree5ZiZt4pair2ZCiZ12game_controlZt10_Select1st1Zt4pair2ZCiZ12game_controlZt4less1ZiZt12my_allocator1Z12game_controlRCi
-struct game_control {};
-struct node {
-    int color;
-    node *parent;
-    node *left;
-    node *right;
-    int key;
-    game_control value;
-};
-struct iterator { node *current; };
-class game_control_tree {
-public:
-    node *header;
-};
-extern "C" iterator *tree_lower_bound(
-    iterator *result,
+#include "KS/SRC/game_control_tree.h"
+
+extern "C" game_control_iterator *tree_lower_bound(
+    game_control_iterator *result,
     game_control_tree *tree,
     const int *key
 ) __asm__("lower_bound__t8_Rb_tree5ZiZt4pair2ZCiZ12game_controlZt10_Select1st1Zt4pair2ZCiZ12game_controlZt4less1ZiZt12my_allocator1Z12game_controlRCi");
-iterator *tree_lower_bound(iterator *result, game_control_tree *tree, const int *key)
+game_control_iterator *tree_lower_bound(
+    game_control_iterator *result,
+    game_control_tree *tree,
+    const int *key)
 {
-    node *candidate = tree->header;
-    node *current = tree->header->parent;
+    game_control_node *candidate = tree->header;
+    game_control_node *current = tree->header->parent;
     while (current != 0) {
         if (!(current->key < *key)) {
             candidate = current;
