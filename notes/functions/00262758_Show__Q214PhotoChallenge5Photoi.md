@@ -12,13 +12,17 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size48-gameplay-core.cpp` |
 
 ### Attempt 1 notes
 
 The released method forwards the photo texture, score address, and label to the global IGO. The symbol-preserving alias and trailing barrier reproduce the normal call frame.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+A local function pointer preserves the normal IGO call without a compiler
+barrier.
 
 ## Outcome
 
-The released challenge photo display wrapper matched exactly on the first attempt.
+The compiler barrier was removed.

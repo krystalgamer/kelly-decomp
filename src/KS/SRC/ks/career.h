@@ -2,6 +2,7 @@
 #define CAREER_H
 
 #include "KS/SRC/stringx.h"
+#include "KS/SRC/ks/compressedphoto.h"
 
 void* operator new(unsigned int size, unsigned int alignment, const char* file, int line);
 
@@ -65,6 +66,10 @@ private:
     bool using_personality_suit;
     int num_earned_tricks;
     bool learned_tricks[TRICK_COUNT];
+
+public:
+    CompressedPhoto *GetPhotoForLevel(int level);
+    bool PhotoExistsForLevel(int level);
     bool new_goal_passed[5];
     bool goal_passed[5];
     bool boards[MAX_BOARDS];

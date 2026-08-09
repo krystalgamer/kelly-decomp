@@ -13,6 +13,7 @@ public:
     CompressedPhoto();
     ~CompressedPhoto();
     void Reset();
+    bool IsValid() const { return valid; }
 
 private:
     unsigned char blocks[(PHOTO_WIDTH * PHOTO_HEIGHT * 4) / 8];

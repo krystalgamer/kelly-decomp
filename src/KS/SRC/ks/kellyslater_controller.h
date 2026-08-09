@@ -38,6 +38,7 @@ class BalanceMeter {
 
 public:
     BalanceMeter();
+    void End();
 };
 
 class kellyslater_controller {

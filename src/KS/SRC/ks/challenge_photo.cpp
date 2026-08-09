@@ -93,8 +93,9 @@ extern IGOFrontEnd *global_igo;
 __asm__(".equ global_igo, 0x003E7728");
 
 void PhotoChallenge::Photo::Show(int label) {
-    ShowPhoto(global_igo, texture, &score, label);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*show_photo)(
+        IGOFrontEnd *, nglTexture *, int *, int) = ShowPhoto;
+    show_photo(global_igo, texture, &score, label);
 }
 
 // 0x00262710 Init__Q214PhotoChallenge5Photoii

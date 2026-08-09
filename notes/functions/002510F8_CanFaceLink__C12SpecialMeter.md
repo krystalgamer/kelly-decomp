@@ -5,18 +5,22 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/specialmeter.cpp`
 - Reference source: `KS/SRC/ks/specialmeter.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 43.75 | 33.3333 | `candidate.cpp` |
+| 2 | different | 43.75 | 33.3333 | `candidate.cpp` |
+| 3 | different | 43.75 | 33.3333 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
-The released predicate compares the timer at 0x20 against 0.01f. The explicit matching-only `nop` preserves the target EE hazard slot between constant `mtc1` and `c.lt.s`.
+The source-faithful comparison emits 44 bytes and omits the target EE hazard
+slot between `mtc1` and `c.lt.s`.
 
 ## Outcome
 
-The released `SpecialMeter::CanFaceLink` predicate matched exactly on the first attempt.
+The prior exact form added a non-released nop. It was removed and the
+predicate was deferred after three native forms.

@@ -13,13 +13,17 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 93.75 | 100.0 | `candidate.cpp` |
 | 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | matched | 100.0 | 100.0 | `size48-gameplay-core.cpp` |
 
 ### Attempt 2 notes
 
 The released method forwards `(player_num, vert_meter, false)` to the global IGO. A symbol-preserving alias keeps the target repeated-bool `ibT2` mangling, and the trailing barrier preserves the normal call frame.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 3 notes
+
+The shared balance-meter declaration and a local function pointer preserve the
+normal IGO call without a compiler barrier.
 
 ## Outcome
 
-The released `BalanceMeter::End` wrapper matched exactly on attempt two.
+The local layout and compiler barrier were removed.

@@ -29,23 +29,6 @@ void **special_rtti()
 
 void SpecialMeter::Reset() { fillage = 0.0f; isEnabled = false; trickRegion = 0; isDoingTrick = false; faceLinkTimer = 0.0f; faceLink = 0; specialTime = 0.0f; numPerfects = 0; }
 
-#if defined(KELLY_DECOMP_FUNCTION_002510F8)
-// 0x002510F8 CanFaceLink__C12SpecialMeter
-class SpecialMeter {
-    char padding[0x20];
-    float faceLinkTimer;
-
-public:
-    bool CanFaceLink() const;
-};
-
-bool SpecialMeter::CanFaceLink() const {
-    float timer = faceLinkTimer;
-    float threshold = 0.01f;
-    __asm__ volatile("nop");
-    return threshold < timer;
-}
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00250FB8)
 // 0x00250FB8 Increase__12SpecialMeterf

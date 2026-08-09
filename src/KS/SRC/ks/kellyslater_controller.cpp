@@ -305,6 +305,8 @@ void kellyslater_controller::set_player_num(int player) {
 bool kellyslater_controller::IsAIPlayer() { return g_game_ptr->get_num_ai_players() && my_player_num == 1; }
 
 // 0x00225240 End__12BalanceMeter
+#include "KS/SRC/ks/kellyslater_controller.h"
+
 class IGOFrontEnd;
 
 extern "C" void TurnBalanceMeterOn(
@@ -318,18 +320,10 @@ __asm__(".equ TurnBalanceMeterOn__11IGOFrontEndibT2, 0x0017CB68");
 extern IGOFrontEnd *global_igo;
 __asm__(".equ global_igo, 0x003E7728");
 
-class BalanceMeter {
-    char padding[0x10];
-    bool vert_meter;
-    int player_num;
-
-public:
-    void End();
-};
-
 void BalanceMeter::End() {
-    TurnBalanceMeterOn(global_igo, player_num, vert_meter, false);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*turn_meter_on)(
+        IGOFrontEnd *, int, bool, bool) = TurnBalanceMeterOn;
+    turn_meter_on(global_igo, player_num, vert_meter, false);
 }
 
 // 0x002138B8 TurnDegree__22kellyslater_controller

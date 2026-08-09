@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size48-gameplay-core.cpp` |
 
 ### Attempt 1 notes
 
-The released predicate calls `GetPhotoForLevel` and short-circuits before testing the photo validity pointer at offset 0x2004.
+The shared career and compressed-photo declarations preserve the
+`GetPhotoForLevel` short circuit and validity flag at offset 0x2004.
 
 ## Outcome
 
-The released `Career::PhotoExistsForLevel` predicate matched exactly on the first attempt.
+The local photo layouts were removed.

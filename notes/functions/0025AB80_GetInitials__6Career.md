@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size48-gameplay-core.cpp` |
 
 ### Attempt 1 notes
 
-The released getter constructs the hidden return `stringx` from the initials buffer at offset 0x1c; the explicit one-word copy constructor preserves old-GCC return ABI.
+The shared career and `stringx` declarations construct the hidden return from
+the initials buffer at offset 0x1c.
 
 ## Outcome
 
-The released `Career::GetInitials` implementation matched exactly on the first attempt.
+The local return layout was removed.
