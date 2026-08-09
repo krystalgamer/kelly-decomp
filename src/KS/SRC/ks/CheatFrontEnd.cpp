@@ -82,10 +82,21 @@ void CheatCodeMenu::OnActivate() {
 // absolute singleton address because its signed low half is negative.
 __asm__(".equ _18SoundScriptManager$instance, 0x0046B4A0");
 __asm__(".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380");
+extern "C" int play_frontend_sound(
+    SoundScriptManager *manager,
+    EventType event,
+    entity *source,
+    float fade_in_time)
+    __asm__("playEvent__18SoundScriptManager9EventTypeP6entityf");
+
 void CheatCodeMenu::OnTriangle(int command) {
     parent->MakeActive(0);
-    SoundScriptManager::inst()->playEvent(SS_FE_BACK);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    int (*play_sound)(
+        SoundScriptManager *,
+        EventType,
+        entity *,
+        float) = play_frontend_sound;
+    play_sound(SoundScriptManager::inst(), SS_FE_BACK, 0, 0.0f);
 }
 
 // 0x001D3868 OnTriangle__14EnterCheatMenui
@@ -93,13 +104,24 @@ void CheatCodeMenu::OnTriangle(int command) {
 __asm__(".equ _18SoundScriptManager$instance, 0x0046B4A0");
 __asm__(".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380");
 __asm__(".equ ExitMenu__14EnterCheatMenuf, 0x001D39F0");
+extern "C" int play_enter_cheat_sound(
+    SoundScriptManager *manager,
+    EventType event,
+    entity *source,
+    float fade_in_time)
+    __asm__("playEvent__18SoundScriptManager9EventTypeP6entityf");
+
 void EnterCheatMenu::OnTriangle(int command) {
     if (!closing)
         ExitMenu(0.0f);
     else
         closing_timer = 0.0f;
-    SoundScriptManager::inst()->playEvent(SS_FE_BACK);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    int (*play_sound)(
+        SoundScriptManager *,
+        EventType,
+        entity *,
+        float) = play_enter_cheat_sound;
+    play_sound(SoundScriptManager::inst(), SS_FE_BACK, 0, 0.0f);
 }
 
 // 0x001D1990 OnLeft__13CheatFrontEndi

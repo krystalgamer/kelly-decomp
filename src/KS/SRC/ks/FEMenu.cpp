@@ -375,6 +375,13 @@ void FEGraphicalMenu::Mask(PanelQuad *quad, float amount) {
 #include "KS/SRC/ks/FEPanel.h"
 #include "KS/SRC/ks/FEMenu.h"
 __asm__(".equ ChangeFade__9PanelQuadbT1f, 0x0014D078");
+extern "C" void change_panel_fade(
+    PanelQuad *quad,
+    bool start,
+    bool fade_in,
+    float time)
+    __asm__("ChangeFade__9PanelQuadbT1f");
+
 void FEGraphicalMenu::ChangeFade(
     PanelQuad *quad,
     bool start,
@@ -388,8 +395,12 @@ void FEGraphicalMenu::ChangeFade(
             fade_in,
             time);
     else if (quad) {
-        quad->ChangeFade(start, fade_in, time);
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*change_fade)(
+            PanelQuad *,
+            bool,
+            bool,
+            float) = change_panel_fade;
+        change_fade(quad, start, fade_in, time);
     }
 }
 
