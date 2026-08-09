@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released chained button and axis assignments match exactly.
+The released chained button and axis assignments use the shared
+`AISurferController` declaration.
 
 ## Outcome
 
-The released chained button and axis assignments match exactly.
+The local controller layout was removed.

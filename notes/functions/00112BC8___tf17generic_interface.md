@@ -19,4 +19,4 @@ The lazy RTTI initialization and returned typeinfo object match exactly.
 
 ## Outcome
 
-The lazy generic-interface RTTI initialization and returned typeinfo object match exactly.
+The released RTTI helper was already canonical and remains exact.

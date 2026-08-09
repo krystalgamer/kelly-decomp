@@ -17,23 +17,15 @@ axis_id_t AISurferController::get_axis_id(int axis) const {
 }
 
 // 0x00100568 clearButtons__18AISurferController
-struct ai_button_layout {
-    char padding[0x9c];
-    float X, Y, XRight, YRight;
-    bool ButtonX, ButtonO, ButtonSq, ButtonTr;
-    bool ButtonL1, ButtonL2, ButtonL3, ButtonR1, ButtonR2, ButtonR3;
-    bool ButtonSelect, ButtonStart;
-};
-extern "C" void clear_ai_buttons(ai_button_layout *self)
-    __asm__("clearButtons__18AISurferController");
-void clear_ai_buttons(ai_button_layout *self)
+#include "KS/SRC/AIController.h"
+
+void AISurferController::clearButtons()
 {
-  self->X = self->Y = 0;
-  self->ButtonX = self->ButtonO =
-      self->ButtonSq = self->ButtonTr = false;
-  self->ButtonL1 = self->ButtonL2 = self->ButtonL3 = false;
-  self->ButtonR1 = self->ButtonR2 = self->ButtonR3 = false;
-  self->ButtonStart = self->ButtonSelect = 0;
+  X = Y = 0;
+  ButtonX = ButtonO = ButtonSq = ButtonTr = false;
+  ButtonL1 = ButtonL2 = ButtonL3 = false;
+  ButtonR1 = ButtonR2 = ButtonR3 = false;
+  ButtonStart = ButtonSelect = 0;
 }
 
 // 0x00103ED0 buttonStatus__18AISurferControlleri

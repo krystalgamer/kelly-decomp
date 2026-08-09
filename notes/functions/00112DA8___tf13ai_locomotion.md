@@ -19,4 +19,4 @@ The lazy RTTI initialization matches exactly.
 
 ## Outcome
 
-The lazy AI-locomotion RTTI initialization matches exactly.
+The released RTTI helper was already canonical and remains exact.
