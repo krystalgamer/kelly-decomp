@@ -5,12 +5,14 @@
 // 0x00354220 serial_in__FR10chunk_fileP9vm_symbol
 __asm__(".equ serial_in__FR10chunk_fileP7stringx, 0x003369F8");
 __asm__(".equ serial_in__FR10chunk_filePi, 0x003368A0");
+extern "C" void serial_in_integer(chunk_file &io, int *value)
+    __asm__("serial_in__FR10chunk_filePi");
 
 void serial_in(chunk_file &io, vm_symbol *s) {
     serial_in(io, &s->type_name);
     serial_in(io, &s->name);
-    serial_in(io, &s->offset);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*read_offset)(chunk_file &, int *) = serial_in_integer;
+    read_offset(io, &s->offset);
 }
 
 // 0x003541A0 __9vm_symbol

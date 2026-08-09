@@ -25,4 +25,15 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_anim_set_timescale_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        entity_anim_tree *me;
+        vm_num_t speed;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 #endif

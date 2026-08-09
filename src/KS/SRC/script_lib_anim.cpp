@@ -29,17 +29,6 @@ bool slf_anim_pause_t::operator()(vm_stack &stack, entry_t entry) {
 // 0x00324C18 __cl__24slf_anim_set_timescale_tR8vm_stackQ320script_library_class8function7entry_t
 __asm__(".equ set_timescale_factor__16entity_anim_treef, 0x001177D0");
 
-class slf_anim_set_timescale_t :
-    public script_library_class::function {
-public:
-    struct parms_t {
-        entity_anim_tree *me;
-        vm_num_t speed;
-    };
-
-    bool operator()(vm_stack &stack, entry_t entry);
-};
-
 bool slf_anim_set_timescale_t::operator()(vm_stack &stack, entry_t entry) {
     SLF_PARMS;
     parms->me->set_timescale_factor(

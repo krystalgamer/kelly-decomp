@@ -7,11 +7,13 @@ extern char work[4096];
 __asm__(".equ work, 0x0046DCE8");
 __asm__(".equ read__9text_filePci, 0x003378D8");
 __asm__(".equ __as__7stringxPCc, 0x0034E118");
+extern "C" void assign_text(stringx *text, const char *value)
+    __asm__("__as__7stringxPCc");
 
 void text_file::read(stringx *s) {
     read(work, sizeof(work) - 1);
-    *s = work;
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*assign)(stringx *, const char *) = assign_text;
+    assign(s, work);
 }
 
 // 0x00338110 peek_char__9text_file

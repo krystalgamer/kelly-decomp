@@ -1,43 +1,13 @@
 // Matching decompilation blocks selected by generated build shims.
 
-#include "KS/SRC/item.h"
-#include "KS/SRC/script_library_class.h"
+#include "KS/SRC/script_lib_item_decl.h"
 
 #pragma interface
 
 // 0x00327620 __cl__20slf_item_set_count_tR8vm_stackQ320script_library_class8function7entry_t
-struct item_set_count_vtable {
-    char padding[0x640];
-    short adjustment;
-    short padding2;
-    void (*set_count)(void *self, int count);
-};
-struct item_set_count_layout {
-    char padding[8];
-    item_set_count_vtable *vtable;
-};
-inline void set_script_item_count(item *value, int count) {
-    item_set_count_layout *layout =
-        (item_set_count_layout *)value;
-    item_set_count_vtable *table = layout->vtable;
-    table->set_count(
-        (char *)layout + table->adjustment,
-        count);
-}
-class slf_item_set_count_t :
-    public script_library_class::function {
-public:
-    struct parms_t {
-        item *me;
-        vm_num_t count;
-    };
-
-    bool operator()(vm_stack &stack, entry_t entry);
-};
-
 bool slf_item_set_count_t::operator()(vm_stack &stack, entry_t entry) {
     SLF_PARMS;
-    set_script_item_count(parms->me, parms->count);
+    parms->me->set_count(parms->count);
     SLF_DONE;
 }
 
