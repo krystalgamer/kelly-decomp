@@ -5,20 +5,22 @@
 - Object: `game/files_entity`
 - Debug source: `C:/KS/SRC/entity_hard_attribs.h`
 - Reference source: `KS/SRC/entity_hard_attribs.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 33.3333 | 25.0 | `candidate.cpp` |
+| 2 | different | 33.3333 | 25.0 | `candidate.cpp` |
+| 3 | different | 33.3333 | 25.0 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
-The released generated destructor restores its vtable at offset 0x4 and conditionally calls `__builtin_delete`; the carried vtable alias and trailing barrier preserve the target frame.
+The released empty destructor collapses to a 36-byte sibling delete form.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+Two additional native empty-body forms retain the same schedule.
 
 ## Outcome
 
-The released `_$_20ai_walk_speed_attrib` destructor matched exactly on the first attempt.
+The manual vtable restoration and compiler barrier were removed.
