@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released SLF_PARMS pop, world singleton access, animation pointer load, and SLF_DONE return matched exactly while preserving the released SLF macros.
+The released parameter pop, world access, and animation load use the shared
+animation SLF declaration.
 
 ## Outcome
 
-The released anim::kill_anim script function matched exactly on the first attempt.
+The duplicate local class was removed; the released wrapper remains exact.

@@ -20,10 +20,10 @@ Modeled EventType as int. The body compiled, but the method emitted the incompat
 
 ### Attempt 2 notes
 
-The released 0x80-byte event-map indexing, type assignment, and addSoundMapping call matched exactly. The trailing empty barrier preserves the framed call while returning its bool result.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released event-map indexing and type assignment use the shared sound
+manager declaration. A local mapping-function pointer preserves the call.
 
 ## Outcome
 
-The released sound mapping creation matched exactly.
+The local layout and compiler barrier were removed; the released mapping
+creation remains exact.

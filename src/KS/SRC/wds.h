@@ -72,6 +72,8 @@ public:
     void process_kelly_slater_stuff();
     void add_anim(entity_anim_tree *animation);
     void kill_anim(entity_anim_tree *animation);
+    void kill_scene_anim(unsigned int animation);
+    void load_scene_anim(const stringx &name);
 };
 
 class entity_maker {

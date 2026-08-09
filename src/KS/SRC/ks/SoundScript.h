@@ -28,6 +28,7 @@ public:
 
     void clear();
     int playEvent(entity *source);
+    bool addSoundMapping(unsigned int source);
 };
 
 class ScheduledSoundEvent {
@@ -79,6 +80,7 @@ public:
     unsigned int getSoundId(int event);
     void endEvent(int event, float fade_out_time = 0.0f);
     void createAllMappings();
+    bool createMapping(EventType type, unsigned int source);
 };
 
 __asm__(".equ _18SoundScriptManager$instance, 0x0046B4A0");

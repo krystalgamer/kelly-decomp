@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released SLF_PARMS pop, game singleton access, level-name dereference, and SLF_DONE return matched exactly while preserving the released SLF macros. The singleton alias is HI16-adjusted for the real 0x0045ac64 global.
+The released parameter pop, game singleton access, and level-name dereference
+use shared game/SLF declarations.
 
 ## Outcome
 
-The released load_level script function matched exactly on the first attempt.
+The local VM/game declarations were removed; the released wrapper remains
+exact.

@@ -5,18 +5,10 @@
 #pragma interface
 
 // 0x00324FE0 __cl__20slf_anim_kill_anim_tR8vm_stackQ320script_library_class8function7entry_t
+#include "KS/SRC/script_lib_anim_kill.h"
+
 __asm__(".equ kill_anim__21world_dynamics_systemP16entity_anim_tree, 0x002A3710");
 __asm__(".equ g_world_ptr, 0x00431A8C");
-
-class slf_anim_kill_anim_t :
-    public script_library_class::function {
-public:
-    struct parms_t {
-        entity_anim_tree *animation;
-    };
-
-    bool operator()(vm_stack &stack, entry_t entry);
-};
 
 bool slf_anim_kill_anim_t::operator()(
     vm_stack &stack,

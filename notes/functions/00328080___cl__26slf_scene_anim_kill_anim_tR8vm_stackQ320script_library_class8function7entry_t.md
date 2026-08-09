@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released SLF_PARMS pop, world singleton access, scene-animation handle load, and SLF_DONE return matched exactly while preserving the released SLF macros.
+The released parameter pop, world access, and scene-animation handle load use
+the shared scene-animation SLF declaration.
 
 ## Outcome
 
-The released scene_anim::kill_anim script function matched exactly on the first attempt.
+The local VM/world declarations were removed; the released wrapper remains
+exact.

@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released SLF_PARMS pop, global assignment, and negative clamp matched exactly while preserving the released SLF macros.
+The released parameter pop, global assignment, and negative clamp use the
+shared SLF declaration.
 
 ## Outcome
 
-The released set_global_time_dilation script function matched exactly on the first attempt.
+The local VM/function declarations were removed; the released wrapper remains
+exact.

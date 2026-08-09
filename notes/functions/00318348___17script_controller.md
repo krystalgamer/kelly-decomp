@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released empty derived constructor matched exactly through signaller base construction and the script-controller vtable install at offset 0x8. The adjusted vtable alias reproduces the HI16 carry for the real 0x004fc988 table.
+The released empty derived constructor uses the shared script-controller and
+signaller hierarchy.
 
 ## Outcome
 
-The released script-controller constructor matched exactly on the first attempt.
+The manual vtable install and symbol wrapper were removed; the released
+constructor remains exact.

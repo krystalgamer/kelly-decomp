@@ -136,6 +136,30 @@ public:
         entry_t entry);
 };
 
+class slf_set_global_time_dilation_t
+  : public script_library_class::function {
+public:
+    struct parms_t {
+        vm_num_t dilation;
+    };
+
+    virtual bool operator()(
+        vm_stack &stack,
+        entry_t entry);
+};
+
+class slf_load_level_t
+  : public script_library_class::function {
+public:
+    struct parms_t {
+        vm_str_t level_name;
+    };
+
+    virtual bool operator()(
+        vm_stack &stack,
+        entry_t entry);
+};
+
 class slf_suspend_all_ai_t : public script_library_class::function {
 public:
     slf_suspend_all_ai_t(const char *name);

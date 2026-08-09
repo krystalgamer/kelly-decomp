@@ -168,6 +168,7 @@ public:
     void set_beach(int beach);
     void SetBoardIdx(int hero, int index);
     void LoadingStateReset();
+    void load_new_level(const stringx &name);
     bool is_paused() const;
     bool was_start_pressed() const;
     bool was_A_pressed() const;

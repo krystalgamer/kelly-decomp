@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released 28-byte SLF_PARMS pop, beam pointer load, vector references, and SLF_DONE return matched exactly while preserving the released SLF macros.
+The released 28-byte parameter pop and vector references use the shared beam
+SLF declaration.
 
 ## Outcome
 
-The released beam::set_point_to_point script function matched exactly on the first attempt.
+The local beam/vector/VM declarations were removed; the released wrapper
+remains exact.

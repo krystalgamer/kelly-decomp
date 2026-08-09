@@ -3,27 +3,11 @@
 
 #if defined(KELLY_DECOMP_FUNCTION_00319908)
 // 0x00319908 __10script_mfg
-extern "C" void SignallerCtor(void *self)
-    __asm__("__9signaller");
+#include "KS/SRC/script_lib_mfg.h"
+
 __asm__(".equ __9signaller, 0x0034CC70");
 
-extern const char script_mfg_vtable[];
-__asm__(".equ script_mfg_vtable, 0x0050E680");
-
-struct script_mfg_layout {
-    char padding[8];
-    const void *vtable;
-};
-
-extern "C" void *ScriptMfgCtor(void *self)
-    __asm__("__10script_mfg");
-
-void *ScriptMfgCtor(void *self)
-{
-    SignallerCtor(self);
-    ((script_mfg_layout *)self)->vtable = script_mfg_vtable;
-    return self;
-}
+script_mfg::script_mfg() : signaller() {}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F008)

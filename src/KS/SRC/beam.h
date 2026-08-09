@@ -61,6 +61,9 @@ public:
     void set_max_length(float value);
     void set_beam_color(const color32 &color);
     void set_texture(const stringx &filename);
+    void set_point_to_point(
+        const vector3d &start,
+        const vector3d &end);
     inline void set_beam_flag(unsigned int value) {
         beam_flags |= value;
     }
