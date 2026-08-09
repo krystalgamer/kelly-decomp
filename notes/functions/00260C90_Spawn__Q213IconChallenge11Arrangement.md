@@ -12,13 +12,17 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size44-menu-state-core.cpp` |
 
 ### Attempt 1 notes
 
-A minimal layout preserves the selected 0xa8-byte sequence array at offset eight.
+The initial isolated layout preserved the selected 0xa8-byte sequence.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+The shared arrangement declaration and a local function pointer preserve the
+normal call frame without a compiler barrier.
 
 ## Outcome
 
-The released icon arrangement spawn matched exactly.
+The local layout and compiler barrier were removed.

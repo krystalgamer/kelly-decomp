@@ -5,25 +5,30 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/career.cpp`
 - Reference source: `KS/SRC/ks/career.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | different | 79.5455 | 33.3333 | `candidate.cpp` |
-| 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 81.8182 | 44.4444 | `candidate.cpp` |
+| 2 | different | 25.0 | 22.2222 | `candidate.cpp` |
+| 3 | different | 81.8182 | 44.4444 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
-The first source shape exposed a layout, loop-backedge, or sibling-call mismatch.
+The released descending loop keeps the target size but schedules the pointer
+decrement before the backedge.
 
 ### Attempt 2 notes
 
-The released helper clears all five word-sized goal flags.
+The branch-shaped form shrinks to 36 bytes.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 3 notes
+
+The indexed descending loop retains the same backedge scheduling mismatch.
 
 ## Outcome
 
-The released `Career::Level::ResetGoals` implementation matched exactly.
+The prior match depended on compiler barriers. They were removed and the
+function was deferred.

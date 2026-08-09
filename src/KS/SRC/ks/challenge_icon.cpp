@@ -35,12 +35,16 @@ void despawn_icon(IconChallenge::Icon *icon)
 __asm__(".equ Despawn__Q213IconChallenge4Icon, 0x00261C10");
 void IconChallenge::Task::Despawn() { if (icon) { void (*despawn)(IconChallenge::Icon *) = despawn_icon; despawn(icon); } }
 
-#if defined(KELLY_DECOMP_FUNCTION_00260C90)
 // 0x00260C90 Spawn__Q213IconChallenge11Arrangement
-class IconChallenge { public: class Sequence { char storage[0xa8]; public: void Spawn(); }; class Arrangement { int field0; int currentSequence; Sequence sequences[1]; public: void Spawn(); }; };
+#include "KS/SRC/ks/challenge_icon.h"
+
+void spawn_sequence(IconChallenge::Sequence *sequence)
+    __asm__("Spawn__Q213IconChallenge8Sequence");
 __asm__(".equ Spawn__Q213IconChallenge8Sequence, 0x00260F08");
-void IconChallenge::Arrangement::Spawn() { sequences[currentSequence].Spawn(); KELLY_DECOMP_COMPILER_BARRIER(); }
-#endif
+void IconChallenge::Arrangement::Spawn() {
+    void (*spawn)(IconChallenge::Sequence *) = spawn_sequence;
+    spawn(&sequences[currSequenceIdx]);
+}
 
 #if defined(KELLY_DECOMP_FUNCTION_00260D58)
 // 0x00260D58 GetCurrentSequence__CQ213IconChallenge11Arrangement

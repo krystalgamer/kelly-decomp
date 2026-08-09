@@ -69,6 +69,25 @@ public:
         void Spawn();
         void Despawn();
     };
+
+    class Arrangement {
+        int numSequences;
+        int currSequenceIdx;
+        Sequence sequences[MAX_ARRANGEMENT_SIZE];
+        bool completed;
+
+    public:
+        Arrangement();
+        void Init(Icon *icons);
+        void Reset(Icon *icons);
+        void Update(
+            kellyslater_controller *controller,
+            float time_inc);
+        void Spawn();
+        void Despawn();
+        bool IsCompleted() const { return completed; }
+        const Sequence *GetCurrentSequence() const;
+    };
 };
 
 #endif

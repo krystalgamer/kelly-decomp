@@ -348,14 +348,27 @@ void MenuEntryFunction::OnButtonPress(int button) { if (function) (*function)(th
 
 __asm__(".equ OnMenuOpen__9MenuEntryP4MenuP10MenuSystem, 0x0023EF90");
 __asm__(".equ FixValue__26MenuEntryFunctionFloatEdit, 0x0023FF48");
-void MenuEntryFunctionFloatEdit::OnMenuOpen(Menu *menu, MenuSystem *system) { MenuEntry::OnMenuOpen(menu, system); FixValue(); KELLY_DECOMP_COMPILER_BARRIER(); }
+void fix_function_float_value(MenuEntryFunctionFloatEdit *entry)
+    __asm__("FixValue__26MenuEntryFunctionFloatEdit");
+void MenuEntryFunctionFloatEdit::OnMenuOpen(Menu *menu, MenuSystem *system) {
+    MenuEntry::OnMenuOpen(menu, system);
+    void (*fix_value)(MenuEntryFunctionFloatEdit *) =
+        fix_function_float_value;
+    fix_value(this);
+}
 
 // 0x00270B50 OnMenuOpen__16MenuEntryIntEditP4MenuP10MenuSystem
 #include "KS/SRC/ks/menu.h"
 
 __asm__(".equ OnMenuOpen__9MenuEntryP4MenuP10MenuSystem, 0x0023EF90");
 __asm__(".equ FixValue__16MenuEntryIntEdit, 0x0023F4D8");
-void MenuEntryIntEdit::OnMenuOpen(Menu *menu, MenuSystem *system) { MenuEntry::OnMenuOpen(menu, system); FixValue(); KELLY_DECOMP_COMPILER_BARRIER(); }
+void fix_int_value(MenuEntryIntEdit *entry)
+    __asm__("FixValue__16MenuEntryIntEdit");
+void MenuEntryIntEdit::OnMenuOpen(Menu *menu, MenuSystem *system) {
+    MenuEntry::OnMenuOpen(menu, system);
+    void (*fix_value)(MenuEntryIntEdit *) = fix_int_value;
+    fix_value(this);
+}
 
 // 0x00270CA8 OnMenuOpen__18MenuEntryFloatEditP4MenuP10MenuSystem
 #include "KS/SRC/ks/menu.h"
