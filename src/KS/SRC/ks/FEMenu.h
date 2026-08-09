@@ -280,6 +280,9 @@ protected:
 
 class __attribute__((aligned(16))) PanelAnimManager {
     char data[0x80];
+
+public:
+    void UpdateAnims(float time);
 };
 
 #if !defined(FE_PANEL_H)
@@ -287,6 +290,7 @@ class PanelFile {
     char data[0x30];
 
 public:
+    void Update(float time);
     void Load(bool floating);
     PanelQuad *GetPointer(const char *search_name);
     void SetFilename(stringx filename);

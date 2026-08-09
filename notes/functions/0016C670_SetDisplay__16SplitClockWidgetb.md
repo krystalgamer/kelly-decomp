@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released base display update and panel virtual dispatch match exactly.
+The released base display update and panel virtual dispatch use the shared
+split-clock widget hierarchy.
 
 ## Outcome
 
-The released base display update and split-clock panel virtual dispatch match exactly.
+The manual panel vtable and local widget layouts were removed.

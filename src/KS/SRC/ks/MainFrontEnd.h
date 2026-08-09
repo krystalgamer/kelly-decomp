@@ -9,7 +9,11 @@
 
 class OptionsMenu : public FEGraphicalMenu {
 public:
+    void ChangeSwitch(bool right);
+    void ChangeVolume(bool right);
     virtual void Select();
+    virtual void OnLeft(int controller);
+    virtual void OnRight(int controller);
     virtual PanelQuad *GetPointer(const char *name);
 };
 class MultiplayerMenu;

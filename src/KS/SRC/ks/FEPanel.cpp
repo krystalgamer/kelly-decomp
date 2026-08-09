@@ -325,9 +325,10 @@ uint32 ReadLong(unsigned char *buffer, int &index)
 }
 
 // 0x001495B0 makeRand__10RandomText
-class StringList { public: void MakeRand(); };
+#include "KS/SRC/ks/FEPanel.h"
+
 asm(".equ MakeRand__10StringList, 0x00147CD0");
-class RandomText { char padding[0x3c]; bool checkTime; float time; char padding2[0xc]; bool isRand; char padding3[4]; StringList rand_string; public: void makeRand(); };
+
 void RandomText::makeRand()
 {
     rand_string.MakeRand();

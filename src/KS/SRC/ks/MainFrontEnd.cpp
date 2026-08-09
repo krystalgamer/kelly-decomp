@@ -200,25 +200,43 @@ void MultiControllerMenu::Draw()
 }
 
 // 0x00182AB8 OnLeft__11OptionsMenui
-struct FEMenuEntry { int entry_num; };
-class OptionsMenu { char padding[0x4c]; FEMenuEntry *highlighted; public: void ChangeSwitch(bool right); void ChangeVolume(bool right); void OnLeft(int controller); };
+#include "KS/SRC/ks/MainFrontEnd.h"
+
 asm(".equ ChangeSwitch__11OptionsMenub, 0x00182ED0"); asm(".equ ChangeVolume__11OptionsMenub, 0x00183598");
+extern "C" void change_option_switch(OptionsMenu *menu, bool right)
+    __asm__("ChangeSwitch__11OptionsMenub");
+extern "C" void change_option_volume(OptionsMenu *menu, bool right)
+    __asm__("ChangeVolume__11OptionsMenub");
+
 void OptionsMenu::OnLeft(int controller)
 {
-    if (highlighted->entry_num < 6)
-        { ChangeSwitch(false); KELLY_DECOMP_COMPILER_BARRIER(); }
-    else
-        { ChangeVolume(false); KELLY_DECOMP_COMPILER_BARRIER(); }
+    if (highlighted->entry_num < 6) {
+        void (*change)(OptionsMenu *, bool) = change_option_switch;
+        change(this, false);
+    } else {
+        void (*change)(OptionsMenu *, bool) = change_option_volume;
+        change(this, false);
+    }
 }
 
 // 0x00182AF8 OnRight__11OptionsMenui
-struct FEMenuEntry { int entry_num; };
-class OptionsMenu { char padding[0x4c]; FEMenuEntry *highlighted; public: void ChangeSwitch(bool right); void ChangeVolume(bool right); void OnRight(int controller); };
+#include "KS/SRC/ks/MainFrontEnd.h"
+
 asm(".equ ChangeSwitch__11OptionsMenub, 0x00182ED0"); asm(".equ ChangeVolume__11OptionsMenub, 0x00183598");
+extern "C" void change_option_switch(OptionsMenu *menu, bool right)
+    __asm__("ChangeSwitch__11OptionsMenub");
+extern "C" void change_option_volume(OptionsMenu *menu, bool right)
+    __asm__("ChangeVolume__11OptionsMenub");
+
 void OptionsMenu::OnRight(int controller)
 {
-    if (highlighted->entry_num < 6) { ChangeSwitch(true); KELLY_DECOMP_COMPILER_BARRIER(); }
-    else { ChangeVolume(true); KELLY_DECOMP_COMPILER_BARRIER(); }
+    if (highlighted->entry_num < 6) {
+        void (*change)(OptionsMenu *, bool) = change_option_switch;
+        change(this, true);
+    } else {
+        void (*change)(OptionsMenu *, bool) = change_option_volume;
+        change(this, true);
+    }
 }
 
 

@@ -100,15 +100,20 @@ void FEMenu::Select()
 }
 
 // 0x00157B30 Update__8FrontEndf
-class PanelAnimManager { public: void UpdateAnims(float time); };
-class PanelFile { public: void Update(float time); };
+#include "KS/SRC/ks/FEMenu.h"
+
 asm(".equ Update__9PanelFilef, 0x001531B8"); asm(".equ UpdateAnims__16PanelAnimManagerf, 0x00155710");
-class FrontEnd { PanelAnimManager pam; char padding[0x7f]; PanelFile panel; public: void Update(float time); };
+extern "C" void update_panel_animations(
+    PanelAnimManager *manager,
+    float time
+) __asm__("UpdateAnims__16PanelAnimManagerf");
+
 void FrontEnd::Update(float time)
 {
     panel.Update(time);
-    pam.UpdateAnims(time);
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*update)(PanelAnimManager *, float) =
+        update_panel_animations;
+    update(&pam, time);
 }
 // Matching decompilation blocks selected by generated build shims.
 

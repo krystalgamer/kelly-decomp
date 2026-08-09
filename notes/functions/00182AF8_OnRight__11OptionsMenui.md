@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-Narrow branch-local barriers prevent the demonstrated tail calls and match exactly.
+The shared option-menu layout and branch-local handler pointers preserve both
+framed calls.
 
 ## Outcome
 
-The released options-right dispatch matches with narrow branch-local barriers preventing demonstrated tail calls.
+The local menu layout and compiler barriers were removed.

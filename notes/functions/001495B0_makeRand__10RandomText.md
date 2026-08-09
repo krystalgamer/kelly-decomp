@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released random-string call and state assignments match exactly.
+The released random-string call and state assignments use the shared
+`RandomText` and `StringList` declarations.
 
 ## Outcome
 
-The released random-string call and display-state assignments match exactly.
+The local text and string-list layouts were removed.

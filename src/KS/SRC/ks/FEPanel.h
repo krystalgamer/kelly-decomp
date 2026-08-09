@@ -196,6 +196,7 @@ public:
     float delta_x[MAX_STRING_SIZE];
     float delta_y[MAX_STRING_SIZE];
 
+    void MakeRand();
     StringList &operator=(const StringList &other);
 };
 
@@ -206,6 +207,7 @@ protected:
     StringList rand_string;
 
 public:
+    void makeRand();
     void unmakeRand();
 };
 
@@ -465,6 +467,7 @@ public:
     PanelQuad *GetPointer(const char *search_name);
     virtual void SetFilename(stringx path);
     bool Load(bool floating = false);
+    void Update(float time);
     void Draw(int layer);
 };
 

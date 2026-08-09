@@ -20,8 +20,10 @@ The first layout placed the panel one byte late because the scratch empty base h
 
 ### Attempt 2 notes
 
-Modeling the embedded animation manager at offset zero restores the released layout and matches exactly.
+The shared `FrontEnd`, `PanelFile`, and `PanelAnimManager` declarations
+preserve the released embedded layout. A local animation-update pointer keeps
+the final framed call.
 
 ## Outcome
 
-The released panel and animation-manager updates match exactly with the original embedded layout.
+The local frontend layouts and compiler barrier were removed.
