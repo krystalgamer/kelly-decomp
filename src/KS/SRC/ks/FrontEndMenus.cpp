@@ -320,17 +320,18 @@ void TutorialPauseMenuClass::OnButtonRelease(int c, int b)
 }
 
 // 0x001A7140 Draw__21SaveCareerPromptClass
-#include "decomp_annotations.h"
 #include "KS/SRC/ks/FrontEndMenus.h"
 __asm__(".equ Draw__6FEMenu, 0x00156C88");
+extern "C" void draw_fe_menu(FEMenu *menu)
+    __asm__("Draw__6FEMenu");
 
 void SaveCareerPromptClass::Draw()
 {
     if (myFrameTimer > 0)
         myFrameTimer--;
     message->Draw();
-    FEMenu::Draw();
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*draw_base)(FEMenu *) = draw_fe_menu;
+    draw_base(this);
 }
 
 // 0x001B4610 SetDisconnect__15PauseMenuSystemb

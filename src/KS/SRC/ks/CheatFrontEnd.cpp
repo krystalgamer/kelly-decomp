@@ -124,42 +124,6 @@ void EnterCheatMenu::OnTriangle(int command) {
     play_sound(SoundScriptManager::inst(), SS_FE_BACK, 0, 0.0f);
 }
 
-// 0x001D1990 OnLeft__13CheatFrontEndi
-#include "KS/SRC/ks/CheatFrontEnd.h"
-struct CheatFrontEndDispatchVTable {
-    char padding[0x1c0];
-    short adjustment;
-    short padding2;
-    void (*on_left)(void *self, int command);
-};
-
-void CheatFrontEnd::OnLeft(int command) {
-    if (active)
-        active->OnLeft(command);
-    else {
-        CheatFrontEndDispatchVTable *table = *(CheatFrontEndDispatchVTable **)((char *)this + 0x74);
-        table->on_left((char *)this + table->adjustment, command);
-    }
-}
-
-// 0x001D19E0 OnRight__13CheatFrontEndi
-#include "KS/SRC/ks/CheatFrontEnd.h"
-struct CheatFrontEndDispatchVTable {
-    char padding[0x1c8];
-    short adjustment;
-    short padding2;
-    void (*on_right)(void *self, int command);
-};
-
-void CheatFrontEnd::OnRight(int command) {
-    if (active)
-        active->OnRight(command);
-    else {
-        CheatFrontEndDispatchVTable *table = *(CheatFrontEndDispatchVTable **)((char *)this + 0x74);
-        table->on_right((char *)this + table->adjustment, command);
-    }
-}
-
 // 0x001D3100 Draw__14EnterCheatMenu
 struct draw_vtable {
     char padding[0x18]; short adjustment; short reserved;

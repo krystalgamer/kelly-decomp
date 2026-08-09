@@ -5,7 +5,7 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/CheatFrontEnd.cpp`
 - Reference source: `KS/SRC/ks/CheatFrontEnd.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -20,4 +20,5 @@ Immutable source packet: when an active submenu exists, forward OnRight(command)
 
 ## Outcome
 
-CheatFrontEnd::OnRight(int)
+The manual historical dispatch layout was removed. The clean shared form
+tail-calls both branches and shrinks the wrapper, so it was deferred.
