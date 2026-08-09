@@ -5,20 +5,22 @@
 - Object: `game/files_misc1`
 - Debug source: `ks/GameData.h`
 - Reference source: `KS/SRC/ks/GameData.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 16.6667 | 16.6667 | `candidate.cpp` |
+| 2 | different | 16.6667 | 16.6667 | `candidate.cpp` |
+| 3 | different | 16.6667 | 16.6667 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
-The released generated destructor restores its vtable at offset 0x0 and conditionally calls `__builtin_delete`; the carried vtable alias and trailing barrier preserve the target frame.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+Three native implicit-destructor forms collapse to a 20-byte tail call to the
+`singleton` destructor.
 
 ## Outcome
 
-The released `_$_16StoredConfigData` destructor matched exactly on the first attempt.
+The target's direct-delete frame required a manual singleton-vtable write and
+compiler barrier. Those matching-only constructs were removed.

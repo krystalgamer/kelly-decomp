@@ -5,20 +5,22 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/beam.h`
 - Reference source: `KS/SRC/beam.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | different | 16.6667 | 16.6667 | `candidate.cpp` |
+| 2 | different | 16.6667 | 16.6667 | `candidate.cpp` |
+| 3 | different | 16.6667 | 16.6667 | `candidate.cpp` |
 
 ### Attempt 1 notes
 
-The released generated destructor restores its vtable at offset 0x0 and conditionally calls `__builtin_delete`; the carried vtable alias and trailing barrier preserve the target frame.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+Three native empty-destructor forms collapse to a 20-byte tail call to the
+`beam_effect_type` destructor.
 
 ## Outcome
 
-The released `_$_17beam_effect_alpha` destructor matched exactly on the first attempt.
+The target's direct-delete frame required a manual base-vtable write and
+compiler barrier. Those matching-only constructs were removed.

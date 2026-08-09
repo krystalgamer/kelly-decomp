@@ -92,6 +92,8 @@ protected:
 
 class beam_effect_color : public beam_effect_type {
 protected:
+    beam_effect_color() {}
+    virtual ~beam_effect_color() {}
     virtual void apply_start_vals(beam *the_beam);
     virtual void apply_target_vals(beam *the_beam);
     virtual void apply_delta_vals(beam *the_beam, float time);
