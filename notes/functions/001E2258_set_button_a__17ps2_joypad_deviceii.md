@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size48-ps2-core.cpp` |
 
 ### Attempt 1 notes
 
-A minimal old-GCC joypad vtable layout preserves the released `state > 127` conversion and virtual `set_button_d` dispatch at slot 0x88.
+The shared PS2 joypad declaration preserves the released `state > 127`
+conversion and virtual `set_button_d` dispatch.
 
 ## Outcome
 
-The released PS2 analog-button setter matched exactly on the first attempt.
+The manual vtable layout was removed.

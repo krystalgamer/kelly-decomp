@@ -8,7 +8,8 @@ struct nvlMovie;
 struct nvlMovieSource;
 
 class movieplayer : public singleton {
-    char movie_context[0x23c];
+    bool hiRes;
+    char movie_context[0x238];
     nvlMovieSource *movieSource;
     nvlMovie *movie;
     nglTexture *texture;
@@ -20,6 +21,7 @@ class movieplayer : public singleton {
 public:
     movieplayer();
     virtual ~movieplayer();
+    void shutdown();
 };
 
 #endif

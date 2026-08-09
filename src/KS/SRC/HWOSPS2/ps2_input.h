@@ -17,6 +17,8 @@ public:
     device_id_t get_id() const;
     int get_axis_count() const;
     axis_id_t get_axis_id(int axis) const;
+    virtual void set_button_d(int button, bool state);
+    virtual void set_button_a(int button, int state);
     virtual void set_stick(int stick, int x, int y);
     virtual bool is_vibrator_present() const;
 

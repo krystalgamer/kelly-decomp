@@ -149,28 +149,10 @@ bool ps2_joypad_device::is_vibrator_present() const {
 }
 
 // 0x001E2258 set_button_a__17ps2_joypad_deviceii
-struct joypad_vtable {
-    char padding[0x88];
-    short adjustment;
-    short padding2;
-    void (*set_button_d)(void *self, int button, bool state);
-};
-
-class ps2_joypad_device {
-    char padding[4];
-    joypad_vtable *vtable;
-
-public:
-    void set_button_a(int button, int state);
-};
+#include "KS/SRC/HWOSPS2/ps2_input.h"
 
 void ps2_joypad_device::set_button_a(int button, int state) {
-    joypad_vtable *table = vtable;
-    table->set_button_d(
-        (char *)this + table->adjustment,
-        button,
-        state > 127
-    );
+    set_button_d(button, state > 127);
 }
 
 // 0x001E1468 get_name__C17ps2_joypad_device

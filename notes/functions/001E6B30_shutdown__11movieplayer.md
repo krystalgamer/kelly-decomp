@@ -12,13 +12,17 @@
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
 | 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 2 | matched | 100.0 | 100.0 | `size48-ps2-core.cpp` |
 
 ### Attempt 1 notes
 
 The explicit high-resolution early return reproduces the RA restore in the branch delay slot; the trailing barrier preserves the normal second NVL shutdown call.
 
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+### Attempt 2 notes
+
+The shared movieplayer declaration and a local function pointer preserve the
+normal stream shutdown call without a compiler barrier.
 
 ## Outcome
 
-The released `movieplayer::shutdown` implementation matched exactly on the first attempt.
+The local layout and compiler barrier were removed.
