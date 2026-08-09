@@ -57,9 +57,11 @@ unsigned int stash::get_size() { return index->entry_size; }
 #include "KS/SRC/mustash.h"
 __asm__(".equ free_stored__10multistash, 0x00346FF0");
 
+void free_multistash_storage(multistash *storage)
+    __asm__("free_stored__10multistash");
 void stash::free_stored(int stashid) {
-    substash[stashid].free_stored();
-    KELLY_DECOMP_COMPILER_BARRIER();
+    void (*free_storage)(multistash *) = free_multistash_storage;
+    free_storage(&substash[stashid]);
 }
 
 // 0x00345BC0 WaitForStashLoad__5stash

@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-string-stash-core.cpp` |
 
 ### Attempt 1 notes
 
-A minimal `stringx`/`string_buf` layout preserves `my_buf` at 0x4, `char_length` at 0x8, and the released forwarded position `length - 1`.
+The shared `stringx` and buffer declarations preserve `my_buf`, `char_length`,
+and the forwarded position `length - 1`.
 
 ## Outcome
 
-The released `stringx::rfind(char)` wrapper matched exactly on the first attempt.
+The local layouts were removed.

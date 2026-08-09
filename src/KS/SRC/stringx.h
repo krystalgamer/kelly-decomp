@@ -47,13 +47,18 @@ public:
     stringx &operator=(const stringx &);
     stringx &operator=(const char *);
     stringx &operator+=(const stringx &other);
+    stringx &operator+=(const char *text);
     inline const char *c_str() const { return chars; }
     inline char *data() const { return chars; }
     int length() const;
     int find(const char *text) const;
     void lock();
     void fork_data(int new_length = -1);
+    void copy(const char *text, int length = -1);
     void append(const stringx &other);
+    void append(const char *text, int length = -1);
+    int rfind(char value, int position) const;
+    int rfind(char value) const;
     inline int size() const { return my_buf->char_length; }
     inline bool operator==(const char *text) const {
         return my_buf->compare(text) == 0;

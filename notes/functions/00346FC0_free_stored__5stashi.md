@@ -13,6 +13,7 @@
 | ---: | --- | ---: | ---: | --- |
 | 1 | different | 27.2727 | 27.2727 | `candidate.cpp` |
 | 2 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 3 | matched | 100.0 | 100.0 | `size44-string-stash-core.cpp` |
 
 ### Attempt 2 notes
 
@@ -20,8 +21,13 @@ The released wrapper indexes the 0x318-byte substash array and calls
 `multistash::free_stored`. The carried global alias reproduces the negative-low
 address, and the trailing empty barrier preserves the normal call frame.
 
+### Attempt 3 notes
+
+The shared stash declaration and a local function pointer preserve the normal
+call frame without a compiler barrier.
+
 Re-evaluating the identical second candidate after the exact wrapper-schedule compiler fixup now produces an exact match; this infrastructure recheck does not consume a third source attempt.
 
 ## Outcome
 
-The released stash::free_stored wrapper matched exactly after correcting the isolated compiler instruction order.
+The compiler barrier was removed.

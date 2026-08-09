@@ -11,11 +11,12 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-string-stash-core.cpp` |
 
 ### Attempt 1 notes
 
-The released assignment forwards the C string to `copy` with the default `-1` length and returns `*this`.
+The shared `stringx` declaration forwards the C string to `copy` with the
+default `-1` length and returns `*this`.
 
 ## Outcome
 

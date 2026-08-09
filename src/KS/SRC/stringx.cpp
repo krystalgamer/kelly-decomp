@@ -55,13 +55,8 @@ stringx &stringx::operator+=(const stringx &other)
     return *this;
 }
 
-#if defined(KELLY_DECOMP_FUNCTION_0034E118)
 // 0x0034E118 __as__7stringxPCc
-class stringx {
-public:
-    stringx &operator=(const char *text);
-    void copy(const char *text, int length = -1);
-};
+#include "KS/SRC/stringx.h"
 
 __asm__(".equ copy__7stringxPCci, 0x0034E270");
 
@@ -69,15 +64,9 @@ stringx &stringx::operator=(const char *text) {
     copy(text);
     return *this;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0034E170)
 // 0x0034E170 __apl__7stringxPCc
-class stringx {
-public:
-    stringx &operator+=(const char *text);
-    void append(const char *text, int length = -1);
-};
+#include "KS/SRC/stringx.h"
 
 __asm__(".equ append__7stringxPCci, 0x0034E3F0");
 
@@ -85,30 +74,15 @@ stringx &stringx::operator+=(const char *text) {
     append(text);
     return *this;
 }
-#endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0034E7C0)
 // 0x0034E7C0 rfind__C7stringxc
-struct string_buf {
-    char padding[8];
-    int char_length;
-};
-
-class stringx {
-    char *chars;
-    string_buf *my_buf;
-
-public:
-    int rfind(char value) const;
-    int rfind(char value, int position) const;
-};
+#include "KS/SRC/stringx.h"
 
 __asm__(".equ rfind__C7stringxci, 0x0034E750");
 
 int stringx::rfind(char value) const {
     return rfind(value, my_buf->char_length - 1);
 }
-#endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0034D3E0)
 // 0x0034D3E0 __7stringx

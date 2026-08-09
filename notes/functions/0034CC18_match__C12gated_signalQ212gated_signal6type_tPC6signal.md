@@ -11,12 +11,13 @@
 
 | # | Status | Byte score | Instruction score | Candidate |
 | ---: | --- | ---: | ---: | --- |
-| 1 | matched | 100.0 | 100.0 | `candidate.cpp` |
+| 1 | matched | 100.0 | 100.0 | `size44-string-stash-core.cpp` |
 
 ### Attempt 1 notes
 
-The minimal released layout preserves the 16-bit gate type at 0x1c and `input_a`/`input_b` at 0x20/0x24; the original boolean expression reproduces both likely pointer comparisons.
+The shared gated-signal declaration preserves the 16-bit type and input
+pointers used by the released boolean expression.
 
 ## Outcome
 
-The released `gated_signal::match` predicate matched exactly on the first attempt.
+The local signal layout was removed.
