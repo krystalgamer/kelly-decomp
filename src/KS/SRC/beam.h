@@ -71,6 +71,9 @@ public:
     inline void set_tiles_per_meter(float value) {
         tiles_per_meter = value;
     }
+    inline void set_additive(bool value) {
+        additive = value;
+    }
     virtual void frame_advance(float time_inc);
     virtual void render(
         camera *camera_link,

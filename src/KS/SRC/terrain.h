@@ -18,6 +18,8 @@ public:
 };
 
 class partition3 : public hyperplane<vector3d> {
+    typedef hyperplane<vector3d> _H;
+
 public:
     class faceref {
         unsigned short region_idx;
@@ -46,6 +48,7 @@ private:
 
 public:
     partition3();
+    partition3(const partition3 &other);
     sector *get_sector() const { return my_sector; }
 };
 

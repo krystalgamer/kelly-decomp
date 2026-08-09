@@ -15,10 +15,10 @@
 
 ### Attempt 1 notes
 
-The released manager stops its embedded `MusicListing` only when that listing is playing. The recovered member offset matches directly; the empty matching barrier prevents the conditional stop call from becoming a sibling tail call.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from applying the sibling/tail-call or scheduling transformation described above.
+The released manager uses the shared music layout and stops its embedded
+listing only when it is playing. A local stop-function pointer preserves the
+non-tail call.
 
 ## Outcome
 
-The music-manager stop helper matches with its released playing-state guard and delegated stop call.
+The local manager layout and compiler barrier were removed.

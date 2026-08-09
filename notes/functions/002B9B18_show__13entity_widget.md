@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released override calls `widget::show` and then dispatches the virtual `update_rot`. The recovered vptr offset, old-GCC adjustment entry, and virtual slot reproduce both source-level calls exactly.
+The released override calls the shared `widget::show` and then dispatches the
+shared virtual `update_rot`.
 
 ## Outcome
 
-The entity-widget show override matches with its released base show and virtual rotation update.
+The manual entity-widget vtable and object layouts were removed.

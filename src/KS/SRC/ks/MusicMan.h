@@ -53,6 +53,7 @@ public:
     void swap(int a, int b);
     nslSoundId playNext();
     nslSoundId play();
+    bool isPlaying();
     void stop();
     void shutdown();
     int order[50];

@@ -5,7 +5,7 @@
 - Object: `game/files_misc2`
 - Debug source: `C:/KS/SRC/colgeom.cpp`
 - Reference source: `KS/SRC/colgeom.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -25,10 +25,10 @@ Kept the same comparisons but collected the two nonzero outcomes in a local resu
 
 ### Attempt 3 notes
 
-Added a narrowly scoped empty compiler barrier to the nonzero result path. It prevents return-block merging and exactly restores the released separate zero and nonzero return sites without emitting instructions.
-
-`KELLY_DECOMP_COMPILER_BARRIER()` is a matching-only annotation that emits no target instruction. It prevents EE GCC from merging the distinct released return regions described above.
+An empty compiler barrier on the nonzero result path prevents return-block
+merging and reproduces the target, but it is a matching-only control.
 
 ## Outcome
 
-The original cface raw-center comparator matches exactly with the recovered layout and a narrow empty barrier preserving the released distinct return blocks.
+The compiler barrier and local face layout were removed. Native source merges
+the return blocks, so the comparator was deferred.

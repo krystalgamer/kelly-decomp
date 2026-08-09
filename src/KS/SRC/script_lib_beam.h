@@ -60,6 +60,17 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_beam_set_additive_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        beam *me;
+        vm_num_t torf;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 class slf_beam_set_tiles_per_meter_t :
     public script_library_class::function {
 public:

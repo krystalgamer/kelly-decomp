@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-Reconstructed the released partition copy constructor through its hyperplane base initializer and sector pointer copy, including the original vector and hyperplane copy behavior.
+The released partition copy constructor uses the shared hyperplane base
+initializer and sector pointer copy.
 
 ## Outcome
 
-The released partition3 copy constructor matches exactly through the authentic hyperplane base copy and sector pointer initializer.
+The local vector, hyperplane, and partition declarations were removed.

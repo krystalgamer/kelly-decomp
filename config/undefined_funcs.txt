@@ -69,6 +69,7 @@ is_looping__C11beam_effect = 0x2B8490;
 _$_16interface_widget = 0x2B8BF0;
 __builtin_vec_delete = 0x2AC6D0;
 _$_17collision_capsule = 0x2D76D8;
+compare_cface__FPCvT0 = 0x2DBDB0;
 _$_7cg_none = 0x2DC288;
 _$_11game_camera = 0x2FED78;
 _$_12marky_camera = 0x2FEE90;

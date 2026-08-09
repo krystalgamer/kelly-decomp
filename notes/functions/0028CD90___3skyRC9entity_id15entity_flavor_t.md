@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released constructor delegates to the four-argument entity constructor with zero flags and then installs the sky vtable. The recovered base-constructor symbol, vptr offset, and carried vtable alias match directly.
+The released constructor uses the shared `sky`/`entity` hierarchy with zero
+flags. The isolated old-GCC vtable symbol retains its carried alias.
 
 ## Outcome
 
-The sky constructor matches with its released entity-base initialization and sky vtable installation.
+The local entity, sky, and vtable layouts were removed.

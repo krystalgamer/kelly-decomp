@@ -20,6 +20,7 @@ protected:
     rational_t rps;
 
 public:
+    virtual void show();
     virtual void update_pos();
     virtual void update_scale();
     virtual void update_rot();

@@ -306,6 +306,10 @@ public:
         rational_t scale
     );
     entity(
+        const entity_id &id,
+        entity_flavor_t flavor,
+        unsigned int flags);
+    entity(
         chunk_file &file,
         const entity_id &id,
         entity_flavor_t flavor,

@@ -14,26 +14,12 @@ sector *terrain::find_sector(const vector3d &position) const
 
 #if defined(KELLY_DECOMP_FUNCTION_002E81D8)
 // 0x002E81D8 __10partition3RC10partition3
-struct vector3d {
-    float x, y, z;
-    vector3d(const vector3d& b) : x(b.x), y(b.y), z(b.z) {}
-};
-template <class spacial_t>
-class hyperplane {
-protected:
-    float d;
-    spacial_t normal;
-public:
-    hyperplane(const hyperplane& b) : normal(b.normal) { d = b.d; }
-};
-class sector;
-class partition3 : public hyperplane<vector3d> {
-    typedef hyperplane<vector3d> _H;
-    sector* my_sector;
-public:
-    partition3(const partition3& b);
-};
-partition3::partition3(const partition3& b) : _H(b), my_sector(b.my_sector) {}
+#include "KS/SRC/terrain.h"
+
+partition3::partition3(const partition3 &other)
+  : _H(other),
+    my_sector(other.my_sector)
+{}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_002E8DD8)

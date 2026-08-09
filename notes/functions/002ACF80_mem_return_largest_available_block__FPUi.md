@@ -15,8 +15,10 @@
 
 ### Attempt 1 notes
 
-The released helper stores the tested maximum size, allocates that amount through the PS2 `osmem_alloc`/`malloc` symbol, and clears the reported size on failure. The source-level implementation and local binding match directly.
+The released helper stores the tested maximum size, allocates that amount
+through the PS2 `osmem_alloc`/`malloc` symbol, and clears the reported size on
+failure.
 
 ## Outcome
 
-The largest-available-block helper matches with its released size probe, allocation, and failure clear.
+The released helper was already canonical and remains exact.

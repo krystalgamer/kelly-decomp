@@ -59,28 +59,18 @@ void MusicListing::stop()
 
 #if defined(KELLY_DECOMP_FUNCTION_002595F0)
 // 0x002595F0 stop__8MusicMan
-class MusicListing {
-public:
-    bool isPlaying();
-    void stop();
-};
+#include "KS/SRC/ks/MusicMan.h"
 
 __asm__(".equ isPlaying__12MusicListing, 0x00258A00");
 __asm__(".equ stop__12MusicListing, 0x00258A60");
-
-class MusicMan {
-    char padding[0x10];
-    MusicListing musicTrack;
-
-public:
-    void stop();
-};
+extern "C" void stop_music_listing(MusicListing *listing)
+    __asm__("stop__12MusicListing");
 
 void MusicMan::stop()
 {
     if (musicTrack.isPlaying()) {
-        musicTrack.stop();
-        KELLY_DECOMP_COMPILER_BARRIER();
+        void (*stop_listing)(MusicListing *) = stop_music_listing;
+        stop_listing(&musicTrack);
     }
 }
 #endif

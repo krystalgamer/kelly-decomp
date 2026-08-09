@@ -15,8 +15,9 @@
 
 ### Attempt 1 notes
 
-The released SLF pops its eight-byte parameter block, converts the numeric argument to a boolean, and stores the inline beam additive flag. The original SLF_PARMS/SLF_DONE form and recovered offset match exactly.
+The released SLF uses the shared beam and script-function declarations to pop
+its parameter block, convert the numeric argument, and set the additive flag.
 
 ## Outcome
 
-The original beam additive SLF matches exactly while preserving SLF_PARMS and SLF_DONE and the inline boolean setter.
+The local beam, VM stack, and script wrapper declarations were removed.

@@ -11,6 +11,11 @@ protected:
 
 public:
     hyperplane() {}
+    hyperplane(const hyperplane &other)
+      : normal(other.normal)
+    {
+        d = other.d;
+    }
 };
 
 #endif
