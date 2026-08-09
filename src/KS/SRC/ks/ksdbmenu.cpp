@@ -31,12 +31,8 @@ bool ReplayCancelButton(MenuEntry *entry, int button) {
 }
 
 // 0x00235EE0 UserCamButton__FP9MenuEntryi
+#include "KS/SRC/game.h"
 #include "KS/SRC/ks/ksdbmenu.h"
-class game {
-public:
-    void turn_user_cam_on(bool enabled);
-};
-extern game *g_game_ptr;
 __asm__(".equ g_game_ptr, 0x0046AC64");
 __asm__(".equ menus, 0x00424EE8");
 __asm__(".equ turn_user_cam_on__4gameb, 0x002833D0");
