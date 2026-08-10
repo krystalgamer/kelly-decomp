@@ -263,108 +263,24 @@ rational_t widget::get_pc_z(rational_t rhw)
 }
 
 // 0x0033D8D8 do_wevent__12scale_weventf
-struct widget_vtable
-{
-    char padding[0x78];
-    short adjustment;
-    short reserved;
-    void (*scale_to)(void *self, float horizontal, float vertical);
-};
-
-struct widget_layout
-{
-    char padding0[0x118];
-    float scale[2];
-    char padding1[0x20];
-    widget_vtable *vtable;
-};
-
-class scale_wevent
-{
-    int type;
-    widget_layout *owner;
-    char padding[0x10];
-    float sx;
-    float sy;
-
-public:
-    void do_wevent(float lerp);
-};
+#include "KS/SRC/widget.h"
 
 void scale_wevent::do_wevent(float lerp)
 {
-    widget_vtable *table = owner->vtable;
-    table->scale_to(
-        (char *)owner + table->adjustment,
-        owner->scale[0] + (sx - owner->scale[0]) * lerp,
-        owner->scale[1] + (sy - owner->scale[1]) * lerp
+    owner->scale_to(
+        owner->S[0] + (sx - owner->S[0]) * lerp,
+        owner->S[1] + (sy - owner->S[1]) * lerp
     );
 }
 
 // 0x0033FBE0 resize__13bitmap_widgetff
-struct widget_vtable
-{
-    char padding[0x78];
-    short adjustment;
-    short reserved;
-    void (*scale_to)(void *self, float horizontal, float vertical);
-};
-
-class bitmap_widget
-{
-    char padding0[0x14];
-    unsigned int flags;
-    char padding1[0x128];
-    widget_vtable *vtable;
-    float width;
-    float height;
-
-public:
-    bool is_open() const { return flags & 2; }
-    void resize(float new_width, float new_height);
-};
+#include "KS/SRC/widget.h"
 
 void bitmap_widget::resize(float new_width, float new_height)
 {
     if (!is_open())
         return;
-    widget_vtable *table = vtable;
-    table->scale_to(
-        (char *)this + table->adjustment,
-        new_width / width,
-        new_height / height
-    );
-}
-
-// 0x00341730 _$_11vrep_widget
-extern "C" void nglReleaseMeshFile(const void *name)
-    __asm__("nglReleaseMeshFile__FRC14nglFixedString");
-extern "C" void WidgetDtor(void *self, int deleting)
-    __asm__("_$_6widget");
-extern const char vrep_widget_vtable[];
-
-__asm__(".equ nglReleaseMeshFile__FRC14nglFixedString, 0x003A1968");
-__asm__(".equ _$_6widget, 0x0033DC68");
-__asm__(".equ vrep_widget_vtable, 0x00504678");
-
-struct vrep_widget_layout
-{
-    char padding[0x140];
-    const void *vtable;
-    void *mesh;
-};
-
-extern "C" void VrepWidgetDtor(void *self, int deleting)
-    __asm__("_$_11vrep_widget");
-
-void VrepWidgetDtor(void *self, int deleting)
-{
-    vrep_widget_layout *widget = (vrep_widget_layout *)self;
-    widget->vtable = vrep_widget_vtable;
-    if (widget->mesh)
-        nglReleaseMeshFile((char *)widget->mesh + 0x10);
-    WidgetDtor(self, deleting);
-    __asm__ __volatile__("" : : : "memory");
+    scale_to(new_width / width, new_height / height);
 }
 
 // 0x0033F318 select__16menu_item_widgetb

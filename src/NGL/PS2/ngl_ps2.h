@@ -330,6 +330,7 @@ void nglSetQuadRect(
     float x2, float y2);
 void nglSetMeshFlags(u_int flags);
 void nglMemFree(void *memory);
+void nglReleaseMeshFile(const nglFixedString &name);
 void nglSetMeshPath(const char *path);
 void nglSetTexturePath(const char *path);
 void nglAddTextureRef(nglTexture *texture);
@@ -381,6 +382,7 @@ __asm__(".equ Delete__15nglInstanceBankRC14nglFixedString, 0x003AC440");
 #if !defined(KELLY_DECOMP_FUNCTION_00395D50)
 __asm__(".equ nglMemFree__FPv, 0x00395D50");
 #endif
+__asm__(".equ nglReleaseMeshFile__FRC14nglFixedString, 0x003A1968");
 #if !defined(KELLY_DECOMP_FUNCTION_0039B298)
 __asm__(
     ".equ nglDistanceToPlane__FRC9nglVectorT0, "

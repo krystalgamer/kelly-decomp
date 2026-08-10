@@ -4,7 +4,9 @@
 #include "KS/SRC/osfile.h"
 #include "KS/SRC/so_data_block.h"
 #include "KS/SRC/stringx.h"
+#include "KS/SRC/vm_executable.h"
 #include "g++-2/stl_list.h"
+#include "g++-2/stl_vector.h"
 
 class script_callback;
 class vm_executable;
@@ -98,6 +100,13 @@ public:
         void dump_threads(
             host_system_file_handle output) const;
     };
+
+protected:
+    char object_data_before_funcs[0x20];
+    vector<vm_executable *> funcs;
+
+public:
+    int find_func_by_address(const unsigned short *pc) const;
 };
 
 #endif

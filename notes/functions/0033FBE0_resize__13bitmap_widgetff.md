@@ -19,4 +19,5 @@ Read the exact released bitmap_widget::resize body, open flag/bit, widget vptr, 
 
 ## Outcome
 
-Matched released bitmap widget resize
+The manual widget vtable and local bitmap layout were replaced by the shared
+bitmap widget declaration.

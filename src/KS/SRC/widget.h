@@ -14,6 +14,7 @@ typedef float time_value_t;
 class widget;
 class wevent;
 class rotate_wevent;
+class scale_wevent;
 class typeface_def;
 
 typedef list<widget *> widget_list_t;
@@ -157,6 +158,7 @@ public:
 
 protected:
     friend class rotate_wevent;
+    friend class scale_wevent;
     stringx widget_name;
     widget_type_e type;
     widget *parent;
@@ -275,6 +277,7 @@ class bitmap_widget : public widget {
 
 public:
     void resize(rational_t width, rational_t height);
+    inline bool is_open() const { return flags & 2; }
     virtual void scale_to(
         rational_t horizontal,
         rational_t vertical);
@@ -402,8 +405,10 @@ public:
     }
 };
 
+class nglMesh;
+
 class vrep_widget : public widget {
-    void *vrep;
+    nglMesh *mesh;
     rational_t screen_radius;
     vector3d axis;
     rational_t ax;
@@ -454,6 +459,14 @@ public:
 
 class rotate_wevent : public wevent {
     rational_t angle;
+
+public:
+    virtual void do_wevent(rational_t lerp);
+};
+
+class scale_wevent : public wevent {
+    rational_t sx;
+    rational_t sy;
 
 public:
     virtual void do_wevent(rational_t lerp);

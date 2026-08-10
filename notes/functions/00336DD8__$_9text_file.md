@@ -5,7 +5,7 @@
 - Object: `game/files_vsim`
 - Debug source: `C:/KS/SRC/textfile.cpp`
 - Reference source: `KS/SRC/textfile.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -19,4 +19,6 @@ Read the exact released text_file destructor, buffer offset, os_free32 call, os_
 
 ## Outcome
 
-Matched generated text_file destructor
+The handwritten generated destructor was removed. A native isolated
+definition additionally destroys the stash member and exceeds the shipped
+function, so the wrapper is deferred.

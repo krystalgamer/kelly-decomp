@@ -36,39 +36,6 @@ void text_file::close()
     }
 }
 
-// 0x00336DD8 _$_9text_file
-extern "C" void os_free32(void *memory)
-    __asm__("os_free32__FPv");
-extern "C" void OsFileDtor(void *self, int deleting)
-    __asm__("_$_7os_file");
-extern "C" void BuiltinDelete(void *memory)
-    __asm__("__builtin_delete");
-
-__asm__(".equ os_free32__FPv, 0x001DFA38");
-__asm__(".equ _$_7os_file, 0x001DFD10");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-
-struct text_file_layout
-{
-    char os_file_and_fields[0x7c];
-    void *buffer;
-};
-
-extern "C" void TextFileDtor(void *self, int deleting)
-    __asm__("_$_9text_file");
-
-void TextFileDtor(void *self, int deleting)
-{
-    text_file_layout *file = (text_file_layout *)self;
-    os_free32(file->buffer);
-    OsFileDtor(self, 2);
-    if (deleting & 1)
-    {
-        BuiltinDelete(self);
-        __asm__ __volatile__("" : : : "memory");
-    }
-}
-
 // 0x00338138 read_char__9text_file
 #include "KS/SRC/textfile.h"
 __asm__(".equ refill_buf__9text_file,0x00338078");

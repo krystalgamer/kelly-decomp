@@ -18,44 +18,19 @@ const stringx *script_manager::add_string(const stringx &s)
 }
 
 // 0x00350F28 find_func_by_address__C13script_objectPCUs
-struct vm_executable_layout
-{
-    char padding[0x2c];
-    const unsigned short *start;
-    int size;
-};
+#include "KS/SRC/script_object.h"
 
-struct executable_vector
-{
-    vm_executable_layout **begin_value;
-    vm_executable_layout **end_value;
-    vm_executable_layout **capacity;
-};
-
-struct script_object_layout
-{
-    char padding[0x20];
-    executable_vector funcs;
-};
-
-extern "C" int find_script_function(
-    const script_object_layout *self,
-    const unsigned short *pc
-) __asm__("find_func_by_address__C13script_objectPCUs");
-
-int find_script_function(
-    const script_object_layout *self,
-    const unsigned short *pc
-)
+int script_object::find_func_by_address(
+    const unsigned short *pc) const
 {
     int i = 0;
-    vm_executable_layout **current = self->funcs.begin_value;
-    vm_executable_layout **end = self->funcs.end_value;
+    vector<vm_executable *>::const_iterator current = funcs.begin();
+    vector<vm_executable *>::const_iterator end = funcs.end();
     for (; current != end; ++current, ++i)
     {
-        vm_executable_layout *executable = *current;
-        if (pc >= executable->start &&
-            pc < executable->start + executable->size)
+        vm_executable *executable = *current;
+        if (pc >= executable->get_start() &&
+            pc < executable->get_start() + executable->get_size())
             return i;
     }
     return -1;

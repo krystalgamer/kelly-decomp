@@ -20,4 +20,5 @@ Read the exact released scale_wevent body, wevent/owner/sx/sy layout, widget sca
 
 ## Outcome
 
-Matched released scale_wevent interpolation
+The manual widget vtable and local event layouts were replaced by the shared
+widget/event hierarchy.

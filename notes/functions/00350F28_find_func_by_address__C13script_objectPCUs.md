@@ -19,4 +19,5 @@ Read the exact released script_object function-address lookup, funcs vector offs
 
 ## Outcome
 
-Matched released script function address lookup
+The local executable and vector layouts were replaced by the shared
+`script_object` and `vm_executable` declarations.
