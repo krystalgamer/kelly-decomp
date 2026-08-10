@@ -216,42 +216,28 @@ ForwardIterator __uninitialized_fill_n_aux(ForwardIterator first, Size n, const 
 template plane *__uninitialized_fill_n_aux(plane *, unsigned int, const plane &, __false_type);
 
 // 0x0010DB80 __uninitialized_copy_aux__H2ZP7stringxZP7stringx_X01X01X11G12__false_type_X11
-struct stringx { char data[8]; };
-extern "C" void copy_construct(stringx *,const stringx *)
-    __asm__("__7stringxRC7stringx");
+#include "KS/SRC/stringx.h"
+#include "g++-2/stl_uninitialized.h"
+
 __asm__(".equ __7stringxRC7stringx, 0x0034D4D0");
-extern "C" stringx *copy_strings(
-    stringx *first,stringx *last,stringx *result
-) __asm__("__uninitialized_copy_aux__H2ZP7stringxZP7stringx_X01X01X11G12__false_type_X11");
-stringx *copy_strings(
-    stringx *first,stringx *last,stringx *result
-) {
-    while (first!=last) {
-        if (result) copy_construct(result,first);
-        ++first;
-        ++result;
-    }
-    return result;
-}
+
+template stringx *__uninitialized_copy_aux(
+    stringx *,
+    stringx *,
+    stringx *,
+    __false_type);
 
 // 0x0010DC40 __uninitialized_fill_n_aux__H3ZP7stringxZUiZ7stringx_X01X11RCX21G12__false_type_X01
-struct stringx { char data[8]; };
-extern "C" void copy_construct(stringx *,const stringx *)
-    __asm__("__7stringxRC7stringx");
+#include "KS/SRC/stringx.h"
+#include "g++-2/stl_uninitialized.h"
+
 __asm__(".equ __7stringxRC7stringx, 0x0034D4D0");
-extern "C" stringx *fill_strings(
-    stringx *result,unsigned int count,const stringx *value
-) __asm__("__uninitialized_fill_n_aux__H3ZP7stringxZUiZ7stringx_X01X11RCX21G12__false_type_X01");
-stringx *fill_strings(
-    stringx *result,unsigned int count,const stringx *value
-) {
-    while (count) {
-        if (result) copy_construct(result,value);
-        --count;
-        ++result;
-    }
-    return result;
-}
+
+template stringx *__uninitialized_fill_n_aux(
+    stringx *,
+    unsigned int,
+    const stringx &,
+    __false_type);
 
 // 0x0010E300 _M_erase__t8_Rb_tree5ZPCQ220script_library_class8functionZPCQ220script_library_class8functionZt9_Identity1ZPCQ220script_library_class8functionZQ220script_library_class18function_cptr_lessZt12my_allocator1ZPCQ220script_library_class8functionPt13_Rb_tree_node1ZPCQ220script_library_class8function
 struct node{void*next_free;char p0[4];node*left,*right;};struct allocator{char padding[8];node*free_list;};extern "C" void erase_again(void*,node*) __asm__("erase_again_abs");__asm__(".equ erase_again_abs,0x0010E300");extern "C" void erase_tree(void*self,node*x) __asm__("_M_erase__t8_Rb_tree5ZPCQ220script_library_class8functionZPCQ220script_library_class8functionZt9_Identity1ZPCQ220script_library_class8functionZQ220script_library_class18function_cptr_lessZt12my_allocator1ZPCQ220script_library_class8functionPt13_Rb_tree_node1ZPCQ220script_library_class8function");void erase_tree(void*self,node*x){if(x){register char*high __asm__("$2")=(char*)0x003e0000;__asm__ __volatile__("" : "+r"(high));register allocator*alloc __asm__("$17")=(allocator*)(high+22056);do{erase_again(self,x->right);node*left=x->left;x->next_free=alloc->free_list;alloc->free_list=x;x=left;}while(x);}}

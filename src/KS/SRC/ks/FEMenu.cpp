@@ -141,21 +141,8 @@ void FEMenu::Update(float time_inc)
 }
 
 // 0x001566B8 Add__6FEMenuP11FEMenuEntry
-class FEMenu;
-struct FEMenuEntry {
-    int entry_num;
-    FEMenuEntry *next;
-    FEMenuEntry *previous;
-    FEMenu *menu;
-};
-class FEMenu {
-    char padding[8];
-    int num_entries;
-    char padding2[0x34];
-    FEMenuEntry *entries;
-public:
-    void Add(FEMenuEntry *entry);
-};
+#include "KS/SRC/ks/FEMenu.h"
+
 void FEMenu::Add(FEMenuEntry *entry) {
     if (entries) {
         if (entries->previous) {

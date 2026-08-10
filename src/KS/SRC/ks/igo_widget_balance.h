@@ -13,8 +13,10 @@ class HorizBalanceWidget : public IGOWidget {
     PanelQuad *rightKnobPQ;
     PanelQuad *colorLeftPQ;
     PanelQuad *colorRightPQ;
+    char data_before_meter_center[12];
     float meterCenterX;
     bool flashing;
+    int balanceState;
 
 public:
     HorizBalanceWidget();

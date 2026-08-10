@@ -903,15 +903,10 @@ void entity::use_item(item *value) {
 }
 
 // 0x00127628 create_time_ifc__6entity
+#include "KS/SRC/archalloc.h"
 #include "KS/SRC/entity.h"
 
-void *operator new(
-    unsigned int size,
-    unsigned int alignment,
-    const char *description,
-    int line);
 extern const char entity_file[];
-__asm__(".equ __nw__FUiUiPCci, 0x002AC578");
 __asm__(".equ entity_file, 0x004CB640");
 
 time_interface *entity::create_time_ifc()
@@ -934,28 +929,6 @@ bool entity::attach_anim(entity_anim *animation) {
         return true;
     }
     return false;
-}
-
-// 0x00138E00 set_visible__6entityb
-#include "KS/SRC/entity.h"
-
-extern "C" void update_render(void *)
-    __asm__("region_update_poss_render__6entity");
-__asm__(".equ region_update_poss_render__6entity, 0x00138FA0");
-void entity::set_visible(bool visible) {
-    if ((((int)flags>>9)&1)!=visible) {
-        if (visible) {
-            if (!(ext_flags&0x40000))
-                flags|=0x200;
-        } else {
-            register int mask __asm__("$2")=0xffff0000;
-            __asm__ __volatile__("" : "+r"(mask));
-            mask|=0xfdff;
-            flags&=mask;
-        }
-        update_render(this);
-        __asm__ __volatile__("" : : : "memory");
-    }
 }
 
 // 0x00139B70 set_max_lights__6entityUi

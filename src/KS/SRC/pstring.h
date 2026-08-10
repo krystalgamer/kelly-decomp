@@ -49,6 +49,14 @@ public:
     inline const char *c_str() const {
         return unpack_string();
     }
+
+    inline bool operator==(const pstring &other) const {
+        for (unsigned int i = 0; i < 4; ++i) {
+            if (pchunk[i] != other.pchunk[i])
+                return false;
+        }
+        return true;
+    }
 };
 
 #endif

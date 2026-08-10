@@ -44,30 +44,13 @@ const pstring character_soft_attrib_interface::get_soft_attrib_str(
 }
 
 // 0x00146238 get_soft_attrib_num__C21soft_attrib_interfaceR7pstring
+#include "KS/SRC/pstring.h"
 #include "KS/SRC/soft_attrib_interface.h"
 
-struct pstring { unsigned long long data[4]; };
 extern const pstring soft_attribute_name;
 __asm__(".equ soft_attribute_name, 0x003E59F0");
 float soft_attrib_interface::get_soft_attrib_num(pstring &name) const {
-    unsigned int count=0;
-    const unsigned long long *left=name.data;
-    const unsigned long long *right=soft_attribute_name.data;
-    register int equal __asm__("$2");
-    do {
-        if (*left!=*right) {
-            equal=0;
-            goto compared;
-        }
-        ++count;
-        ++right;
-        ++left;
-    } while (count<4);
-    equal=1;
-compared:
-    __asm__ __volatile__("" : "+r"(equal));
-    if (equal) goto matched;
-    return 0.0f;
-matched:
+    if (!(name==soft_attribute_name))
+        return 0.0f;
     return (float)value;
 }

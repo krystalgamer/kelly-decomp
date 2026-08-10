@@ -1,50 +1,6 @@
 // Matching decompilation blocks selected by generated build shims.
 
 
-// 0x0011FF88 _M_erase__t8_Rb_tree5ZPQ2t13instance_bank1Z17entity_track_tree5ref_tZPQ2t13instance_bank1Z17entity_track_tree5ref_tZt9_Identity1ZPQ2t13instance_bank1Z17entity_track_tree5ref_tZQ2t13instance_bank1Z17entity_track_tree13less_by_labelZt23__malloc_alloc_template1i0Pt13_Rb_tree_node1ZPQ2t13instance_bank1Z17entity_track_tree5ref_t
-struct tree_node {
-    char padding[8];
-    tree_node *left;
-    tree_node *right;
-};
-void arch_free(void *);
-__asm__(".equ arch_free__FPv, 0x002AC768");
-extern "C" void erase_tree_label(
-    void *tree,tree_node *node
-) __asm__("_M_erase__t8_Rb_tree5ZPQ2t13instance_bank1Z17entity_track_tree5ref_tZPQ2t13instance_bank1Z17entity_track_tree5ref_tZt9_Identity1ZPQ2t13instance_bank1Z17entity_track_tree5ref_tZQ2t13instance_bank1Z17entity_track_tree13less_by_labelZt23__malloc_alloc_template1i0Pt13_Rb_tree_node1ZPQ2t13instance_bank1Z17entity_track_tree5ref_t");
-extern "C" void recurse_label(void *,tree_node *);
-__asm__(".equ recurse_label, 0x0011FF88");
-void erase_tree_label(void *tree,tree_node *node) {
-    for (;node;) {
-        recurse_label(tree,node->right);
-        tree_node *left=node->left;
-        arch_free(node);
-        node=left;
-    }
-}
-
-// 0x0011FFE8 _M_erase__t8_Rb_tree5ZPQ2t13instance_bank1Z17entity_track_tree5ref_tZPQ2t13instance_bank1Z17entity_track_tree5ref_tZt9_Identity1ZPQ2t13instance_bank1Z17entity_track_tree5ref_tZQ2t13instance_bank1Z17entity_track_tree11less_by_ptrZt23__malloc_alloc_template1i0Pt13_Rb_tree_node1ZPQ2t13instance_bank1Z17entity_track_tree5ref_t
-struct tree_node {
-    char padding[8];
-    tree_node *left;
-    tree_node *right;
-};
-void arch_free(void *);
-__asm__(".equ arch_free__FPv, 0x002AC768");
-extern "C" void erase_tree_ptr(
-    void *tree,tree_node *node
-) __asm__("_M_erase__t8_Rb_tree5ZPQ2t13instance_bank1Z17entity_track_tree5ref_tZPQ2t13instance_bank1Z17entity_track_tree5ref_tZt9_Identity1ZPQ2t13instance_bank1Z17entity_track_tree5ref_tZQ2t13instance_bank1Z17entity_track_tree11less_by_ptrZt23__malloc_alloc_template1i0Pt13_Rb_tree_node1ZPQ2t13instance_bank1Z17entity_track_tree5ref_t");
-extern "C" void recurse_ptr(void *,tree_node *);
-__asm__(".equ recurse_ptr, 0x0011FFE8");
-void erase_tree_ptr(void *tree,tree_node *node) {
-    for (;node;) {
-        recurse_ptr(tree,node->right);
-        tree_node *left=node->left;
-        arch_free(node);
-        node=left;
-    }
-}
-
 // 0x0011E1E8 _M_erase__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZ8ett_nodeZt10_Select1st1Zt4pair2ZC7stringxZ8ett_nodeZt4less1Z7stringxZt12my_allocator1Z8ett_nodePt13_Rb_tree_node1Zt4pair2ZC7stringxZ8ett_node
 struct stringx{char data[8];~stringx();};struct Node{Node*free_next;Node*parent;Node*left;Node*right;stringx key;char value[4];};struct AllocatorState{char pad[20];Node*head;};extern AllocatorState allocator_state;__asm__(".equ allocator_state,0x003E5628");__asm__(".equ _$_7stringx,0x0034D6E0");struct Tree;extern "C" void recurse(Tree*,Node*)__asm__("recurse_alias");__asm__(".equ recurse_alias,0x0011E1E8");struct Tree{void erase(Node*x)__asm__("_M_erase__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZ8ett_nodeZt10_Select1st1Zt4pair2ZC7stringxZ8ett_nodeZt4less1Z7stringxZt12my_allocator1Z8ett_nodePt13_Rb_tree_node1Zt4pair2ZC7stringxZ8ett_node");};void Tree::erase(Node*x){if(!x)return;AllocatorState*alloc=&allocator_state;while(x){recurse(this,x->right);Node*y=x->left;x->key.~stringx();x->free_next=alloc->head;alloc->head=x;x=y;}}
 

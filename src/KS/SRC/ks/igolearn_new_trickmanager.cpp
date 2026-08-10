@@ -44,12 +44,11 @@ void IGOLearnNewTrickManager::PopFront(bool complete) {
 }
 
 // 0x0015B518 OnEvent__23IGOLearnNewTrickManager5EVENTii
-struct game_layout { char padding[0xbc]; int active_player; };
-extern game_layout *g_game_ptr;
-__asm__(".equ g_game_ptr, 0x0046AC64");
+#include "KS/SRC/game.h"
+
 __asm__(".equ PopFront__23IGOLearnNewTrickManagerb, 0x0015B418");
 void IGOLearnNewTrickManager::OnEvent(EVENT event,int player,int) {
-    if (got_one_currently && player==g_game_ptr->active_player) {
+    if (got_one_currently && player==g_game_ptr->get_active_player()) {
         if (event==EVT_SURFER_LAND) {
             PopFront(true);
             got_one_currently=false;
