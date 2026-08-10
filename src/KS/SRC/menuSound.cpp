@@ -76,38 +76,6 @@ void **MenuSoundRtti()
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_003029B8)
-// 0x003029B8 _$_13MenuSoundDraw
-extern "C" void close_menu(void *,bool) __asm__("Close__4Menub");
-extern "C" void resize_menu(void *,int) __asm__("Resize__4Menui");
-extern "C" void object_delete(void *) __asm__("__builtin_delete");
-extern const char menu_vtable[];
-__asm__(".equ Close__4Menub,0x0023E470"); __asm__(".equ Resize__4Menui,0x0023E2B0");
-__asm__(".equ __builtin_delete,0x002AC6B0"); __asm__(".equ menu_vtable,0x004D5D48");
-struct M{char p[0x1c];const void*v;};
-extern "C" void d(M*s,int f) __asm__("_$_13MenuSoundDraw");
-void d(M*s,int f) {
-    s->v=menu_vtable; close_menu(s,true); resize_menu(s,0);
-    if(f&1) { object_delete(s); __asm__ __volatile__("" : : : "memory"); }
-}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_00302A70)
-// 0x00302A70 _$_9MenuSound
-extern "C" void close_menu(void *,bool) __asm__("Close__4Menub");
-extern "C" void resize_menu(void *,int) __asm__("Resize__4Menui");
-extern "C" void object_delete(void *) __asm__("__builtin_delete");
-extern const char menu_vtable[];
-__asm__(".equ Close__4Menub,0x0023E470"); __asm__(".equ Resize__4Menui,0x0023E2B0");
-__asm__(".equ __builtin_delete,0x002AC6B0"); __asm__(".equ menu_vtable,0x004D5D48");
-struct M{char p[0x1c];const void*v;};
-extern "C" void d(M*s,int f) __asm__("_$_9MenuSound");
-void d(M*s,int f) {
-    s->v=menu_vtable; close_menu(s,true); resize_menu(s,0);
-    if(f&1) { object_delete(s); __asm__ __volatile__("" : : : "memory"); }
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_002EEF38)
 // 0x002EEF38 Play__FP9MenuEntryi
 typedef unsigned int nslSourceId;typedef unsigned int nslSoundId;extern "C" int get_status(nslSoundId)__asm__("nslGetSoundStatus__FUi");extern "C" void stop_sound(nslSoundId)__asm__("nslStopSound__FUi");extern "C" nslSoundId add_sound(nslSourceId)__asm__("nslAddSound__FUi");extern "C" void play_sound(nslSoundId)__asm__("nslPlaySound__FUi");__asm__(".equ nslGetSoundStatus__FUi,0x0038DBA0");__asm__(".equ nslStopSound__FUi,0x0038D288");__asm__(".equ nslAddSound__FUi,0x0038CAF8");__asm__(".equ nslPlaySound__FUi,0x0038CB20");struct MenuEntry{char pad[60];nslSourceId src;nslSoundId snd;};extern "C" bool Play(MenuEntry*entry,int button)__asm__("Play__FP9MenuEntryi");bool Play(MenuEntry*entry,int){int src=entry->src;if(get_status(entry->snd)!=0)stop_sound(entry->snd);else{if(src!=0)entry->snd=add_sound(src);if(entry->snd!=0)play_sound(entry->snd);}return true;}

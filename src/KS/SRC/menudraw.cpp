@@ -178,50 +178,6 @@ void **MenuDrawRtti()
     return menu_draw_type;
 }
 
-// 0x00313E78 _$_14MenuEntityDraw
-extern "C" void close_menu(void *,bool) __asm__("Close__4Menub");
-extern "C" void resize_menu(void *,int) __asm__("Resize__4Menui");
-extern "C" void object_delete(void *) __asm__("__builtin_delete");
-extern const char menu_vtable[];
-__asm__(".equ Close__4Menub,0x0023E470"); __asm__(".equ Resize__4Menui,0x0023E2B0");
-__asm__(".equ __builtin_delete,0x002AC6B0"); __asm__(".equ menu_vtable,0x004D5D48");
-struct M{char p[0x1c];const void*v;};
-extern "C" void d(M*s,int f) __asm__("_$_14MenuEntityDraw");
-void d(M*s,int f){s->v=menu_vtable;close_menu(s,true);resize_menu(s,0);if(f&1){object_delete(s);__asm__ __volatile__("" : : : "memory");}}
-
-// 0x00313F30 _$_16MenuParticleDraw
-extern "C" void close_menu(void *,bool) __asm__("Close__4Menub");
-extern "C" void resize_menu(void *,int) __asm__("Resize__4Menui");
-extern "C" void object_delete(void *) __asm__("__builtin_delete");
-extern const char menu_vtable[];
-__asm__(".equ Close__4Menub,0x0023E470"); __asm__(".equ Resize__4Menui,0x0023E2B0");
-__asm__(".equ __builtin_delete,0x002AC6B0"); __asm__(".equ menu_vtable,0x004D5D48");
-struct M{char p[0x1c];const void*v;};
-extern "C" void d(M*s,int f) __asm__("_$_16MenuParticleDraw");
-void d(M*s,int f){s->v=menu_vtable;close_menu(s,true);resize_menu(s,0);if(f&1){object_delete(s);__asm__ __volatile__("" : : : "memory");}}
-
-// 0x00313FE8 _$_13MenuWaterDraw
-extern "C" void close_menu(void *,bool) __asm__("Close__4Menub");
-extern "C" void resize_menu(void *,int) __asm__("Resize__4Menui");
-extern "C" void object_delete(void *) __asm__("__builtin_delete");
-extern const char menu_vtable[];
-__asm__(".equ Close__4Menub,0x0023E470"); __asm__(".equ Resize__4Menui,0x0023E2B0");
-__asm__(".equ __builtin_delete,0x002AC6B0"); __asm__(".equ menu_vtable,0x004D5D48");
-struct M{char p[0x1c];const void*v;};
-extern "C" void d(M*s,int f) __asm__("_$_13MenuWaterDraw");
-void d(M*s,int f){s->v=menu_vtable;close_menu(s,true);resize_menu(s,0);if(f&1){object_delete(s);__asm__ __volatile__("" : : : "memory");}}
-
-// 0x003140A0 _$_8MenuDraw
-extern "C" void close_menu(void *,bool) __asm__("Close__4Menub");
-extern "C" void resize_menu(void *,int) __asm__("Resize__4Menui");
-extern "C" void object_delete(void *) __asm__("__builtin_delete");
-extern const char menu_vtable[];
-__asm__(".equ Close__4Menub,0x0023E470"); __asm__(".equ Resize__4Menui,0x0023E2B0");
-__asm__(".equ __builtin_delete,0x002AC6B0"); __asm__(".equ menu_vtable,0x004D5D48");
-struct M{char p[0x1c];const void*v;};
-extern "C" void d(M*s,int f) __asm__("_$_8MenuDraw");
-void d(M*s,int f){s->v=menu_vtable;close_menu(s,true);resize_menu(s,0);if(f&1){object_delete(s);__asm__ __volatile__("" : : : "memory");}}
-
 // 0x0030EEE8 OnTick__13MenuWaterDrawf
 #include "KS/SRC/menudraw.h"
 typedef void(*setter)(bool);extern setter water_set[];extern int water_flags[];__asm__(".equ water_set,0x0046B230");__asm__(".equ water_flags,0x0058A410");void MenuWaterDraw::OnTick(float){for(unsigned i=0;i<4;i++)water_set[i](water_flags[i]);}

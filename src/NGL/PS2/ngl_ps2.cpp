@@ -498,13 +498,8 @@ void nglReleaseTexture(nglTexture *texture) {
 
 #if defined(KELLY_DECOMP_FUNCTION_0039BDB8)
 // 0x0039BDB8 nglVif1AddTextureStreamEnd__FRPUi
-typedef unsigned int u_int;
-enum { NGLINT_FINISH, NGLINT_LOADTEXTURE };
-struct nglVif1IntEntry { u_int Type; u_int *GifDMA; u_int DataSize; u_int NTextures; };
-extern u_int *nglLastIntAddr;
-extern int nglNVif1IntEntries;
-extern nglVif1IntEntry *nglVif1IntArray;
-void nglVif1IntCloseTextureBlock();
+#include "NGL/PS2/ngl_ps2.h"
+
 __asm__(".equ nglLastIntAddr,0x004BC064");
 __asm__(".equ nglNVif1IntEntries,0x004BB780");
 __asm__(".equ nglVif1IntArray,0x004BB784");

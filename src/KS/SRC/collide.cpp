@@ -23,16 +23,12 @@ bool collide_segment_region(
 
 #if defined(KELLY_DECOMP_FUNCTION_002E14C8)
 // 0x002E14C8 det3__FG8vector3dN20
-struct vector3d { float x,y,z; };
-extern "C" float determinant3(
-    const vector3d *first,const vector3d *second,const vector3d *third
-) __asm__("det3__FG8vector3dN20");
-float determinant3(
-    const vector3d *first,const vector3d *second,const vector3d *third
-) {
-    return first->x*(second->y*third->z-second->z*third->y)
-         + first->y*(second->z*third->x-second->x*third->z)
-         + first->z*(second->x*third->y-second->y*third->x);
+#include "KS/SRC/algebra.h"
+
+float det3(vector3d first,vector3d second,vector3d third) {
+    return first.x*(second.y*third.z-second.z*third.y)
+         + first.y*(second.z*third.x-second.x*third.z)
+         + first.z*(second.x*third.y-second.y*third.x);
 }
 #endif
 

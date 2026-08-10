@@ -66,6 +66,8 @@ struct nglScene {
 
 struct nglFixedString {
     char data[32];
+
+    inline const char *c_str() const { return data; }
 };
 
 class nglVector {
@@ -325,6 +327,22 @@ extern float nglIFLSpeed;
 extern u_int nglScratchStripVertIdx;
 extern unsigned char *nglListWorkPos;
 extern unsigned long long *nglDmaTagPtr;
+extern u_int *nglLastIntAddr;
+extern int nglNVif1IntEntries;
+
+enum nglVif1IntType {
+    NGLINT_FINISH,
+    NGLINT_LOADTEXTURE
+};
+
+struct nglVif1IntEntry {
+    u_int Type;
+    u_int *GifDMA;
+    u_int DataSize;
+    u_int NTextures;
+};
+
+extern nglVif1IntEntry *nglVif1IntArray;
 
 void nglFatal(const char *format, ...);
 void nglExit();
@@ -375,6 +393,7 @@ void nglVif1SetupScene(
     nglScene *scene,
     bool clear_enabled);
 void nglVif1FlushSPAD(u_int *&packet, bool force);
+void nglVif1IntCloseTextureBlock();
 float nglDistanceToPlane(
     const nglVector &plane,
     const nglVector &point);

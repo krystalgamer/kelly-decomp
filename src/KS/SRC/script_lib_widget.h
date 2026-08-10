@@ -138,6 +138,17 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_widget_set_layer_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        widget *me;
+        vm_num_t layer;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 class slf_text_block_widget_set_scale_t :
     public script_library_class::function {
 public:

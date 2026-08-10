@@ -69,19 +69,6 @@ bool Heap::DoYouContain(void *pointer) const {
     return check>=low && check<high;
 }
 
-// 0x002AB4D0 FreeHeapMemory__4Heap
-#include "KS/SRC/heap.h"
-void Heap::FreeHeapMemory() {
-    largestfree=0; heapstart=0; heapsize=0;
-    fullhead=0; fulltail=0; loblock=0; hiblock=0;
-    usedhead=0; freehead=0; usedtail=0; freetail=0;
-    allocatedblocks=0; locked=0; statsuptodate=0; numblocks=0;
-    numfree=0; numused=0; memblocks=0; memfree=0;
-    memused=0; ovrblocks=0; ovrfree=0;
-    __asm__ __volatile__("" : : : "memory");
-    ovrused=0;
-}
-
 // 0x002AB280 CanHold__12MemBlockInfoUiUiUiUi
 #include "KS/SRC/heap.h"
 bool MemBlockInfo::CanHold(

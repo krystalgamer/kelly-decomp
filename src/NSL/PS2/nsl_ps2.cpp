@@ -120,18 +120,10 @@ void nslSetMasterVolume(float volume) {
 }
 
 // 0x003906A0 nslGetMasterVolume__Fv
-struct nsl_master_volume_layout {
-    char padding0[0x15850];
-    int initialized;
-    char padding1[0x54];
-    float masterVolume;
-};
-extern nsl_master_volume_layout nsl;
+#include "NSL/PS2/nsl_ps2.h"
+
 extern const char initialized_error[];
-void nslFatal(const char *, ...);
-__asm__(".equ nsl,0x0049B5F0");
 __asm__(".equ initialized_error,0x0051C480");
-__asm__(".equ nslFatal__FPCce,0x00391420");
 float nslGetMasterVolume()
 {
     if (!nsl.initialized)

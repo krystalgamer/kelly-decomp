@@ -51,49 +51,6 @@ not_underwater:
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00380120)
-// 0x00380120 WAVETEX_GetTextureAnim__Fi
-struct nglTexture;
-extern nglTexture *WaveTexAnimLight;
-extern nglTexture *WaveTexAnimDark;
-extern nglTexture *WaveTexAnimHighlight;
-extern nglTexture *WaveTexAnimSpotlight;
-extern nglTexture *WaveTexAnimFoam;
-__asm__(".equ WaveTexAnimLight,0x00484E98");
-__asm__(".equ WaveTexAnimDark,0x00484E9C");
-__asm__(".equ WaveTexAnimHighlight,0x00484EA0");
-__asm__(".equ WaveTexAnimSpotlight,0x00484EA4");
-__asm__(".equ WaveTexAnimFoam,0x00484EA8");
-enum { WAVETEX_TEXLITE=0, WAVETEX_TEXDARK, WAVETEX_TEXHIGH, WAVETEX_TEXSPOT, WAVETEX_TEXENVM, WAVETEX_TEXFOAM };
-extern void *texture_switch_table[];
-__asm__(".equ texture_switch_table,0x0051A4B0");
-nglTexture *WAVETEX_GetTextureAnim(int textype)
-{
-    static void *keep_labels[] __attribute__((used)) = {
-        &&use_light, &&use_dark, &&use_highlight,
-        &&use_spotlight, &&use_light, &&use_foam
-    };
-    if ((unsigned int)textype >= 6)
-        goto use_light;
-    goto *texture_switch_table[textype];
-use_dark:
-    __asm__ __volatile__(".globl .L00380144\n.L00380144:");
-    return WaveTexAnimDark;
-use_highlight:
-    __asm__ __volatile__(".globl .L00380150\n.L00380150:");
-    return WaveTexAnimHighlight;
-use_spotlight:
-    __asm__ __volatile__(".globl .L0038015C\n.L0038015C:");
-    return WaveTexAnimSpotlight;
-use_foam:
-    __asm__ __volatile__(".globl .L00380168\n.L00380168:");
-    return WaveTexAnimFoam;
-use_light:
-    __asm__ __volatile__(".globl .L00380174\n.L00380174:");
-    return WaveTexAnimLight;
-}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_00380BD0)
 // 0x00380BD0 WAVETEX_Update__Fi
 extern "C" void prepare() __asm__("WAVETEX_PrepareMaterials__Fv");__asm__(".equ WAVETEX_PrepareMaterials__Fv,0x00380B28");struct game_layout{char padding[180];int mode;int players;};extern game_layout*g_game_ptr;extern int WAVETEX_BufferIndex;__asm__(".equ g_game_ptr,0x0046AC64");__asm__(".equ WAVETEX_BufferIndex,0x00484E1C");extern "C" void update_wave(int player) __asm__("WAVETEX_Update__Fi");void update_wave(int player){prepare();bool primary=false;if(g_game_ptr->players>=2)primary=(g_game_ptr->mode==0);if(!primary||player==0)WAVETEX_BufferIndex=(WAVETEX_BufferIndex+1)&1;}
