@@ -153,6 +153,10 @@ public:
     void Update(time_value_t time_inc);
     void LoadAll();
     void LoadSurferAnims(int surfer);
+    void LoadAuxStash();
+    void LoadBoard(int surfer, int board);
+    void LoadTricks();
+    void ToTrickBook();
     void JumpTo(int position);
     void ExitState();
     bool CamIsMoving() const { return !cam_stopped; }

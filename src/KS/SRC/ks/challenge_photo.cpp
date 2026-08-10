@@ -130,25 +130,6 @@ void PhotoChallenge::Cameraman::BeginTakingPicture(
     state=CSTATE_TAKING;
 }
 
-// 0x00262788 CheckProperties__Q214PhotoChallenge5PhotoP22kellyslater_controller
-#include "KS/SRC/ks/challenge_photo.h"
-struct trick_data { char padding[0xc]; int flags; char tail[0x48]; };
-extern trick_data GTrickList[];
-__asm__(".equ GTrickList, 0x00427CA8");
-__asm__(".equ GetCurrentTrick__22kellyslater_controller, 0x0021E478");
-extern "C" int get_current_trick(kellyslater_controller *subject)
-    __asm__("GetCurrentTrick__22kellyslater_controller");
-void PhotoChallenge::Photo::CheckProperties(
-    kellyslater_controller *subject
-) {
-    isOfSpecialTrick=false;
-    if (subject) {
-        int trick=get_current_trick(subject);
-        if (trick>=0 && (GTrickList[trick].flags&0x80))
-            isOfSpecialTrick=true;
-    }
-}
-
 // 0x00261C78 __14PhotoChallenge
 extern "C" void challenge_ctor(void*) __asm__("__9Challenge"); __asm__(".equ __9Challenge,0x00260860"); extern const char photo_vtable[]; __asm__(".equ photo_vtable,0x004D5EA0");
 struct photo_challenge_ctor_layout {

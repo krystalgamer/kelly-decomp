@@ -147,32 +147,6 @@ void PhotoSaveMenu::Select(int entry) {
     }
 }
 
-// 0x001CDF30 Update__13PhotoFrontEndf
-struct active_vtable {
-    char padding[0x60]; short adjustment; short reserved;
-    void (*update)(void *,float);
-};
-struct active_menu { char padding[0x74]; active_vtable *vtable; };
-extern "C" void update_frontend(void *,float)
-    __asm__("Update__8FrontEndf");
-extern "C" void update_menu(void *,float)
-    __asm__("Update__6FEMenuf");
-__asm__(".equ Update__8FrontEndf, 0x00157B30");
-__asm__(".equ Update__6FEMenuf, 0x00156DC8");
-class PhotoFrontEnd {
-    char padding[0x60]; active_menu *active;
-public:
-    void Update(float time);
-};
-void PhotoFrontEnd::Update(float time) {
-    update_frontend((char *)this+0x80,time);
-    update_menu(this,time);
-    if (active) {
-        active_vtable *table=active->vtable;
-        table->update((char *)active+table->adjustment,time);
-    }
-}
-
 // 0x001D03A0 Draw__16PhotoDevelopMenu
 extern "C" void draw_photo(void *) __asm__("Draw__11PhotoWidget");
 __asm__(".equ Draw__11PhotoWidget,0x0016ACD0");
