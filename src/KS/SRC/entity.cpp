@@ -931,65 +931,6 @@ bool entity::attach_anim(entity_anim *animation) {
     return false;
 }
 
-// 0x00139B70 set_max_lights__6entityUi
-#include "KS/SRC/entity.h"
-#include "KS/SRC/lightmgr.h"
-
-struct entity_vtable { char padding[0x4c0]; short adjustment; short reserved; light_manager *(*get_light_set)(void *); };
-struct entity_layout {
-    char padding[8];
-    entity_vtable *vtable;
-};
-void entity::set_max_lights(unsigned int value)
-{
-    volatile unsigned int values[2];
-    values[0] = value;
-    values[1] = 3;
-    const volatile unsigned int *selected = &values[1];
-    if (!(3U < value))
-        selected = &values[0];
-    max_lights = *selected;
-    entity_vtable *table =
-        ((entity_layout *)this)->vtable;
-    light_manager *manager = table->get_light_set(
-        (char *)this + table->adjustment);
-    if (manager)
-        manager->max_lights = max_lights;
-}
-
-// 0x00139BD8 set_mesh_distance__6entityR9nglVectorff
-#include "KS/SRC/entity.h"
-
-typedef unsigned int vec128_t __attribute__((mode(TI), aligned(16)));
-struct nglVector { vec128_t value; };
-struct nglMesh { char padding[48]; nglVector SphereCenter; float SphereRadius; };
-void entity::set_mesh_distance(nglVector &center, float radius, float forcedist)
-{
-    register nglMesh *mesh __asm__("$2") = my_mesh;
-    if (!mesh)
-        return;
-    mesh->SphereCenter = center;
-    {
-        register nglMesh *mesh __asm__("$2") = lores_mesh;
-        if (mesh) {
-            register vec128_t value __asm__("$3") = center.value;
-            mesh->SphereCenter.value = value;
-        }
-    }
-    {
-        register nglMesh *mesh __asm__("$2") = shadow_mesh;
-        if (mesh) {
-            register vec128_t value __asm__("$3") = center.value;
-            mesh->SphereCenter.value = value;
-        }
-    }
-    my_mesh->SphereRadius = radius;
-    if (lores_mesh)
-        lores_mesh->SphereRadius = radius;
-    if (shadow_mesh)
-        shadow_mesh->SphereRadius = radius;
-}
-
 // 0x00130F70 ifl_lock__6entityi
 #include "KS/SRC/entity.h"
 

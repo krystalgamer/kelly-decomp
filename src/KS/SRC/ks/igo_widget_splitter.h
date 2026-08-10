@@ -12,6 +12,7 @@ class SplitterWidget : public IGOWidget {
 public:
     SplitterWidget();
     virtual ~SplitterWidget();
+    void Init(PanelFile &panel);
 };
 
 #endif

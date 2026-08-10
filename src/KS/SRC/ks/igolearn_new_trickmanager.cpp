@@ -57,23 +57,3 @@ void IGOLearnNewTrickManager::OnEvent(EVENT event,int player,int) {
         }
     }
 }
-
-// 0x0015B478 TrickChain__23IGOLearnNewTrickManageri
-struct IconResource { char padding[4]; int trickIdx; };
-struct Icon { char padding[100]; IconResource *resource; };
-struct TrickData { char padding[24]; int trick_type; char padding2[60]; };
-extern TrickData GTrickList[];
-__asm__(".equ GTrickList,0x00427CA8");
-__asm__(".equ PopFront__23IGOLearnNewTrickManagerb,0x0015B418");
-void IGOLearnNewTrickManager::TrickChain(int trickIdx)
-{
-    if (current_icon->resource && trickIdx == current_icon->resource->trickIdx) {
-        if (GTrickList[trickIdx].trick_type == 0) {
-            got_one_currently = true;
-            return;
-        } else {
-            PopFront(true);
-            __asm__ __volatile__("" : : : "memory");
-        }
-    }
-}

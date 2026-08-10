@@ -48,7 +48,9 @@ private:
     char data_before_players[
         0x124 - sizeof(FrontEnd)];
     PLAYER *players;
-    char data_before_color_standard[0x570 - 0x128];
+    char data_before_replay_text[0x558 - 0x128];
+    TextString *replayText;
+    char data_before_color_standard[0x570 - 0x55C];
     color32 COLOR_STANDARD;
     char data_before_menu_background[0x584 - 0x574];
     SimpleWidget *menuBGWidget;
@@ -63,6 +65,7 @@ private:
 
 public:
     void OnScoreChange(int player_index);
+    void SetReplayText(const stringx &text);
     void OnSurferStandUp();
     void ShowCameraReticle(float time);
     void HideCameraReticle();
@@ -91,5 +94,7 @@ public:
         int horizontal_flags,
         int vertical_flags);
 };
+
+extern IGOFrontEnd *frontend_igo;
 
 #endif

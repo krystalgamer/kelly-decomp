@@ -86,52 +86,6 @@ void IGOTutorialManager::SetTutorialSection(int tutorial_level) {
     }
 }
 
-// 0x00159668 Reset__18IGOTutorialManager
-struct game { char padding[548]; int level_id; };
-extern game *g_game_ptr;
-__asm__(".equ g_game_ptr,0x0046AC64");
-struct tutorial_layout {
-    char padding[32];
-    volatile int finished;
-    volatile int first_step;
-    volatile int needs_tube;
-    volatile int air_trick;
-    int padding0;
-    volatile int face_trick;
-    volatile int perfect;
-    volatile int current_vo;
-    volatile int current_trick;
-    volatile int current_gap;
-    volatile int current_step;
-    volatile float current_step_time;
-    volatile int show_advancement;
-    volatile int show_hint;
-};
-extern "C" void set_section(tutorial_layout *, int) __asm__("SetTutorialSection__18IGOTutorialManageri");
-__asm__(".equ SetTutorialSection__18IGOTutorialManageri,0x001596D0");
-extern "C" void reset_tutorial(tutorial_layout *self) __asm__("Reset__18IGOTutorialManager");
-void reset_tutorial(tutorial_layout *self)
-{
-    register tutorial_layout *object __asm__("$2") = self;
-    object->first_step = 1;
-    register game *current_game __asm__("$3") = g_game_ptr;
-    register int negative_one __asm__("$6") = -1;
-    object->current_gap = negative_one;
-    object->finished = 0;
-    object->current_step = 0;
-    object->current_trick = negative_one;
-    object->needs_tube = 0;
-    object->air_trick = 0;
-    object->face_trick = 0;
-    object->perfect = 0;
-    object->current_step_time = 0.0f;
-    object->show_advancement = 0;
-    object->show_hint = 0;
-    object->current_vo = 0;
-    set_section(object, current_game->level_id);
-    __asm__ __volatile__("" : : : "memory");
-}
-
 // 0x0015A2F8 OnEvent__18IGOTutorialManager5EVENTii
 struct tutorial_step { char padding[84]; int kind; char padding2[12]; };
 extern int perfect_landing_flag; extern tutorial_step tutorial_steps[];

@@ -47,9 +47,7 @@ extern void*bone_vtable;__asm__(".equ bone_vtable,0x004CE650");extern "C" void d
 #include "KS/SRC/archalloc.h"
 #include "KS/SRC/bone.h"
 
-void *operator new(unsigned int, unsigned int, const char *, int);
 extern const char create_link_signature[];
-__asm__(".equ __nw__FUiUiPCci,0x002AC578");
 __asm__(".equ create_link_signature,0x004CB1C8");
 __asm__(".equ _vt$14link_interface,0x004CE6A0");
 link_interface *bone::create_link_ifc()

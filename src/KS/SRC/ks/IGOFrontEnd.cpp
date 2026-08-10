@@ -182,27 +182,14 @@ void IGOFrontEnd::TurnOnTubeIndicator(int player,bool on) {
 }
 
 // 0x0017BCA0 SetReplayText__11IGOFrontEndRC7stringx
-struct stringx { char *data; void *buffer; };
-extern "C" void copy_string(stringx *, const stringx *) __asm__("__7stringxRC7stringx");
+#include "KS/SRC/ks/IGOFrontEnd.h"
+
 __asm__(".equ __7stringxRC7stringx,0x0034D4D0");
-struct text_vtable { char padding[72]; short adjustment; short reserved; void (*change_text)(void *, stringx *); };
-struct TextString { char padding[60]; int checkTime; char padding2[12]; text_vtable *vtable; };
-struct igo_replay_text_layout {
-    char padding[1368];
-    TextString *replayText;
-};
-extern "C" void set_replay_text(
-    igo_replay_text_layout *self,
-    const stringx &text
-) __asm__("SetReplayText__11IGOFrontEndRC7stringx");
-void set_replay_text(igo_replay_text_layout *self,const stringx &text)
+void IGOFrontEnd::SetReplayText(const stringx &text)
 {
-    if (text.data[0] != 0 && self->replayText) {
-        stringx temporary;
-        copy_string(&temporary, &text);
-        text_vtable *table = self->replayText->vtable;
-        table->change_text((char *)self->replayText + table->adjustment, &temporary);
-        self->replayText->checkTime = false;
+    if (text.c_str()[0] != 0 && replayText) {
+        replayText->changeText(text);
+        replayText->checkTime = false;
     }
 }
 
