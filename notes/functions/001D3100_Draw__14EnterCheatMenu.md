@@ -19,4 +19,5 @@ Read the exact released display/cursor draw flow, object offsets, closing flag, 
 
 ## Outcome
 
-Matched enter cheat menu drawing
+The local text layouts and manual vtables were replaced by shared text
+dispatch.

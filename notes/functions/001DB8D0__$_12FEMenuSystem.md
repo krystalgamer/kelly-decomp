@@ -5,7 +5,7 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/FEMenu.h`
 - Reference source: `KS/SRC/ks/FEMenu.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -20,4 +20,5 @@ Read the exact released generated destructor body, class layout, vtable, vector 
 
 ## Outcome
 
-Matched FE menu system destructor
+The handwritten compiler-generated destructor was removed and the shipped
+wrapper was deferred.

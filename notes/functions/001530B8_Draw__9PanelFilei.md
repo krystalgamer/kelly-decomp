@@ -19,4 +19,4 @@ Read the exact released PanelFile/PanelQuad declarations, pquads/next/vtable off
 
 ## Outcome
 
-Matched panel file quad drawing loop
+The manual quad vtable was replaced by the shared `PanelQuad::Draw` dispatch.

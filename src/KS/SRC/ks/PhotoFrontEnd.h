@@ -29,6 +29,7 @@ public:
 
 class PhotoSaveMenu : public FEMultiMenu {
 public:
+    void Select(int entry);
     virtual void OnTriangle(int controller);
 };
 

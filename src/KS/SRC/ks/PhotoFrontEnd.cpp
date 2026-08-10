@@ -137,35 +137,13 @@ void PhotoSelectMenu::setHigh(FEMenuEntry *menu, bool animate)
 }
 
 // 0x001CFC00 Select__13PhotoSaveMenui
-struct menu_vtable {
-    char padding[0x110]; short adjustment; short reserved;
-    void (*make_active)(void *,void *,int);
-};
-struct parent_menu { char padding[0x74]; menu_vtable *vtable; };
-struct system_vtable {
-    char padding[0x58]; short adjustment; short reserved;
-    void (*end_draw)(void *,bool);
-};
-struct menu_system { char padding[0x8c]; system_vtable *vtable; };
-class PhotoSaveMenu {
-    char padding[0x50];
-    menu_system *system;
-    char padding2[0x10];
-    parent_menu *parent;
-    char padding3[8];
-    void *next_sub;
-public:
-    void Select(int entry);
-};
+#include "KS/SRC/ks/PhotoFrontEnd.h"
+
 void PhotoSaveMenu::Select(int entry) {
     if (entry==0) {
-        menu_vtable *table=parent->vtable;
-        table->make_active(
-            (char *)parent+table->adjustment,next_sub,1
-        );
+        parent->MakeActive(next_sub,true);
     } else {
-        system_vtable *table=system->vtable;
-        table->end_draw((char *)system+table->adjustment,false);
+        system->endDraw(false);
     }
 }
 

@@ -5,7 +5,7 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/SurferFrontEnd.cpp`
 - Reference source: `KS/SRC/ks/SurferFrontEnd.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -19,4 +19,6 @@ Read the exact released static getAbbr body and declaration, SurferData stride/a
 
 ## Outcome
 
-Matched surfer frontend abbreviation lookup
+The fixed hidden-result register and manual string temporary were removed.
+Native return-by-value code changes the shipped ABI schedule, so the wrapper
+is deferred.

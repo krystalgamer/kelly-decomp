@@ -51,25 +51,14 @@ void FEManager::UpdateIGOScene()
 }
 
 // 0x00198CC8 DrawIGO__9FEManager
-extern int g_igo_enabled;
-__asm__(".equ g_igo_enabled, 0x003E7720");
-struct draw_slot {
-    short adjustment; short reserved; void (*function)(void *);
-};
-struct igo_layout { char padding[0xc0]; char *vtable; };
-struct pause_layout { char padding[0x8c]; char *vtable; };
-struct manager_draw_igo_layout {
-    igo_layout *IGO;
-    pause_layout *pms;
-};
-extern "C" void draw_manager_igo(manager_draw_igo_layout *self)
-    __asm__("DrawIGO__9FEManager");
-void draw_manager_igo(manager_draw_igo_layout *self) {
+#include "KS/SRC/ks/FrontEndManager.h"
+#include "KS/SRC/ks/FrontEndMenus.h"
+#include "KS/SRC/ks/IGOFrontEnd.h"
+
+void FEManager::DrawIGO() {
     if (g_igo_enabled) {
-        draw_slot *igo_slot=(draw_slot *)(self->IGO->vtable+0x20);
-        igo_slot->function((char *)self->IGO+igo_slot->adjustment);
-        draw_slot *pause_slot=(draw_slot *)(self->pms->vtable+0x38);
-        pause_slot->function((char *)self->pms+pause_slot->adjustment);
+        IGO->Draw();
+        pms->Draw();
     }
 }
 

@@ -65,8 +65,9 @@ public:
 };
 
 class ControllerFrontEnd : public FEMultiMenu {
-    char data_to_selected_controller[0x17c - sizeof(FEMultiMenu)];
+    char data_to_selected_controller[0x174 - sizeof(FEMultiMenu)];
     int selected_controller;
+    int controller_count;
 
 public:
     void Draw();
@@ -75,6 +76,7 @@ public:
     void OnUp(int controller);
     void OnDown(int controller);
     void Select(int controller);
+    void OnStart(int controller);
     virtual void OnUnactivate(FEMenu *menu);
 };
 

@@ -20,4 +20,5 @@ Read the exact released two-way Select body and menu/system declarations. Correc
 
 ## Outcome
 
-Matched photo save menu selection
+The manual parent and system vtables were replaced by shared frontend
+dispatch.

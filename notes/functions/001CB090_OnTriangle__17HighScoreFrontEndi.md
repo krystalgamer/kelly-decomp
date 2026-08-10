@@ -20,4 +20,5 @@ Read the exact released non-game branch, Extras activation, sound event, object 
 
 ## Outcome
 
-Matched high score triangle handling
+The local graphical-system layout and empty barrier were replaced by shared
+frontend declarations and a local sound call pointer.

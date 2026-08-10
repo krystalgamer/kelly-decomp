@@ -60,34 +60,23 @@ void NameEntryMenu::Update(float time_inc)
 
 #if defined(KELLY_DECOMP_FUNCTION_001CB090)
 // 0x001CB090 OnTriangle__17HighScoreFrontEndi
-struct active_slot {
-    short adjustment; short reserved;
-    void (*function)(void *,int,int,int);
-};
-struct graphical_system {
-    char padding[0x8c]; char *vtable;
-};
-struct SoundScriptManager;
-extern SoundScriptManager *sound_manager;
+#include "KS/SRC/ks/GraphicalMenuSystem.h"
+#include "KS/SRC/ks/HighScoreFrontEnd.h"
+#include "KS/SRC/ks/SoundScript.h"
+
 extern "C" void play_event(
-    SoundScriptManager *,int,void *,float
+    SoundScriptManager *,EventType,entity *,float
 ) __asm__("playEvent__18SoundScriptManager9EventTypeP6entityf");
-__asm__(".equ sound_manager, 0x0046B4A0");
 __asm__(".equ playEvent__18SoundScriptManager9EventTypeP6entityf, 0x0031C380");
-class HighScoreFrontEnd {
-    char padding[0x160];
-    graphical_system *sys;
-    char padding2[0x128];
-    int in_game;
-public:
-    void OnTriangle(int controller);
-};
 void HighScoreFrontEnd::OnTriangle(int) {
     if (!in_game) {
-        active_slot *slot=(active_slot *)(sys->vtable+0x20);
-        slot->function((char *)sys+slot->adjustment,1,1,1);
-        play_event(sound_manager,27,0,0.0f);
-        __asm__ __volatile__("" : : : "memory");
+        sys->MakeActive(1,true,true);
+        void (*play)(
+            SoundScriptManager *,
+            EventType,
+            entity *,
+            float)=play_event;
+        play(SoundScriptManager::inst(),SS_FE_BACK,0,0.0f);
     }
 }
 #endif

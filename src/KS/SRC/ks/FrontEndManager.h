@@ -49,7 +49,9 @@ public:
 };
 
 extern FEManager frontendmanager;
+extern int g_igo_enabled;
 
 __asm__(".equ LoadAll__15FEEntityManager, 0x001C56E0");
+__asm__(".equ g_igo_enabled, 0x003E7720");
 
 #endif

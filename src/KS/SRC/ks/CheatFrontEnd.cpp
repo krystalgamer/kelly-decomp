@@ -125,31 +125,12 @@ void EnterCheatMenu::OnTriangle(int command) {
 }
 
 // 0x001D3100 Draw__14EnterCheatMenu
-struct draw_vtable {
-    char padding[0x18]; short adjustment; short reserved;
-    void (*draw)(void *);
-};
-struct text_layout { char padding[0x4c]; draw_vtable *vtable; };
-struct enter_cheat_draw_layout {
-    char padding[0x16c];
-    text_layout *code_display;
-    text_layout *cursor;
-    char padding2[0x30];
-    int closing;
-};
-extern "C" void draw_enter_cheat(enter_cheat_draw_layout *self)
-    __asm__("Draw__14EnterCheatMenu");
-void draw_enter_cheat(enter_cheat_draw_layout *self) {
-    draw_vtable *code_table=self->code_display->vtable;
-    code_table->draw(
-        (char *)self->code_display+code_table->adjustment
-    );
-    if (!self->closing) {
-        draw_vtable *cursor_table=self->cursor->vtable;
-        cursor_table->draw(
-            (char *)self->cursor+cursor_table->adjustment
-        );
-    }
+#include "KS/SRC/ks/CheatFrontEnd.h"
+
+void EnterCheatMenu::Draw() {
+    code_display->Draw();
+    if (!closing)
+        cursor->Draw();
 }
 
 // 0x001D2028 Draw__13CheatCodeMenu

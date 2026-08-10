@@ -20,4 +20,5 @@ Read the exact released player/AI guard and tube timer color selection, then rec
 
 ## Outcome
 
-Matched IGO tube indicator toggle
+The local player, text, game, and IGO layouts were replaced by shared
+declarations.

@@ -19,4 +19,5 @@ Read the exact released enabled guard and IGO/pause Draw calls, plus object/vtab
 
 ## Outcome
 
-Matched frontend manager IGO drawing
+The manual IGO and pause-menu vtables were replaced by shared frontend
+dispatch.

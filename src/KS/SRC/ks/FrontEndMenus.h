@@ -229,6 +229,8 @@ public:
     TextString *player;
     int popupEvent;
     int navigationEvent;
+    char data_before_controller_disconnected[4];
+    bool controller_disconnected;
 
     virtual void Load();
     virtual void Draw();
@@ -237,6 +239,7 @@ public:
     virtual void endDraw(bool unpause = true);
     void RestartComp();
     void Restart();
+    bool SetDisconnect(bool disconnected);
     void PrepareToEndLevel() { end_level = true; }
 };
 

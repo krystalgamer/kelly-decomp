@@ -39,14 +39,18 @@ public:
     struct PLAYER {
         char data_before_horiz_balance[0x14];
         HorizBalanceWidget *horizBalanceWidget;
-        char remaining_data[0x24];
+        char data_before_tube_timer[0x1C];
+        TextString *tubeTimer;
+        char remaining_data[4];
     };
 
 private:
     char data_before_players[
         0x124 - sizeof(FrontEnd)];
     PLAYER *players;
-    char data_before_menu_background[0x584 - 0x128];
+    char data_before_color_standard[0x570 - 0x128];
+    color32 COLOR_STANDARD;
+    char data_before_menu_background[0x584 - 0x574];
     SimpleWidget *menuBGWidget;
     SimpleWidget *accompWidget;
     char data_before_wave_indicator[0x14];
@@ -81,6 +85,7 @@ public:
         bool vertical,
         float value);
     void SetTubeDepthMeter(int player, float value);
+    void TurnOnTubeIndicator(int player, bool enabled);
     void ShowAccompBackground(
         bool background_enabled,
         int horizontal_flags,

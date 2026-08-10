@@ -5,7 +5,7 @@
 - Object: `game/files_hwosps2`
 - Debug source: `C:/KS/SRC/hwosps2/ps2_file.cpp`
 - Reference source: `KS/SRC/HWOSPS2/ps2_file.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -20,4 +20,5 @@ Read the exact released os_file destructor and layout, stringx base destruction,
 
 ## Outcome
 
-Matched os_file destructor
+The handwritten compiler-generated destructor was removed and the shipped
+wrapper was deferred.

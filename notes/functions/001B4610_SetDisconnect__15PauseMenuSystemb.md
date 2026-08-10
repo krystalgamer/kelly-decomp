@@ -20,4 +20,4 @@ Read the released disconnect flow and exact replay/bool/global layout. Correctly
 
 ## Outcome
 
-Matched pause menu disconnect state update
+The local replay and pause-menu layouts were replaced by shared declarations.

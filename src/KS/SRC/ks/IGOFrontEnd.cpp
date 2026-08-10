@@ -166,30 +166,18 @@ void IGOFrontEnd::SetTubeDepthMeter(
 }
 
 // 0x0017CDB8 TurnOnTubeIndicator__11IGOFrontEndib
-struct TextString { char padding[0x48]; unsigned int color; };
-struct player_info { char padding[0x34]; TextString *tubeTimer; char tail[4]; };
-struct game_layout { char padding[0xb4]; int num_ai_players; };
-extern game_layout *g_game_ptr;
-extern unsigned int COLOR_POINTS_MAIN;
+#include "KS/SRC/game.h"
+#include "KS/SRC/ks/IGOFrontEnd.h"
+
+extern color32 COLOR_POINTS_MAIN;
 __asm__(".equ g_game_ptr, 0x0046AC64");
 __asm__(".equ COLOR_POINTS_MAIN, 0x003E76E8");
-struct igo_indicator_layout {
-    char padding[0x124];
-    player_info *players;
-    char padding2[0x448];
-    unsigned int COLOR_STANDARD;
-};
-extern "C" void turn_tube_indicator(
-    igo_indicator_layout *self,
-    int player,
-    bool on
-) __asm__("TurnOnTubeIndicator__11IGOFrontEndib");
-void turn_tube_indicator(igo_indicator_layout *self,int player,bool on) {
-    if (player && g_game_ptr->num_ai_players) return;
-    TextString *timer=self->players[player].tubeTimer;
+void IGOFrontEnd::TurnOnTubeIndicator(int player,bool on) {
+    if (player && g_game_ptr->get_num_ai_players()) return;
+    TextString *timer=players[player].tubeTimer;
     if (timer) {
         if (on) timer->color=COLOR_POINTS_MAIN;
-        else timer->color=self->COLOR_STANDARD;
+        else timer->color=COLOR_STANDARD;
     }
 }
 

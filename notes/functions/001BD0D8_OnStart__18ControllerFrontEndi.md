@@ -19,4 +19,5 @@ Inspected the released inline/menu declarations and reconstructed the exact cont
 
 ## Outcome
 
-Matched controller frontend start handling
+The local controller and menu-system layouts were replaced by shared
+graphical frontend declarations.

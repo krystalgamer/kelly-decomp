@@ -19,4 +19,5 @@ Read the released PopFront flow and exact manager layout, then reconstructed the
 
 ## Outcome
 
-Matched learn-new-trick icon pop
+The existing implementation already uses the shared learn-new-trick manager
+declaration and remains exact.

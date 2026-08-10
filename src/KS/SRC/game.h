@@ -47,7 +47,11 @@ struct BeachData {
 extern BeachData BeachDataArray[];
 
 struct SurferData {
-    char fields_before_sort_order[648];
+    char fields_before_name[0x16C];
+    char name[32];
+    char data_before_abbr[0x90];
+    char abbr[4];
+    char data_before_sort_order[0x68];
     int sort_order;
 };
 

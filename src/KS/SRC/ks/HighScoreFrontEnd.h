@@ -5,15 +5,20 @@
 
 #include "KS/SRC/ks/FEMenu.h"
 
+class GraphicalMenuSystem;
+
 class HighScoreFrontEnd : public FEMultiMenu {
-    char high_score_data_before_in_game[
-        0x28C - sizeof(FEMultiMenu)];
+    char high_score_data_before_system[
+        0x160 - sizeof(FEMultiMenu)];
+    GraphicalMenuSystem *sys;
+    char high_score_data_before_in_game[0x28C - 0x164];
     int in_game;
 
 public:
     virtual void OnUp(int controller);
     virtual void OnDown(int controller);
     virtual void OnStart(int controller);
+    virtual void OnTriangle(int controller);
 };
 
 class NameEntryMenu : public FEMultiMenu {

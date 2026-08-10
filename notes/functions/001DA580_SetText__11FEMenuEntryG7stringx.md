@@ -19,4 +19,5 @@ Read the exact released inline SetText declaration and reconstructed the by-valu
 
 ## Outcome
 
-Matched FE menu entry text setter
+The manual outgoing string copy and text vtable were replaced by shared
+frontend declarations.

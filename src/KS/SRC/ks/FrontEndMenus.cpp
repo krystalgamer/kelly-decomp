@@ -335,28 +335,17 @@ void SaveCareerPromptClass::Draw()
 }
 
 // 0x001B4610 SetDisconnect__15PauseMenuSystemb
-class KSReplay { public: bool IsPlaying(); };
-extern KSReplay ksreplay;
-__asm__(".equ ksreplay, 0x004252A8");
-__asm__(".equ IsPlaying__8KSReplay, 0x0023BE08");
-struct pause_disconnect_layout {
-    char padding[0x94];
-    int replay_mode;
-    char padding2[0x20];
-    bool controller_disconnected;
-};
-extern "C" bool set_disconnect(
-    pause_disconnect_layout *self,
-    bool disconnected
-) __asm__("SetDisconnect__15PauseMenuSystemb");
-bool set_disconnect(pause_disconnect_layout *self, bool disconnected) {
+#include "KS/SRC/ks/FrontEndMenus.h"
+#include "KS/SRC/ks/ksreplay.h"
+
+bool PauseMenuSystem::SetDisconnect(bool disconnected) {
     if (!disconnected) {
-        self->controller_disconnected=false;
+        controller_disconnected=false;
         return false;
     }
-    if (!self->replay_mode && !ksreplay.IsPlaying())
-        self->controller_disconnected=true;
-    return self->controller_disconnected;
+    if (!replay_mode && !ksreplay.IsPlaying())
+        controller_disconnected=true;
+    return controller_disconnected;
 }
 
 // 0x001A7390 _$_21SaveCareerPromptClass
