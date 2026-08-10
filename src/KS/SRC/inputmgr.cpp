@@ -10,26 +10,15 @@ input_device::input_device()
 }
 
 // 0x00344168 poll_devices__9input_mgr
-struct poll_slot {
-    char padding[0x50]; short adjustment; short reserved;
-    void (*poll)(void *);
-};
-struct input_device_layout { char padding[4]; poll_slot *vtable; };
-class input_mgr {
-    char padding[8];
-    input_device_layout **begin;
-    input_device_layout **end;
-public:
-    void poll_devices();
-};
+#include "KS/SRC/inputmgr.h"
+
 void input_mgr::poll_devices() {
-    input_device_layout **it=begin;
-    input_device_layout **finish=end;
+    device_map_t::iterator it=device_map.begin();
+    device_map_t::iterator finish=device_map.end();
     while (it!=finish) {
-        input_device_layout *device=*it;
+        input_device *device=*it;
         ++it;
-        poll_slot *table=device->vtable;
-        table->poll((char *)device+table->adjustment);
+        device->poll();
     }
 }
 

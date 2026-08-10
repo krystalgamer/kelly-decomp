@@ -199,6 +199,11 @@ public:
     void turn_user_cam_on(bool enabled);
     void pause();
     void end_level();
+    void enable_marky_cam(
+        bool enabled,
+        bool synchronize,
+        float camera_priority)
+        __asm__("enable_marky_cam__4gamebT1f");
     float get_player_share(int player) const;
     int get_cur_state() const;
     inline int get_num_players() const {
@@ -230,6 +235,7 @@ public:
 extern game *g_game_ptr;
 
 __asm__(".equ frame_advance_game_overlays__4gamef, 0x00284568");
+__asm__(".equ enable_marky_cam__4gamebT1f, 0x0027D9C0");
 __asm__(".equ BeachDataArray, 0x0043C198");
 __asm__(".equ SurferDataArray, 0x004254E0");
 __asm__(".equ g_game_ptr, 0x0046AC64");

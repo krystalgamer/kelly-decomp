@@ -384,15 +384,8 @@ float WAVE_GetMarkerProfile(WaveMarkerEnum marker) {
 }
 
 // 0x0037DBB0 WAVE_GetCollisionBox__FR8vector3dT0ff
-struct vector3d { float x,y,z; };
-extern float WAVE_MeshMinX;
-extern float WAVE_MeshMaxX;
-extern float WAVE_MeshMinZ;
-extern float WAVE_MeshMaxZ;
-__asm__(".equ WAVE_MeshMinX, 0x00484620");
-__asm__(".equ WAVE_MeshMaxX, 0x00484624");
-__asm__(".equ WAVE_MeshMinZ, 0x00484628");
-__asm__(".equ WAVE_MeshMaxZ, 0x0048462C");
+#include "KS/SRC/ks/wave.h"
+
 void WAVE_GetCollisionBox(
     vector3d &minimum,vector3d &maximum,float margin_x,float margin_z
 ) {

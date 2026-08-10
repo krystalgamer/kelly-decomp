@@ -55,6 +55,7 @@ class CurrentSoundEvent {
 
 public:
     CurrentSoundEvent();
+    void clear();
 };
 
 class SoundScriptManager : public singleton {

@@ -27,6 +27,7 @@ struct string_buf {
         return text[index] == 0 ? 0 : 1;
     }
     void clear();
+    void null_terminate() const;
 };
 
 class stringx {
@@ -59,6 +60,7 @@ public:
     void copy(const char *text, int length = -1);
     void append(const stringx &other);
     void append(const char *text, int length = -1);
+    static void add_buf_to_cache(string_buf *buffer);
     int rfind(char value, int position) const;
     int rfind(char value) const;
     inline int size() const { return my_buf->char_length; }

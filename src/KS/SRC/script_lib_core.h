@@ -37,6 +37,42 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_enable_marky_cam_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        vm_num_t sync;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+class slf_disable_marky_cam_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        vm_num_t sync;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+class slf_vo_delay_t : public script_library_class::function {
+public:
+    struct sdata_t {
+        float clock;
+        vm_num_t duration;
+    };
+    struct parms_t {
+        vm_num_t duration_eng;
+        vm_num_t duration_fre;
+        vm_num_t duration_ger;
+        vm_num_t duration_spa;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 class slf_localize_thread_t :
     public script_library_class::function {
 public:

@@ -2374,87 +2374,62 @@ bool slf_localize_thread_t::operator()(
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DCF0)
 // 0x0031DCF0 __cl__22slf_enable_marky_cam_tR8vm_stackQ320script_library_class8function7entry_t
-struct thread_layout { char padding[0x38]; float camera_priority; };
-struct vm_stack_layout {
-    char padding[8]; char *top; thread_layout *thread;
-};
-struct app_layout { char padding[0x10]; void *game; };
-extern app_layout *volatile g_game_ptr;
-extern "C" void enable_marky(void *,bool,bool,float)
-    __asm__("enable_marky_cam__4gamebT1f");
-__asm__(".equ g_game_ptr, 0x0046AC18");
-__asm__(".equ enable_marky_cam__4gamebT1f, 0x0027D9C0");
-extern "C" bool run_enable_marky(
-    void *,vm_stack_layout *stack,int
-) __asm__("__cl__22slf_enable_marky_cam_tR8vm_stackQ320script_library_class8function7entry_t");
-bool run_enable_marky(void *,vm_stack_layout *stack,int) {
-    register bool sync_arg __asm__("$6")=true;
-    register char *old_top __asm__("$3")=stack->top;
-    register char *new_top __asm__("$2")=old_top-4;
-    stack->top=new_top;
-    float sync=*(volatile float *)(old_top-4);
-    register app_layout *app __asm__("$2")=g_game_ptr;
-    register void *game __asm__("$4")=app->game;
-    if (sync==0.0f) sync_arg=false;
-    enable_marky(
-        game,true,sync_arg,
-        stack->thread->camera_priority
-    );
-    return true;
+#include "KS/SRC/app.h"
+#include "KS/SRC/game.h"
+#include "KS/SRC/script_lib_core.h"
+#include "KS/SRC/vm_thread.h"
+
+bool slf_enable_marky_cam_t::operator()(
+    vm_stack &stack,
+    script_library_class::function::entry_t entry)
+{
+    SLF_PARMS;
+    app::inst()->get_game()->enable_marky_cam(
+        true,
+        (bool)parms->sync,
+        stack.get_thread()->get_camera_priority());
+    SLF_DONE;
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031DDC0)
 // 0x0031DDC0 __cl__23slf_disable_marky_cam_tR8vm_stackQ320script_library_class8function7entry_t
-struct thread_layout { char padding[0x38]; float camera_priority; };
-struct vm_stack_layout {
-    char padding[8]; char *top; thread_layout *thread;
-};
-struct app_layout { char padding[0x10]; void *game; };
-extern app_layout *volatile g_game_ptr;
-extern "C" void enable_marky(void *,bool,bool,float)
-    __asm__("enable_marky_cam__4gamebT1f");
-__asm__(".equ g_game_ptr, 0x0046AC18");
-__asm__(".equ enable_marky_cam__4gamebT1f, 0x0027D9C0");
-extern "C" bool run_disable_marky(
-    void *,vm_stack_layout *stack,int
-) __asm__("__cl__23slf_disable_marky_cam_tR8vm_stackQ320script_library_class8function7entry_t");
-bool run_disable_marky(void *,vm_stack_layout *stack,int) {
-    register bool sync_arg __asm__("$6")=true;
-    register char *old_top __asm__("$3")=stack->top;
-    register char *new_top __asm__("$2")=old_top-4;
-    stack->top=new_top;
-    float sync=*(volatile float *)(old_top-4);
-    register app_layout *app __asm__("$2")=g_game_ptr;
-    register void *game __asm__("$4")=app->game;
-    if (sync==0.0f) sync_arg=false;
-    enable_marky(
-        game,false,sync_arg,
-        stack->thread->camera_priority
-    );
-    return true;
+#include "KS/SRC/app.h"
+#include "KS/SRC/game.h"
+#include "KS/SRC/script_lib_core.h"
+#include "KS/SRC/vm_thread.h"
+
+bool slf_disable_marky_cam_t::operator()(
+    vm_stack &stack,
+    script_library_class::function::entry_t entry)
+{
+    SLF_PARMS;
+    app::inst()->get_game()->enable_marky_cam(
+        false,
+        (bool)parms->sync,
+        stack.get_thread()->get_camera_priority());
+    SLF_DONE;
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0031EEB8)
 // 0x0031EEB8 __cl__14slf_vo_delay_tR8vm_stackQ320script_library_class8function7entry_t
-struct world_layout { char padding[0x128]; float script_time_inc; };
-struct vm_stack_layout { char padding[8]; char *top; };
-extern world_layout *g_world_ptr;
-__asm__(".equ g_world_ptr, 0x00431A8C");
-extern "C" bool run_vo_delay(
-    void *,vm_stack_layout *stack,int entry
-) __asm__("__cl__14slf_vo_delay_tR8vm_stackQ320script_library_class8function7entry_t");
-bool run_vo_delay(void *,vm_stack_layout *stack,int entry) {
-    float *data=(float *)stack->top;
-    stack->top-=16;
-    if (entry) {
-        data[0]+=g_world_ptr->script_time_inc;
-        if (data[0]>=data[1]) return true;
+#include "KS/SRC/script_lib_core.h"
+#include "KS/SRC/wds.h"
+
+bool slf_vo_delay_t::operator()(
+    vm_stack &stack,
+    script_library_class::function::entry_t entry)
+{
+    sdata_t *sdata=(sdata_t *)stack.get_SP();
+    SLF_PARMS;
+    if (entry != script_library_class::function::FIRST_ENTRY) {
+        sdata->clock+=g_world_ptr->get_time_inc();
+        if (sdata->clock>=sdata->duration) return true;
         return false;
     }
-    data[0]=0.0f;
-    data[1]=*(float *)((char *)data-16);
+    sdata->clock=0.0f;
+    sdata->duration=parms->duration_eng;
     return false;
 }
 #endif

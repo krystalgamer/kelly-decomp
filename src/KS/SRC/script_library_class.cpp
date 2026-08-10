@@ -22,31 +22,6 @@ slc_num_t::slc_num_t(
     const char *parent
 ) : script_library_class(name, size, parent) {}
 
-// 0x0034F178 _$_Q220script_library_class8function
-extern "C" void vector_delete(void *)
-    __asm__("__builtin_vec_delete");
-extern "C" void object_delete(void *)
-    __asm__("__builtin_delete");
-extern const char function_vtable[];
-__asm__(".equ __builtin_vec_delete, 0x002AC6D0");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-__asm__(".equ function_vtable, 0x005052B0");
-struct function_layout {
-    char *name;
-    const void *vtable;
-};
-extern "C" void destroy_function(
-    function_layout *self,int flags
-) __asm__("_$_Q220script_library_class8function");
-void destroy_function(function_layout *self,int flags) {
-    self->vtable=function_vtable;
-    if (self->name) vector_delete(self->name);
-    if (flags&1) {
-        object_delete(self);
-        __asm__ __volatile__("" : : : "memory");
-    }
-}
-
 // 0x003500D8 _$_9slc_str_t
 struct layout{char data[32];void*vtable;void**start;void**finish;void**end;};extern char target_vtable;extern void*free_list[];extern "C" void purge(layout*) __asm__("purge__9slc_str_t");extern "C" void arch_free(void*) __asm__("arch_free__FPv");extern "C" void base_dtor(layout*,int) __asm__("_$_20script_library_class");asm(".equ target_vtable,0x005051D8");asm(".equ free_list,0x003E5628");asm(".equ purge__9slc_str_t,0x00350220");asm(".equ arch_free__FPv,0x002AC768");asm(".equ _$_20script_library_class,0x0034EE68");extern "C" void dtor(layout*,int)__asm__("_$_9slc_str_t");void dtor(layout*self,int deleting){self->vtable=&target_vtable;purge(self);void**p=self->start;unsigned n=self->end-p;if(n){unsigned bytes=n*4;if(bytes>128)arch_free(p);else{unsigned index=(bytes+7)/8-1;*p=free_list[index];free_list[index]=p;}}base_dtor(self,deleting);asm volatile("");}
 

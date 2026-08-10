@@ -118,6 +118,15 @@ struct nslSystem
     bool on;
     bool proview;
     bool finalizeSourcesEnabled;
+    float sfxVolume;
+    float ambientVolume;
+    float musicVolume;
+    float voiceVolume;
+    float movieVolume;
+    float user1Volume;
+    float user2Volume;
+    float masterVolume;
+    float dampenLevel;
 };
 
 extern nslSystem nsl;

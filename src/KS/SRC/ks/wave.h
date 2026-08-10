@@ -185,6 +185,8 @@ extern WaveMarkerRecord WAVE_Marker[];
 extern int WAVE_LeftBreaker;
 extern float WAVE_MeshMinX;
 extern float WAVE_MeshMaxX;
+extern float WAVE_MeshMinZ;
+extern float WAVE_MeshMaxZ;
 extern unsigned int WAVE_ScheduleIndex;
 extern unsigned int WAVE_ScheduleLength;
 extern WaveScheduleStruct WAVE_ScheduleArray[];

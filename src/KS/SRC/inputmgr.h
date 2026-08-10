@@ -91,6 +91,7 @@ class input_mgr : public singleton {
 
 public:
     static inline input_mgr* inst() { return input_manager; }
+    void poll_devices();
     rational_t get_control_state(device_id_t dev_id, control_id_t control) const;
     inline int GetDefaultController() { return default_controller; }
     inline void SetDefaultController(int controller) {

@@ -73,6 +73,9 @@ public:
         return is_flagged(SUSPENDABLE);
     }
     void set_camera_priority(rational_t priority);
+    inline rational_t get_camera_priority() const {
+        return camera_priority;
+    }
     inline region *get_local_region() const {
         return local_region;
     }
