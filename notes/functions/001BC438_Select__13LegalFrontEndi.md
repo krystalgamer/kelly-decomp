@@ -19,4 +19,5 @@ Read the exact released LegalFrontEnd::Select body, timer/system offsets, title 
 
 ## Outcome
 
-Matched released legal front end select
+The local menu-system vtable was replaced by the shared graphical frontend
+hierarchy.

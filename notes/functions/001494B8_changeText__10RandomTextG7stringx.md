@@ -5,7 +5,7 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/FEPanel.cpp`
 - Reference source: `KS/SRC/ks/FEPanel.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -23,4 +23,6 @@ Read the exact released RandomText::changeText body, stringx layout/copy/assignm
 
 ## Outcome
 
-Matched released RandomText changeText body
+The fixed argument register and manual outgoing string copy were removed.
+Ordinary shared C++ reorders the base-call arguments, while a call pointer
+changes the ABI and frame size, so the shipped wrapper is deferred.

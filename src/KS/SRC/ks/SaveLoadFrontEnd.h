@@ -50,6 +50,7 @@ public:
     int ActiveCard() { return active_card; }
     static int FindAdjusted(int active);
     static int FindActive(int adjusted);
+    bool AvailAndSavedGames(int active);
 
 private:
     void GetFileList(int active, int adjusted);

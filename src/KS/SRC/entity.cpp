@@ -812,17 +812,10 @@ void ClearEntityMeshFlags(nglMesh *mesh, int flag)
 }
 
 // 0x00130968 force_region__6entityPQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4node
-struct entity_layout
-{
-    char padding[0x78];
-    unsigned int flags;
-};
+#include "KS/SRC/entity.h"
 
-extern "C" void RemoveRegions(void *self)
-    __asm__("remove_from_regions__6entity");
-extern "C" void SetForced(void *self)
-    __asm__("_set_region_forced_status__6entity");
-extern "C" bool AddRegion(void *self, void *region)
+extern "C" bool add_entity_region(
+    entity *self, region_node *region)
     __asm__(
         "add_region__6entityPQ2t5graph4Z7stringxZP6region"
         "ZP6portalZt4less1Z7stringx4node"
@@ -835,20 +828,13 @@ __asm__(
     "ZP6portalZt4less1Z7stringx4node, 0x0012FD50"
 );
 
-extern "C" void ForceRegion(void *self, void *region)
-    __asm__(
-        "force_region__6entityPQ2t5graph4Z7stringxZP6region"
-        "ZP6portalZt4less1Z7stringx4node"
-    );
-
-void ForceRegion(void *self, void *region)
+void entity::force_region(region_node *region)
 {
-    entity_layout *entity = (entity_layout *)self;
-    if (!(entity->flags & 0x10000000))
-        RemoveRegions(self);
-    SetForced(self);
-    AddRegion(self, region);
-    __asm__ __volatile__("" : : : "memory");
+    if (!(flags & EFLAG_REGION_FORCED))
+        remove_from_regions();
+    _set_region_forced_status();
+    bool (*add)(entity *, region_node *) = add_entity_region;
+    add(this, region);
 }
 
 // 0x00127788 mem_cleanup__Q26entity13movement_info

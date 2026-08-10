@@ -44,6 +44,7 @@ public:
     virtual void Draw();
     virtual void Select(int entry_index);
     virtual void OnCross(int controller);
+    virtual void OnTriangle(int controller);
     void EndWarning();
 };
 
@@ -109,6 +110,7 @@ public:
     virtual void Draw();
     virtual void Select(int entry_index);
     virtual void OnCross(int controller);
+    virtual void OnTriangle(int controller);
 };
 
 class MultiControllerMenu : public FEMenu {
@@ -119,6 +121,7 @@ public:
     virtual void Draw();
     virtual void Select(int entry_index);
     virtual void OnCross(int controller);
+    virtual void OnTriangle(int controller);
 };
 
 class MainFrontEnd : public FEMultiMenu {

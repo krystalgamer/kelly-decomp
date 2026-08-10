@@ -183,36 +183,16 @@ void SaveLoadFrontEnd::OnCross(int c)
 }
 
 // 0x001A0678 AvailAndSavedGames__9NamesMenui
-struct MemCard
-{
-    int free;
-    int exists;
-    int changed;
-    int available;
-    int ask_format;
-    int saved_games;
-    int status;
-};
+#include "KS/SRC/ks/SaveLoadFrontEnd.h"
 
-struct names_menu_cards_layout {
-    char padding[0x1bc];
-    MemCard cards[2];
-};
-
-extern "C" int find_adjusted(int card)
-    __asm__("FindAdjusted__9NamesMenui");
-extern "C" bool available_and_saved_games(
-    names_menu_cards_layout *self,
-    int card
-) __asm__("AvailAndSavedGames__9NamesMenui");
 __asm__(".equ FindAdjusted__9NamesMenui, 0x001A0808");
 
-bool available_and_saved_games(names_menu_cards_layout *self, int card)
+bool NamesMenu::AvailAndSavedGames(int card)
 {
-    int adjusted = find_adjusted(card);
-    return self->cards[adjusted].exists &&
-           self->cards[adjusted].available &&
-           self->cards[adjusted].saved_games;
+    int adjusted = FindAdjusted(card);
+    return cards[adjusted].exists &&
+           cards[adjusted].available &&
+           cards[adjusted].saved_games;
 }
 
 // 0x0019ED70 TurnPQLines__9NamesMenub

@@ -20,4 +20,5 @@ Read the exact released PanelQuad::GetCenterPos body, x1/y1/width/height offsets
 
 ## Outcome
 
-Matched released PanelQuad center getter
+The local panel layout and empty barrier were replaced by the shared
+`PanelQuad` declaration and a local unadjust call pointer.

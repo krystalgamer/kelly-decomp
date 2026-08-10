@@ -635,6 +635,7 @@ public:
             flags &= ~flag;
     }
     void region_update_poss_collide();
+    bool add_region(region_node *target);
     void remove_from_regions();
     void remove_from_terrain();
     void _set_region_forced_status();

@@ -19,4 +19,5 @@ Read the exact released PanelQuad4 center getter, base width/height and derived 
 
 ## Outcome
 
-Matched released PanelQuad4 center getter
+The local panel layout and empty barrier were replaced by the shared
+`PanelQuad4` declaration and a local unadjust call pointer.

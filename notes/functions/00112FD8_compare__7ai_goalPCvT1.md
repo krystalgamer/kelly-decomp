@@ -5,7 +5,7 @@
 - Object: `game/files_ai`
 - Debug source: `C:/KS/SRC/ai_goals.h`
 - Reference source: `KS/SRC/ai_goals.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -21,4 +21,6 @@ Read the exact released ai_goal compare body and priority/priority_modifier offs
 
 ## Outcome
 
-Matched released ai_goal comparison
+The fixed return register and empty asm were removed. Ordinary C++ merges the
+target's separate zero/nonzero return blocks and shortens the function, so the
+shipped comparator is deferred.

@@ -55,6 +55,7 @@ public:
     virtual void OnStart(int controller);
     virtual void OnCross(int controller);
     virtual void SetSystem(FEMenuSystem *system);
+    virtual void Select(int entry);
 };
 
 class FEDebugMenu : public FEMultiMenu {

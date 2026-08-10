@@ -21,4 +21,5 @@ Read the exact released entity::force_region body, forced-region flag/offset, gr
 
 ## Outcome
 
-Matched released entity force_region body
+The local entity layout and empty barrier were replaced by the shared entity
+declaration and a local add-region call pointer.

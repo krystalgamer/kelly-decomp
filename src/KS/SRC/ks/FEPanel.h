@@ -96,7 +96,8 @@ public:
     virtual void changeX(float x);
     virtual void changeY(float y);
     virtual void changeZ(int z);
-    virtual void ChangeFade(bool start, bool fade_in, float time = 2.0f);
+    virtual void ChangeFade(bool start, bool fade_in, float time = 2.0f)
+        __asm__("ChangeFade__10TextStringbT1f");
     virtual void SetFade(float alpha);
     virtual float getX();
     virtual float getY();
@@ -240,6 +241,7 @@ public:
     virtual void Update(float time_inc);
     virtual void makeRand();
     virtual void unmakeRand();
+    virtual void changeText(stringx value);
     void Break();
 };
 
@@ -478,6 +480,7 @@ extern "C" void apply_floating_matrix(
     __asm__("nglApplyMatrix__FR9nglVectorR9nglMatrixT0");
 
 __asm__(".equ floating_geometry, 0x00432868");
+__asm__(".equ _$_7stringx, 0x0034D6E0");
 __asm__(".equ nglProjectPoint__FR9nglVectorT0, 0x00399458");
 __asm__(".equ unadjustCoords__H1Zf_RX01T0_v, 0x001D6BF0");
 __asm__(".equ nglApplyMatrix__FR9nglVectorR9nglMatrixT0, 0x00395F48");

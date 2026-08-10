@@ -19,4 +19,5 @@ Read the exact released PanelFile char-name overload, stringx constructor/destru
 
 ## Outcome
 
-Matched released PanelFile char object lookup
+The manual panel vtable was replaced by the shared overload with an explicit
+string temporary.

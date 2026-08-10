@@ -318,93 +318,23 @@ template void anim<quaternion>::set_flag(anim_flags_t flag, bool enabled);
 template void anim<float>::set_flag(anim_flags_t flag, bool enabled);
 
 // 0x00120F38 set_time__t8key_anim3ZfZt10linear_key1ZfZt12linear_track1Zff
-struct linear_key_float
-{
-    float timestamp;
-    float value;
-};
+#include "KS/SRC/linear_anim.h"
 
-struct linear_track_float
-{
-    int num_keys;
-    linear_key_float *m_keys;
-};
-
-struct key_anim_float_layout
-{
-    char base[8];
-    linear_track_float *track;
-    linear_key_float *current_key;
-};
-
-extern "C" void SetTime(
-    key_anim_float_layout *self, float time
-) __asm__(
-    "set_time__t8key_anim3ZfZt10linear_key1Zf"
-    "Zt12linear_track1Zff"
-);
-
-void SetTime(key_anim_float_layout *self, float time)
-{
-    self->current_key = self->track->m_keys;
-    linear_key_float *next_key = self->current_key;
-    ++next_key;
-    while (next_key !=
-               self->track->m_keys + self->track->num_keys &&
-           time >= next_key->timestamp)
-    {
-        ++self->current_key;
-        ++next_key;
-    }
-}
+template void key_anim<
+    float,
+    linear_key<float>,
+    linear_track<float>
+>::set_time(float);
 
 // 0x00121280 set_time__t8key_anim3Z8vector3dZt10linear_key1Z8vector3dZt12linear_track1Z8vector3df
-struct vector3d
-{
-    float x;
-    float y;
-    float z;
-};
+#include "KS/SRC/algebra.h"
+#include "KS/SRC/linear_anim.h"
 
-struct linear_key_vector
-{
-    float timestamp;
-    vector3d value;
-};
-
-struct linear_track_vector
-{
-    int num_keys;
-    linear_key_vector *m_keys;
-};
-
-struct key_anim_vector_layout
-{
-    char base[8];
-    linear_track_vector *track;
-    linear_key_vector *current_key;
-};
-
-extern "C" void SetTime(
-    key_anim_vector_layout *self, float time
-) __asm__(
-    "set_time__t8key_anim3Z8vector3dZt10linear_key1Z8vector3d"
-    "Zt12linear_track1Z8vector3df"
-);
-
-void SetTime(key_anim_vector_layout *self, float time)
-{
-    self->current_key = self->track->m_keys;
-    linear_key_vector *next_key = self->current_key;
-    ++next_key;
-    while (next_key !=
-               self->track->m_keys + self->track->num_keys &&
-           time >= next_key->timestamp)
-    {
-        ++self->current_key;
-        ++next_key;
-    }
-}
+template void key_anim<
+    vector3d,
+    linear_key<vector3d>,
+    linear_track<vector3d>
+>::set_time(float);
 
 // 0x00121628 set_time__t8key_anim3Z10quaternionZt10linear_key1Z10quaternionZt12linear_track1Z10quaternionf
 struct Key{float time;char p[16];};struct Track{int num_keys;Key*m_keys;};class KeyAnim{public:char p[8];Track*track;Key*current_key;void set_time(float)__asm__("set_time__t8key_anim3Z10quaternionZt10linear_key1Z10quaternionZt12linear_track1Z10quaternionf");};void KeyAnim::set_time(float t){current_key=track->m_keys;Key*next_key=current_key;++next_key;while(next_key!=(track->m_keys+track->num_keys)&&t>=next_key->time){++current_key;++next_key;}}

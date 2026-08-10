@@ -409,197 +409,63 @@ void RandomText::Break()
 }
 
 // 0x001484A8 ChangeFade__10TextStringbT1f
-struct TextString
-{
-    char padding[0x24];
-    int fade;
-    float fade_alpha;
-    float fade_timer;
+#include "KS/SRC/ks/FEPanel.h"
 
-};
-
-extern "C" void ChangeFade(
-    TextString *self, bool start, bool fade_in, float time
-) __asm__("ChangeFade__10TextStringbT1f");
-
-void ChangeFade(
-    TextString *self, bool start, bool fade_in, float time
-)
+void TextString::ChangeFade(bool start, bool fade_in, float time)
 {
     if (start)
     {
-        self->fade_timer = time;
+        fade_timer = time;
         if (fade_in)
         {
-            if (self->fade != 1)
+            if (fade != 1)
             {
-                self->fade = 1;
-                self->fade_alpha = 0.0f;
+                fade = 1;
+                fade_alpha = 0.0f;
             }
         }
         else
         {
-            if (self->fade != -1)
+            if (fade != -1)
             {
-                self->fade = -1;
-                self->fade_alpha = 1.0f;
+                fade = -1;
+                fade_alpha = 1.0f;
             }
         }
     }
     else
-        self->fade = 0;
-}
-
-// 0x001494B8 changeText__10RandomTextG7stringx
-class stringx
-{
-    char *characters;
-    void *buffer;
-
-public:
-    stringx();
-    stringx(const stringx &other);
-    ~stringx();
-    stringx &operator=(const stringx &other);
-};
-
-class TextString
-{
-protected:
-    char field0[4];
-    stringx text;
-
-public:
-    TextString() {}
-    void changeText(stringx value);
-};
-
-class RandomText : public TextString
-{
-    char padding[0x4c];
-    stringx random_data;
-
-public:
-    RandomText() {}
-    void changeText(stringx value);
-};
-
-__asm__(".equ __7stringxRC7stringx, 0x0034D4D0");
-__asm__(".equ _$_7stringx, 0x0034D6E0");
-__asm__(".equ __as__7stringxRC7stringx, 0x0034E0B8");
-__asm__(".equ changeText__10TextStringG7stringx, 0x001483E0");
-
-extern "C" void StringCopy(
-    stringx *self, const stringx *other
-) __asm__("__7stringxRC7stringx");
-extern "C" void BaseChangeText(
-    TextString *self, stringx *value
-) __asm__("changeText__10TextStringG7stringx");
-
-void RandomText::changeText(stringx value)
-{
-    char temporary_storage[8];
-    stringx *temporary = (stringx *)temporary_storage;
-    StringCopy(temporary, &value);
-    register stringx *argument __asm__("$5") = temporary;
-    __asm__ __volatile__("" : "+r"(argument));
-    BaseChangeText(this, argument);
-    random_data = text;
+        fade = 0;
 }
 
 // 0x0014DE08 GetCenterPos__9PanelQuadRfT1
-extern "C" void UnadjustCoords(float &x, float &y)
-    __asm__("unadjustCoords__H1Zf_RX01T0_v");
-__asm__(".equ unadjustCoords__H1Zf_RX01T0_v, 0x001D6BF0");
-
-class PanelQuad
-{
-    char padding[0xa8];
-    float x1;
-    float y1;
-    float x2;
-    float y2;
-    float width;
-    float height;
-
-public:
-    void GetCenterPos(float &center_x, float &center_y);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void PanelQuad::GetCenterPos(float &center_x, float &center_y)
 {
     center_x = x1 + width / 2.0f;
     center_y = y1 + height / 2.0f;
-    UnadjustCoords(center_x, center_y);
-    __asm__ __volatile__("" : : : "memory");
+    void (*unadjust)(float &, float &) = unadjust_floating_coords;
+    unadjust(center_x, center_y);
 }
 
 // 0x0014E9F8 GetCenterPos__10PanelQuad4RfT1
-extern "C" void UnadjustCoords(float &x, float &y)
-    __asm__("unadjustCoords__H1Zf_RX01T0_v");
-__asm__(".equ unadjustCoords__H1Zf_RX01T0_v, 0x001D6BF0");
-
-class PanelQuad4
-{
-    char padding0[0xb8];
-    float width;
-    float height;
-    char padding1[0xe0];
-    float x[4];
-    float y[4];
-
-public:
-    void GetCenterPos(float &center_x, float &center_y);
-};
+#include "KS/SRC/ks/FEPanel.h"
 
 void PanelQuad4::GetCenterPos(float &center_x, float &center_y)
 {
     center_x = x[0] + width / 2.0f;
     center_y = y[0] + height / 2.0f;
-    UnadjustCoords(center_x, center_y);
-    __asm__ __volatile__("" : : : "memory");
+    void (*unadjust)(float &, float &) = unadjust_floating_coords;
+    unadjust(center_x, center_y);
 }
 
 // 0x00152468 FindObject__9PanelFilePCc
-class stringx
-{
-    char *characters;
-    void *buffer;
-
-public:
-    stringx(const char *text, int length = -1);
-    ~stringx();
-};
-
-class PanelGeom;
-
-struct panel_file_vtable
-{
-    char padding[0x10];
-    short adjustment;
-    short reserved;
-    PanelGeom *(*find_object)(void *self, const stringx &name);
-};
-
-class PanelFile
-{
-    char padding[0x2c];
-    panel_file_vtable *vtable;
-
-public:
-    PanelGeom *FindObject(const char *name);
-};
-
-__asm__(".equ __7stringxPCci, 0x0034D438");
-__asm__(".equ _$_7stringx, 0x0034D6E0");
+#include "KS/SRC/ks/FEPanel.h"
 
 PanelGeom *PanelFile::FindObject(const char *name)
 {
     stringx temporary(name);
-    panel_file_vtable *table = vtable;
-    return table->find_object(
-        (char *)this + table->adjustment, temporary
-    );
+    return FindObject(temporary);
 }
 
 // 0x001530B8 Draw__9PanelFilei

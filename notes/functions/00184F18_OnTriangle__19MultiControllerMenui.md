@@ -19,4 +19,5 @@ Read the exact/target-observed MultiControllerMenu triangle behavior, FE back ev
 
 ## Outcome
 
-Matched MultiControllerMenu triangle handler
+The local parent layout was replaced by the shared `MainFrontEnd::multi_sub`
+and frontend menu dispatch.

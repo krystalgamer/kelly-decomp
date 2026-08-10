@@ -20,4 +20,4 @@ Read the exact released TextString::ChangeFade body and fade/fade_alpha/fade_tim
 
 ## Outcome
 
-Matched released TextString fade control
+The local text layout was replaced by the shared `TextString` declaration.

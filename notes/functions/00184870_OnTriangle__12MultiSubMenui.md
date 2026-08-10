@@ -20,4 +20,5 @@ Read the exact released MultiSubMenu triangle behavior plus the target-observed 
 
 ## Outcome
 
-Matched MultiSubMenu triangle handler
+The local sound and menu vtables were replaced by the shared frontend and
+sound-manager declarations.

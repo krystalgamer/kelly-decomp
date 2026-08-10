@@ -19,4 +19,5 @@ Read the exact released key_anim::set_time/sync_key template body, vector3d line
 
 ## Outcome
 
-Matched vector key animation set_time
+The local vector key/track layouts were replaced by the shared `key_anim` and
+`linear_anim` templates.

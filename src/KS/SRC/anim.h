@@ -115,6 +115,19 @@ class key_anim : public anim<animatable_t> {
     typename track_t::iterator current_key;
 
 public:
+    virtual void set_time(float time)
+    {
+        current_key = track->m_keys;
+        typename track_t::iterator next_key = current_key;
+        ++next_key;
+        while (next_key != track->m_keys + track->num_keys &&
+               time >= next_key->get_time())
+        {
+            ++current_key;
+            ++next_key;
+        }
+    }
+
     virtual void get_value(
         const anim_control_t &control,
         animatable_t *destination

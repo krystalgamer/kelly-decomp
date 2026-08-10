@@ -19,4 +19,5 @@ Read the exact released NamesMenu card predicate, FindAdjusted helper, 28-byte M
 
 ## Outcome
 
-Matched released names menu availability predicate
+The local card and names-menu layouts were replaced by the shared save/load
+frontend declarations.
