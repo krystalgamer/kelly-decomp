@@ -299,45 +299,33 @@ void menu_item_widget::select(bool initial) {
 }
 
 // 0x0033EEA8 set_color__6widgetG5color
-struct color { float r,g,b,a; };
-struct update_vtable { char padding[288]; short adjustment; short reserved; void (*update)(void *); };
-struct widget_layout { char padding[88]; color col[4]; char padding2[168]; update_vtable *vtable; };
-extern "C" void set_widget_color(widget_layout *self, const color *value) __asm__("set_color__6widgetG5color");
-void set_widget_color(widget_layout *self, const color *value)
+#include "KS/SRC/widget.h"
+
+void widget::set_color(const color &value)
 {
-    color *destination = self->col;
-    for (int i=0;i<4;++i,++destination) {
-        destination->r=value->r;
-        destination->g=value->g;
-        destination->b=value->b;
-        destination->a=value->a;
-    }
-    update_vtable *table=self->vtable;
-    table->update((char *)self + table->adjustment);
+    for (int i=0;i<4;++i)
+        col[i]=value;
+    update_col();
 }
 
 // 0x00340570 init__11text_widgetR7stringx
-struct stringx;
-struct typeface_def;
-extern "C" void unload_typeface(typeface_def *) __asm__("unload__12typeface_def");
-extern "C" void close_typeface(typeface_def *) __asm__("typeface_close__FP12typeface_def");
-extern "C" typeface_def *open_typeface(stringx *) __asm__("typeface_open__FRC7stringx");
-extern "C" void load_typeface(typeface_def *) __asm__("load__12typeface_def");
+#include "KS/SRC/text_font.h"
+#include "KS/SRC/widget.h"
+
 __asm__(".equ unload__12typeface_def,0x0033CAF0");
 __asm__(".equ typeface_close__FP12typeface_def,0x0033D458");
 __asm__(".equ typeface_open__FRC7stringx,0x0033D298");
 __asm__(".equ load__12typeface_def,0x0033C6E8");
-class text_widget { char padding[8]; int type; char padding2[312]; typeface_def *text_font; public: void init(stringx &typeface); };
 void text_widget::init(stringx &typeface)
 {
     if (text_font) {
-        unload_typeface(text_font);
-        close_typeface(text_font);
+        text_font->unload();
+        typeface_close(text_font);
         text_font = 0;
     }
-    type = 1;
-    text_font = open_typeface(&typeface);
-    load_typeface(text_font);
+    type = WTYPE_Text;
+    text_font = typeface_open(typeface);
+    text_font->load();
     __asm__ __volatile__("" : : : "memory");
 }
 

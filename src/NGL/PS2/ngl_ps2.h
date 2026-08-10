@@ -312,6 +312,7 @@ extern nglScene nglDefaultScene;
 extern nglSystemCallbackStruct nglSystemCallbacks;
 extern nglInstanceBank nglFontBank;
 extern nglInstanceBank nglTextureBank;
+extern nglInstanceBank nglMeshBank;
 extern nglInstanceBank nglMeshFileBank;
 extern nglMesh *nglScratch;
 extern int nglFrameLock;
@@ -345,6 +346,7 @@ struct nglVif1IntEntry {
 extern nglVif1IntEntry *nglVif1IntArray;
 
 void nglFatal(const char *format, ...);
+void nglWarning(const char *format, ...);
 void nglExit();
 void nglSetFrameLock(float frames_per_second);
 void nglSetQuadUV(

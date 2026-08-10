@@ -16,32 +16,6 @@ void interface_widget::render()
     render_base(this);
 }
 
-// 0x00288AA0 frame_advance__16interface_widgetf
-extern "C" void frame_widget(void *, float) __asm__("frame_advance__6widgetf");
-__asm__(".equ frame_advance__6widgetf,0x0033DF70");
-struct reticle_vtable { char padding[64]; short adjustment; short reserved; void (*frame)(void *, float); };
-struct reticle { char padding[320]; reticle_vtable *vtable; };
-class interface_widget {
-    char padding[20];
-    int flags;
-    char padding2[300];
-    reticle *cur_reticle;
-public:
-    void frame_advance(float dt);
-};
-void interface_widget::frame_advance(float dt)
-{
-    int shown = flags & 1;
-    if (shown == 0)
-        return;
-    if (cur_reticle) {
-        reticle_vtable *table = cur_reticle->vtable;
-        table->frame((char *)cur_reticle + table->adjustment, dt);
-    }
-    frame_widget(this, dt);
-    __asm__ __volatile__("" : : : "memory");
-}
-
 // Source implementation boundary.
 // 0x002B8BA0 __tf16interface_widget
 #include "KS/SRC/rtti.h"

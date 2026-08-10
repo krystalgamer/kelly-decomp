@@ -1708,39 +1708,33 @@ bool slf_widget_set_layer_t::operator()(vm_stack &stack, entry_t entry)
 
 #if defined(KELLY_DECOMP_FUNCTION_0032BA78)
 // 0x0032BA78 __cl__20slf_widget_move_to_tR8vm_stackQ320script_library_class8function7entry_t
-struct move_vtable { char padding[104]; short adjustment; short reserved; void (*move_to)(void *, short, short); };
-struct widget { char padding[320]; move_vtable *vtable; };
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY, RECALL_ENTRY }; }; };
-struct vm_stack { char padding[8]; char *top; };
-struct slf_widget_move_to_t { bool operator()(vm_stack &stack, script_library_class::function::entry_t entry); };
-bool slf_widget_move_to_t::operator()(vm_stack &stack, script_library_class::function::entry_t entry)
+#include "KS/SRC/script_lib_widget.h"
+
+bool slf_widget_move_to_t::operator()(
+    vm_stack &stack,
+    script_library_class::function::entry_t entry)
 {
-    stack.top -= 12;
-    widget *object = *(widget **)stack.top;
-    short x = (short)(int)*(float *)(stack.top + 4);
-    short y = (short)(int)*(float *)(stack.top + 8);
-    move_vtable *table = object->vtable;
-    table->move_to((char *)object + table->adjustment, x, y);
-    return true;
+    SLF_PARMS;
+    parms->me->move_to(
+        (short)(int)parms->x,
+        (short)(int)parms->y);
+    SLF_DONE;
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0032D188)
 // 0x0032D188 __cl__33slf_text_block_widget_set_color_tR8vm_stackQ320script_library_class8function7entry_t
-struct color { float r,g,b,a; color(float R,float G,float B,float A):r(R),g(G),b(B),a(A){} };
-struct color_vtable { char padding[168]; short adjustment; short reserved; void (*set_color)(void *, const color *); };
-struct text_block_widget { char padding[320]; color_vtable *vtable; };
-class script_library_class { public: class function { public: enum entry_t { FIRST_ENTRY, RECALL_ENTRY }; }; };
-struct vm_stack { char padding[8]; char *top; };
-struct slf_text_block_widget_set_color_t { bool operator()(vm_stack &stack, script_library_class::function::entry_t entry); };
-bool slf_text_block_widget_set_color_t::operator()(vm_stack &stack, script_library_class::function::entry_t entry)
+#include "KS/SRC/script_lib_widget.h"
+
+bool slf_text_block_widget_set_color_t::operator()(
+    vm_stack &stack,
+    script_library_class::function::entry_t entry)
 {
-    stack.top -= 20;
-    color value(*(float *)(stack.top+4), *(float *)(stack.top+8), *(float *)(stack.top+12), *(float *)(stack.top+16));
-    text_block_widget *object = *(text_block_widget **)stack.top;
-    color_vtable *table = object->vtable;
-    table->set_color((char *)object + table->adjustment, &value);
-    return true;
+    SLF_PARMS;
+    color value(parms->r, parms->g, parms->b, parms->a);
+    text_block_widget *object = parms->me;
+    object->set_color(value);
+    SLF_DONE;
 }
 #endif
 

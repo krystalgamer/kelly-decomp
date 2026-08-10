@@ -387,27 +387,6 @@ spin_controller::spin_controller()
     my_board_controller = 0;
 }
 
-// 0x00223978 Z_Within_Tube__22kellyslater_controller
-struct vector3d {
-    float x, y, z;
-    vector3d(const vector3d &other) : x(other.x), y(other.y), z(other.z) {}
-};
-extern "C" vector3d *get_marker(int) __asm__("WAVE_GetMarker__F14WaveMarkerEnum");
-__asm__(".equ WAVE_GetMarker__F14WaveMarkerEnum,0x0037D7E8");
-struct absolute_po { char padding[56]; float z; };
-struct board { char padding[80]; absolute_po *absolute; };
-struct controller_tube_position_layout {
-    char padding[3656];
-    board *my_board;
-};
-extern "C" bool z_within_tube(controller_tube_position_layout *self)
-    __asm__("Z_Within_Tube__22kellyslater_controller");
-bool z_within_tube(controller_tube_position_layout *self)
-{
-    vector3d tube_wall_point = *get_marker(40);
-    return self->my_board->absolute->z >= tube_wall_point.z;
-}
-
 // 0x0021F670 start_secondary_cam__22kellyslater_controllerP6camera
 struct camera;struct controller_layout{char p0[48];int state;char p1[4];int super_state;char p2[6924];camera*look_back_cam_ptr;char p3[44];camera*photo_cam_ptr;};extern "C" void set_camera(controller_layout*,camera*) __asm__("SetPlayerCamera__22kellyslater_controllerP11game_camera");__asm__(".equ SetPlayerCamera__22kellyslater_controllerP11game_camera,0x002125B0");extern "C" void start_secondary(controller_layout*self,camera*cur) __asm__("start_secondary_cam__22kellyslater_controllerP6camera");void start_secondary(controller_layout*self,camera*cur){if(self->state==7||self->super_state==6||self->super_state==3||self->super_state==8||self->super_state==1||cur==self->photo_cam_ptr)return;camera*secondary=self->look_back_cam_ptr;if(cur!=secondary)set_camera(self,secondary);}
 

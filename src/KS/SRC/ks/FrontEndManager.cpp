@@ -63,26 +63,17 @@ void FEManager::DrawIGO() {
 }
 
 // 0x00199070 ReleaseIGO__9FEManager
-struct igo_vtable { char padding[8]; short adjustment; short reserved; void (*destroy)(void *, int); };
-struct IGOFrontEnd { char padding[192]; igo_vtable *vtable; };
-struct PauseMenuSystem { char padding[140]; igo_vtable *vtable; };
-struct manager_release_igo_layout {
-    IGOFrontEnd *IGO;
-    PauseMenuSystem *pms;
-};
-extern "C" void release_manager_igo(manager_release_igo_layout *self)
-    __asm__("ReleaseIGO__9FEManager");
-void release_manager_igo(manager_release_igo_layout *self)
+#include "KS/SRC/ks/FrontEndManager.h"
+#include "KS/SRC/ks/FrontEndMenus.h"
+#include "KS/SRC/ks/IGOFrontEnd.h"
+
+void FEManager::ReleaseIGO()
 {
-    if (self->IGO) {
-        igo_vtable *table = self->IGO->vtable;
-        table->destroy((char *)self->IGO + table->adjustment, 3);
-    }
-    self->IGO = 0;
-    if (self->pms) {
-        igo_vtable *table = self->pms->vtable;
-        table->destroy((char *)self->pms + table->adjustment, 3);
-    }
+    if (IGO)
+        delete IGO;
+    IGO = 0;
+    if (pms)
+        delete pms;
 }
 
 // 0x00198E68 UpdateIGO__9FEManagerf

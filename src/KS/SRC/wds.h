@@ -1,7 +1,10 @@
 #ifndef WDS_H
 #define WDS_H
 
+#include "KS/SRC/algebra.h"
 #include "KS/SRC/entity_maker.h"
+#include "KS/SRC/stringx.h"
+#include "g++-2/stl_vector.h"
 
 class entity;
 class entity_anim_tree;
@@ -20,6 +23,18 @@ class sky;
 class stringx;
 class terrain;
 
+typedef unsigned int scene_anim_handle_t;
+
+struct scene_anims_info {
+    entity *ent;
+    vector3d entity_up_vec;
+    scene_anim_handle_t handle;
+    stringx name;
+    entity_anim_tree *anim_tree;
+};
+
+typedef vector<scene_anims_info> scene_anim_list_t;
+
 class world_dynamics_system {
     char data_before_ett_manager[0x60];
     ett_manager *ett_mgr;
@@ -31,6 +46,8 @@ class world_dynamics_system {
     float time_inc;
     char data_after_time_inc_to_current_light_context[0x234];
     nglLightContext *current_light_context;
+    char data_before_scene_anims[0x18];
+    scene_anim_list_t scene_anims;
 
 public:
     struct ent_time_limit {
@@ -80,6 +97,7 @@ public:
     void add_anim(entity_anim_tree *animation);
     void kill_anim(entity_anim_tree *animation);
     void kill_scene_anim(unsigned int animation);
+    float get_scene_anim_time(scene_anim_handle_t animation);
     void load_scene_anim(const stringx &name);
     void unload_scene();
     void destroy_entity(entity *value);

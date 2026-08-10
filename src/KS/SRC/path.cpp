@@ -83,31 +83,6 @@ int path_graph::get_node_id(path_graph_node *node) const
   return(-1);
 }
 
-// 0x0034A508 __10path_graph
-extern "C" void construct_string(void *) __asm__("__7stringx");
-extern const char path_graph_vtable[];
-__asm__(".equ __7stringx,0x0034D3E0");
-__asm__(".equ path_graph_vtable,0x00504020");
-struct path_graph_layout { char id[8]; void *nodes[3]; void *edges[3]; int warnings[4]; const void *vtable; };
-extern "C" path_graph_layout *construct_path_graph(path_graph_layout *self) __asm__("__10path_graph");
-path_graph_layout *construct_path_graph(path_graph_layout *self)
-{
-    char scratch[32];
-    self->vtable = path_graph_vtable;
-    construct_string(self);
-    __asm__ __volatile__("" : "+m"(scratch));
-    self->nodes[0] = 0;
-    void *volatile *nodes = &self->nodes[0];
-    nodes[2] = 0;
-    void *volatile *edges = &self->edges[0];
-    nodes[1] = 0;
-    self->edges[0] = 0;
-    edges[2] = 0;
-    edges[1] = 0;
-    self->warnings[0]=0; self->warnings[1]=0; self->warnings[2]=0; self->warnings[3]=0;
-    return self;
-}
-
 // 0x0034AFF0 get_edge__C10path_graphPC15path_graph_nodeT1
 #include "KS/SRC/path.h"
 path_graph_edge *path_graph::get_edge(const path_graph_node *n1,const path_graph_node *n2) const {if(n1&&n2){for(vector<path_graph_edge *>::const_iterator i=edges.begin();i!=edges.end();++i){path_graph_edge*e=*i;if(e&&((e->nodes[0]==n1&&e->nodes[1]==n2)||(e->nodes[0]==n2&&e->nodes[1]==n1)))return e;}}return 0;}

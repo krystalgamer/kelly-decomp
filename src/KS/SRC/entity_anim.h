@@ -229,6 +229,9 @@ public:
     void *operator new(unsigned int size);
     void operator delete(void *memory);
     bool is_root(entity *value) const;
+    inline float get_time() const {
+        return control.get_time();
+    }
 
     inline bool was_blended() const {
         return !control.is_tween() ||

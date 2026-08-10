@@ -221,24 +221,18 @@ __asm__(".equ get_axis_state__C17ps2_joypad_deviceiPUc, 0x001E17D8");
 rational_t ps2_joypad_device::get_axis_state(axis_id_t axis, int control_axis) const { if (axis != 22) return get_axis_state(axis, curr_rdata); rational_t result = 1.0f; if (disconnected != 1) result = 0.0f; return result; }
 
 // 0x001E1628 stop_vibration__17ps2_joypad_device
+#include "KS/SRC/HWOSPS2/ps2_input.h"
+#include "KS/SRC/ini_parser.h"
+
 extern "C" void *memset(void *, int, unsigned int);
 extern "C" int scePadSetActDirect(int, int, const unsigned char *);
 __asm__(".equ memset,0x003D18D0");
 __asm__(".equ scePadSetActDirect,0x003BBC68");
-struct developer_options { char padding[76]; int no_rumble; };
-extern developer_options *developer_options_instance;
-__asm__(".equ developer_options_instance,0x0046B180");
-class ps2_joypad_device {
-    char padding[100];
-    signed char port_id;
-    char padding2;
-    signed char pad_type;
-public:
-    void stop_vibration();
-};
+__asm__(".equ _20os_developer_options$instance,0x0046B180");
 void ps2_joypad_device::stop_vibration()
 {
-    if (!developer_options_instance->no_rumble) {
+    if (!os_developer_options::inst()->is_flagged(
+            os_developer_options::FLAG_NO_RUMBLE)) {
         if (pad_type != 121)
             return;
         unsigned char motors[6] = {0, 0, 0, 0, 0, 0};

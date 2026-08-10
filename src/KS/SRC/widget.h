@@ -16,6 +16,7 @@ class wevent;
 class rotate_wevent;
 class scale_wevent;
 class typeface_def;
+typeface_def *typeface_open(const stringx &name);
 
 typedef list<widget *> widget_list_t;
 typedef list<wevent *> wevent_list_t;
@@ -271,6 +272,7 @@ public:
     virtual void hide();
     virtual void frame_advance(time_value_t time_inc);
     virtual void flush();
+    void init(stringx &typeface);
     void set_rhw(rational_t value);
 };
 

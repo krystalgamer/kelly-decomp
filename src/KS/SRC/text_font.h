@@ -34,6 +34,8 @@ public:
 
     int usercount;
     ~typeface_def();
+    void load();
+    void unload();
 };
 
 extern list<typeface_def *> typeface_list;

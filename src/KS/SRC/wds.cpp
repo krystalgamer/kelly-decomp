@@ -28,26 +28,20 @@ __asm__(".equ _20os_developer_options$instance, 0x0046B180");
 bool world_dynamics_system::wds_releasefile(unsigned char **buf) { if(!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_STASH_ONLY)) KSMemFree(*buf); *buf=0; return true; }
 
 // 0x002A8F90 get_scene_anim_time__21world_dynamics_systemUi
-struct animation_tree { char padding[72]; float time; };
-struct entity;
-extern "C" animation_tree *get_anim_tree(entity *, int) __asm__("get_anim_tree__C6entityi");
+#include "KS/SRC/entity.h"
+#include "KS/SRC/entity_anim.h"
+#include "KS/SRC/wds.h"
+
 __asm__(".equ get_anim_tree__C6entityi,0x001348D8");
-struct scene_anim_entry { entity *ent; char padding[12]; unsigned int handle; char padding2[12]; };
-struct scene_anim_list { scene_anim_entry *start; scene_anim_entry *finish; };
-class world_dynamics_system { char padding[892]; scene_anim_list scene_anims; public: float get_scene_anim_time(unsigned int handle); };
-float world_dynamics_system::get_scene_anim_time(unsigned int handle)
+float world_dynamics_system::get_scene_anim_time(
+    scene_anim_handle_t handle)
 {
-    register scene_anim_list *list __asm__("$6") = &scene_anims;
-    __asm__ __volatile__("" : "+r"(list));
-    register scene_anim_entry *i __asm__("$3") = scene_anims.start;
-    register scene_anim_entry *end __asm__("$2") = list->finish;
-    __asm__ __volatile__("" : "+r"(i), "+r"(end), "+r"(list));
-    for (; i != end; ++i) {
+    scene_anim_list_t::iterator i = scene_anims.begin();
+    for (; i != scene_anims.end(); ++i) {
         if (i->handle == handle && i->ent != 0) {
-            animation_tree *tree = get_anim_tree(i->ent, 9);
-            return tree->time;
+            entity_anim_tree *tree = i->ent->get_anim_tree(9);
+            return tree->get_time();
         }
-        end = list->finish;
     }
     return -1.0f;
 }

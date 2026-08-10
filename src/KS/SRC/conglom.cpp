@@ -14,19 +14,18 @@ light_manager *conglomerate::get_light_set() const
 
 // 0x00306088 compute_sector__12conglomerateR7terrainb
 #include "KS/SRC/conglom.h"
-extern "C" void compute_entity_sector(void *, terrain &, bool) __asm__("compute_sector__6entityR7terrainb");
-extern "C" void update_region(entity *, bool) __asm__("update_region__6entityb");
+
 __asm__(".equ compute_sector__6entityR7terrainb,0x0012FB40");
 __asm__(".equ update_region__6entityb,0x00134E20");
 void conglomerate::compute_sector(terrain &ter, bool high_res)
 {
-    compute_entity_sector(this, ter, high_res);
+    entity::compute_sector(ter, high_res);
     pentity_vector::iterator i = members.begin();
     pentity_vector::iterator end = members.end();
     for (; i != end; ++i) {
         entity *member = *i;
         if (member->get_bone_idx() < 0)
-            ::update_region(member, true);
+            member->update_region(true);
     }
 }
 

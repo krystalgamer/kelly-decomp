@@ -149,6 +149,32 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_widget_move_to_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        widget *me;
+        vm_num_t x;
+        vm_num_t y;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+class slf_text_block_widget_set_color_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        text_block_widget *me;
+        vm_num_t r;
+        vm_num_t g;
+        vm_num_t b;
+        vm_num_t a;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 class slf_text_block_widget_set_scale_t :
     public script_library_class::function {
 public:

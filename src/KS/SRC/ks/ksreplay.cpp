@@ -155,43 +155,6 @@ void KSReplay::Pause(bool paused)
     }
 }
 
-// 0x0023A9A0 Reset__13KSEntityState
-struct KSEntityState { unsigned int padding; unsigned int flags; void Reset(); };
-void KSEntityState::Reset()
-{
-    register unsigned int value __asm__("$2") = flags;
-    __asm__ __volatile__("" : "+r"(value));
-    register unsigned int mask1 __asm__("$5") = 0x7fffffffU;
-    __asm__ __volatile__("" : "+r"(mask1));
-    register unsigned int mask2 __asm__("$3") = 0xbfffffffU;
-    value &= mask1;
-    __asm__ __volatile__("" : "+r"(value), "+r"(mask2));
-    value &= mask2;
-    __asm__ __volatile__("" : "+r"(value));
-    register unsigned int mask3 __asm__("$6") = 0xffbfffffU;
-    __asm__ __volatile__("" : "+r"(mask3));
-    register unsigned int mask4 __asm__("$3") = 0xffdfffffU;
-    value &= mask3;
-    __asm__ __volatile__("" : "+r"(value), "+r"(mask4));
-    value &= mask4;
-    __asm__ __volatile__("" : "+r"(value));
-    register unsigned int mask5 __asm__("$5") = 0xfeffffffU;
-    __asm__ __volatile__("" : "+r"(mask5));
-    register unsigned int mask6 __asm__("$3") = 0xff7fffffU;
-    value &= mask5;
-    __asm__ __volatile__("" : "+r"(value), "+r"(mask6));
-    register int mask7 __asm__("$6") = -16257;
-    __asm__ __volatile__("" : "+r"(mask7));
-    value &= mask6;
-    __asm__ __volatile__("" : "+r"(value));
-    register int mask8 __asm__("$5") = -128;
-    __asm__ __volatile__("" : "+r"(mask8));
-    value &= mask7;
-    __asm__ __volatile__("" : "+r"(value));
-    value &= mask8;
-    flags = value;
-}
-
 // 0x0023BF50 SetCollisionInfo__8KSReplayP12beach_objectP6entityRC8vector3d
 class beach_object;class entity;struct vector3d{float x,y,z;vector3d&operator=(const vector3d&o){x=o.x;y=o.y;z=o.z;return *this;}};struct Collision{beach_object*obj;entity*ent;vector3d dir;float timeStamp;};class KSReplay{char p[200];Collision*collisions;int current_collision;int num_collisions;public:void SetCollisionInfo(beach_object*,entity*,const vector3d&);};extern float level_seconds;asm(".equ level_seconds,0x0046B284");void KSReplay::SetCollisionInfo(beach_object*obj,entity*ent,const vector3d&dir){if(collisions==0||(unsigned)num_collisions>=100)return;collisions[num_collisions].obj=obj;collisions[num_collisions].ent=ent;collisions[num_collisions].dir=dir;collisions[num_collisions].timeStamp=level_seconds;num_collisions++;}
 

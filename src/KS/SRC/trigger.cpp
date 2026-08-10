@@ -135,32 +135,6 @@ entity_trigger::entity_trigger(
 {
 }
 
-// 0x0028DC98 add_region__7triggerP6region
-struct region;
-struct insert_result { void *iterator; int inserted; };
-extern "C" insert_result *insert_unique(insert_result *, void *, region *const *) __asm__("insert_unique__t8_Rb_tree5ZP6regionZP6regionZt9_Identity1ZP6regionZt4less1ZP6regionZt12my_allocator1ZP6regionRCP6region");
-extern "C" void region_add(region *, void *) __asm__("add__6regionP7trigger");
-__asm__(".equ insert_unique__t8_Rb_tree5ZP6regionZP6regionZt9_Identity1ZP6regionZt4less1ZP6regionZt12my_allocator1ZP6regionRCP6region,0x002B04E0");
-__asm__(".equ add__6regionP7trigger,0x002E7D98");
-class trigger { char padding[28]; char region_tree[1]; public: bool add_region(region *value); };
-bool trigger::add_region(region *value)
-{
-    if (value) {
-        insert_result result __attribute__((aligned(16)));
-        insert_result temporary __attribute__((aligned(16)));
-        insert_unique(&temporary, region_tree, &value);
-        register void *iterator __asm__("$2") = temporary.iterator;
-        register int inserted __asm__("$3") = temporary.inserted;
-        result.iterator = iterator;
-        result.inserted = inserted;
-        if (result.inserted) {
-            region_add(value, this);
-            return true;
-        }
-    }
-    return false;
-}
-
 // 0x0028DD88 __13point_triggerRC7stringxRC8vector3df
 struct stringx;extern "C" void trigger_ctor(void*,const stringx&) __asm__("__7triggerRC7stringx");__asm__(".equ __7triggerRC7stringx,0x0028D838");extern const char point_vtable[];__asm__(".equ point_vtable,0x004FB0A0");struct vector3d{float x,y,z;vector3d(){}vector3d&operator=(const vector3d&o){x=o.x;y=o.y;z=o.z;return *this;}};class point_trigger{char p0[8];const void*vtable;char p1[44];vector3d position;float radius;public:point_trigger(const stringx&,const vector3d&,float);};point_trigger::point_trigger(const stringx&id,const vector3d&p,float r){trigger_ctor(this,id);vtable=point_vtable;position=p;radius=r;}
 

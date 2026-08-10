@@ -73,6 +73,19 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_dilated_delay_t :
+    public script_library_class::function {
+public:
+    struct sdata_t {
+        float time_remaining;
+    };
+    struct parms_t {
+        vm_num_t duration;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 class slf_localize_thread_t :
     public script_library_class::function {
 public:
