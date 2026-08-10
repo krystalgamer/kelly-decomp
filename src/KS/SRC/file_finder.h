@@ -1,5 +1,11 @@
 // Matching decompilation blocks selected by generated build shims.
 
+class stringx;
+
+bool file_finder_exists(
+    const stringx &name,
+    const stringx &extension,
+    stringx *resolved_name);
 
 #if defined(KELLY_DECOMP_FUNCTION_002B8AB8)
 // 0x002B8AB8 __tf11file_finder

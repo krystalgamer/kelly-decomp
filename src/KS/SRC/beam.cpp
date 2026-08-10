@@ -217,12 +217,6 @@ void beam_effect::kill(bool apply_target_vals)
     mode = EFFECT_DEAD;
 }
 
-// 0x00272608 kill_all_effects__4beamb
-struct effect_vtable { char padding[72]; short adjustment; short reserved; void(*kill)(void*,bool); }; struct beam_effect { char padding[24]; effect_vtable*vtable; }; struct beam_layout { char padding[524]; beam_effect**begin; beam_effect**end; };
-extern "C" void kill_all(beam_layout*self,bool apply) __asm__("kill_all_effects__4beamb");
-void kill_all(beam_layout*self,bool apply)
-{beam_effect**i=self->begin;beam_effect**end=self->end;for(;i!=end;++i){beam_effect*effect=*i;if(effect){effect_vtable*t=effect->vtable;t->kill((char*)effect+t->adjustment,apply);}}}
-
 // 0x00272708 get_signal_id__4beamPCc
 extern const char*signal_names[2];extern "C" unsigned strlen(const char*);extern "C" int strcmp(const char*,const char*);extern "C" unsigned short entity_get(const char*)__asm__("get_signal_id__6entityPCc");asm(".equ signal_names,0x00431870");asm(".equ strlen,0x003D40E0");asm(".equ strcmp,0x003D3E88");asm(".equ get_signal_id__6entityPCc,0x0012F0E0");class beam{public:static unsigned short get_signal_id(const char*);};unsigned short beam::get_signal_id(const char*name){unsigned idx;for(idx=0;idx<2;idx++){int offset=strlen(signal_names[idx])-strlen(name);if(offset>(int)strlen(signal_names[idx]))continue;if(!strcmp(name,&signal_names[idx][offset]))return idx+27;}return entity_get(name);}
 

@@ -71,10 +71,10 @@ extern const char *item_signal_names[];
 const char *item::get_signal_name(unsigned short idx) const { if(idx > 26) return item_signal_names[idx-27]; return entity::get_signal_name(idx); }
 
 // 0x0028B160 get_light_set__11visual_item
-struct light_manager; struct entity_vtable { char p0[344]; short visible_adjust; short x0; bool(*is_visible)(void*); char p1[864]; short light_adjust; short x1; light_manager*(*get_light)(void*); }; struct entity_layout { char p0[8]; entity_vtable*vtable; }; struct visual_layout { char padding[512]; entity_layout*owner; };
-extern "C" light_manager* get_lights(visual_layout*self) __asm__("get_light_set__11visual_item");
-light_manager* get_lights(visual_layout*self)
-{if(self->owner){register entity_layout*e __asm__("$5")=self->owner;register entity_vtable*t __asm__("$3")=e->vtable;register bool(*visible)(void*) __asm__("$2")=t->is_visible;if(visible((char*)e+t->visible_adjust)){e=self->owner;t=e->vtable;register light_manager*(*light)(void*) __asm__("$2")=t->get_light;return light((char*)e+t->light_adjust);}}return 0;}
+#include "KS/SRC/item.h"
+
+light_manager* visual_item::get_light_set()
+{if(owner&&owner->is_visible())return owner->get_light_set();return 0;}
 
 // 0x00288B50 __4itemRC9entity_idUi
 struct entity_id{char p[4];};extern "C" void entity_ctor(void*,const entity_id&,int,unsigned) __asm__("__6entityRC9entity_id15entity_flavor_tUi");extern "C" void string_ctor(void*) __asm__("__7stringx");extern const char item_vtable[];asm(".equ __6entityRC9entity_id15entity_flavor_tUi,0x00129778");asm(".equ __7stringx,0x0034D3E0");asm(".equ item_vtable,0x004FC1B0");struct ItemLayout{char p0[8];const void*vtable;char p1[132];float radius;char p2[364];bool preload_script_called,item_script_called,linked;int usage_type;char name[8];int count,default_count;bool picked_up;float pickup_timer;float icon_scale,interface_orientation;int max_num;};extern "C" ItemLayout*item_ctor(ItemLayout*,const entity_id&,unsigned) __asm__("__4itemRC9entity_idUi");ItemLayout*item_ctor(ItemLayout*self,const entity_id&id,unsigned flags){entity_ctor(self,id,7,flags);register const void*table asm("$3")=item_vtable;self->vtable=table;string_ctor(self->name);self->usage_type=-1;self->picked_up=false;self->pickup_timer=0;self->radius=.25f;self->count=self->default_count=1;self->max_num=10;self->icon_scale=1.0f;self->interface_orientation=225.0f;self->preload_script_called=false;self->item_script_called=false;self->linked=false;return self;}

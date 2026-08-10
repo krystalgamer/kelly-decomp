@@ -62,6 +62,10 @@ public:
         int alignment,
         int extra_bytes = 1);
     static bool wds_releasefile(unsigned char **buffer);
+    static bool wds_exists(
+        const stringx &name,
+        const stringx &extension,
+        int flags);
     ett_manager *get_ett_manager();
     nglLightContext *set_current_light_context(nglLightContext *context);
     inline terrain &get_the_terrain() {

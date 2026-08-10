@@ -32,6 +32,7 @@ public:
     virtual void Select(int entry_index);
     virtual void OnLeft(int controller);
     virtual void OnRight(int controller);
+    virtual void OnActivate();
 };
 
 class CameraMenuClass : public FEMenu {
@@ -216,6 +217,7 @@ public:
     virtual void OnSquare(int controller);
     virtual void Select(int entry_index);
     virtual void OnCircle(int controller);
+    virtual void Update(time_value_t time_inc);
 };
 
 class PauseMenuSystem : public FEMenuSystem {
@@ -240,6 +242,7 @@ public:
     void RestartComp();
     void Restart();
     bool SetDisconnect(bool disconnected);
+    bool IsResumable(FEMenu *menu) const;
     void PrepareToEndLevel() { end_level = true; }
 };
 
@@ -267,6 +270,7 @@ public:
     virtual void OnTriangle(int controller);
     virtual void OnL2(int controller);
     virtual void OnCircle(int controller);
+    virtual void Update(time_value_t time_inc);
 };
 
 class LostControllerMenuClass : public FEMenu {

@@ -53,7 +53,13 @@ not_underwater:
 
 #if defined(KELLY_DECOMP_FUNCTION_00380BD0)
 // 0x00380BD0 WAVETEX_Update__Fi
-extern "C" void prepare() __asm__("WAVETEX_PrepareMaterials__Fv");__asm__(".equ WAVETEX_PrepareMaterials__Fv,0x00380B28");struct game_layout{char padding[180];int mode;int players;};extern game_layout*g_game_ptr;extern int WAVETEX_BufferIndex;__asm__(".equ g_game_ptr,0x0046AC64");__asm__(".equ WAVETEX_BufferIndex,0x00484E1C");extern "C" void update_wave(int player) __asm__("WAVETEX_Update__Fi");void update_wave(int player){prepare();bool primary=false;if(g_game_ptr->players>=2)primary=(g_game_ptr->mode==0);if(!primary||player==0)WAVETEX_BufferIndex=(WAVETEX_BufferIndex+1)&1;}
+#include "KS/SRC/game.h"
+
+extern int WAVETEX_BufferIndex;
+void WAVETEX_PrepareMaterials();
+__asm__(".equ WAVETEX_PrepareMaterials__Fv,0x00380B28");
+__asm__(".equ WAVETEX_BufferIndex,0x00484E1C");
+void WAVETEX_Update(int player){WAVETEX_PrepareMaterials();bool primary=g_game_ptr->is_splitscreen();if(!primary||player==0)WAVETEX_BufferIndex=(WAVETEX_BufferIndex+1)&1;}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0037F418)

@@ -5,8 +5,18 @@
 
 #include "KS/SRC/ks/FEMenu.h"
 
+class PhotoSelectMenu;
+class PhotoSaveMenu;
+class PhotoDevelopMenu;
+
 class PhotoFrontEnd : public FEMultiMenu {
+    PhotoSelectMenu *selectMenu;
+    char data_before_save_menu[4];
+    PhotoSaveMenu *saveMenu;
+    PhotoDevelopMenu *develMenu;
+
 public:
+    void OnEndRun();
     virtual void Draw();
     virtual void OnLeft(int controller);
     virtual void OnRight(int controller);

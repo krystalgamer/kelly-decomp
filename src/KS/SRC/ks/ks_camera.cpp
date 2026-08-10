@@ -591,8 +591,6 @@ bool flyby_camera::is_finished() { return current_anim_time >= animation->totals
 // 0x0022E718 __12beach_cameraRC9entity_idP6entityP22kellyslater_controller
 #include "KS/SRC/ks/ks_camera.h"
 
-__asm__(".equ __11auto_cameraRC9entity_idP6entityP22kellyslater_controller, 0x0022C7A0");
-
 beach_camera::beach_camera(
     const entity_id &id,
     entity *target,
@@ -705,13 +703,6 @@ void vector_filter::Init_Filter(const vector3d &start_vec)
         values[10] = 0.0f;
     }
 }
-
-// 0x0022C7A0 __11auto_cameraRC9entity_idP6entityP22kellyslater_controller
-struct entity_id; struct entity; struct kellyslater_controller; extern "C" void game_camera_ctor(void*,const entity_id&,entity*) __asm__("__11game_cameraRC9entity_idP6entity"); __asm__(".equ __11game_cameraRC9entity_idP6entity,0x002C40A8"); extern const char auto_vtable[]; __asm__(".equ auto_vtable,0x004EA248");
-struct vector3d { float x,y,z; vector3d(){} vector3d(float a,float b,float c):x(a),y(b),z(c){} vector3d& operator=(const vector3d&o){x=o.x;y=o.y;z=o.z;return *this;} };
-class auto_camera { char p0[8]; const void*vtable; char p1[520]; kellyslater_controller*ksctrl; char p2[320]; vector3d delta_vec; public:auto_camera(const entity_id&,entity*,kellyslater_controller*); void set_ks_controller(kellyslater_controller*p){ksctrl=p;} };
-auto_camera::auto_camera(const entity_id&id,entity*target,kellyslater_controller*controller)
-{game_camera_ctor(this,id,target);vtable=auto_vtable;delta_vec=vector3d(0,0,0);set_ks_controller(controller);}
 
 // 0x00227CC0 PointOnLine__FR8vector3dRC8vector3dT1f
 struct vector3d{float x,y,z;};extern "C" void point_on_line(vector3d&result,const vector3d&a,const vector3d&b,float x) __asm__("PointOnLine__FR8vector3dRC8vector3dT1f");void point_on_line(vector3d&result,const vector3d&a,const vector3d&b,float x){register float ax __asm__("$f3")=a.x;register float bx __asm__("$f1")=b.x;if(ax==bx){result.x=ax;result.y=a.y;result.z=a.z;}else{result.x=x;float ratio=(x-ax)/(bx-ax);result.y=a.y+ratio*(b.y-a.y);result.z=a.z+ratio*(b.z-a.z);}}

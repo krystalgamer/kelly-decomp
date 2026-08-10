@@ -134,6 +134,11 @@ public:
     virtual void jumped_over(entity*);
     virtual void sprayed(entity*);
     virtual bool is_surfing_object();
+    bool read_float_param(
+        char **arguments,
+        int count,
+        const char *name,
+        float *value) const;
 
     beach_object* next;
     float spawn_time;
@@ -186,6 +191,8 @@ public:
     virtual void jumped_over(entity*);
     virtual void sprayed(entity*);
     virtual int get_type() const;
+    virtual bool parse_params(char **arguments, int count);
+    virtual void get_settings(const beach_object &other);
 
 protected:
     color32 ren_col;

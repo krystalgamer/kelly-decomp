@@ -227,7 +227,6 @@ extern instance_bank<material> material_bank;
 __asm__(".equ release__6entity, 0x0012AAB0");
 __asm__(".equ render_passes_needed__C6entity, 0x00133640");
 __asm__(".equ purge_effects__4beam, 0x002712B0");
-__asm__(".equ kill_all_effects__4beamb, 0x00272608");
 __asm__(".equ delete_instance__t13instance_bank1Z8materialP8material, 0x002AD570");
 __asm__(".equ material_bank, 0x0046B650");
 

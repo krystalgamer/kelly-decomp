@@ -148,14 +148,14 @@ void PhotoSaveMenu::Select(int entry) {
 }
 
 // 0x001CE1D0 OnEndRun__13PhotoFrontEnd
-struct entry; struct menu_vtable { char padding[24]; short adjustment; short reserved; void (*set_high)(void *,entry *,bool); };
-struct photo_menu { char padding[64]; entry *entries; char padding2[48]; menu_vtable *vtable; };
-struct photo_frontend { char padding[352]; photo_menu *select; char padding2[4]; photo_menu *save; };
-extern "C" void end_run(photo_frontend *self) __asm__("OnEndRun__13PhotoFrontEnd");
-void end_run(photo_frontend *self)
+#include "KS/SRC/ks/PhotoFrontEnd.h"
+
+void PhotoFrontEnd::OnEndRun()
 {
-    if(self->select){photo_menu*m=self->select;menu_vtable*t=m->vtable;t->set_high((char*)m+t->adjustment,m->entries,true);}
-    if(self->save){photo_menu*m=self->save;menu_vtable*t=m->vtable;t->set_high((char*)m+t->adjustment,m->entries,true);}
+    if(selectMenu)
+        selectMenu->setHigh(selectMenu->entries, true);
+    if(saveMenu)
+        saveMenu->setHigh(saveMenu->entries, true);
 }
 
 // 0x001CE238 GetSelectedPhotoIdx__C13PhotoFrontEnd

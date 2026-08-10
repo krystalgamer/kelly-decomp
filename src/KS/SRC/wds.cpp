@@ -46,13 +46,6 @@ float world_dynamics_system::get_scene_anim_time(
     return -1.0f;
 }
 
-// 0x00295138 wds_exists__21world_dynamics_systemRC7stringxT1i
-struct stringx { unsigned data; }; extern "C" void string_ctor(stringx*) __asm__("__7stringx"); extern "C" void string_dtor(stringx*,int) __asm__("_$_7stringx"); extern "C" bool finder(const stringx&,const stringx&,stringx*) __asm__("file_finder_exists__FRC7stringxT0P7stringx");
-__asm__(".equ __7stringx,0x0034D3E0");__asm__(".equ _$_7stringx,0x0034D6E0");__asm__(".equ file_finder_exists__FRC7stringxT0P7stringx,0x00276EF0");
-extern "C" bool exists(const stringx&name,const stringx&ext,int flags) __asm__("wds_exists__21world_dynamics_systemRC7stringxT1i");
-bool exists(const stringx&name,const stringx&ext,int flags)
-{stringx fname;string_ctor(&fname);if(!finder(name,ext,&fname)){string_dtor(&fname,2);return false;}else{string_dtor(&fname,2);return true;}}
-
 // 0x002A9100 add_region_ambient_sound__21world_dynamics_systemR7stringxT1f
 struct stringx{char data[8];};struct rbnode{};struct iterator{rbnode*value;char pad[12];};struct terrain{char pad[12];rbnode*header;};struct world{char pad[236];terrain*ter;};struct graph_pair{char pad[4];void*region_data;};extern "C" iterator*find_region(iterator*,void*,stringx*)__asm__("find__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt10_Select1st1Zt4pair2ZC7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt4less1Z7stringxZt12my_allocator1ZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeRC7stringx");extern "C" void set_sound(void*,stringx&)__asm__("set_region_ambient_sound__6regionR7stringx");__asm__(".equ find__t8_Rb_tree5Z7stringxZt4pair2ZC7stringxZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt10_Select1st1Zt4pair2ZC7stringxZP6regionZP6portalZt4less1Z7stringx4nodeZt4less1Z7stringxZt12my_allocator1ZQ2t5graph4Z7stringxZP6regionZP6portalZt4less1Z7stringx4nodeRC7stringx,0x00110A88");__asm__(".equ set_region_ambient_sound__6regionR7stringx,0x002E81A0");extern "C" void add(world*self,stringx&id,stringx&id2,float volume)__asm__("add_region_ambient_sound__21world_dynamics_systemR7stringxT1f");void add(world*self,stringx&id,stringx&id2,float volume){terrain*ter=self->ter;iterator found;find_region(&found,(char*)ter+12,&id);register rbnode*endp asm("$2")=ter->header;register rbnode*foundp asm("$3")=found.value;iterator finish;finish.value=endp;graph_pair*fr=(graph_pair*)((char*)foundp+24);if(foundp==endp)fr=0;if(fr){set_sound(fr->region_data,id2);*(float*)((char*)fr->region_data+300)=volume;}}
 

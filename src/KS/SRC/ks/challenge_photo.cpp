@@ -131,47 +131,23 @@ void PhotoChallenge::Cameraman::BeginTakingPicture(
 }
 
 // 0x00261C78 __14PhotoChallenge
-extern "C" void challenge_ctor(void*) __asm__("__9Challenge"); __asm__(".equ __9Challenge,0x00260860"); extern const char photo_vtable[]; __asm__(".equ photo_vtable,0x004D5EA0");
-struct photo_challenge_ctor_layout {
-    const void *vtable;
-    void *ksctrl;
-    int goal;
-    int requiredScore;
-    int state;
-    int recordChain;
-    float specialPhotoTimer;
-    int numCameramen;
-    void *cameramen;
-    int activeCameramanIdx;
-    int numTaken;
-    int numPhotos;
-    void *photos;
-};
-extern "C" photo_challenge_ctor_layout *photo_challenge_ctor(
-    photo_challenge_ctor_layout *self
-)
-    __asm__("__14PhotoChallenge");
-photo_challenge_ctor_layout *photo_challenge_ctor(
-    photo_challenge_ctor_layout *self
-)
+#include "KS/SRC/ks/challenge_photo.h"
+
+__asm__(".equ __9Challenge,0x00260860");
+PhotoChallenge::PhotoChallenge()
 {
-    challenge_ctor(self);
-    register int none __asm__("$2") = -1;
-    register const void *table __asm__("$3") = photo_vtable;
-    self->activeCameramanIdx = none;
-    self->vtable = table;
-    self->ksctrl = 0;
-    self->goal = 0;
-    self->requiredScore = 0;
-    self->state = 0;
-    self->recordChain = false;
-    self->specialPhotoTimer = 0.0f;
-    self->numCameramen = 0;
-    self->cameramen = 0;
-    self->numTaken = 0;
-    self->numPhotos = 0;
-    self->photos = 0;
-    return self;
+    activeCameramanIdx=-1;
+    ksctrl=0;
+    goal=0;
+    requiredScore=0;
+    state=STATE_NONE;
+    recordChain=false;
+    specialPhotoTimer=0.0f;
+    numCameramen=0;
+    cameramen=0;
+    numTaken=0;
+    numPhotos=0;
+    photos=0;
 }
 
 // 0x002620A8 Retry__14PhotoChallenge

@@ -1738,16 +1738,6 @@ bool slf_text_block_widget_set_color_t::operator()(
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0032E2B8)
-// 0x0032E2B8 __cl__35slf_fluid_bar_widget_set_full_val_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack{char padding[8];char*top;};struct fluid_bar{char padding[360];float full_val,to_val,cur_val;char p2[12];float old_full_val;char p3[16];int update;};struct parms{fluid_bar*me;float v;};extern "C" bool call_full(void*,vm_stack&stack,int entry) __asm__("__cl__35slf_fluid_bar_widget_set_full_val_tR8vm_stackQ320script_library_class8function7entry_t");bool call_full(void*,vm_stack&stack,int entry){stack.top-=sizeof(parms);parms*p=(parms*)stack.top;fluid_bar*w=p->me;float v=p->v;w->full_val=v;if(w->to_val>w->full_val)w->to_val=w->full_val;if(w->cur_val>w->full_val)w->cur_val=w->full_val;register float current __asm__("$f1");__asm__ __volatile__("" : "=f"(current));current=w->full_val;register float old __asm__("$f0")=w->old_full_val;if(current!=old)w->update=true;return true;}
-#endif
-
-#if defined(KELLY_DECOMP_FUNCTION_0032E390)
-// 0x0032E390 __cl__30slf_fluid_bar_widget_set_val_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack{char padding[8];char*top;};struct fluid_bar{char padding[360];float full_val,to_val,cur_val;char p2[16];float old_to_val;char p3[12];int update;};struct parms{fluid_bar*me;float v;};extern "C" bool call_val(void*,vm_stack&stack,int entry) __asm__("__cl__30slf_fluid_bar_widget_set_val_tR8vm_stackQ320script_library_class8function7entry_t");bool call_val(void*,vm_stack&stack,int entry){stack.top-=sizeof(parms);parms*p=(parms*)stack.top;fluid_bar*w=p->me;float v=p->v;w->to_val=v;if(w->to_val<0.0f)w->to_val=0.0f;register float to __asm__("$f0")=w->to_val;register float full __asm__("$f1")=w->full_val;__asm__ __volatile__("" : : "f"(to),"f"(full));if(to>full)w->to_val=full;register float current __asm__("$f1")=w->to_val;register float old __asm__("$f0")=w->old_to_val;__asm__ __volatile__("" : : "f"(current),"f"(old));if(current!=old)w->update=true;return true;}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0032BB50)
 // 0x0032BB50 __cl__21slf_widget_move_to2_tR8vm_stackQ320script_library_class8function7entry_t
 struct vm_stack{char p0[8];char*top;};struct parms{void*me;float wt,dur,x,y;};struct widget_vtable{char p0[112];short adjustment;short x0;void(*move)(void*,short,short,float,float);};struct widget{char p0[320];widget_vtable*vtable;};extern "C" bool call_move(void*,vm_stack&stack,int entry) __asm__("__cl__21slf_widget_move_to2_tR8vm_stackQ320script_library_class8function7entry_t");bool call_move(void*,vm_stack&stack,int entry){stack.top-=20;parms*p=(parms*)stack.top;widget*w=(widget*)p->me;widget_vtable*t=w->vtable;t->move((char*)w+t->adjustment,(short)(int)p->x,(short)(int)p->y,p->wt,p->dur);return true;}

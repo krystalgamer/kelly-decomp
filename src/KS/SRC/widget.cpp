@@ -330,7 +330,9 @@ void text_widget::init(stringx &typeface)
 }
 
 // 0x0033EF10 set_color__6widgetP5color
-struct color{float r,g,b,a;inline color&operator=(const color&o){r=o.r;g=o.g;b=o.b;a=o.a;return *this;}};struct widget_vtable{char padding[288];short adjustment;short reserved;void(*update_col)(void*);};struct widget_layout{char padding[88];color col[4];char p2[168];widget_vtable*vtable;};extern "C" void set_colors(widget_layout*self,color*c) __asm__("set_color__6widgetP5color");void set_colors(widget_layout*self,color*c){for(int i=0;i<4;++i)self->col[i]=c[i];widget_vtable*t=self->vtable;t->update_col((char*)self+t->adjustment);}
+#include "KS/SRC/widget.h"
+
+void widget::set_color(color values[4]){for(int i=0;i<4;++i)col[i]=values[i];update_col();}
 
 // 0x003405D8 _$_11text_widget
 extern "C" void unload(void*)__asm__("unload__12typeface_def");extern "C" void close_typeface(void*)__asm__("typeface_close__FP12typeface_def");extern "C" void string_dtor(void*,int)__asm__("_$_7stringx");extern "C" void widget_dtor(void*,int)__asm__("_$_6widget");extern const char text_vtable[];__asm__(".equ unload__12typeface_def,0x0033CAF0");__asm__(".equ typeface_close__FP12typeface_def,0x0033D458");__asm__(".equ _$_7stringx,0x0034D6E0");__asm__(".equ _$_6widget,0x0033DC68");__asm__(".equ text_vtable,0x00504900");struct text_widget_layout{char pad[320];const void*vtable;void*text_font;char prelocalized[8];char tout[8];};extern "C" void destroy(text_widget_layout*self,int deleting)__asm__("_$_11text_widget");void destroy(text_widget_layout*self,int deleting){self->vtable=text_vtable;if(self->text_font){unload(self->text_font);close_typeface(self->text_font);self->text_font=0;}string_dtor(self->tout,2);string_dtor(self->prelocalized,2);widget_dtor(self,deleting);KELLY_DECOMP_COMPILER_BARRIER();}

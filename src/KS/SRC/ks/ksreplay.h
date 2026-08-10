@@ -106,6 +106,9 @@ public:
     void SpeedNormal();
     void SpeedFast();
     bool Done();
+    inline void SetStatus(KSReplayStatus value) {
+        status = value;
+    }
     void Clear(unsigned int seed_value);
     void SetWipeoutSplash(int player);
     void SetEndWave();

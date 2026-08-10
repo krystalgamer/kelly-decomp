@@ -1,6 +1,8 @@
 #ifndef INCLUDED_CHALLENGE_PHOTO_H
 #define INCLUDED_CHALLENGE_PHOTO_H
 
+#pragma interface
+
 #include "KS/SRC/entity.h"
 #include "KS/SRC/ks/challenge.h"
 

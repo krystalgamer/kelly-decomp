@@ -349,33 +349,27 @@ bool PauseMenuSystem::SetDisconnect(bool disconnected) {
 }
 
 // 0x001AA280 OnActivate__14SoundMenuClass
-struct PauseSystem; extern "C" bool resumable(PauseSystem *,void*) __asm__("IsResumable__C15PauseMenuSystemP6FEMenu"); __asm__(".equ IsResumable__C15PauseMenuSystemP6FEMenu,0x001B4B38");
-struct menu_vtable { char padding[280]; short adjustment; short reserved; void (*set_help)(void *,int); };
-struct sound_layout { char padding[116]; menu_vtable *vtable; PauseSystem *sys; };
-extern "C" void activate_sound(sound_layout *self) __asm__("OnActivate__14SoundMenuClass");
-void activate_sound(sound_layout *self)
+#include "KS/SRC/ks/FrontEndMenus.h"
+
+__asm__(".equ IsResumable__C15PauseMenuSystemP6FEMenu,0x001B4B38");
+void SoundMenuClass::OnActivate()
 {
-    if(resumable(self->sys,self)) {
-        menu_vtable *table=self->vtable; register void(*fn)(void*,int) __asm__("$3")=table->set_help; fn((char*)self+table->adjustment,355);
-    } else {
-        menu_vtable *table=self->vtable; register void(*fn)(void*,int) __asm__("$3")=table->set_help; fn((char*)self+table->adjustment,291);
-    }
+    if(sys->IsResumable(this))
+        SetHelpText(355);
+    else
+        SetHelpText(291);
 }
 
 // 0x001B05D8 Update__15ReplayMenuClassf
-struct replay_system { char padding[148]; int replay_mode; };
-struct replay_vtable { char padding[376]; short adjustment; short reserved; void (*end_replay)(void *); };
-struct replay_menu { char padding[116]; replay_vtable *vtable; replay_system *sys; };
-struct KSReplay { char padding[16]; int status; };
-extern KSReplay ksreplay; extern "C" bool replay_done(KSReplay *) __asm__("Done__8KSReplay");
-__asm__(".equ ksreplay,0x004252A8"); __asm__(".equ Done__8KSReplay,0x0023CAD8");
-extern "C" void update_replay(replay_menu *self,float dt) __asm__("Update__15ReplayMenuClassf");
-void update_replay(replay_menu *self,float dt)
+#include "KS/SRC/ks/FrontEndMenus.h"
+#include "KS/SRC/ks/ksreplay.h"
+
+__asm__(".equ Done__8KSReplay,0x0023CAD8");
+void ReplayMenuClass::Update(time_value_t time_inc)
 {
-    if(self->sys->replay_mode && replay_done(&ksreplay)) {
-        replay_vtable *table=self->vtable;
-        table->end_replay((char*)self+table->adjustment);
-        ksreplay.status=1;
+    if(sys->replay_mode && ksreplay.Done()) {
+        ReplayEnd();
+        ksreplay.SetStatus(KSReplay::REPLAY_RECORD);
     }
 }
 
