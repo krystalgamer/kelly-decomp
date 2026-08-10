@@ -3,6 +3,7 @@
 
 #include "KS/SRC/color.h"
 #include "KS/SRC/entity.h"
+#include "KS/SRC/instance_bank.h"
 #include "g++-2/stl_vector.h"
 
 #pragma interface
@@ -13,12 +14,6 @@ class beam_effect;
 class camera;
 class chunk_file;
 class terrain;
-
-template <class T>
-class instance_bank {
-public:
-    void delete_instance(T* instance);
-};
 
 class beam : public entity {
     float thickness;

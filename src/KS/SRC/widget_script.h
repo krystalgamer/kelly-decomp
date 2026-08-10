@@ -66,6 +66,8 @@ public:
     void freeze() { running = false; }
     void run() { running = true; }
     void inc_time_left(rational_t delta);
+    void set_digit_color(color value);
+    void set_bg_color(color value);
 
 protected:
     void resize_timer();

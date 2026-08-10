@@ -192,26 +192,8 @@ partition_branch *UninitializedCopy(
 }
 
 // 0x002F9FD0 __uninitialized_copy_aux__H2ZPC4faceZP4face_X01X01X11G12__false_type_X11
-typedef unsigned int size_t;
-inline void *operator new(size_t, void *place) { return place; }
-
-struct face
-{
-    unsigned short wedge_refs[3];
-    unsigned short my_material;
-    unsigned short level_of_detail;
-    unsigned short flags;
-
-    face(const face &other)
-    {
-        wedge_refs[0] = other.wedge_refs[0];
-        wedge_refs[1] = other.wedge_refs[1];
-        wedge_refs[2] = other.wedge_refs[2];
-        my_material = other.my_material;
-        level_of_detail = other.level_of_detail;
-        flags = other.flags;
-    }
-};
+#include "KS/SRC/archalloc.h"
+#include "KS/SRC/pmesh.h"
 
 struct __false_type {};
 

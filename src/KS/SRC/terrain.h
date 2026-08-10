@@ -1,6 +1,7 @@
 #ifndef TERRAIN_H
 #define TERRAIN_H
 
+#include "KS/SRC/bp_tree.h"
 #include "KS/SRC/hyperplane.h"
 
 class region_node;
@@ -52,10 +53,28 @@ public:
     sector *get_sector() const { return my_sector; }
 };
 
-class tree_t {
+class tree_t : public bp_tree<partition3, vector3d> {
 public:
     sector *find_sector(const vector3d &position) const;
 };
+
+extern "C" bool tree_recurse_intersection(
+    tree_t *tree,
+    tree_t::branch branch_value,
+    const vector3d &start,
+    const vector3d &end,
+    const vector3d &surface_normal,
+    vector3d &intersection,
+    vector3d &normal
+) __asm__(
+    "recurse_intersection__t7bp_tree2Z10partition3Z8vector3d"
+    "GQ2t7bp_tree2Z10partition3Z8vector3d6branchRC8vector3d"
+    "N22R8vector3dT5");
+
+__asm__(
+    ".equ recurse_intersection__t7bp_tree2Z10partition3Z8vector3d"
+    "GQ2t7bp_tree2Z10partition3Z8vector3d6branchRC8vector3d"
+    "N22R8vector3dT5, 0x003008E8");
 
 class terrain {
     char data_before_tree[0x34];

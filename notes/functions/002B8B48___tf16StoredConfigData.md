@@ -20,4 +20,4 @@ Read the exact released StoredConfigData private singleton inheritance and gener
 
 ## Outcome
 
-Matched generated StoredConfigData RTTI
+The released RTTI helper was already canonical and remains exact.

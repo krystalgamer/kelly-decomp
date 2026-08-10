@@ -58,6 +58,7 @@ OnLevelLoaded__13BeachFrontEnd = 0x18F4F0;
 _$_12generic_anim = 0x26FB70;
 _$_19generic_anim_animal = 0x26FD98;
 _$_16generic_anim_ice = 0x26FE78;
+set_bg_color__12timer_widgetG5color = 0x2BB790;
 _$_15path_graph_edge = 0x34A008;
 _$_8vm_stack = 0x3540F0;
 spawn__11beach_event = 0x1FB298;

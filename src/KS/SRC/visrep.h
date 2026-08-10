@@ -1,9 +1,13 @@
 #ifndef VISREP_H
 #define VISREP_H
 
+#include "KS/SRC/instance_bank.h"
+
 class instance_render_info;
 class po;
 class vector3d;
+class vr_billboard;
+class vr_pmesh;
 
 typedef float time_value_t;
 typedef float rational_t;
@@ -63,5 +67,17 @@ public:
     virtual bool is_uv_animated() const;
     virtual render_flavor_t render_passes_needed() const;
 };
+
+extern instance_bank<vr_pmesh> vr_pmesh_bank;
+extern instance_bank<vr_billboard> vr_billboard_bank;
+
+visual_rep *new_visrep_instance(visual_rep *source);
+
+__asm__(
+    ".equ new_instance__t13instance_bank1Z8vr_pmeshP8vr_pmesh, "
+    "0x002AF2B0");
+__asm__(
+    ".equ new_instance__t13instance_bank1Z12vr_billboardP12vr_billboard, "
+    "0x002F7EC0");
 
 #endif

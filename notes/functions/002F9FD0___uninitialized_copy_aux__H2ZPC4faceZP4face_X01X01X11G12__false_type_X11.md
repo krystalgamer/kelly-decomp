@@ -19,4 +19,5 @@ Read the exact released face copy constructor and six unsigned-short fields, the
 
 ## Outcome
 
-Matched generated face uninitialized copy helper
+The generated helper now uses the shared `face` copy constructor and placement
+allocation declaration.

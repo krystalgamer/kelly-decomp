@@ -19,4 +19,5 @@ Read the exact released new_visrep_instance switch, visrep type values/field, de
 
 ## Outcome
 
-Matched released new_visrep_instance body
+The local visual-representation and instance-bank declarations were replaced
+with the shared mesh, billboard, and bank types.

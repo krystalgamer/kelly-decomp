@@ -20,4 +20,5 @@ Read the exact released terrain wrapper, tree pointer offset, bp_tree iterator/b
 
 ## Outcome
 
-Matched released terrain intersection wrapper
+The reconstructed iterator, branch, tree, and terrain layouts now live in the
+shared BSP and terrain declarations.

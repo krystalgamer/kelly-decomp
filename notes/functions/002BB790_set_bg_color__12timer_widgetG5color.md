@@ -5,7 +5,7 @@
 - Object: `game/files_misc2`
 - Debug source: `C:/KS/SRC/widget_script.cpp`
 - Reference source: `KS/SRC/widget_script.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -22,4 +22,6 @@ Read the exact released timer_widget::set_bg_color body, color copy constructor,
 
 ## Outcome
 
-Matched released timer widget background color setter
+The local by-value widget vtable declaration was removed. The shared
+const-reference color ABI omits the target aggregate copy and shrinks the
+wrapper, so the shipped function is deferred.
