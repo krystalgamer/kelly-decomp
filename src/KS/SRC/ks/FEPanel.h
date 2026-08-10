@@ -178,7 +178,17 @@ protected:
 
 public:
     BouncingText();
+    virtual void Update(float time_inc);
     void Bounce(float bounceScale, float bounceTime);
+};
+
+class BurstText : public TextString {
+    float targetScale;
+    float scaleRate;
+
+public:
+    BurstText();
+    virtual void Update(float time_inc);
 };
 
 class FloatingText : public MultiLineString {

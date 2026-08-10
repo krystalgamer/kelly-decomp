@@ -480,12 +480,12 @@ void PanelFile::Draw(int layer) {
 }
 
 // 0x00149120 Update__12BouncingTextf
-extern "C" void update_text(void *, float) __asm__("Update__10TextStringf");
+#include "KS/SRC/ks/FEPanel.h"
+
 __asm__(".equ Update__10TextStringf,0x001482F8");
-class BouncingText { char padding[48]; float scale; char padding2[28]; float targetScale; float speed; public: void Update(float dt); };
 void BouncingText::Update(float dt)
 {
-    update_text(this,dt);
+    TextString::Update(dt);
     if (scale < targetScale) {
         scale += speed*dt;
         if (scale > targetScale)
@@ -494,12 +494,12 @@ void BouncingText::Update(float dt)
 }
 
 // 0x0014BF68 Update__9BurstTextf
-extern "C" void update_text(void *, float) __asm__("Update__10TextStringf");
+#include "KS/SRC/ks/FEPanel.h"
+
 __asm__(".equ Update__10TextStringf,0x001482F8");
-class BurstText { char padding[48]; float scale; char padding2[28]; float targetScale; float scaleRate; public: void Update(float dt); };
 void BurstText::Update(float dt)
 {
-    update_text(this,dt);
+    TextString::Update(dt);
     if (scale < targetScale) {
         scale += dt/scaleRate;
         if (scale >= targetScale)
@@ -508,20 +508,23 @@ void BurstText::Update(float dt)
 }
 
 // 0x0014D078 ChangeFade__9PanelQuadbT1f
-struct panel_layout { char padding[4]; int fade; float fade_alpha; float fade_timer; char padding2[112]; int drawOn; };
-extern "C" void change_fade(panel_layout *self, bool start, bool fade_in, float time) __asm__("ChangeFade__9PanelQuadbT1f");
-void change_fade(panel_layout *self, bool start, bool fade_in, float time)
+#include "KS/SRC/ks/FEPanel.h"
+
+void PanelQuad::ChangeFade(
+    bool start,
+    bool fade_in,
+    float time)
 {
     if(start) {
-        self->fade_timer=time;
+        fade_timer=time;
         if(fade_in) {
-            if(self->fade != 1 || self->drawOn == false) {
-                self->fade=1; self->fade_alpha=0.0f; self->drawOn=true;
+            if(fade != 1 || drawOn == false) {
+                fade=1; fade_alpha=0.0f; drawOn=true;
             }
-        } else if(self->fade != -1) {
-            self->fade=-1; self->fade_alpha=1.0f;
+        } else if(fade != -1) {
+            fade=-1; fade_alpha=1.0f;
         }
-    } else self->fade=0;
+    } else fade=0;
 }
 
 // 0x0014DA80 SetPos__9PanelQuadffff

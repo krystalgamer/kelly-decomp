@@ -8,9 +8,11 @@
 
 class SplitClockWidget : public IGOWidget {
     PanelQuad *bgPQ;
+    TextString *clockText;
 
 public:
     virtual void SetDisplay(bool value);
+    void Draw();
 };
 
 #endif

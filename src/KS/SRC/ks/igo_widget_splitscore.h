@@ -9,9 +9,11 @@
 class SplitScoreWidget : public IGOWidget {
     char split_score_data[4];
     PanelQuad *bgPQ;
+    TextString *scoreText;
 
 public:
     virtual void SetDisplay(bool value);
+    void Draw();
 };
 
 #endif

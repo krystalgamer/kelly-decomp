@@ -41,7 +41,7 @@ public:
         HorizBalanceWidget *horizBalanceWidget;
         char data_before_tube_timer[0x1C];
         TextString *tubeTimer;
-        char remaining_data[4];
+        bool drawTubeTimer;
     };
 
 private:
@@ -89,6 +89,7 @@ public:
         float value);
     void SetTubeDepthMeter(int player, float value);
     void TurnOnTubeIndicator(int player, bool enabled);
+    void TurnOnTubeTimer(int player, bool enabled);
     void ShowAccompBackground(
         bool background_enabled,
         int horizontal_flags,

@@ -141,6 +141,7 @@ class FEGraphicalMenuEntry : public FEMenuEntry {
 
 public:
     FEGraphicalMenuEntry() {}
+    virtual void TurnOn(bool enabled);
     virtual void SetPQ(PanelQuad *quad);
     virtual void SetPQHigh(PanelQuad *quad);
     void Load(PanelQuad *normal, PanelQuad *highlighted);

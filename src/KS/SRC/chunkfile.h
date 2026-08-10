@@ -10,7 +10,7 @@ void serial_in(chunk_file &file, unsigned int *value);
 void serial_in(chunk_file &file, bool *value);
 
 class chunk_flavor {
-    char flavor[1];
+    char flavor[16];
 
 public:
     const char *c_str() const;

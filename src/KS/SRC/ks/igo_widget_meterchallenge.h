@@ -15,6 +15,7 @@ class MeterChallengeWidget : public IGOWidget {
 
 public:
     void SetDisplay(bool value = true);
+    void Draw();
     void Hide(bool fade_out = true);
 };
 

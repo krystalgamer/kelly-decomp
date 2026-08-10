@@ -194,18 +194,16 @@ void IGOFrontEnd::SetReplayText(const stringx &text)
 }
 
 // 0x0017CD48 TurnOnTubeTimer__11IGOFrontEndib
-struct game { char padding[180]; int num_ai_players; }; extern game *g_game_ptr; __asm__(".equ g_game_ptr,0x0046AC64");
-struct TextString { char padding[68]; int no_color; unsigned int color; };
-struct player_info { char padding[52]; TextString *tubeTimer; int drawTubeTimer; };
-struct igo_layout { char padding[292]; player_info *players; char padding2[1096]; unsigned int standard_color; };
-extern "C" void turn_tube_timer(igo_layout *self,int player,bool on) __asm__("TurnOnTubeTimer__11IGOFrontEndib");
-void turn_tube_timer(igo_layout *self,int player,bool on)
+#include "KS/SRC/game.h"
+#include "KS/SRC/ks/IGOFrontEnd.h"
+
+void IGOFrontEnd::TurnOnTubeTimer(int player,bool on)
 {
-    if(player && g_game_ptr->num_ai_players) return;
-    if(self->players[player].tubeTimer) {
-        self->players[player].drawTubeTimer=on;
-        self->players[player].tubeTimer->no_color=false;
-        self->players[player].tubeTimer->color=self->standard_color;
+    if(player && g_game_ptr->get_num_ai_players()) return;
+    if(players[player].tubeTimer) {
+        players[player].drawTubeTimer=on;
+        players[player].tubeTimer->no_color=false;
+        players[player].tubeTimer->color=COLOR_STANDARD;
     }
 }
 

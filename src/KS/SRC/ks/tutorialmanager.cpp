@@ -86,29 +86,6 @@ void IGOTutorialManager::SetTutorialSection(int tutorial_level) {
     }
 }
 
-// 0x0015A2F8 OnEvent__18IGOTutorialManager5EVENTii
-struct tutorial_step { char padding[84]; int kind; char padding2[12]; };
-extern int perfect_landing_flag; extern tutorial_step tutorial_steps[];
-__asm__(".equ perfect_landing_flag,0x004D06EC"); __asm__(".equ tutorial_steps,0x0043A5B0");
-struct tutorial_layout { char padding[40]; int current_step; char padding2[28]; int step_flag; int is_perfect; };
-extern "C" void tutorial_event(tutorial_layout *self, int event, int param1, int param2) __asm__("OnEvent__18IGOTutorialManager5EVENTii");
-void tutorial_event(tutorial_layout *self, int event, int param1, int param2)
-{
-    if (event == 0) {
-        if (param2 & perfect_landing_flag) {
-            self->is_perfect = true;
-            return;
-        }
-    }
-    if (event == 1) {
-        if (tutorial_steps[self->current_step].kind == 6) {
-            self->step_flag = event;
-            return;
-        }
-        self->step_flag = 0;
-    }
-}
-
 // 0x0015A0C0 play_sound__18IGOTutorialManagerPCc
 struct DevOptions{char pad[72];int no_audio;};extern DevOptions*g_options;extern "C" unsigned load(const char*)__asm__("nslLoadSource__FPCc");extern "C" unsigned add(unsigned)__asm__("nslAddSound__FUi");extern "C" void play(unsigned)__asm__("nslPlaySound__FUi");extern "C" void debug_print(const char*,...)__asm__("debug_print__FPCce");extern const char missing[];__asm__(".equ g_options,0x0046B180");__asm__(".equ nslLoadSource__FPCc,0x0038C130");__asm__(".equ nslAddSound__FUi,0x0038CAF8");__asm__(".equ nslPlaySound__FUi,0x0038CB20");__asm__(".equ debug_print__FPCce,0x00120790");__asm__(".equ missing,0x004CFB48");unsigned IGOTutorialManager::play_sound(const char*name){unsigned snd=0;if(!g_options->no_audio){unsigned s=load(name);if(s!=0){snd=add(s);if(snd!=0)play(snd);}else debug_print(missing,name);}return snd;}
 
