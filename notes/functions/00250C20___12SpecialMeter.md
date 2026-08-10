@@ -19,4 +19,5 @@ Read the exact released SpecialMeter constructor, EventRecipient base, vtable an
 
 ## Outcome
 
-Matched released SpecialMeter constructor
+The manual base constructor and vtable setup were replaced by the native
+shared-class constructor.

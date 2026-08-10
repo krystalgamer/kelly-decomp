@@ -20,4 +20,5 @@ Read the exact released MusicMan::play body, paused/musicTrack offsets, MusicLis
 
 ## Outcome
 
-Matched released MusicMan play
+The local music-manager and listing layouts were replaced by the shared music
+declarations.

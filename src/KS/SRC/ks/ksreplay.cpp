@@ -135,22 +135,7 @@ void KSEntityState::SetKSBAnimInfo(float blend, bool loop, float frame)
 }
 
 // 0x0023C9E0 Pause__8KSReplayb
-class KSReplay
-{
-    char padding[0x10];
-    int status;
-
-public:
-    void Pause(bool paused);
-};
-
-enum
-{
-    REPLAY_IGNORE = 0,
-    REPLAY_RECORD = 1,
-    REPLAY_PLAYBACK = 2,
-    REPLAY_PAUSED = 3
-};
+#include "KS/SRC/ks/ksreplay.h"
 
 void KSReplay::Pause(bool paused)
 {

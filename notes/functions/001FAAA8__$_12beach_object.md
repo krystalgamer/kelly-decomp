@@ -5,7 +5,7 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/floatobj.cpp`
 - Reference source: `KS/SRC/ks/floatobj.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -19,4 +19,5 @@ Read the exact released beach_object declaration and empty destructor, including
 
 ## Outcome
 
-Matched generated beach_object destructor
+The handwritten compiler-generated destructor was removed and the shipped
+wrapper was deferred.

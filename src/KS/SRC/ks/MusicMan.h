@@ -96,6 +96,7 @@ public:
 __asm__(".equ nslGetSoundStatus__FUi, 0x0038DBA0");
 __asm__(".equ nslPauseSound__FUi, 0x0038D460");
 __asm__(".equ nslUnpauseSound__FUi, 0x0038D5A8");
+__asm__(".equ playNext__12MusicListing, 0x00258B00");
 __asm__(".equ _8MusicMan$instance, 0x00427B18");
 
 #endif

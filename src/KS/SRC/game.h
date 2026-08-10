@@ -39,7 +39,9 @@ public:
 
 struct BeachData {
     char name[32];
-    char remaining_fields[500];
+    char data_before_map_location[0x140];
+    int map_location;
+    char remaining_fields[0xB0];
 };
 
 extern BeachData BeachDataArray[];

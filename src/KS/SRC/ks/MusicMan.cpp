@@ -109,20 +109,8 @@ nslSoundId Track::Play()
 
 #if defined(KELLY_DECOMP_FUNCTION_00258D08)
 // 0x00258D08 playNext__8MusicMan
-class MusicListing {
-public:
-    bool isPlaying();
-    unsigned int playNext();
-};
-__asm__(".equ isPlaying__12MusicListing, 0x00258A00");
-__asm__(".equ playNext__12MusicListing, 0x00258B00");
-class MusicMan {
-    char padding[0xc];
-    bool paused;
-    MusicListing musicTrack;
-public:
-    unsigned int playNext();
-};
+#include "KS/SRC/ks/MusicMan.h"
+
 unsigned int MusicMan::playNext() {
     if (!musicTrack.isPlaying() && !paused)
         return musicTrack.playNext();
@@ -132,20 +120,8 @@ unsigned int MusicMan::playNext() {
 
 #if defined(KELLY_DECOMP_FUNCTION_00258D60)
 // 0x00258D60 play__8MusicMan
-class MusicListing {
-public:
-    bool isPlaying();
-    unsigned int play();
-};
-__asm__(".equ isPlaying__12MusicListing, 0x00258A00");
-__asm__(".equ play__12MusicListing, 0x00258A98");
-class MusicMan {
-    char padding[0xc];
-    bool paused;
-    MusicListing musicTrack;
-public:
-    unsigned int play();
-};
+#include "KS/SRC/ks/MusicMan.h"
+
 unsigned int MusicMan::play() {
     if (!musicTrack.isPlaying() && !paused)
         return musicTrack.play();

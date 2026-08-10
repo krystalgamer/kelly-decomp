@@ -19,4 +19,5 @@ Read the exact released KSReplay::Pause body and replay status enum values. The 
 
 ## Outcome
 
-Matched released KSReplay pause transitions
+The local replay layout and status enum were replaced by the shared replay
+declaration.

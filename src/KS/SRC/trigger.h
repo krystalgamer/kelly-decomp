@@ -13,6 +13,15 @@ class chunk_file;
 class entity;
 class MenuSystem;
 class region;
+
+class trig_region_pset {
+    void *header;
+    char data_after_header[12];
+
+public:
+    inline void *end_node() const { return header; }
+};
+
 class trigger : public signaller {
     friend class trigger_manager;
 
@@ -39,7 +48,7 @@ protected:
     entity *whodunnit;
     stringx id;
     trigger *next;
-    char in_regions[12];
+    trig_region_pset in_regions;
     bool static_regions;
     bool active;
     bool occupied;
@@ -81,6 +90,7 @@ public:
 class region_trigger : public trigger {
 public:
     region_trigger(const stringx &id);
+    virtual bool triggered(entity *value);
     virtual void update_region();
 };
 

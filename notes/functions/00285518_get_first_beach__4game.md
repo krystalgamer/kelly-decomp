@@ -19,4 +19,5 @@ Read the exact released beach-location search, game beach-id offset, BeachData s
 
 ## Outcome
 
-Matched released first beach lookup
+The local game and beach layouts were replaced by the shared declarations and
+released global-game access.

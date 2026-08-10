@@ -20,4 +20,5 @@ Read the exact released MusicMan::playNext body, paused/musicTrack offsets, Musi
 
 ## Outcome
 
-Matched released MusicMan playNext
+The local music-manager and listing layouts were replaced by the shared music
+declarations.

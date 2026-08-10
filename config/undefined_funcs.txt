@@ -66,6 +66,7 @@ _$_12FloatingText = 0x1D90D0;
 _$_9PanelQuad = 0x1D9A50;
 _$_10PanelQuad4 = 0x1D9C10;
 _$_10FloatingPQ = 0x1D9CF0;
+_$_12beach_object = 0x1FAAA8;
 _$_12generic_anim = 0x26FB70;
 _$_19generic_anim_animal = 0x26FD98;
 _$_16generic_anim_ice = 0x26FE78;

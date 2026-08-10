@@ -21,4 +21,5 @@ Read the exact released vr_billboard chunk constructor, visual_rep base call/typ
 
 ## Outcome
 
-Matched released vr_billboard chunk constructor
+The manual base/material constructors and vtable store were replaced by the
+native shared-class constructor.

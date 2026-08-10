@@ -7,6 +7,7 @@
 #include "KS/SRC/matfac.h"
 #include "KS/SRC/visrep.h"
 
+class chunk_file;
 struct instance_render_info;
 struct nglMesh;
 
@@ -21,7 +22,9 @@ class vr_billboard : public visual_rep {
 
 public:
     vr_billboard();
+    vr_billboard(chunk_file &file, bool instanced);
     virtual ~vr_billboard();
+    void internal_serial_in(chunk_file &file);
     virtual void render_instance(
         nglMesh *mesh,
         int *num_quads,

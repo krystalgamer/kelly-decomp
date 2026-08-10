@@ -22,4 +22,5 @@ Read the exact released region_trigger predicate, entity get_region virtual slot
 
 ## Outcome
 
-Matched released region trigger predicate
+The manual entity vtable and local trigger/set layouts were replaced by shared
+entity, graph-node, and trigger declarations.

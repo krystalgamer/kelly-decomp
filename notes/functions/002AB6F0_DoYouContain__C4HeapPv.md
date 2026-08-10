@@ -19,4 +19,5 @@ Read the exact released Heap::DoYouContain body, heap size/start offsets, Header
 
 ## Outcome
 
-Matched released heap containment check
+The existing implementation already used the shared heap declaration and
+remains exact.

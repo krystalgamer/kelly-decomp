@@ -20,4 +20,5 @@ Read the exact released level-unlock predicate, cheat locations, career global, 
 
 ## Outcome
 
-Matched released level unlock predicate
+The local cheat and career layouts were replaced by shared cheat, career, and
+unlock-manager declarations.

@@ -89,16 +89,12 @@ entity_trigger::entity_trigger(const stringx &id)
 {}
 
 // 0x0028E8F0 triggered__14region_triggerP6entity
-class region;
-struct region_node { char padding[4]; region *data; };
-struct entity_vtable {
-    char padding[0x420]; short adjustment; short reserved;
-    region_node *(*get_region)(void *self);
-};
-struct entity_layout { char padding[8]; entity_vtable *vtable; };
-struct region_tree { void *head; char padding[12]; };
+#include "KS/SRC/entity.h"
+#include "KS/SRC/path.h"
+#include "KS/SRC/trigger.h"
+
 extern "C" void *FindRegion(
-    region_tree *tree, region *const &value
+    trig_region_pset *tree, region *const &value
 ) __asm__(
     "find__Ct8_Rb_tree5ZP6regionZP6regionZt9_Identity1ZP6region"
     "Zt4less1ZP6regionZt12my_allocator1ZP6regionRCP6region"
@@ -108,23 +104,13 @@ __asm__(
     "Zt4less1ZP6regionZt12my_allocator1ZP6regionRCP6region, "
     "0x002B0910"
 );
-struct region_trigger {
-    char padding[0x1c]; region_tree in_regions;
-};
-extern "C" bool Triggered(
-    region_trigger *self, void *entity
-) __asm__("triggered__14region_triggerP6entity");
-bool Triggered(region_trigger *self, void *entity_pointer) {
-    entity_layout *entity=(entity_layout *)entity_pointer;
-    entity_vtable *table=entity->vtable;
-    region_node *node=table->get_region(
-        (char *)entity+table->adjustment
-    );
+bool region_trigger::triggered(entity *value) {
+    region_node *node=value->get_region();
     bool result;
     if (!node)
         goto not_found;
-    result=FindRegion(&self->in_regions,node->data)!=
-           self->in_regions.head;
+    result=FindRegion(&in_regions,node->get_data())!=
+           in_regions.end_node();
     goto done;
 not_found:
     result=false;

@@ -25,4 +25,6 @@ private:
     nglMaterial material;
 };
 
+__asm__(".equ __7mat_fac, 0x002BC8E8");
+
 #endif

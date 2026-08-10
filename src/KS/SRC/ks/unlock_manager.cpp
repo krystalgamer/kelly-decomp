@@ -46,27 +46,13 @@ bool UnlockingManager::isBailsMovieUnlocked() const
 
 #if defined(KELLY_DECOMP_FUNCTION_002F0668)
 // 0x002F0668 isLevelUnlocked__C16UnlockingManageri
-extern int cheat_anchor[];
-__asm__(".equ cheat_anchor, 0x0043BDF0");
-struct career_level {
-    char padding[0xc];
-    int unlocked;
-    char tail[0x14];
-    bool IsUnlocked() const { return unlocked; }
-};
-struct career_layout {
-    char padding[0x101a8];
-    career_level levels[32];
-};
-extern career_layout *g_career;
-__asm__(".equ g_career, 0x00427C9C");
-class UnlockingManager {
-public:
-    bool isLevelUnlocked(int level) const;
-};
+#include "KS/SRC/ks/GlobalData.h"
+#include "KS/SRC/ks/career.h"
+#include "KS/SRC/ks/unlock_manager.h"
+
 bool UnlockingManager::isLevelUnlocked(int level) const {
-    return cheat_anchor[1] ||
-           *(int *)((char *)cheat_anchor-0x24) ||
+    return g_session_cheats[CHEAT_MEGA_CHEAT].isOn() ||
+           g_session_cheats[CHEAT_ALL_LEVELS].isOn() ||
            g_career->levels[level].IsUnlocked();
 }
 #endif

@@ -26,6 +26,7 @@ public:
         void Reset();
         void ResetGoals();
         bool IsGoalDone(int goal) const;
+        bool IsUnlocked() const { return unlocked; }
     };
 
     class Beach {
@@ -75,7 +76,9 @@ public:
     bool boards[MAX_BOARDS];
     int totalStatPointsIncreased;
     CompressedPhoto compressedPhotos[8];
-    char remaining_data[0x94C];
+    char data_before_levels[0xAC];
+    Level levels[32];
+    char remaining_data[0x420];
 
 public:
     Career();

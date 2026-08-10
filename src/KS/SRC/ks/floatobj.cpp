@@ -159,21 +159,6 @@ void floating_object::spawn()
     spawn_base(this);
 }
 
-// 0x001FAAA8 _$_12beach_object
-extern "C" void StringDtor(void *self, int deleting) __asm__("_$_7stringx");
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-extern const char beach_object_vtable[];
-__asm__(".equ _$_7stringx, 0x0034D6E0");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-__asm__(".equ beach_object_vtable, 0x004D6208");
-struct beach_layout { char padding0[0x30]; char path[8]; const void *vtable; };
-extern "C" void BeachObjectDtor(void *self, int deleting) __asm__("_$_12beach_object");
-void BeachObjectDtor(void *self, int deleting) {
-    ((beach_layout *)self)->vtable=beach_object_vtable;
-    StringDtor((char *)self+0x30,2);
-    if (deleting&1) { BuiltinDelete(self); __asm__ __volatile__("" : : : "memory"); }
-}
-
 // 0x001FD878 parse_params__15floating_objectPPci
 extern "C" bool water_parse(void*,char**,int) __asm__("parse_params__12water_objectPPci"); extern "C" bool read_float(void*,char**,int,const char*,float*) __asm__("read_float_param__C12beach_objectPPciPCcPf"); extern const char water_text[];
 __asm__(".equ parse_params__12water_objectPPci,0x001FCD38"); __asm__(".equ read_float_param__C12beach_objectPPciPCcPf,0x001FAD50"); __asm__(".equ water_text,0x004D0CE8");
