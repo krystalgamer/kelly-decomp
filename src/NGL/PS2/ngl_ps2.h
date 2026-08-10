@@ -340,6 +340,7 @@ void nglSetQuadRect(
 void nglSetMeshFlags(u_int flags);
 void nglMemFree(void *memory);
 void nglReleaseMeshFile(const nglFixedString &name);
+void nglDestroyTexture(nglTexture *texture);
 void nglSetMeshPath(const char *path);
 void nglSetTexturePath(const char *path);
 void nglAddTextureRef(nglTexture *texture);

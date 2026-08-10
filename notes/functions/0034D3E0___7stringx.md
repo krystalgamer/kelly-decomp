@@ -19,4 +19,5 @@ Read the exact released default stringx constructor, initialization flag/helper,
 
 ## Outcome
 
-Matched released default stringx constructor
+The local string and buffer layouts were replaced by the shared `stringx`
+declaration.

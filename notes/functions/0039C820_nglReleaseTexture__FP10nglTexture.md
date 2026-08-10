@@ -20,4 +20,5 @@ Read the exact released nglReleaseTexture body, packed System flag bit/64-bit ch
 
 ## Outcome
 
-Matched released ngl texture release
+The local texture and instance-bank layouts plus empty barrier were replaced
+by shared NGL declarations and a local destroy call pointer.

@@ -53,7 +53,33 @@ enum WaveMarkerEnum {
 };
 
 struct WaveMarker {
-    char data[32];
+    float x;
+    char data_after_x[28];
+};
+
+struct WaveMarkerRecord {
+    char data_before_x[8];
+    float x;
+    char data_after_x[20];
+};
+
+struct WavePartition {
+    WavePartition(
+        unsigned int count,
+        float *guide_values,
+        float *guide_steps,
+        float *weights)
+      : N(count),
+        guide(guide_values),
+        guidestep(guide_steps),
+        weight(weights)
+    {
+    }
+
+    unsigned int N;
+    float *guide;
+    float *guidestep;
+    float *weight;
 };
 
 struct WaveScheduleStruct {
@@ -155,6 +181,10 @@ extern float WAVE_ScheduleTimeStart;
 extern float WAVE_ScheduleTimeEnd;
 extern float WaveHeightFudgeFactorArray[];
 extern WaveMarker WAVE_Markers[];
+extern WaveMarkerRecord WAVE_Marker[];
+extern int WAVE_LeftBreaker;
+extern float WAVE_MeshMinX;
+extern float WAVE_MeshMaxX;
 extern unsigned int WAVE_ScheduleIndex;
 extern unsigned int WAVE_ScheduleLength;
 extern WaveScheduleStruct WAVE_ScheduleArray[];
@@ -295,6 +325,10 @@ float WAVE_GetScheduleRemainingSec();
 void WAVE_AddHeightFudge(int index, float value);
 float WAVE_GetHeightFudgeFactor(int index);
 float WAVE_GetHeight();
+WavePartition *WAVE_AllocPartition(
+    char *&memory,
+    unsigned int count);
+float WAVE_GetMarkerProfile(WaveMarkerEnum marker);
 extern WavePerturbStageEnum WAVE_PerturbStage;
 extern float WAVE_ScheduleTimeStart;
 extern float WAVE_ScheduleTimeEnd;
@@ -303,6 +337,10 @@ extern float WAVE_TotalSec;
 __asm__(".equ WAVE_PerturbType, 0x00484940");
 __asm__(".equ WAVE_BreakNext, 0x00585C4C");
 __asm__(".equ WAVE_TotalSec, 0x0048517C");
+__asm__(".equ WAVE_LeftBreaker, 0x004846C4");
+__asm__(".equ WAVE_MeshMinX, 0x00484620");
+__asm__(".equ WAVE_MeshMaxX, 0x00484624");
+__asm__(".equ WAVE_Marker, 0x0058BC68");
 __asm__(".equ WAVE_ScheduleIndex, 0x004846D4");
 __asm__(".equ WAVE_ScheduleLength, 0x004846D0");
 __asm__(".equ WAVE_ScheduleArray, 0x0058EA68");

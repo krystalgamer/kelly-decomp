@@ -21,8 +21,19 @@ struct fx_data_render_def {
 struct fx_def {
     char data_before_render[0x20];
     fx_data_render_def Render;
-    char data_after_render[0x30];
+    char data_after_render[0x28];
+    float wave_inc;
+    float wave_dec;
 };
+
+struct crashnode_t {
+    char data_before_magnitude[0xC];
+    float magnitude;
+    float size;
+    float age;
+};
+
+void set_size(crashnode_t *node);
 
 struct wipeout_splash_t
 {
@@ -35,6 +46,7 @@ extern wipeout_splash_t wipeout_splashes[MAX_WIPEOUT_SPLASHES];
 extern fx_def FXD;
 
 __asm__(".equ wipeout_splashes, 0x00485A18");
+__asm__(".equ FXD, 0x00485A30");
 __asm__(".equ IsPlaying__8KSReplay, 0x0023BE08");
 __asm__(".equ SetWipeoutSplash__8KSReplayi, 0x0023BFF0");
 

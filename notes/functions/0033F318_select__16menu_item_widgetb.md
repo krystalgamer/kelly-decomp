@@ -19,4 +19,5 @@ Read the exact released menu_item_widget::select body and selected/parent/type/s
 
 ## Outcome
 
-Matched released menu item selection
+The local widget/menu layouts and manual vtable were replaced by the shared
+widget hierarchy, including the released virtual `select` slot.

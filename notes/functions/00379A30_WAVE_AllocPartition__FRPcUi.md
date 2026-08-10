@@ -19,4 +19,4 @@ Read the exact released WavePartition allocator, 16-byte structure layout, guide
 
 ## Outcome
 
-Matched released wave partition allocator
+The local partition layout was replaced by the shared wave declaration.

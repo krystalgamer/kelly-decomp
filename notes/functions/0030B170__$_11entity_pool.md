@@ -5,7 +5,7 @@
 - Object: `game/files_misfits`
 - Debug source: `C:/KS/SRC/entity_maker.cpp`
 - Reference source: `KS/SRC/entity_maker.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -20,4 +20,5 @@ Read the exact released entity_pool destructor and list/allocator declarations. 
 
 ## Outcome
 
-Matched generated entity_pool destructor
+The handwritten compiler-generated destructor was removed and the shipped
+wrapper was deferred.

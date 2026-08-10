@@ -61,6 +61,7 @@ public:
     virtual bool is_a_beam() const;
     virtual bool possibly_active() const;
     void kill_all_effects(bool apply_target_vals = false);
+    void kill_effect(unsigned short id, bool apply_target_vals);
     void purge_effects();
     void release();
     render_flavor_t render_passes_needed() const;

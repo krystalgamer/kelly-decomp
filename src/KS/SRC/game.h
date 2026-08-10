@@ -140,8 +140,8 @@ class game {
     char data_before_num_ai_players[4];
     int num_ai_players;
     int num_players;
-    int num_active_players;
     int active_player;
+    int num_active_players;
     char data_to_flags[4];
     struct {
         unsigned long long padding : 44;
@@ -205,6 +205,9 @@ public:
     }
     inline int get_active_player() const {
         return active_player;
+    }
+    inline bool is_splitscreen() const {
+        return num_players >= 2 && num_ai_players == 0;
     }
     inline int get_beach_id() const {
         return *(const int *)((const char *)this + 0x228);

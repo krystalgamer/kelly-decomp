@@ -743,14 +743,10 @@ void **Rtti_00326D80()
 }
 
 // 0x00326A70 __cl__22slf_beam_kill_effect_tR8vm_stackQ320script_library_class8function7entry_t
-#include "KS/SRC/script_library_class.h"
-class beam { public: void kill_effect(unsigned short id, bool apply); };
+#include "KS/SRC/script_lib_beam_decl.h"
+
 __asm__(".equ kill_effect__4beamUsb, 0x00272568");
-class slf_beam_kill_effect_t {
-public:
-    struct parms_t { beam *me; vm_num_t id; vm_num_t apply; };
-    bool operator()(vm_stack &stack, script_library_class::function::entry_t entry);
-};
+
 bool slf_beam_kill_effect_t::operator()(
     vm_stack &stack, script_library_class::function::entry_t entry
 ) {

@@ -359,40 +359,24 @@ float WAVE_GetNextHeight()
 }
 
 // 0x00379A30 WAVE_AllocPartition__FRPcUi
-struct WavePartition {
-    unsigned int count;
-    float *guide;
-    float *guide_step;
-    float *weight;
-};
+#include "KS/SRC/ks/wave.h"
+
 WavePartition *WAVE_AllocPartition(char *&memory, unsigned int count) {
     WavePartition *partition=(WavePartition *)memory;
     memory+=sizeof(*partition);
-    partition->count=count;
+    partition->N=count;
     partition->guide=(float *)memory;
     memory+=count*sizeof(*partition->guide);
-    partition->guide_step=(float *)memory;
-    memory+=(count-1)*sizeof(*partition->guide_step);
+    partition->guidestep=(float *)memory;
+    memory+=(count-1)*sizeof(*partition->guidestep);
     partition->weight=(float *)memory;
     memory+=(count-1)*sizeof(*partition->weight);
     return partition;
 }
 
 // 0x0037D838 WAVE_GetMarkerProfile__F14WaveMarkerEnum
-enum WaveMarkerEnum { WAVE_MARKER_ZERO };
-struct WaveMarkerData {
-    char padding[8];
-    float x;
-    char tail[0x14];
-};
-extern int WAVE_LeftBreaker;
-extern float WAVE_MeshMinX;
-extern float WAVE_MeshMaxX;
-extern WaveMarkerData WAVE_Marker[];
-__asm__(".equ WAVE_LeftBreaker, 0x004846C4");
-__asm__(".equ WAVE_MeshMinX, 0x00484620");
-__asm__(".equ WAVE_MeshMaxX, 0x00484624");
-__asm__(".equ WAVE_Marker, 0x0058BC68");
+#include "KS/SRC/ks/wave.h"
+
 float WAVE_GetMarkerProfile(WaveMarkerEnum marker) {
     return WAVE_LeftBreaker
         ? WAVE_MeshMinX+WAVE_MeshMaxX-WAVE_Marker[marker].x
@@ -445,25 +429,6 @@ struct pulse_vtable{char padding[24];short adjustment;short reserved;float(*worl
 #include "KS/SRC/ks/wave.h"
 
 #define WAVE_PARTITIONMAX 32
-
-struct WavePartition {
-    WavePartition(
-        unsigned int count,
-        float *guide_values,
-        float *guide_steps,
-        float *weights)
-        : N(count),
-          guide(guide_values),
-          guidestep(guide_steps),
-          weight(weights)
-    {
-    }
-
-    unsigned int N;
-    float *guide;
-    float *guidestep;
-    float *weight;
-};
 
 class WaveBasePerturbClass {
 public:

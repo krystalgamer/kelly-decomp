@@ -19,4 +19,5 @@ Read the exact released crash-node size calculation, crashnode age/magnitude/siz
 
 ## Outcome
 
-Matched released crash node sizing
+The local crash-node and FX layouts were moved into the shared KSFX
+declaration.

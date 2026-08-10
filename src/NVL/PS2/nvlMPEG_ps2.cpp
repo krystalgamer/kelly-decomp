@@ -268,8 +268,8 @@ static int strFileClose(StrFile *file)
 
 #if defined(KELLY_DECOMP_FUNCTION_0038A870)
 // 0x0038A870 viBufDelete__FP5ViBuf
-struct ViBuf { char padding[0x40]; int sema; };
-void setD4_CHCR(unsigned int value);
+#include "NVL/PS2/nvlMPEG_ps2.h"
+
 extern "C" int DeleteSema(int semaphore);
 __asm__(".equ setD4_CHCR__FUi, 0x00389E68");
 __asm__(".equ DeleteSema, 0x003DB670");

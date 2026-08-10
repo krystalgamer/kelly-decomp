@@ -4,6 +4,7 @@
 #pragma interface
 
 #include "KS/SRC/script_library_class.h"
+#include "KS/SRC/algebra.h"
 
 class slf_play_movie_t : public script_library_class::function {
 public:
@@ -31,6 +32,16 @@ public:
     };
     struct parms_t {
         vm_num_t duration;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+class slf_localize_thread_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        vector3d location;
     };
 
     virtual bool operator()(vm_stack &stack, entry_t entry);

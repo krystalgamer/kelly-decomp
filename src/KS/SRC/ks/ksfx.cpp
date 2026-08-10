@@ -57,19 +57,8 @@ void ks_fx_create_big_splash(vector3d position)
 
 #if defined(KELLY_DECOMP_FUNCTION_0036C6D0)
 // 0x0036C6D0 set_size__FP11crashnode_t
-struct crashnode_t {
-    char padding[0xc];
-    float magnitude;
-    float size;
-    float age;
-};
-struct fx_data {
-    char padding[0x68];
-    float wave_inc;
-    float wave_dec;
-};
-extern fx_data FXD;
-__asm__(".equ FXD, 0x00485A30");
+#include "KS/SRC/ks/ksfx.h"
+
 void set_size(crashnode_t *node) {
     if (node->age>FXD.wave_inc)
         node->size=node->magnitude*

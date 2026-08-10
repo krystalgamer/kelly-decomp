@@ -19,4 +19,5 @@ Read the exact released stringx::copy body, stringx/string_buf layouts, release_
 
 ## Outcome
 
-Matched released stringx copy helper
+The local string and buffer layouts were replaced by the shared `stringx`
+declaration.

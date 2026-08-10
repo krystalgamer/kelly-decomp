@@ -21,4 +21,4 @@ Read the exact released camera-underwater helper, player getter, game split-scre
 
 ## Outcome
 
-Matched released wave camera underwater check
+The local game layout was replaced by the shared split-screen helper.

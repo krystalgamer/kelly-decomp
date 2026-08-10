@@ -23,4 +23,16 @@ DECLARE_BEAM_FLAG_FUNCTION(slf_beam_set_collide_beamable_t);
 
 #undef DECLARE_BEAM_FLAG_FUNCTION
 
+class slf_beam_kill_effect_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        beam *me;
+        vm_num_t id;
+        vm_num_t apply;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 #endif

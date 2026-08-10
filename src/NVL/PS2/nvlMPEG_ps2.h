@@ -82,9 +82,13 @@ struct ViBuf {
     void *data;
     void *tag;
     int n;
-    char data_after_n[0x54];
+    char data_before_sema[0x34];
+    int sema;
+    char data_after_sema[0x1C];
 };
 void viBufAddDMA(ViBuf *buffer);
+int viBufDelete(ViBuf *buffer);
+void setD4_CHCR(unsigned int value);
 
 struct QWORD {
     unsigned long values[2];

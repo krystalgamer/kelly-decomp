@@ -30,6 +30,7 @@ public:
     void remove(trigger *value);
     void add(light_source *value);
     void remove(light_source *value);
+    void add_local_thread(vm_thread *thread);
     void remove_local_thread(vm_thread *thread);
     void sort_entities();
     void set_region_ambient_sound(stringx &sound_name);

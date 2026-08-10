@@ -19,4 +19,5 @@ Read the exact released localize_thread operator, 12-byte vector parameter, worl
 
 ## Outcome
 
-Matched released localize thread script operator
+The local world, terrain, sector, region-node, and script-function layouts
+were replaced by shared declarations.

@@ -62,19 +62,20 @@ void script_callback::spawn(signaller *source) {
     if (!disabled) {
         if (one_shot)
         {
-            AddThread(
-                inst,func,
-                parms
-            );
-            __asm__ __volatile__("" : : : "memory");
+            void *(*add)(
+                script_object::instance *,
+                const vm_executable *,
+                const char *) = AddThread;
+            add(inst,func,parms);
         }
         else
         {
-            AddThreadCallback(
-                inst,this,func,
-                parms
-            );
-            __asm__ __volatile__("" : : : "memory");
+            void *(*add)(
+                script_object::instance *,
+                script_callback *,
+                const vm_executable *,
+                const char *) = AddThreadCallback;
+            add(inst,this,func,parms);
         }
     }
 }

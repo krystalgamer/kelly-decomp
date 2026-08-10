@@ -54,21 +54,6 @@ void typeface_close(typeface_def *typeface)
     }
 }
 
-// 0x0033A028 _$_4Font
-extern "C" void StringDtor(void *self, int deleting) __asm__("_$_7stringx");
-extern "C" void BuiltinDelete(void *memory) __asm__("__builtin_delete");
-__asm__(".equ _$_7stringx, 0x0034D6E0");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-extern "C" void FontDtor(void *self, int deleting) __asm__("_$_4Font");
-void FontDtor(void *self, int deleting) {
-    StringDtor((char *)self+0x242c,2);
-    StringDtor((char *)self+0x2408,2);
-    if (deleting&1) {
-        BuiltinDelete(self);
-        __asm__ __volatile__("" : : : "memory");
-    }
-}
-
 // 0x0033BBE8 CheckArtButtonCodes__4FontPCcRiT2
 struct font_string_buffer
 {

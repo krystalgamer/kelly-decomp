@@ -23,4 +23,5 @@ Read the exact released script_callback::spawn body, disabled/one-shot flags, in
 
 ## Outcome
 
-Matched released script callback spawn
+The empty barriers were replaced by local add-thread call pointers while
+retaining the shared callback declarations.

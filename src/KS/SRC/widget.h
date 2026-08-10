@@ -157,6 +157,7 @@ public:
     }
 
 protected:
+    friend class menu_item_widget;
     friend class rotate_wevent;
     friend class scale_wevent;
     stringx widget_name;
@@ -211,6 +212,7 @@ public:
 class menu_item_widget;
 
 class menu_widget : public widget {
+    friend class menu_item_widget;
     int num_items;
     menu_item_widget *sel_item;
     int default_sel_index;
@@ -249,6 +251,7 @@ class menu_item_widget : public widget {
     unsigned char subtype;
 
 public:
+    virtual void select(bool initial);
     virtual void deselect(bool initial);
     virtual void set_skip(bool value);
     virtual rational_t get_width();

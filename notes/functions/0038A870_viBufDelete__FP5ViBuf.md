@@ -19,4 +19,4 @@ Read the exact released viBufDelete body, ViBuf semaphore offset, D4 register ad
 
 ## Outcome
 
-Matched released video buffer delete
+The local video-buffer layout was replaced by the shared NVL declaration.

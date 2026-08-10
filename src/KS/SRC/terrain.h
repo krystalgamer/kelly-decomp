@@ -3,8 +3,8 @@
 
 #include "KS/SRC/bp_tree.h"
 #include "KS/SRC/hyperplane.h"
+#include "KS/SRC/path.h"
 
-class region_node;
 class tree_t;
 
 class sector {

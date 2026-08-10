@@ -20,4 +20,5 @@ Read the exact released marker profile getter, WaveMarkerEnum mangling, breaker/
 
 ## Outcome
 
-Matched released wave marker profile getter
+The local marker record and wave globals were replaced by shared wave
+declarations.

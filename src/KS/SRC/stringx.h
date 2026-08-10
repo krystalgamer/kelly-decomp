@@ -54,6 +54,8 @@ public:
     int find(const char *text) const;
     void lock();
     void fork_data(int new_length = -1);
+    void release_buffer();
+    void copy(stringx &other);
     void copy(const char *text, int length = -1);
     void append(const stringx &other);
     void append(const char *text, int length = -1);

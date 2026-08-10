@@ -19,4 +19,5 @@ Read the exact released beam kill-effect operator, parameter layout, float-to-us
 
 ## Outcome
 
-Matched released beam kill effect script operator
+The local beam and script-function declarations were replaced by the shared
+beam script types.
