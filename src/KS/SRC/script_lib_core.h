@@ -24,4 +24,16 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_delay_t : public script_library_class::function {
+public:
+    struct sdata_t {
+        float clock;
+    };
+    struct parms_t {
+        vm_num_t duration;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 #endif

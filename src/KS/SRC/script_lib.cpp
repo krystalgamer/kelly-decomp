@@ -2322,28 +2322,8 @@ void **Rtti_003248D0()
 
 #if defined(KELLY_DECOMP_FUNCTION_0031EC08)
 // 0x0031EC08 __cl__11slf_delay_tR8vm_stackQ320script_library_class8function7entry_t
-#include "KS/SRC/script_library_class.h"
-
-struct world_dynamics_system
-{
-    char padding[0x128];
-    float time_inc;
-};
-
-extern world_dynamics_system *g_world_ptr;
-__asm__(".equ g_world_ptr, 0x00431A8C");
-
-class slf_delay_t
-{
-public:
-    struct sdata_t { float clock; };
-    struct parms_t { vm_num_t duration; };
-
-    bool operator()(
-        vm_stack &stack,
-        script_library_class::function::entry_t entry
-    );
-};
+#include "KS/SRC/script_lib_core.h"
+#include "KS/SRC/wds.h"
 
 bool slf_delay_t::operator()(
     vm_stack &stack,
@@ -2355,7 +2335,7 @@ bool slf_delay_t::operator()(
     int result;
     if (entry == script_library_class::function::FIRST_ENTRY)
         goto first_entry;
-    sdata->clock += g_world_ptr->time_inc;
+    sdata->clock += g_world_ptr->get_time_inc();
     result = true;
     if (sdata->clock >= parms->duration)
         goto done;

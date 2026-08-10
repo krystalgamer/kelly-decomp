@@ -112,6 +112,8 @@ protected:
     bool running;
 };
 
+__asm__(".equ set_digit_color__12timer_widgetG5color, 0x002BB648");
+
 #endif
 
 // Matching decompilation blocks selected by generated build shims.

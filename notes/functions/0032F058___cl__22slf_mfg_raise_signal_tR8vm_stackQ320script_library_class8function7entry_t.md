@@ -19,4 +19,5 @@ Read the exact released MFG raise-signal operator, parameter layout, float-to-in
 
 ## Outcome
 
-Matched released MFG raise signal script operator
+The local signal vtable and MFG layouts were replaced by the shared signaller
+and script-function declarations.

@@ -3,6 +3,7 @@
 
 #pragma interface
 
+#include "KS/SRC/script_library_class.h"
 #include "KS/SRC/signals.h"
 
 class script_mfg : public signaller {
@@ -12,6 +13,17 @@ public:
 
 protected:
     virtual const char *get_signal_name(unsigned short index) const;
+};
+
+class slf_mfg_raise_signal_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        script_mfg *me;
+        vm_num_t sig;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
 #endif

@@ -19,4 +19,5 @@ Read the exact released timer background-color operator, 20-byte SLF parameter l
 
 ## Outcome
 
-Matched released timer background color script operator
+The local color, timer, and script-function declarations were replaced by the
+shared widget script types.

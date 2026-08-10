@@ -20,4 +20,5 @@ Read the exact released delay operator, SLF_SDATA/SLF_PARMS layout, FIRST_ENTRY/
 
 ## Outcome
 
-Matched released slf_delay operator
+The operator now uses the shared script-function declaration and world time
+increment field.

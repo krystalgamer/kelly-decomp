@@ -225,4 +225,6 @@ public:
     }
 };
 
+__asm__(".equ attach__16entity_anim_tree, 0x00117538");
+
 #endif

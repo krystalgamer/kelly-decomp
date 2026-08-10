@@ -25,7 +25,9 @@ class world_dynamics_system {
     terrain *the_terrain;
     entity *hero_ptr[2];
     kellyslater_controller *ks_controller[2];
-    char data_before_current_light_context[0x260];
+    char data_before_time_inc[0x28];
+    float time_inc;
+    char data_after_time_inc_to_current_light_context[0x234];
     nglLightContext *current_light_context;
 
 public:
@@ -51,6 +53,9 @@ public:
     }
     inline kellyslater_controller *get_ks_controller(int index) {
         return ks_controller[index];
+    }
+    inline float get_time_inc() const {
+        return time_inc;
     }
     void set_ks_controller(
         int player,

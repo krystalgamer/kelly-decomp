@@ -17,12 +17,17 @@
 
 ### Attempt 1 notes
 
-Read the exact released anim play operator, parameter layout, ANIM_SUSPENDED value, entity_anim_tree vptr/clear_flag slot, and attach helper. The released operations matched byte-exactly.
+Read the exact released anim play operator, parameter layout, pause flag,
+entity_anim_tree vptr/clear_flag slot, and attach helper. The released
+operations matched byte-exactly.
 
 ### Attempt 3 notes
 
-Read the exact released anim play operator, parameter layout, ANIM_SUSPENDED value, shared entity_anim_tree declaration, vptr/clear_flag slot, and attach helper. Kept repeated parameter loads while using a separate layout view to avoid redeclaring the shared class; attempt 3 matched byte-exactly.
+Read the exact released anim play operator, parameter layout, pause flag,
+shared entity_anim_tree declaration, vptr/clear_flag slot, and attach helper.
+Attempt 3 matched byte-exactly.
 
 ## Outcome
 
-Matched released slf_anim_play operator
+The manual animation vtable view was replaced by the shared
+`entity_anim_tree` virtual and attach methods.

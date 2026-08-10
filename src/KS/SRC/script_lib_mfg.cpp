@@ -39,31 +39,7 @@ void **Rtti_0032F008()
 
 #if defined(KELLY_DECOMP_FUNCTION_0032F058)
 // 0x0032F058 __cl__22slf_mfg_raise_signal_tR8vm_stackQ320script_library_class8function7entry_t
-#include "KS/SRC/script_library_class.h"
-
-struct signal_vtable
-{
-    char padding[0x20];
-    short adjustment;
-    short reserved;
-    void (*raise_signal)(void *self, int signal);
-};
-
-struct script_mfg
-{
-    char padding[8];
-    signal_vtable *vtable;
-};
-
-class slf_mfg_raise_signal_t
-{
-public:
-    struct parms_t { script_mfg *me; vm_num_t sig; };
-    bool operator()(
-        vm_stack &stack,
-        script_library_class::function::entry_t entry
-    );
-};
+#include "KS/SRC/script_lib_mfg.h"
 
 bool slf_mfg_raise_signal_t::operator()(
     vm_stack &stack,
@@ -73,12 +49,7 @@ bool slf_mfg_raise_signal_t::operator()(
     SLF_PARMS;
     int sig = (int)parms->sig;
     if (sig >= 0 && sig < 32)
-    {
-        signal_vtable *table = parms->me->vtable;
-        table->raise_signal(
-            (char *)parms->me + table->adjustment, sig
-        );
-    }
+        parms->me->raise_signal(sig);
     SLF_DONE;
 }
 #endif

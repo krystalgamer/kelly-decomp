@@ -19,4 +19,5 @@ Read the exact released timer digit-color operator, 20-byte SLF parameter layout
 
 ## Outcome
 
-Matched released timer digit color script operator
+The local color, timer, and script-function declarations were replaced by the
+shared widget script types.

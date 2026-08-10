@@ -56,6 +56,34 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_timer_widget_set_digit_color_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        timer_widget *me;
+        vm_num_t r;
+        vm_num_t g;
+        vm_num_t b;
+        vm_num_t a;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+class slf_timer_widget_set_bg_color_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        timer_widget *me;
+        vm_num_t r;
+        vm_num_t g;
+        vm_num_t b;
+        vm_num_t a;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 class slf_timer_widget_clear_functions_t :
     public script_library_class::function {
 public:
