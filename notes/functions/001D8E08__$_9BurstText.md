@@ -5,7 +5,7 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/FEPanel.h`
 - Reference source: `KS/SRC/ks/FEPanel.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -19,4 +19,5 @@ Read the exact released BurstText inheritance/declaration and confirmed its empt
 
 ## Outcome
 
-Matched generated BurstText destructor
+The handwritten compiler-generated destructor was removed and the shipped
+wrapper was deferred.

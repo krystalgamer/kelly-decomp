@@ -19,4 +19,5 @@ Read the exact released FETextMultiMenu color overload, including its positional
 
 ## Outcome
 
-Matched released FETextMultiMenu color constructor
+The manual text-menu vtable dispatch was replaced by the shared constructor
+overload.

@@ -826,57 +826,13 @@ void FEMenu::OnUp(int command) {
 }
 
 // 0x001DAB30 cons__6FEMenuP12FEMenuSystemiii
-class FEMenuSystem;
-
-struct color32
-{
-    union
-    {
-        struct { unsigned char b, g, r, a; } channels;
-        unsigned int value;
-    };
-    color32(
-        unsigned char red, unsigned char green,
-        unsigned char blue, unsigned char alpha
-    )
-    {
-        channels.b = blue;
-        channels.g = green;
-        channels.r = red;
-        channels.a = alpha;
-    }
-    operator unsigned int() const { return value; }
-};
-
-struct menu_vtable
-{
-    char padding[0x138];
-    short adjustment;
-    short reserved;
-    void (*cons)(
-        void *self, FEMenuSystem *system, int x, int y,
-        unsigned int normal, unsigned int high, int max_visible
-    );
-};
-
-class FEMenu
-{
-    char padding[0x74];
-    menu_vtable *vtable;
-
-public:
-    void cons(
-        FEMenuSystem *system, int x, int y, int max_visible
-    );
-};
+#include "KS/SRC/ks/FEMenu.h"
 
 void FEMenu::cons(
     FEMenuSystem *system, int x, int y, int max_visible
 )
 {
-    menu_vtable *table = vtable;
-    table->cons(
-        (char *)this + table->adjustment,
+    cons(
         system, x, y,
         color32(0, 0, 0, 0),
         color32(0, 0, 0, 0),
@@ -885,117 +841,31 @@ void FEMenu::cons(
 }
 
 // 0x001DB160 TurnOn__15FEGraphicalMenuP9PanelQuadb
-struct graphical_vtable
-{
-    char padding[0x168];
-    short adjustment;
-    short reserved;
-    void (*turn_on)(void *self, void *quad, bool on);
-};
+#include "KS/SRC/ks/FEMenu.h"
 
-struct panel_vtable
+void FEGraphicalMenu::TurnOn(PanelQuad *quad, bool on)
 {
-    char padding[0x18];
-    short adjustment;
-    short reserved;
-    void (*turn_on)(void *self, bool on);
-};
-
-struct panel_quad
-{
-    char padding[0x194];
-    panel_vtable *vtable;
-};
-
-struct graphical_parent
-{
-    char padding[0x74];
-    graphical_vtable *vtable;
-};
-
-struct graphical_menu_layout
-{
-    char padding[0x64];
-    graphical_parent *parent;
-};
-
-extern "C" void TurnOn(
-    void *self, void *quad, bool on
-) __asm__("TurnOn__15FEGraphicalMenuP9PanelQuadb");
-
-void TurnOn(void *self, void *quad_pointer, bool on)
-{
-    graphical_menu_layout *menu =
-        (graphical_menu_layout *)self;
-    panel_quad *quad = (panel_quad *)quad_pointer;
-    if (menu->parent)
-    {
-        graphical_vtable *table = menu->parent->vtable;
-        table->turn_on(
-            (char *)menu->parent + table->adjustment, quad, on
-        );
-    }
+    if (parent)
+        ((FEGraphicalMenu *)parent)->TurnOn(quad, on);
     else if (quad)
-    {
-        panel_vtable *table = quad->vtable;
-        table->turn_on(
-            (char *)quad + table->adjustment, on
-        );
-    }
+        quad->TurnOn(on);
 }
 
 // 0x001DB2A8 SetLayer__15FEGraphicalMenuP9PanelQuadi
-struct graphical_vtable {
-    char padding[0x188]; short adjustment; short reserved;
-    void (*set_layer)(void *self, void *quad, int layer);
-};
-struct panel_vtable {
-    char padding[0x20]; short adjustment; short reserved;
-    void (*set_layer)(void *self, int layer);
-};
-struct panel_quad { char padding[0x194]; panel_vtable *vtable; };
-struct graphical_parent { char padding[0x74]; graphical_vtable *vtable; };
-struct graphical_menu_layout { char padding[0x64]; graphical_parent *parent; };
+#include "KS/SRC/ks/FEMenu.h"
 
-extern "C" void SetLayer(void *self, void *quad, int layer)
-    __asm__("SetLayer__15FEGraphicalMenuP9PanelQuadi");
-
-void SetLayer(void *self, void *quad_pointer, int layer) {
-    graphical_menu_layout *menu = (graphical_menu_layout *)self;
-    panel_quad *quad = (panel_quad *)quad_pointer;
-    if (menu->parent) {
-        graphical_vtable *table = menu->parent->vtable;
-        table->set_layer((char *)menu->parent + table->adjustment, quad, layer);
-    } else if (quad) {
-        panel_vtable *table = quad->vtable;
-        table->set_layer((char *)quad + table->adjustment, layer);
-    }
+void FEGraphicalMenu::SetLayer(PanelQuad *quad, int layer) {
+    if (parent)
+        ((FEGraphicalMenu *)parent)->SetLayer(quad, layer);
+    else if (quad)
+        quad->SetLayer(layer);
 }
 
 // 0x001DB648 cons__15FETextMultiMenuP12FEMenuSystemG7color32
-class FEMenuSystem;
-struct color32 {
-    union { struct { unsigned char b,g,r,a; } channels; unsigned int value; };
-    color32(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha) {
-        channels.b=blue; channels.g=green; channels.r=red; channels.a=alpha;
-    }
-    operator unsigned int() const { return value; }
-};
-struct text_menu_vtable {
-    char padding[0x178]; short adjustment; short reserved;
-    void (*cons)(void *self, FEMenuSystem *system,
-                 unsigned int normal, unsigned int high,
-                 float scale, float high_scale, int flags);
-};
-class FETextMultiMenu {
-    char padding[0x74]; text_menu_vtable *vtable;
-public:
-    void cons(FEMenuSystem *system, color32 high);
-};
+#include "KS/SRC/ks/FEMenu.h"
+
 void FETextMultiMenu::cons(FEMenuSystem *system, color32 high) {
-    text_menu_vtable *table=vtable;
-    table->cons((char *)this+table->adjustment, system,
-                color32(0,0,0,0), high, 8.0f, 1.2f, 0);
+    cons(system, color32(0, 0, 0, 0), high, 8.0f, 1.2f, 0);
 }
 
 // 0x001DA580 SetText__11FEMenuEntryG7stringx

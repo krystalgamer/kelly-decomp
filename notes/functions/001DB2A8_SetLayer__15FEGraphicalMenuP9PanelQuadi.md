@@ -19,4 +19,5 @@ Read the exact released FEGraphicalMenu::SetLayer remap, parent/panel offsets, p
 
 ## Outcome
 
-Matched released FEGraphicalMenu SetLayer remap
+The local graphical and panel vtables were replaced by shared parent and quad
+dispatch.

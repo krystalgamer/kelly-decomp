@@ -5,7 +5,7 @@
 - Object: `game/files_frontend`
 - Debug source: `C:/KS/SRC/ks/FEPanel.h`
 - Reference source: `KS/SRC/ks/FEPanel.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -19,4 +19,5 @@ Read the exact released PanelQuad4 inheritance/declaration and generated destruc
 
 ## Outcome
 
-Matched generated PanelQuad4 destructor
+The handwritten compiler-generated destructor was removed and the shipped
+wrapper was deferred.

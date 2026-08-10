@@ -21,4 +21,5 @@ Read the exact released inline FEMenu::cons overload, color32 byte-order constru
 
 ## Outcome
 
-Matched released FEMenu convenience constructor
+The manual menu vtable dispatch was replaced by the shared constructor
+overload.

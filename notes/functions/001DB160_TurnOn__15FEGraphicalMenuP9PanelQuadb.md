@@ -20,4 +20,5 @@ Read the exact released FEGraphicalMenu::TurnOn remap, parent/panel offsets, par
 
 ## Outcome
 
-Matched released FEGraphicalMenu TurnOn remap
+The local graphical and panel vtables were replaced by shared parent and quad
+dispatch.
