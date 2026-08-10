@@ -20,4 +20,5 @@ Read the exact released WAVE_PerturbNext body, WaveBreakStruct size/type/time of
 
 ## Outcome
 
-Matched released wave perturb advance
+The local wave-break layout and empty barrier were replaced by the shared wave
+declarations and a local reset-call pointer.

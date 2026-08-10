@@ -19,4 +19,5 @@ Read the exact released next-height body, schedule index/length globals, schedul
 
 ## Outcome
 
-Matched released wave next height getter
+The local schedule entry layouts were replaced by the shared wave schedule
+declarations.

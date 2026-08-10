@@ -335,58 +335,19 @@ void **Rtti_003852F8()
 }
 
 // 0x003772C8 WAVE_PerturbNext__Fv
-struct WaveBreakStruct
-{
-    int type;
-    float time;
-    char padding[0x18];
-};
-
-extern WaveBreakStruct *WAVE_BreakNext;
-extern int WAVE_PerturbType;
-extern float WAVE_TotalSec;
-
-void WAVE_PerturbSkipBlanks();
-void WAVE_PerturbReset(float next_time);
-
-__asm__(".equ WAVE_BreakNext, 0x00585C4C");
-__asm__(".equ WAVE_PerturbType, 0x00484940");
-__asm__(".equ WAVE_TotalSec, 0x0048517C");
-__asm__(".equ WAVE_PerturbSkipBlanks__Fv, 0x00377320");
-__asm__(".equ WAVE_PerturbReset__Ff, 0x00377370");
+#include "KS/SRC/ks/wave.h"
 
 void WAVE_PerturbNext()
 {
     ++WAVE_BreakNext;
     WAVE_PerturbType = WAVE_BreakNext->type;
     WAVE_PerturbSkipBlanks();
-    WAVE_PerturbReset(WAVE_BreakNext->time - WAVE_TotalSec);
-    __asm__ __volatile__("" : : : "memory");
+    void (*reset)(float) = WAVE_PerturbReset;
+    reset(WAVE_BreakNext->time - WAVE_TotalSec);
 }
 
 // 0x0037DC78 WAVE_GetNextHeight__Fv
-struct WaveScheduleEntry
-{
-    char padding0[8];
-    unsigned int type;
-    char padding1[8];
-};
-
-struct WaveScheduleTypeEntry
-{
-    char padding[12];
-    float height;
-};
-
-extern unsigned int WAVE_ScheduleIndex;
-extern unsigned int WAVE_ScheduleLength;
-extern WaveScheduleEntry WAVE_ScheduleArray[];
-extern WaveScheduleTypeEntry WAVE_ScheduleType[];
-
-__asm__(".equ WAVE_ScheduleIndex, 0x004846D4");
-__asm__(".equ WAVE_ScheduleLength, 0x004846D0");
-__asm__(".equ WAVE_ScheduleArray, 0x0058EA68");
-__asm__(".equ WAVE_ScheduleType, 0x0058B990");
+#include "KS/SRC/ks/wave.h"
 
 float WAVE_GetNextHeight()
 {

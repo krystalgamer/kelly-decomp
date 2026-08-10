@@ -7,8 +7,17 @@ typedef void *(*nglMemAllocCallback)(
     u_int alignment);
 typedef void (*nglMemFreeCallback)(void *pointer);
 
+struct nglFileBuf;
+typedef bool (*nglReadFileCallback)(
+    const char *name,
+    nglFileBuf *file,
+    u_int alignment);
+typedef void (*nglReleaseFileCallback)(nglFileBuf *file);
+
 struct nglSystemCallbackStruct {
-    char data_before_mem_alloc[0x10];
+    nglReadFileCallback ReadFile;
+    nglReleaseFileCallback ReleaseFile;
+    char data_before_mem_alloc[8];
     nglMemAllocCallback MemAlloc;
     nglMemFreeCallback MemFree;
 };

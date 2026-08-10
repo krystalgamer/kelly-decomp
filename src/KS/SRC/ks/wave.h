@@ -182,6 +182,10 @@ void WAVE_ComputeFoamAlphas();
 void WAVE_GetBreakInfo(WaveBreakInfoStruct *info);
 int WAVE_GetIndex();
 char WAVE_GetScoringType();
+void WAVE_PerturbSkipBlanks();
+void WAVE_PerturbReset(float next_time);
+void WAVE_PerturbNext();
+float WAVE_GetNextHeight();
 
 template <int count>
 struct SplineCoeffs {
@@ -299,6 +303,12 @@ extern float WAVE_TotalSec;
 __asm__(".equ WAVE_PerturbType, 0x00484940");
 __asm__(".equ WAVE_BreakNext, 0x00585C4C");
 __asm__(".equ WAVE_TotalSec, 0x0048517C");
+__asm__(".equ WAVE_ScheduleIndex, 0x004846D4");
+__asm__(".equ WAVE_ScheduleLength, 0x004846D0");
+__asm__(".equ WAVE_ScheduleArray, 0x0058EA68");
+__asm__(".equ WAVE_ScheduleType, 0x0058B990");
+__asm__(".equ WAVE_PerturbSkipBlanks__Fv, 0x00377320");
+__asm__(".equ WAVE_PerturbReset__Ff, 0x00377370");
 __asm__(".equ WAVE_TexAnimFrame, 0x004846A0");
 __asm__(".equ WAVE_TexAnimSpeed, 0x004846A4");
 __asm__(".equ WaveDebug, 0x004847F8");

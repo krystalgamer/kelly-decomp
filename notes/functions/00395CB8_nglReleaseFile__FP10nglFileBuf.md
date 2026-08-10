@@ -21,4 +21,5 @@ Read the exact released nglReleaseFile body, nglFileBuf and callback layouts, ne
 
 ## Outcome
 
-Matched released nglReleaseFile body
+The local file/callback layouts and empty barrier were replaced by the shared
+NGL declarations and a local clear-call pointer.
