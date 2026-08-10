@@ -73,12 +73,17 @@ public:
 
 enum {
     LEVEL_LAST = 32,
-    MAX_PREV_LEVELS = 4
+    MAX_PREV_LEVELS = 4,
+    GOAL_PHOTO_1 = 7,
+    GOAL_PHOTO_2 = 8,
+    GOAL_PHOTO_3 = 9
 };
 
 struct CareerData {
     int beach;
-    char built_fields_before_prev_levels[0xA8];
+    char built_fields_before_goal[0x6C];
+    int goal[5];
+    char built_fields_before_prev_levels[0x28];
     int prev_levels[MAX_PREV_LEVELS];
     char built_trailing_fields[0x20];
 };

@@ -74,7 +74,8 @@ public:
     bool goal_passed[5];
     bool boards[MAX_BOARDS];
     int totalStatPointsIncreased;
-    char remaining_data[0x1098C];
+    CompressedPhoto compressedPhotos[8];
+    char remaining_data[0x94C];
 
 public:
     Career();

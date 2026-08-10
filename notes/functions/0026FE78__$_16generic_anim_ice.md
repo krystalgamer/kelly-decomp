@@ -5,7 +5,7 @@
 - Object: `game/files_kellyslater`
 - Debug source: `C:/KS/SRC/ks/floatobj.h`
 - Reference source: `KS/SRC/ks/floatobj.h`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -19,4 +19,6 @@ Read the exact released generic_anim_ice inheritance and empty destructor plus t
 
 ## Outcome
 
-Matched generated generic_anim_ice destructor
+The handwritten compiler-generated destructor was removed. Defining the
+released empty virtual destructor emits extra implementation-unit data and a
+different deleting form, so the shipped wrapper is deferred.

@@ -28,6 +28,7 @@ protected:
 };
 
 extern MenuSystem *menus;
+extern bool superduperpausehack;
 extern KSMainMenu *menu_main;
 extern Menu *menu_inner_cam;
 extern Menu *menu_inner_camtool;

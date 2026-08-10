@@ -66,37 +66,8 @@ bool Career::PhotoExistsForLevel(int level) {
 
 #if defined(KELLY_DECOMP_FUNCTION_0025AF40)
 // 0x0025AF40 GetPhotoForLevel__6Careeri
-enum
-{
-    LEVEL_LAST = 32,
-    GOAL_PHOTO_1 = 7,
-    GOAL_PHOTO_2 = 8,
-    GOAL_PHOTO_3 = 9
-};
-
-struct CareerData
-{
-    char prefix[0x70];
-    int goal[5];
-    char suffix[0x58];
-};
-
-extern CareerData CareerDataArray[];
-__asm__(".equ CareerDataArray, 0x0042ECA0");
-
-class CompressedPhoto
-{
-    char data[0x2008];
-};
-
-class Career
-{
-    char prefix[0xbc];
-    CompressedPhoto compressedPhotos[8];
-
-public:
-    CompressedPhoto *GetPhotoForLevel(int level);
-};
+#include "KS/SRC/ks/GlobalData.h"
+#include "KS/SRC/ks/career.h"
 
 CompressedPhoto *Career::GetPhotoForLevel(int level)
 {

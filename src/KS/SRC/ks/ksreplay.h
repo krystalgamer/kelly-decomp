@@ -43,6 +43,7 @@ class KSEntityState {
 public:
     KSEntityState();
     void SetKSAnimInfo(float blend, bool loop, float frame);
+    void SetKSBAnimInfo(float blend, bool loop, float frame);
 };
 
 class KSReplayFrame {

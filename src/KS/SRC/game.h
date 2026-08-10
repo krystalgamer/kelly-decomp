@@ -188,6 +188,7 @@ public:
     void retry_mode(bool reload);
     void retry_level(bool reload = false);
     void turn_user_cam_on(bool enabled);
+    void pause();
     void end_level();
     float get_player_share(int player) const;
     int get_cur_state() const;

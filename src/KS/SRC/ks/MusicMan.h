@@ -6,10 +6,16 @@
 typedef unsigned int nslSourceId;
 typedef unsigned int nslSoundId;
 
+enum {
+    NSL_INVALID_ID = 0
+};
+
 enum nslSoundStatusEnum {
     NSL_SOUNDSTATUS_INVALID = 0,
 };
 
+nslSoundId nslAddSound(nslSourceId source);
+void nslPlaySound(nslSoundId sound);
 nslSoundStatusEnum nslGetSoundStatus(nslSoundId sound);
 void nslPauseSound(nslSoundId sound);
 void nslUnpauseSound(nslSoundId sound);

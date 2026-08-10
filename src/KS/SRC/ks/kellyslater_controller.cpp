@@ -374,18 +374,7 @@ void kellyslater_controller::SetTrickRegion(TRICKREGION region)
 }
 
 // 0x0020BD78 __15spin_controller
-class spin_controller {
-    void *my_board_controller;
-    char padding[0x10];
-    float spin_time[4];
-    char spin_padding[8];
-    int num_spins;
-    char state_padding[0x10];
-    int activated;
-
-public:
-    spin_controller();
-};
+#include "KS/SRC/ks/kellyslater_controller.h"
 
 spin_controller::spin_controller()
 {

@@ -19,4 +19,4 @@ Read the exact released ScoringManager private EventRecipient inheritance and es
 
 ## Outcome
 
-Matched generated ScoringManager RTTI
+The released RTTI helper was already canonical and remains exact.

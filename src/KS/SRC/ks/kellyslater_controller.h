@@ -26,11 +26,39 @@ struct ScoringManagerStorage {
 class camera;
 class entity;
 class game_camera;
+class kellyslater_controller;
 class SurfBoardObjectClass;
 class turn_data;
 
 enum TRICKREGION {
     TREGION_FACE
+};
+
+enum {
+    SPIN_180,
+    SPIN_360,
+    SPIN_540,
+    SPIN_720,
+    SPIN_MANUAL,
+    SPIN_FLOATER,
+    SPIN_NUM
+};
+
+class spin_controller {
+    SurfBoardObjectClass *my_board_controller;
+    float time;
+    float depress_timer;
+    int spin_type;
+    float scale_factor;
+    float spin_time[SPIN_NUM];
+    int num_spins;
+    float spin_dir;
+    vector3d spin_axis;
+    bool activated;
+    kellyslater_controller *my_ks_controller;
+
+public:
+    spin_controller();
 };
 
 class BalanceMeter {

@@ -65,24 +65,7 @@ unsigned int Menu::GetElementFlags(int i)
 }
 
 // 0x0023E4E0 CloseAll__4Menu
-struct menu_vtable {
-    char padding[0x10];
-    short close_all_adjust;
-    short reserved;
-    void (*close_all)(void *self);
-};
-
-class Menu {
-    char padding[0x10];
-    int isopen;
-    Menu *closeto;
-    char vtable_padding[4];
-    menu_vtable *vtable;
-
-public:
-    void Close(bool toparent = true);
-    void CloseAll();
-};
+#include "KS/SRC/ks/menu.h"
 
 __asm__(".equ Close__4Menub, 0x0023E470");
 
@@ -93,9 +76,7 @@ void Menu::CloseAll()
         Menu *other = closeto;
         Close();
         if (other)
-            other->vtable->close_all(
-                (char *)other + other->vtable->close_all_adjust
-            );
+            other->CloseAll();
     }
 }
 

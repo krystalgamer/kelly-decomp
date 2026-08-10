@@ -91,9 +91,6 @@ MusicMan::MusicMan()
 // 0x002585E8 Play__5Track
 #include "KS/SRC/ks/MusicMan.h"
 
-nslSoundId nslAddSound(nslSourceId source);
-void nslPlaySound(nslSoundId sound);
-
 __asm__(".equ IsPlaying__5Track, 0x00258640");
 __asm__(".equ nslAddSound__FUi, 0x0038CAF8");
 __asm__(".equ nslPlaySound__FUi, 0x0038CB20");
@@ -103,7 +100,7 @@ nslSoundId Track::Play()
     if (!IsPlaying() && !paused)
     {
         mySndId = nslAddSound(mySrcId);
-        if (mySndId != 0)
+        if (mySndId != NSL_INVALID_ID)
             nslPlaySound(mySndId);
     }
     return mySndId;
