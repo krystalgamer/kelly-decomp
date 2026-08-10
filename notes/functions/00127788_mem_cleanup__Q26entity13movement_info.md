@@ -19,4 +19,5 @@ Read the exact released static allocation cleanup pattern and movement_info glob
 
 ## Outcome
 
-Matched entity movement info memory cleanup
+The existing implementation already uses the shared entity movement-info
+declaration and remains exact.

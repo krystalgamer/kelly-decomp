@@ -19,4 +19,5 @@ Read the exact released ai_polypath::optimize loop, cell vector layout, world/te
 
 ## Outcome
 
-Matched released ai polypath optimization
+The local cell-vector and world layouts were replaced by shared AI and world
+declarations.

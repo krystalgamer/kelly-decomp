@@ -11,8 +11,19 @@
 typedef float rational_t;
 typedef float time_value_t;
 
-class PRS_track;
-class signal_track;
+class PRS_track {
+    float duration;
+
+public:
+    float get_duration() const { return duration; }
+};
+
+class signal_track {
+    float duration;
+
+public:
+    float get_duration() const { return duration; }
+};
 class entity;
 class entity_track_tree;
 class po;
@@ -38,6 +49,7 @@ public:
     entity_track_node();
     ~entity_track_node();
     void add_child(entity_track_node *good_kid);
+    float compute_duration() const;
 };
 
 class entity_track_tree {

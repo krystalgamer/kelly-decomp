@@ -60,18 +60,24 @@ void po_anim::get_unadjusted_value(const anim_control_t& control, vector3d* dest
 }
 
 // 0x001198D0 mem_cleanup__7po_anim
-extern int allocated; extern void *data_a; extern void *data_b; extern void (*cleanup)();
-void arch_free(void *memory);
-__asm__(".equ allocated, 0x003E5794"); __asm__(".equ data_a, 0x003E579C");
-__asm__(".equ data_b, 0x003E5798"); __asm__(".equ cleanup, 0x003E57A4");
+#include "KS/SRC/archalloc.h"
+#include "KS/SRC/po_anim.h"
+
 __asm__(".equ arch_free__FPv, 0x002AC768");
-class po_anim { public: static void mem_cleanup(); };
 void po_anim::mem_cleanup() {
-    if (allocated) { arch_free(data_a); arch_free(data_b); allocated=0; if (cleanup) cleanup(); }
+    if (meminit) {
+        arch_free(membuffer);
+        arch_free(allocated);
+        meminit=false;
+        if (mem_free_func)
+            ((void (*)())mem_free_func)();
+    }
 }
 
 // 0x00119B10 mem_cleanup__t11linear_anim1Z10quaternion
-void arch_free(void *memory);
+#include "KS/SRC/archalloc.h"
+#include "KS/SRC/linear_anim.h"
+
 __asm__(".equ _t11linear_anim1Z10quaternion$meminit, 0x003E57AC");
 __asm__(".equ _t11linear_anim1Z10quaternion$allocated, 0x003E57B0");
 __asm__(".equ _t11linear_anim1Z10quaternion$membuffer, 0x003E57B4");
@@ -93,7 +99,9 @@ template <> void linear_anim<quaternion>::mem_cleanup()
 }
 
 // 0x00119D50 mem_cleanup__t11linear_anim1Z8vector3d
-void arch_free(void *memory);
+#include "KS/SRC/archalloc.h"
+#include "KS/SRC/linear_anim.h"
+
 __asm__(".equ _t11linear_anim1Z8vector3d$meminit, 0x003E57C4");
 __asm__(".equ _t11linear_anim1Z8vector3d$allocated, 0x003E57C8");
 __asm__(".equ _t11linear_anim1Z8vector3d$membuffer, 0x003E57CC");
@@ -115,7 +123,8 @@ template <> void linear_anim<vector3d>::mem_cleanup()
 }
 
 // 0x00119F90 mem_cleanup__t11linear_anim1Zf
-void arch_free(void *memory);
+#include "KS/SRC/archalloc.h"
+#include "KS/SRC/linear_anim.h"
 __asm__(".equ _t11linear_anim1Zf$meminit, 0x003E57DC");
 __asm__(".equ _t11linear_anim1Zf$allocated, 0x003E57E0");
 __asm__(".equ _t11linear_anim1Zf$membuffer, 0x003E57E4");

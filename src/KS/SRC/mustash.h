@@ -87,6 +87,10 @@ class multistash {
     char remaining_stash_state[0x34];
 
 public:
+    inline bool owns_active_buffer() const {
+        return *(const bool *)((const char *)this + 0x2C4) ||
+               stored_buf;
+    }
     void close_stash();
     void acquire_stash_bufferspace(int size);
     void release_stash_bufferspace();
@@ -167,6 +171,9 @@ public:
     const pstring &get_name() const;
     inline bool is_open() const { return opened; }
     inline bool at_eof() const { return eof; }
+    static inline multistash &current_substash() {
+        return substash[curstash];
+    }
 
 private:
     static int curstash;

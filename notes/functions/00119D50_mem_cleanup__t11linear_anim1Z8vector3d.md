@@ -19,4 +19,4 @@ Read the exact released static allocation cleanup pattern and function-specific 
 
 ## Outcome
 
-Matched vector3d linear animation cleanup
+The cleanup now uses the shared vector `linear_anim` specialization.

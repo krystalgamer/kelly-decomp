@@ -5,7 +5,7 @@
 - Object: `game/files_entity`
 - Debug source: `C:/KS/SRC/entity.cpp`
 - Reference source: `KS/SRC/entity.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -21,4 +21,5 @@ Read the exact released ternary radius lookup, entity/visual-rep offsets, age ac
 
 ## Outcome
 
-Matched entity visual radius lookup
+The empty compiler barrier was removed. Ordinary shared C++ changes the
+branch-likely return schedule, so the shipped wrapper is deferred.

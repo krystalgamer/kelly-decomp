@@ -19,4 +19,5 @@ Read the exact static-allocation cleanup pattern and entity_anim_tree allocation
 
 ## Outcome
 
-Matched entity_anim_tree memory cleanup
+The local allocator globals were replaced by shared `entity_anim_tree` static
+members.

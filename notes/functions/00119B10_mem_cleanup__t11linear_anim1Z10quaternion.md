@@ -19,4 +19,4 @@ Read the exact static-allocation cleanup pattern and quaternion linear_anim allo
 
 ## Outcome
 
-Matched quaternion linear animation cleanup
+The cleanup now uses the shared quaternion `linear_anim` specialization.

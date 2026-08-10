@@ -19,4 +19,4 @@ Read the exact released static allocation cleanup pattern and function-specific 
 
 ## Outcome
 
-Matched float linear animation cleanup
+The cleanup now uses the shared float `linear_anim` specialization.

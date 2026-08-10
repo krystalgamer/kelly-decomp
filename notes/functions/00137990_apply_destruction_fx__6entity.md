@@ -20,4 +20,5 @@ Read the released destroy-info branch, direct helper calls, entity field offset,
 
 ## Outcome
 
-Matched entity destruction effect dispatch
+The empty barrier was replaced by a local disgorge-items call pointer while
+retaining the shared entity declaration.

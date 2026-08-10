@@ -19,4 +19,5 @@ Read the target static-allocation cleanup behavior and exact entity_anim allocat
 
 ## Outcome
 
-Matched entity_anim static memory cleanup
+The local allocator globals were replaced by shared `entity_anim` static
+members.

@@ -8,6 +8,8 @@ public:
     unsigned int NextRand();
 };
 
+extern Random *g_random_ptr;
+
 #endif
 
 // Matching decompilation blocks selected by generated build shims.

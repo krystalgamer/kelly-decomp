@@ -859,24 +859,9 @@ void entity::movement_info::mem_cleanup()
     }
 }
 
-// 0x001317F0 get_visual_radius__C6entity
-#include "KS/SRC/entity.h"
-
-__asm__(".equ get_age__C6entity, 0x00133618");
-float entity::get_visual_radius() const {
-    // Preserve the released conditional's branch-likely scheduling.
-    visual_rep *representation = my_visrep;
-    if (representation)
-        goto has_representation;
-    KELLY_DECOMP_COMPILER_BARRIER();
-    return 0;
-has_representation:
-    return representation->get_radius(get_age());
-}
-
 // 0x00134D80 init_random_ifl_frame_boost_table__Fv
-class Random { public: int NextRand(); };
-extern Random *g_random_ptr;
+#include "KS/SRC/random.h"
+
 extern int random_ifl_frame_boost_table[256];
 __asm__(".equ g_random_ptr, 0x00432360");
 __asm__(".equ random_ifl_frame_boost_table, 0x003E5C50");
@@ -891,44 +876,29 @@ void init_random_ifl_frame_boost_table() {
 
 __asm__(".equ apply_destruction_fx__16destroyable_info, 0x00137318");
 __asm__(".equ disgorge_items__6entityP6entity, 0x00137C78");
+extern "C" void disgorge_entity_items(
+    entity *self,
+    entity *target
+) __asm__("disgorge_items__6entityP6entity");
 void entity::apply_destruction_fx() {
     if (destroy_info) {
         destroy_info->apply_destruction_fx();
-        disgorge_items();
-        __asm__ __volatile__("" : : : "memory");
+        void (*disgorge)(entity *, entity *) =
+            disgorge_entity_items;
+        disgorge(this,0);
     } else {
         set_active(false);
     }
 }
 
 // 0x00137C98 use_item__6entityP4item
-#include "KS/SRC/entity.h"
+#include "KS/SRC/item.h"
 
-struct item_vtable {
-    char padding[0x660]; short adjustment; short reserved;
-    void (*apply_effects)(void *,void *);
-};
-struct item { char padding[8]; item_vtable *vtable; };
-struct entity_vtable {
-    char padding[0x20]; short adjustment; short reserved;
-    void (*raise_signal)(void *,int);
-};
-struct entity_layout {
-    char padding[8];
-    entity_vtable *vtable;
-};
 void entity::use_item(item *value) {
     if (value) {
         last_item_used=value;
-        item_vtable *item_table=value->vtable;
-        item_table->apply_effects(
-            (char *)value+item_table->adjustment,this
-        );
-        entity_vtable *entity_table=
-            ((entity_layout *)this)->vtable;
-        entity_table->raise_signal(
-            (char *)this+entity_table->adjustment,4
-        );
+        value->apply_effects(this);
+        raise_signal(4);
     }
 }
 

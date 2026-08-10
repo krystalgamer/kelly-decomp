@@ -19,4 +19,4 @@ Read the exact released 64-entry random boost initialization loop, table/global 
 
 ## Outcome
 
-Matched random IFL frame boost table initialization
+The local random-number declaration was moved into the shared random header.

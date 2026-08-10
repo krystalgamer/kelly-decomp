@@ -19,4 +19,5 @@ Read the exact released item use body, last-item field, item apply_effects slot,
 
 ## Outcome
 
-Matched entity item use dispatch
+The manual item and entity vtables were replaced by shared item and signaller
+dispatch.

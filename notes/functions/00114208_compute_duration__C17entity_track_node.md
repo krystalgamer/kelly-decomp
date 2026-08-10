@@ -20,4 +20,5 @@ Read the exact released entity_track_node duration calculation, track offsets/ge
 
 ## Outcome
 
-Matched released entity track duration computation
+The local node and track layouts were replaced by shared track declarations;
+the released reference-returning maximum helper preserves the exact temporary.

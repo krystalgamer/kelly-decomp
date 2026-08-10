@@ -20,4 +20,5 @@ Read the exact released stash-aware entity_track_tree delete operator, current s
 
 ## Outcome
 
-Matched released entity track tree delete
+The local substash layout and empty barrier were replaced by shared stash
+accessors and a local free call pointer.

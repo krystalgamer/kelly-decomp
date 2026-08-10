@@ -19,4 +19,4 @@ Read the exact static-allocation cleanup pattern and po_anim allocation/data/cal
 
 ## Outcome
 
-Matched po_anim memory cleanup
+The local allocator globals were replaced by shared `po_anim` static members.

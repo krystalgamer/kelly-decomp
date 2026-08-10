@@ -99,80 +99,63 @@ void entity_anim::reset_start(const anim_control_t& ac)
 }
 
 // 0x00113490 mem_cleanup__11entity_anim
-extern int entity_anim_allocated;
-extern void *entity_anim_data_a;
-extern void *entity_anim_data_b;
-extern void (*entity_anim_cleanup)();
-void arch_free(void *memory);
-__asm__(".equ entity_anim_allocated, 0x003E572C");
-__asm__(".equ entity_anim_data_a, 0x003E5734");
-__asm__(".equ entity_anim_data_b, 0x003E5730");
-__asm__(".equ entity_anim_cleanup, 0x003E573C");
+#include "KS/SRC/archalloc.h"
+#include "KS/SRC/entity_anim.h"
+
 __asm__(".equ arch_free__FPv, 0x002AC768");
-class entity_anim { public: static void mem_cleanup(); };
 void entity_anim::mem_cleanup() {
-    if (entity_anim_allocated) {
-        arch_free(entity_anim_data_a);
-        arch_free(entity_anim_data_b);
-        entity_anim_allocated=0;
-        if (entity_anim_cleanup)
-            entity_anim_cleanup();
+    if (meminit) {
+        arch_free(membuffer);
+        arch_free(allocated);
+        meminit=false;
+        if (mem_free_func)
+            ((void (*)())mem_free_func)();
     }
 }
 
 // 0x001136D8 mem_cleanup__16entity_anim_tree
-extern int allocated; extern void *data_a; extern void *data_b; extern void (*cleanup)();
-void arch_free(void *memory);
-__asm__(".equ allocated, 0x003E5744"); __asm__(".equ data_a, 0x003E574C");
-__asm__(".equ data_b, 0x003E5748"); __asm__(".equ cleanup, 0x003E5754");
+#include "KS/SRC/archalloc.h"
+#include "KS/SRC/entity_anim.h"
+
 __asm__(".equ arch_free__FPv, 0x002AC768");
-class entity_anim_tree { public: static void mem_cleanup(); };
 void entity_anim_tree::mem_cleanup() {
-    if (allocated) { arch_free(data_a); arch_free(data_b); allocated=0; if (cleanup) cleanup(); }
+    if (meminit) {
+        arch_free(membuffer);
+        arch_free(allocated);
+        meminit=false;
+        if (mem_free_func)
+            ((void (*)())mem_free_func)();
+    }
 }
 
 // 0x00114208 compute_duration__C17entity_track_node
-struct duration_track {
-    float duration;
-    float get_duration() const { return duration; }
-};
-template <class T> inline const T &maximum(const T &a,const T &b) { return a<b?b:a; }
-class entity_track_node {
-    char padding[0x28];
-    duration_track *position_track;
-    duration_track *signal_track;
-public:
-    float compute_duration() const;
-};
+#include "KS/SRC/entity_anim.h"
+
+template <class T>
+inline const T &maximum(const T &left, const T &right) {
+    return left < right ? right : left;
+}
+
 float entity_track_node::compute_duration() const {
     float duration=0;
-    if (position_track) duration=position_track->get_duration();
-    if (signal_track)
-        duration=maximum(duration,signal_track->get_duration());
+    if (m_prs_track) duration=m_prs_track->get_duration();
+    if (m_signal_track)
+        duration=maximum(
+            duration,
+            m_signal_track->get_duration());
     return duration;
 }
 
 // 0x00114E00 __dl__17entity_track_treePv
-struct substash_layout {
-    char padding0[0x24c]; void *stored_buffer;
-    char padding1[0x74]; int stash_file_is_open;
-    char tail[0x50];
-};
-extern int current_stash;
-extern substash_layout substashes[];
-void arch_free(void *memory);
-__asm__(".equ current_stash, 0x0046D9C0");
-__asm__(".equ substashes, 0x0046B7B8");
+#include "KS/SRC/archalloc.h"
+#include "KS/SRC/entity_anim.h"
+#include "KS/SRC/mustash.h"
+
 __asm__(".equ arch_free__FPv, 0x002AC768");
-extern "C" void DeleteTrackTree(void *memory)
-    __asm__("__dl__17entity_track_treePv");
-void DeleteTrackTree(void *memory) {
-    substash_layout &stash=substashes[current_stash];
-    bool using_stash=
-        stash.stash_file_is_open || stash.stored_buffer;
-    if (!using_stash) {
-        arch_free(memory);
-        __asm__ __volatile__("" : : : "memory");
+void entity_track_tree::operator delete(void *memory) {
+    if (!stash::current_substash().owns_active_buffer()) {
+        void (*release)(void *)=arch_free;
+        release(memory);
     }
 }
 

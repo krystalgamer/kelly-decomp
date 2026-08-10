@@ -3,8 +3,16 @@
 
 #include "KS/SRC/ai_polypath_cell.h"
 #include "g++-2/stl_list.h"
+#include "g++-2/stl_vector.h"
 
 class ai_polypath;
+
+class ai_polypath {
+    vector<ai_polypath_cell *> cells;
+
+public:
+    void optimize();
+};
 
 class ai_path {
 public:

@@ -57,6 +57,7 @@ _$_14FanMeterWidget = 0x168E18;
 OnLevelLoaded__13BeachFrontEnd = 0x18F4F0;
 compare__7ai_goalPCvT1 = 0x112FD8;
 changeText__10RandomTextG7stringx = 0x1494B8;
+get_visual_radius__C6entity = 0x1317F0;
 _$_10TextString = 0x1D8668;
 _$_15MultiLineString = 0x1D87D8;
 _$_12BouncingText = 0x1D88F8;

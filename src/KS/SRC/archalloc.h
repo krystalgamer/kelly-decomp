@@ -14,6 +14,7 @@ void *arch_malloc(
     const char *description,
     int line = 0);
 void *arch_mallochigh(unsigned int size);
+void arch_free(void *memory);
 void *arch_memalign(
     unsigned int boundary,
     unsigned int size,
@@ -43,6 +44,7 @@ inline void *operator new(unsigned int, void *memory)
 #endif
 
 __asm__(".equ __nw__FUiUiPCci, 0x002AC578");
+__asm__(".equ arch_free__FPv, 0x002AC768");
 
 #define NEW new(0, __PRETTY_FUNCTION__, 0)
 

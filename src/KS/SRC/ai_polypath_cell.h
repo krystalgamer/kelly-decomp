@@ -67,6 +67,7 @@ public:
         const vector3d &b,
         ai_polypath_cell *caller);
     bool process_cell(ai_polypath_heap *heap);
+    void compute_sector(terrain &value, bool high_resolution);
     bool query_for_path(
         ai_polypath_heap *heap,
         ai_polypath_cell *caller,
