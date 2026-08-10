@@ -76,17 +76,8 @@ void IconChallenge::OnEvent(EVENT event, int param1, int param2)
 
 #if defined(KELLY_DECOMP_FUNCTION_00260F08)
 // 0x00260F08 Spawn__Q213IconChallenge8Sequence
-class IconChallenge {
-public:
-    class Task { char data[16]; public: void Spawn(); };
-    class Sequence {
-        int numTasks;
-        Task tasks[10];
-        bool completed;
-    public:
-        void Spawn();
-    };
-};
+#include "KS/SRC/ks/challenge_icon.h"
+
 __asm__(".equ Spawn__Q213IconChallenge4Task, 0x002610B8");
 void IconChallenge::Sequence::Spawn() {
     for (int i=0;i<numTasks;i++) tasks[i].Spawn();
@@ -95,17 +86,8 @@ void IconChallenge::Sequence::Spawn() {
 
 #if defined(KELLY_DECOMP_FUNCTION_00260F68)
 // 0x00260F68 Despawn__Q213IconChallenge8Sequence
-class IconChallenge {
-public:
-    class Task { char data[16]; public: void Despawn(); };
-    class Sequence {
-        int numTasks;
-        Task tasks[10];
-        bool completed;
-    public:
-        void Despawn();
-    };
-};
+#include "KS/SRC/ks/challenge_icon.h"
+
 __asm__(".equ Despawn__Q213IconChallenge4Task, 0x002610E0");
 void IconChallenge::Sequence::Despawn() {
     for (int i=0;i<numTasks;i++) tasks[i].Despawn();
@@ -114,31 +96,9 @@ void IconChallenge::Sequence::Despawn() {
 
 #if defined(KELLY_DECOMP_FUNCTION_00261BB0)
 // 0x00261BB0 Spawn__Q213IconChallenge4Icon
-struct entity_vtable {
-    char padding[0xf8]; short active_adjustment; short reserved0;
-    void (*set_active)(void *,bool);
-    char padding2[0x60]; short visible_adjustment; short reserved1;
-    void (*set_visible)(void *,bool);
-};
-struct entity_layout {
-    char padding[8]; entity_vtable *vtable;
-    void set_visible(bool visible) {
-        entity_vtable *table=vtable;
-        table->set_visible((char *)this+table->visible_adjustment,visible);
-    }
-    void set_active(bool active) {
-        entity_vtable *table=vtable;
-        table->set_active((char *)this+table->active_adjustment,active);
-    }
-};
-class IconChallenge {
-public:
-    class Icon {
-        entity_layout *parentEnt;
-    public:
-        void Spawn();
-    };
-};
+#include "KS/SRC/entity.h"
+#include "KS/SRC/ks/challenge_icon.h"
+
 void IconChallenge::Icon::Spawn() {
     if (parentEnt) {
         parentEnt->set_visible(true);
@@ -149,31 +109,8 @@ void IconChallenge::Icon::Spawn() {
 
 #if defined(KELLY_DECOMP_FUNCTION_00261C10)
 // 0x00261C10 Despawn__Q213IconChallenge4Icon
-struct entity_vtable {
-    char padding[0xf8]; short active_adjustment; short reserved0;
-    void (*set_active)(void *,bool);
-    char padding2[0x60]; short visible_adjustment; short reserved1;
-    void (*set_visible)(void *,bool);
-};
-struct entity_layout {
-    char padding[8]; entity_vtable *vtable;
-    void set_visible(bool visible) {
-        entity_vtable *table=vtable;
-        table->set_visible((char *)this+table->visible_adjustment,visible);
-    }
-    void set_active(bool active) {
-        entity_vtable *table=vtable;
-        table->set_active((char *)this+table->active_adjustment,active);
-    }
-};
-class IconChallenge {
-public:
-    class Icon {
-        entity_layout *parentEnt;
-    public:
-        void Despawn();
-    };
-};
+#include "KS/SRC/entity.h"
+#include "KS/SRC/ks/challenge_icon.h"
 void IconChallenge::Icon::Despawn() {
     if (parentEnt) {
         parentEnt->set_active(false);

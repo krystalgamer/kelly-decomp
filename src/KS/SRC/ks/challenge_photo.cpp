@@ -116,7 +116,8 @@ void PhotoChallenge::Photo::Init(int width, int height)
 
 // 0x002628B8 BeginTakingPicture__Q214PhotoChallenge9CameramanP22kellyslater_controllerPQ214PhotoChallenge5Photo
 #include "KS/SRC/ks/challenge_photo.h"
-struct IGOFrontEnd { void ShowCameraReticle(float time); };
+#include "KS/SRC/ks/IGOFrontEnd.h"
+
 extern IGOFrontEnd *frontend_igo;
 __asm__(".equ frontend_igo, 0x003E7728");
 __asm__(".equ ShowCameraReticle__11IGOFrontEndf, 0x0017CE18");

@@ -5,7 +5,7 @@
 - Object: `game/files_misc1`
 - Debug source: `ks/mode_push.cpp`
 - Reference source: `KS/SRC/ks/mode_push.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -21,4 +21,5 @@ Read the exact released two-player initialization, PLAYER layout, controller inp
 
 ## Outcome
 
-Matched push mode initialization
+The empty post-call barrier was removed. Direct C++ tail-calls `CalcViewports`
+and a call pointer emits `jalr`, so the shipped wrapper is deferred.

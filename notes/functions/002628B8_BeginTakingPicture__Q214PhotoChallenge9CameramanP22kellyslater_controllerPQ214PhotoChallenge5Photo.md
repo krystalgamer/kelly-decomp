@@ -19,4 +19,4 @@ Read the exact released Cameraman body/layout, reticle duration, frontend global
 
 ## Outcome
 
-Matched photo cameraman picture start
+The local IGO declaration was replaced by the shared frontend declaration.

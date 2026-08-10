@@ -38,51 +38,33 @@ void TimeAttackMode::BeginAttacking(int player) {
 
 #if defined(KELLY_DECOMP_FUNCTION_00285FF0)
 // 0x00285FF0 __14TimeAttackMode
-struct TimeAttackPlayer {
-    void *ks;
-    float time;
-    int prevScore;
-    int score;
-    bool attacking;
-    int attackScore;
-};
+#include "KS/SRC/ks/mode_timeattack.h"
+
 extern float TIME_INITIAL;
 __asm__(".equ TIME_INITIAL, 0x00431974");
-class TimeAttackMode {
-    TimeAttackPlayer players[2];
-    int gameNum;
-    int setNum;
-    int scoreAttackStrength;
-    int scoreDropSpeed;
-public:
-    TimeAttackMode();
-};
 TimeAttackMode::TimeAttackMode() {
-    TimeAttackPlayer *player=players;
-    TimeAttackPlayer *end=players+2;
+    Player *player=players;
+    Player *end=players+2;
     do {
-        player->ks=0;
+        player->controller=0;
         player->time=TIME_INITIAL;
-        player->prevScore=0;
+        player->previous_score=0;
         player->score=0;
         player->attacking=false;
-        player->attackScore=0;
+        player->attack_score=0;
         ++player;
     } while ((int)player<(int)end);
-    gameNum=0;
-    setNum=0;
-    scoreAttackStrength=1000;
-    scoreDropSpeed=scoreAttackStrength*10;
+    game_number=0;
+    set_number=0;
+    score_attack_strength=1000;
+    score_drop_speed=score_attack_strength*10;
 }
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_00286110)
 // 0x00286110 Update__14TimeAttackModef
-class TimeAttackMode {
-public:
-    void Attack(int player,float time);
-    void Update(float time);
-};
+#include "KS/SRC/ks/mode_timeattack.h"
+
 __asm__(".equ Attack__14TimeAttackModeif, 0x002863A0");
 void TimeAttackMode::Update(float time) {
     for (int i=0;i<2;i++) Attack(i,time);

@@ -19,4 +19,4 @@ Read the exact released Chain list traversal and Series declaration, then recons
 
 ## Outcome
 
-Matched scoring chain interest scan
+The local series-node layout was replaced by shared scoring list/node types.

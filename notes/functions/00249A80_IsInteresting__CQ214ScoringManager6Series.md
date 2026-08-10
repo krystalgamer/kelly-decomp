@@ -19,4 +19,4 @@ Read the exact released Series trick-list traversal and Trick declaration, then 
 
 ## Outcome
 
-Matched scoring series interest scan
+The local trick-node layout was replaced by shared scoring list/node types.

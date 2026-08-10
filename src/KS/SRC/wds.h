@@ -1,6 +1,8 @@
 #ifndef WDS_H
 #define WDS_H
 
+#include "KS/SRC/entity_maker.h"
+
 class entity;
 class entity_anim_tree;
 class entity_maker;
@@ -79,11 +81,8 @@ public:
     void kill_anim(entity_anim_tree *animation);
     void kill_scene_anim(unsigned int animation);
     void load_scene_anim(const stringx &name);
-};
-
-class entity_maker {
-public:
-    entity *create_entity(entity *value);
+    void unload_scene();
+    void destroy_entity(entity *value);
 };
 
 extern world_dynamics_system *g_world_ptr;

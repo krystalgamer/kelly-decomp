@@ -4,6 +4,7 @@
 #include "KS/SRC/ks/eventmanager.h"
 
 class kellyslater_controller;
+class entity;
 
 class IconChallenge {
 public:
@@ -13,6 +14,8 @@ public:
     };
 
     class Icon {
+        entity *parentEnt;
+
     public:
         ~Icon();
         void Spawn();

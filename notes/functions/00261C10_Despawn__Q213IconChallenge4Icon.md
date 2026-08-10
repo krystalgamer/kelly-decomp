@@ -19,4 +19,4 @@ Read the exact released Icon::Despawn body and entity virtual declarations/slots
 
 ## Outcome
 
-Matched challenge icon despawning
+The manual entity vtable was replaced by shared entity dispatch.

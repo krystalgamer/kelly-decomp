@@ -27,30 +27,6 @@ __asm__(".equ _20os_developer_options$instance, 0x0046B180");
 
 bool world_dynamics_system::wds_releasefile(unsigned char **buf) { if(!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_STASH_ONLY)) KSMemFree(*buf); *buf=0; return true; }
 
-// 0x0029B540 unload_scene__21world_dynamics_system
-struct controller_vtable {
-    char padding[8]; short adjustment; short reserved;
-    void (*destroy)(void *,int);
-};
-struct controller_layout { char padding[8]; controller_vtable *vtable; };
-class world_dynamics_system {
-    char padding[0xf8];
-    controller_layout *ks_controller[2];
-public:
-    void unload_scene();
-};
-void world_dynamics_system::unload_scene() {
-    for (int i=0;i<2;i++) {
-        if (ks_controller[i]) {
-            controller_vtable *table=ks_controller[i]->vtable;
-            table->destroy(
-                (char *)ks_controller[i]+table->adjustment,3
-            );
-            ks_controller[i]=0;
-        }
-    }
-}
-
 // 0x002A8F90 get_scene_anim_time__21world_dynamics_systemUi
 struct animation_tree { char padding[72]; float time; };
 struct entity;

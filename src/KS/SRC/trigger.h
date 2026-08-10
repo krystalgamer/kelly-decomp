@@ -16,7 +16,7 @@ class region;
 
 class trig_region_pset {
     void *header;
-    char data_after_header[12];
+    char data_after_header[8];
 
 public:
     inline void *end_node() const { return header; }

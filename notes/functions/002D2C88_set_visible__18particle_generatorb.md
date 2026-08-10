@@ -5,7 +5,7 @@
 - Object: `game/files_misc2`
 - Debug source: `C:/KS/SRC/particle.cpp`
 - Reference source: `KS/SRC/particle.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -23,4 +23,6 @@ Read the exact released visibility-change body, entity flag bit, particle timer 
 
 ## Outcome
 
-Matched particle generator visibility update
+The fixed-register bit extraction and empty barrier were removed. Ordinary
+C++ strength-reduces the target shift/and sequence, so the wrapper is
+deferred.

@@ -74,7 +74,8 @@ struct PushPlayer {
     float share;
     int extraShare;
     game_recti viewport;
-    char remaining_data[8];
+    class kellyslater_controller *controller;
+    int score;
 };
 
 class PushMode {
@@ -83,6 +84,8 @@ class PushMode {
     int scoreRequired;
 
 public:
+    void Initialize(class kellyslater_controller **controllers);
+    void CalcViewports();
     ~PushMode();
     void SetDifficulty(int points);
     float GetPlayerShare(int player) const;

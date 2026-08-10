@@ -131,20 +131,8 @@ unsigned int MusicMan::play() {
 
 #if defined(KELLY_DECOMP_FUNCTION_00258A00)
 // 0x00258A00 isPlaying__12MusicListing
-struct Track {
-    char data[72];
-    bool IsPlaying();
-};
-class MusicListing {
-    int totalSources;
-    int current;
-    Track sources[50];
-    int currentSoundId;
-    bool successfulLastPlay;
-    int order[50];
-public:
-    bool isPlaying();
-};
+#include "KS/SRC/ks/MusicMan.h"
+
 __asm__(".equ IsPlaying__5Track, 0x00258640");
 bool MusicListing::isPlaying() {
     if (totalSources>0 && current<totalSources)

@@ -59,6 +59,7 @@ public:
         int flags;
         bool HasGap(int gapIdx) const;
         int GetTrickCount(int trickIdx) const;
+        bool IsInteresting() const;
     };
 
     typedef list<Series> SeriesList;
@@ -72,6 +73,7 @@ public:
         void SetMultAdder(float value);
         float GetSickness() const;
         float GetRawSickness() const;
+        bool IsInteresting() const;
     };
 
 private:

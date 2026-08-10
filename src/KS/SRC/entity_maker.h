@@ -42,7 +42,9 @@ class entity_maker {
 public:
     entity_maker();
     virtual ~entity_maker();
+    entity *create_entity(entity *value);
     entity *acquire_beam(unsigned int flags);
+    void destroy_entity(entity *value);
     void release_entity(entity *value);
     void purge_entity_cache();
 };

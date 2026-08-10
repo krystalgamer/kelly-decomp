@@ -5,7 +5,7 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/wds.cpp`
 - Reference source: `KS/SRC/wds.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -19,4 +19,6 @@ Read the released unload flow and reconstructed the two controller fields plus d
 
 ## Outcome
 
-Matched world scene controller unload
+The manual controller destructor vtable was removed. The shared controller
+hierarchy does not yet expose its deleting destructor, so the wrapper is
+deferred.

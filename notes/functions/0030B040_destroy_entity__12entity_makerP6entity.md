@@ -21,4 +21,5 @@ Read the exact released world/widget branch and entity deleting-destructor slot.
 
 ## Outcome
 
-Matched entity maker destruction dispatch
+The local entity layout, manual vtable, and empty barrier were replaced by
+shared entity/world declarations and a local world-destroy call pointer.

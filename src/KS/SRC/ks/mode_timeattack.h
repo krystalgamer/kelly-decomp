@@ -32,6 +32,7 @@ public:
     bool IsAttacking(int player_index) const;
     bool IsDoneAttacking(int player_index) const;
     void BeginAttacking(int player_index);
+    void Update(float time_inc);
 };
 
 #endif

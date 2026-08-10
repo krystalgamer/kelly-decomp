@@ -20,4 +20,4 @@ Read the exact released Activate body and helper definitions. Reconstructing Get
 
 ## Outcome
 
-Matched menu entry activation
+The manual entry vtable was replaced by shared menu-entry dispatch.

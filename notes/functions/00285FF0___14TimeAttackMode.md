@@ -21,4 +21,4 @@ Read the exact released constructor, 24-byte PLAYER layout, TIME_INITIAL global,
 
 ## Outcome
 
-Matched time attack mode constructor
+The local player/mode layouts were replaced by the shared mode declaration.

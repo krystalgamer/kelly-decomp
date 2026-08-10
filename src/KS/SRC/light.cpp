@@ -12,35 +12,6 @@ float light_source::terrain_radius() const { return properties->get_cutoff_range
 void light_source::frame_advance(float time) {
 }
 
-// 0x002CD0C8 _$_12light_source
-extern "C" void remove_terrain(void *)
-    __asm__("remove_from_terrain__6entity");
-extern "C" void object_delete(void *)
-    __asm__("__builtin_delete");
-extern "C" void destroy_entity(void *,int)
-    __asm__("_$_6entity");
-extern const char light_vtable[];
-__asm__(".equ remove_from_terrain__6entity, 0x0012FF48");
-__asm__(".equ __builtin_delete, 0x002AC6B0");
-__asm__(".equ _$_6entity, 0x001298C8");
-__asm__(".equ light_vtable, 0x004F1FD0");
-struct light_layout {
-    char padding[8];
-    const void *vtable;
-    char padding2[0x1f4];
-    void *properties;
-};
-extern "C" void destroy_light(
-    light_layout *self,int flags
-) __asm__("_$_12light_source");
-void destroy_light(light_layout *self,int flags) {
-    self->vtable=light_vtable;
-    remove_terrain(self);
-    if (self->properties) object_delete(self->properties);
-    destroy_entity(self,flags);
-    __asm__ __volatile__("" : : : "memory");
-}
-
 // 0x002CC8B0 __16light_properties
 #include "KS/SRC/light.h"
 

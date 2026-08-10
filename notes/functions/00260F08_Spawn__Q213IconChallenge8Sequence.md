@@ -19,4 +19,4 @@ Read the exact released Sequence/Task declarations, 16-byte Task stride, numTask
 
 ## Outcome
 
-Matched icon sequence spawning
+The local sequence/task layouts were replaced by shared challenge declarations.

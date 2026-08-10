@@ -5,7 +5,7 @@
 - Object: `game/files_misc2`
 - Debug source: `C:/KS/SRC/light.cpp`
 - Reference source: `KS/SRC/light.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -20,4 +20,5 @@ Read the exact released light_source destructor, entity/vtable/properties layout
 
 ## Outcome
 
-Matched light source destructor
+The handwritten compiler-generated destructor was removed and the shipped
+wrapper was deferred.

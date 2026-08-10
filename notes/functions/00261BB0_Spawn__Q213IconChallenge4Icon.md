@@ -19,4 +19,4 @@ Read the exact released Icon::Spawn body and entity virtual declarations/slots. 
 
 ## Outcome
 
-Matched challenge icon spawning
+The manual entity vtable was replaced by shared entity dispatch.

@@ -19,4 +19,4 @@ Read the exact released two-player Attack loop and method declaration. It matche
 
 ## Outcome
 
-Matched meter attack mode update
+The existing implementation already uses the shared meter-attack declaration.

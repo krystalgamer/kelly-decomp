@@ -5,7 +5,7 @@
 - Object: `game/files_misc1`
 - Debug source: `C:/KS/SRC/trigger.cpp`
 - Reference source: `KS/SRC/trigger.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -20,4 +20,5 @@ Read the released point/radius serialization and trigger layout; the binary vers
 
 ## Outcome
 
-Matched point trigger serialization
+The empty post-call barrier was removed. Direct C++ tail-calls the final read
+and a call pointer emits `jalr`, so the shipped wrapper is deferred.

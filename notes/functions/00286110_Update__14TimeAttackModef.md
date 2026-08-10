@@ -19,4 +19,4 @@ Read the exact released two-player Attack loop and method declaration. It matche
 
 ## Outcome
 
-Matched time attack mode update
+The local mode declaration was replaced by the shared time-attack type.

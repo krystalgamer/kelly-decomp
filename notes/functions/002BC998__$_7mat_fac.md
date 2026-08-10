@@ -5,7 +5,7 @@
 - Object: `game/files_misc2`
 - Debug source: `C:/KS/SRC/matfac.cpp`
 - Reference source: `KS/SRC/matfac.cpp`
-- Result: **matched**
+- Result: **deferred**
 
 ## Attempts
 
@@ -19,4 +19,5 @@ Read the exact released texture-release destructor and generated vtable/delete b
 
 ## Outcome
 
-Matched material factory destructor
+The handwritten compiler-generated destructor was removed and the shipped
+wrapper was deferred.
