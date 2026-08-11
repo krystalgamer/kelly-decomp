@@ -23,6 +23,15 @@ protected:
 public:
     controller() : active(true), deactivate(false) {}
     virtual ~controller();
+    bool is_active() const { return active; }
+    void set_active(bool enabled) {
+        if (is_active()) {
+            if (!enabled)
+                kill();
+        } else if (enabled) {
+            resurrect();
+        }
+    }
 
     virtual void frame_advance(time_value_t time_inc) = 0;
     virtual void kill();

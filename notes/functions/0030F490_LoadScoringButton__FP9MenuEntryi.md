@@ -20,4 +20,4 @@ Read malloc/file lock state, unlock/load/relock sequence, and true result. Decla
 
 ## Outcome
 
-Matched scoring data load button
+Canonicalized with shared released declarations and natural C++; exact target bytes preserved.

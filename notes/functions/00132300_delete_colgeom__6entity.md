@@ -19,4 +19,4 @@ Read the colgeom pointer/instance flag, cg_mesh bank deletion path, collision-ge
 
 ## Outcome
 
-Matched entity collision geometry deletion
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

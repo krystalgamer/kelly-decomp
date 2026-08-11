@@ -60,7 +60,13 @@ struct nglScene {
     float FogFar;
     float FogMin;
     float FogMax;
-    char data_to_anim_time[0x40];
+    char data_to_projection[0x14];
+    float HFOV;
+    float CX;
+    float CY;
+    float NearZ;
+    float FarZ;
+    char data_to_anim_time[0x18];
     float AnimTime;
 };
 

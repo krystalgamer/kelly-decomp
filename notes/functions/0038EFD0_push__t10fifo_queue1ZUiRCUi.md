@@ -20,4 +20,4 @@ Read all queue offsets, signed-short wrap logic, element store, and count return
 
 ## Outcome
 
-Matched FIFO queue push
+Canonicalized with shared released declarations and natural C++; exact target bytes preserved.

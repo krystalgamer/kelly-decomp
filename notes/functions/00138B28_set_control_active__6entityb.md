@@ -19,4 +19,4 @@ Read the controller pointer/active state and its activate/deactivate virtual slo
 
 ## Outcome
 
-Matched entity controller activation
+Canonicalized with shared released declarations and natural C++; exact target bytes preserved.

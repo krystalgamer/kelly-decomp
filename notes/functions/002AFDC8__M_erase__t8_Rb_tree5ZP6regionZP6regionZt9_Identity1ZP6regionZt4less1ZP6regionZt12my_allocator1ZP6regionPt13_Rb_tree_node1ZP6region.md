@@ -19,4 +19,4 @@ Read the exact recursive right-subtree erase, left traversal, and shared node al
 
 ## Outcome
 
-Matched region tree erase
+Deferred generated STL tree eraser; removed synthetic ABI/register scaffolding.

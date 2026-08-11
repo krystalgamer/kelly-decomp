@@ -19,4 +19,4 @@ Read the 20-byte SLF parameters, short x/y conversions, timing floats, and widge
 
 ## Outcome
 
-Matched widget timed move script
+Canonicalized with shared released declarations and natural C++; exact target bytes preserved.

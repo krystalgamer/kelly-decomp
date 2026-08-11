@@ -20,4 +20,4 @@ Read the delta/state calls and exact float equality result. A false-path compile
 
 ## Outcome
 
-Matched input control trigger
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

@@ -174,13 +174,27 @@ void FEGraphicalMenuEntry::TurnOn(bool on)
 }
 
 // 0x001576B8 HighlightDefault__6FEMenu
-struct entry_vtable{char p0[48];short adjustment;short x0;bool(*disabled)(void*);};struct entry{char p0[4];entry*next;char p1[88];entry_vtable*vtable;};struct menu_vtable{char p0[24];short adjustment;short x0;void(*set_high)(void*,entry*,bool);};struct menu{char p0[64];entry*entries;char p1[48];menu_vtable*vtable;};extern "C" void highlight_default(menu*self) __asm__("HighlightDefault__6FEMenu");void highlight_default(menu*self){entry*tmp=self->entries;while(tmp){entry_vtable*t=tmp->vtable;if(!t->disabled((char*)tmp+t->adjustment))break;tmp=tmp->next;}if(tmp){menu_vtable*t=self->vtable;t->set_high((char*)self+t->adjustment,tmp,false);}}
+#include "KS/SRC/ks/FEMenu.h"
+
+void FEMenu::HighlightDefault()
+{
+    FEMenuEntry *entry = entries;
+    while (entry && entry->GetDisable())
+        entry = entry->next;
+    if (entry)
+        setHigh(entry, false);
+}
 
 // 0x001577F0 OnTriangle__6FEMenui
-struct back_entry{char p0[20];int menu_num;};struct menu_vtable{char p0[32];short sys_adjust;short x0;void(*sys_make)(void*,int,int,bool);char p1[232];short parent_adjust;short x1;void(*parent_make)(void*,void*,bool);};struct system_layout{char p0[140];menu_vtable*vtable;};struct menu{char p0[80];system_layout*system;back_entry*back;int back_num;char p1[8];menu*parent;char p2[12];menu_vtable*vtable;};extern "C" void triangle(menu*self,int c) __asm__("OnTriangle__6FEMenui");void triangle(menu*self,int c){if(self->parent){menu*p=self->parent;menu_vtable*t=p->vtable;t->parent_make((char*)p+t->parent_adjust,0,true);}else if(self->back){system_layout*s=self->system;menu_vtable*t=s->vtable;t->sys_make((char*)s+t->sys_adjust,self->back->menu_num,self->back_num,true);}}
+#include "KS/SRC/ks/FEMenu.h"
 
-// 0x00157C60 OnHighlight__20FEGraphicalMenuEntryb
-struct PanelAnimFile;struct PanelAnimManager;extern "C" void play(PanelAnimManager*,PanelAnimFile*,int,int) __asm__("Play__16PanelAnimManagerP13PanelAnimFile8AnimTypei");__asm__(".equ Play__16PanelAnimManagerP13PanelAnimFile8AnimTypei,0x00155500");struct graph_entry{char p0[108];PanelAnimFile*highlight_paf;PanelAnimManager*pam;int already_playing;};extern "C" void on_highlight(graph_entry*self,bool anim) __asm__("OnHighlight__20FEGraphicalMenuEntryb");void on_highlight(graph_entry*self,bool anim){if(self->highlight_paf&&anim){register int type __asm__("$6")=0;if(self->already_playing){play(self->pam,self->highlight_paf,type,3);int dead;__asm__("" : "=r"(dead));}else{play(self->pam,self->highlight_paf,type,2);register int yes __asm__("$3")=1;self->already_playing=yes;}}}
+void FEMenu::OnTriangle(int)
+{
+    if (parent)
+        parent->MakeActive(0);
+    else if (back)
+        system->MakeActive(back->menu_num, back_num);
+}
 
 // 0x00156638 setHigh__6FEMenuP11FEMenuEntryb
 struct entry_vtable{char pad[32];short adjust;short reserved;void(*highlight)(void*,bool,bool);};struct FEMenuEntry{char pad[96];entry_vtable*vtable;};struct FEMenu{char pad[76];FEMenuEntry*highlighted;};extern "C" void set_high(FEMenu*self,FEMenuEntry*e,bool anim)__asm__("setHigh__6FEMenuP11FEMenuEntryb");void set_high(FEMenu*self,FEMenuEntry*e,bool anim){if(self->highlighted){FEMenuEntry*h=self->highlighted;entry_vtable*t=h->vtable;t->highlight((char*)h+t->adjust,false,true);}entry_vtable*t=e->vtable;t->highlight((char*)e+t->adjust,true,anim);self->highlighted=e;}
@@ -863,11 +877,6 @@ void FEMenuEntry::SetText(stringx value) {
     text->changeText(value);
 }
 
-// 0x001DA480 _$_11FEMenuEntry
-extern "C" void object_delete(void*) __asm__("__builtin_delete");__asm__(".equ __builtin_delete,0x002AC6B0");extern const char entry_vtable[];__asm__(".equ entry_vtable,0x004DC018");struct text_vtable{char p0[8];short adjustment;short x0;void(*destroy)(void*,int);};struct text{char p0[76];text_vtable*vtable;};struct entry_layout{char p0[36];text*description;char p1[56];const void*vtable;};extern "C" void destroy_entry(entry_layout*self,int deleting) __asm__("_$_11FEMenuEntry");void destroy_entry(entry_layout*self,int deleting){self->vtable=entry_vtable;if(self->description){text*x=self->description;text_vtable*t=x->vtable;t->destroy((char*)x+t->adjustment,3);}if(deleting&1){object_delete(self);int dead;__asm__("" : "=r"(dead));}}
-
-// 0x001DAE68 _$_20FEGraphicalMenuEntry
-extern "C" void object_delete(void*) __asm__("__builtin_delete");__asm__(".equ __builtin_delete,0x002AC6B0");extern const char entry_vtable[];__asm__(".equ entry_vtable,0x004DC018");struct text_vtable{char p0[8];short adjustment;short x0;void(*destroy)(void*,int);};struct text{char p0[76];text_vtable*vtable;};struct entry_layout{char p0[36];text*description;char p1[56];const void*vtable;};extern "C" void destroy_graphical(entry_layout*self,int deleting) __asm__("_$_20FEGraphicalMenuEntry");void destroy_graphical(entry_layout*self,int deleting){self->vtable=entry_vtable;if(self->description){text*x=self->description;text_vtable*t=x->vtable;t->destroy((char*)x+t->adjustment,3);}if(deleting&1){object_delete(self);int dead;__asm__("" : "=r"(dead));}}
 
 // 0x001DAC38 _$_8FrontEnd
 extern "C" void string_dtor(void*,int) __asm__("_$_7stringx");extern "C" void panel_dtor(void*,int) __asm__("_$_9PanelFile");extern "C" void pam_dtor(void*,int) __asm__("_$_16PanelAnimManager");extern "C" void object_delete(void*) __asm__("__builtin_delete");__asm__(".equ _$_7stringx,0x0034D6E0");__asm__(".equ _$_9PanelFile,0x001522C0");__asm__(".equ _$_16PanelAnimManager,0x00155480");__asm__(".equ __builtin_delete,0x002AC6B0");extern void*frontend_vtable;__asm__(".equ frontend_vtable,0x004DBE58");struct frontend{char pam[128];char panel[52];char path[12];void*vtable;};extern "C" void destroy_frontend(frontend*self,int deleting) __asm__("_$_8FrontEnd");void destroy_frontend(frontend*self,int deleting){self->vtable=&frontend_vtable;string_dtor(self->path,2);panel_dtor(self->panel,2);pam_dtor(self->pam,2);if(deleting&1){object_delete(self);int dead;__asm__("" : "=r"(dead));}}

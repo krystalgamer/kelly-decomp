@@ -21,4 +21,4 @@ Read the exact inline stash selection globals, substash stride and offsets, plus
 
 ## Outcome
 
-Matched scene animation binary load
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

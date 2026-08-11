@@ -19,4 +19,4 @@ Read the allocation diagnostic file symbol, mem_malloc call, null error path, an
 
 ## Outcome
 
-Matched builtin vector allocation
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

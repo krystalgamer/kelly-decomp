@@ -23,4 +23,4 @@ Read the debug-menu button update path, normal base update, end-level flag, and 
 
 ## Outcome
 
-Matched pause menu system update
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

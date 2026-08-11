@@ -135,9 +135,6 @@ entity_trigger::entity_trigger(
 {
 }
 
-// 0x0028DD88 __13point_triggerRC7stringxRC8vector3df
-struct stringx;extern "C" void trigger_ctor(void*,const stringx&) __asm__("__7triggerRC7stringx");__asm__(".equ __7triggerRC7stringx,0x0028D838");extern const char point_vtable[];__asm__(".equ point_vtable,0x004FB0A0");struct vector3d{float x,y,z;vector3d(){}vector3d&operator=(const vector3d&o){x=o.x;y=o.y;z=o.z;return *this;}};class point_trigger{char p0[8];const void*vtable;char p1[44];vector3d position;float radius;public:point_trigger(const stringx&,const vector3d&,float);};point_trigger::point_trigger(const stringx&id,const vector3d&p,float r){trigger_ctor(this,id);vtable=point_vtable;position=p;radius=r;}
-
 // 0x0028DE58 triggered__13point_triggerP6entity
 struct vector3d{float x,y,z;vector3d(){}vector3d(float X,float Y,float Z):x(X),y(Y),z(Z){}vector3d&operator=(const vector3d&o){x=o.x;y=o.y;z=o.z;return*this;}float length2()const{return x*x+y*y+z*z;}};inline vector3d operator-(const vector3d&a,const vector3d&b){return vector3d(a.x-b.x,a.y-b.y,a.z-b.z);}struct holder{char pad[48];vector3d position;};struct entity{char pad[80];holder*absolute;const vector3d&get_abs_position()const{return absolute->position;}};class point_trigger{char pad[56];vector3d position;float radius;public:bool triggered(entity*)__asm__("triggered__13point_triggerP6entity");};bool point_trigger::triggered(entity*e){vector3d v;v=e->get_abs_position()-position;return v.length2()<radius*radius;}
 

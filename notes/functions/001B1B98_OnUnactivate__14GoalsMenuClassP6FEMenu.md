@@ -21,4 +21,4 @@ Read the menu argument/background state, system-manager-IGO chain, inline menu-b
 
 ## Outcome
 
-Matched goals menu unactivation
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

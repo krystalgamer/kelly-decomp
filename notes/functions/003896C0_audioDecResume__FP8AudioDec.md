@@ -23,4 +23,4 @@ Read volume restoration, seven sceSdRemote arguments, signed unit rounding, buff
 
 ## Outcome
 
-Matched MPEG audio resume
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

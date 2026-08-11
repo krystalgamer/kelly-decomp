@@ -180,11 +180,19 @@ void **MenuDrawRtti()
 
 // 0x0030EEE8 OnTick__13MenuWaterDrawf
 #include "KS/SRC/menudraw.h"
-typedef void(*setter)(bool);extern setter water_set[];extern int water_flags[];__asm__(".equ water_set,0x0046B230");__asm__(".equ water_flags,0x0058A410");void MenuWaterDraw::OnTick(float){for(unsigned i=0;i<4;i++)water_set[i](water_flags[i]);}
+void MenuWaterDraw::OnTick(float)
+{
+    for (unsigned int i = 0; i < 4; ++i)
+        MENUDRAW_WaterSet[i](MENUDRAW_WaterFlags[i]);
+}
 
 // 0x0030F078 OnTick__16MenuParticleDrawf
 #include "KS/SRC/menudraw.h"
-typedef void(*setter)(bool);extern setter particle_set[];extern int particle_flags[];__asm__(".equ particle_set,0x0046B1E8");__asm__(".equ particle_flags,0x0058A3C8");void MenuParticleDraw::OnTick(float){for(unsigned i=0;i<8;i++)particle_set[i](particle_flags[i]);}
+void MenuParticleDraw::OnTick(float)
+{
+    for (unsigned int i = 0; i < 8; ++i)
+        MENUDRAW_ParticleSet[i](MENUDRAW_ParticleFlags[i]);
+}
 
 // 0x0030EE50 OnOpen__13MenuWaterDrawP4MenuP10MenuSystem
 #include "KS/SRC/menudraw.h"

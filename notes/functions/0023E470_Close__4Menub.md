@@ -21,4 +21,4 @@ Read the open/control/vtable fields, Closing and OnClose calls, and parent activ
 
 ## Outcome
 
-Matched menu close
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

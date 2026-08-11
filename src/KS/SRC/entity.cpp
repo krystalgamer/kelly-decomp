@@ -932,16 +932,34 @@ bool entity::attach_anim(entity_anim *animation) {
 }
 
 // 0x00130CB0 set_created_entity_default_active_status__6entity
-struct entity_vtable{char padding[248];short adjustment;short reserved;void(*set_active)(void*,bool);};struct entity_layout{char p0[8];entity_vtable*vtable;char p1[112];int flavor;};extern "C" void set_default(entity_layout*self) __asm__("set_created_entity_default_active_status__6entity");void set_default(entity_layout*self){switch(self->flavor){case 1:case 2:case 3:case 4:case 10:{entity_vtable*t=self->vtable;t->set_active((char*)self+t->adjustment,false);break;}default:{entity_vtable*t=self->vtable;t->set_active((char*)self+t->adjustment,true);break;}}}
+#include "KS/SRC/entity.h"
 
-// 0x00132300 delete_colgeom__6entity
-struct cg_vtable{char padding[8];short adjustment;short reserved;void(*destroy)(void*,int);};struct cg{char p0[8];cg_vtable*vtable;};struct entity_layout{char p0[120];unsigned flags;char p1[204];cg*colgeom;};extern "C" void bank_delete(void*,cg*) __asm__("delete_instance__t13instance_bank1Z7cg_meshP7cg_mesh");__asm__(".equ delete_instance__t13instance_bank1Z7cg_meshP7cg_mesh,0x0013F730");extern char cg_mesh_bank[];__asm__(".equ cg_mesh_bank,0x00434920");extern "C" void delete_colgeom(entity_layout*self) __asm__("delete_colgeom__6entity");void delete_colgeom(entity_layout*self){if(self->colgeom){if(self->flags&0x20000000)bank_delete(cg_mesh_bank,self->colgeom);else{cg*c=self->colgeom;cg_vtable*t=c->vtable;t->destroy((char*)c+t->adjustment,3);}self->colgeom=0;}}
+void entity::set_created_entity_default_active_status()
+{
+    switch (flavor)
+    {
+    case ENTITY_ENTITY:
+    case ENTITY_MARKER:
+    case ENTITY_MIC:
+    case ENTITY_LIGHT_SOURCE:
+    case ENTITY_CONGLOMERATE:
+        set_active(false);
+        break;
+    default:
+        set_active(true);
+        break;
+    }
+}
 
 // 0x00138B28 set_control_active__6entityb
-struct controller_vtable{char p0[24];short off_adjust;short x0;void(*off)(void*);short on_adjust;short x1;void(*on)(void*);};struct controller{int active;char p0[4];controller_vtable*vtable;};struct entity_layout{char p0[392];controller*my_controller;};extern "C" void set_control(entity_layout*self,bool a) __asm__("set_control_active__6entityb");void set_control(entity_layout*self,bool a){controller*c=self->my_controller;if(c){if(c->active){if(!a){controller_vtable*t=c->vtable;t->off((char*)c+t->off_adjust);}}else if(a){controller_vtable*t=c->vtable;t->on((char*)c+t->on_adjust);}}}
+#include "KS/SRC/controller.h"
+#include "KS/SRC/entity.h"
 
-// 0x00138D90 set_active__6entityb
-struct entity_vtable{char p0[1496];short control_adjust;short x0;void(*set_control)(void*,bool);};struct entity_layout{char p0[8];entity_vtable*vtable;char p1[108];unsigned flags;char p2[268];void*controller;};extern "C" void set_active(entity_layout*self,bool a) __asm__("set_active__6entityb");void set_active(entity_layout*self,bool a){bool old=((int)self->flags>>17)&1;if(old!=a){if(a)self->flags|=0x20000;else self->flags&=~0x20000;if(self->controller){entity_vtable*t=self->vtable;t->set_control((char*)self+t->control_adjust,a);}}}
+void entity::set_control_active(bool active)
+{
+    if (my_controller)
+        my_controller->set_active(active);
+}
 
 // 0x00132068 has_entity_collision__C6entity
 struct cg_vtable{char p0[136];short adjustment;short x0;bool(*test)(void*);};struct cg{char p0[8];cg_vtable*vtable;};struct entity_vtable{char p0[264];short adjustment;short x0;bool(*active)(void*);};struct entity_layout{char p0[8];entity_vtable*vtable;char p1[316];cg*colgeom;};extern "C" bool pred(entity_layout*self) __asm__("has_entity_collision__C6entity");bool pred(entity_layout*self){register bool result __asm__("$17")=0;if(self->colgeom){entity_vtable*t=self->vtable;if(t->active((char*)self+t->adjustment)){cg*c=self->colgeom;cg_vtable*ct=c->vtable;int raw=ct->test((char*)c+ct->adjustment);result=raw!=0;}}return result;}

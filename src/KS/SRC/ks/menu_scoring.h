@@ -18,9 +18,12 @@ public:
 extern bool os_file_system_locked;
 
 void SaveScoringSystem();
+void LoadScoringSystem();
 bool SaveScoringButton(MenuEntry *entry, int button_id);
+bool LoadScoringButton(MenuEntry *entry, int button_id);
 
 __asm__(".equ os_file_system_locked, 0x0040E3A0");
 __asm__(".equ SaveScoringSystem__Fv, 0x0024ACF0");
+__asm__(".equ LoadScoringSystem__Fv, 0x0024A560");
 
 #endif

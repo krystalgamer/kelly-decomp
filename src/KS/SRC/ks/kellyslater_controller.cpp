@@ -388,7 +388,23 @@ spin_controller::spin_controller()
 }
 
 // 0x0021F670 start_secondary_cam__22kellyslater_controllerP6camera
-struct camera;struct controller_layout{char p0[48];int state;char p1[4];int super_state;char p2[6924];camera*look_back_cam_ptr;char p3[44];camera*photo_cam_ptr;};extern "C" void set_camera(controller_layout*,camera*) __asm__("SetPlayerCamera__22kellyslater_controllerP11game_camera");__asm__(".equ SetPlayerCamera__22kellyslater_controllerP11game_camera,0x002125B0");extern "C" void start_secondary(controller_layout*self,camera*cur) __asm__("start_secondary_cam__22kellyslater_controllerP6camera");void start_secondary(controller_layout*self,camera*cur){if(self->state==7||self->super_state==6||self->super_state==3||self->super_state==8||self->super_state==1||cur==self->photo_cam_ptr)return;camera*secondary=self->look_back_cam_ptr;if(cur!=secondary)set_camera(self,secondary);}
+#include "KS/SRC/ks/kellyslater_controller.h"
+
+__asm__(".equ SetPlayerCamera__22kellyslater_controllerP11game_camera,0x002125B0");
+void kellyslater_controller::start_secondary_cam(camera *cur_cam)
+{
+    if (state == STATE_DUCKDIVE ||
+        super_state == SUPER_STATE_AIR ||
+        super_state == SUPER_STATE_WIPEOUT ||
+        super_state == SUPER_STATE_CPU_CONTROLLED ||
+        super_state == SUPER_STATE_FLYBY ||
+        cur_cam == photo_cam_ptr)
+        return;
+
+    camera *secondary_cam = look_back_cam_ptr;
+    if (cur_cam != secondary_cam)
+        SetPlayerCamera((game_camera *)secondary_cam);
+}
 
 // 0x002238E0 EndTube__22kellyslater_controller
 class BalanceMeter{float current_balance,balance_acc,total_balance_time,time_to_full_acc;bool vert_meter;int player_num;public:void End();};

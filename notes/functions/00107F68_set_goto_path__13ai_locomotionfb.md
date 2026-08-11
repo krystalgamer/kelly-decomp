@@ -19,4 +19,4 @@ Read the released clear_path call, target position, set_path virtual slot, use f
 
 ## Outcome
 
-Matched AI goto path setup
+Canonicalized with shared released declarations and natural C++; exact target bytes preserved.

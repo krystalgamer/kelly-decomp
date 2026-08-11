@@ -20,4 +20,4 @@ Read level unlock/new fields, career data beach lookup, global career layout, an
 
 ## Outcome
 
-Matched career level unlock
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

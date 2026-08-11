@@ -15,4 +15,4 @@
 
 ## Outcome
 
-Matched script class tree erase
+Deferred generated STL tree eraser; removed synthetic ABI/register scaffolding.

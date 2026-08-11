@@ -19,4 +19,4 @@ Read instruction-text deletion, embedded string destruction, and deleting-destru
 
 ## Outcome
 
-Matched IGO hint manager destructor
+Deferred generated destructor; removed manual vtable and deleting-destructor scaffolding.

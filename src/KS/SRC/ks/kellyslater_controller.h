@@ -10,7 +10,11 @@
 
 enum {
     SUPER_STATE_FLYBY = 1,
+    SUPER_STATE_WIPEOUT = 3,
+    SUPER_STATE_AIR = 6,
     SUPER_STATE_IN_TUBE = 7,
+    SUPER_STATE_CPU_CONTROLLED = 8,
+    STATE_DUCKDIVE = 7,
     STATE_TUBE_RAILGRAB = 78,
     TRICK_TUBE_RAIL_GRAB = 20
 };
@@ -120,6 +124,8 @@ class kellyslater_controller {
     game_camera *player_cam;
     char data_to_look_back_cam[0x10];
     camera *look_back_cam_ptr;
+    char data_to_photo_cam[0x2C];
+    camera *photo_cam_ptr;
 
 public:
     ScoringManagerStorage &get_my_scoreManager() {

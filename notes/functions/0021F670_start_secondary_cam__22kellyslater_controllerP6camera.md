@@ -19,4 +19,4 @@ Read all blocked state/super-state values, photo/look-back camera offsets, and S
 
 ## Outcome
 
-Matched secondary camera start
+Canonicalized with shared released declarations and natural C++; exact target bytes preserved.

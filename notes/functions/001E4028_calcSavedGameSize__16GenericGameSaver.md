@@ -21,4 +21,4 @@ Read the base save size, stash-only flag, icon file load, unsigned block roundin
 
 ## Outcome
 
-Matched saved game size calculation
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

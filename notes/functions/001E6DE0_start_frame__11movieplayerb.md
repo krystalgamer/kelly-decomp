@@ -23,4 +23,4 @@ Read the hi-res/list-init paths, movie-started gate, volume warmup counter, and 
 
 ## Outcome
 
-Matched movie player frame start
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

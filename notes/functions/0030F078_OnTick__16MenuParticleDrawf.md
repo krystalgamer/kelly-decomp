@@ -19,4 +19,4 @@ Read the eight particle setter/flag table addresses and boolean loop conversion.
 
 ## Outcome
 
-Matched particle draw menu tick
+Canonicalized with shared released declarations and natural C++; exact target bytes preserved.

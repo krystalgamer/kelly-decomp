@@ -21,4 +21,4 @@ Read all owner/string/vector/scalar member offsets. Reconstructing the real memb
 
 ## Outcome
 
-Matched VM executable constructor
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

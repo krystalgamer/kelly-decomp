@@ -21,4 +21,4 @@ Read the sound manager unpause/play/pause sequence, navigation event destination
 
 ## Outcome
 
-Matched tip menu selection
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

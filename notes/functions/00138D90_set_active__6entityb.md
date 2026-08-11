@@ -19,4 +19,4 @@ Read the active flag bit, no-op guard, controller presence check, and set_contro
 
 ## Outcome
 
-Matched entity active state update
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

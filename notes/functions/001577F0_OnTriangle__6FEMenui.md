@@ -20,4 +20,4 @@ Read the parent/back/system offsets and both MakeActive virtual signatures. Corr
 
 ## Outcome
 
-Matched frontend triangle navigation
+Canonicalized with shared released declarations and natural C++; exact target bytes preserved.

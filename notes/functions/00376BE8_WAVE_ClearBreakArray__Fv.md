@@ -20,4 +20,4 @@ Read the eight 268-byte break records, numbreak/list offsets, memset size, and g
 
 ## Outcome
 
-Matched wave break array clearing
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

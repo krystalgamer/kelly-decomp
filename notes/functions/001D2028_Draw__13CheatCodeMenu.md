@@ -20,4 +20,4 @@ Read the two toggle-state entries, TextString draw slot, and graphical-menu base
 
 ## Outcome
 
-Matched cheat code menu drawing
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

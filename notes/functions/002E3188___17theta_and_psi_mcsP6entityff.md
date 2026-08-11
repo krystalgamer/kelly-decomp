@@ -20,4 +20,4 @@ Read motion-control base construction, theta/psi/entity member offsets, derived 
 
 ## Outcome
 
-Matched theta and psi controller constructor
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

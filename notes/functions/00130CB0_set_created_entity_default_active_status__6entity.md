@@ -20,4 +20,4 @@ Read all inactive entity flavors and both set_active virtual dispatch paths. Kee
 
 ## Outcome
 
-Matched entity default active status
+Canonicalized with shared released declarations and natural C++; exact target bytes preserved.

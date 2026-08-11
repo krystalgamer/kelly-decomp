@@ -19,4 +19,4 @@ Read the entries list, GetDisable slot, next link, and setHigh dispatch. The rel
 
 ## Outcome
 
-Matched frontend default highlighting
+Canonicalized with shared released declarations and natural C++; exact target bytes preserved.

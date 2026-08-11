@@ -22,9 +22,6 @@ void input_mgr::poll_devices() {
     }
 }
 
-// 0x00344860 get_control_trigger__C9input_mgr11device_id_ti
-extern "C" float delta(void*,int,int) __asm__("get_control_delta__C9input_mgr11device_id_ti");extern "C" float state(void*,int,int) __asm__("get_control_state__C9input_mgr11device_id_ti");__asm__(".equ get_control_delta__C9input_mgr11device_id_ti,0x003444A0");__asm__(".equ get_control_state__C9input_mgr11device_id_ti,0x003441C8");extern "C" float trigger(void*self,int dev,int control) __asm__("get_control_trigger__C9input_mgr11device_id_ti");float trigger(void*self,int dev,int control){float d=delta(self,dev,control);if(d==state(self,dev,control))return d;__asm__ __volatile__("" : : : "memory");return 0.0f;}
-
 // 0x00343AD8 get_device_from_map__C9input_mgr11device_id_t
 struct device_vtable{char pad[24];short adjust;short reserved;int(*get_id)(void*);};struct input_device{char pad[4];device_vtable*vtable;};struct input_mgr{char pad[8];input_device**begin;input_device**end;};extern "C" input_device*get_device(const input_mgr*self,int id)__asm__("get_device_from_map__C9input_mgr11device_id_t");input_device*get_device(const input_mgr*self,int id){input_device**it=self->begin;input_device**it_end=self->end;while(it!=it_end){if((*it)){input_device*arg=*it;device_vtable*t=arg->vtable;if(t->get_id((char*)arg+t->adjust)==id)return(*it);}++it;}return 0;}
 

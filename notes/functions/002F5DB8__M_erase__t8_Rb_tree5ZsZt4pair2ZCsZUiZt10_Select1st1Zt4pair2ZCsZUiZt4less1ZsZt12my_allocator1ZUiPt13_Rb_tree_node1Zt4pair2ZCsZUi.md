@@ -19,4 +19,4 @@ Read the exact recursive short-key tree erase and shared node allocator free-lis
 
 ## Outcome
 
-Matched menu key tree erase
+Deferred generated STL tree eraser; removed synthetic ABI/register scaffolding.

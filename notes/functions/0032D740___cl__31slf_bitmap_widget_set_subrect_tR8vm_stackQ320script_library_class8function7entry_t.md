@@ -19,4 +19,4 @@ Read the bitmap parameters, four integer conversions, and set_subrect virtual sl
 
 ## Outcome
 
-Matched bitmap subrect script
+Canonicalized with shared released declarations and natural C++; exact target bytes preserved.

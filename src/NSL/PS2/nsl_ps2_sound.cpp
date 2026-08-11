@@ -10,7 +10,22 @@ unsigned int nslAddSound(unsigned int source) { return _nslAddSound(source, 0, 0
 
 #if defined(KELLY_DECOMP_FUNCTION_0038EFD0)
 // 0x0038EFD0 push__t10fifo_queue1ZUiRCUi
-struct queue{unsigned*data;short max;char p0[2];short tail,count;};extern "C" int push(queue*self,const unsigned&value) __asm__("push__t10fifo_queue1ZUiRCUi");int push(queue*self,const unsigned&value){if(self->count<self->max)goto room;return 0;room:self->tail++;if(self->tail>=self->max)self->tail=0;self->data[self->tail]=value;self->count++;return self->count;}
+#include "NSL/PS2/fifo_queue.h"
+
+template <class T>
+short fifo_queue<T>::push(const T &value)
+{
+    if (count >= queue_max)
+        return 0;
+    end++;
+    if (end >= queue_max)
+        end = 0;
+    queue[end] = value;
+    count++;
+    return count;
+}
+
+template short fifo_queue<unsigned int>::push(const unsigned int &value);
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0038D860)

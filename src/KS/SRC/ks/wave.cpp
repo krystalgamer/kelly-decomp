@@ -397,14 +397,15 @@ void WAVE_GetCollisionBox(
     maximum.z=WAVE_MeshMaxZ-margin_z;
 }
 
-// 0x00376B78 WAVE_PerturbInit__Fv
-struct obj_vtable{char p0[8];short adjustment;short x0;void(*destroy)(void*);};struct object{char p0[432];obj_vtable*vtable;};extern object*wave_objs[];__asm__(".equ wave_objs,0x00484B58");extern "C" void pulse_init(void*) __asm__("Init__t21WavePulsePerturbClass1i6");extern "C" void partitions() __asm__("WAVE_PerturbInitPartitions__Fv");__asm__(".equ Init__t21WavePulsePerturbClass1i6,0x00381EE0");__asm__(".equ WAVE_PerturbInitPartitions__Fv,0x00376600");extern char pulse[];__asm__(".equ pulse,0x0058DBE0");extern "C" void wave_init() __asm__("WAVE_PerturbInit__Fv");void wave_init(){for(int i=0;i<6;i++){object*o=wave_objs[i];obj_vtable*t=o->vtable;t->destroy((char*)o+t->adjustment);}pulse_init(pulse);partitions();int dead;__asm__("" : "=r"(dead));}
-
-// 0x00376BE8 WAVE_ClearBreakArray__Fv
-extern "C" void*memset(void*,int,unsigned);__asm__(".equ memset,0x003D18D0");extern char break_array[];extern int break_type_max;__asm__(".equ break_array,0x0058C3A8");__asm__(".equ break_type_max,0x00585C48");extern "C" void clear_breaks() __asm__("WAVE_ClearBreakArray__Fv");void clear_breaks(){register char*base __asm__("$2")=break_array;register int i __asm__("$18")=7;register int*numbreak __asm__("$17")=(int*)(base+8);register char*list __asm__("$16")=base+12;do{*numbreak=0;memset(list,0,256);list+=268;--i;numbreak=(int*)((char*)numbreak+268);}while(i>=0);break_type_max=0;}
 
 // 0x00383FA0 WAVE_Sin__Ff
-extern const float sin_table[];__asm__(".equ sin_table,0x00519210");extern "C" float wave_sin(float a) __asm__("WAVE_Sin__Ff");float wave_sin(float a){int index=((int)(a/6.283185308f*1000.0f))%1000;return index>=0?sin_table[index]:-sin_table[-index];}
+extern const float WAVE_SinTable[];
+__asm__(".equ WAVE_SinTable,0x00519210");
+float WAVE_Sin(float angle)
+{
+    int index = ((int)(angle / 6.283185308f * 1000.0f)) % 1000;
+    return index >= 0 ? WAVE_SinTable[index] : -WAVE_SinTable[-index];
+}
 
 // 0x00374930 WAVE_ListAdd__Fv
 struct nglRenderParams{unsigned Flags;char pad[28];float Scale[4];char tail[32];};struct WaveDebugType{char pad0[92];int DrawDarkMesh;char pad1[20];int DrawHighMesh;char pad2[36];int DrawWaveMesh;};extern float WAVE_LocalScale[3];extern char WAVE_LocalToWorld[];extern WaveDebugType WaveDebug;extern unsigned WaveMeshID;extern "C" void submit(unsigned,const char*,nglRenderParams&,bool,bool,bool,bool,bool)__asm__("WAVETEX_SubmitMesh__FUiRC9nglMatrixR15nglRenderParamsbN43");__asm__(".equ WAVE_LocalScale,0x00484690");__asm__(".equ WAVE_LocalToWorld,0x00484650");__asm__(".equ WaveDebug,0x004847F8");__asm__(".equ WaveMeshID,0x0058EA60");__asm__(".equ WAVETEX_SubmitMesh__FUiRC9nglMatrixR15nglRenderParamsbN43,0x00381188");extern "C" void add()__asm__("WAVE_ListAdd__Fv");void add(){nglRenderParams rp;rp.Flags=0;rp.Flags|=0x40;rp.Scale[0]=WAVE_LocalScale[0];rp.Scale[1]=WAVE_LocalScale[1];rp.Scale[2]=WAVE_LocalScale[2];if(WaveDebug.DrawWaveMesh)submit(WaveMeshID,WAVE_LocalToWorld,rp,WaveDebug.DrawWaveMesh,WaveDebug.DrawDarkMesh,WaveDebug.DrawHighMesh,WaveDebug.DrawHighMesh,true);}

@@ -20,4 +20,4 @@ Read the game mode, beach photo challenge, selected menu entries, and taken-phot
 
 ## Outcome
 
-Matched selected photo index
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

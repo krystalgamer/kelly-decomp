@@ -20,4 +20,4 @@ Read the cross-button, parent/menu/system fields, and Close/Open sequence. Preve
 
 ## Outcome
 
-Matched submenu button press
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

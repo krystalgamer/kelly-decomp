@@ -19,4 +19,4 @@ Read the FEMenuEntry vtable transition, description TextString deletion, and del
 
 ## Outcome
 
-Matched frontend menu entry destructor
+Deferred generated destructor; removed manual vtable and deleting-destructor scaffolding.

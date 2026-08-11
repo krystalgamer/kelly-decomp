@@ -16,6 +16,10 @@ enum MenudrawTypeEnum {
 extern MenudrawSetter MENUDRAW_Set[MENUDRAW_TypeMax];
 extern int MENUDRAW_Flags[MENUDRAW_TypeMax];
 extern int MENUDRAW_EntityFlags[32];
+extern MenudrawSetter MENUDRAW_WaterSet[4];
+extern int MENUDRAW_WaterFlags[4];
+extern MenudrawSetter MENUDRAW_ParticleSet[8];
+extern int MENUDRAW_ParticleFlags[8];
 
 class MenuEntityDraw : public Menu {
 public:
@@ -80,5 +84,9 @@ __asm__(".equ MENUDRAW_MenuEntities, 0x0046B19C");
 __asm__(".equ MENUDRAW_MenuParticle, 0x0046B208");
 __asm__(".equ MENUDRAW_MenuWater, 0x0046B240");
 __asm__(".equ MENUDRAW_EntityFlags, 0x00589EC8");
+__asm__(".equ MENUDRAW_WaterSet, 0x0046B230");
+__asm__(".equ MENUDRAW_WaterFlags, 0x0058A410");
+__asm__(".equ MENUDRAW_ParticleSet, 0x0046B1E8");
+__asm__(".equ MENUDRAW_ParticleFlags, 0x0058A3C8");
 
 #endif

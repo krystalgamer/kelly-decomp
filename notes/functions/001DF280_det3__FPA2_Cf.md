@@ -19,4 +19,4 @@ Read the exact released 3x3 determinant expression and float matrix layout. It m
 
 ## Outcome
 
-Matched 3x3 determinant
+Canonicalized with shared released declarations and natural C++; exact target bytes preserved.

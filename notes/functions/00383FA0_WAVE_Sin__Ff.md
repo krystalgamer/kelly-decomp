@@ -19,4 +19,4 @@ Read the exact 1000-sample table formula, signed modulo handling, and table addr
 
 ## Outcome
 
-Matched wave sine lookup
+Canonicalized with shared released declarations and natural C++; exact target bytes preserved.

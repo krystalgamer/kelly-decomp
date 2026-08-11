@@ -19,4 +19,4 @@ Reused the source-faithful FEMenuEntry destructor layout for FEGraphicalMenuEntr
 
 ## Outcome
 
-Matched graphical menu entry destructor
+Deferred generated destructor; removed manual vtable and deleting-destructor scaffolding.

@@ -116,6 +116,34 @@ public:
     virtual bool operator()(vm_stack &stack, entry_t entry);
 };
 
+class slf_widget_move_to2_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        widget *me;
+        vm_num_t wait_time;
+        vm_num_t duration;
+        vm_num_t x;
+        vm_num_t y;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
+class slf_bitmap_widget_set_subrect_t :
+    public script_library_class::function {
+public:
+    struct parms_t {
+        bitmap_widget *me;
+        vm_num_t left;
+        vm_num_t top;
+        vm_num_t right;
+        vm_num_t bottom;
+    };
+
+    virtual bool operator()(vm_stack &stack, entry_t entry);
+};
+
 class slf_widget_scale_to_t :
     public script_library_class::function {
 public:

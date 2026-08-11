@@ -102,12 +102,6 @@ void MenuEntry::Activate() {
     }
 }
 
-// 0x0023E470 Close__4Menub
-struct menu_vtable{char p0[56];short adjustment;short x0;void(*on_close)(void*,bool);};struct menu_system;struct menu{char p0[16];int isopen;char p1[4];menu_system*control;menu_vtable*vtable;};extern "C" void closing(menu_system*,menu*) __asm__("Closing__10MenuSystemP4Menu");extern "C" void activate(menu*,int) __asm__("ActivateEntry__4Menui");__asm__(".equ Closing__10MenuSystemP4Menu,0x00241108");__asm__(".equ ActivateEntry__4Menui,0x0023E880");extern "C" void close_menu(menu*self,bool toparent) __asm__("Close__4Menub");void close_menu(menu*self,bool toparent){if(self->isopen){menu_system*c=self->control;self->isopen=false;closing(c,self);menu_vtable*t=self->vtable;t->on_close((char*)self+t->adjustment,toparent);if(toparent)activate(self,-1);int dead;__asm__("" : "=r"(dead));}}
-
-// 0x0023F1F8 OnButtonPress__7Submenui
-struct Menu;struct MenuSystem;extern "C" void close_menu(Menu*,bool) __asm__("Close__4Menub");extern "C" void open_menu(Menu*,Menu*,MenuSystem*) __asm__("Open__4MenuP4MenuP10MenuSystem");__asm__(".equ Close__4Menub,0x0023E470");__asm__(".equ Open__4MenuP4MenuP10MenuSystem,0x0023E3D0");struct submenu_layout{char p0[12];Menu*menuopen;Menu*parent;MenuSystem*system;};extern "C" void press(submenu_layout*self,int button) __asm__("OnButtonPress__7Submenui");void press(submenu_layout*self,int button){if(button==7&&self->parent&&self->menuopen){Menu*p=self->parent;MenuSystem*s=self->system;close_menu(p,false);open_menu(self->menuopen,p,s);int dead;__asm__("" : "=r"(dead));}}
-
 // 0x0023FB98 FixValue__18MenuEntryFloatEdit
 struct edit_vtable{char pad[168];short set_adjust;short set_pad;void(*set_value)(void*,float);short get_adjust;short get_pad;float(*get_value)(void*);};struct edit_layout{unsigned flags;edit_vtable*vtable;char pad[8];float lo;float hi;};extern "C" void fix_value(edit_layout*self) __asm__("FixValue__18MenuEntryFloatEdit");void fix_value(edit_layout*self){edit_vtable*t=self->vtable;float v=t->get_value((char*)self+t->get_adjust);char*slot=(char*)self->vtable+168;short adjust=*(short*)slot;void*receiver=(char*)self+adjust;float value=v<self->lo?self->lo:(v>self->hi?self->hi:v);void(*setter)(void*,float)=*(void(**)(void*,float))(slot+4);setter(receiver,value);}
 

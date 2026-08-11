@@ -19,4 +19,4 @@ Read all five nullable output checks and scene projection field offsets. It matc
 
 ## Outcome
 
-Matched NGL projection parameter retrieval
+Canonicalized with shared released declarations and natural C++; exact target bytes preserved.

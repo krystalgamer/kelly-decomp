@@ -19,4 +19,4 @@ Read the four water setter/flag table addresses and boolean loop conversion. It 
 
 ## Outcome
 
-Matched water draw menu tick
+Canonicalized with shared released declarations and natural C++; exact target bytes preserved.

@@ -24,7 +24,12 @@ void ai_locomotion::going_out_of_service() { repulsion_wait_timer = 0.0f; repuls
 // 0x00107F68 set_goto_path__13ai_locomotionfb
 #include "KS/SRC/ai_locomotion.h"
 __asm__(".equ clear_path__13ai_locomotion,0x00107FD8");
-void ai_locomotion::set_goto_path(float mod,bool force){clear_path();use_path=set_path(target_pos,mod,force);path_tries++;}
+void ai_locomotion::set_goto_path(float mod, bool force)
+{
+    clear_path();
+    use_path = set_path(target_pos, mod, force);
+    path_tries++;
+}
 
 // 0x00108418 stop_jockey__13ai_locomotion
 #include "KS/SRC/ai_locomotion.h"

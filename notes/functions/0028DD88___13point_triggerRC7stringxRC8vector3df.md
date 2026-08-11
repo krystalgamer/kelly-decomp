@@ -19,4 +19,4 @@ Read trigger base construction, point-trigger vtable, position component assignm
 
 ## Outcome
 
-Matched point trigger constructor
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

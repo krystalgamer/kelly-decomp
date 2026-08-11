@@ -21,4 +21,4 @@ Read the highlight animation file/manager/state fields and both Play flag combin
 
 ## Outcome
 
-Matched graphical menu highlighting
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

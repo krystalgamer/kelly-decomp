@@ -1740,10 +1740,32 @@ bool slf_text_block_widget_set_color_t::operator()(
 
 #if defined(KELLY_DECOMP_FUNCTION_0032BB50)
 // 0x0032BB50 __cl__21slf_widget_move_to2_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack{char p0[8];char*top;};struct parms{void*me;float wt,dur,x,y;};struct widget_vtable{char p0[112];short adjustment;short x0;void(*move)(void*,short,short,float,float);};struct widget{char p0[320];widget_vtable*vtable;};extern "C" bool call_move(void*,vm_stack&stack,int entry) __asm__("__cl__21slf_widget_move_to2_tR8vm_stackQ320script_library_class8function7entry_t");bool call_move(void*,vm_stack&stack,int entry){stack.top-=20;parms*p=(parms*)stack.top;widget*w=(widget*)p->me;widget_vtable*t=w->vtable;t->move((char*)w+t->adjustment,(short)(int)p->x,(short)(int)p->y,p->wt,p->dur);return true;}
+#include "KS/SRC/script_lib_widget.h"
+
+bool slf_widget_move_to2_t::operator()(vm_stack &stack, entry_t)
+{
+    SLF_PARMS;
+    parms->me->move_to(
+        parms->wait_time,
+        parms->duration,
+        parms->x,
+        parms->y);
+    SLF_DONE;
+}
 #endif
 
 #if defined(KELLY_DECOMP_FUNCTION_0032D740)
 // 0x0032D740 __cl__31slf_bitmap_widget_set_subrect_tR8vm_stackQ320script_library_class8function7entry_t
-struct vm_stack{char p0[8];char*top;};struct parms{void*me;float l,t,r,b;};struct widget_vtable{char p0[216];short adjustment;short x0;void(*subrect)(void*,int,int,int,int);};struct widget{char p0[320];widget_vtable*vtable;};extern "C" bool call_subrect(void*,vm_stack&stack,int entry) __asm__("__cl__31slf_bitmap_widget_set_subrect_tR8vm_stackQ320script_library_class8function7entry_t");bool call_subrect(void*,vm_stack&stack,int entry){stack.top-=20;parms*p=(parms*)stack.top;widget*w=(widget*)p->me;widget_vtable*t=w->vtable;t->subrect((char*)w+t->adjustment,(int)p->l,(int)p->t,(int)p->r,(int)p->b);return true;}
+#include "KS/SRC/script_lib_widget.h"
+
+bool slf_bitmap_widget_set_subrect_t::operator()(vm_stack &stack, entry_t)
+{
+    SLF_PARMS;
+    parms->me->set_subrect(
+        parms->left,
+        parms->top,
+        parms->right,
+        parms->bottom);
+    SLF_DONE;
+}
 #endif
