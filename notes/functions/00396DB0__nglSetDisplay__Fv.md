@@ -20,4 +20,4 @@ Read the released display reset sequence, TV mode constants, VRAM clear, and fli
 
 ## Outcome
 
-Matched NGL display setup
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

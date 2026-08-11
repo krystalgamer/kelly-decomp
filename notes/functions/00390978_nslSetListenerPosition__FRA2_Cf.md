@@ -20,4 +20,4 @@ Read the released NSL initialization check, listener matrix offsets, fatal path,
 
 ## Outcome
 
-Matched NSL listener position
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

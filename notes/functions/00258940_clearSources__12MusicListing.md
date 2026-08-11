@@ -19,4 +19,4 @@ Read the released 50-track clear loop, Track layout, empty strings, invalid sour
 
 ## Outcome
 
-Matched music source clearing
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

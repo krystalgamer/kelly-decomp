@@ -19,4 +19,4 @@ Inspected the released NGL pair layout, comparator semantics, and generated STL 
 
 ## Outcome
 
-Matched opaque node final insertion sort
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

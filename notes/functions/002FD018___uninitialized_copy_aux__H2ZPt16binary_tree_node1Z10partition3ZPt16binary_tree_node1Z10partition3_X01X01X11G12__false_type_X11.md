@@ -19,4 +19,4 @@ Inspected the generated binary-tree node and partition3 layouts and released uni
 
 ## Outcome
 
-Matched partition tree uninitialized copy
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

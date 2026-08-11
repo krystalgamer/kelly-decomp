@@ -20,4 +20,4 @@ Reconstructed the absent released helper from the exact vector interpolation tar
 
 ## Outcome
 
-Matched point-on-line interpolation
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

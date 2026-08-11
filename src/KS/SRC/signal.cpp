@@ -80,12 +80,6 @@ void script_callback::spawn(signaller *source) {
     }
 }
 
-// 0x0034CD68 clear_callbacks__9signaller
-struct signal;struct fastvec{unsigned count;signal**data;};struct signaller{char p0[4];fastvec*signals;};extern "C" void clear_cb(signal*) __asm__("clear_callbacks__6signal");extern "C" void clear_links(signal*) __asm__("clear_links__6signal");__asm__(".equ clear_callbacks__6signal,0x0034C750");__asm__(".equ clear_links__6signal,0x0034C278");extern "C" void clear_all(signaller*self) __asm__("clear_callbacks__9signaller");void clear_all(signaller*self){if(self->signals){signal**i=self->signals->data;signal**end=i+self->signals->count;for(;i!=end;++i){if(*i){clear_cb(*i);clear_links(*i);}}}}
-
-// 0x0034CDD8 clear_script_callbacks__9signaller
-struct signal;struct fastvec{unsigned count;signal**data;};struct signaller{char p0[4];fastvec*signals;};extern "C" void clear_cb(signal*) __asm__("clear_script_callbacks__6signal");extern "C" void clear_links(signal*) __asm__("clear_links__6signal");__asm__(".equ clear_script_callbacks__6signal,0x0034C7E0");__asm__(".equ clear_links__6signal,0x0034C278");extern "C" void clear_all(signaller*self) __asm__("clear_script_callbacks__9signaller");void clear_all(signaller*self){if(self->signals){signal**i=self->signals->data;signal**end=i+self->signals->count;for(;i!=end;++i){if(*i){clear_cb(*i);clear_links(*i);}}}}
-
 // 0x0034BD90 _$_15script_callback
 extern void*script_vtable;extern void*base_vtable;__asm__(".equ script_vtable,0x00505178");__asm__(".equ base_vtable,0x005051A8");extern "C" void clear_refs(void*,void*) __asm__("clear_callback_references__Q213script_object8instanceP15script_callback");extern "C" void vec_delete(void*) __asm__("__builtin_vec_delete");extern "C" void object_delete(void*) __asm__("__builtin_delete");__asm__(".equ clear_callback_references__Q213script_object8instanceP15script_callback,0x00350AB0");__asm__(".equ __builtin_vec_delete,0x002AC6D0");__asm__(".equ __builtin_delete,0x002AC6B0");struct callback{char*parms;char p0[12];void*vtable;void*inst;};extern "C" void destroy(callback*self,int deleting) __asm__("_$_15script_callback");void destroy(callback*self,int deleting){self->vtable=&script_vtable;clear_refs(self->inst,self);if(self->parms)vec_delete(self->parms);self->vtable=&base_vtable;if(deleting&1)object_delete(self);int dead;__asm__("" : "=r"(dead));}
 

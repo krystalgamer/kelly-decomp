@@ -20,4 +20,4 @@ Read the released flyby destructor, PanelAnimFile virtual deletion, and camera i
 
 ## Outcome
 
-Matched flyby camera destructor
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

@@ -19,4 +19,4 @@ Read the released VIF giftag setup macros, packet constants, and pointer increme
 
 ## Outcome
 
-Matched VIF giftag setup
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

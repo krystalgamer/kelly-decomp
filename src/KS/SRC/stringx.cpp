@@ -157,11 +157,6 @@ stringx::stringx(const stringx &copy)
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0034DC20)
-// 0x0034DC20 find_large_buffer__7stringx
-struct string_buf{char p0[4];int ref;};extern string_buf*free_long_buffers[];extern unsigned free_long_buffers_end;extern "C" void error(const char*,...) __asm__("error__FPCce");__asm__(".equ free_long_buffers,0x00626CB0");__asm__(".equ free_long_buffers_end,0x005121C8");__asm__(".equ error__FPCce,0x001DFBD8");extern const char error_text[];__asm__(".equ error_text,0x00503348");extern "C" string_buf*find_buffer() __asm__("find_large_buffer__7stringx");string_buf*find_buffer(){string_buf*buf=0;do{unsigned end=free_long_buffers_end;if(!end)goto exhausted;end--;free_long_buffers_end=end;buf=free_long_buffers[end];}while(!buf||buf->ref>0);return buf;exhausted:error(error_text);return 0;}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0034E1A0)
 // 0x0034E1A0 aggressively_cache_buffer__7stringx
 struct string_buf{char*data;int ref;int char_length;};extern "C" string_buf*find_cached(const char*,int)__asm__("find_cached_string__7stringxPCci");struct stringx{char*chars;string_buf*my_buf;void release_buffer();bool aggressively_cache_buffer()__asm__("aggressively_cache_buffer__7stringx");};__asm__(".equ find_cached_string__7stringxPCci,0x0034DD88");__asm__(".equ release_buffer__7stringx,0x0034D760");bool stringx::aggressively_cache_buffer(){string_buf*tmp=find_cached(chars,my_buf->char_length);if(tmp!=0&&tmp!=my_buf){release_buffer();my_buf=tmp;chars=my_buf->data;return true;}else if(tmp==my_buf){tmp->ref--;}return false;}

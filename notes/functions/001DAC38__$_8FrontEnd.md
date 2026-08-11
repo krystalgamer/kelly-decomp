@@ -19,4 +19,4 @@ Read the released inline FrontEnd destructor and exact PanelAnimManager, PanelFi
 
 ## Outcome
 
-Matched frontend destructor
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

@@ -876,7 +876,3 @@ void FETextMultiMenu::cons(FEMenuSystem *system, color32 high) {
 void FEMenuEntry::SetText(stringx value) {
     text->changeText(value);
 }
-
-
-// 0x001DAC38 _$_8FrontEnd
-extern "C" void string_dtor(void*,int) __asm__("_$_7stringx");extern "C" void panel_dtor(void*,int) __asm__("_$_9PanelFile");extern "C" void pam_dtor(void*,int) __asm__("_$_16PanelAnimManager");extern "C" void object_delete(void*) __asm__("__builtin_delete");__asm__(".equ _$_7stringx,0x0034D6E0");__asm__(".equ _$_9PanelFile,0x001522C0");__asm__(".equ _$_16PanelAnimManager,0x00155480");__asm__(".equ __builtin_delete,0x002AC6B0");extern void*frontend_vtable;__asm__(".equ frontend_vtable,0x004DBE58");struct frontend{char pam[128];char panel[52];char path[12];void*vtable;};extern "C" void destroy_frontend(frontend*self,int deleting) __asm__("_$_8FrontEnd");void destroy_frontend(frontend*self,int deleting){self->vtable=&frontend_vtable;string_dtor(self->path,2);panel_dtor(self->panel,2);pam_dtor(self->pam,2);if(deleting&1){object_delete(self);int dead;__asm__("" : "=r"(dead));}}

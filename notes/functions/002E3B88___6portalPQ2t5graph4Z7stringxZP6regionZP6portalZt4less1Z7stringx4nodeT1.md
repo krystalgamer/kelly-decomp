@@ -23,4 +23,4 @@ Read the released portal constructor, vr_pmesh inheritance, sphere layout, graph
 
 ## Outcome
 
-Matched portal graph-node constructor
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

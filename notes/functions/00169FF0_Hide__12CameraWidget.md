@@ -19,4 +19,4 @@ Read all 28 reticle pointers, PanelQuad TurnOn slot, and show timer fields. The 
 
 ## Outcome
 
-Matched camera widget hiding
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

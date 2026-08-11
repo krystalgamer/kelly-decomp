@@ -19,4 +19,4 @@ Read the released three-color codebook construction, cbVector representation, an
 
 ## Outcome
 
-Matched three-color code generation
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

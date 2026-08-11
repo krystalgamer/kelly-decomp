@@ -20,4 +20,4 @@ Read the panel lookup label, objectRoot field, display/hide/update calls, and vt
 
 ## Outcome
 
-Matched object alert widget initialization
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

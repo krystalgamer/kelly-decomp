@@ -100,14 +100,6 @@ bool MemBlockInfo::CanHold(
     return false;
 }
 
-// 0x002AB680 Deallocate__4HeapPv
-#include "KS/SRC/heap.h"
-struct heap_deallocate_layout {
-    char padding[64];
-    int stats_uptodate;
-};
-extern "C" bool is_yours(const Heap*,void*) __asm__("IsThisYours__C4HeapPv");extern "C" unsigned header_size(const Heap*) __asm__("HeaderSize__C4Heap");extern "C" void free_block(Heap*,MemBlockInfo*) __asm__("FreeBlock__4HeapP12MemBlockInfo");extern "C" void warning(const char*,...) __asm__("Warning__4HeapPCce");__asm__(".equ IsThisYours__C4HeapPv,0x002AB770");__asm__(".equ HeaderSize__C4Heap,0x002AB370");__asm__(".equ FreeBlock__4HeapP12MemBlockInfo,0x002ABA30");__asm__(".equ Warning__4HeapPCce,0x002B9528");extern const char warning_text[];__asm__(".equ warning_text,0x004F9100");extern "C" void deallocate(heap_deallocate_layout*self,void*ptr) __asm__("Deallocate__4HeapPv");void deallocate(heap_deallocate_layout*self,void*ptr){Heap*heap=(Heap*)self;if(!ptr)return;if(!is_yours(heap,ptr))return;MemBlockInfo*killme=(MemBlockInfo*)((char*)ptr-header_size(heap));if(killme){self->stats_uptodate=false;free_block(heap,killme);}else warning(warning_text);}
-
 // 0x002ABA30 FreeBlock__4HeapP12MemBlockInfo
 #include "KS/SRC/heap.h"
 extern "C" void move(Heap*,MemBlockInfo*) __asm__("MoveUsedToFree__4HeapP12MemBlockInfo");extern "C" void merge(Heap*,MemBlockInfo*) __asm__("MergeBlock__4HeapP12MemBlockInfo");__asm__(".equ MoveUsedToFree__4HeapP12MemBlockInfo,0x002ABFF0");__asm__(".equ MergeBlock__4HeapP12MemBlockInfo,0x002ABAA8");extern "C" void free_block(Heap*self,MemBlockInfo*b) __asm__("FreeBlock__4HeapP12MemBlockInfo");void free_block(Heap*self,MemBlockInfo*b){move(self,b);if(b->next&&b->nextoftype==b->next)merge(self,b);if(b->prev&&b->prevoftype==b->prev)merge(self,b->prev);int dead;__asm__("" : "=r"(dead));}

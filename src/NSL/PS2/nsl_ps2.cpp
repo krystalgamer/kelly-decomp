@@ -133,8 +133,5 @@ float nslGetMasterVolume()
     return nsl.masterVolume;
 }
 
-// 0x00390978 nslSetListenerPosition__FRA2_Cf
-struct nsl_system{float listener[12];char p0[88144-48];int initialized;};extern nsl_system nsl;extern "C" void fatal(const char*,...) __asm__("nslFatal__FPCce");__asm__(".equ nsl,0x0049B5F0");__asm__(".equ nslFatal__FPCce,0x00391420");extern const char fatal_text[];__asm__(".equ fatal_text,0x0051C480");struct vec3{float x,y,z;};extern "C" void set_listener(const vec3&pos) __asm__("nslSetListenerPosition__FRA2_Cf");void set_listener(const vec3&pos){if(!nsl.initialized)return;if(nsl.initialized!=1)fatal(fatal_text);nsl.listener[3]=pos.x;nsl.listener[7]=pos.y;nsl.listener[11]=pos.z;}
-
 // 0x00390D20 _nslSoundForEach__FPFP8nslSoundPv_iPv
 struct nslSound{bool isReady,used,inRange,isReallyReady,isPlaying,isReallyPlaying,looping,isQueuing;short left,right,old_left,old_right;unsigned gas;int pause,dampen;unsigned id,source,emitter;float vals[6];};struct nsl_sound_system_layout{char pad[0xc040];nslSound soundSlots[256];};typedef int(*callback)(nslSound*,void*);extern nsl_sound_system_layout nsl;extern nslSound sound_slots[];__asm__(".equ nsl,0x0049B5F0");__asm__(".equ sound_slots,0x00497630");extern "C" void for_each(callback cb,void*user)__asm__("_nslSoundForEach__FPFP8nslSoundPv_iPv");void for_each(callback cb,void*user){for(unsigned i=0;i<256;i++)if(nsl.soundSlots[i].used)cb(&sound_slots[i],user);}

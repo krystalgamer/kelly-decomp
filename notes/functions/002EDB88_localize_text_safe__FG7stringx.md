@@ -19,4 +19,4 @@ Read the released safe-localization body and exact stringx by-value lock, copy c
 
 ## Outcome
 
-Matched safe text localization
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

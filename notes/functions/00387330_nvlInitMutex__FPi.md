@@ -20,4 +20,4 @@ Read the released NVL mutex initialization, exact SemaParam layout, assertion st
 
 ## Outcome
 
-Matched NVL mutex initialization
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

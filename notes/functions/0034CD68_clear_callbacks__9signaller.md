@@ -19,4 +19,4 @@ Read the released signaller callback-clearing loop, fast_vector layout, null han
 
 ## Outcome
 
-Matched signaller callback clearing
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

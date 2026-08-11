@@ -19,4 +19,4 @@ Read the released meter attack FinishAttacking loop, PLAYER layout, attacking fi
 
 ## Outcome
 
-Matched meter attack finish attacking
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

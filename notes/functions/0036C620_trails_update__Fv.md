@@ -19,4 +19,4 @@ Read the released four-generator trail update loop, frame-time source, trail arr
 
 ## Outcome
 
-Matched trail generator update
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

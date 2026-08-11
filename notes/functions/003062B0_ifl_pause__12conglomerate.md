@@ -19,4 +19,4 @@ Read the released conglomerate IFL pause body, member-vector layout, bone filter
 
 ## Outcome
 
-Matched conglomerate IFL pause
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

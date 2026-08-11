@@ -19,4 +19,4 @@ Read the released conglomerate force current region body, member-vector layout, 
 
 ## Outcome
 
-Matched conglomerate force current region
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

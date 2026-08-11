@@ -19,4 +19,4 @@ Read the released time attack FinishAttacking loop, PLAYER layout, attacking fie
 
 ## Outcome
 
-Matched time attack finish attacking
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

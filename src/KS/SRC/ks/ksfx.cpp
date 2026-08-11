@@ -68,11 +68,6 @@ void set_size(crashnode_t *node) {
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_0036C620)
-// 0x0036C620 trails_update__Fv
-struct trail{int valid;};extern float frame_sec;extern trail*g_trails[4];extern "C" void update(trail*,float) __asm__("update__5trailf");__asm__(".equ frame_sec,0x0046B280");__asm__(".equ g_trails,0x004861D0");__asm__(".equ update__5trailf,0x00362488");extern "C" void trails_update() __asm__("trails_update__Fv");void trails_update(){float dt=frame_sec;for(int i=0;i<4;i++){if(g_trails[i]->valid)update(g_trails[i],dt);}}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_0036B228)
 // 0x0036B228 ks_fx_create_paddle_splash__FG8vector3d
 struct vector3d{float x,y,z;};struct game{char pad[180];int field180;int mode;};extern game*g_game_ptr;extern int currentparticle;extern void*fx_tex[];struct Particle{char pad[192];void*Tex;char pad2[12];unsigned long long move;char tail[8];};extern Particle LooseParticles[];extern "C" void add_splash(unsigned,const vector3d&,float)__asm__("ks_fx_add_splash__FUiRC8vector3df");__asm__(".equ g_game_ptr,0x0046AC64");__asm__(".equ currentparticle,0x0047EE3C");__asm__(".equ fx_tex,0x00485AB4");__asm__(".equ LooseParticles,0x0048E840");__asm__(".equ ks_fx_add_splash__FUiRC8vector3df,0x0036C3D0");extern "C" void paddle(const vector3d&pos)__asm__("ks_fx_create_paddle_splash__FG8vector3d");void paddle(const vector3d&pos){bool skip=false;if(g_game_ptr->mode>=2)skip=(g_game_ptr->field180==0);if(skip)return;add_splash(8,pos,1.0f);Particle&p=LooseParticles[currentparticle];p.Tex=fx_tex[0];p.move|=1;}

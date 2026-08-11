@@ -19,4 +19,4 @@ Read the released TipMenu triangle body, system layout, navigation-event field, 
 
 ## Outcome
 
-Matched tip menu triangle navigation
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

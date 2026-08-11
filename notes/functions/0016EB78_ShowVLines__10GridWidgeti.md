@@ -19,4 +19,4 @@ Read all four vertical line pointers, flag-bit loop, and PanelQuad TurnOn slot. 
 
 ## Outcome
 
-Matched grid vertical line display
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

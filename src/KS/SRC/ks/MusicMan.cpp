@@ -158,11 +158,6 @@ unsigned int MusicListing::play()
 }
 #endif
 
-#if defined(KELLY_DECOMP_FUNCTION_00258940)
-// 0x00258940 clearSources__12MusicListing
-typedef unsigned int nslSourceId;extern "C" void set_info(void*,const char*,const char*,nslSourceId) __asm__("SetInfo__5TrackPCcT1Ui");__asm__(".equ SetInfo__5TrackPCcT1Ui,0x00258690");extern const char empty_text[];__asm__(".equ empty_text,0x004DFC30");struct Track{char p0[72];};struct MusicListing{int totalSources,current;Track sources[50];};extern "C" void clear_sources(MusicListing*self) __asm__("clearSources__12MusicListing");void clear_sources(MusicListing*self){for(int i=0;i<50;i++)set_info(&self->sources[i],empty_text,empty_text,0);self->totalSources=0;}
-#endif
-
 #if defined(KELLY_DECOMP_FUNCTION_002592E8)
 // 0x002592E8 init__8MusicMan
 struct MusicMan{char pad0[4];float volume;int inited;bool paused;char pad1[3616];int order[50];bool enabled[50];void shutdown()__asm__("shutdown__8MusicMan");};__asm__(".equ shutdown__8MusicMan,0x00259628");extern "C" void init(MusicMan*self)__asm__("init__8MusicMan");void init(MusicMan*self){if(self->inited)self->shutdown();for(int i=0;i<50;i++){KELLY_DECOMP_COMPILER_BARRIER();self->enabled[i]=true;self->order[i]=i;}self->volume=1.0f;self->inited=1;self->paused=false;}

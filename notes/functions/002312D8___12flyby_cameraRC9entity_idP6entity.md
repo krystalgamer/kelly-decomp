@@ -22,4 +22,4 @@ Read the released flyby constructor, game_camera inheritance, terrain lookup, Pa
 
 ## Outcome
 
-Matched flyby camera constructor
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

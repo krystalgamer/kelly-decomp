@@ -20,4 +20,4 @@ Inspected the exact instance_render_info size and released STL final-insertion-s
 
 ## Outcome
 
-Matched instance final insertion sort
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

@@ -19,4 +19,4 @@ Read the released conglomerate unforce regions body, member-vector layout, bone 
 
 ## Outcome
 
-Matched conglomerate unforce regions
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

@@ -19,4 +19,4 @@ Read the released PhysicsObjectClass destructor and exact RungeKutta/OdeSolver i
 
 ## Outcome
 
-Matched physics object destructor
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

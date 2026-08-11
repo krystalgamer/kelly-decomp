@@ -20,4 +20,4 @@ Read the IGO enabled offset, IGO/pause menu pointers, and both update virtual sl
 
 ## Outcome
 
-Matched frontend IGO update
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

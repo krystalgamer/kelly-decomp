@@ -20,4 +20,4 @@ Read the released active-menu, help-text, and pause-text draw sequence plus exac
 
 ## Outcome
 
-Matched tutorial frontend draw
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

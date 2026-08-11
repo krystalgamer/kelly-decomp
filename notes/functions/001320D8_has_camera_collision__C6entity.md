@@ -21,4 +21,4 @@ Read the colgeom pointer, collision-active entity slot, camera-collision colgeom
 
 ## Outcome
 
-Matched camera collision predicate
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

@@ -186,9 +186,6 @@ void nvlUnlockMutex(int* mtx)
   signal_semaphore(*mtx);
 }
 
-// 0x00387330 nvlInitMutex__FPi
-struct SemaParam{int attr,initCount,maxCount;char rest[20];};extern "C" int CreateSema(SemaParam*);extern "C" void do_assert(const char*,int,const char*) __asm__("__assert");__asm__(".equ CreateSema,0x003DB660");__asm__(".equ __assert,0x003CF6B0");extern const char file_text[],mutex_text[],result_text[];__asm__(".equ file_text,0x0051AD40");__asm__(".equ mutex_text,0x0051B5A8");__asm__(".equ result_text,0x0051B5B0");extern "C" void init_mutex(int*mtx) __asm__("nvlInitMutex__FPi");void init_mutex(int*mtx){if(!mtx)do_assert(file_text,1507,mutex_text);SemaParam p;p.maxCount=1;p.initCount=1;*mtx=CreateSema(&p);if(*mtx<0)do_assert(file_text,1511,result_text);}
-
 // 0x00386D48 nvlStreamUnlock__FP9nvlStream
 #include "NVL/PS2/nvlstream_ps2.h"
 extern int initialized;extern "C" void assert_fn(const char*,int,const char*)__asm__("__assert");extern "C" int lock(int*,int)__asm__("nvlLockMutex__FPi12nvlMutexMode");extern "C" void unlock(int*)__asm__("nvlUnlockMutex__FPi");extern const char file_text[];extern const char init_expr[];extern const char stream_expr[];__asm__(".equ initialized,0x0049AFE0");__asm__(".equ __assert,0x003CF6B0");__asm__(".equ nvlLockMutex__FPi12nvlMutexMode,0x003873E8");__asm__(".equ nvlUnlockMutex__FPi,0x00387480");__asm__(".equ file_text,0x0051AD40");__asm__(".equ init_expr,0x0051B338");__asm__(".equ stream_expr,0x0051B120");void nvlStreamUnlock(nvlStream*s){if(!initialized)assert_fn(file_text,1105,init_expr);if(!s)assert_fn(file_text,1106,stream_expr);lock(&s->mtx,0);s->pLock=0;unlock(&s->mtx);asm volatile("");}

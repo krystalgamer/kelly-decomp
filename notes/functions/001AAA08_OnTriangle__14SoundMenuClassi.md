@@ -22,4 +22,4 @@ Read the sound unpause/back-event/pause sequence, navigation event destination, 
 
 ## Outcome
 
-Matched sound menu triangle navigation
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.

@@ -22,4 +22,4 @@ Read the released large string-buffer pool loop, exact static pool globals, refc
 
 ## Outcome
 
-Matched large string buffer lookup
+Deferred because released natural C++ did not preserve the exact target without ABI or scheduling hacks.
